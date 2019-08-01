@@ -283,6 +283,7 @@
        var sfields = [] ;
        var hfields = [] ;
 
+       var io = {} ;
        var line_signature  = "" ;
        var signature_names = "" ;
        var signature_order = "" ;
@@ -357,9 +358,6 @@
             if ( (io.cop !== null) && (io.cop.trim() !== "") ) {
                   co_cop += "\tcop=" + io.cop + ",\n" ;
             }
-            // TODO: comment this when WepSIM checks: if ( *(native code)* && (cop.length===4) )...
-            co_cop = "\t" + "co=111111," + "\n" ;
-            // /TODO
 
             // adapt elements
             var lines_code = simlang_native_adapt_instructionDefinition(io.definition) ;

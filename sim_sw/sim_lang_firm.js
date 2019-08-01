@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -60,7 +60,7 @@ function read_microprg ( context )
 			if (context.etiquetas[contadorMCAux] == newLabelName)
 			    return langError(context, "Label is repeated: " + getToken(context));
 		   }
-		   context.etiquetas[context.contadorMC] = newLabelName ; 
+		   context.etiquetas[context.contadorMC] = newLabelName ;
 
                    // semantic check: valid token
                    if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName )
@@ -169,7 +169,7 @@ function read_microprg ( context )
 	   // match mandatory }
            nextToken(context) ;
 
-           return { 'microprograma': microprograma, 
+           return { 'microprograma': microprograma,
                     'microcomments': microcomments } ;
 }
 
@@ -194,7 +194,7 @@ function read_native ( context )
 	   // match mandatory }
            nextToken(context) ;
 
-           return { 'microprograma': microprograma, 
+           return { 'microprograma': microprograma,
                     'microcomments': microcomments } ;
 }
 
@@ -236,7 +236,7 @@ function loadFirmware (text)
                if (isToken(context,"registers"))
                {
                        nextToken(context) ;
-                       if (! isToken(context, "{")) 
+                       if (! isToken(context, "{"))
                              return langError(context, "Expected '{' not found") ;
 
                        nextToken(context) ;
@@ -245,7 +245,7 @@ function loadFirmware (text)
                            var nombre_reg = getToken(context) ;
 
                            nextToken(context) ;
-                           if (! isToken(context, "=")) 
+                           if (! isToken(context, "="))
 				 return langError(context, "Expected '=' not found") ;
 
                            nextToken(context) ;
@@ -270,7 +270,7 @@ function loadFirmware (text)
 				nextToken(context);
 			   }
 			
-                           if (isToken(context,",")) 
+                           if (isToken(context,","))
                                nextToken(context);
                        }
 
@@ -279,7 +279,7 @@ function loadFirmware (text)
                }
 
 //
-// *pseudoinstructions 
+// *pseudoinstructions
 // {
 //    li reg num { lui reg high(num) ; ori reg reg low(num) }
 // }*
@@ -313,7 +313,7 @@ function loadFirmware (text)
 						case "reg":
 						case "inm":
 						case "addr":
-						case "address": 
+						case "address":
 							break;
 						default:						
 							return langError(context, "Invalid parameter '" + pseudoFieldAux.type + "'. It only allows the following fields: reg, num, inm, addr, address") ;					
@@ -326,7 +326,7 @@ function loadFirmware (text)
 						nextToken(context);
 				}
 			 	nextToken(context);
-				pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"inm"); 
+				pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"inm");
 				pseudoInstructionAux["initial"]=pseudoInitial;	
 				var contPseudoFinish=0;
 
@@ -376,43 +376,43 @@ function loadFirmware (text)
                if (isToken(context,"begin"))
                {
                    var instruccionAux = {};
-                   instruccionAux["name"]     = getToken(context) ;
+                   instruccionAux.name        = getToken(context) ;
                    instruccionAux["mc-start"] = context.contadorMC ;
 
 	           nextToken(context);
 
 	           // match optional ,
-	           if (isToken(context,",")) 
+	           if (isToken(context,","))
 		       nextToken(context);
 
 	           // match optional native
-	           instruccionAux["native"] = false;
-	           if (isToken(context, "native")) 
+	           instruccionAux.native = false;
+	           if (isToken(context, "native"))
 		   {
-	               instruccionAux["native"] = true;
+	               instruccionAux.native = true;
 		       nextToken(context);
 
 	               // match optional ,
-	               if (isToken(context,",")) 
+	               if (isToken(context,","))
 		           nextToken(context);
 
 	               // add 'fetch' label
-		       context.etiquetas[context.contadorMC] = "fetch" ; 
+		       context.etiquetas[context.contadorMC] = "fetch" ;
 	           }
 
-	           if (true == instruccionAux["native"])
+	           if (true == instruccionAux.native)
                         var ret = read_native(context) ;
 		   else var ret = read_microprg(context) ;
 
                    if (typeof ret.error != "undefined")
                        return ret ;
 
-                   instruccionAux["signature"]       = "begin" ;
-		   instruccionAux["signatureGlobal"] = "begin" ;
-		   instruccionAux["signatureUser"]   = "begin" ;
-		   instruccionAux["signatureRaw"]    = "begin" ;
-                   instruccionAux["microcode"]       = ret.microprograma ;
-                   instruccionAux["microcomments"]   = ret.microcomments ;
+                   instruccionAux.signature       = "begin" ;
+		   instruccionAux.signatureGlobal = "begin" ;
+		   instruccionAux.signatureUser   = "begin" ;
+		   instruccionAux.signatureRaw    = "begin" ;
+                   instruccionAux.microcode       = ret.microprograma ;
+                   instruccionAux.microcomments   = ret.microcomments ;
 		   context.instrucciones.push(instruccionAux);
 
                    context.contadorMC = context.contadorMC + 9; // padding between instrucctions
@@ -430,13 +430,13 @@ function loadFirmware (text)
 // }
 
                var instruccionAux = {};
-	       instruccionAux["name"]     = getToken(context) ;
+	       instruccionAux.name        = getToken(context) ;
 	       instruccionAux["mc-start"] = context.contadorMC ;
 
                // semantic check: valid instruction name
                var re_name = "[a-zA-Z_0-9\.]*" ;
-               if (instruccionAux["name"].match(re_name)[0] != instruccionAux["name"])
-	           return langError(context, "Instruction name '" + instruccionAux["name"] + 
+               if (instruccionAux.name.match(re_name)[0] != instruccionAux.name)
+	           return langError(context, "Instruction name '" + instruccionAux.name +
                                              "' is not valid for " + re_name) ;
 
 	       var firma = "";
@@ -450,13 +450,13 @@ function loadFirmware (text)
 	       nextToken(context);
 
                // match optional ,
-	       while (isToken(context, ',')) 
+	       while (isToken(context, ','))
 	    	      nextToken(context);
 
 	       while (! isToken(context,"{"))
 	       {
                    // match optional ,
-	           while (isToken(context, ',')) 
+	           while (isToken(context, ','))
 			  nextToken(context);
 
 		   var plus_found = false;
@@ -466,8 +466,8 @@ function loadFirmware (text)
                    {
 		       var campoAux = {};
 		       var auxValue = getToken(context);
-		       
-		       if (auxValue[auxValue.length-1] == "+") 
+		
+		       if (auxValue[auxValue.length-1] == "+")
                        {
 			   auxValue = auxValue.substring(0,auxValue.length-1);
 			   plus_found = true;
@@ -486,16 +486,16 @@ function loadFirmware (text)
 			   return langError(context, "instruction field has 'co' as name.") ;
 		       if (auxValue == "nwords")
 			   return langError(context, "instruction field has 'nwords' as name.") ;
-		   } 
+		   }
 
                    // match optional "(" FIELD ")"
-		   if (isToken(context, "(")) 
+		   if (isToken(context, "("))
                    {
 		           firma = firma + ',(';
 
-			   if (plus_found) 
+			   if (plus_found)
                                 // next line needs concatenate '+' otherwise saveFirmware is not going to work!
-                                firmaUsuario = firmaUsuario + '+('; 
+                                firmaUsuario = firmaUsuario + '+(';
 			   else	firmaUsuario = firmaUsuario + ' (';
 
 		           nextToken(context);
@@ -508,14 +508,14 @@ function loadFirmware (text)
 			       numeroCampos++;
 
 			       firma = firma + getToken(context) ;
-			       firmaUsuario = firmaUsuario + getToken(context);			       
+			       firmaUsuario = firmaUsuario + getToken(context);			
 
 			       nextToken(context);
 			   }
 			   else
 		           {
 			       return langError(context,
-			    			"'token' is missing after '(' on: " + 
+			    			"'token' is missing after '(' on: " +
                                                 context.co_cop[instruccionAux.co].signature) ;
 		           }
 
@@ -529,7 +529,7 @@ function loadFirmware (text)
 			   else
 		           {
 			       return langError(context,
-			    			    "')' is missing on: " + 
+			    			    "')' is missing on: " +
                                                     context.co_cop[instruccionAux.co].signature) ;
 		           }
                    }
@@ -542,10 +542,10 @@ function loadFirmware (text)
 	       firma = firma.replace(/,,/g, ",") ;
 	       firmaUsuario = firmaUsuario.substr(0, firmaUsuario.length-1);
 	       firmaUsuario = firmaUsuario.replace(/  /g, " ") ;
-	       instruccionAux["signature"]       = firma;
-               instruccionAux["signatureGlobal"] = firma;
-	       instruccionAux["signatureUser"]   = firmaUsuario;
-	       instruccionAux["signatureRaw"]    = firmaUsuario;
+	       instruccionAux.signature       = firma;
+               instruccionAux.signatureGlobal = firma;
+	       instruccionAux.signatureUser   = firmaUsuario;
+	       instruccionAux.signatureRaw    = firmaUsuario;
 
 // li reg val {
 //             *co=000000,*
@@ -569,23 +569,24 @@ function loadFirmware (text)
 
 	       nextToken(context);
 	       // match mandatory CO
-	       instruccionAux["co"] = getToken(context) ;
+	       instruccionAux.co = getToken(context) ;
 
 	       // semantic check: valid value
-	       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
-                    || (getToken(context).length !== xr_info.ir.default_eltos.co.length) ) 
+	       if (    (getToken(context).match("[01]*")[0] != getToken(context))
+                    || (getToken(context).length !== xr_info.ir.default_eltos.co.length) )
                {
 	           return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
                }
 
 	       // semantic check: 'co' is not already used
-	       if (instruccionAux["co"] != all_ones_co)
+	       if (instruccionAux.co != all_ones_co)
 	       {
-	           if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
-	                       (context.co_cop[instruccionAux["co"]].cop === null) )
+	           if ( (typeof context.co_cop[instruccionAux.co] != "undefined") &&
+	                       (context.co_cop[instruccionAux.co].cop === null) )
 	           {
 	   	         return langError(context,
-			         "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
+			                  "'co' is already been used by: " +
+                                          context.co_cop[instruccionAux.co].signature) ;
 	           }
 
                    if (typeof context.co_cop[instruccionAux.co] == "undefined")
@@ -617,18 +618,18 @@ function loadFirmware (text)
                {
 		       nextToken(context);
 		       // match mandatory =
-		       if (! isToken(context,"="))
+		       if (! isToken(context,"=")) {
 			     return langError(context, "Expected '=' not found") ;
+                       }
 
 		       nextToken(context);
 		       // match mandatory CO
-		       instruccionAux["cop"] = getToken(context) ;
+		       instruccionAux.cop = getToken(context) ;
 
 		       // semantic check: valid value
-		       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
-                            || (getToken(context).length !== xr_info.ir.default_eltos.cop.length) )
-                       {
-		            return langError(context, "Incorrect binary format on 'cop': " + getToken(context)) ;
+		       if (getToken(context).match("[01]*")[0] != getToken(context)) {
+		            return langError(context,
+                                             "Incorrect binary format on 'cop': " + getToken(context)) ;
                        }
 
 		       // semantic check: 'co+cop' is not already used
@@ -636,7 +637,8 @@ function loadFirmware (text)
 	                    (typeof context.co_cop[instruccionAux.co].cop[instruccionAux.cop] != "undefined") )
 		       {
 		   	   return langError(context,
-			     "'co+cop' is already been used by: " + context.co_cop[instruccionAux.co].cop[instruccionAux.cop]);
+			                    "'co+cop' is already been used by: " +
+                                            context.co_cop[instruccionAux.co].cop[instruccionAux.cop]);
 		       }
 	               if (context.co_cop[instruccionAux.co].cop == null)
 	                   context.co_cop[instruccionAux.co].cop = {};
@@ -644,8 +646,9 @@ function loadFirmware (text)
 
 		       nextToken(context);
 		       // match optional ,
-		       if (isToken(context,","))
+		       if (isToken(context,",")) {
 			   nextToken(context);
+		       }
                }
 
 // li reg val {
@@ -659,21 +662,21 @@ function loadFirmware (text)
 // }
 
 	       // match mandatory nwords
-	       if (! isToken(context,"nwords")) 
+	       if (! isToken(context,"nwords"))
 		   return langError(context, "Expected keyword 'nwords' not found") ;
 
 	       nextToken(context);
 	       // match mandatory =
-	       if (! isToken(context,"=")) 
+	       if (! isToken(context,"="))
 		   return langError(context, "Expected '=' not found") ;
 
 	       nextToken(context);
 	       // match mandatory NWORDS
-	       instruccionAux["nwords"] = getToken(context) ;
+	       instruccionAux.nwords = getToken(context) ;
 
 	       nextToken(context);
 	       // match optional ,
-	       if (isToken(context,",")) 
+	       if (isToken(context,","))
 		   nextToken(context);
 
 // li reg val {
@@ -697,7 +700,7 @@ function loadFirmware (text)
 
 	           nextToken(context);
 	           // match mandatory =
-	           if (! isToken(context,"=")) 
+	           if (! isToken(context,"="))
 		       return langError(context, "Expected '=' not found") ;
 
 	           nextToken(context);
@@ -708,18 +711,18 @@ function loadFirmware (text)
 	           campos[camposInsertados]["type"] = getToken(context) ;
 	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
 	           firma = firma.replace("(" + campos[camposInsertados]["name"], "(" + campos[camposInsertados]["type"]);
-	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]); 
-		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);                  
- 
-	           instruccionAux["signature"]     = firma;
-		   instruccionAux["signatureUser"] = firmaUsuario;
+	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]);
+		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);     
+
+	           instruccionAux.signature     = firma;
+		   instruccionAux.signatureUser = firmaUsuario;
 	           firmaGlobal = firma.replace("address","num");
 	           firmaGlobal = firmaGlobal.replace("inm" , "num");
-	           instruccionAux["signatureGlobal"] = firmaGlobal;
+	           instruccionAux.signatureGlobal = firmaGlobal;
 
 	           nextToken(context);
 	           // match mandatory (
-	           if (! isToken(context,"(")) 
+	           if (! isToken(context,"("))
 		       return langError(context, "Expected '(' not found") ;
 
 	           nextToken(context);
@@ -728,7 +731,7 @@ function loadFirmware (text)
 
                    // check startbit range
                    var start = parseInt(campos[camposInsertados]["startbit"]);
-                   if (start > 32*parseInt(instruccionAux["nwords"])-1)
+                   if (start > 32*parseInt(instruccionAux.nwords)-1)
 		       return langError(context, "startbit out of range: " + getToken(context)) ;
 
 	           nextToken(context);
@@ -742,11 +745,11 @@ function loadFirmware (text)
 
                    // check stopbit range
                    var stop  = parseInt(campos[camposInsertados]["stopbit"]);
-                   if (stop > 32*parseInt(instruccionAux["nwords"]))
+                   if (stop > 32*parseInt(instruccionAux.nwords))
 		       return langError(context, "stopbit out of range: " + getToken(context)) ;
 
                    // check overlapping
-                   for (var i=stop; i<=start; i++) 
+                   for (var i=stop; i<=start; i++)
                    {
                         if (typeof overlapping[i] != "undefined")
 		            return langError(context, "overlapping field: " + campos[camposInsertados]["name"]);
@@ -777,7 +780,7 @@ function loadFirmware (text)
 	           camposInsertados++;
 	       }
 
-	       instruccionAux["fields"] = campos;
+	       instruccionAux.fields = campos;
 
 // li reg val {
 //             co=000000,
@@ -790,16 +793,24 @@ function loadFirmware (text)
 //             }
 // }
 
-	       instruccionAux["native"] = false;
+	       instruccionAux.native = false;
 
 	       // match optional 'native' + ','
-	       if (isToken(context, "native")) 
+	       if (isToken(context, "native"))
 	       {
-	           instruccionAux["native"] = true;
+	           instruccionAux.native = true;
 		   nextToken(context);
 
-	           if (isToken(context,",")) 
+	           if (isToken(context,","))
 		       nextToken(context);
+	       }
+
+	       // semantic check: valid pending value (cop.length if native.false)
+	       if ( (instruccionAux.native !== true) &&
+		    (getToken(context).length !== xr_info.ir.default_eltos.cop.length) )
+	       {
+		    return langError(context,
+				     "Incorrect binary length for 'cop': " + getToken(context)) ;
 	       }
 
 // li reg val {
@@ -812,15 +823,15 @@ function loadFirmware (text)
 //             }*
 // }
 
-	           if (true == instruccionAux["native"])
+	           if (true == instruccionAux.native)
                         var ret = read_native(context) ;
 		   else var ret = read_microprg(context) ;
 
                    if (typeof ret.error != "undefined")
                        return ret ;
 
-               instruccionAux["microcode"]     = ret.microprograma ;
-               instruccionAux["microcomments"] = ret.microcomments ;
+               instruccionAux.microcode     = ret.microprograma ;
+               instruccionAux.microcomments = ret.microcomments ;
 	       context.instrucciones.push(instruccionAux);
 
                context.contadorMC = context.contadorMC + 9; // padding between instrucctions
@@ -835,7 +846,7 @@ function loadFirmware (text)
 //             }
 // *}*
 
-               if (! isToken(context,"}")) 
+               if (! isToken(context,"}"))
                    return langError(context, "Expected '}' not found") ;
 
                nextToken(context);
@@ -874,12 +885,12 @@ function loadFirmware (text)
                 if ( (context.instrucciones[i].name != "begin") &&
                      (context.instrucciones[i].co   == "111111") )
                 {
-			for (var j=first_co; j<last_co; j++) 
+			for (var j=first_co; j<last_co; j++)
 			{
 			     label = j.toString(2) ;
 			     label = "000000".substring(0, 6 - label.length) + label ;
 
-			     if (typeof context.co_cop[label] == "undefined") 
+			     if (typeof context.co_cop[label] == "undefined")
 				 break;
 			}
 
@@ -933,12 +944,12 @@ function loadFirmware (text)
 
 		   for (var j=0; j<ins["microcode"].length; j++)
 		   {
-			if (typeof ins["microcode"][j].NATIVE != "undefined") 
+			if (typeof ins["microcode"][j].NATIVE != "undefined")
 			{
-			    mk_native += "context.instrucciones[" + i + "][\"microcode\"][" + j + "][\"NATIVE_JIT\"] = " + 
+			    mk_native += "context.instrucciones[" + i + "][\"microcode\"][" + j + "][\"NATIVE_JIT\"] = " +
 			                 " function() {\n" +
-					 "\t var fields = simcore_native_get_fields(\"" + ins["signatureRaw"] + "\");\n" + 
-					     ins["microcode"][j].NATIVE + 
+					 "\t var fields = simcore_native_get_fields(\"" + ins["signatureRaw"] + "\");\n" +
+					     ins["microcode"][j].NATIVE +
 					 "\n};\n " ;
 			}
 		   }
@@ -1009,7 +1020,7 @@ function saveFirmware ( SIMWARE )
 
 		if (typeof SIMWARE.firmware[i].nwords != "undefined")
 		{
-			file += '\t' + "nwords=" + SIMWARE.firmware[i].nwords + "," + '\n'; 
+			file += '\t' + "nwords=" + SIMWARE.firmware[i].nwords + "," + '\n';
 		}
 
 		if (typeof SIMWARE.firmware[i].fields != "undefined")
@@ -1024,7 +1035,7 @@ function saveFirmware ( SIMWARE )
 					{
 						file += SIMWARE.firmware[i].fields[j].address_type;
 					}
-					file += "," + '\n'; 
+					file += "," + '\n';
 				}
 			}
 		}
@@ -1043,7 +1054,7 @@ function saveFirmware ( SIMWARE )
                                     file += '\n\t\t# ' + SIMWARE.firmware[i].microcomments[j];
 
 				if (typeof SIMWARE.labels_firm[addr] != "undefined")
-				     file += '\n' + SIMWARE.labels_firm[addr] + ":\t"; 
+				     file += '\n' + SIMWARE.labels_firm[addr] + ":\t";
 				else file += '\n' + '\t' + '\t';
 
 				file += "(";
@@ -1097,7 +1108,7 @@ function saveFirmware ( SIMWARE )
         // save pseudo-instructions
 	if (SIMWARE.pseudoInstructions.length !== 0)
 	{
-		file += '\n' + 
+		file += '\n' +
 			'pseudoinstructions\n' +
 			'{' ;
 		for (var ie=0; ie<SIMWARE.pseudoInstructions.length; ie++)
@@ -1107,7 +1118,7 @@ function saveFirmware ( SIMWARE )
 			     '\t{\n' ;
 
 		     var ie_inst = SIMWARE.pseudoInstructions[ie].finish.signature.split('\n') ;
-		     for (var ie_i=0; ie_i<ie_inst.length; ie_i++) 
+		     for (var ie_i=0; ie_i<ie_inst.length; ie_i++)
 		     {
 			  file += '\t\t' + ie_inst[ie_i].trim() + ' ;\n' ;
 		     }
@@ -1127,7 +1138,7 @@ function saveFirmware ( SIMWARE )
 
 function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
-    var ret = { 
+    var ret = {
                  "oinstruction": null,
                   op_code: 0,
                  cop_code: 0
@@ -1137,12 +1148,12 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
     var bits = binstruction.toString(2) ;
         bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
 
-    // op-code 
-    var co = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length); 
+    // op-code
+    var co = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length);
     ret.op_code = parseInt(co, 2) ;
 
     // cop-code
-    var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length); 
+    var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
     ret.cop_code = parseInt(cop, 2) ;
 
     if (false == curr_firm.cocop_hash[co].withcop)
@@ -1163,7 +1174,7 @@ function decode_ram ( )
     {
         var binstruction = curr_MP[address].toString(2) ;
             binstruction = "00000000000000000000000000000000".substring(0, 32-binstruction.length) + binstruction;
-        sram += "0x" + parseInt(address).toString(16) + ":" + 
+        sram += "0x" + parseInt(address).toString(16) + ":" +
                 decode_instruction(curr_firm, curr_ircfg, binstruction).oinstruction + "\n" ;
     }
 
