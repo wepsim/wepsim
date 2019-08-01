@@ -282,7 +282,6 @@
        var gfields = [] ;
        var sfields = [] ;
        var hfields = [] ;
-       var skipped = 0 ;
 
        var line_signature  = "" ;
        var signature_names = "" ;
@@ -304,11 +303,9 @@
             gfields = [] ;
             sfields = [] ;
             hfields = [] ;
-            skipped = 0 ;
             for (var j=0; j<io.fields.length; j++)
             {
                  if ( (io.fields[j].type === "co") || (io.fields[j].type === "cop") ) {
-                       skipped++ ;
                        continue ;
                  }
 
@@ -321,8 +318,8 @@
                      hfields[k] = "\t" + io.fields[j].name + "=" +
                                   "reg(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
 
-                     gfields[k] = simlang_native_adapt_getField(j-skipped, 'BR', io.fields[j].name) ;
-                     sfields[k] = simlang_native_adapt_setField(j-skipped, 'BR', io.fields[j].name) ;
+                     gfields[k] = simlang_native_adapt_getField(k-1, 'BR', io.fields[j].name) ;
+                     sfields[k] = simlang_native_adapt_setField(k-1, 'BR', io.fields[j].name) ;
                  }
                  else if (io.fields[j].type === "DFP-Reg")
                  {
@@ -330,7 +327,7 @@
                                   "reg(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
 
                      gfields[k] = "\t\t"+ "var f_" + io.fields[j].name + " = " +
-                                  "simcore_native_get_field_from_ir(fields, " + j + ") ;\n" +
+                                  "simcore_native_get_field_from_ir(fields, " + (k-1) + ") ;\n" +
                                   "\t\t"+ "var   " + io.fields[j].name + "1 = " +
                                   "simcore_native_get_value('BR2', f_" + io.fields[j].name + "+0) ;\n" +
                                   "\t\t"+ "var   " + io.fields[j].name + "2 = " +
@@ -351,7 +348,7 @@
                                   "inm(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
 
                      gfields[k] = "\t\t" + "var " + io.fields[j].name + " = " +
-                                  "simcore_native_get_field_from_ir(fields, " + j + ") ;\n\t" ;
+                                  "simcore_native_get_field_from_ir(fields, " + (k-1) + ") ;\n\t" ;
                  }
             }
 
