@@ -400,9 +400,10 @@ function loadFirmware (text)
 		       context.etiquetas[context.contadorMC] = "fetch" ;
 	           }
 
+                   var ret = {} ;
 	           if (true == instruccionAux["native"])
-                        var ret = read_native(context) ;
-		   else var ret = read_microprg(context) ;
+                        ret = read_native(context) ;
+		   else ret = read_microprg(context) ;
 
                    if (typeof ret.error != "undefined")
                        return ret ;
@@ -572,7 +573,7 @@ function loadFirmware (text)
 	       instruccionAux.co = getToken(context) ;
 
 	       // semantic check: valid value
-	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || 
+	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) ||
                     (getToken(context).length !== xr_info.ir.default_eltos.co.length) )
                {
 	           return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
@@ -712,7 +713,7 @@ function loadFirmware (text)
 	           firma = firma.replace("," + campos[camposInsertados].name, "," + campos[camposInsertados].type);
 	           firma = firma.replace("(" + campos[camposInsertados].name, "(" + campos[camposInsertados].type);
 	           firma = firma.replace(")" + campos[camposInsertados].name, ")" + campos[camposInsertados].type);
-		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados].name, campos[camposInsertados].type);     
+		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados].name, campos[camposInsertados].type);
 
 	           instruccionAux.signature     = firma;
 		   instruccionAux.signatureUser = firmaUsuario;
@@ -824,9 +825,10 @@ function loadFirmware (text)
 //             }*
 // }
 
+                   ret = {} ;
 	           if (true == instruccionAux["native"])
-                        var ret = read_native(context) ;
-		   else var ret = read_microprg(context) ;
+                        ret = read_native(context) ;
+		   else ret = read_microprg(context) ;
 
                    if (typeof ret.error != "undefined")
                        return ret ;
@@ -873,40 +875,84 @@ function loadFirmware (text)
 		        return langError(context, "label 'fetch' not defined") ;
                 }
            }
-           if (found === false)
+           if (found === false) {
 	       return langError(context, "'begin' not found") ;
+           }
 
            // TO RESOLVE co=111111 (111111 === "please, find one free 'co' for me...")
-           var first_co = 0 ;
-           var last_co  = Math.pow(2,6) - 1 ;
-           var label    = "" ;
+           var curr_instruction = null ;
+
+           var first_co  = 0 ;
+           var last_co   = Math.pow(2, 6) - 1 ;
+           var label_co  = "" ;
+
+           var first_cop = 0 ;
+           var last_cop  = Math.pow(2, 4) - 1 ;
+           var label_cop = "" ;
 
            for (var i=0; i<context.instrucciones.length; i++)
            {
-                if ( (context.instrucciones[i].name != "begin") &&
-                     (context.instrucciones[i].co   == "111111") )
-                {
-			for (var j=first_co; j<last_co; j++)
-			{
-			     label = j.toString(2) ;
-			     label = "000000".substring(0, 6 - label.length) + label ;
+                curr_instruction = context.instrucciones[i] ;
 
-			     if (typeof context.co_cop[label] == "undefined")
-				 break;
-			}
-
-			if (j >= last_co) {
-		             return langError(context, "There is not enough 'co' codes available for instructions") ;
-			}
-
-                        context.instrucciones[i].co = label ;
-
-	                context.co_cop[label] = {} ;
-   	                context.co_cop[label].signature = context.instrucciones[i].signature ;
-                        context.co_cop[label].cop       = null ;
-
-			first_co = j ;
+                // skip non-111111 cases
+                if ( (curr_instruction.name === "begin") || (curr_instruction.co !== "111111") ) {
+                     continue ;
                 }
+
+                // find first free 'co-cop' code
+		for (var j=first_co; j<last_co; j++)
+		{
+                     // new initial co...
+		     label_co = j.toString(2) ;
+		     label_co = label_co.padStart(6, "0") ; // "000000".substring(0, 6 - label.length) + label ;
+
+                     // (1/2) search for free co-0000...
+		     if (typeof context.co_cop[label_co] === "undefined")
+                     {
+		         label_cop = "0000" ;
+			 break;
+                     }
+
+                     // (2/2) search for free co-cop...
+                     if ( (typeof curr_instruction.cop !== "undefined") &&
+		          (typeof context.co_cop[label_co].cop[curr_instruction.cop] === "undefined") )
+                     {
+		         label_cop = curr_instruction.cop ;
+                         break ;
+                     }
+                     else
+                     {
+                         continue ;
+                     }
+
+                     // new initial co-cop...
+                     first_cop = 0 ;
+                     last_cop  = Math.pow(2, 4) - 1 ;
+		     for (var k=first_cop; k<last_cop; k++)
+		     {
+		          label_cop = k.toString(2) ;
+		          label_cop = label_cop.padStart(4, "0") ;
+
+                          if ((typeof context.co_cop[label_co].cop[label_cop]) === "undefined")
+                          {
+                               break ;
+                          }
+		     }
+		}
+
+		if (j >= last_co) {
+		     return langError(context, "There is not enough 'co' codes available for instructions") ;
+		}
+
+                // work with this free 'co-cop' code
+		curr_instruction.co = label_co ;
+
+		context.co_cop[label_co] = {} ;
+		context.co_cop[label_co].signature      = curr_instruction.signature ;
+		context.co_cop[label_co].cop            = {};
+		context.co_cop[label_co].cop[label_cop] = curr_instruction.signature ;
+
+		first_co = j ;
            }
 
            // TO RESOLVE labels

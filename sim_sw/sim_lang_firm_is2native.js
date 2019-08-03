@@ -40,7 +40,7 @@
 		    var p1     = params[1].trim() ;
 
 		    rc = 'if (' + params[0] + ') {\n' +
-		         '    simlang_set_screen_content(' + p1 + ') ;\n' +
+		         '    wepsim_set_screen_content(' + p1 + ') ;\n' +
 		         '}\n' ;
 		    re = /assert\((.*)\)/g ;
 		    icode = icode.replace(re, rc) ;
@@ -74,10 +74,10 @@
 
                     rc = 'if (f_' + p2 + ' == simhw_sim_states().sp.name) {\n' +
                          '    if (' + p2 + ' < sim_segments.data.begin) {\n' +
-                         '        simlang_set_screen_content("Stack Overflow") ;\n' +
+                         '        wepsim_set_screen_content("Stack Overflow") ;\n' +
                          '    }\n' +
                          '    if (' + p2 + ' > sim_segments.data.end) {\n' +
-                         '        simlang_set_screen_content("Stack Underflow") ;\n' +
+                         '        wepsim_set_screen_content("Stack Underflow") ;\n' +
                          '    }\n' +
                          '}\n' ;
                     re = /check_stack_limit\((.*)\)/g ;
@@ -117,22 +117,22 @@
 	       case 'print_char':
                      rc = '// ' + f + ' \n' +
                           'var tmp1 = 0x000000FF & ' + p[0] + ' ;\n' +
-                          'simlang_set_screen_content(tmp1.toString()) ;\n' ;
+                          'wepsim_set_screen_content(tmp1.toString()) ;\n' ;
 	             break ;
 	       case 'print_int':
                      rc = '// ' + f + ' \n' +
-                          'simlang_set_screen_content(' + p[0] + '.toString()) ;\n' ;
+                          'wepsim_set_screen_content(' + p[0] + '.toString()) ;\n' ;
 	             break ;
 	       case 'print_float':
                      rc = '// ' + f + ' \n' +
                           'var tmp1 = hex2float(' + p[0] + ') ;\n' +
-                          'simlang_set_screen_content(tmp1.toString()) ;\n' ;
+                          'wepsim_set_screen_content(tmp1.toString()) ;\n' ;
 	             break ;
 	       case 'print_double':
                      // TODO hex2double + hex2float->hex2double
                      rc = '// ' + f + ' \n' +
                           'var tmp1 = hex2float(' + p[0] + ') ;\n' +
-                          'simlang_set_screen_content(tmp1.toString()) ;\n' ;
+                          'wepsim_set_screen_content(tmp1.toString()) ;\n' ;
 	             break ;
                case 'print_string':
                      rc = '// ' + f + ' \n' +
@@ -142,31 +142,31 @@
                           '     tmp1 += tmp2.toString() ;\n' +
                           '     tmp2  = simcore_native_get_value("MEMORY", k) ;\n' +
                           '} ;\n' +
-                          'simlang_set_screen_content(tmp1) ;\n' ;
+                          'wepsim_set_screen_content(tmp1) ;\n' ;
 	             break ;
 	       case 'read_char':
                      rc  = '// ' + f + ' \n' +
-                           'var tmp1 = simlang_get_screen_content() ;\n' +
+                           'var tmp1 = wepsim_get_screen_content() ;\n' +
                            'var ' + p[0] + ' = 0x000000FF & parseInt(tmp1) ;\n' ;
 	             break ;
 	       case 'read_int':
                      rc  = '// ' + f + ' \n' +
-                           'var tmp1 = simlang_get_screen_content() ;\n' +
+                           'var tmp1 = wepsim_get_screen_content() ;\n' +
                            'var ' + p[0] + ' = parseInt(tmp1) ;\n' ;
 	             break ;
 	       case 'read_float':
                      rc  = '// ' + f + ' \n' +
-                           'var tmp1 = simlang_get_screen_content() ;\n' +
+                           'var tmp1 = wepsim_get_screen_content() ;\n' +
                            'var ' + p[0] + ' = parseFloat(tmp1) ;\n' ;
 	             break ;
 	       case 'read_double':
                      rc  = '// ' + f + ' \n' +
-                           'var tmp1 = simlang_get_screen_content() ;\n' +
+                           'var tmp1 = wepsim_get_screen_content() ;\n' +
                            'var ' + p[0] + ' = parseFloat(tmp1) ;\n' ;
 	             break ;
 	       case 'read_string':
                      rc  = '// ' + f + ' \n' +
-                           'var tmp1 = simlang_get_screen_content() ;\n' +
+                           'var tmp1 = wepsim_get_screen_content() ;\n' +
                            'for (var k=0; k<' + p[1] + '; k++) {\n' +
                            '     simcore_native_set_value("MEMORY", ' + p[0] + '+k, tmp1[k]) ;\n' +
                            '} ;\n' ;

@@ -3,6 +3,8 @@
    var ws  = require('./min.wepsim_node.js') ;
    var fs  = require('fs') ;
 
+   ws_cl_ver = 'WepSIM-cl v1.5.1' ;
+
    //
    // Usage
    //
@@ -10,7 +12,7 @@
    if (process.argv.length < 3)
    {
        console.log('') ;
-       console.log('WepSIM-cl v1.5.1') ;
+       console.log(ws_cl_ver) ;
        console.log('> WepSIM simulator interface for command line.') ;
        console.log('') ;
        console.log('For more details please use:') ;
@@ -20,10 +22,10 @@
        return true ;
    }
 
-   if (process.argv.length < 4)
+   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP") )
    {
        console.log('') ;
-       console.log('WepSIM-cl v1.5') ;
+       console.log(ws_cl_ver) ;
        console.log('> WepSIM simulator interface for command line.') ;
        console.log('') ;
        console.log('Usage:') ;
@@ -65,6 +67,23 @@
        console.log('') ;
        console.log(' * Show console output after execution:') ;
        console.log('   ./wepsim_node.sh show-console          ep         ./examples/microcode/mc-ep_os.txt ./examples/assembly/asm-ep_s4_e1.txt') ;
+       console.log('') ;
+
+       return true ;
+   }
+
+   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP2") )
+   {
+       console.log('') ;
+       console.log(ws_cl_ver) ;
+       console.log('> WepSIM simulator interface for command line.') ;
+       console.log('') ;
+       console.log('Additional examples:') ;
+       console.log(' * For testing Creator, build microcode:') ;
+       console.log('   ./wepsim_node.sh import-creator checkpoint MIPS-32-like.json > microcode.txt') ;
+       console.log('') ;
+       console.log(' * For testing WepSIM, export hardware definition as JSON:') ;
+       console.log('   ./wepsim_node.sh export-hardware ep > examples/hardware/ep/hw_def.json') ;
        console.log('') ;
 
        return true ;
