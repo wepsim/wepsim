@@ -200,6 +200,8 @@ function read_native ( context )
 
 function loadFirmware (text)
 {
+           var ret = {} ;
+
            var     xr_info = simhw_sim_ctrlStates_get() ;
            var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
 
@@ -400,7 +402,7 @@ function loadFirmware (text)
 		       context.etiquetas[context.contadorMC] = "fetch" ;
 	           }
 
-                   var ret = {} ;
+                   ret = {} ;
 	           if (true == instruccionAux["native"])
                         ret = read_native(context) ;
 		   else ret = read_microprg(context) ;
@@ -890,7 +892,11 @@ function loadFirmware (text)
            var last_cop  = Math.pow(2, 4) - 1 ;
            var label_cop = "" ;
 
-           for (var i=0; i<context.instrucciones.length; i++)
+           var i = 0 ;
+           var j = 0 ;
+           var k = 0 ;
+
+           for (i=0; i<context.instrucciones.length; i++)
            {
                 curr_instruction = context.instrucciones[i] ;
 
@@ -900,7 +906,7 @@ function loadFirmware (text)
                 }
 
                 // find first free 'co-cop' code
-		for (var j=first_co; j<last_co; j++)
+		for (j=first_co; j<last_co; j++)
 		{
                      // new initial co...
 		     label_co = j.toString(2) ;
@@ -928,7 +934,7 @@ function loadFirmware (text)
                      // new initial co-cop...
                      first_cop = 0 ;
                      last_cop  = Math.pow(2, 4) - 1 ;
-		     for (var k=first_cop; k<last_cop; k++)
+		     for (k=first_cop; k<last_cop; k++)
 		     {
 		          label_cop = k.toString(2) ;
 		          label_cop = label_cop.padStart(4, "0") ;
@@ -1029,7 +1035,7 @@ function loadFirmware (text)
 	   }
 
            // return results
-           var ret = {} ;
+           ret = {} ;
            ret.error              = null ;
            ret.firmware           = context.instrucciones ;
            ret.labels_firm        = context.etiquetas ;
