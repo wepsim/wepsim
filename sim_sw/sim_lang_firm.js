@@ -584,7 +584,7 @@ function loadFirmware (text)
 	       // semantic check: 'co' is not already used
 	       if (instruccionAux.co != all_ones_co)
 	       {
-	           if ( (typeof context.co_cop[instruccionAux.co] != "undefined") &&
+	           if ( (typeof context.co_cop[instruccionAux.co] !== "undefined") &&
 	                       (context.co_cop[instruccionAux.co].cop === null) )
 	           {
 	   	         return langError(context,
@@ -895,6 +895,7 @@ function loadFirmware (text)
            var i = 0 ;
            var j = 0 ;
            var k = 0 ;
+           var m = 0 ;
 
            for (i=0; i<context.instrucciones.length; i++)
            {
@@ -905,6 +906,16 @@ function loadFirmware (text)
                      continue ;
                 }
 
+		// analize if instruction has any field that uses cop bits... -> m points to
+		for (m=0; m<curr_instruction.fields.length; m++) {
+		     if (curr_instruction.fields[m].stopbit === 0) {
+			 break ;
+		     }
+		}
+		if (m === curr_instruction.fields.length) {
+		    m = curr_instruction.fields.length - 1 ;
+		}
+
                 // find first free 'co-cop' code
 		for (j=first_co; j<last_co; j++)
 		{
@@ -912,23 +923,29 @@ function loadFirmware (text)
 		     label_co = j.toString(2) ;
 		     label_co = label_co.padStart(6, "0") ; // "000000".substring(0, 6 - label.length) + label ;
 
-                     // (1/2) search for free co-0000...
+                     // (1/3) check for free co-0000...
 		     if (typeof context.co_cop[label_co] === "undefined")
                      {
-		         label_cop = "0000" ;
+		         label_cop = "" ;
 			 break;
                      }
 
-                     // (2/2) search for free co-cop...
+                     // (2/3) search for free co-cop...
                      if (typeof curr_instruction.cop !== "undefined")
                      {
-		         if (typeof context.co_cop[label_co].cop[curr_instruction.cop] === "undefined")
-			    {
-				label_cop = curr_instruction.cop ;
-				break ;
-			    }
+                         // cop in use... -> skip cop
+		         if (typeof context.co_cop[label_co].cop[curr_instruction.cop] !== "undefined") {
+			     continue ;
+			 }
 
-			 continue ;
+                         // use cop
+			 label_cop = curr_instruction.cop ;
+			 break ;
+                     }
+
+                     // (3/3) check if skip cop...
+		     if (curr_instruction.fields[m].stopbit === "0") {
+		         continue ;
                      }
 
                      // new initial co-cop...
@@ -945,9 +962,11 @@ function loadFirmware (text)
                                break ;
                           }
 		     }
-		     if (k < last_cop) {
-                         break ;
-                     }
+                     // TODO
+		     //if (k < last_cop) {
+                     //    break ;
+                     //}
+                     // /TODO
 		}
 
 		if (j >= last_co) {
@@ -955,9 +974,6 @@ function loadFirmware (text)
 		}
 
                 // work with this free 'co-cop' code
-		curr_instruction.co  = label_co ;
-		curr_instruction.cop = label_cop ;
-
 		if (typeof context.co_cop[label_co] === 'undefined')
 		    context.co_cop[label_co]     = {} ;
 		if (typeof context.co_cop[label_co].cop === 'undefined')
@@ -965,8 +981,13 @@ function loadFirmware (text)
 		if (context.co_cop[label_co].cop === null)
 		    context.co_cop[label_co].cop = {};
 
-		context.co_cop[label_co].signature      = curr_instruction.signature ;
-		context.co_cop[label_co].cop[label_cop] = curr_instruction.signature ;
+		curr_instruction.co = label_co ;
+		context.co_cop[label_co].signature = curr_instruction.signature ;
+
+		if (label_cop !== "") {
+		    curr_instruction.cop = label_cop ;
+		    context.co_cop[label_co].cop[label_cop] = curr_instruction.signature ;
+                }
 
 		first_co = j ;
            }
