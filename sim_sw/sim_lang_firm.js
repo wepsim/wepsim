@@ -204,7 +204,6 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
            var m = 0 ;
 
            var ret = {} ;
-               ret.j         = 0 ;
                ret.label_co  = '' ;
                ret.label_cop = '' ;
 
@@ -220,10 +219,10 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
 	   }
 
            // find first free 'co-cop' code
-	   for (ret.j=first_co; ret.j<last_co; ret.j++)
+	   for (j=first_co; j<last_co; j++)
 	   {
                 // new initial co...
-		ret.label_co = ret.j.toString(2).padStart(6, "0") ;
+		ret.label_co = j.toString(2).padStart(6, "0") ;
 
                 // (1/3) check for free co-0000...
 		if (typeof context.co_cop[ret.label_co] === "undefined") 
@@ -976,12 +975,12 @@ function loadFirmware (text)
 
                 // find first free 'co-cop' code
                 var r = find_first_cocop(context, curr_instruction, first_co, last_co) ;
-		if (r.j >= r.last_co) {
+		if (r.j >= last_co) {
 		     return langError(context, "There is not enough 'co' codes available for instructions") ;
 		}
 
                 // work with this free 'co-cop' code
-		first_co = r.j ;
+		first_co = parseInt(r.label_co, 2) ;
 
 		curr_instruction.co = r.label_co ;
 		context.co_cop[r.label_co].signature = curr_instruction.signature ;
