@@ -178,7 +178,7 @@
 	       case 'exit': // exit();
                      rc  = '// ' + f + ' \n' +
                            '// exit by setting P.C. register outside text segment\n' +
-                           'var pc_name = simhw_sim_states().pc.state ;\n' +
+                           'var pc_name = simhw_sim_ctrlStates_get().pc.state ;\n' +
                            'simcore_native_set_value("CPU", pc_name, 0x00000000) ;\n' ;
 	             break ;
 	       default:
@@ -243,7 +243,7 @@
         var re = /PC/g ;
         if (icode.search(re) != -1) 
         {
-            icode = "var pc_name = simhw_sim_states().pc.state ;\n" +
+            icode = "var pc_name = simhw_sim_ctrlStates_get().pc.state ;\n" +
                     "var PC = simcore_native_get_value('CPU', pc_name) ;\n" +
                     icode +
                     "simcore_native_set_value('CPU', pc_name, PC) ;\n" ;
@@ -451,6 +451,7 @@
             '                if (typeof BR2 === "undefined")\n' +
             '                {\n' +
             '                    BR2 = [] ;\n' +
+            '                    FCSR = 0 ;\n' +
             '                    for (var i=0; i<32; i++)\n' +
             '                    {\n' +
             '                         BR2[i] = {\n' +

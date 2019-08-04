@@ -920,15 +920,15 @@ function loadFirmware (text)
                      }
 
                      // (2/2) search for free co-cop...
-                     if ( (typeof curr_instruction.cop !== "undefined") &&
-		          (typeof context.co_cop[label_co].cop[curr_instruction.cop] === "undefined") )
+                     if (typeof curr_instruction.cop !== "undefined")
                      {
-		         label_cop = curr_instruction.cop ;
-                         break ;
-                     }
-                     else
-                     {
-                         continue ;
+		         if (typeof context.co_cop[label_co].cop[curr_instruction.cop] === "undefined")
+			    {
+				label_cop = curr_instruction.cop ;
+				break ;
+			    }
+
+			 continue ;
                      }
 
                      // new initial co-cop...
@@ -944,6 +944,9 @@ function loadFirmware (text)
                                break ;
                           }
 		     }
+		     if (k < last_cop) {
+                         break ;
+                     }
 		}
 
 		if (j >= last_co) {
@@ -951,7 +954,8 @@ function loadFirmware (text)
 		}
 
                 // work with this free 'co-cop' code
-		curr_instruction.co = label_co ;
+		curr_instruction.co  = label_co ;
+		curr_instruction.cop = label_cop ;
 
 		context.co_cop[label_co] = {} ;
 		context.co_cop[label_co].signature      = curr_instruction.signature ;

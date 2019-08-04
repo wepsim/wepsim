@@ -16,13 +16,14 @@
        console.log('> WepSIM simulator interface for command line.') ;
        console.log('') ;
        console.log('For more details please use:') ;
-       console.log(' ./wepsim_node.sh help') ;
+       console.log(' ./wepsim_node.sh help-syntax') ;
+       console.log(' ./wepsim_node.sh help-examples') ;
        console.log('') ;
 
        return true ;
    }
 
-   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP") )
+   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP-SYNTAX") )
    {
        console.log('') ;
        console.log(ws_cl_ver) ;
@@ -45,6 +46,16 @@
        console.log('       maxi-<#>       = maxi-<maximum number of instructions>') ;
        console.log('       maxc-<#>       = maxc-<maximum number of cycles>') ;
        console.log('') ;
+
+       return true ;
+   }
+
+   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP-EXAMPLES") )
+   {
+       console.log('') ;
+       console.log(ws_cl_ver) ;
+       console.log('> WepSIM simulator interface for command line.') ;
+       console.log('') ;
        console.log('Examples:') ;
        console.log(' * Run some example and show the final state:') ;
        console.log('   ./wepsim_node.sh run                   ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
@@ -52,11 +63,11 @@
        console.log('') ;
        console.log(' * Run some example and show the state on each assembly instruction executed:') ;
        console.log('   ./wepsim_node.sh stepbystep            ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
-       console.log('   ./wepsim_node.sh stepbystep            checkpoint ./examples/checkpoint/tutorial_1.txt                                     maxi-2048') ;
+       console.log('   ./wepsim_node.sh stepbystep            checkpoint ./examples/checkpoint/tutorial_1.txt') ;
        console.log('') ;
        console.log(' * Run some example and show the state on each microinstruction executed:') ;
        console.log('   ./wepsim_node.sh microstepbymicrostep  ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
-       console.log('   ./wepsim_node.sh microstepbymicrostep  checkpoint ./examples/checkpoint/tutorial_1.txt                                     maxc-10000') ;
+       console.log('   ./wepsim_node.sh microstepbymicrostep  checkpoint ./examples/checkpoint/tutorial_1.txt') ;
        console.log('') ;
        console.log(' * Check that some example meets the expected final state (so it works):') ;
        console.log('   ./wepsim_node.sh check                 ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e1.txt') ;
@@ -72,18 +83,27 @@
        return true ;
    }
 
-   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP2") )
+
+   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP-EXAMPLES2") )
    {
        console.log('') ;
        console.log(ws_cl_ver) ;
        console.log('> WepSIM simulator interface for command line.') ;
        console.log('') ;
        console.log('Additional examples:') ;
-       console.log(' * For testing Creator, build microcode:') ;
-       console.log('   ./wepsim_node.sh import-creator checkpoint MIPS-32-like.json > microcode.txt') ;
+       console.log(' * Run some example and limit the "clock cycles"/"instructions":') ;
+       console.log('   ./wepsim_node.sh stepbystep checkpoint ./examples/checkpoint/tutorial_1.txt maxc-10000') ;
+       console.log('   ./wepsim_node.sh stepbystep checkpoint ./examples/checkpoint/tutorial_1.txt maxi-2048') ;
        console.log('') ;
-       console.log(' * For testing WepSIM, export hardware definition as JSON:') ;
+       console.log(' * Show recorded session:') ;
+       console.log('   ./wepsim_node.sh show-record checkpoint ./examples/checkpoint/tutorial_1.txt') ;
+       console.log('') ;
+       console.log(' * Export hardware definition as JSON:') ;
        console.log('   ./wepsim_node.sh export-hardware ep > examples/hardware/ep/hw_def.json') ;
+       console.log('') ;
+       console.log(' * Build MIPS32-like microcode for testing:') ;
+       console.log('   ./wepsim_node.sh import-creator checkpoint ./MIPS-32-like.json > microcode.txt') ;
+       console.log('   ./wepsim_node.sh run ep ./microcode.txt examples/assembly/asm-ep_s6_e3.txt') ;
        console.log('') ;
 
        return true ;
