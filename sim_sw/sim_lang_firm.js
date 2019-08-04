@@ -939,7 +939,8 @@ function loadFirmware (text)
 		          label_cop = k.toString(2) ;
 		          label_cop = label_cop.padStart(4, "0") ;
 
-                          if ((typeof context.co_cop[label_co].cop[label_cop]) === "undefined")
+                          if (        (context.co_cop[label_co].cop            === null) ||
+                               (typeof context.co_cop[label_co].cop[label_cop] === "undefined") )
                           {
                                break ;
                           }
@@ -957,9 +958,14 @@ function loadFirmware (text)
 		curr_instruction.co  = label_co ;
 		curr_instruction.cop = label_cop ;
 
-		context.co_cop[label_co] = {} ;
+		if (typeof context.co_cop[label_co] === 'undefined')
+		    context.co_cop[label_co]     = {} ;
+		if (typeof context.co_cop[label_co].cop === 'undefined')
+		    context.co_cop[label_co].cop = {};
+		if (context.co_cop[label_co].cop === null)
+		    context.co_cop[label_co].cop = {};
+
 		context.co_cop[label_co].signature      = curr_instruction.signature ;
-		context.co_cop[label_co].cop            = {};
 		context.co_cop[label_co].cop[label_cop] = curr_instruction.signature ;
 
 		first_co = j ;
@@ -1202,8 +1208,7 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
               } ;
 
     // instructions as 32-string
-    var bits = binstruction.toString(2) ;
-        bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
+    var bits = binstruction.toString(2).padStart(32, "0") ;
 
     // op-code
     var co = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length);
@@ -1212,6 +1217,10 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
     // cop-code
     var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
     ret.cop_code = parseInt(cop, 2) ;
+
+    if ("undefined" == typeof curr_firm.cocop_hash[co]) {
+        return ret ;
+    }
 
     if (false == curr_firm.cocop_hash[co].withcop)
          ret.oinstruction = curr_firm.cocop_hash[co].i ;
