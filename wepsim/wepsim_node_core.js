@@ -296,23 +296,3 @@
 	return wepsim_nodejs_retfill(true, input_help) ;
     }
 
-
-    /**
-     * Export API
-     */
-
-    module.exports.wepsim_nodejs_init  = wepsim_nodejs_init ;
-    module.exports.wepsim_nodejs_check = wepsim_nodejs_check ;
-    module.exports.wepsim_nodejs_run   = wepsim_nodejs_run ;
-
-    module.exports.wepsim_nodejs_before_instruction2      = wepsim_nodejs_before_instruction2 ;
-    module.exports.wepsim_nodejs_after_instruction2       = wepsim_nodejs_after_instruction2 ;
-    module.exports.wepsim_nodejs_before_microinstruction3 = wepsim_nodejs_before_microinstruction3 ;
-    module.exports.wepsim_nodejs_after_microinstruction3  = wepsim_nodejs_after_microinstruction3 ;
-    module.exports.wepsim_nodejs_before_microinstruction4 = wepsim_nodejs_before_microinstruction4 ;
-
-    module.exports.wepsim_nodejs_help_signal              = wepsim_nodejs_help_signal ;
-    module.exports.wepsim_nodejs_do_nothing_handler       = simcore_do_nothing_handler ;
-    module.exports.wepsim_nodejs_exportHW                 = simcore_hardware_export ;
-    module.exports.simlang_firm_is2native                 = simlang_firm_is2native ;
-

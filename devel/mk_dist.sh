@@ -142,7 +142,8 @@ mv ws_dist/transient.js ws_dist/min.wepsim_web.js
 echo "ws_dist/min.wepsim_node.js"
 cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_web.js \
-    wepsim/wepsim_node.js > ws_dist/min.wepsim_node.js
+    wepsim/wepsim_node_core.js \
+    wepsim/wepsim_node_action.js > ws_dist/min.wepsim_node.js
 
 #  external
 echo "ws_dist/min.external.js"
