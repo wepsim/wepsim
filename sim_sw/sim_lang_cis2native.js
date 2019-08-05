@@ -556,13 +556,13 @@
             '{\n' ;
 
        // pseudoInstruction list
-/*
-        lii reg num
-        {
-            li reg sel(31,16,num) ;
-            li reg sel(15,0,num)
-        }
-*/
+       for (var i=0; i<pseudoinstruction_list.length; i++)
+       {
+            o += '\t' + pseudoinstruction_list[i].signature_definition + '\n' +
+                 '\t' + '{\n' +
+                 '\t' + '\t' + pseudoinstruction_list[i].definition + '\n' +
+                 '\t' + '}\n' ;
+       }
 
        // end section
        o += '\n' +

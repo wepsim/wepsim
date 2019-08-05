@@ -35,7 +35,7 @@
 	/* eslint-disable no-console */
 	/* eslint-disable no-useless-concat */
         console.log('\n' +
-                    ws_cl_ver\n' +
+                    ws_cl_ver + '\n' +
                     '> WepSIM simulator interface for command line.\n' +
                     '\n' +
                     'For more details please use:\n' +
@@ -120,6 +120,9 @@
         console.log('> WepSIM simulator interface for command line.') ;
         console.log('') ;
         console.log('Additional examples:') ;
+        console.log(' * Help on signal:') ;
+        console.log('   ./wepsim_node.sh help ep cop') ;
+        console.log('') ;
         console.log(' * Run some example and limit the "clock cycles"/"instructions":') ;
         console.log('   ./wepsim_node.sh stepbystep checkpoint ./examples/checkpoint/tutorial_1.txt maxc-10000') ;
         console.log('   ./wepsim_node.sh stepbystep checkpoint ./examples/checkpoint/tutorial_1.txt maxi-2048') ;
@@ -133,9 +136,6 @@
         console.log(' * Build MIPS32-like microcode for testing:') ;
         console.log('   ./wepsim_node.sh import-creator checkpoint ./MIPS-32-like.json > microcode.txt') ;
         console.log('   ./wepsim_node.sh run ep ./microcode.txt examples/assembly/asm-ep_s6_e3.txt') ;
-        console.log('') ;
-        console.log(' * Help on signal:') ;
-        console.log('   ./wepsim_node.sh help ep cop') ;
         console.log('') ;
 	/* eslint-enable no-console */
  
