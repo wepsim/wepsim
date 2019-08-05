@@ -302,7 +302,60 @@
         return "\t" + fname + "=" + tname + "(" + start + "," + stop + "),\n" ;
    }
 
-   // (2/3) instruction set -> microcode [description + compount (native creator code)]
+   // (1/4) instruction set -> fetch
+   function simlang_native_beginMicrocode ( )
+   {
+       var o = "" ;
+
+       // fetch
+       o += '\n' +
+            '#\n' +
+            '# WepSIM (https://wepsim.github.io/wepsim/)\n' +
+            '#\n' +
+            '\n' +
+            '\n' +
+            '##\n' +
+            '## Microcode Section\n' +
+            '##\n' +
+            '\n' +
+            'begin,\n' +
+            'native\n' +
+            '{\n' +
+            '                // (once) initialize BR2 as FP register file\n' +
+            '                if (typeof BR2 === "undefined")\n' +
+            '                {\n' +
+            '                    BR2 = [] ;\n' +
+            '                    FCSR = 0 ;\n' +
+            '                    for (var i=0; i<32; i++)\n' +
+            '                    {\n' +
+            '                         BR2[i] = {\n' +
+            '                                    name:"R"+i,\n' +
+            '                                    verbal:"Register "+i,\n' +
+            '                                    visible:true,\n' +
+            '                                    nbits:"32",\n' +
+            '                                    value:0,\n' +
+            '                                    default_value:0,\n' +
+            '                                    draw_data:[]\n' +
+            '                                  } ;\n' +
+            '                    }\n' +
+            '                }\n' +
+            '\n' +
+            '                // fetch\n' +
+            '                var addr  = simcore_native_get_value("CPU", "REG_PC") ;\n' +
+            '                var value = simcore_native_get_value("MEMORY", addr) ;\n' +
+            '\n' +
+            '                simcore_native_set_value("CPU", "REG_IR", value) ;\n' +
+            '                simcore_native_set_value("CPU", "REG_PC", addr + 4) ;\n' +
+            '\n' +
+            '                simcore_native_deco() ;\n' +
+            '                simcore_native_go_opcode() ;\n' +
+            '}\n' ;
+
+       // return 'begin' microcode
+       return o ;
+   }
+
+   // (2/4) instruction set -> microcode [description + compount (native creator code)]
    function simlang_native_adapt_instructionSet ( instruction_list )
    {
        var o = "" ;
@@ -387,13 +440,7 @@
             }
 
             // co_cop
-            var co_cop = "\t" + "co=" + io.co + "," + "\n" ;
-            if ( (io.cop !== null) && (io.cop.trim() !== "") ) {
-                  co_cop += "\tcop=" + io.cop + ",\n" ;
-            }
-            // TODO: comment this when WepSIM adds cop fragments (cop = sumatory of several cops)
-            co_cop = "\t" + "co=111111," + "\n" ;
-            // /TODO
+            var co_cop = "\t" + "co=111111," + "\n" ;
 
             // adapt elements
             var lines_code = simlang_native_adapt_instructionDefinition(io.definition) ;
@@ -437,64 +484,22 @@
        return o ;
    }
 
-   // (1/3) instruction set -> fetch
-   function simlang_native_beginMicrocode ( )
+   // (3/4) instruction set -> MIPS register names
+   function simlang_native_registerSection ( register_list )
    {
        var o = "" ;
 
-       // fetch
+       // register section
        o += '\n' +
-            'begin,\n' +
-            'native\n' +
-            '{\n' +
-            '                // (once) initialize BR2 as FP register file\n' +
-            '                if (typeof BR2 === "undefined")\n' +
-            '                {\n' +
-            '                    BR2 = [] ;\n' +
-            '                    FCSR = 0 ;\n' +
-            '                    for (var i=0; i<32; i++)\n' +
-            '                    {\n' +
-            '                         BR2[i] = {\n' +
-            '                                    name:"R"+i,\n' +
-            '                                    verbal:"Register "+i,\n' +
-            '                                    visible:true,\n' +
-            '                                    nbits:"32",\n' +
-            '                                    value:0,\n' +
-            '                                    default_value:0,\n' +
-            '                                    draw_data:[]\n' +
-            '                                  } ;\n' +
-            '                    }\n' +
-            '                }\n' +
-            '\n' +
-            '                // fetch\n' +
-            '                var addr  = simcore_native_get_value("CPU", "REG_PC") ;\n' +
-            '                var value = simcore_native_get_value("MEMORY", addr) ;\n' +
-            '\n' +
-            '                simcore_native_set_value("CPU", "REG_IR", value) ;\n' +
-            '                simcore_native_set_value("CPU", "REG_PC", addr + 4) ;\n' +
-            '\n' +
-            '                simcore_native_deco() ;\n' +
-            '                simcore_native_go_opcode() ;\n' +
-            '}\n' ;
-
-       // return initial microcode
-       return o ;
-   }
-
-   // (3/3) instruction set -> MIPS register names
-   function simlang_native_endMicrocode ( )
-   {
-       var o = "" ;
-
-       // register naming
-       o += '\n' +
-            '#\n' +
-            '# Register naming\n' +
-            '#\n' +
+            '##\n' +
+            '## Register section\n' +
+            '##\n' +
             '\n' +
             'registers\n' +
-            '{\n' +
-            '        0=$zero,\n' +
+            '{\n' ;
+
+       // register list
+       o += '        0=$zero,\n' +
             '        1=$at,\n' +
             '        2=$v0,\n' +
             '        3=$v1,\n' +
@@ -525,11 +530,46 @@
             '        28=$gp,\n' +
             '        29=$sp (stack_pointer),\n' +
             '        30=$fp,\n' +
-            '        31=$ra\n' +
+            '        31=$ra\n' ;
+
+       // end section
+       o += '\n' +
             '}\n' +
             '\n' ;
 
-       // return initial microcode
+       // return section
+       return o ;
+   }
+
+   // (4/4) instruction set -> pseudo-instructions
+   function simlang_native_adapt_pseudoInstructions ( pseudoinstruction_list )
+   {
+       var o = "" ;
+
+       // pseudoInstruction section
+       o += '\n' +
+            '##\n' +
+            '## Pseudo-instruction section\n' +
+            '##\n' +
+            '\n' +
+            'pseudoinstructions\n' +
+            '{\n' ;
+
+       // pseudoInstruction list
+/*
+        lii reg num
+        {
+            li reg sel(31,16,num) ;
+            li reg sel(15,0,num)
+        }
+*/
+
+       // end section
+       o += '\n' +
+            '}\n' +
+            '\n' ;
+
+       // return section
        return o ;
    }
 
@@ -540,10 +580,10 @@
        }
 
        // build microcode
-       var  o = "" ;
-            o += simlang_native_beginMicrocode() ;
-            o += simlang_native_adapt_instructionSet(data.instructions) ;
-            o += simlang_native_endMicrocode() ;
+       var o = simlang_native_beginMicrocode() +
+               simlang_native_adapt_instructionSet(data.instructions) +
+               simlang_native_registerSection(data.components) +
+               simlang_native_adapt_pseudoInstructions(data.pseudoinstructions) ;
 
        // return microcode
        return o ;

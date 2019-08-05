@@ -3,7 +3,30 @@
    var ws  = require('./min.wepsim_node.js') ;
    var fs  = require('fs') ;
 
-   ws_cl_ver = 'WepSIM-cl v1.5.1' ;
+
+   //
+   // default values
+   //
+
+   var ws_cl_ver = 'WepSIM-cl v1.5.1' ;
+
+   var data =    {
+                    action:    process.argv[2].toUpperCase(),
+                    mode:      process.argv[3],
+		    firmware:  null,
+		    assembly:  null,
+		    result_ok: null,
+		    record:    []
+	         } ;
+
+   var options = {
+		    instruction_limit: 1000,
+		    cycles_limit:      1024,
+		    verbalize:         'text'
+	         } ;
+
+   var arg_last = 3 ;
+
 
    //
    // Usage
@@ -23,7 +46,7 @@
        return true ;
    }
 
-   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP-SYNTAX") )
+   if (data.action === "HELP-SYNTAX")
    {
        console.log('') ;
        console.log(ws_cl_ver) ;
@@ -50,7 +73,7 @@
        return true ;
    }
 
-   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP-EXAMPLES") )
+   if (data.action === "HELP-EXAMPLES")
    {
        console.log('') ;
        console.log(ws_cl_ver) ;
@@ -83,8 +106,7 @@
        return true ;
    }
 
-
-   if ( (process.argv.length < 4) && (process.argv[2].toUpperCase() === "HELP-EXAMPLES2") )
+   if (data.action === "HELP-EXAMPLES2")
    {
        console.log('') ;
        console.log(ws_cl_ver) ;
@@ -109,27 +131,22 @@
        return true ;
    }
 
+   if (typeof data.mode === "undefined")
+   {
+       console.log('') ;
+       console.log(ws_cl_ver) ;
+       console.log('> WepSIM simulator interface for command line.') ;
+       console.log('') ;
+       console.log('For more details please use:') ;
+       console.log(' ./wepsim_node.sh help-syntax') ;
+       console.log(' ./wepsim_node.sh help-examples') ;
+       console.log('') ;
 
-   //
-   // default values
-   //
+       console.log(' Action ERROR: ' + data.action + ' on <missing piece>') ;
+       console.log('') ;
 
-   var data =    {
-                    action:    process.argv[2].toUpperCase(),
-                    mode:      process.argv[3],
-		    firmware:  null,
-		    assembly:  null,
-		    result_ok: null,
-		    record:    []
-	         } ;
-
-   var options = {
-		    instruction_limit: 1000,
-		    cycles_limit:      1024,
-		    verbalize:         'text'
-	         } ;
-
-   var arg_last = 3 ;
+       return true ;
+   }
 
 
    //
