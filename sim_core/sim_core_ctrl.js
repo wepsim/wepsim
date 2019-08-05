@@ -349,7 +349,7 @@
             simhw_internalState_reset('MP', {}) ;
 	    for (var key in SIMWARE['mp'])
 	    {
-	       var kx = parseInt(key)
+	       var kx = parseInt(key) ;
 	       var kv = parseInt(SIMWARE['mp'][key].replace(/ /g,''), 2) ;
                simhw_internalState_set('MP', kx, kv) ;
 	    }

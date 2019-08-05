@@ -302,6 +302,8 @@ function loadFirmware (text)
 	   context.stackRegister	= null ;
            context.comments             = [] ;
 
+           var i = 0 ;
+
            nextToken(context) ;
            while (context.t < context.text.length)
            {
@@ -368,7 +370,7 @@ function loadFirmware (text)
 	       if (isToken(context,"pseudoinstructions"))
 	       {
 			nextToken(context);
-			if(! isToken(context, "{"))
+			if (! isToken(context, "{"))
 			     return langError(context, "Expected '{' not found");
 
 			nextToken(context);
@@ -402,7 +404,7 @@ function loadFirmware (text)
 					pseudoInitial.fields.push(pseudoFieldAux);
 					pseudoInitial.signature = pseudoInitial.signature + getToken(context) + ",";
 					nextToken(context);
-					if(isToken(context, ","))
+					if (isToken(context, ","))
 						nextToken(context);
 				}
 			 	nextToken(context);
@@ -418,18 +420,20 @@ function loadFirmware (text)
 
 				while (! isToken(context, "}"))
 				{
-					if(inStart == 0){
-						for(i=0; i<context.instrucciones.length; i++){
-							if(context.instrucciones[i].name == getToken(context)){
+					if (inStart == 0)
+                                        {
+						for (i=0; i<context.instrucciones.length; i++)
+                                                {
+							if (context.instrucciones[i].name == getToken(context)){
 								cont = true;
 								break;
 							}	
 						}
-						if(!cont)
+						if (!cont)
 							return langError(context, "Undefined instruction '" + getToken(context) + "'");
 					}
 
-					if(getToken(context) == ";")
+					if (getToken(context) == ";")
 						inStart = 0;
 					else
 						inStart++;
@@ -830,7 +834,7 @@ function loadFirmware (text)
 		       return langError(context, "stopbit out of range: " + getToken(context)) ;
 
                    // check overlapping
-                   for (var i=stop; i<=start; i++)
+                   for (i=stop; i<=start; i++)
                    {
                         if (typeof overlapping[i] != "undefined")
 		            return langError(context, "overlapping field: " + campos[camposInsertados].name);
@@ -941,7 +945,7 @@ function loadFirmware (text)
 
            // CHECK: fetch exists + fetch label
            var found = false ;
-           for (var i=0; i<context.instrucciones.length; i++)
+           for (i=0; i<context.instrucciones.length; i++)
            {
                 if (context.instrucciones[i].name == "begin")
                 {
@@ -964,7 +968,7 @@ function loadFirmware (text)
            var last_co  = Math.pow(2, 6) - 1 ;
 
            var curr_instruction = null ;
-           for (var i=0; i<context.instrucciones.length; i++)
+           for (i=0; i<context.instrucciones.length; i++)
            {
                 curr_instruction = context.instrucciones[i] ;
 
@@ -997,7 +1001,7 @@ function loadFirmware (text)
 	   var labelsFounded=0;
 	   if (context.labelsNotFound.length>0)
 	   {
-		for (var i=0; i<context.labelsNotFound.length; i++)
+		for (i=0; i<context.labelsNotFound.length; i++)
 		{
 			for (var j in context.etiquetas)
 			{
@@ -1020,7 +1024,7 @@ function loadFirmware (text)
 
 	   // native -> native_jit
 	   var mk_native = "" ;
-	   for (var i=0; i<context.instrucciones.length; i++)
+	   for (i=0; i<context.instrucciones.length; i++)
 	   {
 		   var ins = context.instrucciones[i] ;
 		   if (false == ins["native"]) {
@@ -1088,7 +1092,7 @@ function loadFirmware (text)
 function saveFirmware ( SIMWARE )
 {
 	var file = "";
-	for (var i=0; i<SIMWARE.firmware.length; i++)
+	for (i=0; i<SIMWARE.firmware.length; i++)
 	{
 		file += SIMWARE.firmware[i].signatureRaw;
 		file += " {" + '\n';
@@ -1180,7 +1184,7 @@ function saveFirmware ( SIMWARE )
 	if ( (typeof SIMWARE.registers != "undefined") && (SIMWARE.registers.length > 0) )
 	{
 		file += 'registers' + '\n{\n';
-		for (var i = 0; i< SIMWARE.registers.length; i++)
+		for (i=0; i< SIMWARE.registers.length; i++)
 		{
 		     if (SIMWARE.stackRegister == i)
 		     	  file += '\t' + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
