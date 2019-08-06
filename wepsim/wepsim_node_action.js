@@ -30,10 +30,11 @@
     // USAGE
     //
  
+    /* eslint-disable no-console */
+    /* eslint-disable no-useless-concat */
+
     hash_action["USAGE"] = function(data, options)
     {
-	/* eslint-disable no-console */
-	/* eslint-disable no-useless-concat */
         console.log('\n' +
                     ws_cl_ver + '\n' +
                     '> WepSIM simulator interface for command line.\n' +
@@ -42,15 +43,12 @@
                     ' ./wepsim_node.sh help-syntax\n' +
                     ' ./wepsim_node.sh help-examples\n' +
                     '') ;
-	/* eslint-enable no-useless-concat */
-	/* eslint-enable no-console */
  
         return true ;
     } ;
  
     hash_action["HELP-SYNTAX"] = function(data, options)
     {
-	/* eslint-disable no-console */
         console.log('') ;
         console.log(ws_cl_ver) ;
         console.log('> WepSIM simulator interface for command line.') ;
@@ -72,14 +70,12 @@
         console.log('       maxi-<#>       = maxi-<maximum number of instructions>') ;
         console.log('       maxc-<#>       = maxc-<maximum number of cycles>') ;
         console.log('') ;
-	/* eslint-enable no-console */
  
         return true ;
     } ;
  
     hash_action["HELP-EXAMPLES"] = function(data, options)
     {
-	/* eslint-disable no-console */
         console.log('') ;
         console.log(ws_cl_ver) ;
         console.log('> WepSIM simulator interface for command line.') ;
@@ -107,14 +103,12 @@
         console.log(' * Show console output after execution:') ;
         console.log('   ./wepsim_node.sh show-console          ep         ./examples/microcode/mc-ep_os.txt ./examples/assembly/asm-ep_s4_e1.txt') ;
         console.log('') ;
-	/* eslint-enable no-console */
  
         return true ;
     } ;
  
     hash_action["HELP-EXAMPLES2"] = function(data, options)
     {
-	/* eslint-disable no-console */
         console.log('') ;
         console.log(ws_cl_ver) ;
         console.log('> WepSIM simulator interface for command line.') ;
@@ -137,7 +131,6 @@
         console.log('   ./wepsim_node.sh import-creator checkpoint ./MIPS-32-like.json > microcode.txt') ;
         console.log('   ./wepsim_node.sh run ep ./microcode.txt examples/assembly/asm-ep_s6_e3.txt') ;
         console.log('') ;
-	/* eslint-enable no-console */
  
         return true ;
     } ;
@@ -340,6 +333,9 @@
 
         return wepsim_nodejs_doActionError(data.action) ;
     }
+
+    /* eslint-enable no-useless-concat */
+    /* eslint-enable no-console */
 
 
     /**

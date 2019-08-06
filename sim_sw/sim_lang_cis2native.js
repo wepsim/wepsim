@@ -252,6 +252,16 @@
         return icode ;
    }
 
+   function simlang_native_adapt_addInitialTabTab ( lines_code )
+   {
+        var code_lines ;
+
+        // add initial \t\t...
+        code_lines = lines_code.split("\n") ;
+        code_lines = code_lines.map(function(x) { return "\t\t" + x; }) ;
+        return code_lines.join("\n") ;
+   }
+
    // compount replace + provide
    function simlang_native_adapt_instructionDefinition ( lines_code )
    {
@@ -279,9 +289,7 @@
         lines_code = simlang_native_adapt_replaceMemoryAccess(lines_code, "b", "0x000000FF") ;
 
         // add initial \t\t...
-        code_lines = lines_code.split("\n") ;
-        code_lines = code_lines.map(function(x) { return "\t\t" + x; }) ;
-        lines_code = code_lines.join("\n") ;
+        lines_code = simlang_native_adapt_addInitialTabTab(lines_code) ;
 
         return lines_code ;
    }
@@ -488,6 +496,7 @@
    function simlang_native_registerSection ( register_list )
    {
        var o = "" ;
+       var d = "" ;
 
        // register section
        o += '\n' +
@@ -499,42 +508,16 @@
             '{\n' ;
 
        // register list
-       o += '        0=$zero,\n' +
-            '        1=$at,\n' +
-            '        2=$v0,\n' +
-            '        3=$v1,\n' +
-            '        4=$a0,\n' +
-            '        5=$a1,\n' +
-            '        6=$a2,\n' +
-            '        7=$a3,\n' +
-            '        8=$t0,\n' +
-            '        9=$t1,\n' +
-            '        10=$t2,\n' +
-            '        11=$t3,\n' +
-            '        12=$t4,\n' +
-            '        13=$t5,\n' +
-            '        14=$t6,\n' +
-            '        15=$t7,\n' +
-            '        16=$s0,\n' +
-            '        17=$s1,\n' +
-            '        18=$s2,\n' +
-            '        19=$s3,\n' +
-            '        20=$s4,\n' +
-            '        21=$s5,\n' +
-            '        22=$s6,\n' +
-            '        23=$s7,\n' +
-            '        24=$t8,\n' +
-            '        25=$t9,\n' +
-            '        26=$k0,\n' +
-            '        27=$k1,\n' +
-            '        28=$gp,\n' +
-            '        29=$sp (stack_pointer),\n' +
-            '        30=$fp,\n' +
-            '        31=$ra\n' ;
+       for (var i=0; i<register_list[1].elements.length; i++) 
+       {
+            d = register_list[1].elements[i].name ;
+            if (i === 29)
+                d += ' (stack_pointer)' ;
+            o += '        ' + i + '=$' + d + ',\n' ;
+       }
 
        // end section
-       o += '\n' +
-            '}\n' +
+       o += '}\n' +
             '\n' ;
 
        // return section
@@ -545,6 +528,7 @@
    function simlang_native_adapt_pseudoInstructions ( pseudoinstruction_list )
    {
        var o = "" ;
+       var d = "" ;
 
        // pseudoInstruction section
        o += '\n' +
@@ -558,15 +542,18 @@
        // pseudoInstruction list
        for (var i=0; i<pseudoinstruction_list.length; i++)
        {
-            o += '\t' + pseudoinstruction_list[i].signature_definition + '\n' +
+            d = pseudoinstruction_list[i].definition.replace(/\$/g, "") ;
+            d = simlang_native_adapt_addInitialTabTab(d) ;
+
+            o += '\t' + pseudoinstruction_list[i].signatureRaw.replace(/\$/g, "") + '\n' +
                  '\t' + '{\n' +
-                 '\t' + '\t' + pseudoinstruction_list[i].definition + '\n' +
-                 '\t' + '}\n' ;
+                            d + '\n' +
+                 '\t' + '}\n' +
+                 '\t' + '\n' ;
        }
 
        // end section
-       o += '\n' +
-            '}\n' +
+       o += '}\n' +
             '\n' ;
 
        // return section
@@ -583,7 +570,7 @@
        var o = simlang_native_beginMicrocode() +
                simlang_native_adapt_instructionSet(data.instructions) +
                simlang_native_registerSection(data.components) +
-               simlang_native_adapt_pseudoInstructions(data.pseudoinstructions) ;
+               "" ; // TODO: "" -> simlang_native_adapt_pseudoInstructions(data.pseudoinstructions) ;
 
        // return microcode
        return o ;
