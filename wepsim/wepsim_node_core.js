@@ -23,6 +23,9 @@
      * WepSIM nodejs aux.
      */
 
+    /* eslint-disable no-console */
+    /* eslint-disable no-useless-concat */
+
     function wepsim_nodejs_retfill ( ok, msg )
     {
         var ret = { ok: true, html: "", msg: "" } ;
@@ -295,4 +298,7 @@
 
 	return wepsim_nodejs_retfill(true, input_help) ;
     }
+
+    /* eslint-enable no-useless-concat */
+    /* eslint-enable no-console */
 
