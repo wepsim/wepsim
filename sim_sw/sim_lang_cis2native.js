@@ -252,6 +252,39 @@
         return icode ;
    }
 
+   function simlang_native_adapt_replaceField ( icode )
+   {
+// TODO: check
+// Field.2.(31,16);
+
+        // replace MP.*.(val+reg2)
+        var re = new RegExp("Field.\\[^\.]*.\\(([^\\)]*)\\)", "g") ;
+        if (icode.search(re) != -1)
+        {
+                var match = re.exec(icode) ;
+		try
+		{
+                    var index  = match[1].split(",") ;
+                    var params = match[2].split(",") ;
+                    var p1     = params[1].trim() ;
+                    var p2     = params[2].trim() ;
+
+		    icode = icode.replace(re, vname) ;
+		    icode = 'li at <F' + index + '>) ;\n' +
+			    'sll at at ' + (31-parseInt(p1,2)) + ';\n' +
+			    'sll at at ' + parseInt(p2,2) + ';\n' +
+			     icode ;
+		}
+		catch (e)
+		{
+		    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
+		    console.log(match) ;
+		}
+        }
+
+        return icode ;
+   }
+
    function simlang_native_adapt_addInitialTabTab ( lines_code )
    {
         var code_lines ;
@@ -499,6 +532,13 @@
        var d = "" ;
 
        // register section
+       var index = 0 ;
+       for (index=0; index<register_list.length; index++) {
+            if (register_list[index].type === 'integer') 
+                break ;
+       }
+
+       // register section
        o += '\n' +
             '##\n' +
             '## Register section\n' +
@@ -508,12 +548,12 @@
             '{\n' ;
 
        // register list
-       for (var i=0; i<register_list[1].elements.length; i++) 
+       for (var i=0; i<register_list[index].elements.length; i++) 
        {
-            d = register_list[1].elements[i].name ;
+            d = register_list[index].elements[i].name ;
             if (i === 29)
                 d += ' (stack_pointer)' ;
-            o += '        ' + i + '=$' + d + ',\n' ;
+            o += '\t' + i + '=$' + d + ',\n' ;
        }
 
        // end section
@@ -543,6 +583,7 @@
        for (var i=0; i<pseudoinstruction_list.length; i++)
        {
             d = pseudoinstruction_list[i].definition.replace(/\$/g, "") ;
+            d = simlang_native_adapt_replaceField(d) ;
             d = simlang_native_adapt_addInitialTabTab(d) ;
 
             o += '\t' + pseudoinstruction_list[i].signatureRaw.replace(/\$/g, "") + '\n' +
@@ -570,7 +611,7 @@
        var o = simlang_native_beginMicrocode() +
                simlang_native_adapt_instructionSet(data.instructions) +
                simlang_native_registerSection(data.components) +
-               "" ; // TODO: "" -> simlang_native_adapt_pseudoInstructions(data.pseudoinstructions) ;
+               simlang_native_adapt_pseudoInstructions(data.pseudoinstructions) ;
 
        // return microcode
        return o ;
