@@ -237,7 +237,7 @@
 	{
 	    var reg_maddr  = 0 ;
 
-	    var i = 0 ;
+	    i = 0 ;
             while (i < chunk)
             {
 		    wepsim_check_state_firm() ;

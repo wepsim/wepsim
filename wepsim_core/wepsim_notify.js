@@ -89,8 +89,6 @@
      * Notifications (summary)
      */
 
-    // wepsim_notify_notifications -> wepsim_notifications_open
-
     function wepsim_notifications_open ( )
     {
         var notifications = simcore_notifications_get() ;
@@ -110,9 +108,11 @@
 	// setup content...
 	var u = '' ;
         var t = null ;
+	var m = '' ;
 	for (var i=notifications.length-1; i!=-1; i--)
 	{
 		 t = new Date(notifications[i].date) ;
+		 m = notifications[i].message.replace(/\n/g, '<br>\n') ;
 
                  u += '<li class="list-group-item list-group-item-' + notifications[i].type + ' rounded-lg mx-2 my-1 p-2">' +
 			'<h5 class="m-0 collapse7 show">' +
@@ -121,8 +121,7 @@
 			')</span>' +
 			'<span class="badge">[' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ']</span>' +
 			'</h5>' +
-			'<span class="text-monospace">' + notifications[i].title + ':' + '</span>' +
-			    notifications[i].message +
+			'<span class="text-monospace">' + notifications[i].title + ':' + '</span>' + m +
 			'</li>' ;
 	}
 	if (u.trim() === '') {

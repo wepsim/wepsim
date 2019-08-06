@@ -111,7 +111,7 @@
        {
 	        u  = '' ;
 	        l2 = {} ;
-                for (var n=0; n<config_groupby_type[m].length; n++)
+                for (n=0; n<config_groupby_type[m].length; n++)
                 {
 		     u = u + config_groupby_type[m][n].row ;
 

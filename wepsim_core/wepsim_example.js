@@ -201,7 +201,7 @@
 	 catch(err) 
 	 {
 	     alert('Sorry, unsuccessful share: ' + err.message) ;
-	 } ;
+	 }
 
 	 return true ;
     }

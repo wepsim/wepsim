@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "eqeqeq": "off",
+        'no-console': 'off',
+        "no-useless-concat": "off",
+        "no-unused-vars": "off"
+    }
+}

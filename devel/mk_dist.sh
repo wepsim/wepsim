@@ -55,6 +55,7 @@ cat sim_hw/sim_hw_index.js \
     sim_sw/sim_lang.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js \
+    sim_sw/sim_lang_cis2native.js \
     \
     sim_core/sim_cfg.js \
     sim_core/sim_core_record.js \
@@ -141,7 +142,8 @@ mv ws_dist/transient.js ws_dist/min.wepsim_web.js
 echo "ws_dist/min.wepsim_node.js"
 cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_web.js \
-    wepsim/wepsim_node.js > ws_dist/min.wepsim_node.js
+    wepsim/wepsim_node_core.js \
+    wepsim/wepsim_node_action.js > ws_dist/min.wepsim_node.js
 
 #  external
 echo "ws_dist/min.external.js"

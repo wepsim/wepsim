@@ -203,6 +203,43 @@
                        description: "<span data-langkey='example_04_04'>Example of malloc + free.</span>"
                      });
 
+/*
+    ws_examples.push({
+                       id: 'S5E1',
+                       title: "<span data-langkey='addv + seqv.'>addv + seqv.</span>",
+                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e1",
+                       assembly:  "ep_s5_e1",
+                       description: "<span data-langkey='example_05_01'>Application-specific extension: addv + seqv.</span>"
+                     });
+
+    ws_examples.push({
+                       id: 'S5E2',
+                       title: "<span data-langkey='strlen_2 + skipasciicode_2'>strlen_2 + skipasciicode_2</span>",
+                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e2",
+                       assembly:  "ep_s5_e2",
+                       description: "<span data-langkey='example_05_02'>Application-specific extension: strlen_2 + skipasciicode_2.</span>"
+                     });
+
+    ws_examples.push({
+                       id: 'S5E3',
+                       title: "<span data-langkey='madd, mmul, mxch'>madd, mmul, mxch</span>",
+                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e3",
+                       assembly:  "ep_s5_e3",
+                       description: "<span data-langkey='example_05_03'>Application-specific extension: madd + mmul + mxch.</span>"
+                     });
+*/
 
     ws_examples.push({
                        id: 'S6E1',
@@ -216,6 +253,19 @@
                        description: "<span data-langkey='example_06_01'>Test example.</span>"
                      });
 
+/*
+    ws_examples.push({
+                       id: 'S6E2',
+                       title: "<span data-langkey='Compiler Explorer'>Compiler Explorer</span>",
+                       type: "<span data-langkey='Special'>Special</span>",
+                       level: "archived",
+                       modes:  "newbie,intro,ep",
+                       hardware:  "ep",
+                       microcode: "ep_os",
+                       assembly:  "ep_s6_e2",
+                       description: "<span data-langkey='example_06_02'>Simple Compiler Explorer example</span>"
+                     });
+*/
 
     ws_examples.push({
                        id: 'S6E3',
