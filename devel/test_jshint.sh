@@ -35,6 +35,7 @@ set -x
  jshint ./sim_sw/sim_lang.js
 #jshint ./sim_sw/sim_lang_firm.js
 #jshint ./sim_sw/sim_lang_asm.js
+ jshint ./sim_sw/sim_lang_cis2native.js
 
  jshint ./sim_hw/sim_hw_index.js
  jshint ./sim_hw/sim_hw_values.js
