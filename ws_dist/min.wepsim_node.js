@@ -23,9 +23,6 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
      * WepSIM nodejs aux.
      */
 
-    /* eslint-disable no-console */
-    /* eslint-disable no-useless-concat */
-
     function wepsim_nodejs_retfill ( ok, msg )
     {
         var ret = { ok: true, html: "", msg: "" } ;
@@ -162,7 +159,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 	return wepsim_nodejs_retfill(true, ret.msg) ;
     }
 
-    function wepsim_nodejs_run ( data, options )
+    function wepsim_nodejs_runCode ( data, options )
     {
 	// 1) initialize ws
         simcore_reset() ;
@@ -188,7 +185,25 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
 	}
 
-	// 5) return result
+	return wepsim_nodejs_retfill(true, ret.msg) ;
+    }
+
+    function wepsim_nodejs_runApp ( data, options )
+    {
+        var ret = null ;
+ 
+	// 1) initialization
+        wepsim_nodejs_init(data.mode) ;
+
+	// 2) run code
+        ret = wepsim_nodejs_runCode(data,options) ;
+	if (false === ret.ok) 
+        {
+            console.log(ret.msg);
+	    return false ;
+	}
+
+	// 3) return result
         if ("SHOW-CONSOLE" == data.action) {
             ret.msg = get_screen_content() ;
 	}
@@ -198,9 +213,10 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
         if ("RUN" == data.action) {
             ret = wepsim_nodejs_show_currentstate() ;
 	}
-
-	return wepsim_nodejs_retfill(true, ret.msg) ;
+        console.log(ret.msg);
+        return ret.ok ;
     }
+
 
     // show execution progress
     var before_state = null ;
@@ -299,9 +315,6 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 	return wepsim_nodejs_retfill(true, input_help) ;
     }
 
-    /* eslint-enable no-useless-concat */
-    /* eslint-enable no-console */
-
 /*
  *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
@@ -327,16 +340,13 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
      * WepSIM actions
      */
 
-    var ws_cl_ver   = 'WepSIM-cl v1.5.2' ;
+    var ws_cl_ver   = 'WepSIM-cl v1.5.5' ;
     var hash_action = {} ;
  
     //
     // USAGE
     //
  
-    /* eslint-disable no-console */
-    /* eslint-disable no-useless-concat */
-
     hash_action["USAGE"] = function(data, options)
     {
         console.log('\n' +
@@ -353,89 +363,92 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
  
     hash_action["HELP-SYNTAX"] = function(data, options)
     {
-        console.log('') ;
-        console.log(ws_cl_ver) ;
-        console.log('> WepSIM simulator interface for command line.') ;
-        console.log('') ;
-        console.log('Usage:') ;
-        console.log(' * ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]') ;
-        console.log(' * ./wepsim_node.sh <command> checkpoint      <checkpoint file>                [<checklist file>] [options*]') ;
-        console.log('') ;
-        console.log('    <command>         = run | stepbystep | microstepbymicrostep | check | microstepverbalized | show-console | show-record') ;
-        console.log('    <hardware name>   = ep | poc') ;
-        console.log('') ;
-        console.log('    <checkpoint file> = "path to the checkpoint file" ') ;
-        console.log('    <microcode file>  = "path to the microcode file" ') ;
-        console.log('    <assembly file>   = "path to the assembly file" ') ;
-        console.log('    <checklist file>  = "path to the checklist file" ') ;
-        console.log('') ;
-        console.log('    [options*]        = verbal-<level> maxi-<#> maxc-<#>') ;
-        console.log('       verbal-<level> = verbal-text | verbal-math') ;
-        console.log('       maxi-<#>       = maxi-<maximum number of instructions>') ;
-        console.log('       maxc-<#>       = maxc-<maximum number of cycles>') ;
-        console.log('') ;
+        var o = '\n' +
+                ws_cl_ver + '\n' +
+                '> WepSIM simulator interface for command line.\n' +
+                '\n' +
+                'Usage:\n' +
+                ' * ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]\n' +
+                ' * ./wepsim_node.sh <command> checkpoint      <checkpoint file>                [<checklist file>] [options*]\n' +
+                '\n' +
+                '    <command>         = run | stepbystep | microstepbymicrostep | check | microstepverbalized | show-console | show-record\n' +
+                '    <hardware name>   = ep | poc\n' +
+                '\n' +
+                '    <checkpoint file> = "path to the checkpoint file" \n' +
+                '    <microcode file>  = "path to the microcode file" \n' +
+                '    <assembly file>   = "path to the assembly file" \n' +
+                '    <checklist file>  = "path to the checklist file" \n' +
+                '\n' +
+                '    [options*]        = verbal-<level> maxi-<#> maxc-<#>\n' +
+                '       verbal-<level> = verbal-text | verbal-math\n' +
+                '       maxi-<#>       = maxi-<maximum number of instructions>\n' +
+                '       maxc-<#>       = maxc-<maximum number of cycles>\n' +
+                '' ;
  
+        console.log(o) ;
         return true ;
     } ;
  
     hash_action["HELP-EXAMPLES"] = function(data, options)
     {
-        console.log('') ;
-        console.log(ws_cl_ver) ;
-        console.log('> WepSIM simulator interface for command line.') ;
-        console.log('') ;
-        console.log('Examples:') ;
-        console.log(' * Run some example and show the final state:') ;
-        console.log('   ./wepsim_node.sh run                   ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
-        console.log('   ./wepsim_node.sh run                   checkpoint ./examples/checkpoint/tutorial_1.txt') ;
-        console.log('') ;
-        console.log(' * Run some example and show the state on each assembly instruction executed:') ;
-        console.log('   ./wepsim_node.sh stepbystep            ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
-        console.log('   ./wepsim_node.sh stepbystep            checkpoint ./examples/checkpoint/tutorial_1.txt') ;
-        console.log('') ;
-        console.log(' * Run some example and show the state on each microinstruction executed:') ;
-        console.log('   ./wepsim_node.sh microstepbymicrostep  ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
-        console.log('   ./wepsim_node.sh microstepbymicrostep  checkpoint ./examples/checkpoint/tutorial_1.txt') ;
-        console.log('') ;
-        console.log(' * Check that some example meets the expected final state (so it works):') ;
-        console.log('   ./wepsim_node.sh check                 ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e1.txt') ;
-        console.log('') ;
-        console.log(' * Run some example and show a description for each microinstruction executed:') ;
-        console.log('   ./wepsim_node.sh microstepverbalized   ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt verbal-text') ;
-        console.log('   ./wepsim_node.sh microstepverbalized   checkpoint ./examples/checkpoint/tutorial_1.txt                                     verbal-math') ;
-        console.log('') ;
-        console.log(' * Show console output after execution:') ;
-        console.log('   ./wepsim_node.sh show-console          ep         ./examples/microcode/mc-ep_os.txt ./examples/assembly/asm-ep_s4_e1.txt') ;
-        console.log('') ;
+        var o = '\n' +
+                ws_cl_ver + '\n' +
+                '> WepSIM simulator interface for command line.\n' +
+                '\n' +
+                'Examples:\n' +
+                ' * Run some example and show the final state:\n' +
+                '   ./wepsim_node.sh run                   ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt\n' +
+                '   ./wepsim_node.sh run                   checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+                '\n' +
+                ' * Run some example and show the state on each assembly instruction executed:\n' +
+                '   ./wepsim_node.sh stepbystep            ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt\n' +
+                '   ./wepsim_node.sh stepbystep            checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+                '\n' +
+                ' * Run some example and show the state on each microinstruction executed:\n' +
+                '   ./wepsim_node.sh microstepbymicrostep  ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt\n' +
+                '   ./wepsim_node.sh microstepbymicrostep  checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+                '\n' +
+                ' * Check that some example meets the expected final state (so it works):\n' +
+                '   ./wepsim_node.sh check                 ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e1.txt\n' +
+                '\n' +
+                ' * Run some example and show a description for each microinstruction executed:\n' +
+                '   ./wepsim_node.sh microstepverbalized   ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt verbal-text\n' +
+                '   ./wepsim_node.sh microstepverbalized   checkpoint ./examples/checkpoint/tutorial_1.txt                                     verbal-math\n' +
+                '\n' +
+                ' * Show console output after execution:\n' +
+                '   ./wepsim_node.sh show-console          ep         ./examples/microcode/mc-ep_os.txt ./examples/assembly/asm-ep_s4_e1.txt\n' +
+                '' ;
  
+        console.log(o) ;
         return true ;
     } ;
  
     hash_action["HELP-EXAMPLES2"] = function(data, options)
     {
-        console.log('') ;
-        console.log(ws_cl_ver) ;
-        console.log('> WepSIM simulator interface for command line.') ;
-        console.log('') ;
-        console.log('Additional examples:') ;
-        console.log(' * Help on signal:') ;
-        console.log('   ./wepsim_node.sh help ep cop') ;
-        console.log('') ;
-        console.log(' * Run some example and limit the "clock cycles"/"instructions":') ;
-        console.log('   ./wepsim_node.sh stepbystep checkpoint ./examples/checkpoint/tutorial_1.txt maxc-10000') ;
-        console.log('   ./wepsim_node.sh stepbystep checkpoint ./examples/checkpoint/tutorial_1.txt maxi-2048') ;
-        console.log('') ;
-        console.log(' * Show recorded session:') ;
-        console.log('   ./wepsim_node.sh show-record checkpoint ./examples/checkpoint/tutorial_1.txt') ;
-        console.log('') ;
-        console.log(' * Export hardware definition as JSON:') ;
-        console.log('   ./wepsim_node.sh export-hardware ep > examples/hardware/ep/hw_def.json') ;
-        console.log('') ;
-        console.log(' * Build MIPS32-like microcode for testing:') ;
-        console.log('   ./wepsim_node.sh import-creator checkpoint ./MIPS-32-like.json > microcode.txt') ;
-        console.log('   ./wepsim_node.sh run ep ./microcode.txt examples/assembly/asm-ep_s6_e3.txt') ;
-        console.log('') ;
+        var o = '\n' +
+                ws_cl_ver + '\n' +
+                '> WepSIM simulator interface for command line.\n' +
+                '\n' +
+                'Additional examples:\n' +
+                ' * Help on signal:\n' +
+                '   ./wepsim_node.sh help ep cop\n' +
+                '\n' +
+                ' * Run some example and limit the "clock cycles"/"instructions":\n' +
+                '   ./wepsim_node.sh stepbystep checkpoint ./examples/checkpoint/tutorial_1.txt maxc-10000\n' +
+                '   ./wepsim_node.sh stepbystep checkpoint ./examples/checkpoint/tutorial_1.txt maxi-2048\n' +
+                '\n' +
+                ' * Show recorded session:\n' +
+                '   ./wepsim_node.sh show-record checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+                '\n' +
+                ' * Export hardware definition as JSON:\n' +
+                '   ./wepsim_node.sh export-hardware ep > examples/hardware/ep/hw_def.json\n' +
+                '\n' +
+                ' * Build MIPS32-like microcode for testing:\n' +
+                '   ./wepsim_node.sh import-creator checkpoint ./MIPS-32-like.json > microcode.txt\n' +
+                '   ./wepsim_node.sh run ep ./microcode.txt examples/assembly/asm-ep_s6_e3.txt\n' +
+                '' ;
  
+        console.log(o) ;
         return true ;
     } ;
  
@@ -443,17 +456,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
     // CHECK
     //
  
-    hash_action["CHECK"] = function(data, options)
-    {
-        var ret = null ;
- 
-        // check...
-        wepsim_nodejs_init(data.mode) ;
-        ret = wepsim_nodejs_check(data, options) ;
- 
-        console.log(ret.msg);
-        return ret.ok ;
-    } ;
+    hash_action["CHECK"] = wepsim_nodejs_runApp ;
  
     //
     // RUN
@@ -461,18 +464,12 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
  
     hash_action["RUN"] = function(data, options)
     {
-        var ret = null ;
- 
         // set verbosity handlers
         options.before_instruction = simcore_do_nothing_handler ;
         options.after_instruction  = simcore_do_nothing_handler ;
  
         // run...
-        wepsim_nodejs_init(data.mode) ;
-        ret = wepsim_nodejs_run(data, options) ;
- 
-        console.log(ret.msg);
-        return ret.ok ;
+        return wepsim_nodejs_runApp(data, options) ;
     } ;
  
     //
@@ -481,18 +478,12 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
  
     hash_action["STEPBYSTEP"] = function(data, options)
     {
-        var ret = null ;
- 
         // set verbosity handlers
         options.before_instruction = wepsim_nodejs_before_instruction2 ;
         options.after_instruction  = wepsim_nodejs_after_instruction2 ;
  
         // run...
-        wepsim_nodejs_init(data.mode) ;
-        ret = wepsim_nodejs_run(data, options) ;
- 
-        console.log(ret.msg);
-        return ret.ok ;
+        return wepsim_nodejs_runApp(data, options) ;
     } ;
  
     //
@@ -501,18 +492,12 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
  
     hash_action["MICROSTEPBYMICROSTEP"] = function(data, options)
     {
-        var ret = null ;
- 
         // set verbosity handlers
         options.before_microinstruction = wepsim_nodejs_before_microinstruction3 ;
         options.after_microinstruction  = wepsim_nodejs_after_microinstruction3 ;
  
         // run...
-        wepsim_nodejs_init(data.mode) ;
-        ret = wepsim_nodejs_run(data, options) ;
- 
-        console.log(ret.msg);
-        return ret.ok ;
+        return wepsim_nodejs_runApp(data, options) ;
     } ;
  
     //
@@ -521,18 +506,12 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
  
     hash_action["MICROSTEPVERBALIZED"] = function(data, options)
     {
-        var ret = null ;
- 
         // set verbosity handlers
         options.before_microinstruction = wepsim_nodejs_before_microinstruction4 ;
         options.after_microinstruction  = simcore_do_nothing_handler ;
  
         // run...
-        wepsim_nodejs_init(data.mode) ;
-        ret = wepsim_nodejs_run(data, options) ;
- 
-        console.log(ret.msg);
-        return ret.ok ;
+        return wepsim_nodejs_runApp(data, options) ;
     } ;
  
     //
@@ -551,31 +530,13 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
     // SHOW-RECORD
     //
  
-    hash_action["SHOW-RECORD"] = function(data, options)
-    {
-        var ret = null ;
- 
-        wepsim_nodejs_init(data.mode) ;
-        ret = wepsim_nodejs_run(data, options) ;
- 
-        console.log(ret.msg);
-        return ret.ok ;
-    } ;
+    hash_action["SHOW-RECORD"] = wepsim_nodejs_runApp ;
  
     //
     // SHOW-CONSOLE
     //
  
-    hash_action["SHOW-CONSOLE"] = function(data, options)
-    {
-        var ret = null ;
- 
-        wepsim_nodejs_init(data.mode) ;
-        ret = wepsim_nodejs_run(data, options) ;
- 
-        console.log(ret.msg);
-        return ret.ok ;
-    } ;
+    hash_action["SHOW-CONSOLE"] = wepsim_nodejs_runApp ;
  
     //
     // HELP (signal)
@@ -583,10 +544,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
  
     hash_action["HELP"] = function(data, options)
     {
-        var ret = null ;
- 
         wepsim_nodejs_init(data.mode) ;
-        ret = wepsim_nodejs_help_signal(data, options) ;
+        var ret = wepsim_nodejs_help_signal(data, options) ;
  
         console.log(ret.msg);
         return ret.ok ;
@@ -598,9 +557,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
  
     hash_action["IMPORT-CREATOR"] = function(data, options)
     {
-        var ret = null ;
- 
-        ret = simlang_firm_is2native(data.obj_chk) ;
+        var ret = simlang_firm_is2native(data.obj_chk) ;
  
         console.log(ret);
         return true ;
@@ -613,19 +570,18 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 
     function wepsim_nodejs_doActionError ( err_action )
     {
-        console.log('') ;
-        console.log(ws_cl_ver) ;
-        console.log('> WepSIM simulator interface for command line.') ;
-        console.log('') ;
-        console.log('For more details please use:') ;
-        console.log(' ./wepsim_node.sh help-syntax') ;
-        console.log(' ./wepsim_node.sh help-examples') ;
-        console.log('') ;
-        console.log(' Action ERROR: ' + err_action + '? on what?') ;
-        console.log('') ;
+        console.log('\n' +
+                    ws_cl_ver + '\n' +
+                    '> WepSIM simulator interface for command line.\n' +
+                    '\n' +
+                    'For more details please use:\n' +
+                    ' ./wepsim_node.sh help-syntax\n' +
+                    ' ./wepsim_node.sh help-examples\n' +
+                    '\n' +
+                    ' Action ERROR: ' + err_action + '? on what?\n' +
+                    '') ;
  
         return false ;
-        // throw 'ERROR...' ;
     }
 
     function wepsim_nodejs_doAction ( data, options )
@@ -637,9 +593,6 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 
         return wepsim_nodejs_doActionError(data.action) ;
     }
-
-    /* eslint-enable no-useless-concat */
-    /* eslint-enable no-console */
 
 
     /**

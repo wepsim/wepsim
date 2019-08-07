@@ -23,9 +23,6 @@
      * WepSIM nodejs aux.
      */
 
-    /* eslint-disable no-console */
-    /* eslint-disable no-useless-concat */
-
     function wepsim_nodejs_retfill ( ok, msg )
     {
         var ret = { ok: true, html: "", msg: "" } ;
@@ -162,7 +159,7 @@
 	return wepsim_nodejs_retfill(true, ret.msg) ;
     }
 
-    function wepsim_nodejs_run ( data, options )
+    function wepsim_nodejs_runCode ( data, options )
     {
 	// 1) initialize ws
         simcore_reset() ;
@@ -188,7 +185,25 @@
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
 	}
 
-	// 5) return result
+	return wepsim_nodejs_retfill(true, ret.msg) ;
+    }
+
+    function wepsim_nodejs_runApp ( data, options )
+    {
+        var ret = null ;
+ 
+	// 1) initialization
+        wepsim_nodejs_init(data.mode) ;
+
+	// 2) run code
+        ret = wepsim_nodejs_runCode(data,options) ;
+	if (false === ret.ok) 
+        {
+            console.log(ret.msg);
+	    return false ;
+	}
+
+	// 3) return result
         if ("SHOW-CONSOLE" == data.action) {
             ret.msg = get_screen_content() ;
 	}
@@ -198,9 +213,10 @@
         if ("RUN" == data.action) {
             ret = wepsim_nodejs_show_currentstate() ;
 	}
-
-	return wepsim_nodejs_retfill(true, ret.msg) ;
+        console.log(ret.msg);
+        return ret.ok ;
     }
+
 
     // show execution progress
     var before_state = null ;
@@ -298,7 +314,4 @@
 
 	return wepsim_nodejs_retfill(true, input_help) ;
     }
-
-    /* eslint-enable no-useless-concat */
-    /* eslint-enable no-console */
 
