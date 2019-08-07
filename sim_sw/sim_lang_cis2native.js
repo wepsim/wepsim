@@ -435,48 +435,49 @@
 
                  k = signature_order[io.fields[j].name] ;
 
-                 if (io.fields[j].type === "INT-Reg") 
+                 switch (io.fields[j].type)
                  {
-                     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
-                                                                   io.fields[j].startbit, io.fields[j].stopbit) ;
-                     gfields[k] = simlang_native_adapt_getField(k-1, 'BR', io.fields[j].name) ;
-                     sfields[k] = simlang_native_adapt_setField(k-1, 'BR', io.fields[j].name) ;
-                 }
-                 else if (io.fields[j].type === "SFP-Reg")
-                 {
-                     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
-                                                                   io.fields[j].startbit, io.fields[j].stopbit) ;
-                     gfields[k] = simlang_native_adapt_getField(k-1, 'BR2', io.fields[j].name) ;
-                     sfields[k] = simlang_native_adapt_setField(k-1, 'BR2', io.fields[j].name) ;
-                 }
-                 else if (io.fields[j].type === "DFP-Reg")
-                 {
-                     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
-                                                                   io.fields[j].startbit, io.fields[j].stopbit) ;
+                     case "INT-Reg":
+                     case "SFP-Reg":
+                                     var rf_name = 'BR' ;
+                                     if (io.fields[j].type === "SFP-Reg") 
+                                         rf_name = 'BR2' ;
 
-                     gfields[k] = "\t\t"+ "var f_" + io.fields[j].name + " = " +
-                                  "simcore_native_get_field_from_ir(fields, " + (k-1) + ") ;\n" +
-                                  "\t\t"+ "var   " + io.fields[j].name + "1 = " +
-                                  "simcore_native_get_value('BR2', f_" + io.fields[j].name + "+0) ;\n" +
-                                  "\t\t"+ "var   " + io.fields[j].name + "2 = " +
-                                  "simcore_native_get_value('BR2', f_" + io.fields[j].name + "+1) ;\n" +
-                                  "\t\t"+ "var   " + io.fields[j].name + " = " + 
-                                  "(" + io.fields[j].name + "1) | (" + io.fields[j].name + "2 << 32);\n" ;
+				     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
+										   io.fields[j].startbit, 
+                                                                                   io.fields[j].stopbit) ;
+				     gfields[k] = simlang_native_adapt_getField(k-1, rf_name, io.fields[j].name) ;
+				     sfields[k] = simlang_native_adapt_setField(k-1, rf_name, io.fields[j].name) ;
+                                     break ;
+                     case "DFP-Reg":
+				     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
+										   io.fields[j].startbit, 
+                                                                                   io.fields[j].stopbit) ;
 
-                     sfields[k] = "\t\t " + io.fields[j].name + "1 = ((" + io.fields[j].name + " << 32) >> 32);\n" +
-                                  "\t\t " + io.fields[j].name + "2 = " + io.fields[j].name + "   >> 32;\n" +
-                                  "\t\t"+ "simcore_native_set_value('BR2', " +
-                                  "f_" + io.fields[j].name + "+0, " + io.fields[j].name + "1);\n" +
-                                  "\t\t"+ "simcore_native_set_value('BR2', " +
-                                  "f_" + io.fields[j].name + "+1, " + io.fields[j].name + "2);\n" ;
-                 }
-                 else if (io.fields[j].type === "inm")
-                 {
-                     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "inm", 
-                                                                   io.fields[j].startbit, io.fields[j].stopbit) ;
+				     gfields[k] = "\t\t"+ "var f_" + io.fields[j].name + " = " +
+						  "simcore_native_get_field_from_ir(fields, " + (k-1) + ") ;\n" +
+						  "\t\t"+ "var   " + io.fields[j].name + "1 = " +
+						  "simcore_native_get_value('BR2', f_" + io.fields[j].name + "+0) ;\n" +
+						  "\t\t"+ "var   " + io.fields[j].name + "2 = " +
+						  "simcore_native_get_value('BR2', f_" + io.fields[j].name + "+1) ;\n" +
+						  "\t\t"+ "var   " + io.fields[j].name + " = " + 
+						  "(" + io.fields[j].name + "1) | (" + io.fields[j].name + "2 << 32);\n" ;
 
-                     gfields[k] = "\t\t" + "var " + io.fields[j].name + " = " +
-                                  "simcore_native_get_field_from_ir(fields, " + (k-1) + ") ;\n\t" ;
+				     sfields[k] = "\t\t " + io.fields[j].name + "1 = ((" + io.fields[j].name + " << 32) >> 32);\n" +
+						  "\t\t " + io.fields[j].name + "2 = " + io.fields[j].name + "   >> 32;\n" +
+						  "\t\t"+ "simcore_native_set_value('BR2', " +
+						  "f_" + io.fields[j].name + "+0, " + io.fields[j].name + "1);\n" +
+						  "\t\t"+ "simcore_native_set_value('BR2', " +
+						  "f_" + io.fields[j].name + "+1, " + io.fields[j].name + "2);\n" ;
+                                     break ;
+                     case "inm":
+				     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "inm", 
+										   io.fields[j].startbit, 
+                                                                                   io.fields[j].stopbit) ;
+
+				     gfields[k] = "\t\t" + "var " + io.fields[j].name + " = " +
+						  "simcore_native_get_field_from_ir(fields, " + (k-1) + ") ;\n\t" ;
+                                     break ;
                  }
             }
 
