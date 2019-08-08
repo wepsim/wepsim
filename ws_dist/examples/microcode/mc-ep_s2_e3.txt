@@ -582,12 +582,12 @@ registers
 
 pseudoinstructions
 {
-	lii reg num 
+	lii reg1=reg num=inm 
         {	
-            li reg sel(31,16,num) ; 
-            # sl reg reg 16 ;
+            li reg1 sel(31,16,num) ; 
+            # sl reg1 reg1 16 ;
             # li $0 sel(15,0,num) ;
-            # or reg reg $0 
+            # or reg1 reg1 $0 
         }
 
 }

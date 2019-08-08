@@ -64,9 +64,13 @@
 		'content':		'conteúdo',
 		'assembly':		'montagem',
 		'instructions':		'instruções',
-		'simulator intro 1':		'Primeiro, você irá carregar e microcompilar o microcódigo que define o conjunto de instruções a ser usado. <br> Você pode usar um exemplo, carregá-lo de um arquivo ou editar um novo.',
-		'simulator intro 2':		'Em seguida, você precisa carregar e compilar o código da montagem a ser executado. <br> Você pode usar um exemplo, carregá-lo de um arquivo ou editar um novo.',
-		'simulator intro 3':		'Finalmente, no simulador você pode executar o conjunto de microcódigo mais carregado antes. Pode ser executado passo a passo no nível de microinstrução ou no nível de instrução de montagem.',
+
+                "simulator intro 1": "Você pode selecionar o hardware a ser usado. O padrão é o hardware EP (Elemental Processor). <br> Você pode usar o dropdown <span onclick=\"$('#dd1').dropdown('toggle'); return false;\">o seletor de modo</span> para alterar o hardware usado.",
+
+                "simulator intro 2": "Então você precisa carregar o microcódigo (define o conjunto de instruções) e o código assembly. <br> Você pode usar <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>um exemplo</span>, <span class='text-primary bg-light'onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>carrega de um arquivo</span>, ou você pode editar <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>um novo microcódigo</span> e <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>um novo código de montagem</span>.",
+
+                "simulator intro 3": "Finalmente, no simulador você é capaz de executar o microcódigo plus montado antes. Você pode executá-lo em nível de microinstrução ou em nível de instrução de montagem.",
+
 		'Prev.':		'Prev.',
 		'Next':		'Próximo',
 		'End':		'Fim',
