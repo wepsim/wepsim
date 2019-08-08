@@ -64,9 +64,13 @@
 		'content':		'Inhalt',
 		'assembly':		'Versammlung',
 		'instructions':		'Anleitung',
-		'simulator intro 1':		'Zuerst laden Sie den Mikrocode, der den zu verwendenden Befehlssatz definiert, und kompilieren ihn. <br> Sie können ein Beispiel verwenden, es aus einer Datei laden oder ein neues bearbeiten.',
-		'simulator intro 2':		'Als Nächstes müssen Sie den auszuführenden Assemblycode laden und kompilieren. <br> Sie können ein Beispiel verwenden, es aus einer Datei laden oder ein neues bearbeiten.',
-		'simulator intro 3':		'Schließlich können Sie im Simulator den zuvor geladenen Mikrocode plus Assembly ausführen. Es kann Schritt für Schritt auf Mikro- oder Montageanweisungsebene ausgeführt werden.',
+
+                "simulator intro 1":  "Sie können die zu verwendende Hardware auswählen. Die Standardhardware ist die EP-Hardware (Elemental Processor). <br> Sie können <span onclick=\"$('#dd1')dropdown.('toggle'); return false;\">den Modus-Wahlschalter</span>, um die verwendete Hardware zu ändern.",
+
+                "simulator intro 2": "Dann müssen Sie den Mikrocode (definiert den Befehlssatz) und den Assembler-Code laden. <br> Sie können <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'> ein Beispiel</span>, <span class ='text-primary bg-light' onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>lade es aus einer Datei</span> oder Sie können <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>einen neuen Mikrocode</span> und <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>ein neuer Assembly-Code</span>. ",
+
+                "simulator intro 3": "Schließlich können Sie im Simulator den zuvor geladenen Mikrocode plus Assembly ausführen. <br> Sie können ihn sowohl auf Mikrobefehls- als auch auf Assemblybefehlsebene ausführen.",
+
 		'Prev.':		'Vorherige',
 		'Next':		'Nächster',
 		'End':		'Ende',

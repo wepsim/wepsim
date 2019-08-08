@@ -61,10 +61,6 @@
     	 var o = "<br>" +
     	         "<div class='card m-3'>" +
     		 "  <div class='row no-gutters'>" +
-    		// "  <div class='col-md-4'>" +
-    		// "  <img class='card-img-top' alt='microcode work area' src='images/simulator/firmware002.jpg'>" +
-    		// "  </div>" +
-    		// "  <div class='col-md-8'>" + // +
     		 "  <div class='col-md-12'>" + // -
     		 "  <div class='card-body py-0'>" +
     		 "    <p class='card-text'>" + 
@@ -79,10 +75,6 @@
     		 "</div>" +
     		 "<div class='card m-3'>" +
     		 "  <div class='row no-gutters'>" +
-    		// "  <div class='col-md-4'>" +
-    		// "  <img class='card-img-top' alt='microcode work area' src='images/simulator/firmware002.jpg'>" +
-    		// "  </div>" +
-    		// "  <div class='col-md-8'>" + // +
     		 "  <div class='col-md-12'>" + // -
     		 "  <div class='card-body py-0'>" +
     		 "    <p class='card-text'>" + 
@@ -97,10 +89,6 @@
     		 "</div>" +
     		 "<div class='card m-3'>" +
     		 "  <div class='row no-gutters'>" +
-    		// "  <div class='col-md-4'>" +
-    		// "  <img class='card-img-top' alt='microcode work area' src='images/welcome/simulation_xinstruction.gif'>" +
-    		// "  </div>" +
-    		// "  <div class='col-md-8'>" + // +
     		 "  <div class='col-md-12'>" + // -
     		 "  <div class='card-body py-0'>" +
     		 "    <p class='card-text'>" + 
@@ -123,7 +111,6 @@
     		 "<div class='container-fluid'>" +
     		 "<div class='card-column row'>" +
     		 "<div class='card m-2 col-sm'>" +
-    		// "  <img class='card-img-top' alt='microcode work area' src='images/simulator/firmware002.jpg'>" +
     		 "  <div class='card-body h-50 py-0'>" +
     		 "    <p class='card-text'>" + 
     		 "    <div class='badge badge-primary'>1</div>" +
@@ -134,7 +121,6 @@
     		 "  </div>" +
     		 "</div>" +
     		 "<div class='card m-2 col-sm'>" +
-    		// "  <img class='card-img-top' alt='microcode work area' src='images/simulator/firmware002.jpg'>" +
     		 "  <div class='card-body h-50 py-0'>" +
     		 "    <p class='card-text'>" + 
     		 "    <div class='badge badge-primary'>2</div>" +
@@ -145,7 +131,6 @@
     		 "  </div>" +
     		 "</div>" +
     		 "<div class='card m-2 col-sm'>" +
-    		// "  <img class='card-img-top' alt='microcode work area' src='images/welcome/simulation_xinstruction.gif'>" +
     		 "  <div class='card-body h-50 py-0'>" +
     		 "    <p class='card-text'>" + 
     		 "    <div class='badge badge-primary'>3</div>" +

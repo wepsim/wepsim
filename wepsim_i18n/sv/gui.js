@@ -64,9 +64,19 @@
 		'content':		'innehåll',
 		'assembly':		'hopsättning',
 		'instructions':		'instruktioner',
-		'simulator intro 1':		'Först ska du ladda och mikrokompilera mikrokoden som definierar instruktionsuppsättningen som ska användas. <br> Du kan använda ett exempel, ladda det från en fil eller du kan redigera en ny.',
-		'simulator intro 2':		'Därefter måste du ladda och kompilera monteringskoden som ska utföras. <br> Du kan använda ett exempel, ladda det från en fil eller du kan redigera en ny.',
-		'simulator intro 3':		'Slutligen, i simulatorn kan du exekvera microcode plus-enheten laddad före. Det kan utföras steg för steg på mikroinstruktionsnivå eller monteringsinstruktionsnivå.',
+
+                "simulator intro 1":    "Du kan välja den hårdvara som ska användas. Standardinställningen är EP (Elemental Processor) hårdvara. <br>" +
+                                        "Du kan använda <span onclick='$(\"#dd1\").dropdown(\"toggle\"); return false;\'>lägesväljaren</span> för att ändra maskinvaran som används.",
+
+                "simulator intro 2":    "Då måste du ladda mikrokoden (definierar instruktionsuppsättningen) och monteringskoden. <br>" +
+                                        "Du kan använda <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>ett exempel</span>," +
+                                        "<span class='text-primary bg-light' onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>ladda den från en fil</span>," +
+                                        "eller så kan du redigera <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>en ny mikrokod</span>" +
+                                        "och <span class='text-primary bg-light' onclick='wsweb_change_workspace_assemble();'>en ny monteringskod</span>.",
+
+                "simulator intro 3":    "Slutligen, i simulatorn kan du köra den mikrokod plus enhet som laddats tidigare. <br>" +
+                                        "Du kan köra det båda, på mikroinstruktionsnivå eller monteringsinstruktionsnivå.",
+
 		'Prev.':		'Föregående.',
 		'Next':		'Nästa',
 		'End':		'Slutet',
