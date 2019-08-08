@@ -292,6 +292,8 @@
 
         function update_memories ( preSIMWARE )
         {
+            var i=0;
+
 	    // 1.- load the SIMWARE
             set_simware(preSIMWARE) ;
             var SIMWARE = get_simware() ;
@@ -299,7 +301,7 @@
 	    // 2.- load the MC from ROM['firmware']
             simhw_internalState_reset('MC', {}) ;
             simhw_internalState_reset('MC_dashboard', {}) ;
-            for (var i=0; i<SIMWARE['firmware'].length; i++)
+            for (i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                var elto_state  = false ;
                var elto_break  = false ;
@@ -328,7 +330,7 @@
 
 	    // 3.- load the ROM (2/2)
             simhw_internalState_reset('ROM', {}) ;
-            for (var i=0; i<SIMWARE['firmware'].length; i++)
+            for (i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                if ("begin" == SIMWARE['firmware'][i]['name']) {
                    continue ;
@@ -349,7 +351,7 @@
             simhw_internalState_reset('MP', {}) ;
 	    for (var key in SIMWARE['mp'])
 	    {
-	       var kx = parseInt(key)
+	       var kx = parseInt(key) ;
 	       var kv = parseInt(SIMWARE['mp'][key].replace(/ /g,''), 2) ;
                simhw_internalState_set('MP', kx, kv) ;
 	    }

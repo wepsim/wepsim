@@ -3,84 +3,17 @@
    var ws  = require('./min.wepsim_node.js') ;
    var fs  = require('fs') ;
 
-   //
-   // Usage
-   //
-
-   if (process.argv.length < 3)
-   {
-       console.log('') ;
-       console.log('WepSIM-cl v1.5') ;
-       console.log('> WepSIM simulator interface for command line.') ;
-       console.log('') ;
-       console.log('For more details please use:') ;
-       console.log(' ./wepsim_node.sh help') ;
-       console.log('') ;
-
-       return true ;
-   }
-
-   if (process.argv.length < 4)
-   {
-       console.log('') ;
-       console.log('WepSIM-cl v1.5') ;
-       console.log('> WepSIM simulator interface for command line.') ;
-       console.log('') ;
-       console.log('Usage:') ;
-       console.log(' * ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]') ;
-       console.log(' * ./wepsim_node.sh <command> checkpoint      <checkpoint file>                [<checklist file>] [options*]') ;
-       console.log('') ;
-       console.log('    <command>         = run | stepbystep | microstepbymicrostep | check | microstepverbalized | show-console | show-record') ;
-       console.log('    <hardware name>   = ep | poc') ;
-       console.log('') ;
-       console.log('    <checkpoint file> = "path to the checkpoint file" ') ;
-       console.log('    <microcode file>  = "path to the microcode file" ') ;
-       console.log('    <assembly file>   = "path to the assembly file" ') ;
-       console.log('    <checklist file>  = "path to the checklist file" ') ;
-       console.log('') ;
-       console.log('    [options*]        = verbal-<level> maxi-<#> maxc-<#>') ;
-       console.log('       verbal-<level> = verbal-text | verbal-math') ;
-       console.log('       maxi-<#>       = maxi-<maximum number of instructions>') ;
-       console.log('       maxc-<#>       = maxc-<maximum number of cycles>') ;
-       console.log('') ;
-       console.log('Examples:') ;
-       console.log(' * Run some example and show the final state:') ;
-       console.log('   ./wepsim_node.sh run                   ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
-       console.log('   ./wepsim_node.sh run                   checkpoint ./examples/checkpoint/tutorial_1.txt') ;
-       console.log('') ;
-       console.log(' * Run some example and show the state on each assembly instruction executed:') ;
-       console.log('   ./wepsim_node.sh stepbystep            ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
-       console.log('   ./wepsim_node.sh stepbystep            checkpoint ./examples/checkpoint/tutorial_1.txt                                     maxi-2048') ;
-       console.log('') ;
-       console.log(' * Run some example and show the state on each microinstruction executed:') ;
-       console.log('   ./wepsim_node.sh microstepbymicrostep  ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
-       console.log('   ./wepsim_node.sh microstepbymicrostep  checkpoint ./examples/checkpoint/tutorial_1.txt                                     maxc-10000') ;
-       console.log('') ;
-       console.log(' * Check that some example meets the expected final state (so it works):') ;
-       console.log('   ./wepsim_node.sh check                 ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e1.txt') ;
-       console.log('') ;
-       console.log(' * Run some example and show a description for each microinstruction executed:') ;
-       console.log('   ./wepsim_node.sh microstepverbalized   ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt verbal-text') ;
-       console.log('   ./wepsim_node.sh microstepverbalized   checkpoint ./examples/checkpoint/tutorial_1.txt                                     verbal-math') ;
-       console.log('') ;
-       console.log(' * Show console output after execution:') ;
-       console.log('   ./wepsim_node.sh show-console          ep         ./examples/microcode/mc-ep_os.txt ./examples/assembly/asm-ep_s4_e1.txt') ;
-       console.log('') ;
-
-       return true ;
-   }
-
 
    //
-   // default values
+   // (1) default values
    //
 
    var data =    {
-                    action:    process.argv[2].toUpperCase(),
-                    mode:      process.argv[3],
-		    firmware:  null,
-		    assembly:  null,
-		    result_ok: null,
+                    action:    'USAGE',
+                    mode:      '',
+		    firmware:  '',
+		    assembly:  '',
+		    result_ok: '',
 		    record:    []
 	         } ;
 
@@ -94,7 +27,30 @@
 
 
    //
-   // get working values from arguments
+   // (2) Usage
+   //
+
+   if (process.argv.length < 3)
+   {
+       return ws.wepsim_nodejs_doAction(data, options) ;
+   }
+
+   data.action = process.argv[2].toUpperCase() ;
+   data.mode   = process.argv[3] ;
+
+   if (data.action.startsWith("HELP-"))
+   {
+       return ws.wepsim_nodejs_doAction(data, options) ;
+   }
+
+   if (typeof data.mode === "undefined")
+   {
+       return ws.wepsim_nodejs_doActionError(data.action) ;
+   }
+
+
+   //
+   // (3) Get arguments
    //
  
    try 
@@ -116,6 +72,7 @@
 		   data.firmware = obj_checkpoint.firmware ;
 		   data.assembly = obj_checkpoint.assembly ;
 		   data.record   = obj_checkpoint.record ;
+		   data.obj_chk  = obj_checkpoint ;
 		   arg_last      = 4 ;
 	       }
        }
@@ -166,172 +123,8 @@
 
 
    //
-   // data.action == check
-   //
+   // (4) Issue action
+   // 
 
-   if ("CHECK" == data.action)
-   {
-       var ret = null ;
-
-       // check...
-       ws.wepsim_nodejs_init(data.mode) ;
-       ret = ws.wepsim_nodejs_check(data, options) ;
-
-       console.log(ret.msg);
-       return ret.ok ;
-   }
-
-
-   //
-   // data.action == run
-   //
-
-   if ("RUN" == data.action)
-   {
-       var ret = null ;
-
-       // set verbosity handlers
-       options.before_instruction = ws.wepsim_nodejs_do_nothing_handler ;
-       options.after_instruction  = ws.wepsim_nodejs_do_nothing_handler ;
-
-       // run...
-       ws.wepsim_nodejs_init(data.mode) ;
-       ret = ws.wepsim_nodejs_run(data, options) ;
-
-       console.log(ret.msg);
-       return ret.ok ;
-   }
-
-
-   //
-   // data.action == stepbystep
-   //
-
-   if ("STEPBYSTEP" == data.action)
-   {
-       var ret = null ;
-
-       // set verbosity handlers
-       options.before_instruction = ws.wepsim_nodejs_before_instruction2 ;
-       options.after_instruction  = ws.wepsim_nodejs_after_instruction2 ;
-
-       // run...
-       ws.wepsim_nodejs_init(data.mode) ;
-       ret = ws.wepsim_nodejs_run(data, options) ;
-
-       console.log(ret.msg);
-       return ret.ok ;
-   }
-
-
-   //
-   // data.action == microstepbymicrostep
-   //
-
-   if ("MICROSTEPBYMICROSTEP" == data.action)
-   {
-       var ret = null ;
-
-       // set verbosity handlers
-       options.before_microinstruction = ws.wepsim_nodejs_before_microinstruction3 ;
-       options.after_microinstruction  = ws.wepsim_nodejs_after_microinstruction3 ;
-
-       // run...
-       ws.wepsim_nodejs_init(data.mode) ;
-       ret = ws.wepsim_nodejs_run(data, options) ;
-
-       console.log(ret.msg);
-       return ret.ok ;
-   }
-
-
-   //
-   // data.action == microstepverbalized
-   //
-
-   if ("MICROSTEPVERBALIZED" == data.action)
-   {
-       var ret = null ;
-
-       // set verbosity handlers
-       options.before_microinstruction = ws.wepsim_nodejs_before_microinstruction4 ;
-       options.after_microinstruction  = ws.wepsim_nodejs_do_nothing_handler ;
-
-       // run...
-       ws.wepsim_nodejs_init(data.mode) ;
-       ret = ws.wepsim_nodejs_run(data, options) ;
-
-       console.log(ret.msg);
-       return ret.ok ;
-   }
-
-
-   //
-   // data.action == export-hardware
-   //
-
-   if ("EXPORT-HARDWARE" == data.action)
-   {
-       var ret = ws.wepsim_nodejs_exportHW(data.mode) ;
-
-       console.log(ret.msg);
-       return ret.ok ;
-   }
-
-
-   //
-   // data.action == show-record
-   //
-
-   if ("SHOW-RECORD" == data.action)
-   {
-       var ret = null ;
-
-       ws.wepsim_nodejs_init(data.mode) ;
-       ret = ws.wepsim_nodejs_run(data, options) ;
-
-       console.log(ret.msg);
-       return ret.ok ;
-   }
-
-
-   //
-   // data.action == show-console
-   //
-
-   if ("SHOW-CONSOLE" == data.action)
-   {
-       var ret = null ;
-
-       ws.wepsim_nodejs_init(data.mode) ;
-       ret = ws.wepsim_nodejs_run(data, options) ;
-
-       console.log(ret.msg);
-       return ret.ok ;
-   }
-
-
-   //
-   // data.action == help
-   //
-
-   if ("HELP" == data.action)
-   {
-       var ret = null ;
-
-       ws.wepsim_nodejs_init(data.mode) ;
-       ret = ws.wepsim_nodejs_help_signal(data, options) ;
-
-       console.log(ret.msg);
-       return ret.ok ;
-   }
-
-
-   //
-   // data.action == unknown
-   //
-
-   console.log('ERROR: wepsim_checker: unknown action ' + data.action) ;
-   return false ;
-   // throw 'ERROR...' ;
+   return ws.wepsim_nodejs_doAction(data, options) ;
 

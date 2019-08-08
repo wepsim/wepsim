@@ -56,8 +56,7 @@
             // update cfg
 	    var new_skin_user = cur_skin_user.join(":") ;
 	    update_cfg('ws_skin_user', new_skin_user) ;
-	  //$('#select9').val(new_skin_user);
-	    $('#label14-' + new_skin_user).button('toggle');
+	    $('#label14-' + new_skin_user.replace(/:/g,"__")).button('toggle');
 
             // update view
             wepsim_restoreview(new_skin_user) ;

@@ -35,6 +35,7 @@ set -x
  jshint ./sim_sw/sim_lang.js
 #jshint ./sim_sw/sim_lang_firm.js
 #jshint ./sim_sw/sim_lang_asm.js
+ jshint ./sim_sw/sim_lang_cis2native.js
 
  jshint ./sim_hw/sim_hw_index.js
  jshint ./sim_hw/sim_hw_values.js
@@ -85,7 +86,8 @@ set -x
  jshint ./wepsim/wepsim_web_simulator.js
  jshint ./wepsim/wepsim_web_api.js
 #jshint ./wepsim/wepsim_web_pwa.js
- jshint ./wepsim/wepsim_node.js
+ jshint ./wepsim/wepsim_node_core.js
+#jshint ./wepsim/wepsim_node_action.js
 
  jshint ./wepsim_i18n/i18n.js
  jshint ./wepsim_i18n/en/cfg.js

@@ -497,33 +497,6 @@
                    });
 */
 
-/*
-    ws_config.push({
-                      id:          "select9",
-                      type:        "Accesibility",
-                      u_class:     "",
-                      code_cfg:    "<div class='form-group m-0'>" +
-                                   " <select name='select9' id='select9' class='form-control form-control-sm custom-select'" +
-                                   "         aria-label='User Interface set of features for WepSIM' " +
-                                   "         onchange=\"var opt = $(this).find('option:selected');" +
-                                   "                    var optValue = opt.val();" +
-                                   "                    update_cfg('ws_skin_user', optValue);" +
-                                   "                    wepsim_restoreview(optValue);" +
-                                   "                    return false;\"" +
-                                   "         data-native-menu='false'>" +
-                                   "    <option value='only_asm:of:only_frequent:on'>Student</option>" +
-                                   "    <option value='only_asm:on:only_frequent:on'>Student - assembly only</option>" +
-                                   "    <option value='only_asm:of:only_frequent:of'>Teacher</option>" +
-                                   "    <option value='only_asm:on:only_frequent:of'>Teacher - assembly only</option>" +
-                                   " </select>" +
-                                   "</div>",
-                      code_init:   function() {
-                                       $('#select9').val(get_cfg('ws_skin_user'));
-                                   },
-                      description: "<span data-langkey='WepSIM User Interface views'>WepSIM User Interface views</span>"
-                   });
-*/
-
     ws_config.push({
                       id:          "radio14",
                       type:        "Accesibility",

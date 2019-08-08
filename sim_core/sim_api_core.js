@@ -267,9 +267,11 @@
                 var maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
 		var reg_maddr   = get_value(simhw_sim_state(maddr_name)) ;
 
-                if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined") {
+                if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined") 
+                {
+                    var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
 		    ret.ok  = false ;
-		    ret.msg = "Error: undefined microinstruction at " + reg_maddr + "." ;
+		    ret.msg = "Error: undefined microinstruction at " + hex_maddr + "." ;
                     return ret ;
 		}
 

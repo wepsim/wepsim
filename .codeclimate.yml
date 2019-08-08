@@ -5,19 +5,19 @@ checks:
       threshold: 10
   complex-logic:
     config:
-      threshold: 512
+      threshold: 768
   file-lines:
     config:
       threshold: 4096
   method-complexity:
     config:
-      threshold: 512
+      threshold: 768
   method-count:
     config:
       threshold: 80
   method-lines:
     config:
-      threshold: 512
+      threshold: 768
   nested-control-flow:
     config:
       threshold: 8

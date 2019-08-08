@@ -1,4 +1,8 @@
 
+2.0.9 -> 2.0.10:
+* Simplify UI for common tasks
+* Added support for translating an instruction set (JSON) into native microcode
+
 2.0.8 -> 2.0.9:
 * Interface:
    + Notifications: 

@@ -159,7 +159,7 @@
 	return wepsim_nodejs_retfill(true, ret.msg) ;
     }
 
-    function wepsim_nodejs_run ( data, options )
+    function wepsim_nodejs_runCode ( data, options )
     {
 	// 1) initialize ws
         simcore_reset() ;
@@ -185,7 +185,25 @@
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
 	}
 
-	// 5) return result
+	return wepsim_nodejs_retfill(true, ret.msg) ;
+    }
+
+    function wepsim_nodejs_runApp ( data, options )
+    {
+        var ret = null ;
+ 
+	// 1) initialization
+        wepsim_nodejs_init(data.mode) ;
+
+	// 2) run code
+        ret = wepsim_nodejs_runCode(data,options) ;
+	if (false === ret.ok) 
+        {
+            console.log(ret.msg);
+	    return false ;
+	}
+
+	// 3) return result
         if ("SHOW-CONSOLE" == data.action) {
             ret.msg = get_screen_content() ;
 	}
@@ -195,9 +213,10 @@
         if ("RUN" == data.action) {
             ret = wepsim_nodejs_show_currentstate() ;
 	}
-
-	return wepsim_nodejs_retfill(true, ret.msg) ;
+        console.log(ret.msg);
+        return ret.ok ;
     }
+
 
     // show execution progress
     var before_state = null ;
@@ -295,23 +314,4 @@
 
 	return wepsim_nodejs_retfill(true, input_help) ;
     }
-
-
-    /**
-     * Export API
-     */
-
-    module.exports.wepsim_nodejs_init  = wepsim_nodejs_init ;
-    module.exports.wepsim_nodejs_check = wepsim_nodejs_check ;
-    module.exports.wepsim_nodejs_run   = wepsim_nodejs_run ;
-
-    module.exports.wepsim_nodejs_before_instruction2      = wepsim_nodejs_before_instruction2 ;
-    module.exports.wepsim_nodejs_after_instruction2       = wepsim_nodejs_after_instruction2 ;
-    module.exports.wepsim_nodejs_before_microinstruction3 = wepsim_nodejs_before_microinstruction3 ;
-    module.exports.wepsim_nodejs_after_microinstruction3  = wepsim_nodejs_after_microinstruction3 ;
-    module.exports.wepsim_nodejs_before_microinstruction4 = wepsim_nodejs_before_microinstruction4 ;
-
-    module.exports.wepsim_nodejs_help_signal              = wepsim_nodejs_help_signal ;
-    module.exports.wepsim_nodejs_do_nothing_handler       = simcore_do_nothing_handler ;
-    module.exports.wepsim_nodejs_exportHW                 = simcore_hardware_export ;
 
