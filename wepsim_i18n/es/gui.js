@@ -64,14 +64,14 @@
 	                "content":                                      "contenido",
 	                "assembly":                                     "ensamblador",
 	                "instructions":                                 "instrucciones",
-                        "simulator intro 1": 		                "Primero se ha de cargar y microcompilar el microc&oacute;digo que define el conjunto de instrucciones a usar.<br>" +
-									"Puede usar <span onclick='wsweb_dialogbox_open_examples();'>un ejemplo</span>, " + 
-	                                                                "<span onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>cargar uno desde fichero</span> o editar uno nuevo.",
-                        "simulator intro 2": 		                "A continuaci&oacute;n ha de cargar y compilar el c&oacute;digo ensamblador a ser ejecutado.<br>" +
-									"Puede usar <span onclick='wsweb_dialogbox_open_examples();'>un ejemplo</span>, " + 
-	                                                                "<span onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>cargar uno desde fichero</span> o editar uno nuevo.",
-                        "simulator intro 3": 		                "En la pantalla de simulaci&oacute;n, puede ejecutar el microcode+assembly cargardo anteriormente. " +
-									"Se puede ejecutar paso a paso a nivel de ensamblador o microinstrucci&oacute;n.",
+
+
+                        "simulator intro 1": "Puede seleccionar el hardware que se utilizar&aacute;. El predeterminado es el hardware EP (Elemental Processor). <br> Puede usar <span onclick=\"$('#dd1').dropdown('toggle'); return false;\">el selector de modo</span> para cambiar el hardware utilizado",
+
+                        "simulator intro 2": "A continuaci&oacute;n necesita cargar el microc&oacute;digo (define el conjunto de instrucciones) y el c&oacute;digo de ensamblador. <br> Puede usar <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>un ejemplo</span>, <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_state(); $ (\"#bot_check1\").carousel(0);'>cargarlo desde un archivo</span>, o puede editar <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>un nuevo microc&oacute;digo</span> y <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>un nuevo c&oacute;digo de ensamblador</span>.",
+
+                        "simulator intro 3": "Finalmente, en el simulador puede ejecutar el microc&oacute;digo m&aacute;s el ensamblador cargado antes. <br> Puede ejecutar ambos, en el nivel de microinstrucci&oacute;n o en el nivel de instrucci&oacute;n de ensamblador.",
+
                         "Prev.": 		                	"Anterior",
                         "Next": 		                	"Siguiente",
                         "End": 		                		"Fin",

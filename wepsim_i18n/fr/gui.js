@@ -66,9 +66,13 @@
 			"content":			"content",
 			"assembly":			"assembly",
 			"instructions":			"instructions",
-			"simulator intro 1":		"Tout d'abord, vous vont charger et micro-compiler t Le microcode qui définit le jeu d’instructions à utiliser. <br> Vous pouvez utiliser un exemple, le charger à partir d’un fichier ou en éditer un nouveau.",
-			"simulator intro 2":		"Ensuite, vous devez charger et compiler le code d'assemblage à exécuter. <br> Vous pouvez utiliser un exemple:	le charger à partir d'un fichier ou en éditer un nouveau.",
-			"simulator intro 3":		"Enfin,	dans le simulateur, vous pouvez exécuter le microcode. plus assemblée chargée avant. Il peut être exécuté pas à pas au niveau de la micro-instruction ou de l’instruction d’assemblage.",
+
+                        "simulator intro 1": "Vous pouvez sélectionner le matériel à utiliser. Le matériel par défaut est le matériel EP (Elemental Processor). <br> Vous pouvez utiliser <span onclick=\"$('#dd1').dropdown('toggle'); return false; \">le sélecteur de mode</span> pour changer le matériel utilisé.",
+
+                        "simulator intro 2": "Vous devez ensuite charger le microcode (définit le jeu d'instructions) et le code d'assemblage. <br> Vous pouvez utiliser <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>un exemple</span>, <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>chargez-le à partir d'un fichier</span>, ou vous pouvez modifier <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>un nouveau microcode</span> et <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>un nouveau code d'assemblage</span>.",
+
+                        "simulator intro 3": "Enfin, dans le simulateur, vous pouvez exécuter le microcode plus l'assembly chargé auparavant. <br> Vous pouvez l'exécuter simultanément, au niveau de la microinstruction ou au niveau de l'instruction d'assemblage.",
+
 			"Prev.":			"Prev.",
 			"Next":				"Next",
 			"End":				"End",

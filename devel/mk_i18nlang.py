@@ -216,12 +216,16 @@ i18n_eltos['gui'] = {
 	                "assembly":                                     "assembly",
 	                "instructions":                                 "instructions",
 
-                        "simulator intro 1": 		                "First, you are going to load and microcompile the microcode that defines the instruction set to be used.<br>" +
-									"You can use an example, load it from a file or you can edit a new one.",
-                        "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed.<br>" +
-									"You can use an example, load it from a file or you can edit a new one.",
-                        "simulator intro 3": 		                "Finally, in the simulator you are able to execute the microcode plus assembly loaded before. " +
-									"It can be executed step by step at microinstruction level or assembly instruction level.",
+                        "simulator intro 1": 		                "You can select the hardware to be used. The default one is the EP (Elemental Processor) hardware.<br>" +
+									"You can use <span onclick='$(\"#dd1\").dropdown(\"toggle\"); return false;'>the mode selector</span> to change the hardware used.",
+                        "simulator intro 2": 		                "Then you need to load the microcode (defines the instruction set) and the assembly code.<br>" +
+									"You can use <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>an example</span>, " +
+                                                                        "<span class='text-primary bg-light' onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>load it from a file</span>, " +
+                                                                        "or you can edit <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>a new microcode</span> " +
+                                                                        " and <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>a new assembly code</span>.",
+                        "simulator intro 3": 		                "Finally, in the simulator you are able to execute the microcode plus assembly loaded before.<br>" +
+									"You can execute it both, at microinstruction level or assembly instruction level.",
+
                         "Prev.": 		                	"Prev.",
                         "Next": 		                	"Next",
                         "End": 		                		"End",

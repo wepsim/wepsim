@@ -196,11 +196,11 @@
         return icode ;
    }
 
-   // MP.x.(y+z)
+   // MP.x.[y+z]
    function simlang_native_adapt_replaceMemoryAccess ( icode, a_type, a_mask )
    {
-        // replace MP.*.(val+reg2)
-        var re = new RegExp("MP."  + a_type + ".\\(([^\\)]*)\\)", "g") ;
+        // replace MP.*.[val+reg2]
+        var re = new RegExp("MP."  + a_type + ".\\[([^\\]]*)\\]", "g") ;
         if (icode.search(re) != -1)
         {
                 var match = re.exec(icode) ;
@@ -252,28 +252,66 @@
         return icode ;
    }
 
-   function simlang_native_adapt_replaceField ( icode )
+   function simlang_native_adapt_replaceField ( icode, h_names )
    {
-// TODO: check
-// Field.2.(31,16);
+        // replace Field.2.(31,16);
+        var re = new RegExp("Field\\.([^\\.]+)\\.\\(([^\\\\)]*)\\)", "g") ;
+        if (icode.search(re) != -1)
+        {
+		    // TODO
+                    return icode ;
+		    // /TODO
 
-        // replace MP.*.(val+reg2)
-        var re = new RegExp("Field.\\[^\.]*.\\(([^\\)]*)\\)", "g") ;
+		var match = re.exec(icode) ;
+		while (match !== null)
+		{
+			try
+			{
+			    var index  = match[1] ;
+			    var params = match[2].split(",") ;
+			    var p1     = params[0].trim() ;
+			    var p2     = params[1].trim() ;
+
+                            // replace field
+                            var me = new RegExp('Field\.' + index + '\.(' + p1 + ',' + p2 + ')') ;
+			    icode = icode.replace(me, 'at') ;
+
+                            // add prolog
+			    icode = 'li  at    ' + h_names[index] + ';\n' +
+				    'sll at at ' + (31 - parseInt(p1)) + ';\n' +
+				    'srl at at ' + parseInt(p2) + ';\n' +
+				    icode ;
+			}
+			catch (e)
+			{
+			    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
+			    console.log(match) ;
+			}
+
+                        match = re.exec(icode) ;
+		}
+        }
+
+        return icode ;
+   }
+
+   function simlang_native_adapt_replaceIf ( icode )
+   {
+        // replace IF...
+        //      if(Field.2.SIZE<=16){addi rd zero val;}
+        //      else{lui at Field.2.(31,16);
+        //      ori at at Field.2.(15,0);
+        //      add rd rd at;}
+
+        var re = new RegExp("[iI][fF]\\s*\\(([^\\\\)]*)\\)\\s*{([^\\\\}]*)}\\s*[eE][lL][sS][eE]{[^}]*}\\s*", "g") ;
         if (icode.search(re) != -1)
         {
                 var match = re.exec(icode) ;
 		try
 		{
-                    var index  = match[1].split(",") ;
-                    var params = match[2].split(",") ;
-                    var p1     = params[1].trim() ;
-                    var p2     = params[2].trim() ;
-
-		    icode = icode.replace(re, vname) ;
-		    icode = 'li at <F' + index + '>) ;\n' +
-			    'sll at at ' + (31-parseInt(p1,2)) + ';\n' +
-			    'sll at at ' + parseInt(p2,2) + ';\n' +
-			     icode ;
+		    // TODO
+		    icode = icode.replace(re, '\n') ;
+		    // /TODO
 		}
 		catch (e)
 		{
@@ -570,6 +608,9 @@
    {
        var o = "" ;
        var d = "" ;
+       var h = "" ;
+       var hn = null ;
+       var ht = null ;
 
        // pseudoInstruction section
        o += '\n' +
@@ -583,15 +624,33 @@
        // pseudoInstruction list
        for (var i=0; i<pseudoinstruction_list.length; i++)
        {
+            // h: header
+            hn = pseudoinstruction_list[i].signatureRaw
+                                          .replace(/\$/g, "")
+                                          .split(" ") ;
+            ht = pseudoinstruction_list[i].signature
+                                          .replace(/\$/g, "")
+                                          .replace(/INT-Reg/g, 'reg')
+                                          .replace(/SFP-Reg/g, 'reg')
+                                          .replace(/DFP-Reg/g, 'reg')
+                                          .split(",") ;
+            h  = hn[0] + ' ' ;
+            for (var j=1; j<hn.length; j++) {
+                 h += hn[j] + '=' + ht[j] + ' ' ;
+            }
+
+            // d: code
             d = pseudoinstruction_list[i].definition.replace(/\$/g, "") ;
-            d = simlang_native_adapt_replaceField(d) ;
+            d = simlang_native_adapt_replaceIf(d) ;
+            d = simlang_native_adapt_replaceField(d, hn) ;
             d = simlang_native_adapt_addInitialTabTab(d) ;
 
-            o += '\t' + pseudoinstruction_list[i].signatureRaw.replace(/\$/g, "") + '\n' +
-                 '\t' + '{\n' +
-                            d + '\n' +
-                 '\t' + '}\n' +
-                 '\t' + '\n' ;
+            // compount
+            o += '\t' + h + '\n' +
+                 '\t{\n' +
+                       d + '\n' +
+                 '\t}\n' +
+                 '\t\n' ;
        }
 
        // end section

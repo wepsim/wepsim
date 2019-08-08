@@ -386,12 +386,22 @@ function loadFirmware (text)
 				nextToken(context);
 				while (! isToken(context, "{"))
 				{
-					var pseudoFieldAux	  = {};
-					pseudoFieldAux.name	  = getToken(context);
-					pseudoFieldAux.type	  = getToken(context).replace("num", "inm");
-					pseudoFieldAux.type       = pseudoFieldAux.type.replace(/[_0-9]+$/, '');
+					var pseudoFieldAux = {};
 
-					switch(pseudoFieldAux.type){
+                                        // *name*=type
+					pseudoFieldAux.name = getToken(context);
+
+                                        // name*=*type
+				        nextToken(context);
+					if (! isToken(context, "="))
+					     return langError(context, "Expected '=' not found (for name=type)");
+
+                                        // name=*type*
+				        nextToken(context);
+					pseudoFieldAux.type = getToken(context).replace("num", "inm");
+
+					switch (pseudoFieldAux.type)
+                                        {
 						case "reg":
 						case "inm":
 						case "addr":
@@ -405,7 +415,7 @@ function loadFirmware (text)
 					pseudoInitial.signature = pseudoInitial.signature + getToken(context) + ",";
 					nextToken(context);
 					if (isToken(context, ","))
-						nextToken(context);
+					    nextToken(context);
 				}
 			 	nextToken(context);
 				pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"inm");
