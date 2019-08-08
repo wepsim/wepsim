@@ -337,6 +337,52 @@
 	else $(divb).addClass('col-12 order-2');
     }
 
+    // popover quick-slidercfg
+    function wepsim_show_slidercfg_menu ( quick_po )
+    {
+	var wsi = get_cfg('ws_idiom') ;
+
+	var o = '<ul class="list-group list-group-flush">' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
+                '     <div id="slider_cpucu" class="col-sm p-0 collapse show user_microcode">' +
+                '           <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
+                '                <label class="my-0" for="slider3b" style="min-width:95%"><span data-langkey="processor">processor</span>:</label>' +
+                '                <input aria-label="Show CPU/CU" type="range" name="slider3b" id="slider3b"' +
+                '                       min="0" max="12" value="7" step="1"' +
+                '                       data-show-value="false"' +
+                '                       class="custom-range slider col mx-0 px-0"' +
+                '                       oninput="wsweb_set_cpucu_size(this.value) ;' +
+                '                                return false;">' +
+                '           </form>' +
+                '     </div>' +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
+                '     <div class="col-sm p-0 ml-1 collapse show">' +
+                '           <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
+                '                <label class="my-0" for="slider3a" style="min-width:95%"><span data-langkey="details">details</span>:</label>' +
+                '                <input aria-label="Show Main/Info" type="range" name="slider3a" id="slider3a"' +
+                '                       min="0" max="12" value="7" step="1"' +
+                '                       data-show-value="false"' +
+                '                       class="custom-range slider col mx-0 px-0"' +
+                '                       oninput="wsweb_set_c1c2_size(this.value) ;' +
+                '                                return false;">' +
+                '           </form>' +
+                '     </div>' +
+		'</li>' ;
+
+	   o += '<button type="button" id="close" data-role="none" ' + 
+		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
+		'        onclick="wsweb_quickslider_close(); ' +
+		'                 return false;">' +
+		i18n_get('dialogs',wsi,'Close') +
+		'</button>' +
+		'</ul>' ;
+
+	return o ;
+    }
+
     //
     // Auxiliar function
     //
@@ -533,6 +579,26 @@
 				   return content ; // DOMPurify.sanitize(content) ;
 				}
 	    }) ;
+
+	    $("#popover-slidercfg").popover({
+	    	    html:      true,
+                    placement: 'auto',
+                    animation: false,
+                    trigger:   'click',
+		    template:  '<div class="popover shadow" role="tooltip">' + 
+                               '<div class="arrow"></div>' +
+		               '<h3  class="popover-header"></h3>' +
+		               '<div class="popover-body"></div>' +
+		               '</div>',
+		    container: 'body',
+		    content:    wepsim_show_slidercfg_menu(),
+		    sanitizeFn: function (content) {
+                                   return content ; // DOMPurify.sanitize(content) ;
+                                }
+	    }).on('shown.bs.popover', function(shownEvent) {
+            	    $("#slider3a").val(get_cfg('C1C2_size')) ;
+            	    $("#slider3b").val(get_cfg('CPUCU_size')) ;
+	    });
 
 	    // asmdbg
 	    showhideAsmElements() ;

@@ -271,14 +271,9 @@
 		    var p2     = params[1].trim() ;
 
 		    // replace field
-                    var me = new RegExp('Field\\.' + index + '\\.\\(' + p1 + ',' + p2 + '\\)') ;
-		    icode = icode.replace(me, 'at') ;
-
-		    // add prolog
-		    icode = 'li  at    ' + h_names[index] + ';\n' +
-			    'sll at at ' + (31 - parseInt(p1)) + ';\n' +
-			    'srl at at ' + parseInt(p2) + ';\n' +
-			    icode ;
+                    var me    = new RegExp('Field\\.' + index + '\\.\\(' + p1 + ',' + p2 + '\\)', 'g') ;
+                    var value = '(' + h_names[index] + '<<' + (31 - parseInt(p1)) + ')>>' + parseInt(p2) + ')' ;
+		    icode = icode.replace(me, value) ;
 		}
 		catch (e)
 		{

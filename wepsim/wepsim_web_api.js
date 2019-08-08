@@ -910,6 +910,43 @@
             return true ;
     }
 
+    // quick slider(s)
+    function wsweb_quickslider_show ( )
+    {
+	    $('#popover-slidercfg').popover('show') ;
+
+            // add if recording
+            simcore_record_append_new('Open the "quick slider"',
+		                      'wsweb_quickslider_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickslider_close ( )
+    {
+	    $('#popover-slidercfg').popover('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close the "quick slider"',
+		                      'wsweb_quickslider_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickslider_toggle ( )
+    {
+	    $('#popover-slidercfg').popover('toggle') ;
+
+            // add if recording
+            simcore_record_append_new('Toggle the "quick slider"',
+		                      'wsweb_quickslider_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
     // recordbar
     function wsweb_recordbar_show ( )
     {
