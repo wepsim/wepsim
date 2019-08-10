@@ -71,12 +71,12 @@
               //$(".multi-collapse-2").collapse("show") ;
 		inputfirm.setOption('readOnly', false) ;
 
-	        if ('on' === cur_skin_user[1]) 
+	        if ('on' === cur_skin_user[1])
                 {
 		     $("#tab24").click() ;
 		     inputfirm.setOption('readOnly', true) ;
 		     new_classes.push('.user_microcode') ;
-		} 
+		}
 	    }
 	    if ('only_frequent' === cur_skin_user[2])
 	    {
@@ -135,23 +135,23 @@
 						 	   $('#cpu_ALL').html(msg_default) ;
 						 	   wepsim_init_cpu('#cpu_ALL') ;
 						        },
-						 reset: function() { 
+						 reset: function() {
 							   return true ;
 						        }
 	                      },
-	    
+	
 	    "CONTROL_MEMORY": {
-						  init: function() { 
+						  init: function() {
 							   return true ;
 						        },
 						 reset: function() {
-							   show_control_memory(simhw_internalState('MC'),  
+							   show_control_memory(simhw_internalState('MC'),
 									       simhw_internalState('MC_dashboard'),0,true);
 						        },
 					   update_draw: wepsim_svg_update_draw,
 			         update_bus_visibility: wepsim_svg_update_bus_visibility
 	                      },
-	    
+	
 	    "MEMORY":         {
 		                                  init: function() {
 							   return true ;
@@ -159,7 +159,7 @@
 						 reset: function() {
 							   show_main_memory(simhw_internalState('MP'), 0, true, false) ;
 						        },
-		                      show_main_memory: wepsim_show_main_memory, 
+		                      show_main_memory: wepsim_show_main_memory,
 		                        show_asmdbg_pc: wepsim_show_asmdbg_pc,
                                    show_control_memory: wepsim_show_control_memory,
 		                          show_dbg_mpc: wepsim_show_dbg_mpc,
@@ -171,7 +171,7 @@
 							   $('#config_MP').html(msg_default) ;
 						 	   init_config_mp('#config_MP') ;
 						        },
-						 reset: function() { 
+						 reset: function() {
 						           return true ;
 						        }
 	                      },
@@ -181,7 +181,7 @@
 							   $('#io_ALL').html(msg_default) ;
 						 	   wepsim_init_io('#io_ALL') ;
 						        },
-						 reset: function() { 
+						 reset: function() {
 						           return true ;
 						        }
 	                      },
@@ -191,29 +191,29 @@
 						 	   $('#config_IO').html(msg_default) ;
 							   wepsim_init_config_io('#config_IO') ;
 						        },
-						 reset: function() { 
+						 reset: function() {
 						           return true ;
 						        }
 	                      },
 	    "SCREEN":         {
-		                                  init: function() { 
+		                                  init: function() {
 						           return true ;
 						         },
 		                                 reset: function() {
 			                                   wepsim_set_screen_content("") ;
 	                                                },
-		                    get_screen_content: wepsim_get_screen_content, 
+		                    get_screen_content: wepsim_get_screen_content,
                                     set_screen_content: wepsim_set_screen_content
 	                      },
 
 	    "KEYBOARD":       {
-		                                  init: function() { 
+		                                  init: function() {
 						           return true ;
 						         },
 		                                 reset: function() {
 						           return true ;
 						        },
-		                  get_keyboard_content: wepsim_get_keyboard_content, 
+		                  get_keyboard_content: wepsim_get_keyboard_content,
                                   set_keyboard_content: wepsim_set_keyboard_content
 	                      }
 	} ;
@@ -374,12 +374,33 @@
 		"\n" +
 		"Diagnostic:\n" +
                 " * Error message: " + err.message + "\n" +
-		" * Runtime stack:\n" + err.stack + 
+		" * Runtime stack:\n" + err.stack +
 		"\n" +
 		"After close this alert, WepSIM will try to reload and by-pass the cache (just in case).\n") ;
 
 	  location.reload(true) ;
     }
+
+    function wepsim_init_helpDropdown ( )
+    {
+           var o = "" ;
+
+           o = i18n_get_dropdown(['gui','cfg'], '') ;
+           $("#config2_lang").html(o) ;
+
+           o = i18n_get_dropdown(['gui','help'], "wepsim_help_refresh();") ;
+           $("#help1_lang").html(o) ;
+
+           o = i18n_get_dropdown(['gui','examples'], "") ;
+           $("#example1_lang").html(o) ;
+
+           o = i18n_get_dropdown(['gui','states'], "update_checker_loadhelp('#help3a','help_dumper');") ;
+           $("#current_state1_lang").html(o) ;
+    }
+
+    //
+    // Quick Config
+    //
 
     // popover quick-menu
     function wepsim_show_quick_menu ( quick_po )
@@ -433,7 +454,7 @@
 		'  </span>' +
 		'</li>' ;
 
-	   o += '<button type="button" id="close" data-role="none" ' + 
+	   o += '<button type="button" id="close" data-role="none" ' +
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
 		'        onclick="wsweb_quickmenu_close(); ' +
 		'                 return false;">' +
@@ -444,23 +465,77 @@
 	return o ;
     }
 
-    function wepsim_init_helpDropdown ( )
+    // popover quick-slidercfg
+    function wepsim_show_slidercfg_menu ( quick_po )
     {
-           var o = "" ;
+	var wsi = get_cfg('ws_idiom') ;
 
-           o = i18n_get_dropdown(['gui','cfg'], '') ;
-           $("#config2_lang").html(o) ;
+	var o = '<ul class="list-group list-group-flush">' ;
 
-           o = i18n_get_dropdown(['gui','help'], "wepsim_help_refresh();") ;
-           $("#help1_lang").html(o) ;
+	   o += '<li class="list-group-item px-0"> ' +
+                '     <div id="slider_cpucu" class="col-sm p-0 collapse show user_microcode">' +
+                '           <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
+                '                <label class="my-0" for="slider3b" style="min-width:95%"><span data-langkey="processor">processor</span>:</label>' +
+                '                <input aria-label="Show CPU/CU" type="range" name="slider3b" id="slider3b"' +
+                '                       min="0" max="12" value="7" step="1"' +
+                '                       data-show-value="false"' +
+                '                       class="custom-range slider col mx-0 px-0"' +
+                '                       oninput="wsweb_set_cpucu_size(this.value) ;' +
+                '                                return false;">' +
+                '           </form>' +
+                '     </div>' +
+		'</li>' ;
 
-           o = i18n_get_dropdown(['gui','examples'], "") ;
-           $("#example1_lang").html(o) ;
+	   o += '<li class="list-group-item px-0"> ' +
+                '     <div class="col-sm p-0 ml-1 collapse show">' +
+                '           <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
+                '                <label class="my-0" for="slider3a" style="min-width:95%"><span data-langkey="details">details</span>:</label>' +
+                '                <input aria-label="Show Main/Info" type="range" name="slider3a" id="slider3a"' +
+                '                       min="0" max="12" value="7" step="1"' +
+                '                       data-show-value="false"' +
+                '                       class="custom-range slider col mx-0 px-0"' +
+                '                       oninput="wsweb_set_c1c2_size(this.value) ;' +
+                '                                return false;">' +
+                '           </form>' +
+                '     </div>' +
+		'</li>' ;
 
-           o = i18n_get_dropdown(['gui','states'], "update_checker_loadhelp('#help3a','help_dumper');") ;
-           $("#current_state1_lang").html(o) ;
+	   o += '<button type="button" id="close" data-role="none" ' +
+		'        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
+		'        onclick="wsweb_quickslider_close(); ' +
+		'                 return false;">' +
+		i18n_get('dialogs',wsi,'Close') +
+		'</button>' +
+		'</ul>' ;
+
+	return o ;
     }
 
+    // popover quick-slidercfg
+    function wepsim_init_quickcfg ( quick_id, val_trigger, fun_content, fun_ownshown )
+    {
+	 return $(quick_id).popover({
+		    trigger:     val_trigger,
+		    html:        true,
+		    placement:  'auto',
+		    animation:   false,
+		    container:  'body',
+		    template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
+			        '<div class="arrow"></div><h3 class="popover-header"></h3>' +
+                                '<div class="popover-body"></div>' +
+			        '</div>',
+		    content:    fun_content,
+		    sanitizeFn: function (content) {
+				    return content ; // DOMPurify.sanitize(content) ;
+				}
+	 }).on('shown.bs.popover',
+		                function(shownEvent) {
+                                    fun_ownshown(shownEvent);
+                                    i18n_update_tags('dialogs') ;
+                                    i18n_update_tags('gui') ;
+                                    i18n_update_tags('cfg') ;
+                                }) ;
+    }
 
     //
     // Initialize UI
@@ -486,7 +561,7 @@
 	    // set wepsim version
 	    $("div.wsversion").replaceWith(get_cfg('version'));
 
-	    // init: state dialog 
+	    // init: state dialog
 	    $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
 	       //A1/ var inputEls = document.getElementById(id_div_state1);
 	       //A1/ if (null !== inputEls)
@@ -497,24 +572,6 @@
 	       //A1/ if (null !== inputEls)
 	       //A1/     setup_speech_input(inputEls) ;
 
-	    // init: quick-menu 
-	    $("#po1").popover({
-		    trigger:   'manual',
-		    html:       true,
-		    placement: 'auto',
-		    animation:  false,
-		    container: 'body',
-		    template:  '<div class="popover shadow border border-secondary" role="tooltip">' +
-			       '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' +
-			       '</div>',
-		    content:    function() {
-				   return wepsim_show_quick_menu('po1') ;
-				},
-		    sanitizeFn: function (content) {
-				   return content ; // DOMPurify.sanitize(content) ;
-				}
-	    }) ;
-
 	    // tooltip: trigger by hover
 	    $('[data-toggle="tooltip"]').tooltip({
 		    trigger:   'hover',
@@ -523,7 +580,7 @@
 				}
 	    }) ;
 
-	    // popover...
+	    // help popover...
 	    $('a[data-toggle="popover1"]').popover({
 		    placement: 'bottom',
 		    animation: false,
@@ -534,27 +591,35 @@
 				}
 	    }) ;
 
+	    // init: quick-menu
+            wepsim_init_quickcfg("#po1",
+                                 'manual',
+		                 function() { return wepsim_show_quick_menu('po1') ; },
+		                 function() { }) ;
+
+            wepsim_init_quickcfg("#popover-slidercfg",
+                                 'click',
+                                 wepsim_show_slidercfg_menu,
+		                 function(shownEvent) {
+				    $("#slider3a").val(get_cfg('C1C2_size')) ;
+				    $("#slider3b").val(get_cfg('CPUCU_size')) ;
+                                 }) ;
+
+            wepsim_init_quickcfg("[data-toggle=popover2]",
+                                 'click',
+		                 function(shownEvent) {
+				    return wepsim_show_asm_columns_checked('popover2_asm') ;
+		                 },
+		                 function(shownEvent) {
+				    showhideAsmHeader() ;
+                                 }) ;
+
 	    // asmdbg
 	    showhideAsmElements() ;
 
 	    var target = $("#asm_table");
 	    $("#asm_debugger_container").scroll(function() {
 	       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
-	    });
-
-	    $("[data-toggle=popover2]").popover({
-		    html:       true,
-		    placement: 'auto',
-		    animation:  false,
-		    container: 'body',
-		    content:    function() {
-				   return wepsim_show_asm_columns_checked('popover2_asm') ;
-				},
-		    sanitizeFn: function (content) {
-				   return content ; // DOMPurify.sanitize(content) ;
-				}
-	    }).on('shown.bs.popover', function(shownEvent) {
-		   showhideAsmHeader() ;
 	    });
 
 	    // initialize editors
@@ -597,11 +662,11 @@
 			    } ;
 	    inputasm = sim_init_editor("inputAssembly", inputasm_cfg) ;
 
-	    // init: record 
+	    // init: record
 	    simcore_record_init('record_msg', 'record_pb') ;
             simcore_record_captureInit() ;
 
-	    // init: help idiom selectors 
+	    // init: help idiom selectors
             wepsim_init_helpDropdown() ;
 
 	    // restore UI view

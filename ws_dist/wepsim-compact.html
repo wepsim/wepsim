@@ -290,7 +290,7 @@
 
 		      <div class="w-100 d-md-block d-lg-none"></div>
 
-                      <div class="col-sm-auto p-1">
+                      <div class="col-sm-auto ml-auto px-0 px-sm-1">
                       <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
@@ -379,7 +379,7 @@
 
 		      <div class="w-100 d-block d-sm-none"></div>
 
-                      <div class="col-sm-auto p-1">
+                      <div class="col-sm-auto mx-1 px-0 px-sm-1">
                       <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
@@ -400,7 +400,11 @@
 			            title="This button opens the 'Configuration' dialog."
                                     onclick="wsweb_dialogbox_open_config();
 				    	     return false;"
-                                    ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                                    ><strong><span class="d-none d-md-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-md-none">Cfg.</span></strong></button>
+
+                            <a id='popover-slidercfg' tabindex='0' 
+                               class='show multi-collapse-3 btn my-1 mx-auto'
+                               data-toggle='popover-slidercfg'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>
 		      </div>
 		      </div>
 

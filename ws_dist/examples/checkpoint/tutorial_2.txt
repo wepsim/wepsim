@@ -21,6 +21,11 @@
       "element": "wsweb_notifyuser_hide();\n"
     },
     {
+      "timestamp": 1000,
+      "description": "Click on UI element btn_example1",
+      "element": "simcore_record_glowing(\"#btn_example1\");\n"
+    },
+    {
       "timestamp": 1587,
       "description": "Open examples",
       "element": "wsweb_dialogbox_open_examples();\n"

@@ -254,43 +254,35 @@
 
    function simlang_native_adapt_replaceField ( icode, h_names )
    {
+	    // TODO
+	    //return icode ;
+	    // /TODO
+
         // replace Field.2.(31,16);
         var re = new RegExp("Field\\.([^\\.]+)\\.\\(([^\\\\)]*)\\)", "g") ;
-        if (icode.search(re) != -1)
-        {
-		    // TODO
-                    return icode ;
-		    // /TODO
-
-		var match = re.exec(icode) ;
-		while (match !== null)
+	var match = re.exec(icode) ;
+	while (match !== null)
+	{
+		try
 		{
-			try
-			{
-			    var index  = match[1] ;
-			    var params = match[2].split(",") ;
-			    var p1     = params[0].trim() ;
-			    var p2     = params[1].trim() ;
+		    var index  = match[1] ;
+		    var params = match[2].split(",") ;
+		    var p1     = params[0].trim() ;
+		    var p2     = params[1].trim() ;
 
-                            // replace field
-                            var me = new RegExp('Field\.' + index + '\.(' + p1 + ',' + p2 + ')') ;
-			    icode = icode.replace(me, 'at') ;
-
-                            // add prolog
-			    icode = 'li  at    ' + h_names[index] + ';\n' +
-				    'sll at at ' + (31 - parseInt(p1)) + ';\n' +
-				    'srl at at ' + parseInt(p2) + ';\n' +
-				    icode ;
-			}
-			catch (e)
-			{
-			    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
-			    console.log(match) ;
-			}
-
-                        match = re.exec(icode) ;
+		    // replace field
+                    var me    = new RegExp('Field\\.' + index + '\\.\\(' + p1 + ',' + p2 + '\\)', 'g') ;
+                    var value = '(' + h_names[index] + '<<' + (31 - parseInt(p1)) + ')>>' + parseInt(p2) + ')' ;
+		    icode = icode.replace(me, value) ;
 		}
-        }
+		catch (e)
+		{
+		    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
+		    console.log(match) ;
+		}
+
+		match = re.exec(icode) ;
+	}
 
         return icode ;
    }
