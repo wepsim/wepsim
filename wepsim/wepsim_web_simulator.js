@@ -373,7 +373,7 @@
 		'</li>' ;
 
 	   o += '<button type="button" id="close" data-role="none" ' + 
-		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
+		'        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
 		'        onclick="wsweb_quickslider_close(); ' +
 		'                 return false;">' +
 		i18n_get('dialogs',wsi,'Close') +
