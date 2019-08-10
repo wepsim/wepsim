@@ -111,6 +111,7 @@
                    WSCFG.ICON_theme.value  = 'cat1' ;
                    WSCFG.CPUCU_size.value  = 6 ;
                    WSCFG.C1C2_size.value   = 12 ;
+                   WSCFG.ICON_theme.value  = 'compact' ;
                }
 
                // configuration that depends on the previous one
