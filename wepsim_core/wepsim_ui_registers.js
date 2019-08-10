@@ -184,7 +184,9 @@
 		       "<div class='col p-1'>" +
 		       "<button type='button' id='close' data-role='none' " +
 		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>Close</button>" +
+		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>" + 
+                       "<span data-langkey='Close'>Close</span>" +
+                       "</button>" +
 		       "</div>" +
 		       "</div>" +
 
@@ -398,11 +400,15 @@
 		               '<div class="popover-body"></div>' +
 		               '</div>',
 		    container: 'body',
-		    content:    quick_config_rf(),
+		    content:    quick_config_rf,
 		    sanitizeFn: function (content) {
                                    return content ; // DOMPurify.sanitize(content) ;
                                 }
-	    });
+	    }).on('shown.bs.popover',
+		                function(shownEvent) {
+                                    i18n_update_tags('cfg') ;
+                                    i18n_update_tags('dialogs') ;
+                                }) ;
         }
 
         function fullshow_eltos ( sim_eltos, filter )
