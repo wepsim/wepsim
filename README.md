@@ -26,8 +26,8 @@
        * A nightly build version is available too: https://acaldero.github.io/wepsim
 
 + From Linux/Unix command line (Node 8.10.0+ and Bash 4.4.19+):
-     * wget https://github.com/acaldero/wepsim/releases/download/v2.0.9/wepsim-2.0.9.zip
-     * unzip wepsim-2.0.9.zip 
+     * wget https://github.com/acaldero/wepsim/releases/download/v2.0.10/wepsim-2.0.10.zip
+     * unzip wepsim-2.0.10.zip 
      * cd wepsim
      * ./wepsim_node.sh
 

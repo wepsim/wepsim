@@ -295,6 +295,7 @@
             }
 
 	    // show/hide wepmips...
+            wepsim_activeview('only_asm', false) ;
 	    if ('wepmips' == optValue) {
                  wepsim_activeview('only_asm', true) ;
             }
