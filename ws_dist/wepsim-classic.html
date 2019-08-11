@@ -357,21 +357,26 @@
 				 onclick="wsweb_select_main('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-			      <div class="dropdown-divider"></div>
+			      <div class="dropdown-divider border-secondary"></div>
 			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_examples" value="examples"
 				 onclick="wsweb_dialogbox_open_examples();
-					  return false;"><span data-langkey="Examples">Examples</span></a>
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
                               <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
 				 onclick="wsweb_dialogbox_open_state();
                                           $('#bot_check1').carousel(0);
-					  return false;"><span data-langkey="Checkpoint">Checkpoint</span></a>
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint</span></a>
 
-			      <div class="dropdown-divider"></div>
-			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Information from">Information from</span>:</h6>
-                              <a class="dropdown-item user_archived" href="#" id="s4_tutorial" value="tutorial"
+			      <div class="dropdown-divider border-secondary user_archived"></div>
+                              <a class="dropdown-item user_archived pt-0 mt-0" href="#" id="s4_tutorial" value="tutorial"
 				 onclick="wsweb_select_main('tutorial');
 					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
+                              <a class="dropdown-item user_archived pb-0 mb-0" href="#" id="s4_wepmips" value="wepmips"
+                                 onclick="wsweb_select_main('wepmips');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+&frac12;MIPS<sub>32</sub></a>
+
+			      <div class="dropdown-divider border-secondary"></div>
+			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Information from">Information from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_help" value="help"
 				 onclick="wsweb_dialogbox_open_help();
 					  return false;"><span data-langkey="Help">Help</span></a>
