@@ -254,11 +254,7 @@
 
    function simlang_native_adapt_replaceField ( icode, h_names )
    {
-	    // TODO
-	    //return icode ;
-	    // /TODO
-
-        // replace Field.2.(31,16);
+        // replace Field.2.(31,16) -> sel(31,16,<field2>)
         var re = new RegExp("Field\\.([^\\.]+)\\.\\(([^\\\\)]*)\\)", "g") ;
 	var match = re.exec(icode) ;
 	while (match !== null)
@@ -272,7 +268,7 @@
 
 		    // replace field
                     var me    = new RegExp('Field\\.' + index + '\\.\\(' + p1 + ',' + p2 + '\\)', 'g') ;
-                    var value = '(' + h_names[index] + '<<' + (31 - parseInt(p1)) + ')>>' + parseInt(p2) + ')' ;
+                    var value = 'sel(' + parseInt(p2) + ',' + parseInt(p1) + ',' + h_names[index] + ')' ;
 		    icode = icode.replace(me, value) ;
 		}
 		catch (e)
