@@ -1617,7 +1617,7 @@
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin_ui') ;
 	    if (optValue != 'compact') {
-	        window.location='wepsim-' + optValue + '.html' ;
+	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
             }
 
 	    // initialization of wepsim...
