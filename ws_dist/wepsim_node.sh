@@ -66,7 +66,7 @@
 	       else
 	       {
 		   var data_checkpoint = fs.readFileSync(process.argv[4], 'utf8') ;
-		   var obj_checkpoint  = JSON.parse(data_checkpoint) ;
+                   var obj_checkpoint  = ws.wepsim_nodejs_loadCheckpoint(data_checkpoint) ;
 
 		   data.mode     = obj_checkpoint.mode ;
 		   data.firmware = obj_checkpoint.firmware ;
