@@ -1,7 +1,9 @@
 
 2.0.9 -> 2.0.10:
-* Simplify UI for common tasks
-* Added support for translating an instruction set (JSON) into native microcode
+* Fix pseudo-instruction 'lii' in 'Subrutine' example.
+* Improved command-line version: faster and more modular code.
+* Added support for translating an instruction set (JSON) into native microcode.
+* Improved UI for common tasks: quick links in the hardware dropdown and in the assembly initial text.
 
 2.0.8 -> 2.0.9:
 * Interface:

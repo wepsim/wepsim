@@ -277,11 +277,20 @@
         return wepsim_nodejs_doActionError(data.action) ;
     }
 
+    function wepsim_nodejs_loadCheckpoint ( data_checkpoint )
+    {
+	var obj_checkpoint  = JSON.parse(data_checkpoint) ;
+            obj_checkpoint  = wepsim_checkpoint_NB2Obj(obj_checkpoint) ;
+
+        return obj_checkpoint ;
+    }
+
 
     /**
      * Export API
      */
 
-    module.exports.wepsim_nodejs_doActionError = wepsim_nodejs_doActionError ;
-    module.exports.wepsim_nodejs_doAction      = wepsim_nodejs_doAction ;
+    module.exports.wepsim_nodejs_doActionError  = wepsim_nodejs_doActionError ;
+    module.exports.wepsim_nodejs_doAction       = wepsim_nodejs_doAction ;
+    module.exports.wepsim_nodejs_loadCheckpoint = wepsim_nodejs_loadCheckpoint ;
 
