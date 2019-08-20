@@ -157,16 +157,16 @@
 
     function wepsim_checkpoint_Obj2NB ( elements )
     {
-         var val  = null ;
-         var type = "" ;
+         var val = null ;
 
          // fill cells
          var cells = [] ;
          for (var key in elements)
          {
               val = elements[key] ;
-              if (typeof val !== "string")
+              if (typeof val !== "string") {
                   val = JSON.stringify(val, null, 2) ;
+              }
 
 	      cells.push({
 			    "cell_type": "markdown",
@@ -181,7 +181,7 @@
 			    "execution_count": 1,
 			    "metadata": {
 			        "name": key,
-			        "type": type,
+			        "type": typeof val,
 			        "collapsed": false,
 			        "deletable": false,
 			        "editable":  false
@@ -324,5 +324,26 @@
 	    catch (e) {
 		return false ;
 	    }
+    }
+
+    function wepsim_checkpoint_loadExample ( tutorial_name )
+    {
+	  var file_uri = 'examples/checkpoint/' + tutorial_name ;
+
+          wepsim_load_from_url(file_uri,
+                               function(data_text) {
+	                           var obj_refName = { name: file_uri } ;
+
+                                   var data_obj = null ;
+                                   if (data_text !== '') {
+                                       data_obj = JSON.parse(data_text) ;
+                                       data_obj = wepsim_checkpoint_NB2Obj(data_obj) ;
+                                   }
+
+                                   wepsim_checkpoint_loadFromObj(data_obj, 
+                                                                 'FileNameToSaveAs1', 
+                                                                 'tagToSave1', 
+                                                                 obj_refName) ;
+                               });
     }
 
