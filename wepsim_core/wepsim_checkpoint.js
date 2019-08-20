@@ -326,3 +326,24 @@
 	    }
     }
 
+    function wepsim_checkpoint_loadExample ( tutorial_name )
+    {
+	  var file_uri = 'examples/checkpoint/' + tutorial_name ;
+
+          wepsim_load_from_url(file_uri,
+                               function(data_text) {
+	                           var obj_refName = { name: file_uri } ;
+
+                                   var data_obj = null ;
+                                   if (data_text !== '') {
+                                       data_obj = JSON.parse(data_text) ;
+                                       data_obj = wepsim_checkpoint_NB2Obj(data_obj) ;
+                                   }
+
+                                   wepsim_checkpoint_loadFromObj(data_obj, 
+                                                                 'FileNameToSaveAs1', 
+                                                                 'tagToSave1', 
+                                                                 obj_refName) ;
+                               });
+    }
+
