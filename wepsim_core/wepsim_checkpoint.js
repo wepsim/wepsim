@@ -157,16 +157,16 @@
 
     function wepsim_checkpoint_Obj2NB ( elements )
     {
-         var val  = null ;
-         var type = "" ;
+         var val = null ;
 
          // fill cells
          var cells = [] ;
          for (var key in elements)
          {
               val = elements[key] ;
-              if (typeof val !== "string")
+              if (typeof val !== "string") {
                   val = JSON.stringify(val, null, 2) ;
+              }
 
 	      cells.push({
 			    "cell_type": "markdown",
@@ -181,7 +181,7 @@
 			    "execution_count": 1,
 			    "metadata": {
 			        "name": key,
-			        "type": type,
+			        "type": typeof val,
 			        "collapsed": false,
 			        "deletable": false,
 			        "editable":  false
