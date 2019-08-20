@@ -138,26 +138,3 @@
         i18n_update_tags("tutorial_" + tutorial_name) ;
     }
 
-    // from checkpoint
-
-    function sim_tutorial_loadFromCheckpoint ( tutorial_id )
-    {
-	   wsweb_recordbar_show() ;
-
-	   var obj_uri = { 
-                            name: 'examples/checkpoint/tutorial_' + tutorial_id + '.txt' 
-                         } ;
-
-	   wepsim_load_from_url(obj_uri.name,
-	                        function(data_text) {
-	                            var data_obj = null ;
-	                            if (data_text !== '')
-	                                data_obj = JSON.parse(data_text) ;
-
-	                            wepsim_checkpoint_loadFromObj(data_obj, 
-                                                                  'FileNameToSaveAs1', 
-                                                                  'tagToSave1', 
-                                                                  obj_uri) ;
-	                        });
-    }
-

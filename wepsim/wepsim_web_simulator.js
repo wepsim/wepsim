@@ -303,8 +303,8 @@
 	    // intro mode...
 	    if ('intro' == optValue)
 	    {
-	      // sim_tutorial_showframe('welcome', 0) ;
-                 sim_tutorial_loadFromCheckpoint('2') ;
+	         wsweb_recordbar_show() ;
+                 wepsim_checkpoint_loadExample('tutorial_2.txt') ;
                  return true ;
 	    }
 
