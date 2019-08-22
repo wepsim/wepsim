@@ -240,7 +240,8 @@
  
     hash_action["IMPORT-CREATOR"] = function(data, options)
     {
-        var ret = simlang_firm_is2native(data.obj_chk) ;
+        var obj_def = JSON.parse(data.str_chk) ;
+        var ret = simlang_firm_is2native(obj_def) ;
  
         console.log(ret);
         return true ;

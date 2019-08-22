@@ -73,6 +73,7 @@
 		   data.assembly = obj_checkpoint.assembly ;
 		   data.record   = obj_checkpoint.record ;
 		   data.obj_chk  = obj_checkpoint ;
+		   data.str_chk  = data_checkpoint ;
 		   arg_last      = 4 ;
 	       }
        }
