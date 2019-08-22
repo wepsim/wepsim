@@ -651,15 +651,21 @@
 
    function simlang_firm_is2native ( data )
    {
+       var o = "" ;
+
+       // check params
        if (data === null) {
-           return "" ;
+           return o ;
+       }
+       if (typeof data === "undefined") {
+           return o ;
        }
 
        // build microcode
-       var o = simlang_native_beginMicrocode() +
-               simlang_native_adapt_instructionSet(data.instructions) +
-               simlang_native_registerSection(data.components) +
-               simlang_native_adapt_pseudoInstructions(data.pseudoinstructions) ;
+       o = simlang_native_beginMicrocode() +
+           simlang_native_adapt_instructionSet(data.instructions) +
+           simlang_native_registerSection(data.components) +
+           simlang_native_adapt_pseudoInstructions(data.pseudoinstructions) ;
 
        // return microcode
        return o ;
