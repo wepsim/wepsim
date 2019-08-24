@@ -649,7 +649,7 @@
 
 	        var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
 	        var textToWrite      = inputfirm.getValue();
-	        wepsim_save_to_file(textToWrite, fileNameToSaveAs);
+	        wepsim_file_saveOrDownload(textToWrite, fileNameToSaveAs);
 	    }
 
             // add if recording

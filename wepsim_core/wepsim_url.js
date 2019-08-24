@@ -23,21 +23,72 @@
      * File/URL
      */
 
-    function wepsim_load_from_file ( fileToLoad, functionOnLoad )
+    function wepsim_file_loadFrom ( fileToLoad, functionOnLoad )
     {
+        // checks
         var fileReader = new FileReader();
+        if (fileReader === null)
+            return false ;
+
+        // read
         fileReader.onload  = function (fileLoadedEvent) {
                                 var textFromFileLoaded = fileLoadedEvent.target.result;
                                 if (null !== functionOnLoad)
 			            functionOnLoad(textFromFileLoaded);
                              };
 	fileReader.onerror = function(e) {
-			        console.error("File could not be read! Code " + e.target.error.code);
+                                wepsim_notify_error("<strong>ERROR</strong>",
+                                                    "File could not be read. " +
+                                                    "Error code " + e.target.error.code) ;
 			     };
+
         fileReader.readAsText(fileToLoad, "UTF-8");
+        return true ;
     }
 
-    function wepsim_save_to_file ( textToWrite, fileNameToSaveAs )
+    function wepsim_file_saveTo ( textToWrite, fileNameToSaveAs )
+    {
+        // checks
+        if (typeof window.requestFileSystem === "undefined") {
+            return false ;
+        }
+
+        // save callbacks chain
+	var koHandler = function(error) {
+            wepsim_notify_error("<strong>ERROR</strong>: failed file write",
+                                "Failed file write. " +
+                                "Error found " +  e.toString()) ;
+	} ;
+
+	var okHandler = function(error) {
+	    wepsim_notify_success('<strong>INFO</strong>',
+                                  'Successful file write!');
+	} ;
+
+	var onWriteFile = function(fileWriter) {
+            var textFileAsBlob = new Blob([textToWrite],
+                                          { type: 'text/plain' });
+            fileWriter.onerror    = koHandler ;
+            fileWriter.onwriteend = okHandler ;
+            fileWriter.write(textFileAsBlob);
+        } ;
+
+	var onCreatFile = function(fileEntry) {
+            fileEntry.createWriter(onWriteFile) ;
+	} ;
+
+	var onInitFs = function(fs) {
+	    fs.root.getFile(fileNameToSaveAs,
+                            {create: true, exclusive: true},
+                            onCreatFile,
+                            koHandler) ;
+	} ;
+
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onInitFs, koHandler) ;
+        return true ;
+    }
+
+    function wepsim_file_downloadTo ( textToWrite, fileNameToSaveAs )
     {
             var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
 
@@ -45,13 +96,9 @@
             downloadLink.download = fileNameToSaveAs;
             downloadLink.innerHTML = "Download File";
             if (window.webkitURL != null) {
-                // Chrome allows the link to be clicked
-                // without actually adding it to the DOM.
                 downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
             }
             else {
-                // Firefox requires the link to be added to the DOM
-                // before it can be clicked.
                 downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
                 downloadLink.onclick = function ( event ) {
                                             document.body.removeChild(event.target);
@@ -61,6 +108,15 @@
             }
 
             downloadLink.click();
+    }
+
+    function wepsim_file_saveOrDownload ( textToWrite, fileNameToSaveAs )
+    {
+        var ret = wepsim_file_saveTo(textToWrite, fileNameToSaveAs) ;
+
+        if (ret === false) {
+            wepsim_file_downloadTo(textToWrite, fileNameToSaveAs) ;
+        }
     }
 
 	function getURLTimeStamp ( )
@@ -90,22 +146,23 @@
     {
 	if (false === is_mobile())
 	{
-		fetchURL(url).then(function(response) 
+		fetchURL(url).then(function(response)
 				   {
 				      if (typeof response == "undefined") {
-					  console.error("File " + url + " could not be fetched:" + 
-                                                        " * Please check that you are on-line.") ;
+					  wepsim_notify_error("<strong>ERROR</strong>",
+					                      "File " + url + " could not be fetched:" +
+                                                              " * Please check that you are on-line.") ;
 					  return ;
 				      }
 
 				      if (response.ok) {
-					  response.text().then(function(text) { 
-								  do_next(text); 
+					  response.text().then(function(text) {
+								  do_next(text);
 							       }) ;
 				      }
 				   }) ;
 	}
-	else 
+	else
         {
 		var xmlhttp = new XMLHttpRequest();
 
