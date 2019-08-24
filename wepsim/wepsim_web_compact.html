@@ -834,7 +834,7 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
-		         wepsim_load_from_file(fileToLoad,
+		         wepsim_file_loadFrom(fileToLoad,
                                                function(txt){ inputfirm.setValue(txt); });
 			 $('#lsload').modal('hide');
                          return false;">
@@ -868,7 +868,7 @@
 	<button class="btn btn-sm btn-dark my-1"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
                          var textToWrite      = inputfirm.getValue();
-			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);">Save Editor content to File</button>
+			 wepsim_file_saveOrDownload(textToWrite, fileNameToSaveAs);">Save Editor content to File</button>
 	<button class="btn btn-sm btn-danger my-1"
 		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
@@ -894,7 +894,7 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
-		         wepsim_load_from_file(fileToLoad,
+		         wepsim_file_loadFrom(fileToLoad,
                                                function(txt){ inputasm.setValue(txt); });
 			 $('#lsload2').modal('hide');
                          return false;">
@@ -925,7 +925,7 @@
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
                          var textToWrite      = inputasm.getValue();
-			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);">Save to File</button>
+			 wepsim_file_saveOrDownload(textToWrite, fileNameToSaveAs);">Save to File</button>
 	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>

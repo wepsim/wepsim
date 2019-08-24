@@ -267,7 +267,7 @@
 	    // save checkpoint
 	    var checkpointNB  = wepsim_checkpoint_Obj2NB(checkpointObj) ;
 	    var checkpointStr = JSON.stringify(checkpointNB, null, 2) ;
-	    wepsim_save_to_file(checkpointStr, obj_fileName.value) ;
+	    wepsim_file_saveOrDownload(checkpointStr, obj_fileName.value) ;
 
 	    return true ;
     }
@@ -294,7 +294,7 @@
 			                } ;
 
 	    // load checkpoint
-	    wepsim_load_from_file(obj_fileToLoad, function_after_loaded) ;
+	    wepsim_file_loadFrom(obj_fileToLoad, function_after_loaded) ;
 	    return true ;
     }
 
