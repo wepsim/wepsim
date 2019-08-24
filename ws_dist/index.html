@@ -1034,7 +1034,7 @@
 	<button class="btn btn-sm btn-dark my-1"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
                          var textToWrite      = inputfirm.getValue();
-                         wepsim_file_saveOrDownload(textToWrite, fileNameToSaveAs);
+                         wepsim_save_to_file(textToWrite, fileNameToSaveAs);
 			 return false;">Save Editor content to File</button>
 	<button class="btn btn-sm btn-danger my-1"
 		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
@@ -1091,7 +1091,7 @@
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
                          var textToWrite      = inputasm.getValue();
-			 wepsim_file_saveOrDownload(textToWrite, fileNameToSaveAs);
+			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);
 			 return false;">Save to File</button>
 	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>

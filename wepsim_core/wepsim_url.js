@@ -20,35 +20,13 @@
 
 
     /*
-     * File/URL
+     * File API
      */
-
-    function wepsim_file_loadFrom ( fileToLoad, functionOnLoad )
-    {
-        // checks
-        var fileReader = new FileReader();
-        if (fileReader === null)
-            return false ;
-
-        // read
-        fileReader.onload  = function (fileLoadedEvent) {
-                                var textFromFileLoaded = fileLoadedEvent.target.result;
-                                if (null !== functionOnLoad)
-			            functionOnLoad(textFromFileLoaded);
-                             };
-	fileReader.onerror = function(e) {
-                                wepsim_notify_error("<strong>ERROR</strong>",
-                                                    "File could not be read. " +
-                                                    "Error code " + e.target.error.code) ;
-			     };
-
-        fileReader.readAsText(fileToLoad, "UTF-8");
-        return true ;
-    }
 
     function wepsim_file_saveTo ( textToWrite, fileNameToSaveAs )
     {
         // checks
+        window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem ;
         if (typeof window.requestFileSystem === "undefined") {
             return false ;
         }
@@ -57,10 +35,10 @@
 	var koHandler = function(error) {
             wepsim_notify_error("<strong>ERROR</strong>: failed file write",
                                 "Failed file write. " +
-                                "Error found " +  e.toString()) ;
+                                "Error found " +  error.toString()) ;
 	} ;
 
-	var okHandler = function(error) {
+	var okHandler = function(msg) {
 	    wepsim_notify_success('<strong>INFO</strong>',
                                   'Successful file write!');
 	} ;
@@ -79,12 +57,48 @@
 
 	var onInitFs = function(fs) {
 	    fs.root.getFile(fileNameToSaveAs,
-                            {create: true, exclusive: true},
+                            {create: true, exclusive: false},
                             onCreatFile,
                             koHandler) ;
 	} ;
 
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onInitFs, koHandler) ;
+        var grandedBytes = 2*1024*1024 ;
+
+	var onQuotaFs = function(grantedBytes) {
+            window.requestFileSystem(PERSISTENT, grandedBytes, onInitFs, koHandler) ;
+	} ;
+
+        navigator.webkitPersistentStorage.requestQuota(grandedBytes, onQuotaFs, koHandler) ;
+        return true ;
+    }
+
+
+    /*
+     * URL API
+     */
+
+    function wepsim_file_loadFrom ( fileToLoad, functionOnLoad )
+    {
+        // checks
+        var fileReader = new FileReader();
+        if (fileReader === null) {
+            return false ;
+        }
+
+        // read
+        fileReader.onload  = function (fileLoadedEvent) {
+                                var textFromFileLoaded = fileLoadedEvent.target.result;
+                                if (null !== functionOnLoad) {
+			            functionOnLoad(textFromFileLoaded);
+			        }
+                             };
+	fileReader.onerror = function(e) {
+                                wepsim_notify_error("<strong>ERROR</strong>",
+                                                    "File could not be read. " +
+                                                    "Error code " + e.target.error.code) ;
+			     };
+
+        fileReader.readAsText(fileToLoad, "UTF-8");
         return true ;
     }
 
@@ -110,17 +124,13 @@
             downloadLink.click();
     }
 
-    function wepsim_file_saveOrDownload ( textToWrite, fileNameToSaveAs )
+
+    /*
+     *  Auxiliar API
+     */
+
+    function getURLTimeStamp ( )
     {
-        var ret = wepsim_file_saveTo(textToWrite, fileNameToSaveAs) ;
-
-        if (ret === false) {
-            wepsim_file_downloadTo(textToWrite, fileNameToSaveAs) ;
-        }
-    }
-
-	function getURLTimeStamp ( )
-	{
 		var dateObj = new Date();
 		var year    = dateObj.getUTCFullYear();
 		var month   = dateObj.getUTCMonth() + 1;
@@ -129,10 +139,10 @@
 		var minutes = dateObj.getUTCMinutes();
 
 		return year + month + day + hour + minutes ;
-	}
+    }
 
-	function fetchURL ( f_url )
-	{
+    function fetchURL ( f_url )
+    {
 		// on-line: try the fresh version
 		if (navigator.onLine) {
 		    return fetch(f_url + "?time=" + getURLTimeStamp());
@@ -140,7 +150,23 @@
 
 		// off-line: try cache version
 		return caches.match(f_url);
-	}
+    }
+
+
+    /*
+     *  Combined API
+     */
+
+    function wepsim_save_to_file ( textToWrite, fileNameToSaveAs )
+    {
+        var ret = false ;
+
+	if (false == is_mobile())
+             ret = wepsim_file_downloadTo(textToWrite, fileNameToSaveAs) ;
+        else ret = wepsim_file_saveTo(textToWrite, fileNameToSaveAs) ;
+
+        return ret ;
+    }
 
     function wepsim_load_from_url ( url, do_next )
     {
