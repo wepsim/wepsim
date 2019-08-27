@@ -1,5 +1,5 @@
 
-# WepSIM: Wep Elemental Processor Simulator
+# WepSIM for Apache Cordova
 
 ## 1) Prepare the Apache Cordova Project: 
 
@@ -34,30 +34,28 @@ mv www www.initial.$$
 cp -a wepsim-2.0.10/ws_dist www
 ```
 
-+ To adapt some files for Apache Cordova:
-   * To adapt path in "www/examples/hardware/ep/images/processor.svg":
++ Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:
 ```bash
 sed -i .bak 's/wepsim/android_asset\/www/g' ./www/examples/hardware/ep/images/processor.svg
 ```
 
-   * Edit file "platforms/android/app/src/main/java/es/uc3m/inf/arcos/wepsim/MainActivity.java"
-     And add:
++ Add to file "platforms/android/app/src/main/java/es/uc3m/inf/arcos/wepsim/MainActivity.java" the code:
 ```java
-         ...
-	import android.webkit.WebView;
-	import android.webkit.WebSettings;
-	import android.webkit.WebSettings.ZoomDensity;
-         ...
-         WebView webView = (WebView) appView.getEngine().getView();
-         WebSettings settings = webView.getSettings();
-         settings.setUseWideViewPort(true);
-         settings.setSupportZoom(true);
-         settings.setBuiltInZoomControls(true);
-         settings.setDisplayZoomControls(false);
-         ...
+ ...
+ import android.webkit.WebView;
+ import android.webkit.WebSettings;
+ import android.webkit.WebSettings.ZoomDensity;
+ ...
+ WebView webView = (WebView) appView.getEngine().getView();
+ WebSettings settings = webView.getSettings();
+ settings.setUseWideViewPort(true);
+ settings.setSupportZoom(true);
+ settings.setBuiltInZoomControls(true);
+ settings.setDisplayZoomControls(false);
+ ...
 ```
 
-## 3) Test the associated .apk:
+## 3) Update associated .apk:
 
 + Build .apk:
 ```bash
