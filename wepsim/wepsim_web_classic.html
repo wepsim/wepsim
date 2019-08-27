@@ -1000,7 +1000,7 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
-		         wepsim_load_from_file(fileToLoad,
+		         wepsim_file_loadFrom(fileToLoad,
                                                function(txt){ inputfirm.setValue(txt); });
 			 $('#lsload').modal('hide');
                          return false;">
@@ -1061,7 +1061,7 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
-		         wepsim_load_from_file(fileToLoad,
+		         wepsim_file_loadFrom(fileToLoad,
                                                function(txt){ inputasm.setValue(txt); });
 			 $('#lsload2').modal('hide');
                          return false;">
