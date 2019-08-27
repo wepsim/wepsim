@@ -1,11 +1,13 @@
 
-2.0.9 -> 2.0.10:
+# Changelog
+
+## 2.0.9 -> 2.0.10:
 * Fix pseudo-instruction 'lii' in 'Subrutine' example.
 * Improved command-line version: faster and more modular code.
 * Added support for translating an instruction set (JSON) into native microcode.
 * Improved UI for common tasks: quick links in the hardware dropdown and in the assembly initial text.
 
-2.0.8 -> 2.0.9:
+## 2.0.8 -> 2.0.9:
 * Interface:
    + Notifications: 
       * Added action to clear all notifications.
@@ -22,11 +24,11 @@
    + Stack segment is show in main memory details
    + Added more Idioms thanks to Google Translate.
 
-2.0.7 -> 2.0.8:
+## 2.0.7 -> 2.0.8:
 * Improved UI
 * Added translation for the simulator help and about dialog
 
-2.0.6 -> 2.0.7:
+## 2.0.6 -> 2.0.7:
 * Core:
   * Revamped simcore_init_ui() API function: it now accepts callbacks functions to update UI.
   * Improved command line version: progressive output rather than wait to the end for the output.
@@ -39,22 +41,22 @@
     ** i18n_builder.py used for Italian + Korean + Hindi + Japanese + Portuguese + Chinese + French + German
   * Codacy + Codebeat
 
-2.0.5 -> 2.0.6:
+## 2.0.5 -> 2.0.6:
 * Initial support for the WepSIM control API
 * Initial support for recording
 * Improved support for Checkpoint
 
-2.0.3 -> 2.0.5:
+## 2.0.3 -> 2.0.5:
 * Initial support for Checkpoint
 * Improved translation subsystem
 * Improved preloaded work
 
-2.0.2 -> 2.0.3:
+## 2.0.2 -> 2.0.3:
 * Initial support for preloading work
 * Tutorials with initial index
 * Improved translation
 
-1.9.6 -> 2.0.2:
+## 1.9.6 -> 2.0.2:
 * Interface:
   + Bootstrap 4.3.1 (2019)
   + Improved missing UI translation in state dialog
@@ -62,7 +64,7 @@
   + Improved POC processor examples
   + Added EP example: round-robin with two co-routines
 
-1.9.5 -> 1.9.6:
+## 1.9.5 -> 1.9.6:
 * Interface:
   + Updated to the new Bootstrap 4.2.1
   + Added a new compact view for the main screen
@@ -75,49 +77,49 @@
   + Simpler deployment: packing into 'ws_dist' directory only
   + Boot time improved
 
-1.9.3 -> 1.9.5:
+## 1.9.3 -> 1.9.5:
 * New panel with all notifications (in case you miss one)
 * Signal description improved
 * Improved voice support
 * Formal introduction of the WepSIM engine API (example in README.md)
 * Minor clean-up on external dependencies
 
-1.9.2 -> 1.9.3:
+## 1.9.2 -> 1.9.3:
 * 'States' management revamped
 * Packing in both, source directory and into the 'dist' directory
 
-1.9.1 -> 1.9.2:
+## 1.9.1 -> 1.9.2:
 * Transition compleated: Jquery Mobile 1.4.5 (2014) => Bootstrap 4.1.3 (2018)
 * CodeMirror updated up to 5.39.2
 * Examples are loaded quicker than before
 
-1.9.0 -> 1.9.1:
+## 1.9.0 -> 1.9.1:
 * Update Bootstrap up to 4.1.3
 * Added a Proof-Of-Concept (poc) simulated hardware as example for possible modularity.
 
-1.8.9 -> 1.9.0:
+## 1.8.9 -> 1.9.0:
 * Command line version added
 * Example, help, and configuration dialog simplified
 * Bugfixes: inertial scroll restored, button placement, etc.
 
-1.8.7 -> 1.8.9:
+## 1.8.7 -> 1.8.9:
 * Update bootstrap 3.x -> 4.1
 * Menu moved into a new toolbar
 * Clarify the modularity of the Elemental Processor simulated
 
-1.8.6 -> 1.8.7:
+## 1.8.6 -> 1.8.7:
 * Code refactoring
 * More jshint recommendations
 * More non-web tools support
 
-1.8.5 -> 1.8.6:
+## 1.8.5 -> 1.8.6:
 * Progressive Wep Application added
 * Travis-CI added
 * Initial support for non-web tools
 * Code Climate added
 * Minor improvements on UI (bootstrap)
 
-1.8.2 -> 1.8.5:
+## 1.8.2 -> 1.8.5:
 * ALU Flag is highlighted in a clock cycle if it is active
 * New configuration option in order to limit the number of the assembly instructions executed
 * Help on memory components has been improved
@@ -127,30 +129,30 @@
 * Initial native mode support
 * Initial deployment as Progressive Wep Application
 
-1.8.1 -> 1.8.2:
+## 1.8.1 -> 1.8.2:
 * Added 'break:' and 'state:' actions at microcode level
 * Updated 'notify:' for tutorials
 * Links to the tutorials in help
 * Added 'copy to clipboard' action to the current state dialog
 
-1.8.0 -> 1.8.1:
+## 1.8.0 -> 1.8.1:
 * Colorized syntax
 * Compact visualization controls
 * Initial support for voice control
 
-1.7.7 -> 1.8.0:
+## 1.7.7 -> 1.8.0:
 * Support for simple state inspection
 * CPU behaviour has been slighly simplified
 * Added support for FIRE_IFCHANGED
 * Initial support for native in microcode
 * Auto-assign 'co' value (free available) with co=111111
 
-1.7.6 -> 1.7.7:
+## 1.7.6 -> 1.7.7:
 * Sticky segment name on memory visualization
 * Improved full CPU image on help
 * Initial support for promises on CLOCK
 
-1.7.5 -> 1.7.6:
+## 1.7.5 -> 1.7.6:
 * Tutorials support (welcome tutorial as example)
 * Several UI tweaks (slider positions, home help button, etc.)
 * Help index translated (English/Spanish)
@@ -159,27 +161,27 @@
 * Labels are now shown in simulator Memory
 * Instructions are now shown in simulator Control Memory
 
-1.7.3 -> 1.7.5:
+## 1.7.3 -> 1.7.5:
 * Faster: Up to 3 times faster than 1.7.1 version!
 * Easier: The new help center provides one place for all help
 * Convenient: tables for compact and uniform help-examples-configuration visualization
 * Signal dependencies graph included
 * New addv+seqv example
 
-1.7.2 -> 1.7.3:
+## 1.7.2 -> 1.7.3:
 * Up to 50% faster execution
 * Edit register values popup shows negative values properly
 * I/O tab renamed to Stats
 * Improved Control Unit image
 
-1.7.1 -> 1.7.2:
+## 1.7.1 -> 1.7.2:
 * FLAGS interaction moved from register tab into processor image (you can click on the associated letter C, V, N, Z...)
 * Improved processor image
 * Completed some signal drawing
 * Try to avoid accidentally close the browser tab with WepSIM
 * Register file' registers can be updated with negative values easier
 
-1.7.0 -> 1.7.1:
+## 1.7.0 -> 1.7.1:
 * All register can be visualized and changed (not only the register file elements)
 * English help on signals has been updated
 * Some examples has been updated
