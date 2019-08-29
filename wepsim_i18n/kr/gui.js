@@ -33,8 +33,10 @@
 			"Save":  			        	"구하다",
                         "Restore":                                      "복원",
 			"Help":  			                "도움",
-                        "Notifications":                           "알림",
-                        "RecordBar":                          "기록 막대",
+                        "Notifications":                           	"알림",
+                        "RecordBar":                          		"기록 막대",
+		        "Input":					"입력",
+		        "Output":					"산출",
 
 			"Help Index":  			                "도움말 색인",
 			"Processor":  			                "프로세서",
