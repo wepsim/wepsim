@@ -35,6 +35,7 @@
 	var e_reference   = "" ;
 	var e_description = "" ;
 	var e_id          = "" ;
+	var t_index       = "" ;
 
         var utypes = [] ;
         for (var m=0; m<helps.length; m++)
@@ -76,13 +77,15 @@
 	            fmt_toggle = "bg-light" ;
 	       else fmt_toggle = "" ;
 
+	        t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
+
 		o = o + fmt_header +
 		        "<div class='row py-1 " + fmt_toggle + " " + e_uclass + "' id='" + e_utype + "'>" +
 			'<div class="col-md-auto">' +
-			'    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
+			'    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
 			'</div>' +
 			'<div class="col-md-4">' +
-			'    <span class="btn-like bg-success text-white" style="cursor:pointer;" ' +
+			'    <span class="btn-like bg-success text-white text-truncate rounded border px-1" style="cursor:pointer;" ' +
 			'          id="help_index_' + m + '" ' +
 		        '          onclick="simcore_record_append_pending(); ' + onclick_code + '">' + e_title + '</span>' +
 			'</div>' +
