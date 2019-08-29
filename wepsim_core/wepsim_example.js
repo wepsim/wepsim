@@ -203,6 +203,9 @@
 	     alert('Sorry, unsuccessful share: ' + err.message) ;
 	 }
 
+	 // stats about sharing
+	 ga('send', 'event', 'ui', 'ui.share', 'ui.share.example_' + m);
+
 	 return true ;
     }
 

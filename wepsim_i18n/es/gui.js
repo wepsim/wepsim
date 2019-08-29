@@ -32,6 +32,8 @@
 			"Help": 			     		"Ayuda",
                         "Notifications":                                "Notificaciones",
                         "RecordBar":                                    "Grabaci&oacute;n",
+		        "Input":					"Entrada",
+		        "Output":					"Salida",
 
 			"Help Index":  			                "&Iacute;ndice ayuda",
 			"Processor": 			     		"Procesador",

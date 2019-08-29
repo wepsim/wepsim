@@ -1340,7 +1340,13 @@
 			   <div class="card border-secondary h-100">
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
-				    <span class="text-white bg-secondary" data-langkey="Save">Save</span>
+				    <span class="text-white bg-secondary" data-langkey="Output">Output</span>
+				    <button class="btn btn-light mx-auto float-right py-0 col-auto"
+					  onclick="var stateToSave   = $('input[name=stateToSave1]:checked').val();
+						   var checkpointObj = wepsim_checkpoint_get('tagToSave1');
+						   wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
+						   wepsim_notify_success('<strong>INFO</strong>', 'Save requested!.');
+						   return false;"><span data-langkey="Save">Save</span></button>
 		                  </h5>
 			      </div>
 			      <div class="card-body">
@@ -1352,21 +1358,17 @@
 					<p><input aria-label="associated tag to be saved" id="tagToSave1"
 						  class="form-control btn-outline-dark" placeholder="Associated tag to be saved (if any)" style="min-width: 90%;"/></p>
 			      </div>
-			      <div class="card-footer border-secondary text-white bg-secondary p-1">
-					<button class="btn btn-light mx-auto float-right py-0 col-xs-8 col-md-3"
-						onclick="var stateToSave   = $('input[name=stateToSave1]:checked').val();
-                                                         var checkpointObj = wepsim_checkpoint_get('tagToSave1');
-							 wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
-							 wepsim_notify_success('<strong>INFO</strong>', 'Save requested!.');
-							 return false;"><span data-langkey="Save">Save</span></button>
-			      </div>
 			   </div>
 			   </div>
 			   <div class="col-12 col-sm-6 p-2">
 			   <div class="card border-secondary h-100">
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
-				    <span class="text-white bg-secondary" data-langkey="Load">Load</span>
+				    <span class="text-white bg-secondary" data-langkey="Input">Input</span>
+				    <button class="btn btn-light mx-auto float-right py-0 col-auto"
+				  	    onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
+						     wepsim_notify_success('<strong>INFO</strong>', 'Load requested!.');
+						     return false;"><span data-langkey="Load">Load</span></button>
 		                  </h5>
 			      </div>
 			      <div class="card-body">
@@ -1374,12 +1376,6 @@
 					<br>
 					<input data-max-height="20vh"
 					       aria-label="file to load" type="file" id="fileToLoad31" class="dropify" />
-			      </div>
-			      <div class="card-footer border-secondary text-white bg-secondary p-1">
-					<button class="btn btn-light mx-auto float-right py-0 col-xs-8 col-md-3"
-						onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
-							 wepsim_notify_success('<strong>INFO</strong>', 'Load requested!.');
-							 return false;"><span data-langkey="Load">Load</span></button>
 			      </div>
 			   </div>
 			   </div>

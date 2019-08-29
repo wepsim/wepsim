@@ -33,6 +33,8 @@
 			"Help":  			                "Help",
                         "Notifications":                                "Notifications",
                         "RecordBar":                                    "RecordBar",
+		        "Input":					"Input",
+		        "Output":					"Output",
 
 			"Help Index":  			                "Help Index",
 			"Processor":  			                "Processor",

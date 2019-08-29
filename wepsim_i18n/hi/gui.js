@@ -33,6 +33,8 @@
 		'Help':		'मदद',
 		'Notifications':		'सूचनाएं दिखाएं',
 		'RecordBar':		'रिकॉर्डबोर दिखाएँ / छिपाएँ',
+		'Input':		'इनपुट',
+		'Output':		'उत्पादन',
 		'Help Index':		'मदद सूचकांक',
 		'Processor':		'प्रोसेसर',
 		'Assembly Debugger':		'विधानसभा डिबगर',
