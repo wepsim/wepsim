@@ -21,6 +21,7 @@
   - [WepSIM Source Code](#wepsim-source-code)
   - [WepSIM engine API](#wepsim-engine-api)
   - [WepSIM control API](#wepsim-control-api)
+  - [WepSIM for Apache Cordova](#wepsim-apache-cordova)
 
 
 ## Getting WepSIM
@@ -66,13 +67,11 @@ Step   | iOS                       |  Android                  | Action to perfo
   https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 
 
-## Getting Started
-
 <a name="getting-started-visualui"/>
 
-### A) WepSIM: Visual User Interface
+## Getting Started: Visual User Interface
 
-#### A.1) Steps to execute a WepSIM example
+### A) Steps to execute a WepSIM example
 
 1. First, we need to load WepSIM in your favorite web browser. Then click on the Examples button to open the Examples dialog:
    ![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator021.jpg)
@@ -81,7 +80,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 3. In the simulator workspace you can execute step by step and analyze the state of the components. It is possible to work both, at assembly level or at microcode level: 
    ![screen:simulation1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/simulation_xinstruction.gif)
 
-#### A.2) Typical workflow to modify an existing example or build your own experiment
+### B) Typical workflow to modify an existing example or build your own experiment
 
 1. First, we need to load WepSIM in your web browser. Then you should go to the microcode editor workspace:
    ![screen:firmware1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/firmware001.jpg)
@@ -95,14 +94,14 @@ Step   | iOS                       |  Android                  | Action to perfo
    It is possible to work at assembly level or at microcode level: 
    ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/simulation_xinstruction.gif)
 
-#### Step to change the WepSIM configuration
+### C) Step to change the WepSIM configuration
 
 + From the general toolbar, the configuration button let users to personalize several options:
   ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/config_usage.gif)
 + From the general toolbar, please use the left-upper slider to change the CPU/CU size:
   ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator013.jpg)
 
-#### Typical steps to use the "State Management" in WepSIM
+### D) Typical steps to use the "State Management" in WepSIM
 
 + The values of every visible hardware element is the state in a clock cycle. WepSIM has also a 'state management' dialog where users can see the current state, and check the differences between two states.
 + From the execution toolbar, please click over the 'state' button to show the state manager dialog:
@@ -111,9 +110,9 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 <a name="getting-started-command-line"/>
 
-### B) WepSIM: Command Line
+## Getting Started: Command Line
 
-#### B.1) Run (and print the final state)
+### A) Run (and print the final state)
 
 + From the command line it is possible to 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print the final state:
 
@@ -122,7 +121,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; register PC = 0x8018; memory 0x8000 = 0x8400002; memory 0x8004 = 0x8600001; memory 0x8008 = 0xa21809; memory 0x800c = 0x8400002; memory 0x8010 = 0x8600001; memory 0x8014 = 0xa2180a;
 ```
 
-#### B.2) Run step by step
+### B) Run step by step
 
 + It is also possible to 'run' 'step by step' the 'asm-ep-S1E1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each assembly instruction the state elementes that modify its value:
 
@@ -136,7 +135,7 @@ pc(0x8010):	li $3 1:			register PC = 0x8014
 pc(0x8014):	sub $5 $2 $3:			register R5 = 0x1; register PC = 0x8018
 ```
 
-#### B.3) Run microstep by microstep
+### C) Run microstep by microstep
 
 + And to 'run' 'microstep by microstep' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each microinstruction the state elementes that modify its value:
 
@@ -159,7 +158,7 @@ micropc(0x3):	A0 B=0 C=0:
 micropc(0x35):	MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0: register R5 = 0x3
 ```
 
-#### B.4) Run & check end state (example when o.k.)
+### D) Run & check end state (example when o.k.)
 
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it matchs the expected state then the output is going to be**):
 
@@ -168,7 +167,7 @@ micropc(0x35):	MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=10101 
 OK: Execution: no error reported
 ```
 
-#### B.5) Run & check end state (example when k.o.)
+### E) Run & check end state (example when k.o.)
 
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it fails to match the expected state then the output is going to be**):
 
@@ -177,7 +176,7 @@ OK: Execution: no error reported
 ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010')
 ```
 
-#### B.6) Run microstep by microstep with verbalized output
+### F) Run microstep by microstep with verbalized output
 
 + And finally, it is possible to execute microstep by microstep but with a more verbose description:
 
@@ -340,4 +339,65 @@ Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from 
 
     </div>
 ```
+
+
+<a name="wepsim-apache-cordova"/>
+
+## WepSIM for Apache Cordova
+
+### 1) Prepare the Apache Cordova Project: 
+
++ 1.1) Follow Apache Cordova tutorial in order to create a new project:
+```bash
+npm install -g cordova
+cordova create wepsim es.uc3m.inf.arcos.wepsim WepSIM
+cd wepsim
+cordova platform add android
+cordova platform add ios
+```
+
++ 1.2) Install at least the following plugins:
+```bash
+cordova plugin add cordova-plugin-console
+cordova plugin add cordova-plugin-device
+cordova plugin add cordova-plugin-dialogs
+cordova plugin add cordova-plugin-file
+cordova plugin add cordova-plugin-file-transfer
+cordova plugin add cordova-plugin-splashscreen
+cordova plugin add cordova-plugin-web-share
+cordova plugin add cordova-plugin-whitelist
+```
+
+### 2) Update WepSIM files:
+
++ 2.1) Copy WepSIM files into the www directory:
+```bash
+wget https://github.com/acaldero/wepsim/releases/download/v2.0.10/wepsim-2.0.10.zip
+unzip wepsim-2.0.10.zip
+mv www www.initial.$$
+cp -a wepsim-2.0.10/ws_dist www
+```
+
++ 2.2) Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:
+```bash
+sed -i .bak 's/wepsim/android_asset\/www/g' ./www/examples/hardware/ep/images/processor.svg
+```
+
+### 3) Build Android .apk:
+
++ 3.1) Build .apk:
+```bash
+cordova build android --debug
+```
+
++ 3.2.a) Run WepSIM's App on Emulator:
+```bash
+cordova run android
+```
+
++ 3.2.b) Run WepSIM's App on Device:
+```bash
+adb -d install -r ./platforms/android/app/build/outputs/apk/debug/app-debug.apk
+```
+
 
