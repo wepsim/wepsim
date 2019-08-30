@@ -64,6 +64,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 ## Getting Started
 
 <a name="getting-started-visualui"/>
+
 ### Visual UI
 
 #### To learn with some WepSIM example
@@ -108,6 +109,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 
 <a name="getting-started-command-line"/>
+
 ### Command Line
 
 #### Run
@@ -231,6 +233,7 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 ## Getting Started: Developers
 
 <a name="wepsim-engine-api"/>
+
 ### WepSIM engine API
 
 + If you want to use the WepSIM engine within your App, there is a WepSIM API in JavaScript available too. 
@@ -325,6 +328,7 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 ```
 
 <a name="wepsim-control-api"/>
+
 ### WepSIM control API
 
 + If you want to control an WepSIM instance, there is a WepSIM API in JavaScript available (WepSIM 2.0.6+).
