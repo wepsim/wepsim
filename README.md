@@ -25,16 +25,16 @@
 
 ## Getting WepSIM
 
-<a name="run-without-install"/>
+<a name="run-without-install" />
 
 ### 1) Run WepSIM without install
 
 + From Web, please:
   * Check you have a compatible Web browser: 
     * Google Chrome 70+, Mozilla Firefox 64+, Microsoft Edge 40+, and Apple Safari 11+
-  * Open your (compatible) Web broser 
-  * Click on the link: https://wepsim.github.io/wepsim
-    * A nightly build version is also available at: https://acaldero.github.io/wepsim
+  * Open your (compatible) Web browser 
+  * Click on the link https://wepsim.github.io/wepsim
+    * A nightly build version is also available at https://acaldero.github.io/wepsim
 
 + From Linux/Unix command line, please:
   * Check you have installed Node 8.10.0+, and Bash 4.4.19+
@@ -254,7 +254,7 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
         <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 ```
 
-  And then, one simple example of using this WepSIM API is the following:
++ And then, one simple example of using this WepSIM API is the following:
 
 ```javascript
         /*
