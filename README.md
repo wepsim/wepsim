@@ -12,8 +12,7 @@
 
 - [Getting WepSIM](#getting-wepsim)
   - [Run WepSIM](#run-without-install)
-  - [Install WepSIM as Progressive Web Application](#install-wepsim-as-pwa)
-  - [Install WepSIM on Android](#install-wepsim-on-android)
+  - [Install WepSIM](#install-wepsim-as-pwa)
 - [Getting Started](#getting-started)
   - [Visual UI](#getting-started-visualui)
   - [Command Line](#getting-started-command-line)
@@ -48,9 +47,10 @@
 
 <a name="install-wepsim-as-pwa"/>
 
-### 2.a) Install WepSIM as Progressive Web Application (iOS, Android, Windows, Linux, etc.)
+### 2.a) Install WepSIM (iOS, Android, Windows, Linux, etc.)
 
-+ Please, follow those actions:
++ WepSIM can be installed on Android 5.0+ from the Goole Play Store at https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
++ From other platforms please follow those steps in order to install WepSIM as a Progressive Web Application (PWA):
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
@@ -58,13 +58,6 @@ Step   | iOS                       |  Android                  | Action to perfo
  **2** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android002_short.jpg) | Move within share options until 'add to home screen' option and click on it.
  **3** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android003_short.jpg) | Finally, click in the 'add' option.
  **4** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android004_short.jpg) | Then, WepSIM can be launched from the home screen icon.    
-
-<a name="install-wepsim-on-android"/>
-
-### 2.b) Install WepSIM on Android 5.0+
-
-+ Please, install it from the Goole Play Store at
-  https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 
 
 <a name="getting-started-visualui"/>
