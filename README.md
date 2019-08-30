@@ -69,9 +69,9 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 <a name="getting-started-visualui"/>
 
-### A) Visual User Interface
+### A) WepSIM: Visual User Interface
 
-#### A.1) To learn with some WepSIM example
+#### A.1) How to learn executing a WepSIM example
 
 + Please, follow these these steps:
 
@@ -98,14 +98,14 @@ Step   | iOS                       |  Android                  | Action to perfo
      It is possible to work at assembly level or at microcode level: 
      ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/simulation_xinstruction.gif)
 
-#### Configure WepSIM
+#### How to configure WepSIM
 
 + From the general toolbar, the configuration button let users to personalize several options:
   ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/config_usage.gif)
 + From the general toolbar, please use the left-upper slider to change the CPU/CU size:
   ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator013.jpg)
 
-#### State Management in WepSIM
+#### How to use the State Management within WepSIM
 
 + The values of every visible hardware element is the state in a clock cycle. WepSIM has also a 'state management' dialog where users can see the current state, and check the differences between two states.
 + From the execution toolbar, please click over the 'state' button to show the state manager dialog:
@@ -114,7 +114,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 <a name="getting-started-command-line"/>
 
-### B) Command Line
+### B) WepSIM: Command Line
 
 #### B.1) Run (and print the final state)
 
