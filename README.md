@@ -11,7 +11,7 @@
 ## Table of contents
 
 - [Getting WepSIM](#getting-wepsim)
-  - [Run WepSIM without install](#run-without-install)
+  - [Run WepSIM](#run-without-install)
   - [Install WepSIM as Progressive Web Application](#install-wepsim-as-pwa)
   - [Install WepSIM on Android](#install-wepsim-on-android)
 - [Getting Started](#getting-started)
@@ -25,9 +25,9 @@
 
 ## Getting WepSIM
 
-<a name="run-without-install" />
+<a name="run-without-install"/>
 
-### 1) Run WepSIM without install
+### 1) Run WepSIM
 
 + From Web, please:
   * Check you have a compatible Web browser: 
@@ -38,9 +38,10 @@
 
 + From Linux/Unix command line, please:
   * Check you have installed Node 8.10.0+, and Bash 4.4.19+
-  * Execute the following commands:
+  * Download WepSIM by executing:
     * wget https://github.com/acaldero/wepsim/releases/download/v2.0.10/wepsim-2.0.10.zip
     * unzip wepsim-2.0.10.zip 
+  * Execute wepsim_node.sh with the help flag in order to show the available command switches:
     * cd wepsim-2.0.10
     * ./wepsim_node.sh help
 
@@ -48,7 +49,7 @@
 
 ### 2.a) Install WepSIM as Progressive Web Application (iOS, Android, Windows, Linux, etc.)
 
-+ Please, the following actions must be taken:
++ Please, follow those actions:
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
@@ -71,45 +72,41 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 ### A) WepSIM: Visual User Interface
 
-#### A.1) How to learn executing a WepSIM example
+#### A.1) Steps to execute a WepSIM example
 
-+ Please, follow these these steps:
+1. First, we need to load WepSIM in your favorite web browser. Then click on the Examples button to open the Examples dialog:
+   ![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator021.jpg)
+2. In the Examples dialog please click on the colored 'title' of the example and WepSIM will load and compile the associated microcode and assembly code:
+   ![screen:example2](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator022.jpg)
+3. In the simulator workspace you can execute step by step and analyze the state of the components. It is possible to work both, at assembly level or at microcode level: 
+   ![screen:simulation1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/simulation_xinstruction.gif)
 
-  1. First, we need to load WepSIM in your favorite web browser. Then click on the Examples button to open the Examples dialog:
-    ![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator021.jpg)
-  2. In the Examples dialog please click on the colored 'title' of the example and WepSIM will load and compile the associated microcode and assembly code:
-    ![screen:example2](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator022.jpg)
-  3. In the simulator workspace you can execute step by step and analyze the state of the components. It is possible to work both, at assembly level or at microcode level: 
-    ![screen:simulation1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/simulation_xinstruction.gif)
+#### A.2) Typical workflow to modify an existing example or build your own experiment
 
-#### A.2) You can modify an existing example or build your own
+1. First, we need to load WepSIM in your web browser. Then you should go to the microcode editor workspace:
+   ![screen:firmware1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/firmware001.jpg)
+2. You can load an existing microcode or edit a new one. You have to microcompile the microcode to load the binary into the CPU's control memory:
+   ![screen:firmware2](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/firmware002.jpg)
+3. Next, you could go to the assembly editor workspace. In the editor workspace you can load an existing assembly code or edit a new one:
+   ![screen:firmware3](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/assembly002b.jpg)
+4. The instructions set defined in the previous microcode is used to create your assembly code. You have to compile the assembly code to load the binary into the main memory:
+   ![screen:assembly1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/assembly003.jpg)
+5. Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
+   It is possible to work at assembly level or at microcode level: 
+   ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/simulation_xinstruction.gif)
 
-+ The typical workflow consists in the following steps:
-
-   1. First, we need to load WepSIM in your web browser. Then you should go to the microcode editor workspace:
-     ![screen:firmware1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/firmware001.jpg)
-   2. You can load an existing microcode or edit a new one. You have to microcompile the microcode to load the binary into the CPU's control memory:
-     ![screen:firmware2](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/firmware002.jpg)
-   3. Next, you could go to the assembly editor workspace. In the editor workspace you can load an existing assembly code or edit a new one:
-     ![screen:firmware3](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/assembly002b.jpg)
-   4. The instructions set defined in the previous microcode is used to create your assembly code. You have to compile the assembly code to load the binary into the main memory:
-     ![screen:assembly1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/assembly003.jpg)
-   5. Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
-     It is possible to work at assembly level or at microcode level: 
-     ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/simulation_xinstruction.gif)
-
-#### How to configure WepSIM
+#### Step to change the WepSIM configuration
 
 + From the general toolbar, the configuration button let users to personalize several options:
   ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/config_usage.gif)
 + From the general toolbar, please use the left-upper slider to change the CPU/CU size:
   ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator013.jpg)
 
-#### How to use the State Management within WepSIM
+#### Typical steps to use the "State Management" in WepSIM
 
 + The values of every visible hardware element is the state in a clock cycle. WepSIM has also a 'state management' dialog where users can see the current state, and check the differences between two states.
 + From the execution toolbar, please click over the 'state' button to show the state manager dialog:
-     ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/states_usage.gif)
+  ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/states_usage.gif)
 
 
 <a name="getting-started-command-line"/>
