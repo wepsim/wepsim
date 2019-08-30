@@ -11,8 +11,8 @@
 ## Table of contents
 
 - [Getting WepSIM](#getting-wepsim)
-  - [Run WepSIM without install](#run-wepsim-without-install)
-  - [Install WepSIM as Progressive Web Application](#install-wepsim-as-progressive-web-application)
+  - [Run WepSIM without install](#run-without-install)
+  - [Install WepSIM as Progressive Web Application](#install-wepsim-as-pwa)
   - [Install WepSIM on Android](#install-wepsim-on-android)
 - [Getting Started](#getting-started)
   - [Visual UI](#getting-started-visualui)
@@ -25,22 +25,30 @@
 
 ## Getting WepSIM
 
+<a name="run-without-install"/>
+
 ### 1) Run WepSIM without install
 
-+ From Web (Google Chrome 70+, Mozilla Firefox 64+, Microsoft Edge 40+, and Apple Safari 11+):
-     * Please, load in your Web Browser the link: https://wepsim.github.io/wepsim
-       * A nightly build version is available too: https://acaldero.github.io/wepsim
++ From Web, please:
+  * Check you have a compatible Web browser: 
+    * Google Chrome 70+, Mozilla Firefox 64+, Microsoft Edge 40+, and Apple Safari 11+
+  * Open your (compatible) Web broser 
+  * Click on the link: https://wepsim.github.io/wepsim
+    * A nightly build version is also available at: https://acaldero.github.io/wepsim
 
-+ From Linux/Unix command line (Node 8.10.0+ and Bash 4.4.19+):
-     * wget https://github.com/acaldero/wepsim/releases/download/v2.0.10/wepsim-2.0.10.zip
-     * unzip wepsim-2.0.10.zip 
-     * cd wepsim-2.0.10
-     * ./wepsim_node.sh
++ From Linux/Unix command line, please:
+  * Check you have installed Node 8.10.0+, and Bash 4.4.19+
+  * Execute the following commands:
+    * wget https://github.com/acaldero/wepsim/releases/download/v2.0.10/wepsim-2.0.10.zip
+    * unzip wepsim-2.0.10.zip 
+    * cd wepsim-2.0.10
+    * ./wepsim_node.sh help
 
-### 2.a) Install WepSIM as Progressive Web Application
+<a name="install-wepsim-as-pwa"/>
 
-+ WepSIM as Progressive Web Application on iOS, Android, Windows, Linux, etc.:
-    * Please, the following actions must be taken:
+### 2.a) Install WepSIM as Progressive Web Application (iOS, Android, Windows, Linux, etc.)
+
++ Please, the following actions must be taken:
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
@@ -49,17 +57,19 @@ Step   | iOS                       |  Android                  | Action to perfo
  **3** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android003_short.jpg) | Finally, click in the 'add' option.
  **4** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android004_short.jpg) | Then, WepSIM can be launched from the home screen icon.    
 
-### 2.b) Install WepSIM on Android
+<a name="install-wepsim-on-android"/>
 
-+ WepSIM on Android 5.0+:
-    * Please, install from the official Goole Play Store link: https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
+### 2.b) Install WepSIM on Android 5.0+
+
++ Please, install it from the Goole Play Store at
+  https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 
 
 ## Getting Started
 
 <a name="getting-started-visualui"/>
 
-### A) Visual UI
+### A) Visual User Interface
 
 #### A.1) To learn with some WepSIM example
 
@@ -106,7 +116,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 ### B) Command Line
 
-#### B.1) Run
+#### B.1) Run (and print the final state)
 
 + From the command line it is possible to 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print the final state:
 
@@ -115,7 +125,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; register PC = 0x8018; memory 0x8000 = 0x8400002; memory 0x8004 = 0x8600001; memory 0x8008 = 0xa21809; memory 0x800c = 0x8400002; memory 0x8010 = 0x8600001; memory 0x8014 = 0xa2180a;
 ```
 
-#### B.2) Step by step
+#### B.2) Run step by step
 
 + It is also possible to 'run' 'step by step' the 'asm-ep-S1E1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each assembly instruction the state elementes that modify its value:
 
@@ -129,7 +139,7 @@ pc(0x8010):	li $3 1:			register PC = 0x8014
 pc(0x8014):	sub $5 $2 $3:			register R5 = 0x1; register PC = 0x8018
 ```
 
-#### B.3) Microstep by microstep
+#### B.3) Run microstep by microstep
 
 + And to 'run' 'microstep by microstep' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each microinstruction the state elementes that modify its value:
 
@@ -167,7 +177,7 @@ micropc(0x3):	A0 B=0 C=0:
 micropc(0x3f):	MC MR=0 SELB=1011 SELA=10000 MA=0 MB=0 SELCOP=1011 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0: register R5 = 0x1
 ```
 
-#### B.4) Run & check (o.k.)
+#### B.4) Run & check end state (example when o.k.)
 
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it matchs the expected state then the output is going to be**):
 
@@ -176,7 +186,7 @@ micropc(0x3f):	MC MR=0 SELB=1011 SELA=10000 MA=0 MB=0 SELCOP=1011 T6 SELC=10101 
 OK: Execution: no error reported
 ```
 
-#### B.5) Run & check (k.o.)
+#### B.5) Run & check end state (example when k.o.)
 
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it fails to match the expected state then the output is going to be**):
 
@@ -185,7 +195,7 @@ OK: Execution: no error reported
 ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010')
 ```
 
-#### B.6) Verbalized
+#### B.6) Run microstep by microstep with verbalized output
 
 + And finally, it is possible to execute microstep by microstep but with a more verbose description:
 
@@ -229,7 +239,7 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 ### WepSIM Source Code
 
 + WepSIM GitHub Repository:
-   * Stable build: https://github.com/wepsim/wepsim
+   * Stable  build: https://github.com/wepsim/wepsim
    * Nightly build: https://github.com/acaldero/wepsim
 
 <a name="wepsim-engine-api"/>
