@@ -374,6 +374,12 @@ cp -a wepsim-2.0.10/ws_dist www
 sed -i .bak 's/wepsim/android_asset\/www/g' ./www/examples/hardware/ep/images/processor.svg
 ```
 
++ 2.3) Adapt path in files "./www/wepsim-classic.html" and "./www/wepsim-compact.html":
+```bash
+sed -i .bak 's/external\/cordova/cordova/g' ./www/wepsim-classic.html
+sed -i .bak 's/external\/cordova/cordova/g' ./www/wepsim-compact.html
+```
+
 ### 3) Build Android .apk:
 
 + 3.1) Build .apk:

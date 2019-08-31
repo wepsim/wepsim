@@ -208,6 +208,7 @@ cp    -a external/dropify               ws_dist/external/
                                   touch ws_dist/external/dropify/index.html
 cp    -a external/speechkitt            ws_dist/external/
                                   touch ws_dist/external/speechkitt/index.html
+cp    -a external/cordova.js            ws_dist/external/cordova.js
 
 #  examples, docs, etc.
 echo "ws_dist/examples/..."
