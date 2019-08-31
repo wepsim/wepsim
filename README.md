@@ -11,7 +11,7 @@
 ## Table of contents
 
 - [Getting WepSIM](#getting-wepsim)
-  - [Run WepSIM](#run-without-install)
+  - [Run WepSIM](#getting-wepsim)
   - [Install WepSIM](#install-wepsim-as-pwa)
 - [Getting Started](#getting-started)
   - [Visual UI](#getting-started-visualui)
@@ -25,8 +25,6 @@
 
 ## Getting WepSIM
 
-<a name="run-without-install"/>
-
 ### 1) Run WepSIM
 
 + From Web, please:
@@ -35,7 +33,7 @@
   * Open your (compatible) Web browser 
   * Click on the link https://wepsim.github.io/wepsim
     * A nightly build version is also available at https://acaldero.github.io/wepsim
-
+    
 + From Linux/Unix command line, please:
   * Check you have installed Node 8.10.0+, and Bash 4.4.19+
   * Download WepSIM by executing:
@@ -47,14 +45,14 @@
 
 <a name="install-wepsim-as-pwa"/>
 
-### 2.a) Install WepSIM (iOS, Android, Windows, Linux, etc.)
+### 2) Install WepSIM (iOS, Android, Windows, Linux, etc.)
 
 + WepSIM can be installed on Android 5.0+ from the Goole Play Store at https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
-+ From other platforms please follow those steps in order to install WepSIM as a Progressive Web Application (PWA):
++ For other platforms, please follow those steps in order to install WepSIM as a Progressive Web Application (PWA):
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
- **1** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android001_short.jpg) | First, open Safari (iOS, MacOS) or Chrome (Android, Windows, Linux) and load https://acaldero.github.io/wepsim. From the top-right corner tap on the share icon (Safari) or the menu icon (Chrome). 
+ **1** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android001_short.jpg) | First, open Safari (iOS, MacOS) or Chrome (Android, Windows, Linux) and load https://acaldero.github.io/wepsim. <br/> From the top-right corner tap on the share icon (Safari) or the menu icon (Chrome). 
  **2** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android002_short.jpg) | Move within share options until 'add to home screen' option and click on it.
  **3** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android003_short.jpg) | Finally, click in the 'add' option.
  **4** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android004_short.jpg) | Then, WepSIM can be launched from the home screen icon.    
@@ -310,7 +308,7 @@ Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from 
 		     onclick="var context1 = document.getElementById('iframe1');
 			      context1.src = 'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?' +
 					     'notify=false&' +
-                                         'example=13&' +
+                                             'example=13&' +
 					     'simulator=assembly:screen';
 			      return false;">Step 1.- Load Example</a>
 
