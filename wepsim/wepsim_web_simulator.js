@@ -542,8 +542,35 @@
     // Initialize UI
     //
 
+    function wepsim_init_quickfixes ( )
+    {
+	// https://github.com/facebook/react-native/issues/18375
+	/* eslint-disable no-extend-native */
+	/* eslint-disable no-param-reassign */
+	/* eslint-disable no-bitwise */
+	if (!String.prototype.padStart) 
+        {
+	  String.prototype.padStart = function padStart(targetLength, padString) {
+	    targetLength >>= 0; // truncate if number, or convert non-number to 0;
+	    padString = String(typeof padString !== 'undefined' ? padString : ' ');
+	    if (this.length >= targetLength) {
+	      return String(this);
+	    }
+	    targetLength -= this.length;
+	    if (targetLength > padString.length) {
+	      // append to original to ensure we are longer than needed
+	      padString += padString.repeat(targetLength / padString.length);
+	    }
+	    return padString.slice(0, targetLength) + String(this);
+	  };
+	}
+    }
+
     function wepsim_init_ui ( )
     {
+            // fixed padString...
+            wepsim_init_quickfixes() ;
+
 	    // install protection for accidental close.
 	    window.addEventListener("beforeunload", wepsim_confirm_exit) ;
 
