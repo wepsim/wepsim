@@ -328,5 +328,4 @@ Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from 
         </div>
 
     </div>
-```
 

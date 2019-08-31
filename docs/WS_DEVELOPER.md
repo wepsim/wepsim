@@ -182,7 +182,13 @@ cp -a wepsim-2.0.10/ws_dist www
 sed -i .bak 's/wepsim/android_asset\/www/g' ./www/examples/hardware/ep/images/processor.svg
 ```
 
-+ 2.3) [Android Only] Add to file "platforms/android/app/src/main/java/es/uc3m/inf/arcos/wepsim/MainActivity.java" the code:
++ 2.3) Adapt path in files "./www/wepsim-classic.html" and "./www/wepsim-compact.html":
+```bash
+sed -i .bak 's/external\/cordova/cordova/g' ./www/wepsim-classic.html
+sed -i .bak 's/external\/cordova/cordova/g' ./www/wepsim-compact.html
+```
+
++ 2.4) [Android Only] Add to file "platforms/android/app/src/main/java/es/uc3m/inf/arcos/wepsim/MainActivity.java" the code:
 ```java
  ...
  import android.webkit.WebView;
