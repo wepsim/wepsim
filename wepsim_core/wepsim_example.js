@@ -225,6 +225,7 @@
 
        var fmt_toggle    = "" ;
        var t_hwmcasm     = "" ;
+       var t_index       = "" ;
        var e_title       = "" ;
        var e_type        = "" ;
        var e_level       = "" ;
@@ -260,6 +261,7 @@
 	       e_id          = examples[m].id ;
 
 	       t_hwmcasm = e_hw + ":" + e_mc + ":" + e_asm ;
+	       t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
 
 	        if (fmt_toggle === "")
 	            fmt_toggle = "bg-light" ;
@@ -267,7 +269,7 @@
 
 	            u = "<div class='row py-1 " + fmt_toggle + " user_" + e_level + "'>" +
                         '<div class="col-sm-auto">' +
-                        '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
+                        '    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
                         '</div>' +
                         '<div class="col-sm-3">' +
                         '     <span style="cursor:pointer;" ' +
@@ -276,14 +278,13 @@
 		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true); ' +
 		        '                    $(\'#example1\').modal(\'hide\'); ' +
 		        '                    return false;" ' +
-		        '           class="btn-like rounded-0 bg-info text-white p-0 mr-2">' + e_title + '</span>' +
+		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-2" style="cursor:pointer;" >' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm collapse7 show">' +
                         '    <c>' + e_description + '</c>' +
                         '</div>' +
                         '<div class="col-sm-auto">' +
 		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + mode + '&example=' + m + '</span>' +
-		    //  '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + e_hw + '&example=' + m + '</span>' +
 		        '    <div class="btn-group btn-group-md float-right align-top">' +
                         '           <button type="button" ' +
 		        '                   class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +

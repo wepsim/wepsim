@@ -269,10 +269,22 @@
                 var o1 = document.getElementById("bp"+hexaddr) ;
                 var bp_state = curr_firm.assembly[hexaddr].breakpoint ;
 
-                if (bp_state === true) {
+                if (bp_state === true) 
+		{
                     bp_state = false ;
-                    o1.innerHTML = "&nbsp;" ;
-                } else {
+                    o1.innerHTML = "<span class='badge rounded-circle' data-toggle='tooltip' title='click to toggle breakpoint'>.</span>" ;
+
+		    $('[data-toggle="tooltip"]').tooltip({
+                          trigger:   'hover',
+                          sanitizeFn: function (content) {
+                                         return content ; // DOMPurify.sanitize(content) ;
+                                      }
+                    }) ;
+                } 
+		else 
+		{
+		    $('[data-toggle="tooltip"]').tooltip('hide') ;
+
                     bp_state = true ;
                     o1.innerHTML = sim_core_breakpointicon_get(icon_theme) ;
                 }
