@@ -175,38 +175,21 @@
 
     function share_example ( m, base_url )
     {
-	 if (typeof navigator.canShare === 'undefined')
-	 {
-	     alert('navigator.canShare object is not available for sharing, sorry!') ;
-	     return false ;
-	 }
-
-	 // build data
-	 var data = {} ;
-
+	 // example information
 	 var e_description = ws_examples[m].description ;
 	     e_description = e_description.replace(/<[^>]+>/g,'') ;
 	 var e_id          = ws_examples[m].id ;
 	 var e_hw          = ws_examples[m].hardware ;
 
-	 data.title = 'WepSIM example ' + e_id + '...' ;
-	 data.text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description + '):\n' ;
-	 data.url   = '' + base_url + '?mode=' + e_hw + '&example=' + m ;
+	 // share information
+	 var share_title = 'WepSIM example ' + e_id + '...' ;
+	 var share_text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description + '):\n' ;
+	 var share_url   = '' + base_url + '?mode=' + e_hw + '&example=' + m ;
 
-	 // try to share data
-	 try 
-	 {
-	     navigator.share(data) ;
-	 } 
-	 catch(err) 
-	 {
-	     alert('Sorry, unsuccessful share: ' + err.message) ;
-	 }
-
-	 // stats about sharing
-	 ga('send', 'event', 'ui', 'ui.share', 'ui.share.example_' + m);
-
-	 return true ;
+	 return share_infomation('example_' + m, 
+		                 share_title, 
+		                 share_text, 
+		                 share_url) ;
     }
 
     function table_examples_html ( examples )
