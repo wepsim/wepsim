@@ -371,7 +371,7 @@
             var share_text  = checkpointStr ;
             var share_url   = '' ; // get_cfg('base_url') + '?mode=' + get_cfg('ws_mode') ;
 
-	    if (obj_tagName.value.strip() !== '')
+	    if (obj_tagName.value.toString().trim() !== '')
 	         share_title += ' (' + obj_tagName.value + ')...' ;
 	    else share_title += '...' ;
 
