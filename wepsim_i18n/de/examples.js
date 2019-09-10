@@ -75,7 +75,7 @@
 		'Load Assembly only':		'Nur Baugruppe laden',
 		'Load Firmware only':		'Nur Firmware laden',
 		'Copy reference to clipboard':	'Kopieren Sie den Verweis in die Zwischenablage',
-		'Share':			'Share (Android)',
+		'Share':			'Aktie',
 		'No examples available...':	'Für die ausgewählte Hardware sind keine Beispiele verfügbar',
 		'Simple example':		'Einfaches Beispiel.',
 		'_last_':			'_last_'

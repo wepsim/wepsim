@@ -76,7 +76,7 @@
 		'Load Assembly only':		'Только загрузка',
 		'Load Firmware only':		'Загрузить только прошивку',
 		'Copy reference to clipboard':		'Скопировать ссылку в буфер обмена',
-		'Share':		'Поделиться (Android)',
+		'Share':		'Поделиться',
 		'No examples available...':		'Для выбранного оборудования отсутствуют примеры.',
 		'Simple example':		'Простой пример',
 		'_last_':		'_last_'

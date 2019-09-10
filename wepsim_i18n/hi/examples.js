@@ -76,7 +76,7 @@
 		'Load Assembly only':		'केवल विधानसभा लोड करें',
 		'Load Firmware only':		'केवल फर्मवेयर लोड करें',
 		'Copy reference to clipboard':		'क्लिपबोर्ड पर कॉपी संदर्भ',
-		'Share':		'शेयर (Android)',
+		'Share':		'शेयर',
 		'No examples available...':		'चयनित हार्डवेयर के लिए कोई उदाहरण उपलब्ध नहीं हैं',
 		'Simple example':		'सरल उदाहरण है।',
 		'_last_':		'_last_'

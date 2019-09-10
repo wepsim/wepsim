@@ -1341,12 +1341,16 @@
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
 				    <span class="text-white bg-secondary" data-langkey="Output">Output</span>
-				    <button class="btn btn-light mx-auto float-right py-0 col-auto"
-					  onclick="var stateToSave   = $('input[name=stateToSave1]:checked').val();
-						   var checkpointObj = wepsim_checkpoint_get('tagToSave1');
+				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
+					  onclick="var checkpointObj = wepsim_checkpoint_get('tagToSave1');
 						   wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
 						   wepsim_notify_success('<strong>INFO</strong>', 'Save requested!.');
 						   return false;"><span data-langkey="Save">Save</span></button>
+				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
+					  onclick="var checkpointObj = wepsim_checkpoint_get('tagToSave1');
+						   wepsim_checkpoint_share('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
+						   wepsim_notify_success('<strong>INFO</strong>', 'Share requested!.');
+						   return false;"><span data-langkey="Share">Share</span></button>
 		                  </h5>
 			      </div>
 			      <div class="card-body">
@@ -1365,7 +1369,7 @@
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
 				    <span class="text-white bg-secondary" data-langkey="Input">Input</span>
-				    <button class="btn btn-light mx-auto float-right py-0 col-auto"
+				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 				  	    onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
 						     wepsim_notify_success('<strong>INFO</strong>', 'Load requested!.');
 						     return false;"><span data-langkey="Load">Load</span></button>

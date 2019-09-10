@@ -112,6 +112,7 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_dbg_mc.js \
     wepsim_core/wepsim_dbg_breakpointicons.js \
     \
+    wepsim_core/wepsim_share.js \
     wepsim_core/wepsim_config.js \
     wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
