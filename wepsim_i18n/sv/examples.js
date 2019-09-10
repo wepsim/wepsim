@@ -76,7 +76,7 @@
 		'Load Assembly only':		'Endast lastmontering',
 		'Load Firmware only':		'Ladda endast fast programvara',
 		'Copy reference to clipboard':	'Kopiera referens till Urklipp',
-		'Share':			'Dela (Android)',
+		'Share':			'Dela',
 		'No examples available...':	'Inga exempel finns tillgängliga för den valda hårdvaran',
 		'Simple example':		'Enkelt exempel.',
 		'_last_':			'_last_'

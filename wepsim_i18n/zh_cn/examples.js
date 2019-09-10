@@ -76,7 +76,7 @@
 		'Load Assembly only':		'仅装载装配',
 		'Load Firmware only':		'仅加载固件',
 		'Copy reference to clipboard':	'复制对剪贴板的引用',
-		'Share':			'分享（Android）',
+		'Share':			'分享',
 		'No examples available...':	'没有可用于所选硬件的示例',
 		'Simple example':		'简单的例子。',
 		'_last_':			'_last_'

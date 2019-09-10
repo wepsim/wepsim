@@ -76,7 +76,7 @@
 		'Load Assembly only':		'Carica solo il gruppo',
 		'Load Firmware only':		'Carica solo il firmware',
 		'Copy reference to clipboard':		'Copia il riferimento negli appunti',
-		'Share':			'Condividi (Android)',
+		'Share':			'Condividi',
 		'No examples available...':		'Non sono disponibili esempi per l\'hardware selezionato',
 		'Simple example':		'Semplice esempio',
 		'_last_':			'_last_'

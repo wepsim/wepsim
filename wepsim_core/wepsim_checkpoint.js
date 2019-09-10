@@ -292,7 +292,7 @@
 				           var current_checkpoint = JSON.parse(textLoaded) ;
                                                current_checkpoint = wepsim_checkpoint_NB2Obj(current_checkpoint) ;
                                            wepsim_checkpoint_loadFromObj(current_checkpoint,
-						                         obj_fileName,obj_tagName,obj_fileToLoad) ;
+						                         obj_fileName, obj_tagName, obj_fileToLoad) ;
 			                } ;
 
 	    // load checkpoint
@@ -314,9 +314,11 @@
 	    // load checkpoint
 	    try
 	    {
+                var filename = obj_uri.href.substring(obj_uri.href.lastIndexOf('/') + 1) ;
+
 	        wepsim_preload_json(obj_uri.href,
 			            function(data) {
-	                                var obj_refName        = { name: obj_uri.href } ;
+	                                var obj_refName        = { name: filename } ;
                                         var current_checkpoint = wepsim_checkpoint_NB2Obj(data) ;
 				        wepsim_checkpoint_loadFromObj(current_checkpoint,
 					                              obj_fileName, obj_tagName, obj_refName) ;
@@ -347,5 +349,35 @@
                                                                  'tagToSave1', 
                                                                  obj_refName) ;
                                });
+    }
+
+    function wepsim_checkpoint_share ( id_filename, id_tagname, checkpointObj )
+    {
+	    // get & check params
+            var obj_fileName = document.getElementById(id_filename) ;
+	    var obj_tagName  = document.getElementById(id_tagname) ;
+
+	    if ( (obj_fileName === null) || (obj_tagName === null) )
+	    {
+		return false ;
+	    }
+
+	    // get checkpoint
+	    var checkpointNB  = wepsim_checkpoint_Obj2NB(checkpointObj) ;
+	    var checkpointStr = JSON.stringify(checkpointNB, null, 2) ;
+
+	    // share checkpoint
+            var share_title = 'WepSIM checkpoint backup' ;
+            var share_text  = checkpointStr ;
+            var share_url   = '' ; // get_cfg('base_url') + '?mode=' + get_cfg('ws_mode') ;
+
+	    if (obj_tagName.value.strip() !== '')
+	         share_title += ' (' + obj_tagName.value + ')...' ;
+	    else share_title += '...' ;
+
+            return share_infomation('checkpoint',
+                                    share_title,
+                                    share_text,
+                                    share_url) ;
     }
 
