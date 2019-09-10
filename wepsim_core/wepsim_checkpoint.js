@@ -367,9 +367,13 @@
 	    var checkpointStr = JSON.stringify(checkpointNB, null, 2) ;
 
 	    // share checkpoint
-            var share_title = 'WepSIM checkpoint backup (' + obj_tagName.value + ')...' ;
+            var share_title = 'WepSIM checkpoint backup' ;
             var share_text  = checkpointStr ;
-            var share_url   = get_cfg('base_url') + '?mode=' + get_cfg('ws_mode') ;
+            var share_url   = '' ; // get_cfg('base_url') + '?mode=' + get_cfg('ws_mode') ;
+
+	    if (obj_tagName.value.strip() !== '')
+	         share_title += ' (' + obj_tagName.value + ')...' ;
+	    else share_title += '...' ;
 
             return share_infomation('checkpoint',
                                     share_title,

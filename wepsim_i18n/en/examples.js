@@ -78,7 +78,7 @@
              "Load Assembly only": 			"Load Assembly only",
              "Load Firmware only": 			"Load Firmware only",
              "Copy reference to clipboard": 		"Copy reference to clipboard",
-             "Share":					"Share (Android)",
+             "Share":					"Share",
 	     "No examples available...": 		"No examples are available for the selected hardware",
              "Simple example":				"Simple example."
 
