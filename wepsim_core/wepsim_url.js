@@ -161,9 +161,9 @@
     {
         var ret = false ;
 
-	if (false == is_mobile())
-             ret = wepsim_file_downloadTo(textToWrite, fileNameToSaveAs) ;
-        else ret = wepsim_file_saveTo(textToWrite, fileNameToSaveAs) ;
+	if (is_cordova())
+             ret = wepsim_file_saveTo(textToWrite, fileNameToSaveAs) ;
+        else ret = wepsim_file_downloadTo(textToWrite, fileNameToSaveAs) ;
 
         return ret ;
     }
