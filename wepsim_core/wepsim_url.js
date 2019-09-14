@@ -40,7 +40,7 @@
 
 	var okHandler = function(msg) {
 	    wepsim_notify_success('<strong>INFO</strong>',
-                                  'Successful file write!');
+                                  'Successful file write request: ' + fileNameToSaveAs);
 	} ;
 
 	var onWriteFile = function(fileWriter) {
@@ -104,24 +104,23 @@
 
     function wepsim_file_downloadTo ( textToWrite, fileNameToSaveAs )
     {
-            var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+	    var windowURL      = (window.webkitURL || window.URL) ;
+            var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' }) ;
 
             var downloadLink = document.createElement("a");
-            downloadLink.download = fileNameToSaveAs;
-            downloadLink.innerHTML = "Download File";
-            if (window.webkitURL != null) {
-                downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-            }
-            else {
-                downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-                downloadLink.onclick = function ( event ) {
-                                            document.body.removeChild(event.target);
-                                       };
+                downloadLink.innerHTML     = "Download File";
                 downloadLink.style.display = "none";
-                document.body.appendChild(downloadLink);
-            }
+                downloadLink.download      = fileNameToSaveAs;
+                downloadLink.href          = windowURL.createObjectURL(textFileAsBlob);
+                downloadLink.onclick       = function ( event ) {
+                                                document.body.removeChild(event.target);
+                                             } ;
 
+            document.body.appendChild(downloadLink);
             downloadLink.click();
+
+	    wepsim_notify_success('<strong>INFO</strong>',
+                                  'Successful opportunity for downloading: ' + fileNameToSaveAs);
     }
 
 
@@ -162,7 +161,7 @@
         var ret = false ;
 
 	if (is_cordova())
-             ret = wepsim_file_saveTo(textToWrite, fileNameToSaveAs) ;
+             ret =     wepsim_file_saveTo(textToWrite, fileNameToSaveAs) ;
         else ret = wepsim_file_downloadTo(textToWrite, fileNameToSaveAs) ;
 
         return ret ;

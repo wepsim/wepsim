@@ -1411,7 +1411,20 @@
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) 
 		                                {
-						   var result = (get_value(ep_states[s_expr[2]]) << 0) % (get_value(ep_states[s_expr[3]]) << 0) ;
+						   var a = (get_value(ep_states[s_expr[2]]) << 0) ;
+						   var b = (get_value(ep_states[s_expr[3]]) << 0) ;
+
+						   if (0 == b) {
+						       set_value(ep_states[s_expr[1]], 0) ;
+
+						       ep_internal_states.alu_flags.flag_n = 0 ;
+						       ep_internal_states.alu_flags.flag_z = 1 ;
+						       ep_internal_states.alu_flags.flag_v = 1 ;
+						       ep_internal_states.alu_flags.flag_c = 0 ;
+                                                       return ;
+                                                   }
+
+						   var result = a % b ;
 						   set_value(ep_states[s_expr[1]], result) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;

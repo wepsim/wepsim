@@ -1179,14 +1179,16 @@
 		                  <h5 class="m-0">
 				    <span class="text-white bg-secondary" data-langkey="Output">Output</span>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
-					  onclick="var checkpointObj = wepsim_checkpoint_get('tagToSave1');
+					  onclick="wepsim_notify_success('<strong>INFO</strong>', 'Processing save request...');
+                                                   var checkpointObj = wepsim_checkpoint_get('tagToSave1');
 						   wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
-						   wepsim_notify_success('<strong>INFO</strong>', 'Save requested!.');
+                                                   wsweb_dialogbox_close_state();
 						   return false;"><span data-langkey="Save">Save</span></button>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
-					  onclick="var checkpointObj = wepsim_checkpoint_get('tagToSave1');
+					  onclick="wepsim_notify_success('<strong>INFO</strong>', 'Processing share request...');
+                                                   var checkpointObj = wepsim_checkpoint_get('tagToSave1');
 						   wepsim_checkpoint_share('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
-						   wepsim_notify_success('<strong>INFO</strong>', 'Share requested!.');
+                                                   wsweb_dialogbox_close_state();
 						   return false;"><span data-langkey="Share">Share</span></button>
 		                  </h5>
 			      </div>
@@ -1208,7 +1210,8 @@
 				    <span class="text-white bg-secondary" data-langkey="Input">Input</span>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 					    onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
-						     wepsim_notify_success('<strong>INFO</strong>', 'Load requested!.');
+                                                     wsweb_dialogbox_close_state();
+						     wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
 						     return false;"><span data-langkey="Load">Load</span></button>
 		                  </h5>
 			      </div>
