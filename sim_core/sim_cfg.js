@@ -134,8 +134,8 @@
 
         function is_cordova ( )
         {
-             // https://videlais.com/2014/08/21/lessons-learned-from-detecting-apache-cordova/
-             return (typeof window.cordova !== "undefined") ;
+             // https://stackoverflow.com/questions/8068052/phonegap-detect-if-running-on-desktop-browser
+             return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
         }
 
         function set_primary_cfg ( )
