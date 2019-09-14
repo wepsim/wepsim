@@ -376,7 +376,7 @@
            // prepare data: ins_bin
 	   var next = 0 ;
 	   var ins_bin = mp[l] ;
-	   for (var iw=1; iw<nwords; iw++) 
+	   for (var iw=1; iw<nwords; iw++)
 	   {
 		  next = "0x" + (parseInt(l, 16) + iw*4).toString(16) ; // 4 -> 32 bits
 		  if (typeof mp[next] !== "undefined") {
@@ -409,7 +409,7 @@
 	   o += '</ul>\n' ;
 
 	   // details: microcode
-	   o += '<span class=\"user_microcode\">' + 
+	   o += '<span class=\"user_microcode\">' +
                 '<span class=\"square\">Microcode:</span>\n' +
 	        '<ul class=\"mb-0\">\n' +
 	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
@@ -421,7 +421,7 @@
 	   // close
            o += '<button type=\"button\" id=\"close\" data-role=\"none\" ' +
                 '        class=\"btn btn-sm btn-danger w-100 p-0 mt-2\" ' +
-                '        onclick=$(\".tooltip\").tooltip("hide");>' + 
+                '        onclick=$(\".tooltip\").tooltip("hide");>' +
     		         i18n_get('dialogs',wsi,'Close') +
     		'</button>' ;
 
@@ -499,23 +499,37 @@
                               "</tr>" ;
 		     }
 
-                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" +
+                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
+                           "<td class='asm_label  text-monospace col-auto collapse' " +
+                           "    style='line-height:0.9;' align=right" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + s_label + "</td>" +
+                           "<td class='asm_addr   text-monospace col-auto collapse' " +
+                           "    style='line-height:0.9;'" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + l + "</td>" +
+                           "<td class='asm_break  text-monospace col-auto show py-0 px-0' " +
+                           "    style='line-height:0.9;' id='bp" + l + "' width='1%'" +
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-                           "<td class='asm_label  text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=right>" + s_label + "</td>" +
-                           "<td class='asm_addr   text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;'>" + l + "</td>" +
-                           "<td class='asm_break  text-monospace col-auto show py-0 px-0' " +
-                           "    style='line-height:0.9;' id='bp" + l + "' width='1%'>" + 
-			   "    <span class='badge rounded-circle' data-toggle='tooltip' title='click to toggle breakpoint'>.</span>" +
+			   "    <span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
 			   "</td>" +
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left><span href='#' data-toggle='tooltip' data-placement='right' data-html='true' data-l='" + l + "'>" + s4_hex + "</span></td>" +
+                           "    style='line-height:0.9;' align=left>" +
+			   "    <span data-toggle='tooltip' rel='tooltip2' data-placement='right' data-html='true' data-l='" + l + "'>" + 
+			   "    <span data-toggle='tooltip' rel='tooltip1' title='click to show instruction format details'>" +
+				s4_hex + 
+			   "    </span>" +
+			   "    </span>" +
+		           "</td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;'>" + s1_instr + "</td>" +
+                           "    style='line-height:0.9;'" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + s1_instr + "</td>" +
                            "<td class='asm_pins   text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left>" + s2_instr + "</td>" +
+                           "    style='line-height:0.9;' align=left" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + s2_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody>" +
