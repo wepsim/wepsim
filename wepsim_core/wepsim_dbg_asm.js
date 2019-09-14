@@ -266,29 +266,36 @@
                 var hexaddr    = "0x" + addr.toString(16) ;
                 var curr_firm  = simhw_internalState('FIRMWARE') ;
 
-                var o1 = document.getElementById("bp"+hexaddr) ;
-                var bp_state = curr_firm.assembly[hexaddr].breakpoint ;
+                var o1         = document.getElementById("bp"+hexaddr) ;
+                var bp_state   = curr_firm.assembly[hexaddr].breakpoint ;
+		var inner_elto = "." ;
 
-                if (bp_state === true) 
-		{
+		// toggle
+                if (bp_state === true) {
                     bp_state = false ;
-                    o1.innerHTML = "<span class='badge rounded-circle' data-toggle='tooltip' title='click to toggle breakpoint'>.</span>" ;
+		    inner_elto = "." ;
 
-		    $('[data-toggle="tooltip"]').tooltip({
-                          trigger:   'hover',
-                          sanitizeFn: function (content) {
-                                         return content ; // DOMPurify.sanitize(content) ;
-                                      }
-                    }) ;
-                } 
-		else 
-		{
-		    $('[data-toggle="tooltip"]').tooltip('hide') ;
-
+                } else {
                     bp_state = true ;
-                    o1.innerHTML = sim_core_breakpointicon_get(icon_theme) ;
+                    inner_elto = sim_core_breakpointicon_get(icon_theme) ;
                 }
 
+		// update content
+                $("span[rel='tooltip1']").tooltip('hide') ;
+
+                o1.innerHTML = "<span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>" + 
+			       inner_elto + 
+			       "</span>" ;
+
+                $("span[rel='tooltip1']").tooltip({
+                        trigger:   'hover',
+                        html:       true,
+                        sanitizeFn: function (content) {
+                                       return content ; // DOMPurify.sanitize(content) ;
+                                    }
+		}) ;
+
+		// store state
                 curr_firm.assembly[hexaddr].breakpoint = bp_state ;
 
 		// add if recording
@@ -337,8 +344,16 @@
             $("#asm_debugger").html(asmdbg_content);
 
             setTimeout(function() {
-                    $("span[data-toggle='tooltip']").tooltip({
+                    $("span[rel='tooltip1']").tooltip({
                             trigger:   'hover',
+                            html:       true,
+                            sanitizeFn: function (content) {
+                                           return content ; // DOMPurify.sanitize(content) ;
+                                        }
+		    }) ;
+
+                    $("span[rel='tooltip2']").tooltip({
+                            trigger:   'click',
                             html:       true,
                             title:      function() {
 				           var l = this.getAttribute('data-l') ;

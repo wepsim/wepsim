@@ -296,8 +296,10 @@
 
 	    // show/hide wepmips...
             wepsim_activeview('only_asm', false) ;
-	    if ('wepmips' == optValue) {
+	    if ('wepmips' == optValue) 
+	    {
                  wepsim_activeview('only_asm', true) ;
+		 load_from_example_firmware("ep:ep_mips:ep_s1_e1", false) ;
             }
 
 	    // intro mode...

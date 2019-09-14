@@ -1280,15 +1280,27 @@
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-						   var result = (get_value(poc_states[s_expr[2]]) << 0) % (get_value(poc_states[s_expr[3]]) << 0) ;
-						   set_value(poc_states[s_expr[1]], result) ;
+						   var a = (get_value(poc_states[s_expr[2]]) << 0) ;
+						   var b = (get_value(poc_states[s_expr[3]]) << 0) ;
 
+						   if (0 == b) {
+						       set_value(poc_states[s_expr[1]], 0) ;
+
+						       poc_internal_states.alu_flags.flag_n = 0 ;
+						       poc_internal_states.alu_flags.flag_z = 1 ;
+						       poc_internal_states.alu_flags.flag_v = 1 ;
+						       poc_internal_states.alu_flags.flag_c = 0 ;
+                                                       return ;
+                                                   }
+
+						   var result = a % b ;
+						   set_value(poc_states[s_expr[1]], result) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_v = 0 ;
 						   poc_internal_states.alu_flags.flag_c = 0 ;
-						},
+                                                },
 					verbal: function (s_expr)
 						{
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
