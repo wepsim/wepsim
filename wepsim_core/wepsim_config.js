@@ -89,7 +89,7 @@
 		      '    <span class="badge badge-pill badge-light">' + (n+1) + '</span>' +
 		      '</div>' +
 		      '<div class="col-md-4">'  + e_code_cfg   + '</div>' +
-		      '<div class="col-md collapse7 show"><c>' + e_description + '</c></div>' +
+		      '<div class="col-md collapse7 show d-flex align-items-center"><c>' + e_description + '</c></div>' +
 		      '</div>' ;
 
 		// indexing row

@@ -27,7 +27,7 @@
     {
 	 if (typeof navigator.canShare === 'undefined')
 	 {
-	     alert('Sorry, sharing only available on Android:\n' + 
+	     alert('Sorry, unable to share::\n' + 
 		   'navigator.canShare object is not available.') ;
 	     return false ;
 	 }
