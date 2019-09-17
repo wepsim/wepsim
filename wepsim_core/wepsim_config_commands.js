@@ -239,12 +239,33 @@
                       id:          "radio2",
                       type:        "Register file",
                       u_class:     "user_archived",
-                      code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "    <div class='btn-group-toggle' data-toggle='buttons' >" +
+                                   "    <div class='btn-group d-flex btn-group-justified'>" +
+				   "	    <label id='label2-unsigned_16_nofill'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='register file display format: hexadecimal'" +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_nofill'); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_16_nofill'  autocomplete='off' >1A<sub>16</sub>" +
+				   "	    </label>" +
+				   "	    <label id='label2-unsigned_10_nofill'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='register file display format: decimal'" +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_nofill'); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_10_nofill'  autocomplete='off' >32<sub>10</sub>" +
+				   "	    </label>" +
+				   "	    <label id='label2-unsigned_8_nofill'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='register file display format: octal'" +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_nofill');  show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_8_nofill'   autocomplete='off' >26<sub>8</sub>" +
+				   "	    </label>" +
+                                   "    </div>" +
+                                   "    <div class='btn-group d-flex btn-group-justified'>" +
 				   "	    <label id='label2-unsigned_16_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_fill'); show_rf_values(); show_states(); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' >0x01A<sub>16</sub>" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' >001A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_10_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -258,6 +279,7 @@
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_fill');  show_rf_values(); show_states(); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' >0026<sub>8</sub>" +
 				   "	    </label>" +
+                                   "    </div>" +
 				   "	</div>",
 		      code_init:   function() { 
 			               $('#label2-' + get_cfg('RF_display_format')).button('toggle'); 
