@@ -203,7 +203,6 @@
                        description: "<span data-langkey='example_04_04'>Example of malloc + free.</span>"
                      });
 
-/*
     ws_examples.push({
                        id: 'S5E1',
                        title: "<span data-langkey='addv + seqv.'>addv + seqv.</span>",
@@ -239,7 +238,6 @@
                        assembly:  "ep_s5_e3",
                        description: "<span data-langkey='example_05_03'>Application-specific extension: madd + mmul + mxch.</span>"
                      });
-*/
 
     ws_examples.push({
                        id: 'S6E1',
@@ -287,7 +285,7 @@
                        title: "<span data-langkey='Instructions'>Instructions</span>",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e1",
@@ -299,7 +297,7 @@
                        title: "<span data-langkey='Memory access'>Memory access</span>",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e2",
@@ -311,7 +309,7 @@
                        title: "<span data-langkey='Looping'>Looping</span>",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e3",
@@ -323,7 +321,7 @@
                        title: "<span data-langkey='Vector'>Vector</span>",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e4",
@@ -335,7 +333,7 @@
                        title: "<span data-langkey='I/O'>I/O</span>",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e1",
@@ -347,7 +345,7 @@
                        title: "<span data-langkey='Subrutine'>Subrutine</span>",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "archived",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e2",
@@ -359,7 +357,7 @@
                        title: "<span data-langkey='Masks & shift'>Masks & shift</span>",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e3",
@@ -371,7 +369,7 @@
                        title: "<span data-langkey='Matrix'>Matrix</span>",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e4",
@@ -383,7 +381,7 @@
                        title: "<span data-langkey='Interruptions'>Interruptions</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e1",
@@ -395,7 +393,7 @@
                        title: "<span data-langkey='System call'>System call</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e2",
@@ -407,7 +405,7 @@
                        title: "<span data-langkey='Exception'>Exception</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e3",
@@ -419,7 +417,7 @@
                        title: "<span data-langkey='Int. + syscall + except.'>Int. + syscall + except.</span>",
                        type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s4_e1",
@@ -431,7 +429,7 @@
                        title: "<span data-langkey='syscall 1, 4-5, 8, 11-12'>syscall 1, 4-5, 8, 11-12</span>",
                        type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s4_e2",
@@ -443,12 +441,28 @@
                        title: "<span data-langkey='strlen_2 + skipasciicode_2'>strlen_2 + skipasciicode_2</span>",
                        type: "<span data-langkey='Laboratory'>Laboratory</span>",
                        level: "actual",
-                       modes:  "newbie,intro,wepmips",
+                       modes:  "newbie,intro,asm_mips",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s5_e2",
                        description: "<span data-langkey='example_05_02'>Application-specific extension: strlen_2 + skipasciicode_2.</span>"
                      });
+
+
+    // EP+RV32
+
+    ws_examples.push({
+                       id: 'S7E1',
+                       title: "<span data-langkey='Instructions'>Instructions</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,asm_rv32",
+                       hardware:  "ep",
+                       microcode: "ep_rv32",
+                       assembly:  "ep_s7_e1",
+                       description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+                     });
+
 
     // POC
 

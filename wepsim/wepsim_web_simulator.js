@@ -283,7 +283,8 @@
             {
 	      case 'newbie':
 	      case 'intro':
-	      case 'wepmips':
+	      case 'asm_mips':
+	      case 'asm_rv32':
 	      case 'tutorial':
                                hwid = simhw_getIdByName('ep') ;
                                wepsim_activehw(hwid) ;
@@ -294,12 +295,17 @@
                                break;
             }
 
-	    // show/hide wepmips...
+	    // show/hide microcode...
             wepsim_activeview('only_asm', false) ;
-	    if ('wepmips' == optValue) 
+	    if ('asm_mips' == optValue)
 	    {
                  wepsim_activeview('only_asm', true) ;
 		 load_from_example_firmware("ep:ep_mips:ep_s1_e1", false) ;
+            }
+	    if ('asm_rv32' == optValue)
+	    {
+                 wepsim_activeview('only_asm', true) ;
+		 load_from_example_firmware("ep:ep_rv32:ep_s7_e1", false) ;
             }
 
 	    // intro mode...
