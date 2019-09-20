@@ -383,10 +383,44 @@ bgeu rs1 rs2 offset {
 }
 
 #  LB rd,offset(rs1) 	Load Byte 				rd ← s8[rs1 + offset]
-# TODO
+lb rd offset(rs1) {
+            co=111111,
+            nwords=1,
+            rd=reg(25,21),
+            offset=inm(15,0),
+            rs1=reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var offset = simcore_native_get_field_from_ir(fields, 1) ;
+                var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                // TODO
+
+                simcore_native_go_maddr(0) ;
+            }
+}
 
 #  LH rd,offset(rs1) 	Load Half 				rd ← s16[rs1 + offset]
-# TODO
+lh rd offset(rs1) {
+            co=111111,
+            nwords=1,
+            rd=reg(25,21),
+            offset=inm(15,0),
+            rs1=reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var offset = simcore_native_get_field_from_ir(fields, 1) ;
+                var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                // TODO
+
+                simcore_native_go_maddr(0) ;
+            }
+}
 
 #  LW rd,offset(rs1) 	Load Word 				rd ← s32[rs1 + offset]
 lw rd offset(rs1) {
@@ -411,16 +445,84 @@ lw rd offset(rs1) {
 }
 
 #  LBU rd,offset(rs1) 	Load Byte Unsigned 			rd ← u8[rs1 + offset]
-# TODO
+lbu rd offset(rs1) {
+            co=111111,
+            nwords=1,
+            rd=reg(25,21),
+            offset=inm(15,0),
+            rs1=reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var offset = simcore_native_get_field_from_ir(fields, 1) ;
+                var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                // TODO
+
+                simcore_native_go_maddr(0) ;
+            }
+}
 
 #  LHU rd,offset(rs1) 	Load Half Unsigned 			rd ← u16[rs1 + offset]
-# TODO
+lhu rd offset(rs1) {
+            co=111111,
+            nwords=1,
+            rd=reg(25,21),
+            offset=inm(15,0),
+            rs1=reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var offset = simcore_native_get_field_from_ir(fields, 1) ;
+                var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                // TODO
+
+                simcore_native_go_maddr(0) ;
+            }
+}
 
 #  SB rs2,offset(rs1) 	Store Byte 				u8[rs1 + offset] ← rs2
-# TODO
+sb rd offset(rs1) {
+            co=111111,
+            nwords=1,
+            rd=reg(25,21),
+            offset=inm(15,0),
+            rs1=reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var offset = simcore_native_get_field_from_ir(fields, 1) ;
+                var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                // TODO
+
+                simcore_native_go_maddr(0) ;
+            }
+}
 
 #  SH rs2,offset(rs1) 	Store Half 				u16[rs1 + offset] ← rs2
-# TODO
+sh rd offset(rs1) {
+            co=111111,
+            nwords=1,
+            rd=reg(25,21),
+            offset=inm(15,0),
+            rs1=reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var offset = simcore_native_get_field_from_ir(fields, 1) ;
+                var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                // TODO
+
+                simcore_native_go_maddr(0) ;
+            }
+}
 
 #  SW rs2,offset(rs1) 	Store Word 				u32[rs1 + offset] ← rs2
 sw reg1 val(reg2) {
@@ -538,7 +640,7 @@ ori rd rs1 inm {
 }
 
 #  ANDI rd,rs1,imm 	And Immediate 				rd ← ux(rs1) ∧ ux(imm)
-addi rd rs1 inm {
+andi rd rs1 inm {
             co=111111,
             nwords=1,
             rd=reg(25,21),
@@ -824,10 +926,30 @@ and reg1 reg2 reg3 {
 }
 
 #  FENCE pred,succ 	Fence 	
-# TODO
+fence pred succ {
+            co=111111,
+            nwords=1,
+            pred=inm(25,21),
+            succ=inm(15,0),
+            native,
+            {
+                // TODO
+
+                simcore_native_go_maddr(0) ;
+            }
+}
 
 #  FENCE.I 		Fence Instruction 	
-# TODO
+fence.i {
+            co=111111,
+            nwords=1,
+            native,
+            {
+                // TODO
+
+                simcore_native_go_maddr(0) ;
+            }
+}
 
 
 #
