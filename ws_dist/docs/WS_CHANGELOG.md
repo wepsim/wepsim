@@ -1,6 +1,9 @@
 
 # Changelog
 
+## 2.0.10 -> 2.0.11:
+* Initial support for risc-v
+
 ## 2.0.9 -> 2.0.10:
 * Fix pseudo-instruction 'lii' in 'Subrutine' example.
 * Improved command-line version: faster and more modular code.
