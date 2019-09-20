@@ -196,7 +196,7 @@
     {
        // harware
        var ahw      = 'ep' ;
-       var ep_modes = ['newbie', 'intro', 'asm_mips', 'asm_rv32', 'tutorial'] ;
+       var ep_modes = wepsim_mode_getAvailableModes() ;
 
        var mode = get_cfg('ws_mode') ;
        if ( (mode !== "null") && (! ep_modes.includes(mode)) ) {

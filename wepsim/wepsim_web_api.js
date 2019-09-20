@@ -540,7 +540,7 @@
 	    save_cfg() ;
 
 	    // update select4
-	    wepsim_change_mode(opt) ;
+	    wepsim_mode_change(opt) ;
 
 	    // tutorial mode -> set green background...
 	    $('#select4').css('background-color', '#F6F6F6') ;

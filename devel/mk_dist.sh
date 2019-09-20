@@ -112,11 +112,15 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_dbg_mc.js \
     wepsim_core/wepsim_dbg_breakpointicons.js \
     \
+    wepsim_core/wepsim_mode.js \
     wepsim_core/wepsim_share.js \
     wepsim_core/wepsim_config.js \
     wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
     wepsim_core/wepsim_example_commands.js \
+    wepsim_core/wepsim_example_commands-ep_mips.js \
+    wepsim_core/wepsim_example_commands-poc_mips.js \
+    wepsim_core/wepsim_example_commands-ep_rv32.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_help_commands.js \
     wepsim_core/wepsim_tutorial.js \
