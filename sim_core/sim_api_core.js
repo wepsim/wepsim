@@ -277,7 +277,7 @@
 
 		// when do reset/fetch, check text segment bounds
 	        var mode = get_cfg('ws_mode');
-	        if ( ('wepmips' != mode) && (reg_maddr != 0) ) {
+	        if ( (! mode.startsWith('asm_')) && (reg_maddr != 0) ) {
                        return ret;
 		}
 
@@ -344,7 +344,7 @@
 
             // Set mode
 	    var mode = get_cfg('ws_mode');
-	    if ('wepmips' != mode) {
+	    if (! mode.startsWith('asm_')) {
                 compute_general_behavior("CLOCK") ;
 	    }
 
@@ -397,7 +397,7 @@
 	        }
 
                 var mode = get_cfg('ws_mode');
-                if ('wepmips' == mode)
+		if (mode.startsWith('asm_'))
                 {
                     compute_general_behavior("CLOCK") ; // fetch...
                     compute_general_behavior("CLOCK") ; // ...instruction

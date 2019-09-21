@@ -273,54 +273,6 @@
             return true ;
     }
 
-    // WepSIM mode -> activate_hw + UI view
-
-    function wepsim_change_mode ( optValue )
-    {
-	    // switch active hardware by name...
-            var hwid = -1 ;
-            switch (optValue)
-            {
-	      case 'newbie':
-	      case 'intro':
-	      case 'wepmips':
-	      case 'tutorial':
-                               hwid = simhw_getIdByName('ep') ;
-                               wepsim_activehw(hwid) ;
-                               break;
-	      default:
-	                       hwid = simhw_getIdByName(optValue) ;
-                               wepsim_activehw(hwid) ;
-                               break;
-            }
-
-	    // show/hide wepmips...
-            wepsim_activeview('only_asm', false) ;
-	    if ('wepmips' == optValue) 
-	    {
-                 wepsim_activeview('only_asm', true) ;
-		 load_from_example_firmware("ep:ep_mips:ep_s1_e1", false) ;
-            }
-
-	    // intro mode...
-	    if ('intro' == optValue)
-	    {
-	         wsweb_recordbar_show() ;
-                 wepsim_checkpoint_loadExample('tutorial_2.txt') ;
-                 return true ;
-	    }
-
-	    // newbie mode...
-            if ('newbie' == optValue)
-            {
-                wepsim_newbie_tour() ;
-                return true ;
-            }
-
-            // return ok
-            return true ;
-    }
-
     // sliders
 
     function set_ab_size ( diva, divb, new_value )

@@ -29,8 +29,12 @@
 
                         "step2":  "En la esquina superior derecha est&aacute; el selector de 'modo de ejecuci&oacute;n'.<br>" + 
                                   "<br>" +
-                                  "Permite seleccionar el hardware con el que trabajar (ejemplo: procesador elemental o EP). " +
-                                  "O tambi&eacute;n el tutorial inicial, recomendado para principiantes.",
+                                  "Los usuarios pueden seleccionar:" +
+                                  "<ul>" +
+                                  "<li>El hardware con el que trabajar (ejemplo: procesador EP, POC, etc.)</li>" +
+                                  "<li>El modo solo ensamblador, con instrucciones MIPS<sub>32</sub> de enteros o RISC-V<sub>32</sub></li>" +
+                                  "<li>El tutorial inicial, recomendado para principiantes ;-)</li>" +
+                                  "</ul>",
 
                         "step3":  "En la esquina superior derecha el bot&oacute;n de ayuda abre el panel de ayuda asociado.<br>" +
                                   "<br>" +

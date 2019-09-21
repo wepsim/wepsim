@@ -37,10 +37,10 @@
 + From Linux/Unix command line, please:
   * Check you have installed Node 8.10.0+, and Bash 4.4.19+
   * Download WepSIM by executing:
-    * wget https://github.com/acaldero/wepsim/releases/download/v2.0.10/wepsim-2.0.10.zip
-    * unzip wepsim-2.0.10.zip 
+    * wget https://github.com/acaldero/wepsim/releases/download/v2.0.11/wepsim-2.0.11.zip
+    * unzip wepsim-2.0.11.zip 
   * Execute wepsim_node.sh with the help flag in order to show the available command switches:
-    * cd wepsim-2.0.10
+    * cd wepsim-2.0.11
     * ./wepsim_node.sh help
 
 <a name="install-wepsim-as-pwa"/>
@@ -363,10 +363,10 @@ cordova plugin add cordova-plugin-whitelist
 
 + 2.1) Copy WepSIM files into the www directory:
 ```bash
-wget https://github.com/acaldero/wepsim/releases/download/v2.0.10/wepsim-2.0.10.zip
-unzip wepsim-2.0.10.zip
+wget https://github.com/acaldero/wepsim/releases/download/v2.0.11/wepsim-2.0.11.zip
+unzip wepsim-2.0.11.zip
 mv www www.initial.$$
-cp -a wepsim-2.0.10/ws_dist www
+cp -a wepsim-2.0.11/ws_dist www
 ```
 
 + 2.2) Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:
