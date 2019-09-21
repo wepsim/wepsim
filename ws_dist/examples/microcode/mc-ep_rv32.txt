@@ -210,10 +210,16 @@ jal rd offset {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=address(15,0)rel,
+            offset=address(15,0)abs,
             native,
             {
-                // TODO
+                // fields is a default parameter with the instruction field information
+                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var offset = simcore_native_get_field_from_ir(fields, 1) ;
+
+                var pc = simcore_native_get_value("CPU", "REG_PC") ;
+                simcore_native_set_value("BR", rd, pc) ;
+                simcore_native_set_value("CPU", "REG_PC", pc + offset) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -227,10 +233,17 @@ jalr rd rs1 offset {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            offset=address(15,0)rel,
+            offset=address(15,0)abs,
             native,
             {
-                // TODO
+                // fields is a default parameter with the instruction field information
+                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var rs1    = simcore_native_get_field_from_ir(fields, 1) ;
+                var offset = simcore_native_get_field_from_ir(fields, 2) ;
+
+                var pc = simcore_native_get_value("CPU", "REG_PC") ;
+                simcore_native_set_value("BR", rd, pc) ;
+                simcore_native_set_value("CPU", "REG_PC", (rs1 + offset) & 0xFFFFFFFE) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -361,7 +374,21 @@ bltu rs1 rs2 offset {
             offset=address(15,0)rel,
             native,
             {
-                // TODO
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+                var offset = simcore_native_get_field_from_ir(fields, 2) ;
+
+                reg1 = simcore_native_get_value("BR", reg1) ;
+                reg2 = simcore_native_get_value("BR", reg2) ;
+                if (reg1 < reg2)
+                {
+                    var pc = simcore_native_get_value("CPU", "REG_PC") ;
+                    if ((offset & 0x8000) > 0)
+                         offset = offset | 0xFFFF0000 ;
+                    pc = pc + offset ;
+                    simcore_native_set_value("CPU", "REG_PC", pc) ;
+                }
 
                 simcore_native_go_maddr(0) ;
             }
@@ -376,7 +403,21 @@ bgeu rs1 rs2 offset {
             offset=address(15,0)rel,
             native,
             {
-                // TODO
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+                var offset = simcore_native_get_field_from_ir(fields, 2) ;
+
+                reg1 = simcore_native_get_value("BR", reg1) ;
+                reg2 = simcore_native_get_value("BR", reg2) ;
+                if (reg1 >= reg2)
+                {
+                    var pc = simcore_native_get_value("CPU", "REG_PC") ;
+                    if ((offset & 0x8000) > 0)
+                         offset = offset | 0xFFFF0000 ;
+                    pc = pc + offset ;
+                    simcore_native_set_value("CPU", "REG_PC", pc) ;
+                }
 
                 simcore_native_go_maddr(0) ;
             }
@@ -396,7 +437,15 @@ lb rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var b_addr = simcore_native_get_value("BR", rs1) + offset ;
+                var w_addr = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var  b_value = b_addr & 0x00000003 ;
+                     b_value = w_value >>> (8 * b_value) ;
+                if  (b_value & 0x00000080)
+                     b_value = b_value | 0xFFFFFF00 ;
+                else b_value = b_value & 0x000000FF ;
+                simcore_native_set_value("BR", rd, b_value) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -485,40 +534,72 @@ lhu rd offset(rs1) {
 }
 
 #  SB rs2,offset(rs1) 	Store Byte 				u8[rs1 + offset] ← rs2
-sb rd offset(rs1) {
+sb rs2 offset(rs1) {
             co=111111,
             nwords=1,
-            rd=reg(25,21),
+            rs2=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
             native,
             {
                 // fields is a default parameter with the instruction field information
-                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var rs2    = simcore_native_get_field_from_ir(fields, 0) ;
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
+                var b_value = simcore_native_get_value("BR", rs2) ;
+                    b_value = b_value & 0x000000FF ;
+                var w_addr  = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var b_off   = b_addr & 0x00000003 ;
+                if (3 == b_off) w_value = (w_value & 0x00FFFFFF) | (b_value << 24) ;
+                if (2 == b_off) w_value = (w_value & 0xFF00FFFF) | (b_value << 16) ;
+                if (1 == b_off) w_value = (w_value & 0xFFFF00FF) | (b_value <<  8) ;
+                if (0 == b_off) w_value = (w_value & 0xFFFFFF00) | (b_value) ;
+                simcore_native_set_value("MEMORY", w_addr, w_value) ;
 
                 simcore_native_go_maddr(0) ;
             }
 }
 
 #  SH rs2,offset(rs1) 	Store Half 				u16[rs1 + offset] ← rs2
-sh rd offset(rs1) {
+sh rs2 offset(rs1) {
             co=111111,
             nwords=1,
-            rd=reg(25,21),
+            rs2=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
             native,
             {
                 // fields is a default parameter with the instruction field information
-                var rd     = simcore_native_get_field_from_ir(fields, 0) ;
+                var rs2    = simcore_native_get_field_from_ir(fields, 0) ;
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
+                var b_value = simcore_native_get_value("BR", rs2) ;
+
+                var value_1 = b_value & 0x000000FF ;
+                var w_addr  = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var b_off   = b_addr & 0x00000003 ;
+                if (3 == b_off) w_value = (w_value & 0x00FFFFFF) | (value_1 << 24) ;
+                if (2 == b_off) w_value = (w_value & 0xFF00FFFF) | (value_1 << 16) ;
+                if (1 == b_off) w_value = (w_value & 0xFFFF00FF) | (value_1 <<  8) ;
+                if (0 == b_off) w_value = (w_value & 0xFFFFFF00) | (value_1) ;
+                simcore_native_set_value("MEMORY", w_addr, w_value) ;
+
+                value_1 = b_value & 0x0000FF00 ;
+                value_1 = value_1 >> 16 ;
+                w_addr  = (b_addr + 1) & 0xFFFFFFFC ;
+                w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                b_off   = b_addr & 0x00000003 ;
+                if (3 == b_off) w_value = (w_value & 0x00FFFFFF) | (value_1 << 24) ;
+                if (2 == b_off) w_value = (w_value & 0xFF00FFFF) | (value_1 << 16) ;
+                if (1 == b_off) w_value = (w_value & 0xFFFF00FF) | (value_1 <<  8) ;
+                if (0 == b_off) w_value = (w_value & 0xFFFFFF00) | (value_1) ;
+                simcore_native_set_value("MEMORY", w_addr, w_value) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -573,7 +654,7 @@ slti rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=address(15,0)rel,
+            inm=inm(15,0),
             native,
             {
                 // TODO
@@ -588,7 +669,7 @@ sltiu rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=address(15,0)rel,
+            inm=inm(15,0),
             native,
             {
                 // TODO
@@ -709,7 +790,7 @@ srai rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=address(15,0)rel,
+            inm=inm(15,0),
             native,
             {
                 // TODO
@@ -1202,75 +1283,137 @@ registers
 pseudoinstructions
 {
 
+        # nop	addi zero,zero,0	No operation
 	nop
         {
-            addi $zero $zero 0
+            addi zero zero 0
         }
 
+        # li rd, expression	(several expansions)	Load immediate
+        li rd=reg, expression=inm
+        {
+            addi rd, zero, expression
+        }
+
+        # la rd, label	(several expansions)	Load address
+        la rd=reg, label=inm
+        {
+            addi rd, zero, label
+        }
+
+        # mv rd, rs1	addi rd, rs, 0	Copy register
         mv rd=reg, rs=reg
         {
             addi rd, rs, 0
         }
 
+        # not rd, rs1	xori rd, rs, -1	One’s complement
         not rd=reg, rs=reg
         {
             xori rd, rs, -1
         }
 
+        # neg rd, rs1	sub rd, x0, rs	Two’s complement
         neg rd=reg, rs=reg
         {
-            sub rd, $zero, rs
+            sub rd, zero, rs
         }
 
+        # negw rd, rs1	subw rd, x0, rs	Two’s complement Word
+        # sext.w rd, rs1	addiw rd, rs, 0	Sign extend Word
+        # seqz rd, rs1	sltiu rd, rs, 1	Set if = zero
+        # snez rd, rs1	sltu rd, x0, rs	Set if ≠ zero
+        # sltz rd, rs1	slt rd, rs, x0	Set if < zero
+        # sgtz rd, rs1	slt rd, x0, rs	Set if > zero
+        # fmv.s frd, frs1	fsgnj.s frd, frs, frs	Single-precision move
+        # fabs.s frd, frs1	fsgnjx.s frd, frs, frs	Single-precision absolute value
+        # fneg.s frd, frs1	fsgnjn.s frd, frs, frs	Single-precision negate
+        # fmv.d frd, frs1	fsgnj.d frd, frs, frs	Double-precision move
+        # fabs.d frd, frs1	fsgnjx.d frd, frs, frs	Double-precision absolute value
+        # fneg.d frd, frs1	fsgnjn.d frd, frs, frs	Double-precision negate
 
+        # beqz rs1, offset	beq rs, x0, offset	Branch if = zero
         beqz rs=reg, offset=inm
         {
-            beq rs, $zero, offset
+            beq rs, zero, offset
         }
 
+        # bnez rs1, offset	bne rs, x0, offset	Branch if ≠ zero
         bnez rs=reg, offset=inm
         {
-            bne rs, $zero, offset
+            bne rs, zero, offset
         }
 
+        # blez rs1, offset	bge x0, rs, offset	Branch if ≤ zero
         blez rs=reg, offset=inm
         {
-            bge $zero, rs, offset
+            bge zero, rs, offset
         }
 
+        # bgez rs1, offset	bge rs, x0, offset	Branch if ≥ zero
         bgez rs=reg, offset=inm
         {
-            bge rs, $zero, offset
+            bge rs, zero, offset
         }
 
+        # bltz rs1, offset	blt rs, x0, offset	Branch if < zero
         bltz rs=reg, offset=inm
         {
-            blt rs, $zero, offset
+            blt rs, zero, offset
         }
 
+        # bgtz rs1, offset	blt x0, rs, offset	Branch if > zero
         bgtz rs=reg, offset=inm
         {
-            blt $zero, rs, offset
+            blt zero, rs, offset
         }
 
+        # bgt rs, rt, offset	blt rt, rs, offset	Branch if >
         bgt rs=reg, rt=reg, offset=inm
         {
             blt rt, rs, offset
         }
 
+        # ble rs, rt, offset	bge rt, rs, offset	Branch if ≤
         ble rs=reg, rt=reg, offset=inm
         {
             bge rt, rs, offset
         }
 
+        # bgtu rs, rt, offset	bltu rt, rs, offset	Branch if >, unsigned
         bgtu rs=reg, rt=reg, offset=inm
         {
             bltu rt, rs, offset
         }
 
+        # bleu rs, rt, offset	bltu rt, rs, offset	Branch if ≤, unsigned
         bleu rs=reg, rt=reg, offset=inm
         {
             bgeu rt, rs, offset
+        }
+
+        # j offset	jal x0, offset	Jump
+        j offset=inm
+        {
+            jal zero, offset
+        }
+
+        # jal offset	jal x1, offset	Jump register
+        jal offset=inm
+        {
+            jal ra, offset
+        }
+
+        # jr rs		jalr x0, rs, 0	Jump register
+        jr rs=reg
+        {
+            jalr zero, rs, 0
+        }
+
+        # ret	jalr x0, x1, 0	Return from subroutine
+        ret
+        {
+            jalr zero, ra, 0
         }
 
 }
