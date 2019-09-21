@@ -361,13 +361,18 @@
 
 			      <div class="dropdown-divider border-secondary user_archived w-50"></div>
                               <a class="dropdown-item user_archived pt-0 mb-0" href="#" id="s4_asm_mips" value="asm_mips"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
                                  onclick="wsweb_select_main('asm_mips');
                                           return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>
                               <a class="dropdown-item user_archived pb-0 mb-0" href="#" id="s4_asm_rv32" value="asm_rv32"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="RISC-V<sub>32</sub> assembly only."
                                  onclick="wsweb_select_main('asm_rv32');
                                           return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">alpha</span></sup></a>
-
                               <a class="dropdown-item user_archived pb-0 mt-0" href="#" id="s4_tutorial" value="tutorial"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="Enable tutorials in 'instructive' microcode examples."
 				 onclick="wsweb_select_main('tutorial');
 					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
 
@@ -379,7 +384,7 @@
                               <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
 				 onclick="wsweb_dialogbox_open_state();
                                           $('#bot_check1').carousel(0);
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint</span></a>
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
 
 			      <div class="dropdown-divider border-secondary"></div>
 			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Information from">Information from</span>:</h6>
