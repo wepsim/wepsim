@@ -100,7 +100,8 @@
                 	'WepSIM hardware':      			'WepSIM 하드웨어',
                 	'Pick firm/soft from':  			'에서 펌웨어 / 소프트웨어 선택',
                 	'Information from':     			'정보 출처',
-                	'Native code':          			'네이티브 코드',
+                	'Native MIPS32 code':          			'MIPS32 네이티브 코드',
+                	'Native RISCV32 code':          		'RISCV32 네이티브 코드',
 			"Refresh":  			                "새롭게 하다"
 
                   } ;

@@ -97,7 +97,8 @@
                         "WepSIM hardware":      	"WepSIM hardware",
                         "Pick firm/soft from":  	"Choisissez le firmware/logiciel de",
                         "Information from":     	"Informations de",
-                        "Native code":          	"Code natif",
+                        "Native MIPS32 code":          	"MIPS32 Code natif",
+                        "Native RISCV32 code":          "RISCV32 Code natif",
 
 		        "_last_":			"_last_"
 

@@ -95,7 +95,8 @@
                 'WepSIM hardware':      'WepSIMハードウェア',
                 'Pick firm/soft from':  'からファームウェア/ソフトウェアを選択',
                 'Information from':     'からの情報',
-                'Native code':          'ネイティブコード',
+                'Native MIPS32 code':   'MIPS32 ネイティブコード',
+                'Native RISCV32 code':  'RISCV32 ネイティブコード',
 		'_last_':		'_last_'
 
     };

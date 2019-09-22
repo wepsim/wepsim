@@ -507,7 +507,10 @@ lbu rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var addr   = simcore_native_get_value("BR", rs1) + offset ;
+                var value  = simcore_native_get_value("MEMORY", addr) ;
+                    value  = value & 0x000000FF ;
+                simcore_native_set_value("BR", rd, value) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -1344,7 +1347,6 @@ registers
 
 pseudoinstructions
 {
-
         # nop	addi zero,zero,0	No operation
 	nop
         {
@@ -1381,18 +1383,29 @@ pseudoinstructions
             sub rd, zero, rs
         }
 
-        # negw rd, rs1	subw rd, x0, rs	Two’s complement Word
-        # sext.w rd, rs1	addiw rd, rs, 0	Sign extend Word
         # seqz rd, rs1	sltiu rd, rs, 1	Set if = zero
+        seqz rd=reg, rs1=reg
+        {
+            sltiu rd, rs, 1
+        }
+
         # snez rd, rs1	sltu rd, x0, rs	Set if ≠ zero
+        snez rd=reg, rs1=reg
+        {
+            sltu rd, x0, rs
+        }
+
         # sltz rd, rs1	slt rd, rs, x0	Set if < zero
+        sltz rd=reg, rs1=reg
+        {
+            slt rd, rs, x0
+        }
+
         # sgtz rd, rs1	slt rd, x0, rs	Set if > zero
-        # fmv.s frd, frs1	fsgnj.s frd, frs, frs	Single-precision move
-        # fabs.s frd, frs1	fsgnjx.s frd, frs, frs	Single-precision absolute value
-        # fneg.s frd, frs1	fsgnjn.s frd, frs, frs	Single-precision negate
-        # fmv.d frd, frs1	fsgnj.d frd, frs, frs	Double-precision move
-        # fabs.d frd, frs1	fsgnjx.d frd, frs, frs	Double-precision absolute value
-        # fneg.d frd, frs1	fsgnjn.d frd, frs, frs	Double-precision negate
+        sgtz rd=reg, rs1=reg
+        {
+            slt rd, x0, rs
+        }
 
         # beqz rs1, offset	beq rs, x0, offset	Branch if = zero
         beqz rs=reg, offset=inm
@@ -1477,6 +1490,5 @@ pseudoinstructions
         {
             jalr zero, ra, 0
         }
-
 }
 
