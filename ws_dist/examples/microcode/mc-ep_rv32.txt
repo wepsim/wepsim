@@ -1041,8 +1041,6 @@ fence pred succ {
             succ=inm(15,0),
             native,
             {
-                // TODO
-
                 simcore_native_go_maddr(0) ;
             }
 }
@@ -1053,8 +1051,6 @@ fence.i {
             nwords=1,
             native,
             {
-                // TODO
-
                 simcore_native_go_maddr(0) ;
             }
 }
