@@ -442,9 +442,11 @@ lb rd offset(rs1) {
                 var w_value = simcore_native_get_value("MEMORY", w_addr) ;
                 var  b_value = b_addr & 0x00000003 ;
                      b_value = w_value >>> (8 * b_value) ;
+                // sign-extension
                 if  (b_value & 0x00000080)
                      b_value = b_value | 0xFFFFFF00 ;
                 else b_value = b_value & 0x000000FF ;
+                // load value into the register file
                 simcore_native_set_value("BR", rd, b_value) ;
 
                 simcore_native_go_maddr(0) ;
@@ -465,7 +467,24 @@ lh rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
+                var w_addr  = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var a_value = b_addr & 0x00000003 ;
+                    b_value = w_value >>> (8 * a_value) ;
+                // byte from other word
+                if (a_value == 3) {
+                    w_addr  = (b_addr + 1) & 0xFFFFFFFC ;
+                    var w_value2 = simcore_native_get_value("MEMORY", w_addr) ;
+                        w_value2 = w_value2 & 0x000000FF ;
+                    b_value = (b_value & 0x000000FF) | (w_value2 << 8) ;
+                }
+                // sign-extension
+                if  (b_value & 0x000008000)
+                     b_value = b_value | 0xFFFF0000 ;
+                else b_value = b_value & 0x0000FFFF ;
+                // load value into the register file
+                simcore_native_set_value("BR", rd, b_value) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -507,10 +526,15 @@ lbu rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                var addr   = simcore_native_get_value("BR", rs1) + offset ;
-                var value  = simcore_native_get_value("MEMORY", addr) ;
-                    value  = value & 0x000000FF ;
-                simcore_native_set_value("BR", rd, value) ;
+                var b_addr = simcore_native_get_value("BR", rs1) + offset ;
+                var w_addr = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var  b_value = b_addr & 0x00000003 ;
+                     b_value = w_value >>> (8 * b_value) ;
+                // unsigned
+                b_value = b_value & 0x000000FF ;
+                // load value into the register file
+                simcore_native_set_value("BR", rd, b_value) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -530,7 +554,22 @@ lhu rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
+                var w_addr  = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var a_value = b_addr & 0x00000003 ;
+                    b_value = w_value >>> (8 * a_value) ;
+                // byte from other word
+                if (a_value == 3) {
+                    w_addr  = (b_addr + 1) & 0xFFFFFFFC ;
+                    var w_value2 = simcore_native_get_value("MEMORY", w_addr) ;
+                        w_value2 = w_value2 & 0x000000FF ;
+                    b_value = (b_value & 0x000000FF) | (w_value2 << 8) ;
+                }
+                // unsigned 
+                b_value = b_value & 0x0000FFFF ;
+                // load value into the register file
+                simcore_native_set_value("BR", rd, b_value) ;
 
                 simcore_native_go_maddr(0) ;
             }
