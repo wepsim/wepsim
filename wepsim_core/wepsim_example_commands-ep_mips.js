@@ -202,42 +202,6 @@
                      });
 
     ws_examples.push({
-                       id: 'S5E1',
-                       title: "<span data-langkey='addv + seqv.'>addv + seqv.</span>",
-                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
-                       level: "actual",
-                       modes:  "newbie,intro,ep",
-                       hardware:  "ep",
-                       microcode: "ep_s5_e1",
-                       assembly:  "ep_s5_e1",
-                       description: "<span data-langkey='example_05_01'>Application-specific extension: addv + seqv.</span>"
-                     });
-
-    ws_examples.push({
-                       id: 'S5E2',
-                       title: "<span data-langkey='strlen_2 + skipasciicode_2'>strlen_2 + skipasciicode_2</span>",
-                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
-                       level: "actual",
-                       modes:  "newbie,intro,ep",
-                       hardware:  "ep",
-                       microcode: "ep_s5_e2",
-                       assembly:  "ep_s5_e2",
-                       description: "<span data-langkey='example_05_02'>Application-specific extension: strlen_2 + skipasciicode_2.</span>"
-                     });
-
-    ws_examples.push({
-                       id: 'S5E3',
-                       title: "<span data-langkey='madd, mmul, mxch'>madd, mmul, mxch</span>",
-                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
-                       level: "actual",
-                       modes:  "newbie,intro,ep",
-                       hardware:  "ep",
-                       microcode: "ep_s5_e3",
-                       assembly:  "ep_s5_e3",
-                       description: "<span data-langkey='example_05_03'>Application-specific extension: madd + mmul + mxch.</span>"
-                     });
-
-    ws_examples.push({
                        id: 'S6E1',
                        title: "<span data-langkey='Dummy instruction'>Dummy instruction</span>",
                        type: "<span data-langkey='Special'>Special</span>",
@@ -265,7 +229,7 @@
 
     ws_examples.push({
                        id: 'S6E3',
-                       title: "<span data-langkey='Native code'>Native code</span>",
+                       title: "<span data-langkey='Native MIPS32 code'>Native MIPS32 code</span>",
                        type: "<span data-langkey='Special'>Special</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -273,6 +237,18 @@
                        microcode: "ep_mips",
                        assembly:  "ep_s4_e2",
                        description: "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
+                     });
+
+    ws_examples.push({
+                       id: 'S7E1',
+                       title: "<span data-langkey='Native RISCV32 code'>Native RISCV32 code</span>",
+                       type: "<span data-langkey='Special'>Special</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,ep",
+                       hardware:  "ep",
+                       microcode: "ep_rv32",
+                       assembly:  "ep_s7_e1",
+                       description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
                      });
 
 
@@ -432,17 +408,5 @@
                        microcode: "ep_mips",
                        assembly:  "ep_s4_e2",
                        description: "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
-                     });
-
-    ws_examples.push({
-                       id: 'S5E1',
-                       title: "<span data-langkey='strlen_2 + skipasciicode_2'>strlen_2 + skipasciicode_2</span>",
-                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
-                       level: "actual",
-                       modes:  "newbie,intro,asm_mips",
-                       hardware:  "ep",
-                       microcode: "ep_mips",
-                       assembly:  "ep_s5_e2",
-                       description: "<span data-langkey='example_05_02'>Application-specific extension: strlen_2 + skipasciicode_2.</span>"
                      });
 

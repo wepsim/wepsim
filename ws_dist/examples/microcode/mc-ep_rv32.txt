@@ -442,9 +442,11 @@ lb rd offset(rs1) {
                 var w_value = simcore_native_get_value("MEMORY", w_addr) ;
                 var  b_value = b_addr & 0x00000003 ;
                      b_value = w_value >>> (8 * b_value) ;
+                // sign-extension
                 if  (b_value & 0x00000080)
                      b_value = b_value | 0xFFFFFF00 ;
                 else b_value = b_value & 0x000000FF ;
+                // load value into the register file
                 simcore_native_set_value("BR", rd, b_value) ;
 
                 simcore_native_go_maddr(0) ;
@@ -465,7 +467,24 @@ lh rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
+                var w_addr  = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var a_value = b_addr & 0x00000003 ;
+                    b_value = w_value >>> (8 * a_value) ;
+                // byte from other word
+                if (a_value == 3) {
+                    w_addr  = (b_addr + 1) & 0xFFFFFFFC ;
+                    var w_value2 = simcore_native_get_value("MEMORY", w_addr) ;
+                        w_value2 = w_value2 & 0x000000FF ;
+                    b_value = (b_value & 0x000000FF) | (w_value2 << 8) ;
+                }
+                // sign-extension
+                if  (b_value & 0x000008000)
+                     b_value = b_value | 0xFFFF0000 ;
+                else b_value = b_value & 0x0000FFFF ;
+                // load value into the register file
+                simcore_native_set_value("BR", rd, b_value) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -507,7 +526,15 @@ lbu rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var b_addr = simcore_native_get_value("BR", rs1) + offset ;
+                var w_addr = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var  b_value = b_addr & 0x00000003 ;
+                     b_value = w_value >>> (8 * b_value) ;
+                // unsigned
+                b_value = b_value & 0x000000FF ;
+                // load value into the register file
+                simcore_native_set_value("BR", rd, b_value) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -527,7 +554,22 @@ lhu rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
+                var w_addr  = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var a_value = b_addr & 0x00000003 ;
+                    b_value = w_value >>> (8 * a_value) ;
+                // byte from other word
+                if (a_value == 3) {
+                    w_addr  = (b_addr + 1) & 0xFFFFFFFC ;
+                    var w_value2 = simcore_native_get_value("MEMORY", w_addr) ;
+                        w_value2 = w_value2 & 0x000000FF ;
+                    b_value = (b_value & 0x000000FF) | (w_value2 << 8) ;
+                }
+                // unsigned 
+                b_value = b_value & 0x0000FFFF ;
+                // load value into the register file
+                simcore_native_set_value("BR", rd, b_value) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -1038,8 +1080,6 @@ fence pred succ {
             succ=inm(15,0),
             native,
             {
-                // TODO
-
                 simcore_native_go_maddr(0) ;
             }
 }
@@ -1050,8 +1090,6 @@ fence.i {
             nwords=1,
             native,
             {
-                // TODO
-
                 simcore_native_go_maddr(0) ;
             }
 }
@@ -1344,7 +1382,6 @@ registers
 
 pseudoinstructions
 {
-
         # nop	addi zero,zero,0	No operation
 	nop
         {
@@ -1381,18 +1418,29 @@ pseudoinstructions
             sub rd, zero, rs
         }
 
-        # negw rd, rs1	subw rd, x0, rs	Two’s complement Word
-        # sext.w rd, rs1	addiw rd, rs, 0	Sign extend Word
         # seqz rd, rs1	sltiu rd, rs, 1	Set if = zero
+        seqz rd=reg, rs1=reg
+        {
+            sltiu rd, rs, 1
+        }
+
         # snez rd, rs1	sltu rd, x0, rs	Set if ≠ zero
+        snez rd=reg, rs1=reg
+        {
+            sltu rd, x0, rs
+        }
+
         # sltz rd, rs1	slt rd, rs, x0	Set if < zero
+        sltz rd=reg, rs1=reg
+        {
+            slt rd, rs, x0
+        }
+
         # sgtz rd, rs1	slt rd, x0, rs	Set if > zero
-        # fmv.s frd, frs1	fsgnj.s frd, frs, frs	Single-precision move
-        # fabs.s frd, frs1	fsgnjx.s frd, frs, frs	Single-precision absolute value
-        # fneg.s frd, frs1	fsgnjn.s frd, frs, frs	Single-precision negate
-        # fmv.d frd, frs1	fsgnj.d frd, frs, frs	Double-precision move
-        # fabs.d frd, frs1	fsgnjx.d frd, frs, frs	Double-precision absolute value
-        # fneg.d frd, frs1	fsgnjn.d frd, frs, frs	Double-precision negate
+        sgtz rd=reg, rs1=reg
+        {
+            slt rd, x0, rs
+        }
 
         # beqz rs1, offset	beq rs, x0, offset	Branch if = zero
         beqz rs=reg, offset=inm
@@ -1477,6 +1525,5 @@ pseudoinstructions
         {
             jalr zero, ra, 0
         }
-
 }
 

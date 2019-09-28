@@ -95,7 +95,8 @@
                 'WepSIM hardware':      'Оборудование WepSIM',
                 'Pick firm/soft from':  'Выберите прошивку / программное обеспечение от',
                 'Information from':     'Информация от',
-                'Native code':          'Родной код',
+                'Native MIPS32 code':   'MIPS32 Родной код',
+                'Native RISCV32 code':  'RISCV32 Родной код',
 		'_last_':		'_last_'
 
     };
