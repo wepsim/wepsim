@@ -161,6 +161,7 @@ out reg val {
 #
 # https://rv8.io/isa.html
 # RV32I
+# (More details at http://riscvbook.com/spanish/guia-practica-de-risc-v-1.0.5.pdf)
 #
 
 #  LUI rd,imm 	Load Upper Immediate 			rd ← imm
@@ -1098,6 +1099,7 @@ fence.i {
 #
 # https://rv8.io/isa.html
 # RV32M
+# (More details at http://riscvbook.com/spanish/guia-practica-de-risc-v-1.0.5.pdf)
 #
 
 # MUL rd,rs1,rs2 	Multiply 	rd ← ux(rs1) × ux(rs2)
@@ -1135,7 +1137,10 @@ mulh rd rs1 rs2 {
                 var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
                 var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var op1 = simcore_native_get_value("BR", reg2) ;
+                var op2 = simcore_native_get_value("BR", reg3) ;
+                var result = (op1 * op2) >> 32 ;
+                simcore_native_set_value("BR", reg1, result) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -1155,7 +1160,10 @@ mulhsu rd rs1 rs2 {
                 var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
                 var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var op1 = simcore_native_get_value("BR", reg2) ;
+                var op2 = simcore_native_get_value("BR", reg3) >>> 0 ;
+                var result = (op1 * op2) >> 32 ;
+                simcore_native_set_value("BR", reg1, result) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -1175,7 +1183,10 @@ mulhu rd rs1 rs2 {
                 var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
                 var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-                // TODO
+                var op1 = simcore_native_get_value("BR", reg2) >>> 0 ;
+                var op2 = simcore_native_get_value("BR", reg3) >>> 0 ;
+                var result = (op1 * op2) >> 32 ;
+                simcore_native_set_value("BR", reg1, result) ;
 
                 simcore_native_go_maddr(0) ;
             }
