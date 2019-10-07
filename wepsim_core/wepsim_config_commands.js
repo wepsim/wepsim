@@ -519,6 +519,7 @@
                    });
 */
 
+/*
     ws_config.push({
                       id:          "radio14",
                       type:        "Accesibility",
@@ -549,4 +550,5 @@
 		                   },
                       description: "<span data-langkey='WepSIM Beta'>WepSIM Beta</span>"
                    });
+*/
 
