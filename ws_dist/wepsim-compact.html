@@ -339,7 +339,7 @@
 			    </button>
 			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
 
-			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="WepSIM hardware">WepSIM hardware</span>:</h6>
+			      <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="WepSIM hardware">WepSIM hardware</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_select_main('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
@@ -347,7 +347,7 @@
 				 onclick="wsweb_select_main('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-			      <div class="dropdown-divider border-secondary user_archived w-50 mx-auto"></div>
+			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
                               <a class="dropdown-item user_archived" href="#" id="s4_asm_mips" value="asm_mips"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true"
 			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
@@ -359,15 +359,14 @@
                                  onclick="wsweb_select_main('asm_rv32');
                                           return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>
 
-			      <div class="dropdown-divider border-secondary user_archived w-50 mx-auto"></div>
+			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Tutorial mode">Tutorial mode</span>:</h6>
                               <a class="dropdown-item user_archived" href="#" id="s4_tutorial" value="tutorial"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true"
 			         title="Enable tutorials in 'instructive' microcode examples."
 				 onclick="wsweb_select_main('tutorial');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+<span style="background-color:#D4DB17">Instructive</span></a>
 
-			      <div class="dropdown-divider border-secondary"></div>
-			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
+                              <h6 class="text-white bg-secondary mt-3 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_examples" value="examples"
 				 onclick="wsweb_dialogbox_open_examples();
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
@@ -376,8 +375,7 @@
                                           $('#bot_check1').carousel(0);
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
 
-			      <div class="dropdown-divider border-secondary"></div>
-			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Information from">Information from</span>:</h6>
+			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_help" value="help"
 				 onclick="wsweb_dialogbox_open_help();
 					  return false;"><span data-langkey="Help">Help</span></a>
