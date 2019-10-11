@@ -898,6 +898,7 @@
     function wsweb_quickmenu_show ( )
     {
 	    $('#po1').popover('show') ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open the "quick menu"',
@@ -922,6 +923,7 @@
     function wsweb_quickmenu_toggle ( )
     {
 	    $('#po1').popover('toggle') ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick menu"',

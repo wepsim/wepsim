@@ -105,20 +105,10 @@
 
     function wepsim_restore_darkmode ( adm )
     {
-	    var elements = document.getElementsByTagName('*') ;
-
+	    var o = document.getElementsByTagName('body') ;
 	    if (adm === false)
-	    {
-		for (var i=0; i < elements.length; i++) {
-		     elements[i].removeAttribute('data-theme', 'dark') ;
-		}
-	    }
-	    else
-	    {
-		for (var i=0; i < elements.length; i++) {
-		     elements[i].setAttribute('data-theme', 'dark') ;
-		}
-	    }
+	         o[0].removeAttribute('data-theme', 'dark') ;
+	    else o[0].setAttribute('data-theme', 'dark') ;
 
 	    return true ;
     }
