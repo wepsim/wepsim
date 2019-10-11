@@ -2,7 +2,8 @@
 # Changelog
 
 ## 2.0.10 -> 2.0.11:
-* Initial support for risc-v
+* Initial support for Risc-V
+* Dark Mode (beta)
 
 ## 2.0.9 -> 2.0.10:
 * Fix pseudo-instruction 'lii' in 'Subrutine' example.
