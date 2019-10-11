@@ -191,6 +191,7 @@ cat external/popper.min.js \
 echo "ws_dist/min.external.css"
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
+    external/dark-mode.css \
     external/spectrum.min.css \
     external/codemirror/codemirror.css \
     external/codemirror/codemirror.theme/blackboard.css \

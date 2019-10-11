@@ -222,7 +222,7 @@
 
 
 	<div class="row-fluid px-0 pb-2 pt-0 rounded w-100 collapse" id="record_div"
-	     style="position:fixed; left:0; bottom:0; z-index:1024; background-color:#EAEAEA; overflow:auto; -webkit-overflow-scrolling:touch;">
+	     style="position:fixed; left:0; top: calc(100vh - 65px); z-index:1024; background-color:#EAEAEA; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 	     <div class="progress col" style="height:1px;">
 	          <div id="record_pb" class="progress-bar" role="progressbar" style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -1038,7 +1038,7 @@
 		   <button type="button" class="btn btn-success px-3 py-1"
 		   	   onclick="wepsim_open_help_index();
                                     wepsim_help_refresh();
-                                    wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	                            wepsim_restore_uicfg();
                                     return false;"><span data-langkey="Help Index">Help Index</span></button>
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled><span data-langkey="Help">Help</span></button>

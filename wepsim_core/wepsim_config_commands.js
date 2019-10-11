@@ -518,6 +518,36 @@
                    });
 
     ws_config.push({
+                      id:          "radio15",
+                      type:        "Accesibility",
+                      u_class:     "user_archived",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label15-true'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                                   "               aria-label='WepSIM dark mode: true' " +
+				   "		   onclick=\"wepsim_restore_darkmode(true) ; " +
+				   "		             update_cfg('ws_skin_dark_mode', true);" +
+				   "		             return false;\">" +
+				   "		<input type='radio' name='options' id='radio15-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
+				   "	    </label>" +
+				   "	    <label id='label15-false'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                                   "               aria-label='WepSIM dark mode: true' " +
+				   "		   onclick=\"wepsim_restore_darkmode(false) ; " +
+				   "		             update_cfg('ws_skin_dark_mode', false);" +
+				   "		             return false;\">" +
+				   "		<input type='radio' name='options' id='radio15-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() { 
+			               var optValue = get_cfg('ws_skin_dark_mode') ;
+			               $('#label15-' + optValue).button('toggle') ;
+			               wepsim_restore_darkmode(optValue) ;
+		                   },
+                      description: "<span data-langkey='Dark Mode'>Dark Mode</span>"
+                   });
+
+    ws_config.push({
                       id:          "radio14",
                       type:        "Accesibility",
                       u_class:     "",
@@ -527,7 +557,7 @@
                                    "               aria-label='User Interface set of features for WepSIM: true' " +
 				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:of';" +
 				   "		             update_cfg('ws_skin_user', optValue);" +
-                                   "                         wepsim_restoreview(optValue);" +
+                                   "                         wepsim_restore_view(optValue);" +
 				   "		             return false;\">" +
 				   "		<input type='radio' name='options' id='radio14-true'  aria-label='Is beta: true'  autocomplete='off' >On" +
 				   "	    </label>" +
@@ -536,7 +566,7 @@
                                    "               aria-label='User Interface set of features for WepSIM: false' " +
 				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:on';" +
 				   "		             update_cfg('ws_skin_user', optValue);" +
-                                   "                         wepsim_restoreview(optValue);" +
+                                   "                         wepsim_restore_view(optValue);" +
 				   "		             return false;\">" +
 				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is beta: false' autocomplete='off' >Off" +
 				   "	    </label>" +
