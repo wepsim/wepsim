@@ -35,7 +35,20 @@
             }
     }
 
-    // UI views
+    // active/restore UI
+
+    function wepsim_restore_uicfg ( )
+    {
+	    var cfgValue = null ;
+
+	    // view
+	    cfgValue = get_cfg('ws_skin_user') ;
+	    wepsim_restore_view(cfgValue) ;
+
+	    // dark mode
+	    cfgValue = get_cfg('ws_skin_dark_mode') ;
+            wepsim_restore_darkmode(cfgValue) ;
+    }
 
     function wepsim_activeview ( view, is_set )
     {
@@ -59,10 +72,10 @@
 	    $('#label14-' + new_skin_user.replace(/:/g,"__")).button('toggle');
 
             // update view
-            wepsim_restoreview(new_skin_user) ;
+            wepsim_restore_view(new_skin_user) ;
     }
 
-    function wepsim_restoreview ( view )
+    function wepsim_restore_view ( view )
     {
             var new_classes = [] ;
 	    var cur_skin_user = view.split(":") ;
@@ -89,6 +102,27 @@
             classes = new_classes.join(", ") ;
             $(classes).addClass('d-none') ;
     }
+
+    function wepsim_restore_darkmode ( adm )
+    {
+	    var elements = document.getElementsByTagName('*') ;
+
+	    if (adm === false)
+	    {
+		for (var i=0; i < elements.length; i++) {
+		     elements[i].removeAttribute('data-theme', 'dark') ;
+		}
+	    }
+	    else
+	    {
+		for (var i=0; i < elements.length; i++) {
+		     elements[i].setAttribute('data-theme', 'dark') ;
+		}
+	    }
+
+	    return true ;
+    }
+
 
     // hardware
 
@@ -651,10 +685,9 @@
 	    // init: help idiom selectors
             wepsim_init_helpDropdown() ;
 
-	    // restore UI view
+	    // restore UI
 	    setTimeout(function() {
-			  var view = get_cfg('ws_skin_user') ;
-			  wepsim_restoreview(view) ;
+		          wepsim_restore_uicfg() ;
 		       }, 500) ;
     }
 

@@ -195,7 +195,7 @@
     {
             wepsim_open_examples_index();
 	    $('[data-toggle=tooltip]').tooltip('hide');
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open examples',
@@ -219,7 +219,7 @@
 	    wepsim_open_help_index();
 	    wepsim_help_refresh();
 	    $('[data-toggle=tooltip]').tooltip('hide');
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open help',
@@ -241,7 +241,7 @@
     {
 	    wepsim_open_config_index() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open configuration',
@@ -264,7 +264,7 @@
     {
             wepsim_dialog_current_state() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open state',
@@ -360,7 +360,7 @@
     {
             wepsim_notifications_open() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open notification summary',
@@ -384,7 +384,7 @@
 	    simcore_notifications_reset() ;
 	    $('#notifications2').modal('hide') ;
             wepsim_notifications_open() ;
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Reset notifications',

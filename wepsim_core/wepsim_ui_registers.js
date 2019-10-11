@@ -77,30 +77,30 @@
 		var vtable = "<table class='table table-bordered table-hover table-sm mb-1'>" +
 			     "<tbody>" +
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>hex.</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuehex + "</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valuehex + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>oct.</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueoct + "</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valueoct + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>binary</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuebin + "</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valuebin + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>signed</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuei   + "</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valuei   + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>unsig.</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueui  + "</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valueui  + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>char</strong></td>" +
                              "    <td class='p-0 pl-1 align-middle'>" + 
-			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[0] + "&nbsp;</strong>&nbsp;" + 
-			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[1] + "&nbsp;</strong>&nbsp;" + 
-			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[2] + "&nbsp;</strong>&nbsp;" + 
-			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[3] + "&nbsp;</strong>&nbsp;" + 
+			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[0] + "&nbsp;</strong>&nbsp;" + 
+			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[1] + "&nbsp;</strong>&nbsp;" + 
+			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[2] + "&nbsp;</strong>&nbsp;" + 
+			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[3] + "&nbsp;</strong>&nbsp;" + 
 			     "</td>" +
 			     "</tr>" +
 		             "<tr><td class='p-0 pl-1 align-middle'><strong>float</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuef + "</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valuef + "</strong></td>" +
 			     "</tr>" +
 			     valuedt +
 			     "</tbody>" +
@@ -119,12 +119,12 @@
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states(); return true; '>" +
-		       "0x<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>0000001A<sub>16</sub></span></buttom>" +
+		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>0000001A<sub>16</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "0x<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>1A<sub>16</sub></span></buttom>" +
+		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>1A<sub>16</sub></span></buttom>" +
 		       "</div>" +
 
 		       "<div class='w-100 border border-light'></div>" +
@@ -132,12 +132,12 @@
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>00000032<sub>8&nbsp;</sub></span></buttom>" +
+		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000032<sub>8&nbsp;</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>032<sub>8&nbsp;</sub></span></buttom>" +
+		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>032<sub>8&nbsp;</sub></span></buttom>" +
 		       "</div>" +
 
 		       "<div class='w-100 border border-light'></div>" +
@@ -145,12 +145,12 @@
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); show_rf_values(); show_states(); return true; '>" +
-		       "+<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>00000026<sub>10</sub></span></buttom>" +
+		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000026<sub>10</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "+<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>26<sub>10</sub></span></buttom>" +
+		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>26<sub>10</sub></span></buttom>" +
 		       "</div>" +
 
 		       "<div class='w-100 border border-light'></div>" +
@@ -160,7 +160,7 @@
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>3.6e-44<sub>10</sub></span></buttom>" +
+		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>3.6e-44<sub>10</sub></span></buttom>" +
 		       "</div>" +
 
 		       "<div class='w-100 border border-light'></div>" +
@@ -169,13 +169,13 @@
 		       "<div class='col-6 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_name\", \"logical\"); wepsim_show_rf_names(); return true; '>" +
-		       "<span class='font-weight-bold text-monospace' style='color:black;'>$t0</span>" + "&nbsp;" + 
+		       "<span class='font-weight-bold text-monospace'>$t0</span>" + "&nbsp;" + 
                        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
 		       "</div>" +
 		       "<div class='col-6 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); wepsim_show_rf_names(); return true; '>" +
-		       "<span class='font-weight-bold text-monospace' style='color:black;'>R10</span>" + "&nbsp;" + 
+		       "<span class='font-weight-bold text-monospace'>R10</span>" + "&nbsp;" + 
                        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
 		       "</div>" +
 
@@ -225,8 +225,8 @@
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; color:black;'>" + o1_rn + "</span>&nbsp;" +
-                          "<span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
+                          "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
+                          "<span class='badge badge-secondary text-dark' style='background-color:#CEECF5; ' id='tbl_RF"  + index + "'>" +
                           rf_val +
                           "</span>" +
                           "</button>" ;
@@ -359,7 +359,7 @@
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
-                      " <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
+                      " <span class='badge badge-secondary text-dark' style='background-color:#CEECF5;' id='tbl_"  + s + "'>" +
 		      value +
                       "</span>" +
                       "</button>" ;

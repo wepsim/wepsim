@@ -364,8 +364,7 @@
                                            return content ; // DOMPurify.sanitize(content) ;
                                         }
 		    }).on('shown.bs.tooltip', function(shownEvent) {
-                           var ws_skin = get_cfg('ws_skin_user') ;
-                           wepsim_restoreview(ws_skin) ;
+			   wepsim_restore_uicfg() ;
 		    });
 
             }, 500) ;
