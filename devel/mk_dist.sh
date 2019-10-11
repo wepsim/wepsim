@@ -186,7 +186,8 @@ cat external/popper.min.js \
     external/dropify/dropify.min.js \
     external/masonry.pkgd.min.js \
     external/fontawesome/brands.min.js \
-    external/fontawesome/solid.min.js > ws_dist/min.external.js
+    external/fontawesome/solid.min.js \
+    external/coliff-dark-mode.css > ws_dist/min.external.css
 
 echo "ws_dist/min.external.css"
 cat external/bootstrap.min.css \
