@@ -1,0 +1,10 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+.text
+main:
+         add_a 32
+         ret
+
