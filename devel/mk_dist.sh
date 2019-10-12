@@ -204,7 +204,8 @@ cat external/bootstrap.min.css \
     external/introjs/introjs.min.css \
     external/speech-input.css \
     external/dropify/dropify.min.css \
-    external/fontawesome/all.css > ws_dist/min.external.css
+    external/fontawesome/all.css \
+    external/css-tricks.css > ws_dist/min.external.css
 
 echo "ws_dist/external/..."
 mkdir -p ws_dist/external/fontawesome/

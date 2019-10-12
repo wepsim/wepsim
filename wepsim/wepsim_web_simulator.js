@@ -105,10 +105,25 @@
 
     function wepsim_restore_darkmode ( adm )
     {
+            var i=0 ;
+
+            // body
 	    var o = document.getElementsByTagName('body') ;
-	    if (adm === false)
-	         o[0].removeAttribute('data-theme', 'dark') ;
-	    else o[0].setAttribute('data-theme', 'dark') ;
+            for (i=0; i<o.length; i++) 
+            {
+	         if (adm === false)
+	              o[i].removeAttribute('data-theme', 'dark') ;
+	         else o[i].setAttribute('data-theme', 'dark') ;
+            }
+
+            // images
+	    var o = document.getElementsByTagName('img') ;
+            for (i=0; i<o.length; i++) 
+            {
+	         if (adm === false)
+	              o[i].removeAttribute('data-theme', 'dark') ;
+	         else o[i].setAttribute('data-theme', 'dark') ;
+            }
 
 	    return true ;
     }

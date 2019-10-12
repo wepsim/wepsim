@@ -1,6 +1,6 @@
 
 [data-theme="dark"] {
-   filter: invert() hue-rotate(180deg);
+   filter: invert(90%) hue-rotate(170deg) !important;
    background-color: #111 !important;
 }
 
