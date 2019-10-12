@@ -229,8 +229,8 @@
 
     ws_examples.push({
                        id: 'S6E3',
-                       title: "<span data-langkey='Native MIPS32 code'>Native MIPS32 code</span>",
-                       type: "<span data-langkey='Special'>Special</span>",
+                       title: "<span data-langkey='MIPS32-like code'>MIPS32-like code</span>",
+                       type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
                        hardware:  "ep",
@@ -241,13 +241,25 @@
 
     ws_examples.push({
                        id: 'S7E1',
-                       title: "<span data-langkey='Native RISCV32 code'>Native RISCV32 code</span>",
-                       type: "<span data-langkey='Special'>Special</span>",
+                       title: "<span data-langkey='RISCV32 code'>RISCV32 code</span>",
+                       type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
                        hardware:  "ep",
                        microcode: "ep_rv32",
                        assembly:  "ep_s7_e1",
+                       description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+                     });
+
+    ws_examples.push({
+                       id: 'S8E1',
+                       title: "<span data-langkey='Z80-like code'>Z80-like code</span>",
+                       type: "<span data-langkey='Native'>Native</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,ep",
+                       hardware:  "ep",
+                       microcode: "ep_z80",
+                       assembly:  "ep_s8_e1",
                        description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
                      });
 

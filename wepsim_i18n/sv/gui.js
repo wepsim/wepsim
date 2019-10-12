@@ -101,8 +101,10 @@
                 'WepSIM hardware':      'WepSIM-hårdvara',
                 'Pick firm/soft from':  'Välj fast programvara / programvara från',
                 'Information from':     'Information från',
-                'Native MIPS32 code':   'MIPS32 Native code',
-                'Native RISCV32 code':  'RISCV32 Native code',
+                'Native':   		'Inföding',
+                'MIPS32-like code':     'MIPS32-liknande kod',
+                'RISCV32 code':  	'RISCV32-kod',
+                'Z80-like code':     	'Z80-liknande kod',
 
 		'_last_':		'_last_'
 

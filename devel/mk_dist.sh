@@ -119,8 +119,9 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_example.js \
     wepsim_core/wepsim_example_commands.js \
     wepsim_core/wepsim_example_commands-ep_mips.js \
-    wepsim_core/wepsim_example_commands-poc_mips.js \
     wepsim_core/wepsim_example_commands-ep_rv32.js \
+    wepsim_core/wepsim_example_commands-ep_z80.js \
+    wepsim_core/wepsim_example_commands-poc_mips.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_help_commands.js \
     wepsim_core/wepsim_tutorial.js \
@@ -203,7 +204,8 @@ cat external/bootstrap.min.css \
     external/introjs/introjs.min.css \
     external/speech-input.css \
     external/dropify/dropify.min.css \
-    external/fontawesome/all.css > ws_dist/min.external.css
+    external/fontawesome/all.css \
+    external/css-tricks.css > ws_dist/min.external.css
 
 echo "ws_dist/external/..."
 mkdir -p ws_dist/external/fontawesome/

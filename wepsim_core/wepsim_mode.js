@@ -23,7 +23,7 @@
      * Execution Modes
      */
 
-    var ws_modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'tutorial' ] ;
+    var ws_modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80', 'tutorial' ] ;
 
     // get list of modes
     function wepsim_mode_getAvailableModes ( )

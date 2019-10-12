@@ -94,8 +94,11 @@
                 'WepSIM hardware':      'WepSIM हार्डवेयर',
                 'Pick firm/soft from':  'फर्मवेयर / सॉफ्टवेयर से चुनें',
                 'Information from':     'से जानकारी',
-                'Native MIPS32 code':   'मूल कोड',
-                'Native RISCV32 code':  'मूल कोड',
+                'Native':   		'देशी',
+                'MIPS32-like code':     'MIPS32- जैसा कोड',
+                'RISCV32 code':  	'RISCV32 कोड',
+                'Z80-like code':     	'Z80- जैसा कोड',
+
 		'_last_':		'_last_'
 
     };
