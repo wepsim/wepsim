@@ -227,7 +227,7 @@
 	function fullshow_asmdbg_pc ( )
 	{
 		if (typeof document === "undefined") {
-		    return ;
+		    return null ;
 		}
 
                 var o1 = null ;
