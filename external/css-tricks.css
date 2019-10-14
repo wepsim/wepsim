@@ -138,12 +138,7 @@
 // Dark Mode
 //
 
-.dark-mode-body {
-   filter: invert(90%) hue-rotate(190deg) !important;
-   background-color: #111 !important;
-}
-
-.dark-mode-img {
+.no-dark-mode {
    filter: invert(90%) hue-rotate(170deg) !important;
    background-color: #111 !important;
 }

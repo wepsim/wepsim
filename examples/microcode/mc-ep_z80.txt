@@ -290,9 +290,64 @@ jp_c i16 {
                 // fields is a default parameter with the instruction field information
                 var i16   = simcore_native_get_field_from_ir(fields, 0) ;
 
-                // TODO:
-                // Si Flag.c == 1
-                // PC ← I16
+		var flags = simcore_native_get_value("CPU", "REG_SR") ;
+                if (flags & 0x80000000) {
+                    simcore_native_set_value("CPU", "REG_PC", i16) ;
+                }
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
+jp_v i16 {
+            co=111111,
+            nwords=1,
+            i16=inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var i16   = simcore_native_get_field_from_ir(fields, 0) ;
+
+		var flags = simcore_native_get_value("CPU", "REG_SR") ;
+                if (flags & 0x40000000) {
+                    simcore_native_set_value("CPU", "REG_PC", i16) ;
+                }
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
+jp_n i16 {
+            co=111111,
+            nwords=1,
+            i16=inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var i16   = simcore_native_get_field_from_ir(fields, 0) ;
+
+		var flags = simcore_native_get_value("CPU", "REG_SR") ;
+                if (flags & 0x20000000) {
+                    simcore_native_set_value("CPU", "REG_PC", i16) ;
+                }
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
+jp_z i16 {
+            co=111111,
+            nwords=1,
+            i16=inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var i16   = simcore_native_get_field_from_ir(fields, 0) ;
+
+		var flags = simcore_native_get_value("CPU", "REG_SR") ;
+                if (flags & 0x10000000) {
+                    simcore_native_set_value("CPU", "REG_PC", i16) ;
+                }
 
                 simcore_native_go_maddr(0) ;
             }

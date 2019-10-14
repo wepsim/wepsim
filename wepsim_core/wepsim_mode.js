@@ -25,6 +25,13 @@
 
     var ws_modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80', 'tutorial' ] ;
 
+    var ws_default_example = { 
+	                       'asm_mips': 'ep:ep_mips:ep_s4_e1',
+	                       'asm_rv32': 'ep:ep_rv32:ep_s7_e2',
+	                       'asm_z80':  'ep:ep_z80:ep_s7_e3'
+	                      } ;
+
+
     // get list of modes
     function wepsim_mode_getAvailableModes ( )
     {
@@ -34,36 +41,21 @@
     // Change WepSIM mode -> activate_hw + UI view
     function wepsim_mode_change ( optValue )
     {
-	    // switch active hardware by name...
             var hwid = -1 ;
-            switch (optValue)
-            {
-	      case 'newbie':
-	      case 'intro':
-	      case 'asm_mips':
-	      case 'asm_rv32':
-	      case 'tutorial':
-                               hwid = simhw_getIdByName('ep') ;
-                               wepsim_activehw(hwid) ;
-                               break;
-	      default:
-	                       hwid = simhw_getIdByName(optValue) ;
-                               wepsim_activehw(hwid) ;
-                               break;
-            }
+
+	    // switch active hardware by name...
+	    if (ws_modes.includes(optValue))
+                 hwid = simhw_getIdByName('ep') ;
+	    else hwid = simhw_getIdByName(optValue) ;
+            wepsim_activehw(hwid) ;
 
 	    // show/hide microcode...
             wepsim_activeview('only_asm', false) ;
-	    if ('asm_mips' == optValue)
+	    if (optValue.startsWith('asm_'))
 	    {
-                 wepsim_activeview('only_asm', true) ;
-		 load_from_example_firmware("ep:ep_mips:ep_s1_e1", false) ;
-            }
-	    if ('asm_rv32' == optValue)
-	    {
-                 wepsim_activeview('only_asm', true) ;
-		 load_from_example_firmware("ep:ep_rv32:ep_s7_e1", false) ;
-            }
+                wepsim_activeview('only_asm', true) ;
+		load_from_example_firmware(ws_default_example[optValue], false) ;
+	    }
 
 	    // intro mode...
 	    if ('intro' == optValue)

@@ -202,33 +202,7 @@
                      });
 
     ws_examples.push({
-                       id: 'S6E1',
-                       title: "<span data-langkey='Dummy instruction'>Dummy instruction</span>",
-                       type: "<span data-langkey='Special'>Special</span>",
-                       level: "actual",
-                       modes:  "newbie,intro,ep",
-                       hardware:  "ep",
-                       microcode: "ep_bare",
-                       assembly:  "ep_s6_e1",
-                       description: "<span data-langkey='example_06_01'>Test example.</span>"
-                     });
-
-/*
-    ws_examples.push({
-                       id: 'S6E2',
-                       title: "<span data-langkey='Compiler Explorer'>Compiler Explorer</span>",
-                       type: "<span data-langkey='Special'>Special</span>",
-                       level: "archived",
-                       modes:  "newbie,intro,ep",
-                       hardware:  "ep",
-                       microcode: "ep_os",
-                       assembly:  "ep_s6_e2",
-                       description: "<span data-langkey='example_06_02'>Simple Compiler Explorer example</span>"
-                     });
-*/
-
-    ws_examples.push({
-                       id: 'S6E3',
+                       id: 'S7E1',
                        title: "<span data-langkey='MIPS32-like code'>MIPS32-like code</span>",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
@@ -240,26 +214,26 @@
                      });
 
     ws_examples.push({
-                       id: 'S7E1',
+                       id: 'S7E2',
                        title: "<span data-langkey='RISCV32 code'>RISCV32 code</span>",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
                        hardware:  "ep",
                        microcode: "ep_rv32",
-                       assembly:  "ep_s7_e1",
+                       assembly:  "ep_s7_e2",
                        description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
                      });
 
     ws_examples.push({
-                       id: 'S8E1',
+                       id: 'S7E3',
                        title: "<span data-langkey='Z80-like code'>Z80-like code</span>",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
                        hardware:  "ep",
                        microcode: "ep_z80",
-                       assembly:  "ep_s8_e1",
+                       assembly:  "ep_s7_e3",
                        description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
                      });
 
@@ -421,4 +395,31 @@
                        assembly:  "ep_s4_e2",
                        description: "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
                      });
+
+
+    ws_examples.push({
+                       id: 'S6E1',
+                       title: "<span data-langkey='Dummy instruction'>Dummy instruction</span>",
+                       type: "<span data-langkey='Special'>Special</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,ep",
+                       hardware:  "ep",
+                       microcode: "ep_bare",
+                       assembly:  "ep_s6_e1",
+                       description: "<span data-langkey='example_06_01'>Test example.</span>"
+                     });
+
+/*
+    ws_examples.push({
+                       id: 'S6E2',
+                       title: "<span data-langkey='Compiler Explorer'>Compiler Explorer</span>",
+                       type: "<span data-langkey='Special'>Special</span>",
+                       level: "archived",
+                       modes:  "newbie,intro,ep",
+                       hardware:  "ep",
+                       microcode: "ep_os",
+                       assembly:  "ep_s6_e2",
+                       description: "<span data-langkey='example_06_02'>Simple Compiler Explorer example</span>"
+                     });
+*/
 

@@ -22,14 +22,14 @@
     // EP+Z80
 
     ws_examples.push({
-                       id: 'S8E1',
+                       id: 'S7E3',
                        title: "<span data-langkey='Instructions'>Instructions</span>",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_z80",
                        hardware:  "ep",
                        microcode: "ep_z80",
-                       assembly:  "ep_s8_e1",
+                       assembly:  "ep_s7_e3",
                        description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
                      });
 
