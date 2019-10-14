@@ -873,6 +873,7 @@
     function wsweb_about_show ( )
     {
 	    $('#about2').modal('show') ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open the "about" dialogbox',
