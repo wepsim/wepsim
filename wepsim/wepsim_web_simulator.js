@@ -693,6 +693,6 @@
 	    // restore UI
 	    setTimeout(function() {
 		          wepsim_restore_uicfg() ;
-		       }, 500) ;
+		       }, 250) ;
     }
 
