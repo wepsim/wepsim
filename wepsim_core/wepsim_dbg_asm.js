@@ -287,6 +287,9 @@
 			       inner_elto + 
 			       "</span>" ;
 
+		// refresh style+events
+		wepsim_restore_uicfg() ;
+
                 $("span[rel='tooltip1']").tooltip({
                         trigger:   'hover',
                         html:       true,
