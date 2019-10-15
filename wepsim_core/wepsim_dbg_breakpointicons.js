@@ -34,12 +34,23 @@
                     "despicable": 	{ type: "films",    addclass: "no-dark-mode",  origin: "https://www.helloforos.com/t/cerrado/350821/81" },
                     "lotr4": 		{ type: "films",    addclass: "no-dark-mode",  origin: "http://www.cinecollectibles.com/gentle-giant-c-1_62.html" },
                     "lotr2": 		{ type: "films",    addclass: "no-dark-mode",  origin: "https://www.forbes.com/sites/adrianbridgwater/2016/01/15/microsoft-r-one-big-data-tool-to-rule-them-all/" },
-                    "hp1": 		{ type: "films",    addclass: "no-dark-mode",  origin: "http://www.logosclicks.com/logos/harry-potter-name-logo-46a93c.html" }
+                    "hp1": 		{ type: "films",    addclass: "no-dark-mode",  origin: "http://www.logosclicks.com/logos/harry-potter-name-logo-46a93c.html" },
+                    "t800": 		{ type: "films",    addclass: "no-dark-mode",  origin: "https://webiconspng.com/icon/72636" }
     } ;
 
 
     function sim_core_breakpointicon_get ( icon_name )
     {
-	  return "<img alt='stop icon' height=22 src='images/stop/stop_" + icon_name + ".gif'>" ;
+	  var icon_obj = null ;
+
+	  icon_obj = breakpoint_icon_list[icon_name] ;
+	  if (typeof icon_obj === "undefined") {
+	      icon_name = 'classic' ;
+	      icon_obj = breakpoint_icon_list[icon_name] ;
+	  }
+
+	  return "<img alt='stop icon' height=22 " + 
+		 "     class='" + icon_obj.addclass + "' " +
+		 "     src='images/stop/stop_" + icon_name + ".gif'>" ;
     }
 

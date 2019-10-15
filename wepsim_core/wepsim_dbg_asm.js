@@ -227,7 +227,7 @@
 	function fullshow_asmdbg_pc ( )
 	{
 		if (typeof document === "undefined") {
-		    return ;
+		    return null ;
 		}
 
                 var o1 = null ;
@@ -286,6 +286,9 @@
                 o1.innerHTML = "<span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>" + 
 			       inner_elto + 
 			       "</span>" ;
+
+		// refresh style+events
+		wepsim_restore_uicfg() ;
 
                 $("span[rel='tooltip1']").tooltip({
                         trigger:   'hover',

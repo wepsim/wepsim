@@ -444,10 +444,10 @@
     {
 	    // update interface
             if (false === get_cfg('is_interactive')) {
-                return;
+                return true;
             }
 
-	    if ( (true === get_cfg('is_quick_interactive')) && (event_type = 'click') )
+	    if ( (true === get_cfg('is_quick_interactive')) && (event_type == 'click') )
 	          wepsim_update_signal_quick(key) ;
 	    else wepsim_update_signal_dialog(key) ;
 
@@ -700,7 +700,7 @@
     {
 	    // check if recording
             if (simcore_record_isRecording() === false) {
-		return ;
+		return true ;
 	    }
 
 	    // stats about recordbar

@@ -494,6 +494,48 @@
                 '     </div>' +
 		'</li>' ;
 
+	   o += '<li class="list-group-item px-0"> ' +
+		'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
+                "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+		"        <label id='label15-true'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='WepSIM dark mode: true' " +
+		"               onclick=\"wepsim_restore_darkmode(true) ; " +
+		"                         update_cfg('ws_skin_dark_mode', true);" +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio15-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
+		"        </label>" +
+		"        <label id='label15-false'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='WepSIM dark mode: true' " +
+		"               onclick=\"wepsim_restore_darkmode(false) ; " +
+		"                         update_cfg('ws_skin_dark_mode', false);" +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio15-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
+		"        </label>" +
+		"    </div>" +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
+		'<label><span data-langkey="assembly only">assembly only</span>:</label>' +
+                "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+		"        <label id='label16-true'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='Assembly only: true' " +
+		"               onclick=\"wepsim_activeview('only_asm', true) ; " +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio16-true'  aria-label='Assembly only: true'  autocomplete='off' >On" +
+		"        </label>" +
+		"        <label id='label16-false'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='Assembly only: true' " +
+		"               onclick=\"wepsim_activeview('only_asm', false) ; " +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio16-false' aria-label='Assembly only: false' autocomplete='off' >Off" +
+		"        </label>" +
+		"    </div>" +
+		'</li>' ;
+
 	   o += '<button type="button" id="close" data-role="none" ' +
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
 		'        onclick="wsweb_quickslider_close(); ' +
@@ -624,6 +666,10 @@
 		                 function(shownEvent) {
 				    $("#slider3a").val(get_cfg('C1C2_size')) ;
 				    $("#slider3b").val(get_cfg('CPUCU_size')) ;
+				    var optValue = get_cfg('ws_skin_dark_mode') ;
+                                    $('#label15-' + optValue).button('toggle') ;
+				    var optValue = (get_cfg('ws_skin_user').split(":")[1] == 'on') ? true : false ;
+                                    $('#label16-' + optValue).button('toggle') ;
                                  }) ;
 
             wepsim_init_quickcfg("[data-toggle=popover2]",
