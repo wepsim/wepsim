@@ -497,21 +497,21 @@
 	   o += '<li class="list-group-item px-0"> ' +
 		'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
                 "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-		"        <label id='label15-true'" +
+		"        <label id='label18-true'" +
 		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 		"               aria-label='WepSIM dark mode: true' " +
 		"               onclick=\"wepsim_restore_darkmode(true) ; " +
 		"                         update_cfg('ws_skin_dark_mode', true);" +
 		"                         return false;\">" +
-		"            <input type='radio' name='options' id='radio15-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
+		"            <input type='radio' name='options' id='radio18-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
 		"        </label>" +
-		"        <label id='label15-false'" +
+		"        <label id='label18-false'" +
 		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 		"               aria-label='WepSIM dark mode: true' " +
 		"               onclick=\"wepsim_restore_darkmode(false) ; " +
 		"                         update_cfg('ws_skin_dark_mode', false);" +
 		"                         return false;\">" +
-		"            <input type='radio' name='options' id='radio15-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
+		"            <input type='radio' name='options' id='radio18-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
 		"        </label>" +
 		"    </div>" +
 		'</li>' ;
@@ -532,6 +532,26 @@
 		"               onclick=\"wepsim_activeview('only_asm', false) ; " +
 		"                         return false;\">" +
 		"            <input type='radio' name='options' id='radio16-false' aria-label='Assembly only: false' autocomplete='off' >Off" +
+		"        </label>" +
+		"    </div>" +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
+		'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
+                "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+		"        <label id='label17-true'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='Frequent only: true' " +
+		"               onclick=\"wepsim_activeview('only_frequent', true) ; " +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio17-true'  aria-label='Frequent only: true'  autocomplete='off' >On" +
+		"        </label>" +
+		"        <label id='label17-false'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='Frequent only: true' " +
+		"               onclick=\"wepsim_activeview('only_frequent', false) ; " +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio17-false' aria-label='Frequent only: false' autocomplete='off' >Off" +
 		"        </label>" +
 		"    </div>" +
 		'</li>' ;
@@ -664,12 +684,15 @@
                                  'click',
                                  wepsim_show_slidercfg_menu,
 		                 function(shownEvent) {
+				    var optValue = false ;
 				    $("#slider3a").val(get_cfg('C1C2_size')) ;
 				    $("#slider3b").val(get_cfg('CPUCU_size')) ;
-				    var optValue = get_cfg('ws_skin_dark_mode') ;
-                                    $('#label15-' + optValue).button('toggle') ;
-				    var optValue = (get_cfg('ws_skin_user').split(":")[1] == 'on') ? true : false ;
+				    optValue = (get_cfg('ws_skin_user').split(":")[1] == 'on') ? true : false ;
                                     $('#label16-' + optValue).button('toggle') ;
+				    optValue = (get_cfg('ws_skin_user').split(":")[3] == 'on') ? true : false ;
+                                    $('#label17-' + optValue).button('toggle') ;
+				    optValue = get_cfg('ws_skin_dark_mode') ;
+                                    $('#label18-' + optValue).button('toggle') ;
                                  }) ;
 
             wepsim_init_quickcfg("[data-toggle=popover2]",

@@ -560,15 +560,6 @@
                       type:        "Accesibility",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='label14-only_asm__of__only_frequent__of'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                                   "               aria-label='User Interface set of features for WepSIM: true' " +
-				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:of';" +
-				   "		             update_cfg('ws_skin_user', optValue);" +
-                                   "                         wepsim_restore_view(optValue);" +
-				   "		             return false;\">" +
-				   "		<input type='radio' name='options' id='radio14-true'  aria-label='Is beta: true'  autocomplete='off' >On" +
-				   "	    </label>" +
 				   "	    <label id='label14-only_asm__of__only_frequent__on'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='User Interface set of features for WepSIM: false' " +
@@ -576,13 +567,22 @@
 				   "		             update_cfg('ws_skin_user', optValue);" +
                                    "                         wepsim_restore_view(optValue);" +
 				   "		             return false;\">" +
-				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is beta: false' autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is expert: false' autocomplete='off' >On" +
+				   "	    </label>" +
+				   "	    <label id='label14-only_asm__of__only_frequent__of'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                                   "               aria-label='User Interface set of features for WepSIM: true' " +
+				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:of';" +
+				   "		             update_cfg('ws_skin_user', optValue);" +
+                                   "                         wepsim_restore_view(optValue);" +
+				   "		             return false;\">" +
+				   "		<input type='radio' name='options' id='radio14-true'  aria-label='Is expert: true'  autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
 			               var optValue = get_cfg('ws_skin_user') ;
 			               $('#label14-' + optValue.replace(/:/g,"__")).button('toggle') ;
 		                   },
-                      description: "<span data-langkey='WepSIM Beta'>WepSIM Beta</span>"
+                      description: "<span data-langkey='Beginner view'>Beginner view</span>"
                    });
 

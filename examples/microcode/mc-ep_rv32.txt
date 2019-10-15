@@ -684,6 +684,8 @@ addi rd rs1 inm {
                 var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
                 var val    = simcore_native_get_field_from_ir(fields, 2) ;
 
+                if (val & 0x00008000)
+                    val = val | 0xFFFF0000 ;
                 var result = simcore_native_get_value("BR", reg2) + val ;
                 simcore_native_set_value("BR", reg1, result) ;
 
@@ -705,6 +707,8 @@ slti rd rs1 inm {
                 var rs1  = simcore_native_get_field_from_ir(fields, 1) ;
                 var inm1 = simcore_native_get_field_from_ir(fields, 2) ;
 
+                if (inm1 & 0x00008000)
+                    inm1 = inm1 | 0xFFFF0000 ;
                 var reg1 = simcore_native_get_value("BR", rs1) ;
                            simcore_native_set_value("BR", rd, (reg1 < inm1)) ;
 

@@ -258,6 +258,8 @@ add_a i16 {
                 // fields is a default parameter with the instruction field information
                 var i16   = simcore_native_get_field_from_ir(fields, 0) ;
 
+                if (i16 & 0x00008000)
+                    i16 = i16 | 0xFFFF0000 ;
                 var result = simcore_native_get_value("BR", "R4") + i16 ;
                 simcore_native_set_value("BR", reg1, "R4") ;
 
@@ -274,6 +276,8 @@ sub_a i16 {
                 // fields is a default parameter with the instruction field information
                 var i16   = simcore_native_get_field_from_ir(fields, 0) ;
 
+                if (i16 & 0x00008000)
+                    i16 = i16 | 0xFFFF0000 ;
                 var result = simcore_native_get_value("BR", "R4") + i16 ;
                 simcore_native_set_value("BR", reg1, "R4") ;
 
