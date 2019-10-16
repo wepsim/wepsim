@@ -459,6 +459,7 @@
                       description: "<span data-langkey='Interactive mode: signal value can be updated'>Interactive mode: signal value can be updated</span>"
                    });
 
+/*
     ws_config.push({
                       id:          "radio6",
                       type:        "Circuitry simulation",
@@ -483,7 +484,6 @@
                       description: "<span data-langkey='Quick interactive mode: quick update of signal value'>Quick interactive mode: quick update of signal value</span>"
                    });
 
-/*
     ws_config.push({
                       id:          "radio11",
                       type:        "Accesibility",
