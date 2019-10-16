@@ -97,11 +97,16 @@
 
                         "Recent":                                       "충적세",
 	                "Welcome":					"환영합니다",
+			"Refresh":  			                "새롭게 하다",
                 	'WepSIM hardware':      			'WepSIM 하드웨어',
                 	'Pick firm/soft from':  			'에서 펌웨어 / 소프트웨어 선택',
                 	'Information from':     			'정보 출처',
-                	'Native code':          			'네이티브 코드',
-			"Refresh":  			                "새롭게 하다"
+                	'Native':          				'원주민',
+                	'MIPS32-like code':          			'MIPS32와 같은 코드',
+                	'RISCV32 code':          			'RISCV32 코드',
+                	'Z80-like code':          			'Z80와 같은 코드',
+
+		        '_last_':					'_last_'
 
                   } ;
 

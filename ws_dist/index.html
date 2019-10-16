@@ -19,116 +19,6 @@
 
     <script src="external/jquery.min.js"></script>
 
-    <style>
-    @include media-breakpoint-only(sm) {
-       .modal-lg { max-width: 95vw !important;  }
-    }
-    @include media-breakpoint-only(md) {
-       .modal-lg { max-width: 90vw !important;  }
-    }
-    @include media-breakpoint-up(lg) {
-       .modal-lg { max-width: 85vw !important;  }
-    }
-    @include media-breakpoint-up(xl) {
-       .modal-lg { max-width: 80vw !important;  }
-    }
-
-    .modal-header {
-	padding: 7px 7px 7px 7px !important;
-        border-color: #AAAAAA !important;
-        background-color: #EEEEEE !important;
-    }
-    .modal-body {
-	padding: 10px 10px 10px 10px !important;
-    }
-    .modal-footer {
-	padding: 7px 7px 7px 7px !important;
-        border-color: #AAAAAA !important;
-        background-color: #EEEEEE !important;
-    }
-
-    .bootbox .modal-body {
-        overflow: auto;
-	-webkit-overflow-scrolling: touch;
-    }
-    .bootboxWidth {
-        min-width: 85vw;
-    }
-    .bootboxShortHeight {
-        max-height: 25vh;
-    }
-    .bootboxLargeHeight {
-        max-height: 55vh;
-    }
-
-    .slider {
-        -webkit-appearance: none;
-        width: 100%;
-        border-radius: 20px;
-        background: #e3e3e3;
-        outline: none;
-        opacity: 1.0;
-        -webkit-transition: .2s;
-        transition: opacity .2s;
-    }
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 35px;
-        height: 25px;
-        border-radius: 50%;
-        background: #4CAF50;
-        cursor: pointer;
-    }
-    .slider::-moz-range-thumb {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        background: #4CAF50;
-        cursor: pointer;
-    }
-
-    .ui-icon-reset:after {
-	background-image: url("images/reset.svg");
-        background-repeat: no-repeat;
-        background-size: 15px 15px;
-    }
-
-    .collapsing {
-        transition: none !important;
-    }
-
-    // http://stackoverflow.com/questions/10814178/css-performance-relative-to-translatez0
-    .trick-hwacceleration {
-        -webkit-transform: translatez(0);
-        -moz-transform: translatez(0);
-        -ms-transform: translatez(0);
-        -o-transform: translatez(0);
-        transform: translatez(0);
-    }
-
-    .tokenfield .token .token-label {
-        max-width: none!important;
-    }
-
-    .text-vertical-lr {
-	writing-mode: tb-rl;
-        -ms-writing-mode: bt-rl;
-        text-orientation: sideways;
-    }
-
-    .ui-helper-hidden-accessible {
-        display: none;
-    }
-
-    // bootbox for bootstrap 4 trick
-    .bootbox .modal-header h5 {
-	 order: 0;
-    }
-    .bootbox .modal-header button {
-	 order: 1;
-    }
-    </style>
 
     <!-- Google Analytics -->
     <script type="text/javascript">
@@ -148,7 +38,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.10" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.11" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -178,7 +68,7 @@
 <body>
 
 	<span id="ws_loader" class="collapse show">
-		<table style="width:100%; height:100%; position:fixed; background-color: white; z-index:100;">
+		<table style="width:100%; height:100%; position:fixed; background-color: white; z-index:4096;">
 		<tr>
 		<td align="center">
 		    <div class="spinner-border spinner-border-xl text-success" role="status">
@@ -223,7 +113,7 @@
 
 
 	<div class="row-fluid px-0 pb-2 pt-0 rounded w-100 collapse" id="record_div"
-	     style="position:fixed; left:0; bottom:0; z-index:1024; background-color:#EAEAEA; overflow:auto; -webkit-overflow-scrolling:touch;">
+	     style="position:fixed; left:0; top: calc(100vh - 65px); z-index:1024; background-color:#EAEAEA; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 	     <div class="progress col" style="height:1px;">
 	          <div id="record_pb" class="progress-bar" role="progressbar" style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -351,7 +241,7 @@
 			    </button>
 			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
 
-			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="WepSIM hardware">WepSIM hardware</span>:</h6>
+			      <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="WepSIM hardware">WepSIM hardware</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_select_main('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
@@ -359,23 +249,36 @@
 				 onclick="wsweb_select_main('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-			      <div class="dropdown-divider border-secondary user_archived w-50"></div>
-                              <a class="dropdown-item user_archived pt-0 mt-0" href="#" id="s4_tutorial" value="tutorial"
-				 onclick="wsweb_select_main('tutorial');
-					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
+			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
+                              <a class="dropdown-item user_archived pt-0 mb-0" href="#" id="s4_asm_mips" value="asm_mips"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
+                                 onclick="wsweb_select_main('asm_mips');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>
+                              <a class="dropdown-item user_archived pb-0 mb-0" href="#" id="s4_asm_rv32" value="asm_rv32"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="RISC-V<sub>32</sub> assembly only."
+                                 onclick="wsweb_select_main('asm_rv32');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>
 
-			      <div class="dropdown-divider border-secondary"></div>
-			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
+			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Tutorial mode">Tutorial mode</span>:</h6>
+                              <a class="dropdown-item user_archived pb-0 mt-0" href="#" id="s4_tutorial" value="tutorial"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="Enable tutorials in 'instructive' microcode examples."
+				 onclick="wsweb_select_main('tutorial');
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+<span style="background-color:#D4DB17">Instructive</span></a>
+>>>>>>> 2.0.11
+
+                              <h6 class="text-white bg-secondary mt-3 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_examples" value="examples"
 				 onclick="wsweb_dialogbox_open_examples();
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
                               <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
 				 onclick="wsweb_dialogbox_open_state();
                                           $('#bot_check1').carousel(0);
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint</span></a>
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
 
-			      <div class="dropdown-divider border-secondary"></div>
-			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Information from">Information from</span>:</h6>
+			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_help" value="help"
 				 onclick="wsweb_dialogbox_open_help();
 					  return false;"><span data-langkey="Help">Help</span></a>
@@ -1192,7 +1095,7 @@
 		   <button type="button" class="btn btn-success px-3 py-1"
 		   	   onclick="wepsim_open_help_index();
                                     wepsim_help_refresh();
-                                    wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	                            wepsim_restore_uicfg();
                                     return false;"><span data-langkey="Help Index">Help Index</span></button>
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled><span data-langkey="Help">Help</span></button>
@@ -1627,7 +1530,7 @@
                         <div class="card-desk row"
                              style="max-width:512px;">
 			      <div class="card bg-white text-center col-3 p-0">
-			        <img class="card-img-top img-fluid shadow" id="collapse-author-1"
+			        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-1"
                                      src="images/author_fgarcia.png" alt="Felix Garcia Carballeira" />
 			        <div class="card-body p-3">
                                   <a class="btn text-vertical-lr p-0 text-primary"
@@ -1646,7 +1549,7 @@
 			      </div>
 
 			      <div class="card bg-white text-center col-3 p-0">
-			        <img class="card-img-top img-fluid shadow" id="collapse-author-2"
+			        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-2"
                                      src="images/author_acaldero.png" alt="Alejandro Calder&oacute;n Mateos" />
 			        <div class="card-body p-3">
                                   <a class="btn text-vertical-lr p-0 text-primary"
@@ -1665,7 +1568,7 @@
 			      </div>
 
 			      <div class="card bg-white text-center col-3 p-0">
-			        <img class="card-img-top img-fluid shadow" id="collapse-author-3"
+			        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-3"
                                      src="images/author_jprieto.png" alt="Javier Prieto Cepeda" />
 			        <div class="card-body p-3">
                                   <a class="btn text-vertical-lr p-0 text-primary"
@@ -1684,7 +1587,7 @@
 			      </div>
 
 			      <div class="card bg-white text-center col-3 p-0">
-			        <img class="card-img-top img-fluid shadow" id="collapse-author-4"
+			        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-4"
                                      src="images/author_salonso.png" alt="Sa&uacute;l Alonso Monsalve" />
 			        <div class="card-body p-3">
                                   <a class="btn text-vertical-lr p-0 text-primary"

@@ -1,0 +1,11 @@
+
+[data-theme="dark"] {
+   filter: invert(90%) hue-rotate(170deg) !important;
+   background-color: #111 !important;
+}
+
+[data-theme="nodark"] {
+   filter: invert(100%) hue-rotate(190deg) !important;
+   background-color: #111 !important;
+}
+

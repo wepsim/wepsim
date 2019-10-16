@@ -199,7 +199,7 @@
 		    var mcode  = fir[i].microcode;
 		    for (j=0; j<mcode.length; j++)
 		    {
-                         if (++l % 10 == 1)
+                         if ((++l % 10) == 1)
 		             o = o + h ;
 
 			 ico = "";

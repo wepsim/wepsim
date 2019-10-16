@@ -1,0 +1,145 @@
+
+//
+//
+//
+
+/*
+.slider {
+        -webkit-appearance: none;
+        width: 100%;
+        border-radius: 20px;
+        background: #e3e3e3;
+        outline: none;
+        opacity: 1.0;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+}
+.slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 35px;
+        height: 25px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+}
+.slider::-moz-range-thumb {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+}
+*/
+
+
+//
+// http://stackoverflow.com/questions/10814178/css-performance-relative-to-translatez0
+//
+
+.trick-hwacceleration {
+        -webkit-transform: translatez(0);
+        -moz-transform: translatez(0);
+        -ms-transform: translatez(0);
+        -o-transform: translatez(0);
+        transform: translatez(0);
+}
+
+
+//
+// Modal
+//
+
+@include media-breakpoint-only(sm) {
+       .modal-lg { max-width: 95vw !important;  }
+}
+@include media-breakpoint-only(md) {
+       .modal-lg { max-width: 90vw !important;  }
+}
+@include media-breakpoint-up(lg) {
+       .modal-lg { max-width: 85vw !important;  }
+}
+@include media-breakpoint-up(xl) {
+       .modal-lg { max-width: 80vw !important;  }
+}
+
+.modal-header {
+	padding: 7px 7px 7px 7px !important;
+        border-color: #AAAAAA !important;
+        background-color: #EEEEEE !important;
+}
+.modal-body {
+	padding: 10px 10px 10px 10px !important;
+}
+.modal-footer {
+	padding: 7px 7px 7px 7px !important;
+        border-color: #AAAAAA !important;
+        background-color: #EEEEEE !important;
+}
+
+
+//
+// BootBox
+//
+
+ .bootbox .modal-body {
+        overflow: auto;
+	-webkit-overflow-scrolling: touch;
+ }
+ .bootboxWidth {
+        min-width: 85vw;
+ }
+ .bootboxShortHeight {
+        max-height: 25vh;
+ }
+ .bootboxLargeHeight {
+        max-height: 55vh;
+ }
+
+// bootbox for bootstrap 4 trick
+.bootbox .modal-header h5 {
+	 order: 0;
+}
+.bootbox .modal-header button {
+	 order: 1;
+}
+
+
+//
+// Unsorted
+//
+
+.ui-icon-reset:after {
+	background-image: url("images/reset.svg");
+        background-repeat: no-repeat;
+        background-size: 15px 15px;
+}
+
+.collapsing {
+        transition: none !important;
+}
+
+    .tokenfield .token .token-label {
+        max-width: none!important;
+}
+
+.text-vertical-lr {
+	writing-mode: tb-rl;
+        -ms-writing-mode: bt-rl;
+        text-orientation: sideways;
+}
+
+.ui-helper-hidden-accessible {
+        display: none;
+}
+
+
+//
+// Dark Mode
+//
+
+.no-dark-mode {
+   filter: invert(90%) hue-rotate(170deg) !important;
+   background-color: #111 !important;
+}
+

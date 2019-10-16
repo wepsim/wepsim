@@ -61,8 +61,9 @@
             var SIMWARE = get_simware() ;
 
             var revlabels = new Object() ;
-            for (var key in SIMWARE.labels2)
+            for (var key in SIMWARE.labels2) {
                  revlabels[SIMWARE.labels2[key]] = key ;
+            }
 
             var seglabels = [] ;
             var curr_segments = simhw_internalState('segments') ;
@@ -466,9 +467,11 @@
                      asm[l].bgcolor = bgc ;
 
                      // instruction
+		     s3_bin = mp[l] ;
+		     if (typeof s3_bin === 'undefined')
+		         s3_bin = 0 ;
                      s1_instr = asm[l].source ;
                      s2_instr = asm[l].source_original ;
-		     s3_bin   = mp[l] ;
                      s4_hex   = parseInt(s3_bin, 2).toString(16) ;
                      s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
                              // "0x" + "00000000".substring(0, 1*8 - s4_hex.length) + s4_hex ;

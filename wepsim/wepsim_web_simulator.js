@@ -35,7 +35,20 @@
             }
     }
 
-    // UI views
+    // active/restore UI
+
+    function wepsim_restore_uicfg ( )
+    {
+	    var cfgValue = null ;
+
+	    // view
+	    cfgValue = get_cfg('ws_skin_user') ;
+	    wepsim_restore_view(cfgValue) ;
+
+	    // dark mode
+	    cfgValue = get_cfg('ws_skin_dark_mode') ;
+            wepsim_restore_darkmode(cfgValue) ;
+    }
 
     function wepsim_activeview ( view, is_set )
     {
@@ -59,10 +72,10 @@
 	    $('#label14-' + new_skin_user.replace(/:/g,"__")).button('toggle');
 
             // update view
-            wepsim_restoreview(new_skin_user) ;
+            wepsim_restore_view(new_skin_user) ;
     }
 
-    function wepsim_restoreview ( view )
+    function wepsim_restore_view ( view )
     {
             var new_classes = [] ;
 	    var cur_skin_user = view.split(":") ;
@@ -89,6 +102,32 @@
             classes = new_classes.join(", ") ;
             $(classes).addClass('d-none') ;
     }
+
+    function wepsim_restore_darkmode ( adm )
+    {
+	    var o = null ;
+
+            // body
+	    o = document.getElementsByTagName('body') ;
+	    if (o.length > 0)
+            {
+	         if (adm === false)
+	              o[0].removeAttribute('data-theme', 'dark') ;
+	         else o[0].setAttribute('data-theme',    'dark') ;
+            }
+
+            // skipped elements
+	    o = document.querySelectorAll('.no-dark-mode') ;
+            for (var i=0; i<o.length; i++)
+            {
+	         if (adm === false)
+	              o[i].removeAttribute('data-theme', 'nodark') ;
+	         else o[i].setAttribute('data-theme',    'nodark') ;
+            }
+
+	    return true ;
+    }
+
 
     // hardware
 
@@ -268,54 +307,6 @@
 	    }
 
 	    asmdbg_loadContent(asmdbg_content) ;
-
-            // return ok
-            return true ;
-    }
-
-    // WepSIM mode -> activate_hw + UI view
-
-    function wepsim_change_mode ( optValue )
-    {
-	    // switch active hardware by name...
-            var hwid = -1 ;
-            switch (optValue)
-            {
-	      case 'newbie':
-	      case 'intro':
-	      case 'wepmips':
-	      case 'tutorial':
-                               hwid = simhw_getIdByName('ep') ;
-                               wepsim_activehw(hwid) ;
-                               break;
-	      default:
-	                       hwid = simhw_getIdByName(optValue) ;
-                               wepsim_activehw(hwid) ;
-                               break;
-            }
-
-	    // show/hide wepmips...
-            wepsim_activeview('only_asm', false) ;
-	    if ('wepmips' == optValue) 
-	    {
-                 wepsim_activeview('only_asm', true) ;
-		 load_from_example_firmware("ep:ep_mips:ep_s1_e1", false) ;
-            }
-
-	    // intro mode...
-	    if ('intro' == optValue)
-	    {
-	         wsweb_recordbar_show() ;
-                 wepsim_checkpoint_loadExample('tutorial_2.txt') ;
-                 return true ;
-	    }
-
-	    // newbie mode...
-            if ('newbie' == optValue)
-            {
-                wepsim_newbie_tour() ;
-                return true ;
-            }
 
             // return ok
             return true ;
@@ -503,6 +494,68 @@
                 '     </div>' +
 		'</li>' ;
 
+	   o += '<li class="list-group-item px-0"> ' +
+		'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
+                "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+		"        <label id='label18-true'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='WepSIM dark mode: true' " +
+		"               onclick=\"wepsim_restore_darkmode(true) ; " +
+		"                         update_cfg('ws_skin_dark_mode', true);" +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio18-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
+		"        </label>" +
+		"        <label id='label18-false'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='WepSIM dark mode: true' " +
+		"               onclick=\"wepsim_restore_darkmode(false) ; " +
+		"                         update_cfg('ws_skin_dark_mode', false);" +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio18-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
+		"        </label>" +
+		"    </div>" +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
+		'<label><span data-langkey="assembly only">assembly only</span>:</label>' +
+                "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+		"        <label id='label16-true'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='Assembly only: true' " +
+		"               onclick=\"wepsim_activeview('only_asm', true) ; " +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio16-true'  aria-label='Assembly only: true'  autocomplete='off' >On" +
+		"        </label>" +
+		"        <label id='label16-false'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='Assembly only: true' " +
+		"               onclick=\"wepsim_activeview('only_asm', false) ; " +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio16-false' aria-label='Assembly only: false' autocomplete='off' >Off" +
+		"        </label>" +
+		"    </div>" +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
+		'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
+                "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+		"        <label id='label17-true'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='Frequent only: true' " +
+		"               onclick=\"wepsim_activeview('only_frequent', true) ; " +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio17-true'  aria-label='Frequent only: true'  autocomplete='off' >On" +
+		"        </label>" +
+		"        <label id='label17-false'" +
+		"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+		"               aria-label='Frequent only: true' " +
+		"               onclick=\"wepsim_activeview('only_frequent', false) ; " +
+		"                         return false;\">" +
+		"            <input type='radio' name='options' id='radio17-false' aria-label='Frequent only: false' autocomplete='off' >Off" +
+		"        </label>" +
+		"    </div>" +
+		'</li>' ;
+
 	   o += '<button type="button" id="close" data-role="none" ' +
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
 		'        onclick="wsweb_quickslider_close(); ' +
@@ -550,7 +603,7 @@
 	/* eslint-disable no-extend-native */
 	/* eslint-disable no-param-reassign */
 	/* eslint-disable no-bitwise */
-	if (!String.prototype.padStart) 
+	if (!String.prototype.padStart)
         {
 	  String.prototype.padStart = function padStart(targetLength, padString) {
 	    targetLength >>= 0; // truncate if number, or convert non-number to 0;
@@ -631,8 +684,15 @@
                                  'click',
                                  wepsim_show_slidercfg_menu,
 		                 function(shownEvent) {
+				    var optValue = false ;
 				    $("#slider3a").val(get_cfg('C1C2_size')) ;
 				    $("#slider3b").val(get_cfg('CPUCU_size')) ;
+				    optValue = (get_cfg('ws_skin_user').split(":")[1] == 'on') ? true : false ;
+                                    $('#label16-' + optValue).button('toggle') ;
+				    optValue = (get_cfg('ws_skin_user').split(":")[3] == 'on') ? true : false ;
+                                    $('#label17-' + optValue).button('toggle') ;
+				    optValue = get_cfg('ws_skin_dark_mode') ;
+                                    $('#label18-' + optValue).button('toggle') ;
                                  }) ;
 
             wepsim_init_quickcfg("[data-toggle=popover2]",
@@ -699,10 +759,9 @@
 	    // init: help idiom selectors
             wepsim_init_helpDropdown() ;
 
-	    // restore UI view
+	    // restore UI
 	    setTimeout(function() {
-			  var view = get_cfg('ws_skin_user') ;
-			  wepsim_restoreview(view) ;
-		       }, 500) ;
+		          wepsim_restore_uicfg() ;
+		       }, 250) ;
     }
 

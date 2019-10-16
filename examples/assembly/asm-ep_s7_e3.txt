@@ -1,0 +1,10 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+.text
+main:
+         ld hl 0x123
+         ret
+

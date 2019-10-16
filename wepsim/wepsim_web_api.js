@@ -195,7 +195,7 @@
     {
             wepsim_open_examples_index();
 	    $('[data-toggle=tooltip]').tooltip('hide');
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open examples',
@@ -219,7 +219,7 @@
 	    wepsim_open_help_index();
 	    wepsim_help_refresh();
 	    $('[data-toggle=tooltip]').tooltip('hide');
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open help',
@@ -241,7 +241,7 @@
     {
 	    wepsim_open_config_index() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open configuration',
@@ -264,7 +264,7 @@
     {
             wepsim_dialog_current_state() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open state',
@@ -360,7 +360,7 @@
     {
             wepsim_notifications_open() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open notification summary',
@@ -384,7 +384,7 @@
 	    simcore_notifications_reset() ;
 	    $('#notifications2').modal('hide') ;
             wepsim_notifications_open() ;
-            wepsim_restoreview(get_cfg('ws_skin_user')) ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Reset notifications',
@@ -444,10 +444,10 @@
     {
 	    // update interface
             if (false === get_cfg('is_interactive')) {
-                return;
+                return true;
             }
 
-	    if ( (true === get_cfg('is_quick_interactive')) && (event_type = 'click') )
+	    if ( (true === get_cfg('is_quick_interactive')) && (event_type == 'click') )
 	          wepsim_update_signal_quick(key) ;
 	    else wepsim_update_signal_dialog(key) ;
 
@@ -540,7 +540,7 @@
 	    save_cfg() ;
 
 	    // update select4
-	    wepsim_change_mode(opt) ;
+	    wepsim_mode_change(opt) ;
 
 	    // tutorial mode -> set green background...
 	    $('#select4').css('background-color', '#F6F6F6') ;
@@ -700,7 +700,7 @@
     {
 	    // check if recording
             if (simcore_record_isRecording() === false) {
-		return ;
+		return true ;
 	    }
 
 	    // stats about recordbar
@@ -873,6 +873,7 @@
     function wsweb_about_show ( )
     {
 	    $('#about2').modal('show') ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open the "about" dialogbox',
@@ -898,6 +899,7 @@
     function wsweb_quickmenu_show ( )
     {
 	    $('#po1').popover('show') ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Open the "quick menu"',
@@ -922,6 +924,7 @@
     function wsweb_quickmenu_toggle ( )
     {
 	    $('#po1').popover('toggle') ;
+	    wepsim_restore_uicfg() ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick menu"',

@@ -148,24 +148,27 @@
 	        "<div class='row'>" ;
 
 	var prev_type = "" ;
-	for (var i=0; i<breakpoint_icon_list.length; i++)
+	for (var elto in breakpoint_icon_list)
 	{
-		if (breakpoint_icon_list[i].type != prev_type) 
+		if (breakpoint_icon_list[elto].type != prev_type) 
 		{
                     o = o + "</div>" +
 			    "<div class='row p-1'>" +
-		            "<div class='float-none text-left text-capitalize font-weight-bold col-12 border-bottom border-secondary'>" + breakpoint_icon_list[i].type + "</div>" +
+		            "<div class='float-none text-left text-capitalize font-weight-bold col-12 border-bottom border-secondary'>" + breakpoint_icon_list[elto].type + "</div>" +
 		            "</div>" +
 		            "<div class='row'>" ;
-		    prev_type = breakpoint_icon_list[i].type ;
+		    prev_type = breakpoint_icon_list[elto].type ;
 		}
 
-		o = o + "<img src='images/stop/stop_" + breakpoint_icon_list[i].shortname + ".gif' alt='" + breakpoint_icon_list[i].shortname + " icon' " +
-		        "     class='img-thumbnail col-3 mx-2 d-block'" +
+		o = o + "<img src='images/stop/stop_" + elto + ".gif' alt='" + elto + " icon' " +
+		        "     class='img-thumbnail col-3 mx-2 d-block " + breakpoint_icon_list[elto].addclass + "'" +
 		        "     style='height:6vh; min-height:30px;'" +
-		        "     onclick=\"$('#img_select1').attr('src','images/stop/stop_" + breakpoint_icon_list[i].shortname + ".gif');" +
-		        "	        set_cfg('ICON_theme','" + breakpoint_icon_list[i].shortname + "'); save_cfg();" +
-                        "               $('#breakpointicon1').popover('hide');\">" ;
+		        "     onclick=\"$('#img_select1').attr('src',        'images/stop/stop_" + elto + ".gif');" +
+		        "               $('#img_select1').attr('class',      '" + breakpoint_icon_list[elto].addclass + "');" +
+		        "               $('#img_select1').attr('data-theme', '');" +
+		        "	        set_cfg('ICON_theme','" + elto + "'); save_cfg();" +
+                        "               $('#breakpointicon1').popover('hide');" +
+                        "               wepsim_restore_uicfg();\">" ;
 	}
         o = o + '</div>' +
 	        '<div class="row mt-2 p-1 border-top border-secondary">' +

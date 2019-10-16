@@ -95,7 +95,10 @@
                 'WepSIM hardware':      'WepSIM hardware',
                 'Pick firm/soft from':  'Wählen Sie Firm/Soft aus',
                 'Information from':     'Informationen von',
-                'Native code':          'Nativer Code',
+                'Native':   		'Nativer',
+                'MIPS32-like code':   	'MIPS32-ähnlicher Code',
+                'RISCV32 code':  	'RISCV32 Code',
+                'Z80-like code':   	'Z80-ähnlicher Code',
 		'_last_':		'_last_'
 
     };

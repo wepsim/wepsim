@@ -36,10 +36,10 @@
 + From Linux/Unix command line, please:
   * Check you have installed Node 8.10.0+, and Bash 4.4.19+
   * Download WepSIM by executing:
-    * wget https://github.com/acaldero/wepsim/releases/download/v2.0.10/wepsim-2.0.10.zip
-    * unzip wepsim-2.0.10.zip 
+    * wget https://github.com/acaldero/wepsim/releases/download/v2.0.11/wepsim-2.0.11.zip
+    * unzip wepsim-2.0.11.zip 
   * Execute wepsim_node.sh with the help flag in order to show the available command switches:
-    * cd wepsim-2.0.10
+    * cd wepsim-2.0.11
     * ./wepsim_node.sh help
 
 <a name="install-wepsim-as-pwa"/>
@@ -328,4 +328,71 @@ Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from 
         </div>
 
     </div>
+
+<a name="wepsim-apache-cordova"/>
+
+## WepSIM for Apache Cordova
+
+### 1) Prepare the Apache Cordova Project: 
+
++ 1.1) Follow Apache Cordova tutorial in order to create a new project:
+```bash
+npm install -g cordova
+cordova create wepsim es.uc3m.inf.arcos.wepsim WepSIM
+cd wepsim
+cordova platform add android
+cordova platform add ios
+```
+
++ 1.2) Install at least the following plugins:
+```bash
+cordova plugin add cordova-plugin-console
+cordova plugin add cordova-plugin-device
+cordova plugin add cordova-plugin-dialogs
+cordova plugin add cordova-plugin-file
+cordova plugin add cordova-plugin-file-transfer
+cordova plugin add cordova-plugin-splashscreen
+cordova plugin add cordova-plugin-web-share
+cordova plugin add cordova-plugin-whitelist
+```
+
+### 2) Update WepSIM files:
+
++ 2.1) Copy WepSIM files into the www directory:
+```bash
+wget https://github.com/acaldero/wepsim/releases/download/v2.0.11/wepsim-2.0.11.zip
+unzip wepsim-2.0.11.zip
+mv www www.initial.$$
+cp -a wepsim-2.0.11/ws_dist www
+```
+
++ 2.2) Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:
+```bash
+sed -i .bak 's/wepsim/android_asset\/www/g' ./www/examples/hardware/ep/images/processor.svg
+```
+
++ 2.3) Adapt path in files "./www/wepsim-classic.html" and "./www/wepsim-compact.html":
+```bash
+sed -i .bak 's/external\/cordova/cordova/g' ./www/wepsim-classic.html
+sed -i .bak 's/external\/cordova/cordova/g' ./www/wepsim-compact.html
+```
+
+### 3) Build Android .apk:
+
++ 3.1) Build .apk:
+```bash
+cordova build android --debug
+```
+
++ 3.2.a) Run WepSIM's App on Emulator:
+```bash
+cordova run android
+```
+
++ 3.2.b) Run WepSIM's App on Device:
+```bash
+adb -d install -r ./platforms/android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+>>>>>>> 2.0.11
 

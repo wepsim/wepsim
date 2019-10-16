@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"2.0.10", type:"string"} ;
+        WSCFG.version = { value:"2.0.11", type:"string"} ;
 
 
         /*
@@ -74,7 +74,8 @@
 	   }
 
            // try to restore primary configuration values from local_storage
-           var default_value ;
+           var default_value = null ;
+           var saved_value   = null ;
 
            for (var item in WSCFG)
            {
@@ -85,11 +86,18 @@
                 default_value = get_cfg(item) ;
 
                 set_cfg(item, localStorage.getItem('wepsim_' + item)) ;
-                if (WSCFG[item].type != "string") {
-                    set_cfg(item, JSON.parse(get_cfg(item)));
+                if (WSCFG[item].type != "string") 
+		{
+                    try { 
+                      saved_value = JSON.parse(get_cfg(item)) ;
+		      set_cfg(item, saved_value);
+		    }
+		    catch (e) {
+                      saved_value = null ;
+		    }
 		}
 
-                if (get_cfg(item) === null) {
+                if (saved_value === null) {
                     set_cfg(item, default_value) ;
 		}
            }
@@ -184,6 +192,7 @@
                WSCFG.use_voice            = { value:false,                           type:"boolean"} ;
                WSCFG.ws_skin_ui           = { value:'classic',                       type:"string"} ;
                WSCFG.ws_skin_user         = { value:'only_asm:of:only_frequent:on',  type:"string"} ;
+               WSCFG.ws_skin_dark_mode    = { value:false,                           type:"boolean"} ;
 
 	       /* micro/assembly screen: editor */
                WSCFG.editor_theme         = { value:'default',          type:"string"} ;

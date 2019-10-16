@@ -27,10 +27,14 @@
                                   "We really believe WepSIM is a revolutionary teaching tool. " +
                                   "This brief tour introduces the key elements of its interface.",
 
-                        "step2":  "This button on the top-right let users choose the 'execution mode'.<br>" +
+                        "step2":  "This button on the top-right is a quick access menu to differents 'work modes'.<br>" +
                                   "<br>" +
-                                  "For example, the hardware to work with (e.g. the elemental processor or EP).<br>" +
-                                  "Or the tutorial mode, recommended at the beginning ;-).",
+                                  "Users might select:" +
+                                  "<ul>" +
+                                  "<li>The hardware to work with (e.g. EP processor, etc.)</li>" +
+                                  "<li>Assembly only mode, with integer MIPS<sub>32</sub> or RISC-V<sub>32</sub> instructions</li>" +
+                                  "<li>The tutorial mode, recommended at the beginning ;-)</li>" +
+                                  "</ul>",
 
                         "step3":  "On the top-right, the 'help' button opens the associated dialog.<br>" +
                                   "<br>" +
