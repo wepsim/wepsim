@@ -394,5 +394,3 @@ cordova run android
 adb -d install -r ./platforms/android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
->>>>>>> 2.0.11
-
