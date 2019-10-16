@@ -65,7 +65,7 @@
     ws_config.push({
                       id:          "radio15",
                       type:        "General",
-                      u_class:     "user_archived",
+                      u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label15-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
