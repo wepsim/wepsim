@@ -126,7 +126,7 @@
            
         </p>
         <p class="cleanuphtml-3">
-          <img style="max-width:90%" alt="" name="Imagen 1" src="examples/hardware/poc/help/signals/image001.jpg" id="Imagen 1">
+          <img style="max-width:90%" alt="" name="Imagen 1" src="examples/hardware/ep/help/signals/image001.jpg" id="Imagen 1">
         </p>
         <p class="cleanuphtml-3">
           <b>Figure</b> <b>8</b> <b>Options for MUX A</b>
@@ -362,7 +362,7 @@
           <div id="MC">
           <p>
             <b>MC</b><b>         </b>             1 bit<br>
-            <b>SELCOP</b><b>     </b>             5 bits
+            <b>SELCOP</b><b>     </b>             4 bits
           </p>
           <p>
             It allows to select the value for COP.
@@ -373,34 +373,30 @@
           <div id="SELA">
           <div id="SELB">
           <div id="SELC">
-          <div id="MRA">
-          <div id="MRB">
-          <div id="MRC">
+          <div id="MR">
           <p>
-            <b>MRA</b><b>      </b>             1 bit<br>
-            <b>MRB</b><b>      </b>             1 bit<br>
-            <b>MRC</b><b>      </b>             1 bit<br>
-            <b>SELA</b><b>     </b>             6 bits<br>
-            <b>SELB</b><b>     </b>             6 bits<br>
-            <b>SELC</b><b>     </b>             6 bits
+            <b>MR</b><b>       </b>             1 bit<br>
+            <b>SELA</b><b>     </b>             5 bits<br>
+            <b>SELB</b><b>     </b>             5 bits<br>
+            <b>SELC</b><b>     </b>             5 bits
           </p>
           <p>
             It allows to select the value for RA, RB and RC. 
-            If MRx equals 1 then the SELx value will represent the register id. of the register file that you want to use:
+            If MR equals 1 then the SELA value will represent the register id. of the register file that you want to use:
           </p>
           <p class="cleanuphtml-3">
-            <img style="max-width:90%" id="Imagen 82" src="examples/hardware/poc/help/signals/image009.png" name="Imagen 92" alt="">
+            <img style="max-width:90%" id="Imagen 82" src="examples/hardware/ep/help/signals/image009.png" name="Imagen 92" alt="">
           </p>
           <p class="cleanuphtml-3">
             <a class="cleanuphtml-4" name="_Toc438322899">Figure</a> <b>20</b> <b>Details of management signals RA, RB and RC</b>
           </p>
 
           <p>
-            If MRx equals 0 then the SELx value represents the offset within the instruction register from which 6 bits are taken, 
-            and the value of those 6 bits is the identifier of the register in the register file:
+            If MR equals 0 then the SELA value represents the offset within the instruction register from which 5 bits are taken, 
+            and the value of those 5 bits is the identifier of the register in the register file:
           </p>
           <p class="cleanuphtml-3">
-            <img style="max-width:90%" id="Imagen 82" src="examples/hardware/poc/help/signals/image010.png" name="Imagen 93" alt="">
+            <img style="max-width:90%" id="Imagen 82" src="examples/hardware/ep/help/signals/image010.png" name="Imagen 93" alt="">
           </p>
           <p class="cleanuphtml-3">
 	    <a class="cleanuphtml-4" name="_Toc438322899">Figure</a> <b>20</b> <b>Details of management signals RA, RB and RC</b>
@@ -408,8 +404,6 @@
 
           <p>
           </p>
-        </div>
-        </div>
         </div>
         </div>
         </div>
@@ -565,7 +559,7 @@
 
         <div id="COP">
           <p>
-            <b>COP</b> <b>   </b>             5 bits              
+            <b>COP</b> <b>   </b>             4 bits              
           </p>
           <p>
             Select the operation that is performed in the ALU:
@@ -578,7 +572,7 @@
               <tbody><tr>
                 <td valign="top">
                   <p class="cleanuphtml-1">
-                    COP (C0P<sub>4</sub>-C0P<sub>0</sub>)
+                    COP (C0P<sub>3</sub>-C0P<sub>0</sub>)
                   </p>
                 </td>
                 <td valign="top">
@@ -1120,7 +1114,7 @@
                 For example, given the following contents in the instruction register:
               </p>
               <p class="cleanuphtml-3">
-                <img style="max-width:90%" id="Imagen 15" src="examples/hardware/poc/help/signals/image002.png" name="Imagen 15" alt="">
+                <img style="max-width:90%" id="Imagen 15" src="examples/hardware/ep/help/signals/image002.png" name="Imagen 15" alt="">
               </p>
               <p>
                 Values:
@@ -1170,7 +1164,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%" id="Imagen 16" src="examples/hardware/poc/help/signals/image003.jpg" name="Imagen 16" alt="">
+                        <img style="max-width:90%" id="Imagen 16" src="examples/hardware/ep/help/signals/image003.jpg" name="Imagen 16" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1192,7 +1186,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%" id="Imagen 17" src="examples/hardware/poc/help/signals/image004.jpg" name="Imagen 17" alt="">
+                        <img style="max-width:90%" id="Imagen 17" src="examples/hardware/ep/help/signals/image004.jpg" name="Imagen 17" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1214,7 +1208,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%" id="Imagen 18" src="examples/hardware/poc/help/signals/image005.jpg" name="Imagen 18" alt="">
+                        <img style="max-width:90%" id="Imagen 18" src="examples/hardware/ep/help/signals/image005.jpg" name="Imagen 18" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1236,7 +1230,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%" id="Imagen 19" src="examples/hardware/poc/help/signals/image006.jpg" name="Imagen 19" alt="">
+                        <img style="max-width:90%" id="Imagen 19" src="examples/hardware/ep/help/signals/image006.jpg" name="Imagen 19" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1259,7 +1253,7 @@
         </div>
         
         <h2>
-          The central processing unit: main memory access
+          The central processing unit: Main Memory access
         </h2>
         <p class="cleanuphtml-1"></p>
 
@@ -1275,32 +1269,2697 @@
         </div>
         
 
-        <div id="BW">
+        <div id="SBWA">
+        <div id="BWA">
 	<div id="R">
 	<div id="W">
+        <div id="BE">
 	<div id="MRDY">
                   <p>
                     <b>R</b><b>       </b> 1 bit <br>
                     <b>W</b><b>       </b> 1 bit <br>
+                    <b>BE</b><b>      </b> 4 bits <br>
                     <b>MRdy</b><b>    </b> 1 bit <br>
-                    <b>BW</b><b>      </b> 2 bits <br>
                   </p>
                   <p>
-		      Control signals of the main memory: R for read, W for write. <br>
-		      BW controls the number of bytes to be read/write: 0 for one byte, 1 for two bytes (half-word), and 3 for four bytes (a word). <br>
+		      Control signals of the main memory: R for read, W for write, BE for byte-selection.<br>
 		      By default memory reads or writes in one clock cycle. If memory is configured for several clock cycles, the MRdy signal is set when memory ends the R/W request.
                   </p>
                   <p>
+                    BE3=BW1,    BE2=BW0,    BE1=A1,       BE0=A0
                   </p>
+                  <p>
+                     
+                  </p>
+                  <p>
+                    BE allows to select the byte(s) within a word to be readed and where to place them on the bus:
+                  </p>
+                  <p class="cleanuphtml-1">
+                     
+                  </p>
+                  <table width="1063" cellspacing="0" cellpadding="0" border="0" align="left">
+                    <tbody><tr>
+                      <td valign="top" colspan="4">
+                        <p>
+                          Bytes in memory word
+                        </p>
+                      </td>
+                      <td valign="top" colspan="4">
+                        <p>
+                          Bytes selection
+                        </p>
+                      </td>
+                      <td valign="top" colspan="4">
+                        <p>
+                          Output to the bus
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        <p>
+                          D<sub>31</sub>-D<sub>24</sub>
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          D<sub>23</sub>-D<sub>16</sub>
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          D<sub>15</sub>-D<sub>8</sub>
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          D<sub>7</sub>-D<sub>0</sub>
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          BE<sub>3</sub>
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          BE<sub>2</sub>
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          BE<sub>1</sub>
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          BE<sub>0</sub>
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          D31-D24
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          D23-D16
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          D15-D8
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          D7-D0
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ----
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ----
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 0
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ----
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          X
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          X
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ---
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          ----
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 0
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          X
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          X
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 3
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 2
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 1
+                        </p>
+                      </td>
+                      <td valign="top">
+                        <p>
+                          Byte 0
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody></table>
+                  <p class="cleanuphtml-1">
+                    <br clear="all">
+                  </p>
+                  <p class="cleanuphtml-1">
+                     
+                  </p>
+                  <p>
+                    As well as selecting the byte(s) within a word to be written and where to place them in a memory word:
+                  </p>
+                  <p>
+                     
+                  </p>
+                  <p>
+                     
+                  </p>
+                  <div class="cleanuphtml-2">
+                    <table width="1084" cellspacing="0" cellpadding="0" border="0">
+                      <tbody><tr>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Data in the bus
+                          </p>
+                        </td>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Bytes selection 
+                          </p>
+                        </td>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Bytes written in a memory word
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            D<sub>31</sub>-D<sub>24</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D<sub>23</sub>-D<sub>16</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D<sub>15</sub>-D<sub>8</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D<sub>7</sub>-D<sub>0</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BE<sub>3</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BE<sub>2</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BE<sub>1</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BE<sub>0</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D<sub>31</sub>-D<sub>24</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D<sub>23</sub>-D<sub>16</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D<sub>15</sub>-D<sub>8</sub>
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D7-D0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ----
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ----
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ----
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ----
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </div>
+        </div>
         </div>
         </div>
         </div>
         </div>
 
+                  <p>
                   </p>
                   <br clear="all">
                   <p>
                   </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
+        <div id="BW">
+        <div id="A1A0">
+                  <p>
+                    <b>BW</b> (2 bits) <br>
+                    <b>A1A0</b> (2 bits) <br>
+                    <b>SE</b> (1 bit) <br>
+                    <b>W</b> (1 bit)
+                  </p>
+                  <p>
+                    Input signals for the Byte Selector (W-Byte and R-Byte Selectors).
+                  </p>
+                  <p>
+                     
+                  </p>
+                  <p>
+                    Byte selector: W=0, SE=0 (R-byte selector):
+                  </p>
+                  <div class="cleanuphtml-2">
+                    <table width="1061" cellspacing="0" cellpadding="0" border="0">
+                      <tbody><tr>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Input bytes
+                          </p>
+                        </td>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Bytes selection
+                          </p>
+                        </td>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Output bytes
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            D31-D24
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D23-D16
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D15-D8
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D7-D0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BW1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BW0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            A1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            A0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D31-D24
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D23-D16
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D15-D8
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D7-D0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </div>
+                  <p>
+                     
+                  </p>
+                  <p>
+                     
+                  </p>
+                  <p>
+                    Byte selector: W=0, SE=1 (R-byte selector):
+                  </p>
+                  <p>
+                     
+                  </p>
+                  <div class="cleanuphtml-2">
+                    <table width="935" cellspacing="0" cellpadding="0" border="0">
+                      <tbody><tr>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Input bytes
+                          </p>
+                        </td>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Bytes selection
+                          </p>
+                        </td>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Output bytes
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            D31-D24
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D23-D16
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D15-D8
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D7-D0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BW1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BW0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            A1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            A0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D31-D24
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D23-D16
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D15-D8
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D7-D0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            S
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </div>
+                  <p>
+                     
+                  </p>
+                  <p>
+                     
+                  </p>
+                  <p>
+                    Byte selector: W=1, SE={0,1} (W-byte selector):
+                  </p>
+                  <div class="cleanuphtml-2">
+                    <table width="935" cellspacing="0" cellpadding="0" border="0">
+                      <tbody><tr>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Input bytes
+                          </p>
+                        </td>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Bytes selection
+                          </p>
+                        </td>
+                        <td valign="top" colspan="4">
+                          <p>
+                            Output bytes (to the bus)
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            D31-D24
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D23-D16
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D15-D8
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D7-D0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BW1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            BW0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            A1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            A0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D31-D24
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D23-D16
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D15-D8
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            D7-D0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </div>
+                </div>
+        </div>
+        </div>
+        
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
 
         <h2>
           The central processing unit: Register File (RF).
@@ -1318,13 +3977,13 @@
 		  </b>
                 </p>
                 <p>
-                  <b>RA</b><b>      </b>             6 bits
+                  <b>RA</b><b>      </b>             5 bits
                 </p>
                 <p>
-                  <b>RB</b><b>      </b>             6 bits
+                  <b>RB</b><b>      </b>             5 bits
                 </p>
                 <p>
-                  <b>RC</b><b>                  </b> 6 bits
+                  <b>RC</b><b>                  </b> 5 bits
                 </p>
                 <p>
                   <b>LC</b><b>                  </b> 1 bit
@@ -1337,7 +3996,7 @@
                    
                 </p>
                 <p class="cleanuphtml-3">
-                  <img style="max-width:90%" id="Imagen 25" src="examples/hardware/poc/help/signals/image007.jpg" name="Imagen 25" alt="">
+                  <img style="max-width:90%" id="Imagen 25" src="examples/hardware/ep/help/signals/image007.jpg" name="Imagen 25" alt="">
                 </p>
                 <p class="cleanuphtml-3">
                   <a class="cleanuphtml-4" name="_Toc438322898">Figure</a> <b>9</b> <b>Options available for the MUX A</b>
@@ -1370,7 +4029,7 @@
              
           </p>
           <p class="cleanuphtml-3">
-            <img style="max-width:90%" id="Imagen 82" src="examples/hardware/poc/help/signals/image008.jpg" name="Imagen 82" alt="">
+            <img style="max-width:90%" id="Imagen 82" src="examples/hardware/ep/help/signals/image008.jpg" name="Imagen 82" alt="">
           </p>
           <p class="cleanuphtml-3">
             <a class="cleanuphtml-4" name="_Toc438322899">Figure</a> <b>10</b> <b>Detail of the PC register management options</b>
