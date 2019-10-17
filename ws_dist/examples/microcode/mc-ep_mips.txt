@@ -142,6 +142,25 @@ and reg1 reg2 reg3 {
             }
 }
 
+andi reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+                var val    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                var result = simcore_native_get_value("BR", reg2) & (val >>> 0) ;
+                simcore_native_set_value("BR", reg1, result) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
 
 or reg1 reg2 reg3 {
             co=000000,
@@ -158,6 +177,26 @@ or reg1 reg2 reg3 {
                 var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
                 var result = simcore_native_get_value("BR", reg2) | simcore_native_get_value("BR", reg3) ;
+                simcore_native_set_value("BR", reg1, result) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
+ori reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+                var val    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                var result = simcore_native_get_value("BR", reg2) | (val >>> 0) ;
                 simcore_native_set_value("BR", reg1, result) ;
 
                 simcore_native_go_maddr(0) ;
@@ -202,6 +241,26 @@ xor reg1 reg2 reg3 {
             }
 }
 
+xori reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+                var val    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                var result = simcore_native_get_value("BR", reg2) ^ (val >>> 0) ;
+                simcore_native_set_value("BR", reg1, result) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
 add reg1 reg2 reg3 {
             co=000000,
             cop=1001,
@@ -218,6 +277,27 @@ add reg1 reg2 reg3 {
 
                 var result = simcore_native_get_value("BR", reg2) + simcore_native_get_value("BR", reg3) ;
                 simcore_native_set_value("BR", reg1, result) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
+addu reg1 reg2 reg3 {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+                var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
+
+                var op1 = simcore_native_get_value("BR", reg2) >>> 0 ;
+                var op2 = simcore_native_get_value("BR", reg3) >>> 0 ;
+                simcore_native_set_value("BR", reg1, op1 + op2) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -281,6 +361,27 @@ sub reg1 reg2 reg3 {
 
                 var result = simcore_native_get_value("BR", reg2) - simcore_native_get_value("BR", reg3) ;
                 simcore_native_set_value("BR", reg1, result) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
+subu reg1 reg2 reg3 {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+                var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
+
+                var op1 = simcore_native_get_value("BR", reg2) >>> 0 ;
+                var op2 = simcore_native_get_value("BR", reg3) >>> 0 ;
+                simcore_native_set_value("BR", reg1, (op1 - op2) >>> 0) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -414,6 +515,26 @@ sll reg1 reg2 val {
                 var val1 = simcore_native_get_field_from_ir(fields, 2) ;
 
                 var result = simcore_native_get_value("BR", reg2) << val1 ;
+                simcore_native_set_value("BR", reg1, result) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
+sra reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val=inm(5,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
+                var val1 = simcore_native_get_field_from_ir(fields, 2) ;
+
+                var result = simcore_native_get_value("BR", reg2) >> val1 ;
                 simcore_native_set_value("BR", reg1, result) ;
 
                 simcore_native_go_maddr(0) ;
@@ -614,6 +735,32 @@ lb reg1 (reg2) {
             }
 }
 
+lb reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            val  = inm(15,0),
+            reg2 = reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+
+                var b_addr = simcore_native_get_value("BR", reg2) + val ;
+                var w_addr = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var  b_value = b_addr & 0x00000003 ;
+                     b_value = w_value >>> (8 * b_value) ;
+                if  (b_value & 0x00000080)
+                     b_value = b_value | 0xFFFFFF00 ;
+                else b_value = b_value & 0x000000FF ;
+                simcore_native_set_value("BR", reg1, b_value) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
 lbu reg1 (reg2) {
             co=111111,
             nwords=1,
@@ -649,6 +796,34 @@ sb reg1 (reg2) {
                 var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
 
                 var b_addr  = simcore_native_get_value("BR", reg2) ;
+                var b_value = simcore_native_get_value("BR", reg1) ;
+                    b_value = b_value & 0x000000FF ;
+                var w_addr  = b_addr & 0xFFFFFFFC ;
+                var w_value = simcore_native_get_value("MEMORY", w_addr) ;
+                var b_off   = b_addr & 0x00000003 ;
+                if (3 == b_off) w_value = (w_value & 0x00FFFFFF) | (b_value << 24) ;
+                if (2 == b_off) w_value = (w_value & 0xFF00FFFF) | (b_value << 16) ;
+                if (1 == b_off) w_value = (w_value & 0xFFFF00FF) | (b_value <<  8) ;
+                if (0 == b_off) w_value = (w_value & 0xFFFFFF00) | (b_value) ;
+                simcore_native_set_value("MEMORY", w_addr, w_value) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
+sb reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            val  = inm(15,0),
+            reg2 = reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+
+                var b_addr  = simcore_native_get_value("BR", reg2) + val ;
                 var b_value = simcore_native_get_value("BR", reg1) ;
                     b_value = b_value & 0x000000FF ;
                 var w_addr  = b_addr & 0xFFFFFFFC ;
