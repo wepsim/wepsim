@@ -191,7 +191,7 @@
                WSCFG.ws_mode              = { value:'newbie',                        type:"string"} ;
                WSCFG.use_voice            = { value:false,                           type:"boolean"} ;
                WSCFG.ws_skin_ui           = { value:'classic',                       type:"string"} ;
-               WSCFG.ws_skin_user         = { value:'only_asm:of:only_frequent:on',  type:"string"} ;
+               WSCFG.ws_skin_user         = { value:'only_asm:of:only_frequent:of',  type:"string"} ;
                WSCFG.ws_skin_dark_mode    = { value:false,                           type:"boolean"} ;
 
 	       /* micro/assembly screen: editor */
