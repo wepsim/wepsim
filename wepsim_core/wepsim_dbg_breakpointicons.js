@@ -20,22 +20,24 @@
 
 
     var breakpoint_icon_list = {
-                    "classic": 		{ type: "classic",  addclass: "no-dark-mode",  origin: "https://www.optikunde.de/farbe/rot.php" },
-                    "pushpin": 		{ type: "classic",  addclass: "no-dark-mode",  origin: "http://clipart-library.com/red-push-pin.html" },
-                    "cat1": 		{ type: "pets",     addclass: "no-dark-mode",  origin: "" },
-                    "dog1": 		{ type: "pets",     addclass: "no-dark-mode",  origin: "" },
-                    "super": 		{ type: "films",    addclass: "no-dark-mode",  origin: "https://worldvectorlogo.com/logo/superman-3" },
-                    "batman": 		{ type: "films",    addclass: "",              origin: "http://getwallpapers.com/collection/black-and-white-batman-wallpaper" },
-                    "r2d2": 		{ type: "films",    addclass: "",              origin: "https://imgur.com/gallery/gKSmy" },
-                    "sw": 		{ type: "films",    addclass: "",              origin: "https://i2.wp.com/icons.iconarchive.com/icons/sensibleworld/starwars/1024/Death-Star-icon.png" },
-                    "bb8": 		{ type: "films",    addclass: "no-dark-mode",  origin: "" },
-                    "vader1": 		{ type: "films",    addclass: "",              origin: "" },
-                    "grail": 		{ type: "films",    addclass: "no-dark-mode",  origin: "http://3png.com/a-31243892.html" },
-                    "despicable": 	{ type: "films",    addclass: "no-dark-mode",  origin: "https://www.helloforos.com/t/cerrado/350821/81" },
-                    "lotr4": 		{ type: "films",    addclass: "no-dark-mode",  origin: "http://www.cinecollectibles.com/gentle-giant-c-1_62.html" },
-                    "lotr2": 		{ type: "films",    addclass: "no-dark-mode",  origin: "https://www.forbes.com/sites/adrianbridgwater/2016/01/15/microsoft-r-one-big-data-tool-to-rule-them-all/" },
-                    "hp1": 		{ type: "films",    addclass: "no-dark-mode",  origin: "http://www.logosclicks.com/logos/harry-potter-name-logo-46a93c.html" },
-                    "t800": 		{ type: "films",    addclass: "no-dark-mode",  origin: "https://webiconspng.com/icon/72636" }
+                    "classic": 		{ type: "classic",   addclass: "no-dark-mode",  origin: "https://www.optikunde.de/farbe/rot.php" },
+                    "pushpin": 		{ type: "classic",   addclass: "no-dark-mode",  origin: "http://clipart-library.com/red-push-pin.html" },
+                    "cat1": 		{ type: "pets",      addclass: "no-dark-mode",  origin: "" },
+                    "dog1": 		{ type: "pets",      addclass: "no-dark-mode",  origin: "" },
+                    "halloween1": 	{ type: "halloween", addclass: "no-dark-mode",  origin: "https://es.vexels.com/svg-png/halloween/" },
+                    "halloween2": 	{ type: "halloween", addclass: "no-dark-mode",  origin: "https://es.vexels.com/png-svg/vista-previa/153871/casa-de-halloween-de-miedo" },
+                    "super": 		{ type: "films",     addclass: "no-dark-mode",  origin: "https://worldvectorlogo.com/logo/superman-3" },
+                    "batman": 		{ type: "films",     addclass: "",              origin: "http://getwallpapers.com/collection/black-and-white-batman-wallpaper" },
+                    "r2d2": 		{ type: "films",     addclass: "",              origin: "https://imgur.com/gallery/gKSmy" },
+                    "sw": 		{ type: "films",     addclass: "",              origin: "https://i2.wp.com/icons.iconarchive.com/icons/sensibleworld/starwars/1024/Death-Star-icon.png" },
+                 // "bb8": 		{ type: "films",     addclass: "no-dark-mode",  origin: "" },
+                    "vader1": 		{ type: "films",     addclass: "",              origin: "" },
+                    "grail": 		{ type: "films",     addclass: "no-dark-mode",  origin: "http://3png.com/a-31243892.html" },
+                    "despicable": 	{ type: "films",     addclass: "no-dark-mode",  origin: "https://www.helloforos.com/t/cerrado/350821/81" },
+                    "lotr4": 		{ type: "films",     addclass: "no-dark-mode",  origin: "http://www.cinecollectibles.com/gentle-giant-c-1_62.html" },
+                    "lotr2": 		{ type: "films",     addclass: "no-dark-mode",  origin: "https://www.forbes.com/sites/adrianbridgwater/2016/01/15/microsoft-r-one-big-data-tool-to-rule-them-all/" },
+                    "hp1": 		{ type: "films",     addclass: "no-dark-mode",  origin: "http://www.logosclicks.com/logos/harry-potter-name-logo-46a93c.html" },
+                    "t800a": 		{ type: "films",     addclass: "no-dark-mode",  origin: "https://purepng.com/photo/27494/movie-terminator-skull" }
     } ;
 
 

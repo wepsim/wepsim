@@ -1,6 +1,9 @@
 
 # Changelog
 
+## 2.0.11 -> 2.0.12:
+* Dark Mode (bugfixed)
+
 ## 2.0.10 -> 2.0.11:
 * Dark Mode (beta)
 * Initial support for RISC-V
