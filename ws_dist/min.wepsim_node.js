@@ -371,7 +371,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
                 ' * ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]\n' +
                 ' * ./wepsim_node.sh <command> checkpoint      <checkpoint file>                [<checklist file>] [options*]\n' +
                 '\n' +
-                '    <command>         = run | stepbystep | microstepbymicrostep | check | microstepverbalized | show-console | show-record\n' +
+                '    <command>         = run | stepbystep | microstepbymicrostep | check | microstepverbalized | show-console | show-record | build-checkpoint\n' +
                 '    <hardware name>   = ep | poc\n' +
                 '\n' +
                 '    <checkpoint file> = "path to the checkpoint file" \n' +
@@ -440,10 +440,13 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
                 ' * Show recorded session:\n' +
                 '   ./wepsim_node.sh show-record checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
                 '\n' +
+                ' * Build checkpoint from assembly and microcode, and print it to standard output:\n' +
+                '   ./wepsim_node.sh build-checkpoint ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt\n' +
+                '\n' +
                 ' * Export hardware definition as JSON:\n' +
                 '   ./wepsim_node.sh export-hardware ep > examples/hardware/ep/hw_def.json\n' +
                 '\n' +
-                ' * Build MIPS32-like microcode for testing:\n' +
+                ' * Build MIPS32-like microcode for testing in command-line:\n' +
                 '   ./wepsim_node.sh import-creator checkpoint ./MIPS-32-like.json > microcode.txt\n' +
                 '   ./wepsim_node.sh run ep ./microcode.txt examples/assembly/asm-ep_s6_e3.txt\n' +
                 '' ;
@@ -564,6 +567,36 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
         return true ;
     } ;
 
+    //
+    // BUILD-CHECKPOINT
+    //
+ 
+    hash_action["BUILD-CHECKPOINT"] = function(data, options)
+    {
+        // pack elements
+        var checkpointObj = {
+                              "mode":          data.mode,
+                              "firmware":      data.firmware,
+                              "assembly":      data.assembly,
+                              "state_current": {
+                                                  time:        Date().toString(),
+                                                  title:       '',
+                                                  title_short: '',
+				                  content:     ''
+				               },
+                              "state_history": [],
+                              "record":        '',
+                              "tag":           Date().toString(),
+                              "notify":        true
+                           } ;
+
+        var checkpointNB  = wepsim_checkpoint_Obj2NB(checkpointObj) ;
+        var checkpointStr = JSON.stringify(checkpointNB, null, 2) ;
+        console.log(checkpointStr);
+
+        // return ok
+        return true ;
+    } ;
 
     /**
      * WepSIM actions
