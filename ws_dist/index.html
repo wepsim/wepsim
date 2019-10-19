@@ -260,6 +260,7 @@
                               <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
 				 onclick="wsweb_dialogbox_open_state();
                                           $('#bot_check1').carousel(0);
+					  wepsim_checkpoint_listCache('browserCacheList1');
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
 
 			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
@@ -1179,7 +1180,9 @@
       <div class="modal-header">
          <div class="mx-auto">
                <div class="btn-group">
-                  <button onclick="$('#bot_check1').carousel(0);"
+                  <button onclick="$('#bot_check1').carousel(0);
+				   wepsim_checkpoint_listCache('browserCacheList1');
+				   return false;"
                           type="button"
                           class="btn btn-secondary px-3 py-1"><span data-langkey='Checkpoint'>Checkpoint</span></button>
                   <button onclick="$('#bot_check1').carousel(1);"
@@ -1223,20 +1226,22 @@
                        style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 			<div class="row m-0">
-			   <div class="col-12 col-sm-6 p-2">
+			   <div class="col-12 col-sm-4 p-2">
 			   <div class="card border-secondary h-100">
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
 				    <span class="text-white bg-secondary" data-langkey="Output">Output</span>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 					  onclick="wepsim_notify_success('<strong>INFO</strong>', 'Processing save request...');
-                                                   var checkpointObj = wepsim_checkpoint_get('tagToSave1');
+	                                           var obj_tagName   = document.getElementById('tagToSave1') ;
+                                                   var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);
 						   wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
                                                    wsweb_dialogbox_close_state();
 						   return false;"><span data-langkey="Save">Save</span></button>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 					  onclick=" wepsim_notify_success('<strong>INFO</strong>', 'Processing share request...');
-                                                   var checkpointObj = wepsim_checkpoint_get('tagToSave1');
+	                                           var obj_tagName   = document.getElementById('tagToSave1') ;
+                                                   var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);
 						   wepsim_checkpoint_share('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
                                                    wsweb_dialogbox_close_state();
 						   return false;"><span data-langkey="Share">Share</span></button>
@@ -1253,7 +1258,7 @@
 			      </div>
 			   </div>
 			   </div>
-			   <div class="col-12 col-sm-6 p-2">
+			   <div class="col-12 col-sm-4 p-2">
 			   <div class="card border-secondary h-100">
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
@@ -1270,6 +1275,32 @@
 					<br>
 					<input data-max-height="20vh"
 					       aria-label="file to load" type="file" id="fileToLoad31" class="dropify" />
+			      </div>
+			   </div>
+			   </div>
+			   <div class="col-12 col-sm-4 p-2">
+			   <div class="card border-secondary h-100">
+			      <div class="card-header border-secondary text-white bg-secondary p-1">
+		                  <h5 class="m-0">
+				    <span class="text-white bg-secondary" data-langkey="Browser cache">Browser cache</span>
+				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
+				  	    onclick="var ret = wepsim_checkpoint_loadFromCache('FileNameToSaveAs1', 'tagToSave1', 'browserCacheElto');
+                                                     wsweb_dialogbox_close_state();
+	                                             if (ret.error)
+						          wepsim_notify_success('<strong>INFO</strong>', ret.msg);
+						     else wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
+						     return false;"><span data-langkey="Load">Load</span></button>
+				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
+				  	    onclick="wepsim_checkpoint_clearCache();
+						     wepsim_checkpoint_listCache('browserCacheList1');
+						     return false;"><span data-langkey="Reset" class="text-danger">Reset</span></button>
+		                  </h5>
+			      </div>
+			      <div class="card-body">
+					<label for="browserCacheList1"><em><span data-langkey="Session to be restore">Session to be restore</span>:</em></label>
+					<br>
+					<div id="browserCacheList1"
+					     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">&lt;Empty&gt;</div>
 			      </div>
 			   </div>
 			   </div>
