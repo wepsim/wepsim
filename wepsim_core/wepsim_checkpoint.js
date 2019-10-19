@@ -412,13 +412,14 @@
 
     // visible
 
-    function wepsim_checkpoint_listCache ( )
+    function wepsim_checkpoint_listCache ( id_listdiv )
     {
             var o = '<span style="background-color:#FCFC00">&lt;<span data-langkey="Empty">Empty</span>&gt;</span>' ;
 
             var obj_wsbackup = wepsim_checkpoint_backup_load() ;
 	    if (obj_wsbackup.length == 0) {
-		return o ;
+	        $('#' + id_listdiv + '').html(o);
+		return true ;
 	    }
 
 	    // build backup list
@@ -433,10 +434,11 @@
             o += '</div>' ;
 
 	    // return
-	    return o ;
+	    $('#' + id_listdiv + '').html(o);
+	    return true ;
     }
 
-    function wepsim_checkpoint_loadFromCache ( id_filename, id_tagname, id_backupcache )
+    function wepsim_checkpoint_loadFromCache ( id_filename, id_tagname, id_backupname )
     {
 	    var ret = {
 		         error: true,
@@ -452,13 +454,17 @@
 		return ret ;
 	    }
 
-	    if (id_backupcache === null) {
+	    var browserCacheElto = $('input[name=' + id_backupname + ']:checked');
+	    if (typeof browserCacheElto[0] === 'undefined')
+	    {
 		ret.msg = "Invalid arguments" ;
 		return ret ;
 	    }
+	    var id_backupcache = browserCacheElto[0].id ;
 
 	    // try to load backup id
             var obj_wsbackup = wepsim_checkpoint_backup_load() ;
+	        obj_wsbackup = obj_wsbackup.reverse() ;
 
 	    var current_checkpoint = obj_wsbackup[id_backupcache] ;
 	    if (typeof current_checkpoint === "undefined") {
