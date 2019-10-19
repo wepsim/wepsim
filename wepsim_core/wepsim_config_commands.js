@@ -459,6 +459,7 @@
                       description: "<span data-langkey='Interactive mode: signal value can be updated'>Interactive mode: signal value can be updated</span>"
                    });
 
+/*
     ws_config.push({
                       id:          "radio6",
                       type:        "Circuitry simulation",
@@ -554,7 +555,9 @@
                                    },
                       description: "<span data-langkey='WepSIM User Interface skin'>WepSIM User Interface skin</span>"
                    });
+*/
 
+/*
     ws_config.push({
                       id:          "radio14",
                       type:        "Accesibility",
@@ -585,4 +588,5 @@
 		                   },
                       description: "<span data-langkey='Beginner view'>Beginner view</span>"
                    });
+*/
 
