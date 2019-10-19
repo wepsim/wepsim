@@ -355,6 +355,8 @@
     // confirm exit
     function wepsim_confirm_exit ( e )
     {
+	    wepsim_checkpoint_addCurrentToCache() ;
+
 	    var confirmationMessage = "\o/";
 	    (e || window.event).returnValue = confirmationMessage; // Gecko + IE
 	    return confirmationMessage;                            // Webkit, Safari, Chrome

@@ -45,7 +45,12 @@
                         "File to be loaded":                            "File to be loaded",
 	                "Save to File":                                 "Save to File",
 	                "State(s) to checkpoint":                       "State(s) to checkpoint",
-	                "Record to checkpoint":                         "Record to checkpoint"
+	                "Record to checkpoint":                         "Record to checkpoint",
+
+			"Browser cache":				"Browser cache",
+			"Session to be restore":			"Session to be restore",
+
+		        "_last_":					"_last_"
 
     } ;
 

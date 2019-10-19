@@ -23,14 +23,8 @@
      * Checkpointing: get/set
      */
 
-    function wepsim_checkpoint_get ( id_tagname )
+    function wepsim_checkpoint_get ( tagName )
     {
-	    // get & check params
-	    var obj_tagName = document.getElementById(id_tagname) ;
-	    if (obj_tagName === null) {
-		return false ;
-	    }
-
 	    // get mode and history
 	    var ws_mode           = get_cfg('ws_mode') ;
             var history_obj       = wepsim_state_history_get() ;
@@ -48,7 +42,7 @@
 			      "state_current": state_current,
 			      "state_history": history_obj,
 			      "record":        simcore_record_get(),
-			      "tag":           obj_tagName.value,
+			      "tag":           tagName,
 			      "notify":        true
 	                   } ;
 
@@ -379,5 +373,131 @@
                                     share_title,
                                     share_text,
                                     share_url) ;
+    }
+
+
+    //
+    // localStorage for backup
+    //
+
+    // auxiliar
+
+    function wepsim_checkpoint_backup_load ( )
+    {
+	    // load current backup list
+	    var obj_wsbackup = [] ;
+	    try {
+	       var json_wsbackup = localStorage.getItem('wepsim_backup') ;
+	       obj_wsbackup = JSON.parse(json_wsbackup) ;
+	    }
+	    catch (e) {
+	       obj_wsbackup = null ;
+	    }
+
+	    if (obj_wsbackup == null) {
+	        obj_wsbackup = [] ;
+	    }
+
+	    return obj_wsbackup ;
+    }
+
+    function wepsim_checkpoint_backup_save ( obj_wsbackup )
+    {
+	    // save new backup list
+	    var json_wsbackup = JSON.stringify(obj_wsbackup) ;
+	    localStorage.setItem('wepsim_backup', json_wsbackup) ;
+
+	    return obj_wsbackup ;
+    }
+
+    // visible
+
+    function wepsim_checkpoint_listCache ( )
+    {
+            var o = '<span style="background-color:#FCFC00">&lt;<span data-langkey="Empty">Empty</span>&gt;</span>' ;
+
+            var obj_wsbackup = wepsim_checkpoint_backup_load() ;
+	    if (obj_wsbackup.length == 0) {
+		return o ;
+	    }
+
+	    // build backup list
+            o = '<div class="btn-group btn-group-toggle list-group m-1" data-toggle="buttons">' ;
+	    obj_wsbackup = obj_wsbackup.reverse() ;
+	    for (i=0; i<obj_wsbackup.length; i++)
+	    {
+		 o += '<label class="list-group-item btn btn-white border-dark text-truncate rounded-sm">' +
+		      '   <input type="radio" name="browserCacheElto" id="' + i + '" autocomplete="off">' + obj_wsbackup[i].tag +
+		      '</label>' ;
+	    }
+            o += '</div>' ;
+
+	    // return
+	    return o ;
+    }
+
+    function wepsim_checkpoint_loadFromCache ( id_filename, id_tagname, id_backupcache )
+    {
+	    var ret = {
+		         error: true,
+		         msg:   ''
+	              } ;
+
+	    // get & check params
+            var obj_fileName = document.getElementById(id_filename) ;
+	    var obj_tagName  = document.getElementById(id_tagname) ;
+	    if ( (obj_fileName === null) || (obj_tagName === null) )
+	    {
+		ret.msg = "Invalid arguments" ;
+		return ret ;
+	    }
+
+	    if (id_backupcache === null) {
+		ret.msg = "Invalid arguments" ;
+		return ret ;
+	    }
+
+	    // try to load backup id
+            var obj_wsbackup = wepsim_checkpoint_backup_load() ;
+
+	    var current_checkpoint = obj_wsbackup[id_backupcache] ;
+	    if (typeof current_checkpoint === "undefined") {
+		ret.msg = "Backup id is not valid" ;
+		return ret ;
+	    }
+
+	    var obj_fileToLoad = { name: '' } ; 
+	    wepsim_checkpoint_loadFromObj(current_checkpoint,
+					  obj_fileName, obj_tagName, obj_fileToLoad) ;
+
+	    ret.error = false ;
+	    ret.msg   = "Processing load request..." ;
+	    return ret ;
+    }
+
+    function wepsim_checkpoint_addCurrentToCache ( )
+    {
+	    // load current backup list
+            var obj_wsbackup = wepsim_checkpoint_backup_load() ;
+
+	    // add new backup
+	    var current_date = Date().toString() ;
+	    var current_checkpoint = wepsim_checkpoint_get(current_date) ;
+	    if ( (current_checkpoint.firmware.trim() !== '') &&
+	         (current_checkpoint.assembly.trim() !== '') ) {
+	          obj_wsbackup.push(current_checkpoint) ;
+	    }
+
+	    // save new backup list
+            wepsim_checkpoint_backup_save(obj_wsbackup) ;
+	    return true ;
+    }
+
+    function wepsim_checkpoint_clearCache ( )
+    {
+	    // save new backup list
+            var obj_wsbackup = [] ;
+            wepsim_checkpoint_backup_save(obj_wsbackup) ;
+	    return true ;
     }
 

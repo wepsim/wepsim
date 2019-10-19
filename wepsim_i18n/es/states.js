@@ -44,6 +44,11 @@
                         "File to be loaded":                            "Fichero a cargar",
 	                "Save to File":                                 "Guardar a fichero",
 	                "State(s) to checkpoint":                       "Estados para checkpoint",
-	                "Record to checkpoint":                         "Grabaci&oacute;n para checkpoint"
+	                "Record to checkpoint":                         "Grabaci&oacute;n para checkpoint",
+
+			"Browser cache":				"Cache navegador",
+			"Session to be restore":			"Sesi&oacute;n a restaurar",
+
+		        "_last_":					"_last_"
                   } ;
 

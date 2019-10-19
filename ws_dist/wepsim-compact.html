@@ -1073,7 +1073,7 @@
                        style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 			<div class="row m-0">
-			   <div class="col-12 col-sm-6 p-2">
+			   <div class="col-12 col-sm-4 p-2">
 			   <div class="card border-secondary h-100">
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
@@ -1103,7 +1103,7 @@
 			      </div>
 			   </div>
 			   </div>
-			   <div class="col-12 col-sm-6 p-2">
+			   <div class="col-12 col-sm-4 p-2">
 			   <div class="card border-secondary h-100">
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
@@ -1120,6 +1120,36 @@
 					<br>
 					<input data-max-height="20vh"
 					       aria-label="file to load" type="file" id="fileToLoad31" class="dropify" />
+			      </div>
+			   </div>
+			   </div>
+			   <div class="col-12 col-sm-4 p-2">
+			   <div class="card border-secondary h-100">
+			      <div class="card-header border-secondary text-white bg-secondary p-1">
+		                  <h5 class="m-0">
+				    <span class="text-white bg-secondary" data-langkey="Browser cache">Browser cache</span>
+				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
+				  	    onclick="var browserCacheElto = $('input[name=browserCacheElto]:checked');
+	                                             if (typeof browserCacheElto[0] === 'undefined')
+	                                                 return false;
+	                                             var ret = wepsim_checkpoint_loadFromCache('FileNameToSaveAs1', 'tagToSave1', browserCacheElto[0].id);
+                                                     wsweb_dialogbox_close_state();
+	                                             if (ret.error)
+						          wepsim_notify_success('<strong>INFO</strong>', ret.msg);
+						     else wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
+						     return false;"><span data-langkey="Load">Load</span></button>
+				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
+				  	    onclick="wepsim_checkpoint_clearCache();
+						     var o = wepsim_checkpoint_listCache();
+						     var b = $('#browserCacheList1').html(o);
+						     return false;"><span data-langkey="Reset" class="text-danger">Reset</span></button>
+		                  </h5>
+			      </div>
+			      <div class="card-body">
+					<label for="browserCacheList1"><em><span data-langkey="Session to be restore">Session to be restore</span>:</em></label>
+					<br>
+					<div id="browserCacheList1"
+					     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">&lt;Empty&gt;</div>
 			      </div>
 			   </div>
 			   </div>
