@@ -192,6 +192,21 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
     {
         var ret = null ;
  
+	// 0) components: not run needed
+        if ("SHOW-RECORD"    == data.action) {
+            ret = wepsim_nodejs_show_record(data.record) ;
+            console.log(ret) ;
+            return true ;
+	}
+        if ("SHOW-MICROCODE" == data.action) {
+            console.log(data.firmware) ;
+            return true ;
+	}
+        if ("SHOW-ASSEMBLY"  == data.action) {
+            console.log(data.assembly) ;
+            return true ;
+	}
+
 	// 1) initialization
         wepsim_nodejs_init(data.mode) ;
 
@@ -206,9 +221,6 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 	// 3) return result
         if ("SHOW-CONSOLE" == data.action) {
             ret.msg = get_screen_content() ;
-	}
-        if ("SHOW-RECORD" == data.action) {
-            ret.msg = wepsim_nodejs_show_record(data.record) ;
 	}
         if ("RUN" == data.action) {
             ret = wepsim_nodejs_show_currentstate() ;
@@ -371,7 +383,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
                 ' * ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]\n' +
                 ' * ./wepsim_node.sh <command> checkpoint      <checkpoint file>                [<checklist file>] [options*]\n' +
                 '\n' +
-                '    <command>         = run | stepbystep | microstepbymicrostep | check | microstepverbalized | show-console | show-record | build-checkpoint\n' +
+                '    <command>         = run | stepbystep | microstepbymicrostep | check |\n' +
+                '                        show-console | microstepverbalized |\n' +
+                '                        show-record | show-microcode | show-assembly | build-checkpoint\n' +
                 '    <hardware name>   = ep | poc\n' +
                 '\n' +
                 '    <checkpoint file> = "path to the checkpoint file" \n' +
@@ -534,6 +548,18 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
     //
  
     hash_action["SHOW-RECORD"] = wepsim_nodejs_runApp ;
+ 
+    //
+    // SHOW-MICROCODE
+    //
+ 
+    hash_action["SHOW-MICROCODE"] = wepsim_nodejs_runApp ;
+ 
+    //
+    // SHOW-ASSEMBLY
+    //
+ 
+    hash_action["SHOW-ASSEMBLY"] = wepsim_nodejs_runApp ;
  
     //
     // SHOW-CONSOLE

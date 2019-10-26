@@ -54,7 +54,9 @@
                 ' * ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]\n' +
                 ' * ./wepsim_node.sh <command> checkpoint      <checkpoint file>                [<checklist file>] [options*]\n' +
                 '\n' +
-                '    <command>         = run | stepbystep | microstepbymicrostep | check | microstepverbalized | show-console | show-record | build-checkpoint\n' +
+                '    <command>         = run | stepbystep | microstepbymicrostep | check |\n' +
+                '                        show-console | microstepverbalized |\n' +
+                '                        show-record | show-microcode | show-assembly | build-checkpoint\n' +
                 '    <hardware name>   = ep | poc\n' +
                 '\n' +
                 '    <checkpoint file> = "path to the checkpoint file" \n' +
@@ -217,6 +219,18 @@
     //
  
     hash_action["SHOW-RECORD"] = wepsim_nodejs_runApp ;
+ 
+    //
+    // SHOW-MICROCODE
+    //
+ 
+    hash_action["SHOW-MICROCODE"] = wepsim_nodejs_runApp ;
+ 
+    //
+    // SHOW-ASSEMBLY
+    //
+ 
+    hash_action["SHOW-ASSEMBLY"] = wepsim_nodejs_runApp ;
  
     //
     // SHOW-CONSOLE

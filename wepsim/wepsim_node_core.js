@@ -192,6 +192,21 @@
     {
         var ret = null ;
  
+	// 0) components: not run needed
+        if ("SHOW-RECORD"    == data.action) {
+            ret = wepsim_nodejs_show_record(data.record) ;
+            console.log(ret) ;
+            return true ;
+	}
+        if ("SHOW-MICROCODE" == data.action) {
+            console.log(data.firmware) ;
+            return true ;
+	}
+        if ("SHOW-ASSEMBLY"  == data.action) {
+            console.log(data.assembly) ;
+            return true ;
+	}
+
 	// 1) initialization
         wepsim_nodejs_init(data.mode) ;
 
@@ -206,9 +221,6 @@
 	// 3) return result
         if ("SHOW-CONSOLE" == data.action) {
             ret.msg = get_screen_content() ;
-	}
-        if ("SHOW-RECORD" == data.action) {
-            ret.msg = wepsim_nodejs_show_record(data.record) ;
 	}
         if ("RUN" == data.action) {
             ret = wepsim_nodejs_show_currentstate() ;
