@@ -275,12 +275,6 @@
                     return ret ;
 		}
 
-		// when do reset/fetch, check text segment bounds
-	        var mode = get_cfg('ws_mode');
-	        if ( (! mode.startsWith('asm_')) && (reg_maddr != 0) ) {
-                       return ret;
-		}
-
                 var curr_segments = simhw_internalState('segments') ;
 		if ( (reg_pc < curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
                       return ret;
@@ -342,12 +336,6 @@
 	         set_value(sp_state, parseInt(curr_segments['.stack'].end));
 	    }
 
-            // Set mode
-	    var mode = get_cfg('ws_mode');
-	    if (! mode.startsWith('asm_')) {
-                compute_general_behavior("CLOCK") ;
-	    }
-
             // User Interface Reset
 	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
 
@@ -395,16 +383,6 @@
 	        if (false === ret.ok) {
 		    return ret ;
 	        }
-
-                var mode = get_cfg('ws_mode');
-		if (mode.startsWith('asm_'))
-                {
-                    compute_general_behavior("CLOCK") ; // fetch...
-                    compute_general_behavior("CLOCK") ; // ...instruction
-		    show_states();
-		    show_rf_values();
-                    return ret ;
-                }
 
                 var limitless = false;
                 if (options.cycles_limit < 0) {
@@ -462,6 +440,11 @@
 	            }
             	}
 		while ( (i_clks < options.cycles_limit) && (0 != cur_addr) );
+
+		// native -> two clocks...
+		if (typeof curr_MC[cur_addr].NATIVE !== "undefined") {
+                    compute_general_behavior("CLOCK") ; // ...instruction
+                }
 
                 // 2.- to show states
 		show_states();
