@@ -234,6 +234,21 @@
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_select_main('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
+                              <a class="dropdown-item user_archived" href="#" id="s4_poc" value="poc"
+				 onclick="wsweb_select_main('poc');
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
+
+			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
+                              <a class="dropdown-item user_archived" href="#" id="s4_asm_mips" value="asm_mips"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
+                                 onclick="wsweb_select_main('asm_mips');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>
+                              <a class="dropdown-item user_archived pb-0 mb-0" href="#" id="s4_asm_rv32" value="asm_rv32"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="RISC-V<sub>32</sub> assembly only."
+                                 onclick="wsweb_select_main('asm_rv32');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>
 
 			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Tutorial mode">Tutorial mode</span>:</h6>
                               <a class="dropdown-item user_archived" href="#" id="s4_tutorial" value="tutorial"
