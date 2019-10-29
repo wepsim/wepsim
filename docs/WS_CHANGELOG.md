@@ -2,7 +2,9 @@
 # Changelog
 
 ## 2.0.11 -> 2.0.12:
-* Dark Mode (bugfixed)
+* Bugfixes on Dark Mode (images, icons, etc.)
+* Improved Z80-like example
+* Native execution show current instruction properly
 
 ## 2.0.10 -> 2.0.11:
 * Dark Mode (beta)
