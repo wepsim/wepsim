@@ -102,9 +102,9 @@
                 	'Pick firm/soft from':  			'에서 펌웨어 / 소프트웨어 선택',
                 	'Information from':     			'정보 출처',
                 	'Native':          				'원주민',
-                	'MIPS32-like code':          			'MIPS32와 같은 코드',
-                	'RISCV32 code':          			'RISCV32 코드',
-                	'Z80-like code':          			'Z80와 같은 코드',
+                	'MIPS32-like':          			'MIPS32와 같은 코드',
+                	'RISCV32':          				'RISCV32 코드',
+                	'Z80-like':          				'Z80와 같은 코드',
 
 		        '_last_':					'_last_'
 

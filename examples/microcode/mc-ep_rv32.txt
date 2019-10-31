@@ -220,7 +220,7 @@ jal rd offset {
 
                 var pc = simcore_native_get_value("CPU", "REG_PC") ;
                 simcore_native_set_value("BR", rd, pc) ;
-                simcore_native_set_value("CPU", "REG_PC", pc + offset) ;
+                simcore_native_set_value("CPU", "REG_PC", offset) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -676,7 +676,7 @@ addi rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm =inm(15,0),
+            inm=inm(15,0),
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -688,6 +688,11 @@ addi rd rs1 inm {
                     val = val | 0xFFFF0000 ;
                 var result = simcore_native_get_value("BR", reg2) + val ;
                 simcore_native_set_value("BR", reg1, result) ;
+
+                var flags = 0 ;
+                if (result == 0) flags = flags | 0x10000000 ;
+                if (result <  0) flags = flags | 0x20000000 ;
+                simcore_native_set_value("CPU", "REG_SR", flags) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -743,7 +748,7 @@ xori rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm =inm(15,0),
+            inm=inm(15,0),
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -764,7 +769,7 @@ ori rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm =inm(15,0),
+            inm=inm(15,0),
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -785,7 +790,7 @@ andi rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm =inm(15,0),
+            inm=inm(15,0),
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1352,6 +1357,40 @@ remu rd rs1 rs2 {
 # Register naming
 #
 
+#	ABI Name	Description				Saver
+#0	zero		Hard-wired zero				--
+#1	ra		Return address				Caller
+#2	sp		Stack pointer				Callee
+#3	gp		Global pointer				--
+#4	tp		Thread pointer				--
+#5	t0		Temporaries				Caller
+#6	t1		Temporaries				Caller
+#7	t2		Temporaries				Caller
+#8	s0/fp		Saved register/frame pointer		Caller
+#9	s1		Saved register				Callee
+#10	a0		Function arguments/return values	Caller
+#11	a1		Function arguments/return values	Caller
+#12	a2		Function arguments			Caller
+#13	a3		Function arguments			Caller
+#14	a4		Function arguments			Caller
+#15	a5		Function arguments			Caller
+#16	a6		Function arguments			Caller
+#17	a7		Function arguments			Caller
+#18	s2		Saved registers				Callee
+#19	s3		Saved registers				Callee
+#20	s4		Saved registers				Callee
+#21	s5		Saved registers				Callee
+#22	s6		Saved registers				Callee
+#23	s7		Saved registers				Callee
+#24	s8		Saved registers				Callee
+#25	s9		Saved registers				Callee
+#26	s10		Saved registers				Callee
+#27	s11		Saved registers				Callee
+#28	t3		Temporaries				Caller
+#29	t4		Temporaries				Caller
+#30	t5		Temporaries				Caller
+#31	t6		Temporaries				Caller
+
 registers
 {
         0=zero,
@@ -1387,7 +1426,6 @@ registers
         30=t5,
         31=t6
 }
-
 
 
 #
@@ -1524,10 +1562,10 @@ pseudoinstructions
         }
 
         # jal offset	jal x1, offset	Jump register
-        jal offset=inm
-        {
-            jal ra, offset
-        }
+        #jal offset=inm
+        #{
+        #    jal ra, offset
+        #}
 
         # jr rs		jalr x0, rs, 0	Jump register
         jr rs=reg

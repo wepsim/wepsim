@@ -102,9 +102,9 @@
                 'Pick firm/soft from':  'Välj fast programvara / programvara från',
                 'Information from':     'Information från',
                 'Native':   		'Inföding',
-                'MIPS32-like code':     'MIPS32-liknande kod',
-                'RISCV32 code':  	'RISCV32-kod',
-                'Z80-like code':     	'Z80-liknande kod',
+                'MIPS32-like':     	'MIPS32-liknande kod',
+                'RISCV32':  		'RISCV32-kod',
+                'Z80-like':     	'Z80-liknande kod',
 
 		'_last_':		'_last_'
 

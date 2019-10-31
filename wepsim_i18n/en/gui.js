@@ -104,9 +104,9 @@
                         "Pick firm/soft from":  			"Pick firm/soft from",
                         "Information from":     			"Information from",
                         "Native":          				"Native",
-                        "MIPS32-like code":          			"MIPS32-like code",
-                        "RISCV32 code":          			"RISCV32 code",
-                        "Z80-like code":          			"Z80-like code",
+                        "MIPS32-like":          			"MIPS32-like",
+                        "RISCV32":          				"RISCV32",
+                        "Z80-like":          				"Z80-like",
 
 		        "_last_":					"_last_"
     } ;
