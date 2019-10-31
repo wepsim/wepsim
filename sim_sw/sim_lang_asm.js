@@ -1014,10 +1014,14 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// ref has the associated information in firmware for this instruction
-		var ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
-		if (ref.withcop)
-		     ref = ref[firmware[instruction][candidate].cop] ;
-		else ref = ref.i ;
+		var ref = firmware[instruction][candidate] ;
+		while (false === ref.isPseudoinstruction) 
+		{
+			var ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
+			if (ref.withcop)
+			     ref = ref[firmware[instruction][candidate].cop] ;
+			else ref = ref.i ;
+		}
 
 		// process machine code with several words...
 		for (i=firmware[instruction][candidate].nwords-1; i>=0; i--)

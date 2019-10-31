@@ -228,8 +228,11 @@ add_a reg1 {
 
                 var result = simcore_native_get_value("BR", "4") + simcore_native_get_value("BR", reg1) ;
                 simcore_native_set_value("BR", "4", result) ;
-                if (result == 0)
-                    simcore_native_set_value("CPU", "REG_SR", 0x10000000) ;
+
+                var flags = 0 ;
+                if (result == 0) flags = flags | 0x10000000 ;
+                if (result <  0) flags = flags | 0x20000000 ;
+                simcore_native_set_value("CPU", "REG_SR", flags) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -248,8 +251,11 @@ addi_a s16 {
                     s16 = s16 | 0xFFFF0000 ;
                 var result = simcore_native_get_value("BR", "4") + s16 ;
                 simcore_native_set_value("BR", "4", result) ;
-                if (result == 0)
-                    simcore_native_set_value("CPU", "REG_SR", 0x10000000) ;
+
+                var flags = 0 ;
+                if (result == 0) flags = flags | 0x10000000 ;
+                if (result <  0) flags = flags | 0x20000000 ;
+                simcore_native_set_value("CPU", "REG_SR", flags) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -266,8 +272,11 @@ inc reg1 {
 
                 var result = simcore_native_get_value("BR", reg1) + 1 ;
                 simcore_native_set_value("BR", reg1, result) ;
-                if (result == 0)
-                    simcore_native_set_value("CPU", "REG_SR", 0x10000000) ;
+
+                var flags = 0 ;
+                if (result == 0) flags = flags | 0x10000000 ;
+                if (result <  0) flags = flags | 0x20000000 ;
+                simcore_native_set_value("CPU", "REG_SR", flags) ;
                 
                 simcore_native_go_maddr(0) ;
             }
@@ -284,8 +293,11 @@ dec reg1 {
 
                 var result = simcore_native_get_value("BR", reg1) - 1 ;
                 simcore_native_set_value("BR", reg1, result) ;
-                if (result == 0)
-                    simcore_native_set_value("CPU", "REG_SR", 0x10000000) ;
+
+                var flags = 0 ;
+                if (result == 0) flags = flags | 0x10000000 ;
+                if (result <  0) flags = flags | 0x20000000 ;
+                simcore_native_set_value("CPU", "REG_SR", flags) ;
 
                 simcore_native_go_maddr(0) ;
             }
