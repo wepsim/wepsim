@@ -220,7 +220,7 @@ jal rd offset {
 
                 var pc = simcore_native_get_value("CPU", "REG_PC") ;
                 simcore_native_set_value("BR", rd, pc) ;
-                simcore_native_set_value("CPU", "REG_PC", pc + offset) ;
+                simcore_native_set_value("CPU", "REG_PC", offset) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -1562,10 +1562,10 @@ pseudoinstructions
         }
 
         # jal offset	jal x1, offset	Jump register
-        jal offset=inm
-        {
-            jal ra, offset
-        }
+        #jal offset=inm
+        #{
+        #    jal ra, offset
+        #}
 
         # jr rs		jalr x0, rs, 0	Jump register
         jr rs=reg

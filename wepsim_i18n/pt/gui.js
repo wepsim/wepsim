@@ -96,9 +96,9 @@
                 'Pick firm/soft from':  'Escolha firmware/software de',
                 'Information from':     'Informação de',
                 'Native':   		'Nativo',
-                'MIPS32-like code':   	'Código semelhante ao MIPS32',
-                'RISCV32 code':  	'Código RISCV32',
-                'Z80-like code':   	'Código semelhante ao Z80',
+                'MIPS32-like':   	'Semelhante ao MIPS32',
+                'RISCV32':  		'RISCV32',
+                'Z80-like':   		'Semelhante ao Z80',
 
 		'_last_':		'_last_'
 

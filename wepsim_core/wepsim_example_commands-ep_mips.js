@@ -203,7 +203,7 @@
 
     ws_examples.push({
                        id: 'S7E1',
-                       title: "<span data-langkey='MIPS32-like code'>MIPS32-like code</span>",
+                       title: "<span data-langkey='MIPS32-like'>MIPS32-like</span>",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -215,7 +215,7 @@
 
     ws_examples.push({
                        id: 'S7E2',
-                       title: "<span data-langkey='RISCV32 code'>RISCV32 code</span>",
+                       title: "<span data-langkey='RISCV32'>RISCV32</span>",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -227,7 +227,7 @@
 
     ws_examples.push({
                        id: 'S7E3',
-                       title: "<span data-langkey='Z80-like code'>Z80-like code</span>",
+                       title: "<span data-langkey='Z80-like'>Z80-like</span>",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",

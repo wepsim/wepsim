@@ -16,5 +16,5 @@
         jr      ra
 
 main:   lui     a0, 2
-       #jal     ra, accu
+        jal     ra, accu
 
