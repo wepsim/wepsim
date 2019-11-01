@@ -461,7 +461,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
         // show check result
         ret = wepsim_nodejs_check(data, options) ;
         console.log(ret.msg);
-        return true ;
+        return ret.ok ;
     } ;
  
     //

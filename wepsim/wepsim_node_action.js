@@ -156,7 +156,7 @@
         // show check result
         ret = wepsim_nodejs_check(data, options) ;
         console.log(ret.msg);
-        return true ;
+        return ret.ok ;
     } ;
  
     //
