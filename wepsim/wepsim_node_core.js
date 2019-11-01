@@ -190,43 +190,19 @@
 
     function wepsim_nodejs_runApp ( data, options )
     {
-        var ret = null ;
- 
-	// 0) components: not run needed
-        if ("SHOW-RECORD"    == data.action) {
-            ret = wepsim_nodejs_show_record(data.record) ;
-            console.log(ret) ;
-            return true ;
-	}
-        if ("SHOW-MICROCODE" == data.action) {
-            console.log(data.firmware) ;
-            return true ;
-	}
-        if ("SHOW-ASSEMBLY"  == data.action) {
-            console.log(data.assembly) ;
-            return true ;
-	}
-
 	// 1) initialization
         wepsim_nodejs_init(data.mode) ;
 
 	// 2) run code
-        ret = wepsim_nodejs_runCode(data,options) ;
+        var ret = wepsim_nodejs_runCode(data, options) ;
 	if (false === ret.ok) 
         {
             console.log(ret.msg);
-	    return false ;
+	    return ret ;
 	}
 
 	// 3) return result
-        if ("SHOW-CONSOLE" == data.action) {
-            ret.msg = get_screen_content() ;
-	}
-        if ("RUN" == data.action) {
-            ret = wepsim_nodejs_show_currentstate() ;
-	}
-        console.log(ret.msg);
-        return ret.ok ;
+        return ret ;
     }
 
 
