@@ -276,10 +276,10 @@
 		}
 
                 var curr_segments = simhw_internalState('segments') ;
-		if ( (reg_pc < curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
+		if ( (reg_pc <= curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
                       return ret;
 		}
-		if ( (reg_pc <  curr_segments['.text'].end) && (reg_pc >=  curr_segments['.text'].begin)) {
+		if ( (reg_pc <=  curr_segments['.text'].end) && (reg_pc >=  curr_segments['.text'].begin)) {
                       return ret;
 		}
 
