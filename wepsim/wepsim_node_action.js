@@ -23,7 +23,7 @@
      * WepSIM actions
      */
 
-    var ws_cl_ver   = 'WepSIM-cl v1.5.5' ;
+    var ws_cl_ver   = 'WepSIM-cl v1.5.8' ;
     var hash_action = {} ;
  
     //
@@ -144,7 +144,20 @@
     // CHECK
     //
  
-    hash_action["CHECK"] = wepsim_nodejs_runApp ;
+    hash_action["CHECK"] = function(data, options)
+    {
+        // run...
+        var ret = wepsim_nodejs_runApp(data, options) ;
+	if (ret.ok === false) {
+            console.log(ret.msg);
+            return false ;
+	}
+
+        // show check result
+        ret = wepsim_nodejs_check(data, options) ;
+        console.log(ret.msg);
+        return ret.ok ;
+    } ;
  
     //
     // RUN
@@ -157,7 +170,16 @@
         options.after_instruction  = simcore_do_nothing_handler ;
  
         // run...
-        return wepsim_nodejs_runApp(data, options) ;
+        var ret = wepsim_nodejs_runApp(data, options) ;
+	if (ret.ok === false) {
+            console.log(ret.msg);
+            return false ;
+	}
+
+        // show state at the end
+        ret = wepsim_nodejs_show_currentstate() ;
+        console.log(ret.msg);
+        return true ;
     } ;
  
     //
@@ -171,7 +193,12 @@
         options.after_instruction  = wepsim_nodejs_after_instruction2 ;
  
         // run...
-        return wepsim_nodejs_runApp(data, options) ;
+        var ret = wepsim_nodejs_runApp(data, options) ;
+	if (ret.ok === false) {
+            console.log(ret.msg);
+	}
+
+        return ret.ok ;
     } ;
  
     //
@@ -185,7 +212,12 @@
         options.after_microinstruction  = wepsim_nodejs_after_microinstruction3 ;
  
         // run...
-        return wepsim_nodejs_runApp(data, options) ;
+        var ret = wepsim_nodejs_runApp(data, options) ;
+	if (ret.ok === false) {
+            console.log(ret.msg);
+	}
+
+        return ret.ok ;
     } ;
  
     //
@@ -199,7 +231,12 @@
         options.after_microinstruction  = simcore_do_nothing_handler ;
  
         // run...
-        return wepsim_nodejs_runApp(data, options) ;
+        var ret = wepsim_nodejs_runApp(data, options) ;
+	if (ret.ok === false) {
+            console.log(ret.msg);
+	}
+
+        return ret.ok ;
     } ;
  
     //
@@ -218,25 +255,52 @@
     // SHOW-RECORD
     //
  
-    hash_action["SHOW-RECORD"] = wepsim_nodejs_runApp ;
+    hash_action["SHOW-RECORD"] = function(data, options)
+    {
+        var ret = wepsim_nodejs_show_record(data.record) ;
+
+        console.log(ret) ;
+        return true ;
+    } ;
  
     //
     // SHOW-MICROCODE
     //
  
-    hash_action["SHOW-MICROCODE"] = wepsim_nodejs_runApp ;
+    hash_action["SHOW-MICROCODE"] = function(data, options)
+    {
+        console.log(data.firmware) ;
+        return true ;
+    } ;
  
     //
     // SHOW-ASSEMBLY
     //
  
-    hash_action["SHOW-ASSEMBLY"] = wepsim_nodejs_runApp ;
+    hash_action["SHOW-ASSEMBLY"] = function(data, options)
+    {
+        console.log(data.assembly) ;
+        return true ;
+    } ;
  
     //
     // SHOW-CONSOLE
     //
  
-    hash_action["SHOW-CONSOLE"] = wepsim_nodejs_runApp ;
+    hash_action["SHOW-CONSOLE"] = function(data, options)
+    {
+        // run...
+        var ret = wepsim_nodejs_runApp(data, options) ;
+	if (ret.ok === false) {
+            console.log(ret.msg);
+            return false ;
+	}
+
+	// show screen at the end
+        ret.msg = get_screen_content() ;
+        console.log(ret.msg);
+        return true ;
+    } ;
  
     //
     // HELP (signal)
