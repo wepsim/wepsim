@@ -249,26 +249,7 @@
 				 onclick="wsweb_select_main('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
-                              <a class="dropdown-item user_archived pt-0 mb-0" href="#" id="s4_asm_mips" value="asm_mips"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
-                                 onclick="wsweb_select_main('asm_mips');
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>
-                              <a class="dropdown-item user_archived pb-0 mb-0" href="#" id="s4_asm_rv32" value="asm_rv32"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="RISC-V<sub>32</sub> assembly only."
-                                 onclick="wsweb_select_main('asm_rv32');
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>
-
-			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Tutorial mode">Tutorial mode</span>:</h6>
-                              <a class="dropdown-item user_archived pb-0 mt-0" href="#" id="s4_tutorial" value="tutorial"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="Enable tutorials in 'instructive' microcode examples."
-				 onclick="wsweb_select_main('tutorial');
-					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+<span style="background-color:#D4DB17">Instructive</span></a>
-
-                              <h6 class="text-white bg-secondary mt-3 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
+                              <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_examples" value="examples"
 				 onclick="wsweb_dialogbox_open_examples();
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
@@ -289,6 +270,25 @@
 				 onclick="wsweb_select_main('intro');
                                           setTimeout(wsweb_record_play, 1000);
 					  return false;">Welcome tutorial...</a>
+
+			      <h6 class="text-white bg-secondary mt-2 my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
+                              <a class="dropdown-item user_archived mb-0" href="#" id="s4_asm_mips" value="asm_mips"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
+                                 onclick="wsweb_select_main('asm_mips');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>
+                              <a class="dropdown-item user_archived mb-0" href="#" id="s4_asm_rv32" value="asm_rv32"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="RISC-V<sub>32</sub> assembly only."
+                                 onclick="wsweb_select_main('asm_rv32');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>
+
+			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Tutorial mode">Tutorial mode</span>:</h6>
+                              <a class="dropdown-item user_archived mt-0" href="#" id="s4_tutorial" value="tutorial"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="Enable tutorials in 'instructive' microcode examples."
+				 onclick="wsweb_select_main('tutorial');
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+<span style="background-color:#D4DB17">Instructive</span></a>
 
 			    </div>
 			</div>
@@ -1279,9 +1279,11 @@
 		                  <h5 class="m-0">
 				    <span class="text-white bg-secondary" data-langkey="Input">Input</span>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
-				  	    onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
-                                                     wsweb_dialogbox_close_state();
-						     wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
+				  	    onclick="var ret = wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
+	                                             if (ret) {
+                                                         wsweb_dialogbox_close_state();
+						         wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
+	                                             }
 						     return false;"><span data-langkey="Load">Load</span></button>
 		                  </h5>
 			      </div>
