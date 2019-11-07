@@ -258,34 +258,43 @@
          */
         function simcore_check_if_can_continue ( )
         {
-		var ret = {} ;
-		    ret.ok  = true ;
-		    ret.msg = "" ;
+                var ret = {} ;
+                    ret.ok  = true ;
+                    ret.msg = "" ;
 
                 var pc_name     = simhw_sim_ctrlStates_get().pc.state ;
-		var reg_pc      = parseInt(get_value(simhw_sim_state(pc_name)));
+                var reg_pc      = parseInt(get_value(simhw_sim_state(pc_name)));
                 var maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
-		var reg_maddr   = get_value(simhw_sim_state(maddr_name)) ;
+                var reg_maddr   = get_value(simhw_sim_state(maddr_name)) ;
 
-                if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined") 
+                // if (MC[reg_maddr] == undefined) -> cannot continue
+                if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined")
                 {
                     var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
-		    ret.ok  = false ;
-		    ret.msg = "Error: undefined microinstruction at " + hex_maddr + "." ;
+                    ret.ok  = false ;
+                    ret.msg = "Error: undefined microinstruction at " + hex_maddr + "." ;
                     return ret ;
-		}
+                }
 
+                // if (inside *text) -> can continue
                 var curr_segments = simhw_internalState('segments') ;
-		if ( (reg_pc <= curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
+                if ( (reg_pc < curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
                       return ret;
-		}
-		if ( (reg_pc <=  curr_segments['.text'].end) && (reg_pc >=  curr_segments['.text'].begin)) {
+                }
+                if ( (reg_pc <  curr_segments['.text'].end) && (reg_pc >=  curr_segments['.text'].begin)) {
                       return ret;
+                }
+
+                // if (border *text) && (reg_maddr !== 0) -> can continue
+                if (0 !== reg_maddr) {
+                    if ( (reg_pc == curr_segments['.ktext'].end) || (reg_pc == curr_segments['.text'].end) ) {
+                          return ret;
+		    }
 		}
 
-                // if (reg_maddr == 0) && (outside *text) -> cannot continue
-		ret.ok  = false ;
-		ret.msg = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
+		// e.o.c. -> cannot continue
+                ret.ok  = false ;
+                ret.msg = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
                 return ret ;
         }
 
@@ -393,11 +402,6 @@
 		    return ret ;
 	        }
 
-                var limitless = false;
-                if (options.cycles_limit < 0) {
-                    limitless = true;
-		}
-
                 // 1.- do-while the microaddress register doesn't store the fetch address (0):
                 //              execute micro-instructions
 		//
@@ -415,25 +419,23 @@
 		    options.after_microinstruction  = simcore_do_nothing_handler ;
 		}
 
-                var i_clks = 0 ;
-                var cur_addr = 0 ;
+                var i_clks    = 0 ;
+                var limitless = (options.cycles_limit < 0) ;
+                var cur_addr  = 0 ;
+
 		do
             	{
 		    // verbosity before
 		    options.before_microinstruction(curr_MC, cur_addr) ;
 
                     compute_general_behavior("CLOCK") ;
+                    i_clks++;
 
 		    // verbosity after
 		    options.after_microinstruction(curr_MC, cur_addr) ;
 
-		    // next clock cycle...
-                    i_clks++;
-                    if (limitless)
-		    {
-                        options.cycles_limit = i_clks + 1;
-		    }
-                    if (i_clks >= options.cycles_limit)
+		    // checks
+                    if ( (limitless === false) && (i_clks >= options.cycles_limit) )
 		    {
 		        ret.msg = 'Warning: clock cycles limit reached in a single instruction.' ;
 		        ret.ok  = false ;
