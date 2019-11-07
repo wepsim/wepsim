@@ -197,8 +197,74 @@
 
     function wepsim_execute_chunk ( btn1, chunk )
     {
+	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
+	var ref_pc     = simhw_sim_state(pc_name) ;
+	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	var ref_maddr  = simhw_sim_state(maddr_name) ;
+	var options    = {
+			     verbosity:    0,
+			     cycles_limit: get_cfg('DBG_limitick')
+	                 } ;
+
+        var i_clks = 0 ;
+	var reg_maddr  = 0 ;
 	var ret = false ;
-        var i = 0 ;
+
+	var i = 0 ;
+        while (i < chunk)
+        {
+	    wepsim_check_state_firm() ;
+
+	    ret = simcore_execute_microinstruction() ;
+	    if (false === ret.ok) {
+		wepsim_show_stopbyevent("Info", ret.msg) ;
+		wepsim_execute_stop(btn1) ;
+		return false ;
+	    }
+
+	    i_clks++;
+	    if ( (options.cycles_limit > 0) && (i_clks >= options.cycles_limit) )
+	    {
+		wepsim_show_stopbyevent("Info", 'Warning: clock cycles limit reached in a single instruction.') ;
+		wepsim_execute_stop(btn1) ;
+		return false ;
+	    }
+
+	    reg_maddr = get_value(ref_maddr) ;
+
+	    ret = wepsim_check_stopbybreakpoint_firm(reg_maddr) ;
+	    if (true === ret)
+	    {
+		wepsim_show_stopbyevent("Breakpoint", "Microinstruction is going to be issue.") ;
+		wepsim_execute_stop(btn1) ;
+		return false ;
+	    }
+
+	    if (0 === reg_maddr) 
+	    {
+		reg_pc = get_value(ref_pc) ;
+
+		ret = wepsim_check_stopbybreakpoint_asm(reg_pc) ;
+		if (true === ret) {
+		    wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
+		    wepsim_execute_stop(btn1) ;
+		    return false ;
+		}
+
+		i++ ;
+		i_clks = 0 ;
+	    }
+        }
+
+        return true ;
+    }
+
+    function wepsim_execute_chunk_atlevel ( btn1, chunk )
+    {
+	var playlevel = get_cfg('DBG_level') ;
+	if (playlevel !== "instruction") {
+            return wepsim_execute_chunk(btn1, chunk) ;
+	}
 
 	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
 	var ref_pc     = simhw_sim_state(pc_name) ;
@@ -209,81 +275,27 @@
 			     cycles_limit: get_cfg('DBG_limitick')
 	                 } ;
 
-	var playlevel = get_cfg('DBG_level') ;
-	if (playlevel === "instruction")  
-	{
-	    var reg_pc  = 0 ;
+	var ret = false ;
+	var reg_pc  = 0 ;
 
-            for (i=0; i<chunk; i++)
-            {
-		    ret = simcore_execute_microprogram(options) ;
-		    if (ret.ok === false) {
-                        wepsim_show_stopbyevent("Info", ret.msg) ;
-			wepsim_execute_stop(btn1) ;
-			return false ;
-		    }
+        for (var i=0; i<chunk; i++)
+        {
+	    ret = simcore_execute_microprogram(options) ;
+	    if (ret.ok === false) {
+		wepsim_show_stopbyevent("Info", ret.msg) ;
+		wepsim_execute_stop(btn1) ;
+		return false ;
+	    }
 
-	            reg_pc = get_value(ref_pc) ;
+	    reg_pc = get_value(ref_pc) ;
 
-		    ret = wepsim_check_stopbybreakpoint_asm(reg_pc) ;
-		    if (true === ret) {
-                        wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
-			wepsim_execute_stop(btn1) ;
-			return false ;
-		    }
-            }
-	}
-	else
-	{
-	    var reg_maddr  = 0 ;
-            var i_clks = 0 ;
-
-	    i = 0 ;
-            while (i < chunk)
-            {
-		    wepsim_check_state_firm() ;
-
-		    ret = simcore_execute_microinstruction() ;
-		    if (false === ret.ok) {
-		        wepsim_show_stopbyevent("Info", ret.msg) ;
-			wepsim_execute_stop(btn1) ;
-			return false ;
-		    }
-
-		    i_clks++;
-		    if ( (options.cycles_limit > 0) && (i_clks >= options.cycles_limit) )
-		    {
-		        wepsim_show_stopbyevent("Info", 'Warning: clock cycles limit reached in a single instruction.') ;
-			wepsim_execute_stop(btn1) ;
-			return false ;
-		    }
-
-		    reg_maddr = get_value(ref_maddr) ;
-
-                    ret = wepsim_check_stopbybreakpoint_firm(reg_maddr) ;
-		    if (true === ret)
-		    {
-		        wepsim_show_stopbyevent("Breakpoint", "Microinstruction is going to be issue.") ;
-			wepsim_execute_stop(btn1) ;
-			return false ;
-		    }
-
-                    if (0 === reg_maddr) 
-                    {
-	                reg_pc = get_value(ref_pc) ;
-
-		        ret = wepsim_check_stopbybreakpoint_asm(reg_pc) ;
-		        if (true === ret) {
-                            wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
-		    	    wepsim_execute_stop(btn1) ;
-			    return false ;
-		        }
-
-			i++ ;
-                        i_clks = 0 ;
-		    }
-            }
-	}
+	    ret = wepsim_check_stopbybreakpoint_asm(reg_pc) ;
+	    if (true === ret) {
+		wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
+		wepsim_execute_stop(btn1) ;
+		return false ;
+	    }
+        }
 
         return true ;
     }

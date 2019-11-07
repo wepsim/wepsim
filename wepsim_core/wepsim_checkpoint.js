@@ -275,7 +275,7 @@
 	    var obj_tagName    = document.getElementById(id_tagname) ;
 	    var obj_fileToLoad = document.getElementById(id_file_to_load).files[0] ;
 
-	    if ( (obj_fileName === null) || (obj_tagName === null) || (obj_fileToLoad === null) )
+	    if ( (obj_fileName === null) || (obj_tagName === null) || (obj_fileToLoad === null) || (typeof obj_fileToLoad === 'undefined'))
 	    {
 		return false ;
 	    }
