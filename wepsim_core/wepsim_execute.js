@@ -204,15 +204,15 @@
 	var ref_pc     = simhw_sim_state(pc_name) ;
 	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	var ref_maddr  = simhw_sim_state(maddr_name) ;
+	var options    = {
+			     verbosity:    0,
+			     cycles_limit: get_cfg('DBG_limitick')
+	                 } ;
 
 	var playlevel = get_cfg('DBG_level') ;
 	if (playlevel === "instruction")  
 	{
 	    var reg_pc  = 0 ;
-	    var options = {
-			     verbosity:    0,
-			     cycles_limit: get_cfg('DBG_limitick')
-	                  } ;
 
             for (i=0; i<chunk; i++)
             {
@@ -236,6 +236,7 @@
 	else
 	{
 	    var reg_maddr  = 0 ;
+            var i_clks = 0 ;
 
 	    i = 0 ;
             while (i < chunk)
@@ -245,6 +246,14 @@
 		    ret = simcore_execute_microinstruction() ;
 		    if (false === ret.ok) {
 		        wepsim_show_stopbyevent("Info", ret.msg) ;
+			wepsim_execute_stop(btn1) ;
+			return false ;
+		    }
+
+		    i_clks++;
+		    if ( (options.cycles_limit > 0) && (i_clks >= options.cycles_limit) )
+		    {
+		        wepsim_show_stopbyevent("Info", 'Warning: clock cycles limit reached in a single instruction.') ;
 			wepsim_execute_stop(btn1) ;
 			return false ;
 		    }
