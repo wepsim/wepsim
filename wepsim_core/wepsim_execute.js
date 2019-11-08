@@ -192,6 +192,7 @@
 	}
 
         wepsim_state_history_add() ;
+	wepsim_state_history_list() ;
 	return true ;
     }
 

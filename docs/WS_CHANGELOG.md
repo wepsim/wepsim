@@ -4,7 +4,8 @@
 ## 2.0.11 -> 2.0.12:
 * Bugfixes on Dark Mode (images, icons, etc.)
 * Improved Z80-like example
-* Native execution show current instruction properly
+* Native execution shows current instruction properly
+* Bugfixed "# state:" in microcode: now shows saved states from microcode
 
 ## 2.0.10 -> 2.0.11:
 * Dark Mode (beta)
@@ -31,7 +32,7 @@
 * Core:
    + Configuration tries to resolve missing elements one by one (with default values).
    + Execution microinstruction by microinstruction a little bit more efficient.
-   + Stack segment is show in main memory details
+   + Stack segment is shown in main memory details
    + Added more Idioms thanks to Google Translate.
 
 ## 2.0.7 -> 2.0.8:
