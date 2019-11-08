@@ -256,16 +256,11 @@
         /**
          * Check if simulation can continue its execution
          */
-        function simcore_check_if_can_continue ( )
+        function simcore_check_if_can_continue2 ( reg_maddr, reg_pc )
         {
                 var ret = {} ;
                     ret.ok  = true ;
                     ret.msg = "" ;
-
-                var pc_name     = simhw_sim_ctrlStates_get().pc.state ;
-                var reg_pc      = parseInt(get_value(simhw_sim_state(pc_name)));
-                var maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
-                var reg_maddr   = get_value(simhw_sim_state(maddr_name)) ;
 
                 // if (MC[reg_maddr] == undefined) -> cannot continue
                 if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined")
@@ -296,6 +291,16 @@
                 ret.ok  = false ;
                 ret.msg = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
                 return ret ;
+        }
+
+        function simcore_check_if_can_continue ( )
+        {
+                var pc_name     = simhw_sim_ctrlStates_get().pc.state ;
+                var reg_pc      = parseInt(get_value(simhw_sim_state(pc_name)));
+                var maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
+                var reg_maddr   = get_value(simhw_sim_state(maddr_name)) ;
+
+                return simcore_check_if_can_continue2(reg_maddr, reg_pc) ;
         }
 
 
@@ -377,6 +382,24 @@
         function simcore_execute_microinstruction ( )
         {
 	    var ret = simcore_check_if_can_continue() ;
+	    if (false === ret.ok) {
+		return ret ;
+	    }
+
+            // CPU - Hardware
+            compute_general_behavior("CLOCK") ;
+
+            // CPU - User Interface
+	    show_states();
+	    show_rf_values();
+            show_dbg_mpc();
+
+            return ret ;
+        }
+
+        function simcore_execute_microinstruction2 ( reg_maddr, reg_pc )
+        {
+	    var ret = simcore_check_if_can_continue2(reg_maddr, reg_pc) ;
 	    if (false === ret.ok) {
 		return ret ;
 	    }
