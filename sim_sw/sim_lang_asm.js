@@ -748,7 +748,7 @@ function read_text ( context, datosCU, ret )
 
 				// check field	
 				switch(field.type)
-                	        {	
+                	        {
 					// 0xFFFFF,... | 23, 'b', ...
 					case "address":
 					case "inm":
@@ -809,9 +809,9 @@ function read_text ( context, datosCU, ret )
 					// $1...
 					case "reg":
 						var aux = false;
-						if ("(" == value) {
+						if (value.startsWith("(")) {
 							if ("(reg)" != signature_fields[j][i]) {
-								var error = "Expected register but found register beween parenthesis";
+								var error = "Expected register but found register between parenthesis";
 								advance[j] = 0;
 								break;
 							}
@@ -854,6 +854,7 @@ function read_text ( context, datosCU, ret )
 						}
 						converted = isDecimal(registers[value]);
 						var res = decimal2binary(converted, size);
+                                                value = s[i+1] ;
 						break;
 					default:
 						return langError(context, "An unknown error ocurred (1)");	
