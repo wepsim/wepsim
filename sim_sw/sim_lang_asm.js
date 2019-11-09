@@ -748,7 +748,7 @@ function read_text ( context, datosCU, ret )
 
 				// check field	
 				switch(field.type)
-                	        {	
+                	        {
 					// 0xFFFFF,... | 23, 'b', ...
 					case "address":
 					case "inm":
@@ -809,9 +809,9 @@ function read_text ( context, datosCU, ret )
 					// $1...
 					case "reg":
 						var aux = false;
-						if ("(" == value) {
+						if (value.startsWith("(")) {
 							if ("(reg)" != signature_fields[j][i]) {
-								var error = "Expected register but found register beween parenthesis";
+								var error = "Expected register but found register between parenthesis";
 								advance[j] = 0;
 								break;
 							}
@@ -854,6 +854,7 @@ function read_text ( context, datosCU, ret )
 						}
 						converted = isDecimal(registers[value]);
 						var res = decimal2binary(converted, size);
+                                                value = s[i+1] ;
 						break;
 					default:
 						return langError(context, "An unknown error ocurred (1)");	
@@ -1014,10 +1015,14 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// ref has the associated information in firmware for this instruction
-		var ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
-		if (ref.withcop)
-		     ref = ref[firmware[instruction][candidate].cop] ;
-		else ref = ref.i ;
+		var ref = firmware[instruction][candidate] ;
+		while (false === ref.isPseudoinstruction) 
+		{
+			var ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
+			if (ref.withcop)
+			     ref = ref[firmware[instruction][candidate].cop] ;
+			else ref = ref.i ;
+		}
 
 		// process machine code with several words...
 		for (i=firmware[instruction][candidate].nwords-1; i>=0; i--)
