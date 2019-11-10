@@ -122,6 +122,7 @@
                       description: "<span data-langkey='Running speed: execution speed'>Running speed: execution speed</span>"
                    });
 
+/*
     ws_config.push({
                       id:          "radio1",
                       type:        "Execution",
@@ -147,6 +148,7 @@
 		                   },
                       description: "<span data-langkey='Step-by-step: element in run mode'>Step-by-step: element in run mode</span>"
                    });
+*/
 
     ws_config.push({
                       id:          "select1",
