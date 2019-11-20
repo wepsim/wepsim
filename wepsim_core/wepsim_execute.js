@@ -181,18 +181,46 @@
 	return true ;
     }
 
-    // state_firmware
-
-    function wepsim_check_state_firm ( )
+    function wepsim_check_mcdashboard ( btn1, reg_maddr )
     {
-	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
-        if (false === simhw_internalState_get('MC_dashboard', reg_maddr).state) {
-            return false ;
+        var ref_mcdash = simhw_internalState_get('MC_dashboard', reg_maddr) ;
+
+        // microcode with state:
+        if (ref_mcdash.state) {
+            wepsim_state_history_add() ;
+	    wepsim_state_history_list() ;
 	}
 
-        wepsim_state_history_add() ;
-	wepsim_state_history_list() ;
+	// microcode with notify:
+	var notifications = ref_mcdash.notify.length ;
+	if (notifications > 1) 
+           {
+		var dialog_title = "Notify @ " + reg_maddr + ": " + ref_mcdash.notify[1] ;
+
+		var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
+		for (var k=1; k<notifications; k++) {
+		     dialog_msg += ref_mcdash.notify[k] + "\n<br>" ;
+		}
+                dialog_msg += '</div>' ;
+
+		bootbox.confirm({
+			title:    dialog_title,
+			message:  dialog_msg,
+			buttons:  {
+				     cancel:  { label: 'Stop',     className: 'btn-danger  btn-sm' },
+				     confirm: { label: 'Continue', className: 'btn-primary btn-sm' }
+				  },
+			callback: function (result) {
+				     if (result)
+				          setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
+				     else wepsim_execute_stop(btn1) ;
+				  }
+		});
+
+		return false ;
+	   }
+
+        // return 'continue to next one'
 	return true ;
     }
 
@@ -212,13 +240,10 @@
 
 	var ret    = false ;
         var i_clks = 0 ;
-	var notifications = 0 ;
 
 	var i = 0 ;
         while (i < chunk)
         {
-	    wepsim_check_state_firm() ;
-
 	    ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
 	    if (false === ret.ok) {
 		wepsim_show_stopbyevent("Info", ret.msg) ;
@@ -237,35 +262,10 @@
 	    reg_maddr = get_value(ref_maddr) ;
 	    reg_pc    = get_value(ref_pc) ;
 
-	    notifications = simhw_internalState_get('MC_dashboard', reg_maddr).notify.length ;
-	    if (notifications > 1) 
-               {
-		    var dialog_title = "Notify @ " + reg_maddr + ": " + 
-                                       simhw_internalState_get('MC_dashboard', reg_maddr).notify[1] ;
-
-		    var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
-
-		    for (var k=1; k<notifications; k++) {
-			 dialog_msg += simhw_internalState_get('MC_dashboard', reg_maddr).notify[k] + "\n<br>" ;
-		    }
-                    dialog_msg += '</div>' ;
-
-		    bootbox.confirm({
-			title:    dialog_title,
-			message:  dialog_msg,
-			buttons:  {
-				     cancel:  { label: 'Stop',     className: 'btn-danger  btn-sm' },
-				     confirm: { label: 'Continue', className: 'btn-primary btn-sm' }
-				  },
-			callback: function (result) {
-				     if (result)
-				          setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
-				     else wepsim_execute_stop(btn1) ;
-				  }
-		    });
-
-		    return false ;
-	       }
+	    ret = wepsim_check_mcdashboard(btn1, reg_maddr) ;
+	    if (false === ret) {
+		return false ;
+	    }
 
 	    ret = wepsim_check_stopbybreakpoint_firm(reg_maddr) ;
 	    if (true === ret)
