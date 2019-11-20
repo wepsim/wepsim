@@ -102,7 +102,7 @@
         DBG_limit_instruction = 0 ;
     }
 
-    function wepsim_execute_play ( btn1, run_notifications )
+    function wepsim_execute_play ( btn1 )
     {
 	var wsi      = get_cfg('ws_idiom') ;
         var stop_tag = i18n_get('gui',wsi,'Stop') ;
@@ -120,12 +120,10 @@
         DBG_stop = false ;
         DBG_limit_instruction = 0 ;
 
-        if (false === run_notifications)
-             wepsim_execute_chainplay(btn1) ;
-        else wepsim_execute_chainnotify(btn1) ;
+        wepsim_execute_chainplay(btn1) ;
     }
 
-    function wepsim_execute_toggle_play ( btn1, run_notifications )
+    function wepsim_execute_toggle_play ( btn1 )
     {
         if (DBG_stop === false) 
         {
@@ -133,7 +131,7 @@
         } 
         else 
         {
-            wepsim_execute_play(btn1, run_notifications) ;
+            wepsim_execute_play(btn1) ;
         }
     }
 
@@ -183,6 +181,8 @@
 	return true ;
     }
 
+    // state_firmware
+
     function wepsim_check_state_firm ( )
     {
 	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
@@ -212,6 +212,7 @@
 
 	var ret    = false ;
         var i_clks = 0 ;
+	var notifications = 0 ;
 
 	var i = 0 ;
         while (i < chunk)
@@ -235,6 +236,36 @@
 
 	    reg_maddr = get_value(ref_maddr) ;
 	    reg_pc    = get_value(ref_pc) ;
+
+	    notifications = simhw_internalState_get('MC_dashboard', reg_maddr).notify.length ;
+	    if (notifications > 1) 
+               {
+		    var dialog_title = "Notify @ " + reg_maddr + ": " + 
+                                       simhw_internalState_get('MC_dashboard', reg_maddr).notify[1] ;
+
+		    var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
+
+		    for (var k=1; k<notifications; k++) {
+			 dialog_msg += simhw_internalState_get('MC_dashboard', reg_maddr).notify[k] + "\n<br>" ;
+		    }
+                    dialog_msg += '</div>' ;
+
+		    bootbox.confirm({
+			title:    dialog_title,
+			message:  dialog_msg,
+			buttons:  {
+				     cancel:  { label: 'Stop',     className: 'btn-danger  btn-sm' },
+				     confirm: { label: 'Continue', className: 'btn-primary btn-sm' }
+				  },
+			callback: function (result) {
+				     if (result)
+				          setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
+				     else wepsim_execute_stop(btn1) ;
+				  }
+		    });
+
+		    return false ;
+	       }
 
 	    ret = wepsim_check_stopbybreakpoint_firm(reg_maddr) ;
 	    if (true === ret)
@@ -352,61 +383,5 @@
 	}
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
-    }
-
-    function wepsim_execute_chainnotify ( btn1 )
-    {
-	if (DBG_stop) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
-
-	var ret = false ;
-	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	var ref_maddr  = simhw_sim_state(maddr_name) ;
-	var reg_maddr  = 0 ;
-	var notifications = 0 ;
-        for (var i=0; i<max_turbo; i++)
-        {
-		ret = simcore_execute_microinstruction() ;
-		if (false === ret.ok) {
-		    wepsim_show_stopbyevent("Info", ret.msg) ;
-		    wepsim_execute_stop(btn1) ;
-		    return ;
-		}
-
-		reg_maddr     = get_value(ref_maddr) ;
-		notifications = simhw_internalState_get('MC_dashboard', reg_maddr).notify.length ;
-		if (notifications > 1) 
-                {
-		    var dialog_title = "Notify @ " + reg_maddr + ": " + 
-                                       simhw_internalState_get('MC_dashboard', reg_maddr).notify[1] ;
-
-		    var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
-
-		    for (var k=1; k<notifications; k++) {
-			 dialog_msg += simhw_internalState_get('MC_dashboard', reg_maddr).notify[k] + "\n<br>" ;
-		    }
-                    dialog_msg += '</div>' ;
-
-		    bootbox.confirm({
-			title:    dialog_title,
-			message:  dialog_msg,
-			buttons:  {
-				     cancel:  { label: 'Stop',     className: 'btn-danger  btn-sm' },
-				     confirm: { label: 'Continue', className: 'btn-primary btn-sm' }
-				  },
-			callback: function (result) {
-				     if (result)
-				          setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
-				     else wepsim_execute_stop(btn1) ;
-				  }
-		    });
-
-		    return ;
-		}
-        }
-
-        setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
     }
 
