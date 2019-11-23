@@ -1054,7 +1054,7 @@ function read_text ( context, datosCU, ret )
 			nextToken(context) ;
 		}
 
-		if (context.t >= context.text.length) {
+		if (context.t > context.text.length) {
 		    break ;
 		}
            }
