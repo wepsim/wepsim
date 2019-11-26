@@ -1683,7 +1683,11 @@
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-dark float-left mr-auto"
-			     onclick="wsweb_dialogbox_reset_notifications();
+			     onclick="var wsi = get_cfg('ws_idiom') ;
+				      var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
+				      if (confirm(q)) {
+			                  wsweb_dialogbox_reset_notifications();
+				      }
 			              return false;"><span data-langkey="Reset">Reset</span></button>
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
                              <span data-langkey='Notifications'>Notifications</span>

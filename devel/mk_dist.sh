@@ -187,7 +187,7 @@ cat external/popper.min.js \
     external/dropify/dropify.min.js \
     external/masonry.pkgd.min.js \
     external/fontawesome/brands.min.js \
-    external/fontawesome/solid.min.js > ws_dist/min.external.js
+    external/fontawesome/solid.min.js | grep -v sourceMappingURL > ws_dist/min.external.js
 
 echo "ws_dist/min.external.css"
 cat external/bootstrap.min.css \
@@ -205,7 +205,7 @@ cat external/bootstrap.min.css \
     external/speech-input.css \
     external/dropify/dropify.min.css \
     external/fontawesome/all.css \
-    external/css-tricks.css > ws_dist/min.external.css
+    external/css-tricks.css | grep -v sourceMappingURL > ws_dist/min.external.css
 
 echo "ws_dist/external/..."
 mkdir -p ws_dist/external/fontawesome/

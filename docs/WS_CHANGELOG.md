@@ -2,13 +2,13 @@
 # Changelog
 
 ## 2.0.11 -> 2.0.12:
-* Bugfixes on Dark Mode (images, icons, etc.)
-* Improved Z80-like example
+* Update to bootstrap 4.4.0
+* "# notify: lorem ipsum" in microcode added ("interactive" mode no longer required)
+* "# state:" in microcode now shows saved states from microcode
 * Native execution shows current instruction properly
-* Bugfixed "# state:" in microcode: now shows saved states from microcode
 
 ## 2.0.10 -> 2.0.11:
-* Dark Mode (beta)
+* Dark Mode
 * Initial support for RISC-V
 * Initial support for Z80-like
 
