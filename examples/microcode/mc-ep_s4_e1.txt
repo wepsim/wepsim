@@ -214,7 +214,7 @@ li reg val {
             reg=reg(25,21),
             val=inm(15,0),
             {
-                (SE=1, OFFSET=0, SIZE=10000, SE=1, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
