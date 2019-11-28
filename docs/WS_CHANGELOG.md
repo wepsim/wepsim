@@ -2,7 +2,7 @@
 # Changelog
 
 ## 2.0.11 -> 2.0.12:
-* Update to bootstrap 4.4.0
+* Update to bootstrap 4.4.1
 * "# notify: lorem ipsum" in microcode added ("interactive" mode no longer required)
 * "# state:" in microcode now shows saved states from microcode
 * Native execution shows current instruction properly
