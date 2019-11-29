@@ -174,8 +174,8 @@ ld r1 r2 {
                 var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
                 var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
 
-		            var val1 = simcore_native_get_value("BR", reg1) ;
-                simcore_native_set_value("BR", reg2, val1) ;
+		  var val1 = simcore_native_get_value("BR", reg2) ;
+                simcore_native_set_value("BR", reg1, val1) ;
 
                 simcore_native_go_maddr(0) ;
             }
