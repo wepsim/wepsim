@@ -174,7 +174,7 @@ ld r1 r2 {
                 var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
                 var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
 
-		var val1 = simcore_native_get_value("BR", reg2) ;
+                var val1 = simcore_native_get_value("BR", reg2) ;
                 simcore_native_set_value("BR", reg1, val1) ;
 
                 simcore_native_go_maddr(0) ;
@@ -332,7 +332,7 @@ jpz s16 {
                 if (s16 & 0x00008000)
                     s16 = s16 | 0xFFFF0000 ;
 
-	        var flags = simcore_native_get_value("CPU", "REG_SR") ;
+                var flags = simcore_native_get_value("CPU", "REG_SR") ;
                 if (flags & 0x10000000) {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
                     simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
@@ -351,11 +351,11 @@ call u16 {
                 // fields is a default parameter with the instruction field information
                 var u16   = simcore_native_get_field_from_ir(fields, 0) ;
 
-	        var value  = simcore_native_get_value("CPU", "REG_PC") ;
-	        var reg_sp = simcore_native_get_value("BR", 29) ;
-	        reg_sp = reg_sp - 4 ;
+                var value  = simcore_native_get_value("CPU", "REG_PC") ;
+                var reg_sp = simcore_native_get_value("BR", 29) ;
+                reg_sp = reg_sp - 4 ;
                 simcore_native_set_value("BR",     29,       reg_sp) ;
-	        simcore_native_set_value("MEMORY", reg_sp,   value) ;
+                simcore_native_set_value("MEMORY", reg_sp-3, value) ;
                 simcore_native_set_value("CPU",    "REG_PC", u16) ;
 
                 simcore_native_go_maddr(0) ;
@@ -397,11 +397,11 @@ push r1 {
                 // fields is a default parameter with the instruction field information
                 var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
 
-	        var value  = simcore_native_get_value("BR", reg1) ;
+                var value  = simcore_native_get_value("BR", reg1) ;
                 var reg_sp = simcore_native_get_value("BR", 29) ;
-	        reg_sp = reg_sp - 4 ;
-                simcore_native_set_value("MEMORY", reg_sp, value) ;
-	        simcore_native_set_value("BR",         29, reg_sp) ;
+                reg_sp = reg_sp - 4 ;
+                simcore_native_set_value("MEMORY", reg_sp-3, value) ;
+                simcore_native_set_value("BR",         29,   reg_sp) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -440,7 +440,6 @@ registers
         7=HL,
         8=IX,
         9=IY,
-        29=sp (stack_pointer),
-        31=R31
+        29=sp (stack_pointer)
 }
 
