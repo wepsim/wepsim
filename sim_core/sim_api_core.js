@@ -475,8 +475,12 @@
             	}
 		while ( (i_clks < options.cycles_limit) && (0 != cur_addr) );
 
-		// native -> two clocks...
-		if (typeof curr_MC[cur_addr].NATIVE !== "undefined") {
+		// no_error && native -> perform a second clock-tick...
+		if ( 
+		     (true == ret.ok) &&
+		     (typeof curr_MC[cur_addr].NATIVE !== "undefined") 
+		   )
+		{
                     compute_general_behavior("CLOCK") ; // ...instruction
                 }
 

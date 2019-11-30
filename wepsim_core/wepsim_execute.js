@@ -142,19 +142,18 @@
 
     function wepsim_check_stopbybreakpoint_firm ( reg_maddr )
     {
-        var curr_addr = "0x" + reg_maddr.toString(16) ;
+        var dash_maddr = simhw_internalState_get('MC_dashboard', reg_maddr) ;
 
-        if (typeof simhw_internalState_get('MC_dashboard', reg_maddr) === "undefined") {
+        if (typeof dash_maddr === "undefined") {
             return false ;
         }
 
-        return (simhw_internalState_get('MC_dashboard', reg_maddr).breakpoint) ;
+        return (dash_maddr.breakpoint) ;
     }
 
-    function wepsim_check_stopbybreakpoint_asm ( reg_pc )
+    function wepsim_check_stopbybreakpoint_asm ( curr_firm, reg_pc )
     {
 	var curr_addr  = "0x" + reg_pc.toString(16) ;
-        var curr_firm  = simhw_internalState('FIRMWARE') ;
 
 	if (typeof curr_firm.assembly[curr_addr] === "undefined") {
             return false ;
@@ -184,6 +183,9 @@
     function wepsim_check_mcdashboard ( btn1, reg_maddr )
     {
         var ref_mcdash = simhw_internalState_get('MC_dashboard', reg_maddr) ;
+        if (typeof ref_mcdash === "undefined") {
+	    return true ;
+	}
 
         // microcode with state:
         if (ref_mcdash.state) {
@@ -231,6 +233,7 @@
 			     cycles_limit: get_cfg('DBG_limitick')
 	                 } ;
 
+        var curr_firm  = simhw_internalState('FIRMWARE') ;
 	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
 	var ref_pc     = simhw_sim_state(pc_name) ;
 	var reg_pc     = get_value(ref_pc) ;
@@ -277,7 +280,7 @@
 
 	    if (0 === reg_maddr) 
 	    {
-		ret = wepsim_check_stopbybreakpoint_asm(reg_pc) ;
+		ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
 		if (true === ret) {
 		    wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 		    wepsim_execute_stop(btn1) ;
@@ -299,6 +302,7 @@
             return wepsim_execute_chunk(btn1, chunk) ;
 	}
 
+        var curr_firm  = simhw_internalState('FIRMWARE') ;
 	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
 	var ref_pc     = simhw_sim_state(pc_name) ;
 	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
@@ -322,7 +326,7 @@
 
 	    reg_pc = get_value(ref_pc) ;
 
-	    ret = wepsim_check_stopbybreakpoint_asm(reg_pc) ;
+	    ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
 	    if (true === ret) {
 		wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 		wepsim_execute_stop(btn1) ;
