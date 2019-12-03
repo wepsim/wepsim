@@ -27,12 +27,12 @@
         {
             // 1.- check if no signals are defined...
             if (0 == simhw_sim_signals().length) {
-                alert("ALERT: empty signals!!!");
+                ws_alert("ALERT: empty signals!!!");
             }
 
             // 2.- check if no states are defined...
             if (0 == simhw_sim_states().length) {
-                alert("ALERT: empty states!!!");
+                ws_alert("ALERT: empty states!!!");
             }
 
             for (var key in simhw_sim_signals())
@@ -54,13 +54,13 @@
 
 			    if (typeof (simhw_syntax_behavior(behavior_k[0])) == "undefined")
 			    {
-				alert("ALERT: Unknown operation -> " + behavior_k[0] + " (" + behavior_i + ")");
+				ws_alert("ALERT: Unknown operation -> " + behavior_k[0] + " (" + behavior_i + ")");
 				return;
 			    }
 
 			    if (behavior_k.length != simhw_syntax_behavior(behavior_k[0]).nparameters)
 			    {
-				alert("ALERT: Behavior has an incorrect number of elements --> " + behavior_i + "/" + simhw_syntax_behavior(behavior_k[0]).nparameters);
+				ws_alert("ALERT: Behavior has an incorrect number of elements --> " + behavior_i + "/" + simhw_syntax_behavior(behavior_k[0]).nparameters);
 				return;
 			    }
 
@@ -71,17 +71,17 @@
 
 				     if ( ("E" == t) && (typeof simhw_sim_state(s[0]) == "undefined") )
 				     {
-					  alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
+					  ws_alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
 					  return;
 				     }
 				else if ( ("S" == t) && (typeof simhw_sim_signal(s[0]) == "undefined") )
 				     {
-					 alert("ALERT: Behavior has an undefined reference to a signal -> '" + behavior_i);
+					 ws_alert("ALERT: Behavior has an undefined reference to a signal -> '" + behavior_i);
 					 return;
 				     }
 				else if ( ("X" == t) && (typeof simhw_sim_state(s[0]) == "undefined") && (typeof simhw_sim_signal(s[0]) == "undefined") )
 				     {
-					 alert("ALERT: Behavior has an undefined reference to a object state OR signal -> '" + behavior_i);
+					 ws_alert("ALERT: Behavior has an undefined reference to a object state OR signal -> '" + behavior_i);
 					 return;
 				     }
 			    }
@@ -172,7 +172,7 @@
 
                                 if (typeof expr_obj == "undefined")
                                 {
-                                    alert("ERROR: for signal '" + sig + "', unknow behavior '" + s_exprs[i] + "'");
+                                    ws_alert("ERROR: for signal '" + sig + "', unknow behavior '" + s_exprs[i] + "'");
                                 }
                                 else if (sig_obj.type == expr_obj.type)
                                 {
