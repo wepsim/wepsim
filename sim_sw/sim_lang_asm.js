@@ -101,8 +101,9 @@ function isDecimal ( n )
 
 	if ( !isNaN(parseFloat(n)) && isFinite(n) ) {
 		var res = parseInt(n);
-		if (typeof n === "string" && n.includes("."))
-			alert("Truncating conversion has occurred: " + n + " became " + res);
+		if (typeof n === "string" && n.includes(".")) {
+		    ws_alert("Truncating conversion has occurred: " + n + " became " + res);
+		}
 		return res;
 	}
 

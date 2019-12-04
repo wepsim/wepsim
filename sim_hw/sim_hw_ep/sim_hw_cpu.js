@@ -1580,7 +1580,7 @@
 					      else if (typeof   ep_states[r[1]].default_value != "undefined")
 						        base =  ep_states[r[1]].default_value;
                                                    // end: REG_MICROINS/xxx by default is the default_value
-						   else alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
+						   else ws_alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
 
 						   var offset = parseInt(s_expr[4]) ;
 
@@ -1606,7 +1606,7 @@
 					      else if (typeof   ep_states[r[1]].default_value != "undefined")
 						        base =  ep_states[r[1]].default_value;
                                                    // end: REG_MICROINS/xxx by default is the default_value
-						   else alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
+						   else ws_alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
 
 						   var offset = parseInt(s_expr[4]) ;
 
@@ -1871,9 +1871,9 @@
 						                                get_value(ep_states['REG_IR'])) ;
 						    if (null == oi.oinstruction)
                                                     {
-                                                         alert('ERROR: undefined instruction code in firmware (' +
-							       'co:'  +  oi.op_code.toString(2) + ', ' + 
-							       'cop:' + oi.cop_code.toString(2) + ')') ;
+                                                         ws_alert('ERROR: undefined instruction code in firmware (' +
+							          'co:'  +  oi.op_code.toString(2) + ', ' + 
+							          'cop:' + oi.cop_code.toString(2) + ')') ;
 							 ep_states['ROM_MUXA'].value = 0 ;
 							 ep_states['INEX'].value = 1 ;
 							 return -1;
@@ -1888,8 +1888,8 @@
 						    // 2.- ! ep_internal_states['ROM'][rom_addr] -> error
 						    if (typeof ep_internal_states['ROM'][rom_addr] == "undefined")
 						    {
-							 alert('ERROR: undefined rom address ' + rom_addr + 
-                                                               ' in firmware') ;
+							 ws_alert('ERROR: undefined rom address ' + rom_addr + 
+                                                                  ' in firmware') ;
 							 ep_states['ROM_MUXA'].value = 0 ;
 							 return -1;
 						    }

@@ -310,3 +310,16 @@
             return simcore_action_ui("MEMORY", 0, "show_asmdbg_pc")() ;
         }
 
+        // portable alert
+
+        function ws_alert ( msg )
+        {
+	    if (typeof document === "undefined") {
+	        console.log(msg) ;
+		return true ;
+	    }
+
+            alert(msg) ;
+	    return true ;
+        }
+
