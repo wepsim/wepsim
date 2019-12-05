@@ -268,6 +268,27 @@
 	    return true ;
     }
 
+	    function wepsim_checkpoint_afterLoad ( textLoaded, 
+		                                   obj_fileName, obj_tagName, obj_fileToLoad )
+	    {
+		    try 
+		    {
+			   var current_checkpoint = null ;
+
+                           if (textLoaded !== '') {
+			       current_checkpoint = JSON.parse(textLoaded) ;
+			       current_checkpoint = wepsim_checkpoint_NB2Obj(current_checkpoint) ;
+                           }
+
+			   wepsim_checkpoint_loadFromObj(current_checkpoint,
+							 obj_fileName, obj_tagName, obj_fileToLoad) ;
+		    }
+		    catch (e) 
+		    {
+			   ws_alert('Error on checkpoint file: ' + e) ;
+		    }
+	    }
+
     function wepsim_checkpoint_load ( id_filename, id_tagname, id_file_to_load )
     {
 	    // get & check params
@@ -275,7 +296,7 @@
 	    var obj_tagName    = document.getElementById(id_tagname) ;
 	    var obj_fileToLoad = document.getElementById(id_file_to_load).files[0] ;
 
-	    if ( (obj_fileName === null) || (obj_tagName === null) || (obj_fileToLoad === null) )
+	    if ( (obj_fileName === null) || (obj_tagName === null) || (obj_fileToLoad === null) || (typeof obj_fileToLoad === 'undefined'))
 	    {
 		return false ;
 	    }
@@ -283,10 +304,7 @@
 	    // lambda (auxiliar) function
 	    var function_after_loaded = function (textLoaded)
 	                                {
-				           var current_checkpoint = JSON.parse(textLoaded) ;
-                                               current_checkpoint = wepsim_checkpoint_NB2Obj(current_checkpoint) ;
-                                           wepsim_checkpoint_loadFromObj(current_checkpoint,
-						                         obj_fileName, obj_tagName, obj_fileToLoad) ;
+					   wepsim_checkpoint_afterLoad(textLoaded, obj_fileName, obj_tagName, obj_fileToLoad) ;
 			                } ;
 
 	    // load checkpoint
@@ -326,23 +344,21 @@
 
     function wepsim_checkpoint_loadExample ( tutorial_name )
     {
-	  var file_uri = 'examples/checkpoint/' + tutorial_name ;
+	    var file_uri = 'examples/checkpoint/' + tutorial_name ;
 
-          wepsim_load_from_url(file_uri,
-                               function(data_text) {
-	                           var obj_refName = { name: file_uri } ;
+	    // lambda (auxiliar) function
+	    var function_after_loaded = function (data_text)
+	                                {
+					   var obj_refName = { name: file_uri } ;
 
-                                   var data_obj = null ;
-                                   if (data_text !== '') {
-                                       data_obj = JSON.parse(data_text) ;
-                                       data_obj = wepsim_checkpoint_NB2Obj(data_obj) ;
-                                   }
+					   wepsim_checkpoint_afterLoad(data_text, 
+								       'FileNameToSaveAs1', 
+								       'tagToSave1', 
+								       obj_refName) ;
+			                } ;
 
-                                   wepsim_checkpoint_loadFromObj(data_obj, 
-                                                                 'FileNameToSaveAs1', 
-                                                                 'tagToSave1', 
-                                                                 obj_refName) ;
-                               });
+	    // load checkpoint from url
+            wepsim_load_from_url(file_uri, function_after_loaded) ;
     }
 
     function wepsim_checkpoint_share ( id_filename, id_tagname, checkpointObj )
