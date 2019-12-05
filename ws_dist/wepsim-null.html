@@ -1739,10 +1739,9 @@
 	        save_cfg() ;
 
                 wepsim_general_exception_handler('Your browser in the last update probably has changed the cookies/cache so you will need to clean the browser cookies/cache.') ;
-		return null ;
 	    }
 
-	    if (optValue != 'classic') {
+	    else if (optValue != 'classic') {
 	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
 	    }
 
