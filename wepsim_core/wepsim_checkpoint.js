@@ -285,7 +285,7 @@
 		    }
 		    catch (e) 
 		    {
-			   ws_alert('Error on checkpoint file: ' + e) ;
+			   alert('Error on checkpoint file: ' + e) ;
 		    }
 	    }
 
