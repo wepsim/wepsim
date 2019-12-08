@@ -72,7 +72,7 @@
 		<tr>
 		<td align="center">
 		    <div class="spinner-border spinner-border-xl text-success" role="status">
-	              <span class="sr-only">Loading...</span>
+	              <span id="loading_msg1" class="sr-only">Loading...</span>
 		    </div>
 		    <br/><br/>
 		    <span class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
@@ -169,7 +169,7 @@
 	    <h6 class="pt-3">Simulator</h6>
             <div class="row py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
 
-		      <a id='popover-slidercfg' tabindex='0' 
+		      <a id='popover-slidercfg' tabindex='0'
 		         class='show multi-collapse-3 btn my-1 col-auto ml-auto'
 		         data-toggle='popover-slidercfg'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>
 
@@ -1578,12 +1578,30 @@
     {
 	    // basic initialization of wepsim...
 	    simcore_init(true) ;
+	    simcore_welcome() ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin_ui') ;
+	    if ( (optValue != 'classic') && (optValue != 'compact') )
+	    {
+		reset_cfg() ;
+	        setTimeout(function(){ 
+	           window.location='wepsim-classic.html' + window.location.search ;
+	        }, 250);
+	    }
 	    if (optValue != 'compact') {
 	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
             }
+
+	    // update old cfg...
+	    var optValue = get_cfg('version') ;
+	    if (optValue !== '2.0.12')
+	    {
+		reset_cfg() ;
+		var msg = 'WepSIM has been updated (' + optValue + ' -> 2.0.12)' ;
+		console.log(msg) ;
+		$("#loading_msg1").html(msg) ;
+	    }
 
 	    // initialization of wepsim...
             wepsim_load_hw() ;
