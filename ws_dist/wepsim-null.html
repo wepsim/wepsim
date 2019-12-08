@@ -1731,24 +1731,24 @@
 	    simcore_init(true) ;
 	    simcore_welcome() ;
 
+	    // go to wepsim UI skin...
+	    var optValue = get_cfg('ws_skin_ui') ;
+	    if (optValue === null) {
+		reset_cfg() ;
+	        window.location='wepsim-classic.html' + window.location.search ;
+	    }
+	    if (optValue != 'classic') {
+	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
+	    }
+
 	    // update old cfg...
 	    var optValue = get_cfg('version') ;
 	    if (optValue !== '2.0.12')
 	    {
 		reset_cfg() ;
-
-		var msg = 'WepSIM configuration has been reset to avoid conflicts, sorry.' ;
+		var msg = 'WepSIM has been updated (' + optValue + ' -> 2.0.12)' ;
 		console.log(msg) ;
 		$("#loading_msg1").html(msg) ;
-	    }
-
-	    // go to wepsim UI skin...
-	    var optValue = get_cfg('ws_skin_ui') ;
-	    if (optValue == 'null') {
-	        window.location='wepsim-classic.html' + window.location.search ;
-	    }
-	    if (optValue != 'classic') {
-	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
 	    }
 
 	    // initialization of wepsim...
