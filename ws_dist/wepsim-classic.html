@@ -72,7 +72,7 @@
 		<tr>
 		<td align="center">
 		    <div class="spinner-border spinner-border-xl text-success" role="status">
-	              <span class="sr-only">Loading...</span>
+	              <span id="loading_msg1" class="sr-only">Loading...</span>
 		    </div>
 		    <br/><br/>
 		    <span class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
@@ -1729,9 +1729,26 @@
     {
 	    // basic initialization of wepsim...
 	    simcore_init(true) ;
+	    simcore_welcome() ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin_ui') ;
+
+		    // fix null value
+		    if (optValue == 'null')
+		    {
+			reset_cfg() ;
+
+			var msg = 'Last update of your browser probably has changed cookies/cache so you will need to clean the browser cookies/cache.' ;
+			console.log(msg) ;
+			$("#loading_msg1").html(msg) ;
+			location.reload(true) ;
+		    }
+		    if (window.location.pathname.includes('wepsim-null.html'))
+		    {
+	                window.location='wepsim-classic.html' + window.location.search ;
+		    }
+
 	    if (optValue != 'classic') {
 	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
 	    }

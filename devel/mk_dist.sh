@@ -231,6 +231,7 @@ echo "ws_dist/*.html"
 cp   wepsim/wepsim_web_classic.html   ws_dist/index.html
 cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-classic.html
 cp   wepsim/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-null.html
 cp   wepsim/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 echo "ws_dist/*.sh"
