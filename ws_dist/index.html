@@ -1736,7 +1736,9 @@
 	    if ( (optValue != 'classic') && (optValue != 'compact') )
 	    {
 		reset_cfg() ;
-	        window.location='wepsim-classic.html' + window.location.search ;
+	        setTimeout(function(){ 
+	           window.location='wepsim-classic.html' + window.location.search ;
+	        }, 250);
 	    }
 	    if (optValue != 'classic') {
 	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
