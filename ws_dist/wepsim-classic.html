@@ -1731,21 +1731,19 @@
 	    simcore_init(true) ;
 	    simcore_welcome() ;
 
+	    // update old cfg...
+	    var optValue = get_cfg('version') ;
+	    if (optValue !== '2.0.12')
+	    {
+		reset_cfg() ;
+
+		var msg = 'WepSIM configuration has been reset to avoid conflicts, sorry.' ;
+		console.log(msg) ;
+		$("#loading_msg1").html(msg) ;
+	    }
+
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin_ui') ;
-
-		    // fix null value
-		    if (optValue == 'null')
-		    {
-			reset_cfg() ;
-
-			var msg = 'Last update of your browser probably has changed cookies/cache so you will need to clean the browser cookies/cache.' ;
-			console.log(msg) ;
-			$("#loading_msg1").html(msg) ;
-
-	                window.location='wepsim-classic.html' + window.location.search ;
-		    }
-
 	    if (optValue != 'classic') {
 	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
 	    }
