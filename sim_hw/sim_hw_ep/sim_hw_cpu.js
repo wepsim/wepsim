@@ -1054,7 +1054,7 @@
 				     operation: function(s_expr) 
 		                                {
 				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
-				                   set_value(ep_states[s_expr[1]], result) ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1078,7 +1078,7 @@
 				     operation: function(s_expr) 
 		                                {
 				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
-				                   set_value(ep_states[s_expr[1]], result) ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1102,7 +1102,7 @@
 				     operation: function(s_expr) 
 		                                {
 				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
-				                   set_value(ep_states[s_expr[1]], result) ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1126,7 +1126,7 @@
 				     operation: function(s_expr) 
 		                                {
 				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
-				                   set_value(ep_states[s_expr[1]], result) ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1150,7 +1150,7 @@
 				     operation: function(s_expr) 
 		                                {
 				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
-				                   set_value(ep_states[s_expr[1]], result) ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1174,7 +1174,7 @@
 				     operation: function(s_expr) 
 		                                {
 				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
-				                   set_value(ep_states[s_expr[1]], result) ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1198,7 +1198,7 @@
 				     operation: function(s_expr) 
 		                                {
 				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
-				                   set_value(ep_states[s_expr[1]], result) ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1222,7 +1222,7 @@
 				     operation: function(s_expr) 
 		                                {
 				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
-				                   set_value(ep_states[s_expr[1]], result) ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1246,7 +1246,7 @@
 				     operation: function(s_expr) 
 		                                {
 				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
-				                   set_value(ep_states[s_expr[1]], result) ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
