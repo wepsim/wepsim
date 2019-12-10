@@ -259,6 +259,7 @@
     {
             wepsim_dialog_current_state() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    $('#bot_check1').carousel(1);
 	    wepsim_restore_uicfg() ;
 
             // add if recording
