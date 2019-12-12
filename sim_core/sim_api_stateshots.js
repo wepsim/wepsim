@@ -189,7 +189,7 @@
         {
              if (checklist[i].fulfill === false) {
                  o += checklist[i].elto_type + "[" + checklist[i].elto_id + "]='" +
-                      checklist[i].obtained + "' (expected '" + checklist[i].expected  + "'), ";
+                      (checklist[i].obtained) + "' (expected '" + (checklist[i].expected)  + "'), ";
              }
         }
 
