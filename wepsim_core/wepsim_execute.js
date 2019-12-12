@@ -187,7 +187,11 @@
     {
 	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
-        if (false === simhw_internalState_get('MC_dashboard', reg_maddr).state) {
+        var mcd_maddr  = simhw_internalState_get('MC_dashboard', reg_maddr) ;
+	if (typeof mcd_maddr == "undefined")
+            return false ;
+	}
+        if (false === mcd_maddr.state) {
             return false ;
 	}
 
