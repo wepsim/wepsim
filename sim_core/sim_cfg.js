@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"2.0.12", type:"string"} ;
+        WSCFG.version = { value:"2.1.0", type:"string"} ;
 
 
         /*
