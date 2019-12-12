@@ -249,29 +249,7 @@
 				 onclick="wsweb_select_main('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-                              <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_examples" value="examples"
-				 onclick="wsweb_dialogbox_open_examples();
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
-                              <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
-				 onclick="wsweb_dialogbox_open_state();
-                                          $('#bot_check1').carousel(0);
-					  wepsim_checkpoint_listCache('browserCacheList1');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
-
-			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_help" value="help"
-				 onclick="wsweb_dialogbox_open_help();
-					  return false;"><span data-langkey="Help">Help</span></a>
-                              <a class="dropdown-item" href="#" id="s4_notifications" value="notifications"
-				 onclick="wsweb_dialogbox_open_notifications();
-					  return false;"><span data-langkey="Notifications">Notifications</span></a>
-                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
-				 onclick="wsweb_select_main('intro');
-                                          setTimeout(wsweb_record_play, 1000);
-					  return false;">Welcome tutorial...</a>
-
-			      <h6 class="text-white bg-secondary mt-2 my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
+			      <h6 class="text-white bg-secondary mt-2 my-1 user_archived ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
                               <a class="dropdown-item user_archived mb-0" href="#" id="s4_asm_mips" value="asm_mips"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true"
 			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
@@ -304,27 +282,60 @@
 
                       <div class="col-sm-auto p-1">
                       <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Record' bar."
-                                    onclick="wsweb_recordbar_toggle();
-					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
-		            <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Notifications' dialog."
-                                    onclick="wsweb_dialogbox_open_notifications();
-					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
-		            <button class="btn btn-light shadow-sm my-1 mx-0"
+
+		        <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     id="btn_cfg1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Configuration' dialog."
                                     onclick="wsweb_dialogbox_open_config();
 				    	     return false;"
-                                    ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		      </div>
+                                ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+
+			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
+			    <button type="button" class="col-12 btn btn-light shadow-sm"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
+				    title="Dropdown on the right let you access to common actions."
+                                    style="border-color: #CCCCCC;"
+				    id="select6"><strong><em class="fas fa-clone"></em>&nbsp;Actions</strong></button>
+			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
+                                    style="border-color: #CCCCCC;"
+				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      <span class="sr-only">Toggle Dropdown</span>
+			    </button>
+			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
+
+                              <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
+                              <a class="dropdown-item" href="#" id="s4_examples" value="examples"
+				 onclick="wsweb_dialogbox_open_examples();
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
+                              <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
+				 onclick="wsweb_dialogbox_open_state();
+                                          $('#bot_check1').carousel(0);
+					  wepsim_checkpoint_listCache('browserCacheList1');
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
+
+			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Utilities">Utilities</span>:</h6>
+                              <a class="dropdown-item" href="#" id="s4_notifications" value="notifications"
+				 onclick="wsweb_dialogbox_open_notifications();
+					  return false;"><span data-langkey="Notifications">Notifications</span></a>
+                              <a class="dropdown-item" href="#" id="s4_recordbar" value="recordbar"
+				 onclick="wsweb_recordbar_toggle();
+					  return false;"><span data-langkey="RecordBar">RecordBar</span></a>
+
+			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
+                              <a class="dropdown-item" href="#" id="s4_help" value="help"
+				 onclick="wsweb_dialogbox_open_help();
+					  return false;"><span data-langkey="Help">Help</span></a>
+                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
+				 onclick="wsweb_select_main('intro');
+                                          setTimeout(wsweb_record_play, 1000);
+					  return false;">Welcome tutorial...</a>
+
+			    </div>
+			</div>
+
+                      </div>
 		      </div>
             </div>
 
@@ -750,20 +761,62 @@
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
-                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Record, Notifications, and Configuration buttons">
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_recordbar_toggle();
-					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_dialogbox_open_notifications();
-					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+		      <div class="btn-group mr-2 my-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
+
+		        <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    id="btn_cfg1"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
+			            title="This button opens the 'Configuration' dialog."
                                     onclick="wsweb_dialogbox_open_config();
-					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span>
-						            <span class="d-sm-none">Config.</span></strong></button>
+				    	     return false;"
+                                ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+
+			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
+			    <button type="button" class="col-12 btn btn-light shadow-sm"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
+				    title="Dropdown on the right let you access to common actions."
+                                    style="border-color: #CCCCCC;"
+				    id="select6"><strong><em class="fas fa-clone"></em>&nbsp;Actions</strong></button>
+			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
+                                    style="border-color: #CCCCCC;"
+				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      <span class="sr-only">Toggle Dropdown</span>
+			    </button>
+			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
+
+                              <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
+                              <a class="dropdown-item" href="#" id="s4_examples" value="examples"
+				 onclick="wsweb_dialogbox_open_examples();
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
+                              <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
+				 onclick="wsweb_dialogbox_open_state();
+                                          $('#bot_check1').carousel(0);
+					  wepsim_checkpoint_listCache('browserCacheList1');
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
+
+			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Utilities">Utilities</span>:</h6>
+                              <a class="dropdown-item" href="#" id="s4_notifications" value="notifications"
+				 onclick="wsweb_dialogbox_open_notifications();
+					  return false;"><span data-langkey="Notifications">Notifications</span></a>
+                              <a class="dropdown-item" href="#" id="s4_recordbar" value="recordbar"
+				 onclick="wsweb_recordbar_toggle();
+					  return false;"><span data-langkey="RecordBar">RecordBar</span></a>
+
+			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
+                              <a class="dropdown-item" href="#" id="s4_help" value="help"
+				 onclick="wsweb_dialogbox_open_help();
+					  return false;"><span data-langkey="Help">Help</span></a>
+                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
+				 onclick="wsweb_select_main('intro');
+                                          setTimeout(wsweb_record_play, 1000);
+					  return false;">Welcome tutorial...</a>
+
+			    </div>
+			</div>
+
+                      </div>
 		      </div>
 
 		</div>
@@ -839,20 +892,62 @@
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
-                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Record, Notifications, and Configuration buttons">
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_recordbar_toggle();
-					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_dialogbox_open_notifications();
-					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+		      <div class="btn-group mr-2 my-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
+
+		        <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    id="btn_cfg1"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
+			            title="This button opens the 'Configuration' dialog."
                                     onclick="wsweb_dialogbox_open_config();
-					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span>
-						            <span class="d-sm-none">Config.</span></strong></button>
+				    	     return false;"
+                                ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+
+			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
+			    <button type="button" class="col-12 btn btn-light shadow-sm"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
+				    title="Dropdown on the right let you access to common actions."
+                                    style="border-color: #CCCCCC;"
+				    id="select6"><strong><em class="fas fa-clone"></em>&nbsp;Actions</strong></button>
+			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
+                                    style="border-color: #CCCCCC;"
+				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      <span class="sr-only">Toggle Dropdown</span>
+			    </button>
+			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
+
+                              <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
+                              <a class="dropdown-item" href="#" id="s4_examples" value="examples"
+				 onclick="wsweb_dialogbox_open_examples();
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
+                              <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
+				 onclick="wsweb_dialogbox_open_state();
+                                          $('#bot_check1').carousel(0);
+					  wepsim_checkpoint_listCache('browserCacheList1');
+					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
+
+			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Utilities">Utilities</span>:</h6>
+                              <a class="dropdown-item" href="#" id="s4_notifications" value="notifications"
+				 onclick="wsweb_dialogbox_open_notifications();
+					  return false;"><span data-langkey="Notifications">Notifications</span></a>
+                              <a class="dropdown-item" href="#" id="s4_recordbar" value="recordbar"
+				 onclick="wsweb_recordbar_toggle();
+					  return false;"><span data-langkey="RecordBar">RecordBar</span></a>
+
+			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
+                              <a class="dropdown-item" href="#" id="s4_help" value="help"
+				 onclick="wsweb_dialogbox_open_help();
+					  return false;"><span data-langkey="Help">Help</span></a>
+                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
+				 onclick="wsweb_select_main('intro');
+                                          setTimeout(wsweb_record_play, 1000);
+					  return false;">Welcome tutorial...</a>
+
+			    </div>
+			</div>
+
+                      </div>
 		      </div>
 
 		</div>
