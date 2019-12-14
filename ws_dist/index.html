@@ -241,7 +241,7 @@
 			    </button>
 			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
 
-			      <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="WepSIM hardware">WepSIM hardware</span>:</h6>
+			      <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_select_main('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
@@ -297,39 +297,40 @@
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 				    title="Dropdown on the right let you access to common actions."
                                     style="border-color: #CCCCCC;"
+				    data-action="checkpoint"
+				    onclick="var action = $('#select6').attr('data-action');
+	                                     wsweb_do_action(action);
+	                                     return false;"
 				    id="select6"><strong><em class="fas fa-clone"></em>&nbsp;Actions</strong></button>
 			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
                                     style="border-color: #CCCCCC;"
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="sr-only">Toggle Dropdown</span>
 			    </button>
-			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
+			    <div id="action_menu" class="dropdown-menu border border-secondary p-2">
 
                               <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_examples" value="examples"
-				 onclick="wsweb_dialogbox_open_examples();
+                              <a class="dropdown-item" href="#" id="selact_examples" value="examples"
+				 onclick="wsweb_select_action('examples');
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
-                              <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
-				 onclick="wsweb_dialogbox_open_state();
-                                          $('#bot_check1').carousel(0);
-					  wepsim_checkpoint_listCache('browserCacheList1');
+                              <a class="dropdown-item" href="#" id="selact_checkpoint"  value="owncode"
+				 onclick="wsweb_select_action('checkpoint');
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
 
 			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Utilities">Utilities</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_notifications" value="notifications"
-				 onclick="wsweb_dialogbox_open_notifications();
+                              <a class="dropdown-item" href="#" id="selact_notifications" value="notifications"
+				 onclick="wsweb_select_action('notifications');
 					  return false;"><span data-langkey="Notifications">Notifications</span></a>
-                              <a class="dropdown-item" href="#" id="s4_recordbar" value="recordbar"
-				 onclick="wsweb_recordbar_toggle();
+                              <a class="dropdown-item" href="#" id="selact_recordbar" value="recordbar"
+				 onclick="wsweb_select_action('recordbar');
 					  return false;"><span data-langkey="RecordBar">RecordBar</span></a>
 
 			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_help" value="help"
-				 onclick="wsweb_dialogbox_open_help();
+                              <a class="dropdown-item" href="#" id="selact_help" value="help"
+				 onclick="wsweb_select_action('help');
 					  return false;"><span data-langkey="Help">Help</span></a>
-                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
-				 onclick="wsweb_select_main('intro');
-                                          setTimeout(wsweb_record_play, 1000);
+                              <a class="dropdown-item" href="#" id="selact_intro" value="intro"
+				 onclick="wsweb_select_action('intro');
 					  return false;">Welcome tutorial...</a>
 
 			    </div>
@@ -748,11 +749,6 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-                            <button style="background-color: #D4DB17"
-		                    class="btn btn-light shadow-sm col-auto"
-                                    onclick="wsweb_dialogbox_open_hardware_summary();
-                                             return false;"
-				    ><em class="fas fa-microchip"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex" data-langkey="Hw">Hw</span></strong><span class="d-sm-none" data-langkey="Hardware Summary">Hardware Summary</span></strong></button>
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
 				    onclick="wepsim_help_set_relative('simulator#help_firmware_format');

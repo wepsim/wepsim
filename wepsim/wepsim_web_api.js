@@ -557,6 +557,71 @@
             return true ;
     }
 
+    function wsweb_do_action ( opt )
+    {
+	    switch (opt)
+	    {
+	        case 'examples':
+		      wsweb_dialogbox_open_examples();
+		      break ;
+
+	        case 'checkpoint':
+		      wsweb_dialogbox_open_state();
+		      $('#bot_check1').carousel(0);
+		      wepsim_checkpoint_listCache('browserCacheList1');
+		      break ;
+
+	        case 'notifications':
+		      wsweb_dialogbox_open_notifications();
+		      break ;
+
+	        case 'recordbar':
+		      wsweb_recordbar_toggle();
+		      break ;
+
+	        case 'help':
+		      wsweb_dialogbox_open_help();
+		      break ;
+
+	        case 'intro':
+		      wsweb_select_main('intro');
+		      setTimeout(wsweb_record_play, 1000);
+		      break ;
+
+	        case 'hw_summary':
+		      wsweb_dialogbox_open_hardware_summary() ;
+		      break ;
+	    }
+
+	    return false;
+    }
+
+    function wsweb_select_action ( opt )
+    {
+	    // save ws_mode
+	    set_cfg('ws_action', opt) ;
+	    save_cfg() ;
+
+	    // set button label...
+	    var ed = $('#selact_' + opt).html() ;
+	    $('#select6').html(ed) ;
+	    $('#select6').attr('data-action', opt) ;
+
+	    // adapt to idiom
+	    var ws_idiom = get_cfg('ws_idiom') ;
+	    i18n_update_tags('gui', ws_idiom) ;
+
+            // add if recording
+            simcore_record_append_new('Set action work mode to ' + opt,
+		                      'wsweb_select_action("' + opt + '");\n') ;
+
+	    // do action
+	    wsweb_do_action(opt) ;
+
+            // return ok
+            return true ;
+    }
+
     //  Workspace simulator: Sliders
 
     function wsweb_set_cpucu_size ( new_value )
