@@ -1584,7 +1584,12 @@
 	    var optValue = get_cfg('ws_skin_ui') ;
 	    if ( (optValue != 'classic') && (optValue != 'compact') )
 	    {
-		reset_cfg() ;
+		upgrade_cfg() ;
+
+		var msg = 'WepSIM has been updated...' ;
+		console.log(msg) ;
+		$("#loading_msg1").html(msg) ;
+
 	        setTimeout(function(){ 
 	           window.location='wepsim-classic.html' + window.location.search ;
 	        }, 250);
@@ -1592,16 +1597,6 @@
 	    if (optValue != 'compact') {
 	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
             }
-
-	    // update old cfg...
-	    var optValue = get_cfg('version') ;
-	    if (optValue !== '2.1.0')
-	    {
-		reset_cfg() ;
-		var msg = 'WepSIM has been updated (' + optValue + ' -> 2.1.0)' ;
-		console.log(msg) ;
-		$("#loading_msg1").html(msg) ;
-	    }
 
 	    // initialization of wepsim...
             wepsim_load_hw() ;

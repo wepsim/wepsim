@@ -83,15 +83,14 @@
 	        ret.msg = "" ;
 	        ret.ok  = true ;
 
-            // http://patorjk.com/software/taag/#p=display&h=0&v=0&f=Banner&t=WepSIM
-            console.log('#     #                   #####   ###  #     #') ;
-            console.log('#  #  #  ######  #####   #     #   #   ##   ##') ;
-            console.log('#  #  #  #       #    #  #         #   # # # #') ;
-            console.log('#  #  #  #####   #    #   #####    #   #  #  #') ;
-            console.log('#  #  #  #       #####         #   #   #     #') ;
-            console.log('#  #  #  #       #       #     #   #   #     #') ;
-            console.log(' ## ##   ######  #        #####   ###  #     #') ;
-
+            // http://patorjk.com/software/taag/#p=testall&h=0&v=0&f=Delta%20Corps%20Priest%201&t=WepSIM
+            console.log('██╗    ██╗███████╗██████╗ ███████╗██╗███╗   ███╗') ;
+            console.log('██║    ██║██╔════╝██╔══██╗██╔════╝██║████╗ ████║') ;
+            console.log('██║ █╗ ██║█████╗  ██████╔╝███████╗██║██╔████╔██║') ;
+            console.log('██║███╗██║██╔══╝  ██╔═══╝ ╚════██║██║██║╚██╔╝██║') ;
+            console.log('╚███╔███╔╝███████╗██║     ███████║██║██║ ╚═╝ ██║') ;
+            console.log(' ╚══╝╚══╝ ╚══════╝╚═╝     ╚══════╝╚═╝╚═╝     ╚═╝') ;
+                                                
             return ret ;
         }
 

@@ -598,7 +598,7 @@
 
     function wsweb_select_action ( opt )
     {
-	    // save ws_mode
+	    // save ws_action
 	    set_cfg('ws_action', opt) ;
 	    save_cfg() ;
 

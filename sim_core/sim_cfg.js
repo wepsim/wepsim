@@ -126,6 +126,20 @@
              save_cfg() ;
         }
 
+        /*
+         *  upgrade_cfg = if (version != _last_) -> reset_cfg + save_cfg
+         */
+
+        function upgrade_cfg ( )
+        {
+            var optValue = get_cfg('version') ;
+            if (optValue !== '2.1.0')
+            {
+                reset_cfg() ;
+                save_cfg() ;
+            }
+        }
+
 
         /*
          *  Auxiliar functions
