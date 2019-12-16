@@ -164,7 +164,7 @@ out reg val {
 #
 
 ld r1 r2 {
-            co=111111,
+            co=010000,
             nwords=1,
             r1=reg(25,21),
             r2=reg(20,16),
@@ -182,7 +182,7 @@ ld r1 r2 {
 }
 
 ldi r1 u16 {
-            co=111111,
+            co=010010,
             nwords=1,
             r1=reg(25,21),
             u16=inm(15,0),
@@ -199,7 +199,7 @@ ldi r1 u16 {
 }
 
 ld r1 (r2) {
-            co=111111,
+            co=010011,
             nwords=1,
             r1=reg(25,21),
             r2=reg(20,16),
@@ -218,7 +218,7 @@ ld r1 (r2) {
 }
 
 add_a reg1 {
-            co=111111,
+            co=011000,
             nwords=1,
             reg1=reg(25,21),
             native,
@@ -239,7 +239,7 @@ add_a reg1 {
 }
 
 addi_a s16 {
-            co=111111,
+            co=011010,
             nwords=1,
             s16=inm(15,0),
             native,
@@ -262,7 +262,7 @@ addi_a s16 {
 }
 
 inc reg1 {
-            co=111111,
+            co=011100,
             nwords=1,
             reg1=reg(25,21),
             native,
@@ -283,7 +283,7 @@ inc reg1 {
 }
 
 dec reg1 {
-            co=111111,
+            co=011101,
             nwords=1,
             reg1=reg(25,21),
             native,
@@ -304,7 +304,7 @@ dec reg1 {
 }
 
 jp s16 {
-            co=111111,
+            co=110000,
             nwords=1,
             s16=address(15,0)rel,
             native,
@@ -322,7 +322,7 @@ jp s16 {
 }
 
 jpz s16 {
-            co=111111,
+            co=110011,
             nwords=1,
             s16=address(15,0)rel,
             native,
@@ -343,7 +343,7 @@ jpz s16 {
 }
 
 call u16 {
-            co=111111,
+            co=100001,
             nwords=1,
             u16=inm(15,0),
             native,
@@ -363,7 +363,7 @@ call u16 {
 }
 
 ret {
-            co=111111,
+            co=100010,
             nwords=1,
             native,
             {
@@ -378,7 +378,7 @@ ret {
 }
 
 halt {
-            co=111111,
+            co=100011,
             nwords=1,
             native,
             {
@@ -389,7 +389,7 @@ halt {
 }
 
 push r1 {
-            co=111111,
+            co=100100,
             nwords=1,
             r1=reg(25,21),
             native,
@@ -408,7 +408,7 @@ push r1 {
 }
 
 pop r1 {
-            co=111111,
+            co=100101,
             nwords=1,
             r1=reg(25,21),
             native,
