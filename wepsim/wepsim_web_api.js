@@ -259,7 +259,7 @@
     {
             wepsim_dialog_current_state() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
-	    $('#bot_check1').carousel(1);
+	    $('#bot_check1').carousel(0);
 	    wepsim_restore_uicfg() ;
 
             // add if recording
@@ -270,6 +270,29 @@
 	    $("#current_state1").one("hidden.bs.modal",
 		                     function () {
 					 simcore_record_append_new('Close state',
+						                   'wsweb_dialogbox_close_all();\n');
+				     });
+	    simcore_record_captureInit() ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_dialogbox_open_checkpoint ( )
+    {
+	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    $('#pot_check1').carousel(0);
+            $('#current_checkpoint1').modal('show');
+	    wepsim_restore_uicfg() ;
+
+            // add if recording
+            simcore_record_append_new('Open state',
+		                      'wsweb_dialogbox_open_checkpoint();\n') ;
+
+            // intercept events...
+	    $("#current_checkpoint1").one("hidden.bs.modal",
+		                     function () {
+					 simcore_record_append_new('Close checkpoint',
 						                   'wsweb_dialogbox_close_all();\n');
 				     });
 	    simcore_record_captureInit() ;
@@ -411,16 +434,29 @@
             return true ;
     }
 
+    function wsweb_dialogbox_close_checkpoint ( )
+    {
+	    $('#current_checkpoint1').modal('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close checkpoint dialogbox',
+		                      'wsweb_dialogbox_close_checkpoint();\n') ;
+
+            // return ok
+            return true ;
+    }
+
     function wsweb_dialogbox_close_all ( )
     {
 	    // Close all dialogbox
-	          $('#example1').modal('hide') ;
-	             $('#help1').modal('hide') ;
-	           $('#config2').modal('hide') ;
-	    $('#current_state1').modal('hide');
-	    $('#current_state2').modal('hide');
-	              $('#bin2').modal('hide');
-            $('#notifications2').modal('hide') ;
+	               $('#example1').modal('hide') ;
+	                  $('#help1').modal('hide') ;
+	                $('#config2').modal('hide') ;
+	         $('#current_state1').modal('hide');
+	         $('#current_state2').modal('hide');
+	    $('#current_checkpoint1').modal('hide');
+	                   $('#bin2').modal('hide');
+                 $('#notifications2').modal('hide') ;
 
             // add if recording
             simcore_record_append_new('Close all dialogboxes',
@@ -566,8 +602,8 @@
 		      break ;
 
 	        case 'checkpoint':
-		      wsweb_dialogbox_open_state();
-		      $('#bot_check1').carousel(0);
+		      wsweb_dialogbox_open_checkpoint();
+		      $('#pot_check1').carousel(0);
 		      wepsim_checkpoint_listCache('browserCacheList1');
 		      break ;
 

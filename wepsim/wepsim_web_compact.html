@@ -217,7 +217,7 @@
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
 		                    onclick="wsweb_dialogbox_open_state();
-					     $('#bot_check1').carousel(1);
+					     $('#bot_check1').carousel(0);
 				             return false;"><em class="fas fa-camera d-none d-sm-inline"></em>&nbsp;<strong><span data-langkey='States'>States</span></strong></button>
 
                       </div>
@@ -274,24 +274,21 @@
 
                               <h6 class="text-white bg-secondary mt-2 border border-secondary"><span data-langkey="Pick firm/soft">Pick firm/soft</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_examples" value="examples"
-				 onclick="wsweb_dialogbox_open_examples();
+				 onclick="wsweb_select_action('examples');
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
                               <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
-				 onclick="wsweb_dialogbox_open_state();
-                                          $('#bot_check1').carousel(0);
-				          wepsim_checkpoint_listCache('browserCacheList1');
+				 onclick="wsweb_select_action('checkpoint');
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
 
 			      <h6 class="text-white bg-secondary mt-2 border border-secondary"><span data-langkey="Information">Information</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_help" value="help"
-				 onclick="wsweb_dialogbox_open_help();
+				 onclick="wsweb_select_action('help');
 					  return false;"><span data-langkey="Help">Help</span></a>
                               <a class="dropdown-item" href="#" id="s4_notifications" value="notifications"
-				 onclick="wsweb_dialogbox_open_notifications();
+				 onclick="wsweb_select_action('notifications');
 					  return false;"><span data-langkey="Notifications">Notifications</span></a>
                               <a class="dropdown-item" href="#" id="s4_intro" value="intro"
-				 onclick="wsweb_select_main('intro');
-                                          setTimeout(wsweb_record_play, 1000);
+				 onclick="wsweb_select_action('intro');
 					  return false;">Welcome tutorial...</a>
 
 			    </div>
@@ -302,9 +299,7 @@
                                       id="s4_owncode" value="owncode"
 			              data-toggle="tooltip" data-placement="bottom" data-html="true"
 			              title="This button opens the 'Configuration' dialog."
-				      onclick="wsweb_dialogbox_open_state();
-                                               $('#bot_check1').carousel(0);
-				               wepsim_checkpoint_listCache('browserCacheList1');
+				      onclick="wsweb_select_action('checkpoint');
 				    	       return false;"
                                       ><em class="fas fa-stream d-none d-sm-inline"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Checkpoint'>Checkpoint</span><span class="d-md-none">ChkPoint</span></strong></button>
 
@@ -1021,22 +1016,19 @@
 </div> <!-- /.modal -->
 
 
-<div id="current_state1" class="modal">
+<div id="current_checkpoint1" class="modal">
 <div class="modal-dialog bootboxWidth">
    <div class="modal-content">
       <div class="modal-header">
          <div class="mx-auto">
                <div class="btn-group">
-                  <button onclick="$('#bot_check1').carousel(0);
-				   wepsim_checkpoint_listCache('browserCacheList1');
+                  <button onclick="wsweb_select_action('checkpoint');
 			           return false;"
                           type="button"
                           class="btn btn-secondary px-3 py-1"><span data-langkey='Checkpoint'>Checkpoint</span></button>
-                  <button onclick="$('#bot_check1').carousel(1);"
-                          type="button"
-                          class="btn btn-dark px-3 py-1"><span data-langkey='States'>States</span></button>
-                  <button onclick="$('#bot_check1').carousel(2);
-                                   update_checker_loadhelp('#help3a','help_dumper');"
+                  <button onclick="$('#pot_check1').carousel(1);
+                                   update_checker_loadhelp('#help3a','help_dumper');
+			           return false;"
                           type="button"
 			  class="btn btn-success px-3 py-1"><span data-langkey="Help">Help</span></button>
                   <button type="button"
@@ -1044,7 +1036,7 @@
                           data-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>
-		  <div id="current_state1_lang" class="dropdown-menu" style="z-index:100000;">
+		  <div id="current_checkpoint1_lang" class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
                                           i18n_update_tags('gui',    'es');
@@ -1066,10 +1058,10 @@
       </div>
       <div class="modal-body">
          <div class="bootbox-body">
-            <div id="bot_check1" class="carousel" data-ride="carousel" data-interval="false">
+            <div id="pot_check1" class="carousel" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
 
-                  <div class="carousel-item"
+                  <div class="carousel-item active"
                        style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 			<div class="row m-0">
@@ -1082,13 +1074,13 @@
 					  onclick="wepsim_notify_success('<strong>INFO</strong>', 'Processing save request...');
                                                    var checkpointObj = wepsim_checkpoint_get('tagToSave1');
 						   wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
-                                                   wsweb_dialogbox_close_state();
+                                                   wsweb_dialogbox_close_checkpoint();
 						   return false;"><span data-langkey="Save">Save</span></button>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 					  onclick="wepsim_notify_success('<strong>INFO</strong>', 'Processing share request...');
                                                    var checkpointObj = wepsim_checkpoint_get('tagToSave1');
 						   wepsim_checkpoint_share('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
-                                                   wsweb_dialogbox_close_state();
+                                                   wsweb_dialogbox_close_checkpoint();
 						   return false;"><span data-langkey="Share">Share</span></button>
 		                  </h5>
 			      </div>
@@ -1111,7 +1103,7 @@
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 					    onclick="var ret = wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
 	                                             if (ret) {
-                                                         wsweb_dialogbox_close_state();
+                                                         wsweb_dialogbox_close_checkpoint();
 						         wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
 	                                             }
 						     return false;"><span data-langkey="Load">Load</span></button>
@@ -1132,7 +1124,7 @@
 				    <span class="text-white bg-secondary" data-langkey="Browser cache">Browser cache</span>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 				  	    onclick="var ret = wepsim_checkpoint_loadFromCache('FileNameToSaveAs1', 'tagToSave1', 'browserCacheElto');
-                                                     wsweb_dialogbox_close_state();
+                                                     wsweb_dialogbox_close_checkpoint();
 	                                             if (ret.error)
 						          wepsim_notify_success('<strong>INFO</strong>', ret.msg);
 						     else wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
@@ -1159,6 +1151,67 @@
 
 		  </div>
 
+                  <div class="carousel-item">
+                       <div id="help3a"
+                            style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+           <button class="btn btn-danger btn-sm col-auto pull-right shadow-none"
+                   onclick="wsweb_dialogbox_close_checkpoint();
+		            return false;"
+		   type="button"><span data-langkey="Close">Close</span></button>
+      </div>
+   </div>
+</div>
+</div> <!-- /.modal -->
+
+
+<div id="current_state1" class="modal">
+<div class="modal-dialog bootboxWidth">
+   <div class="modal-content">
+      <div class="modal-header">
+         <div class="mx-auto">
+               <div class="btn-group">
+                  <button onclick="$('#pot_check1').carousel(0);"
+                          type="button"
+                          class="btn btn-dark px-3 py-1"><span data-langkey='States'>States</span></button>
+                  <button onclick="$('#pot_check1').carousel(1);
+                                   update_checker_loadhelp('#help3b','help_dumper');"
+                          type="button"
+			  class="btn btn-success px-3 py-1"><span data-langkey="Help">Help</span></button>
+                  <button type="button"
+                          class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>
+		  <div id="current_state1_lang" class="dropdown-menu" style="z-index:100000;">
+                     <a href="#" class="dropdown-item"
+				 onclick="set_cfg('ws_idiom','es'); save_cfg();
+                                          i18n_update_tags('gui',    'es');
+                                          i18n_update_tags('states', 'es');
+                                          update_checker_loadhelp('#help3b','help_dumper');
+                                          return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
+                     <a href="#" class="dropdown-item"
+				 onclick="set_cfg('ws_idiom','en'); save_cfg();
+                                          i18n_update_tags('gui',    'en');
+                                          i18n_update_tags('states', 'en');
+                                          update_checker_loadhelp('#help3b','help_dumper');
+                                          return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
+                  </div>
+               </div>
+         </div>
+         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
+         </button>
+      </div>
+      <div class="modal-body">
+         <div class="bootbox-body">
+            <div id="pot_check1" class="carousel" data-ride="carousel" data-interval="false">
+               <div class="carousel-inner" role="listbox">
 
                   <div class="carousel-item active">
 
@@ -1306,7 +1359,7 @@
 
                   </div>
                   <div class="carousel-item">
-                       <div id="help3a"
+                       <div id="help3b"
                             style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
                   </div>
                </div>

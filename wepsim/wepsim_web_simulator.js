@@ -391,6 +391,9 @@
            $("#example1_lang").html(o) ;
 
            o = i18n_get_dropdown(['gui','states'], "update_checker_loadhelp('#help3a','help_dumper');") ;
+           $("#current_checkpoint1_lang").html(o) ;
+
+           o = i18n_get_dropdown(['gui','states'], "update_checker_loadhelp('#help3b','help_dumper');") ;
            $("#current_state1_lang").html(o) ;
     }
 
