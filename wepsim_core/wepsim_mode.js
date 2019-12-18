@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -23,7 +23,7 @@
      * Execution Modes
      */
 
-    var ws_modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80', 'tutorial' ] ;
+    var ws_modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
 
     var ws_default_example = { 
 	                       'asm_mips': 'ep:ep_mips:ep_s4_e1',

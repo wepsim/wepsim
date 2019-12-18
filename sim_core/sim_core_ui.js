@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -308,5 +308,18 @@
         function show_asmdbg_pc ( )
         {
             return simcore_action_ui("MEMORY", 0, "show_asmdbg_pc")() ;
+        }
+
+        // portable alert
+
+        function ws_alert ( msg )
+        {
+	    if (typeof document === "undefined") {
+	        console.log(msg) ;
+		return true ;
+	    }
+
+            alert(msg) ;
+	    return true ;
         }
 

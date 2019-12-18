@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -923,7 +923,7 @@
 				     operation: function(s_expr)
 		                                {
 				                   var result = get_value(poc_states[s_expr[2]]) & get_value(poc_states[s_expr[3]]) ;
-				                   set_value(poc_states[s_expr[1]], result) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -947,7 +947,7 @@
 				     operation: function(s_expr)
 		                                {
 				                   var result = get_value(poc_states[s_expr[2]]) | get_value(poc_states[s_expr[3]]) ;
-				                   set_value(poc_states[s_expr[1]], result) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -971,7 +971,7 @@
 				     operation: function(s_expr)
 		                                {
 				                   var result = ~(get_value(poc_states[s_expr[2]])) ;
-				                   set_value(poc_states[s_expr[1]], result) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -995,7 +995,7 @@
 				     operation: function(s_expr)
 		                                {
 				                   var result = get_value(poc_states[s_expr[2]]) ^ get_value(poc_states[s_expr[3]]) ;
-				                   set_value(poc_states[s_expr[1]], result) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1019,7 +1019,7 @@
 				     operation: function(s_expr)
 		                                {
 				                   var result = (get_value(poc_states[s_expr[2]])) >>> 1 ;
-				                   set_value(poc_states[s_expr[1]], result) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1043,7 +1043,7 @@
 				     operation: function(s_expr)
 		                                {
 				                   var result = (get_value(poc_states[s_expr[2]])) >> 1 ;
-				                   set_value(poc_states[s_expr[1]], result) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1067,7 +1067,7 @@
 				     operation: function(s_expr)
 		                                {
 				                   var result = (get_value(poc_states[s_expr[2]])) << 1 ;
-				                   set_value(poc_states[s_expr[1]], result) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1091,7 +1091,7 @@
 				     operation: function(s_expr)
 		                                {
 				                   var result = ((get_value(poc_states[s_expr[2]])) >>> 1) | (((get_value(poc_states[s_expr[2]])) & 1) << 31) ;
-				                   set_value(poc_states[s_expr[1]], result) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1115,7 +1115,7 @@
 				     operation: function(s_expr)
 		                                {
 				                   var result = ((get_value(poc_states[s_expr[2]])) << 1) | (((get_value(poc_states[s_expr[2]])) & 0X80000000) >>> 31) ;
-				                   set_value(poc_states[s_expr[1]], result) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
 						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1710,7 +1710,7 @@
 					      else if (typeof   poc_states[r[1]].default_value != "undefined")
 						        base =  poc_states[r[1]].default_value;
                                                    // end: REG_MICROINS/xxx by default is the default_value
-						   else alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
+						   else ws_alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
 
 						   var offset = parseInt(s_expr[4]) ;
 
@@ -1736,7 +1736,7 @@
 					      else if (typeof   ep_states[r[1]].default_value != "undefined")
 						        base =  ep_states[r[1]].default_value;
                                                    // end: REG_MICROINS/xxx by default is the default_value
-						   else alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
+						   else ws_alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
 
 						   var offset = parseInt(s_expr[4]) ;
 
@@ -2001,9 +2001,9 @@
 						                                get_value(poc_states['REG_IR'])) ;
 						    if (null == oi.oinstruction)
                                                     {
-                                                         alert('ERROR: undefined instruction code in firmware (' +
-							       'co:'  +  oi.op_code.toString(2) + ', ' +
-							       'cop:' + oi.cop_code.toString(2) + ')') ;
+                                                         ws_alert('ERROR: undefined instruction code in firmware (' +
+							          'co:'  +  oi.op_code.toString(2) + ', ' +
+							          'cop:' + oi.cop_code.toString(2) + ')') ;
 							 poc_states['ROM_MUXA'].value = 0 ;
 							 poc_states['INEX'].value = 1 ;
 							 return -1;
@@ -2018,8 +2018,8 @@
 						    // 2.- ! poc_internal_states['ROM'][rom_addr] -> error
 						    if (typeof poc_internal_states['ROM'][rom_addr] == "undefined")
 						    {
-							 alert('ERROR: undefined rom address ' + rom_addr +
-                                                               ' in firmware') ;
+							 ws_alert('ERROR: undefined rom address ' + rom_addr +
+                                                                  ' in firmware') ;
 							 poc_states['ROM_MUXA'].value = 0 ;
 							 return -1;
 						    }

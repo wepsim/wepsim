@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -167,12 +167,7 @@
     function wsweb_execution_run ( )
     {
             var mode = get_cfg('ws_mode') ;
-	    if ('tutorial' == mode) {
-		 wepsim_notify_success('<strong>INFO</strong>',
-				       'Tutorial mode on. Use the configuration to change it.') ;
-	    }
-
-	    wepsim_execute_toggle_play('#btn_run_stop', (mode == 'tutorial')) ;
+	    wepsim_execute_toggle_play('#btn_run_stop') ;
 
             // add if recording
             simcore_record_append_new('Run',
@@ -264,6 +259,7 @@
     {
             wepsim_dialog_current_state() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    $('#bot_check1').carousel(1);
 	    wepsim_restore_uicfg() ;
 
             // add if recording
@@ -544,9 +540,6 @@
 
 	    // tutorial mode -> set green background...
 	    $('#select4').css('background-color', '#F6F6F6') ;
-	    if ('tutorial' == opt) {
-	        $('#select4').css('background-color', '#D4DB17') ;
-	    }
 
 	    // set button label...
 	    var ed = $('#s4_' + opt).html() ;

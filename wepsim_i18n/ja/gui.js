@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -96,9 +96,9 @@
                 'Pick firm/soft from':  'からファームウェア/ソフトウェアを選択',
                 'Information from':     'からの情報',
                 'Native':   		'ネイティブ',
-                'MIPS32-like code':   	'MIPS32のようなコード',
-                'RISCV32 code':  	'RISCV32コード',
-                'Z80-like code':   	'Z80のようなコード',
+                'MIPS32-like':   	'MIPS32のようなコード',
+                'RISCV32':  		'RISCV32コード',
+                'Z80-like':   		'Z80のようなコード',
 
 		'_last_':		'_last_'
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -144,7 +144,7 @@
 
     function wepsim_show_breakpoint_icon_list ( )
     {
-	var o = "<div class='container'>" +
+	var o = "<div class='container' style='max-height:65vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
 	        "<div class='row'>" ;
 
 	var prev_type = "" ;
@@ -170,13 +170,26 @@
                         "               $('#breakpointicon1').popover('hide');" +
                         "               wepsim_restore_uicfg();\">" ;
 	}
+
         o = o + '</div>' +
-	        '<div class="row mt-2 p-1 border-top border-secondary">' +
-                '<button type="button" id="close" data-role="none" ' +
-                '        class="btn btn-sm btn-danger w-100 p-0" ' +
-                '        onclick="$(\'#breakpointicon1\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
-	        '</div>' +
 	        '</div>';
+
+	return o ;
+    }
+
+    function wepsim_show_breakpoint_icon_template ( )
+    {
+	var o = '<div class="popover" role="tooltip">' + 
+		'<div class="arrow"></div><h3 class="popover-header"></h3>' + 
+		'<div class="popover-body"></div>' + 
+		'<div class="popover-footer">' + 
+	        '  <div class="m-0 p-2" style="background-color: #f7f7f7">' +
+                '  <button type="button" id="close" data-role="none" ' +
+                '          class="btn btn-sm btn-danger w-100 p-0" ' +
+                '          onclick="$(\'#breakpointicon1\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
+		'  </div>' + 
+		'</div>' + 
+		'</div>' ;
 
 	return o ;
     }

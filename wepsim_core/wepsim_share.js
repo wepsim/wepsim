@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -25,10 +25,10 @@
 
     function share_infomation ( info_shared, share_title, share_text, share_url )
     {
-	 if (typeof navigator.canShare === 'undefined')
+	 if (typeof navigator.share === 'undefined')
 	 {
-	     alert('Sorry, unable to share::\n' + 
-		   'navigator.canShare object is not available.') ;
+	     alert('Sorry, unable to share:\n' + 
+		   'navigator.share is not available.') ;
 	     return false ;
 	 }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -122,7 +122,7 @@
                        title: "<span data-langkey='Interruptions'>Interruptions</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "archived",
-                       modes:  "newbie,intro,tutorial,ep",
+                       modes:  "newbie,intro,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e1",
                        assembly:  "ep_s3_e1",
@@ -134,7 +134,7 @@
                        title: "<span data-langkey='System call'>System call</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "archived",
-                       modes:  "newbie,intro,tutorial,ep",
+                       modes:  "newbie,intro,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e2",
                        assembly:  "ep_s3_e2",
@@ -146,7 +146,7 @@
                        title: "<span data-langkey='Exception'>Exception</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "archived",
-                       modes:  "newbie,intro,tutorial,ep",
+                       modes:  "newbie,intro,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e3",
                        assembly:  "ep_s3_e3",
@@ -203,7 +203,7 @@
 
     ws_examples.push({
                        id: 'S7E1',
-                       title: "<span data-langkey='MIPS32-like code'>MIPS32-like code</span>",
+                       title: "<span data-langkey='MIPS32-like'>MIPS32-like</span>",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -215,7 +215,7 @@
 
     ws_examples.push({
                        id: 'S7E2',
-                       title: "<span data-langkey='RISCV32 code'>RISCV32 code</span>",
+                       title: "<span data-langkey='RISCV32'>RISCV32</span>",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -225,10 +225,9 @@
                        description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
                      });
 
-/*
     ws_examples.push({
                        id: 'S7E3',
-                       title: "<span data-langkey='Z80-like code'>Z80-like code</span>",
+                       title: "<span data-langkey='Z80-like'>Z80-like</span>",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -237,7 +236,6 @@
                        assembly:  "ep_s7_e3",
                        description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
                      });
-*/
 
 
     // EP+MIPS

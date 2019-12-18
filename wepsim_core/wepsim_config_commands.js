@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -122,6 +122,7 @@
                       description: "<span data-langkey='Running speed: execution speed'>Running speed: execution speed</span>"
                    });
 
+/*
     ws_config.push({
                       id:          "radio1",
                       type:        "Execution",
@@ -147,6 +148,7 @@
 		                   },
                       description: "<span data-langkey='Step-by-step: element in run mode'>Step-by-step: element in run mode</span>"
                    });
+*/
 
     ws_config.push({
                       id:          "select1",
@@ -162,7 +164,8 @@
 			               $('#img_select1').attr("src",   "images/stop/stop_" + elto + ".gif");
 			               $('#img_select1').attr("class", breakpoint_icon_list[elto].addclass); 
 			               $('#breakpointicon1').popover({ html: true,
-					                               content: wepsim_show_breakpoint_icon_list,
+					                               content:  wepsim_show_breakpoint_icon_list,
+								       template: wepsim_show_breakpoint_icon_template(),
 					                               sanitizeFn: function(content){return content;}
 								     }).on('shown.bs.popover',
 								            function(shownEvent) {
@@ -459,7 +462,6 @@
                       description: "<span data-langkey='Interactive mode: signal value can be updated'>Interactive mode: signal value can be updated</span>"
                    });
 
-/*
     ws_config.push({
                       id:          "radio6",
                       type:        "Circuitry simulation",
@@ -555,9 +557,7 @@
                                    },
                       description: "<span data-langkey='WepSIM User Interface skin'>WepSIM User Interface skin</span>"
                    });
-*/
 
-/*
     ws_config.push({
                       id:          "radio14",
                       type:        "Accesibility",
@@ -588,5 +588,4 @@
 		                   },
                       description: "<span data-langkey='Beginner view'>Beginner view</span>"
                    });
-*/
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -44,7 +44,10 @@
 		'Save to File':		'保存到文件',
 		'State(s) to checkpoint':		'国家到检查站',
 		'Record to checkpoint':		'记录到检查点',
-		'_last_':		'_last_'
+		'Browser cache':				'瀏覽器緩存',
+		'Session to be restore':			'會話要還原',
+
+		'_last_':					'_last_'
 
     };
 

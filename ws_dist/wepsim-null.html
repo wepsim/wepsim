@@ -72,7 +72,7 @@
 		<tr>
 		<td align="center">
 		    <div class="spinner-border spinner-border-xl text-success" role="status">
-	              <span class="sr-only">Loading...</span>
+	              <span id="loading_msg1" class="sr-only">Loading...</span>
 		    </div>
 		    <br/><br/>
 		    <span class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
@@ -1729,20 +1729,29 @@
     {
 	    // basic initialization of wepsim...
 	    simcore_init(true) ;
+	    simcore_welcome() ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin_ui') ;
-
-	    if (optValue == 'null') 
+	    if ( (optValue != 'classic') && (optValue != 'compact') )
 	    {
-	        set_cfg('ws_skin_ui', 'classic') ;
-	        save_cfg() ;
-
-                throw 'Your browser in the last update probably has changed the cookies/cache so you will need to clean the browser cookies/cache.' ;
+		reset_cfg() ;
+	        setTimeout(function(){ 
+	           window.location='wepsim-classic.html' + window.location.search ;
+	        }, 250);
+	    }
+	    if (optValue != 'classic') {
+	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
 	    }
 
-	    else if (optValue != 'classic') {
-	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
+	    // update old cfg...
+	    var optValue = get_cfg('version') ;
+	    if (optValue !== '2.0.12')
+	    {
+		reset_cfg() ;
+		var msg = 'WepSIM has been updated (' + optValue + ' -> 2.0.12)' ;
+		console.log(msg) ;
+		$("#loading_msg1").html(msg) ;
 	    }
 
 	    // initialization of wepsim...

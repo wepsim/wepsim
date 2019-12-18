@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -95,9 +95,9 @@
                 'Pick firm/soft from':  'फर्मवेयर / सॉफ्टवेयर से चुनें',
                 'Information from':     'से जानकारी',
                 'Native':   		'देशी',
-                'MIPS32-like code':     'MIPS32- जैसा कोड',
-                'RISCV32 code':  	'RISCV32 कोड',
-                'Z80-like code':     	'Z80- जैसा कोड',
+                'MIPS32-like':     	'MIPS32- जैसा कोड',
+                'RISCV32':  		'RISCV32 कोड',
+                'Z80-like':     	'Z80- जैसा कोड',
 
 		'_last_':		'_last_'
 

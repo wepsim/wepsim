@@ -38,7 +38,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.11" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.12" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -72,7 +72,7 @@
 		<tr>
 		<td align="center">
 		    <div class="spinner-border spinner-border-xl text-success" role="status">
-	              <span class="sr-only">Loading...</span>
+	              <span id="loading_msg1" class="sr-only">Loading...</span>
 		    </div>
 		    <br/><br/>
 		    <span class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
@@ -169,7 +169,7 @@
 	    <h6 class="pt-3">Simulator</h6>
             <div class="row py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
 
-		      <a id='popover-slidercfg' tabindex='0' 
+		      <a id='popover-slidercfg' tabindex='0'
 		         class='show multi-collapse-3 btn my-1 col-auto ml-auto'
 		         data-toggle='popover-slidercfg'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>
 
@@ -234,15 +234,11 @@
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_select_main('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
+                              <a class="dropdown-item user_archived" href="#" id="s4_poc" value="poc"
+				 onclick="wsweb_select_main('poc');
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-			      <h6 class="text-white bg-secondary my-1 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Tutorial mode">Tutorial mode</span>:</h6>
-                              <a class="dropdown-item user_archived" href="#" id="s4_tutorial" value="tutorial"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="Enable tutorials in 'instructive' microcode examples."
-				 onclick="wsweb_select_main('tutorial');
-					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+<span style="background-color:#D4DB17">Instructive</span></a>
-
-                              <h6 class="text-white bg-secondary mt-3 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
+                              <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_examples" value="examples"
 				 onclick="wsweb_dialogbox_open_examples();
 					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
@@ -263,6 +259,19 @@
 				 onclick="wsweb_select_main('intro');
                                           setTimeout(wsweb_record_play, 1000);
 					  return false;">Welcome tutorial...</a>
+
+			      <h6 class="text-white bg-secondary mt-2 mb-0 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
+                              <a class="dropdown-item user_archived" href="#" id="s4_asm_mips" value="asm_mips"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
+                                 onclick="wsweb_select_main('asm_mips');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>
+                              <a class="dropdown-item user_archived pb-0 mb-0" href="#" id="s4_asm_rv32" value="asm_rv32"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
+			         title="RISC-V<sub>32</sub> assembly only."
+                                 onclick="wsweb_select_main('asm_rv32');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>
+
 			    </div>
 			</div>
                       </div>
@@ -861,9 +870,9 @@
 	   </div>
 
 	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+		 <button type="button" class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
+		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
@@ -953,9 +962,9 @@
 	   </div>
 
 	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+		 <button type="button" class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
+		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
@@ -1000,9 +1009,9 @@
 	   </div>
 
 	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+		 <button type="button" class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
+		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
@@ -1098,9 +1107,11 @@
 		                  <h5 class="m-0">
 				    <span class="text-white bg-secondary" data-langkey="Input">Input</span>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
-					    onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
-                                                     wsweb_dialogbox_close_state();
-						     wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
+					    onclick="var ret = wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
+	                                             if (ret) {
+                                                         wsweb_dialogbox_close_state();
+						         wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
+	                                             }
 						     return false;"><span data-langkey="Load">Load</span></button>
 		                  </h5>
 			      </div>
@@ -1357,10 +1368,10 @@
            <button type="button"
                    onclick="$('#current_state2').modal('hide');
 		            wepsim_dialog_current_state();"
-                   class="btn btn-secondary col-xs-3 pull-left shadow-none mr-auto"><span data-langkey='States'>States</span></button>
+                   class="btn btn-secondary col pull-left shadow-none mr-auto"><span data-langkey='States'>States</span></button>
            <button type="button"
                    onclick="$('#current_state2').modal('hide');"
-                   class="btn btn-primary col-xs-3 pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+                   class="btn btn-primary   col pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
    </div>
 </div>
@@ -1477,11 +1488,11 @@
 	   </div>
            <div class="modal-footer">
 		 <button type="button"
-	                 class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+	                 class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".cf-all">&plusmn; <span data-langkey="Description">Description</span></button>
 		 <button type="button" data-dismiss="modal"
 			 onclick="wsweb_about_close(); return false;"
-                         class="btn btn-primary       btn-sm col-xs-4 col-sm-3 float-right shadow-none">OK</button>
+                         class="btn btn-primary       btn-sm col col-sm-3 float-right shadow-none">OK</button>
 	   </div>
 	</div>
      </div>
@@ -1503,7 +1514,7 @@
 
 	   <div class="modal-footer">
                  <div id="notifyuser1_footer" class="float-left mr-auto"></div>
-		 <button type="button" class="btn btn-danger btn-sm col-xs-3 col-sm-2 float-right"
+		 <button type="button" class="btn btn-danger btn-sm col-3 col-sm-2 float-right"
 			 onclick="wsweb_record_play(); return false;"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
@@ -1521,7 +1532,11 @@
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-dark float-left mr-auto"
-			     onclick="wsweb_dialogbox_reset_notifications();
+			     onclick="var wsi = get_cfg('ws_idiom') ;
+				      var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
+				      if (confirm(q)) {
+			                  wsweb_dialogbox_reset_notifications();
+				      }
 			              return false;"><span data-langkey="Reset">Reset</span></button>
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
                              <span data-langkey='Notifications'>Notifications</span>
@@ -1536,9 +1551,9 @@
 	   </div>
 
 	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+		 <button type="button" class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
+		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
@@ -1563,12 +1578,30 @@
     {
 	    // basic initialization of wepsim...
 	    simcore_init(true) ;
+	    simcore_welcome() ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin_ui') ;
+	    if ( (optValue != 'classic') && (optValue != 'compact') )
+	    {
+		reset_cfg() ;
+	        setTimeout(function(){ 
+	           window.location='wepsim-classic.html' + window.location.search ;
+	        }, 250);
+	    }
 	    if (optValue != 'compact') {
 	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
             }
+
+	    // update old cfg...
+	    var optValue = get_cfg('version') ;
+	    if (optValue !== '2.0.12')
+	    {
+		reset_cfg() ;
+		var msg = 'WepSIM has been updated (' + optValue + ' -> 2.0.12)' ;
+		console.log(msg) ;
+		$("#loading_msg1").html(msg) ;
+	    }
 
 	    // initialization of wepsim...
             wepsim_load_hw() ;

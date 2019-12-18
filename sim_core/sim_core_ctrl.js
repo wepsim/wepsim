@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -198,8 +198,8 @@
                 default:
                      index_behavior = simhw_sim_signal(key).value ;
                      if (simhw_sim_signal(key).behavior.length < index_behavior) {
-                         alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
-                               'key: ' + key + ' and signal value: ' + index_behavior);
+                         ws_alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
+                                  'key: ' + key + ' and signal value: ' + index_behavior);
                          return;
                      }
                      break;
@@ -222,8 +222,8 @@
 
             if (-1 == assoc_i)
             {
-	        alert("A new 'unknown' instruction is inserted,\n" +
-                      "please edit it (co, nwords, etc.) in the firmware textarea.") ;
+	        ws_alert("A new 'unknown' instruction is inserted,\n" +
+                         "please edit it (co, nwords, etc.) in the firmware textarea.") ;
 
                 var new_ins = new Object() ;
                 new_ins["name"]            = "unknown" ;

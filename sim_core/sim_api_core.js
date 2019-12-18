@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -70,6 +70,25 @@
                 ret.ok  = false ;
 	        return ret ;
 	    }
+
+            return ret ;
+        }
+
+        /**
+         * Show welcome message.
+         */
+        function simcore_welcome ( )
+        {
+	    var ret = {} ;
+	        ret.msg = "" ;
+	        ret.ok  = true ;
+
+            // http://patorjk.com/software/taag/#p=display&h=0&v=0&f=Bulbhead&t=WepSIM
+            console.log('   _    _  ____  ____  ___  ____  __  __  ') ;
+            console.log('  ( \\/\\/ )( ___)(  _ \\/ __)(_  _)(  \\/  ) ') ;
+            console.log('   )    (  )__)  )___/\\__ \\ _)(_  )    (  ') ;
+            console.log('  (__/\\__)(____)(__)  (___/(____)(_/\\/\\_) ') ;
+            console.log('                                          ') ;
 
             return ret ;
         }
@@ -256,16 +275,11 @@
         /**
          * Check if simulation can continue its execution
          */
-        function simcore_check_if_can_continue ( )
+        function simcore_check_if_can_continue2 ( reg_maddr, reg_pc )
         {
                 var ret = {} ;
                     ret.ok  = true ;
                     ret.msg = "" ;
-
-                var pc_name     = simhw_sim_ctrlStates_get().pc.state ;
-                var reg_pc      = parseInt(get_value(simhw_sim_state(pc_name)));
-                var maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
-                var reg_maddr   = get_value(simhw_sim_state(maddr_name)) ;
 
                 // if (MC[reg_maddr] == undefined) -> cannot continue
                 if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined")
@@ -296,6 +310,16 @@
                 ret.ok  = false ;
                 ret.msg = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
                 return ret ;
+        }
+
+        function simcore_check_if_can_continue ( )
+        {
+                var pc_name     = simhw_sim_ctrlStates_get().pc.state ;
+                var reg_pc      = parseInt(get_value(simhw_sim_state(pc_name)));
+                var maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
+                var reg_maddr   = get_value(simhw_sim_state(maddr_name)) ;
+
+                return simcore_check_if_can_continue2(reg_maddr, reg_pc) ;
         }
 
 
@@ -392,6 +416,24 @@
             return ret ;
         }
 
+        function simcore_execute_microinstruction2 ( reg_maddr, reg_pc )
+        {
+	    var ret = simcore_check_if_can_continue2(reg_maddr, reg_pc) ;
+	    if (false === ret.ok) {
+		return ret ;
+	    }
+
+            // CPU - Hardware
+            compute_general_behavior("CLOCK") ;
+
+            // CPU - User Interface
+	    show_states();
+	    show_rf_values();
+            show_dbg_mpc();
+
+            return ret ;
+        }
+
         /**
          * Execute the next instruction.
          */
@@ -452,12 +494,12 @@
             	}
 		while ( (i_clks < options.cycles_limit) && (0 != cur_addr) );
 
-                // no_error && native -> perform a second clock-tick...
-                if (
-                      (true == ret.ok) &&
-                      (typeof curr_MC[cur_addr].NATIVE !== "undefined")
-                   )
-                {
+		// no_error && native -> perform a second clock-tick...
+		if ( 
+		     (true == ret.ok) &&
+		     (typeof curr_MC[cur_addr].NATIVE !== "undefined") 
+		   )
+		{
                     compute_general_behavior("CLOCK") ; // ...instruction
                 }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -96,9 +96,9 @@
                 'Pick firm/soft from':  '從中挑選固件/軟件',
                 'Information from':     '來自的信息',
                 'Native':   		'本機',
-                'MIPS32-like code':   	'類似於MIPS32的代碼',
-                'RISCV32 code':  	'RISCV32代碼',
-                'Z80-like code':   	'類似於Z80的代碼',
+                'MIPS32-like':   	'類似於MIPS32的代碼',
+                'RISCV32':  		'RISCV32代碼',
+                'Z80-like':   		'類似於Z80的代碼',
 
 		'_last_':		'_last_'
 

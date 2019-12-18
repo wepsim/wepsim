@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -21,30 +21,33 @@
 
     i18n.eltos.states.it = {
 
-		'States':		'stati',
-		'Current':		'attuale',
-		'Current State':		'Stato attuale',
-		'History':		'Storia',
-		'None':		'Nessuna',
-		'Empty history':		'Storia vuota',
+		'States':				'stati',
+		'Current':				'attuale',
+		'Current State':			'Stato attuale',
+		'History':				'Storia',
+		'None':					'Nessuna',
+		'Empty history':			'Storia vuota',
 		'Empty (only modified values are shown)':		'Vuoto (vengono mostrati solo i valori modificati)',
-		'Differences':		'differenze',
-		'differences with clipboard state':		'differenze con lo stato degli appunti',
-		'Meets the specified requirements':		'Soddisfa i requisiti specificati',
-		'history':		'storia',
-		'Add':		'Inserisci',
+		'Differences':				'differenze',
+		'differences with clipboard state':	'differenze con lo stato degli appunti',
+		'Meets the specified requirements':	'Soddisfa i requisiti specificati',
+		'history':				'storia',
+		'Add':					'Inserisci',
 		'\'Current State\' to History':		'\'Current State\' to History',
-		'Check':		'Dai un\'occhiata',
-		'Copy':		'copia',
-		'to clipboard':		'negli appunti',
-		'Checkpoint':		'posto di controllo',
-		'File name':		'File name',
-		'Tag for checkpoint':		'Tag per checkpoint',
-		'File to be loaded':		'File da caricare',
-		'Save to File':		'Salva su file',
+		'Check':				'Dai un\'occhiata',
+		'Copy':					'copia',
+		'to clipboard':				'negli appunti',
+		'Checkpoint':				'posto di controllo',
+		'File name':				'File name',
+		'Tag for checkpoint':			'Tag per checkpoint',
+		'File to be loaded':			'File da caricare',
+		'Save to File':				'Salva su file',
 		'State(s) to checkpoint':		'Stato / i al punto di controllo',
-		'Record to checkpoint':		'Registra al punto di controllo',
-		'_last_':		'_last_'
+		'Record to checkpoint':			'Registra al punto di controllo',
+		'Browser cache':			'Browser cache',
+		'Session to be restore':		'Sessione da ripristinare',
+
+		'_last_':				'_last_'
 
     };
 

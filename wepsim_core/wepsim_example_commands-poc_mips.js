@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -122,7 +122,7 @@
                        title: "<span data-langkey='Interruptions'>Interruptions</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "archived",
-                       modes:  "newbie,intro,tutorial,poc",
+                       modes:  "newbie,intro,poc",
                        hardware:  "poc",
                        microcode: "poc_s3",
                        assembly:  "ep_s3_e1",
@@ -134,7 +134,7 @@
                        title: "<span data-langkey='System call'>System call</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "archived",
-                       modes:  "newbie,intro,tutorial,poc",
+                       modes:  "newbie,intro,poc",
                        hardware:  "poc",
                        microcode: "poc_s3",
                        assembly:  "ep_s3_e2",
@@ -146,7 +146,7 @@
                        title: "<span data-langkey='Exception'>Exception</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "archived",
-                       modes:  "newbie,intro,tutorial,poc",
+                       modes:  "newbie,intro,poc",
                        hardware:  "poc",
                        microcode: "poc_s3",
                        assembly:  "ep_s3_e3",

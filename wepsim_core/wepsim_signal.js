@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -128,7 +128,7 @@
 		       buttons: {
 				    description: {
 					label:     '&plusmn; <span data-langkey="Description">Description</span>',
-					className: 'btn-outline-dark btn-sm col-xs-3 col-sm-3 col-lg-2 mr-auto',
+					className: 'btn-outline-dark btn-sm col-3 col-sm-3 col-lg-2 mr-auto',
 					callback:  function() 
 						   {
 						      $('.bh-all').collapse('toggle') ;
@@ -137,7 +137,7 @@
 				    },
 				    success: {
 					label:     '<span data-langkey="Save">Save</span>',
-					className: 'btn-primary btn-sm col-xs-3 col-sm-2 float-right',
+					className: 'btn-primary btn-sm col-3 col-sm-2 float-right',
 					callback:  function ()
 						   {
 						      key        = $('#ask_skey').val();
@@ -152,7 +152,7 @@
 				    },
 				    close: {
 					label:     '<span data-langkey="Close">Close</span>',
-					className: 'btn-danger btn-sm col-xs-3 col-sm-2 float-right',
+					className: 'btn-danger btn-sm col-3 col-sm-2 float-right',
 					callback:  function() { 
 						      wsweb_dialogbox_close_updatesignal() ;
 					           }

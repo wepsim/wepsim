@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -21,30 +21,33 @@
 
     i18n.eltos.states.ru = {
 
-		'States':		'состояния',
-		'Current':		'Текущий',
-		'Current State':		'Текущее состояние',
-		'History':		'история',
-		'None':		'Никто',
-		'Empty history':		'Пустая история',
+		'States':				'состояния',
+		'Current':				'Текущий',
+		'Current State':			'Текущее состояние',
+		'History':				'история',
+		'None':					'Никто',
+		'Empty history':			'Пустая история',
 		'Empty (only modified values are shown)':		'Пусто (отображаются только измененные значения)',
-		'Differences':		'Различия',
-		'differences with clipboard state':		'различия с состоянием буфера обмена',
-		'Meets the specified requirements':		'Соответствует указанным требованиям',
-		'history':		'история',
-		'Add':		'добавлять',
+		'Differences':				'Различия',
+		'differences with clipboard state':	'различия с состоянием буфера обмена',
+		'Meets the specified requirements':	'Соответствует указанным требованиям',
+		'history':				'история',
+		'Add':					'добавлять',
 		'\'Current State\' to History':		'«Текущее состояние» истории',
-		'Check':		'Проверьте',
-		'Copy':		'копия',
-		'to clipboard':		'в буфер обмена',
-		'Checkpoint':		'Контрольно-пропускной пункт',
-		'File name':		'Имя файла',
-		'Tag for checkpoint':		'Тег для контрольной точки',
-		'File to be loaded':		'Файл для загрузки',
-		'Save to File':		'Сохранить в файл',
+		'Check':				'Проверьте',
+		'Copy':					'копия',
+		'to clipboard':				'в буфер обмена',
+		'Checkpoint':				'Контрольно-пропускной пункт',
+		'File name':				'Имя файла',
+		'Tag for checkpoint':			'Тег для контрольной точки',
+		'File to be loaded':			'Файл для загрузки',
+		'Save to File':				'Сохранить в файл',
 		'State(s) to checkpoint':		'Состояние (я) до контрольной точки',
-		'Record to checkpoint':		'Запись на контрольно-пропускной пункт',
-		'_last_':		'_last_'
+		'Record to checkpoint':			'Запись на контрольно-пропускной пункт',
+		'Browser cache':			'Кеш браузера',
+		'Session to be restore':		'Сессия подлежит восстановлению',
+
+		'_last_':				'_last_'
 
     };
 

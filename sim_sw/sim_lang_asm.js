@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2020 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
  *
@@ -101,8 +101,9 @@ function isDecimal ( n )
 
 	if ( !isNaN(parseFloat(n)) && isFinite(n) ) {
 		var res = parseInt(n);
-		if (typeof n === "string" && n.includes("."))
-			alert("Truncating conversion has occurred: " + n + " became " + res);
+		if (typeof n === "string" && n.includes(".")) {
+		    ws_alert("Truncating conversion has occurred: " + n + " became " + res);
+		}
 		return res;
 	}
 

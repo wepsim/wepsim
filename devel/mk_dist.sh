@@ -3,7 +3,7 @@ set -x
 
 
 #*
-#*  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -187,7 +187,7 @@ cat external/popper.min.js \
     external/dropify/dropify.min.js \
     external/masonry.pkgd.min.js \
     external/fontawesome/brands.min.js \
-    external/fontawesome/solid.min.js > ws_dist/min.external.js
+    external/fontawesome/solid.min.js | grep -v sourceMappingURL > ws_dist/min.external.js
 
 echo "ws_dist/min.external.css"
 cat external/bootstrap.min.css \
@@ -205,7 +205,7 @@ cat external/bootstrap.min.css \
     external/speech-input.css \
     external/dropify/dropify.min.css \
     external/fontawesome/all.css \
-    external/css-tricks.css > ws_dist/min.external.css
+    external/css-tricks.css | grep -v sourceMappingURL > ws_dist/min.external.css
 
 echo "ws_dist/external/..."
 mkdir -p ws_dist/external/fontawesome/
@@ -231,6 +231,7 @@ echo "ws_dist/*.html"
 cp   wepsim/wepsim_web_classic.html   ws_dist/index.html
 cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-classic.html
 cp   wepsim/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-null.html
 cp   wepsim/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 echo "ws_dist/*.sh"

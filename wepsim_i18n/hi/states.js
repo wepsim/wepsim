@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -44,7 +44,10 @@
 		'Save to File':		'फाइल में बचाएं',
 		'State(s) to checkpoint':		'चौकी के लिए राज्य (एस)',
 		'Record to checkpoint':		'चौकी पर रिकॉर्ड',
-		'_last_':		'_last_'
+		'Browser cache':		'ब्राउज़र कैश',
+		'Session to be restore':	'सत्र बहाल होने के लिए',
+
+		'_last_':			'_last_'
 
     };
 
