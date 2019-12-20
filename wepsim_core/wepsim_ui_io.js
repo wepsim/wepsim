@@ -80,8 +80,9 @@
 	    var i = 0 ;
 
             var curr_iointfactory = simhw_internalState('io_int_factory') ;
-	    if (typeof curr_iointfactory == "undefined")
+	    if (typeof curr_iointfactory == "undefined") {
                 return ;
+            }
 
             // without ui
             if (jqdiv == "")

@@ -234,6 +234,16 @@
 						           return true ;
 						        }
 	                      },
+
+	    "IO_L3D":         {
+						  init: function() {
+						 	   $('#config_L3D').html(msg_default) ;
+						        },
+						 reset: function() {
+						           return true ;
+						        }
+	                      },
+
 	    "SCREEN":         {
 		                                  init: function() {
 						           return true ;
@@ -521,6 +531,7 @@
 		"    </div>" +
 		'</li>' ;
 
+/*
 	   o += '<li class="list-group-item px-0"> ' +
 		'<label><span data-langkey="assembly only">assembly only</span>:</label>' +
                 "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -540,6 +551,7 @@
 		"        </label>" +
 		"    </div>" +
 		'</li>' ;
+*/
 
 	   o += '<li class="list-group-item px-0"> ' +
 		'<label><span data-langkey="beginner view">beginner view</span>:</label>' +

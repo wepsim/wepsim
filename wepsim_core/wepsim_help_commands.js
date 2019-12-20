@@ -45,6 +45,19 @@
 
     ws_help.push({
                      id:          "simulator",
+                     title:       "<span data-langkey='Execute example'>Execute example</span>",
+                     i_type:      "code",
+                     u_type:      "tutorial",
+                     u_class:     "",
+                     reference:   "wepsim_close_help(); " + 
+				  "wsweb_recordbar_show(); " +
+			          "wepsim_checkpoint_loadExample('tutorial_2.txt') ; " +
+			          "setTimeout(wsweb_record_play, 1000);",
+                     description: "<span data-langkey='help_01_03'>Play the execute example tutorial</span>.<br>"
+                  });
+
+    ws_help.push({
+                     id:          "simulator",
                      title:       "<span data-langkey='Simulator: firmware'>Simulator: firmware</span>",
                      i_type:      "relative",
                      u_type:      "simulator",

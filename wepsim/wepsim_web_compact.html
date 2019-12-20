@@ -167,13 +167,13 @@
 	  <div class="carousel-inner">
 	  <div class="carousel-item active p-1" id="ws_simulator">
 	    <h6 class="pt-3">Simulator</h6>
-            <div class="row py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
+            <div class="d-flex flex-wrap justify-content-center py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
 
 		      <a id='popover-slidercfg' tabindex='0'
-		         class='show multi-collapse-3 btn my-1 col-auto ml-auto'
+		         class='show multi-collapse-3 btn my-1 col-auto'
 		         data-toggle='popover-slidercfg'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>
 
-                      <div class="col-auto px-0 px-sm-1">
+                      <div class="col-auto px-0 px-sm-2">
                       <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
@@ -181,7 +181,7 @@
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Examples' dialog."
 				    onclick="wsweb_dialogbox_open_examples();
-				             return false;"><em class="fas fa-stream d-none d-sm-inline"></em>&nbsp;<strong><span data-langkey='Examples'>Examples</span></strong></button>
+				             return false;"><em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='Examples'>Examples</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 col-auto"
 		                    style="border-width:1 1 1 1px; border-color:#CCCCCC; background-color:#D4DB17; flex-grow:1;"
@@ -189,28 +189,28 @@
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Help' dialog."
 		                    onclick="wsweb_dialogbox_open_help();
-					     return false;"><em class="fas fa-info d-none d-sm-inline"></em>&nbsp;<strong><span data-langkey='Help'>Help</span></strong></button>
+					     return false;"><em class="fas fa-info d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='Help'>Help</span></strong></button>
 
                       </div>
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
-                      <div class="col-auto px-0 px-sm-1">
+                      <div class="col-auto px-0 px-sm-2">
                       <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Notifications' dialog."
                                     onclick="wsweb_dialogbox_open_notifications();
-					     return false;"><em class="fas fa-comment-alt d-none d-sm-inline"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Notifications'>Notifications</span><span class="d-md-none">Notif.</span></strong></button>
+					     return false;"><em class="fas fa-comment-alt d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Notifications'>Notifications</span><span class="d-md-none">Notif.</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button toggles the 'Record' bar."
                                     onclick="wsweb_recordbar_toggle();
-					     return false;"><em class="fas fa-circle d-none d-sm-inline"></em>&nbsp;<strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
+					     return false;"><em class="fas fa-circle d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
@@ -218,28 +218,20 @@
 			            title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
 		                    onclick="wsweb_dialogbox_open_state();
 					     $('#bot_check1').carousel(0);
-				             return false;"><em class="fas fa-camera d-none d-sm-inline"></em>&nbsp;<strong><span data-langkey='States'>States</span></strong></button>
+				             return false;"><em class="fas fa-camera d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='States'>States</span></strong></button>
 
                       </div>
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
-                      <div class="col-auto px-0 px-sm-1">
+                      <div class="col-auto px-0 px-sm-2">
                       <div class="btn-toolbar btn-block" role="toolbar">
-		              <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	              style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                      id="btn_cfg1"
-			              data-toggle="tooltip" data-placement="bottom" data-html="true"
-			              title="This button opens the 'Configuration' dialog."
-                                      onclick="wsweb_dialogbox_open_config();
-				    	       return false;"
-                                      ><em class="fas fa-cogs d-none d-sm-inline"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-md-none">Cfg.</span></strong></button>
 
 			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-				    title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."
+				    title="This button shows the current hardware used, <br>dropdown on the left let you access to common actions."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
                                     onclick="wsweb_set_details('HARDWARE');
@@ -272,28 +264,17 @@
                                  onclick="wsweb_select_main('asm_rv32');
                                           return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>
 
-                              <h6 class="text-white bg-secondary mt-2 border border-secondary"><span data-langkey="Pick firm/soft">Pick firm/soft</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_examples" value="examples"
-				 onclick="wsweb_select_action('examples');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
-                              <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
-				 onclick="wsweb_select_action('checkpoint');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
-
-			      <h6 class="text-white bg-secondary mt-2 border border-secondary"><span data-langkey="Information">Information</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_help" value="help"
-				 onclick="wsweb_select_action('help');
-					  return false;"><span data-langkey="Help">Help</span></a>
-                              <a class="dropdown-item" href="#" id="s4_notifications" value="notifications"
-				 onclick="wsweb_select_action('notifications');
-					  return false;"><span data-langkey="Notifications">Notifications</span></a>
-                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
-				 onclick="wsweb_select_action('intro');
-					  return false;">Welcome tutorial...</a>
-
 			    </div>
 			</div>
 
+		              <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	              style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                      id="btn_cfg1"
+			              data-toggle="tooltip" data-placement="bottom" data-html="true"
+			              title="This button opens the 'Configuration' dialog."
+                                      onclick="wsweb_dialogbox_open_config();
+				    	       return false;"
+                                      ><em class="fas fa-cogs d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-md-none">Cfg.</span></strong></button>
 		              <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	              style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                       id="s4_owncode" value="owncode"
@@ -301,7 +282,7 @@
 			              title="This button opens the 'Configuration' dialog."
 				      onclick="wsweb_select_action('checkpoint');
 				    	       return false;"
-                                      ><em class="fas fa-stream d-none d-sm-inline"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Checkpoint'>Checkpoint</span><span class="d-md-none">ChkPoint</span></strong></button>
+                                      ><em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Checkpoint'>Checkpoint</span><span class="d-md-none">ChkPoint</span></strong></button>
 
                       </div>
 		      </div>
@@ -337,7 +318,7 @@
             </div>
 
             <div class="row">
-                <div id="col1" class="" style="padding:12px 0px 0px 16px !important;">
+                <div id="col1" class="pt-2 pl-3 pr-1">
 
                       <!-- Nav tabs -->
 		      <ul class="nav nav-tabs nav-justified nav-tabs">
@@ -419,197 +400,209 @@
 	    	    </div>
                 </div>
 
-                <div id="col2" class="" style="padding:5px 16px 0px 16px !important;">
+		<div id="col2" class="pt-2 pl-1">
 
-                    <div class="row row pl-2 pr-3">
-                    <div class="btn-toolbar btn-block" role="toolbar">
-			    <button id="btn_reset1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col"
-			            onclick="wsweb_execution_reset();
-	                                     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
-			    <button id="btn_next_microinstruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col user_microcode"
-			            onclick="wsweb_execution_microinstruction();
-                                             return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
-			    <button id="btn_next_instruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col"
-			            onclick="wsweb_execution_instruction();
-                                             return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
-			    <button id="btn_run_stop" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col"
-                                    onclick="wsweb_execution_run();
-                                             return false;"><em class="fa fa-play"></em><strong><br/><span data-langkey='Run'>Run</span></strong></button>
-                    </div>
-                    </div>
-
-                    <div class="row row pl-2 pr-3 pt-1">
-                    <div class="btn-toolbar btn-block" role="toolbar">
-			  <div class="col btn-group p-0" style="flex-grow:6;">
-			    <button type="button" class="col-12 btn btn-light shadow-sm"
-			              data-toggle="tooltip" data-placement="bottom" data-html="true"
-			              title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
-                                    style="border-color: #CCCCCC;"
-				    id="select5b"
-                                    onclick="wepsim_show_rf_values();
-				             show_memories_values();
-				  	     wepsim_reset_max_turbo();
-					     $('[data-toggle=tooltip]').tooltip('hide');
-					     return false;">Refresh</button>
-			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                                    style="border-color: #CCCCCC;"
-				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			      <span class="sr-only">Toggle Dropdown</span>
-			    </button>
-			    <div class="dropdown-menu border border-secondary"
-				 style="height:55vh; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">
-
-			      <h6 class="text-secondary mb-1">CPU</h6>
-                              <a class="dropdown-item" href="#" id="s5b_11" value="11"
-				 onclick="wsweb_set_details('REGISTER_FILE');
-				          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Registers'>Registers</span></a>
-                              <a class="dropdown-item user_microcode" href="#" id="s5b_16" value="16"
-				 onclick="wsweb_set_details('CONTROL_MEMORY');
-				          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Control Memory'>Control Memory</span></a>
-                              <a class="dropdown-item" href="#" id="s5b_17" value="17"
-				 onclick="wsweb_set_details('CPU_STATS');
-                                          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Stats'>Stats</span></a>
-                              <a class="dropdown-item user_microcode" href="#" id="s5b_20" value="20"
-				 onclick="wsweb_set_details('FRM_EDITOR');
-                                          return false;"><span class="bg-dark text-white">CPU</span> MicroCode</a>
-
-			      <h6 class="text-secondary mt-2 mb-1">Main Memory</h6>
-			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
-				 onclick="wsweb_set_details('MEMORY');
-                                          return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Memory'>Memory</span></a>
-			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
-				 onclick="wsweb_set_details('MEMORY_CONFIG');
-                                          return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Configuration'>Configuration</span></a>
-			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
-				 onclick="wsweb_set_details('ASM_EDITOR');
-                                          return false;"><span class="bg-dark text-white">MM</span> Assembly</a>
-
-			      <h6 class="text-secondary mt-2 mb-1">Devices</h6>
-			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
-				 onclick="wsweb_set_details('SCREEN');
-                                          return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='Keyboard+Display'>Keyboard+Display</span></a>
-			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
-				 onclick="wsweb_set_details('IO_STATS');
-                                          return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Stats'>I/O Stats</span></a>
-			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
-				 onclick="wsweb_set_details('IO_CONFIG');
-                                          return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Configuration'>I/O Configuration</span></a>
-
-			      <div class="dropdown-divider m-1"></div>
-			      <h6 class="text-secondary mb-1">Simulation</h6>
-                              <a class="dropdown-item" href="#" id="s5b_22" value="22"
-                                 onclick="wsweb_set_details('HARDWARE');
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>
-                              <a class="dropdown-item user_microcode" href="#" id="s5b_20" value="20"
-				 onclick="wsweb_set_details('FRM_EDITOR');
-                                          return false;"><span class="bg-dark text-white">Sim</span>&nbsp;MicroCode</a>
-			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
-				 onclick="wsweb_set_details('ASM_EDITOR');
-                                          return false;"><span class="bg-dark text-white">Sim</span>&nbsp;Assembly</a>
-
-			    </div>
+			<nav>
+			  <div class="nav nav-tabs nav-justified nav-tabs" id="nav-tab" role="tablist">
+			    <a class="nav-item nav-link active" id="nav-simulation-tab" 
+			       data-toggle="tab" href="#nav-simulation" role="tab" 
+			       aria-controls="nav-home" aria-selected="true">Simulation</a>
+			    <a class="nav-item nav-link"        id="nav-microcode-tab" data-oldid="s5b_20" 
+			       onclick="setTimeout(function(){ inputfirm.refresh(); }, 200) ;
+                                        return false;"
+			       data-toggle="tab" href="#nav-microcode" role="tab" 
+			       aria-controls="nav-profile" aria-selected="false">Microcode</a>
+			    <a class="nav-item nav-link"        id="nav-assembly-tab"  data-oldid="s5b_21" 
+			       onclick="setTimeout(function(){ inputasm.refresh(); }, 200) ;
+                                        return false;"
+			       data-toggle="tab" href="#nav-assembly" role="tab" 
+	                       aria-controls="nav-contact" aria-selected="false">Assembly</a>
 			  </div>
-                    </div>
-                    </div>
+			</nav>
+			<div class="tab-content p-1" id="nav-tabContent">
+			  <div class="tab-pane fade show active" id="nav-simulation" role="tabpanel" aria-labelledby="nav-simulation-tab">
 
-                    <ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">
-                      <li class="nav-item">
-                          <a class="nav-link active" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab14" href="#mp">Memory</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab12" href="#con">Console</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab11" href="#all">Registers</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab16" href="#mc">Control Memory</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab13" href="#config">Configuration</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab15" href="#io">IO stats</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab17" href="#cpu">CPU stats</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab18" href="#mpcfg">Memory configuration</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab19" href="#iocfg">I/O configuration</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab20" href="#ed_mc">MicroCode</a>
-                      </li>
-                      <li class="nav-item user_microcode">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab21" href="#ed_mp">Assembly</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab22" href="#ed_hw">Hardware</a>
-                      </li>
-                    </ul>
-                    <div class="tab-content mt-3" style="min-height:70vh;">
-                         <div class="tab-pane mx-0 my-2 active" role="tabpanel" id="all">
-				 <div id="states_ALL" style="width:inherit; overflow-y:auto;"
-                                      class="container container-fluid px-0 pb-2"></div>
-				 <div id="states_BR" style="width: inherit; overflow-y: auto;"
-                                      class="container container-fluid px-0"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="mp">
-		              <div id="memory_MP" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="mc">
-		              <div id="memory_MC" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
-				 <label class="my-0" for="kdb_con" style="min-width:95%">
-				 <img alt="monitor" height="55" src="images/monitor2.png" />
-				 </label>
-				 <textarea aria-label="monitor"
-					   style="width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
-					   placeholder="WepSIM" id="kdb_con" rows="8" readonly></textarea>
+			    <div class="pl-2 pr-2">
+			    <div class="btn-toolbar btn-block" role="toolbar">
+				    <button id="btn_reset1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+					    class="btn btn-light col"
+					    onclick="wsweb_execution_reset();
+						     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
+				    <button id="btn_next_microinstruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+					    class="btn btn-light col user_microcode"
+					    onclick="wsweb_execution_microinstruction();
+						     return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
+				    <button id="btn_next_instruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+					    class="btn btn-light col"
+					    onclick="wsweb_execution_instruction();
+						     return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
+				    <button id="btn_run_stop" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+					    class="btn btn-light col"
+					    onclick="wsweb_execution_run();
+						     return false;"><em class="fa fa-play"></em><strong><br/><span data-langkey='Run'>Run</span></strong></button>
+			    </div>
+			    </div>
 
-				 <label class="my-0" for="kdb_key" style="min-width:95%">
-				 <img alt="keyboard" height="35" src="images/keyboard1.png" />
-				 </label>
-				 <textarea aria-label="keyboard"
-					   style="min-width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
-					   placeholder="WepSIM" id="kdb_key" rows="2"></textarea>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
-		              <div id="io_ALL"    style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="cpu">
-		              <div id="cpu_ALL"   style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="mpcfg">
-		              <div id="config_MP" style="height:58vh; width: inherit;" class="container container-fluid"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
-		              <div id="config_IO" style="height:58vh; width: inherit; overflow-y: auto;"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
-		              <div id="config_HW" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">
+			    <div class="pl-1 pr-1 pt-1">
+			    <div class="btn-toolbar btn-block" role="toolbar">
+				  <div class="col btn-group p-0" style="flex-grow:6;">
+				    <button type="button" class="col-12 btn btn-light shadow-sm"
+					      data-toggle="tooltip" data-placement="bottom" data-html="true"
+					      title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
+					    style="border-color: #CCCCCC;"
+					    id="select5b"
+					    onclick="wepsim_show_rf_values();
+						     show_memories_values();
+						     wepsim_reset_max_turbo();
+						     $('[data-toggle=tooltip]').tooltip('hide');
+						     return false;">Refresh</button>
+				    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
+					    style="border-color: #CCCCCC;"
+					    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				      <span class="sr-only">Toggle Dropdown</span>
+				    </button>
+				    <div class="dropdown-menu border border-secondary"
+					 style="height:55vh; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">
+
+				      <h6 class="text-secondary mb-1">CPU</h6>
+				      <a class="dropdown-item" href="#" id="s5b_11" value="11"
+					 onclick="wsweb_set_details('REGISTER_FILE');
+						  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Registers'>Registers</span></a>
+				      <a class="dropdown-item user_microcode" href="#" id="s5b_16" value="16"
+					 onclick="wsweb_set_details('CONTROL_MEMORY');
+						  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Control Memory'>Control Memory</span></a>
+				      <a class="dropdown-item" href="#" id="s5b_17" value="17"
+					 onclick="wsweb_set_details('CPU_STATS');
+						  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Stats'>Stats</span></a>
+
+				      <h6 class="text-secondary mt-2 mb-1">Main Memory</h6>
+				      <a class="dropdown-item" href="#" id="s5b_14" value="14"
+					 onclick="wsweb_set_details('MEMORY');
+						  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Memory'>Memory</span></a>
+				      <a class="dropdown-item" href="#" id="s5b_18" value="18"
+					 onclick="wsweb_set_details('MEMORY_CONFIG');
+						  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Configuration'>Configuration</span></a>
+
+				      <h6 class="text-secondary mt-2 mb-1">Devices</h6>
+				      <a class="dropdown-item" href="#" id="s5b_12" value="12"
+					 onclick="wsweb_set_details('SCREEN');
+						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='Keyboard+Display'>Keyboard+Display</span></a>
+				      <a class="dropdown-item" href="#" id="s5b_15" value="15"
+					 onclick="wsweb_set_details('IO_STATS');
+						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Stats'>I/O Stats</span></a>
+				      <a class="dropdown-item" href="#" id="s5b_19" value="19"
+					 onclick="wsweb_set_details('IO_CONFIG');
+						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Configuration'>I/O Configuration</span></a>
+				      <a class="dropdown-item" href="#" id="s5b_25" value="25"
+					 onclick="wsweb_set_details('IO_L3D');
+						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O 3D-Led'>I/O 3D-Led</span></a>
+
+				      <div class="dropdown-divider m-1"></div>
+				      <h6 class="text-secondary mb-1">Simulation</h6>
+				      <a class="dropdown-item" href="#" id="s5b_22" value="22"
+					 onclick="wsweb_set_details('HARDWARE');
+						  return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>
+
+				    </div>
+				  </div>
+			    </div>
+			    </div>
+
+			    <ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">
+			      <li class="nav-item">
+				  <a class="nav-link active" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab14" href="#mp">Memory</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab12" href="#con">Console</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab11" href="#all">Registers</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab16" href="#mc">Control Memory</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab13" href="#config">Configuration</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab15" href="#io">IO stats</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab17" href="#cpu">CPU stats</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab18" href="#mpcfg">Memory configuration</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab19" href="#iocfg">I/O configuration</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab22" href="#ed_hw">Hardware</a>
+			      </li>
+			    </ul>
+			    <div class="tab-content mt-3" style="min-height:70vh;">
+				 <div class="tab-pane mx-0 my-2 active" role="tabpanel" id="all">
+					 <div id="states_ALL" style="width:inherit; overflow-y:auto;"
+					      class="container container-fluid px-0 pb-2"></div>
+					 <div id="states_BR" style="width: inherit; overflow-y: auto;"
+					      class="container container-fluid px-0"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mp">
+				      <div id="memory_MP" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mc">
+				      <div id="memory_MC" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
+					 <label class="my-0" for="kdb_con" style="min-width:95%">
+					 <img alt="monitor" height="55" src="images/monitor2.png" />
+					 </label>
+					 <textarea aria-label="monitor"
+						   style="width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
+						   placeholder="WepSIM" id="kdb_con" rows="8" readonly></textarea>
+
+					 <label class="my-0" for="kdb_key" style="min-width:95%">
+					 <img alt="keyboard" height="35" src="images/keyboard1.png" />
+					 </label>
+					 <textarea aria-label="keyboard"
+						   style="min-width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
+						   placeholder="WepSIM" id="kdb_key" rows="2"></textarea>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
+				      <div id="io_ALL"    style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="cpu">
+				      <div id="cpu_ALL"   style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mpcfg">
+				      <div id="config_MP" style="height:58vh; width: inherit;" class="container container-fluid"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
+				      <div id="config_IO" style="height:58vh; width: inherit; overflow-y: auto;"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="iol3d">
+				      <div id="config_L3D" style="height:58vh; width: inherit; overflow-y: auto;"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
+				      <div id="config_HW" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mp">
+				 </div>
+			    </div>
+
+			  </div>
+			  <div class="tab-pane fade user_microcode" id="nav-microcode"  role="tabpanel" aria-labelledby="nav-microcode-tab">
+
 		              <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
 
 				    <div class="row p-0">
@@ -654,10 +647,10 @@
 				    </div>
 			      </div>
 
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mp">
-		              <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
+			  </div>
+			  <div class="tab-pane fade" id="nav-assembly"   role="tabpanel" aria-labelledby="nav-assembly-tab">
 
+		                  <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
 				    <div class="row py-0 px-1">
 					<div class="container col-12" role="none">
 					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
@@ -700,8 +693,9 @@
 				  </div>
 
 			      </div>
-                         </div>
-                    </div>
+			  </div>
+			</div>
+
 
                 </div>
             </div>
