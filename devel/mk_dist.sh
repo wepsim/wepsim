@@ -106,6 +106,7 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_ui_control_memory.js \
     wepsim_core/wepsim_ui_main_memory.js \
     wepsim_core/wepsim_ui_io.js \
+    wepsim_core/wepsim_ui_l3d.js \
     wepsim_core/wepsim_ui_hw.js \
     \
     wepsim_core/wepsim_dbg_asm.js \
@@ -231,6 +232,7 @@ echo "ws_dist/*.html"
 cp   wepsim/wepsim_web_classic.html   ws_dist/index.html
 cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-classic.html
 cp   wepsim/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+cp   wepsim/wepsim_web_null.html      ws_dist/wepsim-null.html
 cp   wepsim/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 echo "ws_dist/*.sh"

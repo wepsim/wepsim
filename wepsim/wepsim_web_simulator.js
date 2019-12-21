@@ -238,6 +238,7 @@
 	    "IO_L3D":         {
 						  init: function() {
 						 	   $('#config_L3D').html(msg_default) ;
+							   wepsim_init_config_new('#config_L3D') ;
 						        },
 						 reset: function() {
 						           return true ;
