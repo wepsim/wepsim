@@ -537,7 +537,7 @@
 	    "SCREEN":         function(){ wsweb_set_details_select(12); show_memories_values(); },
 	    "IO_STATS":       function(){ wsweb_set_details_select(15); show_memories_values(); },
 	    "IO_CONFIG":      function(){ wsweb_set_details_select(19); show_memories_values(); },
-	    "IO_L3D":         function(){ wsweb_set_details_select(25); show_memories_values(); },
+	    "3DLED":          function(){ wsweb_set_details_select(25); show_memories_values(); },
 
 	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },

@@ -26,11 +26,11 @@
         poc_components.L3D = {
 		                  name: "L3D", 
 		                  version: "1", 
-		                  abilities:    [ "L3D_TIMER" ],
+		                  abilities:    [ "3DLED" ],
 
 		                  // ui: details
-		                  details_name: [ "L3D_STATS", "L3D_CONFIG" ],
-                                  details_fire: [ ['svg_p:text3775'], [] ],
+		                  details_name: [ "3DLED" ],
+                                  details_fire: [ [] ],
 
 		                  // state: write_state, read_state, get_state
 		                  write_state: function ( vec ) {
@@ -73,15 +73,16 @@
 	 *  States - L3D parameters
 	 */
 
-        poc_internal_states.l3d_int_factory = [] ;
-        poc_internal_states.l3d_int_factory[0] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        poc_internal_states.l3d_int_factory[1] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        poc_internal_states.l3d_int_factory[2] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        poc_internal_states.l3d_int_factory[3] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        poc_internal_states.l3d_int_factory[4] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        poc_internal_states.l3d_int_factory[5] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        poc_internal_states.l3d_int_factory[6] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        poc_internal_states.l3d_int_factory[7] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
+        poc_internal_states.l3d_state = [] ;
+        poc_internal_states.l3d_state[0] = { active: false } ;
+        poc_internal_states.l3d_state[1] = { active: false } ;
+        poc_internal_states.l3d_state[2] = { active: false } ;
+        poc_internal_states.l3d_state[3] = { active: false } ;
+        poc_internal_states.l3d_state[4] = { active: false } ;
+        poc_internal_states.l3d_state[5] = { active: false } ;
+        poc_internal_states.l3d_state[6] = { active: false } ;
+        poc_internal_states.l3d_state[7] = { active: false } ;
+        poc_internal_states.l3d_state[8] = { active: false } ;
 
         var L3DSR_ID   = 0x1100 ;
         var L3DCR_ID   = 0x1104 ;
@@ -108,22 +109,6 @@
          *  Signals
          */
 
-         poc_signals.INT        = { name: "INT", 
-                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                    depends_on: ["CLK"],
-                                    behavior: ["FIRE C", "FIRE C"],
-                                    fire_name: ['svg_p:tspan4199'], 
-                                    draw_data: [[], ['svg_p:path3809']], 
-                                    draw_name: [[], []]};
-
-         poc_signals.IORDY      = { name: "IORDY", 
-                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                    depends_on: ["CLK"],
-		                    behavior: ["FIRE_IFCHANGED IORDY C", "FIRE_IFCHANGED IORDY C"],
-                                    fire_name: ['svg_p:tspan4089','svg_p:path3793','svg_p:tspan4089'], 
-                                    draw_data: [[], ['svg_p:path3897']], 
-                                    draw_name: [[], []]};
-
          poc_signals.L3D_L3DR   = { name: "L3D_L3DR", 
                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                     behavior: ["NOP", "L3D_L3DR BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE M1"],
@@ -137,20 +122,6 @@
                                     fire_name: ['svg_p:text3785-0-6-0-5-5'], 
                                     draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
                                     draw_name: [[], []]};
-
-         poc_signals.L3D_IE     = { name: "L3D_IE", 
-                                    visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
-                                    behavior: ["NOP", "L3D_CHK_I CLK INT INTV; FIRE C"],
-                                    fire_name: [], 
-                                    draw_data: [[], []], 
-                                    draw_name: [[], []] };
-
-         poc_signals.INTA       = { name: "INTA", 
-                                    visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
-                                    behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE M1; FIRE C"],
-                                    fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
-                                    draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
-                                    draw_name: [[], []] };
 
 
         /*
@@ -221,10 +192,10 @@
                                                       if ( (iocr_id < 0) || (iocr_id > 7) ) 
                                                             return; 
 
-                                                      set_var(poc_internal_states.l3d_int_factory[iocr_id].period, iodr_id);
-                                                      set_var(poc_internal_states.l3d_int_factory[iocr_id].probability, 1) ;
+                                                      set_var(poc_internal_states.l3d_state[iocr_id].period, iodr_id);
+                                                      set_var(poc_internal_states.l3d_state[iocr_id].probability, 1) ;
                                                       if (0 == iodr_id)
-                                                          set_var(poc_internal_states.l3d_int_factory[iocr_id].probability, 0) ;
+                                                          set_var(poc_internal_states.l3d_state[iocr_id].probability, 0) ;
                                                    },
                                            verbal: function (s_expr) 
                                                    {
@@ -243,84 +214,6 @@
                                                    }
                                       };
 
-        poc_behaviors.L3D_CHK_I     = { nparameters: 4, 
-                                        types: ["E", "S", "E"],
-                                        operation: function (s_expr) 
-                                                   {
-                                                      var clk = get_value(poc_states[s_expr[1]]) ;
-
-						      for (var i=poc_internal_states.l3d_int_factory.length-1; i>=0; i--)
-                                                      {
-                                                           if (get_var(poc_internal_states.l3d_int_factory[i].period) == 0)
- 							       continue;
-
-                                                           if (get_var(poc_internal_states.l3d_int_factory[i].active) == true)
-                                                           {
-                                                               set_value(poc_signals[s_expr[2]], 1); // ['INT']=1
-                                                               set_value( poc_states[s_expr[3]], i); // ['INTV']=i
-                                                           }
-
-                                                           if ((clk % get_var(poc_internal_states.l3d_int_factory[i].period)) == 0)
-                                                           {
-                                                              if (Math.random() > get_var(poc_internal_states.l3d_int_factory[i].probability))
-                                                                  continue ;
-
-                                                              set_var(poc_internal_states.l3d_int_factory[i].accumulated, get_var(poc_internal_states.l3d_int_factory[i].accumulated) + 1);
-                                                              set_var(poc_internal_states.l3d_int_factory[i].active, true) ;
-
-                                                              if (typeof poc_events.l3d[clk] == "undefined")
-                                                                  poc_events.l3d[clk] = [] ;
-                                                              poc_events.l3d[clk].push(i) ;
-
-                                                              set_value(poc_signals[s_expr[2]], 1); // ['INT']=1
-                                                              set_value( poc_states[s_expr[3]], i); // ['INTV']=i
-                                                           }
-                                                      }
-                                                   },
-                                           verbal: function (s_expr) 
-                                                   {
-                                                      return "Check I/O Interruption. " ;
-                                                   }
-                                      };
-
-        poc_behaviors.INTA          = { nparameters: 6, 
-                                        types: ["E", "S", "S", "E", "E"],
-                                        operation: function (s_expr) 
-                                                   {
-                                                      var clk = get_value(poc_states[s_expr[1]]) ;
-
-                                                      if (typeof poc_events.l3d[clk] != "undefined") 
-                                                      {
-                                                          set_value(poc_states[s_expr[4]], poc_events.l3d[clk][0]); // ['BUS_DB'] = i
-  							  return ;
-                                                      }
-
-						      set_value(poc_signals[s_expr[2]], 0); // ['INT']  = 0
-						      set_value(poc_states[s_expr[5]], 0); // ['INTV'] = 0
-
-						      for (var i=0; i<poc_internal_states.l3d_int_factory.length; i++) 
-                                                      {
-                                                           if (get_var(poc_internal_states.l3d_int_factory[i].active))
-                                                           {
-                                                               set_value(poc_signals[s_expr[2]], 0) ; // ['INT']  = 1
-                                                               set_value(poc_states[s_expr[5]], i) ; // ['INTV'] = i
-							       set_value(poc_states[s_expr[4]], i) ; // ['BUS_DB'] = i
-
-                                                               if (typeof poc_events.l3d[clk] == "undefined") 
-                                                                   poc_events.l3d[clk] = [] ;
-                                                               poc_events.l3d[clk].push(i) ;
-
-							       set_var(poc_internal_states.l3d_int_factory[i].active, false);
-                                                               break; // stop at first INT
-                                                           }
-                                                      }
-                                                   },
-                                           verbal: function (s_expr) 
-                                                   {
-                                                      return "Signal an interruption ACK. " ;
-                                                   }
-                                      };
-
         poc_behaviors.L3D_RESET    = { nparameters: 1,
                                        operation: function (s_expr) 
                                                   {
@@ -328,10 +221,10 @@
                                                      poc_events.l3d = {} ;
 
 						     // reset the I/O factory
-						     for (var i=0; i<poc_internal_states.l3d_int_factory.length; i++)
+						     for (var i=0; i<poc_internal_states.l3d_state.length; i++)
 						     {
-						      set_var(poc_internal_states.l3d_int_factory[i].accumulated, 0);
-						      set_var(poc_internal_states.l3d_int_factory[i].active, false);
+						      set_var(poc_internal_states.l3d_state[i].accumulated, 0);
+						      set_var(poc_internal_states.l3d_state[i].active, false);
 						     }
                                                   },
                                           verbal: function (s_expr) 

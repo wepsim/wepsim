@@ -235,10 +235,10 @@
 						        }
 	                      },
 
-	    "IO_L3D":         {
+	    "3DLED":         {
 						  init: function() {
 						 	   $('#config_L3D').html(msg_default) ;
-							   wepsim_init_config_new('#config_L3D') ;
+							   wepsim_init_l3d('#config_L3D') ;
 						        },
 						 reset: function() {
 						           return true ;

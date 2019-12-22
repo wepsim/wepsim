@@ -27,18 +27,17 @@
         {
 	    var i = 0 ;
 
-            var curr_iointfactory = simhw_internalState('l3d_int_factory') ;
-	    if (typeof curr_iointfactory == "undefined") {
+            var curr_l3dstates = simhw_internalState('l3d_state') ;
+	    if (typeof curr_l3dstates == "undefined") {
                 return ;
 	    }
 
 	    // without ui...
             if (jqdiv == "")
             {
-		    for (i=0; i<curr_iointfactory.length; i++) 
+		    for (i=0; i<curr_l3dstates.length; i++) 
 		    {
-		         curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
-		         curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
+		         curr_l3dstates[i].active = ko_observable(curr_l3dstates[i].active) ;
                     }
 
                     return ;
@@ -47,14 +46,12 @@
             // stats holder
             var o1 = "<div class='col-12'>" +
                      "<table class='table table-hover table-sm table-bordered'>" ;
-            for (i=0; i<curr_iointfactory.length; i++)
+            for (i=0; i<curr_l3dstates.length; i++)
             {
-               o1 += "<tr id='int" + i + "_context'>" +
+               o1 += "<tr id='l3d" + i + "_context'>" +
                      "<td align=center width=50%>" +
                      "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
-                     "</td>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
+                     "<input type='number' data-bind='value: active' min='0' max='1'>" +
                      "</td>" +
                      "</tr>" ;
             }
@@ -63,104 +60,13 @@
             $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
-            for (i=0; i<curr_iointfactory.length; i++)
+            for (i=0; i<curr_l3dstates.length; i++)
             {
-                 if (typeof curr_iointfactory[i].accumulated != "function")
-                     curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
-                 if (typeof curr_iointfactory[i].active != "function")
-                     curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
-                 var ko_context = document.getElementById('int' + i + '_context');
+                 if (typeof curr_l3dstates[i].active != "function")
+                     curr_l3dstates[i].active = ko_observable(curr_l3dstates[i].active) ;
+                 var ko_context = document.getElementById('l3d' + i + '_context');
                  ko.cleanNode(ko_context);
-                 ko.applyBindings(curr_iointfactory[i], ko_context);
-            }
-        }
-
-        function wepsim_init_config_l3d ( jqdiv )
-        {
-	    var i = 0 ;
-
-            var curr_iointfactory = simhw_internalState('l3d_int_factory') ;
-	    if (typeof curr_iointfactory == "undefined") {
-                return ;
-            }
-
-            // without ui
-            if (jqdiv == "")
-            {
-		    for (i=0; i<curr_iointfactory.length; i++) 
-		    {
-		        curr_iointfactory[i].period      = ko_observable(curr_iointfactory[i].period);
-		        curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability);
-		    }
-                    return ;
-            }
-
-            // html holder
-            var o1 = "<div class='container-fluid'>" +
-                     "<div class='row'>" ;
-
-               o1 += "<div class='col-12 p-0'>" +
-                     "<div class='card bg-light m-0'>" +
-                     "<div class='card-body p-0' id='iopanel'>" ;
-               o1 += "<center>" +
-                     "<table class='table table-hover table-sm table-bordered m-0'>" +
-                     "<tbody class='no-ui-mini'>" +
-                     "<tr>" +
-                     "<td align=center width='33%'>" +
-                     "  <span class='d-none d-sm-inline-flex'>Interrupt identificator</span>" +
-                     "  <span class='d-sm-none'>Int. Id.<br>(0 - 7)</span>" +
-                     "</td>" +
-                     "<td align=center width='33%'>" +
-                     "  <span class='d-none d-sm-inline-flex'>CLK period (<b>0</b> - &infin;)</span>" +
-                     "  <span class='d-sm-none'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
-                     "</td>" +
-                     "<td align=center width='33%'>" +
-                     "  <span class='d-none d-sm-inline-flex'>Probability (0 - 1)</span>" +
-                     "  <span class='d-sm-none'>Probability <br>(0 - 1)</span>" +
-                     "</td>" +
-                     "</tr>" ;
-            for (i=0; i<8; i++)
-            {
-               o1 += "<tr>" +
-                     "<td align='center' style='padding:0 0 0 0; vertical-align: middle !important'>" +
-                     "<span class='p-0 m-0'>" + i + "</span>" + 
-                     "</td>" +
-                     "<td align='center' class='p-0'>" +
-                     "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: period' min='0' max='99999999'>" +
-                     "</div>" +
-                     "</td>" +
-                     "<td align='center' class='p-0'>" +
-                     "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
-                     "<input type='number' data-bind='value: probability' min='0' max='1' step='.05'>" +
-                     "</div>" +
-                     "</td>" +
-                     "</tr>" ;
-            }
-               o1 += "</tbody>" +
-                     "</table>" +
-                     "</center>" ;
-               o1 += "</div>" +
-                     "</div>" +
-                     "</div>" ;
-
-            $(jqdiv).html(o1);
-
-            // knockout binding
-            var ko_context = {} ;
-            for (i=0; i<curr_iointfactory.length; i++)
-            {
-                 if (typeof curr_iointfactory[i].period != "function")
-                     curr_iointfactory[i].period = ko_observable(curr_iointfactory[i].period) ;
-                 ko_context = document.getElementById('int' + i + '_per');
-                 ko.cleanNode(ko_context);
-                 ko.applyBindings(curr_iointfactory[i], ko_context);
- 
-                 if (typeof curr_iointfactory[i].probability != "function")
-                     curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability) ;
-                 ko_context = document.getElementById('int' + i + '_pro');
-                 ko.cleanNode(ko_context);
-                 ko.applyBindings(curr_iointfactory[i], ko_context);
+                 ko.applyBindings(curr_l3dstates[i], ko_context);
             }
         }
 
