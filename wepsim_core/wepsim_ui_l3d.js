@@ -27,7 +27,7 @@
         {
 	    var i = 0 ;
 
-            var curr_iointfactory = simhw_internalState('io_int_factory') ;
+            var curr_iointfactory = simhw_internalState('l3d_int_factory') ;
 	    if (typeof curr_iointfactory == "undefined") {
                 return ;
 	    }
@@ -79,7 +79,7 @@
         {
 	    var i = 0 ;
 
-            var curr_iointfactory = simhw_internalState('io_int_factory') ;
+            var curr_iointfactory = simhw_internalState('l3d_int_factory') ;
 	    if (typeof curr_iointfactory == "undefined") {
                 return ;
             }
