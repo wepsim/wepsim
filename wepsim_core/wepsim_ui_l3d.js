@@ -44,19 +44,25 @@
             }
 
             // stats holder
-            var o1 = "<div class='col-12'>" +
-                     "<table class='table table-hover table-sm table-bordered'>" ;
-            for (i=0; i<curr_l3dstates.length; i++)
+            var o1 = "<div class='col-12'>" ;
+            for (i=0; i<curr_l3dstates.length/9; i++)
             {
-               o1 += "<tr id='l3d" + i + "_context'>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
-                     "<input type='number' data-bind='value: active' min='0' max='1'>" +
-                     "</td>" +
-                     "</tr>" ;
+		o1 += "<table class='table table-hover table-sm table-bordered'>" ;
+		    for (j=0; j<3; j++)
+		    {
+		o1 += "<tr>" ;
+			    for (k=0; k<3; k++)
+			    {
+		o1 += "<td align=center id='l3d" + (i*9+j*3+k) + "_context' " +
+			      "    data-bind=\"style: { fontWeight: active() ? 'bold' : '' }, " + 
+			      "                event: { click: function(){active(!active())} }\">X</td>" ;
+			    }
+		o1 += "</tr>" ;
+		    }
+		o1 += "</table>" ;
             }
-            o1 += "</table>" +
-                  "</div>" ;
+                o1 += "</div>" ;
+
             $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
