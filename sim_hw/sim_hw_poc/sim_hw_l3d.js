@@ -45,7 +45,7 @@
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-						    var associated_state = simhw_internalState_get('l3d_hash',elto) ;
+						    var associated_state = simhw_internalState_get('io_hash',elto) ;
 						    var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
 
 						    set_value(simhw_sim_state('BUS_AB'), elto) ;
@@ -56,7 +56,7 @@
 						    return value ;
                                                },
                                   set_value:   function ( elto, value ) {
-						    var associated_state = simhw_internalState_get('l3d_hash',elto) ;
+						    var associated_state = simhw_internalState_get('io_hash',elto) ;
 						    set_value(simhw_sim_state(associated_state), value) ;
 
 						    set_value(simhw_sim_state('BUS_AB'), elto) ;
@@ -84,13 +84,13 @@
         poc_internal_states.l3d_state[7] = { active: false } ;
         poc_internal_states.l3d_state[8] = { active: false } ;
 
-        var L3DSR_ID   = 0x1100 ;
-        var L3DCR_ID   = 0x1104 ;
-        var L3DDR_ID   = 0x1108 ;
+        var L3DSR_ID   = 0x2100 ;
+        var L3DCR_ID   = 0x2104 ;
+        var L3DDR_ID   = 0x2108 ;
 
-        poc_internal_states.l3d_hash[L3DSR_ID] = "L3DSR" ;
-        poc_internal_states.l3d_hash[L3DCR_ID] = "L3DCR" ;
-        poc_internal_states.l3d_hash[L3DDR_ID] = "L3DDR" ;
+        poc_internal_states.io_hash[L3DSR_ID] = "L3DSR" ;
+        poc_internal_states.io_hash[L3DCR_ID] = "L3DCR" ;
+        poc_internal_states.io_hash[L3DDR_ID] = "L3DDR" ;
 
 
         /*
