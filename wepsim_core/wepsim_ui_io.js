@@ -45,7 +45,9 @@
             }
 
             // stats holder
-            var o1 = "<div class='col-12'>" +
+            var o1 = "<div class='container'>" +
+                     "<div class='row'>" +
+                     "<div class='col-12'>" +
                      "<table class='table table-hover table-sm table-bordered'>" ;
             for (i=0; i<curr_iointfactory.length; i++)
             {
@@ -59,8 +61,11 @@
                      "</tr>" ;
             }
             o1 += "</table>" +
+                  "</div>" +
+                  "</div>" +
                   "</div>" ;
-            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
+
+            $(jqdiv).html(o1);
 
             // knockout binding
             for (i=0; i<curr_iointfactory.length; i++)
@@ -127,12 +132,12 @@
                      "</td>" +
                      "<td align='center' class='p-0'>" +
                      "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: period' min='0' max='99999999'>" +
+                     "<input type=number data-bind='value: period' min='0' max='99999999' class='form-control p-0'>" +
                      "</div>" +
                      "</td>" +
                      "<td align='center' class='p-0'>" +
                      "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
-                     "<input type='number' data-bind='value: probability' min='0' max='1' step='.05'>" +
+                     "<input type='number' data-bind='value: probability' min='0' max='1' step='.05' class='form-control p-0'>" +
                      "</div>" +
                      "</td>" +
                      "</tr>" ;

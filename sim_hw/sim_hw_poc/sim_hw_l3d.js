@@ -74,15 +74,33 @@
 	 */
 
         poc_internal_states.l3d_state = [] ;
-        poc_internal_states.l3d_state[0] = { active: false } ;
-        poc_internal_states.l3d_state[1] = { active: false } ;
-        poc_internal_states.l3d_state[2] = { active: false } ;
-        poc_internal_states.l3d_state[3] = { active: false } ;
-        poc_internal_states.l3d_state[4] = { active: false } ;
-        poc_internal_states.l3d_state[5] = { active: false } ;
-        poc_internal_states.l3d_state[6] = { active: false } ;
-        poc_internal_states.l3d_state[7] = { active: false } ;
-        poc_internal_states.l3d_state[8] = { active: false } ;
+        poc_internal_states.l3d_state[0]  = { active: false } ;
+        poc_internal_states.l3d_state[1]  = { active: false } ;
+        poc_internal_states.l3d_state[2]  = { active: false } ;
+        poc_internal_states.l3d_state[3]  = { active: false } ;
+        poc_internal_states.l3d_state[4]  = { active: false } ;
+        poc_internal_states.l3d_state[5]  = { active: false } ;
+        poc_internal_states.l3d_state[6]  = { active: false } ;
+        poc_internal_states.l3d_state[7]  = { active: false } ;
+        poc_internal_states.l3d_state[8]  = { active: false } ;
+        poc_internal_states.l3d_state[9]  = { active: false } ;
+        poc_internal_states.l3d_state[10] = { active: false } ;
+        poc_internal_states.l3d_state[11] = { active: false } ;
+        poc_internal_states.l3d_state[12] = { active: false } ;
+        poc_internal_states.l3d_state[13] = { active: false } ;
+        poc_internal_states.l3d_state[14] = { active: false } ;
+        poc_internal_states.l3d_state[15] = { active: false } ;
+        poc_internal_states.l3d_state[16] = { active: false } ;
+        poc_internal_states.l3d_state[17] = { active: false } ;
+        poc_internal_states.l3d_state[18] = { active: false } ;
+        poc_internal_states.l3d_state[19] = { active: false } ;
+        poc_internal_states.l3d_state[20] = { active: false } ;
+        poc_internal_states.l3d_state[21] = { active: false } ;
+        poc_internal_states.l3d_state[22] = { active: false } ;
+        poc_internal_states.l3d_state[23] = { active: false } ;
+        poc_internal_states.l3d_state[24] = { active: false } ;
+        poc_internal_states.l3d_state[25] = { active: false } ;
+        poc_internal_states.l3d_state[26] = { active: false } ;
 
         var L3DSR_ID   = 0x2100 ;
         var L3DCR_ID   = 0x2104 ;

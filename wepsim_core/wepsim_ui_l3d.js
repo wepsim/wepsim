@@ -44,10 +44,12 @@
             }
 
             // stats holder
-            var o1 = "<div class='col-12'>" ;
+            var o1 = "<div class='container'>" +
+                     "<div class='row'>" +
+                     "<div class='col-12'>" ;
             for (i=0; i<curr_l3dstates.length/9; i++)
             {
-		o1 += "<table class='table table-hover table-sm table-bordered'>" ;
+		o1 += "<table class='table table-hover table-sm table-bordered pb-3'>" ;
 		    for (j=0; j<3; j++)
 		    {
 		o1 += "<tr>" ;
@@ -61,9 +63,11 @@
 		    }
 		o1 += "</table>" ;
             }
-                o1 += "</div>" ;
+                o1 += "</div>" +
+                      "</div>" +
+                      "</div>" ;
 
-            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
+            $(jqdiv).html(o1) ;
 
             // knockout binding
             for (i=0; i<curr_l3dstates.length; i++)
