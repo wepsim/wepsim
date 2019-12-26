@@ -67,6 +67,7 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
     sim_core/sim_core_voice.js \
+    sim_core/sim_core_rest.js \
     sim_core/sim_core_notify.js > ws_dist/sim_all.js
 /usr/bin/yui-compressor -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
@@ -156,9 +157,9 @@ cat ws_dist/min.sim_all.js \
 
 #  external
 echo "ws_dist/min.external.js"
-cat external/popper.min.js \
+cat external/knockout-3.5.1.js \
+    external/popper.min.js \
     external/bootstrap.min.js \
-    external/knockout-3.5.0.js \
     external/jquery.knob.min.js \
     external/bootbox.min.js \
     external/spectrum.min.js \

@@ -161,6 +161,11 @@
                                                           set_value(poc_states[s_expr[2]], iocr);
                                                       if (bus_ab == L3DDR_ID) 
                                                           set_value(poc_states[s_expr[2]], iodr);
+
+                                                      // get
+                                                      if (bus_ab == L3DCR_ID) {
+						          simcore_rest_call("L3D", "GET", "/get", {}) ; // TODO: {} -> { x, y, z}
+						      }
                                                    },
                                            verbal: function (s_expr) 
                                                    {
@@ -203,17 +208,9 @@
                                                       if (bus_ab == L3DDR_ID) 
                                                           set_value(poc_states[s_expr[5]], bus_db);
 
-                                                      // check & modify the timer
-                                                      var iocr_id = get_value(poc_states[s_expr[4]]) ;
-                                                      var iodr_id = get_value(poc_states[s_expr[5]]) ;
-
-                                                      if ( (iocr_id < 0) || (iocr_id > 7) ) 
-                                                            return; 
-
-                                                      set_var(poc_internal_states.l3d_state[iocr_id].period, iodr_id);
-                                                      set_var(poc_internal_states.l3d_state[iocr_id].probability, 1) ;
-                                                      if (0 == iodr_id)
-                                                          set_var(poc_internal_states.l3d_state[iocr_id].probability, 0) ;
+                                                      // set
+                                                      if (bus_ab == L3DCR_ID) 
+						          simcore_rest_call("L3D", "GET", "/set", {}) ; // TODO: {} -> { x, y, z}
                                                    },
                                            verbal: function (s_expr) 
                                                    {
@@ -241,8 +238,7 @@
 						     // reset the I/O factory
 						     for (var i=0; i<poc_internal_states.l3d_state.length; i++)
 						     {
-						      set_var(poc_internal_states.l3d_state[i].accumulated, 0);
-						      set_var(poc_internal_states.l3d_state[i].active, false);
+						          set_var(poc_internal_states.l3d_state[i].active, false);
 						     }
                                                   },
                                           verbal: function (s_expr) 

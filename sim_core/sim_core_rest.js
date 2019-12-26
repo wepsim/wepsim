@@ -1,0 +1,90 @@
+/*    
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *
+ *  This file is part of WepSIM.
+ *
+ *  WepSIM is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  WepSIM is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+
+        /*
+         *  API REST: public API
+         */
+
+        var simcore_rest = {} ;
+
+
+        // reset
+        function simcore_rest_reset ( )
+        {
+            simcore_rest = {} ;
+        }
+
+        // add
+        function simcore_rest_add ( name, endpoint, user, pass )
+        {
+	    simcore_rest[name] = {
+		                    endpoint:     endpoint,
+		                    user:         user,
+		                    pass:         pass,
+		                    last_request: null
+	                         } ;
+        }
+
+        // list
+        function simcore_rest_list ( )
+        {
+            return simcore_rest ;
+        }
+
+        // get
+        function simcore_rest_get ( name )
+        {
+            return simcore_rest[name] ;
+        }
+
+        // invoke
+        function simcore_rest_call ( name, method, uri, data )
+        {
+            var rest_desc = simcore_rest[name] ;
+	    if (typeof rest_desc === "undefined") {
+		return false ;
+	    }
+
+            // Based on https://blog.miguelgrinberg.com/post/writing-a-javascript-rest-client
+            var basic_auth = "Basic " + btoa(simcore_rest[name].username + ":" + simcore_rest[name].password) ;
+            var enc_data   = JSON.stringify(data) ;
+
+            var request = {
+                url:         uri,
+                type:        method,
+                contentType: "application/json",
+                accepts:     "application/json",
+                cache:       false,
+                dataType:    'json',
+                data:        enc_data,
+                beforeSend:  function (xhr) {
+		    if (simcore_rest[name].username.trim() !== "") {
+                        xhr.setRequestHeader("Authorization", basic_auth) ;
+		    }
+                },
+                error: function(jqXHR) {
+                    console.log("ajax error " + jqXHR.status);
+                }
+            };
+
+            simcore_rest[i].last_request = $.ajax(request) ;
+        }
+

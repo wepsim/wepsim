@@ -3,6 +3,7 @@
 
 ## 2.0.12 -> 2.1.0:
 * Simplify UI
+* Update to knockout-3.5.1
 
 ## 2.0.11 -> 2.0.12:
 * Update to bootstrap 4.4.1
