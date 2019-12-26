@@ -210,6 +210,17 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
     var before_state = null ;
     var  after_state = null ;
 
+    function wepsim_nodejs_header2 ( )
+    {
+	// padding
+	var padding1 = 2 ;
+	var padding2 = 5 - (source_line.length / 7) ;
+
+        console.log('pc'          + ','.padEnd(padding1, '\t') + 
+                    'instruction' + ','.padEnd(padding2, '\t') + 
+                    'changes_from_zero_or_current_value') ;
+    }
+
     function wepsim_nodejs_before_instruction2 ( SIMWARE, reg_pc )
     {
         if (before_state === null)
@@ -229,9 +240,20 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 	var padding1 = 2 ;
 	var padding2 = 5 - (source_line.length / 7) ;
 
-        console.log('pc = ' + curr_pc + ':'.padEnd(padding1, '\t') + 
-		          source_line + ':'.padEnd(padding2, '\t') + 
+        console.log('pc = ' + curr_pc + ','.padEnd(padding1, '\t') + 
+		          source_line + ','.padEnd(padding2, '\t') + 
 		    diff_states) ;
+    }
+
+    function wepsim_nodejs_header3 ( )
+    {
+	// padding
+	var padding1 = 4 - (curr_mpc.length    / 4) ;
+	var padding2 = 7 - (source_line.length / 8) ;
+
+        console.log('micropc'     + ','.padEnd(padding1, '\t') + 
+                    'microcode'   + ','.padEnd(padding2, '\t') + 
+                    'changes_from_zero_or_current_value') ;
     }
 
     function wepsim_nodejs_before_microinstruction3 ( curr_MC, cur_addr )
@@ -251,8 +273,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 	var padding1 = 4 - (curr_mpc.length    / 4) ;
 	var padding2 = 7 - (source_line.length / 8) ;
 
-	console.log('micropc = ' + curr_mpc + ':'.padEnd(padding1, '\t') +
-		                source_line + ':'.padEnd(padding2, '\t') +
+	console.log('micropc = ' + curr_mpc + ','.padEnd(padding1, '\t') +
+		                source_line + ','.padEnd(padding2, '\t') +
 		     simcore_simstate_diff_states(before_state, after_state)) ;
     }
 
@@ -496,6 +518,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
         // set verbosity handlers
         options.before_instruction = wepsim_nodejs_before_instruction2 ;
         options.after_instruction  = wepsim_nodejs_after_instruction2 ;
+        wepsim_nodejs_header2() ;
  
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
@@ -515,6 +538,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
         // set verbosity handlers
         options.before_microinstruction = wepsim_nodejs_before_microinstruction3 ;
         options.after_microinstruction  = wepsim_nodejs_after_microinstruction3 ;
+        wepsim_nodejs_header3() ;
  
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;

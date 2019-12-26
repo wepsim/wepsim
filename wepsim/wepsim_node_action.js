@@ -191,6 +191,7 @@
         // set verbosity handlers
         options.before_instruction = wepsim_nodejs_before_instruction2 ;
         options.after_instruction  = wepsim_nodejs_after_instruction2 ;
+        wepsim_nodejs_header2() ;
  
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
@@ -210,6 +211,7 @@
         // set verbosity handlers
         options.before_microinstruction = wepsim_nodejs_before_microinstruction3 ;
         options.after_microinstruction  = wepsim_nodejs_after_microinstruction3 ;
+        wepsim_nodejs_header3() ;
  
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
