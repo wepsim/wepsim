@@ -212,12 +212,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 
     function wepsim_nodejs_header2 ( )
     {
-	// padding
-	var padding1 = 2 ;
-	var padding2 = 5 - (source_line.length / 7) ;
-
-        console.log('pc'          + ','.padEnd(padding1, '\t') + 
-                    'instruction' + ','.padEnd(padding2, '\t') + 
+        console.log('pc'          + ','.padEnd(3, '\t') + 
+                    'instruction' + ','.padEnd(4, '\t') + 
                     'changes_from_zero_or_current_value') ;
     }
 
@@ -239,6 +235,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 	// padding
 	var padding1 = 2 ;
 	var padding2 = 5 - (source_line.length / 7) ;
+	source_line  = source_line.replace(/,/g,"") ;
 
         console.log('pc = ' + curr_pc + ','.padEnd(padding1, '\t') + 
 		          source_line + ','.padEnd(padding2, '\t') + 
@@ -247,12 +244,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 
     function wepsim_nodejs_header3 ( )
     {
-	// padding
-	var padding1 = 4 - (curr_mpc.length    / 4) ;
-	var padding2 = 7 - (source_line.length / 8) ;
-
-        console.log('micropc'     + ','.padEnd(padding1, '\t') + 
-                    'microcode'   + ','.padEnd(padding2, '\t') + 
+        console.log('micropc'     + ','.padEnd(3, '\t') + 
+                    'microcode'   + ','.padEnd(5, '\t') + 
                     'changes_from_zero_or_current_value') ;
     }
 
@@ -272,6 +265,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 	// padding
 	var padding1 = 4 - (curr_mpc.length    / 4) ;
 	var padding2 = 7 - (source_line.length / 8) ;
+	source_line  = source_line.replace(/,/g,"") ;
 
 	console.log('micropc = ' + curr_mpc + ','.padEnd(padding1, '\t') +
 		                source_line + ','.padEnd(padding2, '\t') +
