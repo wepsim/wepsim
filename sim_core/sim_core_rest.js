@@ -33,12 +33,12 @@
         }
 
         // add
-        function simcore_rest_add ( name, endpoint, user, pass )
+        function simcore_rest_add ( name, description )
         {
 	    simcore_rest[name] = {
-		                    endpoint:     endpoint,
-		                    user:         user,
-		                    pass:         pass,
+		                    endpoint:     description.endpoint,
+		                    user:         description.user,
+		                    pass:         description.pass,
 		                    last_request: null
 	                         } ;
         }
@@ -58,17 +58,28 @@
         // invoke
         function simcore_rest_call ( name, method, uri, data )
         {
-            var rest_desc = simcore_rest[name] ;
-	    if (typeof rest_desc === "undefined") {
+	    // check API rest
+            var rest_info = simcore_rest[name] ;
+	    if (typeof rest_info === "undefined") {
 		return false ;
 	    }
 
-            // Based on https://blog.miguelgrinberg.com/post/writing-a-javascript-rest-client
-            var basic_auth = "Basic " + btoa(simcore_rest[name].username + ":" + simcore_rest[name].password) ;
+	    // check endpoint
+	    var api_endpoint = rest_info.endpoint ;
+	    if (typeof api_endpoint == "function") {
+                api_endpoint = api_endpoint() ;
+	    }
+
+	    if (typeof api_endpoint.trim() === "") {
+		return false ;
+	    }
+
+	    // build request
+            var basic_auth = "Basic " + btoa(rest_info.user + ":" + rest_info.pass) ;
             var enc_data   = JSON.stringify(data) ;
 
             var request = {
-                url:         uri,
+                url:         api_endpoint + uri,
                 type:        method,
                 contentType: "application/json",
                 accepts:     "application/json",
@@ -76,7 +87,7 @@
                 dataType:    'json',
                 data:        enc_data,
                 beforeSend:  function (xhr) {
-		    if (simcore_rest[name].username.trim() !== "") {
+		    if (rest_info.user.trim() !== "") {
                         xhr.setRequestHeader("Authorization", basic_auth) ;
 		    }
                 },
@@ -85,6 +96,8 @@
                 }
             };
 
-            simcore_rest[i].last_request = $.ajax(request) ;
+	    // do request
+            rest_info.last_request = $.ajax(request) ;
+	    return true ;
         }
 

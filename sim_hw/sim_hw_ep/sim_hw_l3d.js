@@ -164,7 +164,7 @@
 
                                                       // get
                                                       if (bus_ab == L3DCR_ID) {
-						          simcore_rest_call("L3D", "GET", "/get", {}) ; // TODO: {} -> { x, y, z}
+						          simcore_rest_call("L3D", "GET", "/get", {}) ; // TODO: {} -> { 'id': data }
 						      }
                                                    },
                                            verbal: function (s_expr) 
@@ -210,7 +210,7 @@
 
                                                       // set
                                                       if (bus_ab == L3DCR_ID) 
-						          simcore_rest_call("L3D", "GET", "/set", {}) ; // TODO: {} -> { x, y, z}
+						          simcore_rest_call("L3D", "GET", "/set", {}) ; // TODO: {} -> { 'id': data }
                                                    },
                                            verbal: function (s_expr) 
                                                    {
