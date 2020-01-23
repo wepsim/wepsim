@@ -341,7 +341,7 @@
             </div>
 
             <div class="row">
-                <div id="col1" class="" style="padding:12px 0px 0px 16px !important;">
+                <div id="col1" class="pt-2 pl-3 pr-1">
 
                       <!-- Nav tabs -->
 		      <ul class="nav nav-tabs nav-justified nav-tabs">
@@ -423,7 +423,7 @@
 	    	    </div>
                 </div>
 
-                <div id="col2" class="" style="padding:5px 16px 0px 16px !important;">
+		<div id="col2" class="pt-2 pl-1">
 
                     <div class="row row pl-2 pr-3">
                     <div class="btn-toolbar btn-block" role="toolbar">
@@ -1842,18 +1842,9 @@
 
 	   <div class="modal-header">
 		<div class="mx-auto">
-		   <div class="btn-group">
-		     <button type="button" class="btn btn-dark float-left mr-auto"
-			     onclick="var wsi = get_cfg('ws_idiom') ;
-				      var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-				      if (confirm(q)) {
-			                  wsweb_dialogbox_reset_notifications();
-				      }
-			              return false;"><span data-langkey="Reset">Reset</span></button>
-		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
-                             <span data-langkey='Notifications'>Notifications</span>
-		     </button>
-		   </div>
+		   <button type="button" class="btn btn-dark px-3 py-1" disabled>
+                        <span data-langkey='Notifications'>Notifications</span>
+		   </button>
                 </div>
 		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
 	   </div>
@@ -1863,8 +1854,15 @@
 	   </div>
 
 	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
+		 <button type="button" class="btn btn-outline-dark   btn-sm col col-sm-3 float-left"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
+		 <button type="button" class="btn btn-outline-danger btn-sm col-auto float-left mr-auto"
+			 onclick="var wsi = get_cfg('ws_idiom') ;
+				  var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
+				  if (confirm(q)) {
+			                  wsweb_dialogbox_reset_notifications();
+				  }
+			          return false;"><span data-langkey="Reset">Reset</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->

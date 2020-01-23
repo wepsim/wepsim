@@ -408,7 +408,7 @@
 			       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 			       data-toggle="tab" href="#nav-simulation" role="tab" 
 			       aria-controls="nav-home" aria-selected="true"><span class="d-none d-sm-inline-flex" data-langkey='Simulation'>Simulation</span><span class="d-sm-none">Sim.</span></a>
-			    <a class="nav-item nav-link"        id="nav-microcode-tab" data-oldid="s5b_20" 
+			    <a class="nav-item nav-link user_microcode"    id="nav-microcode-tab" data-oldid="s5b_20" 
 			       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 			       onclick="setTimeout(function(){ inputfirm.refresh(); }, 200) ;
                                         return false;"
@@ -1586,18 +1586,9 @@
 
 	   <div class="modal-header">
 		<div class="mx-auto">
-		   <div class="btn-group">
-		     <button type="button" class="btn btn-dark float-left mr-auto"
-			     onclick="var wsi = get_cfg('ws_idiom') ;
-				      var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-				      if (confirm(q)) {
-			                  wsweb_dialogbox_reset_notifications();
-				      }
-			              return false;"><span data-langkey="Reset">Reset</span></button>
-		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
+		     <button type="button" class="btn btn-dark px-3 py-1" disabled>
                              <span data-langkey='Notifications'>Notifications</span>
 		     </button>
-		   </div>
                 </div>
 		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
 	   </div>
@@ -1607,9 +1598,16 @@
 	   </div>
 
 	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
+		 <button type="button" class="btn btn-outline-dark   btn-sm col col-sm-3 float-left"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
+		 <button type="button" class="btn btn-outline-danger btn-sm col-auto float-left mr-auto"
+			 onclick="var wsi = get_cfg('ws_idiom') ;
+				      var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
+				      if (confirm(q)) {
+			                  wsweb_dialogbox_reset_notifications();
+				      }
+			              return false;"><span data-langkey="Reset">Reset</span></button>
+		 <button type="button" class="btn btn-danger  col-auto pull-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
