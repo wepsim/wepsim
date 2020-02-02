@@ -25,19 +25,60 @@
 
     //  To change Workspaces
 
+    var hash_skin2action = {
+	    "classic": {
+		         "simulator": function() {
+					  sim_change_workspace('#main1', 0) ;
+
+					  setTimeout(function(){
+							 $("#t3_firm").appendTo("#t3_firm_placeholder2") ;
+							  $("#t4_asm").appendTo("#t4_asm_placeholder2") ;
+							 inputfirm.refresh() ;
+							 inputasm.refresh() ;
+						     }, 50) ;
+	                              },
+		         "microcode": function() {
+		                          sim_change_workspace('#main3', 1) ;
+
+			                  setTimeout(function(){
+					                 $("#t3_firm").appendTo("#t3_firm_placeholder1") ;
+					                 inputfirm.refresh() ;
+				                     }, 50) ;
+	                              },
+		         "assembly":  function() {
+					  sim_change_workspace('#main4', 2) ;
+
+					  setTimeout(function(){
+							 $("#t4_asm").appendTo("#t4_asm_placeholder1") ;
+							 inputasm.refresh() ;
+						     }, 50) ;
+	                              }
+		       },
+	    "compact": {
+		         "simulator": function() {
+	                                  $("#nav-simulation-tab").click() ;
+	                              },
+		         "microcode": function() {
+	                                  $("#nav-microcode-tab").click() ;
+	                              },
+		         "assembly":  function() {
+	                                  $("#nav-assembly-tab").click() ;
+	                              }
+		       }
+        } ;
+
     function wsweb_change_workspace_simulator ( )
     {
-	    sim_change_workspace('#main1', 0) ;
+	    var skin_ui = get_cfg('ws_skin_ui') ;
 
+            if (typeof hash_skin2action[skin_ui] !== "undefined") {
+                hash_skin2action[skin_ui]["simulator"]() ;
+	    }
+
+	    // stats about ui
 	    setTimeout(function(){
-			    $("#t3_firm").appendTo("#t3_firm_placeholder2") ;
-			     $("#t4_asm").appendTo("#t4_asm_placeholder2") ;
-			    inputfirm.refresh() ;
-			    inputasm.refresh() ;
-
-			    // stats about ui
 			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.simulator');
-	               }, 50) ;
+		       }, 50) ;
 
             // add if recording
             simcore_record_append_new('Change to workspace simulator',
@@ -49,15 +90,16 @@
 
     function wsweb_change_workspace_microcode ( )
     {
-	    sim_change_workspace('#main3', 1) ;
+	    var skin_ui = get_cfg('ws_skin_ui') ;
 
+            if (typeof hash_skin2action[skin_ui] !== "undefined") {
+                hash_skin2action[skin_ui]["microcode"]() ;
+	    }
+
+	    // stats about ui
 	    setTimeout(function(){
-	                    $("#t3_firm").appendTo("#t3_firm_placeholder1") ;
-		            inputfirm.refresh() ;
-
-			    // stats about ui
-			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.microcode');
-	               }, 50) ;
+			  ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.microcode');
+		       }, 50) ;
 
             // add if recording
             simcore_record_append_new('Change to workspace microcode',
@@ -69,15 +111,16 @@
 
     function wsweb_change_workspace_assembly ( )
     {
-	    sim_change_workspace('#main4', 2) ;
+	    var skin_ui = get_cfg('ws_skin_ui') ;
 
+            if (typeof hash_skin2action[skin_ui] !== "undefined") {
+                hash_skin2action[skin_ui]["assembly"]() ;
+	    }
+
+	    // stats about ui
 	    setTimeout(function(){
-	                    $("#t4_asm").appendTo("#t4_asm_placeholder1") ;
-		            inputasm.refresh() ;
-
-			    // stats about ui
 			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.assembly');
-	               }, 50) ;
+		       }, 50) ;
 
             // add if recording
             simcore_record_append_new('Change to workspace assembly',
