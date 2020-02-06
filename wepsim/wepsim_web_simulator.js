@@ -171,8 +171,8 @@
 
 	    "CPU_STATS":      {
 						  init: function() {
-						 	   $('#cpu_ALL').html(msg_default) ;
-						 	   wepsim_init_cpu('#cpu_ALL') ;
+						 	   //$('#cpu_ALL').html(msg_default) ;
+						 	   //wepsim_init_cpu('#cpu_ALL') ;
 						        },
 						 reset: function() {
 							   return true ;
