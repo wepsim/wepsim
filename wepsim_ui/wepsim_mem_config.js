@@ -23,7 +23,7 @@
          *  I/O device
          */
 
-        class ws_cpu extends HTMLElement
+        class ws_mem_config extends HTMLElement
         {
 	      constructor ()
 	      {
@@ -33,29 +33,34 @@
 
 	      render ( msg_default )
 	      {
-		    // stats holder
-		    var o1 = "<div class='col-12'>" +
-			     "<table class='table table-hover table-sm table-bordered'>" +
-			     "<tr>" +
-			     "<td align=center width=50%>Instructions</td>" +
-			     "<td align=center width=50%>" +
-			     "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-			     "</td>" +
-			     "</tr>" +
-			     "<tr>" +
-			     "<td align=center width=50%>CLK ticks</td>" +
-			     "<td align=center width=50%>" +
-			     "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-			     "</td>" +
-			     "</tr>" +
-			     "</table>" +
-			     "</div>" ;
+		    // html holder
+		    var o1 = "<div class='container-fluid'>" +
+			     "<div class='row'>" ;
 
-		    this.innerHTML = "<div class='row'>" + o1 + "</div>" ;
+		    o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
+			  "<div class='card bg-light'>" +
+			  "<div class='card-body p-0' id='mempanel'>" +
+			  "<table class='table table-hover table-sm table-bordered' " +
+			  "       style='margin:0'>" +
+			  "<tbody class='no-ui-mini'>" +
+			  "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
+			  "    <td align=center'>" +
+			  "<div id='mp_wc'>" +
+			  "<input type=number data-bind='value: simhw_internalState(\"MP_wc\")' min='0' max='99999999'>" +
+			  "</div>" +
+			  "    </td></tr>" +
+			  "</tbody>" +
+			  "</table>" +
+			  "</div>" +
+			  "</div>" +
+			  "</div>" ;
+
+		    this.innerHTML = o1 ;
 
 		    // knockout binding
-		    ko_rebind_state('CLK',      'clk_context') ;
-		    ko_rebind_state('DECO_INS', 'ins_context') ;
+		    simhw_internalState_reset('MP_wc', ko_observable(0)) ;
+		    var ko_context = document.getElementById('mp_wc');
+		    ko.applyBindings(simhw_internalState('MP_wc'), ko_context);
 	      }
 
 	      connectedCallback ()
@@ -64,5 +69,5 @@
 	      }
         }
 
-        window.customElements.define('ws-cpu', ws_cpu);
+        window.customElements.define('ws-mem-config', ws_mem_config);
 

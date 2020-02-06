@@ -1,4 +1,4 @@
-/*     
+/*    
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -23,21 +23,18 @@
          *  I/O device
          */
 
-        class ws_io_info extends HTMLElement 
+        class ws_io_info extends HTMLElement
         {
-	      constructor () 
+	      constructor ()
 	      {
 		    // parent
 		    super();
-
-		    // object "io_ALL"
-		    var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
-		    this.innerHTML = msg_default ;
 	      }
 
-	      connectedCallback () 
+	      render ( msg_default )
 	      {
-		    var i = 0 ;
+		    // default content
+		    this.innerHTML = msg_default ;
 
 		    var curr_iointfactory = simhw_internalState('io_int_factory') ;
 		    if (typeof curr_iointfactory == "undefined") {
@@ -45,6 +42,8 @@
 		    }
 
 		    // stats holder
+		    var i = 0 ;
+
 		    var o1 = "<div class='container'>" +
 			     "<div class='row'>" +
 			     "<div class='col-12'>" +
@@ -71,13 +70,18 @@
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
 			 if (typeof curr_iointfactory[i].accumulated != "function")
-			     curr_iointfactory[i].accumulated = ko.observable(curr_iointfactory[i].accumulated) ;
+			     curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
 			 if (typeof curr_iointfactory[i].active != "function")
-			     curr_iointfactory[i].active      = ko.observable(curr_iointfactory[i].active) ;
+			     curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
 			 var ko_context = document.getElementById('int' + i + '_context');
 			 ko.cleanNode(ko_context);
 			 ko.applyBindings(curr_iointfactory[i], ko_context);
 		    }
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
 	      }
         }
 

@@ -1,4 +1,4 @@
-/*     
+/*    
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -23,21 +23,18 @@
          *  I/O device
          */
 
-        class ws_io_config extends HTMLElement 
+        class ws_io_config extends HTMLElement
         {
-	      constructor () 
+	      constructor ()
 	      {
 		    // parent
 		    super();
-
-		    // object "io_ALL"
-		    var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
-		    this.innerHTML = msg_default ;
 	      }
 
-	      connectedCallback () 
+	      render ( msg_default )
 	      {
-		    var i = 0 ;
+		    // default content
+		    this.innerHTML = msg_default ;
 
 		    var curr_iointfactory = simhw_internalState('io_int_factory') ;
 		    if (typeof curr_iointfactory == "undefined") {
@@ -45,13 +42,14 @@
 		    }
 
 		    // html holder
-		    var o1 = "<div class='container-fluid'>" +
-			     "<div class='row'>" ;
+		    var i = 0 ;
 
-		       o1 += "<div class='col-12 p-0'>" +
+		    var o1 = "<div class='container-fluid'>" +
+			     "<div class='row'>" +
+		             "<div class='col-12 p-0'>" +
 			     "<div class='card bg-light m-0'>" +
-			     "<div class='card-body p-0' id='iopanel'>" ;
-		       o1 += "<center>" +
+			     "<div class='card-body p-0' id='iopanel'>" +
+		             "<center>" +
 			     "<table class='table table-hover table-sm table-bordered m-0'>" +
 			     "<tbody class='no-ui-mini'>" +
 			     "<tr>" +
@@ -72,7 +70,7 @@
 		    {
 		       o1 += "<tr>" +
 			     "<td align='center' style='padding:0 0 0 0; vertical-align: middle !important'>" +
-			     "<span class='p-0 m-0'>" + i + "</span>" + 
+			     "<span class='p-0 m-0'>" + i + "</span>" +
 			     "</td>" +
 			     "<td align='center' class='p-0'>" +
 			     "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
@@ -88,8 +86,8 @@
 		    }
 		       o1 += "</tbody>" +
 			     "</table>" +
-			     "</center>" ;
-		       o1 += "</div>" +
+			     "</center>" +
+		             "</div>" +
 			     "</div>" +
 			     "</div>" ;
 
@@ -100,17 +98,22 @@
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
 			 if (typeof curr_iointfactory[i].period != "function")
-			     curr_iointfactory[i].period = ko.observable(curr_iointfactory[i].period) ;
+			     curr_iointfactory[i].period = ko_observable(curr_iointfactory[i].period) ;
 			 ko_context = document.getElementById('int' + i + '_per');
 			 ko.cleanNode(ko_context);
 			 ko.applyBindings(curr_iointfactory[i], ko_context);
-	 
+	
 			 if (typeof curr_iointfactory[i].probability != "function")
-			     curr_iointfactory[i].probability = ko.observable(curr_iointfactory[i].probability) ;
+			     curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability) ;
 			 ko_context = document.getElementById('int' + i + '_pro');
 			 ko.cleanNode(ko_context);
 			 ko.applyBindings(curr_iointfactory[i], ko_context);
 		    }
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
 	      }
         }
 

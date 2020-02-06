@@ -171,8 +171,8 @@
 
 	    "CPU_STATS":      {
 						  init: function() {
-						 	   //$('#cpu_ALL').html(msg_default) ;
-						 	   //wepsim_init_cpu('#cpu_ALL') ;
+							   var o = document.getElementById("cpu1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
 						        },
 						 reset: function() {
 							   return true ;
@@ -207,8 +207,8 @@
 
 	    "MEMORY_CONFIG":  {
 						  init: function() {
-							   $('#config_MP').html(msg_default) ;
-						 	   init_config_mp('#config_MP') ;
+							   var o = document.getElementById("memcfg1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
 						        },
 						 reset: function() {
 						           return true ;
@@ -217,8 +217,8 @@
 
 	    "IO_STATS":       {
 						  init: function() {
-							   //$('#io_ALL').html(msg_default) ;
-						 	   //wepsim_init_io('#io_ALL') ;
+							   var o = document.getElementById("ioinfo1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
 						        },
 						 reset: function() {
 						           return true ;
@@ -227,8 +227,8 @@
 
 	    "IO_CONFIG":      {
 						  init: function() {
-						 	   //$('#config_IO').html(msg_default) ;
-							   //wepsim_init_config_io('#config_IO') ;
+							   var o = document.getElementById("iocfg1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
 						        },
 						 reset: function() {
 						           return true ;

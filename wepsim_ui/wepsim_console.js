@@ -1,4 +1,4 @@
-/*     
+/*    
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -23,19 +23,15 @@
          *  I/O device
          */
 
-        class ws_console extends HTMLElement 
+        class ws_console extends HTMLElement
         {
-	      constructor () 
+	      constructor ()
 	      {
 		    // parent
 		    super();
-
-		    // object "kdb_*"
-		    var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
-		    this.innerHTML = msg_default ;
 	      }
 
-	      connectedCallback () 
+	      render ( msg_default )
 	      {
 		    var o1 = '<label class="my-0" for="kdb_con" style="min-width:95%">' +
 			     '   <img alt="monitor" height="55" src="images/monitor2.png" />' +
@@ -52,6 +48,11 @@
                              '          placeholder="WepSIM" id="kdb_key" rows="2"></textarea>' ;
 
 		    this.innerHTML = o1 ;
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
 	      }
         }
 
