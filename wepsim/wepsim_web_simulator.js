@@ -217,8 +217,8 @@
 
 	    "IO_STATS":       {
 						  init: function() {
-							   $('#io_ALL').html(msg_default) ;
-						 	   wepsim_init_io('#io_ALL') ;
+							   //$('#io_ALL').html(msg_default) ;
+						 	   //wepsim_init_io('#io_ALL') ;
 						        },
 						 reset: function() {
 						           return true ;
@@ -227,8 +227,8 @@
 
 	    "IO_CONFIG":      {
 						  init: function() {
-						 	   $('#config_IO').html(msg_default) ;
-							   wepsim_init_config_io('#config_IO') ;
+						 	   //$('#config_IO').html(msg_default) ;
+							   //wepsim_init_config_io('#config_IO') ;
 						        },
 						 reset: function() {
 						           return true ;

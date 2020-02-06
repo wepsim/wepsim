@@ -142,6 +142,12 @@ cat wepsim_core/wepsim_url.js \
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
 
+#  WepSIM ui components
+echo "ws_dist/min.wepsim_ui.js"
+cat wepsim_ui/wepsim_console.js \
+    wepsim_ui/wepsim_io_info.js \
+    wepsim_ui/wepsim_io_config.js > ws_dist/min.wepsim_ui.js
+
 #  WepSIM web engine
 echo "ws_dist/min.wepsim_web.js"
 cat ws_dist/min.wepsim_i18n.js \

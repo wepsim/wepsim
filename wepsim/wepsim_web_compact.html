@@ -571,22 +571,12 @@
 				      <div id="memory_MC" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
 				 </div>
 				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
-					 <label class="my-0" for="kdb_con" style="min-width:95%">
-					 <img alt="monitor" height="55" src="images/monitor2.png" />
-					 </label>
-					 <textarea aria-label="monitor"
-						   style="width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
-						   placeholder="WepSIM" id="kdb_con" rows="8" readonly></textarea>
-
-					 <label class="my-0" for="kdb_key" style="min-width:95%">
-					 <img alt="keyboard" height="35" src="images/keyboard1.png" />
-					 </label>
-					 <textarea aria-label="keyboard"
-						   style="min-width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
-						   placeholder="WepSIM" id="kdb_key" rows="2"></textarea>
+				         <ws-console></ws-console>
 				 </div>
 				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
-				      <div id="io_ALL"    style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+				      <div id="io_ALL"    style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid">
+				      <ws-io-info></ws-io-info>
+				      </div>
 				 </div>
 				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="cpu">
 				      <div id="cpu_ALL"   style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
@@ -595,7 +585,9 @@
 				      <div id="config_MP" style="height:58vh; width: inherit;" class="container container-fluid"></div>
 				 </div>
 				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
-				      <div id="config_IO" style="height:58vh; width: inherit; overflow-y: auto;"></div>
+				      <div id="config_IO" style="height:58vh; width: inherit; overflow-y: auto;">
+				      <ws-io-config></ws-io-config>
+				      </div>
 				 </div>
 				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="iol3d">
 				      <div id="config_L3D" style="height:58vh; width: inherit; overflow-y: auto;"></div>
@@ -1621,6 +1613,8 @@
 
     <script type="application/javascript"
             src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script type="application/javascript"
+            src="min.wepsim_ui.js"></script><noscript>Your browser does not support JavaScript!</noscript>
     <script type="application/javascript"
             src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
