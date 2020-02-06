@@ -66,7 +66,7 @@
 		'assembly':			'सभा',
 		'instructions':			'अनुदेश',
 
-                "simulator intro 1":  "आप उपयोग किए जाने वाले हार्डवेयर का चयन कर सकते हैं। डिफ़ॉल्ट एक EP (एलिमेंटल प्रोसेसर) हार्डवेयर है। <br> आप <span onclick=\"$('#dd1').dropdown('toggle'); return false;\"> उपयोग किए गए हार्डवेयर को बदलने के लिए।",
+                "simulator intro 1":  "आप उपयोग किए जाने वाले हार्डवेयर का चयन कर सकते हैं। डिफ़ॉल्ट एक EP (एलिमेंटल प्रोसेसर) हार्डवेयर है। <br> आप <span onclick=\"$class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\"> उपयोग किए गए हार्डवेयर को बदलने के लिए।",
 
                 "simulator intro 2": "फिर आपको माइक्रोकोड (निर्देश सेट को परिभाषित करता है) और असेंबली कोड लोड करने की आवश्यकता है। <br> आप <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'> एक उदाहरण </span>, <span class=' text-primary bg-light' onclick=' wsweb_select_action(\"checkpoint\");;>> इसे फ़ाइल से लोड करें </span>, या आप संपादित कर सकते हैं <span class='text-primary bg-light' onclick= 'wsweb_change_workspace_microcode();'> एक नया माइक्रोकोड </span> और <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'> एक नया असेंबली कोड </span>।",
 

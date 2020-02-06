@@ -67,7 +67,7 @@
 		'assembly':			'сборка',
 		'instructions':			'инструкции',
 
-                "simulator intro 1": "Вы можете выбрать оборудование, которое будет использоваться. По умолчанию используется оборудование EP (Elemental Processor). <br> Вы можете использовать <span onclick=\"$('#dd1').dropdown('переключение'); return false;\">селектор режима</span> для изменения используемого оборудования.",
+                "simulator intro 1": "Вы можете выбрать оборудование, которое будет использоваться. По умолчанию используется оборудование EP (Elemental Processor). <br> Вы можете использовать <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">селектор режима</span> для изменения используемого оборудования.",
 
                 "simulator intro 2": "Затем вам нужно загрузить микрокод (определяет набор инструкций) и код сборки. <br> Вы можете использовать <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>пример</span>, <span class='text-primary bg-light' onclick='wsweb_select_action(\"checkpoint\");'> загрузить его из файла </span>, или вы можете редактировать <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>новый микрокод</span> и <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>новый код сборки</ span>. ",
 

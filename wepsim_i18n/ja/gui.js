@@ -67,7 +67,7 @@
 		'assembly':			'アセンブリ',
 		'instructions':			'説明書',
 
-                "simulator intro 1": "使用するハードウェアを選択できます。デフォルトのハードウェアはEP（Elemental Processor）ハードウェアです。<br> <span onclick=\"$('#dd1').dropdown('toggle'); return false;\">モードセレクタ</span>を使用して、使用するハードウェアを変更します。",
+                "simulator intro 1": "使用するハードウェアを選択できます。デフォルトのハードウェアはEP（Elemental Processor）ハードウェアです。<br> <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">モードセレクタ</span>を使用して、使用するハードウェアを変更します。",
 
                 "simulator intro 2": "次に、マイクロコード（命令セットを定義）とアセンブリコードをロードする必要があります。<br> <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>例</span>、<span class='text-primary bg-light' onclick = 'wsweb_select_action(\"checkpoint\");'>ファイルから読み込む</span>、または<span class='text-primary bg-light 'onclick='wsweb_change_workspace_microcode();'>新しいマイクロコード</span>および<span class='text-primary bg-light 'onclick='wsweb_change_workspace_assembly();'>新しいアセンブリコード</span>。",
 

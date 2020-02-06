@@ -178,42 +178,36 @@
 
         function ko_observable ( initial_value )
         {
-	    if (typeof ko != "undefined")
-                 return ko.observable(initial_value) ;
-	    else return initial_value ;
+	    // without ko
+	    if (typeof ko === "undefined") {
+	        return initial_value ;
+	    }
 
-	/*
-	    if (typeof ko != "undefined")
-                 return ko.observable(initial_value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
-	    else return initial_value ;
-	 */
+	    // with ko
+	    if (typeof cfg_show_rf_refresh_delay === "undefined")
+	        cfg_show_rf_refresh_delay = 120 ;
+
+            return ko.observable(initial_value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
         }
 
         function ko_rebind_state ( state, id_elto )
         {
-	    if (typeof ko == "undefined") {
+	    // without ko
+	    if (typeof ko === "undefined") {
                 return ;
             }
 
-            var state_obj = simhw_sim_state(state) ;
-            if (typeof state_obj.value != "function")
-                state_obj.value = ko.observable(state_obj.value) ;
-            var ko_context = document.getElementById(id_elto);
-            ko.cleanNode(ko_context);
-            ko.applyBindings(simhw_sim_state(state), ko_context);
-
-	/*
-	    if (typeof ko == "undefined") {
-                return ;
-            }
+	    // with ko
+	    if (typeof cfg_show_rf_refresh_delay === "undefined")
+	        cfg_show_rf_refresh_delay = 120 ;
 
             var state_obj = simhw_sim_state(state) ;
-            if (typeof state_obj.value != "function")
+            if (typeof state_obj.value !== "function")
                 state_obj.value = ko.observable(state_obj.value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+
             var ko_context = document.getElementById(id_elto);
             ko.cleanNode(ko_context);
             ko.applyBindings(simhw_sim_state(state), ko_context);
-	 */
         }
 
 

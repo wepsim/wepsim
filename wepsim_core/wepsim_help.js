@@ -220,20 +220,20 @@
     {
 		var default_content = '<br>Sorry, No more details available for this element.<p>\n' ;
 
-		if ("" == data)
+		if ("" === data)
 		     $(helpdiv).html(default_content) ;
 		else $(helpdiv).html(data) ;
 
-		if ( ("" == data) || ("" == key) ) {
+		if ( ("" === data) || ("" === key) || ("#" === key) ) {
                      return ;
 		}
 
                 // (key != "") && (data != "")
 		var help_content = $(helpdiv).filter(key).html() ;
-		if (typeof help_content == "undefined") {
+		if (typeof help_content === "undefined") {
 		    help_content = $(helpdiv).find(key).html() ;
 		}
-		if (typeof help_content == "undefined") {
+		if (typeof help_content === "undefined") {
 		    help_content = default_content ;
 		}
 

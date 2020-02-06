@@ -67,7 +67,7 @@
 		'assembly':			'montagem',
 		'instructions':			'instruções',
 
-                "simulator intro 1": "Você pode selecionar o hardware a ser usado. O padrão é o hardware EP (Elemental Processor). <br> Você pode usar o dropdown <span onclick=\"$('#dd1').dropdown('toggle'); return false;\">o seletor de modo</span> para alterar o hardware usado.",
+                "simulator intro 1": "Você pode selecionar o hardware a ser usado. O padrão é o hardware EP (Elemental Processor). <br> Você pode usar o dropdown <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">o seletor de modo</span> para alterar o hardware usado.",
 
                 "simulator intro 2": "Então você precisa carregar o microcódigo (define o conjunto de instruções) e o código assembly. <br> Você pode usar <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>um exemplo</span>, <span class='text-primary bg-light'onclick='wsweb_select_action(\"checkpoint\");'>carrega de um arquivo</span>, ou você pode editar <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>um novo microcódigo</span> e <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>um novo código de montagem</span>.",
 

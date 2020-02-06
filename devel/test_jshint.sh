@@ -78,13 +78,11 @@ set -x
  jshint ./wepsim_core/wepsim_voice.js
  jshint ./wepsim_core/wepsim_signal.js
 #jshint ./wepsim_core/wepsim_ui_registers.js
- jshint ./wepsim_core/wepsim_ui_cpu.js
- jshint ./wepsim_core/wepsim_ui_io.js
  jshint ./wepsim_core/wepsim_ui_hw.js
 
  jshint ./wepsim/wepsim_web_editor.js
  jshint ./wepsim/wepsim_web_simulator.js
- jshint ./wepsim/wepsim_web_api.js
+#jshint ./wepsim/wepsim_web_api.js
 #jshint ./wepsim/wepsim_web_pwa.js
  jshint ./wepsim/wepsim_node_core.js
 #jshint ./wepsim/wepsim_node_action.js

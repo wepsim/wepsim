@@ -68,7 +68,7 @@
 		'instructions':			'instruktioner',
 
                 "simulator intro 1":    "Du kan välja den hårdvara som ska användas. Standardinställningen är EP (Elemental Processor) hårdvara. <br>" +
-                                        "Du kan använda <span onclick='$(\"#dd1\").dropdown(\"toggle\"); return false;\'>lägesväljaren</span> för att ändra maskinvaran som används.",
+                                        "Du kan använda <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">lägesväljaren</span> för att ändra maskinvaran som används.",
 
                 "simulator intro 2":    "Då måste du ladda mikrokoden (definierar instruktionsuppsättningen) och monteringskoden. <br>" +
                                         "Du kan använda <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>ett exempel</span>," +
