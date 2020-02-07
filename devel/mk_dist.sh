@@ -104,7 +104,6 @@ cat wepsim_core/wepsim_url.js \
     \
     wepsim_core/wepsim_ui_cpu_svg.js \
     wepsim_core/wepsim_ui_registers.js \
-    wepsim_core/wepsim_ui_console.js \
     wepsim_core/wepsim_ui_control_memory.js \
     wepsim_core/wepsim_ui_main_memory.js \
     wepsim_core/wepsim_ui_l3d.js \
@@ -142,12 +141,12 @@ rm -fr ws_dist/wepsim_web.js
 
 #  WepSIM ui components
 echo "ws_dist/min.wepsim_ui.js"
-cat wepsim_ui/wepsim_cpu.js \
-    wepsim_ui/wepsim_mem_config.js \
-    wepsim_ui/wepsim_console.js \
-    wepsim_ui/wepsim_io_info.js \
-    wepsim_ui/wepsim_io_config.js \
-    wepsim_ui/wepsim_authors.js > ws_dist/min.wepsim_ui.js
+cat wepsim/wepsim_webui_cpu.js \
+    wepsim/wepsim_webui_mem_config.js \
+    wepsim/wepsim_webui_console.js \
+    wepsim/wepsim_webui_io_info.js \
+    wepsim/wepsim_webui_io_config.js \
+    wepsim/wepsim_webui_authors.js > ws_dist/min.wepsim_ui.js
 
 #  WepSIM web engine
 echo "ws_dist/min.wepsim_web.js"
