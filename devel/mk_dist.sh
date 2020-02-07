@@ -139,18 +139,16 @@ cat wepsim_core/wepsim_url.js \
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
 
-#  WepSIM ui components
-echo "ws_dist/min.wepsim_ui.js"
+#  WepSIM web engine
+echo "ws_dist/min.wepsim_web.js"
 cat wepsim/wepsim_webui_cpu.js \
     wepsim/wepsim_webui_mem_config.js \
     wepsim/wepsim_webui_console.js \
     wepsim/wepsim_webui_io_info.js \
     wepsim/wepsim_webui_io_config.js \
-    wepsim/wepsim_webui_authors.js > ws_dist/min.wepsim_ui.js
-
-#  WepSIM web engine
-echo "ws_dist/min.wepsim_web.js"
-cat ws_dist/min.wepsim_i18n.js \
+    wepsim/wepsim_webui_authors.js \
+    \
+    ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_web.js > ws_dist/transient.js
 mv ws_dist/transient.js ws_dist/min.wepsim_web.js
 

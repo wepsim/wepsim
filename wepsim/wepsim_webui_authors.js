@@ -34,8 +34,7 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		 var o1 = '' +
-                          '<div class="card-desk row"' +
+		 var o1 = '<div class="card-desk row"' +
                           '     style="max-width:512px;">' +
 			  '      <div class="card bg-white text-center col-3 p-0">' +
 			  '        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-1"' +
