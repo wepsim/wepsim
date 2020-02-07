@@ -199,6 +199,63 @@
 
         window.customElements.define('ws-console', ws_console);
 
+
+        //
+        // Screen / Keyboard
+        //
+
+	function wepsim_get_screen_content ( )
+	{
+	      var screen_content = "" ;
+
+	      var scrobj = document.getElementById("kdb_con") ;
+              if (scrobj != null) {
+		  screen_content = scrobj.value ;
+	      }
+
+              simcore_native_set_value("SCREEN", "content", screen_content) ;
+
+	      return screen_content ;
+	}
+
+	function wepsim_set_screen_content ( screen_content )
+	{
+	      var scrobj = document.getElementById("kdb_con") ;
+              if (scrobj != null) {
+		  scrobj.value = screen_content ;
+	      }
+
+              simcore_native_set_value("SCREEN", "content", screen_content) ;
+
+	      return screen_content ;
+	}
+
+	function wepsim_get_keyboard_content ( )
+	{
+	      var keystrokes = "" ;
+
+	      var keyobj = document.getElementById("kdb_key") ;
+              if (keyobj != null) {
+		  keystrokes = keyobj.value ;
+	      }
+
+              simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
+
+	      return keystrokes ;
+	}
+
+	function wepsim_set_keyboard_content ( keystrokes )
+	{
+	      var keyobj = document.getElementById("kdb_key") ;
+              if (keyobj != null) {
+		  keyobj.value = keystrokes ;
+	      }
+
+              simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
+
+	      return true ;
+	}
+
 /*    
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
@@ -445,8 +502,7 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		 var o1 = '' +
-                          '<div class="card-desk row"' +
+		 var o1 = '<div class="card-desk row"' +
                           '     style="max-width:512px;">' +
 			  '      <div class="card bg-white text-center col-3 p-0">' +
 			  '        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-1"' +

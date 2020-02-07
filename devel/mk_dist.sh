@@ -146,7 +146,7 @@ cat wepsim/wepsim_webui_cpu.js \
     wepsim/wepsim_webui_console.js \
     wepsim/wepsim_webui_io_info.js \
     wepsim/wepsim_webui_io_config.js \
-    wepsim/wepsim_webui_authors.js > ws_dist/min.wepsim_ui.js
+    wepsim/wepsim_webui_authors.js > ws_dist/min.wepsim_webui.js
 
 #  WepSIM web engine
 echo "ws_dist/min.wepsim_web.js"
