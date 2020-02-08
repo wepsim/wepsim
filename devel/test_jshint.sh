@@ -69,35 +69,34 @@ set -x
  jshint ./wepsim_core/wepsim_help.js
  jshint ./wepsim_core/wepsim_example_commands-ep_mips.js
  jshint ./wepsim_core/wepsim_state.js
-#jshint ./wepsim_core/wepsim_ui_l3d.js
  jshint ./wepsim_core/wepsim_tutorial_simpleusage.js
  jshint ./wepsim_core/wepsim_config.js
 #jshint ./wepsim_core/wepsim_clipboard.js
-#jshint ./wepsim_core/wepsim_ui_main_memory.js
  jshint ./wepsim_core/wepsim_config_commands.js
-#jshint ./wepsim_core/wepsim_ui_registers.js
  jshint ./wepsim_core/wepsim_example_commands-poc_mips.js
- jshint ./wepsim_core/wepsim_ui_cpu_svg.js
  jshint ./wepsim_core/wepsim_tutorial_welcome.js
  jshint ./wepsim_core/wepsim_example_commands.js
  jshint ./wepsim_core/wepsim_notify.js
- jshint ./wepsim_core/wepsim_ui_hw.js
  jshint ./wepsim_core/wepsim_example_commands-ep_rv32.js
-#jshint ./wepsim_core/wepsim_ui_control_memory.js
  jshint ./wepsim_core/wepsim_example.js
  jshint ./wepsim_core/wepsim_checkpoint.js
  jshint ./wepsim_core/wepsim_example_commands-ep_z80.js
  jshint ./wepsim_core/wepsim_signal.js
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js
- jshint ./wepsim_core/wepsim_webui_console.js
- jshint ./wepsim_core/wepsim_webui_io_config.js
- jshint ./wepsim_core/wepsim_webui_authors.js
- jshint ./wepsim_core/wepsim_webui_dbg_mc.js
- jshint ./wepsim_core/wepsim_webui_io_info.js
- jshint ./wepsim_core/wepsim_webui_dbg_asm.js
+ jshint ./wepsim_core/wepsim_ui_hw.js
+ jshint ./wepsim_core/wepsim_ui_cpu_svg.js
+#jshint ./wepsim_core/wepsim_ui_registers.js
  jshint ./wepsim_core/wepsim_webui_cpu.js
+#jshint ./wepsim_core/wepsim_webui_mem.js
  jshint ./wepsim_core/wepsim_webui_mem_config.js
+ jshint ./wepsim_core/wepsim_webui_console.js
+ jshint ./wepsim_core/wepsim_webui_io_info.js
+ jshint ./wepsim_core/wepsim_webui_io_config.js
+ jshint ./wepsim_core/wepsim_webui_l3d.js
+ jshint ./wepsim_core/wepsim_webui_authors.js
+#jshint ./wepsim_core/wepsim_webui_dbg_mc.js
+ jshint ./wepsim_core/wepsim_webui_dbg_asm.js
 
  jshint ./wepsim/web/wepsim_web_api.js
 #jshint ./wepsim/web/wepsim_web_pwa.js

@@ -20,6 +20,39 @@
 
 
         /*
+         *  Main Memory
+         */
+
+        /* jshint esversion: 6 */
+        class ws_mainmemory extends HTMLElement
+        {
+	      constructor ()
+	      {
+		    // parent
+		    super();
+	      }
+
+	      render ( msg_default )
+	      {
+		    // html holder
+		    var o1 = "<div id='memory_MP' " + 
+                             "     style='height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" + 
+                             "</div>" ;
+
+		    this.innerHTML = o1 ;
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
+	      }
+        }
+
+        if (typeof window !== "undefined")
+            window.customElements.define('ws-mainmemory', ws_mainmemory) ;
+
+
+        /*
          *  Main Memory UI
          */
 

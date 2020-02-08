@@ -237,8 +237,8 @@
 
 	    "3DLED":         {
 						  init: function() {
-						 	   $('#config_L3D').html(msg_default) ;
-							   wepsim_init_l3d('#config_L3D') ;
+							   var o = document.getElementById("l3d1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
 						        },
 						 reset: function() {
 						           return true ;
@@ -248,7 +248,7 @@
 	    "SCREEN":         {
 		                                  init: function() {
 						           return true ;
-						         },
+						        },
 		                                 reset: function() {
 			                                   wepsim_set_screen_content("") ;
 	                                                },

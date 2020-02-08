@@ -34,7 +34,7 @@
 
 	      render ( msg_default )
 	      {
-		    // 
+		    // html holder
 		    var o1 = "<center>" + 
 		             "<div id='asm_table' style='overflow-x:auto; -webkit-overflow-scrolling:touch;'>" + 
 		   	     "<table class='table ui-responsive ui-table' style='margin-bottom:0px; min-width:700px;'>" + 

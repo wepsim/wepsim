@@ -34,6 +34,7 @@
 
 	      render ( msg_default )
 	      {
+		    // html holder
 		    var o1 = '<label class="my-0" for="kdb_con" style="min-width:95%">' +
 			     '   <img alt="monitor" height="55" src="images/monitor2.png" />' +
 			     '</label>' +

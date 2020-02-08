@@ -34,7 +34,7 @@
 
 	      render ( msg_default )
 	      {
-		    // stats holder
+		    // html holder
 		    var o1 = "<div id='cpu_ALL' style='height:58vh; width: inherit; overflow-y: auto;' " + 
 			     "     class='container container-fluid'>" +
 		             "<div class='col-12'>" +
