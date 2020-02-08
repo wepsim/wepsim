@@ -133,20 +133,19 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_voice.js \
     wepsim_core/wepsim_voice_commands.js \
     \
-    wepsim/wepsim_web_simulator.js \
-    wepsim/wepsim_web_editor.js \
-    wepsim/wepsim_web_api.js > ws_dist/wepsim_web.js
+    wepsim/web/wepsim_web_simulator.js \
+    wepsim/web/wepsim_web_editor.js \
+    wepsim/web/wepsim_web_api.js > ws_dist/wepsim_web.js
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
 
-#  WepSIM web engine
-echo "ws_dist/min.wepsim_web.js"
-cat wepsim/wepsim_webui_cpu.js \
-    wepsim/wepsim_webui_mem_config.js \
-    wepsim/wepsim_webui_console.js \
-    wepsim/wepsim_webui_io_info.js \
-    wepsim/wepsim_webui_io_config.js \
-    wepsim/wepsim_webui_authors.js \
+#  WepSIM web (no yui-compressor)
+cat wepsim_core/wepsim_webui_cpu.js \
+    wepsim_core/wepsim_webui_mem_config.js \
+    wepsim_core/wepsim_webui_console.js \
+    wepsim_core/wepsim_webui_io_info.js \
+    wepsim_core/wepsim_webui_io_config.js \
+    wepsim_core/wepsim_webui_authors.js \
     \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_web.js > ws_dist/transient.js
@@ -156,8 +155,8 @@ mv ws_dist/transient.js ws_dist/min.wepsim_web.js
 echo "ws_dist/min.wepsim_node.js"
 cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_web.js \
-    wepsim/wepsim_node_core.js \
-    wepsim/wepsim_node_action.js > ws_dist/min.wepsim_node.js
+    wepsim/nodejs/wepsim_node_core.js \
+    wepsim/nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
 
 #  external
 echo "ws_dist/min.external.js"
@@ -236,14 +235,14 @@ cp -a images    ws_dist/
 
 #  user interface
 echo "ws_dist/*.html"
-cp   wepsim/wepsim_web_classic.html   ws_dist/index.html
-cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-classic.html
-cp   wepsim/wepsim_web_compact.html   ws_dist/wepsim-compact.html
-cp   wepsim/wepsim_web_null.html      ws_dist/wepsim-null.html
-cp   wepsim/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
+cp   wepsim/web/wepsim_web_classic.html   ws_dist/index.html
+cp   wepsim/web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
+cp   wepsim/web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+cp   wepsim/web/wepsim_web_null.html      ws_dist/wepsim-null.html
+cp   wepsim/web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 echo "ws_dist/*.sh"
-cp   docs/manifest.webapp  ws_dist/
-cp wepsim/wepsim_node.sh   ws_dist/
+cp   docs/manifest.webapp         ws_dist/
+cp wepsim/nodejs/wepsim_node.sh   ws_dist/
 chmod a+x ws_dist/*.sh
 
