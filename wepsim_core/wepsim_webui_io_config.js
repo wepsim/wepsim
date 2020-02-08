@@ -122,5 +122,6 @@
 	      }
         }
 
-        window.customElements.define('ws-io-config', ws_io_config) ;
+        if (typeof window !== "undefined")
+            window.customElements.define('ws-io-config', ws_io_config) ;
 

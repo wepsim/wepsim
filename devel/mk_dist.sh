@@ -152,12 +152,15 @@ cat ws_dist/min.sim_all.js \
 
 #  WepSIM nodejs engine
 echo "ws_dist/min.wepsim_node.js"
-cat ws_dist/min.sim_all.js \
+echo "class HTMLElement { }" > ws_dist/min.dummy.js
+cat ws_dist/min.dummy.js \
+    ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_web.js \
     \
     wepsim/nodejs/wepsim_node_core.js \
     wepsim/nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
+rm -fr ws_dist/min.dummy.js
 
 #  external
 echo "ws_dist/min.external.js"

@@ -68,5 +68,6 @@
 	      }
         }
 
-        window.customElements.define('ws-cpu', ws_cpu) ;
+        if (typeof window !== "undefined")
+            window.customElements.define('ws-cpu', ws_cpu) ;
 

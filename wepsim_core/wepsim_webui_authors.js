@@ -123,5 +123,6 @@
 	      }
         }
 
-        window.customElements.define('ws-authors', ws_authors) ;
+        if (typeof window !== "undefined")
+            window.customElements.define('ws-authors', ws_authors) ;
 
