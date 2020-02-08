@@ -72,7 +72,7 @@
 	    var skin_ui = get_cfg('ws_skin_ui') ;
 
             if (typeof hash_skin2action[skin_ui] !== "undefined") {
-                hash_skin2action[skin_ui]["simulator"]() ;
+                hash_skin2action[skin_ui].simulator() ;
 	    }
 
 	    // stats about ui
@@ -93,7 +93,7 @@
 	    var skin_ui = get_cfg('ws_skin_ui') ;
 
             if (typeof hash_skin2action[skin_ui] !== "undefined") {
-                hash_skin2action[skin_ui]["microcode"]() ;
+                hash_skin2action[skin_ui].microcode() ;
 	    }
 
 	    // stats about ui
@@ -114,7 +114,7 @@
 	    var skin_ui = get_cfg('ws_skin_ui') ;
 
             if (typeof hash_skin2action[skin_ui] !== "undefined") {
-                hash_skin2action[skin_ui]["assembly"]() ;
+                hash_skin2action[skin_ui].assembly() ;
 	    }
 
 	    // stats about ui

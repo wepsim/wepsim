@@ -23,6 +23,7 @@
          *  Console (keyboard + screen)
          */
 
+        /* jshint esversion: 6 */
         class ws_console extends HTMLElement
         {
 	      constructor ()

@@ -23,6 +23,7 @@
          *  DBG-MP
          */
 
+        /* jshint esversion: 6 */
         class ws_dbg_mp extends HTMLElement
         {
 	      constructor ()

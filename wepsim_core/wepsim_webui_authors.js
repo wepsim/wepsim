@@ -23,6 +23,7 @@
          *  Authors
          */
 
+        /* jshint esversion: 6 */
         class ws_authors extends HTMLElement
         {
 	      constructor ()

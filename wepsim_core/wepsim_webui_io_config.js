@@ -23,6 +23,7 @@
          *  I/O device (config)
          */
 
+        /* jshint esversion: 6 */
         class ws_io_config extends HTMLElement
         {
 	      constructor ()

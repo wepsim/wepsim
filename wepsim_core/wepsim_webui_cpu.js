@@ -23,6 +23,7 @@
          *  CPU device
          */
 
+        /* jshint esversion: 6 */
         class ws_cpu extends HTMLElement
         {
 	      constructor ()

@@ -23,6 +23,7 @@
          *  DBG-MC
          */
 
+        /* jshint esversion: 6 */
         class ws_dbg_mc extends HTMLElement
         {
 	      constructor ()

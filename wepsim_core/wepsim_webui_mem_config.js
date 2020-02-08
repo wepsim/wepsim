@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -20,9 +20,10 @@
 
 
         /*
-         *  Memory (configuration)
+         * Memory (configuration)
          */
 
+        /* jshint esversion: 6 */
         class ws_mem_config extends HTMLElement
         {
 	      constructor ()
@@ -34,7 +35,7 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		    var o1 = "<div id='config_MP' style='height:58vh; width: inherit; overflow-y: auto;' " + 
+		    var o1 = "<div id='config_MP' style='height:58vh; width: inherit; overflow-y: auto;' " +
 			     "     class='container container-fluid'>" +
 		             "<div class='container-fluid'>" +
 			     "<div class='row'>" +

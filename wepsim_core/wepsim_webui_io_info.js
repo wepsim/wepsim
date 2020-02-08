@@ -23,6 +23,7 @@
          *  I/O device (information)
          */
 
+        /* jshint esversion: 6 */
         class ws_io_info extends HTMLElement
         {
 	      constructor ()
