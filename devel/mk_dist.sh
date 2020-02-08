@@ -69,7 +69,7 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_core_voice.js \
     sim_core/sim_core_rest.js \
     sim_core/sim_core_notify.js > ws_dist/sim_all.js
-/usr/bin/yui-compressor -o ws_dist/min.sim_all.js ws_dist/sim_all.js
+terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
 
 #  WepSIM internalization (i18n)
@@ -88,11 +88,11 @@ cat wepsim_i18n/$LANG/gui.js \
 cp  wepsim_i18n/$LANG/simulator.html ws_dist/help/simulator-"$LANG".html
 cp  wepsim_i18n/$LANG/about.html     ws_dist/help/about-"$LANG".html
 done
-/usr/bin/yui-compressor -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
+terser -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
 rm -fr ws_dist/wepsim_i18n.js
 
 #  WepSIM web
-echo "ws_dist/min.wepsim_web.js"
+echo "ws_dist/min.wepsim_core.js"
 cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_clipboard.js \
     wepsim_core/wepsim_preload.js \
@@ -101,15 +101,6 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_execute.js \
     wepsim_core/wepsim_notify.js \
-    \
-    wepsim_core/wepsim_ui_cpu_svg.js \
-    wepsim_core/wepsim_ui_registers.js \
-    wepsim_core/wepsim_ui_control_memory.js \
-    wepsim_core/wepsim_ui_main_memory.js \
-    wepsim_core/wepsim_ui_l3d.js \
-    wepsim_core/wepsim_ui_hw.js \
-    \
-    wepsim_core/wepsim_dbg_breakpointicons.js \
     \
     wepsim_core/wepsim_mode.js \
     wepsim_core/wepsim_share.js \
@@ -131,30 +122,40 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_voice.js \
     wepsim_core/wepsim_voice_commands.js \
     \
-    wepsim/web/wepsim_web_simulator.js \
-    wepsim/web/wepsim_web_editor.js \
-    wepsim/web/wepsim_web_api.js > ws_dist/wepsim_web.js
-/usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
-rm -fr ws_dist/wepsim_web.js
-
-#  WepSIM web (no yui-compressor)
-cat wepsim_core/wepsim_webui_cpu.js \
+    wepsim_core/wepsim_ui_cpu_svg.js \
+    wepsim_core/wepsim_ui_registers.js \
+    wepsim_core/wepsim_ui_control_memory.js \
+    wepsim_core/wepsim_ui_main_memory.js \
+    wepsim_core/wepsim_ui_l3d.js \
+    wepsim_core/wepsim_ui_hw.js \
+    wepsim_core/wepsim_dbg_breakpointicons.js \
+    \
+    wepsim_core/wepsim_webui_cpu.js \
     wepsim_core/wepsim_webui_mem_config.js \
     wepsim_core/wepsim_webui_console.js \
     wepsim_core/wepsim_webui_io_info.js \
     wepsim_core/wepsim_webui_io_config.js \
     wepsim_core/wepsim_webui_dbg_mc.js \
     wepsim_core/wepsim_webui_dbg_asm.js \
-    wepsim_core/wepsim_webui_authors.js \
-    \
+    wepsim_core/wepsim_webui_authors.js > ws_dist/wepsim_core.js
+terser -o ws_dist/min.wepsim_core.js ws_dist/wepsim_core.js
+rm -fr ws_dist/wepsim_core.js
+
+#  WepSIM web engine
+cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
-    ws_dist/min.wepsim_web.js > ws_dist/transient.js
-mv ws_dist/transient.js ws_dist/min.wepsim_web.js
+    ws_dist/min.wepsim_core.js \
+    \
+    wepsim/web/wepsim_web_api.js \
+    wepsim/web/wepsim_web_editor.js \
+    wepsim/web/wepsim_web_simulator.js > ws_dist/min.wepsim_web.js
 
 #  WepSIM nodejs engine
 echo "ws_dist/min.wepsim_node.js"
 cat ws_dist/min.sim_all.js \
+    ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_web.js \
+    \
     wepsim/nodejs/wepsim_node_core.js \
     wepsim/nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
 

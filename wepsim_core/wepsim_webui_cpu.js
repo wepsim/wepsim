@@ -55,7 +55,7 @@
 			     "</div>" +
 			     "</div>" ;
 
-		    this.innerHTML = "<div class='row'>" + o1 + "</div>" ;
+		    this.innerHTML = o1 ;
 
 		    // knockout binding
 		    ko_rebind_state('CLK',      'clk_context') ;
