@@ -19,9 +19,40 @@
  */
 
 
-        // xx
+        /*
+         *  DBG-MC
+         */
 
+        class ws_dbg_mc extends HTMLElement
+        {
+	      constructor ()
+	      {
+		    // parent
+		    super();
+	      }
+
+	      render ( msg_default )
+	      {
+		    // 
+		    var o1 = "<div id='memory_MC' " + 
+                             "     style='height:60vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" + 
+                             "</div>" ;
+
+		    this.innerHTML = o1 ;
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
+	      }
+        }
+
+        window.customElements.define('ws-dbg-mc', ws_dbg_mc) ;
+
+
+        //
         // breakpoints
+        //
 
         function dbg_set_breakpoint ( addr )
         {

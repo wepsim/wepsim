@@ -20,7 +20,7 @@
 
 
         /*
-         *  I/O device
+         *  Authors
          */
 
         class ws_authors extends HTMLElement
@@ -122,5 +122,5 @@
 	      }
         }
 
-        window.customElements.define('ws-authors', ws_authors);
+        window.customElements.define('ws-authors', ws_authors) ;
 

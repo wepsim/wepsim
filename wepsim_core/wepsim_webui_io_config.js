@@ -20,7 +20,7 @@
 
 
         /*
-         *  I/O device
+         *  I/O device (config)
          */
 
         class ws_io_config extends HTMLElement
@@ -34,17 +34,18 @@
 	      render ( msg_default )
 	      {
 		    // default content
-		    this.innerHTML = msg_default ;
-
 		    var curr_iointfactory = simhw_internalState('io_int_factory') ;
-		    if (typeof curr_iointfactory == "undefined") {
+		    if (typeof curr_iointfactory == "undefined") 
+                    {
+		        this.innerHTML = msg_default ;
 			return ;
 		    }
 
 		    // html holder
 		    var i = 0 ;
 
-		    var o1 = "<div class='container-fluid'>" +
+		    var o1 = "<div id='config_IO' style='height:58vh; width: inherit; overflow-y: auto;'>" + 
+		             "<div class='container-fluid'>" +
 			     "<div class='row'>" +
 		             "<div class='col-12 p-0'>" +
 			     "<div class='card bg-light m-0'>" +
@@ -89,6 +90,7 @@
 			     "</center>" +
 		             "</div>" +
 			     "</div>" +
+			     "</div>" +
 			     "</div>" ;
 
 		    this.innerHTML = o1 ;
@@ -97,12 +99,14 @@
 		    var ko_context = {} ;
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
+                         // period
 			 if (typeof curr_iointfactory[i].period != "function")
 			     curr_iointfactory[i].period = ko_observable(curr_iointfactory[i].period) ;
 			 ko_context = document.getElementById('int' + i + '_per');
 			 ko.cleanNode(ko_context);
 			 ko.applyBindings(curr_iointfactory[i], ko_context);
 	
+                         // probability
 			 if (typeof curr_iointfactory[i].probability != "function")
 			     curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability) ;
 			 ko_context = document.getElementById('int' + i + '_pro');
@@ -117,5 +121,5 @@
 	      }
         }
 
-        window.customElements.define('ws-io-config', ws_io_config);
+        window.customElements.define('ws-io-config', ws_io_config) ;
 

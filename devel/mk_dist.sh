@@ -109,8 +109,6 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_ui_l3d.js \
     wepsim_core/wepsim_ui_hw.js \
     \
-    wepsim_core/wepsim_dbg_asm.js \
-    wepsim_core/wepsim_dbg_mc.js \
     wepsim_core/wepsim_dbg_breakpointicons.js \
     \
     wepsim_core/wepsim_mode.js \
@@ -145,6 +143,8 @@ cat wepsim_core/wepsim_webui_cpu.js \
     wepsim_core/wepsim_webui_console.js \
     wepsim_core/wepsim_webui_io_info.js \
     wepsim_core/wepsim_webui_io_config.js \
+    wepsim_core/wepsim_webui_dbg_mc.js \
+    wepsim_core/wepsim_webui_dbg_asm.js \
     wepsim_core/wepsim_webui_authors.js \
     \
     ws_dist/min.wepsim_i18n.js \

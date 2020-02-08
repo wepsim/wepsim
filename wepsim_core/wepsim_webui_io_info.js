@@ -20,7 +20,7 @@
 
 
         /*
-         *  I/O device
+         *  I/O device (information)
          */
 
         class ws_io_info extends HTMLElement
@@ -34,17 +34,19 @@
 	      render ( msg_default )
 	      {
 		    // default content
-		    this.innerHTML = msg_default ;
-
 		    var curr_iointfactory = simhw_internalState('io_int_factory') ;
-		    if (typeof curr_iointfactory == "undefined") {
+		    if (typeof curr_iointfactory == "undefined") 
+                    {
+		        this.innerHTML = msg_default ;
 			return ;
 		    }
 
 		    // stats holder
 		    var i = 0 ;
 
-		    var o1 = "<div class='container'>" +
+		    var o1 = "<div id='io_ALL' style='height:58vh; width: inherit; overflow-y: auto;' " + 
+			     "     class='container container-fluid'>" +
+                             "<div class='container'>" +
 			     "<div class='row'>" +
 			     "<div class='col-12'>" +
 			     "<table class='table table-hover table-sm table-bordered'>" ;
@@ -60,6 +62,7 @@
 			     "</tr>" ;
 		    }
 		    o1 += "</table>" +
+			  "</div>" +
 			  "</div>" +
 			  "</div>" +
 			  "</div>" ;
@@ -85,5 +88,5 @@
 	      }
         }
 
-        window.customElements.define('ws-io-info', ws_io_info);
+        window.customElements.define('ws-io-info', ws_io_info) ;
 

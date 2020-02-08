@@ -20,7 +20,7 @@
 
 
         /*
-         *  I/O device
+         *  Console (keyboard + screen)
          */
 
         class ws_console extends HTMLElement
@@ -56,7 +56,7 @@
 	      }
         }
 
-        window.customElements.define('ws-console', ws_console);
+        window.customElements.define('ws-console', ws_console) ;
 
 
         //
