@@ -37,8 +37,8 @@ i18n_eltos = {} ;
 i18n_eltos['cfg'] = {
 
 	             "General": "General",
-                      "Idiom for help, examples, etc.": 		             "Idiom for help, examples, etc.",
-                      "Notification speed: time before disapear": 	             "Notification speed: time before disapear",
+                     "Idiom for help, examples, etc.": 		             	     "Idiom for help, examples, etc.",
+                     "Notification speed: time before disapear": 	             "Notification speed: time before disapear",
 	             "Editor": "Editor",
                       "Editor theme: light or dark": 		                     "Editor theme: light or dark",
                       "Light": 		                     			     "Light",
@@ -247,7 +247,7 @@ i18n_eltos['gui'] = {
 
                         "Recent":                                       "Recent",
 			"Refresh":  			                "Refresh",
-			"Welcome":  			                "Welcome"
+			"Welcome":  			                "Welcome",
                         "WepSIM hardware":      			"WepSIM hardware",
                         "Pick firm/soft from":  			"Pick firm/soft from",
                         "Information from":     			"Information from",

@@ -70,7 +70,7 @@
                 api_endpoint = api_endpoint() ;
 	    }
 
-	    if (typeof api_endpoint.trim() === "") {
+	    if (api_endpoint.trim() === "") {
 		return false ;
 	    }
 
