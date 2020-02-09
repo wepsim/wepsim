@@ -69,10 +69,10 @@
 		    for (i=0; i<curr_l3dstates.length/9; i++)
 		    {
 			o1 += "<table class='table table-hover table-sm table-bordered pb-3'>" ;
-			    for (j=0; j<3; j++)
+			    for (var j=0; j<3; j++)
 			    {
 			o1 += "<tr>" ;
-				    for (k=0; k<3; k++)
+				    for (var k=0; k<3; k++)
 				    {
 			o1 += "<td align=center id='l3d" + (i*9+j*3+k) + "_context' " +
 				      "    data-bind=\"style: { fontWeight: active() ? 'bold' : '' }, " +
