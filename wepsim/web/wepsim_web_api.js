@@ -798,6 +798,105 @@
             return true ;
     }
 
+	    function wsweb_xxxx_to_file ( oid, otitle, obody, olabel, ocbck )
+	    {
+		    // dialog
+		    var d1 = bootbox.dialog({
+			    title:      otitle,
+			    message:    obody,
+			    scrollable: true,
+			    size:       'large',
+			    onShown: function(e) {
+					var ws_idiom = get_cfg('ws_idiom') ;
+					i18n_update_tags('dialogs', ws_idiom) ;
+				        $('.dropify').dropify() ;
+				     },
+			    buttons: {
+				save: {
+				    label:     "<span data-langkey='Save to File'>Save to File</span>",
+				    className: 'btn btn-sm btn-dark',
+				    callback:  ocbck
+				},
+				close: {
+				    label:     "<span data-langkey='Close'>Close</span>",
+				    className: 'btn btn-sm btn-danger',
+				    callback:  function() { 
+						  // add if recording
+						  simcore_record_append_new('Close dialog',
+									    '$("#" + oid).modal("hide");\n') ;
+					       }
+				}
+			    }
+		    });
+
+		    d1.init(function(){
+		               d1.attr("id", oid) ;
+		            });
+		    d1.find('.modal-header').addClass('bg-dark') ;
+
+		    // return dialog
+		    return d1 ;
+	    }
+
+    function wsweb_save_assembly_to_file ( )
+    {
+	    // var dialog elements
+	    var otitle = "<span class='text-dark'>Save Assembly</span>" ;
+
+            var obody  = "<label for='inputFileNameToSaveAs2'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
+	                 "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
+                         "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>" ;
+
+	    var olabel = "<span data-langkey='Save to File'>Save to File</span>" ;
+
+            var ocbck  = function() {
+			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
+			     var textToWrite      = inputasm.getValue();
+			     wepsim_save_to_file(textToWrite, fileNameToSaveAs);
+			 } ;
+
+	    // dialog
+            var d1 = wsweb_xxxx_to_file("lssave2", otitle, obody, olabel, ocbck) ;
+	        d1.modal('show');
+
+            // add if recording
+            simcore_record_append_new('Save assembly to file',
+		                      'wsweb_save_assembly_to_file();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_load_assembly_to_file ( )
+    {
+	    // var dialog elements
+	    var otitle = "<span class='text-dark'>Load Assembly</span>" ;
+
+            var obody  = "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
+	                 "<p><input aria-label='file to load' type='file' id='fileToLoad2' class='dropify'/></p>" ;
+
+	    var olabel = "<span data-langkey='Load to File'>Load to File</span>" ;
+
+            var ocbck  = function() {
+		             var fileToLoad = document.getElementById('fileToLoad2').files[0];
+		             wepsim_file_loadFrom(fileToLoad,
+                                                   function(txt){ inputasm.setValue(txt); });
+			     $('#lsload2').modal('hide');
+			 } ;
+
+	    // dialog
+            var d1 = wsweb_xxxx_to_file("lsload2", otitle, obody, olabel, ocbck) ;
+	        d1.modal('show');
+
+            // add if recording
+            simcore_record_append_new('Load assembly to file',
+		                      'wsweb_load_assembly_to_file();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+
     // timer
     var wepsim_updatediv_timer = null ;
 
