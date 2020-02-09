@@ -850,7 +850,7 @@
 			},
 			cancel: {
 			  //label: "<div id='autoclose1'>Close</div>",
-			    label: "Close",
+			    label: "<span data-langkey='Close'>Close</span>",
 			    className: 'btn-danger m-0',
 			    callback: function() { 
                                          clearTimeout(wepsim_updatediv_timer) ;
@@ -1047,10 +1047,51 @@
     //  All workspaces: popovers and modals from quick-menu...
 
     // about
+    var ws_aboutbox = null ;
+
     function wsweb_about_show ( )
     {
-	    $('#about2').modal('show') ;
-	    wepsim_restore_uicfg() ;
+	 // show dialogbox
+         var ws_aboutbox = bootbox.dialog({
+		     title:     "<h5 class='my-0 mx-auto'><strong>WepSIM</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>",
+		     message:   "<div id='container-about1' class='container-fluid'" +
+				"     style='max-height:80vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+				"	<div class='row pb-2'>" +
+				"	  <div class='col-sm-12 p-0'>" +
+				"	       <span class='float-left mr-auto text-primary'" +
+				"                    onclick='wepsim_help_set_relative('about#');" +
+				"                             wepsim_help_refresh();" +
+				"		              wsweb_about_close();" +
+				"			      return false;'>GNU Lesser General Public 3</span>" +
+				"	  </div>" +
+				"	</div>" +
+				"	<ws-authors></ws-authors>" +
+				"</div>",
+		     scrollable: true,
+		     onShown: function(e) {
+				 wepsim_restore_uicfg() ;
+			         $("div.wsversion").replaceWith(get_cfg('version')) ;
+			      },
+		     buttons: {
+			Description: {
+			   label: "&plusmn; <span data-langkey='Description'>Description</span>",
+			   className: 'btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto',
+			   callback: function() {
+					$(".cf-all").collapse('toggle') ;
+					return false;
+				     }
+			},
+			OK: {
+			   label: "OK",
+			   className: 'btn btn-primary btn-sm col col-sm-3 float-right shadow-none',
+			   callback: function() {
+				     }
+			}
+		     },
+		     keyboard: true,
+		     animate:  false
+			  });
+            ws_aboutbox.modal('show') ;
 
             // add if recording
             simcore_record_append_new('Open the "about" dialogbox',
@@ -1062,7 +1103,7 @@
 
     function wsweb_about_close ( )
     {
-	    $('#about2').modal('hide') ;
+            ws_aboutbox.modal('hide') ;
 
             // add if recording
             simcore_record_append_new('Close the "about" dialogbox',
