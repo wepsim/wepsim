@@ -62,7 +62,7 @@
 		    var i = 0 ;
 		    var ko_context = null ;
 
-		    var o1  = "<div id='config_L3D' style='height:58vh; width:inherit; overflow-y:auto;'></div>" +
+		    var o1  = "<div id='config_L3D' style='height:58vh; width:inherit; overflow-y:auto;'>" +
 			      "<div class='container'>" +
 			      "<div class='row'>" +
 			      "<div class='col-12'>" ;

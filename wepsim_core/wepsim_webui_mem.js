@@ -536,7 +536,7 @@
 		     }
 
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
-                           "<td class='asm_label  text-monospace col-auto collapse' " +
+                           "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
                            "    style='line-height:0.9;' align=right" +
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" + s_label + "</td>" +
