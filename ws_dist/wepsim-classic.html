@@ -574,10 +574,10 @@
 					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button data-target="#lsload" data-toggle="modal"
+						    <button onclick="wsweb_load_firmware_from_file(); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
-						    <button data-target="#lssave" data-toggle="modal"
+						    <button onclick="wsweb_save_firmware_to_file(); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
@@ -614,7 +614,7 @@
 					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button onclick="wsweb_load_assembly_to_file(); return true;"
+						    <button onclick="wsweb_load_assembly_from_file(); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
 						    <button onclick="wsweb_save_assembly_to_file(); return true;"
@@ -673,10 +673,10 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button data-target="#lsload" data-toggle="modal"
+			    <button onclick="wsweb_load_firmware_from_file(); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 		                    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
-		            <button data-target="#lssave" data-toggle="modal"
+			    <button onclick="wsweb_save_firmware_to_file(); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 		      </div>
@@ -806,7 +806,7 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-			    <button onclick="wsweb_load_assembly_to_file(); return true;"
+			    <button onclick="wsweb_load_assembly_from_file(); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 			    <button onclick="wsweb_save_assembly_to_file(); return true;"
@@ -916,67 +916,6 @@
 
 	  </div>
 	</div>
-
-
-<!-- load/save microcode -->
-<div class="modal" id="lsload" tabindex="-1" role="dialog" aria-labelledby="lsload" aria-hidden="true">
-     <div class="modal-dialog">
-     <div class="modal-content">
-     <div class="modal-header bg-dark">
-	<strong class="modal-title text-white">Load Microcode</strong>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
-        </button>
-     </div>
-     <div class="modal-body">
-	<label for="fileToLoad"><em><span data-langkey="Load from this File">Load from this File</span>:</em></label>
-	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
-     </div>
-     <div class="modal-footer">
-	<button class="btn btn-sm btn-dark"
-		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
-		         wepsim_file_loadFrom(fileToLoad,
-                                               function(txt){ inputfirm.setValue(txt); });
-			 $('#lsload').modal('hide');
-                         return false;">
-        <span data-langkey="Load from this File">Load from this File</span></button>
-        </button>
-	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-     </div>
-     </div>
-     </div>
-</div>
-
-<div class="modal" id="lssave" tabindex="-1" role="dialog" aria-labelledby="lssave" aria-hidden="true">
-     <div class="modal-dialog">
-     <div class="modal-content">
-     <div class="modal-header bg-dark">
-	<strong class="modal-title text-white">Save Microcode</strong>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
-        </button>
-     </div>
-     <div class="modal-body">
-        <label for="inputFileNameToSaveAs"><em><span data-langkey="Please write the file name">Please write the file name</span>:</em></label>
-	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs"
-                  class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
-     </div>
-     <div class="modal-footer" style="flex-wrap: wrap">
-	<button class="btn btn-sm btn-dark my-1"
-		onclick="wsweb_save_controlmemory_to_file();
-			 return false;">Save control memory to File</button>
-	<button class="btn btn-sm btn-dark my-1"
-		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                         var textToWrite      = inputfirm.getValue();
-                         wepsim_save_to_file(textToWrite, fileNameToSaveAs);
-			 return false;">Save Editor content to File</button>
-	<button class="btn btn-sm btn-danger my-1"
-		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-     </div>
-     </div>
-     </div>
-</div>
 
 
 <!-- configuration -->
