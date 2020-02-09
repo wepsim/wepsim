@@ -346,23 +346,6 @@
     // Auxiliar function
     //
 
-    // timer
-    var wepsim_updatediv_timer = null ;
-
-    function wepsim_updatetime ( div_id, time_left_sec )
-    {
-	    $(div_id).html('<span>Close automatically after ' + time_left_sec + ' seconds.</span>') ;
-
-            wepsim_updatediv_timer = setTimeout(wepsim_updatetime, 1000, div_id, (time_left_sec - 1));
-    }
-
-    function wepsim_updatetime_start ( div_id, time_left_sec )
-    {
-	    clearTimeout(wepsim_updatediv_timer) ;
-
-            wepsim_updatetime(div_id, time_left_sec) ;
-    }
-
     // confirm exit
     function wepsim_confirm_exit ( e )
     {
@@ -373,7 +356,7 @@
 	    return confirmationMessage;                            // Webkit, Safari, Chrome
     }
 
-    // confirm exit
+    // alert reload
     function wepsim_general_exception_handler ( err )
     {
           alert("Please try to cleanup the browser cache and try again.\n" +

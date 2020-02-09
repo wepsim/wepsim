@@ -798,6 +798,23 @@
             return true ;
     }
 
+    // timer
+    var wepsim_updatediv_timer = null ;
+
+    function wepsim_updatetime ( div_id, time_left_sec )
+    {
+            $(div_id).html('<span>Close automatically after ' + time_left_sec + ' seconds.</span>') ;
+
+            wepsim_updatediv_timer = setTimeout(wepsim_updatetime, 1000, div_id, (time_left_sec - 1));
+    }
+
+    function wepsim_updatetime_start ( div_id, time_left_sec )
+    {
+            clearTimeout(wepsim_updatediv_timer) ;
+
+            wepsim_updatetime(div_id, time_left_sec) ;
+    }
+
     //  simulator: notify
 
     var wsweb_nfbox = null ;
@@ -812,14 +829,37 @@
 		message = '&lt;empty message&gt;' ;
 	    }
 
-	    // set content
-	    $("#notifyuser1_title"  ).html(title) ;
-	    $("#notifyuser1_message").html(message) ;
-            wepsim_updatetime_start("#notifyuser1_footer", duration / 1000) ;
-
-	    // show dialogbox
-	    wsweb_nfbox = $("#notifyuser1") ;
-	    wsweb_nfbox.modal('show') ;
+	    // dialog
+	    wsweb_nfbox = bootbox.dialog({
+		    title: title,
+		    message: "<div class='p-2 m-0' style='word-wrap:break-word;'>" + 
+		             message + 
+		             "</div>",
+		    scrollable: true,
+		    size: 'large',
+		    onShown: function(e) {
+	                        wepsim_updatetime_start("#autoclose1", duration / 1000) ;
+                             },
+		    buttons: {
+			noclose: {
+			    label: "<div id='autoclose1'>&nbsp;</div>",
+			    className: 'float-left mr-auto m-0',
+			    callback: function() {
+				         return false;
+			              }
+			},
+			cancel: {
+			  //label: "<div id='autoclose1'>Close</div>",
+			    label: "Close",
+			    className: 'btn-danger m-0',
+			    callback: function() { 
+                                         clearTimeout(wepsim_updatediv_timer) ;
+				         wsweb_record_play(); 
+			              }
+			}
+		    }
+	    });
+	    wsweb_nfbox.modal('show');
 
             // return ok
             return true ;
@@ -827,7 +867,6 @@
 
     function wsweb_notifyuser_hide ( )
     {
-	    wsweb_nfbox = $("#notifyuser1") ;
 	    wsweb_nfbox.modal("hide") ;
 
             // return ok
