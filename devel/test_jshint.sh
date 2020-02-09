@@ -85,7 +85,6 @@ set -x
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js
  jshint ./wepsim_core/wepsim_ui_hw.js
- jshint ./wepsim_core/wepsim_ui_cpu_svg.js
 #jshint ./wepsim_core/wepsim_ui_registers.js
  jshint ./wepsim_core/wepsim_webui_cpu.js
 #jshint ./wepsim_core/wepsim_webui_mem.js
@@ -97,6 +96,7 @@ set -x
  jshint ./wepsim_core/wepsim_webui_authors.js
 #jshint ./wepsim_core/wepsim_webui_dbg_mc.js
  jshint ./wepsim_core/wepsim_webui_dbg_asm.js
+ jshint ./wepsim_core/wepsim_webui_cpusvg.js
 
  jshint ./wepsim/web/wepsim_web_api.js
 #jshint ./wepsim/web/wepsim_web_pwa.js

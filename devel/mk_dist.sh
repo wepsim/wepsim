@@ -122,7 +122,6 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_voice.js \
     wepsim_core/wepsim_voice_commands.js \
     \
-    wepsim_core/wepsim_ui_cpu_svg.js \
     wepsim_core/wepsim_ui_registers.js \
     wepsim_core/wepsim_ui_hw.js \
     wepsim_core/wepsim_dbg_breakpointicons.js \
@@ -133,9 +132,10 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_webui_console.js \
     wepsim_core/wepsim_webui_io_info.js \
     wepsim_core/wepsim_webui_io_config.js \
+    wepsim_core/wepsim_webui_l3d.js \
     wepsim_core/wepsim_webui_dbg_mc.js \
     wepsim_core/wepsim_webui_dbg_asm.js \
-    wepsim_core/wepsim_webui_l3d.js \
+    wepsim_core/wepsim_webui_cpusvg.js \
     wepsim_core/wepsim_webui_authors.js > ws_dist/wepsim_core.js
 terser -o ws_dist/min.wepsim_core.js ws_dist/wepsim_core.js
 rm -fr ws_dist/wepsim_core.js
