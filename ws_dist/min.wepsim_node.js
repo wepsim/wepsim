@@ -837,7 +837,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	    var obutt  = {
 			    save: {
 				label:     "<span data-langkey='Save to File'>Save to File</span>",
-				className: 'btn btn-sm btn-dark',
+				className: 'btn btn-dark',
 				callback:  function() {
 					       var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
 					       var textToWrite      = inputasm.getValue();
@@ -846,7 +846,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			    },
 			    close: {
 				label:     "<span data-langkey='Close'>Close</span>",
-				className: 'btn btn-sm btn-danger',
+				className: 'btn btn-danger',
 				callback:  function() { 
 					       // add if recording
 					       simcore_record_append_new('Close dialog',
@@ -877,8 +877,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
 	    var obutt  = {
 			    save: {
-				label:     "<span data-langkey='Load to File'>Load to File</span>",
-				className: 'btn btn-sm btn-dark',
+				label:     "<span data-langkey='Load'>Load</span>",
+				className: 'btn btn-dark',
 				callback:  function() {
 		                               var fileToLoad = document.getElementById('fileToLoad2').files[0];
 		                               wepsim_file_loadFrom(fileToLoad,
@@ -887,7 +887,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			    },
 			    close: {
 				label:     "<span data-langkey='Close'>Close</span>",
-				className: 'btn btn-sm btn-danger',
+				className: 'btn btn-danger',
 				callback:  function() { 
 					       // add if recording
 					       simcore_record_append_new('Close dialog',
@@ -920,7 +920,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	    var obutt  = {
 			    save1: {
 				label:     "<span data-langkey='Save Editor content to File'>Save Editor content to File</span>",
-				className: 'btn btn-sm btn-dark',
+				className: 'btn btn-dark',
 				callback:  function() {
 		                               var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
                                                var textToWrite      = inputfirm.getValue();
@@ -929,14 +929,14 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			    },
 			    save2: {
 				label:     "<span data-langkey='Save control memory to File'>Save control memory to File</span>",
-				className: 'btn btn-sm btn-dark my-1',
+				className: 'btn btn-dark my-1',
 				callback:  function() {
 		                               wsweb_save_controlmemory_to_file() ;
 					   }
 			    },
 			    close: {
 				label:     "<span data-langkey='Close'>Close</span>",
-				className: 'btn btn-sm btn-danger',
+				className: 'btn btn-danger',
 				callback:  function() { 
 					       // add if recording
 					       simcore_record_append_new('Close dialog',
@@ -967,8 +967,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
 	    var obutt  = {
 			    save: {
-				label:     "<span data-langkey='Load from this File'>Load from this File</span>",
-				className: 'btn btn-sm btn-dark',
+				label:     "<span data-langkey='Load'>Load</span>",
+				className: 'btn btn-dark',
 				callback:  function() {
 		                               var fileToLoad = document.getElementById('fileToLoad').files[0];
 		                               wepsim_file_loadFrom(fileToLoad,
@@ -977,7 +977,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			    },
 			    close: {
 				label:     "<span data-langkey='Close'>Close</span>",
-				className: 'btn btn-sm btn-danger',
+				className: 'btn btn-danger',
 				callback:  function() { 
 					       // add if recording
 					       simcore_record_append_new('Close dialog',
