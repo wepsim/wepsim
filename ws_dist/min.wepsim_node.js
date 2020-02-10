@@ -78,7 +78,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
 	    // stats about ui
 	    setTimeout(function(){
-			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.simulator');
+		           ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.simulator');
 		       }, 50) ;
 
             // add if recording
@@ -99,7 +99,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
 	    // stats about ui
 	    setTimeout(function(){
-			  ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.microcode');
+			   ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.microcode');
 		       }, 50) ;
 
             // add if recording
@@ -120,7 +120,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
 	    // stats about ui
 	    setTimeout(function(){
-			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.assembly');
+			   ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.assembly');
 		       }, 50) ;
 
             // add if recording
@@ -799,43 +799,19 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
             return true ;
     }
 
-	    function wsweb_xxxx_to_file ( oid, otitle, obody, obutt )
-	    {
-		    // dialog
-		    var d1 = bootbox.dialog({
-			    title:      otitle,
-			    message:    obody,
-			    scrollable: true,
-			    size:       'large',
-			    onShown: function(e) {
-					var ws_idiom = get_cfg('ws_idiom') ;
-					i18n_update_tags('dialogs', ws_idiom) ;
-				        $('.dropify').dropify() ;
-				     },
-			    buttons: obutt 
-		    });
+    //
+    // dialogs: load/save firmware/assembly
+    //
 
-		    d1.init(function(){
-		               d1.attr("id", oid) ;
-		            });
-
-		    d1.find('.modal-header').addClass('bg-dark') ;
-
-		    // return dialog
-		    return d1 ;
-	    }
-
-    function wsweb_save_assembly_to_file ( )
-    {
-	    // var dialog elements
-	    var otitle = "<span class='text-dark'>Save Assembly</span>" ;
-
-            var obody  = "<label for='inputFileNameToSaveAs2'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
-	                 "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
-                         "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>" ;
-
-	    var obutt  = {
-			    save: {
+    wsweb_loadSave_firmwareAssembly = {
+         save_assembly: {
+            oid:    "lssave2",
+	    otitle: "<span class='text-dark'>Save Assembly</span>",
+            obody:  "<label for='inputFileNameToSaveAs2'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
+	            "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
+                    "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>",
+	    obutt:  {
+			 save: {
 				label:     "<span data-langkey='Save to File'>Save to File</span>",
 				className: 'btn btn-dark',
 				callback:  function() {
@@ -843,8 +819,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 					       var textToWrite      = inputasm.getValue();
 					       wepsim_save_to_file(textToWrite, fileNameToSaveAs);
 					   }
-			    },
-			    close: {
+			 },
+			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
 				callback:  function() { 
@@ -852,31 +828,17 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 					       simcore_record_append_new('Close dialog',
 									 '$("#lssave2").modal("hide");\n') ;
 					   }
-			    }
-			 } ;
+			 }
+		    }
+         },
 
-	    // dialog
-            var d1 = wsweb_xxxx_to_file("lssave2", otitle, obody, obutt) ;
-	        d1.modal('show');
-
-            // add if recording
-            simcore_record_append_new('Save assembly to file',
-		                      'wsweb_save_assembly_to_file();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_load_assembly_from_file ( )
-    {
-	    // var dialog elements
-	    var otitle = "<span class='text-dark'>Load Assembly</span>" ;
-
-            var obody  = "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
-	                 "<p><input aria-label='file to load' type='file' id='fileToLoad2' class='dropify'/></p>" ;
-
-	    var obutt  = {
-			    save: {
+         load_assembly: {
+            oid:    "lsload2",
+	    otitle:  "<span class='text-dark'>Load Assembly</span>",
+            obody:   "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
+	             "<p><input aria-label='file to load' type='file' id='fileToLoad2' class='dropify'/></p>",
+	    obutt:   {
+			 save: {
 				label:     "<span data-langkey='Load'>Load</span>",
 				className: 'btn btn-dark',
 				callback:  function() {
@@ -884,8 +846,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 		                               wepsim_file_loadFrom(fileToLoad,
                                                                      function(txt){ inputasm.setValue(txt); });
 					   }
-			    },
-			    close: {
+			 },
+			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
 				callback:  function() { 
@@ -893,32 +855,18 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 					       simcore_record_append_new('Close dialog',
 									 '$("#lsload2").modal("hide");\n') ;
 					   }
-			    }
-			 } ;
+			 }
+		     }
+         },
 
-	    // dialog
-            var d1 = wsweb_xxxx_to_file("lsload2", otitle, obody, obutt) ;
-	        d1.modal('show');
-
-            // add if recording
-            simcore_record_append_new('Load assembly to file',
-		                      'wsweb_load_assembly_from_file();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_save_firmware_to_file ( )
-    {
-	    // var dialog elements
-	    var otitle = "<span class='text-dark'>Save Firmware</span>" ;
-
-            var obody  = "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
-	                 "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs'" +
-                         "          class='form-control btn-outline-dark' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" ;
-
-	    var obutt  = {
-			    save1: {
+         save_firmware: {
+	    oid:     "lssave",
+	    otitle:  "<span class='text-dark'>Save Firmware</span>",
+            obody:   "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
+	             "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs'" +
+                     "          class='form-control btn-outline-dark' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>",
+	    obutt:   {
+			 save1: {
 				label:     "<span data-langkey='Save Editor content to File'>Save Editor content to File</span>",
 				className: 'btn btn-dark',
 				callback:  function() {
@@ -926,15 +874,15 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
                                                var textToWrite      = inputfirm.getValue();
                                                wepsim_save_to_file(textToWrite, fileNameToSaveAs);
 					   }
-			    },
-			    save2: {
+			 },
+			 save2: {
 				label:     "<span data-langkey='Save control memory to File'>Save control memory to File</span>",
 				className: 'btn btn-dark my-1',
 				callback:  function() {
 		                               wsweb_save_controlmemory_to_file() ;
 					   }
-			    },
-			    close: {
+			 },
+			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
 				callback:  function() { 
@@ -942,31 +890,17 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 					       simcore_record_append_new('Close dialog',
 									 '$("#lssave").modal("hide");\n') ;
 					   }
-			    }
-			 } ;
+			 }
+		     }
+         },
 
-	    // dialog
-            var d1 = wsweb_xxxx_to_file("lssave", otitle, obody, obutt) ;
-	        d1.modal('show');
-
-            // add if recording
-            simcore_record_append_new('Save firmware to file',
-		                      'wsweb_save_firmware_to_file();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_load_firmware_from_file ( )
-    {
-	    // var dialog elements
-	    var otitle = "<span class='text-dark'>Load Microcode</span>" ;
-
-            var obody  = "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
-	                 "<p><input aria-label='file to load' type='file' id='fileToLoad' class='dropify'/></p>" ;
-
-	    var obutt  = {
-			    save: {
+         load_firmware: {
+	    oid:    "lsload",
+	    otitle: "<span class='text-dark'>Load Microcode</span>",
+            obody:  "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
+	            "<p><input aria-label='file to load' type='file' id='fileToLoad' class='dropify'/></p>",
+	    obutt: {
+			 save: {
 				label:     "<span data-langkey='Load'>Load</span>",
 				className: 'btn btn-dark',
 				callback:  function() {
@@ -974,8 +908,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 		                               wepsim_file_loadFrom(fileToLoad,
                                                                      function(txt){ inputfirm.setValue(txt); });
 					   }
-			    },
-			    close: {
+			 },
+			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
 				callback:  function() { 
@@ -983,19 +917,70 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 					       simcore_record_append_new('Close dialog',
 									 '$("#lsload").modal("hide");\n') ;
 					   }
-			    }
-			 } ;
+			 }
+		   }
+         }
+    } ;
+
+    function wsweb_dialog_open_loadsave ( dialog_id )
+    {
+	    // check params
+	    if (typeof wsweb_loadSave_firmwareAssembly[dialog_id] === "undefined") {
+                return null ;
+            }
+
+	    // elements
+	    var oid    = wsweb_loadSave_firmwareAssembly[dialog_id].oid ;
+	    var otitle = wsweb_loadSave_firmwareAssembly[dialog_id].otitle ;
+	    var obody  = wsweb_loadSave_firmwareAssembly[dialog_id].obody ;
+	    var obutt  = wsweb_loadSave_firmwareAssembly[dialog_id].obutt ;
 
 	    // dialog
-            var d1 = wsweb_xxxx_to_file("lsload", otitle, obody, obutt) ;
-	        d1.modal('show');
+	    var d1 = bootbox.dialog({
+		    title:      otitle,
+		    message:    obody,
+		    scrollable: true,
+		    size:       'large',
+		    onShown: function(e) {
+				var ws_idiom = get_cfg('ws_idiom') ;
+				i18n_update_tags('dialogs', ws_idiom) ;
+				$('.dropify').dropify() ;
+			     },
+		    buttons: obutt 
+	    });
+
+	    d1.init(function(){
+		       d1.attr("id", oid) ;
+		    });
+
+	    d1.find('.modal-header').addClass('bg-dark') ;
+	    d1.modal('show');
 
             // add if recording
-            simcore_record_append_new('Load firmware from file',
-		                      'wsweb_load_firmware_from_file();\n') ;
+            simcore_record_append_new('Open Load/Save firmware/assembly from/to file',
+		                      'wsweb_dialog_open_loadsave(' + dialog_id + ');\n') ;
 
-            // return ok
-            return true ;
+	    // return dialog
+	    return d1 ;
+    }
+
+    function wsweb_dialog_close_loadsave ( dialog_id )
+    {
+	    // check params
+	    if (typeof wsweb_loadSave_firmwareAssembly[dialog_id] === "undefined") {
+                return null ;
+            }
+
+	    // elements
+	    var d1 = $('#' + wsweb_loadSave_firmwareAssembly[dialog_id].oid) ;
+	    d1.modal('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close Load/Save firmware/assembly from/to file',
+		                      'wsweb_dialog_close_loadsave(' + dialog_id + ');\n') ;
+
+	    // return dialog
+	    return d1 ;
     }
 
 
