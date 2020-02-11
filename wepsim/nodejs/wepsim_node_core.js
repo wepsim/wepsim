@@ -210,6 +210,13 @@
     var before_state = null ;
     var  after_state = null ;
 
+    function wepsim_nodejs_header2 ( )
+    {
+        console.log('pc'          + ','.padEnd(3, '\t') + 
+                    'instruction' + ','.padEnd(4, '\t') + 
+                    'changes_from_zero_or_current_value') ;
+    }
+
     function wepsim_nodejs_before_instruction2 ( SIMWARE, reg_pc )
     {
         if (before_state === null)
@@ -228,10 +235,18 @@
 	// padding
 	var padding1 = 2 ;
 	var padding2 = 5 - (source_line.length / 7) ;
+	source_line  = source_line.replace(/,/g,"") ;
 
-        console.log('pc = ' + curr_pc + ':'.padEnd(padding1, '\t') + 
-		          source_line + ':'.padEnd(padding2, '\t') + 
+        console.log('pc = ' + curr_pc + ','.padEnd(padding1, '\t') + 
+		          source_line + ','.padEnd(padding2, '\t') + 
 		    diff_states) ;
+    }
+
+    function wepsim_nodejs_header3 ( )
+    {
+        console.log('micropc'     + ','.padEnd(3, '\t') + 
+                    'microcode'   + ','.padEnd(5, '\t') + 
+                    'changes_from_zero_or_current_value') ;
     }
 
     function wepsim_nodejs_before_microinstruction3 ( curr_MC, cur_addr )
@@ -250,9 +265,10 @@
 	// padding
 	var padding1 = 4 - (curr_mpc.length    / 4) ;
 	var padding2 = 7 - (source_line.length / 8) ;
+	source_line  = source_line.replace(/,/g,"") ;
 
-	console.log('micropc = ' + curr_mpc + ':'.padEnd(padding1, '\t') +
-		                source_line + ':'.padEnd(padding2, '\t') +
+	console.log('micropc = ' + curr_mpc + ','.padEnd(padding1, '\t') +
+		                source_line + ','.padEnd(padding2, '\t') +
 		     simcore_simstate_diff_states(before_state, after_state)) ;
     }
 

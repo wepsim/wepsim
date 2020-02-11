@@ -69,10 +69,10 @@
 	                "instructions":                                 "instructions",
 
                         "simulator intro 1": 		                "You can select the hardware to be used. The default one is the EP (Elemental Processor) hardware.<br>" +
-									"You can use <span onclick=\"$('#dd1').dropdown('toggle'); return false;\">the mode selector</span> to change the hardware used.",
+									"You can use <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">the mode selector</span> to change the hardware used.",
                         "simulator intro 2": 		                "Then you need to load the microcode (defines the instruction set) and the assembly code.<br>" +
 									"You can use <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>an example</span>, " +
-                                                                        "<span class='text-primary bg-light' onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>load it from a file</span>, " +
+                                                                        "<span class='text-primary bg-light' onclick='wsweb_select_action(\"checkpoint\");'>load it from a file</span>, " +
                                                                         "or you can edit <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>a new microcode</span> " +
                                                                         " and <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>a new assembly code</span>.",
                         "simulator intro 3": 		                "Finally, in the simulator you are able to execute the microcode plus assembly loaded before.<br>" +
@@ -100,9 +100,9 @@
                         "Recent":                                       "Recent",
 			"Refresh":  			                "Refresh",
 		        "Welcome":					"Welcome",
-                        "WepSIM hardware":      			"WepSIM hardware",
-                        "Pick firm/soft from":  			"Pick firm/soft from",
-                        "Information from":     			"Information from",
+                        "Microcode & Assembly":      			"Microcode & Assembly",
+                        "Pick firm/soft":  				"Pick firm/soft from",
+                        "Information":     				"Information from",
                         "Native":          				"Native",
                         "MIPS32-like":          			"MIPS32-like",
                         "RISCV32":          				"RISCV32",

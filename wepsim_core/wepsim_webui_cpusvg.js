@@ -1,4 +1,4 @@
-/*     
+/*    
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -17,6 +17,58 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+
+        /*
+         *  CPU device
+         */
+
+        /* jshint esversion: 6 */
+        class ws_cpusvg extends HTMLElement
+        {
+	      constructor ()
+	      {
+		    // parent
+		    super();
+	      }
+
+	      render ( msg_default )
+	      {
+		    // html holder
+		    var o1 = "<div class='container-fluid m-0 p-2'>" +
+                             "<div class='row'>" +
+                             "   <div class='col' id='eltos_cpu_a' style='padding:0 5 0 0;'>" +
+                             "       <object id='svg_p'" +
+                             "               title='processor'" +
+                             "               data='examples/hardware/ep/images/processor.svg'" +
+                             "               type='image/svg+xml'" +
+                             "               style='transform:translate3d(0,0,0);'>" +
+                             "           Your browser doesn't support SVG" +
+                             "       </object>" +
+                             "   </div>" +
+                             "   <div class='col' id='eltos_cpu_b' style='padding:0 5 0 5;'>" +
+                             "       <object id='svg_cu'" +
+                             "               title='control unit'" +
+                             "               data='examples/hardware/ep/images/controlunit.svg'" +
+                             "               type='image/svg+xml'" +
+                             "               style='transform:translate3d(0,0,0);'>" +
+                             "           Your browser doesn't support SVG" +
+                             "       </object>" +
+                             "   </div>" +
+                             "</div>" +
+                             "</div>" ;
+
+		    this.innerHTML = o1 ;
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
+	      }
+        }
+
+        if (typeof window !== "undefined")
+            window.customElements.define('ws-cpusvg', ws_cpusvg) ;
 
 
         /*

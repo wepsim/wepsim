@@ -27,6 +27,9 @@
 	"Simple usage tutorial":	"Tutorial simple de uso",
 	"help_01_02":			"Tutorial de uso simple, ejemplo b&aacute;sico para microprogramar y programar en ensamblador",
 
+	"Execute example":		"Ejecuci&oacute;n de ejemplo",
+	"help_01_03":			"Reproduce el tutorial de ejecuci&oacute;n de ejemplo",
+
 	"Simulator: firmware":		"Simulador: microc&oacute;digo",
 	"help_02_01":			"Descripci&oacute;n de c&oacute;mo trabajar en el simulador con el microc&oacute;digo",
 

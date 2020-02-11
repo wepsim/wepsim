@@ -171,8 +171,8 @@
 
 	    "CPU_STATS":      {
 						  init: function() {
-						 	   $('#cpu_ALL').html(msg_default) ;
-						 	   wepsim_init_cpu('#cpu_ALL') ;
+							   var o = document.getElementById("cpu1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
 						        },
 						 reset: function() {
 							   return true ;
@@ -207,8 +207,8 @@
 
 	    "MEMORY_CONFIG":  {
 						  init: function() {
-							   $('#config_MP').html(msg_default) ;
-						 	   init_config_mp('#config_MP') ;
+							   var o = document.getElementById("memcfg1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
 						        },
 						 reset: function() {
 						           return true ;
@@ -217,8 +217,8 @@
 
 	    "IO_STATS":       {
 						  init: function() {
-							   $('#io_ALL').html(msg_default) ;
-						 	   wepsim_init_io('#io_ALL') ;
+							   var o = document.getElementById("ioinfo1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
 						        },
 						 reset: function() {
 						           return true ;
@@ -227,17 +227,28 @@
 
 	    "IO_CONFIG":      {
 						  init: function() {
-						 	   $('#config_IO').html(msg_default) ;
-							   wepsim_init_config_io('#config_IO') ;
+							   var o = document.getElementById("iocfg1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
 						        },
 						 reset: function() {
 						           return true ;
 						        }
 	                      },
+
+	    "3DLED":         {
+						  init: function() {
+							   var o = document.getElementById("l3d1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
+						        },
+						 reset: function() {
+						           return true ;
+						        }
+	                      },
+
 	    "SCREEN":         {
 		                                  init: function() {
 						           return true ;
-						         },
+						        },
 		                                 reset: function() {
 			                                   wepsim_set_screen_content("") ;
 	                                                },
@@ -319,38 +330,21 @@
 	var a = new_value;
     	var b = 12 - a;
 
-	$(diva).removeClass();
-	$(divb).removeClass();
+	$(diva).removeClass("col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12 order-1 order-2") ;
+	$(divb).removeClass("col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12 order-1 order-2") ;
 
 	if (a != 0)
-             $(diva).addClass('col-' + a);
-	else $(diva).addClass('col-12 order-1');
+             $(diva).addClass('col-' + a) ;
+	else $(diva).addClass('col-12 order-1') ;
 
 	if (b != 0)
-	     $(divb).addClass('col-' + b);
-	else $(divb).addClass('col-12 order-2');
+	     $(divb).addClass('col-' + b) ;
+	else $(divb).addClass('col-12 order-2') ;
     }
 
     //
     // Auxiliar function
     //
-
-    // timer
-    var wepsim_updatediv_timer = null ;
-
-    function wepsim_updatetime ( div_id, time_left_sec )
-    {
-	    $(div_id).html('<span>Close automatically after ' + time_left_sec + ' seconds.</span>') ;
-
-            wepsim_updatediv_timer = setTimeout(wepsim_updatetime, 1000, div_id, (time_left_sec - 1));
-    }
-
-    function wepsim_updatetime_start ( div_id, time_left_sec )
-    {
-	    clearTimeout(wepsim_updatediv_timer) ;
-
-            wepsim_updatetime(div_id, time_left_sec) ;
-    }
 
     // confirm exit
     function wepsim_confirm_exit ( e )
@@ -362,7 +356,7 @@
 	    return confirmationMessage;                            // Webkit, Safari, Chrome
     }
 
-    // confirm exit
+    // alert reload
     function wepsim_general_exception_handler ( err )
     {
           alert("Please try to cleanup the browser cache and try again.\n" +
@@ -391,6 +385,9 @@
            $("#example1_lang").html(o) ;
 
            o = i18n_get_dropdown(['gui','states'], "update_checker_loadhelp('#help3a','help_dumper');") ;
+           $("#current_checkpoint1_lang").html(o) ;
+
+           o = i18n_get_dropdown(['gui','states'], "update_checker_loadhelp('#help3b','help_dumper');") ;
            $("#current_state1_lang").html(o) ;
     }
 
@@ -407,7 +404,7 @@
 
 	   o += '<li class="list-group-item px-0"> ' +
 		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
-		'     onclick="wsweb_about_show(); ' +
+		'     onclick="wsweb_dialog_open_listdetailed(\'about\'); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
 		'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
@@ -518,6 +515,7 @@
 		"    </div>" +
 		'</li>' ;
 
+/*
 	   o += '<li class="list-group-item px-0"> ' +
 		'<label><span data-langkey="assembly only">assembly only</span>:</label>' +
                 "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -537,6 +535,7 @@
 		"        </label>" +
 		"    </div>" +
 		'</li>' ;
+*/
 
 	   o += '<li class="list-group-item px-0"> ' +
 		'<label><span data-langkey="beginner view">beginner view</span>:</label>' +

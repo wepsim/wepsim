@@ -1,4 +1,4 @@
-/*     
+/*    
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -18,6 +18,53 @@
  *
  */
 
+
+        /*
+         *  Console (keyboard + screen)
+         */
+
+        /* jshint esversion: 6 */
+        class ws_console extends HTMLElement
+        {
+	      constructor ()
+	      {
+		    // parent
+		    super();
+	      }
+
+	      render ( msg_default )
+	      {
+		    // html holder
+		    var o1 = '<label class="my-0" for="kdb_con" style="min-width:95%">' +
+			     '   <img alt="monitor" height="55" src="images/monitor2.png" />' +
+			     '</label>' +
+			     '<textarea aria-label="monitor"' +
+			     '          style="width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"' +
+			     '          placeholder="WepSIM" id="kdb_con" rows="8" readonly></textarea>' +
+                             '' +
+                             '<label class="my-0" for="kdb_key" style="min-width:95%">' +
+                             '   <img alt="keyboard" height="35" src="images/keyboard1.png" />' +
+                             '</label>' +
+                             '<textarea aria-label="keyboard"' +
+                             '          style="min-width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"' +
+                             '          placeholder="WepSIM" id="kdb_key" rows="2"></textarea>' ;
+
+		    this.innerHTML = o1 ;
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
+	      }
+        }
+
+        if (typeof window !== "undefined")
+            window.customElements.define('ws-console', ws_console) ;
+
+
+        //
+        // Screen / Keyboard
+        //
 
 	function wepsim_get_screen_content ( )
 	{

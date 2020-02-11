@@ -70,9 +70,9 @@
 	                "assembly":                                     "어셈블리",
 	                "instructions":                                 "명령",
 
-                        "simulator intro 1": "사용할 하드웨어를 선택할 수 있습니다. 기본 하드웨어는 EP (Elemental Processor) 하드웨어입니다. <br> <span onclick=\"$('#dd1').dropdown('toggle'); return false; \">모드 선택기</span>를 반환하십시오.",
+                        "simulator intro 1": "사용할 하드웨어를 선택할 수 있습니다. 기본 하드웨어는 EP (Elemental Processor) 하드웨어입니다. <br> <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">모드 선택기</span>를 반환하십시오.",
 
-                        "simulator intro 2": "그런 다음 마이크로 코드 (명령 세트 정의)와 어셈블리 코드를로드해야합니다. <br> <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>예</span>, <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>파일에서로드</span> 또는 <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>새로운 마이크로 코드</span> 및 <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>새로운 어셈블리 코드</span>.",
+                        "simulator intro 2": "그런 다음 마이크로 코드 (명령 세트 정의)와 어셈블리 코드를로드해야합니다. <br> <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>예</span>, <span class='text-primary bg-light' onclick='wsweb_select_action(\"checkpoint\");'>파일에서로드</span> 또는 <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>새로운 마이크로 코드</span> 및 <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>새로운 어셈블리 코드</span>.",
 
                         "simulator intro 3": "마지막으로, 시뮬레이터에서 이전에로드 된 마이크로 코드와 어셈블리를 실행할 수 있습니다. <br> 마이크로 명령 레벨이나 어셈블리 명령 레벨에서 둘 다 실행할 수 있습니다.",
 
@@ -98,9 +98,9 @@
                         "Recent":                                       "충적세",
 	                "Welcome":					"환영합니다",
 			"Refresh":  			                "새롭게 하다",
-                	'WepSIM hardware':      			'WepSIM 하드웨어',
-                	'Pick firm/soft from':  			'에서 펌웨어 / 소프트웨어 선택',
-                	'Information from':     			'정보 출처',
+                	'Microcode & Assembly':      			'WepSIM 하드웨어',
+                	'Pick firm/soft':  				'에서 펌웨어 / 소프트웨어 선택',
+                	'Information':     				'정보 출처',
                 	'Native':          				'원주민',
                 	'MIPS32-like':          			'MIPS32와 같은 코드',
                 	'RISCV32':          				'RISCV32 코드',

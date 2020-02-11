@@ -38,7 +38,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.12" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.1.0" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -167,13 +167,13 @@
 	  <div class="carousel-inner">
 	  <div class="carousel-item active p-1" id="ws_simulator">
 	    <h6 class="pt-3">Simulator</h6>
-            <div class="row py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
+            <div class="d-flex flex-wrap justify-content-center py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
 
 		      <a id='popover-slidercfg' tabindex='0'
-		         class='show multi-collapse-3 btn my-1 col-auto ml-auto'
+		         class='show multi-collapse-3 btn my-1 col-auto'
 		         data-toggle='popover-slidercfg'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>
 
-                      <div class="col-auto px-0 px-sm-1">
+                      <div class="col-auto px-0 px-sm-2">
                       <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
@@ -181,7 +181,7 @@
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Examples' dialog."
 				    onclick="wsweb_dialogbox_open_examples();
-				             return false;"><em class="fas fa-stream d-none d-sm-inline"></em>&nbsp;<strong><span data-langkey='Examples'>Examples</span></strong></button>
+				             return false;"><em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='Examples'>Examples</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 col-auto"
 		                    style="border-width:1 1 1 1px; border-color:#CCCCCC; background-color:#D4DB17; flex-grow:1;"
@@ -189,35 +189,49 @@
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Help' dialog."
 		                    onclick="wsweb_dialogbox_open_help();
-					     return false;"><em class="fas fa-info d-none d-sm-inline"></em>&nbsp;<strong><span data-langkey='Help'>Help</span></strong></button>
+					     return false;"><em class="fas fa-info d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='Help'>Help</span></strong></button>
 
                       </div>
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
-                      <div class="col-auto px-0 px-sm-1">
+                      <div class="col-auto px-0 px-sm-2">
                       <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Notifications' dialog."
                                     onclick="wsweb_dialogbox_open_notifications();
-					     return false;"><em class="fas fa-comment-alt d-none d-sm-inline"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Notifications'>Notifications</span><span class="d-md-none">Notif.</span></strong></button>
+					     return false;"><em class="fas fa-comment-alt d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Notifications'>Notifications</span><span class="d-md-none">Notif.</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    id="btn_cfg1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wsweb_dialogbox_open_config();
-				    	     return false;"
-                                    ><em class="fas fa-cogs d-none d-sm-inline"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-md-none">Cfg.</span></strong></button>
+			            title="This button toggles the 'Record' bar."
+                                    onclick="wsweb_recordbar_toggle();
+					     return false;"><em class="fas fa-circle d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
+
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
+			            title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
+		                    onclick="wsweb_dialogbox_open_state();
+					     $('#bot_check1').carousel(0);
+				             return false;"><em class="fas fa-camera d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='States'>States</span></strong></button>
+
+                      </div>
+		      </div>
+
+		      <div class="w-100 d-xs-block d-sm-none"></div>
+
+                      <div class="col-auto px-0 px-sm-2">
+                      <div class="btn-toolbar btn-block" role="toolbar">
 
 			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-				    title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."
+				    title="This button shows the current hardware used, <br>dropdown on the left let you access to common actions."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
                                     onclick="wsweb_set_details('HARDWARE');
@@ -230,7 +244,7 @@
 			    </button>
 			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
 
-			      <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="WepSIM hardware">WepSIM hardware</span>:</h6>
+			      <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="Microcode & Assembly">Microcode & Assembly</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_select_main('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
@@ -238,35 +252,13 @@
 				 onclick="wsweb_select_main('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-                              <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_examples" value="examples"
-				 onclick="wsweb_dialogbox_open_examples();
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
-                              <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
-				 onclick="wsweb_dialogbox_open_state();
-                                          $('#bot_check1').carousel(0);
-				          wepsim_checkpoint_listCache('browserCacheList1');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint file</span></a>
-
-			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_help" value="help"
-				 onclick="wsweb_dialogbox_open_help();
-					  return false;"><span data-langkey="Help">Help</span></a>
-                              <a class="dropdown-item" href="#" id="s4_notifications" value="notifications"
-				 onclick="wsweb_dialogbox_open_notifications();
-					  return false;"><span data-langkey="Notifications">Notifications</span></a>
-                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
-				 onclick="wsweb_select_main('intro');
-                                          setTimeout(wsweb_record_play, 1000);
-					  return false;">Welcome tutorial...</a>
-
-			      <h6 class="text-white bg-secondary mt-2 mb-0 user_archived w-75 ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
+			      <h6 class="text-white bg-secondary mt-2 user_archived ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
                               <a class="dropdown-item user_archived" href="#" id="s4_asm_mips" value="asm_mips"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true"
 			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
                                  onclick="wsweb_select_main('asm_mips');
                                           return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>
-                              <a class="dropdown-item user_archived pb-0 mb-0" href="#" id="s4_asm_rv32" value="asm_rv32"
+                              <a class="dropdown-item user_archived" href="#" id="s4_asm_rv32" value="asm_rv32"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true"
 			         title="RISC-V<sub>32</sub> assembly only."
                                  onclick="wsweb_select_main('asm_rv32');
@@ -274,6 +266,24 @@
 
 			    </div>
 			</div>
+
+		              <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	              style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                      id="btn_cfg1"
+			              data-toggle="tooltip" data-placement="bottom" data-html="true"
+			              title="This button opens the 'Configuration' dialog."
+                                      onclick="wsweb_dialogbox_open_config();
+				    	       return false;"
+                                      ><em class="fas fa-cogs d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-md-none">Cfg.</span></strong></button>
+		              <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	              style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                      id="s4_owncode" value="owncode"
+			              data-toggle="tooltip" data-placement="bottom" data-html="true"
+			              title="This button opens the 'Configuration' dialog."
+				      onclick="wsweb_select_action('checkpoint');
+				    	       return false;"
+                                      ><em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Checkpoint'>Checkpoint</span><span class="d-md-none">ChkPoint</span></strong></button>
+
                       </div>
 		      </div>
 
@@ -293,38 +303,6 @@
 
 		      <div class="w-100 d-md-block d-lg-none"></div>
 
-                      <div class="col-auto px-0 px-sm-1">
-                      <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
-                                    id="btn_example1"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Checkpoint' dialog."
-		                    onclick="wsweb_dialogbox_open_state();
-					     $('#bot_check1').carousel(0);
-				             wepsim_checkpoint_listCache('browserCacheList1');
-				             return false;"><em class="fas fa-stream d-none d-sm-inline"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Checkpoint'>Checkpoint</span><span class="d-md-none">Chkpnt.</span></strong></button>
-
-		            <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button toggles the 'Record' bar."
-                                    onclick="wsweb_recordbar_toggle();
-					     return false;"><em class="fas fa-circle d-none d-sm-inline"></em>&nbsp;<strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
-
-		            <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
-		                    onclick="wsweb_dialogbox_open_state();
-					     $('#bot_check1').carousel(1);
-				             return false;"><em class="fas fa-camera d-none d-sm-inline"></em>&nbsp;<strong><span data-langkey='States'>States</span></strong></button>
-
-                      </div>
-		      </div>
-
-		      <div class="w-100 d-xs-block d-sm-none"></div>
-
                       <div class="col-sm p-0 ml-1 collapse multi-collapse-2">
 			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey='details'>details</span>:</label>
@@ -340,7 +318,7 @@
             </div>
 
             <div class="row">
-                <div id="col1" class="" style="padding:12px 0px 0px 16px !important;">
+                <div id="col1" class="pt-2 pl-3 pr-2">
 
                       <!-- Nav tabs -->
 		      <ul class="nav nav-tabs nav-justified nav-tabs">
@@ -365,254 +343,213 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div id="eltos_cpu" class="tab-pane active" role="tabpanel">
-                           <div class="container-fluid" style="padding:0 0 0 0">
-
-			     <div class="container-fluid" style="margin:10 0 0 0">
-			     <div class="row">
-				<div class="col" id="eltos_cpu_a" style="padding:0 5 0 0;">
-				    <object id="svg_p"
-					    title="processor"
-					    data="examples/hardware/ep/images/processor.svg"
-					    type="image/svg+xml"
-					    style="transform:translate3d(0,0,0);">
-					Your browser doesn't support SVG
-				    </object>
-				</div>
-				<div class="col" id="eltos_cpu_b" style="padding:0 5 0 5;">
-				    <object id="svg_cu"
-					    title="control unit"
-					    data="examples/hardware/ep/images/controlunit.svg"
-					    type="image/svg+xml"
-					    style="transform:translate3d(0,0,0);">
-					Your browser doesn't support SVG
-				    </object>
-				</div>
-			     </div>
-			     </div>
-
-                           </div>
+			   <ws-cpusvg></ws-cpusvg>
 		        </div>
 
 		        <div id="eltos_dbg" class="tab-pane" role="tabpanel">
-			   <center>
-		           <div id="asm_table" style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
-		   	   <table class='table ui-responsive ui-table' style="margin-bottom:0px; min-width:700px;">
-		   	   <thead>
-			   <tr style="border-top:2pt solid white;">
-			   <th width="1%">
-			   <a tabindex="0" href="#" class="show multi-collapse-3" data-toggle="popover2" id="popover2_asm"><strong class="fas fa-wrench text-secondary"></strong></a>
-			   </th>
-                           <th width="10%" class="asm_label collapse" align="right"><span data-langkey='labels'>labels</span></th>
-			   <th width="15%" class="asm_addr  collapse"              ><span><span data-langkey='addr'>addr</span></span><span class="d-none d-sm-inline-flex"><span data-langkey='ess'>ess</span></span></th>
-                           <th width="15%" class="asm_hex   collapse" align="right"><span data-langkey='content'>content</span></th>
-                           <th width="30%" class="asm_ins   collapse" align="left" ><span data-langkey='assembly'>assembly</span></th>
-			   <th width="30%" class="asm_pins  collapse" align="left" ><span>pseudo</span><span class="d-none d-md-inline"><small><span data-langkey='instructions'>instructions</span></small></span></th>
-			   </tr>
-			   </thead>
-			   </table>
-		   	   </div>
-			   </center>
-
-		           <div id="asm_debugger_container"
-                                style="overflow-y:auto; overflow-x:auto; height:65vh !important; -webkit-overflow-scrolling:touch;">
-                                <div id="asm_debugger" style="min-width:700px;">
-                                </div>
-		           </div>
-		      </div>
+			   <ws-dbg-mp></ws-dbg-mp>
+		        </div>
 	    	    </div>
                 </div>
 
-                <div id="col2" class="" style="padding:5px 16px 0px 16px !important;">
+		<div id="col2" class="pt-2 pl-1">
 
-                    <div class="row row pl-2 pr-3">
-                    <div class="btn-toolbar btn-block" role="toolbar">
-			    <button id="btn_reset1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col"
-			            onclick="wsweb_execution_reset();
-	                                     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
-			    <button id="btn_next_microinstruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col user_microcode"
-			            onclick="wsweb_execution_microinstruction();
-                                             return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
-			    <button id="btn_next_instruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col"
-			            onclick="wsweb_execution_instruction();
-                                             return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
-			    <button id="btn_run_stop" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col"
-                                    onclick="wsweb_execution_run();
-                                             return false;"><em class="fa fa-play"></em><strong><br/><span data-langkey='Run'>Run</span></strong></button>
-                    </div>
-                    </div>
-
-                    <div class="row row pl-2 pr-3 pt-1">
-                    <div class="btn-toolbar btn-block" role="toolbar">
-			  <div class="col btn-group p-0" style="flex-grow:6;">
-			    <button type="button" class="col-12 btn btn-light shadow-sm"
-			              data-toggle="tooltip" data-placement="bottom" data-html="true"
-			              title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
-                                    style="border-color: #CCCCCC;"
-				    id="select5b"
-                                    onclick="wepsim_show_rf_values();
-				             show_memories_values();
-				  	     wepsim_reset_max_turbo();
-					     $('[data-toggle=tooltip]').tooltip('hide');
-					     return false;">Refresh</button>
-			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                                    style="border-color: #CCCCCC;"
-				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			      <span class="sr-only">Toggle Dropdown</span>
-			    </button>
-			    <div class="dropdown-menu border border-secondary"
-				 style="height:55vh; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">
-
-			      <h6 class="text-secondary mb-1">CPU</h6>
-                              <a class="dropdown-item" href="#" id="s5b_11" value="11"
-				 onclick="wsweb_set_details('REGISTER_FILE');
-				          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Registers'>Registers</span></a>
-                              <a class="dropdown-item user_microcode" href="#" id="s5b_16" value="16"
-				 onclick="wsweb_set_details('CONTROL_MEMORY');
-				          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Control Memory'>Control Memory</span></a>
-                              <a class="dropdown-item" href="#" id="s5b_17" value="17"
-				 onclick="wsweb_set_details('CPU_STATS');
-                                          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Stats'>Stats</span></a>
-                              <a class="dropdown-item user_microcode" href="#" id="s5b_20" value="20"
-				 onclick="wsweb_set_details('FRM_EDITOR');
-                                          return false;"><span class="bg-dark text-white">CPU</span> MicroCode</a>
-
-			      <h6 class="text-secondary mt-2 mb-1">Main Memory</h6>
-			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
-				 onclick="wsweb_set_details('MEMORY');
-                                          return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Memory'>Memory</span></a>
-			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
-				 onclick="wsweb_set_details('MEMORY_CONFIG');
-                                          return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Configuration'>Configuration</span></a>
-			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
-				 onclick="wsweb_set_details('ASM_EDITOR');
-                                          return false;"><span class="bg-dark text-white">MM</span> Assembly</a>
-
-			      <h6 class="text-secondary mt-2 mb-1">Devices</h6>
-			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
-				 onclick="wsweb_set_details('SCREEN');
-                                          return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='Keyboard+Display'>Keyboard+Display</span></a>
-			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
-				 onclick="wsweb_set_details('IO_STATS');
-                                          return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Stats'>I/O Stats</span></a>
-			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
-				 onclick="wsweb_set_details('IO_CONFIG');
-                                          return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Configuration'>I/O Configuration</span></a>
-
-			      <div class="dropdown-divider m-1"></div>
-			      <h6 class="text-secondary mb-1">Simulation</h6>
-                              <a class="dropdown-item" href="#" id="s5b_22" value="22"
-                                 onclick="wsweb_set_details('HARDWARE');
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>
-                              <a class="dropdown-item user_microcode" href="#" id="s5b_20" value="20"
-				 onclick="wsweb_set_details('FRM_EDITOR');
-                                          return false;"><span class="bg-dark text-white">Sim</span>&nbsp;MicroCode</a>
-			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
-				 onclick="wsweb_set_details('ASM_EDITOR');
-                                          return false;"><span class="bg-dark text-white">Sim</span>&nbsp;Assembly</a>
-
-			    </div>
+			<nav>
+			  <div class="nav nav-tabs nav-justified nav-tabs" id="nav-tab" role="tablist">
+			    <a class="nav-item nav-link active" id="nav-simulation-tab" 
+			       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
+			       data-toggle="tab" href="#nav-simulation" role="tab" 
+			       aria-controls="nav-home" aria-selected="true"><span class="d-none d-sm-inline-flex" data-langkey='Simulation'>Simulation</span><span class="d-sm-none">Sim.</span></a>
+			    <a class="nav-item nav-link user_microcode"    id="nav-microcode-tab" data-oldid="s5b_20" 
+			       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
+			       onclick="setTimeout(function(){ inputfirm.refresh(); }, 200) ;
+                                        return false;"
+			       data-toggle="tab" href="#nav-microcode" role="tab" 
+			       aria-controls="nav-profile" aria-selected="false"><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></a>
+			    <a class="nav-item nav-link"        id="nav-assembly-tab"  data-oldid="s5b_21" 
+			       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
+			       onclick="setTimeout(function(){ inputasm.refresh(); }, 200) ;
+                                        return false;"
+			       data-toggle="tab" href="#nav-assembly" role="tab" 
+	                       aria-controls="nav-contact" aria-selected="false"><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none">Asm.</span></a>
 			  </div>
-                    </div>
-                    </div>
+			</nav>
+			<div class="tab-content p-1" id="nav-tabContent">
+			  <div class="tab-pane fade show active" id="nav-simulation" role="tabpanel" aria-labelledby="nav-simulation-tab">
 
-                    <ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">
-                      <li class="nav-item">
-                          <a class="nav-link active" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab14" href="#mp">Memory</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab12" href="#con">Console</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab11" href="#all">Registers</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab16" href="#mc">Control Memory</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab13" href="#config">Configuration</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab15" href="#io">IO stats</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab17" href="#cpu">CPU stats</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab18" href="#mpcfg">Memory configuration</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab19" href="#iocfg">I/O configuration</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab20" href="#ed_mc">MicroCode</a>
-                      </li>
-                      <li class="nav-item user_microcode">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab21" href="#ed_mp">Assembly</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
-                             data-toggle="tab" id="tab22" href="#ed_hw">Hardware</a>
-                      </li>
-                    </ul>
-                    <div class="tab-content mt-3" style="min-height:70vh;">
-                         <div class="tab-pane mx-0 my-2 active" role="tabpanel" id="all">
-				 <div id="states_ALL" style="width:inherit; overflow-y:auto;"
-                                      class="container container-fluid px-0 pb-2"></div>
-				 <div id="states_BR" style="width: inherit; overflow-y: auto;"
-                                      class="container container-fluid px-0"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="mp">
-		              <div id="memory_MP" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="mc">
-		              <div id="memory_MC" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
-				 <label class="my-0" for="kdb_con" style="min-width:95%">
-				 <img alt="monitor" height="55" src="images/monitor2.png" />
-				 </label>
-				 <textarea aria-label="monitor"
-					   style="width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
-					   placeholder="WepSIM" id="kdb_con" rows="8" readonly></textarea>
+			    <div class="pl-2 pr-2">
+			    <div class="btn-toolbar btn-block" role="toolbar">
+				    <button id="btn_reset1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+					    class="btn btn-light col"
+					    onclick="wsweb_execution_reset();
+						     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
+				    <button id="btn_next_microinstruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+					    class="btn btn-light col user_microcode"
+					    onclick="wsweb_execution_microinstruction();
+						     return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
+				    <button id="btn_next_instruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+					    class="btn btn-light col"
+					    onclick="wsweb_execution_instruction();
+						     return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
+				    <button id="btn_run_stop" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+					    class="btn btn-light col"
+					    onclick="wsweb_execution_run();
+						     return false;"><em class="fa fa-play"></em><strong><br/><span data-langkey='Run'>Run</span></strong></button>
+			    </div>
+			    </div>
 
-				 <label class="my-0" for="kdb_key" style="min-width:95%">
-				 <img alt="keyboard" height="35" src="images/keyboard1.png" />
-				 </label>
-				 <textarea aria-label="keyboard"
-					   style="min-width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
-					   placeholder="WepSIM" id="kdb_key" rows="2"></textarea>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
-		              <div id="io_ALL"    style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="cpu">
-		              <div id="cpu_ALL"   style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="mpcfg">
-		              <div id="config_MP" style="height:58vh; width: inherit;" class="container container-fluid"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
-		              <div id="config_IO" style="height:58vh; width: inherit; overflow-y: auto;"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
-		              <div id="config_HW" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">
+			    <div class="pl-1 pr-1 pt-1">
+			    <div class="btn-toolbar btn-block" role="toolbar">
+				  <div class="col btn-group p-0" style="flex-grow:6;">
+				    <button type="button" class="col-12 btn btn-light shadow-sm"
+					      data-toggle="tooltip" data-placement="bottom" data-html="true"
+					      title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
+					    style="border-color: #CCCCCC;"
+					    id="select5b"
+					    onclick="wepsim_show_rf_values();
+						     show_memories_values();
+						     wepsim_reset_max_turbo();
+						     $('[data-toggle=tooltip]').tooltip('hide');
+						     return false;">Refresh</button>
+				    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
+					    style="border-color: #CCCCCC;"
+					    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				      <span class="sr-only">Toggle Dropdown</span>
+				    </button>
+				    <div class="dropdown-menu border border-secondary"
+					 style="height:55vh; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">
+
+				      <h6 class="text-secondary mb-1">CPU</h6>
+				      <a class="dropdown-item" href="#" id="s5b_11" value="11"
+					 onclick="wsweb_set_details('REGISTER_FILE');
+						  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Registers'>Registers</span></a>
+				      <a class="dropdown-item user_microcode" href="#" id="s5b_16" value="16"
+					 onclick="wsweb_set_details('CONTROL_MEMORY');
+						  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Control Memory'>Control Memory</span></a>
+				      <a class="dropdown-item" href="#" id="s5b_17" value="17"
+					 onclick="wsweb_set_details('CPU_STATS');
+						  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Stats'>Stats</span></a>
+
+				      <h6 class="text-secondary mt-2 mb-1">Main Memory</h6>
+				      <a class="dropdown-item" href="#" id="s5b_14" value="14"
+					 onclick="wsweb_set_details('MEMORY');
+						  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Memory'>Memory</span></a>
+				      <a class="dropdown-item" href="#" id="s5b_18" value="18"
+					 onclick="wsweb_set_details('MEMORY_CONFIG');
+						  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Configuration'>Configuration</span></a>
+
+				      <h6 class="text-secondary mt-2 mb-1">Devices</h6>
+				      <a class="dropdown-item" href="#" id="s5b_12" value="12"
+					 onclick="wsweb_set_details('SCREEN');
+						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='Keyboard+Display'>Keyboard+Display</span></a>
+				      <a class="dropdown-item" href="#" id="s5b_15" value="15"
+					 onclick="wsweb_set_details('IO_STATS');
+						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Stats'>I/O Stats</span></a>
+				      <a class="dropdown-item" href="#" id="s5b_19" value="19"
+					 onclick="wsweb_set_details('IO_CONFIG');
+						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Configuration'>I/O Configuration</span></a>
+				      <a class="dropdown-item user_archived" href="#" id="s5b_25" value="25"
+					 onclick="wsweb_set_details('3DLED');
+						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O 3D-Led'>I/O 3D-Led</span></a>
+
+				      <div class="dropdown-divider m-1"></div>
+				      <h6 class="text-secondary mb-1">Simulation</h6>
+				      <a class="dropdown-item" href="#" id="s5b_22" value="22"
+					 onclick="wsweb_set_details('HARDWARE');
+						  return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>
+
+				    </div>
+				  </div>
+			    </div>
+			    </div>
+
+			    <ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">
+			      <li class="nav-item">
+				  <a class="nav-link active" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab14" href="#mp">Memory</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab12" href="#con">Console</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab11" href="#all">Registers</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab16" href="#mc">Control Memory</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab13" href="#config">Configuration</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab15" href="#io">IO stats</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab17" href="#cpu">CPU stats</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab18" href="#mpcfg">Memory configuration</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab19" href="#iocfg">I/O configuration</a>
+			      </li>
+			      <li class="nav-item">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab22" href="#ed_hw">Hardware</a>
+			      </li>
+			      <li class="nav-item user_archived">
+				  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+				     data-toggle="tab" id="tab25" href="#iol3d">3D Led</a>
+			      </li>
+			    </ul>
+			    <div class="tab-content mt-3" style="min-height:70vh;">
+				 <div class="tab-pane mx-0 my-2 active" role="tabpanel" id="all">
+					 <div id="states_ALL" style="width:inherit; overflow-y:auto;"
+					      class="container container-fluid px-0 pb-2"></div>
+					 <div id="states_BR" style="width: inherit; overflow-y: auto;"
+					      class="container container-fluid px-0"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mp">
+				      <ws-mainmemory></ws-mainmemory>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mc">
+				      <ws-dbg-mc></ws-dbg-mc>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
+				      <ws-console></ws-console>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
+				      <ws-io-info id="ioinfo1"></ws-io-info>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="cpu">
+				      <ws-cpu id="cpu1"></ws-cpu>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mpcfg">
+				      <ws-mem-config id="memcfg1"></ws-mem-config>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
+				      <ws-io-config id="iocfg1"></ws-io-config>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="iol3d">
+				      <ws-l3d id="l3d1"></ws-l3d>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
+				      <div id="config_HW" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+				 </div>
+				 <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mp">
+				 </div>
+			    </div>
+
+			  </div>
+			  <div class="tab-pane fade user_microcode" id="nav-microcode"  role="tabpanel" aria-labelledby="nav-microcode-tab">
+
 		              <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
 
 				    <div class="row p-0">
@@ -620,10 +557,10 @@
 					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button data-target="#lsload" data-toggle="modal"
+			    			    <button onclick="wsweb_dialog_open_loadsave('load_firmware'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
-						    <button data-target="#lssave" data-toggle="modal"
+			                            <button onclick="wsweb_dialog_open_loadsave('save_firmware'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
@@ -657,19 +594,19 @@
 				    </div>
 			      </div>
 
-                         </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mp">
-		              <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
+			  </div>
+			  <div class="tab-pane fade" id="nav-assembly"   role="tabpanel" aria-labelledby="nav-assembly-tab">
 
+		                  <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
 				    <div class="row py-0 px-1">
 					<div class="container col-12" role="none">
 					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button data-target="#lsload2" data-toggle="modal"
+						    <button onclick="wsweb_dialog_open_loadsave('load_assembly'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
-						    <button data-target="#lssave2" data-toggle="modal"
+						    <button onclick="wsweb_dialog_open_loadsave('save_assembly'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
@@ -703,131 +640,15 @@
 				  </div>
 
 			      </div>
-                         </div>
-                    </div>
+			  </div>
+			</div>
+
 
                 </div>
             </div>
           </div>
 
 	</div>
-
-
-<!-- load/save microcode -->
-<div class="modal" id="lsload" tabindex="-1" role="dialog" aria-labelledby="lsload" aria-hidden="true">
-     <div class="modal-dialog">
-     <div class="modal-content">
-     <div class="modal-header bg-dark">
-	<strong class="modal-title text-white">Load Microcode</strong>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
-        </button>
-     </div>
-     <div class="modal-body">
-	<label for="fileToLoad"><em><span data-langkey="Load from this File">Load from this File</span>:</em></label>
-	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
-     </div>
-     <div class="modal-footer">
-	<button class="btn btn-sm btn-dark"
-		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
-		         wepsim_file_loadFrom(fileToLoad,
-                                               function(txt){ inputfirm.setValue(txt); });
-			 $('#lsload').modal('hide');
-                         return false;">
-        <span data-langkey="Load from this File">Load from this File</span></button>
-        </button>
-	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-     </div>
-     </div>
-     </div>
-</div>
-
-<div class="modal" id="lssave" tabindex="-1" role="dialog" aria-labelledby="lssave" aria-hidden="true">
-     <div class="modal-dialog">
-     <div class="modal-content">
-     <div class="modal-header bg-dark">
-	<strong class="modal-title text-white">Save Microcode</strong>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
-        </button>
-     </div>
-     <div class="modal-body">
-        <label for="inputFileNameToSaveAs"><em><span data-langkey="Please write the file name">Please write the file name</span>:</em></label>
-	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs"
-                  class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
-     </div>
-     <div class="modal-footer" style="flex-wrap: wrap">
-	<button class="btn btn-sm btn-dark my-1"
-		onclick="wsweb_save_controlmemory_to_file();
-			 return false;">Save control memory to File</button>
-	<button class="btn btn-sm btn-dark my-1"
-		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                         var textToWrite      = inputfirm.getValue();
-			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);">Save Editor content to File</button>
-	<button class="btn btn-sm btn-danger my-1"
-		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-     </div>
-     </div>
-     </div>
-</div>
-
-
-<!-- load/save assembly -->
-<div class="modal" id="lsload2" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
-     <div class="modal-dialog">
-     <div class="modal-content">
-     <div class="modal-header bg-dark">
-	<strong class="modal-title text-white">Load Assembly</strong>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
-        </button>
-     </div>
-     <div class="modal-body">
-	<label for="fileToLoad2"><em><span data-langkey="Load from this File">Load from this File</span>:</em></label>
-	<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
-     </div>
-     <div class="modal-footer">
-	<button class="btn btn-sm btn-dark"
-		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
-		         wepsim_file_loadFrom(fileToLoad,
-                                               function(txt){ inputasm.setValue(txt); });
-			 $('#lsload2').modal('hide');
-                         return false;">
-        <span data-langkey="Load from this File">Load from this File</span></button>
-        </button>
-	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-     </div>
-     </div>
-     </div>
-</div>
-
-<div class="modal" id="lssave2" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
-     <div class="modal-dialog">
-     <div class="modal-content">
-     <div class="modal-header bg-dark">
-	<strong class="modal-title text-white">Save Assembly</strong>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
-        </button>
-     </div>
-     <div class="modal-body">
-        <label for="inputFileNameToSaveAs2"><em><span data-langkey="Please write the file name">Please write the file name</span>:</em></label>
-	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2"
-                  class="form-control btn-outline-dark" placeholder="File name where assembly will be saved" style="min-width: 90%;"/></p>
-     </div>
-     <div class="modal-footer">
-	<button class="btn btn-sm btn-dark"
-		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
-                         var textToWrite      = inputasm.getValue();
-			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);">Save to File</button>
-	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-     </div>
-     </div>
-     </div>
-</div>
 
 
 <!-- configuration -->
@@ -1019,22 +840,19 @@
 </div> <!-- /.modal -->
 
 
-<div id="current_state1" class="modal">
+<div id="current_checkpoint1" class="modal">
 <div class="modal-dialog bootboxWidth">
    <div class="modal-content">
       <div class="modal-header">
          <div class="mx-auto">
                <div class="btn-group">
-                  <button onclick="$('#bot_check1').carousel(0);
-				   wepsim_checkpoint_listCache('browserCacheList1');
+                  <button onclick="wsweb_select_action('checkpoint');
 			           return false;"
                           type="button"
                           class="btn btn-secondary px-3 py-1"><span data-langkey='Checkpoint'>Checkpoint</span></button>
-                  <button onclick="$('#bot_check1').carousel(1);"
-                          type="button"
-                          class="btn btn-dark px-3 py-1"><span data-langkey='States'>States</span></button>
-                  <button onclick="$('#bot_check1').carousel(2);
-                                   update_checker_loadhelp('#help3a','help_dumper');"
+                  <button onclick="$('#pot_check1').carousel(1);
+                                   update_checker_loadhelp('#help3a','help_dumper');
+			           return false;"
                           type="button"
 			  class="btn btn-success px-3 py-1"><span data-langkey="Help">Help</span></button>
                   <button type="button"
@@ -1042,7 +860,7 @@
                           data-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>
-		  <div id="current_state1_lang" class="dropdown-menu" style="z-index:100000;">
+		  <div id="current_checkpoint1_lang" class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
                                           i18n_update_tags('gui',    'es');
@@ -1064,10 +882,10 @@
       </div>
       <div class="modal-body">
          <div class="bootbox-body">
-            <div id="bot_check1" class="carousel" data-ride="carousel" data-interval="false">
+            <div id="pot_check1" class="carousel" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
 
-                  <div class="carousel-item"
+                  <div class="carousel-item active"
                        style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 			<div class="row m-0">
@@ -1080,13 +898,13 @@
 					  onclick="wepsim_notify_success('<strong>INFO</strong>', 'Processing save request...');
                                                    var checkpointObj = wepsim_checkpoint_get('tagToSave1');
 						   wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
-                                                   wsweb_dialogbox_close_state();
+                                                   wsweb_dialogbox_close_checkpoint();
 						   return false;"><span data-langkey="Save">Save</span></button>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 					  onclick="wepsim_notify_success('<strong>INFO</strong>', 'Processing share request...');
                                                    var checkpointObj = wepsim_checkpoint_get('tagToSave1');
 						   wepsim_checkpoint_share('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
-                                                   wsweb_dialogbox_close_state();
+                                                   wsweb_dialogbox_close_checkpoint();
 						   return false;"><span data-langkey="Share">Share</span></button>
 		                  </h5>
 			      </div>
@@ -1109,7 +927,7 @@
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 					    onclick="var ret = wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
 	                                             if (ret) {
-                                                         wsweb_dialogbox_close_state();
+                                                         wsweb_dialogbox_close_checkpoint();
 						         wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
 	                                             }
 						     return false;"><span data-langkey="Load">Load</span></button>
@@ -1130,7 +948,7 @@
 				    <span class="text-white bg-secondary" data-langkey="Browser cache">Browser cache</span>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 				  	    onclick="var ret = wepsim_checkpoint_loadFromCache('FileNameToSaveAs1', 'tagToSave1', 'browserCacheElto');
-                                                     wsweb_dialogbox_close_state();
+                                                     wsweb_dialogbox_close_checkpoint();
 	                                             if (ret.error)
 						          wepsim_notify_success('<strong>INFO</strong>', ret.msg);
 						     else wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
@@ -1157,6 +975,67 @@
 
 		  </div>
 
+                  <div class="carousel-item">
+                       <div id="help3a"
+                            style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+           <button class="btn btn-danger btn-sm col-auto pull-right shadow-none"
+                   onclick="wsweb_dialogbox_close_checkpoint();
+		            return false;"
+		   type="button"><span data-langkey="Close">Close</span></button>
+      </div>
+   </div>
+</div>
+</div> <!-- /.modal -->
+
+
+<div id="current_state1" class="modal">
+<div class="modal-dialog bootboxWidth">
+   <div class="modal-content">
+      <div class="modal-header">
+         <div class="mx-auto">
+               <div class="btn-group">
+                  <button onclick="$('#pot_check1').carousel(0);"
+                          type="button"
+                          class="btn btn-dark px-3 py-1"><span data-langkey='States'>States</span></button>
+                  <button onclick="$('#pot_check1').carousel(1);
+                                   update_checker_loadhelp('#help3b','help_dumper');"
+                          type="button"
+			  class="btn btn-success px-3 py-1"><span data-langkey="Help">Help</span></button>
+                  <button type="button"
+                          class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>
+		  <div id="current_state1_lang" class="dropdown-menu" style="z-index:100000;">
+                     <a href="#" class="dropdown-item"
+				 onclick="set_cfg('ws_idiom','es'); save_cfg();
+                                          i18n_update_tags('gui',    'es');
+                                          i18n_update_tags('states', 'es');
+                                          update_checker_loadhelp('#help3b','help_dumper');
+                                          return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
+                     <a href="#" class="dropdown-item"
+				 onclick="set_cfg('ws_idiom','en'); save_cfg();
+                                          i18n_update_tags('gui',    'en');
+                                          i18n_update_tags('states', 'en');
+                                          update_checker_loadhelp('#help3b','help_dumper');
+                                          return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
+                  </div>
+               </div>
+         </div>
+         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
+         </button>
+      </div>
+      <div class="modal-body">
+         <div class="bootbox-body">
+            <div id="pot_check1" class="carousel" data-ride="carousel" data-interval="false">
+               <div class="carousel-inner" role="listbox">
 
                   <div class="carousel-item active">
 
@@ -1304,7 +1183,7 @@
 
                   </div>
                   <div class="carousel-item">
-                       <div id="help3a"
+                       <div id="help3b"
                             style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
                   </div>
                </div>
@@ -1378,151 +1257,6 @@
 </div> <!-- /.modal -->
 
 
-<div id="about2" class="modal">
-     <div class="modal-dialog">
-	<div class="modal-content">
-	   <div class="modal-header">
-		<div class="mx-auto">
-                <h5 class="m-1"><strong>WepSIM</strong> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
-		</div>
-		<button type="button" class="close mx-0" aria-label="Close"
-		        onclick="wsweb_about_close(); return false;">
-		    <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
-		</button>
-	   </div>
-	   <div class="modal-body">
-
-		<div id="container-about1" class="container-fluid"
-		     style="max-height:80vh; overflow:auto; -webkit-overflow-scrolling:touch;">
-
-			<div class="row pb-2">
-			  <div class="col-sm-12 p-0">
-			         <span class="float-left mr-auto text-primary"
-                                       onclick="wepsim_help_set_relative('about#');
-                                                wepsim_help_refresh();
-				                wsweb_about_close();
-						return false;">GNU Lesser General Public 3</span>
-			  </div>
-			</div>
-
-                        <div class="card-desk row"
-                             style="max-width:512px;">
-			      <div class="card bg-white text-center col-3 p-0">
-			        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-1"
-                                     src="images/author_fgarcia.png" alt="Felix Garcia Carballeira" />
-			        <div class="card-body p-3">
-                                  <a class="btn text-vertical-lr p-0 text-primary"
-                                     id="fgarcia">F&eacute;lix Garc&iacute;a Carballeira</a>
-                                </div>
-			        <div id="cf-fgarcia" class="card-footer p-1 collapse cf-all bg-white text-left">
-				  <div class="list-group list-group-flush">
-		                  <a class='card-link list-group-item p-1'
-                                     ><span class="fab fa-linkedin"></span> linkedin</a>
-		                  <a class='card-link list-group-item p-1 m-0'
-                                     href='https://www.researchgate.net/profile/Felix_Garcia-Carballeira'><span class="fab fa-researchgate"></span> r-gate</a>
-		                  <a class='card-link list-group-item p-1 m-0'
-                                     ><span class="fab fa-github"></span> github</a>
-                                  </div>
-                                </div>
-			      </div>
-
-			      <div class="card bg-white text-center col-3 p-0">
-			        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-2"
-                                     src="images/author_acaldero.png" alt="Alejandro Calder&oacute;n Mateos" />
-			        <div class="card-body p-3">
-                                  <a class="btn text-vertical-lr p-0 text-primary"
-                                     id="acaldero">Alejandro Calder&oacute;n Mateos</a>
-                                </div>
-			        <div id="cf-acaldero" class="card-footer p-1 collapse cf-all bg-white text-left">
-				  <div class="list-group list-group-flush">
-		                  <a class='card-link list-group-item p-1'
-                                     href='https://www.linkedin.com/in/alejandro-calderon-mateos/'><span class="fab fa-linkedin"></span> linkedin</a>
-		                  <a class='card-link list-group-item p-1 m-0'
-                                     href='https://www.researchgate.net/profile/Alejandro_Calderon2'><span class="fab fa-researchgate"></span> r-gate</a>
-		                  <a class='card-link list-group-item p-1 m-0'
-                                     href='https://github.com/acaldero/'><span class="fab fa-github"></span> github</a>
-                                  </div>
-                                </div>
-			      </div>
-
-			      <div class="card bg-white text-center col-3 p-0">
-			        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-3"
-                                     src="images/author_jprieto.png" alt="Javier Prieto Cepeda" />
-			        <div class="card-body p-3">
-                                  <a class="btn text-vertical-lr p-0 text-primary"
-                                     id="jprieto">Javier Prieto Cepeda</a>
-                                </div>
-			        <div id="cf-jprieto" class="card-footer p-1 collapse cf-all bg-white text-left">
-				  <div class="list-group list-group-flush">
-		                  <a class='card-link list-group-item p-1'
-                                     href='https://www.linkedin.com/in/javier-prieto-cepeda'><span class="fab fa-linkedin"></span> linkedin</a>
-		                  <a class='card-link list-group-item p-1 m-0'
-                                     ><span class="fab fa-researchgate"></span> r-gate</a>
-		                  <a class='card-link list-group-item p-1 m-0'
-                                     ><span class="fab fa-github"></span> github</a>
-                                  </div>
-                                </div>
-			      </div>
-
-			      <div class="card bg-white text-center col-3 p-0">
-			        <img class="card-img-top img-fluid shadow no-dark-mode" id="collapse-author-4"
-                                     src="images/author_salonso.png" alt="Sa&uacute;l Alonso Monsalve" />
-			        <div class="card-body p-3">
-                                  <a class="btn text-vertical-lr p-0 text-primary"
-                                     id="salonso">Sa&uacute;l Alonso Monsalve</a>
-                                </div>
-			        <div id="cf-salonso" class="card-footer p-1 collapse cf-all bg-white text-left">
-				  <div class="list-group list-group-flush">
-		                  <a class='card-link list-group-item p-1'
-                                     href='https://www.linkedin.com/in/salonsom/'><span class="fab fa-linkedin"></span> linkedin</a>
-		                  <a class='card-link list-group-item p-1 m-0'
-                                     href='https://www.researchgate.net/profile/Saul_Alonso_Monsalve'><span class="fab fa-researchgate"></span> r-gate</a>
-		                  <a class='card-link list-group-item p-1 m-0'
-                                     href='https://github.com/saulam/'><span class="fab fa-github"></span> github</a>
-                                  </div>
-                                </div>
-			      </div>
-			</div>
-
-		</div>
-	   </div>
-           <div class="modal-footer">
-		 <button type="button"
-	                 class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
-                         data-toggle="collapse" data-target=".cf-all">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" data-dismiss="modal"
-			 onclick="wsweb_about_close(); return false;"
-                         class="btn btn-primary       btn-sm col col-sm-3 float-right shadow-none">OK</button>
-	   </div>
-	</div>
-     </div>
-</div> <!-- /.modal -->
-
-
-<div id="notifyuser1" class="modal">
-     <div class="modal-dialog modal-lg">
-	<div class="modal-content">
-
-	   <div class="modal-header">
-		<h5 id="notifyuser1_title" class="modal-title text-truncate">Un-titled</h5>
-		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-	   </div>
-
-	   <div class="modal-body">
-                 <div id="notifyuser1_message" style="word-wrap:break-word;">Nothing to declare.</div>
-	   </div>
-
-	   <div class="modal-footer">
-                 <div id="notifyuser1_footer" class="float-left mr-auto"></div>
-		 <button type="button" class="btn btn-danger btn-sm col-3 col-sm-2 float-right"
-			 onclick="wsweb_record_play(); return false;"
-			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-	   </div><!-- /footer -->
-	</div>
-     </div>
-</div> <!-- /.modal -->
-
-
 <!-- notifications -->
 <div id="notifications2" class="modal">
     <div class="modal-dialog modal-lg" style="height:80vh;">
@@ -1530,18 +1264,9 @@
 
 	   <div class="modal-header">
 		<div class="mx-auto">
-		   <div class="btn-group">
-		     <button type="button" class="btn btn-dark float-left mr-auto"
-			     onclick="var wsi = get_cfg('ws_idiom') ;
-				      var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-				      if (confirm(q)) {
-			                  wsweb_dialogbox_reset_notifications();
-				      }
-			              return false;"><span data-langkey="Reset">Reset</span></button>
-		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
+		     <button type="button" class="btn btn-dark px-3 py-1" disabled>
                              <span data-langkey='Notifications'>Notifications</span>
 		     </button>
-		   </div>
                 </div>
 		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
 	   </div>
@@ -1551,9 +1276,16 @@
 	   </div>
 
 	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
+		 <button type="button" class="btn btn-outline-dark   btn-sm col col-sm-3 float-left"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
+		 <button type="button" class="btn btn-outline-danger btn-sm col-auto float-left mr-auto"
+			 onclick="var wsi = get_cfg('ws_idiom') ;
+				      var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
+				      if (confirm(q)) {
+			                  wsweb_dialogbox_reset_notifications();
+				      }
+			              return false;"><span data-langkey="Reset">Reset</span></button>
+		 <button type="button" class="btn btn-danger  col-auto pull-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
@@ -1565,8 +1297,6 @@
     <script type="application/javascript"
             src="min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
-    <script type="application/javascript"
-            src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
     <script type="application/javascript"
             src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
@@ -1584,7 +1314,12 @@
 	    var optValue = get_cfg('ws_skin_ui') ;
 	    if ( (optValue != 'classic') && (optValue != 'compact') )
 	    {
-		reset_cfg() ;
+		upgrade_cfg() ;
+
+		var msg = 'WepSIM has been updated...' ;
+		console.log(msg) ;
+		$("#loading_msg1").html(msg) ;
+
 	        setTimeout(function(){ 
 	           window.location='wepsim-classic.html' + window.location.search ;
 	        }, 250);
@@ -1592,16 +1327,6 @@
 	    if (optValue != 'compact') {
 	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
             }
-
-	    // update old cfg...
-	    var optValue = get_cfg('version') ;
-	    if (optValue !== '2.0.12')
-	    {
-		reset_cfg() ;
-		var msg = 'WepSIM has been updated (' + optValue + ' -> 2.0.12)' ;
-		console.log(msg) ;
-		$("#loading_msg1").html(msg) ;
-	    }
 
 	    // initialization of wepsim...
             wepsim_load_hw() ;

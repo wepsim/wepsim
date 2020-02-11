@@ -25,6 +25,8 @@
 		'help_01_01':		'Öppna välkomsthandledningen',
 		'Simple usage tutorial':		'Enkel användarhandledning',
 		'help_01_02':		'Öppna den enkla användarhandledningen, för programmering av mikroprogrammering och montering',
+		'Execute example':		'Execute example',
+		'help_01_03':			'Play the execute example tutorial',
 		'Simulator: firmware':		'Simulator: firmware',
 		'help_02_01':		'Hur man arbetar med den fasta programvaran som ska laddas i kontrollminnet',
 		'Microcode format':		'Mikrokod format',

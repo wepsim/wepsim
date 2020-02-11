@@ -44,6 +44,7 @@ cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_ep/sim_hw_io.js \
     sim_hw/sim_hw_ep/sim_hw_kbd.js \
     sim_hw/sim_hw_ep/sim_hw_scr.js \
+    sim_hw/sim_hw_ep/sim_hw_l3d.js \
     sim_hw/sim_hw_poc/sim_poc.js \
     sim_hw/sim_hw_poc/sim_hw_board.js \
     sim_hw/sim_hw_poc/sim_hw_cpu.js \
@@ -51,6 +52,7 @@ cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_poc/sim_hw_io.js \
     sim_hw/sim_hw_poc/sim_hw_kbd.js \
     sim_hw/sim_hw_poc/sim_hw_scr.js \
+    sim_hw/sim_hw_poc/sim_hw_l3d.js \
     \
     sim_sw/sim_lang.js \
     sim_sw/sim_lang_firm.js \
@@ -65,8 +67,9 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
     sim_core/sim_core_voice.js \
+    sim_core/sim_core_rest.js \
     sim_core/sim_core_notify.js > ws_dist/sim_all.js
-/usr/bin/yui-compressor -o ws_dist/min.sim_all.js ws_dist/sim_all.js
+terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
 
 #  WepSIM internalization (i18n)
@@ -85,11 +88,11 @@ cat wepsim_i18n/$LANG/gui.js \
 cp  wepsim_i18n/$LANG/simulator.html ws_dist/help/simulator-"$LANG".html
 cp  wepsim_i18n/$LANG/about.html     ws_dist/help/about-"$LANG".html
 done
-/usr/bin/yui-compressor -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
+terser -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
 rm -fr ws_dist/wepsim_i18n.js
 
 #  WepSIM web
-echo "ws_dist/min.wepsim_web.js"
+echo "ws_dist/min.wepsim_core.js"
 cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_clipboard.js \
     wepsim_core/wepsim_preload.js \
@@ -98,19 +101,6 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_execute.js \
     wepsim_core/wepsim_notify.js \
-    \
-    wepsim_core/wepsim_ui_cpu.js \
-    wepsim_core/wepsim_ui_cpu_svg.js \
-    wepsim_core/wepsim_ui_registers.js \
-    wepsim_core/wepsim_ui_console.js \
-    wepsim_core/wepsim_ui_control_memory.js \
-    wepsim_core/wepsim_ui_main_memory.js \
-    wepsim_core/wepsim_ui_io.js \
-    wepsim_core/wepsim_ui_hw.js \
-    \
-    wepsim_core/wepsim_dbg_asm.js \
-    wepsim_core/wepsim_dbg_mc.js \
-    wepsim_core/wepsim_dbg_breakpointicons.js \
     \
     wepsim_core/wepsim_mode.js \
     wepsim_core/wepsim_share.js \
@@ -132,30 +122,50 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_voice.js \
     wepsim_core/wepsim_voice_commands.js \
     \
-    wepsim/wepsim_web_simulator.js \
-    wepsim/wepsim_web_editor.js \
-    wepsim/wepsim_web_api.js > ws_dist/wepsim_web.js
-/usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
-rm -fr ws_dist/wepsim_web.js
+    wepsim_core/wepsim_ui_registers.js \
+    wepsim_core/wepsim_ui_hw.js \
+    wepsim_core/wepsim_dbg_breakpointicons.js \
+    \
+    wepsim_core/wepsim_webui_cpu.js \
+    wepsim_core/wepsim_webui_mem.js \
+    wepsim_core/wepsim_webui_mem_config.js \
+    wepsim_core/wepsim_webui_console.js \
+    wepsim_core/wepsim_webui_io_info.js \
+    wepsim_core/wepsim_webui_io_config.js \
+    wepsim_core/wepsim_webui_l3d.js \
+    wepsim_core/wepsim_webui_dbg_mc.js \
+    wepsim_core/wepsim_webui_dbg_asm.js \
+    wepsim_core/wepsim_webui_cpusvg.js \
+    wepsim_core/wepsim_webui_authors.js > ws_dist/wepsim_core.js
+terser -o ws_dist/min.wepsim_core.js ws_dist/wepsim_core.js
+rm -fr ws_dist/wepsim_core.js
 
 #  WepSIM web engine
-echo "ws_dist/min.wepsim_web.js"
-cat ws_dist/min.wepsim_i18n.js \
-    ws_dist/min.wepsim_web.js > ws_dist/transient.js
-mv ws_dist/transient.js ws_dist/min.wepsim_web.js
+cat ws_dist/min.sim_all.js \
+    ws_dist/min.wepsim_i18n.js \
+    ws_dist/min.wepsim_core.js \
+    \
+    wepsim/web/wepsim_web_api.js \
+    wepsim/web/wepsim_web_editor.js \
+    wepsim/web/wepsim_web_simulator.js > ws_dist/min.wepsim_web.js
 
 #  WepSIM nodejs engine
 echo "ws_dist/min.wepsim_node.js"
-cat ws_dist/min.sim_all.js \
+echo "class HTMLElement { }" > ws_dist/min.dummy.js
+cat ws_dist/min.dummy.js \
+    ws_dist/min.sim_all.js \
+    ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_web.js \
-    wepsim/wepsim_node_core.js \
-    wepsim/wepsim_node_action.js > ws_dist/min.wepsim_node.js
+    \
+    wepsim/nodejs/wepsim_node_core.js \
+    wepsim/nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
+rm -fr ws_dist/min.dummy.js
 
 #  external
 echo "ws_dist/min.external.js"
-cat external/popper.min.js \
+cat external/knockout-3.5.1.js \
+    external/popper.min.js \
     external/bootstrap.min.js \
-    external/knockout-3.5.0.js \
     external/jquery.knob.min.js \
     external/bootbox.min.js \
     external/spectrum.min.js \
@@ -178,7 +188,7 @@ cat external/popper.min.js \
     external/codemirror/codemirror.runmode/colorize.js \
     external/vis/vis.min.js \
     external/vis/vis-network.min.js \
-    external/async.js \
+    external/async.min.js \
     external/bootstrap-tokenfield.js \
     external/introjs/introjs.min.js \
     external/speech-input.js \
@@ -228,14 +238,14 @@ cp -a images    ws_dist/
 
 #  user interface
 echo "ws_dist/*.html"
-cp   wepsim/wepsim_web_classic.html   ws_dist/index.html
-cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-classic.html
-cp   wepsim/wepsim_web_compact.html   ws_dist/wepsim-compact.html
-cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-null.html
-cp   wepsim/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
+cp   wepsim/web/wepsim_web_classic.html   ws_dist/index.html
+cp   wepsim/web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
+cp   wepsim/web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+cp   wepsim/web/wepsim_web_null.html      ws_dist/wepsim-null.html
+cp   wepsim/web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 echo "ws_dist/*.sh"
-cp   docs/manifest.webapp  ws_dist/
-cp wepsim/wepsim_node.sh   ws_dist/
+cp   docs/manifest.webapp         ws_dist/
+cp wepsim/nodejs/wepsim_node.sh   ws_dist/
 chmod a+x ws_dist/*.sh
 

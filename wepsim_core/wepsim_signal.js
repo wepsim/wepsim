@@ -164,9 +164,12 @@
 		bb.find(".bootbox-close-button").addClass("mx-1") ;
 		bb.attr("id", "dlg_updatesignal") ;
 
-		$(".dial").knob({ 'min':0, 'max':(nvalues-1) })
-			  .val(signal_obj.value)
-			  .trigger('change');
+		if (typeof $(".dial").knob !== "undefined") 
+		{
+		    $(".dial").knob({ 'min':0, 'max':(nvalues-1) })
+			      .val(signal_obj.value)
+			      .trigger('change');
+		}
 
 	    show_states();
 	    wepsim_show_rf_values();

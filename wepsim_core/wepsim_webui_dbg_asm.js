@@ -19,7 +19,63 @@
  */
 
 
+        /*
+         *  DBG-MP
+         */
+
+        /* jshint esversion: 6 */
+        class ws_dbg_mp extends HTMLElement
+        {
+	      constructor ()
+	      {
+		    // parent
+		    super();
+	      }
+
+	      render ( msg_default )
+	      {
+		    // html holder
+		    var o1 = "<center>" + 
+		             "<div id='asm_table' style='overflow-x:auto; -webkit-overflow-scrolling:touch;'>" + 
+		   	     "<table class='table ui-responsive ui-table' style='margin-bottom:0px; min-width:700px;'>" + 
+		   	     "<thead>" + 
+			     "<tr style='border-top:2pt solid white;'>" + 
+			     "<th width='1%'>" + 
+			     "<a tabindex='0' href='#' class='show multi-collapse-3' data-toggle='popover2' id='popover2_asm'><strong class='fas fa-wrench text-secondary'></strong></a>" + 
+			     "</th>" + 
+                             "<th width='10%' class='asm_label collapse' align='right'><span data-langkey='labels'>labels</span></th>" + 
+			     "<th width='15%' class='asm_addr  collapse'              ><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" + 
+                             "<th width='15%' class='asm_hex   collapse' align='right'><span data-langkey='content'>content</span></th>" + 
+                             "<th width='30%' class='asm_ins   collapse' align='left' ><span data-langkey='assembly'>assembly</span></th>" + 
+			     "<th width='30%' class='asm_pins  collapse' align='left' ><span>pseudo</span><span class='d-none d-md-inline'><small><span data-langkey='instructions'>instructions</span></small></span></th>" + 
+			     "</tr>" + 
+			     "</thead>" + 
+			     "</table>" + 
+		   	     "</div>" + 
+			     "</center>" + 
+                             "" + 
+		             "<div id='asm_debugger_container'" + 
+                             "     style='overflow-y:auto; overflow-x:auto; height:65vh !important; -webkit-overflow-scrolling:touch;'>" + 
+                             "     <div id='asm_debugger' style='min-width:700px;'>" + 
+                             "     </div>" + 
+		             "</div>" ;
+
+		    this.innerHTML = o1 ;
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
+	      }
+        }
+
+        if (typeof window !== "undefined")
+            window.customElements.define('ws-dbg-mp', ws_dbg_mp) ;
+
+
+        //
         // show/hide Assembly elements/header
+        //
     
         function showhideAsmElements ( )
         {

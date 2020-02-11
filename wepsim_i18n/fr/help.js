@@ -29,6 +29,9 @@
 		"Simple usage tutorial":			"Tutoriel d'utilisation simple",
 		"help_01_02":					"Ouvrez le tutoriel d'utilisation simple, pour la microprogrammation et l'assemblage. programmation",
 
+		"Execute example":				"Execute example",
+		"help_01_03":					"Play the execute example tutorial",
+
 		"Simulator: firmware":				"Simulateur: firmware",
 		"help_02_01":					"Comment utiliser le firmware à charger dans la mémoire de contrôle",
 

@@ -20,6 +20,39 @@
 
 
         /*
+         *  Main Memory
+         */
+
+        /* jshint esversion: 6 */
+        class ws_mainmemory extends HTMLElement
+        {
+	      constructor ()
+	      {
+		    // parent
+		    super();
+	      }
+
+	      render ( msg_default )
+	      {
+		    // html holder
+		    var o1 = "<div id='memory_MP' " + 
+                             "     style='height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" + 
+                             "</div>" ;
+
+		    this.innerHTML = o1 ;
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
+	      }
+        }
+
+        if (typeof window !== "undefined")
+            window.customElements.define('ws-mainmemory', ws_mainmemory) ;
+
+
+        /*
          *  Main Memory UI
          */
 
@@ -503,7 +536,7 @@
 		     }
 
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
-                           "<td class='asm_label  text-monospace col-auto collapse' " +
+                           "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
                            "    style='line-height:0.9;' align=right" +
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" + s_label + "</td>" +
@@ -541,48 +574,4 @@
 
                 return o ;
 	}
-
-
-        /*
-         *  Main Memory (configuration)
-         */
-
-        function init_config_mp ( jqdiv )
-        {
-            // without ui
-            if (jqdiv === "")
-            {
-                    simhw_internalState_reset('MP_wc', ko_observable(0)) ;
-                    return ;
-            }
-
-            // html holder
-            var o1 = "<div class='container-fluid'>" +
-                     "<div class='row'>" ;
-
-            o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
-                  "<div class='card bg-light'>" +
-                  "<div class='card-body p-0' id='mempanel'>" +
-                  "<table class='table table-hover table-sm table-bordered' " +
-                  "       style='margin:0'>" +
-                  "<tbody class='no-ui-mini'>" +
-                  "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
-                  "    <td align=center'>" +
-                  "<div id='mp_wc'>" +
-                  "<input type=number data-bind='value: simhw_internalState(\"MP_wc\")' min='0' max='99999999'>" +
-                  "</div>" +
-                  "    </td></tr>" +
-                  "</tbody>" +
-                  "</table>" +
-                  "</div>" +
-                  "</div>" +
-                  "</div>" ;
-
-            $(jqdiv).html(o1);
-
-            // knockout binding
-            simhw_internalState_reset('MP_wc', ko_observable(0)) ;
-            var ko_context = document.getElementById('mp_wc');
-            ko.applyBindings(simhw_internalState('MP_wc'), ko_context);
-        }
 

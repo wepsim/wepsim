@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"2.0.12", type:"string"} ;
+        WSCFG.version = { value:"2.1.0", type:"string"} ;
 
 
         /*
@@ -126,6 +126,20 @@
              save_cfg() ;
         }
 
+        /*
+         *  upgrade_cfg = if (version != _last_) -> reset_cfg + save_cfg
+         */
+
+        function upgrade_cfg ( )
+        {
+            var optValue = get_cfg('version') ;
+            if (optValue !== '2.1.0')
+            {
+                reset_cfg() ;
+                save_cfg() ;
+            }
+        }
+
 
         /*
          *  Auxiliar functions
@@ -185,10 +199,11 @@
                WSCFG.SHOWCODE_ins         = { value:true,               type:"boolean"} ;
                WSCFG.SHOWCODE_pins        = { value:true,               type:"boolean"} ;
 
+               WSCFG.ws_mode              = { value:'newbie',                        type:"string"} ;
+               WSCFG.ws_action            = { value:'checkpoint',                    type:"string"} ;
                WSCFG.is_interactive       = { value:true,                            type:"boolean"} ;
                WSCFG.is_quick_interactive = { value:false,                           type:"boolean"} ;
                WSCFG.ws_idiom             = { value:'en',                            type:"string"} ;
-               WSCFG.ws_mode              = { value:'newbie',                        type:"string"} ;
                WSCFG.use_voice            = { value:false,                           type:"boolean"} ;
                WSCFG.ws_skin_ui           = { value:'classic',                       type:"string"} ;
                WSCFG.ws_skin_user         = { value:'only_asm:of:only_frequent:on',  type:"string"} ;
