@@ -146,6 +146,7 @@ cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_core.js \
     \
     wepsim/web/wepsim_web_api.js \
+    wepsim/web/wepsim_web_api_commands.js \
     wepsim/web/wepsim_web_editor.js \
     wepsim/web/wepsim_web_simulator.js > ws_dist/min.wepsim_web.js
 
