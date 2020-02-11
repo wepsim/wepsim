@@ -158,7 +158,7 @@
                      u_type:      "info",
                      u_class:     "",
                      reference:   "wepsim_close_help();" + 
-	                          "wsweb_about_show();",
+	                          "wsweb_dialog_open_listdetailed('about');",
                      description: "<span data-langkey='help_04_02'>Authors of WepSIM</span>.<br>"
                   });
 

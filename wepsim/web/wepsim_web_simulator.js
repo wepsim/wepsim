@@ -404,7 +404,7 @@
 
 	   o += '<li class="list-group-item px-0"> ' +
 		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
-		'     onclick="wsweb_about_show(); ' +
+		'     onclick="wsweb_dialog_open_listdetailed(\'about\'); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
 		'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +

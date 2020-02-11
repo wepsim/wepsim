@@ -957,7 +957,7 @@
 
             // add if recording
             simcore_record_append_new('Open Load/Save firmware/assembly from/to file',
-		                      'wsweb_dialog_open_loadsave(' + dialog_id + ');\n') ;
+		                      'wsweb_dialog_open_loadsave("' + dialog_id + '");\n') ;
 
 	    // return dialog
 	    return d1 ;
@@ -976,7 +976,7 @@
 
             // add if recording
             simcore_record_append_new('Close Load/Save firmware/assembly from/to file',
-		                      'wsweb_dialog_close_loadsave(' + dialog_id + ');\n') ;
+		                      'wsweb_dialog_close_loadsave("' + dialog_id + '");\n') ;
 
 	    // return dialog
 	    return d1 ;
@@ -1232,32 +1232,26 @@
     //  All workspaces: popovers and modals from quick-menu...
 
     // about
-    var ws_aboutbox = null ;
 
-    function wsweb_about_show ( )
-    {
-	 // show dialogbox
-         var ws_aboutbox = bootbox.dialog({
-		     title:     "<h5 class='my-0 mx-auto'><strong>WepSIM</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>",
-		     message:   "<div id='container-about1' class='container-fluid'" +
-				"     style='max-height:80vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
-				"	<div class='row pb-2'>" +
-				"	  <div class='col-sm-12 p-0'>" +
-				"	       <span class='float-left mr-auto text-primary'" +
-				"                    onclick='wepsim_help_set_relative('about#');" +
-				"                             wepsim_help_refresh();" +
-				"		              wsweb_about_close();" +
-				"			      return false;'>GNU Lesser General Public 3</span>" +
-				"	  </div>" +
-				"	</div>" +
-				"	<ws-authors></ws-authors>" +
-				"</div>",
-		     scrollable: true,
-		     onShown: function(e) {
-				 wepsim_restore_uicfg() ;
-			         $("div.wsversion").replaceWith(get_cfg('version')) ;
-			      },
-		     buttons: {
+    wsweb_listing = {
+         about: {
+            oid:        "about1",
+	    otitle:     "<h5 class='my-0 mx-auto'><strong>WepSIM</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>",
+            obody:      "<div id='container-about1' class='container-fluid'" +
+			"     style='max-height:80vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+			"	<div class='row pb-2'>" +
+			"	  <div class='col-sm-12 p-0'>" +
+			"	       <span class='float-left mr-auto text-primary'" +
+			"                    onclick='wepsim_help_set_relative('about#');" +
+			"                             wepsim_help_refresh();" +
+			"		              wsweb_about_close();" +
+			"			      return false;'>GNU Lesser General Public 3</span>" +
+			"	  </div>" +
+			"	</div>" +
+			"	<ws-authors></ws-authors>" +
+			"</div>",
+
+	    obutt:  {
 			Description: {
 			   label: "&plusmn; <span data-langkey='Description'>Description</span>",
 			   className: 'btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto',
@@ -1270,33 +1264,60 @@
 			   label: "OK",
 			   className: 'btn btn-primary btn-sm col col-sm-3 float-right shadow-none',
 			   callback: function() {
+					 // add if recording
+					 simcore_record_append_new('Close the "about" dialogbox',
+								   '$("#about1").modal("hide");\n') ;
 				     }
 			}
-		     },
-		     keyboard: true,
-		     animate:  false
-			  });
-            ws_aboutbox.modal('show') ;
+		    }
+         }
+    } ;
 
-            // add if recording
-            simcore_record_append_new('Open the "about" dialogbox',
-		                      'wsweb_about_show();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_about_close ( )
+    function wsweb_dialog_open_listdetailed ( dialog_id )
     {
-            ws_aboutbox.modal('hide') ;
+	    // check params
+	    if (typeof wsweb_listing[dialog_id] === "undefined") {
+                return null ;
+            }
+
+	    // elements
+	    var oid    = wsweb_listing[dialog_id].oid ;
+	    var otitle = wsweb_listing[dialog_id].otitle ;
+	    var obody  = wsweb_listing[dialog_id].obody ;
+	    var obutt  = wsweb_listing[dialog_id].obutt ;
+
+	    // dialog
+	    var d1 = bootbox.dialog({
+		     title:      otitle,
+		     message:    obody,
+		     scrollable: true,
+		     onShown:    function(e) {
+		 		     var ws_idiom = get_cfg('ws_idiom') ;
+				     i18n_update_tags('dialogs', ws_idiom) ;
+
+				     wepsim_restore_uicfg() ;
+			             $("div.wsversion").replaceWith(get_cfg('version')) ;
+			         },
+		     buttons:    obutt,
+		     keyboard:   true,
+		     animate:    false
+	    });
+
+	    d1.init(function(){
+		       d1.attr("id", oid) ;
+		    });
+
+	    d1.find('.modal-header').addClass('bg-dark') ;
+	    d1.modal('show');
 
             // add if recording
-            simcore_record_append_new('Close the "about" dialogbox',
-		                      'wsweb_about_close();\n') ;
+            simcore_record_append_new('Open listing dialogbox',
+		                      'wsweb_dialog_open_listdetailed("' + dialog_id + '");\n') ;
 
-            // return ok
-            return true ;
+	    // return dialog
+	    return d1 ;
     }
+
 
     // quick menu
     function wsweb_quickmenu_show ( )
