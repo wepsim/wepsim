@@ -800,23 +800,38 @@
 		    message:    obody,
 		    scrollable: true,
 		    size:       'large',
-		    onShown: function(e) {
-				var ws_idiom = get_cfg('ws_idiom') ;
-				i18n_update_tags('dialogs', ws_idiom) ;
-				$('.dropify').dropify() ;
-			     },
-		    buttons: obutt 
+		    onShown:    function(e) {
+                                     // ui
+	    			     $('[data-toggle=tooltip]').tooltip('hide');
+			             $("div.wsversion").replaceWith(get_cfg('version')) ;
+				     $('.dropify').dropify() ;
+                                     // lang
+				     var ws_idiom = get_cfg('ws_idiom') ;
+				     i18n_update_tags('dialogs', ws_idiom) ;
+                                     // uicfg and events
+				     wepsim_restore_uicfg() ;
+	                             simcore_record_captureInit() ;
+			        },
+		    buttons:    obutt 
 	    });
 
+            // custom...
 	    d1.init(function(){
 		       d1.attr("id", oid) ;
 		    });
-
 	    d1.find('.modal-header').addClass('bg-dark') ;
+
+            // intercept events...
+	    d1.one("hidden.bs.modal",
+		    function () {
+			wsweb_dialog_close(oid) ;
+		    });
+
+            // show
 	    d1.modal('show');
 
             // add if recording
-            simcore_record_append_new('Open Load/Save firmware/assembly from/to file',
+            simcore_record_append_new('Open listing dialogbox',
 		                      'wsweb_dialog_open_list("' + dialog_id + '");\n') ;
 
 	    // return dialog
@@ -841,23 +856,37 @@
 		     title:      otitle,
 		     message:    obody,
 		     scrollable: true,
+                     size:       'large',
 		     onShown:    function(e) {
-		 		     var ws_idiom = get_cfg('ws_idiom') ;
-				     i18n_update_tags('dialogs', ws_idiom) ;
-
-				     wepsim_restore_uicfg() ;
+                                     // ui
+	    			     $('[data-toggle=tooltip]').tooltip('hide');
 			             $("div.wsversion").replaceWith(get_cfg('version')) ;
+				     $('.dropify').dropify() ;
+                                     // lang
+				     var ws_idiom = get_cfg('ws_idiom') ;
+				     i18n_update_tags('dialogs', ws_idiom) ;
+                                     // uicfg and events
+				     wepsim_restore_uicfg() ;
+	                             simcore_record_captureInit() ;
 			         },
 		     buttons:    obutt,
 		     keyboard:   true,
 		     animate:    false
 	    });
 
+            // custom...
 	    d1.init(function(){
 		       d1.attr("id", oid) ;
 		    });
-
 	    d1.find('.modal-header').addClass('bg-dark') ;
+
+            // intercept events...
+	    d1.one("hidden.bs.modal",
+		     function () {
+			 wsweb_dialog_close(oid) ;
+		     });
+
+            // show
 	    d1.modal('show');
 
             // add if recording
@@ -868,7 +897,7 @@
 	    return d1 ;
     }
 
-    function wsweb_dialog_close_loadsave ( dialog_id )
+    function wsweb_dialog_close ( dialog_id )
     {
 	    // check params
 	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
@@ -881,7 +910,7 @@
 
             // add if recording
             simcore_record_append_new('Close dialogbox ' + dialog_id,
-		                      'wsweb_dialog_close_loadsave("' + dialog_id + '");\n') ;
+		                      'wsweb_dialog_close("' + dialog_id + '");\n') ;
 
 	    // return dialog
 	    return d1 ;
@@ -920,15 +949,15 @@
 
 	    // dialog
 	    wsweb_nfbox = bootbox.dialog({
-		    title: title,
-		    message: "<div class='p-2 m-0' style='word-wrap:break-word;'>" + 
-		             message + 
-		             "</div>",
+		    title:      title,
+		    message:    "<div class='p-2 m-0' style='word-wrap:break-word;'>" + 
+		                message + 
+		                "</div>",
 		    scrollable: true,
-		    size: 'large',
-		    onShown: function(e) {
-	                        wepsim_updatetime_start("#autoclose1", duration / 1000) ;
-                             },
+		    size:       'large',
+		    onShown:    function(e) {
+	                           wepsim_updatetime_start("#autoclose1", duration / 1000) ;
+                                },
 		    buttons: {
 			noclose: {
 			    label: "<div id='autoclose1'>&nbsp;</div>",

@@ -45,9 +45,7 @@
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
 				callback:  function() { 
-					       // add if recording
-					       simcore_record_append_new('Close dialog',
-									 '$("#lssave2").modal("hide");\n') ;
+    					       wsweb_dialog_close('save_assembly') ;
 					   }
 			 }
 		    }
@@ -72,9 +70,7 @@
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
 				callback:  function() { 
-					       // add if recording
-					       simcore_record_append_new('Close dialog',
-									 '$("#lsload2").modal("hide");\n') ;
+    					       wsweb_dialog_close('load_assembly') ;
 					   }
 			 }
 		     }
@@ -107,9 +103,7 @@
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
 				callback:  function() { 
-					       // add if recording
-					       simcore_record_append_new('Close dialog',
-									 '$("#lssave").modal("hide");\n') ;
+    					       wsweb_dialog_close('save_firmware') ;
 					   }
 			 }
 		     }
@@ -134,9 +128,7 @@
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
 				callback:  function() { 
-					       // add if recording
-					       simcore_record_append_new('Close dialog',
-									 '$("#lsload").modal("hide");\n') ;
+    					       wsweb_dialog_close('load_firmware') ;
 					   }
 			 }
 		   }
@@ -165,9 +157,7 @@
 			   label: "OK",
 			   className: 'btn btn-primary btn-sm col col-sm-3 float-right shadow-none',
 			   callback: function() {
-					 // add if recording
-					 simcore_record_append_new('Close the "binary" dialogbox',
-								   '$("#bin2").modal("hide");\n') ;
+    					 wsweb_dialog_close('binary') ;
 				     }
 			}
 		    }
@@ -192,21 +182,19 @@
 			"</div>",
 	    obutt:  {
 			Description: {
-			   label: "&plusmn; <span data-langkey='Description'>Description</span>",
-			   className: 'btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto',
-			   callback: function() {
+			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",
+			   className: "btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto",
+			   callback:  function() {
 					$(".cf-all").collapse('toggle') ;
 					return false;
 				     }
 			},
 			OK: {
-			   label: "OK",
-			   className: 'btn btn-primary btn-sm col col-sm-3 float-right shadow-none',
-			   callback: function() {
-					 // add if recording
-					 simcore_record_append_new('Close the "about" dialogbox',
-								   '$("#about1").modal("hide");\n') ;
-				     }
+			   label:     "OK",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   callback:  function() {
+    					 wsweb_dialog_close('about') ;
+				      }
 			}
 		    }
          },
@@ -220,33 +208,31 @@
             obody:      "<div id='container-notifications2' class='container-fluid'></div>",
 	    obutt:  {
 			Description: {
-			   label: "&plusmn; <span data-langkey='Description'>Description</span>",
-			   className: 'btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto',
-			   callback: function() {
-					$(".cf-all").collapse('toggle') ;
-					return false;
-				     }
+			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",
+			   className: "btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto",
+			   callback:  function() {
+				  	  $(".cf-all").collapse('toggle') ;
+					  return false;
+				      }
 			},
 			Reset: {
-			   label: "<span data-langkey='Reset'>Reset</span>",
-			   className: 'btn btn-outline-danger btn-sm col-auto float-left mr-auto",
-			   callback: function() {
-					 var wsi = get_cfg('ws_idiom') ;
-					 var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-					 if (confirm(q)) {
-						  wsweb_dialogbox_reset_notifications();
-					 }
-					 return false;
+			   label:     "<span data-langkey='Reset'>Reset</span>",
+			   className: "btn btn-outline-danger btn-sm col-auto float-left mr-auto",
+			   callback:  function() {
+					   var wsi = get_cfg('ws_idiom') ;
+					   var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
+					   if (confirm(q)) {
+					       wsweb_dialogbox_reset_notifications();
+					   }
+					   return false;
 				     }
 			},
 			Close: {
-			   label: "Close",
-			   className: 'btn btn-primary btn-sm col col-sm-3 float-right shadow-none',
-			   callback: function() {
-					 // add if recording
-					 simcore_record_append_new('Close the "notifications" dialogbox',
-								   '$("#notifications2").modal("hide");\n') ;
-				     }
+			   label:     "Close",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   callback:  function() {
+    					  wsweb_dialog_close('notifications') ;
+				      }
 			}
 		    }
          }
