@@ -162,7 +162,7 @@
 		       return "<div id='bin2-container' class='container-fluid' " +
 	           	      "     style='padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
 		              " <div class='ui-body-d ui-content' style='padding: 2px 2px 2px 2px;'> " +
-           		      " <div id='iframe_bin2' style='max-height:80vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+           		      " <div id='iframe_bin2' style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
 	           	      "   <div id='compile_results' style='padding: 16px 16px 16px 16px;'> " +
 		              "	<br/> " +
 			      "	<center> " +
