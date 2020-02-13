@@ -31,7 +31,7 @@ set -x
  jshint ./sim_core/sim_cfg.js
 #jshint ./sim_core/sim_core_record.js
 #jshint ./sim_core/sim_core_ctrl.js
-#jshint ./sim_core/sim_core_rest.js
+ jshint ./sim_core/sim_core_rest.js
 
  jshint ./sim_sw/sim_lang.js
 #jshint ./sim_sw/sim_lang_firm.js
@@ -59,7 +59,7 @@ set -x
  jshint ./wepsim_core/wepsim_help_commands.js
  jshint ./wepsim_core/wepsim_tutorial.js
  jshint ./wepsim_core/wepsim_tour.js
-#jshint ./wepsim_core/wepsim_preload.js
+ jshint ./wepsim_core/wepsim_preload.js
  jshint ./wepsim_core/wepsim_share.js
  jshint ./wepsim_core/wepsim_voice.js
  jshint ./wepsim_core/wepsim_execute.js
@@ -85,16 +85,16 @@ set -x
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js
  jshint ./wepsim_core/wepsim_ui_hw.js
-#jshint ./wepsim_core/wepsim_ui_registers.js
+ jshint ./wepsim_core/wepsim_ui_registers.js
  jshint ./wepsim_core/wepsim_webui_cpu.js
-#jshint ./wepsim_core/wepsim_webui_mem.js
+ jshint ./wepsim_core/wepsim_webui_mem.js
  jshint ./wepsim_core/wepsim_webui_mem_config.js
  jshint ./wepsim_core/wepsim_webui_console.js
  jshint ./wepsim_core/wepsim_webui_io_info.js
  jshint ./wepsim_core/wepsim_webui_io_config.js
  jshint ./wepsim_core/wepsim_webui_l3d.js
  jshint ./wepsim_core/wepsim_webui_authors.js
-#jshint ./wepsim_core/wepsim_webui_dbg_mc.js
+ jshint ./wepsim_core/wepsim_webui_dbg_mc.js
  jshint ./wepsim_core/wepsim_webui_dbg_asm.js
  jshint ./wepsim_core/wepsim_webui_cpusvg.js
 
@@ -102,7 +102,7 @@ set -x
 #jshint ./wepsim/web/wepsim_web_pwa.js
  jshint ./wepsim/web/wepsim_web_simulator.js
  jshint ./wepsim/web/wepsim_web_editor.js
-#jshint ./wepsim/nodejs/wepsim_node_action.js
+ jshint ./wepsim/nodejs/wepsim_node_action.js
  jshint ./wepsim/nodejs/wepsim_node_core.js
 
  jshint ./wepsim_i18n/i18n.js

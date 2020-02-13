@@ -574,10 +574,10 @@
 					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button onclick="wsweb_dialog_open_loadsave('load_firmware'); return true;"
+						    <button onclick="wsweb_dialog_open_list('load_firmware'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
-						    <button onclick="wsweb_dialog_open_loadsave('save_firmware'); return true;"
+						    <button onclick="wsweb_dialog_open_list('save_firmware'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
@@ -614,10 +614,10 @@
 					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button onclick="wsweb_dialog_open_loadsave('load_assembly'); return true;"
+						    <button onclick="wsweb_dialog_open_list('load_assembly'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
-						    <button onclick="wsweb_dialog_open_loadsave('save_assembly'); return true;"
+						    <button onclick="wsweb_dialog_open_list('save_assembly'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
@@ -673,10 +673,10 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-			    <button onclick="wsweb_dialog_open_loadsave('load_firmware'); return true;"
+			    <button onclick="wsweb_dialog_open_list('load_firmware'); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 		                    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
-			    <button onclick="wsweb_dialog_open_loadsave('save_firmware'); return true;"
+			    <button onclick="wsweb_dialog_open_list('save_firmware'); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 		      </div>
@@ -806,10 +806,10 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-			    <button onclick="wsweb_dialog_open_loadsave('load_assembly'); return true;"
+			    <button onclick="wsweb_dialog_open_list('load_assembly'); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
-			    <button onclick="wsweb_dialog_open_loadsave('save_assembly'); return true;"
+			    <button onclick="wsweb_dialog_open_list('save_assembly'); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 		      </div>
@@ -963,42 +963,6 @@
 		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
-	</div>
-     </div>
-</div> <!-- /.modal -->
-
-
-<div id="bin2" class="modal">
-     <div class="modal-dialog" style="min-width:80vw; height:80vh;">
-	<div class="modal-content">
-	   <div class="modal-header">
-		<div class="mx-auto">
-                <h5><strong>Binary</strong> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
-                </div>
-		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close">
-		    <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
-		</button>
-	   </div>
-	   <div class="modal-body">
-
-		<div id="bin2-container" class="container-fluid"
-		     style="padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
-
-		      <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-			 <div id="iframe_bin2" style="max-height:80vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;">
-			   <div id="compile_results" style="padding: 16px 16px 16px 16px;">
-				<br/>
-				<center>
-				Loading binary, please wait... <br/>
-				WARNING: loading binary might take time on slow mobile devices.
-				</center>
-			   </div>
-			 </div>
-		      </div>
-
-		</div>
-
-	   </div>
 	</div>
      </div>
 </div> <!-- /.modal -->

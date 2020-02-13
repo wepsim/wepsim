@@ -1087,7 +1087,6 @@ function simlang_compile (text, datosCU)
 	   context.pseudoInstructions	= [];
 	   context.stackRegister	= null ;
 	   context.firmware             = {} ;
-	   context.pseudoInstructions   = {};
            context.comments             = [] ;
 	
 	   // fill firmware

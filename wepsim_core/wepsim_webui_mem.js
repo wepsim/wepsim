@@ -88,19 +88,19 @@
             var value = "" ;
             var taddr = "" ;
 
-            var valkeys = new Array();
+            var valkeys = [] ;
 
             // todo: move next block to the end of the assembler parser
             var SIMWARE = get_simware() ;
 
-            var revlabels = new Object() ;
+            var revlabels = {} ;
             for (var key in SIMWARE.labels2) {
                  revlabels[SIMWARE.labels2[key]] = key ;
             }
 
             var seglabels = [] ;
             var curr_segments = simhw_internalState('segments') ;
-	    for (skey in curr_segments) {
+	    for (var skey in curr_segments) {
                  seglabels.push({ 'begin': parseInt(curr_segments[skey].begin), 'name': skey }) ;
             }
 
@@ -196,9 +196,9 @@
         {
             if (redraw)
             {
-                var valkeys   = new Array() ;
+                var valkeys   = [] ;
                 var SIMWARE   = get_simware() ;
-                var revlabels = new Object() ;
+                var revlabels = {} ;
                 for (var key in SIMWARE.labels2)
                      revlabels[SIMWARE.labels2[key]] = key ;
                 var svalue = main_memory_getword(revlabels, valkeys, memory, index) ;
@@ -242,11 +242,11 @@
 
 	function mp2html ( mp, labels, seg )
 	{
-                var slebal = new Object();
+                var slebal = {} ;
                 for (var l in labels)
                 {
                      if (typeof slebal[labels[l]] == "undefined")
-                         slebal[labels[l]] = new Array();
+                         slebal[labels[l]] = [] ;
                      slebal[labels[l]].push(l);
                 }
 
@@ -428,15 +428,15 @@
 
 	   // details: co, cop & fields
 	   var u = '' ;
-	   if (typeof    firm_reference['cop'] !== 'undefined') {
-	       u = '+' + firm_reference['cop'] ;
+	   if (typeof    firm_reference.cop !== 'undefined') {
+	       u = '+' + firm_reference.cop ;
 	   }
 
 	   o +=	'<div class=\"text-left px-2 my-1\">\n' +
 	       	'<span class=\"square\">Format:</span>\n' +
 	        '<ul class=\"mb-0\">\n' +
-		' <li>' + firm_reference['name'] + ': <b>' + firm_reference['co'] + u + '</b></li>\n' ;
-	   var fields = firm_reference['fields'] ;
+		' <li>' + firm_reference.name + ': <b>' + firm_reference.co + u + '</b></li>\n' ;
+	   var fields = firm_reference.fields ;
 	   for (var f=0; f<fields.length; f++) {
 	        o += ' <li>' + fields[f].name + ': bits <b>' + fields[f].stopbit + '</b> to <b>' + fields[f].startbit + '</b></li>\n' ;
 	   }
@@ -447,7 +447,7 @@
                 '<span class=\"square\">Microcode:</span>\n' +
 	        '<ul class=\"mb-0\">\n' +
 	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
-		' <li> clock cycles: <b>' + firm_reference['microcode'].length + '</b></li>\n' +
+		' <li> clock cycles: <b>' + firm_reference.microcode.length + '</b></li>\n' +
 	        '</ul>\n' +
                 '</span>' +
 		'</div>' ;
@@ -471,17 +471,18 @@
                 var s4_hex   = "" ;
                 var bgc = "#F0F0F0" ;
                 var o = "" ;
+		var l = "" ;
 
-                var a2l = new Object();
+                var a2l = {} ;
                 for (l in labels)
 		{
                      if (typeof a2l[labels[l]] == "undefined") {
-                         a2l[labels[l]] = new Array();
+                         a2l[labels[l]] = [] ;
 		     }
                      a2l[labels[l]].push(l);
                 }
 
-                var a2s = new Object();
+                var a2s = {} ;
                 for (l in seg)
 		{
                      laddr = "0x" + seg[l].begin.toString(16) ;
