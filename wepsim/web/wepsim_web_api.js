@@ -789,36 +789,33 @@
             }
 
 	    // elements
-	    var oid    = wsweb_dialogs[dialog_id].oid ;
-	    var otitle = wsweb_dialogs[dialog_id].otitle() ;
-	    var obody  = wsweb_dialogs[dialog_id].obody() ;
-	    var obutt  = wsweb_dialogs[dialog_id].obutt ;
+	    var oid      = wsweb_dialogs[dialog_id].id ;
+	    var otitle   = wsweb_dialogs[dialog_id].title() ;
+	    var obody    = wsweb_dialogs[dialog_id].body() ;
+	    var obuttons = wsweb_dialogs[dialog_id].buttons ;
+	    var opost    = wsweb_dialogs[dialog_id].onshow ;
 
 	    // dialog
 	    var d1 = bootbox.dialog({
-		    title:          otitle,
-		    message:        obody,
-		    scrollable:     true,
-		    size:           'large',
-		    centerVertical: true,
-		    keyboard:       true,
-                    animate:        false,
-		    onShown:        function(e) {
-                                        // ui replacement
-			                $('div.wsversion').replaceWith(get_cfg('version')) ;
-				        $('.dropify').dropify() ;
-	    				$('#' + oid).find('.modal-header').attr("style", "background-color: black !important") ;
-                                        // ui lang
-				        var ws_idiom = get_cfg('ws_idiom') ;
-				        i18n_update_tags('dialogs', ws_idiom) ;
-                                        // uicfg and events
-				        wepsim_restore_uicfg() ;
-	                                simcore_record_captureInit() ;
-			                $('#' + oid).modal('handleUpdate') ;
-	    			        $('[data-toggle=tooltip]').tooltip('hide');
-			            },
-		    buttons:        obutt 
-	    });
+			    title:          otitle,
+			    message:        obody,
+			    scrollable:     true,
+			    size:           'large',
+			    centerVertical: true,
+			    keyboard:       true,
+			    animate:        false,
+			    onShown:        function(e) {
+						opost() ;
+						$('[data-toggle=tooltip]').tooltip('hide');
+						// ui lang
+						var ws_idiom = get_cfg('ws_idiom') ;
+						i18n_update_tags('dialogs', ws_idiom) ;
+						// uicfg and events
+						wepsim_restore_uicfg() ;
+						simcore_record_captureInit() ;
+					    },
+			    buttons:        obuttons 
+	             });
 
             // custom...
 	    d1.init(function(){
@@ -832,6 +829,8 @@
 		    });
 
             // show
+	    d1.find('.modal-title').addClass("ml-auto") ;
+	    d1.modal('handleUpdate') ;
 	    d1.modal('show');
 
             // add if recording
