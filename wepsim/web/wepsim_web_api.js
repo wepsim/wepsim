@@ -789,37 +789,38 @@
             }
 
 	    // elements
-	    var oid    = wsweb_dialogs[dialog_id].oid ;
-	    var otitle = wsweb_dialogs[dialog_id].otitle() ;
-	    var obody  = wsweb_dialogs[dialog_id].obody() ;
-	    var obutt  = wsweb_dialogs[dialog_id].obutt ;
+	    var oid      = wsweb_dialogs[dialog_id].id ;
+	    var otitle   = wsweb_dialogs[dialog_id].title() ;
+	    var obody    = wsweb_dialogs[dialog_id].body() ;
+	    var obuttons = wsweb_dialogs[dialog_id].buttons ;
+	    var opost    = wsweb_dialogs[dialog_id].onshow ;
 
 	    // dialog
 	    var d1 = bootbox.dialog({
-		    title:      otitle,
-		    message:    obody,
-		    scrollable: true,
-		    size:       'large',
-		    onShown:    function(e) {
-                                     // ui
-	    			     $('[data-toggle=tooltip]').tooltip('hide');
-			             $("div.wsversion").replaceWith(get_cfg('version')) ;
-				     $('.dropify').dropify() ;
-                                     // lang
-				     var ws_idiom = get_cfg('ws_idiom') ;
-				     i18n_update_tags('dialogs', ws_idiom) ;
-                                     // uicfg and events
-				     wepsim_restore_uicfg() ;
-	                             simcore_record_captureInit() ;
-			        },
-		    buttons:    obutt 
-	    });
+			    title:          otitle,
+			    message:        obody,
+			    scrollable:     true,
+			    size:           'large',
+			    centerVertical: true,
+			    keyboard:       true,
+			    animate:        false,
+			    onShown:        function(e) {
+						opost() ;
+						$('[data-toggle=tooltip]').tooltip('hide');
+						// ui lang
+						var ws_idiom = get_cfg('ws_idiom') ;
+						i18n_update_tags('dialogs', ws_idiom) ;
+						// uicfg and events
+						wepsim_restore_uicfg() ;
+						simcore_record_captureInit() ;
+					    },
+			    buttons:        obuttons 
+	             });
 
             // custom...
 	    d1.init(function(){
 		       d1.attr("id", oid) ;
 		    });
-	    d1.find('.modal-header').addClass('bg-dark') ;
 
             // intercept events...
 	    d1.one("hidden.bs.modal",
@@ -828,70 +829,13 @@
 		    });
 
             // show
+	    d1.find('.modal-title').addClass("ml-auto") ;
+	    d1.modal('handleUpdate') ;
 	    d1.modal('show');
 
             // add if recording
             simcore_record_append_new('Open listing dialogbox',
 		                      'wsweb_dialog_open_list("' + dialog_id + '");\n') ;
-
-	    // return dialog
-	    return d1 ;
-    }
-
-    function wsweb_dialog_open_listdetailed ( dialog_id )
-    {
-	    // check params
-	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
-                return null ;
-            }
-
-	    // elements
-	    var oid    = wsweb_dialogs[dialog_id].oid ;
-	    var otitle = wsweb_dialogs[dialog_id].otitle() ;
-	    var obody  = wsweb_dialogs[dialog_id].obody() ;
-	    var obutt  = wsweb_dialogs[dialog_id].obutt ;
-
-	    // dialog
-	    var d1 = bootbox.dialog({
-		     title:      otitle,
-		     message:    obody,
-		     scrollable: true,
-                     size:       'large',
-		     onShown:    function(e) {
-                                     // ui
-	    			     $('[data-toggle=tooltip]').tooltip('hide');
-			             $("div.wsversion").replaceWith(get_cfg('version')) ;
-				     $('.dropify').dropify() ;
-                                     // lang
-				     var ws_idiom = get_cfg('ws_idiom') ;
-				     i18n_update_tags('dialogs', ws_idiom) ;
-                                     // uicfg and events
-				     wepsim_restore_uicfg() ;
-	                             simcore_record_captureInit() ;
-			         },
-		     buttons:    obutt,
-		     keyboard:   true,
-		     animate:    false
-	    });
-
-            // custom...
-	    d1.init(function(){
-		       d1.attr("id", oid) ;
-		    });
-	    d1.find('.modal-header').addClass('bg-dark') ;
-
-            // intercept events...
-	    d1.one("hidden.bs.modal",
-		     function () {
-			 wsweb_dialog_close(oid) ;
-		     });
-
-            // show
-	    d1.modal('show');
-
-            // add if recording
-            simcore_record_append_new('Open listing dialogbox',
-		                      'wsweb_dialog_open_listdetailed("' + dialog_id + '");\n') ;
 
 	    // return dialog
 	    return d1 ;
