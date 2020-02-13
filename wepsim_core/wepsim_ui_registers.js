@@ -28,9 +28,9 @@
 	      var new_value     = parseInt($("#popover1")[0].value) ;
               var filter_states = simhw_internalState('filter_states') ;
 
-              if (typeof simhw_sim_states()["BR"][index] != "undefined")
+              if (typeof simhw_sim_states().BR[index] != "undefined")
               {
-	          set_value(simhw_sim_states()["BR"][index], new_value) ;
+	          set_value(simhw_sim_states().BR[index], new_value) ;
 	          fullshow_rf_values() ;
                   $("#rf" + index).click() ;
                   $("#rf" + index).click() ;
@@ -212,12 +212,12 @@
             var rf_format = get_cfg('RF_display_format') ;
             var o1_rf = "" ;
             var o1_rn = "" ;
-	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
 		 o1_rn = "R"  + index ;
 		 o1_rn = o1_rn.padEnd(3,' ') ;
 
-		 rf_val = value2string(rf_format, (get_value(simhw_sim_states()['BR'][index]) >>> 0)) ;
+		 rf_val = value2string(rf_format, (get_value(simhw_sim_states().BR[index]) >>> 0)) ;
 
 		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " +
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
@@ -246,7 +246,7 @@
 		    container: 'body',
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
-                        var hexvalue = get_value(simhw_sim_states()['BR'][index]);
+                        var hexvalue = get_value(simhw_sim_states().BR[index]);
                         return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
@@ -267,9 +267,9 @@
             var rf_format = get_cfg('RF_display_format') ;
 	    var br_value = "" ;
 
-	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
-		 br_value = value2string(rf_format, (get_value(simhw_sim_states()['BR'][index]) >>> 0)) ;
+		 br_value = value2string(rf_format, (get_value(simhw_sim_states().BR[index]) >>> 0)) ;
 
                  $("#tbl_RF" + index).html(br_value);
 	    }
@@ -297,15 +297,15 @@
 	    var disp_name = get_cfg('RF_display_name') ;
 
             var br_value = "" ;
-	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
 		 br_value = "R"  + index ;
 	         if (
 		      ('logical' == disp_name) &&
-		      (typeof SIMWARE['registers'][index] != "undefined")
+		      (typeof SIMWARE.registers[index] != "undefined")
 		    )
 		 {
-		    br_value = SIMWARE['registers'][index] ;
+		    br_value = SIMWARE.registers[index] ;
 		 }
 		 br_value = br_value.padEnd(3,' ') ;
 

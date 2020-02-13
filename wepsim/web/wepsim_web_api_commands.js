@@ -27,10 +27,16 @@
 
          save_assembly: {
             oid:    "lssave2",
-	    otitle: "<span class='text-dark'>Save Assembly</span>",
-            obody:  "<label for='inputFileNameToSaveAs2'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
-	            "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
-                    "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>",
+	    otitle: function() {
+		       return "<span class='text-dark'>Save Assembly</span>" ;
+		    },
+            obody:  function() {
+		       return "<label for='inputFileNameToSaveAs2'>" + 
+			      "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" + 
+			      "</label>" +
+	                      "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
+                              "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>" ;
+	            },
 	    obutt:  {
 			 save: {
 				label:     "<span data-langkey='Save to File'>Save to File</span>",
@@ -53,9 +59,13 @@
 
          load_assembly: {
             oid:    "lsload2",
-	    otitle:  "<span class='text-dark'>Load Assembly</span>",
-            obody:   "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
-	             "<p><input aria-label='file to load' type='file' id='fileToLoad2' class='dropify'/></p>",
+	    otitle:  function() {
+		        return "<span class='text-dark'>Load Assembly</span>" ;
+		    },
+            obody:   function() {
+		        return "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
+	                       "<p><input aria-label='file to load' type='file' id='fileToLoad2' class='dropify'/></p>" ;
+	             },
 	    obutt:   {
 			 save: {
 				label:     "<span data-langkey='Load'>Load</span>",
@@ -78,10 +88,14 @@
 
          save_firmware: {
 	    oid:     "lssave",
-	    otitle:  "<span class='text-dark'>Save Firmware</span>",
-            obody:   "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
-	             "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs'" +
-                     "          class='form-control btn-outline-dark' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>",
+	    otitle:  function() {
+		        return "<span class='text-dark'>Save Firmware</span>" ;
+		    },
+            obody:   function() {
+		        return "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
+	                       "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs'" +
+                               "          class='form-control btn-outline-dark' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" ;
+		     },
 	    obutt:   {
 			 save1: {
 				label:     "<span data-langkey='Save Editor content to File'>Save Editor content to File</span>",
@@ -111,10 +125,14 @@
 
          load_firmware: {
 	    oid:    "lsload",
-	    otitle: "<span class='text-dark'>Load Microcode</span>",
-            obody:  "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
-	            "<p><input aria-label='file to load' type='file' id='fileToLoad' class='dropify'/></p>",
-	    obutt: {
+	    otitle: function() {
+		       return "<span class='text-dark'>Load Microcode</span>" ;
+		    },
+            obody:  function() {
+		       return "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
+	                      "<p><input aria-label='file to load' type='file' id='fileToLoad' class='dropify'/></p>" ;
+		    },
+	    obutt:  {
 			 save: {
 				label:     "<span data-langkey='Load'>Load</span>",
 				className: 'btn btn-dark',
@@ -136,22 +154,26 @@
 
 	 // binary
          binary: {
-            oid:        "bin2",
-	    otitle:     "<h5><strong>Binary</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>",
-            obody:      "<div id='bin2-container' class='container-fluid' " +
-		        "     style='padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-		        " <div class='ui-body-d ui-content' style='padding: 2px 2px 2px 2px;'> " +
-			" <div id='iframe_bin2' style='max-height:80vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-			"   <div id='compile_results' style='padding: 16px 16px 16px 16px;'> " +
-			"	<br/> " +
-			"	<center> " +
-			"	Loading binary, please wait... <br/> " +
-			"	WARNING: loading binary might take time on slow mobile devices. " +
-			"	</center> " +
-		        "	   </div> " +
-		        "	 </div> " +
-		        "      </div> " +
-		        "</div>",
+            oid:    "bin2",
+	    otitle: function() {
+		       return "<h5><strong>Binary</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>" ;
+		    },
+            obody:  function() {
+		       return "<div id='bin2-container' class='container-fluid' " +
+	           	      "     style='padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+		              " <div class='ui-body-d ui-content' style='padding: 2px 2px 2px 2px;'> " +
+           		      " <div id='iframe_bin2' style='max-height:80vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+	           	      "   <div id='compile_results' style='padding: 16px 16px 16px 16px;'> " +
+		              "	<br/> " +
+			      "	<center> " +
+			      "	Loading binary, please wait... <br/> " +
+			      "	WARNING: loading binary might take time on slow mobile devices. " +
+			      "	</center> " +
+		              "	   </div> " +
+		              "	 </div> " +
+		              "      </div> " +
+		              "</div>" ;
+		    },
 	    obutt:  {
 			OK: {
 			   label: "OK",
@@ -165,21 +187,25 @@
 
 	 // authors
          about: {
-            oid:        "about1",
-	    otitle:     "<h5 class='my-0 mx-auto'><strong>WepSIM</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>",
-            obody:      "<div id='container-about1' class='container-fluid'" +
-			"     style='max-height:80vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
-			"	<div class='row pb-2'>" +
-			"	  <div class='col-sm-12 p-0'>" +
-			"	       <span class='float-left mr-auto text-primary'" +
-			"                    onclick='wepsim_help_set_relative('about#');" +
-			"                             wepsim_help_refresh();" +
-			"		              wsweb_about_close();" +
-			"			      return false;'>GNU Lesser General Public 3</span>" +
-			"	  </div>" +
-			"	</div>" +
-			"	<ws-authors></ws-authors>" +
-			"</div>",
+            oid:    "about1",
+	    otitle: function() {
+		       return "<h5 class='my-0 mx-auto'><strong>WepSIM</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>" ;
+		    },
+            obody:  function() {
+		         return "<div id='container-about1' class='container-fluid'" +
+			        "     style='max-height:80vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+			        "	<div class='row pb-2'>" +
+			        "	  <div class='col-sm-12 p-0'>" +
+			        "	       <span class='float-left mr-auto text-primary'" +
+			        "                    onclick='wepsim_help_set_relative('about#');" +
+			        "                             wepsim_help_refresh();" +
+			        "		              wsweb_about_close();" +
+			        "			      return false;'>GNU Lesser General Public 3</span>" +
+			        "	  </div>" +
+			        "	</div>" +
+			        "	<ws-authors></ws-authors>" +
+			        "</div>" ;
+		    },
 	    obutt:  {
 			Description: {
 			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",
@@ -201,11 +227,15 @@
 
 	 // notifications
          notifications: {
-            oid:        "notifications2",
-	    otitle:     "<button type='button' class='btn btn-dark px-3 py-1' disabled>" +
-                        "     <span data-langkey='Notifications'>Notifications</span>" +
-		        "</button>",
-            obody:      "<div id='container-notifications2' class='container-fluid'></div>",
+            oid:    "notifications2",
+	    otitle: function() {
+		       return "<button type='button' class='btn btn-dark px-3 py-1' disabled>" +
+                              "     <span data-langkey='Notifications'>Notifications</span>" +
+		              "</button>" ;
+		    },
+            obody:  function() {
+		         return "<div id='container-notifications2' class='container-fluid'></div>" ;
+		    },
 	    obutt:  {
 			Description: {
 			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",

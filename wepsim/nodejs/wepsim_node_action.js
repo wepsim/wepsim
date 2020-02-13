@@ -30,7 +30,7 @@
     // USAGE
     //
  
-    hash_action["USAGE"] = function(data, options)
+    hash_action.USAGE = function(data, options)
     {
         console.log('\n' +
                     ws_cl_ver + '\n' +
@@ -144,7 +144,7 @@
     // CHECK
     //
  
-    hash_action["CHECK"] = function(data, options)
+    hash_action.CHECK = function(data, options)
     {
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
@@ -163,7 +163,7 @@
     // RUN
     //
  
-    hash_action["RUN"] = function(data, options)
+    hash_action.RUN = function(data, options)
     {
         // set verbosity handlers
         options.before_instruction = simcore_do_nothing_handler ;
@@ -186,7 +186,7 @@
     // STEPBYSTEP
     //
  
-    hash_action["STEPBYSTEP"] = function(data, options)
+    hash_action.STEPBYSTEP = function(data, options)
     {
         // set verbosity handlers
         options.before_instruction = wepsim_nodejs_before_instruction2 ;
@@ -206,7 +206,7 @@
     // MICROSTEPBYMICROSTEP
     //
  
-    hash_action["MICROSTEPBYMICROSTEP"] = function(data, options)
+    hash_action.MICROSTEPBYMICROSTEP = function(data, options)
     {
         // set verbosity handlers
         options.before_microinstruction = wepsim_nodejs_before_microinstruction3 ;
@@ -226,7 +226,7 @@
     // MICROSTEPVERBALIZED
     //
  
-    hash_action["MICROSTEPVERBALIZED"] = function(data, options)
+    hash_action.MICROSTEPVERBALIZED = function(data, options)
     {
         // set verbosity handlers
         options.before_microinstruction = wepsim_nodejs_before_microinstruction4 ;
@@ -308,7 +308,7 @@
     // HELP (signal)
     //
  
-    hash_action["HELP"] = function(data, options)
+    hash_action.HELP = function(data, options)
     {
         wepsim_nodejs_init(data.mode) ;
         var ret = wepsim_nodejs_help_signal(data, options) ;

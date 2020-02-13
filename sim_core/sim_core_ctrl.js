@@ -27,18 +27,18 @@
         {
             var cf = simhw_internalState('FIRMWARE') ;
 
-	    if (typeof cf['firmware'] == "undefined")            cf['firmware']           = new Array() ;
-	    if (typeof cf['mp'] == "undefined")                  cf['mp']                 = new Object() ;
-	    if (typeof cf['seg'] == "undefined")                 cf['seg']                = new Object() ;
-	    if (typeof cf['assembly'] == "undefined")            cf['assembly']           = new Object() ;
-	    if (typeof cf['labels'] == "undefined")              cf['labels']             = new Object() ;
-	    if (typeof cf['labels2'] == "undefined")             cf['labels2']            = new Object() ;
-	    if (typeof cf['labels_firm'] == "undefined")         cf['labels_firm']        = new Object() ;
-	    if (typeof cf['registers'] == "undefined")           cf['registers']          = new Object() ;
-	    if (typeof cf['pseudoInstructions'] == "undefined")  cf['pseudoInstructions'] = new Object() ;
-	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = new Object() ;
-	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = new Object() ;
-	    if (typeof cf['cocop_hash'] == "undefined")          cf['cocop_hash']         = new Object() ;
+	    if (typeof cf['firmware'] == "undefined")            cf['firmware']           = [] ;
+	    if (typeof cf['mp'] == "undefined")                  cf['mp']                 = {} ;
+	    if (typeof cf['seg'] == "undefined")                 cf['seg']                = {} ;
+	    if (typeof cf['assembly'] == "undefined")            cf['assembly']           = {} ;
+	    if (typeof cf['labels'] == "undefined")              cf['labels']             = {} ;
+	    if (typeof cf['labels2'] == "undefined")             cf['labels2']            = {} ;
+	    if (typeof cf['labels_firm'] == "undefined")         cf['labels_firm']        = {} ;
+	    if (typeof cf['registers'] == "undefined")           cf['registers']          = {} ;
+	    if (typeof cf['pseudoInstructions'] == "undefined")  cf['pseudoInstructions'] = [] ;
+	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = {} ;
+	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = {} ;
+	    if (typeof cf['cocop_hash'] == "undefined")          cf['cocop_hash']         = {} ;
 
             return cf ;
 	}

@@ -132,20 +132,21 @@
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
         {
-	    var o1 = "" ;
+	    var o1    = "" ;
+            var key   = "" ;
             var value = "" ;
             var icon_theme = get_cfg('ICON_theme') ;
 
             var SIMWARE = get_simware() ;
-            var revlabels = new Object() ;
-            for (var key in SIMWARE.firmware)
-                 revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key]["name"] ;
+            var revlabels = {} ;
+            for (key in SIMWARE.firmware)
+                 revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key].name ;
 
             var maddr = "" ;
             var trpin = "" ;
             var htmllabel = "" ;
             var htmlfill = 0 ;
-            for (var key in memory)
+            for (key in memory)
             {
                 value = controlmemory_lineToString(memory, key) ;
                 maddr = "0x" + parseInt(key).toString(16) ;
@@ -205,7 +206,7 @@
 	    if ( (redraw) && (obj_byid.length > 0) )
             {
 	        var topPos = obj_byid[0].offsetTop ;
-	        var obj_byid = $('#memory_MC') ;
+	            obj_byid = $('#memory_MC') ;
 	        if (obj_byid.length > 0)
 	            obj_byid[0].scrollTop = topPos;
             }
@@ -251,6 +252,9 @@
 
 	function firmware2html ( fir, showBinary )
 	{
+		var i = 0 ;
+		var s = "" ;
+
                 var filter = simhw_internalState('filter_signals') ;
 
 		var h = "<tr bgcolor='#FF9900'>" +
@@ -259,8 +263,8 @@
                         "<td bgcolor='#FFCC00'   style='border-style: solid; border-width:1px; border-color:lightgray;' align='center'><small><b>&#181;dir</b></small></td>" +
                         "<td bgcolor='white'     style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;&nbsp;</td>" ;
 		var contSignals=1;
-		for (var i=0; i<filter.length; i++) {
-                     var s = filter[i].split(",")[0] ;
+		for (i=0; i<filter.length; i++) {
+                     s = filter[i].split(",")[0] ;
 		     h += "<td align='center' style='border-style: solid; border-width:1px;'><small><b>" + simhw_sim_signals()[s].name + "</b></small></td>";
 		     contSignals++;
 		}
@@ -271,9 +275,10 @@
 
                 var l = 0;
                 var line = "";
+	        var fragment = "";
 		var ico  = "";
 		var madd = "";
-		for (var i=0; i<fir.length; i++)
+		for (i=0; i<fir.length; i++)
 		{
 		    var mstart = fir[i]["mc-start"];
 		    var mcode  = fir[i].microcode;
@@ -304,7 +309,7 @@
 			 var mins = mcode[j] ;
 		         for (var k=0; k<filter.length; k++)
 			 {
-                              var s = filter[k].split(",")[0] ;
+                              s = filter[k].split(",")[0] ;
 
 			      var svalue = parseInt(simhw_sim_signals()[s].default_value);
                               var newval = false;
@@ -315,9 +320,9 @@
                               }
 
 			      if ( (s == "SELA" || s == "SELB" || s == "SELC") &&
-                                   (typeof mins["MADDR"] != "undefined") && (!isNaN(parseInt(mins["MADDR"]))) )
+                                   (typeof mins.MADDR != "undefined") && (!isNaN(parseInt(mins.MADDR))) )
                               {
-				   var fragment = parseInt(mins["MADDR"]).toString(2) ;
+				   fragment = parseInt(mins.MADDR).toString(2) ;
                                    fragment = "000000000000".substring(0, 12 - fragment.length) + fragment + "000" ;
                                    if (s == "SELA") {
                                        svalue = parseInt(fragment.substring(0,   5), 2);
@@ -335,7 +340,7 @@
 
                               if (showBinary)
                               {
-			          var fragment = svalue.toString(2) ;
+			          fragment = svalue.toString(2) ;
 			          var nbits    = parseInt(simhw_sim_signals()[s].nbits);
 			          svalue = "00000000000000000000000000000000".substring(0, nbits - fragment.length) + fragment;
 

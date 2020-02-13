@@ -790,8 +790,8 @@
 
 	    // elements
 	    var oid    = wsweb_dialogs[dialog_id].oid ;
-	    var otitle = wsweb_dialogs[dialog_id].otitle ;
-	    var obody  = wsweb_dialogs[dialog_id].obody ;
+	    var otitle = wsweb_dialogs[dialog_id].otitle() ;
+	    var obody  = wsweb_dialogs[dialog_id].obody() ;
 	    var obutt  = wsweb_dialogs[dialog_id].obutt ;
 
 	    // dialog
@@ -847,8 +847,8 @@
 
 	    // elements
 	    var oid    = wsweb_dialogs[dialog_id].oid ;
-	    var otitle = wsweb_dialogs[dialog_id].otitle ;
-	    var obody  = wsweb_dialogs[dialog_id].obody ;
+	    var otitle = wsweb_dialogs[dialog_id].otitle() ;
+	    var obody  = wsweb_dialogs[dialog_id].obody() ;
 	    var obutt  = wsweb_dialogs[dialog_id].obutt ;
 
 	    // dialog
