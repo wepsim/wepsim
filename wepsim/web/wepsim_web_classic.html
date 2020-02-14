@@ -1476,41 +1476,6 @@
 </div> <!-- /.modal -->
 
 
-<!-- notifications -->
-<div id="notifications2" class="modal">
-    <div class="modal-dialog modal-lg" style="height:80vh;">
-	<div class="modal-content">
-
-	   <div class="modal-header">
-		<div class="mx-auto">
-		   <button type="button" class="btn btn-dark px-3 py-1" disabled>
-                        <span data-langkey='Notifications'>Notifications</span>
-		   </button>
-                </div>
-		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-	   </div>
-
-	   <div class="modal-body">
-		<div id="container-notifications2" class="container-fluid"></div>
-	   </div>
-
-	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark   btn-sm col col-sm-3 float-left"
-                         data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-outline-danger btn-sm col-auto float-left mr-auto"
-			 onclick="var wsi = get_cfg('ws_idiom') ;
-				  var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-				  if (confirm(q)) {
-			                  wsweb_dialogbox_reset_notifications();
-				  }
-			          return false;"><span data-langkey="Reset">Reset</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
-			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-	   </div><!-- /footer -->
-	</div>
-     </div>
-</div> <!-- /.modal -->
-
 
     <link async href="min.external.css" rel="stylesheet" />
     <script type="application/javascript"

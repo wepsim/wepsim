@@ -398,53 +398,6 @@
             return true ;
     }
 
-    function wsweb_dialogbox_open_notifications ( )
-    {
-            wepsim_notifications_open() ;
-	    $('[data-toggle=tooltip]').tooltip('hide') ;
-	    wepsim_restore_uicfg() ;
-
-            // add if recording
-            simcore_record_append_new('Open notification summary',
-	       	                      'wsweb_dialogbox_open_notifications();\n') ;
-
-            // intercept events...
-	    $("#notifications2").one("hidden.bs.modal",
-		                     function () {
-				         simcore_record_append_new('Close notifications summary',
-					                           'wsweb_dialogbox_close_all();\n');
-			             });
-            wsweb_scroll_record('#container-notifications2') ;
-	    simcore_record_captureInit() ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_dialogbox_reset_notifications ( )
-    {
-	    simcore_notifications_reset() ;
-	    $('#notifications2').modal('hide') ;
-            wepsim_notifications_open() ;
-	    wepsim_restore_uicfg() ;
-
-            // add if recording
-            simcore_record_append_new('Reset notifications',
-	       	                      'wsweb_dialogbox_reset_notifications();\n') ;
-
-            // intercept events...
-	    $("#notifications2").one("hidden.bs.modal",
-		                     function () {
-				         simcore_record_append_new('Close notifications summary',
-					                           'wsweb_dialogbox_close_all();\n');
-			             });
-            wsweb_scroll_record('#container-notifications2') ;
-	    simcore_record_captureInit() ;
-
-            // return ok
-            return true ;
-    }
-
     function wsweb_dialogbox_close_state ( )
     {
 	    $('#current_state1').modal('hide') ;
@@ -478,7 +431,6 @@
 	         $('#current_state1').modal('hide');
 	         $('#current_state2').modal('hide');
 	    $('#current_checkpoint1').modal('hide');
-                 $('#notifications2').modal('hide') ;
 
             // add if recording
             simcore_record_append_new('Close all dialogboxes',

@@ -253,7 +253,7 @@
 			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",
 			   className: "btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto",
 			   callback:  function() {
-					$(".cf-all").collapse('toggle') ;
+					$(".collapse7").collapse('toggle') ;
 					return false;
 				     }
 			},
@@ -275,7 +275,7 @@
 
 	 // notifications
          notifications: {
-            id:       "notifications2",
+            id:       "notifications3",
 	    title:    function() {
 		         return "<button type='button' class='btn btn-dark px-3 py-1' disabled>" +
                                 "     <span data-langkey='Notifications'>Notifications</span>" +
@@ -284,14 +284,14 @@
             body:     function() {
 		         var notifications      = simcore_notifications_get() ;
 		         var notifications_html = table_notifications_html(notifications) ;
-		         return "<div id='container-notifications2' class='container-fluid'>" + notifications_html + "</div>" ;
+		         return "<div id='container-notifications3' class='container-fluid'>" + notifications_html + "</div>" ;
 		      },
 	    buttons:  {
 			Description: {
 			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",
 			   className: "btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto",
 			   callback:  function() {
-				  	  $(".cf-all").collapse('toggle') ;
+				  	  $(".collapse7").collapse('toggle') ;
 					  return false;
 				      }
 			},
@@ -301,8 +301,18 @@
 			   callback:  function() {
 					   var wsi = get_cfg('ws_idiom') ;
 					   var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-					   if (confirm(q)) {
-					       wsweb_dialogbox_reset_notifications();
+					   if (confirm(q)) 
+				           {
+						// reajust content
+						simcore_notifications_reset() ;
+						var notifications      = simcore_notifications_get() ;
+						var notifications_html = table_notifications_html(notifications) ;
+						$("#container-notifications3").html(notifications_html) ;
+						// reajust ui
+						wepsim_restore_uicfg() ;
+						wsweb_scroll_record('#container-notifications3') ;
+						simcore_record_captureInit() ;
+						return false ;
 					   }
 					   return false;
 				     }
@@ -316,7 +326,7 @@
 			}
 	             },
             onshow:  function() {
-			 $("#container-notifications2").scrollTop(0) ;
+			 $("#container-notifications3").scrollTop(0) ;
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
 			 i18n_update_tags('cfg') ;
