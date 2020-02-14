@@ -89,20 +89,6 @@
      * Notifications (summary)
      */
 
-    function wepsim_notifications_open ( )
-    {
-        var notifications = simcore_notifications_get() ;
-
-	$('#container-notifications2').html(table_notifications_html(notifications)) ;
-	$("#container-notifications2").scrollTop(0) ;
-
-	i18n_update_tags('cfg') ;
-	$('#notifications2').modal('show') ;
-
-	// stats about ui
-        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.notifications') ;
-    }
-
     function table_notifications_html ( notifications )
     {
 	// setup content...
@@ -129,8 +115,8 @@
 	}
 
 	// build html
-	var o = '<div id="notifications2" class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
-	        '<div id="container-notifications2" class="card" style="max-height:65vh; overflow:auto; -webkit-overflow-scrolling: touch;">' +
+	var o = '<div id="notifications3" class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
+	        '<div id="container-notifications3" class="card" style="max-height:65vh; overflow:auto; -webkit-overflow-scrolling: touch;">' +
 	        '<ul class="list-group list-group-flush">' + 
                 u +
 	        '</ul>' +
@@ -138,11 +124,6 @@
                 '<div class="alert alert-light p-0 m-0" role="alert">- <span data-langkey="Recent">Recent</span></div>' ;
 
 	return o ;
-    }
-
-    function wepsim_notifications_close ( )
-    {
-        $('#notifications2').modal('hide') ;
     }
 
 

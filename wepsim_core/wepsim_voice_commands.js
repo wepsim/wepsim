@@ -50,7 +50,7 @@
          var ex_id = parseInt(id) ;
          var ex_lv = parseInt(level) ;
 
-         load_from_example_firmware("ep:S" + ex_lv + "E" + ex_lv, true) ;
+         load_from_example_firmware("ep:s" + ex_lv + "_e" + ex_lv, true) ;
     } ;
 
     wepsim_voice_commands['(show) help'] = function()

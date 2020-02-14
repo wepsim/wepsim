@@ -398,53 +398,6 @@
             return true ;
     }
 
-    function wsweb_dialogbox_open_notifications ( )
-    {
-            wepsim_notifications_open() ;
-	    $('[data-toggle=tooltip]').tooltip('hide') ;
-	    wepsim_restore_uicfg() ;
-
-            // add if recording
-            simcore_record_append_new('Open notification summary',
-	       	                      'wsweb_dialogbox_open_notifications();\n') ;
-
-            // intercept events...
-	    $("#notifications2").one("hidden.bs.modal",
-		                     function () {
-				         simcore_record_append_new('Close notifications summary',
-					                           'wsweb_dialogbox_close_all();\n');
-			             });
-            wsweb_scroll_record('#container-notifications2') ;
-	    simcore_record_captureInit() ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_dialogbox_reset_notifications ( )
-    {
-	    simcore_notifications_reset() ;
-	    $('#notifications2').modal('hide') ;
-            wepsim_notifications_open() ;
-	    wepsim_restore_uicfg() ;
-
-            // add if recording
-            simcore_record_append_new('Reset notifications',
-	       	                      'wsweb_dialogbox_reset_notifications();\n') ;
-
-            // intercept events...
-	    $("#notifications2").one("hidden.bs.modal",
-		                     function () {
-				         simcore_record_append_new('Close notifications summary',
-					                           'wsweb_dialogbox_close_all();\n');
-			             });
-            wsweb_scroll_record('#container-notifications2') ;
-	    simcore_record_captureInit() ;
-
-            // return ok
-            return true ;
-    }
-
     function wsweb_dialogbox_close_state ( )
     {
 	    $('#current_state1').modal('hide') ;
@@ -478,7 +431,6 @@
 	         $('#current_state1').modal('hide');
 	         $('#current_state2').modal('hide');
 	    $('#current_checkpoint1').modal('hide');
-                 $('#notifications2').modal('hide') ;
 
             // add if recording
             simcore_record_append_new('Close all dialogboxes',
@@ -631,7 +583,7 @@
 		      break ;
 
 	        case 'notifications':
-		      wsweb_dialogbox_open_notifications();
+		      wsweb_dialog_open_list('notifications') ;
 		      break ;
 
 	        case 'recordbar':
@@ -807,11 +759,9 @@
 			    onShown:        function(e) {
 						opost() ;
 						$('[data-toggle=tooltip]').tooltip('hide');
-						// ui lang
-						var ws_idiom = get_cfg('ws_idiom') ;
-						i18n_update_tags('dialogs', ws_idiom) ;
 						// uicfg and events
 						wepsim_restore_uicfg() ;
+            					wsweb_scroll_record('#' + oid) ;
 						simcore_record_captureInit() ;
 					    },
 			    buttons:        obuttons 
@@ -836,6 +786,9 @@
             // add if recording
             simcore_record_append_new('Open listing dialogbox',
 		                      'wsweb_dialog_open_list("' + dialog_id + '");\n') ;
+
+	    // stats about ui
+            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + oid) ;
 
 	    // return dialog
 	    return d1 ;

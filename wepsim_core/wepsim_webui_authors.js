@@ -44,7 +44,7 @@
                           '          <a class="btn text-vertical-lr p-0 text-primary"' +
                           '             id="fgarcia">F&eacute;lix Garc&iacute;a Carballeira</a>' +
                           '        </div>' +
-			  '        <div id="cf-fgarcia" class="card-footer p-1 collapse cf-all bg-white text-left">' +
+			  '        <div id="cf-fgarcia" class="card-footer p-1 collapse collapse7 bg-white text-left">' +
 			  '	  <div class="list-group list-group-flush">' +
 		          '          <a class="card-link list-group-item p-1"' +
                           '             ><span class="fab fa-linkedin"></span> linkedin</a>' +
@@ -63,7 +63,7 @@
                           '          <a class="btn text-vertical-lr p-0 text-primary"' +
                           '             id="acaldero">Alejandro Calder&oacute;n Mateos</a>' +
                           '        </div>' +
-			  '        <div id="cf-acaldero" class="card-footer p-1 collapse cf-all bg-white text-left">' +
+			  '        <div id="cf-acaldero" class="card-footer p-1 collapse collapse7 bg-white text-left">' +
 			  '	  <div class="list-group list-group-flush">' +
 		          '          <a class="card-link list-group-item p-1"' +
                           '             href="https://www.linkedin.com/in/alejandro-calderon-mateos/"><span class="fab fa-linkedin"></span> linkedin</a>' +
@@ -82,7 +82,7 @@
                           '          <a class="btn text-vertical-lr p-0 text-primary"' +
                           '             id="jprieto">Javier Prieto Cepeda</a>' +
                           '        </div>' +
-			  '        <div id="cf-jprieto" class="card-footer p-1 collapse cf-all bg-white text-left">' +
+			  '        <div id="cf-jprieto" class="card-footer p-1 collapse collapse7 bg-white text-left">' +
 			  '	  <div class="list-group list-group-flush">' +
 		          '          <a class="card-link list-group-item p-1"' +
                           '             href="https://www.linkedin.com/in/javier-prieto-cepeda"><span class="fab fa-linkedin"></span> linkedin</a>' +
@@ -101,7 +101,7 @@
                           '          <a class="btn text-vertical-lr p-0 text-primary"' +
                           '             id="salonso">Sa&uacute;l Alonso Monsalve</a>' +
                           '        </div>' +
-			  '        <div id="cf-salonso" class="card-footer p-1 collapse cf-all bg-white text-left">' +
+			  '        <div id="cf-salonso" class="card-footer p-1 collapse collapse7 bg-white text-left">' +
 			  '	  <div class="list-group list-group-flush">' +
 		          '          <a class="card-link list-group-item p-1"' +
                           '             href="https://www.linkedin.com/in/salonsom/"><span class="fab fa-linkedin"></span> linkedin</a>' +
