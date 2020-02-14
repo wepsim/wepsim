@@ -1,5 +1,0 @@
-
- /*
-  * Place-holder for Cordova
-  */
-
