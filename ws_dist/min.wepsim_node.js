@@ -632,7 +632,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 		      break ;
 
 	        case 'notifications':
-		      wsweb_dialogbox_open_notifications();
+		      wsweb_dialog_open_list('notifications') ;
 		      break ;
 
 	        case 'recordbar':
@@ -808,11 +808,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			    onShown:        function(e) {
 						opost() ;
 						$('[data-toggle=tooltip]').tooltip('hide');
-						// ui lang
-						var ws_idiom = get_cfg('ws_idiom') ;
-						i18n_update_tags('dialogs', ws_idiom) ;
 						// uicfg and events
 						wepsim_restore_uicfg() ;
+            					wsweb_scroll_record('#' + oid) ;
 						simcore_record_captureInit() ;
 					    },
 			    buttons:        obuttons 
@@ -837,6 +835,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
             // add if recording
             simcore_record_append_new('Open listing dialogbox',
 		                      'wsweb_dialog_open_list("' + dialog_id + '");\n') ;
+
+	    // stats about ui
+            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + oid) ;
 
 	    // return dialog
 	    return d1 ;
@@ -1315,6 +1316,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 var o = $("#lssave2") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
 
@@ -1351,6 +1355,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 var o = $("#lsload2") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
 
@@ -1393,6 +1400,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 var o = $("#lssave") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
 
@@ -1424,11 +1434,14 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 }
 	              },
             onshow:   function() {
-			 $('.dropify').dropify() ;
-
 			 var o = $("#lsload") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+		         // dropify
+			 $('.dropify').dropify() ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
 
@@ -1465,6 +1478,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	             },
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		     }
          },
 
@@ -1508,6 +1524,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	             },
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		     }
          },
 
@@ -1520,7 +1539,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 		                "</button>" ;
 		      },
             body:     function() {
-		         return "<div id='container-notifications2' class='container-fluid'></div>" ;
+		         var notifications      = simcore_notifications_get() ;
+		         var notifications_html = table_notifications_html(notifications) ;
+		         return "<div id='container-notifications2' class='container-fluid'>" + notifications_html + "</div>" ;
 		      },
 	    buttons:  {
 			Description: {
@@ -1552,6 +1573,10 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			}
 	             },
             onshow:  function() {
+			 $("#container-notifications2").scrollTop(0) ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+			 i18n_update_tags('cfg') ;
 		     }
          }
 

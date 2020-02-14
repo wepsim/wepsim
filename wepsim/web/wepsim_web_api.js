@@ -631,7 +631,7 @@
 		      break ;
 
 	        case 'notifications':
-		      wsweb_dialogbox_open_notifications();
+		      wsweb_dialog_open_list('notifications') ;
 		      break ;
 
 	        case 'recordbar':
@@ -807,11 +807,9 @@
 			    onShown:        function(e) {
 						opost() ;
 						$('[data-toggle=tooltip]').tooltip('hide');
-						// ui lang
-						var ws_idiom = get_cfg('ws_idiom') ;
-						i18n_update_tags('dialogs', ws_idiom) ;
 						// uicfg and events
 						wepsim_restore_uicfg() ;
+            					wsweb_scroll_record('#' + oid) ;
 						simcore_record_captureInit() ;
 					    },
 			    buttons:        obuttons 
@@ -836,6 +834,9 @@
             // add if recording
             simcore_record_append_new('Open listing dialogbox',
 		                      'wsweb_dialog_open_list("' + dialog_id + '");\n') ;
+
+	    // stats about ui
+            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + oid) ;
 
 	    // return dialog
 	    return d1 ;

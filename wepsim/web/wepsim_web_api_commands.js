@@ -59,6 +59,9 @@
 			 var o = $("#lssave2") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
 
@@ -95,6 +98,9 @@
 			 var o = $("#lsload2") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
 
@@ -137,6 +143,9 @@
 			 var o = $("#lssave") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
 
@@ -168,11 +177,14 @@
 			 }
 	              },
             onshow:   function() {
-			 $('.dropify').dropify() ;
-
 			 var o = $("#lsload") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+		         // dropify
+			 $('.dropify').dropify() ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
 
@@ -209,6 +221,9 @@
 	             },
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		     }
          },
 
@@ -252,6 +267,9 @@
 	             },
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		     }
          },
 
@@ -264,7 +282,9 @@
 		                "</button>" ;
 		      },
             body:     function() {
-		         return "<div id='container-notifications2' class='container-fluid'></div>" ;
+		         var notifications      = simcore_notifications_get() ;
+		         var notifications_html = table_notifications_html(notifications) ;
+		         return "<div id='container-notifications2' class='container-fluid'>" + notifications_html + "</div>" ;
 		      },
 	    buttons:  {
 			Description: {
@@ -296,6 +316,10 @@
 			}
 	             },
             onshow:  function() {
+			 $("#container-notifications2").scrollTop(0) ;
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+			 i18n_update_tags('cfg') ;
 		     }
          }
 
