@@ -738,7 +738,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
     {
 	 return "<div class='dropdown'>" +
 		"<button type='button' " +
-		"        class='btn btn-secondary px-3 py-1 dropdown-toggle' " +
+		"        class='btn btn-outline-secondary px-3 py-1 dropdown-toggle' " +
 		"        data-toggle='dropdown' id='dropup-authors' " +
 		"        aria-expanded='false' aria-haspopup='true'>" +
 		"<strong>" + name + "</strong> " + 
@@ -746,17 +746,22 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 		"<div class='dropdown-menu' " +
 		"     style='overflow-y:auto; max-height:55vh;' " + 
 		"     aria-labelledby='dropup-authors'>" +
-		" <div class='p-2 m-0'>"+
-		" <button class='dropdown-item py-1' type='button' " +
+                // details
+		" <form class='px-3 m-0'><div class='form-group m-0'>" + 
+		" <label for='dd1'>details</label>" +
+		" <button class='btn btn-outline-secondary btn-block py-1' " +
+                "         type='button' id='dd1' " +
 		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
 		" <span>&plusmn; Description</span>" +
 		" </button>" +
-		" </div>"+
+                " </div></form>"+
+                // idioms
 		"<div class='dropdown-divider m-1'></div>" +
-		" <form class='py-1 px-2 m-0'>"+
-		" <div class='form-group m-0'>" + i18n_get_select() + "</div>" +
-		" </form>"+
-		"  </div>" +
+		" <form class='px-3 m-0'><div class='form-group m-0'>" + 
+		" <label for='dd2'>idiom</label>" +
+                  i18n_get_select() + 
+                " </div></form>"+
+		"</div>" +
 		"</div>" ;
     }
 
@@ -1507,31 +1512,45 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
                          return "<div class='dropdown'>" +
                                 "<button type='button' " +
                                 "        class='btn btn-secondary px-3 py-1 dropdown-toggle' " +
-                                "        data-toggle='dropdown' id='dropup-authors' " +
+                                "        data-toggle='dropdown' id='dropup-notif' " +
                                 "        aria-expanded='false' aria-haspopup='true'>" +
                                 "<span data-langkey='Notifications'>Notifications</span>" +
                                 "</button>" +
                                 "<div class='dropdown-menu' " +
                                 "     style='overflow-y:auto; max-height:55vh;' " + 
-                                "     aria-labelledby='dropup-authors'>" +
-			        " <div class='p-2 m-0'>"+
-                                " <button class='dropdown-item py-1' type='button' " +
-                                "         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
-                                " <span>&plusmn; Description</span>" +
-                                " </button>" +
-			        " </div>"+
+                                "     aria-labelledby='dropup-notif'>" +
+                                // description
+			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
+ 				"   <label for='dd1'>details</label>" +
+                                "   <button class='btn btn-outline-secondary btn-block py-1' " + 
+                                "           type='button' id='dd1' " +
+                                "           onclick='$(\".collapse7\").collapse(\"toggle\");' " +
+                                "   ><span>&plusmn; Description</span>" +
+                                "   </button>" +
+                                " </div></form>"+
                                 "<div class='dropdown-divider m-1'></div>" +
-			        " <div class='px-2 m-0'>"+
-                                " <button class='dropdown-item py-1 text-danger' type='button' " +
-                                "         onclick='wsweb_dialogs.notifications.ttl_acts.reset();'>" +
-                                " <span data-langkey='Reset'>Reset</span>" +
-                                " </button>" +
-			        " </div>"+
+                                // reset
+			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
+ 				"   <label for='dd2'>content</label>" +
+                                "   <button class='btn btn-outline-secondary btn-block py-1' id='dd2' " +
+                                "           data-toggle='collapse' data-target='#resetyn' type='button' " +
+                                "   ><span data-langkey='Reset'>Reset</span></button>" +
+				"   <div id='resetyn' class='collapse'>" +
+                                "   <button class='dropdown-item py-2 text-danger pr-2 border' type='button' " +
+                                "           onclick='wsweb_dialogs.notifications.ttl_acts.reset();' " +
+                                "   ><span data-langkey='Yes'>Yes</span></button>" +
+                                "   <button class='dropdown-item py-2 text-info   pr-2 border' type='button' " +
+                                "           onclick='$(\"#resetyn\").collapse(\"toggle\");' " +
+                                "   ><span data-langkey='No'>No</span></button>" +
+				"   </div>" +
+                                " </div></form>"+
+                                // idioms
                                 "<div class='dropdown-divider m-1'></div>" +
-			        " <form class='py-1 px-2 m-0'>"+
-			        " <div class='form-group m-0'>" + i18n_get_select() + "</div>" +
-			        " </form>"+
-                                "  </div>" +
+			        " <form class='px-3 m-0'><div class='form-group m-0'>" + 
+ 				"   <label for='dd3'>idiom</label>" +
+                                  i18n_get_select() + 
+                                " </div></form>"+
+                                "</div>" +
                                 "</div>" ;
 		      },
 	    ttl_acts: {
@@ -1540,21 +1559,15 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 				         return false ;
 	                              },
 	                 reset:       function() {
-				         var wsi = get_cfg('ws_idiom') ;
-				         var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-				         if (confirm(q))
-				         {
-					     // reajust content
-					     simcore_notifications_reset() ;
-					     var notifications      = simcore_notifications_get() ;
-					     var notifications_html = table_notifications_html(notifications) ;
-					     $("#container-notifications3").html(notifications_html) ;
-					     // reajust ui
-					     wepsim_restore_uicfg() ;
-					     wsweb_scroll_record('#container-notifications3') ;
-					     simcore_record_captureInit() ;
-					     return false ;
-				         }
+					 // reajust content
+					 simcore_notifications_reset() ;
+					 var notifications      = simcore_notifications_get() ;
+					 var notifications_html = table_notifications_html(notifications) ;
+					 $("#container-notifications3").html(notifications_html) ;
+					 // reajust ui
+					 wepsim_restore_uicfg() ;
+					 wsweb_scroll_record('#container-notifications3') ;
+					 simcore_record_captureInit() ;
 				         return false;
 	                              }
                       },
