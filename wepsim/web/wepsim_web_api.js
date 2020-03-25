@@ -733,6 +733,32 @@
     // dialogs: load/save firmware/assembly
     //
 
+    function wsweb_dialog_title ( name )
+    {
+	 return "<div class='dropdown'>" +
+		"<button type='button' " +
+		"        class='btn btn-secondary px-3 py-1 dropdown-toggle' " +
+		"        data-toggle='dropdown' id='dropup-authors' " +
+		"        aria-expanded='false' aria-haspopup='true'>" +
+		"<strong>" + name + "</strong> " + 
+		"</button>" +
+		"<div class='dropdown-menu' " +
+		"     style='overflow-y:auto; max-height:55vh;' " + 
+		"     aria-labelledby='dropup-authors'>" +
+		" <div class='p-2 m-0'>"+
+		" <button class='dropdown-item py-1' type='button' " +
+		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
+		" <span>&plusmn; Description</span>" +
+		" </button>" +
+		" </div>"+
+		"<div class='dropdown-divider m-1'></div>" +
+		" <form class='py-1 px-2 m-0'>"+
+		" <div class='form-group m-0'>" + i18n_get_select() + "</div>" +
+		" </form>"+
+		"  </div>" +
+		"</div>" ;
+    }
+
     function wsweb_dialog_open_list ( dialog_id )
     {
 	    // check params

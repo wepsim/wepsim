@@ -733,6 +733,32 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
     // dialogs: load/save firmware/assembly
     //
 
+    function wsweb_dialog_title ( name )
+    {
+	 return "<div class='dropdown'>" +
+		"<button type='button' " +
+		"        class='btn btn-secondary px-3 py-1 dropdown-toggle' " +
+		"        data-toggle='dropdown' id='dropup-authors' " +
+		"        aria-expanded='false' aria-haspopup='true'>" +
+		"<strong>" + name + "</strong> " + 
+		"</button>" +
+		"<div class='dropdown-menu' " +
+		"     style='overflow-y:auto; max-height:55vh;' " + 
+		"     aria-labelledby='dropup-authors'>" +
+		" <div class='p-2 m-0'>"+
+		" <button class='dropdown-item py-1' type='button' " +
+		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
+		" <span>&plusmn; Description</span>" +
+		" </button>" +
+		" </div>"+
+		"<div class='dropdown-divider m-1'></div>" +
+		" <form class='py-1 px-2 m-0'>"+
+		" <div class='form-group m-0'>" + i18n_get_select() + "</div>" +
+		" </form>"+
+		"  </div>" +
+		"</div>" ;
+    }
+
     function wsweb_dialog_open_list ( dialog_id )
     {
 	    // check params
@@ -1236,11 +1262,11 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
          save_assembly: {
             id:        "lssave2",
 	    title:     function() {
-		         return "<span class='text-dark'>Save Assembly</span>" ;
+                         return wsweb_dialog_title('Save Assembly') ;
 		       },
             body:      function() {
-		       return "<label for='inputFileNameToSaveAs2'>" + 
-			      "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" + 
+		       return "<label for='inputFileNameToSaveAs2'>" +
+			      "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" +
 			      "</label>" +
 	                      "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
                               "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>" ;
@@ -1258,7 +1284,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
-				callback:  function() { 
+				callback:  function() {
     					       wsweb_dialog_close('save_assembly') ;
 					   }
 			 }
@@ -1276,7 +1302,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
          load_assembly: {
             id:       "lsload2",
 	    title:    function() {
-		         return "<span class='text-dark'>Load Assembly</span>" ;
+                         return wsweb_dialog_title('Load Assembly') ;
 		      },
             body:     function() {
 		         return "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
@@ -1295,7 +1321,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
-				callback:  function() { 
+				callback:  function() {
     					       wsweb_dialog_close('load_assembly') ;
 					   }
 			 }
@@ -1315,7 +1341,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
          save_firmware: {
 	    id:       "lssave",
 	    title:    function() {
-		         return "<span class='text-dark'>Save Firmware</span>" ;
+                         return wsweb_dialog_title('Save Firmware') ;
 		      },
             body:     function() {
 		         return "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
@@ -1342,7 +1368,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
-				callback:  function() { 
+				callback:  function() {
     					       wsweb_dialog_close('save_firmware') ;
 					   }
 			 }
@@ -1360,7 +1386,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
          load_firmware: {
 	    id:      "lsload",
 	    title:   function() {
-		        return "<span class='text-dark'>Load Microcode</span>" ;
+                         return wsweb_dialog_title('Load Microcode') ;
 		     },
             body:    function() {
 		        return "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
@@ -1379,7 +1405,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
-				callback:  function() { 
+				callback:  function() {
     					       wsweb_dialog_close('load_firmware') ;
 					   }
 			 }
@@ -1400,7 +1426,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
          binary: {
             id:      "bin2",
 	    title:   function() {
-		        return "<h5><strong>Binary</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>" ;
+                         return wsweb_dialog_title('Binary') ;
 		     },
             body:    function() {
 		        return "<div id='bin2-container' class='container-fluid' " +
@@ -1438,9 +1464,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	 // authors
          about: {
             id:      "about1",
-	    title:   function() {
-		        return "<h5 class='my-0 mx-auto'><strong>WepSIM</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>" ;
-		     },
+	    title:    function() {
+                         return wsweb_dialog_title("WepSIM's authors") ;
+		      },
             body:    function() {
 		        return "<div id='container-about1' class='container-fluid'" +
 			       "     style='max-height:80vh; '>" +
@@ -1457,14 +1483,6 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			       "</div>" ;
 		     },
 	    buttons: {
-			Description: {
-			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",
-			   className: "btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto",
-			   callback:  function() {
-					$(".collapse7").collapse('toggle') ;
-					return false;
-				     }
-			},
 			OK: {
 			   label:     "OK",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
@@ -1485,46 +1503,66 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
          notifications: {
             id:       "notifications3",
 	    title:    function() {
-		         return "<button type='button' class='btn btn-dark px-3 py-1' disabled>" +
-                                "     <span data-langkey='Notifications'>Notifications</span>" +
-		                "</button>" ;
+                         return "<div class='dropdown'>" +
+                                "<button type='button' " +
+                                "        class='btn btn-secondary px-3 py-1 dropdown-toggle' " +
+                                "        data-toggle='dropdown' id='dropup-authors' " +
+                                "        aria-expanded='false' aria-haspopup='true'>" +
+                                "<span data-langkey='Notifications'>Notifications</span>" +
+                                "</button>" +
+                                "<div class='dropdown-menu' " +
+                                "     style='overflow-y:auto; max-height:55vh;' " + 
+                                "     aria-labelledby='dropup-authors'>" +
+			        " <div class='p-2 m-0'>"+
+                                " <button class='dropdown-item py-1' type='button' " +
+                                "         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
+                                " <span>&plusmn; Description</span>" +
+                                " </button>" +
+			        " </div>"+
+                                "<div class='dropdown-divider m-1'></div>" +
+			        " <div class='px-2 m-0'>"+
+                                " <button class='dropdown-item py-1 text-danger' type='button' " +
+                                "         onclick='wsweb_dialogs.notifications.ttl_acts.reset();'>" +
+                                " <span data-langkey='Reset'>Reset</span>" +
+                                " </button>" +
+			        " </div>"+
+                                "<div class='dropdown-divider m-1'></div>" +
+			        " <form class='py-1 px-2 m-0'>"+
+			        " <div class='form-group m-0'>" + i18n_get_select() + "</div>" +
+			        " </form>"+
+                                "  </div>" +
+                                "</div>" ;
 		      },
+	    ttl_acts: {
+	                 description: function() {
+                                         $(".collapse7").collapse("toggle") ;
+				         return false ;
+	                              },
+	                 reset:       function() {
+				         var wsi = get_cfg('ws_idiom') ;
+				         var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
+				         if (confirm(q))
+				         {
+					     // reajust content
+					     simcore_notifications_reset() ;
+					     var notifications      = simcore_notifications_get() ;
+					     var notifications_html = table_notifications_html(notifications) ;
+					     $("#container-notifications3").html(notifications_html) ;
+					     // reajust ui
+					     wepsim_restore_uicfg() ;
+					     wsweb_scroll_record('#container-notifications3') ;
+					     simcore_record_captureInit() ;
+					     return false ;
+				         }
+				         return false;
+	                              }
+                      },
             body:     function() {
 		         var notifications      = simcore_notifications_get() ;
 		         var notifications_html = table_notifications_html(notifications) ;
 		         return "<div id='container-notifications3' class='container-fluid'>" + notifications_html + "</div>" ;
 		      },
 	    buttons:  {
-			Description: {
-			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",
-			   className: "btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto",
-			   callback:  function() {
-				  	  $(".collapse7").collapse('toggle') ;
-					  return false;
-				      }
-			},
-			Reset: {
-			   label:     "<span data-langkey='Reset'>Reset</span>",
-			   className: "btn btn-outline-danger btn-sm col-auto float-left mr-auto",
-			   callback:  function() {
-					   var wsi = get_cfg('ws_idiom') ;
-					   var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-					   if (confirm(q)) 
-				           {
-						// reajust content
-						simcore_notifications_reset() ;
-						var notifications      = simcore_notifications_get() ;
-						var notifications_html = table_notifications_html(notifications) ;
-						$("#container-notifications3").html(notifications_html) ;
-						// reajust ui
-						wepsim_restore_uicfg() ;
-						wsweb_scroll_record('#container-notifications3') ;
-						simcore_record_captureInit() ;
-						return false ;
-					   }
-					   return false;
-				     }
-			},
 			Close: {
 			   label:     "Close",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
