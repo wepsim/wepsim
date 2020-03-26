@@ -277,7 +277,7 @@
 
     function wsweb_dialogbox_open_config ( )
     {
-	    wepsim_open_config_index() ;
+	    wsweb_dialog_open_list('config') ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
 	    wepsim_restore_uicfg() ;
 
@@ -426,10 +426,10 @@
     {
 	    // Close all dialogbox
 	                  $('#help1').modal('hide') ;
-	                $('#config2').modal('hide') ;
 	         $('#current_state1').modal('hide') ;
 	         $('#current_state2').modal('hide') ;
 	    $('#current_checkpoint1').modal('hide') ;
+	             wsweb_dialog_close('config') ;
 	             wsweb_dialog_close('examples') ;
 
             // add if recording

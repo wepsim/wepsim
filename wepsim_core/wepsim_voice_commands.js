@@ -37,7 +37,7 @@
 
     wepsim_voice_commands['(show) configuration'] = function()
     {
-	 wepsim_open_config_index() ;
+	 wsweb_dialog_open_list('config') ;
     } ;
 
     wepsim_voice_commands['(show) examples'] = function()
@@ -62,7 +62,7 @@
     wepsim_voice_commands['close'] = function()
     {
 	 wepsim_close_help() ;
-	 wepsim_close_config() ;
+         wsweb_dialog_close('config') ;
          wsweb_dialog_close('examples') ;
 
 	 if (null !== wepsim_voice_dialog) {

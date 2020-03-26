@@ -43,9 +43,9 @@
 	                         }) ;
 
 	     tour.onexit(function () {
-			                $("#config2").modal('hide');
 			                $("#help1").modal('hide');
 				        wsweb_dialog_close('examples');
+				        wsweb_dialog_close('config');
 
 					// ws_mode: intro, tutorial, ep, poc, ...
 					if (get_cfg('ws_mode') != 'ep') {

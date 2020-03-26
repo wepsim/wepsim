@@ -918,56 +918,6 @@
 	</div>
 
 
-<!-- configuration -->
-<div id="config2" class="modal">
-    <div class="modal-dialog modal-lg" style="height:80vh;">
-	<div class="modal-content">
-
-	   <div class="modal-header">
-		<div class="mx-auto">
-		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
-                             <span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Config.</span>
-		     </button>
-		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			 <span class="caret"></span>
-			 <span class="sr-only">Toggle Help Idiom</span>
-		     </button>
-		     <div id="config2_lang" class="dropdown-menu" style="z-index:100000;">
-			 <a class="dropdown-item" href="#"
-			    onclick="set_cfg('ws_idiom','es'); save_cfg();
-                                     i18n_update_tags('gui', 'es');
-                                     i18n_update_tags('cfg', 'es');
-                                     return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
-			 <a class="dropdown-item" href="#"
-			    onclick="set_cfg('ws_idiom','en'); save_cfg();
-                                     i18n_update_tags('gui', 'en');
-                                     i18n_update_tags('cfg', 'en');
-                                     return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
-		     </div>
-		   </div>
-                </div>
-		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-	   </div>
-
-	   <div class="modal-body">
-		<div id="container-config2" class="container-fluid"
-		     style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
-		</div>
-	   </div>
-
-	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto"
-                         data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col col-sm-2 float-right"
-			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-	   </div><!-- /footer -->
-	</div>
-     </div>
-</div> <!-- /.modal -->
-
-
 <div id="help1" class="modal">
      <div class="modal-dialog modal-lg">
 	<div class="modal-content">

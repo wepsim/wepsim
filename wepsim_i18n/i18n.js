@@ -192,8 +192,8 @@
 	         "	     onchange=\"var opt = $(this).find('option:selected');" +
 	         "	 	        var optValue = opt.val();" +
 	         "		        update_cfg('ws_idiom', optValue);" +
-	         "                    i18n_update_tagsFor('gui', optValue);" +
-	         "		        wepsim_open_config_index();\"" +
+	         "                      i18n_update_tagsFor('gui', optValue);" +
+	         "		        wsweb_dialog_open_list('config');\"" +
 	         "	     data-native-menu='false'>" ;
 	for (var l in i18n.lang)
 	{

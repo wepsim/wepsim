@@ -378,8 +378,49 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('examples', ws_idiom) ;
-			 // stats about ui
-			 ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.example');
+		     }
+         },
+
+	 // config
+         config: {
+            id:      "config2",
+	    title:    function() {
+                         return wsweb_dialog_title("Configuration") ;
+		      },
+            body:    function() {
+                        return "<div id='container-config2' class='container-fluid p-0' " +
+                               "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+			       table_config_html(ws_config) +
+                               "</div>" ;
+		     },
+	    buttons: {
+			OK: {
+			   label:     "OK",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   callback:  function() {
+    					 wsweb_dialog_close('config') ;
+				      }
+			}
+	             },
+            onshow:  function() {
+		         // ui elements
+			 for (m=0; m<ws_config.length; m++) {
+			      ws_config[m].code_init() ;
+			 }
+			 $("#container-config2").scrollTop(0);
+			 $('a[data-toggle="popover1"]').popover({
+				  placement:  'bottom',
+				  trigger:    'focus, hover',
+				  animation:  false,
+				  delay:      { "show": 500, "hide": 100 },
+				  sanitizeFn: function (content) {
+						  return content ; // DOMPurify.sanitize(content) ;
+					      }
+			 }) ;
+
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('cfg', ws_idiom) ;
 		     }
          }
 

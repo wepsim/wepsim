@@ -20,40 +20,6 @@
 
 
     /*
-     * Config screen
-     */
-
-    function wepsim_open_config_index ( )
-    {
-	$('#container-config2').html(table_config_html(ws_config)) ;
-        for (m=0; m<ws_config.length; m++) {
-	     ws_config[m].code_init() ;
-        }
-	$("#container-config2").scrollTop(0);
-        $('a[data-toggle="popover1"]').popover({
-	          placement:  'bottom',
-	          trigger:    'focus, hover',
-	          animation:  false,
-	          delay:      { "show": 500, "hide": 100 },
-		  sanitizeFn: function (content) {
-                                  return content ; // DOMPurify.sanitize(content) ;
-                              }
-        }) ;
-
-	i18n_update_tags('cfg') ;
-	$('#config2').modal('show') ;
-
-	// stats about ui
-        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.config');
-    }
-
-    function wepsim_close_config ( )
-    {
-        $('#config2').modal('hide') ;
-    }
-
-
-    /*
      * Config management
      */
 

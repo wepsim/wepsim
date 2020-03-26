@@ -375,9 +375,6 @@
     {
            var o = "" ;
 
-           o = i18n_get_dropdown(['gui','cfg'], '') ;
-           $("#config2_lang").html(o) ;
-
            o = i18n_get_dropdown(['gui','help'], "wepsim_help_refresh();") ;
            $("#help1_lang").html(o) ;
 
