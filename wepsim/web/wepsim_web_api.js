@@ -733,20 +733,20 @@
     // dialogs: load/save firmware/assembly
     //
 
-    function wsweb_dialog_title ( name )
+    function wsweb_dialog_title ( name, color )
     {
 	 return "<div class='dropdown'>" +
 		"<button type='button' " +
-		"        class='btn btn-outline-secondary px-3 py-1 dropdown-toggle' " +
+		"        class='btn btn-outline-" + color + " px-3 py-1 dropdown-toggle' " +
 		"        data-toggle='dropdown' id='dropup-authors' " +
 		"        aria-expanded='false' aria-haspopup='true'>" +
                 "<span class='font-weight-bold' data-langkey='" + name + "'>" + name + "</span>" +
 		"</button>" +
 		"<div class='dropdown-menu' " +
-		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " + 
+		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
 		"     aria-labelledby='dropup-authors'>" +
                 // details
-		" <form class='px-3 m-0'><div class='form-group m-0'>" + 
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
 		" <label for='wsdt1'>details</label>" +
 		" <button class='btn btn-outline-secondary btn-block py-1' " +
                 "         type='button' id='wsdt1' " +
@@ -756,9 +756,9 @@
                 " </div></form>"+
                 // idioms
 		"<div class='dropdown-divider m-1'></div>" +
-		" <form class='px-3 m-0'><div class='form-group m-0'>" + 
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
 		" <label for='dd2'>idiom</label>" +
-                  i18n_get_select2() + 
+                  i18n_get_select('select7b') +
                 " </div></form>"+
 		"</div>" +
 		"</div>" ;
@@ -795,7 +795,7 @@
             					wsweb_scroll_record('#' + oid) ;
 						simcore_record_captureInit() ;
 					    },
-			    buttons:        obuttons 
+			    buttons:        obuttons
 	             });
 
             // custom...
@@ -878,8 +878,8 @@
 	    // dialog
 	    wsweb_nfbox = bootbox.dialog({
 		    title:      title,
-		    message:    "<div class='p-2 m-0' style='word-wrap:break-word;'>" + 
-		                message + 
+		    message:    "<div class='p-2 m-0' style='word-wrap:break-word;'>" +
+		                message +
 		                "</div>",
 		    scrollable: true,
 		    size:       'large',
@@ -898,9 +898,9 @@
 			  //label: "<div id='autoclose1'>Close</div>",
 			    label: "<span data-langkey='Close'>Close</span>",
 			    className: 'btn-danger m-0',
-			    callback: function() { 
+			    callback: function() {
                                          clearTimeout(wepsim_updatediv_timer) ;
-				         wsweb_record_play(); 
+				         wsweb_record_play();
 			              }
 			}
 		    }

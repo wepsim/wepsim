@@ -28,7 +28,7 @@
          save_assembly: {
             id:        "lssave2",
 	    title:     function() {
-                         return wsweb_dialog_title('Save Assembly') ;
+                         return wsweb_dialog_title('Save Assembly', 'secondary') ;
 		       },
             body:      function() {
 		       return "<label for='inputFileNameToSaveAs2'>" +
@@ -59,6 +59,7 @@
 			 var o = $("#lssave2") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -68,7 +69,7 @@
          load_assembly: {
             id:       "lsload2",
 	    title:    function() {
-                         return wsweb_dialog_title('Load Assembly') ;
+                         return wsweb_dialog_title('Load Assembly', 'secondary') ;
 		      },
             body:     function() {
 		         return "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
@@ -98,6 +99,7 @@
 			 var o = $("#lsload2") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -107,7 +109,7 @@
          save_firmware: {
 	    id:       "lssave",
 	    title:    function() {
-                         return wsweb_dialog_title('Save Firmware') ;
+                         return wsweb_dialog_title('Save Firmware', 'secondary') ;
 		      },
             body:     function() {
 		         return "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
@@ -143,6 +145,7 @@
 			 var o = $("#lssave") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -152,7 +155,7 @@
          load_firmware: {
 	    id:      "lsload",
 	    title:   function() {
-                         return wsweb_dialog_title('Load Microcode') ;
+                         return wsweb_dialog_title('Load Microcode', 'secondary') ;
 		     },
             body:    function() {
 		        return "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
@@ -182,6 +185,7 @@
 			 o.find('.modal-title').addClass("ml-auto") ;
 		         // dropify
 			 $('.dropify').dropify() ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -192,7 +196,7 @@
          binary: {
             id:      "bin2",
 	    title:   function() {
-                         return wsweb_dialog_title('Binary') ;
+                         return wsweb_dialog_title('Binary', 'secondary') ;
 		     },
             body:    function() {
 		        return "<div id='bin2-container' class='container-fluid' " +
@@ -221,6 +225,7 @@
 	             },
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -231,7 +236,7 @@
          about: {
             id:      "about1",
 	    title:    function() {
-                         return wsweb_dialog_title("WepSIM's authors") ;
+                         return wsweb_dialog_title("WepSIM's authors", 'secondary') ;
 		      },
             body:    function() {
 		        return "<div id='container-about1' class='container-fluid'" +
@@ -259,6 +264,7 @@
 	             },
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -277,12 +283,12 @@
                                 "<span class='font-weight-bold' data-langkey='Notifications'>Notifications</span>" +
                                 "</button>" +
                                 "<div class='dropdown-menu' " +
-                                "     style='overflow-y:auto; max-height:55vh;' " + 
+                                "     style='overflow-y:auto; max-height:55vh;' " +
                                 "     aria-labelledby='dropup-notif'>" +
                                 // description
 			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
  				"   <label for='dd1'>details</label>" +
-                                "   <button class='btn btn-outline-secondary btn-block py-1' " + 
+                                "   <button class='btn btn-outline-secondary btn-block py-1' " +
                                 "           type='button' id='dd1' " +
                                 "           onclick='$(\".collapse7\").collapse(\"toggle\");' " +
                                 "   ><span>&plusmn; Description</span>" +
@@ -306,9 +312,9 @@
                                 " </div></form>"+
                                 // idioms
                                 "<div class='dropdown-divider m-1'></div>" +
-			        " <form class='px-3 m-0'><div class='form-group m-0'>" + 
+			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
  				"   <label for='dd3'>idiom</label>" +
-                                  i18n_get_select2() + 
+                                  i18n_get_select('select7b') +
                                 " </div></form>"+
                                 "</div>" +
                                 "</div>" ;
@@ -347,6 +353,7 @@
 	             },
             onshow:  function() {
 			 $("#container-notifications3").scrollTop(0) ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
 			 i18n_update_tags('cfg') ;
@@ -357,7 +364,7 @@
          examples: {
             id:      "example1",
 	    title:    function() {
-                         return wsweb_dialog_title("Examples") ;
+                         return wsweb_dialog_title("Examples", 'info') ;
 		      },
             body:    function() {
                         return "<div id='container-example1' class='container-fluid p-0' " +
@@ -385,7 +392,7 @@
          config: {
             id:      "config2",
 	    title:    function() {
-                         return wsweb_dialog_title("Configuration") ;
+                         return wsweb_dialog_title("Configuration", 'primary') ;
 		      },
             body:    function() {
                         return "<div id='container-config2' class='container-fluid p-0' " +
@@ -428,13 +435,13 @@
          help: {
             id:      "help1",
 	    title:    function() {
-                          return wsweb_dialog_title("Help") ;
+                          return wsweb_dialog_title("Help", 'success') ;
 		      },
             body:    function() {
                         return "<div id='help1_ref' style='display:none;'></div>" +
                                "<div class='ui-body-d ui-content' id='iframe_help1_container' " +
                                "     style='padding: 2px 2px 2px 2px; min-height:50vh; max-height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
-                               "     <div id='iframe_help1' style='min-height:50vh;'>" +  
+                               "     <div id='iframe_help1' style='min-height:50vh;'>" + 
 			       table_helps_html(ws_help) +
                                "</div>" +
                                "</div>" ;
