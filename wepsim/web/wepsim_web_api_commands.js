@@ -396,7 +396,7 @@
 		      },
             body:    function() {
                         return "<div id='container-config2' class='container-fluid p-0' " +
-                               "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
 			       table_config_html(ws_config) +
                                "</div>" ;
 		     },
@@ -439,8 +439,8 @@
 		      },
             body:    function() {
                         return "<div id='help1_ref' style='display:none;'></div>" +
-                               "<div class='ui-body-d ui-content' id='iframe_help1_container' " +
-                               "     style='padding: 2px 2px 2px 2px; min-height:50vh; max-height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "<div class='ui-body-d ui-content p-0' id='iframe_help1_container' " +
+                               "     style='min-height:50vh; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
                                "     <div id='iframe_help1' style='min-height:50vh;'>" + 
 			       table_helps_html(ws_help) +
                                "</div>" +
