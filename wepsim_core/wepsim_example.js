@@ -20,27 +20,6 @@
 
 
     /*
-     * Examples
-     */
-
-    function wepsim_open_examples_index ( )
-    {
-        $("#container-example1").html(table_examples_html(ws_examples)) ;
-
-	i18n_update_tags('examples') ;
-	$('#example1').modal('show') ;
-
-	// stats about ui
-        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.example');
-    }
-
-    function wepsim_close_examples ( )
-    {
-	$('#example1').modal('hide') ;
-    }
-
-
-    /*
      * Example management
      */
 
@@ -259,7 +238,7 @@
 		        '           id="example_' + m + '" ' +
 		        '           onclick="simcore_record_append_pending(); ' +
 		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true); ' +
-		        '                    $(\'#example1\').modal(\'hide\'); ' +
+		        '                    wsweb_dialog_close(\'examples\'); ' +
 		        '                    return false;" ' +
 		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-2" style="cursor:pointer;" >' + e_title + '</span>' +
                         '</div>' +
@@ -276,26 +255,26 @@
                         '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
 		        '             <a onclick="simcore_record_append_pending();' +
 		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
-		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         wsweb_dialog_close(\'examples\'); ' +
 		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load example">Load example</span></c></a>' +
 		        '             <a onclick="simcore_record_append_pending();' +
 		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\', false);' +
-		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         wsweb_dialog_close(\'examples\'); ' +
 		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
 		        '             <a onclick="simcore_record_append_pending();' +
 		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', false);' +
-		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         wsweb_dialog_close(\'examples\'); ' +
 		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
 		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
 		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
 		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
-		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         wsweb_dialog_close(\'examples\'); ' +
                         '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
-	                '             <a onclick="$(\'#example1\').modal(\'hide\'); ' +
+	                '             <a onclick="wsweb_dialog_close(\'examples\'); ' +
                         '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
                         '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +

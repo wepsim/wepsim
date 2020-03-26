@@ -161,6 +161,30 @@
 	return o ;
     }
 
+    function i18n_get_select2 ( )
+    {
+        var o  = " <select name='select7' id='select7' class='form-control form-control-sm custom-select'" +
+	         "	     aria-label='idiom for examples and help' " +
+	         "	     onchange=\"var opt = $(this).find('option:selected');" +
+	         "	 	        var optValue = opt.val();" +
+	         "		        update_cfg('ws_idiom', optValue);" +
+	         "                      i18n_update_tagsFor('gui',      optValue); " +
+	         "                      i18n_update_tagsFor('cfg',      optValue); " +
+	         "                      i18n_update_tagsFor('examples', optValue); " +
+	         "                      i18n_update_tagsFor('states',   optValue); " +
+	         "                      i18n_update_tagsFor('help',     optValue); " +
+	         "                      i18n_update_tagsFor('dialogs',  optValue); " +
+	         "                      return true; \"" +
+	         "	     data-native-menu='false'>" ;
+	for (var l in i18n.lang)
+	{
+            o += "	<option value='" + l + "'>" + i18n.lang[l] + "</option>" ;
+	}
+	o += " </select>" ;
+
+	return o ;
+    }
+
     function i18n_get_select ( )
     {
         var o  = " <select name='select7' id='select7' class='form-control form-control-sm custom-select'" +

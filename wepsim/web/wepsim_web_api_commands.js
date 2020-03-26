@@ -274,7 +274,7 @@
                                 "        class='btn btn-secondary px-3 py-1 dropdown-toggle' " +
                                 "        data-toggle='dropdown' id='dropup-notif' " +
                                 "        aria-expanded='false' aria-haspopup='true'>" +
-                                "<span data-langkey='Notifications'>Notifications</span>" +
+                                "<span class='font-weight-bold' data-langkey='Notifications'>Notifications</span>" +
                                 "</button>" +
                                 "<div class='dropdown-menu' " +
                                 "     style='overflow-y:auto; max-height:55vh;' " + 
@@ -308,7 +308,7 @@
                                 "<div class='dropdown-divider m-1'></div>" +
 			        " <form class='px-3 m-0'><div class='form-group m-0'>" + 
  				"   <label for='dd3'>idiom</label>" +
-                                  i18n_get_select() + 
+                                  i18n_get_select2() + 
                                 " </div></form>"+
                                 "</div>" +
                                 "</div>" ;
@@ -351,8 +351,37 @@
                          var ws_idiom = get_cfg('ws_idiom') ;
 			 i18n_update_tags('cfg') ;
 		     }
+         },
+
+	 // examples
+         examples: {
+            id:      "example1",
+	    title:    function() {
+                         return wsweb_dialog_title("Examples") ;
+		      },
+            body:    function() {
+                        return "<div id='container-example1' class='container-fluid p-0' " +
+                               "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                               table_examples_html(ws_examples) +
+                               "</div>" ;
+		     },
+	    buttons: {
+			OK: {
+			   label:     "OK",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   callback:  function() {
+    					 wsweb_dialog_close('examples') ;
+				      }
+			}
+	             },
+            onshow:  function() {
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('examples', ws_idiom) ;
+			 // stats about ui
+			 ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.example');
+		     }
          }
 
     } ;
-
 

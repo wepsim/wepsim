@@ -42,7 +42,7 @@
 
     wepsim_voice_commands['(show) examples'] = function()
     {
-         wepsim_open_examples_index() ;
+	 wsweb_dialog_open_list('examples') ;
     } ;
 
     wepsim_voice_commands['load example :id (from) :level'] = function ( id, level )
@@ -62,8 +62,8 @@
     wepsim_voice_commands['close'] = function()
     {
 	 wepsim_close_help() ;
-	 wepsim_close_examples() ;
 	 wepsim_close_config() ;
+         wsweb_dialog_close('examples') ;
 
 	 if (null !== wepsim_voice_dialog) {
 	     wepsim_voice_dialog.modal('hide');

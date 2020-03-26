@@ -45,7 +45,7 @@
 	     tour.onexit(function () {
 			                $("#config2").modal('hide');
 			                $("#help1").modal('hide');
-			                $("#example1").modal('hide');
+				        wsweb_dialog_close('examples');
 
 					// ws_mode: intro, tutorial, ep, poc, ...
 					if (get_cfg('ws_mode') != 'ep') {

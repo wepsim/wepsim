@@ -231,7 +231,7 @@
 
     function wsweb_dialogbox_open_examples ( )
     {
-            wepsim_open_examples_index();
+	    wsweb_dialog_open_list('examples') ;
 	    $('[data-toggle=tooltip]').tooltip('hide');
 	    wepsim_restore_uicfg() ;
 
@@ -425,12 +425,12 @@
     function wsweb_dialogbox_close_all ( )
     {
 	    // Close all dialogbox
-	               $('#example1').modal('hide') ;
 	                  $('#help1').modal('hide') ;
 	                $('#config2').modal('hide') ;
-	         $('#current_state1').modal('hide');
-	         $('#current_state2').modal('hide');
-	    $('#current_checkpoint1').modal('hide');
+	         $('#current_state1').modal('hide') ;
+	         $('#current_state2').modal('hide') ;
+	    $('#current_checkpoint1').modal('hide') ;
+	             wsweb_dialog_close('examples') ;
 
             // add if recording
             simcore_record_append_new('Close all dialogboxes',
@@ -740,10 +740,10 @@
 		"        class='btn btn-outline-secondary px-3 py-1 dropdown-toggle' " +
 		"        data-toggle='dropdown' id='dropup-authors' " +
 		"        aria-expanded='false' aria-haspopup='true'>" +
-		"<strong>" + name + "</strong> " + 
+                "<span class='font-weight-bold' data-langkey='" + name + "'>" + name + "</span>" +
 		"</button>" +
 		"<div class='dropdown-menu' " +
-		"     style='overflow-y:auto; max-height:55vh;' " + 
+		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " + 
 		"     aria-labelledby='dropup-authors'>" +
                 // details
 		" <form class='px-3 m-0'><div class='form-group m-0'>" + 
@@ -758,7 +758,7 @@
 		"<div class='dropdown-divider m-1'></div>" +
 		" <form class='px-3 m-0'><div class='form-group m-0'>" + 
 		" <label for='dd2'>idiom</label>" +
-                  i18n_get_select() + 
+                  i18n_get_select2() + 
                 " </div></form>"+
 		"</div>" +
 		"</div>" ;
@@ -833,7 +833,7 @@
             }
 
 	    // elements
-	    var d1 = $('#' + wsweb_dialogs[dialog_id].oid) ;
+	    var d1 = $('#' + wsweb_dialogs[dialog_id].id) ;
 	    d1.modal('hide') ;
 
             // add if recording
