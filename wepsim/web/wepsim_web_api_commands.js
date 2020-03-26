@@ -422,6 +422,51 @@
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('cfg', ws_idiom) ;
 		     }
+         },
+
+	 // help
+         help: {
+            id:      "help1",
+	    title:    function() {
+                          return wsweb_dialog_title("Help") ;
+		      },
+            body:    function() {
+                        return "<div id='help1_ref' style='display:none;'></div>" +
+                               "<div class='ui-body-d ui-content' id='iframe_help1_container' " +
+                               "     style='padding: 2px 2px 2px 2px; min-height:50vh; max-height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "     <div id='iframe_help1' style='min-height:50vh;'>" +  
+			       table_helps_html(ws_help) +
+                               "</div>" +
+                               "</div>" ;
+	             },
+	    buttons: {
+			Index: {
+			   label:     "<span data-langkey='Help Index'>Help Index</span>",
+			   className: "btn btn-success btn-sm col col-sm-3 float-left shadow-none mr-auto",
+			   callback:  function() {
+                                         wsweb_dialog_open_list('help') ;
+                                         wepsim_help_refresh() ;
+                                         wepsim_restore_uicfg() ;
+				      }
+			},
+			OK: {
+			   label:     "OK",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   callback:  function() {
+    					 wsweb_dialog_close('help') ;
+				      }
+			}
+	             },
+            onshow:  function() {
+		         // ui elements
+			 $('#help1_ref').data('relative','') ;
+			 $('#help1_ref').data('absolute','') ;
+			 $('#help1_ref').data('code','false') ;
+
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('help', ws_idiom) ;
+		     }
          }
 
     } ;

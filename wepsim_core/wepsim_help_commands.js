@@ -27,7 +27,7 @@
                      i_type:      "code",
                      u_type:      "tutorial",
                      u_class:     "",
-                     reference:   "wepsim_close_help(); " + 
+                     reference:   "wsweb_dialog_close('help'); " + 
                                   "sim_tutorial_showframe('welcome', 0);",
                      description: "<span data-langkey='help_01_01'>Open the welcome tutorial</span>.<br>"
                   });
@@ -38,7 +38,7 @@
                      i_type:      "code",
                      u_type:      "tutorial",
                      u_class:     "",
-                     reference:   "wepsim_close_help(); " + 
+                     reference:   "wsweb_dialog_close('help'); " + 
                                   "sim_tutorial_showframe('simpleusage', 0);",
                      description: "<span data-langkey='help_01_02'>Open the simple usage tutorial, for microprogramming and assembly programming</span>.<br>"
                   });
@@ -49,7 +49,7 @@
                      i_type:      "code",
                      u_type:      "tutorial",
                      u_class:     "",
-                     reference:   "wepsim_close_help(); " + 
+                     reference:   "wsweb_dialog_close('help'); " + 
 				  "wsweb_recordbar_show(); " +
 			          "wepsim_checkpoint_loadExample('tutorial_2.txt') ; " +
 			          "setTimeout(wsweb_record_play, 1000);",
@@ -157,7 +157,7 @@
                      i_type:      "code",
                      u_type:      "info",
                      u_class:     "",
-                     reference:   "wepsim_close_help();" + 
+                     reference:   "wsweb_dialog_close('help'); " + 
 	                          "wsweb_dialog_open_list('about');",
                      description: "<span data-langkey='help_04_02'>Authors of WepSIM</span>.<br>"
                   });

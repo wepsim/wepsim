@@ -55,13 +55,13 @@
 
     wepsim_voice_commands['(show) help'] = function()
     {
-         wepsim_open_help_index() ;
+	 wsweb_dialog_open_list('help') ;
          wepsim_help_refresh() ;
     } ;
 
     wepsim_voice_commands['close'] = function()
     {
-	 wepsim_close_help() ;
+         wsweb_dialog_close('help') ;
          wsweb_dialog_close('config') ;
          wsweb_dialog_close('examples') ;
 

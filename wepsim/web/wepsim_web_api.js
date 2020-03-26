@@ -254,7 +254,7 @@
 
     function wsweb_dialogbox_open_help ( )
     {
-	    wepsim_open_help_index();
+	    wsweb_dialog_open_list('help') ;
 	    wepsim_help_refresh();
 	    $('[data-toggle=tooltip]').tooltip('hide');
 	    wepsim_restore_uicfg() ;
@@ -747,9 +747,9 @@
 		"     aria-labelledby='dropup-authors'>" +
                 // details
 		" <form class='px-3 m-0'><div class='form-group m-0'>" + 
-		" <label for='dd1'>details</label>" +
+		" <label for='wsdt1'>details</label>" +
 		" <button class='btn btn-outline-secondary btn-block py-1' " +
-                "         type='button' id='dd1' " +
+                "         type='button' id='wsdt1' " +
 		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
 		" <span>&plusmn; Description</span>" +
 		" </button>" +
