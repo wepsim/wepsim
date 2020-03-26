@@ -28,11 +28,11 @@
          save_assembly: {
             id:        "lssave2",
 	    title:     function() {
-		         return "<span class='text-dark'>Save Assembly</span>" ;
+                         return wsweb_dialog_title('Save Assembly', 'secondary') ;
 		       },
             body:      function() {
-		       return "<label for='inputFileNameToSaveAs2'>" + 
-			      "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" + 
+		       return "<label for='inputFileNameToSaveAs2'>" +
+			      "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" +
 			      "</label>" +
 	                      "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
                               "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>" ;
@@ -50,7 +50,7 @@
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
-				callback:  function() { 
+				callback:  function() {
     					       wsweb_dialog_close('save_assembly') ;
 					   }
 			 }
@@ -59,6 +59,7 @@
 			 var o = $("#lssave2") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -68,7 +69,7 @@
          load_assembly: {
             id:       "lsload2",
 	    title:    function() {
-		         return "<span class='text-dark'>Load Assembly</span>" ;
+                         return wsweb_dialog_title('Load Assembly', 'secondary') ;
 		      },
             body:     function() {
 		         return "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
@@ -87,7 +88,7 @@
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
-				callback:  function() { 
+				callback:  function() {
     					       wsweb_dialog_close('load_assembly') ;
 					   }
 			 }
@@ -98,6 +99,7 @@
 			 var o = $("#lsload2") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -107,7 +109,7 @@
          save_firmware: {
 	    id:       "lssave",
 	    title:    function() {
-		         return "<span class='text-dark'>Save Firmware</span>" ;
+                         return wsweb_dialog_title('Save Firmware', 'secondary') ;
 		      },
             body:     function() {
 		         return "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
@@ -134,7 +136,7 @@
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
-				callback:  function() { 
+				callback:  function() {
     					       wsweb_dialog_close('save_firmware') ;
 					   }
 			 }
@@ -143,6 +145,7 @@
 			 var o = $("#lssave") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -152,7 +155,7 @@
          load_firmware: {
 	    id:      "lsload",
 	    title:   function() {
-		        return "<span class='text-dark'>Load Microcode</span>" ;
+                         return wsweb_dialog_title('Load Microcode', 'secondary') ;
 		     },
             body:    function() {
 		        return "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
@@ -171,7 +174,7 @@
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
 				className: 'btn btn-danger',
-				callback:  function() { 
+				callback:  function() {
     					       wsweb_dialog_close('load_firmware') ;
 					   }
 			 }
@@ -182,6 +185,7 @@
 			 o.find('.modal-title').addClass("ml-auto") ;
 		         // dropify
 			 $('.dropify').dropify() ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -192,7 +196,7 @@
          binary: {
             id:      "bin2",
 	    title:   function() {
-		        return "<h5><strong>Binary</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>" ;
+                         return wsweb_dialog_title('Binary', 'secondary') ;
 		     },
             body:    function() {
 		        return "<div id='bin2-container' class='container-fluid' " +
@@ -221,6 +225,7 @@
 	             },
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -230,9 +235,9 @@
 	 // authors
          about: {
             id:      "about1",
-	    title:   function() {
-		        return "<h5 class='my-0 mx-auto'><strong>WepSIM</strong> <span class='badge badge-pill btn-success'><div class='wsversion'>X</div></span></h5>" ;
-		     },
+	    title:    function() {
+                         return wsweb_dialog_title("WepSIM's authors", 'secondary') ;
+		      },
             body:    function() {
 		        return "<div id='container-about1' class='container-fluid'" +
 			       "     style='max-height:80vh; '>" +
@@ -249,14 +254,6 @@
 			       "</div>" ;
 		     },
 	    buttons: {
-			Description: {
-			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",
-			   className: "btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto",
-			   callback:  function() {
-					$(".collapse7").collapse('toggle') ;
-					return false;
-				     }
-			},
 			OK: {
 			   label:     "OK",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
@@ -267,6 +264,7 @@
 	             },
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
@@ -277,46 +275,74 @@
          notifications: {
             id:       "notifications3",
 	    title:    function() {
-		         return "<button type='button' class='btn btn-dark px-3 py-1' disabled>" +
-                                "     <span data-langkey='Notifications'>Notifications</span>" +
-		                "</button>" ;
+                         return "<div class='dropdown'>" +
+                                "<button type='button' " +
+                                "        class='btn btn-secondary px-3 py-1 dropdown-toggle' " +
+                                "        data-toggle='dropdown' id='dropup-notif' " +
+                                "        aria-expanded='false' aria-haspopup='true'>" +
+                                "<span class='font-weight-bold' data-langkey='Notifications'>Notifications</span>" +
+                                "</button>" +
+                                "<div class='dropdown-menu' " +
+                                "     style='overflow-y:auto; max-height:55vh;' " +
+                                "     aria-labelledby='dropup-notif'>" +
+                                // description
+			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
+ 				"   <label for='dd1'>details</label>" +
+                                "   <button class='btn btn-outline-secondary btn-block py-1' " +
+                                "           type='button' id='dd1' " +
+                                "           onclick='$(\".collapse7\").collapse(\"toggle\");' " +
+                                "   ><span>&plusmn; Description</span>" +
+                                "   </button>" +
+                                " </div></form>"+
+                                "<div class='dropdown-divider m-1'></div>" +
+                                // reset
+			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
+ 				"   <label for='dd2'>content</label>" +
+                                "   <button class='btn btn-outline-secondary btn-block py-1' id='dd2' " +
+                                "           data-toggle='collapse' data-target='#resetyn' type='button' " +
+                                "   ><span data-langkey='Reset'>Reset</span></button>" +
+				"   <div id='resetyn' class='collapse'>" +
+                                "   <button class='dropdown-item py-2 text-danger pr-2 border' type='button' " +
+                                "           onclick='wsweb_dialogs.notifications.ttl_acts.reset();' " +
+                                "   ><span data-langkey='Yes'>Yes</span></button>" +
+                                "   <button class='dropdown-item py-2 text-info   pr-2 border' type='button' " +
+                                "           onclick='$(\"#resetyn\").collapse(\"toggle\");' " +
+                                "   ><span data-langkey='No'>No</span></button>" +
+				"   </div>" +
+                                " </div></form>"+
+                                // idioms
+                                "<div class='dropdown-divider m-1'></div>" +
+			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
+ 				"   <label for='dd3'>idiom</label>" +
+                                  i18n_get_select('select7b') +
+                                " </div></form>"+
+                                "</div>" +
+                                "</div>" ;
 		      },
+	    ttl_acts: {
+	                 description: function() {
+                                         $(".collapse7").collapse("toggle") ;
+				         return false ;
+	                              },
+	                 reset:       function() {
+					 // reajust content
+					 simcore_notifications_reset() ;
+					 var notifications      = simcore_notifications_get() ;
+					 var notifications_html = table_notifications_html(notifications) ;
+					 $("#container-notifications3").html(notifications_html) ;
+					 // reajust ui
+					 wepsim_restore_uicfg() ;
+					 wsweb_scroll_record('#container-notifications3') ;
+					 simcore_record_captureInit() ;
+				         return false;
+	                              }
+                      },
             body:     function() {
 		         var notifications      = simcore_notifications_get() ;
 		         var notifications_html = table_notifications_html(notifications) ;
 		         return "<div id='container-notifications3' class='container-fluid'>" + notifications_html + "</div>" ;
 		      },
 	    buttons:  {
-			Description: {
-			   label:     "&plusmn; <span data-langkey='Description'>Description</span>",
-			   className: "btn btn-outline-dark  btn-sm col col-sm-3 float-left mr-auto",
-			   callback:  function() {
-				  	  $(".collapse7").collapse('toggle') ;
-					  return false;
-				      }
-			},
-			Reset: {
-			   label:     "<span data-langkey='Reset'>Reset</span>",
-			   className: "btn btn-outline-danger btn-sm col-auto float-left mr-auto",
-			   callback:  function() {
-					   var wsi = get_cfg('ws_idiom') ;
-					   var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-					   if (confirm(q)) 
-				           {
-						// reajust content
-						simcore_notifications_reset() ;
-						var notifications      = simcore_notifications_get() ;
-						var notifications_html = table_notifications_html(notifications) ;
-						$("#container-notifications3").html(notifications_html) ;
-						// reajust ui
-						wepsim_restore_uicfg() ;
-						wsweb_scroll_record('#container-notifications3') ;
-						simcore_record_captureInit() ;
-						return false ;
-					   }
-					   return false;
-				     }
-			},
 			Close: {
 			   label:     "Close",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
@@ -327,12 +353,128 @@
 	             },
             onshow:  function() {
 			 $("#container-notifications3").scrollTop(0) ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
 			 i18n_update_tags('cfg') ;
 		     }
+         },
+
+	 // examples
+         examples: {
+            id:      "example1",
+	    title:    function() {
+                         return wsweb_dialog_title("Examples", 'info') ;
+		      },
+            body:    function() {
+                        return "<div id='container-example1' class='container-fluid p-0' " +
+                               "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                               table_examples_html(ws_examples) +
+                               "</div>" ;
+		     },
+	    buttons: {
+			OK: {
+			   label:     "OK",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   callback:  function() {
+    					 wsweb_dialog_close('examples') ;
+				      }
+			}
+	             },
+            onshow:  function() {
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('examples', ws_idiom) ;
+		     }
+         },
+
+	 // config
+         config: {
+            id:      "config2",
+	    title:    function() {
+                         return wsweb_dialog_title("Configuration", 'primary') ;
+		      },
+            body:    function() {
+                        return "<div id='container-config2' class='container-fluid p-0' " +
+                               "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+			       table_config_html(ws_config) +
+                               "</div>" ;
+		     },
+	    buttons: {
+			OK: {
+			   label:     "OK",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   callback:  function() {
+    					 wsweb_dialog_close('config') ;
+				      }
+			}
+	             },
+            onshow:  function() {
+		         // ui elements
+			 for (m=0; m<ws_config.length; m++) {
+			      ws_config[m].code_init() ;
+			 }
+			 $("#container-config2").scrollTop(0);
+			 $('a[data-toggle="popover1"]').popover({
+				  placement:  'bottom',
+				  trigger:    'focus, hover',
+				  animation:  false,
+				  delay:      { "show": 500, "hide": 100 },
+				  sanitizeFn: function (content) {
+						  return content ; // DOMPurify.sanitize(content) ;
+					      }
+			 }) ;
+
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('cfg', ws_idiom) ;
+		     }
+         },
+
+	 // help
+         help: {
+            id:      "help1",
+	    title:    function() {
+                          return wsweb_dialog_title("Help", 'success') ;
+		      },
+            body:    function() {
+                        return "<div id='help1_ref' style='display:none;'></div>" +
+                               "<div class='ui-body-d ui-content' id='iframe_help1_container' " +
+                               "     style='padding: 2px 2px 2px 2px; min-height:50vh; max-height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "     <div id='iframe_help1' style='min-height:50vh;'>" + 
+			       table_helps_html(ws_help) +
+                               "</div>" +
+                               "</div>" ;
+	             },
+	    buttons: {
+			Index: {
+			   label:     "<span data-langkey='Help Index'>Help Index</span>",
+			   className: "btn btn-success btn-sm col col-sm-3 float-left shadow-none mr-auto",
+			   callback:  function() {
+                                         wsweb_dialog_open_list('help') ;
+                                         wepsim_help_refresh() ;
+                                         wepsim_restore_uicfg() ;
+				      }
+			},
+			OK: {
+			   label:     "OK",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   callback:  function() {
+    					 wsweb_dialog_close('help') ;
+				      }
+			}
+	             },
+            onshow:  function() {
+		         // ui elements
+			 $('#help1_ref').data('relative','') ;
+			 $('#help1_ref').data('absolute','') ;
+			 $('#help1_ref').data('code','false') ;
+
+		         // ui lang
+                         var ws_idiom = get_cfg('ws_idiom') ;
+                         i18n_update_tags('help', ws_idiom) ;
+		     }
          }
 
     } ;
-
 

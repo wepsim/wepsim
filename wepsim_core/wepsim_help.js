@@ -108,6 +108,13 @@
     {
         var helpdiv = '#iframe_help1' ;
 
+        var scrolltothetop = function() {
+        		        var helpdiv_container = 'iframe_help1_container' ;
+				var elto = document.getElementById(helpdiv_container) ;
+				if (elto != null)
+				    elto.scrollTop = 0 ;
+                             } ;
+
         var helpurl = '' ;
 	var seg_idiom = get_cfg('ws_idiom') ;
 	var seg_hardw = simhw_active().sim_short_name ;
@@ -118,7 +125,7 @@
              var r = rel.split("#") ;
              helpurl = 'help/' + r[0] + '-' + seg_idiom + '.html' ;
 	     $('#help1').modal('show') ;
-             resolve_html_url(helpdiv, helpurl, '#' + r[1], function() { }) ;
+             resolve_html_url(helpdiv, helpurl, '#' + r[1], scrolltothetop) ;
 
              ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel) ;
 
@@ -131,7 +138,7 @@
              helpurl = 'examples/hardware/' + seg_hardw + '/help/' + 
 		       ab1 + '-' + seg_idiom + '.html' ;
 	     $('#help1').modal('show');
-             resolve_html_url(helpdiv, helpurl, '', function() { }) ;
+             resolve_html_url(helpdiv, helpurl, '', scrolltothetop) ;
 
             ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*') ;
 
@@ -144,39 +151,6 @@
             ga('send', 'event', 'help', 'help.code', 'help.code.*') ;
             return ;
         }
-
-        wepsim_open_help_index() ;
-    }
-
-    function wepsim_open_help_index ( )
-    {
-	$('#iframe_help1').html(table_helps_html(ws_help)) ;
-
-	$('#help1_ref').data('relative','') ;
-	$('#help1_ref').data('absolute','') ;
-	$('#help1_ref').data('code','false') ;
-
-	i18n_update_tags('help') ;
-	$('#help1').modal('show') ;
-
-	// stats about ui
-        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.help');
-    }
-
-    function wepsim_open_help_content ( content )
-    {
-        $('#iframe_help1').html(content) ;
-
-        $('#help1_ref').data('relative', '') ;
-	$('#help1_ref').data('absolute', '') ;
-	$('#help1_ref').data('code','true') ;
-
-        $('#help1').modal('show') ;
-    }
-
-    function wepsim_close_help ( )
-    {
-	$('#help1').modal('hide') ;
     }
 
     function wepsim_help_set_relative ( rel )
@@ -191,6 +165,17 @@
         $('#help1_ref').data('relative','') ;
         $('#help1_ref').data('absolute', ab1) ;
 	$('#help1_ref').data('code','false') ;
+    }
+
+    function wepsim_open_help_content ( content )
+    {
+        $('#iframe_help1').html(content) ;
+
+        $('#help1_ref').data('relative', '') ;
+	$('#help1_ref').data('absolute', '') ;
+	$('#help1_ref').data('code','true') ;
+
+        $('#help1').modal('show') ;
     }
 
 

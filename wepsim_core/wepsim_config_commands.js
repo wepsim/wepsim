@@ -25,7 +25,9 @@
                       id:          "select7",
                       type:        "General",
                       u_class:     "",
-                      code_cfg:    "<div class='form-group m-0'>" + i18n_get_select() + "</div>",
+                      code_cfg:    "<div class='form-group m-0'>" + 
+                                   i18n_get_selectcfg() + 
+                                   "</div>",
                       code_init:   function() {
 			               $('#select7').val(get_cfg('ws_idiom'));
 		                   },
