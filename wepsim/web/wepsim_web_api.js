@@ -738,13 +738,13 @@
 	 return "<div class='dropdown'>" +
 		"<button type='button' " +
 		"        class='btn btn-outline-" + color + " px-3 py-1 dropdown-toggle' " +
-		"        data-toggle='dropdown' id='dropup-authors' " +
+		"        data-toggle='dropdown' id='dropdown-title1' " +
 		"        aria-expanded='false' aria-haspopup='true'>" +
                 "<span class='font-weight-bold' data-langkey='" + name + "'>" + name + "</span>" +
 		"</button>" +
 		"<div class='dropdown-menu' " +
 		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
-		"     aria-labelledby='dropup-authors'>" +
+		"     aria-labelledby='dropdown-title1'>" +
                 // details
 		" <form class='px-3 m-0'><div class='form-group m-0'>" +
 		" <label for='wsdt1'>details</label>" +
@@ -777,13 +777,14 @@
 	    var obody    = wsweb_dialogs[dialog_id].body() ;
 	    var obuttons = wsweb_dialogs[dialog_id].buttons ;
 	    var opost    = wsweb_dialogs[dialog_id].onshow ;
+	    var osize    = wsweb_dialogs[dialog_id].size ;
 
 	    // dialog
 	    var d1 = bootbox.dialog({
 			    title:          otitle,
 			    message:        obody,
 			    scrollable:     true,
-			    size:           'large',
+			    size:           osize,
 			    centerVertical: true,
 			    keyboard:       true,
 			    animate:        false,

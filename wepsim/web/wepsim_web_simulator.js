@@ -375,8 +375,8 @@
     {
            var o = "" ;
 
-           o = i18n_get_dropdown(['gui','states'], "update_checker_loadhelp('#help3a','help_dumper');") ;
-           $("#current_checkpoint1_lang").html(o) ;
+           o = wsweb_dialog_title('Checkpoint', 'secondary') ;
+           $("#current_checkpoint1_title").html(o) ;
 
            o = i18n_get_dropdown(['gui','states'], "update_checker_loadhelp('#help3b','help_dumper');") ;
            $("#current_state1_lang").html(o) ;
