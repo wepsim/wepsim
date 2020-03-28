@@ -733,32 +733,39 @@
     // dialogs: load/save firmware/assembly
     //
 
-    function wsweb_dialog_title ( name, color )
+    function wsweb_dialog_title ( name, color, more_eltos )
     {
-	 return "<div class='dropdown'>" +
-		"<button type='button' " +
-		"        class='btn btn-outline-" + color + " px-3 py-1 dropdown-toggle' " +
-		"        data-toggle='dropdown' id='dropdown-title1' " +
-		"        aria-expanded='false' aria-haspopup='true'>" +
-                "<span class='font-weight-bold' data-langkey='" + name + "'>" + name + "</span>" +
-		"</button>" +
+         if (typeof more_eltos.entries === "undefined")
+             more_eltos.entries = "" ;
+         if (typeof more_eltos.buttons === "undefined")
+             more_eltos.buttons = "<button type='button' " +
+				  "   class='btn btn-outline-" + color + " px-3 py-1 dropdown-toggle' " +
+				  "   data-toggle='dropdown' id='dropdown-title1' " +
+				  "   aria-expanded='false' aria-haspopup='true'>" +
+				  "<span class='font-weight-bold' data-langkey='" + name + "'>" + 
+                                  name + "</span>" +
+				  "</button>" ;
+
+	 return "<div class='dropdown btn-group'>" +
+		more_eltos.buttons +
 		"<div class='dropdown-menu' " +
 		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
 		"     aria-labelledby='dropdown-title1'>" +
                 // details
 		" <form class='px-3 m-0'><div class='form-group m-0'>" +
-		" <label for='wsdt1'>details</label>" +
+		" <label for='wsdt" + name + "'>details</label>" +
 		" <button class='btn btn-outline-secondary btn-block py-1' " +
-                "         type='button' id='wsdt1' " +
+                "         type='button' id='wsdt" + name + "' " +
 		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
 		" <span>&plusmn; Description</span>" +
 		" </button>" +
                 " </div></form>"+
+		more_eltos.entries +
                 // idioms
 		"<div class='dropdown-divider m-1'></div>" +
 		" <form class='px-3 m-0'><div class='form-group m-0'>" +
 		" <label for='dd2'>idiom</label>" +
-                  i18n_get_select('select7b') +
+                  i18n_get_select('select7b' + name) +
                 " </div></form>"+
 		"</div>" +
 		"</div>" ;

@@ -232,7 +232,9 @@
 				    title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
-                                    onclick="wsweb_set_details('HARDWARE');
+                                    onclick="setTimeout(function(){$('#dd1').dropdown('toggle');},50);
+					     $('[data-toggle=tooltip]').tooltip('hide');
+					   //wsweb_set_details('HARDWARE');
 					     return false;">HW</button>
 			    <button id="dd1" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
                                     style="border-color: #CCCCCC;"
@@ -1054,7 +1056,7 @@
          </div>
       </div>
       <div class="modal-footer">
-           <button class="btn btn-primary btn-sm col-3 col-sm-2 float-right"
+           <button class="btn btn-primary btn-sm col col-sm-3 float-right shadow-none"
                    onclick="wsweb_dialogbox_close_checkpoint();
 		            return false;"
 		   type="button"><span data-langkey="Close">Close</span></button>
@@ -1069,7 +1071,7 @@
    <div class="modal-content">
       <div class="modal-header">
          <div class="mx-auto">
-               <div class="btn-group">
+               <div class="btn-group" id="current_state1_title">
                   <button onclick="$('#bot_check1').carousel(0);"
                           type="button"
                           class="btn btn-dark px-3 py-1"><span data-langkey='States'>States</span></button>
