@@ -235,19 +235,6 @@
 	    $('[data-toggle=tooltip]').tooltip('hide');
 	    wepsim_restore_uicfg() ;
 
-            // add if recording
-            simcore_record_append_new('Open examples',
-		                      'wsweb_dialogbox_open_examples();\n') ;
-
-            // intercept events...
-	    $("#example1").one("hidden.bs.modal",
-		               function () {
-				   simcore_record_append_new('Close examples',
-				       	                     'wsweb_dialogbox_close_all();\n');
-			       });
-            wsweb_scroll_record('#container-example1') ;
-	    simcore_record_captureInit() ;
-
             // return ok
             return true ;
     }
@@ -259,18 +246,6 @@
 	    $('[data-toggle=tooltip]').tooltip('hide');
 	    wepsim_restore_uicfg() ;
 
-            // add if recording
-            simcore_record_append_new('Open help',
-		                      'wsweb_dialogbox_open_help();\n') ;
-
-            // intercept events...
-	    $("#help1").one("hidden.bs.modal",
-		            function () {
-				simcore_record_append_new('Close help',
-					                  'wsweb_dialogbox_close_all();\n');
-			    });
-	    simcore_record_captureInit() ;
-
             // return ok
             return true ;
     }
@@ -280,19 +255,6 @@
 	    wsweb_dialog_open_list('config') ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
 	    wepsim_restore_uicfg() ;
-
-            // add if recording
-            simcore_record_append_new('Open configuration',
-	       	                      'wsweb_dialogbox_open_config();\n') ;
-
-            // intercept events...
-	    $("#config2").one("hidden.bs.modal",
-		              function () {
-				  simcore_record_append_new('Close configuration',
-					                    'wsweb_dialogbox_close_all();\n');
-			      });
-            wsweb_scroll_record('#container-config2') ;
-	    simcore_record_captureInit() ;
 
             // return ok
             return true ;
@@ -425,10 +387,10 @@
     function wsweb_dialogbox_close_all ( )
     {
 	    // Close all dialogbox
-	                  $('#help1').modal('hide') ;
 	         $('#current_state1').modal('hide') ;
 	         $('#current_state2').modal('hide') ;
 	    $('#current_checkpoint1').modal('hide') ;
+	             wsweb_dialog_close('help') ;
 	             wsweb_dialog_close('config') ;
 	             wsweb_dialog_close('examples') ;
 
@@ -823,7 +785,7 @@
 	    d1.modal('show');
 
             // add if recording
-            simcore_record_append_new('Open listing dialogbox',
+            simcore_record_append_new('Open dialogbox ' + dialog_id,
 		                      'wsweb_dialog_open_list("' + dialog_id + '");\n') ;
 
 	    // stats about ui
