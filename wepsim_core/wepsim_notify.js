@@ -111,7 +111,7 @@
 			'</li>' ;
 	}
 	if (u.trim() === '') {
-	    u = '<p class="m-3 text-center"><b>&lt;Empty&gt;</b></p>' ;
+	    u = '<p class="m-3 text-center py-4"><b>&lt;Empty&gt;</b></p>' ;
 	}
 
 	// build html

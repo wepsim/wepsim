@@ -28,7 +28,7 @@
          save_assembly: {
             id:        "lssave2",
 	    title:     function() {
-                         return wsweb_dialog_title('Save Assembly', 'secondary') ;
+                         return wsweb_dialog_title('Save Assembly', 'secondary', {}) ;
 		       },
             body:      function() {
 		       return "<label for='inputFileNameToSaveAs2'>" +
@@ -70,7 +70,7 @@
          load_assembly: {
             id:       "lsload2",
 	    title:    function() {
-                         return wsweb_dialog_title('Load Assembly', 'secondary') ;
+                         return wsweb_dialog_title('Load Assembly', 'secondary', {}) ;
 		      },
             body:     function() {
 		         return "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
@@ -111,7 +111,7 @@
          save_firmware: {
 	    id:       "lssave",
 	    title:    function() {
-                         return wsweb_dialog_title('Save Firmware', 'secondary') ;
+                         return wsweb_dialog_title('Save Firmware', 'secondary', {}) ;
 		      },
             body:     function() {
 		         return "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
@@ -158,7 +158,7 @@
          load_firmware: {
 	    id:      "lsload",
 	    title:   function() {
-                         return wsweb_dialog_title('Load Microcode', 'secondary') ;
+                         return wsweb_dialog_title('Load Microcode', 'secondary', {}) ;
 		     },
             body:    function() {
 		        return "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
@@ -200,7 +200,7 @@
          binary: {
             id:      "bin2",
 	    title:   function() {
-                         return wsweb_dialog_title('Binary', 'secondary') ;
+                         return wsweb_dialog_title('Binary', 'secondary', {}) ;
 		     },
             body:    function() {
 		        return "<div id='bin2-container' class='container-fluid' " +
@@ -241,7 +241,7 @@
          about: {
             id:      "about1",
 	    title:    function() {
-                         return wsweb_dialog_title("About WepSIM", 'secondary') ;
+                         return wsweb_dialog_title("About WepSIM", 'secondary', {}) ;
 		      },
             body:    function() {
 		        return "<div id='container-about1' class='container-fluid'" +
@@ -285,27 +285,8 @@
          notifications: {
             id:       "notifications3",
 	    title:    function() {
-                         return "<div class='dropdown'>" +
-                                "<button type='button' " +
-                                "        class='btn btn-secondary px-3 py-1 dropdown-toggle' " +
-                                "        data-toggle='dropdown' id='dropup-notif' " +
-                                "        aria-expanded='false' aria-haspopup='true'>" +
-                                "<span class='font-weight-bold' data-langkey='Notifications'>Notifications</span>" +
-                                "</button>" +
-                                "<div class='dropdown-menu' " +
-                                "     style='overflow-y:auto; max-height:55vh;' " +
-                                "     aria-labelledby='dropup-notif'>" +
-                                // description
-			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
- 				"   <label for='dd1'>details</label>" +
-                                "   <button class='btn btn-outline-secondary btn-block py-1' " +
-                                "           type='button' id='dd1' " +
-                                "           onclick='$(\".collapse7\").collapse(\"toggle\");' " +
-                                "   ><span>&plusmn; Description</span>" +
-                                "   </button>" +
-                                " </div></form>"+
-                                "<div class='dropdown-divider m-1'></div>" +
-                                // reset
+                          var _more = {
+                                        entries:
 			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
  				"   <label for='dd2'>content</label>" +
                                 "   <button class='btn btn-outline-secondary btn-block py-1' id='dd2' " +
@@ -319,15 +300,10 @@
                                 "           onclick='$(\"#resetyn\").collapse(\"toggle\");' " +
                                 "   ><span data-langkey='No'>No</span></button>" +
 				"   </div>" +
-                                " </div></form>"+
-                                // idioms
-                                "<div class='dropdown-divider m-1'></div>" +
-			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
- 				"   <label for='dd3'>idiom</label>" +
-                                  i18n_get_select('select7b') +
-                                " </div></form>"+
-                                "</div>" +
-                                "</div>" ;
+                                " </div></form>",
+                                      } ;
+
+                         return wsweb_dialog_title('Notifications', 'secondary', _more) ;
 		      },
 	    ttl_acts: {
 	                 description: function() {
@@ -375,7 +351,7 @@
          examples: {
             id:      "example1",
 	    title:    function() {
-                         return wsweb_dialog_title("Examples", 'info') ;
+                         return wsweb_dialog_title("Examples", 'info', {}) ;
 		      },
             body:    function() {
                         return "<div id='container-example1' class='container-fluid p-0' " +
@@ -404,7 +380,7 @@
          config: {
             id:      "config2",
 	    title:    function() {
-                         return wsweb_dialog_title("Configuration", 'primary') ;
+                         return wsweb_dialog_title("Configuration", 'primary', {}) ;
 		      },
             body:    function() {
                         return "<div id='container-config2' class='container-fluid p-0' " +
@@ -448,13 +424,13 @@
          help: {
             id:      "help1",
 	    title:    function() {
-                          return wsweb_dialog_title("Help", 'success') ;
+                          return wsweb_dialog_title("Help", 'success', {}) ;
 		      },
             body:    function() {
                         return "<div id='help1_ref' style='display:none;'></div>" +
                                "<div class='ui-body-d ui-content p-0' id='iframe_help1_container' " +
                                "     style='min-height:50vh; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
-                               "     <div id='iframe_help1' style='min-height:50vh;'>" + 
+                               "     <div id='iframe_help1' style='min-height:50vh;'>" +
 			       table_helps_html(ws_help) +
                                "</div>" +
                                "</div>" ;
