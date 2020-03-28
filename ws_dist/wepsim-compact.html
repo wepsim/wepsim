@@ -656,18 +656,13 @@
    <div class="modal-content">
       <div class="modal-header">
          <div class="mx-auto">
-               <div class="btn-group">
+               <div class="btn-group" id="current_checkpoint1_title">
                   <button onclick="wsweb_select_action('checkpoint');
 			           return false;"
                           type="button"
                           class="btn btn-secondary px-3 py-1"><span data-langkey='Checkpoint'>Checkpoint</span></button>
-                  <button onclick="$('#pot_check1').carousel(1);
-                                   update_checker_loadhelp('#help3a','help_dumper');
-			           return false;"
-                          type="button"
-			  class="btn btn-success px-3 py-1 d-none"><span data-langkey="Help">Help</span></button>
                   <button type="button"
-                          class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                          class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
                           data-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>
@@ -720,11 +715,11 @@
 		                  </h5>
 			      </div>
 			      <div class="card-body">
-					<label for="FileNameToSaveAs1"><em><span data-langkey="File name">File name</span>:</em></label>
+					<label for="FileNameToSaveAs1" class="collapse7"><em><span data-langkey="File name">File name</span>:</em></label>
 					<p><input aria-label="filename to save content" id="FileNameToSaveAs1"
 						  class="form-control btn-outline-dark" placeholder="File name where checkpoint will be saved" style="min-width: 90%;"/></p>
 
-					<label for="tagToSave1"><em><span data-langkey="Tag for checkpoint">Tag for checkpoint</span>:</em></label>
+					<label for="tagToSave1" class="collapse7"><em><span data-langkey="Tag for checkpoint">Tag for checkpoint</span>:</em></label>
 					<p><input aria-label="associated tag to be saved" id="tagToSave1"
 						  class="form-control btn-outline-dark" placeholder="Associated tag to be saved (if any)" style="min-width: 90%;"/></p>
 			      </div>
@@ -734,7 +729,7 @@
 			   <div class="card border-secondary h-100">
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
-				    <span class="text-white bg-secondary" data-langkey="Input">Input</span>
+				    <span class="text-white bg-secondary" data-langkey="Input" class="collapse7">Input</span>
 				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
 					    onclick="var ret = wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
 	                                             if (ret) {
@@ -745,8 +740,7 @@
 		                  </h5>
 			      </div>
 			      <div class="card-body">
-					<label for="fileToLoad31"><em><span data-langkey="File to be loaded">File to be loaded</span>:</em></label>
-					<br>
+					<label for="fileToLoad31" class="collapse7"><em><span data-langkey="File to be loaded">File to be loaded</span>:</em><br></label>
 					<input data-max-height="20vh"
 					       aria-label="file to load" type="file" id="fileToLoad31" class="dropify" />
 			      </div>
@@ -775,8 +769,7 @@
 		                  </h5>
 			      </div>
 			      <div class="card-body">
-					<label for="browserCacheList1"><em><span data-langkey="Session to be restore">Session to be restore</span>:</em></label>
-					<br>
+					<label for="browserCacheList1" class="collapse7"><em><span data-langkey="Session to be restore">Session to be restore</span>:</em><br></label>
 					<div id="browserCacheList1"
 					     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">&lt;Empty&gt;</div>
 			      </div>
@@ -786,16 +779,12 @@
 
 		  </div>
 
-                  <div class="carousel-item">
-                       <div id="help3a"
-                            style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
-                  </div>
                </div>
             </div>
          </div>
       </div>
       <div class="modal-footer">
-           <button class="btn btn-danger btn-sm col-auto pull-right shadow-none"
+           <button class="btn btn-primary btn-sm col-auto pull-right shadow-none"
                    onclick="wsweb_dialogbox_close_checkpoint();
 		            return false;"
 		   type="button"><span data-langkey="Close">Close</span></button>
@@ -814,12 +803,8 @@
                   <button onclick="$('#pot_check1').carousel(0);"
                           type="button"
                           class="btn btn-dark px-3 py-1"><span data-langkey='States'>States</span></button>
-                  <button onclick="$('#pot_check1').carousel(1);
-                                   update_checker_loadhelp('#help3b','help_dumper');"
-                          type="button"
-			  class="btn btn-success px-3 py-1"><span data-langkey="Help">Help</span></button>
                   <button type="button"
-                          class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                          class="btn btn-dark dropdown-toggle dropdown-toggle-split"
                           data-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>
@@ -837,6 +822,10 @@
                                           update_checker_loadhelp('#help3b','help_dumper');
                                           return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
                   </div>
+                  <button onclick="$('#pot_check1').carousel(1);
+                                   update_checker_loadhelp('#help3b','help_dumper');"
+                          type="button"
+			  class="btn btn-success px-3 py-1"><span data-langkey="Help">Help</span></button>
                </div>
          </div>
          <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
@@ -1017,7 +1006,7 @@
 			    return false;"
 		   type="button">
 		   <em class="fa fa-plus" aria-hidden="true"></em><span data-langkey="Add">Add</span> <span class='d-none d-sm-inline-flex'><span data-langkey="'Current State' to History">'Current State' to History</span></span></button>
-           <button class="btn btn-danger btn-sm col-auto pull-right shadow-none"
+           <button class="btn btn-primary btn-sm col-auto pull-right shadow-none"
                    onclick="wsweb_dialogbox_close_state();
 		            return false;"
 		   type="button"><span data-langkey="Close">Close</span></button>

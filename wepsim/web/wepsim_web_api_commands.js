@@ -55,6 +55,7 @@
 					   }
 			 }
 	              },
+            size:     'large',
             onshow:   function() {
 			 var o = $("#lssave2") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
@@ -93,6 +94,7 @@
 					   }
 			 }
 	              },
+            size:     'large',
             onshow:   function() {
 			 $('.dropify').dropify() ;
 
@@ -141,6 +143,7 @@
 					   }
 			 }
 	              },
+            size:     'large',
             onshow:   function() {
 			 var o = $("#lssave") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
@@ -179,6 +182,7 @@
 					   }
 			 }
 	              },
+            size:     'large',
             onshow:   function() {
 			 var o = $("#lsload") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
@@ -223,6 +227,7 @@
 				     }
 			}
 	             },
+            size:    'large',
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
 
@@ -236,21 +241,25 @@
          about: {
             id:      "about1",
 	    title:    function() {
-                         return wsweb_dialog_title("WepSIM's authors", 'secondary') ;
+                         return wsweb_dialog_title("About WepSIM", 'secondary') ;
 		      },
             body:    function() {
 		        return "<div id='container-about1' class='container-fluid'" +
 			       "     style='max-height:80vh; '>" +
-			       "	<div class='row pb-2'>" +
-			       "	  <div class='col-sm-12 p-0'>" +
-			       "	       <span class='float-left mr-auto text-primary'" +
-			       "                    onclick='wepsim_help_set_relative('about#');" +
-			       "                             wepsim_help_refresh();" +
-			       "		              wsweb_about_close();" +
-			       "			      return false;'>GNU Lesser General Public 3</span>" +
-			       "	  </div>" +
+			       "     <form>" +
+			       "	<div class='form-group m-0'>" +
+			       "	   <label for='about_license' class='text-secondary'>License:</label>" +
+			       "	   <span class='text-primary'" +
+			       "                 onclick='wepsim_help_set_relative('about#');" +
+			       "                          wepsim_help_refresh();" +
+			       "		          wsweb_about_close();" +
+			       "			  return false;'>GNU Lesser General Public 3</span>" +
 			       "	</div>" +
-			       "	<ws-authors></ws-authors>" +
+			       "	<div class='form-group'>" +
+			       "	   <label for='about_authors' class='text-secondary'>Authors:</label>" +
+			       "	   <ws-authors></ws-authors>" +
+			       "	</div>" +
+			       "     </form>" +
 			       "</div>" ;
 		     },
 	    buttons: {
@@ -262,6 +271,7 @@
 				      }
 			}
 	             },
+            size:    '',
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
 
@@ -351,6 +361,7 @@
 				      }
 			}
 	             },
+            size:    'large',
             onshow:  function() {
 			 $("#container-notifications3").scrollTop(0) ;
 
@@ -381,6 +392,7 @@
 				      }
 			}
 	             },
+            size:    'large',
             onshow:  function() {
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
@@ -396,7 +408,7 @@
 		      },
             body:    function() {
                         return "<div id='container-config2' class='container-fluid p-0' " +
-                               "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
 			       table_config_html(ws_config) +
                                "</div>" ;
 		     },
@@ -409,6 +421,7 @@
 				      }
 			}
 	             },
+            size:    'large',
             onshow:  function() {
 		         // ui elements
 			 for (m=0; m<ws_config.length; m++) {
@@ -439,8 +452,8 @@
 		      },
             body:    function() {
                         return "<div id='help1_ref' style='display:none;'></div>" +
-                               "<div class='ui-body-d ui-content' id='iframe_help1_container' " +
-                               "     style='padding: 2px 2px 2px 2px; min-height:50vh; max-height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "<div class='ui-body-d ui-content p-0' id='iframe_help1_container' " +
+                               "     style='min-height:50vh; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
                                "     <div id='iframe_help1' style='min-height:50vh;'>" + 
 			       table_helps_html(ws_help) +
                                "</div>" +
@@ -464,6 +477,7 @@
 				      }
 			}
 	             },
+            size:    'large',
             onshow:  function() {
 		         // ui elements
 			 $('#help1_ref').data('relative','') ;
