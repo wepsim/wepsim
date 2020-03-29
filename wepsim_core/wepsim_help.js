@@ -106,10 +106,10 @@
 
     function wepsim_help_refresh ( )
     {
-        var helpdiv = '#iframe_help1' ;
+        var helpdiv = '#scroller-help1' ;
 
         var scrolltothetop = function() {
-        		        var helpdiv_container = 'iframe_help1_container' ;
+        		        var helpdiv_container = 'scroller-help1-container' ;
 				var elto = document.getElementById(helpdiv_container) ;
 				if (elto != null)
 				    elto.scrollTop = 0 ;
@@ -169,7 +169,7 @@
 
     function wepsim_open_help_content ( content )
     {
-        $('#iframe_help1').html(content) ;
+        $('#scroller-help1').html(content) ;
 
         $('#help1_ref').data('relative', '') ;
 	$('#help1_ref').data('absolute', '') ;

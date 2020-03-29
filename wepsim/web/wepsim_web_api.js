@@ -584,10 +584,6 @@
 	    var ws_idiom = get_cfg('ws_idiom') ;
 	    i18n_update_tags('gui', ws_idiom) ;
 
-            // add if recording
-            simcore_record_append_new('Set action work mode to ' + opt,
-		                      'wsweb_select_action("' + opt + '");\n') ;
-
 	    // do action
 	    wsweb_do_action(opt) ;
 
@@ -762,7 +758,7 @@
 						$('[data-toggle=tooltip]').tooltip('hide');
 						// uicfg and events
 						wepsim_restore_uicfg() ;
-            					wsweb_scroll_record('#' + oid) ;
+            					wsweb_scroll_record('#scroller-' + oid) ;
 						simcore_record_captureInit() ;
 					    },
 			    buttons:        obuttons
@@ -1203,7 +1199,7 @@
 					clearTimeout(wsweb_scroll_timer) ;
 				    }
 
-				    wsweb_scroll_timer = setTimeout(add_scroll_to, 150);
+				    wsweb_scroll_timer = setTimeout(add_scroll_to, 100);
 				 });
     }
 

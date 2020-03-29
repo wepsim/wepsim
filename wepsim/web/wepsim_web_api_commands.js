@@ -318,7 +318,7 @@
 					 $("#container-notifications3").html(notifications_html) ;
 					 // reajust ui
 					 wepsim_restore_uicfg() ;
-					 wsweb_scroll_record('#container-notifications3') ;
+					 wsweb_scroll_record('#scroller-notifications3') ;
 					 simcore_record_captureInit() ;
 				         return false;
 	                              }
@@ -326,7 +326,10 @@
             body:     function() {
 		         var notifications      = simcore_notifications_get() ;
 		         var notifications_html = table_notifications_html(notifications) ;
-		         return "<div id='container-notifications3' class='container-fluid'>" + notifications_html + "</div>" ;
+
+		         return "<div id='scroller-notifications3' class='container-fluid'>" + 
+                                notifications_html + 
+                                "</div>" ;
 		      },
 	    buttons:  {
 			Close: {
@@ -354,7 +357,7 @@
                          return wsweb_dialog_title("Examples", 'info', {}) ;
 		      },
             body:    function() {
-                        return "<div id='container-example1' class='container-fluid p-0' " +
+                        return "<div id='scroller-example1' class='container-fluid p-0' " +
                                "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
                                table_examples_html(ws_examples) +
                                "</div>" ;
@@ -383,7 +386,7 @@
                          return wsweb_dialog_title("Configuration", 'primary', {}) ;
 		      },
             body:    function() {
-                        return "<div id='container-config2' class='container-fluid p-0' " +
+                        return "<div id='scroller-config2' class='container-fluid p-0' " +
                                "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
 			       table_config_html(ws_config) +
                                "</div>" ;
@@ -428,9 +431,9 @@
 		      },
             body:    function() {
                         return "<div id='help1_ref' style='display:none;'></div>" +
-                               "<div class='ui-body-d ui-content p-0' id='iframe_help1_container' " +
+                               "<div class='ui-body-d ui-content p-0' id='scroller-help1-container' " +
                                "     style='min-height:50vh; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
-                               "     <div id='iframe_help1' style='min-height:50vh;'>" +
+                               "     <div id='scroller-help1' style='min-height:50vh;'>" +
 			       table_helps_html(ws_help) +
                                "</div>" +
                                "</div>" ;
