@@ -233,23 +233,18 @@
                         '<div class="col-sm-auto">' +
                         '    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
                         '</div>' +
-                        '<div class="col-sm-3">' +
+                        '<div class="col-sm-4">' +
                         '     <span style="cursor:pointer;" ' +
 		        '           id="example_' + m + '" ' +
 		        '           onclick="simcore_record_append_pending(); ' +
 		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true); ' +
 		        '                    wsweb_dialog_close(\'examples\'); ' +
 		        '                    return false;" ' +
-		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-2" style="cursor:pointer;" >' + e_title + '</span>' +
-                        '</div>' +
-                        '<div class="col-sm collapse7 show">' +
-                        '    <c>' + e_description + '</c>' +
-                        '</div>' +
-                        '<div class="col-sm-auto">' +
+		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-1" style="cursor:pointer;" >' + e_title + '</span>' +
 		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + mode + '&example=' + m + '</span>' +
-		        '    <div class="btn-group btn-group-md float-right align-top">' +
+		        '    <div class="btn-group btn-group-md">' +
                         '           <button type="button" ' +
-		        '                   class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+		        '                   class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '              <span class="sr-only">Toggle Dropdown</span>' +
                         '           </button>' +
                         '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
@@ -280,6 +275,9 @@
 		        '                class="dropdown-item text-white bg-info user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
 	                '           </div>' +
 		        '    </div>' +
+                        '</div>' +
+                        '<div class="col-sm collapse7 show">' +
+                        '    <c>' + e_description + '</c>' +
                         '</div>' +
 	                '</div>' ;
 

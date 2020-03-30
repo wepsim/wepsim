@@ -310,9 +310,14 @@
     {
             var textToCompile = inputasm.getValue() ;
 	    var ok = wepsim_compile_assembly(textToCompile) ;
-	    if (true == ok) {
+	    if (true == ok) 
+            {
                  wsweb_dialog_open_list('binary') ;
 		 wepsim_show_binary_code('#bin2', '#compile_results') ;
+
+                 // add if recording
+                 simcore_record_append_new('update assembly binary',
+                                           'wepsim_show_binary_code("#bin2", "#compile_results");\n') ;
 	    }
 
             // return ok
@@ -323,11 +328,16 @@
     {
             var textToMCompile = inputfirm.getValue() ;
 	    var ok = wepsim_compile_firmware(textToMCompile) ;
-	    if (true == ok) {
+	    if (true == ok) 
+            {
                  wsweb_dialog_open_list('binary') ;
 		 wepsim_show_binary_microcode('#bin2', '#compile_results') ;
 		 wepsim_notify_success('<strong>INFO</strong>',
 				       'Please remember to recompile the assembly code if needed.') ;
+
+                 // add if recording
+                 simcore_record_append_new('update firmware binary',
+                                           'wepsim_show_binary_microcode("#bin2", "#compile_results");\n') ;
 	    }
 
             // return ok
