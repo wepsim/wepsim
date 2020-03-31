@@ -113,21 +113,40 @@
 		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-7 p-2'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
 		                "<div class='card border-secondary h-100'>" +
 			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 		                "  <h5 class='m-0'>" +
 				"  <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
-				"  <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
-                                "          onclick='wsweb_save_controlmemory_to_file();" +
-				"		    return false;'" +
-                                "><span data-langkey='Save control memory'>Save control memory</span></button>" +
-				"  <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
+                                //
+                                "<div class='btn-group float-right'>" +
+				"  <button class='btn btn-light mx-1 py-0 col-auto' " +
                                 "          onclick='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
 		                "                   var textToWrite      = inputfirm.getValue();" +
 		                "                   wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
 				"		    return false;'" +
-                                "><span data-langkey='Save editor content'>Save editor content</span></button>" +
+                                "><span data-langkey='Save'>Save</span></button>" +
+                                "  <button type='button' class='btn btn-light dropdown-toggle dropdown-toggle-split' " +
+                                "          data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+                                "    <span class='sr-only'>Toggle Dropdown</span>" +
+                                "  </button>" +
+                                "  <div class='dropdown-menu'>" +
+                                "    <h6 class='dropdown-header'>Default:</h6>" +
+				"    <a class='dropdown-item' href='#' " +
+				"       onclick='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+		                "                var textToWrite      = inputfirm.getValue();" +
+		                "                wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+				"	         return false;'" +
+                                "     ><span data-langkey='Save editor content'>Save editor content</span></a>" +
+				"<div class='dropdown-divider'></div>" +
+                                "    <h6 class='dropdown-header'>Optional:</h6>" +
+				"    <a class='dropdown-item' href='#' " +
+				"       onclick='wsweb_save_controlmemory_to_file();" +
+				"	         return false;'" +
+				"     ><span data-langkey='Save control memory'>Save control memory</span></a>" +
+                                "  </div>" +
+                                "</div>" +
+                                //
 		               	"  </h5>" +
 			      	"</div>" +
 			      	" <div class='card-body'>" +
@@ -137,7 +156,7 @@
 			     	" </div>" +
 			   	"</div>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-5 p-2'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
 		                "<div class='card border-secondary h-100'>" +
 			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 		                " <h5 class='m-0'>" +
@@ -183,7 +202,6 @@
                          i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
-
 
 	 // binary
          binary: {
@@ -275,51 +293,46 @@
          notifications: {
             id:       "notifications3",
 	    title:    function() {
-                          var _more = {
-                                        entries:
-			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
- 				"   <label for='dd2'>content</label>" +
-                                "   <button class='btn btn-outline-secondary btn-block py-1' id='dd2' " +
-                                "           data-toggle='collapse' data-target='#resetyn' type='button' " +
-                                "   ><span data-langkey='Reset'>Reset</span></button>" +
-				"   <div id='resetyn' class='collapse'>" +
-                                "   <button class='dropdown-item py-2 text-danger pr-2 border' type='button' " +
-                                "           onclick='wsweb_dialogs.notifications.ttl_acts.reset();' " +
-                                "   ><span data-langkey='Yes'>Yes</span></button>" +
-                                "   <button class='dropdown-item py-2 text-info   pr-2 border' type='button' " +
-                                "           onclick='$(\"#resetyn\").collapse(\"toggle\");' " +
-                                "   ><span data-langkey='No'>No</span></button>" +
-				"   </div>" +
-                                " </div></form>",
-                                      } ;
-
-                         return wsweb_dialog_title('Notifications', 'secondary', _more) ;
+                         return wsweb_dialog_title('Notifications', 'secondary', {}) ;
 		      },
-	    ttl_acts: {
-	                 description: function() {
-                                         $(".collapse7").collapse("toggle") ;
-				         return false ;
-	                              },
-	                 reset:       function() {
-					 // reajust content
-					 simcore_notifications_reset() ;
-					 var notifications      = simcore_notifications_get() ;
-					 var notifications_html = table_notifications_html(notifications) ;
-					 $("#container-notifications3").html(notifications_html) ;
-					 // reajust ui
-					 wepsim_restore_uicfg() ;
-					 wsweb_scroll_record('#scroller-notifications3') ;
-					 simcore_record_captureInit() ;
-				         return false;
-	                              }
-                      },
             body:     function() {
 		         var notifications      = simcore_notifications_get() ;
 		         var notifications_html = table_notifications_html(notifications) ;
 
-		         return "<div id='scroller-notifications3' class='container-fluid'>" +
+		         return "<div class='card border-secondary h-100'>" +
+			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
+		                "  <h5 class='m-0'>" +
+                                "  <div class='dropdown float-right'>" +
+                                "    <button class='btn btn-light text-danger py-1 dropdown-toggle' " +
+                                "            type='button' id='resetyn' data-toggle='dropdown' " +
+                                "            aria-haspopup='true' aria-expanded='false' " +
+				"            ><span data-langkey='Reset'>Reset</span></button>" +
+                                "    </button>" +
+                                "    <div class='dropdown-menu' aria-labelledby='resetyn'>" +
+                                "     <a class='dropdown-item py-2 bg-light text-danger' type='button' " +
+                                "        onclick='simcore_notifications_reset(); " +
+				"		  var notifications = simcore_notifications_get(); " +
+				"	          var ntf_html = table_notifications_html(notifications); " +
+				"		  $(\"#scroller-notifications3\").html(ntf_html); " +
+				"		  // reajust ui " +
+				"		  wepsim_restore_uicfg(); " +
+				"		  wsweb_scroll_record(\"#scroller-notifications3\"); " +
+				"		  simcore_record_captureInit(); " +
+				"		  return false;'" +
+                                "         ><span data-langkey='Yes'>Yes</span></a>" +
+                                "      <a class='dropdown-item py-2 bg-light text-info' type='button' " +
+                                "         ><span data-langkey='No'>No</span></a>" +
+                                "    </div>" +
+                                "  </div>" +
+		               	"  </h5>" +
+			      	"</div>" +
+			      	" <div class='card-body p-1'>" +
+		                "<div id='scroller-notifications3' class='container-fluid' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                 notifications_html +
-                                "</div>" ;
+                                "</div>" +
+			     	" </div>" +
+			   	"</div>" ;
 		      },
 	    buttons:  {
 			Close: {
@@ -332,7 +345,7 @@
 	             },
             size:    'large',
             onshow:  function() {
-			 $("#container-notifications3").scrollTop(0) ;
+			 $("#scroller-notifications3").scrollTop(0) ;
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
@@ -396,7 +409,6 @@
 			 for (m=0; m<ws_config.length; m++) {
 			      ws_config[m].code_init() ;
 			 }
-			 $("#container-config2").scrollTop(0);
 			 $('a[data-toggle="popover1"]').popover({
 				  placement:  'bottom',
 				  trigger:    'focus, hover',
@@ -406,6 +418,7 @@
 						  return content ; // DOMPurify.sanitize(content) ;
 					      }
 			 }) ;
+                         setTimeout(function() { $("#scroller-config2").scrollTop(0); }, 50);
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;

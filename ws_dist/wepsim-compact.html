@@ -754,14 +754,22 @@
 						          wepsim_notify_success('<strong>INFO</strong>', ret.msg);
 						     else wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
 						     return false;"><span data-langkey="Load">Load</span></button>
-				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
-					    onclick="var wsi = get_cfg('ws_idiom') ;
-						     var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-	                                             if (confirm(q)) {
-                                                         wepsim_checkpoint_clearCache();
-						         wepsim_checkpoint_listCache('browserCacheList1');
-	                                             }
-						     return false;"><span data-langkey="Reset" class="text-danger">Reset</span></button>
+					  <div class='dropdown float-right'>
+					    <button class='btn btn-light text-danger py-0 mx-1 float-right col-auto dropdown-toggle' 
+						    type='button' id='resetyn2' data-toggle='dropdown' 
+						    aria-haspopup='true' aria-expanded='false' 
+						    ><span data-langkey='Reset'>Reset</span></button>
+					    </button>
+					    <div class='dropdown-menu' aria-labelledby='resetyn2'>
+					     <a class='dropdown-item py-2 bg-light text-danger' type='button' 
+						onclick='wepsim_checkpoint_clearCache();
+							 wepsim_checkpoint_listCache("browserCacheList1");
+							 return false;'
+						 ><span data-langkey='Yes'>Yes</span></a>
+					      <a class='dropdown-item py-2 bg-light text-info' type='button' 
+						 ><span data-langkey='No'>No</span></a>
+					    </div>
+					  </div>
 		                  </h5>
 			      </div>
 			      <div class="card-body">
