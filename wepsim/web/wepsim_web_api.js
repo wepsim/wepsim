@@ -310,9 +310,14 @@
     {
             var textToCompile = inputasm.getValue() ;
 	    var ok = wepsim_compile_assembly(textToCompile) ;
-	    if (true == ok) {
+	    if (true == ok) 
+            {
                  wsweb_dialog_open_list('binary') ;
 		 wepsim_show_binary_code('#bin2', '#compile_results') ;
+
+                 // add if recording
+                 simcore_record_append_new('update assembly binary',
+                                           'wepsim_show_binary_code("#bin2", "#compile_results");\n') ;
 	    }
 
             // return ok
@@ -323,11 +328,16 @@
     {
             var textToMCompile = inputfirm.getValue() ;
 	    var ok = wepsim_compile_firmware(textToMCompile) ;
-	    if (true == ok) {
+	    if (true == ok) 
+            {
                  wsweb_dialog_open_list('binary') ;
 		 wepsim_show_binary_microcode('#bin2', '#compile_results') ;
 		 wepsim_notify_success('<strong>INFO</strong>',
 				       'Please remember to recompile the assembly code if needed.') ;
+
+                 // add if recording
+                 simcore_record_append_new('update firmware binary',
+                                           'wepsim_show_binary_microcode("#bin2", "#compile_results");\n') ;
 	    }
 
             // return ok
@@ -584,10 +594,6 @@
 	    var ws_idiom = get_cfg('ws_idiom') ;
 	    i18n_update_tags('gui', ws_idiom) ;
 
-            // add if recording
-            simcore_record_append_new('Set action work mode to ' + opt,
-		                      'wsweb_select_action("' + opt + '");\n') ;
-
 	    // do action
 	    wsweb_do_action(opt) ;
 
@@ -695,44 +701,6 @@
     // dialogs: load/save firmware/assembly
     //
 
-    function wsweb_dialog_title ( name, color, more_eltos )
-    {
-         if (typeof more_eltos.entries === "undefined")
-             more_eltos.entries = "" ;
-         if (typeof more_eltos.buttons === "undefined")
-             more_eltos.buttons = "<button type='button' " +
-				  "   class='btn btn-outline-" + color + " px-3 py-1 dropdown-toggle' " +
-				  "   data-toggle='dropdown' id='dropdown-title1' " +
-				  "   aria-expanded='false' aria-haspopup='true'>" +
-				  "<span class='font-weight-bold' data-langkey='" + name + "'>" + 
-                                  name + "</span>" +
-				  "</button>" ;
-
-	 return "<div class='dropdown btn-group'>" +
-		more_eltos.buttons +
-		"<div class='dropdown-menu' " +
-		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
-		"     aria-labelledby='dropdown-title1'>" +
-                // details
-		" <form class='px-3 m-0'><div class='form-group m-0'>" +
-		" <label for='wsdt" + name + "'>details</label>" +
-		" <button class='btn btn-outline-secondary btn-block py-1' " +
-                "         type='button' id='wsdt" + name + "' " +
-		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
-		" <span>&plusmn; Description</span>" +
-		" </button>" +
-                " </div></form>"+
-		more_eltos.entries +
-                // idioms
-		"<div class='dropdown-divider m-1'></div>" +
-		" <form class='px-3 m-0'><div class='form-group m-0'>" +
-		" <label for='dd2'>idiom</label>" +
-                  i18n_get_select('select7b' + name) +
-                " </div></form>"+
-		"</div>" +
-		"</div>" ;
-    }
-
     function wsweb_dialog_open_list ( dialog_id )
     {
 	    // check params
@@ -759,10 +727,12 @@
 			    animate:        false,
 			    onShown:        function(e) {
 						opost() ;
-						$('[data-toggle=tooltip]').tooltip('hide');
+
 						// uicfg and events
+						$('[data-toggle=tooltip]').tooltip('hide');
 						wepsim_restore_uicfg() ;
-            					wsweb_scroll_record('#' + oid) ;
+
+            					wsweb_scroll_record('#scroller-' + oid) ;
 						simcore_record_captureInit() ;
 					    },
 			    buttons:        obuttons
@@ -1203,7 +1173,7 @@
 					clearTimeout(wsweb_scroll_timer) ;
 				    }
 
-				    wsweb_scroll_timer = setTimeout(add_scroll_to, 150);
+				    wsweb_scroll_timer = setTimeout(add_scroll_to, 100);
 				 });
     }
 

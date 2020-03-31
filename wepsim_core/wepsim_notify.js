@@ -116,7 +116,7 @@
 
 	// build html
 	var o = '<div id="notifications3" class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
-	        '<div id="container-notifications3" class="card" style="max-height:65vh; overflow:auto; -webkit-overflow-scrolling: touch;">' +
+	        '<div id="container-notifications3" class="card" style="max-height:50vh; overflow:auto; -webkit-overflow-scrolling: touch;">' +
 	        '<ul class="list-group list-group-flush">' + 
                 u +
 	        '</ul>' +

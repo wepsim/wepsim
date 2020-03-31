@@ -576,12 +576,9 @@
 					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button onclick="wsweb_dialog_open_list('load_firmware'); return true;"
+						    <button onclick="wsweb_dialog_open_list('load_save_firmware'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
-						    <button onclick="wsweb_dialog_open_list('save_firmware'); return true;"
-							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file"></em><br><strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
 
 						    <button style="background-color: #CCCCCC"
 		                                            id="mcc1"
@@ -616,12 +613,9 @@
 					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button onclick="wsweb_dialog_open_list('load_assembly'); return true;"
+						    <button onclick="wsweb_dialog_open_list('load_save_assembly'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
-						    <button onclick="wsweb_dialog_open_list('save_assembly'); return true;"
-							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file"></em><br><strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
 
 						    <button style="background-color: #CCCCCC"
                                                             id="acc1"
@@ -675,12 +669,9 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-			    <button onclick="wsweb_dialog_open_list('load_firmware'); return true;"
+			    <button onclick="wsweb_dialog_open_list('load_save_firmware'); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-		                    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
-			    <button onclick="wsweb_dialog_open_list('save_firmware'); return true;"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file"></em>&nbsp;<strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -809,12 +800,9 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-			    <button onclick="wsweb_dialog_open_list('load_assembly'); return true;"
+			    <button onclick="wsweb_dialog_open_list('load_save_assembly'); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
-			    <button onclick="wsweb_dialog_open_list('save_assembly'); return true;"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file"></em>&nbsp;<strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -1032,14 +1020,22 @@
 						          wepsim_notify_success('<strong>INFO</strong>', ret.msg);
 						     else wepsim_notify_success('<strong>INFO</strong>', 'Processing load request...');
 						     return false;"><span data-langkey="Load">Load</span></button>
-				    <button class="btn btn-light mx-1 float-right py-0 col-auto"
-					    onclick="var wsi = get_cfg('ws_idiom') ;
-						     var   q = i18n_get('dialogs',wsi,'Are you sure?') ;
-	                                             if (confirm(q)) {
-                                                         wepsim_checkpoint_clearCache();
-						         wepsim_checkpoint_listCache('browserCacheList1');
-	                                             }
-						     return false;"><span data-langkey="Reset" class="text-danger">Reset</span></button>
+					  <div class='dropdown float-right'>
+					    <button class='btn btn-light text-danger py-0 mx-1 float-right col-auto dropdown-toggle' 
+						    type='button' id='resetyn2' data-toggle='dropdown' 
+						    aria-haspopup='true' aria-expanded='false' 
+						    ><span data-langkey='Reset'>Reset</span></button>
+					    </button>
+					    <div class='dropdown-menu' aria-labelledby='resetyn2'>
+					     <a class='dropdown-item py-2 bg-light text-danger' type='button' 
+						onclick='wepsim_checkpoint_clearCache();
+							 wepsim_checkpoint_listCache("browserCacheList1");
+							 return false;'
+						 ><span data-langkey='Yes'>Yes</span></a>
+					      <a class='dropdown-item py-2 bg-light text-info' type='button' 
+						 ><span data-langkey='No'>No</span></a>
+					    </div>
+					  </div>
 		                  </h5>
 			      </div>
 			      <div class="card-body">

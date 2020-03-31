@@ -376,34 +376,25 @@
            var o = "" ;
 
            // dropdown checkpoint
-           o = wsweb_dialog_title('Checkpoint', 'secondary', {}) ;
+           o = wepsim_config_dialog_title('Checkpoint', 'secondary', '') ;
            $("#current_checkpoint1_title").html(o) ;
 
            // dropdown states
-           var _more = {
-                          buttons: "<button type='button' " +
-                                   "   onclick=\"$('#bot_check1').carousel(0);\" " +
-                                   "   class='btn btn-dark px-3 py-1' " +
-                                   "><span data-langkey='States'>States</span></button>" +
-                                   "<button type='button' " +
-                                   "   onclick=\"$('#bot_check1').carousel(1); " +
-			  	   "             update_checker_loadhelp('#help3b', 'help_dumper');\" " +
-				   "   class='btn btn-success px-3 py-1' " + 
-				   "><span data-langkey='Help'>Help</span></button>" +
-                                   "<button type='button' " +
-                                   "   data-toggle='dropdown' id='dropdown-title1' " +
-                                   "   aria-expanded='false' aria-haspopup='true' " +
-                                   "   class='btn btn-success dropdown-toggle dropdown-toggle-split'" +
-                                   "><span class='sr-only'>Toggle Dropdown</span>" +
-                                   "</button>"
-                       } ;
-           o = wsweb_dialog_title('', 'success', _more) ;
-           $("#current_state1_title").html(o) ;
+           var st_btns = "<button type='button' " +
+                         "   onclick=\"$('#bot_check1').carousel(0);\" " +
+                         "   class='btn btn-dark px-3 py-1' " +
+                         "><span data-langkey='States'>States</span></button>" +
+                         "<button type='button' " +
+                         "   onclick=\"$('#bot_check1').carousel(1); " +
+			 "             update_checker_loadhelp('#help3b', 'help_dumper');\" " +
+			 "   class='btn btn-success px-3 py-1' " + 
+			 "><span data-langkey='Help'>Help</span></button>" ;
 
-/*
-           o = i18n_get_dropdown(['gui','states'], "update_checker_loadhelp('#help3b','help_dumper');") ;
-           $("#current_state1_lang").html(o) ;
-*/
+           o = wepsim_config_dialog_dropdown("success", 
+                                             st_btns, 
+       					     "var ws_idiom = get_cfg('ws_idiom');" +
+                                             "i18n_update_tags('states', ws_idiom);") ;
+           $("#current_state1_title").html(o) ;
     }
 
     //

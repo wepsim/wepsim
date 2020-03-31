@@ -25,168 +25,181 @@
 
     wsweb_dialogs = {
 
-         save_assembly: {
-            id:        "lssave2",
+         load_save_assembly: {
+            id:        "lssvasm",
 	    title:     function() {
-                         return wsweb_dialog_title('Save Assembly', 'secondary', {}) ;
+                          return wepsim_config_dialog_title("Load/Save Assembly",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		       },
             body:      function() {
-		       return "<label for='inputFileNameToSaveAs2'>" +
-			      "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" +
-			      "</label>" +
-	                      "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
-                              "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>" ;
+		         return "<div id='scroller-lssvasm' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
+		                "<div class='card border-secondary h-100'>" +
+			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
+		                "  <h5 class='m-0'>" +
+				"  <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
+				"  <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
+                                "          onclick='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+				"	            var fileNameToSaveAs = ifntsa2.value;" +
+				"	            var textToWrite      = inputasm.getValue();" +
+				"	            wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+				"		    return false;'" +
+                                "><span data-langkey='Save'>Save</span></button>" +
+		               	"  </h5>" +
+			      	"</div>" +
+			      	" <div class='card-body'>" +
+		                "<label for='inputFileNameToSaveAs2'>" +
+			        "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" +
+			        "</label>" +
+	                        "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
+                                "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>" +
+			     	" </div>" +
+			   	"</div>" +
+                               "</div>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
+		                "<div class='card border-secondary h-100'>" +
+			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
+		                "  <h5 class='m-0'>" +
+				"  <span class='text-white bg-secondary' data-langkey='Input'>Input</span>" +
+				"  <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
+                                "          onclick='var ftl2 = document.getElementById(\"fileToLoad2\"); " +
+                                "                   var fileToLoad = ftl2.files[0]; " +
+		                "                   wepsim_file_loadFrom(fileToLoad," +
+                                "                                   function(txt){ inputasm.setValue(txt); });" +
+				"		    return false;'" +
+                                "><span data-langkey='Load'>Load</span></button>" +
+		               	"  </h5>" +
+			      	"</div>" +
+			      	"<div class='card-body'>" +
+		                "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
+	                        "<p><input aria-label='file to load' " +
+                                "          type='file' id='fileToLoad2' class='dropify'/></p>" +
+			     	"</div>" +
+			     	"</div>" +
+                               "</div>" +
+                               "</div>" +
+			   	"</div>" ;
 	              },
 	    buttons:  {
-			 save: {
-				label:     "<span data-langkey='Save to File'>Save to File</span>",
-				className: 'btn btn-dark',
-				callback:  function() {
-					       var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
-					       var textToWrite      = inputasm.getValue();
-					       wepsim_save_to_file(textToWrite, fileNameToSaveAs);
-					   }
-			 },
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
-				className: 'btn btn-danger',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 				callback:  function() {
-    					       wsweb_dialog_close('save_assembly') ;
+    					       wsweb_dialog_close('load_save_assembly') ;
 					   }
 			 }
 	              },
             size:     'large',
             onshow:   function() {
-			 var o = $("#lssave2") ;
+			 var o = $("#lssvasm") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
 
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
-		      }
-         },
-
-         load_assembly: {
-            id:       "lsload2",
-	    title:    function() {
-                         return wsweb_dialog_title('Load Assembly', 'secondary', {}) ;
-		      },
-            body:     function() {
-		         return "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
-	                        "<p><input aria-label='file to load' type='file' id='fileToLoad2' class='dropify'/></p>" ;
-	              },
-	    buttons:  {
-			 save: {
-				label:     "<span data-langkey='Load'>Load</span>",
-				className: 'btn btn-dark',
-				callback:  function() {
-		                               var fileToLoad = document.getElementById('fileToLoad2').files[0];
-		                               wepsim_file_loadFrom(fileToLoad,
-                                                                     function(txt){ inputasm.setValue(txt); });
-					   }
-			 },
-			 close: {
-				label:     "<span data-langkey='Close'>Close</span>",
-				className: 'btn btn-danger',
-				callback:  function() {
-    					       wsweb_dialog_close('load_assembly') ;
-					   }
-			 }
-	              },
-            size:     'large',
-            onshow:   function() {
 			 $('.dropify').dropify() ;
 
-			 var o = $("#lsload2") ;
-		         o.find('.modal-header').attr("style", "background-color: black !important") ;
-			 o.find('.modal-title').addClass("ml-auto") ;
-
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('dialogs', ws_idiom) ;
 		      }
          },
 
-         save_firmware: {
-	    id:       "lssave",
+         load_save_firmware: {
+	    id:       "lssvfir",
 	    title:    function() {
-                         return wsweb_dialog_title('Save Firmware', 'secondary', {}) ;
+                          return wepsim_config_dialog_title("Load/Save Firmware",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:     function() {
-		         return "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
+		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
+		                "<div class='card border-secondary h-100'>" +
+			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
+		                "  <h5 class='m-0'>" +
+				"  <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
+                                //
+                                "<div class='btn-group float-right'>" +
+				"  <button class='btn btn-light mx-1 py-0 col-auto' " +
+                                "          onclick='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+		                "                   var textToWrite      = inputfirm.getValue();" +
+		                "                   wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+				"		    return false;'" +
+                                "><span data-langkey='Save'>Save</span></button>" +
+                                "  <button type='button' class='btn btn-light dropdown-toggle dropdown-toggle-split' " +
+                                "          data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+                                "    <span class='sr-only'>Toggle Dropdown</span>" +
+                                "  </button>" +
+                                "  <div class='dropdown-menu'>" +
+                                "    <h6 class='dropdown-header'>Default:</h6>" +
+				"    <a class='dropdown-item' href='#' " +
+				"       onclick='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+		                "                var textToWrite      = inputfirm.getValue();" +
+		                "                wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+				"	         return false;'" +
+                                "     ><span data-langkey='Save editor content'>Save editor content</span></a>" +
+				"<div class='dropdown-divider'></div>" +
+                                "    <h6 class='dropdown-header'>Optional:</h6>" +
+				"    <a class='dropdown-item' href='#' " +
+				"       onclick='wsweb_save_controlmemory_to_file();" +
+				"	         return false;'" +
+				"     ><span data-langkey='Save control memory'>Save control memory</span></a>" +
+                                "  </div>" +
+                                "</div>" +
+                                //
+		               	"  </h5>" +
+			      	"</div>" +
+			      	" <div class='card-body'>" +
+		                "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
 	                        "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs'" +
-                                "          class='form-control btn-outline-dark' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" ;
+                                "          class='form-control btn-outline-dark' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" +
+			     	" </div>" +
+			   	"</div>" +
+                               "</div>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
+		                "<div class='card border-secondary h-100'>" +
+			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
+		                " <h5 class='m-0'>" +
+				" <span class='text-white bg-secondary' data-langkey='Input'>Input</span>" +
+
+				" <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
+                                "         onclick='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
+		                "                  wepsim_file_loadFrom(ftl," +
+			        "                 		 function(txt){ inputfirm.setValue(txt); });" +
+				"		   return false;'" +
+                                "><span data-langkey='Load'>Load</span></button>" +
+		               	"  </h5>" +
+			      	"</div>" +
+			      	"<div class='card-body'>" +
+		                "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
+	                        "<p><input aria-label='file to load' type='file' id='fileToLoad' class='dropify'/></p>" +
+			     	"</div>" +
+			     	"</div>" +
+                               "</div>" +
+                               "</div>" +
+			   	"</div>" ;
 		      },
 	    buttons:  {
-			 save1: {
-				label:     "<span data-langkey='Save Editor content to File'>Save Editor content to File</span>",
-				className: 'btn btn-dark',
-				callback:  function() {
-		                               var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                                               var textToWrite      = inputfirm.getValue();
-                                               wepsim_save_to_file(textToWrite, fileNameToSaveAs);
-					   }
-			 },
-			 save2: {
-				label:     "<span data-langkey='Save control memory to File'>Save control memory to File</span>",
-				className: 'btn btn-dark my-1',
-				callback:  function() {
-		                               wsweb_save_controlmemory_to_file() ;
-					   }
-			 },
 			 close: {
 				label:     "<span data-langkey='Close'>Close</span>",
-				className: 'btn btn-danger',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 				callback:  function() {
-    					       wsweb_dialog_close('save_firmware') ;
+    					       wsweb_dialog_close('load_save_firmware') ;
 					   }
 			 }
 	              },
             size:     'large',
             onshow:   function() {
-			 var o = $("#lssave") ;
+			 var o = $("#lssvfir") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
 
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
-		      }
-         },
-
-         load_firmware: {
-	    id:      "lsload",
-	    title:   function() {
-                         return wsweb_dialog_title('Load Microcode', 'secondary', {}) ;
-		     },
-            body:    function() {
-		        return "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
-	                       "<p><input aria-label='file to load' type='file' id='fileToLoad' class='dropify'/></p>" ;
-		     },
-	    buttons: {
-			 save: {
-				label:     "<span data-langkey='Load'>Load</span>",
-				className: 'btn btn-dark',
-				callback:  function() {
-		                               var fileToLoad = document.getElementById('fileToLoad').files[0];
-		                               wepsim_file_loadFrom(fileToLoad,
-                                                                     function(txt){ inputfirm.setValue(txt); });
-					   }
-			 },
-			 close: {
-				label:     "<span data-langkey='Close'>Close</span>",
-				className: 'btn btn-danger',
-				callback:  function() {
-    					       wsweb_dialog_close('load_firmware') ;
-					   }
-			 }
-	              },
-            size:     'large',
-            onshow:   function() {
-			 var o = $("#lsload") ;
-		         o.find('.modal-header').attr("style", "background-color: black !important") ;
-			 o.find('.modal-title').addClass("ml-auto") ;
 		         // dropify
 			 $('.dropify').dropify() ;
 
@@ -200,7 +213,10 @@
          binary: {
             id:      "bin2",
 	    title:   function() {
-                         return wsweb_dialog_title('Binary', 'secondary', {}) ;
+                          return wepsim_config_dialog_title("Binary",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
 		        return "<div id='bin2-container' class='container-fluid' " +
@@ -222,6 +238,7 @@
 			OK: {
 			   label: "OK",
 			   className: 'btn btn-primary btn-sm col col-sm-3 float-right shadow-none',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback: function() {
     					 wsweb_dialog_close('binary') ;
 				     }
@@ -241,7 +258,10 @@
          about: {
             id:      "about1",
 	    title:    function() {
-                         return wsweb_dialog_title("About WepSIM", 'secondary', {}) ;
+                          return wepsim_config_dialog_title("About WepSIM",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
 		        return "<div id='container-about1' class='container-fluid'" +
@@ -285,48 +305,49 @@
          notifications: {
             id:       "notifications3",
 	    title:    function() {
-                          var _more = {
-                                        entries:
-			        " <form class='px-3 m-0'><div class='form-group m-0'>" +
- 				"   <label for='dd2'>content</label>" +
-                                "   <button class='btn btn-outline-secondary btn-block py-1' id='dd2' " +
-                                "           data-toggle='collapse' data-target='#resetyn' type='button' " +
-                                "   ><span data-langkey='Reset'>Reset</span></button>" +
-				"   <div id='resetyn' class='collapse'>" +
-                                "   <button class='dropdown-item py-2 text-danger pr-2 border' type='button' " +
-                                "           onclick='wsweb_dialogs.notifications.ttl_acts.reset();' " +
-                                "   ><span data-langkey='Yes'>Yes</span></button>" +
-                                "   <button class='dropdown-item py-2 text-info   pr-2 border' type='button' " +
-                                "           onclick='$(\"#resetyn\").collapse(\"toggle\");' " +
-                                "   ><span data-langkey='No'>No</span></button>" +
-				"   </div>" +
-                                " </div></form>",
-                                      } ;
-
-                         return wsweb_dialog_title('Notifications', 'secondary', _more) ;
+                          return wepsim_config_dialog_title("Notifications",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('cfg');") ;
 		      },
-	    ttl_acts: {
-	                 description: function() {
-                                         $(".collapse7").collapse("toggle") ;
-				         return false ;
-	                              },
-	                 reset:       function() {
-					 // reajust content
-					 simcore_notifications_reset() ;
-					 var notifications      = simcore_notifications_get() ;
-					 var notifications_html = table_notifications_html(notifications) ;
-					 $("#container-notifications3").html(notifications_html) ;
-					 // reajust ui
-					 wepsim_restore_uicfg() ;
-					 wsweb_scroll_record('#container-notifications3') ;
-					 simcore_record_captureInit() ;
-				         return false;
-	                              }
-                      },
             body:     function() {
 		         var notifications      = simcore_notifications_get() ;
 		         var notifications_html = table_notifications_html(notifications) ;
-		         return "<div id='container-notifications3' class='container-fluid'>" + notifications_html + "</div>" ;
+
+		         return "<div class='card border-secondary h-100'>" +
+			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
+		                "  <h5 class='m-0'>" +
+                                "  <div class='dropdown float-right'>" +
+                                "    <button class='btn btn-light text-danger py-1 dropdown-toggle' " +
+                                "            type='button' id='resetyn' data-toggle='dropdown' " +
+                                "            aria-haspopup='true' aria-expanded='false' " +
+				"            ><span data-langkey='Reset'>Reset</span></button>" +
+                                "    </button>" +
+                                "    <div class='dropdown-menu' aria-labelledby='resetyn'>" +
+                                "     <a class='dropdown-item py-2 bg-light text-danger' type='button' " +
+                                "        onclick='simcore_notifications_reset(); " +
+				"		  var notifications = simcore_notifications_get(); " +
+				"	          var ntf_html = table_notifications_html(notifications); " +
+				"		  $(\"#scroller-notifications3\").html(ntf_html); " +
+				"		  // reajust ui " +
+				"		  wepsim_restore_uicfg(); " +
+				"		  wsweb_scroll_record(\"#scroller-notifications3\"); " +
+				"		  simcore_record_captureInit(); " +
+				"		  return false;'" +
+                                "         ><span data-langkey='Yes'>Yes</span></a>" +
+                                "      <a class='dropdown-item py-2 bg-light text-info' type='button' " +
+                                "         ><span data-langkey='No'>No</span></a>" +
+                                "    </div>" +
+                                "  </div>" +
+		               	"  </h5>" +
+			      	"</div>" +
+			      	" <div class='card-body p-1'>" +
+		                "<div id='scroller-notifications3' class='container-fluid' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+                                notifications_html +
+                                "</div>" +
+			     	" </div>" +
+			   	"</div>" ;
 		      },
 	    buttons:  {
 			Close: {
@@ -339,7 +360,7 @@
 	             },
             size:    'large',
             onshow:  function() {
-			 $("#container-notifications3").scrollTop(0) ;
+			 $("#scroller-notifications3").scrollTop(0) ;
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
@@ -351,10 +372,13 @@
          examples: {
             id:      "example1",
 	    title:    function() {
-                         return wsweb_dialog_title("Examples", 'info', {}) ;
+                          return wepsim_config_dialog_title("Examples",
+                                                            "info",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('examples', ws_idiom);") ;
 		      },
             body:    function() {
-                        return "<div id='container-example1' class='container-fluid p-0' " +
+                        return "<div id='scroller-example1' class='container-fluid p-0' " +
                                "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
                                table_examples_html(ws_examples) +
                                "</div>" ;
@@ -380,10 +404,13 @@
          config: {
             id:      "config2",
 	    title:    function() {
-                         return wsweb_dialog_title("Configuration", 'primary', {}) ;
+                          return wepsim_config_dialog_title("Configuration",
+                                                            "primary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('cfg', ws_idiom);") ;
 		      },
             body:    function() {
-                        return "<div id='container-config2' class='container-fluid p-0' " +
+                        return "<div id='scroller-config2' class='container-fluid p-0' " +
                                "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
 			       table_config_html(ws_config) +
                                "</div>" ;
@@ -403,7 +430,6 @@
 			 for (m=0; m<ws_config.length; m++) {
 			      ws_config[m].code_init() ;
 			 }
-			 $("#container-config2").scrollTop(0);
 			 $('a[data-toggle="popover1"]').popover({
 				  placement:  'bottom',
 				  trigger:    'focus, hover',
@@ -413,6 +439,7 @@
 						  return content ; // DOMPurify.sanitize(content) ;
 					      }
 			 }) ;
+                         setTimeout(function() { $("#scroller-config2").scrollTop(0); }, 50);
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
@@ -424,13 +451,17 @@
          help: {
             id:      "help1",
 	    title:    function() {
-                          return wsweb_dialog_title("Help", 'success', {}) ;
+                          return wepsim_config_dialog_title("Help",
+                                                            "success",
+							    "wepsim_help_refresh();" +	
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('help', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<div id='help1_ref' style='display:none;'></div>" +
-                               "<div class='ui-body-d ui-content p-0' id='iframe_help1_container' " +
+                               "<div class='ui-body-d ui-content p-0' id='scroller-help1-container' " +
                                "     style='min-height:50vh; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
-                               "     <div id='iframe_help1' style='min-height:50vh;'>" +
+                               "     <div id='scroller-help1' style='min-height:50vh;'>" +
 			       table_helps_html(ws_help) +
                                "</div>" +
                                "</div>" ;
