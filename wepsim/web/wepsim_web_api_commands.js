@@ -28,7 +28,10 @@
          load_save_assembly: {
             id:        "lssvasm",
 	    title:     function() {
-                          return wsweb_dialog_title('Load/Save Assembly', 'secondary', {}) ;
+                          return wepsim_config_dialog_title("Load/Save Assembly",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		       },
             body:      function() {
 		         return "<div id='scroller-lssvasm' class='container-fluid p-0' " +
@@ -73,7 +76,7 @@
 			      	"</div>" +
 			      	"<div class='card-body'>" +
 		                "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
-	                        "<p><input aria-label='file to load' " + 
+	                        "<p><input aria-label='file to load' " +
                                 "          type='file' id='fileToLoad2' class='dropify'/></p>" +
 			     	"</div>" +
 			     	"</div>" +
@@ -107,7 +110,10 @@
          load_save_firmware: {
 	    id:       "lssvfir",
 	    title:    function() {
-                         return wsweb_dialog_title('Load/Save Firmware', 'secondary', {}) ;
+                          return wepsim_config_dialog_title("Load/Save Firmware",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:     function() {
 		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
@@ -207,7 +213,10 @@
          binary: {
             id:      "bin2",
 	    title:   function() {
-                         return wsweb_dialog_title('Binary', 'secondary', {}) ;
+                          return wepsim_config_dialog_title("Binary",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
 		        return "<div id='bin2-container' class='container-fluid' " +
@@ -249,7 +258,10 @@
          about: {
             id:      "about1",
 	    title:    function() {
-                         return wsweb_dialog_title("About WepSIM", 'secondary', {}) ;
+                          return wepsim_config_dialog_title("About WepSIM",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
 		        return "<div id='container-about1' class='container-fluid'" +
@@ -293,7 +305,10 @@
          notifications: {
             id:       "notifications3",
 	    title:    function() {
-                         return wsweb_dialog_title('Notifications', 'secondary', {}) ;
+                          return wepsim_config_dialog_title("Notifications",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('cfg');") ;
 		      },
             body:     function() {
 		         var notifications      = simcore_notifications_get() ;
@@ -357,7 +372,10 @@
          examples: {
             id:      "example1",
 	    title:    function() {
-                         return wsweb_dialog_title("Examples", 'info', {}) ;
+                          return wepsim_config_dialog_title("Examples",
+                                                            "info",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('examples', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<div id='scroller-example1' class='container-fluid p-0' " +
@@ -386,7 +404,10 @@
          config: {
             id:      "config2",
 	    title:    function() {
-                         return wsweb_dialog_title("Configuration", 'primary', {}) ;
+                          return wepsim_config_dialog_title("Configuration",
+                                                            "primary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('cfg', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<div id='scroller-config2' class='container-fluid p-0' " +
@@ -430,7 +451,11 @@
          help: {
             id:      "help1",
 	    title:    function() {
-                          return wsweb_dialog_title("Help", 'success', {}) ;
+                          return wepsim_config_dialog_title("Help",
+                                                            "success",
+							    "wepsim_help_refresh();" +	
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('help', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<div id='help1_ref' style='display:none;'></div>" +

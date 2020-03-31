@@ -160,3 +160,66 @@
 	return o ;
     }
 
+    function wepsim_config_dialog_title ( name, color, str_onchange )
+    {
+	 return "<div class='dropdown btn-group'>" +
+                "<button type='button' " +
+		"   class='btn btn-outline-" + color + " px-3 py-1 dropdown-toggle' " +
+		"   data-toggle='dropdown' id='dropdown-title1' " +
+		"   aria-expanded='false' aria-haspopup='true'>" +
+		"<span class='font-weight-bold' data-langkey='" + name + "'>" + name + "</span>" +
+		"</button>" +
+		"<div class='dropdown-menu' " +
+		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
+		"     aria-labelledby='dropdown-title1'>" +
+                // details
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
+		" <label for='wsdt" + name + "'>details</label>" +
+		" <button class='btn btn-outline-secondary btn-block py-1' " +
+                "         type='button' id='wsdt" + name + "' " +
+		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
+		" <span>&plusmn; Description</span>" +
+		" </button>" +
+                " </div></form>"+
+                // idioms
+		"<div class='dropdown-divider m-1'></div>" +
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
+		" <label for='dd2'>idiom</label>" +
+                  i18n_get_select('select7b' + name, str_onchange) +
+                " </div></form>"+
+		"</div>" +
+		"</div>" ;
+    }
+
+    function wepsim_config_dialog_dropdown ( color, base_buttons, str_onchange )
+    {
+	 return "<div class='dropdown btn-group'>" +
+		base_buttons +
+		"<button type='button' " +
+		"   data-toggle='dropdown' id='dropdown-title1' " +
+		"   aria-expanded='false' aria-haspopup='true' " +
+		"   class='btn btn-" + color + " dropdown-toggle dropdown-toggle-split'" +
+		"><span class='sr-only'>Toggle Dropdown</span>" +
+		"</button>" +
+		"<div class='dropdown-menu' " +
+		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
+		"     aria-labelledby='dropdown-title1'>" +
+                // details
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
+		" <label for='wsdt" + name + "'>details</label>" +
+		" <button class='btn btn-outline-secondary btn-block py-1' " +
+                "         type='button' id='wsdt" + name + "' " +
+		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
+		" <span>&plusmn; Description</span>" +
+		" </button>" +
+                " </div></form>"+
+                // idioms
+		"<div class='dropdown-divider m-1'></div>" +
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
+		" <label for='dd2'>idiom</label>" +
+                  i18n_get_select('select7b' + name, str_onchange) +
+                " </div></form>"+
+		"</div>" +
+		"</div>" ;
+    }
+
