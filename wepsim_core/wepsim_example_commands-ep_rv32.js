@@ -41,7 +41,7 @@
                        modes:  "newbie,intro,asm_rv32",
                        hardware:  "ep",
                        microcode: "ep_rv32",
-                       assembly:  "ep_r1_e2",
+                       assembly:  "ep_r2_e1",
                        description: "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
                      });
 
@@ -53,7 +53,7 @@
                        modes:  "newbie,intro,asm_rv32",
                        hardware:  "ep",
                        microcode: "ep_rv32",
-                       assembly:  "ep_r1_e3",
+                       assembly:  "ep_r3_e1",
                        description: "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
                      });
 
