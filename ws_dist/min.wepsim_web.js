@@ -1416,8 +1416,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	    buttons: {
 			OK: {
 			   label: "OK",
-			   className: 'btn btn-primary btn-sm col col-sm-3 float-right shadow-none',
-			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback: function() {
     					 wsweb_dialog_close('binary') ;
 				     }
