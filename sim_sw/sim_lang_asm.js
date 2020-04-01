@@ -692,7 +692,7 @@ function read_text ( context, datosCU, ret )
 			max_length = Math.max(max_length, signature_fields[i].length) ;
 
 			// pseudoinstruction
-			if ( (typeof pseudoInstructions[instruction] === "object") &&
+			if ( (typeof pseudoInstructions[instruction] !== "function") &&
 			     (pseudoInstructions[instruction]) )
                         {
 				finish[i] = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ") ;
