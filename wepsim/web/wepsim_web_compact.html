@@ -930,7 +930,7 @@
 		          <div class="card-header text-white bg-dark p-1" id="state_header_2">
 		            <h5 class="m-0">
 				    <a data-toggle="collapse" href="#history3"><span class="text-white bg-dark" data-langkey="History">History</span></a>:&nbsp;
-				    <span class="btn btn-light btn-sm float-right py-0"
+				    <span class="btn btn-light text-danger btn-sm float-right py-0"
 					  onclick="wepsim_state_history_reset();
 						   wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 						   wepsim_state_history_list() ;
@@ -995,13 +995,13 @@
          </div>
       </div>
       <div class="modal-footer">
-	   <button class="btn btn-dark btn-sm col-auto float-right"
+	   <button class="btn btn-danger text-white btn-sm col float-right"
 	   	   onclick="wepsim_state_history_reset();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
 		   type="button"><em class="fa fa-trash" aria-hidden="true"></em> Reset <span class='d-none d-sm-inline-flex'>history</span></button>
-	   <button class="btn btn-dark btn-sm col-auto float-right"
+	   <button class="btn btn-dark btn-sm col float-right"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    wepsim_state_history_list();
@@ -1010,7 +1010,7 @@
 			    return false;"
 		   type="button">
 		   <em class="fa fa-plus" aria-hidden="true"></em><span data-langkey="Add">Add</span> <span class='d-none d-sm-inline-flex'><span data-langkey="'Current State' to History">'Current State' to History</span></span></button>
-           <button class="btn btn-primary btn-sm col-auto pull-right shadow-none"
+           <button class="btn btn-primary btn-sm col pull-right shadow-none"
                    onclick="wsweb_dialogbox_close_state();
 		            return false;"
 		   type="button"><span data-langkey="Close">Close</span></button>

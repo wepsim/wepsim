@@ -692,7 +692,8 @@ function read_text ( context, datosCU, ret )
 			max_length = Math.max(max_length, signature_fields[i].length) ;
 
 			// pseudoinstruction
-			if (pseudoInstructions[instruction]) 
+			if ( (typeof pseudoInstructions[instruction] === "object") &&
+			     (pseudoInstructions[instruction]) )
                         {
 				finish[i] = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ") ;
 				finish[i].pop() ;
@@ -787,7 +788,7 @@ function read_text ( context, datosCU, ret )
 							label_found = true;
 					        }
 				
-						if (sel_found) 
+						if (sel_found)
                                                 {
 							res = decimal2binary(converted, WORD_LENGTH);
 							if (res[1] < 0) {
@@ -799,7 +800,7 @@ function read_text ( context, datosCU, ret )
 							s[i+1] = "0x" + converted.toString(16);
 						}
 
-						if (! label_found) 
+						if (! label_found)
                                                 {
 							var res = decimal2binary(converted, size);
 							if (field.type == "address" && "rel" == field.address_type)
@@ -942,7 +943,7 @@ function read_text ( context, datosCU, ret )
 
                                 var key = "" ;
                                 var val = "" ;
-				for (i=0; i<signature_fields[candidate].length; i++) 
+				for (i=0; i<signature_fields[candidate].length; i++)
                                 {
 			          // pseudo_fields[signature_fields[candidate][i]] = s[i+1] ;
 				     key = firmware[instruction][candidate].fields[i].name ;
@@ -1017,7 +1018,7 @@ function read_text ( context, datosCU, ret )
 
 		// ref has the associated information in firmware for this instruction
 		var ref = firmware[instruction][candidate] ;
-		while (false === ref.isPseudoinstruction) 
+		while (false === ref.isPseudoinstruction)
 		{
 			var ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
 			if (ref.withcop)
