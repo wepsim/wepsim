@@ -3,7 +3,7 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-.dataL
+.data
   result1: .word 0x12345678
 
 .text
