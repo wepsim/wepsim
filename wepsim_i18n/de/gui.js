@@ -29,6 +29,7 @@
 		'Examples':			'Beispiele',
 		'Load':				'Belastung',
 		'Save':				'sparen',
+		'Load/Save':			'Belastung/sparen',
 		'Restore':			'Wiederherstellen',
 		'Help':				'Hilfe',
 		'Notifications':		'Benachrichtigungen',

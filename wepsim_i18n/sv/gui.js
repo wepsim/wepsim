@@ -29,6 +29,7 @@
 		'Examples':			'exempel',
 		'Load':				'Ladda',
 		'Save':				'Spara',
+		'Load/Save':			'Ladda/Spara',
 		'Restore':			'Återställa',
 		'Help':				'Hjälp',
 		'Notifications':		'Notifikationer',

@@ -31,6 +31,7 @@
 			"Examples":  			                "예제들",
 			"Load":  			        	"하중",
 			"Save":  			        	"구하다",
+			"Load/Save":  			        	"하중/구하다",
                         "Restore":                                      "복원",
 			"Help":  			                "도움",
                         "Notifications":                           	"알림",

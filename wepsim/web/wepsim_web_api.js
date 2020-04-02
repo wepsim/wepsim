@@ -286,7 +286,7 @@
     function wsweb_dialogbox_open_checkpoint ( )
     {
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
-	    $('#pot_check1').carousel(0);
+	    $('#cot_check1').carousel(0);
             $('#current_checkpoint1').modal('show');
 	    wepsim_restore_uicfg() ;
 
@@ -550,7 +550,7 @@
 
 	        case 'checkpoint':
 		      wsweb_dialogbox_open_checkpoint();
-		      $('#pot_check1').carousel(0);
+		      $('#cot_check1').carousel(0);
 		      wepsim_checkpoint_listCache('browserCacheList1');
 		      break ;
 

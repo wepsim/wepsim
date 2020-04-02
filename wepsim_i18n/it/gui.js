@@ -29,6 +29,7 @@
 		'Examples':			'Esempi',
 		'Load':				'Caricare',
 		'Save':				'Salvare',
+		'Load/Save':			'Caricare/Salvare',
 		'Restore':			'Ristabilire',
 		'Help':				'Aiuto',
 		'Notifications':		'Notifiche',

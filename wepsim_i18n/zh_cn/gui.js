@@ -29,6 +29,7 @@
 		'Examples':			'例子',
 		'Load':				'加载',
 		'Save':				'保存',
+		'Load/Save':			'加载/保存',
 		'Restore':			'恢复',
 		'Help':				'救命',
 		'Notifications':		'通知',
