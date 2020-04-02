@@ -1011,7 +1011,7 @@
 			     buttons: {
 		                reset: {
 				   label: i18n_get('gui',wsi,'Reset'),
-		                   className: 'btn-dark col float-left',
+		                   className: 'btn-danger col float-left',
 		                   callback: function() {
 				                wsweb_record_reset();
 				                return true;
@@ -1019,7 +1019,7 @@
 			        },
 		                close: {
 			  	   label: i18n_get('gui',wsi,'Close'),
-				   className: 'btn-danger col float-right'
+				   className: 'btn-dark col float-right'
 			        }
 			     },
 			     keyboard: true,
