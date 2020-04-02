@@ -236,7 +236,7 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey="Close">Close</span>",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('binary') ;
@@ -283,7 +283,7 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey="Close">Close</span>",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('about') ;
@@ -384,7 +384,7 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey="Close">Close</span>",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('examples') ;
@@ -416,7 +416,7 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey="Close">Close</span>",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('config') ;
@@ -476,7 +476,7 @@
 				      }
 			},
 			OK: {
-			   label:     "<span data-langkey="Close">Close</span>",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('help') ;
