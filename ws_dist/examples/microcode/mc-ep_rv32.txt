@@ -1220,7 +1220,6 @@ div reg1 reg2 reg3 {
                     var val1 = simcore_native_get_value("BR", reg2) ;
                     var val2 = simcore_native_get_value("BR", reg3) ;
                     simcore_native_set_value("BR", reg1, val1 / val2) ;
-                    simcore_native_set_value("BR", reg1, result) ;
                     simcore_native_go_maddr(0) ;
                     return ;
                 }

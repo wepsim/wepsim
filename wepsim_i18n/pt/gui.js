@@ -29,6 +29,7 @@
 		'Examples':			'Exemplos',
 		'Load':				'Carga',
 		'Save':				'Guardar',
+		'Load/Save':			'Carga/Guardar',
 		'Restore':			'Restaurar',
 		'Help':				'Socorro',
 		'Notifications':		'Notificações',

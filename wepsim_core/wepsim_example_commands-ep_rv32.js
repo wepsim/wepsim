@@ -22,14 +22,38 @@
     // EP+RV32
 
     ws_examples.push({
-                       id: 'S7E2',
+                       id: 'R1E2',
                        title: "<span data-langkey='Instructions'>Instructions</span>",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_rv32",
                        hardware:  "ep",
                        microcode: "ep_rv32",
-                       assembly:  "ep_s7_e2",
+                       assembly:  "ep_r1_e1",
                        description: "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+                     });
+
+    ws_examples.push({
+                       id: 'R2E1',
+                       title: "<span data-langkey='Memory access'>Memory access</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,asm_rv32",
+                       hardware:  "ep",
+                       microcode: "ep_rv32",
+                       assembly:  "ep_r2_e1",
+                       description: "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
+                     });
+
+    ws_examples.push({
+                       id: 'R3E1',
+                       title: "<span data-langkey='Subrutine'>Subrutine</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,asm_rv32",
+                       hardware:  "ep",
+                       microcode: "ep_rv32",
+                       assembly:  "ep_r3_e1",
+                       description: "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
                      });
 

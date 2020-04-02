@@ -236,12 +236,11 @@
 		     },
 	    buttons: {
 			OK: {
-			   label: "OK",
-			   className: 'btn btn-primary btn-sm col col-sm-3 float-right shadow-none',
-			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback: function() {
+			   label:     "<span data-langkey='Close'>Close</span>",
+			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			   callback:  function() {
     					 wsweb_dialog_close('binary') ;
-				     }
+				      }
 			}
 	             },
             size:    'large',
@@ -284,7 +283,7 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "OK",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('about') ;
@@ -315,16 +314,16 @@
 		         var notifications_html = table_notifications_html(notifications) ;
 
 		         return "<div class='card border-secondary h-100'>" +
-			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
+			        "<div class='card-header border-secondary text-white bg-light p-1'>" +
 		                "  <h5 class='m-0'>" +
                                 "  <div class='dropdown float-right'>" +
-                                "    <button class='btn btn-light text-danger py-1 dropdown-toggle' " +
+                                "   <button class='btn btn-outline-secondary text-danger py-1 dropdown-toggle' " +
                                 "            type='button' id='resetyn' data-toggle='dropdown' " +
                                 "            aria-haspopup='true' aria-expanded='false' " +
 				"            ><span data-langkey='Reset'>Reset</span></button>" +
-                                "    </button>" +
+                                "   </button>" +
                                 "    <div class='dropdown-menu' aria-labelledby='resetyn'>" +
-                                "     <a class='dropdown-item py-2 bg-light text-danger' type='button' " +
+                                "     <a class='dropdown-item py-2 bg-white text-danger' type='button' " +
                                 "        onclick='simcore_notifications_reset(); " +
 				"		  var notifications = simcore_notifications_get(); " +
 				"	          var ntf_html = table_notifications_html(notifications); " +
@@ -335,7 +334,8 @@
 				"		  simcore_record_captureInit(); " +
 				"		  return false;'" +
                                 "         ><span data-langkey='Yes'>Yes</span></a>" +
-                                "      <a class='dropdown-item py-2 bg-light text-info' type='button' " +
+				"      <div class='dropdown-divider'></div>" +
+                                "      <a class='dropdown-item py-2 bg-white text-info' type='button' " +
                                 "         ><span data-langkey='No'>No</span></a>" +
                                 "    </div>" +
                                 "  </div>" +
@@ -351,7 +351,7 @@
 		      },
 	    buttons:  {
 			Close: {
-			   label:     "Close",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					  wsweb_dialog_close('notifications') ;
@@ -365,6 +365,7 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
 			 i18n_update_tags('cfg') ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		     }
          },
 
@@ -385,7 +386,7 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "OK",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('examples') ;
@@ -397,6 +398,7 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('examples', ws_idiom) ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		     }
          },
 
@@ -417,7 +419,7 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "OK",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('config') ;
@@ -444,6 +446,7 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('cfg', ws_idiom) ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		     }
          },
 
@@ -477,7 +480,7 @@
 				      }
 			},
 			OK: {
-			   label:     "OK",
+			   label:     "<span data-langkey='Close'>Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('help') ;
@@ -494,6 +497,7 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('help', ws_idiom) ;
+                         i18n_update_tags('dialogs', ws_idiom) ;
 		     }
          }
 

@@ -215,7 +215,7 @@
 
 	       /* misc. */
                WSCFG.verbal_verbose       = { value:'math',             type:"string"} ;
-               WSCFG.base_url             = { value:'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html',   type:"string"} ;
+               WSCFG.base_url             = { value:'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html',   type:"string"} ;
 
                // some mobile-tuning
                if (is_mobile())

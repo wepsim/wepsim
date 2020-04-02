@@ -31,6 +31,7 @@
 			"Examples":			"Exemples",
 			"Load":				"Charger",
 			"Save":				"Enregistrer",
+			"Load/Save":			"Charger/Enregistrer",
 			"Restore":			"Restaurer",
 			"Help":				"Aide",
 			"Notifications":                "Les notifications",

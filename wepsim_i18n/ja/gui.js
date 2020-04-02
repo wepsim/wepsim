@@ -29,6 +29,7 @@
 		'Examples':			'例',
 		'Load':				'負荷',
 		'Save':				'保存する',
+		'Load/Save':			'負荷/保存する',
 		'Restore':			'リストア',
 		'Help':				'助けて',
 		'Notifications':		'通知',

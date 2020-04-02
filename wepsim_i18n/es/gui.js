@@ -28,6 +28,7 @@
 			"Examples": 			     		"Ejemplos",
 			"Load":  			        	"Cargar",
 			"Save":  			        	"Guardar",
+			"Load/Save":  			        	"Cargar/Guardar",
                         "Restore":                                      "Restaurar",
 			"Help": 			     		"Ayuda",
                         "Notifications":                                "Notificaciones",
