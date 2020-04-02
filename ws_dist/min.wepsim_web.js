@@ -1415,11 +1415,11 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 		     },
 	    buttons: {
 			OK: {
-			   label: "OK",
+			   label:     "<span data-langkey="Close">Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback: function() {
+			   callback:  function() {
     					 wsweb_dialog_close('binary') ;
-				     }
+				      }
 			}
 	             },
             size:    'large',
@@ -1462,7 +1462,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 		     },
 	    buttons: {
 			OK: {
-			   label:     "OK",
+			   label:     "<span data-langkey="Close">Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('about') ;
@@ -1563,7 +1563,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 		     },
 	    buttons: {
 			OK: {
-			   label:     "OK",
+			   label:     "<span data-langkey="Close">Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('examples') ;
@@ -1595,7 +1595,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 		     },
 	    buttons: {
 			OK: {
-			   label:     "OK",
+			   label:     "<span data-langkey="Close">Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('config') ;
@@ -1655,7 +1655,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 				      }
 			},
 			OK: {
-			   label:     "OK",
+			   label:     "<span data-langkey="Close">Close</span>",
 			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			   callback:  function() {
     					 wsweb_dialog_close('help') ;
