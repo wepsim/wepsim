@@ -971,37 +971,38 @@
 		message = '&lt;empty message&gt;' ;
 	    }
 
-	    // dialog
-	    wsweb_nfbox = bootbox.dialog({
-		    title:      title,
-		    message:    "<div class='p-2 m-0' style='word-wrap:break-word;'>" +
-		                message +
-		                "</div>",
-		    scrollable: true,
-		    size:       'large',
-		    onShown:    function(e) {
-	                           wepsim_updatetime_start("#autoclose1", duration / 1000) ;
-                                },
-		    buttons: {
-			noclose: {
-			    label: "<div id='autoclose1'>&nbsp;</div>",
-			    className: 'float-left mr-auto m-0',
-			    callback: function() {
-				         return false;
-			              }
-			},
-			cancel: {
-			  //label: "<div id='autoclose1'>Close</div>",
-			    label: "<span data-langkey='Close'>Close</span>",
-			    className: 'btn-danger m-0',
-			    callback: function() {
-                                         clearTimeout(wepsim_updatediv_timer) ;
-				         wsweb_record_play();
-			              }
-			}
-		    }
-	    });
-	    wsweb_nfbox.modal('show');
+            // dialog
+	    var dlg_obj = {
+		             id:         'notifyuser1',
+		             title:      function() { return title; },
+		             body:       function() {
+                                            return "<div class='p-2 m-0' style='word-wrap:break-word;'>" +
+		                                   message +
+		                                   "</div>" ;
+                                         },
+		             onshow:     function(e) {
+	                                    wepsim_updatetime_start("#autoclose1", duration / 1000) ;
+                                         },
+		             buttons:    {
+					    noclose: {
+					        label: "<div id='autoclose1'>&nbsp;</div>",
+					        className: 'float-left mr-auto m-0',
+					        callback: function() {
+					   		     return false;
+						          }
+					    },
+					    cancel: {
+					        label: "<span data-langkey='Close'>Close</span>",
+					        className: 'btn-danger m-0',
+					        callback: function() {
+					   		     clearTimeout(wepsim_updatediv_timer) ;
+							     wsweb_record_play();
+						          }
+					    }
+		                         },
+		             size:       'large'
+	             } ;
+	    wsweb_nfbox = wsweb_dlg_open(dlg_obj) ;
 
             // return ok
             return true ;
@@ -1077,13 +1078,16 @@
 			'	  class="form-control btn-outline-dark" placeholder="Duration for the notification in seconds" style="min-width: 90%;"/></p>' +
 		        '</div>' ;
 
-            wsweb_nfbox = bootbox.dialog({
-			     title:   'Form to add a message during playback...',
-			     message: bbmsg,
-			     buttons: bbbt,
-			     size:    "large",
-			     animate: false
-			  });
+            // dialog
+            var dlg_obj = {
+			     id:       'notifuseradd1',
+			     title:    function() { return 'Form to add a message during playback...' ; },
+			     body:     function() { return bbmsg ; },
+			     buttons:  bbbt,
+			     onshow:   function() { },
+			     size:     "large"
+                          } ;
+            wsweb_nfbox = wsweb_dlg_open(dlg_obj) ;
 
             // return ok
             return true ;
