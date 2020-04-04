@@ -109,7 +109,7 @@
         var helpdiv = '#scroller-help1' ;
 
         var scrolltothetop = function() {
-        		        var helpdiv_container = 'scroller-help1-container' ;
+        		        var helpdiv_container = 'scroller-help1' ;
 				var elto = document.getElementById(helpdiv_container) ;
 				if (elto != null)
 				    elto.scrollTop = 0 ;
@@ -169,7 +169,7 @@
 
     function wepsim_open_help_content ( content )
     {
-        $('#scroller-help1').html(content) ;
+        $('#content-help1').html(content) ;
 
         $('#help1_ref').data('relative', '') ;
 	$('#help1_ref').data('absolute', '') ;

@@ -27,14 +27,14 @@
     {
         wepsim_state_history_reset();
 
-        if (true === reset_memory) 
+        if (true === reset_memory)
         {
             var SIMWARE = get_simware() ;
 	    if (SIMWARE.firmware.length !== 0)
                 update_memories(SIMWARE) ;
         }
 
-        if (true === reset_cpu) 
+        if (true === reset_cpu)
         {
 	    simcore_reset() ;
         }
@@ -43,7 +43,7 @@
     function wepsim_execute_instruction ( )
     {
 	var ret = simcore_check_if_can_execute() ;
-	if (false === ret.ok) 
+	if (false === ret.ok)
 	{
 	    alert(ret.msg) ;
 	    return false ;
@@ -55,7 +55,7 @@
 	              } ;
 
 	ret = simcore_execute_microprogram(options) ;
-	if (false === ret.ok) 
+	if (false === ret.ok)
 	{
             wepsim_show_stopbyevent("Info", ret.msg) ;
     	    return false ;
@@ -67,7 +67,7 @@
     function wepsim_execute_microinstruction ( )
     {
 	var ret = simcore_check_if_can_execute() ;
-	if (false === ret.ok) 
+	if (false === ret.ok)
 	{
 	    alert(ret.msg) ;
 	    return false ;
@@ -108,7 +108,7 @@
         var stop_tag = i18n_get('gui',wsi,'Stop') ;
 
 	var ret = simcore_check_if_can_execute() ;
-	if (false === ret.ok) 
+	if (false === ret.ok)
 	{
 	    alert(ret.msg) ;
 	    return false ;
@@ -125,11 +125,11 @@
 
     function wepsim_execute_toggle_play ( btn1 )
     {
-        if (DBG_stop === false) 
+        if (DBG_stop === false)
         {
             DBG_stop = true ; // will help to execute_play stop playing
-        } 
-        else 
+        }
+        else
         {
             wepsim_execute_play(btn1) ;
         }
@@ -164,18 +164,52 @@
 
     function wepsim_show_stopbyevent ( msg1, msg2 )
     {
-	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
-	var curr_maddr = "0x" + reg_maddr.toString(16) ;
-	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
-	var reg_pc     = get_value(simhw_sim_state(pc_name)) ;
-	var curr_addr  = "0x" + reg_pc.toString(16) ;
+	var dlg_obj = {
+			id:      'current_state2',
+			title:   function() { 
+				    var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+				    var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
+				    var curr_maddr = "0x" + reg_maddr.toString(16) ;
+				    var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
+				    var reg_pc     = get_value(simhw_sim_state(pc_name)) ;
+				    var curr_addr  = "0x" + reg_pc.toString(16) ;
+				    var dialog_title = msg1 + " @ pc=" + curr_addr + "+mpc=" + curr_maddr ;
+                                    return '<span id="dlg_title2">' + dialog_title + '</span>' ;
+                                 },
+			body:    function() { 
+				    return '<div class="card card-info border-light m-2">' +
+					   '<div class="card-body">' +
+					   '     <div class="row"> ' +
+					   '	  <div class="col-auto">' +
+					   '	       <em class="fas fa-comment-alt"></em>' +
+					   '	  </div>' +
+					   '	  <div class="col">' +
+					   '	       <h5><span id="dlg_body2">' + msg2 + '</span></h5>' +
+					   '	  </div>' +
+					   '     </div>' +
+					   '</div>' +
+					   '</div>' ;
+                                 },
+			buttons: {
+					states: {
+					   label:     "<span data-langkey='States'>States</span>",
+					   className: 'btn btn-secondary col float-left shadow-none mr-auto',
+					   callback: function() {
+							wsweb_dlg_close(dlg_obj) ;
+							wepsim_dialog_current_state();
+							return true;
+						     },
+					},
+					close: {
+					   label:     "<span data-langkey='Close'>Close</span>",
+					   className: 'btn-primary col float-right shadow-none'
+					}
+				 },
+			size:    '',
+			onshow:  function() {}
+		      } ;
 
-	var dialog_title = msg1 + " @ pc=" + curr_addr + "+mpc=" + curr_maddr ;
-
-        $("#dlg_title2").html(dialog_title) ;
-        $("#dlg_body2").html(msg2) ;
-        $('#current_state2').modal('show');
+	wsweb_dlg_open(dlg_obj) ;
 
 	return true ;
     }
@@ -195,7 +229,7 @@
 
 	// microcode with notify:
 	var notifications = ref_mcdash.notify.length ;
-	if (notifications > 1) 
+	if (notifications > 1)
            {
 		var dialog_title = "Notify @ " + reg_maddr + ": " + ref_mcdash.notify[1] ;
 
@@ -278,7 +312,7 @@
 		return false ;
 	    }
 
-	    if (0 === reg_maddr) 
+	    if (0 === reg_maddr)
 	    {
 		ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
 		if (true === ret) {
@@ -358,7 +392,7 @@
         var turbo = 1;
 	if (get_cfg('DBG_delay') < 5)
             turbo = max_turbo ;
-        if (max_turbo === 5) 
+        if (max_turbo === 5)
             t0 = performance.now() ;
 
         var ret = wepsim_execute_chunk(btn1, turbo) ;
@@ -374,12 +408,12 @@
         }
 
 	DBG_limit_instruction += turbo ;
-        if (DBG_limit_instruction > get_cfg('DBG_limitins')) 
+        if (DBG_limit_instruction > get_cfg('DBG_limitins'))
 	{
-            wepsim_show_stopbyevent("Limit", 
+            wepsim_show_stopbyevent("Limit",
                                     "Number of executed instructions limit reached.<br>" +
                                     "<br>" +
-                                    "See related configuration options about limits:<br>" + 
+                                    "See related configuration options about limits:<br>" +
                                     "<img height='100vw' src='./images/simulator/simulator018.jpg'>" );
 	    wepsim_execute_stop(btn1) ;
 

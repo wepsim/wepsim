@@ -231,9 +231,7 @@
 
     function wsweb_dialogbox_open_examples ( )
     {
-	    wsweb_dialog_open_list('examples') ;
-	    $('[data-toggle=tooltip]').tooltip('hide');
-	    wepsim_restore_uicfg() ;
+	    wsweb_dialog_open('examples') ;
 
             // return ok
             return true ;
@@ -241,10 +239,7 @@
 
     function wsweb_dialogbox_open_help ( )
     {
-	    wsweb_dialog_open_list('help') ;
-	    wepsim_help_refresh();
-	    $('[data-toggle=tooltip]').tooltip('hide');
-	    wepsim_restore_uicfg() ;
+	    wsweb_dialog_open('help') ;
 
             // return ok
             return true ;
@@ -252,9 +247,7 @@
 
     function wsweb_dialogbox_open_config ( )
     {
-	    wsweb_dialog_open_list('config') ;
-	    $('[data-toggle=tooltip]').tooltip('hide') ;
-	    wepsim_restore_uicfg() ;
+	    wsweb_dialog_open('config') ;
 
             // return ok
             return true ;
@@ -312,7 +305,7 @@
 	    var ok = wepsim_compile_assembly(textToCompile) ;
 	    if (true == ok) 
             {
-                 wsweb_dialog_open_list('binary') ;
+                 wsweb_dialog_open('binary') ;
 		 wepsim_show_binary_code('#bin2', '#compile_results') ;
 
                  // add if recording
@@ -330,7 +323,7 @@
 	    var ok = wepsim_compile_firmware(textToMCompile) ;
 	    if (true == ok) 
             {
-                 wsweb_dialog_open_list('binary') ;
+                 wsweb_dialog_open('binary') ;
 		 wepsim_show_binary_microcode('#bin2', '#compile_results') ;
 		 wepsim_notify_success('<strong>INFO</strong>',
 				       'Please remember to recompile the assembly code if needed.') ;
@@ -555,7 +548,7 @@
 		      break ;
 
 	        case 'notifications':
-		      wsweb_dialog_open_list('notifications') ;
+		      wsweb_dialog_open('notifications') ;
 		      break ;
 
 	        case 'recordbar':
@@ -697,242 +690,6 @@
             return true ;
     }
 
-    //
-    // dialogs: load/save firmware/assembly
-    //
-
-    function wsweb_dialog_open_list ( dialog_id )
-    {
-	    // check params
-	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
-                return null ;
-            }
-
-	    // elements
-	    var oid      = wsweb_dialogs[dialog_id].id ;
-	    var otitle   = wsweb_dialogs[dialog_id].title() ;
-	    var obody    = wsweb_dialogs[dialog_id].body() ;
-	    var obuttons = wsweb_dialogs[dialog_id].buttons ;
-	    var opost    = wsweb_dialogs[dialog_id].onshow ;
-	    var osize    = wsweb_dialogs[dialog_id].size ;
-
-	    // dialog
-	    var d1 = bootbox.dialog({
-			    title:          otitle,
-			    message:        obody,
-			    scrollable:     true,
-			    size:           osize,
-			    centerVertical: true,
-			    keyboard:       true,
-			    animate:        false,
-			    onShown:        function(e) {
-						opost() ;
-
-						// uicfg and events
-						$('[data-toggle=tooltip]').tooltip('hide');
-						wepsim_restore_uicfg() ;
-
-            					wsweb_scroll_record('#scroller-' + oid) ;
-						simcore_record_captureInit() ;
-					    },
-			    buttons:        obuttons
-	             });
-
-            // custom...
-	    d1.init(function(){
-		       d1.attr("id", oid) ;
-		    });
-
-            // intercept events...
-	    d1.one("hidden.bs.modal",
-		    function () {
-			wsweb_dialog_close(oid) ;
-		    });
-
-            // show
-	    d1.find('.modal-title').addClass("ml-auto") ;
-	    d1.modal('handleUpdate') ;
-	    d1.modal('show');
-
-            // add if recording
-            simcore_record_append_new('Open dialogbox ' + dialog_id,
-		                      'wsweb_dialog_open_list("' + dialog_id + '");\n') ;
-
-	    // stats about ui
-            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + oid) ;
-
-	    // return dialog
-	    return d1 ;
-    }
-
-    function wsweb_dialog_close ( dialog_id )
-    {
-	    // check params
-	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
-                return null ;
-            }
-
-	    // elements
-	    var d1 = $('#' + wsweb_dialogs[dialog_id].id) ;
-	    d1.modal('hide') ;
-
-            // add if recording
-            simcore_record_append_new('Close dialogbox ' + dialog_id,
-		                      'wsweb_dialog_close("' + dialog_id + '");\n') ;
-
-	    // return dialog
-	    return d1 ;
-    }
-
-    // timer
-    var wepsim_updatediv_timer = null ;
-
-    function wepsim_updatetime ( div_id, time_left_sec )
-    {
-            $(div_id).html('<span>Close automatically after ' + time_left_sec + ' seconds.</span>') ;
-
-            wepsim_updatediv_timer = setTimeout(wepsim_updatetime, 1000, div_id, (time_left_sec - 1));
-    }
-
-    function wepsim_updatetime_start ( div_id, time_left_sec )
-    {
-            clearTimeout(wepsim_updatediv_timer) ;
-
-            wepsim_updatetime(div_id, time_left_sec) ;
-    }
-
-    //  simulator: notify
-
-    var wsweb_nfbox = null ;
-
-    function wsweb_notifyuser_show ( title, message, duration )
-    {
-	    // check params
-	    if (title.trim() === '') {
-		title = '&lt;empty title&gt;' ;
-	    }
-	    if (message.trim() === '') {
-		message = '&lt;empty message&gt;' ;
-	    }
-
-	    // dialog
-	    wsweb_nfbox = bootbox.dialog({
-		    title:      title,
-		    message:    "<div class='p-2 m-0' style='word-wrap:break-word;'>" +
-		                message +
-		                "</div>",
-		    scrollable: true,
-		    size:       'large',
-		    onShown:    function(e) {
-	                           wepsim_updatetime_start("#autoclose1", duration / 1000) ;
-                                },
-		    buttons: {
-			noclose: {
-			    label: "<div id='autoclose1'>&nbsp;</div>",
-			    className: 'float-left mr-auto m-0',
-			    callback: function() {
-				         return false;
-			              }
-			},
-			cancel: {
-			  //label: "<div id='autoclose1'>Close</div>",
-			    label: "<span data-langkey='Close'>Close</span>",
-			    className: 'btn-danger m-0',
-			    callback: function() {
-                                         clearTimeout(wepsim_updatediv_timer) ;
-				         wsweb_record_play();
-			              }
-			}
-		    }
-	    });
-	    wsweb_nfbox.modal('show');
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_notifyuser_hide ( )
-    {
-	    wsweb_nfbox.modal("hide") ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_notifyuser_add ( )
-    {
-	    // check if recording
-            if (simcore_record_isRecording() === false) {
-		return true ;
-	    }
-
-	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.add_notification');
-
-	    // build the message box
-            var wsi = get_cfg('ws_idiom') ;
-            var bbbt = {} ;
-
-            bbbt.cancel = {
-		    label: i18n_get('gui',wsi,'Close'),
-		    className: 'btn-danger col float-left mr-auto',
-	    };
-            bbbt.end = {
-		    label: i18n_get('gui',wsi,'Save'),
-		    className: 'btn-success col float-right',
-		    callback: function() {
-			    // get values
-			    var nf_title    = $("#frm_title1").val() ;
-			    var nf_message  = $("#frm_message1").val() ;
-			    var nf_duration = $("#frm_duration1").val() ;
-
-			    // post-process
-			    var w_title    = nf_title.replace(/<[^>]*>/g, '') ;
-			    var s_title    = '<span class=\'inline-block text-truncate w-25\'>' + w_title   + '</span>' ;
-
-			    var w_message  = nf_message.replace(/<[^>]*>/g, '') ;
-			    var s_message  = '<span class=\'inline-block text-truncate w-25\'>' + w_message + '</span>' ;
-			    var c_message = w_message.replace(new RegExp('\r?\n','g'), '</br>') ;
-
-			    var w_duration = parseInt(nf_duration) ;
-			    if (isNaN(w_duration))
-			         w_duration = 5000 ;
-			    else w_duration = 1000 * w_duration ;
-
-			    // add if recording
-			    simcore_record_setTimeBeforeNow(500) ;
-			    simcore_record_append_new('Show message with title "'  + s_title + '" and body "' + s_message + '".',
-						      'wsweb_notifyuser_show("'    + w_title + '", "'         + c_message + '", "' + w_duration + '");\n') ;
-			    simcore_record_setTimeBeforeNow(w_duration) ;
-			    simcore_record_append_new('Close message with title "' + s_title + '".',
-				                      'wsweb_notifyuser_hide();\n') ;
-		    }
-	    };
-
-	    var bbmsg = '<div class="container">' +
-		        '<label for="frm_title1"><em>'    + i18n_get('dialogs',wsi,'Title') + ':</em></label>' +
-			'<p><input aria-label="title" id="frm_title1" ' +
-			'	  class="form-control btn-outline-dark" placeholder="Title for the notification" style="min-width: 90%;"/></p>' +
-		        '<label for="frm_message1"><em>'  + i18n_get('dialogs',wsi,'Message') + ':</em></label>' +
-			'<p><textarea aria-label="message" id="frm_message1" rows="5" ' +
-			'	      class="form-control btn-outline-dark" placeholder="Message for the notification" style="min-width: 90%;"/></p>' +
-		        '<label for="frm_duration1"><em>' + i18n_get('dialogs',wsi,'Duration') + ':</em></label>' +
-			'<p><input aria-label="duration" id="frm_duration1" type="number" ' +
-			'	  class="form-control btn-outline-dark" placeholder="Duration for the notification in seconds" style="min-width: 90%;"/></p>' +
-		        '</div>' ;
-
-            wsweb_nfbox = bootbox.dialog({
-			     title:   'Form to add a message during playback...',
-			     message: bbmsg,
-			     buttons: bbbt,
-			     size:    "large",
-			     animate: false
-			  });
-
-            // return ok
-            return true ;
-    }
-
     //  Workspace simulator: record
 
     function wsweb_record_on ( )
@@ -1004,27 +761,7 @@
     function wsweb_record_confirmReset ( )
     {
 	    // show dialogbox
-                var wsi = get_cfg('ws_idiom') ;
-            wsweb_nfbox = bootbox.dialog({
-			     title:   i18n_get('dialogs',wsi,'Confirm remove record...'),
-			     message: i18n_get('dialogs',wsi,'Close or Reset...'),
-			     buttons: {
-		                reset: {
-				   label: i18n_get('gui',wsi,'Reset'),
-		                   className: 'btn-danger col float-left',
-		                   callback: function() {
-				                wsweb_record_reset();
-				                return true;
-			                     },
-			        },
-		                close: {
-			  	   label: i18n_get('gui',wsi,'Close'),
-				   className: 'btn-dark col float-right'
-			        }
-			     },
-			     keyboard: true,
-			     animate:  false
-			  });
+            wsweb_dlg_open(wsweb_dialogs['rec_confirm_reset']) ;
 
             // return ok
             return true ;
@@ -1143,6 +880,214 @@
             // add if recording
             simcore_record_append_new('Close the "record toolbar"',
 		                      'wsweb_recordbar_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+
+    //
+    // Auxiliar functions
+    //
+
+    // dialogs
+
+    function wsweb_dialog_open ( dialog_id )
+    {
+	    // check params
+	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
+                return null ;
+            }
+
+	    // open dialog
+            var d1 = wsweb_dlg_open(wsweb_dialogs[dialog_id]) ;
+
+            // intercept events...
+	    d1.one("hidden.bs.modal",
+		    function () {
+			wsweb_dialog_close(dialog_id) ;
+		    });
+
+            // add if recording
+            simcore_record_append_new('Open dialogbox ' + dialog_id,
+		                      'wsweb_dialog_open("' + dialog_id + '");\n') ;
+
+	    // stats about ui
+            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + wsweb_dialogs[dialog_id].id) ;
+
+	    // return dialog
+	    return d1 ;
+    }
+
+    function wsweb_dialog_close ( dialog_id )
+    {
+	    // check params
+	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
+                return null ;
+            }
+
+	    // close dialog
+            var d1 = wsweb_dlg_close(wsweb_dialogs[dialog_id]) ;
+
+            // add if recording
+            simcore_record_append_new('Close dialogbox ' + dialog_id,
+		                      'wsweb_dialog_close("' + dialog_id + '");\n') ;
+
+	    // return dialog
+	    return d1 ;
+    }
+
+
+    // timer
+
+    var wepsim_updatediv_timer = null ;
+
+    function wepsim_updatetime ( div_id, time_left_sec )
+    {
+            $(div_id).html('<span>Close automatically after ' + time_left_sec + ' seconds.</span>') ;
+
+            wepsim_updatediv_timer = setTimeout(wepsim_updatetime, 1000, div_id, (time_left_sec - 1));
+    }
+
+    function wepsim_updatetime_start ( div_id, time_left_sec )
+    {
+            clearTimeout(wepsim_updatediv_timer) ;
+
+            wepsim_updatetime(div_id, time_left_sec) ;
+    }
+
+
+    //  simulator: notify
+
+    var wsweb_nfbox = null ;
+
+    function wsweb_notifyuser_show ( title, message, duration )
+    {
+	    // check params
+	    if (title.trim() === '') {
+		title = '&lt;empty title&gt;' ;
+	    }
+	    if (message.trim() === '') {
+		message = '&lt;empty message&gt;' ;
+	    }
+
+            // dialog
+	    var dlg_obj = {
+		             id:         'notifyuser1',
+		             title:      function() { return title; },
+		             body:       function() {
+                                            return "<div class='p-2 m-0' style='word-wrap:break-word;'>" +
+		                                   message +
+		                                   "</div>" ;
+                                         },
+		             onshow:     function(e) {
+	                                    wepsim_updatetime_start("#autoclose1", duration / 1000) ;
+                                         },
+		             buttons:    {
+					    noclose: {
+					        label: "<div id='autoclose1'>&nbsp;</div>",
+					        className: 'float-left mr-auto m-0',
+					        callback: function() {
+					   		     return false;
+						          }
+					    },
+					    cancel: {
+					        label: "<span data-langkey='Close'>Close</span>",
+					        className: 'btn-danger m-0',
+					        callback: function() {
+					   		     clearTimeout(wepsim_updatediv_timer) ;
+							     wsweb_record_play();
+						          }
+					    }
+		                         },
+		             size:       'large'
+	             } ;
+	    wsweb_nfbox = wsweb_dlg_open(dlg_obj) ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_notifyuser_hide ( )
+    {
+	    wsweb_nfbox.modal("hide") ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_notifyuser_add ( )
+    {
+	    // check if recording
+            if (simcore_record_isRecording() === false) {
+		return true ;
+	    }
+
+	    // stats about recordbar
+	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.add_notification');
+
+	    // build the message box
+            var wsi = get_cfg('ws_idiom') ;
+            var bbbt = {} ;
+
+            bbbt.cancel = {
+		    label: i18n_get('gui',wsi,'Close'),
+		    className: 'btn-danger col float-left mr-auto',
+	    };
+            bbbt.end = {
+		    label: i18n_get('gui',wsi,'Save'),
+		    className: 'btn-success col float-right',
+		    callback: function() {
+			    // get values
+			    var nf_title    = $("#frm_title1").val() ;
+			    var nf_message  = $("#frm_message1").val() ;
+			    var nf_duration = $("#frm_duration1").val() ;
+
+			    // post-process
+			    var w_title    = nf_title.replace(/<[^>]*>/g, '') ;
+			    var s_title    = '<span class=\'inline-block text-truncate w-25\'>' + w_title   + '</span>' ;
+
+			    var w_message  = nf_message.replace(/<[^>]*>/g, '') ;
+			    var s_message  = '<span class=\'inline-block text-truncate w-25\'>' + w_message + '</span>' ;
+			    var c_message = w_message.replace(new RegExp('\r?\n','g'), '</br>') ;
+
+			    var w_duration = parseInt(nf_duration) ;
+			    if (isNaN(w_duration))
+			         w_duration = 5000 ;
+			    else w_duration = 1000 * w_duration ;
+
+			    // add if recording
+			    simcore_record_setTimeBeforeNow(500) ;
+			    simcore_record_append_new('Show message with title "'  + s_title + '" and body "' + s_message + '".',
+						      'wsweb_notifyuser_show("'    + w_title + '", "'         + c_message + '", "' + w_duration + '");\n') ;
+			    simcore_record_setTimeBeforeNow(w_duration) ;
+			    simcore_record_append_new('Close message with title "' + s_title + '".',
+				                      'wsweb_notifyuser_hide();\n') ;
+		    }
+	    };
+
+	    var bbmsg = '<div class="container">' +
+		        '<label for="frm_title1"><em>'    + i18n_get('dialogs',wsi,'Title') + ':</em></label>' +
+			'<p><input aria-label="title" id="frm_title1" ' +
+			'	  class="form-control btn-outline-dark" placeholder="Title for the notification" style="min-width: 90%;"/></p>' +
+		        '<label for="frm_message1"><em>'  + i18n_get('dialogs',wsi,'Message') + ':</em></label>' +
+			'<p><textarea aria-label="message" id="frm_message1" rows="5" ' +
+			'	      class="form-control btn-outline-dark" placeholder="Message for the notification" style="min-width: 90%;"/></p>' +
+		        '<label for="frm_duration1"><em>' + i18n_get('dialogs',wsi,'Duration') + ':</em></label>' +
+			'<p><input aria-label="duration" id="frm_duration1" type="number" ' +
+			'	  class="form-control btn-outline-dark" placeholder="Duration for the notification in seconds" style="min-width: 90%;"/></p>' +
+		        '</div>' ;
+
+            // dialog
+            var dlg_obj = {
+			     id:       'notifuseradd1',
+			     title:    function() { return 'Form to add a message during playback...' ; },
+			     body:     function() { return bbmsg ; },
+			     buttons:  bbbt,
+			     onshow:   function() { },
+			     size:     "large"
+                          } ;
+            wsweb_nfbox = wsweb_dlg_open(dlg_obj) ;
 
             // return ok
             return true ;

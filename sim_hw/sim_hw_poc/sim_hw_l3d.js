@@ -164,7 +164,12 @@
 
                                                       // get
                                                       if (bus_ab == L3DCR_ID) {
-						          simcore_rest_call("L3D", "GET", "/get", {}) ; // TODO: {} -> { 'id': data }
+                                                          var x = (iodr & 0xFF000000) >> 24 ;
+                                                          var y = (iodr & 0x00FF0000) >> 16 ;
+                                                          var z = (iodr & 0x0000FF00) >>  8 ;
+                                                          var s = (iodr & 0x000000FF) ;
+							  var o = { 'x': x, 'y': y, 'z': z, 's': s } ;
+						          simcore_rest_call("L3D", "GET", "/get", o) ;
 						      }
                                                    },
                                            verbal: function (s_expr) 
@@ -209,8 +214,14 @@
                                                           set_value(poc_states[s_expr[5]], bus_db);
 
                                                       // set
-                                                      if (bus_ab == L3DCR_ID) 
-						          simcore_rest_call("L3D", "GET", "/set", {}) ; // TODO: {} -> { 'id': data }
+                                                      if (bus_ab == L3DCR_ID) {
+                                                          var x = (iodr & 0xFF000000) >> 24 ;
+                                                          var y = (iodr & 0x00FF0000) >> 16 ;
+                                                          var z = (iodr & 0x0000FF00) >>  8 ;
+                                                          var s = (iodr & 0x000000FF) ;
+							  var o = { 'x': x, 'y': y, 'z': z, 's': s } ;
+						          simcore_rest_call("L3D", "SET", "/set", o) ;
+						      }
                                                    },
                                            verbal: function (s_expr) 
                                                    {

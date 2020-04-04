@@ -101,9 +101,12 @@
 
 			 $('.dropify').dropify() ;
 
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide');
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-lssvasm') ;
+			 simcore_record_captureInit() ;
 		      }
          },
 
@@ -203,9 +206,12 @@
 		         // dropify
 			 $('.dropify').dropify() ;
 
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide');
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-lssvfir') ;
+			 simcore_record_captureInit() ;
 		      }
          },
 
@@ -219,7 +225,7 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
-		        return "<div id='bin2-container' class='container-fluid' " +
+		        return "<div id='scroller-bin2' class='container-fluid' " +
 	           	       "     style='padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
 		               " <div class='ui-body-d ui-content' style='padding: 2px 2px 2px 2px;'> " +
            		       " <div id='iframe_bin2' style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
@@ -247,9 +253,12 @@
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
 
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide');
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-bin2') ;
+			 simcore_record_captureInit() ;
 		     }
          },
 
@@ -263,7 +272,7 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
-		        return "<div id='container-about1' class='container-fluid'" +
+		        return "<div id='scroller-about1' class='container-fluid'" +
 			       "     style='max-height:80vh; '>" +
 			       "     <form>" +
 			       "	<div class='form-group m-0'>" +
@@ -294,9 +303,12 @@
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
 
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide');
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-about1') ;
+			 simcore_record_captureInit() ;
 		     }
          },
 
@@ -365,7 +377,13 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
 			 i18n_update_tags('cfg') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
+
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide');
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-notifications3') ;
+			 simcore_record_captureInit() ;
 		     }
          },
 
@@ -398,7 +416,13 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('examples', ws_idiom) ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
+
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide');
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-example1') ;
+			 simcore_record_captureInit() ;
 		     }
          },
 
@@ -446,7 +470,13 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('cfg', ws_idiom) ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
+
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide');
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-config2') ;
+			 simcore_record_captureInit() ;
 		     }
          },
 
@@ -462,9 +492,9 @@
 		      },
             body:    function() {
                         return "<div id='help1_ref' style='display:none;'></div>" +
-                               "<div class='ui-body-d ui-content p-0' id='scroller-help1-container' " +
+                               "<div class='ui-body-d ui-content p-0' id='scroller-help1' " +
                                "     style='min-height:50vh; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
-                               "     <div id='scroller-help1' style='min-height:50vh;'>" +
+                               "     <div id='content-help1' style='min-height:50vh;'>" +
 			       table_helps_html(ws_help) +
                                "</div>" +
                                "</div>" ;
@@ -474,7 +504,7 @@
 			   label:     "<span data-langkey='Help Index'>Help Index</span>",
 			   className: "btn btn-success btn-sm col col-sm-3 float-left shadow-none mr-auto",
 			   callback:  function() {
-                                         wsweb_dialog_open_list('help') ;
+                                         wsweb_dialog_open('help') ;
                                          wepsim_help_refresh() ;
                                          wepsim_restore_uicfg() ;
 				      }
@@ -493,12 +523,51 @@
 			 $('#help1_ref').data('relative','') ;
 			 $('#help1_ref').data('absolute','') ;
 			 $('#help1_ref').data('code','false') ;
+	    		 wepsim_help_refresh();
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('help', ws_idiom) ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
+
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide') ;
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-help1') ;
+			 simcore_record_captureInit() ;
 		     }
+         },
+
+	 rec_confirm_reset: {
+			id:      'record_confirm_reset',
+			title:   function() {
+				     var wsi = get_cfg('ws_idiom') ;
+				     return i18n_get('dialogs',wsi,'Confirm remove record...') ;
+				 },
+			body:    function() {
+				     var wsi = get_cfg('ws_idiom') ;
+				     return i18n_get('dialogs',wsi,'Close or Reset...') ;
+				 },
+			buttons: {
+					reset: {
+					   label:     "<span data-langkey='Reset'>Reset</span>",
+					   className: 'btn-danger col float-left',
+					   callback: function() {
+							wsweb_record_reset();
+							return true;
+						     },
+					},
+					close: {
+					   label:     "<span data-langkey='Close'>Close</span>",
+					   className: 'btn-dark col float-right'
+					}
+				 },
+			size:    '',
+			onshow:  function() {
+				    // ui lang
+				    var ws_idiom = get_cfg('ws_idiom') ;
+				    i18n_update_tags('dialogs', ws_idiom) ;
+				 }
          }
 
     } ;

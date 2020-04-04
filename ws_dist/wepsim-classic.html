@@ -576,7 +576,7 @@
 					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button onclick="wsweb_dialog_open_list('load_save_firmware'); return true;"
+						    <button onclick="wsweb_dialog_open('load_save_firmware'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file"></em><br><strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
 
@@ -613,7 +613,7 @@
 					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button onclick="wsweb_dialog_open_list('load_save_assembly'); return true;"
+						    <button onclick="wsweb_dialog_open('load_save_assembly'); return true;"
 							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file"></em><br><strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
 
@@ -669,7 +669,7 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-			    <button onclick="wsweb_dialog_open_list('load_save_firmware'); return true;"
+			    <button onclick="wsweb_dialog_open('load_save_firmware'); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file"></em>&nbsp;<strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
 		      </div>
@@ -694,7 +694,7 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wsweb_dialog_open_list('help');
+				    onclick="wsweb_dialog_open('help');
 					     wepsim_help_set_relative('simulator#help_firmware_format');
                                              wepsim_help_refresh();
                                              return false;"
@@ -800,7 +800,7 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-			    <button onclick="wsweb_dialog_open_list('load_save_assembly'); return true;"
+			    <button onclick="wsweb_dialog_open('load_save_assembly'); return true;"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file"></em>&nbsp;<strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
 		      </div>
@@ -824,7 +824,7 @@
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wsweb_dialog_open_list('help');
+				    onclick="wsweb_dialog_open('help');
                                              wepsim_help_set_relative('simulator#help_assembly_format');
                                              wepsim_help_refresh();
                                              return false;"
@@ -1262,51 +1262,10 @@
          </div>
       </div>
       <div class="modal-footer">
-           <button class="btn btn-primary btn-sm col-3 col-sm-2 float-right"
+           <button class="btn btn-primary btn-sm col col-sm-3 float-right"
                    onclick="wsweb_dialogbox_close_state();
 		            return false;"
 		   type="button"><span data-langkey="Close">Close</span></button>
-      </div>
-   </div>
-</div>
-</div> <!-- /.modal -->
-
-
-<div id="current_state2" class="modal">
-<div class="modal-dialog">
-   <div class="modal-content">
-      <div class="modal-header">
-         <div class="modal-title mx-auto">
-	      <h4><span id="dlg_title2">Current PC and microPC</span></h4>
-         </div>
-         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
-         </button>
-      </div>
-      <div class="modal-body">
-         <div class="bootbox-body">
-		<div class="card card-info border-light m-2">
-		<div class="card-body">
-		     <div class="row">
-		          <div class="col-auto">
-			       <em class="fas fa-comment-alt"></em>
-		          </div>
-		          <div class="col">
-		               <h5><span id="dlg_body2">Reason for stopping the execution goes here...</span></h5>
-		          </div>
-		     </div>
-		</div>
-		</div>
-         </div>
-      </div>
-      <div class="modal-footer">
-           <button type="button"
-                   onclick="$('#current_state2').modal('hide');
-		            wepsim_dialog_current_state();"
-                   class="btn btn-secondary col pull-left shadow-none mr-auto"><span data-langkey='States'>States</span></button>
-           <button type="button"
-                   onclick="$('#current_state2').modal('hide');"
-                   class="btn btn-primary   col pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
    </div>
 </div>

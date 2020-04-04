@@ -104,6 +104,7 @@ cat wepsim_core/wepsim_url.js \
     \
     wepsim_core/wepsim_mode.js \
     wepsim_core/wepsim_share.js \
+    wepsim_core/wepsim_dialog.js \
     wepsim_core/wepsim_config.js \
     wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
