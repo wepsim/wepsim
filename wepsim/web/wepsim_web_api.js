@@ -760,37 +760,8 @@
 
     function wsweb_record_confirmReset ( )
     {
-            var wsi = get_cfg('ws_idiom') ;
-	    var dialog_obj = {
-			        id:      'confirm2',
-			        title:   function() {
-                                             var wsi = get_cfg('ws_idiom') ;
-					     return i18n_get('dialogs',wsi,'Confirm remove record...') ;
-					 },
-			        body:    function() {
-                                             var wsi = get_cfg('ws_idiom') ;
-					     return i18n_get('dialogs',wsi,'Close or Reset...') ;
-					 },
-			        buttons: {
-						reset: {
-						   label: i18n_get('gui',wsi,'Reset'),
-						   className: 'btn-danger col float-left',
-						   callback: function() {
-								wsweb_record_reset();
-								return true;
-							     },
-						},
-						close: {
-						   label: i18n_get('gui',wsi,'Close'),
-						   className: 'btn-dark col float-right'
-						}
-					 },
-			        onshow:  function() { },
-			        size:    ''
-                             } ;
-
 	    // show dialogbox
-            wsweb_dlg_open(dialog_obj) ;
+            wsweb_dlg_open(wsweb_dialogs['rec_confirm_reset']) ;
 
             // return ok
             return true ;

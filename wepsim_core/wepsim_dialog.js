@@ -49,7 +49,15 @@
 			    centerVertical: true,
 			    keyboard:       true,
 			    animate:        false,
-			    onShown:        opost,
+                            onShow:         function() {
+                                               // onshown
+			                       opost() ;
+
+                                               // ui lang
+                                               var ws_idiom = get_cfg('ws_idiom') ;
+                                               i18n_update_tags('dialogs', ws_idiom) ;
+                                               i18n_update_tags('gui',     ws_idiom) ;
+                                            },
 			    buttons:        obuttons
 	             });
 

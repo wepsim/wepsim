@@ -101,10 +101,6 @@
 
 			 $('.dropify').dropify() ;
 
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
-
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
 			 wepsim_restore_uicfg() ;
@@ -210,10 +206,6 @@
 		         // dropify
 			 $('.dropify').dropify() ;
 
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
-
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
 			 wepsim_restore_uicfg() ;
@@ -260,10 +252,6 @@
             size:    'large',
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
-
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
@@ -314,10 +302,6 @@
             size:    '',
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
-
-		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
@@ -393,7 +377,6 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
 			 i18n_update_tags('cfg') ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
@@ -433,7 +416,6 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('examples', ws_idiom) ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
@@ -488,7 +470,6 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('cfg', ws_idiom) ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
@@ -547,7 +528,6 @@
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('help', ws_idiom) ;
-                         i18n_update_tags('dialogs', ws_idiom) ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
@@ -556,6 +536,38 @@
 			 wsweb_scroll_record('#scroller-help1') ;
 			 simcore_record_captureInit() ;
 		     }
+         },
+
+	 rec_confirm_reset: {
+			id:      'record_confirm_reset',
+			title:   function() {
+				     var wsi = get_cfg('ws_idiom') ;
+				     return i18n_get('dialogs',wsi,'Confirm remove record...') ;
+				 },
+			body:    function() {
+				     var wsi = get_cfg('ws_idiom') ;
+				     return i18n_get('dialogs',wsi,'Close or Reset...') ;
+				 },
+			buttons: {
+					reset: {
+					   label:     "<span data-langkey='Reset'>Reset</span>",
+					   className: 'btn-danger col float-left',
+					   callback: function() {
+							wsweb_record_reset();
+							return true;
+						     },
+					},
+					close: {
+					   label:     "<span data-langkey='Close'>Close</span>",
+					   className: 'btn-dark col float-right'
+					}
+				 },
+			size:    '',
+			onshow:  function() {
+				    // ui lang
+				    var ws_idiom = get_cfg('ws_idiom') ;
+				    i18n_update_tags('dialogs', ws_idiom) ;
+				 }
          }
 
     } ;

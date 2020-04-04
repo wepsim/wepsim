@@ -145,7 +145,7 @@
 			  } ;
 
                 // open dialog
-                var dlg_obj = { 
+                var dlg_obj = {
 	    			id:      'signal',
 	    			title:   function() { return bbtitle; },
 	    			body:    function() { return bbmsg; },
