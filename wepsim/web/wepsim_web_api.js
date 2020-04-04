@@ -231,9 +231,7 @@
 
     function wsweb_dialogbox_open_examples ( )
     {
-	    wsweb_dialog_open_list('examples') ;
-	    $('[data-toggle=tooltip]').tooltip('hide');
-	    wepsim_restore_uicfg() ;
+	    wsweb_dialog_open('examples') ;
 
             // return ok
             return true ;
@@ -241,10 +239,7 @@
 
     function wsweb_dialogbox_open_help ( )
     {
-	    wsweb_dialog_open_list('help') ;
-	    wepsim_help_refresh();
-	    $('[data-toggle=tooltip]').tooltip('hide');
-	    wepsim_restore_uicfg() ;
+	    wsweb_dialog_open('help') ;
 
             // return ok
             return true ;
@@ -252,9 +247,7 @@
 
     function wsweb_dialogbox_open_config ( )
     {
-	    wsweb_dialog_open_list('config') ;
-	    $('[data-toggle=tooltip]').tooltip('hide') ;
-	    wepsim_restore_uicfg() ;
+	    wsweb_dialog_open('config') ;
 
             // return ok
             return true ;
@@ -312,7 +305,7 @@
 	    var ok = wepsim_compile_assembly(textToCompile) ;
 	    if (true == ok) 
             {
-                 wsweb_dialog_open_list('binary') ;
+                 wsweb_dialog_open('binary') ;
 		 wepsim_show_binary_code('#bin2', '#compile_results') ;
 
                  // add if recording
@@ -330,7 +323,7 @@
 	    var ok = wepsim_compile_firmware(textToMCompile) ;
 	    if (true == ok) 
             {
-                 wsweb_dialog_open_list('binary') ;
+                 wsweb_dialog_open('binary') ;
 		 wepsim_show_binary_microcode('#bin2', '#compile_results') ;
 		 wepsim_notify_success('<strong>INFO</strong>',
 				       'Please remember to recompile the assembly code if needed.') ;
@@ -555,7 +548,7 @@
 		      break ;
 
 	        case 'notifications':
-		      wsweb_dialog_open_list('notifications') ;
+		      wsweb_dialog_open('notifications') ;
 		      break ;
 
 	        case 'recordbar':
@@ -697,69 +690,259 @@
             return true ;
     }
 
+    //  Workspace simulator: record
+
+    function wsweb_record_on ( )
+    {
+	    simcore_record_start() ;
+
+	    // stats about recordbar
+	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.record');
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_record_off ( )
+    {
+	    simcore_record_stop() ;
+
+	    // stats about recordbar
+	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.stop');
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_record_reset ( )
+    {
+	    simcore_record_reset() ;
+
+	    // stats about recordbar
+	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.reset');
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_record_play ( )
+    {
+	    simcore_record_play() ;
+
+	    // stats about recordbar
+	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.play');
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_record_pause ( )
+    {
+	    simcore_record_pause() ;
+
+	    // stats about recordbar
+	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.pause');
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_record_playInterval ( from, to )
+    {
+	    simcore_record_playInterval(from, to) ;
+
+	    // stats about recordbar
+	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.play-' + from + '-' + to);
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_record_confirmReset ( )
+    {
+            var wsi = get_cfg('ws_idiom') ;
+	    var dialog_obj = {
+			        id:      'confirm2',
+			        title:   function() {
+                                             var wsi = get_cfg('ws_idiom') ;
+					     return i18n_get('dialogs',wsi,'Confirm remove record...') ;
+					 },
+			        body:    function() {
+                                             var wsi = get_cfg('ws_idiom') ;
+					     return i18n_get('dialogs',wsi,'Close or Reset...') ;
+					 },
+			        buttons: {
+						reset: {
+						   label: i18n_get('gui',wsi,'Reset'),
+						   className: 'btn-danger col float-left',
+						   callback: function() {
+								wsweb_record_reset();
+								return true;
+							     },
+						},
+						close: {
+						   label: i18n_get('gui',wsi,'Close'),
+						   className: 'btn-dark col float-right'
+						}
+					 },
+			        onshow:  function() { },
+			        size:    ''
+                             } ;
+
+	    // show dialogbox
+            wsweb_dlg_open(dialog_obj) ;
+
+            // return ok
+            return true ;
+    }
+
+
     //
-    // dialogs: load/save firmware/assembly
+    //  All workspaces: popovers and modals from quick-menu...
     //
 
-    function wsweb_dialog_open_list ( dialog_id )
+    // quick menu
+    function wsweb_quickmenu_show ( )
+    {
+	    $('#po1').popover('show') ;
+	    wepsim_restore_uicfg() ;
+
+            // add if recording
+            simcore_record_append_new('Open the "quick menu"',
+		                      'wsweb_quickmenu_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickmenu_close ( )
+    {
+	    $('#po1').popover('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close the "quick menu"',
+		                      'wsweb_quickmenu_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickmenu_toggle ( )
+    {
+	    $('#po1').popover('toggle') ;
+	    wepsim_restore_uicfg() ;
+
+            // add if recording
+            simcore_record_append_new('Toggle the "quick menu"',
+		                      'wsweb_quickmenu_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    // quick slider(s)
+    function wsweb_quickslider_show ( )
+    {
+	    $('#popover-slidercfg').popover('show') ;
+
+            // add if recording
+            simcore_record_append_new('Open the "quick slider"',
+		                      'wsweb_quickslider_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickslider_close ( )
+    {
+	    $('#popover-slidercfg').popover('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close the "quick slider"',
+		                      'wsweb_quickslider_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickslider_toggle ( )
+    {
+	    $('#popover-slidercfg').popover('toggle') ;
+
+            // add if recording
+            simcore_record_append_new('Toggle the "quick slider"',
+		                      'wsweb_quickslider_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    // recordbar
+    function wsweb_recordbar_show ( )
+    {
+	    $('#record_div').collapse('show') ;
+
+            // add if recording
+            simcore_record_append_new('Open the "record toolbar"',
+		                      'wsweb_recordbar_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_recordbar_toggle ( )
+    {
+	    $('#record_div').collapse('toggle') ;
+
+            // add if recording
+            simcore_record_append_new('Toggle the "record toolbar"',
+		                      'wsweb_recordbar_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_recordbar_close ( )
+    {
+	    $('#record_div').collapse('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close the "record toolbar"',
+		                      'wsweb_recordbar_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+
+    //
+    // Auxiliar functions
+    //
+
+    // dialogs
+
+    function wsweb_dialog_open ( dialog_id )
     {
 	    // check params
 	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
                 return null ;
             }
 
-	    // elements
-	    var oid      = wsweb_dialogs[dialog_id].id ;
-	    var otitle   = wsweb_dialogs[dialog_id].title() ;
-	    var obody    = wsweb_dialogs[dialog_id].body() ;
-	    var obuttons = wsweb_dialogs[dialog_id].buttons ;
-	    var opost    = wsweb_dialogs[dialog_id].onshow ;
-	    var osize    = wsweb_dialogs[dialog_id].size ;
-
-	    // dialog
-	    var d1 = bootbox.dialog({
-			    title:          otitle,
-			    message:        obody,
-			    scrollable:     true,
-			    size:           osize,
-			    centerVertical: true,
-			    keyboard:       true,
-			    animate:        false,
-			    onShown:        function(e) {
-						opost() ;
-
-						// uicfg and events
-						$('[data-toggle=tooltip]').tooltip('hide');
-						wepsim_restore_uicfg() ;
-
-            					wsweb_scroll_record('#scroller-' + oid) ;
-						simcore_record_captureInit() ;
-					    },
-			    buttons:        obuttons
-	             });
-
-            // custom...
-	    d1.init(function(){
-		       d1.attr("id", oid) ;
-		    });
+	    // open dialog
+            var d1 = wsweb_dlg_open(wsweb_dialogs[dialog_id]) ;
 
             // intercept events...
 	    d1.one("hidden.bs.modal",
 		    function () {
-			wsweb_dialog_close(oid) ;
+			wsweb_dialog_close(dialog_id) ;
 		    });
-
-            // show
-	    d1.find('.modal-title').addClass("ml-auto") ;
-	    d1.modal('handleUpdate') ;
-	    d1.modal('show');
 
             // add if recording
             simcore_record_append_new('Open dialogbox ' + dialog_id,
-		                      'wsweb_dialog_open_list("' + dialog_id + '");\n') ;
+		                      'wsweb_dialog_open("' + dialog_id + '");\n') ;
 
 	    // stats about ui
-            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + oid) ;
+            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + wsweb_dialogs[dialog_id].id) ;
 
 	    // return dialog
 	    return d1 ;
@@ -772,9 +955,8 @@
                 return null ;
             }
 
-	    // elements
-	    var d1 = $('#' + wsweb_dialogs[dialog_id].id) ;
-	    d1.modal('hide') ;
+	    // close dialog
+            var d1 = wsweb_dlg_close(wsweb_dialogs[dialog_id]) ;
 
             // add if recording
             simcore_record_append_new('Close dialogbox ' + dialog_id,
@@ -784,7 +966,9 @@
 	    return d1 ;
     }
 
+
     // timer
+
     var wepsim_updatediv_timer = null ;
 
     function wepsim_updatetime ( div_id, time_left_sec )
@@ -800,6 +984,7 @@
 
             wepsim_updatetime(div_id, time_left_sec) ;
     }
+
 
     //  simulator: notify
 
@@ -928,221 +1113,6 @@
 			     size:    "large",
 			     animate: false
 			  });
-
-            // return ok
-            return true ;
-    }
-
-    //  Workspace simulator: record
-
-    function wsweb_record_on ( )
-    {
-	    simcore_record_start() ;
-
-	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.record');
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_record_off ( )
-    {
-	    simcore_record_stop() ;
-
-	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.stop');
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_record_reset ( )
-    {
-	    simcore_record_reset() ;
-
-	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.reset');
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_record_play ( )
-    {
-	    simcore_record_play() ;
-
-	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.play');
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_record_pause ( )
-    {
-	    simcore_record_pause() ;
-
-	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.pause');
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_record_playInterval ( from, to )
-    {
-	    simcore_record_playInterval(from, to) ;
-
-	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.play-' + from + '-' + to);
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_record_confirmReset ( )
-    {
-	    // show dialogbox
-                var wsi = get_cfg('ws_idiom') ;
-            wsweb_nfbox = bootbox.dialog({
-			     title:   i18n_get('dialogs',wsi,'Confirm remove record...'),
-			     message: i18n_get('dialogs',wsi,'Close or Reset...'),
-			     buttons: {
-		                reset: {
-				   label: i18n_get('gui',wsi,'Reset'),
-		                   className: 'btn-danger col float-left',
-		                   callback: function() {
-				                wsweb_record_reset();
-				                return true;
-			                     },
-			        },
-		                close: {
-			  	   label: i18n_get('gui',wsi,'Close'),
-				   className: 'btn-dark col float-right'
-			        }
-			     },
-			     keyboard: true,
-			     animate:  false
-			  });
-
-            // return ok
-            return true ;
-    }
-
-
-    //
-    //  All workspaces: popovers and modals from quick-menu...
-    //
-
-    // quick menu
-    function wsweb_quickmenu_show ( )
-    {
-	    $('#po1').popover('show') ;
-	    wepsim_restore_uicfg() ;
-
-            // add if recording
-            simcore_record_append_new('Open the "quick menu"',
-		                      'wsweb_quickmenu_show();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_quickmenu_close ( )
-    {
-	    $('#po1').popover('hide') ;
-
-            // add if recording
-            simcore_record_append_new('Close the "quick menu"',
-		                      'wsweb_quickmenu_close();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_quickmenu_toggle ( )
-    {
-	    $('#po1').popover('toggle') ;
-	    wepsim_restore_uicfg() ;
-
-            // add if recording
-            simcore_record_append_new('Toggle the "quick menu"',
-		                      'wsweb_quickmenu_toggle();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    // quick slider(s)
-    function wsweb_quickslider_show ( )
-    {
-	    $('#popover-slidercfg').popover('show') ;
-
-            // add if recording
-            simcore_record_append_new('Open the "quick slider"',
-		                      'wsweb_quickslider_show();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_quickslider_close ( )
-    {
-	    $('#popover-slidercfg').popover('hide') ;
-
-            // add if recording
-            simcore_record_append_new('Close the "quick slider"',
-		                      'wsweb_quickslider_close();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_quickslider_toggle ( )
-    {
-	    $('#popover-slidercfg').popover('toggle') ;
-
-            // add if recording
-            simcore_record_append_new('Toggle the "quick slider"',
-		                      'wsweb_quickslider_toggle();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    // recordbar
-    function wsweb_recordbar_show ( )
-    {
-	    $('#record_div').collapse('show') ;
-
-            // add if recording
-            simcore_record_append_new('Open the "record toolbar"',
-		                      'wsweb_recordbar_show();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_recordbar_toggle ( )
-    {
-	    $('#record_div').collapse('toggle') ;
-
-            // add if recording
-            simcore_record_append_new('Toggle the "record toolbar"',
-		                      'wsweb_recordbar_toggle();\n') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_recordbar_close ( )
-    {
-	    $('#record_div').collapse('hide') ;
-
-            // add if recording
-            simcore_record_append_new('Close the "record toolbar"',
-		                      'wsweb_recordbar_close();\n') ;
 
             // return ok
             return true ;

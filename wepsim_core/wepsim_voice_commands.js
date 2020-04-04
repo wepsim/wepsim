@@ -37,12 +37,12 @@
 
     wepsim_voice_commands['(show) configuration'] = function()
     {
-	 wsweb_dialog_open_list('config') ;
+	 wsweb_dialog_open('config') ;
     } ;
 
     wepsim_voice_commands['(show) examples'] = function()
     {
-	 wsweb_dialog_open_list('examples') ;
+	 wsweb_dialog_open('examples') ;
     } ;
 
     wepsim_voice_commands['load example :id (from) :level'] = function ( id, level )
@@ -55,7 +55,7 @@
 
     wepsim_voice_commands['(show) help'] = function()
     {
-	 wsweb_dialog_open_list('help') ;
+	 wsweb_dialog_open('help') ;
          wepsim_help_refresh() ;
     } ;
 

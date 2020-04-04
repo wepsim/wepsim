@@ -144,15 +144,19 @@
 			      }
 			  } ;
 
-		var bb = bootbox.dialog({
-		       title:   bbtitle,
-		       message: bbmsg,
-		       value:   signal_obj.value,
-		       animate: false,
-		       size:    'large',
-		       buttons: bbbtn
-		});
+                // open dialog
+                var dlg_obj = { 
+	    			id:      'signal',
+	    			title:   function() { return bbtitle; },
+	    			body:    function() { return bbmsg; },
+		       		value:   signal_obj.value,
+	    			buttons: bbbtn,
+	    			onshow:  function() { },
+	    			size:    'large'
+                              } ;
+		var bb = wsweb_dlg_open(dlg_obj) ;
 
+                // configure dialog
 		if (typeof $(".dial").knob !== "undefined")
 		{
 		    $(".dial").knob({ 'min':0, 'max':(nvalues-1) })
