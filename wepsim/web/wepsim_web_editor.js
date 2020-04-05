@@ -163,7 +163,7 @@
         var SIMWARE = get_simware() ;
 	if (SIMWARE.firmware.length === 0)
         {
-            alert('WARNING: please load the microcode first.');
+            wsweb_dlg_alert('WARNING: please load the microcode first.');
             sim_change_workspace('#main3') ;
             return false;
 	}

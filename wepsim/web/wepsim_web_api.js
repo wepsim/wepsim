@@ -672,8 +672,8 @@
 	        var SIMWARE = get_simware() ;
 	        var simware_as_text = saveFirmware(SIMWARE);
 	        if (simware_as_text.trim() == '') {
-		    alert('The Microcode loaded in memory is empty!\n' +
-	   	   	  'Please load a Microcode first in memory in order to save it.');
+		    wsweb_dlg_alert('The Microcode loaded in memory is empty!<br>\n' +
+	   	   	            'Please load a Microcode first in memory in order to save it.');
                 }
 	        else inputfirm.setValue(simware_as_text);
 

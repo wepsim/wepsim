@@ -30,40 +30,32 @@
                 return null ;
             }
 
-	    // elements
-	    var oid      = dialog_obj.id ;
-	    var otitle   = dialog_obj.title() ;
-	    var obody    = dialog_obj.body() ;
-	    var ovalue   = dialog_obj.value ;
-	    var obuttons = dialog_obj.buttons ;
-	    var opost    = dialog_obj.onshow ;
-	    var osize    = dialog_obj.size ;
-
 	    // dialog
-	    var d1 = bootbox.dialog({
-			    title:          otitle,
-			    message:        obody,
-			    value:          ovalue,
-			    scrollable:     true,
-			    size:           osize,
-			    centerVertical: true,
-			    keyboard:       true,
-			    animate:        false,
-                            onShow:         function() {
-                                               // onshown
-			                       opost() ;
+	    var ext_dlg_obj = {
+		    title:          dialog_obj.title(),
+		    message:        dialog_obj.body(),
+		    value:          dialog_obj.value,
+		    scrollable:     true,
+		    size:           dialog_obj.size,
+		    centerVertical: true,
+		    keyboard:       true,
+		    animate:        false,
+		    onShow:         function() {
+				       // onshown
+				       dialog_obj.onshow() ;
 
-                                               // ui lang
-                                               var ws_idiom = get_cfg('ws_idiom') ;
-                                               i18n_update_tags('dialogs', ws_idiom) ;
-                                               i18n_update_tags('gui',     ws_idiom) ;
-                                            },
-			    buttons:        obuttons
-	             });
+				       // ui lang
+				       var ws_idiom = get_cfg('ws_idiom') ;
+				       i18n_update_tags('dialogs', ws_idiom) ;
+				       i18n_update_tags('gui',     ws_idiom) ;
+				    },
+		    buttons:        dialog_obj.buttons
+	    } ;
+	    var d1 = bootbox.dialog(ext_dlg_obj) ;
 
             // custom...
 	    d1.init(function(){
-		       d1.attr("id", oid) ;
+		       d1.attr("id", dialog_obj.id) ;
 		    });
 
             // intercept events...
@@ -93,6 +85,33 @@
 	    d1.modal('hide') ;
 
 	    // return dialog
+	    return d1 ;
+    }
+
+    function wsweb_dlg_alert ( msg )
+    {
+             // alert object
+	     var a_obj = {
+		            title:          '<span data-langkey="Alert">Alert</span>',
+                            message:        '<br>' + msg + '<br>',
+			    scrollable:     true,
+			    centerVertical: true,
+			    keyboard:       true,
+			    animate:        false,
+			    buttons:        {
+						cancel: {
+						   label: '<i class="fa fa-times"></i> ' + 
+                                                          '<span data-langkey="Close">Close</span>'
+						},
+					    },
+                            size:           'large'
+                         } ;
+
+            // alert
+	    var d1 = bootbox.dialog(a_obj) ;
+            d1.modal('show') ;
+
+	    // return alert
 	    return d1 ;
     }
 

@@ -45,7 +45,7 @@
 	var ret = simcore_check_if_can_execute() ;
 	if (false === ret.ok)
 	{
-	    alert(ret.msg) ;
+	    wsweb_dlg_alert(ret.msg) ;
 	    return false ;
         }
 
@@ -69,7 +69,7 @@
 	var ret = simcore_check_if_can_execute() ;
 	if (false === ret.ok)
 	{
-	    alert(ret.msg) ;
+	    wsweb_dlg_alert(ret.msg) ;
 	    return false ;
         }
 
@@ -110,7 +110,7 @@
 	var ret = simcore_check_if_can_execute() ;
 	if (false === ret.ok)
 	{
-	    alert(ret.msg) ;
+	    wsweb_dlg_alert(ret.msg) ;
 	    return false ;
         }
 

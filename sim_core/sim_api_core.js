@@ -56,7 +56,7 @@
 	    var hwid = simhw_getIdByName(simhw_name) ;
 	    if (hwid < 0)
 	    {
-	        ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
+	        ret.msg = "ERROR: unknown hardware: " + simhw_name + ".<br>\n" ;
 	        ret.ok  = false ;
 	        return ret ;
 	    }
@@ -253,7 +253,8 @@
 		if ( (typeof curr_segments['.ktext'] == "undefined") &&
 		     (typeof curr_segments['.text']  == "undefined") )
 		{
-		    ret.msg = 'code segment .ktext/.text does not exist!\nPlease load some assembly code.' ;
+		    ret.msg = 'code segment .ktext/.text does not exist!<br>\n' +
+                              'Please load some assembly code.<br>' ;
 	            ret.ok = false ;
 		    return ret ;
 		}
