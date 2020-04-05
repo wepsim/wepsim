@@ -92,23 +92,30 @@
     {
              // alert object
 	     var a_obj = {
-		            title:          '<span data-langkey="Alert">Alert</span>',
-                            message:        '<br>' + msg + '<br>',
+		            title:          '<i class="fas fa-exclamation"></i> ' +
+                                            '<span data-langkey="Alert">Alert</span>',
+                            message:        '<div class="p-2">' + msg + '</div>',
 			    scrollable:     true,
 			    centerVertical: true,
 			    keyboard:       true,
 			    animate:        false,
 			    buttons:        {
 						cancel: {
-						   label: '<i class="fa fa-times"></i> ' + 
-                                                          '<span data-langkey="Close">Close</span>'
-						},
+						   label:     '<i class="fa fa-times"></i> ' +
+                                                              '<span data-langkey="Close">Close</span>',
+                                                   className: 'btn btn-primary btn-sm ' +
+                                                              'col col-sm-3 float-right shadow-none'
+						}
 					    },
-                            size:           'large'
+                            size:           ''
                          } ;
 
             // alert
 	    var d1 = bootbox.dialog(a_obj) ;
+
+            // show
+	    d1.find('.modal-title').addClass("ml-auto") ;
+	    d1.modal('handleUpdate') ;
             d1.modal('show') ;
 
 	    // return alert
