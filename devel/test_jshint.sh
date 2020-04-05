@@ -48,6 +48,8 @@ set -x
  jshint ./sim_hw/sim_hw_poc/sim_hw_scr.js
  jshint ./sim_hw/sim_hw_poc/sim_hw_io.js
 #jshint ./sim_hw/sim_hw_poc/sim_hw_cpu.js
+ jshint ./sim_hw/sim_hw_poc/sim_hw_l3d.js
+
  jshint ./sim_hw/sim_hw_ep/sim_hw_mem.js
  jshint ./sim_hw/sim_hw_ep/sim_ep.js
  jshint ./sim_hw/sim_hw_ep/sim_hw_io.js
@@ -55,6 +57,7 @@ set -x
  jshint ./sim_hw/sim_hw_ep/sim_hw_kbd.js
  jshint ./sim_hw/sim_hw_ep/sim_hw_scr.js
 #jshint ./sim_hw/sim_hw_ep/sim_hw_cpu.js
+ jshint ./sim_hw/sim_hw_ep/sim_hw_l3d.js
 
  jshint ./wepsim_core/wepsim_help_commands.js
  jshint ./wepsim_core/wepsim_tutorial.js
@@ -67,6 +70,7 @@ set -x
  jshint ./wepsim_core/wepsim_tour_commands.js
  jshint ./wepsim_core/wepsim_mode.js
  jshint ./wepsim_core/wepsim_help.js
+ jshint ./wepsim_core/wepsim_dialog.js
  jshint ./wepsim_core/wepsim_example_commands-ep_mips.js
  jshint ./wepsim_core/wepsim_state.js
  jshint ./wepsim_core/wepsim_tutorial_simpleusage.js
@@ -99,6 +103,7 @@ set -x
  jshint ./wepsim_core/wepsim_webui_cpusvg.js
 
  jshint ./wepsim/web/wepsim_web_api.js
+ jshint ./wepsim/web/wepsim_web_api_commands.js
 #jshint ./wepsim/web/wepsim_web_pwa.js
  jshint ./wepsim/web/wepsim_web_simulator.js
  jshint ./wepsim/web/wepsim_web_editor.js

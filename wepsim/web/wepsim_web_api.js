@@ -761,7 +761,7 @@
     function wsweb_record_confirmReset ( )
     {
 	    // show dialogbox
-            wsweb_dlg_open(wsweb_dialogs['rec_confirm_reset']) ;
+            wsweb_dlg_open(wsweb_dialogs.rec_confirm_reset) ;
 
             // return ok
             return true ;
