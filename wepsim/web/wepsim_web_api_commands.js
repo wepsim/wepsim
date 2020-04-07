@@ -86,7 +86,8 @@
 	              },
 	    buttons:  {
 			 close: {
-				label:     "<span data-langkey='Close'>Close</span>",
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 				callback:  function() {
     					       wsweb_dialog_close('load_save_assembly') ;
@@ -190,7 +191,8 @@
 		      },
 	    buttons:  {
 			 close: {
-				label:     "<span data-langkey='Close'>Close</span>",
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 				callback:  function() {
     					       wsweb_dialog_close('load_save_firmware') ;
@@ -242,12 +244,13 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('binary') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('binary') ;
+				           }
+			     }
 	             },
             size:    'large',
             onshow:  function() {
@@ -292,12 +295,13 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('about') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('about') ;
+				           }
+			     }
 	             },
             size:    '',
             onshow:  function() {
@@ -326,10 +330,10 @@
 		         var notifications_html = table_notifications_html(notifications) ;
 
 		         return "<div class='card border-secondary h-100'>" +
-			        "<div class='card-header border-secondary text-white bg-light p-1'>" +
-		                "  <h5 class='m-0'>" +
+			        "<div class='card-header border-light text-secondary bg-light p-1'>" +
+		                "  + <span data-langkey='Recent'>Recent</span>" +
                                 "  <div class='dropdown float-right'>" +
-                                "   <button class='btn btn-outline-secondary text-danger py-1 dropdown-toggle' " +
+                                "   <button class='btn btn-sm btn-outline-secondary text-danger py-1 dropdown-toggle' " +
                                 "            type='button' id='resetyn' data-toggle='dropdown' " +
                                 "            aria-haspopup='true' aria-expanded='false' " +
 				"            ><span data-langkey='Reset'>Reset</span></button>" +
@@ -351,24 +355,27 @@
                                 "         ><span data-langkey='No'>No</span></a>" +
                                 "    </div>" +
                                 "  </div>" +
-		               	"  </h5>" +
 			      	"</div>" +
-			      	" <div class='card-body p-1'>" +
-		                "<div id='scroller-notifications3' class='container-fluid' " +
-	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+			      	"<div class='card-body p-1'>" +
+		                " <div id='scroller-notifications3' class='container-fluid' " +
+	           	        "      style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                 notifications_html +
-                                "</div>" +
+                                " </div>" +
+			     	"</div>" +
+			        "<div class='card-footer border-light text-secondary bg-light p-1'>" +
+		                "  - <span data-langkey='Recent'>Recent</span>" +
 			     	" </div>" +
 			   	"</div>" ;
 		      },
 	    buttons:  {
 			Close: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					  wsweb_dialog_close('notifications') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					       wsweb_dialog_close('notifications') ;
+				           }
+			       }
 	             },
             size:    'large',
             onshow:  function() {
@@ -404,12 +411,13 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('examples') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('examples') ;
+				           }
+			     }
 	             },
             size:    'large',
             onshow:  function() {
@@ -443,12 +451,13 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('config') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('config') ;
+				           }
+			     }
 	             },
             size:    'large',
             onshow:  function() {
@@ -510,11 +519,12 @@
 				      }
 			},
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('help') ;
-				      }
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('help') ;
+				           }
 			}
 	             },
             size:    'large',
@@ -558,7 +568,8 @@
 						     },
 					},
 					close: {
-					   label:     "<span data-langkey='Close'>Close</span>",
+				           label:     '<i class="fa fa-times mr-2"></i>' +
+					              '<span data-langkey="Close">Close</span>',
 					   className: 'btn-dark col float-right'
 					}
 				 },

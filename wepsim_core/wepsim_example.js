@@ -226,14 +226,12 @@
 	       t_hwmcasm = e_hw + ":" + e_mc + ":" + e_asm ;
 	       t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
 
-	        if (fmt_toggle === "") {
+	        if (fmt_toggle === "")
 	            fmt_toggle  = "bg-light" ;
-                    w100_toggle = "" ;
-               }
-	       else {
-                    fmt_toggle  = "" ;
+	       else fmt_toggle  = "" ;
+	        if (m % 2 == 0)
                     w100_toggle = "collapse7 show" ;
-               }
+	       else w100_toggle = "" ;
 
 	            u = '<div class="col-sm-auto py-1 ' + fmt_toggle + ' user_' + e_level + '">' +
                         '    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
