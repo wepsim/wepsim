@@ -217,9 +217,9 @@
 		      }
          },
 
-	 // binary
-         binary: {
-            id:      "bin2",
+	 // binary_asm
+         binary_asm: {
+            id:      "bin2a",
 	    title:   function() {
                           return wepsim_config_dialog_title("Binary",
                                                             "secondary",
@@ -227,19 +227,16 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
-		        return "<div id='scroller-bin2' class='container-fluid' " +
-	           	       "     style='padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-		               " <div class='ui-body-d ui-content' style='padding: 2px 2px 2px 2px;'> " +
-           		       " <div id='iframe_bin2' style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-	           	       "   <div id='compile_results' style='padding: 16px 16px 16px 16px;'> " +
-		               "	<br/> " +
+		        return "<div id='scroller-bin2a' class='container-fluid p-1' " +
+           		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+	           	       "   <div id='compile_bin2a' " +
+	           	       "        class='p-3' " +
+	           	       "        style='width:100%; height: inherit !important;'> " +
 			       "	<center> " +
 			       "	Loading binary, please wait... <br/> " +
 			       "	WARNING: loading binary might take time on slow mobile devices. " +
 			       "	</center> " +
-		               "	   </div> " +
-		               "	 </div> " +
-		               "      </div> " +
+		               "   </div> " +
 		               "</div>" ;
 		     },
 	    buttons: {
@@ -248,19 +245,76 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 			        callback:  function() {
-    					      wsweb_dialog_close('binary') ;
+    					      wsweb_dialog_close('binary_asm') ;
 				           }
 			     }
 	             },
             size:    'large',
             onshow:  function() {
-			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+                         // update binary content
+			 var textToCompile = inputasm.getValue() ;
+			 var ok = wepsim_compile_assembly(textToCompile) ;
+			 if (true == ok) {
+                             wepsim_show_binary_code('#bin2a', '#compile_bin2a') ;
+			 }
 
 			 // uicfg and events
-			 $('[data-toggle=tooltip]').tooltip('hide');
+			 $('[data-toggle=tooltip]').tooltip('hide') ;
 			 wepsim_restore_uicfg() ;
 
-			 wsweb_scroll_record('#scroller-bin2') ;
+			 wsweb_scroll_record('#scroller-bin2a') ;
+			 simcore_record_captureInit() ;
+		     }
+         },
+
+	 // binary_fir
+         binary_fir: {
+            id:      "bin2b",
+	    title:   function() {
+                          return wepsim_config_dialog_title("Binary",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		     },
+            body:    function() {
+		        return "<div id='scroller-bin2b' class='container-fluid p-1' " +
+           		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+	           	       "   <div id='compile_bin2b' " +
+	           	       "        class='p-3' " +
+	           	       "        style='width:100%; height: inherit !important;'> " +
+			       "	<center> " +
+			       "	Loading binary, please wait... <br/> " +
+			       "	WARNING: loading binary might take time on slow mobile devices. " +
+			       "	</center> " +
+		               "   </div> " +
+		               "</div>" ;
+		     },
+	    buttons: {
+			OK: {
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('binary_fir') ;
+				           }
+			     }
+	             },
+            size:    'large',
+            onshow:  function() {
+                         // update binary content
+			 var textToMCompile = inputfirm.getValue() ;
+			 var ok = wepsim_compile_firmware(textToMCompile) ;
+			 if (true == ok) {
+			     wepsim_show_binary_microcode('#bin2b', '#compile_bin2b') ;
+			     wepsim_notify_success('<strong>INFO</strong>',
+					           'Please remember to recompile the assembly code if needed.') ;
+			 }
+
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide') ;
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-bin2a') ;
 			 simcore_record_captureInit() ;
 		     }
          },
