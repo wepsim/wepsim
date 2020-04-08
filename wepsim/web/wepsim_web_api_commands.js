@@ -219,7 +219,7 @@
 
 	 // binary_asm
          binary_asm: {
-            id:      "bin2a",
+            id:      "bin_asm",
 	    title:   function() {
                           return wepsim_config_dialog_title("Binary",
                                                             "secondary",
@@ -232,10 +232,10 @@
 	           	       "   <div id='compile_bin2a' " +
 	           	       "        class='p-3' " +
 	           	       "        style='width:100%; height: inherit !important;'> " +
-			       "	<center> " +
+			       "	<div class='d-flex align-items-center'> " +
 			       "	Loading binary, please wait... <br/> " +
 			       "	WARNING: loading binary might take time on slow mobile devices. " +
-			       "	</center> " +
+			       "	</div> " +
 		               "   </div> " +
 		               "</div>" ;
 		     },
@@ -254,9 +254,11 @@
                          // update binary content
 			 var textToCompile = inputasm.getValue() ;
 			 var ok = wepsim_compile_assembly(textToCompile) ;
-			 if (true == ok) {
-                             wepsim_show_binary_code('#bin2a', '#compile_bin2a') ;
+			 if (true != ok) {
+                             setTimeout(function() { wsweb_dialog_close('binary_asm'); }, 50) ;
+			     return ;
 			 }
+                         wepsim_show_binary_code('#bin2a', '#compile_bin2a') ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
@@ -269,7 +271,7 @@
 
 	 // binary_fir
          binary_fir: {
-            id:      "bin2b",
+            id:      "bin_fir",
 	    title:   function() {
                           return wepsim_config_dialog_title("Binary",
                                                             "secondary",
@@ -282,10 +284,10 @@
 	           	       "   <div id='compile_bin2b' " +
 	           	       "        class='p-3' " +
 	           	       "        style='width:100%; height: inherit !important;'> " +
-			       "	<center> " +
+			       "	<div class='d-flex align-items-center'> " +
 			       "	Loading binary, please wait... <br/> " +
 			       "	WARNING: loading binary might take time on slow mobile devices. " +
-			       "	</center> " +
+			       "	</div> " +
 		               "   </div> " +
 		               "</div>" ;
 		     },
@@ -304,11 +306,19 @@
                          // update binary content
 			 var textToMCompile = inputfirm.getValue() ;
 			 var ok = wepsim_compile_firmware(textToMCompile) ;
-			 if (true == ok) {
-			     wepsim_show_binary_microcode('#bin2b', '#compile_bin2b') ;
-			     wepsim_notify_success('<strong>INFO</strong>',
-					           'Please remember to recompile the assembly code if needed.') ;
+			 if (true != ok) {
+                             setTimeout(function() {  wsweb_dialog_close('binary_fir'); }, 50) ;
+			     return ;
 			 }
+			 wepsim_show_binary_microcode('#bin2b', '#compile_bin2b') ;
+			 wepsim_notify_success('<strong>INFO</strong>',
+				               'Please remember to recompile the assembly code if needed.') ;
+
+                         // refresh modal size
+                         setTimeout(function() {  
+                                      $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
+                                      $('#bin_fir').modal('handleUpdate') ;
+                                    }, 50) ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
@@ -329,7 +339,7 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
-		        return "<div id='scroller-about1' class='container-fluid'" +
+		        return "<div id='scroller-about1' class='container-fluid p-1'" +
 			       "     style='max-height:80vh; '>" +
 			       "     <form>" +
 			       "	<div class='form-group m-0'>" +
@@ -411,7 +421,7 @@
                                 "  </div>" +
 			      	"</div>" +
 			      	"<div class='card-body p-1'>" +
-		                " <div id='scroller-notifications3' class='container-fluid' " +
+		                " <div id='scroller-notifications3' class='container-fluid p-0' " +
 	           	        "      style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                 notifications_html +
                                 " </div>" +
@@ -459,7 +469,7 @@
 		      },
             body:    function() {
                         return "<div id='scroller-example1' class='container-fluid p-0' " +
-                               "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
                                table_examples_html(ws_examples) +
                                "</div>" ;
 		     },

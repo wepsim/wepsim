@@ -178,7 +178,7 @@
 		" <button class='btn btn-outline-secondary btn-block py-1' " +
                 "         type='button' id='wsdt" + name + "' " +
 		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
-		" <span>&plusmn; Description</span>" +
+		" <span class='text-truncate'>&plusmn; Description</span>" +
 		" </button>" +
                 " </div></form>"+
                 // idioms
