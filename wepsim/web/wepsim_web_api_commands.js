@@ -86,7 +86,8 @@
 	              },
 	    buttons:  {
 			 close: {
-				label:     "<span data-langkey='Close'>Close</span>",
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 				callback:  function() {
     					       wsweb_dialog_close('load_save_assembly') ;
@@ -190,7 +191,8 @@
 		      },
 	    buttons:  {
 			 close: {
-				label:     "<span data-langkey='Close'>Close</span>",
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
 				callback:  function() {
     					       wsweb_dialog_close('load_save_firmware') ;
@@ -215,9 +217,9 @@
 		      }
          },
 
-	 // binary
-         binary: {
-            id:      "bin2",
+	 // binary_asm
+         binary_asm: {
+            id:      "bin_asm",
 	    title:   function() {
                           return wepsim_config_dialog_title("Binary",
                                                             "secondary",
@@ -225,39 +227,104 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
-		        return "<div id='scroller-bin2' class='container-fluid' " +
-	           	       "     style='padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-		               " <div class='ui-body-d ui-content' style='padding: 2px 2px 2px 2px;'> " +
-           		       " <div id='iframe_bin2' style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-	           	       "   <div id='compile_results' style='padding: 16px 16px 16px 16px;'> " +
-		               "	<br/> " +
-			       "	<center> " +
+		        return "<div id='scroller-bin2a' class='container-fluid p-1' " +
+           		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+	           	       "   <div id='compile_bin2a' " +
+	           	       "        class='p-3' " +
+	           	       "        style='width:100%; height: inherit !important;'> " +
+			       "	<div class='d-flex align-items-center'> " +
 			       "	Loading binary, please wait... <br/> " +
 			       "	WARNING: loading binary might take time on slow mobile devices. " +
-			       "	</center> " +
-		               "	   </div> " +
-		               "	 </div> " +
-		               "      </div> " +
+			       "	</div> " +
+		               "   </div> " +
 		               "</div>" ;
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('binary') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('binary_asm') ;
+				           }
+			     }
 	             },
             size:    'large',
             onshow:  function() {
-			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+                         // update binary content
+			 var textToCompile = inputasm.getValue() ;
+			 var ok = wepsim_compile_assembly(textToCompile) ;
+			 if (true != ok) {
+                             setTimeout(function() { wsweb_dialog_close('binary_asm'); }, 50) ;
+			     return ;
+			 }
+                         wepsim_show_binary_code('#bin2a', '#compile_bin2a') ;
 
 			 // uicfg and events
-			 $('[data-toggle=tooltip]').tooltip('hide');
+			 $('[data-toggle=tooltip]').tooltip('hide') ;
 			 wepsim_restore_uicfg() ;
 
-			 wsweb_scroll_record('#scroller-bin2') ;
+			 wsweb_scroll_record('#scroller-bin2a') ;
+			 simcore_record_captureInit() ;
+		     }
+         },
+
+	 // binary_fir
+         binary_fir: {
+            id:      "bin_fir",
+	    title:   function() {
+                          return wepsim_config_dialog_title("Binary",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		     },
+            body:    function() {
+		        return "<div id='scroller-bin2b' class='container-fluid p-1' " +
+           		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+	           	       "   <div id='compile_bin2b' " +
+	           	       "        class='p-3' " +
+	           	       "        style='width:100%; height: inherit !important;'> " +
+			       "	<div class='d-flex align-items-center'> " +
+			       "	Loading binary, please wait... <br/> " +
+			       "	WARNING: loading binary might take time on slow mobile devices. " +
+			       "	</div> " +
+		               "   </div> " +
+		               "</div>" ;
+		     },
+	    buttons: {
+			OK: {
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('binary_fir') ;
+				           }
+			     }
+	             },
+            size:    'large',
+            onshow:  function() {
+                         // update binary content
+			 var textToMCompile = inputfirm.getValue() ;
+			 var ok = wepsim_compile_firmware(textToMCompile) ;
+			 if (true != ok) {
+                             setTimeout(function() {  wsweb_dialog_close('binary_fir'); }, 50) ;
+			     return ;
+			 }
+			 wepsim_show_binary_microcode('#bin2b', '#compile_bin2b') ;
+			 wepsim_notify_success('<strong>INFO</strong>',
+				               'Please remember to recompile the assembly code if needed.') ;
+
+                         // refresh modal size
+                         setTimeout(function() {  
+                                      $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
+                                      $('#bin_fir').modal('handleUpdate') ;
+                                    }, 50) ;
+
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide') ;
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-bin2a') ;
 			 simcore_record_captureInit() ;
 		     }
          },
@@ -272,7 +339,7 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
-		        return "<div id='scroller-about1' class='container-fluid'" +
+		        return "<div id='scroller-about1' class='container-fluid p-1'" +
 			       "     style='max-height:80vh; '>" +
 			       "     <form>" +
 			       "	<div class='form-group m-0'>" +
@@ -292,12 +359,13 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('about') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('about') ;
+				           }
+			     }
 	             },
             size:    '',
             onshow:  function() {
@@ -326,10 +394,10 @@
 		         var notifications_html = table_notifications_html(notifications) ;
 
 		         return "<div class='card border-secondary h-100'>" +
-			        "<div class='card-header border-secondary text-white bg-light p-1'>" +
-		                "  <h5 class='m-0'>" +
+			        "<div class='card-header border-light text-secondary bg-light p-1'>" +
+		                "  + <span data-langkey='Recent'>Recent</span>" +
                                 "  <div class='dropdown float-right'>" +
-                                "   <button class='btn btn-outline-secondary text-danger py-1 dropdown-toggle' " +
+                                "   <button class='btn btn-sm btn-outline-secondary text-danger py-1 dropdown-toggle' " +
                                 "            type='button' id='resetyn' data-toggle='dropdown' " +
                                 "            aria-haspopup='true' aria-expanded='false' " +
 				"            ><span data-langkey='Reset'>Reset</span></button>" +
@@ -351,24 +419,27 @@
                                 "         ><span data-langkey='No'>No</span></a>" +
                                 "    </div>" +
                                 "  </div>" +
-		               	"  </h5>" +
 			      	"</div>" +
-			      	" <div class='card-body p-1'>" +
-		                "<div id='scroller-notifications3' class='container-fluid' " +
-	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+			      	"<div class='card-body p-1'>" +
+		                " <div id='scroller-notifications3' class='container-fluid p-0' " +
+	           	        "      style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                 notifications_html +
-                                "</div>" +
+                                " </div>" +
+			     	"</div>" +
+			        "<div class='card-footer border-light text-secondary bg-light p-1'>" +
+		                "  - <span data-langkey='Recent'>Recent</span>" +
 			     	" </div>" +
 			   	"</div>" ;
 		      },
 	    buttons:  {
 			Close: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					  wsweb_dialog_close('notifications') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					       wsweb_dialog_close('notifications') ;
+				           }
+			       }
 	             },
             size:    'large',
             onshow:  function() {
@@ -398,18 +469,19 @@
 		      },
             body:    function() {
                         return "<div id='scroller-example1' class='container-fluid p-0' " +
-                               "     style='max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
                                table_examples_html(ws_examples) +
                                "</div>" ;
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('examples') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('examples') ;
+				           }
+			     }
 	             },
             size:    'large',
             onshow:  function() {
@@ -443,12 +515,13 @@
 		     },
 	    buttons: {
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('config') ;
-				      }
-			}
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('config') ;
+				           }
+			     }
 	             },
             size:    'large',
             onshow:  function() {
@@ -510,11 +583,12 @@
 				      }
 			},
 			OK: {
-			   label:     "<span data-langkey='Close'>Close</span>",
-			   className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
-			   callback:  function() {
-    					 wsweb_dialog_close('help') ;
-				      }
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('help') ;
+				           }
 			}
 	             },
             size:    'large',
@@ -558,7 +632,8 @@
 						     },
 					},
 					close: {
-					   label:     "<span data-langkey='Close'>Close</span>",
+				           label:     '<i class="fa fa-times mr-2"></i>' +
+					              '<span data-langkey="Close">Close</span>',
 					   className: 'btn-dark col float-right'
 					}
 				 },

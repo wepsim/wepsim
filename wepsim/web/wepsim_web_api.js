@@ -229,30 +229,52 @@
 
     //  Workspace simulator: dialog-boxes
 
-    function wsweb_dialogbox_open_examples ( )
+    function wsweb_dialog_open ( dialog_id )
     {
-	    wsweb_dialog_open('examples') ;
+	    // check params
+	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
+                return null ;
+            }
 
-            // return ok
-            return true ;
+	    // open dialog
+            var d1 = wsweb_dlg_open(wsweb_dialogs[dialog_id]) ;
+
+            // intercept events...
+	    d1.one("hidden.bs.modal",
+		    function () {
+			wsweb_dialog_close(dialog_id) ;
+		    });
+
+            // add if recording
+            simcore_record_append_new('Open dialogbox ' + dialog_id,
+		                      'wsweb_dialog_open("' + dialog_id + '");\n') ;
+
+	    // stats about ui
+            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + wsweb_dialogs[dialog_id].id) ;
+
+	    // return dialog
+	    return d1 ;
     }
 
-    function wsweb_dialogbox_open_help ( )
+    function wsweb_dialog_close ( dialog_id )
     {
-	    wsweb_dialog_open('help') ;
+	    // check params
+	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
+                return null ;
+            }
 
-            // return ok
-            return true ;
+	    // close dialog
+            var d1 = wsweb_dlg_close(wsweb_dialogs[dialog_id]) ;
+
+            // add if recording
+            simcore_record_append_new('Close dialogbox ' + dialog_id,
+		                      'wsweb_dialog_close("' + dialog_id + '");\n') ;
+
+	    // return dialog
+	    return d1 ;
     }
 
-    function wsweb_dialogbox_open_config ( )
-    {
-	    wsweb_dialog_open('config') ;
-
-            // return ok
-            return true ;
-    }
-
+    // specific dialogs
     function wsweb_dialogbox_open_state ( )
     {
             wepsim_dialog_current_state() ;
@@ -294,44 +316,6 @@
 						                   'wsweb_dialogbox_close_all();\n');
 				     });
 	    simcore_record_captureInit() ;
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_dialogbox_open_binary_assembly ( )
-    {
-            var textToCompile = inputasm.getValue() ;
-	    var ok = wepsim_compile_assembly(textToCompile) ;
-	    if (true == ok) 
-            {
-                 wsweb_dialog_open('binary') ;
-		 wepsim_show_binary_code('#bin2', '#compile_results') ;
-
-                 // add if recording
-                 simcore_record_append_new('update assembly binary',
-                                           'wepsim_show_binary_code("#bin2", "#compile_results");\n') ;
-	    }
-
-            // return ok
-            return true ;
-    }
-
-    function wsweb_dialogbox_open_binary_firmware ( )
-    {
-            var textToMCompile = inputfirm.getValue() ;
-	    var ok = wepsim_compile_firmware(textToMCompile) ;
-	    if (true == ok) 
-            {
-                 wsweb_dialog_open('binary') ;
-		 wepsim_show_binary_microcode('#bin2', '#compile_results') ;
-		 wepsim_notify_success('<strong>INFO</strong>',
-				       'Please remember to recompile the assembly code if needed.') ;
-
-                 // add if recording
-                 simcore_record_append_new('update firmware binary',
-                                           'wepsim_show_binary_microcode("#bin2", "#compile_results");\n') ;
-	    }
 
             // return ok
             return true ;
@@ -538,13 +522,13 @@
 	    switch (opt)
 	    {
 	        case 'examples':
-		      wsweb_dialogbox_open_examples();
+		      wsweb_dialog_open('examples') ;
 		      break ;
 
 	        case 'checkpoint':
-		      wsweb_dialogbox_open_checkpoint();
-		      $('#cot_check1').carousel(0);
-		      wepsim_checkpoint_listCache('browserCacheList1');
+		      wsweb_dialogbox_open_checkpoint() ;
+		      $('#cot_check1').carousel(0) ;
+		      wepsim_checkpoint_listCache('browserCacheList1') ;
 		      break ;
 
 	        case 'notifications':
@@ -552,16 +536,16 @@
 		      break ;
 
 	        case 'recordbar':
-		      wsweb_recordbar_toggle();
+		      wsweb_recordbar_toggle() ;
 		      break ;
 
 	        case 'help':
-		      wsweb_dialogbox_open_help();
+		      wsweb_dialog_open('help') ;
 		      break ;
 
 	        case 'intro':
-		      wsweb_select_main('intro');
-		      setTimeout(wsweb_record_play, 1000);
+		      wsweb_select_main('intro') ;
+		      setTimeout(wsweb_record_play, 1000) ;
 		      break ;
 
 	        case 'hw_summary':
@@ -672,8 +656,8 @@
 	        var SIMWARE = get_simware() ;
 	        var simware_as_text = saveFirmware(SIMWARE);
 	        if (simware_as_text.trim() == '') {
-		    alert('The Microcode loaded in memory is empty!\n' +
-	   	   	  'Please load a Microcode first in memory in order to save it.');
+		    wsweb_dlg_alert('The Microcode loaded in memory is empty!<br>\n' +
+	   	   	            'Please load a Microcode first in memory in order to save it.');
                 }
 	        else inputfirm.setValue(simware_as_text);
 
@@ -761,7 +745,7 @@
     function wsweb_record_confirmReset ( )
     {
 	    // show dialogbox
-            wsweb_dlg_open(wsweb_dialogs['rec_confirm_reset']) ;
+            wsweb_dlg_open(wsweb_dialogs.rec_confirm_reset) ;
 
             // return ok
             return true ;
@@ -889,54 +873,6 @@
     //
     // Auxiliar functions
     //
-
-    // dialogs
-
-    function wsweb_dialog_open ( dialog_id )
-    {
-	    // check params
-	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
-                return null ;
-            }
-
-	    // open dialog
-            var d1 = wsweb_dlg_open(wsweb_dialogs[dialog_id]) ;
-
-            // intercept events...
-	    d1.one("hidden.bs.modal",
-		    function () {
-			wsweb_dialog_close(dialog_id) ;
-		    });
-
-            // add if recording
-            simcore_record_append_new('Open dialogbox ' + dialog_id,
-		                      'wsweb_dialog_open("' + dialog_id + '");\n') ;
-
-	    // stats about ui
-            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + wsweb_dialogs[dialog_id].id) ;
-
-	    // return dialog
-	    return d1 ;
-    }
-
-    function wsweb_dialog_close ( dialog_id )
-    {
-	    // check params
-	    if (typeof wsweb_dialogs[dialog_id] === "undefined") {
-                return null ;
-            }
-
-	    // close dialog
-            var d1 = wsweb_dlg_close(wsweb_dialogs[dialog_id]) ;
-
-            // add if recording
-            simcore_record_append_new('Close dialogbox ' + dialog_id,
-		                      'wsweb_dialog_close("' + dialog_id + '");\n') ;
-
-	    // return dialog
-	    return d1 ;
-    }
-
 
     // timer
 

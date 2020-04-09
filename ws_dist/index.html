@@ -215,7 +215,7 @@
                                     id="btn_example1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Examples' dialog."
-				    onclick="wsweb_dialogbox_open_examples();
+				    onclick="wsweb_dialog_open('examples');
 					     return false;"><strong><span data-langkey='Examples'>Examples</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 col-auto"
@@ -223,7 +223,7 @@
                                     id="btn_help1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Help' dialog."
-		                    onclick="wsweb_dialogbox_open_help();
+		                    onclick="wsweb_dialog_open('help');
 					     return false;"><strong><span data-langkey='Help'>Help</span></strong></button>
 
 			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
@@ -290,7 +290,7 @@
                                     id="btn_cfg1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wsweb_dialogbox_open_config();
+                                    onclick="wsweb_dialog_open('config');
 				    	     return false;"
                                 ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 
@@ -590,7 +590,7 @@
 						    <button style="background-color: #DDDDDD"
 		                                            id="mob1"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1"
-							    onclick="wsweb_dialogbox_open_binary_firmware();
+							    onclick="wsweb_dialog_open('binary_fir');
 								     return false;">
 								     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a. + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>
 								     </button>
@@ -627,7 +627,7 @@
 						    <button style="background-color: #DDDDDD"
                                                             id="aob1"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1"
-							    onclick="wsweb_dialogbox_open_binary_assembly();
+							    onclick="wsweb_dialog_open('binary_asm');
 								     return false;">
 							<em class="fas fa-memory"></em><br><strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Layout</span></strong></button>
 					      </div>
@@ -685,7 +685,7 @@
 		            <button style="background-color: #DDDDDD"
 		                    id="mob1"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wsweb_dialogbox_open_binary_firmware();
+				    onclick="wsweb_dialog_open('binary_fir');
                                              return false;">
                                              <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a.+c.m.</span><span class="d-sm-none">co2&#181;addr+c.m.</span></strong>
 			                     </button>
@@ -709,7 +709,7 @@
                                     id="btn_cfg1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wsweb_dialogbox_open_config();
+                                    onclick="wsweb_dialog_open('config');
 				    	     return false;"
                                 ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 
@@ -816,7 +816,7 @@
 		            <button style="background-color: #DDDDDD"
                                     id="aob1"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wsweb_dialogbox_open_binary_assembly();
+				    onclick="wsweb_dialog_open('binary_asm');
                                              return false;">
                                     <em class="fas fa-memory"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Show Main Mem.</span></strong></button>
 		      </div>
@@ -839,7 +839,7 @@
                                     id="btn_cfg1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wsweb_dialogbox_open_config();
+                                    onclick="wsweb_dialog_open('config');
 				    	     return false;"
                                 ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 
@@ -1027,12 +1027,13 @@
 						    ><span data-langkey='Reset'>Reset</span></button>
 					    </button>
 					    <div class='dropdown-menu' aria-labelledby='resetyn2'>
-					     <a class='dropdown-item py-2 bg-light text-danger' type='button' 
+					     <a class='dropdown-item py-2 bg-white text-danger' type='button' 
 						onclick='wepsim_checkpoint_clearCache();
 							 wepsim_checkpoint_listCache("browserCacheList1");
 							 return false;'
 						 ><span data-langkey='Yes'>Yes</span></a>
-					      <a class='dropdown-item py-2 bg-light text-info' type='button' 
+					      <div class='dropdown-divider'></div>
+					      <a class='dropdown-item py-2 bg-white text-info' type='button' 
 						 ><span data-langkey='No'>No</span></a>
 					    </div>
 					  </div>
@@ -1057,7 +1058,7 @@
            <button class="btn btn-primary btn-sm col col-sm-3 float-right shadow-none"
                    onclick="wsweb_dialogbox_close_checkpoint();
 		            return false;"
-		   type="button"><span data-langkey="Close">Close</span></button>
+		   type="button"><i class="fa fa-times mr-2"></i><span data-langkey="Close">Close</span></button>
       </div>
    </div>
 </div>
@@ -1265,7 +1266,7 @@
            <button class="btn btn-primary btn-sm col col-sm-3 float-right"
                    onclick="wsweb_dialogbox_close_state();
 		            return false;"
-		   type="button"><span data-langkey="Close">Close</span></button>
+		   type="button"><i class="fa fa-times mr-2"></i><span data-langkey="Close">Close</span></button>
       </div>
    </div>
 </div>

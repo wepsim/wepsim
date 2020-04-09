@@ -117,19 +117,16 @@
                                  "<br>" +
                                  "<br>WARNING: loading binary might take time on slow mobile devices." +
                                  "</center>");
-        $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).modal('show');
 
 	setTimeout(function(){
 			var SIMWARE = get_simware() ;
-
 			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
-
 			for (var skey in SIMWARE.seg) {
 			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
 			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
 			}
-                   }, 300);
+			$(popup_id).modal('handleUpdate');
+                   }, 50);
     }
 
     function wepsim_show_binary_microcode ( popup_id, popup_content_id )
@@ -139,17 +136,12 @@
                                  "<br>" +
                                  "<br>WARNING: loading binary might take time on slow mobile devices." +
                                  "</center>");
-        $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).modal('show');
 
 	setTimeout(function() {
 			var SIMWARE = get_simware() ;
 			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
-			$(popup_content_id).css({width:"inherit !important", height:"inherit !important"});
-
-		      //$(popup_id).trigger('updatelayout');
-			$(popup_id).trigger('refresh');
-                   }, 300);
+			$(popup_id).modal('handleUpdate');
+                   }, 50);
     }
 
 
@@ -163,7 +155,7 @@
         var SIMWARE = get_simware() ;
 	if (SIMWARE.firmware.length === 0)
         {
-            alert('WARNING: please load the microcode first.');
+            wsweb_dlg_alert('WARNING: please load the microcode first.');
             sim_change_workspace('#main3') ;
             return false;
 	}

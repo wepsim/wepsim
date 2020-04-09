@@ -186,6 +186,7 @@
        var base_url = get_cfg('base_url') ;
 
        var fmt_toggle    = "" ;
+       var w100_toggle   = "" ;
        var t_hwmcasm     = "" ;
        var t_index       = "" ;
        var e_title       = "" ;
@@ -226,14 +227,16 @@
 	       t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
 
 	        if (fmt_toggle === "")
-	            fmt_toggle = "bg-light" ;
-	       else fmt_toggle = "" ;
+	            fmt_toggle  = "bg-light" ;
+	       else fmt_toggle  = "" ;
+	        if (m % 2 == 0)
+                    w100_toggle = "collapse7 show" ;
+	       else w100_toggle = "" ;
 
-	            u = "<div class='row py-1 " + fmt_toggle + " user_" + e_level + "'>" +
-                        '<div class="col-sm-auto">' +
+	            u = '<div class="col-sm-auto py-1 ' + fmt_toggle + ' user_' + e_level + '">' +
                         '    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
                         '</div>' +
-                        '<div class="col-sm-4">' +
+                        '<div class="col-sm-4    py-1 ' + fmt_toggle + ' user_' + e_level + '">' +
                         '     <span style="cursor:pointer;" ' +
 		        '           id="example_' + m + '" ' +
 		        '           onclick="simcore_record_append_pending(); ' +
@@ -276,10 +279,10 @@
 	                '           </div>' +
 		        '    </div>' +
                         '</div>' +
-                        '<div class="col-sm collapse7 show">' +
+                        '<div class="col-sm py-1 collapse7 show ' + fmt_toggle + ' user_' + e_level + '">' +
                         '    <c>' + e_description + '</c>' +
                         '</div>' +
-	                '</div>' ;
+	                '<div class="w-100 ' + w100_toggle + ' user_' + e_level + '"></div>' ;
 
 	       if (typeof examples_groupby_type[e_type] === "undefined") {
 		   examples_groupby_type[e_type] = [] ;
@@ -289,12 +292,12 @@
        }
 
        // second pass: build html
-       var o = "" ;
-           u = "" ;
-       var l = "" ;
+       var o = '' ;
+           u = '' ;
+       var l = '' ;
        for (m in examples_groupby_type)
        {
-	        u = '' ;
+	        u = '<div class="row py-1">' ;
 	        l = examples_groupby_type[m][0].level ;
                 for (var n=0; n<examples_groupby_type[m].length; n++)
                 {
@@ -304,6 +307,7 @@
 			 l = '' ;
                      }
                 }
+                u = u + '</div>' ;
 
 	        o = o + "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top user_" + l + "'>" +
 			ahw.toUpperCase() + ": " + m +
