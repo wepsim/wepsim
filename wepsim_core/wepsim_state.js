@@ -61,7 +61,9 @@
 
     function wepsim_state_results_empty ( )
     {
-	 var empty_results = '<span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>' ;
+	 var empty_results = '<span style="background-color:#FCFC00">' + 
+                             '&lt;Empty (only modified values are shown)&gt;' + 
+                             '</span>' ;
 
 	 $('#check_results1').html(empty_results) ;
 	 $('#s_clip').html('clipboard');
@@ -70,7 +72,8 @@
 
     function wepsim_state_history_empty ( )
     {
-         var empty_history = '<span style="background-color:#FCFC00">' + 
+         var empty_history = '<div class="pt-2"></div>' +
+                             '<span style="background-color:#FCFC00">' + 
                              '&lt;<span data-langkey="Empty history">Empty history</span>&gt;' + 
                              '</span>' ;
 
@@ -180,50 +183,37 @@
 
     function wepsim_dialog_current_state ( )
     {
-         // show dialog-box first...
+	 // current clk+maddr
+         var ret = wepsim_state_get_clk() ;
+         $('#curr_clk_maddr').html(ret.title_short) ;
+
+	 // current state
+	 var state_obj     = simcore_simstate_current2state() ;
+	 var txt_checklist = simcore_simstate_state2checklist(state_obj) ;
+	 $('#end_state1').tokenfield('setTokens', txt_checklist);
+
          wepsim_notify_success('<strong>INFO</strong>', 
-                               'Loading, please wait...') ;
+                               'Current state loaded !') ;
 
-	 i18n_update_tags('states') ;
-         $('#current_state1').modal('show');
-
-         // ...then update contents
-	 setTimeout(function() {
-
-	      // current clk+maddr
-              var ret = wepsim_state_get_clk() ;
-              $('#curr_clk_maddr').html(ret.title_short) ;
-
-	      // current state
-	      var state_obj     = simcore_simstate_current2state() ;
-	      var txt_checklist = simcore_simstate_state2checklist(state_obj) ;
-	      $('#end_state1').tokenfield('setTokens', txt_checklist);
-
-              wepsim_notify_close() ;
-              wepsim_notify_success('<strong>INFO</strong>', 
-                                    'Current state loaded !') ;
-
-              // ga
-	      var neltos  = 0 ;
-	      var nceltos = 0 ;
-	      var ga_str  = "" ;
-              for (var component in state_obj) 
-	      {
+         // ga
+	 var neltos  = 0 ;
+	 var nceltos = 0 ;
+	 var ga_str  = "" ;
+         for (var component in state_obj) 
+	 {
 	           nceltos = 0 ;
 	           for (var eltos in state_obj[component]) {
 	                nceltos++ ;
 	           }
 	           ga_str = ga_str + "," + component + "=" + nceltos ;
                    neltos = neltos + nceltos ;
-	      }
+	 }
 
-              ga('send', 'event', 'state', 
-	         'state.dump', 
-	         'state.dump' + '.ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
-		                ',neltos=' + neltos + 
-		                ga_str);
-
-         }, 80) ;
+         ga('send', 'event', 'state', 
+	    'state.dump', 
+	    'state.dump' + '.ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
+		           ',neltos=' + neltos + 
+		           ga_str);
     }
 
     function wepsim_dialog_check_state ( id_result, obj_chklst_expected, obj_chklst_current )

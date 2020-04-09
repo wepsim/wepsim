@@ -275,29 +275,6 @@
     }
 
     // specific dialogs
-    function wsweb_dialogbox_open_state ( )
-    {
-            wepsim_dialog_current_state() ;
-	    $('[data-toggle=tooltip]').tooltip('hide') ;
-	    $('#bot_check1').carousel(0);
-	    wepsim_restore_uicfg() ;
-
-            // add if recording
-            simcore_record_append_new('Open state',
-		                      'wsweb_dialogbox_open_state();\n') ;
-
-            // intercept events...
-	    $("#current_state1").one("hidden.bs.modal",
-		                     function () {
-					 simcore_record_append_new('Close state',
-						                   'wsweb_dialogbox_close_all();\n');
-				     });
-	    simcore_record_captureInit() ;
-
-            // return ok
-            return true ;
-    }
-
     function wsweb_dialogbox_open_checkpoint ( )
     {
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
@@ -347,18 +324,6 @@
             return true ;
     }
 
-    function wsweb_dialogbox_close_state ( )
-    {
-	    $('#current_state1').modal('hide') ;
-
-            // add if recording
-            simcore_record_append_new('Close states dialogbox',
-		                      'wsweb_dialogbox_close_state();\n') ;
-
-            // return ok
-            return true ;
-    }
-
     function wsweb_dialogbox_close_checkpoint ( )
     {
 	    $('#current_checkpoint1').modal('hide') ;
@@ -374,12 +339,12 @@
     function wsweb_dialogbox_close_all ( )
     {
 	    // Close all dialogbox
-	         $('#current_state1').modal('hide') ;
 	         $('#current_state2').modal('hide') ;
 	    $('#current_checkpoint1').modal('hide') ;
 	             wsweb_dialog_close('help') ;
 	             wsweb_dialog_close('config') ;
 	             wsweb_dialog_close('examples') ;
+	             wsweb_dialog_close('state') ;
 
             // add if recording
             simcore_record_append_new('Close all dialogboxes',

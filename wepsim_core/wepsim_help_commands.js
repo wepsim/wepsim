@@ -107,6 +107,16 @@
                   });
 
     ws_help.push({
+                     id:          "simulator",
+                     title:       "<span data-langkey='Simulator: states'>Simulator: states</span>",
+                     i_type:      "relative",
+                     u_type:      "simulator",
+                     u_class:     "",
+                     reference:   "simulator#help_dumper",
+                     description: "<span data-langkey='help_02_06'>How the simulator can show the current state, and the difference between two states</span>.<br>"
+                  });
+
+    ws_help.push({
                      id:          "architecture",
                      title:       "<span data-langkey='Simulated architecture'>Simulated architecture</span>",
                      i_type:      "absolute",
