@@ -275,29 +275,6 @@
     }
 
     // specific dialogs
-    function wsweb_dialogbox_open_checkpoint ( )
-    {
-	    $('[data-toggle=tooltip]').tooltip('hide') ;
-	    $('#cot_check1').carousel(0);
-            $('#current_checkpoint1').modal('show');
-	    wepsim_restore_uicfg() ;
-
-            // add if recording
-            simcore_record_append_new('Open state',
-		                      'wsweb_dialogbox_open_checkpoint();\n') ;
-
-            // intercept events...
-	    $("#current_checkpoint1").one("hidden.bs.modal",
-		                     function () {
-					 simcore_record_append_new('Close checkpoint',
-						                   'wsweb_dialogbox_close_all();\n');
-				     });
-	    simcore_record_captureInit() ;
-
-            // return ok
-            return true ;
-    }
-
     function wsweb_dialogbox_open_hardware_summary ( )
     {
             var ahw2 = simhw_active().sim_short_name ;
@@ -324,27 +301,15 @@
             return true ;
     }
 
-    function wsweb_dialogbox_close_checkpoint ( )
-    {
-	    $('#current_checkpoint1').modal('hide') ;
-
-            // add if recording
-            simcore_record_append_new('Close checkpoint dialogbox',
-		                      'wsweb_dialogbox_close_checkpoint();\n') ;
-
-            // return ok
-            return true ;
-    }
-
     function wsweb_dialogbox_close_all ( )
     {
 	    // Close all dialogbox
-	         $('#current_state2').modal('hide') ;
-	    $('#current_checkpoint1').modal('hide') ;
-	             wsweb_dialog_close('help') ;
-	             wsweb_dialog_close('config') ;
-	             wsweb_dialog_close('examples') ;
-	             wsweb_dialog_close('state') ;
+	    wsweb_dialog_close('help') ;
+	    wsweb_dialog_close('config') ;
+	    wsweb_dialog_close('examples') ;
+	    wsweb_dialog_close('state') ;
+	    wsweb_dialog_close('current_checkpoint') ;
+	    $('#current_state2').modal('hide') ;
 
             // add if recording
             simcore_record_append_new('Close all dialogboxes',
@@ -491,9 +456,7 @@
 		      break ;
 
 	        case 'checkpoint':
-		      wsweb_dialogbox_open_checkpoint() ;
-		      $('#cot_check1').carousel(0) ;
-		      wepsim_checkpoint_listCache('browserCacheList1') ;
+		      wsweb_dialog_open('current_checkpoint') ;
 		      break ;
 
 	        case 'notifications':

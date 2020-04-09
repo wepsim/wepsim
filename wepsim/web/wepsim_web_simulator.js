@@ -371,12 +371,6 @@
 	  location.reload(true) ;
     }
 
-    function wepsim_init_helpDropdown ( )
-    {
-           // dropdown checkpoint
-           var o = wepsim_config_dialog_title('Checkpoint', 'secondary', '') ;
-           $("#current_checkpoint1_title").html(o) ;
-    }
 
     //
     // Quick Config
@@ -626,17 +620,8 @@
 	    // carousel: touch swipe disabled
 	    $('.carousel').carousel({ touch: false }) ;
 
-	    // initialize dropify
-	    $('.dropify').dropify();
-
 	    // set wepsim version
 	    $("div.wsversion").replaceWith(get_cfg('version'));
-
-	    // init: state dialog
-	    $('#end_state2').tokenfield({ inputType: 'textarea' }) ;
-	       //A1/ var inputEls = document.getElementById(id_div_state2);
-	       //A1/ if (null !== inputEls)
-	       //A1/     setup_speech_input(inputEls) ;
 
 	    // tooltip: trigger by hover
 	    $('[data-toggle="tooltip"]').tooltip({
@@ -738,9 +723,6 @@
 	    // init: record
 	    simcore_record_init('record_msg', 'record_pb') ;
             simcore_record_captureInit() ;
-
-	    // init: help idiom selectors
-            wepsim_init_helpDropdown() ;
 
 	    // restore UI
 	    setTimeout(function() {

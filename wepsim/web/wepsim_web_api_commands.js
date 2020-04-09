@@ -315,7 +315,7 @@
 				               'Please remember to recompile the assembly code if needed.') ;
 
                          // refresh modal size
-                         setTimeout(function() {  
+                         setTimeout(function() {
                                       $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
                                       $('#bin_fir').modal('handleUpdate') ;
                                     }, 50) ;
@@ -642,6 +642,8 @@
 				    // ui lang
 				    var ws_idiom = get_cfg('ws_idiom') ;
 				    i18n_update_tags('dialogs', ws_idiom) ;
+
+			            simcore_record_captureInit() ;
 				 }
          },
 
@@ -652,7 +654,7 @@
                           return wepsim_config_dialog_title("State",
                                                             "dark",
 							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('help', ws_idiom);") ;
+							    "i18n_update_tags('dialog', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<div class='card mb-1'>" +
@@ -810,6 +812,14 @@
 	             },
             size:    'large',
             onshow:  function() {
+		         // update state
+		         $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
+		            //A1/ var inputEls = document.getElementById('end_state1');
+		            //A1/ if (null !== inputEls)
+		            //A1/     setup_speech_input(inputEls) ;
+
+                         wepsim_dialog_current_state() ;
+
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
                          i18n_update_tags('states', ws_idiom) ;
@@ -819,15 +829,146 @@
 			 wepsim_restore_uicfg() ;
 
 	    	 	 simcore_record_captureInit() ;
-
-		         // update state
-		         $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
-		            //A1/ var inputEls = document.getElementById('end_state1');
-		            //A1/ if (null !== inputEls)
-		            //A1/     setup_speech_input(inputEls) ;
-
-                         wepsim_dialog_current_state() ;
 		     }
+         },
+
+	 current_checkpoint: {
+		id:      'current_checkpoint1',
+		title:   function() {
+                             return wepsim_config_dialog_title("Checkpoint",
+                                                               "secondary",
+							       "var ws_idiom = get_cfg('ws_idiom');" +
+							       "i18n_update_tags('dialog', ws_idiom);") ;
+			 },
+		body:    function() {
+                             return "<div class='row m-0'>" +
+                                    "   <div class='col-12 col-sm-4 p-2'>" +
+                                    "   <div class='card border-secondary h-100'>" +
+                                    "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
+                                    "	  <h5 class='m-0'>" +
+                                    "	    <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
+                                    "	    <button class='btn btn-light mx-1 float-right py-0 col-auto'" +
+                                    "		  onclick='wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing save request...\");" +
+                                    "			   var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
+                                    "			   var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "			   wepsim_checkpoint_save(\"FileNameToSaveAs1\", \"tagToSave1\", checkpointObj);" +
+                                    "			   wsweb_dialog_close(\"current_checkpoint\");" +
+                                    "			   return false;'><span data-langkey='Save'>Save</span></button>" +
+                                    "	    <button class='btn btn-light mx-1 float-right py-0 col-auto'" +
+                                    "		  onclick=' wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing share request...\");" +
+                                    "			   var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
+                                    "			   var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "			   wepsim_checkpoint_share(\"FileNameToSaveAs1\", \"tagToSave1\", checkpointObj);" +
+                                    "			   wsweb_dialog_close(\"current_checkpoint\");" +
+                                    "			   return false;'><span data-langkey='Share'>Share</span></button>" +
+                                    "	  </h5>" +
+                                    "      </div>" +
+                                    "      <div class='card-body'>" +
+                                    "		<label for='FileNameToSaveAs1' class='collapse7'><em><span data-langkey='File name'>File name</span>:</em></label>" +
+                                    "		<p><input aria-label='filename to save content' id='FileNameToSaveAs1'" +
+                                    "			  class='form-control btn-outline-dark' placeholder='File name where checkpoint will be saved' style='min-width: 90%;'/></p>" +
+                                    "" +
+                                    "		<label for='tagToSave1' class='collapse7'><em><span data-langkey='Tag for checkpoint'>Tag for checkpoint</span>:</em></label>" +
+                                    "		<p><input aria-label='associated tag to be saved' id='tagToSave1'" +
+                                    "			  class='form-control btn-outline-dark' placeholder='Associated tag to be saved (if any)' style='min-width: 90%;'/></p>" +
+                                    "      </div>" +
+                                    "   </div>" +
+                                    "   </div>" +
+                                    "   <div class='col-12 col-sm-4 p-2'>" +
+                                    "   <div class='card border-secondary h-100'>" +
+                                    "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
+                                    "	  <h5 class='m-0'>" +
+                                    "	    <span class='text-white bg-secondary' data-langkey='Input' class='collapse7'>Input</span>" +
+                                    "	    <button class='btn btn-light mx-1 float-right py-0 col-auto'" +
+                                    "		    onclick='var ret = wepsim_checkpoint_load(\"FileNameToSaveAs1\", \"tagToSave1\", \"fileToLoad31\");" +
+                                    "			     if (ret) {" +
+                                    "				 wsweb_dialog_close(\"current_checkpoint\");" +
+                                    "				 wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
+                                    "			     }" +
+                                    "			     return false;'><span data-langkey='Load'>Load</span></button>" +
+                                    "	  </h5>" +
+                                    "      </div>" +
+                                    "      <div class='card-body'>" +
+                                    "		<label for='fileToLoad31' class='collapse7'><em><span data-langkey='File to be loaded'>File to be loaded</span>:</em><br></label>" +
+                                    "		<input data-max-height='20vh'" +
+                                    "		       aria-label='file to load' type='file' id='fileToLoad31' class='dropify' />" +
+                                    "      </div>" +
+                                    "   </div>" +
+                                    "   </div>" +
+                                    "   <div class='col-12 col-sm-4 p-2'>" +
+                                    "   <div class='card border-secondary h-100'>" +
+                                    "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
+                                    "	  <h5 class='m-0'>" +
+                                    "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
+                                    "	    <button class='btn btn-light mx-1 float-right py-0 col-auto'" +
+                                    "		    onclick='var ret = wepsim_checkpoint_loadFromCache(\"FileNameToSaveAs1\", \"tagToSave1\", \"browserCacheElto\");" +
+                                    "			     wsweb_dialog_close(\"current_checkpoint\");" +
+                                    "			     if (ret.error)" +
+                                    "				  wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
+                                    "			     else wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
+                                    "			     return false;'><span data-langkey='Load'>Load</span></button>" +
+                                    "		  <div class='dropdown float-right'>" +
+                                    "		    <button class='btn btn-light text-danger py-0 mx-1 float-right col-auto dropdown-toggle' " +
+                                    "			    type='button' id='resetyn2' data-toggle='dropdown' " +
+                                    "			    aria-haspopup='true' aria-expanded='false' " +
+                                    "			    ><span data-langkey='Reset'>Reset</span></button>" +
+                                    "		    </button>" +
+                                    "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
+                                    "		     <a class='dropdown-item py-2 bg-white text-danger' type='button' " +
+                                    "			onclick='wepsim_checkpoint_clearCache();" +
+                                    "				 wepsim_checkpoint_listCache(\"browserCacheList1\");" +
+                                    "				 return false;'" +
+                                    "			 ><span data-langkey='Yes'>Yes</span></a>" +
+                                    "		      <div class='dropdown-divider'></div>" +
+                                    "		      <a class='dropdown-item py-2 bg-white text-info' type='button' " +
+                                    "			 ><span data-langkey='No'>No</span></a>" +
+                                    "		    </div>" +
+                                    "		  </div>" +
+                                    "	  </h5>" +
+                                    "      </div>" +
+                                    "      <div class='card-body'>" +
+                                    "		<label for='browserCacheList1' class='collapse7'><em><span data-langkey='Session to be restore'>Session to be restore</span>:</em><br></label>" +
+                                    "		<div id='browserCacheList1'" +
+                                    "		     style='max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>&lt;Empty&gt;</div>" +
+                                    "      </div>" +
+                                    "   </div>" +
+                                    "   </div>" +
+                                    "</div>" ;
+
+			 },
+		buttons: {
+			     close: {
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('current_checkpoint') ;
+				           }
+			     }
+			 },
+		size:    'large',
+		onshow:  function() {
+                                 // update content
+	                         wepsim_checkpoint_listCache('browserCacheList1');
+
+			         $('.dropify').dropify() ;
+
+				 // refresh modal size
+				 setTimeout(function() {
+					      $('#current_checkpoint1').find('.modal-dialog').addClass("bootboxWidth") ;
+					      $('#current_checkpoint1').modal('handleUpdate') ;
+					    }, 50) ;
+
+				 // ui lang
+				 var ws_idiom = get_cfg('ws_idiom') ;
+				 i18n_update_tags('dialog', ws_idiom) ;
+
+				 // uicfg and events
+				 $('[data-toggle=tooltip]').tooltip('hide') ;
+				 wepsim_restore_uicfg() ;
+
+				 simcore_record_captureInit() ;
+			 }
          }
 
     } ;

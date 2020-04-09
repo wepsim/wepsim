@@ -196,7 +196,7 @@
 					   className: 'btn btn-secondary col float-left shadow-none mr-auto',
 					   callback: function() {
 							wsweb_dlg_close(dlg_obj) ;
-							wepsim_dialog_current_state();
+							wsweb_dialog_open('state') ;
 							return true;
 						     },
 					},
