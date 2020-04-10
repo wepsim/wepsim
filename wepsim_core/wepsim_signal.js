@@ -62,7 +62,7 @@
 			 input_help += '<li class="list-group-item p-1">' +
 				       '<label class="m-1">' +
 				       '  <input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' +
-				       '         value="' + n + '" ' + str_checked + ' />' +
+				       '         value="' + n + '" ' + str_checked + ' class="btn-like"/>' +
 				       '  <span class="badge badge-secondary badge-pill">' + n + '</span>' + '&nbsp;' +
 				       '  <span>' + behav_str + '</span>&nbsp;' + str_bolded +
 				       '  <p class="m-0 ml-3 bg-light collapse collapse7"><small>' + behav_raw + '</small></p>' +
@@ -105,13 +105,14 @@
 	        var bbmsg = '<div id="bot_signal" class="carousel" data-ride="carousel" data-interval="false">' +
 			    '  <div class="carousel-inner" role="listbox">' +
 			    '    <div class="carousel-item active">' +
-			    '         <div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' +
+			    '    <div id="scroller-signal" ' + 
+                            '         style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' +
 			    '         <form class="form-horizontal" style="white-space:wrap;">' +
 			    '         <input aria-label="value for ' + key     + '" id="ask_skey"  name="ask_skey"  type="hidden" value="' + key     + '" class="form-control input-md"> ' +
 			    '         <input aria-label="value for ' + curr_hw + '" id="ask_shard" name="ask_shard" type="hidden" value="' + curr_hw + '" class="form-control input-md"> ' +
 					  input_help +
 			    '         </form>' +
-			    '         </div>' +
+			    '    </div>' +
 			    '    </div>' +
 			    '    <div class="carousel-item">' +
 			    '         <div id=help2 style="max-height:65vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>' +
@@ -146,12 +147,22 @@
 
                 // open dialog
                 var dlg_obj = {
-	    			id:      'signal',
+	    			id:      'dlg_updatesignal',
 	    			title:   function() { return bbtitle; },
 	    			body:    function() { return bbmsg; },
 		       		value:   signal_obj.value,
 	    			buttons: bbbtn,
-	    			onshow:  function() { },
+	    			onshow:  function() { 
+					    // ui
+					    var bb = $('#dlg_updatesignal') ;
+					    bb.find(".modal-title").addClass("mx-auto") ;
+					    bb.find(".bootbox-close-button").addClass("mx-1") ;
+					    bb.modal('handleUpdate') ;
+
+					    // uicfg and events
+					    wsweb_scroll_record('#scroller-signal') ;
+					    simcore_record_captureInit() ;
+                                         },
 	    			size:    'large'
                               } ;
 		var bb = wsweb_dlg_open(dlg_obj) ;
@@ -163,11 +174,6 @@
 				 .val(signal_obj.value)
 				 .trigger('change') ;
 		}
-
-	        bb.find(".modal-title").addClass("mx-auto") ;
-	        bb.find(".bootbox-close-button").addClass("mx-1") ;
-	        bb.attr("id", "dlg_updatesignal") ;
-                bb.modal('handleUpdate') ;
 
 	    show_states();
 	    wepsim_show_rf_values();
