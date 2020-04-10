@@ -32,7 +32,7 @@
 
 	 // setup annyang + speechkitt...
          annyang.addCommands(wepsim_voice_commands);
-         annyang.addCallback('errorNetwork', 
+         annyang.addCallback('errorNetwork',
                              function () {
 	                         annyang.abort() ;
                                  alert('Sorry but some network connection is needed in order to use the voice recognition engine.');

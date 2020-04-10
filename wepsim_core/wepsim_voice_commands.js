@@ -127,7 +127,7 @@
 
 
     // control
-    wepsim_voice_commands['list'] =  function() 
+    wepsim_voice_commands['list'] =  function()
     {
 	 var vc_list = "available commands:<br>" ;
 

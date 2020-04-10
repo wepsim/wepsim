@@ -165,9 +165,9 @@
 	 var share_text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description + '):\n' ;
 	 var share_url   = '' + base_url + '?mode=' + e_hw + '&example=' + m ;
 
-	 return share_infomation('example_' + m, 
-		                 share_title, 
-		                 share_text, 
+	 return share_infomation('example_' + m,
+		                 share_title,
+		                 share_text,
 		                 share_url) ;
     }
 
@@ -243,7 +243,9 @@
 		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true); ' +
 		        '                    wsweb_dialog_close(\'examples\'); ' +
 		        '                    return false;" ' +
-		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-1" style="cursor:pointer;" >' + e_title + '</span>' +
+		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-1"' +
+                        '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
+                             e_title + '</span>' +
 		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + mode + '&example=' + m + '</span>' +
 		        '    <div class="btn-group btn-group-md">' +
                         '           <button type="button" ' +

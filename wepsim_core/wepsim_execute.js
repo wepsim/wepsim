@@ -166,7 +166,7 @@
     {
 	var dlg_obj = {
 			id:      'current_state2',
-			title:   function() { 
+			title:   function() {
 				    var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 				    var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
 				    var curr_maddr = "0x" + reg_maddr.toString(16) ;
@@ -176,7 +176,7 @@
 				    var dialog_title = msg1 + " @ pc=" + curr_addr + "+mpc=" + curr_maddr ;
                                     return '<span id="dlg_title2">' + dialog_title + '</span>' ;
                                  },
-			body:    function() { 
+			body:    function() {
 				    return '<div class="card card-info border-light m-2">' +
 					   '<div class="card-body">' +
 					   '     <div class="row"> ' +

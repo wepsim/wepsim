@@ -63,7 +63,7 @@
 		    config_groupby_type[e_type] = [] ;
 		}
 
-		config_groupby_type[e_type].push({'row':     row, 
+		config_groupby_type[e_type].push({'row':     row,
 			                          'u_class': e_u_class}) ;
        }
 
@@ -82,7 +82,7 @@
 		     u = u + config_groupby_type[m][n].row ;
 
 	             l1 = config_groupby_type[m][n].u_class.split(' ') ;
-		     for (var li=0; li<l1.length; li++) 
+		     for (var li=0; li<l1.length; li++)
 	             {
 			  if (typeof l2[l1[li]] === 'undefined') {
 			      l2[l1[li]] = 0 ;
@@ -92,14 +92,14 @@
                 }
 
 	        l = '' ;
-	        for (var lj in l2) 
+	        for (var lj in l2)
 	        {
 		     if (l2[lj] === config_groupby_type[m].length) {
 			 l += lj + ' ' ;
 		     }
 		}
 
-		o = o + "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top " + l + "'>" + 
+		o = o + "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top " + l + "'>" +
 			"<span data-langkey='" + m + "'>" + m + "</span>" +
 			"</div>" + u ;
        }
@@ -116,7 +116,7 @@
 	var prev_type = "" ;
 	for (var elto in breakpoint_icon_list)
 	{
-		if (breakpoint_icon_list[elto].type != prev_type) 
+		if (breakpoint_icon_list[elto].type != prev_type)
 		{
                     o = o + "</div>" +
 			    "<div class='row p-1'>" +
@@ -145,16 +145,16 @@
 
     function wepsim_show_breakpoint_icon_template ( )
     {
-	var o = '<div class="popover" role="tooltip">' + 
-		'<div class="arrow"></div><h3 class="popover-header"></h3>' + 
-		'<div class="popover-body"></div>' + 
-		'<div class="popover-footer">' + 
+	var o = '<div class="popover" role="tooltip">' +
+		'<div class="arrow"></div><h3 class="popover-header"></h3>' +
+		'<div class="popover-body"></div>' +
+		'<div class="popover-footer">' +
 	        '  <div class="m-0 p-2" style="background-color: #f7f7f7">' +
                 '  <button type="button" id="close" data-role="none" ' +
                 '          class="btn btn-sm btn-danger w-100 p-0" ' +
                 '          onclick="$(\'#breakpointicon1\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
-		'  </div>' + 
-		'</div>' + 
+		'  </div>' +
+		'</div>' +
 		'</div>' ;
 
 	return o ;

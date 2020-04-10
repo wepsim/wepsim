@@ -268,10 +268,10 @@
 	    return true ;
     }
 
-	    function wepsim_checkpoint_afterLoad ( textLoaded, 
+	    function wepsim_checkpoint_afterLoad ( textLoaded,
 		                                   obj_fileName, obj_tagName, obj_fileToLoad )
 	    {
-		    try 
+		    try
 		    {
 			   var current_checkpoint = null ;
 
@@ -283,7 +283,7 @@
 			   wepsim_checkpoint_loadFromObj(current_checkpoint,
 							 obj_fileName, obj_tagName, obj_fileToLoad) ;
 		    }
-		    catch (e) 
+		    catch (e)
 		    {
 			   ws_alert('Error on checkpoint file: ' + e) ;
 		    }
@@ -351,9 +351,9 @@
 	                                {
 					   var obj_refName = { name: file_uri } ;
 
-					   wepsim_checkpoint_afterLoad(data_text, 
-								       'FileNameToSaveAs1', 
-								       'tagToSave1', 
+					   wepsim_checkpoint_afterLoad(data_text,
+								       'FileNameToSaveAs1',
+								       'tagToSave1',
 								       obj_refName) ;
 			                } ;
 
@@ -488,7 +488,7 @@
 		return ret ;
 	    }
 
-	    var obj_fileToLoad = { name: '' } ; 
+	    var obj_fileToLoad = { name: '' } ;
 	    wepsim_checkpoint_loadFromObj(current_checkpoint,
 					  obj_fileName, obj_tagName, obj_fileToLoad) ;
 

@@ -274,33 +274,6 @@
 	    return d1 ;
     }
 
-    // specific dialogs
-    function wsweb_dialogbox_open_hardware_summary ( )
-    {
-            var ahw2 = simhw_active().sim_short_name ;
-	    var img2 = 'examples/hardware/' + ahw2 + '/images/cpu.svg?time=20190102' ;
-	    var lyr2 =  '<object id=svg_p2 ' +
-			'        data=\'' + img2 + '\' ' +
-			'        type=\'image/svg+xml\'>' +
-			'Your browser does not support SVG' +
-			'</object>' ;
-	    wepsim_open_help_content(lyr2) ;
-
-            // add if recording
-            simcore_record_append_new('Open hardware summary',
-		                      'wsweb_dialogbox_open_hardware_summary();\n') ;
-
-            // intercept events...
-	    $("#help1").one("hidden.bs.modal",
-		            function () {
-				simcore_record_append_new('Open hardware summary',
-					                  'wsweb_dialogbox_close_all();\n');
-			    });
-
-            // return ok
-            return true ;
-    }
-
     function wsweb_dialogbox_close_all ( )
     {
 	    // Close all dialogbox
@@ -477,7 +450,8 @@
 		      break ;
 
 	        case 'hw_summary':
-		      wsweb_dialogbox_open_hardware_summary() ;
+		      wsweb_dialog_open('help') ;
+		      wepsim_open_help_hardware_summary() ;
 		      break ;
 	    }
 

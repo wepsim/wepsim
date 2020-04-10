@@ -110,6 +110,8 @@
 				   }, wait_time);
     }
 
+    var ws_glowing_time = 250 ;
+
     function simcore_record_glowing ( ui_id )
     {
          // check params
@@ -121,10 +123,10 @@
          // add class and...
          ui_obj.addClass('btn-warning') ;
 
-         // ...remove it after 250 ms.
+         // ...remove it after 'ws_glowing_time' ms.
          setTimeout(function() {
 		       ui_obj.removeClass('btn-warning') ;
-	            }, 250) ;
+	            }, ws_glowing_time) ;
     }
 
     function simcore_record_glowAdd ( )
@@ -334,9 +336,15 @@
     {
         if (ws_is_recording === true)
 	{
+            // distance + update internal clock
 	    var distance = Date.now() - ws_last_time ;
             ws_last_time = Date.now() ;
 
+            // min. distance -> glowing time
+	    if (0 == distance)
+	        distance = ws_glowing_time ;
+
+            // add event
             simcore_record_pushElto("_pending event_", ";", distance) ;
 	}
     }

@@ -58,7 +58,7 @@
 	      icon_obj = breakpoint_icon_list[icon_name] ;
 	  }
 
-	  return "<img alt='stop icon' height=22 " + 
+	  return "<img alt='stop icon' height=22 " +
 		 "     class='" + icon_obj.addclass + "' " +
 		 "     src='images/stop/stop_" + icon_name + ".gif'>" ;
     }

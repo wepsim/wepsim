@@ -23,7 +23,7 @@
 
     ws_examples.push({
                        id: 'S7E3',
-                       title: "<span data-langkey='Instructions'>Instructions</span>",
+                       title: "Instructions",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_z80",
