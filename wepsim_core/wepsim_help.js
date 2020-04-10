@@ -141,16 +141,6 @@
              return ;
         }
 
-        if ( (typeof rel != "undefined") && (rel == "") )
-        {
-	     var html_index = table_helps_html(ws_help) ;
-	     $(helpdiv).html(html_index) ;
-
-             ga('send', 'event', 'help', 'help.index', 'help.index') ;
-
-             return ;
-        }
-
         var ab1 = $('#help1_ref').data('absolute') ;
         if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
@@ -168,6 +158,17 @@
         {
             ga('send', 'event', 'help', 'help.code', 'help.code.*') ;
             return ;
+        }
+
+        // empty rel -> show index
+        if ( (typeof rel != "undefined") && (rel == "") )
+        {
+	     var html_index = table_helps_html(ws_help) ;
+	     $(helpdiv).html(html_index) ;
+
+             ga('send', 'event', 'help', 'help.index', 'help.index') ;
+
+             return ;
         }
     }
 
