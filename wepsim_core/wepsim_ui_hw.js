@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -104,9 +104,9 @@
 
 		   e =     '<span style=\'text-align:left\'>' +
 			   'name: '            + ahw.signals[elto].name  + '<br>' +
-			   'value: '           + '<span' + 
-			                         ' onclick=simcoreui_signal_dialog(\'' + ahw.signals[elto].name + '\'); ' + 
-			                         ' class=\'font-weight-bold\'>' + elto_v + 
+			   'value: '           + '<span' +
+			                         ' onclick=simcoreui_signal_dialog(\'' + ahw.signals[elto].name + '\'); ' +
+			                         ' class=\'font-weight-bold\'>' + elto_v +
 			                         '</span><br>' +
 			   'default_value: '   + elto_dv                 + '<br>' +
 			   'nbits: '           + ahw.signals[elto].nbits + '<br>' +
@@ -248,7 +248,7 @@
 		      '    <div class="card-body border border-light p-2">' +
 		      '      <div id="ctrlstates1" class="m-2 p-0 border collapse" ' +
                       '           style="max-height:65vh; overflow:auto; resize:both;">' +
-                      '         <span id="ctrlstates1">' + 
+                      '         <span id="ctrlstates1">' +
 		      '         Program Counter      (PC) &rarr; ' + ahw.ctrl_states.pc.state + '<br>' +
 		      '         Instruction Register (IR) &rarr; ' + ahw.ctrl_states.ir.state + '<br>' +
 		      '         Stack Pointer        (SP) &rarr; ' + ahw.ctrl_states.sp.state + '<br>' +

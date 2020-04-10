@@ -371,31 +371,6 @@
 	  location.reload(true) ;
     }
 
-    function wepsim_init_helpDropdown ( )
-    {
-           var o = "" ;
-
-           // dropdown checkpoint
-           o = wepsim_config_dialog_title('Checkpoint', 'secondary', '') ;
-           $("#current_checkpoint1_title").html(o) ;
-
-           // dropdown states
-           var st_btns = "<button type='button' " +
-                         "   onclick=\"$('#bot_check1').carousel(0);\" " +
-                         "   class='btn btn-dark px-3 py-1' " +
-                         "><span data-langkey='States'>States</span></button>" +
-                         "<button type='button' " +
-                         "   onclick=\"$('#bot_check1').carousel(1); " +
-			 "             update_checker_loadhelp('#help3b', 'help_dumper');\" " +
-			 "   class='btn btn-success px-3 py-1' " + 
-			 "><span data-langkey='Help'>Help</span></button>" ;
-
-           o = wepsim_config_dialog_dropdown("success", 
-                                             st_btns, 
-       					     "var ws_idiom = get_cfg('ws_idiom');" +
-                                             "i18n_update_tags('states', ws_idiom);") ;
-           $("#current_state1_title").html(o) ;
-    }
 
     //
     // Quick Config
@@ -645,22 +620,8 @@
 	    // carousel: touch swipe disabled
 	    $('.carousel').carousel({ touch: false }) ;
 
-	    // initialize dropify
-	    $('.dropify').dropify();
-
 	    // set wepsim version
 	    $("div.wsversion").replaceWith(get_cfg('version'));
-
-	    // init: state dialog
-	    $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
-	       //A1/ var inputEls = document.getElementById(id_div_state1);
-	       //A1/ if (null !== inputEls)
-	       //A1/     setup_speech_input(inputEls) ;
-
-	    $('#end_state2').tokenfield({ inputType: 'textarea' }) ;
-	       //A1/ var inputEls = document.getElementById(id_div_state2);
-	       //A1/ if (null !== inputEls)
-	       //A1/     setup_speech_input(inputEls) ;
 
 	    // tooltip: trigger by hover
 	    $('[data-toggle="tooltip"]').tooltip({
@@ -762,9 +723,6 @@
 	    // init: record
 	    simcore_record_init('record_msg', 'record_pb') ;
             simcore_record_captureInit() ;
-
-	    // init: help idiom selectors
-            wepsim_init_helpDropdown() ;
 
 	    // restore UI
 	    setTimeout(function() {

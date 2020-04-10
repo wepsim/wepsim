@@ -50,8 +50,8 @@
        {
 	        fmt_header = "" ;
 	        if (e_utype != helps[m].u_type) {
-		    fmt_header = "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top'>" + 
-			         helps[m].u_type + 
+		    fmt_header = "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top'>" +
+			         helps[m].u_type +
 			         "</div>" ;
 		}
 
@@ -64,13 +64,13 @@
 		e_id          = helps[m].id ;
 
 		var onclick_code = "" ;
-		if ("relative" === e_itype) 
-		    onclick_code = 'wepsim_help_set_relative(\'' + e_reference + '\');' + 
+		if ("relative" === e_itype)
+		    onclick_code = 'wepsim_help_set_relative(\'' + e_reference + '\');' +
 				   'wepsim_help_refresh();' ;
-		if ("absolute" === e_itype) 
-		    onclick_code = 'wepsim_help_set_absolute(\'' + e_reference + '\');' + 
+		if ("absolute" === e_itype)
+		    onclick_code = 'wepsim_help_set_absolute(\'' + e_reference + '\');' +
 				   'wepsim_help_refresh();' ;
-		if ("code" === e_itype) 
+		if ("code" === e_itype)
 		    onclick_code = e_reference ;
 
 	        if (fmt_toggle === "")
@@ -85,9 +85,14 @@
 			'    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
 			'</div>' +
 			'<div class="col-md-4">' +
-			'    <span class="btn-like bg-success text-white text-truncate rounded border px-1" style="cursor:pointer;" ' +
+			'    <span class="btn-like bg-success text-white text-truncate rounded border px-1" ' +
+                        '          style="cursor:pointer;" ' +
 			'          id="help_index_' + m + '" ' +
-		        '          onclick="simcore_record_append_pending(); ' + onclick_code + '">' + e_title + '</span>' +
+                        '          data-langkey="' + e_title + '" ' +
+		        '          onclick="simcore_record_append_pending(); ' +
+                                            onclick_code + ' ; ' +
+                        '                   return false;">' +
+                             e_title + '</span>' +
 			'</div>' +
 			'<div class="col-md collapse7 show">' +
 			'    <c>' + e_description + '</c>' +
@@ -106,8 +111,12 @@
 
     function wepsim_help_refresh ( )
     {
-        var helpdiv = '#scroller-help1' ;
+        // add if recording
+        simcore_record_append_new('Refresh help content',
+	       	                  'wepsim_help_refresh();\n') ;
 
+        // scrolling
+        var helpdiv = '#scroller-help1' ;
         var scrolltothetop = function() {
         		        var helpdiv_container = 'scroller-help1' ;
 				var elto = document.getElementById(helpdiv_container) ;
@@ -115,6 +124,7 @@
 				    elto.scrollTop = 0 ;
                              } ;
 
+        // content
         var helpurl = '' ;
 	var seg_idiom = get_cfg('ws_idiom') ;
 	var seg_hardw = simhw_active().sim_short_name ;
@@ -124,7 +134,6 @@
         {
              var r = rel.split("#") ;
              helpurl = 'help/' + r[0] + '-' + seg_idiom + '.html' ;
-	     $('#help1').modal('show') ;
              resolve_html_url(helpdiv, helpurl, '#' + r[1], scrolltothetop) ;
 
              ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel) ;
@@ -132,12 +141,21 @@
              return ;
         }
 
+        if ( (typeof rel != "undefined") && (rel == "") )
+        {
+	     var html_index = table_helps_html(ws_help) ;
+	     $(helpdiv).html(html_index) ;
+
+             ga('send', 'event', 'help', 'help.index', 'help.index') ;
+
+             return ;
+        }
+
         var ab1 = $('#help1_ref').data('absolute') ;
         if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
-             helpurl = 'examples/hardware/' + seg_hardw + '/help/' + 
+             helpurl = 'examples/hardware/' + seg_hardw + '/help/' +
 		       ab1 + '-' + seg_idiom + '.html' ;
-	     $('#help1').modal('show');
              resolve_html_url(helpdiv, helpurl, '', scrolltothetop) ;
 
             ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*') ;
@@ -158,6 +176,10 @@
         $('#help1_ref').data('relative', rel) ;
 	$('#help1_ref').data('absolute','') ;
 	$('#help1_ref').data('code','false') ;
+
+        // add if recording
+        simcore_record_append_new('Update help content',
+	       	                  'wepsim_help_set_relative("' + rel + '");\n') ;
     }
 
     function wepsim_help_set_absolute ( ab1 )
@@ -165,17 +187,36 @@
         $('#help1_ref').data('relative','') ;
         $('#help1_ref').data('absolute', ab1) ;
 	$('#help1_ref').data('code','false') ;
+
+        // add if recording
+        simcore_record_append_new('Update help content',
+	       	                  'wepsim_help_set_absolute("' + ab1 + '");\n') ;
     }
 
     function wepsim_open_help_content ( content )
     {
-        $('#content-help1').html(content) ;
+        $('#scroller-help1').html(content) ;
 
         $('#help1_ref').data('relative', '') ;
 	$('#help1_ref').data('absolute', '') ;
 	$('#help1_ref').data('code','true') ;
+    }
 
-        $('#help1').modal('show') ;
+    function wepsim_open_help_hardware_summary ( )
+    {
+            var ahw2 = simhw_active().sim_short_name ;
+	    var img2 = 'examples/hardware/' + ahw2 + '/images/cpu.svg?time=20190102' ;
+	    var lyr2 =  '<object id=svg_p2 ' +
+			'        data=\'' + img2 + '\' ' +
+			'        type=\'image/svg+xml\'>' +
+			'Your browser does not support SVG' +
+			'</object>' ;
+
+	    wepsim_open_help_content(lyr2) ;
+
+            // add if recording
+            simcore_record_append_new('Open hardware summary',
+		                      'wepsim_open_help_hardware_summary();\n') ;
     }
 
 
@@ -187,14 +228,14 @@
     {
         var robj = null ;
 
-	if (false === is_mobile()) 
+	if (false === is_mobile())
         {
-            if (navigator.onLine) 
+            if (navigator.onLine)
                  robj = fetch(r_url);
             else robj = caches.match(r_url).then() ;
         }
-        else 
-        { 
+        else
+        {
             robj = $.ajax(r_url, { type: 'GET', dataType: 'html' }) ;
         }
 
@@ -229,12 +270,12 @@
     {
         return request_html_url(r_url).then(function (data) {
 		    if (typeof data == "object") {
-			 data.text().then(function(res) { 
+			 data.text().then(function(res) {
                                              update_div_frompartialhtml(helpdiv, key, res);
                                              update_div() ;
                                           }) ;
                     }
-		    else { 
+		    else {
                          update_div_frompartialhtml(helpdiv, key, data) ;
                          update_div() ;
                     }

@@ -23,7 +23,6 @@
                     "classic": 		{ type: "classic",      addclass: "no-dark-mode",  origin: "https://www.optikunde.de/farbe/rot.php" },
                     "pushpin": 		{ type: "classic",      addclass: "no-dark-mode",  origin: "http://clipart-library.com/red-push-pin.html" },
                     "cat1": 		{ type: "pets",         addclass: "no-dark-mode",  origin: "" },
-//                  "cat2": 		{ type: "pets",         addclass: "no-dark-mode",  origin: "https://weheartit.com/entry/271776374" },
                     "dog1": 		{ type: "pets",         addclass: "no-dark-mode",  origin: "" },
                     "halloween1": 	{ type: "halloween",    addclass: "no-dark-mode",  origin: "https://es.vexels.com/svg-png/halloween/" },
                     "halloween2": 	{ type: "halloween",    addclass: "no-dark-mode",  origin: "https://es.vexels.com/png-svg/vista-previa/153871/casa-de-halloween-de-miedo" },
@@ -45,9 +44,7 @@
                     "batman": 		{ type: "films",        addclass: "",              origin: "http://getwallpapers.com/collection/black-and-white-batman-wallpaper" },
                     "grail": 		{ type: "films",        addclass: "no-dark-mode",  origin: "http://3png.com/a-31243892.html" },
                     "despicable": 	{ type: "films",        addclass: "no-dark-mode",  origin: "https://www.helloforos.com/t/cerrado/350821/81" },
-                    "t800a": 		{ type: "films",        addclass: "no-dark-mode",  origin: "https://purepng.com/photo/27494/movie-terminator-skull" },
-                    "two1": 		{ type: "misc",         addclass: "no-dark-mode",  origin: "ubahtemamu01.blogspot.com/2018/06/a-second-problem-has-been-failure-to.html?m=1" },
-                    "hud1": 		{ type: "misc",         addclass: "no-dark-mode",  origin: "https://dribbble.com/shots/4277136-HUD-Visual-design" }
+                    "t800a": 		{ type: "films",        addclass: "no-dark-mode",  origin: "https://purepng.com/photo/27494/movie-terminator-skull" }
     } ;
 
 
@@ -61,7 +58,7 @@
 	      icon_obj = breakpoint_icon_list[icon_name] ;
 	  }
 
-	  return "<img alt='stop icon' height=22 " + 
+	  return "<img alt='stop icon' height=22 " +
 		 "     class='" + icon_obj.addclass + "' " +
 		 "     src='images/stop/stop_" + icon_name + ".gif'>" ;
     }

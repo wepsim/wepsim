@@ -25,7 +25,7 @@
 
     var ws_modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
 
-    var ws_default_example = { 
+    var ws_default_example = {
 	                       'asm_mips': 'ep:ep_mips:ep_s4_e1',
 	                       'asm_rv32': 'ep:ep_rv32:ep_s7_e2',
 	                       'asm_z80':  'ep:ep_z80:ep_s7_e3'

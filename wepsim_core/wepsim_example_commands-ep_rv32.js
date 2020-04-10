@@ -23,7 +23,7 @@
 
     ws_examples.push({
                        id: 'R1E2',
-                       title: "<span data-langkey='Instructions'>Instructions</span>",
+                       title: "Instructions",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_rv32",
@@ -35,7 +35,7 @@
 
     ws_examples.push({
                        id: 'R2E1',
-                       title: "<span data-langkey='Memory access'>Memory access</span>",
+                       title: "Memory access",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_rv32",
@@ -47,7 +47,7 @@
 
     ws_examples.push({
                        id: 'R3E1',
-                       title: "<span data-langkey='Subrutine'>Subrutine</span>",
+                       title: "Subrutine",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_rv32",

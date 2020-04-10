@@ -27,7 +27,7 @@
     {
 	 if (typeof navigator.share === 'undefined')
 	 {
-	     wsweb_dlg_alert('Sorry, unable to share:<br>\n' + 
+	     wsweb_dlg_alert('Sorry, unable to share:<br>\n' +
 		             'navigator.share is not available.') ;
 	     return false ;
 	 }
@@ -40,11 +40,11 @@
 	 data.url   = share_url ;
 
 	 // try to share data
-	 try 
+	 try
 	 {
 	     navigator.share(data) ;
-	 } 
-	 catch(err) 
+	 }
+	 catch(err)
 	 {
 	     wsweb_dlg_alert('Sorry, unsuccessful share: ' + err.message) ;
 	 }

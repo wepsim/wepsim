@@ -23,7 +23,7 @@
 
     ws_examples.push({
                        id: 'S1E1',
-                       title: "<span data-langkey='Instructions'>Instructions</span>",
+                       title: "Instructions",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -35,7 +35,7 @@
 
     ws_examples.push({
                        id: 'S1E2',
-                       title: "<span data-langkey='Memory access'>Memory access</span>",
+                       title: "Memory access",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -47,7 +47,7 @@
 
     ws_examples.push({
                        id: 'S1E3',
-                       title: "<span data-langkey='Looping'>Looping</span>",
+                       title: "Looping",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -59,7 +59,7 @@
 
     ws_examples.push({
                        id: 'S1E4',
-                       title: "<span data-langkey='Vector'>Vector</span>",
+                       title: "Vector",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -71,7 +71,7 @@
 
     ws_examples.push({
                        id: 'S2E1',
-                       title: "<span data-langkey='I/O'>I/O</span>",
+                       title: "I/O",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -83,7 +83,7 @@
 
     ws_examples.push({
                        id: 'S2E2',
-                       title: "<span data-langkey='Subrutine'>Subrutine</span>",
+                       title: "Subrutine",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -95,7 +95,7 @@
 
     ws_examples.push({
                        id: 'S2E3',
-                       title: "<span data-langkey='Masks & shift'>Masks & shift</span>",
+                       title: "Masks & shift",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -107,7 +107,7 @@
 
     ws_examples.push({
                        id: 'S2E4',
-                       title: "<span data-langkey='Matrix'>Matrix</span>",
+                       title: "Matrix",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -119,7 +119,7 @@
 
     ws_examples.push({
                        id: 'S3E1',
-                       title: "<span data-langkey='Interruptions'>Interruptions</span>",
+                       title: "Interruptions",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "archived",
                        modes:  "newbie,intro,ep",
@@ -131,7 +131,7 @@
 
     ws_examples.push({
                        id: 'S3E2',
-                       title: "<span data-langkey='System call'>System call</span>",
+                       title: "System call",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "archived",
                        modes:  "newbie,intro,ep",
@@ -143,7 +143,7 @@
 
     ws_examples.push({
                        id: 'S3E3',
-                       title: "<span data-langkey='Exception'>Exception</span>",
+                       title: "Exception",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "archived",
                        modes:  "newbie,intro,ep",
@@ -155,7 +155,7 @@
 
     ws_examples.push({
                        id: 'S4E1',
-                       title: "<span data-langkey='Int. + syscall + except.'>Int. + syscall + except.</span>",
+                       title: "Int. + syscall + except.",
                        type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -167,7 +167,7 @@
 
     ws_examples.push({
                        id: 'S4E2',
-                       title: "<span data-langkey='SC 1, 4-5, 8, 11-12'>SC 1, 4-5, 8, 11-12</span>",
+                       title: "SC 1, 4-5, 8, 11-12",
                        type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -179,7 +179,7 @@
 
     ws_examples.push({
                        id: 'S4E3',
-                       title: "<span data-langkey='Threads'>Threads</span>",
+                       title: "Threads",
                        type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -191,7 +191,7 @@
 
     ws_examples.push({
                        id: 'S4E4',
-                       title: "<span data-langkey='Alloc.s'>Alloc.s</span>",
+                       title: "Alloc.s",
                        type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -203,7 +203,7 @@
 
     ws_examples.push({
                        id: 'S7E1',
-                       title: "<span data-langkey='MIPS32-like'>MIPS32-like</span>",
+                       title: "MIPS32-like",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -215,7 +215,7 @@
 
     ws_examples.push({
                        id: 'S7E2',
-                       title: "<span data-langkey='RISCV32'>RISCV32</span>",
+                       title: "RISCV32",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -227,7 +227,7 @@
 
     ws_examples.push({
                        id: 'S7E3',
-                       title: "<span data-langkey='Z80-like'>Z80-like</span>",
+                       title: "Z80-like",
                        type: "<span data-langkey='Native'>Native</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -242,7 +242,7 @@
 
     ws_examples.push({
                        id: 'S1E1',
-                       title: "<span data-langkey='Instructions'>Instructions</span>",
+                       title: "Instructions",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -254,7 +254,7 @@
 
     ws_examples.push({
                        id: 'S1E2',
-                       title: "<span data-langkey='Memory access'>Memory access</span>",
+                       title: "Memory access",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -266,7 +266,7 @@
 
     ws_examples.push({
                        id: 'S1E3',
-                       title: "<span data-langkey='Looping'>Looping</span>",
+                       title: "Looping",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -278,7 +278,7 @@
 
     ws_examples.push({
                        id: 'S1E4',
-                       title: "<span data-langkey='Vector'>Vector</span>",
+                       title: "Vector",
                        type: "<span data-langkey='Initial'>Initial</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -290,7 +290,7 @@
 
     ws_examples.push({
                        id: 'S2E1',
-                       title: "<span data-langkey='I/O'>I/O</span>",
+                       title: "I/O",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -302,7 +302,7 @@
 
     ws_examples.push({
                        id: 'S2E2',
-                       title: "<span data-langkey='Subrutine'>Subrutine</span>",
+                       title: "Subrutine",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "archived",
                        modes:  "newbie,intro,asm_mips",
@@ -314,7 +314,7 @@
 
     ws_examples.push({
                        id: 'S2E3',
-                       title: "<span data-langkey='Masks & shift'>Masks & shift</span>",
+                       title: "Masks & shift",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -326,7 +326,7 @@
 
     ws_examples.push({
                        id: 'S2E4',
-                       title: "<span data-langkey='Matrix'>Matrix</span>",
+                       title: "Matrix",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -338,7 +338,7 @@
 
     ws_examples.push({
                        id: 'S3E1',
-                       title: "<span data-langkey='Interruptions'>Interruptions</span>",
+                       title: "Interruptions",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -350,7 +350,7 @@
 
     ws_examples.push({
                        id: 'S3E2',
-                       title: "<span data-langkey='System call'>System call</span>",
+                       title: "System call",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -362,7 +362,7 @@
 
     ws_examples.push({
                        id: 'S3E3',
-                       title: "<span data-langkey='Exception'>Exception</span>",
+                       title: "Exception",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -374,7 +374,7 @@
 
     ws_examples.push({
                        id: 'S4E1',
-                       title: "<span data-langkey='Int. + syscall + except.'>Int. + syscall + except.</span>",
+                       title: "Int. + syscall + except.",
                        type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -386,7 +386,7 @@
 
     ws_examples.push({
                        id: 'S4E2',
-                       title: "<span data-langkey='syscall 1, 4-5, 8, 11-12'>syscall 1, 4-5, 8, 11-12</span>",
+                       title: "syscall 1, 4-5, 8, 11-12",
                        type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
                        level: "actual",
                        modes:  "newbie,intro,asm_mips",
@@ -399,7 +399,7 @@
 
     ws_examples.push({
                        id: 'S6E1',
-                       title: "<span data-langkey='Dummy instruction'>Dummy instruction</span>",
+                       title: "Dummy instruction",
                        type: "<span data-langkey='Special'>Special</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",
@@ -412,7 +412,7 @@
 /*
     ws_examples.push({
                        id: 'S6E2',
-                       title: "<span data-langkey='Compiler Explorer'>Compiler Explorer</span>",
+                       title: "Compiler Explorer",
                        type: "<span data-langkey='Special'>Special</span>",
                        level: "archived",
                        modes:  "newbie,intro,ep",

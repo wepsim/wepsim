@@ -1,4 +1,4 @@
-/*    
+/* 
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -35,7 +35,7 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		    var o1 = "<div id='cpu_ALL' style='height:58vh; width: inherit; overflow-y: auto;' " + 
+		    var o1 = "<div id='cpu_ALL' style='height:58vh; width: inherit; overflow-y: auto;' " +
 			     "     class='container container-fluid'>" +
 		             "<div class='col-12'>" +
 			     "<table class='table table-hover table-sm table-bordered'>" +
