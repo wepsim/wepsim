@@ -187,6 +187,7 @@
 
        var fmt_toggle    = "" ;
        var w100_toggle   = "" ;
+       var toggle_cls    = "" ;
        var t_hwmcasm     = "" ;
        var t_index       = "" ;
        var e_title       = "" ;
@@ -232,11 +233,12 @@
 	        if (m % 2 == 0)
                     w100_toggle = "collapse7 show" ;
 	       else w100_toggle = "" ;
+               toggle_cls = fmt_toggle + ' user_' + e_level ;
 
-	            u = '<div class="col-sm-auto py-1 ' + fmt_toggle + ' user_' + e_level + '">' +
+	            u = '<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
                         '    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
                         '</div>' +
-                        '<div class="col-sm-4    py-1 ' + fmt_toggle + ' user_' + e_level + '">' +
+                        '<div class="col-sm-4    py-1 ' + toggle_cls + '">' +
                         '     <span style="cursor:pointer;" ' +
 		        '           id="example_' + m + '" ' +
 		        '           onclick="simcore_record_append_pending(); ' +
@@ -281,10 +283,10 @@
 	                '           </div>' +
 		        '    </div>' +
                         '</div>' +
-                        '<div class="col-sm py-1 collapse7 show ' + fmt_toggle + ' user_' + e_level + '">' +
+                        '<div class="col-sm py-1 collapse7 show ' + toggle_cls + '">' +
                         '    <c>' + e_description + '</c>' +
                         '</div>' +
-	                '<div class="w-100 ' + w100_toggle + ' user_' + e_level + '"></div>' ;
+	                '<div class="w-100 ' + w100_toggle + ' ' + toggle_cls + '"></div>' ;
 
 	       if (typeof examples_groupby_type[e_type] === "undefined") {
 		   examples_groupby_type[e_type] = [] ;

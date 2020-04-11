@@ -324,7 +324,7 @@
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
 			 wepsim_restore_uicfg() ;
 
-			 wsweb_scroll_record('#scroller-bin2a') ;
+			 wsweb_scroll_record('#scroller-bin2b') ;
 			 simcore_record_captureInit() ;
 		     }
          },
@@ -705,7 +705,7 @@
                                "						   var obj_exp2    = simcore_simstate_checklist2state(txt_chklst2);" +
                                "						   var ref_tag     = $(\"#curr_clk_maddr\").html();" +
                                "						   $(\"#s_ref\").html(ref_tag);" +
-                               "						   wepsim_dialog_check_state(\"check_results1\", obj_exp1, obj_exp2);" +
+                               "						   wepsim_dialog_check_state(obj_exp1, obj_exp2);" +
                                "						   $(\"#check_results_scroll1\").collapse(\"show\");'" +
                                "					  type='button'><span data-langkey='Check'>Check</span> <span class='d-none d-md-inline-flex'><span data-langkey='differences with clipboard state'>differences with clipboard state</span></span></button>" +
                                "				  <button class='btn btn-outline-dark btn-sm col-auto float-right'" +
@@ -747,13 +747,27 @@
                                "<div class='card mb-1'>" +
                                "  <div class='card-header text-white bg-dark p-1' id='state_header_2'>" +
                                "    <h5 class='m-0'>" +
-                               "	    <a data-toggle='collapse' href='#history3'><span class='text-white bg-dark' data-langkey='History'>History</span></a>:&nbsp;" +
-                               "	    <span class='btn btn-light text-danger btn-sm float-right py-0'" +
-                               "		  onclick='wepsim_state_history_reset();" +
-                               "			   wepsim_notify_success(\"<strong>INFO</strong>\", \"Removed all !.\");" +
-                               "			   wepsim_state_history_list() ;" +
-                               "			   return false;'" +
-                               "		  data-inline='true'><span data-langkey='Reset'>Reset</span> <span class='d-none d-sm-inline-flex'><span data-langkey='history'>history</span></span></span>" +
+                               "	  <a data-toggle='collapse' href='#history3'><span class='text-white bg-dark' data-langkey='History'>History</span></a>:&nbsp;" +
+                               "" +
+                               "	  <div class='dropdown float-right'>" +
+                               "	    <button class='btn btn-sm btn-light text-danger py-0 mx-1 float-right col-auto dropdown-toggle' " +
+                               "		    type='button' id='resetyn2' data-toggle='dropdown' " +
+                               "		    aria-haspopup='true' aria-expanded='false' " +
+                               "		    ><span data-langkey='Reset'>Reset</span><span class='d-none d-sm-inline-flex'>&nbsp;<span data-langkey='history'>history</span></span></button>" +
+                               "	    </button>" +
+                               "	    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
+                               "	     <a class='dropdown-item py-2 bg-white text-danger' type='button' " +
+                               "	        onclick='wepsim_state_history_reset();" +
+                               "		         wepsim_notify_success(\"<strong>INFO</strong>\", \"Removed all !.\");" +
+                               "		         wepsim_state_history_list() ;" +
+                               "		         return false;'" +
+                               "		 ><span data-langkey='Yes'>Yes</span></a>" +
+                               "	      <div class='dropdown-divider'></div>" +
+                               "	      <a class='dropdown-item py-2 bg-white text-info' type='button' " +
+                               "		 ><span data-langkey='No'>No</span></a>" +
+                               "	    </div>" +
+                               "	  </div>" +
+                               "" +
                                "    </h5>" +
                                "  </div>" +
                                "  <div id='history3b' class='collapse show' aria-labelledby='state_header_2'>" +
