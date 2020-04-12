@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 
 
 #*
@@ -22,21 +22,109 @@ set -x
 #*
 
 
-echo "1) microcode + assembly"
-./ws_dist/wepsim_node.sh run                   ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-./ws_dist/wepsim_node.sh stepbystep            ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-./ws_dist/wepsim_node.sh microstepbymicrostep  ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-./ws_dist/wepsim_node.sh check                 ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e1.txt
-./ws_dist/wepsim_node.sh check                 ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e2.txt
-./ws_dist/wepsim_node.sh microstepverbalized   ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-./ws_dist/wepsim_node.sh show-console          ep ./examples/microcode/mc-ep_os.txt   ./examples/assembly/asm-ep_s4_e1.txt
+#
+# Auxiliar functions
+#
 
-echo "2) checkpoint"
-./ws_dist/wepsim_node.sh run                   checkpoint ./examples/checkpoint/tutorial_1.txt
-./ws_dist/wepsim_node.sh stepbystep            checkpoint ./examples/checkpoint/tutorial_1.txt
-./ws_dist/wepsim_node.sh microstepbymicrostep  checkpoint ./examples/checkpoint/tutorial_1.txt
-./ws_dist/wepsim_node.sh check                 checkpoint ./examples/checkpoint/tutorial_1.txt                             ./examples/checklist/cl-ep_s1_e1.txt
-./ws_dist/wepsim_node.sh microstepverbalized   checkpoint ./examples/checkpoint/tutorial_1.txt
-./ws_dist/wepsim_node.sh show-console          checkpoint ./examples/checkpoint/tutorial_1.txt
-./ws_dist/wepsim_node.sh show-record           checkpoint ./examples/checkpoint/tutorial_1.txt
+test_wepsimnode_run ()
+{
+	I=0
+	for T in "${TEST_LIST[@]}"; do
+	    echo $I
+	    $T
+
+	    let "I=I+1"
+	done
+}
+
+test_wepsimnode_run_short ()
+{
+	I=0
+	for T in "${TEST_LIST[@]}"; do
+	    echo $I
+	    $T | head -15
+
+	    let "I=I+1"
+	done
+}
+
+test_wepsimnode_mkoutput ()
+{
+	I=0
+	for T in "${TEST_LIST[@]}"; do
+	    echo "$I.txt"
+	    $T >& ./devel/output/$I.txt
+
+	    let "I=I+1"
+	done
+
+	rm -fr  ./devel/output/*.txt.gz
+	gzip -9 ./devel/output/*.txt
+}
+
+test_wepsimnode_ckoutput ()
+{
+	I=0
+	for T in "${TEST_LIST[@]}"; do
+	    gunzip -c ./devel/output/$I.txt.gz >& ./devel/output/test-expect.txt
+	                                    $T >& ./devel/output/test-obtained.txt
+
+	    diff   ./devel/output/test-expect.txt ./devel/output/test-obtained.txt
+	    if [ $? -eq 0 ]; then
+	        echo "$I: OK";
+	    else
+	        echo "$I: KO";
+	    fi
+
+	    rm -fr ./devel/output/test-expect.txt ./devel/output/test-obtained.txt
+
+	    let "I=I+1"
+	done
+}
+
+
+#
+# Main
+#
+
+# Usage
+if [ $# -eq 0 ]; then
+	echo ""
+	echo "Usage: $0 <run|rs|mo|co>"
+	echo ""
+	exit
+fi
+
+# Load Test Pack
+echo "Load test..."
+. ./devel/testlist_wepsimnode_pack1.sh
+
+# Do requests
+for arg_i in "$@"
+do
+	case $arg_i in
+	     run)
+		echo "Run test..."
+		test_wepsimnode_run
+	     ;;
+	     rs)
+		echo "Run test (output cut-off)..."
+		test_wepsimnode_run_short
+	     ;;
+	     mo)
+		echo "Make test output..."
+		test_wepsimnode_mkoutput
+	     ;;
+	     co)
+		echo "Check test output..."
+		test_wepsimnode_ckoutput
+	     ;;
+	     *)
+		echo ""
+		echo "Unknow command:"
+	        echo "Usage: $0 <mo|run>"
+	     ;;
+	esac
+done
+
 
