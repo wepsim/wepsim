@@ -330,7 +330,7 @@ self.addEventListener('fetch',
 			  // NEW: https://developer.mozilla.org/es/docs/Web/API/FetchEvent
 			  if (event.request.method != 'GET') {
 			      event.respondWith(fetch(event.request)) ;
-			      return ;
+			      return null ;
                           }
 
 			  event.respondWith(async function() {
@@ -339,7 +339,7 @@ self.addEventListener('fetch',
 
 			      if ( (event.request.cache === 'only-if-cached') && 
                                    (event.request.mode  !== 'same-origin') ) {
-			            return;
+			            return null ;
 			      }
 
 			      if (cachedResponse) {

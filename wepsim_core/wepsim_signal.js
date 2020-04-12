@@ -72,9 +72,9 @@
 
 			 n = k.toString(10) ;
 			 input_help += '<li class="list-group-item p-1">' +
-				       '<label class="m-1">' +
+				       '<label class="m-1 btn-like" id="' + key + '_' + n + '">' +
 				       '  <input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' +
-				       '         value="' + n + '" ' + str_checked + ' class="btn-like"/>' +
+				       '         value="' + n + '" ' + str_checked + '/>' +
 				       '  <span class="badge badge-secondary badge-pill">' + n + '</span>' + '&nbsp;' +
 				       '  <span>' + behav_str + '</span>&nbsp;' + str_bolded +
 				       '  <p class="m-0 ml-3 bg-light collapse collapse7"><small>' + behav_raw + '</small></p>' +
@@ -124,7 +124,7 @@
 		// check signal
 		var signal_obj = simhw_sim_signal(key) ;
 		if (typeof signal_obj === "undefined") {
-		    return ;
+		    return null ;
 	        }
 
                 // open dialog

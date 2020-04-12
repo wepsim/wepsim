@@ -241,10 +241,10 @@
                         '<div class="col-sm-4    py-1 ' + toggle_cls + '">' +
                         '     <span style="cursor:pointer;" ' +
 		        '           id="example_' + m + '" ' +
-		        '           onclick="simcore_record_append_pending(); ' +
-		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true); ' +
-		        '                    wsweb_dialog_close(\'examples\'); ' +
-		        '                    return false;" ' +
+		        '           onclick="simcore_record_append_pending();' +
+		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
+		        '                    setTimeout(function() { wsweb_dialog_close(\'examples\'); }, 50);' +
+		        '                    return false;"' +
 		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-1"' +
                         '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
                              e_title + '</span>' +

@@ -526,9 +526,17 @@
             size:    'large',
             onshow:  function() {
 		         // ui elements
-			 for (m=0; m<ws_config.length; m++) {
-			      ws_config[m].code_init() ;
+			 try 
+                         {
+			     for (m=0; m<ws_config.length; m++)
+			          ws_config[m].code_init() ;
 			 }
+			 catch (e) {
+			     reset_cfg() ;
+			     for (m=0; m<ws_config.length; m++)
+			          ws_config[m].code_init() ;
+                         }
+
 			 $('a[data-toggle="popover1"]').popover({
 				  placement:  'bottom',
 				  trigger:    'focus, hover',
@@ -835,6 +843,7 @@
 		            //A1/ if (null !== inputEls)
 		            //A1/     setup_speech_input(inputEls) ;
 
+                         wepsim_state_history_list() ;
                          wepsim_dialog_current_state() ;
 
 		         // ui lang
