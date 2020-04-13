@@ -19,14 +19,26 @@
  */
 
 
-        function wepsim_update_signal_dialog ( key )
+        function wepsim_update_signal_dialog_title ( key )
         {
-		// check signal
-		var signal_obj = simhw_sim_signal(key) ;
-		if (typeof signal_obj === "undefined") {
-		    return ;
-	        }
+	        var b_btns  = key + ': ' +
+			      '<button onclick="$(\'#bot_signal\').carousel(0);" ' +
+			      '        type="button" class="btn btn-info">Value</button>' +
+			      '<button onclick="$(\'#bot_signal\').carousel(1); ' +
+                              '                 var shval = $(\'#ask_shard\').val(); ' +
+                              '                 var shkey = $(\'#ask_skey\').val(); ' +
+                              '                 update_signal_loadhelp(\'#help2\', shval, shkey);" ' +
+			      '        type="button" class="btn btn-success">Help</button>' ;
+	        
+                return wepsim_config_dialog_dropdown("success",
+						     b_btns,
+						     'var shval = $(\'#ask_shard\').val(); ' +
+						     'var shkey = $(\'#ask_skey\').val(); ' +
+						     'update_signal_loadhelp(\'#help2\', shval, shkey);"') ;
+        }
 
+        function wepsim_update_signal_dialog_body ( key, signal_obj )
+        {
 		// update signal
 		var checkvalue  = (signal_obj.value >>> 0) ;
 		var str_bolded  = '' ;
@@ -60,9 +72,9 @@
 
 			 n = k.toString(10) ;
 			 input_help += '<li class="list-group-item p-1">' +
-				       '<label class="m-1">' +
+				       '<label class="m-1 btn-like" id="' + key + '_' + n + '">' +
 				       '  <input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' +
-				       '         value="' + n + '" ' + str_checked + ' />' +
+				       '         value="' + n + '" ' + str_checked + '/>' +
 				       '  <span class="badge badge-secondary badge-pill">' + n + '</span>' + '&nbsp;' +
 				       '  <span>' + behav_str + '</span>&nbsp;' + str_bolded +
 				       '  <p class="m-0 ml-3 bg-light collapse collapse7"><small>' + behav_raw + '</small></p>' +
@@ -88,89 +100,90 @@
 		}
 
                 // dialogbox
-	        var b_btns  = key + ': ' +
-			      '<button onclick="$(\'#bot_signal\').carousel(0);" ' +
-			      '        type="button" class="btn btn-info">Value</button>' +
-			      '<button onclick="$(\'#bot_signal\').carousel(1); ' +
-                              '                 var shval = $(\'#ask_shard\').val(); ' +
-                              '                 var shkey = $(\'#ask_skey\').val(); ' +
-                              '                 update_signal_loadhelp(\'#help2\', shval, shkey);" ' +
-			      '        type="button" class="btn btn-success">Help</button>' ;
-	        var bbtitle = wepsim_config_dialog_dropdown("success",
-						            b_btns,
-						            'var shval = $(\'#ask_shard\').val(); ' +
-						            'var shkey = $(\'#ask_skey\').val(); ' +
-						         'update_signal_loadhelp(\'#help2\', shval, shkey);"') ;
+	        return   '<div id="bot_signal" class="carousel" data-ride="carousel" data-interval="false">' +
+			 '  <div class="carousel-inner" role="listbox">' +
+			 '    <div class="carousel-item active">' +
+			 '    <div id="scroller-signal" ' + 
+                         '         style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' +
+			 '         <form class="form-horizontal" style="white-space:wrap;">' +
+			 '         <input aria-label="value for ' + key     + '" id="ask_skey"  name="ask_skey"  type="hidden" value="' + key     + '" class="form-control input-md"> ' +
+			 '         <input aria-label="value for ' + curr_hw + '" id="ask_shard" name="ask_shard" type="hidden" value="' + curr_hw + '" class="form-control input-md"> ' +
+			 input_help +
+			 '         </form>' +
+			 '    </div>' +
+			 '    </div>' +
+			 '    <div class="carousel-item">' +
+			 '         <div id=help2 style="max-height:65vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>' +
+			 '    </div>' +
+			 '  </div>' +
+			 '</div>' ;
+        }
 
-	        var bbmsg = '<div id="bot_signal" class="carousel" data-ride="carousel" data-interval="false">' +
-			    '  <div class="carousel-inner" role="listbox">' +
-			    '    <div class="carousel-item active">' +
-			    '         <div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' +
-			    '         <form class="form-horizontal" style="white-space:wrap;">' +
-			    '         <input aria-label="value for ' + key     + '" id="ask_skey"  name="ask_skey"  type="hidden" value="' + key     + '" class="form-control input-md"> ' +
-			    '         <input aria-label="value for ' + curr_hw + '" id="ask_shard" name="ask_shard" type="hidden" value="' + curr_hw + '" class="form-control input-md"> ' +
-					  input_help +
-			    '         </form>' +
-			    '         </div>' +
-			    '    </div>' +
-			    '    <div class="carousel-item">' +
-			    '         <div id=help2 style="max-height:65vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>' +
-			    '    </div>' +
-			    '  </div>' +
-			    '</div>' ;
-
-	        var bbbtn = {
-			      success: {
-			  	  label:    '<span data-langkey="Save">Save</span>',
-				  className: 'btn-primary btn-sm col col-md-3 float-right',
-				  callback:  function ()
-					     {
-					        key        = $('#ask_skey').val();
-					        user_input = $("input[name='ask_svalue']:checked").val();
-					        if (typeof user_input == "undefined") {
-					  	   user_input = $("input[name='ask_svalue']").val();
-					        }
-
-					        wepsim_update_signal_with_value(key, user_input) ;
-					        wsweb_dialogbox_close_updatesignal() ;
-					     }
-			      },
-			      close: {
-				  label:     '<span data-langkey="Close">Close</span>',
-				  className: 'btn-danger btn-sm col col-md-3 float-right',
-				  callback:  function() {
-					        wsweb_dialogbox_close_updatesignal() ;
-					     }
-			      }
-			  } ;
+        function wepsim_update_signal_dialog ( key )
+        {
+		// check signal
+		var signal_obj = simhw_sim_signal(key) ;
+		if (typeof signal_obj === "undefined") {
+		    return null ;
+	        }
 
                 // open dialog
                 var dlg_obj = {
-	    			id:      'signal',
-	    			title:   function() { return bbtitle; },
-	    			body:    function() { return bbmsg; },
-		       		value:   signal_obj.value,
-	    			buttons: bbbtn,
-	    			onshow:  function() { },
-	    			size:    'large'
-                              } ;
-		var bb = wsweb_dlg_open(dlg_obj) ;
+			id:      'dlg_updatesignal',
+			title:   function() { 
+				    return wepsim_update_signal_dialog_title(key) ;
+				 },
+			body:    function() { 
+				    return wepsim_update_signal_dialog_body(key, signal_obj) ;
+				 },
+			value:   signal_obj.value,
+			buttons: {
+				    success: {
+					label:      '<span data-langkey="Save">Save</span>',
+					className:  'btn-primary btn-sm col col-md-3 float-right',
+					callback:   function ()
+						    {
+							key        = $('#ask_skey').val();
+							user_input = $("input[name='ask_svalue']:checked").val();
+							if (typeof user_input == "undefined") {
+							   user_input = $("input[name='ask_svalue']").val();
+							}
 
-                // configure dialog
-		if (typeof $(".dial").knob !== "undefined")
-		{
-		    $(".dial").knob({ 'min':0, 'max':(nvalues-1) })
-				 .val(signal_obj.value)
-				 .trigger('change') ;
-		}
+							wepsim_update_signal_with_value(key, user_input) ;
+							wsweb_dialogbox_close_updatesignal() ;
+						    }
+				    },
+				    close: {
+					label:      '<span data-langkey="Close">Close</span>',
+					className:  'btn-danger btn-sm col col-md-3 float-right',
+					callback:   function() {
+						        wsweb_dialogbox_close_updatesignal() ;
+						   }
+				    }
+		        },
+			onshow:  function() { 
+				    // ui ajust
+				    if (typeof $(".dial").knob !== "undefined")
+				    {
+		                        var nvalues = Math.pow(2, signal_obj.nbits) ;
+				        $(".dial").knob({ 'min':0, 'max':(nvalues-1) })
+						  .val(signal_obj.value)
+						  .trigger('change') ;
+				    }
 
-	        bb.find(".modal-title").addClass("mx-auto") ;
-	        bb.find(".bootbox-close-button").addClass("mx-1") ;
-	        bb.attr("id", "dlg_updatesignal") ;
-                bb.modal('handleUpdate') ;
+				    var bb = $('#dlg_updatesignal') ;
+				    bb.find(".modal-title").addClass("mx-auto") ;
+				    bb.find(".bootbox-close-button").addClass("mx-1") ;
+				    bb.modal('handleUpdate') ;
 
-	    show_states();
-	    wepsim_show_rf_values();
+				    // uicfg and events
+				    wsweb_scroll_record('#scroller-signal') ;
+				    simcore_record_captureInit() ;
+				 },
+			size:    'large'
+                } ;
+
+		return wsweb_dlg_open(dlg_obj) ;
         }
 
         function wepsim_update_signal_quick ( key )
@@ -182,19 +195,11 @@
 	        }
 
 		// update signal
-		var curr_hw = simhw_short_name() ;
-		if ("" == curr_hw) {
-		    curr_hw = "ep" ;
-		}
-
 		var nvalues = Math.pow(2, simhw_sim_signal(key).nbits) ;
 		var user_input = simhw_sim_signal(key).value ;
 		user_input = (user_input + 1) % nvalues ;
 
                 wepsim_update_signal_with_value(key, user_input) ;
-
-	    show_states();
-	    wepsim_show_rf_values();
         }
 
         function wepsim_update_signal_with_value ( key, value )

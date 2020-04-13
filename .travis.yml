@@ -8,6 +8,7 @@ before_install:
   - npm install jshint
 
 script:
-  - npm run test-source
-  - npm run test-wepsim-node
+  - npm run test-source1
+  - npm run test-wepsim-node1
+  - npm run test-wepsim-node2
 

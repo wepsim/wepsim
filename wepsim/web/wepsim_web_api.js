@@ -305,16 +305,30 @@
                 return true;
             }
 
-	    if ( (true === get_cfg('is_quick_interactive')) && (event_type == 'click') )
+	    if ( (true === get_cfg('is_quick_interactive')) && (event_type == 'click') ) 
+            {
 	          wepsim_update_signal_quick(key) ;
-	    else wepsim_update_signal_dialog(key) ;
+	          show_states();
+                  wepsim_show_rf_values();
 
+                  // return ok
+                  return true ;
+            }
+
+            // add if recording
+            simcore_record_append_new('Open update signal dialogbox for ' + key,
+                                      'wepsim_update_signal_dialog(\'' + key + '\');\n') ;
+
+            wepsim_update_signal_dialog(key) ;
 	    show_states();
             wepsim_show_rf_values();
 
-            // add if recording
-            simcore_record_append_new('Open update signal dialogbox ' + key,
-		                      'wsweb_dialogbox_open_updatesignal(\'' + key + '\',\'' + event_type + '\');\n') ;
+            // intercept events...
+	    $("#dlg_updatesignal").one("hidden.bs.modal",
+		                       function () {
+					  simcore_record_append_new('Close update signal dialog',
+						                    'wsweb_dialogbox_close_updatesignal();\n') ;
+				       });
 
             // return ok
             return true ;

@@ -142,7 +142,7 @@
                   '                                    var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);' +
                   '                                    var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
                   '                                    var obj_exp2    = simcore_simstate_checklist2state(txt_chklst2);' +
-                  '                                    wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);' +
+                  '                                    wepsim_dialog_check_state(obj_exp1, obj_exp2);' +
                   '                                    $(\'#s_ref\').html(\'' + state_history[i].title_short + '\'); ' +
                   '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
                   '                           type="button"><span data-langkey="Check">Check</span> <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
@@ -190,7 +190,7 @@
 	 // current state
 	 var state_obj     = simcore_simstate_current2state() ;
 	 var txt_checklist = simcore_simstate_state2checklist(state_obj) ;
-	 $('#end_state1').tokenfield('setTokens', txt_checklist);
+	 $('#end_state1').tokenfield('setTokens', txt_checklist) ;
 
          wepsim_notify_success('<strong>INFO</strong>',
                                'Current state loaded !') ;
@@ -213,10 +213,10 @@
 	    'state.dump',
 	    'state.dump' + '.ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
 		           ',neltos=' + neltos +
-		           ga_str);
+		           ga_str) ;
     }
 
-    function wepsim_dialog_check_state ( id_result, obj_chklst_expected, obj_chklst_current )
+    function wepsim_dialog_check_state ( obj_chklst_expected, obj_chklst_current )
     {
         var obj_result = simcore_simstate_diff_results(obj_chklst_expected, obj_chklst_current) ;
 
@@ -228,7 +228,7 @@
                    "</span><br>" ;
         else msg = simcore_simstate_checkreport2html(obj_result.result, true) ;
 
-        $('#' + id_result).html(msg);
+        $('#check_results1').html(msg) ;
 
         // ga
         ga('send', 'event', 'state',
@@ -236,16 +236,16 @@
 	   'state.check' + ',ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
 		           '.a='  + obj_result.neltos_expected +
 		           ',b='  + obj_result.neltos_obtained +
-		           ',sd=' + obj_result.errors);
+		           ',sd=' + obj_result.errors) ;
 
 	return true ;
     }
 
-    function wepsim_dialog_check_reset ( id_result, id_input )
+    function wepsim_dialog_check_reset ( )
     {
-        $('#' + id_input).tokenfield('setTokens', []);
-	$('#' + id_input).val('');
-	$('#' + id_result).html('');
+	$('#end_state1').val('') ;
+        $('#end_state1').tokenfield('setTokens', []) ;
+        $('#check_results1').html('') ;
 
 	return true ;
     }

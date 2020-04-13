@@ -28,6 +28,8 @@
         var o = "" ;
 
         var fmt_toggle    = "" ;
+        var w100_toggle   = "" ;
+        var toggle_cls    = "" ;
         var fmt_header    = "" ;
 	var e_title       = "" ;
 	var e_itype       = "" ;
@@ -45,7 +47,7 @@
             }
         }
 
-        o = o + '<div class="container grid-striped border border-light">' ;
+        o = o + '<div class="container grid-striped border border-light">' + '<div class="row py-1">' ;
        for (m=0; m<helps.length; m++)
        {
 	        fmt_header = "" ;
@@ -76,15 +78,18 @@
 	        if (fmt_toggle === "")
 	            fmt_toggle = "bg-light" ;
 	       else fmt_toggle = "" ;
+	        if (m % 2 == 0)
+                    w100_toggle = "collapse7 show" ;
+	       else w100_toggle = "" ;
+               toggle_cls = fmt_toggle + ' ' + e_uclass + ' ' + e_utype ;
 
 	        t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
 
 		o = o + fmt_header +
-		        "<div class='row py-1 " + fmt_toggle + " " + e_uclass + "' id='" + e_utype + "'>" +
-			'<div class="col-md-auto">' +
+			'<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
 			'    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
 			'</div>' +
-			'<div class="col-md-4">' +
+			'<div class="col-sm-4 py-1 ' + toggle_cls + '">' +
 			'    <span class="btn-like bg-success text-white text-truncate rounded border px-1" ' +
                         '          style="cursor:pointer;" ' +
 			'          id="help_index_' + m + '" ' +
@@ -94,12 +99,12 @@
                         '                   return false;">' +
                              e_title + '</span>' +
 			'</div>' +
-			'<div class="col-md collapse7 show">' +
+			'<div class="col-sm collapse7 show py-1 ' + toggle_cls + '">' +
 			'    <c>' + e_description + '</c>' +
 			'</div>' +
-			'</div>' ;
+	                '<div class="w-100 ' + w100_toggle + ' ' + toggle_cls + '"></div>' ;
        }
-       o = o + '</div>' ;
+       o = o + '</div></div>' ;
 
        return o ;
     }
@@ -141,16 +146,6 @@
              return ;
         }
 
-        if ( (typeof rel != "undefined") && (rel == "") )
-        {
-	     var html_index = table_helps_html(ws_help) ;
-	     $(helpdiv).html(html_index) ;
-
-             ga('send', 'event', 'help', 'help.index', 'help.index') ;
-
-             return ;
-        }
-
         var ab1 = $('#help1_ref').data('absolute') ;
         if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
@@ -168,6 +163,17 @@
         {
             ga('send', 'event', 'help', 'help.code', 'help.code.*') ;
             return ;
+        }
+
+        // empty rel -> show index
+        if ( (typeof rel != "undefined") && (rel == "") )
+        {
+	     var html_index = table_helps_html(ws_help) ;
+	     $(helpdiv).html(html_index) ;
+
+             ga('send', 'event', 'help', 'help.index', 'help.index') ;
+
+             return ;
         }
     }
 

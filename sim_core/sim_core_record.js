@@ -341,8 +341,11 @@
             ws_last_time = Date.now() ;
 
             // min. distance -> glowing time
-	    if (0 == distance)
-	        distance = ws_glowing_time ;
+	    if ( (0 == distance) && (ws_records.length > 0) && 
+                 (ws_records[ws_records.length-1].description === "_pending event_") ) 
+            {
+	         distance = ws_glowing_time ;
+	    }
 
             // add event
             simcore_record_pushElto("_pending event_", ";", distance) ;
