@@ -1,5 +1,5 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
+// Distributed under an MIT license: https://codemirror.net/LICENSE
 
 (function(mod) {
   if (typeof exports == "object" && typeof module == "object") // CommonJS
@@ -147,6 +147,8 @@
       // If not, just look in the global object and any local scope
       // (reading into JS mode internals to get at the local and global variables)
       for (var v = token.state.localVars; v; v = v.next) maybeAdd(v.name);
+      for (var c = token.state.context; c; c = c.prev)
+        for (var v = c.vars; v; v = v.next) maybeAdd(v.name)
       for (var v = token.state.globalVars; v; v = v.next) maybeAdd(v.name);
       if (!options || options.useGlobalScope !== false)
         gatherCompletions(global);
