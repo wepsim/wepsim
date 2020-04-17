@@ -532,8 +532,16 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
     function wsweb_assembly_compile ( )
     {
+            if (false == inputfirm.is_compiled) 
+            {
+		wsweb_dlg_alert('The Microcode is not microcompiled.<br>\n' +
+	   	   	        'Please load a Microcode first in memory in order to used it.');
+                return false ;
+            }
+
             var textToCompile = inputasm.getValue() ;
 	    var ok = wepsim_compile_assembly(textToCompile) ;
+            inputasm.is_compiled = ok ;
 
             // add if recording
             simcore_record_append_new('Compile assembly',
@@ -546,7 +554,11 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
     function wsweb_firmware_compile ( )
     {
 	    var textToMCompile = inputfirm.getValue();
-	    wepsim_compile_firmware(textToMCompile);
+	    var ok = wepsim_compile_firmware(textToMCompile);
+            inputfirm.is_compiled = ok ;
+
+            // if microcode changed -> recompile assembly
+            inputasm.is_compiled = false ;
 	    var o = '<div class=\'card m-3 border\'><div class=\'card-body m-1\'>' +
 		    'Please remember that after updates on the microcode, the assembly code has be re-compiled too.' +
 		    '</div></div>' ;
@@ -1023,6 +1035,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 				"	            var fileNameToSaveAs = ifntsa2.value;" +
 				"	            var textToWrite      = inputasm.getValue();" +
 				"	            wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "                   inputasm.is_modified = false;" +
 				"		    return false;'" +
                                 "><span data-langkey='Save'>Save</span></button>" +
 		               	"  </h5>" +
@@ -1107,9 +1120,10 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
                                 //
                                 "<div class='btn-group float-right'>" +
 				"  <button class='btn btn-light mx-1 py-0 col-auto' " +
-                                "          onclick='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
-		                "                   var textToWrite      = inputfirm.getValue();" +
+                                "          onclick='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+		                "                   var textToWrite       = inputfirm.getValue();" +
 		                "                   wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "                   inputfirm.is_modified = false;" +
 				"		    return false;'" +
                                 "><span data-langkey='Save'>Save</span></button>" +
                                 "  <button type='button' class='btn btn-light dropdown-toggle dropdown-toggle-split' " +
@@ -1210,7 +1224,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	           	       "        style='width:100%; height: inherit !important;'> " +
 			       "	<div class='d-flex align-items-center'> " +
 			       "	Loading binary, please wait... <br/> " +
-			       "	WARNING: loading binary might take time on slow mobile devices. " +
+			       "	WARNING: loading binary might take time on slow devices. " +
 			       "	</div> " +
 		               "   </div> " +
 		               "</div>" ;
@@ -1227,14 +1241,12 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	             },
             size:    'large',
             onshow:  function() {
-                         // update binary content
-			 var textToCompile = inputasm.getValue() ;
-			 var ok = wepsim_compile_assembly(textToCompile) ;
+                         // show binary
+			 var ok = wepsim_show_binary_code() ;
 			 if (true != ok) {
-                             setTimeout(function() { wsweb_dialog_close('binary_asm'); }, 50) ;
+                             setTimeout(function() {  wsweb_dialog_close('binary_asm'); }, 50) ;
 			     return ;
 			 }
-                         wepsim_show_binary_code('#bin2a', '#compile_bin2a') ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
@@ -1262,7 +1274,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	           	       "        style='width:100%; height: inherit !important;'> " +
 			       "	<div class='d-flex align-items-center'> " +
 			       "	Loading binary, please wait... <br/> " +
-			       "	WARNING: loading binary might take time on slow mobile devices. " +
+			       "	WARNING: loading binary might take time on slow devices. " +
 			       "	</div> " +
 		               "   </div> " +
 		               "</div>" ;
@@ -1279,22 +1291,12 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	             },
             size:    'large',
             onshow:  function() {
-                         // update binary content
-			 var textToMCompile = inputfirm.getValue() ;
-			 var ok = wepsim_compile_firmware(textToMCompile) ;
+                         // show binary
+			 var ok = wepsim_show_binary_microcode() ;
 			 if (true != ok) {
                              setTimeout(function() {  wsweb_dialog_close('binary_fir'); }, 50) ;
 			     return ;
 			 }
-			 wepsim_show_binary_microcode('#bin2b', '#compile_bin2b') ;
-			 wepsim_notify_success('<strong>INFO</strong>',
-				               'Please remember to recompile the assembly code if needed.') ;
-
-                         // refresh modal size
-                         setTimeout(function() {
-                                      $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
-                                      $('#bin_fir').modal('handleUpdate') ;
-                                    }, 50) ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
@@ -2034,6 +2036,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
     {
 	    var editor_obj = CodeMirror.fromTextArea(document.getElementById(editor_id), editor_cfg) ;
 
+            // default values
 	    editor_obj.setValue("\n\n\n\n\n\n\n\n\n\n");
 
             sim_cfg_editor_theme(editor_obj) ;
@@ -2041,6 +2044,16 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
             editor_obj.setSize("auto","auto");
             editor_obj.refresh();
+
+            // event onChange
+	    editor_obj.is_modified = true ;
+	    editor_obj.is_compiled = false ;
+
+            editor_obj.on("change",
+                          function (cmi, change) {
+                             cmi.is_modified = true ;
+                             cmi.is_compiled = false ;
+                          }) ;
 
 	    return editor_obj ;
     }
@@ -2072,9 +2085,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
             if (null !== pos) {
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' +
-                           '        onclick="wepsim_notify_close(); ' + 
-                           '                 goError(' + editor + ', ' + pos + ');">' + 
-                           ' Go line ' + pos + 
+                           '        onclick="wepsim_notify_close(); ' +
+                           '                 goError(' + editor + ', ' + pos + ');">' +
+                           ' Go line ' + pos +
                            '</button>&nbsp;' ;
             }
 
@@ -2087,38 +2100,62 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
     // Show binaries
 
-    function wepsim_show_binary_code ( popup_id, popup_content_id )
+    function wepsim_show_binary_code ( )
     {
-        $(popup_content_id).html("<center>" +
-                                 "<br>Loading binary, please wait..." +
-                                 "<br>" +
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
-                                 "</center>");
+         // compile if needed
+	 if (false == inputasm.is_compiled) {
+	     var textToCompile = inputasm.getValue() ;
+	     var ok = wepsim_compile_assembly(textToCompile) ;
+	     inputasm.is_compiled = ok ;
+	 }
 
-	setTimeout(function(){
+         // update content
+         if (false == inputfirm.is_compiled)
+         {
+	     setTimeout(function(){
+                           wsweb_dlg_alert('Microcode or Assembly are not compiled properly.<br>\n') ;
+                        }, 50);
+             return false ;
+	 }
+         if (false == inputasm.is_compiled) {
+             return false ;
+	 }
+
+	 setTimeout(function(){
 			var SIMWARE = get_simware() ;
-			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
+			$('#compile_bin2a').html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
 			for (var skey in SIMWARE.seg) {
 			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
 			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
 			}
-			$(popup_id).modal('handleUpdate');
-                   }, 50);
+		        $('#bin_asm').modal('handleUpdate') ;
+                    }, 50);
+         return true ;
     }
 
-    function wepsim_show_binary_microcode ( popup_id, popup_content_id )
+    function wepsim_show_binary_microcode ( )
     {
-        $(popup_content_id).html("<center>" +
-                                 "<br>Loading binary, please wait..." +
-                                 "<br>" +
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
-                                 "</center>");
+         // microcompile if needed
+	 if (false == inputfirm.is_compiled)
+	 {
+	     var textToMCompile = inputfirm.getValue() ;
+	     var ok = wepsim_compile_firmware(textToMCompile) ;
+	     inputfirm.is_compiled = ok ;
+	      inputasm.is_compiled = false ;
+	 }
 
-	setTimeout(function() {
-			var SIMWARE = get_simware() ;
-			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
-			$(popup_id).modal('handleUpdate');
-                   }, 50);
+         // update content
+	 if (false == inputfirm.is_compiled) {
+	     return false ;
+	 }
+
+	 setTimeout(function() {
+	              var SIMWARE = get_simware() ;
+	              $('#compile_bin2b').html(firmware2html(SIMWARE.firmware, true));
+		      $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
+		      $('#bin_fir').modal('handleUpdate') ;
+		    }, 50) ;
+         return true ;
     }
 
 
@@ -2862,16 +2899,16 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
 	    // initialize editors
 	    inputfirm_cfg = {
-			      value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-			      lineNumbers: true,
-			      lineWrapping: true,
-			      matchBrackets: true,
-			      tabSize: 2,
-			      foldGutter: {
-				rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-			      },
-			      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-			      mode: "text/javascript"
+			        value: "\n\n\n\n\n\n\n\n\n\n\n\n",
+			        lineNumbers: true,
+			        lineWrapping: true,
+			        matchBrackets: true,
+			        tabSize: 2,
+			        foldGutter: {
+			  	   rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
+			        },
+			        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+			        mode: "text/javascript"
 			    } ;
 	    inputfirm = sim_init_editor("inputFirmware", inputfirm_cfg) ;
 

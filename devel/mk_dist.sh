@@ -173,21 +173,21 @@ cat external/knockout-3.5.1.js \
     external/spectrum.min.js \
     external/timbre.min.js \
     external/codemirror/codemirror.js \
-    external/codemirror/codemirror.javascript.js \
-    external/codemirror/codemirror.gas.js \
-    external/codemirror/codemirror.keymap/sublime.js \
-    external/codemirror/codemirror.keymap/emacs.js \
-    external/codemirror/codemirror.keymap/vim.js \
-    external/codemirror/codemirror.edit/matchbrackets.js \
-    external/codemirror/codemirror.fold/foldcode.js \
-    external/codemirror/codemirror.fold/foldgutter.js \
-    external/codemirror/codemirror.fold/brace-fold.js \
-    external/codemirror/codemirror.fold/xml-fold.js \
-    external/codemirror/codemirror.fold/comment-fold.js \
-    external/codemirror/codemirror.fold/indent-fold.js \
-    external/codemirror/codemirror.fold/markdown-fold.js \
-    external/codemirror/codemirror.show-hint/codemirror.show-hint.js \
-    external/codemirror/codemirror.runmode/colorize.js \
+    external/codemirror/mode/javascript/javascript.js \
+    external/codemirror/mode/gas/gas.js \
+    external/codemirror/keymap/sublime.js \
+    external/codemirror/keymap/emacs.js \
+    external/codemirror/keymap/vim.js \
+    external/codemirror/addon/edit/matchbrackets.js \
+    external/codemirror/addon/fold/foldcode.js \
+    external/codemirror/addon/fold/foldgutter.js \
+    external/codemirror/addon/fold/brace-fold.js \
+    external/codemirror/addon/fold/xml-fold.js \
+    external/codemirror/addon/fold/comment-fold.js \
+    external/codemirror/addon/fold/indent-fold.js \
+    external/codemirror/addon/fold/markdown-fold.js \
+    external/codemirror/addon/hint/show-hint.js \
+    external/codemirror/addon/runmode/colorize.js \
     external/vis/vis.min.js \
     external/vis/vis-network.min.js \
     external/async.min.js \
@@ -207,9 +207,9 @@ cat external/bootstrap.min.css \
     external/dark-mode.css \
     external/spectrum.min.css \
     external/codemirror/codemirror.css \
-    external/codemirror/codemirror.theme/blackboard.css \
-    external/codemirror/codemirror.fold/foldgutter.css \
-    external/codemirror/codemirror.show-hint/codemirror.show-hint.css \
+    external/codemirror/theme/blackboard.css \
+    external/codemirror/addon/fold/foldgutter.css \
+    external/codemirror/addon/hint/show-hint.css \
     external/vis/vis.min.css \
     external/vis/vis-network.min.css \
     external/bootstrap-tokenfield.css \

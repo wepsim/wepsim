@@ -57,6 +57,7 @@
     {
 	    var editor_obj = CodeMirror.fromTextArea(document.getElementById(editor_id), editor_cfg) ;
 
+            // default values
 	    editor_obj.setValue("\n\n\n\n\n\n\n\n\n\n");
 
             sim_cfg_editor_theme(editor_obj) ;
@@ -64,6 +65,16 @@
 
             editor_obj.setSize("auto","auto");
             editor_obj.refresh();
+
+            // event onChange
+	    editor_obj.is_modified = true ;
+	    editor_obj.is_compiled = false ;
+
+            editor_obj.on("change",
+                          function (cmi, change) {
+                             cmi.is_modified = true ;
+                             cmi.is_compiled = false ;
+                          }) ;
 
 	    return editor_obj ;
     }
@@ -95,9 +106,9 @@
             if (null !== pos) {
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' +
-                           '        onclick="wepsim_notify_close(); ' + 
-                           '                 goError(' + editor + ', ' + pos + ');">' + 
-                           ' Go line ' + pos + 
+                           '        onclick="wepsim_notify_close(); ' +
+                           '                 goError(' + editor + ', ' + pos + ');">' +
+                           ' Go line ' + pos +
                            '</button>&nbsp;' ;
             }
 
@@ -110,38 +121,62 @@
 
     // Show binaries
 
-    function wepsim_show_binary_code ( popup_id, popup_content_id )
+    function wepsim_show_binary_code ( )
     {
-        $(popup_content_id).html("<center>" +
-                                 "<br>Loading binary, please wait..." +
-                                 "<br>" +
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
-                                 "</center>");
+         // compile if needed
+	 if (false == inputasm.is_compiled) {
+	     var textToCompile = inputasm.getValue() ;
+	     var ok = wepsim_compile_assembly(textToCompile) ;
+	     inputasm.is_compiled = ok ;
+	 }
 
-	setTimeout(function(){
+         // update content
+         if (false == inputfirm.is_compiled)
+         {
+	     setTimeout(function(){
+                           wsweb_dlg_alert('Microcode or Assembly are not compiled properly.<br>\n') ;
+                        }, 50);
+             return false ;
+	 }
+         if (false == inputasm.is_compiled) {
+             return false ;
+	 }
+
+	 setTimeout(function(){
 			var SIMWARE = get_simware() ;
-			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
+			$('#compile_bin2a').html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
 			for (var skey in SIMWARE.seg) {
 			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
 			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
 			}
-			$(popup_id).modal('handleUpdate');
-                   }, 50);
+		        $('#bin_asm').modal('handleUpdate') ;
+                    }, 50);
+         return true ;
     }
 
-    function wepsim_show_binary_microcode ( popup_id, popup_content_id )
+    function wepsim_show_binary_microcode ( )
     {
-        $(popup_content_id).html("<center>" +
-                                 "<br>Loading binary, please wait..." +
-                                 "<br>" +
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
-                                 "</center>");
+         // microcompile if needed
+	 if (false == inputfirm.is_compiled)
+	 {
+	     var textToMCompile = inputfirm.getValue() ;
+	     var ok = wepsim_compile_firmware(textToMCompile) ;
+	     inputfirm.is_compiled = ok ;
+	      inputasm.is_compiled = false ;
+	 }
 
-	setTimeout(function() {
-			var SIMWARE = get_simware() ;
-			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
-			$(popup_id).modal('handleUpdate');
-                   }, 50);
+         // update content
+	 if (false == inputfirm.is_compiled) {
+	     return false ;
+	 }
+
+	 setTimeout(function() {
+	              var SIMWARE = get_simware() ;
+	              $('#compile_bin2b').html(firmware2html(SIMWARE.firmware, true));
+		      $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
+		      $('#bin_fir').modal('handleUpdate') ;
+		    }, 50) ;
+         return true ;
     }
 
 

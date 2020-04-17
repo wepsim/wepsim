@@ -47,6 +47,7 @@
 				"	            var fileNameToSaveAs = ifntsa2.value;" +
 				"	            var textToWrite      = inputasm.getValue();" +
 				"	            wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "                   inputasm.is_modified = false;" +
 				"		    return false;'" +
                                 "><span data-langkey='Save'>Save</span></button>" +
 		               	"  </h5>" +
@@ -131,9 +132,10 @@
                                 //
                                 "<div class='btn-group float-right'>" +
 				"  <button class='btn btn-light mx-1 py-0 col-auto' " +
-                                "          onclick='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
-		                "                   var textToWrite      = inputfirm.getValue();" +
+                                "          onclick='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+		                "                   var textToWrite       = inputfirm.getValue();" +
 		                "                   wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "                   inputfirm.is_modified = false;" +
 				"		    return false;'" +
                                 "><span data-langkey='Save'>Save</span></button>" +
                                 "  <button type='button' class='btn btn-light dropdown-toggle dropdown-toggle-split' " +
@@ -234,7 +236,7 @@
 	           	       "        style='width:100%; height: inherit !important;'> " +
 			       "	<div class='d-flex align-items-center'> " +
 			       "	Loading binary, please wait... <br/> " +
-			       "	WARNING: loading binary might take time on slow mobile devices. " +
+			       "	WARNING: loading binary might take time on slow devices. " +
 			       "	</div> " +
 		               "   </div> " +
 		               "</div>" ;
@@ -251,14 +253,12 @@
 	             },
             size:    'large',
             onshow:  function() {
-                         // update binary content
-			 var textToCompile = inputasm.getValue() ;
-			 var ok = wepsim_compile_assembly(textToCompile) ;
+                         // show binary
+			 var ok = wepsim_show_binary_code() ;
 			 if (true != ok) {
-                             setTimeout(function() { wsweb_dialog_close('binary_asm'); }, 50) ;
+                             setTimeout(function() {  wsweb_dialog_close('binary_asm'); }, 50) ;
 			     return ;
 			 }
-                         wepsim_show_binary_code('#bin2a', '#compile_bin2a') ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
@@ -286,7 +286,7 @@
 	           	       "        style='width:100%; height: inherit !important;'> " +
 			       "	<div class='d-flex align-items-center'> " +
 			       "	Loading binary, please wait... <br/> " +
-			       "	WARNING: loading binary might take time on slow mobile devices. " +
+			       "	WARNING: loading binary might take time on slow devices. " +
 			       "	</div> " +
 		               "   </div> " +
 		               "</div>" ;
@@ -303,22 +303,12 @@
 	             },
             size:    'large',
             onshow:  function() {
-                         // update binary content
-			 var textToMCompile = inputfirm.getValue() ;
-			 var ok = wepsim_compile_firmware(textToMCompile) ;
+                         // show binary
+			 var ok = wepsim_show_binary_microcode() ;
 			 if (true != ok) {
                              setTimeout(function() {  wsweb_dialog_close('binary_fir'); }, 50) ;
 			     return ;
 			 }
-			 wepsim_show_binary_microcode('#bin2b', '#compile_bin2b') ;
-			 wepsim_notify_success('<strong>INFO</strong>',
-				               'Please remember to recompile the assembly code if needed.') ;
-
-                         // refresh modal size
-                         setTimeout(function() {
-                                      $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
-                                      $('#bin_fir').modal('handleUpdate') ;
-                                    }, 50) ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;

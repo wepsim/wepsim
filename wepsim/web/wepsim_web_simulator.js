@@ -682,16 +682,16 @@
 
 	    // initialize editors
 	    inputfirm_cfg = {
-			      value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-			      lineNumbers: true,
-			      lineWrapping: true,
-			      matchBrackets: true,
-			      tabSize: 2,
-			      foldGutter: {
-				rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-			      },
-			      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-			      mode: "text/javascript"
+			        value: "\n\n\n\n\n\n\n\n\n\n\n\n",
+			        lineNumbers: true,
+			        lineWrapping: true,
+			        matchBrackets: true,
+			        tabSize: 2,
+			        foldGutter: {
+			  	   rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
+			        },
+			        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+			        mode: "text/javascript"
 			    } ;
 	    inputfirm = sim_init_editor("inputFirmware", inputfirm_cfg) ;
 
