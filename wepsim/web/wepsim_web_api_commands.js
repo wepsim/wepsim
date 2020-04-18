@@ -253,10 +253,10 @@
 	             },
             size:    'large',
             onshow:  function() {
-                         // show binary
-			 var ok = wepsim_show_binary_code() ;
-			 if (true != ok) {
-                             setTimeout(function() {  wsweb_dialog_close('binary_asm'); }, 50) ;
+                         // get binary
+			 var simware = wepsim_get_binary_code() ;
+			 if (null == simware) {
+                             setTimeout(function() { wsweb_dialog_close('binary_asm'); }, 50) ;
 			     return ;
 			 }
 
@@ -264,8 +264,18 @@
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
 			 wepsim_restore_uicfg() ;
 
-			 wsweb_scroll_record('#scroller-bin2a') ;
-			 simcore_record_captureInit() ;
+                         // show binary
+                         setTimeout(function(){
+                            $('#compile_bin2a').html(mp2html(simware.mp, simware.labels2, simware.seg)) ;
+                            for (var skey in simware.seg) {
+                                 $("#compile_begin_" + skey).html("0x" + simware.seg[skey].begin.toString(16));
+                                 $("#compile_end_"   + skey).html("0x" + simware.seg[skey].end.toString(16));
+                            }
+
+                            $('#bin_asm').modal('handleUpdate') ;
+			    wsweb_scroll_record('#scroller-bin2a') ;
+			    simcore_record_captureInit() ;
+                         }, 50);
 		     }
          },
 
@@ -303,10 +313,10 @@
 	             },
             size:    'large',
             onshow:  function() {
-                         // show binary
-			 var ok = wepsim_show_binary_microcode() ;
-			 if (true != ok) {
-                             setTimeout(function() {  wsweb_dialog_close('binary_fir'); }, 50) ;
+                         // get binary
+			 var simware = wepsim_get_binary_microcode() ;
+			 if (null == simware) {
+                             setTimeout(function() { wsweb_dialog_close('binary_fir'); }, 50) ;
 			     return ;
 			 }
 
@@ -314,8 +324,15 @@
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
 			 wepsim_restore_uicfg() ;
 
-			 wsweb_scroll_record('#scroller-bin2b') ;
-			 simcore_record_captureInit() ;
+                         // show binary
+                         setTimeout(function() {
+                                       $('#compile_bin2b').html(firmware2html(simware.firmware, true));
+                                       $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
+                                       $('#bin_fir').modal('handleUpdate') ;
+
+			               wsweb_scroll_record('#scroller-bin2b') ;
+			               simcore_record_captureInit() ;
+                         }, 50) ;
 		     }
          },
 

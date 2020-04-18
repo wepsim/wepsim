@@ -1241,10 +1241,10 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	             },
             size:    'large',
             onshow:  function() {
-                         // show binary
-			 var ok = wepsim_show_binary_code() ;
-			 if (true != ok) {
-                             setTimeout(function() {  wsweb_dialog_close('binary_asm'); }, 50) ;
+                         // get binary
+			 var simware = wepsim_get_binary_code() ;
+			 if (null == simware) {
+                             setTimeout(function() { wsweb_dialog_close('binary_asm'); }, 50) ;
 			     return ;
 			 }
 
@@ -1252,8 +1252,18 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
 			 wepsim_restore_uicfg() ;
 
-			 wsweb_scroll_record('#scroller-bin2a') ;
-			 simcore_record_captureInit() ;
+                         // show binary
+                         setTimeout(function(){
+                            $('#compile_bin2a').html(mp2html(simware.mp, simware.labels2, simware.seg)) ;
+                            for (var skey in simware.seg) {
+                                 $("#compile_begin_" + skey).html("0x" + simware.seg[skey].begin.toString(16));
+                                 $("#compile_end_"   + skey).html("0x" + simware.seg[skey].end.toString(16));
+                            }
+
+                            $('#bin_asm').modal('handleUpdate') ;
+			    wsweb_scroll_record('#scroller-bin2a') ;
+			    simcore_record_captureInit() ;
+                         }, 50);
 		     }
          },
 
@@ -1291,10 +1301,10 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 	             },
             size:    'large',
             onshow:  function() {
-                         // show binary
-			 var ok = wepsim_show_binary_microcode() ;
-			 if (true != ok) {
-                             setTimeout(function() {  wsweb_dialog_close('binary_fir'); }, 50) ;
+                         // get binary
+			 var simware = wepsim_get_binary_microcode() ;
+			 if (null == simware) {
+                             setTimeout(function() { wsweb_dialog_close('binary_fir'); }, 50) ;
 			     return ;
 			 }
 
@@ -1302,8 +1312,15 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
 			 wepsim_restore_uicfg() ;
 
-			 wsweb_scroll_record('#scroller-bin2b') ;
-			 simcore_record_captureInit() ;
+                         // show binary
+                         setTimeout(function() {
+                                       $('#compile_bin2b').html(firmware2html(simware.firmware, true));
+                                       $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
+                                       $('#bin_fir').modal('handleUpdate') ;
+
+			               wsweb_scroll_record('#scroller-bin2b') ;
+			               simcore_record_captureInit() ;
+                         }, 50) ;
 		     }
          },
 
@@ -2024,12 +2041,15 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
     {
 	    var edt_mode = get_cfg('editor_mode');
 
-	    if (edt_mode === 'vim')
+	    if (edt_mode === 'vim') {
 		editor.setOption('keyMap','vim');
-	    if (edt_mode === 'emacs')
+            }
+	    if (edt_mode === 'emacs') {
 		editor.setOption('keyMap','emacs');
-	    if (edt_mode === 'sublime')
+            }
+	    if (edt_mode === 'sublime') {
 		editor.setOption('keyMap','sublime');
+            }
     }
 
     function sim_init_editor ( editor_id, editor_cfg )
@@ -2069,7 +2089,9 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
     {
          editor.setCursor({ line: pos-1, ch: 0 }) ;
          var marked = editor.addLineClass(pos-1, 'background', 'CodeMirror-selected') ;
-         setTimeout(function(){ editor.removeLineClass(marked, 'background', 'CodeMirror-selected'); }, 3000) ;
+         setTimeout(function(){ 
+			editor.removeLineClass(marked, 'background', 'CodeMirror-selected'); 
+                    }, 3000) ;
 
    	 var t = editor.charCoords({line: pos, ch: 0}, 'local').top ;
    	 var middleHeight = editor.getScrollerElement().offsetHeight / 2 ;
@@ -2100,40 +2122,33 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
     // Show binaries
 
-    function wepsim_show_binary_code ( )
+    function wepsim_get_binary_code ( )
     {
          // compile if needed
-	 if (false == inputasm.is_compiled) {
+	 if (false == inputasm.is_compiled) 
+         {
 	     var textToCompile = inputasm.getValue() ;
 	     var ok = wepsim_compile_assembly(textToCompile) ;
 	     inputasm.is_compiled = ok ;
 	 }
 
          // update content
-         if (false == inputfirm.is_compiled)
+         if ( (false == inputfirm.is_compiled) &&
+	      (inputfirm.getValue().trim() !== "") )
          {
 	     setTimeout(function(){
                            wsweb_dlg_alert('Microcode or Assembly are not compiled properly.<br>\n') ;
                         }, 50);
-             return false ;
+             return null ;
 	 }
          if (false == inputasm.is_compiled) {
-             return false ;
+             return null ;
 	 }
 
-	 setTimeout(function(){
-			var SIMWARE = get_simware() ;
-			$('#compile_bin2a').html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
-			for (var skey in SIMWARE.seg) {
-			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
-			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
-			}
-		        $('#bin_asm').modal('handleUpdate') ;
-                    }, 50);
-         return true ;
+	 return get_simware() ;
     }
 
-    function wepsim_show_binary_microcode ( )
+    function wepsim_get_binary_microcode ( )
     {
          // microcompile if needed
 	 if (false == inputfirm.is_compiled)
@@ -2146,16 +2161,10 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
          // update content
 	 if (false == inputfirm.is_compiled) {
-	     return false ;
+	     return null ;
 	 }
 
-	 setTimeout(function() {
-	              var SIMWARE = get_simware() ;
-	              $('#compile_bin2b').html(firmware2html(SIMWARE.firmware, true));
-		      $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
-		      $('#bin_fir').modal('handleUpdate') ;
-		    }, 50) ;
-         return true ;
+	 return get_simware() ;
     }
 
 
