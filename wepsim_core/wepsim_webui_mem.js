@@ -242,6 +242,7 @@
 
 	function mp2html ( mp, labels, seg )
 	{
+                // auxiliar for search
                 var slebal = {} ;
                 for (var l in labels)
                 {
@@ -250,6 +251,32 @@
                      slebal[labels[l]].push(l);
                 }
 
+                var slimits = {} ;
+	        for (var skey in seg)
+	        {
+                     slimits[skey] = {
+                                       'c_begin': parseInt(seg[skey].begin),
+                                       'c_end':   parseInt(seg[skey].end),
+                                       'm_end':   0,
+		                       'color':   seg[skey].color
+				     } ;
+                }
+                var a = 0 ;
+	        for (var m in mp)
+	        {
+                     a = parseInt(m, 16) ;
+	             for (var skey in seg)
+	             {
+                          if ( (slimits[skey].c_begin < a) && 
+ 			       (a < slimits[skey].c_end) && 
+ 			       (a > slimits[skey].m_end) )
+	                  {
+                                slimits[skey].m_end = a ;
+                          }
+                     }
+                }
+
+                // output...
 		var o  = "";
 		    o += "<center>" +
 		 	 "<table style='table-layout:auto; border-style: solid; border-width:0px;'>" +
@@ -278,9 +305,9 @@
 	   	var color="white";
 	        for (var skey in seg)
 	        {
-                     c_begin =  parseInt(seg[skey].begin) ;
-                     c_end   =  parseInt(seg[skey].end) ;
-		     color   =  seg[skey].color;
+                     c_begin =  slimits[skey].c_begin ;
+                     c_end   =  slimits[skey].m_end ;
+		     color   =  slimits[skey].color ;
                      rows    =  0 ;
                      var x   =  "" ;
 

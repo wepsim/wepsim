@@ -275,7 +275,7 @@
                             $('#bin_asm').modal('handleUpdate') ;
 			    wsweb_scroll_record('#scroller-bin2a') ;
 			    simcore_record_captureInit() ;
-                         }, 50);
+                         }, 10);
 		     }
          },
 
