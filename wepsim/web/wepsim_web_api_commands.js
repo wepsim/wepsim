@@ -311,7 +311,7 @@
 				           }
 			     }
 	             },
-            size:    'large',
+            size:    'extra-large',
             onshow:  function() {
                          // get binary
 			 var simware = wepsim_get_binary_microcode() ;
@@ -326,8 +326,8 @@
 
                          // show binary
                          setTimeout(function() {
-                                       $('#compile_bin2b').html(firmware2html(simware.firmware, true));
-                                       $('#bin_fir').find('.modal-dialog').addClass("bootboxWidth") ;
+                                       var fhtml = firmware2html(simware.firmware, true) ;
+                                       $('#compile_bin2b').html(fhtml) ;
                                        $('#bin_fir').modal('handleUpdate') ;
 
 			               wsweb_scroll_record('#scroller-bin2b') ;
@@ -979,18 +979,12 @@
 				           }
 			     }
 			 },
-		size:    'large',
+		size:    'extra-large',
 		onshow:  function() {
                                  // update content
 	                         wepsim_checkpoint_listCache('browserCacheList1');
-
 			         $('.dropify').dropify() ;
-
-				 // refresh modal size
-				 setTimeout(function() {
-					      $('#current_checkpoint1').find('.modal-dialog').addClass("bootboxWidth") ;
-					      $('#current_checkpoint1').modal('handleUpdate') ;
-					    }, 50) ;
+				 $('#current_checkpoint1').modal('handleUpdate') ;
 
 				 // ui lang
 				 var ws_idiom = get_cfg('ws_idiom') ;

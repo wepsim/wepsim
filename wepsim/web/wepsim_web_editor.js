@@ -137,12 +137,14 @@
 	 }
 
          // update content
-         if ( (false == inputfirm.is_compiled) &&
-	      (inputfirm.getValue().trim() !== "") )
+         if (false == inputfirm.is_compiled)
          {
-	     setTimeout(function(){
-                           wsweb_dlg_alert('Microcode or Assembly are not compiled properly.<br>\n') ;
-                        }, 50);
+             if (inputfirm.getValue().trim() !== "") {
+                 var wsi = get_cfg('ws_idiom') ;
+                 var msg = i18n_get('gui', wsi, 'Microcode or Assembly are not compiled properly') ;
+	         setTimeout(function(){ wsweb_dlg_alert(msg + '.<br>\n') ; }, 50);
+             }
+
              return null ;
 	 }
          if (false == inputasm.is_compiled) {
