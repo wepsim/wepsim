@@ -103,10 +103,11 @@ set -x
  jshint ./wepsim_core/wepsim_webui_cpusvg.js
 
  jshint ./wepsim/web/wepsim_web_api.js
- jshint ./wepsim/web/wepsim_web_api_commands.js
 #jshint ./wepsim/web/wepsim_web_pwa.js
  jshint ./wepsim/web/wepsim_web_simulator.js
  jshint ./wepsim/web/wepsim_web_editor.js
+ jshint ./wepsim/web/wepsim_web_ui_dialogs.js
+ jshint ./wepsim/web/wepsim_web_ui_quickcfg.js
  jshint ./wepsim/nodejs/wepsim_node_action.js
  jshint ./wepsim/nodejs/wepsim_node_core.js
 
