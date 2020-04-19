@@ -3,7 +3,10 @@
 
 ## 2.0.12 -> 2.1.0:
 * Simplify UI
-* Update to knockout-3.5.1
+* Dialog-boxes re-designed from scratch
+* Knockout   updated to knockout-3.5.1
+* CodeMirror updated to codemirror-5.52.2
+* Fix several minor bugs
 
 ## 2.0.11 -> 2.0.12:
 * Update to bootstrap 4.4.1

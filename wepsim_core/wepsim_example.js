@@ -58,6 +58,7 @@
                             var SIMWARE = get_simware() ;
 	                    if (SIMWARE.firmware.length !== 0) {
                                 ok = wepsim_compile_assembly(mcode) ;
+			        inputasm.is_compiled = ok ;
 			    }
 
                             // stop here if error is found
@@ -120,6 +121,7 @@
 			   inputfirm.refresh();
 
 			   var ok = wepsim_compile_firmware(mcode);
+			   inputfirm.is_compiled = ok ;
 
                             // stop here if error is found
 			    if (false === ok) {

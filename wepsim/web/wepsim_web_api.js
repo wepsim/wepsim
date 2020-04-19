@@ -532,8 +532,16 @@
 
     function wsweb_assembly_compile ( )
     {
+            if (false == inputfirm.is_compiled) 
+            {
+		wsweb_dlg_alert('The Microcode is not microcompiled.<br>\n' +
+	   	   	        'Please load a Microcode first in memory in order to used it.');
+                return false ;
+            }
+
             var textToCompile = inputasm.getValue() ;
 	    var ok = wepsim_compile_assembly(textToCompile) ;
+            inputasm.is_compiled = ok ;
 
             // add if recording
             simcore_record_append_new('Compile assembly',
@@ -546,7 +554,11 @@
     function wsweb_firmware_compile ( )
     {
 	    var textToMCompile = inputfirm.getValue();
-	    wepsim_compile_firmware(textToMCompile);
+	    var ok = wepsim_compile_firmware(textToMCompile);
+            inputfirm.is_compiled = ok ;
+
+            // if microcode changed -> recompile assembly
+            inputasm.is_compiled = false ;
 	    var o = '<div class=\'card m-3 border\'><div class=\'card-body m-1\'>' +
 		    'Please remember that after updates on the microcode, the assembly code has be re-compiled too.' +
 		    '</div></div>' ;
