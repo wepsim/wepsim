@@ -139,8 +139,9 @@
 			value:   signal_obj.value,
 			buttons: {
 				    success: {
-					label:      '<span data-langkey="Save">Save</span>',
-					className:  'btn-primary btn-sm col col-md-3 float-right',
+					label:      '<i class="fas fa-screwdriver"></i> ' +
+                                                    '<span data-langkey="Save">Save</span>',
+					className:  'btn-info btn-sm col col-md-3 float-right',
 					callback:   function ()
 						    {
 							key        = $('#ask_skey').val();
@@ -154,8 +155,9 @@
 						    }
 				    },
 				    close: {
-					label:      '<span data-langkey="Close">Close</span>',
-					className:  'btn-danger btn-sm col col-md-3 float-right',
+					label:      '<i class="fa fa-times mr-2"></i>' +
+						    '<span data-langkey="Close">Close</span>',
+					className:  'btn-primary btn-sm col col-md-3 float-right',
 					callback:   function() {
 						        wsweb_dialogbox_close_updatesignal() ;
 						   }

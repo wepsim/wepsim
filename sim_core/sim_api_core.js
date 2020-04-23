@@ -76,6 +76,7 @@
 
         /**
          * Show welcome message.
+         * http://patorjk.com/software/taag/#p=testall&h=0&v=0&f=Delta%20Corps%20Priest%201&t=WepSIM
          */
         function simcore_welcome ( )
         {
@@ -83,13 +84,17 @@
 	        ret.msg = "" ;
 	        ret.ok  = true ;
 
-            // http://patorjk.com/software/taag/#p=testall&h=0&v=0&f=Delta%20Corps%20Priest%201&t=WepSIM
+            console.log('') ;
             console.log('██╗    ██╗███████╗██████╗ ███████╗██╗███╗   ███╗') ;
             console.log('██║    ██║██╔════╝██╔══██╗██╔════╝██║████╗ ████║') ;
             console.log('██║ █╗ ██║█████╗  ██████╔╝███████╗██║██╔████╔██║') ;
             console.log('██║███╗██║██╔══╝  ██╔═══╝ ╚════██║██║██║╚██╔╝██║') ;
             console.log('╚███╔███╔╝███████╗██║     ███████║██║██║ ╚═╝ ██║') ;
             console.log(' ╚══╝╚══╝ ╚══════╝╚═╝     ╚══════╝╚═╝╚═╝     ╚═╝') ;
+            console.log('') ;
+            console.log('Stable: https://github.com/wepsim/wepsim') ;
+            console.log('Beta:   https://github.com/acaldero/wepsim') ;
+            console.log('') ;
                                                 
             return ret ;
         }
