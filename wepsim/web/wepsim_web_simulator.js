@@ -327,19 +327,31 @@
 
     function set_ab_size ( diva, divb, new_value )
     {
-	var a = new_value;
-    	var b = 12 - a;
+        // reset
+	var colclass = "col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12 " + 
+                       "order-1 order-2 d-none" ;
+	$(diva).removeClass(colclass) ;
+	$(divb).removeClass(colclass) ;
 
-	$(diva).removeClass("col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12 order-1 order-2") ;
-	$(divb).removeClass("col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12 order-1 order-2") ;
-
-	if (a != 0)
-             $(diva).addClass('col-' + a) ;
-	else $(diva).addClass('col-12 order-1') ;
-
-	if (b != 0)
-	     $(divb).addClass('col-' + b) ;
-	else $(divb).addClass('col-12 order-2') ;
+        // set
+        switch (new_value)
+        {
+           case "0":  $(diva).addClass('col-12 order-1') ;
+                      $(divb).addClass('col-12') ;
+                      break ;
+           case "1":  $(diva).addClass('d-none') ;
+                      $(divb).addClass('col-12 order-2') ;
+                      break ;
+           case "13": $(diva).addClass('col-12 order-1') ;
+                      $(divb).addClass('d-none') ;
+                      break ;
+           case "14": $(diva).addClass('col-12') ;
+                      $(divb).addClass('col-12 order-2') ;
+                      break ;
+           default:   $(diva).addClass('col-' + (new_value-1)) ;   //  1,  2, 3, ...
+                      $(divb).addClass('col-' + (13-new_value)) ;  // 11, 10, 9, ...
+                      break ;
+        }
     }
 
     //

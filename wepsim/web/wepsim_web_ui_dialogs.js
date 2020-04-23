@@ -521,6 +521,20 @@
                                "</div>" ;
 		     },
 	    buttons: {
+			Reset: {
+			   label:     "<span data-langkey='Reset'>Reset</span>",
+			   className: "btn btn-outline-info btn-sm col col-sm-3 float-left shadow-none mr-auto",
+			   callback:  function() {
+					 reset_cfg() ;
+					 save_cfg() ;
+
+		         		 // ui elements
+    					 wsweb_dialog_close('config') ;
+    					 wsweb_dialog_open('config') ;
+
+					 return false ;
+				      }
+			},
 			OK: {
 				label:     '<i class="fa fa-times mr-2"></i>' +
 					   '<span data-langkey="Close">Close</span>',
@@ -587,8 +601,9 @@
 	             },
 	    buttons: {
 			Index: {
-			   label:     "<span data-langkey='Help Index'>Help Index</span>",
-			   className: "btn btn-success btn-sm col col-sm-3 float-left shadow-none mr-auto",
+			   label:     '<i class="fas fa-list"></i> ' +
+                                      '<span data-langkey="Help Index">Help Index</span>',
+			   className: 'btn btn-success btn-sm col col-sm-3 float-right shadow-none',
 			   callback:  function() {
 		         		 // ui elements
     				         wepsim_help_set_relative('') ;

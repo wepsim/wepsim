@@ -190,7 +190,7 @@
 
 	       /* simulation screen: Notification, etc. */
                WSCFG.NOTIF_delay          = { value:1000,               type:"int"} ;
-               WSCFG.CPUCU_size           = { value:6,                  type:"int"} ;
+               WSCFG.CPUCU_size           = { value:7,                  type:"int"} ;
                WSCFG.C1C2_size            = { value:8,                  type:"int"} ;
 
                WSCFG.SHOWCODE_label       = { value:true,               type:"boolean"} ;
@@ -215,14 +215,14 @@
 
 	       /* misc. */
                WSCFG.verbal_verbose       = { value:'math',             type:"string"} ;
-               WSCFG.base_url             = { value:'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html',   type:"string"} ;
+               WSCFG.base_url             = { value:'https://acaldero.github.io/wepsim/', type:"string"};
 
                // some mobile-tuning
                if (is_mobile())
                {
                    WSCFG.NOTIF_delay.value = 2000 ;
                    WSCFG.ICON_theme.value  = 'cat1' ;
-                   WSCFG.CPUCU_size.value  = 6 ;
+                   WSCFG.CPUCU_size.value  = 7 ;
                    WSCFG.C1C2_size.value   = 12 ;
                    WSCFG.ws_skin_ui.value  = 'compact' ;
                }
