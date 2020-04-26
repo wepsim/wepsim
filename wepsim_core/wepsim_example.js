@@ -335,6 +335,7 @@
     function load_example_list ( url_example_list )
     {
        var jstr   = null ;
+       var jobj   = null ;
        var jindex = null ;
 
        // try to load the index
@@ -343,16 +344,24 @@
            jindex = JSON.parse(jstr.responseText) ;
        }
        catch (e) {
-           wsweb_dlg_alert("Unable to load example index '" + url_example_list + "': " + e + ".\n") ;
+           wepsim_notify_do_notify('getJSON',
+                                   "Unable to load example index '" + url_example_list + "': " + e + ".\n", 
+                                   'warning', 0) ;
        }
 
        // try to load each one
        for (var i=0; i<jindex.length; i++) 
        {
-            wepsim_preload_json(jindex[i].url, 
-                                function(jobj) { 
-				    ws_examples = ws_examples.concat(jobj) ;
-                                }) ;
+            try {
+                jstr = $.getJSON({'url': jindex[i].url, 'async': false}) ;
+                jobj = JSON.parse(jstr.responseText) ;
+	        ws_examples = ws_examples.concat(jobj) ;
+            }
+            catch (e) {
+                wepsim_notify_do_notify('getJSON',
+                                        "Unable to load example index '" + jindex[i].url + "': " + e + ".\n", 
+                                        'warning', 0) ;
+            }
        }
 
        return ws_examples ;
