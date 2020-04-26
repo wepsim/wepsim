@@ -71,20 +71,16 @@ set -x
  jshint ./wepsim_core/wepsim_mode.js
  jshint ./wepsim_core/wepsim_help.js
  jshint ./wepsim_core/wepsim_dialog.js
- jshint ./wepsim_core/wepsim_example_commands-ep_mips.js
  jshint ./wepsim_core/wepsim_state.js
  jshint ./wepsim_core/wepsim_tutorial_simpleusage.js
  jshint ./wepsim_core/wepsim_config.js
 #jshint ./wepsim_core/wepsim_clipboard.js
  jshint ./wepsim_core/wepsim_config_commands.js
- jshint ./wepsim_core/wepsim_example_commands-poc_mips.js
  jshint ./wepsim_core/wepsim_tutorial_welcome.js
  jshint ./wepsim_core/wepsim_example_commands.js
  jshint ./wepsim_core/wepsim_notify.js
- jshint ./wepsim_core/wepsim_example_commands-ep_rv32.js
  jshint ./wepsim_core/wepsim_example.js
  jshint ./wepsim_core/wepsim_checkpoint.js
- jshint ./wepsim_core/wepsim_example_commands-ep_z80.js
  jshint ./wepsim_core/wepsim_signal.js
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js

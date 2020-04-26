@@ -109,10 +109,6 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
     wepsim_core/wepsim_example_commands.js \
-    wepsim_core/wepsim_example_commands-ep_mips.js \
-    wepsim_core/wepsim_example_commands-ep_rv32.js \
-    wepsim_core/wepsim_example_commands-ep_z80.js \
-    wepsim_core/wepsim_example_commands-poc_mips.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_help_commands.js \
     wepsim_core/wepsim_tutorial.js \

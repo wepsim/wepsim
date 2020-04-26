@@ -328,3 +328,33 @@
        return o ;
     }
 
+    //
+    // Load the example list
+    //
+
+    function load_example_list ( url_example_list )
+    {
+       var jstr   = null ;
+       var jindex = null ;
+
+       // try to load the index
+       try {
+           jstr   = $.getJSON({'url': url_example_list, 'async': false}) ;
+           jindex = JSON.parse(jstr.responseText) ;
+       }
+       catch (e) {
+           wsweb_dlg_alert("Unable to load example index '" + url_example_list + "': " + e + ".\n") ;
+       }
+
+       // try to load each one
+       for (var i=0; i<jindex.length; i++) 
+       {
+            wepsim_preload_json(jindex[i].url, 
+                                function(jobj) { 
+				    ws_examples = ws_examples.concat(jobj) ;
+                                }) ;
+       }
+
+       return ws_examples ;
+    }
+
