@@ -548,7 +548,7 @@
 		       }, 250) ;
 
 	    // load examples
-            var ws_examples_index_url = "examples/apps.json" ;
+            var ws_examples_index_url = get_cfg('example_url') ;
             load_example_list(ws_examples_index_url) ;
     }
 

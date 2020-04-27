@@ -108,7 +108,6 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_config.js \
     wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
-    wepsim_core/wepsim_example_commands.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_help_commands.js \
     wepsim_core/wepsim_tutorial.js \

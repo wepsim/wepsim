@@ -20,11 +20,10 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"2.1.0", type:"string"} ;
 
 
         /*
-         *  Get/Set/Reset
+         *  Access: get_cfg/set_cfg/update_cfg
          */
 
         function get_cfg ( field )
@@ -37,15 +36,25 @@
              WSCFG[field].value = value ;
         }
 
-        function reset_cfg ( )
+        // update_cfg = set_cfg + ga + save_cfg
+        function update_cfg ( field, value )
         {
-               set_primary_cfg() ;
-             set_secondary_cfg() ;
+             WSCFG[field].value = value ;
+
+             // add if recording
+             simcore_record_append_new('Set configuration option ' + field + ' to ' + value,
+                                       'update_cfg("' + field + '","' + value + '");\n') ;
+
+             ga('send', 'event', 'config',
+                'config.' + WSCFG.version.value,
+                'config.' + WSCFG.version.value + '.' + field + '.' + value);
+
+             save_cfg() ;
         }
 
 
         /*
-         *  Persistence
+         *  Persistence: save_cfg/restore_cfg
          */
 
         function save_cfg ( )
@@ -58,7 +67,8 @@
 	   }
            catch(err)
            {
-                console.log("WepSIM can not save the configuration in a persistent way on this web browser, found error: \n" + err.message);
+                console.log("WepSIM can not save the configuration in a persistent way on this web browser,\n" + 
+                            "found following error: \n" + err.message) ;
 	   }
 
            set_secondary_cfg() ;
@@ -67,7 +77,8 @@
         function restore_cfg ( )
         {
            // set primary configuration with default values
-           reset_cfg() ;
+           WSCFG = get_primary_cfg() ;
+           set_secondary_cfg() ;
 
            if (localStorage === null) {
 	       return ;
@@ -108,36 +119,43 @@
 
 
         /*
-         *  update_cfg = set_cfg + ga + save_cfg
+         *  Transitions: reset_cfg/upgrade_cfg
          */
 
-        function update_cfg ( field, value )
+        function reset_cfg ( )
         {
-             WSCFG[field].value = value ;
+             WSCFG = get_primary_cfg() ;
+             set_secondary_cfg() ;
 
-             // add if recording
-             simcore_record_append_new('Set configuration option ' + field + ' to ' + value,
-                                       'update_cfg("' + field + '","' + value + '");\n') ;
-
-             ga('send', 'event', 'config',
-                'config.' + WSCFG.version.value,
-                'config.' + WSCFG.version.value + '.' + field + '.' + value);
-
+             // save as updated configuration
              save_cfg() ;
         }
 
-        /*
-         *  upgrade_cfg = if (version != _last_) -> reset_cfg + save_cfg
-         */
+        function reset_cfg_values ( )
+        {
+             WSCFG = get_primary_cfg() ;
+             set_secondary_cfg() ;
+        }
 
         function upgrade_cfg ( )
         {
-            var optValue = get_cfg('version') ;
-            if (optValue !== '2.1.0')
+            // update new fields
+            var wscfg = get_primary_cfg() ;
+            for (var item in WSCFG) 
             {
-                reset_cfg() ;
-                save_cfg() ;
+                 if (typeof WSCFG[item] === "undefined") {
+                     WSCFG[item] = wscfg[item] ;
+                 }
+                 if (WSCFG[item].value === "null") {
+                     WSCFG[item].value = wscfg[item].value ;
+                 }
             }
+
+            // update secondary fields
+            set_secondary_cfg() ;
+
+            // save as updated configuration
+            save_cfg() ;
         }
 
 
@@ -160,72 +178,81 @@
              return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
         }
 
-        function set_primary_cfg ( )
+        function get_primary_cfg ( )
         {
+               var wscfg = {} ;
+
+               /* version */
+               wscfg.version = { type:"string", value:"2.1.0" } ;
+               wscfg.build   = { type:"string", value:"2.1.0.20200425A" } ;
+
 	       /* simulation screen: SVG */
-               WSCFG.color_data_active   = { value:"#0066FF",          type:"string"} ;
-               WSCFG.color_data_inactive = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
+               wscfg.color_data_active    = { type:"string",    value:"#0066FF" } ; 
+               wscfg.color_data_inactive  = { type:"string",    value:"rgb(0, 0, 0)" } ; // "black"
 
-               WSCFG.color_name_active   = { value:"red",              type:"string"} ;
-               WSCFG.color_name_inactive = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
+               wscfg.color_name_active    = { type:"string",    value:"red" } ;
+               wscfg.color_name_inactive  = { type:"string",    value:"rgb(0, 0, 0)" } ; // "black"
 
-	       WSCFG.size_active         = { value:1.25,               type:"float"} ;
-	       WSCFG.size_inactive       = { value:0.02,               type:"float"} ;
+	       wscfg.size_active          = { type:"float",     value:1.25 } ;
+	       wscfg.size_inactive        = { type:"float",     value:0.02 } ;
 
-               WSCFG.is_byvalue          = { value:false,              type:"boolean"};
+               wscfg.is_byvalue           = { type:"boolean",   value:false } ;
 
 	       /* simulation screen: Register File */
-               WSCFG.RF_display_format   = { value:'unsigned_16_fill', type:"string"} ;
-               WSCFG.RF_display_name     = { value:'numerical',        type:"string"} ;
+               wscfg.RF_display_format    = { type:"string",    value:'unsigned_16_fill' } ;
+               wscfg.RF_display_name      = { type:"string",    value:'numerical' } ;
 
-               WSCFG.is_editable         = { value:true,               type:"boolean"};
+               wscfg.is_editable          = { type:"boolean",   value:true } ;
 
 	       /* simulation screen: Execution */
-               WSCFG.DBG_delay           = { value:5,                  type:"int"} ;
-               WSCFG.DBG_level           = { value:"microinstruction", type:"string"} ;
+               wscfg.DBG_delay            = { type:"int",       value:5 } ;
+               wscfg.DBG_level            = { type:"string",    value:"microinstruction" } ;
 
-               WSCFG.DBG_limitins        = { value:10000,              type:"int"} ;
-               WSCFG.DBG_limitick        = { value:1000,               type:"int"} ;
-               WSCFG.ICON_theme          = { value:'classic',          type:"string"} ;
+               wscfg.DBG_limitins         = { type:"int",       value:10000 } ;
+               wscfg.DBG_limitick         = { type:"int",       value:1000 } ;
+               wscfg.ICON_theme           = { type:"string",    value:'classic' } ;
 
 	       /* simulation screen: Notification, etc. */
-               WSCFG.NOTIF_delay          = { value:1000,               type:"int"} ;
-               WSCFG.CPUCU_size           = { value:7,                  type:"int"} ;
-               WSCFG.C1C2_size            = { value:8,                  type:"int"} ;
+               wscfg.NOTIF_delay          = { type:"int",       value:1000 } ;
+               wscfg.CPUCU_size           = { type:"int",       value:7    } ;
+               wscfg.C1C2_size            = { type:"int",       value:8    } ;
 
-               WSCFG.SHOWCODE_label       = { value:true,               type:"boolean"} ;
-               WSCFG.SHOWCODE_addr        = { value:true,               type:"boolean"} ;
-               WSCFG.SHOWCODE_hex         = { value:true,               type:"boolean"} ;
-               WSCFG.SHOWCODE_ins         = { value:true,               type:"boolean"} ;
-               WSCFG.SHOWCODE_pins        = { value:true,               type:"boolean"} ;
+               wscfg.SHOWCODE_label       = { type:"boolean",   value:true } ;
+               wscfg.SHOWCODE_addr        = { type:"boolean",   value:true } ;
+               wscfg.SHOWCODE_hex         = { type:"boolean",   value:true } ;
+               wscfg.SHOWCODE_ins         = { type:"boolean",   value:true } ;
+               wscfg.SHOWCODE_pins        = { type:"boolean",   value:true } ;
 
-               WSCFG.ws_mode              = { value:'newbie',                        type:"string"} ;
-               WSCFG.ws_action            = { value:'checkpoint',                    type:"string"} ;
-               WSCFG.is_interactive       = { value:true,                            type:"boolean"} ;
-               WSCFG.is_quick_interactive = { value:false,                           type:"boolean"} ;
-               WSCFG.ws_idiom             = { value:'en',                            type:"string"} ;
-               WSCFG.use_voice            = { value:false,                           type:"boolean"} ;
-               WSCFG.ws_skin_ui           = { value:'classic',                       type:"string"} ;
-               WSCFG.ws_skin_user         = { value:'only_asm:of:only_frequent:of',  type:"string"} ;
-               WSCFG.ws_skin_dark_mode    = { value:false,                           type:"boolean"} ;
+               wscfg.ws_mode              = { type:"string",    value:'newbie' } ;
+               wscfg.ws_action            = { type:"string",    value:'checkpoint' } ;
+               wscfg.is_interactive       = { type:"boolean",   value:true } ;
+               wscfg.is_quick_interactive = { type:"boolean",   value:false } ;
+               wscfg.ws_idiom             = { type:"string",    value:'en' } ;
+               wscfg.use_voice            = { type:"boolean",   value:false } ;
+               wscfg.ws_skin_ui           = { type:"string",    value:'classic' } ;
+               wscfg.ws_skin_user         = { type:"string",    value:'only_asm:of:only_frequent:of' } ;
+               wscfg.ws_skin_dark_mode    = { type:"boolean",   value:false } ;
 
 	       /* micro/assembly screen: editor */
-               WSCFG.editor_theme         = { value:'default',          type:"string"} ;
-               WSCFG.editor_mode          = { value:'default',          type:"string"} ;
+               wscfg.editor_theme         = { type:"string",    value:'default' } ;
+               wscfg.editor_mode          = { type:"string",    value:'default' } ;
 
 	       /* misc. */
-               WSCFG.verbal_verbose       = { value:'math',             type:"string"} ;
-               WSCFG.base_url             = { value:'https://acaldero.github.io/wepsim/', type:"string"};
+               wscfg.verbal_verbose       = { type:"string",    value:'math' } ;
+               wscfg.base_url             = { type:"string",    value:'https://acaldero.github.io/wepsim/' } ;
+               wscfg.example_url          = { type:"string",    value:'examples/apps.json' } ;
 
                // some mobile-tuning
                if (is_mobile())
                {
-                   WSCFG.NOTIF_delay.value = 2000 ;
-                   WSCFG.ICON_theme.value  = 'cat1' ;
-                   WSCFG.CPUCU_size.value  = 7 ;
-                   WSCFG.C1C2_size.value   = 12 ;
-                   WSCFG.ws_skin_ui.value  = 'compact' ;
+                   wscfg.NOTIF_delay.value = 2000 ;
+                   wscfg.ICON_theme.value  = 'cat1' ;
+                   wscfg.CPUCU_size.value  = 7 ;
+                   wscfg.C1C2_size.value   = 12 ;
+                   wscfg.ws_skin_ui.value  = 'compact' ;
                }
+
+               return wscfg ;
         }
 
         function set_secondary_cfg ( )

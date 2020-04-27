@@ -19,6 +19,8 @@
  */
 
 
+    var ws_examples = [] ;
+
     /*
      * Example management
      */

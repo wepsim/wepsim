@@ -77,7 +77,6 @@ set -x
 #jshint ./wepsim_core/wepsim_clipboard.js
  jshint ./wepsim_core/wepsim_config_commands.js
  jshint ./wepsim_core/wepsim_tutorial_welcome.js
- jshint ./wepsim_core/wepsim_example_commands.js
  jshint ./wepsim_core/wepsim_notify.js
  jshint ./wepsim_core/wepsim_example.js
  jshint ./wepsim_core/wepsim_checkpoint.js
