@@ -546,5 +546,9 @@
 	    setTimeout(function() {
 		          wepsim_restore_uicfg() ;
 		       }, 250) ;
+
+	    // load examples
+            var ws_examples_index_url = "examples/apps.json" ;
+            load_example_list(ws_examples_index_url) ;
     }
 

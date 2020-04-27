@@ -87,7 +87,7 @@ set -x
  jshint ./wepsim_core/wepsim_ui_hw.js
  jshint ./wepsim_core/wepsim_ui_registers.js
  jshint ./wepsim_core/wepsim_webui_cpu.js
- jshint ./wepsim_core/wepsim_webui_mem.js
+#jshint ./wepsim_core/wepsim_webui_mem.js
  jshint ./wepsim_core/wepsim_webui_mem_config.js
  jshint ./wepsim_core/wepsim_webui_console.js
  jshint ./wepsim_core/wepsim_webui_io_info.js

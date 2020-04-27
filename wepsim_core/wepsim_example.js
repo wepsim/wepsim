@@ -332,36 +332,36 @@
     // Load the example list
     //
 
+    function load_example_json ( url_example )
+    {
+       var jstr = {} ;
+       var jobj = [] ;
+
+       try {
+           jstr = $.getJSON({'url': url_example, 'async': false}) ;
+           jobj = JSON.parse(jstr.responseText) ;
+       }
+       catch (e) {
+           ws_alert("Unable to load '" + url_example + "': " + e + ".\n") ;
+           jobj = [] ;
+       }
+
+       return jobj ;
+    }
+
     function load_example_list ( url_example_list )
     {
-       var jstr   = null ;
        var jobj   = null ;
        var jindex = null ;
 
        // try to load the index
-       try {
-           jstr   = $.getJSON({'url': url_example_list, 'async': false}) ;
-           jindex = JSON.parse(jstr.responseText) ;
-       }
-       catch (e) {
-           wepsim_notify_do_notify('getJSON',
-                                   "Unable to load example index '" + url_example_list + "': " + e + ".\n", 
-                                   'warning', 0) ;
-       }
+       jindex = load_example_json(url_example_list) ;
 
        // try to load each one
        for (var i=0; i<jindex.length; i++) 
        {
-            try {
-                jstr = $.getJSON({'url': jindex[i].url, 'async': false}) ;
-                jobj = JSON.parse(jstr.responseText) ;
-	        ws_examples = ws_examples.concat(jobj) ;
-            }
-            catch (e) {
-                wepsim_notify_do_notify('getJSON',
-                                        "Unable to load example index '" + jindex[i].url + "': " + e + ".\n", 
-                                        'warning', 0) ;
-            }
+            jobj = load_example_json(jindex[i].url) ;
+	    ws_examples = ws_examples.concat(jobj) ;
        }
 
        return ws_examples ;
