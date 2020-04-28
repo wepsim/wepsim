@@ -67,7 +67,7 @@
 	   }
            catch(err)
            {
-                console.log("WepSIM can not save the configuration in a persistent way on this web browser,\n" + 
+                console.log("WepSIM can not save the configuration in a persistent way on this web browser,\n" +
                             "found following error: \n" + err.message) ;
 	   }
 
@@ -97,9 +97,9 @@
                 default_value = get_cfg(item) ;
 
                 set_cfg(item, localStorage.getItem('wepsim_' + item)) ;
-                if (WSCFG[item].type != "string") 
+                if (WSCFG[item].type != "string")
 		{
-                    try { 
+                    try {
                       saved_value = JSON.parse(get_cfg(item)) ;
 		      set_cfg(item, saved_value);
 		    }
@@ -139,9 +139,11 @@
 
         function upgrade_cfg ( )
         {
-            // update new fields
             var wscfg = get_primary_cfg() ;
-            for (var item in wscfg) 
+            var item  = null ;
+
+            // repair old broken fields
+            for (item in wscfg)
             {
                  if (typeof WSCFG[item] === "undefined") {
                      WSCFG[item] = wscfg[item] ;
@@ -149,6 +151,17 @@
                  if ( (WSCFG[item].value === null) || (WSCFG[item].value === 'null') ) {
                        WSCFG[item].value = wscfg[item].value ;
                  }
+            }
+
+            // update new fields
+            if (wscfg.build.value !== WSCFG.build.value) 
+            {
+                for (item in wscfg)
+                {
+                     if (wscfg[item].upgrade) {
+                         WSCFG[item] = wscfg[item] ;
+                     }
+                }
             }
 
             // update secondary fields
@@ -180,79 +193,72 @@
 
         function get_primary_cfg ( )
         {
-               var wscfg = {} ;
+             var wscfg = {
+                   /* version */
+                   "version":              { upgrade:false, type:"string",    value:"2.1.0" },
+                   "build":                { upgrade:true,  type:"string",    value:"2.1.0.20200425A" },
 
-               /* version */
-               wscfg.version = { type:"string", value:"2.1.0" } ;
-               wscfg.build   = { type:"string", value:"2.1.0.20200425A" } ;
+	           /* simulation screen: SVG */
+                   "color_data_active":    { upgrade:false, type:"string",    value:"#0066FF" },
+                   "color_data_inactive":  { upgrade:false, type:"string",    value:"rgb(0, 0, 0)" },
+                   "color_name_active":    { upgrade:false, type:"string",    value:"red" },
+                   "color_name_inactive":  { upgrade:false, type:"string",    value:"rgb(0, 0, 0)" }, // "black"
+	           "size_active":          { upgrade:false, type:"float",     value:1.25 },
+	           "size_inactive":        { upgrade:false, type:"float",     value:0.02 },
+                   "is_byvalue":           { upgrade:false, type:"boolean",   value:false },
 
-	       /* simulation screen: SVG */
-               wscfg.color_data_active    = { type:"string",    value:"#0066FF" } ; 
-               wscfg.color_data_inactive  = { type:"string",    value:"rgb(0, 0, 0)" } ; // "black"
+	           /* simulation screen: Register File */
+                   "RF_display_format":    { upgrade:false, type:"string",    value:'unsigned_16_fill' },
+                   "RF_display_name":      { upgrade:false, type:"string",    value:'numerical' },
+                   "is_editable":          { upgrade:false, type:"boolean",   value:true },
 
-               wscfg.color_name_active    = { type:"string",    value:"red" } ;
-               wscfg.color_name_inactive  = { type:"string",    value:"rgb(0, 0, 0)" } ; // "black"
+	           /* simulation screen: Execution */
+                   "DBG_delay":            { upgrade:false, type:"int",       value:5 },
+                   "DBG_level":            { upgrade:false, type:"string",    value:"microinstruction" },
+                   "DBG_limitins":         { upgrade:false, type:"int",       value:10000 },
+                   "DBG_limitick":         { upgrade:false, type:"int",       value:1000 },
+                   "ICON_theme":           { upgrade:false, type:"string",    value:'classic' },
 
-	       wscfg.size_active          = { type:"float",     value:1.25 } ;
-	       wscfg.size_inactive        = { type:"float",     value:0.02 } ;
+	           /* simulation screen: Notification, etc. */
+                   "NOTIF_delay":          { upgrade:false, type:"int",       value:1000 },
+                   "CPUCU_size":           { upgrade:true,  type:"int",       value:7    },
+                   "C1C2_size":            { upgrade:true,  type:"int",       value:8    },
+                   "SHOWCODE_label":       { upgrade:false, type:"boolean",   value:true },
+                   "SHOWCODE_addr":        { upgrade:false, type:"boolean",   value:true },
+                   "SHOWCODE_hex":         { upgrade:false, type:"boolean",   value:true },
+                   "SHOWCODE_ins":         { upgrade:false, type:"boolean",   value:true },
+                   "SHOWCODE_pins":        { upgrade:false, type:"boolean",   value:true },
+                   "ws_mode":              { upgrade:false, type:"string",    value:'newbie' },
+                   "ws_action":            { upgrade:false, type:"string",    value:'checkpoint' },
+                   "is_interactive":       { upgrade:false, type:"boolean",   value:true },
+                   "is_quick_interactive": { upgrade:false, type:"boolean",   value:false },
+                   "ws_idiom":             { upgrade:false, type:"string",    value:'en' },
+                   "use_voice":            { upgrade:false, type:"boolean",   value:false },
+                   "ws_skin_ui":           { upgrade:false, type:"string",    value:'classic' },
+                   "ws_skin_user":         { upgrade:false, type:"string",    value:'only_asm:of:only_frequent:of' },
+                   "ws_skin_dark_mode":    { upgrade:false, type:"boolean",   value:false },
 
-               wscfg.is_byvalue           = { type:"boolean",   value:false } ;
+	           /* micro/assembly screen: editor */
+                   "editor_theme":         { upgrade:false, type:"string",    value:'default' },
+                   "editor_mode":          { upgrade:false, type:"string",    value:'default' },
 
-	       /* simulation screen: Register File */
-               wscfg.RF_display_format    = { type:"string",    value:'unsigned_16_fill' } ;
-               wscfg.RF_display_name      = { type:"string",    value:'numerical' } ;
+	           /* misc. */
+                   "verbal_verbose":       { upgrade:false, type:"string",    value:'math' },
+                   "base_url":             { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/' },
+                   "example_url":          { upgrade:true,  type:"string",    value:'examples/apps.json' }
+             } ;
 
-               wscfg.is_editable          = { type:"boolean",   value:true } ;
+             // some mobile-tuning
+             if (is_mobile())
+             {
+                 wscfg.NOTIF_delay.value = 2000 ;
+                 wscfg.ICON_theme.value  = 'cat1' ;
+                 wscfg.CPUCU_size.value  = 7 ;
+                 wscfg.C1C2_size.value   = 14 ;
+                 wscfg.ws_skin_ui.value  = 'compact' ;
+             }
 
-	       /* simulation screen: Execution */
-               wscfg.DBG_delay            = { type:"int",       value:5 } ;
-               wscfg.DBG_level            = { type:"string",    value:"microinstruction" } ;
-
-               wscfg.DBG_limitins         = { type:"int",       value:10000 } ;
-               wscfg.DBG_limitick         = { type:"int",       value:1000 } ;
-               wscfg.ICON_theme           = { type:"string",    value:'classic' } ;
-
-	       /* simulation screen: Notification, etc. */
-               wscfg.NOTIF_delay          = { type:"int",       value:1000 } ;
-               wscfg.CPUCU_size           = { type:"int",       value:7    } ;
-               wscfg.C1C2_size            = { type:"int",       value:8    } ;
-
-               wscfg.SHOWCODE_label       = { type:"boolean",   value:true } ;
-               wscfg.SHOWCODE_addr        = { type:"boolean",   value:true } ;
-               wscfg.SHOWCODE_hex         = { type:"boolean",   value:true } ;
-               wscfg.SHOWCODE_ins         = { type:"boolean",   value:true } ;
-               wscfg.SHOWCODE_pins        = { type:"boolean",   value:true } ;
-
-               wscfg.ws_mode              = { type:"string",    value:'newbie' } ;
-               wscfg.ws_action            = { type:"string",    value:'checkpoint' } ;
-               wscfg.is_interactive       = { type:"boolean",   value:true } ;
-               wscfg.is_quick_interactive = { type:"boolean",   value:false } ;
-               wscfg.ws_idiom             = { type:"string",    value:'en' } ;
-               wscfg.use_voice            = { type:"boolean",   value:false } ;
-               wscfg.ws_skin_ui           = { type:"string",    value:'classic' } ;
-               wscfg.ws_skin_user         = { type:"string",    value:'only_asm:of:only_frequent:of' } ;
-               wscfg.ws_skin_dark_mode    = { type:"boolean",   value:false } ;
-
-	       /* micro/assembly screen: editor */
-               wscfg.editor_theme         = { type:"string",    value:'default' } ;
-               wscfg.editor_mode          = { type:"string",    value:'default' } ;
-
-	       /* misc. */
-               wscfg.verbal_verbose       = { type:"string",    value:'math' } ;
-               wscfg.base_url             = { type:"string",    value:'https://acaldero.github.io/wepsim/' } ;
-               wscfg.example_url          = { type:"string",    value:'examples/apps.json' } ;
-
-               // some mobile-tuning
-               if (is_mobile())
-               {
-                   wscfg.NOTIF_delay.value = 2000 ;
-                   wscfg.ICON_theme.value  = 'cat1' ;
-                   wscfg.CPUCU_size.value  = 7 ;
-                   wscfg.C1C2_size.value   = 12 ;
-                   wscfg.ws_skin_ui.value  = 'compact' ;
-               }
-
-               return wscfg ;
+             return wscfg ;
         }
 
         function set_secondary_cfg ( )

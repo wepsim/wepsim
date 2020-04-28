@@ -64,35 +64,36 @@
 	                      }
 	} ;
 
-    function wepsim_nodejs_load_examples ( )
+    function wepsim_nodejs_load_jsonfile ( url_json )
     {
        var jstr   = "" ;
-       var jobj   = {} ;
-       var jindex = [] ;
-       var url_example_list = "examples/apps.json" ;
+       var jobj   = [] ;
 
-       // try to load the index
        try {
-           jstr = fs.readFileSync(url_example_list, 'utf8') ;
-           jindex = JSON.parse(jstr) ;
+           jstr = fs.readFileSync(url_json, 'utf8') ;
+           jobj = JSON.parse(jstr) ;
        }
        catch (e) {
-           console.log("Unable to load '" + url_example_list + "': " + e + ".\n") ;
-           jindex = [] ;
+           console.log("Unable to load '" + url_json + "': " + e + ".\n") ;
+           jobj = [] ;
        }
+
+       return jobj ;
+    }
+
+    function wepsim_nodejs_load_examples ( )
+    {
+       var jindex = [] ;
+       var jobj   = [] ;
+
+       // try to load the index
+       var url_example_list = get_cfg('example_url') ;
+       jindex = wepsim_nodejs_load_jsonfile(url_example_list) ;
 
        // try to load each one
        for (var i=0; i<jindex.length; i++)
        {
-            try {
-                jstr = fs.readFileSync(jindex[i].url, 'utf8') ;
-                jobj = JSON.parse(jstr) ;
-            }
-            catch (e) {
-                console.log("Unable to load '" + jindex[i].url + "': " + e + ".\n") ;
-                jobj = [] ;
-            }
-
+            jobj = wepsim_nodejs_load_jsonfile(jindex[i].url) ;
             ws_examples = ws_examples.concat(jobj) ;
        }
 
@@ -113,6 +114,7 @@
 	    return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
 	}
 
+        // wepsim_nodejs_load_examples() ;
         simcore_init_ui(hash_detail_ui) ;
 
 	return wepsim_nodejs_retfill(true, "") ;
