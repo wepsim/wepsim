@@ -525,8 +525,8 @@
 			   label:     "<span data-langkey='Reset'>Reset</span>",
 			   className: "btn btn-outline-info btn-sm col col-sm-3 float-left shadow-none mr-auto",
 			   callback:  function() {
+		         		 // reset
 					 reset_cfg() ;
-					 save_cfg() ;
 
 		         		 // ui elements
     					 wsweb_dialog_close('config') ;

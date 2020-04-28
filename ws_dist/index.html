@@ -927,12 +927,13 @@
 	    // basic initialization of wepsim...
 	    simcore_init(true) ;
 	    simcore_welcome() ;
+	    upgrade_cfg() ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin_ui') ;
 	    if ( (optValue != 'classic') && (optValue != 'compact') )
 	    {
-		upgrade_cfg() ;
+		reset_cfg() ;
 
 		var msg = 'WepSIM has been updated...' ;
 		console.log(msg) ;

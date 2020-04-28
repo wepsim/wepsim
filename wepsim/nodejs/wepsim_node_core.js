@@ -64,6 +64,41 @@
 	                      }
 	} ;
 
+    function wepsim_nodejs_load_examples ( )
+    {
+       var jstr   = "" ;
+       var jobj   = {} ;
+       var jindex = [] ;
+       var url_example_list = "examples/apps.json" ;
+
+       // try to load the index
+       try {
+           jstr = fs.readFileSync(url_example_list, 'utf8') ;
+           jindex = JSON.parse(jstr) ;
+       }
+       catch (e) {
+           console.log("Unable to load '" + url_example_list + "': " + e + ".\n") ;
+           jindex = [] ;
+       }
+
+       // try to load each one
+       for (var i=0; i<jindex.length; i++)
+       {
+            try {
+                jstr = fs.readFileSync(jindex[i].url, 'utf8') ;
+                jobj = JSON.parse(jstr) ;
+            }
+            catch (e) {
+                console.log("Unable to load '" + jindex[i].url + "': " + e + ".\n") ;
+                jobj = [] ;
+            }
+
+            ws_examples = ws_examples.concat(jobj) ;
+       }
+
+       return ws_examples ;
+    }
+
     function wepsim_nodejs_init ( simhw_name )
     {
         var ret = simcore_init(false) ;

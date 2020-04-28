@@ -36,7 +36,7 @@
 		 restore_cfg() ;
 	    }
 	    else {
-                 reset_cfg() ;
+                 reset_cfg_values() ;
 	    }
 
             return ret ;
