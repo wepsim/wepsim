@@ -141,13 +141,13 @@
         {
             // update new fields
             var wscfg = get_primary_cfg() ;
-            for (var item in WSCFG) 
+            for (var item in wscfg) 
             {
                  if (typeof WSCFG[item] === "undefined") {
                      WSCFG[item] = wscfg[item] ;
                  }
-                 if (WSCFG[item].value === "null") {
-                     WSCFG[item].value = wscfg[item].value ;
+                 if ( (WSCFG[item].value === null) || (WSCFG[item].value === 'null') ) {
+                       WSCFG[item].value = wscfg[item].value ;
                  }
             }
 
