@@ -527,6 +527,8 @@
 			   callback:  function() {
 		         		 // reset
 					 reset_cfg() ;
+                               	         wepsim_notify_success('<strong>INFO</strong>', 
+                     					       'Configuration reset done!.') ;
 
 		         		 // ui elements
     					 wsweb_dialog_close('config') ;

@@ -336,16 +336,16 @@
         // set
         switch (new_value)
         {
-           case "0":  $(diva).addClass('col-12 order-1') ;
+           case 0:    $(diva).addClass('col-12 order-1') ;
                       $(divb).addClass('col-12') ;
                       break ;
-           case "1":  $(diva).addClass('d-none') ;
+           case 1:    $(diva).addClass('d-none') ;
                       $(divb).addClass('col-12 order-2') ;
                       break ;
-           case "13": $(diva).addClass('col-12 order-1') ;
+           case 13:   $(diva).addClass('col-12 order-1') ;
                       $(divb).addClass('d-none') ;
                       break ;
-           case "14": $(diva).addClass('col-12') ;
+           case 14:   $(diva).addClass('col-12') ;
                       $(divb).addClass('col-12 order-2') ;
                       break ;
            default:   $(diva).addClass('col-' + (new_value-1)) ;   //  1,  2, 3, ...

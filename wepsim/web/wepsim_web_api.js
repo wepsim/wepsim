@@ -498,10 +498,12 @@
 
     function wsweb_set_cpucu_size ( new_value )
     {
-	    $('#slider2b').val(new_value) ;
-	    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', new_value) ;
+            var int_value = parseInt(new_value, 10) ;
 
-	    set_cfg('CPUCU_size', new_value) ;
+	    $('#slider2b').val(new_value) ;
+	    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', int_value) ;
+
+	    set_cfg('CPUCU_size', int_value) ;
 	    save_cfg() ;
 
             // add if recording
@@ -514,10 +516,12 @@
 
     function wsweb_set_c1c2_size ( new_value )
     {
-	    $("#slider2a").val(new_value) ;
-	    set_ab_size('#col1', '#col2', new_value);
+            var int_value = parseInt(new_value, 10) ;
 
-	    set_cfg('C1C2_size', new_value);
+	    $("#slider2a").val(new_value) ;
+	    set_ab_size('#col1', '#col2', int_value) ;
+
+	    set_cfg('C1C2_size', int_value) ;
 	    save_cfg() ;
 
             // add if recording

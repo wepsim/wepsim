@@ -527,6 +527,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 			   callback:  function() {
 		         		 // reset
 					 reset_cfg() ;
+                               	         wepsim_notify_success('<strong>INFO</strong>', 
+                     					       'Configuration reset done!.') ;
 
 		         		 // ui elements
     					 wsweb_dialog_close('config') ;
@@ -1744,10 +1746,12 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
     function wsweb_set_cpucu_size ( new_value )
     {
-	    $('#slider2b').val(new_value) ;
-	    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', new_value) ;
+            var int_value = parseInt(new_value, 10) ;
 
-	    set_cfg('CPUCU_size', new_value) ;
+	    $('#slider2b').val(new_value) ;
+	    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', int_value) ;
+
+	    set_cfg('CPUCU_size', int_value) ;
 	    save_cfg() ;
 
             // add if recording
@@ -1760,10 +1764,12 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
 
     function wsweb_set_c1c2_size ( new_value )
     {
-	    $("#slider2a").val(new_value) ;
-	    set_ab_size('#col1', '#col2', new_value);
+            var int_value = parseInt(new_value, 10) ;
 
-	    set_cfg('C1C2_size', new_value);
+	    $("#slider2a").val(new_value) ;
+	    set_ab_size('#col1', '#col2', int_value) ;
+
+	    set_cfg('C1C2_size', int_value) ;
 	    save_cfg() ;
 
             // add if recording
@@ -2802,16 +2808,16 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){sim.systems
         // set
         switch (new_value)
         {
-           case "0":  $(diva).addClass('col-12 order-1') ;
+           case 0:    $(diva).addClass('col-12 order-1') ;
                       $(divb).addClass('col-12') ;
                       break ;
-           case "1":  $(diva).addClass('d-none') ;
+           case 1:    $(diva).addClass('d-none') ;
                       $(divb).addClass('col-12 order-2') ;
                       break ;
-           case "13": $(diva).addClass('col-12 order-1') ;
+           case 13:   $(diva).addClass('col-12 order-1') ;
                       $(divb).addClass('d-none') ;
                       break ;
-           case "14": $(diva).addClass('col-12') ;
+           case 14:   $(diva).addClass('col-12') ;
                       $(divb).addClass('col-12 order-2') ;
                       break ;
            default:   $(diva).addClass('col-' + (new_value-1)) ;   //  1,  2, 3, ...
