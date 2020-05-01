@@ -25,7 +25,9 @@
                       id:          "select7",
                       type:        "General",
                       u_class:     "",
-                      code_cfg:    "<div class='form-group m-0'>" + i18n_get_select() + "</div>",
+                      code_cfg:    "<div class='form-group m-0'>" +
+                                   i18n_get_selectcfg() +
+                                   "</div>",
                       code_init:   function() {
 			               $('#select7').val(get_cfg('ws_idiom'));
 		                   },
@@ -162,7 +164,7 @@
                       code_init:   function() {
 			               var elto = get_cfg('ICON_theme') ;
 			               $('#img_select1').attr("src",   "images/stop/stop_" + elto + ".gif");
-			               $('#img_select1').attr("class", breakpoint_icon_list[elto].addclass); 
+			               $('#img_select1').attr("class", breakpoint_icon_list[elto].addclass);
 			               $('#breakpointicon1').popover({ html: true,
 					                               content:  wepsim_show_breakpoint_icon_list,
 								       template: wepsim_show_breakpoint_icon_template(),

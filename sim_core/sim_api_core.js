@@ -36,7 +36,7 @@
 		 restore_cfg() ;
 	    }
 	    else {
-                 reset_cfg() ;
+                 reset_cfg_values() ;
 	    }
 
             return ret ;
@@ -56,7 +56,7 @@
 	    var hwid = simhw_getIdByName(simhw_name) ;
 	    if (hwid < 0)
 	    {
-	        ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
+	        ret.msg = "ERROR: unknown hardware: " + simhw_name + ".<br>\n" ;
 	        ret.ok  = false ;
 	        return ret ;
 	    }
@@ -76,6 +76,7 @@
 
         /**
          * Show welcome message.
+         * http://patorjk.com/software/taag/#p=testall&h=0&v=0&f=Delta%20Corps%20Priest%201&t=WepSIM
          */
         function simcore_welcome ( )
         {
@@ -83,13 +84,18 @@
 	        ret.msg = "" ;
 	        ret.ok  = true ;
 
-            // http://patorjk.com/software/taag/#p=display&h=0&v=0&f=Bulbhead&t=WepSIM
-            console.log('   _    _  ____  ____  ___  ____  __  __  ') ;
-            console.log('  ( \\/\\/ )( ___)(  _ \\/ __)(_  _)(  \\/  ) ') ;
-            console.log('   )    (  )__)  )___/\\__ \\ _)(_  )    (  ') ;
-            console.log('  (__/\\__)(____)(__)  (___/(____)(_/\\/\\_) ') ;
-            console.log('                                          ') ;
-
+            console.log('') ;
+            console.log('██╗    ██╗███████╗██████╗ ███████╗██╗███╗   ███╗') ;
+            console.log('██║    ██║██╔════╝██╔══██╗██╔════╝██║████╗ ████║') ;
+            console.log('██║ █╗ ██║█████╗  ██████╔╝███████╗██║██╔████╔██║') ;
+            console.log('██║███╗██║██╔══╝  ██╔═══╝ ╚════██║██║██║╚██╔╝██║') ;
+            console.log('╚███╔███╔╝███████╗██║     ███████║██║██║ ╚═╝ ██║') ;
+            console.log(' ╚══╝╚══╝ ╚══════╝╚═╝     ╚══════╝╚═╝╚═╝     ╚═╝') ;
+            console.log('') ;
+            console.log('Stable: https://github.com/wepsim/wepsim') ;
+            console.log('Beta:   https://github.com/acaldero/wepsim') ;
+            console.log('') ;
+                                                
             return ret ;
         }
 
@@ -252,7 +258,8 @@
 		if ( (typeof curr_segments['.ktext'] == "undefined") &&
 		     (typeof curr_segments['.text']  == "undefined") )
 		{
-		    ret.msg = 'code segment .ktext/.text does not exist!\nPlease load some assembly code.' ;
+		    ret.msg = 'code segment .ktext/.text does not exist!<br>\n' +
+                              'Please load some assembly code.<br>' ;
 	            ret.ok = false ;
 		    return ret ;
 		}

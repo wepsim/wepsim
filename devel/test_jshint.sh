@@ -23,14 +23,15 @@ set -x
 
 
  jshint ./sim_core/sim_core_ui.js
+ jshint ./sim_core/sim_core_voice.js
  jshint ./sim_core/sim_api_stateshots.js
  jshint ./sim_core/sim_api_native.js
 #jshint ./sim_core/sim_api_core.js
+ jshint ./sim_core/sim_core_notify.js
  jshint ./sim_core/sim_cfg.js
- jshint ./sim_core/sim_core_ui.js
- jshint ./sim_core/sim_core_voice.js
-#jshint ./sim_core/sim_core_ctrl.js
 #jshint ./sim_core/sim_core_record.js
+#jshint ./sim_core/sim_core_ctrl.js
+ jshint ./sim_core/sim_core_rest.js
 
  jshint ./sim_sw/sim_lang.js
 #jshint ./sim_sw/sim_lang_firm.js
@@ -47,6 +48,8 @@ set -x
  jshint ./sim_hw/sim_hw_poc/sim_hw_scr.js
  jshint ./sim_hw/sim_hw_poc/sim_hw_io.js
 #jshint ./sim_hw/sim_hw_poc/sim_hw_cpu.js
+ jshint ./sim_hw/sim_hw_poc/sim_hw_l3d.js
+
  jshint ./sim_hw/sim_hw_ep/sim_hw_mem.js
  jshint ./sim_hw/sim_hw_ep/sim_ep.js
  jshint ./sim_hw/sim_hw_ep/sim_hw_io.js
@@ -54,79 +57,65 @@ set -x
  jshint ./sim_hw/sim_hw_ep/sim_hw_kbd.js
  jshint ./sim_hw/sim_hw_ep/sim_hw_scr.js
 #jshint ./sim_hw/sim_hw_ep/sim_hw_cpu.js
+ jshint ./sim_hw/sim_hw_ep/sim_hw_l3d.js
 
- jshint ./wepsim_core/wepsim_dbg_asm.js
- jshint ./wepsim_core/wepsim_dbg_mc.js
+ jshint ./wepsim_core/wepsim_help_commands.js
+ jshint ./wepsim_core/wepsim_tutorial.js
+ jshint ./wepsim_core/wepsim_tour.js
+ jshint ./wepsim_core/wepsim_preload.js
+ jshint ./wepsim_core/wepsim_share.js
+ jshint ./wepsim_core/wepsim_voice.js
+ jshint ./wepsim_core/wepsim_execute.js
  jshint ./wepsim_core/wepsim_dbg_breakpointicons.js
- jshint ./wepsim_core/wepsim_checkpoint.js
+ jshint ./wepsim_core/wepsim_tour_commands.js
+ jshint ./wepsim_core/wepsim_mode.js
+ jshint ./wepsim_core/wepsim_help.js
+ jshint ./wepsim_core/wepsim_dialog.js
+ jshint ./wepsim_core/wepsim_state.js
+ jshint ./wepsim_core/wepsim_tutorial_simpleusage.js
+ jshint ./wepsim_core/wepsim_config.js
 #jshint ./wepsim_core/wepsim_clipboard.js
  jshint ./wepsim_core/wepsim_config_commands.js
- jshint ./wepsim_core/wepsim_config.js
- jshint ./wepsim_core/wepsim_example_commands.js
- jshint ./wepsim_core/wepsim_example.js
-#jshint ./wepsim_core/wepsim_execute.js
- jshint ./wepsim_core/wepsim_help_commands.js
- jshint ./wepsim_core/wepsim_help.js
+ jshint ./wepsim_core/wepsim_tutorial_welcome.js
  jshint ./wepsim_core/wepsim_notify.js
-#jshint ./wepsim_core/wepsim_preload.js
- jshint ./wepsim_core/wepsim_state.js
- jshint ./wepsim_core/wepsim_tour.js
- jshint ./wepsim_core/wepsim_tour_commands.js
- jshint ./wepsim_core/wepsim_tutorial.js
+ jshint ./wepsim_core/wepsim_example.js
+ jshint ./wepsim_core/wepsim_checkpoint.js
+ jshint ./wepsim_core/wepsim_signal.js
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js
- jshint ./wepsim_core/wepsim_voice.js
- jshint ./wepsim_core/wepsim_signal.js
-#jshint ./wepsim_core/wepsim_ui_registers.js
- jshint ./wepsim_core/wepsim_ui_cpu.js
- jshint ./wepsim_core/wepsim_ui_io.js
  jshint ./wepsim_core/wepsim_ui_hw.js
+ jshint ./wepsim_core/wepsim_ui_registers.js
+ jshint ./wepsim_core/wepsim_webui_cpu.js
+#jshint ./wepsim_core/wepsim_webui_mem.js
+ jshint ./wepsim_core/wepsim_webui_mem_config.js
+ jshint ./wepsim_core/wepsim_webui_console.js
+ jshint ./wepsim_core/wepsim_webui_io_info.js
+ jshint ./wepsim_core/wepsim_webui_io_config.js
+ jshint ./wepsim_core/wepsim_webui_l3d.js
+ jshint ./wepsim_core/wepsim_webui_authors.js
+ jshint ./wepsim_core/wepsim_webui_dbg_mc.js
+ jshint ./wepsim_core/wepsim_webui_dbg_asm.js
+ jshint ./wepsim_core/wepsim_webui_cpusvg.js
 
- jshint ./wepsim/wepsim_web_editor.js
- jshint ./wepsim/wepsim_web_simulator.js
- jshint ./wepsim/wepsim_web_api.js
-#jshint ./wepsim/wepsim_web_pwa.js
- jshint ./wepsim/wepsim_node_core.js
-#jshint ./wepsim/wepsim_node_action.js
+ jshint ./wepsim/web/wepsim_web_api.js
+#jshint ./wepsim/web/wepsim_web_pwa.js
+ jshint ./wepsim/web/wepsim_web_simulator.js
+ jshint ./wepsim/web/wepsim_web_editor.js
+ jshint ./wepsim/web/wepsim_web_ui_dialogs.js
+ jshint ./wepsim/web/wepsim_web_ui_quickcfg.js
+ jshint ./wepsim/nodejs/wepsim_node_action.js
+ jshint ./wepsim/nodejs/wepsim_node_core.js
 
  jshint ./wepsim_i18n/i18n.js
- jshint ./wepsim_i18n/en/cfg.js
- jshint ./wepsim_i18n/en/examples.js
- jshint ./wepsim_i18n/en/gui.js
- jshint ./wepsim_i18n/en/help.js
- jshint ./wepsim_i18n/en/dialogs.js
- jshint ./wepsim_i18n/en/states.js
- jshint ./wepsim_i18n/en/tour-intro.js
- jshint ./wepsim_i18n/en/tutorial-simpleusage.js
- jshint ./wepsim_i18n/en/tutorial-welcome.js
-
- jshint ./wepsim_i18n/es/cfg.js
- jshint ./wepsim_i18n/es/examples.js
- jshint ./wepsim_i18n/es/gui.js
- jshint ./wepsim_i18n/es/help.js
- jshint ./wepsim_i18n/es/dialogs.js
- jshint ./wepsim_i18n/es/states.js
- jshint ./wepsim_i18n/es/tour-intro.js
- jshint ./wepsim_i18n/es/tutorial-simpleusage.js
- jshint ./wepsim_i18n/es/tutorial-welcome.js
-
- jshint ./wepsim_i18n/fr/states.js
- jshint ./wepsim_i18n/fr/gui.js
- jshint ./wepsim_i18n/fr/cfg.js
- jshint ./wepsim_i18n/fr/examples.js
- jshint ./wepsim_i18n/fr/help.js
- jshint ./wepsim_i18n/fr/dialogs.js
- jshint ./wepsim_i18n/fr/tour-intro.js
- jshint ./wepsim_i18n/fr/tutorial-welcome.js
- jshint ./wepsim_i18n/fr/tutorial-simpleusage.js
-
- jshint ./wepsim_i18n/kr/states.js
- jshint ./wepsim_i18n/kr/gui.js
- jshint ./wepsim_i18n/kr/cfg.js
- jshint ./wepsim_i18n/kr/examples.js
- jshint ./wepsim_i18n/kr/help.js
- jshint ./wepsim_i18n/kr/dialogs.js
- jshint ./wepsim_i18n/kr/tour-intro.js
- jshint ./wepsim_i18n/kr/tutorial-welcome.js
- jshint ./wepsim_i18n/kr/tutorial-simpleusage.js
+for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
+ jshint ./wepsim_i18n/$LANG/states.js
+ jshint ./wepsim_i18n/$LANG/gui.js
+ jshint ./wepsim_i18n/$LANG/cfg.js
+ jshint ./wepsim_i18n/$LANG/examples.js
+ jshint ./wepsim_i18n/$LANG/help.js
+ jshint ./wepsim_i18n/$LANG/dialogs.js
+ jshint ./wepsim_i18n/$LANG/tour-intro.js
+ jshint ./wepsim_i18n/$LANG/tutorial-welcome.js
+ jshint ./wepsim_i18n/$LANG/tutorial-simpleusage.js
+done
 

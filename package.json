@@ -7,8 +7,9 @@
     "jshint": "^2.6.0"
   },
   "scripts": {
-    "test-source":        "./devel/test_jshint.sh",
-    "test-wepsim-node":   "./devel/test_wepsimnode.sh"
+    "test-source1":        "./devel/test_jshint.sh",
+    "test-wepsim-node1":   "./devel/test_wepsimnode.sh rs",
+    "test-wepsim-node2":   "./devel/test_wepsimnode.sh co"
   },
   "dependencies": {
   }

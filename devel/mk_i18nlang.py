@@ -37,8 +37,8 @@ i18n_eltos = {} ;
 i18n_eltos['cfg'] = {
 
 	             "General": "General",
-                      "Idiom for help, examples, etc.": 		             "Idiom for help, examples, etc.",
-                      "Notification speed: time before disapear": 	             "Notification speed: time before disapear",
+                     "Idiom for help, examples, etc.": 		             	     "Idiom for help, examples, etc.",
+                     "Notification speed: time before disapear": 	             "Notification speed: time before disapear",
 	             "Editor": "Editor",
                       "Editor theme: light or dark": 		                     "Editor theme: light or dark",
                       "Light": 		                     			     "Light",
@@ -217,10 +217,10 @@ i18n_eltos['gui'] = {
 	                "instructions":                                 "instructions",
 
                         "simulator intro 1": 		                "You can select the hardware to be used. The default one is the EP (Elemental Processor) hardware.<br>" +
-									"You can use <span onclick='$(\"#dd1\").dropdown(\"toggle\"); return false;'>the mode selector</span> to change the hardware used.",
+									"You can use <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">the mode selector</span> to change the hardware used.",
                         "simulator intro 2": 		                "Then you need to load the microcode (defines the instruction set) and the assembly code.<br>" +
-									"You can use <span class='text-primary bg-light' onclick='wsweb_dialogbox_open_examples();'>an example</span>, " +
-                                                                        "<span class='text-primary bg-light' onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>load it from a file</span>, " +
+									"You can use <span class='text-primary bg-light' onclick='wsweb_dialog_open(\"examples\");'>an example</span>, " +
+                                                                        "<span class='text-primary bg-light' onclick='wsweb_select_action(\"checkpoint\");'>load it from a file</span>, " +
                                                                         "or you can edit <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>a new microcode</span> " +
                                                                         " and <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>a new assembly code</span>.",
                         "simulator intro 3": 		                "Finally, in the simulator you are able to execute the microcode plus assembly loaded before.<br>" +
@@ -247,7 +247,7 @@ i18n_eltos['gui'] = {
 
                         "Recent":                                       "Recent",
 			"Refresh":  			                "Refresh",
-			"Welcome":  			                "Welcome"
+			"Welcome":  			                "Welcome",
                         "WepSIM hardware":      			"WepSIM hardware",
                         "Pick firm/soft from":  			"Pick firm/soft from",
                         "Information from":     			"Information from",

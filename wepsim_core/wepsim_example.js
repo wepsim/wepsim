@@ -19,26 +19,7 @@
  */
 
 
-    /*
-     * Examples
-     */
-
-    function wepsim_open_examples_index ( )
-    {
-        $("#container-example1").html(table_examples_html(ws_examples)) ;
-
-	i18n_update_tags('examples') ;
-	$('#example1').modal('show') ;
-
-	// stats about ui
-        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.example');
-    }
-
-    function wepsim_close_examples ( )
-    {
-	$('#example1').modal('hide') ;
-    }
-
+    var ws_examples = [] ;
 
     /*
      * Example management
@@ -79,6 +60,7 @@
                             var SIMWARE = get_simware() ;
 	                    if (SIMWARE.firmware.length !== 0) {
                                 ok = wepsim_compile_assembly(mcode) ;
+			        inputasm.is_compiled = ok ;
 			    }
 
                             // stop here if error is found
@@ -141,6 +123,7 @@
 			   inputfirm.refresh();
 
 			   var ok = wepsim_compile_firmware(mcode);
+			   inputfirm.is_compiled = ok ;
 
                             // stop here if error is found
 			    if (false === ok) {
@@ -186,9 +169,9 @@
 	 var share_text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description + '):\n' ;
 	 var share_url   = '' + base_url + '?mode=' + e_hw + '&example=' + m ;
 
-	 return share_infomation('example_' + m, 
-		                 share_title, 
-		                 share_text, 
+	 return share_infomation('example_' + m,
+		                 share_title,
+		                 share_text,
 		                 share_url) ;
     }
 
@@ -207,6 +190,8 @@
        var base_url = get_cfg('base_url') ;
 
        var fmt_toggle    = "" ;
+       var w100_toggle   = "" ;
+       var toggle_cls    = "" ;
        var t_hwmcasm     = "" ;
        var t_index       = "" ;
        var e_title       = "" ;
@@ -247,62 +232,65 @@
 	       t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
 
 	        if (fmt_toggle === "")
-	            fmt_toggle = "bg-light" ;
-	       else fmt_toggle = "" ;
+	            fmt_toggle  = "bg-light" ;
+	       else fmt_toggle  = "" ;
+	        if (m % 2 == 0)
+                    w100_toggle = "collapse7 show" ;
+	       else w100_toggle = "" ;
+               toggle_cls = fmt_toggle + ' user_' + e_level ;
 
-	            u = "<div class='row py-1 " + fmt_toggle + " user_" + e_level + "'>" +
-                        '<div class="col-sm-auto">' +
+	            u = '<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
                         '    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
                         '</div>' +
-                        '<div class="col-sm-3">' +
+                        '<div class="col-sm-4    py-1 ' + toggle_cls + '">' +
                         '     <span style="cursor:pointer;" ' +
 		        '           id="example_' + m + '" ' +
-		        '           onclick="simcore_record_append_pending(); ' +
-		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true); ' +
-		        '                    $(\'#example1\').modal(\'hide\'); ' +
-		        '                    return false;" ' +
-		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-2" style="cursor:pointer;" >' + e_title + '</span>' +
-                        '</div>' +
-                        '<div class="col-sm collapse7 show">' +
-                        '    <c>' + e_description + '</c>' +
-                        '</div>' +
-                        '<div class="col-sm-auto">' +
+		        '           onclick="simcore_record_append_pending();' +
+		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
+		        '                    setTimeout(function() { wsweb_dialog_close(\'examples\'); }, 50);' +
+		        '                    return false;"' +
+		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-1"' +
+                        '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
+                             e_title + '</span>' +
 		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + mode + '&example=' + m + '</span>' +
-		        '    <div class="btn-group btn-group-md float-right align-top">' +
+		        '    <div class="btn-group btn-group-md">' +
                         '           <button type="button" ' +
-		        '                   class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+		        '                   class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '              <span class="sr-only">Toggle Dropdown</span>' +
                         '           </button>' +
                         '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
 		        '             <a onclick="simcore_record_append_pending();' +
 		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
-		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         wsweb_dialog_close(\'examples\'); ' +
 		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load example">Load example</span></c></a>' +
 		        '             <a onclick="simcore_record_append_pending();' +
 		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\', false);' +
-		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         wsweb_dialog_close(\'examples\'); ' +
 		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
 		        '             <a onclick="simcore_record_append_pending();' +
 		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', false);' +
-		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         wsweb_dialog_close(\'examples\'); ' +
 		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
 		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
 		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
 		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
-		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         wsweb_dialog_close(\'examples\'); ' +
                         '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
-	                '             <a onclick="$(\'#example1\').modal(\'hide\'); ' +
+	                '             <a onclick="wsweb_dialog_close(\'examples\'); ' +
                         '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
                         '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
 	                '           </div>' +
 		        '    </div>' +
                         '</div>' +
-	                '</div>' ;
+                        '<div class="col-sm py-1 collapse7 show ' + toggle_cls + '">' +
+                        '    <c>' + e_description + '</c>' +
+                        '</div>' +
+	                '<div class="w-100 ' + w100_toggle + ' ' + toggle_cls + '"></div>' ;
 
 	       if (typeof examples_groupby_type[e_type] === "undefined") {
 		   examples_groupby_type[e_type] = [] ;
@@ -312,12 +300,12 @@
        }
 
        // second pass: build html
-       var o = "" ;
-           u = "" ;
-       var l = "" ;
+       var o = '' ;
+           u = '' ;
+       var l = '' ;
        for (m in examples_groupby_type)
        {
-	        u = '' ;
+	        u = '<div class="row py-1">' ;
 	        l = examples_groupby_type[m][0].level ;
                 for (var n=0; n<examples_groupby_type[m].length; n++)
                 {
@@ -327,6 +315,7 @@
 			 l = '' ;
                      }
                 }
+                u = u + '</div>' ;
 
 	        o = o + "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top user_" + l + "'>" +
 			ahw.toUpperCase() + ": " + m +
@@ -339,5 +328,44 @@
 
        o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
        return o ;
+    }
+
+    //
+    // Load the example list
+    //
+
+    function load_example_json ( url_example )
+    {
+       var jstr = {} ;
+       var jobj = [] ;
+
+       try {
+           jstr = $.getJSON({'url': url_example, 'async': false}) ;
+           jobj = JSON.parse(jstr.responseText) ;
+       }
+       catch (e) {
+           ws_alert("Unable to load '" + url_example + "': " + e + ".\n") ;
+           jobj = [] ;
+       }
+
+       return jobj ;
+    }
+
+    function load_example_list ( url_example_list )
+    {
+       var jobj   = null ;
+       var jindex = null ;
+
+       // try to load the index
+       jindex = load_example_json(url_example_list) ;
+
+       // try to load each one
+       for (var i=0; i<jindex.length; i++) 
+       {
+            jobj = load_example_json(jindex[i].url) ;
+	    ws_examples = ws_examples.concat(jobj) ;
+       }
+
+       return ws_examples ;
     }
 

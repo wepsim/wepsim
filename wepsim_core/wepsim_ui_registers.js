@@ -1,4 +1,4 @@
-/*     
+/*
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -28,9 +28,9 @@
 	      var new_value     = parseInt($("#popover1")[0].value) ;
               var filter_states = simhw_internalState('filter_states') ;
 
-              if (typeof simhw_sim_states()["BR"][index] != "undefined")
+              if (typeof simhw_sim_states().BR[index] != "undefined")
               {
-	          set_value(simhw_sim_states()["BR"][index], new_value) ;
+	          set_value(simhw_sim_states().BR[index], new_value) ;
 	          fullshow_rf_values() ;
                   $("#rf" + index).click() ;
                   $("#rf" + index).click() ;
@@ -65,12 +65,12 @@
                     valuehex = "0x" + pack8(valuehex) ;
 
 		var valuedt = "" ;
-		if (get_cfg('is_editable') == true) 
+		if (get_cfg('is_editable') == true)
 		{
-		    valuedt = "<tr><td class='py-1 px-1' colspan='5' align='center'>" + 
+		    valuedt = "<tr><td class='py-1 px-1' colspan='5' align='center'>" +
                               "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
                               "<span class='badge badge-secondary' " +
-                              "      onclick='hex2values_update(\"" + index + "\");'>update</span>" + 
+                              "      onclick='hex2values_update(\"" + index + "\");'>update</span>" +
                               "</td></tr>";
                 }
 
@@ -92,11 +92,11 @@
                              "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valueui  + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>char</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'>" + 
-			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[0] + "&nbsp;</strong>&nbsp;" + 
-			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[1] + "&nbsp;</strong>&nbsp;" + 
-			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[2] + "&nbsp;</strong>&nbsp;" + 
-			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[3] + "&nbsp;</strong>&nbsp;" + 
+                             "    <td class='p-0 pl-1 align-middle'>" +
+			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[0] + "&nbsp;</strong>&nbsp;" +
+			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[1] + "&nbsp;</strong>&nbsp;" +
+			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[2] + "&nbsp;</strong>&nbsp;" +
+			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[3] + "&nbsp;</strong>&nbsp;" +
 			     "</td>" +
 			     "</tr>" +
 		             "<tr><td class='p-0 pl-1 align-middle'><strong>float</strong></td>" +
@@ -169,13 +169,13 @@
 		       "<div class='col-6 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_name\", \"logical\"); wepsim_show_rf_names(); return true; '>" +
-		       "<span class='font-weight-bold text-monospace'>$t0</span>" + "&nbsp;" + 
+		       "<span class='font-weight-bold text-monospace'>$t0</span>" + "&nbsp;" +
                        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
 		       "</div>" +
 		       "<div class='col-6 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); wepsim_show_rf_names(); return true; '>" +
-		       "<span class='font-weight-bold text-monospace'>R10</span>" + "&nbsp;" + 
+		       "<span class='font-weight-bold text-monospace'>R10</span>" + "&nbsp;" +
                        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
 		       "</div>" +
 
@@ -184,7 +184,7 @@
 		       "<div class='col p-1'>" +
 		       "<button type='button' id='close' data-role='none' " +
 		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>" + 
+		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>" +
                        "<span data-langkey='Close'>Close</span>" +
                        "</button>" +
 		       "</div>" +
@@ -212,16 +212,14 @@
             var rf_format = get_cfg('RF_display_format') ;
             var o1_rf = "" ;
             var o1_rn = "" ;
-	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
 		 o1_rn = "R"  + index ;
-                 if (index < 10) {
-                     o1_rn = o1_rn + '&nbsp;' ;
-		 }
+		 o1_rn = o1_rn.padEnd(3,' ') ;
 
-		 rf_val = value2string(rf_format, (get_value(simhw_sim_states()['BR'][index]) >>> 0)) ;
+		 rf_val = value2string(rf_format, (get_value(simhw_sim_states().BR[index]) >>> 0)) ;
 
-		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " + 
+		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " +
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
@@ -240,7 +238,7 @@
                     placement: 'auto',
                     animation: false,
                     trigger:   'click',
-		    template:  '<div class="popover shadow" role="tooltip">' + 
+		    template:  '<div class="popover shadow" role="tooltip">' +
                                '<div class="arrow"></div>' +
 		               '<h3  class="popover-header"></h3>' +
 		               '<div class="popover-body"></div>' +
@@ -248,7 +246,7 @@
 		    container: 'body',
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
-                        var hexvalue = get_value(simhw_sim_states()['BR'][index]);
+                        var hexvalue = get_value(simhw_sim_states().BR[index]);
                         return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
@@ -269,9 +267,9 @@
             var rf_format = get_cfg('RF_display_format') ;
 	    var br_value = "" ;
 
-	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
-		 br_value = value2string(rf_format, (get_value(simhw_sim_states()['BR'][index]) >>> 0)) ;
+		 br_value = value2string(rf_format, (get_value(simhw_sim_states().BR[index]) >>> 0)) ;
 
                  $("#tbl_RF" + index).html(br_value);
 	    }
@@ -296,21 +294,25 @@
         function wepsim_show_rf_names ( )
         {
             var SIMWARE = get_simware() ;
+	    var disp_name = get_cfg('RF_display_name') ;
 
             var br_value = "" ;
-	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
 		 br_value = "R"  + index ;
-                 if (index < 10)
-                     br_value = br_value + '&nbsp;' ;
-
-	         if ('logical' == get_cfg('RF_display_name'))
-		     if (typeof SIMWARE['registers'][index] != "undefined")
-		         br_value = SIMWARE['registers'][index] ;
+	         if (
+		      ('logical' == disp_name) &&
+		      (typeof SIMWARE.registers[index] != "undefined")
+		    )
+		 {
+		    br_value = SIMWARE.registers[index] ;
+		 }
+		 br_value = br_value.padEnd(3,' ') ;
 
 		 var obj = document.getElementById("name_RF" + index);
-		 if (obj != null)
+		 if (obj != null) {
 		     obj.innerHTML = br_value ;
+		 }
 	    }
         }
 
@@ -323,7 +325,7 @@
             }
 
             // Fast UI configuration
-            var o1 = "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " + 
+            var o1 = "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " +
 	             "   tabindex='0' class='m-auto show multi-collapse-3'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" ;
 
             // Registers
@@ -338,7 +340,7 @@
                 var s = filter[i].split(",")[0] ;
 
                 var showkey = sim_eltos[s].name;
-                if (sim_eltos[s].nbits > 1) 
+                if (sim_eltos[s].nbits > 1)
 	        {
                     part1 = showkey.substring(0, 3) ;
                     part2 = showkey.substring(3, showkey.length) ;
@@ -354,7 +356,7 @@
                 divclass = filter[i].split(",")[1] ;
 		value    = value2string(rf_format, sim_eltos[s].value) ;
 
-                o1 += "<button type='button' class='btn py-0 px-1 mt-1 " + divclass + "' " + 
+                o1 += "<button type='button' class='btn py-0 px-1 mt-1 " + divclass + "' " +
 		      "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
@@ -394,7 +396,7 @@
                     placement: 'auto',
                     animation: false,
                     trigger:   'click',
-		    template:  '<div class="popover shadow" role="tooltip">' + 
+		    template:  '<div class="popover shadow" role="tooltip">' +
                                '<div class="arrow"></div>' +
 		               '<h3  class="popover-header"></h3>' +
 		               '<div class="popover-body"></div>' +

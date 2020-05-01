@@ -28,16 +28,16 @@
 	    var o = '' ;
 
 	    // parameter: mode
-	    if (hash['mode'] !== '')
+	    if (hash.mode !== '')
 	    {
-                wsweb_select_main(hash['mode']) ;
-	        o += '<li>Mode set to <strong>' + hash['mode'] + '</strong>.</li> ' ;
+                wsweb_select_main(hash.mode) ;
+	        o += '<li>Mode set to <strong>' + hash.mode + '</strong>.</li> ' ;
 	    }
 
 	    // parameter: example
-	    if (hash['example'] !== '')
+	    if (hash.example !== '')
 	    {
-		var example_index = parseInt(hash['example']) ;
+		var example_index = parseInt(hash.example) ;
 		var example_obj   = ws_examples[example_index] ;
 	        if (typeof example_obj !== "undefined")
 		{
@@ -49,8 +49,8 @@
 
 	    // parameter: simulator UI
 	    var panels = [] ;
-	    if (hash['simulator'] !== '') {
-	        panels = hash['simulator'].split(":") ;
+	    if (hash.simulator !== '') {
+	        panels = hash.simulator.split(":") ;
 	        o += '<li>User interface has been adapted.</li> ' ;
             }
 
@@ -71,16 +71,16 @@
 	    }
 
 	    // notify the user of the preloaded work
-	    if (o !== '') 
+	    if (o !== '')
 	    {
-		o = 'WepSIM has been instructed to preload some work for you:<br>' + 
-		    '<ul>' + o + '</ul>' + 
+		o = 'WepSIM has been instructed to preload some work for you:<br>' +
+		    '<ul>' + o + '</ul>' +
 		    'To close this notification please press in the ' +
                     '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
-	            'In order to execute an example please press the ' + 
+	            'In order to execute an example please press the ' +
 		    '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#btn_run_stop\');">Run</span> button.<br>' ;
 
-	        if (hash['notify'] !== 'false') {
+	        if (hash.notify !== 'false') {
 	            wepsim_notify_do_notify('WepSIM preloads some work', o, 'info', 0) ;
 		}
 	    }
@@ -98,7 +98,7 @@
 	    xhr.open("HEAD", json_url, true) ;
 
 	    xhr.onreadystatechange = function() {
-		if (this.readyState == this.DONE) 
+		if (this.readyState == this.DONE)
 	        {
 	            var size = 0 ;
 
@@ -108,8 +108,8 @@
 		    }
 
 		    if (size < max_size) {
-	                $.getJSON(json_url, do_after).fail(function(e) { 
-				                              wepsim_notify_do_notify('getJSON', 'There was some problem for getting ' + json_url, 'warning', 0); 
+	                $.getJSON(json_url, do_after).fail(function(e) {
+				                              wepsim_notify_do_notify('getJSON', 'There was some problem for getting ' + json_url, 'warning', 0);
 			                                   }) ;
 		    }
 		}
@@ -129,32 +129,32 @@
 	    }
 
 	    // 1.a.- get parameters
-	    hash['preload']    = parameters.get('preload') ;
-	    hash['mode']       = parameters.get('mode') ;
-	    hash['example']    = parameters.get('example') ;
-	    hash['simulator']  = parameters.get('simulator') ;
-	    hash['notify']     = parameters.get('notify') ;
-	    hash['checkpoint'] = parameters.get('checkpoint') ;
+	    hash.preload    = parameters.get('preload') ;
+	    hash.mode       = parameters.get('mode') ;
+	    hash.example    = parameters.get('example') ;
+	    hash.simulator  = parameters.get('simulator') ;
+	    hash.notify     = parameters.get('notify') ;
+	    hash.checkpoint = parameters.get('checkpoint') ;
 
 	    // 1.b.- overwrite null with default values
-	    if (hash['preload']   === null)
-	        hash['preload']    = '' ;
-	    if (hash['mode']      === null)
-	        hash['mode']       = '' ;
-	    if (hash['example']   === null)
-	        hash['example']    = '' ;
-	    if (hash['simulator'] === null)
-	        hash['simulator']  = '' ;
-	    if (hash['notify']    === null)
-	        hash['notify']     = 'true' ;
-	    if (hash['checkpoint'] === null)
-	        hash['checkpoint'] = '' ;
-	    
+	    if (hash.preload   === null)
+	        hash.preload    = '' ;
+	    if (hash.mode      === null)
+	        hash.mode       = '' ;
+	    if (hash.example   === null)
+	        hash.example    = '' ;
+	    if (hash.simulator === null)
+	        hash.simulator  = '' ;
+	    if (hash.notify    === null)
+	        hash.notify     = 'true' ;
+	    if (hash.checkpoint === null)
+	        hash.checkpoint = '' ;
+	
 	    // 1.c.- get parameters from json
-	    if (hash['preload'] !== '') 
+	    if (hash.preload !== '')
 	    {
 		try {
-	           uri_obj = new URL(hash['preload']) ;
+	           uri_obj = new URL(hash.preload) ;
 	           wepsim_preload_json(uri_obj.pathname, wepsim_preload_hash) ;
 		}
 		catch (e) { }
@@ -166,9 +166,9 @@
 	    wepsim_preload_hash(hash) ;
 
 	    // 3.- checkpoint
-	    if (hash['checkpoint'] !== '') 
+	    if (hash.checkpoint !== '')
 	    {
-		uri_obj = new URL(hash['checkpoint']) ;
+		uri_obj = new URL(hash.checkpoint) ;
                 wepsim_checkpoint_loadURI(uri_obj, id_filename, id_tagname) ;
 	    }
     }

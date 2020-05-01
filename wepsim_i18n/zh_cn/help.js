@@ -25,6 +25,8 @@
 		'help_01_01':		'打开欢迎教程',
 		'Simple usage tutorial':		'简单的使用教程',
 		'help_01_02':		'打开简单的使用教程，进行微程序设计和汇编编程',
+		'Execute example':		'Execute example',
+		'help_01_03':			'Play the execute example tutorial',
 		'Simulator: firmware':		'模拟器：固件',
 		'help_02_01':		'如何使用要加载到控制存储器中的固件',
 		'Microcode format':		'微码格式',

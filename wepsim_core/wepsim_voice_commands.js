@@ -37,12 +37,12 @@
 
     wepsim_voice_commands['(show) configuration'] = function()
     {
-	 wepsim_open_config_index() ;
+	 wsweb_dialog_open('config') ;
     } ;
 
     wepsim_voice_commands['(show) examples'] = function()
     {
-         wepsim_open_examples_index() ;
+	 wsweb_dialog_open('examples') ;
     } ;
 
     wepsim_voice_commands['load example :id (from) :level'] = function ( id, level )
@@ -50,20 +50,20 @@
          var ex_id = parseInt(id) ;
          var ex_lv = parseInt(level) ;
 
-         load_from_example_firmware("ep:S" + ex_lv + "E" + ex_lv, true) ;
+         load_from_example_firmware("ep:s" + ex_lv + "_e" + ex_lv, true) ;
     } ;
 
     wepsim_voice_commands['(show) help'] = function()
     {
-         wepsim_open_help_index() ;
+	 wsweb_dialog_open('help') ;
          wepsim_help_refresh() ;
     } ;
 
     wepsim_voice_commands['close'] = function()
     {
-	 wepsim_close_help() ;
-	 wepsim_close_examples() ;
-	 wepsim_close_config() ;
+         wsweb_dialog_close('help') ;
+         wsweb_dialog_close('config') ;
+         wsweb_dialog_close('examples') ;
 
 	 if (null !== wepsim_voice_dialog) {
 	     wepsim_voice_dialog.modal('hide');
@@ -127,7 +127,7 @@
 
 
     // control
-    wepsim_voice_commands['list'] =  function() 
+    wepsim_voice_commands['list'] =  function()
     {
 	 var vc_list = "available commands:<br>" ;
 

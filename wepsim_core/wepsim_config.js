@@ -20,40 +20,6 @@
 
 
     /*
-     * Config screen
-     */
-
-    function wepsim_open_config_index ( )
-    {
-	$('#container-config2').html(table_config_html(ws_config)) ;
-        for (m=0; m<ws_config.length; m++) {
-	     ws_config[m].code_init() ;
-        }
-	$("#container-config2").scrollTop(0);
-        $('a[data-toggle="popover1"]').popover({
-	          placement:  'bottom',
-	          trigger:    'focus, hover',
-	          animation:  false,
-	          delay:      { "show": 500, "hide": 100 },
-		  sanitizeFn: function (content) {
-                                  return content ; // DOMPurify.sanitize(content) ;
-                              }
-        }) ;
-
-	i18n_update_tags('cfg') ;
-	$('#config2').modal('show') ;
-
-	// stats about ui
-        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.config');
-    }
-
-    function wepsim_close_config ( )
-    {
-        $('#config2').modal('hide') ;
-    }
-
-
-    /*
      * Config management
      */
 
@@ -89,7 +55,7 @@
 		      '    <span class="badge badge-pill badge-light">' + (n+1) + '</span>' +
 		      '</div>' +
 		      '<div class="col-md-4">'  + e_code_cfg   + '</div>' +
-		      '<div class="col-md collapse7 show d-flex align-items-center"><c>' + e_description + '</c></div>' +
+		      '<div class="col-md collapse7 show align-items-center"><c>' + e_description + '</c></div>' +
 		      '</div>' ;
 
 		// indexing row
@@ -97,7 +63,7 @@
 		    config_groupby_type[e_type] = [] ;
 		}
 
-		config_groupby_type[e_type].push({'row':     row, 
+		config_groupby_type[e_type].push({'row':     row,
 			                          'u_class': e_u_class}) ;
        }
 
@@ -116,7 +82,7 @@
 		     u = u + config_groupby_type[m][n].row ;
 
 	             l1 = config_groupby_type[m][n].u_class.split(' ') ;
-		     for (var li=0; li<l1.length; li++) 
+		     for (var li=0; li<l1.length; li++)
 	             {
 			  if (typeof l2[l1[li]] === 'undefined') {
 			      l2[l1[li]] = 0 ;
@@ -126,14 +92,14 @@
                 }
 
 	        l = '' ;
-	        for (var lj in l2) 
+	        for (var lj in l2)
 	        {
 		     if (l2[lj] === config_groupby_type[m].length) {
 			 l += lj + ' ' ;
 		     }
 		}
 
-		o = o + "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top " + l + "'>" + 
+		o = o + "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top " + l + "'>" +
 			"<span data-langkey='" + m + "'>" + m + "</span>" +
 			"</div>" + u ;
        }
@@ -150,7 +116,7 @@
 	var prev_type = "" ;
 	for (var elto in breakpoint_icon_list)
 	{
-		if (breakpoint_icon_list[elto].type != prev_type) 
+		if (breakpoint_icon_list[elto].type != prev_type)
 		{
                     o = o + "</div>" +
 			    "<div class='row p-1'>" +
@@ -179,18 +145,81 @@
 
     function wepsim_show_breakpoint_icon_template ( )
     {
-	var o = '<div class="popover" role="tooltip">' + 
-		'<div class="arrow"></div><h3 class="popover-header"></h3>' + 
-		'<div class="popover-body"></div>' + 
-		'<div class="popover-footer">' + 
+	var o = '<div class="popover" role="tooltip">' +
+		'<div class="arrow"></div><h3 class="popover-header"></h3>' +
+		'<div class="popover-body"></div>' +
+		'<div class="popover-footer">' +
 	        '  <div class="m-0 p-2" style="background-color: #f7f7f7">' +
                 '  <button type="button" id="close" data-role="none" ' +
                 '          class="btn btn-sm btn-danger w-100 p-0" ' +
                 '          onclick="$(\'#breakpointicon1\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
-		'  </div>' + 
-		'</div>' + 
+		'  </div>' +
+		'</div>' +
 		'</div>' ;
 
 	return o ;
+    }
+
+    function wepsim_config_dialog_title ( name, color, str_onchange )
+    {
+	 return "<div class='dropdown btn-group'>" +
+                "<button type='button' " +
+		"   class='btn btn-outline-" + color + " px-3 py-1 dropdown-toggle' " +
+		"   data-toggle='dropdown' id='dropdown-title1' " +
+		"   aria-expanded='false' aria-haspopup='true'>" +
+		"<span class='font-weight-bold' data-langkey='" + name + "'>" + name + "</span>" +
+		"</button>" +
+		"<div class='dropdown-menu' " +
+		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
+		"     aria-labelledby='dropdown-title1'>" +
+                // details
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
+		" <label for='wsdt" + name + "'>details</label>" +
+		" <button class='btn btn-outline-secondary btn-block py-1' " +
+                "         type='button' id='wsdt" + name + "' " +
+		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
+		" <span class='text-truncate'>&plusmn; Description</span>" +
+		" </button>" +
+                " </div></form>"+
+                // idioms
+		"<div class='dropdown-divider m-1'></div>" +
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
+		" <label for='dd2'>idiom</label>" +
+                  i18n_get_select('select7b' + name, str_onchange) +
+                " </div></form>"+
+		"</div>" +
+		"</div>" ;
+    }
+
+    function wepsim_config_dialog_dropdown ( color, base_buttons, str_onchange )
+    {
+	 return "<div class='dropdown btn-group'>" +
+		base_buttons +
+		"<button type='button' " +
+		"   data-toggle='dropdown' id='dropdown-title1' " +
+		"   aria-expanded='false' aria-haspopup='true' " +
+		"   class='btn btn-" + color + " dropdown-toggle dropdown-toggle-split'" +
+		"><span class='sr-only'>Toggle Dropdown</span>" +
+		"</button>" +
+		"<div class='dropdown-menu' " +
+		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
+		"     aria-labelledby='dropdown-title1'>" +
+                // details
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
+		" <label for='wsdt" + name + "'>details</label>" +
+		" <button class='btn btn-outline-secondary btn-block py-1' " +
+                "         type='button' id='wsdt" + name + "' " +
+		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
+		" <span>&plusmn; Description</span>" +
+		" </button>" +
+                " </div></form>"+
+                // idioms
+		"<div class='dropdown-divider m-1'></div>" +
+		" <form class='px-3 m-0'><div class='form-group m-0'>" +
+		" <label for='dd2'>idiom</label>" +
+                  i18n_get_select('select7b' + name, str_onchange) +
+                " </div></form>"+
+		"</div>" +
+		"</div>" ;
     }
 

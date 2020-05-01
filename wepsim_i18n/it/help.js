@@ -25,6 +25,8 @@
 		'help_01_01':		'Apri il tutorial di benvenuto',
 		'Simple usage tutorial':		'Tutorial di utilizzo semplice',
 		'help_01_02':		'Apri il tutorial sull\'uso semplice, per la microprogrammazione e la programmazione degli assiemi',
+		'Execute example':		'Execute example',
+		'help_01_03':			'Play the execute example tutorial',
 		'Simulator: firmware':		'Simulator: firmware',
 		'help_02_01':		'Come lavorare con il firmware da caricare nella memoria di controllo',
 		'Microcode format':		'Formato microcodice',

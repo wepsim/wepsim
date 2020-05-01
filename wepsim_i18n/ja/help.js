@@ -25,6 +25,8 @@
 		'help_01_01':		'ウェルカムチュートリアルを開く',
 		'Simple usage tutorial':		'簡単な使い方のチュートリアル',
 		'help_01_02':		'マイクロプログラミングとアセンブリプログラミングのための簡単な使い方のチュートリアルを開く',
+		'Execute example':		'Execute example',
+		'help_01_03':			'Play the execute example tutorial',
 		'Simulator: firmware':		'シミュレータ：ファームウェア',
 		'help_02_01':		'制御メモリにロードされるファームウェアを使用する方法',
 		'Microcode format':		'マイクロコードフォーマット',

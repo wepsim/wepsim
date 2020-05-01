@@ -41,7 +41,7 @@
 
 	    // if delay was passed, set up a timeout to close the alert
 	    if (ntf_delay != 0) {
-		window.setTimeout(function() { alert1.alert("close"); }, ntf_delay);    
+		window.setTimeout(function() { alert1.alert("close"); }, ntf_delay) ;
 	    }
 
 	    // audio
@@ -89,20 +89,6 @@
      * Notifications (summary)
      */
 
-    function wepsim_notifications_open ( )
-    {
-        var notifications = simcore_notifications_get() ;
-
-	$('#container-notifications2').html(table_notifications_html(notifications)) ;
-	$("#container-notifications2").scrollTop(0) ;
-
-	i18n_update_tags('cfg') ;
-	$('#notifications2').modal('show') ;
-
-	// stats about ui
-        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.notifications') ;
-    }
-
     function table_notifications_html ( notifications )
     {
 	// setup content...
@@ -114,7 +100,7 @@
 		 t = new Date(notifications[i].date) ;
 		 m = notifications[i].message.replace(/\n/g, '<br>\n') ;
 
-                 u += '<li class="list-group-item list-group-item-' + notifications[i].type + ' rounded-lg mx-2 my-1 p-2">' +
+                 u += '<li class="list-group-item list-group-item-' + notifications[i].type + ' rounded-lg mx-2 my-1 p-2 shadow-sm">' +
 			'<h5 class="m-0 collapse7 show">' +
 			'<span class="badge">(' +
                             t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '.' + t.getMilliseconds() +
@@ -125,24 +111,18 @@
 			'</li>' ;
 	}
 	if (u.trim() === '') {
-	    u = '<p class="m-3 text-center"><b>&lt;Empty&gt;</b></p>' ;
+	    u = '<p class="m-3 text-center py-4"><b>&lt;Empty&gt;</b></p>' ;
 	}
 
 	// build html
-	var o = '<div id="notifications2" class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
-	        '<div id="container-notifications2" class="card" style="max-height:65vh; overflow:auto; -webkit-overflow-scrolling: touch;">' +
-	        '<ul class="list-group list-group-flush">' + 
+	var o = '<div id="container-notifications3" class="card border-white" ' +
+                '     style="max-height:50vh; overflow:auto; -webkit-overflow-scrolling: touch;">' +
+	        '<ul class="list-group list-group-flush">' +
                 u +
 	        '</ul>' +
-	        '</div>' +
-                '<div class="alert alert-light p-0 m-0" role="alert">- <span data-langkey="Recent">Recent</span></div>' ;
+	        '</div>' ;
 
 	return o ;
-    }
-
-    function wepsim_notifications_close ( )
-    {
-        $('#notifications2').modal('hide') ;
     }
 
 

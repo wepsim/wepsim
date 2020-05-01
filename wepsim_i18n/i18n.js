@@ -141,35 +141,42 @@
 	return translation ;
     }
 
-    function i18n_get_dropdown ( components, post_code )
+    function i18n_get_select ( div_name, str_onchange )
     {
-        var o = '' ;
+        var curr_val = get_cfg('ws_idiom') ;
 
+        var o  = " <select name='" + div_name + "' id='" + div_name + "' " + 
+                 "         class='form-control form-control-sm custom-select'" +
+	         "	   aria-label='idiom for examples and help' " +
+	         "	   onchange=\"var opt = $(this).find('option:selected');" +
+	         "	 	      var optValue = opt.val();" +
+	         "		      update_cfg('ws_idiom', optValue);" +
+	         "                    i18n_update_tagsFor('gui',      optValue); " +
+	         "                    i18n_update_tagsFor('dialogs',  optValue); " +
+                 str_onchange +
+	         "                    return true; \"" +
+	         "	   data-native-menu='false'>" ;
 	for (var l in i18n.lang)
 	{
-           o += ' <a class="dropdown-item" href="#"' +
-                '    onclick="set_cfg(\'ws_idiom\',\'' + l + '\'); save_cfg();' ;
-	   for (var i=0; i<components.length; i++)
-	   {
-           o += '             i18n_update_tags(\'' + components[i] + '\', \'' + l + '\') ;' ;
-	   }
-	   o += post_code ;
-           o += '             return false;">' + l.toUpperCase() + '<span class="d-none d-sm-inline-flex">&nbsp;(' + i18n.lang[l] + ')</span>' + 
-	        '</a>' ;
+            if (curr_val == l)
+                 o += "	<option value='" + l + "' selected>" + i18n.lang[l] + "</option>" ;
+            else o += "	<option value='" + l + "'>"          + i18n.lang[l] + "</option>" ;
 	}
+	o += " </select>" ;
 
 	return o ;
     }
 
-    function i18n_get_select ( )
+    function i18n_get_selectcfg ( )
     {
         var o  = " <select name='select7' id='select7' class='form-control form-control-sm custom-select'" +
 	         "	     aria-label='idiom for examples and help' " +
 	         "	     onchange=\"var opt = $(this).find('option:selected');" +
 	         "	 	        var optValue = opt.val();" +
 	         "		        update_cfg('ws_idiom', optValue);" +
-	         "                    i18n_update_tagsFor('gui', optValue);" +
-	         "		        wepsim_open_config_index();\"" +
+	         "                      i18n_update_tagsFor('gui', optValue);" +
+	         "                      i18n_update_tagsFor('cfg', optValue);" +
+	         "		        return true;\"" +
 	         "	     data-native-menu='false'>" ;
 	for (var l in i18n.lang)
 	{

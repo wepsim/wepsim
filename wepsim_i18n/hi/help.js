@@ -25,6 +25,8 @@
 		'help_01_01':		'स्वागत ट्यूटोरियल खोलें',
 		'Simple usage tutorial':		'सरल उपयोग ट्यूटोरियल',
 		'help_01_02':		'माइक्रोप्रोग्रामिंग और असेंबली प्रोग्रामिंग के लिए सरल उपयोग ट्यूटोरियल खोलें',
+		'Execute example':		'Execute example',
+		'help_01_03':			'Play the execute example tutorial',
 		'Simulator: firmware':		'सिम्युलेटर: फर्मवेयर',
 		'help_02_01':		'फर्मवेयर को नियंत्रण मेमोरी में लोड करने के लिए कैसे काम करें',
 		'Microcode format':		'माइक्रोकोड प्रारूप',

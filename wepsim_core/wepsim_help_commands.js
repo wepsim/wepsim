@@ -23,29 +23,42 @@
 
     ws_help.push({
                      id:          "simulator",
-                     title:       "<span data-langkey='Welcome tutorial'>Welcome tutorial</span>",
+                     title:       "Execute example",
                      i_type:      "code",
                      u_type:      "tutorial",
                      u_class:     "",
-                     reference:   "wepsim_close_help(); " + 
+                     reference:   "wsweb_dialog_close('help'); " +
+				  "wsweb_recordbar_show(); " +
+			          "wepsim_checkpoint_loadExample('tutorial_2.txt') ; " +
+			          "setTimeout(wsweb_record_play, 1000);",
+                     description: "<span data-langkey='help_01_03'>Play the execute example tutorial</span>.<br>"
+                  });
+
+    ws_help.push({
+                     id:          "simulator",
+                     title:       "Welcome tutorial",
+                     i_type:      "code",
+                     u_type:      "tutorial",
+                     u_class:     "",
+                     reference:   "wsweb_dialog_close('help'); " +
                                   "sim_tutorial_showframe('welcome', 0);",
                      description: "<span data-langkey='help_01_01'>Open the welcome tutorial</span>.<br>"
                   });
 
     ws_help.push({
                      id:          "simulator",
-                     title:       "<span data-langkey='Simple usage tutorial'>Simple usage tutorial</span>",
+                     title:       "Simple usage tutorial",
                      i_type:      "code",
                      u_type:      "tutorial",
                      u_class:     "",
-                     reference:   "wepsim_close_help(); " + 
+                     reference:   "wsweb_dialog_close('help'); " +
                                   "sim_tutorial_showframe('simpleusage', 0);",
                      description: "<span data-langkey='help_01_02'>Open the simple usage tutorial, for microprogramming and assembly programming</span>.<br>"
                   });
 
     ws_help.push({
                      id:          "simulator",
-                     title:       "<span data-langkey='Simulator: firmware'>Simulator: firmware</span>",
+                     title:       "Simulator: firmware",
                      i_type:      "relative",
                      u_type:      "simulator",
                      u_class:     "user_microcode",
@@ -55,7 +68,7 @@
 
     ws_help.push({
                      id:          "microcode",
-                     title:       "<span data-langkey='Microcode format'>Microcode format</span>",
+                     title:       "Microcode format",
                      i_type:      "relative",
                      u_type:      "simulator",
                      u_class:     "user_microcode",
@@ -65,7 +78,7 @@
 
     ws_help.push({
                      id:          "simulator",
-                     title:       "<span data-langkey='Simulator: assembly'>Simulator: assembly</span>",
+                     title:       "Simulator: assembly",
                      i_type:      "relative",
                      u_type:      "simulator",
                      u_class:     "",
@@ -75,7 +88,7 @@
 
     ws_help.push({
                      id:          "assembly",
-                     title:       "<span data-langkey='Assembly format'>Assembly format</span>",
+                     title:       "Assembly format",
                      i_type:      "relative",
                      u_type:      "simulator",
                      u_class:     "",
@@ -85,7 +98,7 @@
 
     ws_help.push({
                      id:          "simulator",
-                     title:       "<span data-langkey='Simulator: execution'>Simulator: execution</span>",
+                     title:       "Simulator: execution",
                      i_type:      "relative",
                      u_type:      "simulator",
                      u_class:     "",
@@ -94,8 +107,18 @@
                   });
 
     ws_help.push({
+                     id:          "simulator",
+                     title:       "Simulator: states",
+                     i_type:      "relative",
+                     u_type:      "simulator",
+                     u_class:     "",
+                     reference:   "simulator#help_dumper",
+                     description: "<span data-langkey='help_02_06'>How the simulator can show the current state, and the difference between two states</span>.<br>"
+                  });
+
+    ws_help.push({
                      id:          "architecture",
-                     title:       "<span data-langkey='Simulated architecture'>Simulated architecture</span>",
+                     title:       "Simulated architecture",
                      i_type:      "absolute",
                      u_type:      "simulated processor",
                      u_class:     "",
@@ -105,7 +128,7 @@
 
     ws_help.push({
                      id:          "architecture",
-                     title:       "<span data-langkey='Simulated signals'>Simulated signals</span>",
+                     title:       "Simulated signals",
                      i_type:      "absolute",
                      u_type:      "simulated processor",
                      u_class:     "user_microcode",
@@ -115,22 +138,19 @@
 
     ws_help.push({
                      id:          "architecture",
-                     title:       "<span data-langkey='Hardware summary'>Hardware summary</span>",
+                     title:       "Hardware summary",
                      i_type:      "code",
                      u_type:      "simulated processor",
                      u_class:     "user_microcode",
-                     reference:   "var ahw1 = simhw_active().sim_short_name ; " +
-                                  "var img1 = 'examples/hardware/' + ahw1 + '/images/cpu.svg?time=20190102' ; " +
-                                  "var txt1 = 'Your browser does not support SVG' ;" +
-                                  "var lyt1 = '<object id=\\'svg_p2\\' data=\\'' + img1 + '\\' " +
-                                  "                    type=\\'image/svg+xml\\'>' + txt1 +  '</object>'; " +
-                                  "wepsim_open_help_content(lyt1) ;",
+                     reference:   "wepsim_open_help_hardware_summary();" +
+                                  "simcore_record_append_new('Show hardware summary', " +
+		                  "                          'wepsim_open_help_hardware_summary();\\\n');",
                      description: "<span data-langkey='help_03_03'>Reference card for the simulated elemental processor hardware</span>.<br>"
                   });
 
     ws_help.push({
                      id:          "about",
-                     title:       "<span data-langkey='License, platforms, etc.'>License, platforms, etc.</span>",
+                     title:       "License, platforms, etc.",
                      i_type:      "relative",
                      u_type:      "info",
                      u_class:     "",
@@ -140,12 +160,12 @@
 
     ws_help.push({
                      id:          "authors",
-                     title:       "<span data-langkey='Authors'>Authors</span>",
+                     title:       "Authors",
                      i_type:      "code",
                      u_type:      "info",
                      u_class:     "",
-                     reference:   "wepsim_close_help();" + 
-	                          "$('#about2').modal('show');",
+                     reference:   "wsweb_dialog_close('help'); " +
+	                          "wsweb_dialog_open('about');",
                      description: "<span data-langkey='help_04_02'>Authors of WepSIM</span>.<br>"
                   });
 

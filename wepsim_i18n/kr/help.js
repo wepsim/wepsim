@@ -27,6 +27,9 @@
 	"Simple usage tutorial":	"간단한 사용법 자습서",
         "help_01_02": 			"마이크로 프로그래밍 및 어셈블리 프로그래밍을위한 간단한 사용법 자습서 열기",
 
+	"Execute example":		"Execute example",
+	"help_01_03":			"Play the execute example tutorial",
+
 	"Simulator: firmware":		"시뮬레이터 : 펌웨어",
         "help_02_01": 			"펌웨어를 제어 메모리에로드하는 방법",
 

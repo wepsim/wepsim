@@ -1,6 +1,13 @@
 
 # Changelog
 
+## 2.0.12 -> 2.1.0:
+* Simplify UI
+* Dialog-boxes re-designed from scratch
+* Knockout   updated to knockout-3.5.1
+* CodeMirror updated to codemirror-5.52.2
+* Fix several minor bugs
+
 ## 2.0.11 -> 2.0.12:
 * Update to bootstrap 4.4.1
 * "# notify: lorem ipsum" in microcode added ("interactive" mode no longer required)
