@@ -34,6 +34,11 @@
 
 	      render ( msg_default )
 	      {
+                    // if no active hardware -> empty 
+                    if (simhw_active() === null) {
+                        return "<div id='io_ALL'></div>" ;
+                    }
+
 		    // default content
 		    var curr_iointfactory = simhw_internalState('io_int_factory') ;
 		    if (typeof curr_iointfactory == "undefined") 

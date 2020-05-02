@@ -410,10 +410,7 @@
 					      title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
 					    style="border-color: #CCCCCC;"
 					    id="select5b"
-					    onclick="wepsim_show_rf_values();
-						     show_memories_values();
-						     wepsim_reset_max_turbo();
-						     $('[data-toggle=tooltip]').tooltip('hide');
+					    onclick="wsweb_select_refresh();
 						     return false;">Refresh</button>
 				    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
 					    style="border-color: #CCCCCC;"
@@ -711,7 +708,9 @@
 			    // init: general
 			    var ws_mode = get_cfg('ws_mode');
 			    wsweb_select_main(ws_mode) ;
-			    simcore_reset();
+                            if (simhw_active() !== null) {
+			        simcore_reset();
+			    }
 
 			    // init: voice
 			    wepsim_voice_init() ;

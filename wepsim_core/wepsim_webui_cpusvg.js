@@ -40,7 +40,8 @@
                              "   <div class='col' id='eltos_cpu_a' style='padding:0 5 0 0;'>" +
                              "       <object id='svg_p'" +
                              "               title='processor'" +
-                             "               data='examples/hardware/ep/images/processor.svg'" +
+                          // "               data='examples/hardware/ep/images/processor.svg'" +
+                             "               data=''" +
                              "               type='image/svg+xml'" +
                              "               style='transform:translate3d(0,0,0);'>" +
                              "           Your browser doesn't support SVG" +
@@ -49,7 +50,8 @@
                              "   <div class='col' id='eltos_cpu_b' style='padding:0 5 0 5;'>" +
                              "       <object id='svg_cu'" +
                              "               title='control unit'" +
-                             "               data='examples/hardware/ep/images/controlunit.svg'" +
+                          // "               data='examples/hardware/ep/images/controlunit.svg'" +
+                             "               data=''" +
                              "               type='image/svg+xml'" +
                              "               style='transform:translate3d(0,0,0);'>" +
                              "           Your browser doesn't support SVG" +

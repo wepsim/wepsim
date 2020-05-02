@@ -34,6 +34,11 @@
 
 	      render ( msg_default )
 	      {
+		    // if no active hardware -> empty
+		    if (simhw_active() === null) {
+			return "<div id='config_MP'></div>" ;
+		    }
+
 		    // html holder
 		    var o1 = "<div id='config_MP' style='height:58vh; width: inherit; overflow-y: auto;' " +
 			     "     class='container container-fluid'>" +
