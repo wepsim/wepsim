@@ -20,39 +20,25 @@
 
 
         /*
-         *  Elemental Processor: Internal
-         */
-
-        /* Abstraction */
-        var poc_components      = {} ;
-        var poc_states          = {} ;
-        var poc_events          = {} ;
-        var poc_signals         = {} ;
-        var poc_behaviors       = {} ;
-        var poc_internal_states = {} ;
-        var poc_ctrl_states     = {} ;
-
-
-        /*
-         *  Proof-Of-Concept: Public
+         *  Proof-Of-Concept Processor
          */
 
         var poc_def = {
-                       sim_name:            "Proof-Of-Concept Processor",
-                       sim_short_name:      "poc",
-                       sim_img_processor:   "examples/hardware/poc/images/processor.svg",
-                       sim_img_controlunit: "examples/hardware/poc/images/controlunit.svg",
-                       sim_img_cpu:         "examples/hardware/poc/images/cpu.svg",
+                         sim_name:            "Proof-Of-Concept Processor",
+                         sim_short_name:      "poc",
+                         sim_img_processor:   "examples/hardware/poc/images/processor.svg",
+                         sim_img_controlunit: "examples/hardware/poc/images/controlunit.svg",
+                         sim_img_cpu:         "examples/hardware/poc/images/cpu.svg",
 
-                       components:          poc_components,
-                       states:              poc_states,
-                       signals:             poc_signals,
-                       behaviors:           poc_behaviors,
-                       events:              poc_events,
+                         components:          {},
+                         states:              {},
+                         signals:             {},
+                         behaviors:           {},
+                         events:              {},
 
-                       internal_states:     poc_internal_states,
-                       ctrl_states:         poc_ctrl_states
-	             } ;
+                         internal_states:     {},
+                         ctrl_states:         {}
+	              } ;
 
             simhw_add(poc_def) ;
 

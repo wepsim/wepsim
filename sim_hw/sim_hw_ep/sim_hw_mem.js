@@ -23,7 +23,7 @@
 	 *  Memory
 	 */
 
-        ep_components.MEMORY = {
+        sim.ep.components.MEMORY = {
 		                  name: "MEMORY", 
 		                  version: "1", 
 		                  abilities:    [ "MEMORY" ],
@@ -39,9 +39,9 @@
 
 						  var key = 0 ;
 						  var value = 0 ;
-					          for (var index in ep_internal_states.MP)
+					          for (var index in sim.ep.internal_states.MP)
 						  {
-						       value = parseInt(ep_internal_states.MP[index]) ;
+						       value = parseInt(sim.ep.internal_states.MP[index]) ;
 						       if (value != 0) 
 						       {
 					                   key = parseInt(index).toString(16) ;
@@ -75,8 +75,8 @@
 				             },
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
-						  if (typeof ep_internal_states.MP[index] != "undefined") {
-						      return "0x" + parseInt(ep_internal_states.MP[index]).toString(16) ;
+						  if (typeof sim.ep.internal_states.MP[index] != "undefined") {
+						      return "0x" + parseInt(sim.ep.internal_states.MP[index]).toString(16) ;
 					          }
 
 					          return null ;
@@ -97,16 +97,16 @@
 	 *  Internal States
 	 */
 
-        ep_internal_states.segments  = {} ;
-        ep_internal_states.MP        = {} ;
-        ep_internal_states.MP_wc     = 0 ;
+        sim.ep.internal_states.segments  = {} ;
+        sim.ep.internal_states.MP        = {} ;
+        sim.ep.internal_states.MP_wc     = 0 ;
 
 
         /*
          *  Signals
          */
 
-        ep_signals.MRDY      = { name: "MRDY", 
+        sim.ep.signals.MRDY      = { name: "MRDY", 
                                  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                  depends_on: ["CLK"],
 		                 behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
@@ -114,14 +114,14 @@
                                  draw_data: [[], ['svg_p:path3895','svg_p:path3541']], 
                                  draw_name: [[], []]};
 
-        ep_signals.R         = { name: "R", 
+        sim.ep.signals.R         = { name: "R", 
                                  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-2','svg_p:text3713'], 
                                  draw_data: [[], ['svg_p:path3557','svg_p:path3571']], 
                                  draw_name: [[], []]};
 
-        ep_signals.W         = { name: "W", 
+        sim.ep.signals.W         = { name: "W", 
                                  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-08','svg_p:text3527','svg_p:text3431-7'], 
@@ -133,32 +133,32 @@
          *  Syntax of behaviors
          */
 
-        ep_behaviors.MEM_READ       = { nparameters: 6, 
+        sim.ep.behaviors.MEM_READ       = { nparameters: 6, 
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
-						      var address = ep_states[s_expr[1]].value;
-                                                      var dbvalue = ep_states[s_expr[2]].value;
-                                                      var bw      = ep_signals[s_expr[3]].value;
-                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
+						      var address = sim.ep.states[s_expr[1]].value;
+                                                      var dbvalue = sim.ep.states[s_expr[2]].value;
+                                                      var bw      = sim.ep.signals[s_expr[3]].value;
+                                                      var clk     = get_value(sim.ep.states[s_expr[5]].value) ;
 
-                                                      ep_signals[s_expr[4]].value = 0;
-						      var remain = get_var(ep_internal_states.MP_wc);
+                                                      sim.ep.signals[s_expr[4]].value = 0;
+						      var remain = get_var(sim.ep.internal_states.MP_wc);
 						      if ( 
-                                                           (typeof ep_events.mem[clk-1] != "undefined") &&
-						           (ep_events.mem[clk-1] > 0) 
+                                                           (typeof sim.ep.events.mem[clk-1] != "undefined") &&
+						           (sim.ep.events.mem[clk-1] > 0) 
                                                          ) {
-						              remain = ep_events.mem[clk-1] - 1;
+						              remain = sim.ep.events.mem[clk-1] - 1;
                                                            }
-						      ep_events.mem[clk] = remain;
+						      sim.ep.events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
                                                       }
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
-						      if (typeof  ep_internal_states.MP[address] != "undefined")
-						   	  value = ep_internal_states.MP[address];
+						      if (typeof  sim.ep.internal_states.MP[address] != "undefined")
+						   	  value = sim.ep.internal_states.MP[address];
 
                                                       // TABLES
                                                       if ( 0 == (bw & 0x0000000C) )
@@ -184,18 +184,18 @@
                                                            dbvalue = value;
                                                       }
 
-                                                      ep_states[s_expr[2]].value = (dbvalue >>> 0);
-                                                     ep_signals[s_expr[4]].value = 1;
-				                      show_main_memory(ep_internal_states.MP, address, false, false) ;
+                                                      sim.ep.states[s_expr[2]].value = (dbvalue >>> 0);
+                                                     sim.ep.signals[s_expr[4]].value = 1;
+				                      show_main_memory(sim.ep.internal_states.MP, address, false, false) ;
                                                    },
                                            verbal: function (s_expr) 
                                                    {
 					              var verbal = "" ;
 
-						      var address = ep_states[s_expr[1]].value;
-                                                      var dbvalue = ep_states[s_expr[2]].value;
-                                                      var bw      = ep_signals[s_expr[3]].value;
-                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
+						      var address = sim.ep.states[s_expr[1]].value;
+                                                      var dbvalue = sim.ep.states[s_expr[2]].value;
+                                                      var bw      = sim.ep.signals[s_expr[3]].value;
+                                                      var clk     = get_value(sim.ep.states[s_expr[5]].value) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )
@@ -204,8 +204,8 @@
 							  bw_type = "half" ;
 
 						      var value = 0 ;
-					              if (typeof ep_internal_states.MP[address] != "undefined")
-							  value = ep_internal_states.MP[address] ;
+					              if (typeof sim.ep.internal_states.MP[address] != "undefined")
+							  value = sim.ep.internal_states.MP[address] ;
 
                                                       var verbose = get_cfg('verbal_verbose') ;
                                                       if (verbose !== 'math') {
@@ -221,31 +221,31 @@
                                                    }
                                       };
 
-        ep_behaviors.MEM_WRITE      = { nparameters: 6, 
+        sim.ep.behaviors.MEM_WRITE      = { nparameters: 6, 
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
-						      var address = ep_states[s_expr[1]].value;
-                                                      var dbvalue = ep_states[s_expr[2]].value;
-                                                      var bw      = ep_signals[s_expr[3]].value;
-                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
+						      var address = sim.ep.states[s_expr[1]].value;
+                                                      var dbvalue = sim.ep.states[s_expr[2]].value;
+                                                      var bw      = sim.ep.signals[s_expr[3]].value;
+                                                      var clk     = get_value(sim.ep.states[s_expr[5]].value) ;
 
-                                                      ep_signals[s_expr[4]].value = 0;
-						      var remain = get_var(ep_internal_states.MP_wc);
+                                                      sim.ep.signals[s_expr[4]].value = 0;
+						      var remain = get_var(sim.ep.internal_states.MP_wc);
 						      if ( 
-                                                           (typeof ep_events.mem[clk-1] != "undefined") &&
-						           (ep_events.mem[clk-1] > 0) 
+                                                           (typeof sim.ep.events.mem[clk-1] != "undefined") &&
+						           (sim.ep.events.mem[clk-1] > 0) 
                                                          ) {
-						              remain = ep_events.mem[clk-1] - 1;
+						              remain = sim.ep.events.mem[clk-1] - 1;
                                                            }
-						      ep_events.mem[clk] = remain;
+						      sim.ep.events.mem[clk] = remain;
                                                       if (remain > 0)
                                                           return;
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
-						      if (typeof  ep_internal_states.MP[address] != "undefined")
-						   	  value = ep_internal_states.MP[address];
+						      if (typeof  sim.ep.internal_states.MP[address] != "undefined")
+						   	  value = sim.ep.internal_states.MP[address];
 
                                                       // TABLES
                                                       if ( 0 == (bw & 0x0000000C) )
@@ -271,18 +271,18 @@
                                                            value = dbvalue;
                                                       }
 
-						      ep_internal_states.MP[address] = (value >>> 0);
-                                                      ep_signals[s_expr[4]].value = 1;
-				                      show_main_memory(ep_internal_states.MP, address, true, true) ;
+						      sim.ep.internal_states.MP[address] = (value >>> 0);
+                                                      sim.ep.signals[s_expr[4]].value = 1;
+				                      show_main_memory(sim.ep.internal_states.MP, address, true, true) ;
                                                    },
                                            verbal: function (s_expr) 
                                                    {
 					              var verbal = "" ;
 
-						      var address = ep_states[s_expr[1]].value;
-                                                      var dbvalue = ep_states[s_expr[2]].value;
-                                                      var bw      = ep_signals[s_expr[3]].value;
-                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
+						      var address = sim.ep.states[s_expr[1]].value;
+                                                      var dbvalue = sim.ep.states[s_expr[2]].value;
+                                                      var bw      = sim.ep.signals[s_expr[3]].value;
+                                                      var clk     = get_value(sim.ep.states[s_expr[5]].value) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )
@@ -291,8 +291,8 @@
 							  bw_type = "half" ;
 
 						      var value = 0 ;
-					              if (typeof ep_internal_states.MP[address] != "undefined")
-							  value = ep_internal_states.MP[address] ;
+					              if (typeof sim.ep.internal_states.MP[address] != "undefined")
+							  value = sim.ep.internal_states.MP[address] ;
 
                                                       var verbose = get_cfg('verbal_verbose') ;
                                                       if (verbose !== 'math') {
@@ -310,11 +310,11 @@
                                                    }
                                     };
 
-        ep_behaviors.MEMORY_RESET = { nparameters: 1,
+        sim.ep.behaviors.MEMORY_RESET = { nparameters: 1,
                                         operation: function (s_expr) 
                                                    {
 						       // reset events.mem
-                                                       ep_events.mem = {} ;
+                                                       sim.ep.events.mem = {} ;
                                                    },
                                            verbal: function (s_expr) 
                                                    {

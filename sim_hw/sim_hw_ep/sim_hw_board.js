@@ -24,28 +24,28 @@
          */
 
         // Print Signal
-        ep_behaviors.PRINT_S = { nparameters: 2,
+        sim.ep.behaviors.PRINT_S = { nparameters: 2,
                                  types: ["S"],
                                  operation: function(s_expr)
                                             {
-                                                 console.log(s_expr[1] + ': 0x' + ep_signals[s_expr[1]].value.toString(16));
+                                                 console.log(s_expr[1] + ': 0x' + sim.ep.signals[s_expr[1]].value.toString(16));
 					    },
 				    verbal: function (s_expr)
 				   	    {
-					         return "Print value of signal " + s_expr[1] + ': 0x' + ep_signals[s_expr[1]].value.toString(16) + ". " ;
+					         return "Print value of signal " + s_expr[1] + ': 0x' + sim.ep.signals[s_expr[1]].value.toString(16) + ". " ;
 					    }
                                };
 
         // Print State
-        ep_behaviors.PRINT_E = { nparameters: 2,
+        sim.ep.behaviors.PRINT_E = { nparameters: 2,
                                  types: ["E"],
                                  operation: function(s_expr)
                                             {
-                                                 console.log(s_expr[1] + ': 0x' + ep_states[s_expr[1]].value.toString(16));
+                                                 console.log(s_expr[1] + ': 0x' + sim.ep.states[s_expr[1]].value.toString(16));
 					    },
 				    verbal: function (s_expr)
 				   	    {
-					         return "Print value of state " + s_expr[1] + ': 0x' + ep_states[s_expr[1]].value.toString(16) + ". " ;
+					         return "Print value of state " + s_expr[1] + ': 0x' + sim.ep.states[s_expr[1]].value.toString(16) + ". " ;
 					    }
                                };
 
