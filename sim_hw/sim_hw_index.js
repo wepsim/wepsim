@@ -26,25 +26,39 @@
         var sim = {
 		    systems: [],
 		    active:  null,
-		    index:   0
+		    index:   0,
 	          } ;
+
 
         function simhw_add ( newElto )
         {
-            // 1.- to add a new element
-            sim.systems.push(newElto) ;
-            sim.active = newElto ;
-            sim.index  = sim.systems.length - 1 ;
+            // 1.- add a new element
+            var found = -1 ;
+            for (var m=0; m<sim.systems.length; m++) 
+            {
+                 if (sim.systems[m].sim_short_name == newElto.sim_short_name) {
+                     sim.systems[m] = newElto ;
+                     sim.index = m ;
+                     found = m ;
+                 }
+            }
 
-            // 2.- to check if default behaviors are ok
+            if (-1 == found) {
+                sim.systems.push(newElto) ;
+                sim.index = sim.systems.length - 1 ;
+            }
+
+            // 2.- add a new element
+            sim.active = newElto ;
+            sim[newElto.sim_short_name] = newElto ;
+
+            // 3.- check if default behaviors are ok
             check_behavior();
             
-            // 3.- to pre-compile behaviors & references
+            // 4.- pre-compile
             compile_behaviors() ;
             firedep_to_fireorder(jit_fire_dep) ;
             compute_references() ;
-
-            // 4.- to pre-compile verbals
             compile_verbals() ;
         }
 
@@ -62,12 +76,10 @@
                 sim.index  = newActive ;
 	    }
 
-            // to pre-compile behaviors & references
+            // pre-compile behaviors & references
             compile_behaviors() ;
             firedep_to_fireorder(jit_fire_dep) ;
             compute_references() ;
-
-            // to pre-compile verbals
             compile_verbals() ;
         }
 
@@ -179,15 +191,7 @@
 
         function simhw_internalState_reset ( name, val )
         {
-            if (typeof ep_internal_states != "undefined")
-            {
-                 ep_internal_states[name] = val ;
-                 sim.active.internal_states[name] = ep_internal_states[name] ;
-            }
-            else 
-            {
-                 sim.active.internal_states[name] = val ;
-            }
+            sim.active.internal_states[name] = val ;
         }
 
         // ctrl_states

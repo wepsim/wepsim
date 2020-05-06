@@ -527,6 +527,8 @@
 			   callback:  function() {
 		         		 // reset
 					 reset_cfg() ;
+                               	         wepsim_notify_success('<strong>INFO</strong>', 
+                     					       'Configuration reset done!.') ;
 
 		         		 // ui elements
     					 wsweb_dialog_close('config') ;
@@ -859,14 +861,17 @@
 	             },
             size:    'large',
             onshow:  function() {
-		         // update state
-		         $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
-		            //A1/ var inputEls = document.getElementById('end_state1');
-		            //A1/ if (null !== inputEls)
-		            //A1/     setup_speech_input(inputEls) ;
+                         if (simhw_active() !== null) 
+                         {
+		             // update state
+		             $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
+		                //A1/ var inputEls = document.getElementById('end_state1');
+		                //A1/ if (null !== inputEls)
+		                //A1/     setup_speech_input(inputEls) ;
 
-                         wepsim_state_history_list() ;
-                         wepsim_dialog_current_state() ;
+                             wepsim_state_history_list() ;
+                             wepsim_dialog_current_state() ;
+                         }
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;

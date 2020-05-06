@@ -23,7 +23,7 @@
 	 *  SCREEN
 	 */
 
-        poc_components.SCREEN = {
+        sim.poc.components.SCREEN = {
 		                  name: "SCREEN", 
 		                  version: "1", 
 		                  abilities:    [ "SCREEN" ],
@@ -38,7 +38,7 @@
                                                       vec.SCREEN = {} ;
                                                   }
 
-					          var sim_screen = poc_internal_states.screen_content ;
+					          var sim_screen = sim.poc.internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 					          for (var i=0; i<sim_lines.length; i++)
 					          {
@@ -72,7 +72,7 @@
                                                   return false ;
 				             },
 		                  get_state: function ( line ) {
-					          var sim_screen = poc_internal_states.screen_content ;
+					          var sim_screen = sim.poc.internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 						  var index = parseInt(line) ;
 						  if (typeof sim_lines[index] != "undefined") {
@@ -84,10 +84,10 @@
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-        				           return poc_internal_states.screen_content ;
+        				           return sim.poc.internal_states.screen_content ;
                                                },
                                   set_value:   function ( elto, value ) {
-        				           poc_internal_states.screen_content = value ;
+        				           sim.poc.internal_states.screen_content = value ;
 						   return value ;
                                                }
                             	};
@@ -100,24 +100,24 @@
         var DDR_ID   = 0x1000 ;
         var DSR_ID   = 0x1004 ;
 
-        poc_internal_states.io_hash[DDR_ID] = "DDR" ;
-        poc_internal_states.io_hash[DSR_ID] = "DSR" ;
+        sim.poc.internal_states.io_hash[DDR_ID] = "DDR" ;
+        sim.poc.internal_states.io_hash[DSR_ID] = "DSR" ;
 
 
 	/*
 	 *  Internal States
 	 */
 
-        poc_internal_states.screen_content = "" ;
+        sim.poc.internal_states.screen_content = "" ;
 
 
         /*
          *  States
          */
 
-        poc_states.DDR   = { name: "DDR", verbal: "Display Data Register", 
+        sim.poc.states.DDR   = { name: "DDR", verbal: "Display Data Register", 
                              visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        poc_states.DSR   = { name: "DSR", verbal: "Display State Register", 
+        sim.poc.states.DSR   = { name: "DSR", verbal: "Display State Register", 
                              visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
@@ -125,14 +125,14 @@
          *  Signals
          */
 
-        poc_signals.SCR_IOR = { name: "IOR", 
+        sim.poc.signals.SCR_IOR = { name: "IOR", 
 		                visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
                                 fire_name: ['svg_p:tspan4004'], 
                                 draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
                                 draw_name: [[], []]};
 
-        poc_signals.SCR_IOW = { name: "IOW", 
+        sim.poc.signals.SCR_IOW = { name: "IOW", 
 		                visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
                                 fire_name: ['svg_p:tspan4006'], 
@@ -144,26 +144,26 @@
          *  Syntax of behaviors
          */
 
-        poc_behaviors.SCR_IOR     = { nparameters: 6,
+        sim.poc.behaviors.SCR_IOR     = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr) 
                                                  {
-                                                    var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                    var ddr    = get_value(poc_states[s_expr[3]]) ;
-                                                    var dsr    = get_value(poc_states[s_expr[4]]) ;
+                                                    var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                    var ddr    = get_value(sim.poc.states[s_expr[3]]) ;
+                                                    var dsr    = get_value(sim.poc.states[s_expr[4]]) ;
 
                                                     if (bus_ab == DDR_ID)
-                                                        set_value(poc_states[s_expr[2]], ddr) ;
+                                                        set_value(sim.poc.states[s_expr[2]], ddr) ;
                                                     if (bus_ab == DSR_ID)
-                                                        set_value(poc_states[s_expr[2]], dsr) ;
+                                                        set_value(sim.poc.states[s_expr[2]], dsr) ;
                                                  },
                                          verbal: function (s_expr) 
                                                  {
 					            var verbal = "" ;
 
-                                                    var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                    var ddr    = get_value(poc_states[s_expr[3]]) ;
-                                                    var dsr    = get_value(poc_states[s_expr[4]]) ;
+                                                    var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                    var ddr    = get_value(sim.poc.states[s_expr[3]]) ;
+                                                    var dsr    = get_value(sim.poc.states[s_expr[4]]) ;
 
                                                     if (bus_ab == DDR_ID)
                                                         verbal = "Try to read from the screen the DDR value " + ddr + ". " ;
@@ -174,13 +174,13 @@
                                                  }
                                 };
 
-        poc_behaviors.SCR_IOW     = { nparameters: 6,
+        sim.poc.behaviors.SCR_IOW     = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr) 
                                                  {
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var bus_db = get_value(poc_states[s_expr[2]]) ;
-                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim.poc.states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim.poc.states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab != DDR_ID) {
@@ -202,22 +202,22 @@
                                                       {
                                                          // (b) visible
                                                          var screen = get_screen_content() ;
-                                                         if (typeof poc_events.screen[clk] != "undefined") 
+                                                         if (typeof sim.poc.events.screen[clk] != "undefined") 
                                                              screen = screen.substr(0, screen.length-1);
                                                          set_screen_content(screen + String.fromCharCode(bus_db));
                                                       }
 
-                                                      set_value(poc_states[s_expr[3]], bus_db) ;
-                                                      set_value(poc_states[s_expr[4]], 1) ;
-                                                      poc_events.screen[clk] = bus_db ;
+                                                      set_value(sim.poc.states[s_expr[3]], bus_db) ;
+                                                      set_value(sim.poc.states[s_expr[4]], 1) ;
+                                                      sim.poc.events.screen[clk] = bus_db ;
                                                  },
                                          verbal: function (s_expr) 
                                                  {
 					              var verbal = "" ;
 
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var bus_db = get_value(poc_states[s_expr[2]]) ;
-                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim.poc.states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim.poc.states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab == DDR_ID)
@@ -227,11 +227,11 @@
                                                  }
                                 };
 
-        poc_behaviors.SCREEN_RESET = { nparameters: 1,
+        sim.poc.behaviors.SCREEN_RESET = { nparameters: 1,
                                       operation: function (s_expr) 
                                                  {
 						     // reset events.screen
-                                                     poc_events.screen = {} ;
+                                                     sim.poc.events.screen = {} ;
                                                  },
                                          verbal: function (s_expr) 
                                                  {

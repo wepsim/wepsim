@@ -23,7 +23,7 @@
 	 *  L3D
 	 */
 
-        poc_components.L3D = {
+        sim.poc.components.L3D = {
 		                  name: "L3D", 
 		                  version: "1", 
 		                  abilities:    [ "3DLED" ],
@@ -73,53 +73,53 @@
 	 *  States - L3D parameters
 	 */
 
-        poc_internal_states.l3d_state = [] ;
-        poc_internal_states.l3d_state[0]  = { active: false } ;
-        poc_internal_states.l3d_state[1]  = { active: false } ;
-        poc_internal_states.l3d_state[2]  = { active: false } ;
-        poc_internal_states.l3d_state[3]  = { active: false } ;
-        poc_internal_states.l3d_state[4]  = { active: false } ;
-        poc_internal_states.l3d_state[5]  = { active: false } ;
-        poc_internal_states.l3d_state[6]  = { active: false } ;
-        poc_internal_states.l3d_state[7]  = { active: false } ;
-        poc_internal_states.l3d_state[8]  = { active: false } ;
-        poc_internal_states.l3d_state[9]  = { active: false } ;
-        poc_internal_states.l3d_state[10] = { active: false } ;
-        poc_internal_states.l3d_state[11] = { active: false } ;
-        poc_internal_states.l3d_state[12] = { active: false } ;
-        poc_internal_states.l3d_state[13] = { active: false } ;
-        poc_internal_states.l3d_state[14] = { active: false } ;
-        poc_internal_states.l3d_state[15] = { active: false } ;
-        poc_internal_states.l3d_state[16] = { active: false } ;
-        poc_internal_states.l3d_state[17] = { active: false } ;
-        poc_internal_states.l3d_state[18] = { active: false } ;
-        poc_internal_states.l3d_state[19] = { active: false } ;
-        poc_internal_states.l3d_state[20] = { active: false } ;
-        poc_internal_states.l3d_state[21] = { active: false } ;
-        poc_internal_states.l3d_state[22] = { active: false } ;
-        poc_internal_states.l3d_state[23] = { active: false } ;
-        poc_internal_states.l3d_state[24] = { active: false } ;
-        poc_internal_states.l3d_state[25] = { active: false } ;
-        poc_internal_states.l3d_state[26] = { active: false } ;
+        sim.poc.internal_states.l3d_state = [] ;
+        sim.poc.internal_states.l3d_state[0]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[1]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[2]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[3]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[4]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[5]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[6]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[7]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[8]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[9]  = { active: false } ;
+        sim.poc.internal_states.l3d_state[10] = { active: false } ;
+        sim.poc.internal_states.l3d_state[11] = { active: false } ;
+        sim.poc.internal_states.l3d_state[12] = { active: false } ;
+        sim.poc.internal_states.l3d_state[13] = { active: false } ;
+        sim.poc.internal_states.l3d_state[14] = { active: false } ;
+        sim.poc.internal_states.l3d_state[15] = { active: false } ;
+        sim.poc.internal_states.l3d_state[16] = { active: false } ;
+        sim.poc.internal_states.l3d_state[17] = { active: false } ;
+        sim.poc.internal_states.l3d_state[18] = { active: false } ;
+        sim.poc.internal_states.l3d_state[19] = { active: false } ;
+        sim.poc.internal_states.l3d_state[20] = { active: false } ;
+        sim.poc.internal_states.l3d_state[21] = { active: false } ;
+        sim.poc.internal_states.l3d_state[22] = { active: false } ;
+        sim.poc.internal_states.l3d_state[23] = { active: false } ;
+        sim.poc.internal_states.l3d_state[24] = { active: false } ;
+        sim.poc.internal_states.l3d_state[25] = { active: false } ;
+        sim.poc.internal_states.l3d_state[26] = { active: false } ;
 
         var L3DSR_ID   = 0x2100 ;
         var L3DCR_ID   = 0x2104 ;
         var L3DDR_ID   = 0x2108 ;
 
-        poc_internal_states.io_hash[L3DSR_ID] = "L3DSR" ;
-        poc_internal_states.io_hash[L3DCR_ID] = "L3DCR" ;
-        poc_internal_states.io_hash[L3DDR_ID] = "L3DDR" ;
+        sim.poc.internal_states.io_hash[L3DSR_ID] = "L3DSR" ;
+        sim.poc.internal_states.io_hash[L3DCR_ID] = "L3DCR" ;
+        sim.poc.internal_states.io_hash[L3DDR_ID] = "L3DDR" ;
 
 
         /*
          *  States
          */
 
-        poc_states.L3DSR = { name: "L3DSR", verbal: "L3D State Register",
+        sim.poc.states.L3DSR = { name: "L3DSR", verbal: "L3D State Register",
                              visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        poc_states.L3DCR = { name: "L3DCR", verbal: "L3D Control Register",
+        sim.poc.states.L3DCR = { name: "L3DCR", verbal: "L3D Control Register",
                              visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        poc_states.L3DDR = { name: "L3DDR", verbal: "L3D Data Register",
+        sim.poc.states.L3DDR = { name: "L3DDR", verbal: "L3D Data Register",
                              visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
@@ -127,14 +127,14 @@
          *  Signals
          */
 
-         poc_signals.L3D_L3DR   = { name: "L3D_L3DR", 
+         sim.poc.signals.L3D_L3DR   = { name: "L3D_L3DR", 
                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                     behavior: ["NOP", "L3D_L3DR BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE M1"],
                                     fire_name: ['svg_p:tspan4173'], 
                                     draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
                                     draw_name: [[], []]};
 
-         poc_signals.L3D_L3DW   = { name: "L3D_L3DW", 
+         sim.poc.signals.L3D_L3DW   = { name: "L3D_L3DW", 
                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                     behavior: ["NOP", "L3D_L3DW BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE M1"],
                                     fire_name: ['svg_p:text3785-0-6-0-5-5'], 
@@ -146,21 +146,21 @@
          *  Syntax of behaviors
          */
 
-        poc_behaviors.L3D_L3DR      = { nparameters: 7,
+        sim.poc.behaviors.L3D_L3DR      = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var iosr   = get_value(poc_states[s_expr[3]]) ;
-                                                      var iocr   = get_value(poc_states[s_expr[4]]) ;
-                                                      var iodr   = get_value(poc_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                      var iosr   = get_value(sim.poc.states[s_expr[3]]) ;
+                                                      var iocr   = get_value(sim.poc.states[s_expr[4]]) ;
+                                                      var iodr   = get_value(sim.poc.states[s_expr[5]]) ;
 
                                                       if (bus_ab == L3DSR_ID) 
-                                                          set_value(poc_states[s_expr[2]], iosr);
+                                                          set_value(sim.poc.states[s_expr[2]], iosr);
                                                       if (bus_ab == L3DCR_ID) 
-                                                          set_value(poc_states[s_expr[2]], iocr);
+                                                          set_value(sim.poc.states[s_expr[2]], iocr);
                                                       if (bus_ab == L3DDR_ID) 
-                                                          set_value(poc_states[s_expr[2]], iodr);
+                                                          set_value(sim.poc.states[s_expr[2]], iodr);
 
                                                       // get
                                                       if (bus_ab == L3DCR_ID) {
@@ -176,10 +176,10 @@
                                                    {
                                                       var verbal = "" ;
 
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var iosr   = get_value(poc_states[s_expr[3]]) ;
-                                                      var iocr   = get_value(poc_states[s_expr[4]]) ;
-                                                      var iodr   = get_value(poc_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                      var iosr   = get_value(sim.poc.states[s_expr[3]]) ;
+                                                      var iocr   = get_value(sim.poc.states[s_expr[4]]) ;
+                                                      var iodr   = get_value(sim.poc.states[s_expr[5]]) ;
 
                                                       if (bus_ab == L3DSR_ID) 
                                                           verbal = "I/O device read at L3DSR of value " + iosr + ". " ;
@@ -192,12 +192,12 @@
                                                    }
                                       };
 
-        poc_behaviors.L3D_L3DW      = { nparameters: 7,
+        sim.poc.behaviors.L3D_L3DW      = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var bus_db = get_value(poc_states[s_expr[2]]) ;
+                                                      var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim.poc.states[s_expr[2]]) ;
 
                                                       if ( (bus_ab != L3DSR_ID) &&
                                                            (bus_ab != L3DCR_ID) &&
@@ -207,11 +207,11 @@
                                                       }
 
                                                       if (bus_ab == L3DSR_ID) 
-                                                          set_value(poc_states[s_expr[3]], bus_db);
+                                                          set_value(sim.poc.states[s_expr[3]], bus_db);
                                                       if (bus_ab == L3DCR_ID) 
-                                                          set_value(poc_states[s_expr[4]], bus_db);
+                                                          set_value(sim.poc.states[s_expr[4]], bus_db);
                                                       if (bus_ab == L3DDR_ID) 
-                                                          set_value(poc_states[s_expr[5]], bus_db);
+                                                          set_value(sim.poc.states[s_expr[5]], bus_db);
 
                                                       // set
                                                       if (bus_ab == L3DCR_ID) {
@@ -226,8 +226,8 @@
                                            verbal: function (s_expr) 
                                                    {
                                                       var verbal = "" ;
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var bus_db = get_value(poc_states[s_expr[2]]) ;
+                                                      var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim.poc.states[s_expr[2]]) ;
 
                                                       if (bus_ab == L3DSR_ID) 
                                                           verbal = "I/O device write at L3DSR with value " + bus_db + ". " ;
@@ -240,16 +240,16 @@
                                                    }
                                       };
 
-        poc_behaviors.L3D_RESET    = { nparameters: 1,
+        sim.poc.behaviors.L3D_RESET    = { nparameters: 1,
                                        operation: function (s_expr) 
                                                   {
 						     // reset events.l3d
-                                                     poc_events.l3d = {} ;
+                                                     sim.poc.events.l3d = {} ;
 
 						     // reset the I/O factory
-						     for (var i=0; i<poc_internal_states.l3d_state.length; i++)
+						     for (var i=0; i<sim.poc.internal_states.l3d_state.length; i++)
 						     {
-						          set_var(poc_internal_states.l3d_state[i].active, false);
+						          set_var(sim.poc.internal_states.l3d_state[i].active, false);
 						     }
                                                   },
                                           verbal: function (s_expr) 

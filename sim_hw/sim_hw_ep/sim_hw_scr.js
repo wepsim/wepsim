@@ -23,7 +23,7 @@
 	 *  SCREEN
 	 */
 
-        ep_components.SCREEN = {
+        sim.ep.components.SCREEN = {
 		                  name: "SCREEN", 
 		                  version: "1", 
 		                  abilities:    [ "SCREEN" ],
@@ -38,7 +38,7 @@
                                                       vec.SCREEN = {} ;
 				                  }
 
-					          var sim_screen = ep_internal_states.screen_content ;
+					          var sim_screen = sim.ep.internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 					          for (var i=0; i<sim_lines.length; i++)
 					          {
@@ -72,7 +72,7 @@
                                                   return false ;
 				             },
 		                  get_state: function ( line ) {
-					          var sim_screen = ep_internal_states.screen_content ;
+					          var sim_screen = sim.ep.internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 						  var index = parseInt(line) ;
 						  if (typeof sim_lines[index] != "undefined")
@@ -83,10 +83,10 @@
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-        				            return ep_internal_states.screen_content ;
+        				            return sim.ep.internal_states.screen_content ;
                                                },
                                   set_value:   function ( elto, value ) {
-        				            ep_internal_states.screen_content = value ;
+        				            sim.ep.internal_states.screen_content = value ;
 						    return value ;
                                                }
                             	};
@@ -99,24 +99,24 @@
         var DDR_ID   = 0x1000 ;
         var DSR_ID   = 0x1004 ;
 
-        ep_internal_states.io_hash[DDR_ID] = "DDR" ;
-        ep_internal_states.io_hash[DSR_ID] = "DSR" ;
+        sim.ep.internal_states.io_hash[DDR_ID] = "DDR" ;
+        sim.ep.internal_states.io_hash[DSR_ID] = "DSR" ;
 
 
 	/*
 	 *  Internal States
 	 */
 
-        ep_internal_states.screen_content = "" ;
+        sim.ep.internal_states.screen_content = "" ;
 
 
         /*
          *  States
          */
 
-        ep_states.DDR   = { name: "DDR", verbal: "Display Data Register", 
+        sim.ep.states.DDR   = { name: "DDR", verbal: "Display Data Register", 
                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        ep_states.DSR   = { name: "DSR", verbal: "Display State Register", 
+        sim.ep.states.DSR   = { name: "DSR", verbal: "Display State Register", 
                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
@@ -124,14 +124,14 @@
          *  Signals
          */
 
-        ep_signals.SCR_IOR = { name: "IOR", 
+        sim.ep.signals.SCR_IOR = { name: "IOR", 
                                visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		               behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
                                fire_name: ['svg_p:tspan4004'], 
                                draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
                                draw_name: [[], []]};
 
-        ep_signals.SCR_IOW = { name: "IOW", 
+        sim.ep.signals.SCR_IOW = { name: "IOW", 
                                visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		               behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
                                fire_name: ['svg_p:tspan4006'], 
@@ -143,26 +143,26 @@
          *  Syntax of behaviors
          */
 
-        ep_behaviors.SCR_IOR      = { nparameters: 6,
+        sim.ep.behaviors.SCR_IOR      = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr) 
                                                  {
-                                                    var bus_ab = get_value(ep_states[s_expr[1]]) ;
-                                                    var ddr    = get_value(ep_states[s_expr[3]]) ;
-                                                    var dsr    = get_value(ep_states[s_expr[4]]) ;
+                                                    var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
+                                                    var ddr    = get_value(sim.ep.states[s_expr[3]]) ;
+                                                    var dsr    = get_value(sim.ep.states[s_expr[4]]) ;
 
                                                     if (bus_ab == DDR_ID)
-                                                        set_value(ep_states[s_expr[2]], ddr) ;
+                                                        set_value(sim.ep.states[s_expr[2]], ddr) ;
                                                     if (bus_ab == DSR_ID)
-                                                        set_value(ep_states[s_expr[2]], dsr) ;
+                                                        set_value(sim.ep.states[s_expr[2]], dsr) ;
                                                  },
                                          verbal: function (s_expr) 
                                                  {
 					            var verbal = "" ;
 
-                                                    var bus_ab = get_value(ep_states[s_expr[1]]) ;
-                                                    var ddr    = get_value(ep_states[s_expr[3]]) ;
-                                                    var dsr    = get_value(ep_states[s_expr[4]]) ;
+                                                    var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
+                                                    var ddr    = get_value(sim.ep.states[s_expr[3]]) ;
+                                                    var dsr    = get_value(sim.ep.states[s_expr[4]]) ;
 
                                                     if (bus_ab == DDR_ID)
                                                         verbal = "Try to read from the screen the DDR value " + ddr + ". " ;
@@ -173,13 +173,13 @@
                                                  }
                                 };
 
-        ep_behaviors.SCR_IOW      = { nparameters: 6,
+        sim.ep.behaviors.SCR_IOW      = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr) 
                                                  {
-                                                      var bus_ab = get_value(ep_states[s_expr[1]]) ;
-                                                      var bus_db = get_value(ep_states[s_expr[2]]) ;
-                                                      var clk    = get_value(ep_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim.ep.states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim.ep.states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab != DDR_ID) {
@@ -201,22 +201,22 @@
                                                       {
                                                          // (b) visible
                                                          var screen = get_screen_content() ;
-                                                         if (typeof ep_events.screen[clk] != "undefined") 
+                                                         if (typeof sim.ep.events.screen[clk] != "undefined") 
                                                              screen = screen.substr(0, screen.length-1);
                                                          set_screen_content(screen + String.fromCharCode(bus_db));
                                                       }
 
-                                                      set_value(ep_states[s_expr[3]], bus_db) ;
-                                                      set_value(ep_states[s_expr[4]], 1) ;
-                                                      ep_events.screen[clk] = bus_db ;
+                                                      set_value(sim.ep.states[s_expr[3]], bus_db) ;
+                                                      set_value(sim.ep.states[s_expr[4]], 1) ;
+                                                      sim.ep.events.screen[clk] = bus_db ;
                                                  },
                                          verbal: function (s_expr) 
                                                  {
 					              var verbal = "" ;
 
-                                                      var bus_ab = get_value(ep_states[s_expr[1]]) ;
-                                                      var bus_db = get_value(ep_states[s_expr[2]]) ;
-                                                      var clk    = get_value(ep_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim.ep.states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim.ep.states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab == DDR_ID)
@@ -226,11 +226,11 @@
                                                  }
                                 };
 
-        ep_behaviors.SCREEN_RESET = { nparameters: 1,
+        sim.ep.behaviors.SCREEN_RESET = { nparameters: 1,
                                       operation: function (s_expr) 
                                                  {
 						     // reset events.screen
-                                                     ep_events.screen = {} ;
+                                                     sim.ep.events.screen = {} ;
                                                  },
                                          verbal: function (s_expr) 
                                                  {

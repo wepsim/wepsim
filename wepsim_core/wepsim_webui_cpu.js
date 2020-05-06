@@ -34,6 +34,11 @@
 
 	      render ( msg_default )
 	      {
+                    // if no active hardware -> empty 
+                    if (simhw_active() === null) {
+                        return "<div id='cpu_ALL'></div>" ;
+                    }
+
 		    // html holder
 		    var o1 = "<div id='cpu_ALL' style='height:58vh; width: inherit; overflow-y: auto;' " +
 			     "     class='container container-fluid'>" +

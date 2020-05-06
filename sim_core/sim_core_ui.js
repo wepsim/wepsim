@@ -184,8 +184,9 @@
 	    }
 
 	    // with ko
-	    if (typeof cfg_show_rf_refresh_delay === "undefined")
+	    if (typeof cfg_show_rf_refresh_delay === "undefined") {
 	        cfg_show_rf_refresh_delay = 120 ;
+            }
 
             return ko.observable(initial_value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
         }
@@ -198,12 +199,14 @@
             }
 
 	    // with ko
-	    if (typeof cfg_show_rf_refresh_delay === "undefined")
+	    if (typeof cfg_show_rf_refresh_delay === "undefined") {
 	        cfg_show_rf_refresh_delay = 120 ;
+            }
 
             var state_obj = simhw_sim_state(state) ;
-            if (typeof state_obj.value !== "function")
+            if (typeof state_obj.value !== "function") {
                 state_obj.value = ko.observable(state_obj.value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+            }
 
             var ko_context = document.getElementById(id_elto);
             ko.cleanNode(ko_context);

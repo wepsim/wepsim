@@ -133,8 +133,11 @@
     function wsweb_change_show_processor ( )
     {
 	    $("#tab26").tab('show') ;
-	    wepsim_svg_start_drawing() ;
-	    refresh() ;
+            if (simhw_active() !== null)
+            {
+	        wepsim_svg_start_drawing() ;
+	        refresh() ;
+            }
 
             // add if recording
             simcore_record_append_new('Show processor details',
@@ -146,21 +149,24 @@
 
     function wsweb_change_show_asmdbg ( )
     {
-            wepsim_svg_stop_drawing() ;
 	    $("#tab24").tab('show') ;
+            if (simhw_active() !== null)
+            {
+                wepsim_svg_stop_drawing() ;
+
+                // if code then move scroll
+	        var o1 = fullshow_asmdbg_pc() ;
+	        if (typeof o1[0] == 'undefined') {
+	            return true ;
+                }
+
+	        var obj_byid = $('#asm_debugger_container') ;
+	        obj_byid[0].scrollTop = o1[0].offsetTop ;
+            }
 
             // add if recording
             simcore_record_append_new('Show assembly debugger',
 		                      'wsweb_change_show_asmdbg();\n') ;
-
-            // if code then move scroll
-	    var o1 = fullshow_asmdbg_pc() ;
-	    if (typeof o1[0] == 'undefined') {
-	        return true ;
-            }
-
-	    var obj_byid = $('#asm_debugger_container') ;
-	    obj_byid[0].scrollTop = o1[0].offsetTop ;
 
             // return ok
             return true ;
@@ -170,8 +176,11 @@
 
     function wsweb_execution_reset ( )
     {
-	    wepsim_execute_reset(true, true) ;
-	    simcoreui_show_hw() ;
+            if (simhw_active() !== null)
+            {
+	        wepsim_execute_reset(true, true) ;
+	        simcoreui_show_hw() ;
+            }
 
             // add if recording
             simcore_record_append_new('Reset',
@@ -183,8 +192,11 @@
 
     function wsweb_execution_microinstruction ( )
     {
-	    wepsim_execute_microinstruction() ;
-	    simcoreui_show_hw() ;
+            if (simhw_active() !== null)
+            {
+	        wepsim_execute_microinstruction() ;
+	        simcoreui_show_hw() ;
+            }
 
             // add if recording
             simcore_record_append_new('Execute microinstruction',
@@ -196,8 +208,11 @@
 
     function wsweb_execution_instruction ( )
     {
-	    wepsim_execute_instruction() ;
-	    simcoreui_init_hw('#config_HW') ;
+            if (simhw_active() !== null)
+            {
+	        wepsim_execute_instruction() ;
+	        simcoreui_init_hw('#config_HW') ;
+            }
 
             // add if recording
             simcore_record_append_new('Execute instruction',
@@ -209,8 +224,11 @@
 
     function wsweb_execution_run ( )
     {
-            var mode = get_cfg('ws_mode') ;
-	    wepsim_execute_toggle_play('#btn_run_stop') ;
+            if (simhw_active() !== null)
+            {
+                var mode = get_cfg('ws_mode') ;
+	        wepsim_execute_toggle_play('#btn_run_stop') ;
+            }
 
             // add if recording
             simcore_record_append_new('Run',
@@ -391,7 +409,11 @@
 
     function wsweb_set_details ( opt )
     {
-            if (typeof hash_detail2action[opt] !== "undefined") {
+            if ( 
+              (simhw_active() !== null) && 
+              (typeof hash_detail2action[opt] !== "undefined") 
+            )
+            {
                 hash_detail2action[opt]() ;
             }
 
@@ -403,6 +425,23 @@
             return true ;
     }
 
+    function wsweb_select_refresh ( )
+    {
+            if (simhw_active() !== null)
+            {
+	        wepsim_show_rf_values() ;
+		show_memories_values() ;
+		wepsim_reset_max_turbo() ;
+		$('[data-toggle=tooltip]').tooltip('hide') ;
+            }
+
+            // add if recording
+            simcore_record_append_new('Refresh in selection',
+		                      'wsweb_select_refresh();\n') ;
+
+            // return ok
+            return true ;
+    }
 
     //  Workspace simulator: Mode
 
@@ -498,10 +537,12 @@
 
     function wsweb_set_cpucu_size ( new_value )
     {
-	    $('#slider2b').val(new_value) ;
-	    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', new_value) ;
+            var int_value = parseInt(new_value, 10) ;
 
-	    set_cfg('CPUCU_size', new_value) ;
+	    $('#slider2b').val(new_value) ;
+	    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', int_value) ;
+
+	    set_cfg('CPUCU_size', int_value) ;
 	    save_cfg() ;
 
             // add if recording
@@ -514,10 +555,12 @@
 
     function wsweb_set_c1c2_size ( new_value )
     {
-	    $("#slider2a").val(new_value) ;
-	    set_ab_size('#col1', '#col2', new_value);
+            var int_value = parseInt(new_value, 10) ;
 
-	    set_cfg('C1C2_size', new_value);
+	    $("#slider2a").val(new_value) ;
+	    set_ab_size('#col1', '#col2', int_value) ;
+
+	    set_cfg('C1C2_size', int_value) ;
 	    save_cfg() ;
 
             // add if recording

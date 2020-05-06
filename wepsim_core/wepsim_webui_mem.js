@@ -105,18 +105,20 @@
             }
 
             var seglabels_i = 0 ;
+            var seg_o1 = '' ;
             for (key in memory)
             {
                 value = main_memory_getword(revlabels, valkeys, memory, key) ;
 
-		if ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
+                seg_o1 = '' ;
+		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' +
-			  seglabels[seglabels_i].name +
-			  '</small></b></div>' ;
-
+                    seg_o1 = '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;">' + 
+                             '<b><small>' + seglabels[seglabels_i].name + '</small></b>' + 
+                             '</div>' ;
 		    seglabels_i++ ;
 		}
+                o1 += seg_o1 ;
 
                 taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-none d-sm-inline-flex"> </span>-' +
                         '<span class="d-none d-sm-inline-flex"><small> 0x</small></span>' + pack5(valkeys[0]) ;
