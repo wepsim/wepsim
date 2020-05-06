@@ -44,6 +44,11 @@
 
 	      render ( msg_default )
 	      {
+                    // if no active hardware -> empty 
+                    if (simhw_active() === null) {
+                        return "<div id='config_L3D'></div>" ;
+                    }
+
 		    // default content
 		    var curr_l3dstates = simhw_internalState('l3d_state') ;
 		    if (typeof curr_l3dstates == "undefined") 

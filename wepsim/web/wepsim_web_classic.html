@@ -327,13 +327,50 @@
 				 onclick="wsweb_select_action('recordbar');
 					  return false;"><span data-langkey="RecordBar">RecordBar</span></a>
 
-			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
+			      <a class="dropdown-item text-danger" 
+                                  data-toggle="collapse" href="#collapseReset1" 
+			          aria-expanded="false" aria-controls="collapseReset" 
+                                  onclick="var f1 = function(){ $('#select6a').dropdown('toggle'); 
+								$('#select6a').dropdown('update'); };
+                                           setTimeout(f1, 50);
+                                           return false;"><span data-langkey="Reset">Reset</span>...:</a>
+			      <div class="collapse" id="collapseReset1">
+                              <a class="dropdown-item text-danger" href="#" id="selact_rset_config" value="config"
+				 onclick="reset_cfg() ;
+                                          wepsim_notify_success('<strong>INFO</strong>',
+                                                                'Configuration reset done!.') ;
+					  return false;">...<span data-langkey="Config">Config</span></a>
+                              <a class="dropdown-item text-danger" href="#" id="selact_rset_examples" value="examples"
+				 onclick="var ws_examples_index_url = get_cfg('example_url') ;
+                                          load_example_list(ws_examples_index_url) ;
+                                          wepsim_notify_success('<strong>INFO</strong>',
+                                                                'Examples list reset done!.') ;
+					  return false;">...<span data-langkey="Examples">Examples</span></a>
+                              <a class="dropdown-item text-danger" href="#" id="selact_rset_ep" value="ep"
+				 onclick="var ep_url      = 'examples/hardware/ep/hw_def.json' ;
+                                          var ep_def_json = $.getJSON({'url': ep_url, 'async': false}) ;
+                                          simcore_hardware_import(ep_def_json.responseText) ;
+					  wsweb_select_main('ep') ;
+                                          wepsim_notify_success('<strong>INFO</strong>',
+                                                                'EP processor reset done!.') ;
+					  return false;">...<span data-langkey="EP">EP</span></a>
+                              <a class="dropdown-item text-danger" href="#" id="selact_rset_poc" value="poc"
+				 onclick="var poc_url      = 'examples/hardware/poc/hw_def.json' ;
+                                          var poc_def_json = $.getJSON({'url': poc_url, 'async': false}) ;
+                                          simcore_hardware_import(poc_def_json.responseText) ;
+					  wsweb_select_main('poc') ;
+                                          wepsim_notify_success('<strong>INFO</strong>',
+                                                                'POC processor reset done!.') ;
+					  return false;">...<span data-langkey="POC">POC</span></a>
+			      </div>
+
+                              <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
                               <a class="dropdown-item" href="#" id="selact_help" value="help"
-				 onclick="wsweb_select_action('help');
-					  return false;"><span data-langkey="Help">Help</span></a>
+                                 onclick="wsweb_select_action('help');
+                                          return false;"><span data-langkey="Help">Help</span></a>
                               <a class="dropdown-item" href="#" id="selact_intro" value="intro"
-				 onclick="wsweb_select_action('intro');
-					  return false;">Welcome tutorial...</a>
+                                 onclick="wsweb_select_action('intro');
+                                          return false;">Welcome tutorial...</a>
 
 			    </div>
 			</div>
@@ -415,10 +452,7 @@
 			             title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
                                     style="border-color: #CCCCCC;"
 				    id="select5b"
-                                    onclick="wepsim_show_rf_values();
-				             show_memories_values();
-				  	     wepsim_reset_max_turbo();
-					     $('[data-toggle=tooltip]').tooltip('hide');
+                                    onclick="wsweb_select_refresh();
 					     return false;">Refresh</button>
 			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
                                     style="border-color: #CCCCCC;"
@@ -969,7 +1003,9 @@
 			    // init: general
 			    var ws_mode = get_cfg('ws_mode');
 			    wsweb_select_main(ws_mode) ;
-			    simcore_reset();
+                            if (simhw_active() !== null) {
+			        simcore_reset();
+			    }
 
 			    // init: voice
 			    wepsim_voice_init() ;

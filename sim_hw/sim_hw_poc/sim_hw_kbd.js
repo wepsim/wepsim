@@ -23,7 +23,7 @@
 	 *  KBD
 	 */
 
-        poc_components.KBD = {
+        sim.poc.components.KBD = {
 		                  name: "KBD", 
 		                  version: "1", 
 		                  abilities:    [ "KEYBOARD" ], 
@@ -45,10 +45,10 @@
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-                                                    return poc_internal_states.keyboard_content ;
+                                                    return sim.poc.internal_states.keyboard_content ;
                                                },
                                   set_value:   function ( elto, value ) {
-                                                    poc_internal_states.keyboard_content = value ;
+                                                    sim.poc.internal_states.keyboard_content = value ;
 						    return value ;
                                                }
                             	};
@@ -61,24 +61,24 @@
         var KBDR_ID   = 0x0100 ;
         var KBSR_ID   = 0x0104 ;
 
-        poc_internal_states.io_hash[KBDR_ID] = "KBDR" ;
-        poc_internal_states.io_hash[KBSR_ID] = "KBSR" ;
+        sim.poc.internal_states.io_hash[KBDR_ID] = "KBDR" ;
+        sim.poc.internal_states.io_hash[KBSR_ID] = "KBSR" ;
 
 
 	/*
 	 *  Internal States
 	 */
 
-        poc_internal_states.keyboard_content = "" ;
+        sim.poc.internal_states.keyboard_content = "" ;
 
 
         /*
          *  States
          */
 
-        poc_states.KBDR   = { name: "KBDR", verbal: "Keyboard Data Register",
+        sim.poc.states.KBDR   = { name: "KBDR", verbal: "Keyboard Data Register",
                               visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        poc_states.KBSR   = { name: "KBSR", verbal: "Keyboard Status Register",
+        sim.poc.states.KBSR   = { name: "KBSR", verbal: "Keyboard Status Register",
                               visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
@@ -86,7 +86,7 @@
          *  Signals
          */
 
-         poc_signals.KBD_IOR   = { name: "IOR", 
+         sim.poc.signals.KBD_IOR   = { name: "IOR", 
 		                   visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE M1"],
                                    fire_name: ['svg_p:tspan4057'], 
@@ -98,27 +98,27 @@
          *  Syntax of behaviors
          */
 
-        poc_behaviors.KBD_IOR = { nparameters: 6,
+        sim.poc.behaviors.KBD_IOR = { nparameters: 6,
                                         types: ["E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                      var clk    = get_value(sim.poc.states[s_expr[5]]) ;
 
                                                       if ( (bus_ab != KBDR_ID) && (bus_ab != KBSR_ID) ) {
                                                               return; 
                                                       }
 
-						      if (typeof poc_events.keybd[clk] != "undefined")
+						      if (typeof sim.poc.events.keybd[clk] != "undefined")
                                                       {
 						              if (bus_ab == KBDR_ID)
-							          set_value(poc_states[s_expr[2]], poc_events.keybd[clk]);
+							          set_value(sim.poc.states[s_expr[2]], sim.poc.events.keybd[clk]);
 							      if (bus_ab == KBSR_ID)
-								  set_value(poc_states[s_expr[2]], 1);
+								  set_value(sim.poc.states[s_expr[2]], 1);
                                                               return;
                                                       }
 
-                                                      if (get_value(poc_states[s_expr[4]]) == 0) 
+                                                      if (get_value(sim.poc.states[s_expr[4]]) == 0) 
                                                       {
 							      var keybuffer = get_keyboard_content() ;
 							      if (keybuffer.length !== 0) 
@@ -126,45 +126,45 @@
 								  var keybuffer_rest = keybuffer.substr(1, keybuffer.length-1);
 								  set_keyboard_content(keybuffer_rest) ;
 
-								  set_value(poc_states[s_expr[4]], 1);
-								  set_value(poc_states[s_expr[3]], keybuffer[0].charCodeAt(0));
+								  set_value(sim.poc.states[s_expr[4]], 1);
+								  set_value(sim.poc.states[s_expr[3]], keybuffer[0].charCodeAt(0));
 							      }
                                                       }
-                                                      if (get_value(poc_states[s_expr[4]]) == 1) 
+                                                      if (get_value(sim.poc.states[s_expr[4]]) == 1) 
                                                       {
-						              poc_events.keybd[clk] = get_value(poc_states[s_expr[3]]) ;
+						              sim.poc.events.keybd[clk] = get_value(sim.poc.states[s_expr[3]]) ;
                                                       }
 
 						      if (bus_ab == KBSR_ID) {
-							      set_value(poc_states[s_expr[2]], get_value(poc_states[s_expr[4]]));
+							      set_value(sim.poc.states[s_expr[2]], get_value(sim.poc.states[s_expr[4]]));
 						      }
 						      if (bus_ab == KBDR_ID) {
-							      if (get_value(poc_states[s_expr[4]]) == 1) 
-							          set_value(poc_states[s_expr[2]], get_value(poc_states[s_expr[3]]));
-							      set_value(poc_states[s_expr[4]], 0);
+							      if (get_value(sim.poc.states[s_expr[4]]) == 1) 
+							          set_value(sim.poc.states[s_expr[2]], get_value(sim.poc.states[s_expr[3]]));
+							      set_value(sim.poc.states[s_expr[4]], 0);
 						      }
                                                    },
                                            verbal: function (s_expr) 
                                                    {
 					              var verbal = "" ;
 
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
+                                                      var clk    = get_value(sim.poc.states[s_expr[5]]) ;
 
 						      if (bus_ab == KBDR_ID)
-                                                          verbal = "Read the screen data: " + poc_states[s_expr[2]] + ". " ;
+                                                          verbal = "Read the screen data: " + sim.poc.states[s_expr[2]] + ". " ;
 						      if (bus_ab == KBSR_ID)
-                                                          verbal = "Read the screen state: " + poc_states[s_expr[2]] + ". " ;
+                                                          verbal = "Read the screen state: " + sim.poc.states[s_expr[2]] + ". " ;
 
 					              return verbal ;
                                                    }
                                    } ;
 
-        poc_behaviors.KBD_RESET  = { nparameters: 1,
+        sim.poc.behaviors.KBD_RESET  = { nparameters: 1,
                                        operation: function (s_expr) 
                                                   {
 						     // reset events.keybd
-                                                     poc_events.keybd = {} ;
+                                                     sim.poc.events.keybd = {} ;
                                                   },
                                           verbal: function (s_expr) 
                                                   {

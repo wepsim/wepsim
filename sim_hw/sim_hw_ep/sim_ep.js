@@ -20,21 +20,7 @@
 
 
         /*
-         *  Elemental Processor: Internal
-         */
-
-        /* Abstraction */
-        var ep_components      = {} ;
-        var ep_states          = {} ;
-        var ep_events          = {} ;
-        var ep_signals         = {} ;
-        var ep_behaviors       = {} ;
-        var ep_internal_states = {} ;
-        var ep_ctrl_states     = {} ;
-
-
-        /*
-         *  Elemental Processor: Public
+         *  Elemental Processor
          */
 
         var ep_def = {
@@ -44,14 +30,14 @@
                        sim_img_controlunit: "examples/hardware/ep/images/controlunit.svg",
                        sim_img_cpu:         "examples/hardware/ep/images/cpu.svg",
 
-                       components:          ep_components,
-                       states:              ep_states,
-                       signals:             ep_signals,
-                       behaviors:           ep_behaviors,
-                       events:              ep_events,
+                       components:          {},
+                       states:              {},
+                       signals:             {},
+                       behaviors:           {},
+                       events:              {},
 
-                       internal_states:     ep_internal_states,
-                       ctrl_states:         ep_ctrl_states
+                       internal_states:     {},
+                       ctrl_states:         {}
 	             } ;
 
             simhw_add(ep_def) ;

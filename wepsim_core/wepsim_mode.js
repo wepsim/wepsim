@@ -47,7 +47,9 @@
 	    if (ws_modes.includes(optValue))
                  hwid = simhw_getIdByName('ep') ;
 	    else hwid = simhw_getIdByName(optValue) ;
-            wepsim_activehw(hwid) ;
+
+            if (hwid != -1)
+                wepsim_activehw(hwid) ;
 
 	    // show/hide microcode...
             wepsim_activeview('only_asm', false) ;
