@@ -131,18 +131,46 @@
 
     // hardware
 
-    function wepsim_load_hw ( )
+    var ws_hw_hash = {} ;
+
+    function wepsim_hw_init ( )
     {
-/*
-	    // load hardware...
-	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(ep_def_json.responseText) ;
+         var url_list = 'examples/hardware/hw.json' ;
+         var jindex = [] ;
+      // var jobj   = {} ;
 
-	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(poc_def_json.responseText) ;
-*/
+         // try to load the index
+         jindex = simcore_getJsonObj(url_list) ;
 
-	    return true ;
+         // try to load each one
+         for (var i=0; i<jindex.length; i++)
+         {
+	    //jobj = $.getJSON({'url': jindex[i].url, 'async': false}) ;
+            //simcore_hardware_import(jobj.responseText) ;
+              ws_hw_hash[jindex[i].name] = jindex[i].url ;
+         }
+
+	 // load hardware...
+	 simcore_init_hw('ep') ;
+
+         return true ;
+    }
+
+    function wepsim_hw_loadByUrl ( p_name )
+    {
+         if (typeof ws_hw_hash[p_name] === "undefined") {
+             return false ;
+         }
+
+         // try to load the requested one
+	 var jobj = $.getJSON({'url': ws_hw_hash[p_name], 'async': false}) ;
+	 simcore_hardware_import(jobj.responseText) ;
+
+	 wsweb_select_main(p_name) ;
+	 wepsim_notify_success('<strong>INFO</strong>', 
+			       p_name.toUpperCase + ' processor reset done!.') ;
+
+         return true ;
     }
 
     // wepsim_activehw: UI handlers

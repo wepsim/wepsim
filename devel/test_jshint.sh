@@ -31,6 +31,7 @@ set -x
  jshint ./sim_core/sim_cfg.js
 #jshint ./sim_core/sim_core_record.js
 #jshint ./sim_core/sim_core_ctrl.js
+ jshint ./sim_core/sim_core_json.js
  jshint ./sim_core/sim_core_rest.js
 
  jshint ./sim_sw/sim_lang.js

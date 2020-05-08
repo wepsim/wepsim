@@ -334,35 +334,18 @@
     // Load the example list
     //
 
-    function load_example_json ( url_example )
-    {
-       var jstr = {} ;
-       var jobj = [] ;
-
-       try {
-           jstr = $.getJSON({'url': url_example, 'async': false}) ;
-           jobj = JSON.parse(jstr.responseText) ;
-       }
-       catch (e) {
-           ws_alert("Unable to load '" + url_example + "': " + e + ".\n") ;
-           jobj = [] ;
-       }
-
-       return jobj ;
-    }
-
     function load_example_list ( url_example_list )
     {
        var jobj   = null ;
        var jindex = null ;
 
        // try to load the index
-       jindex = load_example_json(url_example_list) ;
+       jindex = simcore_getJsonObj(url_example_list) ;
 
        // try to load each one
        for (var i=0; i<jindex.length; i++) 
        {
-            jobj = load_example_json(jindex[i].url) ;
+            jobj = simcore_getJsonObj(jindex[i].url) ;
 	    ws_examples = ws_examples.concat(jobj) ;
        }
 

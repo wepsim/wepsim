@@ -67,6 +67,7 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
     sim_core/sim_core_voice.js \
+    sim_core/sim_core_json.js \
     sim_core/sim_core_rest.js \
     sim_core/sim_core_notify.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
@@ -246,4 +247,8 @@ echo "ws_dist/*.sh"
 cp   docs/manifest.webapp         ws_dist/
 cp wepsim/nodejs/wepsim_node.sh   ws_dist/
 chmod a+x ws_dist/*.sh
+
+#  hardware as json
+./ws_dist/wepsim_node.sh  export-hardware ep  > ws_dist/examples/hardware/ep/hw_def.json
+./ws_dist/wepsim_node.sh  export-hardware poc > ws_dist/examples/hardware/poc/hw_def.json
 
