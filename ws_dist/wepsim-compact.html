@@ -684,8 +684,7 @@
             }
 
 	    // initialization of wepsim...
-            wepsim_load_hw() ;
-	    simcore_init_hw('ep') ;
+            wepsim_hw_init() ;
 
 	    // ...after jquery-ready
 	    $(document).ready(function()
