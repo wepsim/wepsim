@@ -247,3 +247,7 @@ cp   docs/manifest.webapp         ws_dist/
 cp wepsim/nodejs/wepsim_node.sh   ws_dist/
 chmod a+x ws_dist/*.sh
 
+#  hardware as json
+./ws_dist/wepsim_node.sh  export-hardware ep  > ws_dist/examples/hardware/ep/hw_def.json
+./ws_dist/wepsim_node.sh  export-hardware poc > ws_dist/examples/hardware/poc/hw_def.json
+

@@ -334,35 +334,23 @@
     // Load the example list
     //
 
-    function load_example_json ( url_example )
+    function wepsim_example_reset ( )
     {
-       var jstr = {} ;
-       var jobj = [] ;
-
-       try {
-           jstr = $.getJSON({'url': url_example, 'async': false}) ;
-           jobj = JSON.parse(jstr.responseText) ;
-       }
-       catch (e) {
-           ws_alert("Unable to load '" + url_example + "': " + e + ".\n") ;
-           jobj = [] ;
-       }
-
-       return jobj ;
+       ws_examples = [] ;
     }
 
-    function load_example_list ( url_example_list )
+    function wepsim_example_loadList ( url_example_list )
     {
        var jobj   = null ;
        var jindex = null ;
 
        // try to load the index
-       jindex = load_example_json(url_example_list) ;
+       jindex = wepsim_url_getJSON(url_example_list) ;
 
        // try to load each one
        for (var i=0; i<jindex.length; i++) 
        {
-            jobj = load_example_json(jindex[i].url) ;
+            jobj = wepsim_url_getJSON(jindex[i].url) ;
 	    ws_examples = ws_examples.concat(jobj) ;
        }
 

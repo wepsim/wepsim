@@ -2,10 +2,12 @@
 # Changelog
 
 ## 2.0.12 -> 2.1.0:
-* Simplify UI
-* Dialog-boxes re-designed from scratch
-* Knockout   updated to knockout-3.5.1
-* CodeMirror updated to codemirror-5.52.2
+* Improvements:
+  * Dialog-boxes re-designed from scratch
+  * Reset (for examples, configuration and processors) added
+* Updates:
+  * Knockout   updated to knockout-3.5.1
+  * CodeMirror updated to codemirror-5.52.2
 * Fix several minor bugs
 
 ## 2.0.11 -> 2.0.12:
