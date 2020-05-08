@@ -25,9 +25,19 @@ checks:
     config:
       threshold: 64
   similar-code:
-    enabled: false
+    enable: false
+    config:
+       threshold: 350
   identical-code:
-    enabled: false
+    enable: false
+    config:
+       threshold: 350
+engines:
+  duplication:
+    enable: false
+plugins:
+  duplication:
+    enable: false
 exclude_patterns:
   - "images/"
   - "docs/"

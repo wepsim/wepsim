@@ -140,7 +140,7 @@
       // var jobj   = {} ;
 
          // try to load the index
-         jindex = simcore_getJsonObj(url_list) ;
+         jindex = wepsim_url_getJSON(url_list) ;
 
          // try to load each one
          for (var i=0; i<jindex.length; i++)
@@ -156,7 +156,9 @@
          return true ;
     }
 
-    function wepsim_hw_loadByUrl ( p_name )
+    // reset
+
+    function wepsim_reset_hw ( p_name )
     {
          if (typeof ws_hw_hash[p_name] === "undefined") {
              return false ;
@@ -165,10 +167,7 @@
          // try to load the requested one
 	 var jobj = $.getJSON({'url': ws_hw_hash[p_name], 'async': false}) ;
 	 simcore_hardware_import(jobj.responseText) ;
-
 	 wsweb_select_main(p_name) ;
-	 wepsim_notify_success('<strong>INFO</strong>', 
-			       p_name.toUpperCase + ' processor reset done!.') ;
 
          return true ;
     }
@@ -577,6 +576,6 @@
 
 	    // load examples
             var ws_examples_index_url = get_cfg('example_url') ;
-            load_example_list(ws_examples_index_url) ;
+            wepsim_example_loadList(ws_examples_index_url) ;
     }
 

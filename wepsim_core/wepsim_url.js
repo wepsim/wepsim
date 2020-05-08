@@ -205,3 +205,20 @@
 	}
     }
 
+    function wepsim_url_getJSON ( url_json )
+    {
+       var jstr = {} ;
+       var jobj = [] ;
+
+       try {
+           jstr = $.getJSON({'url': url_json, 'async': false}) ;
+           jobj = JSON.parse(jstr.responseText) ;
+       }
+       catch (e) {
+           ws_alert("Unable to load '" + url_json + "': " + e + ".\n") ;
+           jobj = [] ;
+       }
+
+       return jobj ;
+    }
+

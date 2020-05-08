@@ -334,18 +334,23 @@
     // Load the example list
     //
 
-    function load_example_list ( url_example_list )
+    function wepsim_example_reset ( )
+    {
+       ws_examples = [] ;
+    }
+
+    function wepsim_example_loadList ( url_example_list )
     {
        var jobj   = null ;
        var jindex = null ;
 
        // try to load the index
-       jindex = simcore_getJsonObj(url_example_list) ;
+       jindex = wepsim_url_getJSON(url_example_list) ;
 
        // try to load each one
        for (var i=0; i<jindex.length; i++) 
        {
-            jobj = simcore_getJsonObj(jindex[i].url) ;
+            jobj = wepsim_url_getJSON(jindex[i].url) ;
 	    ws_examples = ws_examples.concat(jobj) ;
        }
 

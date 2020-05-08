@@ -341,16 +341,21 @@
                                                                 'Configuration reset done!.') ;
 					  return false;">...<span data-langkey="Config">Config</span></a>
                               <a class="dropdown-item text-danger" href="#" id="selact_rset_examples" value="examples"
-				 onclick="var ws_examples_index_url = get_cfg('example_url') ;
-                                          load_example_list(ws_examples_index_url) ;
+				 onclick="wepsim_example_reset() ;
+                                          var ws_examples_index_url = get_cfg('example_url') ;
+                                          wepsim_example_loadList(ws_examples_index_url) ;
                                           wepsim_notify_success('<strong>INFO</strong>',
                                                                 'Examples list reset done!.') ;
 					  return false;">...<span data-langkey="Examples">Examples</span></a>
                               <a class="dropdown-item text-danger" href="#" id="selact_rset_ep" value="ep"
-				 onclick="wepsim_hw_loadByUrl('ep') ;
+				 onclick="wepsim_reset_hw('ep') ;
+					  wepsim_notify_success('<strong>INFO</strong>', 
+							        'EP processor reset done!.') ;
 					  return false;">...<span data-langkey="EP">EP</span></a>
                               <a class="dropdown-item text-danger" href="#" id="selact_rset_poc" value="poc"
-				 onclick="wepsim_hw_loadByUrl('poc') ;
+				 onclick="wepsim_reset_hw('poc') ;
+					  wepsim_notify_success('<strong>INFO</strong>', 
+							        'POC processor reset done!.') ;
 					  return false;">...<span data-langkey="POC">POC</span></a>
 			      </div>
 
