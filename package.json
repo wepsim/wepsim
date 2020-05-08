@@ -4,7 +4,7 @@
   "author": "acaldero@inf.uc3m.es",
   "version": "1.1.8",
   "devDependencies": {
-    "jshint": "^2.10.0"
+    "jshint": "^2.10.0",
     "terser": "^4.6.0"
   },
   "scripts": {
