@@ -244,7 +244,7 @@
 
 	           /* misc. */
                    "verbal_verbose":       { upgrade:false, type:"string",    value:'math' },
-                   "base_url":             { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/' },
+                   "base_url":             { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/ws_dist/' },
                    "example_url":          { upgrade:true,  type:"string",    value:'examples/examples_set/default.json' },
                    "hw_url":               { upgrade:true,  type:"string",    value:'examples/hardware/hw.json' }
              } ;
