@@ -135,7 +135,7 @@
 
     function wepsim_hw_init ( )
     {
-         var url_list = 'examples/hardware/hw.json' ;
+         var url_list = get_cfg('hw_url') ;
          var jindex = [] ;
       // var jobj   = {} ;
 
