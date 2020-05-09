@@ -154,7 +154,7 @@
             }
 
             // update new fields
-            if (wscfg.build.value !== WSCFG.build.value) 
+            if (wscfg.build.value != WSCFG.build.value) 
             {
                 for (item in wscfg)
                 {
@@ -196,7 +196,7 @@
              var wscfg = {
                    /* version */
                    "version":              { upgrade:false, type:"string",    value:"2.1.0" },
-                   "build":                { upgrade:true,  type:"string",    value:"2.1.0.20200425A" },
+                   "build":                { upgrade:true,  type:"string",    value:"2.1.0.20200502B" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":    { upgrade:false, type:"string",    value:"#0066FF" },
@@ -244,8 +244,9 @@
 
 	           /* misc. */
                    "verbal_verbose":       { upgrade:false, type:"string",    value:'math' },
-                   "base_url":             { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/' },
-                   "example_url":          { upgrade:true,  type:"string",    value:'examples/apps.json' }
+                   "base_url":             { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/ws_dist/' },
+                   "example_url":          { upgrade:true,  type:"string",    value:'examples/examples_set/default.json' },
+                   "hw_url":               { upgrade:true,  type:"string",    value:'examples/hardware/hw.json' }
              } ;
 
              // some mobile-tuning

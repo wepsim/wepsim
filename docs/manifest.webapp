@@ -9,13 +9,13 @@
   },
   "developer": {
     "name": "Alejandro Calderon Mateos",
-    "url": "http://acaldero.github.io/wepsim/"
+    "url": "https://acaldero.github.io/wepsim/"
   },
   "locales": {
     "en": {
       "description": "The Web Elemental Processor Simulator",
       "developer": {
-        "url": "http://acaldero.github.io/wepsim/"
+        "url": "https://acaldero.github.io/wepsim/"
       }
     }
   },

@@ -34,6 +34,20 @@
 	        o += '<li>Mode set to <strong>' + hash.mode + '</strong>.</li> ' ;
 	    }
 
+	    // parameter: example set
+	    if (hash.examples_set !== '')
+	    {
+                var url_examples_set = get_cfg('example_url') ;
+                var ret = wepsim_example_loadSet(url_examples_set, hash.examples_set) ;
+
+	        var result_txt = ' has been loaded' ;
+                if (ret != null) {
+	            result_txt = ' could not be loaded' ;
+		}
+
+	        o += '<li>Examples set titled <strong>' + hash.examples_set + '</strong>' + result_txt + '.</li>';
+	    }
+
 	    // parameter: example
 	    if (hash.example !== '')
 	    {
@@ -120,37 +134,28 @@
 
     function wepsim_preload_get ( parameters, id_filename, id_tagname )
     {
+            var hash_fields = [ 'preload', 'mode', 'examples_set', 'example', 
+                                'simulator', 'notify', 'checkpoint' ] ;
 	    var hash = {} ;
 	    var uri_obj = null ;
 
-	    // check params
+	    // 1.- check params
 	    if (typeof parameters === "undefined") {
 		return ;
 	    }
 
-	    // 1.a.- get parameters
-	    hash.preload    = parameters.get('preload') ;
-	    hash.mode       = parameters.get('mode') ;
-	    hash.example    = parameters.get('example') ;
-	    hash.simulator  = parameters.get('simulator') ;
-	    hash.notify     = parameters.get('notify') ;
-	    hash.checkpoint = parameters.get('checkpoint') ;
+	    // 2.- get parameters
+            for (i=0; i<hash_fields.length; i++) 
+            {
+                 hash[hash_fields[i]] = parameters.get(hash_fields[i]) ;
 
-	    // 1.b.- overwrite null with default values
-	    if (hash.preload   === null)
-	        hash.preload    = '' ;
-	    if (hash.mode      === null)
-	        hash.mode       = '' ;
-	    if (hash.example   === null)
-	        hash.example    = '' ;
-	    if (hash.simulator === null)
-	        hash.simulator  = '' ;
-	    if (hash.notify    === null)
-	        hash.notify     = 'true' ;
-	    if (hash.checkpoint === null)
-	        hash.checkpoint = '' ;
+	         // overwrite null with default values
+                 if (hash[hash_fields[i]] === null) {
+                     hash[hash_fields[i]] = '' ;
+                 }
+            }
 	
-	    // 1.c.- get parameters from json
+	    // 3.- get parameters from json
 	    if (hash.preload !== '')
 	    {
 		try {
@@ -162,10 +167,10 @@
 		return ;
 	    }
 
-	    // 2.- hash
+	    // 4.- hash
 	    wepsim_preload_hash(hash) ;
 
-	    // 3.- checkpoint
+	    // 5.- checkpoint
 	    if (hash.checkpoint !== '')
 	    {
 		uri_obj = new URL(hash.checkpoint) ;

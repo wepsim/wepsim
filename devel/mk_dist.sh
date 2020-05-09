@@ -1,5 +1,4 @@
 #!/bin/sh
-set -x
 
 
 #*
@@ -22,8 +21,22 @@ set -x
 #*
 
 
+# welcome
+echo ""
+echo "  WepSIM packer"
+echo " ---------------"
+echo ""
+echo "  Requirements:"
+echo "  * terser"
+echo "  * jq"
+echo ""
+if [ $# -gt 0 ]; then
+     set -x
+fi
+
 # skeleton
-echo "ws_dist"
+echo "  Packing:"
+echo "  * ws_dist"
                     mkdir -p ws_dist
                     touch    ws_dist/index.html
                     mkdir -p ws_dist/external
@@ -33,7 +46,7 @@ cp external/jquery.min.js    ws_dist/external
                     touch    ws_dist/help/index.html
 
 #  hardware model + software model + core (simulation ctrl + UI)
-echo "ws_dist/min.sim_all.js"
+echo "  * ws_dist/min.sim_all.js"
 cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
     sim_hw/sim_hw_behavior.js \
@@ -73,7 +86,7 @@ terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
 
 #  WepSIM internalization (i18n)
-echo "ws_dist/help/..."
+echo "  * ws_dist/help/..."
 cat wepsim_i18n/i18n.js > ws_dist/wepsim_i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
 cat wepsim_i18n/$LANG/gui.js \
@@ -92,7 +105,7 @@ terser -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
 rm -fr ws_dist/wepsim_i18n.js
 
 #  WepSIM web
-echo "ws_dist/min.wepsim_core.js"
+echo "  * ws_dist/min.wepsim_core.js"
 cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_clipboard.js \
     wepsim_core/wepsim_preload.js \
@@ -148,7 +161,7 @@ cat ws_dist/min.sim_all.js \
     wepsim/web/wepsim_web_simulator.js > ws_dist/min.wepsim_web.js
 
 #  WepSIM nodejs engine
-echo "ws_dist/min.wepsim_node.js"
+echo "  * ws_dist/min.wepsim_node.js"
 echo "class HTMLElement { }" > ws_dist/min.dummy.js
 cat ws_dist/min.dummy.js \
     ws_dist/min.sim_all.js \
@@ -160,7 +173,7 @@ cat ws_dist/min.dummy.js \
 rm -fr ws_dist/min.dummy.js
 
 #  external
-echo "ws_dist/min.external.js"
+echo "  * ws_dist/min.external.js"
 cat external/knockout-3.5.1.js \
     external/popper.min.js \
     external/bootstrap.min.js \
@@ -197,7 +210,7 @@ cat external/knockout-3.5.1.js \
     external/fontawesome/brands.min.js \
     external/fontawesome/solid.min.js | grep -v sourceMappingURL > ws_dist/min.external.js
 
-echo "ws_dist/min.external.css"
+echo "  * ws_dist/min.external.css"
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
     external/dark-mode.css \
@@ -215,7 +228,7 @@ cat external/bootstrap.min.css \
     external/fontawesome/all.css \
     external/css-tricks.css | grep -v sourceMappingURL > ws_dist/min.external.css
 
-echo "ws_dist/external/..."
+echo "  * ws_dist/external/..."
 mkdir -p ws_dist/external/fontawesome/
    touch ws_dist/external/fontawesome/index.html
 cp    -a external/fontawesome/webfonts  ws_dist/external/fontawesome
@@ -226,28 +239,39 @@ cp    -a external/speechkitt            ws_dist/external/
                                   touch ws_dist/external/speechkitt/index.html
 cp    -a external/cordova.js            ws_dist/external/cordova.js
 
-#  examples, docs, etc.
-echo "ws_dist/examples/..."
+#  exmaples
+jq 'reduce inputs as $i (.; . += $i)' examples/examples_set/apps_*.json > examples/examples_set/default_packed.json
+echo '[ { "name": "default", "url": "examples/examples_set/default_packed.json" } ]' > examples/examples_set/default.json
+   cp examples/examples_set/default.json examples/apps.json
+echo "  * ws_dist/examples/..."
 cp -a examples  ws_dist/
-echo "ws_dist/docs/..."
+
+#  docs
+echo "  * ws_dist/docs/..."
 cp -a docs      ws_dist/
-echo "ws_dist/images/..."
+
+#  images
+echo "  * ws_dist/images/..."
 cp -a images    ws_dist/
 
 #  user interface
-echo "ws_dist/*.html"
+echo "  * ws_dist/*.html"
 cp   wepsim/web/wepsim_web_classic.html   ws_dist/index.html
 cp   wepsim/web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
 cp   wepsim/web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
 cp   wepsim/web/wepsim_web_null.html      ws_dist/wepsim-null.html
 cp   wepsim/web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
-echo "ws_dist/*.sh"
+echo "  * ws_dist/*.sh"
 cp   docs/manifest.webapp         ws_dist/
 cp wepsim/nodejs/wepsim_node.sh   ws_dist/
 chmod a+x ws_dist/*.sh
 
-#  hardware as json
+#  json: update processors
 ./ws_dist/wepsim_node.sh  export-hardware ep  > ws_dist/examples/hardware/ep/hw_def.json
 ./ws_dist/wepsim_node.sh  export-hardware poc > ws_dist/examples/hardware/poc/hw_def.json
+
+# the end
+echo ""
+echo "  WepSIM packed in ws_dist (if no error was shown)."
 
