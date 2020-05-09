@@ -19,10 +19,65 @@
  */
 
 
+    /*
+     * Example set management
+     */
+
     var ws_examples = [] ;
 
+    function wepsim_example_reset ( )
+    {
+       ws_examples = [] ;
+    }
+
+    function wepsim_example_loadList ( url_example_list )
+    {
+       var jobj   = null ;
+       var jindex = null ;
+
+       // try to load the index
+       jindex = wepsim_url_getJSON(url_example_list) ;
+
+       // try to load each one
+       for (var i=0; i<jindex.length; i++)
+       {
+            if (typeof jindex[i].url === "undefined") { 
+                continue ;
+            }
+
+            jobj = wepsim_url_getJSON(jindex[i].url) ;
+	    ws_examples = ws_examples.concat(jobj) ;
+       }
+
+       return ws_examples ;
+    }
+
+    function wepsim_example_loadSet ( url_example_set, set_name )
+    {
+       var jindex = null ;
+
+       // try to load the set
+       jindex = wepsim_url_getJSON(url_example_set) ;
+
+       // try to load each one
+       for (var i=0; i<jindex.length; i++)
+       {
+            if (typeof jindex[i].url === "undefined") { 
+                continue ;
+            }
+
+            if (jindex[i].name == set_name) {
+                wepsim_example_loadList(jindex[i].url) ;
+                return ws_examples ;
+            }
+       }
+
+       return null ;
+    }
+
+
     /*
-     * Example management
+     * Example UI management
      */
 
     function load_from_example_assembly ( example_id, chain_next_step )
@@ -328,32 +383,5 @@
 
        o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
        return o ;
-    }
-
-    //
-    // Load the example list
-    //
-
-    function wepsim_example_reset ( )
-    {
-       ws_examples = [] ;
-    }
-
-    function wepsim_example_loadList ( url_example_list )
-    {
-       var jobj   = null ;
-       var jindex = null ;
-
-       // try to load the index
-       jindex = wepsim_url_getJSON(url_example_list) ;
-
-       // try to load each one
-       for (var i=0; i<jindex.length; i++) 
-       {
-            jobj = wepsim_url_getJSON(jindex[i].url) ;
-	    ws_examples = ws_examples.concat(jobj) ;
-       }
-
-       return ws_examples ;
     }
 

@@ -1,18 +1,1 @@
-[ 
-   { 
-      "name": "poc_mips",
-      "url": "examples/apps_poc_mips.json"
-   },
-   { 
-      "name": "ep_rv32",
-      "url": "examples/apps_ep_rv32.json"
-   },
-   { 
-      "name": "ep_mips",
-      "url": "examples/apps_ep_mips.json"
-   },
-   { 
-      "name": "ep_z80",
-      "url": "examples/apps_ep_z80.json" 
-   }
-]
+[ { "name": "default", "url": "examples/examples_set/default_packed.json" } ]
