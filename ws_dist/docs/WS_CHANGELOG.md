@@ -6,6 +6,7 @@
   * Dialog-boxes re-designed from scratch
   * Reset (for examples, configuration and processors) added
 * Updates:
+  * Bootstrap  updated to bootstrap-4.5.0
   * Knockout   updated to knockout-3.5.1
   * CodeMirror updated to codemirror-5.52.2
 * Fix several minor bugs
