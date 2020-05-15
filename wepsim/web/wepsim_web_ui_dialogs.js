@@ -1016,6 +1016,97 @@
 
 				 simcore_record_captureInit() ;
 			 }
+         },
+
+	 // reload
+         reload: {
+            id:      "reload1",
+	    title:    function() {
+                          return wepsim_config_dialog_title("Reload",
+                                                            "danger",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		      },
+            body:    function() {
+		        return '<div id="scroller-reload1" class="row m-0">' +
+		               '<div class="col-12 col-sm-4 p-3">' +
+			       '  <div class="card border-secondary h-100">' +
+			       '    <div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
+			       '      <h5><span data-langkey="Configuration">Configuration</span></h5>' +
+			       '    </div>' +
+			       '    <div class="card-body">' +
+			       '      <p class="card-text">' +
+			       '         <a class="btn border-secondary text-danger w-100" href="#" value="config"' +
+			       '	    onclick="reset_cfg() ;' +
+			       '		     wepsim_notify_success(\'<strong>INFO</strong>\',' +
+			       '		  			   \'Configuration reloaded!.\') ;' +
+			       '		     return false;"><span data-langkey="Default">Default</span></a>' +
+		    	       '      </p>' +
+			       '    </div>' +
+			       '  </div>' +
+			       '</div>' +
+		               '<div class="col-12 col-sm-4 p-3">' +
+			       '  <div class="card border-secondary h-100">' +
+			       '    <div class="card-header text-white bg-secondary p-1 text-center">' +
+			       '      <h5><span data-langkey="Examples">Examples</span></h5>' +
+			       '    </div>' +
+			       '    <div class="card-body">' +
+			       '      <p class="card-text">' +
+			       '	 <a class="btn border-secondary text-danger w-100" href="#" value="examples"' +
+			       '	    onclick="wepsim_example_reset() ;' +
+			       '		     var ws_examples_index_url = get_cfg(\'example_url\') ;' +
+			       '		     wepsim_example_loadList(ws_examples_index_url) ;' +
+			       '		     wepsim_notify_success(\'<strong>INFO</strong>\',' +
+			       '					   \'Examples list reloaded!.\') ;' +
+			       '		  return false;"><span data-langkey="Default">Default</span></a>' +
+			       '      </p>' +
+			       '    </div>' +
+			       '  </div>' +
+			       '</div>' +
+		               '<div class="col-12 col-sm-4 p-3">' +
+			       '  <div class="card border-secondary h-100">' +
+			       '    <div class="card-header text-white bg-secondary p-1 text-center">' +
+			       '      <h5><span data-langkey="Processor">Processor</span></h5>' +
+			       '    </div>' +
+			       '    <div class="card-body">' +
+			       '      <div class="btn-group-vertical w-100" role="group" aria-label="EP+POC">' +
+			       '	<button class="text-danger btn border-secondary m-1" type="button" value="ep"' +
+			       '	   onclick="wepsim_reset_hw(\'ep\') ;' +
+			       '		    wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+			       '					  \'EP processor reloaded!.\') ;' +
+			       '		    return false;"><span data-langkey="EP">EP</span></button>' +
+			       '	<button class="text-danger btn border-secondary m-1" type="button" value="poc"' +
+			       '	   onclick="wepsim_reset_hw(\'poc\') ;' +
+			       '		    wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+			       '				          \'POC processor reloaded!.\') ;' +
+			       '		    return false;"><span data-langkey="POC">POC</span></button>' +
+			       '      </div>' +
+			       '    </div>' +
+			       '  </div>' +
+			       '</div>' +
+			       '</div>' ;
+		     },
+	    buttons: {
+			OK: {
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('reload') ;
+				           }
+			     }
+	             },
+            size:    'large',
+            onshow:  function() {
+			 $('div.wsversion').replaceWith(get_cfg('version')) ;
+
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide');
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-reload1') ;
+			 simcore_record_captureInit() ;
+		     }
          }
 
     } ;
