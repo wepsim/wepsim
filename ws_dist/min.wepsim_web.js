@@ -527,7 +527,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
 			   callback:  function() {
 		         		 // reset
 					 reset_cfg() ;
-                               	         wepsim_notify_success('<strong>INFO</strong>', 
+                               	         wepsim_notify_success('<strong>INFO</strong>',
                      					       'Configuration reset done!.') ;
 
 		         		 // ui elements
@@ -549,7 +549,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
             size:    'large',
             onshow:  function() {
 		         // ui elements
-			 try 
+			 try
                          {
 			     for (m=0; m<ws_config.length; m++)
 			          ws_config[m].code_init() ;
@@ -861,7 +861,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
 	             },
             size:    'large',
             onshow:  function() {
-                         if (simhw_active() !== null) 
+                         if (simhw_active() !== null)
                          {
 		             // update state
 		             $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
@@ -1016,6 +1016,88 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
 
 				 simcore_record_captureInit() ;
 			 }
+         },
+
+	 // reload
+         reload: {
+            id:      "reload1",
+	    title:    function() {
+                          return wepsim_config_dialog_title("Reload",
+                                                            "danger",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		      },
+            body:    function() {
+                       var card_begin = function ( title ) {
+				         var o = '<div class="col-12 col-sm-4 p-3">' +
+					         '<div class="card border-secondary h-100">' +
+					         '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
+					         '<h5><span data-langkey="' +title+ '">' +title+ '</span></h5>' +
+			                         '</div>' ;
+				         return o ;
+                                      } ;
+                       var card_end = function ( ) {
+				         return '</div>' +
+				                '</div>' ;
+                                      } ;
+
+		       var o = '<div id="scroller-reload1" class="row m-0">' +
+                               card_begin('Configuration') +
+			       ' <div class="card-body">' +
+			       '     <a class="btn border-secondary text-danger w-100" href="#" value="config"' +
+			       '	onclick="reset_cfg() ;' +
+			       '		 wepsim_notify_success(\'<strong>INFO</strong>\',' +
+			       '		  		       \'Configuration reloaded!.\') ;' +
+			       '		 return false;"><span data-langkey="Default">Default</span></a>' +
+			       ' </div>' +
+                               card_end() +
+                               card_begin('Examples') +
+			       ' <div class="card-body">' +
+			       '     <a class="btn border-secondary text-danger w-100" href="#" value="examples"' +
+			       '	onclick="wepsim_example_reset() ;' +
+			       '		 var ws_examples_index_url = get_cfg(\'example_url\') ;' +
+			       '		 wepsim_example_loadList(ws_examples_index_url) ;' +
+			       '		 wepsim_notify_success(\'<strong>INFO</strong>\',' +
+			       '				       \'Examples list reloaded!.\') ;' +
+			       '		 return false;"><span data-langkey="Default">Default</span></a>' +
+			       ' </div>' +
+                               card_end() +
+                               card_begin('Processor') +
+			       ' <div class="card-body">' +
+			       ' <div class="btn-group-vertical w-100" role="group" aria-label="EP+POC">' ;
+		     for (var e_hw in ws_hw_hash) {
+			  o += '   <button class="text-danger btn border-secondary m-1" type="button" value="ep"' +
+			       '	   onclick="wepsim_reset_hw(\'' + e_hw + '\') ;' +
+			       '		    wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+			       '				          \'' + e_hw +' processor reloaded!.\') ;'+
+			       '		    return false;">' + e_hw.toUpperCase() + '</button>' ;
+		     }
+			  o += ' </div>' +
+			       ' </div>' +
+                               card_end() +
+			       '</div>' ;
+
+		        return o ;
+		     },
+	    buttons: {
+			OK: {
+				label:     '<i class="fa fa-times mr-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-right shadow-none",
+			        callback:  function() {
+    					      wsweb_dialog_close('reload') ;
+				           }
+			     }
+	             },
+            size:    'large',
+            onshow:  function() {
+			 // uicfg and events
+			 $('[data-toggle=tooltip]').tooltip('hide');
+			 wepsim_restore_uicfg() ;
+
+			 wsweb_scroll_record('#scroller-reload1') ;
+			 simcore_record_captureInit() ;
+		     }
          }
 
     } ;
@@ -1171,28 +1253,17 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
 			"    </div>" +
 			'</li>' ;
 
-	/*
 		   o += '<li class="list-group-item px-0"> ' +
-			'<label><span data-langkey="assembly only">assembly only</span>:</label>' +
-			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-			"        <label id='label16-true'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Assembly only: true' " +
-			"               onclick=\"wepsim_activeview('only_asm', true) ; " +
-			"                         return false;\">" +
-			"            <input type='radio' name='options' id='radio16-true'  aria-label='Assembly only: true'  autocomplete='off' >On" +
-			"        </label>" +
-			"        <label id='label16-false'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Assembly only: true' " +
-			"               onclick=\"wepsim_activeview('only_asm', false) ; " +
-			"                         return false;\">" +
-			"            <input type='radio' name='options' id='radio16-false' aria-label='Assembly only: false' autocomplete='off' >Off" +
-			"        </label>" +
-			"    </div>" +
+			'<label class="w-100"><span data-langkey="Reload">Reload</span>...:</label>' +
+			"   <div class='btn btn-sm btn-light btn-outline-dark w-50 p-1' " +
+			"        aria-label='open the reload dialog box' " +
+			"        onclick=\"wsweb_quickslider_close(); " +
+			"                  wsweb_dialog_open('reload'); " +
+			"                  return false;\">" +
+                        "<i class='fas fa-redo'></i>&nbsp;<span data-langkey='Reload'>Reload</span></div>" +
 			'</li>' ;
-	*/
 
+/*
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
 			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -1212,6 +1283,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
 			"        </label>" +
 			"    </div>" +
 			'</li>' ;
+*/
 
 		   o += '<button type="button" id="close" data-role="none" ' +
 			'        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
