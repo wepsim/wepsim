@@ -330,34 +330,8 @@
 			      <a class="dropdown-item text-danger" 
                                   data-toggle="collapse" href="#collapseReset1" 
 			          aria-expanded="false" aria-controls="collapseReset" 
-                                  onclick="var f1 = function(){ $('#select6a').dropdown('toggle'); 
-								$('#select6a').dropdown('update'); };
-                                           setTimeout(f1, 50);
-                                           return false;"><span data-langkey="Reset">Reset</span>...:</a>
-			      <div class="collapse" id="collapseReset1">
-                              <a class="dropdown-item text-danger" href="#" id="selact_rset_config" value="config"
-				 onclick="reset_cfg() ;
-                                          wepsim_notify_success('<strong>INFO</strong>',
-                                                                'Configuration reset done!.') ;
-					  return false;">...<span data-langkey="Config">Config</span></a>
-                              <a class="dropdown-item text-danger" href="#" id="selact_rset_examples" value="examples"
-				 onclick="wepsim_example_reset() ;
-                                          var ws_examples_index_url = get_cfg('example_url') ;
-                                          wepsim_example_loadList(ws_examples_index_url) ;
-                                          wepsim_notify_success('<strong>INFO</strong>',
-                                                                'Examples list reset done!.') ;
-					  return false;">...<span data-langkey="Examples">Examples</span></a>
-                              <a class="dropdown-item text-danger" href="#" id="selact_rset_ep" value="ep"
-				 onclick="wepsim_reset_hw('ep') ;
-					  wepsim_notify_success('<strong>INFO</strong>', 
-							        'EP processor reset done!.') ;
-					  return false;">...<span data-langkey="EP">EP</span></a>
-                              <a class="dropdown-item text-danger" href="#" id="selact_rset_poc" value="poc"
-				 onclick="wepsim_reset_hw('poc') ;
-					  wepsim_notify_success('<strong>INFO</strong>', 
-							        'POC processor reset done!.') ;
-					  return false;">...<span data-langkey="POC">POC</span></a>
-			      </div>
+				  onclick="wsweb_dialog_open('reload');
+                                           return false;"><span data-langkey="Reload">Reload</span></a>
 
                               <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
                               <a class="dropdown-item" href="#" id="selact_help" value="help"

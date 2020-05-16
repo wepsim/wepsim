@@ -149,28 +149,17 @@
 			"    </div>" +
 			'</li>' ;
 
-	/*
 		   o += '<li class="list-group-item px-0"> ' +
-			'<label><span data-langkey="assembly only">assembly only</span>:</label>' +
-			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-			"        <label id='label16-true'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Assembly only: true' " +
-			"               onclick=\"wepsim_activeview('only_asm', true) ; " +
-			"                         return false;\">" +
-			"            <input type='radio' name='options' id='radio16-true'  aria-label='Assembly only: true'  autocomplete='off' >On" +
-			"        </label>" +
-			"        <label id='label16-false'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Assembly only: true' " +
-			"               onclick=\"wepsim_activeview('only_asm', false) ; " +
-			"                         return false;\">" +
-			"            <input type='radio' name='options' id='radio16-false' aria-label='Assembly only: false' autocomplete='off' >Off" +
-			"        </label>" +
-			"    </div>" +
+			'<label class="w-100"><span data-langkey="Reload">Reload</span>...:</label>' +
+			"   <div class='btn btn-sm btn-light btn-outline-dark w-50 p-1' " +
+			"        aria-label='open the reload dialog box' " +
+			"        onclick=\"wsweb_quickslider_close(); " +
+			"                  wsweb_dialog_open('reload'); " +
+			"                  return false;\">" +
+                        "<i class='fas fa-redo'></i>&nbsp;<span data-langkey='Reload'>Reload</span></div>" +
 			'</li>' ;
-	*/
 
+/*
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
 			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -190,6 +179,7 @@
 			"        </label>" +
 			"    </div>" +
 			'</li>' ;
+*/
 
 		   o += '<button type="button" id="close" data-role="none" ' +
 			'        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
