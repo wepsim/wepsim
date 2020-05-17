@@ -179,7 +179,7 @@ cat external/knockout-3.5.1.js \
     external/bootstrap.min.js \
     external/jquery.knob.min.js \
     external/bootbox.min.js \
-    external/spectrum.min.js \
+    external/spectrum/spectrum.min.js \
     external/timbre.min.js \
     external/codemirror/codemirror.js \
     external/codemirror/mode/javascript/javascript.js \
@@ -214,7 +214,7 @@ echo "  * ws_dist/min.external.css"
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
     external/dark-mode.css \
-    external/spectrum.min.css \
+    external/spectrum/spectrum.min.css \
     external/codemirror/codemirror.css \
     external/codemirror/theme/blackboard.css \
     external/codemirror/addon/fold/foldgutter.css \
