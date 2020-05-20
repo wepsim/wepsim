@@ -1,20 +1,71 @@
-
 #
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-.text
-  accu: addi    sp, sp, -4
-        sw      a0, 0(sp)
-        lui     a1, 0
-    b1: beqz    a0, f1
-        add     a1, a1, a0
-        addi    a0, a0, -1
-        beq     zero, zero, b1
-    f1: lw      a0, 0(sp)
-        addi    sp, sp, 4
-        jr      ra
+.kdata
+   vector:  .word rt_i0
+            .word rt_div0
+            .word rt_sys
 
-main:   lui     a0, 2
-        jal     ra, accu
+   msgi0:   .asciiz "INT: 0\n"
+   msgi1:   .asciiz "FPE: */0\n"
+   
+.ktext
+sys_print:  li   zero 0
+            li   t5 1
+            beq  t3 zero fin1
+        b5: lb   t4 0(t3)
+            beq  t4 zero fin1
+            out  t4 0x1000
+            add  t3 t3 t5
+            beq zero zero  b5
+      fin1: reti
+      
+  rt_i0:    # 1.- interruption
+            li   t3  msgi0
+            beq zero zero  sys_print
+
+  rt_div0:  # 2.- exception
+            li   t3  msgi1
+            beq zero zero  sys_print
+
+  rt_sys:   # 3.- syscall
+            mv   t3  a0
+            li   t4  4
+            beq  a1  t4 sys_print
+            reti 
+            
+.data
+    helloworld: .asciiz "hello world...\n"
+
+.text
+    main:  # test syscall
+           la  a0 helloworld
+           li  a1 4
+           syscall
+
+           # test div 0/0
+           li  t0 0
+           li  t1 0
+           div t1 t1 t0
+
+           # test int0
+           li  t0 0
+           out t0 0x1104
+           li  t0 200
+           out t0 0x1108
+
+           li  t0 0
+           li  t1 1
+           li  t2 30
+       b1: beq t0 t2 e1
+           add t0 t0 t1
+           beq zero zero b1
+
+       e1: li  t0 0
+           out t0 0x1104
+           out t0 0x1108
+
+           # the end
+           jr ra
 

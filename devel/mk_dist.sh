@@ -179,7 +179,7 @@ cat external/knockout-3.5.1.js \
     external/bootstrap.min.js \
     external/jquery.knob.min.js \
     external/bootbox.min.js \
-    external/spectrum.min.js \
+    external/spectrum/spectrum.min.js \
     external/timbre.min.js \
     external/codemirror/codemirror.js \
     external/codemirror/mode/javascript/javascript.js \
@@ -214,7 +214,7 @@ echo "  * ws_dist/min.external.css"
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
     external/dark-mode.css \
-    external/spectrum.min.css \
+    external/spectrum/spectrum.min.css \
     external/codemirror/codemirror.css \
     external/codemirror/theme/blackboard.css \
     external/codemirror/addon/fold/foldgutter.css \
@@ -239,10 +239,13 @@ cp    -a external/speechkitt            ws_dist/external/
                                   touch ws_dist/external/speechkitt/index.html
 cp    -a external/cordova.js            ws_dist/external/cordova.js
 
-#  exmaples
-jq 'reduce inputs as $i (.; . += $i)' examples/examples_set/apps_*.json > examples/examples_set/default_packed.json
+#  examples
+DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_z80.json examples/examples_set/apps_poc_mips.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_packed.json
+
 echo '[ { "name": "default", "url": "examples/examples_set/default_packed.json" } ]' > examples/examples_set/default.json
-   cp examples/examples_set/default.json examples/apps.json
+cp examples/examples_set/default.json examples/apps.json
+
 echo "  * ws_dist/examples/..."
 cp -a examples  ws_dist/
 
