@@ -3,23 +3,18 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-.data
-  result1: .word 0x12345678
-
 .text
-  main: 
-        # shift
-        lui     a0, result1
-        lb      a1, 0(a0)
-        lh      a2, 0(a0)
-        lw      a3, 0(a0)
-
-        lui     a1, 0x1
-        sb      a1, 0(a0)
-        lui     a2, 0x2
-        sh      a2, 0(a0)
-        lui     a3, 0x3
-        sw      a3, 0(a0)
-
+  accu: addi    sp, sp, -4
+        sw      a0, 0(sp)
+        lui     a1, 0
+    b1: beqz    a0, f1
+        add     a1, a1, a0
+        addi    a0, a0, -1
+        beq     zero, zero, b1
+    f1: lw      a0, 0(sp)
+        addi    sp, sp, 4
         jr      ra
+
+main:   lui     a0, 2
+        jal     ra, accu
 

@@ -277,7 +277,7 @@
 	       // add example to the example summary
 	       e_title       = examples[m].title ;
 	       e_type        = examples[m].type  ;
-	       e_level       = examples[m].level ;
+	       e_level       = 'actual' ;
 	       e_mc          = examples[m].microcode ;
 	       e_asm         = examples[m].assembly ;
 	       e_description = examples[m].description ;

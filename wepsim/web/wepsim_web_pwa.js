@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v210e_static';
+var cacheName = 'v210g_static';
 
 
 /*
@@ -177,6 +177,10 @@ self.addEventListener('install',
                                         './examples/assembly/asm-ep_s3_e2.txt',
                                         './examples/assembly/asm-ep_s6_e2.txt',
                                         './examples/assembly/asm-ep_s5_e2.txt',
+                                        './examples/assembly/asm-ep_r1_e1.txt',
+                                        './examples/assembly/asm-ep_r1_e2.txt',
+                                        './examples/assembly/asm-ep_r2_e1.txt',
+                                        './examples/assembly/asm-ep_r3_e1.txt',
                                         './examples/microcode/mc-ep_s5_e3.txt',
                                         './examples/microcode/mc-ep_os.txt',
                                         './examples/microcode/mc-ep_bare.txt',
@@ -185,6 +189,7 @@ self.addEventListener('install',
                                         './examples/microcode/mc-ep_s5_e2.txt',
                                         './examples/microcode/mc-poc_base.txt',
                                         './examples/microcode/mc-ep_mips.txt',
+                                        './examples/microcode/mc-ep_rv32.txt',
                                         './examples/microcode/mc-ep_s3_e3.txt',
                                         './examples/microcode/mc-ep_s3_e1.txt',
                                         './examples/microcode/mc-poc_os.txt',
