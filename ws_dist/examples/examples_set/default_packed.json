@@ -320,7 +320,7 @@
     "description": "<span data-langkey='example_06_01'>Test example.</span>"
   },
   {
-    "id": "R1E2",
+    "id": "R1E1",
     "title": "Instructions",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,asm_rv32",
@@ -330,24 +330,34 @@
     "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
   },
   {
-    "id": "R2E1",
+    "id": "R1E2",
     "title": "Memory access",
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "ep_r2_e1",
+    "assembly": "ep_r1_e2",
     "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
   },
   {
-    "id": "R3E1",
+    "id": "R2E1",
     "title": "Subrutine",
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "ep_r3_e1",
+    "assembly": "ep_r2_e1",
     "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+  },
+  {
+    "id": "R3E1",
+    "title": "Int. + syscall + except.",
+    "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "modes": "newbie,intro,asm_rv32",
+    "hardware": "ep",
+    "microcode": "ep_rv32",
+    "assembly": "ep_r3_e1",
+    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>"
   },
   {
     "id": "S7E3",
