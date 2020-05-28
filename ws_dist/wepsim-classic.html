@@ -953,44 +953,20 @@
 	    // ...after jquery-ready
 	    $(document).ready(function()
 	    {
-		    // initialization of wepsim...
-		    wepsim_hw_init() ;
-
-                    $("#ws_loader").collapse('hide') ;
-
 		    try
 		    {
-			    // init UI
+			    // load ui
 			    wepsim_init_ui() ;
 
-			    // set default view
-			    wsweb_change_workspace_simulator() ;
-			    wsweb_change_show_processor() ;
-			    wsweb_set_details('REGISTER_FILE') ;
+			    // load default working-set
+    			    wepsim_init_default() ;
 
-			    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
-			    wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
-
-			    // init: general
-			    var ws_mode = get_cfg('ws_mode');
-			    wsweb_select_main(ws_mode) ;
-                            if (simhw_active() !== null) {
-			        simcore_reset();
-			    }
-
-			    // init: voice
-			    wepsim_voice_init() ;
-			    if (false == get_cfg('use_voice')) {
-				wepsim_voice_stop() ;
-			    }
-
-			    // pre-load work
-			    var url_parameters = new URL(window.location).searchParams ;
-			    wepsim_preload_get(url_parameters, 'FileNameToSaveAs1', 'tagToSave1') ;
+                            $("#ws_loader").collapse('hide') ;
 		    }
 		    catch(err)
 		    {
-			  wepsim_general_exception_handler(err) ;
+                            $("#ws_loader").collapse('hide') ;
+			    wepsim_general_exception_handler(err) ;
 		    }
 	    }) ;
 

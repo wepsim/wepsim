@@ -1,1 +1,6 @@
-[ { "name": "default", "url": "examples/examples_set/default_packed.json" } ]
+[ {
+    "name":         "default",
+    "url":          "examples/examples_set/default_packed.json",
+    "url_base_asm": "examples/assembly/",
+    "url_base_mc":  "examples/microcode/"
+} ]

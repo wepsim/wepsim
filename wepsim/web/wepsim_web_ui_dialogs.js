@@ -1067,7 +1067,7 @@
 			       ' <div class="btn-group-vertical w-100" role="group" aria-label="EP+POC">' ;
 		     for (var e_hw in ws_hw_hash) {
 			  o += '   <button class="text-danger btn border-secondary m-1" type="button" value="ep"' +
-			       '	   onclick="wepsim_reset_hw(\'' + e_hw + '\') ;' +
+			       '	   onclick="wepsim_reload_hw(\'' + e_hw + '\') ;' +
 			       '		    wepsim_notify_success(\'<strong>INFO</strong>\', ' +
 			       '				          \'' + e_hw +' processor reloaded!.\') ;'+
 			       '		    return false;">' + e_hw.toUpperCase() + '</button>' ;
