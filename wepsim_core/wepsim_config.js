@@ -134,7 +134,7 @@
 		        "               $('#img_select1').attr('data-theme', '');" +
 		        "	        set_cfg('ICON_theme','" + elto + "'); save_cfg();" +
                         "               $('#breakpointicon1').popover('hide');" +
-                        "               wepsim_restore_uicfg();\">" ;
+                        "               wepsim_uicfg_apply();\">" ;
 	}
 
         o = o + '</div>' +
