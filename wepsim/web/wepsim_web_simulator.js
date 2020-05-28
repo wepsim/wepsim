@@ -150,15 +150,12 @@
               ws_hw_hash[jindex[i].name] = jindex[i].url ;
          }
 
-	 // load hardware...
-	 simcore_init_hw('ep') ;
-
          return true ;
     }
 
-    // reset
+    // reload
 
-    function wepsim_reset_hw ( p_name )
+    function wepsim_reload_hw ( p_name )
     {
          if (typeof ws_hw_hash[p_name] === "undefined") {
              return false ;
@@ -565,17 +562,52 @@
 			    } ;
 	    inputasm = sim_init_editor("inputAssembly", inputasm_cfg) ;
 
-	    // init: record
-	    simcore_record_init('record_msg', 'record_pb') ;
-            simcore_record_captureInit() ;
+	    // init: voice
+	    wepsim_voice_init() ;
+	    if (false == get_cfg('use_voice')) {
+		wepsim_voice_stop() ;
+	    }
+    }
 
-	    // restore UI
-	    setTimeout(function() {
-		          wepsim_restore_uicfg() ;
-		       }, 250) ;
+    function wepsim_init_default ( )
+    {
+	    // 1 Pre-load by default
 
-	    // load examples
-            var ws_examples_index_url = get_cfg('example_url') ;
-            wepsim_example_loadList(ws_examples_index_url) ;
+	       // 1.A Load hardware...
+	       wepsim_hw_init() ;
+	       simcore_init_hw('ep') ;
+
+	       // 1.B Load examples
+               var ws_examples_index_url = get_cfg('example_url') ;
+               wepsim_example_loadList(ws_examples_index_url) ;
+
+	       // 1.C Reload view
+	       wsweb_change_workspace_simulator() ;
+	       wsweb_change_show_processor() ;
+	       wsweb_set_details('REGISTER_FILE') ;
+
+	       wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
+	       wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
+
+	       // 1.D Reload work-mode
+	       var ws_mode = get_cfg('ws_mode');
+	       wsweb_select_main(ws_mode) ;
+	       if (simhw_active() !== null) {
+	   	   simcore_reset();
+	       }
+
+	       // 1.E Reload UIcfg
+	       wepsim_restore_uicfg() ;
+
+	       // 1.F Init recording
+	       simcore_record_init('record_msg', 'record_pb') ;
+               simcore_record_captureInit() ;
+
+
+	    // 2 Pre-load following URL params
+
+	       // 2.A GET params
+	       var url_parameters = new URL(window.location).searchParams ;
+	       wepsim_preload_get(url_parameters, 'FileNameToSaveAs1', 'tagToSave1') ;
     }
 

@@ -243,7 +243,12 @@ cp    -a external/cordova.js            ws_dist/external/cordova.js
 DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_z80.json examples/examples_set/apps_poc_mips.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_packed.json
 
-echo '[ { "name": "default", "url": "examples/examples_set/default_packed.json" } ]' > examples/examples_set/default.json
+echo '[ {'                                                               > examples/examples_set/default.json
+echo '    "name":         "default",'                                   >> examples/examples_set/default.json
+echo '    "url":          "examples/examples_set/default_packed.json",' >> examples/examples_set/default.json
+echo '    "url_base_asm": "examples/assembly/",'                        >> examples/examples_set/default.json
+echo '    "url_base_mc":  "examples/microcode/"'                        >> examples/examples_set/default.json
+echo '} ]'                                                              >> examples/examples_set/default.json
 cp examples/examples_set/default.json examples/apps.json
 
 echo "  * ws_dist/examples/..."
