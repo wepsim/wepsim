@@ -23,29 +23,30 @@
      * Example set management
      */
 
-    var ws_examples = [] ;
+    var ws_examples     = [] ;
+    var ws_examples_set = [{ "name": "", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;
 
     function wepsim_example_reset ( )
     {
-       ws_examples = [] ;
+       ws_examples     = [] ;
+       ws_examples_set = [{ "name": "", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;
     }
 
     function wepsim_example_loadList ( url_example_list )
     {
-       var jobj   = null ;
-       var jindex = null ;
+       var jobj = null ;
 
        // try to load the index
-       jindex = wepsim_url_getJSON(url_example_list) ;
+       ws_examples_set = wepsim_url_getJSON(url_example_list) ;
 
        // try to load each one
-       for (var i=0; i<jindex.length; i++)
+       for (var i=0; i<ws_examples_set.length; i++)
        {
-            if (typeof jindex[i].url === "undefined") { 
+            if (typeof ws_examples_set[i].url === "undefined") { 
                 continue ;
             }
 
-            jobj = wepsim_url_getJSON(jindex[i].url) ;
+            jobj = wepsim_url_getJSON(ws_examples_set[i].url) ;
 	    ws_examples = ws_examples.concat(jobj) ;
        }
 
@@ -103,8 +104,7 @@
              sample_asm = sid[2] ;
         else console.log("warning: example without assembly id") ;
 
-        var ws_examples_index_url = get_cfg('example_url') ;
-        var url = ws_examples_index_url.url_base_asm + "asm-" + sample_asm + ".txt" ;
+        var url = ws_examples_set[0].url_base_asm + "asm-" + sample_asm + ".txt" ;
 
 	// do next
         var do_next = function( mcode ) {
@@ -170,8 +170,7 @@
              sample_asm = sid[2] ;
         else console.log("warning: example without assembly id") ;
 
-        var ws_examples_index_url = get_cfg('example_url') ;
-        var url = ws_examples_index_url.url_base_micro + "mc-" + sample_mc + ".txt" ;
+        var url = ws_examples_set[0].url_base_mc + "mc-" + sample_mc + ".txt" ;
 	inputfirm.setOption('readOnly', false);
 
 	// do next
