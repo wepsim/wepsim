@@ -201,3 +201,58 @@
             return sim.active.ctrl_states ;
         }
 
+
+    /*
+     *  Simulated Hardware: available set
+     */
+
+    var ws_hw_hash = {} ;
+    var ws_hw_set  = [] ;
+
+    function simhw_hwset_init ( )
+    {
+         var url_list = get_cfg('hw_url') ;
+
+         // try to load the index
+         ws_hw_set = wepsim_url_getJSON(url_list) ;
+
+         // build reference hash
+         for (var i=0; i<ws_hw_set.length; i++) {
+              ws_hw_hash[ws_hw_set[i].name] = ws_hw_set[i].url ;
+         }
+
+         return ws_hw_hash ;
+    }
+
+    function simhw_hwset_getSet ( )
+    {
+         return ws_hw_hash ;
+    }
+
+    function simhw_hwset_loadAll ( )
+    {
+         var jobj = {} ;
+
+         // try to load each one
+         for (var i=0; i<ws_hw_set.length; i++)
+         {
+	      jobj = $.getJSON({'url': ws_hw_set[i].url, 'async': false}) ;
+              simcore_hardware_import(jobj.responseText) ;
+         }
+
+         return true ;
+    }
+
+    function simhw_hwset_load ( p_name )
+    {
+         if (typeof ws_hw_hash[p_name] === "undefined") {
+             return false ;
+         }
+
+         // try to load the requested one
+	 var jobj = $.getJSON({'url': ws_hw_hash[p_name], 'async': false}) ;
+	 simcore_hardware_import(jobj.responseText) ;
+
+         return true ;
+    }
+

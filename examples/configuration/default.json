@@ -1,0 +1,18 @@
+[
+   {
+      "name": "Desktop",
+      "url":  "examples/configuration/desktop_light.json"
+   },
+   {
+      "name": "Mobile",
+      "url":  "examples/configuration/mobile_light.json"
+   },
+   {
+      "name": "Desk. dark",
+      "url":  "examples/configuration/desktop_dark.json"
+   },
+   {
+      "name": "Mobi. dark",
+      "url":  "examples/configuration/mobile_dark.json"
+   }
+]

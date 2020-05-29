@@ -244,7 +244,7 @@ DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_s
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_packed.json
 
 echo '[ {'                                                               > examples/examples_set/default.json
-echo '    "name":         "default",'                                   >> examples/examples_set/default.json
+echo '    "name":         "Default",'                                   >> examples/examples_set/default.json
 echo '    "url":          "examples/examples_set/default_packed.json",' >> examples/examples_set/default.json
 echo '    "url_base_asm": "examples/assembly/",'                        >> examples/examples_set/default.json
 echo '    "url_base_mc":  "examples/microcode/"'                        >> examples/examples_set/default.json
