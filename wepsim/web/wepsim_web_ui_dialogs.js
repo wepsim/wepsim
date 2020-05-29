@@ -105,7 +105,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-lssvasm') ;
 			 simcore_record_captureInit() ;
@@ -212,7 +212,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-lssvfir') ;
 			 simcore_record_captureInit() ;
@@ -262,7 +262,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
                          // show binary
                          setTimeout(function(){
@@ -322,7 +322,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
                          // show binary
                          setTimeout(function() {
@@ -380,7 +380,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-about1') ;
 			 simcore_record_captureInit() ;
@@ -416,7 +416,7 @@
 				"	          var ntf_html = table_notifications_html(notifications); " +
 				"		  $(\"#scroller-notifications3\").html(ntf_html); " +
 				"		  // reajust ui " +
-				"		  wepsim_restore_uicfg(); " +
+				"		  wepsim_uicfg_apply(); " +
 				"		  wsweb_scroll_record(\"#scroller-notifications3\"); " +
 				"		  simcore_record_captureInit(); " +
 				"		  return false;'" +
@@ -458,7 +458,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-notifications3') ;
 			 simcore_record_captureInit() ;
@@ -498,7 +498,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-example1') ;
 			 simcore_record_captureInit() ;
@@ -577,7 +577,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-config2') ;
 			 simcore_record_captureInit() ;
@@ -612,7 +612,7 @@
 					 wepsim_help_refresh();
 
 			 		 // uicfg and events
-                                         wepsim_restore_uicfg() ;
+                                         wepsim_uicfg_apply() ;
 	    	 	                 simcore_record_captureInit() ;
 
 					 return false ;
@@ -640,7 +640,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-help1') ;
 			 simcore_record_captureInit() ;
@@ -879,7 +879,7 @@
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide') ;
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
 	    	 	 simcore_record_captureInit() ;
 		     }
@@ -1012,7 +1012,7 @@
 
 				 // uicfg and events
 				 $('[data-toggle=tooltip]').tooltip('hide') ;
-				 wepsim_restore_uicfg() ;
+				 wepsim_uicfg_apply() ;
 
 				 simcore_record_captureInit() ;
 			 }
@@ -1048,6 +1048,7 @@
 			       '	onclick="reset_cfg() ;' +
 			       '		 wepsim_notify_success(\'<strong>INFO</strong>\',' +
 			       '		  		       \'Configuration reloaded!.\') ;' +
+			       '		 wepsim_uicfg_restore() ;' +
 			       '		 return false;"><span data-langkey="Default">Default</span></a>' +
 			       ' </div>' +
                                card_end() +
@@ -1093,7 +1094,7 @@
             onshow:  function() {
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
-			 wepsim_restore_uicfg() ;
+			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-reload1') ;
 			 simcore_record_captureInit() ;

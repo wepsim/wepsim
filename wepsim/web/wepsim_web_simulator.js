@@ -37,7 +37,7 @@
 
     // active/restore UI
 
-    function wepsim_restore_uicfg ( )
+    function wepsim_uicfg_apply ( )
     {
 	    var cfgValue = null ;
 
@@ -48,6 +48,20 @@
 	    // dark mode
 	    cfgValue = get_cfg('ws_skin_dark_mode') ;
             wepsim_restore_darkmode(cfgValue) ;
+    }
+
+    function wepsim_uicfg_restore ( )
+    {
+	    // Reload UIcfg
+	    wepsim_uicfg_apply() ;
+
+	    // Reload view
+	    wsweb_change_workspace_simulator() ;
+	    wsweb_change_show_processor() ;
+	    wsweb_set_details('REGISTER_FILE') ;
+
+	    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
+	    wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
     }
 
     function wepsim_activeview ( view, is_set )
@@ -581,28 +595,18 @@
                var ws_examples_index_url = get_cfg('example_url') ;
                wepsim_example_loadList(ws_examples_index_url) ;
 
-	       // 1.C Reload view
-	       wsweb_change_workspace_simulator() ;
-	       wsweb_change_show_processor() ;
-	       wsweb_set_details('REGISTER_FILE') ;
+	       // 1.C Reload UI configuration
+               wepsim_uicfg_restore() ;
 
-	       wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
-	       wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
-
-	       // 1.D Reload work-mode
 	       var ws_mode = get_cfg('ws_mode');
 	       wsweb_select_main(ws_mode) ;
 	       if (simhw_active() !== null) {
-	   	   simcore_reset();
+	      	   simcore_reset();
 	       }
 
-	       // 1.E Reload UIcfg
-	       wepsim_restore_uicfg() ;
-
-	       // 1.F Init recording
+	       // 1.D Init recording
 	       simcore_record_init('record_msg', 'record_pb') ;
                simcore_record_captureInit() ;
-
 
 	    // 2 Pre-load following URL params
 

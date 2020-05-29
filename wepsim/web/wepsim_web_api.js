@@ -132,9 +132,23 @@
 
     function wsweb_change_show_processor ( )
     {
+            var id_arr = [ 'svg_p', 'svg_cu', 'svg_p2' ] ;
+            var o = null ;
+            var a = null ;
+
 	    $("#tab26").tab('show') ;
             if (simhw_active() !== null)
             {
+                // reload svg (just in case)
+                for (var i in id_arr) 
+                {
+                         o = document.getElementById(id_arr[i]) ;
+                     if (o === null) continue ;
+                     a = o.getAttribute('data') ;
+                         o.setAttribute('data', a) ;
+                }
+
+                // start drawing again
 	        wepsim_svg_start_drawing() ;
 	        refresh() ;
             }
@@ -731,7 +745,7 @@
     function wsweb_quickmenu_show ( )
     {
 	    $('#po1').popover('show') ;
-	    wepsim_restore_uicfg() ;
+	    wepsim_uicfg_apply() ;
 
             // add if recording
             simcore_record_append_new('Open the "quick menu"',
@@ -756,7 +770,7 @@
     function wsweb_quickmenu_toggle ( )
     {
 	    $('#po1').popover('toggle') ;
-	    wepsim_restore_uicfg() ;
+	    wepsim_uicfg_apply() ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick menu"',

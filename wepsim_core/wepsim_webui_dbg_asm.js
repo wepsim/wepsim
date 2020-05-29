@@ -344,7 +344,7 @@
 			       "</span>" ;
 
 		// refresh style+events
-		wepsim_restore_uicfg() ;
+		wepsim_uicfg_apply() ;
 
                 $("span[rel='tooltip1']").tooltip({
                         trigger:   'hover',
@@ -423,7 +423,7 @@
                                            return content ; // DOMPurify.sanitize(content) ;
                                         }
 		    }).on('shown.bs.tooltip', function(shownEvent) {
-			   wepsim_restore_uicfg() ;
+			   wepsim_uicfg_apply() ;
 		    });
 
             }, 500) ;
