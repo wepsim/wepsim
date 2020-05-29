@@ -171,7 +171,7 @@
 					                               sanitizeFn: function(content){return content;}
 								     }).on('shown.bs.popover',
 								            function(shownEvent) {
-								                   wepsim_restore_uicfg();
+								                   wepsim_uicfg_apply();
 								            });
 		                   },
                       description: "<span data-langkey='Breakpoint icon: icon to be used for breakpoints'>Breakpoint icon: icon to be used for breakpoints</span>"
