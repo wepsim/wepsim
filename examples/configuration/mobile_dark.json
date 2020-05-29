@@ -1,0 +1,202 @@
+{
+  "version": {
+    "upgrade": false,
+    "type": "string",
+    "value": "2.1.0"
+  },
+  "build": {
+    "upgrade": true,
+    "type": "string",
+    "value": "2.1.0.20200528A"
+  },
+  "color_data_active": {
+    "upgrade": false,
+    "type": "string",
+    "value": "#0066FF"
+  },
+  "color_data_inactive": {
+    "upgrade": false,
+    "type": "string",
+    "value": "rgb(0, 0, 0)"
+  },
+  "color_name_active": {
+    "upgrade": false,
+    "type": "string",
+    "value": "red"
+  },
+  "color_name_inactive": {
+    "upgrade": false,
+    "type": "string",
+    "value": "rgb(0, 0, 0)"
+  },
+  "size_active": {
+    "upgrade": false,
+    "type": "float",
+    "value": 1.25
+  },
+  "size_inactive": {
+    "upgrade": false,
+    "type": "float",
+    "value": 0.02
+  },
+  "is_byvalue": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": false
+  },
+  "RF_display_format": {
+    "upgrade": false,
+    "type": "string",
+    "value": "unsigned_16_fill"
+  },
+  "RF_display_name": {
+    "upgrade": false,
+    "type": "string",
+    "value": "numerical"
+  },
+  "is_editable": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": true
+  },
+  "DBG_delay": {
+    "upgrade": false,
+    "type": "int",
+    "value": 5
+  },
+  "DBG_level": {
+    "upgrade": false,
+    "type": "string",
+    "value": "microinstruction"
+  },
+  "DBG_limitins": {
+    "upgrade": false,
+    "type": "int",
+    "value": 10000
+  },
+  "DBG_limitick": {
+    "upgrade": false,
+    "type": "int",
+    "value": 1000
+  },
+  "ICON_theme": {
+    "upgrade": false,
+    "type": "string",
+    "value": "cat1"
+  },
+  "NOTIF_delay": {
+    "upgrade": false,
+    "type": "int",
+    "value": 2000
+  },
+  "CPUCU_size": {
+    "upgrade": true,
+    "type": "int",
+    "value": 7
+  },
+  "C1C2_size": {
+    "upgrade": true,
+    "type": "int",
+    "value": 14
+  },
+  "SHOWCODE_label": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": true
+  },
+  "SHOWCODE_addr": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": true
+  },
+  "SHOWCODE_hex": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": true
+  },
+  "SHOWCODE_ins": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": true
+  },
+  "SHOWCODE_pins": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": true
+  },
+  "ws_mode": {
+    "upgrade": false,
+    "type": "string",
+    "value": "newbie"
+  },
+  "ws_action": {
+    "upgrade": false,
+    "type": "string",
+    "value": "checkpoint"
+  },
+  "is_interactive": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": true
+  },
+  "is_quick_interactive": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": false
+  },
+  "ws_idiom": {
+    "upgrade": false,
+    "type": "string",
+    "value": "en"
+  },
+  "use_voice": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": false
+  },
+  "ws_skin_ui": {
+    "upgrade": false,
+    "type": "string",
+    "value": "compact"
+  },
+  "ws_skin_user": {
+    "upgrade": false,
+    "type": "string",
+    "value": "only_asm:of:only_frequent:of"
+  },
+  "ws_skin_dark_mode": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": true
+  },
+  "editor_theme": {
+    "upgrade": false,
+    "type": "string",
+    "value": "default"
+  },
+  "editor_mode": {
+    "upgrade": false,
+    "type": "string",
+    "value": "default"
+  },
+  "verbal_verbose": {
+    "upgrade": false,
+    "type": "string",
+    "value": "math"
+  },
+  "base_url": {
+    "upgrade": true,
+    "type": "string",
+    "value": "https://acaldero.github.io/wepsim/ws_dist/"
+  },
+  "example_url": {
+    "upgrade": true,
+    "type": "string",
+    "value": "examples/examples_set/default.json"
+  },
+  "hw_url": {
+    "upgrade": true,
+    "type": "string",
+    "value": "examples/hardware/hw.json"
+  }
+}

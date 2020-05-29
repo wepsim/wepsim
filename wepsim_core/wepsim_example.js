@@ -24,12 +24,11 @@
      */
 
     var ws_examples     = [] ;
-    var ws_examples_set = [{ "name": "", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;
+    var ws_examples_set = [{ "name": "Empty", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;
 
     function wepsim_example_reset ( )
     {
        ws_examples     = [] ;
-       ws_examples_set = [{ "name": "", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;
     }
 
     function wepsim_example_loadList ( url_example_list )
@@ -42,6 +41,27 @@
        // try to load each one
        for (var i=0; i<ws_examples_set.length; i++)
        {
+            if (typeof ws_examples_set[i].url === "undefined") { 
+                continue ;
+            }
+
+            jobj = wepsim_url_getJSON(ws_examples_set[i].url) ;
+	    ws_examples = ws_examples.concat(jobj) ;
+       }
+
+       return ws_examples ;
+    }
+
+    function wepsim_example_load ( e_name )
+    {
+       var jobj = null ;
+
+       // try to load each one
+       for (var i=0; i<ws_examples_set.length; i++)
+       {
+            if (ws_examples_set[i].name !== e_name) { 
+                continue ;
+            }
             if (typeof ws_examples_set[i].url === "undefined") { 
                 continue ;
             }
@@ -74,6 +94,11 @@
        }
 
        return null ;
+    }
+
+    function wepsim_example_getSet ( )
+    {
+       return ws_examples_set ;
     }
 
 

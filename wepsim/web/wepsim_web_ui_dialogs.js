@@ -1028,55 +1028,76 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
-                       var card_begin = function ( title ) {
-				         var o = '<div class="col-12 col-sm-4 p-3">' +
-					         '<div class="card border-secondary h-100">' +
-					         '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
-					         '<h5><span data-langkey="' +title+ '">' +title+ '</span></h5>' +
-			                         '</div>' ;
-				         return o ;
+                       var card_configuration_btns = function ( ) {
+                             var o = '' ;
+			     var e_cfgs = cfgset_getSet() ;
+			     for (var e_cfg in e_cfgs) {
+				  o += '<button type="button" ' +
+				       '    class="text-danger btn border-secondary m-1" ' +
+				       '    onclick="cfgset_load(\'' + e_cfg + '\') ;' +
+				       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
+				       '	  		           \'Configuration loaded!.\') ;' +
+				       '	     wepsim_uicfg_restore() ;' +
+				       '	     return false;">' + 
+                                       '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' + 
+                                       '</button>' ;
+			     }
+                             return o ;
                                       } ;
-                       var card_end = function ( ) {
-				         return '</div>' +
-				                '</div>' ;
+                       var card_example_btns = function ( ) {
+                             var o = '' ;
+			     var e_exs = wepsim_example_getSet() ;
+			     for (var i in e_exs) {
+				  o += '<button type="button" ' +
+				       '    class="text-danger btn border-secondary m-1" ' +
+				       '    onclick="wepsim_example_reset() ;' +
+				       '	     wepsim_example_load(\'' + e_exs[i].name + '\') ;' +
+				       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
+				       '			           \'Examples list loaded!.\') ;' +
+				       '	     return false;">' + 
+                                       '<span data-langkey="' +e_exs[i].name+ '">' + e_exs[i].name + '</span>' + 
+                                       '</button>' ;
+			     }
+                             return o ;
+                                      } ;
+                       var card_processor_btns = function ( ) {
+                             var o = '' ;
+                             var e_hws = simhw_hwset_getSet() ;
+			     for (var e_hw in e_hws) {
+				  o += '<button type="button" ' +
+				       '    class="text-danger btn border-secondary m-1" ' +
+				       '    onclick="wepsim_reload_hw(\'' + e_hw + '\') ;' +
+				       '	     wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+				       '			          \'' + e_hw +' processor loaded!.\') ;'+
+				       '	     return false;">' + e_hw.toUpperCase() + '</button>' ;
+			     }
+                             return o ;
                                       } ;
 
-		       var o = '<div id="scroller-reload1" class="row m-0">' +
-                               card_begin('Configuration') +
-			       ' <div class="card-body">' +
-			       '     <a class="btn border-secondary text-danger w-100" href="#" value="config"' +
-			       '	onclick="reset_cfg() ;' +
-			       '		 wepsim_notify_success(\'<strong>INFO</strong>\',' +
-			       '		  		       \'Configuration reloaded!.\') ;' +
-			       '		 wepsim_uicfg_restore() ;' +
-			       '		 return false;"><span data-langkey="Default">Default</span></a>' +
-			       ' </div>' +
-                               card_end() +
-                               card_begin('Examples') +
-			       ' <div class="card-body">' +
-			       '     <a class="btn border-secondary text-danger w-100" href="#" value="examples"' +
-			       '	onclick="wepsim_example_reset() ;' +
-			       '		 var ws_examples_index_url = get_cfg(\'example_url\') ;' +
-			       '		 wepsim_example_loadList(ws_examples_index_url) ;' +
-			       '		 wepsim_notify_success(\'<strong>INFO</strong>\',' +
-			       '				       \'Examples list reloaded!.\') ;' +
-			       '		 return false;"><span data-langkey="Default">Default</span></a>' +
-			       ' </div>' +
-                               card_end() +
-                               card_begin('Processor') +
-			       ' <div class="card-body">' +
-			       ' <div class="btn-group-vertical w-100" role="group" aria-label="EP+POC">' ;
-		     for (var e_hw in ws_hw_hash) {
-			  o += '   <button class="text-danger btn border-secondary m-1" type="button" value="ep"' +
-			       '	   onclick="wepsim_reload_hw(\'' + e_hw + '\') ;' +
-			       '		    wepsim_notify_success(\'<strong>INFO</strong>\', ' +
-			       '				          \'' + e_hw +' processor reloaded!.\') ;'+
-			       '		    return false;">' + e_hw.toUpperCase() + '</button>' ;
-		     }
-			  o += ' </div>' +
-			       ' </div>' +
-                               card_end() +
-			       '</div>' ;
+                        // cards
+                        var elements = [
+                                 { "name": "Configuration", "function": card_configuration_btns },
+                                 { "name": "Examples",      "function": card_example_btns },
+                                 { "name": "Processor",     "function": card_processor_btns }
+                            ] ;
+
+		        var o = '<div id="scroller-reload1" class="row m-0">' ;
+                        for (e in elements) {
+                             var ename = elements[e].name ;
+			     o += '<div class="col p-3">' +
+				  '<div class="card border-secondary h-100">' +
+				  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
+				  '<h5><span data-langkey="' +ename+ '">' +ename+ '</span></h5>' +
+				  '</div>' +
+			          ' <div class="card-body">' +
+			          ' <div class="btn-group-vertical w-100" role="group" aria-label="' +ename+ '">' +
+                                  elements[e].function() +
+				  ' </div>' +
+				  ' </div>' +
+				  '</div>' +
+				  '</div>' ;
+                        }
+                        o += '</div>' ;
 
 		        return o ;
 		     },
