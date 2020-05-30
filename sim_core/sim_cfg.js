@@ -154,7 +154,7 @@
             }
 
             // update new fields
-            if (wscfg.build.value != WSCFG.build.value) 
+            if (wscfg.build.value != WSCFG.build.value)
             {
                 for (item in wscfg)
                 {
@@ -196,7 +196,7 @@
              var wscfg = {
                    /* version */
                    "version":              { upgrade:false, type:"string",    value:"2.1.0" },
-                   "build":                { upgrade:true,  type:"string",    value:"2.1.0.20200525C" },
+                   "build":                { upgrade:true,  type:"string",    value:"2.1.0.20200528A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":    { upgrade:false, type:"string",    value:"#0066FF" },
@@ -242,11 +242,14 @@
                    "editor_theme":         { upgrade:false, type:"string",    value:'default' },
                    "editor_mode":          { upgrade:false, type:"string",    value:'default' },
 
-	           /* misc. */
-                   "verbal_verbose":       { upgrade:false, type:"string",    value:'math' },
-                   "base_url":             { upgrade:true,  type:"string",    value:'https://wepsim.github.io/wepsim/ws_dist/' },
+	           /* set of urls */
+                   "base_url":             { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/ws_dist/' },
+                   "cfg_url":              { upgrade:true,  type:"string",    value:'examples/configuration/default.json' },
                    "example_url":          { upgrade:true,  type:"string",    value:'examples/examples_set/default.json' },
-                   "hw_url":               { upgrade:true,  type:"string",    value:'examples/hardware/hw.json' }
+                   "hw_url":               { upgrade:true,  type:"string",    value:'examples/hardware/hw.json' },
+
+	           /* misc. */
+                   "verbal_verbose":       { upgrade:false, type:"string",    value:'math' }
              } ;
 
              // some mobile-tuning
@@ -289,4 +292,78 @@
             if (dbg_delay < 3)
                 cfg_show_asmdbg_pc_delay = 150 ;
         }
+
+
+    /*
+     *  Configurations: available set
+     */
+
+    var ws_cfg_hash = {} ;
+    var ws_cfg_set  = [] ;
+
+    function cfgset_init ( )
+    {
+         var url_list = get_cfg('cfg_url') ;
+
+         // try to load the index
+         ws_cfg_set = wepsim_url_getJSON(url_list) ;
+
+         // build reference hash
+         for (var i=0; i<ws_cfg_set.length; i++) {
+              ws_cfg_hash[ws_cfg_set[i].name] = ws_cfg_set[i].url ;
+         }
+
+         return ws_cfg_hash ;
+    }
+
+    function cfgset_getSet ( )
+    {
+         return ws_cfg_hash ;
+    }
+
+    function cfgset_load ( cfg_name )
+    {
+         var ret  = null ;
+         var jobj = null ;
+
+         if (typeof ws_cfg_hash[cfg_name] === "undefined") {
+             return ret ;
+         }
+
+         // try to import the requested one
+	 try {
+	     jobj = $.getJSON({'url': ws_cfg_hash[cfg_name], 'async': false}) ;
+	     jobj = JSON.parse(jobj.responseText) ;
+	     ret  = cfgset_import(jobj) ;
+	 }
+	 catch (e) {
+             ws_alert("WepSIM can not import the configuration from URL: \n'" +
+                       ws_cfg_hash[cfg_name]  + "'.\n" +
+                      "Found following error: \n" +
+                       err.message) ;
+	 }
+
+	 return ret ;
+    }
+
+    function cfgset_import ( wscfg )
+    {
+         // import primary fields
+	 for (item in wscfg)
+	 {
+             if (typeof WSCFG[item] === "undefined") {
+                 continue ;
+             }
+             if (WSCFG[item].type !== wscfg[item].type) {
+                 continue ;
+             }
+
+             WSCFG[item] = wscfg[item] ;
+	 }
+
+         // update secondary fields
+         set_secondary_cfg() ;
+
+         return true ;
+    }
 
