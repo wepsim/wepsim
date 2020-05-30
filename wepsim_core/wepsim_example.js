@@ -23,30 +23,33 @@
      * Example set management
      */
 
-    var ws_examples     = [] ;
-    var ws_examples_set = [{ "name": "Empty", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;
+    var ws_examples        = [] ;
+    var ws_examples_set    = [{ "name": "Empty", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;
+    var ws_examples_active = -1 ;
 
     function wepsim_example_reset ( )
     {
-       ws_examples     = [] ;
+       ws_examples        = [] ;
+       ws_examples_active = -1 ;
     }
 
-    function wepsim_example_loadList ( url_example_list )
+    function wepsim_example_load ( e_name )
     {
        var jobj = null ;
-
-       // try to load the index
-       ws_examples_set = wepsim_url_getJSON(url_example_list) ;
 
        // try to load each one
        for (var i=0; i<ws_examples_set.length; i++)
        {
+            if (ws_examples_set[i].name !== e_name) { 
+                continue ;
+            }
             if (typeof ws_examples_set[i].url === "undefined") { 
                 continue ;
             }
 
             jobj = wepsim_url_getJSON(ws_examples_set[i].url) ;
 	    ws_examples = ws_examples.concat(jobj) ;
+            ws_examples_active = i ;
        }
 
        return ws_examples ;
@@ -75,25 +78,15 @@
 
     function wepsim_example_loadSet ( url_example_set, set_name )
     {
-       var jindex = null ;
-
        // try to load the set
-       jindex = wepsim_url_getJSON(url_example_set) ;
+       ws_examples_set = wepsim_url_getJSON(url_example_set) ;
 
-       // try to load each one
-       for (var i=0; i<jindex.length; i++)
-       {
-            if (typeof jindex[i].url === "undefined") { 
-                continue ;
-            }
+       return ws_examples_set ;
+    }
 
-            if (jindex[i].name == set_name) {
-                wepsim_example_loadList(jindex[i].url) ;
-                return ws_examples ;
-            }
-       }
-
-       return null ;
+    function wepsim_example_getSet ( )
+    {
+       return ws_examples_set ;
     }
 
     function wepsim_example_getSet ( )
@@ -108,6 +101,11 @@
 
     function load_from_example_assembly ( example_id, chain_next_step )
     {
+        if (-1 == ws_examples_active) {
+            ws_alert("warning: no active example set") ;
+            return ;
+        }
+
 	inputasm.setValue("Please wait...");
 	inputasm.refresh();
 
@@ -129,7 +127,7 @@
              sample_asm = sid[2] ;
         else console.log("warning: example without assembly id") ;
 
-        var url = ws_examples_set[0].url_base_asm + "asm-" + sample_asm + ".txt" ;
+        var url = ws_examples_set[ws_examples_active].url_base_asm + "asm-" + sample_asm + ".txt" ;
 
 	// do next
         var do_next = function( mcode ) {
@@ -174,6 +172,11 @@
 
     function load_from_example_firmware ( example_id, chain_next_step )
     {
+        if (-1 == ws_examples_active) {
+            ws_alert("warning: no active example set") ;
+            return ;
+        }
+
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
@@ -195,7 +198,7 @@
              sample_asm = sid[2] ;
         else console.log("warning: example without assembly id") ;
 
-        var url = ws_examples_set[0].url_base_mc + "mc-" + sample_mc + ".txt" ;
+        var url = ws_examples_set[ws_examples_active].url_base_mc + "mc-" + sample_mc + ".txt" ;
 	inputfirm.setOption('readOnly', false);
 
 	// do next

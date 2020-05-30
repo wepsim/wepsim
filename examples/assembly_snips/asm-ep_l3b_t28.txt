@@ -1,0 +1,15 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+.data
+   v1: .byte
+   v2: .word
+   v3: .float 3.14
+
+   v4: .space 10
+   v5: .asciiz "ec"
+
+   v6: .word 20, 22
+
