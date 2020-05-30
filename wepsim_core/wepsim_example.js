@@ -225,12 +225,14 @@
 	 // share information
 	 var share_title = 'WepSIM example ' + e_id + '...' ;
 	 var share_text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description + '):\n' ;
-	 var share_url   = '' + base_url + '?mode=' + e_hw + '&example=' + m ;
+	 var share_url   = '' + base_url + '?mode=' + e_hw + 
+                                           '&examples_set=' + ws_examples_set[ws_examples_active].name + 
+                                           '&example=' + m ;
 
-	 return share_infomation('example_' + m,
-		                 share_title,
-		                 share_text,
-		                 share_url) ;
+	 return share_information('example_' + m,
+	 	                  share_title,
+		                  share_text,
+		                  share_url) ;
     }
 
     function table_examples_html ( examples )
@@ -310,7 +312,11 @@
 		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-1"' +
                         '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
                              e_title + '</span>' +
-		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + mode + '&example=' + m + '</span>' +
+		        '<span id="example_reference_' + e_id + '" class="d-none">' + 
+                             base_url + '?mode=' + mode + 
+				        '&examples_set=' + ws_examples_set[ws_examples_active].name + 
+				        '&example=' + m + 
+                        '</span>' +
 		        '    <div class="btn-group btn-group-md">' +
                         '           <button type="button" ' +
 		        '                   class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
