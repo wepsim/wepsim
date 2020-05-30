@@ -568,7 +568,8 @@
 
 	       // 1.B Pre-load examples
                var ws_examples_index_url = get_cfg('example_url') ;
-               wepsim_example_loadList(ws_examples_index_url) ;
+               wepsim_example_loadSet(ws_examples_index_url) ;
+               wepsim_example_load('Default') ;
 
 	       // 1.C Pre-load UI configuration
                cfgset_init() ;

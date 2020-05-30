@@ -170,12 +170,18 @@
 
                 // if code then move scroll
 	        var o1 = fullshow_asmdbg_pc() ;
-	        if (typeof o1[0] == 'undefined') {
+	        if (null === o1) {
 	            return true ;
                 }
 
 	        var obj_byid = $('#asm_debugger_container') ;
-	        obj_byid[0].scrollTop = o1[0].offsetTop ;
+                if (typeof obj_byid === 'undefined') {
+                    return true ;
+                }
+
+                if ( (typeof o1 !== 'undefined') && (typeof o1[0] !== 'undefined') ) {
+	              obj_byid[0].scrollTop = o1[0].offsetTop ;
+                }
             }
 
             // add if recording

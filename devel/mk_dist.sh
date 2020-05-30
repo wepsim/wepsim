@@ -248,6 +248,12 @@ echo '    "name":         "Default",'                                   >> examp
 echo '    "url":          "examples/examples_set/default_packed.json",' >> examples/examples_set/default.json
 echo '    "url_base_asm": "examples/assembly/",'                        >> examples/examples_set/default.json
 echo '    "url_base_mc":  "examples/microcode/"'                        >> examples/examples_set/default.json
+echo '},'                                                               >> examples/examples_set/default.json
+echo '{'                                                                >> examples/examples_set/default.json
+echo '    "name":         "Snips",'                                     >> examples/examples_set/default.json
+echo '    "url":          "examples/examples_set/snips_packed.json",'   >> examples/examples_set/default.json
+echo '    "url_base_asm": "examples/assembly_snips/",'                  >> examples/examples_set/default.json
+echo '    "url_base_mc":  "examples/microcode/"'                        >> examples/examples_set/default.json
 echo '} ]'                                                              >> examples/examples_set/default.json
 
 echo "  * ws_dist/examples/..."
