@@ -1,0 +1,212 @@
+[
+  {
+    "id":          "L3AT1",
+    "title":       "Lesson 3A, Slide 36",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3a_t36",
+    "description": ""
+  },
+  {
+    "id":          "L3AT2",
+    "title":       "Lesson 3A, Slide 38",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3a_t38",
+    "description": ""
+  },
+  {
+    "id":          "L3AT3",
+    "title":       "Lesson 3A, Slide 41",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3a_t41",
+    "description": ""
+  },
+  {
+    "id":          "L3AT4",
+    "title":       "Lesson 3A, Slide 44",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3a_t44",
+    "description": ""
+  },
+  {
+    "id":          "L3AT5",
+    "title":       "Lesson 3A, Slide 63",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3a_t63",
+    "description": ""
+  },
+  {
+    "id":          "L3AT6",
+    "title":       "Lesson 3A, Slide 68",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3a_t68",
+    "description": ""
+  },
+  {
+    "id":          "L3AT7",
+    "title":       "Lesson 3B, Slide 16",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t16",
+    "description": ""
+  },
+  {
+    "id":          "L3AT8",
+    "title":       "Lesson 3B, Slide 24",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t24",
+    "description": ""
+  },
+  {
+    "id":          "L3AT9",
+    "title":       "Lesson 3B, Slide 25",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t25",
+    "description": ""
+  },
+  {
+    "id":          "L3AT10",
+    "title":       "Lesson 3B, Slide 26",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t26",
+    "description": ""
+  },
+  {
+    "id":          "L3AT11",
+    "title":       "Lesson 3B, Slide 28",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t28",
+    "description": ""
+  },
+  {
+    "id":          "L3AT12",
+    "title":       "Lesson 3B, Slide 37",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t37",
+    "description": ""
+  },
+  {
+    "id":          "L3AT13",
+    "title":       "Lesson 3B, Slide 38",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t38",
+    "description": ""
+  },
+  {
+    "id":          "L3AT14",
+    "title":       "Lesson 3B, Slide 48",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t48",
+    "description": ""
+  },
+  {
+    "id":          "L3AT15",
+    "title":       "Lesson 3B, Slide 49",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t49",
+    "description": ""
+  },
+  {
+    "id":          "L3AT16",
+    "title":       "Lesson 3B, Slide 52",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t52",
+    "description": ""
+  },
+  {
+    "id":          "L3AT17",
+    "title":       "Lesson 3B, Slide 56",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t56",
+    "description": ""
+  },
+  {
+    "id":          "L3AT18",
+    "title":       "Lesson 3B, Slide 59",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t59",
+    "description": ""
+  },
+  {
+    "id":          "L3AT19",
+    "title":       "Lesson 3B, Slide 60",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t60",
+    "description": ""
+  },
+  {
+    "id":          "L3AT20",
+    "title":       "Lesson 3B, Slide 67",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t67",
+    "description": ""
+  },
+  {
+    "id":          "L3AT21",
+    "title":       "Lesson 3B, Slide 72",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_l3b_t72",
+    "description": ""
+  }
+]

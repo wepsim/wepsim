@@ -23,7 +23,7 @@
      * Share
      */
 
-    function share_infomation ( info_shared, share_title, share_text, share_url )
+    function share_information ( info_shared, share_title, share_text, share_url )
     {
 	 if (typeof navigator.share === 'undefined')
 	 {

@@ -38,10 +38,12 @@
 	    if (hash.examples_set !== '')
 	    {
                 var url_examples_set = get_cfg('example_url') ;
-                var ret = wepsim_example_loadSet(url_examples_set, hash.examples_set) ;
+                var ret = wepsim_example_loadSet(url_examples_set) ;
+                wepsim_example_reset() ;
+                wepsim_example_load(hash.examples_set) ;
 
 	        var result_txt = ' has been loaded' ;
-                if (ret != null) {
+                if (null == ret) {
 	            result_txt = ' could not be loaded' ;
 		}
 

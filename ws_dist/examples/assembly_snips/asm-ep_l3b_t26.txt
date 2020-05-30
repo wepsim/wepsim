@@ -1,0 +1,11 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+.data
+   # string
+   c1:  .space 10      # 10 bytes
+   ac1: .asciiz "hola" # 5 bytes
+   ac2: .ascii  "hola" # 4 bytes
+
