@@ -8,11 +8,11 @@
       "url":  "examples/configuration/mobile_light.json"
    },
    {
-      "name": "Desk. dark",
+      "name": "Desktop-Dark",
       "url":  "examples/configuration/desktop_dark.json"
    },
    {
-      "name": "Mobi. dark",
+      "name": "Mobile-Dark",
       "url":  "examples/configuration/mobile_dark.json"
    }
 ]

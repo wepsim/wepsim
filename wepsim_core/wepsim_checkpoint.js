@@ -385,10 +385,10 @@
 	         share_title += ' (' + obj_tagName.value + ')...' ;
 	    else share_title += '...' ;
 
-            return share_infomation('checkpoint',
-                                    share_title,
-                                    share_text,
-                                    share_url) ;
+            return share_information('checkpoint',
+                                     share_title,
+                                     share_text,
+                                     share_url) ;
     }
 
 

@@ -282,18 +282,22 @@
 
 	function fullshow_asmdbg_pc ( )
 	{
-		if (typeof document === "undefined") {
-		    return null ;
-		}
-
                 var o1 = null ;
+
+		if (typeof document === "undefined") {
+		    return o1 ;
+		}
 
 	        var pc_name = simhw_sim_ctrlStates_get().pc.state ;
 	        var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
                 var curr_addr = "0x" + reg_pc.toString(16) ;
                 var curr_firm = simhw_internalState('FIRMWARE') ;
 
-                if (typeof curr_firm.assembly[old_addr] != "undefined")
+                if (typeof curr_firm.assembly === "undefined") {
+		    return o1 ;
+                }
+
+                if (typeof curr_firm.assembly[old_addr] !== "undefined")
                 {
                      o1 = $("#asmdbg" + old_addr) ;
                      o1.css('background-color', curr_firm.assembly[old_addr].bgcolor) ;

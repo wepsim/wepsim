@@ -1,0 +1,6 @@
+[ {
+    "name":         "Snips",
+    "url":          "examples/examples_set/snips_packed.json",
+    "url_base_asm": "examples/assembly_snips/",
+    "url_base_mc":  "examples/microcode/"
+} ]

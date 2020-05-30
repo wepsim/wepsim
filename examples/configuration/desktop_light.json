@@ -7,7 +7,7 @@
   "build": {
     "upgrade": true,
     "type": "string",
-    "value": "2.1.0.20200528A"
+    "value": "2.1.0.20200529A"
   },
   "color_data_active": {
     "upgrade": false,

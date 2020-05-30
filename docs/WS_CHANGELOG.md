@@ -4,7 +4,7 @@
 ## 2.0.12 -> 2.1.0:
 * Improvements:
   * Dialog-boxes re-designed from scratch
-  * Reset (for examples, configuration and processors) added
+  * Reload dialogbox added (for examples, configuration and processors)
 * Updates:
   * Bootstrap  updated to bootstrap-4.5.0
   * Knockout   updated to knockout-3.5.1
