@@ -42,7 +42,7 @@
                 wepsim_example_load(hash.examples_set) ;
 
 	        var result_txt = ' has been loaded' ;
-                if (ret != null) {
+                if (null == ret) {
 	            result_txt = ' could not be loaded' ;
 		}
 
