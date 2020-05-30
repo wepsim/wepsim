@@ -576,11 +576,6 @@
 
 	    // 2 Restore saved configuration
 
-	       // 1.C Pre-load UI configuration
-               cfgset_init() ;
-
-	    // 2 Restore saved configuration
-
 	       // 2.A Restore UI
                wepsim_uicfg_restore() ;
 

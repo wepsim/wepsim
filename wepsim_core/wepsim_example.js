@@ -55,37 +55,11 @@
        return ws_examples ;
     }
 
-    function wepsim_example_load ( e_name )
-    {
-       var jobj = null ;
-
-       // try to load each one
-       for (var i=0; i<ws_examples_set.length; i++)
-       {
-            if (ws_examples_set[i].name !== e_name) { 
-                continue ;
-            }
-            if (typeof ws_examples_set[i].url === "undefined") { 
-                continue ;
-            }
-
-            jobj = wepsim_url_getJSON(ws_examples_set[i].url) ;
-	    ws_examples = ws_examples.concat(jobj) ;
-       }
-
-       return ws_examples ;
-    }
-
     function wepsim_example_loadSet ( url_example_set, set_name )
     {
        // try to load the set
        ws_examples_set = wepsim_url_getJSON(url_example_set) ;
 
-       return ws_examples_set ;
-    }
-
-    function wepsim_example_getSet ( )
-    {
        return ws_examples_set ;
     }
 
