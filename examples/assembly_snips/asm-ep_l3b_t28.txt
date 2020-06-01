@@ -4,8 +4,8 @@
 #
 
 .data
-   v1: .byte
-   v2: .word
+   v1: .byte  0
+   v2: .word  0
    v3: .float 3.14
 
    v4: .space 10

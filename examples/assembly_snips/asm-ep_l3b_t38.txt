@@ -5,12 +5,12 @@
 
 .text
    main: # readInt(&valor)
-         li $v0 5
+         li  $v0 5
          syscall
 
          # valor = valor + 1
          addi $a0 $v0 1
 
          # printInt
-         li $v0 1
+         li  $v0 1
          syscall

@@ -9,10 +9,10 @@ c2:  .byte 'h'
 ac1: .asciiz "hola"
 
 .text
-  main: li $t0 'm'
-        sb $t0 ac1+0
+  main: li  $t0 'm'
+        sb  $t0 ac1+0
 
-        li $t0 4
-        la $a0 ac1
+        li  $t0 4
+        la  $a0 ac1
         syscall
 

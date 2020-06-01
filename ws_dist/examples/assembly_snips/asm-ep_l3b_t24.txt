@@ -6,13 +6,13 @@
 .data
   # boolean
     # bool_t b1 ;
-    b1:  .space 1
+    b1: .space 1
     # bool_t b2 = false;
     b2: .byte 0
 
   # caracter
     # char c1 ;
-    c1:  .byte
+    c1: .byte  0
     # char c2 = 'x';
     c2: .byte 'x'
 
