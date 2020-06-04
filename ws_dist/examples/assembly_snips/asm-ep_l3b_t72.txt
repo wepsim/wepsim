@@ -7,18 +7,20 @@
    msg: .asciiz "hola\n"
 
 .text
-# di_hola() {
-#  printf("hola\n") ;
-# }
-di_hola: la $a0 msg
-         li $v0 4
-	 syscall
-	 jr $ra
+   # di_hola() {
+   #  printf("hola\n") ;
+   # }
 
-# main() {
-#  di_hola() ;
-# }
-main:    jal di_hola
-         li $a0 10
-	 syscall
+   di_hola: la $a0 msg
+            li $v0 4
+   	    syscall
+	    jr $ra
+
+   # main() {
+   #  di_hola() ;
+   # }
+
+   main:    jal di_hola
+            li $a0 10
+	    syscall
 

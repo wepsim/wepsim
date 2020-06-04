@@ -594,6 +594,6 @@
 
 	       // 3.A GET params
 	       var url_parameters = new URL(window.location).searchParams ;
-	       wepsim_preload_get(url_parameters, 'FileNameToSaveAs1', 'tagToSave1') ;
+	       wepsim_preload_get(url_parameters) ;
     }
 

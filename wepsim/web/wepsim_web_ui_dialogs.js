@@ -1038,8 +1038,8 @@
 				       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
 				       '	  		           \'Configuration loaded!.\') ;' +
 				       '	     wepsim_uicfg_restore() ;' +
-				       '	     return false;">' + 
-                                       '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' + 
+				       '	     return false;">' +
+                                       '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' +
                                        '</button>' ;
 			     }
                              return o ;
@@ -1054,8 +1054,8 @@
 				       '	     wepsim_example_load(\'' + e_exs[i].name + '\') ;' +
 				       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
 				       '			           \'Examples list loaded!.\') ;' +
-				       '	     return false;">' + 
-                                       '<span data-langkey="' +e_exs[i].name+ '">' + e_exs[i].name + '</span>' + 
+				       '	     return false;">' +
+                                       '<span data-langkey="' +e_exs[i].name+ '">' + e_exs[i].name + '</span>' +
                                        '</button>' ;
 			     }
                              return o ;
@@ -1076,9 +1076,21 @@
 
                         // cards
                         var elements = [
-                                 { "name": "Configuration", "function": card_configuration_btns },
-                                 { "name": "Examples",      "function": card_example_btns },
-                                 { "name": "Processor",     "function": card_processor_btns }
+                                 {
+                                    "name": "Configuration",
+                                    "icon": "<em class='fas fa-cogs pr-2'></em>",
+                                    "function": card_configuration_btns
+                                 },
+                                 {
+                                    "name": "Examples",
+                                    "icon": "<em class='fas fa-stream pr-2'></em>",
+                                    "function": card_example_btns
+                                 },
+                                 {
+                                    "name": "Processor",
+                                    "icon": "<em class='fas fa-microchip pr-2'></em>",
+                                    "function": card_processor_btns
+                                 }
                             ] ;
 
 		        var o = '<div id="scroller-reload1" class="row m-0">' ;
@@ -1087,7 +1099,10 @@
 			     o += '<div class="col-12 col-sm-4 p-2">' +
 				  '<div class="card border-secondary h-100">' +
 				  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
-				  '<h5><span data-langkey="' +ename+ '">' +ename+ '</span></h5>' +
+				  '<h5 class="py-1 m-0">' +
+				  elements[e].icon +
+                                  '<span data-langkey="' + ename + '">' + ename + '</span>' +
+                                  '</h5>' +
 				  '</div>' +
 			          ' <div class="card-body">' +
 			          ' <div class="btn-group-vertical w-100" role="group" aria-label="' +ename+ '">' +

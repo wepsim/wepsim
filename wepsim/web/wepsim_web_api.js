@@ -513,6 +513,10 @@
 		      wsweb_recordbar_toggle() ;
 		      break ;
 
+	        case 'reload':
+		      wsweb_dialog_open('reload') ;
+		      break ;
+
 	        case 'help':
 		      wsweb_dialog_open('help') ;
 		      break ;

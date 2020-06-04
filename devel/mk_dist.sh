@@ -256,6 +256,8 @@ echo '    "url_base_asm": "examples/assembly_snips/",'                  >> examp
 echo '    "url_base_mc":  "examples/microcode/"'                        >> examples/examples_set/default.json
 echo '} ]'                                                              >> examples/examples_set/default.json
 
+cp examples/examples_set/default.json examples/apps.json
+
 echo "  * ws_dist/examples/..."
 cp -a examples  ws_dist/
 
