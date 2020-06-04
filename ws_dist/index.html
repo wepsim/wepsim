@@ -327,11 +327,9 @@
 				 onclick="wsweb_select_action('recordbar');
 					  return false;"><span data-langkey="RecordBar">RecordBar</span></a>
 
-			      <a class="dropdown-item text-danger" 
-                                  data-toggle="collapse" href="#collapseReset1" 
-			          aria-expanded="false" aria-controls="collapseReset" 
-				  onclick="wsweb_dialog_open('reload');
-                                           return false;"><span data-langkey="Reload">Reload</span></a>
+                              <a class="dropdown-item" href="#" id="selact_reload" value="reload"
+				 onclick="wsweb_select_action('reload');
+					  return false;"><span data-langkey="Reload">Reload</span></a>
 
                               <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
                               <a class="dropdown-item" href="#" id="selact_help" value="help"

@@ -79,11 +79,13 @@
                     wsweb_change_show_asmdbg() ;
                 }
 	    }
-
 	    if (typeof panels[1] !== "undefined")
 	    {
-		var panel2_ref  = panels[1].toUpperCase() ;
-                wsweb_set_details(panel2_ref) ;
+                wsweb_set_details(panels[1].toUpperCase()) ;
+	    }
+	    if (typeof panels[2] !== "undefined")
+	    {
+                wsweb_do_action(panels[2].toLowerCase()) ;
 	    }
 
 	    // notify the user of the preloaded work
@@ -134,7 +136,7 @@
 	    xhr.send();
     }
 
-    function wepsim_preload_get ( parameters, id_filename, id_tagname )
+    function wepsim_preload_get ( parameters )
     {
             var hash_fields = [ 'preload', 'mode', 'examples_set', 'example', 
                                 'simulator', 'notify', 'checkpoint' ] ;
@@ -176,7 +178,7 @@
 	    if (hash.checkpoint !== '')
 	    {
 		uri_obj = new URL(hash.checkpoint) ;
-                wepsim_checkpoint_loadURI(uri_obj, id_filename, id_tagname) ;
+                wepsim_checkpoint_loadURI(uri_obj) ;
 	    }
     }
 

@@ -115,7 +115,7 @@
 	        if ((typeof obj_fileName !== "undefined") && (obj_fileName !== null)) {
 		     obj_fileName.value = obj_fileToLoad.name ;
 		}
-	        if ((typeof obj_fileName !== "undefined") && (obj_tagName !== null)) {
+	        if ((typeof obj_tagName  !== "undefined") && (obj_tagName  !== null)) {
 		     obj_tagName.value  = checkpointObj.tag ;
 		}
 
@@ -302,9 +302,9 @@
 	    }
 
 	    // lambda (auxiliar) function
-	    var function_after_loaded = function (textLoaded)
-	                                {
-					   wepsim_checkpoint_afterLoad(textLoaded, obj_fileName, obj_tagName, obj_fileToLoad) ;
+	    var function_after_loaded = function (textLoaded) {
+					   wepsim_checkpoint_afterLoad(textLoaded, 
+								       obj_fileName, obj_tagName, obj_fileToLoad);
 			                } ;
 
 	    // load checkpoint
@@ -312,15 +312,11 @@
 	    return true ;
     }
 
-    function wepsim_checkpoint_loadURI ( obj_uri, id_filename, id_tagname )
+    function wepsim_checkpoint_loadURI ( obj_uri )
     {
-	    // get & check params
-	    var obj_fileName = document.getElementById(id_filename) ;
-	    var obj_tagName  = document.getElementById(id_tagname) ;
-
-	    if ( (obj_fileName === null) || (obj_tagName === null) || (obj_uri === null) )
-	    {
-		return false ;
+	    // check params
+	    if ( (typeof obj_uri === "undefined") || (obj_uri === null) ) {
+		  return false ;
 	    }
 
 	    // load checkpoint
@@ -333,7 +329,7 @@
 	                                var obj_refName        = { name: filename } ;
                                         var current_checkpoint = wepsim_checkpoint_NB2Obj(data) ;
 				        wepsim_checkpoint_loadFromObj(current_checkpoint,
-					                              obj_fileName, obj_tagName, obj_refName) ;
+					                              null, null, obj_refName) ;
 			            }) ;
 	        return true ;
 	    }

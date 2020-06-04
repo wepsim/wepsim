@@ -5,9 +5,9 @@
 
 .text
  main:
-
          #  int i, s;
          #  s=i=0;
+
          li $t0 0
          li $v0 0
 
@@ -16,6 +16,7 @@
          #     s = s + i ;
          #     i = i + 1 ;
          #  }
+
  while1: bge $t0 10 fin1
          add $v0 $v0 $t0
          add $t0 $t0 1

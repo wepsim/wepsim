@@ -7,7 +7,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t36",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
   },
   {
     "id":          "L3AT2",
@@ -17,7 +17,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t38",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
   },
   {
     "id":          "L3AT3",
@@ -27,7 +27,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t41",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
   },
   {
     "id":          "L3AT4",
@@ -37,7 +37,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t44",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
   },
   {
     "id":          "L3AT5",
@@ -47,7 +47,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t63",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
   },
   {
     "id":          "L3AT6",
@@ -57,7 +57,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t68",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
   },
   {
     "id":          "L3AT7",
@@ -67,7 +67,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t16",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT8",
@@ -77,7 +77,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t24",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT9",
@@ -87,7 +87,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t25",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT10",
@@ -97,7 +97,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t26",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT11",
@@ -107,7 +107,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t28",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT12",
@@ -117,7 +117,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t37",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT13",
@@ -127,7 +127,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t38",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT14",
@@ -137,7 +137,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t48",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT15",
@@ -147,7 +147,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t49",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT16",
@@ -157,7 +157,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t52",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT17",
@@ -167,7 +167,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t56",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT18",
@@ -177,7 +177,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t59",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT19",
@@ -187,7 +187,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t60",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT20",
@@ -197,7 +197,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t67",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   },
   {
     "id":          "L3AT21",
@@ -207,6 +207,6 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t72",
-    "description": ""
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
   }
 ]
