@@ -34,7 +34,7 @@ checks:
        threshold: 350
 plugins:
   duplication:
-    enable: false
+    enabled: false
 exclude_patterns:
   - "images/"
   - "docs/"
