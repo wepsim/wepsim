@@ -32,9 +32,6 @@ checks:
     enable: false
     config:
        threshold: 350
-engines:
-  duplication:
-    enable: false
 plugins:
   duplication:
     enable: false
