@@ -23,6 +23,7 @@
 	 *  L3D
 	 */
 
+        /* jshint esversion: 6 */
         sim.poc.components.L3D = {
 		                  name: "L3D",
 		                  version: "1",
@@ -115,7 +116,7 @@
                                     draw_name: [[], []]};
 
          sim.poc.signals.L3D_SYNC = { name: "L3D_SYNC",
-                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                    visible: true, type: "L", value: 1, default_value:1, nbits: "1",
                                     behavior: ["NOP", "L3D_SYNC"],
                                     fire_name: [],
                                     draw_data: [[], []],
