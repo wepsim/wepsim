@@ -129,15 +129,14 @@
                                                       var iocr   = get_value(sim.ep.states[s_expr[4]]) ;
                                                       var iodr   = get_value(sim.ep.states[s_expr[5]]) ;
 
-                                                      if (bus_ab == L3DSR_ID) 
-                                                          set_value(sim.ep.states[s_expr[2]], iosr);
-                                                      if (bus_ab == L3DCR_ID) 
-                                                          set_value(sim.ep.states[s_expr[2]], iocr);
-                                                      if (bus_ab == L3DDR_ID) 
-                                                          set_value(sim.ep.states[s_expr[2]], iodr);
-
                                                       // get
                                                       if (bus_ab == L3DCR_ID) {
+                                                          set_value(sim.ep.states[s_expr[2]], iocr);
+						      }
+                                                      if (bus_ab == L3DDR_ID) {
+                                                          set_value(sim.ep.states[s_expr[2]], iodr);
+						      }
+                                                      if (bus_ab == L3DSR_ID) {
                                                           var x = (iodr & 0xFF000000) >> 24 ;
                                                           var y = (iodr & 0x00FF0000) >> 16 ;
                                                           var z = (iodr & 0x0000FF00) >>  8 ;
@@ -173,32 +172,33 @@
                                                    {
                                                       var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
                                                       var bus_db = get_value(sim.ep.states[s_expr[2]]) ;
-                                                      var iosr   = get_value(sim.ep.states[s_expr[3]]) ;
-                                                      var iocr   = get_value(sim.ep.states[s_expr[4]]) ;
-                                                      var iodr   = get_value(sim.ep.states[s_expr[5]]) ;
 
                                                       if ( (bus_ab != L3DSR_ID) &&
                                                            (bus_ab != L3DCR_ID) &&
                                                            (bus_ab != L3DDR_ID) )
                                                       {
-                                                            return; 
+                                                            return ;
                                                       }
 
-                                                      if (bus_ab == L3DSR_ID) 
-                                                          set_value(sim.ep.states[s_expr[3]], bus_db);
-                                                      if (bus_ab == L3DCR_ID) 
-                                                          set_value(sim.ep.states[s_expr[4]], bus_db);
-                                                      if (bus_ab == L3DDR_ID) 
-                                                          set_value(sim.ep.states[s_expr[5]], bus_db);
-
                                                       // set
-                                                      if (bus_ab == L3DCR_ID) {
-                                                          var x = (iodr & 0xFF000000) >> 24 ;
-                                                          var y = (iodr & 0x00FF0000) >> 16 ;
-                                                          var z = (iodr & 0x0000FF00) >>  8 ;
+                                                      if (bus_ab == L3DSR_ID) {
+                                                          set_value(sim.ep.states[s_expr[3]], bus_db) ;
+						      }
+                                                      if (bus_ab == L3DDR_ID) {
+                                                          set_value(sim.ep.states[s_expr[5]], bus_db) ;
+						      }
+                                                      if (bus_ab == L3DCR_ID) 
+                                                      {
+                                                          // update control register
+                                                          set_value(sim.ep.states[s_expr[4]], bus_db) ;
+
+                                                          // update internal state
+                                                          var x = (bus_db & 0xFF000000) >> 24 ;
+                                                          var y = (bus_db & 0x00FF0000) >> 16 ;
+                                                          var z = (bus_db & 0x0000FF00) >>  8 ;
 
                                                           var p = 16*z + 4*y + x ;
-                                                          var s = (iodr & 0x000000FF) != 0 ;
+                                                          var s = (bus_db & 0x000000FF) != 0 ;
 
 						          set_var(sim.ep.internal_states.l3d_state[p].active, s);
 						      }
