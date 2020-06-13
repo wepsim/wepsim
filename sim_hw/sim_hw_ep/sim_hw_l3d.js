@@ -260,8 +260,7 @@
 						        }
 
 						        // REST
-						        simcore_rest_call('L3D', 'POST',
-								          '/put_frame', {'frame': o}) ;
+						        simcore_rest_call('L3D', 'POST', '/', {'frame': o}) ;
 							    // 201 (Created) -> ok
 							    // 400 (Bad request) -> ko
                                                    },
