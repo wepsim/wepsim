@@ -77,21 +77,21 @@
          */
 
         sim.poc.states.KBDR   = { name: "KBDR", verbal: "Keyboard Data Register",
-                              visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                  visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
         sim.poc.states.KBSR   = { name: "KBSR", verbal: "Keyboard Status Register",
-                              visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                  visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-         sim.poc.signals.KBD_IOR   = { name: "IOR", 
-		                   visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                   behavior: ["NOP", "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE M1"],
-                                   fire_name: ['svg_p:tspan4057'], 
-                                   draw_data: [[], ['svg_p:path3863', 'svg_p:path3847']], 
-                                   draw_name: [[], []]};
+         sim.poc.signals.KBD_IOR   = { name: "KBD_IOR", 
+		                       visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                       behavior: ["NOP", "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE M1"],
+                                       fire_name: ['svg_p:tspan4057'], 
+                                       draw_data: [[], ['svg_p:path3863', 'svg_p:path3847']], 
+                                       draw_name: [[], []]};
 
 
         /*
