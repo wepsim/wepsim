@@ -318,5 +318,15 @@
     "microcode":	"ep_bare",
     "assembly":		"ep_s6_e1",
     "description":	"<span data-langkey='example_06_01'>Test example.</span>"
+  },
+  {
+    "id":		"S6E3",
+    "title":		"3D-Led",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_s2_e3",
+    "assembly":		"ep_s6_e3",
+    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
   }
 ]
