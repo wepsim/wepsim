@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
  *
  *  This file is part of WepSIM.
  *
@@ -90,44 +90,37 @@
          */
 
         sim.poc.states.L3DSR = { name: "L3DSR", verbal: "L3D State Register",
-                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                 visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
         sim.poc.states.L3DCR = { name: "L3DCR", verbal: "L3D Control Register",
-                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                 visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
         sim.poc.states.L3DDR = { name: "L3DDR", verbal: "L3D Data Register",
-                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                 visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-         sim.poc.signals.L3D_L3DR = { name: "L3D_L3DR",
-                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-                                    behavior: ["NOP", "L3D_L3DR BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE M1"],
-                                    fire_name: ['svg_p:tspan4173'],
-                                    draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']],
-                                    draw_name: [[], []]};
+         sim.poc.signals.L3D_IOR = { name: "L3D_IOR",
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                     behavior: ["NOP", "L3D_IOR BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE M1"],
+                                     fire_name: ['svg_p:tspan4173'],
+                                     draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']],
+                                     draw_name: [[], []]};
 
-         sim.poc.signals.L3D_L3DW = { name: "L3D_L3DW",
-                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-                                    behavior: ["NOP", "L3D_L3DW BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE M1; FIRE L3D_SYNC"],
-                                    fire_name: ['svg_p:text3785-0-6-0-5-5'],
-                                    draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']],
-                                    draw_name: [[], []]};
-
-         sim.poc.signals.L3D_SYNC = { name: "L3D_SYNC",
-                                    visible: true, type: "L", value: 1, default_value:1, nbits: "1",
-                                    behavior: ["NOP", "L3D_SYNC"],
-                                    fire_name: [],
-                                    draw_data: [[], []],
-                                    draw_name: [[], []]};
+         sim.poc.signals.L3D_IOW = { name: "L3D_IOW",
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                     behavior: ["NOP", "L3D_IOW BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE M1; L3D_SYNC"],
+                                     fire_name: ['svg_p:text3785-0-6-0-5-5'],
+                                     draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']],
+                                     draw_name: [[], []]};
 
 
         /*
          *  Syntax of behaviors
          */
 
-        sim.poc.behaviors.L3D_L3DR  = { nparameters: 7,
+        sim.poc.behaviors.L3D_IOR  = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr)
                                                    {
@@ -174,12 +167,15 @@
                                                    }
                                       };
 
-        sim.poc.behaviors.L3D_L3DW  = { nparameters: 7,
+        sim.poc.behaviors.L3D_IOW  = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr)
                                                    {
                                                       var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
                                                       var bus_db = get_value(sim.poc.states[s_expr[2]]) ;
+                                                      var iosr   = get_value(sim.poc.states[s_expr[3]]) ;
+                                                      var iocr   = get_value(sim.poc.states[s_expr[4]]) ;
+                                                      var iodr   = get_value(sim.poc.states[s_expr[5]]) ;
 
                                                       if ( (bus_ab != L3DSR_ID) &&
                                                            (bus_ab != L3DCR_ID) &&

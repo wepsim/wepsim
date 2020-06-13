@@ -97,11 +97,11 @@
          */
 
         sim.ep.states.IOSR = { name: "IOSR", verbal: "IO State Register",
-                           visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                               visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
         sim.ep.states.IOCR = { name: "IOCR", verbal: "IO Control Register",
-                           visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                               visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
         sim.ep.states.IODR = { name: "IODR", verbal: "IO Data Register",
-                           visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                               visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
@@ -109,48 +109,48 @@
          */
 
          sim.ep.signals.INT         = { name: "INT", 
-                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                    depends_on: ["CLK"],
-                                    behavior: ["FIRE C", "FIRE C"],
-                                    fire_name: ['svg_p:tspan4199'], 
-                                    draw_data: [[], ['svg_p:path3809']], 
-                                    draw_name: [[], []]};
+                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                        depends_on: ["CLK"],
+                                        behavior: ["FIRE C", "FIRE C"],
+                                        fire_name: ['svg_p:tspan4199'], 
+                                        draw_data: [[], ['svg_p:path3809']], 
+                                        draw_name: [[], []]};
 
          sim.ep.signals.IORDY       = { name: "IORDY", 
-                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                    depends_on: ["CLK"],
-		                    behavior: ["FIRE_IFCHANGED IORDY C", "FIRE_IFCHANGED IORDY C"],
-                                    fire_name: ['svg_p:tspan4089','svg_p:path3793','svg_p:text3911'], 
-                                    draw_data: [[], ['svg_p:path3897']], 
-                                    draw_name: [[], []]};
+                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                        depends_on: ["CLK"],
+		                        behavior: ["FIRE_IFCHANGED IORDY C", "FIRE_IFCHANGED IORDY C"],
+                                        fire_name: ['svg_p:tspan4089','svg_p:path3793','svg_p:text3911'], 
+                                        draw_data: [[], ['svg_p:path3897']], 
+                                        draw_name: [[], []]};
 
          sim.ep.signals.IO_IOR      = { name: "IO_IOR", 
-                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                    behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
-                                    fire_name: ['svg_p:tspan4173'], 
-                                    draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
-                                    draw_name: [[], []]};
+                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                        behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
+                                        fire_name: ['svg_p:tspan4173'], 
+                                        draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
+                                        draw_name: [[], []]};
 
          sim.ep.signals.IO_IOW      = { name: "IO_IOW", 
-                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                    behavior: ["NOP", "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
-                                    fire_name: ['svg_p:text3785-0-6-0-5-5'], 
-                                    draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
-                                    draw_name: [[], []]};
+                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                        behavior: ["NOP", "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
+                                        fire_name: ['svg_p:text3785-0-6-0-5-5'], 
+                                        draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
+                                        draw_name: [[], []]};
 
          sim.ep.signals.IO_IE       = { name: "IO_IE", 
-                                    visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
-                                    behavior: ["NOP", "IO_CHK_I CLK INT INTV; FIRE C"],
-                                    fire_name: [], 
-                                    draw_data: [[], []], 
-                                    draw_name: [[], []] };
+                                        visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
+                                        behavior: ["NOP", "IO_CHK_I CLK INT INTV; FIRE C"],
+                                        fire_name: [], 
+                                        draw_data: [[], []], 
+                                        draw_name: [[], []] };
 
          sim.ep.signals.INTA        = { name: "INTA", 
-                                    visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
-                                    behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE BW; FIRE C"],
-                                    fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
-                                    draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
-                                    draw_name: [[], []] };
+                                        visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
+                                        behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE BW; FIRE C"],
+                                        fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
+                                        draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
+                                        draw_name: [[], []] };
 
 
         /*
