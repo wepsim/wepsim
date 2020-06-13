@@ -107,50 +107,50 @@
          */
 
         sim.poc.signals.MRDY     = { name: "MRDY", 
-                                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                 depends_on: ["CLK"],
-		                 behavior: ["FIRE_IFCHANGED MRDY C", 
-					    "FIRE_IFCHANGED MRDY C"],
-                                 fire_name: ['svg_p:tspan3916'], 
-                                 draw_data: [[], ['svg_p:path3895','svg_p:path3541']], 
-                                 draw_name: [[], []]};
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                     depends_on: ["CLK"],
+		                     behavior: ["FIRE_IFCHANGED MRDY C", 
+					        "FIRE_IFCHANGED MRDY C"],
+                                     fire_name: ['svg_p:tspan3916'], 
+                                     draw_data: [[], ['svg_p:path3895','svg_p:path3541']], 
+                                     draw_name: [[], []]};
 
         sim.poc.signals.R        = { name: "R", 
-                                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                 behavior: ["NOP", 
-					    "MEM_READ BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
-                                 fire_name: ['svg_p:text3533-5-2'], 
-                                 draw_data: [[], ['svg_p:path3557','svg_p:path3571']], 
-                                 draw_name: [[], []]};
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                     behavior: ["NOP", 
+					        "MEM_READ BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
+                                     fire_name: ['svg_p:text3533-5-2'], 
+                                     draw_data: [[], ['svg_p:path3557','svg_p:path3571']], 
+                                     draw_name: [[], []]};
 
         sim.poc.signals.W        = { name: "W", 
-                                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                 behavior: ["NOP", 
-					    "MEM_WRITE BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
-                                 fire_name: ['svg_p:text3533-5-08'], 
-                                 draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']], 
-                                 draw_name: [[], []] };
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                     behavior: ["NOP", 
+					        "MEM_WRITE BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
+                                     fire_name: ['svg_p:text3533-5-08'], 
+                                     draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']], 
+                                     draw_name: [[], []] };
 
         sim.poc.signals.BW       = { name: "BW", 
-                                 verbal: ['Access to one byte from memory. ',
-                                          'Access to two bytes from memory. ',
-                                          'Access to three bytes from memory. ',
-                                          'Access to a word from memory. '],
-                                 visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-                                 behavior: ['FIRE R; FIRE W', 
-					    'FIRE R; FIRE W', 
-					    'FIRE R; FIRE W', 
-					    'FIRE R; FIRE W'],
-                                 fire_name: ['svg_p:text3533-5-2-8'],
-                                 draw_data: [['svg_p:path3557-0']],
-                                 draw_name: [[],[]] };
+                                     verbal: ['Access to one byte from memory. ',
+                                              'Access to two bytes from memory. ',
+                                              'Access to three bytes from memory. ',
+                                              'Access to a word from memory. '],
+                                     visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+                                     behavior: ['FIRE R; FIRE W', 
+				    	        'FIRE R; FIRE W', 
+					        'FIRE R; FIRE W', 
+					        'FIRE R; FIRE W'],
+                                     fire_name: ['svg_p:text3533-5-2-8'],
+                                     draw_data: [['svg_p:path3557-0']],
+                                     draw_name: [[],[]] };
 
 
         /*
          *  Syntax of behaviors
          */
 
-        sim.poc.behaviors.MEM_READ      = { nparameters: 6, 
+        sim.poc.behaviors.MEM_READ  = { nparameters: 6, 
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
@@ -248,7 +248,7 @@
                                                    }
                                       };
 
-        sim.poc.behaviors.MEM_WRITE     = { nparameters: 6, 
+        sim.poc.behaviors.MEM_WRITE = { nparameters: 6, 
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
@@ -345,7 +345,7 @@
                                                    }
                                     };
 
-        sim.poc.behaviors.MEMORY_RESET  = { nparameters: 1,
+        sim.poc.behaviors.MEMORY_RESET = { nparameters: 1,
                                         operation: function (s_expr) 
                                                    {
 						      // reset events.mem
