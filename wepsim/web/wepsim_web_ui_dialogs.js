@@ -1094,7 +1094,7 @@
                             ] ;
 
 		        var o = '<div id="scroller-reload1" class="row m-0">' ;
-                        for (e in elements) {
+                        for (var e in elements) {
                              var ename = elements[e].name ;
 			     o += '<div class="col-12 col-sm-4 p-2">' +
 				  '<div class="card border-secondary h-100">' +

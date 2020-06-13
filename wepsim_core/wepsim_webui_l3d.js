@@ -1,5 +1,5 @@
-/*    
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+/*
+ *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
  *
  *  This file is part of WepSIM.
  *
@@ -26,10 +26,8 @@
         /* jshint esversion: 6 */
 
 
-	// TODO: add apirest_enpoint,user,pass to wepsim configuration
-        // TODO: simcore_rest_add has to register object with apirest_endpoint (not only value)
         var apirest_name     = "L3D" ;
-        var apirest_endpoint = "http://localhost:5000/led/api1/" ;
+        var apirest_endpoint = "http://localhost:5000/matrix" ;
         var apirest_user     = "" ;
         var apirest_pass     = "" ;
 
@@ -44,14 +42,14 @@
 
 	      render ( msg_default )
 	      {
-                    // if no active hardware -> empty 
+                    // if no active hardware -> empty
                     if (simhw_active() === null) {
                         return "<div id='config_L3D'></div>" ;
                     }
 
 		    // default content
 		    var curr_l3dstates = simhw_internalState('l3d_state') ;
-		    if (typeof curr_l3dstates == "undefined") 
+		    if (typeof curr_l3dstates == "undefined")
                     {
 		        this.innerHTML = msg_default ;
 			return ;
@@ -71,17 +69,17 @@
 			      "<div class='container'>" +
 			      "<div class='row'>" +
 			      "<div class='col-12'>" ;
-		    for (i=0; i<curr_l3dstates.length/9; i++)
+		    for (i=0; i<curr_l3dstates.length/16; i++)
 		    {
 			o1 += "<table class='table table-hover table-sm table-bordered pb-3'>" ;
-			    for (var j=0; j<3; j++)
+			    for (var j=0; j<4; j++)
 			    {
 			o1 += "<tr>" ;
-				    for (var k=0; k<3; k++)
+				    for (var k=0; k<4; k++)
 				    {
-			o1 += "<td align=center id='l3d" + (i*9+j*3+k) + "_context' " +
+			o1 += "<td align=center id='l3d" + (i*16+j*4+k) + "_context' " +
 				      "    data-bind=\"style: { fontWeight: active() ? 'bold' : '' }, " +
-				      "                event: { click: function(){ active(!active()); simcore_rest_call('L3D','GET','/set',{'id': " + (i*9+j*3+k) + "}); } }\">&Pi;</td>" ;
+				      "                event: { click: function(){ active(!active()); webui_l3d_set(); } }\">&Pi;</td>" ;
 				    }
 			o1 += "</tr>" ;
 			    }
@@ -122,6 +120,20 @@
 	      }
         }
 
-        if (typeof window !== "undefined")
+        if (typeof window !== "undefined") {
             window.customElements.define('ws-l3d', ws_l3d) ;
+        }
+
+
+	function webui_l3d_set ( )
+        {
+            // get internal state
+	    var curr_l3dstates = simhw_internalState('l3d_state') ;
+	    if (typeof curr_l3dstates == "undefined") {
+		return false ;
+	    }
+
+            compute_general_behavior('L3D_SYNC') ;
+            return true ;
+        }
 
