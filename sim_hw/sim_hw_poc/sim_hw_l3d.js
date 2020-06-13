@@ -75,6 +75,7 @@
 	 */
 
         sim.poc.internal_states.l3d_state = Array.from({length:64}, () => ({active:false})) ;
+        sim.poc.internal_states.l3d_frame = '' ;
 
         var L3DSR_ID   = 0x2100 ;
         var L3DCR_ID   = 0x2104 ;
@@ -261,9 +262,14 @@
 						        }
 
 						        // REST
-						        simcore_rest_call('L3D', 'POST', '/', {'frame': o}) ;
-							    // 201 (Created) -> ok
-							    // 400 (Bad request) -> ko
+						        if (sim.poc.internal_states.l3d_frame != o) 
+   						        {
+                                                            sim.poc.internal_states.l3d_frame = o ;
+
+						            simcore_rest_call('L3D', 'POST', '/', {'frame': o}) ;
+							        // 201 (Created) -> ok
+							        // 400 (Bad request) -> ko
+						        }
                                                    },
                                           verbal: function (s_expr)
                                                   {

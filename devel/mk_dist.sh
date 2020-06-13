@@ -197,7 +197,6 @@ cat external/knockout-3.5.1.js \
     external/codemirror/addon/fold/markdown-fold.js \
     external/codemirror/addon/hint/show-hint.js \
     external/codemirror/addon/runmode/colorize.js \
-    external/vis/vis.min.js \
     external/vis/vis-network.min.js \
     external/async.min.js \
     external/bootstrap-tokenfield.js \
@@ -219,7 +218,6 @@ cat external/bootstrap.min.css \
     external/codemirror/theme/blackboard.css \
     external/codemirror/addon/fold/foldgutter.css \
     external/codemirror/addon/hint/show-hint.css \
-    external/vis/vis.min.css \
     external/vis/vis-network.min.css \
     external/bootstrap-tokenfield.css \
     external/introjs/introjs.min.css \
