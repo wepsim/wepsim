@@ -23,6 +23,7 @@
 	 *  L3D
 	 */
 
+        /* jshint esversion: 6 */
         sim.ep.components.L3D = {
 		                  name: "L3D", 
 		                  version: "1", 
@@ -73,34 +74,7 @@
 	 *  States - L3D parameters
 	 */
 
-        sim.ep.internal_states.l3d_state = [] ;
-        sim.ep.internal_states.l3d_state[0]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[1]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[2]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[3]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[4]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[5]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[6]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[7]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[8]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[9]  = { active: false } ;
-        sim.ep.internal_states.l3d_state[10] = { active: false } ;
-        sim.ep.internal_states.l3d_state[11] = { active: false } ;
-        sim.ep.internal_states.l3d_state[12] = { active: false } ;
-        sim.ep.internal_states.l3d_state[13] = { active: false } ;
-        sim.ep.internal_states.l3d_state[14] = { active: false } ;
-        sim.ep.internal_states.l3d_state[15] = { active: false } ;
-        sim.ep.internal_states.l3d_state[16] = { active: false } ;
-        sim.ep.internal_states.l3d_state[17] = { active: false } ;
-        sim.ep.internal_states.l3d_state[18] = { active: false } ;
-        sim.ep.internal_states.l3d_state[19] = { active: false } ;
-        sim.ep.internal_states.l3d_state[20] = { active: false } ;
-        sim.ep.internal_states.l3d_state[21] = { active: false } ;
-        sim.ep.internal_states.l3d_state[22] = { active: false } ;
-        sim.ep.internal_states.l3d_state[23] = { active: false } ;
-        sim.ep.internal_states.l3d_state[24] = { active: false } ;
-        sim.ep.internal_states.l3d_state[25] = { active: false } ;
-        sim.ep.internal_states.l3d_state[26] = { active: false } ;
+        sim.ep.internal_states.l3d_state = Array.from({length:64}, () => ({active:false})) ;
 
         var L3DSR_ID   = 0x2100 ;
         var L3DCR_ID   = 0x2104 ;
@@ -127,18 +101,25 @@
          *  Signals
          */
 
-         sim.ep.signals.L3D_L3DR    = { name: "L3DR", 
+         sim.ep.signals.L3D_L3DR = { name: "L3DR", 
                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                     behavior: ["NOP", "L3D_L3DR BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE SBWA"],
                                     fire_name: ['svg_p:tspan4173'], 
                                     draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
                                     draw_name: [[], []]};
 
-         sim.ep.signals.L3D_L3DW    = { name: "L3DW", 
+         sim.ep.signals.L3D_L3DW = { name: "L3DW", 
                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                    behavior: ["NOP", "L3D_L3DW BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE SBWA"],
+                                    behavior: ["NOP", "L3D_L3DW BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE SBWA; FIRE L3D_SYNC"],
                                     fire_name: ['svg_p:text3785-0-6-0-5-5'], 
                                     draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
+                                    draw_name: [[], []]};
+
+         sim.ep.signals.L3D_SYNC = { name: "L3D_SYNC",
+                                    visible: true, type: "L", value: 1, default_value:1, nbits: "1",
+                                    behavior: ["NOP", "L3D_SYNC"],
+                                    fire_name: [],
+                                    draw_data: [[], []],
                                     draw_name: [[], []]};
 
 
@@ -146,7 +127,7 @@
          *  Syntax of behaviors
          */
 
-        sim.ep.behaviors.L3D_L3DR       = { nparameters: 7,
+        sim.ep.behaviors.L3D_L3DR   = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
@@ -167,9 +148,10 @@
                                                           var x = (iodr & 0xFF000000) >> 24 ;
                                                           var y = (iodr & 0x00FF0000) >> 16 ;
                                                           var z = (iodr & 0x0000FF00) >>  8 ;
-                                                          var s = (iodr & 0x000000FF) ;
-							  var o = { 'x': x, 'y': y, 'z': z, 's': s } ;
-						          simcore_rest_call("L3D", "GET", "/get", o) ;
+
+                                                          var p = 16*x + 4*y + z ;
+							  var s = get_var(sim.poc.internal_states.l3d_state[p].active) ;
+                                                          set_value(sim.poc.states[s_expr[2]], s) ;
 						      }
                                                    },
                                            verbal: function (s_expr) 
@@ -192,7 +174,7 @@
                                                    }
                                       };
 
-        sim.ep.behaviors.L3D_L3DW       = { nparameters: 7,
+        sim.ep.behaviors.L3D_L3DW   = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
@@ -218,9 +200,11 @@
                                                           var x = (iodr & 0xFF000000) >> 24 ;
                                                           var y = (iodr & 0x00FF0000) >> 16 ;
                                                           var z = (iodr & 0x0000FF00) >>  8 ;
-                                                          var s = (iodr & 0x000000FF) ;
-							  var o = { 'x': x, 'y': y, 'z': z, 's': s } ;
-						          simcore_rest_call("L3D", "SET", "/set", o) ;
+
+                                                          var p = 16*x + 4*y + z ;
+                                                          var s = (iodr & 0x000000FF) != 0 ;
+
+						          set_var(sim.poc.internal_states.l3d_state[p].active, s);
 						      }
                                                    },
                                            verbal: function (s_expr) 
@@ -240,7 +224,7 @@
                                                    }
                                       };
 
-        sim.ep.behaviors.L3D_RESET     = { nparameters: 1,
+        sim.ep.behaviors.L3D_RESET = { nparameters: 1,
                                        operation: function (s_expr) 
                                                   {
 						     // reset events.l3d
@@ -255,6 +239,39 @@
                                           verbal: function (s_expr) 
                                                   {
                                                      return "Reset the I/O device. " ;
+                                                  }
+                                     };
+
+        sim.ep.behaviors.L3D_SYNC  = { nparameters: 1,
+                                       operation: function (s_expr)
+                                                  {
+						        // internal state -> frame in REST
+						        var l3dstates = sim.ep.internal_states.l3d_state ;
+						        var o = '' ;
+						        var p = 0 ;
+						        for (var i=0; i<4; i++)
+						        {
+						    	     for (var j=0; j<4; j++)
+							     {
+							          for (var k=0; k<4; k++)
+							          {
+								       p = 16*i + 4*j + k ;
+								       if (get_var(l3dstates[p].active))
+									     o = o + '1' ;
+								       else  o = o + '0' ;
+							          }
+							     }
+						        }
+
+						        // REST
+						        simcore_rest_call('L3D', 'POST',
+								          '/put_frame', {'frame': o}) ;
+							    // 201 (Created) -> ok
+							    // 400 (Bad request) -> ko
+                                                   },
+                                          verbal: function (s_expr)
+                                                  {
+                                                      return "Sync State with Device. " ;
                                                   }
                                      };
 

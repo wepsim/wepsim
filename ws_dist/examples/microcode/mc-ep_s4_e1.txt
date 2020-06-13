@@ -86,6 +86,18 @@ and reg1 reg2 reg3 {
             }
 }
 
+andi reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=1, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
 or reg1 reg2 reg3 {
             co=000000,
             cop=0001,
@@ -95,6 +107,18 @@ or reg1 reg2 reg3 {
             reg3=reg(15,11),
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+ori reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -120,6 +144,18 @@ xor reg1 reg2 reg3 {
             }
 }
 
+xori reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
 add reg1 reg2 reg3 {
             co=000000,
             cop=1001,
@@ -129,6 +165,18 @@ add reg1 reg2 reg3 {
             reg3=reg(15,11),
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+addi reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -153,6 +201,18 @@ mul reg1 reg2 reg3 {
             reg3=reg(15,11),
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+muli reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -262,6 +322,18 @@ lw reg addr {
             }
 }
 
+lw reg1 (reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            {
+                (MR=0, SELA=10000, T9=1, C0),
+                (TA=1, R=1, BW=11, M1=1, C1=1),
+                (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
+            }
+}
+
 lb reg1 (reg2) {
             co=100101,
             nwords=1,
@@ -298,6 +370,18 @@ sw reg addr {
             }
 }
 
+sw reg1 (reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            {
+                (MR=0,  SELA=10000, T9=1, C0=1),
+                (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
+                (BW=11, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
+            }
+}
+
 lb reg addr {
             co=001000,
             nwords=1,
@@ -319,6 +403,18 @@ sb reg addr {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
                 (BW=0, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
+            }
+}
+
+sb reg1 (reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            {
+                (MR=0, SELA=10000, T9=1, C0=1),
+                (MR=0, SELA=10101, T9=1, M1=0, C1=1),
+                (BW=0, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
             }
 }
 
