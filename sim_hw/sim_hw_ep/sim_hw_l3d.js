@@ -75,7 +75,7 @@
 	 */
 
         sim.ep.internal_states.l3d_state = Array.from({length:64}, () => ({active:false})) ;
-        sim.ep.internal_states.l3d_frame = '' ;
+        sim.ep.internal_states.l3d_frame = '0'.repeat(64) ;
 
         var L3DSR_ID   = 0x2100 ;
         var L3DCR_ID   = 0x2104 ;

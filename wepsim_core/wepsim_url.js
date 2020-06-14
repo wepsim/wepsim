@@ -222,3 +222,35 @@
        return jobj ;
     }
 
+    var max_json_size = 1*1024*1024 ;
+
+    function wepsim_url_json ( json_url, do_after )
+    {
+	    // preload json_url only if file_size(json_url) < max_json_size bytes
+	    var xhr = new XMLHttpRequest() ;
+	    xhr.open("HEAD", json_url, true) ;
+
+	    xhr.onreadystatechange = function() {
+		if (this.readyState == this.DONE)
+	        {
+	            var size = 0 ;
+
+		    var content_length = xhr.getResponseHeader("Content-Length") ;
+		    if (content_length !== null) {
+		        size = parseInt(content_length) ;
+		    }
+
+		    if (size < max_json_size) {
+	                $.getJSON(json_url, do_after).fail(function(e) {
+				                              wepsim_notify_do_notify('getJSON', 
+									              'There was some problem for getting ' + json_url, 
+									              'warning', 
+									              0);
+			                                   }) ;
+		    }
+		}
+	    } ;
+
+	    xhr.send();
+    }
+
