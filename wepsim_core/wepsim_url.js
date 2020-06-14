@@ -222,8 +222,6 @@
        return jobj ;
     }
 
-    var max_json_size = 1*1024*1024 ;
-
     function wepsim_url_json ( json_url, do_after )
     {
 	    // preload json_url only if file_size(json_url) < max_json_size bytes
@@ -240,6 +238,7 @@
 		        size = parseInt(content_length) ;
 		    }
 
+                    var max_json_size = get_cfg('max_json_size') ;
 		    if (size < max_json_size) {
 	                $.getJSON(json_url, do_after).fail(function(e) {
 				                              wepsim_notify_do_notify('getJSON', 

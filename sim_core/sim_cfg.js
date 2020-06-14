@@ -196,7 +196,7 @@
              var wscfg = {
                    /* version */
                    "version":              { upgrade:false, type:"string",    value:"2.1.0" },
-                   "build":                { upgrade:true,  type:"string",    value:"2.1.0.20200612C" },
+                   "build":                { upgrade:true,  type:"string",    value:"2.1.0.20200612D" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":    { upgrade:false, type:"string",    value:"#0066FF" },
@@ -249,6 +249,7 @@
                    "hw_url":               { upgrade:true,  type:"string",    value:'examples/hardware/hw.json' },
 
 	           /* misc. */
+                   "max_json_size":        { upgrade:true,  type:"int",       value:1*1024*1024 },
                    "verbal_verbose":       { upgrade:false, type:"string",    value:'math' }
              } ;
 
