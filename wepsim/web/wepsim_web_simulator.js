@@ -593,7 +593,7 @@
 	    // 3 Pre-load following URL params
 
 	       // 3.A GET params
-	       var url_parameters = new URL(window.location).searchParams ;
-	       wepsim_preload_get(url_parameters) ;
+               var url_hash = wepsim_preload_get2hash(window.location) ;
+               wepsim_preload_fromHash(url_hash) ;
     }
 

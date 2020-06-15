@@ -23,7 +23,7 @@
     // Preload work
     //
 
-    function wepsim_preload_hash ( hash )
+    function wepsim_preload_fromHash ( hash )
     {
 	    var o = '' ;
 
@@ -88,7 +88,14 @@
                 wsweb_do_action(panels[2].toLowerCase()) ;
 	    }
 
-	    // notify the user of the preloaded work
+	    // parameter: checkpoint
+	    if (hash.checkpoint !== '')
+	    {
+		uri_obj = new URL(hash.checkpoint) ;
+                wepsim_checkpoint_loadURI(uri_obj) ;
+	    }
+
+	    // notification: to notify of the preloaded work to the user
 	    if (o !== '')
 	    {
 		o = 'WepSIM has been instructed to preload some work for you:<br>' +
@@ -107,48 +114,20 @@
 	    return 0 ;
     }
 
-    function wepsim_preload_json ( json_url, do_after )
+    function wepsim_preload_get2hash ( window_location )
     {
-	    var max_size = 1*1024*1024 ;
-
-	    // preload json_url only if file_size(json_url) < max_size bytes
-	    var xhr = new XMLHttpRequest() ;
-	    xhr.open("HEAD", json_url, true) ;
-
-	    xhr.onreadystatechange = function() {
-		if (this.readyState == this.DONE)
-	        {
-	            var size = 0 ;
-
-		    var content_length = xhr.getResponseHeader("Content-Length") ;
-		    if (content_length !== null) {
-		        size = parseInt(content_length) ;
-		    }
-
-		    if (size < max_size) {
-	                $.getJSON(json_url, do_after).fail(function(e) {
-				                              wepsim_notify_do_notify('getJSON', 'There was some problem for getting ' + json_url, 'warning', 0);
-			                                   }) ;
-		    }
-		}
-	    } ;
-
-	    xhr.send();
-    }
-
-    function wepsim_preload_get ( parameters )
-    {
-            var hash_fields = [ 'preload', 'mode', 'examples_set', 'example', 
-                                'simulator', 'notify', 'checkpoint' ] ;
 	    var hash = {} ;
 	    var uri_obj = null ;
+            var hash_fields = [ 'preload', 'mode', 'examples_set', 'example', 
+                                'simulator', 'notify', 'checkpoint' ] ;
 
 	    // 1.- check params
-	    if (typeof parameters === "undefined") {
-		return ;
+	    if (typeof window_location === "undefined") {
+		return hash ;
 	    }
 
 	    // 2.- get parameters
+            var parameters = new URL(window_location).searchParams ;
             for (i=0; i<hash_fields.length; i++) 
             {
                  hash[hash_fields[i]] = parameters.get(hash_fields[i]) ;
@@ -164,21 +143,13 @@
 	    {
 		try {
 	           uri_obj = new URL(hash.preload) ;
-	           wepsim_preload_json(uri_obj.pathname, wepsim_preload_hash) ;
+	           wepsim_url_json(uri_obj.pathname, wepsim_preload_fromHash) ;
 		}
-		catch (e) { }
-
-		return ;
+		catch (e) { 
+		   ws_alert('unable to preload json from "' + uri_obj.pathname + '"') ;
+                }
 	    }
 
-	    // 4.- hash
-	    wepsim_preload_hash(hash) ;
-
-	    // 5.- checkpoint
-	    if (hash.checkpoint !== '')
-	    {
-		uri_obj = new URL(hash.checkpoint) ;
-                wepsim_checkpoint_loadURI(uri_obj) ;
-	    }
+	    return hash ;
     }
 

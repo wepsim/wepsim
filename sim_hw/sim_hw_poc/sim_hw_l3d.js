@@ -74,8 +74,11 @@
 	 *  States - L3D parameters
 	 */
 
-        sim.poc.internal_states.l3d_state = Array.from({length:64}, () => ({active:false})) ;
-        sim.poc.internal_states.l3d_frame = '' ;
+        sim.poc.internal_states.l3d_dim    = 4 ;
+        sim.poc.internal_states.l3d_neltos = Math.pow(sim.poc.internal_states.l3d_dim, 3) ;
+        sim.poc.internal_states.l3d_state  = Array.from({length:sim.poc.internal_states.l3d_neltos}, 
+							() => ({active:false})) ;
+        sim.poc.internal_states.l3d_frame  = '0'.repeat(sim.poc.internal_states.l3d_neltos) ;
 
         var L3DSR_ID   = 0x2100 ;
         var L3DCR_ID   = 0x2104 ;
@@ -142,7 +145,9 @@
                                                           var y = (iodr & 0x00FF0000) >> 16 ;
                                                           var z = (iodr & 0x0000FF00) >>  8 ;
 
-                                                          var p = 16*z + 4*y + x ;
+                                                          var p = z*Math.pow(sim.poc.internal_states.l3d_dim, 2) +
+							          y*sim.poc.internal_states.l3d_dim +
+								  x ;
 							  var s = get_var(sim.poc.internal_states.l3d_state[p].active) ;
                                                           set_value(sim.poc.states[s_expr[2]], s) ;
 						      }
@@ -198,7 +203,9 @@
                                                           var y = (bus_db & 0x00FF0000) >> 16 ;
                                                           var z = (bus_db & 0x0000FF00) >>  8 ;
 
-                                                          var p = 16*z + 4*y + x ;
+                                                          var p = z*Math.pow(sim.poc.internal_states.l3d_dim, 2) +
+							          y*sim.poc.internal_states.l3d_dim +
+								  x ;
                                                           var s = (bus_db & 0x000000FF) != 0 ;
 
 						          var l3dstates = sim.poc.internal_states.l3d_state ;
@@ -225,14 +232,21 @@
         sim.poc.behaviors.L3D_RESET = { nparameters: 1,
                                        operation: function (s_expr)
                                                   {
-						     // reset events.l3d
-                                                     sim.poc.events.l3d = {} ;
+						        // reset events.l3d
+                                                        sim.poc.events.l3d = {} ;
 
-						     // reset the I/O factory
-						     for (var i=0; i<sim.poc.internal_states.l3d_state.length; i++)
-						     {
-						          set_var(sim.poc.internal_states.l3d_state[i].active, false);
-						     }
+						        // reset the I/O factory
+						        for (var i=0; i<sim.poc.internal_states.l3d_state.length; i++)
+						        {
+						             set_var(sim.poc.internal_states.l3d_state[i].active, false);
+						        }
+
+						        // REST
+						        var o = '0'.repeat(64) ;
+                                                        sim.poc.internal_states.l3d_frame = o ;
+						        simcore_rest_call('L3D', 'POST', '/', {'frame': o}) ;
+							    // 201 (Created) -> ok
+							    // 400 (Bad request) -> ko
                                                   },
                                           verbal: function (s_expr)
                                                   {
@@ -253,7 +267,9 @@
 							     {
 							          for (var k=0; k<4; k++)
 							          {
-								       p = 16*k + 4*j + i ;
+                                                                       p = k*Math.pow(sim.poc.internal_states.l3d_dim, 2) +
+							                   j*sim.poc.internal_states.l3d_dim +
+								           i ;
 								       if (get_var(l3dstates[p].active))
 									     o = o + '1' ;
 								       else  o = o + '0' ;
