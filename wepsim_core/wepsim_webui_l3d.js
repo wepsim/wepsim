@@ -48,8 +48,9 @@
                     }
 
 		    // default content
-		    var curr_l3dstates = simhw_internalState('l3d_state') ;
-		    if (typeof curr_l3dstates == "undefined")
+		    var l3d_states = simhw_internalState('l3d_state') ;
+	            var l3d_dim    = simhw_internalState('l3d_dim') ;
+		    if ( (typeof l3d_states == "undefined") || (typeof l3d_dim == "undefined") )
                     {
 		        this.innerHTML = msg_default ;
 			return ;
@@ -64,20 +65,22 @@
 		    // html holder
 		    var i = 0 ;
 		    var ko_context = null ;
+		    var offset = 0 ;
 
 		    var o1  = "<div id='config_L3D' style='height:58vh; width:inherit; overflow-y:auto;'>" +
 			      "<div class='container'>" +
 			      "<div class='row'>" +
 			      "<div class='col-12'>" ;
-		    for (i=0; i<curr_l3dstates.length/16; i++)
+		    for (i=0; i<l3d_states.length/(l3d_dim*l3d_dim); i++)
 		    {
 			o1 += "<table class='table table-hover table-sm table-bordered pb-3'>" ;
-			    for (var j=0; j<4; j++)
+			    for (var j=0; j<l3d_dim; j++)
 			    {
 			o1 += "<tr>" ;
-				    for (var k=0; k<4; k++)
+				    for (var k=0; k<l3d_dim; k++)
 				    {
-			o1 += "<td align=center id='l3d" + (i*16+j*4+k) + "_context' " +
+			                                   offset = i*Math.pow(l3d_dim, 2) + j*l3d_dim + k ;
+			o1 += "<td align=center id='l3d" + offset + "_context' " +
 				      "    data-bind=\"style: { fontWeight: active() ? 'bold' : '' }, " +
 				      "                event: { click: function(){ active(!active()); webui_l3d_set(); } }\">&Pi;</td>" ;
 				    }
@@ -98,13 +101,13 @@
 		    this.innerHTML = o1 ;
 
 		    // knockout binding
-		    for (i=0; i<curr_l3dstates.length; i++)
+		    for (i=0; i<l3d_states.length; i++)
 		    {
-			 if (typeof curr_l3dstates[i].active != "function")
-			     curr_l3dstates[i].active = ko_observable(curr_l3dstates[i].active) ;
+			 if (typeof l3d_states[i].active != "function")
+			     l3d_states[i].active = ko_observable(l3d_states[i].active) ;
 			 ko_context = document.getElementById('l3d' + i + '_context');
 			 ko.cleanNode(ko_context);
-			 ko.applyBindings(curr_l3dstates[i], ko_context);
+			 ko.applyBindings(l3d_states[i], ko_context);
 		    }
 
 		    if (typeof apirest_endpoint != "function")
@@ -128,8 +131,8 @@
 	function webui_l3d_set ( )
         {
             // get internal state
-	    var curr_l3dstates = simhw_internalState('l3d_state') ;
-	    if (typeof curr_l3dstates == "undefined") {
+	    var l3d_states = simhw_internalState('l3d_state') ;
+	    if (typeof l3d_states == "undefined") {
 		return false ;
 	    }
 
