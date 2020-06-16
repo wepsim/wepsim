@@ -108,6 +108,7 @@ rm -fr ws_dist/wepsim_i18n.js
 echo "  * ws_dist/min.wepsim_core.js"
 cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_clipboard.js \
+    wepsim_core/wepsim_preload_commands.js \
     wepsim_core/wepsim_preload.js \
     wepsim_core/wepsim_checkpoint.js \
     wepsim_core/wepsim_signal.js \
