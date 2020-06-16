@@ -30,7 +30,7 @@
 
         // preload tasks in order
 	var o = '' ;
-        for (var i=0; i<ws_preload_tasks.lenght; i++)
+        for (var i=0; i<ws_preload_tasks.length; i++)
         {
 	    key = ws_preload_tasks[i].name ;
 	    act = ws_preload_tasks[i].action ;

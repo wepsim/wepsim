@@ -94,7 +94,6 @@
 			                                   offset = i*Math.pow(l3d_dim, 2) + j*l3d_dim + k ;
 			o1 += "<td align='center' id='l3d" + offset + "_context' class='py-0' " +
 				      "    data-bind=\"style: { fontWeight: active() ? 'bold' : '' }, " +
-				      "                style: {      color: active() ? 'blue' : 'black' }, " +
 				      "                event: { click: function(){ active(!active()); webui_l3d_set(); } }\">&Pi;</td>" ;
 				    }
 			o1 += "</tr>" ;
