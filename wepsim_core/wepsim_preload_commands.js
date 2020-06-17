@@ -34,6 +34,17 @@
 		      }
 	 },
 
+	 // parameter: config_set
+	 {
+	    'name':   'config_set',
+	    'action': function( hash )
+		      {
+                          cfgset_load(hash.config_set) ;
+	                  wepsim_uicfg_restore() ;
+			  return '<li>Configuration set titled <strong>' + hash.config_set + '</strong> loaded.</li>';
+		      }
+	 },
+
 	 // parameter: examples_set
 	 {
 	    'name':   'examples_set',
@@ -106,17 +117,6 @@
 		      {
 			  uri_obj = new URL(hash.checkpoint) ;
 			  wepsim_checkpoint_loadURI(uri_obj) ;
-		      }
-	 },
-
-	 // parameter: config_set
-	 {
-	    'name':   'config_set',
-	    'action': function( hash )
-		      {
-                          cfgset_load(hash.config_set) ;
-	                  wepsim_uicfg_restore() ;
-			  return '<li>Configuration set titled <strong>' + hash.config_set + '</strong> loaded.</li>';
 		      }
 	 },
 
