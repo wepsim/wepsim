@@ -26,7 +26,10 @@
 	    'name':   'mode',
 	    'action': function( hash )
 		      {
-			 wsweb_select_main(hash.mode) ;
+                         var ws_mode = get_cfg('ws_mode');
+                         if (hash.mode !== ws_mode)
+			     wsweb_select_main(hash.mode) ;
+
 			 return '<li>Mode set to <strong>' + hash.mode + '</strong>.</li> ' ;
 		      }
 	 },
@@ -103,6 +106,17 @@
 		      {
 			  uri_obj = new URL(hash.checkpoint) ;
 			  wepsim_checkpoint_loadURI(uri_obj) ;
+		      }
+	 },
+
+	 // parameter: config_set
+	 {
+	    'name':   'config_set',
+	    'action': function( hash )
+		      {
+                          cfgset_load(hash.config_set) ;
+	                  wepsim_uicfg_restore() ;
+			  return '<li>Configuration set titled <strong>' + hash.config_set + '</strong> loaded.</li>';
 		      }
 	 },
 
