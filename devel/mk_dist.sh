@@ -200,6 +200,7 @@ cat external/knockout-3.5.1.js \
     external/codemirror/addon/runmode/colorize.js \
     external/vis/vis-network.min.js \
     external/async.min.js \
+    external/qrcode/qrcode.min.js \
     external/bootstrap-tokenfield.js \
     external/introjs/introjs.min.js \
     external/speech-input.js \
