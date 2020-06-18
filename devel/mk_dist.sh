@@ -160,7 +160,9 @@ cat ws_dist/min.sim_all.js \
     \
     wepsim/web/wepsim_web_api.js \
     wepsim/web/wepsim_web_editor.js \
-    wepsim/web/wepsim_web_simulator.js > ws_dist/min.wepsim_web.js
+    wepsim/web/wepsim_web_simulator.js > ws_dist/wepsim_web.js
+terser -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
+rm -fr ws_dist/wepsim_web.js
 
 #  WepSIM nodejs engine
 echo "  * ws_dist/min.wepsim_node.js"
