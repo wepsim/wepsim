@@ -290,45 +290,28 @@ Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from 
       console.log(ret.msg) ;
 ```
 
-<a name="wepsim-control-api"/>
+<a name="wepsim-gcolab"/>
 
-### WepSIM control API
+### WepSIM from Google Colab
 
-+ If you want to control an WepSIM instance, there is a WepSIM API in JavaScript available (WepSIM 2.0.6+).
-  For example, It might be used for building a tutorial.
-
-  The following fragment uses the WepSIM control API (wsweb_*):
++ The following fragment is a example of how to use WepSIM command-line within Google Colab cell:
 
 ```html
-    <div class="container">
+!wget https://github.com/acaldero/wepsim/releases/download/v2.1.0/wepsim-2.1.0.zip
+!unzip -o wepsim-2.1.0.zip
+!rm -fr   wepsim-2.1.0.zip
+!./wepsim-2.1.0/wepsim_node.sh stepbystep ep ./wepsim-2.1.0/examples/microcode/mc-ep_base.txt ./wepsim-2.1.0/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
+!rm -fr   wepsim-2.1.0
 
-	    <nav class="nav nav-pills nav-justified">
-		  <a href="#"
-		     class="nav-item nav-link border border-secondary"
-		     onclick="var context1 = document.getElementById('iframe1');
-			      context1.src = 'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?' +
-					     'notify=false&' +
-                                             'example=13&' +
-					     'simulator=assembly:screen';
-			      return false;">Step 1.- Load Example</a>
+import pandas as pd
+import io
 
-		  <a href="#"
-		     class="nav-item nav-link border border-secondary"
-		     onclick="var context1 = document.getElementById('iframe1').contentWindow;
-			      context1.wsweb_execution_run();
-			      return false;">Step 2.- Run</a>
-        </nav>
+df1 = pd.read_csv('./result.csv')
+df1.columns = df1.columns.str.strip() 
+for item in df1.columns[:]:
+    df1[item].replace("\t","", inplace=True, regex=True)
 
-        <div class="row">
-            <div class="col-12">
-			<div class="embed-responsive embed-responsive-4by3">
-		        <iframe class="w-100 border border-secondary embed-responsive-item"
-		                id="iframe1" src=""></iframe>
-			</div>
-            </div>
-        </div>
-
-    </div>
+df1
 ```
 
 
