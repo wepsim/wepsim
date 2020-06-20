@@ -69,20 +69,33 @@
 
 		    var o1  = "<div id='config_L3D' style='height:58vh; width:inherit; overflow-y:auto;'>" +
 			      "<div class='container'>" +
-			      "<div class='row'>" +
-			      "<div class='col-12'>" ;
+                              "" +
+                              "<a data-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
+                              "   tabindex='0' class='m-auto' role='button'>" +
+                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
+                              "" +
+			      "<table id='collapse-l3dcfg' " +
+                              " class='table table-hover table-sm table-bordered m-0 collapse'>" +
+			      "<tr><td>" +
+			      "<input id='apirest_endpoint' type='text' data-bind='value: apirest_endpoint' class='form-control text-info p-0'>" +
+			      "</td></tr>" +
+			      "</table>" +
+                              "" +
+			      "<div class='row mt-3'>" +
+			      "<div class='col-12' style='perspective:1000px; perspective-origin: 50% 50%;'>" ;
 		    for (i=0; i<l3d_states.length/(l3d_dim*l3d_dim); i++)
 		    {
-			o1 += "<table class='table table-hover table-sm table-bordered pb-3'>" ;
+			o1 += "<table class='table table-hover table-sm table-bordered pb-3' style='transform: rotateX(20deg);'>" ;
 			    for (var j=0; j<l3d_dim; j++)
 			    {
 			o1 += "<tr>" ;
 				    for (var k=0; k<l3d_dim; k++)
 				    {
-			                                   offset = i*Math.pow(l3d_dim, 2) + j*l3d_dim + k ;
-			o1 += "<td align=center id='l3d" + offset + "_context' " +
-				      "    data-bind=\"style: { fontWeight: active() ? 'bold' : '' }, " +
-				      "                event: { click: function(){ active(!active()); webui_l3d_set(); } }\">&Pi;</td>" ;
+			                 offset = i*Math.pow(l3d_dim, 2) + j*l3d_dim + k ;
+			o1 += "<td align='center' id='l3d" + offset + "_context' class='py-0' " +
+			      " data-bind=\"event: { click: function(){active(!active());webui_l3d_set();}}\">" +
+			      "<i class='fa-lightbulb' data-bind=\"css: active() ? 'fas' : 'far'\"></i>" +
+			      "</td>" ;
 				    }
 			o1 += "</tr>" ;
 			    }
@@ -90,11 +103,6 @@
 		    }
 			o1 += "</div>" +
 			      "</div>" +
-			      "<table class='table table-hover table-sm table-bordered m-0'>" +
-			      "<tr><td>" +
-			      "<input id='apirest_endpoint' type='text' data-bind='value: apirest_endpoint' class='form-control text-info p-0'>" +
-			      "</td></tr>" +
-			      "</table>" +
 			      "</div>" +
 			      "</div>" ;
 

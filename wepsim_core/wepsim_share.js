@@ -27,8 +27,16 @@
     {
 	 if (typeof navigator.share === 'undefined')
 	 {
-	     wsweb_dlg_alert('Sorry, unable to share:<br>\n' +
-		             'navigator.share is not available.') ;
+	     var msg = 'Sorry, unable to share:<br>\n' +
+		       'navigator.share is not available.<br>' +
+		       '<br>' +
+		       '<div id="qrcode1" class="mx-auto"></div>' +
+		       '<br>' ;
+	     wsweb_dlg_alert(msg) ;
+
+             var qrcode = new QRCode("qrcode1") ;
+                 qrcode.makeCode(share_url) ;
+
 	     return false ;
 	 }
 

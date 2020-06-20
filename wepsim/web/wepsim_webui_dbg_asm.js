@@ -340,6 +340,9 @@
                     inner_elto = sim_core_breakpointicon_get(icon_theme) ;
                 }
 
+		// store state
+                wepsim_execute_set_breakpoint(hexaddr, bp_state) ;
+
 		// update content
                 $("span[rel='tooltip1']").tooltip('hide') ;
 
@@ -357,9 +360,6 @@
                                        return content ; // DOMPurify.sanitize(content) ;
                                     }
 		}) ;
-
-		// store state
-                curr_firm.assembly[hexaddr].breakpoint = bp_state ;
 
 		// add if recording
                 simcore_record_append_new('Set assembly breakpoint at ' + addr,
