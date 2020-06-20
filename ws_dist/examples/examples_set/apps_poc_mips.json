@@ -158,5 +158,15 @@
     "microcode":	"poc_bare",
     "assembly":		"poc_s5_e1",
     "description":	"<span data-langkey='example_06_01'>Test example.</span>"
+  },
+  {
+    "id":		"S6E3",
+    "title":		"3D-Led",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_os",
+    "assembly":		"ep_s6_e3",
+    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
   }
 ]

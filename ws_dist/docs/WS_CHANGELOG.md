@@ -5,11 +5,12 @@
 * Improvements:
   * Dialog-boxes re-designed from scratch
   * Reload dialogbox added (for examples, configuration and processors)
-* Updates:
-  * Bootstrap  updated to bootstrap-4.5.0
-  * Knockout   updated to knockout-3.5.1
-  * CodeMirror updated to codemirror-5.52.2
-* Fix several minor bugs
+* Minor bugs fixed and several refinaments added
+* Several external dependencies updated:
+  * Bootstrap   updated to bootstrap-4.5.0
+  * Knockout    updated to knockout-3.5.1
+  * CodeMirror  updated to codemirror-5.52.2
+  * Vis-network updated to vis-network-7.6.10
 
 ## 2.0.11 -> 2.0.12:
 * Update to bootstrap 4.4.1

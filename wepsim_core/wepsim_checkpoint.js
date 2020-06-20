@@ -324,13 +324,13 @@
 	    {
                 var filename = obj_uri.href.substring(obj_uri.href.lastIndexOf('/') + 1) ;
 
-	        wepsim_preload_json(obj_uri.href,
-			            function(data) {
-	                                var obj_refName        = { name: filename } ;
-                                        var current_checkpoint = wepsim_checkpoint_NB2Obj(data) ;
-				        wepsim_checkpoint_loadFromObj(current_checkpoint,
-					                              null, null, obj_refName) ;
-			            }) ;
+	        wepsim_url_json(obj_uri.href,
+			        function(data) {
+	                            var obj_refName        = { name: filename } ;
+                                    var current_checkpoint = wepsim_checkpoint_NB2Obj(data) ;
+				    wepsim_checkpoint_loadFromObj(current_checkpoint,
+					                          null, null, obj_refName) ;
+			        }) ;
 	        return true ;
 	    }
 	    catch (e) {

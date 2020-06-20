@@ -48,8 +48,9 @@
                     }
 
 		    // default content
-		    var curr_l3dstates = simhw_internalState('l3d_state') ;
-		    if (typeof curr_l3dstates == "undefined")
+		    var l3d_states = simhw_internalState('l3d_state') ;
+	            var l3d_dim    = simhw_internalState('l3d_dim') ;
+		    if ( (typeof l3d_states == "undefined") || (typeof l3d_dim == "undefined") )
                     {
 		        this.innerHTML = msg_default ;
 			return ;
@@ -64,22 +65,37 @@
 		    // html holder
 		    var i = 0 ;
 		    var ko_context = null ;
+		    var offset = 0 ;
 
 		    var o1  = "<div id='config_L3D' style='height:58vh; width:inherit; overflow-y:auto;'>" +
 			      "<div class='container'>" +
-			      "<div class='row'>" +
-			      "<div class='col-12'>" ;
-		    for (i=0; i<curr_l3dstates.length/16; i++)
+                              "" +
+                              "<a data-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
+                              "   tabindex='0' class='m-auto' role='button'>" +
+                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
+                              "" +
+			      "<table id='collapse-l3dcfg' " +
+                              " class='table table-hover table-sm table-bordered m-0 collapse'>" +
+			      "<tr><td>" +
+			      "<input id='apirest_endpoint' type='text' data-bind='value: apirest_endpoint' class='form-control text-info p-0'>" +
+			      "</td></tr>" +
+			      "</table>" +
+                              "" +
+			      "<div class='row mt-3'>" +
+			      "<div class='col-12' style='perspective:1000px; perspective-origin: 50% 50%;'>" ;
+		    for (i=0; i<l3d_states.length/(l3d_dim*l3d_dim); i++)
 		    {
-			o1 += "<table class='table table-hover table-sm table-bordered pb-3'>" ;
-			    for (var j=0; j<4; j++)
+			o1 += "<table class='table table-hover table-sm table-bordered pb-3' style='transform: rotateX(20deg);'>" ;
+			    for (var j=0; j<l3d_dim; j++)
 			    {
 			o1 += "<tr>" ;
-				    for (var k=0; k<4; k++)
+				    for (var k=0; k<l3d_dim; k++)
 				    {
-			o1 += "<td align=center id='l3d" + (i*16+j*4+k) + "_context' " +
-				      "    data-bind=\"style: { fontWeight: active() ? 'bold' : '' }, " +
-				      "                event: { click: function(){ active(!active()); webui_l3d_set(); } }\">&Pi;</td>" ;
+			                 offset = i*Math.pow(l3d_dim, 2) + j*l3d_dim + k ;
+			o1 += "<td align='center' id='l3d" + offset + "_context' class='py-0' " +
+			      " data-bind=\"event: { click: function(){active(!active());webui_l3d_set();}}\">" +
+			      "<i class='fa-lightbulb' data-bind=\"css: active() ? 'fas' : 'far'\"></i>" +
+			      "</td>" ;
 				    }
 			o1 += "</tr>" ;
 			    }
@@ -87,24 +103,19 @@
 		    }
 			o1 += "</div>" +
 			      "</div>" +
-			      "<table class='table table-hover table-sm table-bordered m-0'>" +
-			      "<tr><td>" +
-			      "<input id='apirest_endpoint' type='text' data-bind='value: apirest_endpoint' class='form-control text-info p-0'>" +
-			      "</td></tr>" +
-			      "</table>" +
 			      "</div>" +
 			      "</div>" ;
 
 		    this.innerHTML = o1 ;
 
 		    // knockout binding
-		    for (i=0; i<curr_l3dstates.length; i++)
+		    for (i=0; i<l3d_states.length; i++)
 		    {
-			 if (typeof curr_l3dstates[i].active != "function")
-			     curr_l3dstates[i].active = ko_observable(curr_l3dstates[i].active) ;
+			 if (typeof l3d_states[i].active != "function")
+			     l3d_states[i].active = ko_observable(l3d_states[i].active) ;
 			 ko_context = document.getElementById('l3d' + i + '_context');
 			 ko.cleanNode(ko_context);
-			 ko.applyBindings(curr_l3dstates[i], ko_context);
+			 ko.applyBindings(l3d_states[i], ko_context);
 		    }
 
 		    if (typeof apirest_endpoint != "function")
@@ -128,8 +139,8 @@
 	function webui_l3d_set ( )
         {
             // get internal state
-	    var curr_l3dstates = simhw_internalState('l3d_state') ;
-	    if (typeof curr_l3dstates == "undefined") {
+	    var l3d_states = simhw_internalState('l3d_state') ;
+	    if (typeof l3d_states == "undefined") {
 		return false ;
 	    }
 

@@ -560,40 +560,40 @@
 
     function wepsim_init_default ( )
     {
-	    // 1 Pre-load defaults
+	    // Get URL params
+            var url_hash = wepsim_preload_get2hash(window.location) ;
 
-	       // 1.A Pre-load hardware...
+	    // 1.- Pre-load defaults
+
+	       // 1.A.- Pre-load hardware...
 	       simhw_hwset_init() ;
 	       simcore_init_hw('ep') ;
 
-	       // 1.B Pre-load examples
+	       // 1.B.- Pre-load examples
                var ws_examples_index_url = get_cfg('example_url') ;
                wepsim_example_loadSet(ws_examples_index_url) ;
                wepsim_example_load('Default') ;
 
-	       // 1.C Pre-load UI configuration
+	       // 1.C.- Pre-load UI configuration
                cfgset_init() ;
 
-	    // 2 Restore saved configuration
+	    // 2.- Restore configuration
 
-	       // 2.A Restore UI
+	       // 2.A.- Restore UI
                wepsim_uicfg_restore() ;
 
-	       // 2.B Set mode
+	       // 2.B.- Set mode
 	       var ws_mode = get_cfg('ws_mode');
 	       wsweb_select_main(ws_mode) ;
 	       if (simhw_active() !== null) {
 	      	   simcore_reset();
 	       }
 
-	       // 2.C Init recording
+	       // 2.C.- Init recording
 	       simcore_record_init('record_msg', 'record_pb') ;
                simcore_record_captureInit() ;
 
-	    // 3 Pre-load following URL params
-
-	       // 3.A GET params
-	       var url_parameters = new URL(window.location).searchParams ;
-	       wepsim_preload_get(url_parameters) ;
+	    // Load/Configuration following URL params
+            wepsim_preload_fromHash(url_hash) ;
     }
 

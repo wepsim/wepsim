@@ -6,9 +6,9 @@
 .text
     main:  # test turning on leds...
            li  $t6 1
-           li  $t7 1
    
            # for (x=0; x<4; x++)
+           li  $t7 1
            li  $t0 4
            li  $t1 0
    loop_x: beq $t1 $t0 end_x

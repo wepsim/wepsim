@@ -82,9 +82,12 @@
         return true ;
     }
 
-    function wepsim_execute_set_breakpoint ( addr )
+    function wepsim_execute_set_breakpoint ( hexaddr, is_set )
     {
-        return asmdbg_set_breakpoint(addr) ;
+        var curr_firm  = simhw_internalState('FIRMWARE') ;
+        curr_firm.assembly[hexaddr].breakpoint = is_set ;
+
+        return true ;
     }
 
     var DBG_stop  = true ;
