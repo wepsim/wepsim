@@ -2,6 +2,7 @@
 
    var ws  = require('./min.wepsim_node.js') ;
    var fs  = require('fs') ;
+   performance = require('perf_hooks').performance ;
 
 
    //
