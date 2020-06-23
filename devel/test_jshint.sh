@@ -85,6 +85,11 @@ set -x
 #jshint ./wepsim_core/wepsim_voice_commands.js
  jshint ./wepsim_core/wepsim_ui_hw.js
  jshint ./wepsim_core/wepsim_ui_registers.js
+ jshint ./wepsim/web/wepsim_webui_listcfg.js
+ jshint ./wepsim/web/wepsim_webui_listexample.js
+ jshint ./wepsim/web/wepsim_webui_listprocessor.js
+ jshint ./wepsim/web/wepsim_webui_loadfile.js
+ jshint ./wepsim/web/wepsim_webui_savefile.js
  jshint ./wepsim/web/wepsim_webui_cpu.js
 #jshint ./wepsim/web/wepsim_webui_mem.js
  jshint ./wepsim/web/wepsim_webui_mem_config.js

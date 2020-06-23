@@ -34,8 +34,10 @@
 		       '<br>' ;
 	     wsweb_dlg_alert(msg) ;
 
-             var qrcode = new QRCode("qrcode1") ;
-                 qrcode.makeCode(share_url) ;
+             if (share_url !== "") {
+                 var qrcode = new QRCode("qrcode1") ;
+                     qrcode.makeCode(share_url) ;
+             }
 
 	     return false ;
 	 }

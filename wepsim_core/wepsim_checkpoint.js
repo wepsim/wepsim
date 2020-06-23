@@ -50,7 +50,7 @@
 	    return elements ;
     }
 
-    function wepsim_checkpoint_loadFromObj ( checkpointObj, obj_fileName, obj_tagName, obj_fileToLoad )
+    function wepsim_checkpoint_loadFromObj ( checkpointObj, obj_fileToLoad )
     {
 	   var o = '' ;
 	   var u = '' ;
@@ -109,24 +109,12 @@
 		}
 		o += '.</li>' ;
 
-	   // 4.- restore user interface elements
-
-		// load tag
-	        if ((typeof obj_fileName !== "undefined") && (obj_fileName !== null)) {
-		     obj_fileName.value = obj_fileToLoad.name ;
-		}
-	        if ((typeof obj_tagName  !== "undefined") && (obj_tagName  !== null)) {
-		     obj_tagName.value  = checkpointObj.tag ;
-		}
-
-		o += '<li>Tag: <strong>' + checkpointObj.tag + '</strong></li>' ;
-
-	   // 5.- restore record
+	   // 4.- restore record
 
 		// set the saved record
                 simcore_record_set(checkpointObj.record) ;
 
-	   // 6.- notify
+	   // 5.- notify
 	   if (o !== '') {
 	       o = 'WepSIM has been instructed to restore a checkpoint:<br>' +
 		   '<ul>' +
@@ -268,8 +256,7 @@
 	    return true ;
     }
 
-	    function wepsim_checkpoint_afterLoad ( textLoaded,
-		                                   obj_fileName, obj_tagName, obj_fileToLoad )
+	    function wepsim_checkpoint_afterLoad ( textLoaded, obj_fileToLoad )
 	    {
 		    try
 		    {
@@ -280,8 +267,7 @@
 			       current_checkpoint = wepsim_checkpoint_NB2Obj(current_checkpoint) ;
                            }
 
-			   wepsim_checkpoint_loadFromObj(current_checkpoint,
-							 obj_fileName, obj_tagName, obj_fileToLoad) ;
+			   wepsim_checkpoint_loadFromObj(current_checkpoint, obj_fileToLoad) ;
 		    }
 		    catch (e)
 		    {
@@ -289,22 +275,19 @@
 		    }
 	    }
 
-    function wepsim_checkpoint_load ( id_filename, id_tagname, id_file_to_load )
+    function wepsim_checkpoint_load ( id_file_to_load )
     {
 	    // get & check params
-            var obj_fileName   = document.getElementById(id_filename) ;
-	    var obj_tagName    = document.getElementById(id_tagname) ;
 	    var obj_fileToLoad = document.getElementById(id_file_to_load).files[0] ;
 
-	    if ( (obj_fileName === null) || (obj_tagName === null) || (obj_fileToLoad === null) || (typeof obj_fileToLoad === 'undefined'))
+	    if ( (obj_fileToLoad === null) || (typeof obj_fileToLoad === 'undefined'))
 	    {
 		return false ;
 	    }
 
 	    // lambda (auxiliar) function
 	    var function_after_loaded = function (textLoaded) {
-					   wepsim_checkpoint_afterLoad(textLoaded, 
-								       obj_fileName, obj_tagName, obj_fileToLoad);
+					   wepsim_checkpoint_afterLoad(textLoaded, obj_fileToLoad);
 			                } ;
 
 	    // load checkpoint
@@ -328,8 +311,7 @@
 			        function(data) {
 	                            var obj_refName        = { name: filename } ;
                                     var current_checkpoint = wepsim_checkpoint_NB2Obj(data) ;
-				    wepsim_checkpoint_loadFromObj(current_checkpoint,
-					                          null, null, obj_refName) ;
+				    wepsim_checkpoint_loadFromObj(current_checkpoint, obj_refName) ;
 			        }) ;
 	        return true ;
 	    }
@@ -347,10 +329,7 @@
 	                                {
 					   var obj_refName = { name: file_uri } ;
 
-					   wepsim_checkpoint_afterLoad(data_text,
-								       'FileNameToSaveAs1',
-								       'tagToSave1',
-								       obj_refName) ;
+					   wepsim_checkpoint_afterLoad(data_text, obj_refName) ;
 			                } ;
 
 	    // load checkpoint from url
@@ -450,7 +429,7 @@
 	    return true ;
     }
 
-    function wepsim_checkpoint_loadFromCache ( id_filename, id_tagname, id_backupname )
+    function wepsim_checkpoint_loadFromCache ( id_backupname )
     {
 	    var ret = {
 		         error: true,
@@ -458,14 +437,6 @@
 	              } ;
 
 	    // get & check params
-            var obj_fileName = document.getElementById(id_filename) ;
-	    var obj_tagName  = document.getElementById(id_tagname) ;
-	    if ( (obj_fileName === null) || (obj_tagName === null) )
-	    {
-		ret.msg = "Invalid arguments" ;
-		return ret ;
-	    }
-
 	    var browserCacheElto = $('input[name=' + id_backupname + ']:checked');
 	    if (typeof browserCacheElto[0] === 'undefined')
 	    {
@@ -485,8 +456,7 @@
 	    }
 
 	    var obj_fileToLoad = { name: '' } ;
-	    wepsim_checkpoint_loadFromObj(current_checkpoint,
-					  obj_fileName, obj_tagName, obj_fileToLoad) ;
+	    wepsim_checkpoint_loadFromObj(current_checkpoint, obj_fileToLoad) ;
 
 	    ret.error = false ;
 	    ret.msg   = "Processing load request..." ;

@@ -143,6 +143,12 @@ cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_core.js \
     \
+    wepsim/web/wepsim_webui_loadfile.js \
+    wepsim/web/wepsim_webui_savefile.js \
+    wepsim/web/wepsim_webui_listcfg.js \
+    wepsim/web/wepsim_webui_listexample.js \
+    wepsim/web/wepsim_webui_listprocessor.js \
+    \
     wepsim/web/wepsim_webui_cpu.js \
     wepsim/web/wepsim_webui_mem.js \
     wepsim/web/wepsim_webui_mem_config.js \
