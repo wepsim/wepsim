@@ -26,7 +26,7 @@
         /* jshint esversion: 6 */
         class ws_load_file extends HTMLElement
         {
-              static get observaedAttributes() 
+              static get observedAttributes() 
 	      {
 	            return [ 'fid', 'jload' ] ;
 	      }

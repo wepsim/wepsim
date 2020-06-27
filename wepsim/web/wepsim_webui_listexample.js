@@ -26,7 +26,7 @@
         /* jshint esversion: 6 */
         class ws_list_example extends HTMLElement
         {
-              static get observaedAttributes() 
+              static get observedAttributes() 
 	      {
 	            return [ 'name', 'layout' ] ;
 	      }

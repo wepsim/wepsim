@@ -83,8 +83,7 @@ set -x
  jshint ./wepsim_core/wepsim_signal.js
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js
- jshint ./wepsim_core/wepsim_ui_hw.js
- jshint ./wepsim_core/wepsim_ui_registers.js
+ jshint ./wepsim/web/wepsim_webui_ddown_info.js
  jshint ./wepsim/web/wepsim_webui_listcfg.js
  jshint ./wepsim/web/wepsim_webui_listexample.js
  jshint ./wepsim/web/wepsim_webui_listprocessor.js
@@ -101,6 +100,8 @@ set -x
  jshint ./wepsim/web/wepsim_webui_dbg_mc.js
  jshint ./wepsim/web/wepsim_webui_dbg_asm.js
  jshint ./wepsim/web/wepsim_webui_cpusvg.js
+ jshint ./wepsim/web/wepsim_wui_hw.js
+ jshint ./wepsim/web/wepsim_wui_registers.js
 
  jshint ./wepsim/web/wepsim_web_api.js
 #jshint ./wepsim/web/wepsim_web_pwa.js

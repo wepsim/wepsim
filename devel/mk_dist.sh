@@ -132,8 +132,6 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_voice.js \
     wepsim_core/wepsim_voice_commands.js \
     \
-    wepsim_core/wepsim_ui_registers.js \
-    wepsim_core/wepsim_ui_hw.js \
     wepsim_core/wepsim_dbg_breakpointicons.js > ws_dist/wepsim_core.js
 terser -o ws_dist/min.wepsim_core.js ws_dist/wepsim_core.js
 rm -fr ws_dist/wepsim_core.js
@@ -149,6 +147,7 @@ cat ws_dist/min.sim_all.js \
     wepsim/web/wepsim_webui_listexample.js \
     wepsim/web/wepsim_webui_listprocessor.js \
     \
+    wepsim/web/wepsim_webui_ddown_info.js \
     wepsim/web/wepsim_webui_cpu.js \
     wepsim/web/wepsim_webui_mem.js \
     wepsim/web/wepsim_webui_mem_config.js \
@@ -160,6 +159,8 @@ cat ws_dist/min.sim_all.js \
     wepsim/web/wepsim_webui_dbg_asm.js \
     wepsim/web/wepsim_webui_cpusvg.js \
     wepsim/web/wepsim_webui_authors.js \
+    wepsim/web/wepsim_wui_registers.js \
+    wepsim/web/wepsim_wui_hw.js \
     \
     wepsim/web/wepsim_web_ui_dialogs.js \
     wepsim/web/wepsim_web_ui_quickcfg.js \
