@@ -37,12 +37,6 @@
 		   super();
 	      }
 
-	      connectedCallback ()
-	      {
-                   this.name   = '' ;
-                   this.layout = 'classic' ;
-	      }
-
 	      get layout ( )
 	      {
                    return this.getAttribute('layout') ;
@@ -242,6 +236,9 @@
 
 	      connectedCallback ()
 	      {
+                   this.name   = '' ;
+                   this.layout = 'classic' ;
+
 		   this.render(this) ;
 	      }
 
