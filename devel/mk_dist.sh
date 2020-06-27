@@ -147,6 +147,7 @@ cat ws_dist/min.sim_all.js \
     wepsim/web/wepsim_webui_listexample.js \
     wepsim/web/wepsim_webui_listprocessor.js \
     \
+    wepsim/web/wepsim_webui_ddown_sel.js \
     wepsim/web/wepsim_webui_ddown_info.js \
     wepsim/web/wepsim_webui_cpu.js \
     wepsim/web/wepsim_webui_mem.js \

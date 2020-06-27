@@ -360,21 +360,21 @@
 
 			<nav>
 			  <div class="nav nav-tabs nav-justified nav-tabs" id="nav-tab" role="tablist">
-			    <a class="nav-item nav-link active" id="nav-simulation-tab" 
+			    <a class="nav-item nav-link active" id="nav-simulation-tab"
 			       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
-			       data-toggle="tab" href="#nav-simulation" role="tab" 
+			       data-toggle="tab" href="#nav-simulation" role="tab"
 			       aria-controls="nav-home" aria-selected="true"><span class="d-none d-sm-inline-flex" data-langkey='Simulation'>Simulation</span><span class="d-sm-none">Sim.</span></a>
-			    <a class="nav-item nav-link user_microcode"    id="nav-microcode-tab" data-oldid="s5b_20" 
+			    <a class="nav-item nav-link user_microcode"    id="nav-microcode-tab" data-oldid="s5b_20"
 			       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 			       onclick="setTimeout(function(){ inputfirm.refresh(); }, 200) ;
                                         return false;"
-			       data-toggle="tab" href="#nav-microcode" role="tab" 
+			       data-toggle="tab" href="#nav-microcode" role="tab"
 			       aria-controls="nav-profile" aria-selected="false"><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></a>
-			    <a class="nav-item nav-link"        id="nav-assembly-tab"  data-oldid="s5b_21" 
+			    <a class="nav-item nav-link"        id="nav-assembly-tab"  data-oldid="s5b_21"
 			       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 			       onclick="setTimeout(function(){ inputasm.refresh(); }, 200) ;
                                         return false;"
-			       data-toggle="tab" href="#nav-assembly" role="tab" 
+			       data-toggle="tab" href="#nav-assembly" role="tab"
 	                       aria-controls="nav-contact" aria-selected="false"><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none">Asm.</span></a>
 			  </div>
 			</nav>
@@ -404,63 +404,8 @@
 
 			    <div class="pl-1 pr-1 pt-1">
 			    <div class="btn-toolbar btn-block" role="toolbar">
-				  <div class="col btn-group p-0" style="flex-grow:6;">
-				    <button type="button" class="col-12 btn btn-light shadow-sm"
-					      data-toggle="tooltip" data-placement="bottom" data-html="true"
-					      title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
-					    style="border-color: #CCCCCC;"
-					    id="select5b"
-					    onclick="wsweb_select_refresh();
-						     return false;">Refresh</button>
-				    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
-					    style="border-color: #CCCCCC;"
-					    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				      <span class="sr-only">Toggle Dropdown</span>
-				    </button>
-				    <div class="dropdown-menu border border-secondary"
-					 style="height:55vh; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">
-
-				      <h6 class="text-secondary mb-1">CPU</h6>
-				      <a class="dropdown-item" href="#" id="s5b_11" value="11"
-					 onclick="wsweb_set_details('REGISTER_FILE');
-						  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Registers'>Registers</span></a>
-				      <a class="dropdown-item user_microcode" href="#" id="s5b_16" value="16"
-					 onclick="wsweb_set_details('CONTROL_MEMORY');
-						  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Control Memory'>Control Memory</span></a>
-				      <a class="dropdown-item" href="#" id="s5b_17" value="17"
-					 onclick="wsweb_set_details('CPU_STATS');
-						  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Stats'>Stats</span></a>
-
-				      <h6 class="text-secondary mt-2 mb-1">Main Memory</h6>
-				      <a class="dropdown-item" href="#" id="s5b_14" value="14"
-					 onclick="wsweb_set_details('MEMORY');
-						  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Memory'>Memory</span></a>
-				      <a class="dropdown-item" href="#" id="s5b_18" value="18"
-					 onclick="wsweb_set_details('MEMORY_CONFIG');
-						  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Configuration'>Configuration</span></a>
-
-				      <h6 class="text-secondary mt-2 mb-1">Devices</h6>
-				      <a class="dropdown-item" href="#" id="s5b_12" value="12"
-					 onclick="wsweb_set_details('SCREEN');
-						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='Keyboard+Display'>Keyboard+Display</span></a>
-				      <a class="dropdown-item" href="#" id="s5b_15" value="15"
-					 onclick="wsweb_set_details('IO_STATS');
-						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Stats'>I/O Stats</span></a>
-				      <a class="dropdown-item" href="#" id="s5b_19" value="19"
-					 onclick="wsweb_set_details('IO_CONFIG');
-						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Configuration'>I/O Configuration</span></a>
-				      <a class="dropdown-item user_archived" href="#" id="s5b_25" value="25"
-					 onclick="wsweb_set_details('3DLED');
-						  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O 3D-Led'>I/O 3D-Led</span></a>
-
-				      <div class="dropdown-divider m-1"></div>
-				      <h6 class="text-secondary mb-1">Simulation</h6>
-				      <a class="dropdown-item" href="#" id="s5b_22" value="22"
-					 onclick="wsweb_set_details('HARDWARE');
-						  return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>
-
-				    </div>
-				  </div>
+                                  <ws-ddown-sel class="col btn-group p-0" style="flex-grow:6;"
+                                                layout="compact"></ws-ddown-sel>
 			    </div>
 			    </div>
 
@@ -593,7 +538,7 @@
 		console.log(msg) ;
 		$("#loading_msg1").html(msg) ;
 
-	        setTimeout(function(){ 
+	        setTimeout(function(){
 	           window.location='wepsim-classic.html' + window.location.search ;
 	        }, 250);
 	    }

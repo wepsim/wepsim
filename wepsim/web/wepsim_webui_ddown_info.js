@@ -20,7 +20,7 @@
 
 
         /*
-         *  Load list
+         *  Dropdown (information part)
          */
 
         /* jshint esversion: 6 */
