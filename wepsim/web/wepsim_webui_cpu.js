@@ -44,18 +44,24 @@
 			     "     class='container container-fluid'>" +
 		             "<div class='col-12'>" +
 			     "<table class='table table-hover table-sm table-bordered'>" +
-			     "<tr>" +
-			     "<td align=center width=50%>Instructions</td>" +
-			     "<td align=center width=50%>" +
-			     "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+			     " <tr>" +
+			     "<td align='center' class='w-50'>Instructions</td>" +
+			     "<td align='center' class='w-50'>" +
+			     "<div id='ins_context'><span data-bind='text: value'>&nbsp;</span></div>" +
 			     "</td>" +
-			     "</tr>" +
-			     "<tr>" +
-			     "<td align=center width=50%>CLK ticks</td>" +
-			     "<td align=center width=50%>" +
-			     "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+			     " </tr>" +
+			     " <tr>" +
+			     "<td align='center' class='w-50'>CLK ticks</td>" +
+			     "<td align='center' class='w-50'>" +
+			     "<div id='clk_context'><span data-bind='text: value'>&nbsp;</span></div>" +
 			     "</td>" +
-			     "</tr>" +
+			     " </tr>" +
+			     " <tr>" +
+			     "<td align='center' class='w-50'>Acc. msec.</td>" +
+			     "<td align='center' class='w-50'>" +
+			     "<div id='tms_context'><span data-bind='text: value'>&nbsp;</span></div>" +
+			     "</td>" +
+			     " </tr>" +
 			     "</table>" +
 			     "</div>" +
 			     "</div>" ;
@@ -65,6 +71,7 @@
 		    // knockout binding
 		    ko_rebind_state('CLK',      'clk_context') ;
 		    ko_rebind_state('DECO_INS', 'ins_context') ;
+		    ko_rebind_state('ACC_TIME', 'tms_context') ;
 	      }
 
 	      connectedCallback ()
