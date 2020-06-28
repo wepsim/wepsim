@@ -357,12 +357,14 @@
                                          visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
 
 	/* VIRTUAL */
-	sim.poc.states["REG_IR_DECO"]    = { name:"IR_DECO",  verbal: "Instruction Decoded",
-                                         visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["DECO_INS"]       = { name:"DECO_INS", verbal: "Instruction decoded in binary",
-                                         visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["CLK"]            = { name:"CLK",      verbal: "Clock",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim.poc.states["REG_IR_DECO"] = { name:"IR_DECO",  verbal: "Instruction Decoded",
+                                          visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
+	sim.poc.states["DECO_INS"]    = { name:"DECO_INS", verbal: "Instruction decoded in binary",
+                                          visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim.poc.states["CLK"]         = { name:"CLK",      verbal: "Clock",
+                                          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim.poc.states["ACC_TIME"]    = { name:"ACC_TIME", verbal: "Accumulated CPU time",
+                                          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 
 	/*
@@ -2122,6 +2124,9 @@
 		sim.poc.behaviors["CLOCK"] = { nparameters: 1,
 					     operation: function(s_expr)
 							{
+						            // measure time (1/2)
+					                    var t0 = performance.now() ;
+
 							    // 1.- Update counter
 							    var val = get_value(sim.poc.states["CLK"]) ;
 							    set_value(sim.poc.states["CLK"], val + 1);
@@ -2162,6 +2167,11 @@
 							             new_mins.NATIVE_JIT() ;
 						            else if (typeof new_mins.NATIVE != "undefined")
 							             eval(new_mins.NATIVE) ;
+
+						            // measure time (2/2)
+					                    var t1 = performance.now() ;
+							    var val = get_value(sim.poc.states["ACC_TIME"]) ;
+							    set_value(sim.poc.states["ACC_TIME"], val+(t1-t0));
                                                         },
                                                 verbal: function (s_expr)
                                                         {

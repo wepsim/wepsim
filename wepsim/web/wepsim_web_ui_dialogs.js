@@ -38,49 +38,22 @@
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
                                "<div class='col-12 col-sm-6 p-2'>" +
-		                "<div class='card border-secondary h-100'>" +
-			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
-		                "  <h5 class='m-0'>" +
-				"  <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
-				"  <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
-                                "          onclick='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
-				"	            var fileNameToSaveAs = ifntsa2.value;" +
-				"	            var textToWrite      = inputasm.getValue();" +
-				"	            wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-		                "                   inputasm.is_modified = false;" +
-				"		    return false;'" +
-                                "><span data-langkey='Save'>Save</span></button>" +
-		               	"  </h5>" +
-			      	"</div>" +
-			      	" <div class='card-body'>" +
-		                "<label for='inputFileNameToSaveAs2'>" +
-			        "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" +
-			        "</label>" +
-	                        "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2' " +
-                                "          class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>" +
-			     	" </div>" +
-			   	"</div>" +
+                                "<ws-save-file " + 
+                                "    fid='inputFileNameToSaveAs2' " +
+                                "    jsave='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+				"	    var fileNameToSaveAs = ifntsa2.value;" +
+				"	    var textToWrite      = inputasm.getValue();" +
+				"	    wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "           inputasm.is_modified = false;" +
+                                "           return false;'></ws-save-file>" +
                                "</div>" +
                                "<div class='col-12 col-sm-6 p-2'>" +
-		                "<div class='card border-secondary h-100'>" +
-			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
-		                "  <h5 class='m-0'>" +
-				"  <span class='text-white bg-secondary' data-langkey='Input'>Input</span>" +
-				"  <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
-                                "          onclick='var ftl2 = document.getElementById(\"fileToLoad2\"); " +
-                                "                   var fileToLoad = ftl2.files[0]; " +
-		                "                   wepsim_file_loadFrom(fileToLoad," +
-                                "                                   function(txt){ inputasm.setValue(txt); });" +
-				"		    return false;'" +
-                                "><span data-langkey='Load'>Load</span></button>" +
-		               	"  </h5>" +
-			      	"</div>" +
-			      	"<div class='card-body'>" +
-		                "<label for='fileToLoad2'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
-	                        "<p><input aria-label='file to load' " +
-                                "          type='file' id='fileToLoad2' class='dropify'/></p>" +
-			     	"</div>" +
-			     	"</div>" +
+                                "<ws-load-file " + 
+                                "    fid='fileToLoad2' " +
+                                "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
+                                "           wepsim_file_loadFrom(ftl, " +
+                                "		                 function(txt){ inputasm.setValue(txt); });" +
+                                "           return false;'></ws-load-file>" +
                                "</div>" +
                                "</div>" +
 			   	"</div>" ;
@@ -100,8 +73,6 @@
 			 var o = $("#lssvasm") ;
 		         o.find('.modal-header').attr("style", "background-color: black !important") ;
 			 o.find('.modal-title').addClass("ml-auto") ;
-
-			 $('.dropify').dropify() ;
 
 			 // uicfg and events
 			 $('[data-toggle=tooltip]').tooltip('hide');
@@ -169,24 +140,12 @@
 			   	"</div>" +
                                "</div>" +
                                "<div class='col-12 col-sm-6 p-2'>" +
-		                "<div class='card border-secondary h-100'>" +
-			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
-		                " <h5 class='m-0'>" +
-				" <span class='text-white bg-secondary' data-langkey='Input'>Input</span>" +
-
-				" <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
-                                "         onclick='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
-		                "                  wepsim_file_loadFrom(ftl," +
-			        "                 		 function(txt){ inputfirm.setValue(txt); });" +
-				"		   return false;'" +
-                                "><span data-langkey='Load'>Load</span></button>" +
-		               	"  </h5>" +
-			      	"</div>" +
-			      	"<div class='card-body'>" +
-		                "<label for='fileToLoad'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
-	                        "<p><input aria-label='file to load' type='file' id='fileToLoad' class='dropify'/></p>" +
-			     	"</div>" +
-			     	"</div>" +
+                                "<ws-load-file " + 
+                                "    fid='fileToLoad' " +
+                                "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
+                                "           wepsim_file_loadFrom(ftl, " +
+                                "		                 function(txt){ inputfirm.setValue(txt); });" +
+                                "           return false;'></ws-load-file>" +
                                "</div>" +
                                "</div>" +
 			   	"</div>" ;
@@ -928,25 +887,15 @@
                                     "   </div>" +
                                     "   </div>" +
                                     "   <div class='col-12 col-sm-4 p-2'>" +
-                                    "   <div class='card border-secondary h-100'>" +
-                                    "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
-                                    "	  <h5 class='m-0'>" +
-                                    "	    <span class='text-white bg-secondary' data-langkey='Input' class='collapse7'>Input</span>" +
-                                    "	    <button class='btn btn-light mx-1 float-right py-0 col-auto'" +
-                                    "		    onclick='var ret = wepsim_checkpoint_load(\"FileNameToSaveAs1\", \"tagToSave1\", \"fileToLoad31\");" +
-                                    "			     if (ret) {" +
-                                    "				 wsweb_dialog_close(\"current_checkpoint\");" +
-                                    "				 wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
-                                    "			     }" +
-                                    "			     return false;'><span data-langkey='Load'>Load</span></button>" +
-                                    "	  </h5>" +
-                                    "      </div>" +
-                                    "      <div class='card-body'>" +
-                                    "		<label for='fileToLoad31' class='collapse7'><em><span data-langkey='File to be loaded'>File to be loaded</span>:</em><br></label>" +
-                                    "		<input data-max-height='20vh'" +
-                                    "		       aria-label='file to load' type='file' id='fileToLoad31' class='dropify' />" +
-                                    "      </div>" +
-                                    "   </div>" +
+                                    "    <ws-load-file " + 
+                                    "        fid='fileToLoad31' " +
+                                    "	     jload='var ret = wepsim_checkpoint_load(\"fileToLoad31\") ;" +
+                                    "		    if (ret) {" +
+                                    "		        wsweb_dialog_close(\"current_checkpoint\") ;" +
+                                    "		        wepsim_notify_success(\"<strong>INFO</strong>\", " + 
+                                    "                                         \"Processing load request...\") ;" +
+                                    "		    }" +
+                                    "		    return false;'></ws-load-file>" +
                                     "   </div>" +
                                     "   <div class='col-12 col-sm-4 p-2'>" +
                                     "   <div class='card border-secondary h-100'>" +
@@ -954,7 +903,7 @@
                                     "	  <h5 class='m-0'>" +
                                     "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
                                     "	    <button class='btn btn-light mx-1 float-right py-0 col-auto'" +
-                                    "		    onclick='var ret = wepsim_checkpoint_loadFromCache(\"FileNameToSaveAs1\", \"tagToSave1\", \"browserCacheElto\");" +
+                                    "		    onclick='var ret = wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
                                     "			     wsweb_dialog_close(\"current_checkpoint\");" +
                                     "			     if (ret.error)" +
                                     "				  wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
@@ -1028,91 +977,11 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
-                       var card_configuration_btns = function ( ) {
-                             var o = '' ;
-			     var e_cfgs = cfgset_getSet() ;
-			     for (var e_cfg in e_cfgs) {
-				  o += '<button type="button" ' +
-				       '    class="text-danger btn border-secondary m-1" ' +
-				       '    onclick="cfgset_load(\'' + e_cfg + '\') ;' +
-				       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
-				       '	  		           \'Configuration loaded!.\') ;' +
-				       '	     wepsim_uicfg_restore() ;' +
-				       '	     return false;">' +
-                                       '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' +
-                                       '</button>' ;
-			     }
-                             return o ;
-                                      } ;
-                       var card_example_btns = function ( ) {
-                             var o = '' ;
-			     var e_exs = wepsim_example_getSet() ;
-			     for (var i in e_exs) {
-				  o += '<button type="button" ' +
-				       '    class="text-danger btn border-secondary m-1" ' +
-				       '    onclick="wepsim_example_reset() ;' +
-				       '	     wepsim_example_load(\'' + e_exs[i].name + '\') ;' +
-				       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
-				       '			           \'Examples list loaded!.\') ;' +
-				       '	     return false;">' +
-                                       '<span data-langkey="' +e_exs[i].name+ '">' + e_exs[i].name + '</span>' +
-                                       '</button>' ;
-			     }
-                             return o ;
-                                      } ;
-                       var card_processor_btns = function ( ) {
-                             var o = '' ;
-                             var e_hws = simhw_hwset_getSet() ;
-			     for (var e_hw in e_hws) {
-				  o += '<button type="button" ' +
-				       '    class="text-danger btn border-secondary m-1" ' +
-				       '    onclick="wepsim_reload_hw(\'' + e_hw + '\') ;' +
-				       '	     wepsim_notify_success(\'<strong>INFO</strong>\', ' +
-				       '			          \'' + e_hw +' processor loaded!.\') ;'+
-				       '	     return false;">' + e_hw.toUpperCase() + '</button>' ;
-			     }
-                             return o ;
-                                      } ;
-
-                        // cards
-                        var elements = [
-                                 {
-                                    "name": "Configuration",
-                                    "icon": "<em class='fas fa-cogs pr-2'></em>",
-                                    "function": card_configuration_btns
-                                 },
-                                 {
-                                    "name": "Examples",
-                                    "icon": "<em class='fas fa-stream pr-2'></em>",
-                                    "function": card_example_btns
-                                 },
-                                 {
-                                    "name": "Processor",
-                                    "icon": "<em class='fas fa-microchip pr-2'></em>",
-                                    "function": card_processor_btns
-                                 }
-                            ] ;
-
-		        var o = '<div id="scroller-reload1" class="row m-0">' ;
-                        for (var e in elements) {
-                             var ename = elements[e].name ;
-			     o += '<div class="col-12 col-sm-4 p-2">' +
-				  '<div class="card border-secondary h-100">' +
-				  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
-				  '<h5 class="py-1 m-0">' +
-				  elements[e].icon +
-                                  '<span data-langkey="' + ename + '">' + ename + '</span>' +
-                                  '</h5>' +
-				  '</div>' +
-			          ' <div class="card-body">' +
-			          ' <div class="btn-group-vertical w-100" role="group" aria-label="' +ename+ '">' +
-                                  elements[e].function() +
-				  ' </div>' +
-				  ' </div>' +
-				  '</div>' +
-				  '</div>' ;
-                        }
-                        o += '</div>' ;
+		        var o = '<div id="scroller-reload1" class="row m-0">' +
+                                '<ws-list-cfg       class="col-12 col-sm-4 p-2"></ws-list-cfg>' +
+                                '<ws-list-example   class="col-12 col-sm-4 p-2"></ws-list-example>' +
+                                '<ws-list-processor class="col-12 col-sm-4 p-2"></ws-list-processor>' +
+                                '</div>' ;
 
 		        return o ;
 		     },
