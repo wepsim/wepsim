@@ -28,7 +28,7 @@
         {
               static get observedAttributes() 
 	      {
-	            return [ 'fid', 'jsave' ] ;
+	            return [ 'fid', 'jsave', 'jshare' ] ;
 	      }
 
 	      constructor ()
@@ -41,21 +41,26 @@
 	      {
                     var fid    = this.getAttribute('fid') ;
                     var jsave  = this.getAttribute('jsave') ;
-                    var o1  = '' ;
+                    var jshare = this.getAttribute('jshare') ;
 
                     // save html
+                    var o1 = '' ;
 		    o1 += "<div class='card border-secondary h-100'>" +
 			  "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 			  " <h5 class='m-0'>" +
 			  " <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
 			  " <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
                           "         onclick='" + jsave + "'><span data-langkey='Save'>Save</span></button>" +
-			  "  </h5>" +
+			  " <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
+                          "         onclick='" + jshare + "'><span data-langkey='Share'>Share</span></button>" +
+			  " </h5>" +
 			  "</div>" +
 			  "<div class='card-body'>" +
-			  "  <label for='" + fid + "' class='collapse7'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
-	                  "  <p><input aria-label='filename to save content' id='" + fid + "' " +
-                          "            class='form-control btn-outline-dark' placeholder='File name where assembly will be saved' style='min-width: 90%;'/></p>" +
+			  " <label for='" + fid + "' class='collapse7'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
+	                  " <p><input aria-label='filename to save content' id='" + fid + "' " +
+                          "           class='form-control btn-outline-dark' " +
+                          "           placeholder='File name where information will be saved' " + 
+                          "           style='min-width: 90%;'/></p>" +
 			  "</div>" +
 			  "</div>" ;
 
