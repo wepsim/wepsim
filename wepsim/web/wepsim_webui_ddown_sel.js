@@ -49,8 +49,6 @@
 
 	      render ( elto )
 	      {
-  console.log(' >> ' + this.layout) ;
-
                    var o1  = '' ;
 
                    // set HTML
