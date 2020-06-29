@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_recordbard extends HTMLElement
+        class ws_recordbar extends HTMLElement
         {
               static get observedAttributes() 
 	      {
@@ -35,16 +35,6 @@
 	      {
 		    // parent
 		    super();
-	      }
-
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
-
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', 'classic') ;
 	      }
 
 	      render ( elto )
@@ -121,9 +111,29 @@
 	      {
 		    this.render(this) ;
 	      }
+
+	      get name ( )
+	      {
+                   return this.getAttribute('name') ;
+	      }
+
+	      set name ( value )
+	      {
+                   this.setAttribute('name', value) ;
+	      }
+
+	      get layout ( )
+	      {
+                   return this.getAttribute('layout') ;
+	      }
+
+	      set layout ( value )
+	      {
+                   this.setAttribute('layout', value) ;
+	      }
         }
 
         if (typeof window !== "undefined") {
-            window.customElements.define('ws-recordbar', ws_recordbard) ;
+            window.customElements.define('ws-recordbar', ws_recordbar) ;
         }
 

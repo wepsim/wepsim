@@ -141,31 +141,32 @@ cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_core.js \
     \
-    wepsim/web/wepsim_webui_loadfile.js \
-    wepsim/web/wepsim_webui_savefile.js \
-    wepsim/web/wepsim_webui_listcfg.js \
-    wepsim/web/wepsim_webui_listexample.js \
-    wepsim/web/wepsim_webui_listprocessor.js \
-    wepsim/web/wepsim_webui_recordbar.js \
+    wepsim_webui/wepsim_webui_loadfile.js \
+    wepsim_webui/wepsim_webui_savefile.js \
+    wepsim_webui/wepsim_webui_listcfg.js \
+    wepsim_webui/wepsim_webui_listexample.js \
+    wepsim_webui/wepsim_webui_listprocessor.js \
+    wepsim_webui/wepsim_webui_recordbar.js \
+    wepsim_webui/wepsim_webui_executionbar.js \
     \
-    wepsim/web/wepsim_webui_ddown_sel.js \
-    wepsim/web/wepsim_webui_ddown_info.js \
-    wepsim/web/wepsim_webui_cpu.js \
-    wepsim/web/wepsim_webui_mem.js \
-    wepsim/web/wepsim_webui_mem_config.js \
-    wepsim/web/wepsim_webui_console.js \
-    wepsim/web/wepsim_webui_io_info.js \
-    wepsim/web/wepsim_webui_io_config.js \
-    wepsim/web/wepsim_webui_l3d.js \
-    wepsim/web/wepsim_webui_dbg_mc.js \
-    wepsim/web/wepsim_webui_dbg_asm.js \
-    wepsim/web/wepsim_webui_cpusvg.js \
-    wepsim/web/wepsim_webui_authors.js \
-    wepsim/web/wepsim_wui_registers.js \
-    wepsim/web/wepsim_wui_hw.js \
+    wepsim_webui/wepsim_webui_ddown_sel.js \
+    wepsim_webui/wepsim_webui_ddown_info.js \
+    wepsim_webui/wepsim_webui_cpu.js \
+    wepsim_webui/wepsim_webui_mem.js \
+    wepsim_webui/wepsim_webui_mem_config.js \
+    wepsim_webui/wepsim_webui_console.js \
+    wepsim_webui/wepsim_webui_io_info.js \
+    wepsim_webui/wepsim_webui_io_config.js \
+    wepsim_webui/wepsim_webui_l3d.js \
+    wepsim_webui/wepsim_webui_dbg_mc.js \
+    wepsim_webui/wepsim_webui_dbg_asm.js \
+    wepsim_webui/wepsim_webui_cpusvg.js \
+    wepsim_webui/wepsim_webui_authors.js \
+    wepsim_webui/wepsim_wui_registers.js \
+    wepsim_webui/wepsim_wui_hw.js \
     \
-    wepsim/web/wepsim_web_ui_dialogs.js \
-    wepsim/web/wepsim_web_ui_quickcfg.js \
+    wepsim_webui/wepsim_web_ui_dialogs.js \
+    wepsim_webui/wepsim_web_ui_quickcfg.js \
     \
     wepsim/web/wepsim_web_api.js \
     wepsim/web/wepsim_web_editor.js \

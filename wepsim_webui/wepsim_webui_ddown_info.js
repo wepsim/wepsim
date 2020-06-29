@@ -37,17 +37,7 @@
 		   super();
 	      }
 
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
-
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', 'classic') ;
-	      }
-
-	      render ( elto )
+	      render ( )
 	      {
                    var o1  = '' ;
 
@@ -239,12 +229,32 @@
                    this.name   = '' ;
                    this.layout = 'classic' ;
 
-		   this.render(this) ;
+		   this.render() ;
 	      }
 
 	      attributeChangedCallback (name, oldValue, newValue)
 	      {
-		   this.render(this) ;
+		   this.render() ;
+	      }
+
+	      get layout ( )
+	      {
+                   return this.getAttribute('layout') ;
+	      }
+
+	      set layout ( value )
+	      {
+                   this.setAttribute('layout', value) ;
+	      }
+
+	      get name ( )
+	      {
+                   return this.getAttribute('name') ;
+	      }
+
+	      set name ( value )
+	      {
+                   this.setAttribute('name', value) ;
 	      }
         }
 

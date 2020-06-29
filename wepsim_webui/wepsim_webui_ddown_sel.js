@@ -37,16 +37,6 @@
 		   super();
 	      }
 
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
-
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', 'classic') ;
-	      }
-
 	      render ( elto )
 	      {
                    var o1  = '' ;
@@ -129,6 +119,26 @@
 	      attributeChangedCallback (name, oldValue, newValue)
 	      {
 		   this.render(this) ;
+	      }
+
+	      get layout ( )
+	      {
+                   return this.getAttribute('layout') ;
+	      }
+
+	      set layout ( value )
+	      {
+                   this.setAttribute('layout', value) ;
+	      }
+
+	      get name ( )
+	      {
+                   return this.getAttribute('name') ;
+	      }
+
+	      set name ( value )
+	      {
+                   this.setAttribute('name', value) ;
 	      }
         }
 

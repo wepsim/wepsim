@@ -69,8 +69,9 @@
 	      }
         }
 
-        if (typeof window !== "undefined")
+        if (typeof window !== "undefined") {
             window.customElements.define('ws-dbg-mp', ws_dbg_mp) ;
+        }
 
 
         //

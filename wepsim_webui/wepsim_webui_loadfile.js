@@ -74,6 +74,26 @@
 	      {
 		    this.render(this) ;
 	      }
+
+	      get fid ( )
+	      {
+                   return this.getAttribute('fid') ;
+	      }
+
+	      set fid ( value )
+	      {
+                   this.setAttribute('fid', value) ;
+	      }
+
+	      get jload ( )
+	      {
+                   return this.getAttribute('jload') ;
+	      }
+
+	      set jload ( value )
+	      {
+                   this.setAttribute('jload', value) ;
+	      }
         }
 
         if (typeof window !== "undefined") {

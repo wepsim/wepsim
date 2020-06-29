@@ -93,23 +93,16 @@
     var DBG_stop  = true ;
     var DBG_limit_instruction = 0 ;
 
-    function wepsim_execute_stop ( btn1 )
+    function wepsim_execute_stop ( )
     {
-	var wsi     = get_cfg('ws_idiom') ;
-        var run_tag = i18n_get('gui',wsi,'Run') ;
-
-	$(btn1).html("<i class='fa fa-play'></i><br><b>" + run_tag + "</b>") ;
-	$(btn1).css("backgroundColor", "#CCCCCC") ;
+        webui_button_set_stop('exebar1') ;
 
 	DBG_stop = true;
         DBG_limit_instruction = 0 ;
     }
 
-    function wepsim_execute_play ( btn1 )
+    function wepsim_execute_play ( )
     {
-	var wsi      = get_cfg('ws_idiom') ;
-        var stop_tag = i18n_get('gui',wsi,'Stop') ;
-
 	var ret = simcore_check_if_can_execute() ;
 	if (false === ret.ok)
 	{
@@ -117,16 +110,15 @@
 	    return false ;
         }
 
-	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-	$(btn1).html("<i class='fa fa-stop'></i><br><b>" + stop_tag + "</b>") ;
+        webui_button_set_start('exebar1') ;
 
         DBG_stop = false ;
         DBG_limit_instruction = 0 ;
 
-        wepsim_execute_chainplay(btn1) ;
+        wepsim_execute_chainplay() ;
     }
 
-    function wepsim_execute_toggle_play ( btn1 )
+    function wepsim_execute_toggle_play ( )
     {
         if (DBG_stop === false)
         {
@@ -134,7 +126,7 @@
         }
         else
         {
-            wepsim_execute_play(btn1) ;
+            wepsim_execute_play() ;
         }
     }
 
@@ -217,7 +209,7 @@
 	return true ;
     }
 
-    function wepsim_check_mcdashboard ( btn1, reg_maddr )
+    function wepsim_check_mcdashboard ( reg_maddr )
     {
         var ref_mcdash = simhw_internalState_get('MC_dashboard', reg_maddr) ;
         if (typeof ref_mcdash === "undefined") {
@@ -251,8 +243,8 @@
 				  },
 			callback: function (result) {
 				     if (result)
-				          setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
-				     else wepsim_execute_stop(btn1) ;
+				          setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay')) ;
+				     else wepsim_execute_stop() ;
 				  }
 		});
 
@@ -263,7 +255,7 @@
 	return true ;
     }
 
-    function wepsim_execute_chunk ( btn1, chunk )
+    function wepsim_execute_chunk ( chunk )
     {
 	var options    = {
 			     verbosity:    0,
@@ -287,7 +279,7 @@
 	    ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
 	    if (false === ret.ok) {
 		wepsim_show_stopbyevent("Info", ret.msg) ;
-		wepsim_execute_stop(btn1) ;
+		wepsim_execute_stop() ;
 		return false ;
 	    }
 
@@ -295,14 +287,14 @@
 	    if ( (options.cycles_limit > 0) && (i_clks >= options.cycles_limit) )
 	    {
 		wepsim_show_stopbyevent("Info", 'Warning: clock cycles limit reached in a single instruction.') ;
-		wepsim_execute_stop(btn1) ;
+		wepsim_execute_stop() ;
 		return false ;
 	    }
 
 	    reg_maddr = get_value(ref_maddr) ;
 	    reg_pc    = get_value(ref_pc) ;
 
-	    ret = wepsim_check_mcdashboard(btn1, reg_maddr) ;
+	    ret = wepsim_check_mcdashboard(reg_maddr) ;
 	    if (false === ret) {
 		return false ;
 	    }
@@ -311,7 +303,7 @@
 	    if (true === ret)
 	    {
 		wepsim_show_stopbyevent("Breakpoint", "Microinstruction is going to be issue.") ;
-		wepsim_execute_stop(btn1) ;
+		wepsim_execute_stop() ;
 		return false ;
 	    }
 
@@ -320,7 +312,7 @@
 		ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
 		if (true === ret) {
 		    wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
-		    wepsim_execute_stop(btn1) ;
+		    wepsim_execute_stop() ;
 		    return false ;
 		}
 
@@ -332,11 +324,11 @@
         return true ;
     }
 
-    function wepsim_execute_chunk_atlevel ( btn1, chunk )
+    function wepsim_execute_chunk_atlevel ( chunk )
     {
 	var playlevel = get_cfg('DBG_level') ;
 	if (playlevel !== "instruction") {
-            return wepsim_execute_chunk(btn1, chunk) ;
+            return wepsim_execute_chunk(chunk) ;
 	}
 
         var curr_firm  = simhw_internalState('FIRMWARE') ;
@@ -357,7 +349,7 @@
 	    ret = simcore_execute_microprogram(options) ;
 	    if (ret.ok === false) {
 		wepsim_show_stopbyevent("Info", ret.msg) ;
-		wepsim_execute_stop(btn1) ;
+		wepsim_execute_stop() ;
 		return false ;
 	    }
 
@@ -366,7 +358,7 @@
 	    ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
 	    if (true === ret) {
 		wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
-		wepsim_execute_stop(btn1) ;
+		wepsim_execute_stop() ;
 		return false ;
 	    }
         }
@@ -382,13 +374,13 @@
         max_turbo = 5 ;
     }
 
-    function wepsim_execute_chainplay ( btn1 )
+    function wepsim_execute_chainplay ( )
     {
 	var t0 = 1.0 ;
 	var t1 = 1.0 ;
 
 	if (DBG_stop) {
-	    wepsim_execute_stop(btn1) ;
+	    wepsim_execute_stop() ;
 	    return ;
 	}
 
@@ -398,7 +390,7 @@
         if (max_turbo === 5)
             t0 = performance.now() ;
 
-        var ret = wepsim_execute_chunk(btn1, turbo) ;
+        var ret = wepsim_execute_chunk(turbo) ;
         if (false === ret) {
             return ;
         }
@@ -418,11 +410,11 @@
                                     "<br>" +
                                     "See related configuration options about limits:<br>" +
                                     "<img height='100vw' src='./images/simulator/simulator018.jpg'>" );
-	    wepsim_execute_stop(btn1) ;
+	    wepsim_execute_stop() ;
 
             return ;
 	}
 
-	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
+	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay')) ;
     }
 

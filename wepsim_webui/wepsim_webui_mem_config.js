@@ -77,6 +77,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined")
+        if (typeof window !== "undefined") {
             window.customElements.define('ws-mem-config', ws_mem_config) ;
+        }
 

@@ -76,6 +76,36 @@
 	      {
 		    this.render(this) ;
 	      }
+
+	      get fid ( )
+	      {
+                   return this.getAttribute('fid') ;
+	      }
+
+	      set fid ( value )
+	      {
+                   this.setAttribute('fid', value) ;
+	      }
+
+	      get jsave ( )
+	      {
+                   return this.getAttribute('jsave') ;
+	      }
+
+	      set jsave ( value )
+	      {
+                   this.setAttribute('jsave', value) ;
+	      }
+
+	      get jshare ( )
+	      {
+                   return this.getAttribute('jshare') ;
+	      }
+
+	      set jshare ( value )
+	      {
+                   this.setAttribute('jshare', value) ;
+	      }
         }
 
         if (typeof window !== "undefined") {

@@ -83,33 +83,35 @@ set -x
  jshint ./wepsim_core/wepsim_signal.js
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js
- jshint ./wepsim/web/wepsim_webui_ddown_sel.js
- jshint ./wepsim/web/wepsim_webui_ddown_info.js
- jshint ./wepsim/web/wepsim_webui_listcfg.js
- jshint ./wepsim/web/wepsim_webui_listexample.js
- jshint ./wepsim/web/wepsim_webui_listprocessor.js
- jshint ./wepsim/web/wepsim_webui_loadfile.js
- jshint ./wepsim/web/wepsim_webui_savefile.js
- jshint ./wepsim/web/wepsim_webui_cpu.js
-#jshint ./wepsim/web/wepsim_webui_mem.js
- jshint ./wepsim/web/wepsim_webui_mem_config.js
- jshint ./wepsim/web/wepsim_webui_console.js
- jshint ./wepsim/web/wepsim_webui_io_info.js
- jshint ./wepsim/web/wepsim_webui_io_config.js
- jshint ./wepsim/web/wepsim_webui_l3d.js
- jshint ./wepsim/web/wepsim_webui_authors.js
- jshint ./wepsim/web/wepsim_webui_dbg_mc.js
- jshint ./wepsim/web/wepsim_webui_dbg_asm.js
- jshint ./wepsim/web/wepsim_webui_cpusvg.js
- jshint ./wepsim/web/wepsim_wui_hw.js
- jshint ./wepsim/web/wepsim_wui_registers.js
+ jshint ./wepsim_webui/wepsim_webui_executionbar.js
+ jshint ./wepsim_webui/wepsim_webui_recordbar.js
+ jshint ./wepsim_webui/wepsim_webui_ddown_sel.js
+ jshint ./wepsim_webui/wepsim_webui_ddown_info.js
+ jshint ./wepsim_webui/wepsim_webui_listcfg.js
+ jshint ./wepsim_webui/wepsim_webui_listexample.js
+ jshint ./wepsim_webui/wepsim_webui_listprocessor.js
+ jshint ./wepsim_webui/wepsim_webui_loadfile.js
+ jshint ./wepsim_webui/wepsim_webui_savefile.js
+ jshint ./wepsim_webui/wepsim_webui_cpu.js
+#jshint ./wepsim_webui/wepsim_webui_mem.js
+ jshint ./wepsim_webui/wepsim_webui_mem_config.js
+ jshint ./wepsim_webui/wepsim_webui_console.js
+ jshint ./wepsim_webui/wepsim_webui_io_info.js
+ jshint ./wepsim_webui/wepsim_webui_io_config.js
+ jshint ./wepsim_webui/wepsim_webui_l3d.js
+ jshint ./wepsim_webui/wepsim_webui_authors.js
+ jshint ./wepsim_webui/wepsim_webui_dbg_mc.js
+ jshint ./wepsim_webui/wepsim_webui_dbg_asm.js
+ jshint ./wepsim_webui/wepsim_webui_cpusvg.js
+ jshint ./wepsim_webui/wepsim_wui_hw.js
+ jshint ./wepsim_webui/wepsim_wui_registers.js
+ jshint ./wepsim_webui/wepsim_web_ui_dialogs.js
+ jshint ./wepsim_webui/wepsim_web_ui_quickcfg.js
 
  jshint ./wepsim/web/wepsim_web_api.js
 #jshint ./wepsim/web/wepsim_web_pwa.js
  jshint ./wepsim/web/wepsim_web_simulator.js
  jshint ./wepsim/web/wepsim_web_editor.js
- jshint ./wepsim/web/wepsim_web_ui_dialogs.js
- jshint ./wepsim/web/wepsim_web_ui_quickcfg.js
  jshint ./wepsim/nodejs/wepsim_node_action.js
  jshint ./wepsim/nodejs/wepsim_node_core.js
 
