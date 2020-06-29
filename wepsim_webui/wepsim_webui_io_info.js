@@ -94,6 +94,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined")
+        if (typeof window !== "undefined") {
             window.customElements.define('ws-io-info', ws_io_info) ;
+        }
 

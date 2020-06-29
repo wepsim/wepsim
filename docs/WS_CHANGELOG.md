@@ -2,10 +2,12 @@
 # Changelog
 
 ## 2.0.12 -> 2.1.0:
-* Improvements:
-  * Dialog-boxes re-designed from scratch
-  * Reload dialogbox added (for examples, configuration and processors)
-* Minor bugs fixed and several refinaments added
+* Re-designed from scratch:
+  * Modals (dialogs) engine
+  * UI elements based on Web Components
+* Minor bugs fixed and several refinaments added:
+  * Reload dialog added (for recovering examples, configuration and processors)
+  * Support for defining set of examples
 * Several external dependencies updated:
   * Bootstrap   updated to bootstrap-4.5.0
   * Knockout    updated to knockout-3.5.1

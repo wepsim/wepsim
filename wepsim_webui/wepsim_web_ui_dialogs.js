@@ -38,17 +38,24 @@
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
                                "<div class='col-12 col-sm-6 p-2'>" +
-                                "<ws-save-file " + 
+                                "<ws-save-file " +
                                 "    fid='inputFileNameToSaveAs2' " +
                                 "    jsave='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
-				"	    var fileNameToSaveAs = ifntsa2.value;" +
-				"	    var textToWrite      = inputasm.getValue();" +
-				"	    wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-		                "           inputasm.is_modified = false;" +
-                                "           return false;'></ws-save-file>" +
+				"	     var fileNameToSaveAs = ifntsa2.value;" +
+				"	     var textToWrite      = inputasm.getValue();" +
+				"	     wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "            inputasm.is_modified = false;" +
+                                "            return false;'" +
+                                "    jshare='var sorg   = \"assembly\"; " +
+                                "            var stitle = \"Assembly code...\"; " +
+                                "            var stext  = inputasm.getValue(); " +
+                                "            var surl   = \"\"; " +
+                                "            share_information(sorg, stitle, stext, surl); " +
+                                "            return false;'" +
+                                "></ws-save-file>" +
                                "</div>" +
                                "<div class='col-12 col-sm-6 p-2'>" +
-                                "<ws-load-file " + 
+                                "<ws-load-file " +
                                 "    fid='fileToLoad2' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
                                 "           wepsim_file_loadFrom(ftl, " +
@@ -140,7 +147,7 @@
 			   	"</div>" +
                                "</div>" +
                                "<div class='col-12 col-sm-6 p-2'>" +
-                                "<ws-load-file " + 
+                                "<ws-load-file " +
                                 "    fid='fileToLoad' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
                                 "           wepsim_file_loadFrom(ftl, " +
@@ -853,46 +860,41 @@
 							       "i18n_update_tags('dialog', ws_idiom);") ;
 			 },
 		body:    function() {
+                             var now = new Date().toLocaleString() ;
+
                              return "<div class='row m-0'>" +
                                     "   <div class='col-12 col-sm-4 p-2'>" +
-                                    "   <div class='card border-secondary h-100'>" +
-                                    "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
-                                    "	  <h5 class='m-0'>" +
-                                    "	    <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
-                                    "	    <button class='btn btn-light mx-1 float-right py-0 col-auto'" +
-                                    "		  onclick='wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing save request...\");" +
-                                    "			   var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
-                                    "			   var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
-                                    "			   wepsim_checkpoint_save(\"FileNameToSaveAs1\", \"tagToSave1\", checkpointObj);" +
-                                    "			   wsweb_dialog_close(\"current_checkpoint\");" +
-                                    "			   return false;'><span data-langkey='Save'>Save</span></button>" +
-                                    "	    <button class='btn btn-light mx-1 float-right py-0 col-auto'" +
-                                    "		  onclick=' wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing share request...\");" +
-                                    "			   var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
-                                    "			   var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
-                                    "			   wepsim_checkpoint_share(\"FileNameToSaveAs1\", \"tagToSave1\", checkpointObj);" +
-                                    "			   wsweb_dialog_close(\"current_checkpoint\");" +
-                                    "			   return false;'><span data-langkey='Share'>Share</span></button>" +
-                                    "	  </h5>" +
-                                    "      </div>" +
-                                    "      <div class='card-body'>" +
-                                    "		<label for='FileNameToSaveAs1' class='collapse7'><em><span data-langkey='File name'>File name</span>:</em></label>" +
-                                    "		<p><input aria-label='filename to save content' id='FileNameToSaveAs1'" +
-                                    "			  class='form-control btn-outline-dark' placeholder='File name where checkpoint will be saved' style='min-width: 90%;'/></p>" +
-                                    "" +
-                                    "		<label for='tagToSave1' class='collapse7'><em><span data-langkey='Tag for checkpoint'>Tag for checkpoint</span>:</em></label>" +
-                                    "		<p><input aria-label='associated tag to be saved' id='tagToSave1'" +
-                                    "			  class='form-control btn-outline-dark' placeholder='Associated tag to be saved (if any)' style='min-width: 90%;'/></p>" +
-                                    "      </div>" +
-                                    "   </div>" +
+                                    "   <ws-save-file " +
+                                    "     fid='FileNameToSaveAs1' " +
+                                    "	  jsave='wepsim_notify_success(\"<strong>INFO</strong>\", " + 
+                                    "                                 \"Processing save request...\");" +
+                                    "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
+                                    "		  var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "		  wepsim_checkpoint_save(\"FileNameToSaveAs1\", " + 
+                                    "                                    \"tagToSave1\", checkpointObj);" +
+                                    "             return false;'" +
+                                    "	  jshare='wepsim_notify_success(\"<strong>INFO</strong>\", " + 
+                                    "                                   \"Processing share request...\");" +
+                                    "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
+                                    "		  var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "		  wepsim_checkpoint_share(\"FileNameToSaveAs1\", " + 
+                                    "                                     \"tagToSave1\", checkpointObj);" +
+                                    "             return false;'" +
+                                    "   ></ws-save-file>" +
+                                    "   <input aria-label='associated tag to be saved' id='tagToSave1'" +
+                                    "          class='form-control btn-outline-dark' " +
+                                    "          type='hidden' " +
+                                    "          value='" + now + "' " +
+                                    "          placeholder='Associated tag to be saved (if any)' " +
+                                    "          style='min-width: 90%;'/>" +
                                     "   </div>" +
                                     "   <div class='col-12 col-sm-4 p-2'>" +
-                                    "    <ws-load-file " + 
+                                    "    <ws-load-file " +
                                     "        fid='fileToLoad31' " +
                                     "	     jload='var ret = wepsim_checkpoint_load(\"fileToLoad31\") ;" +
                                     "		    if (ret) {" +
                                     "		        wsweb_dialog_close(\"current_checkpoint\") ;" +
-                                    "		        wepsim_notify_success(\"<strong>INFO</strong>\", " + 
+                                    "		        wepsim_notify_success(\"<strong>INFO</strong>\", " +
                                     "                                         \"Processing load request...\") ;" +
                                     "		    }" +
                                     "		    return false;'></ws-load-file>" +

@@ -28,7 +28,7 @@
         {
               static get observedAttributes() 
 	      {
-	            return [ 'name', 'layout' ] ;
+	            return [ 'layout' ] ;
 	      }
 
 	      constructor ()
@@ -81,6 +81,16 @@
 	      attributeChangedCallback (name, oldValue, newValue)
 	      {
 		    this.render(this) ;
+	      }
+
+	      get layout ( )
+	      {
+                   return this.getAttribute('layout') ;
+	      }
+
+	      set layout ( value )
+	      {
+                   this.setAttribute('layout', value) ;
 	      }
         }
 

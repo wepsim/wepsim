@@ -49,7 +49,7 @@
 	        '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
 	        'In order to execute an example please press the ' +
 	        '<span class="btn btn-sm btn-info py-0" ' + 
-                '      onclick="wepsim_execute_toggle_play(\'#btn_run_stop\');">Run</span> button.<br>' ;
+                '      onclick="wepsim_execute_toggle_play();">Run</span> button.<br>' ;
 
 	    if (hash.notify.toLowerCase() !== 'false') {
 	        wepsim_notify_do_notify('WepSIM preloads some work', o, 'info', 0) ;

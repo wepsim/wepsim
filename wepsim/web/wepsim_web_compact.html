@@ -112,55 +112,7 @@
 	</nav>
 
 
-	<div class="row-fluid px-0 pb-2 pt-0 rounded w-100 collapse" id="record_div"
-	     style="position:fixed; left:0; top: calc(100vh - 65px); z-index:1024; background-color:#EAEAEA; overflow:auto; -webkit-overflow-scrolling:touch;">
-
-	     <div class="progress col" style="height:1px;">
-	          <div id="record_pb" class="progress-bar" role="progressbar" style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-	     </div>
-	     <div class="text-left col">
-		  <span id="record_msg" class="text-left text-truncate"><em>0/0</em>&nbsp;&lt;empty recording&gt;</span>
-             </div>
-	     <div class="btn-group col">
-		  <a class="btn btn-sm btn-outline-secondary bg-light shadow-sm rounded px-2 mr-2" href="#"
-		     data-toggle="tooltip" data-placement="top" data-boundary="window"
-                     title="Remove recorded session"
-		     onclick="wsweb_record_confirmReset(); return false;"><em class="fas fa-times text-danger"></em>
-		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Reset'>Reset</span>
-		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"
-		     data-toggle="tooltip" data-placement="top" data-boundary="window"
-                     title="(While recording) add a new comment"
-		     onclick="wsweb_notifyuser_add(); return false;"><em class="fas fa-comment"></em>
-		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Comment'>Comment</span>
-		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"
-		     data-toggle="tooltip" data-placement="top" data-boundary="window"
-                     title="Pause/Continue playback"
-		     onclick="wsweb_record_pause(); return false;"><em class="fas fa-pause"></em>
-		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Pause'>Pause</span>
-		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"
-		     data-toggle="tooltip" data-placement="top" data-boundary="window"
-                     title="Play"
-		     onclick="wsweb_record_play(); return false;"><em class="fas fa-play"></em>
-		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Play'>Play</span>
-		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"
-		     data-toggle="tooltip" data-placement="top" data-boundary="window" data-html="true"
-                     title="Stop recording /<br>Reset playback"
-		     onclick="wsweb_record_off(); return false;"><em class="fas fa-square"></em>
-		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Stop'>Stop</span>
-		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 ml-2" href="#"
-		     data-toggle="tooltip" data-placement="top" data-boundary="window"
-                     title="Start recording session"
-		     onclick="wsweb_record_on(); return false;"><em class="fas fa-circle"></em>
-		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Record'>Record</span>
-		  </a>
-	     </div>
-
-	</div>
+        <ws-recordbar></ws-recordbar>
 
 
 	<div id="carousel-8" class="carousel" data-interval="false" data-touch="false">
@@ -381,28 +333,12 @@
 			<div class="tab-content p-1" id="nav-tabContent">
 			  <div class="tab-pane fade show active" id="nav-simulation" role="tabpanel" aria-labelledby="nav-simulation-tab">
 
-			    <div class="pl-2 pr-2">
-			    <div class="btn-toolbar btn-block" role="toolbar">
-				    <button id="btn_reset1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-					    class="btn btn-light col"
-					    onclick="wsweb_execution_reset();
-						     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
-				    <button id="btn_next_microinstruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-					    class="btn btn-light col user_microcode"
-					    onclick="wsweb_execution_microinstruction();
-						     return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
-				    <button id="btn_next_instruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-					    class="btn btn-light col"
-					    onclick="wsweb_execution_instruction();
-						     return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
-				    <button id="btn_run_stop" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-					    class="btn btn-light col"
-					    onclick="wsweb_execution_run();
-						     return false;"><em class="fa fa-play"></em><strong><br/><span data-langkey='Run'>Run</span></strong></button>
-			    </div>
+			    <div class="px-1 pt-1">
+                            <ws-executionbar name="exebar1" class="btn-toolbar btn-block" 
+                                             role="toolbar"></ws-executionbar>
 			    </div>
 
-			    <div class="pl-1 pr-1 pt-1">
+			    <div class="px-1 pt-1">
 			    <div class="btn-toolbar btn-block" role="toolbar">
                                   <ws-ddown-sel class="col btn-group p-0" style="flex-grow:6;"
                                                 layout="compact"></ws-ddown-sel>

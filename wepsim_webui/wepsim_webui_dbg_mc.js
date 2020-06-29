@@ -48,8 +48,9 @@
 	      }
         }
 
-        if (typeof window !== "undefined")
+        if (typeof window !== "undefined") {
             window.customElements.define('ws-dbg-mc', ws_dbg_mc) ;
+        }
 
 
         //

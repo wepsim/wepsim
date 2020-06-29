@@ -101,12 +101,12 @@
 
     wepsim_voice_commands['play'] = function()
     {
-         wepsim_execute_play('#btn_run_stop') ;
+         wepsim_execute_play() ;
     } ;
 
     wepsim_voice_commands['stop'] = function()
     {
-         wepsim_execute_stop('#btn_run_stop') ;
+         wepsim_execute_stop() ;
     } ;
 
 

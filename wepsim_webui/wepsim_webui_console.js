@@ -58,8 +58,9 @@
 	      }
         }
 
-        if (typeof window !== "undefined")
+        if (typeof window !== "undefined") {
             window.customElements.define('ws-console', ws_console) ;
+        }
 
 
         //
