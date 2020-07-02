@@ -126,3 +126,32 @@
 	    $('#btn_run_stop_' + name).html("<i class='fa fa-stop'></i><br><b>" + stop_tag + "</b>") ;
         }
 
+        function webui_executionbar_start ( name )
+        {
+            var ret = wepsim_execute_play() ;
+            if (ret !== false) {
+                webui_button_set_start(name) ;
+            }
+
+            return ret ;
+        }
+
+        function webui_executionbar_stop ( name )
+        {
+            var ret = wepsim_execute_stop() ;
+            if (ret !== false) {
+                webui_button_set_stop(name) ;
+            }
+
+            return ret ;
+        }
+
+        function webui_executionbar_toggle_play ( name )
+        {
+            var ret = wepsim_execute_toggle_play() ;
+
+            if (ret == true)
+                 webui_button_set_stop(name) ;
+            else webui_button_set_start(name) ;
+        }
+

@@ -99,6 +99,8 @@
 
 	DBG_stop = true;
         DBG_limit_instruction = 0 ;
+
+	return true ;
     }
 
     function wepsim_execute_play ( )
@@ -116,6 +118,7 @@
         DBG_limit_instruction = 0 ;
 
         wepsim_execute_chainplay() ;
+	return true ;
     }
 
     function wepsim_execute_toggle_play ( )
@@ -128,6 +131,8 @@
         {
             wepsim_execute_play() ;
         }
+
+        return DBG_stop ;
     }
 
 

@@ -167,8 +167,8 @@ cat ws_dist/min.sim_all.js \
     \
     wepsim_webui/wepsim_web_ui_dialogs.js \
     wepsim_webui/wepsim_web_ui_quickcfg.js \
+    wepsim_webui/wepsim_web_api.js \
     \
-    wepsim/web/wepsim_web_api.js \
     wepsim/web/wepsim_web_editor.js \
     wepsim/web/wepsim_web_simulator.js > ws_dist/wepsim_web.js
 terser -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js

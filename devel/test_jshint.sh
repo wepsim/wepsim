@@ -107,8 +107,8 @@ set -x
  jshint ./wepsim_webui/wepsim_wui_registers.js
  jshint ./wepsim_webui/wepsim_web_ui_dialogs.js
  jshint ./wepsim_webui/wepsim_web_ui_quickcfg.js
+ jshint ./wepsim_webui/wepsim_web_api.js
 
- jshint ./wepsim/web/wepsim_web_api.js
 #jshint ./wepsim/web/wepsim_web_pwa.js
  jshint ./wepsim/web/wepsim_web_simulator.js
  jshint ./wepsim/web/wepsim_web_editor.js
