@@ -126,9 +126,18 @@
 	    $('#btn_run_stop_' + name).html("<i class='fa fa-stop'></i><br><b>" + stop_tag + "</b>") ;
         }
 
+
+        /*
+         *  Start/Stop
+         */
+
         function webui_executionbar_start ( name )
         {
-            var ret = wepsim_execute_play() ;
+            var executionbar_stop = function() {
+                                       return webui_executionbar_stop(name) ;
+                                    } ;
+
+            var ret = wepsim_execute_play(executionbar_stop) ;
             if (ret !== false) {
                 webui_button_set_start(name) ;
             }
@@ -148,7 +157,11 @@
 
         function webui_executionbar_toggle_play ( name )
         {
-            var ret = wepsim_execute_toggle_play() ;
+            var executionbar_stop = function() {
+                                       return webui_executionbar_stop(name) ;
+                                    } ;
+
+            var ret = wepsim_execute_toggle_play(executionbar_stop) ;
 
             if (ret == true)
                  webui_button_set_stop(name) ;

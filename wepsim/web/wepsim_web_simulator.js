@@ -594,6 +594,22 @@
                simcore_record_captureInit() ;
 
 	    // Load/Configuration following URL params
-            wepsim_preload_fromHash(url_hash) ;
+            // and to notify of the preloaded work to the user
+            var o = wepsim_preload_fromHash(url_hash) ;
+            if (o !== '')
+            {
+                o = 'WepSIM has been instructed to preload some work for you:<br>' +
+                    '<ul>' + o + '</ul>' +
+                    'To close this notification please press in the ' +
+                    '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
+                    'In order to execute an example please press the ' +
+                    '<span class="btn btn-sm btn-info py-0" ' +
+                    '      onclick="webui_executionbar_toggle_play(\'exebar1\');">Run</span> ' + 
+                    'button.<br>' ;
+
+                if (url_hash.notify.toLowerCase() !== 'false') {
+                    wepsim_notify_do_notify('WepSIM preloads some work', o, 'info', 0) ;
+                }
+            }
     }
 
