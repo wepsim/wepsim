@@ -191,7 +191,6 @@ echo "  * ws_dist/min.external.js"
 cat external/knockout-3.5.1.js \
     external/popper.min.js \
     external/bootstrap.min.js \
-    external/jquery.knob.min.js \
     external/bootbox.min.js \
     external/spectrum/spectrum.min.js \
     external/timbre.min.js \
@@ -211,6 +210,7 @@ cat external/knockout-3.5.1.js \
     external/codemirror/addon/fold/markdown-fold.js \
     external/codemirror/addon/hint/show-hint.js \
     external/codemirror/addon/runmode/colorize.js \
+    external/jquery.knob.min.js \
     external/vis/vis-network.min.js \
     external/async.min.js \
     external/qrcode/qrcode.min.js \
