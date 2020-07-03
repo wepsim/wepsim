@@ -167,8 +167,8 @@ cat ws_dist/min.sim_all.js \
     \
     wepsim_webui/wepsim_web_ui_dialogs.js \
     wepsim_webui/wepsim_web_ui_quickcfg.js \
+    wepsim_webui/wepsim_web_api.js \
     \
-    wepsim/web/wepsim_web_api.js \
     wepsim/web/wepsim_web_editor.js \
     wepsim/web/wepsim_web_simulator.js > ws_dist/wepsim_web.js
 terser -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
@@ -191,7 +191,6 @@ echo "  * ws_dist/min.external.js"
 cat external/knockout-3.5.1.js \
     external/popper.min.js \
     external/bootstrap.min.js \
-    external/jquery.knob.min.js \
     external/bootbox.min.js \
     external/spectrum/spectrum.min.js \
     external/timbre.min.js \
@@ -211,6 +210,7 @@ cat external/knockout-3.5.1.js \
     external/codemirror/addon/fold/markdown-fold.js \
     external/codemirror/addon/hint/show-hint.js \
     external/codemirror/addon/runmode/colorize.js \
+    external/jquery.knob.min.js \
     external/vis/vis-network.min.js \
     external/async.min.js \
     external/qrcode/qrcode.min.js \

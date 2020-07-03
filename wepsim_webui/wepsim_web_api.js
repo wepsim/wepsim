@@ -247,7 +247,7 @@
             if (simhw_active() !== null)
             {
                 var mode = get_cfg('ws_mode') ;
-	        wepsim_execute_toggle_play() ;
+	        webui_executionbar_toggle_play('exebar1') ;
             }
 
             // add if recording

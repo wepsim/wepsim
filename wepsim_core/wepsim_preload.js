@@ -40,27 +40,11 @@
             }
         }
 
-	// notification: to notify of the preloaded work to the user
-	if (o !== '')
-	{
-	    o = 'WepSIM has been instructed to preload some work for you:<br>' +
-	        '<ul>' + o + '</ul>' +
-	        'To close this notification please press in the ' +
-	        '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
-	        'In order to execute an example please press the ' +
-	        '<span class="btn btn-sm btn-info py-0" ' + 
-                '      onclick="wepsim_execute_toggle_play();">Run</span> button.<br>' ;
-
-	    if (hash.notify.toLowerCase() !== 'false') {
-	        wepsim_notify_do_notify('WepSIM preloads some work', o, 'info', 0) ;
-	    }
-	}
-
 	// return ok
-	return 0 ;
+	return o ;
     }
 
-    function wepsim_preload_get2hash ( window_location )
+    function wepsim_preload_get2hash ( window_location, f_preload_fromHash )
     {
 	    var hash       = {} ;
             var hash_field = '' ;
@@ -89,7 +73,7 @@
 	    {
 		try {
 	           uri_obj = new URL(hash.preload) ;
-	           wepsim_url_json(uri_obj.pathname, wepsim_preload_fromHash) ;
+	           wepsim_url_json(uri_obj.pathname, f_preload_fromHash) ;
 		}
 		catch (e) { 
 		   ws_alert('unable to preload json from "' + uri_obj.pathname + '"') ;

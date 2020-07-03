@@ -95,13 +95,13 @@
 
     function wepsim_execute_stop ( )
     {
-        webui_button_set_stop('exebar1') ;
-
 	DBG_stop = true;
         DBG_limit_instruction = 0 ;
+
+	return true ;
     }
 
-    function wepsim_execute_play ( )
+    function wepsim_execute_play ( wepsim_execute_stop )
     {
 	var ret = simcore_check_if_can_execute() ;
 	if (false === ret.ok)
@@ -110,15 +110,14 @@
 	    return false ;
         }
 
-        webui_button_set_start('exebar1') ;
-
         DBG_stop = false ;
         DBG_limit_instruction = 0 ;
 
-        wepsim_execute_chainplay() ;
+        wepsim_execute_chainplay(wepsim_execute_stop) ;
+	return true ;
     }
 
-    function wepsim_execute_toggle_play ( )
+    function wepsim_execute_toggle_play ( wepsim_execute_stop )
     {
         if (DBG_stop === false)
         {
@@ -126,8 +125,10 @@
         }
         else
         {
-            wepsim_execute_play() ;
+            wepsim_execute_play(wepsim_execute_stop) ;
         }
+
+        return DBG_stop ;
     }
 
 
@@ -243,7 +244,7 @@
 				  },
 			callback: function (result) {
 				     if (result)
-				          setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay')) ;
+				          setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), wepsim_execute_stop) ;
 				     else wepsim_execute_stop() ;
 				  }
 		});
@@ -255,7 +256,7 @@
 	return true ;
     }
 
-    function wepsim_execute_chunk ( chunk )
+    function wepsim_execute_chunk ( chunk, wepsim_execute_stop )
     {
 	var options    = {
 			     verbosity:    0,
@@ -324,11 +325,11 @@
         return true ;
     }
 
-    function wepsim_execute_chunk_atlevel ( chunk )
+    function wepsim_execute_chunk_atlevel ( chunk, wepsim_execute_stop )
     {
 	var playlevel = get_cfg('DBG_level') ;
 	if (playlevel !== "instruction") {
-            return wepsim_execute_chunk(chunk) ;
+            return wepsim_execute_chunk(chunk, wepsim_execute_stop) ;
 	}
 
         var curr_firm  = simhw_internalState('FIRMWARE') ;
@@ -374,7 +375,7 @@
         max_turbo = 5 ;
     }
 
-    function wepsim_execute_chainplay ( )
+    function wepsim_execute_chainplay ( wepsim_execute_stop )
     {
 	var t0 = 1.0 ;
 	var t1 = 1.0 ;
@@ -390,7 +391,7 @@
         if (max_turbo === 5)
             t0 = performance.now() ;
 
-        var ret = wepsim_execute_chunk(turbo) ;
+        var ret = wepsim_execute_chunk(turbo, wepsim_execute_stop) ;
         if (false === ret) {
             return ;
         }
@@ -415,6 +416,6 @@
             return ;
 	}
 
-	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay')) ;
+	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), wepsim_execute_stop) ;
     }
 
