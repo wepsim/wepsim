@@ -44,7 +44,7 @@
 	return o ;
     }
 
-    function wepsim_preload_get2hash ( window_location )
+    function wepsim_preload_get2hash ( window_location, f_preload_fromHash )
     {
 	    var hash       = {} ;
             var hash_field = '' ;
@@ -73,7 +73,7 @@
 	    {
 		try {
 	           uri_obj = new URL(hash.preload) ;
-	           wepsim_url_json(uri_obj.pathname, wepsim_preload_fromHash) ;
+	           wepsim_url_json(uri_obj.pathname, f_preload_fromHash) ;
 		}
 		catch (e) { 
 		   ws_alert('unable to preload json from "' + uri_obj.pathname + '"') ;

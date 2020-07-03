@@ -558,10 +558,34 @@
 	    }
     }
 
+       function wepsim_init_default_preloadFromHash ( url_hash )
+       {
+            // Preload from hash...
+            var o = wepsim_preload_fromHash(url_hash) ;
+
+            // ...And to notify of the preloaded work to the user
+            if (o !== '')
+            {
+                o = 'WepSIM has been instructed to preload some work for you:<br>' +
+                    '<ul>' + o + '</ul>' +
+                    'To close this notification please press in the ' +
+                    '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
+                    'In order to execute an example please press the ' +
+                    '<span class="btn btn-sm btn-info py-0" ' +
+                    '      onclick="webui_executionbar_toggle_play(\'exebar1\');">Run</span> ' + 
+                    'button.<br>' ;
+
+                if (url_hash.notify.toLowerCase() !== 'false') {
+                    wepsim_notify_do_notify('WepSIM preloads some work', o, 'info', 0) ;
+                }
+            }
+       }
+
     function wepsim_init_default ( )
     {
 	    // Get URL params
-            var url_hash = wepsim_preload_get2hash(window.location) ;
+            var url_hash = wepsim_preload_get2hash(window.location, 
+                                                   wepsim_init_default_preloadFromHash) ;
 
 	    // 1.- Pre-load defaults
 
@@ -594,22 +618,6 @@
                simcore_record_captureInit() ;
 
 	    // Load/Configuration following URL params
-            // and to notify of the preloaded work to the user
-            var o = wepsim_preload_fromHash(url_hash) ;
-            if (o !== '')
-            {
-                o = 'WepSIM has been instructed to preload some work for you:<br>' +
-                    '<ul>' + o + '</ul>' +
-                    'To close this notification please press in the ' +
-                    '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
-                    'In order to execute an example please press the ' +
-                    '<span class="btn btn-sm btn-info py-0" ' +
-                    '      onclick="webui_executionbar_toggle_play(\'exebar1\');">Run</span> ' + 
-                    'button.<br>' ;
-
-                if (url_hash.notify.toLowerCase() !== 'false') {
-                    wepsim_notify_do_notify('WepSIM preloads some work', o, 'info', 0) ;
-                }
-            }
+            wepsim_init_default_preloadFromHash(url_hash) ;
     }
 
