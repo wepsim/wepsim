@@ -420,6 +420,7 @@
                             trigger:   'click',
                             html:       true,
                             title:      function() {
+                                           $("span[rel='tooltip1']").tooltip('hide') ;
 				           var l = this.getAttribute('data-l') ;
 				           var SIMWARE = get_simware() ;
                                            return instruction2tooltip(SIMWARE.mp, SIMWARE.assembly, l) ;

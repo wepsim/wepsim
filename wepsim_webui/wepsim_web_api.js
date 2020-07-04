@@ -542,9 +542,7 @@
 	    save_cfg() ;
 
 	    // set button label...
-	    var ed = $('#selact_' + opt).html() ;
-	    $('.select6').html(ed) ;
-	    $('#select6a').attr('data-action', opt) ;
+            webui_toolbar_updateAction(opt) ;
 
 	    // adapt to idiom
 	    var ws_idiom = get_cfg('ws_idiom') ;
