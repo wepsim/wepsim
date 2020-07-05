@@ -139,72 +139,8 @@
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
                       <div class="col-auto px-0 px-sm-2">
-<<<<<<< HEAD
-                      <div class="btn-toolbar btn-block" role="toolbar">
-
-			<div class="btn-group p-0 my-1 col-auto d-none" style="flex-grow:6;">
-			    <button type="button" class="col-12 btn btn-light shadow-sm"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-				    title="This button shows the current hardware used, <br>dropdown on the left let you access to common actions."
-                                    style="border-color: #CCCCCC;"
-				    id="select4"
-                                    onclick="setTimeout(function(){$('#dd1').dropdown('toggle');},50);
-					     $('[data-toggle=tooltip]').tooltip('hide');
-					   //wsweb_set_details('HARDWARE');
-					     return false;">HW</button>
-			    <button id="dd1" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                                    style="border-color: #CCCCCC;"
-	                            data-display="static"
-				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			      <span class="sr-only">Toggle Dropdown</span>
-			    </button>
-			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
-
-			      <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="Microcode & Assembly">Microcode & Assembly</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_ep" value="ep"
-				 onclick="wsweb_select_main('ep');
-					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
-                              <a class="dropdown-item user_archived" href="#" id="s4_poc" value="poc"
-				 onclick="wsweb_select_main('poc');
-					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
-
-			      <h6 class="text-white bg-secondary mt-2 user_archived ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
-                              <a class="dropdown-item user_archived" href="#" id="s4_asm_mips" value="asm_mips"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
-                                 onclick="wsweb_select_main('asm_mips');
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>
-                              <a class="dropdown-item user_archived" href="#" id="s4_asm_rv32" value="asm_rv32"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="RISC-V<sub>32</sub> assembly only."
-                                 onclick="wsweb_select_main('asm_rv32');
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>
-
-			    </div>
-			</div>
-
-		              <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	              style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                      id="btn_cfg1"
-			              data-toggle="tooltip" data-placement="bottom" data-html="true"
-			              title="This button opens the 'Configuration' dialog."
-                                      onclick="wsweb_dialog_open('config');
-				    	       return false;"
-                                      ><em class="fas fa-cogs d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-md-none">Cfg.</span></strong></button>
-		              <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	              style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                      id="s4_owncode" value="owncode"
-			              data-toggle="tooltip" data-placement="bottom" data-html="true"
-			              title="This button opens the 'Configuration' dialog."
-				      onclick="wsweb_select_action('checkpoint');
-				    	       return false;"
-                                      ><em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Checkpoint'>Checkpoint</span><span class="d-md-none">ChkPoint</span></strong></button>
-
-                      </div>
-=======
                       <ws-toolbar components="[,btndd_mode,btn_config,btn_checkpoint,]" 
                                   icons="yes"></ws-toolbar>
->>>>>>> c3eafa9925097e3357e40331765bb6581c38304a
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>

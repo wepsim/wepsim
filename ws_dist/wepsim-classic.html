@@ -131,69 +131,8 @@
 
 		      <div class="w-100 d-md-block d-lg-none"></div>
 
-<<<<<<< HEAD
-                      <div class="col-sm-auto p-1">
-                      <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
-                                    id="btn_example1"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Examples' dialog."
-				    onclick="wsweb_dialog_open('examples');
-					     return false;"><strong><span data-langkey='Examples'>Examples</span></strong></button>
-
-		            <button class="btn btn-light shadow-sm my-1 col-auto"
-		                    style="border-width:1 1 1 1px; border-color:#CCCCCC; background-color:#D4DB17; flex-grow:1;"
-                                    id="btn_help1"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Help' dialog."
-		                    onclick="wsweb_dialog_open('help');
-					     return false;"><strong><span data-langkey='Help'>Help</span></strong></button>
-
-			<div class="btn-group p-0 my-1 col-auto d-none" style="flex-grow:6;">
-			    <button type="button" class="col-12 btn btn-light shadow-sm"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-				    title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."
-                                    style="border-color: #CCCCCC;"
-				    id="select4"
-                                    onclick="setTimeout(function(){$('#dd1').dropdown('toggle');},50);
-					     $('[data-toggle=tooltip]').tooltip('hide');
-					   //wsweb_set_details('HARDWARE');
-					     return false;">HW</button>
-			    <button id="dd1" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                                    style="border-color: #CCCCCC;"
-				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			      <span class="sr-only">Toggle Dropdown</span>
-			    </button>
-			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
-
-			      <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>
-                              <a class="dropdown-item" href="#" id="s4_ep" value="ep"
-				 onclick="wsweb_select_main('ep');
-					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
-                              <a class="dropdown-item user_archived" href="#" id="s4_poc" value="poc"
-				 onclick="wsweb_select_main('poc');
-					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
-
-			      <h6 class="text-white bg-secondary mt-2 my-1 user_archived ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>
-                              <a class="dropdown-item user_archived mb-0" href="#" id="s4_asm_mips" value="asm_mips"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="MIPS<sub>32</sub> assembly only (integer instructions)."
-                                 onclick="wsweb_select_main('asm_mips');
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>
-                              <a class="dropdown-item user_archived mb-0" href="#" id="s4_asm_rv32" value="asm_rv32"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="RISC-V<sub>32</sub> assembly only."
-                                 onclick="wsweb_select_main('asm_rv32');
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>
-
-			    </div>
-			</div>
-                      </div>
-=======
                       <div class="col-sm-auto p-1 my-0">
                       <ws-toolbar components="[,btn_examples,btn_help,btndd_mode,]"></ws-toolbar>
->>>>>>> c3eafa9925097e3357e40331765bb6581c38304a
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
