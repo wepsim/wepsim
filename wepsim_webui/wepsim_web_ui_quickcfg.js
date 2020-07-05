@@ -151,7 +151,7 @@
 
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label class="w-100"><span data-langkey="Reload">Reload</span>...:</label>' +
-			"   <div class='btn btn-sm btn-light btn-outline-dark w-50 p-1' " +
+			"   <div class='btn btn-sm btn-light btn-outline-dark p-1 col-8 mx-auto' " +
 			"        aria-label='open the reload dialog box' " +
 			"        onclick=\"wsweb_quickslider_close(); " +
 			"                  wsweb_dialog_open('reload'); " +
