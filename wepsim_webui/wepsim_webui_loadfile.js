@@ -37,25 +37,39 @@
 		    super();
 	      }
 
+	      update_internal_attributes ( )
+	      {
+                    // fid
+                    var fid = this.getAttribute('fid') ;
+                    if (fid === null)
+                        this.setAttribute('fid', 'id55') ;
+
+                    // jload
+                    var jload = this.getAttribute('jload') ;
+                    if (jload === null)
+                        this.setAttribute('jload', '') ;
+	      }
+
 	      render ( elto )
 	      {
-                    var fid    = this.getAttribute('fid') ;
-                    var jload  = this.getAttribute('jload') ;
-                    var o1  = '' ;
+                    // update attributes
+                    this.update_internal_attributes() ;
 
                     // load html
+                    var o1  = '' ;
+
 		    o1 += "<div class='card border-secondary h-100'>" +
 			  "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 			  " <h5 class='m-0'>" +
 			  " <span class='text-white bg-secondary' data-langkey='Input'>Input</span>" +
 			  " <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
-                          "         onclick='" + jload + "'><span data-langkey='Load'>Load</span></button>" +
+                          "         onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
 			  "  </h5>" +
 			  "</div>" +
 			  "<div class='card-body'>" +
-			  "  <label for='" + fid + "' class='collapse7'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
+			  "  <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
 	                  "  <p><input aria-label='file to load' data-max-height='20vh' " +
-                          "            type='file' id='" + fid + "' class='dropify'/></p>" +
+                          "            type='file' id='" + this.fid + "' class='dropify'/></p>" +
 			  "</div>" +
 			  "</div>" ;
 

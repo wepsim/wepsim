@@ -4,11 +4,11 @@
 ## 2.0.12 -> 2.1.0:
 * Re-designed from scratch:
   * Modals (dialogs) engine
-  * UI elements based on Web Components
+  * Main UI elements based on Web Components
 * Minor bugs fixed and several refinaments added:
   * Reload dialog added (for recovering examples, configuration and processors)
   * Support for defining set of examples
-* Several external dependencies updated:
+* Main external dependencies updated:
   * Bootstrap   updated to bootstrap-4.5.0
   * Knockout    updated to knockout-3.5.1
   * CodeMirror  updated to codemirror-5.52.2

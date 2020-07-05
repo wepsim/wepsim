@@ -111,55 +111,27 @@
             </div>
 	</nav>
 
-
         <ws-recordbar></ws-recordbar>
-
 
 	<div id="carousel-8" class="carousel" data-interval="false" data-touch="false">
 	  <div class="carousel-inner">
 	  <div class="carousel-item active p-1" id="ws_simulator">
-	    <h6 class="pt-3">Simulator</h6>
-            <div class="row py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
+	    <h6 class="pt-3"><span data-langkey='Simulator'>Simulator</span></h6>
+            <div class="row collapse show multi-collapse-1 p-1 m-0">
 
-                      <div class="col-sm-auto p-1">
-                      <div class="btn-toolbar btn-block" role="toolbar">
-		        <button class="btn btn-light shadow-sm my-1 mx-0 user_microcode"
-                                id="btn_micro1"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="This button switches into the 'Microcode' editor."
-                                onclick="wsweb_change_workspace_microcode();
-				         $('[data-toggle=tooltip]').tooltip('hide');
-					 return false;"
-		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-				><strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>
-		        <button class="btn btn-light shadow-sm my-1 mx-0 mr-2"
-                                id="btn_asm1"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true"
-			         title="This button switches into the 'Assembly' editor."
-                                onclick="wsweb_change_workspace_assembly();
-				         $('[data-toggle=tooltip]').tooltip('hide');
-					 return false;"
-		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-				><strong><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none" data-langkey='Assembly'>Assembly</span></strong></button>
-                      </div>
+                      <div class="col-sm-auto p-1 mr-1 my-1">
+                      <ws-toolbar components="[,switch_microcode,switch_assembly,]"></ws-toolbar>
                       </div>
 
 		      <div class="w-100 d-block d-sm-none"></div>
 
                       <div id="slider_cpucu" class="col-sm p-0 collapse show multi-collapse-2 user_microcode">
-			    <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
-				 <label class="my-0" for="slider2b" style="min-width:95%"><span data-langkey='processor'>processor</span>:</label>
-				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"
-					min="0" max="14" value="7" step="1"
-				        data-show-value="false"
-                                        class="custom-range slider col mx-0 px-0"
-                                        oninput="wsweb_set_cpucu_size(this.value);
-                                                 return false;">
-			    </form>
+                      <ws-toolbar components="slider_cpucu"></ws-toolbar>
                       </div>
 
 		      <div class="w-100 d-md-block d-lg-none"></div>
 
+<<<<<<< HEAD
                       <div class="col-sm-auto p-1">
                       <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
@@ -218,83 +190,20 @@
 			    </div>
 			</div>
                       </div>
+=======
+                      <div class="col-sm-auto p-1 my-0">
+                      <ws-toolbar components="[,btn_examples,btn_help,btndd_mode,]"></ws-toolbar>
+>>>>>>> c3eafa9925097e3357e40331765bb6581c38304a
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
                       <div class="col-sm p-0 ml-1 collapse show multi-collapse-2">
-			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
-				 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey='details'>details</span>:</label>
-				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"
-					min="0" max="14" value="7" step="1"
-				        data-show-value="false"
-                                        class="custom-range slider col mx-0 px-0"
-                                        oninput="wsweb_set_c1c2_size(this.value) ;
-                                                 return false;">
-			    </form>
+                      <ws-toolbar components="slider_c1c2"></ws-toolbar>
                       </div>
 
-                      <div class="col-sm-auto p-1">
-                      <div class="btn-toolbar btn-block" role="toolbar">
-
-		        <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    id="btn_cfg1"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wsweb_dialog_open('config');
-				    	     return false;"
-                                ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-
-			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
-			    <button type="button" class="col-12 btn btn-light shadow-sm select6"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-				    title="Dropdown on the right let you access to common actions."
-                                    style="border-color: #CCCCCC;"
-				    data-action="checkpoint"
-				    onclick="var action = $('#select6a').attr('data-action');
-	                                     wsweb_do_action(action);
-	                                     return false;"
-				    id="select6a"><strong><em class="fas fa-clone"></em>&nbsp;Actions</strong></button>
-			    <button id="dd2a" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                                    style="border-color: #CCCCCC;"
-				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			      <span class="sr-only">Toggle Dropdown</span>
-			    </button>
-			    <div id="action_menu1" class="dropdown-menu border border-secondary p-2">
-
-                              <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="selact_examples1" value="examples"
-				 onclick="wsweb_select_action('examples');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
-                              <a class="dropdown-item" href="#" id="selact_checkpoint1"  value="owncode"
-				 onclick="wsweb_select_action('checkpoint');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint</span></a>
-
-			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Utilities">Utilities</span>:</h6>
-                              <a class="dropdown-item" href="#" id="selact_notifications1" value="notifications"
-				 onclick="wsweb_select_action('notifications');
-					  return false;"><span data-langkey="Notifications">Notifications</span></a>
-                              <a class="dropdown-item" href="#" id="selact_recordbar1" value="recordbar"
-				 onclick="wsweb_select_action('recordbar');
-					  return false;"><span data-langkey="RecordBar">RecordBar</span></a>
-
-                              <a class="dropdown-item" href="#" id="selact_reload" value="reload"
-				 onclick="wsweb_select_action('reload');
-					  return false;"><span data-langkey="Reload">Reload</span></a>
-
-                              <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="selact_help1" value="help"
-                                 onclick="wsweb_select_action('help');
-                                          return false;"><span data-langkey="Help">Help</span></a>
-                              <a class="dropdown-item" href="#" id="selact_intro1" value="intro"
-                                 onclick="wsweb_select_action('intro');
-                                          return false;">Welcome tutorial...</a>
-
-			    </div>
-			</div>
-
-                      </div>
+                      <div class="col-sm-auto p-1 my-0">
+                      <ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>
 		      </div>
             </div>
 
@@ -336,7 +245,7 @@
 		<div id="col2" class="pt-2 pl-1">
 
                     <div class="row pl-2 pr-3">
-                    <ws-executionbar name="exebar1" class="btn-toolbar btn-block" 
+                    <ws-executionbar name="exebar1" class="btn-toolbar btn-block"
                                      role="toolbar"></ws-executionbar>
                     </div>
 
@@ -362,23 +271,15 @@
 
 
 	  <div class="carousel-item p-1" id="ws_mcode">
-	    <h6 class="pt-3">Microcode</h6>
-            <div class="row py-2 px-1 collapse show multi-collapse-1">
+	    <h6 class="pt-3"><span data-langkey='Microcode'>Microcode</span></h6>
+            <div class="row collapse show multi-collapse-1 p-1 m-0">
 
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
 
-                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Assembly, and Simulator buttons">
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_change_workspace_assembly();"
-				    data-transition="none" data-inline="true">
-			            <strong><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none">Asm.</span></strong>
-			    </button>
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_change_workspace_simulator();"
-				    data-transition="none" data-inline="true"><strong><span data-langkey='Simulator'>Simulator</span></strong></button>
+                      <div class="btn-group mr-2 my-1" role="group"
+                           aria-label="Toolbar Assembly, and Simulator buttons">
+                           <ws-toolbar components="switch_assembly,switch_simulator"></ws-toolbar>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -415,61 +316,7 @@
 		      </div>
 
 		      <div class="btn-group mr-2 my-1">
-                      <div class="btn-toolbar btn-block" role="toolbar">
-
-		        <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wsweb_dialog_open('config');
-				    	     return false;"
-                                ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-
-			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
-			    <button type="button" class="col-12 btn btn-light shadow-sm select6"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-				    title="Dropdown on the right let you access to common actions."
-                                    style="border-color: #CCCCCC;"
-				    data-action="checkpoint"
-				    onclick="var action = $('#select6a').attr('data-action');
-	                                     wsweb_do_action(action);
-	                                     return false;"
-				    id="select6b"><strong><em class="fas fa-clone"></em>&nbsp;Actions</strong></button>
-			    <button id="dd2b" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                                    style="border-color: #CCCCCC;"
-				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			      <span class="sr-only">Toggle Dropdown</span>
-			    </button>
-			    <div id="action_menu2" class="dropdown-menu border border-secondary p-2">
-
-                              <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="selact_examples2" value="examples"
-				 onclick="wsweb_select_action('examples');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
-                              <a class="dropdown-item" href="#" id="selact_checkpoint2"  value="owncode"
-				 onclick="wsweb_select_action('checkpoint');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint</span></a>
-
-			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Utilities">Utilities</span>:</h6>
-                              <a class="dropdown-item" href="#" id="selact_notifications2" value="notifications"
-				 onclick="wsweb_select_action('notifications');
-					  return false;"><span data-langkey="Notifications">Notifications</span></a>
-                              <a class="dropdown-item" href="#" id="selact_recordbar2" value="recordbar"
-				 onclick="wsweb_select_action('recordbar');
-					  return false;"><span data-langkey="RecordBar">RecordBar</span></a>
-
-			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="selact_help2" value="help"
-				 onclick="wsweb_select_action('help');
-					  return false;"><span data-langkey="Help">Help</span></a>
-                              <a class="dropdown-item" href="#" id="selact_intro2" value="intro"
-				 onclick="wsweb_select_action('intro');
-					  return false;">Welcome tutorial...</a>
-
-			    </div>
-			</div>
-
-                      </div>
+                           <ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>
 		      </div>
 
 		</div>
@@ -491,24 +338,15 @@
 
 	  <div class="carousel-item p-1" id="ws_acode">
 	    <h6 class="pt-3"><span data-langkey='Assembly'>Assembly</span></h6>
-            <div class="row py-2 px-1 collapse show multi-collapse-1">
+            <div class="row collapse show multi-collapse-1 p-1 m-0">
 
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Microcode, and assembly buttons">
-		            <button class="btn btn-light shadow-sm col-auto m-0 user_microcode"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_change_workspace_microcode();
-                                             return false;"
-				    data-transition="none" data-inline="true">
-			    <strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong>
-			    </button>
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_change_workspace_simulator();
-                                             return false;"
-				    data-transition="none" data-inline="true"><strong><span data-langkey="Simulator">Simulator</span></strong></button>
+
+                           <ws-toolbar components="switch_microcode,switch_simulator"></ws-toolbar>
+
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -544,61 +382,7 @@
 		      </div>
 
 		      <div class="btn-group mr-2 my-1">
-                      <div class="btn-toolbar btn-block" role="toolbar">
-
-		        <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wsweb_dialog_open('config');
-				    	     return false;"
-                                ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-
-			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
-			    <button type="button" class="col-12 btn btn-light shadow-sm select6"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-				    title="Dropdown on the right let you access to common actions."
-                                    style="border-color: #CCCCCC;"
-				    data-action="checkpoint"
-				    onclick="var action = $('#select6a').attr('data-action');
-	                                     wsweb_do_action(action);
-	                                     return false;"
-				    id="select6c"><strong><em class="fas fa-clone"></em>&nbsp;Actions</strong></button>
-			    <button id="dd2c" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                                    style="border-color: #CCCCCC;"
-				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			      <span class="sr-only">Toggle Dropdown</span>
-			    </button>
-			    <div id="action_menu3" class="dropdown-menu border border-secondary p-2">
-
-                              <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="selact_examples3" value="examples"
-				 onclick="wsweb_select_action('examples');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>
-                              <a class="dropdown-item" href="#" id="selact_checkpoint3"  value="owncode"
-				 onclick="wsweb_select_action('checkpoint');
-					  return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint</span></a>
-
-			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Utilities">Utilities</span>:</h6>
-                              <a class="dropdown-item" href="#" id="selact_notifications3" value="notifications"
-				 onclick="wsweb_select_action('notifications');
-					  return false;"><span data-langkey="Notifications">Notifications</span></a>
-                              <a class="dropdown-item" href="#" id="selact_recordbar3" value="recordbar"
-				 onclick="wsweb_select_action('recordbar');
-					  return false;"><span data-langkey="RecordBar">RecordBar</span></a>
-
-			      <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"><span data-langkey="Information from">Information from</span>:</h6>
-                              <a class="dropdown-item" href="#" id="selact_help3" value="help"
-				 onclick="wsweb_select_action('help');
-					  return false;"><span data-langkey="Help">Help</span></a>
-                              <a class="dropdown-item" href="#" id="selact_intro3" value="intro"
-				 onclick="wsweb_select_action('intro');
-					  return false;">Welcome tutorial...</a>
-
-			    </div>
-			</div>
-
-                      </div>
+                           <ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>
 		      </div>
 
 		</div>
@@ -663,10 +447,8 @@
 	    {
 		    try
 		    {
-			    // load ui
+			    // load ui, and default working-set
 			    wepsim_init_ui() ;
-
-			    // load default working-set
     			    wepsim_init_default() ;
 
                             $("#ws_loader").collapse('hide') ;
@@ -679,38 +461,10 @@
 	    }) ;
 
             // progressive web application
-	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
-            {
-		navigator.serviceWorker.register('min.wepsim_web_pwa.js').catch(function() {
-		    wepsim_notify_error("<h4>Warning:" +
-		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
-		                        "Progressive Web Applications requires a HTTPS connection " +
-		                        "with a valid certificate, so PWA is disabled.<br/>" +
-		                        "Please use the 'x' to close this notification.") ;
-		}) ;
-	    }
+            wepsim_init_PWA() ;
 
             // Firefox OS
-	    if ('mozApps' in navigator)
-	    {
-		    var manifest_url = location.href + 'manifest.webapp';
-		    var installCheck = navigator.mozApps.checkInstalled(manifest_url);
-		    installCheck.onsuccess = function()
-		    {
-		        if (!installCheck.result)
-		        {
-			      var installLocFind = navigator.mozApps.install(manifest_url);
-			      installLocFind.onsuccess = function(data) {
-				  wepsim_notify_success('<h4>Info:<br/></h4>',
-					                'WepSIM was installed.');
-			      } ;
-			      installLocFind.onerror = function() {
-				  wepsim_notify_error('<h4>Warning:<br/>' + installLocFind.error.name + '</h4>',
-						      'FirefoxOS/KaiOS installation was cancelled.') ;
-			      } ;
-		        } ;
-		    } ;
-            }
+            wepsim_init_firefoxOS() ;
     }
     catch(err)
     {
