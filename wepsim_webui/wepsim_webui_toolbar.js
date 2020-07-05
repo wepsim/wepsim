@@ -402,7 +402,9 @@
 
 	      render_btndd_mode ( robj )
 	      {
-		 return '<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">' +
+		   var o = '' ;
+
+		   o += '<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">' +
 			'   <button type="button" class="col-12 btn btn-light shadow-sm"' +
 			'           data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'           title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."' +
@@ -421,32 +423,40 @@
                         '\n' +
 			'   <div id="mode_menu" class="dropdown-menu border border-secondary p-2">' +
                         '\n' +
-			'     <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' +
-                        '     <a class="dropdown-item" ' +
-                        '        href="#" id="s4_ep" value="ep"' +
-			'	 onclick="wsweb_select_main(\'ep\');' +
-			'		  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>' +
-                        '     <a class="dropdown-item user_archived" ' +
-                        '        href="#" id="s4_poc" value="poc"' +
-			'	 onclick="wsweb_select_main(\'poc\');' +
-			'		  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>' +
-                        '\n' +
+			'     <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' ;
+
+                   for (var i=0; i<sim.systems.length; i++) 
+                   {
+                        var item      = sim.systems[i].sim_short_name ;
+                        var poc_class = (item == "poc") ? "user_archived" : "" ;
+                   o += '     <a class="dropdown-item ' + poc_class + '" ' +
+                        '        href="#" id="s4_' + item + '" value="' + item + '" ' +
+			'	 onclick="wsweb_select_main(\'' + item + '\');' +
+			'		  return false;"' + 
+                        '     ><em class="fas fa-microchip"></em>&nbsp;' + item.toUpperCase() + '</a>' ;
+                   }
+
+                   o += '\n' +
 			'     <h6 class="text-white bg-secondary mt-2 my-1 user_archived ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>' +
                         '     <a class="dropdown-item user_archived mb-0" ' +
                         '        href="#" id="s4_asm_mips" value="asm_mips"' +
 			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
                         '        onclick="wsweb_select_main(\'asm_mips\');' +
-                        '                 return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>' +
+                        '                 return false;"' + 
+                        '     ><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>' +
                         '     <a class="dropdown-item user_archived mb-0" ' +
                         '        href="#" id="s4_asm_rv32" value="asm_rv32"' +
 			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="RISC-V<sub>32</sub> assembly only."' +
                         '        onclick="wsweb_select_main(\'asm_rv32\');' +
-                        '                 return false;"><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>' +
+                        '                 return false;"' + 
+                        '     ><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>' +
                         '\n' +
 			'   </div>' +
 			'</div>' ;
+
+		 return o ;
 	      }
         }
 
@@ -454,6 +464,17 @@
             window.customElements.define('ws-toolbar', ws_toolbar) ;
         }
 
+
+        function webui_toolbar_updateMode ( opt )
+        {
+	    // tutorial mode -> set green background
+	    // else          -> set #F6F6F6
+	    $('#select4').css('background-color', '#F6F6F6') ;
+
+	    // set button label...
+	    var ed = $('#s4_' + opt).html() ;
+	    $('#select4').html(ed) ;
+        }
 
         function webui_toolbar_updateAction ( opt )
         {

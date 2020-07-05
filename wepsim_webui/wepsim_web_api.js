@@ -474,12 +474,8 @@
 	    // update select4
 	    wepsim_mode_change(opt) ;
 
-	    // tutorial mode -> set green background...
-	    $('#select4').css('background-color', '#F6F6F6') ;
-
 	    // set button label...
-	    var ed = $('#s4_' + opt).html() ;
-	    $('#select4').html(ed) ;
+            webui_toolbar_updateMode(opt) ;
 
 	    // adapt to idiom
 	    var ws_idiom = get_cfg('ws_idiom') ;
