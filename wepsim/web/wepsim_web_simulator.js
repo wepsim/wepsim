@@ -656,7 +656,7 @@
 				  wepsim_notify_error('<h4>Warning:<br/>' + installLocFind.error.name + '</h4>',
 						      'FirefoxOS/KaiOS installation was cancelled.') ;
 			      } ;
-		        } ;
+		        }
 		    } ;
             }
     }
