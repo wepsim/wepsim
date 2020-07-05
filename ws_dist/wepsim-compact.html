@@ -111,9 +111,7 @@
             </div>
 	</nav>
 
-
         <ws-recordbar></ws-recordbar>
-
 
 	<div id="carousel-8" class="carousel" data-interval="false" data-touch="false">
 	  <div class="carousel-inner">
@@ -127,58 +125,21 @@
 		         data-toggle='popover-slidercfg'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>
 
                       <div class="col-auto px-0 px-sm-2">
-                      <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
-                                    id="btn_example1"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Examples' dialog."
-				    onclick="wsweb_dialog_open('examples');
-				             return false;"><em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='Examples'>Examples</span></strong></button>
-
-		            <button class="btn btn-light shadow-sm my-1 col-auto"
-		                    style="border-width:1 1 1 1px; border-color:#CCCCCC; background-color:#D4DB17; flex-grow:1;"
-                                    id="btn_help1"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Help' dialog."
-		                    onclick="wsweb_dialog_open('help');
-					     return false;"><em class="fas fa-info d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='Help'>Help</span></strong></button>
-
-                      </div>
+                      <ws-toolbar components="[,btn_examples,btn_help,]" 
+                                  icons="yes"></ws-toolbar>
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
                       <div class="col-auto px-0 px-sm-2">
-                      <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'Notifications' dialog."
-                                    onclick="wsweb_dialog_open('notifications');
-					     return false;"><em class="fas fa-comment-alt d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Notifications'>Notifications</span><span class="d-md-none">Notif.</span></strong></button>
-
-		            <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button toggles the 'Record' bar."
-                                    onclick="wsweb_recordbar_toggle();
-					     return false;"><em class="fas fa-circle d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
-
-		            <button class="btn btn-light shadow-sm my-1 mx-0"
-		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-			            title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
-		                    onclick="wsweb_dialog_open('state');
-					     $('#bot_check1').carousel(0);
-				             return false;"><em class="fas fa-camera d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span data-langkey='States'>States</span></strong></button>
-
-                      </div>
+                      <ws-toolbar components="[,btn_notifications,btn_recordbar,btn_states,]" 
+                                  icons="yes"></ws-toolbar>
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
                       <div class="col-auto px-0 px-sm-2">
+<<<<<<< HEAD
                       <div class="btn-toolbar btn-block" role="toolbar">
 
 			<div class="btn-group p-0 my-1 col-auto d-none" style="flex-grow:6;">
@@ -240,34 +201,22 @@
                                       ><em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;<strong><span class="d-none d-md-inline-flex" data-langkey='Checkpoint'>Checkpoint</span><span class="d-md-none">ChkPoint</span></strong></button>
 
                       </div>
+=======
+                      <ws-toolbar components="[,btndd_mode,btn_config,btn_checkpoint,]" 
+                                  icons="yes"></ws-toolbar>
+>>>>>>> c3eafa9925097e3357e40331765bb6581c38304a
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
                       <div id="slider_cpucu" class="col-sm p-0 collapse multi-collapse-2 user_microcode">
-			    <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
-				 <label class="my-0" for="slider2b" style="min-width:95%"><span data-langkey='processor'>processor</span>:</label>
-				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"
-					min="0" max="14" value="7" step="1"
-				        data-show-value="false"
-                                        class="custom-range slider col mx-0 px-0"
-                                        oninput="wsweb_set_cpucu_size(this.value) ;
-                                                 return false;">
-			    </form>
+                      <ws-toolbar components="slider_cpucu"></ws-toolbar>
                       </div>
 
 		      <div class="w-100 d-md-block d-lg-none"></div>
 
                       <div class="col-sm p-0 ml-1 collapse multi-collapse-2">
-			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
-				 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey='details'>details</span>:</label>
-				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"
-					min="0" max="14" value="7" step="1"
-				        data-show-value="false"
-                                        class="custom-range slider col mx-0 px-0"
-                                        oninput="wsweb_set_c1c2_size(this.value) ;
-                                                 return false;">
-			    </form>
+                      <ws-toolbar components="[,btn_examples,btn_help,btndd_mode,]"></ws-toolbar>
                       </div>
 
             </div>
@@ -487,10 +436,8 @@
 	    {
 		    try
 		    {
-			    // load ui
+			    // load ui, and default working-set
 			    wepsim_init_ui() ;
-
-			    // load default working-set
     			    wepsim_init_default() ;
 
                             $("#ws_loader").collapse('hide') ;
@@ -503,38 +450,10 @@
 	    }) ;
 
             // progressive web application
-	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
-            {
-		navigator.serviceWorker.register('min.wepsim_web_pwa.js').catch(function() {
-		    wepsim_notify_error("<h4>Warning:" +
-		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
-		                        "Progressive Web Applications requires a HTTPS connection " +
-		                        "with a valid certificate, so PWA is disabled.<br/>" +
-		                        "Please use the 'x' to close this notification.") ;
-		}) ;
-	    }
+            wepsim_init_PWA() ;
 
             // Firefox OS
-	    if ('mozApps' in navigator)
-	    {
-		    var manifest_url = location.href + 'manifest.webapp';
-		    var installCheck = navigator.mozApps.checkInstalled(manifest_url);
-		    installCheck.onsuccess = function()
-		    {
-		        if (!installCheck.result)
-		        {
-			      var installLocFind = navigator.mozApps.install(manifest_url);
-			      installLocFind.onsuccess = function(data) {
-				  wepsim_notify_success('<h4>Info:<br/></h4>',
-					                'WepSIM was installed.');
-			      } ;
-			      installLocFind.onerror = function() {
-				  wepsim_notify_error('<h4>Warning:<br/>' + installLocFind.error.name + '</h4>',
-						      'FirefoxOS/KaiOS installation was cancelled.') ;
-			      } ;
-		        } ;
-		    } ;
-            }
+            wepsim_init_firefoxOS() ;
     }
     catch(err)
     {

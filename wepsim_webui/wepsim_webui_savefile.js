@@ -20,7 +20,7 @@
 
 
         /*
-         *  Load file
+         *  Save file
          */
 
         /* jshint esversion: 6 */
@@ -37,11 +37,28 @@
 		    super();
 	      }
 
+	      update_internal_attributes ( )
+	      {
+                    // fid
+                    var fid = this.getAttribute('fid') ;
+                    if (fid === null)
+                        this.setAttribute('fid', 'id52') ;
+
+                    // jload
+                    var jload = this.getAttribute('jload') ;
+                    if (jload === null)
+                        this.setAttribute('jload', '') ;
+
+                    // jshare
+                    var jshare = this.getAttribute('jshare') ;
+                    if (jshare === null)
+                        this.setAttribute('jshare', '') ;
+	      }
+
 	      render ( elto )
 	      {
-                    var fid    = this.getAttribute('fid') ;
-                    var jsave  = this.getAttribute('jsave') ;
-                    var jshare = this.getAttribute('jshare') ;
+                    // update attributes
+                    this.update_internal_attributes() ;
 
                     // save html
                     var o1 = '' ;
@@ -50,14 +67,14 @@
 			  " <h5 class='m-0'>" +
 			  " <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
 			  " <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
-                          "         onclick='" + jsave + "'><span data-langkey='Save'>Save</span></button>" +
+                          "         onclick='" + this.jsave + "'><span data-langkey='Save'>Save</span></button>" +
 			  " <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
-                          "         onclick='" + jshare + "'><span data-langkey='Share'>Share</span></button>" +
+                          "         onclick='" + this.jshare + "'><span data-langkey='Share'>Share</span></button>" +
 			  " </h5>" +
 			  "</div>" +
 			  "<div class='card-body'>" +
-			  " <label for='" + fid + "' class='collapse7'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
-	                  " <p><input aria-label='filename to save content' id='" + fid + "' " +
+			  " <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
+	                  " <p><input aria-label='filename to save content' id='" + this.fid + "' " +
                           "           class='form-control btn-outline-dark' " +
                           "           placeholder='File name where information will be saved' " + 
                           "           style='min-width: 90%;'/></p>" +

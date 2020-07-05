@@ -141,14 +141,6 @@ cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_core.js \
     \
-    wepsim_webui/wepsim_webui_loadfile.js \
-    wepsim_webui/wepsim_webui_savefile.js \
-    wepsim_webui/wepsim_webui_listcfg.js \
-    wepsim_webui/wepsim_webui_listexample.js \
-    wepsim_webui/wepsim_webui_listprocessor.js \
-    wepsim_webui/wepsim_webui_recordbar.js \
-    wepsim_webui/wepsim_webui_executionbar.js \
-    \
     wepsim_webui/wepsim_webui_ddown_sel.js \
     wepsim_webui/wepsim_webui_ddown_info.js \
     wepsim_webui/wepsim_webui_cpu.js \
@@ -165,8 +157,18 @@ cat ws_dist/min.sim_all.js \
     wepsim_webui/wepsim_wui_registers.js \
     wepsim_webui/wepsim_wui_hw.js \
     \
+    wepsim_webui/wepsim_webui_loadfile.js \
+    wepsim_webui/wepsim_webui_savefile.js \
+    wepsim_webui/wepsim_webui_listcfg.js \
+    wepsim_webui/wepsim_webui_listexample.js \
+    wepsim_webui/wepsim_webui_listprocessor.js \
+    \
     wepsim_webui/wepsim_web_ui_dialogs.js \
     wepsim_webui/wepsim_web_ui_quickcfg.js \
+    wepsim_webui/wepsim_webui_recordbar.js \
+    wepsim_webui/wepsim_webui_executionbar.js \
+    wepsim_webui/wepsim_webui_toolbar.js \
+    \
     wepsim_webui/wepsim_web_api.js \
     \
     wepsim/web/wepsim_web_editor.js \

@@ -621,3 +621,43 @@
             wepsim_init_default_preloadFromHash(url_hash) ;
     }
 
+    function wepsim_init_PWA ( )
+    {
+            // progressive web application
+	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
+            {
+		navigator.serviceWorker.register('min.wepsim_web_pwa.js').catch(function() {
+		    wepsim_notify_error("<h4>Warning:" +
+		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
+		                        "Progressive Web Applications requires a HTTPS connection " +
+		                        "with a valid certificate, so PWA is disabled.<br/>" +
+		                        "Please use the 'x' to close this notification.") ;
+		}) ;
+	    }
+    }
+
+    function wepsim_init_firefoxOS ( )
+    {
+            // Firefox OS
+	    if ('mozApps' in navigator)
+	    {
+		    var manifest_url = location.href + 'manifest.webapp';
+		    var installCheck = navigator.mozApps.checkInstalled(manifest_url);
+		    installCheck.onsuccess = function()
+		    {
+		        if (!installCheck.result)
+		        {
+			      var installLocFind = navigator.mozApps.install(manifest_url);
+			      installLocFind.onsuccess = function(data) {
+				  wepsim_notify_success('<h4>Info:<br/></h4>',
+					                'WepSIM was installed.');
+			      } ;
+			      installLocFind.onerror = function() {
+				  wepsim_notify_error('<h4>Warning:<br/>' + installLocFind.error.name + '</h4>',
+						      'FirefoxOS/KaiOS installation was cancelled.') ;
+			      } ;
+		        } ;
+		    } ;
+            }
+    }
+
