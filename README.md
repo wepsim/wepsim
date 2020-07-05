@@ -38,10 +38,10 @@
 + From Linux/Unix command line, please:
   * Check you have installed Node 8.10.0+, and Bash 4.4.19+
   * Download WepSIM by executing:
-    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.0/wepsim-2.1.0.zip
-    * unzip wepsim-2.1.0.zip 
+    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.1/wepsim-2.1.1.zip
+    * unzip wepsim-2.1.1.zip 
   * Execute wepsim_node.sh with the help flag in order to show the available command switches:
-    * cd wepsim-2.1.0
+    * cd wepsim-2.1.1
     * ./wepsim_node.sh help
 
 <a name="install-wepsim-as-pwa"/>
@@ -299,11 +299,11 @@ Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from 
 + The following fragment is a example of how to use WepSIM command-line within Google Colab cell:
 
 ```html
-!wget https://github.com/acaldero/wepsim/releases/download/v2.1.0/wepsim-2.1.0.zip
-!unzip -o wepsim-2.1.0.zip
-!rm -fr   wepsim-2.1.0.zip
-!./wepsim-2.1.0/wepsim_node.sh stepbystep ep ./wepsim-2.1.0/examples/microcode/mc-ep_base.txt ./wepsim-2.1.0/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
-!rm -fr   wepsim-2.1.0
+!wget https://github.com/acaldero/wepsim/releases/download/v2.1.1/wepsim-2.1.1.zip
+!unzip -o wepsim-2.1.1.zip
+!rm -fr   wepsim-2.1.1.zip
+!./wepsim-2.1.1/wepsim_node.sh stepbystep ep ./wepsim-2.1.1/examples/microcode/mc-ep_base.txt ./wepsim-2.1.1/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
+!rm -fr   wepsim-2.1.1
 
 import pandas as pd
 import io
@@ -390,10 +390,10 @@ cordova plugin add cordova-plugin-whitelist
 
 + 2.1) Copy WepSIM files into the www directory:
 ```bash
-wget https://github.com/acaldero/wepsim/releases/download/v2.1.0/wepsim-2.1.0.zip
-unzip wepsim-2.1.0.zip
+wget https://github.com/acaldero/wepsim/releases/download/v2.1.1/wepsim-2.1.1.zip
+unzip wepsim-2.1.1.zip
 mv www www.initial.$$
-cp -a wepsim-2.1.0/ws_dist www
+cp -a wepsim-2.1.1/ws_dist www
 ```
 
 + 2.2) Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:

@@ -1,6 +1,9 @@
 
 # Changelog
 
+## 2.1.0 -> 2.1.1:
+* Minor bugs fixed and several refinaments added.
+
 ## 2.0.12 -> 2.1.0:
 * Re-designed from scratch:
   * Modals (dialogs) engine
