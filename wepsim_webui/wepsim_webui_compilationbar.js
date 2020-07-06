@@ -119,7 +119,7 @@
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                              o += '<span class="font-weight-bold" data-langkey="Load/Save">Load/Save</span>' +
                                   '</button>' ;
-                                  break ;
+                             break ;
 
                        case "btn_mcompile":
 			     o += '<button style="background-color: #CCCCCC"' +
@@ -132,7 +132,7 @@
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                              o += '<strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong>' +
                                   '</button>' ;
-                                  break ;
+                             break ;
 
                        case "btn_mshowbin":
 			     o += '<button style="background-color: #DDDDDD"' +
@@ -143,8 +143,43 @@
                              o += (this.icons_str == 'no') ? ''     : '<em class="fa fa-memory"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                              o += '<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a.+c.m.</span><span class="d-sm-none">co2&#181;addr+c.m.</span></strong>' +
+                                  '</button>' ;
+                             break ;
+
+                       case "btn_aloadsave":
+			     o += '<button style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
+			          '        class="btn btn-light shadow-sm col-auto m-0"' + 
+                                  '        onclick="wsweb_dialog_open(\'load_save_assembly\'); ' + 
+                                  '                 return true;">' ;
+                             o += (this.icons_str == 'no') ? ''     : '<em class="fas fa-file"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += '<strong><span data-langkey="Load/Save">Load/Save</span></strong>' +
 			          '</button>' ;
-                                  break ;
+                             break ;
+
+                       case "btn_acompile":
+		             o += '<button style="background-color: #CCCCCC"' +
+                                  '        id="acc1"' +
+		                  '        class="btn btn-light shadow-sm col-auto"' +
+			          '	   data-transition="none" data-inline="true"' +
+			          '	   onclick="wsweb_assembly_compile();' +
+                                  '                 return false;">' ;
+                             o += (this.icons_str == 'no') ? ''    : '<em class="fas fa-sign-out-alt"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += '<strong><span data-langkey="Compile">Compile</span></strong>' +
+                                  '</button>' ;
+                             break ;
+
+                       case "btn_ashowbin":
+		             o += '<button style="background-color: #DDDDDD"' +
+                                  '        id="aob1"' +
+		                  '        class="btn btn-light shadow-sm col-auto"' +
+			          '	     onclick="wsweb_dialog_open(\'binary_asm\');' +
+                                  '                   return false;">' ;
+                             o += (this.icons_str == 'no') ? ''     : '<em class="fas fa-memory"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += '<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Show Main Mem.</span></strong></button>' ;
+                             break ;
                     }
 
                     return o ;

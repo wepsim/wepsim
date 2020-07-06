@@ -241,13 +241,11 @@
 				    <div class="row p-0">
 					<div class="container col-12" role="none">
 					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
-
                                              <ws-compilationbar 
                                                  icons="up" 
 						 components="btn_mloadsave,btn_mcompile,btn_mshowbin"
 						 class="btn-group m-1 d-flex flex-wrap" 
-						 aria-label="Toolbar load and save buttons"></ws-compilationbar>
-
+						 aria-label="MicroCode Toolbar buttons"></ws-compilationbar>
 					</div>
 					</div>
 				    </div>
@@ -269,27 +267,11 @@
 				    <div class="row py-0 px-1">
 					<div class="container col-12" role="none">
 					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
-
-					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button onclick="wsweb_dialog_open('load_save_assembly'); return true;"
-							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file"></em><br><strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
-
-						    <button style="background-color: #CCCCCC"
-                                                            id="acc1"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
-							    data-transition="none" data-inline="true"
-							    onclick="wsweb_assembly_compile();
-								     return false;">
-								<em class="fas fa-sign-out-alt"></em><br><strong><span data-langkey="Compile">Compile</span></strong></button>
-						    <button style="background-color: #DDDDDD"
-                                                            id="aob1"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1"
-							    onclick="wsweb_dialog_open('binary_asm');
-								     return false;">
-							<em class="fas fa-memory"></em><br><strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Layout</span></strong></button>
-					      </div>
-
+                                              <ws-compilationbar 
+                                                  icons="up" 
+						  components="btn_aloadsave,btn_acompile,btn_ashowbin"
+						  class="btn-group m-1 d-flex flex-wrap" 
+						  aria-label="Assembly Toolbar buttons"></ws-compilationbar>
 					</div>
 					</div>
 				    </div>

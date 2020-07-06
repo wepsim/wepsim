@@ -275,25 +275,11 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-			    <button onclick="wsweb_dialog_open('load_save_assembly'); return true;"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file"></em>&nbsp;<strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
+                           <ws-compilationbar icons="left" components="btn_aloadsave"></ws-compilationbar>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button style="background-color: #CCCCCC"
-                                    id="acc1"
-		                    class="btn btn-light shadow-sm col-auto"
-				    data-transition="none" data-inline="true"
-				    onclick="wsweb_assembly_compile();
-                                             return false;">
-                                    <em class="fas fa-sign-out-alt"></em>&nbsp;<strong><span data-langkey="Compile">Compile</span></strong></button>
-		            <button style="background-color: #DDDDDD"
-                                    id="aob1"
-		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wsweb_dialog_open('binary_asm');
-                                             return false;">
-                                    <em class="fas fa-memory"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Show Main Mem.</span></strong></button>
+                           <ws-compilationbar icons="left" components="btn_acompile,btn_ashowbin"></ws-compilationbar>
 		      </div>
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
