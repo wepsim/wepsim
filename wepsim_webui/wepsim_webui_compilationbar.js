@@ -178,7 +178,7 @@
                                   '                   return false;">' ;
                              o += (this.icons_str == 'no') ? ''     : '<em class="fas fa-memory"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
-                             o += '<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Show Main Mem.</span></strong></button>' ;
+                             o += '<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Main Mem.</span></strong></button>' ;
                              break ;
                     }
 
