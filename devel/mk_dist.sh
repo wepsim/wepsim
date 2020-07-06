@@ -167,6 +167,7 @@ cat ws_dist/min.sim_all.js \
     wepsim_webui/wepsim_web_ui_quickcfg.js \
     wepsim_webui/wepsim_webui_recordbar.js \
     wepsim_webui/wepsim_webui_executionbar.js \
+    wepsim_webui/wepsim_webui_compilationbar.js \
     wepsim_webui/wepsim_webui_toolbar.js \
     \
     wepsim_webui/wepsim_web_api.js \

@@ -186,7 +186,7 @@
                     <div class="row pl-2 pr-3">
                     <ws-executionbar name="exebar1" class="btn-toolbar btn-block"
                                      components="btn_reset,btn_emins,btn_eins,btn_run"
-                                     icons="yes" role="toolbar"></ws-executionbar>
+                                     icons="up" role="toolbar"></ws-executionbar>
                     </div>
 
                     <div class="row pl-2 pr-3 pt-1">
@@ -223,26 +223,11 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-			    <button onclick="wsweb_dialog_open('load_save_firmware'); return true;"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file"></em>&nbsp;<strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
+                           <ws-compilationbar icons="left" components="btn_mloadsave"></ws-compilationbar>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button style="background-color: #CCCCCC"
-		                    id="mcc1"
-		                    class="btn btn-light shadow-sm col-auto"
-				    data-transition="none" data-inline="true"
-				    onclick="wsweb_firmware_compile();
-                                             return false;">
-                                    <em class="fas fa-sign-out-alt"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong></button>
-		            <button style="background-color: #DDDDDD"
-		                    id="mob1"
-		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wsweb_dialog_open('binary_fir');
-                                             return false;">
-                                             <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a.+c.m.</span><span class="d-sm-none">co2&#181;addr+c.m.</span></strong>
-			                     </button>
+                           <ws-compilationbar icons="left" components="btn_mcompile,btn_mshowbin"></ws-compilationbar>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -264,7 +249,9 @@
 
 	    </div>
 
-	    <div id="t3_firm_placeholder1" class="ui-body-d ui-content px-2 py-0" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+	    <div id="t3_firm_placeholder1" 
+                 class="ui-body-d ui-content px-2 py-0" 
+                 style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
 	    <div id="t3_firm" class="ui-body-d ui-content p-0">
 		     <label class="my-0" for="inputFirmware"><span data-langkey='microcode'>microcode</span>:</label>
 		     <textarea aria-label="microcode"
@@ -284,9 +271,7 @@
 		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Microcode, and assembly buttons">
-
                            <ws-toolbar components="switch_microcode,switch_simulator"></ws-toolbar>
-
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">

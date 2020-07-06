@@ -20,7 +20,7 @@
 
 
         /*
-         *  Load list
+         *  Recordbar
          */
 
         /* jshint esversion: 6 */

@@ -83,6 +83,8 @@ set -x
  jshint ./wepsim_core/wepsim_signal.js
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js
+ jshint ./wepsim_webui/wepsim_webui_toolbar.js
+ jshint ./wepsim_webui/wepsim_webui_compilationbar.js
  jshint ./wepsim_webui/wepsim_webui_executionbar.js
  jshint ./wepsim_webui/wepsim_webui_recordbar.js
  jshint ./wepsim_webui/wepsim_webui_ddown_sel.js

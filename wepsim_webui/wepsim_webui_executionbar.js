@@ -20,7 +20,7 @@
 
 
         /*
-         *  Load list
+         *  Execution toolbar
          */
 
         /* jshint esversion: 6 */
@@ -116,7 +116,8 @@
 				  '        class="btn btn-light px-2 pb-1 col"' +
 				  '        onclick="wsweb_execution_reset();' +
 				  '                 return false;">' ;
-                             o += (this.icons_str == 'no') ? '' : '<em class="fa fa-power-off"></em><br>' ;
+                             o += (this.icons_str == 'no') ? ''     : '<em class="fa fa-power-off"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
 			     o += '<span class="font-weight-bold" data-langkey="Reset">Reset</span>' +
 				  '</button>' ;
                                   break ;
@@ -126,7 +127,8 @@
 		                  '        class="btn btn-light px-2 pb-1 col user_microcode"' +
 			          '        onclick="wsweb_execution_microinstruction();' +
                                   '                 return false;">' ;
-                             o += (this.icons_str == 'no') ? "" : '<em class="fa fa-step-forward"></em><br>' ;
+                             o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-step-forward"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                              o += '<span class="d-none d-sm-inline-flex font-weight-bold" data-langkey="microInstruction">&#181;Instruction</span><span class="d-sm-none font-weight-bold">&#181;Instr.</span>' +
                                   '</button>' ;
                                   break ;
@@ -136,7 +138,8 @@
 		                  '        class="btn btn-light px-2 pb-1 col"' +
 			          '        onclick="wsweb_execution_instruction();' +
                                   '                 return false;">' ;
-                             o += (this.icons_str == 'no') ? "" : '<em class="fa fa-fast-forward"></em><br>' ;
+                             o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-fast-forward"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                              o += '<span class="d-none d-sm-inline-flex font-weight-bold" data-langkey="Instruction">Instruction</span><span class="d-sm-none font-weight-bold">Instr.</span>' +
                                   '</button>' ;
                                   break ;
@@ -146,7 +149,8 @@
 		                  '        class="btn btn-light px-2 pb-1 col"' +
                                   '        onclick="wsweb_execution_run();' +
                                   '                 return false;">' ;
-                             o += (this.icons_str == 'no') ? "" : '<em class="fa fa-play"></em><br>' ;
+                             o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-play"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                              o += '<span class="font-weight-bold" data-langkey="Run">Run</span>' +
                                   '</button>' ;
                                   break ;

@@ -20,7 +20,7 @@
 
 
         /*
-         *  Load list
+         *  Processors list
          */
 
         /* jshint esversion: 6 */

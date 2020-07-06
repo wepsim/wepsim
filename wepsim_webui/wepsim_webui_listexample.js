@@ -20,7 +20,7 @@
 
 
         /*
-         *  Load list
+         *  Example list
          */
 
         /* jshint esversion: 6 */
