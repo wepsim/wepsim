@@ -58,35 +58,37 @@
 			     "<div class='card-body p-0' id='iopanel'>" +
 		             "<center>" +
 			     "<table class='table table-hover table-sm table-bordered m-0'>" +
-			     "<tbody class='no-ui-mini'>" +
+			     "<thead>" +
 			     "<tr>" +
-			     "<td align=center width='33%'>" +
-			     "  <span class='d-none d-sm-inline-flex'>Interrupt identificator</span>" +
-			     "  <span class='d-sm-none'>Int. Id.<br>(0 - 7)</span>" +
+			     "<td align='center' style='width:33%' class='text-justify'>" +
+			     "  <span class='d-none d-sm-inline-flex text-wrap'>Interrupt identificator</span>" +
+			     "  <span class='d-sm-none text-wrap'>Int. Id.<br>(0 - 7)</span>" +
 			     "</td>" +
-			     "<td align=center width='33%'>" +
-			     "  <span class='d-none d-sm-inline-flex'>CLK period (<b>0</b> - &infin;)</span>" +
-			     "  <span class='d-sm-none'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
+			     "<td align='center' style='width:33%' class='text-justify'>" +
+			     "  <span class='d-none d-sm-inline-flex text-wrap'>CLK period (0 - &infin;)</span>" +
+			     "  <span class='d-sm-none text-wrap'>CLK ticks <br>(0 - &infin;)</span>" +
 			     "</td>" +
-			     "<td align=center width='33%'>" +
-			     "  <span class='d-none d-sm-inline-flex'>Probability (0 - 1)</span>" +
-			     "  <span class='d-sm-none'>Probability <br>(0 - 1)</span>" +
+			     "<td align='center' style='width:33%' class='text-justify'>" +
+			     "  <span class='d-none d-sm-inline-flex text-wrap'>Probability (0 - 1)</span>" +
+			     "  <span class='d-sm-none text-wrap'>Probability <br>(0 - 1)</span>" +
 			     "</td>" +
-			     "</tr>" ;
+			     "</tr>" +
+			     "</thead>" +
+			     "<tbody>" ;
 		    for (i=0; i<8; i++)
 		    {
 		       o1 += "<tr>" +
-			     "<td align='center' style='padding:0 0 0 0; vertical-align: middle !important'>" +
+			     "<td align='center' class='p-0' style='vertical-align: middle !important'>" +
 			     "<span class='p-0 m-0'>" + i + "</span>" +
 			     "</td>" +
 			     "<td align='center' class='p-0'>" +
-			     "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
-			     "<input type=number data-bind='value: period' min='0' max='99999999' class='form-control p-0'>" +
+			     "<div id='int" + i + "_per' class='m-0'>" +
+			     "<input type=number data-bind='value: period' min='0' max='99999999' class='form-control p-0 m-0'>" +
 			     "</div>" +
 			     "</td>" +
 			     "<td align='center' class='p-0'>" +
-			     "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
-			     "<input type='number' data-bind='value: probability' min='0' max='1' step='.05' class='form-control p-0'>" +
+			     "<div id='int" + i + "_pro' class='m-0'>" +
+			     "<input type='number' data-bind='value: probability' min='0' max='1' step='.05' class='form-control p-0 m-0'>" +
 			     "</div>" +
 			     "</td>" +
 			     "</tr>" ;

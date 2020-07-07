@@ -29,7 +29,7 @@
 	      var c = '<span class="row justify-content-between">' ;
 	      for (var elto in ahw.components)
               {
-		   c = c + '<span class="col">' +
+		   c = c + '<span class="col-auto">' +
                            '<a href="#" class="popover_hw" data-toggle="popover" data-html="true" onclick="event.preventDefault();" title="" data-content="' +
 			   'name: '            + ahw.components[elto].name + '<br> ' +
 			   'version: '         + ahw.components[elto].version + '<br> ' +
@@ -116,7 +116,7 @@
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
                            '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
 			   '</span>' ;
-		   c = c + '<span class="col">' +
+		   c = c + '<span class="col-auto">' +
 		           '<a href="#" id="hw_signal_tt_' + elto + '" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
 			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_signal_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' +
 			   '</span>' ;
@@ -218,7 +218,7 @@
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
                            '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
 			   '</span>' ;
-		   c = c + '<span class="col">' +
+		   c = c + '<span class="col-auto">' +
 		           '<a href="#" id="hw_state_tt_' + elto + '" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
 			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_state_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' +
 			   '</span>' ;
@@ -267,7 +267,7 @@
 	      var c = '<span class="row justify-content-between">' ;
 	      for (var elto in ahw.behaviors)
               {
-		   c = c + '<span class="col">' +
+		   c = c + '<span class="col-auto">' +
 		           '<a href="#" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
 			   '   data-html="true" title="" data-content="' +
 			   '<span style=\'text-align:left\'>' +

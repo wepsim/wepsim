@@ -87,6 +87,16 @@
                     this.icons_str = this.icons_str.toLowerCase() ;
 	      }
 
+              render_icon ( icon_html )
+              {     
+                    var o = '' ;
+              
+                    o += (this.icons_str == 'no') ? ''     : icon_html ;
+                    o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+              
+                    return o ;
+              }     
+
 	      render ( )
 	      {
                     // get updated attributes
@@ -115,8 +125,7 @@
                                   '        onclick="wsweb_dialog_open(\'load_save_firmware\'); ' + 
                                   '                 return true;"' +
 			          '	   class="btn btn-light shadow-sm col-auto m-0">' ;
-                             o += (this.icons_str == 'no') ? ''     : '<em class="fas fa-file"></em>' ;
-                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += this.render_icon('<em class="fas fa-file"></em>') ;
                              o += '<span class="font-weight-bold" data-langkey="Load/Save">Load/Save</span>' +
                                   '</button>' ;
                              break ;
@@ -128,8 +137,7 @@
 			          '	   data-transition="none" data-inline="true"' +
 			          '	   onclick="wsweb_firmware_compile();' +
                                   '                 return false;">' ;
-                             o += (this.icons_str == 'no') ? ''     : '<em class="fa fa-sign-out-alt"></em>' ;
-                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += this.render_icon('<em class="fa fa-sign-out-alt"></em>') ;
                              o += '<strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong>' +
                                   '</button>' ;
                              break ;
@@ -140,8 +148,7 @@
 		                  '        class="btn btn-light shadow-sm col-auto"' +
 			          '	   onclick="wsweb_dialog_open(\'binary_fir\');' +
                                   '                 return false;">' ;
-                             o += (this.icons_str == 'no') ? ''     : '<em class="fa fa-memory"></em>' ;
-                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += this.render_icon('<em class="fa fa-memory"></em>') ;
                              o += '<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a.+c.m.</span><span class="d-sm-none">co2&#181;addr+c.m.</span></strong>' +
                                   '</button>' ;
                              break ;
@@ -151,8 +158,7 @@
 			          '        class="btn btn-light shadow-sm col-auto m-0"' + 
                                   '        onclick="wsweb_dialog_open(\'load_save_assembly\'); ' + 
                                   '                 return true;">' ;
-                             o += (this.icons_str == 'no') ? ''     : '<em class="fas fa-file"></em>' ;
-                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += this.render_icon('<em class="fas fa-file"></em>') ;
                              o += '<strong><span data-langkey="Load/Save">Load/Save</span></strong>' +
 			          '</button>' ;
                              break ;
@@ -164,8 +170,7 @@
 			          '	   data-transition="none" data-inline="true"' +
 			          '	   onclick="wsweb_assembly_compile();' +
                                   '                 return false;">' ;
-                             o += (this.icons_str == 'no') ? ''    : '<em class="fas fa-sign-out-alt"></em>' ;
-                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += this.render_icon('<em class="fas fa-sign-out-alt"></em>') ;
                              o += '<strong><span data-langkey="Compile">Compile</span></strong>' +
                                   '</button>' ;
                              break ;
@@ -176,8 +181,7 @@
 		                  '        class="btn btn-light shadow-sm col-auto"' +
 			          '	     onclick="wsweb_dialog_open(\'binary_asm\');' +
                                   '                   return false;">' ;
-                             o += (this.icons_str == 'no') ? ''     : '<em class="fas fa-memory"></em>' ;
-                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += this.render_icon('<em class="fas fa-memory"></em>') ;
                              o += '<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Main Mem.</span></strong></button>' ;
                              break ;
                     }
