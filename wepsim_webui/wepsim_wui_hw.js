@@ -44,7 +44,7 @@
               // card with signal list
               var o = '' ;
 	      o += '<div class="card m-2">' +
-		   '    <div class="card-header border border-light p-2">' +
+		   '    <div class="card-header border border-light p-2" style="background-color:#E8E8E8">' +
 		   '      <h5 class="card-title">' +
 		   '        <span class="row">' +
 		   '          <span class="col-6">' + ahw.sim_name + ' (' + ahw.sim_short_name + ')</span>' +
@@ -79,12 +79,14 @@
               $(".popover_hw").popover("hide") ;
         }
 
+        var ws_signals_show_inactive = true ;
+
         function simcoreui_init_hw_signals ( ahw, update )
         {
               // list of signals
-              var elto_n  = '' ;
               var elto_v  = '' ;
               var elto_dv = '' ;
+              var elto_c  = '' ;
 
               var e = '' ;
 	      var c = '<span class="row justify-content-between">' ;
@@ -98,9 +100,7 @@
 		   elto_dv = '0x' + elto_dv.toString(16) ;
 
 	           // v != dv
-	           if (elto_v != elto_dv)
-                        elto_n = 'font-weight-bold' ;
-		   else elto_n = 'font-weight-normal' ;
+                   elto_c = (elto_v != elto_dv) ? 'font-weight-bold' : 's-ina font-weight-normal' ;
 
 		   e =     '<span style=\'text-align:left\'>' +
 			   'name: '            + ahw.signals[elto].name  + '<br>' +
@@ -117,25 +117,45 @@
                            '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
 			   '</span>' ;
 		   c = c + '<span class="col-auto">' +
-		           '<a href="#" id="hw_signal_tt_' + elto + '" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
-			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_signal_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' +
+		           '<a href="#" id="hw_signal_tt_' + elto + '" ' +
+                           '   aria-hidden="false" ' +
+                           '   class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
+			   '   data-html="true" title="" data-content="' + e + '">' +
+                           '<span id="hw_signal_strong_' + elto + '" class="' + elto_c + '">' +
+                           elto +
+                           '</span></a>' +
 			   '</span>' ;
 
                    if (true == update)
                    {
-	               $("#hw_signal_strong_" + elto).attr('class',        elto_n) ;
+	               $("#hw_signal_strong_" + elto).attr('class',        elto_c) ;
 	               $("#hw_signal_tt_"     + elto).attr('data-content', e) ;
+
+                       $("#hw_signal_tt_"     + elto).attr('aria-hidden',  'false') ;
+	               $("#hw_signal_strong_" + elto).show() ;
+                       if (elto_v == elto_dv) 
+                       {
+                           $("#hw_signal_tt_" + elto).attr('aria-hidden', 'true') ;
+
+                           if (ws_signals_show_inactive)
+	                        $("#hw_signal_strong_" + elto).show() ;
+	                   else $("#hw_signal_strong_" + elto).hide() ;
+                       }
                    }
 	      }
 	      c = c + '</span>' ;
 
               // card with signal list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-header border border-light p-2">' +
+		      '    <div class="card-header border border-light p-2" style="background-color:#E8E8E8">' +
 		      '      <h5 class="card-title m-0">' +
 		      '       <div class="container">' +
 		      '       <span class="row">' +
-		      '        <span class="col-auto pl-0" data-langkey="Signals">Signals</span>' +
+		      '        <span class="col-auto pl-0" ' + 
+                      '              onclick="ws_signals_show_inactive = !ws_signals_show_inactive;' + 
+                      '                       $(\'.s-ina\').toggle();' +
+                      '                       return false;" ' +
+                      '              data-langkey="Signals">Signals</span>' +
 		      '        <span class="col-auto btn btn-sm btn-outline-secondary ml-auto" ' +
 		      '              data-toggle="tooltip" data-html="true" title="Graph of the signal dependencies <br>(it needs several seconds to be displayed)."' +
 	              '              onclick="$(\'#depgraph1c\').collapse(\'toggle\'); ' +
@@ -156,12 +176,14 @@
 	      return o ;
         }
 
+        var ws_states_show_inactive = true ;
+
         function simcoreui_init_hw_states ( ahw, update )
         {
               // list of states
-              var elto_n  = '' ;
               var elto_v  = '' ;
               var elto_dv = '' ;
+              var elto_c  = '' ;
               var elto_nb = '' ;
               var elto_vi = '' ;
 
@@ -194,9 +216,7 @@
 		   }
 
 	           // v != dv
-	           if (elto_v != elto_dv)
-                        elto_n = 'font-weight-bold' ;
-		   else elto_n = 'font-weight-normal' ;
+                   elto_c = (elto_v != elto_dv) ? 'font-weight-bold' : 't-ina font-weight-normal' ;
 
 	           // nbits, and visible
                    if (typeof ahw.states[elto].nbits != 'undefined')
@@ -219,25 +239,41 @@
                            '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
 			   '</span>' ;
 		   c = c + '<span class="col-auto">' +
-		           '<a href="#" id="hw_state_tt_' + elto + '" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
-			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_state_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' +
+		           '<a href="#" id="hw_state_tt_' + elto + '" ' + 
+                           '   class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
+			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_state_strong_' + elto + '" class="' + elto_c + '">' + elto + '</span></a>' +
 			   '</span>' ;
 
                    if (true == update)
                    {
-	               $("#hw_state_strong_" + elto).attr('class',        elto_n) ;
+	               $("#hw_state_strong_" + elto).attr('class',        elto_c) ;
 	               $("#hw_state_tt_"     + elto).attr('data-content', e) ;
+
+                       $("#hw_state_tt_"     + elto).attr('aria-hidden',  'false') ;
+	               $("#hw_state_strong_" + elto).show() ;
+                       if (elto_v == elto_dv) 
+                       {
+                           $("#hw_state_tt_" + elto).attr('aria-hidden', 'true') ;
+
+                           if (ws_states_show_inactive)
+	                        $("#hw_state_strong_" + elto).show() ;
+	                   else $("#hw_state_strong_" + elto).hide() ;
+                       }
                    }
 	      }
 	      c = c + '</span>' ;
 
               // card with state list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-header border border-light p-2">' +
+		      '    <div class="card-header border border-light p-2" style="background-color:#E8E8E8">' +
 		      '      <h5 class="card-title m-0">' +
 		      '       <div class="container">' +
 		      '       <span class="row">' +
-		      '        <span class="col-auto pl-0" data-langkey="States">States</span>' +
+		      '        <span class="col-auto pl-0" ' + 
+                      '              onclick="ws_states_show_inactive = !ws_states_show_inactive;' + 
+                      '                       $(\'.t-ina\').toggle();' +
+                      '                       return false;" ' +
+                      '              data-langkey="States">States</span>' +
 		      '        <span class="col-auto btn btn-sm btn-outline-secondary ml-auto" ' +
 		      '              data-toggle="tooltip" data-html="true" title="It shows the control states: PC, IR, and SP."' +
 	              '              onclick="$(\'#ctrlstates1\').collapse(\'toggle\');" data-langkey="Control States">Control States</span>' +
@@ -285,7 +321,7 @@
 
               // card with behaviors list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-header border border-light p-2">' +
+		      '    <div class="card-header border border-light p-2" style="background-color:#E8E8E8">' +
 		      '      <h5 class="card-title m-0"><span data-langkey="Behaviors">Behaviors</span></h5>' +
 		      '    </div>' +
 		      '    <div class="card-body border border-light p-2">' +
