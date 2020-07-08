@@ -39,12 +39,13 @@
                     "lotr6": 		{ type: "lotr",         addclass: "no-dark-mode",  origin: "https://pm1.narvii.com/5903/f831ee80d012b8a8ba7156c39505cc4824889901_128.jpg" },
                     "hp1": 		{ type: "harry potter", addclass: "no-dark-mode",  origin: "http://www.logosclicks.com/logos/harry-potter-name-logo-46a93c.html" },
                     "hp2": 		{ type: "harry potter", addclass: "no-dark-mode",  origin: "https://www.flaticon.com/free-icon/harry-potter_86485" },
-                    "hp3": 		{ type: "harry potter", addclass: "no-dark-mode",  origin: "https://www.flaticon.com/free-icon/harry-potter_86485" },
+                    "hp3": 		{ type: "harry potter", addclass: "no-dark-mode",  origin: "https://lafrikileria.com/es/cosas-de-harry-potter-regalos/20569-funko-pop-patronus-harry-potter-889698469944.html" },
                     "super": 		{ type: "films",        addclass: "no-dark-mode",  origin: "https://worldvectorlogo.com/logo/superman-3" },
                     "batman": 		{ type: "films",        addclass: "",              origin: "http://getwallpapers.com/collection/black-and-white-batman-wallpaper" },
                     "grail": 		{ type: "films",        addclass: "no-dark-mode",  origin: "http://3png.com/a-31243892.html" },
                     "despicable": 	{ type: "films",        addclass: "no-dark-mode",  origin: "https://www.helloforos.com/t/cerrado/350821/81" },
-                    "t800a": 		{ type: "films",        addclass: "no-dark-mode",  origin: "https://purepng.com/photo/27494/movie-terminator-skull" }
+                    "t800b": 		{ type: "films",        addclass: "no-dark-mode",  origin: "https://www.pngegg.com/en/png-buhsk" },
+                    "t1000a": 		{ type: "films",        addclass: "no-dark-mode",  origin: "https://i0.pngocean.com/files/328/174/569/the-terminator-sticker-t-1000-telegram-world-of-tanks-suren-mnatsakanyan-street.jpg" }
     } ;
 
 
