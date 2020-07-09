@@ -420,6 +420,7 @@
 	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
+        			          simcoreui_init_hw("#config_HW") ;
 					  $('[data-toggle=tooltip]').tooltip('hide');
 	                                  simcoreui_show_hw() ;
 					  var ws_idiom = get_cfg('ws_idiom');
