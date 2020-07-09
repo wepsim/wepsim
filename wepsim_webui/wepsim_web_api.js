@@ -231,7 +231,7 @@
             if (simhw_active() !== null)
             {
 	        wepsim_execute_instruction() ;
-	        simcoreui_init_hw('#config_HW') ;
+	        simcoreui_show_hw() ;
             }
 
             // add if recording
@@ -421,7 +421,7 @@
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
 					  $('[data-toggle=tooltip]').tooltip('hide');
-					  simcoreui_init_hw('#config_HW') ;
+	                                  simcoreui_show_hw() ;
 					  var ws_idiom = get_cfg('ws_idiom');
 					  i18n_update_tags('gui', ws_idiom) ;
                                         }

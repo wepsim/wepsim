@@ -132,7 +132,7 @@
                          '	      <ws-l3d id="l3d1"></ws-l3d>' +
                          '	 </div>' +
                          '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">' +
-                         '	      <div id="config_HW" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>' +
+                         '	      <ws-hw id="infohw1"></ws-hw>' +
                          '       </div>' ;
                    if (this.layout === 'compact') {
                    o1 += '<div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">' +

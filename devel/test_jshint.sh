@@ -105,7 +105,7 @@ set -x
  jshint ./wepsim_webui/wepsim_webui_dbg_mc.js
  jshint ./wepsim_webui/wepsim_webui_dbg_asm.js
  jshint ./wepsim_webui/wepsim_webui_cpusvg.js
- jshint ./wepsim_webui/wepsim_wui_hw.js
+ jshint ./wepsim_webui/wepsim_webui_hw.js
  jshint ./wepsim_webui/wepsim_wui_registers.js
  jshint ./wepsim_webui/wepsim_web_ui_dialogs.js
  jshint ./wepsim_webui/wepsim_web_ui_quickcfg.js
