@@ -33,7 +33,7 @@ fi
 # install dependencies
 echo "  Requirements:"
 echo "  * terser, jq, yargs, jshint"
-npm i terser jq yargs jshint
+npm install
 
 # skeleton
 echo "  Packing:"
