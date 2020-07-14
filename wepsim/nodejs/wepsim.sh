@@ -66,7 +66,7 @@
                   default:  ''
                })
               .option('resultok', {
-                  alias:    's',
+                  alias:    'r',
                   type:     'string',
                   describe: 'OK result file',
                   nargs:    1,
@@ -89,7 +89,7 @@
                })
               .option('verbal', {
                   type:     'string',
-                  describe: 'Type of output verbalization',
+                  describe: 'text | math',
                   nargs:    1,
                   demand:   false,
                   default:  'text'

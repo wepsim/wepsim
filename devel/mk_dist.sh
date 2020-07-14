@@ -26,13 +26,14 @@ echo ""
 echo "  WepSIM packer"
 echo " ---------------"
 echo ""
-echo "  Requirements:"
-echo "  * terser"
-echo "  * jq"
-echo ""
 if [ $# -gt 0 ]; then
      set -x
 fi
+
+# install dependencies
+echo "  Requirements:"
+echo "  * terser, jq, yargs, jshint"
+npm i terser jq yargs jshint
 
 # skeleton
 echo "  Packing:"
@@ -297,13 +298,12 @@ cp   wepsim/web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 echo "  * ws_dist/*.sh"
 cp   docs/manifest.webapp         ws_dist/
-cp wepsim/nodejs/wepsim_node.sh   ws_dist/
 cp wepsim/nodejs/wepsim.sh        ws_dist/
 chmod a+x ws_dist/*.sh
 
 #  json: update processors
-./ws_dist/wepsim_node.sh  export-hardware ep  > ws_dist/examples/hardware/ep/hw_def.json
-./ws_dist/wepsim_node.sh  export-hardware poc > ws_dist/examples/hardware/poc/hw_def.json
+./ws_dist/wepsim.sh -a export-hardware -m ep  > ws_dist/examples/hardware/ep/hw_def.json
+./ws_dist/wepsim.sh -a export-hardware -m poc > ws_dist/examples/hardware/poc/hw_def.json
 
 # the end
 echo ""
