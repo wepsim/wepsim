@@ -298,6 +298,7 @@ cp   wepsim/web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 echo "  * ws_dist/*.sh"
 cp   docs/manifest.webapp         ws_dist/
 cp wepsim/nodejs/wepsim_node.sh   ws_dist/
+cp wepsim/nodejs/wepsim.sh        ws_dist/
 chmod a+x ws_dist/*.sh
 
 #  json: update processors
