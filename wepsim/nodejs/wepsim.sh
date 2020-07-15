@@ -16,7 +16,7 @@
 	       'For more details please use:\n' +
 	       ' ./wepsim.sh -h\n' +
 	       ' ./wepsim.sh --examples basic\n' +
-	       ' ./wepsim.sh --examples more\n' ;
+	       ' ./wepsim.sh --examples more' ;
 
         return o ;
    }
@@ -117,8 +117,6 @@
                             ' show-console | microstepverbalized |' +
                             ' show-record | show-microcode | show-assembly | build-checkpoint',
                   nargs:    1,
-                  demand:   true,
-                  demand:   'action required',
                   default:  'usage'
                })
               .option('mode', {
@@ -191,9 +189,9 @@
    // Main: help
    //
 
-   if (argv.examples !== "")
+   if ( (argv.examples !== "") || (argv.action === "usage") )
    {
-       var o = ws_help_usage() ;
+       var o = ws_help_usage() + '\n' ;
 
        if ("basic" == argv.examples) {
            o = ws_help_examples_basic() ;
@@ -225,8 +223,12 @@
 	// 2) workset
 	var data = {} ;
 
-	data.mode   = argv.mode ;
-	data.action = argv.action.toUpperCase() ;
+	data.mode      = argv.mode ;
+	data.action    = argv.action.toUpperCase() ;
+	data.firmware  = '' ;
+	data.assembly  = '' ;
+	data.record    = '' ;
+ 	data.result_ok = '' ;
 
         if (argv.checkpoint !== "")
         {
@@ -261,7 +263,7 @@
    }
    catch (e)
    {
-        console.log(ws_help_usage() + '\n' + 
+        console.log(ws_help_usage() + '\n\n' + 
                     e.stack + '\n') ;
         return false ;
    }
