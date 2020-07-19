@@ -40,7 +40,7 @@
        // try to load each one
        for (var i=0; i<ws_examples_set.length; i++)
        {
-            if (ws_examples_set[i].name !== e_name) { 
+            if (ws_examples_set[i].name.toUpperCase() !== e_name.toUpperCase()) { 
                 continue ;
             }
             if (typeof ws_examples_set[i].url === "undefined") { 

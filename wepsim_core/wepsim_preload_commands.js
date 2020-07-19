@@ -69,8 +69,21 @@
 	    'name':   'example',
 	    'action': function( hash )
 		      {
+			  var example_obj = null ;
+
+                          // try as array index...
 			  var example_index = parseInt(hash.example) ;
-			  var example_obj   = ws_examples[example_index] ;
+                          if (isNaN(example_index) == false) {
+			      example_obj = ws_examples[example_index] ;
+                          }
+                          // try as example id...
+                          else {
+                              for (var i=0; i<ws_examples.length; i++) {
+                                   if (ws_examples[i].id == hash.example)
+			               example_obj = ws_examples[i] ;
+                              }
+                          }
+
 			  if (typeof example_obj === "undefined") {
 			      return '' ;
 			  }
