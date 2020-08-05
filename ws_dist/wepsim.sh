@@ -76,10 +76,6 @@
                '\n' +
                ' * Export hardware definition as JSON:\n' +
                '   ./wepsim.sh -a export-hardware -m ep > examples/hardware/ep/hw_def.json\n' +
-               '\n' +
-               ' * Build MIPS32-like microcode for testing in command-line:\n' +
-               '   ./wepsim.sh -a import-creator --checkpoint ./MIPS-32-like.json > microcode.txt\n' +
-               '   ./wepsim.sh -a run -m ep -f ./microcode.txt -s examples/assembly/asm-ep_s6_e3.txt\n' +
                '' ;
 
         return o ;
