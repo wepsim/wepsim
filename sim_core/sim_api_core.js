@@ -575,9 +575,8 @@
 
     	    var ins_executed = 0 ;
     	    while (
-                //       (reg_pc != reg_pc_before)  &&
-                      ( ((reg_pc <  code_end) && (reg_pc >=  code_begin)) ||
-                        ((reg_pc < kcode_end) && (reg_pc >= kcode_begin)) )
+                     ((reg_pc <  code_end) && (reg_pc >=  code_begin)) ||
+                     ((reg_pc < kcode_end) && (reg_pc >= kcode_begin))
                   )
     	    {
 		   // verbosity before

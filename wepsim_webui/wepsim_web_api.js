@@ -431,8 +431,8 @@
     function wsweb_set_details ( opt )
     {
             if ( 
-              (simhw_active() !== null) && 
-              (typeof hash_detail2action[opt] !== "undefined") 
+                 (simhw_active() !== null) && 
+                 (typeof hash_detail2action[opt] !== "undefined") 
             )
             {
                 hash_detail2action[opt]() ;
