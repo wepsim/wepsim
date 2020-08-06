@@ -999,7 +999,7 @@ beq reg reg offset {
 
                 reg1 = simcore_native_get_value("BR", reg1) ;
                 reg2 = simcore_native_get_value("BR", reg2) ;
-                if (reg1 == reg2) 
+                if (reg1 == reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
                     if ((offset & 0x8000) > 0)
@@ -1027,7 +1027,7 @@ bne reg reg offset {
 
                 reg1 = simcore_native_get_value("BR", reg1) ;
                 reg2 = simcore_native_get_value("BR", reg2) ;
-                if (reg1 != reg2) 
+                if (reg1 != reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
                     if ((offset & 0x8000) > 0)
@@ -1055,7 +1055,7 @@ bge reg reg offset {
 
                 reg1 = simcore_native_get_value("BR", reg1) ;
                 reg2 = simcore_native_get_value("BR", reg2) ;
-                if (reg1 >= reg2) 
+                if (reg1 >= reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
                     if ((offset & 0x8000) > 0)
@@ -1273,5 +1273,17 @@ registers
         29=$sp (stack_pointer),
         30=$fp,
         31=$ra
+}
+
+##
+## Pseudo-instruction section
+##
+
+pseudoinstructions
+{
+	test reg1=reg (reg2)=reg
+	{
+		sw reg1 0(reg2)
+	}
 }
 

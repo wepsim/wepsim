@@ -36,8 +36,9 @@ function read_microprg ( context )
            resetComments(context) ;
 
 	   // match mandatory {
-	   if (! isToken(context, "{") )
+	   if (! isToken(context, "{") ) {
 	         return langError(context, "Expected '{' not found") ;
+           }
 
            nextToken(context) ;
 	   while (! isToken(context, "}") )
@@ -363,15 +364,16 @@ function loadFirmware (text)
 //
 // *pseudoinstructions
 // {
-//    li reg num { lui reg high(num) ; ori reg reg low(num) }
+//    li reg=reg num=inm { lui reg high(num) ; ori reg reg low(num) }
 // }*
 //
 
 	       if (isToken(context,"pseudoinstructions"))
 	       {
 			nextToken(context);
-			if (! isToken(context, "{"))
+			if (! isToken(context, "{")) {
 			     return langError(context, "Expected '{' not found");
+                        }
 
 			nextToken(context);
 			while (! isToken(context, "}"))
@@ -387,18 +389,39 @@ function loadFirmware (text)
 				while (! isToken(context, "{"))
 				{
 					var pseudoFieldAux = {};
+					pseudoFieldAux.name     = "" ;
+					pseudoFieldAux.type     = "" ;
+					pseudoFieldAux.indirect = false ;
 
+                                        // *(name)*=type
+					if (isToken(context, "(")) 
+                                        {
+				            nextToken(context);
+					    pseudoFieldAux.name += getToken(context);
+
+				            nextToken(context);
+					    if (! isToken(context, ")")) {
+					        return langError(context, "Expected ')' not found.");
+                                            }
+
+				            nextToken(context);
+					    pseudoFieldAux.indirect = true ;
+                                        }
                                         // *name*=type
-					pseudoFieldAux.name = getToken(context);
+                                        else
+                                        {
+					    pseudoFieldAux.name += getToken(context);
+				            nextToken(context);
+                                        }
 
                                         // name*=*type
-				        nextToken(context);
-					if (! isToken(context, "="))
-					     return langError(context, "Expected '=' not found (for name=type)");
+					if (! isToken(context, "=")) {
+					      return langError(context, "Expected '=' not found (for name=type)");
+				        }
 
                                         // name=*type*
 				        nextToken(context);
-					pseudoFieldAux.type = getToken(context).replace("num", "inm");
+					pseudoFieldAux.type += getToken(context).replace("num", "inm");
 
 					switch (pseudoFieldAux.type)
                                         {
@@ -406,17 +429,23 @@ function loadFirmware (text)
 						case "inm":
 						case "addr":
 						case "address":
-							break;
+						     break;
 						default:						
-							return langError(context, "Invalid parameter '" + pseudoFieldAux.type + "'. It only allows the following fields: reg, num, inm, addr, address") ;					
+					     	     return langError(context, "Invalid parameter '" + pseudoFieldAux.type + "'. It only allows the following fields: reg, num, inm, addr, address") ;					
 					}
 
 					pseudoInitial.fields.push(pseudoFieldAux);
-					pseudoInitial.signature = pseudoInitial.signature + getToken(context) + ",";
+
+					if (pseudoFieldAux.indirect == true)
+					     pseudoInitial.signature += "(" + getToken(context) + "),";
+					else pseudoInitial.signature += getToken(context) + ",";
+
 					nextToken(context);
-					if (isToken(context, ","))
+					if (isToken(context, ",")) {
 					    nextToken(context);
+					}
 				}
+
 			 	nextToken(context);
 				pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"inm");
 				pseudoInstructionAux.initial = pseudoInitial;	
@@ -439,18 +468,19 @@ function loadFirmware (text)
 								break;
 							}	
 						}
-						if (!cont)
-							return langError(context, "Undefined instruction '" + getToken(context) + "'");
+						if (!cont) {
+						    return langError(context, "Undefined instruction '" + getToken(context) + "'");
+                                                }
 					}
 
 					if (getToken(context) == ";")
-						inStart = 0;
-					else
-						inStart++;
+					     inStart = 0;
+					else inStart++;
 
 					pseudoFinishAux.signature = pseudoFinishAux.signature + getToken(context) + " ";
 					nextToken(context);
 				}
+
 				pseudoInstructionAux.finish=pseudoFinishAux;
 				pseudoInstructionAux.finish.signature=pseudoInstructionAux.finish.signature.replace(';','\n');
 				context.pseudoInstructions.push(pseudoInstructionAux);
