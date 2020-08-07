@@ -636,7 +636,11 @@ function read_text ( context, datosCU, ret )
 	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context))
            {
 		// check tag or error
-		while (!isPseudo && typeof firmware[getToken(context)] === "undefined" && !is_end_of_file(context))
+		while ( 
+                   (! isPseudo) && 
+                   (typeof firmware[getToken(context)] === "undefined") && 
+                   (! is_end_of_file(context)) 
+                )
                 {
 			var possible_tag = getToken(context);
 
@@ -677,11 +681,11 @@ function read_text ( context, datosCU, ret )
 			instruction = finish[candidate_p][counter++] ;
                 }
 
-		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
-		var signature_user_fields = [];		// signature user fields
-		var advance = [];			// array that indicates wheather each signature can be considered or not
-		var max_length = 0;			// max number of parameters of the signatures
-		var binaryAux = [];			// necessary parameters of the fields of each signature
+		var signature_fields = [];	// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var signature_user_fields = [];	// signature user fields
+		var advance = [];		// array that indicates wheather each signature can be considered or not
+		var max_length = 0;		// max number of parameters of the signatures
+		var binaryAux = [];		// necessary parameters of the fields of each signature
 
 		// Fill parameters
 		var firmware_instruction_length = 0 ;
@@ -716,6 +720,8 @@ function read_text ( context, datosCU, ret )
 
 		// Iterate over fields
 		var converted;
+		var value;
+
 		var s = [];
                 s[0] = instruction;
 		for (i=0; i<max_length; i++)
@@ -730,17 +736,15 @@ function read_text ( context, datosCU, ret )
                                 }
 
                                 // ... from source
-				var value = getToken(context);
+				value = getToken(context);
 			}
 			else
                         {
                                 // ... from pseudoins (associated code)
-				var value = aux_fields;
 				var aux_fields = finish[candidate_p][counter++];
 				if (pseudo_fields[aux_fields])
-					var value = pseudo_fields[aux_fields];
-				else
-					var value = aux_fields;
+				     value = pseudo_fields[aux_fields];
+				else value = aux_fields;
 			}
 
 			if (("TAG" != getTokenType(context)) && (!firmware[value])) {
@@ -758,7 +762,10 @@ function read_text ( context, datosCU, ret )
 				if (i >= signature_fields[j].length)
                                 {
 				    // if next token is not instruction or tag
-				    if ( ("TAG" != getTokenType(context)) && (!firmware[value]) ) { 
+				    if ( ("TAG" != getTokenType(context)) && 
+                                         (!firmware[value]) && 
+                                         (!is_end_of_file(context)) ) 
+                                    {
 				          advance[j] = 0;
                                     }
 
@@ -961,7 +968,8 @@ function read_text ( context, datosCU, ret )
 		// check solution
 		var sum_res = sum_array(advance) ;
 
-		if (sum_res == 0) {
+		if (sum_res == 0) 
+                {
 			// No candidate
 			if (advance.length === 1) {
 			    return langError(context, error + ". Remember that the instruction format has been defined as: " + format);
@@ -970,7 +978,8 @@ function read_text ( context, datosCU, ret )
 			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format + ". Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction");
 		}
 
-		if (sum_res > 1) {
+		if (sum_res > 1) 
+                {
 			// Multiple candidates
 			candidate = get_candidate(advance, firmware[instruction]);
 			if (candidate === false) {
@@ -1012,8 +1021,7 @@ function read_text ( context, datosCU, ret )
 			    s_ori = "&nbsp;" ; // s_ori = "---";
 			}
 
-			if (finish[candidate_p][counter] == "\n") // TOCHECK
-                        {
+			if (finish[candidate_p][counter] == "\n") {
 			    counter++ ;
 			}
 		}
@@ -1030,20 +1038,23 @@ function read_text ( context, datosCU, ret )
 		{
 			// tag
 			if (binaryAux[candidate][i].islabel)
-				ret.labels["0x" + seg_ptr.toString(16)] = { 	name:binaryAux[candidate][i].field_name,
-										addr:seg_ptr,
-										startbit:binaryAux[candidate][i].startbit,
-										stopbit:binaryAux[candidate][i].stopbit,
-										rel:binaryAux[candidate][i].rel,
-										nwords:firmware[instruction][candidate].nwords,
-										labelContext:getLabelContext(context) };
+                        {
+			    ret.labels["0x" + seg_ptr.toString(16)] = {	name:binaryAux[candidate][i].field_name,
+									addr:seg_ptr,
+									startbit:binaryAux[candidate][i].startbit,
+									stopbit:binaryAux[candidate][i].stopbit,
+									rel:binaryAux[candidate][i].rel,
+									nwords:firmware[instruction][candidate].nwords,
+									labelContext:getLabelContext(context) } ;
+                        }
 			// replace instruction and fields in machine code
-			else {
-				machineCode = assembly_replacement(	machineCode,
-									binaryAux[candidate][i].num_bits,
-									binaryAux[candidate][i].startbit-(-1),
-									binaryAux[candidate][i].stopbit,
-									binaryAux[candidate][i].free_space);
+			else 
+                        {
+			    machineCode = assembly_replacement(	machineCode,
+								binaryAux[candidate][i].num_bits,
+								binaryAux[candidate][i].startbit-(-1),
+								binaryAux[candidate][i].stopbit,
+								binaryAux[candidate][i].free_space) ;
                         }
 		}
 
