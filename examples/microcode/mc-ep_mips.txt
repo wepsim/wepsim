@@ -879,25 +879,6 @@ lw reg1 val(reg2) {
             }
 }
 
-sw reg1 (reg2) {
-            co=111111,
-            nwords=1,
-            reg1 = reg(25,21),
-            reg2 = reg(20,16),
-            native,
-            {
-                // fields is a default parameter with the instruction field information
-                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-
-                var addr   = simcore_native_get_value("BR", reg2) ;
-                var value1 = simcore_native_get_value("BR", reg1) ;
-                simcore_native_set_value("MEMORY", addr, value1) ;
-
-                simcore_native_go_maddr(0) ;
-            }
-}
-
 sw reg1 val(reg2) {
             co=111111,
             nwords=1,
@@ -1281,7 +1262,7 @@ registers
 
 pseudoinstructions
 {
-	test reg1=reg (reg2)=reg
+	sw reg1=reg (reg2)=reg
 	{
 		sw reg1 0(reg2)
 	}

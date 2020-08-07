@@ -231,7 +231,7 @@ function assembly_co_cop(machineCode, co, cop)
         var xr_info = simhw_sim_ctrlStates_get() ;
 
 	if (co !== false)
-	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0); 
+	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0);
 	if (cop !== false)
 	    machineCode = assembly_replacement(machineCode, cop, xr_info.ir.default_eltos.cop.length, 0, 0);
 
@@ -242,7 +242,7 @@ function writememory_and_reset ( mp, gen, nwords )
 {
 	if (gen.byteWord >= WORD_BYTES)
         {
-	    mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;               
+	    mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;
 
             gen.seg_ptr     = gen.seg_ptr + WORD_BYTES ;
             gen.byteWord    = 0 ;
@@ -439,7 +439,7 @@ function read_data ( context, datosCU, ret )
 											labelContext:getLabelContext(context) };
 
 				// Store number in machine code
-				gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(size+gen.byteWord), BYTE_LENGTH*gen.byteWord, free_space); 
+				gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(size+gen.byteWord), BYTE_LENGTH*gen.byteWord, free_space);
 				gen.byteWord+=size;
 
 				// optional ','
@@ -553,7 +553,7 @@ function read_data ( context, datosCU, ret )
 					num_bits = possible_value.charCodeAt(i).toString(2);
 
 					// Store character in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length); 
+					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length);
 					gen.byteWord++;
 				}
 
@@ -565,7 +565,7 @@ function read_data ( context, datosCU, ret )
 					num_bits = "\0".charCodeAt(0).toString(2);
 
 					// Store field in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length); 
+					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length);
 					gen.byteWord++;
 				}
 
@@ -700,10 +700,10 @@ function read_text ( context, datosCU, ret )
 			max_length = Math.max(max_length, signature_fields[i].length) ;
 
 			// pseudoinstruction
-			if ( 
+			if (
                              (typeof pseudoInstructions[instruction] !== "function") &&
 			     (pseudoInstructions[instruction]) &&
-                             (typeof firmware[instruction][i].finish !== "undefined") 
+                             (typeof firmware[instruction][i].finish !== "undefined")
                            )
                         {
 				var val = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ") ;
@@ -758,9 +758,8 @@ function read_text ( context, datosCU, ret )
 				if (i >= signature_fields[j].length)
                                 {
 				    // if next token is not instruction or tag
-				    if ("TAG" != getTokenType(context) && !firmware[value]) // TOCHECK
-  				    {
-				    	advance[j] = 0;
+				    if ( ("TAG" != getTokenType(context)) && (!firmware[value]) ) { 
+				          advance[j] = 0;
                                     }
 
 				    continue;
@@ -809,7 +808,7 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-                                                        
+
 							label_found = true;
 					        }
 
@@ -1098,10 +1097,6 @@ function read_text ( context, datosCU, ret )
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
 
-		if (!isPseudo && max_length == signature_fields[candidate].length) {
-			nextToken(context) ;
-		}
-
 		// pseudoinstruction finished
 		if ((isPseudo) && (counter == finish[candidate_p].length))
                 {
@@ -1109,8 +1104,21 @@ function read_text ( context, datosCU, ret )
 			counter             = -1 ;
 			npseudoInstructions = 0 ;
 			isPseudo            = false ;
-			nextToken(context) ;
 		}
+
+                // if instruction candiates with less than max_length fields
+                //    then we read ahead next token, otherwise we need to read next token
+                var equals_fields = true ;
+                for (var c=0; c<signature_fields.length; c++) 
+                {
+                     if (max_length !== signature_fields[c].length) {
+                         equals_fields = false ;
+                         break ;
+		     }
+                }
+                if (equals_fields) {
+		    nextToken(context) ;
+                }
 
 		if (context.t > context.text.length) {
 		    break ;
@@ -1171,7 +1179,7 @@ function simlang_compile (text, datosCU)
 		var initial = datosCU.pseudoInstructions[i].initial;
 		var finish = datosCU.pseudoInstructions[i].finish;
 
-		if (typeof context.pseudoInstructions[initial.name] === "undefined") 
+		if (typeof context.pseudoInstructions[initial.name] === "undefined")
                 {
 	 	    context.pseudoInstructions[initial.name] = 0;
 		    if (typeof context.firmware[initial.name] === "undefined") {
