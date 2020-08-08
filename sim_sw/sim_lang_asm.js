@@ -886,6 +886,7 @@ function read_text ( context, datosCU, ret )
 						if (aux) {
 						        s[i+1] = "(" + value + ")";
 
+							// check closing ')'
 							if (counter == -1) {
 								nextToken(context);
 								aux = getToken(context);
@@ -1134,7 +1135,7 @@ function read_text ( context, datosCU, ret )
                          break ;
 		     }
                 }
-                if (equals_fields) {
+                if (equals_fields || (getToken(context) == ")")) {
 		    nextToken(context) ;
                 }
 
