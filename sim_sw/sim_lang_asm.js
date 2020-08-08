@@ -614,10 +614,11 @@ function read_text ( context, datosCU, ret )
 	   // get firmware and pseudoinstructions
 	   var firmware = context.firmware;
 	   var pseudoInstructions = context.pseudoInstructions;
+	   var finish = [] ;
 	   var isPseudo = false;
+	   var pfinish = [] ;
 	   var counter = -1;
 	   var candidate ;
-	   var candidate_p ;
 	   var npseudoInstructions = 0 ;
 	   var pseudo_fields = {} ;
 
@@ -674,18 +675,18 @@ function read_text ( context, datosCU, ret )
 		// get instruction
 		var instruction = null ;
 		if (! isPseudo) {
-			var finish = [] ;
+			finish = [] ;
 			instruction = getToken(context) ;
 		}
 		else {
-			instruction = finish[candidate_p][counter++] ;
+			instruction = pfinish[counter++] ;
                 }
 
-		var signature_fields = [];	// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var signature_fields      = [];	// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
 		var signature_user_fields = [];	// signature user fields
 		var advance = [];		// array that indicates wheather each signature can be considered or not
 		var max_length = 0;		// max number of parameters of the signatures
-		var binaryAux = [];		// necessary parameters of the fields of each signature
+		var binaryAux  = [];		// necessary parameters of the fields of each signature
 
 		// Fill parameters
 		var firmware_instruction_length = 0 ;
@@ -693,6 +694,7 @@ function read_text ( context, datosCU, ret )
 		    firmware_instruction_length = firmware[instruction].length ;
 		}
 
+		var val = [] ;
 		for (i=0; i<firmware_instruction_length; i++)
 		{
 			signature_fields[i]      = firmware[instruction][i].signature.split(",") ;
@@ -701,7 +703,8 @@ function read_text ( context, datosCU, ret )
 			signature_user_fields[i].shift() ;
 			advance[i]   = 1 ;
 			binaryAux[i] = [] ;
-			max_length = Math.max(max_length, signature_fields[i].length) ;
+			max_length   = Math.max(max_length, signature_fields[i].length) ;
+			finish[i]    = [] ;
 
 			// pseudoinstruction
 			if (
@@ -710,10 +713,10 @@ function read_text ( context, datosCU, ret )
                              (typeof firmware[instruction][i].finish !== "undefined")
                            )
                         {
-				var val = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ") ;
+				val = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ") ;
 				val.pop() ;
-				finish.push(val) ;
-				isPseudo = true ;
+				finish[i] = val ;
+
 				npseudoInstructions = 0 ;
 			}
 		}
@@ -741,7 +744,7 @@ function read_text ( context, datosCU, ret )
 			else
                         {
                                 // ... from pseudoins (associated code)
-				var aux_fields = finish[candidate_p][counter++];
+				var aux_fields = pfinish[counter++];
 				if (pseudo_fields[aux_fields])
 				     value = pseudo_fields[aux_fields];
 				else value = aux_fields;
@@ -787,14 +790,14 @@ function read_text ( context, datosCU, ret )
 					case "inm":
 						if (isPseudo && "sel" == value) {
 							counter++;
-							var start = finish[candidate_p][counter++];
-							var stop  = finish[candidate_p][counter++];
-			 				var value = pseudo_fields[finish[candidate_p][counter++]];
+							var start = pfinish[counter++];
+							var stop  = pfinish[counter++];
+			 				var value = pseudo_fields[pfinish[counter++]];
 							counter++;
 							sel_found = true;
 						}
 
-						if ((converted = isOctal(value)) !== false);
+						     if ((converted = isOctal(value)) !== false);
 						else if ((converted = isHex(value)) !== false);
 						else if ((converted = isDecimal(value)) !== false);
 						else if ((converted = isChar(value)) !== false);
@@ -861,7 +864,7 @@ function read_text ( context, datosCU, ret )
 							    value = getToken(context);
 							}
 							else {
-                                        		    value = pseudo_fields[finish[candidate_p][counter++]];
+                                        		    value = pseudo_fields[pfinish[counter++]];
 						        }
 
 							aux = true;
@@ -888,7 +891,7 @@ function read_text ( context, datosCU, ret )
 								aux = getToken(context);
 							}
 							else {
-								aux = finish[candidate_p][counter++];
+								aux = pfinish[counter++];
 							}
 
 							if (")" != aux) {
@@ -946,8 +949,13 @@ function read_text ( context, datosCU, ret )
 		{
 		     if (advance[i] == 1)
                      {
-			 candidate   = i ;
-			 candidate_p = 0 ; // initial finish index  // TOCHECK
+			 candidate = i ;
+// <TOCHECK>
+                         if (! isPseudo) {
+			      pfinish = finish[candidate] ;
+                         }
+                         isPseudo  = (isPseudo) || (typeof firmware[instruction][i].finish !== "undefined") ; 
+// </TOCHECK>
 			 break ;
 		     }
 		}
@@ -1021,7 +1029,7 @@ function read_text ( context, datosCU, ret )
 			    s_ori = "&nbsp;" ; // s_ori = "---";
 			}
 
-			if (finish[candidate_p][counter] == "\n") {
+			if (pfinish[counter] == "\n") {
 			    counter++ ;
 			}
 		}
@@ -1109,12 +1117,11 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// pseudoinstruction finished
-		if ((isPseudo) && (counter == finish[candidate_p].length))
+		if ((isPseudo) && (counter == pfinish.length))
                 {
-			candidate_p         = 0 ; // initial finish index // TOCHECK
+			isPseudo            = false ;
 			counter             = -1 ;
 			npseudoInstructions = 0 ;
-			isPseudo            = false ;
 		}
 
                 // if instruction candiates with less than max_length fields
