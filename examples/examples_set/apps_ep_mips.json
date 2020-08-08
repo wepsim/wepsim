@@ -25,7 +25,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced",
+    "microcode":	"ep_base",
     "assembly":		"ep_s1_e3",
     "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
   },
@@ -35,7 +35,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced",
+    "microcode":	"ep_base",
     "assembly":		"ep_s1_e4",
     "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
   },
@@ -55,7 +55,7 @@
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced",
+    "microcode":	"ep_base",
     "assembly":		"ep_s2_e2",
     "description":	"<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
   },
@@ -65,7 +65,7 @@
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced2",
+    "microcode":	"ep_enhanced",
     "assembly":		"ep_s2_e3",
     "description":	"<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>"
   },
@@ -75,7 +75,7 @@
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced2",
+    "microcode":	"ep_enhanced",
     "assembly":		"ep_s2_e4",
     "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
   },
@@ -85,7 +85,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_s3_e1",
+    "microcode":	"ep_interactive",
     "assembly":		"ep_s3_e1",
     "description":	"<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>"
   },
@@ -95,7 +95,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_s3_e2",
+    "microcode":	"ep_interactive",
     "assembly":		"ep_s3_e2",
     "description":	"<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>"
   },
@@ -105,7 +105,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_s3_e3",
+    "microcode":	"ep_interactive",
     "assembly":		"ep_s3_e3",
     "description":	"<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>"
   },
@@ -325,7 +325,7 @@
     "type":		"<span data-langkey='Special'>Special</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced2",
+    "microcode":	"ep_enhanced",
     "assembly":		"ep_s6_e3",
     "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
   }

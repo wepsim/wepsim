@@ -77,6 +77,7 @@
 			      "<table id='collapse-l3dcfg' " +
                               " class='table table-hover table-sm table-bordered m-0 collapse'>" +
 			      "<tr><td>" +
+                              "<label class='my-0 text-wrap' for='apirest_endpoint'>REST Endpoint</label>" +
 			      "<input id='apirest_endpoint' type='text' data-bind='value: apirest_endpoint' class='form-control text-info p-0'>" +
 			      "</td></tr>" +
 			      "</table>" +

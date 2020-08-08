@@ -85,7 +85,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
-    "microcode":	"poc_s3",
+    "microcode":	"poc_os",
     "assembly":		"ep_s3_e1",
     "description":	"<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>"
   },
@@ -95,7 +95,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
-    "microcode":	"poc_s3",
+    "microcode":	"poc_os",
     "assembly":		"ep_s3_e2",
     "description":	"<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>"
   },
@@ -105,7 +105,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
-    "microcode":	"poc_s3",
+    "microcode":	"poc_os",
     "assembly":		"ep_s3_e3",
     "description":	"<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>"
   },
