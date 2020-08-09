@@ -1,6 +1,9 @@
 
 # Changelog
 
+## 2.1.1 -> 2.1.2:
+* Minor bugs fixed and several refinaments added.
+
 ## 2.1.0 -> 2.1.1:
 * Command line version move from 'conversational parameters' to 'switched parameters':
   From: ./wepsim.sh    run    ep    microcode.txt    assembly.txt
