@@ -331,7 +331,6 @@
 		    return null ;
                 }
 
-// TOCHECK
                 // if AutoScroll is enabled...
                 if (get_cfg('AS_enable'))
                 {
@@ -341,10 +340,15 @@
                     if ( (typeof obj_byid !== 'undefined') && 
                          (typeof o1[0]    !== 'undefined') ) 
                     {
-                          obj_byid.animate({ scrollTop: o1[0].offsetTop }, ani_delay) ;
+                          var h = obj_byid.height() ;
+                          var d = o1[0].offsetTop - obj_byid.scrollTop() ;
+
+                          if ( (d < 0) || (d > h) ) {
+                              var p = (o1[0].offsetTop < h) ? 0 : (o1[0].offsetTop - h/2) ;
+                              obj_byid.animate({ scrollTop: p }, { duration: ani_delay }) ;
+                          }
                     }
                 }
-// TOCHECK
 
                 return o1 ;
 	}

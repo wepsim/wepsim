@@ -591,3 +591,32 @@
                       description: "<span data-langkey='Beginner view'>Beginner view</span>"
                    });
 
+    ws_config.push({
+                      id:          "radio16",
+                      type:        "Accesibility",
+                      u_class:     "",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='radio16-true'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                                   "               aria-label='AutoScrolling: true' " +
+				   "		   onclick=\"var optValue = true;" +
+				   "		             update_cfg('AS_enable', optValue);" +
+				   "		             return false;\">" +
+				   "		<input type='radio' name='options' id='radio16-true' aria-label='AutoScroll: true' autocomplete='off' >On" +
+				   "	    </label>" +
+				   "	    <label id='radio16-false'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                                   "               aria-label='AutoScrolling: false' " +
+				   "		   onclick=\"var optValue = false;" +
+				   "		             update_cfg('AS_enable', optValue);" +
+				   "		             return false;\">" +
+				   "		<input type='radio' name='options' id='radio16-false'  aria-label='AutoScroll: false'  autocomplete='off' >Off" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() {
+			               var optValue = get_cfg('AS_enable') ;
+			               $('#radio16-' + optValue).button('toggle') ;
+		                   },
+                      description: "<span data-langkey='AutoScroll'>AutoScroll</span>"
+                   });
+
