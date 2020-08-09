@@ -3,210 +3,210 @@
     "id":          "L3AT1",
     "title":       "Lesson 3A, Slide 36",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t36",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340/36'>compute structure slides</a>"
   },
   {
     "id":          "L3AT2",
     "title":       "Lesson 3A, Slide 38",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t38",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340/38'>compute structure slides</a>"
   },
   {
     "id":          "L3AT3",
     "title":       "Lesson 3A, Slide 41",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t41",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340/41'>compute structure slides</a>"
   },
   {
     "id":          "L3AT4",
     "title":       "Lesson 3A, Slide 44",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t44",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340/44'>compute structure slides</a>"
   },
   {
     "id":          "L3AT5",
     "title":       "Lesson 3A, Slide 63",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t63",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340/63'>compute structure slides</a>"
   },
   {
     "id":          "L3AT6",
     "title":       "Lesson 3A, Slide 68",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t68",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iv1f-62505340/68'>compute structure slides</a>"
   },
   {
     "id":          "L3AT7",
     "title":       "Lesson 3B, Slide 16",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t16",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/16'>compute structure slides</a>"
   },
   {
     "id":          "L3AT8",
     "title":       "Lesson 3B, Slide 24",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t24",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/24'>compute structure slides</a>"
   },
   {
     "id":          "L3AT9",
     "title":       "Lesson 3B, Slide 25",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t25",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/25'>compute structure slides</a>"
   },
   {
     "id":          "L3AT10",
     "title":       "Lesson 3B, Slide 26",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t26",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/26'>compute structure slides</a>"
   },
   {
     "id":          "L3AT11",
     "title":       "Lesson 3B, Slide 28",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t28",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/28'>compute structure slides</a>"
   },
   {
     "id":          "L3AT12",
     "title":       "Lesson 3B, Slide 37",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t37",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/37'>compute structure slides</a>"
   },
   {
     "id":          "L3AT13",
     "title":       "Lesson 3B, Slide 38",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t38",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/38'>compute structure slides</a>"
   },
   {
     "id":          "L3AT14",
     "title":       "Lesson 3B, Slide 48",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t48",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/48'>compute structure slides</a>"
   },
   {
     "id":          "L3AT15",
     "title":       "Lesson 3B, Slide 49",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t49",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/49'>compute structure slides</a>"
   },
   {
     "id":          "L3AT16",
     "title":       "Lesson 3B, Slide 52",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t52",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/52'>compute structure slides</a>"
   },
   {
     "id":          "L3AT17",
     "title":       "Lesson 3B, Slide 56",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t56",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/56'>compute structure slides</a>"
   },
   {
     "id":          "L3AT18",
     "title":       "Lesson 3B, Slide 59",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t59",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/59'>compute structure slides</a>"
   },
   {
     "id":          "L3AT19",
     "title":       "Lesson 3B, Slide 60",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t60",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/60'>compute structure slides</a>"
   },
   {
     "id":          "L3AT20",
     "title":       "Lesson 3B, Slide 67",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t67",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/67'>compute structure slides</a>"
   },
   {
     "id":          "L3AT21",
     "title":       "Lesson 3B, Slide 72",
     "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,asm_mips",
+    "modes":       "newbie,intro,ep,asm_mips",
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t72",
-    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d'>compute structure slides</a>"
+    "description": "Code Snip from <a href='https://es.slideshare.net/AlejandroCalderonMat/t3-ensamblador-iiv1d/72'>compute structure slides</a>"
   }
 ]

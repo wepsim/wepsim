@@ -15,17 +15,13 @@ main:
         #   sign  -> 1000 0000 0000 0000 ...
         li  $t5 0x8000
         sll $t5 $t5 16
-        li  $t0 0x0000 
-        or  $t5 $t5 $t0         
         #   exp.  -> 0111 1111 1000 0000 ...
         li  $t6 0x7F80
         sll $t6 $t6 16
-        li  $t0 0x0000 
-        or  $t6 $t6 $t0         
         #   mant. -> 0000 0000 0111 1111 ...
-        li  $t7 0x0007
+        li  $t7 0x001F
         sll $t7 $t7 16
-        li  $t0 0xFFFF 
+        ori $t0 $0 0xFFFF
         or  $t7 $t7 $t0         
 
         # 3.- to apply mask

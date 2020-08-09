@@ -30,8 +30,9 @@
         if (true === reset_memory)
         {
             var SIMWARE = get_simware() ;
-	    if (SIMWARE.firmware.length !== 0)
+	    if (SIMWARE.firmware.length !== 0) {
                 update_memories(SIMWARE) ;
+            }
         }
 
         if (true === reset_cpu)
@@ -97,6 +98,7 @@
     {
 	DBG_stop = true;
         DBG_limit_instruction = 0 ;
+        webui_button_set_stop('exebar1') ;
 
 	return true ;
     }
@@ -112,6 +114,7 @@
 
         DBG_stop = false ;
         DBG_limit_instruction = 0 ;
+        webui_button_set_start('exebar1') ;
 
         wepsim_execute_chainplay(wepsim_execute_stop) ;
 	return true ;

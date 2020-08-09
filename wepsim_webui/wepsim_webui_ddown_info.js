@@ -132,7 +132,7 @@
                          '	      <ws-l3d id="l3d1"></ws-l3d>' +
                          '	 </div>' +
                          '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">' +
-                         '	      <div id="config_HW" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>' +
+                         '	      <ws-hw id="infohw1"></ws-hw>' +
                          '       </div>' ;
                    if (this.layout === 'compact') {
                    o1 += '<div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">' +
@@ -143,35 +143,21 @@
                          '      <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">' +
                          '' +
                          '	    <div class="row p-0">' +
-                         '		<div class="container col-12" role="none">' +
-                         '		<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">' +
-                         '' +
-                         '		      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">' +
-                         '			    <button onclick="wsweb_dialog_open(\'load_save_firmware\'); return true;"' +
-                         '				    style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
-                         '				    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file"></em><br><strong><span data-langkey="Load/Save">Load/Save</span></strong></button>' +
-                         '' +
-                         '			    <button style="background-color: #CCCCCC"' +
-                         '				    id="mcc1"' +
-                         '				    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"' +
-                         '				    data-transition="none" data-inline="true"' +
-                         '				    onclick="wsweb_firmware_compile();' +
-                         '					     return false;">' +
-                         '				    <em class="fas fa-sign-out-alt"></em><br><strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong></button>' +
-                         '			    <button style="background-color: #DDDDDD"' +
-                         '				    id="mob1"' +
-                         '				    class="btn btn-light shadow-sm col-auto px-0 py-1"' +
-                         '				    onclick="wsweb_dialog_open(\'binary_fir\');' +
-                         '					     return false;">' +
-                         '					     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a. + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>' +
-                         '					     </button>' +
-                         '		      </div>' +
-                         '' +
+                         '		<div class="container col-12 pr-0" role="none">' +
+                         '		<div class="col-sm px-1" role="toolbar" ' + 
+                         '                   aria-label="MicroCode Toolbar">' +
+                         '                 <ws-compilationbar' +
+                         '                     icons="up"' +
+                         '                     components="btn_mloadsave,btn_mcompile,btn_mshowbin"' +
+                         '                     class="btn-group m-1 d-flex flex-wrap"' +
+                         '                     aria-label="MicroCode Toolbar buttons"></ws-compilationbar>' +
                          '		</div>' +
                          '		</div>' +
                          '	    </div>' +
                          '' +
-                         '	    <div id="t3_firm_placeholder2" class="ui-body-d ui-content px-2 py-0" style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+                         '	    <div id="t3_firm_placeholder2" ' + 
+                         '               class="ui-body-d ui-content px-2 py-0" ' + 
+                         '               style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
                          '	    </div>' +
                          '' +
                          '      </div>' +
@@ -186,28 +172,13 @@
                          '      <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">' +
                          '' +
                          '	    <div class="row py-0 px-1">' +
-                         '		<div class="container col-12" role="none">' +
+                         '		<div class="container col-12 pr-0" role="none">' +
                          '		<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">' +
-                         '' +
-                         '		      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">' +
-                         '			    <button onclick="wsweb_dialog_open(\'load_save_assembly\'); return true;"' +
-                         '				    style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
-                         '				    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file"></em><br><strong><span data-langkey="Load/Save">Load/Save</span></strong></button>' +
-                         '' +
-                         '			    <button style="background-color: #CCCCCC"' +
-                         '				    id="acc1"' +
-                         '				    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"' +
-                         '				    data-transition="none" data-inline="true"' +
-                         '				    onclick="wsweb_assembly_compile();' +
-                         '					     return false;">' +
-                         '					<em class="fas fa-sign-out-alt"></em><br><strong><span data-langkey="Compile">Compile</span></strong></button>' +
-                         '			    <button style="background-color: #DDDDDD"' +
-                         '				    id="aob1"' +
-                         '				    class="btn btn-light shadow-sm col-auto px-0 py-1"' +
-                         '				    onclick="wsweb_dialog_open(\'binary_asm\');' +
-                         '					     return false;">' +
-                         '				<em class="fas fa-memory"></em><br><strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Layout</span></strong></button>' +
-                         '		      </div>' +
+                         '                   <ws-compilationbar' +
+                         '                       icons="up"' +
+                         '                       components="btn_aloadsave,btn_acompile,btn_ashowbin"' +
+                         '                       class="btn-group m-1 d-flex flex-wrap"' +
+                         '                       aria-label="Assembly Toolbar buttons"></ws-compilationbar>' +
                          '		</div>' +
                          '		</div>' +
                          '	    </div>' +

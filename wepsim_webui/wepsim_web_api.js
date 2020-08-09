@@ -231,7 +231,7 @@
             if (simhw_active() !== null)
             {
 	        wepsim_execute_instruction() ;
-	        simcoreui_init_hw('#config_HW') ;
+	        simcoreui_show_hw() ;
             }
 
             // add if recording
@@ -420,8 +420,9 @@
 	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
+        			          simcoreui_init_hw("#config_HW") ;
 					  $('[data-toggle=tooltip]').tooltip('hide');
-					  simcoreui_init_hw('#config_HW') ;
+	                                  simcoreui_show_hw() ;
 					  var ws_idiom = get_cfg('ws_idiom');
 					  i18n_update_tags('gui', ws_idiom) ;
                                         }
@@ -430,8 +431,8 @@
     function wsweb_set_details ( opt )
     {
             if ( 
-              (simhw_active() !== null) && 
-              (typeof hash_detail2action[opt] !== "undefined") 
+                 (simhw_active() !== null) && 
+                 (typeof hash_detail2action[opt] !== "undefined") 
             )
             {
                 hash_detail2action[opt]() ;
@@ -997,7 +998,7 @@
 			'	  class="form-control btn-outline-dark" placeholder="Title for the notification" style="min-width: 90%;"/></p>' +
 		        '<label for="frm_message1"><em>'  + i18n_get('dialogs',wsi,'Message') + ':</em></label>' +
 			'<p><textarea aria-label="message" id="frm_message1" rows="5" ' +
-			'	      class="form-control btn-outline-dark" placeholder="Message for the notification" style="min-width: 90%;"/></p>' +
+			'	      class="form-control btn-outline-dark" placeholder="Message for the notification" style="min-width: 90%;"/></textarea></p>' +
 		        '<label for="frm_duration1"><em>' + i18n_get('dialogs',wsi,'Duration') + ':</em></label>' +
 			'<p><input aria-label="duration" id="frm_duration1" type="number" ' +
 			'	  class="form-control btn-outline-dark" placeholder="Duration for the notification in seconds" style="min-width: 90%;"/></p>' +

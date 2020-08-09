@@ -20,7 +20,7 @@
 
 
         /*
-         *  Tool bar
+         *  Toolbar
          */
 
         /* jshint esversion: 6 */
@@ -232,9 +232,8 @@
 		         '        title="This button opens the \'Examples\' dialog."' +
 		         '        onclick="wsweb_dialog_open(\'examples\');' +
 		         '	           return false;">' ;
-                if (robj.icons_str == "yes") {
-                    o += '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;' ;
-                }
+                    o += (robj.icons_str == "no") ? '' : '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>' ;
+                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                     o += '<strong><span data-langkey=\'Examples\'>Examples</span></strong></button>' ;
 
 		 return o ;
@@ -249,9 +248,8 @@
 			 '        title="This button opens the \'Help\' dialog."' +
 		         '        onclick="wsweb_dialog_open(\'help\');' +
 			 '	           return false;">' ;
-                if (robj.icons_str == "yes") {
-                    o += '<em class="fas fa-info d-none d-sm-inline text-secondary"></em>&nbsp;' ;
-                }
+                    o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-info d-none d-sm-inline text-secondary"></em>' ;
+                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                     o += '<strong><span data-langkey=\'Help\'>Help</span></strong></button>' ;
 
 		 return o ;
@@ -266,9 +264,8 @@
 			 '        title="This button opens the \'Configuration\' dialog."' +
                          '        onclick="wsweb_dialog_open(\'config\');' +
 			 '    	          return false;">' ;
-                if (robj.icons_str == "yes") {
-                    o += '<em class="fas fa-cogs d-none d-sm-inline text-secondary"></em>&nbsp;' ;
-                }
+                    o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-cogs d-none d-sm-inline text-secondary"></em>&nbsp;' ;
+                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                     o += '<strong><span class="d-none d-sm-inline-flex" data-langkey=\'Configuration\'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>' ;
 
 		 return o ;
@@ -282,9 +279,8 @@
 			 '        title="This button opens the \'Notifications\' dialog."' +
                          '        onclick="wsweb_dialog_open(\'notifications\');' +
 			 '	           return false;">' ;
-                if (robj.icons_str == "yes") {
-                    o += '<em class="fas fa-comment-alt d-none d-sm-inline text-secondary"></em>&nbsp;' ;
-                }
+                    o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-comment-alt d-none d-sm-inline text-secondary"></em>&nbsp;' ;
+                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                     o += '<strong><span class="d-none d-md-inline-flex" data-langkey=\'Notifications\'>Notifications</span><span class="d-md-none">Notif.</span></strong></button>' ;
 
 		 return o ;
@@ -298,9 +294,8 @@
 			 '        title="This button toggles the \'Record\' bar."' +
                          '        onclick="wsweb_recordbar_toggle();' +
 			 '	           return false;">' ;
-                if (robj.icons_str == "yes") {
-                    o += '<em class="fas fa-circle d-none d-sm-inline text-secondary"></em>&nbsp;' ;
-                }
+                    o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-circle d-none d-sm-inline text-secondary"></em>&nbsp;' ;
+                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                     o += '<strong><span data-langkey=\'RecordBar\'>RecordBar</span></strong></button>' ;
 
 		 return o ;
@@ -315,9 +310,8 @@
 		         '        onclick="wsweb_dialog_open(\'state\');' +
 			 '	           $(\'#bot_check1\').carousel(0);' +
 			 '                 return false;">' ;
-                if (robj.icons_str == "yes") {
-                    o += '<em class="fas fa-camera d-none d-sm-inline text-secondary"></em>&nbsp;' ;
-                }
+                    o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-camera d-none d-sm-inline text-secondary"></em>&nbsp;' ;
+                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                     o += '<strong><span data-langkey=\'States\'>States</span></strong></button>' ;
 
 		 return o ;
@@ -332,9 +326,8 @@
 			 '        title="This button opens the \'Configuration\' dialog."' +
 			 '        onclick="wsweb_select_action(\'checkpoint\');' +
 			 '    	           return false;">' ;
-                if (robj.icons_str == "yes") {
-                    o += '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;' ;
-                }
+                    o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;' ;
+                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                     o += '<strong><span class="d-none d-md-inline-flex" data-langkey=\'Checkpoint\'>Checkpoint</span><span class="d-md-none">ChkPoint</span></strong></button>' ;
 
 		 return o ;

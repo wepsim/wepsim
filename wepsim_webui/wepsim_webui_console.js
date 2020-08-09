@@ -36,14 +36,18 @@
 	      {
 		    // html holder
 		    var o1 = '<label class="my-0" for="kdb_con" style="min-width:95%">' +
-			     '   <img alt="monitor" height="55" src="images/monitor2.png" />' +
+			  // '  <img alt="monitor" height="55" src="images/monitor2.png" />' +
+                             '  <i style="height:5vh; opacity:0.6;" ' + 
+                             '     class="fas fa-desktop fa-2x mb-2"></i>' +
 			     '</label>' +
 			     '<textarea aria-label="monitor"' +
 			     '          style="width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"' +
 			     '          placeholder="WepSIM" id="kdb_con" rows="8" readonly></textarea>' +
                              '' +
                              '<label class="my-0" for="kdb_key" style="min-width:95%">' +
-                             '   <img alt="keyboard" height="35" src="images/keyboard1.png" />' +
+                          // '  <img alt="keyboard" height="35" src="images/keyboard1.png" />' +
+                             '  <i style="height:5vh; width:10vw; opacity:0.6;" ' + 
+                             '     class="far fa-keyboard fa-2x mt-2 mb-1"></i>' +
                              '</label>' +
                              '<textarea aria-label="keyboard"' +
                              '          style="min-width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"' +

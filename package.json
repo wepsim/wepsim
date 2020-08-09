@@ -4,14 +4,16 @@
   "author": "acaldero@inf.uc3m.es",
   "version": "1.1.8",
   "devDependencies": {
-    "jshint": "^2.10.0",
-    "terser": "^4.6.0"
+    "jshint": "^2.11.1",
+    "jq": "^1.7.2",
+    "terser": "^4.8.0"
   },
   "scripts": {
-    "test-source1":        "./devel/test_jshint.sh",
-    "test-wepsim-node1":   "./devel/test_wepsimnode.sh rs",
-    "test-wepsim-node2":   "./devel/test_wepsimnode.sh co"
+    "test-source1": "./devel/test_jshint.sh",
+    "test-wepsim-node1": "./devel/test_wepsimnode.sh rs",
+    "test-wepsim-node2": "./devel/test_wepsimnode.sh co"
   },
   "dependencies": {
+    "yargs": "^15.4.1"
   }
 }

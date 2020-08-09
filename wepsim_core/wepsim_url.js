@@ -175,7 +175,7 @@
 				   {
 				      if (typeof response == "undefined") {
 					  wepsim_notify_error("<strong>ERROR</strong>",
-					                      "File " + url + " could not be fetched:" +
+					                      "File " + url + " could not be fetched:\n" +
                                                               " * Please check that you are on-line.") ;
 					  return ;
 				      }

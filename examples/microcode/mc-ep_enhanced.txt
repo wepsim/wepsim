@@ -3,17 +3,60 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-
-##
-## Microcode Section
-##
-
 begin
 {
-    fetch:          (T2, C0),
+                  # if (NOT INT) go fetch
+                    (A0=0, B=1, C=1, MADDR=fetch),
+                  # push PC
+                    (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
+                    (T2=1, M1=0, C1),
+                    (BW=11, TA=1, TD=1, W=1)
+                  # push SR
+                    (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
+                    (T8=1, M1=0, C1),
+                    (BW=11, TA=1, TD=1, W=1),
+                  # MBR <- DB <- INTV
+                    (INTA, BW=11, M1=1, C1=1),
+                  # RT1 <- MBR
+                    (T1=1, C4=1),
+                  # MAR <- RT1*4
+                    (MA=1, MB=10, MC=1, SELCOP=1100, T6, M2=0, C0),
+                  # MBR <- MP[MAR]
+                    (TA=1, R=1, BW=11, M1=1, C1=1),
+                  # PC <- MAR
+                    (T1, M2=0, C2),
+
+    fetch:         
+                  # MAR <- PC
+                    (T2, C0),
+                  # MBR <- M[MAR]
                     (TA, R, BW=11, M1=1, C1=1),
+                  # RI <- MBR, PC <- PC + 4
                     (M2, C2, T1, C3),
+                  # go co2maddr
                     (A0, B=0, C=0)
+}
+
+
+#
+# INT
+#
+
+reti {
+        co=111110,
+        nwords=1,
+        {
+              # pop SR
+              (MR=1, SELA=11101, T9, C0),
+              (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),
+              (TA=1, R=1, BW=11, M1=1, C1),
+              (T1=1, M7=0, C7),
+              # pop PC
+              (MR=1, SELA=11101, T9, C0),
+              (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),
+              (TA=1, R=1, BW=11, M1=1, C1),
+              (T1=1, M2=0, C2, A0=1, B=1 ,C=0)
+        }
 }
 
 
@@ -33,6 +76,18 @@ and reg1 reg2 reg3 {
             }
 }
 
+andi reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=1, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
 or reg1 reg2 reg3 {
             co=000000,
             cop=0001,
@@ -42,6 +97,18 @@ or reg1 reg2 reg3 {
             reg3=reg(15,11),
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+ori reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -64,6 +131,18 @@ xor reg1 reg2 reg3 {
             reg3=reg(15,11),
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+xori reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -181,19 +260,20 @@ srl reg1 reg2 val {
 }
 
 sll reg1 reg2 val {
-            co=111111,
+            co=011000,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
             val=inm(5,0),
             {
-                (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
-                (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-        loop10: (A0=0, B=0, C=110, MADDR=bck10ftch),
-                (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
+                (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1, C5=1),
+                (MC=1, MR=0, SELA=10000, SELB=10000, MA=0, MB=0, SELCOP=1, T6=1, SELC=10101),
+                (MC=1, MR=0,                         MA=1, MB=1, SELCOP=1, SELP=11, M7, C7),
+                (A0=0, B=0, C=110, MADDR=bckAftch),
+         loopA: (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
                 (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
-                (A0=0, B=1, C=0, MADDR=loop10),
-     bck10ftch: (A0=1, B=1, C=0)
+                (A0=0, B=1, C=110, MADDR=loopA),
+      bckAftch: (A0=1, B=1, C=0)
             }
 }
 
@@ -219,6 +299,16 @@ li reg val {
             val=inm(15,0),
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+            }
+}
+
+liu reg val {
+            co=111100,
+            nwords=1,
+            reg=reg(25,21),
+            val=inm(15,0),
+            {
+                (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -288,7 +378,7 @@ lw reg1 (reg2) {
             {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=11, M1=1, C1=1),
-                (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
+                (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -535,13 +625,34 @@ nop {
         }
 }
 
-liu reg val {
-            co=111100,
+savesr reg1 {
+	co=100011,
+	nwords=1,
+	reg1 = reg(25,21),
+	{
+		(T8=1, SELC=10101, LC=1, A0=1, B=1, C=0)
+	}
+}
+
+restoresr reg1 {
+	co=100100,
+	nwords=1,
+	reg1 = reg(25,21),
+	{
+		(MR=0, SELA=10101, T9=1, M7=0, C7, A0=1, B=1, C=0)
+	}
+}
+
+lw reg1 reg2+(reg3) {
+            co=100110,
             nwords=1,
-            reg=reg(25,21),
-            val=inm(15,0),
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            reg3 = reg(15,11),
             {
-                (SE=1, OFFSET=0, SIZE=10000, SE=0, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (MR=0, SELA=10000, MA=0, SELB=1011, MB=0, MC=1, SELCOP=1001, T6=1, C0),
+                (TA=1, R=1, BW=11, M1=1, C1=1),
+                (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -585,7 +696,6 @@ registers
         30=$fp,
         31=$ra
 }
-
 
 ##
 ## Pseudo-instructions Section

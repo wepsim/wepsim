@@ -308,7 +308,6 @@
 
 	    // initialize hw UI
 	    simcore_init_ui(hash_detail2init) ;
-	    simcoreui_init_hw('#config_HW') ;
 
             // info + warning
 	    wepsim_notify_warning('<strong>WARNING</strong>',
@@ -656,7 +655,7 @@
 				  wepsim_notify_error('<h4>Warning:<br/>' + installLocFind.error.name + '</h4>',
 						      'FirefoxOS/KaiOS installation was cancelled.') ;
 			      } ;
-		        } ;
+		        }
 		    } ;
             }
     }

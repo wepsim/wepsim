@@ -26,13 +26,14 @@ echo ""
 echo "  WepSIM packer"
 echo " ---------------"
 echo ""
-echo "  Requirements:"
-echo "  * terser"
-echo "  * jq"
-echo ""
 if [ $# -gt 0 ]; then
      set -x
 fi
+
+# install dependencies
+echo "  Requirements:"
+echo "  * terser, jq, yargs, jshint"
+npm install
 
 # skeleton
 echo "  Packing:"
@@ -70,7 +71,6 @@ cat sim_hw/sim_hw_index.js \
     sim_sw/sim_lang.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js \
-    sim_sw/sim_lang_cis2native.js \
     \
     sim_core/sim_cfg.js \
     sim_core/sim_core_record.js \
@@ -154,8 +154,8 @@ cat ws_dist/min.sim_all.js \
     wepsim_webui/wepsim_webui_dbg_asm.js \
     wepsim_webui/wepsim_webui_cpusvg.js \
     wepsim_webui/wepsim_webui_authors.js \
+    wepsim_webui/wepsim_webui_hw.js \
     wepsim_webui/wepsim_wui_registers.js \
-    wepsim_webui/wepsim_wui_hw.js \
     \
     wepsim_webui/wepsim_webui_loadfile.js \
     wepsim_webui/wepsim_webui_savefile.js \
@@ -167,6 +167,7 @@ cat ws_dist/min.sim_all.js \
     wepsim_webui/wepsim_web_ui_quickcfg.js \
     wepsim_webui/wepsim_webui_recordbar.js \
     wepsim_webui/wepsim_webui_executionbar.js \
+    wepsim_webui/wepsim_webui_compilationbar.js \
     wepsim_webui/wepsim_webui_toolbar.js \
     \
     wepsim_webui/wepsim_web_api.js \
@@ -290,12 +291,12 @@ cp   wepsim/web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 echo "  * ws_dist/*.sh"
 cp   docs/manifest.webapp         ws_dist/
-cp wepsim/nodejs/wepsim_node.sh   ws_dist/
+cp wepsim/nodejs/wepsim.sh        ws_dist/
 chmod a+x ws_dist/*.sh
 
 #  json: update processors
-./ws_dist/wepsim_node.sh  export-hardware ep  > ws_dist/examples/hardware/ep/hw_def.json
-./ws_dist/wepsim_node.sh  export-hardware poc > ws_dist/examples/hardware/poc/hw_def.json
+./ws_dist/wepsim.sh -a export-hardware -m ep  > ws_dist/examples/hardware/ep/hw_def.json
+./ws_dist/wepsim.sh -a export-hardware -m poc > ws_dist/examples/hardware/poc/hw_def.json
 
 # the end
 echo ""

@@ -150,7 +150,7 @@ function decimal2binary(number, size)
 {
 	var num_bits = number.toString(2);
 	if (num_bits.length > WORD_LENGTH)
-		return [num_bits, size-num_bits.length];		
+		return [num_bits, size-num_bits.length];
 
 	num_bits = (number >>> 0).toString(2);
 	if (number >= 0)
@@ -207,7 +207,7 @@ function get_candidate ( advance, instruction )
 				min = candidates[i];
 				candidate = i;
 			}
-		}	
+		}
 	}
 
 	return candidate ? parseInt(candidate) : candidate;
@@ -215,23 +215,23 @@ function get_candidate ( advance, instruction )
 
 function reset_assembly (nwords)
 {
-	return "0".repeat(WORD_LENGTH*nwords);		
+	return "0".repeat(WORD_LENGTH*nwords);
 }
 
 function assembly_replacement (machineCode, num_bits, startbit, stopbit, free_space)
 {
 	var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
-	machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);	
+	machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);
 
 	return machineCode;
 }
 
 function assembly_co_cop(machineCode, co, cop)
-{		
+{
         var xr_info = simhw_sim_ctrlStates_get() ;
 
 	if (co !== false)
-	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0); 	
+	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0);
 	if (cop !== false)
 	    machineCode = assembly_replacement(machineCode, cop, xr_info.ir.default_eltos.cop.length, 0, 0);
 
@@ -242,7 +242,7 @@ function writememory_and_reset ( mp, gen, nwords )
 {
 	if (gen.byteWord >= WORD_BYTES)
         {
-	    mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;               			
+	    mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;
 
             gen.seg_ptr     = gen.seg_ptr + WORD_BYTES ;
             gen.byteWord    = 0 ;
@@ -329,7 +329,7 @@ function read_data ( context, datosCU, ret )
 		   //  * etiq1: *
 		   //  * etiq2: *  .word 2, 4
 		   //
-	
+
 		   var possible_tag = "" ;
 		   while (!is_directive_datatype(getToken(context)) && !is_end_of_file(context))
 		   {
@@ -339,7 +339,7 @@ function read_data ( context, datosCU, ret )
                       // check tag
 		      if ("TAG" != getTokenType(context))
 			  return langError(context, "Expected tag or directive but found '" + possible_tag + "' instead" ) ;
-		
+
 		      var tag = possible_tag.substring(0, possible_tag.length-1);
 
    		      if (!isValidTag(tag))
@@ -380,13 +380,13 @@ function read_data ( context, datosCU, ret )
                         {
 				var number;
 				var label_found = false;
-		
+
 				if ((number=isOctal(possible_value)) !== false); // Octal value 072
 				else if ((number=isHex(possible_value)) !== false); // Hex value 0xF12
 				else if ((number=isDecimal(possible_value)) !== false); // Decimal value 634
 				else if ((number=isChar(possible_value)) !== false); // Char value 'a'
 
-				// Error	
+				// Error
 				else {
 					if (".word" == possible_datatype) {
 						if (!isValidTag(possible_value))
@@ -394,7 +394,7 @@ function read_data ( context, datosCU, ret )
 						if (context.firmware[possible_value])
 							return langError(context, "A tag can not have the same name as an instruction (" + possible_value + ")");
 						number = 0;
-						label_found = true;	
+						label_found = true;
 					}
 					else return langError(context, "Expected value for numeric datatype but found '" + possible_value + "' instead");
 				}
@@ -402,7 +402,7 @@ function read_data ( context, datosCU, ret )
 				// Get value size in bytes
 				var size = get_datatype_size(possible_datatype);
 
-				// Decimal --> binary	
+				// Decimal --> binary
 			        var a = decimal2binary(number, size*BYTE_LENGTH);
 			        num_bits = a[0] ;
                                 free_space = a[1] ;
@@ -420,14 +420,14 @@ function read_data ( context, datosCU, ret )
 					gen.byteWord++;
 					// Word filled
                                         writememory_and_reset(ret.mp, gen, 1) ;
-				}	
-	
+				}
+
 		                // Store tag
                                 if ("" != possible_tag) {
 		                    ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16);
 				    possible_tag = "";
 				}
-				
+
 				// Label as number (later translation)
 				if (label_found)
 					ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value,
@@ -437,9 +437,9 @@ function read_data ( context, datosCU, ret )
 											rel:undefined,
 											nwords:1,
 											labelContext:getLabelContext(context) };
-					
+
 				// Store number in machine code
-				gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(size+gen.byteWord), BYTE_LENGTH*gen.byteWord, free_space); 		
+				gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(size+gen.byteWord), BYTE_LENGTH*gen.byteWord, free_space);
 				gen.byteWord+=size;
 
 				// optional ','
@@ -510,9 +510,9 @@ function read_data ( context, datosCU, ret )
 						// Word filled
                                                 writememory_and_reset(ret.mp, gen, 1) ;
 						if (gen.seg_ptr%align_offset == 0 && gen.byteWord == 0)
-							break;	
+							break;
 						gen.byteWord++;
-					}	
+					}
 			}
 
 			nextToken(context) ;
@@ -548,12 +548,12 @@ function read_data ( context, datosCU, ret )
                                         writememory_and_reset(ret.mp, gen, 1) ;
 
 					if (possible_value[i] == "\"")
-                                            continue;			
-	
+                                            continue;
+
 					num_bits = possible_value.charCodeAt(i).toString(2);
 
 					// Store character in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length); 	
+					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length);
 					gen.byteWord++;
 				}
 
@@ -561,17 +561,17 @@ function read_data ( context, datosCU, ret )
                                 {
                                 	// Word filled
                                         writememory_and_reset(ret.mp, gen, 1) ;
-					
+
 					num_bits = "\0".charCodeAt(0).toString(2);
-			
+
 					// Store field in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length); 	
+					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length);
 					gen.byteWord++;
 				}
 
 				// optional ','
 				nextToken(context);
-	
+
 				if ("," == getToken(context))
 				    nextToken(context);
 
@@ -597,7 +597,7 @@ function read_data ( context, datosCU, ret )
 	   {
 		ret.mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;
                 gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
-	   }		
+	   }
 
            ret.seg[seg_name].end = gen.seg_ptr ;  // end of segment is just last pointer value...
 }
@@ -614,8 +614,13 @@ function read_text ( context, datosCU, ret )
 	   // get firmware and pseudoinstructions
 	   var firmware = context.firmware;
 	   var pseudoInstructions = context.pseudoInstructions;
+	   var finish = [] ;
 	   var isPseudo = false;
+	   var pfinish = [] ;
 	   var counter = -1;
+	   var candidate ;
+	   var npseudoInstructions = 0 ;
+	   var pseudo_fields = {} ;
 
 	   // Fill register names
 	   var registers = {} ;
@@ -627,26 +632,34 @@ function read_text ( context, datosCU, ret )
 	   }
 
            nextToken(context) ;
-		
+
 	   // Loop while token read is not a segment directive (.text/.data/...)
 	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context))
            {
 		// check tag or error
-		while (!isPseudo && typeof firmware[getToken(context)] === "undefined" && !is_end_of_file(context))
+		while ( 
+                   (! isPseudo) && 
+                   (typeof firmware[getToken(context)] === "undefined") && 
+                   (! is_end_of_file(context)) 
+                )
                 {
 			var possible_tag = getToken(context);
-	
-			// check tag		
-		        if ("TAG" != getTokenType(context))
-				return langError(context, "Expected tag or instruction but found '" + possible_tag + "' instead" );
-	
+
+			// check tag
+		        if ("TAG" != getTokenType(context)) {
+			    return langError(context, "Expected tag or instruction but found '" + possible_tag + "' instead" );
+                        }
+
 		        var tag = possible_tag.substring(0, possible_tag.length-1);
-   		        if (!isValidTag(tag))
-				return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + tag + "' instead");
-			if (firmware[tag])
-				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
-			if (ret.labels2[tag])
-				return langError(context, "Repeated tag: '" + tag + "'");
+   		        if (!isValidTag(tag)) {
+			    return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + tag + "' instead");
+                        }
+			if (firmware[tag]) {
+			    return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
+                        }
+			if (ret.labels2[tag]) {
+			    return langError(context, "Repeated tag: '" + tag + "'");
+                        }
 
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
@@ -661,19 +674,19 @@ function read_text ( context, datosCU, ret )
 
 		// get instruction
 		var instruction = null ;
-		if (!isPseudo) {
-			var finish = [] ;
+		if (! isPseudo) {
+			finish = [] ;
 			instruction = getToken(context) ;
 		}
 		else {
-			instruction = finish[candidate][counter++] ;
+			instruction = pfinish[counter++] ;
                 }
 
-		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
-		var signature_user_fields = [];		// signature user fields
-		var advance = [];			// array that indicates wheather each signature can be considered or not
-		var max_length = 0;			// max number of parameters of the signatures
-		var binaryAux = [];			// necessary parameters of the fields of each signature		
+		var signature_fields      = [];	// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var signature_user_fields = [];	// signature user fields
+		var advance = [];		// array that indicates wheather each signature can be considered or not
+		var max_length = 0;		// max number of parameters of the signatures
+		var binaryAux  = [];		// necessary parameters of the fields of each signature
 
 		// Fill parameters
 		var firmware_instruction_length = 0 ;
@@ -681,6 +694,7 @@ function read_text ( context, datosCU, ret )
 		    firmware_instruction_length = firmware[instruction].length ;
 		}
 
+		var val = [] ;
 		for (i=0; i<firmware_instruction_length; i++)
 		{
 			signature_fields[i]      = firmware[instruction][i].signature.split(",") ;
@@ -689,56 +703,76 @@ function read_text ( context, datosCU, ret )
 			signature_user_fields[i].shift() ;
 			advance[i]   = 1 ;
 			binaryAux[i] = [] ;
-			max_length = Math.max(max_length, signature_fields[i].length) ;
+			max_length   = Math.max(max_length, signature_fields[i].length) ;
+			finish[i]    = [] ;
 
 			// pseudoinstruction
-			if ( (typeof pseudoInstructions[instruction] !== "function") &&
-			     (pseudoInstructions[instruction]) )
+			if (
+                             (typeof pseudoInstructions[instruction] !== "function") &&
+			     (pseudoInstructions[instruction]) &&
+                             (typeof firmware[instruction][i].finish !== "undefined")
+                           )
                         {
-				finish[i] = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ") ;
-				finish[i].pop() ;
-				isPseudo = true ;
-				var npseudoInstructions = 0 ;
-				var pseudo_fields = {} ;
+				val = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ") ;
+				val.pop() ;
+				finish[i] = val ;
+
+				npseudoInstructions = 0 ;
 			}
 		}
 
 		// Iterate over fields
+		var converted;
+		var value;
+
 		var s = [];
                 s[0] = instruction;
 		for (i=0; i<max_length; i++)
                 {
-                        // get next field
-			if (counter == -1) {
+                        // get next field...
+			if (counter == -1)
+                        {
 				// optional ','
 				nextToken(context);
-				if ("," == getToken(context))
+				if ("," == getToken(context)) {
 				    nextToken(context);
-				var value = getToken(context);
-			}	
-			else {
-				var aux_fields = finish[candidate][counter++];
+                                }
+
+                                // ... from source
+				value = getToken(context);
+			}
+			else
+                        {
+                                // ... from pseudoins (associated code)
+				var aux_fields = pfinish[counter++];
 				if (pseudo_fields[aux_fields])
-					var value = pseudo_fields[aux_fields];
-				else
-					var value = aux_fields;
+				     value = pseudo_fields[aux_fields];
+				else value = aux_fields;
 			}
 
-			var converted;
+			if (("TAG" != getTokenType(context)) && (!firmware[value])) {
+                            s[i+1] = value ;
+                        }
 
-			if ("TAG" != getTokenType(context) && !firmware[value]) s[i+1] = value ;
-				
 			// vertical search (different signatures)
-			for (j=0; j<advance.length; j++) {
-
+			for (j=0; j<advance.length; j++)
+                        {
 				// check whether explore this alternative
-				if (advance[j] == 0)
-					continue;
-				if (i >= signature_fields[j].length) {
-					// if next token is not instruction or tag
-					if ("TAG" != getTokenType(context) && !firmware[value])
-						advance[j] = 0;
-					continue;
+				if (advance[j] == 0) {
+				    continue;
+                                }
+
+				if (i >= signature_fields[j].length)
+                                {
+				    // if next token is not instruction or tag
+				    if ( ("TAG" != getTokenType(context)) && 
+                                         (!firmware[value]) && 
+                                         (!is_end_of_file(context)) ) 
+                                    {
+				          advance[j] = 0;
+                                    }
+
+				    continue;
 				}
 
 				// get field information
@@ -748,7 +782,7 @@ function read_text ( context, datosCU, ret )
 				var label_found = false;
 				var sel_found = false;
 
-				// check field	
+				// check field
 				switch(field.type)
                 	        {
 					// 0xFFFFF,... | 23, 'b', ...
@@ -756,15 +790,15 @@ function read_text ( context, datosCU, ret )
 					case "inm":
 						if (isPseudo && "sel" == value) {
 							counter++;
-							var start = finish[candidate][counter++];
-							var stop = finish[candidate][counter++];
-			 				var value = pseudo_fields[finish[candidate][counter++]];
+							var start = pfinish[counter++];
+							var stop  = pfinish[counter++];
+			 				var value = pseudo_fields[pfinish[counter++]];
 							counter++;
 							sel_found = true;
 						}
-		
-						if ((converted = isOctal(value)) !== false);
-						else if ((converted = isHex(value)) !== false);	
+
+						     if ((converted = isOctal(value)) !== false);
+						else if ((converted = isHex(value)) !== false);
 						else if ((converted = isDecimal(value)) !== false);
 						else if ((converted = isChar(value)) !== false);
 						else {
@@ -784,17 +818,17 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-                                                        						
+
 							label_found = true;
 					        }
-				
+
 						if (sel_found)
                                                 {
 							res = decimal2binary(converted, WORD_LENGTH);
 							if (res[1] < 0) {
 							    return langError(context, "'" + value + "' is bigger than " + WORD_LENGTH + " bits");
                                                         }
-							converted = "0".repeat(res[1]) + res[0];	
+							converted = "0".repeat(res[1]) + res[0];
 							converted = converted.substring(WORD_LENGTH-start-1, WORD_LENGTH-stop);
 							converted = parseInt(converted, 2);
 							s[i+1] = "0x" + converted.toString(16);
@@ -804,14 +838,21 @@ function read_text ( context, datosCU, ret )
                                                 {
 							var res = decimal2binary(converted, size);
 							if (field.type == "address" && "rel" == field.address_type)
-								res = decimal2binary(converted - seg_ptr - WORD_BYTES, size);	
+								res = decimal2binary(converted - seg_ptr - WORD_BYTES, size);
 						}
-						
+
 						break;
 					// $1...
 					case "reg":
+						if (typeof value === "undefined") {
+							error = "Missing field in the instruction";
+							advance[j] = 0;
+							break;
+						}
+
 						var aux = false;
-						if (value.startsWith("(")) {
+						if (value.startsWith("("))
+                                                {
 							if ("(reg)" != signature_fields[j][i]) {
 								var error = "Expected register but found register between parenthesis";
 								advance[j] = 0;
@@ -819,34 +860,40 @@ function read_text ( context, datosCU, ret )
 							}
 
  							if (counter == -1) {
-								nextToken(context);
-								value = getToken(context);
+							    nextToken(context);
+							    value = getToken(context);
 							}
-							else
-                                        			value = pseudo_fields[finish[candidate][counter++]];
+							else {
+                                        		    value = pseudo_fields[pfinish[counter++]];
+						        }
+
 							aux = true;
 						}
-						else {
+						else
+						{
 							if ("(reg)" == signature_fields[j][i]) {
-								var error = "Expected register between parenthesis but found '" + value + "' instead";
-								advance[j] = 0;
-								break;
+							    var error = "Expected register between parenthesis but found '" + value + "' instead";
+							    advance[j] = 0;
+							    break;
 							}
 						}
-						if (typeof registers[value] === "undefined") {	
+
+						if (typeof registers[value] === "undefined") {
 							var error = "Expected register ($1, ...) but found '" + value + "' instead";
 							advance[j] = 0;
 							break;
 						}
 						if (aux) {
-							s[i+1] = "(" + value + ")";
-							
+						        s[i+1] = "(" + value + ")";
+
+							// check closing ')'
 							if (counter == -1) {
 								nextToken(context);
 								aux = getToken(context);
 							}
-							else
-								aux = finish[candidate][counter++];
+							else {
+								aux = pfinish[counter++];
+							}
 
 							if (")" != aux) {
 								var error = "String without end parenthesis ')'";
@@ -859,7 +906,7 @@ function read_text ( context, datosCU, ret )
                                                 value = s[i+1] ;
 						break;
 					default:
-						return langError(context, "An unknown error ocurred (1)");	
+						return langError(context, "An unknown error ocurred (1)");
 				}
 
 				// check if bits fit in the space
@@ -870,9 +917,9 @@ function read_text ( context, datosCU, ret )
 						if (field.type == "address" && "rel" == field.address_type)
 							error = "Relative value (" + (converted - seg_ptr - WORD_BYTES) + " in decimal) needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
 						else var error = "'" + value + "' needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
-						advance[j] = 0;						
+						advance[j] = 0;
 					}
-				}	
+				}
 
 				// store field
 				if (advance[j] == 1 && (!(isPseudo && counter == -1)))
@@ -888,49 +935,65 @@ function read_text ( context, datosCU, ret )
                                 	                  };
 				}
 			}
-		
+
 			if (sum_array(advance) == 0) {
 			    break;
 			}
 
 			if ("TAG" == getTokenType(context) || firmware[value]) {
-			    break;	
+			    break;
 			}
 		}
 
 		// get candidate
-		var candidate;
 		for (i=0; i<advance.length; i++)
 		{
-		     if (advance[i] == 1) {
+		     if (advance[i] == 1)
+                     {
 			 candidate = i ;
+// <TOCHECK>
+                         if (! isPseudo) {
+			      pfinish = finish[candidate] ;
+                         }
+                         isPseudo  = (isPseudo) || (typeof firmware[instruction][i].finish !== "undefined") ; 
+// </TOCHECK>
 			 break ;
 		     }
 		}
 
 		// instruction format
-		var format = "";
+		var format = "" ;
 		for (i=0; i<firmware_instruction_length; i++)
 		{
-			if (i>0 && i<firmware[instruction].length-1)
-				format += ", ";
-			if (i>0 && i==firmware[instruction].length-1)
-				format += " or ";
-			format += "'" + firmware[instruction][i].signatureUser + "'";
+			if (i>0 && i<firmware[instruction].length-1) {
+				format += ", " ;
+                        }
+			if (i>0 && i==firmware[instruction].length-1) {
+				format += " or " ;
+                        }
+			format += "'" + firmware[instruction][i].signatureUser + "'" ;
 		}
 
 		// check solution
-		var sum_res = sum_array(advance);	
-		if (sum_res == 0) {
+		var sum_res = sum_array(advance) ;
+
+		if (sum_res == 0) 
+                {
 			// No candidate
-			if (advance.length === 1)
-				return langError(context, error + ". Remember that the instruction format has been defined as: " + format);	
+			if (advance.length === 1) {
+			    return langError(context, error + ". Remember that the instruction format has been defined as: " + format);
+			}
+
 			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format + ". Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction");
 		}
-		if (sum_res > 1) {
+
+		if (sum_res > 1) 
+                {
 			// Multiple candidates
 			candidate = get_candidate(advance, firmware[instruction]);
-			if (candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
+			if (candidate === false) {
+			    return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
+			}
 		}
 
 		// store pseudo_fields[field]=value, and continue
@@ -943,11 +1006,18 @@ function read_text ( context, datosCU, ret )
 
                                 var key = "" ;
                                 var val = "" ;
+				pseudo_fields = {} ;
 				for (i=0; i<signature_fields[candidate].length; i++)
                                 {
-			          // pseudo_fields[signature_fields[candidate][i]] = s[i+1] ;
 				     key = firmware[instruction][candidate].fields[i].name ;
 				     val = s[i+1] ;
+
+                                     // if (val == "($2)") -> val = $2
+                                     if (val.startsWith("("))
+                                         val = val.substring(1, val.length) ;
+                                     if (val.endsWith(")"))
+                                         val = val.substring(0, val.length-1) ;
+
 				     pseudo_fields[key] = val ;
 				}
 
@@ -960,7 +1030,7 @@ function read_text ( context, datosCU, ret )
 			    s_ori = "&nbsp;" ; // s_ori = "---";
 			}
 
-			if (finish[candidate][counter] == "\n") {
+			if (pfinish[counter] == "\n") {
 			    counter++ ;
 			}
 		}
@@ -971,26 +1041,29 @@ function read_text ( context, datosCU, ret )
 		machineCode = assembly_co_cop(machineCode,
                                               firmware[instruction][candidate].co,
                                               firmware[instruction][candidate].cop);
-	
+
 		// store candidate fields in machine code
 		for (i=0; i<binaryAux[candidate].length; i++)
 		{
 			// tag
 			if (binaryAux[candidate][i].islabel)
-				ret.labels["0x" + seg_ptr.toString(16)] = { 	name:binaryAux[candidate][i].field_name,
-										addr:seg_ptr,
-										startbit:binaryAux[candidate][i].startbit,
-										stopbit:binaryAux[candidate][i].stopbit,
-										rel:binaryAux[candidate][i].rel,
-										nwords:firmware[instruction][candidate].nwords,
-										labelContext:getLabelContext(context) };
+                        {
+			    ret.labels["0x" + seg_ptr.toString(16)] = {	name:binaryAux[candidate][i].field_name,
+									addr:seg_ptr,
+									startbit:binaryAux[candidate][i].startbit,
+									stopbit:binaryAux[candidate][i].stopbit,
+									rel:binaryAux[candidate][i].rel,
+									nwords:firmware[instruction][candidate].nwords,
+									labelContext:getLabelContext(context) } ;
+                        }
 			// replace instruction and fields in machine code
-			else {
-				machineCode = assembly_replacement(	machineCode,
-									binaryAux[candidate][i].num_bits,
-									binaryAux[candidate][i].startbit-(-1),
-									binaryAux[candidate][i].stopbit,
-									binaryAux[candidate][i].free_space);	
+			else 
+                        {
+			    machineCode = assembly_replacement(	machineCode,
+								binaryAux[candidate][i].num_bits,
+								binaryAux[candidate][i].startbit-(-1),
+								binaryAux[candidate][i].stopbit,
+								binaryAux[candidate][i].free_space) ;
                         }
 		}
 
@@ -1009,7 +1082,7 @@ function read_text ( context, datosCU, ret )
 				default:
 					s_def = s_def + " " + s[j] + s[j+1];
 					j++;
-			}		
+			}
 		}
 
 		if (!isPseudo) {
@@ -1043,18 +1116,28 @@ function read_text ( context, datosCU, ret )
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) ;
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
-	
-		if (!isPseudo && max_length == signature_fields[candidate].length) {
-			nextToken(context) ;
-		}
 
 		// pseudoinstruction finished
-		if (isPseudo && counter == finish[candidate].length) {
-			counter = -1 ;
+		if ((isPseudo) && (counter == pfinish.length))
+                {
+			isPseudo            = false ;
+			counter             = -1 ;
 			npseudoInstructions = 0 ;
-			isPseudo = false ;
-			nextToken(context) ;
 		}
+
+                // if instruction candiates with less than max_length fields
+                //    then we read ahead next token, otherwise we need to read next token
+                var equals_fields = true ;
+                for (var c=0; c<signature_fields.length; c++) 
+                {
+                     if (max_length !== signature_fields[c].length) {
+                         equals_fields = false ;
+                         break ;
+		     }
+                }
+                if (equals_fields || (getToken(context) == ")")) {
+		    nextToken(context) ;
+                }
 
 		if (context.t > context.text.length) {
 		    break ;
@@ -1089,7 +1172,7 @@ function simlang_compile (text, datosCU)
 	   context.stackRegister	= null ;
 	   context.firmware             = {} ;
            context.comments             = [] ;
-	
+
 	   // fill firmware
 	   for (i=0; i<datosCU.firmware.length; i++)
            {
@@ -1108,16 +1191,19 @@ function simlang_compile (text, datosCU)
 						  signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
 						  isPseudoinstruction: false  });
 	   }
-	
+
 	   // fill pseudoinstructions
 	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
 	   {
 		var initial = datosCU.pseudoInstructions[i].initial;
-		var finish = datosCU.pseudoInstructions[i].finish;	
+		var finish = datosCU.pseudoInstructions[i].finish;
 
-		if (typeof context.pseudoInstructions[initial.name] === "undefined") {
-		    context.pseudoInstructions[initial.name] = 0;
-		    context.firmware[initial.name] = [];
+		if (typeof context.pseudoInstructions[initial.name] === "undefined")
+                {
+	 	    context.pseudoInstructions[initial.name] = 0;
+		    if (typeof context.firmware[initial.name] === "undefined") {
+		        context.firmware[initial.name] = [];
+		    }
 		}
 
 		context.pseudoInstructions[initial.name]++;
@@ -1153,7 +1239,7 @@ function simlang_compile (text, datosCU)
 
 	       if ("data" == ret.seg[segname].kindof) {
 			read_data(context, datosCU, ret);
-			data_found = true;	
+			data_found = true;
 	       }
 
 	       if ("text" == ret.seg[segname].kindof) {
@@ -1178,11 +1264,11 @@ function simlang_compile (text, datosCU)
 		if (typeof value === "undefined") {
 			setLabelContext(context, ret.labels[i].labelContext);
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
-		}	
+		}
 
 		// Get the words in memory (machine code) where the label is used
 		var machineCode = "";
-		var auxAddr = ret.labels[i].addr;		
+		var auxAddr = ret.labels[i].addr;
 		for (j=0; j<ret.labels[i].nwords; j++) {
 			machineCode = ret.mp["0x" + auxAddr.toString(16)] + machineCode;
 			auxAddr += WORD_BYTES;
@@ -1191,7 +1277,7 @@ function simlang_compile (text, datosCU)
 		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
 		var converted;
 
-		// Translate the address into bits	
+		// Translate the address into bits
 		if ((converted = isHex(value)) !== false) {
 			var a = decimal2binary(converted, size);
 			num_bits = a[0] ;
@@ -1203,7 +1289,7 @@ function simlang_compile (text, datosCU)
                             free_space = a[1] ;
 			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + " in decimal) needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
 			}
-		}	
+		}
  		else return langError(context, "Unexpected error (2)");
 
 		// check size
@@ -1211,7 +1297,7 @@ function simlang_compile (text, datosCU)
 		    setLabelContext(context, ret.labels[i].labelContext);
                     return langError(context, error);
                 }
-			
+
 		// Store field in machine code
 		machineCode = assembly_replacement(machineCode, num_bits, ret.labels[i].startbit-(-1), ret.labels[i].stopbit, free_space);
 
@@ -1222,7 +1308,7 @@ function simlang_compile (text, datosCU)
 			ret.mp["0x" + auxAddr.toString(16)] = machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) ;
                 	auxAddr += WORD_BYTES ;
 		}
-	 }	
+	 }
 
 	 // check if main or kmain in assembly code
 	 if (text_found) {

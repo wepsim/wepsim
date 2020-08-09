@@ -190,7 +190,7 @@
 			        "mimetype": "application/javascript",
 			        "file_extension": ".js"
 			    },
-			    "title": "WepSIM " + get_cfg("version"),
+			    "title": "WepSIM ", // + get_cfg("version"),
 			    "nteract": {
 			        "version": "nteract-on-jupyter@2.0.0"
 			    }

@@ -38,11 +38,11 @@
 + From Linux/Unix command line, please:
   * Check you have installed Node 8.10.0+, and Bash 4.4.19+
   * Download WepSIM by executing:
-    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.0/wepsim-2.1.0.zip
-    * unzip wepsim-2.1.0.zip 
-  * Execute wepsim_node.sh with the help flag in order to show the available command switches:
-    * cd wepsim-2.1.0
-    * ./wepsim_node.sh help
+    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.1/wepsim-2.1.1.zip
+    * unzip wepsim-2.1.1.zip 
+  * Execute wepsim.sh with the help flag in order to show the available command switches:
+    * cd wepsim-2.1.1
+    * ./wepsim.sh -h
 
 <a name="install-wepsim-as-pwa"/>
 
@@ -109,8 +109,8 @@ Step   | iOS                       |  Android                  | Action to perfo
 + From the command line it is possible to 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print the final state:
 
 ```bash
-./wepsim_node.sh run ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; register PC = 0x8018; memory 0x8000 = 0x8400002; memory 0x8004 = 0x8600001; memory 0x8008 = 0xa21809; memory 0x800c = 0x8400002; memory 0x8010 = 0x8600001; memory 0x8014 = 0xa2180a;
+./wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt
+register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xfffff; register PC = 0x8018; memory 0x8000 = 0x8400002; memory 0x8004 = 0x8600001; memory 0x8008 = 0xa21809; memory 0x800c = 0x8400002; memory 0x8010 = 0x8600001; memory 0x8014 = 0xa2180a;
 ```
 
 ### B) Run step by step
@@ -118,13 +118,14 @@ register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; 
 + It is also possible to 'run' 'step by step' the 'asm-ep-S1E1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each assembly instruction the state elementes that modify its value:
 
 ```bash
-./wepsim_node.sh stepbystep ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-pc(0x8000):	li $2 2:			register R2 = 0x2; register R29 = 0xffff; register PC = 0x8004
-pc(0x8004):	li $3 1:			register R3 = 0x1; register PC = 0x8008
-pc(0x8008):	add $5 $2 $3:			register R5 = 0x3; register PC = 0x800c
-pc(0x800c):	li $2 2:			register PC = 0x8010
-pc(0x8010):	li $3 1:			register PC = 0x8014
-pc(0x8014):	sub $5 $2 $3:			register R5 = 0x1; register PC = 0x8018
+./wepsim.sh -a stepbystep -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt
+pc,		instruction,			changes_from_zero_or_current_value
+pc = 0x8000,	li $2 2,			register R2 = 0x2; register R29 = 0xfffff; register PC = 0x8004
+pc = 0x8004,	li $3 1,			register R3 = 0x1; register PC = 0x8008
+pc = 0x8008,	add $5 $2 $3,			register R5 = 0x3; register PC = 0x800c
+pc = 0x800c,	li $2 2,			register PC = 0x8010
+pc = 0x8010,	li $3 1,			register PC = 0x8014
+pc = 0x8014,	sub $5 $2 $3,			register R5 = 0x1; register PC = 0x8018
 ```
 
 ### C) Run microstep by microstep
@@ -132,22 +133,23 @@ pc(0x8014):	sub $5 $2 $3:			register R5 = 0x1; register PC = 0x8018
 + And to 'run' 'microstep by microstep' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each microinstruction the state elementes that modify its value:
 
 ```bash
-./wepsim_node.sh microstepbymicrostep  ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-micropc(0x0):	T2 C0:
-micropc(0x1):	TA R BW=11 M1 C1:
-micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8004
-micropc(0x3):	A0 B=0 C=0:
-micropc(0x53):	SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0:			register R2 = 0x2; register R29 = 0xffff
-micropc(0x0):	T2 C0:
-micropc(0x1):	TA R BW=11 M1 C1:
-micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8008
-micropc(0x3):	A0 B=0 C=0:
-micropc(0x53):	SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0:			register R3 = 0x1
-micropc(0x0):	T2 C0:
-micropc(0x1):	TA R BW=11 M1 C1:
-micropc(0x2):	M2 C2 T1 C3:			register PC = 0x800c
-micropc(0x3):	A0 B=0 C=0:
-micropc(0x35):	MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0: register R5 = 0x3
+./wepsim.sh -a microstepbymicrostep -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt
+micropc,		microcode,				changes_from_zero_or_current_value
+micropc = 0x0,		T2 C0,					
+micropc = 0x1,		TA R BW=11 M1 C1,				
+micropc = 0x2,		M2 C2 T1 C3,				register PC = 0x8004
+micropc = 0x3,		A0 B=0 C=0,				
+micropc = 0x67,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,register R2 = 0x2; register R29 = 0xfffff
+micropc = 0x0,		T2 C0,					
+micropc = 0x1,		TA R BW=11 M1 C1,				
+micropc = 0x2,		M2 C2 T1 C3,				register PC = 0x8008
+micropc = 0x3,		A0 B=0 C=0,				
+micropc = 0x67,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,register R3 = 0x1
+micropc = 0x0,		T2 C0,					
+micropc = 0x1,		TA R BW=11 M1 C1,				
+micropc = 0x2,		M2 C2 T1 C3,				register PC = 0x800c
+micropc = 0x3,		A0 B=0 C=0,				
+micropc = 0x35,		MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0,register R5 = 0x3
 ```
 
 ### D) Run & check end state (example when o.k.)
@@ -155,7 +157,7 @@ micropc(0x35):	MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=10101 
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it matchs the expected state then the output is going to be**):
 
 ```bash
-./wepsim_node.sh check ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e1.txt
+./wepsim.sh -a check -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e1.txt
 OK: Execution: no error reported
 ```
 
@@ -164,8 +166,8 @@ OK: Execution: no error reported
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it fails to match the expected state then the output is going to be**):
 
 ```bash
-./wepsim_node.sh check ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e2.txt
-ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010')
+./wepsim.sh -a check -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e2.txt
+ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010'), 
 ```
 
 ### F) Run microstep by microstep with verbalized output
@@ -173,18 +175,15 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 + And finally, it is possible to execute microstep by microstep but with a more verbose description:
 
 ```bash
-./wepsim_node.sh microstepverbalized ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
+./wepsim.sh -a microstepverbalized -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt
 Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8000. Load from Internal Bus to Memory Address Register value 0x8000. 
-Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8000. Try to read a word from memory at address 0x8000 with value 8400002. Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8400002. Load from Input of Memory Data Register to Memory Data Register value 0x8400002. 
+Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8000. Memory output = 0x8400002 (Read a word from 0x8000). Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8400002. Load from Input of Memory Data Register to Memory Data Register value 0x8400002. 
 Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8004. Load from Input of Program Counter to Program Counter Register value 0x8004. Copy from Memory Data Register to Internal Bus value 0x8400002. Load from Internal Bus to Instruction Register value 0x8400002. Decode instruction. 
-Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Set bit 1 of A0A1 to value 1. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0. 
-Micropc at 0x53.	Activated signals are: SE OFFSET SIZE T3 LC MR SELC A0 B C. Associated actions are: Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Input of T3 Tristate to Internal Bus value 0x2. Copy to Register 2 the value 0x2. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Set bit 1 of A0A1 to value 1. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Copy from Input ROM to Input microaddress value 0x67. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x67.	Activated signals are: SE OFFSET SIZE T3 LC MR SELC A0 B C. Associated actions are:  Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0).  Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0).  Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Input of T3 Tristate to Internal Bus value 0x2. Copy to Register 2 the value 0x2. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Copy from Input Fetch to Input microaddress value 0x0. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0. 
 Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8004. Load from Internal Bus to Memory Address Register value 0x8004. 
-Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8004. Try to read a word from memory at address 0x8004 with value 8600001. Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8600001. Load from Input of Memory Data Register to Memory Data Register value 0x8600001. 
-Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8008. Load from Input of Program Counter to Program Counter Register value 0x8008. Copy from Memory Data Register to Internal Bus value 0x8600001. Load from Internal Bus to Instruction Register value 0x8600001. Decode instruction. 
-Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Set bit 1 of A0A1 to value 1. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0. 
-Micropc at 0x53.	Activated signals are: SE OFFSET SIZE T3 LC MR SELC A0 B C. Associated actions are: Copy from Instruction Register to Input of T3 Tristate value 0x1 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x1 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x1 (copied 16 bits from bit 0). Copy from Input of T3 Tristate to Internal Bus value 0x1. Copy to Register 3 the value 0x1. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Set bit 1 of A0A1 to value 1. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0. 
-Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8008. Load from Internal Bus to Memory Address Register value 0x8008. 
+Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8004. Memory output = 0x8600001 (Read a word from 0x8004). Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8600001. Load from Input of Memory Data Register to Memory Data Register value 0x8600001. 
+...
 ```
 
 
@@ -298,11 +297,11 @@ Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from 
 + The following fragment is a example of how to use WepSIM command-line within Google Colab cell:
 
 ```html
-!wget https://github.com/acaldero/wepsim/releases/download/v2.1.0/wepsim-2.1.0.zip
-!unzip -o wepsim-2.1.0.zip
-!rm -fr   wepsim-2.1.0.zip
-!./wepsim-2.1.0/wepsim_node.sh stepbystep ep ./wepsim-2.1.0/examples/microcode/mc-ep_base.txt ./wepsim-2.1.0/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
-!rm -fr   wepsim-2.1.0
+!wget https://github.com/acaldero/wepsim/releases/download/v2.1.1/wepsim-2.1.1.zip
+!unzip -o wepsim-2.1.1.zip
+!rm -fr   wepsim-2.1.1.zip
+!./wepsim-2.1.1/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.1.1/examples/microcode/mc-ep_base.txt -s ./wepsim-2.1.1/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
+!rm -fr   wepsim-2.1.1
 
 import pandas as pd
 import io
@@ -347,10 +346,10 @@ cordova plugin add cordova-plugin-whitelist
 
 + 2.1) Copy WepSIM files into the www directory:
 ```bash
-wget https://github.com/acaldero/wepsim/releases/download/v2.1.0/wepsim-2.1.0.zip
-unzip wepsim-2.1.0.zip
+wget https://github.com/acaldero/wepsim/releases/download/v2.1.1/wepsim-2.1.1.zip
+unzip wepsim-2.1.1.zip
 mv www www.initial.$$
-cp -a wepsim-2.1.0/ws_dist www
+cp -a wepsim-2.1.1/ws_dist www
 ```
 
 + 2.2) Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:

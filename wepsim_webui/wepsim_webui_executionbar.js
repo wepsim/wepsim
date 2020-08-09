@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -20,69 +20,15 @@
 
 
         /*
-         *  Load list
+         *  Execution toolbar
          */
 
         /* jshint esversion: 6 */
         class ws_executionbar extends HTMLElement
         {
-              static get observedAttributes() 
+              static get observedAttributes()
 	      {
-	            return [ 'name' ] ;
-	      }
-
-	      constructor ()
-	      {
-		    // parent
-		    super();
-	      }
-
-	      render ( elto )
-	      {
-                    var o1   = '' ;
-                    var name = this.getAttribute('name') ;
-
-                    // load html
-		    o1 += '<button id="btn_reset_' + name + '" ' +
-                          '        style="background-color:#CCCCCC; border-color:white; border-width:1 1 1 1px;"' +
-		          '        class="btn btn-light col"' +
-			  '        onclick="wsweb_execution_reset();' +
-	                  '                 return false;"' +
-                          '><em class="fa fa-power-off"></em><strong><br/><span data-langkey="Reset">Reset</span></strong>' + 
-                          '</button>' +
-			  '<button id="btn_next_microinstruction_' + name + '"' +
-                          '        style="background-color:#CCCCCC; border-color:white; border-width:1 1 1 1px;"' +
-		          '        class="btn btn-light col user_microcode"' +
-			  '        onclick="wsweb_execution_microinstruction();' +
-                          '                 return false;"' +
-                          '><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey="microInstruction">&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong>' + 
-                          '</button>' +
-			  '<button id="btn_next_instruction_' + name + '"' +
-                          '        style="background-color:#CCCCCC; border-color:white; border-width:1 1 1 1px;"' +
-		          '        class="btn btn-light col"' +
-			  '        onclick="wsweb_execution_instruction();' +
-                          '                 return false;"' +
-                          '><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey="Instruction">Instruction</span><span class="d-sm-none">Instr.</span></strong>' + 
-                          '</button>' +
-			  '<button id="btn_run_stop_' + name + '"' +
-                          '        style="background-color:#CCCCCC; border-color:white; border-width:1 1 1 1px;"' +
-		          '        class="btn btn-light col"' +
-                          '        onclick="wsweb_execution_run();' +
-                          '                 return false;"' +
-                          '><em class="fa fa-play"></em><strong><br/><span data-langkey="Run">Run</span></strong>' + 
-                          '</button>' ;
-
-                    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render(this) ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render(this) ;
+	            return [ 'name', 'components', 'icons' ] ;
 	      }
 
 	      get name ( )
@@ -93,6 +39,134 @@
 	      set name ( value )
 	      {
                    this.setAttribute('name', value) ;
+	      }
+
+	      get components ( )
+	      {
+                   return this.getAttribute('components') ;
+	      }
+
+	      set components ( value )
+	      {
+                   this.setAttribute('components', value) ;
+	      }
+
+	      get icons ( )
+	      {
+                   return this.getAttribute('icons') ;
+	      }
+
+	      set icons ( value )
+	      {
+                   this.setAttribute('icons', value) ;
+	      }
+
+	      constructor ()
+	      {
+		    // parent
+		    super();
+	      }
+
+	      update_internal_attributes ( )
+	      {
+                    // name
+                    this.name_str = this.getAttribute('name') ;
+                    if (this.name_str === null)
+                        this.name_str = 'id58' ;
+
+                    // components
+                    this.components_str = this.getAttribute('components') ;
+                    if (this.components_str === null)
+                        this.components_str = '' ;
+                    this.components_arr = this.components_str.split(',') ;
+
+                    // icons
+                    this.icons_str = this.getAttribute('icons') ;
+                    if (this.icons_str === null)
+                        this.icons_str = 'no' ;
+                    this.icons_str = this.icons_str.toLowerCase() ;
+	      }
+
+	      render ( )
+	      {
+                    // get updated attributes
+	            this.update_internal_attributes() ;
+
+                    // render toolbar elements
+                    var o1 = '' ;
+                    for (var i=0; i<this.components_arr.length; i++)
+                    {
+                         var name = this.components_arr[i] ;
+                         o1 += this.render_btns(name) ;
+                    }
+
+                    this.innerHTML = o1 ;
+	      }
+
+	      render_btns ( name )
+	      {
+                    var o = '' ;
+		    var o_style = 'style="background-color:#CCCCCC; border-color:white; border-width:1 1 1 1px;"' ;
+
+                    // load html
+                    switch (name)
+                    {
+                       case "btn_reset":
+			     o += '<button id="btn_reset_' + this.name_str + '" ' + o_style +
+				  '        class="btn btn-light px-2 pb-1 col"' +
+				  '        onclick="wsweb_execution_reset();' +
+				  '                 return false;">' ;
+                             o += (this.icons_str == 'no') ? ''     : '<em class="fa fa-power-off"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+			     o += '<span class="font-weight-bold" data-langkey="Reset">Reset</span>' +
+				  '</button>' ;
+                                  break ;
+
+                       case "btn_emins":
+			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' + o_style +
+		                  '        class="btn btn-light px-2 pb-1 col user_microcode"' +
+			          '        onclick="wsweb_execution_microinstruction();' +
+                                  '                 return false;">' ;
+                             o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-step-forward"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += '<span class="d-none d-sm-inline-flex font-weight-bold" data-langkey="microInstruction">&#181;Instruction</span><span class="d-sm-none font-weight-bold">&#181;Instr.</span>' +
+                                  '</button>' ;
+                                  break ;
+
+                       case "btn_eins":
+			     o += '<button id="btn_next_instruction_' + this.name_str + '"' + o_style +
+		                  '        class="btn btn-light px-2 pb-1 col"' +
+			          '        onclick="wsweb_execution_instruction();' +
+                                  '                 return false;">' ;
+                             o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-fast-forward"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += '<span class="d-none d-sm-inline-flex font-weight-bold" data-langkey="Instruction">Instruction</span><span class="d-sm-none font-weight-bold">Instr.</span>' +
+                                  '</button>' ;
+                                  break ;
+
+                       case "btn_run":
+			     o += '<button id="btn_run_stop_' + this.name_str + '"' + o_style +
+		                  '        class="btn btn-light px-2 pb-1 col"' +
+                                  '        onclick="wsweb_execution_run();' +
+                                  '                 return false;">' ;
+                             o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-play"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += '<span class="font-weight-bold" data-langkey="Run">Run</span>' +
+                                  '</button>' ;
+                                  break ;
+                    }
+
+                    return o ;
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render() ;
+	      }
+
+	      attributeChangedCallback (name, oldValue, newValue)
+	      {
+		    this.render() ;
 	      }
         }
 
@@ -113,7 +187,11 @@
 	    var wsi     = get_cfg('ws_idiom') ;
             var run_tag = i18n_get('gui',wsi,'Run') ;
 
-	    $('#btn_run_stop_' + name).html("<i class='fa fa-play'></i><br><b>" + run_tag + "</b>") ;
+	    var o = "<b>" + run_tag + "</b>" ;
+            if (this.icons_str !== 'no')
+	        o = "<i class='fa fa-play'></i><br>" + o ;
+
+	    $('#btn_run_stop_' + name).html(o) ;
 	    $('#btn_run_stop_' + name).css("backgroundColor", webui_stop_button_color) ;
         }
 
@@ -122,8 +200,12 @@
 	    var wsi      = get_cfg('ws_idiom') ;
             var stop_tag = i18n_get('gui',wsi,'Stop') ;
 
+            var o = "<b>" + stop_tag + "</b>" ;
+            if (this.icons_str !== 'no')
+                o = "<i class='fa fa-stop'></i><br>" + o ;
+
 	    $('#btn_run_stop_' + name).css("backgroundColor", webui_start_button_color) ;
-	    $('#btn_run_stop_' + name).html("<i class='fa fa-stop'></i><br><b>" + stop_tag + "</b>") ;
+	    $('#btn_run_stop_' + name).html(o) ;
         }
 
 

@@ -13,7 +13,24 @@ begin
                     (M2, C2, T1, C3),
                     (A0, B=0, C=0),
 
-    mrti:           # MBR <- DB <- INTV
+    mrti:           # notify: Before each fetch.
+                    # notify: After executing any instruction, and before the fetch microcode,
+                    # notify: the CPU checks if any interruption is enable. 
+                    # notify: 
+                    # notify: If so, the microcode gets the indentificator of the interruption 
+                    # notify: from the device itself, and from this identificator the CPU gets 
+                    # notify: the associated subrutine index in RT1:
+                    # notify: <font color=blue>if (INT)</font>
+                    # notify: <font color=blue>&nbsp;&nbsp;&nbsp;&nbsp;MBR <= DB <= INTV</font>
+                    # notify: <font color=blue>&nbsp;&nbsp;&nbsp;&nbsp;RT1 <= MBR</font>
+                    # notify: In this CPU, it gets the interruption vector from the device
+                    # notify: (a number that identify the interruption)
+                    # notify: and use it as index in the subrutine vector in RT1 register.
+                    # notify: It also sends an ACK to the device to stop sending the INT signal.
+                    # notify: 
+                    # notify: Note: PC already points to next instructions after the interruption
+
+                    # MBR <- DB <- INTV
                     (INTA, BW=11, M1=1, C1=1),
                     # RT1 <- MBR
                     (T1=1, C4=1),
@@ -207,6 +224,18 @@ div reg1 reg2 reg3 {
                     (A0=0, B=0, C=110, MADDR=fpe1),
                     # reg1 = reg2 / reg3, go fetch
                     (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
+
+                    # notify: The FPE-DIV0 exception.
+                    # notify: The 'div r1 r2 r3' microcode checks if r3 == 0 before divide at the ALU.
+                    # notify: If so (r3==0) there is an associated event -> Floating Point Exception.
+                    # notify: 
+                    # notify: In this case, the microcode sets the associated event identification in RT1:
+                    # notify: <font color=blue>RT1 = 1</font>
+                    # notify: Then, microjump to event handler microsubrutine:
+                    # notify: <font color=blue>go csw_rti</font>
+                    # notify: 
+                    # notify: Rembember: PC already points to next instructions after syscall
+
               fpe1: # RT1 <- ExCode=1
                     (ExCode=1, T11, C4),
                     # csw_rt1(2)

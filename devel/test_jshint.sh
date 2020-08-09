@@ -36,7 +36,6 @@ set -x
  jshint ./sim_sw/sim_lang.js
 #jshint ./sim_sw/sim_lang_firm.js
 #jshint ./sim_sw/sim_lang_asm.js
- jshint ./sim_sw/sim_lang_cis2native.js
 
  jshint ./sim_hw/sim_hw_index.js
  jshint ./sim_hw/sim_hw_values.js
@@ -83,6 +82,8 @@ set -x
  jshint ./wepsim_core/wepsim_signal.js
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js
+ jshint ./wepsim_webui/wepsim_webui_toolbar.js
+ jshint ./wepsim_webui/wepsim_webui_compilationbar.js
  jshint ./wepsim_webui/wepsim_webui_executionbar.js
  jshint ./wepsim_webui/wepsim_webui_recordbar.js
  jshint ./wepsim_webui/wepsim_webui_ddown_sel.js
@@ -103,7 +104,7 @@ set -x
  jshint ./wepsim_webui/wepsim_webui_dbg_mc.js
  jshint ./wepsim_webui/wepsim_webui_dbg_asm.js
  jshint ./wepsim_webui/wepsim_webui_cpusvg.js
- jshint ./wepsim_webui/wepsim_wui_hw.js
+ jshint ./wepsim_webui/wepsim_webui_hw.js
  jshint ./wepsim_webui/wepsim_wui_registers.js
  jshint ./wepsim_webui/wepsim_web_ui_dialogs.js
  jshint ./wepsim_webui/wepsim_web_ui_quickcfg.js

@@ -38,7 +38,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.1.0" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.1.1" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -125,22 +125,22 @@
 		         data-toggle='popover-slidercfg'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>
 
                       <div class="col-auto px-0 px-sm-2">
-                      <ws-toolbar components="[,btn_examples,btn_help,]" 
-                                  icons="yes"></ws-toolbar>
+                      <ws-toolbar components="[,btn_examples,btn_help,]"
+                                  icons="left"></ws-toolbar>
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
                       <div class="col-auto px-0 px-sm-2">
-                      <ws-toolbar components="[,btn_notifications,btn_recordbar,btn_states,]" 
-                                  icons="yes"></ws-toolbar>
+                      <ws-toolbar components="[,btn_notifications,btn_recordbar,btn_states,]"
+                                  icons="left"></ws-toolbar>
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
                       <div class="col-auto px-0 px-sm-2">
-                      <ws-toolbar components="[,btndd_mode,btn_config,btn_checkpoint,]" 
-                                  icons="yes"></ws-toolbar>
+                      <ws-toolbar components="[,btndd_mode,btn_config,btn_checkpoint,]"
+                                  icons="left"></ws-toolbar>
 		      </div>
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
@@ -219,8 +219,9 @@
 			  <div class="tab-pane fade show active" id="nav-simulation" role="tabpanel" aria-labelledby="nav-simulation-tab">
 
 			    <div class="px-1 pt-1">
-                            <ws-executionbar name="exebar1" class="btn-toolbar btn-block" 
-                                             role="toolbar"></ws-executionbar>
+                            <ws-executionbar name="exebar1" class="btn-toolbar btn-block"
+                                             components="btn_reset,btn_emins,btn_eins,btn_run"
+                                             icons="up" role="toolbar"></ws-executionbar>
 			    </div>
 
 			    <div class="px-1 pt-1">
@@ -238,30 +239,13 @@
 		              <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
 
 				    <div class="row p-0">
-					<div class="container col-12" role="none">
+					<div class="container col-12 pr-0" role="none">
 					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
-
-					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-			                            <button onclick="wsweb_dialog_open('load_save_firmware'); return true;"
-							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file"></em><br><strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
-
-						    <button style="background-color: #CCCCCC"
-		                                            id="mcc1"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
-							    data-transition="none" data-inline="true"
-							    onclick="wsweb_firmware_compile();
-								     return false;">
-							    <em class="fas fa-sign-out-alt"></em><br><strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong></button>
-						    <button style="background-color: #DDDDDD"
-		                                            id="mob1"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1"
-							    onclick="wsweb_dialog_open('binary_fir');
-								     return false;">
-								     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a. + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>
-								     </button>
-					      </div>
-
+                                             <ws-compilationbar 
+                                                 icons="up" 
+						 components="btn_mloadsave,btn_mcompile,btn_mshowbin"
+						 class="btn-group m-1 d-flex flex-wrap" 
+						 aria-label="MicroCode Toolbar buttons"></ws-compilationbar>
 					</div>
 					</div>
 				    </div>
@@ -281,29 +265,13 @@
 
 		                  <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
 				    <div class="row py-0 px-1">
-					<div class="container col-12" role="none">
+					<div class="container col-12 pr-0" role="none">
 					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
-
-					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
-						    <button onclick="wsweb_dialog_open('load_save_assembly'); return true;"
-							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file"></em><br><strong><span data-langkey="Load/Save">Load/Save</span></strong></button>
-
-						    <button style="background-color: #CCCCCC"
-                                                            id="acc1"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
-							    data-transition="none" data-inline="true"
-							    onclick="wsweb_assembly_compile();
-								     return false;">
-								<em class="fas fa-sign-out-alt"></em><br><strong><span data-langkey="Compile">Compile</span></strong></button>
-						    <button style="background-color: #DDDDDD"
-                                                            id="aob1"
-							    class="btn btn-light shadow-sm col-auto px-0 py-1"
-							    onclick="wsweb_dialog_open('binary_asm');
-								     return false;">
-							<em class="fas fa-memory"></em><br><strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Layout</span></strong></button>
-					      </div>
-
+                                              <ws-compilationbar 
+                                                  icons="up" 
+						  components="btn_aloadsave,btn_acompile,btn_ashowbin"
+						  class="btn-group m-1 d-flex flex-wrap" 
+						  aria-label="Assembly Toolbar buttons"></ws-compilationbar>
 					</div>
 					</div>
 				    </div>
