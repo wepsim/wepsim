@@ -544,6 +544,9 @@
 					      }
 					      return { list: result, from: cur, to: cur } ;
 				      });
+				  },
+				  "Ctrl-/": function(cm) {
+                                      cm.execCommand('toggleComment');
 				  }
 				},
 				mode: "gas"

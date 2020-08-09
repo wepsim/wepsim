@@ -213,6 +213,8 @@ cat external/knockout-3.5.1.js \
     external/codemirror/addon/fold/markdown-fold.js \
     external/codemirror/addon/hint/show-hint.js \
     external/codemirror/addon/runmode/colorize.js \
+    external/codemirror/addon/comment/comment.js \
+    external/codemirror/addon/comment/continuecomment.js \
     external/jquery.knob.min.js \
     external/vis/vis-network.min.js \
     external/async.min.js \

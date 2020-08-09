@@ -79,6 +79,7 @@
                              cmi.is_compiled = false ;
                           }) ;
 
+            // return object
 	    return editor_obj ;
     }
 

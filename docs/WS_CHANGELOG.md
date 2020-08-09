@@ -2,6 +2,7 @@
 # Changelog
 
 ## 2.1.1 -> 2.1.2:
+* Bump bootstrap from 4.5.0 to 4.5.2
 * Minor bugs fixed and several refinaments added.
 
 ## 2.1.0 -> 2.1.1:
@@ -9,6 +10,7 @@
   From: ./wepsim.sh    run    ep    microcode.txt    assembly.txt
   To:   ./wepsim.sh -a run -m ep -f microcode.txt -s assembly.txt
   We write little bit more but we get more flexibility in orden, combine options, etc.
+* The examples microcode has been simplified.
 * Minor bugs fixed and several refinaments added.
 
 ## 2.0.12 -> 2.1.0:
