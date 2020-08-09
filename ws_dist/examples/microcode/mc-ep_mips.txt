@@ -543,26 +543,8 @@ sra reg1 reg2 val {
 
 
 #
-# MOVE/LI/LA
+# LI/LA
 #
-
-move reg1 reg2 {
-            co=111111,
-            nwords=1,
-            reg1=reg(25,21),
-            reg2=reg(20,16),
-            native,
-            {
-                // fields is a default parameter with the instruction field information
-                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-
-                var result = simcore_native_get_value("BR", reg2) ;
-                simcore_native_set_value("BR", reg1, result) ;
-
-                simcore_native_go_maddr(0) ;
-            }
-}
 
 li reg val {
             co=111111,
@@ -946,25 +928,6 @@ out reg val {
 # b*
 #
 
-b offset {
-            co=111111,
-            nwords=1,
-            offset=address(15,0)rel,
-            native,
-            {
-                // fields is a default parameter with the instruction field information
-                var offset = simcore_native_get_field_from_ir(fields, 0) ;
-
-                var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                if ((offset & 0x8000) > 0)
-                     offset = offset | 0xFFFF0000 ;
-                pc = pc + offset ;
-                simcore_native_set_value("CPU", "REG_PC", pc) ;
-
-                simcore_native_go_maddr(0) ;
-            }
-}
-
 beq reg reg offset {
             co=111111,
             nwords=1,
@@ -1262,9 +1225,30 @@ registers
 
 pseudoinstructions
 {
+	move reg1=reg reg2=reg
+	{
+		or reg1 reg2 $zero
+	}
+
+	clear reg1=reg
+	{
+		or reg1 $zero $zero
+	}
+
+	nop
+	{
+		sll $zero, $zero, 0
+	}
+
+	b label=address
+	{
+		beq $zero, $zero, label
+	}
+
 	sw reg1=reg (reg2)=reg
 	{
 		sw reg1 0(reg2)
 	}
+
 }
 
