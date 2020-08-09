@@ -433,11 +433,13 @@
 
               // compound
               var e = '<span style=\'text-align:left\'>' +
-                      'name: '                                       + elto + '<br>' +
-                      'value: <span id=hw_state_value_' + elto + '>' + elto_v + '</span><br>' +
-                      'default_value: '                              + elto_dv + '<br>' +
-                      'nbits: '                                      + elto_nb + '<br>' +
-                      'visible: '                                    + elto_vi +
+                      'name: '                 + elto + '<br>' +
+                      'value: '                + '<span id=\'hw_state_value_' + elto + '\' ' + 
+                                                 '      class=\'font-weight-bold\'>' + elto_v + 
+                                                 '</span><br>' +
+                      'default_value: '        + elto_dv + '<br>' +
+                      'nbits: '                + elto_nb + '<br>' +
+                      'visible: '              + elto_vi +
                       '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                       '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
                       '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
