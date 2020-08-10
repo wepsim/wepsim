@@ -3,7 +3,7 @@
 
 ## 2.1.1 -> 2.1.2:
 * Bump bootstrap from 4.5.0 to 4.5.2
-* Minor bugs fixed and several refinaments added.
+* Minor bugs fixed and several refinements added.
 
 ## 2.1.0 -> 2.1.1:
 * Command line version move from 'conversational parameters' to 'switched parameters':
