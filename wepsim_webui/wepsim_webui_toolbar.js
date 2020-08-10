@@ -77,15 +77,16 @@
 		            "switch_simulator":  this.render_switch_simulator,
 		            "slider_cpucu":      this.render_slider_cpucu,
 		            "slider_c1c2":       this.render_slider_c1c2,
-		            "btn_examples":      this.render_btn_examples,
 		            "btn_help":          this.render_btn_help,
 		            "btn_config":        this.render_btn_config,
+		          //"btn_examples":      this.render_btn_examples,
 	                    "btn_notifications": this.render_btn_notifications,
 	                    "btn_recordbar":     this.render_btn_recordbar,
 	                    "btn_states":        this.render_btn_states,
 	                    "btn_checkpoint":    this.render_btn_checkpoint,
 		            "btndd_action":      this.render_btndd_action,
 		            "btndd_mode":        this.render_btndd_mode,
+		            "btn_examples":      this.render_btndd_examples,
 		            "[":                 this.render_delimiter_begin,
 		            "]":                 this.render_delimiter_end
                     };
@@ -360,32 +361,32 @@
                         '\n' +
                         '     <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"' +
                         '     ><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>' +
-                        '     <a class="dropdown-item" href="#" id="selact_examples" value="examples"' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_examples" value="examples"' +
 			'        onclick="wsweb_select_action(\'examples\');' +
 			'	 return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>' +
-                        '     <a class="dropdown-item" href="#" id="selact_checkpoint"  value="owncode"' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_checkpoint"  value="owncode"' +
 			'        onclick="wsweb_select_action(\'checkpoint\');' +
 			'	          return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint</span></a>' +
                         '\n' +
 			'     <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"' +
                         '     ><span data-langkey="Utilities">Utilities</span>:</h6>' +
-                        '     <a class="dropdown-item" href="#" id="selact_notifications" value="notifications"' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_notifications" value="notifications"' +
 			'        onclick="wsweb_select_action(\'notifications\');' +
 			'	          return false;"><span data-langkey="Notifications">Notifications</span></a>' +
-                        '     <a class="dropdown-item" href="#" id="selact_recordbar" value="recordbar"' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_recordbar" value="recordbar"' +
 			'        onclick="wsweb_select_action(\'recordbar\');' +
 			'	          return false;"><span data-langkey="RecordBar">RecordBar</span></a>' +
                         '\n' +
-                        '     <a class="dropdown-item" href="#" id="selact_reload" value="reload"' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_reload" value="reload"' +
 			'        onclick="wsweb_select_action(\'reload\');' +
 			'	          return false;"><span data-langkey="Reload">Reload</span></a>' +
                         '\n' +
                         '     <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"' +
                         '     ><span data-langkey="Information from">Information from</span>:</h6>' +
-                        '     <a class="dropdown-item" href="#" id="selact_help" value="help"' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_help" value="help"' +
                         '        onclick="wsweb_select_action(\'help\');' +
                         '                 return false;"><span data-langkey="Help">Help</span></a>' +
-                        '     <a class="dropdown-item" href="#" id="selact_intro" value="intro"' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_intro" value="intro"' +
                         '        onclick="wsweb_select_action(\'intro\');' +
                         '                 return false;">Welcome tutorial...</a>' +
                         '\n' +
@@ -422,7 +423,7 @@
                    {
                         var item      = sim.systems[i].sim_short_name ;
                         var poc_class = (item == "poc") ? "user_archived" : "" ;
-                   o += '     <a class="dropdown-item ' + poc_class + '" ' +
+                   o += '     <a class="dropdown-item py-2 ' + poc_class + '" ' +
                         '        href="#" id="s4_' + item + '" value="' + item + '" ' +
 			'	 onclick="wsweb_select_main(\'' + item + '\');' +
 			'		  return false;"' + 
@@ -431,14 +432,14 @@
 
                    o += '\n' +
 			'     <h6 class="text-white bg-secondary mt-2 my-1 user_archived ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>' +
-                        '     <a class="dropdown-item user_archived mb-0" ' +
+                        '     <a class="dropdown-item user_archived mb-0 py-2" ' +
                         '        href="#" id="s4_asm_mips" value="asm_mips"' +
 			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
                         '        onclick="wsweb_select_main(\'asm_mips\');' +
                         '                 return false;"' + 
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>' +
-                        '     <a class="dropdown-item user_archived mb-0" ' +
+                        '     <a class="dropdown-item user_archived mb-0 py-2" ' +
                         '        href="#" id="s4_asm_rv32" value="asm_rv32"' +
 			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="RISC-V<sub>32</sub> assembly only."' +
@@ -447,6 +448,37 @@
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>' +
                         '\n' +
 			'   </div>' +
+			'</div>' ;
+
+		 return o ;
+	      }
+
+	      render_btndd_examples ( robj )
+	      {
+		   var o = '' ;
+
+		   o += '<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">' +
+			'   <button type="button" class="btn btn-light col-12 shadow-sm"' +
+			'           data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+		        '           title="This button opens the \'Examples\' dialog."' +
+		        '           style="border-width:1 1 1 1px; border-color:#CCCCCC;"' +
+                        '           id="btn_example1"' +
+			'	    onclick="$(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
+		        '                    wsweb_dialog_open(\'examples\');' +
+			'	             return false;">' ;
+                   o += (robj.icons_str == "no") ? '' : '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>' ;
+                   o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                   o += '<strong><span data-langkey=\'Examples\'>Examples</span></strong></button>' ;
+                   o += '\n' +
+			'   <button id="dd3" type="button" ' +
+                        '           class="btn btn-light shadow-sm dropdown-toggle dropdown-toggle-split"' +
+                        '           style="border-color: #CCCCCC;"' +
+			'	    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
+                        '   ><span class="sr-only">Toggle Dropdown</span></button>' +
+                        '\n' +
+			'   <div id="example_menu" class="dropdown-menu border border-secondary p-2">' +
+                        '\n' ;
+                   o += '   </div>' +
 			'</div>' ;
 
 		 return o ;
@@ -475,5 +507,31 @@
             var ed = $('#selact_' + opt).html() ;
             $('.select6').html(ed) ;
             $('#select6a').attr('data-action', opt) ;
+        }
+
+        function webui_toolbar_updateExampleSet ( opt )
+        {
+            var  item = null ;
+	    var  o = '' ;
+            var  l = ws_examples_set.length - 1 ;
+
+	    for (var i=0; i<ws_examples_set.length; i++) 
+	    {
+		item = ws_examples_set[i] ;
+	        o += '<a class="dropdown-item py-2 " ' +
+	     	     '   href="#" id="exs_' + item.name + '" value="' + i + '" ' +
+		     '   onclick="wepsim_example_reset();' +
+		     '            wepsim_example_load(\'' + item.name + '\');' +
+		     '	     $(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
+	             '            wsweb_dialog_open(\'examples\');' +
+		     '	     return false;"' + 
+		     '><em class="fas fa-cube d-sm-inline d-xs-none text-secondary mr-2"></em>' + 
+		     item.name + '</a>\n' ;
+
+                if (i != l)
+                o += '<div class="dropdown-divider border"></div>\n' ;
+	    }
+
+            $('#example_menu').html(o) ;
         }
 
