@@ -513,7 +513,6 @@
         {
             var  item = null ;
 	    var  o = '' ;
-            var  l = ws_examples_set.length - 1 ;
 
 	    for (var i=0; i<ws_examples_set.length; i++) 
 	    {
@@ -527,9 +526,6 @@
 		     '	     return false;"' + 
 		     '><em class="fas fa-cube d-sm-inline d-xs-none text-secondary mr-2"></em>' + 
 		     item.name + '</a>\n' ;
-
-                if (i != l)
-                o += '<div class="dropdown-divider border"></div>\n' ;
 	    }
 
             $('#example_menu').html(o) ;
