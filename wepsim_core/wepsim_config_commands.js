@@ -617,6 +617,6 @@
 			               var optValue = get_cfg('AS_enable') ;
 			               $('#radio16-' + optValue).button('toggle') ;
 		                   },
-                      description: "<span data-langkey='AutoScroll'>AutoScroll</span>"
+                      description: "<span data-langkey='Auto-scroll while executing'>Auto-scroll while executing</span>"
                    });
 
