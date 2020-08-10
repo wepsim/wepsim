@@ -38,6 +38,8 @@
 	directives[".byte"]    = { name:".byte",   kindof:"datatype", size:1 };
 	directives[".half"]    = { name:".half",   kindof:"datatype", size:2 };
 	directives[".word"]    = { name:".word",   kindof:"datatype", size:4 };
+	directives[".float"]   = { name:".float",  kindof:"datatype", size:4 };
+	directives[".double"]  = { name:".double", kindof:"datatype", size:8 };
 	directives[".space"]   = { name:".space",  kindof:"datatype", size:1 };
 	directives[".ascii"]   = { name:".ascii",  kindof:"datatype", size:1 };
 	directives[".asciiz"]  = { name:".asciiz", kindof:"datatype", size:1 };
