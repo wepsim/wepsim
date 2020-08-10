@@ -33,8 +33,8 @@ printError: lb   $27 ($26)
        fin2: jr   $ra
 
 main:
-            # test lii
-           #lii $1 0x12345678
+            # test li
+           li $1 0x12345678
 
             # test lb
            la  $26 errorLb

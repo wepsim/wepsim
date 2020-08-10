@@ -703,7 +703,7 @@ registers
 
 pseudoinstructions
 {
-	lii reg1=reg num=inm 
+	li reg1=reg num=inm 
         {	
             li  reg1 sel(31,16,num)
             sll reg1 reg1 16

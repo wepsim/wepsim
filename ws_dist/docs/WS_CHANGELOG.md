@@ -38,7 +38,7 @@
 * Initial support for Z80-like
 
 ## 2.0.9 -> 2.0.10:
-* Fix pseudo-instruction 'lii' in 'Subrutine' example.
+* Fix pseudo-instruction 'li' in 'Subrutine' example.
 * Improved command-line version: faster and more modular code.
 * Added support for translating an instruction set (JSON) into native microcode.
 * Improved UI for common tasks: quick links in the hardware dropdown and in the assembly initial text.
