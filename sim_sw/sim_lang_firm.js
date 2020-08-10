@@ -1003,17 +1003,23 @@ function loadFirmware (text)
 	       return langError(context, "'begin' not found") ;
            }
 
-           // TO RESOLVE co=111111 (111111 === "please, find one free 'co' for me...")
+           // RESOLVE: co=111111... (111111... === "please, find one free 'co' for me...")
+           var ir_info = simhw_sim_ctrlStates_get() ;
+           var ir_co_length = 6 ;
+           if (typeof ir_info !== "undefined") {
+               ir_co_length = ir_info.ir.default_eltos.co.length ;
+           }
            var first_co = 0 ;
-           var last_co  = Math.pow(2, 6) - 1 ;
+           var last_co = Math.pow(2, ir_co_length) - 1 ;
+           var last_co_str = last_co.toString(2) ;
 
            var curr_instruction = null ;
            for (i=0; i<context.instrucciones.length; i++)
            {
                 curr_instruction = context.instrucciones[i] ;
 
-                // skip non-111111 cases
-                if ( (curr_instruction.name === "begin") || (curr_instruction.co !== "111111") ) {
+                // skip non-111111... cases
+                if ( (curr_instruction.name === "begin") || (curr_instruction.co !== last_co_str) ) {
                      continue ;
                 }
 
