@@ -55,7 +55,7 @@
 			     "</center>" + 
                              "" + 
 		             "<div id='asm_debugger_container'" + 
-                             "     style='overflow-y:auto; overflow-x:auto; height:65vh !important; -webkit-overflow-scrolling:touch;'>" + 
+                             "     style='overflow-y:auto; overflow-x:auto; max-height:60vh !important; -webkit-overflow-scrolling:touch;'>" + 
                              "     <div id='asm_debugger' style='min-width:700px;'>" + 
                              "     </div>" + 
 		             "</div>" ;
