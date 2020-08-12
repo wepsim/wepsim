@@ -445,7 +445,7 @@
 			'        title="RISC-V<sub>32</sub> assembly only."' +
                         '        onclick="wsweb_select_main(\'asm_rv32\');' +
                         '                 return false;"' + 
-                        '     ><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>im</sub><sup><span class="badge badge-dark">beta</span></sup></a>' +
+                        '     ><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>i+m</sub></a>' +
                         '\n' +
 			'   </div>' +
 			'</div>' ;

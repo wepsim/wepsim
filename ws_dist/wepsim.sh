@@ -202,8 +202,9 @@
               .argv ;
 
    // interface
-   var clear    = require('clear') ;
-   var inquirer = require('inquirer') ;
+   var clear = require('clear') ;
+   var inq   = require('inquirer') ;
+   inq.registerPrompt('command', require('inquirer-command-prompt')) 
 
 
    //

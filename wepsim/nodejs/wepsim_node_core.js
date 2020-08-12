@@ -100,26 +100,6 @@
        return ws_examples ;
     }
 
-    function wepsim_nodejs_init ( simhw_name )
-    {
-        var ret = simcore_init(false) ;
-	if (false === ret.ok)
-	{
-	    return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
-	}
-
-        ret = simcore_init_hw(simhw_name) ;
-	if (false === ret.ok)
-	{
-	    return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
-	}
-
-        // wepsim_nodejs_load_examples() ;
-        simcore_init_ui(hash_detail_ui) ;
-
-	return wepsim_nodejs_retfill(true, "") ;
-    }
-
     function wepsim_nodejs_show_currentstate ( )
     {
         var state_obj = simcore_simstate_current2state() ;
@@ -151,106 +131,14 @@
     }
 
 
-    /**
-     * WepSIM nodejs API
-     */
-
-    // execution
-    function wepsim_nodejs_check ( data, options )
-    {
-	// 1) initialize ws
-        simcore_reset() ;
-
-	// 2) load firmware
-        var ret = simcore_compile_firmware(data.firmware) ;
-	if (false === ret.ok)
-	{
-	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + ".\n") ;
-	}
-
-	// 3) load assembly
-        ret = simcore_compile_assembly(data.assembly) ;
-	if (false === ret.ok)
-        {
-	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
-	}
-
-	// 4) execute firmware-assembly
-        options.verbosity_before = simcore_do_nothing_handler ;
-        options.verbosity_after  = simcore_do_nothing_handler ;
-
-	ret = simcore_execute_program(options) ;
-	if (false === ret.ok)
-	{
-	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
-	}
-
-	// 5) compare with expected results
-        ret = wepsim_nodejs_show_checkresults(data.result_ok, false) ;
-	if (false === ret.ok)
-	{
-	    return wepsim_nodejs_retfill(false, "ERROR: Execution: different results: " + ret.msg + "\n") ;
-        }
-
-        ret.msg = "OK: Execution: no error reported\n" ;
-	return wepsim_nodejs_retfill(true, ret.msg) ;
-    }
-
-    function wepsim_nodejs_runCode ( data, options )
-    {
-	// 1) initialize ws
-        simcore_reset() ;
-
-	// 2) load firmware
-        var ret = simcore_compile_firmware(data.firmware) ;
-	if (false === ret.ok)
-	{
-	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + ".\n") ;
-	}
-
-	// 3) load assembly
-        ret = simcore_compile_assembly(data.assembly) ;
-	if (false === ret.ok)
-        {
-	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
-	}
-
-	// 4) execute firmware-assembly
-	ret = simcore_execute_program(options) ;
-	if (false === ret.ok)
-	{
-	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
-	}
-
-	return wepsim_nodejs_retfill(true, ret.msg) ;
-    }
-
-    function wepsim_nodejs_runApp ( data, options )
-    {
-	// 1) initialization
-        wepsim_nodejs_init(data.mode) ;
-
-	// 2) run code
-        var ret = wepsim_nodejs_runCode(data, options) ;
-	if (false === ret.ok) 
-        {
-            console.log(ret.msg);
-	    return ret ;
-	}
-
-	// 3) return result
-        return ret ;
-    }
-
-
     // show execution progress
     var before_state = null ;
     var  after_state = null ;
 
     function wepsim_nodejs_header2 ( )
     {
-        console.log('pc'          + ','.padEnd(3, '\t') + 
-                    'instruction' + ','.padEnd(4, '\t') + 
+        console.log('pc'          + ','.padEnd(3, '\t') +
+                    'instruction' + ','.padEnd(4, '\t') +
                     'changes_from_zero_or_current_value') ;
     }
 
@@ -274,15 +162,15 @@
 	var padding2 = 5 - (source_line.length / 7) ;
 	source_line  = source_line.replace(/,/g,"") ;
 
-        console.log('pc = ' + curr_pc + ','.padEnd(padding1, '\t') + 
-		          source_line + ','.padEnd(padding2, '\t') + 
+        console.log('pc = ' + curr_pc + ','.padEnd(padding1, '\t') +
+		          source_line + ','.padEnd(padding2, '\t') +
 		    diff_states) ;
     }
 
     function wepsim_nodejs_header3 ( )
     {
-        console.log('micropc'     + ','.padEnd(3, '\t') + 
-                    'microcode'   + ','.padEnd(5, '\t') + 
+        console.log('micropc'     + ','.padEnd(3, '\t') +
+                    'microcode'   + ','.padEnd(5, '\t') +
                     'changes_from_zero_or_current_value') ;
     }
 
@@ -314,6 +202,267 @@
 	var curr_mpc = '0x' + cur_addr.toString(16) ;
 
 	console.log('Micropc at ' + curr_mpc + '.\t' + get_verbal_from_current_mpc()) ;
+    }
+
+
+    /**
+     * WepSIM nodejs API
+     */
+
+    function wepsim_nodejs_init ( data )
+    {
+        var ret = simcore_init(false) ;
+	if (false === ret.ok) {
+            return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
+	}
+
+        ret = simcore_init_hw(data.mode) ;
+	if (false === ret.ok) {
+            return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
+	}
+
+        // wepsim_nodejs_load_examples() ;
+        simcore_init_ui(hash_detail_ui) ;
+
+	return wepsim_nodejs_retfill(true, "") ;
+    }
+
+    function wepsim_nodejs_prepareCode ( data, options )
+    {
+	// 1) initialize ws
+        simcore_reset() ;
+
+	// 2) load firmware
+        var ret = simcore_compile_firmware(data.firmware) ;
+	if (false === ret.ok)
+	{
+	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + ".\n") ;
+	}
+
+	// 3) load assembly
+        ret = simcore_compile_assembly(data.assembly) ;
+	if (false === ret.ok)
+        {
+	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
+	}
+
+	return wepsim_nodejs_retfill(true, ret.msg) ;
+    }
+
+    // execution
+    function wepsim_nodejs_runApp ( data, options )
+    {
+	// 1) initialization
+        var ret = wepsim_nodejs_init(data) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
+	}
+
+	// 2) prepare firmware-assembly
+        ret = wepsim_nodejs_prepareCode(data, options) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
+	}
+
+	// 3) run code
+	ret = simcore_execute_program(options) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
+	}
+
+	// 4) return result
+        return ret ;
+    }
+
+    function wepsim_nodejs_check ( data, options )
+    {
+	// 1) compare with expected results
+        ret = wepsim_nodejs_show_checkresults(data.result_ok, false) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Execution: different results: " + ret.msg + "\n") ;
+        }
+
+        ret.msg = "OK: Execution: no error reported\n" ;
+	return wepsim_nodejs_retfill(true, ret.msg) ;
+    }
+
+    async function wepsim_nodejs_runAppInteractive ( data, options )
+    {
+	// 1) initialization
+        var ret = wepsim_nodejs_init(data) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
+	}
+
+	// 2) prepare firmware-assembly
+        ret = wepsim_nodejs_prepareCode(data, options) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
+	}
+
+	// 3) run code
+        var inq = require('inquirer'); // TOCHECK
+            inq.registerPrompt('command', require('inquirer-command-prompt')) // TOCHECK
+
+        var SIMWARE = get_simware() ;
+        var pc_name = simhw_sim_ctrlStates_get().pc.state ;
+        var reg_pc  = 0 ;
+
+        var do_exit = false ;
+        do {
+	      await inq.prompt([{
+		    type: 'command',
+		    name: 'cmd',
+		    message: 'ws> ',
+		    validate: val => {
+		       return val ? true : 'If you don\'t know the available commands, type help for help'
+		    },
+		    autoCompletion: ['help', 'exit', 'reset', 'run', 'next', 'clock'],
+		    context: 0,
+		    short: true
+		}]).then(answers => {
+		    switch(answers.cmd)
+		    {
+		       case 'help':
+                            console.log('help') ;
+
+                            // show help
+                            console.log('Available commands:\n' +
+                                        ' * help:  this command.\n' +
+                                        ' * exit:  exit from command line.\n' +
+                                        ' * reset: reset processor.\n' +
+                                        ' * run:   run all the instructions.\n' +
+                                        ' * next:  execute instruction at assembly level.\n' +
+                                        ' * step:  execute instruction at microinstruction level.\n') ;
+			    break ;
+
+		       case 'quit':
+		       case 'exit':
+                            console.log('exit') ;
+
+                            // exit without asking 'are your sure?'
+                            console.log('bYe!') ;
+			    do_exit = true ;
+			    break ;
+
+		       case 'cont':
+		       case 'run':
+                            console.log('run') ;
+
+                            // execute program
+    			    wepsim_nodejs_verbose_none(options) ;
+
+	                    ret = simcore_execute_program(options) ;
+	                    if (false === ret.ok) {
+	                        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
+			    }
+
+                            ret = wepsim_nodejs_show_currentstate() ;
+                            console.log(ret.msg) ;
+			    break ;
+
+		       case 'next':
+                            console.log('next') ;
+
+                            // execute instruction
+                            wepsim_nodejs_verbose_instructionlevel(options) ;
+                            reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
+	                    wepsim_nodejs_before_instruction2(SIMWARE, reg_pc) ;
+
+	                    ret = simcore_execute_microprogram(options) ;
+	                    if (false === ret.ok) {
+	                        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
+			    }
+
+                            reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
+	                    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
+			    break ;
+
+		       case 'step':
+                            console.log('step') ;
+
+                            // execute microinstruction
+                            wepsim_nodejs_verbose_microinstructionlevel(options) ;
+                            reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
+	                    wepsim_nodejs_before_instruction2(SIMWARE, reg_pc) ;
+
+	                    ret = simcore_execute_microprogram(options) ;
+	                    if (false === ret.ok) {
+	                        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
+			    }
+
+                            reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
+	                    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
+			    break ;
+
+		       case 'reset':
+                            console.log('reset') ;
+
+                            // reset
+    			    wepsim_nodejs_verbose_none(options) ;
+
+	                    ret = simcore_reset() ;
+	                    if (false === ret.ok) {
+	                        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
+			    }
+			    break ;
+
+		       default:
+                            console.log('Unknown ' + answers.cmd + ' command\n') ;
+			    break ;
+		    }
+		}).catch(err => {
+		    console.error(err.stack) ;
+		}) ;
+        } while (!do_exit) ;
+
+	// 4) return result
+        return ret ;
+    }
+
+    // verbose mode
+    function wepsim_nodejs_verbose_none ( options )
+    {
+	//before_state = null ;
+	//after_state  = null ;
+	options.before_instruction      = simcore_do_nothing_handler ;
+	options.after_instruction       = simcore_do_nothing_handler ;
+	options.before_microinstruction = simcore_do_nothing_handler ;
+	options.after_microinstruction  = simcore_do_nothing_handler ;
+    }
+
+    function wepsim_nodejs_verbose_instructionlevel ( options )
+    {
+	wepsim_nodejs_header2() ;
+
+	//before_state = null ;
+	//after_state  = null ;
+	options.before_instruction      = wepsim_nodejs_before_instruction2 ;
+	options.after_instruction       = wepsim_nodejs_after_instruction2 ;
+	options.before_microinstruction = simcore_do_nothing_handler ;
+	options.after_microinstruction  = simcore_do_nothing_handler ;
+    }
+
+    function wepsim_nodejs_verbose_microinstructionlevel ( options )
+    {
+	wepsim_nodejs_header3() ;
+
+	//before_state = null ;
+	//after_state  = null ;
+	options.before_instruction      = simcore_do_nothing_handler ;
+	options.after_instruction       = simcore_do_nothing_handler ;
+	options.before_microinstruction = wepsim_nodejs_before_microinstruction3 ;
+	options.after_microinstruction  = wepsim_nodejs_after_microinstruction3 ;
+    }
+
+    function wepsim_nodejs_verbose_verbalized ( options )
+    {
+	//before_state = null ;
+	//after_state  = null ;
+	options.before_instruction      = simcore_do_nothing_handler ;
+	options.after_instruction       = simcore_do_nothing_handler ;
+        options.before_microinstruction = wepsim_nodejs_before_microinstruction4 ;
+        options.after_microinstruction  = simcore_do_nothing_handler ;
     }
 
     // help

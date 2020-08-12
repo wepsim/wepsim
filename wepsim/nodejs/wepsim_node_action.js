@@ -32,6 +32,10 @@
  
     hash_action.CHECK = function(data, options)
     {
+        // set verbosity handlers
+        options.before_instruction = simcore_do_nothing_handler ;
+        options.after_instruction  = simcore_do_nothing_handler ;
+
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
 	if (ret.ok === false) {
@@ -39,7 +43,7 @@
             return false ;
 	}
 
-        // show check result
+        // ...and check results
         ret = wepsim_nodejs_check(data, options) ;
         console.log(ret.msg);
         return ret.ok ;
@@ -62,7 +66,7 @@
             return false ;
 	}
 
-        // show state at the end
+        // ...and show state at the end
         ret = wepsim_nodejs_show_currentstate() ;
         console.log(ret.msg);
         return true ;
@@ -75,9 +79,7 @@
     hash_action.STEPBYSTEP = function(data, options)
     {
         // set verbosity handlers
-        options.before_instruction = wepsim_nodejs_before_instruction2 ;
-        options.after_instruction  = wepsim_nodejs_after_instruction2 ;
-        wepsim_nodejs_header2() ;
+        wepsim_nodejs_verbose_instructionlevel(options) ;
  
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
@@ -95,9 +97,7 @@
     hash_action.MICROSTEPBYMICROSTEP = function(data, options)
     {
         // set verbosity handlers
-        options.before_microinstruction = wepsim_nodejs_before_microinstruction3 ;
-        options.after_microinstruction  = wepsim_nodejs_after_microinstruction3 ;
-        wepsim_nodejs_header3() ;
+        wepsim_nodejs_verbose_microinstructionlevel(options) ;
  
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
@@ -115,8 +115,7 @@
     hash_action.MICROSTEPVERBALIZED = function(data, options)
     {
         // set verbosity handlers
-        options.before_microinstruction = wepsim_nodejs_before_microinstruction4 ;
-        options.after_microinstruction  = simcore_do_nothing_handler ;
+        wepsim_nodejs_verbose_verbalized(options) ;
  
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
@@ -125,6 +124,27 @@
 	}
 
         return ret.ok ;
+    } ;
+ 
+    //
+    // INTERACTIVE
+    //
+ 
+    hash_action.INTERACTIVE = function(data, options)
+    {
+        console.log('\n' +
+                    'WepSIM-cl\n' +
+                    '> WepSIM simulator interface for command line.\n' +
+                    '\n' +
+                    'Interactive mode enabled.\n' +
+                    '') ;
+ 
+        // run...
+        var ret = wepsim_nodejs_runAppInteractive(data, options) ;
+	if (ret.ok === false) {
+            console.log(ret.msg);
+            return false ;
+	}
     } ;
  
     //
@@ -206,7 +226,7 @@
  
     hash_action.HELP = function(data, options)
     {
-        wepsim_nodejs_init(data.mode) ;
+        wepsim_nodejs_init(data) ;
         var ret = wepsim_nodejs_help_signal(data, options) ;
  
         console.log(ret.msg);

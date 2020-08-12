@@ -93,7 +93,7 @@ syscall {
             }
 }
 
-reti {
+sret {
             co=111111,
             nwords=1,
             native,
@@ -1561,10 +1561,10 @@ pseudoinstructions
         }
 
         # jal offset	jal x1, offset	Jump register
-        #jal offset=inm
-        #{
-        #    jal ra, offset
-        #}
+        jal offset=inm
+        {
+            jal ra, offset
+        }
 
         # jr rs		jalr x0, rs, 0	Jump register
         jr rs=reg
