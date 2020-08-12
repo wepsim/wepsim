@@ -14,6 +14,8 @@
     "test-wepsim-node2": "./devel/test_wepsimnode.sh co"
   },
   "dependencies": {
+    "clear": "^0.1.0",
+    "inquirer": "^7.3.3",
     "yargs": "^15.4.1"
   }
 }

@@ -172,6 +172,16 @@
     } ;
  
     //
+    // SHOW-MODE
+    //
+ 
+    hash_action["SHOW-MODE"] = function(data, options)
+    {
+        console.log(data.mode) ;
+        return true ;
+    } ;
+ 
+    //
     // SHOW-CONSOLE
     //
  

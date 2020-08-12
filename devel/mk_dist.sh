@@ -32,7 +32,8 @@ fi
 
 # install dependencies
 echo "  Requirements:"
-echo "  * terser, jq, yargs, jshint"
+echo "  * terser jq jshint"
+echo "  * yargs clear inquirer"
 npm install
 
 # skeleton

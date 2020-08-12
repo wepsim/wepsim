@@ -531,6 +531,16 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
     } ;
  
     //
+    // SHOW-MODE
+    //
+ 
+    hash_action["SHOW-MODE"] = function(data, options)
+    {
+        console.log(data.mode) ;
+        return true ;
+    } ;
+ 
+    //
     // SHOW-CONSOLE
     //
  

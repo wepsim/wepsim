@@ -5,7 +5,7 @@
    // Help
    //
 
-   var ws_cl_ver = 'WepSIM-cl v1.8.1' ;
+   var ws_cl_ver = 'WepSIM-cl v1.8.5' ;
 
    function ws_help_usage ()
    {
@@ -16,6 +16,7 @@
 	       'For more details please use:\n' +
 	       ' ./wepsim.sh -h\n' +
 	       ' ./wepsim.sh --examples basic\n' +
+	       ' ./wepsim.sh --examples checkpoint\n' +
 	       ' ./wepsim.sh --examples more' ;
 
         return o ;
@@ -27,28 +28,48 @@
                ws_cl_ver + '\n' +
                '> WepSIM simulator interface for command line.\n' +
                '\n' +
-               'Examples:\n' +
-               ' * Run some example and show the final state:\n' +
+               'Examples for running some work and show the...:\n' +
+               ' * ...final state:\n' +
                '   ./wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
-               '   ./wepsim.sh -a run --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
-               '\n' +
-               ' * Run some example and show the state on each assembly instruction executed:\n' +
+               ' * ...modified state on each assembly instruction executed:\n' +
                '   ./wepsim.sh -a stepbystep -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
-               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
-               '\n' +
-               ' * Run some example and show the state on each microinstruction executed:\n' +
+               ' * ...modified state on each microinstruction executed:\n' +
                '   ./wepsim.sh -a microstepbymicrostep -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
-               '   ./wepsim.sh -a microstepbymicrostep --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
                '\n' +
-               ' * Check that some example meets the expected final state (so it works):\n' +
+               'Examples for checks at the end of some work:\n' +
+               ' * Check that your work meets the expected final state (so it works):\n' +
                '   ./wepsim.sh -a check -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e1.txt\n' +
-               '\n' +
-               ' * Run some example and show a description for each microinstruction executed:\n' +
-               '   ./wepsim.sh -a microstepverbalized -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt --verbal text\n' +
-               '   ./wepsim.sh -a microstepverbalized --checkpoint ./examples/checkpoint/tutorial_1.txt --verbal math\n' +
-               '\n' +
                ' * Show console output after execution:\n' +
                '   ./wepsim.sh -a show-console -m ep -f ./examples/microcode/mc-ep_os.txt -s ./examples/assembly/asm-ep_s4_e1.txt\n' +
+               '\n' +
+               'In previous examples you can use the "-m ep -f <firmware> -s <assembly>" or some equivalent checkpoint:\n' +
+               '   ./wepsim.sh -a run          --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a show-console --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '' ;
+
+        return o ;
+   }
+
+   function ws_help_examples_checkpoint ()
+   {
+       var o = '\n' +
+               ws_cl_ver + '\n' +
+               '> WepSIM simulator interface for command line.\n' +
+               '\n' +
+               'Examples for building a checkpoint file:\n' +
+               ' * From assembly and microcode, and print it to standard output:\n' +
+               '   ./wepsim.sh -a build-checkpoint -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
+               '\n' +
+               'Examples for disassembling a checkpoint files:\n' +
+               ' * Show assembly within checkpoint:\n' +
+               '   ./wepsim.sh -a show-assembly  --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               ' * Show microcode within checkpoint:\n' +
+               '   ./wepsim.sh -a show-microcode --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '\n' +
+               ' * Show mode used in the checkpoint:\n' +
+               '   ./wepsim.sh -a show-mode      --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               ' * Show recorded session:\n' +
+               '   ./wepsim.sh -a show-record    --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
                '' ;
 
         return o ;
@@ -60,20 +81,20 @@
                ws_cl_ver + '\n' +
                '> WepSIM simulator interface for command line.\n' +
                '\n' +
-               'Additional examples:\n' +
+               'Additional help:\n' +
                ' * Help on signal:\n' +
                '   ./wepsim.sh -a help -m ep -f cop\n' +
                '\n' +
-               ' * Run some example and limit the "clock cycles"/"instructions":\n' +
-               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxc 10000\n' +
+               'More examples of custom execution:\n' +
+               ' * Run some example and limit the "instructions":\n' +
                '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxi 2048\n' +
+               ' * Run some example and limit the "clock cycles":\n' +
+               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxc 10000\n' +
                '\n' +
-               ' * Show recorded session:\n' +
-               '   ./wepsim.sh -a show-record --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               ' * Run some example and show a description for each microinstruction executed:\n' +
+               '   ./wepsim.sh -a microstepverbalized -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt --verbal text\n' +
                '\n' +
-               ' * Build checkpoint from assembly and microcode, and print it to standard output:\n' +
-               '   ./wepsim.sh -a build-checkpoint -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
-               '\n' +
+               'Example for developers:\n' +
                ' * Export hardware definition as JSON:\n' +
                '   ./wepsim.sh -a export-hardware -m ep > examples/hardware/ep/hw_def.json\n' +
                '' ;
@@ -180,6 +201,10 @@
               .demandOption(['action'])
               .argv ;
 
+   // interface
+   var clear    = require('clear') ;
+   var inquirer = require('inquirer') ;
+
 
    //
    // Main: help
@@ -192,11 +217,14 @@
        if ("basic" == argv.examples) {
            o = ws_help_examples_basic() ;
        }
-
+       if ("checkpoint" == argv.examples) {
+           o = ws_help_examples_checkpoint() ;
+       }
        if ("more" == argv.examples) {
            o = ws_help_examples_more() ;
        }
 
+       clear() ;
        console.log(o) ;
        return true ;
    }
