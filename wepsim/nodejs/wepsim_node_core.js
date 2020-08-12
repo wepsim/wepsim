@@ -302,7 +302,7 @@
 
 	// 3) run code
         var inq = require('inquirer'); // TOCHECK
-            inq.registerPrompt('command', require('inquirer-command-prompt')) // TOCHECK
+            inq.registerPrompt('command', require('inquirer-command-prompt')); // TOCHECK
 
         var SIMWARE = get_simware() ;
         var pc_name = simhw_sim_ctrlStates_get().pc.state ;
@@ -314,13 +314,13 @@
 		    type: 'command',
 		    name: 'cmd',
 		    message: 'ws> ',
-		    validate: val => {
-		       return val ? true : 'If you don\'t know the available commands, type help for help'
+		    validate: (val) => {
+		       return val ? true : 'If you don\'t know the available commands, type help for help';
 		    },
 		    autoCompletion: ['help', 'exit', 'reset', 'run', 'next', 'clock'],
 		    context: 0,
 		    short: true
-		}]).then(answers => {
+		}]).then((answers) => {
 		    switch(answers.cmd)
 		    {
 		       case 'help':
@@ -411,7 +411,7 @@
                             console.log('Unknown ' + answers.cmd + ' command\n') ;
 			    break ;
 		    }
-		}).catch(err => {
+		}).catch((err) => {
 		    console.error(err.stack) ;
 		}) ;
         } while (!do_exit) ;
