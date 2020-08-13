@@ -204,6 +204,133 @@
 	console.log('Micropc at ' + curr_mpc + '.\t' + get_verbal_from_current_mpc()) ;
     }
 
+    // interactive
+    function wepsim_nodejs_runInteractiveCmd ( answers, data, options )
+    {
+        var SIMWARE = get_simware() ;
+        var pc_name = simhw_sim_ctrlStates_get().pc.state ;
+        var reg_pc = 0 ;
+
+        var on_exit = false ;
+	switch(answers.cmd)
+	{
+	       case 'help':
+		    console.log('help answer begins.') ;
+
+		    // show help
+		    console.log('' + 
+				'Available commands:\n' +
+				' * help:  this command.\n' +
+				' * exit:  exit from command line.\n' +
+				'\n' +
+				' * reset: reset processor.\n' +
+				' * run:   run all the instructions.\n' +
+				' * next:  execute instruction at assembly level.\n' +
+				' * step:  execute instruction at microinstruction level.\n' +
+				'\n' +
+				' * dump:  show the current state.\n' +
+				'') ;
+
+		    console.log('help answer ends.') ;
+		    break ;
+
+	       case 'quit':
+	       case 'exit':
+		    console.log('exit answer begins.') ;
+
+		    // exit without asking 'are your sure?'
+		    console.log('bYe!') ;
+
+		    console.log('exit answer ends.') ;
+                    on_exit = true ;
+		    break ;
+
+	       case 'cont':
+	       case 'run':
+		    console.log('run answer begins.') ;
+
+		    // execute program
+		    wepsim_nodejs_verbose_none(options) ;
+
+		    ret = simcore_execute_program(options) ;
+		    if (false === ret.ok) {
+			console.log("ERROR: Execution: " + ret.msg + ".\n") ;
+		    }
+
+		    console.log('run answer ends.') ;
+		    break ;
+
+	       case 'next':
+		    console.log('next answer begins.') ;
+
+		    // execute instruction
+		    wepsim_nodejs_verbose_instructionlevel(options) ;
+		    reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
+		    wepsim_nodejs_before_instruction2(SIMWARE, reg_pc) ;
+
+		    ret = simcore_execute_microprogram(options) ;
+		    if (false === ret.ok) {
+			console.log("ERROR: Execution: " + ret.msg + ".\n") ;
+		    }
+
+		    reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
+		    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
+
+		    console.log('next answer ends.') ;
+		    break ;
+
+	       case 'step':
+		    console.log('step answer begins.') ;
+
+		    // execute microinstruction
+		    wepsim_nodejs_verbose_microinstructionlevel(options) ;
+		    reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
+		    wepsim_nodejs_before_instruction2(SIMWARE, reg_pc) ;
+
+		    ret = simcore_execute_microprogram(options) ;
+		    if (false === ret.ok) {
+			console.log("ERROR: Execution: " + ret.msg + ".\n") ;
+		    }
+
+	            wepsim_nodejs_header2() ;
+		    reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
+		    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
+
+		    console.log('step answer ends.') ;
+		    break ;
+
+	       case 'reset':
+		    console.log('reset answer begins.') ;
+
+		    // reset
+		    wepsim_nodejs_verbose_none(options) ;
+
+		    ret = simcore_reset() ;
+		    if (false === ret.ok) {
+			console.log("ERROR: Execution: " + ret.msg + ".\n") ;
+		    }
+
+		    console.log('reset answer ends.') ;
+		    break ;
+
+	       case 'dump':
+		    console.log('dump answer begins.') ;
+
+		    ret = wepsim_nodejs_show_currentstate() ;
+		    console.log(ret.msg) ;
+
+		    console.log('dump answer ends.') ;
+		    break ;
+
+	       default:
+		    console.log('Unknown ' + answers.cmd + ' command.\n') ;
+		    break ;
+	}
+
+        // on_exit -> end REPL loop ;
+        return on_exit ;
+    }
+
 
     /**
      * WepSIM nodejs API
@@ -301,13 +428,10 @@
 	}
 
 	// 3) run code
-        var inq = require('inquirer'); // TOCHECK
+        var inq = require('inquirer');
             inq.registerPrompt('command', require('inquirer-command-prompt')); // TOCHECK
 
-        var SIMWARE = get_simware() ;
-        var pc_name = simhw_sim_ctrlStates_get().pc.state ;
-        var reg_pc  = 0 ;
-
+        var last_cmd = 'help' ;
         var do_exit = false ;
         do {
 	      await inq.prompt([{
@@ -317,104 +441,17 @@
 		    validate: (val) => {
 		       return val ? true : 'If you don\'t know the available commands, type help for help';
 		    },
-		    autoCompletion: ['help', 'exit', 'reset', 'run', 'next', 'clock'],
+		    autoCompletion: ['help', 'exit', 'reset', 'run', 'next', 'clock', 'dump'],
+		    default: last_cmd,
 		    context: 0,
 		    short: true
 		}]).then((answers) => {
-		    switch(answers.cmd)
-		    {
-		       case 'help':
-                            console.log('help') ;
-
-                            // show help
-                            console.log('Available commands:\n' +
-                                        ' * help:  this command.\n' +
-                                        ' * exit:  exit from command line.\n' +
-                                        ' * reset: reset processor.\n' +
-                                        ' * run:   run all the instructions.\n' +
-                                        ' * next:  execute instruction at assembly level.\n' +
-                                        ' * step:  execute instruction at microinstruction level.\n') ;
-			    break ;
-
-		       case 'quit':
-		       case 'exit':
-                            console.log('exit') ;
-
-                            // exit without asking 'are your sure?'
-                            console.log('bYe!') ;
-			    do_exit = true ;
-			    break ;
-
-		       case 'cont':
-		       case 'run':
-                            console.log('run') ;
-
-                            // execute program
-    			    wepsim_nodejs_verbose_none(options) ;
-
-	                    ret = simcore_execute_program(options) ;
-	                    if (false === ret.ok) {
-	                        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
-			    }
-
-                            ret = wepsim_nodejs_show_currentstate() ;
-                            console.log(ret.msg) ;
-			    break ;
-
-		       case 'next':
-                            console.log('next') ;
-
-                            // execute instruction
-                            wepsim_nodejs_verbose_instructionlevel(options) ;
-                            reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
-	                    wepsim_nodejs_before_instruction2(SIMWARE, reg_pc) ;
-
-	                    ret = simcore_execute_microprogram(options) ;
-	                    if (false === ret.ok) {
-	                        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
-			    }
-
-                            reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
-	                    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
-			    break ;
-
-		       case 'step':
-                            console.log('step') ;
-
-                            // execute microinstruction
-                            wepsim_nodejs_verbose_microinstructionlevel(options) ;
-                            reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
-	                    wepsim_nodejs_before_instruction2(SIMWARE, reg_pc) ;
-
-	                    ret = simcore_execute_microprogram(options) ;
-	                    if (false === ret.ok) {
-	                        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
-			    }
-
-                            reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
-	                    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
-			    break ;
-
-		       case 'reset':
-                            console.log('reset') ;
-
-                            // reset
-    			    wepsim_nodejs_verbose_none(options) ;
-
-	                    ret = simcore_reset() ;
-	                    if (false === ret.ok) {
-	                        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
-			    }
-			    break ;
-
-		       default:
-                            console.log('Unknown ' + answers.cmd + ' command\n') ;
-			    break ;
-		    }
+                    do_exit = wepsim_nodejs_runInteractiveCmd(answers, data, options) ;
+                    last_cmd = answers.cmd ;
 		}).catch((err) => {
 		    console.error(err.stack) ;
 		}) ;
-        } while (!do_exit) ;
+        } while (do_exit == false) ;
 
 	// 4) return result
         return ret ;

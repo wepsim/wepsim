@@ -97,6 +97,8 @@
                'Example for developers:\n' +
                ' * Export hardware definition as JSON:\n' +
                '   ./wepsim.sh -a export-hardware -m ep > examples/hardware/ep/hw_def.json\n' +
+               ' * Run in an interactive REPL interface (beta):\n' +
+               '   ./wepsim.sh -a interactive --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
                '' ;
 
         return o ;
@@ -203,8 +205,6 @@
 
    // interface
    var clear = require('clear') ;
-   var inq   = require('inquirer') ;
-   inq.registerPrompt('command', require('inquirer-command-prompt')) 
 
 
    //
