@@ -58,7 +58,7 @@ native
 # INT
 #
 
-syscall {
+ecall {
             co=111111,
             nwords=1,
             native,
@@ -93,7 +93,7 @@ syscall {
             }
 }
 
-reti {
+sret {
             co=111111,
             nwords=1,
             native,
@@ -1576,11 +1576,6 @@ pseudoinstructions
         ret
         {
             jalr zero, ra, 0
-        }
-
-        sret
-        {
-            reti
         }
 }
 
