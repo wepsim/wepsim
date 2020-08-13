@@ -322,6 +322,15 @@
 		    console.log('dump answer ends.') ;
 		    break ;
 
+	       case 'break':
+		    console.log('break answer begins.') ;
+
+ 		    // TODO: hexaddr
+                    wepsim_execute_set_breakpoint(hexaddr, true) ;
+
+		    console.log('break answer ends.') ;
+		    break ;
+
 	       default:
 		    console.log('Unknown ' + answers.cmd + ' command.\n') ;
 		    break ;
