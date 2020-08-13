@@ -33,7 +33,8 @@ fi
 # install dependencies
 echo "  Requirements:"
 echo "  * terser jq jshint"
-echo "  * yargs clear inquirer inquirer-command-prompt"
+echo "  * yargs clear inquirer fuzzy"
+echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
 npm install
 
 # skeleton

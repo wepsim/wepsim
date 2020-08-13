@@ -151,7 +151,10 @@
 
     function wepsim_nodejs_after_instruction2  ( SIMWARE, reg_pc, ret )
     {
-        var curr_pc     = '0x' + reg_pc.toString(16) ;
+        var curr_pc = '0x' + reg_pc.toString(16) ;
+        if (typeof SIMWARE.assembly[curr_pc] === 'undefined') {
+	    return ;
+	}
         var source_line = SIMWARE.assembly[curr_pc].source_original ;
 
             after_state = simcore_simstate_current2state() ;
@@ -304,6 +307,8 @@
 
 		    // reset
 		    wepsim_nodejs_verbose_none(options) ;
+	            before_state = null ;
+	            after_state  = null ;
 
 		    ret = simcore_reset() ;
 		    if (false === ret.ok) {
@@ -322,17 +327,19 @@
 		    console.log('dump answer ends.') ;
 		    break ;
 
-	       case 'break':
-		    console.log('break answer begins.') ;
-
- 		    // TODO: hexaddr
-                    wepsim_execute_set_breakpoint(hexaddr, true) ;
-
-		    console.log('break answer ends.') ;
-		    break ;
-
 	       default:
-		    console.log('Unknown ' + answers.cmd + ' command.\n') ;
+                    var parts = answers.cmd.split(' ');
+                    if ( (parts[0] == 'break') && (typeof parts[1] !== 'undefined') )
+		    {
+		        console.log('break answer begins.') ;
+                        ret = wepsim_execute_set_breakpoint(parts[1], true) ;
+		        console.log('break answer ends.') ;
+                    }
+                    else
+                    {
+		        console.log('Unknown ' + answers.cmd + ' command.\n') ;
+                    }
+
 		    break ;
 	}
 
@@ -437,23 +444,41 @@
 	}
 
 	// 3) run code
+        var fuzzy = require('fuzzy') ;
         var inq = require('inquirer');
-            inq.registerPrompt('command', require('inquirer-command-prompt')); // TOCHECK
+            inq.registerPrompt('command',      require('inquirer-command-prompt')) ;
+            inq.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt')) ;
 
-        var last_cmd = 'help' ;
-        var do_exit = false ;
+	var icommands = [ 'help', 'exit', 'run', 'next', 'step', 'reset', 'dump' ] ;
+        var last_cmd  = 'help' ;
+        var do_exit   = false ;
         do {
 	      await inq.prompt([{
-		    type: 'command',
-		    name: 'cmd',
+                 // > autocomplete
+
+                 // type:        'autocomplete',
+		 // suggestOnly: true,
+		 // source:      function(answers, input) {
+		 //		     input = input || '' ;
+		 //		     return new Promise(function(resolve) {
+		 //	    		     setTimeout(function() {
+		 //	      			var fuzzyResult = fuzzy.filter(input, icommands) ;
+		 //	      			resolve(fuzzyResult.map(function(el) { return el.original; })) ;
+		 //	    		     }, 100) ;
+		 //			    }) ;
+		 // 		},
+
+                 // > command
+		    type:    'command',
+		    name:    'cmd',
 		    message: 'ws> ',
 		    validate: (val) => {
 		       return val ? true : 'If you don\'t know the available commands, type help for help';
 		    },
-		    autoCompletion: ['help', 'exit', 'reset', 'run', 'next', 'clock', 'dump'],
-		    default: last_cmd,
-		    context: 0,
-		    short: true
+		    autoCompletion: icommands,
+		    default:        last_cmd,
+		    context:        0,
+		    short:          true
 		}]).then((answers) => {
                     do_exit = wepsim_nodejs_runInteractiveCmd(answers, data, options) ;
                     last_cmd = answers.cmd ;
