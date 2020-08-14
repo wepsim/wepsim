@@ -319,8 +319,9 @@ function loadFirmware (text)
                if (isToken(context,"registers"))
                {
                        nextToken(context) ;
-                       if (! isToken(context, "{"))
+                       if (! isToken(context, "{")) {
                              return langError(context, "Expected '{' not found") ;
+                       }
 
                        nextToken(context) ;
                        while (! isToken(context, "}"))
@@ -328,33 +329,60 @@ function loadFirmware (text)
                            var nombre_reg = getToken(context) ;
 
                            nextToken(context) ;
-                           if (! isToken(context, "="))
+                           if (! isToken(context, "=")) {
 				 return langError(context, "Expected '=' not found") ;
+                           }
 
                            nextToken(context) ;
-                           context.registers[nombre_reg] = getToken(context) ;
+                           if (! isToken(context, "(")) {
+                                 // context.registers[nombre_reg] = getToken(context) ;
+                                 context.registers[nombre_reg] = [] ;
+                                 context.registers[nombre_reg].push(getToken(context)) ;
+                           }
+                           else
+                           {
+                                 nextToken(context) ;
+                                 if (isToken(context, ")")) {
+				       return langError(context, "Empty name list for register: x=[]") ;
+                                 }
+
+                                 context.registers[nombre_reg] = [] ;
+                                 while (! isToken(context, ")"))
+                                 {
+                                       context.registers[nombre_reg].push(getToken(context)) ;
+
+                                       nextToken(context) ;
+                                       if (isToken(context,",")) {
+                                           nextToken(context);
+			               }
+                                 }
+                           }
 
                            nextToken(context) ;
 			   if (isToken(context, "("))
 			   {
-				if (context.stackRegister != null)
+				if (context.stackRegister != null) {
 				    return langError(context, "Duplicate definition of stack pointer");
+			        }
 
 				nextToken(context);
-				if (! isToken(context, "stack_pointer"))
+				if (! isToken(context, "stack_pointer")) {
 				    return langError(context, "Expected stack_pointer token not found");
+			        }
 
 				context.stackRegister = nombre_reg;
 
 				nextToken(context);
-				if (! isToken(context, ")"))
+				if (! isToken(context, ")")) {
 				    return langError(context, "Expected ')' not found");
+			        }
 
 				nextToken(context);
 			   }
 			
-                           if (isToken(context,","))
+                           if (isToken(context,",")) {
                                nextToken(context);
+			   }
                        }
 
                        nextToken(context);
@@ -1227,14 +1255,21 @@ function saveFirmware ( SIMWARE )
 		file += '\n}\n\n';
 	}	
 
+// TOCHECK
 	if ( (typeof SIMWARE.registers != "undefined") && (SIMWARE.registers.length > 0) )
 	{
 		file += 'registers' + '\n{\n';
 		for (i=0; i< SIMWARE.registers.length; i++)
 		{
+                     var l = SIMWARE.registers[i].length - 1 ;
+                     var r = " [ " ;
+		     for (j=0; j<l; j++)
+                          r += SIMWARE.registers[i][j] + ", " ;
+                     r += SIMWARE.registers[i][l] + " ] " ;
+
 		     if (SIMWARE.stackRegister == i)
-		     	  file += '\t' + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
-                     else file += '\t' + i + "=" + SIMWARE.registers[i] + "," + '\n';
+		     	  file += '\t' + i + "=" + r + " (stack_pointer)," + '\n';
+                     else file += '\t' + i + "=" + r + "," + '\n';
 		}
 		file  = file.substr(0, file.length-2);
 		file += '\n}\n';

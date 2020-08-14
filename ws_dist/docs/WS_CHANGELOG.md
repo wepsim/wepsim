@@ -4,6 +4,7 @@
 ## 2.1.1 -> 2.1.2:
 * Bump bootstrap from 4.5.0 to 4.5.2
 * Examples sets dropdown: able to change the examples to be used.
+* Register section in firmware now support several names for one register: 0=[zero, x0],
 * Initial support for interactive command-line version.
 * Minor bugs fixed and several refinements added.
 

@@ -628,9 +628,9 @@ function read_text ( context, datosCU, ret )
 	   var registers = {} ;
 	   for (i=0; i<datosCU.registers.length; i++)
 	   {
-		var aux = "$" + i;
-		registers[aux] = i;
-		registers[datosCU.registers[i]] = registers[aux];
+		for (var j=0; j<datosCU.registers[i].length; j++) {
+		     registers[datosCU.registers[i][j]] = i ;
+                }
 	   }
 
            nextToken(context) ;

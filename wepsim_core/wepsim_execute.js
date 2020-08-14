@@ -100,6 +100,12 @@
         DBG_limit_instruction = 0 ;
         webui_button_set_stop('exebar1') ;
 
+        // stats (how fast execution was)
+        var o = 'CLK-'      + Math.trunc(get_value(simhw_sim_state('CLK')))      + '+' +
+                'DECO_INS-' + Math.trunc(get_value(simhw_sim_state('DECO_INS'))) + '+' +
+                'ACC_TIME-' + Math.trunc(get_value(simhw_sim_state('ACC_TIME'))) ;
+        ga('send', 'event', 'execution', 'execution.' + 'cpu', 'execution.' + 'cpu' + '.' + o) ;
+
 	return true ;
     }
 

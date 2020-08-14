@@ -302,10 +302,11 @@
 		 br_value = "R"  + index ;
 	         if (
 		      ('logical' == disp_name) &&
-		      (typeof SIMWARE.registers[index] != "undefined")
+		      (typeof SIMWARE.registers[index]    !== "undefined") &&
+		      (typeof SIMWARE.registers[index][0] !== "undefined")
 		    )
 		 {
-		    br_value = SIMWARE.registers[index] ;
+		    br_value = SIMWARE.registers[index][0] ;
 		 }
 		 br_value = br_value.padEnd(3,' ') ;
 
