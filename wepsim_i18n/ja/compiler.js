@@ -21,30 +21,28 @@
 
     i18n.eltos.compiler.ja = {
 
-	   "NO TAG OR DIRECTIVE":  "Expected tag or directive but found this token instead: ",
-           "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format (starting with a letter or underscore): ",
-           "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction: ",
-           "REPEATED TAG":         "Repeated tag: ",
-           "NO NUMERIC DATATYPE":  "Expected value for numeric datatype but found: ",
+		'NO TAG OR DIRECTIVE':		'予想されるタグ（X :)またはディレクティブ（.X）が、代わりに、このトークンが見つかりました：',
+		'INVALID TAG FORMAT':		'タグは、（文字または下線で始まる）英数字フォーマットに従わなければなりません。',
+		'TAG OR INSTRUCTION':		'タグは、命令と同じ名前を持つことはできません。',
+		'REPEATED TAG':		'繰り返さタグ：',
+		'NO NUMERIC DATATYPE':		'数値データ型の値が期待されたが見つから：',
+		'NO POSITIVE NUMBER':		'正の数を期待されたが見つから：',
+		'NO NUMBER OF BYTES':		'.SPACEで予備バイトの予測数（自然数）が、見つかりました：',
+		'INVALID ALIGN VALUE':		'正の数として整列パラメータを期待されたが見つから：',
+		'REMEMBER ALIGN VAL':		'数は、アライメント用の2つの電源であることを忘れないでください、MIPSのマニュアルを参照してください。',
+		'NOT CLOSED STRING':		'文字列が閉じていない（引用符でそれを終了するのを忘れました）',
+		'NO QUOTATION MARKS':		'予想引用符の間の文字列ではなくが見つかりました：',
+		'UNEXPECTED DATATYPE':		'予期しないデータ型名：',
+		'INVALID SEGMENT NAME':		'.dataの/の.text / ...セグメント期待されたが見つから：',
+		'NO MAIN OR KMAIN':		'タグ「主」または「kmain」はテキスト・セグメント（単数または複数）で定義されていません。プログラムを実行するために、これらのタグのうちの少なくとも一つを定義することが義務付けられています',
+		'UNKNOWN 1':		'不明なエラーが発生した（1）',
+		'UNKNOWN 2':		'予期しないエラー（2）',
+		'REMEMBER I. FORMAT':		'命令フォーマットは次のように定義されていることに注意してください：',
+		'SEVERAL CANDIDATES':		'命令とフィールドは、複数の可能な命令で一致します。マイクロコードを確認してください。現在、命令フォーマットを指定できます。',
+		'NOT MATCH MICRO':		'命令とフィールドが定義された命令フォーマットと一致していません',
+		'CHECK MICROCODE':		'マイクロコードを確認してください。おそらく、あなたはフィールドを追加するのを忘れて、数がそのスペースに収まらない、またはあなただけの間違った命令を使用します',
 
-           "NO POSITIVE NUMBER":   "Expected a positive number but found: ",
-	   "NO NUMBER OF BYTES":   "Expected number of bytes to reserve in .space but found: ",
-           "INVALID ALIGN VALUE":  "Expected the align parameter as positive number but found: ",
-           "REMEMBER ALIGN VAL":   "Remember that number is the power of two for alignment, see MIPS documentation.",
-           "NOT CLOSED STRING":    "String is not closed (forgot to end it with quotation marks)",
-           "NO QUOTATION MARKS":   "Expected string between quotation marks but found: ",
-           "UNEXPECTED DATATYPE":  "Unexpected datatype name: ",
-           "INVALID SEGMENT NAME": "Expected .data/.text/... segment but found: ",
-           "NO MAIN OR KMAIN":     "Tags 'main' or 'kmain' are not defined in the text segment(s). " +
-                                   "It is compulsory to define at least one of those tags in order to execute a program",
-           "UNKNOWN 1":            "An unknown error ocurred (1)",
-           "UNKNOWN 2":            "Unexpected error (2)",
-           "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
-           "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
-                                   "Please check the microcode. Currently, the instruction format can be: ",
-           "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-           "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
+		'_last_':		'_last_'
 
-	   "_last_":						"_last_"
-    } ;
+    };
 

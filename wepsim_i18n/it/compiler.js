@@ -21,30 +21,28 @@
 
     i18n.eltos.compiler.it = {
 
-	   "NO TAG OR DIRECTIVE":  "Expected tag or directive but found this token instead: ",
-           "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format (starting with a letter or underscore): ",
-           "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction: ",
-           "REPEATED TAG":         "Repeated tag: ",
-           "NO NUMERIC DATATYPE":  "Expected value for numeric datatype but found: ",
+		'NO TAG OR DIRECTIVE':		'tag atteso (x :) o direttiva (.x), ma ha trovato questo token invece:',
+		'INVALID TAG FORMAT':		'Un tag deve seguire un formato alfanumerico (che inizia con una lettera o di sottolineatura):',
+		'TAG OR INSTRUCTION':		'Un tag non può avere lo stesso nome di un\'istruzione:',
+		'REPEATED TAG':		'tag ripetuta:',
+		'NO NUMERIC DATATYPE':		'Valore atteso per tipo di dato numerico ma ha trovato:',
+		'NO POSITIVE NUMBER':		'Previsto un numero positivo ma ha trovato:',
+		'NO NUMBER OF BYTES':		'Numero previsto di byte di prenotare in .space (numero naturale) ma ha trovato:',
+		'INVALID ALIGN VALUE':		'Previsto il parametro align come numero positivo ma ha trovato:',
+		'REMEMBER ALIGN VAL':		'Ricordate che il numero è la potenza di due per l\'allineamento, consultare la documentazione MIPS.',
+		'NOT CLOSED STRING':		'String non è chiuso (dimenticato di farla finita con le virgolette)',
+		'NO QUOTATION MARKS':		'stringa prevista tra virgolette ma trovato:',
+		'UNEXPECTED DATATYPE':		'Nome imprevisto tipo di dati:',
+		'INVALID SEGMENT NAME':		'Previsto .data / .text / ... segmento ma ha trovato:',
+		'NO MAIN OR KMAIN':		'Tag \'principale\' o \'kmain\' non sono definiti nel segmento di testo (s). E \'obbligatorio definire almeno uno di questi tag al fine di eseguire un programma',
+		'UNKNOWN 1':		'Si è verificato un errore sconosciuto (1)',
+		'UNKNOWN 2':		'Errore imprevisto (2)',
+		'REMEMBER I. FORMAT':		'Ricordare che il formato di istruzioni è stato definito come:',
+		'SEVERAL CANDIDATES':		'Istruzione e campi corrispondono con più di una possibile istruzioni. Si prega di verificare il microcodice. Attualmente, il formato delle istruzioni può essere:',
+		'NOT MATCH MICRO':		'Istruzione e campi non corrispondono con il formato delle istruzioni definito',
+		'CHECK MICROCODE':		'Si prega di verificare il microcodice. Probabilmente si è dimenticato di aggiungere un campo, un numero non rientra nel suo spazio, o semplicemente utilizzato un\'istruzione sbagliata',
 
-           "NO POSITIVE NUMBER":   "Expected a positive number but found: ",
-	   "NO NUMBER OF BYTES":   "Expected number of bytes to reserve in .space but found: ",
-           "INVALID ALIGN VALUE":  "Expected the align parameter as positive number but found: ",
-           "REMEMBER ALIGN VAL":   "Remember that number is the power of two for alignment, see MIPS documentation.",
-           "NOT CLOSED STRING":    "String is not closed (forgot to end it with quotation marks)",
-           "NO QUOTATION MARKS":   "Expected string between quotation marks but found: ",
-           "UNEXPECTED DATATYPE":  "Unexpected datatype name: ",
-           "INVALID SEGMENT NAME": "Expected .data/.text/... segment but found: ",
-           "NO MAIN OR KMAIN":     "Tags 'main' or 'kmain' are not defined in the text segment(s). " +
-                                   "It is compulsory to define at least one of those tags in order to execute a program",
-           "UNKNOWN 1":            "An unknown error ocurred (1)",
-           "UNKNOWN 2":            "Unexpected error (2)",
-           "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
-           "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
-                                   "Please check the microcode. Currently, the instruction format can be: ",
-           "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-           "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
+		'_last_':		'_last_'
 
-	   "_last_":						"_last_"
-    } ;
+    };
 

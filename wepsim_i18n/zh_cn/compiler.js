@@ -21,30 +21,28 @@
 
     i18n.eltos.compiler.zh_cn = {
 
-	   "NO TAG OR DIRECTIVE":  "Expected tag or directive but found this token instead: ",
-           "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format (starting with a letter or underscore): ",
-           "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction: ",
-           "REPEATED TAG":         "Repeated tag: ",
-           "NO NUMERIC DATATYPE":  "Expected value for numeric datatype but found: ",
+		'NO TAG OR DIRECTIVE':		'预计标签（X :)或指令（.X），但发现此令牌来代替：',
+		'INVALID TAG FORMAT':		'的标签，必须按照字母数字格式（以字母开头或下划线）：',
+		'TAG OR INSTRUCTION':		'一个标记不能有相同的名称作为指令：',
+		'REPEATED TAG':		'重复标签：',
+		'NO NUMERIC DATATYPE':		'对于数字数据类型，但发现期望值：',
+		'NO POSITIVE NUMBER':		'预计正数，但发现：',
+		'NO NUMBER OF BYTES':		'预计数。空间（自然数），但发现字节储备：',
+		'INVALID ALIGN VALUE':		'预期的那样正数，但发现对齐参数：',
+		'REMEMBER ALIGN VAL':		'请记住这个数字是两个对位的力量，看到MIPS文档。',
+		'NOT CLOSED STRING':		'字符串没有关闭（忘了加上引号结束它）',
+		'NO QUOTATION MARKS':		'引号却发现之间期望的字符串：',
+		'UNEXPECTED DATATYPE':		'意外的数据类型名称：',
+		'INVALID SEGMENT NAME':		'预期。数据/的.text / ...段，但发现：',
+		'NO MAIN OR KMAIN':		'标签“主”或“kmain”在文本段（一个或多个）不限定。它是强制性的定义，以执行程序的标记中的至少一个',
+		'UNKNOWN 1':		'发生未知错误（1）',
+		'UNKNOWN 2':		'意外的错误（2）',
+		'REMEMBER I. FORMAT':		'请记住，指令格式已经被定义为：',
+		'SEVERAL CANDIDATES':		'指令和字段匹配不止一个可能的指令。请检查微代码。目前，指令格式可以是：',
+		'NOT MATCH MICRO':		'指令和领域不匹配定义的指令格式',
+		'CHECK MICROCODE':		'请检查微代码。也许你忘了添加一个字段，一些不适合它的空间，或者你只是使用了错误指令',
 
-           "NO POSITIVE NUMBER":   "Expected a positive number but found: ",
-	   "NO NUMBER OF BYTES":   "Expected number of bytes to reserve in .space but found: ",
-           "INVALID ALIGN VALUE":  "Expected the align parameter as positive number but found: ",
-           "REMEMBER ALIGN VAL":   "Remember that number is the power of two for alignment, see MIPS documentation.",
-           "NOT CLOSED STRING":    "String is not closed (forgot to end it with quotation marks)",
-           "NO QUOTATION MARKS":   "Expected string between quotation marks but found: ",
-           "UNEXPECTED DATATYPE":  "Unexpected datatype name: ",
-           "INVALID SEGMENT NAME": "Expected .data/.text/... segment but found: ",
-           "NO MAIN OR KMAIN":     "Tags 'main' or 'kmain' are not defined in the text segment(s). " +
-                                   "It is compulsory to define at least one of those tags in order to execute a program",
-           "UNKNOWN 1":            "An unknown error ocurred (1)",
-           "UNKNOWN 2":            "Unexpected error (2)",
-           "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
-           "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
-                                   "Please check the microcode. Currently, the instruction format can be: ",
-           "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-           "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
+		'_last_':		'_last_'
 
-	   "_last_":						"_last_"
-    } ;
+    };
 

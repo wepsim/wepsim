@@ -21,30 +21,28 @@
 
     i18n.eltos.compiler.de = {
 
-	   "NO TAG OR DIRECTIVE":  "Expected tag or directive but found this token instead: ",
-           "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format (starting with a letter or underscore): ",
-           "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction: ",
-           "REPEATED TAG":         "Repeated tag: ",
-           "NO NUMERIC DATATYPE":  "Expected value for numeric datatype but found: ",
+		'NO TAG OR DIRECTIVE':		'Erwartete Tag (x :) oder Richtlinie (.x) fand aber dieses Token statt:',
+		'INVALID TAG FORMAT':		'Ein Tag muss ein alphanumerisches Format (beginnend mit einem Buchstaben oder Unterstrich) wie folgt vor:',
+		'TAG OR INSTRUCTION':		'Ein Tag kann nicht die gleichen Namen wie ein Befehl:',
+		'REPEATED TAG':		'Wiederholte tag:',
+		'NO NUMERIC DATATYPE':		'Erwartungswert für numerischen Datentyp aber gefunden:',
+		'NO POSITIVE NUMBER':		'Erwartet eine positive Zahl aber gefunden:',
+		'NO NUMBER OF BYTES':		'Erwartete Anzahl von Bytes Reserve in .space (natürliche Zahl), aber gefunden:',
+		'INVALID ALIGN VALUE':		'Erwartet die align Parameter als positive Zahl aber gefunden:',
+		'REMEMBER ALIGN VAL':		'Denken Sie daran, dass die Zuständigkeit dafür übertragen von zwei für die Ausrichtung ist, siehe MIPS-Dokumentation.',
+		'NOT CLOSED STRING':		'String ist nicht geschlossen (vergessen Sie es mit Anführungszeichen zu beenden)',
+		'NO QUOTATION MARKS':		'Erwartetes Zeichenfolge zwischen Anführungszeichen aber gefunden:',
+		'UNEXPECTED DATATYPE':		'Unerwartete Datentyp Name:',
+		'INVALID SEGMENT NAME':		'Erwartete .data / .text / ... Segment aber gefunden:',
+		'NO MAIN OR KMAIN':		'Tags \'main\' oder \'kmain\' ist nicht im Text-Segment (en) definiert ist. Es ist Pflicht, mindestens eines dieses Tags zu definieren, um ein Programm auszuführen,',
+		'UNKNOWN 1':		'Ein unbekannter Fehler aufgetreten ist (1)',
+		'UNKNOWN 2':		'Unerwarteter Fehler (2)',
+		'REMEMBER I. FORMAT':		'Denken Sie daran, dass das Befehlsformat hat wie definiert:',
+		'SEVERAL CANDIDATES':		'Instruktion und Felder übereinstimmen mit mehr als einer möglichen Anweisung. Bitte überprüfen Sie das Mikro. Derzeit kann das Befehlsformat sein:',
+		'NOT MATCH MICRO':		'Instruktion und Felder nicht mit dem definierten Befehlsformat entsprechen',
+		'CHECK MICROCODE':		'Bitte überprüfen Sie das Mikro. Wahrscheinlich vergessen Sie ein Feld hinzufügen, wird eine Zahl von nicht in seinem Raum passen, oder Sie einfach eine falsche Anweisung verwendet',
 
-           "NO POSITIVE NUMBER":   "Expected a positive number but found: ",
-	   "NO NUMBER OF BYTES":   "Expected number of bytes to reserve in .space but found: ",
-           "INVALID ALIGN VALUE":  "Expected the align parameter as positive number but found: ",
-           "REMEMBER ALIGN VAL":   "Remember that number is the power of two for alignment, see MIPS documentation.",
-           "NOT CLOSED STRING":    "String is not closed (forgot to end it with quotation marks)",
-           "NO QUOTATION MARKS":   "Expected string between quotation marks but found: ",
-           "UNEXPECTED DATATYPE":  "Unexpected datatype name: ",
-           "INVALID SEGMENT NAME": "Expected .data/.text/... segment but found: ",
-           "NO MAIN OR KMAIN":     "Tags 'main' or 'kmain' are not defined in the text segment(s). " +
-                                   "It is compulsory to define at least one of those tags in order to execute a program",
-           "UNKNOWN 1":            "An unknown error ocurred (1)",
-           "UNKNOWN 2":            "Unexpected error (2)",
-           "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
-           "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
-                                   "Please check the microcode. Currently, the instruction format can be: ",
-           "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-           "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
+		'_last_':		'_last_'
 
-	   "_last_":						"_last_"
-    } ;
+    };
 

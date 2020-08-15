@@ -21,30 +21,28 @@
 
     i18n.eltos.compiler.sv = {
 
-	   "NO TAG OR DIRECTIVE":  "Expected tag or directive but found this token instead: ",
-           "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format (starting with a letter or underscore): ",
-           "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction: ",
-           "REPEATED TAG":         "Repeated tag: ",
-           "NO NUMERIC DATATYPE":  "Expected value for numeric datatype but found: ",
+		'NO TAG OR DIRECTIVE':		'Förväntad tag (x :) eller direktiv (.x), men tyckte att det här token istället:',
+		'INVALID TAG FORMAT':		'En tagg måste följa ett alfanumeriskt format (som börjar med en bokstav eller understreck):',
+		'TAG OR INSTRUCTION':		'En tagg kan inte ha samma namn som en instruktion:',
+		'REPEATED TAG':		'Upprepad tag:',
+		'NO NUMERIC DATATYPE':		'Förväntat värde för numerisk datatyp men fann:',
+		'NO POSITIVE NUMBER':		'Förväntat ett positivt tal men fann:',
+		'NO NUMBER OF BYTES':		'Förväntat antal byte som reserv i .space (naturligt tal) men hittade:',
+		'INVALID ALIGN VALUE':		'Förväntade align parameter som positivt tal men fann:',
+		'REMEMBER ALIGN VAL':		'Kom ihåg att numret är kraften i två för anpassning, se MIPS dokumentation.',
+		'NOT CLOSED STRING':		'Strängen är inte stängd (glömde att avsluta den med citationstecken)',
+		'NO QUOTATION MARKS':		'Förväntade sträng inom citattecken men fann:',
+		'UNEXPECTED DATATYPE':		'Oväntat datatyp namn:',
+		'INVALID SEGMENT NAME':		'Förväntat .data / .text / ... segment men fann:',
+		'NO MAIN OR KMAIN':		'Tags \'viktigaste\' eller \'kmain\' definieras inte i textsegmentet (s). Det är obligatoriskt att definiera åtminstone en av dessa taggar för att köra ett program',
+		'UNKNOWN 1':		'Ett okänt fel inträffade (1)',
+		'UNKNOWN 2':		'Oväntat fel (2)',
+		'REMEMBER I. FORMAT':		'Kom ihåg att instruktionsformatet har definierats som:',
+		'SEVERAL CANDIDATES':		'Instruktion och fält matcha med mer än en möjlig instruktion. Kontrollera mikrokoden. För närvarande kan instruktionen format vara',
+		'NOT MATCH MICRO':		'Instruktion och fält stämmer inte överens med den definierade instruktion format',
+		'CHECK MICROCODE':		'Kontrollera mikrokoden. Förmodligen du har glömt att lägga till ett fält, inte ett nummer inte passar in i sitt utrymme, eller om du bara använt en felaktig instruktion',
 
-           "NO POSITIVE NUMBER":   "Expected a positive number but found: ",
-	   "NO NUMBER OF BYTES":   "Expected number of bytes to reserve in .space but found: ",
-           "INVALID ALIGN VALUE":  "Expected the align parameter as positive number but found: ",
-           "REMEMBER ALIGN VAL":   "Remember that number is the power of two for alignment, see MIPS documentation.",
-           "NOT CLOSED STRING":    "String is not closed (forgot to end it with quotation marks)",
-           "NO QUOTATION MARKS":   "Expected string between quotation marks but found: ",
-           "UNEXPECTED DATATYPE":  "Unexpected datatype name: ",
-           "INVALID SEGMENT NAME": "Expected .data/.text/... segment but found: ",
-           "NO MAIN OR KMAIN":     "Tags 'main' or 'kmain' are not defined in the text segment(s). " +
-                                   "It is compulsory to define at least one of those tags in order to execute a program",
-           "UNKNOWN 1":            "An unknown error ocurred (1)",
-           "UNKNOWN 2":            "Unexpected error (2)",
-           "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
-           "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
-                                   "Please check the microcode. Currently, the instruction format can be: ",
-           "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-           "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
+		'_last_':		'_last_'
 
-	   "_last_":						"_last_"
-    } ;
+    };
 

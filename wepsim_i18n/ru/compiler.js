@@ -21,30 +21,28 @@
 
     i18n.eltos.compiler.ru = {
 
-	   "NO TAG OR DIRECTIVE":  "Expected tag or directive but found this token instead: ",
-           "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format (starting with a letter or underscore): ",
-           "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction: ",
-           "REPEATED TAG":         "Repeated tag: ",
-           "NO NUMERIC DATATYPE":  "Expected value for numeric datatype but found: ",
+		'NO TAG OR DIRECTIVE':		'Ожидаемая метка (х :) или директива (.x), но нашел этот маркер вместо этого:',
+		'INVALID TAG FORMAT':		'Тег должен следовать буквенно-цифровому формату (начиная с буквой или подчеркиванием):',
+		'TAG OR INSTRUCTION':		'Тег не может иметь такое же имя, как и инструкция:',
+		'REPEATED TAG':		'Повторные теги:',
+		'NO NUMERIC DATATYPE':		'Ожидаемое значение числового типа данных, но найдено:',
+		'NO POSITIVE NUMBER':		'Ожидаемое положительное число, но было найдено:',
+		'NO NUMBER OF BYTES':		'Ожидаемое число зарезервированных байт в .space (натуральное число), но найдено:',
+		'INVALID ALIGN VALUE':		'Ожидаемое выравнивать параметр как положительное число, но было найдено:',
+		'REMEMBER ALIGN VAL':		'Помните, что число является степенью двойки для выравнивания см MIPS документации.',
+		'NOT CLOSED STRING':		'Строка не закрыта (забыл закончить его в кавычки)',
+		'NO QUOTATION MARKS':		'Ожидаемая строка в кавычках, но найдено:',
+		'UNEXPECTED DATATYPE':		'Неожиданное имя типа данных:',
+		'INVALID SEGMENT NAME':		'Ожидаемое .data / .text / ... сегмент, но нашел:',
+		'NO MAIN OR KMAIN':		'Метки «главный» или «KMAIN» не определены в текстовом сегменте (с). В обязательном порядке определить по крайней мере один из этих тегов для того, чтобы выполнить программу',
+		'UNKNOWN 1':		'Произошла неизвестная ошибка (1)',
+		'UNKNOWN 2':		'Неожиданная ошибка (2)',
+		'REMEMBER I. FORMAT':		'Помните, что формат команды был определен как:',
+		'SEVERAL CANDIDATES':		'Инструкция и полей совпадают с более чем одной возможной инструкцией. Пожалуйста, проверьте микрокод. В настоящее время формат команды может быть:',
+		'NOT MATCH MICRO':		'Инструкция и поля не совпадают с заданным форматом команд',
+		'CHECK MICROCODE':		'Пожалуйста, проверьте микрокод. Возможно, вы забыли добавить поле, число не помещается в пространстве, или вы просто использовали неправильную инструкцию',
 
-           "NO POSITIVE NUMBER":   "Expected a positive number but found: ",
-	   "NO NUMBER OF BYTES":   "Expected number of bytes to reserve in .space but found: ",
-           "INVALID ALIGN VALUE":  "Expected the align parameter as positive number but found: ",
-           "REMEMBER ALIGN VAL":   "Remember that number is the power of two for alignment, see MIPS documentation.",
-           "NOT CLOSED STRING":    "String is not closed (forgot to end it with quotation marks)",
-           "NO QUOTATION MARKS":   "Expected string between quotation marks but found: ",
-           "UNEXPECTED DATATYPE":  "Unexpected datatype name: ",
-           "INVALID SEGMENT NAME": "Expected .data/.text/... segment but found: ",
-           "NO MAIN OR KMAIN":     "Tags 'main' or 'kmain' are not defined in the text segment(s). " +
-                                   "It is compulsory to define at least one of those tags in order to execute a program",
-           "UNKNOWN 1":            "An unknown error ocurred (1)",
-           "UNKNOWN 2":            "Unexpected error (2)",
-           "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
-           "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
-                                   "Please check the microcode. Currently, the instruction format can be: ",
-           "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-           "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
+		'_last_':		'_last_'
 
-	   "_last_":						"_last_"
-    } ;
+    };
 
