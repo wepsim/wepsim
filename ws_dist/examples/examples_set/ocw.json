@@ -1,0 +1,6 @@
+[ {
+    "name":         "OCW - UC3M - EC",
+    "url":          "examples/examples_set/ocw_packed.json",
+    "url_base_asm": "examples/assembly_ocw/",
+    "url_base_mc":  "examples/microcode/"
+} ]

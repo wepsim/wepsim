@@ -195,8 +195,8 @@
         {
              var wscfg = {
                    /* version */
-                   "version":              { upgrade:false, type:"string",    value:"2.1.1" },
-                   "build":                { upgrade:true,  type:"string",    value:"2.1.1.20200705A" },
+                   "version":              { upgrade:false, type:"string",    value:"2.1.2" },
+                   "build":                { upgrade:true,  type:"string",    value:"2.1.2.20200805C" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":    { upgrade:false, type:"string",    value:"#0066FF" },
@@ -218,6 +218,8 @@
                    "DBG_limitins":         { upgrade:false, type:"int",       value:10000 },
                    "DBG_limitick":         { upgrade:false, type:"int",       value:1000 },
                    "ICON_theme":           { upgrade:false, type:"string",    value:'classic' },
+                   "AS_enable":            { upgrade:true,  type:"boolean",   value:true },
+                   "AS_delay":             { upgrade:true,  type:"int",       value:500 },
 
 	           /* simulation screen: Notification, etc. */
                    "NOTIF_delay":          { upgrade:false, type:"int",       value:1000 },
@@ -235,7 +237,7 @@
                    "ws_idiom":             { upgrade:false, type:"string",    value:'en' },
                    "use_voice":            { upgrade:false, type:"boolean",   value:false },
                    "ws_skin_ui":           { upgrade:false, type:"string",    value:'classic' },
-                   "ws_skin_user":         { upgrade:false, type:"string",    value:'only_asm:of:only_frequent:of' },
+                   "ws_skin_user":         { upgrade:false, type:"string",    value:'only_asm:of:only_frequent:on' },
                    "ws_skin_dark_mode":    { upgrade:false, type:"boolean",   value:false },
 
 	           /* micro/assembly screen: editor */

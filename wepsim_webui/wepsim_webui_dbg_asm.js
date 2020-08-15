@@ -35,29 +35,29 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		    var o1 = "<center>" + 
-		             "<div id='asm_table' style='overflow-x:auto; -webkit-overflow-scrolling:touch;'>" + 
-		   	     "<table class='table ui-responsive ui-table' style='margin-bottom:0px; min-width:700px;'>" + 
-		   	     "<thead>" + 
-			     "<tr style='border-top:2pt solid white;'>" + 
-			     "<th width='1%'>" + 
-			     "<a tabindex='0' href='#' class='show multi-collapse-3' data-toggle='popover2' id='popover2_asm'><strong class='fas fa-wrench text-secondary'></strong></a>" + 
-			     "</th>" + 
-                             "<th width='10%' class='asm_label collapse' align='right'><span data-langkey='labels'>labels</span></th>" + 
-			     "<th width='15%' class='asm_addr  collapse'              ><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" + 
-                             "<th width='15%' class='asm_hex   collapse' align='right'><span data-langkey='content'>content</span></th>" + 
-                             "<th width='30%' class='asm_ins   collapse' align='left' ><span data-langkey='assembly'>assembly</span></th>" + 
-			     "<th width='30%' class='asm_pins  collapse' align='left' ><span>pseudo</span><span class='d-none d-md-inline'><small><span data-langkey='instructions'>instructions</span></small></span></th>" + 
-			     "</tr>" + 
-			     "</thead>" + 
-			     "</table>" + 
-		   	     "</div>" + 
-			     "</center>" + 
-                             "" + 
-		             "<div id='asm_debugger_container'" + 
-                             "     style='overflow-y:auto; overflow-x:auto; max-height:60vh !important; -webkit-overflow-scrolling:touch;'>" + 
-                             "     <div id='asm_debugger' style='min-width:700px;'>" + 
-                             "     </div>" + 
+		    var o1 = "<center>" +
+		             "<div id='asm_table' style='overflow-x:auto; -webkit-overflow-scrolling:touch;'>" +
+		   	     "<table class='table ui-responsive ui-table' style='margin-bottom:0px; min-width:700px;'>" +
+		   	     "<thead>" +
+			     "<tr style='border-top:2pt solid white;'>" +
+			     "<th width='1%'>" +
+			     "<a tabindex='0' href='#' class='show multi-collapse-3' data-toggle='popover2' id='popover2_asm'><strong class='fas fa-wrench text-secondary'></strong></a>" +
+			     "</th>" +
+                             "<th width='10%' class='asm_label collapse' align='right'><span data-langkey='labels'>labels</span></th>" +
+			     "<th width='15%' class='asm_addr  collapse'              ><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" +
+                             "<th width='15%' class='asm_hex   collapse' align='right'><span data-langkey='content'>content</span></th>" +
+                             "<th width='30%' class='asm_ins   collapse' align='left' ><span data-langkey='assembly'>assembly</span></th>" +
+			     "<th width='30%' class='asm_pins  collapse' align='left' ><span>pseudo</span><span class='d-none d-md-inline'><small><span data-langkey='instructions'>instructions</span></small></span></th>" +
+			     "</tr>" +
+			     "</thead>" +
+			     "</table>" +
+		   	     "</div>" +
+			     "</center>" +
+                             "" +
+		             "<div id='asm_debugger_container'" +
+                             "     style='overflow-y:auto; overflow-x:auto; max-height:60vh !important; -webkit-overflow-scrolling:touch;'>" +
+                             "     <div id='asm_debugger' style='min-width:700px;'>" +
+                             "     </div>" +
 		             "</div>" ;
 
 		    this.innerHTML = o1 ;
@@ -77,52 +77,52 @@
         //
         // show/hide Assembly elements/header
         //
-    
+
         function showhideAsmElements ( )
         {
     	var tlabel = [ "label", "addr", "hex", "ins", "pins" ] ;
-    
+
     	for (var tli=0; tli<tlabel.length; tli++)
     	{
                  var label_name  = "SHOWCODE_"   + tlabel[tli] ;
                  var column_name = "table .asm_" + tlabel[tli] ;
                  var column_show = get_cfg(label_name) ;
-    
+
     	     if (column_show !== false)
     	          $(column_name).show() ;
     	     else $(column_name).hide() ;
     	}
         }
-    
+
         function showhideAsmHeader ( )
         {
     	var tlabel = [ "label", "addr", "hex", "ins", "pins" ] ;
-    
+
     	for (var tli=0; tli<tlabel.length; tli++)
     	{
                  var label_name = "SHOWCODE_"   + tlabel[tli] ;
                  var btn_show   = get_cfg(label_name) ;
                  var btn_name   = "#asm_" + tlabel[tli] ;
-    
+
                  $(btn_name).removeClass('btn-outline-secondary').removeClass('btn-dark') ;
-    	     if (btn_show !== false) 
+    	     if (btn_show !== false)
                       $(btn_name).addClass('btn-dark') ;
     	     else $(btn_name).addClass('btn-outline-secondary') ;
     	}
         }
-    
+
         function default_asmdbg_content_horizontal ( )
         {
     	 var wsi = get_cfg('ws_idiom') ;
-    
+
     	 var o = "<br>" +
     	         "<div class='card m-3'>" +
     		 "  <div class='row no-gutters'>" +
     		 "  <div class='col-md-12'>" + // -
     		 "  <div class='card-body py-0'>" +
-    		 "    <p class='card-text'>" + 
+    		 "    <p class='card-text'>" +
     		 "    <div class='badge badge-primary'>1</div>" +
-    		 "    <span data-langkey='simulator intro 1'>" + 
+    		 "    <span data-langkey='simulator intro 1'>" +
     	         i18n_get('gui',wsi,'simulator intro 1') +
     		 "    </span>" +
     		 "    </p>" +
@@ -134,9 +134,9 @@
     		 "  <div class='row no-gutters'>" +
     		 "  <div class='col-md-12'>" + // -
     		 "  <div class='card-body py-0'>" +
-    		 "    <p class='card-text'>" + 
+    		 "    <p class='card-text'>" +
     		 "    <div class='badge badge-primary'>2</div>" +
-    		 "    <span data-langkey='simulator intro 2'>" + 
+    		 "    <span data-langkey='simulator intro 2'>" +
     	         i18n_get('gui',wsi,'simulator intro 2') +
     		 "    </span>" +
     		 "    </p>" +
@@ -148,9 +148,9 @@
     		 "  <div class='row no-gutters'>" +
     		 "  <div class='col-md-12'>" + // -
     		 "  <div class='card-body py-0'>" +
-    		 "    <p class='card-text'>" + 
+    		 "    <p class='card-text'>" +
     		 "    <div class='badge badge-primary'>3</div>" +
-    		 "    <span data-langkey='simulator intro 3'>" + 
+    		 "    <span data-langkey='simulator intro 3'>" +
     	         i18n_get('gui',wsi,'simulator intro 3') +
     		 "    </span>" +
     		 "    </p>" +
@@ -158,10 +158,10 @@
     		 "  </div>" +
     		 "  </div>" +
     		 "</div>" ;
-    
+
     	 return o ;
         }
-    
+
         function default_asmdbg_content_vertical ( )
         {
     	 var o = "<br>" +
@@ -169,9 +169,9 @@
     		 "<div class='card-column row'>" +
     		 "<div class='card m-2 col-sm'>" +
     		 "  <div class='card-body h-50 py-0'>" +
-    		 "    <p class='card-text'>" + 
+    		 "    <p class='card-text'>" +
     		 "    <div class='badge badge-primary'>1</div>" +
-    		 "    <span data-langkey='simulator intro 1'>" + 
+    		 "    <span data-langkey='simulator intro 1'>" +
     	         i18n_get('gui',wsi,'simulator intro 1') +
     		 "    </span>" +
     		 "    </p>" +
@@ -179,9 +179,9 @@
     		 "</div>" +
     		 "<div class='card m-2 col-sm'>" +
     		 "  <div class='card-body h-50 py-0'>" +
-    		 "    <p class='card-text'>" + 
+    		 "    <p class='card-text'>" +
     		 "    <div class='badge badge-primary'>2</div>" +
-    		 "    <span data-langkey='simulator intro 2'>" + 
+    		 "    <span data-langkey='simulator intro 2'>" +
     	         i18n_get('gui',wsi,'simulator intro 2') +
     		 "    </span>" +
     		 "    </p>" +
@@ -189,9 +189,9 @@
     		 "</div>" +
     		 "<div class='card m-2 col-sm'>" +
     		 "  <div class='card-body h-50 py-0'>" +
-    		 "    <p class='card-text'>" + 
+    		 "    <p class='card-text'>" +
     		 "    <div class='badge badge-primary'>3</div>" +
-    		 "    <span data-langkey='simulator intro 3'>" + 
+    		 "    <span data-langkey='simulator intro 3'>" +
     	         i18n_get('gui',wsi,'simulator intro 3') +
     		 "    </span>" +
     		 "    </p>" +
@@ -199,64 +199,64 @@
     		 "</div>" +
     		 "</div>" +
     		 "</div>" ;
-    
+
     	 return o ;
         }
-    
+
         // Popovers
-    
+
         function wepsim_click_asm_columns ( name )
         {
             var label_name = "SHOWCODE_" + name ;
             var show_elto  = get_cfg(label_name) ;
-    
+
     	show_elto = !show_elto ;
-    
+
             var column_name = "table .asm_" + name ;
             if (show_elto !== false)
        	     $(column_name).show() ;
             else $(column_name).hide() ;
-    
+
     	set_cfg(label_name, show_elto) ;
     	save_cfg() ;
-    
+
             var btn_name = "#asm_" + name ;
     	$(btn_name).removeClass('btn-outline-secondary').removeClass('btn-dark') ;
             if (show_elto !== false)
     	     $(btn_name).addClass('btn-dark') ;
     	else $(btn_name).addClass('btn-outline-secondary') ;
         }
-    
+
         function wepsim_show_asm_columns_checked ( asm_po )
         {
     	 var wsi = get_cfg('ws_idiom') ;
-    
+
              var o = '<button type="button" id="asm_label" aria-label="Show label" ' +
     		 '        onclick="wepsim_click_asm_columns(\'label\'); return false;" ' +
-    		 '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' + 
+    		 '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
     		 '<span class="float-left">' + i18n_get('dialogs',wsi,'Show/Hide labels') + '</span>' +
     		 '</button>' +
     		 '<button type="button" id="asm_hex" aria-label="Show content" ' +
     		 '        onclick="wepsim_click_asm_columns(\'hex\'); return false;" ' +
-                     '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' + 
+                     '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
     		 '<span class="float-left">' + i18n_get('dialogs',wsi,'Show/Hide content') + '</span>' +
     		 '</button>' +
     		 '<button type="button" id="asm_ins" aria-label="Show instruction" ' +
     		 '        onclick="wepsim_click_asm_columns(\'ins\'); return false;" ' +
-                     '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' + 
+                     '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
     		 '<span class="float-left">' + i18n_get('dialogs',wsi,'Show/Hide assembly') + '</span>' +
     		 '</button>' +
     		 '<button type="button" id="asm_pins" aria-label="Show pseudoinstruction" ' +
     		 '        onclick="wepsim_click_asm_columns(\'pins\'); return false;" ' +
-                     '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' + 
+                     '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
     		 '<span class="float-left">' + i18n_get('dialogs',wsi,'Show/Hide pseudo-instructions') + '</span>' +
     		 '</button>' +
                      '<button type="button" id="close" data-role="none" ' +
                      '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
-                     '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');">' + 
+                     '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');">' +
     		          i18n_get('dialogs',wsi,'Close') +
     		 '</button>' ;
-    
+
              return o ;
         }
 
@@ -268,15 +268,21 @@
 	{
 	    fullshow_asmdbg_pc();
 	    show_asmdbg_pc_deferred = null;
+
+            return null ;
 	}
 
 	function wepsim_show_asmdbg_pc ( )
 	{
-            if (get_cfg('DBG_delay') > 5)
+            if (get_cfg('DBG_delay') > 5) {
 	        return fullshow_asmdbg_pc();
+	    }
 
-            if (null == show_asmdbg_pc_deferred)
+            if (null == show_asmdbg_pc_deferred) {
                 show_asmdbg_pc_deferred = setTimeout(innershow_asmdbg_pc, cfg_show_asmdbg_pc_delay);
+	    }
+
+            return null ;
 	}
 
         var old_addr = 0;
@@ -285,6 +291,7 @@
 	{
                 var o1 = null ;
 
+                // check if Web interface enabled
 		if (typeof document === "undefined") {
 		    return o1 ;
 		}
@@ -294,10 +301,12 @@
                 var curr_addr = "0x" + reg_pc.toString(16) ;
                 var curr_firm = simhw_internalState('FIRMWARE') ;
 
+                // check if assembly is loaded
                 if (typeof curr_firm.assembly === "undefined") {
 		    return o1 ;
                 }
 
+                // set default for old asmdbg_pc
                 if (typeof curr_firm.assembly[old_addr] !== "undefined")
                 {
                      o1 = $("#asmdbg" + old_addr) ;
@@ -313,8 +322,33 @@
                 }
                 old_addr = curr_addr ;
 
+                // try to set the current asmdbg_pc
                 o1 = $("#asmdbg" + curr_addr) ;
                 o1.css('background-color', '#00EE88') ;
+
+                // check if current asmdbg_pc is available
+                if (typeof o1 === "undefined") {
+		    return null ;
+                }
+
+                // if AutoScroll is enabled...
+                if (get_cfg('AS_enable'))
+                {
+                    var obj_byid  = $('#asm_debugger_container') ;
+                    var ani_delay = get_cfg('AS_delay') ;
+
+                    if ( (typeof obj_byid !== 'undefined') && 
+                         (typeof o1[0]    !== 'undefined') ) 
+                    {
+                          var h = obj_byid.height() ;
+                          var d = o1[0].offsetTop - obj_byid.scrollTop() ;
+
+                          if ( (d < 0) || (d > h) ) {
+                              var p = (o1[0].offsetTop < h) ? 0 : (o1[0].offsetTop - h/2) ;
+                              obj_byid.animate({ scrollTop: p }, { duration: ani_delay }) ;
+                          }
+                    }
+                }
 
                 return o1 ;
 	}
@@ -347,8 +381,8 @@
 		// update content
                 $("span[rel='tooltip1']").tooltip('hide') ;
 
-                o1.innerHTML = "<span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>" + 
-			       inner_elto + 
+                o1.innerHTML = "<span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>" +
+			       inner_elto +
 			       "</span>" ;
 
 		// refresh style+events

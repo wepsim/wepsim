@@ -1,11 +1,19 @@
 
 # Changelog
 
+## 2.1.1 -> 2.1.2:
+* Bump bootstrap from 4.5.0 to 4.5.2
+* Examples sets dropdown: able to change the examples to be used.
+* Register section in firmware now support several names for one register: 0=[zero, x0],
+* Initial support for interactive command-line version.
+* Minor bugs fixed and several refinements added.
+
 ## 2.1.0 -> 2.1.1:
 * Command line version move from 'conversational parameters' to 'switched parameters':
   From: ./wepsim.sh    run    ep    microcode.txt    assembly.txt
   To:   ./wepsim.sh -a run -m ep -f microcode.txt -s assembly.txt
   We write little bit more but we get more flexibility in orden, combine options, etc.
+* The examples microcode has been simplified.
 * Minor bugs fixed and several refinaments added.
 
 ## 2.0.12 -> 2.1.0:
@@ -33,7 +41,7 @@
 * Initial support for Z80-like
 
 ## 2.0.9 -> 2.0.10:
-* Fix pseudo-instruction 'lii' in 'Subrutine' example.
+* Fix pseudo-instruction 'li' in 'Subrutine' example.
 * Improved command-line version: faster and more modular code.
 * Added support for translating an instruction set (JSON) into native microcode.
 * Improved UI for common tasks: quick links in the hardware dropdown and in the assembly initial text.

@@ -100,7 +100,9 @@
 
 	        if ('on' === cur_skin_user[1])
                 {
-		     $("#tab24").click() ;
+		   //$("#tab24").click() ;     // TOCHECK
+		     $("#tab24").tab("show") ; // TOCHECK
+
 		     inputfirm.setOption('readOnly', true) ;
 		     new_classes.push('.user_microcode') ;
 		}
@@ -544,6 +546,9 @@
 					      }
 					      return { list: result, from: cur, to: cur } ;
 				      });
+				  },
+				  "Ctrl-/": function(cm) {
+                                      cm.execCommand('toggleComment');
 				  }
 				},
 				mode: "gas"

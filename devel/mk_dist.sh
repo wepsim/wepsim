@@ -32,7 +32,8 @@ fi
 
 # install dependencies
 echo "  Requirements:"
-echo "  * terser, jq, yargs, jshint"
+echo "  * terser jq jshint"
+echo "  * yargs clear inquirer fuzzy inquirer-command-prompt"
 npm install
 
 # skeleton
@@ -97,6 +98,7 @@ cat wepsim_i18n/$LANG/gui.js \
     wepsim_i18n/$LANG/help.js \
     wepsim_i18n/$LANG/states.js \
     wepsim_i18n/$LANG/examples.js \
+    wepsim_i18n/$LANG/compiler.js \
     wepsim_i18n/$LANG/dialogs.js  >> ws_dist/wepsim_i18n.js
 cp  wepsim_i18n/$LANG/simulator.html ws_dist/help/simulator-"$LANG".html
 cp  wepsim_i18n/$LANG/about.html     ws_dist/help/about-"$LANG".html
@@ -213,6 +215,8 @@ cat external/knockout-3.5.1.js \
     external/codemirror/addon/fold/markdown-fold.js \
     external/codemirror/addon/hint/show-hint.js \
     external/codemirror/addon/runmode/colorize.js \
+    external/codemirror/addon/comment/comment.js \
+    external/codemirror/addon/comment/continuecomment.js \
     external/jquery.knob.min.js \
     external/vis/vis-network.min.js \
     external/async.min.js \
@@ -257,19 +261,19 @@ cp    -a external/speechkitt            ws_dist/external/
                                   touch ws_dist/external/speechkitt/index.html
 cp    -a external/cordova.js            ws_dist/external/cordova.js
 
-#  examples
+## pre-examples (default_packed)
 DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_z80.json examples/examples_set/apps_poc_mips.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_packed.json
 
-echo '[ {'                                                               > examples/examples_set/default.json
-echo '    "name":         "Default",'                                   >> examples/examples_set/default.json
-echo '    "url":          "examples/examples_set/default_packed.json",' >> examples/examples_set/default.json
-echo '    "url_base_asm": "examples/assembly/",'                        >> examples/examples_set/default.json
-echo '    "url_base_mc":  "examples/microcode/"'                        >> examples/examples_set/default.json
-echo '} ]'                                                              >> examples/examples_set/default.json
+## pre-examples (default.json + apps.json)
+ echo '[]' | \
+ jq ' . + [ { "name": "Default",    "url": "examples/examples_set/default_packed.json",  "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
+#jq ' . + [ { "name": "Snips",      "url": "examples/examples_set/snips_packed.json",    "url_base_asm": "examples/assembly_snips/", "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "Slides",     "url": "examples/examples_set/ocw_packed.json",      "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
 
 cp examples/examples_set/default.json examples/apps.json
 
+#  examples
 echo "  * ws_dist/examples/..."
 cp -a examples  ws_dist/
 

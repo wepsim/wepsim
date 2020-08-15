@@ -31,6 +31,6 @@ test {
 
 registers
 {
-        29=$sp (stack_pointer)
+        29=($sp, $29) (stack_pointer)
 }
 

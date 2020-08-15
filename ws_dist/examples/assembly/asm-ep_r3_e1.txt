@@ -18,31 +18,31 @@ sys_print:  li   zero 0
             beq  t4 zero fin1
             out  t4 0x1000
             add  t3 t3 t5
-            beq zero zero  b5
-      fin1: reti
+            beq  zero zero  b5
+      fin1: sret
       
   rt_i0:    # 1.- interruption
             li   t3  msgi0
-            beq zero zero  sys_print
+            beq  zero zero  sys_print
 
   rt_div0:  # 2.- exception
             li   t3  msgi1
-            beq zero zero  sys_print
+            beq  zero zero  sys_print
 
-  rt_sys:   # 3.- syscall
+  rt_sys:   # 3.- ecall
             mv   t3  a0
             li   t4  4
-            beq  a1  t4 sys_print
-            reti 
+            beq  a7  t4 sys_print
+            sret 
             
 .data
     helloworld: .asciiz "hello world...\n"
 
 .text
-    main:  # test syscall
+    main:  # test ecall
            la  a0 helloworld
-           li  a1 4
-           syscall
+           li  a7 4
+           ecall
 
            # test div 0/0
            li  t0 0

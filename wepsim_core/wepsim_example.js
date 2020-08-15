@@ -31,6 +31,8 @@
     {
        ws_examples        = [] ;
        ws_examples_active = -1 ;
+
+       webui_toolbar_updateExampleSet() ;
     }
 
     function wepsim_example_load ( e_name )
@@ -51,6 +53,8 @@
 	    ws_examples = ws_examples.concat(jobj) ;
             ws_examples_active = i ;
        }
+
+       webui_toolbar_updateExampleSet() ;
 
        return ws_examples ;
     }

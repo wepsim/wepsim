@@ -37,7 +37,8 @@ function read_microprg ( context )
 
 	   // match mandatory {
 	   if (! isToken(context, "{") ) {
-	         return langError(context, "Expected '{' not found") ;
+                 return langError(context,
+                                  i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
            }
 
            nextToken(context) ;
@@ -52,27 +53,34 @@ function read_microprg ( context )
 		   var newLabelName = getToken(context) ;
                        newLabelName = newLabelName.substring(0, newLabelName.length-1) ; // remove the ending ':'
 
-		   if ("TAG" != getTokenType(context))
-		        return langError(context, "Expected '<label>:' not found but '" + newLabelName + "'.");
+		   if ("TAG" != getTokenType(context)) {
+                        return langError(context,
+                                         i18n_get_TagFor('compiler', 'LABEL NOT FOUND') + newLabelName) ;
+                   }
 
 	           // semantic check: existing LABEL
 		   for (var contadorMCAux in context.etiquetas)
 		   {
-			if (context.etiquetas[contadorMCAux] == newLabelName)
-			    return langError(context, "Label is repeated: " + getToken(context));
+			if (context.etiquetas[contadorMCAux] == newLabelName) {
+                            return langError(context,
+                                             i18n_get_TagFor('compiler', 'REPEATED LABEL') + getToken(context)) ;
+                        }
 		   }
 		   context.etiquetas[context.contadorMC] = newLabelName ;
 
                    // semantic check: valid token
-                   if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName )
+                   if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName ) {
 		       return langError(context, "Label format is not valid for '" + getToken(context)  + "'") ;
+                   }
 
                    nextToken(context) ;
 	       }
 
 	       // match mandatory (
-	       if (! isToken(context, "(") )
-		     return langError(context, "Expected '(' not found") ;
+	       if (! isToken(context, "(") ) {
+                     return langError(context,
+                                      i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+               }
 
                nextToken(context) ;
 	       while (! isToken(context, ")") )
@@ -84,8 +92,10 @@ function read_microprg ( context )
 		   {
                         nextToken(context) ;
 			// match mandatory =
-			if (! isToken(context, "=") )
-			    return langError(context, "Expected '=' not found") ;
+			if (! isToken(context, "=") ) {
+                            return langError(context,
+                                             i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                        }
 
                         nextToken(context) ;
 			// match mandatory VALUE
@@ -118,12 +128,14 @@ function read_microprg ( context )
 		   }
 
                    // semantic check: valid signal id
-		   if (typeof simhw_sim_signal(nombre_tok) == "undefined")
+		   if (typeof simhw_sim_signal(nombre_tok) == "undefined") {
 		       return langError(context, "Signal does not exists: '" + nombre_tok + "'") ;
+                   }
 
                    // semantic check: signal id can be used
-		   if (typeof simhw_sim_signal(nombre_tok).forbidden != "undefined")
+		   if (typeof simhw_sim_signal(nombre_tok).forbidden != "undefined") {
 		       return langError(context, "Signal '" + nombre_tok + "' cannot be used directly, please use the Control Unit signals instead.") ;
+                   }
 
 		   microInstruccionAux[nombre_tok] = 1; // signal is active so far...
 
@@ -136,12 +148,14 @@ function read_microprg ( context )
 			microInstruccionAux[nombre_tok] = parseInt(getToken(context) , 2);
 
                         // semantic check: valid value
-                        if (getToken(context).match("[01]*")[0] != getToken(context))
+                        if (getToken(context).match("[01]*")[0] != getToken(context)) {
 			    return langError(context, "Incorrect binary format: " + getToken(context)) ;
+                        }
 
                         // semantic check: value within range
-		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, simhw_sim_signal(nombre_tok).nbits))
+		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, simhw_sim_signal(nombre_tok).nbits)) {
 		            return langError(context, "Value out of range: " + getToken(context)) ;
+                        }
 
                         nextToken(context) ;
 		   }
@@ -164,8 +178,9 @@ function read_microprg ( context )
 	   }
 
            // semantic check: empty microcode is not valid
-	   if (microprograma.length === 0)
+	   if (microprograma.length === 0) {
 	       return langError(context, "Empty microcode") ;
+           }
 
 	   // match mandatory }
            nextToken(context) ;
@@ -180,8 +195,10 @@ function read_native ( context )
            var microcomments = [];
 
 	   // match mandatory {
-	   if (! isToken(context, "{") )
-	         return langError(context, "Expected '{' not found") ;
+	   if (! isToken(context, "{") ) {
+                 return langError(context,
+                                  i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
+           }
 
 	   // read the rest...
 	   nextNative(context) ;
@@ -319,8 +336,10 @@ function loadFirmware (text)
                if (isToken(context,"registers"))
                {
                        nextToken(context) ;
-                       if (! isToken(context, "{"))
-                             return langError(context, "Expected '{' not found") ;
+                       if (! isToken(context, "{")) {
+                             return langError(context,
+                                              i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
+                       }
 
                        nextToken(context) ;
                        while (! isToken(context, "}"))
@@ -328,33 +347,62 @@ function loadFirmware (text)
                            var nombre_reg = getToken(context) ;
 
                            nextToken(context) ;
-                           if (! isToken(context, "="))
-				 return langError(context, "Expected '=' not found") ;
+                           if (! isToken(context, "=")) {
+                                 return langError(context,
+                                                  i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                           }
 
                            nextToken(context) ;
-                           context.registers[nombre_reg] = getToken(context) ;
+                           if (! isToken(context, "(")) {
+                                 // context.registers[nombre_reg] = getToken(context) ;
+                                 context.registers[nombre_reg] = [] ;
+                                 context.registers[nombre_reg].push(getToken(context)) ;
+                           }
+                           else
+                           {
+                                 nextToken(context) ;
+                                 if (isToken(context, ")")) {
+				       return langError(context, "Empty name list for register: x=[]") ;
+                                 }
+
+                                 context.registers[nombre_reg] = [] ;
+                                 while (! isToken(context, ")"))
+                                 {
+                                       context.registers[nombre_reg].push(getToken(context)) ;
+
+                                       nextToken(context) ;
+                                       if (isToken(context,",")) {
+                                           nextToken(context);
+			               }
+                                 }
+                           }
 
                            nextToken(context) ;
 			   if (isToken(context, "("))
 			   {
-				if (context.stackRegister != null)
+				if (context.stackRegister != null) {
 				    return langError(context, "Duplicate definition of stack pointer");
+			        }
 
 				nextToken(context);
-				if (! isToken(context, "stack_pointer"))
+				if (! isToken(context, "stack_pointer")) {
 				    return langError(context, "Expected stack_pointer token not found");
+			        }
 
 				context.stackRegister = nombre_reg;
 
 				nextToken(context);
-				if (! isToken(context, ")"))
-				    return langError(context, "Expected ')' not found");
+				if (! isToken(context, ")")) {
+                                    return langError(context,
+                                                     i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+			        }
 
 				nextToken(context);
 			   }
 			
-                           if (isToken(context,","))
+                           if (isToken(context,",")) {
                                nextToken(context);
+			   }
                        }
 
                        nextToken(context);
@@ -372,7 +420,8 @@ function loadFirmware (text)
 	       {
 			nextToken(context);
 			if (! isToken(context, "{")) {
-			     return langError(context, "Expected '{' not found");
+                             return langError(context,
+                                              i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
                         }
 
 			nextToken(context);
@@ -401,7 +450,8 @@ function loadFirmware (text)
 
 				            nextToken(context);
 					    if (! isToken(context, ")")) {
-					        return langError(context, "Expected ')' not found.");
+                                                return langError(context,
+                                                                 i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
                                             }
 
 				            nextToken(context);
@@ -416,7 +466,8 @@ function loadFirmware (text)
 
                                         // name*=*type
 					if (! isToken(context, "=")) {
-					      return langError(context, "Expected '=' not found (for name=type)");
+                                              return langError(context,
+                                                               i18n_get_TagFor('compiler', 'EQUAL NOT FOUND') + ' (for name=type)') ;
 				        }
 
                                         // name=*type*
@@ -560,9 +611,10 @@ function loadFirmware (text)
 
                // semantic check: valid instruction name
                var re_name = "[a-zA-Z_0-9\.]*" ;
-               if (instruccionAux.name.match(re_name)[0] != instruccionAux.name)
+               if (instruccionAux.name.match(re_name)[0] != instruccionAux.name) {
 	           return langError(context, "Instruction name '" + instruccionAux.name +
                                              "' is not valid for " + re_name) ;
+               }
 
 	       var firma = "";
 	       var firmaGlobal= "";
@@ -605,12 +657,15 @@ function loadFirmware (text)
 		       firmaUsuario = firmaUsuario + auxValue;
 		       nextToken(context);
 
-		       if (numeroCampos > 100)
+		       if (numeroCampos > 100) {
 			   return langError(context, "more than 100 fields in a single instruction.") ;
-		       if (auxValue == "co")
+                       }
+		       if (auxValue == "co") {
 			   return langError(context, "instruction field has 'co' as name.") ;
-		       if (auxValue == "nwords")
+                       }
+		       if (auxValue == "nwords") {
 			   return langError(context, "instruction field has 'nwords' as name.") ;
+                       }
 		   }
 
                    // match optional "(" FIELD ")"
@@ -684,13 +739,16 @@ function loadFirmware (text)
 
 	       nextToken(context);
 	       // match mandatory co
-	       if (! isToken(context,"co"))
+	       if (! isToken(context,"co")) {
 		     return langError(context, "Expected keyword 'co' not found") ;
+               }
 
 	       nextToken(context);
 	       // match mandatory =
-	       if (! isToken(context,"="))
-	    	     return langError(context, "Expected '=' not found") ;
+	       if (! isToken(context,"=")) {
+		     return langError(context,
+				      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+               }
 
 	       nextToken(context);
 	       // match mandatory CO
@@ -744,7 +802,8 @@ function loadFirmware (text)
 		       nextToken(context);
 		       // match mandatory =
 		       if (! isToken(context,"=")) {
-			     return langError(context, "Expected '=' not found") ;
+		             return langError(context,
+				              i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
                        }
 
 		       nextToken(context);
@@ -787,13 +846,16 @@ function loadFirmware (text)
 // }
 
 	       // match mandatory nwords
-	       if (! isToken(context,"nwords"))
+	       if (! isToken(context,"nwords")) {
 		   return langError(context, "Expected keyword 'nwords' not found") ;
+               }
 
 	       nextToken(context);
 	       // match mandatory =
-	       if (! isToken(context,"="))
-		   return langError(context, "Expected '=' not found") ;
+	       if (! isToken(context,"=")) {
+		   return langError(context,
+				    i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+               }
 
 	       nextToken(context);
 	       // match mandatory NWORDS
@@ -820,18 +882,22 @@ function loadFirmware (text)
 	       {
 	           // match mandatory FIELD
 	           var tmp_name = getToken(context) ;
-	           if (campos[camposInsertados].name != tmp_name)
+	           if (campos[camposInsertados].name != tmp_name) {
 		       return langError(context, "Unexpected field found: '" + tmp_name + "'") ;
+                   }
 
 	           nextToken(context);
 	           // match mandatory =
-	           if (! isToken(context,"="))
-		       return langError(context, "Expected '=' not found") ;
+	           if (! isToken(context,"=")) {
+		       return langError(context,
+				        i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                   }
 
 	           nextToken(context);
 	           // match mandatory reg|inm|address
-	           if ( !isToken(context, "reg") && !isToken(context, "inm") && !isToken(context, "address") )
+	           if ( !isToken(context, "reg") && !isToken(context, "inm") && !isToken(context, "address") ) {
 		        return langError(context, "Incorrect type of field (reg, inm or address)") ;
+                   }
 
 	           campos[camposInsertados].type = getToken(context) ;
 	           firma = firma.replace("," + campos[camposInsertados].name, "," + campos[camposInsertados].type);
@@ -847,8 +913,10 @@ function loadFirmware (text)
 
 	           nextToken(context);
 	           // match mandatory (
-	           if (! isToken(context,"("))
-		       return langError(context, "Expected '(' not found") ;
+	           if (! isToken(context,"(")) {
+                         return langError(context,
+                                          i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+                   }
 
 	           nextToken(context);
 	           // match mandatory START_BIT
@@ -856,13 +924,16 @@ function loadFirmware (text)
 
                    // check startbit range
                    var start = parseInt(campos[camposInsertados].startbit);
-                   if (start > 32*parseInt(instruccionAux.nwords)-1)
+                   if (start > 32*parseInt(instruccionAux.nwords)-1) {
 		       return langError(context, "startbit out of range: " + getToken(context)) ;
+                   }
 
 	           nextToken(context);
 	           // match mandatory ,
-	           if (! isToken(context,","))
-		       return langError(context, "Expected ',' not found") ;
+	           if (! isToken(context,",")) {
+                         return langError(context,
+                                          i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
+                   }
 
 	           nextToken(context);
 	           // match mandatory STOP_BIT
@@ -870,28 +941,34 @@ function loadFirmware (text)
 
                    // check stopbit range
                    var stop  = parseInt(campos[camposInsertados].stopbit);
-                   if (stop > 32*parseInt(instruccionAux.nwords))
+                   if (stop > 32*parseInt(instruccionAux.nwords)) {
 		       return langError(context, "stopbit out of range: " + getToken(context)) ;
+                   }
 
                    // check overlapping
                    for (i=stop; i<=start; i++)
                    {
-                        if (typeof overlapping[i] != "undefined")
+                        if (typeof overlapping[i] != "undefined") {
 		            return langError(context, "overlapping field: " + campos[camposInsertados].name);
+                        }
+
                         overlapping[i] = 1;
                    }
 
 	           nextToken(context);
 	           // match mandatory )
-	           if (! isToken(context,")"))
-		       return langError(context, "Expected ')' not found") ;
+	           if (! isToken(context,")")) {
+		         return langError(context,
+					  i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+                   }
 
 	           nextToken(context);
 	           if (campos[camposInsertados].type == "address")
 	           {
 	               // match mandatory abs|rel
-		       if (getToken(context) !="abs" && getToken(context) !="rel")
+		       if (getToken(context) !="abs" && getToken(context) !="rel") {
 		    	   return langError(context, "Type of addressing incorrect (abs or rel)") ;
+                       }
 
 	               // match mandatory ADDRESS_TYPE
 		       campos[camposInsertados].address_type = getToken(context) ;
@@ -899,8 +976,9 @@ function loadFirmware (text)
 	           }
 
 	           // match optional ,
-	           if (isToken(context, ","))
+	           if (isToken(context, ",")) {
 		       nextToken(context);
+                   }
 
 	           camposInsertados++;
 	       }
@@ -973,15 +1051,18 @@ function loadFirmware (text)
 //             }
 // *}*
 
-               if (! isToken(context,"}"))
-                   return langError(context, "Expected '}' not found") ;
+               if (! isToken(context,"}")) {
+                   return langError(context,
+                                    i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
+               }
 
                nextToken(context);
            }
 
            // CHECK: stack_pointer exists
-	   if (context.stackRegister == null)
+	   if (context.stackRegister == null) {
 	       return langError(context, "Stack pointer register was not defined");
+           }
 
            // CHECK: fetch exists + fetch label
            var found = false ;
@@ -995,25 +1076,32 @@ function loadFirmware (text)
                                found = true;
                          }
                     }
-		    if (found === false)
+		    if (found === false) {
 		        return langError(context, "label 'fetch' not defined") ;
+                    }
                 }
            }
            if (found === false) {
 	       return langError(context, "'begin' not found") ;
            }
 
-           // TO RESOLVE co=111111 (111111 === "please, find one free 'co' for me...")
+           // RESOLVE: co=111111... (111111... === "please, find one free 'co' for me...")
+           var ir_info = simhw_sim_ctrlStates_get() ;
+           var ir_co_length = 6 ;
+           if (typeof ir_info !== "undefined") {
+               ir_co_length = ir_info.ir.default_eltos.co.length ;
+           }
            var first_co = 0 ;
-           var last_co  = Math.pow(2, 6) - 1 ;
+           var last_co = Math.pow(2, ir_co_length) - 1 ;
+           var last_co_str = last_co.toString(2) ;
 
            var curr_instruction = null ;
            for (i=0; i<context.instrucciones.length; i++)
            {
                 curr_instruction = context.instrucciones[i] ;
 
-                // skip non-111111 cases
-                if ( (curr_instruction.name === "begin") || (curr_instruction.co !== "111111") ) {
+                // skip non-111111... cases
+                if ( (curr_instruction.name === "begin") || (curr_instruction.co !== last_co_str) ) {
                      continue ;
                 }
 
@@ -1054,8 +1142,8 @@ function loadFirmware (text)
 
 			if (labelsFounded == 0)
 			{
-                                // CHECK: label is defined
-				return langError(context, "MADDR label not found : " + context.labelsNotFound[i].nombre) ;
+                            // CHECK: label is defined
+			    return langError(context, "MADDR label not found : " + context.labelsNotFound[i].nombre) ;
 			}
 
                         labelsFounded = 0;
@@ -1221,14 +1309,21 @@ function saveFirmware ( SIMWARE )
 		file += '\n}\n\n';
 	}	
 
+// TOCHECK
 	if ( (typeof SIMWARE.registers != "undefined") && (SIMWARE.registers.length > 0) )
 	{
 		file += 'registers' + '\n{\n';
 		for (i=0; i< SIMWARE.registers.length; i++)
 		{
+                     var l = SIMWARE.registers[i].length - 1 ;
+                     var r = " [ " ;
+		     for (j=0; j<l; j++)
+                          r += SIMWARE.registers[i][j] + ", " ;
+                     r += SIMWARE.registers[i][l] + " ] " ;
+
 		     if (SIMWARE.stackRegister == i)
-		     	  file += '\t' + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
-                     else file += '\t' + i + "=" + SIMWARE.registers[i] + "," + '\n';
+		     	  file += '\t' + i + "=" + r + " (stack_pointer)," + '\n';
+                     else file += '\t' + i + "=" + r + "," + '\n';
 		}
 		file  = file.substr(0, file.length-2);
 		file += '\n}\n';

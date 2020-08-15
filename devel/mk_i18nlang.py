@@ -503,6 +503,33 @@ i18n_eltos['tutorial_welcome'] = {
 
 };
 
+i18n_eltos['compiler'] = {
+
+   "NO TAG OR DIRECTIVE":  "Expected tag (x:) or directive (.x) but found this token instead: ",
+   "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format (starting with a letter or underscore): ",
+   "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction: ",
+   "REPEATED TAG":         "Repeated tag: ",
+   "NO NUMERIC DATATYPE":  "Expected value for numeric datatype but found: ",
+   "NO POSITIVE NUMBER":   "Expected a positive number but found: ",
+   "NO NUMBER OF BYTES":   "Expected number of bytes to reserve in .space (natural number) but found: ",
+   "INVALID ALIGN VALUE":  "Expected the align parameter as positive number but found: ",
+   "REMEMBER ALIGN VAL":   "Remember that number is the power of two for alignment, see MIPS documentation.",
+   "NOT CLOSED STRING":    "String is not closed (forgot to end it with quotation marks)",
+   "NO QUOTATION MARKS":   "Expected string between quotation marks but found: ",
+   "UNEXPECTED DATATYPE":  "Unexpected datatype name: ",
+   "INVALID SEGMENT NAME": "Expected .data/.text/... segment but found: ",
+   "NO MAIN OR KMAIN":     "Tags 'main' or 'kmain' are not defined in the text segment(s). " +
+                           "It is compulsory to define at least one of those tags in order to execute a program",
+   "UNKNOWN 1":            "An unknown error ocurred (1)",
+   "UNKNOWN 2":            "Unexpected error (2)",
+   "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
+   "SEVERAL CANDIDATES":   "Instruction and fields match with more than one possible instruction. " +
+                           "Please check the microcode. Currently, the instruction format can be: ",
+   "NOT MATCH MICRO":      "Instruction and fields don't match with the defined instruction format",
+   "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
+
+};
+
 
 #
 # print translation
@@ -584,9 +611,9 @@ if (len(sys.argv) < 2 or len(sys.argv) > 3):
     sys.exit(0)
 
 # + define elements
-L_D     = sys.argv[1] ;
+L_D     = sys.argv[1] ; # more information: https://www.labnol.org/code/19899-google-translate-languages
 L_COMPO = [ "cfg", "dialogs", "examples", "gui", "help", "states",
-            "tour-intro",  "tutorial-simpleusage", "tutorial-welcome" ] ;
+            "tour-intro",  "tutorial-simpleusage", "tutorial-welcome", "compiler" ] ;
 
 # + directory
 print("Directory for " + L_D + "...")
