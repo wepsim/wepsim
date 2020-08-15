@@ -42,6 +42,16 @@
 		'NOT MATCH MICRO':		'Istruzione e campi non corrispondono con il formato delle istruzioni definito',
 		'CHECK MICROCODE':		'Si prega di verificare il microcodice. Probabilmente si è dimenticato di aggiungere un campo, un numero non rientra nel suo spazio, o semplicemente utilizzato un\'istruzione sbagliata',
 
+           // microcode
+           "LABEL NOT FOUND":        "Expected '<label>:' not found, found token: ",
+           "REPEATED LABEL":         "Label is repeated: ",
+           "OPEN BRACE NOT FOUND":   "Expected '{' not found",
+           "CLOSE BRACE NOT FOUND":  "Expected '}' not found",
+           "OPEN PAREN. NOT FOUND":  "Expected '(' not found",
+           "CLOSE PAREN. NOT FOUND": "Expected ')' not found",
+           "COMMA NOT FOUND":        "Expected ',' not found",
+           "EQUAL NOT FOUND":        "Expected '=' not found",
+
 		'_last_':		'_last_'
 
     };

@@ -21,6 +21,7 @@
 
     i18n.eltos.compiler.en = {
 
+           // assembly
 	   "NO TAG OR DIRECTIVE":  "Expected tag or directive but found this token instead: ",
            "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format (starting with a letter or underscore): ",
            "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction: ",
@@ -37,14 +38,25 @@
            "INVALID SEGMENT NAME": "Expected .data/.text/... segment but found: ",
            "NO MAIN OR KMAIN":     "Tags 'main' or 'kmain' are not defined in the text segment(s). " +
                                    "It is compulsory to define at least one of those tags in order to execute a program",
-           "UNKNOWN 1":            "An unknown error ocurred (1)",
+           "UNKNOWN 1":            "An unknown error ocurred (1) for field type: ",
            "UNKNOWN 2":            "Unexpected error (2)",
            "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
            "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
                                    "Please check the microcode. Currently, the instruction format can be: ",
            "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
            "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
+           "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
 
-	   "_last_":						"_last_"
+           // microcode
+           "LABEL NOT FOUND":        "Expected '<label>:' not found, found token: ",
+           "REPEATED LABEL":         "Label is repeated: ",
+           "OPEN BRACE NOT FOUND":   "Expected '{' not found",
+           "CLOSE BRACE NOT FOUND":  "Expected '}' not found",
+           "OPEN PAREN. NOT FOUND":  "Expected '(' not found",
+           "CLOSE PAREN. NOT FOUND": "Expected ')' not found",
+           "COMMA NOT FOUND":        "Expected ',' not found",
+           "EQUAL NOT FOUND":        "Expected '=' not found",
+
+	   "_last_":		   "_last_"
     } ;
 

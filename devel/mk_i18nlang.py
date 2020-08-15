@@ -528,8 +528,6 @@ i18n_eltos['compiler'] = {
    "NOT MATCH MICRO":      "Instruction and fields don't match with the defined instruction format",
    "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
 
-   "_last_":		   "_last_"
-
 };
 
 

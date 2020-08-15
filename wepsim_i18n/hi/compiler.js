@@ -42,6 +42,16 @@
 		'NOT MATCH MICRO':		'निर्देश और खेतों में परिभाषित किया अनुदेश प्रारूप के साथ मेल नहीं खाते',
 		'CHECK MICROCODE':		'माइक्रोकोड की जांच करें। शायद आप एक क्षेत्र को जोड़ने के लिए भूल गया, एक नंबर अपने अंतरिक्ष में फिट नहीं करता है, या आप बस एक गलत अनुदेश का इस्तेमाल किया',
 
+           // microcode
+           "LABEL NOT FOUND":        "Expected '<label>:' not found, found token: ",
+           "REPEATED LABEL":         "Label is repeated: ",
+           "OPEN BRACE NOT FOUND":   "Expected '{' not found",
+           "CLOSE BRACE NOT FOUND":  "Expected '}' not found",
+           "OPEN PAREN. NOT FOUND":  "Expected '(' not found",
+           "CLOSE PAREN. NOT FOUND": "Expected ')' not found",
+           "COMMA NOT FOUND":        "Expected ',' not found",
+           "EQUAL NOT FOUND":        "Expected '=' not found",
+
 		'_last_':		'_last_'
 
     };

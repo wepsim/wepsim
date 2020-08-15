@@ -42,6 +42,16 @@
 		'NOT MATCH MICRO':		'Инструкция и поля не совпадают с заданным форматом команд',
 		'CHECK MICROCODE':		'Пожалуйста, проверьте микрокод. Возможно, вы забыли добавить поле, число не помещается в пространстве, или вы просто использовали неправильную инструкцию',
 
+           // microcode
+           "LABEL NOT FOUND":        "Expected '<label>:' not found, found token: ",
+           "REPEATED LABEL":         "Label is repeated: ",
+           "OPEN BRACE NOT FOUND":   "Expected '{' not found",
+           "CLOSE BRACE NOT FOUND":  "Expected '}' not found",
+           "OPEN PAREN. NOT FOUND":  "Expected '(' not found",
+           "CLOSE PAREN. NOT FOUND": "Expected ')' not found",
+           "COMMA NOT FOUND":        "Expected ',' not found",
+           "EQUAL NOT FOUND":        "Expected '=' not found",
+
 		'_last_':		'_last_'
 
     };

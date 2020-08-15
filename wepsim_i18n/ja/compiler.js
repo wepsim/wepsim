@@ -42,6 +42,16 @@
 		'NOT MATCH MICRO':		'命令とフィールドが定義された命令フォーマットと一致していません',
 		'CHECK MICROCODE':		'マイクロコードを確認してください。おそらく、あなたはフィールドを追加するのを忘れて、数がそのスペースに収まらない、またはあなただけの間違った命令を使用します',
 
+           // microcode
+           "LABEL NOT FOUND":        "Expected '<label>:' not found, found token: ",
+           "REPEATED LABEL":         "Label is repeated: ",
+           "OPEN BRACE NOT FOUND":   "Expected '{' not found",
+           "CLOSE BRACE NOT FOUND":  "Expected '}' not found",
+           "OPEN PAREN. NOT FOUND":  "Expected '(' not found",
+           "CLOSE PAREN. NOT FOUND": "Expected ')' not found",
+           "COMMA NOT FOUND":        "Expected ',' not found",
+           "EQUAL NOT FOUND":        "Expected '=' not found",
+
 		'_last_':		'_last_'
 
     };

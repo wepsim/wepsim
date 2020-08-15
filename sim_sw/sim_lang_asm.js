@@ -952,7 +952,7 @@ function read_text ( context, datosCU, ret )
 						break;
 					default:
 					        return langError(context,
-							         i18n_get_TagFor('compiler', 'UNKNOWN 1')) ;
+							         i18n_get_TagFor('compiler', 'UNKNOWN 1') + field.type) ;
 				}
 
 				// check if bits fit in the space
@@ -1317,8 +1317,9 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if (typeof value === "undefined") {
-			setLabelContext(context, ret.labels[i].labelContext);
-			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
+		    setLabelContext(context, ret.labels[i].labelContext);
+		    return langError(context, 
+				     i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ret.labels[i].name) ;
 		}
 
 		// Get the words in memory (machine code) where the label is used

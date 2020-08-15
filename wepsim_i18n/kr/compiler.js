@@ -42,6 +42,16 @@
 		'NOT MATCH MICRO':		'수업 및 필드는 정의 된 명령 형식과 일치하지 않습니다',
 		'CHECK MICROCODE':		'마이크로 코드를 확인하시기 바랍니다. 아마 당신은 필드를 추가하는 것을 잊었다 숫자는 공간에 맞지 않는, 또는 당신은 단지 잘못된 명령을 사용',
 
+           // microcode
+           "LABEL NOT FOUND":        "Expected '<label>:' not found, found token: ",
+           "REPEATED LABEL":         "Label is repeated: ",
+           "OPEN BRACE NOT FOUND":   "Expected '{' not found",
+           "CLOSE BRACE NOT FOUND":  "Expected '}' not found",
+           "OPEN PAREN. NOT FOUND":  "Expected '(' not found",
+           "CLOSE PAREN. NOT FOUND": "Expected ')' not found",
+           "COMMA NOT FOUND":        "Expected ',' not found",
+           "EQUAL NOT FOUND":        "Expected '=' not found",
+
 		'_last_':		'_last_'
 
     };
