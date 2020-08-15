@@ -50,11 +50,11 @@
  */
 
 	sim_segments = {
-                          ".kdata": { name:".kdata",  begin:0x00000, end:0x000FF, color: "#FF99CC", kindof:"data"  },
-                          ".ktext": { name:".ktext",  begin:0x00100, end:0x00FFF, color: "#A9D0F5", kindof:"text"  },
-                          ".data":  { name:".data",   begin:0x01000, end:0x07FFF, color: "#FACC2E", kindof:"data"  },
-                          ".text":  { name:".text",   begin:0x08000, end:0x1FFFF, color: "#BEF781", kindof:"text"  },
-                          ".stack": { name:".stack",  begin:0x1FFFF, end:0xFFFFF, color: "#F1F2A3", kindof:"stack" }
+                          ".kdata": { name:".kdata", begin:0x00000, end:0x000FF, color:"#FF99CC", kindof:"data" },
+                          ".ktext": { name:".ktext", begin:0x00100, end:0x00FFF, color:"#A9D0F5", kindof:"text" },
+                          ".data":  { name:".data",  begin:0x01000, end:0x07FFF, color:"#FACC2E", kindof:"data" },
+                          ".text":  { name:".text",  begin:0x08000, end:0x1FFFF, color:"#BEF781", kindof:"text" },
+                          ".stack": { name:".stack", begin:0x1FFFF, end:0xFFFFF, color:"#F1F2A3", kindof:"stack" }
                        };
 
 /*
@@ -98,8 +98,9 @@ function is_directive_datatype ( text )
 
 function isDecimal ( n )
 {
-	if (n.length > 1 && n[0] == "0")
+	if (n.length > 1 && n[0] == "0") {
             return false;
+	}
 
 	if ( !isNaN(parseFloat(n)) && isFinite(n) ) {
 		var res = parseInt(n);
@@ -339,17 +340,25 @@ function read_data ( context, datosCU, ret )
 		      possible_tag = getToken(context) ;
 
                       // check tag
-		      if ("TAG" != getTokenType(context))
-			  return langError(context, "Expected tag or directive but found '" + possible_tag + "' instead" ) ;
+		      if ("TAG" != getTokenType(context)) {
+			  return langError(context,
+			                i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') + possible_tag) ;
+		      }
 
 		      var tag = possible_tag.substring(0, possible_tag.length-1);
 
-   		      if (!isValidTag(tag))
-			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + tag + "' instead");
-		      if (context.firmware[tag])
-			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
-		      if (ret.labels2[tag])
-			  return langError(context, "Repeated tag: '" + tag + "'");
+   		      if (!isValidTag(tag)) {
+			  return langError(context,
+			                   i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') + tag) ;
+		      }
+		      if (context.firmware[tag]) {
+			  return langError(context,
+			                   i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') + tag) ;
+		      }
+		      if (ret.labels2[tag]) {
+			  return langError(context,
+			                   i18n_get_TagFor('compiler', 'REPEATED TAG') + tag) ;
+		      }
 
 		      // Store tag
 		      ret.labels2[tag] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16);
@@ -359,8 +368,9 @@ function read_data ( context, datosCU, ret )
 		   }
 
 		   // check if end of file has been reached
-		   if (is_end_of_file(context))
+		   if (is_end_of_file(context)) {
 			break;
+                   }
 
 		   //
 		   //    etiq1:
@@ -390,15 +400,25 @@ function read_data ( context, datosCU, ret )
 
 				// Error
 				else {
-					if (".word" == possible_datatype) {
-						if (!isValidTag(possible_value))
-							return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + possible_value + "' instead");
-						if (context.firmware[possible_value])
-							return langError(context, "A tag can not have the same name as an instruction (" + possible_value + ")");
+					if (".word" == possible_datatype)
+                                        {
+						if (! isValidTag(possible_value)) {
+						    return langError(context,
+								     i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') + possible_value) ;
+   				                }
+
+						if (context.firmware[possible_value]) {
+						    return langError(context,
+			                                             i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') + possible_value) ;
+   				                }
+
 						number = 0;
 						label_found = true;
 					}
-					else return langError(context, "Expected value for numeric datatype but found '" + possible_value + "' instead");
+					else {
+					        return langError(context,
+			                                         i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') + possible_value) ;
+				        }
 				}
 
 				// Get value size in bytes
@@ -410,8 +430,9 @@ function read_data ( context, datosCU, ret )
                                 free_space = a[1] ;
 
 				// Check size
-				if (free_space < 0)
-					return langError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*BYTE_LENGTH + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
+				if (free_space < 0) {
+				    return langError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*BYTE_LENGTH + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
+				}
 
 				// Word filled
                                 writememory_and_reset(ret.mp, gen, 1) ;
@@ -465,10 +486,14 @@ function read_data ( context, datosCU, ret )
                         var possible_value = getToken(context) ;
 
 			// Check
-			if (!isDecimal(possible_value))
-			     return langError(context, "Expected number of bytes to reserve in .space but found '" + possible_value + "' as number");
-			if (possible_value < 0)
-			     return langError(context, "Expected positive number but found '" + possible_value + "' as positive number");
+			if (!isDecimal(possible_value)) {
+			     return langError(context,
+			                i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') + possible_value) ;
+		        }
+			if (possible_value < 0) {
+			     return langError(context,
+			                i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + possible_value) ;
+			}
 
 			// Fill with spaces
 			for (i=0; i<possible_value; i++)
@@ -490,7 +515,12 @@ function read_data ( context, datosCU, ret )
 
 			// Check if number
 			if (!isDecimal(possible_value) && possible_value >=0 )
-			     return langError(context, "Expected the align parameter as positive number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
+                        {
+			     return langError(context,
+			                      i18n_get_TagFor('compiler', 'INVALID ALIGN VALUE') +
+					      possible_value + '. ' +
+			                      i18n_get_TagFor('compiler', 'REMEMBER ALIGN VAL')) ;
+		        }
 
 			// Word filled
                         writememory_and_reset(ret.mp, gen, 1) ;
@@ -528,8 +558,9 @@ function read_data ( context, datosCU, ret )
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
                         var ret1 = treatControlSequences(possible_value) ;
-			if (true == ret1.error)
+			if (true == ret1.error) {
 			    return langError(context, ret1.string);
+		        }
                         possible_value = ret1.string ;
 
 			while (!is_directive(getToken(context)) && !is_end_of_file(context))
@@ -538,10 +569,14 @@ function read_data ( context, datosCU, ret )
                                 writememory_and_reset(ret.mp, gen, 1) ;
 
 				// check string
-				if ("" == possible_value)
-					return langError(context, "String is not closed (forgot to end it with quotation marks)") ;
-		                if ("STRING" != getTokenType(context))
-				    	return langError(context, "Expected string between quotation marks but found '" + possible_value + "' instead");
+				if ("" == possible_value) {
+			            return langError(context,
+			                             i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
+			        }
+		                if ("STRING" != getTokenType(context)) {
+			            return langError(context,
+			                             i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') + possible_value) ;
+			        }
 
 				// process characters of the string
 				for (i=0; i<possible_value.length; i++)
@@ -549,8 +584,9 @@ function read_data ( context, datosCU, ret )
 					// Word filled
                                         writememory_and_reset(ret.mp, gen, 1) ;
 
-					if (possible_value[i] == "\"")
+					if (possible_value[i] == "\"") {
                                             continue;
+                                        }
 
 					num_bits = possible_value.charCodeAt(i).toString(2);
 
@@ -574,8 +610,9 @@ function read_data ( context, datosCU, ret )
 				// optional ','
 				nextToken(context);
 
-				if ("," == getToken(context))
+				if ("," == getToken(context)) {
 				    nextToken(context);
+			        }
 
 			        if ( is_directive(getToken(context)) || ("TAG" == getTokenType(context)) || "." == getToken(context)[0] )
 				     break ; // end loop, already read token (tag/directive)
@@ -583,14 +620,16 @@ function read_data ( context, datosCU, ret )
                                 // <value> | .<directive>
 				possible_value = getToken(context);
                                 ret1 = treatControlSequences(possible_value) ;
-				if (true == ret1.error)
+				if (true == ret1.error) {
 				    return langError(context, ret1.string);
+			        }
                                 possible_value = ret1.string ;
                         }
 		   }
 		   else
 		   {
-		        return langError(context, "Unexpected datatype name '" + possible_datatype );
+			return langError(context,
+				   i18n_get_TagFor('compiler', 'UNEXPECTED DATATYPE') + possible_datatype) ;
 		   }
            }
 
@@ -639,28 +678,32 @@ function read_text ( context, datosCU, ret )
 	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context))
            {
 		// check tag or error
-		while ( 
-                   (! isPseudo) && 
-                   (typeof firmware[getToken(context)] === "undefined") && 
-                   (! is_end_of_file(context)) 
+		while (
+                   (! isPseudo) &&
+                   (typeof firmware[getToken(context)] === "undefined") &&
+                   (! is_end_of_file(context))
                 )
                 {
 			var possible_tag = getToken(context);
 
 			// check tag
 		        if ("TAG" != getTokenType(context)) {
-			    return langError(context, "Expected tag or instruction but found '" + possible_tag + "' instead" );
+			    return langError(context,
+			                 i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') + possible_tag) ;
                         }
 
 		        var tag = possible_tag.substring(0, possible_tag.length-1);
    		        if (!isValidTag(tag)) {
-			    return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + tag + "' instead");
+			    return langError(context,
+			                     i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') + tag) ;
                         }
 			if (firmware[tag]) {
-			    return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
+			    return langError(context,
+			                     i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') + tag) ;
                         }
 			if (ret.labels2[tag]) {
-			    return langError(context, "Repeated tag: '" + tag + "'");
+			    return langError(context,
+			                     i18n_get_TagFor('compiler', 'REPEATED TAG') + tag) ;
                         }
 
 			// store tag
@@ -767,9 +810,9 @@ function read_text ( context, datosCU, ret )
 				if (i >= signature_fields[j].length)
                                 {
 				    // if next token is not instruction or tag
-				    if ( ("TAG" != getTokenType(context)) && 
-                                         (!firmware[value]) && 
-                                         (!is_end_of_file(context)) ) 
+				    if ( ("TAG" != getTokenType(context)) &&
+                                         (!firmware[value]) &&
+                                         (!is_end_of_file(context)) )
                                     {
 				          advance[j] = 0;
                                     }
@@ -908,7 +951,8 @@ function read_text ( context, datosCU, ret )
                                                 value = s[i+1] ;
 						break;
 					default:
-						return langError(context, "An unknown error ocurred (1)");
+					        return langError(context,
+							         i18n_get_TagFor('compiler', 'UNKNOWN 1')) ;
 				}
 
 				// check if bits fit in the space
@@ -957,7 +1001,7 @@ function read_text ( context, datosCU, ret )
                          if (! isPseudo) {
 			      pfinish = finish[candidate] ;
                          }
-                         isPseudo  = (isPseudo) || (typeof firmware[instruction][i].finish !== "undefined") ; 
+                         isPseudo  = (isPseudo) || (typeof firmware[instruction][i].finish !== "undefined") ;
 // </TOCHECK>
 			 break ;
 		     }
@@ -979,22 +1023,29 @@ function read_text ( context, datosCU, ret )
 		// check solution
 		var sum_res = sum_array(advance) ;
 
-		if (sum_res == 0) 
+		if (sum_res == 0)
                 {
 			// No candidate
 			if (advance.length === 1) {
-			    return langError(context, error + ". Remember that the instruction format has been defined as: " + format);
+			    return langError(context, 
+                                             error + ". " + 
+				             i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
+                                             format);
 			}
 
-			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format + ". Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction");
+			return langError(context, 
+				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') +
+				         i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
+				         i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 		}
 
-		if (sum_res > 1) 
+		if (sum_res > 1)
                 {
 			// Multiple candidates
 			candidate = get_candidate(advance, firmware[instruction]);
 			if (candidate === false) {
-			    return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
+			    return langError(context, 
+				             i18n_get_TagFor('compiler', 'SEVERAL CANDIDATES') + format) ;
 			}
 		}
 
@@ -1059,7 +1110,7 @@ function read_text ( context, datosCU, ret )
 									labelContext:getLabelContext(context) } ;
                         }
 			// replace instruction and fields in machine code
-			else 
+			else
                         {
 			    machineCode = assembly_replacement(	machineCode,
 								binaryAux[candidate][i].num_bits,
@@ -1130,7 +1181,7 @@ function read_text ( context, datosCU, ret )
                 // if instruction candiates with less than max_length fields
                 //    then we read ahead next token, otherwise we need to read next token
                 var equals_fields = true ;
-                for (var c=0; c<signature_fields.length; c++) 
+                for (var c=0; c<signature_fields.length; c++)
                 {
                      if (max_length !== signature_fields[c].length) {
                          equals_fields = false ;
@@ -1197,14 +1248,14 @@ function simlang_compile (text, datosCU)
 	   // fill pseudoinstructions
 	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
 	   {
-		var initial = datosCU.pseudoInstructions[i].initial;
-		var finish = datosCU.pseudoInstructions[i].finish;
+		var initial = datosCU.pseudoInstructions[i].initial ;
+		var finish  = datosCU.pseudoInstructions[i].finish ;
 
 		if (typeof context.pseudoInstructions[initial.name] === "undefined")
                 {
-	 	    context.pseudoInstructions[initial.name] = 0;
+	 	    context.pseudoInstructions[initial.name] = 0 ;
 		    if (typeof context.firmware[initial.name] === "undefined") {
-		        context.firmware[initial.name] = [];
+		        context.firmware[initial.name] = [] ;
 		    }
 		}
 
@@ -1236,23 +1287,25 @@ function simlang_compile (text, datosCU)
           {
 	       var segname = getToken(context);
 
-	       if (typeof ret.seg[segname] === "undefined")
-			return langError(context, "Expected .data/.text/... segment but found '" + segname + "' as segment");
+	       if (typeof ret.seg[segname] === "undefined") {
+		   return langError(context,
+		                    i18n_get_TagFor('compiler', 'INVALID SEGMENT NAME') + segname) ;
+	       }
 
 	       if ("data" == ret.seg[segname].kindof) {
-			read_data(context, datosCU, ret);
-			data_found = true;
+		   read_data(context, datosCU, ret);
+		   data_found = true;
 	       }
 
 	       if ("text" == ret.seg[segname].kindof) {
-			read_text(context, datosCU, ret);
-			text_found = true;
+		   read_text(context, datosCU, ret);
+		   text_found = true;
 	       }
 
 	       // Check errors
 	       if (context.error != null) {
-	       	       ret.error = context.error;
-		       return ret;
+	       	   ret.error = context.error;
+		   return ret;
 	       }
 	 }
 
@@ -1292,7 +1345,11 @@ function simlang_compile (text, datosCU)
 			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + " in decimal) needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
 			}
 		}
- 		else return langError(context, "Unexpected error (2)");
+ 		else 
+		{
+		   return langError(context,
+				    i18n_get_TagFor('compiler', 'UNKNOWN 2')) ;
+		}
 
 		// check size
 		if (free_space < 0) {
@@ -1313,9 +1370,14 @@ function simlang_compile (text, datosCU)
 	 }
 
 	 // check if main or kmain in assembly code
-	 if (text_found) {
-		 if ( (typeof ret.labels2["main"] === "undefined" ) && (typeof ret.labels2["kmain"] === "undefined" ) )
-			return langError(context, "Tags 'main' or 'kmain' are not defined in the text segment(s). It is compulsory to define at least one of those tags in order to execute a program");
+	 if (text_found)
+         {
+	     if ( (typeof ret.labels2["main"] === "undefined" ) &&
+                  (typeof ret.labels2["kmain"] === "undefined" ) )
+             {
+		   return langError(context,
+		                    i18n_get_TagFor('compiler', 'NO MAIN OR KMAIN')) ;
+             }
 	 }
 
 	 return ret;

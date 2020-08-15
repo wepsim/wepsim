@@ -51,6 +51,8 @@
 			    help: {},
                             // other dialogs-popovers-tooltips
 			    dialogs: {},
+                            // compiler messages
+			    compiler: {},
 			    // tutorials
 			    tutorial_welcome: {},
 			    tutorial_simpleusage: {},
