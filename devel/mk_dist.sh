@@ -262,25 +262,19 @@ cp    -a external/speechkitt            ws_dist/external/
                                   touch ws_dist/external/speechkitt/index.html
 cp    -a external/cordova.js            ws_dist/external/cordova.js
 
-#  examples
+## pre-examples (default_packed)
 DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_z80.json examples/examples_set/apps_poc_mips.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_packed.json
 
-echo '[ {'                                                               > examples/examples_set/default.json
-echo '    "name":         "Default",'                                   >> examples/examples_set/default.json
-echo '    "url":          "examples/examples_set/default_packed.json",' >> examples/examples_set/default.json
-echo '    "url_base_asm": "examples/assembly/",'                        >> examples/examples_set/default.json
-echo '    "url_base_mc":  "examples/microcode/"'                        >> examples/examples_set/default.json
-echo '},'                                                               >> examples/examples_set/default.json
-echo '{'                                                                >> examples/examples_set/default.json
-echo '    "name":         "Snips",'                                     >> examples/examples_set/default.json
-echo '    "url":          "examples/examples_set/snips_packed.json",'   >> examples/examples_set/default.json
-echo '    "url_base_asm": "examples/assembly_snips/",'                  >> examples/examples_set/default.json
-echo '    "url_base_mc":  "examples/microcode/"'                        >> examples/examples_set/default.json
-echo '} ]'                                                              >> examples/examples_set/default.json
+## pre-examples (default.json + apps.json)
+ echo '[]' | \
+ jq ' . + [ { "name": "Default",    "url": "examples/examples_set/default_packed.json",  "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
+#jq ' . + [ { "name": "Snips",      "url": "examples/examples_set/snips_packed.json",    "url_base_asm": "examples/assembly_snips/", "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "Slides",     "url": "examples/examples_set/ocw_packed.json",      "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
 
 cp examples/examples_set/default.json examples/apps.json
 
+#  examples
 echo "  * ws_dist/examples/..."
 cp -a examples  ws_dist/
 

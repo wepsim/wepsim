@@ -1,12 +1,14 @@
-[ {
-    "name":         "Default",
-    "url":          "examples/examples_set/default_packed.json",
+[
+  {
+    "name": "Default",
+    "url": "examples/examples_set/default_packed.json",
     "url_base_asm": "examples/assembly/",
-    "url_base_mc":  "examples/microcode/"
-},
-{
-    "name":         "Snips",
-    "url":          "examples/examples_set/snips_packed.json",
-    "url_base_asm": "examples/assembly_snips/",
-    "url_base_mc":  "examples/microcode/"
-} ]
+    "url_base_mc": "examples/microcode/"
+  },
+  {
+    "name": "Slides",
+    "url": "examples/examples_set/ocw_packed.json",
+    "url_base_asm": "examples/assembly_ocw/",
+    "url_base_mc": "examples/microcode/"
+  }
+]

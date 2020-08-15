@@ -1,0 +1,102 @@
+[
+  {
+    "id":          "T3AT1",
+    "title":       "Lesson 3A, Slide 30",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3a_t30",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=30'>compute structure slides</a>"
+  },
+  {
+    "id":          "T3AT2",
+    "title":       "Lesson 3A, Slide 32",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3a_t32",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=32'>compute structure slides</a>"
+  },
+  {
+    "id":          "T3AT3",
+    "title":       "Lesson 3A, Slide 35",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3a_t35",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=35'>compute structure slides</a>"
+  },
+  {
+    "id":          "T3AT5",
+    "title":       "Lesson 3A, Slide 59",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3a_t59",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=59'>compute structure slides</a>"
+  },
+  {
+    "id":          "T3AT6",
+    "title":       "Lesson 3A, Slide 73",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3a_t73",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=73'>compute structure slides</a>"
+  },
+  {
+    "id":          "T3BT7",
+    "title":       "Lesson 3B, Slide 21",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3b_t21",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=21'>compute structure slides</a>"
+  },
+  {
+    "id":          "T3BT8",
+    "title":       "Lesson 3B, Slide 95",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3b_t95",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=95'>compute structure slides</a>"
+  },
+  {
+    "id":          "T3BT9",
+    "title":       "Lesson 3B, Slide 110",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3b_t110",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=110'>compute structure slides</a>"
+  },
+  {
+    "id":          "T3BT10",
+    "title":       "Lesson 3B, Slide 119",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3b_t119",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=119'>compute structure slides</a>"
+  },
+  {
+    "id":          "T3BT11",
+    "title":       "Lesson 3B, Slide 130",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,ep,asm_mips",
+    "hardware":    "ep",
+    "microcode":   "ep_mips",
+    "assembly":    "ep_t3b_t130",
+    "description": "Code Snip from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=130'>compute structure slides</a>"
+  }
+]
