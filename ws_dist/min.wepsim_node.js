@@ -222,7 +222,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
 		    console.log('help answer begins.') ;
 
 		    // show help
-		    console.log('' + 
+		    console.log('' +
 				'Available commands:\n' +
 				' * help:  this command.\n' +
 				' * exit:  exit from command line.\n' +
@@ -333,8 +333,37 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
                     if ( (parts[0] == 'break') && (typeof parts[1] !== 'undefined') )
 		    {
 		        console.log('break answer begins.') ;
-                        ret = wepsim_execute_set_breakpoint(parts[1], true) ;
+
+                        var addr      = parseInt(parts[1]) ;
+                        var hexaddr   = "0x" + addr.toString(16) ;
+                        var curr_firm = simhw_internalState('FIRMWARE') ;
+                        var bp_state  = curr_firm.assembly[hexaddr] ;
+                        if (typeof bp_state !== 'undefined')
+                        {
+                            bp_state = bp_state.breakpoint ;
+                            bp_state = ! bp_state ;
+                            ret = wepsim_execute_set_breakpoint(hexaddr, bp_state) ;
+		            console.log('break on ' + hexaddr + ' ' + bp_state) ;
+                        }
+
 		        console.log('break answer ends.') ;
+                    }
+                    else if ( (parts[0] == 'mbreak') && (typeof parts[1] !== 'undefined') )
+		    {
+		        console.log('mbreak answer begins.') ;
+
+                        var addr     = parseInt(parts[1]) ;
+                        var hexaddr  = "0x" + addr.toString(16) ;
+                        var bp_state = simhw_internalState_get('MC_dashboard', hexaddr) ;
+                        if (typeof bp_state !== 'undefined')
+                        {
+                            bp_state = bp_state.breakpoint ;
+                            bp_state = ! bp_state ;
+                            simhw_internalState_get('MC_dashboard', hexaddr).breakpoint = bp_state ;
+		            console.log('mbreak on ' + hexaddr + ' ' + bp_state) ;
+                        }
+
+		        console.log('mbreak answer ends.') ;
                     }
                     else
                     {
