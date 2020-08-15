@@ -19,6 +19,8 @@
  */
 
 
+    /* jshint esversion: 8 */
+
     /**
      * WepSIM nodejs aux.
      */
@@ -328,15 +330,19 @@
 		    break ;
 
 	       default:
+                    var addr      = 0 ;
+                    var hexaddr   = 0 ;
+                    var bp_state  = false ;
+                    var curr_firm = null ;
                     var parts = answers.cmd.split(' ');
                     if ( (parts[0] == 'break') && (typeof parts[1] !== 'undefined') )
 		    {
 		        console.log('break answer begins.') ;
 
-                        var addr      = parseInt(parts[1]) ;
-                        var hexaddr   = "0x" + addr.toString(16) ;
-                        var curr_firm = simhw_internalState('FIRMWARE') ;
-                        var bp_state  = curr_firm.assembly[hexaddr] ;
+                        addr      = parseInt(parts[1]) ;
+                        hexaddr   = "0x" + addr.toString(16) ;
+                        curr_firm = simhw_internalState('FIRMWARE') ;
+                        bp_state  = curr_firm.assembly[hexaddr] ;
                         if (typeof bp_state !== 'undefined')
                         {
                             bp_state = bp_state.breakpoint ;
@@ -351,9 +357,9 @@
 		    {
 		        console.log('mbreak answer begins.') ;
 
-                        var addr     = parseInt(parts[1]) ;
-                        var hexaddr  = "0x" + addr.toString(16) ;
-                        var bp_state = simhw_internalState_get('MC_dashboard', hexaddr) ;
+                        addr     = parseInt(parts[1]) ;
+                        hexaddr  = "0x" + addr.toString(16) ;
+                        bp_state = simhw_internalState_get('MC_dashboard', hexaddr) ;
                         if (typeof bp_state !== 'undefined')
                         {
                             bp_state = bp_state.breakpoint ;
