@@ -51,6 +51,21 @@
            "CLOSE PAREN. NOT FOUND": "Expected ')' not found",
            "COMMA NOT FOUND":        "Expected ',' not found",
            "EQUAL NOT FOUND":        "Expected '=' not found",
+           "SIGNAL NOT EXISTS":      "Signal does not exists: ",
+           "SIGNAL NO DIRECTLY":     "signal cannot be used directly, please use the Control Unit signals instead.",
+           "INCORRECT BIN. FORMAT":  "Incorrect binary format: ",
+           "OUT OF RANGE":           "Value out of range: ",
+	   "EMPTY MICROCODE":        "Empty microcode",
+           "EMPTY NAME LIST":        "Empty name list for register: x=[]",
+	   "DUPLICATE SP":           "Duplicate definition of stack pointer",
+	   "NO SP":                  "Expected stack_pointer token not found",
+	   "UNDEF. INSTR.":          "Undefined instruction: ",
+           "MORE 100 FIELDS":        "More than 100 fields in a single instruction.",
+	   "CO AS FIELD NAME":       "Instruction field has 'co' as name.",
+	   "NW AS FIELD NAME":       "Instruction field has 'nwords' as name.",
+	   "NO CO FIELD":            "Expected keyword 'co' not found",
+           "INCORRECT CO BIN.":      "Incorrect binary format on 'co': ",
+           "INCORRECT COP BIN.":     "Incorrect binary format on 'cop': ",
 
 		'_last_':		'_last_'
 

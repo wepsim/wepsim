@@ -70,7 +70,8 @@ function read_microprg ( context )
 
                    // semantic check: valid token
                    if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName ) {
-		       return langError(context, "Label format is not valid for '" + getToken(context)  + "'") ;
+                       return langError(context,
+                                        i18n_get_TagFor('compiler', 'INVALID LABEL FORMAT') + getToken(context)) ;
                    }
 
                    nextToken(context) ;
@@ -129,12 +130,14 @@ function read_microprg ( context )
 
                    // semantic check: valid signal id
 		   if (typeof simhw_sim_signal(nombre_tok) == "undefined") {
-		       return langError(context, "Signal does not exists: '" + nombre_tok + "'") ;
+                       return langError(context,
+                                        i18n_get_TagFor('compiler', 'SIGNAL NOT EXISTS') + nombre_tok) ;
                    }
 
                    // semantic check: signal id can be used
 		   if (typeof simhw_sim_signal(nombre_tok).forbidden != "undefined") {
-		       return langError(context, "Signal '" + nombre_tok + "' cannot be used directly, please use the Control Unit signals instead.") ;
+                       return langError(context,
+                                        nombre_tok + ' ' + i18n_get_TagFor('compiler', 'SIGNAL NO DIRECTLY')) ;
                    }
 
 		   microInstruccionAux[nombre_tok] = 1; // signal is active so far...
@@ -149,20 +152,23 @@ function read_microprg ( context )
 
                         // semantic check: valid value
                         if (getToken(context).match("[01]*")[0] != getToken(context)) {
-			    return langError(context, "Incorrect binary format: " + getToken(context)) ;
+                            return langError(context,
+                                        i18n_get_TagFor('compiler', 'INCORRECT BIN. FORMAT') + getToken(context)) ;
                         }
 
                         // semantic check: value within range
 		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, simhw_sim_signal(nombre_tok).nbits)) {
-		            return langError(context, "Value out of range: " + getToken(context)) ;
+                            return langError(context,
+                                        i18n_get_TagFor('compiler', 'OUT OF RANGE') + getToken(context)) ;
                         }
 
                         nextToken(context) ;
 		   }
 
 		   // match optional ,
-		   if ( isToken(context, ",") )
+		   if ( isToken(context, ",") ) {
                         nextToken(context) ;
+                   }
 	       }
 
                var acc_cmt = getComments(context) ;
@@ -179,7 +185,8 @@ function read_microprg ( context )
 
            // semantic check: empty microcode is not valid
 	   if (microprograma.length === 0) {
-	       return langError(context, "Empty microcode") ;
+	       return langError(context,
+			        i18n_get_TagFor('compiler', 'EMPTY MICROCODE')) ;
            }
 
 	   // match mandatory }
@@ -362,7 +369,8 @@ function loadFirmware (text)
                            {
                                  nextToken(context) ;
                                  if (isToken(context, ")")) {
-				       return langError(context, "Empty name list for register: x=[]") ;
+	                             return langError(context,
+			                              i18n_get_TagFor('compiler', 'EMPTY NAME LIST')) ;
                                  }
 
                                  context.registers[nombre_reg] = [] ;
@@ -381,12 +389,14 @@ function loadFirmware (text)
 			   if (isToken(context, "("))
 			   {
 				if (context.stackRegister != null) {
-				    return langError(context, "Duplicate definition of stack pointer");
+	                            return langError(context,
+			                             i18n_get_TagFor('compiler', 'DUPLICATE SP')) ;
 			        }
 
 				nextToken(context);
 				if (! isToken(context, "stack_pointer")) {
-				    return langError(context, "Expected stack_pointer token not found");
+	                            return langError(context,
+			                             i18n_get_TagFor('compiler', 'NO SP')) ;
 			        }
 
 				context.stackRegister = nombre_reg;
@@ -520,7 +530,8 @@ function loadFirmware (text)
 							}	
 						}
 						if (!cont) {
-						    return langError(context, "Undefined instruction '" + getToken(context) + "'");
+	                                            return langError(context,
+			                                             i18n_get_TagFor('compiler', 'UNDEF. INSTR.') + getToken(context)) ;
                                                 }
 					}
 
@@ -658,13 +669,16 @@ function loadFirmware (text)
 		       nextToken(context);
 
 		       if (numeroCampos > 100) {
-			   return langError(context, "more than 100 fields in a single instruction.") ;
+			   return langError(context,
+					    i18n_get_TagFor('compiler', 'MORE 100 FIELDS')) ;
                        }
 		       if (auxValue == "co") {
-			   return langError(context, "instruction field has 'co' as name.") ;
+			   return langError(context,
+					    i18n_get_TagFor('compiler', 'CO AS FIELD NAME')) ;
                        }
 		       if (auxValue == "nwords") {
-			   return langError(context, "instruction field has 'nwords' as name.") ;
+			   return langError(context,
+					    i18n_get_TagFor('compiler', 'NW AS FIELD NAME')) ;
                        }
 		   }
 
@@ -740,7 +754,8 @@ function loadFirmware (text)
 	       nextToken(context);
 	       // match mandatory co
 	       if (! isToken(context,"co")) {
-		     return langError(context, "Expected keyword 'co' not found") ;
+		     return langError(context,
+				      i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
                }
 
 	       nextToken(context);
@@ -758,7 +773,8 @@ function loadFirmware (text)
 	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) ||
                     (getToken(context).length !== xr_info.ir.default_eltos.co.length) )
                {
-	           return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
+		   return langError(context,
+				    i18n_get_TagFor('compiler', 'INCORRECT CO BIN.') + getToken(context)) ;
                }
 
 	       // semantic check: 'co' is not already used
@@ -813,7 +829,7 @@ function loadFirmware (text)
 		       // semantic check: valid value
 		       if (getToken(context).match("[01]*")[0] != getToken(context)) {
 		            return langError(context,
-                                             "Incorrect binary format on 'cop': " + getToken(context)) ;
+			         	   i18n_get_TagFor('compiler', 'INCORRECT COP BIN.') + getToken(context)) ;
                        }
 
 		       // semantic check: 'co+cop' is not already used
@@ -1309,7 +1325,6 @@ function saveFirmware ( SIMWARE )
 		file += '\n}\n\n';
 	}	
 
-// TOCHECK
 	if ( (typeof SIMWARE.registers != "undefined") && (SIMWARE.registers.length > 0) )
 	{
 		file += 'registers' + '\n{\n';
