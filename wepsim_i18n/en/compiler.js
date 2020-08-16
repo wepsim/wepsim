@@ -72,7 +72,32 @@
 	   "NO CO FIELD":            "Expected keyword 'co' not found",
            "INCORRECT CO BIN.":      "Incorrect binary format on 'co': ",
            "INCORRECT COP BIN.":     "Incorrect binary format on 'cop': ",
+           "INVALID PARAMETER":      "Invalid parameter: ",
+           "ALLOWED PARAMETER":      "It only allows the following fields: reg, num, inm, addr, address",
+           "MISSING TOKEN ON":       "'token' is missing after '(' on: ",
+           "MISSING ) ON":           "')' is missing on: ",
+           "CO ALREADY USED":        "'co' is already been used by: ",
+           "CO+COP ALREADY USED":    "'co+cop' is already been used by: ",
+           "NO NWORDS":              "Expected keyword 'nwords' not found",
+           "INCORRECT ADDRESSING":   "Type of addressing incorrect (abs or rel)",
+           "UNEXPECTED FIELD":       "Unexpected field found: ",
+           "STARTBIT OoR":           "startbit out of range: ",
+           "STOPBIT OoR":            "stopbit out of range: ",
+           "OVERLAPPING FIELD":      "Overlapping field: ",
+           "BAD COP BIN. LEN.":      "Incorrect binary length for 'cop': ",
+           "SP NOT DEFINED":         "Stack pointer register was not defined",
+           "NO LABEL FETCH":         "Label 'fetch' not defined",
+           "NO LABEL BEGIN":         "'begin' not found",
+           "NO CO CODES":            "There is not enough 'co' codes available for instructions",
+           "NO LABEL MADDR":         "MADDR label not found: ",
+           "INS. NAME":              "Instruction name: '",
+           "NOT VALID FOR":          "' is not valid for: ",
+           "BIGGER THAN":            "is bigger than ",
+           "BITS":                   " bits",
+           "EXPECTED VALUE":         "Expected value that fits in a '",
+           "BUT INSERTED":           "but inserted ",
+           "INSTEAD":                "instead",
 
-	   "_last_":		   "_last_"
+	   "_last_":		     "_last_"
     } ;
 
