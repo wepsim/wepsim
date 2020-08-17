@@ -41,6 +41,7 @@
 		'SEVERAL CANDIDATES':		'命令とフィールドは、複数の可能な命令で一致します。マイクロコードを確認してください。現在、命令フォーマットを指定できます。',
 		'NOT MATCH MICRO':		'命令とフィールドが定義された命令フォーマットと一致していません',
 		'CHECK MICROCODE':		'マイクロコードを確認してください。おそらく、あなたはフィールドを追加するのを忘れて、数がそのスペースに収まらない、またはあなただけの間違った命令を使用します',
+                "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
 
            // microcode
            "LABEL NOT FOUND":        "Expected '<label>:' not found, found token: ",
