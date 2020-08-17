@@ -30,13 +30,13 @@
 
 + From Web, please:
   * Check you have a compatible Web browser: 
-    * Google Chrome 70+, Mozilla Firefox 64+, Microsoft Edge 40+, and Apple Safari 11+
+    * Google Chrome 80+, Mozilla Firefox 74+, Microsoft Edge 85+, and Apple Safari 12+
   * Open your (compatible) Web browser 
   * Click on the link https://wepsim.github.io/wepsim
     * A nightly build version is also available at https://acaldero.github.io/wepsim
     
 + From Linux/Unix command line, please:
-  * Check you have installed Node 8.10.0+, and Bash 4.4.19+
+  * Check you have installed Node v10.5.0+, and Bash 4.4.19+
   * Download WepSIM by executing:
     * wget https://github.com/acaldero/wepsim/releases/download/v2.1.2/wepsim-2.1.2.zip
     * unzip wepsim-2.1.2.zip 

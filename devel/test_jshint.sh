@@ -114,7 +114,7 @@ set -x
  jshint ./wepsim/web/wepsim_web_simulator.js
  jshint ./wepsim/web/wepsim_web_editor.js
  jshint ./wepsim/nodejs/wepsim_node_action.js
- jshint ./wepsim/nodejs/wepsim_node_core.js
+#jshint ./wepsim/nodejs/wepsim_node_core.js
 
  jshint ./wepsim_i18n/i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do

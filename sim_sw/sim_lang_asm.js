@@ -430,8 +430,14 @@ function read_data ( context, datosCU, ret )
                                 free_space = a[1] ;
 
 				// Check size
-				if (free_space < 0) {
-				    return langError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*BYTE_LENGTH + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
+				if (free_space < 0)
+                                {
+				    return langError(context,
+                                                     i18n_get_TagFor('compiler', 'EXPECTED VALUE') + possible_datatype +
+                                                     "' (" + size*BYTE_LENGTH + " bits), " +
+                                                     i18n_get_TagFor('compiler', 'BUT INSERTED') + possible_value +
+                                                     "' (" + num_bits.length + " bits) " +
+                                                     i18n_get_TagFor('compiler', 'INSTEAD') ) ;
 				}
 
 				// Word filled
@@ -874,7 +880,9 @@ function read_text ( context, datosCU, ret )
                                                 {
 							res = decimal2binary(converted, WORD_LENGTH);
 							if (res[1] < 0) {
-							    return langError(context, "'" + value + "' is bigger than " + WORD_LENGTH + " bits");
+							    return langError(context,
+									     "'" + value + "' " + i18n_get_TagFor('compiler', 'BIGGER THAN') +
+									     WORD_LENGTH        + i18n_get_TagFor('compiler', 'BITS')) ;
                                                         }
 							converted = "0".repeat(res[1]) + res[0];
 							converted = converted.substring(WORD_LENGTH-start-1, WORD_LENGTH-stop);
@@ -1030,13 +1038,13 @@ function read_text ( context, datosCU, ret )
                 {
 			// No candidate
 			if (advance.length === 1) {
-			    return langError(context, 
-                                             error + ". " + 
+			    return langError(context,
+                                             error + ". " +
 				             i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
                                              format);
 			}
 
-			return langError(context, 
+			return langError(context,
 				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') +
 				         i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
 				         i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
@@ -1047,7 +1055,7 @@ function read_text ( context, datosCU, ret )
 			// Multiple candidates
 			candidate = get_candidate(advance, firmware[instruction]);
 			if (candidate === false) {
-			    return langError(context, 
+			    return langError(context,
 				             i18n_get_TagFor('compiler', 'SEVERAL CANDIDATES') + format) ;
 			}
 		}
@@ -1321,7 +1329,7 @@ function simlang_compile (text, datosCU)
 		// Check if the label exists
 		if (typeof value === "undefined") {
 		    setLabelContext(context, ret.labels[i].labelContext);
-		    return langError(context, 
+		    return langError(context,
 				     i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ret.labels[i].name) ;
 		}
 
@@ -1349,7 +1357,7 @@ function simlang_compile (text, datosCU)
 			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + " in decimal) needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
 			}
 		}
- 		else 
+ 		else
 		{
 		   return langError(context,
 				    i18n_get_TagFor('compiler', 'UNKNOWN 2')) ;

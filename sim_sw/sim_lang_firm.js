@@ -70,7 +70,8 @@ function read_microprg ( context )
 
                    // semantic check: valid token
                    if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName ) {
-		       return langError(context, "Label format is not valid for '" + getToken(context)  + "'") ;
+                       return langError(context,
+                                        i18n_get_TagFor('compiler', 'INVALID LABEL FORMAT') + getToken(context)) ;
                    }
 
                    nextToken(context) ;
@@ -129,12 +130,14 @@ function read_microprg ( context )
 
                    // semantic check: valid signal id
 		   if (typeof simhw_sim_signal(nombre_tok) == "undefined") {
-		       return langError(context, "Signal does not exists: '" + nombre_tok + "'") ;
+                       return langError(context,
+                                        i18n_get_TagFor('compiler', 'SIGNAL NOT EXISTS') + nombre_tok) ;
                    }
 
                    // semantic check: signal id can be used
 		   if (typeof simhw_sim_signal(nombre_tok).forbidden != "undefined") {
-		       return langError(context, "Signal '" + nombre_tok + "' cannot be used directly, please use the Control Unit signals instead.") ;
+                       return langError(context,
+                                        nombre_tok + ' ' + i18n_get_TagFor('compiler', 'SIGNAL NO DIRECTLY')) ;
                    }
 
 		   microInstruccionAux[nombre_tok] = 1; // signal is active so far...
@@ -149,20 +152,23 @@ function read_microprg ( context )
 
                         // semantic check: valid value
                         if (getToken(context).match("[01]*")[0] != getToken(context)) {
-			    return langError(context, "Incorrect binary format: " + getToken(context)) ;
+                            return langError(context,
+                                        i18n_get_TagFor('compiler', 'INCORRECT BIN. FORMAT') + getToken(context)) ;
                         }
 
                         // semantic check: value within range
 		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, simhw_sim_signal(nombre_tok).nbits)) {
-		            return langError(context, "Value out of range: " + getToken(context)) ;
+                            return langError(context,
+                                        i18n_get_TagFor('compiler', 'OUT OF RANGE') + getToken(context)) ;
                         }
 
                         nextToken(context) ;
 		   }
 
 		   // match optional ,
-		   if ( isToken(context, ",") )
+		   if ( isToken(context, ",") ) {
                         nextToken(context) ;
+                   }
 	       }
 
                var acc_cmt = getComments(context) ;
@@ -179,7 +185,8 @@ function read_microprg ( context )
 
            // semantic check: empty microcode is not valid
 	   if (microprograma.length === 0) {
-	       return langError(context, "Empty microcode") ;
+	       return langError(context,
+			        i18n_get_TagFor('compiler', 'EMPTY MICROCODE')) ;
            }
 
 	   // match mandatory }
@@ -362,7 +369,8 @@ function loadFirmware (text)
                            {
                                  nextToken(context) ;
                                  if (isToken(context, ")")) {
-				       return langError(context, "Empty name list for register: x=[]") ;
+	                             return langError(context,
+			                              i18n_get_TagFor('compiler', 'EMPTY NAME LIST')) ;
                                  }
 
                                  context.registers[nombre_reg] = [] ;
@@ -381,12 +389,14 @@ function loadFirmware (text)
 			   if (isToken(context, "("))
 			   {
 				if (context.stackRegister != null) {
-				    return langError(context, "Duplicate definition of stack pointer");
+	                            return langError(context,
+			                             i18n_get_TagFor('compiler', 'DUPLICATE SP')) ;
 			        }
 
 				nextToken(context);
 				if (! isToken(context, "stack_pointer")) {
-				    return langError(context, "Expected stack_pointer token not found");
+	                            return langError(context,
+			                             i18n_get_TagFor('compiler', 'NO SP')) ;
 			        }
 
 				context.stackRegister = nombre_reg;
@@ -482,7 +492,9 @@ function loadFirmware (text)
 						case "address":
 						     break;
 						default:						
-					     	     return langError(context, "Invalid parameter '" + pseudoFieldAux.type + "'. It only allows the following fields: reg, num, inm, addr, address") ;					
+                                                     return langError(context,
+                                                                      i18n_get_TagFor('compiler', 'INVALID PARAMETER') + pseudoFieldAux.type + '.' +
+                                                                      i18n_get_TagFor('compiler', 'ALLOWED PARAMETER')) ;
 					}
 
 					pseudoInitial.fields.push(pseudoFieldAux);
@@ -520,7 +532,8 @@ function loadFirmware (text)
 							}	
 						}
 						if (!cont) {
-						    return langError(context, "Undefined instruction '" + getToken(context) + "'");
+	                                            return langError(context,
+			                                             i18n_get_TagFor('compiler', 'UNDEF. INSTR.') + getToken(context)) ;
                                                 }
 					}
 
@@ -612,8 +625,9 @@ function loadFirmware (text)
                // semantic check: valid instruction name
                var re_name = "[a-zA-Z_0-9\.]*" ;
                if (instruccionAux.name.match(re_name)[0] != instruccionAux.name) {
-	           return langError(context, "Instruction name '" + instruccionAux.name +
-                                             "' is not valid for " + re_name) ;
+		   return langError(context,
+				    i18n_get_TagFor('compiler', 'INS. NAME')     + instruccionAux.name + 
+				    i18n_get_TagFor('compiler', 'NOT VALID FOR') + re_name) ;
                }
 
 	       var firma = "";
@@ -658,13 +672,16 @@ function loadFirmware (text)
 		       nextToken(context);
 
 		       if (numeroCampos > 100) {
-			   return langError(context, "more than 100 fields in a single instruction.") ;
+			   return langError(context,
+					    i18n_get_TagFor('compiler', 'MORE 100 FIELDS')) ;
                        }
 		       if (auxValue == "co") {
-			   return langError(context, "instruction field has 'co' as name.") ;
+			   return langError(context,
+					    i18n_get_TagFor('compiler', 'CO AS FIELD NAME')) ;
                        }
 		       if (auxValue == "nwords") {
-			   return langError(context, "instruction field has 'nwords' as name.") ;
+			   return langError(context,
+					    i18n_get_TagFor('compiler', 'NW AS FIELD NAME')) ;
                        }
 		   }
 
@@ -695,8 +712,7 @@ function loadFirmware (text)
 			   else
 		           {
 			       return langError(context,
-			    			"'token' is missing after '(' on: " +
-                                                context.co_cop[instruccionAux.co].signature) ;
+					        i18n_get_TagFor('compiler', 'MISSING TOKEN ON') + context.co_cop[instruccionAux.co].signature) ;
 		           }
 
 			   if (isToken(context,")"))
@@ -709,8 +725,8 @@ function loadFirmware (text)
 			   else
 		           {
 			       return langError(context,
-			    			    "')' is missing on: " +
-                                                    context.co_cop[instruccionAux.co].signature) ;
+					        i18n_get_TagFor('compiler', 'MISSING ) ON') +
+                                                context.co_cop[instruccionAux.co].signature) ;
 		           }
                    }
 
@@ -740,7 +756,8 @@ function loadFirmware (text)
 	       nextToken(context);
 	       // match mandatory co
 	       if (! isToken(context,"co")) {
-		     return langError(context, "Expected keyword 'co' not found") ;
+		     return langError(context,
+				      i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
                }
 
 	       nextToken(context);
@@ -758,7 +775,8 @@ function loadFirmware (text)
 	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) ||
                     (getToken(context).length !== xr_info.ir.default_eltos.co.length) )
                {
-	           return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
+		   return langError(context,
+				    i18n_get_TagFor('compiler', 'INCORRECT CO BIN.') + getToken(context)) ;
                }
 
 	       // semantic check: 'co' is not already used
@@ -767,8 +785,8 @@ function loadFirmware (text)
 	           if ( (typeof context.co_cop[instruccionAux.co] !== "undefined") &&
 	                       (context.co_cop[instruccionAux.co].cop === null) )
 	           {
-	   	         return langError(context,
-			                  "'co' is already been used by: " +
+			 return langError(context,
+					  i18n_get_TagFor('compiler', 'CO ALREADY USED') +
                                           context.co_cop[instruccionAux.co].signature) ;
 	           }
 
@@ -813,16 +831,16 @@ function loadFirmware (text)
 		       // semantic check: valid value
 		       if (getToken(context).match("[01]*")[0] != getToken(context)) {
 		            return langError(context,
-                                             "Incorrect binary format on 'cop': " + getToken(context)) ;
+			         	   i18n_get_TagFor('compiler', 'INCORRECT COP BIN.') + getToken(context)) ;
                        }
 
 		       // semantic check: 'co+cop' is not already used
 	               if (        (context.co_cop[instruccionAux.co].cop != null) &&
 	                    (typeof context.co_cop[instruccionAux.co].cop[instruccionAux.cop] != "undefined") )
 		       {
-		   	   return langError(context,
-			                    "'co+cop' is already been used by: " +
-                                            context.co_cop[instruccionAux.co].cop[instruccionAux.cop]);
+			   return langError(context,
+					    i18n_get_TagFor('compiler', 'CO+COP ALREADY USED') +
+                                            context.co_cop[instruccionAux.co].cop[instruccionAux.cop]) ;
 		       }
 	               if (context.co_cop[instruccionAux.co].cop == null)
 	                   context.co_cop[instruccionAux.co].cop = {};
@@ -847,7 +865,8 @@ function loadFirmware (text)
 
 	       // match mandatory nwords
 	       if (! isToken(context,"nwords")) {
-		   return langError(context, "Expected keyword 'nwords' not found") ;
+		   return langError(context,
+				    i18n_get_TagFor('compiler', 'NO NWORDS')) ;
                }
 
 	       nextToken(context);
@@ -883,7 +902,8 @@ function loadFirmware (text)
 	           // match mandatory FIELD
 	           var tmp_name = getToken(context) ;
 	           if (campos[camposInsertados].name != tmp_name) {
-		       return langError(context, "Unexpected field found: '" + tmp_name + "'") ;
+		       return langError(context,
+				        i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') + tmp_name) ;
                    }
 
 	           nextToken(context);
@@ -925,7 +945,8 @@ function loadFirmware (text)
                    // check startbit range
                    var start = parseInt(campos[camposInsertados].startbit);
                    if (start > 32*parseInt(instruccionAux.nwords)-1) {
-		       return langError(context, "startbit out of range: " + getToken(context)) ;
+		       return langError(context,
+				        i18n_get_TagFor('compiler', 'STARTBIT OoR') + getToken(context)) ;
                    }
 
 	           nextToken(context);
@@ -942,14 +963,16 @@ function loadFirmware (text)
                    // check stopbit range
                    var stop  = parseInt(campos[camposInsertados].stopbit);
                    if (stop > 32*parseInt(instruccionAux.nwords)) {
-		       return langError(context, "stopbit out of range: " + getToken(context)) ;
+                       return langError(context,
+                                        i18n_get_TagFor('compiler', 'STOPBIT OoR') + getToken(context)) ;
                    }
 
                    // check overlapping
                    for (i=stop; i<=start; i++)
                    {
                         if (typeof overlapping[i] != "undefined") {
-		            return langError(context, "overlapping field: " + campos[camposInsertados].name);
+                            return langError(context,
+                                             i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + campos[camposInsertados].name) ;
                         }
 
                         overlapping[i] = 1;
@@ -967,7 +990,8 @@ function loadFirmware (text)
 	           {
 	               // match mandatory abs|rel
 		       if (getToken(context) !="abs" && getToken(context) !="rel") {
-		    	   return langError(context, "Type of addressing incorrect (abs or rel)") ;
+		           return langError(context,
+			        	    i18n_get_TagFor('compiler', 'INCORRECT ADDRESSING')) ;
                        }
 
 	               // match mandatory ADDRESS_TYPE
@@ -1014,7 +1038,7 @@ function loadFirmware (text)
 		    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
 	       {
 		    return langError(context,
-				     "Incorrect binary length for 'cop': " + getToken(context)) ;
+				     i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') + getToken(context)) ;
 	       }
 
 // li reg val {
@@ -1061,7 +1085,8 @@ function loadFirmware (text)
 
            // CHECK: stack_pointer exists
 	   if (context.stackRegister == null) {
-	       return langError(context, "Stack pointer register was not defined");
+	       return langError(context,
+				i18n_get_TagFor('compiler', 'SP NOT DEFINED')) ;
            }
 
            // CHECK: fetch exists + fetch label
@@ -1077,12 +1102,14 @@ function loadFirmware (text)
                          }
                     }
 		    if (found === false) {
-		        return langError(context, "label 'fetch' not defined") ;
+	                return langError(context,
+		         		 i18n_get_TagFor('compiler', 'NO LABEL FETCH')) ;
                     }
                 }
            }
            if (found === false) {
-	       return langError(context, "'begin' not found") ;
+	       return langError(context,
+		         	i18n_get_TagFor('compiler', 'NO LABEL BEGIN')) ;
            }
 
            // RESOLVE: co=111111... (111111... === "please, find one free 'co' for me...")
@@ -1108,7 +1135,8 @@ function loadFirmware (text)
                 // find first free 'co-cop' code
                 var r = find_first_cocop(context, curr_instruction, first_co, last_co) ;
 		if (r.j >= last_co) {
-		     return langError(context, "There is not enough 'co' codes available for instructions") ;
+	             return langError(context,
+		         	      i18n_get_TagFor('compiler', 'NO CO CODES')) ;
 		}
 
                 // work with this free 'co-cop' code
@@ -1143,7 +1171,9 @@ function loadFirmware (text)
 			if (labelsFounded == 0)
 			{
                             // CHECK: label is defined
-			    return langError(context, "MADDR label not found : " + context.labelsNotFound[i].nombre) ;
+	                    return langError(context,
+		                	     i18n_get_TagFor('compiler', 'NO LABEL MADDR') + 
+                                             context.labelsNotFound[i].nombre) ;
 			}
 
                         labelsFounded = 0;
@@ -1309,7 +1339,6 @@ function saveFirmware ( SIMWARE )
 		file += '\n}\n\n';
 	}	
 
-// TOCHECK
 	if ( (typeof SIMWARE.registers != "undefined") && (SIMWARE.registers.length > 0) )
 	{
 		file += 'registers' + '\n{\n';
