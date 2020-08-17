@@ -433,17 +433,11 @@ function read_data ( context, datosCU, ret )
 				if (free_space < 0)
                                 {
 				    return langError(context,
-                                                     "Expected value that fits in a '" + possible_datatype +
-                                                     "' (" + size*BYTE_LENGTH + " bits), but inserted '" + possible_value +
-                                                     "' (" + num_bits.length + " bits) instead") ;
-                                    /*
-				    return langError(context,
                                                      i18n_get_TagFor('compiler', 'EXPECTED VALUE') + possible_datatype +
                                                      "' (" + size*BYTE_LENGTH + " bits), " +
                                                      i18n_get_TagFor('compiler', 'BUT INSERTED') + possible_value +
                                                      "' (" + num_bits.length + " bits) " +
                                                      i18n_get_TagFor('compiler', 'INSTEAD') ) ;
-                                    */
 				}
 
 				// Word filled
