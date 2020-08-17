@@ -528,7 +528,9 @@ i18n_eltos['compiler'] = {
            "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
                                    "Please check the microcode. Currently, the instruction format can be: ",
            "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-           "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction",
+           "CHECK MICROCODE":      "Please check the microcode. " + 
+                                   "Probably you forgot to add a field, a number does not fit in its space, " + 
+                                   "or you just used a wrong instruction",
            "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
 
            # microcode

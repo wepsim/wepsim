@@ -41,10 +41,9 @@
 		'SEVERAL CANDIDATES':		'Instruktion und Felder übereinstimmen mit mehr als einem Mikro. Bitte überprüfen Sie das Mikro. Derzeit kann das Befehlsformat sein: ',
 		'NOT MATCH MICRO':		'Instruktion und Felder stimmen nicht überein mit Mikro.',
 		'CHECK MICROCODE':		'Bitte überprüfen Sie das Mikro. Wahrscheinlich vergessen Sie ein Feld hinzufügen, wird eine Zahl von nicht in seinem Raum passen, oder Sie einfach eine falsche Anweisung verwendet',
-                "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
+		'LABEL NOT DEFINED':		'Label verwendet, aber nicht in dem Assembler-Code definiert: ',
 
            // microcode
-		'LABEL NOT DEFINED':		'Label verwendet, aber nicht in dem Assembler-Code definiert: ',
 		'LABEL NOT FOUND':		'Erwartete \'<label>:\' nicht gefunden, gefunden token: ',
 		'REPEATED LABEL':		'Label wird wiederholt: ',
 		'INVALID LABEL FORMAT':		'Label-Format ist nicht gültig für: ',
