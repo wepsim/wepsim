@@ -23,10 +23,10 @@
     op1:  .word -10
 
   # coma flotante
-    # float f0 ;
-    f0: .float
-    # float f1 = 1.2 ;
+    # float  f0 ;
+    f0: .float 0.0
+    # float  f1 = 1.2 ;
     f1: .float 1.2
-    # float d2 = 3.0e10 ;
+    # double d2 = 3.0e10 ;
     d2: .double 3.0e10
 
