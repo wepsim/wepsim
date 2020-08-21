@@ -564,7 +564,7 @@ function read_data ( context, datosCU, ret )
 			        if (ret1.isDecimal == true)
 			   	     a = decimal2binary(number, size*BYTE_LENGTH) ;
 			        else a =   float2binary(number, size*BYTE_LENGTH) ;
-			       //var a = decimal2binary(number, size*BYTE_LENGTH) ;
+
 			        num_bits   = a[0] ;
                                 free_space = a[1] ;
 
