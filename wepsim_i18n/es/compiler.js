@@ -40,7 +40,7 @@
 		'REMEMBER I. FORMAT':		'Recuerde que el formato de instrucción se ha definido como: ',
 		'SEVERAL CANDIDATES':		'Instrucción y campos coincide con más de una instrucción posible. Por favor, compruebe el microcódigo. En la actualidad, el formato de la instrucción puede ser: ',
 		'NOT MATCH MICRO':		'Instrucción y campos no coinciden con el formato de instrucción definido',
-		'CHECK MICROCODE':		'Por favor, compruebe el microcódigo. Probablemente se olvidó de agregar un campo, un número no encaja en su espacio, o simplemente usa una instrucción equivocada',
+		'CHECK MICROCODE':		'Por favor, compruebe el microcódigo. Probablemente se olvidó de agregar un campo, un número no encaja en su rango, o simplemente usa una instrucción equivocada',
                 "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
 
            // microcode
