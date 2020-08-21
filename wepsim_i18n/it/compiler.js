@@ -41,7 +41,6 @@
 		'SEVERAL CANDIDATES':		'Istruzione e campi corrispondono con più di un microprogramma. Si prega di verificare il microcodice. Attualmente, il formato delle istruzioni può essere: ',
 		'NOT MATCH MICRO':		'Istruzione e campi non corrispondono con microprogramma.',
 		'CHECK MICROCODE':		'Si prega di verificare il microcodice. Probabilmente si è dimenticato di aggiungere un campo, un numero non rientra nel suo spazio, o semplicemente utilizzato un\'istruzione sbagliata',
-                "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
 
            // microcode
 		'LABEL NOT DEFINED':		'Etichetta utilizzati ma non definiti nel codice assembly: ',
