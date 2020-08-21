@@ -23,59 +23,64 @@
  */
 
 	BYTE_LENGTH = 8 ;
-	WORD_BYTES = 4 ;
+	WORD_BYTES  = 4 ;
 	WORD_LENGTH = WORD_BYTES * BYTE_LENGTH ;
-
-/*
- *   Directives
- */
-
-	directives = {} ;
-	directives[".kdata"]   = { name:".kdata",  kindof:"segment",  size:0 };
-	directives[".ktext"]   = { name:".ktext",  kindof:"segment",  size:0 };
-	directives[".data"]    = { name:".data",   kindof:"segment",  size:0 };
-	directives[".text"]    = { name:".text",   kindof:"segment",  size:0 };
-	directives[".byte"]    = { name:".byte",   kindof:"datatype", size:1 };
-	directives[".half"]    = { name:".half",   kindof:"datatype", size:2 };
-	directives[".word"]    = { name:".word",   kindof:"datatype", size:4 };
-	directives[".float"]   = { name:".float",  kindof:"datatype", size:4 };
-	directives[".double"]  = { name:".double", kindof:"datatype", size:8 };
-	directives[".space"]   = { name:".space",  kindof:"datatype", size:1 };
-	directives[".ascii"]   = { name:".ascii",  kindof:"datatype", size:1 };
-	directives[".asciiz"]  = { name:".asciiz", kindof:"datatype", size:1 };
-	directives[".align"]   = { name:".align",  kindof:"datatype", size:0 };
 
 /*
  *   Segments
  */
 
-	sim_segments = {
-                          ".kdata": { name:".kdata", begin:0x00000, end:0x000FF, color:"#FF99CC", kindof:"data" },
-                          ".ktext": { name:".ktext", begin:0x00100, end:0x00FFF, color:"#A9D0F5", kindof:"text" },
-                          ".data":  { name:".data",  begin:0x01000, end:0x07FFF, color:"#FACC2E", kindof:"data" },
-                          ".text":  { name:".text",  begin:0x08000, end:0x1FFFF, color:"#BEF781", kindof:"text" },
-                          ".stack": { name:".stack", begin:0x1FFFF, end:0xFFFFF, color:"#F1F2A3", kindof:"stack" }
-                       };
+ sim_segments = {
+                    ".kdata": { name:".kdata", begin:0x00000, end:0x000FF, color:"#FF99CC", kindof:"data"  },
+                    ".ktext": { name:".ktext", begin:0x00100, end:0x00FFF, color:"#A9D0F5", kindof:"text"  },
+
+                    ".data":  { name:".data",  begin:0x01000, end:0x07FFF, color:"#FACC2E", kindof:"data"  },
+                    ".text":  { name:".text",  begin:0x08000, end:0x1FFFF, color:"#BEF781", kindof:"text"  },
+                    ".stack": { name:".stack", begin:0x1FFFF, end:0xFFFFF, color:"#F1F2A3", kindof:"stack" }
+                } ;
+
 
 /*
- *   Auxiliary functions
+ *   Directives
  */
 
+ directives = {
+                  // segments
+                  ".kdata":     { name:".kdata",  kindof:"segment",  size:0 },
+		  ".ktext":     { name:".ktext",  kindof:"segment",  size:0 },
+		  ".data":      { name:".data",   kindof:"segment",  size:0 },
+		  ".text":      { name:".text",   kindof:"segment",  size:0 },
+
+                  // datatypes
+		  ".byte":      { name:".byte",   kindof:"datatype", size:1 },
+		  ".half":      { name:".half",   kindof:"datatype", size:2 },
+		  ".word":      { name:".word",   kindof:"datatype", size:4 },
+		  ".float":     { name:".float",  kindof:"datatype", size:4 },
+		  ".double":    { name:".double", kindof:"datatype", size:8 },
+		  ".space":     { name:".space",  kindof:"datatype", size:1 },
+		  ".ascii":     { name:".ascii",  kindof:"datatype", size:1 },
+		  ".asciiz":    { name:".asciiz", kindof:"datatype", size:1 },
+
+                  // modifiers
+		  ".align":     { name:".align",  kindof:"datatype", size:0 }
+              } ;
+
+/* directives */
 function get_datatype_size ( datatype )
 {
 	if (typeof directives[datatype] === "undefined") {
-		console.log("data type: " + datatype + " is not defined!!!\n") ;
-	    	return 0;
+	    console.log("ERROR: not defined datatype: " + datatype + "\n") ;
+	    return 0 ;
    	}
 
 	return directives[datatype].size ;
 }
 
-function isTokenKindOf ( text, kindof )
+function is_directive_kindof ( text, kindof )
 {
         if (typeof directives[text] === "undefined") {
-                //console.log("directive: " + text + " is not defined!!!\n")
-                return false;
+            // console.log("ERROR: not defined directive: " + text + "\n")
+            return false ;
         }
 
         return (directives[text].kindof == kindof) ;
@@ -88,91 +93,221 @@ function is_directive ( text )
 
 function is_directive_segment ( text )
 {
-        return isTokenKindOf(text,'segment') ;
+        return is_directive_kindof(text, 'segment') ;
 }
 
 function is_directive_datatype ( text )
 {
-        return isTokenKindOf(text,'datatype') ;
+        return is_directive_kindof(text, 'datatype') ;
 }
 
+/* datatypes */
 function isDecimal ( n )
 {
-	if (n.length > 1 && n[0] == "0") {
-            return false;
+        var ret = {
+                     'number':    0,
+                     'isDecimal': false
+                  } ;
+
+        // check errors
+	if ( (n.length > 1) && (n[0] == "0") ) {
+            return ret ;
+	}
+	if ((typeof n === "string") && n.includes(".")) {
+            return ret ;
 	}
 
-	if ( !isNaN(parseFloat(n)) && isFinite(n) ) {
-		var res = parseInt(n);
-		if (typeof n === "string" && n.includes(".")) {
-		    ws_alert("Truncating conversion has occurred: " + n + " became " + res);
-		}
-		return res;
+        // convert
+	if ( !isNaN(parseFloat(n)) && isFinite(n) )
+        {
+             ret.isDecimal = true ;
+             ret.number    = parseInt(n) ;
+	     //if ((typeof n === "string") && n.includes(".")) {
+	     //	    ws_alert("Truncating conversion has occurred: " + n + " became " + ret.number) ;
+	     //}
+	     return ret ;
 	}
 
-	return false;
+        return ret ;
 }
 
 function isOctal ( n )
 {
-	if (n.substring(0,1) == "0") {
-		var octal = n.substring(1).replace(/\b0+/g, '');
-                var aux = parseInt(octal,8);
-                return (aux.toString(8) === octal) ? aux : false;
+        var ret = {
+                     'number':    0,
+                     'isDecimal': false
+                  } ;
+
+	if (n.substring(0,1) == "0")
+        {
+	    var octal     = n.substring(1).replace(/\b0+/g, '') ;
+            ret.number    = parseInt(octal, 8) ;
+            ret.isDecimal = (ret.number.toString(8) === octal) ;
+            return ret ;
         }
 
-        return false;
+        return ret ;
 }
 
 function isHex ( n )
 {
-        if (n.substring(0,2).toLowerCase() == "0x") {
-		var hex = n.substring(2).toLowerCase().replace(/\b0+/g, '');
-                if (hex == "") hex = "0";
-		var aux = parseInt(hex,16);
-                return (aux.toString(16) === hex) ? aux : false;
+        var ret = {
+                     'number':    0,
+                     'isDecimal': false
+                  } ;
+
+        if (n.substring(0,2).toLowerCase() == "0x")
+        {
+	    var hex = n.substring(2).toLowerCase().replace(/\b0+/g, '') ;
+            if (hex == "") {
+                hex = "0" ;
+            }
+
+	    ret.number    = parseInt(hex, 16) ;
+            ret.isDecimal = (ret.number.toString(16) === hex) ;
+            return ret ;
         }
 
-        return false;
+        return ret ;
 }
 
 function isChar ( n )
 {
+        var ret = {
+                     'number':    0,
+                     'isDecimal': false
+                  } ;
+
+        // check errors
         var ret1 = treatControlSequences(n) ;
-	if (true == ret1.error)
-	    return false;
+	if (true == ret1.error) {
+	    return ret ;
+        }
+
+        // convert
         var possible_value = ret1.string ;
+	if (
+              ((possible_value[0] == "'") && (possible_value[2] == "'")) ||
+	      ((possible_value[0] == '"') && (possible_value[2] == '"'))
+           )
+        {
+	    ret.number    = possible_value.charCodeAt(1);
+	    ret.isDecimal = true ;
+	    return ret ;
+        }
 
-	if (possible_value[0] == "'" && possible_value[2] == "'")
-	    return possible_value.charCodeAt(1);
-
-	return false;
+	return ret ;
 }
 
-function decimal2binary(number, size)
+function isFloat ( n )
 {
-	var num_bits = number.toString(2);
-	if (num_bits.length > WORD_LENGTH)
-		return [num_bits, size-num_bits.length];
+        var ret = {
+                     'number':  0.0,
+                     'isFloat': false
+                  } ;
 
-	num_bits = (number >>> 0).toString(2);
-	if (number >= 0)
-            return [num_bits, size-num_bits.length];
+        // check errors
+        var non_float = /[a-df-zA-DF-Z]+/ ;
+        if (non_float.test(n) === true) {
+            return ret ;
+        }
 
-	num_bits = "1" + num_bits.replace(/^[1]+/g, "");
-	if (num_bits.length>size)
-	    return [num_bits, size-num_bits.length];
+        // convert
+	ret.number  = parseFloat(n) ;
+	ret.isFloat = (! isNaN(ret.number)) ;
+	return ret ;
+}
 
-	num_bits = "1".repeat(size-num_bits.length) + num_bits;
-	return [num_bits, size-num_bits.length];
+
+/*
+ *  Aux. Functions
+ */
+
+function get_decimal_value ( possible_value )
+{
+        var ret = {
+                     'number':    0,
+                     'isDecimal': true
+                  } ;
+
+   	ret = isOctal(possible_value) ;        // Octal value 072
+        if (ret.isDecimal === false) {
+	    ret = isHex(possible_value) ;      // Hex value 0xF12
+        }
+        if (ret.isDecimal === false) {
+	    ret = isDecimal(possible_value) ;  // Decimal value 634
+        }
+        if (ret.isDecimal === false) {
+	    ret = isChar(possible_value) ;     // Char value 'a'
+        }
+
+        return ret ;
+}
+
+function decimal2binary ( number, size )
+{
+	var num_bits = number.toString(2) ;
+	if (num_bits.length > WORD_LENGTH) {
+	    return [num_bits, size-num_bits.length] ;
+        }
+
+	num_bits = (number >>> 0).toString(2) ;
+	if (number >= 0) {
+            return [num_bits, size-num_bits.length] ;
+        }
+
+	num_bits = "1" + num_bits.replace(/^[1]+/g, "") ;
+	if (num_bits.length > size) {
+	    return [num_bits, size-num_bits.length] ;
+        }
+
+	num_bits = "1".repeat(size - num_bits.length) + num_bits ;
+	return [num_bits, size-num_bits.length] ;
+}
+
+function float2binary ( f, size )
+{
+        var buf   = new ArrayBuffer(8) ;
+        var float = new Float32Array(buf) ;
+        var uint  = new Uint32Array(buf) ;
+
+        float[0] = f ;
+        return decimal2binary(uint[0], size) ;
+}
+
+function get_inm_value ( value )
+{
+        var ret1 = { } ;
+        var ret  = {
+                      'number':    0,
+                      'isDecimal': false,
+                      'isFloat':   false
+                   } ;
+
+	ret1 = get_decimal_value(value) ;
+	if (ret1.isDecimal == true) {
+	    ret1.isFloat = false ;
+            return ret1 ;
+	}
+
+	ret1 = isFloat(value) ;
+	if (ret1.isFloat == true) {
+	    ret1.isDecimal = false ;
+            return ret1 ;
+	}
+
+        return ret ;
 }
 
 function isValidTag ( tag )
 {
-	if (!(isDecimal(tag[0]) === false))
-		return false;
-	var myRegEx  = /[^a-z,_\d]/i;
-	return !(myRegEx.test(tag));
+	var ret = isDecimal(tag[0]) ;
+	if (ret.isDecimal == true) {
+	    return false;
+        }
+
+	var myRegEx  = /[^a-z,_\d]/i ;
+	return !(myRegEx.test(tag)) ;
 }
 
 function sum_array ( a )
@@ -258,11 +393,29 @@ function is_end_of_file (context)
 	return "" === getToken(context) && context.t >= context.text.length;
 }
 
+
+/*
+ * Treat control sequences
+ */
+
+ control_sequences = {
+                        'b':  '\b',
+                        'f':  '\f',
+                        'n':  '\n',
+                        'r':  '\r',
+                        't':  '\t',
+                        'v':  '\v',
+                        'a':  String.fromCharCode(0x0007),
+                        "'":  '\'',
+                        "\"": '\"',
+                        '0':  '\0'
+                     } ;
+
 function treatControlSequences ( possible_value )
 {
         var ret = {} ;
-        ret.string = "";
-        ret.error  = false;
+        ret.string = "" ;
+        ret.error  = false ;
 
 	for (var i=0; i<possible_value.length; i++)
 	{
@@ -271,34 +424,15 @@ function treatControlSequences ( possible_value )
                     continue ;
                 }
 
-                i++;
+                i++ ;
 
-		switch (possible_value[i])
-		{
-			case "b":  ret.string = ret.string + '\b' ;
-				   break;
-			case "f":  ret.string = ret.string + '\f' ;
-				   break;
-			case "n":  ret.string = ret.string + '\n' ;
-				   break;
-			case "r":  ret.string = ret_string + '\r' ;
-				   break;
-			case "t":  ret.string = ret.string + '\t' ;
-				   break;
-			case "v":  ret.string = ret.string + '\v' ;
-				   break;
-			case "a":  ret.string = ret.string + String.fromCharCode(0x0007) ;
-				   break;
-			case "'":  ret.string = ret.string + '\'' ;
-				   break;
-			case "\"": ret.string = ret.string + '\"' ;
-				   break;
-			case "0":  ret.string = ret.string + '\0' ;
-				   break;
-			default:   ret.string = "Unknown escape char '\\" + possible_value[i] + "'";
-                                   ret.error  = true;
-        			   return ret ;
-		}
+                if (control_sequences[possible_value[i]] === "undefined") {
+		    ret.string = "Unknown escape char '\\" + possible_value[i] + "'" ;
+                    ret.error  = true ;
+        	    return ret ;
+                }
+
+		ret.string = ret.string + control_sequences[possible_value[i]] ;
 	}
 
         return ret ;
@@ -379,54 +513,59 @@ function read_data ( context, datosCU, ret )
 
 		   var possible_datatype = getToken(context) ;
 
-		   //            .word *2, 4, 0x8F, 'a', 077*
-		   if ( (".word" == possible_datatype) ||
-		        (".half" == possible_datatype) ||
-		        (".byte" == possible_datatype) )
+		   //            .word  *2, 4, 0x8F, 'a', 077*
+		   //            .float *1.2345*
+		   if ( (".word"   == possible_datatype) ||
+		        (".half"   == possible_datatype) ||
+		        (".byte"   == possible_datatype) ||
+		        (".float"  == possible_datatype) ||
+		        (".double" == possible_datatype) )
                    {
+			// Get value size in bytes
+			var size = get_datatype_size(possible_datatype) ;
+
                         // <value> | .<directive>
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
 
 			while (!is_directive(getToken(context)) && !is_end_of_file(context))
                         {
-				var number;
 				var label_found = false;
 
-				if ((number=isOctal(possible_value)) !== false); // Octal value 072
-				else if ((number=isHex(possible_value)) !== false); // Hex value 0xF12
-				else if ((number=isDecimal(possible_value)) !== false); // Decimal value 634
-				else if ((number=isChar(possible_value)) !== false); // Char value 'a'
+				// Get value
+				var ret1 = get_inm_value(possible_value) ;
+				var number = ret1.number ;
+				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
+                                {
+				    if (".word" !== possible_datatype)
+                                    {
+					return langError(context,
+			                                 i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
+                                                         possible_value) ;
+				    }
 
-				// Error
-				else {
-					if (".word" == possible_datatype)
-                                        {
-						if (! isValidTag(possible_value)) {
-						    return langError(context,
-								     i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') + possible_value) ;
-   				                }
+                                    // check valid label
+				    if (! isValidTag(possible_value)) {
+					 return langError(context,
+							  i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                                          possible_value) ;
+   				    }
+				    if (context.firmware[possible_value]) {
+					return langError(context,
+			                                 i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                                         possible_value) ;
+   				    }
 
-						if (context.firmware[possible_value]) {
-						    return langError(context,
-			                                             i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') + possible_value) ;
-   				                }
-
-						number = 0;
-						label_found = true;
-					}
-					else {
-					        return langError(context,
-			                                         i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') + possible_value) ;
-				        }
-				}
-
-				// Get value size in bytes
-				var size = get_datatype_size(possible_datatype);
+				    number = 0 ;
+				    label_found = true ;
+                                }
 
 				// Decimal --> binary
-			        var a = decimal2binary(number, size*BYTE_LENGTH);
-			        num_bits = a[0] ;
+			        if (ret1.isDecimal == true)
+			   	     a = decimal2binary(number, size*BYTE_LENGTH) ;
+			        else a =   float2binary(number, size*BYTE_LENGTH) ;
+			       //var a = decimal2binary(number, size*BYTE_LENGTH) ;
+			        num_bits   = a[0] ;
                                 free_space = a[1] ;
 
 				// Check size
@@ -453,34 +592,42 @@ function read_data ( context, datosCU, ret )
 
 		                // Store tag
                                 if ("" != possible_tag) {
-		                    ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16);
-				    possible_tag = "";
+		                    ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16) ;
+				    possible_tag = "" ;
 				}
 
 				// Label as number (later translation)
-				if (label_found)
-					ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value,
-											addr:gen.seg_ptr,
-											startbit:31,
-											stopbit:0,
-											rel:undefined,
-											nwords:1,
-											labelContext:getLabelContext(context) };
+				if (label_found) {
+				    ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value,
+										    addr:gen.seg_ptr,
+										    startbit:31,
+										    stopbit:0,
+										    rel:undefined,
+										    nwords:1,
+										    labelContext:getLabelContext(context) };
+				}
 
 				// Store number in machine code
-				gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(size+gen.byteWord), BYTE_LENGTH*gen.byteWord, free_space);
-				gen.byteWord+=size;
+				gen.machineCode = assembly_replacement(gen.machineCode, num_bits,
+            					                       BYTE_LENGTH*(size+gen.byteWord),
+            					                       BYTE_LENGTH*gen.byteWord, free_space) ;
+				gen.byteWord += size ;
 
 				// optional ','
-				nextToken(context);
-				if ("," == getToken(context))
-				    nextToken(context);
+				nextToken(context) ;
+				if ("," == getToken(context)) {
+				    nextToken(context) ;
+                                }
 
-			        if ( is_directive(getToken(context)) || ("TAG" == getTokenType(context)) || "." == getToken(context)[0] )
-				    break ; // end loop, already read token (tag/directive)
+			        if ( is_directive(getToken(context)) || 
+                                     ("TAG" == getTokenType(context)) || 
+                                     ("." == getToken(context)[0]) )
+                                {
+				      break ; // end loop, already read token (tag/directive)
+                                }
 
                                 // <value> | .<directive>
-				possible_value = getToken(context);
+				possible_value = getToken(context) ;
                         }
                    }
 
@@ -492,9 +639,11 @@ function read_data ( context, datosCU, ret )
                         var possible_value = getToken(context) ;
 
 			// Check
-			if (!isDecimal(possible_value)) {
-			     return langError(context,
-			                i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') + possible_value) ;
+			var ret1 = isDecimal(possible_value) ;
+			possible_value = ret1.number ;
+                        if (ret1.isDecimal == false) {
+			    return langError(context,
+			                     i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') + possible_value) ;
 		        }
 			if (possible_value < 0) {
 			     return langError(context,
@@ -520,7 +669,9 @@ function read_data ( context, datosCU, ret )
                         var possible_value = getToken(context) ;
 
 			// Check if number
-			if (!isDecimal(possible_value) && possible_value >=0 )
+			var ret1 = isDecimal(possible_value) ;
+			possible_value = ret1.number ;
+			if ( (ret1.isDecimal == false) && (possible_value >= 0) )
                         {
 			     return langError(context,
 			                      i18n_get_TagFor('compiler', 'INVALID ALIGN VALUE') +
@@ -597,7 +748,10 @@ function read_data ( context, datosCU, ret )
 					num_bits = possible_value.charCodeAt(i).toString(2);
 
 					// Store character in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length);
+					gen.machineCode = assembly_replacement(gen.machineCode, num_bits,
+									       BYTE_LENGTH*(1+gen.byteWord),
+									       BYTE_LENGTH*gen.byteWord,
+									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
 				}
 
@@ -609,7 +763,10 @@ function read_data ( context, datosCU, ret )
 					num_bits = "\0".charCodeAt(0).toString(2);
 
 					// Store field in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length);
+					gen.machineCode = assembly_replacement(gen.machineCode, num_bits,
+									       BYTE_LENGTH*(1+gen.byteWord),
+									       BYTE_LENGTH*gen.byteWord,
+									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
 				}
 
@@ -833,137 +990,154 @@ function read_text ( context, datosCU, ret )
 				var field = firmware[instruction][j].fields[i] ;
 				var size  = field.startbit - field.stopbit + 1 ;
 
-				var label_found = false;
-				var sel_found = false;
+				var label_found = false ;
+				var sel_found   = false ;
 
 				// check field
 				switch(field.type)
                 	        {
-					// 0xFFFFF,... | 23, 'b', ...
-					case "address":
-					case "inm":
-						if (isPseudo && "sel" == value) {
-							counter++;
-							var start = pfinish[counter++];
-							var stop  = pfinish[counter++];
-			 				var value = pseudo_fields[pfinish[counter++]];
-							counter++;
-							sel_found = true;
+				    // 0xFFFFF,... | 23, 'b', ...
+				    case "address":
+				    case "inm":
+					 if (isPseudo && ("sel" == value)) 
+                                         {
+						counter++;
+						var start = pfinish[counter++];
+						var stop  = pfinish[counter++];
+			 			var value = pseudo_fields[pfinish[counter++]];
+						counter++;
+						sel_found = true;
+					 }
+
+					 // Get value
+       					 var ret1 = get_inm_value(value) ;
+					 converted = ret1.number ;
+                                         if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
+                                         {
+					     var error = "" ;
+                                             if ((value[0] == "'")) {
+						  error = "Unexpected inmediate value, found: '" + value + "' instead" ;
+                                                  advance[j] = 0 ;
+                                                  break ;
+                                             }
+					     if (! isValidTag(value)) {
+						 error = "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + value + "' instead" ;
+						 advance[j] = 0 ;
+						 break ;
+					     }
+					     if (firmware[value]) {
+						 error = "A tag can not have the same name as an instruction (" + value + ")" ;
+						 advance[j] = 0 ;
+						 break ;
+					     }
+
+					     label_found = true ;
+                                         }
+
+					 if (sel_found)
+                                         {
+                                             if (ret1.isDecimal == true)
+					          res = decimal2binary(converted, WORD_LENGTH) ;
+					     else res =   float2binary(converted, WORD_LENGTH) ;
+
+					     if (res[1] < 0) {
+						 return langError(context,
+								  "'" + value + "' " + 
+							          i18n_get_TagFor('compiler', 'BIGGER THAN') +
+								 WORD_LENGTH + i18n_get_TagFor('compiler','BITS'));
+					     }
+
+					     converted = "0".repeat(res[1]) + res[0];
+					     converted = converted.substring(WORD_LENGTH-start-1,WORD_LENGTH-stop);
+					     converted = parseInt(converted, 2);
+					     s[i+1] = "0x" + converted.toString(16);
+					 }
+
+					 if (! label_found)
+                                         {
+                                             if (ret1.isDecimal == true)
+					          var res = decimal2binary(converted, size) ;
+					     else var res =   float2binary(converted, size) ;
+
+					     if ((field.type == "address") && ("rel" == field.address_type)) 
+                                             {
+					         res = decimal2binary(converted-seg_ptr-WORD_BYTES, size);
+                                             }
+					 }
+
+					 break;
+
+				    // $1...
+				    case "reg":
+					 if (typeof value === "undefined") {
+						    error = "Missing field in the instruction" ;
+						    advance[j] = 0 ;
+						    break ;
+					 }
+
+					 var aux = false;
+					 if (value.startsWith("("))
+                                         {
+						if ("(reg)" != signature_fields[j][i]) {
+							var error = "Expected register but found register between parenthesis";
+							advance[j] = 0;
+							break;
 						}
 
-						     if ((converted = isOctal(value)) !== false);
-						else if ((converted = isHex(value)) !== false);
-						else if ((converted = isDecimal(value)) !== false);
-						else if ((converted = isChar(value)) !== false);
+						if (counter == -1) {
+						    nextToken(context);
+						    value = getToken(context);
+						}
 						else {
-							var error = "" ;
-                                                        if ((value[0] == "'")) {
-							        error = "Unexpected inmediate value, found: '" + value + "' instead";
-                                                                advance[j] = 0;
-                                                                break;
-                                                        }
-							if (!isValidTag(value)) {
-								error = "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + value + "' instead";
-								advance[j] = 0;
-								break;
-							}
-							if (firmware[value]) {
-								error = "A tag can not have the same name as an instruction (" + value + ")";
-								advance[j] = 0;
-								break;
-							}
-
-							label_found = true;
-					        }
-
-						if (sel_found)
-                                                {
-							res = decimal2binary(converted, WORD_LENGTH);
-							if (res[1] < 0) {
-							    return langError(context,
-									     "'" + value + "' " + i18n_get_TagFor('compiler', 'BIGGER THAN') +
-									     WORD_LENGTH        + i18n_get_TagFor('compiler', 'BITS')) ;
-                                                        }
-							converted = "0".repeat(res[1]) + res[0];
-							converted = converted.substring(WORD_LENGTH-start-1, WORD_LENGTH-stop);
-							converted = parseInt(converted, 2);
-							s[i+1] = "0x" + converted.toString(16);
+						    value = pseudo_fields[pfinish[counter++]];
 						}
 
-						if (! label_found)
-                                                {
-							var res = decimal2binary(converted, size);
-							if (field.type == "address" && "rel" == field.address_type)
-								res = decimal2binary(converted - seg_ptr - WORD_BYTES, size);
+						aux = true;
+					 }
+					 else
+					 {
+						if ("(reg)" == signature_fields[j][i]) {
+						    var error = "Expected register between parenthesis but found '" + value + "' instead";
+						    advance[j] = 0;
+						    break;
 						}
+					 }
 
+					 if (typeof registers[value] === "undefined") 
+                                         {
+						var error = "Expected register ($1, ...) but found '" + value + "' instead";
+						advance[j] = 0;
 						break;
-					// $1...
-					case "reg":
-						if (typeof value === "undefined") {
-							error = "Missing field in the instruction";
+					 }
+					 if (aux) 
+                                         {
+						s[i+1] = "(" + value + ")";
+
+						// check closing ')'
+						if (counter == -1) {
+							nextToken(context);
+							aux = getToken(context);
+						}
+						else {
+							aux = pfinish[counter++];
+						}
+
+						if (")" != aux) {
+							var error = "String without end parenthesis ')'";
 							advance[j] = 0;
 							break;
 						}
+					 }
 
-						var aux = false;
-						if (value.startsWith("("))
-                                                {
-							if ("(reg)" != signature_fields[j][i]) {
-								var error = "Expected register but found register between parenthesis";
-								advance[j] = 0;
-								break;
-							}
+					 var ret1  = isDecimal(registers[value]) ;
+					 converted = ret1.number ;
+					 var res = decimal2binary(converted, size);
+                                         value = s[i+1] ;
+					 break;
 
- 							if (counter == -1) {
-							    nextToken(context);
-							    value = getToken(context);
-							}
-							else {
-                                        		    value = pseudo_fields[pfinish[counter++]];
-						        }
-
-							aux = true;
-						}
-						else
-						{
-							if ("(reg)" == signature_fields[j][i]) {
-							    var error = "Expected register between parenthesis but found '" + value + "' instead";
-							    advance[j] = 0;
-							    break;
-							}
-						}
-
-						if (typeof registers[value] === "undefined") {
-							var error = "Expected register ($1, ...) but found '" + value + "' instead";
-							advance[j] = 0;
-							break;
-						}
-						if (aux) {
-						        s[i+1] = "(" + value + ")";
-
-							// check closing ')'
-							if (counter == -1) {
-								nextToken(context);
-								aux = getToken(context);
-							}
-							else {
-								aux = pfinish[counter++];
-							}
-
-							if (")" != aux) {
-								var error = "String without end parenthesis ')'";
-								advance[j] = 0;
-								break;
-							}
-						}
-						converted = isDecimal(registers[value]);
-						var res = decimal2binary(converted, size);
-                                                value = s[i+1] ;
-						break;
-					default:
-					        return langError(context,
-							         i18n_get_TagFor('compiler', 'UNKNOWN 1') + field.type) ;
+				    default:
+					 return langError(context,
+						          i18n_get_TagFor('compiler', 'UNKNOWN 1') + field.type) ;
 				}
 
 				// check if bits fit in the space
@@ -1029,6 +1203,9 @@ function read_text ( context, datosCU, ret )
 				format += " or " ;
                         }
 			format += "'" + firmware[instruction][i].signatureUser + "'" ;
+		}
+                if (format == "") {
+                    format = "'" + instruction + "' (unknown format in microcode)" ;
 		}
 
 		// check solution
@@ -1345,14 +1522,19 @@ function simlang_compile (text, datosCU)
 		var converted;
 
 		// Translate the address into bits
-		if ((converted = isHex(value)) !== false) {
+		var ret1 = isHex(value) ;
+		converted = ret1.number ;
+		if (ret1.isDecimal === true)
+                {
 			var a = decimal2binary(converted, size);
-			num_bits = a[0] ;
+			num_bits   = a[0] ;
                         free_space = a[1] ;
 			var error = "'" + ret.labels[i].name + "' needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
-			if ("rel" == ret.labels[i].rel) {
+
+			if ("rel" == ret.labels[i].rel)
+                        {
 			    var a = decimal2binary(converted - ret.labels[i].addr - WORD_BYTES, size);
-			    num_bits = a[0] ;
+			    num_bits   = a[0] ;
                             free_space = a[1] ;
 			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + " in decimal) needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
 			}

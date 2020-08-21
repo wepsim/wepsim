@@ -24,7 +24,7 @@
 
   # coma flotante
     # float f0 ;
-    f0: .float
+    f0: .float 0.0
     # float f1 = 1.2 ;
     f1: .float 1.2
     # float d2 = 3.0e10 ;

@@ -314,7 +314,7 @@
                      rows    =  0 ;
                      var x   =  "" ;
 
-		     for (var i = c_begin; i<c_end; i++)
+		     for (var i=c_begin; i<=c_end; i++)
 		     {
                              c = "0x" + i.toString(16) ;
                              if (typeof mp[c] == "undefined") {
