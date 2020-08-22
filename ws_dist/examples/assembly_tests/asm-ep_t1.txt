@@ -5,7 +5,6 @@
 
 # error: missing .text
 
-#.text
  main: 
    li   $t0 -3
    move $t1 $t0

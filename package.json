@@ -5,7 +5,6 @@
   "version": "1.1.8",
   "devDependencies": {
     "jshint": "^2.11.1",
-    "jq": "^1.7.2",
     "terser": "^4.8.0"
   },
   "scripts": {
