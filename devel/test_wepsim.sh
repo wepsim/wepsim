@@ -29,7 +29,7 @@
 test_wepsimnode_run ()
 {
 	N=${#TEST_ARR[*]}
-	for (( I=0; I<=$(( $N -1 )); I++ )); do
+	for (( I=0; I<=$(( N -1 )); I++ )); do
 	    T="${TEST_ARR[$I]}"
 	    D="${DESC_ARR[$I]}"
 
@@ -41,7 +41,7 @@ test_wepsimnode_run ()
 test_wepsimnode_run_short ()
 {
 	N=${#TEST_ARR[*]}
-	for (( I=0; I<=$(( $N -1 )); I++ )); do
+	for (( I=0; I<=$(( N -1 )); I++ )); do
 	    T="${TEST_ARR[$I]}"
 	    D="${DESC_ARR[$I]}"
 
@@ -53,7 +53,7 @@ test_wepsimnode_run_short ()
 test_wepsimnode_mkoutput ()
 {
 	N=${#TEST_ARR[*]}
-	for (( I=0; I<=$(( $N -1 )); I++ )); do
+	for (( I=0; I<=$(( N -1 )); I++ )); do
 	    T="${TEST_ARR[$I]}"
 	    D="${DESC_ARR[$I]}"
 
@@ -68,7 +68,7 @@ test_wepsimnode_mkoutput ()
 test_wepsimnode_ckoutput ()
 {
 	N=${#TEST_ARR[*]}
-	for (( I=0; I<=$(( $N -1 )); I++ )); do
+	for (( I=0; I<=$(( N -1 )); I++ )); do
 	    T="${TEST_ARR[$I]}"
 	    D="${DESC_ARR[$I]}"
 

@@ -9,8 +9,7 @@ before_install:
   - jshint --version
   - npm install terser
   - terser --version
-  - mkdir -p ~/bin && curl -sSL -o ~/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 && chmod +x ~/bin/jq
-  - export PATH=$PATH:~/bin
+  - apt-get install -y jq
   - jq --version
 
 script:
