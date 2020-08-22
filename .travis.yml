@@ -9,6 +9,7 @@ before_install:
   - jshint --version
   - npm install terser
   - terser --version
+  - npm install async
   - sudo apt-get install -y jq
   - jq --version
 
