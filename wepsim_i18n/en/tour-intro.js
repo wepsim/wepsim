@@ -46,9 +46,9 @@
 
                         "step5":  "On the top-left, the 'configuration' button opens the configuration dialog.<br>" +
                                   "<br>" +
-                                  "It let users to adapt several aspects of the execution, user interface, preferences, etc.",
+                                  "It allows users to adapt several aspects of the execution, user interface, preferences, etc.",
 
-                        "step6":  "Congrat! You know the key elements in the WepSIM interface.<br>" +
+                        "step6":  "Congrats! You know the key elements in the WepSIM interface.<br>" +
                                   "From the 'Help' dialog you can access the 'Welcome tutorial' to continue learning.<br>"
 
     } ;

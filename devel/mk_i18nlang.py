@@ -361,9 +361,9 @@ i18n_eltos['tour_intro'] = {
 
                         "step5":  "On the top-left, the 'configuration' button opens the configuration dialog.<br>" +
                                   "<br>" +
-                                  "It let users to adapt several aspects of the execution, user interface, preferences, etc.",
+                                  "It allows users to adapt several aspects of the execution, user interface, preferences, etc.",
 
-                        "step6":  "Congrat! You know the key elements in the WepSIM interface.<br>" +
+                        "step6":  "Congrats! You know the key elements in the WepSIM interface.<br>" +
                                   "From the 'Help' dialog you can access the 'Welcome tutorial' to continue learning.<br>"
 
     } ;
@@ -528,8 +528,8 @@ i18n_eltos['compiler'] = {
            "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
                                    "Please check the microcode. Currently, the instruction format can be: ",
            "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-           "CHECK MICROCODE":      "Please check the microcode. " + 
-                                   "Probably you forgot to add a field, a number is out of range, " + 
+           "CHECK MICROCODE":      "Please check the microcode. " +
+                                   "Probably you forgot to add a field, a number is out of range, " +
                                    "or you just used a wrong instruction",
            "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
 
