@@ -9,8 +9,8 @@
   },
   "scripts": {
     "test-source1": "./devel/test_jshint.sh",
-    "test-wepsim-node1": "./devel/test_wepsim.sh rs",
-    "test-wepsim-node2": "./devel/test_wepsim.sh co"
+    "test-wepsim-node1": "./devel/test_wepsim.sh co",
+    "test-wepsim-node2": "./devel/test_wepsim.sh rs"
   },
   "dependencies": {
     "clear": "^0.1.0",
