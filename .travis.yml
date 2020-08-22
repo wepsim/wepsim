@@ -6,8 +6,12 @@ node_js:
 
 before_install:
   - npm install jshint
+  - jshint --version
   - npm install terser
-  - npm install jq
+  - terser --version
+  - mkdir -p ~/bin && curl -sSL -o ~/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 && chmod +x ~/bin/jq
+  - export PATH=$PATH:~/bin
+  - jq --version
 
 script:
   - npm run test-source1
