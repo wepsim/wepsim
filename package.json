@@ -10,8 +10,8 @@
   },
   "scripts": {
     "test-source1": "./devel/test_jshint.sh",
-    "test-wepsim-node1": "./devel/test_wepsimnode.sh rs",
-    "test-wepsim-node2": "./devel/test_wepsimnode.sh co"
+    "test-wepsim-node1": "./devel/test_wepsim.sh rs",
+    "test-wepsim-node2": "./devel/test_wepsim.sh co"
   },
   "dependencies": {
     "clear": "^0.1.0",

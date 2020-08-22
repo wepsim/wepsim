@@ -1,0 +1,14 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+# error: unknown register $xx
+
+#.text
+ main: 
+   li   $xx -3
+   move $t1 $t0
+   rol  $t1 $t1 1
+   andi $t1 $t1 0x00000001
+

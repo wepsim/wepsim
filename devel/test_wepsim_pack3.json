@@ -1,0 +1,32 @@
+[
+   {
+      "pack":        "test possible assembly errors",
+      "description": "missing .text",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t1.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "test possible assembly errors",
+      "description": "missing main:",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t2.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "test possible assembly errors",
+      "description": "unknown lix instruction",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t3.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "test possible assembly errors",
+      "description": "unknown register $xx",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t4.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "test possible assembly errors",
+      "description": "unknown -3x value",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t5.txt",
+      "more":        "See WepSIM"
+   }
+]
