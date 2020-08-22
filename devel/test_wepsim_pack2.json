@@ -1,0 +1,44 @@
+[
+   {
+      "pack":        "checkpoint",
+      "description": "run",
+      "test":        "./ws_dist/wepsim.sh -a  run                   --checkpoint ./examples/checkpoint/tutorial_1.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "checkpoint",
+      "description": "stepbystep",
+      "test":        "./ws_dist/wepsim.sh -a  stepbystep            --checkpoint ./examples/checkpoint/tutorial_1.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "checkpoint",
+      "description": "microstepbymicrostep",
+      "test":        "./ws_dist/wepsim.sh -a  microstepbymicrostep  --checkpoint ./examples/checkpoint/tutorial_1.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "checkpoint",
+      "description": "check ok",
+      "test":        "./ws_dist/wepsim.sh -a  check                 --checkpoint ./examples/checkpoint/tutorial_1.txt -r ./examples/checklist/cl-ep_s1_e1.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "checkpoint",
+      "description": "check ko",
+      "test":        "./ws_dist/wepsim.sh -a  microstepverbalized   --checkpoint ./examples/checkpoint/tutorial_1.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "checkpoint",
+      "description": "show-console",
+      "test":        "./ws_dist/wepsim.sh -a  show-console          --checkpoint ./examples/checkpoint/tutorial_1.txt",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "checkpoint",
+      "description": "show-record",
+      "test":        "./ws_dist/wepsim.sh -a  show-record           --checkpoint ./examples/checkpoint/tutorial_1.txt",
+      "more":        "See WepSIM"
+   }
+]

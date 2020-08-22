@@ -1,0 +1,14 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+# error: unknown lix instruction
+
+.text
+ main: 
+   lix  $t0 -3
+   move $t1 $t0
+   rol  $t1 $t1 1
+   andi $t1 $t1 0x00000001
+
