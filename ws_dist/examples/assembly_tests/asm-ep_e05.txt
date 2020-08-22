@@ -3,12 +3,12 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-# Error: Incorrect sintax --> la t2 max
+# Error: Incorrect syntax --> la max $t2
 
 .data
 	max: .byte 1
 
 .text
-	main: la $t1 max
+	main: la max $t1
 	      jr $ra
 

@@ -9,6 +9,6 @@
 	max: .byte 1
 
 .text
-	main: lx $t20 0
+	main: li $t20 0
 	      jr $ra
 

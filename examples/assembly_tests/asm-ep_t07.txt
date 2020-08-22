@@ -3,12 +3,12 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-# Error: Incorrect syntax --> la max $t2
+# Error: non-valid .space parameter
 
 .data
-	max: .byte 1
+	tag1: .space novalid
 
 .text
-	main: la max $t1
+	main: la $t1 tag1
 	      jr $ra
 

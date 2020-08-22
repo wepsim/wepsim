@@ -50,7 +50,7 @@
 
 ### WepSIM configuration 
 
-+ From the general toolbar, the configuration button let users to personalize several options:
++ From the general toolbar, the configuration button allows users to personalize several options:
   ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/config_usage.gif)
 + From the general toolbar, please use the left-upper slider to change the CPU/CU size:
   ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator013.jpg)

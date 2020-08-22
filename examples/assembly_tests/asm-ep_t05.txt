@@ -3,12 +3,12 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-# Error: Incorrect syntax --> la max $t2
+# Error: illegal tag name
 
 .data
-	max: .byte 1
+	10_tag: .byte 1
 
 .text
-	main: la max $t1
+	main: la $t1 10_tag1
 	      jr $ra
 

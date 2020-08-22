@@ -196,7 +196,7 @@ function langError ( context, msgError )
              else context.error += "&lt;EOF&gt;";
         }
         context.error += "\n...\n</pre>" +
-                         "(*) Problem around line " + context.line + ":<br>" + msgError + ".<br>" ;
+                         "(*) Problem around line " + context.line + ": <br>" + msgError + ".<br>" ;
 
 	if (typeof ga !== "undefined") {
             ga('send', 'event', 'compile', 'compile.error', 'compile.error.' + msgError);

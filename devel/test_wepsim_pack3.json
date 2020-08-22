@@ -25,7 +25,7 @@
    },
    {
       "pack":        "Test possible assembly errors",
-      "description": "Error5: incorrect sintax --> la t2 max",
+      "description": "Error5: incorrect syntax --> la t2 max",
       "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e05.txt",
       "more":        "See WepSIM"
    },
@@ -63,25 +63,6 @@
       "pack":        "Test possible assembly errors",
       "description": "Error11: empty directive",
       "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e11.txt",
-      "more":        "See WepSIM"
-   },
-
-   {
-      "pack":        "Test possible assembly errors",
-      "description": "Error: missing .text",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t01.txt",
-      "more":        "See WepSIM"
-   },
-   {
-      "pack":        "Test possible assembly errors",
-      "description": "Error: missing main:",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t02.txt",
-      "more":        "See WepSIM"
-   },
-   {
-      "pack":        "Test possible assembly errors",
-      "description": "Error: unknown -3x value",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t03.txt",
       "more":        "See WepSIM"
    }
 ]

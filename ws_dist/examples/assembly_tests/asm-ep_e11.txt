@@ -6,8 +6,8 @@
 # Error: empty directive
 
 .data
-        str: .asciiz "Good string"
 	max: .byte 
+        str: .asciiz "string"
 
 .text
 	main: la $t1 max
