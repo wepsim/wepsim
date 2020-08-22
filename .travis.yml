@@ -6,8 +6,11 @@ node_js:
 
 before_install:
   - npm install jshint
+  - jshint --version
   - npm install terser
-  - npm install jq
+  - terser --version
+  - apt-get install -y jq
+  - jq --version
 
 script:
   - npm run test-source1
