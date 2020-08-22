@@ -1,0 +1,14 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+# Error: invalid number --> hello
+
+.data
+	max: .word hello
+
+.text
+	main: la $t1 max
+	      jr $ra
+

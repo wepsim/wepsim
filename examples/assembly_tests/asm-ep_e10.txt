@@ -1,0 +1,15 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+# Error: data no aligned
+
+.data
+             .byte 2
+	max: .word 1
+
+.text
+	main: la $t1 max
+	      jr $ra
+

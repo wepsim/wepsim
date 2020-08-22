@@ -1,0 +1,14 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+# Error: empty directive
+
+.data
+        str: .asciiz "Good string"
+	max: .byte 
+
+.text
+	main: la $t1 max
+	      jr $ra

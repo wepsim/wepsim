@@ -1,0 +1,14 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+# Error: Incorrect sintax --> la t2 max
+
+.data
+	max: .byte 1
+
+.text
+	main: la $t1 max
+	      jr $ra
+
