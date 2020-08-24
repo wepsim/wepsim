@@ -42,6 +42,10 @@
 		'NOT MATCH MICRO':		'Instrucción y campos no coinciden con el formato de instrucción definido',
 		'CHECK MICROCODE':		'Por favor, compruebe el microcódigo. Probablemente se olvidó de agregar un campo, un número no encaja en su rango, o simplemente usa una instrucción equivocada',
                 "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
+		'INS. MISSING FIELD':		'Falta un campo en la instrucción',
+		'UNEXPECTED (REG)':		'Se esperaba un registro pero se encontró un registro entre paréntesis.',
+		'EXPECTED (REG)':		'Registro esperado entre paréntesis, pero se encontró: ',
+		'EXPECTED REG':			'Se esperaba un registro (e.g.: $1/$a0/...) pero se encontró: ',
 
            // microcode
            "LABEL NOT FOUND":        "Esperada '<etiqueta>:' no encontrada, se encontr'o: ",

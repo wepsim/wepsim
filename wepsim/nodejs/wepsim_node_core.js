@@ -476,6 +476,8 @@
             return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
 	}
 
+        set_cfg('ws_idiom', data.idiom) ;
+
         ret = simcore_init_hw(data.mode) ;
 	if (false === ret.ok) {
             return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;

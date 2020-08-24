@@ -22,8 +22,8 @@
     i18n.eltos.compiler.en = {
 
            // assembly
-	   "NO TAG OR DIRECTIVE":  "Expected tag or directive but found this token instead: ",
-           "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format (starting with a letter or underscore): ",
+	   "NO TAG OR DIRECTIVE":  "Expected tag (e.g.: tag1:) or directive (e.g.: .data) but found: ",
+           "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format, starting with a letter or underscore (e.g.: _tag1:) but found: ",
            "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction: ",
            "REPEATED TAG":         "Repeated tag: ",
            "NO NUMERIC DATATYPE":  "Expected value for numeric datatype but found: ",
@@ -35,17 +35,21 @@
            "NOT CLOSED STRING":    "String is not closed (forgot to end it with quotation marks)",
            "NO QUOTATION MARKS":   "Expected string between quotation marks but found: ",
            "UNEXPECTED DATATYPE":  "Unexpected datatype name: ",
-           "INVALID SEGMENT NAME": "Expected .data/.text/... segment but found: ",
+           "INVALID SEGMENT NAME": "Expected segment name (e.g.: .data/.text/...) but found: ",
            "NO MAIN OR KMAIN":     "Tags 'main' or 'kmain' are not defined in the text segment(s). " +
                                    "It is compulsory to define at least one of those tags in order to execute a program",
            "UNKNOWN 1":            "An unknown error ocurred (1) for field type: ",
            "UNKNOWN 2":            "Unexpected error (2)",
            "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
-           "SEVERAL CANDIDATES":   "Instruction and fields match with more than one microprogram. " +
+           "SEVERAL CANDIDATES":   "Instruction and fields match with more than one instruction in microcode. " +
                                    "Please check the microcode. Currently, the instruction format can be: ",
            "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
            "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number is out of range, or you just used a wrong instruction",
            "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
+           "INS. MISSING FIELD":   "Missing field in the instruction",
+           "UNEXPECTED (REG)":     "Expected register but found register between parenthesis.",
+           "EXPECTED (REG)":       "Expected register between parenthesis but found: ",
+           "EXPECTED REG":         "Expected valid register (e.g.: $1/$a0/...) but found: ",
 
            // microcode
            "LABEL NOT FOUND":        "Expected '<label>:' not found, found token: ",

@@ -199,6 +199,13 @@
                   demand:   false,
                   default:  'text'
                })
+              .option('idiom', {
+                  type:     'string',
+                  describe: 'en | es | it | pt | zh_cn | fr | hi | ja | kr | ru | sv | de',
+                  nargs:    1,
+                  demand:   false,
+                  default:  'en'
+               })
               .help('h')
               .demandOption(['action'])
               .argv ;
@@ -254,6 +261,7 @@
 	data.assembly  = '' ;
 	data.record    = '' ;
  	data.result_ok = '' ;
+ 	data.idiom     = argv.idiom ;
 
         if (argv.checkpoint !== "")
         {
@@ -268,7 +276,7 @@
 	    data.str_chk  = data_checkpoint ;
         }
 
-        if (argv.firmware !== "") 
+        if (argv.firmware !== "")
         {
             if (argv.action === "help")
  	         data.firmware = argv.firmware ; // -a help -m ep -f **cop**
@@ -288,7 +296,7 @@
    }
    catch (e)
    {
-        console.log(ws_help_usage() + '\n\n' + 
+        console.log(ws_help_usage() + '\n\n' +
                     e.stack + '\n') ;
         return false ;
    }
