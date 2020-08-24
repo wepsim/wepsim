@@ -27,7 +27,7 @@
 
 
         var apirest_name     = "L3D" ;
-        var apirest_endpoint = "http://localhost:5000/matrix" ;
+        var apirest_endpoint = "" ;
         var apirest_user     = "" ;
         var apirest_pass     = "" ;
 
@@ -77,7 +77,7 @@
 			      "<table id='collapse-l3dcfg' " +
                               " class='table table-hover table-sm table-bordered m-0 collapse'>" +
 			      "<tr><td>" +
-                              "<label class='my-0 text-wrap' for='apirest_endpoint'>REST Endpoint</label>" +
+                              "<label class='my-0 text-wrap' for='apirest_endpoint'>REST URL (e.g.: http://localhost:5000/matrix)</label>" +
 			      "<input id='apirest_endpoint' type='text' data-bind='value: apirest_endpoint' class='form-control text-info p-0'>" +
 			      "</td></tr>" +
 			      "</table>" +
