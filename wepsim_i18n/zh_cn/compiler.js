@@ -42,6 +42,12 @@
 		'NOT MATCH MICRO':		'指令字段不匹配与微。',
 		'CHECK MICROCODE':		'请检查微代码。也许你忘了添加一个字段，一些不适合它的空间，或者你只是使用了错误指令',
 		'LABEL NOT DEFINED':		'使用的标记，但不是在汇编代码中定义：',
+           "INS. MISSING FIELD":   "Missing field in the instruction",
+           "UNEXPECTED (REG)":     "Expected register but found register between parenthesis.",
+           "EXPECTED (REG)":       "Expected register between parenthesis but found: ",
+           "EXPECTED REG":         "Expected register ($1, ...) but found: ",
+
+           // microcode
 		'LABEL NOT FOUND':		'预期“<标签>：”没有找到，发现令牌：',
 		'REPEATED LABEL':		'标签重复：',
 		'INVALID LABEL FORMAT':		'标签格式无效：',

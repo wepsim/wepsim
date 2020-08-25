@@ -425,10 +425,9 @@
 
         function simcore_execute_microinstruction2 ( reg_maddr, reg_pc )
         {
-	    var ret = simcore_check_if_can_continue2(reg_maddr, reg_pc) ;
-	    if (false === ret.ok) {
-		return ret ;
-	    }
+            var ret = {} ;
+                ret.ok  = true ;
+                ret.msg = "" ;
 
             // CPU - Hardware
             compute_general_behavior("CLOCK") ;

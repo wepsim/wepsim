@@ -42,6 +42,12 @@
 		'NOT MATCH MICRO':		'Instruction et les champs ne correspondent pas aux microprogrammes.',
 		'CHECK MICROCODE':		'S\'il vous plaît vérifier le microcode. Probablement vous avez oublié d\'ajouter un champ, un certain nombre est hors de portée, ou vous venez d\'utiliser une instruction erronée',
 		'LABEL NOT DEFINED':		'Étiquette utilisée mais non définie dans le code de montage:',
+		'INS. MISSING FIELD':		'Champ manquant dans l\'instruction',
+		'UNEXPECTED (REG)':		'Registre attendu, mais le registre entre parenthèses.',
+		'EXPECTED (REG)':		'Registre prévu entre parenthèses mais trouvé: ',
+		'EXPECTED REG':			'Registre prévu (par exemple: $1/$a0/...) mais a trouvé: ',
+
+           // microcode
 		'LABEL NOT FOUND':		'Attendu \'<label>:\' introuvable, a trouvé jeton:',
 		'REPEATED LABEL':		'Étiquette se répète:',
 		'INVALID LABEL FORMAT':		'Format d\'étiquette est pas valable pour:',

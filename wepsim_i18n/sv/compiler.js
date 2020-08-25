@@ -42,6 +42,12 @@
 		'NOT MATCH MICRO':		'Instruktion och fält matchar inte med mikro.',
 		'CHECK MICROCODE':		'Kontrollera mikrokoden. Förmodligen du har glömt att lägga till ett fält, är ett antal utanför intervallet, eller om du bara använt en felaktig instruktion',
 		'LABEL NOT DEFINED':		'Märkning som används men inte definieras i assemblerkod:',
+		'INS. MISSING FIELD':		'Saknade fält i instruktionen',
+		'UNEXPECTED (REG)':		'Förväntad register men fann register inom parentes.',
+		'EXPECTED (REG)':		'Förväntad register inom parentes men fann: ',
+		'EXPECTED REG':			'Förväntad register (t.ex.: $1/$a0/...) men hittade: ',
+
+                // microcode
 		'LABEL NOT FOUND':		'Förväntade \'<label>:\' hittades inte fann token:',
 		'REPEATED LABEL':		'Label upprepas:',
 		'INVALID LABEL FORMAT':		'Label-formatet är inte giltigt för:',

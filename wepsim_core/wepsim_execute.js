@@ -273,6 +273,7 @@
 	                 } ;
 
         var curr_firm  = simhw_internalState('FIRMWARE') ;
+        var curr_MC    = simhw_internalState('MC') ;
 	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
 	var ref_pc     = simhw_sim_state(pc_name) ;
 	var reg_pc     = get_value(ref_pc) ;
@@ -286,6 +287,18 @@
 	var i = 0 ;
         while (i < chunk)
         {
+            // check PC point out code segments...
+            if ( (typeof curr_MC[reg_maddr].NATIVE === "undefined") || (0 !== reg_maddr) )
+	    {
+                var ret = simcore_check_if_can_continue2(reg_maddr, reg_pc) ;
+                if (false === ret.ok) {
+		    wepsim_show_stopbyevent("Info", ret.msg) ;
+		    wepsim_execute_stop() ;
+                    return false ;
+                }
+	    }
+
+            // one clock cycle...
 	    ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
 	    if (false === ret.ok) {
 		wepsim_show_stopbyevent("Info", ret.msg) ;
@@ -293,6 +306,7 @@
 		return false ;
 	    }
 
+            // checks
 	    i_clks++;
 	    if ( (options.cycles_limit > 0) && (i_clks >= options.cycles_limit) )
 	    {
@@ -395,10 +409,12 @@
 	}
 
         var turbo = 1;
-	if (get_cfg('DBG_delay') < 5)
-            turbo = max_turbo ;
-        if (max_turbo === 5)
+	if (get_cfg('DBG_delay') < 5) {
+            turbo = Math.trunc(max_turbo) + 1 ;
+        }
+        if (max_turbo === 5) {
             t0 = performance.now() ;
+        }
 
         var ret = wepsim_execute_chunk(turbo, wepsim_execute_stop) ;
         if (false === ret) {

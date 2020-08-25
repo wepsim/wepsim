@@ -135,7 +135,7 @@
            ws_idiom = 'en' ;
 	}
 
-	var translation = key ;
+	var translation = key + ' ' ;
 	if (typeof i18n.eltos[component][ws_idiom][key] !== "undefined") {
 	    translation = i18n.eltos[component][ws_idiom][key] ;
 	}

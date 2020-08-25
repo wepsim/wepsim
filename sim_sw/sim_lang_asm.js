@@ -476,12 +476,12 @@ function read_data ( context, datosCU, ret )
                       // check tag
 		      if ("TAG" != getTokenType(context)) {
 			  return langError(context,
-			                i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') + possible_tag) ;
+			                   i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') + possible_tag) ;
 		      }
 
 		      var tag = possible_tag.substring(0, possible_tag.length-1);
 
-   		      if (!isValidTag(tag)) {
+   		      if (! isValidTag(tag)) {
 			  return langError(context,
 			                   i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') + tag) ;
 		      }
@@ -1016,19 +1016,19 @@ function read_text ( context, datosCU, ret )
                                          {
 					     var error = "" ;
                                              if ((value[0] == "'")) {
-						  error = "Unexpected inmediate value, found: '" + value + "' instead" ;
+			                          error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') + value ;
                                                   advance[j] = 0 ;
                                                   break ;
                                              }
 					     if (! isValidTag(value)) {
-						 error = "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + value + "' instead" ;
-						 advance[j] = 0 ;
-						 break ;
+			                          error = i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') + value ;
+						  advance[j] = 0 ;
+						  break ;
 					     }
 					     if (firmware[value]) {
-						 error = "A tag can not have the same name as an instruction (" + value + ")" ;
-						 advance[j] = 0 ;
-						 break ;
+			                          error = i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') + value ;
+						  advance[j] = 0 ;
+						  break ;
 					     }
 
 					     label_found = true ;
@@ -1070,18 +1070,18 @@ function read_text ( context, datosCU, ret )
 				    // $1...
 				    case "reg":
 					 if (typeof value === "undefined") {
-						    error = "Missing field in the instruction" ;
-						    advance[j] = 0 ;
-						    break ;
+			                     var error = i18n_get_TagFor('compiler', 'INS. MISSING FIELD') ;
+					     advance[j] = 0 ;
+					     break ;
 					 }
 
 					 var aux = false;
 					 if (value.startsWith("("))
                                          {
 						if ("(reg)" != signature_fields[j][i]) {
-							var error = "Expected register but found register between parenthesis";
-							advance[j] = 0;
-							break;
+			                             var error = i18n_get_TagFor('compiler', 'UNEXPECTED (REG)') ;
+						     advance[j] = 0 ;
+						     break ;
 						}
 
 						if (counter == -1) {
@@ -1097,17 +1097,17 @@ function read_text ( context, datosCU, ret )
 					 else
 					 {
 						if ("(reg)" == signature_fields[j][i]) {
-						    var error = "Expected register between parenthesis but found '" + value + "' instead";
-						    advance[j] = 0;
-						    break;
+			                             var error = i18n_get_TagFor('compiler', 'EXPECTED (REG)') + value ;
+						     advance[j] = 0 ;
+						     break ;
 						}
 					 }
 
 					 if (typeof registers[value] === "undefined") 
                                          {
-						var error = "Expected register ($1, ...) but found '" + value + "' instead";
-						advance[j] = 0;
-						break;
+			                        var error = i18n_get_TagFor('compiler', 'EXPECTED REG') + value ;
+						advance[j] = 0 ;
+						break ;
 					 }
 					 if (aux) 
                                          {
@@ -1123,9 +1123,9 @@ function read_text ( context, datosCU, ret )
 						}
 
 						if (")" != aux) {
-							var error = "String without end parenthesis ')'";
-							advance[j] = 0;
-							break;
+			                             var error = i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND') ;
+						     advance[j] = 0 ;
+						     break ;
 						}
 					 }
 

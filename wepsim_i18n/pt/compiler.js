@@ -42,6 +42,12 @@
 		'NOT MATCH MICRO':		'Instrução e os campos não coincidirem com microprogram.',
 		'CHECK MICROCODE':		'Por favor, verifique o microcódigo. Provavelmente você esqueceu de adicionar um campo, um número não se encaixa no seu espaço, ou você acabou de usar uma instrução errada',
 		'LABEL NOT DEFINED':		'Rótulo usado mas não definido no código de montagem: ',
+		'INS. MISSING FIELD':		'Campo faltando na instrução',
+		'UNEXPECTED (REG)':		'Espera registo mas não encontrou registo entre parênteses.',
+		'EXPECTED (REG)':		'Registo esperada entre parêntese, mas encontrou: ',
+		'EXPECTED REG':			'Registo esperado (por exemplo: $1/$a0/...), mas encontrado: ',
+
+           // microcode
 		'LABEL NOT FOUND':		'Esperado \'<label>:\' não encontrado, encontrado token: ',
 		'REPEATED LABEL':		'Rótulo é repetido: ',
 		'INVALID LABEL FORMAT':		'formato de etiqueta não é válida para: ',

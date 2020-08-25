@@ -33,8 +33,8 @@
 		'NOT CLOSED STRING':		'String ist nicht geschlossen (vergessen Sie es mit Anführungszeichen zu beenden)',
 		'NO QUOTATION MARKS':		'Erwartetes Zeichenfolge zwischen Anführungszeichen aber gefunden: ',
 		'UNEXPECTED DATATYPE':		'Unerwartete Datentyp Name: ',
-		'INVALID SEGMENT NAME':		'Erwartete .data / .text / ... Segment aber gefunden: ',
-		'NO MAIN OR KMAIN':		'Tags \'main\' oder \'kmain\' ist nicht im Text-Segment (en) definiert ist. Es ist Pflicht, mindestens eines dieses Tags zu definieren, um ein Programm auszuführen,',
+		'INVALID SEGMENT NAME':		'Erwartete .data/.text/... Segment aber gefunden: ',
+		'NO MAIN OR KMAIN':		'Tags \'main:\' oder \'kmain:\' ist nicht im Text-Segment (en) definiert ist. Es ist Pflicht, mindestens eines dieses Tags zu definieren, um ein Programm auszuführen,',
 		'UNKNOWN 1':			'Ein unbekannter Fehler aufgetreten ist (1) für den Feldtyp: ',
 		'UNKNOWN 2':			'Unerwarteter Fehler (2)',
 		'REMEMBER I. FORMAT':		'Denken Sie daran, dass das Befehlsformat hat wie definiert: ',
@@ -42,6 +42,10 @@
 		'NOT MATCH MICRO':		'Instruktion und Felder stimmen nicht überein mit Mikro.',
 		'CHECK MICROCODE':		'Bitte überprüfen Sie das Mikro. Wahrscheinlich vergessen Sie ein Feld hinzufügen, wird eine Zahl von nicht in seinem Raum passen, oder Sie einfach eine falsche Anweisung verwendet',
 		'LABEL NOT DEFINED':		'Label verwendet, aber nicht in dem Assembler-Code definiert: ',
+		'INS. MISSING FIELD':		'Fehlendes Feld in der Anweisung',
+		'UNEXPECTED (REG)':		'Erwartete Register aber Register zwischen Klammer gefunden.',
+		'EXPECTED (REG)':		'Erwartetes Register zwischen Klammer aber gefunden: ',
+		'EXPECTED REG':			'Erwartetes Register (e.g.: $1/$a0/...), aber gefunden: ',
 
            // microcode
 		'LABEL NOT FOUND':		'Erwartete \'<label>:\' nicht gefunden, gefunden token: ',
