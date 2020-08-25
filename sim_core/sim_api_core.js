@@ -289,7 +289,8 @@
                     ret.msg = "" ;
 
                 // if (MC[reg_maddr] == undefined) -> cannot continue
-                if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined")
+                var curr_MC = simhw_internalState('MC') ;
+                if (typeof curr_MC[reg_maddr] === "undefined")
                 {
                     var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
                     ret.ok  = false ;
@@ -304,6 +305,11 @@
                 }
                 if ( (reg_pc <  curr_segments['.text'].end) && (reg_pc >=  curr_segments['.text'].begin)) {
                       return ret;
+                }
+
+                // if (border *text) && (native code) && (reg_maddr === 0) -> can continue
+                if ( (typeof curr_MC[reg_maddr].NATIVE !== "undefined") && (0 === reg_maddr) ) {
+                      return ret ;
                 }
 
                 // if (border *text) && (reg_maddr !== 0) -> can continue
@@ -425,9 +431,10 @@
 
         function simcore_execute_microinstruction2 ( reg_maddr, reg_pc )
         {
-            var ret = {} ;
-                ret.ok  = true ;
-                ret.msg = "" ;
+	    var ret = simcore_check_if_can_continue2(reg_maddr, reg_pc) ;
+	    if (false === ret.ok) {
+		return ret ;
+	    }
 
             // CPU - Hardware
             compute_general_behavior("CLOCK") ;

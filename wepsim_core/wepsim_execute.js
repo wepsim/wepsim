@@ -273,7 +273,6 @@
 	                 } ;
 
         var curr_firm  = simhw_internalState('FIRMWARE') ;
-        var curr_MC    = simhw_internalState('MC') ;
 	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
 	var ref_pc     = simhw_sim_state(pc_name) ;
 	var reg_pc     = get_value(ref_pc) ;
@@ -287,19 +286,8 @@
 	var i = 0 ;
         while (i < chunk)
         {
-            // check PC points out code segments...
-            if ( (typeof curr_MC[reg_maddr].NATIVE === "undefined") || (0 !== reg_maddr) )
-	    {
-                var ret = simcore_check_if_can_continue2(reg_maddr, reg_pc) ;
-                if (false === ret.ok) {
-		    wepsim_show_stopbyevent("Info", ret.msg) ;
-		    wepsim_execute_stop() ;
-                    return false ;
-                }
-	    }
-
             // one clock cycle...
-	    ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
+	    var ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
 	    if (false === ret.ok) {
 		wepsim_show_stopbyevent("Info", ret.msg) ;
 		wepsim_execute_stop() ;
@@ -391,11 +379,11 @@
     }
 
     // instructions per chunck to be chained...
-    var max_turbo = 5 ;
+    var max_turbo = 5.0 ;
 
     function wepsim_reset_max_turbo ( )
     {
-        max_turbo = 5 ;
+        max_turbo = 5.0 ;
     }
 
     function wepsim_execute_chainplay ( wepsim_execute_stop )
@@ -410,7 +398,7 @@
 
         var turbo = 1;
 	if (get_cfg('DBG_delay') < 5) {
-            turbo = Math.trunc(max_turbo) + 1 ;
+            turbo = Math.trunc(max_turbo) ;
         }
         if (max_turbo === 5) {
             t0 = performance.now() ;
@@ -425,7 +413,7 @@
             t1 = performance.now() ;
         }
         if (max_turbo === 5) {
-            max_turbo = 3000/(t1-t0) ;
+            max_turbo = (3000/(t1-t0)) + 1 ;
         }
 
 	DBG_limit_instruction += turbo ;

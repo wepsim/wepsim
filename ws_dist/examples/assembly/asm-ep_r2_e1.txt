@@ -17,4 +17,5 @@
 
 main:   lui     a0, 2
         jal     ra, accu
+        nop
 
