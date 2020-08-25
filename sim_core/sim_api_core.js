@@ -429,16 +429,6 @@
                 ret.ok  = true ;
                 ret.msg = "" ;
 
-            // check PC point out code segments...
-            var curr_MC = simhw_internalState('MC') ;
-            if ( (typeof curr_MC[reg_maddr].NATIVE === "undefined") || (0 !== reg_maddr) )
-	    {
-                ret = simcore_check_if_can_continue2(reg_maddr, reg_pc) ;
-                if (false === ret.ok) {
-                    return ret ;
-                }
-	    }
-
             // CPU - Hardware
             compute_general_behavior("CLOCK") ;
 
