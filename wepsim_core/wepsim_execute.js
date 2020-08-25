@@ -395,10 +395,12 @@
 	}
 
         var turbo = 1;
-	if (get_cfg('DBG_delay') < 5)
-            turbo = max_turbo ;
-        if (max_turbo === 5)
+	if (get_cfg('DBG_delay') < 5) {
+            turbo = Math.trunc(max_turbo) + 1 ;
+        }
+        if (max_turbo === 5) {
             t0 = performance.now() ;
+        }
 
         var ret = wepsim_execute_chunk(turbo, wepsim_execute_stop) ;
         if (false === ret) {
