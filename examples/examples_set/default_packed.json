@@ -55,7 +55,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_base",
+    "microcode": "ep_enhanced",
     "assembly": "ep_s2_e2",
     "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
   },
