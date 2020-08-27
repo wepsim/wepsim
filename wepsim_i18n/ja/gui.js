@@ -59,7 +59,7 @@
 		'Show Main Memory':		'メインメモリを表示',
 		'compile':			'コンパイル',
 		'Compile':			'コンパイル',
-		'Please write the file name':			'ファイル名を書いてください',
+		'Please write the file name':	'ファイル名を書いてください',
 		'Load from this File':		'このファイルから読み込む',
 		'labels':			'ラベル',
 		'addr':				'addr',

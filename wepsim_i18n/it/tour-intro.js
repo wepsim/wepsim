@@ -34,6 +34,7 @@
 		'step4':		'E a sinistra, il pulsante \'esempi\' apre la finestra di dialogo di esempio. <br> <br> Ci sono molti esempi che possono essere usati per imparare in modo incrementale.',
 		'step5':		'In alto a sinistra, il pulsante \'configurazione\' apre la finestra di configurazione. <br> <br> Permette agli utenti di adattare diversi aspetti dell\'esecuzione, dell\'interfaccia utente, delle preferenze, ecc.',
 		'step6':		'Congratulazioni! Conosci gli elementi chiave nell\'interfaccia di WepSIM. <br> Dalla finestra di dialogo \'Aiuto\' puoi accedere al \'Tutorial di benvenuto\' per continuare ad apprendere. <br>',
+
 		'_last_':		'_last_'
 
     };

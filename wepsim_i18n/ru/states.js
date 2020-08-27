@@ -27,7 +27,7 @@
 		'History':				'история',
 		'None':					'Никто',
 		'Empty history':			'Пустая история',
-		'Empty (only modified values are shown)':		'Пусто (отображаются только измененные значения)',
+		'Empty (only modified values are shown)':	'Пусто (отображаются только измененные значения)',
 		'Differences':				'Различия',
 		'differences with clipboard state':	'различия с состоянием буфера обмена',
 		'Meets the specified requirements':	'Соответствует указанным требованиям',
