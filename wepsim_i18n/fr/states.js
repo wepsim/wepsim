@@ -48,6 +48,7 @@
 		"Record to checkpoint":				"Enregistrer au point de contrôle",
 		"Browser cache":				"Cache du navigateur",
 		"Session to be restore":			"Session à restaurer",
+
 	        "_last_":					"_last_"
 
     } ;

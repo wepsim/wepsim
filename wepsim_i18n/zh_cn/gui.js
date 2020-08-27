@@ -59,7 +59,7 @@
 		'Show Main Memory':		'显示主内存',
 		'compile':			'编',
 		'Compile':			'编',
-		'Please write the file name':			'请写下文件名',
+		'Please write the file name':	'请写下文件名',
 		'Load from this File':		'从此文件加载',
 		'labels':			'标签',
 		'addr':				'地址',

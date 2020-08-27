@@ -28,7 +28,7 @@
 		'Simulator':			'Simulator',
 		'Examples':			'Beispiele',
 		'Load':				'Belastung',
-		'Save':				'sparen',
+		'Save':				'Sparen',
 		'Load/Save':			'Belastung/sparen',
 		'Restore':			'Wiederherstellen',
 		'Help':				'Hilfe',
@@ -45,9 +45,9 @@
 		'Instruction':			'Anweisung',
 		'Run':				'Lauf',
 		'Hardware Summary':		'Hardware-Zusammenfassung',
-		'processor':			'Prozessor',
+		'processor':			'prozessor',
 		'details':			'details',
-		'microcode':			'Mikrocode',
+		'microcode':			'mikrocode',
 		'Signals':			'Signale',
 		'Behaviors':			'Verhaltensweisen',
 		'States':			'Zustände',
@@ -59,14 +59,14 @@
 		'Show Main Memory':		'Hauptspeicher anzeigen',
 		'compile':			'kompilieren',
 		'Compile':			'Kompilieren',
-		'Please write the file name':			'Bitte schreiben Sie den Dateinamen',
+		'Please write the file name':	'Bitte schreiben Sie den Dateinamen',
 		'Load from this File':		'Laden Sie aus dieser Datei',
 		'labels':			'labels',
-		'addr':				'Adr',
+		'addr':				'adr.',
 		'ess':				'ess',
-		'content':			'Inhalt',
-		'assembly':			'Versammlung',
-		'instructions':			'Anleitung',
+		'content':			'inhalt',
+		'assembly':			'versammlung',
+		'instructions':			'anleitung',
 
                 "simulator intro 1":  "Sie können die zu verwendende Hardware auswählen. Die Standardhardware ist die EP-Hardware (Elemental Processor). <br> Sie können <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">den Modus-Wahlschalter</span>, um die verwendete Hardware zu ändern.",
 
@@ -80,7 +80,7 @@
 		'Disable tutorial mode':	'Tutorial-Modus deaktivieren',
 		'Comment':			'Kommentar',
 		'Pause':			'Pause',
-		'Play':				'abspielen',
+		'Play':				'Abspielen',
 		'Stop':				'Halt',
 		'Record':			'Aufzeichnung',
 		'Registers':			'Register',
@@ -100,6 +100,7 @@
                 'MIPS32-like':   		'MIPS32-ähnlicher',
                 'RISCV32':  			'RISCV32',
                 'Z80-like':   			'Z80-ähnlicher',
+
 		'_last_':			'_last_'
 
     };

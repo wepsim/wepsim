@@ -438,11 +438,11 @@
 			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
                         '        onclick="wsweb_select_main(\'asm_mips\');' +
                         '                 return false;"' + 
-                        '     ><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>32</sub>_int</a>' +
+                        '     ><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>int32</sub></a>' +
                         '     <a class="dropdown-item user_archived mb-0 py-2" ' +
                         '        href="#" id="s4_asm_rv32" value="asm_rv32"' +
 			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
-			'        title="RISC-V<sub>32</sub> assembly only."' +
+			'        title="RISC-V<sub>32</sub> assembly only (i+m sets)."' +
                         '        onclick="wsweb_select_main(\'asm_rv32\');' +
                         '                 return false;"' + 
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>i+m</sub></a>' +

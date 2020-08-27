@@ -67,6 +67,8 @@ test_wepsimnode_mkoutput ()
 
 test_wepsimnode_ckoutput ()
 {
+        echo "Id: Status: Description"
+
 	N=${#TEST_ARR[*]}
 	for (( I=0; I<=$(( N -1 )); I++ )); do
 	    T="${TEST_ARR[$I]}"
@@ -92,17 +94,26 @@ test_wepsimnode_ckoutput ()
 # Main
 #
 
+# Welcome
+echo ""
+echo "  WepSIM testing"
+echo " ----------------"
+echo ""
+
 # Usage
 if [ $# -eq 0 ]; then
 	echo ""
 	echo "Usage: $0 <run|rs|mo|co>"
+	echo "  run -> RUN tests..."
+	echo "  rs  -> Run tests, Short version (output only the 15 first lines)..."
+	echo "  mo  -> Make tests Output to be used later for the 'co' option..."
+	echo "  co  -> run test and Check its Output..."
 	echo ""
 	exit
 fi
 
-
 # Load Test Pack
-echo -n "Loading tests... "
+echo -n "  -> Loading tests... "
 
 TEST_ARR=()
 DESC_ARR=()
@@ -122,27 +133,29 @@ echo " Done"
 # Do requests
 for arg_i in "$@"
 do
+        echo ""
 	case $arg_i in
 	     run)
-		echo "Run tests..."
+		echo "  -> RUN tests..."
 		test_wepsimnode_run
 	     ;;
 	     rs)
-		echo "Run tests (output cut-off)..."
+		echo "  -> Run tests, Short version..."
 		test_wepsimnode_run_short
 	     ;;
 	     mo)
-		echo "Make tests output..."
+		echo "  -> Make tests Output..."
 		test_wepsimnode_mkoutput
 	     ;;
 	     co)
-		echo "Check tests output..."
+		echo "  -> Check tests Output..."
 		test_wepsimnode_ckoutput
 	     ;;
 	     *)
 		echo ""
-		echo "Unknow command:"
-	        echo "Usage: $0 <run|rs|mo|co>"
+		echo "  -> ERROR: unknow command '"$arg_i"'"
+	        echo "=> Usage: $0 <run|rs|mo|co>"
+		echo ""
 	     ;;
 	esac
 done
