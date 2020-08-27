@@ -35,6 +35,7 @@
 		'message_4':		'<center> <img alt = \'screenshot di wepsim\' src = \'images/welcome/help_usage.gif\' style = \'max-width: 100%; max-height: 60vh \'> </center> <p> <h5> Fare clic sul pulsante verde "help" per accedere alla finestra di dialogo della guida. <br> È possibile cambiare idiom (spagnolo/inglese), andare al aiuto indice, o chiudi la finestra di dialogo della guida. <br> </h5>',
 		'title_5':		'Benvenuto in WepSIM!',
 		'message_5':		'<center> <img alt = \'screenshot di wepsim\' src = \'images/welcome/help_usage.gif\' style = \'max-width: 100%; altezza massima: 60vh \'> </center> <p> <h5> Esplora le sezioni della guida per ulteriori informazioni. <br> Se fai clic sul pulsante Fine di questo tutorial, WepSIM caricherà il primo esempio per te. Buon divertimento! <br> </h5>',
+
 		'_last_':		'_last_'
 
     };

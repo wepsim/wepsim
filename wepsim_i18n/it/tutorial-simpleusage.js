@@ -33,6 +33,7 @@
 		'message_4':		'<center> <img alt = \'screenshot di wepsim\' src = \'images/simulator/assembly003.jpg\' style = \'max-width: 100%; max-height: 40vh; \'> </center> <p> <h5> La schermata di programmazione fornisce: <ul> <li> L\'editor per il codice assembly. </li> <li> Il compilatore di assiemi. </li > <li> Il visualizzatore della mappa della memoria e l\'aiuto. </li> </ul> Una volta che il codice assebly è pronto (modificato e compilato senza errori), il passaggio successivo è passare alla schermata di simulazione. </h5>',
 		'title_5':		'Semplice esperienza WepSIM: microprogrammazione e programmazione',
 		'message_5':		'<center> <img alt = \'screenshot di wepsim\' src = \'images/simulator/simulator010.jpg\' style = \'max-width: 100%; max-height: 40vh; \'> </center> <p> <h5> Il terzo passo è eseguire il codice assembly nel simulatore. <br> Lo schermo del simulatore fornisce: <ul> <li> La vista di assemblaggio e hardware . </li> <li> La vista dettagliata dei registri, della memoria di controllo, della memoria principale, ecc. </li> <li> Il reset, passo dopo passo o eseguito fino alle azioni di breakpoint/fine. </li> </ul > Questo tutorial ha introdotto l\'utilizzo tipico di WepSIM per studenti e insegnanti. Divertiti con WepSIM! </H5>',
+
 		'_last_':		'_last_'
 
     };

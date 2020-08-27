@@ -40,6 +40,7 @@
 			              }
                  });
 
+/*
     ws_tour.push({
 			   element:   '#select4',
                            intro:     "<span data-langkey='step2'>Step 2</span>",
@@ -52,6 +53,7 @@
 			                  return true ;
 			              }
                  });
+*/
 
     ws_tour.push({
 			   element:   '#btn_help1',
