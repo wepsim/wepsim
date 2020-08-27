@@ -269,8 +269,8 @@ jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_s
 ## pre-examples (default.json + apps.json)
  echo '[]' | \
  jq ' . + [ { "name": "Default",    "url": "examples/examples_set/default_packed.json",  "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "Snips",      "url": "examples/examples_set/snips_packed.json",    "url_base_asm": "examples/assembly_snips/", "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "Slides",     "url": "examples/examples_set/ocw_packed.json",      "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
+ jq ' . + [ { "name": "Scribd-EC",  "url": "examples/examples_set/scribd_packed.json",   "url_base_asm": "examples/assembly_scribd/", "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "OCW-EC",     "url": "examples/examples_set/ocw_packed.json",      "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
 
 cp examples/examples_set/default.json examples/apps.json
 

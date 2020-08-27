@@ -6,13 +6,13 @@
     "url_base_mc": "examples/microcode/"
   },
   {
-    "name": "Snips",
-    "url": "examples/examples_set/snips_packed.json",
-    "url_base_asm": "examples/assembly_snips/",
+    "name": "Scribd-EC",
+    "url": "examples/examples_set/scribd_packed.json",
+    "url_base_asm": "examples/assembly_scribd/",
     "url_base_mc": "examples/microcode/"
   },
   {
-    "name": "Slides",
+    "name": "OCW-EC",
     "url": "examples/examples_set/ocw_packed.json",
     "url_base_asm": "examples/assembly_ocw/",
     "url_base_mc": "examples/microcode/"
