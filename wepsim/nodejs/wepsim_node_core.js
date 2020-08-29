@@ -31,7 +31,8 @@
 
         ret.ok   = ok ;
         ret.html = msg ;
-        ret.msg  = msg.replace(/<[^>]*>/g, '') ;
+        ret.msg  = msg.replace(/<[^>]*>/g, '')
+                      .replace(/&gt;EOF&lt;/g, '[eof]') ;
 
         return ret ;
     }
@@ -500,14 +501,14 @@
         var ret = simcore_compile_firmware(data.firmware) ;
 	if (false === ret.ok)
 	{
-	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + ".\n") ;
+	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + "\n") ;
 	}
 
 	// 3) load assembly
         ret = simcore_compile_assembly(data.assembly) ;
 	if (false === ret.ok)
         {
-	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
+	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + "\n") ;
 	}
 
 	return wepsim_nodejs_retfill(true, ret.msg) ;

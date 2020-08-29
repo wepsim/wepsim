@@ -626,7 +626,8 @@ function loadFirmware (text)
                var re_name = "[a-zA-Z_0-9\.]*" ;
                if (instruccionAux.name.match(re_name)[0] != instruccionAux.name) {
 		   return langError(context,
-				    i18n_get_TagFor('compiler', 'INS. NAME')     + instruccionAux.name + 
+				    i18n_get_TagFor('compiler', 'INS. NAME') + 
+                                    "'" + instruccionAux.name + "' " +
 				    i18n_get_TagFor('compiler', 'NOT VALID FOR') + re_name) ;
                }
 

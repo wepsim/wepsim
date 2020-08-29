@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -34,7 +34,7 @@ function nextToken ( context )
           while ( ("# \t\n\r".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {
                  // # till end of line
-                 if (context.text[context.t] == '#') 
+                 if (context.text[context.t] == '#')
                  {
 		     first = context.t + 1 ;
 		     while ( ("\n".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
@@ -48,7 +48,7 @@ function nextToken ( context )
 		     context.comments.push(tok) ;
                  }
 
-                 if (context.text[context.t] == '\n') 
+                 if (context.text[context.t] == '\n')
                  {
                      context.line++;
                      context.newlines.push(context.t) ;
@@ -56,7 +56,7 @@ function nextToken ( context )
 
 		 context.t++;
 	  }
-	  
+	
           // if {},()=: token, insert token
           if ( ("{},()=:".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {
@@ -115,7 +115,7 @@ function nextToken ( context )
           var tmp_context = context.t ;
           while ( ("# \t\n\r".indexOf(context.text[tmp_context]) != -1) && (tmp_context < context.text.length) )
 	  {
-			 if (context.text[tmp_context] == '#') 
+			 if (context.text[tmp_context] == '#')
                          {
 			     while ( ("\n".indexOf(context.text[tmp_context]) == -1) && (tmp_context < context.text.length) ) {
 				      tmp_context++;
@@ -123,7 +123,7 @@ function nextToken ( context )
 			 }
 			 tmp_context++;
 	  }
-	  if (":" == context.text[tmp_context]) 
+	  if (":" == context.text[tmp_context])
              {
 		 token_type = "TAG" ;
                  context.t = tmp_context + 1 ;
@@ -132,8 +132,9 @@ function nextToken ( context )
           // insert token
           tok = context.text.substring(first, last) ;
 	  tok = tok.trim() ;
-          if ("TAG" == token_type)
+          if ("TAG" == token_type) {
               tok = tok + ":" ;
+          }
 
           context.tokens.push(tok) ;
           context.token_types.push(token_type) ;
@@ -184,19 +185,23 @@ function langError ( context, msgError )
         highI++;
 
         // print lines
-        context.error = "<pre style='background-color: inherit !important'>...\n" ;
-        for (var i=lowI; i<highI; i++) 
+        context.error = "<br>" +
+                        "<pre class='border rounded p-3' style='background-color: inherit !important'>" +
+                        "...\n" ;
+        for (var i=lowI; i<highI; i++)
         {
              if (i == line1) context.error += " " + (context.line-1) + "\t" ;
              if (i == line2) context.error += "*" +  context.line    + "\t" ;
              if (i == line3) context.error += " " + (context.line+1) + "\t" ;
 
              if (typeof context.text[i] != "undefined")
-                  context.error += context.text[i];
-             else context.error += "&lt;EOF&gt;";
+                  context.error += context.text[i] ;
+             else context.error += "&lt;EOF&gt;" ;
         }
-        context.error += "\n...\n</pre>" +
-                         "(*) Problem around line " + context.line + ": <br>" + msgError + ".<br>" ;
+        context.error += "\n...\n" +
+                         "</pre>" +
+                         "(*) " + i18n_get_TagFor('compiler', 'PROBLEM AROUND LINE') + " " +
+			 context.line + ": <br>" + msgError + ".<br>" ;
 
 	if (typeof ga !== "undefined") {
             ga('send', 'event', 'compile', 'compile.error', 'compile.error.' + msgError);

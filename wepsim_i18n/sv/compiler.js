@@ -21,6 +21,7 @@
 
     i18n.eltos.compiler.sv = {
 
+	   "PROBLEM AROUND LINE":  "Problem around line",
 		'NO TAG OR DIRECTIVE':		'Förväntad tag eller direktiv, men tyckte att det här token istället:',
 		'INVALID TAG FORMAT':		'En tagg måste följa ett alfanumeriskt format (som börjar med en bokstav eller understreck):',
 		'TAG OR INSTRUCTION':		'En tagg kan inte ha samma namn som en instruktion:',
