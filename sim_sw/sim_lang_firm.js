@@ -55,7 +55,8 @@ function read_microprg ( context )
 
 		   if ("TAG" != getTokenType(context)) {
                         return langError(context,
-                                         i18n_get_TagFor('compiler', 'LABEL NOT FOUND') + newLabelName) ;
+                                         i18n_get_TagFor('compiler', 'LABEL NOT FOUND') + 
+                                         "'" + newLabelName + "'") ;
                    }
 
 	           // semantic check: existing LABEL
@@ -63,7 +64,8 @@ function read_microprg ( context )
 		   {
 			if (context.etiquetas[contadorMCAux] == newLabelName) {
                             return langError(context,
-                                             i18n_get_TagFor('compiler', 'REPEATED LABEL') + getToken(context)) ;
+                                             i18n_get_TagFor('compiler', 'REPEATED LABEL') +
+                                             "'" + getToken(context) + "'") ;
                         }
 		   }
 		   context.etiquetas[context.contadorMC] = newLabelName ;
@@ -71,7 +73,8 @@ function read_microprg ( context )
                    // semantic check: valid token
                    if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName ) {
                        return langError(context,
-                                        i18n_get_TagFor('compiler', 'INVALID LABEL FORMAT') + getToken(context)) ;
+                                        i18n_get_TagFor('compiler', 'INVALID LABEL FORMAT') +
+                                        "'" + getToken(context) + "'") ;
                    }
 
                    nextToken(context) ;
@@ -131,7 +134,8 @@ function read_microprg ( context )
                    // semantic check: valid signal id
 		   if (typeof simhw_sim_signal(nombre_tok) == "undefined") {
                        return langError(context,
-                                        i18n_get_TagFor('compiler', 'SIGNAL NOT EXISTS') + nombre_tok) ;
+                                        i18n_get_TagFor('compiler', 'SIGNAL NOT EXISTS') +
+                                        "'" + nombre_tok + "'") ;
                    }
 
                    // semantic check: signal id can be used
@@ -153,13 +157,15 @@ function read_microprg ( context )
                         // semantic check: valid value
                         if (getToken(context).match("[01]*")[0] != getToken(context)) {
                             return langError(context,
-                                        i18n_get_TagFor('compiler', 'INCORRECT BIN. FORMAT') + getToken(context)) ;
+                                             i18n_get_TagFor('compiler', 'INCORRECT BIN. FORMAT') +
+                                             "'" + getToken(context) + "'") ;
                         }
 
                         // semantic check: value within range
 		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, simhw_sim_signal(nombre_tok).nbits)) {
                             return langError(context,
-                                        i18n_get_TagFor('compiler', 'OUT OF RANGE') + getToken(context)) ;
+                                             i18n_get_TagFor('compiler', 'OUT OF RANGE') +
+                                             "'" + getToken(context) + "'") ;
                         }
 
                         nextToken(context) ;
@@ -533,7 +539,8 @@ function loadFirmware (text)
 						}
 						if (!cont) {
 	                                            return langError(context,
-			                                             i18n_get_TagFor('compiler', 'UNDEF. INSTR.') + getToken(context)) ;
+			                                             i18n_get_TagFor('compiler', 'UNDEF. INSTR.') +
+                                                                     "'" + getToken(context) + "'") ;
                                                 }
 					}
 
@@ -713,7 +720,8 @@ function loadFirmware (text)
 			   else
 		           {
 			       return langError(context,
-					        i18n_get_TagFor('compiler', 'MISSING TOKEN ON') + context.co_cop[instruccionAux.co].signature) ;
+					        i18n_get_TagFor('compiler', 'MISSING TOKEN ON') +
+                                                "'" + context.co_cop[instruccionAux.co].signature + "'") ;
 		           }
 
 			   if (isToken(context,")"))
@@ -727,7 +735,7 @@ function loadFirmware (text)
 		           {
 			       return langError(context,
 					        i18n_get_TagFor('compiler', 'MISSING ) ON') +
-                                                context.co_cop[instruccionAux.co].signature) ;
+                                                "'" + context.co_cop[instruccionAux.co].signature + "'") ;
 		           }
                    }
 
@@ -777,7 +785,8 @@ function loadFirmware (text)
                     (getToken(context).length !== xr_info.ir.default_eltos.co.length) )
                {
 		   return langError(context,
-				    i18n_get_TagFor('compiler', 'INCORRECT CO BIN.') + getToken(context)) ;
+				    i18n_get_TagFor('compiler', 'INCORRECT CO BIN.') +
+                                    "'" + getToken(context) + "'") ;
                }
 
 	       // semantic check: 'co' is not already used
@@ -832,7 +841,8 @@ function loadFirmware (text)
 		       // semantic check: valid value
 		       if (getToken(context).match("[01]*")[0] != getToken(context)) {
 		            return langError(context,
-			         	   i18n_get_TagFor('compiler', 'INCORRECT COP BIN.') + getToken(context)) ;
+			         	     i18n_get_TagFor('compiler', 'INCORRECT COP BIN.') +
+                                             "'" + getToken(context) + "'") ;
                        }
 
 		       // semantic check: 'co+cop' is not already used
@@ -841,7 +851,7 @@ function loadFirmware (text)
 		       {
 			   return langError(context,
 					    i18n_get_TagFor('compiler', 'CO+COP ALREADY USED') +
-                                            context.co_cop[instruccionAux.co].cop[instruccionAux.cop]) ;
+                                           "'" + context.co_cop[instruccionAux.co].cop[instruccionAux.cop] + "'") ;
 		       }
 	               if (context.co_cop[instruccionAux.co].cop == null)
 	                   context.co_cop[instruccionAux.co].cop = {};
@@ -904,7 +914,8 @@ function loadFirmware (text)
 	           var tmp_name = getToken(context) ;
 	           if (campos[camposInsertados].name != tmp_name) {
 		       return langError(context,
-				        i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') + tmp_name) ;
+				        i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') + 
+                                        "'" + tmp_name + "'") ;
                    }
 
 	           nextToken(context);
@@ -947,7 +958,8 @@ function loadFirmware (text)
                    var start = parseInt(campos[camposInsertados].startbit);
                    if (start > 32*parseInt(instruccionAux.nwords)-1) {
 		       return langError(context,
-				        i18n_get_TagFor('compiler', 'STARTBIT OoR') + getToken(context)) ;
+				        i18n_get_TagFor('compiler', 'STARTBIT OoR') +
+                                        "'" + getToken(context) + "'") ;
                    }
 
 	           nextToken(context);
@@ -965,7 +977,8 @@ function loadFirmware (text)
                    var stop  = parseInt(campos[camposInsertados].stopbit);
                    if (stop > 32*parseInt(instruccionAux.nwords)) {
                        return langError(context,
-                                        i18n_get_TagFor('compiler', 'STOPBIT OoR') + getToken(context)) ;
+                                        i18n_get_TagFor('compiler', 'STOPBIT OoR') +
+                                        "'" + getToken(context) + "'") ;
                    }
 
                    // check overlapping
@@ -1039,7 +1052,8 @@ function loadFirmware (text)
 		    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
 	       {
 		    return langError(context,
-				     i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') + getToken(context)) ;
+				     i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
+                                     "'" + getToken(context) + "'") ;
 	       }
 
 // li reg val {

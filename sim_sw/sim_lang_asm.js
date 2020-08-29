@@ -1235,13 +1235,13 @@ function read_text ( context, datosCU, ret )
 			// No candidate
 			if (advance.length === 1) {
 			    return langError(context,
-                                             error + ". " +
+                                             error + ". <br>" +
 				             i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
                                              format);
 			}
 
 			return langError(context,
-				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') +
+				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
 				         i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
 				         i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 		}
