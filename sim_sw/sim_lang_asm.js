@@ -732,6 +732,15 @@ function read_data ( context, datosCU, ret )
                                 writememory_and_reset(ret.mp, gen, 1) ;
 
 				// check string
+				if ("\"" !== possible_value[0]) {
+			            return langError(context,
+			                             i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
+                                                     "'" + possible_value + "'") ;
+			        }
+				if ("\"" !== possible_value[possible_value.length-1]) {
+			            return langError(context,
+			                             i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
+			        }
 				if ("" == possible_value) {
 			            return langError(context,
 			                             i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
