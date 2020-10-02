@@ -477,7 +477,7 @@ function read_data ( context, datosCU, ret )
 		      if ("TAG" != getTokenType(context)) {
 			  return langError(context,
 			                   i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
-                                           "'" + possible_tag + "'") ;
+                                           '"' + possible_tag + '"') ;
 		      }
 
 		      var tag = possible_tag.substring(0, possible_tag.length-1);
@@ -873,7 +873,7 @@ function read_text ( context, datosCU, ret )
 		        if ("TAG" != getTokenType(context)) {
 			    return langError(context,
 			                 i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
-                                         "'" + possible_tag + "'") ;
+                                         '"' + possible_tag + '"') ;
                         }
 
 		        var tag = possible_tag.substring(0, possible_tag.length-1);
