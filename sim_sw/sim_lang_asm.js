@@ -844,13 +844,16 @@ function read_text ( context, datosCU, ret )
 	   // get firmware and pseudoinstructions
 	   var firmware = context.firmware;
 	   var pseudoInstructions = context.pseudoInstructions;
+
 	   var finish = [] ;
 	   var isPseudo = false;
 	   var pfinish = [] ;
-	   var counter = -1;
-	   var candidate ;
 	   var npseudoInstructions = 0 ;
 	   var pseudo_fields = {} ;
+
+	   var counter = -1;
+	   var candidate ;
+	   var error = "" ;
 
 	   // Fill register names
 	   var registers = {} ;
@@ -1049,16 +1052,14 @@ function read_text ( context, datosCU, ret )
 					 converted = ret1.number ;
                                          if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                                          {
-					     var error = "" ;
+			                     error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
+                                                     "'" + value + "'" ;
+
                                              if ((value[0] == "'")) {
-			                          error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
-                                                          "'" + value + "'" ;
                                                   advance[j] = 0 ;
                                                   break ;
                                              }
 					     if (! isValidTag(value)) {
-			                          error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
-                                                          "'" + value + "'" ;
 						  advance[j] = 0 ;
 						  break ;
 					     }
@@ -1109,7 +1110,7 @@ function read_text ( context, datosCU, ret )
 				    // $1...
 				    case "reg":
 					 if (typeof value === "undefined") {
-			                     var error = i18n_get_TagFor('compiler', 'INS. MISSING FIELD') ;
+			                     error = i18n_get_TagFor('compiler', 'INS. MISSING FIELD') ;
 					     advance[j] = 0 ;
 					     break ;
 					 }
@@ -1118,7 +1119,7 @@ function read_text ( context, datosCU, ret )
 					 if (value.startsWith("("))
                                          {
 						if ("(reg)" != signature_fields[j][i]) {
-			                             var error = i18n_get_TagFor('compiler', 'UNEXPECTED (REG)') ;
+			                             error = i18n_get_TagFor('compiler', 'UNEXPECTED (REG)') ;
 						     advance[j] = 0 ;
 						     break ;
 						}
@@ -1136,8 +1137,8 @@ function read_text ( context, datosCU, ret )
 					 else
 					 {
 						if ("(reg)" == signature_fields[j][i]) {
-			                             var error = i18n_get_TagFor('compiler', 'EXPECTED (REG)') +
-                                                                 "'" + value + "'" ;
+			                             error = i18n_get_TagFor('compiler', 'EXPECTED (REG)') +
+                                                             "'" + value + "'" ;
 						     advance[j] = 0 ;
 						     break ;
 						}
@@ -1145,8 +1146,8 @@ function read_text ( context, datosCU, ret )
 
 					 if (typeof registers[value] === "undefined")
                                          {
-			                        var error = i18n_get_TagFor('compiler', 'EXPECTED REG') +
-                                                            "'" + value + "'" ;
+			                        error = i18n_get_TagFor('compiler', 'EXPECTED REG') +
+                                                        "'" + value + "'" ;
 						advance[j] = 0 ;
 						break ;
 					 }
@@ -1164,7 +1165,7 @@ function read_text ( context, datosCU, ret )
 						}
 
 						if (")" != aux) {
-			                             var error = i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND') ;
+			                             error = i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND') ;
 						     advance[j] = 0 ;
 						     break ;
 						}
@@ -1188,8 +1189,8 @@ function read_text ( context, datosCU, ret )
 					if (res[1] < 0)
 					{
 						if (field.type == "address" && "rel" == field.address_type)
-							error = "Relative value (" + (converted - seg_ptr - WORD_BYTES) + " in decimal) needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
-						else var error = "'" + value + "' needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
+						     error = "Relative value (" + (converted - seg_ptr - WORD_BYTES) + " in decimal) needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
+						else error = "'" + value + "' needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
 						advance[j] = 0;
 					}
 				}
@@ -1264,7 +1265,7 @@ function read_text ( context, datosCU, ret )
 			}
 
 			return langError(context,
-				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + ". <br>" +
+				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
 				         i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
 				         i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 		}
@@ -1573,7 +1574,7 @@ function simlang_compile (text, datosCU)
 			var a = decimal2binary(converted, size);
 			num_bits   = a[0] ;
                         free_space = a[1] ;
-			var error = "'" + ret.labels[i].name + "' needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
+			error = "'" + ret.labels[i].name + "' needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
 
 			if ("rel" == ret.labels[i].rel)
                         {
