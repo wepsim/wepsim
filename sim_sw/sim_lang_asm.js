@@ -1057,7 +1057,7 @@ function read_text ( context, datosCU, ret )
                                                   break ;
                                              }
 					     if (! isValidTag(value)) {
-			                          error = i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+			                          error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
                                                           "'" + value + "'" ;
 						  advance[j] = 0 ;
 						  break ;
