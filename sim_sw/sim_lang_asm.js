@@ -301,6 +301,10 @@ function get_inm_value ( value )
 
 function isValidTag ( tag )
 {
+        if (tag.trim() == "") {
+	    return false;
+        }
+
 	var ret = isDecimal(tag[0]) ;
 	if (ret.isDecimal == true) {
 	    return false;
@@ -474,10 +478,15 @@ function read_data ( context, datosCU, ret )
 		      possible_tag = getToken(context) ;
 
                       // check tag
-		      if ("TAG" != getTokenType(context)) {
+		      if ("TAG" != getTokenType(context))
+                      {
+                          if ("" == possible_tag) {
+                              possible_tag = "[empty]" ;
+                          }
+
 			  return langError(context,
 			                   i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
-                                           '"' + possible_tag + '"') ;
+                                           "'" + possible_tag + "'") ;
 		      }
 
 		      var tag = possible_tag.substring(0, possible_tag.length-1);
@@ -870,10 +879,15 @@ function read_text ( context, datosCU, ret )
 			var possible_tag = getToken(context);
 
 			// check tag
-		        if ("TAG" != getTokenType(context)) {
+		        if ("TAG" != getTokenType(context)) 
+                        {
+                            if ("" == possible_tag) {
+                                possible_tag = "[empty]" ;
+                            }
+
 			    return langError(context,
 			                 i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
-                                         '"' + possible_tag + '"') ;
+                                         "'" + possible_tag + "'") ;
                         }
 
 		        var tag = possible_tag.substring(0, possible_tag.length-1);
@@ -1250,7 +1264,7 @@ function read_text ( context, datosCU, ret )
 			}
 
 			return langError(context,
-				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
+				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + ". <br>" +
 				         i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
 				         i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 		}
