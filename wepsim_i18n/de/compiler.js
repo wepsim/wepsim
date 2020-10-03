@@ -21,6 +21,7 @@
 
     i18n.eltos.compiler.de = {
 
+		'PROBLEM AROUND LINE': 		"Problem around line",
 		'NO TAG OR DIRECTIVE':		'Erwartete Tag oder Richtlinie, sondern fanden diese Token statt: ',
 		'INVALID TAG FORMAT':		'Ein Tag muss ein alphanumerisches Format (beginnend mit einem Buchstaben oder Unterstrich) wie folgt vor: ',
 		'TAG OR INSTRUCTION':		'Ein Tag kann nicht die gleichen Namen wie ein Befehl: ',

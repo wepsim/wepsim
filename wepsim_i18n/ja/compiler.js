@@ -21,6 +21,7 @@
 
     i18n.eltos.compiler.ja = {
 
+	   "PROBLEM AROUND LINE":  "Problem around line",
 		'NO TAG OR DIRECTIVE':		'タグやディレクティブを期待したが、代わりにこのトークンが見つかりました：',
 		'INVALID TAG FORMAT':		'タグは、（文字または下線で始まる）英数字フォーマットに従わなければなりません。',
 		'TAG OR INSTRUCTION':		'タグは、命令と同じ名前を持つことはできません。',

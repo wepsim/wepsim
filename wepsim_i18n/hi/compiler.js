@@ -21,6 +21,7 @@
 
     i18n.eltos.compiler.hi = {
 
+	   "PROBLEM AROUND LINE":  "Problem around line",
 		'NO TAG OR DIRECTIVE':		'उम्मीद टैग या निर्देश लेकिन यह बजाय टोकन: ',
 		'INVALID TAG FORMAT':		'टैग एक अक्षरांकीय प्रारूप का पालन करना चाहिए (एक पत्र या अंडरस्कोर के साथ शुरू): ',
 		'TAG OR INSTRUCTION':		'एक टैग एक निर्देश के रूप में एक ही नाम नहीं कर सकते हैं: ',
