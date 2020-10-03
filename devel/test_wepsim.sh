@@ -152,9 +152,8 @@ do
 		test_wepsimnode_ckoutput
 	     ;;
 	     *)
-		echo ""
-		echo "  -> ERROR: unknow command '"$arg_i"'"
-	        echo "=> Usage: $0 <run|rs|mo|co>"
+		echo "  -> ERROR: unknow command '$arg_i'"
+	        echo "     => Usage: $0 <run|rs|mo|co>"
 		echo ""
 	     ;;
 	esac

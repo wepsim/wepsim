@@ -584,7 +584,7 @@
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;' align=left>" +
 			   "    <span data-toggle='tooltip' rel='tooltip2' data-placement='right' data-html='true' data-l='" + l + "'>" + 
-			   "    <span data-toggle='tooltip' rel='tooltip1' title='click to show instruction format details'>" +
+			   "    <span data-toggle='tooltip' rel='tooltip1' data-placement='right' title='click to show instruction format details'>" +
 				s4_hex + 
 			   "    </span>" +
 			   "    </span>" +
