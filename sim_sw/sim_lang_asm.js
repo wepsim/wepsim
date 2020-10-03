@@ -301,6 +301,10 @@ function get_inm_value ( value )
 
 function isValidTag ( tag )
 {
+        if (tag.trim() == "") {
+	    return false;
+        }
+
 	var ret = isDecimal(tag[0]) ;
 	if (ret.isDecimal == true) {
 	    return false;
@@ -474,24 +478,33 @@ function read_data ( context, datosCU, ret )
 		      possible_tag = getToken(context) ;
 
                       // check tag
-		      if ("TAG" != getTokenType(context)) {
+		      if ("TAG" != getTokenType(context))
+                      {
+                          if ("" == possible_tag) {
+                              possible_tag = "[empty]" ;
+                          }
+
 			  return langError(context,
-			                   i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') + possible_tag) ;
+			                   i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
+                                           "'" + possible_tag + "'") ;
 		      }
 
 		      var tag = possible_tag.substring(0, possible_tag.length-1);
 
    		      if (! isValidTag(tag)) {
 			  return langError(context,
-			                   i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') + tag) ;
+			                   i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                           "'" + tag + "'") ;
 		      }
 		      if (context.firmware[tag]) {
 			  return langError(context,
-			                   i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') + tag) ;
+			                   i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                           "'" + tag + "'") ;
 		      }
 		      if (ret.labels2[tag]) {
 			  return langError(context,
-			                   i18n_get_TagFor('compiler', 'REPEATED TAG') + tag) ;
+			                   i18n_get_TagFor('compiler', 'REPEATED TAG') +
+                                           "'" + tag + "'") ;
 		      }
 
 		      // Store tag
@@ -541,19 +554,19 @@ function read_data ( context, datosCU, ret )
                                     {
 					return langError(context,
 			                                 i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
-                                                         possible_value) ;
+                                                         "'" + possible_value + "'") ;
 				    }
 
                                     // check valid label
 				    if (! isValidTag(possible_value)) {
 					 return langError(context,
 							  i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
-                                                          possible_value) ;
+                                                          "'" + possible_value + "'") ;
    				    }
 				    if (context.firmware[possible_value]) {
 					return langError(context,
 			                                 i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-                                                         possible_value) ;
+                                                         "'" + possible_value + "'") ;
    				    }
 
 				    number = 0 ;
@@ -619,8 +632,8 @@ function read_data ( context, datosCU, ret )
 				    nextToken(context) ;
                                 }
 
-			        if ( is_directive(getToken(context)) || 
-                                     ("TAG" == getTokenType(context)) || 
+			        if ( is_directive(getToken(context)) ||
+                                     ("TAG" == getTokenType(context)) ||
                                      ("." == getToken(context)[0]) )
                                 {
 				      break ; // end loop, already read token (tag/directive)
@@ -643,11 +656,13 @@ function read_data ( context, datosCU, ret )
 			possible_value = ret1.number ;
                         if (ret1.isDecimal == false) {
 			    return langError(context,
-			                     i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') + possible_value) ;
+			                     i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') +
+                                             "'" + possible_value + "'") ;
 		        }
 			if (possible_value < 0) {
 			     return langError(context,
-			                i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + possible_value) ;
+			                      i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') +
+                                              "'" + possible_value + "'") ;
 			}
 
 			// Fill with spaces
@@ -675,7 +690,7 @@ function read_data ( context, datosCU, ret )
                         {
 			     return langError(context,
 			                      i18n_get_TagFor('compiler', 'INVALID ALIGN VALUE') +
-					      possible_value + '. ' +
+                                              "'" + possible_value + "'. " +
 			                      i18n_get_TagFor('compiler', 'REMEMBER ALIGN VAL')) ;
 		        }
 
@@ -726,13 +741,23 @@ function read_data ( context, datosCU, ret )
                                 writememory_and_reset(ret.mp, gen, 1) ;
 
 				// check string
+				if ("\"" !== possible_value[0]) {
+			            return langError(context,
+			                             i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
+                                                     "'" + possible_value + "'") ;
+			        }
+				if ("\"" !== possible_value[possible_value.length-1]) {
+			            return langError(context,
+			                             i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
+			        }
 				if ("" == possible_value) {
 			            return langError(context,
 			                             i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
 			        }
 		                if ("STRING" != getTokenType(context)) {
 			            return langError(context,
-			                             i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') + possible_value) ;
+			                             i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
+                                                     "'" + possible_value + "'") ;
 			        }
 
 				// process characters of the string
@@ -792,7 +817,8 @@ function read_data ( context, datosCU, ret )
 		   else
 		   {
 			return langError(context,
-				   i18n_get_TagFor('compiler', 'UNEXPECTED DATATYPE') + possible_datatype) ;
+				         i18n_get_TagFor('compiler', 'UNEXPECTED DATATYPE') +
+                                         "'" + possible_datatype + "'") ;
 		   }
            }
 
@@ -853,23 +879,32 @@ function read_text ( context, datosCU, ret )
 			var possible_tag = getToken(context);
 
 			// check tag
-		        if ("TAG" != getTokenType(context)) {
+		        if ("TAG" != getTokenType(context)) 
+                        {
+                            if ("" == possible_tag) {
+                                possible_tag = "[empty]" ;
+                            }
+
 			    return langError(context,
-			                 i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') + possible_tag) ;
+			                 i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
+                                         "'" + possible_tag + "'") ;
                         }
 
 		        var tag = possible_tag.substring(0, possible_tag.length-1);
    		        if (!isValidTag(tag)) {
 			    return langError(context,
-			                     i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') + tag) ;
+			                     i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                             "'" + tag + "'") ;
                         }
 			if (firmware[tag]) {
 			    return langError(context,
-			                     i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') + tag) ;
+			                     i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                             "'" + tag + "'") ;
                         }
 			if (ret.labels2[tag]) {
 			    return langError(context,
-			                     i18n_get_TagFor('compiler', 'REPEATED TAG') + tag) ;
+			                     i18n_get_TagFor('compiler', 'REPEATED TAG') +
+                                             "'" + tag + "'") ;
                         }
 
 			// store tag
@@ -999,7 +1034,7 @@ function read_text ( context, datosCU, ret )
 				    // 0xFFFFF,... | 23, 'b', ...
 				    case "address":
 				    case "inm":
-					 if (isPseudo && ("sel" == value)) 
+					 if (isPseudo && ("sel" == value))
                                          {
 						counter++;
 						var start = pfinish[counter++];
@@ -1016,17 +1051,20 @@ function read_text ( context, datosCU, ret )
                                          {
 					     var error = "" ;
                                              if ((value[0] == "'")) {
-			                          error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') + value ;
+			                          error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
+                                                          "'" + value + "'" ;
                                                   advance[j] = 0 ;
                                                   break ;
                                              }
 					     if (! isValidTag(value)) {
-			                          error = i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') + value ;
+			                          error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
+                                                          "'" + value + "'" ;
 						  advance[j] = 0 ;
 						  break ;
 					     }
 					     if (firmware[value]) {
-			                          error = i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') + value ;
+			                          error = i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                                          "'" + value + "'" ;
 						  advance[j] = 0 ;
 						  break ;
 					     }
@@ -1042,9 +1080,10 @@ function read_text ( context, datosCU, ret )
 
 					     if (res[1] < 0) {
 						 return langError(context,
-								  "'" + value + "' " + 
+								  "'" + value + "' " +
 							          i18n_get_TagFor('compiler', 'BIGGER THAN') +
-								 WORD_LENGTH + i18n_get_TagFor('compiler','BITS'));
+								  WORD_LENGTH + " " +
+                                                                  i18n_get_TagFor('compiler', 'BITS'));
 					     }
 
 					     converted = "0".repeat(res[1]) + res[0];
@@ -1059,7 +1098,7 @@ function read_text ( context, datosCU, ret )
 					          var res = decimal2binary(converted, size) ;
 					     else var res =   float2binary(converted, size) ;
 
-					     if ((field.type == "address") && ("rel" == field.address_type)) 
+					     if ((field.type == "address") && ("rel" == field.address_type))
                                              {
 					         res = decimal2binary(converted-seg_ptr-WORD_BYTES, size);
                                              }
@@ -1097,19 +1136,21 @@ function read_text ( context, datosCU, ret )
 					 else
 					 {
 						if ("(reg)" == signature_fields[j][i]) {
-			                             var error = i18n_get_TagFor('compiler', 'EXPECTED (REG)') + value ;
+			                             var error = i18n_get_TagFor('compiler', 'EXPECTED (REG)') +
+                                                                 "'" + value + "'" ;
 						     advance[j] = 0 ;
 						     break ;
 						}
 					 }
 
-					 if (typeof registers[value] === "undefined") 
+					 if (typeof registers[value] === "undefined")
                                          {
-			                        var error = i18n_get_TagFor('compiler', 'EXPECTED REG') + value ;
+			                        var error = i18n_get_TagFor('compiler', 'EXPECTED REG') +
+                                                            "'" + value + "'" ;
 						advance[j] = 0 ;
 						break ;
 					 }
-					 if (aux) 
+					 if (aux)
                                          {
 						s[i+1] = "(" + value + ")";
 
@@ -1137,7 +1178,8 @@ function read_text ( context, datosCU, ret )
 
 				    default:
 					 return langError(context,
-						          i18n_get_TagFor('compiler', 'UNKNOWN 1') + field.type) ;
+						          i18n_get_TagFor('compiler', 'UNKNOWN 1') +
+                                                          "'" + field.type + "'") ;
 				}
 
 				// check if bits fit in the space
@@ -1216,13 +1258,13 @@ function read_text ( context, datosCU, ret )
 			// No candidate
 			if (advance.length === 1) {
 			    return langError(context,
-                                             error + ". " +
+                                             error + ". <br>" +
 				             i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
                                              format);
 			}
 
 			return langError(context,
-				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') +
+				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + ". <br>" +
 				         i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
 				         i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 		}
@@ -1477,7 +1519,8 @@ function simlang_compile (text, datosCU)
 
 	       if (typeof ret.seg[segname] === "undefined") {
 		   return langError(context,
-		                    i18n_get_TagFor('compiler', 'INVALID SEGMENT NAME') + segname) ;
+		                    i18n_get_TagFor('compiler', 'INVALID SEGMENT NAME') +
+                                    "'" + segname + "'") ;
 	       }
 
 	       if ("data" == ret.seg[segname].kindof) {
@@ -1507,7 +1550,8 @@ function simlang_compile (text, datosCU)
 		if (typeof value === "undefined") {
 		    setLabelContext(context, ret.labels[i].labelContext);
 		    return langError(context,
-				     i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ret.labels[i].name) ;
+				     i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') +
+                                     "'" + ret.labels[i].name + "'") ;
 		}
 
 		// Get the words in memory (machine code) where the label is used

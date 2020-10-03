@@ -21,6 +21,7 @@
 
     i18n.eltos.compiler.ru = {
 
+	   "PROBLEM AROUND LINE":  "Problem around line",
 		'NO TAG OR DIRECTIVE':		'Ожидаемый тег или директива, но нашел этот маркер вместо этого: ',
 		'INVALID TAG FORMAT':		'Тег должен следовать буквенно-цифровому формату (начиная с буквой или подчеркиванием): ',
 		'TAG OR INSTRUCTION':		'Тег не может иметь такое же имя, как и инструкция: ',

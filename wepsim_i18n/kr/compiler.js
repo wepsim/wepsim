@@ -21,6 +21,7 @@
 
     i18n.eltos.compiler.ko = {
 
+	   "PROBLEM AROUND LINE":  "Problem around line",
 		'NO TAG OR DIRECTIVE':		'태그 또는 지시 예상하지만,이 대신 토큰을 발견 : ',
 		'INVALID TAG FORMAT':		'태그는 (문자 나 밑줄로 시작하는) 영숫자 형식을 따라야합니다 : ',
 		'TAG OR INSTRUCTION':		'태그는 명령과 동일한 이름을 가질 수 없습니다 : ',

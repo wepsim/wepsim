@@ -21,6 +21,7 @@
 
     i18n.eltos.compiler.it = {
 
+	   "PROBLEM AROUND LINE":  "Problem around line",
 		'NO TAG OR DIRECTIVE':		'Previsto tag o direttiva, ma trovato questo token invece: ',
 		'INVALID TAG FORMAT':		'Un tag deve seguire un formato alfanumerico (che inizia con una lettera o di sottolineatura): ',
 		'TAG OR INSTRUCTION':		'Un tag non può avere lo stesso nome di un\'istruzione: ',

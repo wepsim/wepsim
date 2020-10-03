@@ -287,7 +287,7 @@
         while (i < chunk)
         {
             // one clock cycle...
-	    var ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
+	    ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
 	    if (false === ret.ok) {
 		wepsim_show_stopbyevent("Info", ret.msg) ;
 		wepsim_execute_stop() ;

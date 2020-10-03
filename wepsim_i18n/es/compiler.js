@@ -21,7 +21,8 @@
 
     i18n.eltos.compiler.es = {
 
-		'NO TAG OR DIRECTIVE':		'Se esperaba etiqueta (x :) o directiva (.x), pero encontrado este token en su lugar: ',
+	   "PROBLEM AROUND LINE":  "Problem around line",
+		'NO TAG OR DIRECTIVE':		'No es una etiqueta (ej.: tag1:) o directiva (ej.: .data) válida, se encontró: ',
 		'INVALID TAG FORMAT':		'Una etiqueta debe seguir un formato alfanumérico (comenzando con una letra o un guión bajo): ',
 		'TAG OR INSTRUCTION':		'Una etiqueta no puede tener el mismo nombre que una instrucción: ',
 		'REPEATED TAG':		        'Etiqueta repetida: ',
