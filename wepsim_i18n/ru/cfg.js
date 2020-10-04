@@ -58,13 +58,8 @@
 		'Quick interactive mode: quick update of signal value':		'Быстрый интерактивный режим: быстрое обновление значения сигнала',
 		'(example)':							'(пример)',
 		'Accesibility':							'доступность',
-<<<<<<< HEAD
-                'Beginner view': 						'Beginner view',
-                'Auto-scroll while executing': 				        'Auto-scroll while executing',
-=======
                 'Beginner view': 						'Взгляд новичка',
                 'Auto-scroll while executing': 				        'Автопрокрутка при выполнении',
->>>>>>> 2.1.2
 		'Active voice: external voice control':				'Активный голос: внешнее голосовое управление',
 		'Verbalization: textual or mathematical':			'Вербализация: текстовая или математическая',
 		'WepSIM User Interface views':					'Пользовательский интерфейс WepSIM',
