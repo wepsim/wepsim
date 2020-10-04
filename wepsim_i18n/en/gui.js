@@ -103,7 +103,7 @@
 		        "Welcome":					"Welcome",
                         "Microcode & Assembly":      			"Microcode & Assembly",
                         "Pick firm/soft":  				"Pick firm/soft from",
-                        "Information":     				"Information from",
+                        "Information":     				"Information",
                         "Native":          				"Native",
                         "MIPS32-like":          			"MIPS32-like",
                         "RISCV32":          				"RISCV32",
