@@ -101,6 +101,16 @@
                 'RISCV32':  			'RISCV32 Codice',
                 'Z80-like':   			'Codice simile a Z80',
 
+                'Actions': 			'Azioni',
+                'Utilities': 			'Utilità',
+                'Information from': 		'Informazioni da',
+                'Pick firm/soft from': 		'Scegli azienda / morbida da',
+                'Welcome tutorial': 		'Tutorial di benvenuto',
+                'Description': 			'Descrizione',
+                'idiom': 			'idioma',
+                'Assembly only': 		'Solo assemblaggio',
+                'Micro & Assembly': 		'Micro e assemblaggio',
+
 		'_last_':			'_last_'
 
     };

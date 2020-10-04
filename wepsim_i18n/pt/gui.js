@@ -101,7 +101,16 @@
                 'RISCV32':  			'RISCV32',
                 'Z80-like':   			'Semelhante ao Z80',
 
-		'_last_':			'_last_'
+                'Actions': 			'Ações',
+                'Utilities': 			'Serviços de utilidade pública',
+                'Information from': 		'Informação de',
+                'Pick firm/soft from': 		'Escolha firme / macio de',
+                'Welcome tutorial': 		'Tutorial de boas-vindas',
+                'Description': 			'Descrição',
+                'idiom': 			'idioma',
+                'Assembly only': 		'Apenas montagem',
+                'Micro & Assembly': 		'Micro e Montagem',
 
+		'_last_':			'_last_'
     };
 

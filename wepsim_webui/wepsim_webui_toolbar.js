@@ -350,7 +350,7 @@
 	                '                    wsweb_do_action(action);' +
 	                '                    return false;"' +
 			'           id="select6a"' +
-                        '   ><strong><em class="fas fa-clone"></em>&nbsp;Actions</strong></button>' +
+                        '   ><strong><em class="fas fa-clone"></em>&nbsp;<span data-langkey="Actions">Actions</span></strong></button>' +
 			'   <button id="dd2a" type="button" ' +
                         '           class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
                         '           style="border-color: #CCCCCC;"' +
@@ -388,7 +388,7 @@
                         '                 return false;"><span data-langkey="Help">Help</span></a>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_intro" value="intro"' +
                         '        onclick="wsweb_select_action(\'intro\');' +
-                        '                 return false;">Welcome tutorial...</a>' +
+                        '                 return false;"><span data-langkey="Welcome tutorial">Welcome tutorial</span>...</a>' +
                         '\n' +
 			'   </div>' +
 			'</div>' ;

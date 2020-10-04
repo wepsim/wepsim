@@ -107,7 +107,16 @@
                 'RISCV32':  			'RISCV32-kod',
                 'Z80-like':     		'Z80-liknande kod',
 
-		'_last_':			'_last_'
+                'Actions': 			'Insatser',
+                'Utilities': 			'Verktyg',
+                'Information from': 		'Information från',
+                'Pick firm/soft from': 		'Välj fast / mjukt från',
+                'Welcome tutorial': 		'Välkomsthandledning',
+                'Description': 			'Beskrivning',
+                'idiom': 			'idiom',
+                'Assembly only': 		'Endast montering',
+                'Micro & Assembly': 		'Micro & Assembly',
 
+		'_last_':			'_last_'
     };
 
