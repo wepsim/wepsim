@@ -36,15 +36,15 @@ i18n_eltos = {} ;
 
 i18n_eltos['cfg'] = {
 
-	     "General": "General",
+	     "General": 						     "General",
 	     "Idiom for help, examples, etc.": 		             	     "Idiom for help, examples, etc.",
 	     "Notification speed: time before disapear": 	             "Notification speed: time before disapear",
-	     "Editor": "Editor",
+	     "Editor": 						             "Editor",
 	      "Editor theme: light or dark": 		                     "Editor theme: light or dark",
 	      "Light": 		                     			     "Light",
 	      "Dark": 		                     		             "Dark",
 	      "Editor mode: vim, emacs, etc.": 		                     "Editor mode: vim, emacs, etc.",
-	     "Execution": "Execution",
+	     "Execution": 						     "Execution",
 	      "Running speed: execution speed": 		             "Running speed: execution speed",
 	      "Slow": 		                     			     "Slow",
 	      "Normal": 		                     		     "Normal",
@@ -63,7 +63,7 @@ i18n_eltos['cfg'] = {
 	      "Numbers": 		                                     "Numbers",
 	      "Labels": 		                                     "Labels",
 	      "Editable registers: edit register file values": 	             "Editable registers: edit register file values",
-	     "Circuitry simulation": "Circuitry simulation",
+	     "Circuitry simulation": 					     "Circuitry simulation",
 	      "Data-path color": 					     "Data-path color",
 	      "Signal color": 		                                     "Signal color",
 	      "Show by value or by activation": 		             "Show by value or by activation",
@@ -73,7 +73,7 @@ i18n_eltos['cfg'] = {
 	      "Quick interactive mode: quick update of signal value":	     "Quick interactive mode: quick update of signal value",
 	      "WepSIM User Interface skin": 		                     "WepSIM User Interface skin",
 	      "(example)": 					             "(example)",
-	     "Accesibility": "Accesibility",
+	     "Accesibility": 						     "Accesibility",
               "Beginner view": 						     "Beginner view",
               "Auto-scroll while executing": 				     "Auto-scroll while executing",
 	      "Active voice: external voice control": 	                     "Active voice: external voice control",
@@ -252,7 +252,7 @@ i18n_eltos['gui'] = {
 	"Welcome":  			                "Welcome",
 	"WepSIM hardware":      			"WepSIM hardware",
 	"Pick firm/soft from":  			"Pick firm/soft from",
-	"Information from":     			"Information from",
+	"Information":     				"Information",
 
 	"Native":          				"Native",
 	"MIPS32-like code":          			"MIPS32-like code",
@@ -541,7 +541,7 @@ i18n_eltos['compiler'] = {
    "SEVERAL CANDIDATES":   "Instruction and fields match with more than one instruction in microcode. " +
 			   "Please check the microcode. Currently, the instruction format can be: ",
    "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-   "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, " + 
+   "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, " +
                            "a number is out of range, or you just used a wrong instruction",
    "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
    "INS. MISSING FIELD":   "Missing field in the instruction",
