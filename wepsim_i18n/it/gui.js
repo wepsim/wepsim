@@ -106,7 +106,6 @@
                 'Information from': 		'Informazioni da',
                 'Pick firm/soft from': 		'Scegli azienda / morbida da',
                 'Welcome tutorial': 		'Tutorial di benvenuto',
-                'Description': 			'Descrizione',
                 'idiom': 			'idioma',
                 'Assembly only': 		'Solo assemblaggio',
                 'Micro & Assembly': 		'Micro e assemblaggio',

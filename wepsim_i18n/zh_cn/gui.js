@@ -106,7 +106,6 @@
                 'Information from': 		'来自的信息',
                 'Pick firm/soft from': 		'从选择公司/软件',
                 'Welcome tutorial': 		'欢迎教程',
-                'Description': 			'描述',
                 'idiom': 			'成语',
                 'Assembly only': 		'仅组装',
                 'Micro & Assembly': 		'微型与组装',
