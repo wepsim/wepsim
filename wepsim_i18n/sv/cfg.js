@@ -59,8 +59,13 @@
 		'WepSIM User Interface skin':					'WepSIM User Interface-hud',
 		'(example)':							'(exempel)',
 		'Accesibility':							'Tillgänglighet',
+<<<<<<< HEAD
                 'Beginner view': 						'Beginner view',
                 'Auto-scroll while executing': 				        'Auto-scroll while executing',
+=======
+                'Beginner view': 						'Nybörjarvy',
+                'Auto-scroll while executing': 				        'Bläddra automatiskt under körning',
+>>>>>>> 2.1.2
 		'Active voice: external voice control':				'Aktiv röst: extern röststyrning',
 		'Verbalization: textual or mathematical':			'Verbalisering: text- eller matematisk',
 		'WepSIM User Interface views':					'WepSIM User Interface visningar',

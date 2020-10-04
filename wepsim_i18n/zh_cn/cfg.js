@@ -58,8 +58,13 @@
 		'Quick interactive mode: quick update of signal value':		'快速交互模式：快速更新信号值',
 		'(example)':							'（例）',
 		'Accesibility':							'无障碍',
+<<<<<<< HEAD
                 'Beginner view': 						'Beginner view',
                 'Auto-scroll while executing': 			       		'Auto-scroll while executing',
+=======
+                'Beginner view': 						'初学者视图',
+                'Auto-scroll while executing': 			       		'执行时自动滚动',
+>>>>>>> 2.1.2
 		'Active voice: external voice control':				'主动语音：外部语音控制',
 		'Verbalization: textual or mathematical':			'语言化：文本或数学',
 		'WepSIM User Interface views':					'WepSIM用户界面视图',
