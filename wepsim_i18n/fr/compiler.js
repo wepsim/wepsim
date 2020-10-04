@@ -21,7 +21,7 @@
 
     i18n.eltos.compiler.fr = {
 
-	   "PROBLEM AROUND LINE":  "Problem around line",
+	        "PROBLEM AROUND LINE":          "Problème autour de la ligne",
 		'NO TAG OR DIRECTIVE':		'balise attendu ou directive, mais à cet jeton à la place:',
 		'INVALID TAG FORMAT':		'Une étiquette doit suivre un format alphanumérique (en commençant par une lettre ou un trait de soulignement):',
 		'TAG OR INSTRUCTION':		'Une étiquette ne peut pas avoir le même nom qu\'une instruction:',

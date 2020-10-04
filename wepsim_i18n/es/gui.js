@@ -105,6 +105,16 @@
                         "RISCV32":          				"RISCV32",
                         "Z80-like":          				"Basado en Z80",
 
+                        'Actions': 					'Acciones',
+                        'Utilities': 					'Utilidades',
+                        'Information from': 				'Información de',
+                        'Pick firm/soft from': 				'Cargar firm/soft desde',
+                        'Welcome tutorial': 				'Tutorial de bienvenida',
+                        'Description': 					'Descripción',
+                        'idiom': 					'idioma',
+                        'Assembly only': 				'Solo ensamblador',
+                        'Micro & Assembly': 				'Micro y ensamblador',
+
 		        "_last_":					"_last_"
                   } ;
 

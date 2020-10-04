@@ -101,7 +101,16 @@
                 'RISCV32':  			'RISCV32代碼',
                 'Z80-like':   			'類似於Z80的代碼',
 
-		'_last_':			'_last_'
+                'Actions': 			'动作',
+                'Utilities': 			'实用工具',
+                'Information from': 		'来自的信息',
+                'Pick firm/soft from': 		'从选择公司/软件',
+                'Welcome tutorial': 		'欢迎教程',
+                'Description': 			'描述',
+                'idiom': 			'成语',
+                'Assembly only': 		'仅组装',
+                'Micro & Assembly': 		'微型与组装',
 
+		'_last_':			'_last_'
     };
 

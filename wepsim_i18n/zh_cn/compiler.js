@@ -21,7 +21,7 @@
 
     i18n.eltos.compiler.zh_cn = {
 
-	   "PROBLEM AROUND LINE":  "Problem around line",
+	        "PROBLEM AROUND LINE":          "繞線問題",
 		'NO TAG OR DIRECTIVE':		'期望tag或指令却发现此令牌来代替：',
 		'INVALID TAG FORMAT':		'的标签，必须按照字母数字格式（以字母开头或下划线）：',
 		'TAG OR INSTRUCTION':		'一个标记不能有相同的名称作为指令：',

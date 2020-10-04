@@ -337,43 +337,43 @@ i18n_eltos['states'] = {
 
 i18n_eltos['tour_intro'] = {
 
-	"step1":  "WepSIM helps to better understand how a computer works: " +
-		  "it is visual, interactive, integrates from signals up to interruptions, system calls, exceptions, etc. <br> " +
-		  "<br>" +
-		  "We really believe WepSIM is a revolutionary teaching tool. " +
-		  "This brief tour introduces the key elements of its interface.",
+	"step1": "WepSIM helps to better understand how a computer works: " +
+		 "it is visual, interactive, integrates from signals up to interruptions, system calls, exceptions, etc. <br> " +
+		 "<br>" +
+		 "We really believe WepSIM is a revolutionary teaching tool. " +
+		 "This brief tour introduces the key elements of its interface.",
 
-	"step2":  "This button on the top-right is a quick access menu to differents 'work modes'.<br>" +
-		  "<br>" +
-		  "Users might select:" +
-		  "<ul>" +
-		  "<li>The hardware to work with (e.g. EP processor, etc.)</li>" +
-		  "<li>Assembly only mode, with integer MIPS<sub>32</sub> or RISC-V<sub>32</sub> instructions</li>" +
-		  "<li>The tutorial mode, recommended at the beginning ;-)</li>" +
-		  "</ul>",
+	"step2": "This button on the top-right is a quick access menu to differents 'work modes'.<br>" +
+		 "<br>" +
+		 "Users might select:" +
+		 "<ul>" +
+		 "<li>The hardware to work with (e.g. EP processor, etc.)</li>" +
+		 "<li>Assembly only mode, with integer MIPS<sub>32</sub> or RISC-V<sub>32</sub> instructions</li>" +
+		 "<li>The tutorial mode, recommended at the beginning ;-)</li>" +
+		 "</ul>",
 
-	"step3":  "On the top-right, the 'help' button opens the associated dialog.<br>" +
-		  "<br>" +
-		  "The help dialog summarizes the tutorials, descriptions, information, etc.",
+	"step3": "On the top-right, the 'help' button opens the associated dialog.<br>" +
+		 "<br>" +
+		 "The help dialog summarizes the tutorials, descriptions, information, etc.",
 
-	"step4":  "And on the left, the 'examples' button open the example dialog.<br>" +
-		  "<br>" +
-		  "There are many examples that can be used to learn incrementally.",
+	"step4": "And on the left, the 'examples' button open the example dialog.<br>" +
+		 "<br>" +
+		 "There are many examples that can be used to learn incrementally.",
 
-	"step5":  "On the top-left, the 'configuration' button opens the configuration dialog.<br>" +
-		  "<br>" +
-		  "It allows users to adapt several aspects of the execution, user interface, preferences, etc.",
+	"step5": "On the top-left, the 'configuration' button opens the configuration dialog.<br>" +
+		 "<br>" +
+		 "It allows users to adapt several aspects of the execution, user interface, preferences, etc.",
 
-	"step6":  "Congrats! You know the key elements in the WepSIM interface.<br>" +
-		  "From the 'Help' dialog you can access the 'Welcome tutorial' to continue learning.<br>"
+	"step6": "Congrats! You know the key elements in the WepSIM interface.<br>" +
+		 "From the 'Help' dialog you can access the 'Welcome tutorial' to continue learning.<br>"
 
 } ;
 
 
 i18n_eltos['tutorial_simpleusage'] = {
 
-	 "title_0":     "Simple WepSIM experience: microprogramming and programming",
-	 "message_0":   "<center><img alt='wepsim screenshot' src='images/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+	 "title_0":	"Simple WepSIM experience: microprogramming and programming",
+	 "message_0":	"<center><img alt='wepsim screenshot' src='images/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
 			"<p>" +
 			"<h5>" +
 			"This brief tutorial is going to show you how to:" +
@@ -384,15 +384,15 @@ i18n_eltos['tutorial_simpleusage'] = {
 			"</ol>" +
 			"</h5>",
 
-	 "title_1":     "Simple WepSIM experience: microprogramming and programming",
-	 "message_1":   "<center><img alt='wepsim screenshot' src='images/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+	 "title_1":	"Simple WepSIM experience: microprogramming and programming",
+	 "message_1":	"<center><img alt='wepsim screenshot' src='images/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
 			"<p>" +
 			"<h5>" +
 			"The first step is to microprogramming the firmware to be used. " +
 			"Please use the 'Microcode' button to switch to the microcode screen." +
 			"</h5>",
 
-	 "title_2":     "Simple WepSIM experience: microprogramming and programming",
+	 "title_2":	"Simple WepSIM experience: microprogramming and programming",
 	 "message_2":   "<center><img alt='wepsim screenshot' src='images/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
 			"<p>" +
 			"<h5>" +
@@ -530,7 +530,8 @@ i18n_eltos['compiler'] = {
    "SEVERAL CANDIDATES":   "Instruction and fields match with more than one instruction in microcode. " +
 			   "Please check the microcode. Currently, the instruction format can be: ",
    "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
-   "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, a number is out of range, or you just used a wrong instruction",
+   "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, " + 
+                           "a number is out of range, or you just used a wrong instruction",
    "LABEL NOT DEFINED":    "Label used but not defined in the assembly code: ",
    "INS. MISSING FIELD":   "Missing field in the instruction",
    "UNEXPECTED (REG)":     "Expected register but found register between parenthesis.",
