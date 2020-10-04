@@ -109,6 +109,16 @@
                         "RISCV32":          				"RISCV32",
                         "Z80-like":          				"Z80-like",
 
+                        'Actions': 					'Actions',
+                        'Utilities': 					'Utilities',
+                        'Information from': 				'Information from',
+                        'Pick firm/soft from': 				'Pick firm/soft from',
+                        'Welcome tutorial': 				'Welcome tutorial',
+                        'Description': 					'Description',
+                        'idiom': 					'idiom',
+                        'Assembly only': 				'Assembly only',
+                        'Micro & Assembly': 				'Micro & Assembly',
+
 		        "_last_":					"_last_"
     } ;
 

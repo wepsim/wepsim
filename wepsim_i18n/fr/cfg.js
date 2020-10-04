@@ -60,6 +60,8 @@
 		"Quick interactive mode: quick update of signal value":	"Mode interactif rapide: mise à jour rapide de la valeur du signal",
 		"(example)":						"(exemple)",
 		"Accesibility":						"Accessibilité",
+                'Beginner view': 						'Beginner view',
+                'Auto-scroll while executing': 				        'Auto-scroll while executing',
 		"Active voice: external voice control":			"Voix active: commande vocale externe",
 		"Verbalization: textual or mathematical":		"Verbalisation: textuelle ou mathématique",
 		"WepSIM User Interface views":				"Vues de l'interface utilisateur WepSIM"

@@ -101,6 +101,16 @@
                 'RISCV32':  			'RISCV32コード',
                 'Z80-like':   			'Z80のようなコード',
 
+                'Actions': 			'行動',
+                'Utilities': 			'ユーティリティ',
+                'Information from': 		'からの情報 ',
+                'Pick firm/soft from': 		'からしっかり/ソフトを選ぶ',
+                'Welcome tutorial': 		'ウェルカムチュートリアル',
+                'Description': 			'説明',
+                'idiom': 			'熟語',
+                'Assembly only': 		'組み立てのみ',
+                'Micro & Assembly': 		'マイクロ＆アセンブリ',
+
 		'_last_':			'_last_'
 
     };
