@@ -106,7 +106,6 @@
                 'Information from': 		'Informação de',
                 'Pick firm/soft from': 		'Escolha firme / macio de',
                 'Welcome tutorial': 		'Tutorial de boas-vindas',
-                'Description': 			'Descrição',
                 'idiom': 			'idioma',
                 'Assembly only': 		'Apenas montagem',
                 'Micro & Assembly': 		'Micro e Montagem',

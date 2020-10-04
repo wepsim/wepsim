@@ -112,7 +112,6 @@
                         'Information from': 				'정보',
                         'Pick firm/soft from': 				'회사 / 소프트 선택',
                         'Welcome tutorial': 				'환영 튜토리얼',
-                        'Description': 					'기술',
                         'idiom': 					'관용구',
                         'Assembly only': 				'조립 만',
                         'Micro & Assembly': 				'마이크로 및 조립',

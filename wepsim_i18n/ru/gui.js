@@ -106,7 +106,6 @@
                 'Information from': 		'Информация из',
                 'Pick firm/soft from': 		'Выбрать фирму / софт из',
                 'Welcome tutorial': 		'Добро пожаловать в учебник',
-                'Description': 			'Описание',
                 'idiom': 			'идиома',
                 'Assembly only': 		'Только сборка',
                 'Micro & Assembly': 		'Микро и сборка',
