@@ -178,13 +178,13 @@
 		" <button class='btn btn-outline-secondary btn-block py-1' " +
                 "         type='button' id='wsdt" + name + "' " +
 		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
-		" <span class='text-truncate'>&plusmn; Description</span>" +
+		" <span class='text-truncate'>&plusmn; <span data-langkey='Description'>Description</span></span>" +
 		" </button>" +
                 " </div></form>"+
                 // idioms
 		"<div class='dropdown-divider m-1'></div>" +
 		" <form class='px-3 m-0'><div class='form-group m-0'>" +
-		" <label for='dd2'>idiom</label>" +
+		" <label for='dd2'><span data-langkey='idiom'>idiom</span></label>" +
                   i18n_get_select('select7b' + name, str_onchange) +
                 " </div></form>"+
 		"</div>" +
@@ -210,7 +210,7 @@
 		" <button class='btn btn-outline-secondary btn-block py-1' " +
                 "         type='button' id='wsdt" + name + "' " +
 		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
-		" <span>&plusmn; Description</span>" +
+		" <span>&plusmn; <span data-langkey='Description'>Description</span></span>" +
 		" </button>" +
                 " </div></form>"+
                 // idioms

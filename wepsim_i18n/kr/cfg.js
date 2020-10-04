@@ -58,6 +58,8 @@
                       "Quick interactive mode: quick update of signal value":	     "빠른 대화 형 모드 : 신호 값의 빠른 업데이트",
                       "(example)": 					             "(예)",
 	             "Accesibility": 							"접근성",
+                'Beginner view': 						'Beginner view',
+                'Auto-scroll while executing': 				        'Auto-scroll while executing',
                       "Active voice: external voice control": 	                     "활성 음성 : 외부 음성 제어",
                       "Verbalization: textual or mathematical":      		     "언어학 : 텍스트 또는 수학",
                       "WepSIM User Interface views":      	     		     "WepSIM 사용자 인터페이스보기"
