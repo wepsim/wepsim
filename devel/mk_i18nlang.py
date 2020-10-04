@@ -52,8 +52,8 @@ i18n_eltos['cfg'] = {
 	      "Step-by-step: element in run mode": 		             "Step-by-step: element in run mode",
 	      "Instructions": 		                     		     "Instructions",
 	      "Instruction": 		                     		     "Instruction",
-	      "&#181;instructions": 		                   	     "&#181;instructions",
-	      "microInstruction": 		                   	     "&#181;Instruction",
+	      "&#181;instructions": 		                   	     "&\#181;instructions",
+	      "microInstruction": 		                   	     "&\#181;Instruction",
 	      "Breakpoint icon: icon to be used for breakpoints":            "Breakpoint icon: icon to be used for breakpoints",
 	      "Limit instructions: number of instructions to be executed":   "Limit instructions: number of instructions to be executed",
 	      "Limit instruction ticks: to limit clock ticks": 	             "Limit instruction ticks: clock ticks limit per instruction",
@@ -74,6 +74,8 @@ i18n_eltos['cfg'] = {
 	      "WepSIM User Interface skin": 		                     "WepSIM User Interface skin",
 	      "(example)": 					             "(example)",
 	     "Accesibility": "Accesibility",
+              "Beginner view": 						     "Beginner view",
+              "Auto-scroll while executing": 				     "Auto-scroll while executing",
 	      "Active voice: external voice control": 	                     "Active voice: external voice control",
 	      "Verbalization: textual or mathematical":      		     "Verbalization: textual or mathematical",
 	      "WepSIM User Interface views":      	     		     "WepSIM User Interface views"
@@ -188,7 +190,7 @@ i18n_eltos['gui'] = {
 	"Processor":  			                "Processor",
 	"Assembly Debugger":  			        "Assembly Debugger",
 	"Reset":  			                "Reset",
-	"microInstruction": 				"&#181;Instruction",
+	"microInstruction": 				"&\#181;Instruction",
 	"Instruction":  			        "Instruction",
 	"Run":  			                "Run",
 	"Hardware Summary":  			        "Hardware Summary",
@@ -255,7 +257,16 @@ i18n_eltos['gui'] = {
 	"Native":          				"Native",
 	"MIPS32-like code":          			"MIPS32-like code",
 	"RISCV32 code":          			"RISCV32 code",
-	"Z80-like code":          			"Z80-like code"
+	"Z80-like code":          			"Z80-like code",
+
+        "Actions": 					"Actions",
+        "Utilities": 					"Utilities",
+        "Information from": 				"Information from",
+        "Pick firm/soft from": 				"Pick firm/soft from",
+        "Welcome tutorial": 				"Welcome tutorial",
+        "idiom": 					"idiom",
+        "Assembly only": 				"Assembly only",
+        "Micro & Assembly": 				"Micro & Assembly"
 
 } ;
 

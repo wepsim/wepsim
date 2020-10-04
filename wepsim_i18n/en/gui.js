@@ -114,7 +114,6 @@
                         'Information from': 				'Information from',
                         'Pick firm/soft from': 				'Pick firm/soft from',
                         'Welcome tutorial': 				'Welcome tutorial',
-                        'Description': 					'Description',
                         'idiom': 					'idiom',
                         'Assembly only': 				'Assembly only',
                         'Micro & Assembly': 				'Micro & Assembly',

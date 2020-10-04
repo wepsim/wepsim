@@ -112,7 +112,6 @@
                 'Information from': 		'Information från',
                 'Pick firm/soft from': 		'Välj fast / mjukt från',
                 'Welcome tutorial': 		'Välkomsthandledning',
-                'Description': 			'Beskrivning',
                 'idiom': 			'idiom',
                 'Assembly only': 		'Endast montering',
                 'Micro & Assembly': 		'Micro & Assembly',
