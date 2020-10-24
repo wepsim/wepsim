@@ -104,8 +104,9 @@ i18n_eltos['dialogs'] = {
 	"Show/Hide content":                            "Show/Hide content",
 	"Show/Hide assembly":                           "Show/Hide assembly",
 	"Show/Hide pseudo-instructions":                "Show/Hide pseudo-instructions",
-
-	"Close": 		                	"Close"
+	"Close": 		                	"Close",
+	"details":					"details",
+        "idiom": 					"idiom"
 } ;
 
 
@@ -187,6 +188,13 @@ i18n_eltos['gui'] = {
 	"Restore":                                      "Restore",
 	"Help":  			                "Help",
 	"Help Index":  			                "Help Index",
+	"Notifications":				"Notifications",
+	"RecordBar":					"RecordBar",
+	"Input":					"Input",
+	"Output":					"Output",
+	"Reload":					"Reload",
+	"Checkpoint":					"Checkpoint",
+
 	"Processor":  			                "Processor",
 	"Assembly Debugger":  			        "Assembly Debugger",
 	"Reset":  			                "Reset",

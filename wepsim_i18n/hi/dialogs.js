@@ -37,6 +37,8 @@
 		'Show/Hide assembly':		'दिखाएँ / छिपाएँ विधानसभा',
 		'Show/Hide pseudo-instructions':		'छद्म निर्देश दिखाएं / छिपाएं',
 		'Close':		'बंद करे',
+		'details':					'details',
+                'idiom': 					'idiom',
 		'_last_':		'_last_'
 
     };

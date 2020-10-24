@@ -21,25 +21,29 @@
 
     i18n.eltos.dialogs.en = {
 
-                        "Show/Hide ActionBar":                          "Show/Hide ActionBar",
-                        "Show/Hide Slider":                             "Show/Hide Slider",
-                        "WepSIM User Interface skin": 		        "WepSIM User Interface skin",
-                        "Initial intro":                                "Initial intro",
-                        "About WepSIM":                                 "About WepSIM",
+                "Show/Hide ActionBar":                  "Show/Hide ActionBar",
+                "Show/Hide Slider":                     "Show/Hide Slider",
+                "WepSIM User Interface skin": 		"WepSIM User Interface skin",
+                "Initial intro":                        "Initial intro",
+                "About WepSIM":                         "About WepSIM",
 
-                        "Title":                                 	"Title",
-                        "Message":                                 	"Message",
-                        "Duration":                                 	"Duration",
+                "Title":                                "Title",
+                "Message":                              "Message",
+                "Duration":                             "Duration",
 
-			"Confirm remove record...":     		"Do you want to remove the actual record?",
-			"Close or Reset...":    			"Please click on Close to keep it, <br>or click on the Reset button to remove it.",
-                        "Sure Control Memory...":			"Do you want me to save the current Control Memory contents rather than the editor contents?.",
+		"Confirm remove record...":     	"Do you want to remove the actual record?",
+		"Close or Reset...":    		"Please click on Close to keep it, <br>or click on the Reset button to remove it.",
+                "Sure Control Memory...":		"Do you want me to save the current Control Memory contents rather than the editor contents?.",
 
-                        "Show/Hide labels":                             "Show/Hide labels",
-                        "Show/Hide content":                            "Show/Hide content",
-                        "Show/Hide assembly":                           "Show/Hide assembly",
-                        "Show/Hide pseudo-instructions":                "Show/Hide pseudo-instructions",
+                "Show/Hide labels":                     "Show/Hide labels",
+                "Show/Hide content":                    "Show/Hide content",
+                "Show/Hide assembly":                   "Show/Hide assembly",
+                "Show/Hide pseudo-instructions":        "Show/Hide pseudo-instructions",
+                "Close": 		                "Close",
+		'details':				'details',
+                'idiom': 				'idiom',
 
-                        "Close": 		                	"Close"
+		'_last_':				'_last_'
+
     } ;
 
