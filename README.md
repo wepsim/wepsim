@@ -36,12 +36,14 @@
     * A nightly build version is also available at https://acaldero.github.io/wepsim
     
 + From Linux/Unix command line, please:
-  * Check you have installed Node v10.5.0+, and Bash 4.4.19+
-  * Download WepSIM by executing:
+  * Check you have installed Node v10.5.0+, and Bash 4.4.19+:
+    * sudo apt-get install nodejs npm bash -y
+  * Get WepSIM by executing:
     * wget https://github.com/acaldero/wepsim/releases/download/v2.1.2/wepsim-2.1.2.zip
     * unzip wepsim-2.1.2.zip 
-  * Execute wepsim.sh with the help flag in order to show the available command switches:
     * cd wepsim-2.1.2
+    * npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
+  * Execute wepsim.sh with the help flag in order to show the available command switches:
     * ./wepsim.sh -h
 
 <a name="install-wepsim-as-pwa"/>
