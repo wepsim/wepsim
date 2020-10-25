@@ -51,6 +51,10 @@
            "UNEXPECTED (REG)":     "Expected register but found register between parenthesis.",
            "EXPECTED (REG)":       "Expected register between parenthesis but found ",
            "EXPECTED REG":         "Expected valid register (e.g.: $1/$a0/...) but found ",
+           'UNKNOWN ESCAPE CHAR':  'Unknown escape char',
+           'SPACE FOR # BITS':     " bits in binary but there is space for only ",
+           'NEEDS':                ' needs ',
+           'UNKNOWN MC FORMAT':    "(unknown format in microcode)",
 
            // microcode
            "LABEL NOT FOUND":        "Expected '<label>:' not found, found token ",

@@ -46,6 +46,10 @@
 		'UNEXPECTED (REG)':		'Registro previsto ma trovato registro tra parentesi.',
 		'EXPECTED (REG)':		'Registro previsto tra parentesi ma ha trovato: ',
 		'EXPECTED REG':			'Registro previsto (e.g.: $1/$a0/...) ma ha trovato: ',
+                'UNKNOWN ESCAPE CHAR':          'Carattere di fuga sconosciuto',
+                'SPACE FOR # BITS':             " bit in binario ma c'è spazio solo per ",
+                'NEEDS':                        ' bisogno ',
+                'UNKNOWN MC FORMAT':            "(unknown format in microcode)",
 
            // microcode
 		'LABEL NOT DEFINED':		'Etichetta utilizzati ma non definiti nel codice assembly: ',

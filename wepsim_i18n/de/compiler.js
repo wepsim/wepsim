@@ -47,6 +47,10 @@
 		'UNEXPECTED (REG)':		'Erwartete Register aber Register zwischen Klammer gefunden.',
 		'EXPECTED (REG)':		'Erwartetes Register zwischen Klammer aber gefunden: ',
 		'EXPECTED REG':			'Erwartetes Register (e.g.: $1/$a0/...), aber gefunden: ',
+                'UNKNOWN ESCAPE CHAR':          'Unbekannter Fluchtcharakter',
+                'SPACE FOR # BITS':             " Bits in Binärform, aber es gibt nur Platz für ",
+                'NEEDS':                        ' braucht ',
+                'UNKNOWN MC FORMAT':            "(unknown format in microcode)",
 
            // microcode
 		'LABEL NOT FOUND':		'Erwartete \'<label>:\' nicht gefunden, gefunden token: ',
