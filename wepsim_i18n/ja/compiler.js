@@ -47,6 +47,10 @@
 		'UNEXPECTED (REG)':		'予想されるレジスタが、括弧の間のレジスタを見つけました。',
 		'EXPECTED (REG)':		'括弧が、見つかったの間に予想されるレジスタ：',
 		'EXPECTED REG':			'予想されるレジスタ（例えば：$1/$a0/...）しかしが見つかりました：',
+                'UNKNOWN ESCAPE CHAR':          '不明なエスケープ文字',
+                'SPACE FOR # BITS':             " バイナリのビットですが、スペースがあります ",
+                'NEEDS':                        ' が必要だ ',
+                'UNKNOWN MC FORMAT':            "(unknown format in microcode)",
 
            // microcode
 		'LABEL NOT FOUND':		'予想される「<ラベル>：」が見つかりません、トークンが見つかりました：',

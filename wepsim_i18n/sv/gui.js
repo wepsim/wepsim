@@ -36,6 +36,8 @@
 		'RecordBar':			'RecordBar',
 		'Input':			'Inmatning',
 		'Output':			'Produktion',
+		'Reload':			'Ladda om',
+		'Checkpoint':			'Kontrollstation',
 
 		'Help Index':			'Hjälpindex',
 		'Processor':			'Processor',

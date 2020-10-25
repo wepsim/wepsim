@@ -174,7 +174,7 @@
 		"     aria-labelledby='dropdown-title1'>" +
                 // details
 		" <form class='px-3 m-0'><div class='form-group m-0'>" +
-		" <label for='wsdt" + name + "'>details</label>" +
+		" <label for='wsdt" + name + "'><span data-langkey='details'>details</span></label>" +
 		" <button class='btn btn-outline-secondary btn-block py-1' " +
                 "         type='button' id='wsdt" + name + "' " +
 		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +

@@ -394,52 +394,7 @@ function writememory_and_reset ( mp, gen, nwords )
 
 function is_end_of_file (context)
 {
-	return "" === getToken(context) && context.t >= context.text.length;
-}
-
-
-/*
- * Treat control sequences
- */
-
- control_sequences = {
-                        'b':  '\b',
-                        'f':  '\f',
-                        'n':  '\n',
-                        'r':  '\r',
-                        't':  '\t',
-                        'v':  '\v',
-                        'a':  String.fromCharCode(0x0007),
-                        "'":  '\'',
-                        "\"": '\"',
-                        '0':  '\0'
-                     } ;
-
-function treatControlSequences ( possible_value )
-{
-        var ret = {} ;
-        ret.string = "" ;
-        ret.error  = false ;
-
-	for (var i=0; i<possible_value.length; i++)
-	{
-		if ("\\" != possible_value[i]) {
-                    ret.string = ret.string + possible_value[i] ;
-                    continue ;
-                }
-
-                i++ ;
-
-                if (control_sequences[possible_value[i]] === "undefined") {
-		    ret.string = "Unknown escape char '\\" + possible_value[i] + "'" ;
-                    ret.error  = true ;
-        	    return ret ;
-                }
-
-		ret.string = ret.string + control_sequences[possible_value[i]] ;
-	}
-
-        return ret ;
+	return ("" === getToken(context)) && (context.t >= context.text.length) ;
 }
 
 
@@ -889,8 +844,8 @@ function read_text ( context, datosCU, ret )
                             }
 
 			    return langError(context,
-			                 i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
-                                         "'" + possible_tag + "'") ;
+			                     i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
+                                             "'" + possible_tag + "'") ;
                         }
 
 		        var tag = possible_tag.substring(0, possible_tag.length-1);
@@ -1188,9 +1143,27 @@ function read_text ( context, datosCU, ret )
 				{
 					if (res[1] < 0)
 					{
-						if (field.type == "address" && "rel" == field.address_type)
-						     error = "Relative value (" + (converted - seg_ptr - WORD_BYTES) + " in decimal) needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
-						else error = "'" + value + "' needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
+						if (field.type == "address" && "rel" == field.address_type) 
+                                                {
+						     error = "Relative value (" + 
+                                                             (converted - seg_ptr - WORD_BYTES) + 
+                                                             " in decimal)"+ 
+				                             i18n_get_TagFor('compiler', 'NEEDS') +
+                                                             res[0].length + 
+				                             i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+                                                             size + " " +
+				                             i18n_get_TagFor('compiler', 'BITS') ;
+                                                }
+						else
+                                                {
+                                                     error = "'" + value + "'" + 
+				                             i18n_get_TagFor('compiler', 'NEEDS') +
+                                                             res[0].length + 
+				                             i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+                                                             size + " " +
+				                             i18n_get_TagFor('compiler', 'BITS') ;
+                                                }
+
 						advance[j] = 0;
 					}
 				}
@@ -1248,7 +1221,8 @@ function read_text ( context, datosCU, ret )
 			format += "'" + firmware[instruction][i].signatureUser + "'" ;
 		}
                 if (format == "") {
-                    format = "'" + instruction + "' (unknown format in microcode)" ;
+                    format = "'" + instruction + "' " +  
+			     i18n_get_TagFor('compiler', 'UNKNOWN MC FORMAT') ;
 		}
 
 		// check solution
@@ -1574,14 +1548,25 @@ function simlang_compile (text, datosCU)
 			var a = decimal2binary(converted, size);
 			num_bits   = a[0] ;
                         free_space = a[1] ;
-			error = "'" + ret.labels[i].name + "' needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
+			error = "'" + ret.labels[i].name + "'" + 
+				i18n_get_TagFor('compiler', 'NEEDS') +
+                                num_bits.length + 
+				i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+                                size + " " + 
+			        i18n_get_TagFor('compiler', 'BITS') ;
 
 			if ("rel" == ret.labels[i].rel)
                         {
 			    var a = decimal2binary(converted - ret.labels[i].addr - WORD_BYTES, size);
 			    num_bits   = a[0] ;
                             free_space = a[1] ;
-			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + " in decimal) needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
+			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + 
+                                    " in decimal)" + 
+				    i18n_get_TagFor('compiler', 'NEEDS') +
+                                    num_bits.length + 
+				    i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+                                    size + " " + 
+			            i18n_get_TagFor('compiler', 'BITS') ;
 			}
 		}
  		else
@@ -1597,7 +1582,10 @@ function simlang_compile (text, datosCU)
                 }
 
 		// Store field in machine code
-		machineCode = assembly_replacement(machineCode, num_bits, ret.labels[i].startbit-(-1), ret.labels[i].stopbit, free_space);
+		machineCode = assembly_replacement(machineCode, num_bits, 
+                                                   ret.labels[i].startbit-(-1), 
+                                                   ret.labels[i].stopbit, 
+                                                   free_space) ;
 
 		// process machine code with several words...
 		auxAddr = ret.labels[i].addr;

@@ -3,10 +3,10 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-# Error: invalid number --> hello
+# Error: invalid number --> 1hello2
 
 .data
-	max: .word hello
+	max: .word 1hello2
 
 .text
 	main: la $t1 max
