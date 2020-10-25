@@ -27,12 +27,15 @@
 
     function wepsim_nodejs_retfill ( ok, msg )
     {
-        var ret = { ok: true, html: "", msg: "" } ;
+        var msg_txt = msg.replace(/<br>/g,        '\n')
+                         .replace(/<EOF>/g,       '[eof]')
+                         .replace(/<[^>]*>/g,     '') ;
 
-        ret.ok   = ok ;
-        ret.html = msg ;
-        ret.msg  = msg.replace(/<[^>]*>/g, '')
-                      .replace(/&gt;EOF&lt;/g, '[eof]') ;
+        var ret = {
+                     ok:   ok,
+                     html: msg,
+                     msg:  treatHTMLSequences(msg_txt)
+                  } ;
 
         return ret ;
     }
@@ -303,7 +306,7 @@
 	    }
         }
 
-        console.log("INFO: number of instruction executed: " + i + 
+        console.log("INFO: number of instruction executed: " + i +
                     " (limited to " + options.instruction_limit + ")") ;
         return true ;
     }
@@ -501,14 +504,14 @@
         var ret = simcore_compile_firmware(data.firmware) ;
 	if (false === ret.ok)
 	{
-	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + "\n") ;
+	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg) ;
 	}
 
 	// 3) load assembly
         ret = simcore_compile_assembly(data.assembly) ;
 	if (false === ret.ok)
         {
-	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + "\n") ;
+	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg) ;
 	}
 
 	return wepsim_nodejs_retfill(true, ret.msg) ;
@@ -520,13 +523,13 @@
 	// 1) initialization
         var ret = wepsim_nodejs_init(data) ;
 	if (false === ret.ok) {
-	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
+	    return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
 	}
 
 	// 2) prepare firmware-assembly
         ret = wepsim_nodejs_prepareCode(data, options) ;
 	if (false === ret.ok) {
-	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
+	    return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
 	}
 
 	// 3) run code

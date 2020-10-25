@@ -399,53 +399,6 @@ function is_end_of_file (context)
 
 
 /*
- * Treat control sequences
- */
-
- control_sequences = {
-                        'b':  '\b',
-                        'f':  '\f',
-                        'n':  '\n',
-                        'r':  '\r',
-                        't':  '\t',
-                        'v':  '\v',
-                        'a':  String.fromCharCode(0x0007),
-                        "'":  '\'',
-                        "\"": '\"',
-                        '0':  '\0'
-                     } ;
-
-function treatControlSequences ( possible_value )
-{
-        var ret = {} ;
-        ret.string = "" ;
-        ret.error  = false ;
-
-	for (var i=0; i<possible_value.length; i++)
-	{
-		if ("\\" != possible_value[i]) {
-                    ret.string = ret.string + possible_value[i] ;
-                    continue ;
-                }
-
-                i++ ;
-
-                if (control_sequences[possible_value[i]] === "undefined") {
-		    ret.string = i18n_get_TagFor('compiler', 'UNKNOWN ESCAPE CHAR') +
-                                 "Unknown escape char" + 
-                                 " '\\" + possible_value[i] + "'" ;
-                    ret.error  = true ;
-        	    return ret ;
-                }
-
-		ret.string = ret.string + control_sequences[possible_value[i]] ;
-	}
-
-        return ret ;
-}
-
-
-/*
  *   Load segments
  */
 

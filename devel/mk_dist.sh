@@ -71,6 +71,7 @@ cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_poc/sim_hw_l3d.js \
     \
     sim_sw/sim_lang.js \
+    sim_sw/sim_decode.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js \
     \
