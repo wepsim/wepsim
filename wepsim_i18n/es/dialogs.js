@@ -20,25 +20,30 @@
 
 
     i18n.eltos.dialogs.es = {
-                        "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
-                        "Show/Hide Slider":                             "Mostrar/Ocultar sliders",
-                        "WepSIM User Interface skin": 		        "Variante de Interfaz de Usuario para WepSIM",
-                        "Initial intro":                                "Intro inicial",
-                        "About WepSIM":                                 "Sobre WepSIM",
 
-                        "Title":                                 	"T&iacute;tulo",
-                        "Message":                                 	"Mensaje",
-                        "Duration":                                 	"Duraci&oacute;n",
+                "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
+                "Show/Hide Slider":                             "Mostrar/Ocultar sliders",
+                "WepSIM User Interface skin": 		        "Variante de Interfaz de Usuario para WepSIM",
+                "Initial intro":                                "Intro inicial",
+                "About WepSIM":                                 "Sobre WepSIM",
 
-			"Confirm remove record...":     		"¿Seguro que quiere borrar la grabaci&oacute;n actual?",
-			"Close or Reset...":    			"Por favor haga click en Cerrar para mantener la grabaci&oacute;n o en Reiniciar para borrarla.",
-                        "Sure Control Memory...":			"¿Seguro que quiere salvar el contenido actual de la memoria de control en lugar del contenido del editor?.",
+                "Title":                                 	"T&iacute;tulo",
+                "Message":                                 	"Mensaje",
+                "Duration":                                 	"Duraci&oacute;n",
 
-                        "Show/Hide labels":                             "Mostrar/Ocultar etiquetas",
-                        "Show/Hide content":                            "Mostrar/Ocultar hexadecimal",
-                        "Show/Hide assembly":                           "Mostrar/Ocultar ensamblador",
-                        "Show/Hide pseudo-instructions":                "Mostrar/Ocultar pseudo-instrucciones",
+		"Confirm remove record...":     		"¿Seguro que quiere borrar la grabaci&oacute;n actual?",
+		"Close or Reset...":    			"Por favor haga click en Cerrar para mantener la grabaci&oacute;n o en Reiniciar para borrarla.",
+                "Sure Control Memory...":			"¿Seguro que quiere salvar el contenido actual de la memoria de control en lugar del contenido del editor?.",
 
-                        "Close": 		                	"Cerrar"
-                  } ;
+                "Show/Hide labels":                             "Mostrar/Ocultar etiquetas",
+                "Show/Hide content":                            "Mostrar/Ocultar hexadecimal",
+                "Show/Hide assembly":                           "Mostrar/Ocultar ensamblador",
+                "Show/Hide pseudo-instructions":                "Mostrar/Ocultar pseudo-instrucciones",
+                "Close": 		                	"Cerrar",
+		'details':					'detalles',
+                'idiom': 					'idioma',
+
+		'_last_':					'_last_'
+
+    } ;
 

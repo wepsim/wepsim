@@ -21,26 +21,29 @@
 
     i18n.eltos.dialogs.kr = {
 
-                        "Show/Hide ActionBar":                          "ActionBar 표시 / 숨기기",
-                        "Show/Hide Slider":                             "슬라이더 표시 / 숨기기",
-                        "WepSIM User Interface skin": 		        "WepSIM 사용자 인터페이스 스킨",
-                        "Initial intro":                                "초기 소개",
-                        "About WepSIM":                                 "WepSIM 소개",
+                "Show/Hide ActionBar":                "ActionBar 표시 / 숨기기",
+                "Show/Hide Slider":                   "슬라이더 표시 / 숨기기",
+                "WepSIM User Interface skin": 	      "WepSIM 사용자 인터페이스 스킨",
+                "Initial intro":                      "초기 소개",
+                "About WepSIM":                       "WepSIM 소개",
 
-                        "Title":                                 	"제목",
-                        "Message":                                 	"메시지",
-                        "Duration":                                 	"재생 시간",
+                "Title":                              "제목",
+                "Message":                            "메시지",
+                "Duration":                           "재생 시간",
 
-			"Confirm remove record...":     		"현재 레코드를 제거 하시겠습니까?",
-			"Close or Reset...":    			"계속하려면 닫기를 클릭하고, <br> 단추를 클릭하여 제거하십시오.",
-                        "Sure Control Memory...":			"편집기 내용이 아닌 현재 컨트롤 메모리 내용을 저장 하시겠습니까?",
+		"Confirm remove record...":           "현재 레코드를 제거 하시겠습니까?",
+		"Close or Reset...":    	      "계속하려면 닫기를 클릭하고, <br> 단추를 클릭하여 제거하십시오.",
+                "Sure Control Memory...":	      "편집기 내용이 아닌 현재 컨트롤 메모리 내용을 저장 하시겠습니까?",
 
-                        "Show/Hide labels":                             "레이블 표시 / 숨기기",
-                        "Show/Hide content":                            "콘텐츠 표시 / 숨기기",
-                        "Show/Hide assembly":                           "어셈블리 표시 / 숨기기",
-                        "Show/Hide pseudo-instructions":                "의사 명령어 표시 / 숨기기",
+                "Show/Hide labels":                   "레이블 표시 / 숨기기",
+                "Show/Hide content":                  "콘텐츠 표시 / 숨기기",
+                "Show/Hide assembly":                 "어셈블리 표시 / 숨기기",
+                "Show/Hide pseudo-instructions":      "의사 명령어 표시 / 숨기기",
+                "Close": 		              "닫다",
+		'details':			      '세부',
+                'idiom': 			      '관용구',
 
-                        "Close": 		                	"닫다"
+		'_last_':		'_last_'
 
-                  } ;
+    };
 

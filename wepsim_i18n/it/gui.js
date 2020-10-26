@@ -36,6 +36,8 @@
 		'RecordBar':			'RecordBar',
 		'Input':			'Ingresso',
 		'Output':			'Produzione',
+		'Reload':			'Ricaricare',
+		'Checkpoint':			'Posto di controllo',
 
 		'Help Index':			'Indice della Guida',
 		'Processor':			'Processore',

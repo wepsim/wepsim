@@ -101,7 +101,7 @@
 
                    // (2/2) <nav list part>
                    o1 += '  <div class="tab-content mt-3">' +
-                         '	 <div class="tab-pane mx-0 my-2 active" style="height:50vh;" ' +
+                         '	 <div class="tab-pane mx-0 my-2 active" ' +
                          '	      role="tabpanel" id="all">' +
                          '		 <div id="states_ALL" style="width:inherit; overflow-y:auto;"' +
                          '		      class="container container-fluid px-1 pb-1"></div>' +

@@ -49,13 +49,13 @@
    },
    {
       "pack":        "Test possible assembly errors",
-      "description": "Error9: invalid number --> hello",
+      "description": "Error9: invalid number --> 1hello2",
       "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e09.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
-      "description": "Error10: data no aligned",
+      "description": "Error10: instruction with more elements",
       "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e10.txt",
       "more":        "See WepSIM"
    },

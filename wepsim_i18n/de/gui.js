@@ -36,6 +36,8 @@
 		'RecordBar':			'Aufnahmeleiste',
 		'Input':			'Eingang',
 		'Output':			'Ausgabe',
+		'Reload':			'Neu laden',
+		'Checkpoint':			'Kontrollpunkt',
 
 		'Help Index':			'Hilfe-Index',
 		'Processor':			'Prozessor',

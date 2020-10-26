@@ -47,6 +47,10 @@
 		'UNEXPECTED (REG)':		'Förväntad register men fann register inom parentes.',
 		'EXPECTED (REG)':		'Förväntad register inom parentes men fann: ',
 		'EXPECTED REG':			'Förväntad register (t.ex.: $1/$a0/...) men hittade: ',
+                'UNKNOWN ESCAPE CHAR':          'Okänd flykt char',
+                'SPACE FOR # BITS':             " bitar i binär men det finns bara plats för ",
+                'NEEDS':                        ' behov ',
+                'UNKNOWN MC FORMAT':            "(unknown format in microcode)",
 
                 // microcode
 		'LABEL NOT FOUND':		'Förväntade \'<label>:\' hittades inte fann token:',
