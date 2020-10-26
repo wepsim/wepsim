@@ -47,6 +47,10 @@
 		'UNEXPECTED (REG)':		'Se esperaba un registro pero se encontró un registro entre paréntesis.',
 		'EXPECTED (REG)':		'Registro esperado entre paréntesis, pero se encontró: ',
 		'EXPECTED REG':			'Se esperaba un registro (e.g.: $1/$a0/...) pero se encontró: ',
+                'UNKNOWN ESCAPE CHAR':          'Secuencia de escape desconocida',
+                'SPACE FOR # BITS':             " bits en binario pero hay espacio para solo ",
+                'NEEDS':                        ' necesita ',
+                'UNKNOWN MC FORMAT':            "(unknown format in microcode)",
 
            // microcode
            "LABEL NOT FOUND":        "Esperada '<etiqueta>:' no encontrada, se encontró: ",

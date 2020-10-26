@@ -47,6 +47,10 @@
 		'UNEXPECTED (REG)':		'Registre attendu, mais le registre entre parenthèses.',
 		'EXPECTED (REG)':		'Registre prévu entre parenthèses mais trouvé: ',
 		'EXPECTED REG':			'Registre prévu (par exemple: $1/$a0/...) mais a trouvé: ',
+                'UNKNOWN ESCAPE CHAR':          'Caractère d\'échappement inconnu',
+                'SPACE FOR # BITS':             " bits en binaire mais il n'y a de l'espace que pour ",
+                'NEEDS':                        ' nécessite ',
+                'UNKNOWN MC FORMAT':            "(unknown format in microcode)",
 
            // microcode
 		'LABEL NOT FOUND':		'Attendu \'<label>:\' introuvable, a trouvé jeton:',

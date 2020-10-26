@@ -37,6 +37,9 @@
 		'Show/Hide assembly':		'Mostra / nascondi assembly',
 		'Show/Hide pseudo-instructions':	'Mostra / nascondi pseudo-istruzioni',
 		'Close':			'Vicino',
+		'details':			'dettagli',
+                'idiom': 			'idioma',
+
 		'_last_':			'_last_'
 
     };

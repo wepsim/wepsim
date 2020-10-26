@@ -47,6 +47,10 @@
 		'UNEXPECTED (REG)':		'레지스터를 예상하지만, 괄호 사이에 레지스터를 발견했다.',
 		'EXPECTED (REG)':		'괄호하지만 발견 사이의 예상 레지스터 :',
 		'EXPECTED REG':			'예상 레지스터 (예를 들어 : $1/$a0/...)하지만 발견',
+                'UNKNOWN ESCAPE CHAR':          '알 수없는 이스케이프 문자',
+                'SPACE FOR # BITS':             " 이진 비트이지만 공간이 있습니다 ",
+                'NEEDS':                        ' 필요해 ',
+                'UNKNOWN MC FORMAT':            "(unknown format in microcode)",
 
            // microcode
 		'LABEL NOT FOUND':		'\'<레이블> :\'예상 찾을 수없는 토큰 발견',

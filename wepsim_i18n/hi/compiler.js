@@ -46,6 +46,10 @@
 		'UNEXPECTED (REG)':		'उम्मीद रजिस्टर लेकिन कोष्ठक के बीच रजिस्टर पाया।',
 		'EXPECTED (REG)':		'कोष्ठक लेकिन पाया के बीच उम्मीद रजिस्टर:',
 		'EXPECTED REG':			'उम्मीद रजिस्टर (उदा .: $ 1 / $ a0 / ...) लेकिन पाया:',
+                'UNKNOWN ESCAPE CHAR':          'अज्ञात बच चार',
+                'SPACE FOR # BITS':             " बाइनरी में बिट्स लेकिन केवल के लिए जगह है ",
+                'NEEDS':                        ' इसकी जरूरत है ',
+                'UNKNOWN MC FORMAT':            "(unknown format in microcode)",
 
            // microcode
 		'LABEL NOT DEFINED':		'लेबल थे, लेकिन नहीं विधानसभा कोड में परिभाषित: ',
@@ -98,6 +102,7 @@
 		'EXPECTED VALUE':		'उम्मीद मूल्य है कि एक में फिट \'',
 		'BUT INSERTED':		'लेकिन डाला',
 		'INSTEAD':		'बजाय',
+
 		'_last_':		'_last_'
 
     };

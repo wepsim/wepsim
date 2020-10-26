@@ -36,6 +36,8 @@
 		'RecordBar':			'レコードバー',
 		'Input':			'入力',
 		'Output':			'出力',
+		'Reload':			'リロード',
+		'Checkpoint':			'チェックポイント',
 
 		'Help Index':			'ヘルプインデックス',
 		'Processor':			'プロセッサ',

@@ -36,6 +36,8 @@
 		'RecordBar':			'记录栏',
 		'Input':			'輸入',
 		'Output':			'產量',
+		'Reload':			'重装',
+		'Checkpoint':			'检查站',
 
 		'Help Index':			'帮助索引',
 		'Processor':			'处理器',

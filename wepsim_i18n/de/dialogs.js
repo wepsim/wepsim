@@ -21,23 +21,26 @@
 
     i18n.eltos.dialogs.de = {
 
-		'Show/Hide ActionBar':		'Aktionsleiste ein- / ausblenden',
-		'Show/Hide Slider':		'Schieberegler ein- / ausblenden',
-		'WepSIM User Interface skin':	'WepSIM-Benutzeroberflächen-Skin',
-		'Initial intro':		'Anfängliches Intro',
-		'About WepSIM':		'Über WepSIM',
-		'Title':		'Titel',
-		'Message':		'Botschaft',
-		'Duration':		'Dauer',
+		'Show/Hide ActionBar':			'Aktionsleiste ein- / ausblenden',
+		'Show/Hide Slider':			'Schieberegler ein- / ausblenden',
+		'WepSIM User Interface skin':		'WepSIM-Benutzeroberflächen-Skin',
+		'Initial intro':			'Anfängliches Intro',
+		'About WepSIM':				'Über WepSIM',
+		'Title':				'Titel',
+		'Message':				'Botschaft',
+		'Duration':				'Dauer',
 		'Confirm remove record...':		'Möchten Sie den aktuellen Datensatz entfernen?',
-		'Close or Reset...':		'Bitte klicken Sie auf Schließen, um es zu behalten, oder klicken Sie auf die Schaltfläche Zurücksetzen, um es zu entfernen.',
+		'Close or Reset...':			'Bitte klicken Sie auf Schließen, um es zu behalten, oder klicken Sie auf die Schaltfläche Zurücksetzen, um es zu entfernen.',
 		'Sure Control Memory...':		'Möchten Sie, dass ich den aktuellen Control Memory-Inhalt und nicht den Editor-Inhalt speichere?',
-		'Show/Hide labels':		'Beschriftungen ein- / ausblenden',
-		'Show/Hide content':		'Inhalt ein- / ausblenden',
-		'Show/Hide assembly':		'Baugruppe ein- / ausblenden',
-		'Show/Hide pseudo-instructions':		'Pseudo-Anweisungen ein- / ausblenden',
-		'Close':		'Schließen',
-		'_last_':		'_last_'
+		'Show/Hide labels':			'Beschriftungen ein- / ausblenden',
+		'Show/Hide content':			'Inhalt ein- / ausblenden',
+		'Show/Hide assembly':			'Baugruppe ein- / ausblenden',
+		'Show/Hide pseudo-instructions':	'Pseudo-Anweisungen ein- / ausblenden',
+		'Close':				'Schließen',
+		'details':				'Einzelheiten',
+                'idiom': 				'idiom',
+
+		'_last_':				'_last_'
 
     };
 

@@ -21,22 +21,25 @@
 
     i18n.eltos.dialogs.ja = {
 
-		'Show/Hide ActionBar':		'アクションバーの表示/非表示',
-		'Show/Hide Slider':		'スライダーの表示/非表示',
-		'WepSIM User Interface skin':	'WepSIMユーザーインターフェーススキン',
-		'Initial intro':		'初期イントロ',
-		'About WepSIM':		'WepSIMについて',
-		'Title':		'タイトル',
-		'Message':		'メッセージ',
-		'Duration':		'期間',
+		'Show/Hide ActionBar':			'アクションバーの表示/非表示',
+		'Show/Hide Slider':			'スライダーの表示/非表示',
+		'WepSIM User Interface skin':		'WepSIMユーザーインターフェーススキン',
+		'Initial intro':			'初期イントロ',
+		'About WepSIM':				'WepSIMについて',
+		'Title':				'タイトル',
+		'Message':				'メッセージ',
+		'Duration':				'期間',
 		'Confirm remove record...':		'実際のレコードを削除しますか？',
-		'Close or Reset...':		'閉じるには[閉じる]をクリックしてください。削除するには[リセット]ボタンをクリックしてください。',
+		'Close or Reset...':			'閉じるには[閉じる]をクリックしてください。削除するには[リセット]ボタンをクリックしてください。',
 		'Sure Control Memory...':		'エディタの内容ではなく現在のコントロールメモリの内容を保存してもよろしいですか。',
-		'Show/Hide labels':		'ラベルの表示/非表示',
-		'Show/Hide content':		'コンテンツの表示/非表示',
-		'Show/Hide assembly':		'アセンブリを表示/隠す',
-		'Show/Hide pseudo-instructions':		'擬似命令の表示/非表示',
-		'Close':		'閉じる',
+		'Show/Hide labels':			'ラベルの表示/非表示',
+		'Show/Hide content':			'コンテンツの表示/非表示',
+		'Show/Hide assembly':			'アセンブリを表示/隠す',
+		'Show/Hide pseudo-instructions':	'擬似命令の表示/非表示',
+		'Close':				'閉じる',
+		'details':				'詳細',
+                'idiom': 				'熟語',
+
 		'_last_':		'_last_'
 
     };
