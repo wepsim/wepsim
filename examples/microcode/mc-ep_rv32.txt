@@ -178,6 +178,7 @@ lui rd inm {
 
                 if (val1 & 0x00008000)
                     val1 = val1 | 0xFFFF0000 ;
+                val1 = val1 << 12 ;
                 simcore_native_set_value("BR", reg1, val1) ;
 
                 simcore_native_go_maddr(0) ;
