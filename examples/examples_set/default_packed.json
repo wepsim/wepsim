@@ -548,5 +548,15 @@
     "microcode": "poc_os",
     "assembly": "ep_s6_e3",
     "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
+  },
+  {
+    "id": "S6E4",
+    "title": "Array of strings",
+    "type": "<span data-langkey='Special'>Special</span>",
+    "modes": "newbie,intro,asm_mips",
+    "hardware": "ep",
+    "microcode": "ep_os",
+    "assembly": "ep_s6_e4",
+    "description": "<span data-langkey='example_06_04'>Example for strings.</span>"
   }
 ]
