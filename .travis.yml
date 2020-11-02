@@ -9,7 +9,7 @@ before_install:
   - jshint --version
   - npm install terser
   - terser --version
-  - npm install async yargs clear inquirer fuzzy
+  - npm install yargs clear inquirer fuzzy async rimraf commander winston
   - sudo apt-get -y install jq
   - jq --version
 
