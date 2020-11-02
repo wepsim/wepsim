@@ -5,14 +5,10 @@ node_js:
   - "node"
 
 before_install:
-  - rm -fr node_modules
-  - npm install
+  - sudo apt-get -y install jq
   - jshint --version
   - terser --version
   - jq --version
-  - npm install yargs clear inquirer fuzzy
-  - npm install async rimraf commander winston@3.3.3
-  - sudo apt-get -y install jq
 
 script:
   - npm run test-source1
