@@ -7,13 +7,12 @@ node_js:
 before_install:
   - rm -fr node_modules
   - npm install
-  - npm install jshint terser
   - jshint --version
   - terser --version
-  - npm install yargs clear inquirer fuzzy
-  - npm install async rimraf commander winston@2.4.5
-  - sudo apt-get -y install jq
   - jq --version
+  - npm install yargs clear inquirer fuzzy
+  - npm install async rimraf commander winston@3.3.3
+  - sudo apt-get -y install jq
 
 script:
   - npm run test-source1
