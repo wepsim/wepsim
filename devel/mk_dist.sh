@@ -197,7 +197,7 @@ rm -fr ws_dist/min.dummy.js
 echo "  * ws_dist/min.external.js"
 cat external/knockout-3.5.1.js \
     external/popper.min.js \
-    external/bootstrap.min.js \
+    external/bootstrap/bootstrap.min.js \
     external/bootbox.min.js \
     external/spectrum/spectrum.min.js \
     external/timbre.min.js \
@@ -236,7 +236,7 @@ terser -o ws_dist/min.external.js ws_dist/external.js
 rm -fr ws_dist/external.js
 
 echo "  * ws_dist/min.external.css"
-cat external/bootstrap.min.css \
+cat external/bootstrap/bootstrap.min.css \
     external/bootstrap-theme.min.css \
     external/dark-mode.css \
     external/spectrum/spectrum.min.css \
