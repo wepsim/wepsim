@@ -28,7 +28,6 @@
                                         "<ul>" +
                                         "<li>Maskinvaran att arbeta med (t.ex. EP-processor, etc.)</li>" +
                                         "<li>Endast monteringsläge, med heltal MIPS<sub>32</sub> eller RISC-V<sub>32</sub> instruktioner</li>" +
-                                        "<li>Instruktionsläget, rekommenderas i början ;-)</li>" +
                                         "</ul>",
 		'step3':		'I övre högra hörnet öppnas dialogrutan "Hjälp" med den associerade dialogrutan. <br> <br> Hjälpdialogen sammanfattar handledning, beskrivningar, information, etc.',
 		'step4':		'Och till vänster öppnar exemplet dialogrutan "exemplar". <br> <br> Det finns många exempel som kan användas för att lära sig stegvis.',

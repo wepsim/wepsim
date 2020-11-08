@@ -28,7 +28,6 @@
                                         "<ul>" +
                                         "<li>O hardware para trabalhar (por exemplo, processador EP, etc.)</li>" +
                                         "<li>Modo somente montagem, com instruções MIPS<sub>32</sub> inteiras ou RISC-V<sub>32</sub></li>" +
-                                        "<li>O modo tutorial, recomendado no início ;-)</li>" +
                                         "</ul>",
 		'step3':		'No canto superior direito, o botão \'ajuda\' abre a caixa de diálogo associada. <br> <br> A caixa de diálogo de ajuda resume os tutoriais, descrições, informações etc.',
 		'step4':		'E à esquerda, o botão \'exemplos\' abre o diálogo de exemplo. <br> <br> Há muitos exemplos que podem ser usados ​​para aprender de forma incremental.',
