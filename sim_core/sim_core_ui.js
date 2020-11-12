@@ -220,19 +220,9 @@
 
         // Register File
 
-        function show_rf_values ( )
-        {
-            return simcore_action_ui("CPU", 0, "show_rf_values")() ;
-        }
-
         function show_rf_names ( )
         {
             return simcore_action_ui("CPU", 0, "show_rf_names")() ;
-        }
-
-        function show_states ( )
-        {
-            return simcore_action_ui("CPU", 0, "show_states")() ;
         }
 
         // Console (Screen + Keyboard)

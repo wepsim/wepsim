@@ -422,8 +422,6 @@
             compute_general_behavior("CLOCK") ;
 
             // CPU - User Interface
-	    show_states();
-	    show_rf_values();
             show_dbg_mpc();
 
             return ret ;
@@ -440,8 +438,6 @@
             compute_general_behavior("CLOCK") ;
 
             // CPU - User Interface
-	    show_states();
-	    show_rf_values();
             show_dbg_mpc();
 
             return ret ;
@@ -517,9 +513,6 @@
                 }
 
                 // 2.- to show states
-		show_states();
-		show_rf_values();
-
                 if (get_cfg('DBG_level') == "microinstruction") {
                     show_dbg_mpc();
                 }

@@ -287,19 +287,19 @@
 				   "	    <label id='label2-unsigned_16_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_nofill'); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_nofill'); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_16_nofill'  autocomplete='off' >1A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_10_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_nofill'); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_nofill');  show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_10_nofill'  autocomplete='off' >32<sub>10</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_8_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_nofill');  show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_nofill');   show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_nofill'   autocomplete='off' >26<sub>8</sub>" +
 				   "	    </label>" +
                                    "    </div>" +
@@ -307,19 +307,19 @@
 				   "	    <label id='label2-unsigned_16_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_fill'); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_fill'); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' >001A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_10_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_fill'); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_fill'); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' >0032<sub>10</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_8_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_fill');  show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_fill'); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' >0026<sub>8</sub>" +
 				   "	    </label>" +
                                    "    </div>" +
@@ -570,8 +570,7 @@
                                    "               aria-label='User Interface set of features for WepSIM: false' " +
 				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:on';" +
 				   "		             update_cfg('ws_skin_user', optValue);" +
-                                   "                         wepsim_restore_view(optValue);" +
-				   "		             return false;\">" +
+                                   "                         wepsim_restore_view(optValue);\">" +
 				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is expert: false' autocomplete='off' >On" +
 				   "	    </label>" +
 				   "	    <label id='label14-only_asm__of__only_frequent__of'" +
@@ -579,8 +578,7 @@
                                    "               aria-label='User Interface set of features for WepSIM: true' " +
 				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:of';" +
 				   "		             update_cfg('ws_skin_user', optValue);" +
-                                   "                         wepsim_restore_view(optValue);" +
-				   "		             return false;\">" +
+                                   "                         wepsim_restore_view(optValue);\">" +
 				   "		<input type='radio' name='options' id='radio14-true'  aria-label='Is expert: true'  autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div>",
@@ -596,26 +594,24 @@
                       type:        "Accesibility",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='radio16-true'" +
+				   "	    <label id='label16-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='AutoScrolling: true' " +
 				   "		   onclick=\"var optValue = true;" +
-				   "		             update_cfg('AS_enable', optValue);" +
-				   "		             return false;\">" +
+				   "		             update_cfg('AS_enable', optValue);\">" +
 				   "		<input type='radio' name='options' id='radio16-true' aria-label='AutoScroll: true' autocomplete='off' >On" +
 				   "	    </label>" +
-				   "	    <label id='radio16-false'" +
+				   "	    <label id='label16-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='AutoScrolling: false' " +
 				   "		   onclick=\"var optValue = false;" +
-				   "		             update_cfg('AS_enable', optValue);" +
-				   "		             return false;\">" +
+				   "		             update_cfg('AS_enable', optValue);\">" +
 				   "		<input type='radio' name='options' id='radio16-false'  aria-label='AutoScroll: false'  autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
 			               var optValue = get_cfg('AS_enable') ;
-			               $('#radio16-' + optValue).button('toggle') ;
+			               $('#label16-' + optValue).button('toggle') ;
 		                   },
                       description: "<span data-langkey='Auto-scroll while executing'>Auto-scroll while executing</span>"
                    });

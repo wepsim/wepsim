@@ -517,13 +517,15 @@
 		         // ui elements
 			 try
                          {
-			     for (m=0; m<ws_config.length; m++)
+			     for (m=0; m<ws_config.length; m++) {
 			          ws_config[m].code_init() ;
+                             }
 			 }
 			 catch (e) {
 			     reset_cfg() ;
-			     for (m=0; m<ws_config.length; m++)
+			     for (m=0; m<ws_config.length; m++) {
 			          ws_config[m].code_init() ;
+                             }
                          }
 
 			 $('a[data-toggle="popover1"]').popover({

@@ -116,12 +116,12 @@
 
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states(); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); return true; '>" +
 		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>0000001A<sub>16</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); show_rf_values(); show_states(); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); return true; '>" +
 		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>1A<sub>16</sub></span></buttom>" +
 		       "</div>" +
 
@@ -129,12 +129,12 @@
 
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); show_rf_values(); show_states(); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000032<sub>8&nbsp;</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); show_rf_values(); show_states(); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>032<sub>8&nbsp;</sub></span></buttom>" +
 		       "</div>" +
 
@@ -142,12 +142,12 @@
 
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); show_rf_values(); show_states(); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); return true; '>" +
 		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000026<sub>10</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); return true; '>" +
 		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>26<sub>10</sub></span></buttom>" +
 		       "</div>" +
 
@@ -157,7 +157,7 @@
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>3.6e-44<sub>10</sub></span></buttom>" +
 		       "</div>" +
 

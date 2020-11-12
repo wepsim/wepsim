@@ -44,7 +44,7 @@
 						  var value = 0 ;
 					          for (var i=0; i<sim.poc.states.BR.length; i++)
 						  {
-						      value = parseInt(sim.poc.states.BR[i].value) ;
+						      value = parseInt(get_value(sim.poc.states.BR[i])) ;
 						      if (value != 0) {
 							  vec.CPU["R" + i] = {"type":  "register",
 								              "default_value": 0x0,
@@ -261,100 +261,100 @@
 	sim.poc.states.BR[63]         = {name:"R63",   verbal: "Register 63",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	sim.poc.states["REG_PC"]     = { name:"PC",  verbal: "Program Counter Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_MAR"]    = { name:"MAR", verbal: "Memory Address Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_MBR"]    = { name:"MBR", verbal: "Memory Data Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_IR"]     = { name:"IR",  verbal: "Instruction Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_SR"]     = { name:"SR", verbal: "State Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_RT1"]    = { name:"RT1",  verbal: "Temporal Register 1",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* BUSES */
 	sim.poc.states["BUS_IB"]     = { name:"I_BUS", verbal: "Internal Bus",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["BUS_AB"]     = { name:"A_BUS", verbal: "Address Bus",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["BUS_CB"]     = { name:"C_BUS", verbal: "Control Bus",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["BUS_DB"]     = { name:"D_BUS", verbal: "Data Bus",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* REGISTER FILE (RELATED) STATES */
 	sim.poc.states["RA_T9"]      = { name: "RA_T9",  verbal: "Input of T9 Tristate",
-                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["RB_T10"]     = { name: "RB_T10", verbal: "Input of T10 Tristate",
-                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* (RELATED) SELEC STATES */
 	sim.poc.states["SELEC_T3"]   = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
-                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	sim.poc.states["ALU_T6"]     = { name:"ALU_T6",  verbal: "Input of T6 Tristate",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["MA_ALU"]     = { name:"MA_ALU",  verbal: "Input ALU via MA",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["MB_ALU"]     = { name:"MB_ALU",  verbal: "Input ALU via MB",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	sim.poc.states["FLAG_C"]     = { name: "FLAG_C", verbal: "Carry Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_V"]     = { name: "FLAG_V", verbal: "Overflow Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_N"]     = { name: "FLAG_N", verbal: "Negative Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_Z"]     = { name: "FLAG_Z", verbal: "Zero Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_I"]     = { name: "FLAG_I", verbal: "Interruption Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_U"]     = { name: "FLAG_U", verbal: "User Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 
 	/* CONTROL UNIT */
 	sim.poc.states["REG_MICROADDR"]  = { name: "µADDR", verbal: "Microaddress Register",
-                                         visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
+                                             visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
 	sim.poc.states["REG_MICROINS"]   = { name: "µINS", verbal: "Microinstruction Register",
-                                         visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
+                                             visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
 
 	sim.poc.states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch",
-                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM",
-                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction",
-                                         visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
+                                             visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
 
 	sim.poc.states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress",
-                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["MUXC_MUXB"]      = { name: "MUXC_MUXB", verbal: "Output of MUX C",
-                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 	sim.poc.states["INEX"]           = { name: "INEX",      verbal: "Illegal Instruction Exception",
-                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 
 	/* DEVICES AND MEMORY */
 	sim.poc.states["BS_M1"]          = { name: "BS_M1", verbal: "from Memory",
-                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["BS_TD"]          = { name: "BS_TD", verbal: "Memory",
-                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	sim.poc.states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
-                                         visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
 
 
 	/* MUX A (RELATED) STATES */
 	sim.poc.states["M1_C1"]          = { name:"M1_C1", verbal: "Input of Memory Data Register",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                             visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["M7_C7"]          = { name:"M7_C7", verbal: "Input of State Register",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                             visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	sim.poc.states["VAL_ZERO"]       = { name: "VAL_ZERO", verbal: "Wired Zero",
-                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 	sim.poc.states["VAL_ONE"]        = { name: "VAL_ONE",  verbal: "Wired One",
-                                         visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
+                                             visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
 	sim.poc.states["VAL_FOUR"]       = { name: "VAL_FOUR", verbal: "Wired Four",
-                                         visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
+                                             visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
 
 	/* VIRTUAL */
 	sim.poc.states["REG_IR_DECO"] = { name:"IR_DECO",  verbal: "Instruction Decoded",
