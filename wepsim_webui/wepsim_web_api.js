@@ -347,7 +347,6 @@
             {
 	          wepsim_update_signal_quick(key) ;
 	          show_states();
-                  wepsim_show_rf_values();
 
                   // return ok
                   return true ;
@@ -359,7 +358,6 @@
 
             wepsim_update_signal_dialog(key) ;
 	    show_states();
-            wepsim_show_rf_values();
 
             // intercept events...
 	    $("#dlg_updatesignal").one("hidden.bs.modal",
@@ -406,7 +404,7 @@
 
     var hash_detail2action = {
 	    "CLOCK":          function(){ wepsim_execute_microinstruction(); },
-	    "REGISTER_FILE":  function(){ wsweb_set_details_select(11); wepsim_show_rf_values(); },
+	    "REGISTER_FILE":  function(){ wsweb_set_details_select(11); },
 	    "CONTROL_MEMORY": function(){ wsweb_set_details_select(16); show_memories_values(); },
 	    "CPU_STATS":      function(){ wsweb_set_details_select(17); show_memories_values(); },
 	    "MEMORY":         function(){ wsweb_set_details_select(14); show_memories_values(); },
@@ -450,7 +448,6 @@
     {
             if (simhw_active() !== null)
             {
-	        wepsim_show_rf_values() ;
 		show_memories_values() ;
 		wepsim_reset_max_turbo() ;
 		$('[data-toggle=tooltip]').tooltip('hide') ;

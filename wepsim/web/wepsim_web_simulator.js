@@ -175,12 +175,16 @@
 							     wepsim_init_rf('#states_BR') ;
 							},
 						 reset: function() {
-							     wepsim_show_states() ;
-							     wepsim_show_rf_values();
+							     //wepsim_show_states() ;
+							     //wepsim_show_rf_values();
 							     wepsim_show_rf_names();
 							},
-					   show_states: wepsim_show_states,
-					show_rf_values: wepsim_show_rf_values,
+					   show_states: function() {
+							     // wepsim_show_states,
+							},
+					show_rf_values: function() {
+							     // wepsim_show_rf_values,
+							},
 					 show_rf_names: wepsim_show_rf_names
 	                      },
 

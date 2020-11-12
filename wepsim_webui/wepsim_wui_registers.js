@@ -31,7 +31,6 @@
               if (typeof simhw_sim_states().BR[index] != "undefined")
               {
 	          set_value(simhw_sim_states().BR[index], new_value) ;
-	          fullshow_rf_values() ;
                   $("#rf" + index).click() ;
                   $("#rf" + index).click() ;
               }
@@ -42,7 +41,6 @@
                       new_value = new_value % 2;
 
 	          set_value(simhw_sim_states()[index], new_value) ;
-                  fullshow_eltos(simhw_sim_states(), filter_states);
                   $("#rp" + index).click() ;
                   $("#rp" + index).click() ;
               }
@@ -197,7 +195,7 @@
 
 
         /*
-         *  init_x & show_x
+         *  init_x
          */
 
         function wepsim_init_rf ( jqdiv )
@@ -275,38 +273,6 @@
 		 ko.cleanNode(ko_context) ;
 		 ko.applyBindings(ref_obj, ko_context) ;
 	    }
-        }
-
-        function fullshow_rf_values ( )
-        {
-return ;
-            var rf_format = get_cfg('RF_display_format') ;
-	    var br_value = "" ;
-
-	    for (var index=0; index < simhw_sim_states().BR.length; index++)
-            {
-		 br_value = value2string(rf_format, (get_value(simhw_sim_states().BR[index]) >>> 0)) ;
-
-                 $("#tbl_RF" + index).html(br_value);
-	    }
-        }
-
-        var show_rf_values_deferred = null;
-
-        function innershow_rf_values ( )
-        {
-return ;
-	    fullshow_rf_values();
-	    show_rf_values_deferred = null;
-        }
-
-        function wepsim_show_rf_values ( )
-        {
-return ;
-            if (null !== show_rf_values_deferred)
-                return;
-
-            show_rf_values_deferred = setTimeout(innershow_rf_values, cfg_show_rf_delay);
         }
 
         function wepsim_show_rf_names ( )
@@ -452,51 +418,9 @@ return ;
 	    }
         }
 
-        function fullshow_eltos ( sim_eltos, filter )
-        {
-return;
-            var rf_format = get_cfg('RF_display_format') ;
-	    var value = "" ;
-	    var   r = [] ;
-	    var key = "" ;
-
-            for (var i=0; i<filter.length; i++)
-            {
-                  r = filter[i].split(',') ;
-                key = r[0] ;
-
-                value = value2string('text:char:nofill', sim_eltos[key].value) ;
-                if (sim_eltos[key].nbits > 1) {
-		    value = value2string(rf_format, (simhw_sim_state(key).value >>> 0)) ;
-                }
-
-                $("#tbl_" + key).html(value);
-            }
-        }
-
-        var show_eltos_deferred = null;
-
-        function show_eltos ( sim_eltos, filter )
-        {
-return;
-            if (null !== show_eltos_deferred)
-                return;
-
-            show_eltos_deferred = setTimeout(function() {
-                                                  fullshow_eltos(sim_eltos, filter) ;
-                                                  show_eltos_deferred = null ;
-                                             }, cfg_show_eltos_delay);
-        }
-
         function wepsim_init_states ( jqdiv )
         {
             var filter_states = simhw_internalState('filter_states') ;
             return init_eltos(jqdiv, simhw_sim_states(), filter_states) ;
-        }
-
-        function wepsim_show_states ( )
-        {
-            var filter_states = simhw_internalState('filter_states') ;
-            return show_eltos(simhw_sim_states(), filter_states) ;
         }
 
