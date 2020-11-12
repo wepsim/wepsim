@@ -208,8 +208,6 @@
             }
 
             // Registers
-	    var rf_val    = 0 ;
-            var rf_format = get_cfg('RF_display_format') ;
             var o1_rf = "" ;
             var o1_rn = "" ;
 	    for (var index=0; index < simhw_sim_states().BR.length; index++)
@@ -217,15 +215,13 @@
 		 o1_rn = "R"  + index ;
 		 o1_rn = o1_rn.padEnd(3,' ') ;
 
-		 rf_val = value2string(rf_format, (get_value(simhw_sim_states().BR[index]) >>> 0)) ;
-
 		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " +
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
                           "<span class='badge badge-secondary text-dark' style='background-color:#CEECF5; ' id='tbl_RF"  + index + "'>" +
-                          rf_val +
+			  "<div id='rf_" + index + "'><span data-bind='text: computed_value'>&nbsp;</span></div>" +
                           "</span>" +
                           "</button>" ;
 	    }
@@ -260,10 +256,30 @@
                         return content ; // DOMPurify.sanitize(content) ;
                     }
 	    });
+
+	    // knockout binding
+	    for (var index=0; index < simhw_sim_states().BR.length; index++)
+            {
+		 var ref_obj = simhw_sim_states().BR[index] ;
+		 if (typeof ref_obj.value != "function")
+                 {
+		     ref_obj.value          = ko_observable(ref_obj.value) ;
+		     ref_obj.computed_value = ko.computed(function() {
+						   var rf_format = get_cfg('RF_display_format') ;
+						   var rf_value  = this.value() >>> 0 ;
+						   return value2string(rf_format, rf_value) ;
+					      }, ref_obj) ;
+                 }
+
+		 ko_context = document.getElementById('rf_' + index) ;
+		 ko.cleanNode(ko_context) ;
+		 ko.applyBindings(ref_obj, ko_context) ;
+	    }
         }
 
         function fullshow_rf_values ( )
         {
+return ;
             var rf_format = get_cfg('RF_display_format') ;
 	    var br_value = "" ;
 
@@ -279,12 +295,14 @@
 
         function innershow_rf_values ( )
         {
+return ;
 	    fullshow_rf_values();
 	    show_rf_values_deferred = null;
         }
 
         function wepsim_show_rf_values ( )
         {
+return ;
             if (null !== show_rf_values_deferred)
                 return;
 
@@ -330,7 +348,6 @@
 	             "   tabindex='0' class='m-auto show multi-collapse-3'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" ;
 
             // Registers
-            var rf_format = get_cfg('RF_display_format') ;
 	    var divclass  =  "" ;
 	    var value     =  "" ;
 
@@ -338,7 +355,8 @@
             var part2 = "" ;
             for (var i=0; i<filter.length; i++)
             {
-                var s = filter[i].split(",")[0] ;
+                var    s = filter[i].split(",")[0] ;
+                divclass = filter[i].split(",")[1] ;
 
                 var showkey = sim_eltos[s].name;
                 if (sim_eltos[s].nbits > 1)
@@ -354,16 +372,13 @@
                         showkey += '<span class="d-none d-sm-inline-flex text-monospace">' + part2 + '</span>' ;
 	        }
 
-                divclass = filter[i].split(",")[1] ;
-		value    = value2string(rf_format, sim_eltos[s].value) ;
-
                 o1 += "<button type='button' class='btn py-0 px-1 mt-1 " + divclass + "' " +
 		      "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
                       " <span class='badge badge-secondary text-dark' style='background-color:#CEECF5;' id='tbl_"  + s + "'>" +
-		      value +
+		      "<div id='rf_" + s + "'><span data-bind='text: computed_value'>&nbsp;</span></div>" +
                       "</span>" +
                       "</button>" ;
             }
@@ -412,10 +427,34 @@
                                     i18n_update_tags('cfg') ;
                                     i18n_update_tags('dialogs') ;
                                 }) ;
+
+	    // knockout binding
+            for (var i=0; i<filter.length; i++)
+            {
+                 var s = filter[i].split(",")[0] ;
+		 var ref_obj = sim_eltos[s] ;
+		 if (typeof ref_obj.value != "function")
+                 {
+		     ref_obj.value          = ko_observable(ref_obj.value) ;
+		     ref_obj.computed_value = ko.computed(function() {
+						   var rf_format = get_cfg('RF_display_format') ;
+						   var rf_value = value2string('text:char:nofill', this.value()) ;
+						   if (this.nbits > 1) {
+						       rf_value = value2string(rf_format, (this.value() >>> 0)) ;
+						   }
+						   return rf_value ;
+					      }, ref_obj) ;
+                 }
+
+		 ko_context = document.getElementById('rf_' + s) ;
+		 ko.cleanNode(ko_context) ;
+		 ko.applyBindings(ref_obj, ko_context) ;
+	    }
         }
 
         function fullshow_eltos ( sim_eltos, filter )
         {
+return;
             var rf_format = get_cfg('RF_display_format') ;
 	    var value = "" ;
 	    var   r = [] ;
@@ -439,6 +478,7 @@
 
         function show_eltos ( sim_eltos, filter )
         {
+return;
             if (null !== show_eltos_deferred)
                 return;
 
