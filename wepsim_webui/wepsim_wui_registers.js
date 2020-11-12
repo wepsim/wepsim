@@ -116,12 +116,18 @@
 
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); " + 
+                       "                 wepsim_refresh_rf();" +
+                       "                 wepsim_refresh_eltos();" +
+                       "                 return true; '>" +
 		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>0000001A<sub>16</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); " + 
+                       "                 wepsim_refresh_rf();" +
+                       "                 wepsim_refresh_eltos();" +
+                       "                 return true; '>" +
 		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>1A<sub>16</sub></span></buttom>" +
 		       "</div>" +
 
@@ -129,12 +135,18 @@
 
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); " + 
+                       "                 wepsim_refresh_rf();" +
+                       "                 wepsim_refresh_eltos();" +
+                       "                 return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000032<sub>8&nbsp;</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); " + 
+                       "                 wepsim_refresh_rf();" +
+                       "                 wepsim_refresh_eltos();" +
+                       "                 return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>032<sub>8&nbsp;</sub></span></buttom>" +
 		       "</div>" +
 
@@ -142,12 +154,18 @@
 
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); " + 
+                       "                 wepsim_refresh_rf();" +
+                       "                 wepsim_refresh_eltos();" +
+                       "                 return true; '>" +
 		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000026<sub>10</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); " + 
+                       "                 wepsim_refresh_rf();" +
+                       "                 wepsim_refresh_eltos();" +
+                       "                 return true; '>" +
 		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>26<sub>10</sub></span></buttom>" +
 		       "</div>" +
 
@@ -157,7 +175,10 @@
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); " + 
+                       "                 wepsim_refresh_rf();" +
+                       "                 wepsim_refresh_eltos();" +
+                       "                 return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>3.6e-44<sub>10</sub></span></buttom>" +
 		       "</div>" +
 
@@ -166,13 +187,15 @@
 
 		       "<div class='col-6 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_name\", \"logical\"); wepsim_show_rf_names(); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_name\", \"logical\"); " + 
+                       "                 wepsim_show_rf_names(); return true; '>" +
 		       "<span class='font-weight-bold text-monospace'>$t0</span>" + "&nbsp;" +
                        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
 		       "</div>" +
 		       "<div class='col-6 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); wepsim_show_rf_names(); return true; '>" +
+		       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); " + 
+                       "                 wepsim_show_rf_names(); return true; '>" +
 		       "<span class='font-weight-bold text-monospace'>R10</span>" + "&nbsp;" +
                        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
 		       "</div>" +
@@ -191,6 +214,63 @@
 		       "</div>" ;
 
 		return o ;
+        }
+
+
+        /*
+         *  refresh
+         */
+
+        function wepsim_refresh_rf ( )
+        {
+	    for (var index=0; index < simhw_sim_states().BR.length; index++)
+            {
+		 var ref_obj = simhw_sim_states().BR[index] ;
+		 if (typeof ref_obj.value == "function") {
+		     ref_obj.value.valueHasMutated() ;
+                 }
+            }
+        }
+
+        function wepsim_refresh_eltos ( )
+        {
+            var filter_states = simhw_internalState('filter_states') ;
+            var sim_eltos     = simhw_sim_states() ;
+
+            for (var i=0; i<filter_states.length; i++)
+            {
+                 var s = filter_states[i].split(",")[0] ;
+		 var ref_obj = sim_eltos[s] ;
+		 if (typeof ref_obj.value == "function") {
+		     ref_obj.value.valueHasMutated() ;
+                 }
+            }
+        }
+
+        function wepsim_show_rf_names ( )
+        {
+            var SIMWARE = get_simware() ;
+	    var disp_name = get_cfg('RF_display_name') ;
+
+            var br_value = "" ;
+	    for (var index=0; index < simhw_sim_states().BR.length; index++)
+            {
+		 br_value = "R"  + index ;
+	         if (
+		      ('logical' == disp_name) &&
+		      (typeof SIMWARE.registers[index]    !== "undefined") &&
+		      (typeof SIMWARE.registers[index][0] !== "undefined")
+		    )
+		 {
+		    br_value = SIMWARE.registers[index][0] ;
+		 }
+		 br_value = br_value.padEnd(3,' ') ;
+
+		 var obj = document.getElementById("name_RF" + index);
+		 if (obj != null) {
+		     obj.innerHTML = br_value ;
+		 }
+	    }
         }
 
 
@@ -261,7 +341,7 @@
 		 var ref_obj = simhw_sim_states().BR[index] ;
 		 if (typeof ref_obj.value != "function")
                  {
-		     ref_obj.value          = ko_observable(ref_obj.value) ;
+		     ref_obj.value          = ko_observable(ref_obj.value).extend({notify:'always'}) ;
 		     ref_obj.computed_value = ko.computed(function() {
 						   var rf_format = get_cfg('RF_display_format') ;
 						   var rf_value  = this.value() >>> 0 ;
@@ -275,39 +355,15 @@
 	    }
         }
 
-        function wepsim_show_rf_names ( )
-        {
-            var SIMWARE = get_simware() ;
-	    var disp_name = get_cfg('RF_display_name') ;
-
-            var br_value = "" ;
-	    for (var index=0; index < simhw_sim_states().BR.length; index++)
-            {
-		 br_value = "R"  + index ;
-	         if (
-		      ('logical' == disp_name) &&
-		      (typeof SIMWARE.registers[index]    !== "undefined") &&
-		      (typeof SIMWARE.registers[index][0] !== "undefined")
-		    )
-		 {
-		    br_value = SIMWARE.registers[index][0] ;
-		 }
-		 br_value = br_value.padEnd(3,' ') ;
-
-		 var obj = document.getElementById("name_RF" + index);
-		 if (obj != null) {
-		     obj.innerHTML = br_value ;
-		 }
-	    }
-        }
-
-
-        function init_eltos ( jqdiv, sim_eltos, filter )
+        function wepsim_init_states ( jqdiv )
         {
             if (jqdiv == "")
             {   // without ui
                 return ;
             }
+
+            var sim_eltos = simhw_sim_states() ;
+            var filter    = simhw_internalState('filter_states') ;
 
             // Fast UI configuration
             var o1 = "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " +
@@ -401,7 +457,7 @@
 		 var ref_obj = sim_eltos[s] ;
 		 if (typeof ref_obj.value != "function")
                  {
-		     ref_obj.value          = ko_observable(ref_obj.value) ;
+		     ref_obj.value          = ko_observable(ref_obj.value).extend({notify:'always'}) ;
 		     ref_obj.computed_value = ko.computed(function() {
 						   var rf_format = get_cfg('RF_display_format') ;
 						   var rf_value = value2string('text:char:nofill', this.value()) ;
@@ -416,11 +472,5 @@
 		 ko.cleanNode(ko_context) ;
 		 ko.applyBindings(ref_obj, ko_context) ;
 	    }
-        }
-
-        function wepsim_init_states ( jqdiv )
-        {
-            var filter_states = simhw_internalState('filter_states') ;
-            return init_eltos(jqdiv, simhw_sim_states(), filter_states) ;
         }
 
