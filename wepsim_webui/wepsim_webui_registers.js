@@ -144,12 +144,9 @@
 		return vtable;
         }
 
-        function quick_config_rf ( )
-        {
-	       var o = "<div class='container mt-1'>" +
-
-		       "<div class='row'>" +
-		       "<div class='col-12 p-0'><span data-langkey='Display format'>Display format</span></div>" +
+           function quick_config_rf_display_format ( )
+           {
+	      var o1 = "<div class='col-12 p-0'><span data-langkey='Display format'>Display format</span></div>" +
 
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
@@ -210,40 +207,67 @@
                        "                 wepsim_refresh_registers();" +
                        "                 return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>3.6e-44<sub>10</sub></span></buttom>" +
-		       "</div>" +
-
-		       "<div class='w-100 border border-light'></div>" +
-		       "<div class='col-12 p-0'><span data-langkey='Register file names'>Register file names</span></div>" +
-
-		       "<div class='col-6 p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_name\", \"logical\"); " + 
-                       "                 wepsim_show_rf_names(); return true; '>" +
-		       "<span class='font-weight-bold text-monospace'>$t0</span>" + "&nbsp;" +
-                       "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
-		       "</div>" +
-		       "<div class='col-6 p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); " + 
-                       "                 wepsim_show_rf_names(); return true; '>" +
-		       "<span class='font-weight-bold text-monospace'>R10</span>" + "&nbsp;" +
-                       "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
-		       "</div>" +
-
-		       "<div class='w-100 border border-light'></div>" +
-
-		       "<div class='col p-1'>" +
-		       "<button type='button' id='close' data-role='none' " +
-		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>" +
-                       "<span data-langkey='Close'>Close</span>" +
-                       "</button>" +
-		       "</div>" +
-		       "</div>" +
-
 		       "</div>" ;
 
-		return o ;
+	      return o1 ;
+           }
+
+           function quick_config_rf_register_names ( )
+           {
+              var sim_eltos = simhw_sim_states() ;
+              var SIMWARE = get_simware() ;
+
+              var logical_defined = [] ;
+	      for (var index=0; index < sim_eltos.BR.length; index++)
+              {
+	         if (typeof SIMWARE.registers[index] !== "undefined") {
+                     logical_defined = SIMWARE.registers[index] ;
+                 }
+              }
+
+	      var o2 = "<div class='col-12 p-0'><span data-langkey='Register file names'>Register file names</span></div>" +
+                       "<div class='col-6 p-1'>" +
+                       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+                       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); " +
+                       "                 wepsim_show_rf_names(); return true; '>" +
+                       "<span class='font-weight-bold text-monospace'>R10</span>" + "&nbsp;" +
+                       "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
+                       "</div>" +
+                       "<div class='col-6 p-1'>" +
+                       "</div>" ;
+
+              for (var i=0; i<logical_defined.length; i++)
+                 o2 += "<div class='col-6 p-1'>" +
+                       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+                       "        onclick='update_cfg(\"RF_display_name\", \"logical\"); " +
+                       "                 wepsim_refresh_rf_names(" + i + "); return true; '>" +
+                       "<span class='font-weight-bold text-monospace'>" + logical_defined[i] + "</span>" + "&nbsp;" +
+                       "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
+                       "</div>" ;
+
+	      return o2 ;
+           }
+
+        function quick_config_rf ( )
+        {
+              var o1 = quick_config_rf_display_format() ;
+              var o2 = quick_config_rf_register_names() ;
+
+	      return "<div class='container mt-1'>" + 
+                     "<div class='row'>" +
+                     o1 +
+		     "<div class='w-100 border border-light'></div>" + 
+                     o2 +
+		     "<div class='w-100 border border-light'></div>" +
+		     "<div class='col p-1'>" +
+		     "<button type='button' id='close' data-role='none' " +
+		     "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		     "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>" +
+                     "<span data-langkey='Close'>Close</span>" +
+                     "</button>" +
+		     "</div>" +
+		     "</div>" +
+		     "</div>" ;
         }
 
 
@@ -279,30 +303,38 @@
             }
         }
 
-        function wepsim_show_rf_names ( )
+        function wepsim_refresh_rf_names ( logical_index )
         {
-            var SIMWARE = get_simware() ;
 	    var disp_name = get_cfg('RF_display_name') ;
+            var sim_eltos = simhw_sim_states() ;
+            var SIMWARE   = get_simware() ;
 
             var br_value = "" ;
-	    for (var index=0; index < simhw_sim_states().BR.length; index++)
+	    for (var index=0; index < sim_eltos.BR.length; index++)
             {
+                 // get name
 		 br_value = "R"  + index ;
 	         if (
 		      ('logical' == disp_name) &&
-		      (typeof SIMWARE.registers[index]    !== "undefined") &&
-		      (typeof SIMWARE.registers[index][0] !== "undefined")
+		      (typeof SIMWARE.registers[index]                !== "undefined") &&
+		      (typeof SIMWARE.registers[index][logical_index] !== "undefined")
 		    )
 		 {
-		    br_value = SIMWARE.registers[index][0] ;
+		    br_value = SIMWARE.registers[index][logical_index] ;
 		 }
 		 br_value = br_value.padEnd(3,' ') ;
 
-		 var obj = document.getElementById("name_RF" + index);
+                 // display name
+		 var obj = document.getElementById("name_RF" + index) ;
 		 if (obj != null) {
 		     obj.innerHTML = br_value ;
 		 }
 	    }
+        }
+
+        function wepsim_show_rf_names ( )
+        {
+            wepsim_refresh_rf_names(0) ;
         }
 
 
