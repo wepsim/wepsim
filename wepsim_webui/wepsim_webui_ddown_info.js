@@ -101,12 +101,8 @@
 
                    // (2/2) <nav list part>
                    o1 += '  <div class="tab-content mt-3">' +
-                         '	 <div class="tab-pane mx-0 my-2 active" ' +
-                         '	      role="tabpanel" id="all">' +
-                         '		 <div id="states_ALL" style="width:inherit; overflow-y:auto;"' +
-                         '		      class="container container-fluid px-1 pb-1"></div>' +
-                         '		 <div id="states_BR" style="width: inherit; overflow-y: auto;"' +
-                         '		      class="container container-fluid px-1 pt-1"></div>' +
+                         '	 <div class="tab-pane mx-0 my-2 active" role="tabpanel" id="all">' +
+                         '	      <ws-registers id="regs1"></ws-registers>' +
                          '	 </div>' +
                          '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mp">' +
                          '	      <ws-mainmemory></ws-mainmemory>' +

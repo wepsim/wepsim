@@ -20,6 +20,43 @@
 
 
         /*
+         *  Registers (Register file + transparent registers)
+         */
+
+        /* jshint esversion: 6 */
+        class ws_registers extends HTMLElement
+        {
+	      constructor ()
+	      {
+		    // parent
+		    super();
+	      }
+
+	      render ( msg_default )
+	      {
+                    // html holder
+                    var o1 = '<div id="states_ALL" style="width:inherit; overflow-y:auto;"' +
+                             '     class="container container-fluid px-1 pb-1">' +
+                             '</div>' +
+                             '<div id="states_BR" style="width: inherit; overflow-y: auto;"' +
+                             '     class="container container-fluid px-1 pt-1">' +
+                             '</div>' ;
+
+                    this.innerHTML = o1 ;
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render('') ;
+	      }
+        }
+
+        if (typeof window !== "undefined") {
+            window.customElements.define('ws-registers', ws_registers) ;
+        }
+
+
+        /*
          *  Auxiliar to init_x & show_x
          */
 
@@ -117,16 +154,14 @@
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); " + 
-                       "                 wepsim_refresh_rf();" +
-                       "                 wepsim_refresh_eltos();" +
+                       "                 wepsim_refresh_registers();" +
                        "                 return true; '>" +
 		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>0000001A<sub>16</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); " + 
-                       "                 wepsim_refresh_rf();" +
-                       "                 wepsim_refresh_eltos();" +
+                       "                 wepsim_refresh_registers();" +
                        "                 return true; '>" +
 		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>1A<sub>16</sub></span></buttom>" +
 		       "</div>" +
@@ -136,16 +171,14 @@
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); " + 
-                       "                 wepsim_refresh_rf();" +
-                       "                 wepsim_refresh_eltos();" +
+                       "                 wepsim_refresh_registers();" +
                        "                 return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000032<sub>8&nbsp;</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); " + 
-                       "                 wepsim_refresh_rf();" +
-                       "                 wepsim_refresh_eltos();" +
+                       "                 wepsim_refresh_registers();" +
                        "                 return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>032<sub>8&nbsp;</sub></span></buttom>" +
 		       "</div>" +
@@ -155,16 +188,14 @@
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); " + 
-                       "                 wepsim_refresh_rf();" +
-                       "                 wepsim_refresh_eltos();" +
+                       "                 wepsim_refresh_registers();" +
                        "                 return true; '>" +
 		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000026<sub>10</sub></span></buttom>" +
 		       "</div>" +
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); " + 
-                       "                 wepsim_refresh_rf();" +
-                       "                 wepsim_refresh_eltos();" +
+                       "                 wepsim_refresh_registers();" +
                        "                 return true; '>" +
 		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>26<sub>10</sub></span></buttom>" +
 		       "</div>" +
@@ -176,8 +207,7 @@
 		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); " + 
-                       "                 wepsim_refresh_rf();" +
-                       "                 wepsim_refresh_eltos();" +
+                       "                 wepsim_refresh_registers();" +
                        "                 return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>3.6e-44<sub>10</sub></span></buttom>" +
 		       "</div>" +
@@ -221,26 +251,28 @@
          *  refresh
          */
 
-        function wepsim_refresh_rf ( )
+        function wepsim_refresh_registers ( )
         {
-	    for (var index=0; index < simhw_sim_states().BR.length; index++)
+            var sim_eltos = simhw_sim_states() ;
+            var ref_obj   = null ;
+
+            // register file
+	    for (var index=0; index < sim_eltos.BR.length; index++)
             {
-		 var ref_obj = simhw_sim_states().BR[index] ;
+		 ref_obj = sim_eltos.BR[index] ;
 		 if (typeof ref_obj.value == "function") {
 		     ref_obj.value.valueHasMutated() ;
                  }
             }
-        }
 
-        function wepsim_refresh_eltos ( )
-        {
+            // transparent registers
             var filter_states = simhw_internalState('filter_states') ;
-            var sim_eltos     = simhw_sim_states() ;
 
             for (var i=0; i<filter_states.length; i++)
             {
                  var s = filter_states[i].split(",")[0] ;
-		 var ref_obj = sim_eltos[s] ;
+
+		 ref_obj = sim_eltos[s] ;
 		 if (typeof ref_obj.value == "function") {
 		     ref_obj.value.valueHasMutated() ;
                  }

@@ -159,7 +159,7 @@ cat ws_dist/min.sim_all.js \
     wepsim_webui/wepsim_webui_cpusvg.js \
     wepsim_webui/wepsim_webui_authors.js \
     wepsim_webui/wepsim_webui_hw.js \
-    wepsim_webui/wepsim_wui_registers.js \
+    wepsim_webui/wepsim_webui_registers.js \
     \
     wepsim_webui/wepsim_webui_loadfile.js \
     wepsim_webui/wepsim_webui_savefile.js \
