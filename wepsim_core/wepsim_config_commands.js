@@ -349,7 +349,7 @@
 				   "		   onclick=\"update_cfg('RF_display_name','logical'); wepsim_show_rf_names();\">" +
 				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' ><span data-langkey='Labels'>Labels</span>" +
 				   "	    </label>" +
-				   "	</div>",
+				   " </div>",
 		      code_init:   function() {
 			               $('#label3-' +   get_cfg('RF_display_name')).button('toggle');
 		                   },

@@ -175,9 +175,11 @@
 							     wepsim_init_rf('#states_BR') ;
 							},
 						 reset: function() {
-							     wepsim_show_rf_names();
+							     // wepsim_show_rf_names() ;
 							},
-					 show_rf_names: wepsim_show_rf_names
+					 show_rf_names: function() {
+							     wepsim_show_rf_names() ;
+							},
 	                      },
 
 	    "CPU_STATS":      {

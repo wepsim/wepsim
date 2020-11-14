@@ -109,34 +109,28 @@
                               "</td></tr>";
                 }
 
+		var STG1 = "<strong>" ;
+                var STG2 = "<strong class='rounded text-dark' " +
+                           "        style='background-color:#CEECF5; font-family:monospace; font-size:105%'>" ;
+		var TD_B = "<td class='p-0 pl-1 align-middle'>" ;
+                var TD_E  = "</strong></td>" ;
+
 		var vtable = "<table class='table table-bordered table-hover table-sm mb-1'>" +
 			     "<tbody>" +
-			     "<tr><td class='p-0 pl-1 align-middle'><strong>hex.</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valuehex + "</strong></td>" +
-			     "</tr>" +
-			     "<tr><td class='p-0 pl-1 align-middle'><strong>oct.</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valueoct + "</strong></td>" +
-			     "</tr>" +
-			     "<tr><td class='p-0 pl-1 align-middle'><strong>binary</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valuebin + "</strong></td>" +
-			     "</tr>" +
-			     "<tr><td class='p-0 pl-1 align-middle'><strong>signed</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valuei   + "</strong></td>" +
-			     "</tr>" +
-			     "<tr><td class='p-0 pl-1 align-middle'><strong>unsig.</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valueui  + "</strong></td>" +
-			     "</tr>" +
-			     "<tr><td class='p-0 pl-1 align-middle'><strong>char</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'>" +
-			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[0] + "&nbsp;</strong>&nbsp;" +
-			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[1] + "&nbsp;</strong>&nbsp;" +
-			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[2] + "&nbsp;</strong>&nbsp;" +
-			     "<strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>&nbsp;" + valuec8[3] + "&nbsp;</strong>&nbsp;" +
+			     "<tr>" + TD_B + STG1 + "hex."   + TD_E + TD_B + STG2 + valuehex + TD_E + "</tr>" +
+			     "<tr>" + TD_B + STG1 + "oct."   + TD_E + TD_B + STG2 + valueoct + TD_E + "</tr>" +
+			     "<tr>" + TD_B + STG1 + "binary" + TD_E + TD_B + STG2 + valuebin + TD_E + "</tr>" +
+			     "<tr>" + TD_B + STG1 + "signed" + TD_E + TD_B + STG2 + valuei   + TD_E + "</tr>" +
+			     "<tr>" + TD_B + STG1 + "unsig." + TD_E + TD_B + STG2 + valueui  + TD_E + "</tr>" +
+			     "<tr>" + TD_B + STG1 + "char"   + TD_E +
+                             TD_B +
+			              STG2 + "&nbsp;" + valuec8[0] + "&nbsp;</strong>&nbsp;" +
+			              STG2 + "&nbsp;" + valuec8[1] + "&nbsp;</strong>&nbsp;" +
+			              STG2 + "&nbsp;" + valuec8[2] + "&nbsp;</strong>&nbsp;" +
+			              STG2 + "&nbsp;" + valuec8[3] + "&nbsp;</strong>&nbsp;" +
 			     "</td>" +
 			     "</tr>" +
-		             "<tr><td class='p-0 pl-1 align-middle'><strong>float</strong></td>" +
-                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded text-dark' style='background-color:#CEECF5;  font-family:monospace;'>" + valuef + "</strong></td>" +
-			     "</tr>" +
+			     "<tr>" + TD_B + STG1 + "float" + TD_E + TD_B + STG2 + valuef + TD_E + "</tr>" +
 			     valuedt +
 			     "</tbody>" +
 			     "</table>" ;
@@ -144,72 +138,48 @@
 		return vtable;
         }
 
-           function quick_config_rf_display_format ( )
+           function quick_config_rf_htmlelto ( label1, format1, label2, format2 )
            {
-	      var o1 = "<div class='col-12 p-0'><span data-langkey='Display format'>Display format</span></div>" +
+	      var o1 = "" ;
 
-		       "<div class='col-7 p-1'>" +
+               if (label1 === "")
+	         o1 += "<div class='col-7 p-1'></div>" ;
+               else
+	         o1 += "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); " + 
+		       "        onclick='update_cfg(\"RF_display_format\", \"" + format1 + "\"); " +
                        "                 wepsim_refresh_registers();" +
                        "                 return true; '>" +
-		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>0000001A<sub>16</sub></span></buttom>" +
-		       "</div>" +
-		       "<div class='col p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); " + 
-                       "                 wepsim_refresh_registers();" +
-                       "                 return true; '>" +
-		       "0x<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>1A<sub>16</sub></span></buttom>" +
-		       "</div>" +
-
-		       "<div class='w-100 border border-light'></div>" +
-
-		       "<div class='col-7 p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); " + 
-                       "                 wepsim_refresh_registers();" +
-                       "                 return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000032<sub>8&nbsp;</sub></span></buttom>" +
-		       "</div>" +
-		       "<div class='col p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); " + 
-                       "                 wepsim_refresh_registers();" +
-                       "                 return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>032<sub>8&nbsp;</sub></span></buttom>" +
-		       "</div>" +
-
-		       "<div class='w-100 border border-light'></div>" +
-
-		       "<div class='col-7 p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); " + 
-                       "                 wepsim_refresh_registers();" +
-                       "                 return true; '>" +
-		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>00000026<sub>10</sub></span></buttom>" +
-		       "</div>" +
-		       "<div class='col p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); " + 
-                       "                 wepsim_refresh_registers();" +
-                       "                 return true; '>" +
-		       "+<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>26<sub>10</sub></span></buttom>" +
-		       "</div>" +
-
-		       "<div class='w-100 border border-light'></div>" +
-
-		       "<div class='col-7 p-1'>" +
-		       "</div>" +
-		       "<div class='col p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); " + 
-                       "                 wepsim_refresh_registers();" +
-                       "                 return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>3.6e-44<sub>10</sub></span></buttom>" +
+		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label1 + "</span></buttom>" +
 		       "</div>" ;
 
-	      return o1 ;
+               if (label2 === "")
+	         o1 += "<div class='col-7 p-1'></div>" ;
+               else
+		 o1 += "<div class='col p-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_format\", \"" + format2 + "\"); " +
+                       "                 wepsim_refresh_registers();" +
+                       "                 return true; '>" +
+		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
+		       "</div>" ;
+
+		 o1 += "<div class='w-100 border border-light'></div>" ;
+
+	       return  o1 ;
+           }
+
+           function quick_config_rf_display_format ( )
+           {
+	      return "<div class='col-12 p-0'><span data-langkey='Display format'>Display format</span></div>" +
+                     quick_config_rf_htmlelto("0x0000001A<sub>16</sub>", "unsigned_16_fill",
+                                              "0x1A<sub>16</sub>",       "unsigned_16_nofill") +
+                     quick_config_rf_htmlelto("00000032<sub>8</sub>",    "unsigned_8_fill",
+                                              "032<sub>8</sub>",         "unsigned_8_nofill") +
+                     quick_config_rf_htmlelto("00000026<sub>10</sub>",   "unsigned_10_fill",
+                                              "26<sub>10</sub>",         "unsigned_10_nofill") +
+                     quick_config_rf_htmlelto("",                        "",
+                                              "3.6e-44<sub>10</sub>",    "float_10_nofill") ;
            }
 
            function quick_config_rf_register_names ( )
@@ -236,7 +206,7 @@
                        "<div class='col-6 p-1'>" +
                        "</div>" ;
 
-              for (var i=0; i<logical_defined.length; i++)
+              for (var i=0; i<logical_defined.length; i++) {
                  o2 += "<div class='col-6 p-1'>" +
                        "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
                        "        onclick='update_cfg(\"RF_display_name\", \"logical\"); " +
@@ -244,21 +214,19 @@
                        "<span class='font-weight-bold text-monospace'>" + logical_defined[i] + "</span>" + "&nbsp;" +
                        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
                        "</div>" ;
+              }
+
+	         o2 += "<div class='w-100 border border-light'></div>" ;
 
 	      return o2 ;
            }
 
         function quick_config_rf ( )
         {
-              var o1 = quick_config_rf_display_format() ;
-              var o2 = quick_config_rf_register_names() ;
-
-	      return "<div class='container mt-1'>" + 
+	      return "<div class='container mt-1'>" +
                      "<div class='row'>" +
-                     o1 +
-		     "<div class='w-100 border border-light'></div>" + 
-                     o2 +
-		     "<div class='w-100 border border-light'></div>" +
+                     quick_config_rf_display_format() +
+                     quick_config_rf_register_names() +
 		     "<div class='col p-1'>" +
 		     "<button type='button' id='close' data-role='none' " +
 		     "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
@@ -316,6 +284,7 @@
 		 br_value = "R"  + index ;
 	         if (
 		      ('logical' == disp_name) &&
+                      (logical_index >= 0) &&
 		      (typeof SIMWARE.registers[index]                !== "undefined") &&
 		      (typeof SIMWARE.registers[index][logical_index] !== "undefined")
 		    )
