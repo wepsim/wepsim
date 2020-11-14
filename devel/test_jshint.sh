@@ -94,7 +94,7 @@ set -x
  jshint ./wepsim_webui/wepsim_webui_loadfile.js
  jshint ./wepsim_webui/wepsim_webui_savefile.js
  jshint ./wepsim_webui/wepsim_webui_cpu.js
-#jshint ./wepsim_webui/wepsim_webui_mem.js
+ jshint ./wepsim_webui/wepsim_webui_mem.js
  jshint ./wepsim_webui/wepsim_webui_mem_config.js
  jshint ./wepsim_webui/wepsim_webui_console.js
  jshint ./wepsim_webui/wepsim_webui_io_info.js
@@ -105,7 +105,7 @@ set -x
  jshint ./wepsim_webui/wepsim_webui_dbg_asm.js
  jshint ./wepsim_webui/wepsim_webui_cpusvg.js
  jshint ./wepsim_webui/wepsim_webui_hw.js
- jshint ./wepsim_webui/wepsim_wui_registers.js
+#jshint ./wepsim_webui/wepsim_webui_registers.js
  jshint ./wepsim_webui/wepsim_web_ui_dialogs.js
  jshint ./wepsim_webui/wepsim_web_ui_quickcfg.js
  jshint ./wepsim_webui/wepsim_web_api.js

@@ -255,26 +255,26 @@
                 }
 
                 var slimits = {} ;
-	        for (var skey in seg)
+	        for (var skey1 in seg)
 	        {
-                     slimits[skey] = {
-                                       'c_begin': parseInt(seg[skey].begin),
-                                       'c_end':   parseInt(seg[skey].end),
+                     slimits[skey1] = {
+                                       'c_begin': parseInt(seg[skey1].begin),
+                                       'c_end':   parseInt(seg[skey1].end),
                                        'm_end':   0,
-		                       'color':   seg[skey].color
+		                       'color':   seg[skey1].color
 				     } ;
                 }
                 var a = 0 ;
 	        for (var m in mp)
 	        {
                      a = parseInt(m, 16) ;
-	             for (var skey in seg)
+	             for (var skey2 in seg)
 	             {
-                          if ( (slimits[skey].c_begin < a) && 
- 			       (a < slimits[skey].c_end) && 
- 			       (a > slimits[skey].m_end) )
+                          if ( (slimits[skey2].c_begin < a) && 
+ 			       (a < slimits[skey2].c_end) && 
+ 			       (a > slimits[skey2].m_end) )
 	                  {
-                                slimits[skey].m_end = a ;
+                                slimits[skey2].m_end = a ;
                           }
                      }
                 }
