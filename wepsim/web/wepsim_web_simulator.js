@@ -168,11 +168,8 @@
 
 	    "REGISTER_FILE":  {
 						  init: function() {
-							     $('#states_ALL').html(msg_default) ;
-							     wepsim_init_states('#states_ALL') ;
-
-							     $('#states_BR').html(msg_default) ;
-							     wepsim_init_rf('#states_BR') ;
+							     wepsim_init_states() ;
+							     wepsim_init_rf() ;
 							},
 						 reset: function() {
 							     // wepsim_show_rf_names() ;

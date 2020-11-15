@@ -30,15 +30,20 @@
 	      {
 		    // parent
 		    super();
+
+                    this.rf_div = "states_BR" ;
+                    this.tf_div = "states_ALL" ;
 	      }
 
 	      render ( msg_default )
 	      {
                     // html holder
-                    var o1 = '<div id="states_ALL" style="width:inherit; overflow-y:auto;"' +
+                    var o1 = '<div id="' + this.tf_div + '" ' +
+                             '     style="width:inherit; overflow-y:auto;"' +
                              '     class="container container-fluid px-1 pb-1">' +
                              '</div>' +
-                             '<div id="states_BR" style="width: inherit; overflow-y: auto;"' +
+                             '<div id="' + this.rf_div + '" ' +
+                             '     style="width: inherit; overflow-y: auto;"' +
                              '     class="container container-fluid px-1 pt-1">' +
                              '</div>' ;
 
@@ -62,22 +67,23 @@
 
         function hex2values_update ( index )
         {
-	      var new_value     = parseInt($("#popover1")[0].value) ;
-              var filter_states = simhw_internalState('filter_states') ;
+              var sim_eltos = simhw_sim_states() ;
+	      var new_value = parseInt($("#popover1")[0].value) ;
 
-              if (typeof simhw_sim_states().BR[index] != "undefined")
+              if (typeof sim_eltos.BR[index] != "undefined")
               {
-	          set_value(simhw_sim_states().BR[index], new_value) ;
+	          set_value(sim_eltos.BR[index], new_value) ;
                   $("#rf" + index).click() ;
                   $("#rf" + index).click() ;
               }
 
-              if (typeof simhw_sim_states()[index] != "undefined")
+              if (typeof sim_eltos[index] != "undefined")
               {
-                  if (1 == simhw_sim_states()[index].nbits)
+                  if (1 == sim_eltos[index].nbits) {
                       new_value = new_value % 2;
+                  }
 
-	          set_value(simhw_sim_states()[index], new_value) ;
+	          set_value(sim_eltos[index], new_value) ;
                   $("#rp" + index).click() ;
                   $("#rp" + index).click() ;
               }
@@ -90,55 +96,53 @@
                     hexvalue = 0 ;
 		}
 
-		var valuei   = hexvalue  >> 0;
-		var valueui  = hexvalue >>> 0;
-		var valuec8  = hex2char8(valueui);
-		var valuef   = hex2float(valueui);
-                var valuebin = hex2bin(valueui);
-                var valueoct = valueui.toString(8).toUpperCase() ;
+		var valueui  = hexvalue >>> 0 ;
+		var valuec8  = hex2char8(valueui) ;
+                var valueoct = "0"  + valueui.toString(8).toUpperCase() ;
                 var valuehex = valueui.toString(16).toUpperCase() ;
                     valuehex = "0x" + pack8(valuehex) ;
 
-		var valuedt = "" ;
+		var o2 = "" ;
 		if (get_cfg('is_editable') == true)
 		{
-		    valuedt = "<tr><td class='py-1 px-1' colspan='5' align='center'>" +
-                              "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
-                              "<span class='badge badge-secondary' " +
-                              "      onclick='hex2values_update(\"" + index + "\");'>update</span>" +
-                              "</td></tr>";
+		    o2 = "<tr><td class='py-1 px-1' colspan='5' align='center'>" +
+                         "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " + 
+                         "       style='width:65%'>&nbsp;" +
+                         "<span class='badge badge-secondary shadow' " +
+                         "      onclick='hex2values_update(\"" + index + "\");'>update</span>" +
+                         "</td></tr>";
                 }
 
-		var STG1 = "<strong>" ;
-                var STG2 = "<strong class='rounded text-dark' " +
-                           "        style='background-color:#CEECF5; font-family:monospace; font-size:105%'>" ;
-		var TD_B = "<td class='p-0 pl-1 align-middle'>" ;
-                var TD_E  = "</strong></td>" ;
+		var TD_B   = "<td class='p-0 pl-1 align-middle'>" ;
+                var TD_E   = "</td>" ;
+                var SG_B2  = "<strong class='rounded text-dark' " +
+                             "        style='background-color:#CEECF5; font-family:monospace; font-size:105%'>" ;
+		var TD_B1  = TD_B + "<strong>" ;
+                var TD_B2  = TD_B + SG_B2 ;
+                var TD_E12 = "</strong>" + TD_E ;
+                var VAL_B  = SG_B2 + "&nbsp;" ;
+                var VAL_E  = "&nbsp;</strong>&nbsp;" ;
 
-		var vtable = "<table class='table table-bordered table-hover table-sm mb-1'>" +
-			     "<tbody>" +
-			     "<tr>" + TD_B + STG1 + "hex."   + TD_E + TD_B + STG2 + valuehex + TD_E + "</tr>" +
-			     "<tr>" + TD_B + STG1 + "oct."   + TD_E + TD_B + STG2 + valueoct + TD_E + "</tr>" +
-			     "<tr>" + TD_B + STG1 + "binary" + TD_E + TD_B + STG2 + valuebin + TD_E + "</tr>" +
-			     "<tr>" + TD_B + STG1 + "signed" + TD_E + TD_B + STG2 + valuei   + TD_E + "</tr>" +
-			     "<tr>" + TD_B + STG1 + "unsig." + TD_E + TD_B + STG2 + valueui  + TD_E + "</tr>" +
-			     "<tr>" + TD_B + STG1 + "char"   + TD_E +
-                             TD_B +
-			              STG2 + "&nbsp;" + valuec8[0] + "&nbsp;</strong>&nbsp;" +
-			              STG2 + "&nbsp;" + valuec8[1] + "&nbsp;</strong>&nbsp;" +
-			              STG2 + "&nbsp;" + valuec8[2] + "&nbsp;</strong>&nbsp;" +
-			              STG2 + "&nbsp;" + valuec8[3] + "&nbsp;</strong>&nbsp;" +
-			     "</td>" +
-			     "</tr>" +
-			     "<tr>" + TD_B + STG1 + "float" + TD_E + TD_B + STG2 + valuef + TD_E + "</tr>" +
-			     valuedt +
-			     "</tbody>" +
-			     "</table>" ;
+		var o1 = "<table class='table table-bordered table-hover table-sm mb-1'>" +
+			 "<tbody>" +
+			 "<tr>" + TD_B1 + "hex."   + TD_E12 + TD_B2 + valuehex         + TD_E12 + "</tr>" +
+			 "<tr>" + TD_B1 + "oct."   + TD_E12 + TD_B2 + valueoct         + TD_E12 + "</tr>" +
+			 "<tr>" + TD_B1 + "binary" + TD_E12 + TD_B2 + hex2bin(valueui) + TD_E12 + "</tr>" +
+			 "<tr>" + TD_B1 + "signed" + TD_E12 + TD_B2 + (hexvalue  >> 0) + TD_E12 + "</tr>" +
+			 "<tr>" + TD_B1 + "unsig." + TD_E12 + TD_B2 + valueui          + TD_E12 + "</tr>" +
+			 "<tr>" + TD_B1 + "char"   + TD_E12 +
+                                  TD_B + VAL_B + valuec8[0] + VAL_E + VAL_B + valuec8[1] + VAL_E +
+			                 VAL_B + valuec8[2] + VAL_E + VAL_B + valuec8[3] + VAL_E + TD_E +
+			 "</tr>" +
+			 "<tr>" + TD_B1 + "float"  + TD_E12 + TD_B2 + hex2float(valueui) + TD_E12 + "</tr>" +
+			 o2 +
+			 "</tbody>" +
+			 "</table>" ;
 
-		return vtable;
+		return o1;
         }
 
-           function quick_config_rf_htmlelto ( label1, format1, label2, format2 )
+           function quick_config_rf_htmlformat ( label1, format1, label2, format2 )
            {
 	      var o1 = "" ;
 
@@ -164,22 +168,7 @@
 		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
 		       "</div>" ;
 
-		 o1 += "<div class='w-100 border border-light'></div>" ;
-
 	       return  o1 ;
-           }
-
-           function quick_config_rf_display_format ( )
-           {
-	      return "<div class='col-12 p-0'><span data-langkey='Display format'>Display format</span></div>" +
-                     quick_config_rf_htmlelto("0x0000001A<sub>16</sub>", "unsigned_16_fill",
-                                              "0x1A<sub>16</sub>",       "unsigned_16_nofill") +
-                     quick_config_rf_htmlelto("00000032<sub>8</sub>",    "unsigned_8_fill",
-                                              "032<sub>8</sub>",         "unsigned_8_nofill") +
-                     quick_config_rf_htmlelto("00000026<sub>10</sub>",   "unsigned_10_fill",
-                                              "26<sub>10</sub>",         "unsigned_10_nofill") +
-                     quick_config_rf_htmlelto("",                        "",
-                                              "3.6e-44<sub>10</sub>",    "float_10_nofill") ;
            }
 
            function quick_config_rf_register_names ( )
@@ -195,8 +184,7 @@
                  }
               }
 
-	      var o2 = "<div class='col-12 p-0'><span data-langkey='Register file names'>Register file names</span></div>" +
-                       "<div class='col-6 p-1'>" +
+	      var o2 = "<div class='col-6 p-1'>" +
                        "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
                        "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); " +
                        "                 wepsim_show_rf_names(); return true; '>" +
@@ -216,8 +204,6 @@
                        "</div>" ;
               }
 
-	         o2 += "<div class='w-100 border border-light'></div>" ;
-
 	      return o2 ;
            }
 
@@ -225,15 +211,30 @@
         {
 	      return "<div class='container mt-1'>" +
                      "<div class='row'>" +
-                     quick_config_rf_display_format() +
-                     quick_config_rf_register_names() +
-		     "<div class='col p-1'>" +
-		     "<button type='button' id='close' data-role='none' " +
-		     "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-		     "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>" +
-                     "<span data-langkey='Close'>Close</span>" +
-                     "</button>" +
-		     "</div>" +
+	               "<div class='col-12 p-0'>" +
+                       "<span data-langkey='Display format'>Display format</span>" +
+                       "</div>" +
+                         quick_config_rf_htmlformat("0x0000001A<sub>16</sub>", "unsigned_16_fill",
+                                                    "0x1A<sub>16</sub>",       "unsigned_16_nofill") +
+                         quick_config_rf_htmlformat("00000032<sub>8</sub>",    "unsigned_8_fill",
+                                                    "032<sub>8</sub>",         "unsigned_8_nofill") +
+                         quick_config_rf_htmlformat("00000026<sub>10</sub>",   "unsigned_10_fill",
+                                                    "26<sub>10</sub>",         "unsigned_10_nofill") +
+                         quick_config_rf_htmlformat("",                        "",
+                                                    "3.6e-44<sub>10</sub>",    "float_10_nofill") +
+	             "<div class='w-100 border border-light'></div>" +
+	               "<div class='col-12 p-0'>" +
+                       "<span data-langkey='Register file names'>Register file names</span>" +
+                       "</div>" +
+                          quick_config_rf_register_names() +
+	             "<div class='w-100 border border-light'></div>" +
+		       "<div class='col p-1'>" +
+		       "<button type='button' id='close' data-role='none' " +
+		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>" +
+                       "<span data-langkey='Close'>Close</span>" +
+                       "</button>" +
+		       "</div>" +
 		     "</div>" +
 		     "</div>" ;
         }
@@ -311,13 +312,8 @@
          *  init_x
          */
 
-        function wepsim_init_rf ( jqdiv )
+        function wepsim_init_rf ( )
         {
-            if (jqdiv == "")
-            {   // without ui
-                return ;
-            }
-
             // Registers
             var o1_rf = "" ;
             var o1_rn = "" ;
@@ -337,7 +333,7 @@
                           "</button>" ;
 	    }
 
-            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1_rf + "</div>");
+            $("#states_BR").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1_rf + "</div>");
 
             // Pop-overs
 	    $("[data-toggle=popover-up]").popover({
@@ -388,13 +384,8 @@
 	    }
         }
 
-        function wepsim_init_states ( jqdiv )
+        function wepsim_init_states ( )
         {
-            if (jqdiv == "")
-            {   // without ui
-                return ;
-            }
-
             var sim_eltos = simhw_sim_states() ;
             var filter    = simhw_internalState('filter_states') ;
 
@@ -438,7 +429,7 @@
                       "</button>" ;
             }
 
-            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1 + "</div>");
+            $("#states_ALL").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1 + "</div>");
 
             // Pop-overs
 	    $("[data-toggle=popover-bottom]").popover({
