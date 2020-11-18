@@ -64,6 +64,16 @@
                          '         style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
                          '    </div>' +
                          '' ;
+                   else
+                   o1 += '    <div id="t3_firm" class="ui-body-d ui-content p-0"' +
+			 '	   style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+			 '	   <label class="my-0" for="inputFirmware"><span data-langkey="microcode">microcode</span>:</label>' +
+			 '	   <textarea aria-label="microcode"' +
+			 '		     style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"' +
+			 '		     placeholder="Please select \'Example\' or \'Load\' first in order to have an initial Microcode."' +
+			 '		     id="inputFirmware" rows="20"></textarea>' +
+                         '    </div>' +
+                         '' ;
 
                    o1 += '</div>' ;
 

@@ -236,57 +236,14 @@
 			  </div>
 			  <div class="tab-pane fade user_microcode" id="nav-microcode"  role="tabpanel" aria-labelledby="nav-microcode-tab">
 
-		              <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
-
-				    <div class="row p-0">
-					<div class="container col-12 pr-0" role="none">
-					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
-                                             <ws-compilationbar 
-                                                 icons="up" 
-						 components="btn_mloadsave,btn_mcompile,btn_mshowbin"
-						 class="btn-group m-1 d-flex flex-wrap" 
-						 aria-label="MicroCode Toolbar buttons"></ws-compilationbar>
-					</div>
-					</div>
-				    </div>
-
-				    <div id="t3_firm" class="ui-body-d ui-content p-0"
-					 style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		                             <label class="my-0" for="inputFirmware"><span data-langkey='microcode'>microcode</span>:</label>
-					     <textarea aria-label="microcode"
-						       style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
-						       placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
-						       id="inputFirmware" rows="20"></textarea>
-				    </div>
-			      </div>
+		               <ws-edit-mc component='editor'></ws-edit-mc>
 
 			  </div>
 			  <div class="tab-pane fade" id="nav-assembly"   role="tabpanel" aria-labelledby="nav-assembly-tab">
 
-		                  <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
-				    <div class="row py-0 px-1">
-					<div class="container col-12 pr-0" role="none">
-					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
-                                              <ws-compilationbar 
-                                                  icons="up" 
-						  components="btn_aloadsave,btn_acompile,btn_ashowbin"
-						  class="btn-group m-1 d-flex flex-wrap" 
-						  aria-label="Assembly Toolbar buttons"></ws-compilationbar>
-					</div>
-					</div>
-				    </div>
+                               <ws-edit-as component='editor'></ws-edit-as>
 
-				    <div id="t4_asm" class="ui-body-d ui-content p-0"
-					 style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-					     <label class="my-0" for="inputAssembly"><span data-langkey='assembly'>assembly</span>:</label>
-					     <textarea aria-label="assembly"
-						       style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
-						       placeholder="Please select 'Load' first to have the assembly code to work with."
-						       id="inputAssembly" rows="20"></textarea>
-				    </div>
-				  </div>
-
-			      </div>
+			  </div>
 			  </div>
 			</div>
 

@@ -58,9 +58,19 @@
                          '' ;
 
                    if (this.component.trim() == 'placeholder')
-                   o1 += '    <div id="t4_asm_placeholder2" class="ui-body-d ui-content px-2 py-0" ' + 
-                         '         style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-                         '    </div>' +
+                   o1 += '   <div id="t4_asm_placeholder2" class="ui-body-d ui-content px-2 py-0" ' + 
+                         '        style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+                         '   </div>' +
+                         '' ;
+                   else
+                   o1 += '   <div id="t4_asm" class="ui-body-d ui-content p-0"' +
+			 '	  style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+			 '	  <label class="my-0" for="inputAssembly"><span data-langkey="assembly">assembly</span>:</label>' +
+			 '	  <textarea aria-label="assembly"' +
+			 '		    style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"' +
+			 '		    placeholder="Please select \'Load\' first to have the assembly code to work with."' +
+			 '		    id="inputAssembly" rows="20"></textarea>' +
+			 '    </div>' +
                          '' ;
 
                    o1 += '</div>' ;
