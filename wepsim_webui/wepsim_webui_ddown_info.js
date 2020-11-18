@@ -72,7 +72,7 @@
                             o1 += nav_item ;
                         }
 
-                        var nav_item = this.np[nav_name] ;
+                            nav_item = this.np[nav_name] ;
                         if (typeof nav_item !== "undefined") {
                             o2 += nav_item ;
                         }

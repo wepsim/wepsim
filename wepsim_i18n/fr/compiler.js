@@ -23,6 +23,7 @@
 
 	        "PROBLEM AROUND LINE":          "Problème autour de la ligne",
 		'NO TAG OR DIRECTIVE':		'balise attendu ou directive, mais à cet jeton à la place:',
+		'NO TAG, DIR OR INS':		'Pas une balise valide (par exemple: tag1 :) directive (par exemple: .data) ou instruction, trouvée: ',
 		'INVALID TAG FORMAT':		'Une étiquette doit suivre un format alphanumérique (en commençant par une lettre ou un trait de soulignement):',
 		'TAG OR INSTRUCTION':		'Une étiquette ne peut pas avoir le même nom qu\'une instruction:',
 		'REPEATED TAG':			'tag répétée:',

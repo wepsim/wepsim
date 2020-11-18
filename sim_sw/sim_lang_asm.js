@@ -844,7 +844,7 @@ function read_text ( context, datosCU, ret )
                             }
 
 			    return langError(context,
-			                     i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
+			                     i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
                                              "'" + possible_tag + "'") ;
                         }
 

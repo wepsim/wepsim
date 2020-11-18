@@ -3,7 +3,7 @@
 
 ## 2.1.2 -> 2.1.3:
 * Bump bootstrap from 4.5.2 to 4.5.3
-* Register file panel improved
+* Improved Register file panel
 
 ## 2.1.1 -> 2.1.2:
 * Bump bootstrap from 4.5.0 to 4.5.2

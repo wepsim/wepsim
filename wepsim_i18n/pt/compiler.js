@@ -23,6 +23,7 @@
 
 	        "PROBLEM AROUND LINE":          "Problema em torno da linha",
 		'NO TAG OR DIRECTIVE':		'Espera tag ou directiva, mas encontrou este token em vez disso: ',
+		'NO TAG, DIR OR INS':		'Não foi encontrada uma tag válida (por exemplo: tag1 :) diretiva (por exemplo: .data) ou instrução: ',
 		'INVALID TAG FORMAT':		'A tag deve seguir um formato alfanumérico (começando com uma letra ou sublinhado): ',
 		'TAG OR INSTRUCTION':		'A tag não pode ter o mesmo nome que uma instrução: ',
 		'REPEATED TAG':		'tag repetida: ',
