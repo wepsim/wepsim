@@ -146,6 +146,8 @@ cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_core.js \
     \
+    wepsim_webui/wepsim_webui_editmc.js \
+    wepsim_webui/wepsim_webui_editas.js \
     wepsim_webui/wepsim_webui_ddown_sel.js \
     wepsim_webui/wepsim_webui_ddown_info.js \
     wepsim_webui/wepsim_webui_cpu.js \

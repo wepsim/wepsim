@@ -168,66 +168,19 @@
                    var np = {} ;
 
 	           np.all   = this.mk_nav_tabpane_item('all',   'active', '<ws-registers id="regs1"></ws-registers>') ;
-	           np.mp    = this.mk_nav_tabpane_item('mp',    '',       '<ws-mainmemory></ws-mainmemory>') ;
-	           np.mc    = this.mk_nav_tabpane_item('mc',    '',       '<ws-dbg-mc></ws-dbg-mc>') ;
-	           np.con   = this.mk_nav_tabpane_item('con',   '',       '<ws-console></ws-console>') ;
-	           np.io    = this.mk_nav_tabpane_item('io',    '',       '<ws-io-info id="ioinfo1"></ws-io-info>') ;
-	           np.cpu   = this.mk_nav_tabpane_item('cpu',   '',       '<ws-cpu id="cpu1"></ws-cpu>') ;
-	           np.mpcfg = this.mk_nav_tabpane_item('mpcfg', '',       '<ws-mem-config id="memcfg1"></ws-mem-config>') ;
-	           np.iocfg = this.mk_nav_tabpane_item('iocfg', '',       '<ws-io-config id="iocfg1"></ws-io-config>') ;
-	           np.iol3d = this.mk_nav_tabpane_item('iol3d', '',       '<ws-l3d id="l3d1"></ws-l3d>') ;
-	           np.ed_hw = this.mk_nav_tabpane_item('ed_hw', '',       '<ws-hw id="infohw1"></ws-hw>') ;
-                   np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',       this.mk_nav_tabpane_editmc()) ;
-                   np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',       this.mk_nav_tabpane_editmp()) ;
+	           np.mp    = this.mk_nav_tabpane_item('mp',    '',  '<ws-mainmemory></ws-mainmemory>') ;
+	           np.mc    = this.mk_nav_tabpane_item('mc',    '',  '<ws-dbg-mc></ws-dbg-mc>') ;
+	           np.con   = this.mk_nav_tabpane_item('con',   '',  '<ws-console></ws-console>') ;
+	           np.io    = this.mk_nav_tabpane_item('io',    '',  '<ws-io-info id="ioinfo1"></ws-io-info>') ;
+	           np.cpu   = this.mk_nav_tabpane_item('cpu',   '',  '<ws-cpu id="cpu1"></ws-cpu>') ;
+	           np.mpcfg = this.mk_nav_tabpane_item('mpcfg', '',  '<ws-mem-config id="memcfg1"></ws-mem-config>') ;
+	           np.iocfg = this.mk_nav_tabpane_item('iocfg', '',  '<ws-io-config id="iocfg1"></ws-io-config>') ;
+	           np.iol3d = this.mk_nav_tabpane_item('iol3d', '',  '<ws-l3d id="l3d1"></ws-l3d>') ;
+	           np.ed_hw = this.mk_nav_tabpane_item('ed_hw', '',  '<ws-hw id="infohw1"></ws-hw>') ;
+                   np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc component="placeholder"></ws_edit_mc>') ;
+                   np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as component="placeholder"></ws_edit_as>') ;
 
                    return np ;
-	      }
-
-	      mk_nav_tabpane_editmc ( )
-	      {
-                  return '<div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">' +
-                         '' +
-                         '	    <div class="row p-0">' +
-                         '		<div class="container col-12 pr-0" role="none">' +
-                         '		<div class="col-sm px-1" role="toolbar" ' + 
-                         '                   aria-label="MicroCode Toolbar">' +
-                         '                 <ws-compilationbar' +
-                         '                     icons="up"' +
-                         '                     components="btn_mloadsave,btn_mcompile,btn_mshowbin"' +
-                         '                     class="btn-group m-1 d-flex flex-wrap"' +
-                         '                     aria-label="MicroCode Toolbar buttons"></ws-compilationbar>' +
-                         '		</div>' +
-                         '		</div>' +
-                         '	    </div>' +
-                         '' +
-                         '	    <div id="t3_firm_placeholder2" ' + 
-                         '               class="ui-body-d ui-content px-2 py-0" ' + 
-                         '               style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-                         '	    </div>' +
-                         '' +
-                         '</div>' ;
-	      }
-
-	      mk_nav_tabpane_editmp ( )
-	      {
-                  return '<div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">' +
-                         '' +
-                         '	    <div class="row py-0 px-1">' +
-                         '		<div class="container col-12 pr-0" role="none">' +
-                         '		<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">' +
-                         '                   <ws-compilationbar' +
-                         '                       icons="up"' +
-                         '                       components="btn_aloadsave,btn_acompile,btn_ashowbin"' +
-                         '                       class="btn-group m-1 d-flex flex-wrap"' +
-                         '                       aria-label="Assembly Toolbar buttons"></ws-compilationbar>' +
-                         '		</div>' +
-                         '		</div>' +
-                         '	    </div>' +
-                         '' +
-                         '	    <div id="t4_asm_placeholder2" class="ui-body-d ui-content px-2 py-0" style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-                         '	    </div>' +
-                         '' +
-                         '</div>' ;
 	      }
         }
 
