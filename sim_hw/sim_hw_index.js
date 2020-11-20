@@ -207,11 +207,11 @@
         function simhw_internalState_setValue ( name, id, val )
         {
             var valobj = sim.active.internal_states[name][id] ;
-	    if (typeof valobj === "undefined") {
-                return valobj ;
+	    if (typeof valobj !== "undefined") {
+                set_value(valobj, val) ;
 	    }
 
-            set_value(valobj, val) ;
+            sim.active.internal_states[name][id] = { "value": val } ;
         }
 
         // ctrl_states
