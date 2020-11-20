@@ -209,9 +209,12 @@
             var valobj = sim.active.internal_states[name][id] ;
 	    if (typeof valobj !== "undefined") {
                 set_value(valobj, val) ;
+                return valobj ;
 	    }
 
+            // new element to be added, return "undefined" to inform the callee
             sim.active.internal_states[name][id] = { "value": val } ;
+            return valobj ;
         }
 
         // ctrl_states
