@@ -1608,6 +1608,12 @@ function simlang_compile (text, datosCU)
              }
 	 }
 
+         // reverse labels
+         ret.revlabels = {} ;
+         for (var key in ret.labels2) {
+              ret.revlabels[ret.labels2[key]] = key ;
+         }
+
 	 return ret;
 }
 
