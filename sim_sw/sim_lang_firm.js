@@ -1443,7 +1443,8 @@ function decode_ram ( )
     var curr_MP    = simhw_internalState('MP') ;
     for (var address in curr_MP)
     {
-        var binstruction = curr_MP[address].toString(2) ;
+        var value        = get_value(curr_MP[address]) ;
+        var binstruction = value.toString(2) ;
             binstruction = "00000000000000000000000000000000".substring(0, 32-binstruction.length) + binstruction;
         sram += "0x" + parseInt(address).toString(16) + ":" +
                 decode_instruction(curr_firm, curr_ircfg, binstruction).oinstruction + "\n" ;

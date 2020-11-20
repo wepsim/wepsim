@@ -167,7 +167,7 @@
                 if (typeof memory[key] == "undefined")
                     return "00 00 00 00" ;
 
-		var value  = memory[key].toString(16) ;
+                var value  = get_value(memory[key]).toString(16) ;
 		    value  = pack8(value) ;
 
                 var i = 0;
@@ -313,6 +313,7 @@
 		     color   =  slimits[skey].color ;
                      rows    =  0 ;
                      var x   =  "" ;
+                     var v   =  0 ;
 
 		     for (var i=c_begin; i<=c_end; i++)
 		     {
@@ -321,19 +322,21 @@
                                  continue;
                              }
 
+                             v = get_value(mp[c]) ;
+
                              if (0 == rows) {
 			         o += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
-                                       mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
+                                       v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" +
 				      "<td rowspan=" ;
                              } else {
 			         x += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
-                                      mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
+                                      v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" +
 				      "</tr>" ;
                              }
 
@@ -439,13 +442,13 @@
 
            // prepare data: ins_bin
 	   var next = 0 ;
-	   var ins_bin = mp[l] ;
+           var ins_bin = get_value(mp[l]) ;
 	   for (var iw=1; iw<nwords; iw++)
 	   {
 		  next = "0x" + (parseInt(l, 16) + iw*4).toString(16) ; // 4 -> 32 bits
-		  if (typeof mp[next] !== "undefined") {
-		      ins_bin += mp[next] ;
-		  }
+                  if (typeof mp[next] !== "undefined") {
+                      ins_bin += get_value(mp[next]) ;
+                  }
 	   }
 
 	   // instruction & bin
@@ -531,9 +534,10 @@
                      asm[l].bgcolor = bgc ;
 
                      // instruction
-		     s3_bin = mp[l] ;
-		     if (typeof s3_bin === 'undefined')
+                     s3_bin = get_value(mp[l]) ;
+		     if (typeof s3_bin === 'undefined') {
 		         s3_bin = 0 ;
+                     }
                      s1_instr = asm[l].source ;
                      s2_instr = asm[l].source_original ;
                      s4_hex   = parseInt(s3_bin, 2).toString(16) ;

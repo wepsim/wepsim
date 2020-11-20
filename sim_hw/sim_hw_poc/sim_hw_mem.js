@@ -41,33 +41,35 @@
 						  var value = 0 ;
 					          for (var index in sim.poc.internal_states.MP)
 						  {
-						       value = parseInt(sim.poc.internal_states.MP[index]) ;
+                                                       var value = simhw_internalState_getValue('MP', index) ;
+                                                           value = parseInt(value) ;
 						       if (value != 0) 
 						       {
 					                   key = parseInt(index).toString(16) ;
-							   vec.MEMORY["0x" + key] = {"type":  "memory", 
-								                     "default_value": 0x0,
-								                     "id":    "0x" + key,
-								                     "op":    "=", 
-								                     "value": "0x" + value.toString(16)} ;
+							   vec.MEMORY["0x" + key] = { "type":  "memory", 
+								                      "default_value": 0x0,
+								                      "id":    "0x" + key,
+								                      "op":    "=", 
+								                      "value": "0x" + value.toString(16) } ;
 						       }
 						  }
 
 						  return vec;
 				              },
 		                  read_state: function ( vec, check ) {
-                                                  if (typeof vec.MEMORY == "undefined")
+                                                  if (typeof vec.MEMORY == "undefined") {
                                                       vec.MEMORY = {} ;
+                                                  }
 
 					          var key = parseInt(check.id).toString(16) ;
 					          var val = parseInt(check.value).toString(16) ;
 					          if ("MEMORY" == check.type.toUpperCase().trim())
                                                   {
-						      vec.MEMORY["0x" + key] = {"type":  "memory", 
-							  	                "default_value": 0x0,
-								                "id":    "0x" + key,
-								                "op":    check.condition,
-								                "value": "0x" + val} ;
+						      vec.MEMORY["0x" + key] = { "type":  "memory", 
+							  	                 "default_value": 0x0,
+								                 "id":    "0x" + key,
+								                 "op":    check.condition,
+								                 "value": "0x" + val } ;
                                                       return true ;
                                                   }
 
@@ -75,19 +77,21 @@
 				             },
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
-						  if (typeof sim.poc.internal_states.MP[index] != "undefined") {
-						      return "0x" + parseInt(sim.poc.internal_states.MP[index]).toString(16) ;
+                                                  var value = simhw_internalState_getValue('MP', index) ;
+						  if (typeof value === "undefined") {
+					              return null ;
 					          }
 
-					          return null ;
+						  return "0x" + parseInt(value).toString(16) ;
 				             },
 
 		                  // native: get_value, set_value
 		                  get_value: function ( elto ) {
-                                                 return (simhw_internalState_get('MP', elto) >>> 0) ;
+                                                 var value = simhw_internalState_getValue('MP', elto) ;
+                                                 return (value >>> 0) ;
 				             },
 		                  set_value: function ( elto, value ) {
-						 simhw_internalState_set('MP', elto, value) ;
+                                                 simhw_internalState_setValue('MP', elto, value) ;
 						 return value ;
 				             }
                             	};
@@ -172,10 +176,11 @@
                                                           return;
                                                       }
 
-						      var value = 0;
-                                                      var wordress = address & 0xFFFFFFFC;
-						      if (typeof  sim.poc.internal_states.MP[wordress] != "undefined")
-						   	  value = sim.poc.internal_states.MP[wordress];
+                                                      var wordress = address & 0xFFFFFFFC ;
+                                                      var value = simhw_internalState_getValue('MP', wordress) ;
+						      if (typeof value === "undefined") {
+						   	  value = 0 ;
+                                                      }
 
                                                       // bit-width
 						      switch (bw) 
@@ -237,9 +242,10 @@
 								 break ;
 						      }
 
-						      var value = 0 ;
-					              if (typeof sim.poc.internal_states.MP[address] != "undefined")
-							  value = sim.poc.internal_states.MP[address] ;
+                                                      var value = simhw_internalState_getValue('MP', address) ;
+						      if (typeof value === "undefined") {
+						   	  value = 0 ;
+                                                      }
 
                                                       verbal = "Try to read a " + bw_type + " from memory " + 
 							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
@@ -269,10 +275,11 @@
                                                       if (remain > 0)
                                                           return;
 
-						      var value    = 0;
-                                                      var wordress = address & 0xFFFFFFFC;
-						      if (typeof  sim.poc.internal_states.MP[wordress] != "undefined")
-						   	  value = sim.poc.internal_states.MP[wordress];
+                                                      var wordress = address & 0xFFFFFFFC ;
+                                                      var value = simhw_internalState_getValue('MP', wordress) ;
+						      if (typeof value === "undefined") {
+						   	  value = 0 ;
+                                                      }
 
                                                       // bit-width
 						      switch (bw) 
@@ -308,7 +315,7 @@
 								 break ;
 						      }
 
-						      sim.poc.internal_states.MP[wordress] = (value >>> 0) ;
+                                                      simhw_internalState_setValue('MP', wordress, (value >>> 0));
                                                          sim.poc.signals[s_expr[4]].value = 1 ;
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, true, true) ;
                                                    },
@@ -334,9 +341,10 @@
 								 break ;
 						      }
 
-						      var value = 0 ;
-					              if (typeof sim.poc.internal_states.MP[address] != "undefined")
-							  value = sim.poc.internal_states.MP[address] ;
+                                                      var value = simhw_internalState_getValue('MP', address) ;
+						      if (typeof value === "undefined") {
+						   	  value = 0 ;
+                                                      }
 
                                                       verbal = "Try to write a " + bw_type + " to memory " + 
 							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
