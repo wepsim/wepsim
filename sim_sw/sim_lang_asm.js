@@ -1475,11 +1475,12 @@ function simlang_compile (text, datosCU)
 	   }
 
           var ret = {};
-	  ret.seg      = sim_segments ;
-          ret.mp       = {} ;
-	  ret.labels   = {} ; // [addr] = {name, addr, startbit, stopbit}
-          ret.labels2  = {} ;
-          ret.assembly = {} ; // This is for the Assembly Debugger...
+	  ret.seg        = sim_segments ;
+          ret.mp         = {} ;
+	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit}
+          ret.labels2    = {} ;
+          ret.assembly   = {} ; // This is for the Assembly Debugger...
+          ret.revlabels2 = {} ;
 
 	  data_found = false;
 	  text_found = false;
@@ -1609,9 +1610,9 @@ function simlang_compile (text, datosCU)
 	 }
 
          // reverse labels
-         ret.revlabels = {} ;
+         ret.revlabels2 = {} ;
          for (var key in ret.labels2) {
-              ret.revlabels[ret.labels2[key]] = key ;
+              ret.revlabels2[ret.labels2[key]] = key ;
          }
 
 	 return ret;
