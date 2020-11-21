@@ -37,8 +37,11 @@
 	    if (typeof cf['registers'] == "undefined")           cf['registers']          = {} ;
 	    if (typeof cf['pseudoInstructions'] == "undefined")  cf['pseudoInstructions'] = [] ;
 	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = {} ;
+
 	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = {} ;
 	    if (typeof cf['cocop_hash'] == "undefined")          cf['cocop_hash']         = {} ;
+	    if (typeof cf['revlabels2'] == "undefined")          cf['revlabels2']         = {} ;
+	    if (typeof cf['revseg'] == "undefined")              cf['revseg']             = {} ;
 
             return cf ;
 	}
@@ -47,19 +50,22 @@
         {
             var cf = simhw_internalState('FIRMWARE') ;
 
-	    if (typeof preWARE['firmware'] != "undefined")           cf['firmware'] = preWARE['firmware'] ;
-	    if (typeof preWARE['mp'] != "undefined")                 cf['mp'] = preWARE['mp'] ;
-	    if (typeof preWARE['registers'] != "undefined")          cf['registers'] = preWARE['registers'] ;
-	    if (typeof preWARE['assembly'] != "undefined")           cf['assembly'] = preWARE['assembly'] ;
+	    if (typeof preWARE['firmware'] != "undefined")           cf['firmware']       = preWARE['firmware'] ;
+	    if (typeof preWARE['mp'] != "undefined")                 cf['mp']             = preWARE['mp'] ;
+	    if (typeof preWARE['registers'] != "undefined")          cf['registers']      = preWARE['registers'] ;
+	    if (typeof preWARE['assembly'] != "undefined")           cf['assembly']       = preWARE['assembly'] ;
 	    if (typeof preWARE['pseudoInstructions'] != "undefined") cf['pseudoInstructions'] = preWARE['pseudoInstructions'] ;
 
-	    if (typeof preWARE['seg'] != "undefined")                cf['seg'] = preWARE['seg'] ;
-	    if (typeof preWARE['labels'] != "undefined")             cf['labels'] = preWARE['labels'] ;
-	    if (typeof preWARE['labels2'] != "undefined")            cf['labels2'] = preWARE['labels2'] ;
-	    if (typeof preWARE['labels_firm'] != "undefined")        cf['labels_firm'] = preWARE['labels_firm'] ;
+	    if (typeof preWARE['seg'] != "undefined")                cf['seg']           = preWARE['seg'] ;
+	    if (typeof preWARE['labels'] != "undefined")             cf['labels']        = preWARE['labels'] ;
+	    if (typeof preWARE['revlabels2'] != "undefined")         cf['revlabels2']    = preWARE['revlabels2'] ;
+	    if (typeof preWARE['labels_firm'] != "undefined")        cf['labels_firm']   = preWARE['labels_firm'] ;
 	    if (typeof preWARE['stackRegister'] != "undefined")      cf['stackRegister'] = preWARE['stackRegister'] ;
-	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash'] = preWARE['cihash'] ;
+
+	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash']     = preWARE['cihash'] ;
 	    if (typeof preWARE['cocop_hash'] != "undefined")         cf['cocop_hash'] = preWARE['cocop_hash'] ;
+	    if (typeof preWARE['labels2'] != "undefined")            cf['labels2']    = preWARE['labels2'] ;
+	    if (typeof preWARE['revseg'] != "undefined")             cf['revseg']     = preWARE['revseg'] ;
 	}
 
         function array_includes ( arr, val )

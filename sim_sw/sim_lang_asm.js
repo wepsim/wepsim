@@ -1481,6 +1481,7 @@ function simlang_compile (text, datosCU)
           ret.labels2    = {} ;
           ret.assembly   = {} ; // This is for the Assembly Debugger...
           ret.revlabels2 = {} ;
+          ret.revseg     = [] ;
 
 	  data_found = false;
 	  text_found = false;
@@ -1609,10 +1610,14 @@ function simlang_compile (text, datosCU)
              }
 	 }
 
-         // reverse labels
-         ret.revlabels2 = {} ;
+         // reverse labels (hash labels2 -> key)
          for (var key in ret.labels2) {
               ret.revlabels2[ret.labels2[key]] = key ;
+         }
+
+         // reverse segments (hash segname -> properties)
+         for (var skey in ret.seg) {
+              ret.revseg.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
          }
 
 	 return ret;

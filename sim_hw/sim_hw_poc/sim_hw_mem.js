@@ -41,8 +41,8 @@
 						  var value = 0 ;
 					          for (var index in sim.poc.internal_states.MP)
 						  {
-                                                       var value = simhw_internalState_getValue('MP', index) ;
-                                                           value = parseInt(value) ;
+                                                       value = simhw_internalState_getValue('MP', index) ;
+                                                       value = parseInt(value) ;
 						       if (value != 0)
 						       {
 					                   key = parseInt(index).toString(16) ;

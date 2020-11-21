@@ -89,27 +89,16 @@
             var value = "" ;
             var taddr = "" ;
 
-            var valkeys = [] ;
-
-            // todo: move next block to the end of the assembler parser
             var SIMWARE = get_simware() ;
+            var seglabels  = SIMWARE.revseg ;
+            var revlabels2 = SIMWARE.revlabels2 ;
 
-            var revlabels = {} ;
-            for (var key in SIMWARE.labels2) {
-                 revlabels[SIMWARE.labels2[key]] = key ;
-            }
-
-            var seglabels = [] ;
-            var curr_segments = simhw_internalState('segments') ;
-	    for (var skey in curr_segments) {
-                 seglabels.push({ 'begin': parseInt(curr_segments[skey].begin), 'name': skey }) ;
-            }
-
-            var seglabels_i = 0 ;
             var seg_o1 = '' ;
-            for (key in memory)
+            var seglabels_i = 0 ;
+            var valkeys = [] ;
+            for (var key in memory)
             {
-                value = main_memory_getword(revlabels, valkeys, memory, key) ;
+                value = main_memory_getword(revlabels2, valkeys, memory, key) ;
 
                 seg_o1 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
@@ -199,12 +188,9 @@
         {
             if (redraw)
             {
-                var valkeys   = [] ;
-                var SIMWARE   = get_simware() ;
-                var revlabels = {} ;
-                for (var key in SIMWARE.labels2)
-                     revlabels[SIMWARE.labels2[key]] = key ;
-                var svalue = main_memory_getword(revlabels, valkeys, memory, index) ;
+                var SIMWARE = get_simware() ;
+                var valkeys = [] ;
+                var svalue  = main_memory_getword(SIMWARE.revlabels2, valkeys, memory, index) ;
 
                 o1 = $("#mpval" + index) ;
                 o1.html(svalue);
@@ -235,8 +221,11 @@
              {
 	          wadd = "0x" + (parseInt(c)+j).toString(16);
 	          if (typeof slebal[wadd] != "undefined")
-                       for (var i=0; i<slebal[wadd].length; i++)
+                  {
+                       for (var i=0; i<slebal[wadd].length; i++) {
 		            clabel = clabel + "<span class='badge badge-pill badge-secondary float-left'>" + slebal[wadd][i] + "</span>" ;
+                       }
+                  }
 	          else clabel = clabel + "&nbsp;" ;
              }
 
@@ -258,11 +247,11 @@
 	        for (var skey1 in seg)
 	        {
                      slimits[skey1] = {
-                                       'c_begin': parseInt(seg[skey1].begin),
-                                       'c_end':   parseInt(seg[skey1].end),
-                                       'm_end':   0,
-		                       'color':   seg[skey1].color
-				     } ;
+                                        'c_begin': parseInt(seg[skey1].begin),
+                                        'c_end':   parseInt(seg[skey1].end),
+                                        'm_end':   0,
+		                        'color':   seg[skey1].color
+				      } ;
                 }
                 var a = 0 ;
 	        for (var m in mp)
