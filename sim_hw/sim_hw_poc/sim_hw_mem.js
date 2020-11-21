@@ -178,9 +178,11 @@
 
                                                       var wordress = address & 0xFFFFFFFC ;
                                                       var value = simhw_internalState_getValue('MP', wordress) ;
-						      if (typeof value === "undefined") {
-						   	  value = 0 ;
-                                                      }
+                                                      var full_redraw = false ;
+                                                      if (typeof value === "undefined") {
+                                                          value = 0 ;
+                                                          full_redraw = true ;
+               					      }
 
                                                       // bit-width
 						      switch (bw)
@@ -218,7 +220,7 @@
 
                                                       sim.poc.states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim.poc.signals[s_expr[4]].value = 1;
-				                      show_main_memory(sim.poc.internal_states.MP, wordress, false, false) ;
+				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, false) ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -277,9 +279,11 @@
 
                                                       var wordress = address & 0xFFFFFFFC ;
                                                       var value = simhw_internalState_getValue('MP', wordress) ;
-						      if (typeof value === "undefined") {
-						   	  value = 0 ;
-                                                      }
+                                                      var full_redraw = false ;
+                                                      if (typeof value === "undefined") {
+                                                          value = 0 ;
+                                                          full_redraw = true ;
+               					      }
 
                                                       // bit-width
 						      switch (bw)
@@ -318,7 +322,7 @@
                                                       var valref = simhw_internalState_setValue('MP', wordress,
 											        (value >>> 0));
                                                          sim.poc.signals[s_expr[4]].value = 1 ;
-				                      show_main_memory(sim.poc.internal_states.MP, wordress, true, true) ;
+				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, true) ;
                                                    },
                                            verbal: function (s_expr)
                                                    {

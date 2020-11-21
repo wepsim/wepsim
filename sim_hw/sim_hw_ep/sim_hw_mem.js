@@ -159,8 +159,11 @@
 
                                                       address = address & 0xFFFFFFFC;
                                                       var value = simhw_internalState_getValue('MP', address) ;
-                                                      if (typeof value === "undefined")
+                                                      var full_redraw = false ;
+                                                      if (typeof value === "undefined") {
                                                           value = 0 ;
+                                                          full_redraw = true ;
+               					      }
 
                                                       // TABLES
                                                       if ( 0 == (bw & 0x0000000C) )
@@ -188,7 +191,7 @@
 
                                                       sim.ep.states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim.ep.signals[s_expr[4]].value = 1;
-				                      show_main_memory(sim.ep.internal_states.MP, address, false, false) ;
+				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, false) ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -246,8 +249,11 @@
 
                                                       address = address & 0xFFFFFFFC;
                                                       var value = simhw_internalState_getValue('MP', address) ;
-                                                      if (typeof value === "undefined")
+                                                      var full_redraw = false ;
+                                                      if (typeof value === "undefined") {
                                                           value = 0 ;
+                                                          full_redraw = true ;
+                 				      }
 
                                                       // TABLES
                                                       if ( 0 == (bw & 0x0000000C) )
@@ -276,7 +282,7 @@
                                                       var valref = simhw_internalState_setValue('MP', address,
 											        (value >>> 0));
                                                       sim.ep.signals[s_expr[4]].value = 1;
-				                      show_main_memory(sim.ep.internal_states.MP, address, true, true) ;
+				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, true) ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
