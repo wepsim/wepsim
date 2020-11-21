@@ -85,21 +85,24 @@
 
         function hard_refresh_main_memory ( memory, index, redraw )
         {
-	    var o1 = "" ;
-            var value = "" ;
-            var taddr = "" ;
+	    var o1     = "" ;
+            var value  = "" ;
+            var taddr  = "" ;
+            var wcolor = '' ;
+            var seg_o1 = '' ;
 
             var SIMWARE = get_simware() ;
             var seglabels  = SIMWARE.revseg ;
             var revlabels2 = SIMWARE.revlabels2 ;
 
-            var seg_o1 = '' ;
             var seglabels_i = 0 ;
             var valkeys = [] ;
             for (var key in memory)
             {
+                // value
                 value = main_memory_getword(revlabels2, valkeys, memory, key) ;
 
+                // segment
                 seg_o1 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
@@ -110,28 +113,31 @@
 		}
                 o1 += seg_o1 ;
 
+                // taddr
                 taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-none d-sm-inline-flex"> </span>-' +
                         '<span class="d-none d-sm-inline-flex"><small> 0x</small></span>' + pack5(valkeys[0]) ;
 
+                // wcolor
+                var wcolor = "color:black; font-size:small; font-weight:normal; border-bottom: 1px solid lightgray !important" ;
 		if (key == index)
-		     o1 += "<div class='row' id='addr" + key + "'" +
-                           "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
-			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" +
-                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" +
-                           "</div>" ;
-		else o1 += "<div class='row' id='addr" + key + "'" +
-                           "     style='color:black; font-size:small; font-weight:normal; border-bottom: 1px solid lightgray !important'>" +
-			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" +
-                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" +
-                           "</div>" ;
+                    wcolor = "color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important" ;
+
+                // new row
+		o1 += "<div class='row' id='addr" + key + "' " + "style='" + wcolor + "'>" +
+		      "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" +
+                      "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" +
+                      "</div>" ;
             }
 
 	    if (typeof memory[index] == "undefined")
 	    {
-		o1 += "<div class='row' id='addr" + index + "'" +
-                      "     style='color:blue; font-size:small; font-weight:bold; border-bottom: 1px solid lightgray !important'>" +
-		      "<div class='col-6 pr-2' align='right'  style='padding:5'>" + "0x" + parseInt(index).toString(16) + "</div>" +
-		      "<div class='col-6'      align='left'   style='padding:5' id='mpval>" + index + "'>" + "00 00 00 00" + "</div>"+
+                taddr = "0x" + parseInt(index).toString(16) ;
+                value = "00 00 00 00" ;
+                wcolor = "color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important" ;
+
+		o1 += "<div class='row' id='addr" + index + "' " + "style='" + wcolor + "'>" +
+		      "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" +
+	              "<div class='col-6'      align='left'   style='padding:5' id='mpval>" + index + "'>" + value + "</div>"+
                       "</div>";
 	    }
 
