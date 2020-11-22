@@ -173,19 +173,19 @@
 
         sim.poc.internal_states.tri_state_names = [ "T1","T2","T3","T6","T8","T9","T10","T11" ] ;
         sim.poc.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        sim.poc.internal_states.filter_states   = [ "REG_IR_DECO,col-11",
-                                                "REG_IR,col-auto",  "REG_PC,col-auto",  "REG_SR,col-auto",
-                                                "REG_RT1,col-auto",  
-                                                "REG_MAR,col-auto", "REG_MBR,col-auto", "REG_MICROADDR,col-auto" ] ;
+        sim.poc.internal_states.filter_states   = [ "REG_IR_DECO,col-12",
+                                                    "REG_IR,col-auto",  "REG_PC,col-auto",  "REG_SR,col-auto",
+                                                    "REG_RT1,col-auto",  
+                                                    "REG_MAR,col-auto", "REG_MBR,col-auto", "REG_MICROADDR,col-auto" ] ;
         sim.poc.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",  
-                                                "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
-				        "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C7,0",
-				        "T1,0", "T2,0",   "T3,0",   "T6,0",   "T8,0",
-                                        "T9,0", "T10,0", "T11,0",
-				                "M1,0",   "M7,0",  "MA,0",   "MB,0",
-                                                "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
-                                                "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0","IOW,0",
-                                                "TEST_I,0", "TEST_U,0"  ] ;
+                                                    "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
+				            "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C7,0",
+				            "T1,0", "T2,0",   "T3,0",   "T6,0",   "T8,0",
+                                            "T9,0", "T10,0",  "T11,0",
+				                    "M1,0",   "M7,0", "MA,0",   "MB,0",
+                                                    "LC,0",   "SE,0", "SIZE,0", "OFFSET,0",
+                                                    "BW,0",   "R,0",  "W,0",    "TA,0",  "TD,0", "IOR,0","IOW,0",
+                                                    "TEST_I,0", "TEST_U,0"  ] ;
         sim.poc.internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0, 'flag_v': 0, 'flag_c': 0 } ;
 
 

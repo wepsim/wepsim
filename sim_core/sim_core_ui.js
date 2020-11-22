@@ -89,6 +89,8 @@
 				    break ;
 		   case "float":    fmt_value = hex2float(value) ;
 				    break ;
+		   case "char":     fmt_value = "'" + String.fromCharCode(value) + "'" ;  // fmt[1] = ascii
+				    break ;
 		   default:         fmt_value = value.toString() ;
 		}
 
