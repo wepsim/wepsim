@@ -89,7 +89,7 @@
             var seglabels = SIMWARE.revseg ;
 
 	    var o1 = "" ;
-            var value  = "" ;
+            var value = [] ;
             var seg_o1 = '' ;
             var seglabels_i = 0 ;
             for (var key in memory)
@@ -140,10 +140,10 @@
             {
                 var svalue  = main_memory_getword(memory, index) ;
 
-                $("#mpval" + (index + 0)).html(svalue[0].toUpperCase() + svalue[1].toUpperCase()) ;
-                $("#mpval" + (index + 1)).html(svalue[2].toUpperCase() + svalue[3].toUpperCase()) ;
-                $("#mpval" + (index + 2)).html(svalue[4].toUpperCase() + svalue[5].toUpperCase()) ;
-                $("#mpval" + (index + 3)).html(svalue[6].toUpperCase() + svalue[7].toUpperCase()) ;
+                $("#mpval" + (index + 0)).html(svalue[0]) ;
+                $("#mpval" + (index + 1)).html(svalue[1]) ;
+                $("#mpval" + (index + 2)).html(svalue[2]) ;
+                $("#mpval" + (index + 3)).html(svalue[3]) ;
             }
 
             o1 = $("#addr" + old_main_addr) ;
@@ -177,6 +177,13 @@
                  idi[j]     = "mpval" + addri ;
             }
 
+            // future: tooltip with other values... ?
+        //  var rf_format = get_cfg('RF_display_format') ;
+        //  rf_format = rf_format.replace('_fill', '_nofill') ;
+        //  for (var i=0; i<4; i++) {
+        //       value4[i] = value2string(rf_format, parseInt(value[2*i] + value[2*i+1], 16)) ;
+        //  }
+
             // value2
             var labeli = '' ;
             var valuei = '' ;
@@ -184,9 +191,7 @@
             var value2 = '' ;
             for (var i=0; i<4; i++)
             {
-                valuei = value[i*2].toUpperCase() + value[i*2+1].toUpperCase() ;
-
-                valuei = '<span id="' + idi[i] + '">' + valuei + '</span>' ;
+                valuei = '<span id="' + idi[i] + '">' + value[i] + '</span>' ;
                 labeli = revlabels["0x" + valkeys[3-i]] ;
                 if (typeof labeli !== "undefined")
                 {
@@ -217,12 +222,20 @@
 
         function main_memory_getword ( memory, key )
         {
+            // get value...
             var value = "0" ;
             if (typeof memory[key] !== "undefined") {
                 value = get_value(memory[key]).toString(16) ;
             }
+	    value = pack8(value) ;
 
-	    return pack8(value) ;
+            // pack value...
+	    var value4 = [] ;
+            for (var i=0; i<4; i++) {
+                 value4[i] = value[2*i].toUpperCase() + value[2*i+1].toUpperCase() ;
+            }
+
+	    return value4 ;
         }
 
 
