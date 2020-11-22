@@ -124,7 +124,7 @@
                 seg_o1 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    seg_o1 = '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;">' +
+                    seg_o1 = '<div style="position:sticky;top:0px;z-index:1;width:75%;background:#FFFFFF;">' +
                              '<b><small>' + seglabels[seglabels_i].name + '</small></b>' +
                              '</div>' ;
 		    seglabels_i++ ;
@@ -151,7 +151,7 @@
 	        var topPos = obj_byid[0].offsetTop ;
 	            obj_byid = $('#memory_MP') ;
 	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos - 120;
+	            obj_byid[0].scrollTop = topPos - 150 ;
             }
 
             // update old_main_add for light_update
@@ -204,7 +204,7 @@
             }
 
             // format of the value
-            var rf_format = get_cfg('RF_display_format') ;
+            var rf_format = get_cfg('MEM_display_format') ;
             rf_format = rf_format.replace('_fill', '_nofill') ;
             for (var i=0; i<4; i++) {
                  value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
@@ -272,9 +272,9 @@
  
         function quick_config_mem_htmlformat ( label2, format2 )
         {
-	      return "<div class='col p-1'>" +
+	      return "<div class='col-6 p-1'>" +
 		     "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		     "        onclick='update_cfg(\"RF_display_format\", \"" + format2 + "\"); " +
+		     "        onclick='update_cfg(\"MEM_display_format\", \"" + format2 + "\"); " +
                      "                 show_memories_values();" +
                      "                 return true; '>" +
 		     "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
@@ -288,9 +288,10 @@
 	               "<div class='col-12 p-0'>" +
                        "<span data-langkey='Display format'>Display format</span>" +
                        "</div>" +
-                         quick_config_mem_htmlformat("0x1A<sub>16</sub>", "unsigned_16_nofill") +
-                         quick_config_mem_htmlformat("032<sub>8</sub>",   "unsigned_8_nofill") +
-                         quick_config_mem_htmlformat("26<sub>10</sub>",   "unsigned_10_nofill") +
+                         quick_config_mem_htmlformat("0x3B<sub>16</sub>", "unsigned_16_nofill") +
+                         quick_config_mem_htmlformat("073<sub>8</sub>",   "unsigned_8_nofill") +
+                         quick_config_mem_htmlformat("59<sub>10</sub>",   "unsigned_10_nofill") +
+                         quick_config_mem_htmlformat(";<sub>ascii</sub>", "char_ascii_nofill") +
 	             "<div class='w-100 border border-light'></div>" +
 		       "<div class='col p-1'>" +
 		       "<button type='button' id='close' data-role='none' " +
