@@ -88,10 +88,12 @@
 		                  // native: get_value, set_value
 		                  get_value: function ( elto ) {
                                                  var value = simhw_internalState_getValue('MP', elto) ;
+				                 show_main_memory(sim.poc.internal_states.MP, elto, false,false) ;
                                                  return (value >>> 0) ;
 				             },
 		                  set_value: function ( elto, value ) {
                                                  var valref = simhw_internalState_setValue('MP', elto, value) ;
+				                 show_main_memory(sim.poc.internal_states.MP, elto, false,true) ;
 						 return value ;
 				             }
                             	};
