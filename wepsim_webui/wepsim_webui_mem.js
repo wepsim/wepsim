@@ -177,12 +177,13 @@
                  idi[j]     = "mpval" + addri ;
             }
 
-            // future: tooltip with other values... ?
-        //  var rf_format = get_cfg('RF_display_format') ;
-        //  rf_format = rf_format.replace('_fill', '_nofill') ;
-        //  for (var i=0; i<4; i++) {
-        //       value4[i] = value2string(rf_format, parseInt(value[2*i] + value[2*i+1], 16)) ;
-        //  }
+            // format of the value
+            var rf_format = get_cfg('RF_display_format') ;
+            rf_format = rf_format.replace('_fill', '_nofill') ;
+            for (var i=0; i<4; i++) {
+                 value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
+                 value[i] = simcoreui_pack(value[i], 2) ;
+            }
 
             // value2
             var labeli = '' ;
@@ -209,10 +210,10 @@
 	    o = "<div class='row' id='addr" + addr + "'" +
                 "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
 		"<div class='col-6 pr-2' align='right'>" +
-                     '<small>0x</small>' + pack5(valkeys[3]).toUpperCase() +
+                     '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
                      '<span class="d-none d-sm-inline-flex"> </span>-' +
                      '<span class="d-none d-sm-inline-flex">' +
-                     '<small> 0x</small></span>' + pack5(valkeys[0]).toUpperCase() +
+                     '<small> 0x</small></span>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
 	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
                 "</div>";
@@ -227,7 +228,7 @@
             if (typeof memory[key] !== "undefined") {
                 value = get_value(memory[key]).toString(16) ;
             }
-	    value = pack8(value) ;
+	    value = simcoreui_pack(value, 8) ;
 
             // pack value...
 	    var value4 = [] ;

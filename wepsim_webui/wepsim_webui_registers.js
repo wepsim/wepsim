@@ -100,7 +100,7 @@
 		var valuec8  = hex2char8(valueui) ;
                 var valueoct = "0"  + valueui.toString(8).toUpperCase() ;
                 var valuehex = valueui.toString(16).toUpperCase() ;
-                    valuehex = "0x" + pack8(valuehex) ;
+                    valuehex = "0x" + simcoreui_pack(valuehex, 8) ;
 
 		var o2 = "" ;
 		if (get_cfg('is_editable') == true)
