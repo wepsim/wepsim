@@ -46,6 +46,7 @@
 
 		    this.innerHTML = o1 ;
 
+                    // initialize loaded components
 		    $("[data-toggle=popover-mem]").popover({
 			    html:      true,
 			    placement: 'auto',
@@ -59,14 +60,12 @@
 			    container: 'body',
 			    content:    quick_config_mem,
 			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
+					    return content ; // DOMPurify.sanitize(content) ;
 					}
 		    }).on('shown.bs.popover',
 					function(shownEvent) {
 					    i18n_update_tags('cfg') ;
-					    i18n_update_tags('dialogs') ;
 					}) ;
-
 	      }
 
 	      connectedCallback ()
@@ -271,6 +270,17 @@
          * Quick menu (display format)
          */
  
+        function quick_config_mem_htmlformat ( label2, format2 )
+        {
+	      return "<div class='col p-1'>" +
+		     "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		     "        onclick='update_cfg(\"RF_display_format\", \"" + format2 + "\"); " +
+                     "                 show_memories_values();" +
+                     "                 return true; '>" +
+		     "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
+		     "</div>" ;
+        }
+
         function quick_config_mem ( )
         {
 	      return "<div class='container mt-1'>" +
@@ -292,17 +302,6 @@
 		     "</div>" +
 		     "</div>" ;
         }
-
-           function quick_config_mem_htmlformat ( label2, format2 )
-           {
-	       return "<div class='col p-1'>" +
-		      "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		      "        onclick='update_cfg(\"RF_display_format\", \"" + format2 + "\"); " +
-                      "                 show_memories_values();" +
-                      "                 return true; '>" +
-		      "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
-		      "</div>" ;
-           }
 
 
         /*
