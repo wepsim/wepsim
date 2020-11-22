@@ -35,11 +35,38 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		    var o1 = "<div id='memory_MP' " +
+		    var o1 = "<a data-toggle='popover-mem' id='popover-mem' " +
+			     "   tabindex='0' class='m-auto show multi-collapse-3'>" +
+                             "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
+                             "</a>" +
+                             "" +
+		             "<div id='memory_MP' " +
                              "     style='height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" +
                              "</div>" ;
 
 		    this.innerHTML = o1 ;
+
+		    $("[data-toggle=popover-mem]").popover({
+			    html:      true,
+			    placement: 'auto',
+			    animation: false,
+			    trigger:   'click',
+			    template:  '<div class="popover shadow" role="tooltip">' +
+				       '<div class="arrow"></div>' +
+				       '<h3  class="popover-header"></h3>' +
+				       '<div class="popover-body"></div>' +
+				       '</div>',
+			    container: 'body',
+			    content:    quick_config_mem,
+			    sanitizeFn: function (content) {
+					   return content ; // DOMPurify.sanitize(content) ;
+					}
+		    }).on('shown.bs.popover',
+					function(shownEvent) {
+					    i18n_update_tags('cfg') ;
+					    i18n_update_tags('dialogs') ;
+					}) ;
+
 	      }
 
 	      connectedCallback ()
@@ -238,6 +265,44 @@
 
 	    return value4 ;
         }
+
+
+        /*
+         * Quick menu (display format)
+         */
+ 
+        function quick_config_mem ( )
+        {
+	      return "<div class='container mt-1'>" +
+                     "<div class='row'>" +
+	               "<div class='col-12 p-0'>" +
+                       "<span data-langkey='Display format'>Display format</span>" +
+                       "</div>" +
+                         quick_config_mem_htmlformat("0x1A<sub>16</sub>", "unsigned_16_nofill") +
+                         quick_config_mem_htmlformat("032<sub>8</sub>",   "unsigned_8_nofill") +
+                         quick_config_mem_htmlformat("26<sub>10</sub>",   "unsigned_10_nofill") +
+	             "<div class='w-100 border border-light'></div>" +
+		       "<div class='col p-1'>" +
+		       "<button type='button' id='close' data-role='none' " +
+		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		       "        onclick='$(\"#popover-mem\").popover(\"hide\");'>" +
+                       "<span data-langkey='Close'>Close</span>" +
+                       "</button>" +
+		       "</div>" +
+		     "</div>" +
+		     "</div>" ;
+        }
+
+           function quick_config_mem_htmlformat ( label2, format2 )
+           {
+	       return "<div class='col p-1'>" +
+		      "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		      "        onclick='update_cfg(\"RF_display_format\", \"" + format2 + "\"); " +
+                      "                 show_memories_values();" +
+                      "                 return true; '>" +
+		      "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
+		      "</div>" ;
+           }
 
 
         /*
