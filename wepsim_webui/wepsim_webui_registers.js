@@ -38,7 +38,11 @@
 	      render ( msg_default )
 	      {
                     // html holder
-                    var o1 = '<div id="' + this.tf_div + '" ' +
+		    var o1 = "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " +
+			     "   tabindex='0' class='m-auto show multi-collapse-3'>" + 
+                             "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" + 
+                             "</a>" +
+                             '<div id="' + this.tf_div + '" ' +
                              '     style="width:inherit; overflow-y:auto;"' +
                              '     class="container container-fluid px-1 pb-1">' +
                              '</div>' +
@@ -48,6 +52,28 @@
                              '</div>' ;
 
                     this.innerHTML = o1 ;
+
+                    // initialize loaded components
+		    $("[data-toggle=popover-rfcfg]").popover({
+			    html:      true,
+			    placement: 'auto',
+			    animation: false,
+			    trigger:   'click',
+			    template:  '<div class="popover shadow" role="tooltip">' +
+				       '<div class="arrow"></div>' +
+				       '<h3  class="popover-header"></h3>' +
+				       '<div class="popover-body"></div>' +
+				       '</div>',
+			    container: 'body',
+			    content:    quick_config_rf,
+			    sanitizeFn: function (content) {
+					   return content ; // DOMPurify.sanitize(content) ;
+					}
+		    }).on('shown.bs.popover',
+					function(shownEvent) {
+					    i18n_update_tags('cfg') ;
+					    i18n_update_tags('dialogs') ;
+					}) ;
 	      }
 
 	      connectedCallback ()
@@ -390,12 +416,11 @@
             var filter    = simhw_internalState('filter_states') ;
 
             // Fast UI configuration
-            var o1 = "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " +
-	             "   tabindex='0' class='m-auto show multi-collapse-3'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" ;
+            var o1 = "" ;
 
             // Registers
-	    var divclass  =  "" ;
-	    var value     =  "" ;
+	    var divclass =  "" ;
+	    var value    =  "" ;
 
             var part1 = "" ;
             var part2 = "" ;
@@ -452,27 +477,6 @@
                         return content ; // DOMPurify.sanitize(content) ;
                     }
 	    });
-
-	    $("[data-toggle=popover-rfcfg]").popover({
-	    	    html:      true,
-                    placement: 'auto',
-                    animation: false,
-                    trigger:   'click',
-		    template:  '<div class="popover shadow" role="tooltip">' +
-                               '<div class="arrow"></div>' +
-		               '<h3  class="popover-header"></h3>' +
-		               '<div class="popover-body"></div>' +
-		               '</div>',
-		    container: 'body',
-		    content:    quick_config_rf,
-		    sanitizeFn: function (content) {
-                                   return content ; // DOMPurify.sanitize(content) ;
-                                }
-	    }).on('shown.bs.popover',
-		                function(shownEvent) {
-                                    i18n_update_tags('cfg') ;
-                                    i18n_update_tags('dialogs') ;
-                                }) ;
 
 	    // knockout binding
             for (var i=0; i<filter.length; i++)

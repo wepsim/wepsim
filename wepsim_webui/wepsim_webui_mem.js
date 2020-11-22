@@ -186,6 +186,7 @@
         function main_memory_showrow ( addr, value, is_current, revlabels )
         {
             var o = "" ;
+            var i = 0 ;
 
             // wcolor
             var wcolor = "color:black; font-weight:normal; " ;
@@ -196,17 +197,17 @@
             // valkeys
             var valkeys = [] ;
             var idi     = [] ;
-            for (var j=0; j<4; j++)
+            for (var i=0; i<4; i++)
             {
-                 var addri  = parseInt(addr) + j ;
-		 valkeys[j] = addri.toString(16) ;
-                 idi[j]     = "mpval" + addri ;
+                 var addri  = parseInt(addr) + i ;
+		 valkeys[i] = addri.toString(16) ;
+                 idi[i]     = "mpval" + addri ;
             }
 
             // format of the value
             var rf_format = get_cfg('MEM_display_format') ;
             rf_format = rf_format.replace('_fill', '_nofill') ;
-            for (var i=0; i<4; i++) {
+            for (i=0; i<4; i++) {
                  value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
                  value[i] = simcoreui_pack(value[i], 2) ;
             }
@@ -216,7 +217,7 @@
             var valuei = '' ;
 
             var value2 = '' ;
-            for (var i=0; i<4; i++)
+            for (i=0; i<4; i++)
             {
                 valuei = '<span id="' + idi[i] + '">' + value[i] + '</span>' ;
                 labeli = revlabels["0x" + valkeys[3-i]] ;
