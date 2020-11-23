@@ -84,9 +84,11 @@
 
 		                  // native: get_value, set_value
 		                  get_value: function ( elto ) {
+                                                 show_main_memory(sim.ep.internal_states.MP, elto, false,false) ;
                                                  return (simhw_internalState_get('MP', elto) >>> 0) ;
 				             },
 		                  set_value: function ( elto, value ) {
+                                                 show_main_memory(sim.ep.internal_states.MP, elto, true,false) ;
 						 simhw_internalState_set('MP', elto, value) ;
 						 return value ;
 				             }
