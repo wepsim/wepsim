@@ -168,20 +168,15 @@
 
 	    "REGISTER_FILE":  {
 						  init: function() {
-							     $('#states_ALL').html(msg_default) ;
-							     wepsim_init_states('#states_ALL') ;
-
-							     $('#states_BR').html(msg_default) ;
-							     wepsim_init_rf('#states_BR') ;
+							     wepsim_init_states() ;
+							     wepsim_init_rf() ;
 							},
 						 reset: function() {
-							     wepsim_show_states() ;
-							     wepsim_show_rf_values();
-							     wepsim_show_rf_names();
+							     // wepsim_show_rf_names() ;
 							},
-					   show_states: wepsim_show_states,
-					show_rf_values: wepsim_show_rf_values,
-					 show_rf_names: wepsim_show_rf_names
+					 show_rf_names: function() {
+							     wepsim_show_rf_names() ;
+							},
 	                      },
 
 	    "CPU_STATS":      {

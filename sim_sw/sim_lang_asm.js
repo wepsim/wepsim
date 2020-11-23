@@ -384,7 +384,7 @@ function writememory_and_reset ( mp, gen, nwords )
 {
 	if (gen.byteWord >= WORD_BYTES)
         {
-	    mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;
+            mp["0x" + gen.seg_ptr.toString(16)] = { "value": gen.machineCode } ;
 
             gen.seg_ptr     = gen.seg_ptr + WORD_BYTES ;
             gen.byteWord    = 0 ;
@@ -780,7 +780,7 @@ function read_data ( context, datosCU, ret )
 	   // Fill memory
 	   if (gen.byteWord > 0)
 	   {
-		ret.mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;
+                ret.mp["0x" + gen.seg_ptr.toString(16)] = { "value": gen.machineCode } ;
                 gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
 	   }
 
@@ -844,7 +844,7 @@ function read_text ( context, datosCU, ret )
                             }
 
 			    return langError(context,
-			                     i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
+			                     i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
                                              "'" + possible_tag + "'") ;
                         }
 
@@ -1371,7 +1371,8 @@ function read_text ( context, datosCU, ret )
 				                                       source_original: s_ori,
 				                                       firm_reference:  ref
 			                                            } ;
-			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) ;
+                        ret.mp["0x" + seg_ptr.toString(16)] = { "value": machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) } ;
+
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
 
@@ -1474,11 +1475,13 @@ function simlang_compile (text, datosCU)
 	   }
 
           var ret = {};
-	  ret.seg      = sim_segments ;
-          ret.mp       = {} ;
-	  ret.labels   = {} ; // [addr] = {name, addr, startbit, stopbit}
-          ret.labels2  = {} ;
-          ret.assembly = {} ; // This is for the Assembly Debugger...
+	  ret.seg        = sim_segments ;
+          ret.mp         = {} ;
+	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit}
+          ret.labels2    = {} ;
+          ret.assembly   = {} ; // This is for the Assembly Debugger...
+          ret.revlabels2 = {} ;
+          ret.revseg     = [] ;
 
 	  data_found = false;
 	  text_found = false;
@@ -1533,7 +1536,7 @@ function simlang_compile (text, datosCU)
 		var machineCode = "";
 		var auxAddr = ret.labels[i].addr;
 		for (j=0; j<ret.labels[i].nwords; j++) {
-			machineCode = ret.mp["0x" + auxAddr.toString(16)] + machineCode;
+                        machineCode = ret.mp["0x" + auxAddr.toString(16)].value + machineCode;
 			auxAddr += WORD_BYTES;
 		}
 
@@ -1591,7 +1594,7 @@ function simlang_compile (text, datosCU)
 		auxAddr = ret.labels[i].addr;
 		for (j=ret.labels[i].nwords-1; j>=0; j--)
                 {
-			ret.mp["0x" + auxAddr.toString(16)] = machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) ;
+                        ret.mp["0x" + auxAddr.toString(16)] = { "value": machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) } ;
                 	auxAddr += WORD_BYTES ;
 		}
 	 }
@@ -1606,6 +1609,16 @@ function simlang_compile (text, datosCU)
 		                    i18n_get_TagFor('compiler', 'NO MAIN OR KMAIN')) ;
              }
 	 }
+
+         // reverse labels (hash labels2 -> key)
+         for (var key in ret.labels2) {
+              ret.revlabels2[ret.labels2[key]] = key ;
+         }
+
+         // reverse segments (hash segname -> properties)
+         for (var skey in ret.seg) {
+              ret.revseg.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
+         }
 
 	 return ret;
 }

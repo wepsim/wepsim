@@ -23,6 +23,7 @@
 
 	        "PROBLEM AROUND LINE":          "라인 주변의 문제",
 		'NO TAG OR DIRECTIVE':		'태그 또는 지시 예상하지만,이 대신 토큰을 발견 : ',
+		'NO TAG, DIR OR INS':		'유효한 태그 (예 : tag1 :) 지시문 (예 : .data) 또는 명령어가 없습니다.: ',
 		'INVALID TAG FORMAT':		'태그는 (문자 나 밑줄로 시작하는) 영숫자 형식을 따라야합니다 : ',
 		'TAG OR INSTRUCTION':		'태그는 명령과 동일한 이름을 가질 수 없습니다 : ',
 		'REPEATED TAG':		'반복 태그 : ',

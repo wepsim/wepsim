@@ -35,11 +35,37 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		    var o1 = "<div id='memory_MP' " + 
-                             "     style='height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" + 
+		    var o1 = "<a data-toggle='popover-mem' id='popover-mem' " +
+			     "   tabindex='0' class='m-auto show multi-collapse-3'>" +
+                             "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
+                             "</a>" +
+                             "" +
+		             "<div id='memory_MP' " +
+                             "     style='height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" +
                              "</div>" ;
 
 		    this.innerHTML = o1 ;
+
+                    // initialize loaded components
+		    $("[data-toggle=popover-mem]").popover({
+			    html:      true,
+			    placement: 'auto',
+			    animation: false,
+			    trigger:   'click',
+			    template:  '<div class="popover shadow" role="tooltip">' +
+				       '<div class="arrow"></div>' +
+				       '<h3  class="popover-header"></h3>' +
+				       '<div class="popover-body"></div>' +
+				       '</div>',
+			    container: 'body',
+			    content:    quick_config_mem,
+			    sanitizeFn: function (content) {
+					    return content ; // DOMPurify.sanitize(content) ;
+					}
+		    }).on('shown.bs.popover',
+					function(shownEvent) {
+					    i18n_update_tags('cfg') ;
+					}) ;
 	      }
 
 	      connectedCallback ()
@@ -85,65 +111,35 @@
 
         function hard_refresh_main_memory ( memory, index, redraw )
         {
-	    var o1 = "" ;
-            var value = "" ;
-            var taddr = "" ;
-
-            var valkeys = [] ;
-
-            // todo: move next block to the end of the assembler parser
             var SIMWARE = get_simware() ;
+            var seglabels = SIMWARE.revseg ;
 
-            var revlabels = {} ;
-            for (var key in SIMWARE.labels2) {
-                 revlabels[SIMWARE.labels2[key]] = key ;
-            }
-
-            var seglabels = [] ;
-            var curr_segments = simhw_internalState('segments') ;
-	    for (var skey in curr_segments) {
-                 seglabels.push({ 'begin': parseInt(curr_segments[skey].begin), 'name': skey }) ;
-            }
-
-            var seglabels_i = 0 ;
+	    var o1 = "" ;
+            var value = [] ;
             var seg_o1 = '' ;
-            for (key in memory)
+            var seglabels_i = 0 ;
+            for (var key in memory)
             {
-                value = main_memory_getword(revlabels, valkeys, memory, key) ;
-
+                // [add segment]
                 seg_o1 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    seg_o1 = '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;">' + 
-                             '<b><small>' + seglabels[seglabels_i].name + '</small></b>' + 
+                    seg_o1 = '<div style="position:sticky;top:0px;z-index:1;width:75%;background:#FFFFFF;">' +
+                             '<b><small>' + seglabels[seglabels_i].name + '</small></b>' +
                              '</div>' ;
 		    seglabels_i++ ;
 		}
                 o1 += seg_o1 ;
 
-                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-none d-sm-inline-flex"> </span>-' +
-                        '<span class="d-none d-sm-inline-flex"><small> 0x</small></span>' + pack5(valkeys[0]) ;
-
-		if (key == index)
-		     o1 += "<div class='row' id='addr" + key + "'" +
-                           "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
-			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" +
-                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" +
-                           "</div>" ;
-		else o1 += "<div class='row' id='addr" + key + "'" +
-                           "     style='color:black; font-size:small; font-weight:normal; border-bottom: 1px solid lightgray !important'>" +
-			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" +
-                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" +
-                           "</div>" ;
+                // add row
+                value = main_memory_getword(memory, key) ;
+                o1   += main_memory_showrow(key, value, (key == index), SIMWARE.revlabels2) ;
             }
 
 	    if (typeof memory[index] == "undefined")
-	    {
-		o1 += "<div class='row' id='addr" + index + "'" +
-                      "     style='color:blue; font-size:small; font-weight:bold; border-bottom: 1px solid lightgray !important'>" +
-		      "<div class='col-6 pr-2' align='right'  style='padding:5'>" + "0x" + parseInt(index).toString(16) + "</div>" +
-		      "<div class='col-6'      align='left'   style='padding:5' id='mpval>" + index + "'>" + "00 00 00 00" + "</div>"+
-                      "</div>";
+            {
+                value = main_memory_getword(memory, index) ;
+                o1   += main_memory_showrow(index, value, true, SIMWARE.revlabels2) ;
 	    }
 
             $("#memory_MP").html("<div class='container-fluid'>" + o1 + "</div>");
@@ -155,42 +151,11 @@
 	        var topPos = obj_byid[0].offsetTop ;
 	            obj_byid = $('#memory_MP') ;
 	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos - 120;
+	            obj_byid[0].scrollTop = topPos - 150 ;
             }
 
             // update old_main_add for light_update
             old_main_addr = index ;
-        }
-
-        function main_memory_getword ( revlabels, valkeys, memory, key )
-        {
-                if (typeof memory[key] == "undefined")
-                    return "00 00 00 00" ;
-
-		var value  = memory[key].toString(16) ;
-		    value  = pack8(value) ;
-
-                var i = 0;
-                for (i=0; i<4; i++) {
-		     valkeys[i] = (parseInt(key) + i).toString(16) ;
-                }
-
-                value2 = '' ;
-                for (i=0; i<4; i++)
-                {
-                     labeli = revlabels["0x" + valkeys[3-i]] ;
-                     valuei = value[i*2] + value[i*2+1] ;
-
-                     if (typeof labeli != "undefined")
-                          value2 += '<span>' +
-                                    '<span style="border:1px solid gray;">' + valuei + '</span>' +
-                                    '<span class="badge badge-pill badge-info" ' +
-                                    '     style="position:relative;top:-8px;">' + labeli + '</span>' +
-                                    '</span>' ;
-                     else value2 += valuei + ' ' ;
-                }
-
-                return value2 ;
         }
 
         var old_main_addr = 0;
@@ -199,15 +164,12 @@
         {
             if (redraw)
             {
-                var valkeys   = [] ;
-                var SIMWARE   = get_simware() ;
-                var revlabels = {} ;
-                for (var key in SIMWARE.labels2)
-                     revlabels[SIMWARE.labels2[key]] = key ;
-                var svalue = main_memory_getword(revlabels, valkeys, memory, index) ;
+                var svalue  = main_memory_getword(memory, index) ;
 
-                o1 = $("#mpval" + index) ;
-                o1.html(svalue);
+                $("#mpval" + (index + 0)).html(svalue[0]) ;
+                $("#mpval" + (index + 1)).html(svalue[1]) ;
+                $("#mpval" + (index + 2)).html(svalue[2]) ;
+                $("#mpval" + (index + 3)).html(svalue[3]) ;
             }
 
             o1 = $("#addr" + old_main_addr) ;
@@ -219,6 +181,128 @@
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'blue') ;
             o1.css('font-weight', 'bold') ;
+        }
+
+        function main_memory_showrow ( addr, value, is_current, revlabels )
+        {
+            var o = "" ;
+            var i = 0 ;
+
+            // wcolor
+            var wcolor = "color:black; font-weight:normal; " ;
+	    if (is_current) {
+                wcolor = "color:blue;  font-weight:bold; " ;
+            }
+
+            // valkeys
+            var valkeys = [] ;
+            var idi     = [] ;
+            for (var i=0; i<4; i++)
+            {
+                 var addri  = parseInt(addr) + i ;
+		 valkeys[i] = addri.toString(16) ;
+                 idi[i]     = "mpval" + addri ;
+            }
+
+            // format of the value
+            var rf_format = get_cfg('MEM_display_format') ;
+            rf_format = rf_format.replace('_fill', '_nofill') ;
+            for (i=0; i<4; i++) {
+                 value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
+                 value[i] = simcoreui_pack(value[i], 2) ;
+            }
+
+            // value2
+            var labeli = '' ;
+            var valuei = '' ;
+
+            var value2 = '' ;
+            for (i=0; i<4; i++)
+            {
+                valuei = '<span id="' + idi[i] + '">' + value[i] + '</span>' ;
+                labeli = revlabels["0x" + valkeys[3-i]] ;
+                if (typeof labeli !== "undefined")
+                {
+                     valuei = '<span>' +
+                              '<span style="border:1px solid gray;">' + valuei + '</span>' +
+                              '<span class="badge badge-pill badge-info" ' +
+                              '      style="position:relative;top:-8px;">' + labeli + '</span>' +
+                              '</span>' ;
+                }
+
+                value2 += '<span class="mr-1">' + valuei + '</span>' ;
+            }
+
+            // build HTML
+	    o = "<div class='row' id='addr" + addr + "'" +
+                "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
+		"<div class='col-6 pr-2' align='right'>" +
+                     '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
+                     '<span class="d-none d-sm-inline-flex"> </span>-' +
+                     '<span class="d-none d-sm-inline-flex">' +
+                     '<small> 0x</small></span>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
+                "</div>" +
+	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
+                "</div>";
+
+	    return o ;
+        }
+
+        function main_memory_getword ( memory, key )
+        {
+            // get value...
+            var value = "0" ;
+            if (typeof memory[key] !== "undefined") {
+                value = get_value(memory[key]).toString(16) ;
+            }
+	    value = simcoreui_pack(value, 8) ;
+
+            // pack value...
+	    var value4 = [] ;
+            for (var i=0; i<4; i++) {
+                 value4[i] = value[2*i].toUpperCase() + value[2*i+1].toUpperCase() ;
+            }
+
+	    return value4 ;
+        }
+
+
+        /*
+         * Quick menu (display format)
+         */
+ 
+        function quick_config_mem_htmlformat ( label2, format2 )
+        {
+	      return "<div class='col-6 p-1'>" +
+		     "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		     "        onclick='update_cfg(\"MEM_display_format\", \"" + format2 + "\"); " +
+                     "                 show_memories_values();" +
+                     "                 return true; '>" +
+		     "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
+		     "</div>" ;
+        }
+
+        function quick_config_mem ( )
+        {
+	      return "<div class='container mt-1'>" +
+                     "<div class='row'>" +
+	               "<div class='col-12 p-0'>" +
+                       "<span data-langkey='Display format'>Display format</span>" +
+                       "</div>" +
+                         quick_config_mem_htmlformat("0x3B<sub>16</sub>", "unsigned_16_nofill") +
+                         quick_config_mem_htmlformat("073<sub>8</sub>",   "unsigned_8_nofill") +
+                         quick_config_mem_htmlformat("59<sub>10</sub>",   "unsigned_10_nofill") +
+                         quick_config_mem_htmlformat(";<sub>ascii</sub>", "char_ascii_nofill") +
+	             "<div class='w-100 border border-light'></div>" +
+		       "<div class='col p-1'>" +
+		       "<button type='button' id='close' data-role='none' " +
+		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		       "        onclick='$(\"#popover-mem\").popover(\"hide\");'>" +
+                       "<span data-langkey='Close'>Close</span>" +
+                       "</button>" +
+		       "</div>" +
+		     "</div>" +
+		     "</div>" ;
         }
 
 
@@ -235,8 +319,11 @@
              {
 	          wadd = "0x" + (parseInt(c)+j).toString(16);
 	          if (typeof slebal[wadd] != "undefined")
-                       for (var i=0; i<slebal[wadd].length; i++)
+                  {
+                       for (var i=0; i<slebal[wadd].length; i++) {
 		            clabel = clabel + "<span class='badge badge-pill badge-secondary float-left'>" + slebal[wadd][i] + "</span>" ;
+                       }
+                  }
 	          else clabel = clabel + "&nbsp;" ;
              }
 
@@ -255,26 +342,26 @@
                 }
 
                 var slimits = {} ;
-	        for (var skey in seg)
+	        for (var skey1 in seg)
 	        {
-                     slimits[skey] = {
-                                       'c_begin': parseInt(seg[skey].begin),
-                                       'c_end':   parseInt(seg[skey].end),
-                                       'm_end':   0,
-		                       'color':   seg[skey].color
-				     } ;
+                     slimits[skey1] = {
+                                        'c_begin': parseInt(seg[skey1].begin),
+                                        'c_end':   parseInt(seg[skey1].end),
+                                        'm_end':   0,
+		                        'color':   seg[skey1].color
+				      } ;
                 }
                 var a = 0 ;
 	        for (var m in mp)
 	        {
                      a = parseInt(m, 16) ;
-	             for (var skey in seg)
+	             for (var skey2 in seg)
 	             {
-                          if ( (slimits[skey].c_begin < a) && 
- 			       (a < slimits[skey].c_end) && 
- 			       (a > slimits[skey].m_end) )
+                          if ( (slimits[skey2].c_begin < a) &&
+ 			       (a < slimits[skey2].c_end) &&
+ 			       (a > slimits[skey2].m_end) )
 	                  {
-                                slimits[skey].m_end = a ;
+                                slimits[skey2].m_end = a ;
                           }
                      }
                 }
@@ -313,6 +400,7 @@
 		     color   =  slimits[skey].color ;
                      rows    =  0 ;
                      var x   =  "" ;
+                     var v   =  0 ;
 
 		     for (var i=c_begin; i<=c_end; i++)
 		     {
@@ -321,19 +409,21 @@
                                  continue;
                              }
 
+                             v = get_value(mp[c]) ;
+
                              if (0 == rows) {
 			         o += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
-                                       mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
+                                       v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" +
 				      "<td rowspan=" ;
                              } else {
 			         x += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
-                                      mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
+                                      v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" +
 				      "</tr>" ;
                              }
 
@@ -439,13 +529,13 @@
 
            // prepare data: ins_bin
 	   var next = 0 ;
-	   var ins_bin = mp[l] ;
+           var ins_bin = get_value(mp[l]) ;
 	   for (var iw=1; iw<nwords; iw++)
 	   {
 		  next = "0x" + (parseInt(l, 16) + iw*4).toString(16) ; // 4 -> 32 bits
-		  if (typeof mp[next] !== "undefined") {
-		      ins_bin += mp[next] ;
-		  }
+                  if (typeof mp[next] !== "undefined") {
+                      ins_bin += get_value(mp[next]) ;
+                  }
 	   }
 
 	   // instruction & bin
@@ -531,9 +621,10 @@
                      asm[l].bgcolor = bgc ;
 
                      // instruction
-		     s3_bin = mp[l] ;
-		     if (typeof s3_bin === 'undefined')
+                     s3_bin = get_value(mp[l]) ;
+		     if (typeof s3_bin === 'undefined') {
 		         s3_bin = 0 ;
+                     }
                      s1_instr = asm[l].source ;
                      s2_instr = asm[l].source_original ;
                      s4_hex   = parseInt(s3_bin, 2).toString(16) ;
@@ -583,9 +674,9 @@
 			   "</td>" +
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;' align=left>" +
-			   "    <span data-toggle='tooltip' rel='tooltip2' data-placement='right' data-html='true' data-l='" + l + "'>" + 
+			   "    <span data-toggle='tooltip' rel='tooltip2' data-placement='right' data-html='true' data-l='" + l + "'>" +
 			   "    <span data-toggle='tooltip' rel='tooltip1' data-placement='right' title='click to show instruction format details'>" +
-				s4_hex + 
+				s4_hex +
 			   "    </span>" +
 			   "    </span>" +
 		           "</td>" +

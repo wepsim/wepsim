@@ -28,195 +28,86 @@
         {
               static get observedAttributes() 
 	      {
-	           return [ 'name', 'layout' ] ;
+	           return [ 'name', 'components' ] ;
 	      }
 
 	      constructor ()
 	      {
 		   // parent
 		   super();
+
+                   // pre-render components
+                   this.ni = this.mk_nav_item_hash() ;
+                   this.np = this.mk_nav_pane_hash() ;
 	      }
+
+              update_internal_attributes ( )
+              {
+                    // components
+                    this.components_str = this.getAttribute('components') ;
+                    if (this.components_str === null)
+                        this.components_str = '' ;
+                    this.components_arr = this.components_str.split(',') ;
+              }
 
 	      render ( )
 	      {
-                   var o1  = '' ;
+                   // get updated attributes
+                   this.update_internal_attributes() ;
+
+                   // render ddown elements
+                   var o1 = '' ;
+                   var o2 = '' ;
 
                    // (1/2) <nav list part>
-                   o1 += '<ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link active" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab14" href="#mp">Memory</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab12" href="#con">Console</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab11" href="#all">Registers</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab16" href="#mc">Control Memory</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab13" href="#config">Configuration</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab15" href="#io">IO stats</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab17" href="#cpu">CPU stats</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab18" href="#mpcfg">Memory configuration</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab19" href="#iocfg">I/O configuration</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab22" href="#ed_hw">Hardware</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item user_archived">' +
-                         '  <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '     data-toggle="tab" id="tab25" href="#iol3d">3D Led</a>' +
-                         '  </li>' ;
-                   if (this.layout !== 'compact') {
-                   o1 += '  <li class="nav-item">' +
-                         '      <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '         data-toggle="tab" id="tab20" href="#ed_mc">MicroCode</a>' +
-                         '  </li>' +
-                         '  <li class="nav-item user_microcode">' +
-                         '      <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"' +
-                         '         data-toggle="tab" id="tab21" href="#ed_mp">Assembly</a>' +
-                         '  </li>' ;
-                   }
-                   o1 += '  </ul>' ;
+                   o1 += '<ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">' ;
+                   o2 += '<div class="tab-content mt-3">' ;
 
-                   // (2/2) <nav list part>
-                   o1 += '  <div class="tab-content mt-3">' +
-                         '	 <div class="tab-pane mx-0 my-2 active" ' +
-                         '	      role="tabpanel" id="all">' +
-                         '		 <div id="states_ALL" style="width:inherit; overflow-y:auto;"' +
-                         '		      class="container container-fluid px-1 pb-1"></div>' +
-                         '		 <div id="states_BR" style="width: inherit; overflow-y: auto;"' +
-                         '		      class="container container-fluid px-1 pt-1"></div>' +
-                         '	 </div>' +
-                         '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mp">' +
-                         '	      <ws-mainmemory></ws-mainmemory>' +
-                         '	 </div>' +
-                         '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mc">' +
-                         '	      <ws-dbg-mc></ws-dbg-mc>' +
-                         '	 </div>' +
-                         '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">' +
-                         '	      <ws-console></ws-console>' +
-                         '	 </div>' +
-                         '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">' +
-                         '	      <ws-io-info id="ioinfo1"></ws-io-info>' +
-                         '	 </div>' +
-                         '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="cpu">' +
-                         '	      <ws-cpu id="cpu1"></ws-cpu>' +
-                         '	 </div>' +
-                         '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="mpcfg">' +
-                         '	      <ws-mem-config id="memcfg1"></ws-mem-config>' +
-                         '	 </div>' +
-                         '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">' +
-                         '	      <ws-io-config id="iocfg1"></ws-io-config>' +
-                         '	 </div>' +
-                         '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="iol3d">' +
-                         '	      <ws-l3d id="l3d1"></ws-l3d>' +
-                         '	 </div>' +
-                         '	 <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">' +
-                         '	      <ws-hw id="infohw1"></ws-hw>' +
-                         '       </div>' ;
-                   if (this.layout === 'compact') {
-                   o1 += '<div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">' +
-			 '</div>' ;
+                   for (var i=0; i<this.components_arr.length; i++)
+                   {
+                        var nav_name = this.components_arr[i] ;
+
+                        var nav_item = this.ni[nav_name] ;
+                        if (typeof nav_item !== "undefined") {
+                            o1 += nav_item ;
+                        }
+
+                            nav_item = this.np[nav_name] ;
+                        if (typeof nav_item !== "undefined") {
+                            o2 += nav_item ;
+                        }
                    }
-                   else {
-                   o1 += ' <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">' +
-                         '      <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">' +
-                         '' +
-                         '	    <div class="row p-0">' +
-                         '		<div class="container col-12 pr-0" role="none">' +
-                         '		<div class="col-sm px-1" role="toolbar" ' + 
-                         '                   aria-label="MicroCode Toolbar">' +
-                         '                 <ws-compilationbar' +
-                         '                     icons="up"' +
-                         '                     components="btn_mloadsave,btn_mcompile,btn_mshowbin"' +
-                         '                     class="btn-group m-1 d-flex flex-wrap"' +
-                         '                     aria-label="MicroCode Toolbar buttons"></ws-compilationbar>' +
-                         '		</div>' +
-                         '		</div>' +
-                         '	    </div>' +
-                         '' +
-                         '	    <div id="t3_firm_placeholder2" ' + 
-                         '               class="ui-body-d ui-content px-2 py-0" ' + 
-                         '               style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-                         '	    </div>' +
-                         '' +
-                         '      </div>' +
-                         ' </div>' ;
-                   }
-                   if (this.layout === 'compact') {
-                   o1 += '<div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mp">' +
-			 '</div>' ;
-                   }
-                   else {
-                   o1 += ' <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mp">' +
-                         '      <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">' +
-                         '' +
-                         '	    <div class="row py-0 px-1">' +
-                         '		<div class="container col-12 pr-0" role="none">' +
-                         '		<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">' +
-                         '                   <ws-compilationbar' +
-                         '                       icons="up"' +
-                         '                       components="btn_aloadsave,btn_acompile,btn_ashowbin"' +
-                         '                       class="btn-group m-1 d-flex flex-wrap"' +
-                         '                       aria-label="Assembly Toolbar buttons"></ws-compilationbar>' +
-                         '		</div>' +
-                         '		</div>' +
-                         '	    </div>' +
-                         '' +
-                         '	    <div id="t4_asm_placeholder2" class="ui-body-d ui-content px-2 py-0" style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-                         '	    </div>' +
-                         '' +
-                         '      </div>' +
-                         ' </div>' ;
-                   }
-                   o1 += '  </div>' ;
+
+                   if (this.components_arr.indexOf('ed_mc') == -1)
+                       o2 += this.mk_nav_tabpane_item('ed_mc', '',       '') ;
+                   if (this.components_arr.indexOf('ed_mp') == -1)
+                       o2 += this.mk_nav_tabpane_item('ed_mp', '',       '') ;
+
+                   o1 += '</ul>' ;
+                   o2 += '</div>' ;
 
                    // load HTML
-                   this.innerHTML = o1 ;
+                   this.innerHTML = o1 + o2 ;
 	      }
 
 	      connectedCallback ()
 	      {
-                   this.name   = '' ;
-                   this.layout = 'classic' ;
-
 		   this.render() ;
 	      }
 
-	      attributeChangedCallback (name, oldValue, newValue)
+	      attributeChangedCallback ( name, oldValue, newValue )
 	      {
 		   this.render() ;
 	      }
 
-	      get layout ( )
+	      get components ( )
 	      {
-                   return this.getAttribute('layout') ;
+                   return this.getAttribute('components') ;
 	      }
 
-	      set layout ( value )
+	      set components ( value )
 	      {
-                   this.setAttribute('layout', value) ;
+                   this.setAttribute('components', value) ;
 	      }
 
 	      get name ( )
@@ -227,6 +118,69 @@
 	      set name ( value )
 	      {
                    this.setAttribute('name', value) ;
+	      }
+
+
+              //
+              // Auxiliar to render()
+              //
+
+	      mk_nav_item ( n_id, n_href, n_label, n_aclass, n_liclass )
+	      {
+                   return '<li class="nav-item ' + n_liclass + '">' +
+                          '<a class="nav-link '  + n_aclass  + '" role="tab" ' + 
+                          '   aria-controls="home" aria-selected="true"' +
+                          '   data-toggle="tab" id="' + n_id + '" href="' + n_href + '">' + 
+                          n_label + 
+                          '</a>' +
+                          '</li>' ;
+	      }
+
+	      mk_nav_item_hash ()
+	      {
+                   var ni = {} ;
+
+                   ni.mp    = this.mk_nav_item('tab14', '#mp',    'Memory',               'active', '') ;
+                   ni.con   = this.mk_nav_item('tab12', '#con',   'Console',              '', '') ;
+                   ni.all   = this.mk_nav_item('tab11', '#all',   'Registers',            '', '') ;
+                   ni.mc    = this.mk_nav_item('tab16', '#mc',    'Control Memory',       '', '') ;
+                   ni.io    = this.mk_nav_item('tab15', '#io',    'IO stats',             '', '') ;
+                   ni.cpu   = this.mk_nav_item('tab17', '#cpu',   'CPU stats',            '', '') ;
+                   ni.mpcfg = this.mk_nav_item('tab18', '#mpcfg', 'Memory configuration', '', '') ;
+                   ni.iocfg = this.mk_nav_item('tab19', '#iocfg', 'I/O configuration',    '', '') ;
+                   ni.ed_hw = this.mk_nav_item('tab22', '#ed_hw', 'Hardware',             '', '') ;
+                   ni.iol3d = this.mk_nav_item('tab25', '#iol3d', '3D Led',               '', 'user_archived') ;
+                   ni.ed_mc = this.mk_nav_item('tab20', '#ed_mc',  'MicroCode',           '', '') ;
+                   ni.ed_mp = this.mk_nav_item('tab21', '#ed_mp',  'Assembly',            '', 'user_microcode') ;
+
+                   return ni ;
+	      }
+
+	      mk_nav_tabpane_item ( n_id, n_dclass, n_content )
+	      {
+                   return '<div class="tab-pane mx-0 my-2 ' + n_dclass + '" role="tabpanel" id="' + n_id + '">' +
+                          n_content +
+                          '</div>' ;
+	      }
+
+	      mk_nav_pane_hash ()
+	      {
+                   var np = {} ;
+
+	           np.all   = this.mk_nav_tabpane_item('all',   'active', '<ws-registers id="regs1"></ws-registers>') ;
+	           np.mp    = this.mk_nav_tabpane_item('mp',    '',  '<ws-mainmemory></ws-mainmemory>') ;
+	           np.mc    = this.mk_nav_tabpane_item('mc',    '',  '<ws-dbg-mc></ws-dbg-mc>') ;
+	           np.con   = this.mk_nav_tabpane_item('con',   '',  '<ws-console></ws-console>') ;
+	           np.io    = this.mk_nav_tabpane_item('io',    '',  '<ws-io-info id="ioinfo1"></ws-io-info>') ;
+	           np.cpu   = this.mk_nav_tabpane_item('cpu',   '',  '<ws-cpu id="cpu1"></ws-cpu>') ;
+	           np.mpcfg = this.mk_nav_tabpane_item('mpcfg', '',  '<ws-mem-config id="memcfg1"></ws-mem-config>') ;
+	           np.iocfg = this.mk_nav_tabpane_item('iocfg', '',  '<ws-io-config id="iocfg1"></ws-io-config>') ;
+	           np.iol3d = this.mk_nav_tabpane_item('iol3d', '',  '<ws-l3d id="l3d1"></ws-l3d>') ;
+	           np.ed_hw = this.mk_nav_tabpane_item('ed_hw', '',  '<ws-hw id="infohw1"></ws-hw>') ;
+                   np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc component="placeholder"></ws_edit_mc>') ;
+                   np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as component="placeholder"></ws_edit_as>') ;
+
+                   return np ;
 	      }
         }
 

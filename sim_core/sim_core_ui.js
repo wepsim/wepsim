@@ -56,26 +56,18 @@
                 return valuec ;
         }
 
-        function pack5 ( val )
+        function simcoreui_pack ( val, pack_size )
         {
-            return "00000".substring(0, 5 - val.length) + val ;
-        }
+            var base_str = "0".repeat(pack_size) ;
 
-        function pack8 ( val )
-        {
-            return "00000000".substring(0, 8 - val.length) + val ;
-        }
-
-        function pack32 ( val )
-        {
-            return "00000000000000000000000000000000".substring(0, 32 - val.length) + val;
+            return base_str.substring(0, pack_size - val.length) + val ;
         }
 
         function hex2bin   ( hexvalue )
         {
                 var valuebin = hexvalue.toString(2) ;
 
-                valuebin = pack32(valuebin) ;
+                valuebin = simcoreui_pack(valuebin, 32) ;
                 valuebin = valuebin.substring(0,4)   + " " + valuebin.substring(4,8)   + " " +
                            valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + "<br>" +
                            valuebin.substring(16,20) + " " + valuebin.substring(20,24) + " " +
@@ -97,11 +89,13 @@
 				    break ;
 		   case "float":    fmt_value = hex2float(value) ;
 				    break ;
+		   case "char":     fmt_value = "'" + String.fromCharCode(value) + "'" ;  // fmt[1] = ascii
+				    break ;
 		   default:         fmt_value = value.toString() ;
 		}
 
 		if (fmt[2] === "fill") {
-                    fmt_value = pack8(fmt_value) ;
+                    fmt_value = simcoreui_pack(fmt_value, 8) ;
 		}
 
 		// return formated value
@@ -220,19 +214,9 @@
 
         // Register File
 
-        function show_rf_values ( )
-        {
-            return simcore_action_ui("CPU", 0, "show_rf_values")() ;
-        }
-
         function show_rf_names ( )
         {
             return simcore_action_ui("CPU", 0, "show_rf_names")() ;
-        }
-
-        function show_states ( )
-        {
-            return simcore_action_ui("CPU", 0, "show_states")() ;
         }
 
         // Console (Screen + Keyboard)

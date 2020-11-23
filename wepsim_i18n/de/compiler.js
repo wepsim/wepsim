@@ -23,6 +23,7 @@
 
 		'PROBLEM AROUND LINE': 		"Problem um die Linie",
 		'NO TAG OR DIRECTIVE':		'Erwartete Tag oder Richtlinie, sondern fanden diese Token statt: ',
+		'NO TAG, DIR OR INS':		'Es wurde keine gültige Tag-Anweisung (z. B. tag1 :) (z. B. .data) oder Anweisung gefunden ',
 		'INVALID TAG FORMAT':		'Ein Tag muss ein alphanumerisches Format (beginnend mit einem Buchstaben oder Unterstrich) wie folgt vor: ',
 		'TAG OR INSTRUCTION':		'Ein Tag kann nicht die gleichen Namen wie ein Befehl: ',
 		'REPEATED TAG':			'Wiederholte tag: ',

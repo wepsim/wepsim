@@ -35,7 +35,6 @@
                                    "<ul>" +
                                    "<li> Le matériel avec lequel travailler (processeur EP, etc.)</li>" +
                                    "<li> Mode assemblage uniquement, avec entier MIPS<sub>32</sub> ou RISC-V<sub>32</sub> instructions</li>" +
-                                   "<li> Le mode tutoriel, recommandé au début; -)</li>" +
                                    "</ul>",
 
                         "step3":  "En haut à droite, le bouton 'aide' ouvre la boîte de dialogue associée. <br>" +

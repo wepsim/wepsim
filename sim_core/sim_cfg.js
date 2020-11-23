@@ -195,8 +195,8 @@
         {
              var wscfg = {
                    /* version */
-                   "version":              { upgrade:false, type:"string",    value:"2.1.2" },
-                   "build":                { upgrade:true,  type:"string",    value:"2.1.2.20200810C" },
+                   "version":              { upgrade:false, type:"string",    value:"2.1.3" },
+                   "build":                { upgrade:true,  type:"string",    value:"2.1.3.20201120A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":    { upgrade:false, type:"string",    value:"#0066FF" },
@@ -210,6 +210,7 @@
 	           /* simulation screen: Register File */
                    "RF_display_format":    { upgrade:false, type:"string",    value:'unsigned_16_fill' },
                    "RF_display_name":      { upgrade:false, type:"string",    value:'numerical' },
+                   "MEM_display_format":   { upgrade:true,  type:"string",    value:'unsigned_16_nofill' },
                    "is_editable":          { upgrade:false, type:"boolean",   value:true },
 
 	           /* simulation screen: Execution */

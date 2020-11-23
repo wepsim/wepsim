@@ -43,7 +43,7 @@
 						  var value = 0 ;
 					          for (var i=0; i<sim.ep.states.BR.length; i++)
 						  {
-						      value = parseInt(sim.ep.states.BR[i].value) ;
+						      value = parseInt(get_value(sim.ep.states.BR[i])) ;
 						      if (value != 0) {
 							  vec.CPU["R" + i] = {"type":  "register", 
 								              "default_value": 0x0,
@@ -55,7 +55,7 @@
 
 					          for (i=0; i<internal_reg.length; i++)
 						  {
-						      value = parseInt(sim.ep.states['REG_' + internal_reg[i]].value) ;
+						      value = parseInt(get_value(sim.ep.states['REG_' + internal_reg[i]])) ;
 						      if (value != 0) {
 							  vec.CPU[internal_reg[i]] = {"type":  "register", 
 								                      "default_value": 0x0,
@@ -172,19 +172,19 @@
 
         sim.ep.internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11" ] ;
         sim.ep.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        sim.ep.internal_states.filter_states   = [ "REG_IR_DECO,col-11", "REG_IR,col-auto",  
-		                               "REG_PC,col-auto",    "REG_MAR,col-auto", "REG_MBR,col-auto", 
-                                               "REG_RT1,col-auto",   "REG_RT2,col-auto", "REG_RT3,col-auto", 
-		                               "REG_SR,col-auto",    "REG_MICROADDR,col-auto" ] ;
+        sim.ep.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto",  
+		                                   "REG_PC,col-auto",    "REG_MAR,col-auto", "REG_MBR,col-auto", 
+                                                   "REG_RT1,col-auto",   "REG_RT2,col-auto", "REG_RT3,col-auto", 
+		                                   "REG_SR,col-auto",    "REG_MICROADDR,col-auto" ] ;
         sim.ep.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",   
-                                               "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
-				       "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C5,0", "C6,0", "C7,0",
-				       "T1,0", "T2,0",   "T3,0",   "T4,0",   "T5,0",     "T6,0", "T7,0", "T8,0",
-                                       "T9,0", "T10,0", "T11,0",
-				               "M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0", 
-                                               "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
-                                               "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",    "IOR,0","IOW,0", 
-                                               "TEST_I,0", "TEST_U,0"  ] ;
+                                                   "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
+				          "C0,0", "C1,0",  "C2,0",  "C3,0",  "C4,0",  "C5,0", "C6,0", "C7,0",
+				          "T1,0", "T2,0",  "T3,0",  "T4,0",  "T5,0",  "T6,0", "T7,0", "T8,0",
+                                          "T9,0", "T10,0", "T11,0",
+				                   "M1,0",   "M2,0", "M7,0", "MA,0",   "MB,0", 
+                                                   "SELP,0", "LC,0", "SE,0", "SIZE,0", "OFFSET,0",
+                                                   "BW,0",   "R,0",  "W,0",  "TA,0",   "TD,0", "IOR,0", "IOW,0", 
+                                                   "TEST_I,0", "TEST_U,0"  ] ;
         sim.ep.internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0, 'flag_v': 0, 'flag_c': 0 } ;
 
 
@@ -194,178 +194,178 @@
 
 	/* REGISTER FILE STATES */
 	sim.ep.states.BR = [] ;
-	sim.ep.states.BR[0]          = { name:"R0", verbal: "Register 0",
+	sim.ep.states.BR[0]      = { name:"R0", verbal: "Register 0",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[1]          = { name:"R1", verbal: "Register 1",
+	sim.ep.states.BR[1]      = { name:"R1", verbal: "Register 1",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[2]          = { name:"R2", verbal: "Register 2",
+	sim.ep.states.BR[2]      = { name:"R2", verbal: "Register 2",
                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[3]          = { name:"R3", verbal: "Register 3",
+	sim.ep.states.BR[3]      = { name:"R3", verbal: "Register 3",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[4]          = { name:"R4", verbal: "Register 4",
+	sim.ep.states.BR[4]      = { name:"R4", verbal: "Register 4",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[5]          = { name:"R5", verbal: "Register 5",
+	sim.ep.states.BR[5]      = { name:"R5", verbal: "Register 5",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[6]          = { name:"R6", verbal: "Register 6",
+	sim.ep.states.BR[6]      = { name:"R6", verbal: "Register 6",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[7]          = { name:"R7", verbal: "Register 7",
+	sim.ep.states.BR[7]      = { name:"R7", verbal: "Register 7",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[8]          = { name:"R8", verbal: "Register 8",
+	sim.ep.states.BR[8]      = { name:"R8", verbal: "Register 8",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[9]          = { name:"R9", verbal: "Register 9",
+	sim.ep.states.BR[9]      = { name:"R9", verbal: "Register 9",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[10]         = { name:"R10", verbal: "Register 10",
+	sim.ep.states.BR[10]     = { name:"R10", verbal: "Register 10",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[11]         = { name:"R11", verbal: "Register 11",
+	sim.ep.states.BR[11]     = { name:"R11", verbal: "Register 11",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[12]         = { name:"R12", verbal: "Register 12",
+	sim.ep.states.BR[12]     = { name:"R12", verbal: "Register 12",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[13]         = { name:"R13", verbal: "Register 13",
+	sim.ep.states.BR[13]     = { name:"R13", verbal: "Register 13",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[14]         = { name:"R14", verbal: "Register 14",
+	sim.ep.states.BR[14]     = { name:"R14", verbal: "Register 14",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[15]         = { name:"R15", verbal: "Register 15",
+	sim.ep.states.BR[15]     = { name:"R15", verbal: "Register 15",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[16]         = { name:"R16", verbal: "Register 16",
+	sim.ep.states.BR[16]     = { name:"R16", verbal: "Register 16",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[17]         = { name:"R17", verbal: "Register 17",
+	sim.ep.states.BR[17]     = { name:"R17", verbal: "Register 17",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[18]         = { name:"R18", verbal: "Register 18",
+	sim.ep.states.BR[18]     = { name:"R18", verbal: "Register 18",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[19]         = { name:"R19", verbal: "Register 19",
+	sim.ep.states.BR[19]     = { name:"R19", verbal: "Register 19",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[20]         = { name:"R20", verbal: "Register 20",
+	sim.ep.states.BR[20]     = { name:"R20", verbal: "Register 20",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[21]         = { name:"R21", verbal: "Register 21",
+	sim.ep.states.BR[21]     = { name:"R21", verbal: "Register 21",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[22]         = { name:"R22", verbal: "Register 22",
+	sim.ep.states.BR[22]     = { name:"R22", verbal: "Register 22",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[23]         = { name:"R23", verbal: "Register 23",
+	sim.ep.states.BR[23]     = { name:"R23", verbal: "Register 23",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[24]         = { name:"R24", verbal: "Register 24",
+	sim.ep.states.BR[24]     = { name:"R24", verbal: "Register 24",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[25]         = { name:"R25", verbal: "Register 25",
+	sim.ep.states.BR[25]     = { name:"R25", verbal: "Register 25",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[26]         = { name:"R26", verbal: "Register 26",
+	sim.ep.states.BR[26]     = { name:"R26", verbal: "Register 26",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[27]         = { name:"R27", verbal: "Register 27",
+	sim.ep.states.BR[27]     = { name:"R27", verbal: "Register 27",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[28]         = { name:"R28", verbal: "Register 28",
+	sim.ep.states.BR[28]     = { name:"R28", verbal: "Register 28",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[29]         = { name:"R29", verbal: "Register 29",
+	sim.ep.states.BR[29]     = { name:"R29", verbal: "Register 29",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[30]         = { name:"R30", verbal: "Register 30",
+	sim.ep.states.BR[30]     = { name:"R30", verbal: "Register 30",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states.BR[31]         = { name:"R31", verbal: "Register 31",
+	sim.ep.states.BR[31]     = { name:"R31", verbal: "Register 31",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	sim.ep.states["REG_PC"]      = { name:"PC",  verbal: "Program Counter Register",
+	sim.ep.states["REG_PC"]  = { name:"PC",  verbal: "Program Counter Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["REG_MAR"]     = { name:"MAR", verbal: "Memory Address Register",
+	sim.ep.states["REG_MAR"] = { name:"MAR", verbal: "Memory Address Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["REG_MBR"]     = { name:"MBR", verbal: "Memory Data Register",
+	sim.ep.states["REG_MBR"] = { name:"MBR", verbal: "Memory Data Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["REG_IR"]      = { name:"IR",  verbal: "Instruction Register",
+	sim.ep.states["REG_IR"]  = { name:"IR",  verbal: "Instruction Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["REG_RT1"]     = { name:"RT1", verbal: "Temporal 1 Register",
+	sim.ep.states["REG_RT1"] = { name:"RT1", verbal: "Temporal 1 Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["REG_RT2"]     = { name:"RT2", verbal: "Temporal 2 Register",
+	sim.ep.states["REG_RT2"] = { name:"RT2", verbal: "Temporal 2 Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["REG_RT3"]     = { name:"RT3", verbal: "Temporal 3 Register",
+	sim.ep.states["REG_RT3"] = { name:"RT3", verbal: "Temporal 3 Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["REG_SR"]      = { name:"SR", verbal: "State Register",
+	sim.ep.states["REG_SR"]  = { name:"SR", verbal: "State Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* BUSES */
-	sim.ep.states["BUS_IB"]      = { name:"I_BUS", verbal: "Internal Bus",
+	sim.ep.states["BUS_IB"]  = { name:"I_BUS", verbal: "Internal Bus",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["BUS_AB"]      = { name:"A_BUS", verbal: "Address Bus",
+	sim.ep.states["BUS_AB"]  = { name:"A_BUS", verbal: "Address Bus",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["BUS_CB"]      = { name:"C_BUS", verbal: "Control Bus",
+	sim.ep.states["BUS_CB"]  = { name:"C_BUS", verbal: "Control Bus",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["BUS_DB"]      = { name:"D_BUS", verbal: "Data Bus",
+	sim.ep.states["BUS_DB"]  = { name:"D_BUS", verbal: "Data Bus",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* REGISTER PC (RELATED) STATES */
-	sim.ep.states["C2_T2"]       = { name: "C2_T2", verbal: "Output of PC",
+	sim.ep.states["C2_T2"]   = { name: "C2_T2", verbal: "Output of PC",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* REGISTER FILE (RELATED) STATES */
-	sim.ep.states["RA_T9"]       = { name: "RA_T9",  verbal: "Input of T9 Tristate",
+	sim.ep.states["RA_T9"]   = { name: "RA_T9",  verbal: "Input of T9 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	sim.ep.states["RB_T10"]      = { name: "RB_T10", verbal: "Input of T10 Tristate",
+	sim.ep.states["RB_T10"]  = { name: "RB_T10", verbal: "Input of T10 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* (RELATED) SELEC STATES */
-	sim.ep.states["SELEC_T3"]    = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
+	sim.ep.states["SELEC_T3"]= { name: "SELEC_T3", verbal: "Input of T3 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	sim.ep.states["SELP_M7"]     = { name: "SELP_M7",  verbal: "Output of MUX SelP",
+	sim.ep.states["SELP_M7"] = { name: "SELP_M7",  verbal: "Output of MUX SelP",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	sim.ep.states["ALU_C6"]      = { name:"ALU_C6", verbal: "Input of Temporal 3 Register",
+	sim.ep.states["ALU_C6"]  = { name:"ALU_C6", verbal: "Input of Temporal 3 Register",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["MA_ALU"]      = { name:"MA_ALU", verbal: "Input ALU via MA",
+	sim.ep.states["MA_ALU"]  = { name:"MA_ALU", verbal: "Input ALU via MA",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.ep.states["MB_ALU"]      = { name:"MB_ALU", verbal: "Input ALU via MB",
+	sim.ep.states["MB_ALU"]  = { name:"MB_ALU", verbal: "Input ALU via MB",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	sim.ep.states["FLAG_C"]      = { name: "FLAG_C", verbal: "Carry Flag",
+	sim.ep.states["FLAG_C"]  = { name: "FLAG_C", verbal: "Carry Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.ep.states["FLAG_V"]      = { name: "FLAG_V", verbal: "Overflow Flag",
+	sim.ep.states["FLAG_V"]  = { name: "FLAG_V", verbal: "Overflow Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.ep.states["FLAG_N"]      = { name: "FLAG_N", verbal: "Negative Flag",
+	sim.ep.states["FLAG_N"]  = { name: "FLAG_N", verbal: "Negative Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.ep.states["FLAG_Z"]      = { name: "FLAG_Z", verbal: "Zero Flag",
+	sim.ep.states["FLAG_Z"]  = { name: "FLAG_Z", verbal: "Zero Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.ep.states["FLAG_I"]      = { name: "FLAG_I", verbal: "Interruption Flag",
+	sim.ep.states["FLAG_I"]  = { name: "FLAG_I", verbal: "Interruption Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.ep.states["FLAG_U"]      = { name: "FLAG_U", verbal: "User Flag",
+	sim.ep.states["FLAG_U"]  = { name: "FLAG_U", verbal: "User Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 
 	/* CONTROL UNIT */
 	sim.ep.states["REG_MICROADDR"]  = { name: "µADDR", verbal: "Microaddress Register",
-                                        visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
+                                            visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
 	sim.ep.states["REG_MICROINS"]   = { name: "µINS", verbal: "Microinstruction Register",
-                                        visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
+                                            visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
 
 	sim.ep.states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch",
-                                        visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                            visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	sim.ep.states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM",
-                                        visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                            visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	sim.ep.states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction",
-                                        visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
+                                            visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
 
 	sim.ep.states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress",
-                                        visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                            visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	sim.ep.states["MUXC_MUXB"]      = { name: "MUXC_MUXB", verbal: "Output of MUX C",
-                                        visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                            visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 	sim.ep.states["INEX"]           = { name: "INEX",      verbal: "Illegal Instruction Exception",
-                                        visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                            visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 
 	/* DEVICES AND MEMORY */
 	sim.ep.states["BS_M1"]          = { name: "BS_M1", verbal: "from Memory",
-                                        visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                            visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 	sim.ep.states["BS_TD"]          = { name: "BS_TD", verbal: "Memory",
-                                        visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                            visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	sim.ep.states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
-                                        visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
+                                            visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
 
 
 	/* MUX A (RELATED) STATES */
 	sim.ep.states["M2_C2"]          = { name:"M2_C2", verbal: "Input of Program Counter",
-                                        visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.ep.states["M1_C1"]          = { name:"M1_C1", verbal: "Input of Memory Data Register",
-                                        visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.ep.states["M7_C7"]          = { name:"M7_C7", verbal: "Input of State Register",
-                                        visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	sim.ep.states["VAL_ZERO"]       = { name: "VAL_ZERO", verbal: "Wired Zero",
-                                        visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                            visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 	sim.ep.states["VAL_ONE"]        = { name: "VAL_ONE",  verbal: "Wired One",
-                                        visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
+                                            visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
 	sim.ep.states["VAL_FOUR"]       = { name: "VAL_FOUR", verbal: "Wired Four",
-                                        visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
+                                            visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
 
 	/* VIRTUAL */
 	sim.ep.states["REG_IR_DECO"] = { name:"IR_DECO",  verbal: "Instruction Decoded",
