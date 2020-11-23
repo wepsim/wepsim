@@ -197,14 +197,7 @@
             body:    function() {
 		        return "<div id='scroller-bin2a' class='container-fluid p-1' " +
            		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-	           	       "   <div id='compile_bin2a' " +
-	           	       "        class='p-3' " +
-	           	       "        style='width:100%; height: inherit !important;'> " +
-			       "	<div class='d-flex align-items-center'> " +
-			       "	Loading binary, please wait... <br/> " +
-			       "	WARNING: loading binary might take time on slow devices. " +
-			       "	</div> " +
-		               "   </div> " +
+	           	       "     <ws-bin_asm></ws-bin_asm>" +
 		               "</div>" ;
 		     },
 	    buttons: {
@@ -232,11 +225,7 @@
 
                          // show binary
                          setTimeout(function(){
-                            $('#compile_bin2a').html(mp2html(simware.mp, simware.labels2, simware.seg)) ;
-                            for (var skey in simware.seg) {
-                                 $("#compile_begin_" + skey).html("0x" + simware.seg[skey].begin.toString(16));
-                                 $("#compile_end_"   + skey).html("0x" + simware.seg[skey].end.toString(16));
-                            }
+                            binasm_load_mp2html(simware) ;
 
                             $('#bin_asm').modal('handleUpdate') ;
 			    wsweb_scroll_record('#scroller-bin2a') ;
