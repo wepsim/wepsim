@@ -93,7 +93,10 @@
 				             },
 		                  set_value: function ( elto, value ) {
                                                  var valref = simhw_internalState_setValue('MP', elto, value) ;
-				                 show_main_memory(sim.poc.internal_states.MP, elto, false,true) ;
+				                 show_main_memory(sim.poc.internal_states.MP, 
+                                                                  elto, 
+                                                                  (typeof valref === "undefined"),
+                                                                  true) ;
 						 return value ;
 				             }
                             	};
