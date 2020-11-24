@@ -114,7 +114,7 @@
             var SIMWARE = get_simware() ;
             var seglabels = SIMWARE.revseg ;
 
-	    var o1 = "" ;
+	    var o1 = '' ;
             var value = [] ;
             var seg_o1 = '' ;
             var seglabels_i = 0 ;
@@ -124,12 +124,15 @@
                 seg_o1 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    seg_o1 = '<div style="position:sticky;top:0px;z-index:1;width:75%;background:#FFFFFF;">' +
-                             '<b><small>' + seglabels[seglabels_i].name + '</small></b>' +
+                    seg_o1 = '<div class="row sticky-top"' +
+                             '     style="position:sticky;top:0px;z-index:1;background:#FFFFFF;">' +
+                             '<b class="col"><small>' + seglabels[seglabels_i].name + '</small></b>' +
                              '</div>' ;
 		    seglabels_i++ ;
 		}
-                o1 += seg_o1 ;
+                if (seg_o1 !== '') {
+                    o1 += seg_o1 ;
+		}
 
                 // add row
                 value = main_memory_getword(memory, key) ;
@@ -142,7 +145,8 @@
                 o1   += main_memory_showrow(index, value, true, SIMWARE.revlabels2) ;
 	    }
 
-            $("#memory_MP").html("<div class='container-fluid'>" + o1 + "</div>");
+            o1 = "<div class='container-fluid'>" + o1 + "</div>" ;
+            $("#memory_MP").html(o1) ;
 
             // scroll up/down to index element...
 	    var obj_byid = $('#addr' + index) ;
@@ -226,7 +230,7 @@
                      valuei = '<span>' +
                               '<span style="border:1px solid gray;">' + valuei + '</span>' +
                               '<span class="badge badge-pill badge-info" ' +
-                              '      style="position:relative;top:-8px;">' + labeli + '</span>' +
+                              '      style="position:relative;top:-8px;z-index:2">' + labeli + '</span>' +
                               '</span>' ;
                 }
 
@@ -238,9 +242,8 @@
                 "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
 		"<div class='col-6 pr-2' align='right'>" +
                      '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
-                     '<span class="d-none d-sm-inline-flex"> </span>-' +
-                     '<span class="d-none d-sm-inline-flex">' +
-                     '<small> 0x</small></span>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
+                     '<span class="d-none d-sm-inline-flex"> ... </span>' +
+                     '<small>0x</small>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
 	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
                 "</div>";
@@ -270,7 +273,7 @@
         /*
          * Quick menu (display format)
          */
- 
+
         function quick_config_mem_htmlformat ( label2, format2 )
         {
 	      return "<div class='col-6 p-1'>" +
