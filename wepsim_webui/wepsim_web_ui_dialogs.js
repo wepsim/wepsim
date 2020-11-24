@@ -246,14 +246,7 @@
             body:    function() {
 		        return "<div id='scroller-bin2b' class='container-fluid p-1' " +
            		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-	           	       "   <div id='compile_bin2b' " +
-	           	       "        class='p-3' " +
-	           	       "        style='width:100%; height: inherit !important;'> " +
-			       "	<div class='d-flex align-items-center'> " +
-			       "	Loading binary, please wait... <br/> " +
-			       "	WARNING: loading binary might take time on slow devices. " +
-			       "	</div> " +
-		               "   </div> " +
+	           	       "     <ws-bin_mc></ws-bin_mc>" +
 		               "</div>" ;
 		     },
 	    buttons: {
@@ -281,8 +274,7 @@
 
                          // show binary
                          setTimeout(function() {
-                                       var fhtml = firmware2html(simware.firmware, true) ;
-                                       $('#compile_bin2b').html(fhtml) ;
+                                       binmc_load_mc2html(simware) ;
                                        $('#bin_fir').modal('handleUpdate') ;
 
 			               wsweb_scroll_record('#scroller-bin2b') ;
