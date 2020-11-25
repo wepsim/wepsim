@@ -133,9 +133,11 @@
                     seg_id   = 'seg_id' + seglabels_i ;
                     seg_name = seglabels[seglabels_i].name ;
 
-                    s1 = '<a class="list-group-item list-group-item-action py-0" ' +
+                    s1 = '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
                          '   onclick="scroll_memory(\'' + seg_id + '\');">' + seg_name + '</a>' ;
-                    s2 = '<div id="' +  seg_id + '" class="row"><b><small>' + seg_name + '</small></b></div>' ;
+                    s2 = '<div id="' +  seg_id + '" class="row" data-toggle="collapse" href="#lst_seg1">' + 
+                         '<c>' + seg_name + '</c>' + 
+                         '</div>' ;
 
 		    seglabels_i++ ;
 		}
@@ -156,7 +158,7 @@
             // pack and load html
 	    o1 = '<div class="container-fluid">' +
 	         '<div class="row">' +
-                 '<div class="list-group sticky-top col-auto" ' +
+                 '<div class="list-group sticky-top col-auto collapse show" ' +
                  '     id="lst_seg1">' + o1 + '</div>' +
                  '<div data-spy="scroll" data-target="#lst_seg1" data-offset="0" ' +
                  '     style="overflow-y:scroll; -webkit-overflow-scrolling:touch; height:50vh; width:inherit;"' +
