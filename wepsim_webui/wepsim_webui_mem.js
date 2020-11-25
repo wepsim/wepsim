@@ -202,7 +202,7 @@
             // valkeys
             var valkeys = [] ;
             var idi     = [] ;
-            for (var i=0; i<4; i++)
+            for (i=0; i<4; i++)
             {
                  var addri  = parseInt(addr) + i ;
 		 valkeys[i] = addri.toString(16) ;
@@ -244,7 +244,8 @@
 		"<div class='col-6 pr-2' align='right'>" +
                      '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
                      '<span> ... </span>' +
-                     '<small>0x</small>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
+                     '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
+                     simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
 	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
                 "</div>";

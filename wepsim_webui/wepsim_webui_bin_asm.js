@@ -88,8 +88,9 @@
                 var slebal = {} ;
                 for (var l in labels)
                 {
-                     if (typeof slebal[labels[l]] == "undefined")
+                     if (typeof slebal[labels[l]] == "undefined") {
                          slebal[labels[l]] = [] ;
+                     }
                      slebal[labels[l]].push(l);
                 }
 
@@ -109,7 +110,7 @@
                      a = parseInt(m, 16) ;
 	             for (var skey2 in seg)
 	             {
-                          if ( (slimits[skey2].c_begin < a) &&
+                          if ( (slimits[skey2].c_begin <= a) &&
  			       (a < slimits[skey2].c_end) &&
  			       (a > slimits[skey2].m_end) )
 	                  {
