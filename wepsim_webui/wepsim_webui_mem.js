@@ -270,7 +270,7 @@
                      a = parseInt(m, 16) ;
 	             for (var skey in seg)
 	             {
-                          if ( (slimits[skey].c_begin < a) && 
+                          if ( (slimits[skey].c_begin <= a) && 
  			       (a < slimits[skey].c_end) && 
  			       (a > slimits[skey].m_end) )
 	                  {
