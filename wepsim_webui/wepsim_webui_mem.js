@@ -41,9 +41,7 @@
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
                              "</a>" +
                              "</div>" +
-		             "<div id='memory_MP' " +
-                             "     style='height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" +
-                             "</div>" ;
+		             "<div id='memory_MP' style='height:58vh; width:inherit;'></div>" ;
 
 		    this.innerHTML = o1 ;
 
@@ -116,47 +114,61 @@
             var seglabels = SIMWARE.revseg ;
 
 	    var o1 = '' ;
-            var value = [] ;
-            var seg_o1 = '' ;
+	    var o2 = '' ;
+
+	    var s1 = '' ;
+	    var s2 = '' ;
             var seglabels_i = 0 ;
+            var seg_id   = '' ;
+            var seg_name = '' ;
+
+            var value = [] ;
             for (var key in memory)
             {
                 // [add segment]
-                seg_o1 = '' ;
+                s1 = '' ;
+                s2 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    seg_o1 = '<div class="row sticky-top"' +
-                             '     style="position:sticky;top:0px;z-index:1;background:#FFFFFF;">' +
-                             '<b class="col"><small>' + seglabels[seglabels_i].name + '</small></b>' +
-                             '</div>' ;
+                    seg_id   = 'seg_id' + seglabels_i ;
+                    seg_name = seglabels[seglabels_i].name ;
+
+                    s1 = '<a class="list-group-item list-group-item-action py-0" ' +
+                         '   onclick="scroll_memory(\'' + seg_id + '\');">' + seg_name + '</a>' ;
+                    s2 = '<div id="' +  seg_id + '" class="row"><b><small>' + seg_name + '</small></b></div>' ;
+
 		    seglabels_i++ ;
 		}
-                if (seg_o1 !== '') {
-                    o1 += seg_o1 ;
-		}
+                if (s1 !== '') o1 += s1 ;
+                if (s2 !== '') o2 += s2 ;
 
                 // add row
                 value = main_memory_getword(memory, key) ;
-                o1   += main_memory_showrow(key, value, (key == index), SIMWARE.revlabels2) ;
+                o2   += main_memory_showrow(key, value, (key == index), SIMWARE.revlabels2) ;
             }
 
 	    if (typeof memory[index] == "undefined")
             {
                 value = main_memory_getword(memory, index) ;
-                o1   += main_memory_showrow(index, value, true, SIMWARE.revlabels2) ;
+                o2   += main_memory_showrow(index, value, true, SIMWARE.revlabels2) ;
 	    }
 
-            o1 = "<div class='container-fluid'>" + o1 + "</div>" ;
+            // pack and load html
+	    o1 = '<div class="container-fluid">' +
+	         '<div class="row">' +
+                 '<div class="list-group sticky-top col-auto" ' +
+                 '     id="lst_seg1">' + o1 + '</div>' +
+                 '<div data-spy="scroll" data-target="#lst_seg1" data-offset="0" ' +
+                 '     style="overflow-y:scroll; -webkit-overflow-scrolling:touch; height:50vh; width:inherit;"' +
+                 '     class="col" id="lst_ins1">' + o2 + '</div>' +
+                 '</div>' +
+                 '</div>' ;
+
             $("#memory_MP").html(o1) ;
 
             // scroll up/down to index element...
-	    var obj_byid = $('#addr' + index) ;
-	    if ( (redraw) && (obj_byid.length > 0) )
-            {
-	        var topPos = obj_byid[0].offsetTop ;
-	            obj_byid = $('#memory_MP') ;
-	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos - 150 ;
+	    if (redraw) {
+                scroll_memory('addr' + index) ;
             }
 
             // update old_main_add for light_update
@@ -186,6 +198,18 @@
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'blue') ;
             o1.css('font-weight', 'bold') ;
+        }
+
+        function scroll_memory ( obj_id )
+        {
+	    var obj_byid = $('#' + obj_id) ;
+	    if (obj_byid.length > 0)
+            {
+	        var topPos = obj_byid[0].offsetTop ;
+	            obj_byid = $('#lst_ins1') ;
+	        if (obj_byid.length > 0)
+	            obj_byid[0].scrollTop = topPos - 150 ;
+            }
         }
 
         function main_memory_showrow ( addr, value, is_current, revlabels )
