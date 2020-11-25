@@ -35,11 +35,12 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		    var o1 = "<a data-toggle='popover-mem' id='popover-mem' " +
+		    var o1 = "<div class='container text-right'>" +
+                             "<a data-toggle='popover-mem' id='popover-mem' " +
 			     "   tabindex='0' class='m-auto show multi-collapse-3'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
                              "</a>" +
-                             "" +
+                             "</div>" +
 		             "<div id='memory_MP' " +
                              "     style='height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" +
                              "</div>" ;
@@ -242,7 +243,7 @@
                 "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
 		"<div class='col-6 pr-2' align='right'>" +
                      '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
-                     '<span class="d-none d-sm-inline-flex"> ... </span>' +
+                     '<span> ... </span>' +
                      '<small>0x</small>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
 	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
