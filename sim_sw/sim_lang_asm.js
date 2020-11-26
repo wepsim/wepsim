@@ -1384,7 +1384,7 @@ function read_text ( context, datosCU, ret )
 			npseudoInstructions = 0 ;
 		}
 
-                // if instruction candiates with less than max_length fields
+                // if instruction candidates with less than max_length fields
                 //    then we read ahead next token, otherwise we need to read next token
                 var equals_fields = true ;
                 for (var c=0; c<signature_fields.length; c++)
@@ -1394,7 +1394,8 @@ function read_text ( context, datosCU, ret )
                          break ;
 		     }
                 }
-                if (equals_fields || (getToken(context) == ")")) {
+                if ( (isPseudo == false) && (equals_fields || (getToken(context) == ")")) )
+                {
 		    nextToken(context) ;
                 }
 

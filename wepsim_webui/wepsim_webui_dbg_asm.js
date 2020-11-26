@@ -260,6 +260,70 @@
              return o ;
         }
 
+	function instruction2tooltip ( mp, asm, l )
+	{
+    	   var wsi = get_cfg('ws_idiom') ;
+
+           // prepare data: ins_quoted + firmware_reference
+	   var ins_quoted     = asm[l].source_original.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
+	   var firm_reference = asm[l].firm_reference ;
+	   var nwords         = parseInt(asm[l].firm_reference.nwords) ;
+
+           // prepare data: ins_bin
+	   var next = 0 ;
+           var ins_bin = get_value(mp[l]) ;
+	   for (var iw=1; iw<nwords; iw++)
+	   {
+		  next = "0x" + (parseInt(l, 16) + iw*4).toString(16) ; // 4 -> 32 bits
+                  if (typeof mp[next] !== "undefined") {
+                      ins_bin += get_value(mp[next]) ;
+                  }
+	   }
+
+	   // instruction & bin
+	   var o  = '<div class=\"text-center p-1 m-1 border border-secondary rounded\">\n' +
+		    ins_quoted  + '<br>\n' +
+		    '</div>' +
+	       	    '<div class=\"text-left p-1 m-1\">\n' +
+		    '<b>' + ins_bin + '</b>\n' +
+		    '</div>' ;
+
+	   // details: co, cop & fields
+	   var u = '' ;
+	   if (typeof    firm_reference.cop !== 'undefined') {
+	       u = '+' + firm_reference.cop ;
+	   }
+
+	   o +=	'<div class=\"text-left px-2 my-1\">\n' +
+	       	'<span class=\"square\">Format:</span>\n' +
+	        '<ul class=\"mb-0\">\n' +
+		' <li>' + firm_reference.name + ': <b>' + firm_reference.co + u + '</b></li>\n' ;
+	   var fields = firm_reference.fields ;
+	   for (var f=0; f<fields.length; f++) {
+	        o += ' <li>' + fields[f].name + ': bits <b>' + fields[f].stopbit + '</b> to <b>' + fields[f].startbit + '</b></li>\n' ;
+	   }
+	   o += '</ul>\n' ;
+
+	   // details: microcode
+	   o += '<span class=\"user_microcode\">' +
+                '<span class=\"square\">Microcode:</span>\n' +
+	        '<ul class=\"mb-0\">\n' +
+	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
+		' <li> clock cycles: <b>' + firm_reference.microcode.length + '</b></li>\n' +
+	        '</ul>\n' +
+                '</span>' +
+		'</div>' ;
+
+	   // close
+           o += '<button type=\"button\" id=\"close\" data-role=\"none\" ' +
+                '        class=\"btn btn-sm btn-danger w-100 p-0 mt-2\" ' +
+                '        onclick=$(\".tooltip\").tooltip("hide");>' +
+    		         i18n_get('dialogs',wsi,'Close') +
+    		'</button>' ;
+
+	   return o ;
+        }
+
         // execution bar
 
         var show_asmdbg_pc_deferred = null;

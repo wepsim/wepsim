@@ -34,8 +34,9 @@
 
 		                  // state: write_state, read_state, get_state
 		                  write_state:  function ( vec ) {
-                                                  if (typeof vec.CPU == "undefined")
+                                                  if (typeof vec.CPU == "undefined") {
                                                       vec.CPU = {} ;
+                                                  }
 
 					          // var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT2", "RT3", "SR"] ;
 					          var internal_reg = ["PC", "SR"] ;
@@ -43,7 +44,7 @@
 						  var value = 0 ;
 					          for (var i=0; i<sim.ep.states.BR.length; i++)
 						  {
-						      value = parseInt(get_value(sim.ep.states.BR[i])) ;
+						      value = parseInt(get_value(sim.ep.states.BR[i])) >>> 0;
 						      if (value != 0) {
 							  vec.CPU["R" + i] = {"type":  "register", 
 								              "default_value": 0x0,
@@ -55,7 +56,7 @@
 
 					          for (i=0; i<internal_reg.length; i++)
 						  {
-						      value = parseInt(get_value(sim.ep.states['REG_' + internal_reg[i]])) ;
+						      value = parseInt(get_value(sim.ep.states['REG_' + internal_reg[i]])) >>> 0;
 						      if (value != 0) {
 							  vec.CPU[internal_reg[i]] = {"type":  "register", 
 								                      "default_value": 0x0,
@@ -68,8 +69,9 @@
 						  return vec;
 				               },
 		                  read_state:  function ( vec, check ) {
-                                                  if (typeof vec.CPU == "undefined")
+                                                  if (typeof vec.CPU == "undefined") {
                                                       vec.CPU = {} ;
+                                                  }
 
 					          var key = check["id"].toUpperCase().trim() ;
 					          var val = parseInt(check["value"]).toString(16) ;
@@ -88,13 +90,15 @@
 		                  get_state:  function ( reg ) {
 					          var r_reg = reg.toUpperCase().trim() ;
 					          if (typeof sim.ep.states['REG_' + r_reg] != "undefined") {
-					              return "0x" + get_value(sim.ep.states['REG_' + r_reg]).toString(16) ;
+					              var value = get_value(sim.ep.states['REG_' + r_reg]) >>> 0;
+					              return "0x" + value.toString(16) ;
 					          }
 
 					              r_reg = r_reg.replace('R','') ;
 					          var index = parseInt(r_reg) ;
 					          if (typeof sim.ep.states.BR[index] != "undefined") {
-					              return "0x" + get_value(sim.ep.states.BR[index]).toString(16) ;
+					              var value = get_value(sim.ep.states.BR[index]) >>> 0;
+					              return "0x" + value.toString(16) ;
 					          }
 
 					          return null ;

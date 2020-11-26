@@ -38,10 +38,12 @@
 	      render ( msg_default )
 	      {
                     // html holder
-		    var o1 = "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " +
+		    var o1 = "<div class='container text-right'>" +
+		             "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " +
 			     "   tabindex='0' class='m-auto show multi-collapse-3'>" + 
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" + 
                              "</a>" +
+                             "</div>" +
                              '<div id="' + this.tf_div + '" ' +
                              '     style="width:inherit; overflow-y:auto;"' +
                              '     class="container container-fluid px-1 pb-1">' +

@@ -35,14 +35,13 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		    var o1 = "<a data-toggle='popover-mem' id='popover-mem' " +
+		    var o1 = "<div class='container text-right'>" +
+                             "<a data-toggle='popover-mem' id='popover-mem' " +
 			     "   tabindex='0' class='m-auto show multi-collapse-3'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
                              "</a>" +
-                             "" +
-		             "<div id='memory_MP' " +
-                             "     style='height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" +
-                             "</div>" ;
+                             "</div>" +
+		             "<div id='memory_MP' style='height:58vh; width:inherit;'></div>" ;
 
 		    this.innerHTML = o1 ;
 
@@ -114,44 +113,62 @@
             var SIMWARE = get_simware() ;
             var seglabels = SIMWARE.revseg ;
 
-	    var o1 = "" ;
-            var value = [] ;
-            var seg_o1 = '' ;
+	    var o1 = '' ;
+	    var o2 = '' ;
+
+	    var s1 = '' ;
+	    var s2 = '' ;
             var seglabels_i = 0 ;
+            var seg_id   = '' ;
+            var seg_name = '' ;
+
+            var value = [] ;
             for (var key in memory)
             {
                 // [add segment]
-                seg_o1 = '' ;
+                s1 = '' ;
+                s2 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    seg_o1 = '<div style="position:sticky;top:0px;z-index:1;width:75%;background:#FFFFFF;">' +
-                             '<b><small>' + seglabels[seglabels_i].name + '</small></b>' +
-                             '</div>' ;
+                    seg_id   = 'seg_id' + seglabels_i ;
+                    seg_name = seglabels[seglabels_i].name ;
+
+                    s1 = '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
+                         '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' + seg_name + '</a>' ;
+                    s2 = '<div id="' +  seg_id + '" class="row" ' +
+                         '     data-toggle="collapse" href="#lst_seg1">' +
+                         '<u>' + seg_name + '</u>' +
+                         '</div>' ;
+
 		    seglabels_i++ ;
 		}
-                o1 += seg_o1 ;
+                if (s1 !== '') o1 += s1 ;
+                if (s2 !== '') o2 += s2 ;
 
                 // add row
-                value = main_memory_getword(memory, key) ;
-                o1   += main_memory_showrow(key, value, (key == index), SIMWARE.revlabels2) ;
+                o2 += main_memory_showrow(memory, key, (key == index), SIMWARE.revlabels2) ;
             }
 
-	    if (typeof memory[index] == "undefined")
-            {
-                value = main_memory_getword(memory, index) ;
-                o1   += main_memory_showrow(index, value, true, SIMWARE.revlabels2) ;
+	    if (typeof memory[index] == "undefined") {
+                o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
 	    }
 
-            $("#memory_MP").html("<div class='container-fluid'>" + o1 + "</div>");
+            // pack and load html
+	    o1 = '<div class="container-fluid">' +
+	         '<div class="row">' +
+                 '<div class="list-group sticky-top col-auto collapse" ' +
+                 '     id="lst_seg1">' + o1 + '</div>' +
+                 '<div data-spy="scroll" data-target="#lst_seg1" data-offset="0" ' +
+                 '     style="overflow-y:scroll; -webkit-overflow-scrolling:touch; height:50vh; width:inherit;"' +
+                 '     class="col" id="lst_ins1">' + o2 + '</div>' +
+                 '</div>' +
+                 '</div>' ;
+
+            $("#memory_MP").html(o1) ;
 
             // scroll up/down to index element...
-	    var obj_byid = $('#addr' + index) ;
-	    if ( (redraw) && (obj_byid.length > 0) )
-            {
-	        var topPos = obj_byid[0].offsetTop ;
-	            obj_byid = $('#memory_MP') ;
-	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos - 150 ;
+	    if (redraw) {
+                scroll_memory_to_address(index) ;
             }
 
             // update old_main_add for light_update
@@ -172,6 +189,7 @@
                 $("#mpval" + (index + 3)).html(svalue[3]) ;
             }
 
+            // blue for last memory access
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'black') ;
             o1.css('font-weight', 'normal') ;
@@ -181,28 +199,28 @@
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'blue') ;
             o1.css('font-weight', 'bold') ;
+
+            // show badges
+            update_badges() ;
         }
 
-        function main_memory_showrow ( addr, value, is_current, revlabels )
+        function main_memory_showrow ( memory, addr, is_current, revlabels )
         {
             var o = "" ;
             var i = 0 ;
 
-            // wcolor
-            var wcolor = "color:black; font-weight:normal; " ;
-	    if (is_current) {
-                wcolor = "color:blue;  font-weight:bold; " ;
-            }
-
             // valkeys
             var valkeys = [] ;
             var idi     = [] ;
-            for (var i=0; i<4; i++)
+            for (i=0; i<4; i++)
             {
                  var addri  = parseInt(addr) + i ;
 		 valkeys[i] = addri.toString(16) ;
                  idi[i]     = "mpval" + addri ;
             }
+
+            // get value
+            var value = main_memory_getword(memory, addr) ;
 
             // format of the value
             var rf_format = get_cfg('MEM_display_format') ;
@@ -210,6 +228,12 @@
             for (i=0; i<4; i++) {
                  value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
                  value[i] = simcoreui_pack(value[i], 2) ;
+            }
+
+            // wcolor
+            var wcolor = "color:black; font-weight:normal; " ;
+	    if (is_current) {
+                wcolor = "color:blue;  font-weight:bold; " ;
             }
 
             // value2
@@ -226,7 +250,7 @@
                      valuei = '<span>' +
                               '<span style="border:1px solid gray;">' + valuei + '</span>' +
                               '<span class="badge badge-pill badge-info" ' +
-                              '      style="position:relative;top:-8px;">' + labeli + '</span>' +
+                              '      style="position:relative;top:-8px;z-index:2">' + labeli + '</span>' +
                               '</span>' ;
                 }
 
@@ -236,11 +260,14 @@
             // build HTML
 	    o = "<div class='row' id='addr" + addr + "'" +
                 "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
-		"<div class='col-6 pr-2' align='right'>" +
+	        "<div class='col-1 px-0' align='center'>" +
+                     '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
+                "</div>"+
+		"<div class='col-5 pr-2' align='right'>" +
                      '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
-                     '<span class="d-none d-sm-inline-flex"> </span>-' +
-                     '<span class="d-none d-sm-inline-flex">' +
-                     '<small> 0x</small></span>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
+                     '<span> ... </span>' +
+                     '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
+                     simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
 	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
                 "</div>";
@@ -266,11 +293,58 @@
 	    return value4 ;
         }
 
+        function scroll_memory_to_segment ( seg_id )
+        {
+            return scroll_element('#lst_ins1', '#'+seg_id) ;
+        }
+
+        function scroll_memory_to_address ( addr )
+        {
+            return scroll_element('#lst_ins1', '#addr'+addr) ;
+        }
+
+        function scroll_memory_to_lastaddress ( )
+        {
+            return scroll_element('#lst_ins1', '#addr'+old_main_addr) ;
+        }
+
+        function scroll_element ( list_id, obj_id )
+        {
+	    var obj_byid = $(obj_id) ;
+	    if (obj_byid.length > 0)
+            {
+	        var topPos = obj_byid[0].offsetTop ;
+	            obj_byid = $(list_id) ;
+	        if (obj_byid.length > 0)
+	            obj_byid[0].scrollTop = topPos - 150 ;
+            }
+        }
+
+        function update_badges ( )
+        {
+            var r_value = 0 ;
+
+            // clear all old badges
+            $('.mp_row_badge').html('') ;
+
+            // PC
+            r_value = get_value(simhw_sim_state(simhw_sim_ctrlStates_get().pc.state)) ;
+            $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
+            // TODO -> check simhw_sim_ctrlStates_get().pc exist first
+
+            // SP
+            var curr_firm = simhw_internalState('FIRMWARE') ;
+            var sp_name   = curr_firm.stackRegister ;
+                r_value   = get_value(simhw_sim_states().BR[sp_name]) - 3 ;
+            $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
+            // TODO -> check sp_name exist first (use better to use simhw_sim_ctrlStates_get().sp...)
+        }
+
 
         /*
          * Quick menu (display format)
          */
- 
+
         function quick_config_mem_htmlformat ( label2, format2 )
         {
 	      return "<div class='col-6 p-1'>" +
@@ -309,160 +383,6 @@
         /*
          *  obj2html
          */
-
-	function labels2html_aux ( slebal, c )
-	{
-	     var clabel = "" ;
-	     var wadd   = "" ;
-
-             for (var j=3; j>=0; j--)
-             {
-	          wadd = "0x" + (parseInt(c)+j).toString(16);
-	          if (typeof slebal[wadd] != "undefined")
-                  {
-                       for (var i=0; i<slebal[wadd].length; i++) {
-		            clabel = clabel + "<span class='badge badge-pill badge-secondary float-left'>" + slebal[wadd][i] + "</span>" ;
-                       }
-                  }
-	          else clabel = clabel + "&nbsp;" ;
-             }
-
-	     return clabel ;
-	}
-
-	function mp2html ( mp, labels, seg )
-	{
-                // auxiliar for search
-                var slebal = {} ;
-                for (var l in labels)
-                {
-                     if (typeof slebal[labels[l]] == "undefined") {
-                         slebal[labels[l]] = [] ;
-                     }
-                     slebal[labels[l]].push(l);
-                }
-
-                var slimits = {} ;
-	        for (var skey1 in seg)
-	        {
-                     slimits[skey1] = {
-                                        'c_begin': parseInt(seg[skey1].begin),
-                                        'c_end':   parseInt(seg[skey1].end),
-                                        'm_end':   0,
-		                        'color':   seg[skey1].color
-				      } ;
-                }
-                var a = 0 ;
-	        for (var m in mp)
-	        {
-                     a = parseInt(m, 16) ;
-	             for (var skey2 in seg)
-	             {
-                          if ( (slimits[skey2].c_begin <= a) &&
- 			       (a < slimits[skey2].c_end) &&
- 			       (a > slimits[skey2].m_end) )
-	                  {
-                                slimits[skey2].m_end = a ;
-                          }
-                     }
-                }
-
-                // output...
-		var o  = "";
-		    o += "<center>" +
-		 	 "<table style='table-layout:auto; border-style: solid; border-width:0px;'>" +
-			 "<tr>" +
-			 "<th style='border-style: solid; border-width:0px;'>labels</th>" +
-			 "<th style='border-style: solid; border-width:1px;'>address</th>" +
-			 "<th style='border-style: solid; border-width:1px;'>" +
-                         "<table border=0 width=100%>" +
-                       //"<tr><td colspan=8 align=center>content </td></tr>" +
-                         "<tr align=center>" +
-                         "  <td width='25%' align='center'><small><b>byte 3</b></small></td>" +
-                         "  <td width='25%' align='center'><small><b>byte 2</b></small></td>" +
-                         "  <td width='25%' align='center'><small><b>byte 1</b></small></td>" +
-                         "  <td width='25%' align='center'><small><b>byte 0</b></small></td>" +
-                         "</tr>" +
-                         "<tr>" +
-                         "  <td width='12%' align='center' >&nbsp;<sup>31&nbsp;&nbsp;......&nbsp;&nbsp;24</sup>&nbsp;</td>" +
-                         "  <td width='12%' align='center' >&nbsp;<sup>23&nbsp;&nbsp;......&nbsp;&nbsp;16</sup>&nbsp;</td>" +
-                         "  <td width='12%' align='center' >&nbsp;<sup>15&nbsp;&nbsp;......&nbsp;&nbsp;8</sup>&nbsp;</td>" +
-                         "  <td width='12%' align='center' >&nbsp;<sup>7&nbsp;&nbsp;......&nbsp;&nbsp;0</sup>&nbsp;</td>" +
-                         "</tr>" +
-                         "</table>" +
-			 "<th style='border-style: solid; border-width:0px;' align='right'>&nbsp;&nbsp;segment</th>" +
-			 "</tr>" ;
-
-	   	var color="white";
-	        for (var skey in seg)
-	        {
-                     c_begin =  slimits[skey].c_begin ;
-                     c_end   =  slimits[skey].m_end ;
-		     color   =  slimits[skey].color ;
-                     rows    =  0 ;
-                     var x   =  "" ;
-                     var v   =  0 ;
-
-		     for (var i=c_begin; i<=c_end; i++)
-		     {
-                             c = "0x" + i.toString(16) ;
-                             if (typeof mp[c] == "undefined") {
-                                 continue;
-                             }
-
-                             v = get_value(mp[c]) ;
-
-                             if (0 == rows) {
-			         o += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
-				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
-				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
-                                       v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" +
-				      "<td rowspan=" ;
-                             } else {
-			         x += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
-				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
-				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
-                                      v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" +
-				      "</tr>" ;
-                             }
-
-                             rows++;
-	             }
-
-		     if (0 == rows) {
-			 o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
-			      "<td>&nbsp;</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16).toUpperCase() + "</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
-			      "<td rowspan=" ;
-			 x += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
-			      "<td>&nbsp;</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16).toUpperCase() + "</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
-			      "<td>&nbsp;</td>" +
-			      "</tr>" ;
-                        rows = 2 ;
-		     }
-
-                     o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
-
-	             if (seg[skey].name != ".stack") {
-		         o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
-                              "<td>&nbsp;</td>" +
-                              "<td valign='middle' align='center' height='25px'>...</td>" +
-                              "<td valign='middle' align='center' height='25px'>...</td>" +
-                              "<td>&nbsp;</td>" +
-                              "</tr>" ;
-	             }
-	        }
-
-		o += "</table>" +
-		     "</center><br>" ;
-
-		return o;
-	}
 
         function segments2html ( segments )
         {
@@ -517,70 +437,6 @@
 	         " </center>" ;
 
 	   return o1 ;
-        }
-
-	function instruction2tooltip ( mp, asm, l )
-	{
-    	   var wsi = get_cfg('ws_idiom') ;
-
-           // prepare data: ins_quoted + firmware_reference
-	   var ins_quoted     = asm[l].source_original.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
-	   var firm_reference = asm[l].firm_reference ;
-	   var nwords         = parseInt(asm[l].firm_reference.nwords) ;
-
-           // prepare data: ins_bin
-	   var next = 0 ;
-           var ins_bin = get_value(mp[l]) ;
-	   for (var iw=1; iw<nwords; iw++)
-	   {
-		  next = "0x" + (parseInt(l, 16) + iw*4).toString(16) ; // 4 -> 32 bits
-                  if (typeof mp[next] !== "undefined") {
-                      ins_bin += get_value(mp[next]) ;
-                  }
-	   }
-
-	   // instruction & bin
-	   var o  = '<div class=\"text-center p-1 m-1 border border-secondary rounded\">\n' +
-		    ins_quoted  + '<br>\n' +
-		    '</div>' +
-	       	    '<div class=\"text-left p-1 m-1\">\n' +
-		    '<b>' + ins_bin + '</b>\n' +
-		    '</div>' ;
-
-	   // details: co, cop & fields
-	   var u = '' ;
-	   if (typeof    firm_reference.cop !== 'undefined') {
-	       u = '+' + firm_reference.cop ;
-	   }
-
-	   o +=	'<div class=\"text-left px-2 my-1\">\n' +
-	       	'<span class=\"square\">Format:</span>\n' +
-	        '<ul class=\"mb-0\">\n' +
-		' <li>' + firm_reference.name + ': <b>' + firm_reference.co + u + '</b></li>\n' ;
-	   var fields = firm_reference.fields ;
-	   for (var f=0; f<fields.length; f++) {
-	        o += ' <li>' + fields[f].name + ': bits <b>' + fields[f].stopbit + '</b> to <b>' + fields[f].startbit + '</b></li>\n' ;
-	   }
-	   o += '</ul>\n' ;
-
-	   // details: microcode
-	   o += '<span class=\"user_microcode\">' +
-                '<span class=\"square\">Microcode:</span>\n' +
-	        '<ul class=\"mb-0\">\n' +
-	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
-		' <li> clock cycles: <b>' + firm_reference.microcode.length + '</b></li>\n' +
-	        '</ul>\n' +
-                '</span>' +
-		'</div>' ;
-
-	   // close
-           o += '<button type=\"button\" id=\"close\" data-role=\"none\" ' +
-                '        class=\"btn btn-sm btn-danger w-100 p-0 mt-2\" ' +
-                '        onclick=$(\".tooltip\").tooltip("hide");>' +
-    		         i18n_get('dialogs',wsi,'Close') +
-    		'</button>' ;
-
-	   return o ;
         }
 
 	function assembly2html ( mp, labels, seg, asm )

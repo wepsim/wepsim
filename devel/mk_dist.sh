@@ -158,7 +158,9 @@ cat ws_dist/min.sim_all.js \
     wepsim_webui/wepsim_webui_io_config.js \
     wepsim_webui/wepsim_webui_l3d.js \
     wepsim_webui/wepsim_webui_dbg_mc.js \
+    wepsim_webui/wepsim_webui_bin_mc.js \
     wepsim_webui/wepsim_webui_dbg_asm.js \
+    wepsim_webui/wepsim_webui_bin_asm.js \
     wepsim_webui/wepsim_webui_cpusvg.js \
     wepsim_webui/wepsim_webui_authors.js \
     wepsim_webui/wepsim_webui_hw.js \
