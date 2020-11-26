@@ -87,23 +87,31 @@
 
         function wepsim_show_main_memory ( memory, index, redraw, updates )
         {
-            if (get_cfg('DBG_delay') > 3) {
-                show_main_memory_redraw  = redraw || show_main_memory_redraw ;
+            // (redraw==false && updates==true) -> update existing memory element
+	    if ( (false == redraw) && (true == updates) )
+            {
+	        light_refresh_main_memory(memory, index, updates) ;
+                return ;
 	    }
+
+            // -> read      existing memory element
+            // -> write non-existing memory element
+            // -> read  non-existing memory element
+            show_main_memory_redraw = redraw || show_main_memory_redraw ;
 
             if (null !== show_main_memory_deferred) {
                 return ;
 	    }
 
-            show_main_memory_redraw = redraw ;
             show_main_memory_deferred = setTimeout(function ()
                                                    {
 						        if (show_main_memory_redraw == false)
-						    	    light_refresh_main_memory(memory, index, updates);
+						    	    light_refresh_main_memory(memory, index, updates) ;
                                                         else hard_refresh_main_memory(memory, index, updates) ;
 
-                                                        show_main_memory_deferred = null;
-                                                        show_main_memory_updates  = false;
+                                                        show_main_memory_updates  = false ;
+                                                        show_main_memory_redraw   = false ;
+                                                        show_main_memory_deferred = null ;
 
                                                    }, cfg_show_main_memory_delay);
         }
@@ -120,7 +128,6 @@
 	    var s2 = '' ;
             var seglabels_i = 0 ;
             var seg_id   = '' ;
-            var seg_name = '' ;
 
             var value = [] ;
             for (var key in memory)
@@ -130,14 +137,15 @@
                 s2 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    seg_id   = 'seg_id' + seglabels_i ;
-                    seg_name = seglabels[seglabels_i].name ;
+                    seg_id = 'seg_id' + seglabels_i ;
 
                     s1 = '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
-                         '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' + seg_name + '</a>' ;
+                         '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' +
+                         seglabels[seglabels_i].name +
+                         '</a>' ;
                     s2 = '<div id="' +  seg_id + '" class="row" ' +
                          '     data-toggle="collapse" href="#lst_seg1">' +
-                         '<u>' + seg_name + '</u>' +
+                         '<u>' + seglabels[seglabels_i].name + '</u>' +
                          '</div>' ;
 
 		    seglabels_i++ ;
@@ -167,9 +175,10 @@
             $("#memory_MP").html(o1) ;
 
             // scroll up/down to index element...
-	    if (redraw) {
-                scroll_memory_to_address(index) ;
-            }
+            scroll_memory_to_address(index) ;
+
+            // show badges
+            update_badges() ;
 
             // update old_main_add for light_update
             old_main_addr = index ;
@@ -322,22 +331,28 @@
 
         function update_badges ( )
         {
+            var r_ref   = null ;
             var r_value = 0 ;
 
             // clear all old badges
             $('.mp_row_badge').html('') ;
 
             // PC
-            r_value = get_value(simhw_sim_state(simhw_sim_ctrlStates_get().pc.state)) ;
-            $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
-            // TODO -> check simhw_sim_ctrlStates_get().pc exist first
+            r_ref = simhw_sim_ctrlStates_get().pc ;
+            if (typeof r_ref !== "undefined")
+                r_ref = simhw_sim_state(r_ref.state) ;
+            if (typeof r_ref !== "undefined")
+                r_value = get_value(r_ref) ;
+            if (typeof r_ref !== "undefined")
+                $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
 
             // SP
             var curr_firm = simhw_internalState('FIRMWARE') ;
-            var sp_name   = curr_firm.stackRegister ;
-                r_value   = get_value(simhw_sim_states().BR[sp_name]) - 3 ;
-            $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
-            // TODO -> check sp_name exist first (use better to use simhw_sim_ctrlStates_get().sp...)
+            var sp_name = curr_firm.stackRegister ;
+            if (sp_name != null)
+                r_value = get_value(simhw_sim_states().BR[sp_name]) - 3 ;
+            if (sp_name != null)
+                $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
         }
 
 

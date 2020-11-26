@@ -36,7 +36,7 @@
 	    if (typeof cf['labels_firm'] == "undefined")         cf['labels_firm']        = {} ;
 	    if (typeof cf['registers'] == "undefined")           cf['registers']          = {} ;
 	    if (typeof cf['pseudoInstructions'] == "undefined")  cf['pseudoInstructions'] = [] ;
-	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = {} ;
+	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = null ;
 
 	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = {} ;
 	    if (typeof cf['cocop_hash'] == "undefined")          cf['cocop_hash']         = {} ;
