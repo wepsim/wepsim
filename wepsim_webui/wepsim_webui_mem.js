@@ -134,9 +134,10 @@
                     seg_name = seglabels[seglabels_i].name ;
 
                     s1 = '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
-                         '   onclick="scroll_memory(\'' + seg_id + '\');">' + seg_name + '</a>' ;
-                    s2 = '<div id="' +  seg_id + '" class="row" data-toggle="collapse" href="#lst_seg1">' + 
-                         '<u>' + seg_name + '</u>' + 
+                         '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' + seg_name + '</a>' ;
+                    s2 = '<div id="' +  seg_id + '" class="row" ' +
+                         '     data-toggle="collapse" href="#lst_seg1">' +
+                         '<u>' + seg_name + '</u>' +
                          '</div>' ;
 
 		    seglabels_i++ ;
@@ -145,14 +146,11 @@
                 if (s2 !== '') o2 += s2 ;
 
                 // add row
-                value = main_memory_getword(memory, key) ;
-                o2   += main_memory_showrow(key, value, (key == index), SIMWARE.revlabels2) ;
+                o2 += main_memory_showrow(memory, key, (key == index), SIMWARE.revlabels2) ;
             }
 
-	    if (typeof memory[index] == "undefined")
-            {
-                value = main_memory_getword(memory, index) ;
-                o2   += main_memory_showrow(index, value, true, SIMWARE.revlabels2) ;
+	    if (typeof memory[index] == "undefined") {
+                o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
 	    }
 
             // pack and load html
@@ -170,7 +168,7 @@
 
             // scroll up/down to index element...
 	    if (redraw) {
-                scroll_memory('addr' + index) ;
+                scroll_memory_to_address(index) ;
             }
 
             // update old_main_add for light_update
@@ -191,6 +189,7 @@
                 $("#mpval" + (index + 3)).html(svalue[3]) ;
             }
 
+            // blue for last memory access
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'black') ;
             o1.css('font-weight', 'normal') ;
@@ -200,30 +199,15 @@
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'blue') ;
             o1.css('font-weight', 'bold') ;
+
+            // show badges
+            update_badges() ;
         }
 
-        function scroll_memory ( obj_id )
-        {
-	    var obj_byid = $('#' + obj_id) ;
-	    if (obj_byid.length > 0)
-            {
-	        var topPos = obj_byid[0].offsetTop ;
-	            obj_byid = $('#lst_ins1') ;
-	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos - 150 ;
-            }
-        }
-
-        function main_memory_showrow ( addr, value, is_current, revlabels )
+        function main_memory_showrow ( memory, addr, is_current, revlabels )
         {
             var o = "" ;
             var i = 0 ;
-
-            // wcolor
-            var wcolor = "color:black; font-weight:normal; " ;
-	    if (is_current) {
-                wcolor = "color:blue;  font-weight:bold; " ;
-            }
 
             // valkeys
             var valkeys = [] ;
@@ -235,12 +219,21 @@
                  idi[i]     = "mpval" + addri ;
             }
 
+            // get value
+            var value = main_memory_getword(memory, addr) ;
+
             // format of the value
             var rf_format = get_cfg('MEM_display_format') ;
             rf_format = rf_format.replace('_fill', '_nofill') ;
             for (i=0; i<4; i++) {
                  value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
                  value[i] = simcoreui_pack(value[i], 2) ;
+            }
+
+            // wcolor
+            var wcolor = "color:black; font-weight:normal; " ;
+	    if (is_current) {
+                wcolor = "color:blue;  font-weight:bold; " ;
             }
 
             // value2
@@ -267,13 +260,16 @@
             // build HTML
 	    o = "<div class='row' id='addr" + addr + "'" +
                 "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
+	        "<div class='col-1 px-0' align='center'>" +
+                     '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
+                "</div>"+
 		"<div class='col-5 pr-2' align='right'>" +
                      '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
                      '<span> ... </span>' +
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
-	        "<div class='col-7 px-3' align='left'>" + value2 + "</div>"+
+	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
                 "</div>";
 
 	    return o ;
@@ -295,6 +291,51 @@
             }
 
 	    return value4 ;
+        }
+
+        function scroll_memory_to_segment ( seg_id )
+        {
+            return scroll_element('#lst_ins1', '#'+seg_id) ;
+        }
+
+        function scroll_memory_to_address ( addr )
+        {
+            return scroll_element('#lst_ins1', '#addr'+addr) ;
+        }
+
+        function scroll_memory_to_lastaddress ( )
+        {
+            return scroll_element('#lst_ins1', '#addr'+old_main_addr) ;
+        }
+
+        function scroll_element ( list_id, obj_id )
+        {
+	    var obj_byid = $(obj_id) ;
+	    if (obj_byid.length > 0)
+            {
+	        var topPos = obj_byid[0].offsetTop ;
+	            obj_byid = $(list_id) ;
+	        if (obj_byid.length > 0)
+	            obj_byid[0].scrollTop = topPos - 150 ;
+            }
+        }
+
+        function update_badges ( )
+        {
+            var r_value = 0 ;
+
+            // clear all old badges
+            $('.mp_row_badge').html('') ;
+
+            // PC
+            r_value = get_value(simhw_sim_state(simhw_sim_ctrlStates_get().pc.state)) ;
+            $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
+
+            // SP
+            var curr_firm = simhw_internalState('FIRMWARE') ;
+            var sp_name   = curr_firm.stackRegister ;
+                r_value   = get_value(simhw_sim_states().BR[sp_name]) - 3 ;
+            $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
         }
 
 
