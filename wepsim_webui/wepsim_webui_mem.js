@@ -136,7 +136,7 @@
                     s1 = '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
                          '   onclick="scroll_memory(\'' + seg_id + '\');">' + seg_name + '</a>' ;
                     s2 = '<div id="' +  seg_id + '" class="row" data-toggle="collapse" href="#lst_seg1">' + 
-                         '<c>' + seg_name + '</c>' + 
+                         '<u>' + seg_name + '</u>' + 
                          '</div>' ;
 
 		    seglabels_i++ ;
@@ -158,7 +158,7 @@
             // pack and load html
 	    o1 = '<div class="container-fluid">' +
 	         '<div class="row">' +
-                 '<div class="list-group sticky-top col-auto collapse show" ' +
+                 '<div class="list-group sticky-top col-auto collapse" ' +
                  '     id="lst_seg1">' + o1 + '</div>' +
                  '<div data-spy="scroll" data-target="#lst_seg1" data-offset="0" ' +
                  '     style="overflow-y:scroll; -webkit-overflow-scrolling:touch; height:50vh; width:inherit;"' +
@@ -267,13 +267,13 @@
             // build HTML
 	    o = "<div class='row' id='addr" + addr + "'" +
                 "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
-		"<div class='col-6 pr-2' align='right'>" +
+		"<div class='col-5 pr-2' align='right'>" +
                      '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
                      '<span> ... </span>' +
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
-	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
+	        "<div class='col-7 px-3' align='left'>" + value2 + "</div>"+
                 "</div>";
 
 	    return o ;
