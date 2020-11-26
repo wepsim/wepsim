@@ -330,12 +330,14 @@
             // PC
             r_value = get_value(simhw_sim_state(simhw_sim_ctrlStates_get().pc.state)) ;
             $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
+            // TODO -> check simhw_sim_ctrlStates_get().pc exist first
 
             // SP
             var curr_firm = simhw_internalState('FIRMWARE') ;
             var sp_name   = curr_firm.stackRegister ;
                 r_value   = get_value(simhw_sim_states().BR[sp_name]) - 3 ;
             $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
+            // TODO -> check sp_name exist first (use better to use simhw_sim_ctrlStates_get().sp...)
         }
 
 
