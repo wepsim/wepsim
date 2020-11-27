@@ -62,6 +62,16 @@
 
         function wepsim_show_main_memory ( memory, index, redraw, updates )
         {
+            // (redraw==false && updates==true) -> update existing memory element
+	    if ( (false == redraw) && (true == updates) )
+            {
+	        light_refresh_main_memory(memory, index, updates) ;
+                return ;
+	    }
+
+            // -> read      existing memory element
+            // -> write non-existing memory element
+            // -> read  non-existing memory element
             if (get_cfg('DBG_delay') > 3) {
                 show_main_memory_redraw  = redraw || show_main_memory_redraw ;
 	    }
