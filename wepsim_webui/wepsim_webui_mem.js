@@ -87,23 +87,31 @@
 
         function wepsim_show_main_memory ( memory, index, redraw, updates )
         {
-            if (get_cfg('DBG_delay') > 3) {
-                show_main_memory_redraw  = redraw || show_main_memory_redraw ;
+            // (redraw==false && updates==true) -> update existing memory element
+	    if ( (false == redraw) && (true == updates) )
+            {
+	        light_refresh_main_memory(memory, index, updates) ;
+                return ;
 	    }
+
+            // -> read      existing memory element
+            // -> write non-existing memory element
+            // -> read  non-existing memory element
+            show_main_memory_redraw = redraw || show_main_memory_redraw ;
 
             if (null !== show_main_memory_deferred) {
                 return ;
 	    }
 
-            show_main_memory_redraw = redraw ;
             show_main_memory_deferred = setTimeout(function ()
                                                    {
 						        if (show_main_memory_redraw == false)
-						    	    light_refresh_main_memory(memory, index, updates);
+						    	    light_refresh_main_memory(memory, index, updates) ;
                                                         else hard_refresh_main_memory(memory, index, updates) ;
 
-                                                        show_main_memory_deferred = null;
-                                                        show_main_memory_updates  = false;
+                                                        show_main_memory_updates  = false ;
+                                                        show_main_memory_redraw   = false ;
+                                                        show_main_memory_deferred = null ;
 
                                                    }, cfg_show_main_memory_delay);
         }
@@ -120,7 +128,6 @@
 	    var s2 = '' ;
             var seglabels_i = 0 ;
             var seg_id   = '' ;
-            var seg_name = '' ;
 
             var value = [] ;
             for (var key in memory)
@@ -130,14 +137,15 @@
                 s2 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    seg_id   = 'seg_id' + seglabels_i ;
-                    seg_name = seglabels[seglabels_i].name ;
+                    seg_id = 'seg_id' + seglabels_i ;
 
                     s1 = '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
-                         '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' + seg_name + '</a>' ;
+                         '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' +
+                         seglabels[seglabels_i].name +
+                         '</a>' ;
                     s2 = '<div id="' +  seg_id + '" class="row" ' +
                          '     data-toggle="collapse" href="#lst_seg1">' +
-                         '<u>' + seg_name + '</u>' +
+                         '<u>' + seglabels[seglabels_i].name + '</u>' +
                          '</div>' ;
 
 		    seglabels_i++ ;
@@ -167,9 +175,10 @@
             $("#memory_MP").html(o1) ;
 
             // scroll up/down to index element...
-	    if (redraw) {
-                scroll_memory_to_address(index) ;
-            }
+            scroll_memory_to_address(index) ;
+
+            // show badges
+            update_badges() ;
 
             // update old_main_add for light_update
             old_main_addr = index ;
@@ -322,22 +331,28 @@
 
         function update_badges ( )
         {
+            var r_ref   = null ;
             var r_value = 0 ;
 
             // clear all old badges
             $('.mp_row_badge').html('') ;
 
             // PC
-            r_value = get_value(simhw_sim_state(simhw_sim_ctrlStates_get().pc.state)) ;
-            $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
-            // TODO -> check simhw_sim_ctrlStates_get().pc exist first
+            r_ref = simhw_sim_ctrlStates_get().pc ;
+            if (typeof r_ref !== "undefined")
+                r_ref = simhw_sim_state(r_ref.state) ;
+            if (typeof r_ref !== "undefined")
+                r_value = get_value(r_ref) ;
+            if (typeof r_ref !== "undefined")
+                $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
 
             // SP
             var curr_firm = simhw_internalState('FIRMWARE') ;
-            var sp_name   = curr_firm.stackRegister ;
-                r_value   = get_value(simhw_sim_states().BR[sp_name]) - 3 ;
-            $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
-            // TODO -> check sp_name exist first (use better to use simhw_sim_ctrlStates_get().sp...)
+            var sp_name = curr_firm.stackRegister ;
+            if (sp_name != null)
+                r_value = get_value(simhw_sim_states().BR[sp_name]) - 3 ;
+            if (sp_name != null)
+                $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
         }
 
 
@@ -367,6 +382,22 @@
                          quick_config_mem_htmlformat("073<sub>8</sub>",   "unsigned_8_nofill") +
                          quick_config_mem_htmlformat("59<sub>10</sub>",   "unsigned_10_nofill") +
                          quick_config_mem_htmlformat(";<sub>ascii</sub>", "char_ascii_nofill") +
+                     "<div class='w-100 border border-light'></div>" +
+                       "<div class='col-12 p-0'>" +
+                       "<span data-langkey='Display segments'>Display segments</span>" +
+                       "</div>" +
+	                 "<div class='col-6 p-1'>" +
+		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		         "        onclick='$(\"#lst_seg1\").collapse(\"show\"); return true; '>" +
+		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
+                         "      style='background-color:#CEECF5; '>On</span></buttom>" +
+		         "</div>" +
+	                 "<div class='col-6 p-1'>" +
+		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		         "        onclick='$(\"#lst_seg1\").collapse(\"hide\"); return true; '>" +
+		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
+                         "      style='background-color:#CEECF5; '>Off</span></buttom>" +
+		         "</div>" +
 	             "<div class='w-100 border border-light'></div>" +
 		       "<div class='col p-1'>" +
 		       "<button type='button' id='close' data-role='none' " +
@@ -438,119 +469,4 @@
 
 	   return o1 ;
         }
-
-	function assembly2html ( mp, labels, seg, asm )
-	{
-                var  s_label = "" ;
-                var s1_instr = "" ;
-                var s2_instr = "" ;
-                var s3_bin   = "" ;
-                var s4_hex   = "" ;
-                var bgc = "#F0F0F0" ;
-                var o = "" ;
-		var l = "" ;
-
-                var a2l = {} ;
-                for (l in labels)
-		{
-                     if (typeof a2l[labels[l]] == "undefined") {
-                         a2l[labels[l]] = [] ;
-		     }
-                     a2l[labels[l]].push(l);
-                }
-
-                var a2s = {} ;
-                for (l in seg)
-		{
-                     laddr = "0x" + seg[l].begin.toString(16) ;
-                     a2s[laddr] = l;
-                }
-
-                o += "<center>" +
-                     "<table data-role='table' class='table table-sm'>" +
-                     "<tbody>" ;
-                for (l in asm)
-                {
-                     if  (bgc === "#F0F0F0")
-                          bgc = "#F8F8F8" ;
-                     else bgc = "#F0F0F0" ;
-
-                     asm[l].bgcolor = bgc ;
-
-                     // instruction
-                     s3_bin = get_value(mp[l]) ;
-		     if (typeof s3_bin === 'undefined') {
-		         s3_bin = 0 ;
-                     }
-                     s1_instr = asm[l].source ;
-                     s2_instr = asm[l].source_original ;
-                     s4_hex   = parseInt(s3_bin, 2).toString(16) ;
-                     s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
-                             // "0x" + "00000000".substring(0, 1*8 - s4_hex.length) + s4_hex ;
-
-                     // labels
-                     s_label = "" ;
-                     if (typeof a2l[l] != "undefined")
-		     {
-                         for (var i=0; i<a2l[l].length; i++) {
-                              s_label = s_label + "<span class='badge badge-info'>" + a2l[l][i] + "</span>" ;
-                         }
-                     }
-
-		     // mark pseudo + n-words
-		     if (s1_instr === '') {
-			 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
-		     }
-		else if (s1_instr != s2_instr) {
-			 s1_instr = '<span class="text-primary">' + s1_instr + '</span>' ;
-			 s2_instr = '<span class="text-primary">' + s2_instr + '</span>' ;
-		     }
-
-                     // join the pieces...
-                     if (typeof a2s[l] !== "undefined")
-		     {
-                         o += "<tr bgcolor='#FEFEFE'>" +
-                              "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[l] + "</font></small></td>" +
-                              "</tr>" ;
-		     }
-
-                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
-                           "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
-                           "    style='line-height:0.9;' align=right" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + s_label + "</td>" +
-                           "<td class='asm_addr   text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;'" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + l + "</td>" +
-                           "<td class='asm_break  text-monospace col-auto show py-0 px-0' " +
-                           "    style='line-height:0.9;' id='bp" + l + "' width='1%'" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "    <span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
-			   "</td>" +
-                           "<td class='asm_hex    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left>" +
-			   "    <span data-toggle='tooltip' rel='tooltip2' data-placement='right' data-html='true' data-l='" + l + "'>" +
-			   "    <span data-toggle='tooltip' rel='tooltip1' data-placement='right' title='click to show instruction format details'>" +
-				s4_hex +
-			   "    </span>" +
-			   "    </span>" +
-		           "</td>" +
-                           "<td class='asm_ins    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;'" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + s1_instr + "</td>" +
-                           "<td class='asm_pins   text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + s2_instr + "</td>" +
-                           "</tr>" ;
-                }
-                o += "</tbody>" +
-                     "</table>" +
-                     "</center>" ;
-
-                return o ;
-	}
 

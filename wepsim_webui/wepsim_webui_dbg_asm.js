@@ -80,128 +80,218 @@
 
         function showhideAsmElements ( )
         {
-    	var tlabel = [ "label", "addr", "hex", "ins", "pins" ] ;
+    	    var tlabel = [ "label", "addr", "hex", "ins", "pins" ] ;
 
-    	for (var tli=0; tli<tlabel.length; tli++)
-    	{
+    	    for (var tli=0; tli<tlabel.length; tli++)
+    	    {
                  var label_name  = "SHOWCODE_"   + tlabel[tli] ;
                  var column_name = "table .asm_" + tlabel[tli] ;
                  var column_show = get_cfg(label_name) ;
 
-    	     if (column_show !== false)
-    	          $(column_name).show() ;
-    	     else $(column_name).hide() ;
-    	}
+    	         if (column_show !== false)
+    	              $(column_name).show() ;
+    	         else $(column_name).hide() ;
+    	    }
         }
 
         function showhideAsmHeader ( )
         {
-    	var tlabel = [ "label", "addr", "hex", "ins", "pins" ] ;
+    	    var tlabel = [ "label", "addr", "hex", "ins", "pins" ] ;
 
-    	for (var tli=0; tli<tlabel.length; tli++)
-    	{
+    	    for (var tli=0; tli<tlabel.length; tli++)
+    	    {
                  var label_name = "SHOWCODE_"   + tlabel[tli] ;
                  var btn_show   = get_cfg(label_name) ;
                  var btn_name   = "#asm_" + tlabel[tli] ;
 
                  $(btn_name).removeClass('btn-outline-secondary').removeClass('btn-dark') ;
-    	     if (btn_show !== false)
+    	         if (btn_show !== false)
                       $(btn_name).addClass('btn-dark') ;
-    	     else $(btn_name).addClass('btn-outline-secondary') ;
-    	}
+    	         else $(btn_name).addClass('btn-outline-secondary') ;
+    	    }
+        }
+
+        // Content
+
+        function default_asmdbg_content_horizontal_card ( index, datalangkey, content )
+        {
+    	    return "<div class='card m-3'>" +
+    		   "  <div class='row no-gutters'>" +
+    		   "  <div class='col-md-12'>" + // -
+    		   "  <div class='card-body py-0'>" +
+    		   "    <p class='card-text'>" +
+    		   "    <div class='badge badge-primary'>" + index + "</div>" +
+    		   "    <span data-langkey='" + datalangkey + "'>" + content + "</span>" +
+    		   "    </p>" +
+    		   "  </div>" +
+    		   "  </div>" +
+    		   "  </div>" +
+    		   "</div>" ;
         }
 
         function default_asmdbg_content_horizontal ( )
         {
-    	 var wsi = get_cfg('ws_idiom') ;
+    	    var wsi = get_cfg('ws_idiom') ;
 
-    	 var o = "<br>" +
-    	         "<div class='card m-3'>" +
-    		 "  <div class='row no-gutters'>" +
-    		 "  <div class='col-md-12'>" + // -
-    		 "  <div class='card-body py-0'>" +
+    	    var o = "<br>" +
+                    default_asmdbg_content_horizontal_card("1", 
+					                   "simulator intro 1", 
+    	         					   i18n_get('gui',wsi,'simulator intro 1') ) +
+                    default_asmdbg_content_horizontal_card("2", 
+					                   "simulator intro 2", 
+    	         					   i18n_get('gui',wsi,'simulator intro 2') ) +
+                    default_asmdbg_content_horizontal_card("3", 
+					                   "simulator intro 3", 
+    	         					   i18n_get('gui',wsi,'simulator intro 3') ) ;
+
+    	    return o ;
+        }
+
+        function default_asmdbg_content_vertical_card ( index, datalangkey, content )
+        {
+    	  return "<div class='card m-2 col-sm'>" +
+    		 "  <div class='card-body h-50 py-0'>" +
     		 "    <p class='card-text'>" +
-    		 "    <div class='badge badge-primary'>1</div>" +
-    		 "    <span data-langkey='simulator intro 1'>" +
-    	         i18n_get('gui',wsi,'simulator intro 1') +
-    		 "    </span>" +
+    		 "    <div class='badge badge-primary'>" + index + "</div>" +
+    		 "    <span data-langkey='" + datalangkey + "'>" + content + "</span>" +
     		 "    </p>" +
-    		 "  </div>" +
-    		 "  </div>" +
-    		 "  </div>" +
-    		 "</div>" +
-    		 "<div class='card m-3'>" +
-    		 "  <div class='row no-gutters'>" +
-    		 "  <div class='col-md-12'>" + // -
-    		 "  <div class='card-body py-0'>" +
-    		 "    <p class='card-text'>" +
-    		 "    <div class='badge badge-primary'>2</div>" +
-    		 "    <span data-langkey='simulator intro 2'>" +
-    	         i18n_get('gui',wsi,'simulator intro 2') +
-    		 "    </span>" +
-    		 "    </p>" +
-    		 "  </div>" +
-    		 "  </div>" +
-    		 "  </div>" +
-    		 "</div>" +
-    		 "<div class='card m-3'>" +
-    		 "  <div class='row no-gutters'>" +
-    		 "  <div class='col-md-12'>" + // -
-    		 "  <div class='card-body py-0'>" +
-    		 "    <p class='card-text'>" +
-    		 "    <div class='badge badge-primary'>3</div>" +
-    		 "    <span data-langkey='simulator intro 3'>" +
-    	         i18n_get('gui',wsi,'simulator intro 3') +
-    		 "    </span>" +
-    		 "    </p>" +
-    		 "  </div>" +
-    		 "  </div>" +
     		 "  </div>" +
     		 "</div>" ;
-
-    	 return o ;
         }
 
         function default_asmdbg_content_vertical ( )
         {
-    	 var o = "<br>" +
-    		 "<div class='container-fluid'>" +
-    		 "<div class='card-column row'>" +
-    		 "<div class='card m-2 col-sm'>" +
-    		 "  <div class='card-body h-50 py-0'>" +
-    		 "    <p class='card-text'>" +
-    		 "    <div class='badge badge-primary'>1</div>" +
-    		 "    <span data-langkey='simulator intro 1'>" +
-    	         i18n_get('gui',wsi,'simulator intro 1') +
-    		 "    </span>" +
-    		 "    </p>" +
-    		 "  </div>" +
-    		 "</div>" +
-    		 "<div class='card m-2 col-sm'>" +
-    		 "  <div class='card-body h-50 py-0'>" +
-    		 "    <p class='card-text'>" +
-    		 "    <div class='badge badge-primary'>2</div>" +
-    		 "    <span data-langkey='simulator intro 2'>" +
-    	         i18n_get('gui',wsi,'simulator intro 2') +
-    		 "    </span>" +
-    		 "    </p>" +
-    		 "  </div>" +
-    		 "</div>" +
-    		 "<div class='card m-2 col-sm'>" +
-    		 "  <div class='card-body h-50 py-0'>" +
-    		 "    <p class='card-text'>" +
-    		 "    <div class='badge badge-primary'>3</div>" +
-    		 "    <span data-langkey='simulator intro 3'>" +
-    	         i18n_get('gui',wsi,'simulator intro 3') +
-    		 "    </span>" +
-    		 "    </p>" +
-    		 "  </div>" +
-    		 "</div>" +
-    		 "</div>" +
-    		 "</div>" ;
+    	    var o = "<br>" +
+    		    "<div class='container-fluid'>" +
+    		    "<div class='card-column row'>" +
+                    default_asmdbg_content_vertical_card("1",
+						         "simulator intro 1",
+    	         				         i18n_get('gui',wsi,'simulator intro 1')) +
+                    default_asmdbg_content_vertical_card("2",
+						         "simulator intro 2",
+    	         				         i18n_get('gui',wsi,'simulator intro 2')) +
+                    default_asmdbg_content_vertical_card("3",
+						         "simulator intro 3",
+    	         				         i18n_get('gui',wsi,'simulator intro 3')) +
+    		    "</div>" +
+    		    "</div>" ;
 
-    	 return o ;
+    	    return o ;
         }
+
+	function assembly2html ( mp, labels, seg, asm )
+	{
+                var  s_label = "" ;
+                var s1_instr = "" ;
+                var s2_instr = "" ;
+                var s3_bin   = "" ;
+                var s4_hex   = "" ;
+                var bgc = "#F0F0F0" ;
+                var o = "" ;
+		var l = "" ;
+
+                var a2l = {} ;
+                for (l in labels)
+		{
+                     if (typeof a2l[labels[l]] == "undefined") {
+                         a2l[labels[l]] = [] ;
+		     }
+                     a2l[labels[l]].push(l);
+                }
+
+                var a2s = {} ;
+                for (l in seg)
+		{
+                     laddr = "0x" + seg[l].begin.toString(16) ;
+                     a2s[laddr] = l;
+                }
+
+                o += "<center>" +
+                     "<table data-role='table' class='table table-sm'>" +
+                     "<tbody>" ;
+                for (l in asm)
+                {
+                     if  (bgc === "#F0F0F0")
+                          bgc = "#F8F8F8" ;
+                     else bgc = "#F0F0F0" ;
+
+                     asm[l].bgcolor = bgc ;
+
+                     // instruction
+                     s3_bin = get_value(mp[l]) ;
+		     if (typeof s3_bin === 'undefined') {
+		         s3_bin = 0 ;
+                     }
+                     s1_instr = asm[l].source ;
+                     s2_instr = asm[l].source_original ;
+                     s4_hex   = parseInt(s3_bin, 2).toString(16) ;
+                     s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
+
+                     // labels
+                     s_label = "" ;
+                     if (typeof a2l[l] != "undefined")
+		     {
+                         for (var i=0; i<a2l[l].length; i++) {
+                              s_label = s_label + "<span class='badge badge-info'>" + a2l[l][i] + "</span>" ;
+                         }
+                     }
+
+		     // mark pseudo + n-words
+		     if (s1_instr === '') {
+			 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
+		     }
+		else if (s1_instr != s2_instr) {
+			 s1_instr = '<span class="text-primary">' + s1_instr + '</span>' ;
+			 s2_instr = '<span class="text-primary">' + s2_instr + '</span>' ;
+		     }
+
+                     // join the pieces...
+                     if (typeof a2s[l] !== "undefined")
+		     {
+                         o += "<tr bgcolor='#FEFEFE'>" +
+                              "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[l] + "</font></small></td>" +
+                              "</tr>" ;
+		     }
+
+                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
+                           "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
+                           "    style='line-height:0.9;' align=right" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + s_label + "</td>" +
+                           "<td class='asm_addr   text-monospace col-auto collapse' " +
+                           "    style='line-height:0.9;'" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + l + "</td>" +
+                           "<td class='asm_break  text-monospace col-auto show py-0 px-0' " +
+                           "    style='line-height:0.9;' id='bp" + l + "' width='1%'" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" +
+			   "    <span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
+			   "</td>" +
+                           "<td class='asm_hex    text-monospace col-auto collapse' " +
+                           "    style='line-height:0.9;' align=left>" +
+			   "    <span data-toggle='tooltip' rel='tooltip2' data-placement='right' data-html='true' data-l='" + l + "'>" +
+			   "    <span data-toggle='tooltip' rel='tooltip1' data-placement='right' title='click to show instruction format details'>" +
+				s4_hex +
+			   "    </span>" +
+			   "    </span>" +
+		           "</td>" +
+                           "<td class='asm_ins    text-monospace col-auto collapse' " +
+                           "    style='line-height:0.9;'" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + s1_instr + "</td>" +
+                           "<td class='asm_pins   text-monospace col-auto collapse' " +
+                           "    style='line-height:0.9;' align=left" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + s2_instr + "</td>" +
+                           "</tr>" ;
+                }
+                o += "</tbody>" +
+                     "</table>" +
+                     "</center>" ;
+
+                return o ;
+	}
 
         // Popovers
 

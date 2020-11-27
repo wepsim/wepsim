@@ -61,6 +61,10 @@
             var base_str = "0".repeat(pack_size) ;
 
             return base_str.substring(0, pack_size - val.length) + val ;
+
+            // two options:
+            // -> base_str.padStart(1*8, "0") ;
+            // -> "00000000".substring(0, 1*8 - base_str.length) + base_str ;
         }
 
         function hex2bin   ( hexvalue )
