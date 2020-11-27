@@ -382,6 +382,22 @@
                          quick_config_mem_htmlformat("073<sub>8</sub>",   "unsigned_8_nofill") +
                          quick_config_mem_htmlformat("59<sub>10</sub>",   "unsigned_10_nofill") +
                          quick_config_mem_htmlformat(";<sub>ascii</sub>", "char_ascii_nofill") +
+                     "<div class='w-100 border border-light'></div>" +
+                       "<div class='col-12 p-0'>" +
+                       "<span data-langkey='Display segments'>Display segments</span>" +
+                       "</div>" +
+	                 "<div class='col-6 p-1'>" +
+		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		         "        onclick='$(\"#lst_seg1\").collapse(\"show\"); return true; '>" +
+		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
+                         "      style='background-color:#CEECF5; '>On</span></buttom>" +
+		         "</div>" +
+	                 "<div class='col-6 p-1'>" +
+		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		         "        onclick='$(\"#lst_seg1\").collapse(\"hide\"); return true; '>" +
+		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
+                         "      style='background-color:#CEECF5; '>Off</span></buttom>" +
+		         "</div>" +
 	             "<div class='w-100 border border-light'></div>" +
 		       "<div class='col p-1'>" +
 		       "<button type='button' id='close' data-role='none' " +
