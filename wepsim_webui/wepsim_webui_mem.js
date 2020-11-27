@@ -72,15 +72,12 @@
             // -> read      existing memory element
             // -> write non-existing memory element
             // -> read  non-existing memory element
-            if (get_cfg('DBG_delay') > 3) {
-                show_main_memory_redraw  = redraw || show_main_memory_redraw ;
-	    }
+            show_main_memory_redraw  = redraw || show_main_memory_redraw ;
 
             if (null !== show_main_memory_deferred) {
                 return ;
 	    }
 
-            show_main_memory_redraw = redraw ;
             show_main_memory_deferred = setTimeout(function ()
                                                    {
 						        if (show_main_memory_redraw == false)
@@ -89,6 +86,7 @@
 
                                                         show_main_memory_deferred = null;
                                                         show_main_memory_updates  = false;
+            						show_main_memory_redraw   = false;
 
                                                    }, cfg_show_main_memory_delay);
         }
