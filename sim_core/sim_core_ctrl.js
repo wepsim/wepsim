@@ -359,8 +359,9 @@
 	    {
 	       var kx = parseInt(key) ;
                var kv = parseInt(SIMWARE['mp'][key].value.replace(/ /g,''), 2) ;
-               simhw_internalState_set('MP', kx, kv) ;
-               simhw_internalState_set('MP', kx, { "value": kv }) ;
+               var kc =          SIMWARE['mp'][key].source.join(";") ;
+           //  simhw_internalState_set('MP', kx, kv) ;
+               simhw_internalState_set('MP', kx, { "value": kv, "source": kc }) ;
 	    }
 
 	    // 5.- load the segments from SIMWARE['seg']

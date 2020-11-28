@@ -230,6 +230,7 @@
 
             // get value
             var value = main_memory_getword(memory, addr) ;
+            var src   =  main_memory_getsrc(memory, addr) ;
 
             // format of the value
             var rf_format = get_cfg('MEM_display_format') ;
@@ -278,7 +279,10 @@
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
-	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
+	        "<div class='col-6 px-3' align='left' " + 
+                "     data-toggle='tooltip' data-placement='top' title='" + src + "'>" +
+                value2 +
+                "</div>"+
                 "</div>";
 
 	    return o ;
@@ -300,6 +304,19 @@
             }
 
 	    return value4 ;
+        }
+
+        function main_memory_getsrc ( memory, key )
+        {
+            // get value...
+            var src = "" ;
+            if (typeof memory[key] !== "undefined") 
+            {
+                if (typeof memory[key].source !== "undefined")
+                    src = memory[key].source ;
+            }
+
+	    return src ;
         }
 
         function scroll_memory_to_segment ( seg_id )

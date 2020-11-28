@@ -380,12 +380,8 @@ function assembly_co_cop(machineCode, co, cop)
 	return machineCode;
 }
 
-function writememory_and_reset ( mp, gen, nwords, track_source )
+function writememory_and_reset ( mp, gen, nwords )
 {
-        //if (typeof track_source !== "undefined") {
-        //    gen.track_source = gen.track_source + ';' + track_source ;
-        //}
-
 	if (gen.byteWord >= WORD_BYTES)
         {
             mp["0x" + gen.seg_ptr.toString(16)] = {
@@ -395,7 +391,7 @@ function writememory_and_reset ( mp, gen, nwords, track_source )
 
             gen.seg_ptr      = gen.seg_ptr + WORD_BYTES ;
             gen.byteWord     = 0 ;
-            gen.track_source = '' ;
+            gen.track_source = [] ;
             gen.machineCode  = reset_assembly(nwords) ;
         }
 }
@@ -416,7 +412,7 @@ function read_data ( context, datosCU, ret )
 
 	   var gen = {};
 	   gen.byteWord     = 0;
-           gen.track_source = '' ;
+           gen.track_source = [] ;
 	   gen.machineCode  = reset_assembly(1);
            gen.seg_ptr      = ret.seg[seg_name].begin ;
 
@@ -557,14 +553,14 @@ function read_data ( context, datosCU, ret )
 				}
 
 				// Word filled
-                                writememory_and_reset(ret.mp, gen, 1, '') ;
+                                writememory_and_reset(ret.mp, gen, 1) ;
 
 				// Align to size
 				while (((gen.seg_ptr+gen.byteWord)%size) != 0)
                                 {
 					gen.byteWord++;
 					// Word filled
-                                        writememory_and_reset(ret.mp, gen, 1, '') ;
+                                        writememory_and_reset(ret.mp, gen, 1) ;
 				}
 
 		                // Store tag
@@ -590,6 +586,7 @@ function read_data ( context, datosCU, ret )
             					                       BYTE_LENGTH*(size+gen.byteWord),
             					                       BYTE_LENGTH*gen.byteWord, free_space) ;
 				gen.byteWord += size ;
+				gen.track_source.push(possible_value) ;
 
 				// optional ','
 				nextToken(context) ;
@@ -634,7 +631,7 @@ function read_data ( context, datosCU, ret )
 			for (i=0; i<possible_value; i++)
                         {
 				// Word filled
-                                writememory_and_reset(ret.mp, gen, 1, '') ;
+                                writememory_and_reset(ret.mp, gen, 1) ;
 				gen.byteWord++;
 			}
 
@@ -660,7 +657,7 @@ function read_data ( context, datosCU, ret )
 		        }
 
 			// Word filled
-                        writememory_and_reset(ret.mp, gen, 1, '') ;
+                        writememory_and_reset(ret.mp, gen, 1) ;
 
 			// Calculate offset
                         var align_offset = Math.pow(2,parseInt(possible_value)) ;
@@ -674,18 +671,18 @@ function read_data ( context, datosCU, ret )
 					break;
 				default:
 					// Fill with spaces
-                                        writememory_and_reset(ret.mp, gen, 1, '') ;
+                                        writememory_and_reset(ret.mp, gen, 1) ;
 					while ((gen.seg_ptr%align_offset != 0) || (gen.byteWord != 0))
                                         {
 						// Word filled
 						gen.byteWord++;
-                                                writememory_and_reset(ret.mp, gen, 1, '') ;
+                                                writememory_and_reset(ret.mp, gen, 1) ;
 					}
 				/*
 					while (true)
                                         {
 						// Word filled
-                                                writememory_and_reset(ret.mp, gen, 1, '') ;
+                                                writememory_and_reset(ret.mp, gen, 1) ;
 						if (gen.seg_ptr%align_offset == 0 && gen.byteWord == 0)
 							break;
 						gen.byteWord++;
@@ -712,7 +709,7 @@ function read_data ( context, datosCU, ret )
 			while (!is_directive(getToken(context)) && !is_end_of_file(context))
                         {
 				// Word filled
-                                writememory_and_reset(ret.mp, gen, 1, '') ;
+                                writememory_and_reset(ret.mp, gen, 1) ;
 
 				// check string
 				if ("\"" !== possible_value[0]) {
@@ -738,7 +735,7 @@ function read_data ( context, datosCU, ret )
 				for (i=0; i<possible_value.length; i++)
                                 {
 					// Word filled
-                                        writememory_and_reset(ret.mp, gen, 1, '') ;
+                                        writememory_and_reset(ret.mp, gen, 1) ;
 
 					if (possible_value[i] == "\"") {
                                             continue;
@@ -753,12 +750,13 @@ function read_data ( context, datosCU, ret )
 									       BYTE_LENGTH*gen.byteWord,
 									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
+				        gen.track_source.push(possible_value[i]) ;
 				}
 
                                 if (".asciiz" == possible_datatype)
                                 {
                                 	// Word filled
-                                        writememory_and_reset(ret.mp, gen, 1, '') ;
+                                        writememory_and_reset(ret.mp, gen, 1) ;
 
 					num_bits = "\0".charCodeAt(0).toString(2);
 
@@ -769,6 +767,7 @@ function read_data ( context, datosCU, ret )
 									       BYTE_LENGTH*gen.byteWord,
 									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
+				        gen.track_source.push('\0') ;
 				}
 
 				// optional ','
@@ -802,8 +801,8 @@ function read_data ( context, datosCU, ret )
 	   if (gen.byteWord > 0)
 	   {
                 ret.mp["0x" + gen.seg_ptr.toString(16)] = {
- 							    "source": '',
-                                                            "value": gen.machineCode
+ 							    "source": gen.track_source,
+                                                            "value":  gen.machineCode
                                                           } ;
                 gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
 	   }
@@ -1396,7 +1395,7 @@ function read_text ( context, datosCU, ret )
 				                                       firm_reference:  ref
 			                                            } ;
                         ret.mp["0x" + seg_ptr.toString(16)] = {
- 								"source": s_ori,
+ 								"source": [ s_ori ],
 								"value": machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) 						} ;
 
                 	seg_ptr = seg_ptr + WORD_BYTES ;
