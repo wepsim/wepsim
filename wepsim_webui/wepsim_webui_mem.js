@@ -180,6 +180,11 @@
             // show badges
             update_badges() ;
 
+            // activation of tooltips
+	    $(function () {
+	       $('[data-toggle="tooltip"]').tooltip()
+	    }) ;
+
             // update old_main_add for light_update
             old_main_addr = index ;
         }
@@ -230,6 +235,7 @@
 
             // get value
             var value = main_memory_getword(memory, addr) ;
+            var src   =  main_memory_getsrc(memory, addr) ;
 
             // format of the value
             var rf_format = get_cfg('MEM_display_format') ;
@@ -269,7 +275,8 @@
             // build HTML
 	    o = "<div class='row' id='addr" + addr + "'" +
                 "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
-	        "<div class='col-1 px-0' align='center'>" +
+	        "<div class='col-1 px-0' align='center' " +
+                "     data-toggle='tooltip' data-placement='top' title='" + src + "'>" +
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+
 		"<div class='col-5 pr-2' align='right'>" +
@@ -278,7 +285,9 @@
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
-	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
+	        "<div class='col-6 px-3' align='left'>" + 
+                value2 +
+                "</div>"+
                 "</div>";
 
 	    return o ;
@@ -300,6 +309,23 @@
             }
 
 	    return value4 ;
+        }
+
+        function main_memory_getsrc ( memory, key )
+        {
+            // get value...
+            var src = "" ;
+            if (typeof memory[key] !== "undefined") 
+            {
+                if (typeof memory[key].source !== "undefined")
+                    src = memory[key].source ;
+            }
+
+            // escape html end attribute char
+            src = src.replace("'", "\'") ;
+            src = src.replace('"', '\"') ;
+
+	    return src ;
         }
 
         function scroll_memory_to_segment ( seg_id )
