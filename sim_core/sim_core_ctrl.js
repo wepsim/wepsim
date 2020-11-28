@@ -379,6 +379,6 @@
 
                             show_main_memory   (mp_obj, 0, true, true) ;
                             show_control_memory(mc_obj, mcd_obj, 0, true) ;
-                       }, 100) ;
+                       }, 200) ;
 	}
 

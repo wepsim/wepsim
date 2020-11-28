@@ -275,8 +275,7 @@
             // build HTML
 	    o = "<div class='row' id='addr" + addr + "'" +
                 "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
-	        "<div class='col-1 px-0' align='center' " +
-                "     data-toggle='tooltip' data-placement='top' title='" + src + "'>" +
+	        "<div class='col-1 px-0' align='center'>" +
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+
 		"<div class='col-5 pr-2' align='right'>" +
@@ -286,7 +285,10 @@
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
 	        "<div class='col-6 px-3' align='left'>" + 
-                value2 +
+                     "<span class='mp_tooltip' " + 
+                     "      data-toggle='tooltip' data-placement='top' title='" + src + "'>" +
+                     value2 +
+                     "</span>" +
                 "</div>"+
                 "</div>";
 
