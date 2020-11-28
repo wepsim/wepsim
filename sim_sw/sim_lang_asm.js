@@ -386,7 +386,7 @@ function writememory_and_reset ( mp, gen, nwords )
         {
             mp["0x" + gen.seg_ptr.toString(16)] = {
 						     "source": gen.track_source,
-						     "value": gen.machineCode
+						     "value":  gen.machineCode
 						  } ;
 
             gen.seg_ptr      = gen.seg_ptr + WORD_BYTES ;
@@ -633,6 +633,7 @@ function read_data ( context, datosCU, ret )
 				// Word filled
                                 writememory_and_reset(ret.mp, gen, 1) ;
 				gen.byteWord++;
+				gen.track_source.push('_') ;
 			}
 
 			nextToken(context) ;
@@ -767,7 +768,7 @@ function read_data ( context, datosCU, ret )
 									       BYTE_LENGTH*gen.byteWord,
 									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
-				        gen.track_source.push('\0') ;
+				        gen.track_source.push('[eos]') ;
 				}
 
 				// optional ','

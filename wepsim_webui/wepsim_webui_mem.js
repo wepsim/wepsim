@@ -286,7 +286,7 @@
                 "</div>" +
 	        "<div class='col-6 px-3' align='left'>" + 
                      "<span class='mp_tooltip' " + 
-                     "      data-toggle='tooltip' data-placement='top' title='" + src + "'>" +
+                     "      data-toggle='tooltip' data-placement='right' title='" + src + "'>" +
                      value2 +
                      "</span>" +
                 "</div>"+
