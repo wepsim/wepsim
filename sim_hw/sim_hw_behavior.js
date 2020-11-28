@@ -311,7 +311,7 @@
 
             // if already exits...
             if ( (typeof sig_ref.verbal        != "undefined") &&
-                 (typeof sig_ref.verbal[index] != "undefined") ) 
+                 (typeof sig_ref.verbal[index] != "undefined") )
             {
 		  return sig_ref.verbal[index] ;
 	    }

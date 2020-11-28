@@ -380,15 +380,23 @@ function assembly_co_cop(machineCode, co, cop)
 	return machineCode;
 }
 
-function writememory_and_reset ( mp, gen, nwords )
+function writememory_and_reset ( mp, gen, nwords, track_source )
 {
+        //if (typeof track_source !== "undefined") {
+        //    gen.track_source = gen.track_source + ';' + track_source ;
+        //}
+
 	if (gen.byteWord >= WORD_BYTES)
         {
-            mp["0x" + gen.seg_ptr.toString(16)] = { "value": gen.machineCode } ;
+            mp["0x" + gen.seg_ptr.toString(16)] = {
+						     "source": gen.track_source,
+						     "value": gen.machineCode
+						  } ;
 
-            gen.seg_ptr     = gen.seg_ptr + WORD_BYTES ;
-            gen.byteWord    = 0 ;
-            gen.machineCode = reset_assembly(nwords) ;
+            gen.seg_ptr      = gen.seg_ptr + WORD_BYTES ;
+            gen.byteWord     = 0 ;
+            gen.track_source = '' ;
+            gen.machineCode  = reset_assembly(nwords) ;
         }
 }
 
@@ -407,9 +415,10 @@ function read_data ( context, datosCU, ret )
            var seg_name = getToken(context) ;
 
 	   var gen = {};
-	   gen.byteWord = 0;
-	   gen.machineCode = reset_assembly(1);
-           gen.seg_ptr = ret.seg[seg_name].begin ;
+	   gen.byteWord     = 0;
+           gen.track_source = '' ;
+	   gen.machineCode  = reset_assembly(1);
+           gen.seg_ptr      = ret.seg[seg_name].begin ;
 
 	   //
 	   //  .data
@@ -548,14 +557,14 @@ function read_data ( context, datosCU, ret )
 				}
 
 				// Word filled
-                                writememory_and_reset(ret.mp, gen, 1) ;
+                                writememory_and_reset(ret.mp, gen, 1, '') ;
 
 				// Align to size
 				while (((gen.seg_ptr+gen.byteWord)%size) != 0)
                                 {
 					gen.byteWord++;
 					// Word filled
-                                        writememory_and_reset(ret.mp, gen, 1) ;
+                                        writememory_and_reset(ret.mp, gen, 1, '') ;
 				}
 
 		                // Store tag
@@ -576,7 +585,8 @@ function read_data ( context, datosCU, ret )
 				}
 
 				// Store number in machine code
-				gen.machineCode = assembly_replacement(gen.machineCode, num_bits,
+				gen.machineCode = assembly_replacement(gen.machineCode,
+								       num_bits,
             					                       BYTE_LENGTH*(size+gen.byteWord),
             					                       BYTE_LENGTH*gen.byteWord, free_space) ;
 				gen.byteWord += size ;
@@ -624,7 +634,7 @@ function read_data ( context, datosCU, ret )
 			for (i=0; i<possible_value; i++)
                         {
 				// Word filled
-                                writememory_and_reset(ret.mp, gen, 1) ;
+                                writememory_and_reset(ret.mp, gen, 1, '') ;
 				gen.byteWord++;
 			}
 
@@ -650,7 +660,7 @@ function read_data ( context, datosCU, ret )
 		        }
 
 			// Word filled
-                        writememory_and_reset(ret.mp, gen, 1) ;
+                        writememory_and_reset(ret.mp, gen, 1, '') ;
 
 			// Calculate offset
                         var align_offset = Math.pow(2,parseInt(possible_value)) ;
@@ -664,14 +674,23 @@ function read_data ( context, datosCU, ret )
 					break;
 				default:
 					// Fill with spaces
+                                        writememory_and_reset(ret.mp, gen, 1, '') ;
+					while ((gen.seg_ptr%align_offset != 0) || (gen.byteWord != 0))
+                                        {
+						// Word filled
+						gen.byteWord++;
+                                                writememory_and_reset(ret.mp, gen, 1, '') ;
+					}
+				/*
 					while (true)
                                         {
 						// Word filled
-                                                writememory_and_reset(ret.mp, gen, 1) ;
+                                                writememory_and_reset(ret.mp, gen, 1, '') ;
 						if (gen.seg_ptr%align_offset == 0 && gen.byteWord == 0)
 							break;
 						gen.byteWord++;
 					}
+				*/
 			}
 
 			nextToken(context) ;
@@ -693,7 +712,7 @@ function read_data ( context, datosCU, ret )
 			while (!is_directive(getToken(context)) && !is_end_of_file(context))
                         {
 				// Word filled
-                                writememory_and_reset(ret.mp, gen, 1) ;
+                                writememory_and_reset(ret.mp, gen, 1, '') ;
 
 				// check string
 				if ("\"" !== possible_value[0]) {
@@ -719,7 +738,7 @@ function read_data ( context, datosCU, ret )
 				for (i=0; i<possible_value.length; i++)
                                 {
 					// Word filled
-                                        writememory_and_reset(ret.mp, gen, 1) ;
+                                        writememory_and_reset(ret.mp, gen, 1, '') ;
 
 					if (possible_value[i] == "\"") {
                                             continue;
@@ -728,7 +747,8 @@ function read_data ( context, datosCU, ret )
 					num_bits = possible_value.charCodeAt(i).toString(2);
 
 					// Store character in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits,
+					gen.machineCode = assembly_replacement(gen.machineCode,
+      									       num_bits,
 									       BYTE_LENGTH*(1+gen.byteWord),
 									       BYTE_LENGTH*gen.byteWord,
 									       BYTE_LENGTH-num_bits.length) ;
@@ -738,12 +758,13 @@ function read_data ( context, datosCU, ret )
                                 if (".asciiz" == possible_datatype)
                                 {
                                 	// Word filled
-                                        writememory_and_reset(ret.mp, gen, 1) ;
+                                        writememory_and_reset(ret.mp, gen, 1, '') ;
 
 					num_bits = "\0".charCodeAt(0).toString(2);
 
 					// Store field in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits,
+					gen.machineCode = assembly_replacement(gen.machineCode,
+								               num_bits,
 									       BYTE_LENGTH*(1+gen.byteWord),
 									       BYTE_LENGTH*gen.byteWord,
 									       BYTE_LENGTH-num_bits.length) ;
@@ -780,7 +801,10 @@ function read_data ( context, datosCU, ret )
 	   // Fill memory
 	   if (gen.byteWord > 0)
 	   {
-                ret.mp["0x" + gen.seg_ptr.toString(16)] = { "value": gen.machineCode } ;
+                ret.mp["0x" + gen.seg_ptr.toString(16)] = {
+ 							    "source": '',
+                                                            "value": gen.machineCode
+                                                          } ;
                 gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
 	   }
 
@@ -837,7 +861,7 @@ function read_text ( context, datosCU, ret )
 			var possible_tag = getToken(context);
 
 			// check tag
-		        if ("TAG" != getTokenType(context)) 
+		        if ("TAG" != getTokenType(context))
                         {
                             if ("" == possible_tag) {
                                 possible_tag = "[empty]" ;
@@ -1143,22 +1167,22 @@ function read_text ( context, datosCU, ret )
 				{
 					if (res[1] < 0)
 					{
-						if (field.type == "address" && "rel" == field.address_type) 
+						if (field.type == "address" && "rel" == field.address_type)
                                                 {
-						     error = "Relative value (" + 
-                                                             (converted - seg_ptr - WORD_BYTES) + 
-                                                             " in decimal)"+ 
+						     error = "Relative value (" +
+                                                             (converted - seg_ptr - WORD_BYTES) +
+                                                             " in decimal)"+
 				                             i18n_get_TagFor('compiler', 'NEEDS') +
-                                                             res[0].length + 
+                                                             res[0].length +
 				                             i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
                                                              size + " " +
 				                             i18n_get_TagFor('compiler', 'BITS') ;
                                                 }
 						else
                                                 {
-                                                     error = "'" + value + "'" + 
+                                                     error = "'" + value + "'" +
 				                             i18n_get_TagFor('compiler', 'NEEDS') +
-                                                             res[0].length + 
+                                                             res[0].length +
 				                             i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
                                                              size + " " +
 				                             i18n_get_TagFor('compiler', 'BITS') ;
@@ -1221,7 +1245,7 @@ function read_text ( context, datosCU, ret )
 			format += "'" + firmware[instruction][i].signatureUser + "'" ;
 		}
                 if (format == "") {
-                    format = "'" + instruction + "' " +  
+                    format = "'" + instruction + "' " +
 			     i18n_get_TagFor('compiler', 'UNKNOWN MC FORMAT') ;
 		}
 
@@ -1371,7 +1395,9 @@ function read_text ( context, datosCU, ret )
 				                                       source_original: s_ori,
 				                                       firm_reference:  ref
 			                                            } ;
-                        ret.mp["0x" + seg_ptr.toString(16)] = { "value": machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) } ;
+                        ret.mp["0x" + seg_ptr.toString(16)] = {
+ 								"source": s_ori,
+								"value": machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) 						} ;
 
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
@@ -1536,7 +1562,8 @@ function simlang_compile (text, datosCU)
 		// Get the words in memory (machine code) where the label is used
 		var machineCode = "";
 		var auxAddr = ret.labels[i].addr;
-		for (j=0; j<ret.labels[i].nwords; j++) {
+		for (j=0; j<ret.labels[i].nwords; j++)
+                {
                         machineCode = ret.mp["0x" + auxAddr.toString(16)].value + machineCode;
 			auxAddr += WORD_BYTES;
 		}
@@ -1552,11 +1579,11 @@ function simlang_compile (text, datosCU)
 			var a = decimal2binary(converted, size);
 			num_bits   = a[0] ;
                         free_space = a[1] ;
-			error = "'" + ret.labels[i].name + "'" + 
+			error = "'" + ret.labels[i].name + "'" +
 				i18n_get_TagFor('compiler', 'NEEDS') +
-                                num_bits.length + 
+                                num_bits.length +
 				i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
-                                size + " " + 
+                                size + " " +
 			        i18n_get_TagFor('compiler', 'BITS') ;
 
 			if ("rel" == ret.labels[i].rel)
@@ -1564,12 +1591,12 @@ function simlang_compile (text, datosCU)
 			    var a = decimal2binary(converted - ret.labels[i].addr - WORD_BYTES, size);
 			    num_bits   = a[0] ;
                             free_space = a[1] ;
-			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + 
-                                    " in decimal)" + 
+			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) +
+                                    " in decimal)" +
 				    i18n_get_TagFor('compiler', 'NEEDS') +
-                                    num_bits.length + 
+                                    num_bits.length +
 				    i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
-                                    size + " " + 
+                                    size + " " +
 			            i18n_get_TagFor('compiler', 'BITS') ;
 			}
 		}
@@ -1586,16 +1613,17 @@ function simlang_compile (text, datosCU)
                 }
 
 		// Store field in machine code
-		machineCode = assembly_replacement(machineCode, num_bits, 
-                                                   ret.labels[i].startbit-(-1), 
-                                                   ret.labels[i].stopbit, 
+		machineCode = assembly_replacement(machineCode,
+                                                   num_bits,
+                                                   ret.labels[i].startbit-(-1),
+                                                   ret.labels[i].stopbit,
                                                    free_space) ;
 
 		// process machine code with several words...
 		auxAddr = ret.labels[i].addr;
 		for (j=ret.labels[i].nwords-1; j>=0; j--)
                 {
-                        ret.mp["0x" + auxAddr.toString(16)] = { "value": machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) } ;
+                        ret.mp["0x" + auxAddr.toString(16)].value = machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) ;
                 	auxAddr += WORD_BYTES ;
 		}
 	 }

@@ -34,7 +34,7 @@
 
         function set_value ( sim_obj, value )
         {
-	   if (typeof sim_obj.value == "function") 
+	   if (typeof sim_obj.value == "function")
 	   {
 	       if (sim_obj.value() != value)
 	           sim_obj.changed = true ;
@@ -93,7 +93,7 @@
 
         function set_var ( sim_var, value )
         {
-	   if (typeof sim_var == "function") 
+	   if (typeof sim_var == "function")
 	   {
 	       sim_var(value) ;
            }
