@@ -324,8 +324,8 @@
             }
 
             // escape html end attribute char
-            src = src.replace("'", "\'") ;
-            src = src.replace('"', '\"') ;
+            src = src.replace(/'/g, '') ;
+            src = src.replace(/"/g, '') ;
 
 	    return src ;
         }
@@ -416,15 +416,15 @@
                        "</div>" +
 	                 "<div class='col-6 p-1'>" +
 		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		         "        onclick='$(\"#lst_seg1\").collapse(\"show\"); return true; '>" +
-		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
-                         "      style='background-color:#CEECF5; '>On</span></buttom>" +
-		         "</div>" +
-	                 "<div class='col-6 p-1'>" +
-		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		         "        onclick='$(\"#lst_seg1\").collapse(\"hide\"); return true; '>" +
 		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
                          "      style='background-color:#CEECF5; '>Off</span></buttom>" +
+		         "</div>" +
+	                 "<div class='col-6 p-1'>" +
+		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		         "        onclick='$(\"#lst_seg1\").collapse(\"show\"); return true; '>" +
+		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
+                         "      style='background-color:#CEECF5; '>On</span></buttom>" +
 		         "</div>" +
 	             "<div class='w-100 border border-light'></div>" +
 		       "<div class='col p-1'>" +

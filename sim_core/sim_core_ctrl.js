@@ -372,13 +372,11 @@
 	    }
 
 	    // 6.- show memories...
-            setTimeout(function() {
-                            var mp_obj  = simhw_internalState('MP') ;
-                            var mc_obj  = simhw_internalState('MC') ;
-                            var mcd_obj = simhw_internalState('MC_dashboard') ;
+            var mp_obj  = simhw_internalState('MP') ;
+            var mc_obj  = simhw_internalState('MC') ;
+            var mcd_obj = simhw_internalState('MC_dashboard') ;
 
-                            show_main_memory   (mp_obj, 0, true, true) ;
-                            show_control_memory(mc_obj, mcd_obj, 0, true) ;
-                       }, 50) ;
+            show_main_memory   (mp_obj, 0, true, true) ;
+            show_control_memory(mc_obj, mcd_obj, 0, true) ;
 	}
 
