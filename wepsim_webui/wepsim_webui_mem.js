@@ -174,13 +174,21 @@
 
             $("#memory_MP").html(o1) ;
 
-            // scroll up/down to index element...
-            scroll_memory_to_address(index) ;
-
-            // show badges
+            // * Mandatory activation of html elements
             update_badges() ;
 
-            // update old_main_add for light_update
+	    $(function () {
+	       $('[data-toggle="tooltip"]').tooltip()
+	    }) ;
+
+            // * Configure html options
+            scroll_memory_to_address(index) ;
+
+            if (get_cfg('MEM_show_segments'))
+                 $("#lst_seg1").collapse("show") ;
+            else $("#lst_seg1").collapse("hide") ;
+
+            // * Update old_main_add for light_update
             old_main_addr = index ;
         }
 
@@ -230,6 +238,7 @@
 
             // get value
             var value = main_memory_getword(memory, addr) ;
+            var src   =  main_memory_getsrc(memory, addr) ;
 
             // format of the value
             var rf_format = get_cfg('MEM_display_format') ;
@@ -278,7 +287,12 @@
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
-	        "<div class='col-6 px-3' align='left'>" + value2 + "</div>"+
+	        "<div class='col-6 px-3' align='left'>" + 
+                     "<span class='mp_tooltip' " + 
+                     "      data-toggle='tooltip' data-placement='right' title='" + src + "'>" +
+                     value2 +
+                     "</span>" +
+                "</div>"+
                 "</div>";
 
 	    return o ;
@@ -300,6 +314,23 @@
             }
 
 	    return value4 ;
+        }
+
+        function main_memory_getsrc ( memory, key )
+        {
+            // get value...
+            var src = "" ;
+            if (typeof memory[key] !== "undefined") 
+            {
+                if (typeof memory[key].source !== "undefined")
+                    src = memory[key].source ;
+            }
+
+            // escape html end attribute char
+            src = src.replace(/'/g, '') ;
+            src = src.replace(/"/g, '') ;
+
+	    return src ;
         }
 
         function scroll_memory_to_segment ( seg_id )
@@ -388,15 +419,19 @@
                        "</div>" +
 	                 "<div class='col-6 p-1'>" +
 		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		         "        onclick='$(\"#lst_seg1\").collapse(\"show\"); return true; '>" +
+		         "        onclick='$(\"#lst_seg1\").collapse(\"hide\"); " +
+                         "                set_cfg(\"MEM_show_segments\", false);" +
+                         "                return true; '>" +
 		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
-                         "      style='background-color:#CEECF5; '>On</span></buttom>" +
+                         "      style='background-color:#CEECF5; '>Off</span></buttom>" +
 		         "</div>" +
 	                 "<div class='col-6 p-1'>" +
 		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		         "        onclick='$(\"#lst_seg1\").collapse(\"hide\"); return true; '>" +
+		         "        onclick='$(\"#lst_seg1\").collapse(\"show\");" +
+                         "                set_cfg(\"MEM_show_segments\", true);" +
+                         "                return true; '>" +
 		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
-                         "      style='background-color:#CEECF5; '>Off</span></buttom>" +
+                         "      style='background-color:#CEECF5; '>On</span></buttom>" +
 		         "</div>" +
 	             "<div class='w-100 border border-light'></div>" +
 		       "<div class='col p-1'>" +

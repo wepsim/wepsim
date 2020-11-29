@@ -359,8 +359,9 @@
 	    {
 	       var kx = parseInt(key) ;
                var kv = parseInt(SIMWARE['mp'][key].value.replace(/ /g,''), 2) ;
-               simhw_internalState_set('MP', kx, kv) ;
-               simhw_internalState_set('MP', kx, { "value": kv }) ;
+               var kc =          SIMWARE['mp'][key].source.join(";") ;
+           //  simhw_internalState_set('MP', kx, kv) ;
+               simhw_internalState_set('MP', kx, { "value": kv, "source": kc }) ;
 	    }
 
 	    // 5.- load the segments from SIMWARE['seg']
@@ -371,13 +372,11 @@
 	    }
 
 	    // 6.- show memories...
-            setTimeout(function() {
-                            var mp_obj  = simhw_internalState('MP') ;
-                            var mc_obj  = simhw_internalState('MC') ;
-                            var mcd_obj = simhw_internalState('MC_dashboard') ;
+            var mp_obj  = simhw_internalState('MP') ;
+            var mc_obj  = simhw_internalState('MC') ;
+            var mcd_obj = simhw_internalState('MC_dashboard') ;
 
-                            show_main_memory   (mp_obj, 0, true, true) ;
-                            show_control_memory(mc_obj, mcd_obj, 0, true) ;
-                       }, 100) ;
+            show_main_memory   (mp_obj, 0, true, true) ;
+            show_control_memory(mc_obj, mcd_obj, 0, true) ;
 	}
 

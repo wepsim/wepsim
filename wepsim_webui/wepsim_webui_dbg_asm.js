@@ -161,6 +161,8 @@
 
         function default_asmdbg_content_vertical ( )
         {
+    	    var wsi = get_cfg('ws_idiom') ;
+
     	    var o = "<br>" +
     		    "<div class='container-fluid'>" +
     		    "<div class='card-column row'>" +

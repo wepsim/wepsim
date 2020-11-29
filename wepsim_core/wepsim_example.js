@@ -130,9 +130,12 @@
                             if (true === chain_next_step) {
 				setTimeout(function() {
 					      wsweb_change_workspace_simulator() ;
-                                              show_memories_values();
 				           }, 50);
                              }
+
+			     setTimeout(function() {
+                                           show_memories_values();
+				        }, 500);
 
                              wepsim_notify_success('<strong>INFO</strong>',
                                                    'Example ready to be used.') ;
@@ -201,7 +204,9 @@
                                           }, 50);
                            }
                            else {
-                               show_memories_values();
+                               setTimeout(function() {
+                                             show_memories_values();
+                                          }, 50);
 
                                wepsim_notify_success('<strong>INFO</strong>',
                                                      'Example ready to be used.') ;

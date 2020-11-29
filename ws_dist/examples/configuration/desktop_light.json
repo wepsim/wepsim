@@ -59,6 +59,11 @@
     "type": "string",
     "value": "unsigned_16_nofill"
   },
+  "MEM_show_segments": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": false
+  },
   "is_editable": {
     "upgrade": false,
     "type": "boolean",
