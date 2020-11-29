@@ -174,18 +174,21 @@
 
             $("#memory_MP").html(o1) ;
 
-            // scroll up/down to index element...
-            scroll_memory_to_address(index) ;
-
-            // show badges
+            // * Mandatory activation of html elements
             update_badges() ;
 
-            // activation of tooltips
 	    $(function () {
 	       $('[data-toggle="tooltip"]').tooltip()
 	    }) ;
 
-            // update old_main_add for light_update
+            // * Configure html options
+            scroll_memory_to_address(index) ;
+
+            if (get_cfg('MEM_show_segments'))
+                 $("#lst_seg1").collapse("show") ;
+            else $("#lst_seg1").collapse("hide") ;
+
+            // * Update old_main_add for light_update
             old_main_addr = index ;
         }
 
@@ -416,13 +419,17 @@
                        "</div>" +
 	                 "<div class='col-6 p-1'>" +
 		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		         "        onclick='$(\"#lst_seg1\").collapse(\"hide\"); return true; '>" +
+		         "        onclick='$(\"#lst_seg1\").collapse(\"hide\"); " +
+                         "                set_cfg(\"MEM_show_segments\", false);" +
+                         "                return true; '>" +
 		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
                          "      style='background-color:#CEECF5; '>Off</span></buttom>" +
 		         "</div>" +
 	                 "<div class='col-6 p-1'>" +
 		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		         "        onclick='$(\"#lst_seg1\").collapse(\"show\"); return true; '>" +
+		         "        onclick='$(\"#lst_seg1\").collapse(\"show\");" +
+                         "                set_cfg(\"MEM_show_segments\", true);" +
+                         "                return true; '>" +
 		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
                          "      style='background-color:#CEECF5; '>On</span></buttom>" +
 		         "</div>" +
