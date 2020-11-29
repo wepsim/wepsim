@@ -140,8 +140,9 @@
 
             var SIMWARE = get_simware() ;
             var revlabels = {} ;
-            for (key in SIMWARE.firmware)
+            for (key in SIMWARE.firmware) {
                  revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key].name ;
+            }
 
             var maddr = "" ;
             var trpin = "" ;
@@ -168,26 +169,24 @@
                             '</span>' ;
 	        }
 
+                // trpin + wcolor
 		trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint) {
                     trpin = sim_core_breakpointicon_get(icon_theme) ;
 		}
 
-		if (key == index)
-		     o1 += "<tr id='maddr" + key + "' class='d-flex' " +
-                           "    style='color:blue; font-size:small; font-weight:bold' " +
-			   "    onclick='dbg_set_breakpoint(" + key + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
-			   "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
-			   "<td             class='col py-0'>" + value + "</td></tr>";
-		else o1 += "<tr id='maddr" + key + "' class='d-flex' " +
-                           "    style='color:black; font-size:small; font-weight:normal' " +
-			   "    onclick='dbg_set_breakpoint(" + key + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
-			   "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
-			   "<td             class='col py-0'>" + value + "</td></tr>";
+                var wcolor = "color:black; font-weight:normal; " ;
+                if (key == index) {
+                    wcolor = "color:blue;  font-weight:bold; " ;
+                }
+
+		o1 += "<tr id='maddr" + key + "' class='d-flex' " +
+                      "    style='font-size:small; " + wcolor + "' " +
+		      "    onclick='dbg_set_breakpoint(" + key + "); " +
+                      "             if (event.stopPropagation) event.stopPropagation();'>" +
+		      "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
+		      "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
+		      "<td             class='col py-0'>" + value + "</td></tr>" ;
             }
 
 	    if (typeof memory[index] == "undefined") {
@@ -198,9 +197,12 @@
 		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
             }
 
-            $("#memory_MC").html("<center><table class='table table-hover table-sm'>" +
-                                 "<tbody id='none'>" + o1 + "</tbody>" +
-                                 "</table></center>");
+            // build and load HTML
+            o1 = "<center><table class='table table-hover table-sm'>" +
+                 "<tbody id='none'>" + o1 + "</tbody>" +
+                 "</table></center>" ;
+
+            $("#memory_MC").html(o1) ;
 
             // scroll up/down to index element...
 	    var obj_byid = $('#maddr' + index) ;
@@ -235,8 +237,9 @@
 
         function wepsim_show_control_memory ( memory, memory_dashboard, index, redraw )
         {
-            if (null !== show_control_memory_deferred)
+            if (null !== show_control_memory_deferred) {
                 return;
+            }
 
             show_control_memory_deferred = setTimeout(function () {
 						         if (false === redraw)
@@ -245,10 +248,4 @@
                                                          show_control_memory_deferred = null;
                                                       }, cfg_show_control_memory_delay);
         }
-
-
-        /*
-         *  obj2html
-         */
-
 

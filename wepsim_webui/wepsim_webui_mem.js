@@ -178,7 +178,7 @@
             update_badges() ;
 
 	    $(function () {
-	       $('[data-toggle="tooltip"]').tooltip()
+	       $('[data-toggle="tooltip"]').tooltip() ;
 	    }) ;
 
             // * Configure html options
