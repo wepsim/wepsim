@@ -35,8 +35,8 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		    var o1 = "<div id='memory_MC' " + 
-                             "     style='height:60vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" + 
+		    var o1 = "<div id='memory_MC' " +
+                             "     style='height:60vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" +
                              "</div>" ;
 
 		    this.innerHTML = o1 ;
@@ -79,7 +79,7 @@
                 {
                      wepsim_notify_do_notify('<strong>INFO</strong>',
                                              'Please remember to change configuration to execute at microinstruction level.',
-		                             'success', 
+		                             'success',
 			                     get_cfg('NOTIF_delay')) ;
                 }
 
@@ -103,33 +103,6 @@
         /*
          *  Control Memory UI
          */
-
-        function controlmemory_lineToString ( memory, key )
-        {
-		var value = "" ;
-
-		for (var ks in memory[key])
-		{
-		     if (1 == memory[key][ks]) {
-			 value += ks + " ";
-			 continue;
-		     }
-
-		     if ("NATIVE" == ks) {
-			 value += "&lt;native&gt; " ;
-			 continue;
-		     }
-
-		     if ("NATIVE_JIT" == ks) {
-			 value += "&lt;built-in&gt; " ;
-			 continue;
-		     }
-
-		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
-		}
-
-		return value ;
-        }
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
         {
@@ -186,15 +159,20 @@
                       "             if (event.stopPropagation) event.stopPropagation();'>" +
 		      "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
 		      "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
-		      "<td             class='col py-0'>" + value + "</td></tr>" ;
+		      "<td             class='col py-0'>" + value + "</td>" +
+                      "</tr>" ;
             }
 
-	    if (typeof memory[index] == "undefined") {
-		o1 += "<tr>" +
-		      "<td width='15%'><font style='color:blue; font-size:small; font-weight:bold'>0x" +
-                      parseInt(index).toString(16) +
-                      "</font></td>" +
-		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
+	    if (typeof memory[index] == "undefined")
+            {
+		maddr = "0x" + parseInt(index).toString(16) ;
+
+		o1 += "<tr class='d-flex' " +
+		      "    style='font-size:small; color:blue; font-weight:bold'>" +
+		      "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
+		      "<td width='1%'  class='col-auto py-0 px-0'>&nbsp;</td>" +
+		      "<td             class='col py-0'>&nbsp;</td>" +
+                      "</tr>" ;
             }
 
             // build and load HTML
@@ -205,13 +183,8 @@
             $("#memory_MC").html(o1) ;
 
             // scroll up/down to index element...
-	    var obj_byid = $('#maddr' + index) ;
-	    if ( (redraw) && (obj_byid.length > 0) )
-            {
-	        var topPos = obj_byid[0].offsetTop ;
-	            obj_byid = $('#memory_MC') ;
-	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos;
+	    if (redraw) {
+                scroll_element('#memory_MC', '#maddr' + index, 0) ;
             }
 
             // update old_mc_add for light_update
@@ -247,5 +220,36 @@
                                                          else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
                                                          show_control_memory_deferred = null;
                                                       }, cfg_show_control_memory_delay);
+        }
+
+        //
+        // Auxiliar functions
+        //
+
+        function controlmemory_lineToString ( memory, key )
+        {
+		var value = "" ;
+
+		for (var ks in memory[key])
+		{
+		     if (1 == memory[key][ks]) {
+			 value += ks + " ";
+			 continue;
+		     }
+
+		     if ("NATIVE" == ks) {
+			 value += "&lt;native&gt; " ;
+			 continue;
+		     }
+
+		     if ("NATIVE_JIT" == ks) {
+			 value += "&lt;built-in&gt; " ;
+			 continue;
+		     }
+
+		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
+		}
+
+		return value ;
         }
 

@@ -335,29 +335,17 @@
 
         function scroll_memory_to_segment ( seg_id )
         {
-            return scroll_element('#lst_ins1', '#'+seg_id) ;
+            return scroll_element('#lst_ins1', '#'+seg_id, -150) ;
         }
 
         function scroll_memory_to_address ( addr )
         {
-            return scroll_element('#lst_ins1', '#addr'+addr) ;
+            return scroll_element('#lst_ins1', '#addr'+addr, -150) ;
         }
 
         function scroll_memory_to_lastaddress ( )
         {
-            return scroll_element('#lst_ins1', '#addr'+old_main_addr) ;
-        }
-
-        function scroll_element ( list_id, obj_id )
-        {
-	    var obj_byid = $(obj_id) ;
-	    if (obj_byid.length > 0)
-            {
-	        var topPos = obj_byid[0].offsetTop ;
-	            obj_byid = $(list_id) ;
-	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos - 150 ;
-            }
+            return scroll_element('#lst_ins1', '#addr'+old_main_addr, -150) ;
         }
 
         function update_badges ( )
