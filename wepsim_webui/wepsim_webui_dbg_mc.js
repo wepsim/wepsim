@@ -93,10 +93,9 @@
 	        var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	        var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
 
-                show_control_memory(simhw_internalState('MC'),
-                                    simhw_internalState('MC_dashboard'),
-			            reg_maddr,
-                                    false) ;
+                light_refresh_control_memory(simhw_internalState('MC'),
+                                             simhw_internalState('MC_dashboard'),
+			                     reg_maddr) ;
 	}
 
 
@@ -106,10 +105,7 @@
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
         {
-	    var o1    = "" ;
-            var key   = "" ;
-            var value = "" ;
-            var icon_theme = get_cfg('ICON_theme') ;
+	    var o1 = "" ;
 
             var SIMWARE = get_simware() ;
             var revlabels = {} ;
@@ -117,62 +113,12 @@
                  revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key].name ;
             }
 
-            var maddr = "" ;
-            var trpin = "" ;
-            var htmllabel = "" ;
-            var htmlfill = 0 ;
-            for (key in memory)
-            {
-                value = controlmemory_lineToString(memory, key) ;
-                maddr = "0x" + parseInt(key).toString(16) ;
-                if (typeof revlabels[key] != "undefined")
-		{
-                    htmllabel = revlabels[key] ;
-		    htmlfill  = 5 - htmllabel.length ;
-		    if (htmlfill > 0) {
-			for (var i=0; i<htmlfill; i++) {
-                             htmllabel = htmllabel + "&nbsp;" ;
-			}
-		    }
-
-                    maddr = '<span>' +
-                            '<span class="badge badge-pill badge-info text-monospace" ' +
-                            '      style="position:relative;top:4px;">' + htmllabel + '</span>' +
-                            '<span style="border:1px solid gray;">' + maddr + '</span>' +
-                            '</span>' ;
-	        }
-
-                // trpin + wcolor
-		trpin = "&nbsp;" ;
-		if (true == memory_dashboard[key].breakpoint) {
-                    trpin = sim_core_breakpointicon_get(icon_theme) ;
-		}
-
-                var wcolor = "color:black; font-weight:normal; " ;
-                if (key == index) {
-                    wcolor = "color:blue;  font-weight:bold; " ;
-                }
-
-		o1 += "<tr id='maddr" + key + "' class='d-flex' " +
-                      "    style='font-size:small; " + wcolor + "' " +
-		      "    onclick='dbg_set_breakpoint(" + key + "); " +
-                      "             if (event.stopPropagation) event.stopPropagation();'>" +
-		      "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
-		      "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
-		      "<td             class='col py-0'>" + value + "</td>" +
-                      "</tr>" ;
+            for (var key in memory) {
+                 o1 += control_memory_showrow(memory, key, (key == index), memory_dashboard, revlabels) ;
             }
 
-	    if (typeof memory[index] == "undefined")
-            {
-		maddr = "0x" + parseInt(index).toString(16) ;
-
-		o1 += "<tr class='d-flex' " +
-		      "    style='font-size:small; color:blue; font-weight:bold'>" +
-		      "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
-		      "<td width='1%'  class='col-auto py-0 px-0'>&nbsp;</td>" +
-		      "<td             class='col py-0'>&nbsp;</td>" +
-                      "</tr>" ;
+	    if (typeof memory[index] == "undefined") {
+                o1 += control_memory_showrow(memory, index, true, memory_dashboard, revlabels) ;
             }
 
             // build and load HTML
@@ -251,5 +197,60 @@
 		}
 
 		return value ;
+        }
+
+        function control_memory_showrow ( memory, key, is_current, memory_dashboard, revlabels )
+        {
+	        var o1 = "" ;
+
+                var value = controlmemory_lineToString(memory, key) ;
+                var maddr = "0x" + parseInt(key).toString(16) ;
+                if (typeof revlabels[key] !== "undefined")
+	        {
+                    var htmllabel = revlabels[key] ;
+		    var htmlfill  = 5 - htmllabel.length ;
+		    if (htmlfill > 0)
+                    {
+			for (var i=0; i<htmlfill; i++) {
+                             htmllabel = htmllabel + "&nbsp;" ;
+			}
+		    }
+
+                    maddr = '<span>' +
+                            '<span class="badge badge-pill badge-info text-monospace" ' +
+                            '      style="position:relative;top:4px;">' + htmllabel + '</span>' +
+                            '<span style="border:1px solid gray;">' + maddr + '</span>' +
+                            '</span>' ;
+	        }
+
+                // trpin + wcolor
+                var trpin  = "&nbsp;" ;
+                var jscode = "" ;
+                if (typeof memory_dashboard[key] !== "undefined")
+	        {
+		    if (true == memory_dashboard[key].breakpoint) {
+                        var icon_theme = get_cfg('ICON_theme') ;
+                        trpin = sim_core_breakpointicon_get(icon_theme) ;
+		    }
+
+                    jscode = "dbg_set_breakpoint(" + key + "); " +
+                             "if (event.stopPropagation) event.stopPropagation();" ;
+		}
+
+                var wcolor = "color:black; font-weight:normal; " ;
+                if (is_current) {
+                    wcolor = "color:blue;  font-weight:bold; " ;
+                }
+
+		o1 += "<tr id='maddr" + key + "' class='d-flex' " +
+                      "    style='font-size:small; " + wcolor + "' " +
+		      "    onclick='" + jscode + "'>" +
+		      "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
+		      "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
+		      "<td             class='col py-0'>" + value + "</td>" +
+                      "</tr>" ;
+
+                // return HTML
+                return o1 ;
         }
 
