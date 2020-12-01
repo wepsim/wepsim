@@ -106,19 +106,14 @@
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
         {
 	    var o1 = "" ;
-
             var SIMWARE = get_simware() ;
-            var revlabels = {} ;
-            for (key in SIMWARE.firmware) {
-                 revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key].name ;
-            }
 
             for (var key in memory) {
-                 o1 += control_memory_showrow(memory, key, (key == index), memory_dashboard, revlabels) ;
+                 o1 += control_memory_showrow(memory, key, (key == index), memory_dashboard, SIMWARE.revlabels) ;
             }
 
 	    if (typeof memory[index] == "undefined") {
-                o1 += control_memory_showrow(memory, index, true, memory_dashboard, revlabels) ;
+                o1 += control_memory_showrow(memory, index, true, memory_dashboard, SIMWARE.revlabels) ;
             }
 
             // build and load HTML
