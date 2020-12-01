@@ -40,6 +40,7 @@
 
 	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = {} ;
 	    if (typeof cf['cocop_hash'] == "undefined")          cf['cocop_hash']         = {} ;
+	    if (typeof cf['revlabels'] == "undefined")           cf['revlabels']          = {} ;
 	    if (typeof cf['revlabels2'] == "undefined")          cf['revlabels2']         = {} ;
 	    if (typeof cf['revseg'] == "undefined")              cf['revseg']             = {} ;
 
@@ -58,6 +59,7 @@
 
 	    if (typeof preWARE['seg'] != "undefined")                cf['seg']           = preWARE['seg'] ;
 	    if (typeof preWARE['labels'] != "undefined")             cf['labels']        = preWARE['labels'] ;
+	    if (typeof preWARE['revlabels'] != "undefined")          cf['revlabels']     = preWARE['revlabels'] ;
 	    if (typeof preWARE['revlabels2'] != "undefined")         cf['revlabels2']    = preWARE['revlabels2'] ;
 	    if (typeof preWARE['labels_firm'] != "undefined")        cf['labels_firm']   = preWARE['labels_firm'] ;
 	    if (typeof preWARE['stackRegister'] != "undefined")      cf['stackRegister'] = preWARE['stackRegister'] ;

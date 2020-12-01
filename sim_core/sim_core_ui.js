@@ -327,3 +327,15 @@
 	    return true ;
         }
 
+        function scroll_element ( list_id, obj_id, offset )
+        {
+            var obj_byid = $(obj_id) ;
+            if (obj_byid.length > 0)
+            {
+                var topPos = obj_byid[0].offsetTop ;
+                    obj_byid = $(list_id) ;
+                if (obj_byid.length > 0)
+                    obj_byid[0].scrollTop = topPos + offset ;
+            }
+        }
+

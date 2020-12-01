@@ -35,8 +35,8 @@
 	      render ( msg_default )
 	      {
 		    // html holder
-		    var o1 = "<div id='memory_MC' " + 
-                             "     style='height:60vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" + 
+		    var o1 = "<div id='memory_MC' " +
+                             "     style='height:60vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;'>" +
                              "</div>" ;
 
 		    this.innerHTML = o1 ;
@@ -79,7 +79,7 @@
                 {
                      wepsim_notify_do_notify('<strong>INFO</strong>',
                                              'Please remember to change configuration to execute at microinstruction level.',
-		                             'success', 
+		                             'success',
 			                     get_cfg('NOTIF_delay')) ;
                 }
 
@@ -93,16 +93,79 @@
 	        var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	        var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
 
-                show_control_memory(simhw_internalState('MC'),
-                                    simhw_internalState('MC_dashboard'),
-			            reg_maddr,
-                                    false) ;
+                light_refresh_control_memory(simhw_internalState('MC'),
+                                             simhw_internalState('MC_dashboard'),
+			                     reg_maddr) ;
 	}
 
 
         /*
          *  Control Memory UI
          */
+
+        function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
+        {
+	    var o1 = "" ;
+            var SIMWARE = get_simware() ;
+
+            for (var key in memory) {
+                 o1 += control_memory_showrow(memory, key, (key == index), memory_dashboard, SIMWARE.revlabels) ;
+            }
+
+	    if (typeof memory[index] == "undefined") {
+                o1 += control_memory_showrow(memory, index, true, memory_dashboard, SIMWARE.revlabels) ;
+            }
+
+            // build and load HTML
+            o1 = "<center><table class='table table-hover table-sm'>" +
+                 "<tbody id='none'>" + o1 + "</tbody>" +
+                 "</table></center>" ;
+
+            $("#memory_MC").html(o1) ;
+
+            // scroll up/down to index element...
+	    if (redraw) {
+                scroll_element('#memory_MC', '#maddr' + index, 0) ;
+            }
+
+            // update old_mc_add for light_update
+            old_mc_addr = index;
+        }
+
+        var old_mc_addr = 0;
+
+        function light_refresh_control_memory ( memory, memory_dashboard, index )
+        {
+            o1 = $("#maddr" + old_mc_addr) ;
+            o1.css('color', 'black') ;
+            o1.css('font-weight', 'normal') ;
+
+            old_mc_addr = index ;
+
+            o1 = $("#maddr" + old_mc_addr) ;
+            o1.css('color', 'blue') ;
+            o1.css('font-weight', 'bold') ;
+        }
+
+        var show_control_memory_deferred = null;
+
+        function wepsim_show_control_memory ( memory, memory_dashboard, index, redraw )
+        {
+            if (null !== show_control_memory_deferred) {
+                return;
+            }
+
+            show_control_memory_deferred = setTimeout(function () {
+						         if (false === redraw)
+							      light_refresh_control_memory(memory, memory_dashboard, index);
+                                                         else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
+                                                         show_control_memory_deferred = null;
+                                                      }, cfg_show_control_memory_delay);
+        }
+
+        //
+        // Auxiliar functions
+        //
 
         function controlmemory_lineToString ( memory, key )
         {
@@ -131,31 +194,18 @@
 		return value ;
         }
 
-        function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
+        function control_memory_showrow ( memory, key, is_current, memory_dashboard, revlabels )
         {
-	    var o1    = "" ;
-            var key   = "" ;
-            var value = "" ;
-            var icon_theme = get_cfg('ICON_theme') ;
+	        var o1 = "" ;
 
-            var SIMWARE = get_simware() ;
-            var revlabels = {} ;
-            for (key in SIMWARE.firmware)
-                 revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key].name ;
-
-            var maddr = "" ;
-            var trpin = "" ;
-            var htmllabel = "" ;
-            var htmlfill = 0 ;
-            for (key in memory)
-            {
-                value = controlmemory_lineToString(memory, key) ;
-                maddr = "0x" + parseInt(key).toString(16) ;
-                if (typeof revlabels[key] != "undefined")
-		{
-                    htmllabel = revlabels[key] ;
-		    htmlfill  = 5 - htmllabel.length ;
-		    if (htmlfill > 0) {
+                var value = controlmemory_lineToString(memory, key) ;
+                var maddr = "0x" + parseInt(key).toString(16) ;
+                if (typeof revlabels[key] !== "undefined")
+	        {
+                    var htmllabel = revlabels[key] ;
+		    var htmlfill  = 5 - htmllabel.length ;
+		    if (htmlfill > 0)
+                    {
 			for (var i=0; i<htmlfill; i++) {
                              htmllabel = htmllabel + "&nbsp;" ;
 			}
@@ -168,87 +218,34 @@
                             '</span>' ;
 	        }
 
-		trpin = "&nbsp;" ;
-		if (true == memory_dashboard[key].breakpoint) {
-                    trpin = sim_core_breakpointicon_get(icon_theme) ;
+                // trpin + wcolor
+                var trpin  = "&nbsp;" ;
+                var jscode = "" ;
+                if (typeof memory_dashboard[key] !== "undefined")
+	        {
+		    if (true == memory_dashboard[key].breakpoint) {
+                        var icon_theme = get_cfg('ICON_theme') ;
+                        trpin = sim_core_breakpointicon_get(icon_theme) ;
+		    }
+
+                    jscode = "dbg_set_breakpoint(" + key + "); " +
+                             "if (event.stopPropagation) event.stopPropagation();" ;
 		}
 
-		if (key == index)
-		     o1 += "<tr id='maddr" + key + "' class='d-flex' " +
-                           "    style='color:blue; font-size:small; font-weight:bold' " +
-			   "    onclick='dbg_set_breakpoint(" + key + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
-			   "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
-			   "<td             class='col py-0'>" + value + "</td></tr>";
-		else o1 += "<tr id='maddr" + key + "' class='d-flex' " +
-                           "    style='color:black; font-size:small; font-weight:normal' " +
-			   "    onclick='dbg_set_breakpoint(" + key + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
-			   "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
-			   "<td             class='col py-0'>" + value + "</td></tr>";
-            }
+                var wcolor = "color:black; font-weight:normal; " ;
+                if (is_current) {
+                    wcolor = "color:blue;  font-weight:bold; " ;
+                }
 
-	    if (typeof memory[index] == "undefined") {
-		o1 += "<tr>" +
-		      "<td width='15%'><font style='color:blue; font-size:small; font-weight:bold'>0x" +
-                      parseInt(index).toString(16) +
-                      "</font></td>" +
-		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
-            }
+		o1 += "<tr id='maddr" + key + "' class='d-flex' " +
+                      "    style='font-size:small; " + wcolor + "' " +
+		      "    onclick='" + jscode + "'>" +
+		      "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
+		      "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
+		      "<td             class='col py-0'>" + value + "</td>" +
+                      "</tr>" ;
 
-            $("#memory_MC").html("<center><table class='table table-hover table-sm'>" +
-                                 "<tbody id='none'>" + o1 + "</tbody>" +
-                                 "</table></center>");
-
-            // scroll up/down to index element...
-	    var obj_byid = $('#maddr' + index) ;
-	    if ( (redraw) && (obj_byid.length > 0) )
-            {
-	        var topPos = obj_byid[0].offsetTop ;
-	            obj_byid = $('#memory_MC') ;
-	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos;
-            }
-
-            // update old_mc_add for light_update
-            old_mc_addr = index;
+                // return HTML
+                return o1 ;
         }
-
-        var old_mc_addr = 0;
-
-        function light_refresh_control_memory ( memory, memory_dashboard, index )
-        {
-            o1 = $("#maddr" + old_mc_addr) ;
-            o1.css('color', 'black') ;
-            o1.css('font-weight', 'normal') ;
-
-            old_mc_addr = index ;
-
-            o1 = $("#maddr" + old_mc_addr) ;
-            o1.css('color', 'blue') ;
-            o1.css('font-weight', 'bold') ;
-        }
-
-        var show_control_memory_deferred = null;
-
-        function wepsim_show_control_memory ( memory, memory_dashboard, index, redraw )
-        {
-            if (null !== show_control_memory_deferred)
-                return;
-
-            show_control_memory_deferred = setTimeout(function () {
-						         if (false === redraw)
-							      light_refresh_control_memory(memory, memory_dashboard, index);
-                                                         else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
-                                                         show_control_memory_deferred = null;
-                                                      }, cfg_show_control_memory_delay);
-        }
-
-
-        /*
-         *  obj2html
-         */
-
 

@@ -1243,6 +1243,12 @@ function loadFirmware (text)
 		 }
 	   }
 
+           // revlabels
+           context.revlabels = {} ;
+           for (key in context.instrucciones) {
+                context.revlabels[context.instrucciones[key]["mc-start"]] = context.instrucciones[key].name ;
+           }
+
            // return results
            ret = {} ;
            ret.error              = null ;
@@ -1254,6 +1260,7 @@ function loadFirmware (text)
            ret.pseudoInstructions = context.pseudoInstructions ;
 	   ret.stackRegister	  = context.stackRegister ;
 	   ret.cocop_hash	  = context.cocop_hash ;
+	   ret.revlabels	  = context.revlabels ;
 
            return ret ;
 }
