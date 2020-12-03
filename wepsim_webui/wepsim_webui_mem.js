@@ -63,6 +63,12 @@
 					}
 		    }).on('shown.bs.popover',
 					function(shownEvent) {
+                                            var optValue = get_cfg('MEM_show_segments') ;
+                                            $('#label19-' + optValue).button('toggle') ;
+
+                                            var optValue = get_cfg('MEM_show_source') ;
+                                            $('#label20-' + optValue).button('toggle') ;
+
 					    i18n_update_tags('cfg') ;
 					}) ;
 	      }
@@ -177,16 +183,16 @@
             // * Mandatory activation of html elements
             update_badges() ;
 
-	    $(function () {
-	       $('[data-toggle="tooltip"]').tooltip() ;
-	    }) ;
-
             // * Configure html options
             scroll_memory_to_address(index) ;
 
             if (get_cfg('MEM_show_segments'))
                  $("#lst_seg1").collapse("show") ;
             else $("#lst_seg1").collapse("hide") ;
+
+            if (get_cfg('MEM_show_source'))
+                 $(".mp_tooltip").collapse("show") ;
+            else $(".mp_tooltip").collapse("hide") ;
 
             // * Update old_main_add for light_update
             old_main_addr = index ;
@@ -287,11 +293,10 @@
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
-	        "<div class='col-6 px-3' align='left'>" + 
-                     "<span class='mp_tooltip' " + 
-                     "      data-toggle='tooltip' data-placement='right' title='" + src + "'>" +
-                     value2 +
-                     "</span>" +
+	        "<div class='col-6 px-3'  align='left'>" + value2 + "</div>" +
+	        "<div class='col-6 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
+	        "<div class='col-6 px-3  mp_tooltip collapse hide' align='left'>" +
+                "<span class='bg-dark text-white px-2 rounded'>" + src + "</span>" +
                 "</div>"+
                 "</div>";
 
@@ -320,7 +325,7 @@
         {
             // get value...
             var src = "" ;
-            if (typeof memory[key] !== "undefined") 
+            if (typeof memory[key] !== "undefined")
             {
                 if (typeof memory[key].source !== "undefined")
                     src = memory[key].source ;
@@ -379,17 +384,6 @@
          * Quick menu (display format)
          */
 
-        function quick_config_mem_htmlformat ( label2, format2 )
-        {
-	      return "<div class='col-6 p-1'>" +
-		     "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		     "        onclick='update_cfg(\"MEM_display_format\", \"" + format2 + "\"); " +
-                     "                 show_memories_values();" +
-                     "                 return true; '>" +
-		     "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
-		     "</div>" ;
-        }
-
         function quick_config_mem ( )
         {
 	      return "<div class='container mt-1'>" +
@@ -397,32 +391,41 @@
 	               "<div class='col-12 p-0'>" +
                        "<span data-langkey='Display format'>Display format</span>" +
                        "</div>" +
-                         quick_config_mem_htmlformat("0x3B<sub>16</sub>", "unsigned_16_nofill") +
-                         quick_config_mem_htmlformat("073<sub>8</sub>",   "unsigned_8_nofill") +
-                         quick_config_mem_htmlformat("59<sub>10</sub>",   "unsigned_10_nofill") +
-                         quick_config_mem_htmlformat(";<sub>ascii</sub>", "char_ascii_nofill") +
+                         quickcfg_html_btn("0x3B<sub>16</sub>",
+				           "update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
+					   "show_memories_values();") +
+                         quickcfg_html_btn("073<sub>8</sub>",
+					   "update_cfg(\"MEM_display_format\", \"unsigned_8_nofill\"); " +
+					   "show_memories_values();") +
+                         quickcfg_html_btn("59<sub>10</sub>",
+					   "update_cfg(\"MEM_display_format\", \"unsigned_10_nofill\"); " +
+					   "show_memories_values();") +
+                         quickcfg_html_btn(";<sub>ascii</sub>",
+					   "update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
+					   "show_memories_values();") +
                      "<div class='w-100 border border-light'></div>" +
-                       "<div class='col-12 p-0'>" +
+                       "<div class='col-12 p-0 mt-3'>" +
                        "<span data-langkey='Display segments'>Display segments</span>" +
                        "</div>" +
-	                 "<div class='col-6 p-1'>" +
-		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		         "        onclick='$(\"#lst_seg1\").collapse(\"hide\"); " +
-                         "                set_cfg(\"MEM_show_segments\", false);" +
-                         "                return true; '>" +
-		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
-                         "      style='background-color:#CEECF5; '>Off</span></buttom>" +
-		         "</div>" +
-	                 "<div class='col-6 p-1'>" +
-		         "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		         "        onclick='$(\"#lst_seg1\").collapse(\"show\");" +
-                         "                set_cfg(\"MEM_show_segments\", true);" +
-                         "                return true; '>" +
-		         "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " + 
-                         "      style='background-color:#CEECF5; '>On</span></buttom>" +
-		         "</div>" +
+			 quickcfg_html_onoff('label19',
+					     'radio19',
+					     'show segments',
+					     "  $('#lst_seg1').collapse('hide');" +
+					     "  update_cfg('MEM_show_segments', false);",
+					     "  $('#lst_seg1').collapse('show');" +
+					     "  update_cfg('MEM_show_segments', true);") +
+                       "<div class='col-12 p-0 mt-2'>" +
+                       "<span data-langkey='Display origin'>Display origin</span>" +
+                       "</div>" +
+			 quickcfg_html_onoff('label20',
+					     'radio20',
+					     'show origin',
+					     "  $('.mp_tooltip').collapse('hide');" +
+					     "  update_cfg('MEM_show_source', false);",
+					     "  $('.mp_tooltip').collapse('show');" +
+					     "  update_cfg('MEM_show_source', true);") +
 	             "<div class='w-100 border border-light'></div>" +
-		       "<div class='col p-1'>" +
+		       "<div class='col p-1 mt-3'>" +
 		       "<button type='button' id='close' data-role='none' " +
 		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
 		       "        onclick='$(\"#popover-mem\").popover(\"hide\");'>" +

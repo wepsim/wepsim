@@ -64,6 +64,11 @@
     "type": "boolean",
     "value": false
   },
+  "MEM_show_source": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": false
+  },
   "is_editable": {
     "upgrade": false,
     "type": "boolean",

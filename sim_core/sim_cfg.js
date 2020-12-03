@@ -212,6 +212,7 @@
                    "RF_display_name":      { upgrade:false, type:"string",    value:'numerical' },
                    "MEM_display_format":   { upgrade:true,  type:"string",    value:'unsigned_16_nofill' },
                    "MEM_show_segments":    { upgrade:true,  type:"boolean",   value:false },
+                   "MEM_show_source":      { upgrade:true,  type:"boolean",   value:false },
                    "is_editable":          { upgrade:false, type:"boolean",   value:true },
 
 	           /* simulation screen: Execution */

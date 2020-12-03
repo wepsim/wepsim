@@ -37,7 +37,7 @@
 					'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
 					'     onclick="wsweb_dialog_open(\'about\'); ' +
 					'              wsweb_quickmenu_close(); ' +
-					'              return false;">' +
+					'              return true;">' +
 					'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
 					'</li>' ;
@@ -46,7 +46,7 @@
 					'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
 					'     onclick="wepsim_newbie_tour(); ' +
 					'              wsweb_quickmenu_close(); ' +
-					'              return false;">' +
+					'              return true;">' +
 					'<em class="fas fa-book-reader col-1 pl-1 float-left"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
 					'</li>' ;
@@ -108,7 +108,7 @@
 			'                       data-show-value="false"' +
 			'                       class="custom-range slider col mx-0 px-0"' +
 			'                       oninput="wsweb_set_cpucu_size(this.value) ;' +
-			'                                return false;">' +
+			'                                return true;">' +
 			'           </form>' +
 			'     </div>' +
 			'</li>' ;
@@ -122,7 +122,7 @@
 			'                       data-show-value="false"' +
 			'                       class="custom-range slider col mx-0 px-0"' +
 			'                       oninput="wsweb_set_c1c2_size(this.value) ;' +
-			'                                return false;">' +
+			'                                return true;">' +
 			'           </form>' +
 			'     </div>' +
 			'</li>' ;
@@ -135,7 +135,7 @@
 			"               aria-label='WepSIM dark mode: true' " +
 			"               onclick=\"wepsim_restore_darkmode(true) ; " +
 			"                         update_cfg('ws_skin_dark_mode', true);" +
-			"                         return false;\">" +
+			"                         return true;\">" +
 			"            <input type='radio' name='options' id='radio18-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
 			"        </label>" +
 			"        <label id='label18-false'" +
@@ -143,7 +143,7 @@
 			"               aria-label='WepSIM dark mode: true' " +
 			"               onclick=\"wepsim_restore_darkmode(false) ; " +
 			"                         update_cfg('ws_skin_dark_mode', false);" +
-			"                         return false;\">" +
+			"                         return true;\">" +
 			"            <input type='radio' name='options' id='radio18-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
 			"        </label>" +
 			"    </div>" +
@@ -155,7 +155,7 @@
 			"        aria-label='open the reload dialog box' " +
 			"        onclick=\"wsweb_quickslider_close(); " +
 			"                  wsweb_dialog_open('reload'); " +
-			"                  return false;\">" +
+			"                  return true;\">" +
                         "<i class='fas fa-redo'></i>&nbsp;<span data-langkey='Reload'>Reload</span></div>" +
 			'</li>' ;
 
@@ -167,14 +167,14 @@
 			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 			"               aria-label='Frequent only: true' " +
 			"               onclick=\"wepsim_activeview('only_frequent', true) ; " +
-			"                         return false;\">" +
+			"                         return true;\">" +
 			"            <input type='radio' name='options' id='radio17-true'  aria-label='Frequent only: true'  autocomplete='off' >On" +
 			"        </label>" +
 			"        <label id='label17-false'" +
 			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 			"               aria-label='Frequent only: true' " +
 			"               onclick=\"wepsim_activeview('only_frequent', false) ; " +
-			"                         return false;\">" +
+			"                         return true;\">" +
 			"            <input type='radio' name='options' id='radio17-false' aria-label='Frequent only: false' autocomplete='off' >Off" +
 			"        </label>" +
 			"    </div>" +
@@ -216,4 +216,37 @@
          }
 
     } ;
+
+
+        //
+        // x
+        //
+
+        function quickcfg_html_btn ( label2, code2 )
+        {
+	      return "<div class='col-6 p-1'>" +
+		     "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		     "        onclick='" + code2 + "; return true;'>" +
+		     "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " +
+                     "      style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
+		     "</div>" ;
+        }
+
+        function quickcfg_html_onoff ( label2, radio2, arial2, code_off2, code_on2 )
+        {
+              return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-toggle='buttons'>" +
+                     "    <label id='" + label2 + "-false' " +
+                     "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                     "           aria-label='" + arial2 + ": false' " +
+		     "           onclick=\"" + code_off2 + "; return true;\">" +
+                     "    <input type='radio' name='options' id='" + radio2 + "-false' " +
+                     "           aria-label='" + arial2 + ": false' autocomplete='off'>Off</label>" +
+                     "    <label id='" + label2 + "-true' " +
+                     "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                     "           aria-label='" + arial2 + ": true' " +
+		     "           onclick=\"" + code_on2 + "; return true;\">" +
+                     "    <input type='radio' name='options' id='" + radio2 + "-true' " +
+                     "           aria-label='" + arial2 + ": true' autocomplete='on'>On</label>" +
+                     "</div>" ;
+        }
 
