@@ -45,7 +45,9 @@
 			     "</th>" +
                              "<th width='10%' class='asm_label collapse' align='right'><span data-langkey='labels'>labels</span></th>" +
 			     "<th width='15%' class='asm_addr  collapse'              ><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" +
-                             "<th width='15%' class='asm_hex   collapse' align='right'><span data-langkey='content'>content</span></th>" +
+                             "<th width='1%'  class='asm_addr  collapse' align='right'><span data-langkey='breakpoint'>breakpoint</span></th>" +
+                             "<th width='13%' class='asm_hex   collapse' align='right'><span data-langkey='content'>content</span></th>" +
+                             "<th width='1%'  class='asm_dets  collapse' align='right'><span data-langkey='details'>details</span></th>" +
                              "<th width='30%' class='asm_ins   collapse' align='left' ><span data-langkey='assembly'>assembly</span></th>" +
 			     "<th width='30%' class='asm_pins  collapse' align='left' ><span>pseudo</span><span class='d-none d-md-inline'><small><span data-langkey='instructions'>instructions</span></small></span></th>" +
 			     "</tr>" +
@@ -264,18 +266,21 @@
                            "    style='line-height:0.9;'" +
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" + l + "</td>" +
-                           "<td class='asm_break  text-monospace col-auto show py-0 px-0' " +
+                           "<td class='asm_break  text-monospace col-auto show p-0' " +
                            "    style='line-height:0.9;' id='bp" + l + "' width='1%'" +
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
 			   "    <span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
 			   "</td>" +
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left>" +
+                           "    style='line-height:0.9; width:13%' align='center' " +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + s4_hex +
+		           "</td>" +
+                           "<td class='asm_dets   text-monospace col-auto show p-0' " +
+                           "    style='line-height:0.9;' width='1%' align='left'>" +
 			   "    <span data-toggle='tooltip' rel='tooltip2' data-placement='right' data-html='true' data-l='" + l + "'>" +
-			   "    <span data-toggle='tooltip' rel='tooltip1' data-placement='right' title='click to show instruction format details'>" +
-				s4_hex +
-			   "    </span>" +
+			   "    <span data-toggle='tooltip' rel='tooltip1' data-placement='right' title='click to show instruction format details'>.</span>" +
 			   "    </span>" +
 		           "</td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse' " +

@@ -87,6 +87,7 @@
 		'NO NWORDS':			'Erwartetes Stichwort ‚nwords‘ nicht gefunden',
 		'INCORRECT ADDRESSING':		'Art der Adressierung falschen (abs oder rel)',
 		'UNEXPECTED FIELD':		'Unerwartete Feld gefunden: ',
+                'CHECK ORDER':                  'Please check field order',
 		'STARTBIT OoR':			'startbit out of range: ',
 		'STOPBIT OoR':			'stopbit Reichweite aus: ',
 		'OVERLAPPING FIELD':		'Überlappende Feld: ',

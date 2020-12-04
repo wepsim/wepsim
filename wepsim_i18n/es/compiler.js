@@ -87,6 +87,7 @@
            "NO NWORDS":              "Palabra clave 'nwords' esperado no encontrada",
            "INCORRECT ADDRESSING":   "Tipo de direccionamiento incorrecto (abs o rel)",
            "UNEXPECTED FIELD":       "Encontrado un campo no esperado: ",
+           "CHECK ORDER":            "Por favor compruebe el orden de los campos",
            "STARTBIT OoR":           "startbit fuera de rango: ",
            "STOPBIT OoR":            "stopbit fuera de rango: ",
            "OVERLAPPING FIELD":      "Campos que se solapan: ",
