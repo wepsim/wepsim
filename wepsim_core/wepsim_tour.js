@@ -21,6 +21,8 @@
 
     //  tour
 
+    var tour = null ;
+
     function wepsim_newbie_tour ( )
     {
 	     // setup lang
@@ -28,7 +30,9 @@
              wepsim_newbie_tour_setLang(ws_idiom) ;
 
 	     // setup tour
-	     tour = introJs() ;
+             if (null == tour) {
+	         tour = introJs() ;
+             }
 
 	     tour.setOptions({
                                 steps: ws_tour,
