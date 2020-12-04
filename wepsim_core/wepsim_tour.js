@@ -82,7 +82,7 @@
 	     // update interface
 	     i18n_update_tags('gui') ;
 
-	     tour.exit() ;
+	     //tour.exit() ; // In last introjs is not needed
 	     wepsim_newbie_tour() ;
     }
 
