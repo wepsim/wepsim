@@ -388,9 +388,7 @@
         {
 	      return "<div class='container mt-1'>" +
                      "<div class='row'>" +
-	               "<div class='col-12 p-0'>" +
-                       "<span data-langkey='Display format'>Display format</span>" +
-                       "</div>" +
+                         quickcfg_html_header("Display format") +
                          quickcfg_html_btn("0x3B<sub>16</sub>",
 				           "update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
 					   "show_memories_values();") +
@@ -404,21 +402,15 @@
 					   "update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
 					   "show_memories_values();") +
                      "<div class='w-100 border border-light'></div>" +
-                       "<div class='col-12 p-0 mt-3'>" +
-                       "<span data-langkey='Display segments'>Display segments</span>" +
-                       "</div>" +
-			 quickcfg_html_onoff('label19',
-					     'radio19',
+                         quickcfg_html_header("Display segments") +
+			 quickcfg_html_onoff('19',
 					     'show segments',
 					     "  $('#lst_seg1').collapse('hide');" +
 					     "  update_cfg('MEM_show_segments', false);",
 					     "  $('#lst_seg1').collapse('show');" +
 					     "  update_cfg('MEM_show_segments', true);") +
-                       "<div class='col-12 p-0 mt-2'>" +
-                       "<span data-langkey='Display origin'>Display origin</span>" +
-                       "</div>" +
-			 quickcfg_html_onoff('label20',
-					     'radio20',
+                         quickcfg_html_header("Display origin") +
+			 quickcfg_html_onoff('20',
 					     'show origin',
 					     "  $('.mp_tooltip').collapse('hide');" +
 					     "  update_cfg('MEM_show_source', false);",

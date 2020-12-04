@@ -129,13 +129,12 @@
 
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
-                        quickcfg_html_onoff('label18',
-                                             'radio18',
-                                             'WepSIM dark mode',
-                                             "  wepsim_restore_darkmode(false);" +
-                                             "  update_cfg('ws_skin_dark_mode', false);",
-                                             "  wepsim_restore_darkmode(true);" +
-                                             "  update_cfg('ws_skin_dark_mode', true);") +
+                        quickcfg_html_onoff('18',
+                                            'WepSIM dark mode',
+                                            "  wepsim_restore_darkmode(false);" +
+                                            "  update_cfg('ws_skin_dark_mode', false);",
+                                            "  wepsim_restore_darkmode(true);" +
+                                            "  update_cfg('ws_skin_dark_mode', true);") +
 			'</li>' ;
 
 		   o += '<li class="list-group-item px-0"> ' +
@@ -151,11 +150,10 @@
 /*
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
-                        quickcfg_html_onoff('label17',
-                                             'radio17',
-                                             'Frequent only',
-                                             "  wepsim_activeview('only_frequent', false);",
-                                             "  wepsim_activeview('only_frequent', true);") +
+                        quickcfg_html_onoff('17',
+                                            'Frequent only',
+                                            "  wepsim_activeview('only_frequent', false);",
+                                            "  wepsim_activeview('only_frequent', true);") +
 			'</li>' ;
 */
 
@@ -210,21 +208,28 @@
 		     "</div>" ;
         }
 
-        function quickcfg_html_onoff ( label2, radio2, arial2, code_off2, code_on2 )
+        function quickcfg_html_onoff ( id2, arial2, code_off2, code_on2 )
         {
               return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-toggle='buttons'>" +
-                     "    <label id='" + label2 + "-false' " +
+                     "    <label id='label" + id2 + "-false' " +
                      "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                      "           aria-label='" + arial2 + ": false' " +
 		     "           onclick=\"" + code_off2 + "; return true;\">" +
-                     "    <input type='radio' name='options' id='" + radio2 + "-false' " +
+                     "    <input type='radio' name='options' id='radio" + id2 + "-false' " +
                      "           aria-label='" + arial2 + ": false' autocomplete='off'>Off</label>" +
-                     "    <label id='" + label2 + "-true' " +
+                     "    <label id='label" + id2 + "-true' " +
                      "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                      "           aria-label='" + arial2 + ": true' " +
 		     "           onclick=\"" + code_on2 + "; return true;\">" +
-                     "    <input type='radio' name='options' id='" + radio2 + "-true' " +
+                     "    <input type='radio' name='options' id='radio" + id2 + "-true' " +
                      "           aria-label='" + arial2 + ": true' autocomplete='on'>On</label>" +
+                     "</div>" ;
+        }
+
+        function quickcfg_html_header ( label2 )
+        {
+              return "<div class='col-12 p-0 mt-3'>" +
+                     "<span data-langkey='" + label2 + "'>" + label2 + "</span>" +
                      "</div>" ;
         }
 

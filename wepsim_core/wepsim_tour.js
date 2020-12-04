@@ -35,11 +35,15 @@
              }
 
 	     tour.setOptions({
-                                steps: ws_tour,
+                                steps:              ws_tour,
 				keyboardNavigation: true,
-				tooltipClass: "tooltip-large",
-				showProgress: true,
-	                        overlayOpacity: "0.1"
+				tooltipClass:       'tooltip-large',
+				showProgress:       true,
+				showStepNumbers:    true,
+				scrollToElement:    true,
+                                nextLabel:          i18n_get('gui', ws_idiom, 'Next'),
+                                prevLabel:          i18n_get('gui', ws_idiom, 'Prev.'),
+	                        overlayOpacity:     '0.2'
                              }) ;
 
 	     tour.onbeforechange(function () {
@@ -86,7 +90,6 @@
 	     // update interface
 	     i18n_update_tags('gui') ;
 
-	     //tour.exit() ; // In last introjs is not needed
 	     wepsim_newbie_tour() ;
     }
 
