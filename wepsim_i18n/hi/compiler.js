@@ -87,7 +87,7 @@
 		'NO NWORDS':			'उम्मीद कीवर्ड \'nwords\' नहीं मिली',
 		'INCORRECT ADDRESSING':		'गलत (पेट या rel) को संबोधित करने का टाइप करें',
 		'UNEXPECTED FIELD':		'अप्रत्याशित क्षेत्र पाया: ',
-                'CHECK ORDER':                  'Please check field order',
+                'CHECK ORDER':                  'कृपया खेतों का क्रम जांचें ',
 		'STARTBIT OoR':			'सीमा से बाहर startbit: ',
 		'STOPBIT OoR':			'सीमा से बाहर stopbit: ',
 		'OVERLAPPING FIELD':		'ओवरलैपिंग क्षेत्र: ',

@@ -87,7 +87,7 @@
 		'NO NWORDS':			'mot-clé attendu \'nwords\' not found',
 		'INCORRECT ADDRESSING':		'Type d\'adressage incorrectes (abs ou rel)',
 		'UNEXPECTED FIELD':		'champ inattendu trouvé:',
-                'CHECK ORDER':                  'Please check field order',
+                'CHECK ORDER':                  'Veuillez vérifier l\'ordre des champs',
 		'STARTBIT OoR':			'startbit hors de portée:',
 		'STOPBIT OoR':			'STOPBIT hors de portée:',
 		'OVERLAPPING FIELD':		'terrain Chevauchement:',
