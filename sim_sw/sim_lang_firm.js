@@ -915,7 +915,8 @@ function loadFirmware (text)
 	           if (campos[camposInsertados].name != tmp_name) {
 		       return langError(context,
 				        i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
-                                        "'" + tmp_name + "'") ;
+                                        "'" + tmp_name + "'. " +
+				        i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
                    }
 
 	           nextToken(context);
@@ -986,7 +987,8 @@ function loadFirmware (text)
                    {
                         if (typeof overlapping[i] != "undefined") {
                             return langError(context,
-                                             i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + campos[camposInsertados].name) ;
+                                             i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				             campos[camposInsertados].name) ;
                         }
 
                         overlapping[i] = 1;

@@ -87,6 +87,7 @@
 		'NO NWORDS':			'预计关键字“nwords”未找到',
 		'INCORRECT ADDRESSING':		'地址不正确（绝对或相对）的类型',
 		'UNEXPECTED FIELD':		'意外发现场：',
+                'CHECK ORDER':                  'Please check field order',
 		'STARTBIT OoR':			'起始位的范围的：',
 		'STOPBIT OoR':			'STOPBIT超出范围：',
 		'OVERLAPPING FIELD':		'重叠的领域：',

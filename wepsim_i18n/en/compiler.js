@@ -91,6 +91,7 @@
            "NO NWORDS":              "Expected keyword 'nwords' not found",
            "INCORRECT ADDRESSING":   "Type of addressing incorrect (abs or rel)",
            "UNEXPECTED FIELD":       "Unexpected field found ",
+           "CHECK ORDER":            "Please check the order of the fields",
            "STARTBIT OoR":           "startbit out of range ",
            "STOPBIT OoR":            "stopbit out of range ",
            "OVERLAPPING FIELD":      "Overlapping field ",
