@@ -87,7 +87,7 @@
 		'NO NWORDS':			'予想されるキーワード「NWORDS」が見つかりません',
 		'INCORRECT ADDRESSING':		'間違った（absまたはREL）をアドレッシングのタイプ',
 		'UNEXPECTED FIELD':		'予期しないフィールドが見つかりました：',
-                'CHECK ORDER':                  'Please check field order',
+                'CHECK ORDER':                  'フィールドの順序を確認してください',
 		'STARTBIT OoR':			'範囲外スタートビット：',
 		'STOPBIT OoR':			'範囲外のストップビット：',
 		'OVERLAPPING FIELD':		'オーバーラップするフィールド：',

@@ -129,24 +129,12 @@
 
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
-			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-			"        <label id='label18-true'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='WepSIM dark mode: true' " +
-			"               onclick=\"wepsim_restore_darkmode(true) ; " +
-			"                         update_cfg('ws_skin_dark_mode', true);" +
-			"                         return true;\">" +
-			"            <input type='radio' name='options' id='radio18-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
-			"        </label>" +
-			"        <label id='label18-false'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='WepSIM dark mode: true' " +
-			"               onclick=\"wepsim_restore_darkmode(false) ; " +
-			"                         update_cfg('ws_skin_dark_mode', false);" +
-			"                         return true;\">" +
-			"            <input type='radio' name='options' id='radio18-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
-			"        </label>" +
-			"    </div>" +
+                        quickcfg_html_onoff('18',
+                                            'WepSIM dark mode',
+                                            "  wepsim_restore_darkmode(false);" +
+                                            "  update_cfg('ws_skin_dark_mode', false);",
+                                            "  wepsim_restore_darkmode(true);" +
+                                            "  update_cfg('ws_skin_dark_mode', true);") +
 			'</li>' ;
 
 		   o += '<li class="list-group-item px-0"> ' +
@@ -162,22 +150,10 @@
 /*
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
-			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-			"        <label id='label17-true'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Frequent only: true' " +
-			"               onclick=\"wepsim_activeview('only_frequent', true) ; " +
-			"                         return true;\">" +
-			"            <input type='radio' name='options' id='radio17-true'  aria-label='Frequent only: true'  autocomplete='off' >On" +
-			"        </label>" +
-			"        <label id='label17-false'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Frequent only: true' " +
-			"               onclick=\"wepsim_activeview('only_frequent', false) ; " +
-			"                         return true;\">" +
-			"            <input type='radio' name='options' id='radio17-false' aria-label='Frequent only: false' autocomplete='off' >Off" +
-			"        </label>" +
-			"    </div>" +
+                        quickcfg_html_onoff('17',
+                                            'Frequent only',
+                                            "  wepsim_activeview('only_frequent', false);",
+                                            "  wepsim_activeview('only_frequent', true);") +
 			'</li>' ;
 */
 
@@ -219,7 +195,7 @@
 
 
         //
-        // x
+        // Get HTML code for quick-config elements
         //
 
         function quickcfg_html_btn ( label2, code2 )
@@ -232,21 +208,28 @@
 		     "</div>" ;
         }
 
-        function quickcfg_html_onoff ( label2, radio2, arial2, code_off2, code_on2 )
+        function quickcfg_html_onoff ( id2, arial2, code_off2, code_on2 )
         {
               return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-toggle='buttons'>" +
-                     "    <label id='" + label2 + "-false' " +
+                     "    <label id='label" + id2 + "-false' " +
                      "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                      "           aria-label='" + arial2 + ": false' " +
 		     "           onclick=\"" + code_off2 + "; return true;\">" +
-                     "    <input type='radio' name='options' id='" + radio2 + "-false' " +
+                     "    <input type='radio' name='options' id='radio" + id2 + "-false' " +
                      "           aria-label='" + arial2 + ": false' autocomplete='off'>Off</label>" +
-                     "    <label id='" + label2 + "-true' " +
+                     "    <label id='label" + id2 + "-true' " +
                      "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                      "           aria-label='" + arial2 + ": true' " +
 		     "           onclick=\"" + code_on2 + "; return true;\">" +
-                     "    <input type='radio' name='options' id='" + radio2 + "-true' " +
+                     "    <input type='radio' name='options' id='radio" + id2 + "-true' " +
                      "           aria-label='" + arial2 + ": true' autocomplete='on'>On</label>" +
+                     "</div>" ;
+        }
+
+        function quickcfg_html_header ( label2 )
+        {
+              return "<div class='col-12 p-0 mt-3'>" +
+                     "<span data-langkey='" + label2 + "'>" + label2 + "</span>" +
                      "</div>" ;
         }
 

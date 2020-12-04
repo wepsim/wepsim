@@ -87,7 +87,7 @@
 		'NO NWORDS':			'Förväntade sökordet \'nwords\' hittades inte',
 		'INCORRECT ADDRESSING':		'Typ av adresse felaktiga (abs eller rel)',
 		'UNEXPECTED FIELD':		'Oväntat fält hittade:',
-                'CHECK ORDER':                  'Please check field order',
+                'CHECK ORDER':                  'Kontrollera fälternas ordning',
 		'STARTBIT OoR':			'startbit utom räckhåll:',
 		'STOPBIT OoR':			'stopbit utom räckhåll:',
 		'OVERLAPPING FIELD':		'Överlappande fält:',

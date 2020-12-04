@@ -87,7 +87,7 @@
 		'NO NWORDS':			'Ожидаемые ключевое слово «nwords» не найдено',
 		'INCORRECT ADDRESSING':		'Тип адресации неправильные (ABS или REL)',
 		'UNEXPECTED FIELD':		'Неожиданное поле найдено: ',
-                'CHECK ORDER':                  'Please check field order',
+                'CHECK ORDER':                  'Пожалуйста, проверьте порядок полей',
 		'STARTBIT OoR':			'startbit вне диапазона: ',
 		'STOPBIT OoR':			'стоповый бит из диапазона: ',
 		'OVERLAPPING FIELD':		'Перекрытие поля: ',

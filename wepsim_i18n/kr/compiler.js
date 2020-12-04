@@ -87,7 +87,7 @@
 		'NO NWORDS':			'발견되지 예상 키워드 \'nwords\'',
 		'INCORRECT ADDRESSING':		'잘못된 (절대치 또는 REL을) 주소의 입력',
 		'UNEXPECTED FIELD':		'예기치 않은 필드를 찾을 수 : ',
-                'CHECK ORDER':                  'Please check field order',
+                'CHECK ORDER':                  '필드 순서를 확인하세요.',
 		'STARTBIT OoR':			'범위를 벗어 startbit : ',
 		'STOPBIT OoR':			'범위를 벗어 stopbit : ',
 		'OVERLAPPING FIELD':		'필드 겹치는 : ',
