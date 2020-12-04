@@ -129,24 +129,13 @@
 
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
-			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-			"        <label id='label18-true'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='WepSIM dark mode: true' " +
-			"               onclick=\"wepsim_restore_darkmode(true) ; " +
-			"                         update_cfg('ws_skin_dark_mode', true);" +
-			"                         return true;\">" +
-			"            <input type='radio' name='options' id='radio18-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
-			"        </label>" +
-			"        <label id='label18-false'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='WepSIM dark mode: true' " +
-			"               onclick=\"wepsim_restore_darkmode(false) ; " +
-			"                         update_cfg('ws_skin_dark_mode', false);" +
-			"                         return true;\">" +
-			"            <input type='radio' name='options' id='radio18-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
-			"        </label>" +
-			"    </div>" +
+                        quickcfg_html_onoff('label18',
+                                             'radio18',
+                                             'WepSIM dark mode',
+                                             "  wepsim_restore_darkmode(false);" +
+                                             "  update_cfg('ws_skin_dark_mode', false);",
+                                             "  wepsim_restore_darkmode(true);" +
+                                             "  update_cfg('ws_skin_dark_mode', true);") +
 			'</li>' ;
 
 		   o += '<li class="list-group-item px-0"> ' +
@@ -162,22 +151,11 @@
 /*
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
-			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-			"        <label id='label17-true'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Frequent only: true' " +
-			"               onclick=\"wepsim_activeview('only_frequent', true) ; " +
-			"                         return true;\">" +
-			"            <input type='radio' name='options' id='radio17-true'  aria-label='Frequent only: true'  autocomplete='off' >On" +
-			"        </label>" +
-			"        <label id='label17-false'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Frequent only: true' " +
-			"               onclick=\"wepsim_activeview('only_frequent', false) ; " +
-			"                         return true;\">" +
-			"            <input type='radio' name='options' id='radio17-false' aria-label='Frequent only: false' autocomplete='off' >Off" +
-			"        </label>" +
-			"    </div>" +
+                        quickcfg_html_onoff('label17',
+                                             'radio17',
+                                             'Frequent only',
+                                             "  wepsim_activeview('only_frequent', false);",
+                                             "  wepsim_activeview('only_frequent', true);") +
 			'</li>' ;
 */
 
@@ -219,7 +197,7 @@
 
 
         //
-        // x
+        // Get HTML code for quick-config elements
         //
 
         function quickcfg_html_btn ( label2, code2 )
