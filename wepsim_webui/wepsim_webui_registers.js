@@ -40,8 +40,8 @@
                     // html holder
 		    var o1 = "<div class='container text-right'>" +
 		             "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " +
-			     "   tabindex='0' class='m-auto show multi-collapse-3'>" + 
-                             "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" + 
+			     "   tabindex='0' class='m-auto show multi-collapse-3'>" +
+                             "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
                              "</a>" +
                              "</div>" +
                              '<div id="' + this.tf_div + '" ' +
@@ -134,7 +134,7 @@
 		if (get_cfg('is_editable') == true)
 		{
 		    o2 = "<tr><td class='py-1 px-1' colspan='5' align='center'>" +
-                         "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " + 
+                         "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " +
                          "       style='width:65%'>&nbsp;" +
                          "<span class='badge badge-secondary shadow' " +
                          "      onclick='hex2values_update(\"" + index + "\");'>update</span>" +
@@ -170,31 +170,34 @@
 		return o1;
         }
 
-           function quick_config_rf_htmlformat ( label1, format1, label2, format2 )
+        var r_formats = [
+		  { "label2":"0x0000001A<sub>16</sub>", "format2":"unsigned_16_fill",   "colwidth":"col-7" },
+		  { "label2":"0x1A<sub>16</sub>",       "format2":"unsigned_16_nofill", "colwidth":"col"   },
+		  { "label2":"00000032<sub>8</sub>",    "format2":"unsigned_8_fill",    "colwidth":"col-7" },
+		  { "label2":"032<sub>8</sub>",         "format2":"unsigned_8_nofill",  "colwidth":"col"   },
+		  { "label2":"00000026<sub>10</sub>",   "format2":"unsigned_10_fill",   "colwidth":"col-7" },
+		  { "label2":"026<sub>10</sub>",        "format2":"unsigned_10_nofill", "colwidth":"col"   },
+		  { "label2":"",                        "format2":"",                   "colwidth":""      },
+		  { "label2":"3.6e-44<sub>10</sub>",    "format2":"float_10_nofill",    "colwidth":"col"   }
+	    ] ;
+
+           function quick_config_rf_register_format ( )
            {
-	      var o1 = "" ;
+	       var o1 = "" ;
 
-               if (label1 === "")
-	         o1 += "<div class='col-7 p-1'></div>" ;
-               else
-	         o1 += "<div class='col-7 p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"" + format1 + "\"); " +
-                       "                 wepsim_refresh_registers();" +
-                       "                 return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label1 + "</span></buttom>" +
-		       "</div>" ;
+               for (var i=0; i<r_formats.length; i++)
+               {
+	            if (r_formats[i].label2 === "") {
+	                o1 += "<div class='col-7 p-1'></div>" ;
+                        continue ;
+                    }
 
-               if (label2 === "")
-	         o1 += "<div class='col-7 p-1'></div>" ;
-               else
-		 o1 += "<div class='col p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_format\", \"" + format2 + "\"); " +
-                       "                 wepsim_refresh_registers();" +
-                       "                 return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded text-dark' style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
-		       "</div>" ;
+	            o1 += quickcfg_html_btn(r_formats[i].label2,
+				            "update_cfg(\"RF_display_format\", " +
+				            "           \"" + r_formats[i].format2 + "\");" +
+				            "wepsim_refresh_registers();",
+				            r_formats[i].colwidth) ;
+               }
 
 	       return  o1 ;
            }
@@ -222,7 +225,8 @@
                        "<div class='col-6 p-1'>" +
                        "</div>" ;
 
-              for (var i=0; i<logical_defined.length; i++) {
+              for (var i=0; i<logical_defined.length; i++)
+              {
                  o2 += "<div class='col-6 p-1'>" +
                        "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
                        "        onclick='update_cfg(\"RF_display_name\", \"logical\"); " +
@@ -239,30 +243,13 @@
         {
 	      return "<div class='container mt-1'>" +
                      "<div class='row'>" +
-	               "<div class='col-12 p-0'>" +
-                       "<span data-langkey='Display format'>Display format</span>" +
-                       "</div>" +
-                         quick_config_rf_htmlformat("0x0000001A<sub>16</sub>", "unsigned_16_fill",
-                                                    "0x1A<sub>16</sub>",       "unsigned_16_nofill") +
-                         quick_config_rf_htmlformat("00000032<sub>8</sub>",    "unsigned_8_fill",
-                                                    "032<sub>8</sub>",         "unsigned_8_nofill") +
-                         quick_config_rf_htmlformat("00000026<sub>10</sub>",   "unsigned_10_fill",
-                                                    "26<sub>10</sub>",         "unsigned_10_nofill") +
-                         quick_config_rf_htmlformat("",                        "",
-                                                    "3.6e-44<sub>10</sub>",    "float_10_nofill") +
-	             "<div class='w-100 border border-light'></div>" +
-	               "<div class='col-12 p-0'>" +
-                       "<span data-langkey='Register file names'>Register file names</span>" +
-                       "</div>" +
-                          quick_config_rf_register_names() +
-	             "<div class='w-100 border border-light'></div>" +
-		       "<div class='col p-1'>" +
-		       "<button type='button' id='close' data-role='none' " +
-		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>" +
-                       "<span data-langkey='Close'>Close</span>" +
-                       "</button>" +
-		       "</div>" +
+                       quickcfg_html_header('Register file names') +
+                       quick_config_rf_register_format() +
+                     quickcfg_html_br() +
+                       quickcfg_html_header('Register file names') +
+                       quick_config_rf_register_names() +
+                     quickcfg_html_br() +
+                       quickcfg_html_close('popover-rfcfg') +
 		     "</div>" +
 		     "</div>" ;
         }

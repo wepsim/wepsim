@@ -391,17 +391,21 @@
                          quickcfg_html_header("Display format") +
                          quickcfg_html_btn("0x3B<sub>16</sub>",
 				           "update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
-					   "show_memories_values();") +
+					   "show_memories_values();",
+                                           "col-6") +
                          quickcfg_html_btn("073<sub>8</sub>",
 					   "update_cfg(\"MEM_display_format\", \"unsigned_8_nofill\"); " +
-					   "show_memories_values();") +
+					   "show_memories_values();",
+                                           "col-6") +
                          quickcfg_html_btn("59<sub>10</sub>",
 					   "update_cfg(\"MEM_display_format\", \"unsigned_10_nofill\"); " +
-					   "show_memories_values();") +
+					   "show_memories_values();",
+                                           "col-6") +
                          quickcfg_html_btn(";<sub>ascii</sub>",
 					   "update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
-					   "show_memories_values();") +
-                     "<div class='w-100 border border-light'></div>" +
+					   "show_memories_values();",
+                                           "col-6") +
+                     quickcfg_html_br() +
                          quickcfg_html_header("Display segments") +
 			 quickcfg_html_onoff('19',
 					     'show segments',
@@ -416,14 +420,8 @@
 					     "  update_cfg('MEM_show_source', false);",
 					     "  $('.mp_tooltip').collapse('show');" +
 					     "  update_cfg('MEM_show_source', true);") +
-	             "<div class='w-100 border border-light'></div>" +
-		       "<div class='col p-1 mt-3'>" +
-		       "<button type='button' id='close' data-role='none' " +
-		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-		       "        onclick='$(\"#popover-mem\").popover(\"hide\");'>" +
-                       "<span data-langkey='Close'>Close</span>" +
-                       "</button>" +
-		       "</div>" +
+                     quickcfg_html_br() +
+                       quickcfg_html_close('popover-mem') +
 		     "</div>" +
 		     "</div>" ;
         }

@@ -198,9 +198,21 @@
         // Get HTML code for quick-config elements
         //
 
-        function quickcfg_html_btn ( label2, code2 )
+        function quickcfg_html_br ( )
         {
-	      return "<div class='col-6 p-1'>" +
+	      return "<div class='w-100 border border-light'></div>" ;
+        }
+
+        function quickcfg_html_header ( label2 )
+        {
+              return "<div class='col-12 p-0 mt-2'>" +
+                     "<span data-langkey='" + label2 + "'>" + label2 + "</span>" +
+                     "</div>" ;
+        }
+
+        function quickcfg_html_btn ( label2, code2, colwidth2 )
+        {
+	      return "<div class='" + colwidth2 + " p-1'>" +
 		     "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		     "        onclick='" + code2 + "; return true;'>" +
 		     "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " +
@@ -226,10 +238,14 @@
                      "</div>" ;
         }
 
-        function quickcfg_html_header ( label2 )
+        function quickcfg_html_close ( btn2_id )
         {
-              return "<div class='col-12 p-0 mt-3'>" +
-                     "<span data-langkey='" + label2 + "'>" + label2 + "</span>" +
-                     "</div>" ;
+	      return "<div class='col p-1 mt-2'>" +
+		     "<button type='button' id='close' data-role='none' " +
+		     "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		     "        onclick='$(\"#" + btn2_id + "\").popover(\"hide\");'>" +
+                     "<span data-langkey='Close'>Close</span>" +
+                     "</button>" +
+		     "</div>" ;
         }
 
