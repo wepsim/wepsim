@@ -125,7 +125,7 @@
 
             // scroll up/down to index element...
 	    if (redraw) {
-                scroll_element('#memory_MC', '#maddr' + index, 0) ;
+                element_scroll_setRelative('#memory_MC', '#maddr' + index, 0) ;
             }
 
             // update old_mc_add for light_update

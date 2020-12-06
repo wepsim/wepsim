@@ -122,8 +122,7 @@
             for (var key in memory)
             {
                 // [add segment]
-                s1 = '' ;
-                s2 = '' ;
+                s1 = s2 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
                     s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
@@ -139,6 +138,7 @@
             }
 
             // [pending segments]
+            s1 = s2 = '' ;
 	    while (seglabels_i < seglabels.length)
 	    {
                     s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
@@ -150,13 +150,13 @@
             if (s2 !== '') o2 += s2 ;
 
             // (pending row)
-	    if (typeof memory[index] == "undefined") {
+            if (main_memory_isundefined(memory, index)) {
                 o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
 	    }
 
             // stack (SP)
             var r_value = main_memory_get_stack_baseaddr() ;
-            if ((r_value != null) && (typeof memory[r_value] == "undefined")) {
+            if ((r_value != null) && main_memory_isundefined(memory, r_value)) {
                  o2 += main_memory_showrow(memory, r_value, false, SIMWARE.revlabels2) ;
 	    }
 
@@ -171,13 +171,15 @@
                  '</div>' +
                  '</div>' ;
 
+            var pos = element_scroll_get("#lst_ins1") ;
             $("#memory_MP").html(o1) ;
 
             // * Mandatory activation of html elements
             update_badges() ;
 
             // * Configure html options
-            scroll_memory_to_address(index) ;
+            element_scroll_set("#lst_ins1", pos) ;
+            // old -> scroll_memory_to_address(index) ;
 
             if (get_cfg('MEM_show_segments'))
                  $("#lst_seg1").collapse("show") ;
@@ -197,7 +199,7 @@
         {
             if (redraw)
             {
-                var svalue  = main_memory_getword(memory, index) ;
+                var svalue = main_memory_getword(memory, index) ;
 
                 $("#mpval" + (index + 0)).html(svalue[0]) ;
                 $("#mpval" + (index + 1)).html(svalue[1]) ;
@@ -328,54 +330,19 @@
 	    return o ;
         }
 
-        function main_memory_getword ( memory, key )
-        {
-            // get value...
-            var value = "0" ;
-            if (typeof memory[key] !== "undefined") {
-                value = get_value(memory[key]).toString(16) ;
-            }
-	    value = simcoreui_pack(value, 8) ;
-
-            // pack value...
-	    var value4 = [] ;
-            for (var i=0; i<4; i++) {
-                 value4[i] = value[2*i].toUpperCase() + value[2*i+1].toUpperCase() ;
-            }
-
-	    return value4 ;
-        }
-
-        function main_memory_getsrc ( memory, key )
-        {
-            // get value...
-            var src = "" ;
-            if (typeof memory[key] !== "undefined")
-            {
-                if (typeof memory[key].source !== "undefined")
-                    src = memory[key].source ;
-            }
-
-            // escape html end attribute char
-            src = src.replace(/'/g, '') ;
-            src = src.replace(/"/g, '') ;
-
-	    return src ;
-        }
-
         function scroll_memory_to_segment ( seg_id )
         {
-            return scroll_element('#lst_ins1', '#'+seg_id, -150) ;
+            return element_scroll_setRelative('#lst_ins1', '#'+seg_id, -150) ;
         }
 
         function scroll_memory_to_address ( addr )
         {
-            return scroll_element('#lst_ins1', '#addr'+addr, -150) ;
+            return element_scroll_setRelative('#lst_ins1', '#addr'+addr, -150) ;
         }
 
         function scroll_memory_to_lastaddress ( )
         {
-            return scroll_element('#lst_ins1', '#addr'+old_main_addr, -150) ;
+            return element_scroll_setRelative('#lst_ins1', '#addr'+old_main_addr, -150) ;
         }
 
         function update_badges ( )
