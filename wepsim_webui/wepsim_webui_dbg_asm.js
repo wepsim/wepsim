@@ -279,7 +279,7 @@
                            "<td class='asm_dets   text-monospace col-auto show p-0' " +
                            "    style='line-height:0.9;' width='1%' align='left'>" +
 			   "    <span data-toggle='tooltip' rel='tooltip2' data-placement='right' data-html='true' data-l='" + l + "'>" +
-			   "    <span data-toggle='tooltip' rel='tooltip1' data-placement='right' title='click to show instruction format details'>.</span>" +
+			   "    <span data-toggle='tooltip' rel='tooltip1' data-placement='right' title='click to show instruction format details'>&nbsp;.&nbsp;</span>" +
 			   "    </span>" +
 		           "</td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse' " +

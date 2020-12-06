@@ -117,7 +117,6 @@
 	    var s1 = '' ;
 	    var s2 = '' ;
             var seglabels_i = 0 ;
-            var seg_id   = '' ;
 
             var value = [] ;
             for (var key in memory)
@@ -127,28 +126,38 @@
                 s2 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    seg_id = 'seg_id' + seglabels_i ;
-
-                    s1 = '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
-                         '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' +
-                         seglabels[seglabels_i].name +
-                         '</a>' ;
-                    s2 = '<div id="' +  seg_id + '" class="row" ' +
-                         '     data-toggle="collapse" href="#lst_seg1">' +
-                         '<u>' + seglabels[seglabels_i].name + '</u>' +
-                         '</div>' ;
+                    s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
+                    s2 = main_memory_showsegrow('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
 
 		    seglabels_i++ ;
 		}
                 if (s1 !== '') o1 += s1 ;
                 if (s2 !== '') o2 += s2 ;
 
-                // add row
+                // (add row)
                 o2 += main_memory_showrow(memory, key, (key == index), SIMWARE.revlabels2) ;
             }
 
+            // [pending segments]
+	    while (seglabels_i < seglabels.length)
+	    {
+                    s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
+                    s2 = main_memory_showsegrow('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
+
+		    seglabels_i++ ;
+	    }
+            if (s1 !== '') o1 += s1 ;
+            if (s2 !== '') o2 += s2 ;
+
+            // (pending row)
 	    if (typeof memory[index] == "undefined") {
                 o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
+	    }
+
+            // stack (SP)
+            var r_value = main_memory_get_stack_baseaddr() ;
+            if ((r_value != null) && (typeof memory[r_value] == "undefined")) {
+                 o2 += main_memory_showrow(memory, r_value, false, SIMWARE.revlabels2) ;
 	    }
 
             // pack and load html
@@ -211,6 +220,33 @@
             update_badges() ;
         }
 
+        function main_memory_showseglst ( seg_id, seg_name )
+        {
+            return '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
+                   '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' +
+                   seg_name +
+                   '</a>' ;
+        }
+
+        function main_memory_showsegrow ( seg_id, seg_name )
+        {
+            return '<div id="' +  seg_id + '" class="row" data-toggle="collapse" href="#lst_seg1">' +
+                   '<u>' + seg_name + '</u>' +
+                   '</div>' ;
+        }
+
+        function main_memory_get_stack_baseaddr ( )
+        {
+            var r_value   = null ;
+            var curr_firm = simhw_internalState('FIRMWARE') ;
+            var sp_name   = curr_firm.stackRegister ;
+            if (sp_name != null) {
+                r_value = get_value(simhw_sim_states().BR[sp_name]) & 0xFFFFFFFC ;
+	    }
+
+	    return r_value ;
+        }
+
         function main_memory_showrow ( memory, addr, is_current, revlabels )
         {
             var o = "" ;
@@ -236,6 +272,13 @@
             for (i=0; i<4; i++) {
                  value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
                  value[i] = simcoreui_pack(value[i], 2) ;
+            }
+
+            // format of the source
+            var src_html  = '' ;
+            var src_parts = src.split(";") ;
+            for (i=0; i<src_parts.length; i++) {
+                src_html += "<span class='bg-dark text-white px-1 mx-1 rounded'>" + src_parts[i] + "</span>" ;
             }
 
             // wcolor
@@ -271,17 +314,15 @@
 	        "<div class='col-1 px-0' align='center'>" +
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+
-		"<div class='col-5 pr-2' align='right'>" +
+		"<div class='col-6 col-md-5 pr-2' align='right'>" +
                      '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
                      '<span> ... </span>' +
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
-	        "<div class='col-6 px-3'  align='left'>" + value2 + "</div>" +
-	        "<div class='col-6 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
-	        "<div class='col-6 px-3  mp_tooltip collapse hide' align='left'>" +
-                "<span class='bg-dark text-white px-2 rounded'>" + src + "</span>" +
-                "</div>"+
+	        "<div class='col-5 col-md-6 px-3'  align='left'>" + value2 + "</div>" +
+	        "<div class='col-7 col-md-5 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
+	        "<div class='col-5 col-md-6 px-3  mp_tooltip collapse hide' align='left'>" + src_html + "</div>"+
                 "</div>";
 
 	    return o ;
@@ -349,18 +390,16 @@
             r_ref = simhw_sim_ctrlStates_get().pc ;
             if (typeof r_ref !== "undefined")
                 r_ref = simhw_sim_state(r_ref.state) ;
-            if (typeof r_ref !== "undefined")
+            if (typeof r_ref !== "undefined") {
                 r_value = get_value(r_ref) ;
-            if (typeof r_ref !== "undefined")
                 $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
+            }
 
             // SP
-            var curr_firm = simhw_internalState('FIRMWARE') ;
-            var sp_name = curr_firm.stackRegister ;
-            if (sp_name != null)
-                r_value = get_value(simhw_sim_states().BR[sp_name]) - 3 ;
-            if (sp_name != null)
+            var r_value = main_memory_get_stack_baseaddr() ;
+            if (r_value != null) {
                 $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
+            }
         }
 
 
