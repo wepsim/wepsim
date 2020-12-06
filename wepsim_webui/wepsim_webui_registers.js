@@ -56,26 +56,13 @@
                     this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    $("[data-toggle=popover-rfcfg]").popover({
-			    html:      true,
-			    placement: 'auto',
-			    animation: false,
-			    trigger:   'click',
-			    template:  '<div class="popover shadow" role="tooltip">' +
-				       '<div class="arrow"></div>' +
-				       '<h3  class="popover-header"></h3>' +
-				       '<div class="popover-body"></div>' +
-				       '</div>',
-			    container: 'body',
-			    content:    quick_config_rf,
-			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
-					}
-		    }).on('shown.bs.popover',
-					function(shownEvent) {
-					    i18n_update_tags('cfg') ;
-					    i18n_update_tags('dialogs') ;
-					}) ;
+		    wepsim_init_quickcfg("[data-toggle=popover-rfcfg]",
+			                 "click",
+			                 quick_config_rf,
+					 function(shownEvent) {
+					     i18n_update_tags('cfg') ;
+					     i18n_update_tags('dialogs') ;
+					 }) ;
 	      }
 
 	      connectedCallback ()

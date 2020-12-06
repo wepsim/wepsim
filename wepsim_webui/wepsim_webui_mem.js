@@ -46,31 +46,15 @@
 		    this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    $("[data-toggle=popover-mem]").popover({
-			    html:      true,
-			    placement: 'auto',
-			    animation: false,
-			    trigger:   'click',
-			    template:  '<div class="popover shadow" role="tooltip">' +
-				       '<div class="arrow"></div>' +
-				       '<h3  class="popover-header"></h3>' +
-				       '<div class="popover-body"></div>' +
-				       '</div>',
-			    container: 'body',
-			    content:    quick_config_mem,
-			    sanitizeFn: function (content) {
-					    return content ; // DOMPurify.sanitize(content) ;
-					}
-		    }).on('shown.bs.popover',
-					function(shownEvent) {
-                                            var optValue = get_cfg('MEM_show_segments') ;
-                                            $('#label19-' + optValue).button('toggle') ;
-
-                                            var optValue = get_cfg('MEM_show_source') ;
-                                            $('#label20-' + optValue).button('toggle') ;
-
-					    i18n_update_tags('cfg') ;
-					}) ;
+		    wepsim_init_quickcfg("[data-toggle=popover-mem]",
+			                 "click",
+			                 quick_config_mem,
+					 function(shownEvent) {
+                                             var optValue = get_cfg('MEM_show_segments') ;
+                                             $('#label19-' + optValue).button('toggle') ;
+                                             var optValue = get_cfg('MEM_show_source') ;
+                                             $('#label20-' + optValue).button('toggle') ;
+					 }) ;
 	      }
 
 	      connectedCallback ()
