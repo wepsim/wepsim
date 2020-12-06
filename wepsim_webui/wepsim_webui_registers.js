@@ -215,25 +215,18 @@
                  }
               }
 
-	      var o2 = "<div class='col-6 p-1'>" +
-                       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-                       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); " +
-                       "                 wepsim_show_rf_names(); return true; '>" +
-                       "<span class='font-weight-bold text-monospace'>R10</span>" + "&nbsp;" +
-                       "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
-                       "</div>" +
-                       "<div class='col-6 p-1'>" +
-                       "</div>" ;
+	       var o2 = quickcfg_html_btnreg('R10',
+	 			             "update_cfg(\"RF_display_name\", \"numerical\");" +
+				             "wepsim_show_rf_names();",
+				             'col-6') ;
+                   o2 += "<div class='col-6 p-1'></div>" ;
 
               for (var i=0; i<logical_defined.length; i++)
               {
-                 o2 += "<div class='col-6 p-1'>" +
-                       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-                       "        onclick='update_cfg(\"RF_display_name\", \"logical\"); " +
-                       "                 wepsim_refresh_rf_names(" + i + "); return true; '>" +
-                       "<span class='font-weight-bold text-monospace'>" + logical_defined[i] + "</span>" + "&nbsp;" +
-                       "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
-                       "</div>" ;
+	           o2 += quickcfg_html_btnreg(logical_defined[i],
+		  		              "update_cfg(\"RF_display_name\", \"logical\");" +
+                                              "wepsim_refresh_rf_names(" + i + ");",
+				              'col-6') ;
               }
 
 	      return o2 ;

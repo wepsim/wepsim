@@ -394,36 +394,6 @@
 
 
     //
-    // Quick Config
-    //
-
-    // popover quick-slidercfg
-    function wepsim_init_quickcfg ( quick_id, val_trigger, fun_content, fun_ownshown )
-    {
-	 return $(quick_id).popover({
-		    trigger:     val_trigger,
-		    html:        true,
-		    placement:  'auto',
-		    animation:   false,
-		    container:  'body',
-		    template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
-			        '<div class="arrow"></div><h3 class="popover-header"></h3>' +
-                                '<div class="popover-body"></div>' +
-			        '</div>',
-		    content:    fun_content,
-		    sanitizeFn: function (content) {
-				    return content ; // DOMPurify.sanitize(content) ;
-				}
-	 }).on('shown.bs.popover',
-		                function(shownEvent) {
-                                    fun_ownshown(shownEvent);
-                                    i18n_update_tags('dialogs') ;
-                                    i18n_update_tags('gui') ;
-                                    i18n_update_tags('cfg') ;
-                                }) ;
-    }
-
-    //
     // Initialize UI
     //
 
