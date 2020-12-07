@@ -664,6 +664,9 @@ sw reg1 val(reg2) {
                 var val    = simcore_native_get_field_from_ir(fields, 1) ;
                 var reg2   = simcore_native_get_field_from_ir(fields, 2) ;
 
+                if ((val & 0x8000) > 0)
+                     val = val | 0xFFFF0000 ;
+
                 var addr   = simcore_native_get_value("BR", reg2) + val ;
                 var value1 = simcore_native_get_value("BR", reg1) ;
                 simcore_native_set_value("MEMORY", addr, value1) ;

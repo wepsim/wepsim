@@ -123,15 +123,19 @@
 	    var s2 = '' ;
             var seglabels_i = 0 ;
 
-            var value = [] ;
+            var value   = [] ;
+            var i_key   = 0 ;
+            var i_keyp1 = 0 ;
+            var i_index = parseInt(index) ;
             var keys  = main_memory_getkeys(memory) ;
             for (var k=0; k<keys.length; k++)
             {
-                key = keys[k] ;
+                i_key   = parseInt(keys[k]) ;
+                i_keyp1 = parseInt(keys[k+1]) ;
 
                 // [add segment]
                 s1 = s2 = '' ;
-		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
+		while ( (seglabels_i < seglabels.length) && (i_key >= seglabels[seglabels_i].begin) )
 		{
                     s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
                     s2 = main_memory_showsegrow('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
@@ -142,13 +146,17 @@
                 if (s2 !== '') o2 += s2 ;
 
                 // [add stack (SP) element]
-                if (sp_value < parseInt(key)) {
-                    o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
-                    sp_value = 0xFFFFFFFF ;
+                if ( (i_key < sp_value) && (sp_value < i_keyp1) ) {
+                      o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
                 }
 
+                // (pending row)
+                if ( (i_key < i_index) && (i_index < i_keyp1) ) {
+                      o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
+	        }
+
                 // (add row)
-                o2 += main_memory_showrow(memory, key, (key == index), SIMWARE.revlabels2) ;
+                o2 += main_memory_showrow(memory, keys[k], (keys[k] == index), SIMWARE.revlabels2) ;
             }
 
             // [pending segments]
@@ -164,12 +172,12 @@
             if (s2 !== '') o2 += s2 ;
 
             // (pending stack (SP) element)
-            if (main_memory_isundefined(memory, sp_value)) {
+            if (i_key < parseInt(sp_value)) {
                  o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
 	    }
 
             // (pending row)
-            if (main_memory_isundefined(memory, index)) {
+            if (i_key < i_index) {
                 o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
 	    }
 
