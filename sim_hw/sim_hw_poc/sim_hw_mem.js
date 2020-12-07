@@ -105,7 +105,7 @@
                                                  var valref = main_memory_set(sim.poc.internal_states.MP,
                                                                               elto, 
 								              (value >>> 0), 
-								              origin) ;
+								              [ origin ]) ;
 				                 show_main_memory(sim.poc.internal_states.MP, 
                                                                   elto, 
                                                                   (typeof valref === "undefined"),
@@ -351,7 +351,7 @@
                                                       var elto = main_memory_set(sim.poc.internal_states.MP,
                                                                                  wordress,
                                                                                  (value >>> 0),
-              							                 origin) ;
+              							                 [ origin ]) ;
                                                       sim.poc.signals[s_expr[4]].value = 1 ;
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, true) ;
                                                    },

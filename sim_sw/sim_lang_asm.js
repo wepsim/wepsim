@@ -768,7 +768,7 @@ function read_data ( context, datosCU, ret )
 									       BYTE_LENGTH*gen.byteWord,
 									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
-				        gen.track_source.push('[eos]') ;
+				        gen.track_source.push('0x0') ;
 				}
 
 				// optional ','
@@ -1566,7 +1566,6 @@ function simlang_compile (text, datosCU)
 		var auxAddr = ret.labels[i].addr;
 		for (j=0; j<ret.labels[i].nwords; j++)
                 {
-                     // machineCode = ret.mp["0x" + auxAddr.toString(16)].value + machineCode ;
                         machineCode = main_memory_getvalue(ret.mp, "0x" + auxAddr.toString(16)) + machineCode ;
 			auxAddr += WORD_BYTES ;
 		}
