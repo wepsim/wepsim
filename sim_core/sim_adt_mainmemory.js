@@ -19,17 +19,93 @@
  */
 
 
-        function main_memory_isundefined ( memory, key )
+        /*
+         *  memory => [ { value: 0, source: "origin" }, {...} ]
+         */
+
+        function main_memory_getkeys ( memory )
         {
-	    return (typeof memory[key] == "undefined") ;
+            return Object.keys(memory) ;
         }
 
-        function main_memory_getword ( memory, key )
+        function main_memory_get ( memory, elto )
+        {
+            return memory[elto] ;
+        }
+
+        function main_memory_set ( memory, elto, value, source )
+        {
+            var valobj = memory[elto] ;
+
+            // element exits -> update it and return it
+            if (typeof valobj !== "undefined") 
+            {
+                set_value(valobj, value) ;
+                if (null != source) {
+                    valobj.source = source ;
+                }
+
+                return valobj ;
+            }
+
+            // new element to be added and return "undefined" to inform the callee
+            memory[elto] = {
+                             "value":   value,
+                             "changed": true,
+                             "source":  source
+                           } ;
+
+            return valobj ;
+        }
+
+
+        //
+        // Get fields
+        //
+
+        function main_memory_getvalue ( memory, elto )
+        {
+            var valobj = memory[elto] ;
+
+            if (typeof valobj === "undefined") {
+                return valobj ;
+            }
+
+            return get_value(valobj) ;
+        }
+
+        function main_memory_getsrc ( memory, elto )
+        {
+            var valobj = memory[elto] ;
+
+            if (typeof valobj === "undefined") {
+                return '' ; // TOCHECK: valobj ;
+            }
+
+            // get_source
+            var src = "" ;
+            if (typeof valobj.source !== "undefined") {
+                src = valobj.source ;
+            }
+
+            // escape html end attribute char
+            src = src.replace(/'/g, '')
+                     .replace(/"/g, '') ;
+
+	    return src ;
+        }
+
+
+        //
+        //  Get value as word (32 bits)
+        //
+
+        function main_memory_getword ( memory, elto )
         {
             // get value...
             var value = "0" ;
-            if (typeof memory[key] !== "undefined") {
-                value = get_value(memory[key]).toString(16) ;
+            if (typeof memory[elto] !== "undefined") {
+                value = get_value(memory[elto]).toString(16) ;
             }
 	    value = simcoreui_pack(value, 8) ;
 
@@ -42,25 +118,36 @@
 	    return value4 ;
         }
 
-        function main_memory_getsrc ( memory, key )
+
+        //
+        //  Get PC/SP/... memory value (or null)
+        //
+
+        function main_memory_get_program_counter ( )
         {
-            // get value...
-            var src = "" ;
-            if (typeof memory[key] !== "undefined")
-            {
-                if (typeof memory[key].source !== "undefined")
-                    src = memory[key].source ;
-            }
+	      var r_ref   = simhw_sim_ctrlStates_get().pc ;
+	      var r_value = null ;
 
-            // escape html end attribute char
-            src = src.replace(/'/g, '') ;
-            src = src.replace(/"/g, '') ;
+	      if (typeof r_ref !== "undefined") {
+		  r_ref = simhw_sim_state(r_ref.state) ;
+	      }
 
-	    return src ;
+	      if (typeof r_ref !== "undefined") {
+		  r_value = get_value(r_ref) ;
+	      }
+
+	      return r_value ;
         }
 
-        function main_memory_getkeys ( memory )
+        function main_memory_get_stack_baseaddr ( )
         {
-            return Object.keys(memory) ;
+            var r_value   = null ;
+            var curr_firm = simhw_internalState('FIRMWARE') ;
+            var sp_name   = curr_firm.stackRegister ;
+            if (sp_name != null) {
+                r_value = get_value(simhw_sim_states().BR[sp_name]) & 0xFFFFFFFC ;
+	    }
+
+	    return r_value ;
         }
 

@@ -194,29 +194,6 @@
             sim.active.internal_states[name] = val ;
         }
 
-        function simhw_internalState_getValue ( name, id )
-        {
-            var valobj = sim.active.internal_states[name][id] ;
-	    if (typeof valobj === "undefined") {
-                return valobj ;
-	    }
-
-	    return get_value(valobj) ;
-        }
-
-        function simhw_internalState_setValue ( name, id, val )
-        {
-            var valobj = sim.active.internal_states[name][id] ;
-	    if (typeof valobj !== "undefined") {
-                set_value(valobj, val) ;
-                return valobj ;
-	    }
-
-            // new element to be added, return "undefined" to inform the callee
-            sim.active.internal_states[name][id] = { "value": val } ;
-            return valobj ;
-        }
-
         // ctrl_states
 
         function simhw_sim_ctrlStates_get ( )

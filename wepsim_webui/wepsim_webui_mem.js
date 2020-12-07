@@ -52,7 +52,7 @@
 					 function(shownEvent) {
                                              var optValue = get_cfg('MEM_show_segments') ;
                                              $('#label19-' + optValue).button('toggle') ;
-                                             var optValue = get_cfg('MEM_show_source') ;
+                                                 optValue = get_cfg('MEM_show_source') ;
                                              $('#label20-' + optValue).button('toggle') ;
 					 }) ;
 	      }
@@ -258,18 +258,6 @@
                    '</div>' ;
         }
 
-        function main_memory_get_stack_baseaddr ( )
-        {
-            var r_value   = null ;
-            var curr_firm = simhw_internalState('FIRMWARE') ;
-            var sp_name   = curr_firm.stackRegister ;
-            if (sp_name != null) {
-                r_value = get_value(simhw_sim_states().BR[sp_name]) & 0xFFFFFFFC ;
-	    }
-
-	    return r_value ;
-        }
-
         function main_memory_showrow ( memory, addr, is_current, revlabels )
         {
             var o = "" ;
@@ -344,7 +332,7 @@
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
 	        "<div class='col-5 col-md-6 px-3'  align='left'>" + value2 + "</div>" +
-	        "<div class='col-7 col-md-5 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
+	        "<div class='col-7 col-md-6 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
 	        "<div class='col-5 col-md-6 px-3  mp_tooltip collapse hide' align='left'>" + src_html + "</div>"+
                 "</div>";
 
@@ -368,23 +356,19 @@
 
         function update_badges ( )
         {
-            var r_ref   = null ;
             var r_value = 0 ;
 
             // clear all old badges
             $('.mp_row_badge').html('') ;
 
             // PC
-            r_ref = simhw_sim_ctrlStates_get().pc ;
-            if (typeof r_ref !== "undefined")
-                r_ref = simhw_sim_state(r_ref.state) ;
-            if (typeof r_ref !== "undefined") {
-                r_value = get_value(r_ref) ;
+	    r_value = main_memory_get_program_counter() ;
+	    if (r_value != null) {
                 $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
-            }
+	    }    
 
             // SP
-            var r_value = main_memory_get_stack_baseaddr() ;
+            r_value = main_memory_get_stack_baseaddr() ;
             if (r_value != null) {
                 $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
             }
