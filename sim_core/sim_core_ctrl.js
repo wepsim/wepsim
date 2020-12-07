@@ -357,13 +357,16 @@
 
 	    // 4.- load the MP from SIMWARE['mp']
             simhw_internalState_reset('MP', {}) ;
+            var mp_obj = simhw_internalState('MP') ;
 	    for (var key in SIMWARE['mp'])
 	    {
-	       var kx = parseInt(key) ;
-               var kv = parseInt(SIMWARE['mp'][key].value.replace(/ /g,''), 2) ;
-               var kc =          SIMWARE['mp'][key].source.join(";") ;
-           //  simhw_internalState_set('MP', kx, kv) ;
-               simhw_internalState_set('MP', kx, { "value": kv, "source": kc }) ;
+                 main_memory_set(mp_obj,
+			         // key
+	                         parseInt(key),
+			         // value
+     			         parseInt(SIMWARE['mp'][key].value.replace(/ /g,''), 2),
+			         // origin
+               		         SIMWARE['mp'][key].source) ;
 	    }
 
 	    // 5.- load the segments from SIMWARE['seg']
@@ -374,7 +377,6 @@
 	    }
 
 	    // 6.- show memories...
-            var mp_obj  = simhw_internalState('MP') ;
             var mc_obj  = simhw_internalState('MC') ;
             var mcd_obj = simhw_internalState('MC_dashboard') ;
 
