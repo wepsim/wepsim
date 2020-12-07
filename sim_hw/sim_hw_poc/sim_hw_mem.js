@@ -349,7 +349,7 @@
                                                       }
 
                                                       var elto = main_memory_set(sim.poc.internal_states.MP,
-                                                                                 address,
+                                                                                 wordress,
                                                                                  (value >>> 0),
               							                 origin) ;
                                                       sim.poc.signals[s_expr[4]].value = 1 ;
