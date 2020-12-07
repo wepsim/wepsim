@@ -59,3 +59,8 @@
 	    return src ;
         }
 
+        function main_memory_getkeys ( memory )
+        {
+            return Object.keys(memory) ;
+        }
+

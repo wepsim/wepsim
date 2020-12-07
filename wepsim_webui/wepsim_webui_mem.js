@@ -111,6 +111,11 @@
             var SIMWARE = get_simware() ;
             var seglabels = SIMWARE.revseg ;
 
+            // stack (SP)
+            var sp_value = main_memory_get_stack_baseaddr() ;
+            if (sp_value == null)
+                sp_value = 0xFFFFFFFC ;
+
 	    var o1 = '' ;
 	    var o2 = '' ;
 
@@ -119,8 +124,11 @@
             var seglabels_i = 0 ;
 
             var value = [] ;
-            for (var key in memory)
+            var keys  = main_memory_getkeys(memory) ;
+            for (var k=0; k<keys.length; k++)
             {
+                key = keys[k] ;
+
                 // [add segment]
                 s1 = s2 = '' ;
 		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
@@ -132,6 +140,12 @@
 		}
                 if (s1 !== '') o1 += s1 ;
                 if (s2 !== '') o2 += s2 ;
+
+                // [add stack (SP) element]
+                if (sp_value < parseInt(key)) {
+                    o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
+                    sp_value = 0xFFFFFFFF ;
+                }
 
                 // (add row)
                 o2 += main_memory_showrow(memory, key, (key == index), SIMWARE.revlabels2) ;
@@ -149,15 +163,14 @@
             if (s1 !== '') o1 += s1 ;
             if (s2 !== '') o2 += s2 ;
 
+            // (pending stack (SP) element)
+            if (main_memory_isundefined(memory, sp_value)) {
+                 o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
+	    }
+
             // (pending row)
             if (main_memory_isundefined(memory, index)) {
                 o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
-	    }
-
-            // stack (SP)
-            var r_value = main_memory_get_stack_baseaddr() ;
-            if ((r_value != null) && main_memory_isundefined(memory, r_value)) {
-                 o2 += main_memory_showrow(memory, r_value, false, SIMWARE.revlabels2) ;
 	    }
 
             // pack and load html
