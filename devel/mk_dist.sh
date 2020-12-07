@@ -54,7 +54,6 @@ echo "  * ws_dist/min.sim_all.js"
 cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
     sim_hw/sim_hw_behavior.js \
-    sim_hw/sim_hw_mainmemory.js \
     sim_hw/sim_hw_ep/sim_ep.js \
     sim_hw/sim_hw_ep/sim_hw_board.js \
     sim_hw/sim_hw_ep/sim_hw_cpu.js \
@@ -86,7 +85,8 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_api_stateshots.js \
     sim_core/sim_core_voice.js \
     sim_core/sim_core_rest.js \
-    sim_core/sim_core_notify.js > ws_dist/sim_all.js
+    sim_core/sim_core_notify.js \
+    sim_core/sim_adt_mainmemory.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
 

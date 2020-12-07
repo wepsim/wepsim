@@ -41,7 +41,8 @@
 						  var value = 0 ;
 					          for (var index in sim.ep.internal_states.MP)
 						  {
-                                                       value = simhw_internalState_getValue('MP', index) ;
+                                                       value = main_memory_getvalue(sim.ep.internal_states.MP,
+                                                                                    index) ;
                                                        value = parseInt(value) ;
 						       if (value != 0)
 						       {
@@ -76,7 +77,8 @@
 				             },
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
-                                                  var value = simhw_internalState_getValue('MP', elto) ;
+                                                  var value = main_memory_getvalue(sim.ep.internal_states.MP,
+                                                                                   elto) ;
                                                   if (typeof value === "undefined") {
 					              return null ;
 					          }
@@ -85,16 +87,28 @@
 
 		                  // native: get_value, set_value
 		                  get_value: function ( elto ) {
-                                                 var value = simhw_internalState_getValue('MP', elto) ;
+                                                 var value = main_memory_getvalue(sim.ep.internal_states.MP,
+                                                                                  elto) ;
 				                 show_main_memory(sim.ep.internal_states.MP, elto, false,false) ;
                                                  return (value >>> 0) ;
 				             },
 		                  set_value: function ( elto, value ) {
-                                                 var valref = simhw_internalState_setValue('MP', elto, value) ;
+						 // PC
+						 var origin = '' ;
+                                                 var r_value = main_memory_get_program_counter() ;
+                                                 if (r_value != null) {
+						     origin = 'PC=0x' + r_value.toString(16) ;
+						 }
+
+                                                 var valref = main_memory_set(sim.ep.internal_states.MP,
+                                                                              elto, 
+								              (value >>> 0), 
+								              [ origin ]) ;
 				                 show_main_memory(sim.ep.internal_states.MP, 
                                                                   elto, 
                                                                   (typeof valref === "undefined"),
                                                                   true) ;
+
 						 return value ;
 				             }
                             	};
@@ -163,7 +177,8 @@
                                                       }
 
                                                       address = address & 0xFFFFFFFC;
-                                                      var value = simhw_internalState_getValue('MP', address) ;
+                                                      var value = main_memory_getvalue(sim.ep.internal_states.MP,
+                                                                                       address) ;
                                                       var full_redraw = false ;
                                                       if (typeof value === "undefined") {
                                                           value = 0 ;
@@ -213,7 +228,8 @@
                                                       else if ( 1 == (bw & 0x0000000C) )
 							  bw_type = "half" ;
 
-                                                      var value = simhw_internalState_getValue('MP', address) ;
+                                                      var value = main_memory_getvalue(sim.ep.internal_states.MP,
+                                                                                       address) ;
                                                       if (typeof value === "undefined")
                                                           value = 0 ;
 
@@ -253,7 +269,8 @@
                                                           return;
 
                                                       address = address & 0xFFFFFFFC;
-                                                      var value = simhw_internalState_getValue('MP', address) ;
+                                                      var value = main_memory_getvalue(sim.ep.internal_states.MP,
+                                                                                       address) ;
                                                       var full_redraw = false ;
                                                       if (typeof value === "undefined") {
                                                           value = 0 ;
@@ -284,8 +301,18 @@
                                                            value = dbvalue;
                                                       }
 
-                                                      var valref = simhw_internalState_setValue('MP', address,
-											        (value >>> 0));
+						      // PC
+						      var origin = '' ;
+                                                      var r_value = main_memory_get_program_counter() ;
+                                                      if (r_value != null) {
+						          origin = 'PC=0x' + r_value.toString(16) ;
+						      }
+
+						      // set memory value+source
+						      var valref = main_memory_set(sim.ep.internal_states.MP, 
+										   address,
+								                   (value >>> 0), 
+              							                   [ origin ]) ;
                                                       sim.ep.signals[s_expr[4]].value = 1;
 				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, true) ;
                                                    },
@@ -304,7 +331,8 @@
                                                       else if ( 1 == (bw & 0x0000000C) )
 							  bw_type = "half" ;
 
-                                                      var value = simhw_internalState_getValue('MP', address) ;
+                                                      var value = main_memory_getvalue(sim.ep.internal_states.MP,
+                                                                                       address) ;
                                                       if (typeof value === "undefined")
                                                           value = 0 ;
 

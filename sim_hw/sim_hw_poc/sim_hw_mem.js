@@ -41,7 +41,8 @@
 						  var value = 0 ;
 					          for (var index in sim.poc.internal_states.MP)
 						  {
-                                                       value = simhw_internalState_getValue('MP', index) ;
+                                                       value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                                                    index) ;
                                                        value = parseInt(value) ;
 						       if (value != 0)
 						       {
@@ -77,7 +78,8 @@
 				             },
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
-                                                  var value = simhw_internalState_getValue('MP', index) ;
+                                                  var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                                                   index) ;
 						  if (typeof value === "undefined") {
 					              return null ;
 					          }
@@ -87,16 +89,28 @@
 
 		                  // native: get_value, set_value
 		                  get_value: function ( elto ) {
-                                                 var value = simhw_internalState_getValue('MP', elto) ;
+                                                 var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                                                  elto) ;
 				                 show_main_memory(sim.poc.internal_states.MP, elto, false,false) ;
                                                  return (value >>> 0) ;
 				             },
 		                  set_value: function ( elto, value ) {
-                                                 var valref = simhw_internalState_setValue('MP', elto, value) ;
+						 // PC
+						 var origin = '' ;
+                                                 var r_value = main_memory_get_program_counter() ;
+                                                 if (r_value != null) {
+						     origin = 'PC=0x' + r_value.toString(16) ;
+						 }
+
+                                                 var valref = main_memory_set(sim.poc.internal_states.MP,
+                                                                              elto, 
+								              (value >>> 0), 
+								              [ origin ]) ;
 				                 show_main_memory(sim.poc.internal_states.MP, 
                                                                   elto, 
                                                                   (typeof valref === "undefined"),
                                                                   true) ;
+
 						 return value ;
 				             }
                             	};
@@ -182,7 +196,8 @@
                                                       }
 
                                                       var wordress = address & 0xFFFFFFFC ;
-                                                      var value = simhw_internalState_getValue('MP', wordress) ;
+                                                      var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                                                       wordress) ;
                                                       var full_redraw = false ;
                                                       if (typeof value === "undefined") {
                                                           value = 0 ;
@@ -249,7 +264,8 @@
 								 break ;
 						      }
 
-                                                      var value = simhw_internalState_getValue('MP', address) ;
+                                                      var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                                                       address) ;
 						      if (typeof value === "undefined") {
 						   	  value = 0 ;
                                                       }
@@ -283,7 +299,8 @@
                                                           return;
 
                                                       var wordress = address & 0xFFFFFFFC ;
-                                                      var value = simhw_internalState_getValue('MP', wordress) ;
+                                                      var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                                                       wordress) ;
                                                       var full_redraw = false ;
                                                       if (typeof value === "undefined") {
                                                           value = 0 ;
@@ -324,9 +341,18 @@
 								 break ;
 						      }
 
-                                                      var valref = simhw_internalState_setValue('MP', wordress,
-											        (value >>> 0));
-                                                         sim.poc.signals[s_expr[4]].value = 1 ;
+						      // PC
+                                                      var origin = '' ;
+                                                      var r_value = main_memory_get_program_counter() ;
+                                                      if (r_value != null) {
+						          origin = 'PC=0x' + r_value.toString(16) ;
+                                                      }
+
+                                                      var elto = main_memory_set(sim.poc.internal_states.MP,
+                                                                                 wordress,
+                                                                                 (value >>> 0),
+              							                 [ origin ]) ;
+                                                      sim.poc.signals[s_expr[4]].value = 1 ;
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, true) ;
                                                    },
                                            verbal: function (s_expr)
@@ -351,7 +377,8 @@
 								 break ;
 						      }
 
-                                                      var value = simhw_internalState_getValue('MP', address) ;
+                                                      var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                                                       address) ;
 						      if (typeof value === "undefined") {
 						   	  value = 0 ;
                                                       }

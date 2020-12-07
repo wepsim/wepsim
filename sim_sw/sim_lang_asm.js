@@ -384,10 +384,10 @@ function writememory_and_reset ( mp, gen, nwords )
 {
 	if (gen.byteWord >= WORD_BYTES)
         {
-            mp["0x" + gen.seg_ptr.toString(16)] = {
-						     "source": gen.track_source,
-						     "value":  gen.machineCode
-						  } ;
+            main_memory_set(mp,
+                            "0x" + gen.seg_ptr.toString(16),
+                            gen.machineCode,
+                            gen.track_source) ;
 
             gen.seg_ptr      = gen.seg_ptr + WORD_BYTES ;
             gen.byteWord     = 0 ;
@@ -768,7 +768,7 @@ function read_data ( context, datosCU, ret )
 									       BYTE_LENGTH*gen.byteWord,
 									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
-				        gen.track_source.push('[eos]') ;
+				        gen.track_source.push('0x0') ;
 				}
 
 				// optional ','
@@ -801,10 +801,11 @@ function read_data ( context, datosCU, ret )
 	   // Fill memory
 	   if (gen.byteWord > 0)
 	   {
-                ret.mp["0x" + gen.seg_ptr.toString(16)] = {
- 							    "source": gen.track_source,
-                                                            "value":  gen.machineCode
-                                                          } ;
+                main_memory_set(ret.mp,
+                                "0x" + gen.seg_ptr.toString(16),
+                                gen.machineCode,
+                                gen.track_source) ;
+
                 gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
 	   }
 
@@ -1395,9 +1396,10 @@ function read_text ( context, datosCU, ret )
 				                                       source_original: s_ori,
 				                                       firm_reference:  ref
 			                                            } ;
-                        ret.mp["0x" + seg_ptr.toString(16)] = {
- 								"source": [ s_ori ],
-								"value": machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) 						} ;
+			main_memory_set(ret.mp,
+					"0x" + seg_ptr.toString(16),
+					machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
+					[ s_ori ]) ;
 
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
@@ -1564,8 +1566,8 @@ function simlang_compile (text, datosCU)
 		var auxAddr = ret.labels[i].addr;
 		for (j=0; j<ret.labels[i].nwords; j++)
                 {
-                        machineCode = ret.mp["0x" + auxAddr.toString(16)].value + machineCode;
-			auxAddr += WORD_BYTES;
+                        machineCode = main_memory_getvalue(ret.mp, "0x" + auxAddr.toString(16)) + machineCode ;
+			auxAddr += WORD_BYTES ;
 		}
 
 		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
@@ -1623,7 +1625,11 @@ function simlang_compile (text, datosCU)
 		auxAddr = ret.labels[i].addr;
 		for (j=ret.labels[i].nwords-1; j>=0; j--)
                 {
-                        ret.mp["0x" + auxAddr.toString(16)].value = machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) ;
+		        main_memory_set(ret.mp,
+				        "0x" + auxAddr.toString(16),
+				        machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH),
+				        null) ;
+
                 	auxAddr += WORD_BYTES ;
 		}
 	 }

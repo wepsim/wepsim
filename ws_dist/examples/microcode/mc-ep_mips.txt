@@ -383,6 +383,7 @@ addi reg1 reg2 val {
 
                 if (val & 0x00008000)
                     val = val | 0xFFFF0000 ;
+
                 var result = simcore_native_get_value("BR", reg2) + val ;
                 simcore_native_set_value("BR", reg1, result) ;
 
@@ -488,6 +489,7 @@ muli reg1 reg2 val {
 
                 if (val & 0x00008000)
                     val = val | 0xFFFF0000 ;
+
                 var result = simcore_native_get_value("BR", reg2) * val ;
                 simcore_native_set_value("BR", reg1, result) ;
 
@@ -651,6 +653,7 @@ li reg val {
 
                 if (val1 & 0x00008000)
                     val1 = val1 | 0xFFFF0000 ;
+
                 simcore_native_set_value("BR", reg1, val1) ;
 
                 simcore_native_go_maddr(0) ;
@@ -822,6 +825,9 @@ lb reg1 val(reg2) {
                 var val    = simcore_native_get_field_from_ir(fields, 1) ;
                 var reg2   = simcore_native_get_field_from_ir(fields, 2) ;
 
+                if (val & 0x00008000)
+                    val = val | 0xFFFF0000 ;
+
                 var b_addr = simcore_native_get_value("BR", reg2) + val ;
                 var w_addr = b_addr & 0xFFFFFFFC ;
                 var w_value = simcore_native_get_value("MEMORY", w_addr) ;
@@ -899,6 +905,9 @@ sb reg1 val(reg2) {
                 var val    = simcore_native_get_field_from_ir(fields, 1) ;
                 var reg2   = simcore_native_get_field_from_ir(fields, 2) ;
 
+                if (val & 0x00008000)
+                    val = val | 0xFFFF0000 ;
+
                 var b_addr  = simcore_native_get_value("BR", reg2) + val ;
                 var b_value = simcore_native_get_value("BR", reg1) ;
                     b_value = b_value & 0x000000FF ;
@@ -946,6 +955,9 @@ lw reg1 val(reg2) {
                 var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
                 var val    = simcore_native_get_field_from_ir(fields, 1) ;
                 var reg2   = simcore_native_get_field_from_ir(fields, 2) ;
+
+                if (val & 0x00008000)
+                    val = val | 0xFFFF0000 ;
 
                 var addr  = simcore_native_get_value("BR", reg2) + val ;
                 var value = simcore_native_get_value("MEMORY", addr) ;
