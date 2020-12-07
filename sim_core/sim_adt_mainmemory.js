@@ -20,7 +20,7 @@
 
 
         /*
-         *  memory => [ { value: 0, source: "origin" }, {...} ]
+         *  memory => { "0x...": { value: 0, source: "origin" }, ... }
          */
 
         function main_memory_getkeys ( memory )
@@ -76,21 +76,26 @@
 
         function main_memory_getsrc ( memory, elto )
         {
-            var valobj = memory[elto] ;
+            var src = "" ;
 
+            var valobj = memory[elto] ;
             if (typeof valobj === "undefined") {
-                return '' ; // TOCHECK: valobj ;
+                return src ;
             }
 
             // get_source
-            var src = "" ;
             if (typeof valobj.source !== "undefined") {
                 src = valobj.source ;
             }
+            if (Array.isArray(src)) {
+                src = src.join(";") ;
+            }
 
             // escape html end attribute char
-            src = src.replace(/'/g, '')
-                     .replace(/"/g, '') ;
+            if (typeof src == "string") {
+                src = src.replace(/'/g, '')
+                         .replace(/"/g, '') ;
+            }
 
 	    return src ;
         }
