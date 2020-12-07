@@ -46,31 +46,15 @@
 		    this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    $("[data-toggle=popover-mem]").popover({
-			    html:      true,
-			    placement: 'auto',
-			    animation: false,
-			    trigger:   'click',
-			    template:  '<div class="popover shadow" role="tooltip">' +
-				       '<div class="arrow"></div>' +
-				       '<h3  class="popover-header"></h3>' +
-				       '<div class="popover-body"></div>' +
-				       '</div>',
-			    container: 'body',
-			    content:    quick_config_mem,
-			    sanitizeFn: function (content) {
-					    return content ; // DOMPurify.sanitize(content) ;
-					}
-		    }).on('shown.bs.popover',
-					function(shownEvent) {
-                                            var optValue = get_cfg('MEM_show_segments') ;
-                                            $('#label19-' + optValue).button('toggle') ;
-
-                                            var optValue = get_cfg('MEM_show_source') ;
-                                            $('#label20-' + optValue).button('toggle') ;
-
-					    i18n_update_tags('cfg') ;
-					}) ;
+		    wepsim_init_quickcfg("[data-toggle=popover-mem]",
+			                 "click",
+			                 quick_config_mem,
+					 function(shownEvent) {
+                                             var optValue = get_cfg('MEM_show_segments') ;
+                                             $('#label19-' + optValue).button('toggle') ;
+                                             var optValue = get_cfg('MEM_show_source') ;
+                                             $('#label20-' + optValue).button('toggle') ;
+					 }) ;
 	      }
 
 	      connectedCallback ()
@@ -127,43 +111,73 @@
             var SIMWARE = get_simware() ;
             var seglabels = SIMWARE.revseg ;
 
+            // stack (SP)
+            var sp_value = main_memory_get_stack_baseaddr() ;
+            if (sp_value == null)
+                sp_value = 0xFFFFFFFC ;
+
 	    var o1 = '' ;
 	    var o2 = '' ;
 
 	    var s1 = '' ;
 	    var s2 = '' ;
             var seglabels_i = 0 ;
-            var seg_id   = '' ;
 
-            var value = [] ;
-            for (var key in memory)
+            var value   = [] ;
+            var i_key   = 0 ;
+            var i_keyp1 = 0 ;
+            var i_index = parseInt(index) ;
+            var keys  = main_memory_getkeys(memory) ;
+            for (var k=0; k<keys.length; k++)
             {
-                // [add segment]
-                s1 = '' ;
-                s2 = '' ;
-		while ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
-		{
-                    seg_id = 'seg_id' + seglabels_i ;
+                i_key   = parseInt(keys[k]) ;
+                i_keyp1 = parseInt(keys[k+1]) ;
 
-                    s1 = '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
-                         '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' +
-                         seglabels[seglabels_i].name +
-                         '</a>' ;
-                    s2 = '<div id="' +  seg_id + '" class="row" ' +
-                         '     data-toggle="collapse" href="#lst_seg1">' +
-                         '<u>' + seglabels[seglabels_i].name + '</u>' +
-                         '</div>' ;
+                // [add segment]
+                s1 = s2 = '' ;
+		while ( (seglabels_i < seglabels.length) && (i_key >= seglabels[seglabels_i].begin) )
+		{
+                    s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
+                    s2 = main_memory_showsegrow('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
 
 		    seglabels_i++ ;
 		}
                 if (s1 !== '') o1 += s1 ;
                 if (s2 !== '') o2 += s2 ;
 
-                // add row
-                o2 += main_memory_showrow(memory, key, (key == index), SIMWARE.revlabels2) ;
+                // [add stack (SP) element]
+                if ( (i_key < sp_value) && (sp_value < i_keyp1) ) {
+                      o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
+                }
+
+                // (pending row)
+                if ( (i_key < i_index) && (i_index < i_keyp1) ) {
+                      o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
+	        }
+
+                // (add row)
+                o2 += main_memory_showrow(memory, keys[k], (keys[k] == index), SIMWARE.revlabels2) ;
             }
 
-	    if (typeof memory[index] == "undefined") {
+            // [pending segments]
+            s1 = s2 = '' ;
+	    while (seglabels_i < seglabels.length)
+	    {
+                    s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
+                    s2 = main_memory_showsegrow('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
+
+		    seglabels_i++ ;
+	    }
+            if (s1 !== '') o1 += s1 ;
+            if (s2 !== '') o2 += s2 ;
+
+            // (pending stack (SP) element)
+            if (i_key < parseInt(sp_value)) {
+                 o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
+	    }
+
+            // (pending row)
+            if (i_key < i_index) {
                 o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
 	    }
 
@@ -178,13 +192,15 @@
                  '</div>' +
                  '</div>' ;
 
+            var pos = element_scroll_get("#lst_ins1") ;
             $("#memory_MP").html(o1) ;
 
             // * Mandatory activation of html elements
             update_badges() ;
 
             // * Configure html options
-            scroll_memory_to_address(index) ;
+            element_scroll_set("#lst_ins1", pos) ;
+            // old -> scroll_memory_to_address(index) ;
 
             if (get_cfg('MEM_show_segments'))
                  $("#lst_seg1").collapse("show") ;
@@ -204,7 +220,7 @@
         {
             if (redraw)
             {
-                var svalue  = main_memory_getword(memory, index) ;
+                var svalue = main_memory_getword(memory, index) ;
 
                 $("#mpval" + (index + 0)).html(svalue[0]) ;
                 $("#mpval" + (index + 1)).html(svalue[1]) ;
@@ -225,6 +241,33 @@
 
             // show badges
             update_badges() ;
+        }
+
+        function main_memory_showseglst ( seg_id, seg_name )
+        {
+            return '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
+                   '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' +
+                   seg_name +
+                   '</a>' ;
+        }
+
+        function main_memory_showsegrow ( seg_id, seg_name )
+        {
+            return '<div id="' +  seg_id + '" class="row" data-toggle="collapse" href="#lst_seg1">' +
+                   '<u>' + seg_name + '</u>' +
+                   '</div>' ;
+        }
+
+        function main_memory_get_stack_baseaddr ( )
+        {
+            var r_value   = null ;
+            var curr_firm = simhw_internalState('FIRMWARE') ;
+            var sp_name   = curr_firm.stackRegister ;
+            if (sp_name != null) {
+                r_value = get_value(simhw_sim_states().BR[sp_name]) & 0xFFFFFFFC ;
+	    }
+
+	    return r_value ;
         }
 
         function main_memory_showrow ( memory, addr, is_current, revlabels )
@@ -252,6 +295,13 @@
             for (i=0; i<4; i++) {
                  value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
                  value[i] = simcoreui_pack(value[i], 2) ;
+            }
+
+            // format of the source
+            var src_html  = '' ;
+            var src_parts = src.split(";") ;
+            for (i=0; i<src_parts.length; i++) {
+                src_html += "<span class='bg-dark text-white px-1 mx-1 rounded'>" + src_parts[i] + "</span>" ;
             }
 
             // wcolor
@@ -287,70 +337,33 @@
 	        "<div class='col-1 px-0' align='center'>" +
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+
-		"<div class='col-5 pr-2' align='right'>" +
+		"<div class='col-6 col-md-5 pr-2' align='right'>" +
                      '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
                      '<span> ... </span>' +
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
                      simcoreui_pack(valkeys[0], 5).toUpperCase() +
                 "</div>" +
-	        "<div class='col-6 px-3'  align='left'>" + value2 + "</div>" +
-	        "<div class='col-6 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
-	        "<div class='col-6 px-3  mp_tooltip collapse hide' align='left'>" +
-                "<span class='bg-dark text-white px-2 rounded'>" + src + "</span>" +
-                "</div>"+
+	        "<div class='col-5 col-md-6 px-3'  align='left'>" + value2 + "</div>" +
+	        "<div class='col-7 col-md-5 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
+	        "<div class='col-5 col-md-6 px-3  mp_tooltip collapse hide' align='left'>" + src_html + "</div>"+
                 "</div>";
 
 	    return o ;
         }
 
-        function main_memory_getword ( memory, key )
-        {
-            // get value...
-            var value = "0" ;
-            if (typeof memory[key] !== "undefined") {
-                value = get_value(memory[key]).toString(16) ;
-            }
-	    value = simcoreui_pack(value, 8) ;
-
-            // pack value...
-	    var value4 = [] ;
-            for (var i=0; i<4; i++) {
-                 value4[i] = value[2*i].toUpperCase() + value[2*i+1].toUpperCase() ;
-            }
-
-	    return value4 ;
-        }
-
-        function main_memory_getsrc ( memory, key )
-        {
-            // get value...
-            var src = "" ;
-            if (typeof memory[key] !== "undefined")
-            {
-                if (typeof memory[key].source !== "undefined")
-                    src = memory[key].source ;
-            }
-
-            // escape html end attribute char
-            src = src.replace(/'/g, '') ;
-            src = src.replace(/"/g, '') ;
-
-	    return src ;
-        }
-
         function scroll_memory_to_segment ( seg_id )
         {
-            return scroll_element('#lst_ins1', '#'+seg_id, -150) ;
+            return element_scroll_setRelative('#lst_ins1', '#'+seg_id, -150) ;
         }
 
         function scroll_memory_to_address ( addr )
         {
-            return scroll_element('#lst_ins1', '#addr'+addr, -150) ;
+            return element_scroll_setRelative('#lst_ins1', '#addr'+addr, -150) ;
         }
 
         function scroll_memory_to_lastaddress ( )
         {
-            return scroll_element('#lst_ins1', '#addr'+old_main_addr, -150) ;
+            return element_scroll_setRelative('#lst_ins1', '#addr'+old_main_addr, -150) ;
         }
 
         function update_badges ( )
@@ -365,18 +378,16 @@
             r_ref = simhw_sim_ctrlStates_get().pc ;
             if (typeof r_ref !== "undefined")
                 r_ref = simhw_sim_state(r_ref.state) ;
-            if (typeof r_ref !== "undefined")
+            if (typeof r_ref !== "undefined") {
                 r_value = get_value(r_ref) ;
-            if (typeof r_ref !== "undefined")
                 $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
+            }
 
             // SP
-            var curr_firm = simhw_internalState('FIRMWARE') ;
-            var sp_name = curr_firm.stackRegister ;
-            if (sp_name != null)
-                r_value = get_value(simhw_sim_states().BR[sp_name]) - 3 ;
-            if (sp_name != null)
+            var r_value = main_memory_get_stack_baseaddr() ;
+            if (r_value != null) {
                 $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
+            }
         }
 
 
@@ -391,17 +402,21 @@
                          quickcfg_html_header("Display format") +
                          quickcfg_html_btn("0x3B<sub>16</sub>",
 				           "update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
-					   "show_memories_values();") +
+					   "show_memories_values();",
+                                           "col-6") +
                          quickcfg_html_btn("073<sub>8</sub>",
 					   "update_cfg(\"MEM_display_format\", \"unsigned_8_nofill\"); " +
-					   "show_memories_values();") +
+					   "show_memories_values();",
+                                           "col-6") +
                          quickcfg_html_btn("59<sub>10</sub>",
 					   "update_cfg(\"MEM_display_format\", \"unsigned_10_nofill\"); " +
-					   "show_memories_values();") +
+					   "show_memories_values();",
+                                           "col-6") +
                          quickcfg_html_btn(";<sub>ascii</sub>",
 					   "update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
-					   "show_memories_values();") +
-                     "<div class='w-100 border border-light'></div>" +
+					   "show_memories_values();",
+                                           "col-6") +
+                     quickcfg_html_br() +
                          quickcfg_html_header("Display segments") +
 			 quickcfg_html_onoff('19',
 					     'show segments',
@@ -416,14 +431,8 @@
 					     "  update_cfg('MEM_show_source', false);",
 					     "  $('.mp_tooltip').collapse('show');" +
 					     "  update_cfg('MEM_show_source', true);") +
-	             "<div class='w-100 border border-light'></div>" +
-		       "<div class='col p-1 mt-3'>" +
-		       "<button type='button' id='close' data-role='none' " +
-		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-		       "        onclick='$(\"#popover-mem\").popover(\"hide\");'>" +
-                       "<span data-langkey='Close'>Close</span>" +
-                       "</button>" +
-		       "</div>" +
+                     quickcfg_html_br() +
+                       quickcfg_html_close('popover-mem') +
 		     "</div>" +
 		     "</div>" ;
         }

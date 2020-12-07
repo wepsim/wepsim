@@ -61,10 +61,6 @@
             var base_str = "0".repeat(pack_size) ;
 
             return base_str.substring(0, pack_size - val.length) + val ;
-
-            // two options:
-            // -> base_str.padStart(1*8, "0") ;
-            // -> "00000000".substring(0, 1*8 - base_str.length) + base_str ;
         }
 
         function hex2bin   ( hexvalue )
@@ -327,15 +323,33 @@
 	    return true ;
         }
 
-        function scroll_element ( list_id, obj_id, offset )
+        function element_scroll_get ( list_id )
+        {
+            var offset = 0 ;
+
+            var obj_byid = $(list_id) ;
+            if (obj_byid.length > 0) {
+                offset = obj_byid[0].scrollTop ;
+            }
+
+            return offset ;
+        }
+
+        function element_scroll_set ( list_id, offset )
+        {
+            var obj_byid = $(list_id) ;
+            if (obj_byid.length > 0) {
+                obj_byid[0].scrollTop = offset ;
+            }
+        }
+
+        function element_scroll_setRelative ( list_id, obj_id, offset )
         {
             var obj_byid = $(obj_id) ;
             if (obj_byid.length > 0)
             {
                 var topPos = obj_byid[0].offsetTop ;
-                    obj_byid = $(list_id) ;
-                if (obj_byid.length > 0)
-                    obj_byid[0].scrollTop = topPos + offset ;
+                element_scroll_set(list_id, topPos + offset) ;
             }
         }
 

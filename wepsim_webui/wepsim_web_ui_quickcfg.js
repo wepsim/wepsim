@@ -194,42 +194,99 @@
     } ;
 
 
-        //
-        // Get HTML code for quick-config elements
-        //
+    //
+    // Quick Config
+    //
 
-        function quickcfg_html_btn ( label2, code2 )
-        {
-	      return "<div class='col-6 p-1'>" +
-		     "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		     "        onclick='" + code2 + "; return true;'>" +
-		     "<span class='mx-auto px-1 font-weight-bold rounded text-dark' " +
-                     "      style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
-		     "</div>" ;
-        }
+    function wepsim_init_quickcfg ( quick_id, val_trigger, fun_content, fun_ownshown )
+    {
+	 return $(quick_id).popover({
+		    trigger:     val_trigger,
+		    html:        true,
+		    placement:  'auto',
+		    animation:   false,
+		    container:  'body',
+		    template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
+			        '<div class="arrow"></div>' +
+                                '<h3 class="popover-header"></h3>' +
+                                '<div class="popover-body"></div>' +
+			        '</div>',
+		    content:    fun_content,
+		    sanitizeFn: function (content) {
+				    return content ; // DOMPurify.sanitize(content) ;
+				}
+	 }).on('shown.bs.popover',
+		                function(shownEvent) {
+                                    fun_ownshown(shownEvent);
+                                    i18n_update_tags('dialogs') ;
+                                    i18n_update_tags('gui') ;
+                                    i18n_update_tags('cfg') ;
+                                }) ;
+    }
 
-        function quickcfg_html_onoff ( id2, arial2, code_off2, code_on2 )
-        {
-              return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-toggle='buttons'>" +
-                     "    <label id='label" + id2 + "-false' " +
-                     "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                     "           aria-label='" + arial2 + ": false' " +
-		     "           onclick=\"" + code_off2 + "; return true;\">" +
-                     "    <input type='radio' name='options' id='radio" + id2 + "-false' " +
-                     "           aria-label='" + arial2 + ": false' autocomplete='off'>Off</label>" +
-                     "    <label id='label" + id2 + "-true' " +
-                     "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                     "           aria-label='" + arial2 + ": true' " +
-		     "           onclick=\"" + code_on2 + "; return true;\">" +
-                     "    <input type='radio' name='options' id='radio" + id2 + "-true' " +
-                     "           aria-label='" + arial2 + ": true' autocomplete='on'>On</label>" +
-                     "</div>" ;
-        }
 
-        function quickcfg_html_header ( label2 )
-        {
-              return "<div class='col-12 p-0 mt-3'>" +
-                     "<span data-langkey='" + label2 + "'>" + label2 + "</span>" +
-                     "</div>" ;
-        }
+    //
+    // Get HTML code for quick-config elements
+    //
+
+    function quickcfg_html_br ( )
+    {
+	 return "<div class='w-100 border border-light'></div>" ;
+    }
+
+    function quickcfg_html_header ( label2 )
+    {
+         return "<div class='col-12 p-0 mt-2'>" +
+                "<span data-langkey='" + label2 + "'>" + label2 + "</span>" +
+                "</div>" ;
+    }
+
+    function quickcfg_html_btn ( label2, code2, colwidth2 )
+    {
+	 return "<div class='" + colwidth2 + " p-1'>" +
+		"<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		"        onclick='" + code2 + "; return true;'>" +
+		"<span class='mx-auto px-1 font-weight-bold rounded text-dark' " +
+                "      style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
+		"</div>" ;
+    }
+
+    function quickcfg_html_btnreg ( label2, code2, colwidth2 )
+    {
+         return "<div class='" + colwidth2 + " p-1'>" +
+	        "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+	        "        onclick='" + code2 + "; return true;'>" +
+	        "<span class='font-weight-bold text-monospace'>" + label2 + "</span>" + "&nbsp;" +
+	        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
+	        "</div>" ;
+    }
+
+    function quickcfg_html_onoff ( id2, arial2, code_off2, code_on2 )
+    {
+         return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-toggle='buttons'>" +
+                "    <label id='label" + id2 + "-false' " +
+                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                "           aria-label='" + arial2 + ": false' " +
+		"           onclick=\"" + code_off2 + "; return true;\">" +
+                "    <input type='radio' name='options' id='radio" + id2 + "-false' " +
+                "           aria-label='" + arial2 + ": false' autocomplete='off'>Off</label>" +
+                "    <label id='label" + id2 + "-true' " +
+                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                "           aria-label='" + arial2 + ": true' " +
+		"           onclick=\"" + code_on2 + "; return true;\">" +
+                "    <input type='radio' name='options' id='radio" + id2 + "-true' " +
+                "           aria-label='" + arial2 + ": true' autocomplete='on'>On</label>" +
+                "</div>" ;
+    }
+
+    function quickcfg_html_close ( btn2_id )
+    {
+	 return "<div class='col p-1 mt-2'>" +
+		"<button type='button' id='close' data-role='none' " +
+		"        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		"        onclick='$(\"#" + btn2_id + "\").popover(\"hide\");'>" +
+                "<span data-langkey='Close'>Close</span>" +
+                "</button>" +
+		"</div>" ;
+    }
 

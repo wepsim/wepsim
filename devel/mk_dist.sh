@@ -54,6 +54,7 @@ echo "  * ws_dist/min.sim_all.js"
 cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
     sim_hw/sim_hw_behavior.js \
+    sim_hw/sim_hw_mainmemory.js \
     sim_hw/sim_hw_ep/sim_ep.js \
     sim_hw/sim_hw_ep/sim_hw_board.js \
     sim_hw/sim_hw_ep/sim_hw_cpu.js \

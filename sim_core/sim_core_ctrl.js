@@ -42,7 +42,7 @@
 	    if (typeof cf['cocop_hash'] == "undefined")          cf['cocop_hash']         = {} ;
 	    if (typeof cf['revlabels'] == "undefined")           cf['revlabels']          = {} ;
 	    if (typeof cf['revlabels2'] == "undefined")          cf['revlabels2']         = {} ;
-	    if (typeof cf['revseg'] == "undefined")              cf['revseg']             = {} ;
+	    if (typeof cf['revseg'] == "undefined")              cf['revseg']             = [] ;
 
             return cf ;
 	}
