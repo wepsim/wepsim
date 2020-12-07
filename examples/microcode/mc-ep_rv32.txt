@@ -178,6 +178,7 @@ lui rd inm {
 
                 if (val1 & 0x00008000)
                     val1 = val1 | 0xFFFF0000 ;
+
                 val1 = val1 << 12 ;
                 simcore_native_set_value("BR", reg1, val1) ;
 
@@ -199,6 +200,7 @@ auipc rd offset {
 
                 if (val1 & 0x00008000)
                     val1 = val1 | 0xFFFF0000 ;
+
 		var reg_pc = simcore_native_get_value("CPU", "REG_PC") ;
                 simcore_native_set_value("BR", reg1, reg_pc + val1) ;
 
@@ -440,6 +442,9 @@ lb rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
+                if (offset & 0x00008000)
+                    offset = offset | 0xFFFF0000 ;
+
                 var b_addr = simcore_native_get_value("BR", rs1) + offset ;
                 var w_addr = b_addr & 0xFFFFFFFC ;
                 var w_value = simcore_native_get_value("MEMORY", w_addr) ;
@@ -469,6 +474,9 @@ lh rd offset(rs1) {
                 var rd     = simcore_native_get_field_from_ir(fields, 0) ;
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                if (offset & 0x00008000)
+                    offset = offset | 0xFFFF0000 ;
 
                 var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
                 var w_addr  = b_addr & 0xFFFFFFFC ;
@@ -507,6 +515,9 @@ lw rd offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
+                if (offset & 0x00008000)
+                    offset = offset | 0xFFFF0000 ;
+
                 var addr   = simcore_native_get_value("BR", rs1) + offset ;
                 var value  = simcore_native_get_value("MEMORY", addr) ;
                 simcore_native_set_value("BR", rd, value) ;
@@ -528,6 +539,9 @@ lbu rd offset(rs1) {
                 var rd     = simcore_native_get_field_from_ir(fields, 0) ;
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                if (offset & 0x00008000)
+                    offset = offset | 0xFFFF0000 ;
 
                 var b_addr = simcore_native_get_value("BR", rs1) + offset ;
                 var w_addr = b_addr & 0xFFFFFFFC ;
@@ -556,6 +570,9 @@ lhu rd offset(rs1) {
                 var rd     = simcore_native_get_field_from_ir(fields, 0) ;
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                if (offset & 0x00008000)
+                    offset = offset | 0xFFFF0000 ;
 
                 var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
                 var w_addr  = b_addr & 0xFFFFFFFC ;
@@ -592,6 +609,9 @@ sb rs2 offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
+                if (offset & 0x00008000)
+                    offset = offset | 0xFFFF0000 ;
+
                 var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
                 var b_value = simcore_native_get_value("BR", rs2) ;
                     b_value = b_value & 0x000000FF ;
@@ -621,6 +641,9 @@ sh rs2 offset(rs1) {
                 var rs2    = simcore_native_get_field_from_ir(fields, 0) ;
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                if (offset & 0x00008000)
+                    offset = offset | 0xFFFF0000 ;
 
                 var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
                 var b_value = simcore_native_get_value("BR", rs2) ;
@@ -689,6 +712,9 @@ sbu rs2 offset(rs1) {
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
 
+                if (offset & 0x00008000)
+                    offset = offset | 0xFFFF0000 ;
+
                 var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
                 var b_value = simcore_native_get_value("BR", rs2) ;
                     b_value = b_value >>> 0 ;
@@ -719,6 +745,9 @@ shu rs2 offset(rs1) {
                 var rs2    = simcore_native_get_field_from_ir(fields, 0) ;
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
                 var rs1    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                if (offset & 0x00008000)
+                    offset = offset | 0xFFFF0000 ;
 
                 var b_addr  = simcore_native_get_value("BR", rs1) + offset ;
                 var b_value = simcore_native_get_value("BR", rs2) ;
@@ -765,6 +794,7 @@ addi rd rs1 inm {
 
                 if (val & 0x00008000)
                     val = val | 0xFFFF0000 ;
+
                 var result = simcore_native_get_value("BR", reg2) + val ;
                 simcore_native_set_value("BR", reg1, result) ;
 
@@ -793,6 +823,7 @@ slti rd rs1 inm {
 
                 if (inm1 & 0x00008000)
                     inm1 = inm1 | 0xFFFF0000 ;
+
                 var reg1 = simcore_native_get_value("BR", rs1) ;
                            simcore_native_set_value("BR", rd, (reg1 < inm1)) ;
 
@@ -958,9 +989,9 @@ add reg1 reg2 reg3 {
             native,
             {
                 // fields is a default parameter with the instruction field information
-                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-                var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
+                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
+                var reg3 = simcore_native_get_field_from_ir(fields, 2) ;
 
                 var result = simcore_native_get_value("BR", reg2) + simcore_native_get_value("BR", reg3) ;
                 simcore_native_set_value("BR", reg1, result) ;
@@ -979,9 +1010,9 @@ sub reg1 reg2 reg3 {
             native,
             {
                 // fields is a default parameter with the instruction field information
-                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-                var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
+                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
+                var reg3 = simcore_native_get_field_from_ir(fields, 2) ;
 
                 var result = simcore_native_get_value("BR", reg2) - simcore_native_get_value("BR", reg3) ;
                 simcore_native_set_value("BR", reg1, result) ;
@@ -1000,9 +1031,9 @@ sll rd rs1 rs2 {
             native,
             {
                 // fields is a default parameter with the instruction field information
-                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-                var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
+                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
+                var reg3 = simcore_native_get_field_from_ir(fields, 2) ;
 
                 var result = simcore_native_get_value("BR", reg2) << simcore_native_get_value("BR", reg3) ;
                 simcore_native_set_value("BR", reg1, result) ;
