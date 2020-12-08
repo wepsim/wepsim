@@ -115,6 +115,7 @@
             var sp_value = main_memory_get_stack_baseaddr() ;
             if (sp_value == null)
                 sp_value = 0xFFFFFFFC ;
+            var sp_value_flushed = false ;
 
 	    var o1 = '' ;
 	    var o2 = '' ;
@@ -146,7 +147,8 @@
                 if (s2 !== '') o2 += s2 ;
 
                 // [add stack (SP) element]
-                if ( (i_key < sp_value) && (sp_value < i_keyp1) ) {
+                if ( (sp_value_flushed == false) && (sp_value < i_key) ) {
+                      sp_value_flushed = true ;
                       o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
                 }
 
@@ -356,21 +358,32 @@
 
         function update_badges ( )
         {
-            var r_value = 0 ;
-
-            // clear all old badges
-            $('.mp_row_badge').html('') ;
-
             // PC
-	    r_value = main_memory_get_program_counter() ;
-	    if (r_value != null) {
-                $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
-	    }    
+            var pc_html = '' ;
+	    var pc_value = main_memory_get_program_counter() ;
+	    if (pc_value != null) {
+                pc_html = $("#bg" + pc_value).html() ;
+	    }
+	    var pc_tobe_updated = (pc_value != null) && (pc_html == '') ;
 
             // SP
-            r_value = main_memory_get_stack_baseaddr() ;
-            if (r_value != null) {
-                $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
+            var sp_html = '' ;
+            var sp_value = main_memory_get_stack_baseaddr() ;
+            if (sp_value != null) {
+                sp_html = $("#bg" + sp_value).html() ;
+            }
+	    var sp_tobe_updated = (sp_value != null) && (sp_html == '') ;
+
+            // update HTML
+	    if (pc_tobe_updated || sp_tobe_updated) {
+                 // clear all old badges
+                 $('.mp_row_badge').html('') ;
+            }
+	    if (pc_tobe_updated) {
+                $("#bg" + pc_value).html('<div class="badge badge-primary">PC</div>') ;
+	    }
+            if (sp_tobe_updated) {
+                $("#bg" + sp_value).html('<div class="badge badge-primary">SP</div>') ;
             }
         }
 
