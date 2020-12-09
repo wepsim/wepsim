@@ -415,7 +415,7 @@
 	      return "<div class='container mt-1'>" +
                      "<div class='row'>" +
                          quickcfg_html_header("Display format") +
-                         quickcfg_html_btn("0x3B<sub>16</sub>",
+                         quickcfg_html_btn("(*) 0x3B<sub>16</sub>",
 				           "update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
 					   "show_memories_values();",
                                            "col-6") +
@@ -433,7 +433,7 @@
                                            "col-6") +
                      quickcfg_html_br() +
                          quickcfg_html_header("Display direction") +
-                         quickcfg_html_btn("04 -> 00",
+                         quickcfg_html_btn("(*) 04 -> 00",
 					   "update_cfg(\"MEM_display_direction\", \"h2l\"); " +
 					   "show_memories_values();",
                                            "col-6") +
