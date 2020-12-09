@@ -31,12 +31,12 @@
  */
 
  sim_segments = {
-                    ".kdata": { name:".kdata", begin:0x00000, end:0x000FF, color:"#FF99CC", kindof:"data"  },
-                    ".ktext": { name:".ktext", begin:0x00100, end:0x00FFF, color:"#A9D0F5", kindof:"text"  },
+                    ".kdata": { name:".kdata", begin:0x00000, end:0x000FF,  color:"#FF99CC", kindof:"data"  },
+                    ".ktext": { name:".ktext", begin:0x00100, end:0x00FFF,  color:"#A9D0F5", kindof:"text"  },
 
-                    ".data":  { name:".data",  begin:0x01000, end:0x07FFF, color:"#FACC2E", kindof:"data"  },
-                    ".text":  { name:".text",  begin:0x08000, end:0x1FFFF, color:"#BEF781", kindof:"text"  },
-                    ".stack": { name:".stack", begin:0x1FFFF, end:0xFFFFF, color:"#F1F2A3", kindof:"stack" }
+                    ".data":  { name:".data",  begin:0x01000, end:0x07FFF,  color:"#FACC2E", kindof:"data"  },
+                    ".text":  { name:".text",  begin:0x08000, end:0x1FFFF,  color:"#BEF781", kindof:"text"  },
+                    ".stack": { name:".stack", begin:0x1FFFF, end:0x100000, color:"#F1F2A3", kindof:"stack" }
                 } ;
 
 

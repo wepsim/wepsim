@@ -244,8 +244,9 @@
 						              remain = sim.ep.events.mem[clk-1] - 1;
                                                            }
 						      sim.ep.events.mem[clk] = remain;
-                                                      if (remain > 0)
+                                                      if (remain > 0) {
                                                           return;
+                                                      }
 
                                                       address = address & 0xFFFFFFFC;
                                                       var value = main_memory_getvalue(sim.ep.internal_states.MP,
