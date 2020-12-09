@@ -262,15 +262,25 @@
 
         function main_memory_showrow ( memory, addr, is_current, revlabels )
         {
-            var o = "" ;
-            var i = 0 ;
+            var o  = "" ;
+            var i  = 0 ;
+            var ri = 0 ;
+
+            // configuration
+            var cfg_direction = get_cfg('MEM_display_direction') ;
+            var cfg_format    = get_cfg('MEM_display_format') ;
+                cfg_format    = cfg_format.replace('_fill', '_nofill') ;
 
             // valkeys
             var valkeys = [] ;
             var idi     = [] ;
             for (i=0; i<4; i++)
             {
-                 var addri  = parseInt(addr) + i ;
+                 if (cfg_direction == 'h2l')
+                      ri = 4 - i - 1 ;
+                 else ri = i ;
+
+                 var addri  = parseInt(addr) + ri ;
 		 valkeys[i] = addri.toString(16) ;
                  idi[i]     = "mpval" + addri ;
             }
@@ -280,18 +290,22 @@
             var src   =  main_memory_getsrc(memory, addr) ;
 
             // format of the value
-            var rf_format = get_cfg('MEM_display_format') ;
-            rf_format = rf_format.replace('_fill', '_nofill') ;
-            for (i=0; i<4; i++) {
-                 value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
+            for (i=0; i<4; i++)
+            {
+                 value[i] = value2string(cfg_format, parseInt(value[i], 16)) ;
                  value[i] = simcoreui_pack(value[i], 2) ;
             }
 
             // format of the source
             var src_html  = '' ;
             var src_parts = src.split(";") ;
-            for (i=0; i<src_parts.length; i++) {
-                src_html += "<span class='bg-dark text-white px-1 mx-1 rounded'>" + src_parts[i] + "</span>" ;
+            for (i=0; i<src_parts.length; i++)
+            {
+                 if (cfg_direction == 'h2l')
+                      ri = src_parts.length - i - 1 ;
+                 else ri = i ;
+
+                 src_html += "<span class='bg-dark text-white px-1 mx-1 rounded'>" + src_parts[ri] + "</span>" ;
             }
 
             // wcolor
@@ -307,18 +321,22 @@
             var value2 = '' ;
             for (i=0; i<4; i++)
             {
-                valuei = '<span id="' + idi[i] + '">' + value[i] + '</span>' ;
-                labeli = revlabels["0x" + valkeys[3-i]] ;
-                if (typeof labeli !== "undefined")
-                {
+                 if (cfg_direction == 'h2l')
+                      ri = i ;
+                 else ri = 4 - i - 1 ;
+
+                 valuei = '<span id="' + idi[i] + '">' + value[ri] + '</span>' ;
+                 labeli = revlabels["0x" + valkeys[i]] ;
+                 if (typeof labeli !== "undefined")
+                 {
                      valuei = '<span>' +
                               '<span style="border:1px solid gray;">' + valuei + '</span>' +
                               '<span class="badge badge-pill badge-info" ' +
                               '      style="position:relative;top:-8px;z-index:2">' + labeli + '</span>' +
                               '</span>' ;
-                }
+                 }
 
-                value2 += '<span class="mr-1">' + valuei + '</span>' ;
+                 value2 += '<span class="mr-1">' + valuei + '</span>' ;
             }
 
             // build HTML
@@ -328,10 +346,10 @@
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+
 		"<div class='col-6 col-md-5 pr-2' align='right'>" +
-                     '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
+                     '<small>0x</small>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
                      '<span> ... </span>' +
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
-                     simcoreui_pack(valkeys[0], 5).toUpperCase() +
+                     simcoreui_pack(valkeys[3], 5).toUpperCase() +
                 "</div>" +
 	        "<div class='col-5 col-md-6 px-3'  align='left'>" + value2 + "</div>" +
 	        "<div class='col-7 col-md-6 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
@@ -411,6 +429,16 @@
                                            "col-6") +
                          quickcfg_html_btn(";<sub>ascii</sub>",
 					   "update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
+					   "show_memories_values();",
+                                           "col-6") +
+                     quickcfg_html_br() +
+                         quickcfg_html_header("Display direction") +
+                         quickcfg_html_btn("04 -> 00",
+					   "update_cfg(\"MEM_display_direction\", \"h2l\"); " +
+					   "show_memories_values();",
+                                           "col-6") +
+                         quickcfg_html_btn("00 -> 04",
+					   "update_cfg(\"MEM_display_direction\", \"l2h\"); " +
 					   "show_memories_values();",
                                            "col-6") +
                      quickcfg_html_br() +
