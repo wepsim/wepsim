@@ -108,6 +108,15 @@
 
         function hard_refresh_main_memory ( memory, index, redraw )
         {
+            // configuration
+            var cfg = {} ;
+                cfg.direction = get_cfg('MEM_display_direction') ;
+                cfg.format    = get_cfg('MEM_display_format') ;
+                cfg.format    = cfg.format.replace('_fill', '_nofill') ;
+                cfg.showsegs  = get_cfg('MEM_show_segments') ;
+                cfg.showsrc   = get_cfg('MEM_show_source') ;
+
+            // labels (seg)
             var SIMWARE = get_simware() ;
             var seglabels = SIMWARE.revseg ;
 
@@ -117,6 +126,7 @@
                 sp_value = 0xFFFFFFFC ;
             var sp_value_flushed = false ;
 
+            // temporal variables
 	    var o1 = '' ;
 	    var o2 = '' ;
 
@@ -149,16 +159,16 @@
                 // [add stack (SP) element]
                 if ( (sp_value_flushed == false) && (sp_value < i_key) ) {
                       sp_value_flushed = true ;
-                      o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
+                      o2 += main_memory_showrow(cfg, memory, sp_value, false, SIMWARE.revlabels2) ;
                 }
 
                 // (pending row)
                 if ( (i_key < i_index) && (i_index < i_keyp1) ) {
-                      o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
+                      o2 += main_memory_showrow(cfg, memory, index, true, SIMWARE.revlabels2) ;
 	        }
 
                 // (add row)
-                o2 += main_memory_showrow(memory, keys[k], (keys[k] == index), SIMWARE.revlabels2) ;
+                o2 += main_memory_showrow(cfg, memory, keys[k], (keys[k] == index), SIMWARE.revlabels2) ;
             }
 
             // [pending segments]
@@ -175,12 +185,12 @@
 
             // (pending stack (SP) element)
             if (i_key < parseInt(sp_value)) {
-                 o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
+                 o2 += main_memory_showrow(cfg, memory, sp_value, false, SIMWARE.revlabels2) ;
 	    }
 
             // (pending row)
             if (i_key < i_index) {
-                o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
+                o2 += main_memory_showrow(cfg, memory, index, true, SIMWARE.revlabels2) ;
 	    }
 
             // pack and load html
@@ -197,18 +207,17 @@
             var pos = element_scroll_get("#lst_ins1") ;
             $("#memory_MP").html(o1) ;
 
-            // * Mandatory activation of html elements
+            // * Activation of html badges
             update_badges() ;
 
             // * Configure html options
             element_scroll_set("#lst_ins1", pos) ;
-            // old -> scroll_memory_to_address(index) ;
 
-            if (get_cfg('MEM_show_segments'))
+            if (cfg.showsegs)
                  $("#lst_seg1").collapse("show") ;
             else $("#lst_seg1").collapse("hide") ;
 
-            if (get_cfg('MEM_show_source'))
+            if (cfg.showsrc)
                  $(".mp_tooltip").collapse("show") ;
             else $(".mp_tooltip").collapse("hide") ;
 
@@ -260,23 +269,18 @@
                    '</div>' ;
         }
 
-        function main_memory_showrow ( memory, addr, is_current, revlabels )
+        function main_memory_showrow ( cfg, memory, addr, is_current, revlabels )
         {
             var o  = "" ;
             var i  = 0 ;
             var ri = 0 ;
-
-            // configuration
-            var cfg_direction = get_cfg('MEM_display_direction') ;
-            var cfg_format    = get_cfg('MEM_display_format') ;
-                cfg_format    = cfg_format.replace('_fill', '_nofill') ;
 
             // valkeys
             var valkeys = [] ;
             var idi     = [] ;
             for (i=0; i<4; i++)
             {
-                 if (cfg_direction == 'h2l')
+                 if (cfg.direction == 'h2l')
                       ri = 4 - i - 1 ;
                  else ri = i ;
 
@@ -292,7 +296,7 @@
             // format of the value
             for (i=0; i<4; i++)
             {
-                 value[i] = value2string(cfg_format, parseInt(value[i], 16)) ;
+                 value[i] = value2string(cfg.format, parseInt(value[i], 16)) ;
                  value[i] = simcoreui_pack(value[i], 2) ;
             }
 
@@ -301,7 +305,7 @@
             var src_parts = src.split(";") ;
             for (i=0; i<src_parts.length; i++)
             {
-                 if (cfg_direction == 'h2l')
+                 if (cfg.direction == 'h2l')
                       ri = src_parts.length - i - 1 ;
                  else ri = i ;
 
@@ -321,7 +325,7 @@
             var value2 = '' ;
             for (i=0; i<4; i++)
             {
-                 if (cfg_direction == 'h2l')
+                 if (cfg.direction == 'h2l')
                       ri = i ;
                  else ri = 4 - i - 1 ;
 
