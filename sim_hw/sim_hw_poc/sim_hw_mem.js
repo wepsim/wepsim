@@ -205,38 +205,10 @@
                					      }
 
                                                       // bit-width
-						      switch (bw)
-					              {
-					                 case 0: // byte
-								 if ( 0 == (address & 0x00000003) )
-									dbvalue = (value & 0x000000FF) ;
-								 if ( 1 == (address & 0x00000003) )
-									dbvalue = (value & 0x0000FF00) >> 8 ;
-								 if ( 2 == (address & 0x00000003) )
-									dbvalue = (value & 0x00FF0000) >> 16 ;
-								 if ( 3 == (address & 0x00000003) )
-									dbvalue = (value & 0xFF000000) >> 24 ;
-								 break ;
-					                 case 1: // half
-								 if ( 0 == (address & 0x00000003) )
-									dbvalue = (value & 0x0000FFFF) ;
-								 if ( 1 == (address & 0x00000003) )
-									dbvalue = (value & 0x0000FFFF) ;
-								 if ( 2 == (address & 0x00000003) )
-									dbvalue = (value & 0xFFFF0000) >> 16 ;
-								 if ( 3 == (address & 0x00000003) )
-									dbvalue = (value & 0xFFFF0000) >> 16 ;
-								 break ;
-					                 case 2: // 3-bytes (for 0, 1)
-								 if ( 0 == (address & 0x00000003) )
-									dbvalue = (value & 0x00FFFFFF) ;
-								 if ( 1 == (address & 0x00000003) )
-									dbvalue = (value & 0xFFFFFF00) ;
-								 break ;
-					                 case 3: // word
-								 dbvalue = value ;
-								 break ;
-						      }
+						      dbvalue = main_memory_updatevalues(dbvalue,
+											 value,
+											 bw,
+											 (address & 0x00000003)) ;
 
                                                       sim.poc.states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim.poc.signals[s_expr[4]].value = 1;

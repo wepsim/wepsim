@@ -108,6 +108,15 @@
 
         function hard_refresh_main_memory ( memory, index, redraw )
         {
+            // configuration
+            var cfg = {} ;
+                cfg.direction = get_cfg('MEM_display_direction') ;
+                cfg.format    = get_cfg('MEM_display_format') ;
+                cfg.format    = cfg.format.replace('_fill', '_nofill') ;
+                cfg.showsegs  = get_cfg('MEM_show_segments') ;
+                cfg.showsrc   = get_cfg('MEM_show_source') ;
+
+            // labels (seg)
             var SIMWARE = get_simware() ;
             var seglabels = SIMWARE.revseg ;
 
@@ -115,7 +124,9 @@
             var sp_value = main_memory_get_stack_baseaddr() ;
             if (sp_value == null)
                 sp_value = 0xFFFFFFFC ;
+            var sp_value_flushed = false ;
 
+            // temporal variables
 	    var o1 = '' ;
 	    var o2 = '' ;
 
@@ -146,17 +157,18 @@
                 if (s2 !== '') o2 += s2 ;
 
                 // [add stack (SP) element]
-                if ( (i_key < sp_value) && (sp_value < i_keyp1) ) {
-                      o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
+                if ( (sp_value_flushed == false) && (sp_value < i_key) ) {
+                      sp_value_flushed = true ;
+                      o2 += main_memory_showrow(cfg, memory, sp_value, false, SIMWARE.revlabels2) ;
                 }
 
                 // (pending row)
                 if ( (i_key < i_index) && (i_index < i_keyp1) ) {
-                      o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
+                      o2 += main_memory_showrow(cfg, memory, index, true, SIMWARE.revlabels2) ;
 	        }
 
                 // (add row)
-                o2 += main_memory_showrow(memory, keys[k], (keys[k] == index), SIMWARE.revlabels2) ;
+                o2 += main_memory_showrow(cfg, memory, keys[k], (keys[k] == index), SIMWARE.revlabels2) ;
             }
 
             // [pending segments]
@@ -173,12 +185,12 @@
 
             // (pending stack (SP) element)
             if (i_key < parseInt(sp_value)) {
-                 o2 += main_memory_showrow(memory, sp_value, false, SIMWARE.revlabels2) ;
+                 o2 += main_memory_showrow(cfg, memory, sp_value, false, SIMWARE.revlabels2) ;
 	    }
 
             // (pending row)
             if (i_key < i_index) {
-                o2 += main_memory_showrow(memory, index, true, SIMWARE.revlabels2) ;
+                o2 += main_memory_showrow(cfg, memory, index, true, SIMWARE.revlabels2) ;
 	    }
 
             // pack and load html
@@ -195,18 +207,17 @@
             var pos = element_scroll_get("#lst_ins1") ;
             $("#memory_MP").html(o1) ;
 
-            // * Mandatory activation of html elements
+            // * Activation of html badges
             update_badges() ;
 
             // * Configure html options
             element_scroll_set("#lst_ins1", pos) ;
-            // old -> scroll_memory_to_address(index) ;
 
-            if (get_cfg('MEM_show_segments'))
+            if (cfg.showsegs)
                  $("#lst_seg1").collapse("show") ;
             else $("#lst_seg1").collapse("hide") ;
 
-            if (get_cfg('MEM_show_source'))
+            if (cfg.showsrc)
                  $(".mp_tooltip").collapse("show") ;
             else $(".mp_tooltip").collapse("hide") ;
 
@@ -258,17 +269,22 @@
                    '</div>' ;
         }
 
-        function main_memory_showrow ( memory, addr, is_current, revlabels )
+        function main_memory_showrow ( cfg, memory, addr, is_current, revlabels )
         {
-            var o = "" ;
-            var i = 0 ;
+            var o  = "" ;
+            var i  = 0 ;
+            var ri = 0 ;
 
             // valkeys
             var valkeys = [] ;
             var idi     = [] ;
             for (i=0; i<4; i++)
             {
-                 var addri  = parseInt(addr) + i ;
+                 if (cfg.direction == 'h2l')
+                      ri = 4 - i - 1 ;
+                 else ri = i ;
+
+                 var addri  = parseInt(addr) + ri ;
 		 valkeys[i] = addri.toString(16) ;
                  idi[i]     = "mpval" + addri ;
             }
@@ -278,18 +294,22 @@
             var src   =  main_memory_getsrc(memory, addr) ;
 
             // format of the value
-            var rf_format = get_cfg('MEM_display_format') ;
-            rf_format = rf_format.replace('_fill', '_nofill') ;
-            for (i=0; i<4; i++) {
-                 value[i] = value2string(rf_format, parseInt(value[i], 16)) ;
+            for (i=0; i<4; i++)
+            {
+                 value[i] = value2string(cfg.format, parseInt(value[i], 16)) ;
                  value[i] = simcoreui_pack(value[i], 2) ;
             }
 
             // format of the source
             var src_html  = '' ;
             var src_parts = src.split(";") ;
-            for (i=0; i<src_parts.length; i++) {
-                src_html += "<span class='bg-dark text-white px-1 mx-1 rounded'>" + src_parts[i] + "</span>" ;
+            for (i=0; i<src_parts.length; i++)
+            {
+                 if (cfg.direction == 'h2l')
+                      ri = src_parts.length - i - 1 ;
+                 else ri = i ;
+
+                 src_html += "<span class='bg-dark text-white px-1 mx-1 rounded'>" + src_parts[ri] + "</span>" ;
             }
 
             // wcolor
@@ -305,18 +325,22 @@
             var value2 = '' ;
             for (i=0; i<4; i++)
             {
-                valuei = '<span id="' + idi[i] + '">' + value[i] + '</span>' ;
-                labeli = revlabels["0x" + valkeys[3-i]] ;
-                if (typeof labeli !== "undefined")
-                {
+                 if (cfg.direction == 'h2l')
+                      ri = i ;
+                 else ri = 4 - i - 1 ;
+
+                 valuei = '<span id="' + idi[i] + '">' + value[ri] + '</span>' ;
+                 labeli = revlabels["0x" + valkeys[i]] ;
+                 if (typeof labeli !== "undefined")
+                 {
                      valuei = '<span>' +
                               '<span style="border:1px solid gray;">' + valuei + '</span>' +
                               '<span class="badge badge-pill badge-info" ' +
                               '      style="position:relative;top:-8px;z-index:2">' + labeli + '</span>' +
                               '</span>' ;
-                }
+                 }
 
-                value2 += '<span class="mr-1">' + valuei + '</span>' ;
+                 value2 += '<span class="mr-1">' + valuei + '</span>' ;
             }
 
             // build HTML
@@ -326,10 +350,10 @@
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+
 		"<div class='col-6 col-md-5 pr-2' align='right'>" +
-                     '<small>0x</small>' + simcoreui_pack(valkeys[3], 5).toUpperCase() +
+                     '<small>0x</small>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
                      '<span> ... </span>' +
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
-                     simcoreui_pack(valkeys[0], 5).toUpperCase() +
+                     simcoreui_pack(valkeys[3], 5).toUpperCase() +
                 "</div>" +
 	        "<div class='col-5 col-md-6 px-3'  align='left'>" + value2 + "</div>" +
 	        "<div class='col-7 col-md-6 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
@@ -356,22 +380,33 @@
 
         function update_badges ( )
         {
-            var r_value = 0 ;
-
-            // clear all old badges
-            $('.mp_row_badge').html('') ;
-
             // PC
-	    r_value = main_memory_get_program_counter() ;
-	    if (r_value != null) {
-                $("#bg" + r_value).html('<div class="badge badge-primary">PC</div>') ;
-	    }    
+            var pc_html = '' ;
+	    var pc_value = main_memory_get_program_counter() ;
+	    if (pc_value != null) {
+                pc_html = $("#bg" + pc_value).html() ;
+	    }
+	    var pc_tobe_updated = (pc_value != null) && (pc_html == '') ;
 
             // SP
-            r_value = main_memory_get_stack_baseaddr() ;
-            if (r_value != null) {
-                $("#bg" + r_value).html('<div class="badge badge-primary">SP</div>') ;
+            var sp_html = '' ;
+            var sp_value = main_memory_get_stack_baseaddr() ;
+            if (sp_value != null) {
+                sp_html = $("#bg" + sp_value).html() ;
             }
+	    var sp_tobe_updated = (sp_value != null) && (sp_html == '') ;
+
+            // if nothing change then skip updates 
+	    if (!pc_tobe_updated && !sp_tobe_updated) {
+                return ;
+            }
+
+            // clear all old badges and update current active badges
+            $('.mp_row_badge').html('') ;
+	    if (pc_value != null)
+                $("#bg" + pc_value).html('<div class="badge badge-primary">PC</div>') ;
+            if (sp_value != null)
+                $("#bg" + sp_value).html('<div class="badge badge-primary">SP</div>') ;
         }
 
 
@@ -384,7 +419,7 @@
 	      return "<div class='container mt-1'>" +
                      "<div class='row'>" +
                          quickcfg_html_header("Display format") +
-                         quickcfg_html_btn("0x3B<sub>16</sub>",
+                         quickcfg_html_btn("(*) 0x3B<sub>16</sub>",
 				           "update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
 					   "show_memories_values();",
                                            "col-6") +
@@ -398,6 +433,16 @@
                                            "col-6") +
                          quickcfg_html_btn(";<sub>ascii</sub>",
 					   "update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
+					   "show_memories_values();",
+                                           "col-6") +
+                     quickcfg_html_br() +
+                         quickcfg_html_header("Display direction") +
+                         quickcfg_html_btn("(*) 04 -> 00",
+					   "update_cfg(\"MEM_display_direction\", \"h2l\"); " +
+					   "show_memories_values();",
+                                           "col-6") +
+                         quickcfg_html_btn("00 -> 04",
+					   "update_cfg(\"MEM_display_direction\", \"l2h\"); " +
 					   "show_memories_values();",
                                            "col-6") +
                      quickcfg_html_br() +
@@ -419,65 +464,5 @@
                        quickcfg_html_close('popover-mem') +
 		     "</div>" +
 		     "</div>" ;
-        }
-
-
-        /*
-         *  obj2html
-         */
-
-        function segments2html ( segments )
-        {
-	   var o1 = "<br>" ;
-
-	   o1 += " <center>" +
-                 " <table height='400px'>" +
-	         " <tr>" +
-	         " <td>" +
-	         "<table style='border-style: solid' border='1' width='100%' height='100%'>" ;
-	   for (var skey in segments)
-	   {
-	        if (segments[skey].name != ".stack")
-	   	    o1 += "<tr><td valign='middle' align='center' height='60px' bgcolor='" + segments[skey].color + "'>" +
-                          segments[skey].name +
-                          "</td></tr>" +
-	   	          "<tr><td valign='middle' align='center' height='25px'>...</td></tr>" ;
-	   }
-	   o1 += "<tr><td valign='middle' align='center' bgcolor='" + segments['.stack'].color + "'>" +
-                 segments['.stack'].name +
-                 "</td></tr>" +
-	         "</table>" +
-	         " </td>" +
-	         " <td width='20px'>&nbsp;</td>" +
-	         " <td>" +
-	         " <table style='border-style: solid; border-width:0px; width:100%; height:100%'>" ;
-
-           var sx = "" ;
-           var sp = "" ;
-	   for (skey in segments)
-	   {
-	       sx = "<tr>" +
-	   	    "    <td valign='top' align='left' height='30px' style=''>" +
-	   	    "    <div id='compile_begin_" + segments[skey].name + "'>" + segments[skey].begin + "</div>" +
-	   	    "    </td>" +
-	   	    " </tr>" +
-	   	    " <tr>" +
-	   	    "    <td valign='bottom' align='left' height='30px' style=''>" +
-	   	    "    <div id='compile_end_"   + segments[skey].name + "'>" + segments[skey].end + "</div>" +
-	   	    "    </td>" +
-	   	    " </tr>" ;
-
-	       if (segments[skey].name != ".stack")
-	   	    o1 += sx + "<tr><td valign='middle' align='center' height='25px'>...</td></tr>" ;
-               else sp  = sx ;
-	   }
-	   o1 += sp +
-	         " </table>" +
-	         " </td>" +
-	         " </tr>" +
-	         " </table>" +
-	         " </center>" ;
-
-	   return o1 ;
         }
 

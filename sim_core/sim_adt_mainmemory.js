@@ -123,6 +123,76 @@
 	    return value4 ;
         }
 
+        // function main_memory_fusionvalues
+        //    dest:   dbvalue
+        //    origin: value, dbvalue
+        //    filter: part dbvalue to be updated with value = 10xx/11xx (word), 01hx (half), 00bb (byte)
+        function main_memory_fusionvalues ( dbvalue, value, filter )
+        {
+	    if ( 0 == (filter & 0x0000000C) )
+	    {  // byte
+		   if ( 0 == (filter & 0x00000003) )
+			dbvalue = (dbvalue & 0xFFFFFF00) | (value & 0x000000FF);
+		   if ( 1 == (filter & 0x00000003) )
+			dbvalue = (dbvalue & 0xFFFF00FF) | (value & 0x0000FF00);
+		   if ( 2 == (filter & 0x00000003) )
+			dbvalue = (dbvalue & 0xFF00FFFF) | (value & 0x00FF0000);
+		   if ( 3 == (filter & 0x00000003) )
+			dbvalue = (dbvalue & 0x00FFFFFF) | (value & 0xFF000000);
+	     }
+	     else if ( 1 == (filter & 0x0000000C) )
+	     {  // half
+		   if ( 0 == (filter & 0x00000002) )
+			dbvalue = (dbvalue & 0xFFFF0000) | (value & 0x0000FFFF);
+		   if ( 1 == (filter & 0x00000002) )
+			dbvalue = (dbvalue & 0x0000FFFF) | (value & 0xFFFF0000);
+	     }
+	     else
+	     {  // word
+		   dbvalue = value;
+	     }
+
+             return dbvalue ;
+        }
+
+        function main_memory_updatevalues ( dbvalue, value, filter_size, filter_elto )
+        {
+	     switch (filter_size)
+	     {
+		 case 0: // byte
+			 if ( 0 == filter_elto )
+				dbvalue = (value & 0x000000FF) ;
+			 if ( 1 == filter_elto )
+				dbvalue = (value & 0x0000FF00) >> 8 ;
+			 if ( 2 == filter_elto )
+				dbvalue = (value & 0x00FF0000) >> 16 ;
+			 if ( 3 == filter_elto )
+				dbvalue = (value & 0xFF000000) >> 24 ;
+			 break ;
+		 case 1: // half
+			 if ( 0 == filter_elto )
+				dbvalue = (value & 0x0000FFFF) ;
+			 if ( 1 == filter_elto )
+				dbvalue = (value & 0x0000FFFF) ;
+			 if ( 2 == filter_elto )
+				dbvalue = (value & 0xFFFF0000) >> 16 ;
+			 if ( 3 == filter_elto )
+				dbvalue = (value & 0xFFFF0000) >> 16 ;
+			 break ;
+		 case 2: // 3-bytes (for 0, 1)
+			 if ( 0 == filter_elto )
+				dbvalue = (value & 0x00FFFFFF) ;
+			 if ( 1 == filter_elto )
+				dbvalue = (value & 0xFFFFFF00) ;
+			 break ;
+		 case 3: // word
+			 dbvalue = value ;
+			 break ;
+	     }
+
+             return dbvalue ;
+        }
+
 
         //
         //  Get PC/SP/... memory value (or null)
