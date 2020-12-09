@@ -185,29 +185,8 @@
                                                           full_redraw = true ;
                					      }
 
-                                                      // TABLES
-                                                      if ( 0 == (bw & 0x0000000C) )
-                                                      {  // byte
-                                                           if ( 0 == (bw & 0x00000003) )
-                                                                dbvalue = (dbvalue & 0xFFFFFF00) | (value & 0x000000FF);
-                                                           if ( 1 == (bw & 0x00000003) )
-                                                                dbvalue = (dbvalue & 0xFFFF00FF) | (value & 0x0000FF00);
-                                                           if ( 2 == (bw & 0x00000003) )
-                                                                dbvalue = (dbvalue & 0xFF00FFFF) | (value & 0x00FF0000);
-                                                           if ( 3 == (bw & 0x00000003) )
-                                                                dbvalue = (dbvalue & 0x00FFFFFF) | (value & 0xFF000000);
-                                                      }
-                                                      else if ( 1 == (bw & 0x0000000C) )
-                                                      {  // half
-                                                           if ( 0 == (bw & 0x00000002) )
-                                                                dbvalue = (dbvalue & 0xFFFF0000) | (value & 0x0000FFFF);
-                                                           if ( 1 == (bw & 0x00000002) )
-                                                                dbvalue = (dbvalue & 0x0000FFFF) | (value & 0xFFFF0000);
-                                                      }
-                                                      else
-                                                      {  // word
-                                                           dbvalue = value;
-                                                      }
+                                                      // BW -> See Tables in Help
+                                                      dbvalue = main_memory_fusionvalues(dbvalue, value, bw) ;
 
                                                       sim.ep.states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim.ep.signals[s_expr[4]].value = 1;

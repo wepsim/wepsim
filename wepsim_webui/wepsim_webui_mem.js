@@ -392,17 +392,17 @@
             }
 	    var sp_tobe_updated = (sp_value != null) && (sp_html == '') ;
 
-            // update HTML
-	    if (pc_tobe_updated || sp_tobe_updated) {
-                 // clear all old badges
-                 $('.mp_row_badge').html('') ;
+            // if nothing change then skip updates 
+	    if (!pc_tobe_updated && !sp_tobe_updated) {
+                return ;
             }
-	    if (pc_tobe_updated) {
+
+            // clear all old badges and update current active badges
+            $('.mp_row_badge').html('') ;
+	    if (pc_value != null)
                 $("#bg" + pc_value).html('<div class="badge badge-primary">PC</div>') ;
-	    }
-            if (sp_tobe_updated) {
+            if (sp_value != null)
                 $("#bg" + sp_value).html('<div class="badge badge-primary">SP</div>') ;
-            }
         }
 
 
