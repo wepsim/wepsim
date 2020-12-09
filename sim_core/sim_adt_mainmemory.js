@@ -155,8 +155,10 @@
              return dbvalue ;
         }
 
-        function main_memory_updatevalues ( dbvalue, value, filter_size, filter_elto )
+        function main_memory_extractvalues ( value, filter_size, filter_elto )
         {
+             var dbvalue = 0 ;
+
 	     switch (filter_size)
 	     {
 		 case 0: // byte
@@ -191,6 +193,44 @@
 	     }
 
              return dbvalue ;
+        }
+
+        function main_memory_updatevalues ( value, dbvalue, filter_size, filter_elto )
+        {
+	     switch (filter_size)
+	     {
+		 case 0: // byte
+			 if ( 0 == filter_elto )
+				value = (value & 0xFFFFFF00) |  (dbvalue & 0x000000FF)  ;
+			 if ( 1 == filter_elto )
+				value = (value & 0xFFFF00FF) | ((dbvalue & 0x000000FF) << 8) ;
+			 if ( 2 == filter_elto )
+				value = (value & 0xFF00FFFF) | ((dbvalue & 0x000000FF) << 16) ;
+			 if ( 3 == filter_elto )
+				value = (value & 0x00FFFFFF) | ((dbvalue & 0x000000FF) << 24) ;
+			 break ;
+		 case 1: // half
+			 if ( 0 == filter_elto )
+				value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
+			 if ( 1 == filter_elto )
+				value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
+			 if ( 2 == filter_elto )
+				value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
+			 if ( 3 == filter_elto )
+				value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
+			 break ;
+		 case 2: // 3-bytes (for 0, 1)
+			 if ( 0 == filter_elto )
+				value = (value & 0xFF000000) | (dbvalue & 0x00FFFFFF) ;
+			 if ( 1 == filter_elto )
+				value = (value & 0x000000FF) | (dbvalue & 0xFFFFFF00) ;
+			 break ;
+		 case 3: // word
+			 value = dbvalue ;
+			 break ;
+	     }
+
+             return value ;
         }
 
 
