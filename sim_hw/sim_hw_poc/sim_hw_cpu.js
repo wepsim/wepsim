@@ -2006,7 +2006,7 @@
 						                                get_value(sim.poc.states['REG_IR'])) ;
 						    if (null == oi.oinstruction)
                                                     {
-                                                         ws_alert('ERROR: undefined instruction code in firmware (' +
+                                                         ws_alert('ERROR: undefined instruction code in IR (' +
 							          'co:'  +  oi.op_code.toString(2) + ', ' +
 							          'cop:' + oi.cop_code.toString(2) + ')') ;
 							 sim.poc.states['ROM_MUXA'].value = 0 ;
