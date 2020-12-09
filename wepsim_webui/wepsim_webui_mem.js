@@ -157,6 +157,9 @@
                 if (s2 !== '') o2 += s2 ;
 
                 // [add stack (SP) element]
+                if ( (sp_value_flushed == false) && (sp_value == i_key) ) {
+                      sp_value_flushed = true ;
+                }
                 if ( (sp_value_flushed == false) && (sp_value < i_key) ) {
                       sp_value_flushed = true ;
                       o2 += main_memory_showrow(cfg, memory, sp_value, false, SIMWARE.revlabels2) ;
