@@ -24,8 +24,8 @@
 	 */
 
         sim.ep.components["CPU"] = {
-		                  name: "CPU", 
-		                  version: "1", 
+		                  name: "CPU",
+		                  version: "1",
 		                  abilities:    [ "CPU" ],
 
 		                  // ui: details
@@ -46,10 +46,10 @@
 						  {
 						      value = parseInt(get_value(sim.ep.states.BR[i])) >>> 0;
 						      if (value != 0) {
-							  vec.CPU["R" + i] = {"type":  "register", 
+							  vec.CPU["R" + i] = {"type":  "register",
 								              "default_value": 0x0,
-								              "id":    "R" + i, 
-								              "op":    "=", 
+								              "id":    "R" + i,
+								              "op":    "=",
 								              "value": "0x" + value.toString(16)} ;
 						      }
 						  }
@@ -58,10 +58,10 @@
 						  {
 						      value = parseInt(get_value(sim.ep.states['REG_' + internal_reg[i]])) >>> 0;
 						      if (value != 0) {
-							  vec.CPU[internal_reg[i]] = {"type":  "register", 
+							  vec.CPU[internal_reg[i]] = {"type":  "register",
 								                      "default_value": 0x0,
-								                      "id":    internal_reg[i], 
-								                      "op":    "=", 
+								                      "id":    internal_reg[i],
+								                      "op":    "=",
 								                      "value": "0x" + value.toString(16)} ;
 						      }
 						  }
@@ -77,10 +77,10 @@
 					          var val = parseInt(check["value"]).toString(16) ;
 					          if ("REGISTER" == check["type"].toUpperCase().trim())
                                                   {
-						      vec.CPU[key] = {"type":  "register", 
-								      "default_value": 0, 
+						      vec.CPU[key] = {"type":  "register",
+								      "default_value": 0,
 								      "id":    key,
-								      "op":    check["condition"], 
+								      "op":    check["condition"],
 								      "value": "0x" + val} ;
                                                       return true ;
                                                   }
@@ -122,7 +122,7 @@
 							 index = elto ;
 						    else index = parseInt(elto) ;
 
-						    if (isNaN(index)) 
+						    if (isNaN(index))
 						    {
 							set_value(simhw_sim_state(elto), value) ;
 
@@ -143,23 +143,27 @@
 	 */
 
         sim.ep.ctrl_states.pc  = {
-		                name:  "PC",
-		                state: "REG_PC"
-	                     } ;
+		                    name:  "PC",
+		                    state: "REG_PC",
+		                    is_pointer: true
+	                         } ;
         sim.ep.ctrl_states.sp  = {
-		                name:  "SP",
-		                state: "BR.29"
-	                     } ;
-        sim.ep.ctrl_states.ir  = { 
-		                name:  "IR",
-		                state: "REG_IR",
-		                default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
-			                         "cop": { "begin": 28, "end": 31, "length": 4 } }
-	                     } ;
+		                    name:  "SP",
+		                    state: "BR.29",
+		                    is_pointer: true
+	                         } ;
+        sim.ep.ctrl_states.ir  = {
+		                    name:  "IR",
+		                    state: "REG_IR",
+		                    default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
+			                             "cop": { "begin": 28, "end": 31, "length": 4 } },
+		                    is_pointer: false
+	                         } ;
         sim.ep.ctrl_states.mpc = {
-		                name:  "mPC",
-		                state: "REG_MICROADDR"
-	                     } ;
+		                    name:  "mPC",
+		                    state: "REG_MICROADDR",
+		                    is_pointer: false
+	                         } ;
 
 
 	/*
@@ -176,18 +180,18 @@
 
         sim.ep.internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11" ] ;
         sim.ep.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        sim.ep.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto",  
-		                                   "REG_PC,col-auto",    "REG_MAR,col-auto", "REG_MBR,col-auto", 
-                                                   "REG_RT1,col-auto",   "REG_RT2,col-auto", "REG_RT3,col-auto", 
+        sim.ep.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto",
+		                                   "REG_PC,col-auto",    "REG_MAR,col-auto", "REG_MBR,col-auto",
+                                                   "REG_RT1,col-auto",   "REG_RT2,col-auto", "REG_RT3,col-auto",
 		                                   "REG_SR,col-auto",    "REG_MICROADDR,col-auto" ] ;
-        sim.ep.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",   
+        sim.ep.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",
                                                    "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
 				          "C0,0", "C1,0",  "C2,0",  "C3,0",  "C4,0",  "C5,0", "C6,0", "C7,0",
 				          "T1,0", "T2,0",  "T3,0",  "T4,0",  "T5,0",  "T6,0", "T7,0", "T8,0",
                                           "T9,0", "T10,0", "T11,0",
-				                   "M1,0",   "M2,0", "M7,0", "MA,0",   "MB,0", 
+				                   "M1,0",   "M2,0", "M7,0", "MA,0",   "MB,0",
                                                    "SELP,0", "LC,0", "SE,0", "SIZE,0", "OFFSET,0",
-                                                   "BW,0",   "R,0",  "W,0",  "TA,0",   "TD,0", "IOR,0", "IOW,0", 
+                                                   "BW,0",   "R,0",  "W,0",  "TA,0",   "TD,0", "IOR,0", "IOW,0",
                                                    "TEST_I,0", "TEST_U,0"  ] ;
         sim.ep.internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0, 'flag_v': 0, 'flag_c': 0 } ;
 
@@ -608,7 +612,7 @@
 					  "LUI ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3"],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_p:text3303'],
-			       draw_data: [['svg_p:path3237', 'svg_p:path3239', 
+			       draw_data: [['svg_p:path3237', 'svg_p:path3239',
                                             'svg_p:path3261-8', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3317-9']],
 			       draw_name: [['svg_p:path3009', 'svg_p:path3301']] };
 	 sim.ep.signals["SELP"] = { name: "SELP",   visible: true, type: "L", value: 0, default_value:0, nbits: "2",
@@ -702,7 +706,7 @@
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
-	 sim.ep.signals["MR"]  = { name: "MR", 
+	 sim.ep.signals["MR"]  = { name: "MR",
 		               verbal: ['Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. ',
                                         'Copy SelA, SelB, and SelB into RA, RB, and RC. '],
 		               visible: true, type: "L", value: 0, default_value:0, nbits: "1",
@@ -737,10 +741,10 @@
 			         draw_name: [[]] };
 
 	/* W-Byte & R-Byte Selector */
-	 sim.ep.signals["BW"] =  { name: "BW", 
-		               verbal: ['Select one byte (based on A1A0) from Word. ', 
-                                        'Select two bytes (one Half Word based on A1A0) from Word. ', 
-                                        '', 
+	 sim.ep.signals["BW"] =  { name: "BW",
+		               verbal: ['Select one byte (based on A1A0) from Word. ',
+                                        'Select two bytes (one Half Word based on A1A0) from Word. ',
+                                        '',
                                         'Select the full Word. '],
                                visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 		               behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
@@ -893,14 +897,14 @@
 				        verbal: function(s_expr) { return "" ; }
 				   };
 	sim.ep.behaviors["NOP_ALU"]  = { nparameters: 1,
-				     operation: function(s_expr) 
-                                                { 
+				     operation: function(s_expr)
+                                                {
                                                    sim.ep.internal_states.alu_flags.flag_n = 0 ;
                                                    sim.ep.internal_states.alu_flags.flag_z = 0 ;
                                                    sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                    sim.ep.internal_states.alu_flags.flag_v = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
                                                    return "" ;
                                                 }
@@ -914,19 +918,19 @@
                                                    newval       = get_value(sim_elto_org) ;
                                                    set_value(sim_elto_dst, newval) ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var sim_elto_org = get_reference(s_expr[2]) ;
                                                    var newval       = get_value(sim_elto_org) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Copy from " + show_verbal(s_expr[2]) + 
-						              " to " + show_verbal(s_expr[1]) + 
+                                                       return "Copy from " + show_verbal(s_expr[2]) +
+						              " to " + show_verbal(s_expr[1]) +
                                                               " value " + show_value(newval) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                   return show_verbal(s_expr[1]) + " = " +
                                                           show_verbal(s_expr[2]) + " ("+show_value(newval)+"). ";
                                                 }
                                    };
@@ -939,20 +943,20 @@
                                                    newval       = get_value(sim_elto_org) ;
                                                    set_value(sim_elto_dst, newval) ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var sim_elto_org = get_reference(s_expr[2]) ;
                                                    var newval       = get_value(sim_elto_org) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Load from " + show_verbal(s_expr[2]) + 
-						    	      " to " + show_verbal(s_expr[1]) + 
+                                                       return "Load from " + show_verbal(s_expr[2]) +
+						    	      " to " + show_verbal(s_expr[1]) +
                                                               " value " + show_value(newval) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) +
                                                           " (" + show_value(newval) + "). " ;
                                                 }
                                    };
@@ -965,13 +969,13 @@
 
                                                    newval = get_value(sim_elto_org) ;
 						   newval = newval[r[1]] ;
-                                                   if (typeof newval != "undefined") 
+                                                   if (typeof newval != "undefined")
 						   {
 						       sim_elto_dst = get_reference(s_expr[1]) ;
                                                        set_value(sim_elto_dst, newval);
 						   }
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
                                                    var r = s_expr[2].split('/') ;
 						   var sim_elto_org = get_reference(r[0]) ;
@@ -984,23 +988,23 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) + 
-							      " to " + show_verbal(s_expr[1]) + 
+                                                       return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
+							      " to " + show_verbal(s_expr[1]) +
                                                               " value " + newval + ". " ;
                                                    }
 
                                                    return show_verbal(s_expr[1]) + " = " +
-                                                          show_verbal(r[0]) + "." + r[1] + 
+                                                          show_verbal(r[0]) + "." + r[1] +
                                                           " (" + newval + "). " ;
                                                 }
                                    };
 	sim.ep.behaviors["NOT_ES"]   = { nparameters: 3,
 				     types: ["S", "E"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   set_value( sim.ep.signals[s_expr[1]], Math.abs(get_value(sim.ep.states[s_expr[2]]) - 1));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var value = Math.abs(get_value(sim.ep.states[s_expr[2]]) - 1) ;
 
@@ -1009,17 +1013,17 @@
                                                        return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) +
                                                           " (Logical NOT " + s_expr[2] + "). " ;
                                                 }
 				   };
 	sim.ep.behaviors["GET"]      = { nparameters: 4,
 				     types: ["E", "E", "S"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   set_value(sim.ep.states[s_expr[1]], get_value(sim.ep.states[s_expr[2]][ sim.ep.signals[s_expr[3]].value]));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var value = get_value(sim.ep.states[s_expr[2]][sim.ep.signals[s_expr[3]].value]) ;
 
@@ -1028,17 +1032,17 @@
                                                        return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) +
                                                           " (Register File " + s_expr[3] + "). " ;
                                                 }
 				   };
 	sim.ep.behaviors["SET"]      = { nparameters: 4,
 				     types: ["E", "S", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   set_value(sim.ep.states[s_expr[1]][ sim.ep.signals[s_expr[2]].value], get_value(sim.ep.states[s_expr[3]]));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var value = get_value(sim.ep.states[s_expr[3]]) ;
 						   var o_ref = sim.ep.states[s_expr[1]][sim.ep.signals[s_expr[2]].value] ;
@@ -1057,7 +1061,7 @@
 				   };
 	sim.ep.behaviors["AND"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = get_value(sim.ep.states[s_expr[2]]) & get_value(sim.ep.states[s_expr[3]]) ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
@@ -1067,7 +1071,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 				                   var result = get_value(sim.ep.states[s_expr[2]]) & get_value(sim.ep.states[s_expr[3]]) ;
 
@@ -1081,7 +1085,7 @@
 				   };
 	sim.ep.behaviors["OR"]       = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = get_value(sim.ep.states[s_expr[2]]) | get_value(sim.ep.states[s_expr[3]]) ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
@@ -1091,7 +1095,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 				                   var result = get_value(sim.ep.states[s_expr[2]]) | get_value(sim.ep.states[s_expr[3]]) ;
 
@@ -1105,7 +1109,7 @@
 				   };
 	sim.ep.behaviors["NOT"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = ~(get_value(sim.ep.states[s_expr[2]])) ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
@@ -1115,7 +1119,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 				                   var result = ~(get_value(sim.ep.states[s_expr[2]])) ;
 
@@ -1129,7 +1133,7 @@
 				   };
 	sim.ep.behaviors["XOR"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = get_value(sim.ep.states[s_expr[2]]) ^ get_value(sim.ep.states[s_expr[3]]) ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
@@ -1139,7 +1143,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 				                   var result = get_value(sim.ep.states[s_expr[2]]) ^ get_value(sim.ep.states[s_expr[3]]) ;
 
@@ -1153,7 +1157,7 @@
 				   };
 	sim.ep.behaviors["SRL"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = (get_value(sim.ep.states[s_expr[2]])) >>> 1 ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
@@ -1163,7 +1167,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 				                   var result = (get_value(sim.ep.states[s_expr[2]])) >>> 1 ;
 
@@ -1177,7 +1181,7 @@
 				   };
 	sim.ep.behaviors["SRA"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = (get_value(sim.ep.states[s_expr[2]])) >> 1 ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
@@ -1187,7 +1191,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 				                   var result = (get_value(sim.ep.states[s_expr[2]])) >> 1 ;
 
@@ -1201,7 +1205,7 @@
 				   };
 	sim.ep.behaviors["SL"]       = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = (get_value(sim.ep.states[s_expr[2]])) << 1 ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
@@ -1211,7 +1215,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = ((result) >>> 31) ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 				                   var result = (get_value(sim.ep.states[s_expr[2]])) << 1 ;
 
@@ -1225,7 +1229,7 @@
 				   };
 	sim.ep.behaviors["RR"]       = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = ((get_value(sim.ep.states[s_expr[2]])) >>> 1) | (((get_value(sim.ep.states[s_expr[2]])) & 1) << 31) ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
@@ -1235,7 +1239,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 				                   var result = ((get_value(sim.ep.states[s_expr[2]])) >>> 1) | (((get_value(sim.ep.states[s_expr[2]])) & 1) << 31) ;
 
@@ -1249,7 +1253,7 @@
 				   };
 	sim.ep.behaviors["RL"]       = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = ((get_value(sim.ep.states[s_expr[2]])) << 1) | (((get_value(sim.ep.states[s_expr[2]])) & 0X80000000) >>> 31) ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
@@ -1259,7 +1263,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 				                   var result = ((get_value(sim.ep.states[s_expr[2]])) << 1) | (((get_value(sim.ep.states[s_expr[2]])) & 0X80000000) >>> 31) ;
 
@@ -1273,7 +1277,7 @@
 				   };
 	sim.ep.behaviors["ADD"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim.ep.states[s_expr[3]]) << 0 ;
@@ -1290,7 +1294,7 @@
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							sim.ep.internal_states.alu_flags.flag_v = 1 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim.ep.states[s_expr[3]]) << 0 ;
@@ -1306,7 +1310,7 @@
 				   };
 	sim.ep.behaviors["SUB"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim.ep.states[s_expr[3]]) << 0 ;
@@ -1323,7 +1327,7 @@
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							sim.ep.internal_states.alu_flags.flag_v = 1 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim.ep.states[s_expr[3]]) << 0 ;
@@ -1339,7 +1343,7 @@
 				   };
 	sim.ep.behaviors["MUL"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim.ep.states[s_expr[3]]) << 0 ;
@@ -1356,7 +1360,7 @@
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							sim.ep.internal_states.alu_flags.flag_v = 1 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim.ep.states[s_expr[3]]) << 0 ;
@@ -1372,7 +1376,7 @@
 				   };
 	sim.ep.behaviors["DIV"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = (get_value(sim.ep.states[s_expr[2]]) << 0) ;
 						   var b = (get_value(sim.ep.states[s_expr[3]]) << 0) ;
@@ -1394,7 +1398,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim.ep.states[s_expr[3]]) << 0 ;
@@ -1415,7 +1419,7 @@
 				   };
 	sim.ep.behaviors["MOD"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = (get_value(sim.ep.states[s_expr[2]]) << 0) ;
 						   var b = (get_value(sim.ep.states[s_expr[3]]) << 0) ;
@@ -1438,7 +1442,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim.ep.states[s_expr[3]]) << 0 ;
@@ -1459,7 +1463,7 @@
 				   };
 	sim.ep.behaviors["LUI"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var result = (get_value(sim.ep.states[s_expr[2]])) << 16 ;
 						   set_value(sim.ep.states[s_expr[1]], result) ;
@@ -1469,7 +1473,7 @@
 						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
 						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var result = (get_value(sim.ep.states[s_expr[2]])) << 16 ;
 
@@ -1483,13 +1487,13 @@
 				   };
 	sim.ep.behaviors["PLUS1"]    = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
@@ -1497,43 +1501,43 @@
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
                                                        return "Copy to " + show_verbal(s_expr[1]) + " " +
-                                                              show_verbal(s_expr[2]) + " plus one with result " + 
+                                                              show_verbal(s_expr[2]) + " plus one with result " +
                                                               show_value(result) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + " + 1" + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) + " + 1" +
                                                           " (" + show_value(result) + "). " ;
                                                 }
 				   };
 	sim.ep.behaviors["PLUS4"]    = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim.ep.states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Copy to " + show_verbal(s_expr[1]) + " " + 
-                                                             show_verbal(s_expr[2]) + " plus four with result " + 
+                                                       return "Copy to " + show_verbal(s_expr[1]) + " " +
+                                                             show_verbal(s_expr[2]) + " plus four with result " +
                                                              show_value(result) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + " + 4" + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) + " + 4" +
                                                           " (" + show_value(result) + "). " ;
                                                 }
 				   };
 	sim.ep.behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var sim_elto_dst = get_reference(s_expr[1]) ;
 						   var sim_elto_org = get_reference(s_expr[2]) ;
@@ -1546,7 +1550,7 @@
 
 						   set_value(sim_elto_dst, parseInt(n2, 2));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var sim_elto_dst = get_reference(s_expr[1]) ;
 						   var sim_elto_org = get_reference(s_expr[2]) ;
@@ -1563,15 +1567,15 @@
                                                        return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n3) + " (copied " + size + " bits from bit " + offset + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + 
-                                                          " (" + show_value(n3) + ", " + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) +
+                                                          " (" + show_value(n3) + ", " +
                                                                  size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
 	sim.ep.behaviors["MBIT_SN"]  = { nparameters: 5,
 				     types: ["S", "E", "E", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var base = 0;
 						   var r = s_expr[3].split('/');
@@ -1596,7 +1600,7 @@
 
 						   set_value( sim.ep.signals[s_expr[1]], parseInt(n3, 2));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   // value
 						   var base = 0;
@@ -1640,27 +1644,27 @@
 				   };
 	sim.ep.behaviors["SBIT_SIGNAL"] = { nparameters: 4,
 				     types: ["X", "I", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
 						   //    0             1    2  3
 						   //   SBIT_SIGNAL  A0A1   1  0
 						   var new_value = sim_elto_dst.value ;
-						   var mask = (1 << s_expr[3]) ; 
+						   var mask = (1 << s_expr[3]) ;
 						   if (s_expr[2] == "1")
 							new_value = new_value |  mask ;
 						   else new_value = new_value & ~mask ;
 
 						   set_value(sim_elto_dst, (new_value >>> 0));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
                                                    // return verbal of the compound signal/value
 						   var new_value = sim_elto_dst.value ;
-						   var mask = (1 << s_expr[3]) ; 
+						   var mask = (1 << s_expr[3]) ;
 						   if (s_expr[2] == "1")
 							new_value = new_value |  mask ;
 						   else new_value = new_value & ~mask ;
@@ -1670,18 +1674,18 @@
 				   };
 	sim.ep.behaviors["UPDATE_FLAG"] = { nparameters: 4,
 				     types: ["X", "X", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
 						   //    0             1      2    3
 				                   //   UPDATE_FLAG SELP_M7 FLAG_U 0
-						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) | 
+						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) |
 						                         (sim_elto_org.value << s_expr[3]);
 						   set_value(sim_elto_dst, (new_value >>> 0));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
@@ -1714,7 +1718,7 @@
 
 						   set_value(sim.ep.states[s_expr[1]], parseInt(n3, 2));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var offset = parseInt(sim.ep.signals[s_expr[4]].value) ;
 						   var size   = parseInt(sim.ep.signals[s_expr[5]].value) ;
@@ -1733,21 +1737,21 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return " Copy from " + show_verbal(s_expr[3]) + 
-                                                         " to " + show_verbal(s_expr[1]) + 
-						         " value " + show_value(n1) + 
+                                                       return " Copy from " + show_verbal(s_expr[3]) +
+                                                         " to " + show_verbal(s_expr[1]) +
+						         " value " + show_value(n1) +
                                                          " (copied " + size + " bits from bit " + offset + "). " ;
                                                    }
 
                                                    return show_verbal(s_expr[1]) + " = " +
-							  show_verbal(s_expr[3]) + " (" + show_value(n1) + 
+							  show_verbal(s_expr[3]) + " (" + show_value(n1) +
 						  	  ", " + size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
 
 	sim.ep.behaviors["BSEL"] =  { nparameters: 6,
 				     types: ["E", "I", "I", "E", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var posd = parseInt(s_expr[2]) ;
 						   var poso = parseInt(s_expr[5]) ;
@@ -1762,7 +1766,7 @@
 
 						   set_value(sim.ep.states[s_expr[1]], parseInt(n3, 2));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var posd = parseInt(s_expr[2]) ;
 						   var len  = parseInt(s_expr[3]) ;
@@ -1778,18 +1782,18 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + 
+                                                       return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) +
 						              " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[4]) + 
-						          " (" + show_value(n5) + ", " + len + " bits, from bit " + poso + 
+                                                   return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[4]) +
+						          " (" + show_value(n5) + ", " + len + " bits, from bit " + poso +
 						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                 }
 				   };
 	sim.ep.behaviors["EXT_SIG"] =  { nparameters: 3,
 				     types: ["E", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var n1 = get_value(sim.ep.states[s_expr[1]]).toString(2); // to binary
 						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
@@ -1801,7 +1805,7 @@
 
 						   set_value(sim.ep.states[s_expr[1]], parseInt(n4, 2));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var n1 = get_value(sim.ep.states[s_expr[1]]).toString(2); // to binary
 						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
@@ -1817,7 +1821,7 @@
 				   };
 	sim.ep.behaviors["MOVE_BITS"] =  { nparameters: 5,
 				     types: ["S", "I", "I","S"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var posd = parseInt(s_expr[2]) ;
 						   var poso = 0 ;
@@ -1835,7 +1839,7 @@
 
 						   set_value( sim.ep.signals[s_expr[1]], parseInt(n3, 2));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
                                                    return "" ;
                                                 }
@@ -1843,7 +1847,7 @@
 	sim.ep.behaviors["MOVE_BITSE"] = {
 					  nparameters: 6,
 				    types: ["S", "I", "I", "E", "I"],
-				    operation: function (s_expr) 
+				    operation: function (s_expr)
 		                               {
 						   var posd = parseInt(s_expr[2]) ;
 						   var poso = parseInt(s_expr[5]) ;
@@ -1861,7 +1865,7 @@
 
 						   set_value( sim.ep.signals[s_expr[1]], parseInt(n3, 2));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
                                                    return "" ;
                                                 }
@@ -1872,13 +1876,13 @@
 						    sim.ep.states['INEX'].value = 0 ;
 
 						    // 1.- IR -> oi
-						    var oi = decode_instruction(sim.ep.internal_states.FIRMWARE, 
+						    var oi = decode_instruction(sim.ep.internal_states.FIRMWARE,
                                                                                 sim.ep.ctrl_states.ir,
 						                                get_value(sim.ep.states['REG_IR'])) ;
 						    if (null == oi.oinstruction)
                                                     {
                                                          ws_alert('ERROR: undefined instruction code in IR (' +
-							          'co:'  +  oi.op_code.toString(2) + ', ' + 
+							          'co:'  +  oi.op_code.toString(2) + ', ' +
 							          'cop:' + oi.cop_code.toString(2) + ')') ;
 							 sim.ep.states['ROM_MUXA'].value = 0 ;
 							 sim.ep.states['INEX'].value = 1 ;
@@ -1894,7 +1898,7 @@
 						    // 2.- ! sim.ep.internal_states['ROM'][rom_addr] -> error
 						    if (typeof sim.ep.internal_states['ROM'][rom_addr] == "undefined")
 						    {
-							 ws_alert('ERROR: undefined rom address ' + rom_addr + 
+							 ws_alert('ERROR: undefined rom address ' + rom_addr +
                                                                   ' in firmware') ;
 							 sim.ep.states['ROM_MUXA'].value = 0 ;
 							 return -1;
@@ -1913,7 +1917,7 @@
 						    set_value(sim.ep.states['REG_IR_DECO'], decins) ;
                                                     show_dbg_ir(get_value(sim.ep.states['REG_IR_DECO']));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
                                                    return "Decode instruction. " ;
                                                 }
@@ -1944,7 +1948,7 @@
 							    // 3.- check conflicts
                                                             check_buses(s_expr[1]);
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "" ;
                                                         }
@@ -1960,7 +1964,7 @@
 
                                                             sim.ep.behaviors["FIRE"].operation(s_expr) ;
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "" ;
                                                         }
@@ -1977,7 +1981,7 @@
 
 							    sim.ep.behaviors["FIRE"].operation(s_expr) ;
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "" ;
                                                         }
@@ -1990,7 +1994,7 @@
 						            sim_elto = get_reference(s_expr[1]) ;
 							    sim_elto.changed = false ; // Disable by Default
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "" ;
                                                         }
@@ -2025,7 +2029,7 @@
                                                             // 4.- update signals
 							    for (var key in sim.ep.signals)
 							    {
-								 if (typeof new_mins[key] != "undefined") 
+								 if (typeof new_mins[key] != "undefined")
 								      set_value(sim.ep.signals[key],   new_mins[key]);
 								 else set_value(sim.ep.signals[key], sim.ep.signals[key].default_value);
 							    }
@@ -2048,7 +2052,7 @@
 							    var val = get_value(sim.ep.states["ACC_TIME"]) ;
 							    set_value(sim.ep.states["ACC_TIME"], val+(t1-t0));
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "" ;
                                                         }
@@ -2065,7 +2069,7 @@
 								 reset_value(sim.ep.signals[key]) ;
                                                             }
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "Reset CPU. " ;
                                                         }
@@ -2076,7 +2080,7 @@
 							{
                                                             show_asmdbg_pc();
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "" ;
                                                         }
@@ -2085,22 +2089,22 @@
 	sim.ep.behaviors["UPDATE_NZVC"]   = { nparameters: 1,
 				            operation: function(s_expr)
 							{
-							   set_value(simhw_sim_state("FLAG_N"),   
+							   set_value(simhw_sim_state("FLAG_N"),
 								     sim.ep.internal_states.alu_flags.flag_n);
-							   set_value(simhw_sim_state("FLAG_Z"),   
+							   set_value(simhw_sim_state("FLAG_Z"),
 								     sim.ep.internal_states.alu_flags.flag_z);
-							   set_value(simhw_sim_state("FLAG_V"),   
+							   set_value(simhw_sim_state("FLAG_V"),
 								     sim.ep.internal_states.alu_flags.flag_v);
-							   set_value(simhw_sim_state("FLAG_C"),   
+							   set_value(simhw_sim_state("FLAG_C"),
 								     sim.ep.internal_states.alu_flags.flag_c);
 
-							   set_value(simhw_sim_signal("TEST_N"),  
+							   set_value(simhw_sim_signal("TEST_N"),
 								     sim.ep.internal_states.alu_flags.flag_n);
-							   set_value(simhw_sim_signal("TEST_Z"),  
+							   set_value(simhw_sim_signal("TEST_Z"),
 								     sim.ep.internal_states.alu_flags.flag_z);
-							   set_value(simhw_sim_signal("TEST_V"),  
+							   set_value(simhw_sim_signal("TEST_V"),
 								     sim.ep.internal_states.alu_flags.flag_v);
-							   set_value(simhw_sim_signal("TEST_C"),  
+							   set_value(simhw_sim_signal("TEST_C"),
 								     sim.ep.internal_states.alu_flags.flag_c);
 
 							   update_draw(sim.ep.signals["TEST_N"], sim.ep.signals["TEST_N"].value) ;
@@ -2108,7 +2112,7 @@
 							   update_draw(sim.ep.signals["TEST_V"], sim.ep.signals["TEST_V"].value) ;
 							   update_draw(sim.ep.signals["TEST_C"], sim.ep.signals["TEST_C"].value) ;
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "Update flags N-Z-V-C." ;
 /*

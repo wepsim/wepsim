@@ -122,7 +122,7 @@
 							 index = elto ;
 						    else index = parseInt(elto) ;
 
-						    if (isNaN(index)) 
+						    if (isNaN(index))
 						    {
 							set_value(simhw_sim_state(elto), value) ;
 
@@ -143,23 +143,27 @@
 	 */
 
         sim.poc.ctrl_states.pc  = {
-		                 name:  "PC",
-		                 state: "REG_PC"
-	                      } ;
+		                     name:  "PC",
+		                     state: "REG_PC",
+		                     is_pointer: true
+	                          } ;
         sim.poc.ctrl_states.sp  = {
-		                 name:  "SP",
-		                 state: "BR.29"
-	                      } ;
-        sim.poc.ctrl_states.ir  = { 
-		                 name:  "IR",
-		                 state: "REG_IR",
-		                 default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
-			                          "cop": { "begin": 27, "end": 31, "length": 5 } }
-	                      } ;
+		                     name:  "SP",
+		                     state: "BR.29",
+		                     is_pointer: true
+	                          } ;
+        sim.poc.ctrl_states.ir  = {
+		                     name:  "IR",
+		                     state: "REG_IR",
+		                     default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
+			                              "cop": { "begin": 27, "end": 31, "length": 5 } },
+		                     is_pointer: true
+	                          } ;
         sim.poc.ctrl_states.mpc = {
-		                 name:  "mPC",
-		                 state: "REG_MICROADDR"
-	                      } ;
+		                     name:  "mPC",
+		                     state: "REG_MICROADDR",
+		                     is_pointer: true
+	                          } ;
 
 
 	/*
@@ -178,9 +182,9 @@
         sim.poc.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         sim.poc.internal_states.filter_states   = [ "REG_IR_DECO,col-12",
                                                     "REG_IR,col-auto",  "REG_PC,col-auto",  "REG_SR,col-auto",
-                                                    "REG_RT1,col-auto",  
+                                                    "REG_RT1,col-auto",
                                                     "REG_MAR,col-auto", "REG_MBR,col-auto", "REG_MICROADDR,col-auto" ] ;
-        sim.poc.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",  
+        sim.poc.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",
                                                     "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
 				            "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C7,0",
 				            "T1,0", "T2,0",   "T3,0",   "T6,0",   "T8,0",
@@ -527,7 +531,7 @@
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
 			       draw_name: [[], ['svg_p:path3447']] };
 	 sim.poc.signals["M7"]  = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M7_C7 BUS_IB", 
+			       behavior: ["MV M7_C7 BUS_IB",
 				          "MV M7_C7 REG_SR; UPDATE_FLAG M7_C7 FLAG_C 31; UPDATE_FLAG M7_C7 FLAG_V 30; UPDATE_FLAG M7_C7 FLAG_N 29; UPDATE_FLAG M7_C7 FLAG_Z 28"],
                                depends_on: ["C7"],
 			       fire_name: ['svg_p:text3673'],
@@ -793,8 +797,8 @@
                                                        return "Copy from " + show_verbal(s_expr[2]) +
 							      " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                    }
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) +
                                                           " (" + show_value(newval) + "). " ;
                                                 }
                                    };
@@ -818,8 +822,8 @@
 							      " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-							  show_value(newval) + " ( " + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+							  show_value(newval) + " ( " +
 						          show_verbal(s_expr[2]) + "). " ;
                                                 }
                                    };
@@ -856,7 +860,7 @@
                                                    }
 
                                                    return show_verbal(s_expr[1]) + " = " +
-                                                          show_verbal(r[0]) + "." + r[1] + 
+                                                          show_verbal(r[0]) + "." + r[1] +
                                                           " (" + newval + "). " ;
                                                 }
                                    };
@@ -872,12 +876,12 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Set " + show_verbal(s_expr[1]) + 
-						              " with value " + show_value(value) + 
+                                                       return "Set " + show_verbal(s_expr[1]) +
+						              " with value " + show_value(value) +
 						              " (Logical NOT of " + s_expr[2] + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) +
                                                           " (Logical NOT " + s_expr[2] + "). " ;
 						}
 				   };
@@ -896,7 +900,7 @@
                                                        return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) +
                                                           " (Register File " + s_expr[3] + "). " ;
 						}
 				   };
@@ -1625,13 +1629,13 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Add one to " + show_verbal(s_expr[2]) + 
-							      " and copy to " + show_verbal(s_expr[1]) + 
+                                                       return "Add one to " + show_verbal(s_expr[2]) +
+							      " and copy to " + show_verbal(s_expr[1]) +
 							      " with result " + show_value(result) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + " + 1" + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) + " + 1" +
                                                           " (" + show_value(result) + "). " ;
                                                 }
 				   };
@@ -1650,13 +1654,13 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Add four to " + show_verbal(s_expr[2]) + 
-							      " and copy to " + show_verbal(s_expr[1]) + 
+                                                       return "Add four to " + show_verbal(s_expr[2]) +
+							      " and copy to " + show_verbal(s_expr[1]) +
 							      " with result " + show_value(result) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + " + 4" + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) + " + 4" +
                                                           " (" + show_value(result) + "). " ;
                                                 }
 				   };
@@ -1692,9 +1696,9 @@
                                                        return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n3) + " (copied " + size + " bits from bit " + offset + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + 
-                                                          " (" + show_value(n3) + ", " + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) +
+                                                          " (" + show_value(n3) + ", " +
                                                                  size + " bits from bit " + offset + "). " ;
 						}
 				   };
@@ -1769,27 +1773,27 @@
 				   };
 	sim.poc.behaviors["SBIT_SIGNAL"] = { nparameters: 4,
 				     types: ["X", "I", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
 						   //    0             1    2  3
 						   //   SBIT_SIGNAL  A0A1   1  0
 						   var new_value = sim_elto_dst.value ;
-						   var mask = (1 << s_expr[3]) ; 
+						   var mask = (1 << s_expr[3]) ;
 						   if (s_expr[2] == "1")
 							new_value = new_value |  mask ;
 						   else new_value = new_value & ~mask ;
 
 						   set_value(sim_elto_dst, (new_value >>> 0));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
                                                    // return verbal of the compound signal/value
 						   var new_value = sim_elto_dst.value ;
-						   var mask = (1 << s_expr[3]) ; 
+						   var mask = (1 << s_expr[3]) ;
 						   if (s_expr[2] == "1")
 							new_value = new_value |  mask ;
 						   else new_value = new_value & ~mask ;
@@ -1862,14 +1866,14 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return " Copy from " + show_verbal(s_expr[3]) + 
-                                                         " to " + show_verbal(s_expr[1]) + 
-						         " value " + show_value(n1) + 
+                                                       return " Copy from " + show_verbal(s_expr[3]) +
+                                                         " to " + show_verbal(s_expr[1]) +
+						         " value " + show_value(n1) +
                                                          " (copied " + size + " bits from bit " + offset + "). " ;
                                                    }
 
                                                    return show_verbal(s_expr[1]) + " = " +
-							  show_verbal(s_expr[3]) + " (" + show_value(n1) + 
+							  show_verbal(s_expr[3]) + " (" + show_value(n1) +
 						  	  ", " + size + " bits from bit " + offset + "). " ;
 						}
 				   };
@@ -1907,12 +1911,12 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + 
+                                                       return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) +
 						              " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[4]) + 
-						          " (" + show_value(n5) + ", " + len + " bits, from bit " + poso + 
+                                                   return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[4]) +
+						          " (" + show_value(n5) + ", " + len + " bits, from bit " + poso +
 						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
 						}
 				   };
@@ -2213,22 +2217,22 @@
 	sim.poc.behaviors["UPDATE_NZVC"]  = { nparameters: 1,
 				            operation: function(s_expr)
 							{
-							   set_value(simhw_sim_state("FLAG_N"),  
+							   set_value(simhw_sim_state("FLAG_N"),
 								     sim.poc.internal_states.alu_flags.flag_n);
-							   set_value(simhw_sim_state("FLAG_Z"),  
+							   set_value(simhw_sim_state("FLAG_Z"),
 								     sim.poc.internal_states.alu_flags.flag_z);
-							   set_value(simhw_sim_state("FLAG_V"),  
+							   set_value(simhw_sim_state("FLAG_V"),
 								     sim.poc.internal_states.alu_flags.flag_v);
-							   set_value(simhw_sim_state("FLAG_C"),  
+							   set_value(simhw_sim_state("FLAG_C"),
 								     sim.poc.internal_states.alu_flags.flag_c);
 
-							   set_value(simhw_sim_signal("TEST_N"), 
+							   set_value(simhw_sim_signal("TEST_N"),
 								     sim.poc.internal_states.alu_flags.flag_n);
-							   set_value(simhw_sim_signal("TEST_Z"), 
+							   set_value(simhw_sim_signal("TEST_Z"),
 								     sim.poc.internal_states.alu_flags.flag_z);
-							   set_value(simhw_sim_signal("TEST_V"), 
+							   set_value(simhw_sim_signal("TEST_V"),
 								     sim.poc.internal_states.alu_flags.flag_v);
-							   set_value(simhw_sim_signal("TEST_C"), 
+							   set_value(simhw_sim_signal("TEST_C"),
 								     sim.poc.internal_states.alu_flags.flag_c);
 
 							   update_draw(sim.poc.signals["TEST_N"], sim.poc.signals["TEST_N"].value) ;

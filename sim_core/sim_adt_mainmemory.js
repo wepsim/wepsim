@@ -38,7 +38,7 @@
             var valobj = memory[elto] ;
 
             // element exits -> update it and return it
-            if (typeof valobj !== "undefined") 
+            if (typeof valobj !== "undefined")
             {
                 set_value(valobj, value) ;
                 if (null != source) {
@@ -254,15 +254,43 @@
 	      return r_value ;
         }
 
-        function main_memory_get_stack_baseaddr ( )
+        function main_memory_get_baseaddr ( )
         {
-            var r_value   = null ;
-            var curr_firm = simhw_internalState('FIRMWARE') ;
-            var sp_name   = curr_firm.stackRegister ;
-            if (sp_name != null) {
-                r_value = get_value(simhw_sim_states().BR[sp_name]) & 0xFFFFFFFC ;
-	    }
+	      var r_ref = simhw_sim_ctrlStates_get() ;
+	      if (typeof r_ref === "undefined") {
+		  return null ;
+	      }
 
-	    return r_value ;
+              var r_value = 0 ;
+              var r_ref2  = null ;
+              var all_baseaddr = {} ;
+              for (var elto in r_ref)
+              {
+	          if (r_ref[elto].is_pointer == false) {
+                      continue ;
+                  }
+
+	          if (elto == "sp")
+                  {
+		      r_value = 0xFFFFFFFC ;
+		      var curr_firm = simhw_internalState('FIRMWARE') ;
+		      var sp_name   = curr_firm.stackRegister ;
+		      if (sp_name != null) {
+		    	  r_value = get_value(simhw_sim_states().BR[sp_name]) & 0xFFFFFFFC ;
+		      }
+		  }
+		  else
+                  {
+                      r_value = 0 ;
+		      r_ref2 = simhw_sim_state(r_ref[elto].state) ;
+		      if (typeof r_ref2 !== "undefined") {
+                          r_value = get_value(r_ref2) ;
+		      }
+		  }
+
+                  all_baseaddr[elto] = r_value ;
+              }
+
+              return all_baseaddr ;
         }
 

@@ -120,11 +120,18 @@
             var SIMWARE = get_simware() ;
             var seglabels = SIMWARE.revseg ;
 
-            // stack (SP)
-            var sp_value = main_memory_get_stack_baseaddr() ;
-            if (sp_value == null)
-                sp_value = 0xFFFFFFFC ;
-            var sp_value_flushed = false ;
+            // memory
+            var base_addrs = main_memory_get_baseaddr() ;
+            var memory_cpy = Object.assign({}, memory) ;
+            for (var elto in base_addrs)
+            {
+                 if (typeof main_memory_get(memory_cpy, base_addrs[elto]) == "undefined") {
+                     main_memory_set(memory_cpy, base_addrs[elto], 0, '') ;
+                 }
+            }
+            if (typeof main_memory_get(memory_cpy, index) == "undefined") {
+                main_memory_set(memory_cpy, index, 0, '') ;
+            }
 
             // temporal variables
 	    var o1 = '' ;
@@ -136,13 +143,11 @@
 
             var value   = [] ;
             var i_key   = 0 ;
-            var i_keyp1 = 0 ;
             var i_index = parseInt(index) ;
-            var keys  = main_memory_getkeys(memory) ;
+            var keys = main_memory_getkeys(memory_cpy) ;
             for (var k=0; k<keys.length; k++)
             {
-                i_key   = parseInt(keys[k]) ;
-                i_keyp1 = parseInt(keys[k+1]) ;
+                i_key = parseInt(keys[k]) ;
 
                 // [add segment]
                 s1 = s2 = '' ;
@@ -156,45 +161,9 @@
                 if (s1 !== '') o1 += s1 ;
                 if (s2 !== '') o2 += s2 ;
 
-                // [add stack (SP) element]
-                if ( (sp_value_flushed == false) && (sp_value == i_key) ) {
-                      sp_value_flushed = true ;
-                }
-                if ( (sp_value_flushed == false) && (sp_value < i_key) ) {
-                      sp_value_flushed = true ;
-                      o2 += main_memory_showrow(cfg, memory, sp_value, false, SIMWARE.revlabels2) ;
-                }
-
-                // (pending row)
-                if ( (i_key < i_index) && (i_index < i_keyp1) ) {
-                      o2 += main_memory_showrow(cfg, memory, index, true, SIMWARE.revlabels2) ;
-	        }
-
                 // (add row)
-                o2 += main_memory_showrow(cfg, memory, keys[k], (keys[k] == index), SIMWARE.revlabels2) ;
+                o2 += main_memory_showrow(cfg, memory_cpy, keys[k], (keys[k] == index), SIMWARE.revlabels2) ;
             }
-
-            // [pending segments]
-            s1 = s2 = '' ;
-	    while (seglabels_i < seglabels.length)
-	    {
-                    s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
-                    s2 = main_memory_showsegrow('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
-
-		    seglabels_i++ ;
-	    }
-            if (s1 !== '') o1 += s1 ;
-            if (s2 !== '') o2 += s2 ;
-
-            // (pending stack (SP) element)
-            if (i_key < parseInt(sp_value)) {
-                 o2 += main_memory_showrow(cfg, memory, sp_value, false, SIMWARE.revlabels2) ;
-	    }
-
-            // (pending row)
-            if (i_key < i_index) {
-                o2 += main_memory_showrow(cfg, memory, index, true, SIMWARE.revlabels2) ;
-	    }
 
             // pack and load html
 	    o1 = '<div class="container-fluid">' +
@@ -383,33 +352,35 @@
 
         function update_badges ( )
         {
-            // PC
-            var pc_html = '' ;
-	    var pc_value = main_memory_get_program_counter() ;
-	    if (pc_value != null) {
-                pc_html = $("#bg" + pc_value).html() ;
-	    }
-	    var pc_tobe_updated = (pc_value != null) && (pc_html == '') ;
+            var html = {} ;
+	    var tobe_updated = {} ;
+	    var tobe_updated_any = false ;
 
-            // SP
-            var sp_html = '' ;
-            var sp_value = main_memory_get_stack_baseaddr() ;
-            if (sp_value != null) {
-                sp_html = $("#bg" + sp_value).html() ;
+            var base_addrs = main_memory_get_baseaddr() ;
+            for (var elto in base_addrs)
+            {
+                 html[elto] = '' ;
+                 if (base_addrs[elto] != null) {
+                     html[elto] = $("#bg" + base_addrs[elto]).html() ;
+                 }
+
+	         tobe_updated[elto] = (base_addrs[elto] != null) && (html[elto] == '') ;
+	         tobe_updated_any = tobe_updated_any || tobe_updated[elto] ;
             }
-	    var sp_tobe_updated = (sp_value != null) && (sp_html == '') ;
 
-            // if nothing change then skip updates 
-	    if (!pc_tobe_updated && !sp_tobe_updated) {
+            // if nothing change then skip updates
+	    if (!tobe_updated_any) {
                 return ;
             }
 
             // clear all old badges and update current active badges
             $('.mp_row_badge').html('') ;
-	    if (pc_value != null)
-                $("#bg" + pc_value).html('<div class="badge badge-primary">PC</div>') ;
-            if (sp_value != null)
-                $("#bg" + sp_value).html('<div class="badge badge-primary">SP</div>') ;
+            for (var elto in base_addrs)
+            {
+		 $("#bg" + base_addrs[elto]).html('<div class="badge badge-primary">' +
+				                  elto.toUpperCase() +
+				                  '</div>') ;
+            }
         }
 
 
