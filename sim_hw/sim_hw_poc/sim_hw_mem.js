@@ -205,8 +205,7 @@
                					      }
 
                                                       // bit-width
-						      dbvalue = main_memory_updatevalues(dbvalue,
-											 value,
+						      dbvalue = main_memory_extractvalues(value,
 											 bw,
 											 (address & 0x00000003)) ;
 
@@ -267,8 +266,9 @@
 						              remain = sim.poc.events.mem[clk-1] - 1;
                                                            }
 						      sim.poc.events.mem[clk] = remain;
-                                                      if (remain > 0)
+                                                      if (remain > 0) {
                                                           return;
+                                                      }
 
                                                       var wordress = address & 0xFFFFFFFC ;
                                                       var value = main_memory_getvalue(sim.poc.internal_states.MP,
@@ -280,38 +280,10 @@
                					      }
 
                                                       // bit-width
-						      switch (bw)
-					              {
-					                 case 0: // byte
-								 if ( 0 == (address & 0x00000003) )
-									value = (value & 0xFFFFFF00) |  (dbvalue & 0x000000FF)  ;
-								 if ( 1 == (address & 0x00000003) )
-									value = (value & 0xFFFF00FF) | ((dbvalue & 0x000000FF) << 8) ;
-								 if ( 2 == (address & 0x00000003) )
-									value = (value & 0xFF00FFFF) | ((dbvalue & 0x000000FF) << 16) ;
-								 if ( 3 == (address & 0x00000003) )
-									value = (value & 0x00FFFFFF) | ((dbvalue & 0x000000FF) << 24) ;
-								 break ;
-					                 case 1: // half
-								 if ( 0 == (address & 0x00000003) )
-									value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
-								 if ( 1 == (address & 0x00000003) )
-									value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
-								 if ( 2 == (address & 0x00000003) )
-									value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
-								 if ( 3 == (address & 0x00000003) )
-									value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
-								 break ;
-					                 case 2: // 3-bytes (for 0, 1)
-								 if ( 0 == (address & 0x00000003) )
-									value = (value & 0xFF000000) | (dbvalue & 0x00FFFFFF) ;
-								 if ( 1 == (address & 0x00000003) )
-									value = (value & 0x000000FF) | (dbvalue & 0xFFFFFF00) ;
-								 break ;
-					                 case 3: // word
-								 value = dbvalue ;
-								 break ;
-						      }
+						      value = main_memory_updatevalues(value,
+									               dbvalue,
+									               bw,
+									               (address & 0x00000003)) ;
 
 						      // PC
                                                       var origin = '' ;

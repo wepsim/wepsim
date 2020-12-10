@@ -257,29 +257,8 @@
                                                           full_redraw = true ;
                  				      }
 
-                                                      // TABLES
-                                                      if ( 0 == (bw & 0x0000000C) )
-                                                      {  // byte
-                                                           if ( 0 == (bw & 0x00000003) )
-                                                                value = (value & 0xFFFFFF00) | (dbvalue & 0x000000FF);
-                                                           if ( 1 == (bw & 0x00000003) )
-                                                                value = (value & 0xFFFF00FF) | (dbvalue & 0x0000FF00);
-                                                           if ( 2 == (bw & 0x00000003) )
-                                                                value = (value & 0xFF00FFFF) | (dbvalue & 0x00FF0000);
-                                                           if ( 3 == (bw & 0x00000003) )
-                                                                value = (value & 0x00FFFFFF) | (dbvalue & 0xFF000000);
-                                                      }
-                                                      else if ( 1 == (bw & 0x0000000C) )
-                                                      {  // half
-                                                           if ( 0 == (bw & 0x00000002) )
-                                                                value = (value & 0xFFFF0000) | (dbvalue & 0x0000FFFF);
-                                                           if ( 1 == (bw & 0x00000002) )
-                                                                value = (value & 0x0000FFFF) | (dbvalue & 0xFFFF0000);
-                                                      }
-                                                      else
-                                                      {  // word
-                                                           value = dbvalue;
-                                                      }
+                                                      // BW -> See Tables in Help
+                                                      value = main_memory_fusionvalues(value, dbvalue, bw) ;
 
 						      // PC
 						      var origin = '' ;
