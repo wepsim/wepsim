@@ -140,7 +140,7 @@
             if (simhw_active() !== null)
             {
                 // reload svg (just in case)
-                for (var i in id_arr) 
+                for (var i in id_arr)
                 {
                          o = document.getElementById(id_arr[i]) ;
                      if (o === null) continue ;
@@ -343,7 +343,7 @@
                 return true;
             }
 
-	    if ( (true === get_cfg('is_quick_interactive')) && (event_type == 'click') ) 
+	    if ( (true === get_cfg('is_quick_interactive')) && (event_type == 'click') )
             {
 	          wepsim_update_signal_quick(key) ;
 	          show_states();
@@ -428,9 +428,9 @@
 
     function wsweb_set_details ( opt )
     {
-            if ( 
-                 (simhw_active() !== null) && 
-                 (typeof hash_detail2action[opt] !== "undefined") 
+            if (
+                 (simhw_active() !== null) &&
+                 (typeof hash_detail2action[opt] !== "undefined")
             )
             {
                 hash_detail2action[opt]() ;
@@ -592,7 +592,7 @@
 
     function wsweb_assembly_compile ( )
     {
-            if (false == inputfirm.is_compiled) 
+            if (false == inputfirm.is_compiled)
             {
 		wsweb_dlg_alert('The Microcode is not microcompiled.<br>\n' +
 	   	   	        'Please load a Microcode first in memory in order to used it.');
@@ -747,8 +747,7 @@
     // quick menu
     function wsweb_quickmenu_show ( )
     {
-	    $('#po1').popover('show') ;
-	    wepsim_uicfg_apply() ;
+            topbar_quickmenu_action('show') ;
 
             // add if recording
             simcore_record_append_new('Open the "quick menu"',
@@ -760,7 +759,7 @@
 
     function wsweb_quickmenu_close ( )
     {
-	    $('#po1').popover('hide') ;
+            topbar_quickmenu_action('hide') ;
 
             // add if recording
             simcore_record_append_new('Close the "quick menu"',
@@ -772,8 +771,7 @@
 
     function wsweb_quickmenu_toggle ( )
     {
-	    $('#po1').popover('toggle') ;
-	    wepsim_uicfg_apply() ;
+            topbar_quickmenu_action('toggle') ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick menu"',
