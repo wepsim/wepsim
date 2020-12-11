@@ -95,7 +95,7 @@
             console.log('Stable: https://github.com/wepsim/wepsim') ;
             console.log('Beta:   https://github.com/acaldero/wepsim') ;
             console.log('') ;
-                                                
+
             return ret ;
         }
 
@@ -352,11 +352,20 @@
             var curr_firm      = simhw_internalState('FIRMWARE') ;
             var curr_segments  = simhw_internalState('segments') ;
             var sim_components = simhw_sim_components() ;
+            var ctrl_states    = simhw_sim_ctrlStates_get() ;
 
-            var pc_name   = simhw_sim_ctrlStates_get().pc.state ;
-	    var pc_state  = simhw_sim_state(pc_name) ;
-            var sp_name   = curr_firm.stackRegister ;
-            var sp_state  = simhw_sim_states().BR[sp_name] ;
+            // get PC and SP
+            var pc_name  = ctrl_states.pc.state ;
+	    var pc_state = simhw_sim_state(pc_name) ;
+
+            var sp_name  = ctrl_states.sp.state ;
+            var sp_state = simhw_sim_state(sp_name) ;
+            if (curr_firm.stackRegister != null)
+            {
+                sp_name  = curr_firm.stackRegister ;
+                sp_state = simhw_sim_states().BR[sp_name] ;
+                ctrl_states.sp.state = 'BR.' + curr_firm.stackRegister ;
+            }
 
             // Hardware (reset)
             for (var elto in sim_components)
@@ -368,24 +377,24 @@
 	    // CPU registers initial values
 	    if ((typeof curr_segments['.ktext'] !== "undefined") && (SIMWARE.labels2.kmain))
 	    {
-	         set_value(pc_state, parseInt(SIMWARE.labels2.kmain));
+	         set_value(pc_state, parseInt(SIMWARE.labels2.kmain)) ;
 	         show_asmdbg_pc() ;
 	    }
 	    else if ((typeof curr_segments['.text'] !== "undefined") && (SIMWARE.labels2.main))
 	    {
-	         set_value(pc_state, parseInt(SIMWARE.labels2.main));
+	         set_value(pc_state, parseInt(SIMWARE.labels2.main)) ;
 	         show_asmdbg_pc() ;
 	    }
 
 	    if ( (typeof curr_segments['.stack'] !== "undefined") && (typeof sp_state !== "undefined") )
 	    {
-	         set_value(sp_state, parseInt(curr_segments['.stack'].end));
+	         set_value(sp_state, parseInt(curr_segments['.stack'].end) & 0xFFFFFFFC) ;
 	    }
 
             // If not NATIVE code, fire one clock signal to initialize at first microinstruction
 	    var new_maddr = get_value(simhw_sim_state('MUXA_MICROADDR')) ;
 	    if (typeof simhw_internalState_get('MC',new_maddr) != "undefined")
-		 var new_mins = simhw_internalState_get('MC',new_maddr) ;
+		 var new_mins = simhw_internalState_get('MC', new_maddr) ;
 	    else var new_mins = simhw_sim_state('REG_MICROINS').default_value ;
 	    if (typeof new_mins.NATIVE === "undefined") {
                 compute_general_behavior("CLOCK") ;
@@ -504,9 +513,9 @@
 		while ( (i_clks < options.cycles_limit) && (0 != cur_addr) );
 
 		// no_error && native -> perform a second clock-tick...
-		if ( 
+		if (
 		     (true == ret.ok) &&
-		     (typeof curr_MC[cur_addr].NATIVE !== "undefined") 
+		     (typeof curr_MC[cur_addr].NATIVE !== "undefined")
 		   )
 		{
                     compute_general_behavior("CLOCK") ; // ...instruction
