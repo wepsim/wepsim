@@ -5,7 +5,7 @@
    // Help
    //
 
-   var ws_cl_ver = 'WepSIM-cl v1.8.5' ;
+   var ws_cl_ver = 'WepSIM-cl v1.8.6' ;
 
    function ws_help_usage ()
    {
@@ -206,6 +206,14 @@
                   demand:   false,
                   default:  'en'
                })
+              .option('purify', {
+                  alias:    'p',
+                  type:     'string',
+                  describe: 'Filter output',
+                  nargs:    1,
+                  demand:   false,
+                  default:  ''
+               })
               .help('h')
               .demandOption(['action'])
               .argv ;
@@ -250,6 +258,7 @@
 	options.instruction_limit = parseInt(argv.maxi) ;
 	options.cycles_limit      = parseInt(argv.maxc) ;
 	options.verbalize         = (argv.verbal.toUpperCase() == "MATH") ? 'math' : 'text' ;
+	options.purify            =  argv.purify.toUpperCase().split(/[,;:]+/).filter(v=>v!='') ;
 
 
 	// 2) workset

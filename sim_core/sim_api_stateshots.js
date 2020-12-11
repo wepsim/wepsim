@@ -51,8 +51,9 @@
                   if (true === ret) break ;
              }
 
-             if (false === ret)
+             if (false === ret) {
                  console.log("ERROR in checklist at component " + check.type + ": " + line) ;
+             }
         }
 
         return o ;
@@ -68,13 +69,20 @@
         return o ;
     }
 
-    function simcore_simstate_state2checklist ( s_obj )
+    function simcore_simstate_state2checklist ( s_obj, filter )
     {
 	var ret = "" ;
         for (var component in s_obj)
 	{
-	     for (var eltos in s_obj[component]) {
+	     for (var eltos in s_obj[component])
+             {
 		  var elto = s_obj[component][eltos] ;
+
+                  // console.log(" >> " + JSON.stringify(filter) + " << " + JSON.stringify(elto)) ;
+                  if ( (filter.length != 0) && (filter.indexOf(elto.id.toUpperCase()) == -1) ) {
+                      continue ;
+	          }
+
 	          ret = ret + elto.type + " " + elto.id + " " + elto.op + " " + encodeURI(elto.value) + "; " ;
 	     }
 	}

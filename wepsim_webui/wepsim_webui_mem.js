@@ -360,9 +360,10 @@
             var html = {} ;
 	    var tobe_updated = {} ;
 	    var tobe_updated_any = false ;
+            var elto = null ;
 
             var base_addrs = main_memory_get_baseaddr() ;
-            for (var elto in base_addrs)
+            for (elto in base_addrs)
             {
                  html[elto] = '' ;
                  if (base_addrs[elto] != null) {
@@ -381,7 +382,7 @@
             // clear all old badges and update current active badges
             var old_html = '' ;
             $('.mp_row_badge').html('') ;
-            for (var elto in base_addrs)
+            for (elto in base_addrs)
             {
                  // skip pointers to zero
                  if (parseInt(base_addrs[elto]) == 0) {
