@@ -152,6 +152,11 @@
 		                     state: "BR.29",
 		                     is_pointer: true
 	                          } ;
+        sim.poc.ctrl_states.fp  = {
+		                     name:  "FP",
+		                     state: "BR.30",
+		                     is_pointer: true
+	                          } ;
         sim.poc.ctrl_states.ir  = {
 		                     name:  "IR",
 		                     state: "REG_IR",
