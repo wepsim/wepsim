@@ -32,7 +32,7 @@
 	    // get current state
 	    var state_current     = wepsim_state_get_clk() ;
 	    var state_obj         = simcore_simstate_current2state() ;
-	    state_current.content = simcore_simstate_state2checklist(state_obj) ;
+	    state_current.content = simcore_simstate_state2checklist(state_obj, '') ;
 
 	    // pack elements
 	    var elements = {
