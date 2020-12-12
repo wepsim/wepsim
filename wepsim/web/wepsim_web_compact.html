@@ -133,36 +133,8 @@
             <div class="row">
                 <div id="col1" class="pt-2 pl-3 pr-2">
 
-                      <!-- Nav tabs -->
-		      <ul class="nav nav-tabs nav-justified nav-tabs">
-		          <li class="nav-item user_microcode">
-                              <a id="tab26" href="#eltos_cpu"
-                                 class="nav-link active" data-toggle="tab" role="tab"
-                                 style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
-				 aria-label="processor"
-                                 onclick="wsweb_change_show_processor();
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;<span data-langkey='Processor'>Processor</span></a>
-                          </li>
-		          <li class="nav-item">
-                              <a id="tab24" href="#eltos_dbg"
-                                 class="nav-link" data-toggle="tab" role="tab"
-                                 style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
-				 aria-label="assembly debugger"
-                                 onclick="wsweb_change_show_asmdbg();
-                                          return false;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey='Assembly'>Assembly</span><span class="d-none d-sm-inline-flex" data-langkey='Assembly Debugger'>Assembly Debugger</span></a>
-                          </li>
-		      </ul>
+                      <ws-ctoasm></ws-ctoasm>
 
-                      <!-- Tab panes -->
-                      <div class="tab-content">
-                        <div id="eltos_cpu" class="tab-pane active" role="tabpanel">
-			   <ws-cpusvg></ws-cpusvg>
-		        </div>
-
-		        <div id="eltos_dbg" class="tab-pane" role="tabpanel">
-			   <ws-dbg-mp></ws-dbg-mp>
-		        </div>
-	    	    </div>
                 </div>
 
 		<div id="col2" class="pt-2 pl-1">

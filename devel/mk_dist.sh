@@ -147,40 +147,41 @@ cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_core.js \
     \
-    wepsim_webui/wepsim_webui_cpu.js \
-    wepsim_webui/wepsim_webui_mem.js \
-    wepsim_webui/wepsim_webui_mem_config.js \
-    wepsim_webui/wepsim_webui_registers.js \
-    wepsim_webui/wepsim_webui_console.js \
-    wepsim_webui/wepsim_webui_hw.js \
-    wepsim_webui/wepsim_webui_io_info.js \
-    wepsim_webui/wepsim_webui_io_config.js \
-    wepsim_webui/wepsim_webui_l3d.js \
-    wepsim_webui/wepsim_webui_ddown_sel.js \
-    wepsim_webui/wepsim_webui_ddown_info.js \
-    wepsim_webui/wepsim_webui_editmc.js \
-    wepsim_webui/wepsim_webui_editas.js \
-    wepsim_webui/wepsim_webui_dbg_mc.js \
-    wepsim_webui/wepsim_webui_bin_mc.js \
-    wepsim_webui/wepsim_webui_dbg_asm.js \
-    wepsim_webui/wepsim_webui_bin_asm.js \
-    wepsim_webui/wepsim_webui_cpusvg.js \
-    wepsim_webui/wepsim_webui_authors.js \
-    wepsim_webui/wepsim_webui_segments.js \
-    wepsim_webui/wepsim_webui_topbar.js \
+    wepsim_webui/wepsim_uielto_cpu.js \
+    wepsim_webui/wepsim_uielto_mem.js \
+    wepsim_webui/wepsim_uielto_mem_config.js \
+    wepsim_webui/wepsim_uielto_registers.js \
+    wepsim_webui/wepsim_uielto_console.js \
+    wepsim_webui/wepsim_uielto_hw.js \
+    wepsim_webui/wepsim_uielto_io_info.js \
+    wepsim_webui/wepsim_uielto_io_config.js \
+    wepsim_webui/wepsim_uielto_l3d.js \
+    wepsim_webui/wepsim_uielto_editmc.js \
+    wepsim_webui/wepsim_uielto_editas.js \
+    wepsim_webui/wepsim_uielto_dbg_mc.js \
+    wepsim_webui/wepsim_uielto_bin_mc.js \
+    wepsim_webui/wepsim_uielto_dbg_asm.js \
+    wepsim_webui/wepsim_uielto_bin_asm.js \
+    wepsim_webui/wepsim_uielto_cpusvg.js \
+    wepsim_webui/wepsim_uielto_authors.js \
+    wepsim_webui/wepsim_uielto_segments.js \
+    wepsim_webui/wepsim_uielto_topbar.js \
+    wepsim_webui/wepsim_uipacker_ddown_sel.js \
+    wepsim_webui/wepsim_uipacker_ddown_info.js \
+    wepsim_webui/wepsim_uipacker_ctoasm.js \
     \
-    wepsim_webui/wepsim_webui_loadfile.js \
-    wepsim_webui/wepsim_webui_savefile.js \
-    wepsim_webui/wepsim_webui_listcfg.js \
-    wepsim_webui/wepsim_webui_listexample.js \
-    wepsim_webui/wepsim_webui_listprocessor.js \
+    wepsim_webui/wepsim_uielto_loadfile.js \
+    wepsim_webui/wepsim_uielto_savefile.js \
+    wepsim_webui/wepsim_uielto_listcfg.js \
+    wepsim_webui/wepsim_uielto_listexample.js \
+    wepsim_webui/wepsim_uielto_listprocessor.js \
     \
     wepsim_webui/wepsim_web_ui_dialogs.js \
     wepsim_webui/wepsim_web_ui_quickcfg.js \
-    wepsim_webui/wepsim_webui_recordbar.js \
-    wepsim_webui/wepsim_webui_executionbar.js \
-    wepsim_webui/wepsim_webui_compilationbar.js \
-    wepsim_webui/wepsim_webui_toolbar.js \
+    wepsim_webui/wepsim_uielto_recordbar.js \
+    wepsim_webui/wepsim_uielto_executionbar.js \
+    wepsim_webui/wepsim_uielto_compilationbar.js \
+    wepsim_webui/wepsim_uielto_toolbar.js \
     \
     wepsim_webui/wepsim_web_api.js \
     \
