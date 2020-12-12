@@ -261,9 +261,7 @@
 		  return null ;
 	      }
 
-	      var curr_firm = simhw_internalState('FIRMWARE') ;
-	      var sp_name   = curr_firm.stackRegister ;
-
+              var parts   = null ;
               var r_value = 0 ;
               var r_ref2  = null ;
               var all_baseaddr = {} ;
@@ -273,16 +271,20 @@
                       continue ;
                   }
 
-	          if (elto == "sp")
-		       r_value = 0xFFFFFFFC ;
-                  else r_value = 0 ;
+	          parts = r_ref[elto].state.split(".") ;
+	          if (parts[0] == 'BR') {
+		      r_value = 0xFFFFFFFC ;
+		      r_ref2 = simhw_sim_states().BR[parts[1]] ;
+                  }
+                  else
+                  {
+                      r_value = 0 ;
+		      r_ref2 = simhw_sim_state(r_ref[elto].state) ;
+                  }
 
-	          if ( (elto == "sp") && (sp_name != null) )
-		       r_ref2 = simhw_sim_states().BR[sp_name] ;
-		  else r_ref2 = simhw_sim_state(r_ref[elto].state) ;
-
-		  if (typeof r_ref2 !== "undefined")
+		  if (typeof r_ref2 !== "undefined") {
                       r_value = get_value(r_ref2) ;
+                  }
 
                   all_baseaddr[elto] = r_value ;
               }

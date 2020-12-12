@@ -55,7 +55,7 @@
          var ret       = wepsim_state_get_clk() ;
          var state_obj = simcore_simstate_current2state() ;
 
-         ret.content = simcore_simstate_state2checklist(state_obj) ;
+         ret.content = simcore_simstate_state2checklist(state_obj, '') ;
          state_history.push(ret) ;
     }
 
@@ -189,7 +189,7 @@
 
 	 // current state
 	 var state_obj     = simcore_simstate_current2state() ;
-	 var txt_checklist = simcore_simstate_state2checklist(state_obj) ;
+	 var txt_checklist = simcore_simstate_state2checklist(state_obj, '') ;
 	 $('#end_state1').tokenfield('setTokens', txt_checklist) ;
 
          wepsim_notify_success('<strong>INFO</strong>',

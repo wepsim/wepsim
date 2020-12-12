@@ -67,7 +67,7 @@
 	}
 
         // ...and show state at the end
-        ret = wepsim_nodejs_show_currentstate() ;
+        ret = wepsim_nodejs_show_currentstate(options) ;
         console.log(ret.msg);
         return true ;
     } ;

@@ -106,10 +106,10 @@
        return ws_examples ;
     }
 
-    function wepsim_nodejs_show_currentstate ( )
+    function wepsim_nodejs_show_currentstate ( options )
     {
         var state_obj = simcore_simstate_current2state() ;
-        var   ret_msg = simcore_simstate_state2checklist(state_obj) ;
+        var   ret_msg = simcore_simstate_state2checklist(state_obj, options.purify) ;
 
 	return wepsim_nodejs_retfill(true, ret_msg) ;
     }

@@ -51,8 +51,9 @@
                   if (true === ret) break ;
              }
 
-             if (false === ret)
+             if (false === ret) {
                  console.log("ERROR in checklist at component " + check.type + ": " + line) ;
+             }
         }
 
         return o ;
@@ -68,13 +69,72 @@
         return o ;
     }
 
-    function simcore_simstate_state2checklist ( s_obj )
+    function simcore_simstate_expandfilter ( filter )
+    {
+	var first_value = 0 ;
+	var last_value  = 0 ;
+        var elto = null ;
+        var j = 0 ;
+
+        // to prepare filter
+	var filter_ext = [] ;
+	var filter_base = filter.toUpperCase().split(/[,;:]+/).filter(v=>v!='') ;
+        for (var i=0; i<filter_base.length; i++)
+        {
+	     elto = filter_base[i].split('-') ;
+
+             // R10/0X8008
+             if (elto.length == 1) {
+	         filter_ext.push(filter_base[i]) ;
+                 continue ;
+             }
+
+             // 0x8000-0x8008
+             if (elto[0].startsWith('0X'))
+             {
+                 first_value = parseInt(elto[0], 16) ;
+                 last_value  = parseInt(elto[1], 16) ;
+                 for (j=first_value; j<=last_value; j++) {
+	              filter_ext.push('0X' + j.toString(16)) ;
+                 }
+                 continue ;
+             }
+
+             // R10-R20
+             if (elto[0].startsWith('R'))
+             {
+                 elto[0] = elto[0].replace('R', '0') ;
+                 elto[1] = elto[1].replace('R', '0') ;
+                 first_value = parseInt(elto[0], 10) ;
+                 last_value  = parseInt(elto[1], 10) ;
+                 for (j=first_value; j<=last_value; j++) {
+	              filter_ext.push('R' + j.toString(16)) ;
+                 }
+             }
+
+             // console.log("elto = " + JSON.stringify(elto));
+             // console.log("filter_ext = " + JSON.stringify(filter_ext));
+        }
+
+        return filter_ext ;
+    }
+
+    function simcore_simstate_state2checklist ( s_obj, filter )
     {
 	var ret = "" ;
+
+	var filter_ext = simcore_simstate_expandfilter(filter) ;
         for (var component in s_obj)
 	{
-	     for (var eltos in s_obj[component]) {
+	     for (var eltos in s_obj[component])
+             {
 		  var elto = s_obj[component][eltos] ;
+
+                  // console.log(" >> " + JSON.stringify(filter_ext) + " << " + JSON.stringify(elto)) ;
+                  if ( (filter_ext.length != 0) && (filter_ext.indexOf(elto.id.toUpperCase()) == -1) ) {
+                      continue ;
+	          }
+
 	          ret = ret + elto.type + " " + elto.id + " " + elto.op + " " + encodeURI(elto.value) + "; " ;
 	     }
 	}
@@ -176,8 +236,8 @@
 
     function simcore_simstate_diff_states ( before_state_obj, after_state_obj )
     {
-	var before_arr = simcore_simstate_state2checklist(before_state_obj).split(";") ;
-	var after_arr  = simcore_simstate_state2checklist(after_state_obj).split(";") ;
+	var before_arr = simcore_simstate_state2checklist(before_state_obj, '').split(";") ;
+	var after_arr  = simcore_simstate_state2checklist(after_state_obj,  '').split(";") ;
 	return after_arr.filter(function(elto) { return !before_arr.includes(elto); }).join(";").trim() ;
     }
 
