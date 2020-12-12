@@ -258,7 +258,7 @@
 	options.instruction_limit = parseInt(argv.maxi) ;
 	options.cycles_limit      = parseInt(argv.maxc) ;
 	options.verbalize         = (argv.verbal.toUpperCase() == "MATH") ? 'math' : 'text' ;
-	options.purify            =  argv.purify.toUpperCase().split(/[,;:]+/).filter(v=>v!='') ;
+	options.purify            =  argv.purify ;
 
 
 	// 2) workset
