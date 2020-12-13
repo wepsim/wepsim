@@ -24,24 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_list_processor extends HTMLElement
+        class ws_list_processor extends ws_uielto
         {
-              // attributes
-              static get observedAttributes() 
-	      {
-	            return [ 'layout' ] ;
-	      }
-
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
-
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', value) ;
-	      }
-
               // constructor
 	      constructor ()
 	      {
@@ -50,31 +34,12 @@
 	      }
 
               // render
-	      render ( elto )
+	      render ( )
 	      {
-		    // set an empty list by default
-		    this.innerHTML = this.render_skel(elto) ;
-
-		    // set current list
-		    var o = this.render_populate(elto) ;
-		    if (o != '') {
-			$("#list_processors_1").html(o) ;
-		    }
+		    super.render(this, '#list_processors_1') ;
 	      }
 
-	      connectedCallback ()
-	      {
-		    this.render(this) ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render(this) ;
-	      }
-
-
-              // render (helper)
-	      render_skel ( elto )
+	      render_skel ( )
 	      {
                     var o1  = '' ;
 
@@ -92,7 +57,7 @@
                     return o1 ;
 	      }
 
-	      render_populate ( elto )
+	      render_populate ( )
 	      {
                     var o1  = '' ;
 
@@ -122,7 +87,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-list-processor', ws_list_processor) ;
-        }
+        register_uielto('ws-list-processor', ws_list_processor) ;
 

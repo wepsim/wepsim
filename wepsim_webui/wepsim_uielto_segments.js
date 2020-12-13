@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_segments extends HTMLElement
+        class ws_segments extends ws_uielto
         {
               // constructor
 	      constructor ()
@@ -34,26 +34,12 @@
 	      }
 
               // render
-	      render ( elto )
+	      render ( )
 	      {
-                    // set an empty list by default
-                    this.innerHTML = this.render_skel(elto) ;
-
-                    // set current list
-		    var o = this.render_populate(elto) ;
-                    if (o != '') {
-		        $("#memory_segments").html(o) ;
-                    }
+		    super.render(this, '#memory_segments') ;
 	      }
 
-	      connectedCallback ()
-	      {
-		    this.render(this) ;
-	      }
-
-
-              // render (helper)
-	      render_skel ( elto )
+	      render_skel ( )
 	      {
                     var o1  = '' ;
 
@@ -64,7 +50,7 @@
                     return o1 ;
 	      }
 
-	      render_populate ( elto )
+	      render_populate ( )
 	      {
                     var o1  = '' ;
 
@@ -81,9 +67,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-segments', ws_segments) ;
-        }
+        register_uielto('ws-segments', ws_segments) ;
 
 
         /*
