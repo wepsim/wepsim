@@ -117,7 +117,7 @@
                     // get updated attributes
 	            this.update_internal_attributes() ;
 
-                    // render toolbar elements
+                    // get HTML code for toolbar elements
                     var o1 = '' ;
                     for (var i=0; i<this.components.length; i++)
                     {
@@ -129,7 +129,24 @@
 			 }
                     }
 
+		    // load HTML code
                     this.innerHTML = o1 ;
+
+		    // initialize elements
+                    if (is_cfg_empty()) {
+                        return ;
+                    }
+                    if (this.components.indexOf('btndd_mode') != -1) {
+		        var opt = get_cfg('ws_mode') ;
+		        webui_toolbar_updateMode(opt) ;
+                    }
+                    if (this.components.indexOf('btndd_action') != -1) {
+		        opt = get_cfg('ws_action') ;
+		        webui_toolbar_updateAction(opt) ;
+                    }
+                    if (this.components.indexOf('btn_examples') != -1) {
+                        webui_toolbar_updateExampleSet() ;
+                    }
 	      }
 
               //
@@ -509,7 +526,7 @@
             $('#select6a').attr('data-action', opt) ;
         }
 
-        function webui_toolbar_updateExampleSet ( opt )
+        function webui_toolbar_updateExampleSet ( )
         {
             var  item = null ;
 	    var  o = '' ;

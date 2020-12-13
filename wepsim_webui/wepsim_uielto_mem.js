@@ -70,8 +70,11 @@
 		    // main memory
 		    var pc_name = simhw_sim_ctrlStates_get().pc.state ;
 		    var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
+		    var mp_ref  = simhw_internalState('MP') ;
 
-		    show_main_memory(simhw_internalState('MP'), reg_pc, true, true) ;
+                    if (Object.keys(mp_ref).length !== 0) {
+		        show_main_memory(mp_ref, reg_pc, true, true) ;
+                    }
 	      }
         }
 
