@@ -26,24 +26,58 @@
         /* jshint esversion: 6 */
         class ws_segments extends HTMLElement
         {
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+	      render ( elto )
 	      {
-		    // html holder
-		    var o1 = "<div class='container text-right'>" + "</div>" +
-		             "<div id='memory_segments' style='height:58vh; width:inherit;'></div>" ;
+                    // set an empty list by default
+                    this.innerHTML = this.render_skel(elto) ;
 
-		    this.innerHTML = o1 ;
+                    // set current list
+		    var o = this.render_populate(elto) ;
+                    if (o != '') {
+		        $("#memory_segments").html(o) ;
+                    }
 	      }
 
 	      connectedCallback ()
 	      {
-		    this.render('') ;
+		    this.render(this) ;
+	      }
+
+
+              // render (helper)
+	      render_skel ( elto )
+	      {
+                    var o1  = '' ;
+
+                    // build HTML
+		    o1 += "<div class='container text-right'>" + "</div>" +
+		          "<div id='memory_segments' style='height:58vh; width:inherit;'></div>" ;
+
+                    return o1 ;
+	      }
+
+	      render_populate ( elto )
+	      {
+                    var o1  = '' ;
+
+                    // check if exists any example...
+                    var segments = simhw_internalState('segments') ;
+                    if (typeof segments === "undefined") {
+                        return o1 ;
+                    }
+
+                    // build HTML code
+                    o1 = uielto_segments2html(segments) ;
+
+                    return o1 ;
 	      }
         }
 
@@ -56,7 +90,7 @@
          *  obj2html
          */
 
-        function segments2html ( segments )
+        function uielto_segments2html ( segments )
         {
 	   var o1 = "<br>" ;
 
