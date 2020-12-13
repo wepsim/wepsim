@@ -26,51 +26,40 @@
         /* jshint esversion: 6 */
         class ws_list_processor extends HTMLElement
         {
+              // attributes
               static get observedAttributes() 
 	      {
 	            return [ 'layout' ] ;
 	      }
 
+	      get layout ( )
+	      {
+                   return this.getAttribute('layout') ;
+	      }
+
+	      set layout ( value )
+	      {
+                   this.setAttribute('layout', value) ;
+	      }
+
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
+              // render
 	      render ( elto )
 	      {
-                    var o1  = '' ;
+		    // set an empty list by default
+		    this.innerHTML = this.render_skel(elto) ;
 
-                    // load html
-		    o1 += '<div class="card border-secondary h-100">' +
-			  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
-			  '<h5 class="py-1 m-0">' +
-			  '<em class="fas fa-microchip pr-2"></em>' +
-                          '<span data-langkey="Processor">Processor</span>' +
-                          '</h5>' +
-			  '</div>' +
-			  ' <div class="card-body">' +
-			  ' <div class="btn-group-vertical w-100" role="group" aria-label="Processor">' ;
-
-                    var e_hws = simhw_hwset_getSet() ;
-		    for (var e_hw in e_hws)
-                    {
-			 var ename = e_hw.toUpperCase() ;
-			 o1 += '<button type="button" ' +
-			       '    class="text-danger btn border-secondary m-1 btn-block" ' +
-			       '    onclick="wepsim_reload_hw(\'' + e_hw + '\') ;' +
-			       '	     wepsim_notify_success(\'<strong>INFO</strong>\', ' +
-			       '			          \'' + e_hw +' processor loaded!.\') ;'+
-			       '	     return false;">' + 
-			       '<span data-langkey="' + ename + '">' + ename + '</span>' +
-			       '</button>' ;
+		    // set current list
+		    var o = this.render_populate(elto) ;
+		    if (o != '') {
+			$("#list_processors_1").html(o) ;
 		    }
-
-		    o1 += ' </div>' +
-			  ' </div>' +
-			  '</div>' ;
-
-                    this.innerHTML = o1 ;
 	      }
 
 	      connectedCallback ()
@@ -83,14 +72,53 @@
 		    this.render(this) ;
 	      }
 
-	      get layout ( )
+
+              // render (helper)
+	      render_skel ( elto )
 	      {
-                   return this.getAttribute('layout') ;
+                    var o1  = '' ;
+
+                    // build HTML
+		    o1 += '<div class="card border-secondary h-100">' +
+			  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
+			  '<h5 class="py-1 m-0">' +
+			  '<em class="fas fa-microchip pr-2"></em>' +
+                          '<span data-langkey="Processor">Processor</span>' +
+                          '</h5>' +
+			  '</div>' +
+			  '<div class="card-body" id="list_processors_1"></div>' +
+			  '</div>' ;
+
+                    return o1 ;
 	      }
 
-	      set layout ( value )
+	      render_populate ( elto )
 	      {
-                   this.setAttribute('layout', value) ;
+                    var o1  = '' ;
+
+                    // check if exists any processor...
+                    var e_hws = simhw_hwset_getSet() ;
+                    if (typeof e_hws === "undefined") {
+                        return o1 ;
+                    }
+
+                    // build HTML code
+		    o1 += ' <div class="btn-group-vertical w-100" role="group" aria-label="Processor">' ;
+		    for (var e_hw in e_hws)
+                    {
+			 var ename = e_hw.toUpperCase() ;
+			 o1 += '<button type="button" ' +
+			       '    class="text-danger btn border-secondary m-1 btn-block" ' +
+			       '    onclick="wepsim_reload_hw(\'' + e_hw + '\') ;' +
+			       '	     wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+			       '			          \'' + e_hw +' processor loaded!.\') ;'+
+			       '	     return false;">' + 
+			       '<span data-langkey="' + ename + '">' + ename + '</span>' +
+			       '</button>' ;
+		    }
+		    o1 += '</div>' ;
+
+                    return o1 ;
 	      }
         }
 

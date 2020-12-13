@@ -26,22 +26,59 @@
         /* jshint esversion: 6 */
         class ws_list_example extends HTMLElement
         {
+              // attributes
               static get observedAttributes() 
 	      {
 	            return [ 'layout' ] ;
 	      }
 
+	      get layout ( )
+	      {
+                   return this.getAttribute('layout') ;
+	      }
+
+	      set layout ( value )
+	      {
+                   this.setAttribute('layout', value) ;
+	      }
+
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
+              // render
 	      render ( elto )
+	      {
+                    // set an empty list by default
+                    this.innerHTML = this.render_skel(elto) ;
+
+                    // set current list
+		    var o = this.render_populate(elto) ;
+                    if (o != '') {
+		        $("#list_examples_1").html(o) ;
+                    }
+	      }
+
+	      connectedCallback ()
+	      {
+		    this.render(this) ;
+	      }
+
+	      attributeChangedCallback (name, oldValue, newValue)
+	      {
+		    this.render(this) ;
+	      }
+
+
+              // render (helper)
+	      render_skel ( elto )
 	      {
                     var o1  = '' ;
 
-                    // load html
+                    // build HTML
 		    o1 += '<div class="card border-secondary h-100">' +
 			  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
 			  '<h5 class="py-1 m-0">' +
@@ -49,10 +86,24 @@
                           '<span data-langkey="Examples">Examples</span>' +
                           '</h5>' +
 			  '</div>' +
-			  ' <div class="card-body">' +
-			  ' <div class="btn-group-vertical w-100" role="group" aria-label="Examples">' ;
+			  '<div class="card-body" id="list_examples_1"></div>' +
+			  '</div>' ;
 
+                    return o1 ;
+	      }
+
+	      render_populate ( elto )
+	      {
+                    var o1  = '' ;
+
+                    // check if exists any example...
                     var e_exs = wepsim_example_getSet() ;
+                    if (typeof e_exs === "undefined") {
+                        return o1 ;
+                    }
+
+                    // build HTML code
+		    o1 += ' <div class="btn-group-vertical w-100" role="group" aria-label="Examples">' ;
 		    for (var i in e_exs) 
                     {
 			 var ename = e_exs[i].name ;
@@ -67,32 +118,9 @@
 			       '<span data-langkey="' + ename + '">' + ename + '</span>' +
 			       '</button>' ;
 		    }
+		    o1 += '</div>' ;
 
-		    o1 += ' </div>' +
-			  ' </div>' +
-			  '</div>' ;
-
-                    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render(this) ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render(this) ;
-	      }
-
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
-
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', value) ;
+                    return o1 ;
 	      }
         }
 

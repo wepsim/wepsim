@@ -26,51 +26,40 @@
         /* jshint esversion: 6 */
         class ws_list_cfg extends HTMLElement
         {
+              // attributes
               static get observedAttributes() 
 	      {
 	            return [ 'layout' ] ;
 	      }
 
+	      get layout ( )
+	      {
+                   return this.getAttribute('layout') ;
+	      }
+
+	      set layout ( value )
+	      {
+                   this.setAttribute('layout', value) ;
+	      }
+
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
+              // render
 	      render ( elto )
 	      {
-                    var o1  = '' ;
+		    // set an empty list by default
+		    this.innerHTML = this.render_skel(elto) ;
 
-                    // load html
-		    o1 += '<div class="card border-secondary h-100">' +
-			  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
-			  '<h5 class="py-1 m-0">' +
-			  '<em class="fas fa-cogs pr-2"></em>' +
-                          '<span data-langkey="Configuration">Configuration</span>' +
-                          '</h5>' +
-			  '</div>' +
-			  ' <div class="card-body">' +
-			  ' <div class="btn-group-vertical w-100" role="group" aria-label="Configuration">' ;
-
-		    var e_cfgs = cfgset_getSet() ;
-		    for (var e_cfg in e_cfgs)
-                    {
-			 o1 += '<button type="button" ' +
-			       '    class="text-danger btn border-secondary m-1 btn-block" ' +
-			       '    onclick="cfgset_load(\'' + e_cfg + '\') ;' +
-			       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
-			       '	  		           \'Configuration loaded!.\') ;' +
-			       '	     wepsim_uicfg_restore() ;' +
-			       '	     return false;">' +
-			       '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' +
-			       '</button>' ;
+		    // set current list
+		    var o = this.render_populate(elto) ;
+		    if (o != '') {
+			$("#list_cfgs_1").html(o) ;
 		    }
-
-		    o1 += ' </div>' +
-			  ' </div>' +
-			  '</div>' ;
-
-                    this.innerHTML = o1 ;
 	      }
 
 	      connectedCallback ()
@@ -83,14 +72,53 @@
 		    this.render(this) ;
 	      }
 
-	      get layout ( )
+
+              // render (helper)
+	      render_skel ( elto )
 	      {
-                   return this.getAttribute('layout') ;
+                    var o1  = '' ;
+
+                    // build HTML
+		    o1 += '<div class="card border-secondary h-100">' +
+			  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
+			  '<h5 class="py-1 m-0">' +
+			  '<em class="fas fa-cogs pr-2"></em>' +
+                          '<span data-langkey="Configuration">Configuration</span>' +
+                          '</h5>' +
+			  '</div>' +
+			  '<div class="card-body" id="list_cfgs_1"></div>' +
+			  '</div>' ;
+
+                    return o1 ;
 	      }
 
-	      set layout ( value )
+	      render_populate ( elto )
 	      {
-                   this.setAttribute('layout', value) ;
+                    var o1  = '' ;
+
+                    // check if exists any processor...
+		    var e_cfgs = cfgset_getSet() ;
+                    if (typeof e_cfgs === "undefined") {
+                        return o1 ;
+                    }
+
+                    // build HTML
+		    o1 += ' <div class="btn-group-vertical w-100" role="group" aria-label="Configuration">' ;
+		    for (var e_cfg in e_cfgs)
+                    {
+			 o1 += '<button type="button" ' +
+			       '    class="text-danger btn border-secondary m-1 btn-block" ' +
+			       '    onclick="cfgset_load(\'' + e_cfg + '\') ;' +
+			       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
+			       '	  		           \'Configuration loaded!.\') ;' +
+			       '	     wepsim_uicfg_restore() ;' +
+			       '	     return false;">' +
+			       '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' +
+			       '</button>' ;
+		    }
+		    o1 += '</div>' ;
+
+                    return o1 ;
 	      }
         }
 
