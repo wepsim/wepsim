@@ -26,22 +26,6 @@
         /* jshint esversion: 6 */
         class ws_uielto extends HTMLElement
         {
-              // attributes
-              static get observedAttributes()
-	      {
-	            return [ 'layout' ] ;
-	      }
-
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
-
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', value) ;
-	      }
-
               // constructor
 	      constructor ()
 	      {
@@ -52,10 +36,13 @@
               // render
 	      render ( elto, div_id )
 	      {
-		    // set an empty list by default
+                    // get updated attributes
+                    this.update_internal_attributes() ;
+
+		    // set an empty "container" by default
 		    this.innerHTML = this.render_skel() ;
 
-		    // set current list
+		    // fill "container" with elements
 		    var o = this.render_populate() ;
 		    if (o != '') {
 			$(div_id).html(o) ;
@@ -82,6 +69,51 @@
 	      render_populate ( )
 	      {
                     return '' ;
+	      }
+
+              // attributes
+              static get observedAttributes()
+	      {
+	            return [ 'name', 'layout', 'components' ] ;
+	      }
+
+              update_internal_attributes ( )
+              {
+                    // components
+                    this.components_str = this.getAttribute('components') ;
+                    if (this.components_str === null)
+                        this.components_str = '' ;
+                    this.components_arr = this.components_str.split(',') ;
+              }
+
+	      get layout ( )
+	      {
+                   return this.getAttribute('layout') ;
+	      }
+
+	      set layout ( value )
+	      {
+                   this.setAttribute('layout', value) ;
+	      }
+
+	      get components ( )
+	      {
+                   return this.getAttribute('components') ;
+	      }
+
+	      set components ( value )
+	      {
+                   this.setAttribute('components', value) ;
+	      }
+
+	      get name ( )
+	      {
+                   return this.getAttribute('name') ;
+	      }
+
+	      set name ( value )
+	      {
+                   this.setAttribute('name', value) ;
 	      }
         }
 
