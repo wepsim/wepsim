@@ -36,7 +36,8 @@
               // render
 	      render ( )
 	      {
-		    super.render(this, '#memory_segments') ;
+	            this.render_skel() ;
+	            this.render_populate() ;
 	      }
 
 	      render_skel ( )
@@ -47,7 +48,7 @@
 		    o1 += "<div class='container text-right'>" + "</div>" +
 		          "<div id='memory_segments' style='height:58vh; width:inherit;'></div>" ;
 
-                    return o1 ;
+		    this.innerHTML = o1 ;
 	      }
 
 	      render_populate ( )
@@ -56,14 +57,15 @@
 
                     // check if exists any example...
                     var segments = simhw_internalState('segments') ;
-                    if (typeof segments === "undefined") {
-                        return o1 ;
+                    if (typeof segments === "undefined")
+                    {
+		        $('#list_processors_1').html(o1) ;
+                        return ;
                     }
 
                     // build HTML code
                     o1 = uielto_segments2html(segments) ;
-
-                    return o1 ;
+		    $('#list_processors_1').html(o1) ;
 	      }
         }
 

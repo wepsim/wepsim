@@ -36,7 +36,8 @@
               // render
 	      render ( )
 	      {
-		    super.render(this, '#list_examples_1') ;
+		    this.render_skel() ;
+		    this.render_populate() ;
 	      }
 
 	      render_skel ( )
@@ -54,7 +55,7 @@
 			  '<div class="card-body" id="list_examples_1"></div>' +
 			  '</div>' ;
 
-                    return o1 ;
+		    this.innerHTML = o1 ;
 	      }
 
 	      render_populate ( )
@@ -63,8 +64,10 @@
 
                     // check if exists any example...
                     var e_exs = wepsim_example_getSet() ;
-                    if (typeof e_exs === "undefined") {
-                        return o1 ;
+                    if (typeof e_exs === "undefined")
+                    {
+		        $('#list_examples_1').html(o1) ;
+                        return ;
                     }
 
                     // build HTML code
@@ -85,7 +88,7 @@
 		    }
 		    o1 += '</div>' ;
 
-                    return o1 ;
+		    $('#list_examples_1').html(o1) ;
 	      }
         }
 

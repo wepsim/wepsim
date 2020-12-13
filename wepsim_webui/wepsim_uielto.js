@@ -34,41 +34,23 @@
 	      }
 
               // render
-	      render ( elto, div_id )
+	      render ( )
 	      {
                     // get updated attributes
                     this.update_internal_attributes() ;
 
 		    // set an empty "container" by default
-		    this.innerHTML = this.render_skel() ;
-
-		    // fill "container" with elements
-		    var o = this.render_populate() ;
-		    if (o != '') {
-			$(div_id).html(o) ;
-		    }
+		    this.innerHTML = '' ;
 	      }
 
 	      connectedCallback ()
 	      {
-		    this.render(this) ;
+		    this.render() ;
 	      }
 
 	      attributeChangedCallback (name, oldValue, newValue)
 	      {
-		    this.render(this) ;
-	      }
-
-
-              // render (helper)
-	      render_skel ( )
-	      {
-                    return '' ;
-	      }
-
-	      render_populate ( )
-	      {
-                    return '' ;
+		    this.render() ;
 	      }
 
               // attributes

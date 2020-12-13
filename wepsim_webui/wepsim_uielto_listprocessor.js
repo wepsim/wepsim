@@ -36,7 +36,8 @@
               // render
 	      render ( )
 	      {
-		    super.render(this, '#list_processors_1') ;
+		    this.render_skel() ;
+		    this.render_populate() ;
 	      }
 
 	      render_skel ( )
@@ -54,7 +55,7 @@
 			  '<div class="card-body" id="list_processors_1"></div>' +
 			  '</div>' ;
 
-                    return o1 ;
+		    this.innerHTML = o1 ;
 	      }
 
 	      render_populate ( )
@@ -63,8 +64,10 @@
 
                     // check if exists any processor...
                     var e_hws = simhw_hwset_getSet() ;
-                    if (typeof e_hws === "undefined") {
-                        return o1 ;
+                    if (typeof e_hws === "undefined")
+                    {
+		        $('#list_processors_1').html(o1) ;
+                        return ;
                     }
 
                     // build HTML code
@@ -83,7 +86,7 @@
 		    }
 		    o1 += '</div>' ;
 
-                    return o1 ;
+		    $('#list_processors_1').html(o1) ;
 	      }
         }
 

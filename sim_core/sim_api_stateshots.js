@@ -19,6 +19,8 @@
  */
 
 
+    /* jshint esversion: 6 */
+
     function simcore_simstate_checklist2state ( checklist )
     {
         var o = {} ;
