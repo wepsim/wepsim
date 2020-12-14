@@ -56,7 +56,7 @@
               // attributes
               static get observedAttributes()
 	      {
-	            return [ 'name', 'layout', 'components' ] ;
+	            return [ 'name', 'layout', 'components', 'icons' ] ;
 	      }
 
               update_internal_attributes ( )
@@ -66,6 +66,12 @@
                     if (this.components_str === null)
                         this.components_str = '' ;
                     this.components_arr = this.components_str.split(',') ;
+
+                    // icons
+                    this.icons_str = this.getAttribute('icons') ;
+                    if (this.icons_str === null)
+                        this.icons_str = 'no' ;
+                    this.icons_str = this.icons_str.toLowerCase() ;
               }
 
 	      get layout ( )
@@ -96,6 +102,16 @@
 	      set name ( value )
 	      {
                    this.setAttribute('name', value) ;
+	      }
+
+	      get icons ( )
+	      {
+                   return this.getAttribute('icons') ;
+	      }
+
+	      set icons ( value )
+	      {
+                   this.setAttribute('icons', value) ;
 	      }
         }
 

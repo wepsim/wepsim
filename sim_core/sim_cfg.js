@@ -54,7 +54,7 @@
 
         function is_cfg_empty ( )
         {
-             return (Object.keys(WSCFG).length !== 0) ;
+             return (Object.keys(WSCFG).length === 0) ;
         }
 
 

@@ -24,48 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_toolbar extends HTMLElement
+        class ws_toolbar extends ws_uielto
         {
-              static get observedAttributes()
-	      {
-	            return [ 'name', 'components', 'icons' ] ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render() ;
-	      }
-
-	      get name ( )
-	      {
-                   return this.getAttribute('name') ;
-	      }
-
-	      set name ( value )
-	      {
-                   this.setAttribute('name', value) ;
-	      }
-
-	      get components ( )
-	      {
-                   return this.getAttribute('components') ;
-	      }
-
-	      set components ( value )
-	      {
-                   this.setAttribute('components', value) ;
-	      }
-
-	      get icons ( )
-	      {
-                   return this.getAttribute('icons') ;
-	      }
-
-	      set icons ( value )
-	      {
-                   this.setAttribute('icons', value) ;
-	      }
-
 	      constructor ()
 	      {
 		    // parent
@@ -90,26 +50,6 @@
 		            "[":                 this.render_delimiter_begin,
 		            "]":                 this.render_delimiter_end
                     };
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render() ;
-	      }
-
-	      update_internal_attributes ( )
-	      {
-                    // components
-                    this.components_str = this.getAttribute('components') ;
-                    if (this.components_str === null)
-                        this.components_str = '' ;
-                    this.components_arr = this.components_str.split(',') ;
-
-                    // icons
-                    this.icons_str = this.getAttribute('icons') ;
-                    if (this.icons_str === null)
-                        this.icons_str = 'no' ;
-                    this.icons_str = this.icons_str.toLowerCase() ;
 	      }
 
 	      render ( )
