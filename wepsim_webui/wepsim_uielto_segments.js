@@ -36,6 +36,10 @@
               // render
 	      render ( )
 	      {
+                    // initialize render elements...
+	            super.render() ;
+
+                    // render current element
 	            this.render_skel() ;
 	            this.render_populate() ;
 	      }
