@@ -52,11 +52,21 @@
 	      {
                    // render ddown elements
                    var o1 = '' ;
-                   var o2 = '' ;
 
-                   // (1/2) <nav list part>
-                   o1 += '<ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">' ;
-                   o2 += '<div class="tab-content mt-3">' ;
+                   // <nav list part>
+                   o1 += '<ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">' +
+                         '</ul>' +
+                         '<div class="tab-content mt-3" id="tabs1b">' +
+                         '</div>' ;
+
+                   // load HTML
+                   this.innerHTML = o1 ;
+	      }
+
+	      render_populate ( )
+	      {
+                   var o1 = '' ;
+                   var o2 = '' ;
 
                    for (var i=0; i<this.components_arr.length; i++)
                    {
@@ -78,15 +88,8 @@
                    if (this.components_arr.indexOf('ed_mp') == -1)
                        o2 += this.mk_nav_tabpane_item('ed_mp', '',       '') ;
 
-                   o1 += '</ul>' ;
-                   o2 += '</div>' ;
-
-                   // load HTML
-                   this.innerHTML = o1 + o2 ;
-	      }
-
-	      render_populate ( )
-	      {
+                    $("#tabs1").html(o1) ;
+                   $("#tabs1b").html(o2) ;
 	      }
 
 
