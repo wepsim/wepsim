@@ -88,8 +88,9 @@
                     if (is_cfg_empty()) {
                         return ;
                     }
+		    var opt = null ;
                     if (this.components.indexOf('btndd_mode') != -1) {
-		        var opt = get_cfg('ws_mode') ;
+		        opt = get_cfg('ws_mode') ;
 		        webui_toolbar_updateMode(opt) ;
                     }
                     if (this.components.indexOf('btndd_action') != -1) {

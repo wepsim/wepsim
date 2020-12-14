@@ -24,13 +24,9 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_ddown_info extends HTMLElement
+        class ws_ddown_info extends ws_uielto
         {
-              static get observedAttributes() 
-	      {
-	           return [ 'name', 'components' ] ;
-	      }
-
+              // constructor
 	      constructor ()
 	      {
 		   // parent
@@ -41,20 +37,19 @@
                    this.np = this.mk_nav_pane_hash() ;
 	      }
 
-              update_internal_attributes ( )
-              {
-                    // components
-                    this.components_str = this.getAttribute('components') ;
-                    if (this.components_str === null)
-                        this.components_str = '' ;
-                    this.components_arr = this.components_str.split(',') ;
-              }
-
+              // render
 	      render ( )
 	      {
-                   // get updated attributes
-                   this.update_internal_attributes() ;
+                    // initialize render elements...
+	            super.render() ;
 
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+	      }
+
+	      render_skel ( )
+	      {
                    // render ddown elements
                    var o1 = '' ;
                    var o2 = '' ;
@@ -90,34 +85,8 @@
                    this.innerHTML = o1 + o2 ;
 	      }
 
-	      connectedCallback ()
+	      render_populate ( )
 	      {
-		   this.render() ;
-	      }
-
-	      attributeChangedCallback ( name, oldValue, newValue )
-	      {
-		   this.render() ;
-	      }
-
-	      get components ( )
-	      {
-                   return this.getAttribute('components') ;
-	      }
-
-	      set components ( value )
-	      {
-                   this.setAttribute('components', value) ;
-	      }
-
-	      get name ( )
-	      {
-                   return this.getAttribute('name') ;
-	      }
-
-	      set name ( value )
-	      {
-                   this.setAttribute('name', value) ;
 	      }
 
 
@@ -184,7 +153,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-ddown-info', ws_ddown_info) ;
-        }
+        register_uielto('ws-ddown-info', ws_ddown_info) ;
 
