@@ -24,74 +24,33 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_executionbar extends HTMLElement
+        class ws_executionbar extends ws_uielto
         {
-              static get observedAttributes()
-	      {
-	            return [ 'name', 'components', 'icons' ] ;
-	      }
-
-	      get name ( )
-	      {
-                   return this.getAttribute('name') ;
-	      }
-
-	      set name ( value )
-	      {
-                   this.setAttribute('name', value) ;
-	      }
-
-	      get components ( )
-	      {
-                   return this.getAttribute('components') ;
-	      }
-
-	      set components ( value )
-	      {
-                   this.setAttribute('components', value) ;
-	      }
-
-	      get icons ( )
-	      {
-                   return this.getAttribute('icons') ;
-	      }
-
-	      set icons ( value )
-	      {
-                   this.setAttribute('icons', value) ;
-	      }
-
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
-	      update_internal_attributes ( )
-	      {
-                    // name
-                    this.name_str = this.getAttribute('name') ;
-                    if (this.name_str === null)
-                        this.name_str = 'id58' ;
-
-                    // components
-                    this.components_str = this.getAttribute('components') ;
-                    if (this.components_str === null)
-                        this.components_str = '' ;
-                    this.components_arr = this.components_str.split(',') ;
-
-                    // icons
-                    this.icons_str = this.getAttribute('icons') ;
-                    if (this.icons_str === null)
-                        this.icons_str = 'no' ;
-                    this.icons_str = this.icons_str.toLowerCase() ;
-	      }
-
+              // render
 	      render ( )
 	      {
-                    // get updated attributes
-	            this.update_internal_attributes() ;
+                    // initialize render elements...
+	            super.render() ;
 
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+	      }
+
+	      render_skel ( )
+	      {
+                    this.innerHTML = '' ;
+	      }
+
+	      render_populate ( )
+	      {
                     // render toolbar elements
                     var o1 = '' ;
                     for (var i=0; i<this.components_arr.length; i++)
@@ -158,21 +117,9 @@
 
                     return o ;
 	      }
-
-	      connectedCallback ()
-	      {
-		    this.render() ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render() ;
-	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-executionbar', ws_executionbar) ;
-        }
+        register_uielto('ws-executionbar', ws_executionbar) ;
 
 
         /*
