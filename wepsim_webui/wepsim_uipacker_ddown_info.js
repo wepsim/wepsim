@@ -56,7 +56,7 @@
                    // <nav list part>
                    o1 += '<ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">' +
                          '</ul>' +
-                         '<div class="tab-content mt-3" id="tabs1b">' +
+                         '<div class="tab-content mt-3" id="tabs1b" style="min-height: 55vh">' +
                          '</div>' ;
 
                    // load HTML
@@ -157,4 +157,16 @@
         }
 
         register_uielto('ws-ddown-info', ws_ddown_info) ;
+
+
+        //
+        // set programmatically the selected option (info part)
+        //
+
+        function uipacker_ddown_info_set_select ( opt )
+        {
+            // update interface
+            $('#tab'  + opt).trigger('click') ;
+            $('#select5a').val(opt) ;
+        }
 
