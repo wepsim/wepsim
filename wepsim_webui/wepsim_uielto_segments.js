@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_segments extends HTMLElement
+        class ws_segments extends ws_uielto
         {
               // constructor
 	      constructor ()
@@ -34,26 +34,17 @@
 	      }
 
               // render
-	      render ( elto )
+	      render ( )
 	      {
-                    // set an empty list by default
-                    this.innerHTML = this.render_skel(elto) ;
+                    // initialize render elements...
+	            super.render() ;
 
-                    // set current list
-		    var o = this.render_populate(elto) ;
-                    if (o != '') {
-		        $("#memory_segments").html(o) ;
-                    }
+                    // render current element
+	            this.render_skel() ;
+	            this.render_populate() ;
 	      }
 
-	      connectedCallback ()
-	      {
-		    this.render(this) ;
-	      }
-
-
-              // render (helper)
-	      render_skel ( elto )
+	      render_skel ( )
 	      {
                     var o1  = '' ;
 
@@ -61,29 +52,28 @@
 		    o1 += "<div class='container text-right'>" + "</div>" +
 		          "<div id='memory_segments' style='height:58vh; width:inherit;'></div>" ;
 
-                    return o1 ;
+		    this.innerHTML = o1 ;
 	      }
 
-	      render_populate ( elto )
+	      render_populate ( )
 	      {
                     var o1  = '' ;
 
                     // check if exists any example...
                     var segments = simhw_internalState('segments') ;
-                    if (typeof segments === "undefined") {
-                        return o1 ;
+                    if (typeof segments === "undefined")
+                    {
+		        $('#list_processors_1').html(o1) ;
+                        return ;
                     }
 
                     // build HTML code
                     o1 = uielto_segments2html(segments) ;
-
-                    return o1 ;
+		    $('#list_processors_1').html(o1) ;
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-segments', ws_segments) ;
-        }
+        register_uielto('ws-segments', ws_segments) ;
 
 
         /*

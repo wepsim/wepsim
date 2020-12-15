@@ -24,24 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_list_processor extends HTMLElement
+        class ws_list_processor extends ws_uielto
         {
-              // attributes
-              static get observedAttributes() 
-	      {
-	            return [ 'layout' ] ;
-	      }
-
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
-
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', value) ;
-	      }
-
               // constructor
 	      constructor ()
 	      {
@@ -50,31 +34,17 @@
 	      }
 
               // render
-	      render ( elto )
+	      render ( )
 	      {
-		    // set an empty list by default
-		    this.innerHTML = this.render_skel(elto) ;
+                    // initialize render elements...
+	            super.render() ;
 
-		    // set current list
-		    var o = this.render_populate(elto) ;
-		    if (o != '') {
-			$("#list_processors_1").html(o) ;
-		    }
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
 	      }
 
-	      connectedCallback ()
-	      {
-		    this.render(this) ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render(this) ;
-	      }
-
-
-              // render (helper)
-	      render_skel ( elto )
+	      render_skel ( )
 	      {
                     var o1  = '' ;
 
@@ -89,17 +59,19 @@
 			  '<div class="card-body" id="list_processors_1"></div>' +
 			  '</div>' ;
 
-                    return o1 ;
+		    this.innerHTML = o1 ;
 	      }
 
-	      render_populate ( elto )
+	      render_populate ( )
 	      {
                     var o1  = '' ;
 
                     // check if exists any processor...
                     var e_hws = simhw_hwset_getSet() ;
-                    if (typeof e_hws === "undefined") {
-                        return o1 ;
+                    if (typeof e_hws === "undefined")
+                    {
+		        $('#list_processors_1').html(o1) ;
+                        return ;
                     }
 
                     // build HTML code
@@ -118,11 +90,9 @@
 		    }
 		    o1 += '</div>' ;
 
-                    return o1 ;
+		    $('#list_processors_1').html(o1) ;
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-list-processor', ws_list_processor) ;
-        }
+        register_uielto('ws-list-processor', ws_list_processor) ;
 

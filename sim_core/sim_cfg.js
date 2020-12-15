@@ -52,6 +52,11 @@
              save_cfg() ;
         }
 
+        function is_cfg_empty ( )
+        {
+             return (Object.keys(WSCFG).length === 0) ;
+        }
+
 
         /*
          *  Persistence: save_cfg/restore_cfg
@@ -196,7 +201,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.1.3" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.1.3.20201210A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.1.3.20201212A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },

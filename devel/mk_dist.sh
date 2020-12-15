@@ -147,6 +147,7 @@ cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_core.js \
     \
+    wepsim_webui/wepsim_uielto.js \
     wepsim_webui/wepsim_uielto_cpu.js \
     wepsim_webui/wepsim_uielto_mem.js \
     wepsim_webui/wepsim_uielto_mem_config.js \

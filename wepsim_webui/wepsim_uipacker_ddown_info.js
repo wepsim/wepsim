@@ -24,13 +24,9 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_ddown_info extends HTMLElement
+        class ws_ddown_info extends ws_uielto
         {
-              static get observedAttributes() 
-	      {
-	           return [ 'name', 'components' ] ;
-	      }
-
+              // constructor
 	      constructor ()
 	      {
 		   // parent
@@ -41,27 +37,36 @@
                    this.np = this.mk_nav_pane_hash() ;
 	      }
 
-              update_internal_attributes ( )
-              {
-                    // components
-                    this.components_str = this.getAttribute('components') ;
-                    if (this.components_str === null)
-                        this.components_str = '' ;
-                    this.components_arr = this.components_str.split(',') ;
-              }
-
+              // render
 	      render ( )
 	      {
-                   // get updated attributes
-                   this.update_internal_attributes() ;
+                    // initialize render elements...
+	            super.render() ;
 
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+	      }
+
+	      render_skel ( )
+	      {
                    // render ddown elements
                    var o1 = '' ;
-                   var o2 = '' ;
 
-                   // (1/2) <nav list part>
-                   o1 += '<ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">' ;
-                   o2 += '<div class="tab-content mt-3">' ;
+                   // <nav list part>
+                   o1 += '<ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">' +
+                         '</ul>' +
+                         '<div class="tab-content mt-3" id="tabs1b">' +
+                         '</div>' ;
+
+                   // load HTML
+                   this.innerHTML = o1 ;
+	      }
+
+	      render_populate ( )
+	      {
+                   var o1 = '' ;
+                   var o2 = '' ;
 
                    for (var i=0; i<this.components_arr.length; i++)
                    {
@@ -83,41 +88,8 @@
                    if (this.components_arr.indexOf('ed_mp') == -1)
                        o2 += this.mk_nav_tabpane_item('ed_mp', '',       '') ;
 
-                   o1 += '</ul>' ;
-                   o2 += '</div>' ;
-
-                   // load HTML
-                   this.innerHTML = o1 + o2 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		   this.render() ;
-	      }
-
-	      attributeChangedCallback ( name, oldValue, newValue )
-	      {
-		   this.render() ;
-	      }
-
-	      get components ( )
-	      {
-                   return this.getAttribute('components') ;
-	      }
-
-	      set components ( value )
-	      {
-                   this.setAttribute('components', value) ;
-	      }
-
-	      get name ( )
-	      {
-                   return this.getAttribute('name') ;
-	      }
-
-	      set name ( value )
-	      {
-                   this.setAttribute('name', value) ;
+                    $("#tabs1").html(o1) ;
+                   $("#tabs1b").html(o2) ;
 	      }
 
 
@@ -184,7 +156,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-ddown-info', ws_ddown_info) ;
-        }
+        register_uielto('ws-ddown-info', ws_ddown_info) ;
 

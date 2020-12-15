@@ -24,15 +24,23 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_mainmemory extends HTMLElement
+        class ws_mainmemory extends ws_uielto
         {
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+	      render ( )
+	      {
+	            this.render_skel() ;
+	            this.render_populate() ;
+	      }
+
+	      render_skel ( )
 	      {
 		    // html holder
 		    var o1 = "<div class='container text-right'>" +
@@ -57,15 +65,20 @@
 					 }) ;
 	      }
 
-	      connectedCallback ()
+	      render_populate ( )
 	      {
-		    this.render('') ;
+		    // main memory
+		    var pc_name = simhw_sim_ctrlStates_get().pc.state ;
+		    var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
+		    var mp_ref  = simhw_internalState('MP') ;
+
+                    if (Object.keys(mp_ref).length !== 0) {
+		        show_main_memory(mp_ref, reg_pc, true, true) ;
+                    }
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-mainmemory', ws_mainmemory) ;
-        }
+        register_uielto('ws-mainmemory', ws_mainmemory) ;
 
 
         /*
