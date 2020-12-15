@@ -24,67 +24,44 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_compilationbar extends HTMLElement
+        class ws_compilationbar extends ws_uielto
         {
-              static get observedAttributes()
-	      {
-	            return [ 'name', 'components', 'icons' ] ;
-	      }
-
-	      get name ( )
-	      {
-                   return this.getAttribute('name') ;
-	      }
-
-	      set name ( value )
-	      {
-                   this.setAttribute('name', value) ;
-	      }
-
-	      get components ( )
-	      {
-                   return this.getAttribute('components') ;
-	      }
-
-	      set components ( value )
-	      {
-                   this.setAttribute('components', value) ;
-	      }
-
-	      get icons ( )
-	      {
-                   return this.getAttribute('icons') ;
-	      }
-
-	      set icons ( value )
-	      {
-                   this.setAttribute('icons', value) ;
-	      }
-
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
-	      update_internal_attributes ( )
+              // render
+	      render ( )
 	      {
-                    // name
-                    this.name_str = this.getAttribute('name') ;
-                    if (this.name_str === null)
-                        this.name_str = 'id57' ;
+                    // initialize render elements...
+	            super.render() ;
 
-                    // components
-                    this.components_str = this.getAttribute('components') ;
-                    if (this.components_str === null)
-                        this.components_str = '' ;
-                    this.components_arr = this.components_str.split(',') ;
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+	      }
 
-                    // icons
-                    this.icons_str = this.getAttribute('icons') ;
-                    if (this.icons_str === null)
-                        this.icons_str = 'no' ;
-                    this.icons_str = this.icons_str.toLowerCase() ;
+	      render_skel ( )
+	      {
+                    // render toolbar container
+                    var o1 = '' ;
+                    this.innerHTML = o1 ;
+	      }
+
+	      render_populate ( )
+              {     
+                    // render toolbar elements
+                    var o1 = '' ;
+                    for (var i=0; i<this.components_arr.length; i++)
+                    {
+                         var name = this.components_arr[i] ;
+                         o1 += this.render_btns(name) ;
+                    }
+
+                    this.innerHTML = o1 ;
 	      }
 
               render_icon ( icon_html )
@@ -96,22 +73,6 @@
               
                     return o ;
               }     
-
-	      render ( )
-	      {
-                    // get updated attributes
-	            this.update_internal_attributes() ;
-
-                    // render toolbar elements
-                    var o1 = '' ;
-                    for (var i=0; i<this.components_arr.length; i++)
-                    {
-                         var name = this.components_arr[i] ;
-                         o1 += this.render_btns(name) ;
-                    }
-
-                    this.innerHTML = o1 ;
-	      }
 
 	      render_btns ( name )
 	      {
@@ -188,19 +149,7 @@
 
                     return o ;
 	      }
-
-	      connectedCallback ()
-	      {
-		    this.render() ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render() ;
-	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-compilationbar', ws_compilationbar) ;
-        }
+        register_uielto('ws-compilationbar', ws_compilationbar) ;
 
