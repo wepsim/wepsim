@@ -24,24 +24,31 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_list_processor extends HTMLElement
+        class ws_list_processor extends ws_uielto
         {
-              static get observedAttributes() 
-	      {
-	            return [ 'layout' ] ;
-	      }
-
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
-	      render ( elto )
+              // render
+	      render ( )
+	      {
+                    // initialize render elements...
+	            super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+	      }
+
+	      render_skel ( )
 	      {
                     var o1  = '' ;
 
-                    // load html
+                    // build HTML
 		    o1 += '<div class="card border-secondary h-100">' +
 			  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
 			  '<h5 class="py-1 m-0">' +
@@ -49,10 +56,26 @@
                           '<span data-langkey="Processor">Processor</span>' +
                           '</h5>' +
 			  '</div>' +
-			  ' <div class="card-body">' +
-			  ' <div class="btn-group-vertical w-100" role="group" aria-label="Processor">' ;
+			  '<div class="card-body" id="list_processors_1"></div>' +
+			  '</div>' ;
 
+		    this.innerHTML = o1 ;
+	      }
+
+	      render_populate ( )
+	      {
+                    var o1  = '' ;
+
+                    // check if exists any processor...
                     var e_hws = simhw_hwset_getSet() ;
+                    if (typeof e_hws === "undefined")
+                    {
+		        $('#list_processors_1').html(o1) ;
+                        return ;
+                    }
+
+                    // build HTML code
+		    o1 += ' <div class="btn-group-vertical w-100" role="group" aria-label="Processor">' ;
 		    for (var e_hw in e_hws)
                     {
 			 var ename = e_hw.toUpperCase() ;
@@ -65,36 +88,11 @@
 			       '<span data-langkey="' + ename + '">' + ename + '</span>' +
 			       '</button>' ;
 		    }
+		    o1 += '</div>' ;
 
-		    o1 += ' </div>' +
-			  ' </div>' +
-			  '</div>' ;
-
-                    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render(this) ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render(this) ;
-	      }
-
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
-
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', value) ;
+		    $('#list_processors_1').html(o1) ;
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-list-processor', ws_list_processor) ;
-        }
+        register_uielto('ws-list-processor', ws_list_processor) ;
 

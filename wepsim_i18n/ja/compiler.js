@@ -23,6 +23,7 @@
 
 	        "PROBLEM AROUND LINE":          "ライン周辺の問題",
 		'NO TAG OR DIRECTIVE':		'タグやディレクティブを期待したが、代わりにこのトークンが見つかりました：',
+		'NO TAG, DIR OR INS':		'有効なタグ（例：tag1 :)ディレクティブ（例：.data）または命令が見つかりません: ',
 		'INVALID TAG FORMAT':		'タグは、（文字または下線で始まる）英数字フォーマットに従わなければなりません。',
 		'TAG OR INSTRUCTION':		'タグは、命令と同じ名前を持つことはできません。',
 		'REPEATED TAG':			'繰り返さタグ：',
@@ -86,6 +87,7 @@
 		'NO NWORDS':			'予想されるキーワード「NWORDS」が見つかりません',
 		'INCORRECT ADDRESSING':		'間違った（absまたはREL）をアドレッシングのタイプ',
 		'UNEXPECTED FIELD':		'予期しないフィールドが見つかりました：',
+                'CHECK ORDER':                  'フィールドの順序を確認してください',
 		'STARTBIT OoR':			'範囲外スタートビット：',
 		'STOPBIT OoR':			'範囲外のストップビット：',
 		'OVERLAPPING FIELD':		'オーバーラップするフィールド：',

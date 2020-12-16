@@ -24,36 +24,56 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_recordbar extends HTMLElement
+        class ws_recordbar extends ws_uielto
         {
-              static get observedAttributes() 
-	      {
-	            return [ 'name', 'layout' ] ;
-	      }
-
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
-	      render ( elto )
+              // render
+	      render ( )
+	      {
+                    // initialize render elements...
+	            super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+	      }
+
+	      render_skel ( )
 	      {
                     var o1  = '' ;
 
                     // load html
 		    o1 += '<div class="row-fluid px-0 pb-2 pt-0 rounded w-100 collapse" id="record_div"' +
                           '     style="position:fixed; left:0; top: calc(100vh - 65px); z-index:1024; background-color:#EAEAEA; overflow:auto; -webkit-overflow-scrolling:touch;">' +
-                          '' +
-                          '     <div class="progress col" style="height:1px;">' +
-                          '	  <div id="record_pb" class="progress-bar" role="progressbar" style="width:0%;"' +
-                          '            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
+		          '' +
+			  '     <div class="progress col" style="height:2px;">' +
+			  '	  <div id="record_pb" class="progress-bar" role="progressbar" style="width:0%;"' +
+			  '            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
+			  '     </div>' +
+			  '     <div class="text-left col">' +
+			  '<span id="record_msg" class="text-left text-truncate">' + 
+                          '<em>0/0</em>&nbsp;&lt;empty recording&gt;' +
+                          '</span>' +
+			  '     </div>' +
+			  '     <div class="btn-group col" id="record_div_container">' +
                           '     </div>' +
-                          '     <div class="text-left col">' +
-                          '	  <span id="record_msg" class="text-left text-truncate"><em>0/0</em>&nbsp;&lt;empty recording&gt;</span>' +
-                          '     </div>' +
-                          '     <div class="btn-group col">' +
-                          '	  <a class="btn btn-sm btn-outline-secondary bg-light shadow-sm rounded px-2 mr-2" href="#"' +
+                          '</div>' ;
+
+                    this.innerHTML = o1 ;
+	      }
+
+	      render_populate ( )
+	      {
+                    var o1  = '' ;
+
+                    // load html
+		    o1 += '	  <a class="btn btn-sm btn-outline-secondary bg-light shadow-sm rounded px-2 mr-2" href="#"' +
                           '	     data-toggle="tooltip" data-placement="top" data-boundary="window"' +
                           '	     title="Remove recorded session"' +
                           '	     onclick="wsweb_record_confirmReset(); ' + 
@@ -95,45 +115,11 @@
                           '	     onclick="wsweb_record_on(); ' + 
                           '                   return false;"><em class="fas fa-circle"></em>' +
                           '	     <span class="d-none d-md-inline-flex pl-1" data-langkey=\'Record\'>Record</span>' +
-                          '	  </a>' +
-                          '     </div>' +
-                          '</div>' ;
+                          '	  </a>' ;
 
-                    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render(this) ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render(this) ;
-	      }
-
-	      get name ( )
-	      {
-                   return this.getAttribute('name') ;
-	      }
-
-	      set name ( value )
-	      {
-                   this.setAttribute('name', value) ;
-	      }
-
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
-
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', value) ;
+                    $('#record_div_container').html(o1) ;
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-recordbar', ws_recordbar) ;
-        }
+        register_uielto('ws-recordbar', ws_recordbar) ;
 

@@ -36,9 +36,13 @@
 	    if (typeof cf['labels_firm'] == "undefined")         cf['labels_firm']        = {} ;
 	    if (typeof cf['registers'] == "undefined")           cf['registers']          = {} ;
 	    if (typeof cf['pseudoInstructions'] == "undefined")  cf['pseudoInstructions'] = [] ;
-	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = {} ;
+	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = null ;
+
 	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = {} ;
 	    if (typeof cf['cocop_hash'] == "undefined")          cf['cocop_hash']         = {} ;
+	    if (typeof cf['revlabels'] == "undefined")           cf['revlabels']          = {} ;
+	    if (typeof cf['revlabels2'] == "undefined")          cf['revlabels2']         = {} ;
+	    if (typeof cf['revseg'] == "undefined")              cf['revseg']             = [] ;
 
             return cf ;
 	}
@@ -47,19 +51,23 @@
         {
             var cf = simhw_internalState('FIRMWARE') ;
 
-	    if (typeof preWARE['firmware'] != "undefined")           cf['firmware'] = preWARE['firmware'] ;
-	    if (typeof preWARE['mp'] != "undefined")                 cf['mp'] = preWARE['mp'] ;
-	    if (typeof preWARE['registers'] != "undefined")          cf['registers'] = preWARE['registers'] ;
-	    if (typeof preWARE['assembly'] != "undefined")           cf['assembly'] = preWARE['assembly'] ;
+	    if (typeof preWARE['firmware'] != "undefined")           cf['firmware']       = preWARE['firmware'] ;
+	    if (typeof preWARE['mp'] != "undefined")                 cf['mp']             = preWARE['mp'] ;
+	    if (typeof preWARE['registers'] != "undefined")          cf['registers']      = preWARE['registers'] ;
+	    if (typeof preWARE['assembly'] != "undefined")           cf['assembly']       = preWARE['assembly'] ;
 	    if (typeof preWARE['pseudoInstructions'] != "undefined") cf['pseudoInstructions'] = preWARE['pseudoInstructions'] ;
 
-	    if (typeof preWARE['seg'] != "undefined")                cf['seg'] = preWARE['seg'] ;
-	    if (typeof preWARE['labels'] != "undefined")             cf['labels'] = preWARE['labels'] ;
-	    if (typeof preWARE['labels2'] != "undefined")            cf['labels2'] = preWARE['labels2'] ;
-	    if (typeof preWARE['labels_firm'] != "undefined")        cf['labels_firm'] = preWARE['labels_firm'] ;
+	    if (typeof preWARE['seg'] != "undefined")                cf['seg']           = preWARE['seg'] ;
+	    if (typeof preWARE['labels'] != "undefined")             cf['labels']        = preWARE['labels'] ;
+	    if (typeof preWARE['revlabels'] != "undefined")          cf['revlabels']     = preWARE['revlabels'] ;
+	    if (typeof preWARE['revlabels2'] != "undefined")         cf['revlabels2']    = preWARE['revlabels2'] ;
+	    if (typeof preWARE['labels_firm'] != "undefined")        cf['labels_firm']   = preWARE['labels_firm'] ;
 	    if (typeof preWARE['stackRegister'] != "undefined")      cf['stackRegister'] = preWARE['stackRegister'] ;
-	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash'] = preWARE['cihash'] ;
+
+	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash']     = preWARE['cihash'] ;
 	    if (typeof preWARE['cocop_hash'] != "undefined")         cf['cocop_hash'] = preWARE['cocop_hash'] ;
+	    if (typeof preWARE['labels2'] != "undefined")            cf['labels2']    = preWARE['labels2'] ;
+	    if (typeof preWARE['revseg'] != "undefined")             cf['revseg']     = preWARE['revseg'] ;
 	}
 
         function array_includes ( arr, val )
@@ -349,11 +357,16 @@
 
 	    // 4.- load the MP from SIMWARE['mp']
             simhw_internalState_reset('MP', {}) ;
+            var mp_obj = simhw_internalState('MP') ;
 	    for (var key in SIMWARE['mp'])
 	    {
-	       var kx = parseInt(key) ;
-	       var kv = parseInt(SIMWARE['mp'][key].replace(/ /g,''), 2) ;
-               simhw_internalState_set('MP', kx, kv) ;
+                 main_memory_set(mp_obj,
+			         // key
+	                         parseInt(key),
+			         // value
+     			         parseInt(SIMWARE['mp'][key].value.replace(/ /g,''), 2),
+			         // origin
+               		         SIMWARE['mp'][key].source) ;
 	    }
 
 	    // 5.- load the segments from SIMWARE['seg']
@@ -363,14 +376,11 @@
 	         simhw_internalState_set('segments', key, SIMWARE['seg'][key]) ;
 	    }
 
-            // 6.- show memories...
-            setTimeout(function() {
-                            var mp_obj  = simhw_internalState('MP') ;
-                            var mc_obj  = simhw_internalState('MC') ;
-                            var mcd_obj = simhw_internalState('MC_dashboard') ;
+	    // 6.- show memories...
+            var mc_obj  = simhw_internalState('MC') ;
+            var mcd_obj = simhw_internalState('MC_dashboard') ;
 
-                            show_main_memory   (mp_obj, 0, true, true) ;
-                            show_control_memory(mc_obj, mcd_obj, 0, true) ;
-                       }, 100) ;
+            show_main_memory   (mp_obj, 0, true, true) ;
+            show_control_memory(mc_obj, mcd_obj, 0, true) ;
 	}
 

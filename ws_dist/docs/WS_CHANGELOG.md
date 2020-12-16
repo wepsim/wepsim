@@ -1,6 +1,12 @@
 
 # Changelog
 
+## 2.1.2 -> 2.1.3:
+* Bump bootstrap from 4.5.2 to 4.5.3
+* Improved register file panel
+* Reworked "Memory" detail panel.
+* Minor bugs fixed and several refinements added.
+
 ## 2.1.1 -> 2.1.2:
 * Bump bootstrap from 4.5.0 to 4.5.2
 * Examples sets dropdown: able to change the examples to be used.

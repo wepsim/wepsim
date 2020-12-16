@@ -140,7 +140,7 @@
             if (simhw_active() !== null)
             {
                 // reload svg (just in case)
-                for (var i in id_arr) 
+                for (var i in id_arr)
                 {
                          o = document.getElementById(id_arr[i]) ;
                      if (o === null) continue ;
@@ -343,11 +343,10 @@
                 return true;
             }
 
-	    if ( (true === get_cfg('is_quick_interactive')) && (event_type == 'click') ) 
+	    if ( (true === get_cfg('is_quick_interactive')) && (event_type == 'click') )
             {
 	          wepsim_update_signal_quick(key) ;
 	          show_states();
-                  wepsim_show_rf_values();
 
                   // return ok
                   return true ;
@@ -359,7 +358,6 @@
 
             wepsim_update_signal_dialog(key) ;
 	    show_states();
-            wepsim_show_rf_values();
 
             // intercept events...
 	    $("#dlg_updatesignal").one("hidden.bs.modal",
@@ -389,12 +387,8 @@
     function wsweb_set_details_select ( opt )
     {
 	    // update interface
-	    $('#tab'  + opt).trigger('click') ;
-	    $('#select5a').val(opt) ;
-
-	    // set button label...
-	    var ed=$('#s5b_' + opt).html() ;
-	    $('#select5b').html(ed) ;
+            uipacker_ddown_sel_set_select(opt) ;
+            uipacker_ddown_info_set_select(opt) ;
 
             // add if recording
             simcore_record_append_new('Change select details to ' + opt,
@@ -406,7 +400,7 @@
 
     var hash_detail2action = {
 	    "CLOCK":          function(){ wepsim_execute_microinstruction(); },
-	    "REGISTER_FILE":  function(){ wsweb_set_details_select(11); wepsim_show_rf_values(); },
+	    "REGISTER_FILE":  function(){ wsweb_set_details_select(11); },
 	    "CONTROL_MEMORY": function(){ wsweb_set_details_select(16); show_memories_values(); },
 	    "CPU_STATS":      function(){ wsweb_set_details_select(17); show_memories_values(); },
 	    "MEMORY":         function(){ wsweb_set_details_select(14); show_memories_values(); },
@@ -420,8 +414,8 @@
 	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
-        			          simcoreui_init_hw("#config_HW") ;
 					  $('[data-toggle=tooltip]').tooltip('hide');
+        			          simcoreui_init_hw("#config_HW") ;
 	                                  simcoreui_show_hw() ;
 					  var ws_idiom = get_cfg('ws_idiom');
 					  i18n_update_tags('gui', ws_idiom) ;
@@ -430,9 +424,9 @@
 
     function wsweb_set_details ( opt )
     {
-            if ( 
-                 (simhw_active() !== null) && 
-                 (typeof hash_detail2action[opt] !== "undefined") 
+            if (
+                 (simhw_active() !== null) &&
+                 (typeof hash_detail2action[opt] !== "undefined")
             )
             {
                 hash_detail2action[opt]() ;
@@ -450,10 +444,10 @@
     {
             if (simhw_active() !== null)
             {
-	        wepsim_show_rf_values() ;
-		show_memories_values() ;
-		wepsim_reset_max_turbo() ;
 		$('[data-toggle=tooltip]').tooltip('hide') ;
+		show_memories_values() ;
+                scroll_memory_to_lastaddress() ;
+		wepsim_reset_max_turbo() ;
             }
 
             // add if recording
@@ -594,7 +588,7 @@
 
     function wsweb_assembly_compile ( )
     {
-            if (false == inputfirm.is_compiled) 
+            if (false == inputfirm.is_compiled)
             {
 		wsweb_dlg_alert('The Microcode is not microcompiled.<br>\n' +
 	   	   	        'Please load a Microcode first in memory in order to used it.');
@@ -749,8 +743,7 @@
     // quick menu
     function wsweb_quickmenu_show ( )
     {
-	    $('#po1').popover('show') ;
-	    wepsim_uicfg_apply() ;
+            topbar_quickmenu_action('show') ;
 
             // add if recording
             simcore_record_append_new('Open the "quick menu"',
@@ -762,7 +755,7 @@
 
     function wsweb_quickmenu_close ( )
     {
-	    $('#po1').popover('hide') ;
+            topbar_quickmenu_action('hide') ;
 
             // add if recording
             simcore_record_append_new('Close the "quick menu"',
@@ -774,8 +767,7 @@
 
     function wsweb_quickmenu_toggle ( )
     {
-	    $('#po1').popover('toggle') ;
-	    wepsim_uicfg_apply() ;
+            topbar_quickmenu_action('toggle') ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick menu"',

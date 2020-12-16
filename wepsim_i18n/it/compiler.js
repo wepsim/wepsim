@@ -23,6 +23,7 @@
 
 	        "PROBLEM AROUND LINE":          "Problema intorno alla linea",
 		'NO TAG OR DIRECTIVE':		'Previsto tag o direttiva, ma trovato questo token invece: ',
+		'NO TAG, DIR OR INS':		'Tag non valido (es .: tag1 :) direttiva (es .: .data) o istruzione, trovato: ',
 		'INVALID TAG FORMAT':		'Un tag deve seguire un formato alfanumerico (che inizia con una lettera o di sottolineatura): ',
 		'TAG OR INSTRUCTION':		'Un tag non può avere lo stesso nome di un\'istruzione: ',
 		'REPEATED TAG':			'tag ripetuta: ',
@@ -86,6 +87,7 @@
 		'NO NWORDS':			'parola chiave \'nwords\' attesi non si trovano',
 		'INCORRECT ADDRESSING':		'Tipo di indirizzamento non corretti (abs o rel)',
 		'UNEXPECTED FIELD':		'campo imprevisto trovato: ',
+                'CHECK ORDER':                  'Si prega di controllare l\'ordine dei campi',
 		'STARTBIT OoR':			'startbit fuori campo: ',
 		'STOPBIT OoR':			'stopbit fuori campo: ',
 		'OVERLAPPING FIELD':		'campo Sovrapposizione: ',

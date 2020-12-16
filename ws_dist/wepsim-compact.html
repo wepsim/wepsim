@@ -38,7 +38,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.1.2" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.1.3" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -81,42 +81,14 @@
 		</table>
 	</span>
 
-	<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">
-	    <span class="navbar-brand mr-auto">
-               <a class="ui-title pl-2 mx-2 text-primary" style="text-decoration: none"
-	          id="po1"
-		  data-container="body"
-                  onclick="if (typeof wsweb_quickmenu_toggle === 'function')
-		               wsweb_quickmenu_toggle();
-		           return false;"
-		  data-html="true"
-		  data-placement="bottom">WepSIM&nbsp;<span class="badge badge-pill badge-secondary"><div class="wsversion">loading ...</div></span>
-	       </a>
-            </span>
-
-            <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<em class="fas fa-bars"></em>
-            </button>
-
-            <div id="navbarSupportedContent" class="collapse navbar-collapse mx-auto py-0 flex-row" style="background-color: #EAEAEA">
-	       <div class="navbar-nav nav-pills ml-auto col-md-8">
-	       <ul class="nav nav-pills ml-auto">
-	          <li class="nav-item ml-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></li>
-	          <li class="nav-item ml-auto"><strong>.</strong></li>
-	          <li class="nav-item ml-auto"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></li>
-	       </ul>
-	       </div>
-            </div>
-	</nav>
+        <ws-topbar></ws-topbar>
 
         <ws-recordbar></ws-recordbar>
 
 	<div id="carousel-8" class="carousel" data-interval="false" data-touch="false">
 	  <div class="carousel-inner">
 	  <div class="carousel-item active p-1" id="ws_simulator">
-	    <h6 class="pt-3">Simulator</h6>
+	    <h6 class="pt-3"><span data-langkey='Simulator'>Simulator</span></h6>
             <div class="p-0 m-0 collapse show multi-collapse-1">
             <div class="d-flex flex-wrap justify-content-center py-1 px-1" style="margin:1px">
 
@@ -161,36 +133,8 @@
             <div class="row">
                 <div id="col1" class="pt-2 pl-3 pr-2">
 
-                      <!-- Nav tabs -->
-		      <ul class="nav nav-tabs nav-justified nav-tabs">
-		          <li class="nav-item user_microcode">
-                              <a id="tab26" href="#eltos_cpu"
-                                 class="nav-link active" data-toggle="tab" role="tab"
-                                 style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
-				 aria-label="processor"
-                                 onclick="wsweb_change_show_processor();
-                                          return false;"><em class="fas fa-microchip"></em>&nbsp;<span data-langkey='Processor'>Processor</span></a>
-                          </li>
-		          <li class="nav-item">
-                              <a id="tab24" href="#eltos_dbg"
-                                 class="nav-link" data-toggle="tab" role="tab"
-                                 style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
-				 aria-label="assembly debugger"
-                                 onclick="wsweb_change_show_asmdbg();
-                                          return false;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey='Assembly'>Assembly</span><span class="d-none d-sm-inline-flex" data-langkey='Assembly Debugger'>Assembly Debugger</span></a>
-                          </li>
-		      </ul>
+                      <ws-ctoasm></ws-ctoasm>
 
-                      <!-- Tab panes -->
-                      <div class="tab-content">
-                        <div id="eltos_cpu" class="tab-pane active" role="tabpanel">
-			   <ws-cpusvg></ws-cpusvg>
-		        </div>
-
-		        <div id="eltos_dbg" class="tab-pane" role="tabpanel">
-			   <ws-dbg-mp></ws-dbg-mp>
-		        </div>
-	    	    </div>
                 </div>
 
 		<div id="col2" class="pt-2 pl-1">
@@ -227,66 +171,23 @@
 			    <div class="px-1 pt-1">
 			    <div class="btn-toolbar btn-block" role="toolbar">
                                   <ws-ddown-sel class="col btn-group p-0" style="flex-grow:6;"
-                                                layout="compact"></ws-ddown-sel>
+                                                components="mp,con,all,mc,io,cpu,mpcfg,iocfg,ed_hw,iol3d"></ws-ddown-sel>
 			    </div>
 			    </div>
 
-                            <ws-ddown-info layout="compact"></ws-ddown-info>
+                            <ws-ddown-info components="mp,con,all,mc,io,cpu,mpcfg,iocfg,ed_hw,iol3d"></ws-ddown-info>
 
 			  </div>
 			  <div class="tab-pane fade user_microcode" id="nav-microcode"  role="tabpanel" aria-labelledby="nav-microcode-tab">
 
-		              <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
-
-				    <div class="row p-0">
-					<div class="container col-12 pr-0" role="none">
-					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
-                                             <ws-compilationbar 
-                                                 icons="up" 
-						 components="btn_mloadsave,btn_mcompile,btn_mshowbin"
-						 class="btn-group m-1 d-flex flex-wrap" 
-						 aria-label="MicroCode Toolbar buttons"></ws-compilationbar>
-					</div>
-					</div>
-				    </div>
-
-				    <div id="t3_firm" class="ui-body-d ui-content p-0"
-					 style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		                             <label class="my-0" for="inputFirmware"><span data-langkey='microcode'>microcode</span>:</label>
-					     <textarea aria-label="microcode"
-						       style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
-						       placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
-						       id="inputFirmware" rows="20"></textarea>
-				    </div>
-			      </div>
+		               <ws-edit-mc layout='editor'></ws-edit-mc>
 
 			  </div>
 			  <div class="tab-pane fade" id="nav-assembly"   role="tabpanel" aria-labelledby="nav-assembly-tab">
 
-		                  <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
-				    <div class="row py-0 px-1">
-					<div class="container col-12 pr-0" role="none">
-					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
-                                              <ws-compilationbar 
-                                                  icons="up" 
-						  components="btn_aloadsave,btn_acompile,btn_ashowbin"
-						  class="btn-group m-1 d-flex flex-wrap" 
-						  aria-label="Assembly Toolbar buttons"></ws-compilationbar>
-					</div>
-					</div>
-				    </div>
+                               <ws-edit-as layout='editor'></ws-edit-as>
 
-				    <div id="t4_asm" class="ui-body-d ui-content p-0"
-					 style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-					     <label class="my-0" for="inputAssembly"><span data-langkey='assembly'>assembly</span>:</label>
-					     <textarea aria-label="assembly"
-						       style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
-						       placeholder="Please select 'Load' first to have the assembly code to work with."
-						       id="inputAssembly" rows="20"></textarea>
-				    </div>
-				  </div>
-
-			      </div>
+			  </div>
 			  </div>
 			</div>
 

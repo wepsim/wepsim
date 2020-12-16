@@ -23,6 +23,7 @@
 
 	        "PROBLEM AROUND LINE":          "Problème autour de la ligne",
 		'NO TAG OR DIRECTIVE':		'balise attendu ou directive, mais à cet jeton à la place:',
+		'NO TAG, DIR OR INS':		'Pas une balise valide (par exemple: tag1 :) directive (par exemple: .data) ou instruction, trouvée: ',
 		'INVALID TAG FORMAT':		'Une étiquette doit suivre un format alphanumérique (en commençant par une lettre ou un trait de soulignement):',
 		'TAG OR INSTRUCTION':		'Une étiquette ne peut pas avoir le même nom qu\'une instruction:',
 		'REPEATED TAG':			'tag répétée:',
@@ -86,6 +87,7 @@
 		'NO NWORDS':			'mot-clé attendu \'nwords\' not found',
 		'INCORRECT ADDRESSING':		'Type d\'adressage incorrectes (abs ou rel)',
 		'UNEXPECTED FIELD':		'champ inattendu trouvé:',
+                'CHECK ORDER':                  'Veuillez vérifier l\'ordre des champs',
 		'STARTBIT OoR':			'startbit hors de portée:',
 		'STOPBIT OoR':			'STOPBIT hors de portée:',
 		'OVERLAPPING FIELD':		'terrain Chevauchement:',

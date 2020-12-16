@@ -23,6 +23,7 @@
 
 		'PROBLEM AROUND LINE': 		"Problem um die Linie",
 		'NO TAG OR DIRECTIVE':		'Erwartete Tag oder Richtlinie, sondern fanden diese Token statt: ',
+		'NO TAG, DIR OR INS':		'Es wurde keine gültige Tag-Anweisung (z. B. tag1 :) (z. B. .data) oder Anweisung gefunden ',
 		'INVALID TAG FORMAT':		'Ein Tag muss ein alphanumerisches Format (beginnend mit einem Buchstaben oder Unterstrich) wie folgt vor: ',
 		'TAG OR INSTRUCTION':		'Ein Tag kann nicht die gleichen Namen wie ein Befehl: ',
 		'REPEATED TAG':			'Wiederholte tag: ',
@@ -86,6 +87,7 @@
 		'NO NWORDS':			'Erwartetes Stichwort ‚nwords‘ nicht gefunden',
 		'INCORRECT ADDRESSING':		'Art der Adressierung falschen (abs oder rel)',
 		'UNEXPECTED FIELD':		'Unerwartete Feld gefunden: ',
+                'CHECK ORDER':                  'Bitte überprüfen Sie die Reihenfolge der Felder',
 		'STARTBIT OoR':			'startbit out of range: ',
 		'STOPBIT OoR':			'stopbit Reichweite aus: ',
 		'OVERLAPPING FIELD':		'Überlappende Feld: ',

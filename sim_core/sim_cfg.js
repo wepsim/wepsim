@@ -52,6 +52,11 @@
              save_cfg() ;
         }
 
+        function is_cfg_empty ( )
+        {
+             return (Object.keys(WSCFG).length === 0) ;
+        }
+
 
         /*
          *  Persistence: save_cfg/restore_cfg
@@ -195,64 +200,68 @@
         {
              var wscfg = {
                    /* version */
-                   "version":              { upgrade:false, type:"string",    value:"2.1.2" },
-                   "build":                { upgrade:true,  type:"string",    value:"2.1.2.20200810C" },
+                   "version":               { upgrade:false, type:"string",    value:"2.1.3" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.1.3.20201212A" },
 
 	           /* simulation screen: SVG */
-                   "color_data_active":    { upgrade:false, type:"string",    value:"#0066FF" },
-                   "color_data_inactive":  { upgrade:false, type:"string",    value:"rgb(0, 0, 0)" },
-                   "color_name_active":    { upgrade:false, type:"string",    value:"red" },
-                   "color_name_inactive":  { upgrade:false, type:"string",    value:"rgb(0, 0, 0)" }, // "black"
-	           "size_active":          { upgrade:false, type:"float",     value:1.25 },
-	           "size_inactive":        { upgrade:false, type:"float",     value:0.02 },
-                   "is_byvalue":           { upgrade:false, type:"boolean",   value:false },
+                   "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
+                   "color_data_inactive":   { upgrade:false, type:"string",    value:"rgb(0, 0, 0)" },
+                   "color_name_active":     { upgrade:false, type:"string",    value:"red" },
+                   "color_name_inactive":   { upgrade:false, type:"string",    value:"rgb(0, 0, 0)" }, // "black"
+	           "size_active":           { upgrade:false, type:"float",     value:1.25 },
+	           "size_inactive":         { upgrade:false, type:"float",     value:0.02 },
+                   "is_byvalue":            { upgrade:false, type:"boolean",   value:false },
 
 	           /* simulation screen: Register File */
-                   "RF_display_format":    { upgrade:false, type:"string",    value:'unsigned_16_fill' },
-                   "RF_display_name":      { upgrade:false, type:"string",    value:'numerical' },
-                   "is_editable":          { upgrade:false, type:"boolean",   value:true },
+                   "RF_display_format":     { upgrade:false, type:"string",    value:'unsigned_16_fill' },
+                   "RF_display_name":       { upgrade:false, type:"string",    value:'numerical' },
+                   "MEM_display_format":    { upgrade:true,  type:"string",    value:'unsigned_16_nofill' },
+                   "MEM_show_segments":     { upgrade:true,  type:"boolean",   value:false },
+                   "MEM_show_source":       { upgrade:true,  type:"boolean",   value:false },
+                   "MEM_display_direction": { upgrade:true,  type:"string",    value:'h2l' },
+                   "is_editable":           { upgrade:false, type:"boolean",   value:true },
 
 	           /* simulation screen: Execution */
-                   "DBG_delay":            { upgrade:false, type:"int",       value:5 },
-                   "DBG_level":            { upgrade:false, type:"string",    value:"microinstruction" },
-                   "DBG_limitins":         { upgrade:false, type:"int",       value:10000 },
-                   "DBG_limitick":         { upgrade:false, type:"int",       value:1000 },
-                   "ICON_theme":           { upgrade:false, type:"string",    value:'classic' },
-                   "AS_enable":            { upgrade:true,  type:"boolean",   value:true },
-                   "AS_delay":             { upgrade:true,  type:"int",       value:500 },
+                   "DBG_delay":             { upgrade:false, type:"int",       value:5 },
+                   "DBG_level":             { upgrade:false, type:"string",    value:"microinstruction" },
+                   "DBG_limitins":          { upgrade:false, type:"int",       value:10000 },
+                   "DBG_limitick":          { upgrade:false, type:"int",       value:1000 },
+                   "ICON_theme":            { upgrade:false, type:"string",    value:'classic' },
+                   "AS_enable":             { upgrade:true,  type:"boolean",   value:true },
+                   "AS_delay":              { upgrade:true,  type:"int",       value:500 },
 
 	           /* simulation screen: Notification, etc. */
-                   "NOTIF_delay":          { upgrade:false, type:"int",       value:1000 },
-                   "CPUCU_size":           { upgrade:true,  type:"int",       value:7    },
-                   "C1C2_size":            { upgrade:true,  type:"int",       value:8    },
-                   "SHOWCODE_label":       { upgrade:false, type:"boolean",   value:true },
-                   "SHOWCODE_addr":        { upgrade:false, type:"boolean",   value:true },
-                   "SHOWCODE_hex":         { upgrade:false, type:"boolean",   value:true },
-                   "SHOWCODE_ins":         { upgrade:false, type:"boolean",   value:true },
-                   "SHOWCODE_pins":        { upgrade:false, type:"boolean",   value:true },
-                   "ws_mode":              { upgrade:false, type:"string",    value:'newbie' },
-                   "ws_action":            { upgrade:false, type:"string",    value:'checkpoint' },
-                   "is_interactive":       { upgrade:false, type:"boolean",   value:true },
-                   "is_quick_interactive": { upgrade:false, type:"boolean",   value:false },
-                   "ws_idiom":             { upgrade:false, type:"string",    value:'en' },
-                   "use_voice":            { upgrade:false, type:"boolean",   value:false },
-                   "ws_skin_ui":           { upgrade:false, type:"string",    value:'classic' },
-                   "ws_skin_user":         { upgrade:false, type:"string",    value:'only_asm:of:only_frequent:on' },
-                   "ws_skin_dark_mode":    { upgrade:false, type:"boolean",   value:false },
+                   "NOTIF_delay":           { upgrade:false, type:"int",       value:1000 },
+                   "CPUCU_size":            { upgrade:true,  type:"int",       value:7    },
+                   "C1C2_size":             { upgrade:true,  type:"int",       value:8    },
+                   "SHOWCODE_label":        { upgrade:false, type:"boolean",   value:true },
+                   "SHOWCODE_addr":         { upgrade:false, type:"boolean",   value:true },
+                   "SHOWCODE_hex":          { upgrade:false, type:"boolean",   value:true },
+                   "SHOWCODE_ins":          { upgrade:false, type:"boolean",   value:true },
+                   "SHOWCODE_pins":         { upgrade:false, type:"boolean",   value:true },
+                   "ws_mode":               { upgrade:false, type:"string",    value:'newbie' },
+                   "ws_action":             { upgrade:false, type:"string",    value:'checkpoint' },
+                   "is_interactive":        { upgrade:false, type:"boolean",   value:true },
+                   "is_quick_interactive":  { upgrade:false, type:"boolean",   value:false },
+                   "ws_idiom":              { upgrade:false, type:"string",    value:'en' },
+                   "use_voice":             { upgrade:false, type:"boolean",   value:false },
+                   "ws_skin_ui":            { upgrade:false, type:"string",    value:'classic' },
+                   "ws_skin_user":          { upgrade:false, type:"string",    value:'only_asm:of:only_frequent:on' },
+                   "ws_skin_dark_mode":     { upgrade:false, type:"boolean",   value:false },
 
 	           /* micro/assembly screen: editor */
-                   "editor_theme":         { upgrade:false, type:"string",    value:'default' },
-                   "editor_mode":          { upgrade:false, type:"string",    value:'default' },
+                   "editor_theme":          { upgrade:false, type:"string",    value:'default' },
+                   "editor_mode":           { upgrade:false, type:"string",    value:'default' },
 
 	           /* set of urls */
-                   "base_url":             { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/ws_dist/' },
-                   "cfg_url":              { upgrade:true,  type:"string",    value:'examples/configuration/default.json' },
-                   "example_url":          { upgrade:true,  type:"string",    value:'examples/examples_set/default.json' },
-                   "hw_url":               { upgrade:true,  type:"string",    value:'examples/hardware/hw.json' },
+                   "base_url":              { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/ws_dist/' },
+                   "cfg_url":               { upgrade:true,  type:"string",    value:'examples/configuration/default.json' },
+                   "example_url":           { upgrade:true,  type:"string",    value:'examples/examples_set/default.json' },
+                   "hw_url":                { upgrade:true,  type:"string",    value:'examples/hardware/hw.json' },
 
 	           /* misc. */
-                   "max_json_size":        { upgrade:true,  type:"int",       value:1*1024*1024 },
-                   "verbal_verbose":       { upgrade:false, type:"string",    value:'math' }
+                   "max_json_size":         { upgrade:true,  type:"int",       value:1*1024*1024 },
+                   "verbal_verbose":        { upgrade:false, type:"string",    value:'math' }
              } ;
 
              // some mobile-tuning

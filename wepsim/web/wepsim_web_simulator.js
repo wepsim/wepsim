@@ -168,20 +168,15 @@
 
 	    "REGISTER_FILE":  {
 						  init: function() {
-							     $('#states_ALL').html(msg_default) ;
-							     wepsim_init_states('#states_ALL') ;
-
-							     $('#states_BR').html(msg_default) ;
-							     wepsim_init_rf('#states_BR') ;
+							     wepsim_init_states() ;
+							     wepsim_init_rf() ;
 							},
 						 reset: function() {
-							     wepsim_show_states() ;
-							     wepsim_show_rf_values();
-							     wepsim_show_rf_names();
+							     // wepsim_show_rf_names() ;
 							},
-					   show_states: wepsim_show_states,
-					show_rf_values: wepsim_show_rf_values,
-					 show_rf_names: wepsim_show_rf_names
+					 show_rf_names: function() {
+							     wepsim_show_rf_names() ;
+							},
 	                      },
 
 	    "CPU_STATS":      {
@@ -325,10 +320,9 @@
 
             // update UI: asmdbg
             var asmdbg_content = default_asmdbg_content_horizontal() ;
-	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
+            if (Object.keys(SIMWARE.assembly).length !== 0) // <===> if (SIMWARE.assembly != {})
 	    {
                  asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
-		 break ;
 	    }
 
 	    asmdbg_loadContent(asmdbg_content) ;
@@ -397,36 +391,6 @@
 	  location.reload(true) ;
     }
 
-
-    //
-    // Quick Config
-    //
-
-    // popover quick-slidercfg
-    function wepsim_init_quickcfg ( quick_id, val_trigger, fun_content, fun_ownshown )
-    {
-	 return $(quick_id).popover({
-		    trigger:     val_trigger,
-		    html:        true,
-		    placement:  'auto',
-		    animation:   false,
-		    container:  'body',
-		    template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
-			        '<div class="arrow"></div><h3 class="popover-header"></h3>' +
-                                '<div class="popover-body"></div>' +
-			        '</div>',
-		    content:    fun_content,
-		    sanitizeFn: function (content) {
-				    return content ; // DOMPurify.sanitize(content) ;
-				}
-	 }).on('shown.bs.popover',
-		                function(shownEvent) {
-                                    fun_ownshown(shownEvent);
-                                    i18n_update_tags('dialogs') ;
-                                    i18n_update_tags('gui') ;
-                                    i18n_update_tags('cfg') ;
-                                }) ;
-    }
 
     //
     // Initialize UI

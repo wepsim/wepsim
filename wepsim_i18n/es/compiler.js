@@ -23,6 +23,7 @@
 
 	        "PROBLEM AROUND LINE":          "Problema entorno a la línea",
 		'NO TAG OR DIRECTIVE':		'No es una etiqueta (ej.: tag1:) o directiva (ej.: .data) válida, se encontró: ',
+		'NO TAG, DIR OR INS':		'No es una etiqueta (ej.: tag1:) directiva (ej.: .data) o instrucción válida, se encontró: ',
 		'INVALID TAG FORMAT':		'Una etiqueta debe seguir un formato alfanumérico (comenzando con una letra o un guión bajo): ',
 		'TAG OR INSTRUCTION':		'Una etiqueta no puede tener el mismo nombre que una instrucción: ',
 		'REPEATED TAG':		        'Etiqueta repetida: ',
@@ -86,6 +87,7 @@
            "NO NWORDS":              "Palabra clave 'nwords' esperado no encontrada",
            "INCORRECT ADDRESSING":   "Tipo de direccionamiento incorrecto (abs o rel)",
            "UNEXPECTED FIELD":       "Encontrado un campo no esperado: ",
+           "CHECK ORDER":            "Por favor compruebe el orden de los campos",
            "STARTBIT OoR":           "startbit fuera de rango: ",
            "STOPBIT OoR":            "stopbit fuera de rango: ",
            "OVERLAPPING FIELD":      "Campos que se solapan: ",

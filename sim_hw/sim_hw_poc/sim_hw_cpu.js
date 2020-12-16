@@ -35,8 +35,9 @@
 
 		                  // state: write_state, read_state, get_state
 		                  write_state:  function ( vec ) {
-                                                  if (typeof vec.CPU == "undefined")
+                                                  if (typeof vec.CPU == "undefined") {
                                                       vec.CPU = {} ;
+					          }
 
 					          // var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "SR"] ;
 					          var internal_reg = ["PC", "SR"] ;
@@ -44,7 +45,7 @@
 						  var value = 0 ;
 					          for (var i=0; i<sim.poc.states.BR.length; i++)
 						  {
-						      value = parseInt(sim.poc.states.BR[i].value) ;
+						      value = parseInt(get_value(sim.poc.states.BR[i])) >>> 0;
 						      if (value != 0) {
 							  vec.CPU["R" + i] = {"type":  "register",
 								              "default_value": 0x0,
@@ -56,7 +57,7 @@
 
 					          for (var i=0; i<internal_reg.length; i++)
 						  {
-						      value = parseInt(sim.poc.states['REG_' + internal_reg[i]].value) ;
+						      value = parseInt(sim.poc.states['REG_' + internal_reg[i]].value) >>> 0;
 						      if (value != 0) {
 							  vec.CPU[internal_reg[i]] = {"type":  "register",
 								                      "default_value": 0x0,
@@ -89,13 +90,15 @@
 		                  get_state:  function ( reg ) {
 					          var r_reg = reg.toUpperCase().trim() ;
 					          if (typeof sim.poc.states['REG_' + r_reg] != "undefined") {
-					              return "0x" + get_value(sim.poc.states['REG_' + r_reg]).toString(16) ;
+					              var value = get_value(sim.poc.states['REG_' + r_reg]) >>> 0;
+					              return "0x" + value.toString(16) ;
 					          }
 
 					              r_reg = r_reg.replace('R','') ;
 					          var index = parseInt(r_reg) ;
 					          if (typeof sim.poc.states.BR[index] != "undefined") {
-					              return "0x" + get_value(sim.poc.states.BR[index]).toString(16) ;
+					              var value = get_value(sim.poc.states.BR[index]) >>> 0;
+					              return "0x" + value.toString(16) ;
 					          }
 
 					          return null ;
@@ -119,7 +122,7 @@
 							 index = elto ;
 						    else index = parseInt(elto) ;
 
-						    if (isNaN(index)) 
+						    if (isNaN(index))
 						    {
 							set_value(simhw_sim_state(elto), value) ;
 
@@ -140,23 +143,32 @@
 	 */
 
         sim.poc.ctrl_states.pc  = {
-		                 name:  "PC",
-		                 state: "REG_PC"
-	                      } ;
+		                     name:  "PC",
+		                     state: "REG_PC",
+		                     is_pointer: true
+	                          } ;
         sim.poc.ctrl_states.sp  = {
-		                 name:  "SP",
-		                 state: "BR.29"
-	                      } ;
-        sim.poc.ctrl_states.ir  = { 
-		                 name:  "IR",
-		                 state: "REG_IR",
-		                 default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
-			                          "cop": { "begin": 27, "end": 31, "length": 5 } }
-	                      } ;
+		                     name:  "SP",
+		                     state: "BR.29",
+		                     is_pointer: true
+	                          } ;
+        sim.poc.ctrl_states.fp  = {
+		                     name:  "FP",
+		                     state: "BR.30",
+		                     is_pointer: true
+	                          } ;
+        sim.poc.ctrl_states.ir  = {
+		                     name:  "IR",
+		                     state: "REG_IR",
+		                     default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
+			                              "cop": { "begin": 27, "end": 31, "length": 5 } },
+		                     is_pointer: true
+	                          } ;
         sim.poc.ctrl_states.mpc = {
-		                 name:  "mPC",
-		                 state: "REG_MICROADDR"
-	                      } ;
+		                     name:  "mPC",
+		                     state: "REG_MICROADDR",
+		                     is_pointer: true
+	                          } ;
 
 
 	/*
@@ -173,19 +185,19 @@
 
         sim.poc.internal_states.tri_state_names = [ "T1","T2","T3","T6","T8","T9","T10","T11" ] ;
         sim.poc.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        sim.poc.internal_states.filter_states   = [ "REG_IR_DECO,col-11",
-                                                "REG_IR,col-auto",  "REG_PC,col-auto",  "REG_SR,col-auto",
-                                                "REG_RT1,col-auto",  
-                                                "REG_MAR,col-auto", "REG_MBR,col-auto", "REG_MICROADDR,col-auto" ] ;
-        sim.poc.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",  
-                                                "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
-				        "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C7,0",
-				        "T1,0", "T2,0",   "T3,0",   "T6,0",   "T8,0",
-                                        "T9,0", "T10,0", "T11,0",
-				                "M1,0",   "M7,0",  "MA,0",   "MB,0",
-                                                "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
-                                                "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0","IOW,0",
-                                                "TEST_I,0", "TEST_U,0"  ] ;
+        sim.poc.internal_states.filter_states   = [ "REG_IR_DECO,col-12",
+                                                    "REG_IR,col-auto",  "REG_PC,col-auto",  "REG_SR,col-auto",
+                                                    "REG_RT1,col-auto",
+                                                    "REG_MAR,col-auto", "REG_MBR,col-auto", "REG_MICROADDR,col-auto" ] ;
+        sim.poc.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",
+                                                    "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
+				            "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C7,0",
+				            "T1,0", "T2,0",   "T3,0",   "T6,0",   "T8,0",
+                                            "T9,0", "T10,0",  "T11,0",
+				                    "M1,0",   "M7,0", "MA,0",   "MB,0",
+                                                    "LC,0",   "SE,0", "SIZE,0", "OFFSET,0",
+                                                    "BW,0",   "R,0",  "W,0",    "TA,0",  "TD,0", "IOR,0","IOW,0",
+                                                    "TEST_I,0", "TEST_U,0"  ] ;
         sim.poc.internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0, 'flag_v': 0, 'flag_c': 0 } ;
 
 
@@ -261,100 +273,100 @@
 	sim.poc.states.BR[63]         = {name:"R63",   verbal: "Register 63",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	sim.poc.states["REG_PC"]     = { name:"PC",  verbal: "Program Counter Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_MAR"]    = { name:"MAR", verbal: "Memory Address Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_MBR"]    = { name:"MBR", verbal: "Memory Data Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_IR"]     = { name:"IR",  verbal: "Instruction Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_SR"]     = { name:"SR", verbal: "State Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["REG_RT1"]    = { name:"RT1",  verbal: "Temporal Register 1",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* BUSES */
 	sim.poc.states["BUS_IB"]     = { name:"I_BUS", verbal: "Internal Bus",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["BUS_AB"]     = { name:"A_BUS", verbal: "Address Bus",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["BUS_CB"]     = { name:"C_BUS", verbal: "Control Bus",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["BUS_DB"]     = { name:"D_BUS", verbal: "Data Bus",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* REGISTER FILE (RELATED) STATES */
 	sim.poc.states["RA_T9"]      = { name: "RA_T9",  verbal: "Input of T9 Tristate",
-                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["RB_T10"]     = { name: "RB_T10", verbal: "Input of T10 Tristate",
-                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* (RELATED) SELEC STATES */
 	sim.poc.states["SELEC_T3"]   = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
-                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	sim.poc.states["ALU_T6"]     = { name:"ALU_T6",  verbal: "Input of T6 Tristate",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["MA_ALU"]     = { name:"MA_ALU",  verbal: "Input ALU via MA",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["MB_ALU"]     = { name:"MB_ALU",  verbal: "Input ALU via MB",
-                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	sim.poc.states["FLAG_C"]     = { name: "FLAG_C", verbal: "Carry Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_V"]     = { name: "FLAG_V", verbal: "Overflow Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_N"]     = { name: "FLAG_N", verbal: "Negative Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_Z"]     = { name: "FLAG_Z", verbal: "Zero Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_I"]     = { name: "FLAG_I", verbal: "Interruption Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["FLAG_U"]     = { name: "FLAG_U", verbal: "User Flag",
-                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 
 	/* CONTROL UNIT */
 	sim.poc.states["REG_MICROADDR"]  = { name: "µADDR", verbal: "Microaddress Register",
-                                         visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
+                                             visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
 	sim.poc.states["REG_MICROINS"]   = { name: "µINS", verbal: "Microinstruction Register",
-                                         visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
+                                             visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
 
 	sim.poc.states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch",
-                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM",
-                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction",
-                                         visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
+                                             visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
 
 	sim.poc.states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress",
-                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["MUXC_MUXB"]      = { name: "MUXC_MUXB", verbal: "Output of MUX C",
-                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 	sim.poc.states["INEX"]           = { name: "INEX",      verbal: "Illegal Instruction Exception",
-                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 
 	/* DEVICES AND MEMORY */
 	sim.poc.states["BS_M1"]          = { name: "BS_M1", verbal: "from Memory",
-                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 	sim.poc.states["BS_TD"]          = { name: "BS_TD", verbal: "Memory",
-                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	sim.poc.states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
-                                         visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
 
 
 	/* MUX A (RELATED) STATES */
 	sim.poc.states["M1_C1"]          = { name:"M1_C1", verbal: "Input of Memory Data Register",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                             visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim.poc.states["M7_C7"]          = { name:"M7_C7", verbal: "Input of State Register",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                             visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	sim.poc.states["VAL_ZERO"]       = { name: "VAL_ZERO", verbal: "Wired Zero",
-                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 	sim.poc.states["VAL_ONE"]        = { name: "VAL_ONE",  verbal: "Wired One",
-                                         visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
+                                             visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
 	sim.poc.states["VAL_FOUR"]       = { name: "VAL_FOUR", verbal: "Wired Four",
-                                         visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
+                                             visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
 
 	/* VIRTUAL */
 	sim.poc.states["REG_IR_DECO"] = { name:"IR_DECO",  verbal: "Instruction Decoded",
@@ -524,7 +536,7 @@
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
 			       draw_name: [[], ['svg_p:path3447']] };
 	 sim.poc.signals["M7"]  = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M7_C7 BUS_IB", 
+			       behavior: ["MV M7_C7 BUS_IB",
 				          "MV M7_C7 REG_SR; UPDATE_FLAG M7_C7 FLAG_C 31; UPDATE_FLAG M7_C7 FLAG_V 30; UPDATE_FLAG M7_C7 FLAG_N 29; UPDATE_FLAG M7_C7 FLAG_Z 28"],
                                depends_on: ["C7"],
 			       fire_name: ['svg_p:text3673'],
@@ -790,8 +802,8 @@
                                                        return "Copy from " + show_verbal(s_expr[2]) +
 							      " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                    }
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) +
                                                           " (" + show_value(newval) + "). " ;
                                                 }
                                    };
@@ -815,8 +827,8 @@
 							      " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-							  show_value(newval) + " ( " + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+							  show_value(newval) + " ( " +
 						          show_verbal(s_expr[2]) + "). " ;
                                                 }
                                    };
@@ -853,7 +865,7 @@
                                                    }
 
                                                    return show_verbal(s_expr[1]) + " = " +
-                                                          show_verbal(r[0]) + "." + r[1] + 
+                                                          show_verbal(r[0]) + "." + r[1] +
                                                           " (" + newval + "). " ;
                                                 }
                                    };
@@ -869,12 +881,12 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Set " + show_verbal(s_expr[1]) + 
-						              " with value " + show_value(value) + 
+                                                       return "Set " + show_verbal(s_expr[1]) +
+						              " with value " + show_value(value) +
 						              " (Logical NOT of " + s_expr[2] + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) +
                                                           " (Logical NOT " + s_expr[2] + "). " ;
 						}
 				   };
@@ -893,7 +905,7 @@
                                                        return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) +
                                                           " (Register File " + s_expr[3] + "). " ;
 						}
 				   };
@@ -1622,13 +1634,13 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Add one to " + show_verbal(s_expr[2]) + 
-							      " and copy to " + show_verbal(s_expr[1]) + 
+                                                       return "Add one to " + show_verbal(s_expr[2]) +
+							      " and copy to " + show_verbal(s_expr[1]) +
 							      " with result " + show_value(result) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + " + 1" + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) + " + 1" +
                                                           " (" + show_value(result) + "). " ;
                                                 }
 				   };
@@ -1647,13 +1659,13 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Add four to " + show_verbal(s_expr[2]) + 
-							      " and copy to " + show_verbal(s_expr[1]) + 
+                                                       return "Add four to " + show_verbal(s_expr[2]) +
+							      " and copy to " + show_verbal(s_expr[1]) +
 							      " with result " + show_value(result) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + " + 4" + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) + " + 4" +
                                                           " (" + show_value(result) + "). " ;
                                                 }
 				   };
@@ -1689,9 +1701,9 @@
                                                        return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n3) + " (copied " + size + " bits from bit " + offset + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + 
-                                                          show_verbal(s_expr[2]) + 
-                                                          " (" + show_value(n3) + ", " + 
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(s_expr[2]) +
+                                                          " (" + show_value(n3) + ", " +
                                                                  size + " bits from bit " + offset + "). " ;
 						}
 				   };
@@ -1766,27 +1778,27 @@
 				   };
 	sim.poc.behaviors["SBIT_SIGNAL"] = { nparameters: 4,
 				     types: ["X", "I", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
 						   //    0             1    2  3
 						   //   SBIT_SIGNAL  A0A1   1  0
 						   var new_value = sim_elto_dst.value ;
-						   var mask = (1 << s_expr[3]) ; 
+						   var mask = (1 << s_expr[3]) ;
 						   if (s_expr[2] == "1")
 							new_value = new_value |  mask ;
 						   else new_value = new_value & ~mask ;
 
 						   set_value(sim_elto_dst, (new_value >>> 0));
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
                                                    // return verbal of the compound signal/value
 						   var new_value = sim_elto_dst.value ;
-						   var mask = (1 << s_expr[3]) ; 
+						   var mask = (1 << s_expr[3]) ;
 						   if (s_expr[2] == "1")
 							new_value = new_value |  mask ;
 						   else new_value = new_value & ~mask ;
@@ -1859,14 +1871,14 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return " Copy from " + show_verbal(s_expr[3]) + 
-                                                         " to " + show_verbal(s_expr[1]) + 
-						         " value " + show_value(n1) + 
+                                                       return " Copy from " + show_verbal(s_expr[3]) +
+                                                         " to " + show_verbal(s_expr[1]) +
+						         " value " + show_value(n1) +
                                                          " (copied " + size + " bits from bit " + offset + "). " ;
                                                    }
 
                                                    return show_verbal(s_expr[1]) + " = " +
-							  show_verbal(s_expr[3]) + " (" + show_value(n1) + 
+							  show_verbal(s_expr[3]) + " (" + show_value(n1) +
 						  	  ", " + size + " bits from bit " + offset + "). " ;
 						}
 				   };
@@ -1904,12 +1916,12 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + 
+                                                       return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) +
 						              " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[4]) + 
-						          " (" + show_value(n5) + ", " + len + " bits, from bit " + poso + 
+                                                   return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[4]) +
+						          " (" + show_value(n5) + ", " + len + " bits, from bit " + poso +
 						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
 						}
 				   };
@@ -2003,7 +2015,7 @@
 						                                get_value(sim.poc.states['REG_IR'])) ;
 						    if (null == oi.oinstruction)
                                                     {
-                                                         ws_alert('ERROR: undefined instruction code in firmware (' +
+                                                         ws_alert('ERROR: undefined instruction code in IR (' +
 							          'co:'  +  oi.op_code.toString(2) + ', ' +
 							          'cop:' + oi.cop_code.toString(2) + ')') ;
 							 sim.poc.states['ROM_MUXA'].value = 0 ;
@@ -2210,22 +2222,22 @@
 	sim.poc.behaviors["UPDATE_NZVC"]  = { nparameters: 1,
 				            operation: function(s_expr)
 							{
-							   set_value(simhw_sim_state("FLAG_N"),  
+							   set_value(simhw_sim_state("FLAG_N"),
 								     sim.poc.internal_states.alu_flags.flag_n);
-							   set_value(simhw_sim_state("FLAG_Z"),  
+							   set_value(simhw_sim_state("FLAG_Z"),
 								     sim.poc.internal_states.alu_flags.flag_z);
-							   set_value(simhw_sim_state("FLAG_V"),  
+							   set_value(simhw_sim_state("FLAG_V"),
 								     sim.poc.internal_states.alu_flags.flag_v);
-							   set_value(simhw_sim_state("FLAG_C"),  
+							   set_value(simhw_sim_state("FLAG_C"),
 								     sim.poc.internal_states.alu_flags.flag_c);
 
-							   set_value(simhw_sim_signal("TEST_N"), 
+							   set_value(simhw_sim_signal("TEST_N"),
 								     sim.poc.internal_states.alu_flags.flag_n);
-							   set_value(simhw_sim_signal("TEST_Z"), 
+							   set_value(simhw_sim_signal("TEST_Z"),
 								     sim.poc.internal_states.alu_flags.flag_z);
-							   set_value(simhw_sim_signal("TEST_V"), 
+							   set_value(simhw_sim_signal("TEST_V"),
 								     sim.poc.internal_states.alu_flags.flag_v);
-							   set_value(simhw_sim_signal("TEST_C"), 
+							   set_value(simhw_sim_signal("TEST_C"),
 								     sim.poc.internal_states.alu_flags.flag_c);
 
 							   update_draw(sim.poc.signals["TEST_N"], sim.poc.signals["TEST_N"].value) ;

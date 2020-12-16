@@ -24,6 +24,7 @@
            // assembly
 	   "PROBLEM AROUND LINE":  "Problem around line",
 	   "NO TAG OR DIRECTIVE":  "Not a valid tag (e.g.: tag1:) or directive (e.g.: .data), found ",
+	   "NO TAG, DIR OR INS":   "Not a valid tag (e.g.: tag1:) directive (e.g.: .data) or instruction, found ",
            "INVALID TAG FORMAT":   "A tag must follow an alphanumeric format, starting with a letter or underscore (e.g.: _tag1:) but found ",
            "TAG OR INSTRUCTION":   "A tag can not have the same name as an instruction ",
            "REPEATED TAG":         "Repeated tag ",
@@ -90,6 +91,7 @@
            "NO NWORDS":              "Expected keyword 'nwords' not found",
            "INCORRECT ADDRESSING":   "Type of addressing incorrect (abs or rel)",
            "UNEXPECTED FIELD":       "Unexpected field found ",
+           "CHECK ORDER":            "Please check the order of the fields",
            "STARTBIT OoR":           "startbit out of range ",
            "STOPBIT OoR":            "stopbit out of range ",
            "OVERLAPPING FIELD":      "Overlapping field ",

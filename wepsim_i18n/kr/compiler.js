@@ -23,6 +23,7 @@
 
 	        "PROBLEM AROUND LINE":          "라인 주변의 문제",
 		'NO TAG OR DIRECTIVE':		'태그 또는 지시 예상하지만,이 대신 토큰을 발견 : ',
+		'NO TAG, DIR OR INS':		'유효한 태그 (예 : tag1 :) 지시문 (예 : .data) 또는 명령어가 없습니다.: ',
 		'INVALID TAG FORMAT':		'태그는 (문자 나 밑줄로 시작하는) 영숫자 형식을 따라야합니다 : ',
 		'TAG OR INSTRUCTION':		'태그는 명령과 동일한 이름을 가질 수 없습니다 : ',
 		'REPEATED TAG':		'반복 태그 : ',
@@ -86,6 +87,7 @@
 		'NO NWORDS':			'발견되지 예상 키워드 \'nwords\'',
 		'INCORRECT ADDRESSING':		'잘못된 (절대치 또는 REL을) 주소의 입력',
 		'UNEXPECTED FIELD':		'예기치 않은 필드를 찾을 수 : ',
+                'CHECK ORDER':                  '필드 순서를 확인하세요.',
 		'STARTBIT OoR':			'범위를 벗어 startbit : ',
 		'STOPBIT OoR':			'범위를 벗어 stopbit : ',
 		'OVERLAPPING FIELD':		'필드 겹치는 : ',

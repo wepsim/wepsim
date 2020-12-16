@@ -24,48 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_toolbar extends HTMLElement
+        class ws_toolbar extends ws_uielto
         {
-              static get observedAttributes()
-	      {
-	            return [ 'name', 'components', 'icons' ] ;
-	      }
-
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render() ;
-	      }
-
-	      get name ( )
-	      {
-                   return this.getAttribute('name') ;
-	      }
-
-	      set name ( value )
-	      {
-                   this.setAttribute('name', value) ;
-	      }
-
-	      get components ( )
-	      {
-                   return this.getAttribute('components') ;
-	      }
-
-	      set components ( value )
-	      {
-                   this.setAttribute('components', value) ;
-	      }
-
-	      get icons ( )
-	      {
-                   return this.getAttribute('icons') ;
-	      }
-
-	      set icons ( value )
-	      {
-                   this.setAttribute('icons', value) ;
-	      }
-
 	      constructor ()
 	      {
 		    // parent
@@ -79,7 +39,6 @@
 		            "slider_c1c2":       this.render_slider_c1c2,
 		            "btn_help":          this.render_btn_help,
 		            "btn_config":        this.render_btn_config,
-		          //"btn_examples":      this.render_btn_examples,
 	                    "btn_notifications": this.render_btn_notifications,
 	                    "btn_recordbar":     this.render_btn_recordbar,
 	                    "btn_states":        this.render_btn_states,
@@ -92,32 +51,25 @@
                     };
 	      }
 
-	      connectedCallback ()
-	      {
-		    this.render() ;
-	      }
-
-	      update_internal_attributes ( )
-	      {
-                    // components
-                    this.components_str = this.getAttribute('components') ;
-                    if (this.components_str === null)
-                        this.components_str = '' ;
-                    this.components_arr = this.components_str.split(',') ;
-
-                    // icons
-                    this.icons_str = this.getAttribute('icons') ;
-                    if (this.icons_str === null)
-                        this.icons_str = 'no' ;
-                    this.icons_str = this.icons_str.toLowerCase() ;
-	      }
-
 	      render ( )
 	      {
                     // get updated attributes
-	            this.update_internal_attributes() ;
+	            super.render() ;
 
-                    // render toolbar elements
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+	      }
+
+	      render_skel ( )
+	      {
+		    // load the initial HTML code
+                    this.innerHTML = '' ;
+	      }
+
+	      render_populate ( )
+	      {
+                    // get HTML code for toolbar elements
                     var o1 = '' ;
                     for (var i=0; i<this.components.length; i++)
                     {
@@ -129,8 +81,27 @@
 			 }
                     }
 
+		    // load HTML code
                     this.innerHTML = o1 ;
+
+		    // initialize elements
+                    if (is_cfg_empty()) {
+                        return ;
+                    }
+		    var opt = null ;
+                    if (this.components.indexOf('btndd_mode') != -1) {
+		        opt = get_cfg('ws_mode') ;
+		        webui_toolbar_updateMode(opt) ;
+                    }
+                    if (this.components.indexOf('btndd_action') != -1) {
+		        opt = get_cfg('ws_action') ;
+		        webui_toolbar_updateAction(opt) ;
+                    }
+                    if (this.components.indexOf('btn_examples') != -1) {
+                        webui_toolbar_updateExampleSet() ;
+                    }
 	      }
+
 
               //
               // switch
@@ -223,22 +194,6 @@
               //
               // button
               //
-
-	      render_btn_examples ( robj )
-	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-0 col-auto"' +
-		         '        style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"' +
-                         '        id="btn_example1"' +
-		         '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
-		         '        title="This button opens the \'Examples\' dialog."' +
-		         '        onclick="wsweb_dialog_open(\'examples\');' +
-		         '	           return false;">' ;
-                    o += (robj.icons_str == "no") ? '' : '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>' ;
-                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
-                    o += '<strong><span data-langkey=\'Examples\'>Examples</span></strong></button>' ;
-
-		 return o ;
-	      }
 
 	      render_btn_help ( robj )
 	      {
@@ -509,7 +464,7 @@
             $('#select6a').attr('data-action', opt) ;
         }
 
-        function webui_toolbar_updateExampleSet ( opt )
+        function webui_toolbar_updateExampleSet ( )
         {
             var  item = null ;
 	    var  o = '' ;

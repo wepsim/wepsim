@@ -31,12 +31,12 @@
  */
 
  sim_segments = {
-                    ".kdata": { name:".kdata", begin:0x00000, end:0x000FF, color:"#FF99CC", kindof:"data"  },
-                    ".ktext": { name:".ktext", begin:0x00100, end:0x00FFF, color:"#A9D0F5", kindof:"text"  },
+                    ".kdata": { name:".kdata", begin:0x00000, end:0x000FF,  color:"#FF99CC", kindof:"data"  },
+                    ".ktext": { name:".ktext", begin:0x00100, end:0x00FFF,  color:"#A9D0F5", kindof:"text"  },
 
-                    ".data":  { name:".data",  begin:0x01000, end:0x07FFF, color:"#FACC2E", kindof:"data"  },
-                    ".text":  { name:".text",  begin:0x08000, end:0x1FFFF, color:"#BEF781", kindof:"text"  },
-                    ".stack": { name:".stack", begin:0x1FFFF, end:0xFFFFF, color:"#F1F2A3", kindof:"stack" }
+                    ".data":  { name:".data",  begin:0x01000, end:0x07FFF,  color:"#FACC2E", kindof:"data"  },
+                    ".text":  { name:".text",  begin:0x08000, end:0x1FFFF,  color:"#BEF781", kindof:"text"  },
+                    ".stack": { name:".stack", begin:0x1FFFF, end:0x100000, color:"#F1F2A3", kindof:"stack" }
                 } ;
 
 
@@ -384,11 +384,15 @@ function writememory_and_reset ( mp, gen, nwords )
 {
 	if (gen.byteWord >= WORD_BYTES)
         {
-	    mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;
+            main_memory_set(mp,
+                            "0x" + gen.seg_ptr.toString(16),
+                            gen.machineCode,
+                            gen.track_source) ;
 
-            gen.seg_ptr     = gen.seg_ptr + WORD_BYTES ;
-            gen.byteWord    = 0 ;
-            gen.machineCode = reset_assembly(nwords) ;
+            gen.seg_ptr      = gen.seg_ptr + WORD_BYTES ;
+            gen.byteWord     = 0 ;
+            gen.track_source = [] ;
+            gen.machineCode  = reset_assembly(nwords) ;
         }
 }
 
@@ -407,9 +411,10 @@ function read_data ( context, datosCU, ret )
            var seg_name = getToken(context) ;
 
 	   var gen = {};
-	   gen.byteWord = 0;
-	   gen.machineCode = reset_assembly(1);
-           gen.seg_ptr = ret.seg[seg_name].begin ;
+	   gen.byteWord     = 0;
+           gen.track_source = [] ;
+	   gen.machineCode  = reset_assembly(1);
+           gen.seg_ptr      = ret.seg[seg_name].begin ;
 
 	   //
 	   //  .data
@@ -576,10 +581,12 @@ function read_data ( context, datosCU, ret )
 				}
 
 				// Store number in machine code
-				gen.machineCode = assembly_replacement(gen.machineCode, num_bits,
+				gen.machineCode = assembly_replacement(gen.machineCode,
+								       num_bits,
             					                       BYTE_LENGTH*(size+gen.byteWord),
             					                       BYTE_LENGTH*gen.byteWord, free_space) ;
 				gen.byteWord += size ;
+				gen.track_source.push(possible_value) ;
 
 				// optional ','
 				nextToken(context) ;
@@ -626,6 +633,7 @@ function read_data ( context, datosCU, ret )
 				// Word filled
                                 writememory_and_reset(ret.mp, gen, 1) ;
 				gen.byteWord++;
+				gen.track_source.push('_') ;
 			}
 
 			nextToken(context) ;
@@ -664,6 +672,14 @@ function read_data ( context, datosCU, ret )
 					break;
 				default:
 					// Fill with spaces
+                                        writememory_and_reset(ret.mp, gen, 1) ;
+					while ((gen.seg_ptr%align_offset != 0) || (gen.byteWord != 0))
+                                        {
+						// Word filled
+						gen.byteWord++;
+                                                writememory_and_reset(ret.mp, gen, 1) ;
+					}
+				/*
 					while (true)
                                         {
 						// Word filled
@@ -672,6 +688,7 @@ function read_data ( context, datosCU, ret )
 							break;
 						gen.byteWord++;
 					}
+				*/
 			}
 
 			nextToken(context) ;
@@ -728,11 +745,13 @@ function read_data ( context, datosCU, ret )
 					num_bits = possible_value.charCodeAt(i).toString(2);
 
 					// Store character in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits,
+					gen.machineCode = assembly_replacement(gen.machineCode,
+      									       num_bits,
 									       BYTE_LENGTH*(1+gen.byteWord),
 									       BYTE_LENGTH*gen.byteWord,
 									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
+				        gen.track_source.push(possible_value[i]) ;
 				}
 
                                 if (".asciiz" == possible_datatype)
@@ -743,11 +762,13 @@ function read_data ( context, datosCU, ret )
 					num_bits = "\0".charCodeAt(0).toString(2);
 
 					// Store field in machine code
-					gen.machineCode = assembly_replacement(gen.machineCode, num_bits,
+					gen.machineCode = assembly_replacement(gen.machineCode,
+								               num_bits,
 									       BYTE_LENGTH*(1+gen.byteWord),
 									       BYTE_LENGTH*gen.byteWord,
 									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
+				        gen.track_source.push('0x0') ;
 				}
 
 				// optional ','
@@ -780,7 +801,11 @@ function read_data ( context, datosCU, ret )
 	   // Fill memory
 	   if (gen.byteWord > 0)
 	   {
-		ret.mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;
+                main_memory_set(ret.mp,
+                                "0x" + gen.seg_ptr.toString(16),
+                                gen.machineCode,
+                                gen.track_source) ;
+
                 gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
 	   }
 
@@ -837,14 +862,14 @@ function read_text ( context, datosCU, ret )
 			var possible_tag = getToken(context);
 
 			// check tag
-		        if ("TAG" != getTokenType(context)) 
+		        if ("TAG" != getTokenType(context))
                         {
                             if ("" == possible_tag) {
                                 possible_tag = "[empty]" ;
                             }
 
 			    return langError(context,
-			                     i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
+			                     i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
                                              "'" + possible_tag + "'") ;
                         }
 
@@ -1143,22 +1168,22 @@ function read_text ( context, datosCU, ret )
 				{
 					if (res[1] < 0)
 					{
-						if (field.type == "address" && "rel" == field.address_type) 
+						if (field.type == "address" && "rel" == field.address_type)
                                                 {
-						     error = "Relative value (" + 
-                                                             (converted - seg_ptr - WORD_BYTES) + 
-                                                             " in decimal)"+ 
+						     error = "Relative value (" +
+                                                             (converted - seg_ptr - WORD_BYTES) +
+                                                             " in decimal)"+
 				                             i18n_get_TagFor('compiler', 'NEEDS') +
-                                                             res[0].length + 
+                                                             res[0].length +
 				                             i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
                                                              size + " " +
 				                             i18n_get_TagFor('compiler', 'BITS') ;
                                                 }
 						else
                                                 {
-                                                     error = "'" + value + "'" + 
+                                                     error = "'" + value + "'" +
 				                             i18n_get_TagFor('compiler', 'NEEDS') +
-                                                             res[0].length + 
+                                                             res[0].length +
 				                             i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
                                                              size + " " +
 				                             i18n_get_TagFor('compiler', 'BITS') ;
@@ -1221,7 +1246,7 @@ function read_text ( context, datosCU, ret )
 			format += "'" + firmware[instruction][i].signatureUser + "'" ;
 		}
                 if (format == "") {
-                    format = "'" + instruction + "' " +  
+                    format = "'" + instruction + "' " +
 			     i18n_get_TagFor('compiler', 'UNKNOWN MC FORMAT') ;
 		}
 
@@ -1371,7 +1396,11 @@ function read_text ( context, datosCU, ret )
 				                                       source_original: s_ori,
 				                                       firm_reference:  ref
 			                                            } ;
-			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) ;
+			main_memory_set(ret.mp,
+					"0x" + seg_ptr.toString(16),
+					machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
+					[ s_ori ]) ;
+
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
 
@@ -1383,7 +1412,7 @@ function read_text ( context, datosCU, ret )
 			npseudoInstructions = 0 ;
 		}
 
-                // if instruction candiates with less than max_length fields
+                // if instruction candidates with less than max_length fields
                 //    then we read ahead next token, otherwise we need to read next token
                 var equals_fields = true ;
                 for (var c=0; c<signature_fields.length; c++)
@@ -1393,7 +1422,8 @@ function read_text ( context, datosCU, ret )
                          break ;
 		     }
                 }
-                if (equals_fields || (getToken(context) == ")")) {
+                if ( (isPseudo == false) && (equals_fields || (getToken(context) == ")")) )
+                {
 		    nextToken(context) ;
                 }
 
@@ -1474,11 +1504,13 @@ function simlang_compile (text, datosCU)
 	   }
 
           var ret = {};
-	  ret.seg      = sim_segments ;
-          ret.mp       = {} ;
-	  ret.labels   = {} ; // [addr] = {name, addr, startbit, stopbit}
-          ret.labels2  = {} ;
-          ret.assembly = {} ; // This is for the Assembly Debugger...
+	  ret.seg        = sim_segments ;
+          ret.mp         = {} ;
+	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit}
+          ret.labels2    = {} ;
+          ret.assembly   = {} ; // This is for the Assembly Debugger...
+          ret.revlabels2 = {} ;
+          ret.revseg     = [] ;
 
 	  data_found = false;
 	  text_found = false;
@@ -1532,9 +1564,10 @@ function simlang_compile (text, datosCU)
 		// Get the words in memory (machine code) where the label is used
 		var machineCode = "";
 		var auxAddr = ret.labels[i].addr;
-		for (j=0; j<ret.labels[i].nwords; j++) {
-			machineCode = ret.mp["0x" + auxAddr.toString(16)] + machineCode;
-			auxAddr += WORD_BYTES;
+		for (j=0; j<ret.labels[i].nwords; j++)
+                {
+                        machineCode = main_memory_getvalue(ret.mp, "0x" + auxAddr.toString(16)) + machineCode ;
+			auxAddr += WORD_BYTES ;
 		}
 
 		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
@@ -1548,11 +1581,11 @@ function simlang_compile (text, datosCU)
 			var a = decimal2binary(converted, size);
 			num_bits   = a[0] ;
                         free_space = a[1] ;
-			error = "'" + ret.labels[i].name + "'" + 
+			error = "'" + ret.labels[i].name + "'" +
 				i18n_get_TagFor('compiler', 'NEEDS') +
-                                num_bits.length + 
+                                num_bits.length +
 				i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
-                                size + " " + 
+                                size + " " +
 			        i18n_get_TagFor('compiler', 'BITS') ;
 
 			if ("rel" == ret.labels[i].rel)
@@ -1560,12 +1593,12 @@ function simlang_compile (text, datosCU)
 			    var a = decimal2binary(converted - ret.labels[i].addr - WORD_BYTES, size);
 			    num_bits   = a[0] ;
                             free_space = a[1] ;
-			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + 
-                                    " in decimal)" + 
+			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) +
+                                    " in decimal)" +
 				    i18n_get_TagFor('compiler', 'NEEDS') +
-                                    num_bits.length + 
+                                    num_bits.length +
 				    i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
-                                    size + " " + 
+                                    size + " " +
 			            i18n_get_TagFor('compiler', 'BITS') ;
 			}
 		}
@@ -1582,16 +1615,21 @@ function simlang_compile (text, datosCU)
                 }
 
 		// Store field in machine code
-		machineCode = assembly_replacement(machineCode, num_bits, 
-                                                   ret.labels[i].startbit-(-1), 
-                                                   ret.labels[i].stopbit, 
+		machineCode = assembly_replacement(machineCode,
+                                                   num_bits,
+                                                   ret.labels[i].startbit-(-1),
+                                                   ret.labels[i].stopbit,
                                                    free_space) ;
 
 		// process machine code with several words...
 		auxAddr = ret.labels[i].addr;
 		for (j=ret.labels[i].nwords-1; j>=0; j--)
                 {
-			ret.mp["0x" + auxAddr.toString(16)] = machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) ;
+		        main_memory_set(ret.mp,
+				        "0x" + auxAddr.toString(16),
+				        machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH),
+				        null) ;
+
                 	auxAddr += WORD_BYTES ;
 		}
 	 }
@@ -1606,6 +1644,16 @@ function simlang_compile (text, datosCU)
 		                    i18n_get_TagFor('compiler', 'NO MAIN OR KMAIN')) ;
              }
 	 }
+
+         // reverse labels (hash labels2 -> key)
+         for (var key in ret.labels2) {
+              ret.revlabels2[ret.labels2[key]] = key ;
+         }
+
+         // reverse segments (hash segname -> properties)
+         for (var skey in ret.seg) {
+              ret.revseg.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
+         }
 
 	 return ret;
 }

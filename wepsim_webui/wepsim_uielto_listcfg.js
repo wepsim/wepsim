@@ -20,83 +20,79 @@
 
 
         /*
-         *  Example list
+         *  Configuration list
          */
 
         /* jshint esversion: 6 */
-        class ws_list_example extends HTMLElement
+        class ws_list_cfg extends ws_uielto
         {
-              static get observedAttributes() 
-	      {
-	            return [ 'layout' ] ;
-	      }
-
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
-	      render ( elto )
+              // render
+	      render ( )
+	      {
+                    // initialize render elements...
+	            super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+	      }
+
+	      render_skel ( )
 	      {
                     var o1  = '' ;
 
-                    // load html
+                    // build HTML
 		    o1 += '<div class="card border-secondary h-100">' +
 			  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
 			  '<h5 class="py-1 m-0">' +
-			  '<em class="fas fa-stream pr-2"></em>' +
-                          '<span data-langkey="Examples">Examples</span>' +
+			  '<em class="fas fa-cogs pr-2"></em>' +
+                          '<span data-langkey="Configuration">Configuration</span>' +
                           '</h5>' +
 			  '</div>' +
-			  ' <div class="card-body">' +
-			  ' <div class="btn-group-vertical w-100" role="group" aria-label="Examples">' ;
-
-                    var e_exs = wepsim_example_getSet() ;
-		    for (var i in e_exs) 
-                    {
-			 var ename = e_exs[i].name ;
-
-			 o1 += '<button type="button" ' +
-			       '    class="text-danger btn border-secondary m-1 btn-block" ' +
-			       '    onclick="wepsim_example_reset() ;' +
-			       '	     wepsim_example_load(\'' + e_exs[i].name + '\') ;' +
-			       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
-			       '			           \'Examples list loaded!.\') ;' +
-			       '	     return false;">' +
-			       '<span data-langkey="' + ename + '">' + ename + '</span>' +
-			       '</button>' ;
-		    }
-
-		    o1 += ' </div>' +
-			  ' </div>' +
+			  '<div class="card-body" id="list_cfgs_1"></div>' +
 			  '</div>' ;
 
-                    this.innerHTML = o1 ;
+		    this.innerHTML = o1 ;
 	      }
 
-	      connectedCallback ()
+	      render_populate ( )
 	      {
-		    this.render(this) ;
-	      }
+                    var o1  = '' ;
 
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render(this) ;
-	      }
+                    // check if exists any processor...
+		    var e_cfgs = cfgset_getSet() ;
+                    if (typeof e_cfgs === "undefined")
+                    {
+		        $('#list_cfgs_1').html(o1) ;
+                        return ;
+                    }
 
-	      get layout ( )
-	      {
-                   return this.getAttribute('layout') ;
-	      }
+                    // build HTML
+		    o1 += ' <div class="btn-group-vertical w-100" role="group" aria-label="Configuration">' ;
+		    for (var e_cfg in e_cfgs)
+                    {
+			 o1 += '<button type="button" ' +
+			       '    class="text-danger btn border-secondary m-1 btn-block" ' +
+			       '    onclick="cfgset_load(\'' + e_cfg + '\') ;' +
+			       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
+			       '	  		           \'Configuration loaded!.\') ;' +
+			       '	     wepsim_uicfg_restore() ;' +
+			       '	     return false;">' +
+			       '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' +
+			       '</button>' ;
+		    }
+		    o1 += '</div>' ;
 
-	      set layout ( value )
-	      {
-                   this.setAttribute('layout', value) ;
+		    $('#list_cfgs_1').html(o1) ;
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-list-example', ws_list_example) ;
-        }
+        register_uielto('ws-list-cfg', ws_list_cfg) ;
 

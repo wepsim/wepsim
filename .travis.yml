@@ -5,9 +5,9 @@ node_js:
   - "node"
 
 before_install:
-  - npm install jshint
+  - rm -fr node_modules
+  - npm install
   - jshint --version
-  - npm install terser
   - terser --version
   - sudo apt-get -y install jq
   - jq --version

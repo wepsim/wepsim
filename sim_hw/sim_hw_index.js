@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -34,7 +34,7 @@
         {
             // 1.- add a new element
             var found = -1 ;
-            for (var m=0; m<sim.systems.length; m++) 
+            for (var m=0; m<sim.systems.length; m++)
             {
                  if (sim.systems[m].sim_short_name == newElto.sim_short_name) {
                      sim.systems[m] = newElto ;
@@ -54,7 +54,7 @@
 
             // 3.- check if default behaviors are ok
             check_behavior();
-            
+
             // 4.- pre-compile
             compile_behaviors() ;
             firedep_to_fireorder(jit_fire_dep) ;
@@ -69,7 +69,7 @@
 
         function simhw_setActive ( newActive )
         {
-	    if ( (newActive >= 0) && 
+	    if ( (newActive >= 0) &&
                  (sim.systems.length >= newActive) )
 	    {
                 sim.active = sim.systems[newActive] ;
@@ -85,7 +85,7 @@
 
         function simhw_getIdByName ( short_name )
         {
-            for (var m=0; m<sim.systems.length; m++) 
+            for (var m=0; m<sim.systems.length; m++)
             {
                  if (sim.systems[m].sim_short_name == short_name) {
                      return m ;
@@ -97,7 +97,7 @@
 
         function simhw_getObjByName ( short_name )
         {
-            for (var m=0; m<sim.systems.length; m++) 
+            for (var m=0; m<sim.systems.length; m++)
             {
                  if (sim.systems[m].sim_short_name == short_name) {
                      return sim.systems[m] ;
@@ -172,7 +172,7 @@
             return sim.active.components[id] ;
         }
 
-        // getInternalState
+        // InternalState
 
         function simhw_internalState ( name )
         {

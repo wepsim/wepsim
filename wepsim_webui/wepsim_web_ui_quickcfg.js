@@ -37,7 +37,7 @@
 					'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
 					'     onclick="wsweb_dialog_open(\'about\'); ' +
 					'              wsweb_quickmenu_close(); ' +
-					'              return false;">' +
+					'              return true;">' +
 					'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
 					'</li>' ;
@@ -46,7 +46,7 @@
 					'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
 					'     onclick="wepsim_newbie_tour(); ' +
 					'              wsweb_quickmenu_close(); ' +
-					'              return false;">' +
+					'              return true;">' +
 					'<em class="fas fa-book-reader col-1 pl-1 float-left"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
 					'</li>' ;
@@ -108,7 +108,7 @@
 			'                       data-show-value="false"' +
 			'                       class="custom-range slider col mx-0 px-0"' +
 			'                       oninput="wsweb_set_cpucu_size(this.value) ;' +
-			'                                return false;">' +
+			'                                return true;">' +
 			'           </form>' +
 			'     </div>' +
 			'</li>' ;
@@ -122,31 +122,19 @@
 			'                       data-show-value="false"' +
 			'                       class="custom-range slider col mx-0 px-0"' +
 			'                       oninput="wsweb_set_c1c2_size(this.value) ;' +
-			'                                return false;">' +
+			'                                return true;">' +
 			'           </form>' +
 			'     </div>' +
 			'</li>' ;
 
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
-			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-			"        <label id='label18-true'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='WepSIM dark mode: true' " +
-			"               onclick=\"wepsim_restore_darkmode(true) ; " +
-			"                         update_cfg('ws_skin_dark_mode', true);" +
-			"                         return false;\">" +
-			"            <input type='radio' name='options' id='radio18-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
-			"        </label>" +
-			"        <label id='label18-false'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='WepSIM dark mode: true' " +
-			"               onclick=\"wepsim_restore_darkmode(false) ; " +
-			"                         update_cfg('ws_skin_dark_mode', false);" +
-			"                         return false;\">" +
-			"            <input type='radio' name='options' id='radio18-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
-			"        </label>" +
-			"    </div>" +
+                        quickcfg_html_onoff('18',
+                                            'WepSIM dark mode',
+                                            "  wepsim_restore_darkmode(false);" +
+                                            "  update_cfg('ws_skin_dark_mode', false);",
+                                            "  wepsim_restore_darkmode(true);" +
+                                            "  update_cfg('ws_skin_dark_mode', true);") +
 			'</li>' ;
 
 		   o += '<li class="list-group-item px-0"> ' +
@@ -155,29 +143,17 @@
 			"        aria-label='open the reload dialog box' " +
 			"        onclick=\"wsweb_quickslider_close(); " +
 			"                  wsweb_dialog_open('reload'); " +
-			"                  return false;\">" +
+			"                  return true;\">" +
                         "<i class='fas fa-redo'></i>&nbsp;<span data-langkey='Reload'>Reload</span></div>" +
 			'</li>' ;
 
 /*
 		   o += '<li class="list-group-item px-0"> ' +
 			'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
-			"<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-			"        <label id='label17-true'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Frequent only: true' " +
-			"               onclick=\"wepsim_activeview('only_frequent', true) ; " +
-			"                         return false;\">" +
-			"            <input type='radio' name='options' id='radio17-true'  aria-label='Frequent only: true'  autocomplete='off' >On" +
-			"        </label>" +
-			"        <label id='label17-false'" +
-			"               class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-			"               aria-label='Frequent only: true' " +
-			"               onclick=\"wepsim_activeview('only_frequent', false) ; " +
-			"                         return false;\">" +
-			"            <input type='radio' name='options' id='radio17-false' aria-label='Frequent only: false' autocomplete='off' >Off" +
-			"        </label>" +
-			"    </div>" +
+                        quickcfg_html_onoff('17',
+                                            'Frequent only',
+                                            "  wepsim_activeview('only_frequent', false);",
+                                            "  wepsim_activeview('only_frequent', true);") +
 			'</li>' ;
 */
 
@@ -216,4 +192,101 @@
          }
 
     } ;
+
+
+    //
+    // Quick Config
+    //
+
+    function wepsim_init_quickcfg ( quick_id, val_trigger, fun_content, fun_ownshown )
+    {
+	 return $(quick_id).popover({
+		    trigger:     val_trigger,
+		    html:        true,
+		    placement:  'auto',
+		    animation:   false,
+		    container:  'body',
+		    template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
+			        '<div class="arrow"></div>' +
+                                '<h3 class="popover-header"></h3>' +
+                                '<div class="popover-body"></div>' +
+			        '</div>',
+		    content:    fun_content,
+		    sanitizeFn: function (content) {
+				    return content ; // DOMPurify.sanitize(content) ;
+				}
+	 }).on('shown.bs.popover',
+		                function(shownEvent) {
+                                    fun_ownshown(shownEvent);
+                                    i18n_update_tags('dialogs') ;
+                                    i18n_update_tags('gui') ;
+                                    i18n_update_tags('cfg') ;
+                                }) ;
+    }
+
+
+    //
+    // Get HTML code for quick-config elements
+    //
+
+    function quickcfg_html_br ( )
+    {
+	 return "<div class='w-100 border border-light'></div>" ;
+    }
+
+    function quickcfg_html_header ( label2 )
+    {
+         return "<div class='col-12 p-0 mt-2'>" +
+                "<span data-langkey='" + label2 + "'>" + label2 + "</span>" +
+                "</div>" ;
+    }
+
+    function quickcfg_html_btn ( label2, code2, colwidth2 )
+    {
+	 return "<div class='" + colwidth2 + " p-1'>" +
+		"<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		"        onclick='" + code2 + "; return true;'>" +
+		"<span class='mx-auto px-1 font-weight-bold rounded text-dark' " +
+                "      style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
+		"</div>" ;
+    }
+
+    function quickcfg_html_btnreg ( label2, code2, colwidth2 )
+    {
+         return "<div class='" + colwidth2 + " p-1'>" +
+	        "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+	        "        onclick='" + code2 + "; return true;'>" +
+	        "<span class='font-weight-bold text-monospace'>" + label2 + "</span>" + "&nbsp;" +
+	        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
+	        "</div>" ;
+    }
+
+    function quickcfg_html_onoff ( id2, arial2, code_off2, code_on2 )
+    {
+         return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-toggle='buttons'>" +
+                "    <label id='label" + id2 + "-false' " +
+                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                "           aria-label='" + arial2 + ": false' " +
+		"           onclick=\"" + code_off2 + "; return true;\">" +
+                "    <input type='radio' name='options' id='radio" + id2 + "-false' " +
+                "           aria-label='" + arial2 + ": false' autocomplete='off'>Off</label>" +
+                "    <label id='label" + id2 + "-true' " +
+                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                "           aria-label='" + arial2 + ": true' " +
+		"           onclick=\"" + code_on2 + "; return true;\">" +
+                "    <input type='radio' name='options' id='radio" + id2 + "-true' " +
+                "           aria-label='" + arial2 + ": true' autocomplete='on'>On</label>" +
+                "</div>" ;
+    }
+
+    function quickcfg_html_close ( btn2_id )
+    {
+	 return "<div class='col p-1 mt-2'>" +
+		"<button type='button' id='close' data-role='none' " +
+		"        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		"        onclick='$(\"#" + btn2_id + "\").popover(\"hide\");'>" +
+                "<span data-langkey='Close'>Close</span>" +
+                "</button>" +
+		"</div>" ;
+    }
 

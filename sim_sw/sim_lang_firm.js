@@ -55,7 +55,7 @@ function read_microprg ( context )
 
 		   if ("TAG" != getTokenType(context)) {
                         return langError(context,
-                                         i18n_get_TagFor('compiler', 'LABEL NOT FOUND') + 
+                                         i18n_get_TagFor('compiler', 'LABEL NOT FOUND') +
                                          "'" + newLabelName + "'") ;
                    }
 
@@ -256,7 +256,7 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
 		ret.label_co = j.toString(2).padStart(6, "0") ;
 
                 // (1/3) check for free co-0000...
-		if (typeof context.co_cop[ret.label_co] === "undefined") 
+		if (typeof context.co_cop[ret.label_co] === "undefined")
                 {
 		    context.co_cop[ret.label_co]         = {} ;
 		    context.co_cop[ret.label_co].withcop = false ;
@@ -459,7 +459,7 @@ function loadFirmware (text)
 					pseudoFieldAux.indirect = false ;
 
                                         // *(name)*=type
-					if (isToken(context, "(")) 
+					if (isToken(context, "("))
                                         {
 				            nextToken(context);
 					    pseudoFieldAux.name += getToken(context);
@@ -633,7 +633,7 @@ function loadFirmware (text)
                var re_name = "[a-zA-Z_0-9\.]*" ;
                if (instruccionAux.name.match(re_name)[0] != instruccionAux.name) {
 		   return langError(context,
-				    i18n_get_TagFor('compiler', 'INS. NAME') + 
+				    i18n_get_TagFor('compiler', 'INS. NAME') +
                                     "'" + instruccionAux.name + "' " +
 				    i18n_get_TagFor('compiler', 'NOT VALID FOR') + re_name) ;
                }
@@ -914,8 +914,9 @@ function loadFirmware (text)
 	           var tmp_name = getToken(context) ;
 	           if (campos[camposInsertados].name != tmp_name) {
 		       return langError(context,
-				        i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') + 
-                                        "'" + tmp_name + "'") ;
+				        i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
+                                        "'" + tmp_name + "'. " +
+				        i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
                    }
 
 	           nextToken(context);
@@ -986,7 +987,8 @@ function loadFirmware (text)
                    {
                         if (typeof overlapping[i] != "undefined") {
                             return langError(context,
-                                             i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + campos[camposInsertados].name) ;
+                                             i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				             campos[camposInsertados].name) ;
                         }
 
                         overlapping[i] = 1;
@@ -1160,7 +1162,7 @@ function loadFirmware (text)
 		curr_instruction.co = r.label_co ;
 		context.co_cop[r.label_co].signature = curr_instruction.signature ;
 
-		if (r.label_cop !== "") 
+		if (r.label_cop !== "")
                 {
 		    curr_instruction.cop = r.label_cop ;
 		    context.co_cop[r.label_co].cop[r.label_cop] = curr_instruction.signature ;
@@ -1187,7 +1189,7 @@ function loadFirmware (text)
 			{
                             // CHECK: label is defined
 	                    return langError(context,
-		                	     i18n_get_TagFor('compiler', 'NO LABEL MADDR') + 
+		                	     i18n_get_TagFor('compiler', 'NO LABEL MADDR') +
                                              context.labelsNotFound[i].nombre) ;
 			}
 
@@ -1243,6 +1245,12 @@ function loadFirmware (text)
 		 }
 	   }
 
+           // revlabels
+           context.revlabels = {} ;
+           for (key in context.instrucciones) {
+                context.revlabels[context.instrucciones[key]["mc-start"]] = context.instrucciones[key].name ;
+           }
+
            // return results
            ret = {} ;
            ret.error              = null ;
@@ -1254,6 +1262,7 @@ function loadFirmware (text)
            ret.pseudoInstructions = context.pseudoInstructions ;
 	   ret.stackRegister	  = context.stackRegister ;
 	   ret.cocop_hash	  = context.cocop_hash ;
+	   ret.revlabels	  = context.revlabels ;
 
            return ret ;
 }
@@ -1443,7 +1452,8 @@ function decode_ram ( )
     var curr_MP    = simhw_internalState('MP') ;
     for (var address in curr_MP)
     {
-        var binstruction = curr_MP[address].toString(2) ;
+        var value        = get_value(curr_MP[address]) ;
+        var binstruction = value.toString(2) ;
             binstruction = "00000000000000000000000000000000".substring(0, 32-binstruction.length) + binstruction;
         sram += "0x" + parseInt(address).toString(16) + ":" +
                 decode_instruction(curr_firm, curr_ircfg, binstruction).oinstruction + "\n" ;
