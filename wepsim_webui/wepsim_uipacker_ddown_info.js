@@ -149,8 +149,8 @@
 	           np.iocfg = this.mk_nav_tabpane_item('iocfg', '',  '<ws-io-config id="iocfg1"></ws-io-config>') ;
 	           np.iol3d = this.mk_nav_tabpane_item('iol3d', '',  '<ws-l3d id="l3d1"></ws-l3d>') ;
 	           np.ed_hw = this.mk_nav_tabpane_item('ed_hw', '',  '<ws-hw id="infohw1"></ws-hw>') ;
-                   np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc component="placeholder"></ws_edit_mc>') ;
-                   np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as component="placeholder"></ws_edit_as>') ;
+                   np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc layout="placeholder"></ws_edit_mc>') ;
+                   np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as layout="placeholder"></ws_edit_as>') ;
 
                    return np ;
 	      }
