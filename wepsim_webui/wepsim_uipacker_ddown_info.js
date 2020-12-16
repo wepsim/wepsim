@@ -56,7 +56,7 @@
                    // <nav list part>
                    o1 += '<ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">' +
                          '</ul>' +
-                         '<div class="tab-content mt-3" id="tabs1b">' +
+                         '<div class="tab-content mt-3" id="tabs1b" style="min-height: 55vh">' +
                          '</div>' ;
 
                    // load HTML
@@ -149,12 +149,24 @@
 	           np.iocfg = this.mk_nav_tabpane_item('iocfg', '',  '<ws-io-config id="iocfg1"></ws-io-config>') ;
 	           np.iol3d = this.mk_nav_tabpane_item('iol3d', '',  '<ws-l3d id="l3d1"></ws-l3d>') ;
 	           np.ed_hw = this.mk_nav_tabpane_item('ed_hw', '',  '<ws-hw id="infohw1"></ws-hw>') ;
-                   np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc component="placeholder"></ws_edit_mc>') ;
-                   np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as component="placeholder"></ws_edit_as>') ;
+                   np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc layout="placeholder"></ws_edit_mc>') ;
+                   np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as layout="placeholder"></ws_edit_as>') ;
 
                    return np ;
 	      }
         }
 
         register_uielto('ws-ddown-info', ws_ddown_info) ;
+
+
+        //
+        // set programmatically the selected option (info part)
+        //
+
+        function uipacker_ddown_info_set_select ( opt )
+        {
+            // update interface
+            $('#tab'  + opt).trigger('click') ;
+            $('#select5a').val(opt) ;
+        }
 

@@ -98,6 +98,7 @@
 
                    // reload configuration
                    uipacker_ddown_sel_set_select(11) ;
+                   uipacker_ddown_info_set_select(11) ;
 	      }
 
 
@@ -160,12 +161,12 @@
         register_uielto('ws-ddown-sel', ws_ddown_sel) ;
 
 
+        //
+        // set programmatically the selected option (sel part)
+        //
+
         function uipacker_ddown_sel_set_select ( opt )
         {
-            // update interface
-            $('#tab'  + opt).trigger('click') ;
-            $('#select5a').val(opt) ;
-
             // set button label...
             var ed=$('#s5b_' + opt).html() ;
             $('#select5b').html(ed) ;

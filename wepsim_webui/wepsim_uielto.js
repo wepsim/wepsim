@@ -72,6 +72,11 @@
                     if (this.icons_str === null)
                         this.icons_str = 'no' ;
                     this.icons_str = this.icons_str.toLowerCase() ;
+
+                    // name: based on https://gist.github.com/gordonbrander/2230317
+                    this.name_str = this.getAttribute('name') ;
+                    if (this.name_str === null)
+                        this.name_str = 'id_' + Math.random().toString(36).substr(2, 9);
               }
 
 	      get layout ( )

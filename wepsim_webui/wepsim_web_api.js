@@ -388,6 +388,7 @@
     {
 	    // update interface
             uipacker_ddown_sel_set_select(opt) ;
+            uipacker_ddown_info_set_select(opt) ;
 
             // add if recording
             simcore_record_append_new('Change select details to ' + opt,

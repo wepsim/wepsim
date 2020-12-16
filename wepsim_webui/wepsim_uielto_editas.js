@@ -24,22 +24,41 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_edit_as extends HTMLElement
+        class ws_edit_as extends ws_uielto
         {
-              static get observedAttributes() 
-	      {
-	           return [ 'name', 'component' ] ;
-	      }
-
+              // constructor
 	      constructor ()
 	      {
 		   // parent
 		   super();
 	      }
 
+              // render
 	      render ( )
 	      {
+                    // initialize render elements...
+	            super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+	      }
+
+	      render_skel ( )
+	      {
                    var o1 = '' ;
+
+                   // load HTML
+                   this.innerHTML = o1 ;
+	      }
+
+	      render_populate ( )
+	      {
+                   var o1 = '' ;
+
+                   var ly = 'placeholder' ;
+                   if (this.layout != null)
+                       ly = this.layout.trim() ;
 
                    // make HTML code
                    o1  = '<div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">' +
@@ -57,7 +76,7 @@
                          '    </div>' +
                          '' ;
 
-                   if (this.component.trim() == 'placeholder')
+                   if (ly == 'placeholder')
                    o1 += '   <div id="t4_asm_placeholder2" class="ui-body-d ui-content px-2 py-0" ' + 
                          '        style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
                          '   </div>' +
@@ -78,39 +97,7 @@
                    // load HTML
                    this.innerHTML = o1 ;
 	      }
-
-	      connectedCallback ()
-	      {
-		   this.render() ;
-	      }
-
-	      attributeChangedCallback ( name, oldValue, newValue )
-	      {
-		   this.render() ;
-	      }
-
-	      get component ( )
-	      {
-                   return this.getAttribute('component') ;
-	      }
-
-	      set component ( value )
-	      {
-                   this.setAttribute('component', value) ;
-	      }
-
-	      get name ( )
-	      {
-                   return this.getAttribute('name') ;
-	      }
-
-	      set name ( value )
-	      {
-                   this.setAttribute('name', value) ;
-	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-edit-as', ws_edit_as) ;
-        }
+        register_uielto('ws-edit-as', ws_edit_as) ;
 
