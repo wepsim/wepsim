@@ -130,10 +130,11 @@
 	{
 	     for (var eltos in s_obj[component])
              {
-		  var elto = s_obj[component][eltos] ;
+		  var elto    = s_obj[component][eltos] ;
+                  var elto_id = elto.id.toString().toUpperCase() ;
 
                   // console.log(" >> " + JSON.stringify(filter_ext) + " << " + JSON.stringify(elto)) ;
-                  if ( (filter_ext.length != 0) && (filter_ext.indexOf(elto.id.toUpperCase()) == -1) ) {
+                  if ( (filter_ext.length != 0) && (filter_ext.indexOf(elto_id) == -1) ) {
                       continue ;
 	          }
 

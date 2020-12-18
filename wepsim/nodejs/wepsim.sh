@@ -15,7 +15,10 @@
 	       '\n' +
 	       'For more details please use:\n' +
 	       ' ./wepsim.sh -h\n' +
+	       '\n' +
+	       'For common examples please use:\n' +
 	       ' ./wepsim.sh --examples basic\n' +
+	       ' ./wepsim.sh --examples checker\n' +
 	       ' ./wepsim.sh --examples checkpoint\n' +
 	       ' ./wepsim.sh --examples more' ;
 
@@ -36,15 +39,37 @@
                ' * ...modified state on each microinstruction executed:\n' +
                '   ./wepsim.sh -a microstepbymicrostep -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
                '\n' +
-               'Examples for checks at the end of some work:\n' +
-               ' * Check that your work meets the expected final state (so it works):\n' +
-               '   ./wepsim.sh -a check -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e1.txt\n' +
+               'In previous examples you can use the "-m ep -f <firmware> -s <assembly>" or some equivalent checkpoint:\n' +
+               '   ./wepsim.sh -a run        --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '' ;
+
+        return o ;
+   }
+
+   function ws_help_examples_check ()
+   {
+       var o = '\n' +
+               ws_cl_ver + '\n' +
+               '> WepSIM simulator interface for command line.\n' +
+               '\n' +
+               'Examples to show the state at the end of some work:\n' +
+               ' * Filter final state of execution:\n' +
+               '   ./ws_dist/wepsim.sh -a run --checkpoint ./examples/checkpoint/tutorial_1.txt --purify "R0-R5;0x100-0x8000"\n' +
                ' * Show console output after execution:\n' +
                '   ./wepsim.sh -a show-console -m ep -f ./examples/microcode/mc-ep_os.txt -s ./examples/assembly/asm-ep_s4_e1.txt\n' +
                '\n' +
-               'In previous examples you can use the "-m ep -f <firmware> -s <assembly>" or some equivalent checkpoint:\n' +
-               '   ./wepsim.sh -a run          --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
-               '   ./wepsim.sh -a show-console --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               'Examples for checks at the end of some work:\n' +
+               ' * Check that your work meets the expected final state (so it works):\n' +
+               '   ./wepsim.sh -a check -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e1.txt\n' +
+               '\n' +
+               'More examples of custom execution:\n' +
+               ' * Run some example and limit the "instructions":\n' +
+               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxi 2048\n' +
+               ' * Run some example and limit the "clock cycles":\n' +
+               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxc 10000\n' +
+               '\n' +
+               'In previous examples you can combine flags, for example: -a check with --purify R0-R31\n' +
                '' ;
 
         return o ;
@@ -233,10 +258,13 @@
        if ("basic" == argv.examples) {
            o = ws_help_examples_basic() ;
        }
-       if ("checkpoint" == argv.examples) {
+       else if ("checker" == argv.examples) {
+           o = ws_help_examples_check() ;
+       }
+       else if ("checkpoint" == argv.examples) {
            o = ws_help_examples_checkpoint() ;
        }
-       if ("more" == argv.examples) {
+       else if ("more" == argv.examples) {
            o = ws_help_examples_more() ;
        }
 
