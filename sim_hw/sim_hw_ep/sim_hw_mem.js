@@ -100,10 +100,15 @@
 						     origin = 'PC=0x' + r_value.toString(16) ;
 						 }
 
+						 var melto = {
+								"value":           (value >>> 0),
+								"source_tracking": [ origin ],
+								"comments":        null
+							     } ;
                                                  var valref = main_memory_set(sim.ep.internal_states.MP,
                                                                               elto, 
-								              (value >>> 0), 
-								              [ origin ]) ;
+									      melto) ;
+
 				                 show_main_memory(sim.ep.internal_states.MP, 
                                                                   elto, 
                                                                   (typeof valref === "undefined"),
@@ -268,10 +273,15 @@
 						      }
 
 						      // set memory value+source
+						      var melto = {
+								     "value":           (value >>> 0),
+								     "source_tracking": [ origin ],
+								     "comments":        null
+							          } ;
 						      var valref = main_memory_set(sim.ep.internal_states.MP, 
 										   address,
-								                   (value >>> 0), 
-              							                   [ origin ]) ;
+									           melto) ;
+
                                                       sim.ep.signals[s_expr[4]].value = 1;
 				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, true) ;
                                                    },

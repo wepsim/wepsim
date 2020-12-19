@@ -320,9 +320,10 @@
 
             // update UI: asmdbg
             var asmdbg_content = default_asmdbg_content_horizontal() ;
-            if (Object.keys(SIMWARE.assembly).length !== 0) // <===> if (SIMWARE.assembly != {})
+            var curr_mp        = simhw_internalState('MP') ;
+            if (Object.keys(curr_mp).length !== 0)
 	    {
-                 asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
+                 asmdbg_content = assembly2html(curr_mp, SIMWARE.labels2, SIMWARE.seg) ;
 	    }
 
 	    asmdbg_loadContent(asmdbg_content) ;

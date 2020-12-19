@@ -106,17 +106,17 @@
 
 	function get_deco_from_pc ( pc )
 	{
-	        var hexstrpc  = "0x" + pc.toString(16) ;
-                var curr_firm = simhw_internalState('FIRMWARE') ;
+	        var hexstrpc = "0x" + pc.toString(16) ;
+                var mp_obj   = simhw_internalState('MP') ;
 
-	        if ( (typeof curr_firm.assembly                  === "undefined") ||
-	             (typeof curr_firm.assembly[hexstrpc]        === "undefined") ||
-	             (typeof curr_firm.assembly[hexstrpc].source === "undefined") )
+	        if ( (typeof mp_obj                  === "undefined") ||
+	             (typeof mp_obj[hexstrpc]        === "undefined") ||
+	             (typeof mp_obj[hexstrpc].source === "undefined") )
                 {
-                      return "" ;
+                    return "" ;
                 }
 
-                return curr_firm.assembly[hexstrpc].source ;
+                return mp_obj[hexstrpc].source ;
         }
 
 	function get_verbal_from_current_mpc ( )

@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.1.3 -> 2.1.4:
+* Improved memory abstraction
+* Minor bugs fixed and several refinements added.
+
 ## 2.1.2 -> 2.1.3:
 * Bump bootstrap from 4.5.2 to 4.5.3
 * Improved register file panel

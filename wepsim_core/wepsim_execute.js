@@ -85,8 +85,11 @@
 
     function wepsim_execute_set_breakpoint ( hexaddr, is_set )
     {
-        var curr_firm  = simhw_internalState('FIRMWARE') ;
-        curr_firm.assembly[hexaddr].breakpoint = is_set ;
+        var curr_mp   = simhw_internalState('MP') ;
+        var curr_addr = parseInt(hexaddr, 16) ;
+
+        if (typeof curr_mp[curr_addr] !== "undefined")
+            curr_mp[curr_addr].breakpoint = is_set ;
 
         return true ;
     }
@@ -158,13 +161,14 @@
 
     function wepsim_check_stopbybreakpoint_asm ( curr_firm, reg_pc )
     {
-	var curr_addr  = "0x" + reg_pc.toString(16) ;
+	var curr_addr = "0x" + reg_pc.toString(16) ;
+        var curr_mp   = simhw_internalState('MP') ;
 
-	if (typeof curr_firm.assembly[curr_addr] === "undefined") {
+	if (typeof curr_mp[curr_addr] === "undefined") {
             return false ;
         }
 
-	return (curr_firm.assembly[curr_addr].breakpoint) ;
+	return (curr_mp[curr_addr].breakpoint) ;
     }
 
     function wepsim_show_stopbyevent ( msg1, msg2 )

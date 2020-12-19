@@ -143,12 +143,26 @@
                      continue ;
                  }
 
-                 if (typeof main_memory_get(memory_cpy, base_addrs[elto]) == "undefined") {
-                     main_memory_set(memory_cpy, base_addrs[elto], 0, '') ;
+                 if (typeof main_memory_get(memory_cpy, base_addrs[elto]) == "undefined")
+                 {
+		     var melto = {
+				    "value":           0,
+				    "source_tracking": null,
+				    "comments":        null
+			         } ;
+
+                     main_memory_set(memory_cpy, base_addrs[elto], melto) ;
                  }
             }
-            if (typeof main_memory_get(memory_cpy, index) == "undefined") {
-                main_memory_set(memory_cpy, index, 0, '') ;
+            if (typeof main_memory_get(memory_cpy, index) == "undefined")
+            {
+		var melto = {
+				"value":           0,
+				"source_tracking": null,
+				"comments":        null
+			    } ;
+
+                main_memory_set(memory_cpy, index, melto) ;
             }
 
             // temporal variables

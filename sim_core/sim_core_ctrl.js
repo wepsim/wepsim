@@ -30,7 +30,6 @@
 	    if (typeof cf['firmware'] == "undefined")            cf['firmware']           = [] ;
 	    if (typeof cf['mp'] == "undefined")                  cf['mp']                 = {} ;
 	    if (typeof cf['seg'] == "undefined")                 cf['seg']                = {} ;
-	    if (typeof cf['assembly'] == "undefined")            cf['assembly']           = {} ;
 	    if (typeof cf['labels'] == "undefined")              cf['labels']             = {} ;
 	    if (typeof cf['labels2'] == "undefined")             cf['labels2']            = {} ;
 	    if (typeof cf['labels_firm'] == "undefined")         cf['labels_firm']        = {} ;
@@ -54,7 +53,6 @@
 	    if (typeof preWARE['firmware'] != "undefined")           cf['firmware']       = preWARE['firmware'] ;
 	    if (typeof preWARE['mp'] != "undefined")                 cf['mp']             = preWARE['mp'] ;
 	    if (typeof preWARE['registers'] != "undefined")          cf['registers']      = preWARE['registers'] ;
-	    if (typeof preWARE['assembly'] != "undefined")           cf['assembly']       = preWARE['assembly'] ;
 	    if (typeof preWARE['pseudoInstructions'] != "undefined") cf['pseudoInstructions'] = preWARE['pseudoInstructions'] ;
 
 	    if (typeof preWARE['seg'] != "undefined")                cf['seg']           = preWARE['seg'] ;
@@ -358,15 +356,13 @@
 	    // 4.- load the MP from SIMWARE['mp']
             simhw_internalState_reset('MP', {}) ;
             var mp_obj = simhw_internalState('MP') ;
+            var melto  = null ;
 	    for (var key in SIMWARE['mp'])
 	    {
-                 main_memory_set(mp_obj,
-			         // key
-	                         parseInt(key),
-			         // value
-     			         parseInt(SIMWARE['mp'][key].value.replace(/ /g,''), 2),
-			         // origin
-               		         SIMWARE['mp'][key].source) ;
+                 melto = Object.assign({}, SIMWARE['mp'][key]) ;
+                 melto.value = parseInt(SIMWARE['mp'][key].value.replace(/ /g,''), 2) ;
+
+                 main_memory_set(mp_obj, parseInt(key), melto) ;
 	    }
 
 	    // 5.- load the segments from SIMWARE['seg']

@@ -137,13 +137,13 @@
     	    var o = "<br>" +
                     default_asmdbg_content_horizontal_card("1", 
 					                   "simulator intro 1", 
-    	         					   i18n_get('gui',wsi,'simulator intro 1') ) +
+    	         					   i18n_get('gui', wsi, 'simulator intro 1') ) +
                     default_asmdbg_content_horizontal_card("2", 
 					                   "simulator intro 2", 
-    	         					   i18n_get('gui',wsi,'simulator intro 2') ) +
+    	         					   i18n_get('gui', wsi, 'simulator intro 2') ) +
                     default_asmdbg_content_horizontal_card("3", 
 					                   "simulator intro 3", 
-    	         					   i18n_get('gui',wsi,'simulator intro 3') ) ;
+    	         					   i18n_get('gui', wsi, 'simulator intro 3') ) ;
 
     	    return o ;
         }
@@ -169,20 +169,20 @@
     		    "<div class='card-column row'>" +
                     default_asmdbg_content_vertical_card("1",
 						         "simulator intro 1",
-    	         				         i18n_get('gui',wsi,'simulator intro 1')) +
+    	         				         i18n_get('gui', wsi, 'simulator intro 1')) +
                     default_asmdbg_content_vertical_card("2",
 						         "simulator intro 2",
-    	         				         i18n_get('gui',wsi,'simulator intro 2')) +
+    	         				         i18n_get('gui', wsi, 'simulator intro 2')) +
                     default_asmdbg_content_vertical_card("3",
 						         "simulator intro 3",
-    	         				         i18n_get('gui',wsi,'simulator intro 3')) +
+    	         				         i18n_get('gui', wsi,'simulator intro 3')) +
     		    "</div>" +
     		    "</div>" ;
 
     	    return o ;
         }
 
-	function assembly2html ( mp, labels, seg, asm )
+	function assembly2html ( mp, labels, seg )
 	{
                 var  s_label = "" ;
                 var s1_instr = "" ;
@@ -192,6 +192,7 @@
                 var bgc = "#F0F0F0" ;
                 var o = "" ;
 		var l = "" ;
+		var p = "" ;
 
                 var a2l = {} ;
                 for (l in labels)
@@ -212,30 +213,39 @@
                 o += "<center>" +
                      "<table data-role='table' class='table table-sm'>" +
                      "<tbody>" ;
-                for (l in asm)
+                for (l in mp)
                 {
+                     if (typeof mp[l].is_assembly === "undefined") {
+                         continue ;
+                     }
+                     if (mp[l].is_assembly == false) {
+                         continue ;
+                     }
+
                      if  (bgc === "#F0F0F0")
                           bgc = "#F8F8F8" ;
                      else bgc = "#F0F0F0" ;
 
-                     asm[l].bgcolor = bgc ;
+                     mp[l].bgcolor = bgc ;
 
                      // instruction
-                     s3_bin = get_value(mp[l]) ;
+                     //s3_bin = get_value(mp[l]) ;
+                     s3_bin = mp[l].binary ;
 		     if (typeof s3_bin === 'undefined') {
 		         s3_bin = 0 ;
                      }
-                     s1_instr = asm[l].source ;
-                     s2_instr = asm[l].source_original ;
+                     s1_instr = mp[l].source ;
+                     s2_instr = mp[l].source_original ;
                      s4_hex   = parseInt(s3_bin, 2).toString(16) ;
                      s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
+                     p        = "0x" + parseInt(l).toString(16) ;
 
                      // labels
                      s_label = "" ;
-                     if (typeof a2l[l] != "undefined")
+                     if (typeof a2l[p] != "undefined")
 		     {
-                         for (var i=0; i<a2l[l].length; i++) {
-                              s_label = s_label + "<span class='badge badge-info'>" + a2l[l][i] + "</span>" ;
+                         for (var i=0; i<a2l[p].length; i++) {
+                              s_label = s_label + "<span class='badge badge-info'>" + a2l[p][i] + "</span>" ;
                          }
                      }
 
@@ -249,31 +259,31 @@
 		     }
 
                      // join the pieces...
-                     if (typeof a2s[l] !== "undefined")
+                     if (typeof a2s[p] !== "undefined")
 		     {
                          o += "<tr bgcolor='#FEFEFE'>" +
-                              "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[l] + "</font></small></td>" +
+                              "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[p] + "</font></small></td>" +
                               "</tr>" ;
 		     }
 
-                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
+                     o +=  "<tr id='asmdbg" + p + "' bgcolor='" + mp[l].bgcolor + "'>" +
                            "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
                            "    style='line-height:0.9;' align=right" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" + s_label + "</td>" +
                            "<td class='asm_addr   text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;'" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + l + "</td>" +
+                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
+                           "             if (event.stopPropagation) event.stopPropagation();'>" + p + "</td>" +
                            "<td class='asm_break  text-monospace col-auto show p-0' " +
-                           "    style='line-height:0.9;' id='bp" + l + "' width='1%'" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "    style='line-height:0.9;' id='bp" + p + "' width='1%'" +
+                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
 			   "    <span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
 			   "</td>" +
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9; width:13%' align='center' " +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" + s4_hex +
 		           "</td>" +
                            "<td class='asm_dets   text-monospace col-auto show p-0' " +
@@ -284,11 +294,11 @@
 		           "</td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;'" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" + s1_instr + "</td>" +
                            "<td class='asm_pins   text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;' align=left" +
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
+                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" + s2_instr + "</td>" +
                            "</tr>" ;
                 }
@@ -330,47 +340,47 @@
              var o = '<button type="button" id="asm_label" aria-label="Show label" ' +
     		 '        onclick="wepsim_click_asm_columns(\'label\'); return false;" ' +
     		 '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
-    		 '<span class="float-left">' + i18n_get('dialogs',wsi,'Show/Hide labels') + '</span>' +
+    		 '<span class="float-left">' + i18n_get('dialogs', wsi, 'Show/Hide labels') + '</span>' +
     		 '</button>' +
     		 '<button type="button" id="asm_hex" aria-label="Show content" ' +
     		 '        onclick="wepsim_click_asm_columns(\'hex\'); return false;" ' +
                      '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
-    		 '<span class="float-left">' + i18n_get('dialogs',wsi,'Show/Hide content') + '</span>' +
+    		 '<span class="float-left">' + i18n_get('dialogs', wsi, 'Show/Hide content') + '</span>' +
     		 '</button>' +
     		 '<button type="button" id="asm_ins" aria-label="Show instruction" ' +
     		 '        onclick="wepsim_click_asm_columns(\'ins\'); return false;" ' +
                      '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
-    		 '<span class="float-left">' + i18n_get('dialogs',wsi,'Show/Hide assembly') + '</span>' +
+    		 '<span class="float-left">' + i18n_get('dialogs', wsi, 'Show/Hide assembly') + '</span>' +
     		 '</button>' +
     		 '<button type="button" id="asm_pins" aria-label="Show pseudoinstruction" ' +
     		 '        onclick="wepsim_click_asm_columns(\'pins\'); return false;" ' +
                      '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
-    		 '<span class="float-left">' + i18n_get('dialogs',wsi,'Show/Hide pseudo-instructions') + '</span>' +
+    		 '<span class="float-left">' + i18n_get('dialogs', wsi, 'Show/Hide pseudo-instructions') + '</span>' +
     		 '</button>' +
                      '<button type="button" id="close" data-role="none" ' +
                      '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
                      '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');">' +
-    		          i18n_get('dialogs',wsi,'Close') +
+    		          i18n_get('dialogs', wsi, 'Close') +
     		 '</button>' ;
 
              return o ;
         }
 
-	function instruction2tooltip ( mp, asm, l )
+	function instruction2tooltip ( mp, l )
 	{
     	   var wsi = get_cfg('ws_idiom') ;
 
            // prepare data: ins_quoted + firmware_reference
-	   var ins_quoted     = asm[l].source_original.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
-	   var firm_reference = asm[l].firm_reference ;
-	   var nwords         = parseInt(asm[l].firm_reference.nwords) ;
+	   var ins_quoted     = mp[l].source_original.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
+	   var firm_reference = mp[l].firm_reference ;
+	   var nwords         = parseInt(mp[l].firm_reference.nwords) ;
 
            // prepare data: ins_bin
 	   var next = 0 ;
-           var ins_bin = get_value(mp[l]) ;
+           var ins_bin = mp[l].binary ;
 	   for (var iw=1; iw<nwords; iw++)
 	   {
-		  next = "0x" + (parseInt(l, 16) + iw*4).toString(16) ; // 4 -> 32 bits
+		  next = parseInt(l, 16) + iw*4 ; // 4 -> 32 bits
                   if (typeof mp[next] !== "undefined") {
                       ins_bin += get_value(mp[next]) ;
                   }
@@ -414,7 +424,7 @@
            o += '<button type=\"button\" id=\"close\" data-role=\"none\" ' +
                 '        class=\"btn btn-sm btn-danger w-100 p-0 mt-2\" ' +
                 '        onclick=$(\".tooltip\").tooltip("hide");>' +
-    		         i18n_get('dialogs',wsi,'Close') +
+    		         i18n_get('dialogs', wsi, 'Close') +
     		'</button>' ;
 
 	   return o ;
@@ -456,34 +466,36 @@
 		    return o1 ;
 		}
 
-	        var pc_name = simhw_sim_ctrlStates_get().pc.state ;
-	        var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
-                var curr_addr = "0x" + reg_pc.toString(16) ;
-                var curr_firm = simhw_internalState('FIRMWARE') ;
+                var curr_mp       = simhw_internalState('MP') ;
+	        var pc_name       = simhw_sim_ctrlStates_get().pc.state ;
+	        var reg_pc        = get_value(simhw_sim_state(pc_name)) ;
+                var curr_addr_hex = "0x" + reg_pc.toString(16) ;
+                var old_addr_hex  = "0x" + old_addr.toString(16) ;
 
                 // check if assembly is loaded
-                if (typeof curr_firm.assembly === "undefined") {
+                if (typeof curr_mp === "undefined") {
 		    return o1 ;
                 }
 
                 // set default for old asmdbg_pc
-                if (typeof curr_firm.assembly[old_addr] !== "undefined")
+                if (typeof curr_mp[old_addr] !== "undefined")
                 {
-                     o1 = $("#asmdbg" + old_addr) ;
-                     o1.css('background-color', curr_firm.assembly[old_addr].bgcolor) ;
+                     o1 = $("#asmdbg" + old_addr_hex) ;
+                     o1.css('background-color', curr_mp[old_addr].bgcolor) ;
                 }
                 else
                 {
-                     for (var l in curr_firm.assembly)
+                     for (var l in curr_mp)
                      {
-                          o1 = $("#asmdbg" + l) ;
-                          o1.css('background-color', curr_firm.assembly[l].bgcolor) ;
+                          var p  = "0x" + l.toString(16) ;
+                          o1 = $("#asmdbg" + p) ;
+                          o1.css('background-color', curr_mp[l].bgcolor) ;
                      }
                 }
-                old_addr = curr_addr ;
+                old_addr = reg_pc ;
 
                 // try to set the current asmdbg_pc
-                o1 = $("#asmdbg" + curr_addr) ;
+                o1 = $("#asmdbg" + curr_addr_hex) ;
                 o1.css('background-color', '#00EE88') ;
 
                 // check if current asmdbg_pc is available
@@ -519,10 +531,10 @@
         {
                 var icon_theme = get_cfg('ICON_theme') ;
                 var hexaddr    = "0x" + addr.toString(16) ;
-                var curr_firm  = simhw_internalState('FIRMWARE') ;
+                var curr_mp    = simhw_internalState('MP') ;
 
                 var o1         = document.getElementById("bp"+hexaddr) ;
-                var bp_state   = curr_firm.assembly[hexaddr].breakpoint ;
+                var bp_state   = curr_mp[addr].breakpoint ;
 		var inner_elto = "." ;
 
 		// toggle
@@ -616,8 +628,8 @@
                             title:      function() {
                                            $("span[rel='tooltip1']").tooltip('hide') ;
 				           var l = this.getAttribute('data-l') ;
-				           var SIMWARE = get_simware() ;
-                                           return instruction2tooltip(SIMWARE.mp, SIMWARE.assembly, l) ;
+                                           var curr_mp = simhw_internalState('MP') ;
+                                           return instruction2tooltip(curr_mp, l) ;
                                         },
                             sanitizeFn: function (content) {
                                            return content ; // DOMPurify.sanitize(content) ;

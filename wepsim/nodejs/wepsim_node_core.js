@@ -157,11 +157,13 @@
 
     function wepsim_nodejs_after_instruction2  ( SIMWARE, reg_pc, ret )
     {
-        var curr_pc = '0x' + reg_pc.toString(16) ;
-        if (typeof SIMWARE.assembly[curr_pc] === 'undefined') {
+        var curr_mp = simhw_internalState('MP') ;
+        if (typeof curr_mp[reg_pc] === 'undefined') {
 	    return ;
 	}
-        var source_line = SIMWARE.assembly[curr_pc].source_original ;
+
+        var curr_pc = '0x' + reg_pc.toString(16) ;
+        var source_line = curr_mp[reg_pc].source_original ;
 
             after_state = simcore_simstate_current2state() ;
         var diff_states = simcore_simstate_diff_states(before_state, after_state) ;
@@ -216,8 +218,9 @@
     // interactive
     function wepsim_nodejs_asmBreakpoint ( hexaddr )
     {
-	var curr_firm = simhw_internalState('FIRMWARE') ;
-	var bp_state  = curr_firm.assembly[hexaddr] ;
+        var curr_mp   = simhw_internalState('MP') ;
+        var curr_addr = parseInt(hexaddr) ;
+	var bp_state  = curr_mp[curr_addr] ;
 	if (typeof bp_state === 'undefined') {
             return false ;
 	}

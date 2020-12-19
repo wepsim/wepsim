@@ -20,7 +20,10 @@
 
 
         /*
-         *  memory => { "0x...": { value: 0, source: "origin" }, ... }
+         *  memory => {
+         *               "0x...": { value: 0, source_tracking: "origin", ... },
+         *               ...
+         *            }
          */
 
         function main_memory_getkeys ( memory )
@@ -33,27 +36,48 @@
             return memory[elto] ;
         }
 
-        function main_memory_set ( memory, elto, value, source )
+        function main_memory_set ( memory, elto, melto )
         {
+            // get comments as string
+            var comments_str = '' ;
+            if (null != melto.comments) {
+                comments_str = melto.comments.join("\n") ;
+            }
+
+            // build computed attributes
+            melto.changed    = true ;
+            melto.bgcolor    = '' ;
+	    melto.state      = (comments_str.trim().split("state:").length > 1) ;
+	    melto.breakpoint = (comments_str.trim().split("break:").length > 1) ;
+	    melto.notify     =  comments_str.trim().split("notify:") ;
+	    for (var k=0; k<melto.notify.length; k++) {
+	    	 melto.notify[k] = melto.notify[k].split('\n')[0] ;
+	    }
+
+            // get existing element (or undefined)
             var valobj = memory[elto] ;
 
-            // element exits -> update it and return it
+            // if element exits -> update it and return it
             if (typeof valobj !== "undefined")
             {
-                set_value(valobj, value) ;
-                if (null != source) {
-                    valobj.source = source ;
+                set_value(valobj, melto.value) ;
+                valobj.changed = melto.changed ;
+
+                if (null != melto.source_tracking) {
+                    valobj.source_tracking = melto.source_tracking ;
+                }
+                if (null != melto.comments) {
+                    valobj.comments   = melto.comments ;
+		    valobj.state      = melto.state ;
+		    valobj.breakpoint = melto.breakpoint ;
+		    valobj.notify     = melto.notify ;
                 }
 
                 return valobj ;
             }
 
             // new element to be added and return "undefined" to inform the callee
-            memory[elto] = {
-                             "value":   value,
-                             "changed": true,
-                             "source":  source
-                           } ;
+            memory[elto] = melto ;
 
             return valobj ;
         }
@@ -77,16 +101,21 @@
         function main_memory_getsrc ( memory, elto )
         {
             var src = "" ;
-
             var valobj = memory[elto] ;
+
+            // check field value
             if (typeof valobj === "undefined") {
                 return src ;
             }
-
-            // get_source
-            if (typeof valobj.source !== "undefined") {
-                src = valobj.source ;
+            if (typeof valobj.source_tracking === "undefined") {
+                return src ;
             }
+            if (valobj.source_tracking == null) {
+                return src ;
+            }
+
+            // get_source as string
+            src = valobj.source_tracking ;
             if (Array.isArray(src)) {
                 src = src.join(";") ;
             }
