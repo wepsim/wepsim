@@ -225,8 +225,6 @@
 
                          // show binary
                          setTimeout(function(){
-                            binasm_load_mp2html(simware) ;
-
                             $('#bin_asm').modal('handleUpdate') ;
 			    wsweb_scroll_record('#scroller-bin2a') ;
 			    simcore_record_captureInit() ;
