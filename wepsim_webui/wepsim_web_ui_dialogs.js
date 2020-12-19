@@ -272,9 +272,8 @@
 
                          // show binary
                          setTimeout(function() {
-                                       binmc_load_mc2html(simware) ;
+                                       // binmc_load_mc2html(simware) ;
                                        $('#bin_fir').modal('handleUpdate') ;
-
 			               wsweb_scroll_record('#scroller-bin2b') ;
 			               simcore_record_captureInit() ;
                          }, 50) ;
