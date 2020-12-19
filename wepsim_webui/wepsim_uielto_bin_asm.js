@@ -24,15 +24,28 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_bin_asm extends HTMLElement
+        class ws_bin_asm extends ws_uielto
         {
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+              render ( )
+              {
+                    // initialize render elements...
+                    super.render() ;
+
+                    // render current element
+                    this.render_skel() ;
+                    this.render_populate() ;
+              }
+
+              // render
+	      render_skel ( )
 	      {
 		    // html holder
 		    var o1 = "   <div id='compile_bin2a' " +
@@ -47,15 +60,26 @@
 		    this.innerHTML = o1 ;
 	      }
 
-	      connectedCallback ()
-	      {
-		    this.render('') ;
+              render_populate ( )
+              {
+		    // check simware
+                    var simware = get_simware() ;
+		    if (null == simware) {
+		        return ;
+		    }
+
+		    // get html code
+		    var o = mp2html(simware.mp, simware.labels2, simware.seg) ;
+		    $('#compile_bin2a').html(o) ;
+
+		    for (var skey in simware.seg) {
+		         $("#compile_begin_" + skey).html("0x" + simware.seg[skey].begin.toString(16));
+		         $("#compile_end_"   + skey).html("0x" + simware.seg[skey].end.toString(16));
+		    }
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-bin_asm', ws_bin_asm) ;
-        }
+        register_uielto('ws-bin_asm', ws_bin_asm) ;
 
 
         /*
@@ -214,22 +238,5 @@
 		     "</center><br>" ;
 
 		return o;
-	}
-
-	function binasm_load_mp2html ( simware )
-	{
-		// check parameters
-		if (null == simware) {
-		    return ;
-		}
-
-                // get html code
-	        var o = mp2html(simware.mp, simware.labels2, simware.seg) ;
-	        $('#compile_bin2a').html(o) ;
-
-	        for (var skey in simware.seg) {
-	    	     $("#compile_begin_" + skey).html("0x" + simware.seg[skey].begin.toString(16));
-		     $("#compile_end_"   + skey).html("0x" + simware.seg[skey].end.toString(16));
-	        }
 	}
 

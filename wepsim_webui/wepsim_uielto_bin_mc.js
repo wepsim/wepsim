@@ -24,15 +24,27 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_bin_mc extends HTMLElement
+        class ws_bin_mc extends ws_uielto
         {
+              // constructor
 	      constructor ()
 	      {
 		    // parent
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+              render ( )
+              {
+                    // initialize render elements...
+                    super.render() ;
+
+                    // render current element
+                    this.render_skel() ;
+                    this.render_populate() ;
+              }
+
+	      render_skel ( )
 	      {
 		    // html holder
 		    var o1 = "   <div id='compile_bin2b' " +
@@ -47,32 +59,28 @@
 		    this.innerHTML = o1 ;
 	      }
 
-	      connectedCallback ()
-	      {
-		    this.render('') ;
+              render_populate ( )
+              {
+                    // check parameters
+                    var simware = get_simware() ;
+                    if (null == simware) {
+                        return ;
+                    }
+
+                    // get html code
+                    setTimeout(function(){
+	                var o = firmware2html(simware.firmware, true) ;
+	                $('#compile_bin2b').html(o) ;
+                    }, 15);
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-bin_mc', ws_bin_mc) ;
-        }
+        register_uielto('ws-bin_mc', ws_bin_mc) ;
 
 
         /*
          *  mc2html
          */
-
-        function binmc_load_mc2html ( simware )
-        {
-                // check parameters
-                if (null == simware) {
-                    return ;
-                }
-
-                // get html code
-	        var o = firmware2html(simware.firmware, true) ;
-	        $('#compile_bin2b').html(o) ;
-        }
 
 	function firmware2html ( fir, showBinary )
 	{
