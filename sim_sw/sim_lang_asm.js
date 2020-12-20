@@ -1400,7 +1400,7 @@ function read_text ( context, datosCU, ret )
 		        	       value:           machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
 				       binary:          machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
 				       source:          s_def,
-				       source_original: s_ori,
+				    // source_original: s_ori,
 		        	       source_tracking: [ s_ori ],
 				       firm_reference:  ref,
 		        	       comments:        [ acc_cmt ],

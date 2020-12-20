@@ -163,7 +163,8 @@
 	}
 
         var curr_pc = '0x' + reg_pc.toString(16) ;
-        var source_line = curr_mp[reg_pc].source_original ;
+    //  var source_line = curr_mp[reg_pc].source_original ;
+        var source_line = main_memory_getsrc(curr_mp, reg_pc) ;
 
             after_state = simcore_simstate_current2state() ;
         var diff_states = simcore_simstate_diff_states(before_state, after_state) ;

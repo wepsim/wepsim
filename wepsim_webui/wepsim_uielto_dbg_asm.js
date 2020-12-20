@@ -369,7 +369,9 @@
     	   var wsi = get_cfg('ws_idiom') ;
 
            // prepare data: ins_quoted + firmware_reference
-	   var ins_quoted     = mp[l].source_original.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
+	// var ins_quoted     = mp[l].source_original.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
+	   var ins_quoted     = main_memory_getsrc(mp, l) ;
+	       ins_quoted     = ins_quoted.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
 	   var firm_reference = mp[l].firm_reference ;
 	   var nwords         = parseInt(mp[l].firm_reference.nwords) ;
 
