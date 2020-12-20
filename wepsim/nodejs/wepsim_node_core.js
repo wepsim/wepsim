@@ -259,6 +259,7 @@
 	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	var ref_maddr  = simhw_sim_state(maddr_name) ;
 	var reg_maddr  = get_value(ref_maddr) ;
+        var ref_mdash  = null ;
 
 	var ret    = false ;
         var i_clks = 0 ;
@@ -284,12 +285,12 @@
 	    reg_maddr = get_value(ref_maddr) ;
 	    reg_pc    = get_value(ref_pc) ;
 
-	    ret = wepsim_check_mcdashboard(reg_maddr) ;
-	    if (false === ret) {
-		return false ;
-	    }
-
-	    ret = wepsim_check_stopbybreakpoint_firm(reg_maddr) ;
+            ref_mdash = simhw_internalState_get('MC_dashboard', reg_maddr) ;
+	    ret = wepsim_check_memdashboard(ref_mdash) ;
+            if (false === ret) {
+                return false ;
+            }
+	    ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 	    if (true === ret)
 	    {
 		console.log("INFO: Microinstruction is going to be issue.") ;
@@ -298,7 +299,12 @@
 
 	    if (0 === reg_maddr)
 	    {
-		ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
+                ref_mdash = simhw_internalState_get('MP', reg_pc) ;
+	        ret = wepsim_check_memdashboard(ref_mdash) ;
+	        if (false === ret) {
+	    	    return false ;
+	        }
+		ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 		if (true === ret) {
 		    console.log("INFO: Instruction is going to be fetched.") ;
 		    return false ;

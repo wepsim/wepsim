@@ -38,21 +38,26 @@
 
         function main_memory_set ( memory, elto, melto )
         {
-            // get comments as string
-            var comments_str = '' ;
-            if (null != melto.comments) {
-                comments_str = melto.comments.join("\n") ;
-            }
+            // default computed attributes
+            if (typeof melto.changed    === "undefined")  melto.changed = false ;
+            if (typeof melto.bgcolor    === "undefined")  melto.bgcolor = '' ;
+            if (typeof melto.state      === "undefined")  melto.state = false ;
+            if (typeof melto.breakpoint === "undefined")  melto.breakpoint = false ;
+            if (typeof melto.notify     === "undefined")  melto.notify = [] ;
 
-            // build computed attributes
-            melto.changed    = true ;
-            melto.bgcolor    = '' ;
-	    melto.state      = (comments_str.trim().split("state:").length > 1) ;
-	    melto.breakpoint = (comments_str.trim().split("break:").length > 1) ;
-	    melto.notify     =  comments_str.trim().split("notify:") ;
-	    for (var k=0; k<melto.notify.length; k++) {
-	    	 melto.notify[k] = melto.notify[k].split('\n')[0] ;
-	    }
+            // modify computed attributes by comments "operators"
+            var comments_str = '' ;
+            if (null != melto.comments)
+            {
+                comments_str = melto.comments.join("\n") ;
+
+	        melto.state      = melto.state      || (comments_str.trim().split("state:").length > 1) ;
+	        melto.breakpoint = melto.breakpoint || (comments_str.trim().split("break:").length > 1) ;
+	        melto.notify     = melto.notify     ||  comments_str.trim().split("notify:") ;
+	        for (var k=0; k<melto.notify.length; k++) {
+	             melto.notify[k] = melto.notify[k].split('\n')[0] ;
+	        }
+            }
 
             // get existing element (or undefined)
             var valobj = memory[elto] ;
