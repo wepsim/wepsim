@@ -189,7 +189,8 @@
                 var s2_instr = "" ;
                 var s3_val   = "" ;
                 var s4_hex   = "" ;
-                var bgc = "#F0F0F0" ;
+                var s5_ttip  = "" ;
+                var bgc      = "#F0F0F0" ;
 		var l = "" ;
 		var p = "" ;
 
@@ -216,10 +217,6 @@
                         "<tbody>" ;
                 for (l in mp)
                 {
-                     if (mp[l].is_assembly == false) {
-                           continue ;
-                     }
-
                      if  (bgc === "#F0F0F0")
                           bgc = "#F8F8F8" ;
                      else bgc = "#F0F0F0" ;
@@ -233,6 +230,16 @@
                      s4_hex   = parseInt(s3_val).toString(16) ;
                      s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
                      p        = "0x" + parseInt(l).toString(16) ;
+
+                     s5_ttip = "" ;
+                     if (mp[l].is_assembly)
+                     {
+			 s5_ttip = "<span data-toggle='tooltip' rel='tooltip2' data-placement='right' " +
+                                   "      data-html='true' data-l='" + l + "'>" +
+			           "<span data-toggle='tooltip' rel='tooltip1' data-placement='right' " +
+                                   "      title='click to show instruction format details'>&nbsp;.&nbsp;</span>" +
+			           "</span>" ;
+                     }
 
                      // labels
                      s_label = "" ;
@@ -284,9 +291,7 @@
 		           "</td>" +
                            "<td class='asm_dets   text-monospace col-auto show p-0' " +
                            "    style='line-height:0.9;' width='1%' align='left'>" +
-			   "    <span data-toggle='tooltip' rel='tooltip2' data-placement='right' data-html='true' data-l='" + l + "'>" +
-			   "    <span data-toggle='tooltip' rel='tooltip1' data-placement='right' title='click to show instruction format details'>&nbsp;.&nbsp;</span>" +
-			   "    </span>" +
+                           s5_ttip +
 		           "</td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;'" +
