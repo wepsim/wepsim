@@ -39,11 +39,13 @@
         function main_memory_set ( memory, elto, melto )
         {
             // default computed attributes
-            if (typeof melto.changed    === "undefined")  melto.changed = false ;
-            if (typeof melto.bgcolor    === "undefined")  melto.bgcolor = '' ;
-            if (typeof melto.state      === "undefined")  melto.state = false ;
-            if (typeof melto.breakpoint === "undefined")  melto.breakpoint = false ;
-            if (typeof melto.notify     === "undefined")  melto.notify = [] ;
+            if (typeof melto.changed     === "undefined")  melto.changed     = false ;
+            if (typeof melto.state       === "undefined")  melto.state       = false ;
+            if (typeof melto.breakpoint  === "undefined")  melto.breakpoint  = false ;
+            if (typeof melto.notify      === "undefined")  melto.notify      = [] ;
+            if (typeof melto.is_assembly === "undefined")  melto.is_assembly = false ;
+            if (typeof melto.bgcolor     === "undefined")  melto.bgcolor     = '' ;
+            if (typeof melto.source      === "undefined")  melto.source      = '' ;
 
             // modify computed attributes by comments "operators"
             var comments_str = '' ;
