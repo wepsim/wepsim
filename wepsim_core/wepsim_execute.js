@@ -214,7 +214,7 @@
 	return true ;
     }
 
-    function wepsim_check_memdashboard ( ref_mdash )
+    function wepsim_check_memdashboard ( ref_mdash, notif_origin )
     {
         if (typeof ref_mdash === "undefined") {
 	    return true ;
@@ -230,7 +230,7 @@
 	var notifications = ref_mdash.notify.length ;
 	if (notifications > 1)
            {
-		var dialog_title = "Notify @ " + reg_maddr + ": " + ref_mdash.notify[1] ;
+		var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[1] ;
 
 		var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
 		for (var k=1; k<notifications; k++) {
@@ -303,7 +303,7 @@
 	    reg_pc    = get_value(ref_pc) ;
 
             ref_mdash = simhw_internalState_get('MC_dashboard', reg_maddr) ;
-	    ret = wepsim_check_memdashboard(ref_mdash) ;
+	    ret = wepsim_check_memdashboard(ref_mdash, reg_maddr) ;
 	    if (false === ret) {
 		return false ;
 	    }
@@ -318,7 +318,7 @@
 	    if (0 === reg_maddr)
 	    {
                 ref_mdash = simhw_internalState_get('MP', reg_pc) ;
-	        ret = wepsim_check_memdashboard(ref_mdash) ;
+	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;
 	        if (false === ret) {
 	    	    return false ;
 	        }

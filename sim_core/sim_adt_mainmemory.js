@@ -53,7 +53,7 @@
 
 	        melto.state      = melto.state      || (comments_str.trim().split("state:").length > 1) ;
 	        melto.breakpoint = melto.breakpoint || (comments_str.trim().split("break:").length > 1) ;
-	        melto.notify     = melto.notify     ||  comments_str.trim().split("notify:") ;
+	        melto.notify     =                      comments_str.trim().split("notify:") ;
 	        for (var k=0; k<melto.notify.length; k++) {
 	             melto.notify[k] = melto.notify[k].split('\n')[0] ;
 	        }

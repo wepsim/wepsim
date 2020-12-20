@@ -286,7 +286,7 @@
 	    reg_pc    = get_value(ref_pc) ;
 
             ref_mdash = simhw_internalState_get('MC_dashboard', reg_maddr) ;
-	    ret = wepsim_check_memdashboard(ref_mdash) ;
+	    ret = wepsim_check_memdashboard(ref_mdash, reg_maddr) ;
             if (false === ret) {
                 return false ;
             }
@@ -300,7 +300,7 @@
 	    if (0 === reg_maddr)
 	    {
                 ref_mdash = simhw_internalState_get('MP', reg_pc) ;
-	        ret = wepsim_check_memdashboard(ref_mdash) ;
+	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;
 	        if (false === ret) {
 	    	    return false ;
 	        }
