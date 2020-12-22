@@ -86,19 +86,3 @@
             return valobj ;
         }
 
-
-        //
-        // Get fields
-        //
-
-        function control_memory_getvalue ( memory, elto )
-        {
-            var valobj = memory[elto] ;
-
-            if (typeof valobj === "undefined") {
-                return valobj ;
-            }
-
-            return get_value(valobj) ;
-        }
-
