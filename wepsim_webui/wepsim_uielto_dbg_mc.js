@@ -167,27 +167,24 @@
 
         function controlmemory_lineToString ( memory, key )
         {
-		var value = "" ;
+                var mcelto = control_memory_get(memory, key) ;
+	        if (typeof mcelto === "undefined") {
+	   	    return "" ;
+	        }
+	        if (typeof mcelto.NATIVE !== "undefined") {
+	   	    return "&lt;native&gt; " ;
+	        }
+	        if (typeof mcelto.NATIVE_JIT !== "undefined") {
+		    return "&lt;built-in&gt; " ;
+		}
 
-                var mc_val = control_memory_getvalue(memory, key) ;
+		var value = "" ;
+                var mc_val = get_value(mcelto) ;
 		for (var ks in mc_val)
 		{
-		     if (1 == mc_val[ks]) {
-			 value += ks + " ";
-			 continue;
-		     }
-
-		     if ("NATIVE" == ks) {
-			 value += "&lt;native&gt; " ;
-			 continue;
-		     }
-
-		     if ("NATIVE_JIT" == ks) {
-			 value += "&lt;built-in&gt; " ;
-			 continue;
-		     }
-
-		     value += ks + "=" + parseInt(mc_val[ks]).toString(2) + " ";
+		     if (1 == mc_val[ks])
+			  value += ks + " ";
+                     else value += ks + "=" + parseInt(mc_val[ks]).toString(2) + " ";
 		}
 
 		return value ;

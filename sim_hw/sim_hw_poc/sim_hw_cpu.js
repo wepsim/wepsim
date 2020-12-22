@@ -2153,16 +2153,21 @@
 							    var new_maddr = get_value(sim.poc.states["MUXA_MICROADDR"]) ;
 							    set_value(sim.poc.states["REG_MICROADDR"], new_maddr) ;
 
+							    var new_mins = null ;
 				                            var mcelto = sim.poc.internal_states['MC'][new_maddr] ;
-							    if (typeof mcelto != "undefined")
-								     var new_mins = Object.create(get_value(mcelto)) ;
-								else var new_mins = Object.create(sim.poc.states["REG_MICROINS"].default_value);
+							    if (typeof mcelto !== "undefined") {
+								new_mins = Object.create(get_value(mcelto)) ;
+							    }
+							    else { 
+				                                new_mins = Object.create(sim.poc.states["REG_MICROINS"].default_value);
+								mcelto = {} ;
+							    }
 							    sim.poc.states["REG_MICROINS"].value = new_mins ;
 
                                                             // 4.- update signals
 							    for (var key in sim.poc.signals)
 							    {
-								 if (typeof new_mins[key] != "undefined")
+								 if (typeof new_mins[key] !== "undefined")
 								      set_value(sim.poc.signals[key],   new_mins[key]);
 								 else set_value(sim.poc.signals[key], sim.poc.signals[key].default_value);
 							    }
@@ -2175,10 +2180,10 @@
 							    //Promise.all(actions) ;
 
 							    // 6.- Native
-							         if (typeof new_mins.NATIVE_JIT != "undefined")
-							             new_mins.NATIVE_JIT() ;
-						            else if (typeof new_mins.NATIVE != "undefined")
-							             eval(new_mins.NATIVE) ;
+							         if (typeof mcelto.NATIVE_JIT != "undefined")
+							             mcelto.NATIVE_JIT() ;
+						            else if (typeof mcelto.NATIVE != "undefined")
+							             eval(mcelto.NATIVE) ;
 
 						            // measure time (2/2)
 					                    var t1 = performance.now() ;

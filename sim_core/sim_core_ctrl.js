@@ -311,6 +311,7 @@
 	    // 2.- load the MC from ROM['firmware']
             simhw_internalState_reset('MC', {}) ;
             var mc_obj = simhw_internalState('MC') ;
+            var mcelto = null ;
             for (i=0; i<SIMWARE['firmware'].length; i++)
 	    {
 	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
@@ -318,8 +319,11 @@
 	       for (var j=0; j<last; j++)
 	       {
                     var mcelto = {
-		                    value:    SIMWARE['firmware'][i]["microcode"][j],
-                                    comments: SIMWARE['firmware'][i]["microcomments"][j]
+		                    value:        SIMWARE['firmware'][i]["microcode"][j],
+                                    comments:     SIMWARE['firmware'][i]["microcomments"][j],
+                                    is_native:    SIMWARE['firmware'][i].is_native,
+                                    NATIVE:       SIMWARE['firmware'][i].NATIVE,
+                                    NATIVE_JIT:   SIMWARE['firmware'][i].NATIVE_JIT
                                  } ;
                     control_memory_set(mc_obj, mci, mcelto) ;
 
@@ -338,8 +342,9 @@
 	       var ma = SIMWARE['firmware'][i]["mc-start"] ;
 	       var co = parseInt(SIMWARE['firmware'][i]["co"], 2) ;
                var cop = 0 ;
-	       if (typeof SIMWARE['firmware'][i]["cop"] != "undefined")
+	       if (typeof SIMWARE['firmware'][i]["cop"] != "undefined") {
 	           cop = parseInt(SIMWARE['firmware'][i]["cop"], 2) ;
+               }
 
                var rom_addr = 64*co + cop ;
 	       simhw_internalState_set('ROM', rom_addr, ma) ;
