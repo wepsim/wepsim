@@ -234,14 +234,16 @@
 
     function wepsim_nodejs_microBreakpoint ( hexaddr )
     {
-	var bp_state = simhw_internalState_get('MC_dashboard', hexaddr) ;
+        var curr_mc   = simhw_internalState('MC') ;
+        var curr_addr = parseInt(hexaddr) ;
+	var bp_state  = curr_mc[curr_addr] ;
 	if (typeof bp_state === 'undefined') {
             return false ;
 	}
 
 	bp_state = bp_state.breakpoint ;
 	bp_state = ! bp_state ;
-	simhw_internalState_get('MC_dashboard', hexaddr).breakpoint = bp_state ;
+	simhw_internalState_get('MC', hexaddr).breakpoint = bp_state ;
 	return bp_state ;
     }
 
@@ -286,7 +288,7 @@
 	    reg_maddr = get_value(ref_maddr) ;
 	    reg_pc    = get_value(ref_pc) ;
 
-            ref_mdash = simhw_internalState_get('MC_dashboard', reg_maddr) ;
+            ref_mdash = simhw_internalState_get('MC', reg_maddr) ;
 	    ret = wepsim_check_memdashboard(ref_mdash, reg_maddr) ;
             if (false === ret) {
                 return false ;

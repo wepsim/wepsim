@@ -127,7 +127,8 @@
 	     var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	     var curr_maddr = get_value(simhw_sim_state(maddr_name)) ;
 
-             var mins = simhw_internalState_get('MC', curr_maddr) ;
+             var mcelto = simhw_internalState_get('MC', curr_maddr) ;
+             var mins   = get_value(mcelto) ;
 	     for (var key in mins)
 	     {
 		  if ("MADDR" === key) {
@@ -247,9 +248,9 @@
 	    return simcore_action_ui("MEMORY", 0, "show_main_memory")(memory, index, redraw, updates) ;
         }
 
-        function show_control_memory ( memory, memory_dashboard, index, redraw )
+        function show_control_memory ( memory, index, redraw )
         {
-	    return simcore_action_ui("MEMORY", 0, "show_control_memory")(memory, memory_dashboard, index, redraw) ;
+	    return simcore_action_ui("MEMORY", 0, "show_control_memory")(memory, index, redraw) ;
         }
 
         function show_memories_values ( )
@@ -264,7 +265,7 @@
 	    var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	    var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
 
-	    show_control_memory(simhw_internalState('MC'), simhw_internalState('MC_dashboard'), reg_maddr, true) ;
+	    show_control_memory(simhw_internalState('MC'), reg_maddr, true) ;
 	}
 
         // CPU svg: update_draw

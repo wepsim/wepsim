@@ -63,7 +63,7 @@
                 var dbg_level  = get_cfg('DBG_level') ;
 
                 var o1       = document.getElementById("mcpin" + addr) ;
-                var bp_state = simhw_internalState_get('MC_dashboard', addr).breakpoint ;
+                var bp_state = simhw_internalState_get('MC', addr).breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
@@ -73,7 +73,7 @@
                     o1.innerHTML = sim_core_breakpointicon_get(icon_theme) ;
                 }
 
-                simhw_internalState_get('MC_dashboard', addr).breakpoint = bp_state ;
+                simhw_internalState_get('MC', addr).breakpoint = bp_state ;
 
                 if ( bp_state && ('instruction' === dbg_level) )
                 {
@@ -93,9 +93,7 @@
 	        var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	        var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
 
-                light_refresh_control_memory(simhw_internalState('MC'),
-                                             simhw_internalState('MC_dashboard'),
-			                     reg_maddr) ;
+                light_refresh_control_memory(simhw_internalState('MC'), reg_maddr) ;
 	}
 
 
@@ -103,17 +101,17 @@
          *  Control Memory UI
          */
 
-        function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
+        function hard_refresh_control_memory ( memory, index, redraw )
         {
 	    var o1 = "" ;
             var SIMWARE = get_simware() ;
 
             for (var key in memory) {
-                 o1 += control_memory_showrow(memory, key, (key == index), memory_dashboard, SIMWARE.revlabels) ;
+                 o1 += control_memory_showrow(memory, key, (key == index), SIMWARE.revlabels) ;
             }
 
 	    if (typeof memory[index] == "undefined") {
-                o1 += control_memory_showrow(memory, index, true, memory_dashboard, SIMWARE.revlabels) ;
+                o1 += control_memory_showrow(memory, index, true, SIMWARE.revlabels) ;
             }
 
             // build and load HTML
@@ -134,7 +132,7 @@
 
         var old_mc_addr = 0;
 
-        function light_refresh_control_memory ( memory, memory_dashboard, index )
+        function light_refresh_control_memory ( memory, index )
         {
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'black') ;
@@ -149,7 +147,7 @@
 
         var show_control_memory_deferred = null;
 
-        function wepsim_show_control_memory ( memory, memory_dashboard, index, redraw )
+        function wepsim_show_control_memory ( memory, index, redraw )
         {
             if (null !== show_control_memory_deferred) {
                 return;
@@ -157,8 +155,8 @@
 
             show_control_memory_deferred = setTimeout(function () {
 						         if (false === redraw)
-							      light_refresh_control_memory(memory, memory_dashboard, index);
-                                                         else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
+							      light_refresh_control_memory(memory, index);
+                                                         else  hard_refresh_control_memory(memory, index, redraw);
                                                          show_control_memory_deferred = null;
                                                       }, cfg_show_control_memory_delay);
         }
@@ -171,9 +169,10 @@
         {
 		var value = "" ;
 
-		for (var ks in memory[key])
+                var mc_val = control_memory_getvalue(memory, key) ;
+		for (var ks in mc_val)
 		{
-		     if (1 == memory[key][ks]) {
+		     if (1 == mc_val[ks]) {
 			 value += ks + " ";
 			 continue;
 		     }
@@ -188,13 +187,13 @@
 			 continue;
 		     }
 
-		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
+		     value += ks + "=" + parseInt(mc_val[ks]).toString(2) + " ";
 		}
 
 		return value ;
         }
 
-        function control_memory_showrow ( memory, key, is_current, memory_dashboard, revlabels )
+        function control_memory_showrow ( memory, key, is_current, revlabels )
         {
 	        var o1 = "" ;
 
@@ -221,9 +220,9 @@
                 // trpin + wcolor
                 var trpin  = "&nbsp;" ;
                 var jscode = "" ;
-                if (typeof memory_dashboard[key] !== "undefined")
+                if (typeof memory[key] !== "undefined")
 	        {
-		    if (true == memory_dashboard[key].breakpoint) {
+		    if (true == memory[key].breakpoint) {
                         var icon_theme = get_cfg('ICON_theme') ;
                         trpin = sim_core_breakpointicon_get(icon_theme) ;
 		    }

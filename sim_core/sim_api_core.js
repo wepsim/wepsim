@@ -288,9 +288,10 @@
                     ret.ok  = true ;
                     ret.msg = "" ;
 
-                // if (MC[reg_maddr] == undefined) -> cannot continue
-                var curr_MC = simhw_internalState('MC') ;
-                if (typeof curr_MC[reg_maddr] === "undefined")
+                // if (MC[reg_maddr].value == undefined) -> cannot continue
+                var curr_MC    = simhw_internalState('MC') ;
+                var curr_value = control_memory_getvalue(curr_MC, reg_maddr) ;
+                if (typeof curr_value === "undefined")
                 {
                     var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
                     ret.ok  = false ;
@@ -308,7 +309,7 @@
                 }
 
                 // if (border *text) && (native code) && (reg_maddr === 0) -> can continue
-                if ( (typeof curr_MC[reg_maddr].NATIVE !== "undefined") && (0 === reg_maddr) ) {
+                if ( (typeof curr_value.NATIVE !== "undefined") && (0 === reg_maddr) ) {
                       return ret ;
                 }
 
@@ -482,6 +483,7 @@
                 var i_clks    = 0 ;
                 var limitless = (options.cycles_limit < 0) ;
                 var cur_addr  = 0 ;
+                var cur_value = null ;
 
 		do
             	{
@@ -502,8 +504,9 @@
 			break ;
 	            }
 
-                    cur_addr = get_value(maddr_state) ;
-                    if (typeof curr_MC[cur_addr] == "undefined")
+                    cur_addr  = get_value(maddr_state) ;
+                    cur_value = control_memory_getvalue(curr_MC, cur_addr) ;
+                    if (typeof cur_value == "undefined")
 		    {
 		        ret.msg = "Error: undefined microinstruction at " + cur_addr + "." ;
 		        ret.ok  = false ;
@@ -515,7 +518,7 @@
 		// no_error && native -> perform a second clock-tick...
 		if (
 		     (true == ret.ok) &&
-		     (typeof curr_MC[cur_addr].NATIVE !== "undefined")
+		     (typeof cur_value.NATIVE !== "undefined")
 		   )
 		{
                     compute_general_behavior("CLOCK") ; // ...instruction

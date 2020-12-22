@@ -194,8 +194,7 @@
 							   return true ;
 						        },
 						 reset: function() {
-							   show_control_memory(simhw_internalState('MC'),
-									       simhw_internalState('MC_dashboard'),0,true);
+							   show_control_memory(simhw_internalState('MC'),0,true);
 						        },
 					   update_draw: wepsim_svg_update_draw,
 			         update_bus_visibility: wepsim_svg_update_bus_visibility

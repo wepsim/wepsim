@@ -87,6 +87,7 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_core_rest.js \
     sim_core/sim_core_notify.js \
     sim_core/sim_core_values.js \
+    sim_core/sim_adt_ctrlmemory.js \
     sim_core/sim_adt_mainmemory.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js

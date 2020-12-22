@@ -176,7 +176,6 @@
 	 */
 
         sim.ep.internal_states.MC           = {} ;
-        sim.ep.internal_states.MC_dashboard = {} ;
         sim.ep.internal_states.ROM          = {} ;
 
         sim.ep.internal_states.FIRMWARE     = {} ;
@@ -2026,8 +2025,9 @@
 							    var new_maddr = get_value(sim.ep.states["MUXA_MICROADDR"]) ;
 							    set_value(sim.ep.states["REG_MICROADDR"], new_maddr) ;
 
-							    if (typeof sim.ep.internal_states['MC'][new_maddr] != "undefined")
-								     var new_mins = Object.create(sim.ep.internal_states['MC'][new_maddr]);
+				                            var mcelto = sim.ep.internal_states['MC'][new_maddr] ;
+							    if (typeof mcelto !== "undefined")
+				                                     var new_mins = Object.create(get_value(mcelto)) ;
 								else var new_mins = Object.create(sim.ep.states["REG_MICROINS"].default_value);
 							    sim.ep.states["REG_MICROINS"].value = new_mins ;
 

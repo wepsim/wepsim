@@ -277,12 +277,16 @@
 		 // update MC[uADDR]
 	         var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 		 var curr_maddr = get_value(simhw_sim_state(maddr_name)) ;
-		 if (typeof simhw_internalState_get('MC', curr_maddr) == "undefined") {
-		     simhw_internalState_set('MC', curr_maddr, new Object()) ;
-		     simhw_internalState_set('MC_dashboard', curr_maddr, new Object()) ;
-		 }
-		 simhw_internalState_get('MC', curr_maddr)[key] = simhw_sim_signal(key).value ;
-		 simhw_internalState_get('MC_dashboard', curr_maddr)[key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
+
+                 var mc_obj = simhw_internalState('MC') ;
+                 var mcelto = control_memory_get(mc_obj, curr_maddr) ;
+                 if (typeof mcelto === "undefined") {
+                     mcelto = {} ;
+                 }
+
+                 mcelto.value[key] = simhw_sim_signal(key).value ;
+                 mcelto.comment    = "" ;
+                 control_memory_set(mc_obj, curr_maddr, mcelto) ;
 
 		 // update ROM[..]
 		 update_signal_firmware(key) ;
@@ -306,30 +310,19 @@
 
 	    // 2.- load the MC from ROM['firmware']
             simhw_internalState_reset('MC', {}) ;
-            simhw_internalState_reset('MC_dashboard', {}) ;
+            var mc_obj = simhw_internalState('MC') ;
             for (i=0; i<SIMWARE['firmware'].length; i++)
 	    {
-               var elto_state  = false ;
-               var elto_break  = false ;
-               var elto_notify = new Array() ;
-
 	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
 	       {
-		    var comment  = SIMWARE['firmware'][i]["microcomments"][j] ;
-                    elto_state   = (comment.trim().split("state:").length > 1) ;
-                    elto_break   = (comment.trim().split("break:").length > 1) ;
-                    elto_notify  =  comment.trim().split("notify:") ;
-		    for (var k=0; k<elto_notify.length; k++) {
-		         elto_notify[k] = elto_notify[k].split('\n')[0] ;
-                    }
+                    var mcelto = {
+		                    value:   SIMWARE['firmware'][i]["microcode"][j],
+                                    comment: SIMWARE['firmware'][i]["microcomments"][j]
+                                 } ;
+                    control_memory_set(mc_obj, mci, mcelto) ;
 
-		    simhw_internalState_set('MC',           mci, SIMWARE['firmware'][i]["microcode"][j]) ;
-                    simhw_internalState_set('MC_dashboard', mci, { comment: comment,
-                                                                   state: elto_state,
-                                                                   breakpoint: elto_break,
-                                                                   notify: elto_notify }) ;
 		    mci++;
 	       }
 	    }
@@ -373,10 +366,7 @@
 	    }
 
 	    // 6.- show memories...
-            var mc_obj  = simhw_internalState('MC') ;
-            var mcd_obj = simhw_internalState('MC_dashboard') ;
-
             show_main_memory   (mp_obj, 0, true, true) ;
-            show_control_memory(mc_obj, mcd_obj, 0, true) ;
+            show_control_memory(mc_obj, 0, true) ;
 	}
 
