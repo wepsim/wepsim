@@ -163,7 +163,6 @@
 	}
 
         var curr_pc = '0x' + reg_pc.toString(16) ;
-    //  var source_line = curr_mp[reg_pc].source_original ;
         var source_line = main_memory_getsrc(curr_mp, reg_pc) ;
 
             after_state = simcore_simstate_current2state() ;
@@ -203,6 +202,7 @@
 	var padding1 = 4 - (curr_mpc.length    / 4) ;
 	var padding2 = 7 - (source_line.length / 8) ;
 	source_line  = source_line.replace(/,/g,"") ;
+        source_line  = treatHTMLSequences(source_line) ;
 
 	console.log('micropc = ' + curr_mpc + ','.padEnd(padding1, '\t') +
 		                source_line + ','.padEnd(padding2, '\t') +

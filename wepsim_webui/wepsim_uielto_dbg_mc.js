@@ -168,16 +168,21 @@
         function controlmemory_lineToString ( memory, key )
         {
                 var mcelto = control_memory_get(memory, key) ;
+
+                // if empty element -> ""
 	        if (typeof mcelto === "undefined") {
 	   	    return "" ;
 	        }
-	        if (typeof mcelto.NATIVE !== "undefined") {
-	   	    return "&lt;native&gt; " ;
-	        }
-	        if (typeof mcelto.NATIVE_JIT !== "undefined") {
-		    return "&lt;built-in&gt; " ;
-		}
 
+                // if native -> ""
+	        if (mcelto.is_native)
+                {
+	            if (typeof mcelto.NATIVE_JIT === "function")
+		         return "&lt;built-in&gt; " ;
+	   	    else return "&lt;native&gt; " ;
+	        }
+
+                // if signals -> "S=V, ..."
 		var value = "" ;
                 var mc_val = get_value(mcelto) ;
 		for (var ks in mc_val)

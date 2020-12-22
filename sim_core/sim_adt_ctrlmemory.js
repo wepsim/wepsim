@@ -43,7 +43,7 @@
             if (typeof melto.state       === "undefined")  melto.state       = false ;
             if (typeof melto.breakpoint  === "undefined")  melto.breakpoint  = false ;
             if (typeof melto.notify      === "undefined")  melto.notify      = [] ;
-            if (typeof melto.bgcolor     === "undefined")  melto.bgcolor     = '' ;
+            if (typeof melto.is_native   === "undefined")  melto.is_native   = false ;
 
             // modify computed attributes by comments "operators"
             var comments_str = '' ;

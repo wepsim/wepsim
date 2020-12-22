@@ -402,9 +402,9 @@
             }
 	    else {
                 new_mins = simhw_sim_state('REG_MICROINS').default_value ;
-                mcelto = {} ;
+                mcelto = { is_native: false } ;
             }
-	    if (typeof mcelto.NATIVE === "undefined") {
+	    if (false == mcelto.is_native) {
                 compute_general_behavior("CLOCK") ;
 	    }
 
@@ -511,8 +511,8 @@
 			break ;
 	            }
 
-                    cur_addr  = get_value(maddr_state) ;
-                    mcelto    = control_memory_get(curr_MC, cur_addr) ;
+                    cur_addr = get_value(maddr_state) ;
+                    mcelto   = control_memory_get(curr_MC, cur_addr) ;
                     if (typeof mcelto === "undefined")
 		    {
 		        ret.msg = "Error: undefined microinstruction at " + cur_addr + "." ;
@@ -523,10 +523,7 @@
 		while ( (i_clks < options.cycles_limit) && (0 != cur_addr) );
 
 		// no_error && native -> perform a second clock-tick...
-		if (
-		     (true == ret.ok) &&
-		     (typeof mcelto.NATIVE !== "undefined")
-		   )
+		if ( (true == ret.ok) && (mcelto.is_native) )
 		{
                     compute_general_behavior("CLOCK") ; // ...instruction
                 }
