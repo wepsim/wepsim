@@ -396,14 +396,15 @@
             // If not NATIVE code, fire one clock signal to initialize at first microinstruction
 	    var new_maddr = get_value(simhw_sim_state('MUXA_MICROADDR')) ;
             var mcelto    = control_memory_get(curr_MC, new_maddr) ;
-	    var new_mins  = null ;
-	    if (typeof mcelto !== "undefined") {
-		new_mins = get_value(mcelto) ;
+	    if (typeof mcelto === "undefined")
+            {
+                mcelto = {
+                            value:     simhw_sim_state('REG_MICROINS').default_value,
+                            is_native: false
+                         } ;
             }
-	    else {
-                new_mins = simhw_sim_state('REG_MICROINS').default_value ;
-                mcelto = { is_native: false } ;
-            }
+	    var new_mins = get_value(mcelto) ;
+
 	    if (false == mcelto.is_native) {
                 compute_general_behavior("CLOCK") ;
 	    }

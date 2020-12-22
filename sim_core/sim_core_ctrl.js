@@ -285,7 +285,7 @@
                  }
 
                  mcelto.value[key] = simhw_sim_signal(key).value ;
-                 mcelto.comments   = [ ] ;
+                 mcelto.comments   = [] ;
                  control_memory_set(mc_obj, curr_maddr, mcelto) ;
 
 		 // update ROM[..]

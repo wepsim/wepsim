@@ -64,14 +64,17 @@ factorial:
            sw   $fp 4($sp)
            addi $fp $sp 4
 
-           # notify: TIP:
-           # notify:  A subrutine might modify $t0..$t9 but keep the value of everything else.
-           # notify:  If subrutine A calls B then B should save values it might need on all registers but $t0..$t9.
+           # notify: TIP: Calling conventions
+           # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
+           # notify: 
+           # notify:  If subrutine A calls B then:
+           # notify:  > B should save values it might need on all registers but $t0..$t9, at the beginning.
+           # notify:  * B should restore the saved values, just before "jr $ra"
            # notify: 
            # notify: Factorial need to save 3 registers: $ra, $fp and a local variable:
            # notify:  * SP = SP - 3*4
-           # notify:  * RAM[SP+8] = RA
-           # notify:  * RAM[SP+4] = FP
+           # notify:  * Memory[SP+8] = RA
+           # notify:  * Memory[SP+4] = FP
            # notify:  * FP = SP + 4
 
            # if ($a < 2):
@@ -83,19 +86,30 @@ factorial:
            # else:
            #    return $a0 * factorial($a0 - 1)
 
-           # notify: TIP:
-           # notify:  A subrutine might modify $t0..$t9 but keep the value of everything else.
-           # notify:  If subrutine A calls B then A should save $t... values it might need.
+   b_else: sw   $a0 -4($fp)
+
+           # notify: TIP: Calling conventions
+           # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
+           # notify: 
+           # notify:  If subrutine A calls B then:
+           # notify:  > A should save values on registers $t0..$t9 it needs, before parameter passing and "jal"
+           # notify:  * A should restore the saved values, just after "jal"
            # notify: 
            # notify: Factorial save $a0 as local variable:
-           # notify:  * RAM[SP+0] = A0
+           # notify:  * Memory[SP+0] = A0
 
-   b_else: sw   $a0 -4($fp)
            addi $a0 $a0 -1
            jal  factorial
 
+           # notify: TIP: Calling conventions
+           # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
+           # notify: 
+           # notify:  If subrutine A calls B then:
+           # notify:  * A should save values on registers $t0..$t9 it needs, before parameter passing and "jal"
+           # notify:  > A should restore the saved values, just after "jal"
+           # notify: 
            # notify: Factorial restore $a0 on $v1
-           # notify:  * V1 = RAM[SP+0]
+           # notify:  * V1 = Memory[SP+0]
 
            lw   $v1 -4($fp)
            mul  $v0 $v0 $v1
@@ -105,18 +119,25 @@ factorial:
            lw   $fp 4($sp)
            addi $sp $sp 12
 
+           # notify: TIP: Calling conventions
+           # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
+           # notify: 
+           # notify:  If subrutine A calls B then:
+           # notify:  * B should save values it might need on all registers but $t0..$t9, at the beginning.
+           # notify:  > B should restore the saved values, just before "jr $ra"
+           # notify: 
            # notify: Factorial restore the $ra and $fp values.
            # notify:  * SP = SP + 3*4
-           # notify:  * RA = RAM[SP+8]
-           # notify:  * FP = RAM[SP+4]
+           # notify:  * RA = Memory[SP+8]
+           # notify:  * FP = Memory[SP+4]
 
            # return $v0
            jr $ra
 
 
      main:
-           # v1 = factorial(5)
-           li  $a0 5
+           # v1 = factorial(3)
+           li  $a0 3
            jal factorial
 
            # print_int(v1)
