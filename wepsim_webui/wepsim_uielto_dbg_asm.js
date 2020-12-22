@@ -483,6 +483,7 @@
                 }
 
                 // set default for old asmdbg_pc
+                var p = null ;
                 if (typeof curr_mp[old_addr] !== "undefined")
                 {
                      o1 = $("#asmdbg" + old_addr_hex) ;
@@ -492,7 +493,7 @@
                 {
                      for (var l in curr_mp)
                      {
-                          var p  = "0x" + l.toString(16) ;
+                          p  = "0x" + l.toString(16) ;
                           o1 = $("#asmdbg" + p) ;
                           o1.css('background-color', curr_mp[l].bgcolor) ;
                      }
@@ -521,7 +522,7 @@
                           var d = o1[0].offsetTop - obj_byid.scrollTop() ;
 
                           if ( (d < 0) || (d > h) ) {
-                              var p = (o1[0].offsetTop < h) ? 0 : (o1[0].offsetTop - h/2) ;
+                              p = (o1[0].offsetTop < h) ? 0 : (o1[0].offsetTop - h/2) ;
                               obj_byid.animate({ scrollTop: p }, { duration: ani_delay }) ;
                           }
                     }

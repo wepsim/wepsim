@@ -285,7 +285,7 @@
                  }
 
                  mcelto.value[key] = simhw_sim_signal(key).value ;
-                 mcelto.comment    = "" ;
+                 mcelto.comments   = [ ] ;
                  control_memory_set(mc_obj, curr_maddr, mcelto) ;
 
 		 // update ROM[..]
@@ -318,8 +318,8 @@
 	       for (var j=0; j<last; j++)
 	       {
                     var mcelto = {
-		                    value:   SIMWARE['firmware'][i]["microcode"][j],
-                                    comment: SIMWARE['firmware'][i]["microcomments"][j]
+		                    value:    SIMWARE['firmware'][i]["microcode"][j],
+                                    comments: SIMWARE['firmware'][i]["microcomments"][j]
                                  } ;
                     control_memory_set(mc_obj, mci, mcelto) ;
 

@@ -49,7 +49,9 @@
             var comments_str = '' ;
             if (null != melto.comments)
             {
-                comments_str = melto.comments.join("\n") ;
+                comments_str = melto.comments ;
+                if (melto.comments instanceof Array)
+                    comments_str = melto.comments.join("\n") ;
 
 	        melto.state      = melto.state      || (comments_str.trim().split("state:").length > 1) ;
 	        melto.breakpoint = melto.breakpoint || (comments_str.trim().split("break:").length > 1) ;

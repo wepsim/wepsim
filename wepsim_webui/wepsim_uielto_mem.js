@@ -136,6 +136,7 @@
             // memory
             var base_addrs = main_memory_get_baseaddr() ;
             var memory_cpy = Object.assign({}, memory) ;
+	    var melto      = null ;
             for (var elto in base_addrs)
             {
                  // skip pointers to zero
@@ -145,22 +146,22 @@
 
                  if (typeof main_memory_get(memory_cpy, base_addrs[elto]) == "undefined")
                  {
-		     var melto = {
-				    "value":           0,
-				    "source_tracking": null,
-				    "comments":        null
-			         } ;
+		     melto = {
+				"value":           0,
+				"source_tracking": null,
+				"comments":        null
+			     } ;
 
                      main_memory_set(memory_cpy, base_addrs[elto], melto) ;
                  }
             }
             if (typeof main_memory_get(memory_cpy, index) == "undefined")
             {
-		var melto = {
-				"value":           0,
-				"source_tracking": null,
-				"comments":        null
-			    } ;
+		melto = {
+			   "value":           0,
+			   "source_tracking": null,
+			   "comments":        null
+			} ;
 
                 main_memory_set(memory_cpy, index, melto) ;
             }
