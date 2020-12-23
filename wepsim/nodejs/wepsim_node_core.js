@@ -217,36 +217,6 @@
     }
 
     // interactive
-    function wepsim_nodejs_asmBreakpoint ( hexaddr )
-    {
-        var curr_mp   = simhw_internalState('MP') ;
-        var curr_addr = parseInt(hexaddr) ;
-	var bp_state  = curr_mp[curr_addr] ;
-	if (typeof bp_state === 'undefined') {
-            return false ;
-	}
-
-	bp_state = bp_state.breakpoint ;
-	bp_state = ! bp_state ;
-	var ret = wepsim_execute_set_breakpoint(hexaddr, bp_state) ;
-	return bp_state ;
-    }
-
-    function wepsim_nodejs_microBreakpoint ( hexaddr )
-    {
-        var curr_mc   = simhw_internalState('MC') ;
-        var curr_addr = parseInt(hexaddr) ;
-	var bp_state  = curr_mc[curr_addr] ;
-	if (typeof bp_state === 'undefined') {
-            return false ;
-	}
-
-	bp_state = bp_state.breakpoint ;
-	bp_state = ! bp_state ;
-	simhw_internalState_get('MC', hexaddr).breakpoint = bp_state ;
-	return bp_state ;
-    }
-
     function wepsim_nodejs_run2 ( answers, data, options )
     {
 	var options    = {
@@ -454,7 +424,7 @@
 
                         addr    = parseInt(parts[1]) ;
 	                hexaddr = "0x" + addr.toString(16) ;
-                        var ret = wepsim_nodejs_asmBreakpoint(hexaddr) ;
+                        var ret = wepsim_execute_toggle_breakpoint(hexaddr) ;
 		        console.log('break on ' + hexaddr + ' ' + ret) ;
 
 		        console.log('break answer ends.') ;
@@ -465,7 +435,7 @@
 
                         addr    = parseInt(parts[1]) ;
 	                hexaddr = "0x" + addr.toString(16) ;
-                        var ret = wepsim_nodejs_microBreakpoint(hexaddr) ;
+                        var ret = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
 		        console.log('mbreak on ' + hexaddr + ' ' + ret) ;
 
 		        console.log('mbreak answer ends.') ;

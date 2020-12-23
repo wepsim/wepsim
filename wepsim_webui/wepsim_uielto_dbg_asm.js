@@ -212,17 +212,15 @@
                 }
 
                 // prepare output...
+		var old_s3_val = '' ;
+                var old_s4_hex = '' ;
+                var o_ellipsis = '' ;
+                var n_ellipsis = 0 ;
                 var o = "<center>" +
                         "<table data-role='table' class='table table-sm'>" +
                         "<tbody>" ;
                 for (l in mp)
                 {
-                     if  (bgc === "#F0F0F0")
-                          bgc = "#F8F8F8" ;
-                     else bgc = "#F0F0F0" ;
-
-                     mp[l].bgcolor = bgc ;
-
                      // instruction
                      s1_instr = mp[l].source ;
                      s2_instr = main_memory_getsrc(mp, l) ;
@@ -230,6 +228,36 @@
                      s4_hex   = parseInt(s3_val).toString(16) ;
                      s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
                      p        = "0x" + parseInt(l).toString(16) ;
+
+                     // several data values repeated -> '...'
+                     if ( (old_s3_val == s3_val) && (false == mp[l].is_assembly) )
+                     {
+                         n_ellipsis++ ;
+		         continue ;
+                     }
+
+                     if (n_ellipsis > 0)
+                     {
+                         o_ellipsis = "<td class='text-monospace col-auto pb-0' " +
+                                      "    style='line-height:0.9;' align='left'></td>" +
+                                      "<td class='text-monospace col-auto pb-0' " +
+                                      "    style='line-height:0.9;' align='left'>... x" + n_ellipsis + "</td>" ;
+                         o_ellipsis = o_ellipsis.repeat(3) +
+                                      "<td class='text-monospace col-auto pb-0' " +
+                                      "    style='line-height:0.9;' align='left'>... x" + n_ellipsis + "</td>" ;
+                         o_ellipsis = "<tr>" + o_ellipsis + "</tr>" ;
+                         n_ellipsis = 0 ;
+                         o += o_ellipsis ;
+                     }
+		     old_s3_val = s3_val ;
+                     old_s4_hex = s4_hex ;
+
+                     // html attributes
+                     if  (bgc === "#F0F0F0")
+                          bgc = "#F8F8F8" ;
+                     else bgc = "#F0F0F0" ;
+
+                     mp[l].bgcolor = bgc ;
 
                      s5_ttip = "" ;
                      if (mp[l].is_assembly)
@@ -535,30 +563,21 @@
 
         function asmdbg_set_breakpoint ( addr )
         {
-                var icon_theme = get_cfg('ICON_theme') ;
-                var hexaddr    = "0x" + addr.toString(16) ;
-                var curr_mp    = simhw_internalState('MP') ;
-
-                var o1         = document.getElementById("bp"+hexaddr) ;
-                var bp_state   = curr_mp[addr].breakpoint ;
-		var inner_elto = "." ;
-
 		// toggle
-                if (bp_state === true) {
-                    bp_state = false ;
-		    inner_elto = "." ;
+                var hexaddr  = "0x" + addr.toString(16) ;
+                var bp_state = wepsim_execute_toggle_breakpoint(hexaddr) ;
 
-                } else {
-                    bp_state = true ;
+		// update ui
+		var inner_elto = "." ;
+                if (bp_state !== true) {
+                    var icon_theme = get_cfg('ICON_theme') ;
                     inner_elto = sim_core_breakpointicon_get(icon_theme) ;
                 }
-
-		// store state
-                wepsim_execute_set_breakpoint(hexaddr, bp_state) ;
 
 		// update content
                 $("span[rel='tooltip1']").tooltip('hide') ;
 
+                var o1       = document.getElementById("bp" + hexaddr) ;
                 o1.innerHTML = "<span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>" +
 			       inner_elto +
 			       "</span>" ;

@@ -89,8 +89,9 @@
         var curr_mp   = simhw_internalState('MP') ;
         var curr_addr = parseInt(hexaddr, 16) ;
 
-        if (typeof curr_mp[curr_addr] !== "undefined")
+        if (typeof curr_mp[curr_addr] !== "undefined") {
             curr_mp[curr_addr].breakpoint = is_set ;
+        }
 
         if (typeof SIMWARE.mp[hexaddr] !== "undefined") {
             SIMWARE.mp[hexaddr].breakpoint = is_set ;
@@ -98,6 +99,44 @@
 
         return true ;
     }
+
+    function wepsim_execute_toggle_breakpoint ( hexaddr )
+    {
+        var SIMWARE   = get_simware() ;
+        var curr_mp   = simhw_internalState('MP') ;
+        var curr_addr = parseInt(hexaddr, 16) ;
+        var is_set    = false ;
+
+        if (typeof curr_mp[curr_addr] !== "undefined")
+        {
+            is_set = curr_mp[curr_addr].breakpoint ;
+            curr_mp[curr_addr].breakpoint = ! is_set ;
+        }
+
+        if (typeof SIMWARE.mp[hexaddr] !== "undefined")
+        {
+            is_set = SIMWARE.mp[hexaddr].breakpoint ;
+            SIMWARE.mp[hexaddr].breakpoint = ! is_set ;
+        }
+
+        return is_set ;
+    }
+
+    function wepsim_execute_toggle_microbreakpoint ( hexaddr )
+    {
+        var curr_mc   = simhw_internalState('MC') ;
+        var curr_addr = parseInt(hexaddr, 16) ;
+        var is_set    = false ;
+
+        if (typeof curr_mc[curr_addr] !== "undefined")
+        {
+            is_set = curr_mc[curr_addr].breakpoint ;
+            curr_mc[curr_addr].breakpoint = ! is_set ;
+        }
+
+        return is_set ;
+    }
+
 
     var DBG_stop  = true ;
     var DBG_limit_instruction = 0 ;

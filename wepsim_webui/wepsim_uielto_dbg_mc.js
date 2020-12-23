@@ -59,22 +59,22 @@
 
         function dbg_set_breakpoint ( addr )
         {
-                var icon_theme = get_cfg('ICON_theme') ;
-                var dbg_level  = get_cfg('DBG_level') ;
+                // toggle
+                var hexaddr  = "0x" + parseInt(addr).toString(16) ;
+                var bp_state = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
 
-                var o1       = document.getElementById("mcpin" + addr) ;
-                var bp_state = simhw_internalState_get('MC', addr).breakpoint ;
-
-                if (bp_state === true) {
-                    bp_state = false ;
-                    o1.innerHTML = "&nbsp;" ;
-                } else {
-                    bp_state = true ;
-                    o1.innerHTML = sim_core_breakpointicon_get(icon_theme) ;
+                // toggle UI
+                var o1_content = "&nbsp;" ;
+                if (false == bp_state) {
+                    var icon_theme = get_cfg('ICON_theme') ;
+                    o1_content = sim_core_breakpointicon_get(icon_theme) ;
                 }
 
-                simhw_internalState_get('MC', addr).breakpoint = bp_state ;
+                var o1 = document.getElementById("mcpin" + addr) ;
+                o1.innerHTML = o1_content ;
 
+                // notify if dbg_level...
+                var dbg_level = get_cfg('DBG_level') ;
                 if ( bp_state && ('instruction' === dbg_level) )
                 {
                      wepsim_notify_do_notify('<strong>INFO</strong>',
