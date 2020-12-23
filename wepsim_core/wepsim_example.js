@@ -206,6 +206,7 @@
                            else {
                                setTimeout(function() {
                                              show_memories_values();
+                                             asmdbg_update_assembly() ;
                                           }, 50);
 
                                wepsim_notify_success('<strong>INFO</strong>',

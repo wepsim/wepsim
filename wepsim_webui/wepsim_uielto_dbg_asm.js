@@ -649,3 +649,16 @@
             showhideAsmElements();
 	}
 
+	function asmdbg_update_assembly ( )
+	{
+            var SIMWARE = get_simware() ;
+            var curr_mp = simhw_internalState('MP') ;
+
+            var asmdbg_content = default_asmdbg_content_horizontal() ;
+	    if (Object.keys(curr_mp).length !== 0) {
+		 asmdbg_content = assembly2html(curr_mp, SIMWARE.labels2, SIMWARE.seg) ;
+	    }
+
+	    asmdbg_loadContent(asmdbg_content) ;
+	}
+
