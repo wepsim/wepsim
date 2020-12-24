@@ -1,6 +1,0 @@
-[ {
-    "name":         "Scribd-EC",
-    "url":          "examples/examples_set/scribd_packed.json",
-    "url_base_asm": "examples/assembly_scribd/",
-    "url_base_mc":  "examples/microcode/"
-} ]

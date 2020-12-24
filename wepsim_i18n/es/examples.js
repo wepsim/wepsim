@@ -49,6 +49,7 @@
              "example_03_01":				"Ejemplo <b>Instructive</b> con excepci&oacute;n de coma flotante.",
              "example_03_02":				"Ejemplo <b>Instructive</b> con interrupciones: fetch, RETI y .ktext/.kdata.",
              "example_03_03":				"Ejemplo <b>Instructive</b> con llamada al sistema.",
+	     "example_03_04":				"Ejemplo <b>Instructive</b> con convenio simple de pila.",
              "example_04_04":				"Examplo de malloc + free.",
              "example_04_02":				"Examplo de llamada a sistema para imprimir/leer enteros y string.",
              "example_04_03":				"Examplo de hilos.",

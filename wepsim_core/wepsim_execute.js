@@ -85,11 +85,58 @@
 
     function wepsim_execute_set_breakpoint ( hexaddr, is_set )
     {
-        var curr_firm  = simhw_internalState('FIRMWARE') ;
-        curr_firm.assembly[hexaddr].breakpoint = is_set ;
+        var SIMWARE   = get_simware() ;
+        var curr_mp   = simhw_internalState('MP') ;
+        var curr_addr = parseInt(hexaddr, 16) ;
+
+        if (typeof curr_mp[curr_addr] !== "undefined") {
+            curr_mp[curr_addr].breakpoint = is_set ;
+        }
+
+        if (typeof SIMWARE.mp[hexaddr] !== "undefined") {
+            SIMWARE.mp[hexaddr].breakpoint = is_set ;
+        }
 
         return true ;
     }
+
+    function wepsim_execute_toggle_breakpoint ( hexaddr )
+    {
+        var SIMWARE   = get_simware() ;
+        var curr_mp   = simhw_internalState('MP') ;
+        var curr_addr = parseInt(hexaddr, 16) ;
+        var is_set    = false ;
+
+        if (typeof curr_mp[curr_addr] !== "undefined")
+        {
+            is_set = curr_mp[curr_addr].breakpoint ;
+            curr_mp[curr_addr].breakpoint = ! is_set ;
+        }
+
+        if (typeof SIMWARE.mp[hexaddr] !== "undefined")
+        {
+            is_set = SIMWARE.mp[hexaddr].breakpoint ;
+            SIMWARE.mp[hexaddr].breakpoint = ! is_set ;
+        }
+
+        return is_set ;
+    }
+
+    function wepsim_execute_toggle_microbreakpoint ( hexaddr )
+    {
+        var curr_mc   = simhw_internalState('MC') ;
+        var curr_addr = parseInt(hexaddr, 16) ;
+        var is_set    = false ;
+
+        if (typeof curr_mc[curr_addr] !== "undefined")
+        {
+            is_set = curr_mc[curr_addr].breakpoint ;
+            curr_mc[curr_addr].breakpoint = ! is_set ;
+        }
+
+        return is_set ;
+    }
+
 
     var DBG_stop  = true ;
     var DBG_limit_instruction = 0 ;
@@ -145,26 +192,13 @@
      * Breakpoints
      */
 
-    function wepsim_check_stopbybreakpoint_firm ( reg_maddr )
+    function wepsim_check_stopbybreakpoint ( dash_memaddr )
     {
-        var dash_maddr = simhw_internalState_get('MC_dashboard', reg_maddr) ;
-
-        if (typeof dash_maddr === "undefined") {
+        if (typeof dash_memaddr === "undefined") {
             return false ;
         }
 
-        return (dash_maddr.breakpoint) ;
-    }
-
-    function wepsim_check_stopbybreakpoint_asm ( curr_firm, reg_pc )
-    {
-	var curr_addr  = "0x" + reg_pc.toString(16) ;
-
-	if (typeof curr_firm.assembly[curr_addr] === "undefined") {
-            return false ;
-        }
-
-	return (curr_firm.assembly[curr_addr].breakpoint) ;
+        return (dash_memaddr.breakpoint) ;
     }
 
     function wepsim_show_stopbyevent ( msg1, msg2 )
@@ -219,28 +253,27 @@
 	return true ;
     }
 
-    function wepsim_check_mcdashboard ( reg_maddr )
+    function wepsim_check_memdashboard ( ref_mdash, notif_origin )
     {
-        var ref_mcdash = simhw_internalState_get('MC_dashboard', reg_maddr) ;
-        if (typeof ref_mcdash === "undefined") {
+        if (typeof ref_mdash === "undefined") {
 	    return true ;
 	}
 
         // microcode with state:
-        if (ref_mcdash.state) {
+        if (ref_mdash.state) {
             wepsim_state_history_add() ;
 	    wepsim_state_history_list() ;
 	}
 
 	// microcode with notify:
-	var notifications = ref_mcdash.notify.length ;
+	var notifications = ref_mdash.notify.length ;
 	if (notifications > 1)
            {
-		var dialog_title = "Notify @ " + reg_maddr + ": " + ref_mcdash.notify[1] ;
+		var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[1] ;
 
 		var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
 		for (var k=1; k<notifications; k++) {
-		     dialog_msg += ref_mcdash.notify[k] + "\n<br>" ;
+		     dialog_msg += ref_mdash.notify[k] + "\n<br>" ;
 		}
                 dialog_msg += '</div>' ;
 
@@ -273,12 +306,14 @@
 	                 } ;
 
         var curr_firm  = simhw_internalState('FIRMWARE') ;
+        var curr_mp    = simhw_internalState('MP') ;
 	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
 	var ref_pc     = simhw_sim_state(pc_name) ;
 	var reg_pc     = get_value(ref_pc) ;
 	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	var ref_maddr  = simhw_sim_state(maddr_name) ;
 	var reg_maddr  = get_value(ref_maddr) ;
+        var ref_mdash  = null ;
 
 	var ret    = false ;
         var i_clks = 0 ;
@@ -306,12 +341,12 @@
 	    reg_maddr = get_value(ref_maddr) ;
 	    reg_pc    = get_value(ref_pc) ;
 
-	    ret = wepsim_check_mcdashboard(reg_maddr) ;
+            ref_mdash = simhw_internalState_get('MC', reg_maddr) ;
+	    ret = wepsim_check_memdashboard(ref_mdash, reg_maddr) ;
 	    if (false === ret) {
 		return false ;
 	    }
-
-	    ret = wepsim_check_stopbybreakpoint_firm(reg_maddr) ;
+	    ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 	    if (true === ret)
 	    {
 		wepsim_show_stopbyevent("Breakpoint", "Microinstruction is going to be issue.") ;
@@ -319,9 +354,15 @@
 		return false ;
 	    }
 
-	    if (0 === reg_maddr)
+	    if ( ((0 == reg_maddr) && (false == ref_mdash.is_native)) ||
+	         ((0 != reg_maddr) && (true  == ref_mdash.is_native)) )
 	    {
-		ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
+                ref_mdash = simhw_internalState_get('MP', reg_pc) ;
+	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;
+	        if (false === ret) {
+	    	    return false ;
+	        }
+		ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 		if (true === ret) {
 		    wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 		    wepsim_execute_stop() ;
@@ -348,6 +389,7 @@
 	var ref_pc     = simhw_sim_state(pc_name) ;
 	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	var ref_maddr  = simhw_sim_state(maddr_name) ;
+	var ref_mdash  = 0 ;
 	var options    = {
 			     verbosity:    0,
 			     cycles_limit: get_cfg('DBG_limitick')
@@ -365,9 +407,10 @@
 		return false ;
 	    }
 
-	    reg_pc = get_value(ref_pc) ;
+	    reg_pc    = get_value(ref_pc) ;
+            ref_mdash = simhw_internalState_get('MP', reg_pc) ;
 
-	    ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
+	    ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 	    if (true === ret) {
 		wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 		wepsim_execute_stop() ;

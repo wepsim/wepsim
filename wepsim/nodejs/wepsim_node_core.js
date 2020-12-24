@@ -157,11 +157,13 @@
 
     function wepsim_nodejs_after_instruction2  ( SIMWARE, reg_pc, ret )
     {
-        var curr_pc = '0x' + reg_pc.toString(16) ;
-        if (typeof SIMWARE.assembly[curr_pc] === 'undefined') {
+        var curr_mp = simhw_internalState('MP') ;
+        if (typeof curr_mp[reg_pc] === 'undefined') {
 	    return ;
 	}
-        var source_line = SIMWARE.assembly[curr_pc].source_original ;
+
+        var curr_pc = '0x' + reg_pc.toString(16) ;
+        var source_line = main_memory_getsrc(curr_mp, reg_pc) ;
 
             after_state = simcore_simstate_current2state() ;
         var diff_states = simcore_simstate_diff_states(before_state, after_state) ;
@@ -200,6 +202,7 @@
 	var padding1 = 4 - (curr_mpc.length    / 4) ;
 	var padding2 = 7 - (source_line.length / 8) ;
 	source_line  = source_line.replace(/,/g,"") ;
+        source_line  = treatHTMLSequences(source_line) ;
 
 	console.log('micropc = ' + curr_mpc + ','.padEnd(padding1, '\t') +
 		                source_line + ','.padEnd(padding2, '\t') +
@@ -214,33 +217,6 @@
     }
 
     // interactive
-    function wepsim_nodejs_asmBreakpoint ( hexaddr )
-    {
-	var curr_firm = simhw_internalState('FIRMWARE') ;
-	var bp_state  = curr_firm.assembly[hexaddr] ;
-	if (typeof bp_state === 'undefined') {
-            return false ;
-	}
-
-	bp_state = bp_state.breakpoint ;
-	bp_state = ! bp_state ;
-	var ret = wepsim_execute_set_breakpoint(hexaddr, bp_state) ;
-	return bp_state ;
-    }
-
-    function wepsim_nodejs_microBreakpoint ( hexaddr )
-    {
-	var bp_state = simhw_internalState_get('MC_dashboard', hexaddr) ;
-	if (typeof bp_state === 'undefined') {
-            return false ;
-	}
-
-	bp_state = bp_state.breakpoint ;
-	bp_state = ! bp_state ;
-	simhw_internalState_get('MC_dashboard', hexaddr).breakpoint = bp_state ;
-	return bp_state ;
-    }
-
     function wepsim_nodejs_run2 ( answers, data, options )
     {
 	var options    = {
@@ -256,6 +232,7 @@
 	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	var ref_maddr  = simhw_sim_state(maddr_name) ;
 	var reg_maddr  = get_value(ref_maddr) ;
+        var ref_mdash  = null ;
 
 	var ret    = false ;
         var i_clks = 0 ;
@@ -281,12 +258,12 @@
 	    reg_maddr = get_value(ref_maddr) ;
 	    reg_pc    = get_value(ref_pc) ;
 
-	    ret = wepsim_check_mcdashboard(reg_maddr) ;
-	    if (false === ret) {
-		return false ;
-	    }
-
-	    ret = wepsim_check_stopbybreakpoint_firm(reg_maddr) ;
+            ref_mdash = simhw_internalState_get('MC', reg_maddr) ;
+	    ret = wepsim_check_memdashboard(ref_mdash, reg_maddr) ;
+            if (false === ret) {
+                return false ;
+            }
+	    ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 	    if (true === ret)
 	    {
 		console.log("INFO: Microinstruction is going to be issue.") ;
@@ -295,7 +272,12 @@
 
 	    if (0 === reg_maddr)
 	    {
-		ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
+                ref_mdash = simhw_internalState_get('MP', reg_pc) ;
+	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;
+	        if (false === ret) {
+	    	    return false ;
+	        }
+		ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 		if (true === ret) {
 		    console.log("INFO: Instruction is going to be fetched.") ;
 		    return false ;
@@ -442,7 +424,7 @@
 
                         addr    = parseInt(parts[1]) ;
 	                hexaddr = "0x" + addr.toString(16) ;
-                        var ret = wepsim_nodejs_asmBreakpoint(hexaddr) ;
+                        var ret = wepsim_execute_toggle_breakpoint(hexaddr) ;
 		        console.log('break on ' + hexaddr + ' ' + ret) ;
 
 		        console.log('break answer ends.') ;
@@ -453,7 +435,7 @@
 
                         addr    = parseInt(parts[1]) ;
 	                hexaddr = "0x" + addr.toString(16) ;
-                        var ret = wepsim_nodejs_microBreakpoint(hexaddr) ;
+                        var ret = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
 		        console.log('mbreak on ' + hexaddr + ' ' + ret) ;
 
 		        console.log('mbreak answer ends.') ;

@@ -206,9 +206,7 @@
 	update_memories(SIMWARE);
 
         // update UI
-        var asmdbg_content = assembly2html(SIMWAREaddon.mp,  SIMWAREaddon.labels2,
-                                           SIMWAREaddon.seg, SIMWAREaddon.assembly) ;
-	asmdbg_loadContent(asmdbg_content) ;
+	asmdbg_update_assembly() ;
 
 	simcore_reset();
         return true;
