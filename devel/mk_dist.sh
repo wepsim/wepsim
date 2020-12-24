@@ -210,7 +210,7 @@ echo "  * ws_dist/min.external.js"
 cat external/knockout-3.5.1.js \
     external/popper.min.js \
     external/bootstrap/bootstrap.min.js \
-    external/bootbox.min.js \
+    external/bootbox/bootbox.all.min.js \
     external/spectrum/spectrum.min.js \
     external/timbre.min.js \
     external/codemirror/codemirror.js \

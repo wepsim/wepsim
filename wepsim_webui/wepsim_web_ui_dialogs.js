@@ -469,14 +469,9 @@
 			   label:     "<span data-langkey='Reset'>Reset</span>",
 			   className: "btn btn-outline-info btn-sm col col-sm-3 float-left shadow-none mr-auto",
 			   callback:  function() {
-		         		 // reset
-					 reset_cfg() ;
-                               	         wepsim_notify_success('<strong>INFO</strong>',
-                     					       'Configuration reset done!.') ;
-
-		         		 // ui elements
+		         		 // confirm reset
     					 wsweb_dialog_close('config') ;
-    					 wsweb_dialog_open('config') ;
+    					 wsweb_dialog_open('cfg_confirm_reset') ;
 
 					 return false ;
 				      }
@@ -528,6 +523,57 @@
 			 wsweb_scroll_record('#scroller-config2') ;
 			 simcore_record_captureInit() ;
 		     }
+         },
+
+	 cfg_confirm_reset: {
+		id:      'config_confirm_reset',
+		title:   function() {
+			     var wsi = get_cfg('ws_idiom') ;
+			     return i18n_get('dialogs', wsi, 'Confirm reset configuration...') ;
+			 },
+		body:    function() {
+			     var wsi = get_cfg('ws_idiom') ;
+
+			     return '<div class="container">' +
+			            '<div class="row py-2">' +
+			            '<div class="col-auto p-2">' +
+                                    '<i class="fas fa-trash-restore-alt mx-auto" style="font-size:10vw;"></i>' +
+				    '</div>' +
+			            '<h4 class="col p-3 align-self-center">' +
+			            i18n_get('dialogs', wsi, 'Close or Reset...') +
+				    '</h4>' +
+				    '</div>' +
+				    '</div>' ;
+			 },
+		buttons: {
+				reset: {
+				   label:     "<span data-langkey='Reset'>Reset</span>",
+				   className: 'btn-danger col float-left',
+				   callback: function() {
+						// reset
+						reset_cfg() ;
+						wepsim_notify_success('<strong>INFO</strong>',
+								      'Configuration reset done!.') ;
+						// ui elements
+						wsweb_dialog_open('config') ;
+
+						return true;
+					     },
+				},
+				close: {
+				   label:     '<i class="fa fa-times mr-2"></i>' +
+					      '<span data-langkey="Close">Close</span>',
+				   className: 'btn-dark col float-right'
+				}
+			 },
+		size:    '',
+		onshow:  function() {
+			    // ui lang
+			    var ws_idiom = get_cfg('ws_idiom') ;
+			    i18n_update_tags('dialogs', ws_idiom) ;
+
+			    simcore_record_captureInit() ;
+			 }
          },
 
 	 // help
@@ -594,38 +640,38 @@
          },
 
 	 rec_confirm_reset: {
-			id:      'record_confirm_reset',
-			title:   function() {
-				     var wsi = get_cfg('ws_idiom') ;
-				     return i18n_get('dialogs',wsi,'Confirm remove record...') ;
-				 },
-			body:    function() {
-				     var wsi = get_cfg('ws_idiom') ;
-				     return i18n_get('dialogs',wsi,'Close or Reset...') ;
-				 },
-			buttons: {
-					reset: {
-					   label:     "<span data-langkey='Reset'>Reset</span>",
-					   className: 'btn-danger col float-left',
-					   callback: function() {
-							wsweb_record_reset();
-							return true;
-						     },
-					},
-					close: {
-				           label:     '<i class="fa fa-times mr-2"></i>' +
-					              '<span data-langkey="Close">Close</span>',
-					   className: 'btn-dark col float-right'
-					}
-				 },
-			size:    '',
-			onshow:  function() {
-				    // ui lang
-				    var ws_idiom = get_cfg('ws_idiom') ;
-				    i18n_update_tags('dialogs', ws_idiom) ;
+		id:      'record_confirm_reset',
+		title:   function() {
+			     var wsi = get_cfg('ws_idiom') ;
+			     return i18n_get('dialogs', wsi, 'Confirm remove record...') ;
+			 },
+		body:    function() {
+			     var wsi = get_cfg('ws_idiom') ;
+			     return i18n_get('dialogs', wsi, 'Close or Reset...') ;
+			 },
+		buttons: {
+				reset: {
+				   label:     "<span data-langkey='Reset'>Reset</span>",
+				   className: 'btn-danger col float-left',
+				   callback: function() {
+						wsweb_record_reset();
+						return true;
+					     },
+				},
+				close: {
+				   label:     '<i class="fa fa-times mr-2"></i>' +
+					      '<span data-langkey="Close">Close</span>',
+				   className: 'btn-dark col float-right'
+				}
+			 },
+		size:    '',
+		onshow:  function() {
+			    // ui lang
+			    var ws_idiom = get_cfg('ws_idiom') ;
+			    i18n_update_tags('dialogs', ws_idiom) ;
 
-			            simcore_record_captureInit() ;
-				 }
+			    simcore_record_captureInit() ;
+			 }
          },
 
 	 // state
@@ -846,18 +892,18 @@
                                     "   <div class='col-12 col-sm-4 p-2'>" +
                                     "   <ws-save-file " +
                                     "     fid='FileNameToSaveAs1' " +
-                                    "	  jsave='wepsim_notify_success(\"<strong>INFO</strong>\", " + 
+                                    "	  jsave='wepsim_notify_success(\"<strong>INFO</strong>\", " +
                                     "                                 \"Processing save request...\");" +
                                     "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
                                     "		  var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
-                                    "		  wepsim_checkpoint_save(\"FileNameToSaveAs1\", " + 
+                                    "		  wepsim_checkpoint_save(\"FileNameToSaveAs1\", " +
                                     "                                    \"tagToSave1\", checkpointObj);" +
                                     "             return false;'" +
-                                    "	  jshare='wepsim_notify_success(\"<strong>INFO</strong>\", " + 
+                                    "	  jshare='wepsim_notify_success(\"<strong>INFO</strong>\", " +
                                     "                                   \"Processing share request...\");" +
                                     "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
                                     "		  var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
-                                    "		  wepsim_checkpoint_share(\"FileNameToSaveAs1\", " + 
+                                    "		  wepsim_checkpoint_share(\"FileNameToSaveAs1\", " +
                                     "                                     \"tagToSave1\", checkpointObj);" +
                                     "             return false;'" +
                                     "   ></ws-save-file>" +
