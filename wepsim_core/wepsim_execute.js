@@ -354,7 +354,8 @@
 		return false ;
 	    }
 
-	    if (0 === reg_maddr)
+	    if ( ((0 == reg_maddr) && (false == ref_mdash.is_native)) ||
+	         ((0 != reg_maddr) && (true  == ref_mdash.is_native)) )
 	    {
                 ref_mdash = simhw_internalState_get('MP', reg_pc) ;
 	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;

@@ -309,7 +309,7 @@
                 }
 
                 // if (border *text) && (native code) && (reg_maddr === 0) -> can continue
-                if ( (typeof mcelto.NATIVE !== "undefined") && (0 === reg_maddr) ) {
+                if ( (mcelto.is_native) && (0 === reg_maddr) ) {
                       return ret ;
                 }
 
