@@ -160,6 +160,36 @@
     "description":	"<span data-langkey='example_04_04'>Example of malloc + free.</span>"
   },
   {
+    "id":		"S6E1",
+    "title":		"Dummy instruction",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_bare",
+    "assembly":		"ep_s6_e1",
+    "description":	"<span data-langkey='example_06_01'>Test example.</span>"
+  },
+  {
+    "id":		"S6E3",
+    "title":		"3D-Led",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_enhanced",
+    "assembly":		"ep_s6_e3",
+    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
+  },
+  {
+    "id":		"S6E4",
+    "title":		"Array of strings",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_os",
+    "assembly":		"ep_s6_e4",
+    "description":	"<span data-langkey='example_06_04'>Array of strings.</span>"
+  },
+  {
     "id":		"S7E1",
     "title":		"MIPS32-like",
     "type":		"<span data-langkey='Native'>Native</span>",
@@ -358,35 +388,5 @@
     "microcode":	"ep_mips",
     "assembly":		"ep_s6_e3",
     "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
-  },
-  {
-    "id":		"S6E1",
-    "title":		"Dummy instruction",
-    "type":		"<span data-langkey='Special'>Special</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":		"ep",
-    "microcode":	"ep_bare",
-    "assembly":		"ep_s6_e1",
-    "description":	"<span data-langkey='example_06_01'>Test example.</span>"
-  },
-  {
-    "id":		"S6E3",
-    "title":		"3D-Led",
-    "type":		"<span data-langkey='Special'>Special</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":		"ep",
-    "microcode":	"ep_enhanced",
-    "assembly":		"ep_s6_e3",
-    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
-  },
-  {
-    "id":		"S6E4",
-    "title":		"Array of strings",
-    "type":		"<span data-langkey='Special'>Special</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":		"ep",
-    "microcode":	"ep_os",
-    "assembly":		"ep_s6_e4",
-    "description":	"<span data-langkey='example_06_04'>Array of strings.</span>"
   }
 ]

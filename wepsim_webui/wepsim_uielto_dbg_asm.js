@@ -243,7 +243,8 @@
                                  "    style='line-height:0.9;' align='left'></td>" ;
                          o_tdf = "<td class='text-monospace col-auto pb-0' " +
                                  "    style='line-height:0.9;' align='left'>" +
-                                 "&equiv; &times;" + n_ellipsis + "</td>" ;
+                                 "&vellip;&vellip; &times;" + n_ellipsis + "</td>" ;
+                              // "&equiv; &times;" + n_ellipsis + "</td>" ;
                          o += "<tr>" + o_tde + o_tdf + o_tde + o_tdf + o_tde + o_tde + o_tdf + "</tr>" ;
                          n_ellipsis = 0 ;
                      }
