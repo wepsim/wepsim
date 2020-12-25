@@ -298,15 +298,25 @@
 	return true ;
     }
 
-    function wepsim_execute_chunk ( chunk, wepsim_execute_stop )
+    // execute_chunk
+    function pack_ret2 ( p_ok, p_level, p_msg )
     {
-	var options    = {
-			     verbosity:    0,
-			     cycles_limit: get_cfg('DBG_limitick')
-	                 } ;
+        var ret2 = {
+	              ok:        p_ok,
+                      msg_level: p_level,
+                      msg:       p_msg
+                   } ;
 
+        return ret2 ;
+    }
+
+    function wepsim_execute_chunk ( options, chunk, wepsim_execute_stop )
+    {
+	var ret  = false ;
+        var ret2 = {} ;
+
+	var curr_mp    = simhw_internalState('MP') ;
         var curr_firm  = simhw_internalState('FIRMWARE') ;
-        var curr_mp    = simhw_internalState('MP') ;
 	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
 	var ref_pc     = simhw_sim_state(pc_name) ;
 	var reg_pc     = get_value(ref_pc) ;
@@ -315,27 +325,20 @@
 	var reg_maddr  = get_value(ref_maddr) ;
         var ref_mdash  = null ;
 
-	var ret    = false ;
         var i_clks = 0 ;
-
 	var i = 0 ;
         while (i < chunk)
         {
             // one clock cycle...
-	    ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
-	    if (false === ret.ok) {
-		wepsim_show_stopbyevent("Info", ret.msg) ;
-		wepsim_execute_stop() ;
-		return false ;
+	    ret2 = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
+	    if (false === ret2.ok) {
+                return pack_ret2(false, "Info", "ERROR: " + ret2.msg) ;
 	    }
 
             // checks
 	    i_clks++;
-	    if ( (options.cycles_limit > 0) && (i_clks >= options.cycles_limit) )
-	    {
-		wepsim_show_stopbyevent("Info", 'Warning: clock cycles limit reached in a single instruction.') ;
-		wepsim_execute_stop() ;
-		return false ;
+	    if ( (options.cycles_limit > 0) && (i_clks >= options.cycles_limit) ) {
+                return pack_ret2(false, "Info", 'WARNING: clock cycles limit reached in a single instruction.') ;
 	    }
 
 	    reg_maddr = get_value(ref_maddr) ;
@@ -343,15 +346,12 @@
 
             ref_mdash = simhw_internalState_get('MC', reg_maddr) ;
 	    ret = wepsim_check_memdashboard(ref_mdash, reg_maddr) ;
-	    if (false === ret) {
-		return false ;
-	    }
+            if (false === ret) {
+                return pack_ret2(false, 'Info', 'INFO: Stop by event.') ;
+            }
 	    ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
-	    if (true === ret)
-	    {
-		wepsim_show_stopbyevent("Breakpoint", "Microinstruction is going to be issue.") ;
-		wepsim_execute_stop() ;
-		return false ;
+	    if (true === ret) {
+                return pack_ret2(false, "Breakpoint", 'INFO: Microinstruction is going to be issue.') ;
 	    }
 
 	    if ( ((0 == reg_maddr) && (false == ref_mdash.is_native)) ||
@@ -360,13 +360,11 @@
                 ref_mdash = simhw_internalState_get('MP', reg_pc) ;
 	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;
 	        if (false === ret) {
-	    	    return false ;
+                    return pack_ret2(false, 'Info', 'INFO: Stop by event.') ;
 	        }
 		ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 		if (true === ret) {
-		    wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
-		    wepsim_execute_stop() ;
-		    return false ;
+                    return pack_ret2(false, "Breakpoint", 'INFO: Instruction is going to be fetched.') ;
 		}
 
 		i++ ;
@@ -374,14 +372,26 @@
 	    }
         }
 
-        return true ;
+        return pack_ret2(true, '', "INFO: number of instruction executed: " + i +
+                                   " (limited to " + options.instruction_limit + ")") ;
     }
 
     function wepsim_execute_chunk_atlevel ( chunk, wepsim_execute_stop )
     {
 	var playlevel = get_cfg('DBG_level') ;
-	if (playlevel !== "instruction") {
-            return wepsim_execute_chunk(chunk, wepsim_execute_stop) ;
+	if (playlevel !== "instruction")
+        {
+	    var options = {
+			     verbosity:    0,
+			     cycles_limit: get_cfg('DBG_limitick')
+			  } ;
+	    var ret = wepsim_execute_chunk(options, chunk, wepsim_execute_stop) ;
+	    if (ret.ok == false) {
+	        wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
+	        wepsim_execute_stop() ;
+	    }
+
+            return ret.ok ;
 	}
 
         var curr_firm  = simhw_internalState('FIRMWARE') ;
@@ -447,10 +457,16 @@
             t0 = performance.now() ;
         }
 
-        var ret = wepsim_execute_chunk(turbo, wepsim_execute_stop) ;
-        if (false === ret) {
+	var options = {
+			 verbosity:    0,
+			 cycles_limit: get_cfg('DBG_limitick')
+		      } ;
+	var ret = wepsim_execute_chunk(options, turbo, wepsim_execute_stop) ;
+	if (false == ret.ok) {
+	    wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
+	    wepsim_execute_stop() ;
             return ;
-        }
+	}
 
         if (max_turbo === 5) {
             t1 = performance.now() ;

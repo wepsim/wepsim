@@ -217,82 +217,6 @@
     }
 
     // interactive
-    function wepsim_nodejs_run2 ( answers, data, options )
-    {
-	var options    = {
-			     verbosity:         0,
-			     cycles_limit:      options.cycles_limit,
-			     instruction_limit: options.instruction_limit
-	                 } ;
-
-        var curr_firm  = simhw_internalState('FIRMWARE') ;
-	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
-	var ref_pc     = simhw_sim_state(pc_name) ;
-	var reg_pc     = get_value(ref_pc) ;
-	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	var ref_maddr  = simhw_sim_state(maddr_name) ;
-	var reg_maddr  = get_value(ref_maddr) ;
-        var ref_mdash  = null ;
-
-	var ret    = false ;
-        var i_clks = 0 ;
-
-	var i = 0 ;
-        while (i < options.instruction_limit)
-        {
-            // one clock cycle...
-	    var ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
-	    if (false === ret.ok) {
-		console.log("ERROR: " + ret.msg) ;
-		return false ;
-	    }
-
-            // checks
-	    i_clks++;
-	    if ( (options.cycles_limit > 0) && (i_clks >= options.cycles_limit) )
-	    {
-		console.log('WARNING: clock cycles limit reached in a single instruction.') ;
-		return false ;
-	    }
-
-	    reg_maddr = get_value(ref_maddr) ;
-	    reg_pc    = get_value(ref_pc) ;
-
-            ref_mdash = simhw_internalState_get('MC', reg_maddr) ;
-	    ret = wepsim_check_memdashboard(ref_mdash, reg_maddr) ;
-            if (false === ret) {
-                return false ;
-            }
-	    ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
-	    if (true === ret)
-	    {
-		console.log("INFO: Microinstruction is going to be issue.") ;
-		return false ;
-	    }
-
-	    if (0 === reg_maddr)
-	    {
-                ref_mdash = simhw_internalState_get('MP', reg_pc) ;
-	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;
-	        if (false === ret) {
-	    	    return false ;
-	        }
-		ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
-		if (true === ret) {
-		    console.log("INFO: Instruction is going to be fetched.") ;
-		    return false ;
-		}
-
-		i++ ;
-		i_clks = 0 ;
-	    }
-        }
-
-        console.log("INFO: number of instruction executed: " + i +
-                    " (limited to " + options.instruction_limit + ")") ;
-        return true ;
-    }
-
     function wepsim_nodejs_runInteractiveCmd ( answers, data, options )
     {
         var SIMWARE = get_simware() ;
@@ -341,9 +265,15 @@
 		    // execute program
 		    wepsim_nodejs_verbose_none(options) ;
 
-                    ret = wepsim_nodejs_run2(answers, data, options) ;
-		    if (false === ret) {
-			console.log("INFO: Execution stopped.") ;
+		    var options2 = {
+				      verbosity:          0,
+				      cycles_limit:       options.cycles_limit,
+				      instruction_limit:  options.instruction_limit
+				   } ;
+		    var ret = wepsim_execute_chunk2(options2, options2.instruction_limit, function(){}) ;
+		    if (ret.ok == false) {
+		        console.log(ret.msg + '\n' +
+		                    "INFO: Execution stopped.") ;
 		    }
 
 		    console.log('run answer ends.') ;
