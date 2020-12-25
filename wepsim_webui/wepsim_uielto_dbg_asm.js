@@ -214,7 +214,8 @@
                 // prepare output...
 		var old_s3_val = '' ;
                 var old_s4_hex = '' ;
-                var o_ellipsis = '' ;
+		var o_tde = '' ;
+		var o_tdf = '' ;
                 var n_ellipsis = 0 ;
                 var o = "<center>" +
                         "<table data-role='table' class='table table-sm'>" +
@@ -238,16 +239,14 @@
 
                      if (n_ellipsis > 0)
                      {
-                         o_ellipsis = "<td class='text-monospace col-auto pb-0' " +
-                                      "    style='line-height:0.9;' align='left'></td>" +
-                                      "<td class='text-monospace col-auto pb-0' " +
-                                      "    style='line-height:0.9;' align='left'>... x" + n_ellipsis + "</td>" ;
-                         o_ellipsis = o_ellipsis.repeat(3) +
-                                      "<td class='text-monospace col-auto pb-0' " +
-                                      "    style='line-height:0.9;' align='left'>... x" + n_ellipsis + "</td>" ;
-                         o_ellipsis = "<tr>" + o_ellipsis + "</tr>" ;
+                         o_tde = "<td class='text-monospace col-auto pb-0' " +
+                                 "    style='line-height:0.9;' align='left'></td>" ;
+                         o_tdf = "<td class='text-monospace col-auto pb-0' " +
+                                 "    style='line-height:0.9;' align='left'>" +
+                                 "&vellip;&vellip; &times;" + n_ellipsis + "</td>" ;
+                              // "&equiv; &times;" + n_ellipsis + "</td>" ;
+                         o += "<tr>" + o_tde + o_tdf + o_tde + o_tdf + o_tde + o_tde + o_tdf + "</tr>" ;
                          n_ellipsis = 0 ;
-                         o += o_ellipsis ;
                      }
 		     old_s3_val = s3_val ;
                      old_s4_hex = s4_hex ;

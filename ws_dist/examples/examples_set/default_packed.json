@@ -110,6 +110,16 @@
     "description": "<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>"
   },
   {
+    "id": "S3E4",
+    "title": "Simple stack conv.",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_os",
+    "assembly": "ep_s3_e4",
+    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>"
+  },
+  {
     "id": "S4E1",
     "title": "Int. + syscall + except.",
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
@@ -148,6 +158,36 @@
     "microcode": "ep_os",
     "assembly": "ep_s4_e4",
     "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>"
+  },
+  {
+    "id": "S6E1",
+    "title": "Dummy instruction",
+    "type": "<span data-langkey='Special'>Special</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_bare",
+    "assembly": "ep_s6_e1",
+    "description": "<span data-langkey='example_06_01'>Test example.</span>"
+  },
+  {
+    "id": "S6E3",
+    "title": "3D-Led",
+    "type": "<span data-langkey='Special'>Special</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_enhanced",
+    "assembly": "ep_s6_e3",
+    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
+  },
+  {
+    "id": "S6E4",
+    "title": "Array of strings",
+    "type": "<span data-langkey='Special'>Special</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_os",
+    "assembly": "ep_s6_e4",
+    "description": "<span data-langkey='example_06_04'>Array of strings.</span>"
   },
   {
     "id": "S7E1",
@@ -230,6 +270,16 @@
     "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
   },
   {
+    "id": "S2E2",
+    "title": "Subrutine",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,asm_mips",
+    "hardware": "ep",
+    "microcode": "ep_mips",
+    "assembly": "ep_s2_e2",
+    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
+  },
+  {
     "id": "S2E3",
     "title": "Masks & shift",
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
@@ -248,26 +298,6 @@
     "microcode": "ep_mips",
     "assembly": "ep_s2_e4",
     "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
-  },
-  {
-    "id": "S2E2",
-    "title": "Subrutine",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,asm_mips",
-    "hardware": "ep",
-    "microcode": "ep_mips",
-    "assembly": "ep_s2_e2",
-    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
-  },
-  {
-    "id": "S3E4",
-    "title": "Simple stack conv.",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips",
-    "assembly": "ep_s3_e4",
-    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>"
   },
   {
     "id": "S3E1",
@@ -300,6 +330,16 @@
     "description": "<span data-langkey='example_03_03b'>Example with floating point exception.</span>"
   },
   {
+    "id": "S3E4",
+    "title": "Simple stack conv.",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,asm_mips",
+    "hardware": "ep",
+    "microcode": "ep_mips",
+    "assembly": "ep_s3_e4",
+    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>"
+  },
+  {
     "id": "S4E1",
     "title": "Int. + syscall + except.",
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
@@ -320,34 +360,34 @@
     "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
   },
   {
-    "id": "S6E1",
-    "title": "Dummy instruction",
-    "type": "<span data-langkey='Special'>Special</span>",
-    "modes": "newbie,intro,ep",
+    "id": "S4E3",
+    "title": "Threads",
+    "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "modes": "newbie,intro,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
-    "assembly": "ep_s6_e1",
-    "description": "<span data-langkey='example_06_01'>Test example.</span>"
+    "microcode": "ep_mips",
+    "assembly": "ep_s4_e3",
+    "description": "<span data-langkey='example_04_03'>Example of threads.</span>"
+  },
+  {
+    "id": "S4E4",
+    "title": "Alloc.s",
+    "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "modes": "newbie,intro,asm_mips",
+    "hardware": "ep",
+    "microcode": "ep_mips",
+    "assembly": "ep_s4_e4",
+    "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>"
   },
   {
     "id": "S6E3",
     "title": "3D-Led",
     "type": "<span data-langkey='Special'>Special</span>",
-    "modes": "newbie,intro,ep",
+    "modes": "newbie,intro,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_enhanced",
+    "microcode": "ep_mips",
     "assembly": "ep_s6_e3",
     "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
-  },
-  {
-    "id": "S6E4",
-    "title": "Array of strings",
-    "type": "<span data-langkey='Special'>Special</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_os",
-    "assembly": "ep_s6_e4",
-    "description": "<span data-langkey='example_06_04'>Array of strings.</span>"
   },
   {
     "id": "R1E1",
@@ -508,6 +548,16 @@
     "microcode": "poc_os",
     "assembly": "ep_s3_e3",
     "description": "<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>"
+  },
+  {
+    "id": "S3E4",
+    "title": "Simple stack conv.",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,poc",
+    "hardware": "poc",
+    "microcode": "poc_os",
+    "assembly": "ep_s3_e4",
+    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>"
   },
   {
     "id": "S4E1",

@@ -432,6 +432,29 @@ sub reg1 reg2 reg3 {
             }
 }
 
+sub reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+                var val    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                if (val & 0x00008000)
+                    val = val | 0xFFFF0000 ;
+
+                var result = simcore_native_get_value("BR", reg2) - val ;
+                simcore_native_set_value("BR", reg1, result) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
 subu reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -474,7 +497,7 @@ mul reg1 reg2 reg3 {
             }
 }
 
-muli reg1 reg2 val {
+mul reg1 reg2 val {
             co=111111,
             nwords=1,
             reg1=reg(25,21),
@@ -689,6 +712,26 @@ la  reg addr {
                 var val1   = simcore_native_get_field_from_ir(fields, 1) ;
 
                 simcore_native_set_value("BR", reg1, val1) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
+la  reg addr {
+            co=111111,
+            nwords=2,
+            reg=reg(25,21),
+            addr=address(63,32)abs,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
+              //var u32  = simcore_native_get_field_from_ir(fields, 1) ;
+
+                var pc = simcore_native_get_value("CPU", "REG_PC") ;
+                var value = simcore_native_get_value("MEMORY", pc) ;
+                simcore_native_set_value("BR", reg1, value) ;
+                simcore_native_set_value("CPU", "REG_PC", pc + 4) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -1337,6 +1380,11 @@ pseudoinstructions
 	move reg1=reg reg2=reg
 	{
 		or reg1 reg2 $zero
+	}
+
+	muli reg1=reg reg2=reg inm1=inm
+	{
+		mul reg1 reg2 inm1
 	}
 
 	clear reg1=reg

@@ -136,8 +136,8 @@ factorial:
 
 
      main:
-           # v1 = factorial(3)
-           li  $a0 3
+           # v1 = factorial(2)
+           li  $a0 2
            jal factorial
 
            # print_int(v1)

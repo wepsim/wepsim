@@ -162,12 +162,12 @@
 		                     state: "REG_IR",
 		                     default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
 			                              "cop": { "begin": 27, "end": 31, "length": 5 } },
-		                     is_pointer: true
+		                     is_pointer: false
 	                          } ;
         sim.poc.ctrl_states.mpc = {
 		                     name:  "mPC",
 		                     state: "REG_MICROADDR",
-		                     is_pointer: true
+		                     is_pointer: false
 	                          } ;
 
 
