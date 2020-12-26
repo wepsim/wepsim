@@ -338,7 +338,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
 	       case 'dump':
 		    console.log('dump answer begins.') ;
 
-		    ret = wepsim_nodejs_show_currentstate() ;
+		    ret = wepsim_nodejs_show_currentstate(options) ;
 		    console.log(ret.msg) ;
 
 		    console.log('dump answer ends.') ;
@@ -356,7 +356,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
                         addr    = parseInt(parts[1]) ;
 	                hexaddr = "0x" + addr.toString(16) ;
                         var ret = wepsim_execute_toggle_breakpoint(hexaddr) ;
-		        console.log('break on ' + hexaddr + ' ' + ret) ;
+		        console.log('break on ' + hexaddr + ' ' + !ret) ;
 
 		        console.log('break answer ends.') ;
                     }
