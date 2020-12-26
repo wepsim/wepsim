@@ -310,7 +310,7 @@
         return ret2 ;
     }
 
-    function wepsim_execute_chunk ( options, chunk, wepsim_execute_stop )
+    function wepsim_execute_chunk ( options, chunk )
     {
 	var ret  = false ;
         var ret2 = {} ;
@@ -385,7 +385,7 @@
 			     verbosity:    0,
 			     cycles_limit: get_cfg('DBG_limitick')
 			  } ;
-	    var ret = wepsim_execute_chunk(options, chunk, wepsim_execute_stop) ;
+	    var ret = wepsim_execute_chunk(options, chunk) ;
 	    if (ret.ok == false) {
 	        wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
 	        wepsim_execute_stop() ;
@@ -461,7 +461,7 @@
 			 verbosity:    0,
 			 cycles_limit: get_cfg('DBG_limitick')
 		      } ;
-	var ret = wepsim_execute_chunk(options, turbo, wepsim_execute_stop) ;
+	var ret = wepsim_execute_chunk(options, turbo) ;
 	if (false == ret.ok) {
 	    wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
 	    wepsim_execute_stop() ;

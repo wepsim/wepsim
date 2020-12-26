@@ -270,7 +270,7 @@
 				      cycles_limit:       options.cycles_limit,
 				      instruction_limit:  options.instruction_limit
 				   } ;
-		    var ret = wepsim_execute_chunk2(options2, options2.instruction_limit, function(){}) ;
+		    var ret = wepsim_execute_chunk(options2, options2.instruction_limit) ;
 		    if (ret.ok == false) {
 		        console.log(ret.msg + '\n' +
 		                    "INFO: Execution stopped.") ;
