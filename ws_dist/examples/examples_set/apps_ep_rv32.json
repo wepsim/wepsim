@@ -38,5 +38,15 @@
     "microcode":	"ep_rv32",
     "assembly":		"ep_r3_e1",
     "description":	"<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>"
+  },
+  {
+    "id":		"R4E1",
+    "title":		"3D-Led",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r4_e1",
+    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
   }
 ]
