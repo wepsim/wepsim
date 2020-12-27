@@ -205,7 +205,7 @@
     "type": "<span data-langkey='Native'>Native</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_rv32",
+    "microcode": "ep_rv32_bare",
     "assembly": "ep_s7_e2",
     "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
   },
@@ -495,7 +495,7 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_base",
+    "microcode": "poc_mips_base",
     "assembly": "poc_s1_e1",
     "description": "<span data-langkey='example_01_01'>Simple example.</span>"
   },
@@ -505,7 +505,7 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_base",
+    "microcode": "poc_mips_base",
     "assembly": "ep_s1_e2",
     "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
   },
@@ -515,7 +515,7 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_base",
+    "microcode": "poc_mips_base",
     "assembly": "ep_s1_e3",
     "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
   },
@@ -525,7 +525,7 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_base",
+    "microcode": "poc_mips_base",
     "assembly": "ep_s1_e4",
     "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
   },
@@ -535,7 +535,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_base",
+    "microcode": "poc_mips_base",
     "assembly": "ep_s2_e1",
     "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
   },
@@ -545,7 +545,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_base",
+    "microcode": "poc_mips_base",
     "assembly": "ep_s2_e2",
     "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
   },
@@ -555,7 +555,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_base",
+    "microcode": "poc_mips_base",
     "assembly": "ep_s2_e3",
     "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>"
   },
@@ -565,7 +565,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_base",
+    "microcode": "poc_mips_base",
     "assembly": "ep_s2_e4",
     "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
   },
@@ -575,7 +575,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_os",
+    "microcode": "poc_mips_os",
     "assembly": "ep_s3_e1",
     "description": "<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>"
   },
@@ -585,7 +585,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_os",
+    "microcode": "poc_mips_os",
     "assembly": "ep_s3_e2",
     "description": "<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>"
   },
@@ -595,7 +595,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_os",
+    "microcode": "poc_mips_os",
     "assembly": "ep_s3_e3",
     "description": "<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>"
   },
@@ -605,7 +605,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_os",
+    "microcode": "poc_mips_os",
     "assembly": "ep_s3_e4",
     "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>"
   },
@@ -615,7 +615,7 @@
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_os",
+    "microcode": "poc_mips_os",
     "assembly": "ep_s4_e1",
     "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>"
   },
@@ -625,7 +625,7 @@
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_os",
+    "microcode": "poc_mips_os",
     "assembly": "ep_s4_e2",
     "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
   },
@@ -635,7 +635,7 @@
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_os",
+    "microcode": "poc_mips_os",
     "assembly": "ep_s4_e3",
     "description": "<span data-langkey='example_04_03'>Example of threads.</span>"
   },
@@ -645,7 +645,7 @@
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_os",
+    "microcode": "poc_mips_os",
     "assembly": "ep_s4_e4",
     "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>"
   },
@@ -665,7 +665,7 @@
     "type": "<span data-langkey='Special'>Special</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_os",
+    "microcode": "poc_mips_os",
     "assembly": "ep_s6_e3",
     "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
   }
