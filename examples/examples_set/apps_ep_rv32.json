@@ -12,12 +12,52 @@
   {
     "id":		"R1E2",
     "title":		"Memory access",
-    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r1_e2",
     "description":	"<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
+  },
+  {
+    "id":		"R1E3",
+    "title":		"Looping",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r1_e3",
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+  },
+  {
+    "id":		"R1E4",
+    "title":		"Vector",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r1_e4",
+    "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
+  },
+  {
+    "id":		"R2E3",
+    "title":		"Masks & shift",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r2_e3",
+    "description":	"<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>"
+  },
+  {
+    "id":		"R2E4",
+    "title":		"Matrix",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r2_e4",
+    "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
   },
   {
     "id":		"R2E1",

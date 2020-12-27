@@ -332,7 +332,7 @@
             // one clock cycle...
 	    ret2 = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
 	    if (false === ret2.ok) {
-                return pack_ret2(false, "Info", "ERROR: " + ret2.msg) ;
+                return pack_ret2(false, "Info", ret2.msg) ;
 	    }
 
             // checks
