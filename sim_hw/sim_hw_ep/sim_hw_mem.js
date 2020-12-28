@@ -159,7 +159,7 @@
          *  Syntax of behaviors
          */
 
-        sim.ep.behaviors.MEM_READ       = { nparameters: 6,
+        sim.ep.behaviors.MEM_READ   = { nparameters: 6,
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr)
                                                    {
@@ -231,7 +231,7 @@
                                                    }
                                       };
 
-        sim.ep.behaviors.MEM_WRITE      = { nparameters: 6,
+        sim.ep.behaviors.MEM_WRITE  = { nparameters: 6,
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr)
                                                    {
