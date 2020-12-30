@@ -40,6 +40,26 @@
     "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
   },
   {
+    "id":		"R2E1",
+    "title":            "I/O",
+    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":         "ep",
+    "microcode":	"ep_rv32",
+    "assembly":         "ep_r2_e1",
+    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
+  },
+  {
+    "id":		"R2E2",
+    "title":		"Subrutine",
+    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r2_e2",
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+  },
+  {
     "id":		"R2E3",
     "title":		"Masks & shift",
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
@@ -58,16 +78,6 @@
     "microcode":	"ep_rv32",
     "assembly":		"ep_r2_e4",
     "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
-  },
-  {
-    "id":		"R2E1",
-    "title":		"Subrutine",
-    "type":		"<span data-langkey='Advanced'>Advanced</span>",
-    "modes":		"newbie,intro,asm_rv32",
-    "hardware":		"ep",
-    "microcode":	"ep_rv32",
-    "assembly":		"ep_r2_e1",
-    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
   },
   {
     "id":		"R3E1",
