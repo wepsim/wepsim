@@ -659,10 +659,10 @@ sh rs2 offset(rs1) {
                 simcore_native_set_value("MEMORY", w_addr, w_value) ;
 
                 value_1 = b_value & 0x0000FF00 ;
-                value_1 = value_1 >> 16 ;
+                value_1 = value_1 >> 8 ;
                 w_addr  = (b_addr + 1) & 0xFFFFFFFC ;
                 w_value = simcore_native_get_value("MEMORY", w_addr) ;
-                b_off   = b_addr & 0x00000003 ;
+                b_off   = (b_addr + 1) & 0x00000003 ;
                 if (3 == b_off) w_value = (w_value & 0x00FFFFFF) | (value_1 << 24) ;
                 if (2 == b_off) w_value = (w_value & 0xFF00FFFF) | (value_1 << 16) ;
                 if (1 == b_off) w_value = (w_value & 0xFFFF00FF) | (value_1 <<  8) ;
