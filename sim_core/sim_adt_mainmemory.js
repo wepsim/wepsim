@@ -176,7 +176,7 @@
 		   if ( 3 == (filter & 0x00000003) )
 			dbvalue = (dbvalue & 0x00FFFFFF) | (value & 0xFF000000);
 	     }
-	     else if ( 1 == (filter & 0x0000000C) )
+	     else if ( 4 == (filter & 0x0000000C) )
 	     {  // half
 		   if ( 0 == (filter & 0x00000002) )
 			dbvalue = (dbvalue & 0xFFFF0000) | (value & 0x0000FFFF);
