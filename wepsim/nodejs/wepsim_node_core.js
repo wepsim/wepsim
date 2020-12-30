@@ -216,15 +216,53 @@
 	console.log('Micropc at ' + curr_mpc + '.\t' + get_verbal_from_current_mpc()) ;
     }
 
+    // breakpoints
+    var breaks  = {} ;
+    var mbreaks = {} ;
+
+    function wepsim_nodejs_breakpoints_addrm ( break_list, addr )
+    {
+	var hexaddr = "0x" + addr.toString(16) ;
+	var ret = false ;
+
+        if (break_list == "breaks") {
+	    ret = wepsim_execute_toggle_breakpoint(hexaddr) ;
+	    console.log('break on ' + hexaddr + ' ' + !ret) ;
+            breaks[hexaddr] = true ;
+	    if (ret) delete breaks[hexaddr] ;
+        }
+   else if (break_list == "mbreaks") {
+            ret = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
+            console.log('mbreak on ' + hexaddr + ' ' + !ret) ;
+            mbreaks[hexaddr] = true ;
+	    if (ret) delete mbreaks[hexaddr] ;
+        }
+    }
+
+    function wepsim_nodejs_breakpoints_list ( break_list )
+    {
+        var eltos = Object.keys(break_list) ;
+        if (0 == eltos.length) {
+            console.log('no active breakpoints.') ;
+            return ;
+        }
+
+        console.log('active breaks at: ' + eltos.join(', ')) ;
+    }
+
     // interactive
     function wepsim_nodejs_runInteractiveCmd ( answers, data, options )
     {
         var SIMWARE = get_simware() ;
         var pc_name = simhw_sim_ctrlStates_get().pc.state ;
-        var reg_pc = 0 ;
+        var reg_pc  = 0 ;
 
+        var addr    = 0 ;
+        var hexaddr = 0 ;
         var on_exit = false ;
-	switch(answers.cmd)
+
+        var parts   = answers.cmd.split(' ') ;
+	switch(parts[0])
 	{
 	       case 'help':
 		    console.log('help answer begins.') ;
@@ -232,16 +270,18 @@
 		    // show help
 		    console.log('' +
 				'Available commands:\n' +
-				' * help:         this command.\n' +
-				' * exit:         exit from command line.\n' +
+				' * help:          this command.\n' +
+				' * exit:          exit from command line.\n' +
 				'\n' +
-				' * reset:        reset processor.\n' +
-				' * run:          run all the instructions.\n' +
-				' * next:         execute instruction at assembly level.\n' +
-				' * step:         execute instruction at microinstruction level.\n' +
-				' * break <addr>: breakpoint at given hexadecimal address.\n' +
+				' * reset:         reset processor.\n' +
+				' * run:           run all the instructions.\n' +
+				' * next:          execute instruction at assembly level.\n' +
+				' * step:          execute instruction at microinstruction level.\n' +
 				'\n' +
 				' * dump:         show the current state.\n' +
+				'\n' +
+				' * break  <addr>: breakpoint at given hexadecimal address.\n' +
+				' * mbreak <addr>: breakpoint at given hex. address at microinst. level.\n' +
 				'') ;
 
 		    console.log('help answer ends.') ;
@@ -265,13 +305,15 @@
 		    // execute program
 		    wepsim_nodejs_verbose_none(options) ;
 
-		    var options2 = {
-				      verbosity:          0,
-				      cycles_limit:       options.cycles_limit,
-				      instruction_limit:  options.instruction_limit
-				   } ;
+                    var options2 = Object.assign({}, options) ;
+                        options2.verbosity = 0 ;
 		    var ret = wepsim_execute_chunk(options2, options2.instruction_limit) ;
-		    if (ret.ok == false) {
+		    if (ret.ok == false)
+                    {
+	                wepsim_nodejs_header2() ;
+		        reg_pc = parseInt(get_value(simhw_sim_state(pc_name))) ;
+		        wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
+
 		        console.log(ret.msg + '\n' +
 		                    "INFO: Execution stopped.") ;
 		    }
@@ -343,38 +385,34 @@
 		    console.log('dump answer ends.') ;
 		    break ;
 
+	       case 'break':
+		    console.log('break answer begins.') ;
+
+                    if (typeof parts[1] !== 'undefined')
+		    {
+                        addr = parseInt(parts[1]) ;
+                        wepsim_nodejs_breakpoints_addrm('breaks', addr) ;
+                    }
+                    wepsim_nodejs_breakpoints_list(breaks) ;
+
+		    console.log('break answer ends.') ;
+		    break ;
+
+	       case 'mbreak':
+		    console.log('mbreak answer begins.') ;
+
+                    if (typeof parts[1] !== 'undefined')
+		    {
+                        addr = parseInt(parts[1]) ;
+                        wepsim_nodejs_breakpoints_addrm('mbreaks', addr) ;
+                    }
+                    wepsim_nodejs_breakpoints_list(mbreaks) ;
+
+		    console.log('mbreak answer ends.') ;
+		    break ;
+
 	       default:
-                    var addr    = 0 ;
-	            var hexaddr = 0 ;
-                    var parts   = answers.cmd.split(' ');
-
-                    if ( (parts[0] == 'break') && (typeof parts[1] !== 'undefined') )
-		    {
-		        console.log('break answer begins.') ;
-
-                        addr    = parseInt(parts[1]) ;
-	                hexaddr = "0x" + addr.toString(16) ;
-                        var ret = wepsim_execute_toggle_breakpoint(hexaddr) ;
-		        console.log('break on ' + hexaddr + ' ' + !ret) ;
-
-		        console.log('break answer ends.') ;
-                    }
-                    else if ( (parts[0] == 'mbreak') && (typeof parts[1] !== 'undefined') )
-		    {
-		        console.log('mbreak answer begins.') ;
-
-                        addr    = parseInt(parts[1]) ;
-	                hexaddr = "0x" + addr.toString(16) ;
-                        var ret = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
-		        console.log('mbreak on ' + hexaddr + ' ' + ret) ;
-
-		        console.log('mbreak answer ends.') ;
-                    }
-                    else
-                    {
-		        console.log('Unknown ' + answers.cmd + ' command.\n') ;
-                    }
-
+		    console.log('Unknown ' + answers.cmd + ' command.\n') ;
 		    break ;
 	}
 
