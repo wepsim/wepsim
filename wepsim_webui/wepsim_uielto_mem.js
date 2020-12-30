@@ -221,12 +221,13 @@
         {
             if (redraw)
             {
-                var svalue = main_memory_getword(memory, index) ;
-
-                $("#mpval" + (index + 0)).html(svalue[0]) ;
-                $("#mpval" + (index + 1)).html(svalue[1]) ;
-                $("#mpval" + (index + 2)).html(svalue[2]) ;
-                $("#mpval" + (index + 3)).html(svalue[3]) ;
+                var ri = 0 ;
+                var svalue  = main_memory_getword(memory, index) ;
+		for (var i=0; i<4; i++)
+		{
+		     ri = 4 - i - 1 ;
+		     $("#mpval" + (index + i)).html(svalue[ri]) ;
+		}
             }
 
             // blue for last memory access
