@@ -5,7 +5,7 @@
    // Help
    //
 
-   var ws_cl_ver = 'WepSIM-cl v1.8.6' ;
+   var ws_cl_ver = 'WepSIM-cl v1.8.8' ;
 
    function ws_help_usage ()
    {
@@ -42,6 +42,9 @@
                'In previous examples you can use the "-m ep -f <firmware> -s <assembly>" or some equivalent checkpoint:\n' +
                '   ./wepsim.sh -a run        --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
                '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '\n' +
+               'Example for running in an interactive mode...:\n' +
+               '   ./wepsim.sh -a interactive --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
                '' ;
 
         return o ;
