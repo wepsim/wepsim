@@ -441,16 +441,25 @@
 	   o += '</ul>\n' ;
 
 	   // details: microcode
-	   o += '<span class=\"user_microcode\">' +
-                '<span class=\"square\">Microcode:</span>\n' +
+	   o += '<span class=\"user_microcode\">' + '<span class=\"square\">Microcode:</span>\n' +
 	        '<ul class=\"mb-0\">\n' +
 	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
 		' <li> clock cycles: <b>' + firm_reference.microcode.length + '</b></li>\n' +
 	        '</ul>\n' +
-                '</span>' +
-		'</div>' ;
+                '</span>' + '</span>' ;
+
+	   // details: help
+           if (' ' != firm_reference.help)
+           {
+	       o += '<span class=\"square\">Help:</span>\n' +
+	            '<div class=\"ml-3\">\n' +
+		    firm_reference.help + '\n' +
+	            '</div>\n' +
+                    '</span>' ;
+           }
 
 	   // close
+	   o += '</div>' ;
            o += '<button type=\"button\" id=\"close\" data-role=\"none\" ' +
                 '        class=\"btn btn-sm btn-danger w-100 p-0 mt-2\" ' +
                 '        onclick=$(\".tooltip\").tooltip("hide");>' +

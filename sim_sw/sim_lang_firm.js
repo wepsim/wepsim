@@ -840,7 +840,7 @@ function loadFirmware (text)
                        }
 
 		       nextToken(context);
-		       // match mandatory CO
+		       // match mandatory COP value
 		       instruccionAux.cop = getToken(context) ;
 
 		       // semantic check: valid value
@@ -1029,6 +1029,46 @@ function loadFirmware (text)
 	       }
 
 	       instruccionAux.fields = campos;
+	       instruccionAux.help   = '' ;
+
+// li reg val {
+//             co=000000,
+//             nwords=1,
+//             reg=reg(25,21),
+//             val=inm(15,0),
+//             *[help='this instruction is used for...',]*
+//             {
+//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
+//             }
+// }
+
+	       // match optional help
+	       if (isToken(context,"help"))
+               {
+		       nextToken(context);
+		       // match mandatory =
+		       if (! isToken(context,"=")) {
+		             return langError(context,
+				              i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                       }
+
+		       nextToken(context);
+		       // match mandatory HELP value
+		       instruccionAux.help = getToken(context) ;
+
+		       // semantic check: valid value
+		       if ("STRING" != getTokenType(context)) {
+                            return langError(context,
+                                             i18n_get_TagFor('compiler', 'UNKNOWN ESCAPE CHAR') +
+                                             "'" + getToken(context) + "'") ;
+                       }
+
+		       nextToken(context);
+		       // match optional ,
+		       if (isToken(context,",")) {
+			   nextToken(context);
+		       }
+               }
 
 // li reg val {
 //             co=000000,
@@ -1041,7 +1081,7 @@ function loadFirmware (text)
 //             }
 // }
 
-	       instruccionAux["is_native"] = false;
+	       instruccionAux.is_native = false;
 
 	       // match optional 'native' + ','
 	       if (isToken(context, "native"))
