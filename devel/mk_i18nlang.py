@@ -2,7 +2,7 @@
 
 
 #*
-#*  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -619,7 +619,7 @@ def print_content(L_D, C_N):
 
     # + print header
     f.write("/*\n") ;
-    f.write(" *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve\n") ;
+    f.write(" *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve\n") ;
     f.write(" *\n") ;
     f.write(" *  This file is part of WepSIM.\n") ;
     f.write(" *\n") ;

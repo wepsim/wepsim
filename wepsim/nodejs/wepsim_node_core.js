@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -155,7 +155,7 @@
 	else before_state = after_state ;
     }
 
-    function wepsim_nodejs_after_instruction2  ( SIMWARE, reg_pc, ret )
+    function wepsim_nodejs_after_instruction2  ( SIMWARE, reg_pc, show_changes )
     {
         var curr_mp = simhw_internalState('MP') ;
         if (typeof curr_mp[reg_pc] === 'undefined') {
@@ -165,8 +165,12 @@
         var curr_pc = '0x' + reg_pc.toString(16) ;
         var source_line = main_memory_getsrc(curr_mp, reg_pc) ;
 
+        var diff_states = '' ;
+        if (show_changes)
+        {
             after_state = simcore_simstate_current2state() ;
-        var diff_states = simcore_simstate_diff_states(before_state, after_state) ;
+            diff_states = simcore_simstate_diff_states(before_state, after_state) ;
+        }
 
 	// padding
 	var padding1 = 2 ;
@@ -196,7 +200,7 @@
     {
 	    after_state = simcore_simstate_current2state() ;
 	var curr_mpc    = '0x' + cur_addr.toString(16) ;
-        var source_line = controlmemory_lineToString(curr_MC, cur_addr).trim() ;
+        var source_line = control_memory_lineToString(curr_MC, cur_addr).trim() ;
 
 	// padding
 	var padding1 = 4 - (curr_mpc.length    / 4) ;
@@ -278,7 +282,8 @@
 				' * next:          execute instruction at assembly level.\n' +
 				' * step:          execute instruction at microinstruction level.\n' +
 				'\n' +
-				' * dump:         show the current state.\n' +
+				' * dump:          show the current state.\n' +
+				' * list <lines>:  show <lines> lines of source code.\n' +
 				'\n' +
 				' * break  <addr>: breakpoint at given hexadecimal address.\n' +
 				' * mbreak <addr>: breakpoint at given hex. address at microinst. level.\n' +
@@ -312,7 +317,7 @@
                     {
 	                wepsim_nodejs_header2() ;
 		        reg_pc = parseInt(get_value(simhw_sim_state(pc_name))) ;
-		        wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
+		        wepsim_nodejs_after_instruction2(SIMWARE, reg_pc, true) ;
 
 		        console.log(ret.msg + '\n' +
 		                    "INFO: Execution stopped.") ;
@@ -335,7 +340,7 @@
 		    }
 
 		    reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
-		    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
+		    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc, true) ;
 
 		    console.log('next answer ends.') ;
 		    break ;
@@ -355,7 +360,7 @@
 
 	            wepsim_nodejs_header2() ;
 		    reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
-		    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
+		    wepsim_nodejs_after_instruction2(SIMWARE, reg_pc, true) ;
 
 		    console.log('step answer ends.') ;
 		    break ;
@@ -409,6 +414,29 @@
                     wepsim_nodejs_breakpoints_list(mbreaks) ;
 
 		    console.log('mbreak answer ends.') ;
+		    break ;
+
+	       case 'list':
+		    console.log('list answer begins.') ;
+
+                    // number of source lines (10 by default)
+                    var n_lines = 10 ;
+                    if (typeof parts[1] !== 'undefined') {
+                        n_lines = parseInt(parts[1]) ;
+		    }
+
+	            wepsim_nodejs_header2() ;
+		    var pc_value = parseInt(get_value(simhw_sim_state(pc_name))) ;
+                    for (var i=0; i<n_lines; i++)
+                    {
+                         if (false == simcore_check_if_can_continue2(0, pc_value)) {
+                             continue ;
+                         }
+		         wepsim_nodejs_after_instruction2(SIMWARE, pc_value, false) ;
+		         pc_value += 4 ;
+                    }
+
+		    console.log('list answer ends.') ;
 		    break ;
 
 	       default:

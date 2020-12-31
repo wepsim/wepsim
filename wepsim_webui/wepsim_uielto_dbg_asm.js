@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -244,7 +244,6 @@
                          o_tdf = "<td class='text-monospace col-auto pb-0' " +
                                  "    style='line-height:0.9;' align='left'>" +
                                  "&vellip;&vellip; &times;" + n_ellipsis + "</td>" ;
-                              // "&equiv; &times;" + n_ellipsis + "</td>" ;
                          o += "<tr>" + o_tde + o_tdf + o_tde + o_tdf + o_tde + o_tde + o_tdf + "</tr>" ;
                          n_ellipsis = 0 ;
                      }
@@ -401,7 +400,6 @@
     	   var wsi = get_cfg('ws_idiom') ;
 
            // prepare data: ins_quoted + firmware_reference
-	// var ins_quoted     = mp[l].source_original.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
 	   var ins_quoted     = main_memory_getsrc(mp, l) ;
 	       ins_quoted     = ins_quoted.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
 	   var firm_reference = mp[l].firm_reference ;
@@ -562,6 +560,12 @@
 
         function asmdbg_set_breakpoint ( addr )
         {
+                // skip if no instruction
+                var curr_mp = simhw_internalState('MP') ;
+                if (false == curr_mp[addr].is_assembly) {
+                    return ;
+                }
+
 		// toggle
                 var hexaddr  = "0x" + addr.toString(16) ;
                 var bp_state = wepsim_execute_toggle_breakpoint(hexaddr) ;

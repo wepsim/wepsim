@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -165,41 +165,11 @@
         // Auxiliar functions
         //
 
-        function controlmemory_lineToString ( memory, key )
-        {
-                var mcelto = control_memory_get(memory, key) ;
-
-                // if empty element -> ""
-	        if (typeof mcelto === "undefined") {
-	   	    return "" ;
-	        }
-
-                // if native -> ""
-	        if (mcelto.is_native)
-                {
-	            if (typeof mcelto.NATIVE_JIT === "function")
-		         return "&lt;built-in&gt; " ;
-	   	    else return "&lt;native&gt; " ;
-	        }
-
-                // if signals -> "S=V, ..."
-		var value = "" ;
-                var mc_val = get_value(mcelto) ;
-		for (var ks in mc_val)
-		{
-		     if (1 == mc_val[ks])
-			  value += ks + " ";
-                     else value += ks + "=" + parseInt(mc_val[ks]).toString(2) + " ";
-		}
-
-		return value ;
-        }
-
         function control_memory_showrow ( memory, key, is_current, revlabels )
         {
 	        var o1 = "" ;
 
-                var value = controlmemory_lineToString(memory, key) ;
+                var value = control_memory_lineToString(memory, key) ;
                 var maddr = "0x" + parseInt(key).toString(16) ;
                 if (typeof revlabels[key] !== "undefined")
 	        {
