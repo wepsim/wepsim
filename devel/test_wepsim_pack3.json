@@ -2,67 +2,67 @@
    {
       "pack":        "Test possible assembly errors",
       "description": "Error1: non-open string (...'')",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e01.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e01.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error2: non-closed string ('...)",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e02.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e02.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error3: illegal instruction lx",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e03.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e03.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error4: illegal register t20",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e04.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e04.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error5: incorrect syntax --> la t2 max",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e05.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e05.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error6: repeated tag --> max",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e06.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e06.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error7: illegal tag --> max1",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e07.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e07.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error8: illegal directive --> .bytes",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e08.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e08.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error9: invalid number --> 1hello2",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e09.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e09.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error10: instruction with more elements",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e10.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e10.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error11: empty directive",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_e11.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_e11.txt",
       "more":        "See WepSIM"
    }
 ]

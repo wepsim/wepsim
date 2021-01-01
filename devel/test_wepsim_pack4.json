@@ -2,43 +2,43 @@
    {
       "pack":        "Test possible assembly errors",
       "description": "Error: missing .text",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t01.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_t01.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error: missing main:",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t02.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_t02.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error: unknown -3x value",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t03.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_t03.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error: illegal tag: li:",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t04.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_t04.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error: illegal tag name",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t05.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_t05.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error: illegal segment name 'udata'",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t06.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_t06.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error: non-valid .space parameter",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly_tests/asm-ep_t07.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly_tests/asm-ep_t07.txt",
       "more":        "See WepSIM"
    }
 ]
