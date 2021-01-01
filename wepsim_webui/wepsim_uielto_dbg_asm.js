@@ -449,7 +449,7 @@
                 '</span>' + '</span>' ;
 
 	   // details: help
-           if (' ' != firm_reference.help)
+           if ('' != firm_reference.help.trim())
            {
 	       o += '<span class=\"square\">Help:</span>\n' +
 	            '<div class=\"ml-3\">\n' +
