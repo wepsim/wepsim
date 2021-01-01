@@ -434,7 +434,7 @@
 				           }
 			     }
 	             },
-            size:    'large',
+            size:    'extra-large',
             onshow:  function() {
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;

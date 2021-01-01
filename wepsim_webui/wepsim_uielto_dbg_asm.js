@@ -184,16 +184,7 @@
 
 	function assembly2html ( mp, labels, seg )
 	{
-                var  s_label = "" ;
-                var s1_instr = "" ;
-                var s2_instr = "" ;
-                var s3_val   = "" ;
-                var s4_hex   = "" ;
-                var s5_ttip  = "" ;
-                var s6_ttip  = "" ;
-                var bgc      = "#F0F0F0" ;
 		var l = "" ;
-		var p = "" ;
 
                 // prepare hashtable...
                 var a2l = {} ;
@@ -213,26 +204,36 @@
                 }
 
                 // prepare output...
+	        var a          = "" ;
+	        var p          = "" ;
+                var s3_val     = "" ;
 		var old_s3_val = '' ;
-                var old_s4_hex = '' ;
 		var o_tde = '' ;
 		var o_tdf = '' ;
                 var n_ellipsis = 0 ;
+		var s_label = "" ;
+
                 var o = "<center>" +
                         "<table data-role='table' class='table table-sm'>" +
                         "<tbody>" ;
                 for (l in mp)
                 {
-                     // instruction
-                     s1_instr = mp[l].source ;
-                     s2_instr = main_memory_getsrc(mp, l) ;
-		     s3_val   = get_value(mp[l]) ;
-                     s4_hex   = parseInt(s3_val).toString(16) ;
-                     s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
-                     p        = "0x" + parseInt(l).toString(16) ;
+                     // get address and instruction/value
+	             a = parseInt(l) ;
+	             p = "0x" + a.toString(16) ;
+		     s3_val = get_value(mp[l]) ;
+
+                     // set cell bgcolor
+	             if  (a % 2 === 0)
+		          mp[l].bgcolor = "#F8F8F8" ;
+	             else mp[l].bgcolor = "#F0F0F0" ;
 
                      // several data values repeated -> '...'
-                     if ( (old_s3_val == s3_val) && (false == mp[l].is_assembly) )
+                     if (
+                          (old_s3_val == s3_val) && 
+                          (false == mp[l].is_assembly) &&
+                          (typeof a2l[p] == 'undefined')
+                     )
                      {
                          n_ellipsis++ ;
 		         continue ;
@@ -249,97 +250,128 @@
                          n_ellipsis = 0 ;
                      }
 		     old_s3_val = s3_val ;
-                     old_s4_hex = s4_hex ;
 
-                     // html attributes
-                     if  (bgc === "#F0F0F0")
-                          bgc = "#F8F8F8" ;
-                     else bgc = "#F0F0F0" ;
+		     // labels
+		     s_label = "" ;
+		     if (typeof a2l[p] != "undefined")
+		     {
+			 for (var i=0; i<a2l[p].length; i++) {
+			      s_label = s_label + "<span class='badge badge-info'>" + a2l[p][i] + "</span>" ;
+			 }
+		     }
 
-                     mp[l].bgcolor = bgc ;
+		     // join the pieces...
+		     if (typeof a2s[p] !== "undefined")
+		     {
+			 o += "<tr bgcolor='#FEFEFE'>" +
+			      "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[p] + "</font></small></td>" +
+			      "</tr>" ;
+		     }
 
-                     s5_ttip = "" ;
-                     s6_ttip = "" ;
+                     // get row HTML code
                      if (mp[l].is_assembly)
-                     {
-			 s5_ttip = "<span data-toggle='tooltip' rel='tooltip2' data-placement='right' " +
-                                   "      data-html='true' data-l='" + l + "'>" +
-			           "<span data-toggle='tooltip' rel='tooltip1' data-placement='right' " +
-                                   "      title='click to show instruction format details'>&nbsp;.&nbsp;</span>" +
-			           "</span>" ;
-                         s6_ttip = "<span data-toggle='tooltip' rel='tooltip1' " + 
-                                   "      title='click to toggle breakpoint'>.</span>" ;
-                     }
-
-                     // labels
-                     s_label = "" ;
-                     if (typeof a2l[p] != "undefined")
-		     {
-                         for (var i=0; i<a2l[p].length; i++) {
-                              s_label = s_label + "<span class='badge badge-info'>" + a2l[p][i] + "</span>" ;
-                         }
-                     }
-
-		     // mark pseudo + n-words
-		     if (s1_instr === '') {
-			 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
-		     }
-		else if (s1_instr != s2_instr) {
-			 s1_instr = '<span class="text-primary">' + s1_instr + '</span>' ;
-			 s2_instr = '<span class="text-primary">' + s2_instr + '</span>' ;
-		     }
-
-                     // join the pieces...
-                     if (typeof a2s[p] !== "undefined")
-		     {
-                         o += "<tr bgcolor='#FEFEFE'>" +
-                              "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[p] + "</font></small></td>" +
-                              "</tr>" ;
-		     }
-
-                     o +=  "<tr id='asmdbg" + p + "' bgcolor='" + mp[l].bgcolor + "'>" +
-                           "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
-                           "    style='line-height:0.9;' align=right" +
-                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + s_label +
-		           "</td>" +
-                           "<td class='asm_addr   text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;'" +
-                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + p +
-		           "</td>" +
-                           "<td class='asm_break  text-monospace col-auto show p-0' " +
-                           "    style='line-height:0.9;' id='bp" + p + "' width='1%'" +
-                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" +
-                           s6_ttip +
-			   "</td>" +
-                           "<td class='asm_hex    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9; width:13%' align='center' " +
-                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + s4_hex +
-		           "</td>" +
-                           "<td class='asm_dets   text-monospace col-auto show p-0' " +
-                           "    style='line-height:0.9;' width='1%' align='left'>" +
-                           s5_ttip +
-		           "</td>" +
-                           "<td class='asm_ins    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;'" +
-                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + s1_instr +
-                           "</td>" +
-                           "<td class='asm_pins   text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left" +
-                           "    onclick='asmdbg_set_breakpoint(" + p + "); " +
-                           "             if (event.stopPropagation) event.stopPropagation();'>" + s2_instr +
-			   "</td>" +
-                           "</tr>" ;
+	                  o += assembly2html_code_row(mp, l, s_label) ;
+                     else o += assembly2html_data_row(mp, l, s_label) ;
                 }
                 o += "</tbody>" +
                      "</table>" +
                      "</center>" ;
 
                 return o ;
+	}
+
+	function assembly2html_data_row ( mp, l, s_label )
+	{
+	     // data value
+	     var s2_instr = main_memory_getsrc(mp, l) ;
+	     var s3_val   = get_value(mp[l]) ;
+	     var s4_hex   = parseInt(s3_val).toString(16) ;
+	         s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
+	     var p        = "0x" + parseInt(l).toString(16) ;
+
+	     // join the pieces...
+	     var o = "<tr id='asmdbg" + p + "' bgcolor='" + mp[l].bgcolor + "'>" +
+		     "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
+		     "    style='line-height:0.9;' align='right'>" + s_label +
+		     "</td>" +
+		     "<td class='asm_addr   text-monospace col-auto collapse' " +
+		     "    style='line-height:0.9;'>" + p +
+		     "</td>" +
+		     "<td class='asm_break  text-monospace col-auto show p-0' " +
+		     "    style='line-height:0.9;' id='bp" + p + "' width='1%'>" +
+		     "</td>" +
+		     "<td class='asm_hex    text-monospace col-auto collapse text-secondary' " +
+		     "    style='line-height:0.9; width:13%' align='center'>" + s4_hex +
+		     "</td>" +
+		     "<td class='asm_dets   text-monospace col-auto show p-0' " +
+		     "    style='line-height:0.9;' width='1%' align='left'>" +
+		     "</td>" +
+		     "<td class='asm_ins    text-monospace col-auto collapse text-secondary' " +
+		     "    style='line-height:0.9;'>" + s2_instr +
+		     "</td>" +
+		     "<td class='asm_pins   text-monospace col-auto collapse text-secondary' " +
+		     "    style='line-height:0.9;' align='left'>" + s2_instr + 
+		     "</td>" +
+		     "</tr>" ;
+
+             return o ;
+	}
+
+	function assembly2html_code_row ( mp, l, s_label )
+	{
+	     // instruction
+	     var s1_instr = mp[l].source ;
+	     var s2_instr = main_memory_getsrc(mp, l) ;
+	     var s3_val   = get_value(mp[l]) ;
+	     var s4_hex   = parseInt(s3_val).toString(16) ;
+	         s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
+	     var p        = "0x" + parseInt(l).toString(16) ;
+
+	     // mark pseudo + n-words
+	     if (s1_instr === '') {
+		 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
+	     }
+	else if (s1_instr != s2_instr) {
+		 s1_instr = '<span class="text-primary">' + s1_instr + '</span>' ;
+		 s2_instr = '<span class="text-primary">' + s2_instr + '</span>' ;
+	     }
+
+	     var oclk = "    onclick='asmdbg_set_breakpoint(" + p + "); " +
+		        "             if (event.stopPropagation) event.stopPropagation();'" ;
+
+	     // join the pieces...
+             var o = '' ;
+	     o +=  "<tr id='asmdbg" + p + "' bgcolor='" + mp[l].bgcolor + "'>" +
+		   "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
+		   "    style='line-height:0.9;' align='right' " + oclk + ">" + s_label +
+		   "</td>" +
+		   "<td class='asm_addr   text-monospace col-auto collapse' " +
+		   "    style='line-height:0.9;' " + oclk + ">" + p +
+		   "</td>" +
+		   "<td class='asm_break  text-monospace col-auto show p-0' " +
+		   "    style='line-height:0.9;' id='bp" + p + "' width='1%' " + oclk + ">" +
+	           "<span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
+		   "</td>" +
+		   "<td class='asm_hex    text-monospace col-auto collapse' " +
+		   "    style='line-height:0.9; width:13%' align='center' " + oclk + ">" + s4_hex +
+		   "</td>" +
+		   "<td class='asm_dets   text-monospace col-auto show p-0' " +
+		   "    style='line-height:0.9;' width='1%' align='left'>" +
+	           "<span data-toggle='tooltip' rel='tooltip2' data-placement='right' " +
+		   "      data-html='true' data-l='" + l + "'>" +
+		   "<span data-toggle='tooltip' rel='tooltip1' data-placement='right' " +
+		   "      title='click to show instruction format details'>&nbsp;.&nbsp;</span>" +
+		   "</span>" +
+		   "</td>" +
+		   "<td class='asm_ins    text-monospace col-auto collapse' " +
+		   "    style='line-height:0.9;' " + oclk + ">" + s1_instr +
+		   "</td>" +
+		   "<td class='asm_pins   text-monospace col-auto collapse' " +
+		   "    style='line-height:0.9;' align='left' " + oclk + ">" + s2_instr +
+		   "</td>" +
+		   "</tr>" ;
+
+             return o ;
 	}
 
         // Popovers
