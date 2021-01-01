@@ -128,7 +128,6 @@ and reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 & r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -149,7 +148,6 @@ andi reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val =inm(15,0),
-            help='r1 = r2 & val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -171,7 +169,6 @@ or reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 | r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -192,7 +189,6 @@ ori reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val =inm(15,0),
-            help='r1 = r2 | val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -212,7 +208,6 @@ not reg {
             cop=0010,
             nwords=1,
             reg=reg(25,21),
-            help='r1 = !r1',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -232,7 +227,6 @@ xor reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 ^ r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -253,7 +247,6 @@ xori reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val =inm(15,0),
-            help='r1 = r2 ^ val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -340,7 +333,6 @@ add reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 + r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -361,7 +353,6 @@ addu reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 + r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -383,7 +374,6 @@ addi reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val =inm(15,0),
-            help='r1 = r2 + val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -407,7 +397,6 @@ addiu reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val =inm(15,0),
-            help='r1 = r2 + val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -429,7 +418,6 @@ sub reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 - r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -450,7 +438,6 @@ sub reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val =inm(15,0),
-            help='r1 = r2 - val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -474,7 +461,6 @@ subu reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 - r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -497,7 +483,6 @@ mul reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 * r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -518,7 +503,6 @@ mul reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val =inm(15,0),
-            help='r1 = r2 * val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -543,7 +527,6 @@ div reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 / r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -596,7 +579,6 @@ rem reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
-            help='r1 = r2 % r3',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -686,7 +668,6 @@ li reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
-            help='r1 = val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -707,7 +688,6 @@ liu reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
-            help='r1 = val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -725,7 +705,6 @@ la  reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='r1 = addr',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -743,7 +722,6 @@ la  reg addr {
             nwords=2,
             reg=reg(25,21),
             addr=address(63,32)abs,
-            help='r1 = addr',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -769,7 +747,6 @@ lw reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='r1 = memory[addr]...memory[addr+3]',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -788,7 +765,6 @@ sw reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='memory[addr] = r1',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -807,7 +783,6 @@ lb reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='r1 = memory[addr]',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -833,7 +808,6 @@ sb reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='memory[addr] = r1',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -861,7 +835,6 @@ lb reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            help='r1 = memory[r2]',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -888,7 +861,6 @@ lb reg1 val(reg2) {
             reg1 = reg(25,21),
             val  = inm(15,0),
             reg2 = reg(20,16),
-            help='r1 = memory[r2+val]',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -941,7 +913,6 @@ sb reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            help='memory[r2] = r1',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -970,7 +941,6 @@ sb reg1 val(reg2) {
             reg1 = reg(25,21),
             val  = inm(15,0),
             reg2 = reg(20,16),
-            help='memory[r2+val] = r1',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1116,7 +1086,6 @@ beq reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
-            help='if r1 == r2 -> branch',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1145,7 +1114,6 @@ bne reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
-            help='if r1 != r2 -> branch',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1174,7 +1142,6 @@ bge reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
-            help='if r1 >= r2 -> branch',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1203,7 +1170,6 @@ blt reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
-            help='if r1 < r2 -> branch',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1232,7 +1198,6 @@ bgt reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
-            help='if r1 > r2 -> branch',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1261,7 +1226,6 @@ ble reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
-            help='if r1 <= r2 -> branch',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1293,7 +1257,6 @@ j addr {
             co=111111,
             nwords=1,
             addr=address(15,0)abs,
-            help='pc = addr',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1309,7 +1272,6 @@ jal addr {
             co=111111,
             nwords=1,
             addr=address(15,0)abs,
-            help='ra = pc; pc = addr',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1327,7 +1289,6 @@ jr reg1 {
             co=111111,
             nwords=1,
             reg1=reg(25,21),
-            help='pc = r1',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1344,7 +1305,6 @@ j reg1 {
             co=111111,
             nwords=1,
             reg1=reg(25,21),
-            help='pc = r1',
             native,
             {
                 // fields is a default parameter with the instruction field information
