@@ -453,7 +453,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
 		    }
 
                     // list source code from start address up to number of source lines
-	            wepsim_nodejs_header2() ;
+	            wepsim_nodejs_header1() ;
                     for (var i=0; i<n_lines; i++)
                     {
                          if (false == simcore_check_if_can_continue2(0, pc_value)) {
