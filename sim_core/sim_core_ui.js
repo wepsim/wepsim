@@ -106,17 +106,16 @@
 
 	function get_deco_from_pc ( pc )
 	{
-	        var hexstrpc = "0x" + pc.toString(16) ;
-                var mp_obj   = simhw_internalState('MP') ;
+                var mp_obj = simhw_internalState('MP') ;
 
-	        if ( (typeof mp_obj                  === "undefined") ||
-	             (typeof mp_obj[hexstrpc]        === "undefined") ||
-	             (typeof mp_obj[hexstrpc].source === "undefined") )
+	        if ( (typeof mp_obj            === "undefined") ||
+	             (typeof mp_obj[pc]        === "undefined") ||
+	             (typeof mp_obj[pc].source === "undefined") )
                 {
                     return "" ;
                 }
 
-                return mp_obj[hexstrpc].source ;
+                return mp_obj[pc].source ;
         }
 
 	function get_verbal_from_current_mpc ( )
