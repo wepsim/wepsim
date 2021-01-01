@@ -620,7 +620,7 @@
 				           }
 			}
 	             },
-            size:    'large',
+            size:    'extra-large',
             onshow:  function() {
 		         // ui elements
     			 wepsim_help_set_relative('') ;

@@ -153,9 +153,9 @@
 		       ab1 + '-' + seg_idiom + '.html' ;
              resolve_html_url(helpdiv, helpurl, '', scrolltothetop) ;
 
-            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*') ;
+             ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*') ;
 
-            return ;
+             return ;
         }
 
         var cod1 = $('#help1_ref').data('code') ;
