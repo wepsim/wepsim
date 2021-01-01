@@ -72,7 +72,7 @@
                      message:     "<span data-langkey='message_5'>message 5</span>",
                      code_pre:    function() {  },
                      code_post:   function() {
-                                      load_from_example_firmware("ep:ep_base:ep_s1_e1", true);
+                                      load_from_example_firmware("ep:ep_mips_base:ep_s1_e1", true);
                                   },
                      wait_next:   100
                   });
