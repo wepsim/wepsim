@@ -55,7 +55,7 @@
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced",
+    "microcode":	"ep_mips_enhanced",
     "assembly":		"ep_s2_e2",
     "description":	"<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
   },
@@ -65,7 +65,7 @@
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced",
+    "microcode":	"ep_mips_enhanced",
     "assembly":		"ep_s2_e3",
     "description":	"<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>"
   },
@@ -75,7 +75,7 @@
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced",
+    "microcode":	"ep_mips_enhanced",
     "assembly":		"ep_s2_e4",
     "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
   },
@@ -85,7 +85,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_interactive",
+    "microcode":	"ep_mips_interactive",
     "assembly":		"ep_s3_e1",
     "description":	"<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>"
   },
@@ -95,7 +95,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_interactive",
+    "microcode":	"ep_mips_interactive",
     "assembly":		"ep_s3_e2",
     "description":	"<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>"
   },
@@ -105,7 +105,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_interactive",
+    "microcode":	"ep_mips_interactive",
     "assembly":		"ep_s3_e3",
     "description":	"<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>"
   },
@@ -115,7 +115,7 @@
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_os",
+    "microcode":	"ep_mips_os",
     "assembly":		"ep_s3_e4",
     "description":	"<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>"
   },
@@ -135,7 +135,7 @@
     "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_os",
+    "microcode":	"ep_mips_os",
     "assembly":		"ep_s4_e2",
     "description":	"<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
   },
@@ -145,7 +145,7 @@
     "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_os",
+    "microcode":	"ep_mips_os",
     "assembly":		"ep_s4_e3",
     "description":	"<span data-langkey='example_04_03'>Example of threads.</span>"
   },
@@ -155,7 +155,7 @@
     "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_os",
+    "microcode":	"ep_mips_os",
     "assembly":		"ep_s4_e4",
     "description":	"<span data-langkey='example_04_04'>Example of malloc + free.</span>"
   },
@@ -175,7 +175,7 @@
     "type":		"<span data-langkey='Special'>Special</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_enhanced",
+    "microcode":	"ep_mips_enhanced",
     "assembly":		"ep_s6_e3",
     "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
   },
@@ -185,7 +185,7 @@
     "type":		"<span data-langkey='Special'>Special</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_os",
+    "microcode":	"ep_mips_os",
     "assembly":		"ep_s6_e4",
     "description":	"<span data-langkey='example_06_04'>Array of strings.</span>"
   },
