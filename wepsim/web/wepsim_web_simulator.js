@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -194,8 +194,7 @@
 							   return true ;
 						        },
 						 reset: function() {
-							   show_control_memory(simhw_internalState('MC'),
-									       simhw_internalState('MC_dashboard'),0,true);
+							   show_control_memory(simhw_internalState('MC'),0,true);
 						        },
 					   update_draw: wepsim_svg_update_draw,
 			         update_bus_visibility: wepsim_svg_update_bus_visibility
@@ -319,13 +318,7 @@
             simcore_reset() ;
 
             // update UI: asmdbg
-            var asmdbg_content = default_asmdbg_content_horizontal() ;
-            if (Object.keys(SIMWARE.assembly).length !== 0) // <===> if (SIMWARE.assembly != {})
-	    {
-                 asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
-	    }
-
-	    asmdbg_loadContent(asmdbg_content) ;
+	    asmdbg_update_assembly() ;
 
             // return ok
             return true ;

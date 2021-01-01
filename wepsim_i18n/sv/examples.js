@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -46,9 +46,10 @@
 		'example_05_01':		'Applikationsspecifik förlängning: addv + seqv.',
 		'example_05_03':		'Applikationsspecifik förlängning: madd + mmul + mxch.',
 		'example_05_02':		'Applikationsspecifik förlängning: strlen_2 + skipasciicode_2.',
-		'example_03_01':		'<b> Instruktivt </ b> exempel med undantag för flytpunkten.',
-		'example_03_02':		'<b> Instruktivt </ b> exempel med avbrottstöd: hämta, RETI och .ktext / .kdata.',
-		'example_03_03':		'<b> Instruktivt </ b> exempel med systemsamtalstöd.',
+		'example_03_01':		'<b>Instruktivt</b> exempel med undantag för flytpunkten.',
+		'example_03_02':		'<b>Instruktivt</b> exempel med avbrottstöd: hämta, RETI och .ktext / .kdata.',
+		'example_03_03':		'<b>Instruktivt</b> exempel med systemsamtalstöd.',
+	        'example_03_04':		'<b>Instruktivt</b> exempel med enkel stackkonvention.',
 		'example_04_04':		'Exempel på malloc + fri.',
 		'example_04_02':		'Exempel på syscall för att skriva / läsa heltal och sträng.',
 		'example_04_03':		'Exempel på trådar.',

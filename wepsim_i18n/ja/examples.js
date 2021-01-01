@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -49,6 +49,7 @@
 		'example_03_01':		'浮動小数点例外を使用した<b>有益な</b>例。',
 		'example_03_02':		'割り込みをサポートする<b>有益な</b>例：fetch、RETI、.ktext/.kdata。',
 		'example_03_03':		'システムコールをサポートする<b>有益な</b>例。',
+	        'example_03_04':		'簡単なスタック規則を使用した<b>有益な</ b>例.',
 		'example_04_04':		'malloc + freeの例',
 		'example_04_02':		'整数と文字列を印刷/読み取りするためのsyscallの例。',
 		'example_04_03':		'スレッドの例',

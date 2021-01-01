@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -49,6 +49,7 @@
 		'example_03_01':		'अस्थायी बिंदु अपवाद के साथ <b> शिक्षाप्रद </ b> उदाहरण।',
 		'example_03_02':		'<b> शिक्षाप्रद </ b> रुकावट के समर्थन के साथ उदाहरण: लाने के लिए, RETI, और .ktext / -kdata।',
 		'example_03_03':		'सिस्टम कॉल समर्थन के साथ <b> शिक्षाप्रद </ b> उदाहरण।',
+	        'example_03_04':		'सरल स्टैक सम्मेलन के साथ <b> शिक्षाप्रद </ b> उदाहरण.',
 		'example_04_04':		'मल्लोक + मुक्त का उदाहरण।',
 		'example_04_02':		'पूर्णांक और स्ट्रिंग को मुद्रण / पढ़ने के लिए syscall का उदाहरण।',
 		'example_04_03':		'धागे का उदाहरण।',

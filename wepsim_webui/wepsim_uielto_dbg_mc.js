@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -59,22 +59,22 @@
 
         function dbg_set_breakpoint ( addr )
         {
-                var icon_theme = get_cfg('ICON_theme') ;
-                var dbg_level  = get_cfg('DBG_level') ;
+                // toggle
+                var hexaddr  = "0x" + parseInt(addr).toString(16) ;
+                var bp_state = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
 
-                var o1       = document.getElementById("mcpin" + addr) ;
-                var bp_state = simhw_internalState_get('MC_dashboard', addr).breakpoint ;
-
-                if (bp_state === true) {
-                    bp_state = false ;
-                    o1.innerHTML = "&nbsp;" ;
-                } else {
-                    bp_state = true ;
-                    o1.innerHTML = sim_core_breakpointicon_get(icon_theme) ;
+                // toggle UI
+                var o1_content = "&nbsp;" ;
+                if (false == bp_state) {
+                    var icon_theme = get_cfg('ICON_theme') ;
+                    o1_content = sim_core_breakpointicon_get(icon_theme) ;
                 }
 
-                simhw_internalState_get('MC_dashboard', addr).breakpoint = bp_state ;
+                var o1 = document.getElementById("mcpin" + addr) ;
+                o1.innerHTML = o1_content ;
 
+                // notify if dbg_level...
+                var dbg_level = get_cfg('DBG_level') ;
                 if ( bp_state && ('instruction' === dbg_level) )
                 {
                      wepsim_notify_do_notify('<strong>INFO</strong>',
@@ -93,9 +93,7 @@
 	        var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	        var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
 
-                light_refresh_control_memory(simhw_internalState('MC'),
-                                             simhw_internalState('MC_dashboard'),
-			                     reg_maddr) ;
+                light_refresh_control_memory(simhw_internalState('MC'), reg_maddr) ;
 	}
 
 
@@ -103,17 +101,17 @@
          *  Control Memory UI
          */
 
-        function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
+        function hard_refresh_control_memory ( memory, index, redraw )
         {
 	    var o1 = "" ;
             var SIMWARE = get_simware() ;
 
             for (var key in memory) {
-                 o1 += control_memory_showrow(memory, key, (key == index), memory_dashboard, SIMWARE.revlabels) ;
+                 o1 += control_memory_showrow(memory, key, (key == index), SIMWARE.revlabels) ;
             }
 
 	    if (typeof memory[index] == "undefined") {
-                o1 += control_memory_showrow(memory, index, true, memory_dashboard, SIMWARE.revlabels) ;
+                o1 += control_memory_showrow(memory, index, true, SIMWARE.revlabels) ;
             }
 
             // build and load HTML
@@ -134,7 +132,7 @@
 
         var old_mc_addr = 0;
 
-        function light_refresh_control_memory ( memory, memory_dashboard, index )
+        function light_refresh_control_memory ( memory, index )
         {
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'black') ;
@@ -149,7 +147,7 @@
 
         var show_control_memory_deferred = null;
 
-        function wepsim_show_control_memory ( memory, memory_dashboard, index, redraw )
+        function wepsim_show_control_memory ( memory, index, redraw )
         {
             if (null !== show_control_memory_deferred) {
                 return;
@@ -157,8 +155,8 @@
 
             show_control_memory_deferred = setTimeout(function () {
 						         if (false === redraw)
-							      light_refresh_control_memory(memory, memory_dashboard, index);
-                                                         else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
+							      light_refresh_control_memory(memory, index);
+                                                         else  hard_refresh_control_memory(memory, index, redraw);
                                                          show_control_memory_deferred = null;
                                                       }, cfg_show_control_memory_delay);
         }
@@ -167,38 +165,11 @@
         // Auxiliar functions
         //
 
-        function controlmemory_lineToString ( memory, key )
-        {
-		var value = "" ;
-
-		for (var ks in memory[key])
-		{
-		     if (1 == memory[key][ks]) {
-			 value += ks + " ";
-			 continue;
-		     }
-
-		     if ("NATIVE" == ks) {
-			 value += "&lt;native&gt; " ;
-			 continue;
-		     }
-
-		     if ("NATIVE_JIT" == ks) {
-			 value += "&lt;built-in&gt; " ;
-			 continue;
-		     }
-
-		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
-		}
-
-		return value ;
-        }
-
-        function control_memory_showrow ( memory, key, is_current, memory_dashboard, revlabels )
+        function control_memory_showrow ( memory, key, is_current, revlabels )
         {
 	        var o1 = "" ;
 
-                var value = controlmemory_lineToString(memory, key) ;
+                var value = control_memory_lineToString(memory, key) ;
                 var maddr = "0x" + parseInt(key).toString(16) ;
                 if (typeof revlabels[key] !== "undefined")
 	        {
@@ -221,9 +192,9 @@
                 // trpin + wcolor
                 var trpin  = "&nbsp;" ;
                 var jscode = "" ;
-                if (typeof memory_dashboard[key] !== "undefined")
+                if (typeof memory[key] !== "undefined")
 	        {
-		    if (true == memory_dashboard[key].breakpoint) {
+		    if (true == memory[key].breakpoint) {
                         var icon_theme = get_cfg('ICON_theme') ;
                         trpin = sim_core_breakpointicon_get(icon_theme) ;
 		    }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -102,10 +102,15 @@
 						     origin = 'PC=0x' + r_value.toString(16) ;
 						 }
 
+						 var melto = {
+								"value":           (value >>> 0),
+								"source_tracking": [ origin ],
+								"comments":        null
+							     } ;
                                                  var valref = main_memory_set(sim.poc.internal_states.MP,
                                                                               elto, 
-								              (value >>> 0), 
-								              [ origin ]) ;
+									      melto) ;
+
 				                 show_main_memory(sim.poc.internal_states.MP, 
                                                                   elto, 
                                                                   (typeof valref === "undefined"),
@@ -292,10 +297,15 @@
 						          origin = 'PC=0x' + r_value.toString(16) ;
                                                       }
 
+						      var melto = {
+								     "value":           (value >>> 0),
+								     "source_tracking": [ origin ],
+								     "comments":        null
+							          } ;
                                                       var elto = main_memory_set(sim.poc.internal_states.MP,
-                                                                                 wordress,
-                                                                                 (value >>> 0),
-              							                 [ origin ]) ;
+                                                                                 wordress, 
+										 melto) ;
+
                                                       sim.poc.signals[s_expr[4]].value = 1 ;
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, true) ;
                                                    },

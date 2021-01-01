@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -49,9 +49,10 @@
 		"example_05_01":				"Extension spécifique à l'application: addv + seqv.",
 		"example_05_03":				"Extension spécifique à l'application: madd + mmul + mxch.",
 		"example_05_02":				"Extension spécifique à l'application: strlen_2 + skipasciicode_2.",
-		"example_03_01":				"Exemple <b> Instructive </b> avec exception de virgule flottante.",
-		"example_03_02":				"Exemple <b> Instructive </b> avec prise en charge des interruptions: fetch, RETI et .ktext/.kdata.",
-		"example_03_03":				"Exemple <b> Instructive </b> avec prise en charge des appels système.",
+		"example_03_01":				"Exemple <b>Instructive</b> avec exception de virgule flottante.",
+		"example_03_02":				"Exemple <b>Instructive</b> avec prise en charge des interruptions: fetch, RETI et .ktext/.kdata.",
+		"example_03_03":				"Exemple <b>Instructive</b> avec prise en charge des appels système.",
+	        "example_03_04":				"Exemple <b>instructif</b> avec convention de pile simple.",
 		"example_04_04":				"Exemple de malloc + free.",
 		"example_04_02":				"Exemple de appel système pour l'impression/la lecture de nombres entiers et de chaînes.",
 		"example_04_03":				"Exemple de fils.",

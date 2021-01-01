@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -136,6 +136,7 @@
             // memory
             var base_addrs = main_memory_get_baseaddr() ;
             var memory_cpy = Object.assign({}, memory) ;
+	    var melto      = null ;
             for (var elto in base_addrs)
             {
                  // skip pointers to zero
@@ -143,12 +144,26 @@
                      continue ;
                  }
 
-                 if (typeof main_memory_get(memory_cpy, base_addrs[elto]) == "undefined") {
-                     main_memory_set(memory_cpy, base_addrs[elto], 0, '') ;
+                 if (typeof main_memory_get(memory_cpy, base_addrs[elto]) == "undefined")
+                 {
+		     melto = {
+				"value":           0,
+				"source_tracking": null,
+				"comments":        null
+			     } ;
+
+                     main_memory_set(memory_cpy, base_addrs[elto], melto) ;
                  }
             }
-            if (typeof main_memory_get(memory_cpy, index) == "undefined") {
-                main_memory_set(memory_cpy, index, 0, '') ;
+            if (typeof main_memory_get(memory_cpy, index) == "undefined")
+            {
+		melto = {
+			   "value":           0,
+			   "source_tracking": null,
+			   "comments":        null
+			} ;
+
+                main_memory_set(memory_cpy, index, melto) ;
             }
 
             // temporal variables
@@ -186,7 +201,7 @@
             // pack and load html
 	    o1 = '<div class="container-fluid">' +
 	         '<div class="row">' +
-                 '<div class="list-group sticky-top col-auto collapse" ' +
+                 '<div class="list-group sticky-top col-auto collapse hide" ' +
                  '     id="lst_seg1">' + o1 + '</div>' +
                  '<div data-spy="scroll" data-target="#lst_seg1" data-offset="0" ' +
                  '     style="overflow-y:scroll; -webkit-overflow-scrolling:touch; height:50vh; width:inherit;"' +
@@ -204,12 +219,10 @@
             element_scroll_set("#lst_ins1", pos) ;
 
             if (cfg.showsegs)
-                 $("#lst_seg1").collapse("show") ;
-            else $("#lst_seg1").collapse("hide") ;
+                $("#lst_seg1").collapse("show") ;
 
             if (cfg.showsrc)
-                 $(".mp_tooltip").collapse("show") ;
-            else $(".mp_tooltip").collapse("hide") ;
+                $(".mp_tooltip").collapse("show") ;
 
             // * Update old_main_add for light_update
             old_main_addr = index ;

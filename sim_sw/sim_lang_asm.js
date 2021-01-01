@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2021 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
  *
@@ -384,14 +384,17 @@ function writememory_and_reset ( mp, gen, nwords )
 {
 	if (gen.byteWord >= WORD_BYTES)
         {
-            main_memory_set(mp,
-                            "0x" + gen.seg_ptr.toString(16),
-                            gen.machineCode,
-                            gen.track_source) ;
+	    var melto = {
+			  "value":           gen.machineCode,
+			  "source_tracking": gen.track_source,
+			  "comments":        gen.comments
+			} ;
+            main_memory_set(mp, "0x" + gen.seg_ptr.toString(16), melto) ;
 
             gen.seg_ptr      = gen.seg_ptr + WORD_BYTES ;
             gen.byteWord     = 0 ;
             gen.track_source = [] ;
+            gen.comments     = [] ;
             gen.machineCode  = reset_assembly(nwords) ;
         }
 }
@@ -413,6 +416,7 @@ function read_data ( context, datosCU, ret )
 	   var gen = {};
 	   gen.byteWord     = 0;
            gen.track_source = [] ;
+           gen.comments     = [] ;
 	   gen.machineCode  = reset_assembly(1);
            gen.seg_ptr      = ret.seg[seg_name].begin ;
 
@@ -801,10 +805,12 @@ function read_data ( context, datosCU, ret )
 	   // Fill memory
 	   if (gen.byteWord > 0)
 	   {
-                main_memory_set(ret.mp,
-                                "0x" + gen.seg_ptr.toString(16),
-                                gen.machineCode,
-                                gen.track_source) ;
+	        var melto = {
+			      "value":           gen.machineCode,
+			      "source_tracking": gen.track_source,
+			      "comments":        gen.comments
+			    } ;
+                main_memory_set(ret.mp, "0x" + gen.seg_ptr.toString(16), melto) ;
 
                 gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
 	   }
@@ -1389,17 +1395,19 @@ function read_text ( context, datosCU, ret )
 			    s_def = "" ;
 			}
 
-			ret.assembly["0x" + seg_ptr.toString(16)] = {
-				                                       breakpoint:      false,
-				                                       binary:          machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
-				                                       source:          s_def,
-				                                       source_original: s_ori,
-				                                       firm_reference:  ref
-			                                            } ;
-			main_memory_set(ret.mp,
-					"0x" + seg_ptr.toString(16),
-					machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
-					[ s_ori ]) ;
+                        var acc_cmt = getComments(context) ;
+	                var melto = {
+		        	       value:           machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
+				       binary:          machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
+				       source:          s_def,
+				    // source_original: s_ori,
+		        	       source_tracking: [ s_ori ],
+				       firm_reference:  ref,
+		        	       comments:        [ acc_cmt ],
+				       is_assembly:     true
+		        	    } ;
+			main_memory_set(ret.mp, "0x" + seg_ptr.toString(16), melto) ;
+                        resetComments(context) ;
 
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
@@ -1508,7 +1516,6 @@ function simlang_compile (text, datosCU)
           ret.mp         = {} ;
 	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit}
           ret.labels2    = {} ;
-          ret.assembly   = {} ; // This is for the Assembly Debugger...
           ret.revlabels2 = {} ;
           ret.revseg     = [] ;
 
@@ -1625,10 +1632,12 @@ function simlang_compile (text, datosCU)
 		auxAddr = ret.labels[i].addr;
 		for (j=ret.labels[i].nwords-1; j>=0; j--)
                 {
-		        main_memory_set(ret.mp,
-				        "0x" + auxAddr.toString(16),
-				        machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH),
-				        null) ;
+		        var melto = {
+				      "value":           machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH),
+				      "source_tracking": null,
+				      "comments":        null
+			            } ;
+		        main_memory_set(ret.mp, "0x" + auxAddr.toString(16), melto) ;
 
                 	auxAddr += WORD_BYTES ;
 		}

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -198,8 +198,11 @@ function read_microprg ( context )
 	   // match mandatory }
            nextToken(context) ;
 
-           return { 'microprograma': microprograma,
-                    'microcomments': microcomments } ;
+           return { 
+                    'NATIVE':        '',
+                    'microprograma': microprograma,
+                    'microcomments': microcomments
+                  } ;
 }
 
 function read_native ( context )
@@ -215,18 +218,19 @@ function read_native ( context )
 
 	   // read the rest...
 	   nextNative(context) ;
+	   var native_code = getToken(context) ;
 
-	   var microInstruccionAux = {} ;
-	   microInstruccionAux.NATIVE = getToken(context) ;
-
-	   microprograma.push(microInstruccionAux) ;
+	   microprograma.push({}) ;
            microcomments.push('') ;
 
 	   // match mandatory }
            nextToken(context) ;
 
-           return { 'microprograma': microprograma,
-                    'microcomments': microcomments } ;
+           return { 
+                    'NATIVE':        native_code,
+                    'microprograma': microprograma,
+                    'microcomments': microcomments
+                  } ;
 }
 
 function find_first_cocop ( context, curr_instruction, first_co, last_co )
@@ -581,10 +585,10 @@ function loadFirmware (text)
 		       nextToken(context);
 
 	           // match optional native
-	           instruccionAux["native"] = false;
+	           instruccionAux["is_native"] = false;
 	           if (isToken(context, "native"))
 		   {
-	               instruccionAux["native"] = true;
+	               instruccionAux["is_native"] = true;
 		       nextToken(context);
 
 	               // match optional ,
@@ -596,7 +600,7 @@ function loadFirmware (text)
 	           }
 
                    ret = {} ;
-	           if (true == instruccionAux["native"])
+	           if (true == instruccionAux.is_native)
                         ret = read_native(context) ;
 		   else ret = read_microprg(context) ;
 
@@ -607,6 +611,7 @@ function loadFirmware (text)
 		   instruccionAux.signatureGlobal = "begin" ;
 		   instruccionAux.signatureUser   = "begin" ;
 		   instruccionAux.signatureRaw    = "begin" ;
+                   instruccionAux.NATIVE          = ret.NATIVE ;
                    instruccionAux.microcode       = ret.microprograma ;
                    instruccionAux.microcomments   = ret.microcomments ;
 		   context.instrucciones.push(instruccionAux);
@@ -835,7 +840,7 @@ function loadFirmware (text)
                        }
 
 		       nextToken(context);
-		       // match mandatory CO
+		       // match mandatory COP value
 		       instruccionAux.cop = getToken(context) ;
 
 		       // semantic check: valid value
@@ -1024,6 +1029,46 @@ function loadFirmware (text)
 	       }
 
 	       instruccionAux.fields = campos;
+	       instruccionAux.help   = '' ;
+
+// li reg val {
+//             co=000000,
+//             nwords=1,
+//             reg=reg(25,21),
+//             val=inm(15,0),
+//             *[help='this instruction is used for...',]*
+//             {
+//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
+//             }
+// }
+
+	       // match optional help
+	       if (isToken(context,"help"))
+               {
+		       nextToken(context);
+		       // match mandatory =
+		       if (! isToken(context,"=")) {
+		             return langError(context,
+				              i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                       }
+
+		       nextToken(context);
+		       // match mandatory HELP value
+		       instruccionAux.help = getToken(context) ;
+
+		       // semantic check: valid value
+		       if ("STRING" != getTokenType(context)) {
+                            return langError(context,
+                                             i18n_get_TagFor('compiler', 'UNKNOWN ESCAPE CHAR') +
+                                             "'" + getToken(context) + "'") ;
+                       }
+
+		       nextToken(context);
+		       // match optional ,
+		       if (isToken(context,",")) {
+			   nextToken(context);
+		       }
+               }
 
 // li reg val {
 //             co=000000,
@@ -1036,12 +1081,12 @@ function loadFirmware (text)
 //             }
 // }
 
-	       instruccionAux["native"] = false;
+	       instruccionAux.is_native = false;
 
 	       // match optional 'native' + ','
 	       if (isToken(context, "native"))
 	       {
-	           instruccionAux["native"] = true;
+	           instruccionAux["is_native"] = true;
 		   nextToken(context);
 
 	           if (isToken(context,","))
@@ -1049,7 +1094,7 @@ function loadFirmware (text)
 	       }
 
 	       // semantic check: valid pending value (cop.length if native.false)
-	       if ( (instruccionAux["native"]  === false) &&
+	       if ( (instruccionAux["is_native"]  === false) &&
                     (typeof instruccionAux.cop !== 'undefined') &&
 		    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
 	       {
@@ -1069,13 +1114,14 @@ function loadFirmware (text)
 // }
 
                    ret = {} ;
-	           if (true == instruccionAux["native"])
+	           if (true == instruccionAux.is_native)
                         ret = read_native(context) ;
 		   else ret = read_microprg(context) ;
 
                    if (typeof ret.error != "undefined")
                        return ret ;
 
+               instruccionAux.NATIVE        = ret.NATIVE ;
                instruccionAux.microcode     = ret.microprograma ;
                instruccionAux.microcomments = ret.microcomments ;
 	       context.instrucciones.push(instruccionAux);
@@ -1202,20 +1248,13 @@ function loadFirmware (text)
 	   for (i=0; i<context.instrucciones.length; i++)
 	   {
 		   var ins = context.instrucciones[i] ;
-		   if (false == ins["native"]) {
-		       continue ;
-		   }
-
-		   for (var j=0; j<ins.microcode.length; j++)
+		   if (ins.is_native)
 		   {
-			if (typeof ins.microcode[j].NATIVE != "undefined")
-			{
-			    mk_native += "context.instrucciones[" + i + "][\"microcode\"][" + j + "][\"NATIVE_JIT\"] = " +
-			                 " function() {\n" +
-					 "\t var fields = simcore_native_get_fields(\"" + ins.signatureRaw + "\");\n" +
-					     ins.microcode[j].NATIVE +
-					 "\n};\n " ;
-			}
+		       mk_native += "context.instrucciones[" + i + "][\"NATIVE_JIT\"] = " +
+			            " function() {\n" +
+				    "\t var fields = simcore_native_get_fields(\"" + ins.signatureRaw + "\");\n" +
+				    ins.NATIVE +
+				    "\n};\n " ;
 		   }
 	   }
 	   eval(mk_native) ;

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -46,9 +46,10 @@
 		'example_05_01':		'特定于应用程序的扩展：addv + seqv。',
 		'example_05_03':		'特定于应用程序的扩展：madd + mmul + mxch。',
 		'example_05_02':		'特定于应用程序的扩展：strlen_2 + skipasciicode_2。',
-		'example_03_01':		'带有浮点异常的<b>有教育的</ b>示例。',
-		'example_03_02':		'支持中断的<b>有教育的</ b>示例：fetch，RETI和.ktext/.kdata。',
-		'example_03_03':		'<b>具有系统调用支持的教学</ b>示例。',
+		'example_03_01':		'带有浮点异常的<b>有教育的</b>示例。',
+		'example_03_02':		'支持中断的<b>有教育的</b>示例：fetch，RETI和.ktext/.kdata。',
+		'example_03_03':		'<b>具有系统调用支持的教学</b>示例。',
+	        'example_03_04':		'<b>指导性</b>示例，带有简单的堆栈约定.',
 		'example_04_04':		'malloc + free的例子。',
 		'example_04_02':		'用于打印/读取整数和字符串的系统调用示例。',
 		'example_04_03':		'线程示例。',

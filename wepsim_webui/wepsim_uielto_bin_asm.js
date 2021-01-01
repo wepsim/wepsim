@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -177,6 +177,7 @@
 		     color   =  slimits[skey].color ;
                      rows    =  0 ;
                      var x   =  "" ;
+                     var p   =  "" ;
                      var v   =  0 ;
 
 		     for (var i=c_begin; i<=c_end; i++)
@@ -188,38 +189,30 @@
 
                              v = get_value(mp[c]) ;
 
+			     p = "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
+                                 "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
+			         "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
+			         "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
+			          v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" ;
+
                              if (0 == rows) {
-			         o += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
-				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
-				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
-                                       v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" +
-				      "<td rowspan=" ;
+			         o += p + "<td rowspan=" ;
                              } else {
-			         x += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
-				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
-				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
-                                      v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" +
-				      "</tr>" ;
+			         x += p + "</tr>" ;
                              }
 
                              rows++;
 	             }
 
+		     p = "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
+                         "<td>&nbsp;</td>" +
+			 "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16).toUpperCase() + "</td>" +
+			 "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" ;
+
 		     if (0 == rows) {
-			 o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
-			      "<td>&nbsp;</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16).toUpperCase() + "</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
-			      "<td rowspan=" ;
-			 x += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
-			      "<td>&nbsp;</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16).toUpperCase() + "</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
-			      "<td>&nbsp;</td>" +
-			      "</tr>" ;
-                        rows = 2 ;
+			 o += p + "<td rowspan=" ;
+			 x += p + "<td>&nbsp;</td>" + "</tr>" ;
+                         rows = 2 ;
 		     }
 
                      o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;

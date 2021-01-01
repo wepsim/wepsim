@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -206,9 +206,7 @@
 	update_memories(SIMWARE);
 
         // update UI
-        var asmdbg_content = assembly2html(SIMWAREaddon.mp,  SIMWAREaddon.labels2,
-                                           SIMWAREaddon.seg, SIMWAREaddon.assembly) ;
-	asmdbg_loadContent(asmdbg_content) ;
+	asmdbg_update_assembly() ;
 
 	simcore_reset();
         return true;

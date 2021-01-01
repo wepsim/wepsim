@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -162,12 +162,12 @@
 		                     state: "REG_IR",
 		                     default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
 			                              "cop": { "begin": 27, "end": 31, "length": 5 } },
-		                     is_pointer: true
+		                     is_pointer: false
 	                          } ;
         sim.poc.ctrl_states.mpc = {
 		                     name:  "mPC",
 		                     state: "REG_MICROADDR",
-		                     is_pointer: true
+		                     is_pointer: false
 	                          } ;
 
 
@@ -176,7 +176,6 @@
 	 */
 
         sim.poc.internal_states.MC           = {} ;
-        sim.poc.internal_states.MC_dashboard = {} ;
         sim.poc.internal_states.ROM          = {} ;
 
         sim.poc.internal_states.FIRMWARE     = {} ;
@@ -2136,6 +2135,9 @@
 		sim.poc.behaviors["CLOCK"] = { nparameters: 1,
 					     operation: function(s_expr)
 							{
+						            var new_maddr = null ;
+							    var mcelto    = null ;
+
 						            // measure time (1/2)
 					                    var t0 = performance.now() ;
 
@@ -2144,41 +2146,52 @@
 							    set_value(sim.poc.states["CLK"], val + 1);
 
 							    // 2.- To treat the (Falling) Edge signals
-							    for (var i=0; i<jit_fire_order.length; i++) {
-								 fn_updateE_now(jit_fire_order[i]) ;
+						           new_maddr = get_value(sim.poc.states["REG_MICROADDR"]);
+							    mcelto = sim.poc.internal_states['MC'][new_maddr];
+                                                            if ( (typeof mcelto !== "undefined") &&
+                                                                 (false == mcelto.is_native) )
+							    {
+							        for (var i=0; i<jit_fire_order.length; i++) {
+								     fn_updateE_now(jit_fire_order[i]) ;
+							        }
 							    }
-							    //actions = jit_fire_order.map(fn_updateE_future) ;
-							    //Promise.all(actions) ;
 
-							    // 3.- The special (Falling) Edge part of the Control Unit...
-							    var new_maddr = get_value(sim.poc.states["MUXA_MICROADDR"]) ;
-							    set_value(sim.poc.states["REG_MICROADDR"], new_maddr) ;
-
-							    if (typeof sim.poc.internal_states['MC'][new_maddr] != "undefined")
-								     var new_mins = Object.create(sim.poc.internal_states['MC'][new_maddr]);
-								else var new_mins = Object.create(sim.poc.states["REG_MICROINS"].default_value);
-							    sim.poc.states["REG_MICROINS"].value = new_mins ;
+							    // 3.- The (Falling) Edge part of the Control Unit...
+						          new_maddr = get_value(sim.poc.states["MUXA_MICROADDR"]);
+							    set_value(sim.poc.states["REG_MICROADDR"], new_maddr);
+							    mcelto = sim.poc.internal_states['MC'][new_maddr];
+							    if (typeof mcelto === "undefined")
+							    {
+								mcelto = {
+							      value: sim.poc.states["REG_MICROINS"].default_value,
+									    is_native: false
+									 } ;
+							    }
+							    var new_mins = Object.create(get_value(mcelto));
+							    sim.poc.states["REG_MICROINS"].value = new_mins;
 
                                                             // 4.- update signals
 							    for (var key in sim.poc.signals)
 							    {
-								 if (typeof new_mins[key] != "undefined")
+								 if (typeof new_mins[key] !== "undefined")
 								      set_value(sim.poc.signals[key],   new_mins[key]);
 								 else set_value(sim.poc.signals[key], sim.poc.signals[key].default_value);
 							    }
 
 							    // 5.- Finally, 'fire' the (High) Level signals
-							    for (var i=0; i<jit_fire_order.length; i++) {
-								 fn_updateL_now(jit_fire_order[i]) ;
+							    if (mcelto.is_native)
+							    {
+							           if (typeof mcelto.NATIVE_JIT != "undefined")
+							               mcelto.NATIVE_JIT() ;
+						              else if (typeof mcelto.NATIVE != "undefined")
+							               eval(mcelto.NATIVE) ;
 							    }
-							    //actions = jit_fire_order.map(fn_updateL_future) ;
-							    //Promise.all(actions) ;
-
-							    // 6.- Native
-							         if (typeof new_mins.NATIVE_JIT != "undefined")
-							             new_mins.NATIVE_JIT() ;
-						            else if (typeof new_mins.NATIVE != "undefined")
-							             eval(new_mins.NATIVE) ;
+							    else
+							    {
+							        for (var i=0; i<jit_fire_order.length; i++) {
+							    	     fn_updateL_now(jit_fire_order[i]) ;
+							        }
+							    }
 
 						            // measure time (2/2)
 					                    var t1 = performance.now() ;

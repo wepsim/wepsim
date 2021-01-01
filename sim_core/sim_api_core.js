@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -290,7 +290,8 @@
 
                 // if (MC[reg_maddr] == undefined) -> cannot continue
                 var curr_MC = simhw_internalState('MC') ;
-                if (typeof curr_MC[reg_maddr] === "undefined")
+                var mcelto  = control_memory_get(curr_MC, reg_maddr) ;
+                if (typeof mcelto === "undefined")
                 {
                     var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
                     ret.ok  = false ;
@@ -308,7 +309,7 @@
                 }
 
                 // if (border *text) && (native code) && (reg_maddr === 0) -> can continue
-                if ( (typeof curr_MC[reg_maddr].NATIVE !== "undefined") && (0 === reg_maddr) ) {
+                if ( (mcelto.is_native) && (0 === reg_maddr) ) {
                       return ret ;
                 }
 
@@ -351,6 +352,7 @@
 	    var SIMWARE        = get_simware() ;
             var curr_firm      = simhw_internalState('FIRMWARE') ;
             var curr_segments  = simhw_internalState('segments') ;
+            var curr_MC        = simhw_internalState('MC') ;
             var sim_components = simhw_sim_components() ;
             var ctrl_states    = simhw_sim_ctrlStates_get() ;
 
@@ -393,10 +395,17 @@
 
             // If not NATIVE code, fire one clock signal to initialize at first microinstruction
 	    var new_maddr = get_value(simhw_sim_state('MUXA_MICROADDR')) ;
-	    if (typeof simhw_internalState_get('MC',new_maddr) != "undefined")
-		 var new_mins = simhw_internalState_get('MC', new_maddr) ;
-	    else var new_mins = simhw_sim_state('REG_MICROINS').default_value ;
-	    if (typeof new_mins.NATIVE === "undefined") {
+            var mcelto    = control_memory_get(curr_MC, new_maddr) ;
+	    if (typeof mcelto === "undefined")
+            {
+                mcelto = {
+                            value:     simhw_sim_state('REG_MICROINS').default_value,
+                            is_native: false
+                         } ;
+            }
+	    var new_mins = get_value(mcelto) ;
+
+	    if (false == mcelto.is_native) {
                 compute_general_behavior("CLOCK") ;
 	    }
 
@@ -482,6 +491,7 @@
                 var i_clks    = 0 ;
                 var limitless = (options.cycles_limit < 0) ;
                 var cur_addr  = 0 ;
+                var mcelto    = null ;
 
 		do
             	{
@@ -503,7 +513,8 @@
 	            }
 
                     cur_addr = get_value(maddr_state) ;
-                    if (typeof curr_MC[cur_addr] == "undefined")
+                    mcelto   = control_memory_get(curr_MC, cur_addr) ;
+                    if (typeof mcelto === "undefined")
 		    {
 		        ret.msg = "Error: undefined microinstruction at " + cur_addr + "." ;
 		        ret.ok  = false ;
@@ -513,10 +524,7 @@
 		while ( (i_clks < options.cycles_limit) && (0 != cur_addr) );
 
 		// no_error && native -> perform a second clock-tick...
-		if (
-		     (true == ret.ok) &&
-		     (typeof curr_MC[cur_addr].NATIVE !== "undefined")
-		   )
+		if ( (true == ret.ok) && (mcelto.is_native) )
 		{
                     compute_general_behavior("CLOCK") ; // ...instruction
                 }

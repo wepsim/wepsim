@@ -1,6 +1,13 @@
 
 # Changelog
 
+## 2.1.3 -> 2.1.4:
+* Special comments in assembly:
+  ** "# state:" now saves the state
+  ** "# notify: lorem ipsum" to show a dialog box
+* Interactive mode added to command-line
+* Minor bugs fixed and several refinements added.
+
 ## 2.1.2 -> 2.1.3:
 * Bump bootstrap from 4.5.2 to 4.5.3
 * Improved register file panel

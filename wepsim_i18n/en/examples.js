@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -50,6 +50,7 @@
              "example_03_01":				"<b>Instructive</b> example with floating point exception.",
              "example_03_02":				"<b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.",
              "example_03_03":				"<b>Instructive</b> example with system call support.",
+	     "example_03_04":				"<b>Instructive</b> example with simple stack convention.",
              "example_04_04":				"Example of malloc + free.",
              "example_04_02":				"Example of syscall for printing/reading integer and string.",
              "example_04_03":				"Example of threads.",

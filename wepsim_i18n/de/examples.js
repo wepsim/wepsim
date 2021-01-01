@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -46,9 +46,10 @@
 		'example_05_01':		'Anwendungsspezifische Erweiterung: addv + seqv.',
 		'example_05_03':		'Anwendungsspezifische Erweiterung: madd + mmul + mxch.',
 		'example_05_02':		'Anwendungsspezifische Erweiterung: strlen_2 + skipasciicode_2.',
-		'example_03_01':		'<b> Lehrbeispiel </b> mit Gleitkomma-Ausnahme.',
-		'example_03_02':		'<b> Anleitendes </b> Beispiel mit Unterstützung für Unterbrechungen: Fetch, RETI und .ktext/.kdata.',
-		'example_03_03':		'<b> Anleitendes </b> Beispiel mit Unterstützung für Systemaufrufe.',
+		'example_03_01':		'<b>Anleitendes</b> mit Gleitkomma-Ausnahme.',
+		'example_03_02':		'<b>Anleitendes</b> Beispiel mit Unterstützung für Unterbrechungen: Fetch, RETI und .ktext/.kdata.',
+		'example_03_03':		'<b>Anleitendes</b> Beispiel mit Unterstützung für Systemaufrufe.',
+		'example_03_04':		'<b>Anleitendes</b> Beispiel mit einfacher Stapelkonvention.',
 		'example_04_04':		'Beispiel für malloc + free.',
 		'example_04_02':		'Beispiel für syscall zum Drucken/Lesen von Integer und String.',
 		'example_04_03':		'Beispiel für Threads.',

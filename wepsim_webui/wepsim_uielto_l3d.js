@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
  *
  *  This file is part of WepSIM.
  *
@@ -68,7 +68,7 @@
 		    var offset = 0 ;
 
 		    var o1  = "<div id='config_L3D' style='height:58vh; width:inherit; overflow-y:auto;'>" +
-			      "<div class='container'>" +
+			      "<div class='container text-right'>" +
                               "" +
                               "<a data-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
                               "   tabindex='0' class='m-auto' role='button'>" +

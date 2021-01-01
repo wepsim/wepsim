@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -100,10 +100,15 @@
 						     origin = 'PC=0x' + r_value.toString(16) ;
 						 }
 
+						 var melto = {
+								"value":           (value >>> 0),
+								"source_tracking": [ origin ],
+								"comments":        null
+							     } ;
                                                  var valref = main_memory_set(sim.ep.internal_states.MP,
                                                                               elto, 
-								              (value >>> 0), 
-								              [ origin ]) ;
+									      melto) ;
+
 				                 show_main_memory(sim.ep.internal_states.MP, 
                                                                   elto, 
                                                                   (typeof valref === "undefined"),
@@ -154,7 +159,7 @@
          *  Syntax of behaviors
          */
 
-        sim.ep.behaviors.MEM_READ       = { nparameters: 6,
+        sim.ep.behaviors.MEM_READ   = { nparameters: 6,
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr)
                                                    {
@@ -226,7 +231,7 @@
                                                    }
                                       };
 
-        sim.ep.behaviors.MEM_WRITE      = { nparameters: 6,
+        sim.ep.behaviors.MEM_WRITE  = { nparameters: 6,
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr)
                                                    {
@@ -268,10 +273,15 @@
 						      }
 
 						      // set memory value+source
+						      var melto = {
+								     "value":           (value >>> 0),
+								     "source_tracking": [ origin ],
+								     "comments":        null
+							          } ;
 						      var valref = main_memory_set(sim.ep.internal_states.MP, 
 										   address,
-								                   (value >>> 0), 
-              							                   [ origin ]) ;
+									           melto) ;
+
                                                       sim.ep.signals[s_expr[4]].value = 1;
 				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, true) ;
                                                    },

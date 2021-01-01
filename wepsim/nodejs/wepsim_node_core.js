@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -137,6 +137,30 @@
     }
 
 
+    // show source listing
+    function wepsim_nodejs_header1 ( )
+    {
+        console.log('pc'          + ','.padEnd(3, '\t') +
+                    'instruction' + ','.padEnd(4, '\t')) ;
+    }
+
+    function wepsim_nodejs_after_instruction1 ( SIMWARE, reg_pc )
+    {
+        var curr_mp = simhw_internalState('MP') ;
+        if (typeof curr_mp[reg_pc] === 'undefined') {
+	    return ;
+	}
+
+        var curr_pc = '0x' + reg_pc.toString(16) ;
+        var source_line = main_memory_getsrc(curr_mp, reg_pc) ;
+	    source_line = source_line.replace(/,/g,"") ;
+	var padding2 = 5 - (source_line.length / 7) ;
+
+        console.log('pc = ' + curr_pc + ','.padEnd(2, '\t') +
+		          source_line + ','.padEnd(padding2, '\t')) ;
+    }
+
+
     // show execution progress
     var before_state = null ;
     var  after_state = null ;
@@ -155,13 +179,16 @@
 	else before_state = after_state ;
     }
 
-    function wepsim_nodejs_after_instruction2  ( SIMWARE, reg_pc, ret )
+    function wepsim_nodejs_after_instruction2  ( SIMWARE, reg_pc )
     {
-        var curr_pc = '0x' + reg_pc.toString(16) ;
-        if (typeof SIMWARE.assembly[curr_pc] === 'undefined') {
+        var curr_mp = simhw_internalState('MP') ;
+        if (typeof curr_mp[reg_pc] === 'undefined') {
 	    return ;
 	}
-        var source_line = SIMWARE.assembly[curr_pc].source_original ;
+
+        var curr_pc = '0x' + reg_pc.toString(16) ;
+        var source_line = main_memory_getsrc(curr_mp, reg_pc) ;
+	    source_line = source_line.replace(/,/g,"") ;
 
             after_state = simcore_simstate_current2state() ;
         var diff_states = simcore_simstate_diff_states(before_state, after_state) ;
@@ -169,10 +196,9 @@
 	// padding
 	var padding1 = 2 ;
 	var padding2 = 5 - (source_line.length / 7) ;
-	source_line  = source_line.replace(/,/g,"") ;
 
         console.log('pc = ' + curr_pc + ','.padEnd(padding1, '\t') +
-		          source_line + ','.padEnd(padding2, '\t') +
+		    source_line       + ','.padEnd(padding2, '\t') +
 		    diff_states) ;
     }
 
@@ -194,16 +220,17 @@
     {
 	    after_state = simcore_simstate_current2state() ;
 	var curr_mpc    = '0x' + cur_addr.toString(16) ;
-        var source_line = controlmemory_lineToString(curr_MC, cur_addr).trim() ;
+        var source_line = control_memory_lineToString(curr_MC, cur_addr).trim() ;
+	    source_line = source_line.replace(/,/g,"") ;
+            source_line = treatHTMLSequences(source_line) ;
 
 	// padding
 	var padding1 = 4 - (curr_mpc.length    / 4) ;
 	var padding2 = 7 - (source_line.length / 8) ;
-	source_line  = source_line.replace(/,/g,"") ;
 
 	console.log('micropc = ' + curr_mpc + ','.padEnd(padding1, '\t') +
-		                source_line + ','.padEnd(padding2, '\t') +
-		     simcore_simstate_diff_states(before_state, after_state)) ;
+		    source_line             + ','.padEnd(padding2, '\t') +
+		    simcore_simstate_diff_states(before_state, after_state)) ;
     }
 
     function wepsim_nodejs_before_microinstruction4 ( curr_MC, cur_addr )
@@ -213,112 +240,53 @@
 	console.log('Micropc at ' + curr_mpc + '.\t' + get_verbal_from_current_mpc()) ;
     }
 
-    // interactive
-    function wepsim_nodejs_asmBreakpoint ( hexaddr )
-    {
-	var curr_firm = simhw_internalState('FIRMWARE') ;
-	var bp_state  = curr_firm.assembly[hexaddr] ;
-	if (typeof bp_state === 'undefined') {
-            return false ;
-	}
+    // breakpoints
+    var breaks  = {} ;
+    var mbreaks = {} ;
 
-	bp_state = bp_state.breakpoint ;
-	bp_state = ! bp_state ;
-	var ret = wepsim_execute_set_breakpoint(hexaddr, bp_state) ;
-	return bp_state ;
+    function wepsim_nodejs_breakpoints_addrm ( break_list, addr )
+    {
+	var hexaddr = "0x" + addr.toString(16) ;
+	var ret = false ;
+
+        if (break_list == "breaks") {
+	    ret = wepsim_execute_toggle_breakpoint(hexaddr) ;
+	    console.log('break on ' + hexaddr + ' ' + !ret) ;
+            breaks[hexaddr] = true ;
+	    if (ret) delete breaks[hexaddr] ;
+        }
+   else if (break_list == "mbreaks") {
+            ret = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
+            console.log('mbreak on ' + hexaddr + ' ' + !ret) ;
+            mbreaks[hexaddr] = true ;
+	    if (ret) delete mbreaks[hexaddr] ;
+        }
     }
 
-    function wepsim_nodejs_microBreakpoint ( hexaddr )
+    function wepsim_nodejs_breakpoints_list ( break_list )
     {
-	var bp_state = simhw_internalState_get('MC_dashboard', hexaddr) ;
-	if (typeof bp_state === 'undefined') {
-            return false ;
-	}
-
-	bp_state = bp_state.breakpoint ;
-	bp_state = ! bp_state ;
-	simhw_internalState_get('MC_dashboard', hexaddr).breakpoint = bp_state ;
-	return bp_state ;
-    }
-
-    function wepsim_nodejs_run2 ( answers, data, options )
-    {
-	var options    = {
-			     verbosity:         0,
-			     cycles_limit:      options.cycles_limit,
-			     instruction_limit: options.instruction_limit
-	                 } ;
-
-        var curr_firm  = simhw_internalState('FIRMWARE') ;
-	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
-	var ref_pc     = simhw_sim_state(pc_name) ;
-	var reg_pc     = get_value(ref_pc) ;
-	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	var ref_maddr  = simhw_sim_state(maddr_name) ;
-	var reg_maddr  = get_value(ref_maddr) ;
-
-	var ret    = false ;
-        var i_clks = 0 ;
-
-	var i = 0 ;
-        while (i < options.instruction_limit)
-        {
-            // one clock cycle...
-	    var ret = simcore_execute_microinstruction2(reg_maddr, reg_pc) ;
-	    if (false === ret.ok) {
-		console.log("ERROR: " + ret.msg) ;
-		return false ;
-	    }
-
-            // checks
-	    i_clks++;
-	    if ( (options.cycles_limit > 0) && (i_clks >= options.cycles_limit) )
-	    {
-		console.log('WARNING: clock cycles limit reached in a single instruction.') ;
-		return false ;
-	    }
-
-	    reg_maddr = get_value(ref_maddr) ;
-	    reg_pc    = get_value(ref_pc) ;
-
-	    ret = wepsim_check_mcdashboard(reg_maddr) ;
-	    if (false === ret) {
-		return false ;
-	    }
-
-	    ret = wepsim_check_stopbybreakpoint_firm(reg_maddr) ;
-	    if (true === ret)
-	    {
-		console.log("INFO: Microinstruction is going to be issue.") ;
-		return false ;
-	    }
-
-	    if (0 === reg_maddr)
-	    {
-		ret = wepsim_check_stopbybreakpoint_asm(curr_firm, reg_pc) ;
-		if (true === ret) {
-		    console.log("INFO: Instruction is going to be fetched.") ;
-		    return false ;
-		}
-
-		i++ ;
-		i_clks = 0 ;
-	    }
+        var eltos = Object.keys(break_list) ;
+        if (0 == eltos.length) {
+            console.log('no active breakpoints.') ;
+            return ;
         }
 
-        console.log("INFO: number of instruction executed: " + i +
-                    " (limited to " + options.instruction_limit + ")") ;
-        return true ;
+        console.log('active breaks at: ' + eltos.join(', ')) ;
     }
 
+    // interactive
     function wepsim_nodejs_runInteractiveCmd ( answers, data, options )
     {
         var SIMWARE = get_simware() ;
         var pc_name = simhw_sim_ctrlStates_get().pc.state ;
-        var reg_pc = 0 ;
+        var reg_pc  = 0 ;
 
+        var addr    = 0 ;
+        var hexaddr = 0 ;
         var on_exit = false ;
-	switch(answers.cmd)
+
+        var parts   = answers.cmd.split(' ') ;
+	switch(parts[0])
 	{
 	       case 'help':
 		    console.log('help answer begins.') ;
@@ -326,16 +294,19 @@
 		    // show help
 		    console.log('' +
 				'Available commands:\n' +
-				' * help:         this command.\n' +
-				' * exit:         exit from command line.\n' +
+				' * help:   this command.\n' +
+				' * exit:   exit from command line.\n' +
 				'\n' +
-				' * reset:        reset processor.\n' +
-				' * run:          run all the instructions.\n' +
-				' * next:         execute instruction at assembly level.\n' +
-				' * step:         execute instruction at microinstruction level.\n' +
-				' * break <addr>: breakpoint at given hexadecimal address.\n' +
+				' * reset:  reset processor.\n' +
+				' * run:    run all the instructions.\n' +
+				' * next:   execute instruction at assembly level.\n' +
+				' * step:   execute instruction at microinstruction level.\n' +
 				'\n' +
-				' * dump:         show the current state.\n' +
+				' * dump:   show the current state.\n' +
+				' * list  <lines>: show <lines> lines of source code.\n' +
+				'\n' +
+				' * break  <addr>: breakpoint at given hexadecimal address.\n' +
+				' * mbreak <addr>: breakpoint at given hex. address at microinst. level.\n' +
 				'') ;
 
 		    console.log('help answer ends.') ;
@@ -359,9 +330,17 @@
 		    // execute program
 		    wepsim_nodejs_verbose_none(options) ;
 
-                    ret = wepsim_nodejs_run2(answers, data, options) ;
-		    if (false === ret) {
-			console.log("INFO: Execution stopped.") ;
+                    var options2 = Object.assign({}, options) ;
+                        options2.verbosity = 0 ;
+		    var ret = wepsim_execute_chunk(options2, options2.instruction_limit) ;
+		    if (ret.ok == false)
+                    {
+	                wepsim_nodejs_header2() ;
+		        reg_pc = parseInt(get_value(simhw_sim_state(pc_name))) ;
+		        wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
+
+		        console.log(ret.msg + '\n' +
+		                    "INFO: Execution stopped.") ;
 		    }
 
 		    console.log('run answer ends.') ;
@@ -425,44 +404,69 @@
 	       case 'dump':
 		    console.log('dump answer begins.') ;
 
-		    ret = wepsim_nodejs_show_currentstate() ;
+		    ret = wepsim_nodejs_show_currentstate(options) ;
 		    console.log(ret.msg) ;
 
 		    console.log('dump answer ends.') ;
 		    break ;
 
-	       default:
-                    var addr    = 0 ;
-	            var hexaddr = 0 ;
-                    var parts   = answers.cmd.split(' ');
+	       case 'break':
+		    console.log('break answer begins.') ;
 
-                    if ( (parts[0] == 'break') && (typeof parts[1] !== 'undefined') )
+                    if (typeof parts[1] !== 'undefined')
 		    {
-		        console.log('break answer begins.') ;
-
-                        addr    = parseInt(parts[1]) ;
-	                hexaddr = "0x" + addr.toString(16) ;
-                        var ret = wepsim_nodejs_asmBreakpoint(hexaddr) ;
-		        console.log('break on ' + hexaddr + ' ' + ret) ;
-
-		        console.log('break answer ends.') ;
+                        addr = parseInt(parts[1]) ;
+                        wepsim_nodejs_breakpoints_addrm('breaks', addr) ;
                     }
-                    else if ( (parts[0] == 'mbreak') && (typeof parts[1] !== 'undefined') )
+                    wepsim_nodejs_breakpoints_list(breaks) ;
+
+		    console.log('break answer ends.') ;
+		    break ;
+
+	       case 'mbreak':
+		    console.log('mbreak answer begins.') ;
+
+                    if (typeof parts[1] !== 'undefined')
 		    {
-		        console.log('mbreak answer begins.') ;
-
-                        addr    = parseInt(parts[1]) ;
-	                hexaddr = "0x" + addr.toString(16) ;
-                        var ret = wepsim_nodejs_microBreakpoint(hexaddr) ;
-		        console.log('mbreak on ' + hexaddr + ' ' + ret) ;
-
-		        console.log('mbreak answer ends.') ;
+                        addr = parseInt(parts[1]) ;
+                        wepsim_nodejs_breakpoints_addrm('mbreaks', addr) ;
                     }
-                    else
+                    wepsim_nodejs_breakpoints_list(mbreaks) ;
+
+		    console.log('mbreak answer ends.') ;
+		    break ;
+
+	       case 'list':
+		    console.log('list answer begins.') ;
+
+                    // number of source lines (10 by default)
+                    var n_lines = 10 ;
+                    if (typeof parts[1] !== 'undefined') {
+                        n_lines = parseInt(parts[1]) ;
+		    }
+
+                    // start address
+		    var pc_value = parseInt(get_value(simhw_sim_state(pc_name))) ;
+                    if (typeof parts[2] !== 'undefined') {
+		        pc_value = parseInt(parts[2]) ;
+		    }
+
+                    // list source code from start address up to number of source lines
+	            wepsim_nodejs_header1() ;
+                    for (var i=0; i<n_lines; i++)
                     {
-		        console.log('Unknown ' + answers.cmd + ' command.\n') ;
+                         if (false == simcore_check_if_can_continue2(0, pc_value)) {
+                             continue ;
+                         }
+		         wepsim_nodejs_after_instruction1(SIMWARE, pc_value) ;
+		         pc_value += 4 ;
                     }
 
+		    console.log('list answer ends.') ;
+		    break ;
+
+	       default:
+		    console.log('Unknown ' + answers.cmd + ' command.\n') ;
 		    break ;
 	}
 

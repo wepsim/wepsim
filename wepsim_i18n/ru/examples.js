@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -46,9 +46,10 @@
 		'example_05_01':		'Расширение для конкретного приложения: addv + seqv.',
 		'example_05_03':		'Расширение для конкретного приложения: madd + mmul + mxch.',
 		'example_05_02':		'Расширение для конкретного приложения: strlen_2 + skipasciicode_2.',
-		'example_03_01':		'<b> Поучительный </b> пример с исключением с плавающей запятой.',
-		'example_03_02':		'<b> Поучительный </b> пример с поддержкой прерываний: fetch, RETI и .ktext/.kdata.',
-		'example_03_03':		'<b> Поучительный </b> пример с поддержкой системных вызовов.',
+		'example_03_01':		'<b>Поучительный</b> пример с исключением с плавающей запятой.',
+		'example_03_02':		'<b>Поучительный</b> пример с поддержкой прерываний: fetch, RETI и .ktext/.kdata.',
+		'example_03_03':		'<b>Поучительный</b> пример с поддержкой системных вызовов.',
+	        'example_03_04':		'<b>Поучительный</b> пример с простым соглашением о стеке.',
 		'example_04_04':		'Пример malloc + бесплатный.',
 		'example_04_02':		'Пример системного вызова для печати/чтения целого числа и строки.',
 		'example_04_03':		'Пример темы.',

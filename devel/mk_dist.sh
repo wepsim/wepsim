@@ -3,7 +3,7 @@
 
 
 #*
-#*  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -86,6 +86,8 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_core_voice.js \
     sim_core/sim_core_rest.js \
     sim_core/sim_core_notify.js \
+    sim_core/sim_core_values.js \
+    sim_core/sim_adt_ctrlmemory.js \
     sim_core/sim_adt_mainmemory.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
@@ -208,7 +210,7 @@ echo "  * ws_dist/min.external.js"
 cat external/knockout-3.5.1.js \
     external/popper.min.js \
     external/bootstrap/bootstrap.min.js \
-    external/bootbox.min.js \
+    external/bootbox/bootbox.all.min.js \
     external/spectrum/spectrum.min.js \
     external/timbre.min.js \
     external/codemirror/codemirror.js \
@@ -280,7 +282,6 @@ jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_s
 ## pre-examples (default.json + apps.json)
  echo '[]' | \
  jq ' . + [ { "name": "Default",    "url": "examples/examples_set/default_packed.json",  "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
-#jq ' . + [ { "name": "Scribd-EC",  "url": "examples/examples_set/scribd_packed.json",   "url_base_asm": "examples/assembly_scribd/", "url_base_mc": "examples/microcode/" } ]' | \
  jq ' . + [ { "name": "OCW-EC",     "url": "examples/examples_set/ocw_packed.json",      "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
 
 cp examples/examples_set/default.json examples/apps.json

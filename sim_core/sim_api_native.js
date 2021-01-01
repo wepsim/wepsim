@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2020 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -47,8 +47,9 @@
         if ("DEVICE" === component)
 	    compo_index = "IO" ;
 
-        if (typeof sim_components[compo_index].get_value !== "undefined")
+        if (typeof sim_components[compo_index].get_value !== "undefined") {
             return sim_components[compo_index].get_value(elto) ;
+        }
 
         return false ;
     }
@@ -65,8 +66,9 @@
         if ("DEVICE" === component)
 	    compo_index = "IO" ;
 
-        if (typeof sim_components[compo_index].set_value !== "undefined")
+        if (typeof sim_components[compo_index].set_value !== "undefined") {
             return sim_components[compo_index].set_value(elto, value) ;
+        }
 
         return false ;
     }
@@ -84,8 +86,10 @@
 
     function simcore_native_get_field_from_ir ( fields, index )
     {
-        if (typeof fields[index] === "undefined")
+        if (typeof fields[index] === "undefined") {
+            ws_alert('simcore_native_get_field_from_ir: index (' + index + ') out of range.') ;
             return false ;
+        }
 
         var value = get_value(simhw_sim_state('REG_IR')) ;
         var left_shift  = (31 - parseInt(fields[index].startbit)) ;
