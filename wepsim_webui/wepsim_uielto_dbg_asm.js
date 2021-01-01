@@ -230,6 +230,12 @@
                      s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
                      p        = "0x" + parseInt(l).toString(16) ;
 
+                     // <skip data segments>
+                     if (false == mp[l].is_assembly) {
+		         continue ;
+                     }
+                     // </skip data segments>
+
                      // several data values repeated -> '...'
                      if ( (old_s3_val == s3_val) && (false == mp[l].is_assembly) )
                      {
