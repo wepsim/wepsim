@@ -224,7 +224,7 @@
 		     s3_val = get_value(mp[l]) ;
 
                      // set cell bgcolor
-	             if  (a % 2 === 0)
+	             if  (a % 8 === 0)
 		          mp[l].bgcolor = "#F8F8F8" ;
 	             else mp[l].bgcolor = "#F0F0F0" ;
 
