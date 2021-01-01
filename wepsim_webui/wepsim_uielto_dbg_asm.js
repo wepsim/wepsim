@@ -190,6 +190,7 @@
                 var s3_val   = "" ;
                 var s4_hex   = "" ;
                 var s5_ttip  = "" ;
+                var s6_ttip  = "" ;
                 var bgc      = "#F0F0F0" ;
 		var l = "" ;
 		var p = "" ;
@@ -258,6 +259,7 @@
                      mp[l].bgcolor = bgc ;
 
                      s5_ttip = "" ;
+                     s6_ttip = "" ;
                      if (mp[l].is_assembly)
                      {
 			 s5_ttip = "<span data-toggle='tooltip' rel='tooltip2' data-placement='right' " +
@@ -265,6 +267,8 @@
 			           "<span data-toggle='tooltip' rel='tooltip1' data-placement='right' " +
                                    "      title='click to show instruction format details'>&nbsp;.&nbsp;</span>" +
 			           "</span>" ;
+                         s6_ttip = "<span data-toggle='tooltip' rel='tooltip1' " + 
+                                   "      title='click to toggle breakpoint'>.</span>" ;
                      }
 
                      // labels
@@ -308,7 +312,7 @@
                            "    style='line-height:0.9;' id='bp" + p + "' width='1%'" +
                            "    onclick='asmdbg_set_breakpoint(" + p + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-		           "<span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
+                           s6_ttip +
 			   "</td>" +
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9; width:13%' align='center' " +
