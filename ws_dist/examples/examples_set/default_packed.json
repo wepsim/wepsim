@@ -125,7 +125,7 @@
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_s4_e1",
+    "microcode": "ep_mips_os",
     "assembly": "ep_s4_e1",
     "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>"
   },
