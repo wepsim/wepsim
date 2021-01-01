@@ -1,6 +1,9 @@
 
 # Changelog
 
+## 2.1.4 -> 2.1.5:
+* Help on instructions
+
 ## 2.1.3 -> 2.1.4:
 * Special comments in assembly:
   ** "# state:" now saves the state

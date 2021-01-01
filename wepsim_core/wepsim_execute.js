@@ -378,14 +378,17 @@
 
     function wepsim_execute_chunk_atlevel ( chunk, wepsim_execute_stop )
     {
+        var options = {} ;
+	var ret = false ;
+
 	var playlevel = get_cfg('DBG_level') ;
 	if (playlevel !== "instruction")
         {
-	    var options = {
-			     verbosity:    0,
-			     cycles_limit: get_cfg('DBG_limitick')
-			  } ;
-	    var ret = wepsim_execute_chunk(options, chunk) ;
+	    options = {
+			 verbosity:    0,
+			 cycles_limit: get_cfg('DBG_limitick')
+		      } ;
+	    ret = wepsim_execute_chunk(options, chunk) ;
 	    if (ret.ok == false) {
 	        wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
 	        wepsim_execute_stop() ;
@@ -400,12 +403,12 @@
 	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	var ref_maddr  = simhw_sim_state(maddr_name) ;
 	var ref_mdash  = 0 ;
-	var options    = {
-			     verbosity:    0,
-			     cycles_limit: get_cfg('DBG_limitick')
+	options        = {
+			    verbosity:    0,
+			    cycles_limit: get_cfg('DBG_limitick')
 	                 } ;
 
-	var ret = false ;
+	ret = false ;
 	var reg_pc  = 0 ;
 
         for (var i=0; i<chunk; i++)
