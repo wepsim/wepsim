@@ -347,7 +347,7 @@
             ref_mdash = simhw_internalState_get('MC', reg_maddr) ;
 	    ret = wepsim_check_memdashboard(ref_mdash, reg_maddr) ;
             if (false === ret) {
-                return pack_ret2(false, 'Info', 'INFO: Stop by event.') ;
+                return pack_ret2(false, '', '') ;
             }
 	    ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 	    if (true === ret) {
@@ -360,7 +360,7 @@
                 ref_mdash = simhw_internalState_get('MP', reg_pc) ;
 	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;
 	        if (false === ret) {
-                    return pack_ret2(false, 'Info', 'INFO: Stop by event.') ;
+                    return pack_ret2(false, '', '') ;
 	        }
 		ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 		if (true === ret) {
@@ -389,9 +389,10 @@
 			 cycles_limit: get_cfg('DBG_limitick')
 		      } ;
 	    ret = wepsim_execute_chunk(options, chunk) ;
-	    if (ret.ok == false) {
+	    if ( (ret.ok == false) && (ret.msg.trim() != '') )
+            {
 	        wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
-	        wepsim_execute_stop() ;
+                wepsim_execute_stop() ;
 	    }
 
             return ret.ok ;
@@ -465,9 +466,12 @@
 			 cycles_limit: get_cfg('DBG_limitick')
 		      } ;
 	var ret = wepsim_execute_chunk(options, turbo) ;
-	if (false == ret.ok) {
-	    wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
-	    wepsim_execute_stop() ;
+	if (ret.ok == false)
+        {
+	    if (ret.msg.trim() != '') {
+	        wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
+                wepsim_execute_stop() ;
+            }
             return ;
 	}
 

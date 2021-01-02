@@ -2,12 +2,13 @@
 # Changelog
 
 ## 2.1.4 -> 2.1.5:
-* Help on instructions
+* Initial support for a compact description for each instruction
+* Minor bugs fixed and several refinements added.
 
 ## 2.1.3 -> 2.1.4:
 * Special comments in assembly:
-  ** "# state:" now saves the state
-  ** "# notify: lorem ipsum" to show a dialog box
+  * "# state:" now saves the state
+  * "# notify: lorem ipsum" to show a dialog box
 * Interactive mode added to command-line
 * Minor bugs fixed and several refinements added.
 

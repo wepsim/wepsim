@@ -38,7 +38,7 @@
    {
       "pack":        "microcode + assembly",
       "description": "show-console",
-      "test":        "./ws_dist/wepsim.sh -a  show-console          -m ep -f ./examples/microcode/mc-ep_os.txt   -s ./examples/assembly/asm-ep_s4_e1.txt",
+      "test":        "./ws_dist/wepsim.sh -a  show-console          -m ep -f ./examples/microcode/mc-ep_mips_os.txt   -s ./examples/assembly/asm-ep_s4_e1.txt",
       "more":        "See WepSIM"
    }
 ]

@@ -5,7 +5,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_mips_base",
     "assembly":		"ep_s1_e1",
     "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
   },
@@ -15,7 +15,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_mips_base",
     "assembly":		"ep_s1_e2",
     "description":	"<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
   },
@@ -25,7 +25,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_mips_base",
     "assembly":		"ep_s1_e3",
     "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
   },
@@ -35,7 +35,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_mips_base",
     "assembly":		"ep_s1_e4",
     "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
   },
@@ -45,7 +45,7 @@
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_mips_base",
     "assembly":		"ep_s2_e1",
     "description":	"<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
   },
