@@ -1388,13 +1388,13 @@ function read_text ( context, datosCU, ret )
 			     new_ref = new_ref[firmware[instruction][candidate].cop] ;
 			else new_ref = new_ref.i ;
 
-                        // <TO-CHECK:
+                        // <TO-CHECK>:
                         if (typeof new_ref == "undefined") {
 			    ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
 			    ref = ref.i ;
                             break ;
 		        }
-                        // </TO-CHECK:
+                        // </TO-CHECK>:
 
                         ref = new_ref ;
 		}
