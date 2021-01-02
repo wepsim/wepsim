@@ -1380,12 +1380,23 @@ function read_text ( context, datosCU, ret )
 
 		// ref has the associated information in firmware for this instruction
 		var ref = firmware[instruction][candidate] ;
+                var new_ref = ref ;
 		while (false === ref.isPseudoinstruction)
 		{
-			var ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
-			if (ref.withcop)
-			     ref = ref[firmware[instruction][candidate].cop] ;
-			else ref = ref.i ;
+			var new_ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
+			if (new_ref.withcop)
+			     new_ref = new_ref[firmware[instruction][candidate].cop] ;
+			else new_ref = new_ref.i ;
+
+                        // <TO-CHECK:
+                        if (typeof new_ref == "undefined") {
+			    ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
+			    ref = ref.i ;
+                            break ;
+		        }
+                        // </TO-CHECK:
+
+                        ref = new_ref ;
 		}
 
 		// process machine code with several words...

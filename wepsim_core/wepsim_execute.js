@@ -389,9 +389,10 @@
 			 cycles_limit: get_cfg('DBG_limitick')
 		      } ;
 	    ret = wepsim_execute_chunk(options, chunk) ;
-	    if ( (ret.ok == false) && (ret.msg_level.trim() != '') )
+	    if ( (ret.ok == false) && (ret.msg.trim() != '') )
             {
 	        wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
+                wepsim_execute_stop() ;
 	    }
 
             return ret.ok ;
@@ -467,8 +468,9 @@
 	var ret = wepsim_execute_chunk(options, turbo) ;
 	if (ret.ok == false)
         {
-	    if (ret.msg_level.trim() != '') {
+	    if (ret.msg.trim() != '') {
 	        wepsim_show_stopbyevent(ret.msg_level, ret.msg) ;
+                wepsim_execute_stop() ;
             }
             return ;
 	}
