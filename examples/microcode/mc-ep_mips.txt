@@ -145,7 +145,7 @@ and reg1 reg2 reg3 {
 }
 
 andi reg1 reg2 val {
-            co=001100,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -187,7 +187,7 @@ or reg1 reg2 reg3 {
 }
 
 ori reg1 reg2 val {
-            co=001101,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -246,7 +246,7 @@ xor reg1 reg2 reg3 {
 }
 
 xori reg1 reg2 val {
-            co=001110,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -309,7 +309,7 @@ slt reg1 reg2 reg3 {
 }
 
 slti reg1 reg2 val {
-            co=001010,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -378,7 +378,7 @@ addu reg1 reg2 reg3 {
 }
 
 addi reg1 reg2 val {
-            co=001000,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -402,7 +402,7 @@ addi reg1 reg2 val {
 }
 
 addiu reg1 reg2 val {
-            co=001001,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -882,7 +882,7 @@ lb reg1 (reg2) {
 }
 
 lb reg1 val(reg2) {
-            co=100000,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             val  = inm(15,0),
@@ -913,7 +913,7 @@ lb reg1 val(reg2) {
 }
 
 lbu reg1 (reg2) {
-            co=100100,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
@@ -965,7 +965,7 @@ sb reg1 (reg2) {
 }
 
 sb reg1 val(reg2) {
-            co=101000,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             val  = inm(15,0),
@@ -1018,7 +1018,7 @@ lw reg1 (reg2) {
 }
 
 lw reg1 val(reg2) {
-            co=100011,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             val  = inm(15,0),
@@ -1043,7 +1043,7 @@ lw reg1 val(reg2) {
 }
 
 sw reg1 val(reg2) {
-            co=101011,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             val  = inm(15,0),
@@ -1116,7 +1116,7 @@ out reg val {
 #
 
 beq reg1 reg2 offset {
-            co=000100,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -1145,7 +1145,7 @@ beq reg1 reg2 offset {
 }
 
 bne reg1 reg2 offset {
-            co=000101,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -1295,7 +1295,7 @@ ble reg reg offset {
 #
 
 j addr {
-            co=000010,
+            co=111111,
             nwords=1,
             addr=address(15,0)abs,
             help='pc = addr',
@@ -1311,7 +1311,7 @@ j addr {
 }
 
 jal addr {
-            co=000011,
+            co=111111,
             nwords=1,
             addr=address(15,0)abs,
             help='$ra = pc; pc = addr',
