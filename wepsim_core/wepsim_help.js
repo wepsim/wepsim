@@ -225,6 +225,55 @@
 		                      'wepsim_open_help_hardware_summary();\n') ;
     }
 
+    function wepsim_open_help_assembly_summary ( )
+    {
+	    var help_content = wepsim_help_assembly_summary_aux() ;
+	    wepsim_open_help_content(help_content) ;
+
+            // add if recording
+            simcore_record_append_new('Open assembly summary',
+		                      'wepsim_open_help_assembly_summary();\n') ;
+    }
+
+    function wepsim_help_assembly_summary_aux ( )
+    {
+	    var help_content = '<br>Sorry, No more details available for this element.<p>\n' ;
+
+            // no firmware...
+            var SIMWARE = get_simware() ;
+            if (typeof SIMWARE === "undefined") {
+	        return help_content ;
+            }
+            var ws_firmware = SIMWARE.firmware ;
+            if (typeof ws_firmware === "undefined") {
+	        return help_content ;
+            }
+
+            // help...
+	    help_content = '<table class="table table-striped">' +
+                           '<thead class="thead-dark">' +
+                           '<tr><th col="col-5">Instruction</th><th>Help</th></tr>' +
+                           '</thead>' +
+                           '<tbody>' ;
+            for (var k = 0; k < ws_firmware.length; k++)
+            {
+                var ins_name = ws_firmware[k].signatureRaw ;
+                if (ins_name == "begin") {
+                    continue ;
+                }
+
+                var ins_help = ws_firmware[k].help ;
+                if (typeof ins_help === "undefined") {
+                    ins_help = '' ;
+                }
+
+                help_content += '<tr><td col="col-5">' + ins_name + '</td>' + '<td>' + ins_help + '</td></tr>' ;
+            }
+	    help_content += '</tbody></table>' ;
+
+	    return help_content ;
+    }
+
 
     /*
      * Help URI
