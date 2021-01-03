@@ -110,8 +110,10 @@
                '> WepSIM simulator interface for command line.\n' +
                '\n' +
                'Additional help:\n' +
-               ' * Help on signal:\n' +
-               '   ./wepsim.sh -a help -m ep -f cop\n' +
+               ' * Help about the cop signal:\n' +
+               '   ./wepsim.sh -a help -m ep -s cop\n' +
+               ' * Help about instructions:\n' +
+               '   ./wepsim.sh -a help -m ep -f ./examples/microcode/mc-ep_mips.txt\n' +
                '\n' +
                'More examples of custom execution:\n' +
                ' * Run some example and limit the "instructions":\n' +
@@ -318,13 +320,13 @@
 
         if (argv.firmware !== "")
         {
-            if (argv.action === "help")
- 	         data.firmware = argv.firmware ; // -a help -m ep -f **cop**
-            else data.firmware = fs.readFileSync(argv.firmware, 'utf8') ;
+ 	    data.firmware = fs.readFileSync(argv.firmware, 'utf8') ;
         }
 
         if (argv.assembly !== "") {
- 	    data.assembly = fs.readFileSync(argv.assembly, 'utf8') ;
+            if (argv.action === "help")
+ 	         data.assembly = argv.assembly ; // -a help -m ep -s **cop**
+            else data.assembly = fs.readFileSync(argv.assembly, 'utf8') ;
         }
 
         if (argv.resultok !== "") {
