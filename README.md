@@ -39,9 +39,9 @@
   * Check you have installed Node v10.5.0+, and Bash 4.4.19+:
     * sudo apt-get install nodejs npm bash -y
   * Get WepSIM by executing:
-    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.4/wepsim-2.1.4.zip
-    * unzip wepsim-2.1.4.zip 
-    * cd wepsim-2.1.4
+    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.5/wepsim-2.1.5.zip
+    * unzip wepsim-2.1.5.zip 
+    * cd wepsim-2.1.5
     * npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
   * Execute wepsim.sh with the help flag in order to show the available command switches:
     * ./wepsim.sh -h
@@ -300,11 +300,11 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 + The following fragment is a example of how to use WepSIM command-line within Google Colab cell:
 
 ```html
-!wget https://github.com/acaldero/wepsim/releases/download/v2.1.4/wepsim-2.1.4.zip
-!unzip -o wepsim-2.1.4.zip
-!rm -fr   wepsim-2.1.4.zip
-!./wepsim-2.1.4/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.1.4/examples/microcode/mc-ep_mips_base.txt -s ./wepsim-2.1.4/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
-!rm -fr   wepsim-2.1.4
+!wget https://github.com/acaldero/wepsim/releases/download/v2.1.5/wepsim-2.1.5.zip
+!unzip -o wepsim-2.1.5.zip
+!rm -fr   wepsim-2.1.5.zip
+!./wepsim-2.1.5/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.1.5/examples/microcode/mc-ep_mips_base.txt -s ./wepsim-2.1.5/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
+!rm -fr   wepsim-2.1.5
 
 import pandas as pd
 import io
@@ -391,10 +391,10 @@ cordova plugin add cordova-plugin-whitelist
 
 + 2.1) Copy WepSIM files into the www directory:
 ```bash
-wget https://github.com/acaldero/wepsim/releases/download/v2.1.4/wepsim-2.1.4.zip
-unzip wepsim-2.1.4.zip
+wget https://github.com/acaldero/wepsim/releases/download/v2.1.5/wepsim-2.1.5.zip
+unzip wepsim-2.1.5.zip
 mv www www.initial.$$
-cp -a wepsim-2.1.4/ws_dist www
+cp -a wepsim-2.1.5/ws_dist www
 ```
 
 + 2.2) Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:

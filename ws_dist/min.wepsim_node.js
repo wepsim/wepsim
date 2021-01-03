@@ -669,7 +669,7 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
     // help
     function wepsim_nodejs_help_signal ( data, options )
     {
-	var key    = data.firmware.toUpperCase() ;
+	var key    = data.assembly.toUpperCase() ;
 	var signal = simhw_sim_signal(key) ;
 	if (typeof signal === "undefined")
         {
@@ -704,6 +704,47 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
 	}
 
 	return wepsim_nodejs_retfill(true, input_help) ;
+    }
+
+    function wepsim_nodejs_help_instructionset ( data, options )
+    {
+	// 1) initialization
+        var ret = wepsim_nodejs_init(data) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
+	}
+
+	// 2) load firmware
+        // simcore_reset() ;
+
+        var ret = simcore_compile_firmware(data.firmware) ;
+	if (false === ret.ok)
+	{
+	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg) ;
+	}
+
+	// 3) get firmware
+        var SIMWARE = get_simware() ;
+        var ws_firmware = SIMWARE.firmware ;
+	if (typeof ws_firmware === "undefined") {
+	    return wepsim_nodejs_retfill(false, "ERROR: Empty firmware.\n") ;
+	}
+	if (ws_firmware.length == 0) {
+	    return wepsim_nodejs_retfill(false, "INFO: firmware without help.\n") ;
+	}
+
+	var iset_help = 'Instruction'.padEnd(25, ' ') + ' | ' + 'Help'.padEnd(25, ' ') + '\n' ;
+        for (var k = 0; k < ws_firmware.length; k++)
+        {
+	    if (typeof ws_firmware[k].help !== "undefined")
+            {
+                iset_help += ws_firmware[k].signatureRaw.padEnd(25, ' ') +
+                             ' | ' +
+                             ws_firmware[k].help.padEnd(25, ' ') + '\n' ;
+            }
+        }
+
+	return wepsim_nodejs_retfill(true, iset_help) ;
     }
 
 /*
@@ -929,13 +970,18 @@ var sim={systems:[],active:null,index:0};function simhw_add(newElto){var found=-
     } ;
  
     //
-    // HELP (signal)
+    // HELP (signal, instruction set, etc.)
     //
  
     hash_action.HELP = function(data, options)
     {
+        var ret = null ;
+
         wepsim_nodejs_init(data) ;
-        var ret = wepsim_nodejs_help_signal(data, options) ;
+
+        if (data.assembly != '')
+             ret = wepsim_nodejs_help_signal(data, options) ;
+        else ret = wepsim_nodejs_help_instructionset(data, options) ;
  
         console.log(ret.msg);
         return ret.ok ;

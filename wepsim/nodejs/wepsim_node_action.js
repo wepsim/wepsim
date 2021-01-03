@@ -221,13 +221,18 @@
     } ;
  
     //
-    // HELP (signal)
+    // HELP (signal, instruction set, etc.)
     //
  
     hash_action.HELP = function(data, options)
     {
+        var ret = null ;
+
         wepsim_nodejs_init(data) ;
-        var ret = wepsim_nodejs_help_signal(data, options) ;
+
+        if (data.assembly != '')
+             ret = wepsim_nodejs_help_signal(data, options) ;
+        else ret = wepsim_nodejs_help_instructionset(data, options) ;
  
         console.log(ret.msg);
         return ret.ok ;
