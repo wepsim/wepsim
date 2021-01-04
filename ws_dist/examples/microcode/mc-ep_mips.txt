@@ -1002,7 +1002,7 @@ lw reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            help='$r1 = (MEM[$r2+3] MEM[$r2+2] MEM[$r2+1] MEM[$r2])',
+            help='$r1 = (MEM[$r2+3] ... MEM[$r2])',
             native,
             {
                 // fields is a default parameter with the instruction field information

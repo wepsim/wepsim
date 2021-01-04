@@ -227,7 +227,15 @@
 
     function wepsim_open_help_assembly_summary ( )
     {
-	    var help_content = wepsim_help_assembly_summary_aux() ;
+	    var help_content = '<br>Sorry, No more details available for this element.<p>\n' +
+	                       '<br>Did you load some firmware with instruction help?<p>\n' ;
+
+            var simw = get_simware() ;
+            if ( (typeof simw !== "undefined") && (typeof simw.firmware !== "undefined") )
+            {
+	          help_content = wepsim_help_assembly_summary_aux(simw.firmware) ;
+            }
+
 	    wepsim_open_help_content(help_content) ;
 
             // add if recording
@@ -235,43 +243,55 @@
 		                      'wepsim_open_help_assembly_summary();\n') ;
     }
 
-    function wepsim_help_assembly_summary_aux ( )
+    function wepsim_help_assembly_summary_aux ( ws_firmware )
     {
-	    var help_content = '<br>Sorry, No more details available for this element.<p>\n' ;
-
-            // no firmware...
-            var SIMWARE = get_simware() ;
-            if (typeof SIMWARE === "undefined") {
-	        return help_content ;
-            }
-            var ws_firmware = SIMWARE.firmware ;
-            if (typeof ws_firmware === "undefined") {
-	        return help_content ;
-            }
-
-            // help...
-	    help_content = '<table class="table table-striped table-bordered table-hover table-sm header-fixed">' +
-                           '<thead class="thead-dark">' +
-                           '<tr><th col="col-6">Instruction</th><th>Help</th></tr>' +
-                           '</thead>' +
-                           '<tbody>' ;
+            // tables by first letter...
+            var t = {} ;
+            var ins_name = '' ;
+            var ins_help = '' ;
+            var first_l = '' ;
             for (var k = 0; k < ws_firmware.length; k++)
             {
-                var ins_name = ws_firmware[k].signatureRaw ;
+                ins_help = ws_firmware[k].help ;
+                ins_name = ws_firmware[k].signatureRaw.trim() ;
                 if (ins_name == "begin") {
                     continue ;
                 }
 
-                var ins_help = ws_firmware[k].help ;
-                if (typeof ins_help === "undefined") {
-                    ins_help = '' ;
+                first_l = ins_name[0] ;
+                if (typeof t[first_l] === "undefined") {
+                    t[first_l] = '' ;
+                }
+                t[first_l] += '<tr><td col="col-6">' + ins_name + '</td>' + '<td>' + ins_help + '</td></tr>' ;
+            }
+
+            // join tables
+            var o  = '<div class="container">' +
+                     '<div class="row">' ;
+            for (var i=0; i<26; i++)
+            {
+                k = String.fromCharCode(97 + i) ;
+                if (typeof t[k] === "undefined") {
+                    continue ;
                 }
 
-                help_content += '<tr><td col="col-6">' + ins_name + '</td>' + '<td>' + ins_help + '</td></tr>' ;
+	        o += '<div class="col-auto d-flex justify-content-center m-2">' +
+                     '<h4><span class="badge badge-pill badge-info text-monospace" ' +
+                     '          style="position:relative;top:16px;left:-4px;">' + k + '</span></h4>' +
+                     '<table class="table table-striped table-bordered table-hover table-sm table-responsive">' +
+                     '<thead class="thead-dark"><tr><th>Instruction</th><th>Help</th></tr></thead>' +
+                     '<tbody>' + t[k] + '</tbody>' +
+                     '</table>' +
+                     '</div>' ;
             }
-	    help_content += '</tbody></table>' ;
+            o += '</div>' +
+                 '</div>' ;
 
-	    return help_content ;
+            if (ws_firmware.length == 0) {
+                o = '<br>Sorry, firmware without help for its instructions.' ;
+            }
+
+	    return o ;
     }
 
 
