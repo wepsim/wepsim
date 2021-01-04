@@ -118,9 +118,14 @@ lui rd inm {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            inm=inm(15,0),
+            inm=inm(19,0),
             {
-                (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (SE=0, OFFSET=0, SIZE=10100, T3=1, C4=1),
+		(EXCODE=8, T11, C5),
+		(MA=1, MB=1, MC=1, SelCop=1100, T6, C4),
+		(MA=1, MB=1, MC=1, SelCop=1100, T6, C4),
+		(MA=1, MB=1, MC=1, SelCop=1100, T6, C4),
+		(MA=1, MB=1, MC=1, SelCop=1100, T6, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 

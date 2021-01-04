@@ -169,7 +169,7 @@ lui rd inm {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            inm=inm(15,0),
+            inm=inm(19,0),
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -261,7 +261,7 @@ beq rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            native,
+	    native,
             {
                 // fields is a default parameter with the instruction field information
                 var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
