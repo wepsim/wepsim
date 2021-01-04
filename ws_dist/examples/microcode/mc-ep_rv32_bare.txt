@@ -126,7 +126,7 @@ lui rd inm {
 	    help='rd = (inm16 000)',
             {
                 (SE=0, OFFSET=0, SIZE=10100, T3=1, C4=1),
-		(EXCODE=8, T11, C5),
+		(EXCODE=1000, T11, C5),
 		(MA=1, MB=1, MC=1, SelCop=1100, T6, C4),
 		(MA=1, MB=1, MC=1, SelCop=1100, T6, C4),
 		(MA=1, MB=1, MC=1, SelCop=1100, T6, C4),
