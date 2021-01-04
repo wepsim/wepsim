@@ -250,9 +250,9 @@
             }
 
             // help...
-	    help_content = '<table class="table table-striped">' +
+	    help_content = '<table class="table table-striped table-bordered table-hover table-sm header-fixed">' +
                            '<thead class="thead-dark">' +
-                           '<tr><th col="col-5">Instruction</th><th>Help</th></tr>' +
+                           '<tr><th col="col-6">Instruction</th><th>Help</th></tr>' +
                            '</thead>' +
                            '<tbody>' ;
             for (var k = 0; k < ws_firmware.length; k++)
@@ -267,7 +267,7 @@
                     ins_help = '' ;
                 }
 
-                help_content += '<tr><td col="col-5">' + ins_name + '</td>' + '<td>' + ins_help + '</td></tr>' ;
+                help_content += '<tr><td col="col-6">' + ins_name + '</td>' + '<td>' + ins_help + '</td></tr>' ;
             }
 	    help_content += '</tbody></table>' ;
 
