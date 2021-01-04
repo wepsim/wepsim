@@ -685,7 +685,7 @@ li reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
-            help='r1 = SE val',
+            help='r1 = SignExt val',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -724,7 +724,7 @@ la  reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='r1 = addr',
+            help='r1 = addr16',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -742,7 +742,7 @@ la  reg addr {
             nwords=2,
             reg=reg(25,21),
             addr=address(63,32)abs,
-            help='r1 = addr',
+            help='r1 = addr32',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -917,7 +917,7 @@ lbu reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            help='$r1 = (00 00 00 MEM[$r2])',
+            help ='$r1 = (00 00 00 MEM[$r2])',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1002,7 +1002,7 @@ lw reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            help='$r1 = (MEM[$r2+3] MEM[$r2+2] MEM[$r2+1] MEM[$r2])',
+            help='$r1 = (MEM[$r2+3] ... MEM[$r2])',
             native,
             {
                 // fields is a default parameter with the instruction field information

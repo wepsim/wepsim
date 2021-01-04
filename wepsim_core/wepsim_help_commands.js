@@ -142,10 +142,18 @@
                      i_type:      "code",
                      u_type:      "simulated processor",
                      u_class:     "user_microcode",
-                     reference:   "wepsim_open_help_hardware_summary();" +
-                                  "simcore_record_append_new('Show hardware summary', " +
-		                  "                          'wepsim_open_help_hardware_summary();\\\n');",
+                     reference:   "wepsim_open_help_hardware_summary();",
                      description: "<span data-langkey='help_03_03'>Reference card for the simulated elemental processor hardware</span>.<br>"
+                  });
+
+    ws_help.push({
+                     id:          "architecture",
+                     title:       "Assembly summary",
+                     i_type:      "code",
+                     u_type:      "simulated processor",
+                     u_class:     "user_microcode",
+                     reference:   "wepsim_open_help_assembly_summary();",
+                     description: "<span data-langkey='help_03_04'>Reference card for the simulated elemental processor instruction set</span>.<br>"
                   });
 
     ws_help.push({
