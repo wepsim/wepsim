@@ -727,6 +727,7 @@ sbu rs2 offset(rs1) {
             rs2=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='MEM[rs1 + offset] = rs2',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -761,6 +762,7 @@ shu rs2 offset(rs1) {
             rs2=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='MEM[rs1+offset+1 ... rs1+offset] = rs2',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -837,6 +839,7 @@ slti rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+            help='rd = (rs1 < inm) ? 1 : 0',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -861,6 +864,7 @@ sltiu rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+            help='rd = (rs1 < inm) ? 1 : 0',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -948,6 +952,7 @@ slli rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(5,0),
+            help='rd = rs1 << inm',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -970,6 +975,7 @@ srli rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(5,0),
+            help='rd = rs1 >> inm',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -991,6 +997,7 @@ srai rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+            help='rd = rs1 >> inm',
             native,
             {
                 // fields is a default parameter with the instruction field information
