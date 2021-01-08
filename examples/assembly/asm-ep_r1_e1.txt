@@ -8,6 +8,7 @@
         # add, sub, div, mul
         li      a0, 0
         li      a1, 2
+
         addi    a0, a0, 10
         add     a0, a0, a1
 
@@ -34,5 +35,6 @@
 
         srl     a2, a0, a1
 
+        # return
         jr      ra
 

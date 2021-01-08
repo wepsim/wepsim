@@ -20,7 +20,7 @@
 
 
         /*
-         *  Get/Set
+         *  Get/Set value
          */
 
         function get_value ( sim_obj )
@@ -79,6 +79,11 @@
            }
         }
 
+
+        /*
+         *  Get/Set variable
+         */
+
         function get_var ( sim_var )
         {
 	   if (typeof sim_var == "function")
@@ -101,5 +106,47 @@
 	   {
 	       sim_var = value ;
            }
+        }
+
+
+        /*
+         *  ko binding
+         */
+
+        function ko_observable ( initial_value )
+        {
+	    // without ko
+	    if (typeof ko === "undefined") {
+	        return initial_value ;
+	    }
+
+	    // with ko
+	    if (typeof cfg_show_rf_refresh_delay === "undefined") {
+	        cfg_show_rf_refresh_delay = 120 ;
+            }
+
+            return ko.observable(initial_value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+        }
+
+        function ko_rebind_state ( state, id_elto )
+        {
+	    // without ko
+	    if (typeof ko === "undefined") {
+                return ;
+            }
+
+	    // with ko
+	    if (typeof cfg_show_rf_refresh_delay === "undefined") {
+	        cfg_show_rf_refresh_delay = 120 ;
+            }
+
+            var state_obj = simhw_sim_state(state) ;
+            if (typeof state_obj.value !== "function") {
+                state_obj.value = ko.observable(state_obj.value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+            }
+
+            var ko_context = document.getElementById(id_elto);
+            ko.cleanNode(ko_context);
+            ko.applyBindings(simhw_sim_state(state), ko_context);
         }
 
