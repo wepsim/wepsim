@@ -114,6 +114,7 @@
 		    {
 			 if (typeof l3d_states[i].active != "function")
 			     l3d_states[i].active = ko_observable(l3d_states[i].active) ;
+
 			 ko_context = document.getElementById('l3d' + i + '_context');
 			 ko.cleanNode(ko_context);
 			 ko.applyBindings(l3d_states[i], ko_context);
@@ -121,6 +122,7 @@
 
 		    if (typeof apirest_endpoint != "function")
 			apirest_endpoint = ko_observable(apirest_endpoint) ;
+
 		    ko_context = document.getElementById('apirest_endpoint');
 		    ko.cleanNode(ko_context);
 		    ko.applyBindings(apirest_endpoint, ko_context);

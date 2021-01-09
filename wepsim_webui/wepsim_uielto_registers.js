@@ -241,29 +241,18 @@
 
         function wepsim_refresh_registers ( )
         {
-            var sim_eltos = simhw_sim_states() ;
-            var ref_obj   = null ;
-
             // register file
-	    for (var index=0; index < sim_eltos.BR.length; index++)
-            {
-		 ref_obj = sim_eltos.BR[index] ;
-		 if (typeof ref_obj.value == "function") {
-		     ref_obj.value.valueHasMutated() ;
-                 }
+            var sim_eltos = simhw_sim_states() ;
+	    for (var index=0; index < sim_eltos.BR.length; index++) {
+		 update_value(sim_eltos.BR[index]) ;
             }
 
             // transparent registers
             var filter_states = simhw_internalState('filter_states') ;
-
             for (var i=0; i<filter_states.length; i++)
             {
                  var s = filter_states[i].split(",")[0] ;
-
-		 ref_obj = sim_eltos[s] ;
-		 if (typeof ref_obj.value == "function") {
-		     ref_obj.value.valueHasMutated() ;
-                 }
+		 update_value(sim_eltos[s]) ;
             }
         }
 
@@ -323,7 +312,7 @@
                           "        id='rf" + index + "'>" +
                           "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
                           "<span class='badge badge-secondary text-dark' style='background-color:#CEECF5; ' id='tbl_RF"  + index + "'>" +
-			  "<div id='rf_" + index + "'><span data-bind='text: computed_value'>&nbsp;</span></div>" +
+			  "<div id='rf_" + index + "'>{{ computed_value }}</div>" +
                           "</span>" +
                           "</button>" ;
 	    }
@@ -357,25 +346,23 @@
 		    sanitizeFn: function (content) {
                         return content ; // DOMPurify.sanitize(content) ;
                     }
-	    });
+	    }) ;
 
-	    // knockout binding
+	    // vue binding
+	    var f_computed_value = function(value) {
+					var rf_format = get_cfg('RF_display_format') ;
+					return value2string(rf_format, value >>> 0) ;
+				    } ;
+
 	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
 		 var ref_obj = simhw_sim_states().BR[index] ;
-		 if (typeof ref_obj.value != "function")
-                 {
-		     ref_obj.value          = ko_observable(ref_obj.value).extend({notify:'always'}) ;
-		     ref_obj.computed_value = ko.computed(function() {
-						   var rf_format = get_cfg('RF_display_format') ;
-						   var rf_value  = this.value() >>> 0 ;
-						   return value2string(rf_format, rf_value) ;
-					      }, ref_obj) ;
+
+		 if (false == (ref_obj.value instanceof Vue)) {
+		     ref_obj.value = vue_observable(ref_obj.value) ;
                  }
 
-		 ko_context = document.getElementById('rf_' + index) ;
-		 ko.cleanNode(ko_context) ;
-		 ko.applyBindings(ref_obj, ko_context) ;
+		 vue_appyBinding(ref_obj.value, '#rf_'+index, f_computed_value) ;
 	    }
         }
 
@@ -418,7 +405,7 @@
                       "        id='rp" + s + "'>" +
                       showkey +
                       " <span class='badge badge-secondary text-dark' style='background-color:#CEECF5;' id='tbl_"  + s + "'>" +
-		      "<div id='rf_" + s + "'><span data-bind='text: computed_value'>&nbsp;</span></div>" +
+		      "<div id='rf_" + s + "'>{{ computed_value }}</div>" +
                       "</span>" +
                       "</button>" ;
             }
@@ -447,27 +434,26 @@
                     }
 	    });
 
-	    // knockout binding
+	    // vue binding
+	    var f_computed_value = function(value) {
+				        var rf_format = get_cfg('RF_display_format') ;
+				        var rf_value = value2string('text:char:nofill', value) ;
+					if (Number.isInteger(value)) {
+				    	    rf_value = value2string(rf_format, (value >>> 0)) ;
+				        }
+				        return rf_value ;
+				    } ;
+
             for (var i=0; i<filter.length; i++)
             {
                  var s = filter[i].split(",")[0] ;
 		 var ref_obj = sim_eltos[s] ;
-		 if (typeof ref_obj.value != "function")
-                 {
-		     ref_obj.value          = ko_observable(ref_obj.value).extend({notify:'always'}) ;
-		     ref_obj.computed_value = ko.computed(function() {
-						   var rf_format = get_cfg('RF_display_format') ;
-						   var rf_value = value2string('text:char:nofill', this.value()) ;
-						   if (this.nbits > 1) {
-						       rf_value = value2string(rf_format, (this.value() >>> 0)) ;
-						   }
-						   return rf_value ;
-					      }, ref_obj) ;
+
+		 if (false == (ref_obj.value instanceof Vue)) {
+		     ref_obj.value = vue_observable(ref_obj.value) ;
                  }
 
-		 ko_context = document.getElementById('rf_' + s) ;
-		 ko.cleanNode(ko_context) ;
-		 ko.applyBindings(ref_obj, ko_context) ;
+		 vue_appyBinding(ref_obj.value, '#rf_'+s, f_computed_value) ;
 	    }
         }
 

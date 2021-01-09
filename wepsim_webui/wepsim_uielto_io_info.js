@@ -82,6 +82,7 @@
 			     curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
 			 if (typeof curr_iointfactory[i].active != "function")
 			     curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
+
 			 var ko_context = document.getElementById('int' + i + '_context');
 			 ko.cleanNode(ko_context);
 			 ko.applyBindings(curr_iointfactory[i], ko_context);
