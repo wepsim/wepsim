@@ -346,7 +346,7 @@
 	    if ( (true === get_cfg('is_quick_interactive')) && (event_type == 'click') )
             {
 	          wepsim_update_signal_quick(key) ;
-	          show_states();
+	          //show_states();
 
                   // return ok
                   return true ;
@@ -357,7 +357,7 @@
                                       'wepsim_update_signal_dialog(\'' + key + '\');\n') ;
 
             wepsim_update_signal_dialog(key) ;
-	    show_states();
+	    //show_states();
 
             // intercept events...
 	    $("#dlg_updatesignal").one("hidden.bs.modal",
