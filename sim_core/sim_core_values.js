@@ -25,38 +25,28 @@
 
         function get_value ( sim_obj )
         {
+           // get value with vue
            if (sim_obj.value instanceof Vuex.Store)
            {
 	       return sim_obj.value.state.value ;
            }
-	   else if (typeof sim_obj.value == "function")
-           {
-	       return sim_obj.value() ;
-           }
 
+           // get value
 	   return sim_obj.value ;
         }
 
         function set_value ( sim_obj, value )
         {
-           var old_value = 0 ;
-
+           // set value with vue
            if (sim_obj.value instanceof Vuex.Store)
            {
-	       old_value = sim_obj.value.state.value ;
 	       sim_obj.value.commit('set_value', value) ;
-           }
-	   else if (typeof sim_obj.value == "function")
-	   {
-	       old_value = sim_obj.value() ;
-	       sim_obj.value(value) ;
-           }
-	   else
-	   {
-	       old_value = sim_obj.value ;
-	       sim_obj.value = value ;
+               return ;
            }
 
+           // set value
+	   var old_value = sim_obj.value ;
+	   sim_obj.value = value ;
 	   if (old_value != value) {
 	       sim_obj.changed = true ;
            }
@@ -64,25 +54,23 @@
 
         function reset_value ( sim_obj )
         {
-           var old_value = 0 ;
-
+           // reset value with vue
            if (sim_obj.value instanceof Vuex.Store)
            {
-	        old_value = sim_obj.value.state.value ;
 	        set_value(sim_obj, sim_obj.default_value) ;
+                return ;
            }
-           else if (typeof sim_obj.value == "function")
-	   {
-                old_value = sim_obj.value() ;
-	        set_value(sim_obj, sim_obj.default_value) ;
-           }
-	   else if (typeof sim_obj.default_value == "object")
+
+           // reset object value (e.g.: REG_MICROINS)
+	   if (typeof sim_obj.default_value == "object")
 	   {
 	        sim_obj.changed = true ;
 	        sim_obj.value = Object.create(sim_obj.default_value) ;
                 return ;
            }
-	   else if (sim_obj instanceof Array)
+
+           // reset array (e.g.: BR)
+	   if (sim_obj instanceof Array)
 	   {
 	        sim_obj.changed = true ;
 	        for (var i=0; i<sim_obj.length; i++) {
@@ -90,12 +78,10 @@
                 }
                 return ;
            }
-	   else
-	   {
-	        old_value = sim_obj.value ;
-	        set_value(sim_obj, sim_obj.default_value) ;
-           }
 
+           // reset value
+	   var old_value = sim_obj.value ;
+	   set_value(sim_obj, sim_obj.default_value) ;
 	   if (old_value != sim_obj.default_value) {
 	       sim_obj.changed = true ;
            }
@@ -103,14 +89,15 @@
 
         function update_value ( sim_obj )
         {
+           // forceUpdate value with vue
            if (sim_obj.value instanceof Vuex.Store)
            {
 	       sim_obj.value.commit('inc_updates') ;
+               return ;
            }
-	   else if (typeof sim_obj.value == "function")
-           {
-               ref_obj.value.valueHasMutated() ;
-           }
+
+           // forceUpdate value with vue
+	   sim_obj.changed = true ;
         }
 
 
@@ -120,34 +107,27 @@
 
         function get_var ( sim_var )
         {
+           // get value with vue
            if (sim_var instanceof Vuex.Store)
 	   {
 	       return sim_var.state.value ;
 	   }
-	   else if (typeof sim_var == "function")
-	   {
-	       return sim_var() ;
-	   }
-	   else
-	   {
-	       return sim_var ;
-	   }
+
+           // get value
+	   return sim_var ;
         }
 
         function set_var ( sim_var, value )
         {
+           // set value with vue
            if (sim_var instanceof Vuex.Store)
 	   {
 	       sim_var.commit('set_value', value) ;
+               return ;
            }
-	   else if (typeof sim_var == "function")
-	   {
-	       sim_var(value) ;
-           }
-	   else
-	   {
-	       sim_var = value ;
-           }
+
+           // set value
+	   sim_var = value ;
         }
 
 
@@ -220,7 +200,7 @@
 			   }) ;
         }
 
-        function vue_rebind_state ( ref_obj, id_elto )
+        function vue_rebind_state ( ref_obj, id_elto, f_computed_value )
         {
 	    // without Vue
 	    if (typeof Vue === "undefined") {
@@ -231,6 +211,11 @@
 	    if (false == (ref_obj.value instanceof Vuex.Store)) {
 		ref_obj.value = vue_observable(ref_obj.value) ;
 	    }
-	    vue_appyBinding(ref_obj.value, id_elto, function(value){ return value; }) ;
+
+            if (typeof f_computed_value === "undefined") {
+                f_computed_value = function(value){ return value; } ;
+	    }
+
+	    vue_appyBinding(ref_obj.value, id_elto, f_computed_value) ;
         }
 
