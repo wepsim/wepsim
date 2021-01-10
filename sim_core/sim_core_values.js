@@ -120,9 +120,9 @@
 
         function get_var ( sim_var )
         {
-           if (sim_var.value instanceof Vuex.Store)
+           if (sim_var instanceof Vuex.Store)
 	   {
-	       return sim_var.value.state.value ;
+	       return sim_var.state.value ;
 	   }
 	   else if (typeof sim_var == "function")
 	   {
@@ -136,9 +136,9 @@
 
         function set_var ( sim_var, value )
         {
-           if (sim_var.value instanceof Vuex.Store)
+           if (sim_var instanceof Vuex.Store)
 	   {
-	       sim_var.value.commit('set_value', value) ;
+	       sim_var.commit('set_value', value) ;
            }
 	   else if (typeof sim_var == "function")
 	   {
@@ -148,48 +148,6 @@
 	   {
 	       sim_var = value ;
            }
-        }
-
-
-        /*
-         *  ko binding
-         */
-
-        function ko_observable ( initial_value )
-        {
-	    // without ko
-	    if (typeof ko === "undefined") {
-	        return initial_value ;
-	    }
-
-	    // with ko
-	    if (typeof cfg_show_rf_refresh_delay === "undefined") {
-	        cfg_show_rf_refresh_delay = 120 ;
-            }
-
-            return ko.observable(initial_value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
-        }
-
-        function ko_rebind_state ( state, id_elto )
-        {
-	    // without ko
-	    if (typeof ko === "undefined") {
-                return ;
-            }
-
-	    // with ko
-	    if (typeof cfg_show_rf_refresh_delay === "undefined") {
-	        cfg_show_rf_refresh_delay = 120 ;
-            }
-
-            var state_obj = simhw_sim_state(state) ;
-            if (typeof state_obj.value !== "function") {
-                state_obj.value = ko.observable(state_obj.value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
-            }
-
-            var ko_context = document.getElementById(id_elto);
-            ko.cleanNode(ko_context);
-            ko.applyBindings(simhw_sim_state(state), ko_context);
         }
 
 
@@ -233,10 +191,15 @@
 				el:    vue_context,
 				store: r_value,
 				computed: {
-				    get_value () {
-					if (typeof this.$store.state == "undefined")
-                                            return 0 ;
-					return this.$store.state.value ;
+				    value: {
+				        get () {
+					   if (typeof this.$store.state == "undefined")
+                                               return 0 ;
+					   return this.$store.state.value ;
+				        },
+				        set (newValue) {
+					   this.$store.commit('set_value', newValue) ;
+				        }
 				    },
 				    computed_value () {
      					this.$store.state.updates ;
@@ -255,5 +218,19 @@
 				    }
 				}
 			   }) ;
+        }
+
+        function vue_rebind_state ( ref_obj, id_elto )
+        {
+	    // without Vue
+	    if (typeof Vue === "undefined") {
+                return Vue ;
+            }
+
+	    // with Vue
+	    if (false == (ref_obj.value instanceof Vuex.Store)) {
+		ref_obj.value = vue_observable(ref_obj.value) ;
+	    }
+	    vue_appyBinding(ref_obj.value, id_elto, function(value){ return value; }) ;
         }
 

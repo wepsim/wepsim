@@ -53,7 +53,7 @@
 			     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
 			     "    <td align=center'>" +
 			     "<div id='mp_wc'>" +
-			     "<input type=number data-bind='value: simhw_internalState(\"MP_wc\")' min='0' max='99999999'>" +
+			     "<input type=number v-model.lazy='value' min='0' max='99999999'>" +
 			     "</div>" +
 			     "    </td></tr>" +
 			     "</tbody>" +
@@ -65,10 +65,12 @@
 
 		    this.innerHTML = o1 ;
 
-		    // knockout binding
-		    simhw_internalState_reset('MP_wc', ko_observable(0)) ;
-		    var ko_context = document.getElementById('mp_wc');
-		    ko.applyBindings(simhw_internalState('MP_wc'), ko_context);
+		    // vue binding
+		    var curr_mp_wc = { value: vue_observable(0) } ;
+		    simhw_internalState_reset('MP_wc', curr_mp_wc) ;
+		    vue_appyBinding(curr_mp_wc.value,
+				    '#mp_wc',
+				    function(value){ return value; }) ;
 	      }
 
 	      connectedCallback ()

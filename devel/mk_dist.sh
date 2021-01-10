@@ -207,8 +207,7 @@ rm -fr ws_dist/min.dummy.js
 
 #  external
 echo "  * ws_dist/min.external.js"
-cat external/knockout-3.5.1.js \
-    external/vue/vue.min.js \
+cat external/vue/vue.min.js \
     external/vue/vuex.min.js \
     external/popper.min.js \
     external/bootstrap/bootstrap.min.js \

@@ -83,12 +83,12 @@
 			     "</td>" +
 			     "<td align='center' class='p-0'>" +
 			     "<div id='int" + i + "_per' class='m-0'>" +
-			     "<input type=number data-bind='value: period' min='0' max='99999999' class='form-control p-0 m-0'>" +
+			     "<input type='number' v-model.lazy='value' min='0' max='99999999' class='form-control p-0 m-0'>" +
 			     "</div>" +
 			     "</td>" +
 			     "<td align='center' class='p-0'>" +
 			     "<div id='int" + i + "_pro' class='m-0'>" +
-			     "<input type='number' data-bind='value: probability' min='0' max='1' step='.05' class='form-control p-0 m-0'>" +
+			     "<input type='number' v-model.lazy='value' min='0' max='1' step='.05' class='form-control p-0 m-0'>" +
 			     "</div>" +
 			     "</td>" +
 			     "</tr>" ;
@@ -103,23 +103,24 @@
 
 		    this.innerHTML = o1 ;
 
-		    // knockout binding
-		    var ko_context = {} ;
+		    // vue binding
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
                          // period
-			 if (typeof curr_iointfactory[i].period != "function")
-			     curr_iointfactory[i].period = ko_observable(curr_iointfactory[i].period) ;
-			 ko_context = document.getElementById('int' + i + '_per');
-			 ko.cleanNode(ko_context);
-			 ko.applyBindings(curr_iointfactory[i], ko_context);
+			 if (false == (curr_iointfactory[i].period instanceof Vuex.Store)) {
+			     curr_iointfactory[i].period = vue_observable(curr_iointfactory[i].period) ;
+			 }
+                         vue_appyBinding(curr_iointfactory[i].period,
+                                         '#int'+i+'_per',
+                                         function(value){ return value; }) ;
 	
                          // probability
-			 if (typeof curr_iointfactory[i].probability != "function")
-			     curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability) ;
-			 ko_context = document.getElementById('int' + i + '_pro');
-			 ko.cleanNode(ko_context);
-			 ko.applyBindings(curr_iointfactory[i], ko_context);
+			 if (false == (curr_iointfactory[i].probability instanceof Vuex.Store)) {
+			     curr_iointfactory[i].probability = vue_observable(curr_iointfactory[i].probability) ;
+			 }
+                         vue_appyBinding(curr_iointfactory[i].probability,
+                                         '#int'+i+'_pro',
+                                         function(value){ return value; }) ;
 		    }
 	      }
 

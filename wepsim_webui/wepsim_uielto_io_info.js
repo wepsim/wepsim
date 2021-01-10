@@ -58,12 +58,14 @@
 			     "<table class='table table-hover table-sm table-bordered'>" ;
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
-		       o1 += "<tr id='int" + i + "_context'>" +
-			     "<td align=center width=50%>" +
-			     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
+		       o1 += "<tr>" +
+			     "<td id='int" + i + "_act' align=center width=50%>" +
+			     "<span v-bind:class='[ value ? \"font-weight-bold\" : \"\" ]'>" +
+                             "Interrupt " + i +
+                             "</span>" +
 			     "</td>" +
-			     "<td align=center width=50%>" +
-			     "<span data-bind='text: accumulated'>&nbsp;</span>" +
+			     "<td id='int" + i + "_acc' align=center width=50%>" +
+			     "<span>{{ value }}</span>" +
 			     "</td>" +
 			     "</tr>" ;
 		    }
@@ -75,17 +77,22 @@
 
 		    this.innerHTML = o1 ;
 
-		    // knockout binding
+		    // vue binding
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
-			 if (typeof curr_iointfactory[i].accumulated != "function")
-			     curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
-			 if (typeof curr_iointfactory[i].active != "function")
-			     curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
+			 if (false == (curr_iointfactory[i].accumulated instanceof Vuex.Store)) {
+			     curr_iointfactory[i].accumulated = vue_observable(curr_iointfactory[i].accumulated) ;
+			 }
+                         vue_appyBinding(curr_iointfactory[i].accumulated,
+                                         '#int'+i+'_acc',
+                                         function(value){ return value; }) ;
 
-			 var ko_context = document.getElementById('int' + i + '_context');
-			 ko.cleanNode(ko_context);
-			 ko.applyBindings(curr_iointfactory[i], ko_context);
+			 if (false == (curr_iointfactory[i].active instanceof Vuex.Store)) {
+			     curr_iointfactory[i].active = vue_observable(curr_iointfactory[i].active) ;
+			 }
+                         vue_appyBinding(curr_iointfactory[i].active,
+                                         '#int'+i+'_act',
+                                         function(value){ return value; }) ;
 		    }
 	      }
 

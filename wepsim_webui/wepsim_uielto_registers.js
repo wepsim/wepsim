@@ -350,15 +350,15 @@
 
 	    // vue binding
 	    var f_computed_value = function(value) {
-					var rf_format = get_cfg('RF_display_format') ;
-					return value2string(rf_format, value >>> 0) ;
+				       var rf_format = get_cfg('RF_display_format') ;
+				       return value2string(rf_format, value >>> 0) ;
 				    } ;
 
 	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
 		 var ref_obj = simhw_sim_states().BR[index] ;
 
-		 if (false == (ref_obj.value instanceof Vue)) {
+		 if (false == (ref_obj.value instanceof Vuex.Store)) {
 		     ref_obj.value = vue_observable(ref_obj.value) ;
                  }
 
@@ -449,7 +449,7 @@
                  var s = filter[i].split(",")[0] ;
 		 var ref_obj = sim_eltos[s] ;
 
-		 if (false == (ref_obj.value instanceof Vue)) {
+		 if (false == (ref_obj.value instanceof Vuex.Store)) {
 		     ref_obj.value = vue_observable(ref_obj.value) ;
                  }
 
