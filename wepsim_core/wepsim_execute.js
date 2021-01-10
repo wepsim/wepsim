@@ -479,7 +479,7 @@
             t1 = performance.now() ;
         }
         if (max_turbo === 5) {
-            max_turbo = (3000/(t1-t0)) + 1 ;
+            max_turbo = (5000/(t1-t0)) + 1 ;
         }
 
 	DBG_limit_instruction += turbo ;

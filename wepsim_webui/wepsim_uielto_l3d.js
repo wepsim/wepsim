@@ -27,7 +27,7 @@
 
 
         var apirest_name     = "L3D" ;
-        var apirest_endpoint = "" ;
+        var apirest_endpoint = { value: "" } ;
         var apirest_user     = "" ;
         var apirest_pass     = "" ;
 
@@ -64,7 +64,6 @@
 
 		    // html holder
 		    var i = 0 ;
-		    var ko_context = null ;
 		    var offset = 0 ;
 
 		    var o1  = "<div id='config_L3D' style='height:58vh; width:inherit; overflow-y:auto;'>" +
@@ -78,7 +77,7 @@
                               " class='table table-hover table-sm table-bordered m-0 collapse'>" +
 			      "<tr><td>" +
                               "<label class='my-0 text-wrap' for='apirest_endpoint'>REST URL (e.g.: http://localhost:5000/matrix)</label>" +
-			      "<input id='apirest_endpoint' type='text' data-bind='value: apirest_endpoint' class='form-control text-info p-0'>" +
+			      "<input id='apirest_endpoint' type='text' v-model.lazy='value' class='form-control text-info p-0'>" +
 			      "</td></tr>" +
 			      "</table>" +
                               "" +
@@ -94,8 +93,8 @@
 				    {
 			                 offset = i*Math.pow(l3d_dim, 2) + j*l3d_dim + k ;
 			o1 += "<td align='center' id='l3d" + offset + "_context' class='py-0' " +
-			      " data-bind=\"event: { click: function(){active(!active());webui_l3d_set();}}\">" +
-			      "<i class='fa-lightbulb' data-bind=\"css: active() ? 'fas' : 'far'\"></i>" +
+                              "    v-on:click='value = !value'>" +
+			      "<i v-bind:class='[ value ? \"fas\" : \"far\", \"fa-lightbulb\" ]'></i>" +
 			      "</td>" ;
 				    }
 			o1 += "</tr>" ;
@@ -109,21 +108,23 @@
 
 		    this.innerHTML = o1 ;
 
-		    // knockout binding
+		    // vue binding
 		    for (i=0; i<l3d_states.length; i++)
 		    {
-			 if (typeof l3d_states[i].active != "function")
-			     l3d_states[i].active = ko_observable(l3d_states[i].active) ;
-			 ko_context = document.getElementById('l3d' + i + '_context');
-			 ko.cleanNode(ko_context);
-			 ko.applyBindings(l3d_states[i], ko_context);
+			 if (false == (l3d_states[i].active instanceof Vuex.Store)) {
+			     l3d_states[i].active = vue_observable(l3d_states[i].active) ;
+			 }
+                         vue_appyBinding(l3d_states[i].active,
+                                         '#l3d'+i+'_context',
+                                         function(value){ webui_l3d_set(); return value; }) ;
 		    }
 
-		    if (typeof apirest_endpoint != "function")
-			apirest_endpoint = ko_observable(apirest_endpoint) ;
-		    ko_context = document.getElementById('apirest_endpoint');
-		    ko.cleanNode(ko_context);
-		    ko.applyBindings(apirest_endpoint, ko_context);
+		    if (false == (apirest_endpoint.value instanceof Vuex.Store)) {
+		        apirest_endpoint.value = vue_observable(apirest_endpoint.value) ;
+		    }
+		    vue_appyBinding(apirest_endpoint.value,
+				    '#apirest_endpoint',
+				    function(value){ webui_l3d_set(); return value; }) ;
 	      }
 
 	      connectedCallback ()

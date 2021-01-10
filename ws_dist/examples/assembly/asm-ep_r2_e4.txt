@@ -61,3 +61,6 @@ main:
        li  a2 6
        jal ra counting
 
+       # return
+       jr  ra
+
