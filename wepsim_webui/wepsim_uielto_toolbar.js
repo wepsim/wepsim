@@ -341,9 +341,12 @@
                         '     <a class="dropdown-item py-2" href="#" id="selact_help" value="help"' +
                         '        onclick="wsweb_select_action(\'help\');' +
                         '                 return false;"><span data-langkey="Help">Help</span></a>' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_welcome" value="welcome"' +
+                        '        onclick="wsweb_select_action(\'welcome\');' +
+                        '                 return false;"><span data-langkey="Welcome tutorial">Welcome tutorial</span>...</a>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_intro" value="intro"' +
                         '        onclick="wsweb_select_action(\'intro\');' +
-                        '                 return false;"><span data-langkey="Welcome tutorial">Welcome tutorial</span>...</a>' +
+                        '                 return false;"><span data-langkey="Initial intro">Initial intro</span>...</a>' +
                         '\n' +
 			'   </div>' +
 			'</div>' ;

@@ -109,22 +109,23 @@
 		    this.innerHTML = o1 ;
 
 		    // vue binding
+                    var f_computed_value = function(value) { 
+                                               webui_l3d_set() ;
+                                               return value ;
+                                           } ;
+
 		    for (i=0; i<l3d_states.length; i++)
 		    {
 			 if (false == (l3d_states[i].active instanceof Vuex.Store)) {
 			     l3d_states[i].active = vue_observable(l3d_states[i].active) ;
 			 }
-                         vue_appyBinding(l3d_states[i].active,
-                                         '#l3d'+i+'_context',
-                                         function(value){ webui_l3d_set(); return value; }) ;
+                         vue_appyBinding(l3d_states[i].active, '#l3d'+i+'_context', f_computed_value) ;
 		    }
 
 		    if (false == (apirest_endpoint.value instanceof Vuex.Store)) {
 		        apirest_endpoint.value = vue_observable(apirest_endpoint.value) ;
 		    }
-		    vue_appyBinding(apirest_endpoint.value,
-				    '#apirest_endpoint',
-				    function(value){ webui_l3d_set(); return value; }) ;
+		    vue_appyBinding(apirest_endpoint.value, '#apirest_endpoint', f_computed_value) ;
 	      }
 
 	      connectedCallback ()

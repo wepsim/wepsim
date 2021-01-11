@@ -512,9 +512,13 @@
 		      wsweb_dialog_open('help') ;
 		      break ;
 
-	        case 'intro':
+	        case 'welcome':
 		      wsweb_select_main('intro') ;
 		      setTimeout(wsweb_record_play, 1000) ;
+		      break ;
+
+	        case 'intro':
+                      wepsim_newbie_tour() ;
 		      break ;
 
 	        case 'hw_summary':

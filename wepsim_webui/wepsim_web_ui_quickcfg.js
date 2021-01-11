@@ -42,6 +42,7 @@
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
 					'</li>' ;
 
+/*
 				   o += '<li class="list-group-item px-0"> ' +
 					'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
 					'     onclick="wepsim_newbie_tour(); ' +
@@ -50,6 +51,7 @@
 					'<em class="fas fa-book-reader col-1 pl-1 float-left"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
 					'</li>' ;
+*/
 
 				   o += '<li class="list-group-item px-0"> ' +
 					'  <span class="btn-group-toggle" data-toggle="buttons">' +

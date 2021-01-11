@@ -72,10 +72,10 @@
                     var ref_obj = simhw_sim_state('CLK') ;
                     vue_rebind_state(ref_obj, '#clk_context') ;
 
-                    var ref_obj = simhw_sim_state('DECO_INS') ;
+                        ref_obj = simhw_sim_state('DECO_INS') ;
                     vue_rebind_state(ref_obj, '#ins_context') ;
 
-                    var ref_obj = simhw_sim_state('ACC_TIME') ;
+                        ref_obj = simhw_sim_state('ACC_TIME') ;
                     vue_rebind_state(ref_obj, '#tms_context') ;
 	      }
 
