@@ -61,7 +61,7 @@
 
 		    this.vueobj = new Vue({ 
 					     el: '#authors1', 
-					     data: { authors: ws_info_authors }
+					     data: { authors: ws_info.authors }
 					  }) ;
 	      }
 
@@ -74,69 +74,4 @@
         if (typeof window !== "undefined") {
             window.customElements.define('ws-authors', ws_authors) ;
         }
-
-
-        // global variable
-	var ws_info_authors = [
-	          {
-                    c_id:    "collapse-author-1",
-                    i_src:   "images/author_fgarcia.png",
-                    i_alt:   "Félix García Carballeira",
-                    a_id:    "fgarcia",
-                    a_name:  "F&eacute;lix Garc&iacute;a Carballeira",
-                    socials: {
-			        lkin:    { name:"linkedin", faclass:"fab fa-linkedin",
-                                           href:"" },
-			        rgate:   { name:"r-gate", faclass:"fab fa-researchgate",
-                                           href:"https://www.researchgate.net/profile/Felix_Garcia-Carballeira" },
-			        github:  { name:"github", faclass:"fab fa-github",
-                                           href:"" }
-	                     }
-	          },
-	          {
-                    c_id:    "collapse-author-2",
-                    i_src:   "images/author_acaldero.png",
-                    i_alt:   "Alejandro Calderón Mateos",
-                    a_id:    "acaldero",
-                    a_name:  "Alejandro Calder&oacute;n Mateos",
-                    socials: {
-			        lkin:    { name: "linkedin", faclass: "fab fa-linkedin",
-                                           href:"https://www.linkedin.com/in/alejandro-calderon-mateos/" },
-			        rgate:   { name: "r-gate", faclass: "fab fa-researchgate",
-                                           href:"https://www.researchgate.net/profile/Alejandro_Calderon2" },
-			        github:  { name: "github", faclass: "fab fa-github",
-                                           href:"https://github.com/acaldero/" }
-	                     }
-	          },
-	          {
-                    c_id:    "collapse-author-3",
-                    i_src:   "images/author_jprieto.png",
-                    i_alt:   "Javier Prieto Cepeda",
-                    a_id:    "jprieto",
-                    a_name:  "Javier Prieto Cepeda",
-                    socials: {
-			        lkin:    { name: "linkedin", faclass: "fab fa-linkedin",
-                                           href:"https://www.linkedin.com/in/javier-prieto-cepeda" },
-			        rgate:   { name: "r-gate", faclass: "fab fa-researchgate",
-                                           href:"" },
-			        github:  { name: "github", faclass: "fab fa-github",
-                                           href:"" }
-	                     }
-	          },
-	          {
-                    c_id:    "collapse-author-4",
-                    i_src:   "images/author_salonso.png",
-                    i_alt:   "Saúl Alonso Monsalve",
-                    a_id:    "salonso",
-                    a_name:  "Sa&uacute;l Alonso Monsalve",
-                    socials: {
-			        lkin:    { name: "linkedin", faclass: "fab fa-linkedin",
-                                           href:"https://www.linkedin.com/in/salonsom/" },
-			        rgate:   { name: "r-gate", faclass: "fab fa-researchgate",
-                                           href:"https://www.researchgate.net/profile/Saul_Alonso_Monsalve" },
-			        github:  { name: "github", faclass: "fab fa-github",
-                                           href:"https://github.com/saulam/" }
-	                     }
-	          }
-	] ;
 
