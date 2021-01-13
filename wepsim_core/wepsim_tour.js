@@ -19,13 +19,21 @@
  */
 
 
-    //  tour + tours definitions
-        ws_info.tours = {} ;
+    //  tours collection
+    ws_info.tours = {} ;
+
+    //  tour
     var ws_tour = null ;
 
     // tour API
     function wepsim_newbie_tour ( )
     {
+             // get newbie tour...
+             var newbie_tour1 = ws_info.tours.tour1 ;
+             if (typeof newbie_tour1 === "undefined") {
+	         return ;
+             }
+
 	     // setup lang
 	     var ws_idiom = get_cfg('ws_idiom') ;
              wepsim_newbie_tour_setLang(ws_idiom) ;
@@ -36,7 +44,7 @@
              }
 
 	     ws_tour.setOptions({
-                                steps:              ws_info.tours.tour1,
+                                steps:              newbie_tour1,
 				keyboardNavigation: true,
 				tooltipClass:       'tooltip-large',
 				showProgress:       true,
@@ -48,7 +56,7 @@
                              }) ;
 
 	     ws_tour.onbeforechange(function () {
-                                        ws_info.tours.tour1[this._currentStep].do_before() ;
+                                        newbie_tour1[this._currentStep].do_before() ;
 	                         }) ;
 
 	     ws_tour.onexit(function () {
@@ -72,12 +80,18 @@
 
     function wepsim_newbie_tour_setLang ( lang )
     {
+             // get newbie tour...
+             var newbie_tour1 = ws_info.tours.tour1 ;
+             if (typeof newbie_tour1 === "undefined") {
+	         return ;
+             }
+
 	     var step = '' ;
-	     for (var i=0; i<ws_info.tours.tour1.length; i++) 
+	     for (var i=0; i<newbie_tour1.length; i++) 
 	     {
-		  step = ws_info.tours.tour1[i].step ;
+		  step = newbie_tour1[i].step ;
                   if ("" !== step) {
-		      ws_info.tours.tour1[i].intro = i18n.eltos.tour_intro[lang][step] ;
+		      newbie_tour1[i].intro = i18n.eltos.tour_intro[lang][step] ;
                   }
 	     }
     }
