@@ -196,15 +196,13 @@ rm -fr ws_dist/wepsim_web.js
 
 #  WepSIM nodejs engine
 echo "  * ws_dist/min.wepsim_node.js"
-echo "class HTMLElement { }" > ws_dist/min.dummy.js
-cat ws_dist/min.dummy.js \
+cat wepsim/nodejs/wepsim_node_adapt.js \
     ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_web.js \
     \
     wepsim/nodejs/wepsim_node_core.js \
     wepsim/nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
-rm -fr ws_dist/min.dummy.js
 
 #  external
 echo "  * ws_dist/min.external.js"
