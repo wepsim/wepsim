@@ -168,7 +168,7 @@
         // empty rel -> show index
         if ( (typeof rel != "undefined") && (rel == "") )
         {
-	     var html_index = table_helps_html(ws_help) ;
+	     var html_index = table_helps_html(ws_info.help) ;
 	     $(helpdiv).html(html_index) ;
 
              ga('send', 'event', 'help', 'help.index', 'help.index') ;

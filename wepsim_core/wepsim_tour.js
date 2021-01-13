@@ -19,10 +19,11 @@
  */
 
 
-    //  tour
+    //  tour + tours definitions
+        ws_info.tours = {} ;
+    var ws_tour = null ;
 
-    var tour = null ;
-
+    // tour API
     function wepsim_newbie_tour ( )
     {
 	     // setup lang
@@ -30,12 +31,12 @@
              wepsim_newbie_tour_setLang(ws_idiom) ;
 
 	     // setup tour
-             if (null == tour) {
-	         tour = introJs() ;
+             if (null == ws_tour) {
+	         ws_tour = introJs() ;
              }
 
-	     tour.setOptions({
-                                steps:              ws_tour,
+	     ws_tour.setOptions({
+                                steps:              ws_info.tours.tour1,
 				keyboardNavigation: true,
 				tooltipClass:       'tooltip-large',
 				showProgress:       true,
@@ -46,11 +47,11 @@
 	                        overlayOpacity:     '0.2'
                              }) ;
 
-	     tour.onbeforechange(function () {
-                                        ws_tour[this._currentStep].do_before() ;
+	     ws_tour.onbeforechange(function () {
+                                        ws_info.tours.tour1[this._currentStep].do_before() ;
 	                         }) ;
 
-	     tour.onexit(function () {
+	     ws_tour.onexit(function () {
 			                $("#help1").modal('hide');
 				        wsweb_dialog_close('examples');
 				        wsweb_dialog_close('config');
@@ -63,7 +64,7 @@
 			                return true ;
 	                }) ;
 
-	     tour.start() ;
+	     ws_tour.start() ;
 
 	     // stats about ui
              ga('send', 'event', 'ui', 'ui.tour', 'ui.tour.newbie');
@@ -72,11 +73,11 @@
     function wepsim_newbie_tour_setLang ( lang )
     {
 	     var step = '' ;
-	     for (var i=0; i<ws_tour.length; i++) 
+	     for (var i=0; i<ws_info.tours.tour1.length; i++) 
 	     {
-		  step = ws_tour[i].step ;
+		  step = ws_info.tours.tour1[i].step ;
                   if ("" !== step) {
-		      ws_tour[i].intro = i18n.eltos.tour_intro[lang][step] ;
+		      ws_info.tours.tour1[i].intro = i18n.eltos.tour_intro[lang][step] ;
                   }
 	     }
     }

@@ -590,7 +590,7 @@
                         return "<div id='help1_ref' style='display:none;'></div>" +
                                "<div class='ui-body-d ui-content p-0' id='scroller-help1' " +
                                "     style='min-height:50vh; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
-			       table_helps_html(ws_help) +
+			       table_helps_html(ws_info.help) +
                                "</div>" ;
 	             },
 	    buttons: {

@@ -33,5 +33,5 @@
     }
 
     Vuex.Store = class {
-    }
+    } ;
 

@@ -19,7 +19,7 @@
  */
 
 
-    var ws_preload_tasks = [
+    ws_info.preload_tasks = [
 
 	 // parameter: mode
 	 {
