@@ -178,7 +178,7 @@
         sim.poc.internal_states.MC           = {} ;
         sim.poc.internal_states.ROM          = {} ;
 
-        sim.poc.internal_states.FIRMWARE     = {} ;
+        sim.poc.internal_states.FIRMWARE     = ws_empty_firmware ;
         sim.poc.internal_states.io_hash      = {} ;
         sim.poc.internal_states.fire_stack   = [] ;
 

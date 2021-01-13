@@ -23,12 +23,12 @@
     // Tutorials
     //
 
-    tutorials = {} ;
+    ws_info.tutorials = {} ;
 
     function sim_tutorial_goframe ( tutorial_name, from_step, to_step )
     {
         //var ws_lang  = get_cfg('ws_idiom') ;
-        var tutorial = tutorials[tutorial_name] ;
+        var tutorial = ws_info.tutorials[tutorial_name] ;
 
         // 1.- check parameters
         if (typeof tutorial === "undefined") {
@@ -64,10 +64,10 @@
 
     function sim_tutorial_showframe ( tutorial_name, step )
     {
-        var tutorial = tutorials[tutorial_name] ;
+        var tutorial = ws_info.tutorials[tutorial_name] ;
 
         // 1.- check parameters
-        if (typeof tutorials == "undefined") {
+        if (typeof ws_info.tutorials == "undefined") {
             return ;
 	}
 

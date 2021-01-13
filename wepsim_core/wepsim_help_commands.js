@@ -19,9 +19,9 @@
  */
 
 
-    var ws_help = [] ;
+    ws_info.help = [] ;
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "simulator",
                      title:       "Execute example",
                      i_type:      "code",
@@ -34,7 +34,7 @@
                      description: "<span data-langkey='help_01_03'>Play the execute example tutorial</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "simulator",
                      title:       "Welcome tutorial",
                      i_type:      "code",
@@ -45,7 +45,7 @@
                      description: "<span data-langkey='help_01_01'>Open the welcome tutorial</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "simulator",
                      title:       "Simple usage tutorial",
                      i_type:      "code",
@@ -56,7 +56,7 @@
                      description: "<span data-langkey='help_01_02'>Open the simple usage tutorial, for microprogramming and assembly programming</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "simulator",
                      title:       "Simulator: firmware",
                      i_type:      "relative",
@@ -66,7 +66,7 @@
                      description: "<span data-langkey='help_02_01'>How to work with the firmware to be loaded into the control memory</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "microcode",
                      title:       "Microcode format",
                      i_type:      "relative",
@@ -76,7 +76,7 @@
                      description: "<span data-langkey='help_02_02'>Syntax of the microcode used</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "simulator",
                      title:       "Simulator: assembly",
                      i_type:      "relative",
@@ -86,7 +86,7 @@
                      description: "<span data-langkey='help_02_03'>How to work with the assembly that use the aforementioned firmware</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "assembly",
                      title:       "Assembly format",
                      i_type:      "relative",
@@ -96,7 +96,7 @@
                      description: "<span data-langkey='help_02_04'>Syntax of the assembly elements</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "simulator",
                      title:       "Simulator: execution",
                      i_type:      "relative",
@@ -106,7 +106,7 @@
                      description: "<span data-langkey='help_02_05'>How the simulator can execute the assembly and firmware</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "simulator",
                      title:       "Simulator: states",
                      i_type:      "relative",
@@ -116,7 +116,7 @@
                      description: "<span data-langkey='help_02_06'>How the simulator can show the current state, and the difference between two states</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "architecture",
                      title:       "Simulated architecture",
                      i_type:      "absolute",
@@ -126,7 +126,7 @@
                      description: "<span data-langkey='help_03_01'>Description of the simulated processor architecture</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "architecture",
                      title:       "Simulated signals",
                      i_type:      "absolute",
@@ -136,7 +136,7 @@
                      description: "<span data-langkey='help_03_02'>Main signals summary of the simulated elemental processor</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "architecture",
                      title:       "Hardware summary",
                      i_type:      "code",
@@ -146,7 +146,7 @@
                      description: "<span data-langkey='help_03_03'>Reference card for the simulated elemental processor hardware</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "architecture",
                      title:       "Assembly summary",
                      i_type:      "code",
@@ -156,7 +156,7 @@
                      description: "<span data-langkey='help_03_04'>Reference card for the simulated elemental processor instruction set</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "about",
                      title:       "License, platforms, etc.",
                      i_type:      "relative",
@@ -166,7 +166,7 @@
                      description: "<span data-langkey='help_04_01'>WepSIM license, supported platforms, technologies used</span>.<br>"
                   });
 
-    ws_help.push({
+    ws_info.help.push({
                      id:          "authors",
                      title:       "Authors",
                      i_type:      "code",

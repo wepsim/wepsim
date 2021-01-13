@@ -184,9 +184,6 @@
 				    computed_value () {
      					this.$store.state.updates ;
      					return f_computed_value(this.$store.state.value) ;
-				    },
-				    computed_updates () {
-     					return this.$store.state.updates ;
 				    }
 				},
 				methods: {

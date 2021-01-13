@@ -23,19 +23,19 @@
      * Execution Modes
      */
 
-    var ws_modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
+    ws_info.modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
 
-    var ws_default_example = {
-	                       'asm_mips': 'ep:ep_mips:ep_s4_e1',
-	                       'asm_rv32': 'ep:ep_rv32:ep_s7_e2',
-	                       'asm_z80':  'ep:ep_z80:ep_s7_e3'
+    ws_info.default_example = {
+	                         'asm_mips': 'ep:ep_mips:ep_s4_e1',
+	                         'asm_rv32': 'ep:ep_rv32:ep_s7_e2',
+	                         'asm_z80':  'ep:ep_z80:ep_s7_e3'
 	                      } ;
 
 
     // get list of modes
     function wepsim_mode_getAvailableModes ( )
     {
-        return ws_modes ;
+        return ws_info.modes ;
     }
 
     // Change WepSIM mode -> activate_hw + UI view
@@ -44,7 +44,7 @@
             var hwid = -1 ;
 
 	    // switch active hardware by name...
-	    if (ws_modes.includes(optValue))
+	    if (ws_info.modes.includes(optValue))
                  hwid = simhw_getIdByName('ep') ;
 	    else hwid = simhw_getIdByName(optValue) ;
 
@@ -57,7 +57,7 @@
 	    if (optValue.startsWith('asm_'))
 	    {
                 wepsim_activeview('only_asm', true) ;
-		load_from_example_firmware(ws_default_example[optValue], false) ;
+		load_from_example_firmware(ws_info.default_example[optValue], false) ;
 	    }
 
 	    // intro mode...
@@ -71,8 +71,8 @@
 	    // newbie mode...
             if ('newbie' == optValue)
             {
-                wepsim_newbie_tour() ;
-                return true ;
+                 wepsim_newbie_tour() ;
+                 return true ;
             }
 
             // return ok

@@ -168,7 +168,7 @@
         // empty rel -> show index
         if ( (typeof rel != "undefined") && (rel == "") )
         {
-	     var html_index = table_helps_html(ws_help) ;
+	     var html_index = table_helps_html(ws_info.help) ;
 	     $(helpdiv).html(html_index) ;
 
              ga('send', 'event', 'help', 'help.index', 'help.index') ;
@@ -252,11 +252,16 @@
             var first_l = '' ;
             for (var k = 0; k < ws_firmware.length; k++)
             {
-                ins_help = ws_firmware[k].help ;
                 ins_name = ws_firmware[k].signatureRaw.trim() ;
                 if (ins_name == "begin") {
                     continue ;
                 }
+
+                ins_help = ws_firmware[k].help ;
+                if (typeof ins_help === "undefined") {
+                    ins_help = '' ;
+                }
+                ins_help = ins_help.replace(/^'|'$/g,'') ;
 
                 first_l = ins_name[0] ;
                 if (typeof t[first_l] === "undefined") {
@@ -267,7 +272,15 @@
 
             // join tables
             var o  = '<div class="container">' +
-                     '<div class="row">' ;
+                 //  '<div class="row justify-content-center">' +
+                 //  '<input id="hsinput1" ' +
+		 //  '       onkeyup="var value=$(this).val().toLowerCase();' +
+		 //  '	             $(\'.table2 tr\').filter(function() {' +
+		 //  '	                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)' +
+		 //  '	             });"' +
+                 //  '       class="form-control my-2" type="text" placeholder="Search..">' +
+                 //  '</div">' +
+                     '<div class="row justify-content-center">' ;
             for (var i=0; i<26; i++)
             {
                 k = String.fromCharCode(97 + i) ;
@@ -275,10 +288,10 @@
                     continue ;
                 }
 
-	        o += '<div class="col-auto d-flex justify-content-center m-2">' +
+	        o += '<div class="col-auto d-flex justify-content-center my-2">' +
                      '<h4><span class="badge badge-pill badge-info text-monospace" ' +
                      '          style="position:relative;top:16px;left:-4px;">' + k + '</span></h4>' +
-                     '<table class="table table-striped table-bordered table-hover table-sm table-responsive">' +
+                     '<table class="table table-striped table-bordered table-hover table-sm table-responsive table2">' +
                      '<thead class="thead-dark"><tr><th>Instruction</th><th>Help</th></tr></thead>' +
                      '<tbody>' + t[k] + '</tbody>' +
                      '</table>' +
