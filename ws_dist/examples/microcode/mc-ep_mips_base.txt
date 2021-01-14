@@ -238,7 +238,7 @@ sll reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val=inm(5,0),
-            help='$r1 = $r2 << val',
+            help='$r1 = $r2 <<< val',
             {
                 (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
                 (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
@@ -282,7 +282,7 @@ liu reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
-            help='r1 = (00 00 val)',
+            help='r1 = (00, 00, val)',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
@@ -293,7 +293,7 @@ la  reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='r1 = addr16',
+            help='r1 = addr/16',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
@@ -304,7 +304,7 @@ la  reg addr {
             nwords=2,
             reg=reg(25,21),
             addr=address(63,32)abs,
-            help='r1 = addr32',
+            help='r1 = addr/32',
             {
                 (T2, C0),
                 (TA, R, BW=11, M1=1, C1=1),
@@ -317,7 +317,7 @@ lw reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='r1 = (MEM[addr] ... MEM[addr+3])',
+            help='r1 = (MEM[addr+3] .. MEM[addr])',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, R=1, BW=11, M1=1, C1=1),
@@ -330,7 +330,7 @@ lb reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            help='r1 = MEM[r2]',
+            help='r1 = MEM[r2]/8',
             {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
@@ -343,7 +343,7 @@ lbu reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            help ='$r1 = (00 00 00 MEM[$r2])',
+            help ='$r1 = (00, 00, 00, MEM[$r2])',
             {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=00, M1=1, C1=1),
@@ -356,7 +356,7 @@ lw reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            help='$r1 = (MEM[$r2+3] ... MEM[$r2])',
+            help='$r1 = (MEM[$r2+3] .. MEM[$r2])',
             {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=11, M1=1, C1=1),
@@ -372,8 +372,8 @@ sw reg addr {
             help='MEM[addr] = r1',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
-                (BW=11, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
+                (MR=0, SELA=10101,  T9=1, M1=0, C1=1),
+                (BW=11, TA=1, TD=1,  W=1, A0=1, B=1, C=0)
             }
 }
 
@@ -382,7 +382,7 @@ lb reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='r1 = MEM[addr]',
+            help='r1 = MEM[addr]/8',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
@@ -395,7 +395,7 @@ sb reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
-            help='MEM[addr] = r1',
+            help='MEM[addr] = r1/8',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
