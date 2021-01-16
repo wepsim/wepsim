@@ -48,9 +48,10 @@
                           '  </div>' +
 			  '  <div class="card-footer p-1 collapse collapse7 show bg-white text-left">' +
 			  '	  <div v-for="social in author.socials" class="list-group list-group-flush">' +
-		          '<a class="card-link list-group-item p-1" v-bind:href="social.href">' +
+		          '<component :is="social.href?\'a\':\'span\'" v-bind:href="social.href || \'\'" ' +
+                          '           target="_blank" class="card-link list-group-item p-1">' +
                           '<em v-bind:class="social.faclass"></em><span class="m-1">{{ social.name }}</span>' +
-                          '</a>' +
+                          '</component>' +
                           '       </div>' +
                           '  </div>' +
 			  '</div>' +

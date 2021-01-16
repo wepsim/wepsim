@@ -23,14 +23,14 @@
      * Example set management
      */
 
-    var ws_examples        = [] ;
-    var ws_examples_set    = [{ "name": "Empty", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;
-    var ws_examples_active = -1 ;
+    ws_info.examples = [] ;
+    ws_info.example_set    = [{ "name": "Empty", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;
+    ws_info.example_active = -1 ;
 
     function wepsim_example_reset ( )
     {
-       ws_examples        = [] ;
-       ws_examples_active = -1 ;
+       ws_info.examples = [] ;
+       ws_info.example_active   = -1 ;
 
        webui_toolbar_updateExampleSet() ;
     }
@@ -40,36 +40,36 @@
        var jobj = null ;
 
        // try to load each one
-       for (var i=0; i<ws_examples_set.length; i++)
+       for (var i=0; i<ws_info.example_set.length; i++)
        {
-            if (ws_examples_set[i].name.toUpperCase() !== e_name.toUpperCase()) { 
+            if (ws_info.example_set[i].name.toUpperCase() !== e_name.toUpperCase()) { 
                 continue ;
             }
-            if (typeof ws_examples_set[i].url === "undefined") { 
+            if (typeof ws_info.example_set[i].url === "undefined") { 
                 continue ;
             }
 
-            jobj = wepsim_url_getJSON(ws_examples_set[i].url) ;
-	    ws_examples = ws_examples.concat(jobj) ;
-            ws_examples_active = i ;
+            jobj = wepsim_url_getJSON(ws_info.example_set[i].url) ;
+	    ws_info.examples = ws_info.examples.concat(jobj) ;
+            ws_info.example_active = i ;
        }
 
        webui_toolbar_updateExampleSet() ;
 
-       return ws_examples ;
+       return ws_info.examples ;
     }
 
     function wepsim_example_loadSet ( url_example_set, set_name )
     {
        // try to load the set
-       ws_examples_set = wepsim_url_getJSON(url_example_set) ;
+       ws_info.example_set = wepsim_url_getJSON(url_example_set) ;
 
-       return ws_examples_set ;
+       return ws_info.example_set ;
     }
 
     function wepsim_example_getSet ( )
     {
-       return ws_examples_set ;
+       return ws_info.example_set ;
     }
 
 
@@ -79,7 +79,7 @@
 
     function load_from_example_assembly ( example_id, chain_next_step )
     {
-        if (-1 == ws_examples_active) {
+        if (-1 == ws_info.example_active) {
             ws_alert("warning: no active example set") ;
             return ;
         }
@@ -105,7 +105,7 @@
              sample_asm = sid[2] ;
         else console.log("warning: example without assembly id") ;
 
-        var url = ws_examples_set[ws_examples_active].url_base_asm + "asm-" + sample_asm + ".txt" ;
+        var url = ws_info.example_set[ws_info.example_active].url_base_asm + "asm-" + sample_asm + ".txt" ;
 
 	// do next
         var do_next = function( mcode ) {
@@ -153,7 +153,7 @@
 
     function load_from_example_firmware ( example_id, chain_next_step )
     {
-        if (-1 == ws_examples_active) {
+        if (-1 == ws_info.example_active) {
             ws_alert("warning: no active example set") ;
             return ;
         }
@@ -179,7 +179,7 @@
              sample_asm = sid[2] ;
         else console.log("warning: example without assembly id") ;
 
-        var url = ws_examples_set[ws_examples_active].url_base_mc + "mc-" + sample_mc + ".txt" ;
+        var url = ws_info.example_set[ws_info.example_active].url_base_mc + "mc-" + sample_mc + ".txt" ;
 	inputfirm.setOption('readOnly', false);
 
 	// do next
@@ -227,16 +227,16 @@
     function share_example ( m, base_url )
     {
 	 // example information
-	 var e_description = ws_examples[m].description ;
+	 var e_description = ws_info.examples[m].description ;
 	     e_description = e_description.replace(/<[^>]+>/g,'') ;
-	 var e_id          = ws_examples[m].id ;
-	 var e_hw          = ws_examples[m].hardware ;
+	 var e_id          = ws_info.examples[m].id ;
+	 var e_hw          = ws_info.examples[m].hardware ;
 
 	 // share information
 	 var share_title = 'WepSIM example ' + e_id + '...' ;
 	 var share_text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description + '):\n' ;
 	 var share_url   = '' + base_url + '?mode=' + e_hw + 
-                                           '&examples_set=' + ws_examples_set[ws_examples_active].name + 
+                                           '&examples_set=' + ws_info.example_set[ws_info.example_active].name + 
                                            '&example=' + m ;
 
 	 return share_information('example_' + m,
@@ -324,7 +324,7 @@
                              e_title + '</span>' +
 		        '<span id="example_reference_' + e_id + '" class="d-none">' + 
                              base_url + '?mode=' + mode + 
-				        '&examples_set=' + ws_examples_set[ws_examples_active].name + 
+				        '&examples_set=' + ws_info.example_set[ws_info.example_active].name + 
 				        '&example=' + m + 
                         '</span>' +
 		        '    <div class="btn-group btn-group-md">' +

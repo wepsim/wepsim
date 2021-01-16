@@ -399,13 +399,13 @@
                   return '-' ;
               }
 
+	      if (elto_v instanceof Vuex.Store) {
+		  elto_v = elto_v.state.value ;
+	      }
+
               if (typeof elto_v == 'object') {
                   return 'object' ;
               }
-
-	      if (typeof elto_v == 'function') {
-		  elto_v = elto_v() ;
-	      }
 
               elto_v = '0x' + elto_v.toString(16) ;
               return elto_v ;
