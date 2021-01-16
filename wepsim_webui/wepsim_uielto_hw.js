@@ -325,8 +325,8 @@
 		 // popup
 		 e = simcoreui_hw_states_popup(ahw.states, elto) ;
 
-		 elto_v  = simcoreui_hw_states_get_value(ahw.states[elto].value) ;
-		 elto_dv = simcoreui_hw_states_get_value(ahw.states[elto].default_value) ;
+		 elto_v  = value_toString(ahw.states[elto].value) ;
+		 elto_dv = value_toString(ahw.states[elto].default_value) ;
 		 elto_c  = (elto_v != elto_dv) ? '      col-auto font-weight-bold' :
 						 't-ina col-auto font-weight-normal' ;
 
@@ -393,28 +393,10 @@
 	    return o ;
         }
 
-        function simcoreui_hw_states_get_value ( elto_v )
-        {
-              if (typeof elto_v == 'undefined') {
-                  return '-' ;
-              }
-
-	      if (elto_v instanceof Vuex.Store) {
-		  elto_v = elto_v.state.value ;
-	      }
-
-              if (typeof elto_v == 'object') {
-                  return 'object' ;
-              }
-
-              elto_v = '0x' + elto_v.toString(16) ;
-              return elto_v ;
-        }
-
         function simcoreui_hw_states_popup ( ahw_states, elto )
         {
-              var elto_v  = simcoreui_hw_states_get_value(ahw_states[elto].value) ;
-              var elto_dv = simcoreui_hw_states_get_value(ahw_states[elto].default_value) ;
+              var elto_v  = value_toString(ahw_states[elto].value) ;
+              var elto_dv = value_toString(ahw_states[elto].default_value) ;
 
               // v != dv
               var elto_c = (elto_v != elto_dv) ? '      col-auto font-weight-bold' :
@@ -469,8 +451,8 @@
                    $("#hw_state_strong_" + elto).attr('class', 'col-auto font-weight-bold') ;
 
                    // set if equal
-                   elto_v  = simcoreui_hw_states_get_value(ahw.states[elto].value) ;
-                   elto_dv = simcoreui_hw_states_get_value(ahw.states[elto].default_value) ;
+                   elto_v  = value_toString(ahw.states[elto].value) ;
+                   elto_dv = value_toString(ahw.states[elto].default_value) ;
                    if (elto_v == elto_dv)
                       {
                           $("#hw_state_tt_" + elto).attr('aria-hidden', 'true') ;

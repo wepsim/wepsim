@@ -30,7 +30,7 @@
     function wepsim_example_reset ( )
     {
        ws_info.examples = [] ;
-       ws_info.example_active   = -1 ;
+       ws_info.example_active = -1 ;
 
        webui_toolbar_updateExampleSet() ;
     }
