@@ -101,10 +101,10 @@
        for (var i=0; i<jindex.length; i++)
        {
             jobj = wepsim_nodejs_load_jsonfile(jindex[i].url) ;
-            ws_examples = ws_examples.concat(jobj) ;
+            ws_info.examples = ws_info.examples.concat(jobj) ;
        }
 
-       return ws_examples ;
+       return ws_info.examples ;
     }
 
     function wepsim_nodejs_show_currentstate ( options )

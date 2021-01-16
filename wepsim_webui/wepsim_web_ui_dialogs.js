@@ -421,7 +421,7 @@
             body:    function() {
                         return "<div id='scroller-example1' class='container-fluid p-0' " +
                                "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
-                               table_examples_html(ws_examples) +
+                               table_examples_html(ws_info.examples) +
                                "</div>" ;
 		     },
 	    buttons: {

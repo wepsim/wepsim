@@ -472,9 +472,9 @@
             var  item = null ;
 	    var  o = '' ;
 
-	    for (var i=0; i<ws_examples_set.length; i++) 
+	    for (var i=0; i<ws_info.example_set.length; i++) 
 	    {
-		item = ws_examples_set[i] ;
+		item = ws_info.example_set[i] ;
 	        o += '<a class="dropdown-item py-2 " ' +
 	     	     '   href="#" id="exs_' + item.name + '" value="' + i + '" ' +
 		     '   onclick="wepsim_example_reset();' +
