@@ -19,61 +19,57 @@
  */
 
 
-    tutorials.welcome = [] ;
-
-    tutorials.welcome.push({
-                     id:          "welcome",
-                     title:       "<span data-langkey='title_0'>title 0</span>",
-                     message:     "<span data-langkey='message_0'>message 0</span>",
-                     code_pre:    simcore_do_nothing_handler,
-                     code_post:   simcore_do_nothing_handler,
-                     wait_next:   100
-                  });
-
-    tutorials.welcome.push({
-                     id:          "welcome",
-                     title:       "<span data-langkey='title_1'>title 1</span>",
-                     message:     "<span data-langkey='message_1'>message 1</span>",
-                     code_pre:    simcore_do_nothing_handler,
-                     code_post:   simcore_do_nothing_handler,
-                     wait_next:   100
-                  });
-
-    tutorials.welcome.push({
-                     id:          "welcome",
-                     title:       "<span data-langkey='title_2'>title 2</span>",
-                     message:     "<span data-langkey='message_2'>message 2</span>",
-                     code_pre:    simcore_do_nothing_handler,
-                     code_post:   simcore_do_nothing_handler,
-                     wait_next:   100
-                  });
-
-    tutorials.welcome.push({
-                     id:          "welcome",
-                     title:       "<span data-langkey='title_3'>title 3</span>",
-                     message:     "<span data-langkey='message_3'>message 3</span>",
-                     code_pre:    simcore_do_nothing_handler,
-                     code_post:   simcore_do_nothing_handler,
-                     wait_next:   100
-                  });
-
-    tutorials.welcome.push({
-                     id:          "welcome",
-                     title:       "<span data-langkey='title_4'>title 4</span>",
-                     message:     "<span data-langkey='message_4'>message 4</span>",
-                     code_pre:    simcore_do_nothing_handler,
-                     code_post:   simcore_do_nothing_handler,
-                     wait_next:   100
-                  });
-
-    tutorials.welcome.push({
-                     id:          "welcome",
-                     title:       "<span data-langkey='title_5'>title 5</span>",
-                     message:     "<span data-langkey='message_5'>message 5</span>",
-                     code_pre:    function() {  },
-                     code_post:   function() {
-                                      load_from_example_firmware("ep:ep_base:ep_s1_e1", true);
-                                  },
-                     wait_next:   100
-                  });
+    ws_info.tutorials.welcome = [
+				  {
+				     id:          "welcome",
+				     title:       "<span data-langkey='title_0'>title 0</span>",
+				     message:     "<span data-langkey='message_0'>message 0</span>",
+				     code_pre:    simcore_do_nothing_handler,
+				     code_post:   simcore_do_nothing_handler,
+				     wait_next:   100
+				  },
+				  {
+				     id:          "welcome",
+				     title:       "<span data-langkey='title_1'>title 1</span>",
+				     message:     "<span data-langkey='message_1'>message 1</span>",
+				     code_pre:    simcore_do_nothing_handler,
+				     code_post:   simcore_do_nothing_handler,
+				     wait_next:   100
+				  },
+				  {
+				     id:          "welcome",
+				     title:       "<span data-langkey='title_2'>title 2</span>",
+				     message:     "<span data-langkey='message_2'>message 2</span>",
+				     code_pre:    simcore_do_nothing_handler,
+				     code_post:   simcore_do_nothing_handler,
+				     wait_next:   100
+				  },
+				  {
+				     id:          "welcome",
+				     title:       "<span data-langkey='title_3'>title 3</span>",
+				     message:     "<span data-langkey='message_3'>message 3</span>",
+				     code_pre:    simcore_do_nothing_handler,
+				     code_post:   simcore_do_nothing_handler,
+				     wait_next:   100
+				  },
+				  {
+				     id:          "welcome",
+				     title:       "<span data-langkey='title_4'>title 4</span>",
+				     message:     "<span data-langkey='message_4'>message 4</span>",
+				     code_pre:    simcore_do_nothing_handler,
+				     code_post:   simcore_do_nothing_handler,
+				     wait_next:   100
+				  },
+				  {
+				     id:          "welcome",
+				     title:       "<span data-langkey='title_5'>title 5</span>",
+				     message:     "<span data-langkey='message_5'>message 5</span>",
+				     code_pre:    function() {  },
+				     code_post:   function() {
+						      var welcome_example = "ep:ep_mips_base:ep_s1_e1" ;
+						      load_from_example_firmware(welcome_example, true);
+						  },
+				     wait_next:   100
+				  }
+                                ] ;
 

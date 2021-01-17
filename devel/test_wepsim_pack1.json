@@ -2,43 +2,43 @@
    {
       "pack":        "microcode + assembly",
       "description": "run",
-      "test":        "./ws_dist/wepsim.sh -a  run                   -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
+      "test":        "./ws_dist/wepsim.sh -a  run                   -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "microcode + assembly",
       "description": "stepbystep",
-      "test":        "./ws_dist/wepsim.sh -a  stepbystep            -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
+      "test":        "./ws_dist/wepsim.sh -a  stepbystep            -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "microcode + assembly",
       "description": "microstepbymicrostep",
-      "test":        "./ws_dist/wepsim.sh -a  microstepbymicrostep  -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
+      "test":        "./ws_dist/wepsim.sh -a  microstepbymicrostep  -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "microcode + assembly",
       "description": "check ok",
-      "test":        "./ws_dist/wepsim.sh -a  check                 -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e1.txt",
+      "test":        "./ws_dist/wepsim.sh -a  check                 -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e1.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "microcode + assembly",
       "description": "check ko",
-      "test":        "./ws_dist/wepsim.sh -a  check                 -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e2.txt",
+      "test":        "./ws_dist/wepsim.sh -a  check                 -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e2.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "microcode + assembly",
       "description": "microstepverbalized",
-      "test":        "./ws_dist/wepsim.sh -a  microstepverbalized   -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
+      "test":        "./ws_dist/wepsim.sh -a  microstepverbalized   -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
       "more":        "See WepSIM"
    },
    {
       "pack":        "microcode + assembly",
       "description": "show-console",
-      "test":        "./ws_dist/wepsim.sh -a  show-console          -m ep -f ./examples/microcode/mc-ep_os.txt   -s ./examples/assembly/asm-ep_s4_e1.txt",
+      "test":        "./ws_dist/wepsim.sh -a  show-console          -m ep -f ./examples/microcode/mc-ep_mips_os.txt   -s ./examples/assembly/asm-ep_s4_e1.txt",
       "more":        "See WepSIM"
    }
 ]

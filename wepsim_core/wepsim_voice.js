@@ -31,7 +31,7 @@
          }
 
 	 // setup annyang + speechkitt...
-         annyang.addCommands(wepsim_voice_commands);
+         annyang.addCommands(ws_info.voice_commands);
          annyang.addCallback('errorNetwork',
                              function () {
 	                         annyang.abort() ;

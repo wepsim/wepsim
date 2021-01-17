@@ -3,125 +3,17 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
+
+##
+## Microcode Section
+##
+
 begin
 {
-                    # if (INT) go mrti
-                    (A0=0, B=0, C=1, MADDR=mrti),
-
     fetch:          (T2, C0),
                     (TA, R, BW=11, M1=1, C1=1),
                     (M2, C2, T1, C3),
-                    (A0, B=0, C=0),
-
-    mrti:           # notify: Before each fetch.
-                    # notify: After executing any instruction, and before the fetch microcode,
-                    # notify: the CPU checks if any interruption is enable. 
-                    # notify: 
-                    # notify: If so, the microcode gets the indentificator of the interruption 
-                    # notify: from the device itself, and from this identificator the CPU gets 
-                    # notify: the associated subrutine index in RT1:
-                    # notify: <font color=blue>if (INT)</font>
-                    # notify: <font color=blue>&nbsp;&nbsp;&nbsp;&nbsp;MBR <= DB <= INTV</font>
-                    # notify: <font color=blue>&nbsp;&nbsp;&nbsp;&nbsp;RT1 <= MBR</font>
-                    # notify: In this CPU, it gets the interruption vector from the device
-                    # notify: (a number that identify the interruption)
-                    # notify: and use it as index in the subrutine vector in RT1 register.
-                    # notify: It also sends an ACK to the device to stop sending the INT signal.
-                    # notify: 
-                    # notify: Note: PC already points to next instructions after the interruption
-
-                    # MBR <- DB <- INTV
-                    (INTA, BW=11, M1=1, C1=1),
-                    # RT1 <- MBR
-                    (T1=1, C4=1),
-
-    csw_rt1:        # notify: The event handler microsubrutine.
-                    # notify: First, save the current PC+SR:
-                    # notify: <font color=blue>push PC</font>
-                    # notify: <font color=blue>push SR</font>
-                    # notify: Then get the memory address to the assembly subrutine associated with RT1:
-                    # notify: <font color=blue>MAR = RT1*4</font>
-                    # notify: <font color=blue>MBR = MP[MAR]</font>
-                    # notify: <font color=blue>PC  = MAR</font>
-                    # notify: Finally, go fetch to start executing the assembly subrutine associated with RT1
-                    # notify: <font color=blue>go fetch</font>
-
-                    # push PC
-                    (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
-                    (T2=1, M1=0, C1),
-                    (BW=11, TA=1, TD=1, W=1)
-                    # push SR
-                    (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
-                    (T8=1, M1=0, C1),
-                    (BW=11, TA=1, TD=1, W=1),
-                    # MAR <- RT1*4
-                    (MA=1, MB=10, MC=1, SELCOP=1100, T6, M2=0, C0),
-                    # MBR <- MP[MAR]
-                    (TA=1, R=1, BW=11, M1=1, C1=1),
-                    # PC <- MAR
-                    (T1, M2=0, C2),
-                    # go fetch
-                    (A0=0, B=1, C=0, MADDR=fetch)
-}
-
-
-#
-# INT
-#
-
-reti {
-        co=111110,
-        nwords=1,
-        {
-              # notify: The RETI instruction.
-              # notify: After the event is handled (interruption, exception or system call)
-              # notify: the execution of the current assemble program may stop (e.g.: exception because error)
-              # notify: or may continue (i.e.: correct print system call).
-              # notify: In order to continue, the state saved in the event handler microsubrutine 
-              # notify: must to be restored, and the reti instruction take care of this.
-              # notify: 
-              # notify: It restore the SR and PC register to continue the interrupted assembly program:
-              # notify: <font color=blue>pop SR</font>
-              # notify: <font color=blue>pop PC</font>
-              # notify: Then go fetch, to keep executing the assembly code as no event has happened:
-              # notify: <font color=blue>go fetch</font>
-
-              # pop SR
-              (MR=1, SELA=11101, T9, C0),
-              (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),
-              (TA=1, R=1, BW=11, M1=1, C1),
-              (T1=1, M7=0, C7),
-              # pop PC + go fetch
-              (MR=1, SELA=11101, T9, C0),
-              (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),
-              (TA=1, R=1, BW=11, M1=1, C1),
-              (T1=1, M2=0, C2, A0=1, B=1 ,C=0)
-        }
-}
-
-syscall {
-        co=101110,
-        nwords=1,
-        {
-                    # notify: The SYSCALL instruction.
-                    # notify: The syscall instruction has an associated event -> The System Call Event.
-                    # notify: It is used to request some service to the operating system.
-                    # notify: The operating system provides the associated assembly handler code
-                    # notify: that reads from registers/stacks the parameters of the syscall 
-                    # notify: and execute the proper actions.
-                    # notify: 
-                    # notify: The syscall microcode sets the associated event identification in RT1:
-                    # notify: <font color=blue>RT1 = 2</font>
-                    # notify: Then, microjump to event handler microsubrutine:
-                    # notify: <font color=blue>go csw_rti</font>
-                    # notify: 
-                    # notify: Rembember: PC already points to next instructions after syscall
-
-                    # RT1 <- ExCode=2
-                    (ExCode=10, T11, C4),
-                    # csw_rt1(2)
-                    (A0=0, B=1, C=0, MADDR=csw_rt1)
-        }
+                    (A0, B=0, C=0)
 }
 
 
@@ -136,8 +28,22 @@ and reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 & r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+andi reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            help='r1 = r2 & val',
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=1, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -148,8 +54,22 @@ or reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 | r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+ori reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            help='r1 = r2 | val',
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -158,6 +78,7 @@ not reg {
             cop=0010,
             nwords=1,
             reg=reg(25,21),
+            help='r1 = ~r1',
             {
                 (MC=1, MR=0, SELA=10101, MA=0, SELCOP=11, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -170,8 +91,22 @@ xor reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 ^ r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+xori reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val =inm(15,0),
+            help='r1 = r2 ^ val',
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -182,8 +117,22 @@ add reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 + r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+add reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            help='r1 = r2 + val',
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C4=1),
+                (MC=1, MR=0, SELB=10000, MA=1, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -194,8 +143,22 @@ sub reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 - r3',
             {
                 (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+sub reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            help ='r1 = r2 - val',
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=1, SELCOP=1011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -206,8 +169,22 @@ mul reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 * r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+mul reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val  = inm(15,0),
+            help='r1 = r2 * val',
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=1, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -218,28 +195,22 @@ div reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 / r3',
             {
-                    # if (reg3 == 0)
-                    (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
-                    (A0=0, B=0, C=110, MADDR=fpe1),
-                    # reg1 = reg2 / reg3, go fetch
-                    (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
+                (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
 
-                    # notify: The FPE-DIV0 exception.
-                    # notify: The 'div r1 r2 r3' microcode checks if r3 == 0 before divide at the ALU.
-                    # notify: If so (r3==0) there is an associated event -> Floating Point Exception.
-                    # notify: 
-                    # notify: In this case, the microcode sets the associated event identification in RT1:
-                    # notify: <font color=blue>RT1 = 1</font>
-                    # notify: Then, microjump to event handler microsubrutine:
-                    # notify: <font color=blue>go csw_rti</font>
-                    # notify: 
-                    # notify: Rembember: PC already points to next instructions after syscall
-
-              fpe1: # RT1 <- ExCode=1
-                    (ExCode=1, T11, C4),
-                    # csw_rt1(2)
-                    (A0=0, B=1, C=0, MADDR=csw_rt1)
+rem reg1 reg2 reg3 {
+            co=000000,
+            cop=1110,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            help='r1 = r2 % r3',
+            {
+                (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=1110, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -249,6 +220,7 @@ srl reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val=inm(5,0),
+            help='$r1 = $r2 >>> val',
             {
                 (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
                 (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
@@ -257,6 +229,24 @@ srl reg1 reg2 val {
                 (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
                 (A0=0, B=1, C=0, MADDR=loop9),
       bck9ftch: (A0=1, B=1, C=0)
+            }
+}
+
+sll reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val=inm(5,0),
+            help='$r1 = $r2 <<< val',
+            {
+                (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+        loop10: (A0=0, B=0, C=110, MADDR=bck10ftch),
+                (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
+                (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop10),
+     bck10ftch: (A0=1, B=1, C=0)
             }
 }
 
@@ -270,6 +260,7 @@ move reg1 reg2 {
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
+            help='r1 = r2',
             {
                 (SELA=10000, T9, SELC=10101, LC, A0=1, B=1, C=0)
             }
@@ -280,6 +271,7 @@ li reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='r1 = SignExt val',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
@@ -290,6 +282,7 @@ liu reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='r1 = (00, 00, val)',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
@@ -300,6 +293,7 @@ la  reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='r1 = addr/16',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
@@ -310,6 +304,7 @@ la  reg addr {
             nwords=2,
             reg=reg(25,21),
             addr=address(63,32)abs,
+            help='r1 = addr/32',
             {
                 (T2, C0),
                 (TA, R, BW=11, M1=1, C1=1),
@@ -322,6 +317,7 @@ lw reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='r1 = (MEM[addr+3] .. MEM[addr])',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, R=1, BW=11, M1=1, C1=1),
@@ -334,6 +330,7 @@ lb reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
+            help='r1 = MEM[r2]/8',
             {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
@@ -346,10 +343,24 @@ lbu reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
+            help ='$r1 = (00, 00, 00, MEM[$r2])',
             {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=00, M1=1, C1=1),
                 (T1=1, LC=1, MR=0, SELC=10101, SE=0, A0=1, B=1, C=0)
+            }
+}
+
+lw reg1 (reg2) {
+            co=100000,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            help='$r1 = (MEM[$r2+3] .. MEM[$r2])',
+            {
+                (MR=0, SELA=10000, T9=1, C0),
+                (TA=1, R=1, BW=11, M1=1, C1=1),
+                (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
             }
 }
 
@@ -358,10 +369,11 @@ sw reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='MEM[addr] = r1',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
-                (BW=11, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
+                (MR=0, SELA=10101,  T9=1, M1=0, C1=1),
+                (BW=11, TA=1, TD=1,  W=1, A0=1, B=1, C=0)
             }
 }
 
@@ -370,6 +382,7 @@ lb reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='r1 = MEM[addr]/8',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
@@ -382,6 +395,7 @@ sb reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='MEM[addr] = r1/8',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
@@ -399,10 +413,11 @@ in reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='r1 = device_register(val)',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (TA=1, IOR=1, BW=11, M1=1, C1=1),
-                (T1=1, LC=1,  MR=0, SELC=10101, A0=1, B=1, C=0)
+                (TA=1, IOR=1,    M1=1, C1=1),
+                (T1=1, LC=1,     MR=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -411,10 +426,11 @@ out reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='device_register(val) = r1',
             {
-                (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
-                (MR=0, SELA=10101, T9=1,         M1=0, C1=1),
-                (TA=1, TD=1,       IOW=1, BW=11, A0=1, B=1, C=0)
+                (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
+                (MR=0, SELA=10101,  T9=1,    M1=0, C1=1),
+                (TA=1, TD=1, BW=11, IOW=1,   A0=1, B=1, C=0)
             }
 }
 
@@ -427,6 +443,7 @@ b offset {
             co=001100,
             nwords=1,
             offset=address(15,0)rel,
+            help='pc = pc + offset',
             {
                 (T2, C4),
                 (SE=1, OFFSET=0, SIZE=10000, T3, C5),
@@ -440,6 +457,7 @@ beq reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 == $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -459,6 +477,7 @@ bne reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 != $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -478,6 +497,7 @@ bge reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 >= $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -497,6 +517,7 @@ blt reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 < $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -516,6 +537,7 @@ bgt reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 > $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -536,6 +558,7 @@ ble reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 <= $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -559,6 +582,7 @@ j addr {
             co=010011,
             nwords=1,
             addr=address(15,0)abs,
+            help='pc = addr',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, M2=0, C2=1, A0=1, B=1, C=0)
             }
@@ -568,6 +592,7 @@ jal addr {
             co=010100,
             nwords=1,
             addr=address(15,0)abs,
+            help='$ra = pc; pc = addr',
             {
                 (T2, SELC=11111, MR=1, LC),
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, M2=0, C2=1, A0=1, B=1, C=0)
@@ -578,6 +603,7 @@ jr reg1 {
             co=010101,
             nwords=1,
             reg1=reg(25,21),
+            help='pc = r1',
             {
                 (SELA=10101, T9=1, C2=1, A0=1, B=1, C=0)
             }

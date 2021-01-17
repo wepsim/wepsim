@@ -114,23 +114,23 @@
 	        "<div class='row'>" ;
 
 	var prev_type = "" ;
-	for (var elto in breakpoint_icon_list)
+	for (var elto in ws_info.breakpoint_icon_list)
 	{
-		if (breakpoint_icon_list[elto].type != prev_type)
+		if (ws_info.breakpoint_icon_list[elto].type != prev_type)
 		{
                     o = o + "</div>" +
 			    "<div class='row p-1'>" +
-		            "<div class='float-none text-left text-capitalize font-weight-bold col-12 border-bottom border-secondary'>" + breakpoint_icon_list[elto].type + "</div>" +
+		            "<div class='float-none text-left text-capitalize font-weight-bold col-12 border-bottom border-secondary'>" + ws_info.breakpoint_icon_list[elto].type + "</div>" +
 		            "</div>" +
 		            "<div class='row'>" ;
-		    prev_type = breakpoint_icon_list[elto].type ;
+		    prev_type = ws_info.breakpoint_icon_list[elto].type ;
 		}
 
 		o = o + "<img src='images/stop/stop_" + elto + ".gif' alt='" + elto + " icon' " +
-		        "     class='img-thumbnail col-3 mx-2 d-block " + breakpoint_icon_list[elto].addclass + "'" +
+		        "     class='img-thumbnail col-3 mx-2 d-block " + ws_info.breakpoint_icon_list[elto].addclass + "'" +
 		        "     style='height:6vh; min-height:30px;'" +
 		        "     onclick=\"$('#img_select1').attr('src',        'images/stop/stop_" + elto + ".gif');" +
-		        "               $('#img_select1').attr('class',      '" + breakpoint_icon_list[elto].addclass + "');" +
+		        "               $('#img_select1').attr('class',      '" + ws_info.breakpoint_icon_list[elto].addclass + "');" +
 		        "               $('#img_select1').attr('data-theme', '');" +
 		        "	        set_cfg('ICON_theme','" + elto + "'); save_cfg();" +
                         "               $('#breakpointicon1').popover('hide');" +

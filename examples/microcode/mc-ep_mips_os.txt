@@ -44,6 +44,7 @@ begin
 reti {
         co=111110,
         nwords=1,
+        help='return from event (interruption, exception, syscall)',
         {
               # pop SR
               (MR=1, SELA=11101, T9, C0),
@@ -61,6 +62,7 @@ reti {
 syscall {
         co=101110,
         nwords=1,
+        help='system call',
         {
                     # RT1 <- ExCode=2
                     (ExCode=10, T11, C4),
@@ -81,20 +83,9 @@ and reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 & r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
-            }
-}
-
-andi reg1 reg2 val {
-            co=111111,
-            nwords=1,
-            reg1=reg(25,21),
-            reg2=reg(20,16),
-            val =inm(15,0),
-            {
-                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
-                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=1, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -105,20 +96,9 @@ or reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 | r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
-            }
-}
-
-ori reg1 reg2 val {
-            co=111111,
-            nwords=1,
-            reg1=reg(25,21),
-            reg2=reg(20,16),
-            val =inm(15,0),
-            {
-                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
-                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -127,6 +107,7 @@ not reg {
             cop=0010,
             nwords=1,
             reg=reg(25,21),
+            help='r1 = ~r1',
             {
                 (MC=1, MR=0, SELA=10101, MA=0, SELCOP=11, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -139,20 +120,9 @@ xor reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 ^ r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
-            }
-}
-
-xori reg1 reg2 val {
-            co=111111,
-            nwords=1,
-            reg1=reg(25,21),
-            reg2=reg(20,16),
-            val =inm(15,0),
-            {
-                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
-                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -163,6 +133,7 @@ add reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 + r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -171,12 +142,26 @@ add reg1 reg2 reg3 {
 addi reg1 reg2 val {
             co=111111,
             nwords=1,
-            reg1=reg(25,21),
-            reg2=reg(20,16),
-            val =inm(15,0),
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            help ='r1 = r2 + val',
             {
-                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
-                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C4=1),
+                (MC=1, MR=0, SELB=10000, MA=1, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+addiu reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            help ='r1 = r2 + val',
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C4=1),
+                (MC=1, MR=0, SELB=10000, MA=1, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, A0=1, B=1, C=0)
             }
 }
 
@@ -187,8 +172,22 @@ sub reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 - r3',
             {
                 (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+sub reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            help ='r1 = r2 - val',
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=1, SELCOP=1011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -199,20 +198,22 @@ mul reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 * r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
-muli reg1 reg2 val {
+mul reg1 reg2 val {
             co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
-            val =inm(15,0),
+            val  = inm(15,0),
+            help='r1 = r2 * val',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
-                (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+                (MC=1, MR=0, SELA=10000, MA=0, MB=1, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -223,6 +224,7 @@ div reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 / r3',
             {
                     # if (reg3 == 0)
                     (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
@@ -243,6 +245,7 @@ rem reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 % r3',
             {
                 (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=1110, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -254,6 +257,7 @@ srl reg1 reg2 val {
             reg1=reg(25,21),
             reg2=reg(20,16),
             val=inm(5,0),
+            help='$r1 = $r2 >>> val',
             {
                 (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
                 (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
@@ -262,6 +266,24 @@ srl reg1 reg2 val {
                 (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
                 (A0=0, B=1, C=0, MADDR=loop9),
       bck9ftch: (A0=1, B=1, C=0)
+            }
+}
+
+sll reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val=inm(5,0),
+            help='$r1 = $r2 << val',
+            {
+                (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+        loop10: (A0=0, B=0, C=110, MADDR=bck10ftch),
+                (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
+                (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop10),
+     bck10ftch: (A0=1, B=1, C=0)
             }
 }
 
@@ -275,6 +297,7 @@ move reg1 reg2 {
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
+            help='r1 = r2',
             {
                 (SELA=10000, T9, SELC=10101, LC, A0=1, B=1, C=0)
             }
@@ -285,6 +308,7 @@ li reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='r1 = SignExt val',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
@@ -295,8 +319,9 @@ liu reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='r1 = (00 00 val)',
             {
-                (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (SE=1, OFFSET=0, SIZE=10000, SE=0, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -305,6 +330,7 @@ la  reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='r1 = addr16',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
@@ -315,6 +341,7 @@ la  reg addr {
             nwords=2,
             reg=reg(25,21),
             addr=address(63,32)abs,
+            help='r1 = addr32',
             {
                 (T2, C0),
                 (TA, R, BW=11, M1=1, C1=1),
@@ -332,6 +359,7 @@ lw reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='r1 = (MEM[addr] ... MEM[addr+3])',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, R=1, BW=11, M1=1, C1=1),
@@ -344,6 +372,7 @@ sw reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='MEM[addr] = r1',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
@@ -356,6 +385,7 @@ lb reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='r1 = MEM[addr]',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
@@ -368,6 +398,7 @@ sb reg addr {
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
+            help='MEM[addr] = r1',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
@@ -380,6 +411,7 @@ lb reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
+            help='r1 = MEM[r2]',
             {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
@@ -392,6 +424,7 @@ lbu reg1 (reg2) {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
+            help ='$r1 = (00 00 00 MEM[$r2])',
             {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=00, M1=1, C1=1),
@@ -400,7 +433,7 @@ lbu reg1 (reg2) {
 }
 
 sb reg1 (reg2) {
-            co=111111,
+            co=100111,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
@@ -412,10 +445,11 @@ sb reg1 (reg2) {
 }
 
 lw reg1 (reg2) {
-            co=111111,
+            co=111001,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
+            help='$r1 = (MEM[$r2+3] ... MEM[$r2])',
             {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=11, M1=1, C1=1),
@@ -424,12 +458,40 @@ lw reg1 (reg2) {
 }
 
 sw reg1 (reg2) {
-            co=111111,
+            co=111010,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
             {
                 (MR=0,  SELA=10000, T9=1, C0=1),
+                (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
+                (BW=11, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
+            }
+}
+
+lw reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            val  = inm(15,0),
+            reg2 = reg(20,16),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
+                (TA=1, R=1, BW=11, M1=1, C1=1),
+                (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
+            }
+}
+
+sw reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            val  = inm(15,0),
+            reg2 = reg(20,16),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
                 (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
                 (BW=11, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
             }
@@ -445,6 +507,7 @@ in reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='r1 = device_register(val)',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, IOR=1, BW=11, M1=1, C1=1),
@@ -457,6 +520,7 @@ out reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='device_register(val) = r1',
             {
                 (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
                 (MR=0, SELA=10101, T9=1,         M1=0, C1=1),
@@ -473,6 +537,7 @@ b offset {
             co=001100,
             nwords=1,
             offset=address(15,0)rel,
+            help='pc = pc + offset',
             {
                 (T2, C4),
                 (SE=1, OFFSET=0, SIZE=10000, T3, C5),
@@ -486,6 +551,7 @@ beq reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 == $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -505,6 +571,7 @@ bne reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 != $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -524,6 +591,7 @@ bge reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 >= $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -537,12 +605,34 @@ bge reg reg offset {
             }
 }
 
+ble reg reg offset {
+            co=010010,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(15,0)rel,
+            help='if ($r1 <= $r2) pc += offset',
+            {
+                (T8, C5),
+                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
+                (A0=0, B=0, C=111, MADDR=ble_ys),
+                (A0=0, B=0, C=110, MADDR=ble_ys),
+                (T5, M7=0, C7),
+                (A0=1, B=1, C=0),
+        ble_ys: (T5, M7=0, C7),
+                (T2, C4),
+                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
+            }
+}
+
 blt reg reg offset {
             co=010000,
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 < $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -562,6 +652,7 @@ bgt reg reg offset {
             reg=reg(25,21),
             reg=reg(20,16),
             offset=address(15,0)rel,
+            help='if ($r1 > $r2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -576,26 +667,6 @@ bgt reg reg offset {
             }
 }
 
-ble reg reg offset {
-            co=010010,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=0, C=111, MADDR=ble_ys),
-                (A0=0, B=0, C=110, MADDR=ble_ys),
-                (T5, M7=0, C7),
-                (A0=1, B=1, C=0),
-        ble_ys: (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
-            }
-}
-
 
 #
 # j*
@@ -605,6 +676,7 @@ j addr {
             co=010011,
             nwords=1,
             addr=address(15,0)abs,
+            help='pc = addr',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, M2=0, C2=1, A0=1, B=1, C=0)
             }
@@ -614,6 +686,7 @@ jal addr {
             co=010100,
             nwords=1,
             addr=address(15,0)abs,
+            help='$ra = pc; pc = addr',
             {
                 (T2, SELC=11111, MR=1, LC),
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, M2=0, C2=1, A0=1, B=1, C=0)
@@ -622,6 +695,16 @@ jal addr {
 
 jr reg1 {
             co=010101,
+            nwords=1,
+            reg1=reg(25,21),
+            help='pc = r1',
+            {
+                (SELA=10101, T9=1, C2=1, A0=1, B=1, C=0)
+            }
+}
+
+j reg1 {
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             {
@@ -644,7 +727,7 @@ nop {
 
 
 #
-# Registers
+# Register naming
 #
 
 registers

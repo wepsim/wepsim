@@ -47,13 +47,19 @@
 			     " <tr>" +
 			     "<td align='center' class='w-50'>Instructions</td>" +
 			     "<td align='center' class='w-50'>" +
-			     "<div id='ins_context'><span data-bind='text: value'>&nbsp;</span></div>" +
+			     "<div id='ins_context'>{{ value }}</div>" +
 			     "</td>" +
 			     " </tr>" +
 			     " <tr>" +
 			     "<td align='center' class='w-50'>CLK ticks</td>" +
 			     "<td align='center' class='w-50'>" +
-			     "<div id='clk_context'><span data-bind='text: value'>&nbsp;</span></div>" +
+			     "<div id='clk_context'>{{ value }}</div>" +
+			     "</td>" +
+			     " </tr>" +
+			     " <tr>" +
+			     "<td align='center' class='w-50'>Acc. msec.</td>" +
+			     "<td align='center' class='w-50'>" +
+			     "<div id='tms_context'>{{ value }}</div>" +
 			     "</td>" +
 			     " </tr>" +
 			     "</table>" +
@@ -62,9 +68,15 @@
 
 		    this.innerHTML = o1 ;
 
-		    // knockout binding
-		    ko_rebind_state('CLK',      'clk_context') ;
-		    ko_rebind_state('DECO_INS', 'ins_context') ;
+                    // vue binding
+                    var ref_obj = simhw_sim_state('CLK') ;
+                    vue_rebind_state(ref_obj, '#clk_context') ;
+
+                        ref_obj = simhw_sim_state('DECO_INS') ;
+                    vue_rebind_state(ref_obj, '#ins_context') ;
+
+                        ref_obj = simhw_sim_state('ACC_TIME') ;
+                    vue_rebind_state(ref_obj, '#tms_context') ;
 	      }
 
 	      connectedCallback ()

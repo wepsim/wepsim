@@ -33,11 +33,11 @@
                '\n' +
                'Examples for running some work and show the...:\n' +
                ' * ...final state:\n' +
-               '   ./wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
+               '   ./wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
                ' * ...modified state on each assembly instruction executed:\n' +
-               '   ./wepsim.sh -a stepbystep -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
+               '   ./wepsim.sh -a stepbystep -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
                ' * ...modified state on each microinstruction executed:\n' +
-               '   ./wepsim.sh -a microstepbymicrostep -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
+               '   ./wepsim.sh -a microstepbymicrostep -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
                '\n' +
                'In previous examples you can use the "-m ep -f <firmware> -s <assembly>" or some equivalent checkpoint:\n' +
                '   ./wepsim.sh -a run        --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
@@ -60,11 +60,11 @@
                ' * Filter final state of execution:\n' +
                '   ./ws_dist/wepsim.sh -a run --checkpoint ./examples/checkpoint/tutorial_1.txt --purify "R0-R5;0x100-0x8000"\n' +
                ' * Show console output after execution:\n' +
-               '   ./wepsim.sh -a show-console -m ep -f ./examples/microcode/mc-ep_os.txt -s ./examples/assembly/asm-ep_s4_e1.txt\n' +
+               '   ./wepsim.sh -a show-console -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly/asm-ep_s4_e1.txt\n' +
                '\n' +
                'Examples for checks at the end of some work:\n' +
                ' * Check that your work meets the expected final state (so it works):\n' +
-               '   ./wepsim.sh -a check -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e1.txt\n' +
+               '   ./wepsim.sh -a check -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e1.txt\n' +
                '\n' +
                'More examples of custom execution:\n' +
                ' * Run some example and limit the "instructions":\n' +
@@ -86,7 +86,7 @@
                '\n' +
                'Examples for building a checkpoint file:\n' +
                ' * From assembly and microcode, and print it to standard output:\n' +
-               '   ./wepsim.sh -a build-checkpoint -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
+               '   ./wepsim.sh -a build-checkpoint -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt\n' +
                '\n' +
                'Examples for disassembling a checkpoint files:\n' +
                ' * Show assembly within checkpoint:\n' +
@@ -110,8 +110,10 @@
                '> WepSIM simulator interface for command line.\n' +
                '\n' +
                'Additional help:\n' +
-               ' * Help on signal:\n' +
-               '   ./wepsim.sh -a help -m ep -f cop\n' +
+               ' * Help about the cop signal:\n' +
+               '   ./wepsim.sh -a help -m ep -s cop\n' +
+               ' * Help about instructions:\n' +
+               '   ./wepsim.sh -a help -m ep -f ./examples/microcode/mc-ep_mips.txt\n' +
                '\n' +
                'More examples of custom execution:\n' +
                ' * Run some example and limit the "instructions":\n' +
@@ -120,7 +122,7 @@
                '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxc 10000\n' +
                '\n' +
                ' * Run some example and show a description for each microinstruction executed:\n' +
-               '   ./wepsim.sh -a microstepverbalized -m ep -f ./examples/microcode/mc-ep_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt --verbal text\n' +
+               '   ./wepsim.sh -a microstepverbalized -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt --verbal text\n' +
                '\n' +
                'Example for developers:\n' +
                ' * Export hardware definition as JSON:\n' +
@@ -318,13 +320,13 @@
 
         if (argv.firmware !== "")
         {
-            if (argv.action === "help")
- 	         data.firmware = argv.firmware ; // -a help -m ep -f **cop**
-            else data.firmware = fs.readFileSync(argv.firmware, 'utf8') ;
+ 	    data.firmware = fs.readFileSync(argv.firmware, 'utf8') ;
         }
 
         if (argv.assembly !== "") {
- 	    data.assembly = fs.readFileSync(argv.assembly, 'utf8') ;
+            if (argv.action === "help")
+ 	         data.assembly = argv.assembly ; // -a help -m ep -s **cop**
+            else data.assembly = fs.readFileSync(argv.assembly, 'utf8') ;
         }
 
         if (argv.resultok !== "") {

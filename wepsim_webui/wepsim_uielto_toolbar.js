@@ -341,9 +341,12 @@
                         '     <a class="dropdown-item py-2" href="#" id="selact_help" value="help"' +
                         '        onclick="wsweb_select_action(\'help\');' +
                         '                 return false;"><span data-langkey="Help">Help</span></a>' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_welcome" value="welcome"' +
+                        '        onclick="wsweb_select_action(\'welcome\');' +
+                        '                 return false;"><span data-langkey="Welcome tutorial">Welcome tutorial</span>...</a>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_intro" value="intro"' +
                         '        onclick="wsweb_select_action(\'intro\');' +
-                        '                 return false;"><span data-langkey="Welcome tutorial">Welcome tutorial</span>...</a>' +
+                        '                 return false;"><span data-langkey="Initial intro">Initial intro</span>...</a>' +
                         '\n' +
 			'   </div>' +
 			'</div>' ;
@@ -469,9 +472,9 @@
             var  item = null ;
 	    var  o = '' ;
 
-	    for (var i=0; i<ws_examples_set.length; i++) 
+	    for (var i=0; i<ws_info.example_set.length; i++) 
 	    {
-		item = ws_examples_set[i] ;
+		item = ws_info.example_set[i] ;
 	        o += '<a class="dropdown-item py-2 " ' +
 	     	     '   href="#" id="exs_' + item.name + '" value="' + i + '" ' +
 		     '   onclick="wepsim_example_reset();' +

@@ -9,8 +9,10 @@ main:
            li  x1  0
            li  x2  5
            li  x3  1
+
            # loop header
     loop1: beq x1 x2 fin1
+
            # loop body
            add x1 x1 x3
            beq x0 x0 loop1

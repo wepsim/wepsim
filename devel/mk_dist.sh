@@ -51,7 +51,22 @@ cp external/jquery.min.js    ws_dist/external
 
 #  hardware model + software model + core (simulation ctrl + UI)
 echo "  * ws_dist/min.sim_all.js"
-cat sim_hw/sim_hw_index.js \
+cat sim_core/sim_cfg.js \
+    sim_core/sim_adt_core.js \
+    sim_core/sim_core_record.js \
+    sim_core/sim_core_ctrl.js \
+    sim_core/sim_core_ui.js \
+    sim_core/sim_api_core.js \
+    sim_core/sim_api_native.js \
+    sim_core/sim_api_stateshots.js \
+    sim_core/sim_core_voice.js \
+    sim_core/sim_core_rest.js \
+    sim_core/sim_core_notify.js \
+    sim_core/sim_core_values.js \
+    sim_core/sim_adt_ctrlmemory.js \
+    sim_core/sim_adt_mainmemory.js \
+    \
+    sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
     sim_hw/sim_hw_behavior.js \
     sim_hw/sim_hw_ep/sim_ep.js \
@@ -74,21 +89,7 @@ cat sim_hw/sim_hw_index.js \
     sim_sw/sim_lang.js \
     sim_sw/sim_decode.js \
     sim_sw/sim_lang_firm.js \
-    sim_sw/sim_lang_asm.js \
-    \
-    sim_core/sim_cfg.js \
-    sim_core/sim_core_record.js \
-    sim_core/sim_core_ctrl.js \
-    sim_core/sim_core_ui.js \
-    sim_core/sim_api_core.js \
-    sim_core/sim_api_native.js \
-    sim_core/sim_api_stateshots.js \
-    sim_core/sim_core_voice.js \
-    sim_core/sim_core_rest.js \
-    sim_core/sim_core_notify.js \
-    sim_core/sim_core_values.js \
-    sim_core/sim_adt_ctrlmemory.js \
-    sim_core/sim_adt_mainmemory.js > ws_dist/sim_all.js
+    sim_sw/sim_lang_asm.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
 
@@ -195,19 +196,18 @@ rm -fr ws_dist/wepsim_web.js
 
 #  WepSIM nodejs engine
 echo "  * ws_dist/min.wepsim_node.js"
-echo "class HTMLElement { }" > ws_dist/min.dummy.js
-cat ws_dist/min.dummy.js \
+cat wepsim/nodejs/wepsim_node_adapt.js \
     ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_web.js \
     \
     wepsim/nodejs/wepsim_node_core.js \
     wepsim/nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
-rm -fr ws_dist/min.dummy.js
 
 #  external
 echo "  * ws_dist/min.external.js"
-cat external/knockout-3.5.1.js \
+cat external/vue/vue.min.js \
+    external/vue/vuex.min.js \
     external/popper.min.js \
     external/bootstrap/bootstrap.min.js \
     external/bootbox/bootbox.all.min.js \

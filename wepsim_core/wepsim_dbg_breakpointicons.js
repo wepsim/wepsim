@@ -19,7 +19,7 @@
  */
 
 
-    var breakpoint_icon_list = {
+    ws_info.breakpoint_icon_list = {
                     "classic": 		{ type: "classic",      addclass: "no-dark-mode",  origin: "https://www.optikunde.de/farbe/rot.php" },
                     "pushpin": 		{ type: "classic",      addclass: "no-dark-mode",  origin: "http://clipart-library.com/red-push-pin.html" },
                     "cat1": 		{ type: "pets",         addclass: "no-dark-mode",  origin: "" },
@@ -53,10 +53,10 @@
     {
 	  var icon_obj = null ;
 
-	  icon_obj = breakpoint_icon_list[icon_name] ;
+	  icon_obj = ws_info.breakpoint_icon_list[icon_name] ;
 	  if (typeof icon_obj === "undefined") {
 	      icon_name = 'classic' ;
-	      icon_obj = breakpoint_icon_list[icon_name] ;
+	      icon_obj = ws_info.breakpoint_icon_list[icon_name] ;
 	  }
 
 	  return "<img alt='stop icon' height=22 " +

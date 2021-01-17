@@ -19,9 +19,9 @@
  */
 
 
-    var ws_config = [] ;
+    ws_info.config_ui = [] ;
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "select7",
                       type:        "General",
                       u_class:     "",
@@ -34,7 +34,7 @@
                       description: "<span data-langkey='Idiom for help, examples, etc.'>Idiom for help, examples, etc.</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "slider3",
                       type:        "General",
                       u_class:     "",
@@ -64,7 +64,7 @@
                       description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio15",
                       type:        "General",
                       u_class:     "",
@@ -94,7 +94,7 @@
                       description: "<span data-langkey='Dark Mode'>Dark Mode</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio12",
                       type:        "Execution",
                       u_class:     "",
@@ -125,7 +125,7 @@
                    });
 
 /*
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio1",
                       type:        "Execution",
                       u_class:     "user_archived",
@@ -152,7 +152,7 @@
                    });
 */
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "select1",
                       type:        "Execution",
                       u_class:     "",
@@ -164,7 +164,7 @@
                       code_init:   function() {
 			               var elto = get_cfg('ICON_theme') ;
 			               $('#img_select1').attr("src",   "images/stop/stop_" + elto + ".gif");
-			               $('#img_select1').attr("class", breakpoint_icon_list[elto].addclass);
+			               $('#img_select1').attr("class", ws_info.breakpoint_icon_list[elto].addclass);
 			               $('#breakpointicon1').popover({ html: true,
 					                               content:  wepsim_show_breakpoint_icon_list,
 								       template: wepsim_show_breakpoint_icon_template(),
@@ -177,7 +177,7 @@
                       description: "<span data-langkey='Breakpoint icon: icon to be used for breakpoints'>Breakpoint icon: icon to be used for breakpoints</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "select6",
                       type:        "Execution",
                       u_class:     "",
@@ -202,7 +202,7 @@
                       description: "<span data-langkey='Limit instructions: number of instructions to be executed'>Limit instructions: number of instructions to be executed</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "select3",
                       type:        "Execution",
                       u_class:     "",
@@ -227,7 +227,7 @@
                       description: "<span data-langkey='Limit instruction ticks: to limit clock ticks'>Limit instruction ticks: to limit clock ticks</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio7",
                       type:        "Editor",
                       u_class:     "",
@@ -253,7 +253,7 @@
                       description: "<span data-langkey='Editor theme: light or dark'>Editor theme: light or dark</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "select2",
                       type:        "Editor",
                       u_class:     "",
@@ -278,7 +278,7 @@
                       description: "<span data-langkey='Editor mode: vim, emacs, etc.'>Editor mode: vim, emacs, etc.</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio2",
                       type:        "Register file",
                       u_class:     "user_archived",
@@ -332,7 +332,7 @@
                                    "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio3",
                       type:        "Register file",
                       u_class:     "user_archived",
@@ -356,7 +356,7 @@
                       description: "<span data-langkey='Register file names'>Register file names</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio9",
                       type:        "Register file",
                       u_class:     "user_archived",
@@ -380,7 +380,7 @@
                       description: "<span data-langkey='Editable registers: edit register file values'>Editable registers: edit register file values</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "colorpicker1",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
@@ -398,7 +398,7 @@
                       description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "colorpicker2",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
@@ -416,7 +416,7 @@
                       description: "<span data-langkey='Signal color'>Signal color</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio10",
                       type:        "Circuitry simulation",
                       u_class:     "user_archived user_microcode",
@@ -440,7 +440,7 @@
                       description: "<span data-langkey='Show by value or by activation'>Show by value or by activation</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio5",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
@@ -464,7 +464,7 @@
                       description: "<span data-langkey='Interactive mode: signal value can be updated'>Interactive mode: signal value can be updated</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio6",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
@@ -488,7 +488,7 @@
                       description: "<span data-langkey='Quick interactive mode: quick update of signal value'>Quick interactive mode: quick update of signal value</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio11",
                       type:        "Accesibility",
                       u_class:     "user_archived",
@@ -512,7 +512,7 @@
                       description: "<span data-langkey='Active voice: external voice control'>Active voice: external voice control</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio13",
                       type:        "Accesibility",
                       u_class:     "user_archived",
@@ -536,7 +536,7 @@
                       description: "<span data-langkey='Verbalization: textual or mathematical'>Verbalization: textual or mathematical</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "select8",
                       type:        "Accesibility",
                       u_class:     "",
@@ -560,7 +560,7 @@
                       description: "<span data-langkey='WepSIM User Interface skin'>WepSIM User Interface skin</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio14",
                       type:        "Accesibility",
                       u_class:     "",
@@ -589,7 +589,7 @@
                       description: "<span data-langkey='Beginner view'>Beginner view</span>"
                    });
 
-    ws_config.push({
+    ws_info.config_ui.push({
                       id:          "radio16",
                       type:        "Accesibility",
                       u_class:     "",

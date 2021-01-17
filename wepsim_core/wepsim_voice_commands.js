@@ -23,29 +23,29 @@
      * Voice control
      */
 
-    var wepsim_voice_commands = {} ;
+    ws_info.voice_commands = {} ;
     var wepsim_voice_dialog = null ;
 
 
     // dialog
-    wepsim_voice_commands['hello'] = function()
+    ws_info.voice_commands['hello'] = function()
     {
 	 // speak...
          var msg = "Hello, I am WepSIM, nice to meet you. " ;
 	 simcore_voice_speak(msg) ;
     } ;
 
-    wepsim_voice_commands['(show) configuration'] = function()
+    ws_info.voice_commands['(show) configuration'] = function()
     {
 	 wsweb_dialog_open('config') ;
     } ;
 
-    wepsim_voice_commands['(show) examples'] = function()
+    ws_info.voice_commands['(show) examples'] = function()
     {
 	 wsweb_dialog_open('examples') ;
     } ;
 
-    wepsim_voice_commands['load example :id (from) :level'] = function ( id, level )
+    ws_info.voice_commands['load example :id (from) :level'] = function ( id, level )
     {
          var ex_id = parseInt(id) ;
          var ex_lv = parseInt(level) ;
@@ -53,13 +53,13 @@
          load_from_example_firmware("ep:s" + ex_lv + "_e" + ex_lv, true) ;
     } ;
 
-    wepsim_voice_commands['(show) help'] = function()
+    ws_info.voice_commands['(show) help'] = function()
     {
 	 wsweb_dialog_open('help') ;
          wepsim_help_refresh() ;
     } ;
 
-    wepsim_voice_commands['close'] = function()
+    ws_info.voice_commands['close'] = function()
     {
          wsweb_dialog_close('help') ;
          wsweb_dialog_close('config') ;
@@ -72,7 +72,7 @@
 
 
     // execution
-    wepsim_voice_commands['reset'] = function()
+    ws_info.voice_commands['reset'] = function()
     {
          wepsim_execute_reset(true, true) ;
 
@@ -81,7 +81,7 @@
 	 simcore_voice_speak(msg) ;
     } ;
 
-    wepsim_voice_commands['next'] = function()
+    ws_info.voice_commands['next'] = function()
     {
          wepsim_execute_instruction() ;
 
@@ -90,7 +90,7 @@
 	 simcore_voice_speak(msg) ;
     } ;
 
-    wepsim_voice_commands['next micro(instruction)'] = function()
+    ws_info.voice_commands['next micro(instruction)'] = function()
     {
          wepsim_execute_microinstruction() ;
 
@@ -99,26 +99,26 @@
 	 simcore_voice_speak(msg) ;
     } ;
 
-    wepsim_voice_commands['play'] = function()
+    ws_info.voice_commands['play'] = function()
     {
          wepsim_execute_play() ;
     } ;
 
-    wepsim_voice_commands['stop'] = function()
+    ws_info.voice_commands['stop'] = function()
     {
          wepsim_execute_stop() ;
     } ;
 
 
     // info
-    wepsim_voice_commands['describe micro(instruction)'] = function()
+    ws_info.voice_commands['describe micro(instruction)'] = function()
     {
 	 // speak...
          var msg = get_verbal_from_current_mpc() ;
 	 simcore_voice_speak(msg) ;
     } ;
 
-    wepsim_voice_commands['describe instruction'] = function()
+    ws_info.voice_commands['describe instruction'] = function()
     {
 	 // speak...
          var msg = get_verbal_from_current_pc() ;
@@ -127,11 +127,11 @@
 
 
     // control
-    wepsim_voice_commands['list'] =  function()
+    ws_info.voice_commands['list'] =  function()
     {
 	 var vc_list = "available commands:<br>" ;
 
-	 for (var vc in wepsim_voice_commands) {
+	 for (var vc in ws_info.voice_commands) {
 	      vc_list = vc_list + " * '" + vc + "'<br>" ;
 	 }
 
@@ -143,7 +143,7 @@
 	 simcore_voice_speak(msg) ;
     } ;
 
-    wepsim_voice_commands['silence'] = function()
+    ws_info.voice_commands['silence'] = function()
     {
 	 simcore_voice_stopSpeak() ;
     } ;
