@@ -404,3 +404,38 @@
        return o ;
     }
 
+    // from command-line, next function will output the 'devel/test_wepsim_packX.json' content for examples
+    function table_examples_test ( example_pack_name, examples )
+    {
+       var d = '' ;
+       var m = '' ;
+       var a = '' ;
+       var h = '' ;
+       var e = '' ;
+
+       var o = '[\n' ;
+       for (var x=0; x<examples.length; x++)
+       {
+            if (false == examples[x].testing) {
+                continue ;
+            }
+
+        //  d = examples[x].id + ' - ' + examples[x].type  + ' - ' + examples[x].title ;
+            d = examples[x].id + ' - ' + examples[x].title ;
+            m = './examples/microcode/mc-' + examples[x].microcode + '.txt' ;
+            a = './examples/assembly/asm-' + examples[x].assembly  + '.txt' ;
+            h = examples[x].hardware ;
+            e = (m != (examples.length-1)) ? ',\n' : '\n' ;
+
+            o += '{\n' +
+                 '\t"pack":        "' + example_pack_name + '",\n' +
+                 '\t"description": "' + d + '",\n' +
+                 '\t"test":        "./ws_dist/wepsim.sh -a run -m ' + h + ' -f ' + m + ' -s ' + a + '",\n' +
+                 '\t"more":        "See WepSIM"\n' +
+                 '}' + e ;
+       }
+       o += ']\n' ;
+
+       return o ;
+    }
+

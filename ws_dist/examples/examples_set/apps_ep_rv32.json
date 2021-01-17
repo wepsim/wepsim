@@ -7,7 +7,8 @@
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r1_e1",
-    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing":          true
   },
   {
     "id":		"R1E2",
@@ -17,7 +18,8 @@
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r1_e2",
-    "description":	"<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
+    "description":	"<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
+    "testing":          true
   },
   {
     "id":		"R1E3",
@@ -27,7 +29,8 @@
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r1_e3",
-    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing":          true
   },
   {
     "id":		"R1E4",
@@ -37,7 +40,8 @@
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r1_e4",
-    "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
+    "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
+    "testing":          true
   },
   {
     "id":		"R2E1",
@@ -47,7 +51,8 @@
     "hardware":         "ep",
     "microcode":	"ep_rv32",
     "assembly":         "ep_r2_e1",
-    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
+    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing":          false
   },
   {
     "id":		"R2E2",
@@ -57,7 +62,8 @@
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r2_e2",
-    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing":          true
   },
   {
     "id":		"R2E3",
@@ -67,7 +73,8 @@
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r2_e3",
-    "description":	"<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>"
+    "description":	"<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "testing":          true
   },
   {
     "id":		"R2E4",
@@ -77,7 +84,8 @@
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r2_e4",
-    "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
+    "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing":          true
   },
   {
     "id":		"R3E1",
@@ -87,7 +95,8 @@
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r3_e1",
-    "description":	"<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>"
+    "description":	"<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing":          true
   },
   {
     "id":		"R4E1",
@@ -97,6 +106,7 @@
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"ep_r4_e1",
-    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
+    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing":          true
   }
 ]
