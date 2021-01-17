@@ -132,6 +132,29 @@
 
 
         /*
+         *  value toString
+         */
+
+        function value_toString ( elto_v )
+        {
+              if (typeof elto_v == 'undefined') {
+                  return '-' ;
+              }
+
+              if (elto_v instanceof Vuex.Store) {
+                  elto_v = elto_v.state.value ;
+              }
+
+              if (typeof elto_v == 'object') {
+                  return 'object' ;
+              }
+
+              elto_v = '0x' + elto_v.toString(16) ;
+              return elto_v ;
+        }
+
+
+        /*
          *  vue binding
          */
 

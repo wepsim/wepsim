@@ -1,0 +1,236 @@
+[
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S1E1 - Initial - Instructions",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":      "S1E2 - Initial - Memory access",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S1E3 - Initial - Looping",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S1E4 - Initial - Vector",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e4.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S2E1 - Intermediate I/O",
+       "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s2_e1.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S2E2 - Intermediate - Subrutine",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_enhanced.txt -s ./examples/assembly/asm-ep_s2_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S2E3 - Intermediate - Masks & shift",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_enhanced.txt -s ./examples/assembly/asm-ep_s2_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S2E4 - Intermediate - Matrix",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_enhanced.txt -s ./examples/assembly/asm-ep_s2_e4.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S3E1 - Advanced - Interruptions",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_interactive.txt -s ./examples/assembly/asm-ep_s3_e1.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S3E2 - Advanced - System call",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_interactive.txt -s ./examples/assembly/asm-ep_s3_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S3E3 - Advanced - Exception",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_interactive.txt -s ./examples/assembly/asm-ep_s3_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S3E4 - Intermediate - Simple stack conv.",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly/asm-ep_s3_e4.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S4E1 - Operating Systems - Int. + syscall + except.",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly/asm-ep_s4_e1.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S4E2 - Operating Systems - SC 1, 4-5, 8, 11-12",
+       "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly/asm-ep_s4_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S4E3 - Operating Systems - Threads",
+       "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly/asm-ep_s4_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S4E4 - Operating Systems - Alloc.s",
+       "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly/asm-ep_s4_e4.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S6E1 - Special - Dummy instruction",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_bare.txt -s ./examples/assembly/asm-ep_s6_e1.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S6E3 - Special - 3D-Led",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_enhanced.txt -s ./examples/assembly/asm-ep_s6_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S6E4 - Special - Array of strings",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly/asm-ep_s6_e4.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S7E1 - Native - MIPS32-like",
+       "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s4_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S7E2 - Native - RISCV32",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_rv32_bare.txt -s ./examples/assembly/asm-ep_s7_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S7E3 - Native - Z80-like",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_z80.txt -s ./examples/assembly/asm-ep_s7_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S1E1 - Initial - Instructions",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s1_e1.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S1E2 - Initial - Memory access",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s1_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S1E3 - Initial - Looping",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s1_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S1E4 - Initial - Vector",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s1_e4.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S2E1 - Intermediate - I/O",
+       "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s2_e1.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S2E2 - Intermediate - Subrutine",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s2_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S2E3 - Intermediate - Masks & shift",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s2_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S2E4 - Intermediate - Matrix",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s2_e4.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S3E1 - Advanced - Interruptions",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s3_e1.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S3E2 - Advanced - System call",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s3_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S3E3 - Advanced - Exception",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s3_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S3E4 - Intermediate - Simple stack conv.",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s3_e4.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S4E1 - Operating Systems - Int. + syscall + except.",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s4_e1.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":		"S4E2 - Operating Systems - syscall 1, 4-5, 8, 11-12",
+       "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s4_e2.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":      "S4E3 - Operating Systems - Threads",
+       "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s4_e3.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S4E4 - Operating Systems - Alloc.s",
+       "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s4_e4.txt",
+       "more":             "See WepSIM"
+  },
+  {
+       "pack":             "MIPS32 default examples",
+       "description":	   "S6E3 - Special - 3D-Led",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly/asm-ep_s6_e3.txt",
+       "more":             "See WepSIM"
+  }
+]

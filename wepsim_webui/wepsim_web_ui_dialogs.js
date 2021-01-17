@@ -461,7 +461,7 @@
             body:    function() {
                         return "<div id='scroller-config2' class='container-fluid p-0' " +
                                "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
-			       table_config_html(ws_config) +
+			       table_config_html(ws_info.config_ui) +
                                "</div>" ;
 		     },
 	    buttons: {
@@ -490,14 +490,14 @@
 		         // ui elements
 			 try
                          {
-			     for (m=0; m<ws_config.length; m++) {
-			          ws_config[m].code_init() ;
+			     for (m=0; m<ws_info.config_ui.length; m++) {
+			          ws_info.config_ui[m].code_init() ;
                              }
 			 }
 			 catch (e) {
 			     reset_cfg() ;
-			     for (m=0; m<ws_config.length; m++) {
-			          ws_config[m].code_init() ;
+			     for (m=0; m<ws_info.config_ui.length; m++) {
+			          ws_info.config_ui[m].code_init() ;
                              }
                          }
 

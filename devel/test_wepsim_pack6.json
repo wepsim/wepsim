@@ -1,0 +1,68 @@
+[
+{
+	"pack":        "RISC-V Examples",
+	"description": "R1E1 - Instructions",
+	"test":        "./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r1_e1.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "R1E2 - Memory access",
+	"test":        "./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r1_e2.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "R1E3 - Looping",
+	"test":        "./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r1_e3.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "R1E4 - Vector",
+	"test":        "./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r1_e4.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "R2E1 - I/O",
+	"test":        "echo ./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r2_e1.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "R2E2 - Subrutine",
+	"test":        "echo ./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r2_e2.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "R2E3 - Masks & shift",
+	"test":        "./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r2_e3.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "R2E4 - Matrix",
+	"test":        "echo ./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r2_e4.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "R3E1 - Int. + syscall + except.",
+	"test":        "./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r3_e1.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "R4E1 - 3D-Led",
+	"test":        "./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_rv32.txt    -s ./examples/assembly/asm-ep_r4_e1.txt",
+	"more":        "See WepSIM"
+},
+{
+	"pack":        "RISC-V Examples",
+	"description": "S7E3 - Instructions",
+	"test":        "./ws_dist/wepsim.sh    -a run    -m ep   -f ./examples/microcode/mc-ep_z80.txt    -s ./examples/assembly/asm-ep_s7_e3.txt",
+	"more":        "See WepSIM"
+}
+]
