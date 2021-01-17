@@ -40,7 +40,7 @@
 		             '    <li class="nav-item user_microcode">' +
                              '        <a id="tab26" href="#eltos_cpu"' +
                              '           class="nav-link active" data-toggle="tab" role="tab"' +
-                             '     style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"' +
+                             '     style="border-top-width:3px; border-right-width:3px; border-left-width:3px;"' +
 		             '		 aria-label="processor"' +
                              '           onclick="wsweb_change_show_processor();' +
                              '                    return false;">' + 
@@ -49,7 +49,7 @@
 		             '    <li class="nav-item">' +
                              '        <a id="tab24" href="#eltos_dbg"' +
                              '           class="nav-link" data-toggle="tab" role="tab"' +
-                             '     style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"' +
+                             '     style="border-top-width:3px; border-right-width:3px; border-left-width:3px;"' +
 		             '		 aria-label="assembly debugger"' +
                              '           onclick="wsweb_change_show_asmdbg();' +
                              '                    return false;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey="Assembly">Assembly</span><span class="d-none d-sm-inline-flex" data-langkey="Assembly Debugger">Assembly Debugger</span></a>' +

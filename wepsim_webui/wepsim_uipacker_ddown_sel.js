@@ -54,17 +54,18 @@
                    o1 += '<button type="button" class="col-12 btn btn-light shadow-sm"' +
                          '	  data-toggle="tooltip" data-placement="bottom" data-html="true"' +
                          '	  title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."' +
-                         '	  style="border-color: #CCCCCC;"' +
+                         '	  style="border-color: #BBBBBB;"' +
                          '	  id="select5b"' +
                          '	  onclick="wsweb_select_refresh();' +
                          '		   return false;">Refresh</button>' +
                          '<button id="dd2" type="button" ' +
                          '        class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
-                         '	  style="border-color: #CCCCCC;"' +
+                         '	  style="border-color: #BBBBBB;"' +
                          '	  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                          '<span class="sr-only">Toggle Dropdown</span>' +
                          '</button>' +
-                         '<div class="dropdown-menu border border-secondary" id="dd2_container" ' +
+                         '<div class="dropdown-menu border border-secondary" ' +
+                         '     id="dd2_container" ' +
                          '     style="height:55vh; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
                          '</div>' ;
 
