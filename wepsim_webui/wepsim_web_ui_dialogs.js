@@ -290,22 +290,9 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
-		        return "<div id='scroller-about1' class='container-fluid p-1'" +
-			       "     style='max-height:80vh; '>" +
-			       "     <form>" +
-			       "	<div class='form-group m-0'>" +
-			       "	   <label for='about_license' class='text-secondary'>License:</label>" +
-			       "	   <span class='text-primary'" +
-			       "                 onclick='wepsim_help_set_relative('about#');" +
-			       "                          wepsim_help_refresh();" +
-			       "		          wsweb_dialog_close('about');" +
-			       "			  return false;'>GNU Lesser General Public 3</span>" +
-			       "	</div>" +
-			       "	<div class='form-group'>" +
-			       "	   <label for='about_authors' class='text-secondary'>Authors:</label>" +
-			       "	   <ws-authors></ws-authors>" +
-			       "	</div>" +
-			       "     </form>" +
+		        return "<div id='scroller-about1' " +
+                               "     class='container-fluid p-1' style='max-height:80vh; '>" +
+			       "<ws-about name='about1'></ws-about>" +
 			       "</div>" ;
 		     },
 	    buttons: {

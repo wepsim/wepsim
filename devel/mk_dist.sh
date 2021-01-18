@@ -167,7 +167,7 @@ cat ws_dist/min.sim_all.js \
     wepsim_webui/wepsim_uielto_dbg_asm.js \
     wepsim_webui/wepsim_uielto_bin_asm.js \
     wepsim_webui/wepsim_uielto_cpusvg.js \
-    wepsim_webui/wepsim_uielto_authors.js \
+    wepsim_webui/wepsim_uielto_about.js \
     wepsim_webui/wepsim_uielto_segments.js \
     wepsim_webui/wepsim_uielto_topbar.js \
     wepsim_webui/wepsim_uipacker_ddown_sel.js \
