@@ -82,39 +82,40 @@ set -x
  jshint ./wepsim_core/wepsim_signal.js
  jshint ./wepsim_core/wepsim_url.js
 #jshint ./wepsim_core/wepsim_voice_commands.js
- jshint ./wepsim_webui/wepsim_uielto_toolbar.js
- jshint ./wepsim_webui/wepsim_uielto_compilationbar.js
- jshint ./wepsim_webui/wepsim_uielto_executionbar.js
- jshint ./wepsim_webui/wepsim_uielto_recordbar.js
- jshint ./wepsim_webui/wepsim_uipacker_ddown_sel.js
- jshint ./wepsim_webui/wepsim_uipacker_ddown_info.js
- jshint ./wepsim_webui/wepsim_uielto_listcfg.js
- jshint ./wepsim_webui/wepsim_uielto_listexample.js
- jshint ./wepsim_webui/wepsim_uielto_listprocessor.js
- jshint ./wepsim_webui/wepsim_uielto_loadfile.js
- jshint ./wepsim_webui/wepsim_uielto_savefile.js
- jshint ./wepsim_webui/wepsim_uielto_cpu.js
- jshint ./wepsim_webui/wepsim_uielto_mem.js
- jshint ./wepsim_webui/wepsim_uielto_mem_config.js
- jshint ./wepsim_webui/wepsim_uielto_console.js
- jshint ./wepsim_webui/wepsim_uielto_io_info.js
- jshint ./wepsim_webui/wepsim_uielto_io_config.js
- jshint ./wepsim_webui/wepsim_uielto_l3d.js
- jshint ./wepsim_webui/wepsim_uielto_authors.js
- jshint ./wepsim_webui/wepsim_uielto_dbg_mc.js
- jshint ./wepsim_webui/wepsim_uielto_dbg_asm.js
- jshint ./wepsim_webui/wepsim_uielto_cpusvg.js
- jshint ./wepsim_webui/wepsim_uielto_hw.js
-#jshint ./wepsim_webui/wepsim_uielto_registers.js
- jshint ./wepsim_webui/wepsim_web_ui_dialogs.js
- jshint ./wepsim_webui/wepsim_web_ui_quickcfg.js
- jshint ./wepsim_webui/wepsim_web_api.js
 
-#jshint ./wepsim/web/wepsim_web_pwa.js
- jshint ./wepsim/web/wepsim_web_simulator.js
- jshint ./wepsim/web/wepsim_web_editor.js
- jshint ./wepsim/nodejs/wepsim_node_action.js
-#jshint ./wepsim/nodejs/wepsim_node_core.js
+ jshint ./wepsim_web/wepsim_uielto_toolbar.js
+ jshint ./wepsim_web/wepsim_uielto_compilationbar.js
+ jshint ./wepsim_web/wepsim_uielto_executionbar.js
+ jshint ./wepsim_web/wepsim_uielto_recordbar.js
+ jshint ./wepsim_web/wepsim_uipacker_ddown_sel.js
+ jshint ./wepsim_web/wepsim_uipacker_ddown_info.js
+ jshint ./wepsim_web/wepsim_uielto_listcfg.js
+ jshint ./wepsim_web/wepsim_uielto_listexample.js
+ jshint ./wepsim_web/wepsim_uielto_listprocessor.js
+ jshint ./wepsim_web/wepsim_uielto_loadfile.js
+ jshint ./wepsim_web/wepsim_uielto_savefile.js
+ jshint ./wepsim_web/wepsim_uielto_cpu.js
+ jshint ./wepsim_web/wepsim_uielto_mem.js
+ jshint ./wepsim_web/wepsim_uielto_mem_config.js
+ jshint ./wepsim_web/wepsim_uielto_console.js
+ jshint ./wepsim_web/wepsim_uielto_io_info.js
+ jshint ./wepsim_web/wepsim_uielto_io_config.js
+ jshint ./wepsim_web/wepsim_uielto_l3d.js
+ jshint ./wepsim_web/wepsim_uielto_about.js
+ jshint ./wepsim_web/wepsim_uielto_dbg_mc.js
+ jshint ./wepsim_web/wepsim_uielto_dbg_asm.js
+ jshint ./wepsim_web/wepsim_uielto_cpusvg.js
+ jshint ./wepsim_web/wepsim_uielto_hw.js
+#jshint ./wepsim_web/wepsim_uielto_registers.js
+ jshint ./wepsim_web/wepsim_web_ui_dialogs.js
+ jshint ./wepsim_web/wepsim_web_ui_quickcfg.js
+ jshint ./wepsim_web/wepsim_web_api.js
+#jshint ./wepsim_web/wepsim_web_pwa.js
+ jshint ./wepsim_web/wepsim_web_simulator.js
+ jshint ./wepsim_web/wepsim_web_editor.js
+
+ jshint ./wepsim_nodejs/wepsim_node_action.js
+#jshint ./wepsim_nodejs/wepsim_node_core.js
 
  jshint ./wepsim_i18n/i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
