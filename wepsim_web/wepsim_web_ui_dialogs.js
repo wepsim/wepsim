@@ -197,7 +197,7 @@
             body:    function() {
 		        return "<div id='scroller-bin2a' class='container-fluid p-1' " +
            		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-	           	       "     <ws-bin_asm></ws-bin_asm>" +
+	           	       "<ws-bin_asm></ws-bin_asm>" +
 		               "</div>" ;
 		     },
 	    buttons: {
@@ -244,7 +244,7 @@
             body:    function() {
 		        return "<div id='scroller-bin2b' class='container-fluid p-1' " +
            		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-	           	       "     <ws-bin_mc></ws-bin_mc>" +
+	           	       "<ws-bin_mc></ws-bin_mc>" +
 		               "</div>" ;
 		     },
 	    buttons: {
@@ -290,22 +290,9 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
-		        return "<div id='scroller-about1' class='container-fluid p-1'" +
-			       "     style='max-height:80vh; '>" +
-			       "     <form>" +
-			       "	<div class='form-group m-0'>" +
-			       "	   <label for='about_license' class='text-secondary'>License:</label>" +
-			       "	   <span class='text-primary'" +
-			       "                 onclick='wepsim_help_set_relative('about#');" +
-			       "                          wepsim_help_refresh();" +
-			       "		          wsweb_dialog_close('about');" +
-			       "			  return false;'>GNU Lesser General Public 3</span>" +
-			       "	</div>" +
-			       "	<div class='form-group'>" +
-			       "	   <label for='about_authors' class='text-secondary'>Authors:</label>" +
-			       "	   <ws-authors></ws-authors>" +
-			       "	</div>" +
-			       "     </form>" +
+		        return "<div id='scroller-about1' " +
+                               "     class='container-fluid p-1' style='max-height:80vh; '>" +
+			       "<ws-about name='about1'></ws-about>" +
 			       "</div>" ;
 		     },
 	    buttons: {
@@ -421,7 +408,7 @@
             body:    function() {
                         return "<div id='scroller-example1' class='container-fluid p-0' " +
                                "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
-                               table_examples_html(ws_info.examples) +
+                               "<ws-examples></ws-examples>" +
                                "</div>" ;
 		     },
 	    buttons: {
@@ -461,7 +448,7 @@
             body:    function() {
                         return "<div id='scroller-config2' class='container-fluid p-0' " +
                                "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
-			       table_config_html(ws_info.config_ui) +
+			       "<ws-config></ws-config>" +
                                "</div>" ;
 		     },
 	    buttons: {
