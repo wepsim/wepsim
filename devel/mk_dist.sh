@@ -150,59 +150,61 @@ cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_core.js \
     \
-    wepsim_webui/wepsim_uielto.js \
-    wepsim_webui/wepsim_uielto_cpu.js \
-    wepsim_webui/wepsim_uielto_mem.js \
-    wepsim_webui/wepsim_uielto_mem_config.js \
-    wepsim_webui/wepsim_uielto_registers.js \
-    wepsim_webui/wepsim_uielto_console.js \
-    wepsim_webui/wepsim_uielto_hw.js \
-    wepsim_webui/wepsim_uielto_io_info.js \
-    wepsim_webui/wepsim_uielto_io_config.js \
-    wepsim_webui/wepsim_uielto_l3d.js \
-    wepsim_webui/wepsim_uielto_editmc.js \
-    wepsim_webui/wepsim_uielto_editas.js \
-    wepsim_webui/wepsim_uielto_dbg_mc.js \
-    wepsim_webui/wepsim_uielto_bin_mc.js \
-    wepsim_webui/wepsim_uielto_dbg_asm.js \
-    wepsim_webui/wepsim_uielto_bin_asm.js \
-    wepsim_webui/wepsim_uielto_cpusvg.js \
-    wepsim_webui/wepsim_uielto_about.js \
-    wepsim_webui/wepsim_uielto_segments.js \
-    wepsim_webui/wepsim_uielto_topbar.js \
-    wepsim_webui/wepsim_uipacker_ddown_sel.js \
-    wepsim_webui/wepsim_uipacker_ddown_info.js \
-    wepsim_webui/wepsim_uipacker_ctoasm.js \
+    wepsim_web/wepsim_uielto.js \
+    wepsim_web/wepsim_uielto_cpu.js \
+    wepsim_web/wepsim_uielto_mem.js \
+    wepsim_web/wepsim_uielto_mem_config.js \
+    wepsim_web/wepsim_uielto_registers.js \
+    wepsim_web/wepsim_uielto_console.js \
+    wepsim_web/wepsim_uielto_hw.js \
+    wepsim_web/wepsim_uielto_io_info.js \
+    wepsim_web/wepsim_uielto_io_config.js \
+    wepsim_web/wepsim_uielto_l3d.js \
+    wepsim_web/wepsim_uielto_editmc.js \
+    wepsim_web/wepsim_uielto_editas.js \
+    wepsim_web/wepsim_uielto_dbg_mc.js \
+    wepsim_web/wepsim_uielto_bin_mc.js \
+    wepsim_web/wepsim_uielto_dbg_asm.js \
+    wepsim_web/wepsim_uielto_bin_asm.js \
+    wepsim_web/wepsim_uielto_cpusvg.js \
+    wepsim_web/wepsim_uielto_about.js \
+    wepsim_web/wepsim_uielto_segments.js \
+    wepsim_web/wepsim_uielto_topbar.js \
+    wepsim_web/wepsim_uielto_examples.js \
+    wepsim_web/wepsim_uielto_config.js \
     \
-    wepsim_webui/wepsim_uielto_loadfile.js \
-    wepsim_webui/wepsim_uielto_savefile.js \
-    wepsim_webui/wepsim_uielto_listcfg.js \
-    wepsim_webui/wepsim_uielto_listexample.js \
-    wepsim_webui/wepsim_uielto_listprocessor.js \
+    wepsim_web/wepsim_uipacker_ddown_sel.js \
+    wepsim_web/wepsim_uipacker_ddown_info.js \
+    wepsim_web/wepsim_uipacker_ctoasm.js \
     \
-    wepsim_webui/wepsim_web_ui_dialogs.js \
-    wepsim_webui/wepsim_web_ui_quickcfg.js \
-    wepsim_webui/wepsim_uielto_recordbar.js \
-    wepsim_webui/wepsim_uielto_executionbar.js \
-    wepsim_webui/wepsim_uielto_compilationbar.js \
-    wepsim_webui/wepsim_uielto_toolbar.js \
+    wepsim_web/wepsim_uielto_loadfile.js \
+    wepsim_web/wepsim_uielto_savefile.js \
+    wepsim_web/wepsim_uielto_listcfg.js \
+    wepsim_web/wepsim_uielto_listexample.js \
+    wepsim_web/wepsim_uielto_listprocessor.js \
     \
-    wepsim_webui/wepsim_web_api.js \
+    wepsim_web/wepsim_web_ui_dialogs.js \
+    wepsim_web/wepsim_web_ui_quickcfg.js \
+    wepsim_web/wepsim_uielto_recordbar.js \
+    wepsim_web/wepsim_uielto_executionbar.js \
+    wepsim_web/wepsim_uielto_compilationbar.js \
+    wepsim_web/wepsim_uielto_toolbar.js \
     \
-    wepsim/web/wepsim_web_editor.js \
-    wepsim/web/wepsim_web_simulator.js > ws_dist/wepsim_web.js
+    wepsim_web/wepsim_web_api.js \
+    wepsim_web/wepsim_web_editor.js \
+    wepsim_web/wepsim_web_simulator.js > ws_dist/wepsim_web.js
 terser -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
 
 #  WepSIM nodejs engine
 echo "  * ws_dist/min.wepsim_node.js"
-cat wepsim/nodejs/wepsim_node_adapt.js \
+cat wepsim_nodejs/wepsim_node_adapt.js \
     ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_web.js \
     \
-    wepsim/nodejs/wepsim_node_core.js \
-    wepsim/nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
+    wepsim_nodejs/wepsim_node_core.js \
+    wepsim_nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
 
 #  external
 echo "  * ws_dist/min.external.js"
@@ -300,15 +302,15 @@ cp -a images    ws_dist/
 
 #  user interface
 echo "  * ws_dist/*.html"
-cp   wepsim/web/wepsim_web_classic.html   ws_dist/index.html
-cp   wepsim/web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
-cp   wepsim/web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
-cp   wepsim/web/wepsim_web_null.html      ws_dist/wepsim-null.html
-cp   wepsim/web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
+cp   wepsim_web/wepsim_web_classic.html   ws_dist/index.html
+cp   wepsim_web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
+cp   wepsim_web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+cp   wepsim_web/wepsim_web_null.html      ws_dist/wepsim-null.html
+cp   wepsim_web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 echo "  * ws_dist/*.sh"
 cp   docs/manifest.webapp         ws_dist/
-cp wepsim/nodejs/wepsim.sh        ws_dist/
+cp wepsim_nodejs/wepsim.sh        ws_dist/
 chmod a+x ws_dist/*.sh
 
 #  json: update processors
