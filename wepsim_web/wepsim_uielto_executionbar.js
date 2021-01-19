@@ -72,7 +72,7 @@
                     {
                        case "btn_reset":
 			     o += '<button id="btn_reset_' + this.name_str + '" ' + o_style +
-				  '        class="btn btn-light px-2 pb-1 col"' +
+				  '        class="btn btn-light col  pb-1 px-1 mr-1"' +
 				  '        onclick="wsweb_execution_reset();' +
 				  '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ''     : '<em class="fa fa-power-off"></em>' ;
@@ -83,7 +83,7 @@
 
                        case "btn_emins":
 			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light px-2 pb-1 col user_microcode"' +
+		                  '        class="btn btn-light col user_microcode  pb-1 px-1 mr-1"' +
 			          '        onclick="wsweb_execution_microinstruction();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-step-forward"></em>' ;
@@ -94,7 +94,7 @@
 
                        case "btn_eins":
 			     o += '<button id="btn_next_instruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light px-2 pb-1 col"' +
+		                  '        class="btn btn-light col  pb-1 px-1 mr-1"' +
 			          '        onclick="wsweb_execution_instruction();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-fast-forward"></em>' ;
@@ -105,7 +105,7 @@
 
                        case "btn_run":
 			     o += '<button id="btn_run_stop_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light px-2 pb-1 col"' +
+		                  '        class="btn btn-light col  pb-1 px-1 mr-1"' +
                                   '        onclick="wsweb_execution_run();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-play"></em>' ;

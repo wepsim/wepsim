@@ -109,8 +109,8 @@
 
 	      render_switch_microcode ( robj )
 	      {
-		 return '<button class="btn btn-light shadow-sm col-auto m-0 user_microcode"' +
-		        '        style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
+		 return '<button class="btn btn-light shadow-sm col-auto user_microcode mx-1 px-2"' +
+		        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                         '        id="btn_micro1"' +
 		        '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 		        '        title="This button switches into the \'Microcode\' editor."' +
@@ -123,8 +123,8 @@
 
 	      render_switch_assembly ( robj )
 	      {
-		 return '<button class="btn btn-light shadow-sm col-auto m-0"' +
-		        '        style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
+		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2"' +
+		        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                         '        id="btn_asm1"' +
 			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="This button switches into the \'Assembly\' editor."' +
@@ -136,8 +136,8 @@
 
 	      render_switch_simulator ( robj )
 	      {
-		 return '<button class="btn btn-light shadow-sm col-auto m-0"' +
-                        '        style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
+		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2"' +
+                        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
 			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
                         '        data-transition="none" data-inline="true"' +
 			'        title="This button switches into the \'Simulator\' workspace."' +
@@ -197,8 +197,8 @@
 
 	      render_btn_help ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 col-auto"' +
-		         '        style="border-width:1 1 1 1px; border-color:#CCCCCC; background-color:#D4DB17; flex-grow:1;"' +
+		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2"' +
+		         '        style="border-width:1 1 1 1px; border-color:#BBBBBB; background-color:#D4DB17; flex-grow:1;"' +
                          '        id="btn_help1"' +
 			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'Help\' dialog."' +
@@ -213,8 +213,8 @@
 
 	      render_btn_config ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-0"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
+		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
+		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                          '        id="btn_cfg1"' +
 			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
@@ -229,8 +229,8 @@
 
 	      render_btn_notifications ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-0 col-auto"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
+		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2"' +
+		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
 			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'Notifications\' dialog."' +
                          '        onclick="wsweb_dialog_open(\'notifications\');' +
@@ -244,8 +244,8 @@
 
 	      render_btn_recordbar ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-0"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
+		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
+		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
 			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button toggles the \'Record\' bar."' +
                          '        onclick="wsweb_recordbar_toggle();' +
@@ -259,8 +259,8 @@
 
 	      render_btn_states ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-0"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
+		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
+		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
 			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
 		         '        onclick="wsweb_dialog_open(\'state\');' +
@@ -275,8 +275,8 @@
 
 	      render_btn_checkpoint ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-0"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #CCCCCC;"' +
+		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
+		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                          '        id="s4_owncode" value="owncode"' +
 			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
@@ -295,11 +295,11 @@
 
 	      render_btndd_action ( robj )
 	      {
-		 return '<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">' +
+		 return '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="col-12 btn btn-light shadow-sm select6"' +
 			'           data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'           title="Dropdown on the right let you access to common actions."' +
-                        '           style="border-color: #CCCCCC;"' +
+                        '           style="border-color: #BBBBBB;"' +
 			'           data-action="checkpoint"' +
 			'	    onclick="var action = $(\'#select6a\').attr(\'data-action\');' +
 	                '                    wsweb_do_action(action);' +
@@ -308,7 +308,7 @@
                         '   ><strong><em class="fas fa-clone"></em>&nbsp;<span data-langkey="Actions">Actions</span></strong></button>' +
 			'   <button id="dd2a" type="button" ' +
                         '           class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
-                        '           style="border-color: #CCCCCC;"' +
+                        '           style="border-color: #BBBBBB;"' +
 			'           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
 			'     <span class="sr-only">Toggle Dropdown</span>' +
 			'   </button>' +
@@ -356,11 +356,11 @@
 	      {
 		   var o = '' ;
 
-		   o += '<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">' +
+		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="col-12 btn btn-light shadow-sm"' +
 			'           data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'           title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."' +
-                        '           style="border-color: #CCCCCC;"' +
+                        '           style="border-color: #BBBBBB;"' +
 			'           id="select4"' +
                         '           onclick="setTimeout(function(){$(\'#dd1\').dropdown(\'toggle\');},50);' +
 			'	            $(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
@@ -369,7 +369,7 @@
                         '\n' +
 			'   <button id="dd1" type="button" ' +
                         '           class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
-                        '           style="border-color: #CCCCCC;"' +
+                        '           style="border-color: #BBBBBB;"' +
 			'	    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
                         '   ><span class="sr-only">Toggle Dropdown</span></button>' +
                         '\n' +
@@ -415,11 +415,11 @@
 	      {
 		   var o = '' ;
 
-		   o += '<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">' +
+		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="btn btn-light col-12 shadow-sm"' +
 			'           data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 		        '           title="This button opens the \'Examples\' dialog."' +
-		        '           style="border-width:1 1 1 1px; border-color:#CCCCCC;"' +
+		        '           style="border-width:1 1 1 1px; border-color:#BBBBBB;"' +
                         '           id="btn_example1"' +
 			'	    onclick="$(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
 		        '                    wsweb_dialog_open(\'examples\');' +
@@ -430,7 +430,7 @@
                    o += '\n' +
 			'   <button id="dd3" type="button" ' +
                         '           class="btn btn-light shadow-sm dropdown-toggle dropdown-toggle-split"' +
-                        '           style="border-color: #CCCCCC;"' +
+                        '           style="border-color: #BBBBBB;"' +
 			'	    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
                         '   ><span class="sr-only">Toggle Dropdown</span></button>' +
                         '\n' +

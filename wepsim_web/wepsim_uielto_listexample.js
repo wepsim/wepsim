@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -56,7 +56,9 @@
                           '<span data-langkey="Examples">Examples</span>' +
                           '</h5>' +
 			  '</div>' +
-			  '<div class="card-body" id="list_examples_1"></div>' +
+			  '<div class="card-body" id="list_examples_' + this.name_str + '">' +
+			  '<span>&lt;Empty list&gt;</span>' +
+                          '</div>' +
 			  '</div>' ;
 
 		    this.innerHTML = o1 ;
@@ -68,31 +70,32 @@
 
                     // check if exists any example...
                     var e_exs = wepsim_example_getSet() ;
-                    if (typeof e_exs === "undefined")
-                    {
-		        $('#list_examples_1').html(o1) ;
+                    if (typeof e_exs === "undefined") {
                         return ;
                     }
 
                     // build HTML code
-		    o1 += ' <div class="btn-group-vertical w-100" role="group" aria-label="Examples">' ;
-		    for (var i in e_exs) 
-                    {
-			 var ename = e_exs[i].name ;
+		    o1 += '<div class="btn-group-vertical w-100" role="group" aria-label="Examples">' +
+			  '<button type="button" ' +
+			  '        v-for="ex in examples" ' +
+			  '        v-bind:data-name="ex.name" ' +
+			  '        class="text-danger btn border-secondary m-1 btn-block" ' +
+			  '        onclick="wepsim_example_reset() ;' +
+                          '                 var ex_name = this.getAttribute(\'data-name\') ;' +
+			  '	            wepsim_example_load(ex_name) ;' +
+			  '	            wepsim_notify_success(\'<strong>INFO</strong>\',' +
+			  '		    	                  \'Examples list loaded!.\') ;' +
+			  '	            return false;">' +
+			  '<span :data-langkey="ex.name">{{ ex.name }}</span>' +
+			  '</button>' +
+		          '</div>' ;
 
-			 o1 += '<button type="button" ' +
-			       '    class="text-danger btn border-secondary m-1 btn-block" ' +
-			       '    onclick="wepsim_example_reset() ;' +
-			       '	     wepsim_example_load(\'' + e_exs[i].name + '\') ;' +
-			       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
-			       '			           \'Examples list loaded!.\') ;' +
-			       '	     return false;">' +
-			       '<span data-langkey="' + ename + '">' + ename + '</span>' +
-			       '</button>' ;
-		    }
-		    o1 += '</div>' ;
+		    $('#list_examples_' + this.name_str).html(o1) ;
 
-		    $('#list_examples_1').html(o1) ;
+		    this.vueobj = new Vue({
+					     el: '#list_examples_' + this.name_str,
+					     data: { examples: e_exs }
+					  }) ;
 	      }
         }
 
