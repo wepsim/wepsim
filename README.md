@@ -197,8 +197,9 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
    * Stable  build: https://github.com/wepsim/wepsim
    * Nightly build: https://github.com/acaldero/wepsim
 
-+ The WepSIM architecture can be summarized in the next figure:
-![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/docs/.ws_arch_215-v2.png)
++ The WepSIM architecture can be summarized in the next Figure (made by https://app.diagrams.net):
+![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/docs/ws_arch_215-v2.png) 
+
 
 <a name="wepsim-engine-api"/>
 
