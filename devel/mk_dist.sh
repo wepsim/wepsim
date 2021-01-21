@@ -172,6 +172,7 @@ cat ws_dist/min.sim_all.js \
     wepsim_web/wepsim_uielto_topbar.js \
     wepsim_web/wepsim_uielto_examples.js \
     wepsim_web/wepsim_uielto_config.js \
+    wepsim_web/wepsim_uielto_notifications.js \
     \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
     wepsim_web/wepsim_uipacker_ddown_info.js \
