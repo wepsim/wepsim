@@ -41,6 +41,31 @@
 
                     // render current element
 		    this.innerHTML = table_config_html(ws_info.config_ui) ;
+
+		    // ui elements
+                    var m=0 ;
+		    try
+		    {
+		        for (m=0; m<ws_info.config_ui.length; m++) {
+		   	     ws_info.config_ui[m].code_init() ;
+		        }
+		    }
+		    catch (e) {
+		        reset_cfg() ;
+		        for (m=0; m<ws_info.config_ui.length; m++) {
+			     ws_info.config_ui[m].code_init() ;
+		        }
+		    }
+
+		    $('a[data-toggle="popover1"]').popover({
+		   	     placement:  'bottom',
+			     trigger:    'focus, hover',
+			     animation:  false,
+			     delay:      { "show": 500, "hide": 100 },
+			     sanitizeFn: function (content) {
+					     return content ; // DOMPurify.sanitize(content) ;
+				         }
+		    }) ;
 	      }
         }
 

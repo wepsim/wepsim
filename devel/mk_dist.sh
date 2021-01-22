@@ -146,11 +146,7 @@ terser -o ws_dist/min.wepsim_core.js ws_dist/wepsim_core.js
 rm -fr ws_dist/wepsim_core.js
 
 #  WepSIM web engine
-cat ws_dist/min.sim_all.js \
-    ws_dist/min.wepsim_i18n.js \
-    ws_dist/min.wepsim_core.js \
-    \
-    wepsim_web/wepsim_uielto.js \
+cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_cpu.js \
     wepsim_web/wepsim_uielto_mem.js \
     wepsim_web/wepsim_uielto_mem_config.js \
@@ -170,6 +166,7 @@ cat ws_dist/min.sim_all.js \
     wepsim_web/wepsim_uielto_about.js \
     wepsim_web/wepsim_uielto_segments.js \
     wepsim_web/wepsim_uielto_topbar.js \
+    wepsim_web/wepsim_uielto_help.js \
     wepsim_web/wepsim_uielto_examples.js \
     wepsim_web/wepsim_uielto_config.js \
     wepsim_web/wepsim_uielto_notifications.js \
@@ -193,9 +190,15 @@ cat ws_dist/min.sim_all.js \
     \
     wepsim_web/wepsim_web_api.js \
     wepsim_web/wepsim_web_editor.js \
-    wepsim_web/wepsim_web_simulator.js > ws_dist/wepsim_web.js
-terser -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
-rm -fr ws_dist/wepsim_web.js
+    wepsim_web/wepsim_web_simulator.js > ws_dist/wepsim_webui.js
+terser -o ws_dist/min.wepsim_webui.js ws_dist/wepsim_webui.js
+rm -fr ws_dist/wepsim_webui.js
+
+cat ws_dist/min.sim_all.js \
+    ws_dist/min.wepsim_i18n.js \
+    ws_dist/min.wepsim_core.js \
+    ws_dist/min.wepsim_webui.js > ws_dist/min.wepsim_web.js
+rm -fr ws_dist/min.wepsim_webui.js
 
 #  WepSIM nodejs engine
 echo "  * ws_dist/min.wepsim_node.js"
