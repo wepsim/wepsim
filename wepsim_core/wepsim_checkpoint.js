@@ -76,7 +76,7 @@
 		// all saved states are loaded into state history
 	        wepsim_state_history_reset() ;
 	        for (var i=0; i<checkpointObj.state_history.length; i++) {
-	             state_history.push(checkpointObj.state_history[i]) ;
+	             ws_info.state_history.push(checkpointObj.state_history[i]) ;
 	        }
 	        wepsim_state_history_list() ;
 
