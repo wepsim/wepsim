@@ -328,46 +328,7 @@
 							    "i18n_update_tags('cfg');") ;
 		      },
             body:     function() {
-		         var notifications      = simcore_notifications_get() ;
-		         var notifications_html = table_notifications_html(notifications) ;
-
-		         return "<div class='card border-secondary h-100'>" +
-			        "<div class='card-header border-light text-secondary bg-light p-1'>" +
-		                "  + <span data-langkey='Recent'>Recent</span>" +
-                                "  <div class='dropdown float-right'>" +
-                                "   <button class='btn btn-sm btn-outline-secondary text-danger py-1 dropdown-toggle' " +
-                                "            type='button' id='resetyn' data-toggle='dropdown' " +
-                                "            aria-haspopup='true' aria-expanded='false' " +
-				"            ><span data-langkey='Reset'>Reset</span></button>" +
-                                "   </button>" +
-                                "    <div class='dropdown-menu' aria-labelledby='resetyn'>" +
-                                "     <a class='dropdown-item py-2 bg-white text-danger' type='button' " +
-                                "        onclick='simcore_notifications_reset(); " +
-				"		  var notifications = simcore_notifications_get(); " +
-				"	          var ntf_html = table_notifications_html(notifications); " +
-				"		  $(\"#scroller-notifications3\").html(ntf_html); " +
-				"		  // reajust ui " +
-				"		  wepsim_uicfg_apply(); " +
-				"		  wsweb_scroll_record(\"#scroller-notifications3\"); " +
-				"		  simcore_record_captureInit(); " +
-				"		  return false;'" +
-                                "         ><span data-langkey='Yes'>Yes</span></a>" +
-				"      <div class='dropdown-divider'></div>" +
-                                "      <a class='dropdown-item py-2 bg-white text-info' type='button' " +
-                                "         ><span data-langkey='No'>No</span></a>" +
-                                "    </div>" +
-                                "  </div>" +
-			      	"</div>" +
-			      	"<div class='card-body p-1'>" +
-		                " <div id='scroller-notifications3' class='container-fluid p-0' " +
-	           	        "      style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-                                notifications_html +
-                                " </div>" +
-			     	"</div>" +
-			        "<div class='card-footer border-light text-secondary bg-light p-1'>" +
-		                "  - <span data-langkey='Recent'>Recent</span>" +
-			     	" </div>" +
-			   	"</div>" ;
+		         return "<ws-notifications></ws-notifications>" ;
 		      },
 	    buttons:  {
 			Close: {
@@ -474,29 +435,6 @@
 	             },
             size:    'large',
             onshow:  function() {
-		         // ui elements
-			 try
-                         {
-			     for (m=0; m<ws_info.config_ui.length; m++) {
-			          ws_info.config_ui[m].code_init() ;
-                             }
-			 }
-			 catch (e) {
-			     reset_cfg() ;
-			     for (m=0; m<ws_info.config_ui.length; m++) {
-			          ws_info.config_ui[m].code_init() ;
-                             }
-                         }
-
-			 $('a[data-toggle="popover1"]').popover({
-				  placement:  'bottom',
-				  trigger:    'focus, hover',
-				  animation:  false,
-				  delay:      { "show": 500, "hide": 100 },
-				  sanitizeFn: function (content) {
-						  return content ; // DOMPurify.sanitize(content) ;
-					      }
-			 }) ;
                          setTimeout(function() { $("#scroller-config2").scrollTop(0); }, 50);
 
 		         // ui lang
@@ -577,7 +515,7 @@
                         return "<div id='help1_ref' style='display:none;'></div>" +
                                "<div class='ui-body-d ui-content p-0' id='scroller-help1' " +
                                "     style='min-height:50vh; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
-			       table_helps_html(ws_info.help) +
+                               "<ws-help></ws-help>" +
                                "</div>" ;
 	             },
 	    buttons: {
@@ -586,9 +524,9 @@
                                       '<span data-langkey="Help Index">Help Index</span>',
 			   className: 'btn btn-success btn-sm col col-sm-3 float-right shadow-none',
 			   callback:  function() {
-		         		 // ui elements
-    				         wepsim_help_set_relative('') ;
-					 wepsim_help_refresh();
+				         // ui elements
+				         wepsim_help_set_relative('') ;
+				         wepsim_help_refresh() ;
 
 			 		 // uicfg and events
                                          wepsim_uicfg_apply() ;
