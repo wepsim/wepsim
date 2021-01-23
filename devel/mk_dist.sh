@@ -247,7 +247,6 @@ cat external/vue/vue.min.js \
     external/annyang.min.js \
     external/speechkitt/speechkitt.min.js \
     external/dropify/dropify.min.js \
-    external/masonry.pkgd.min.js \
     external/fontawesome/brands.min.js \
     external/fontawesome/solid.min.js | grep -v sourceMappingURL > ws_dist/external.js
 terser -o ws_dist/min.external.js ws_dist/external.js
