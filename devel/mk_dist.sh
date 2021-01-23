@@ -166,10 +166,8 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_about.js \
     wepsim_web/wepsim_uielto_segments.js \
     wepsim_web/wepsim_uielto_topbar.js \
-    wepsim_web/wepsim_uielto_help.js \
-    wepsim_web/wepsim_uielto_examples.js \
-    wepsim_web/wepsim_uielto_config.js \
     wepsim_web/wepsim_uielto_notifications.js \
+    wepsim_web/wepsim_uielto_states.js \
     \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
     wepsim_web/wepsim_uipacker_ddown_info.js \
@@ -180,6 +178,9 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_listcfg.js \
     wepsim_web/wepsim_uielto_listexample.js \
     wepsim_web/wepsim_uielto_listprocessor.js \
+    wepsim_web/wepsim_uielto_index_help.js \
+    wepsim_web/wepsim_uielto_index_examples.js \
+    wepsim_web/wepsim_uielto_index_config.js \
     \
     wepsim_web/wepsim_web_ui_dialogs.js \
     wepsim_web/wepsim_web_ui_quickcfg.js \
@@ -247,7 +248,6 @@ cat external/vue/vue.min.js \
     external/annyang.min.js \
     external/speechkitt/speechkitt.min.js \
     external/dropify/dropify.min.js \
-    external/masonry.pkgd.min.js \
     external/fontawesome/brands.min.js \
     external/fontawesome/solid.min.js | grep -v sourceMappingURL > ws_dist/external.js
 terser -o ws_dist/min.external.js ws_dist/external.js
