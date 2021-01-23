@@ -166,9 +166,6 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_about.js \
     wepsim_web/wepsim_uielto_segments.js \
     wepsim_web/wepsim_uielto_topbar.js \
-    wepsim_web/wepsim_uielto_help.js \
-    wepsim_web/wepsim_uielto_examples.js \
-    wepsim_web/wepsim_uielto_config.js \
     wepsim_web/wepsim_uielto_notifications.js \
     \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
@@ -180,6 +177,9 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_listcfg.js \
     wepsim_web/wepsim_uielto_listexample.js \
     wepsim_web/wepsim_uielto_listprocessor.js \
+    wepsim_web/wepsim_uielto_index_help.js \
+    wepsim_web/wepsim_uielto_index_examples.js \
+    wepsim_web/wepsim_uielto_index_config.js \
     \
     wepsim_web/wepsim_web_ui_dialogs.js \
     wepsim_web/wepsim_web_ui_quickcfg.js \
