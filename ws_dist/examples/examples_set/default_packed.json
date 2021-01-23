@@ -517,6 +517,17 @@
     "testing": true
   },
   {
+    "id": "R2E5",
+    "title": "Simple stack conv.",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,asm_rv32",
+    "hardware": "ep",
+    "microcode": "ep_rv32",
+    "assembly": "ep_r2_e5",
+    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
+    "testing": true
+  },
+  {
     "id": "R3E1",
     "title": "Int. + syscall + except.",
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
