@@ -255,7 +255,9 @@ jalr rd rs1 offset {
 
                 var     pc = simcore_native_get_value("CPU", "REG_PC") ;
                 var new_pc = simcore_native_get_value("BR", rs1) + offset ;
-                simcore_native_set_value("BR", rd, pc) ;
+                if (0 != rd) {
+                    simcore_native_set_value("BR", rd, pc) ;
+                }
                 simcore_native_set_value("CPU", "REG_PC", new_pc & 0xFFFFFFFE) ;
 
                 simcore_native_go_maddr(0) ;
