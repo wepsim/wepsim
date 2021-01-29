@@ -417,7 +417,11 @@
                  }
 
 		 old_html  = $("#bg" + base_addrs[elto]).html() ;
-                 old_html += '<div class="badge badge-primary mx-1">' + elto.toUpperCase() + '</div>' ;
+                 old_html += '<div class="badge badge-primary mx-1">' +
+                             elto.toUpperCase() +
+                             '</div>' +
+                          // '<i class="mx-auto text-secondary fas fa-arrow-right"></i>' ;
+                             '' ;
 		 $("#bg" + base_addrs[elto]).html(old_html) ;
             }
         }

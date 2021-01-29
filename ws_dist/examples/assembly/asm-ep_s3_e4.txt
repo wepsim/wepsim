@@ -59,17 +59,12 @@ sys_prt_int: li   $1 1
 .text
 
 factorial:
-           addi $sp $sp -12
-           sw   $ra 8($sp)
-           sw   $fp 4($sp)
-           addi $fp $sp 4
-
            # notify: TIP: Calling conventions
            # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
            # notify: 
            # notify:  If subrutine A calls B then:
-           # notify:  > B should save values it might need on all registers but $t0..$t9, at the beginning.
-           # notify:  * B should restore the saved values, just before "jr $ra"
+           # notify:  >* B should save values it might need on all registers but $t0..$t9, at the beginning.
+           # notify:   * B should restore the saved values, just before "jr $ra"
            # notify: 
            # notify: Factorial need to save 3 registers: $ra, $fp and a local variable:
            # notify:  * SP = SP - 3*4
@@ -77,7 +72,12 @@ factorial:
            # notify:  * Memory[SP+4] = FP
            # notify:  * FP = SP + 4
 
-           # if ($a < 2):
+           addi $sp $sp -12
+           sw   $ra 8($sp)
+           sw   $fp 4($sp)
+           addi $fp $sp 4
+
+           # if ($a0 < 2):
            #     return 1
            li   $t0 2
            bge  $a0 $t0 b_else
@@ -86,18 +86,18 @@ factorial:
            # else:
            #    return $a0 * factorial($a0 - 1)
 
-   b_else: sw   $a0 -4($fp)
-
+   b_else: 
            # notify: TIP: Calling conventions
            # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
            # notify: 
            # notify:  If subrutine A calls B then:
-           # notify:  > A should save values on registers $t0..$t9 it needs, before parameter passing and "jal"
-           # notify:  * A should restore the saved values, just after "jal"
+           # notify:  >* A should save values on registers $t0..$t9 it needs, before parameter passing and "jal"
+           # notify:   * A should restore the saved values, just after "jal"
            # notify: 
            # notify: Factorial save $a0 as local variable:
            # notify:  * Memory[SP+0] = A0
 
+           sw   $a0 -4($fp)
            addi $a0 $a0 -1
            jal  factorial
 
@@ -105,8 +105,8 @@ factorial:
            # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
            # notify: 
            # notify:  If subrutine A calls B then:
-           # notify:  * A should save values on registers $t0..$t9 it needs, before parameter passing and "jal"
-           # notify:  > A should restore the saved values, just after "jal"
+           # notify:   * A should save values on registers $t0..$t9 it needs, before parameter passing and "jal"
+           # notify:  >* A should restore the saved values, just after "jal"
            # notify: 
            # notify: Factorial restore $a0 on $v1
            # notify:  * V1 = Memory[SP+0]
@@ -114,22 +114,23 @@ factorial:
            lw   $v1 -4($fp)
            mul  $v0 $v0 $v1
 
-           # finalizar "stack frame"
-   b_efs:  lw   $ra 8($sp)
-           lw   $fp 4($sp)
-           addi $sp $sp 12
-
+   b_efs:  
            # notify: TIP: Calling conventions
            # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
            # notify: 
            # notify:  If subrutine A calls B then:
-           # notify:  * B should save values it might need on all registers but $t0..$t9, at the beginning.
-           # notify:  > B should restore the saved values, just before "jr $ra"
+           # notify:   * B should save values it might need on all registers but $t0..$t9, at the beginning.
+           # notify:  >* B should restore the saved values, just before "jr $ra"
            # notify: 
            # notify: Factorial restore the $ra and $fp values.
            # notify:  * SP = SP + 3*4
            # notify:  * RA = Memory[SP+8]
            # notify:  * FP = Memory[SP+4]
+
+           # finalizar "stack frame"
+           lw   $ra 8($sp)
+           lw   $fp 4($sp)
+           addi $sp $sp 12
 
            # return $v0
            jr $ra
