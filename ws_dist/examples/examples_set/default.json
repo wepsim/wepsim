@@ -1,7 +1,13 @@
 [
   {
-    "name": "Default",
-    "url": "examples/examples_set/default_packed.json",
+    "name": "Default-MIPS",
+    "url": "examples/examples_set/default_mips.json",
+    "url_base_asm": "examples/assembly/",
+    "url_base_mc": "examples/microcode/"
+  },
+  {
+    "name": "Default-RISCV",
+    "url": "examples/examples_set/default_rv32.json",
     "url_base_asm": "examples/assembly/",
     "url_base_mc": "examples/microcode/"
   },
