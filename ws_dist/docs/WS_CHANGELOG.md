@@ -2,7 +2,7 @@
 # Changelog
 
 ## 2.1.5 -> 2.1.6:
-* Improved POC examples
+* Minor improvements on RISC-V examples
 
 ## 2.1.4 -> 2.1.5:
 * Initial support for a compact description for each instruction
