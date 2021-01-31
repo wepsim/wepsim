@@ -223,7 +223,7 @@
         {
 	      return "<div class='container mt-1'>" +
                      "<div class='row'>" +
-                       quickcfg_html_header('Register file names') +
+                       quickcfg_html_header('Display format') +
                        quick_config_rf_register_format() +
                      quickcfg_html_br() +
                        quickcfg_html_header('Register file names') +
