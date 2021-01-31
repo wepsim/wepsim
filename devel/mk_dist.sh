@@ -284,7 +284,7 @@ cp    -a external/cordova.js            ws_dist/external/cordova.js
 ## pre-examples (default_packed)
 DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_set/apps_ep_mips_native.json examples/examples_set/apps_poc_mips.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_mips.json
-DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_rv32_native.json"
+DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_rv32_native.json examples/examples_set/apps_poc_rv32.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_rv32.json
 
 ## pre-examples (default.json + apps.json)

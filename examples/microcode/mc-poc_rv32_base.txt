@@ -19,7 +19,7 @@ begin
                   # csw_rt1(intv)
                     (A0=0, B=1, C=0, MADDR=csw_rt1)
 
-    fetch:        
+    fetch:
                   # MAR <- PC
                     (T2, C0),
                   # MBR <- M[MAR], PC <- PC+4
@@ -29,15 +29,15 @@ begin
                   # go co2maddr
                     (A0, B=0, C=0)
 
-    csw_rt1:        
+    csw_rt1:
                   # push PC
                     (ExCode=100, T11, MRC, SELC=100000, LC)
-                    (MRA, SELA=11101, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, MRC, SELC=11101, LC, C0),
+                    (MRA, SELA=10, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, MRC, SELC=10, LC, C0),
                     (T2, M1=0, C1),
                     (BW=11, TA, TD, W)
                   # push SR
                     (ExCode=100, T11, MRC, SELC=100000, LC)
-                    (MRA, SELA=11101, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, MRC, SELC=11101, LC, C0),
+                    (MRA, SELA=10, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, MRC, SELC=10, LC, C0),
                     (T8, M1=0, C1),
                     (BW=11, TA, TD, W),
                   # SR.U=0
@@ -63,7 +63,7 @@ begin
 #
 
 ecall {
-            co=101110,
+            co=111111,
             nwords=1,
 	    help='system call',
             {
@@ -76,25 +76,25 @@ ecall {
 }
 
 sret {
-            co=111110,
+            co=111111,
             nwords=1,
 	    help='return from event (interruption, exception, syscall)',
             {
-              # pop SR
-              (MRA=1, SELA=11101, T9, C0),
-              (TA, R, BW=11, M1, C1),
-              (T1, M7=0, C7),
-              (MRB, SELB=11101, MB=0, MC, SELCOP=10000, T6=1, MRC, SELC=11101, LC),
+		     # pop SR
+		     (MRA=1, SELA=10, T9, C0),
+		     (TA, R, BW=11, M1, C1),
+		     (T1, M7=0, C7),
+		     (MRB, SELB=10, MB=0, MC, SELCOP=10000, T6=1, MRC, SELC=10, LC),
 
-              # pop PC
-              (MRA, SELA=11101, T9, C0),
-              (TA=1, R=1, BW=11, M1=1, C1),
-              (T1, C2),
-              (MRB, SELB=11101, MB=0, MC, SELCOP=10000, T6=1, MRC, SELC=11101, LC),
+		     # pop PC
+		     (MRA, SELA=10, T9, C0),
+		     (TA=1, R=1, BW=11, M1=1, C1),
+		     (T1, C2),
+		     (MRB, SELB=10, MB=0, MC, SELCOP=10000, T6=1, MRC, SELC=10, LC),
 
-              # go begin
-              (A0=1, B=1 ,C=0)
-        }
+		     # go begin
+		     (A0=1, B=1 ,C=0)
+            }
 }
 
 
@@ -103,7 +103,7 @@ sret {
 #
 
 in reg val {
-            co=001010,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
@@ -116,7 +116,7 @@ in reg val {
 }
 
 out reg val {
-            co=001011,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
@@ -371,10 +371,8 @@ lb rd offset(rs1) {
             rs1=reg(20,16),
             help='rd = (00, 00, 00, MEM[rs1 + offset])',
             {
-                #
-                # TOCHECK
-                #
-                (MRA=0, SELA=10000, T9=1, C0),
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=100000, LC),
+                (MRA=1, SELA=100000, MRB=0, SELB=10000, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
                 (TA=1, R=1, BW=0, M1=1, C1=1),
                 (T1=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
@@ -433,6 +431,7 @@ lw rd offset(rs1) {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=100000, LC),
                 (MRA=1, SELA=100000, MRB=0, SELB=10000, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
                 (TA=1, R=1, BW=11, M1=1, C1=1),
+                (T1=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -498,7 +497,7 @@ lhu rd offset(rs1) {
                         w_value2 = w_value2 & 0x000000FF ;
                     b_value = (b_value & 0x000000FF) | (w_value2 << 8) ;
                 }
-                // unsigned 
+                // unsigned
                 b_value = b_value & 0x0000FFFF ;
                 // load value into the register file
                 simcore_native_set_value("BR", rd, b_value) ;
@@ -516,12 +515,10 @@ sb rs2 offset(rs1) {
             rs1=reg(20,16),
             help='MEM[rs1 + offset] = rs2/8',
             {
-                # 
-                # TOCHECK
-                # 
-                (MRA=0, SELA=10000, T9=1, C0),
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=100000, LC),
+                (MRA=1, SELA=100000, MRB=0, SELB=10000, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
                 (MRA=0, SELA=10101, T9=1, M1=0, C1=1),
-                (TA=1, TD=1, BW=0, W=1, A0=1, B=1, C=0)
+                (TA=1, TD=1, W=1, BW=0, A0=1, B=1, C=0)
             }
 }
 

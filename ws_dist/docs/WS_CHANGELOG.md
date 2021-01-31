@@ -1,6 +1,9 @@
 
 # Changelog
 
+## 2.1.5 -> 2.1.6:
+* Improved POC examples
+
 ## 2.1.4 -> 2.1.5:
 * Initial support for a compact description for each instruction
 * knockoutjs replaced by vuex v3.6.0 + vue.js v2.6.12 
