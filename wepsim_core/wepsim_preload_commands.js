@@ -19,7 +19,7 @@
  */
 
 
-    var ws_preload_tasks = [
+    ws_info.preload_tasks = [
 
 	 // parameter: mode
 	 {
@@ -74,13 +74,13 @@
                           // try as array index...
 			  var example_index = parseInt(hash.example) ;
                           if (isNaN(example_index) == false) {
-			      example_obj = ws_examples[example_index] ;
+			      example_obj = ws_info.examples[example_index] ;
                           }
                           // try as example id...
                           else {
-                              for (var i=0; i<ws_examples.length; i++) {
-                                   if (ws_examples[i].id == hash.example)
-			               example_obj = ws_examples[i] ;
+                              for (var i=0; i<ws_info.examples.length; i++) {
+                                   if (ws_info.examples[i].id == hash.example)
+			               example_obj = ws_info.examples[i] ;
                               }
                           }
 

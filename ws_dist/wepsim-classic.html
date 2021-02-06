@@ -38,7 +38,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.1.4" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.1.5" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -135,14 +135,14 @@
 
                     <div class="row pl-2 pr-3 pt-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		         <button class="btn btn-light shadow-sm col"
-		                 style="border-color: #CCCCCC; flex-grow:1;"
+		         <button class="btn btn-light shadow-sm col py-0 mx-1"
+		                 style="border-color: #BBBBBB; flex-grow:1;"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true"
 			         title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
 		                 onclick="wsweb_dialog_open('state');
                                           return false;"
                          ><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
-                         <ws-ddown-sel class="col btn-group p-0" style="flex-grow:2;"
+                         <ws-ddown-sel class="col btn-group p-0 mx-1" style="flex-grow:2;"
                                        components="mp,con,all,mc,io,cpu,mpcfg,iocfg,ed_hw,iol3d,ed_mc,ed_mp"></ws-ddown-sel>
                     </div>
                     </div>

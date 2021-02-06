@@ -7,6 +7,7 @@
     "hardware":		"ep",
     "microcode":	"ep_z80",
     "assembly":		"ep_s7_e3",
-    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing":          true
   }
 ]

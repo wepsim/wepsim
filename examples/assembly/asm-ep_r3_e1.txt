@@ -39,17 +39,7 @@ sys_print:  li   zero 0
     helloworld: .asciiz "hello world...\n"
 
 .text
-    main:  # test ecall
-           la  a0 helloworld
-           li  a7 4
-           ecall
-
-           # test div 0/0
-           li  t0 0
-           li  t1 0
-           div t1 t1 t0
-
-           # test int0
+    main:  # test int0
            li  t0 0
            out t0 0x1104
            li  t0 200

@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 2.1.4 -> 2.1.5:
+* Initial support for a compact description for each instruction
+* knockoutjs replaced by vuex v3.6.0 + vue.js v2.6.12 
+* Minor bugs fixed and several refinements added.
+
 ## 2.1.3 -> 2.1.4:
 * Special comments in assembly:
   * "# state:" now saves the state

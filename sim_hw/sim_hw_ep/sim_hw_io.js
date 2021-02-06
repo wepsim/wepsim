@@ -74,14 +74,14 @@
 	 */
 
         sim.ep.internal_states.io_int_factory = [] ;
-        sim.ep.internal_states.io_int_factory[0] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        sim.ep.internal_states.io_int_factory[1] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        sim.ep.internal_states.io_int_factory[2] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        sim.ep.internal_states.io_int_factory[3] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        sim.ep.internal_states.io_int_factory[4] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        sim.ep.internal_states.io_int_factory[5] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        sim.ep.internal_states.io_int_factory[6] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        sim.ep.internal_states.io_int_factory[7] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
+        sim.ep.internal_states.io_int_factory[0] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim.ep.internal_states.io_int_factory[1] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim.ep.internal_states.io_int_factory[2] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim.ep.internal_states.io_int_factory[3] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim.ep.internal_states.io_int_factory[4] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim.ep.internal_states.io_int_factory[5] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim.ep.internal_states.io_int_factory[6] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim.ep.internal_states.io_int_factory[7] = { period:0, probability:0.5, accumulated:0, active:false } ;
 
         var IOSR_ID   = 0x1100 ;
         var IOCR_ID   = 0x1104 ;
@@ -223,8 +223,9 @@
 
                                                       set_var(sim.ep.internal_states.io_int_factory[iocr_id].period, iodr_id);
                                                       set_var(sim.ep.internal_states.io_int_factory[iocr_id].probability, 1) ;
-                                                      if (0 == iodr_id)
+                                                      if (0 == iodr_id) {
                                                           set_var(sim.ep.internal_states.io_int_factory[iocr_id].probability, 0) ;
+                                                      }
                                                    },
                                            verbal: function (s_expr) 
                                                    {
@@ -265,11 +266,13 @@
                                                               if (Math.random() > get_var(sim.ep.internal_states.io_int_factory[i].probability))
                                                                   continue ;
 
-                                                              set_var(sim.ep.internal_states.io_int_factory[i].accumulated, get_var(sim.ep.internal_states.io_int_factory[i].accumulated) + 1);
+                                                              var acc = get_var(sim.ep.internal_states.io_int_factory[i].accumulated) ;
+                                                              set_var(sim.ep.internal_states.io_int_factory[i].accumulated, acc + 1) ;
                                                               set_var(sim.ep.internal_states.io_int_factory[i].active, true) ;
 
-                                                              if (typeof sim.ep.events.io[clk] == "undefined")
+                                                              if (typeof sim.ep.events.io[clk] == "undefined") {
                                                                   sim.ep.events.io[clk] = [] ;
+                                                              }
                                                               sim.ep.events.io[clk].push(i) ;
 
                                                               set_value(sim.ep.signals[s_expr[2]], 1); // ['INT']=1
@@ -306,8 +309,9 @@
                                                                set_value(sim.ep.states[s_expr[5]], i) ; // ['INTV'] = i
 							       set_value(sim.ep.states[s_expr[4]], i) ; // ['BUS_DB'] = i
 
-                                                               if (typeof sim.ep.events.io[clk] == "undefined") 
+                                                               if (typeof sim.ep.events.io[clk] == "undefined") {
                                                                    sim.ep.events.io[clk] = [] ;
+                                                               }
                                                                sim.ep.events.io[clk].push(i) ;
 
 							       set_var(sim.ep.internal_states.io_int_factory[i].active, false);

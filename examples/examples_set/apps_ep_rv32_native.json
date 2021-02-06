@@ -1,0 +1,156 @@
+[
+  {
+    "id":		"R1E1",
+    "title":		"Instructions",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r1_e1",
+    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R1E2",
+    "title":		"Memory access",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r1_e2",
+    "description":	"<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R1E3",
+    "title":		"Looping",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r1_e3",
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R1E4",
+    "title":		"Vector",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r1_e4",
+    "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R2E1",
+    "title":            "I/O",
+    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":         "ep",
+    "microcode":	"ep_rv32",
+    "assembly":         "ep_r2_e1",
+    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing":          false
+  },
+  {
+    "id":		"R2E2",
+    "title":		"Subrutine",
+    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r2_e2",
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R2E3",
+    "title":		"Masks & shift",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r2_e3",
+    "description":	"<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R2E4",
+    "title":		"Matrix",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r2_e4",
+    "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R2E5",
+    "title":		"Simple stack conv.",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r2_e5",
+    "description":	"<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R3E1",
+    "title":		"Interruptions",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r3_e1",
+    "description":	"<span data-langkey='example_03_01b'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R3E2",
+    "title":		"System call",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r3_e2",
+    "description":	"<span data-langkey='example_03_02b'>Example with system call support.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R3E3",
+    "title":		"Exception",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r3_e3",
+    "description":	"<span data-langkey='example_03_03b'>Example with floating point exception.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R4E1",
+    "title":		"Int. + syscall + except.",
+    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r4_e1",
+    "description":	"<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R5E1",
+    "title":		"3D-Led",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"ep_r5_e1",
+    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing":          true
+  }
+]

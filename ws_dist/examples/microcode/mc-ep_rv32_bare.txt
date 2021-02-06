@@ -50,6 +50,7 @@ begin
 ecall {
             co=111111,
             nwords=1,
+	    help='system call',
             {
                     # RT1 <- ExCode=2
                     (ExCode=10, T11, C4),
@@ -62,6 +63,7 @@ ecall {
 sret {
             co=111111,
             nwords=1,
+	    help='return from event (interruption, exception, syscall)',
             {
 		    # pop SR
 		    (MR=1, SELA=10, T9, C0),
@@ -87,6 +89,7 @@ in reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='reg = device_registers[val]',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, IOR=1, BW=11, M1=1, C1=1),
@@ -99,6 +102,7 @@ out reg val {
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
+            help='device_register[val] = reg',
             {
                 (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
                 (MR=0, SELA=10101, T9=1,         M1=0, C1=1),
@@ -119,6 +123,7 @@ lui rd inm {
             nwords=1,
             rd=reg(25,21),
             inm=inm(19,0),
+	    help='rd = (inm/16, 00, 00)',
             {
                 (SE=0, OFFSET=0, SIZE=10100, T3=1, C4=1),
 		(EXCODE=1000, T11, C5),
@@ -135,6 +140,7 @@ auipc rd offset {
             nwords=1,
             rd=reg(25,21),
             offset=inm(15,0),
+	    help='rd = pc + SignExt(offset)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -158,6 +164,7 @@ jal rd offset {
             nwords=1,
             rd=reg(25,21),
             offset=address(15,0)abs,
+	    help='rd = pc; pc = offset',
             {
 		(T2, SelC=10101, MR=0, LC),
 		(SE=0, OFFSET=0, SIZE=10000, T3=1, M2=0, C2=1, A0=1, B=1, C=0)
@@ -172,6 +179,7 @@ jalr rd rs1 offset {
             rd=reg(25,21),
             rs1=reg(20,16),
             offset=address(15,0)abs,
+	    help='rd = pc; pc = rs1 + offset',
             {
                 (T2, SelC=10101, MR=0, LC),                                # rd  <- pc + length(inst)
                 (SE=1, OFFSET=0, SIZE=10000, T3, C5),                      # RT2 <- offset
@@ -189,6 +197,7 @@ beq rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
+            help='if (rs1 == rs2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -209,6 +218,7 @@ bne rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
+            help='if (rs1 != rs2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -229,6 +239,7 @@ blt rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
+            help='if (rs1 < rs2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -249,6 +260,7 @@ bge rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
+            help='if (rs1 >= rs2) pc += offset',
             {
                 (T8, C5),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -269,6 +281,7 @@ bltu rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
+            help='if (ux(rs1) < ux(rs2)) pc += offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -298,6 +311,7 @@ bgeu rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
+            help='if (ux(rs1) >= ux(rs2)) pc += offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -327,6 +341,7 @@ lb rd offset(rs1) {
             rd=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='rd = (00, 00, 00, MEM[rs1 + offset])',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3, C5),
                 (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6, C0),
@@ -342,6 +357,7 @@ lh rd offset(rs1) {
             rd=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3, C5),
                 (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6, C0),
@@ -357,6 +373,7 @@ lw rd offset(rs1) {
             rd=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='rd = (MEM[rs1+offset+3] .. MEM[rs1+offset])',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
                 (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
@@ -372,6 +389,7 @@ lbu rd offset(rs1) {
             rd=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='rd = (00, 00, 00, ux(MEM[rs1 + offset]))',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3, C5),
                 (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6, C0),
@@ -387,6 +405,7 @@ lhu rd offset(rs1) {
             rd=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='rd = (00, 00, ux(MEM[rs1+offset+1]), ux(MEM[rs1+offset]))',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3, C5),
                 (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6, C0),
@@ -402,6 +421,7 @@ sb rs2 offset(rs1) {
             rs2=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='MEM[rs1 + offset] = rs2/8',
             {
                 (SE=1,  OFFSET=0, SIZE=10000, T3=1, C5=1),
                 (MR=0,  SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
@@ -417,6 +437,7 @@ sh rs2 offset(rs1) {
             rs2=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
             {
                 (SE=1,  OFFSET=0, SIZE=10000, T3=1, C5=1),
                 (MR=0,  SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
@@ -432,6 +453,7 @@ sw reg1 val(reg2) {
             reg1 = reg(25,21),
             val  = inm(15,0),
             reg2 = reg(20,16),
+            help='MEM[rs1+offset+3 .. rs1+offset] = rs2',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
                 (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
@@ -447,6 +469,7 @@ sbu rs2 offset(rs1) {
             rs2=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='MEM[rs1+offset] = (00, 00, 00, rs2/8)',
             {
                 (SE=1,  OFFSET=0, SIZE=10000, T3=1, C5=1),
                 (MR=0,  SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
@@ -462,6 +485,7 @@ shu rs2 offset(rs1) {
             rs2=reg(25,21),
             offset=inm(15,0),
             rs1=reg(20,16),
+            help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
             {
                 (SE=1,  OFFSET=0, SIZE=10000, T3=1, C5=1),
                 (MR=0,  SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
@@ -477,6 +501,7 @@ addi rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+            help='rd = rs1 + SignEx(inm)',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, C4=1),
                 (MC=1, MR=0, SELB=10000, MA=1, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
@@ -490,6 +515,7 @@ slti rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+            help='rd = (rs1 < inm) ? 1 : 0',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -514,6 +540,7 @@ sltiu rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+            help='rd = (ux(rs1) < ux(inm)) ? 1 : 0',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -535,6 +562,7 @@ xori rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+            help='rd = ux(rs1) ^ ux(inm)',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
                 (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
@@ -548,6 +576,7 @@ ori rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+            help='rd = rs1 | inm',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
                 (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
@@ -561,6 +590,7 @@ andi rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+	    help='rd = rs1 & inm',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
                 (MC=1, MR=0, SELA=10000, MA=0, MB=01, SELCOP=1, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
@@ -574,6 +604,7 @@ slli rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(5,0),
+            help='rd = (rs1 << inm)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -596,6 +627,7 @@ srli rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(5,0),
+            help='rd = (rs1 >>> inm)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -617,6 +649,7 @@ srai rd rs1 inm {
             rd=reg(25,21),
             rs1=reg(20,16),
             inm=inm(15,0),
+            help='rd = (rs1 >> inm)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -638,6 +671,7 @@ add reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 + r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -650,6 +684,7 @@ sub reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 - r3',
             {
                 (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -662,6 +697,7 @@ sll rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='rd = rs1 <<< rs2',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -683,6 +719,7 @@ slt rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='rd = (rs1 < rs2) ? 1 : 0',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -705,6 +742,7 @@ sltu rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='rd = (ux(rs1) < ux(rs2)) ? 1 : 0',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -727,6 +765,7 @@ xor reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 ^ r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -739,6 +778,7 @@ srl rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='rd = rs1 >>> rs2',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -760,6 +800,7 @@ sra rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='rd = rs1 >> rs2',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -782,6 +823,7 @@ or reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 | r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -794,6 +836,7 @@ and reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='r1 = r2 & r3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -833,18 +876,20 @@ mul reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='reg1 = reg2 * reg3',
             {
                 (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
-# MULH rd,rs1,rs2 	Multiply High Signed Signed 	rd ← (sx(rs1) × sx(rs2)) » xlen
+# MULH rd,rs1,rs2 	Multiply High Signed 	rd ← (sx(rs1) × sx(rs2)) » xlen
 mulh rd rs1 rs2 {
             co=111111,
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='reg1 = reg2/16 * reg3/16',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -868,6 +913,7 @@ mulhsu rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='reg1 = reg2/16 * ux(reg3/16)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -891,6 +937,7 @@ mulhu rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='reg1 = ux(reg2/16) * ux(reg3/16)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -914,6 +961,7 @@ div reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='reg1 = reg2 / reg3',
             {
                     # if (reg3 == 0)
                     (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
@@ -934,6 +982,7 @@ divu rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='reg1 = ux(reg2) / ux(reg3)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -987,6 +1036,7 @@ rem reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='reg1 = reg2 % reg3',
             {
                 (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=1110, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
@@ -999,6 +1049,7 @@ remu rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='reg1 = ux(reg2) % ux(reg3)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1026,6 +1077,7 @@ min rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='rd = min(ux(rs1), ux(rs2))',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1051,6 +1103,7 @@ max rd rs1 rs2 {
             rd=reg(25,21),
             rs1=reg(20,16),
             rs2=reg(15,11),
+            help='rd = max(ux(rs1), ux(rs2))',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1076,6 +1129,7 @@ andn reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='reg1 = ux(rs1) & ~ux(rs2)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1097,6 +1151,7 @@ orn reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='reg1 = ux(rs1) | ~ux(rs2)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -1118,6 +1173,7 @@ xnor reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            help='reg1 = ux(rs1) xor ~ux(rs2)',
             native,
             {
                 // fields is a default parameter with the instruction field information

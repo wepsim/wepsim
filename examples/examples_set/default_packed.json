@@ -5,9 +5,10 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_base",
+    "microcode": "ep_mips_base",
     "assembly": "ep_s1_e1",
-    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E2",
@@ -15,9 +16,10 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_base",
+    "microcode": "ep_mips_base",
     "assembly": "ep_s1_e2",
-    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E3",
@@ -25,9 +27,10 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_base",
+    "microcode": "ep_mips_base",
     "assembly": "ep_s1_e3",
-    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E4",
@@ -35,9 +38,10 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_base",
+    "microcode": "ep_mips_base",
     "assembly": "ep_s1_e4",
-    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "S2E1",
@@ -45,9 +49,10 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_base",
+    "microcode": "ep_mips_base",
     "assembly": "ep_s2_e1",
-    "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing": false
   },
   {
     "id": "S2E2",
@@ -55,9 +60,10 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_enhanced",
+    "microcode": "ep_mips_enhanced",
     "assembly": "ep_s2_e2",
-    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
+    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
+    "testing": true
   },
   {
     "id": "S2E3",
@@ -65,9 +71,10 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_enhanced",
+    "microcode": "ep_mips_enhanced",
     "assembly": "ep_s2_e3",
-    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "S2E4",
@@ -75,9 +82,10 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_enhanced",
+    "microcode": "ep_mips_enhanced",
     "assembly": "ep_s2_e4",
-    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
+    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing": true
   },
   {
     "id": "S3E1",
@@ -85,9 +93,10 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_interactive",
+    "microcode": "ep_mips_interactive",
     "assembly": "ep_s3_e1",
-    "description": "<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>"
+    "description": "<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
+    "testing": true
   },
   {
     "id": "S3E2",
@@ -95,9 +104,10 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_interactive",
+    "microcode": "ep_mips_interactive",
     "assembly": "ep_s3_e2",
-    "description": "<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>"
+    "description": "<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>",
+    "testing": true
   },
   {
     "id": "S3E3",
@@ -105,9 +115,10 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_interactive",
+    "microcode": "ep_mips_interactive",
     "assembly": "ep_s3_e3",
-    "description": "<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>"
+    "description": "<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>",
+    "testing": true
   },
   {
     "id": "S3E4",
@@ -115,9 +126,10 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_os",
+    "microcode": "ep_mips_os",
     "assembly": "ep_s3_e4",
-    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>"
+    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
+    "testing": true
   },
   {
     "id": "S4E1",
@@ -125,9 +137,10 @@
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_s4_e1",
+    "microcode": "ep_mips_os",
     "assembly": "ep_s4_e1",
-    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>"
+    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing": true
   },
   {
     "id": "S4E2",
@@ -135,9 +148,10 @@
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_os",
+    "microcode": "ep_mips_os",
     "assembly": "ep_s4_e2",
-    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
+    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "testing": true
   },
   {
     "id": "S4E3",
@@ -145,9 +159,10 @@
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_os",
+    "microcode": "ep_mips_os",
     "assembly": "ep_s4_e3",
-    "description": "<span data-langkey='example_04_03'>Example of threads.</span>"
+    "description": "<span data-langkey='example_04_03'>Example of threads.</span>",
+    "testing": true
   },
   {
     "id": "S4E4",
@@ -155,9 +170,10 @@
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_os",
+    "microcode": "ep_mips_os",
     "assembly": "ep_s4_e4",
-    "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>"
+    "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>",
+    "testing": true
   },
   {
     "id": "S6E1",
@@ -167,7 +183,8 @@
     "hardware": "ep",
     "microcode": "ep_bare",
     "assembly": "ep_s6_e1",
-    "description": "<span data-langkey='example_06_01'>Test example.</span>"
+    "description": "<span data-langkey='example_06_01'>Test example.</span>",
+    "testing": true
   },
   {
     "id": "S6E3",
@@ -175,9 +192,10 @@
     "type": "<span data-langkey='Special'>Special</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_enhanced",
+    "microcode": "ep_mips_enhanced",
     "assembly": "ep_s6_e3",
-    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
+    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing": true
   },
   {
     "id": "S6E4",
@@ -185,9 +203,10 @@
     "type": "<span data-langkey='Special'>Special</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
-    "microcode": "ep_os",
+    "microcode": "ep_mips_os",
     "assembly": "ep_s6_e4",
-    "description": "<span data-langkey='example_06_04'>Array of strings.</span>"
+    "description": "<span data-langkey='example_06_04'>Array of strings.</span>",
+    "testing": true
   },
   {
     "id": "S7E1",
@@ -197,7 +216,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s4_e2",
-    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
+    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "testing": true
   },
   {
     "id": "S7E2",
@@ -207,7 +227,8 @@
     "hardware": "ep",
     "microcode": "ep_rv32_bare",
     "assembly": "ep_s7_e2",
-    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "S7E3",
@@ -217,7 +238,8 @@
     "hardware": "ep",
     "microcode": "ep_z80",
     "assembly": "ep_s7_e3",
-    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E1",
@@ -227,7 +249,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s1_e1",
-    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E2",
@@ -237,7 +260,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s1_e2",
-    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E3",
@@ -247,7 +271,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s1_e3",
-    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E4",
@@ -257,7 +282,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s1_e4",
-    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "S2E1",
@@ -267,7 +293,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s2_e1",
-    "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing": false
   },
   {
     "id": "S2E2",
@@ -277,7 +304,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s2_e2",
-    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
+    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
+    "testing": true
   },
   {
     "id": "S2E3",
@@ -287,7 +315,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s2_e3",
-    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "S2E4",
@@ -297,7 +326,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s2_e4",
-    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
+    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing": true
   },
   {
     "id": "S3E1",
@@ -307,7 +337,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s3_e1",
-    "description": "<span data-langkey='example_03_01b'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>"
+    "description": "<span data-langkey='example_03_01b'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
+    "testing": true
   },
   {
     "id": "S3E2",
@@ -317,7 +348,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s3_e2",
-    "description": "<span data-langkey='example_03_02b'>Example with system call support.</span>"
+    "description": "<span data-langkey='example_03_02b'>Example with system call support.</span>",
+    "testing": true
   },
   {
     "id": "S3E3",
@@ -327,7 +359,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s3_e3",
-    "description": "<span data-langkey='example_03_03b'>Example with floating point exception.</span>"
+    "description": "<span data-langkey='example_03_03b'>Example with floating point exception.</span>",
+    "testing": true
   },
   {
     "id": "S3E4",
@@ -337,7 +370,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s3_e4",
-    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>"
+    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
+    "testing": true
   },
   {
     "id": "S4E1",
@@ -347,7 +381,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s4_e1",
-    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>"
+    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing": true
   },
   {
     "id": "S4E2",
@@ -357,7 +392,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s4_e2",
-    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
+    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "testing": true
   },
   {
     "id": "S4E3",
@@ -367,7 +403,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s4_e3",
-    "description": "<span data-langkey='example_04_03'>Example of threads.</span>"
+    "description": "<span data-langkey='example_04_03'>Example of threads.</span>",
+    "testing": true
   },
   {
     "id": "S4E4",
@@ -377,7 +414,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s4_e4",
-    "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>"
+    "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>",
+    "testing": true
   },
   {
     "id": "S6E3",
@@ -387,7 +425,8 @@
     "hardware": "ep",
     "microcode": "ep_mips",
     "assembly": "ep_s6_e3",
-    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
+    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing": true
   },
   {
     "id": "R1E1",
@@ -397,7 +436,8 @@
     "hardware": "ep",
     "microcode": "ep_rv32",
     "assembly": "ep_r1_e1",
-    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "R1E2",
@@ -407,7 +447,8 @@
     "hardware": "ep",
     "microcode": "ep_rv32",
     "assembly": "ep_r1_e2",
-    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "R1E3",
@@ -417,7 +458,8 @@
     "hardware": "ep",
     "microcode": "ep_rv32",
     "assembly": "ep_r1_e3",
-    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "R1E4",
@@ -427,7 +469,8 @@
     "hardware": "ep",
     "microcode": "ep_rv32",
     "assembly": "ep_r1_e4",
-    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "R2E1",
@@ -437,7 +480,8 @@
     "hardware": "ep",
     "microcode": "ep_rv32",
     "assembly": "ep_r2_e1",
-    "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing": false
   },
   {
     "id": "R2E2",
@@ -447,7 +491,8 @@
     "hardware": "ep",
     "microcode": "ep_rv32",
     "assembly": "ep_r2_e2",
-    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "R2E3",
@@ -457,7 +502,8 @@
     "hardware": "ep",
     "microcode": "ep_rv32",
     "assembly": "ep_r2_e3",
-    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "R2E4",
@@ -467,27 +513,74 @@
     "hardware": "ep",
     "microcode": "ep_rv32",
     "assembly": "ep_r2_e4",
-    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
+    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing": true
+  },
+  {
+    "id": "R2E5",
+    "title": "Simple stack conv.",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,asm_rv32",
+    "hardware": "ep",
+    "microcode": "ep_rv32",
+    "assembly": "ep_r2_e5",
+    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
+    "testing": true
   },
   {
     "id": "R3E1",
+    "title": "Interruptions",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "newbie,intro,asm_rv32",
+    "hardware": "ep",
+    "microcode": "ep_rv32",
+    "assembly": "ep_r3_e1",
+    "description": "<span data-langkey='example_03_01b'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
+    "testing": true
+  },
+  {
+    "id": "R3E2",
+    "title": "System call",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "newbie,intro,asm_rv32",
+    "hardware": "ep",
+    "microcode": "ep_rv32",
+    "assembly": "ep_r3_e2",
+    "description": "<span data-langkey='example_03_02b'>Example with system call support.</span>",
+    "testing": true
+  },
+  {
+    "id": "R3E3",
+    "title": "Exception",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "newbie,intro,asm_rv32",
+    "hardware": "ep",
+    "microcode": "ep_rv32",
+    "assembly": "ep_r3_e3",
+    "description": "<span data-langkey='example_03_03b'>Example with floating point exception.</span>",
+    "testing": true
+  },
+  {
+    "id": "R4E1",
     "title": "Int. + syscall + except.",
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "ep_r3_e1",
-    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>"
+    "assembly": "ep_r4_e1",
+    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing": true
   },
   {
-    "id": "R4E1",
+    "id": "R5E1",
     "title": "3D-Led",
     "type": "<span data-langkey='Special'>Special</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "ep_r4_e1",
-    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
+    "assembly": "ep_r5_e1",
+    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing": true
   },
   {
     "id": "S7E3",
@@ -497,7 +590,8 @@
     "hardware": "ep",
     "microcode": "ep_z80",
     "assembly": "ep_s7_e3",
-    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E1",
@@ -507,7 +601,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_base",
     "assembly": "poc_s1_e1",
-    "description": "<span data-langkey='example_01_01'>Simple example.</span>"
+    "description": "<span data-langkey='example_01_01'>Simple example.</span>",
+    "testing": true
   },
   {
     "id": "S1E2",
@@ -517,7 +612,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_base",
     "assembly": "ep_s1_e2",
-    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E3",
@@ -527,7 +623,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_base",
     "assembly": "ep_s1_e3",
-    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>"
+    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing": true
   },
   {
     "id": "S1E4",
@@ -537,7 +634,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_base",
     "assembly": "ep_s1_e4",
-    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "S2E1",
@@ -547,7 +645,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_base",
     "assembly": "ep_s2_e1",
-    "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing": false
   },
   {
     "id": "S2E2",
@@ -557,7 +656,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_base",
     "assembly": "ep_s2_e2",
-    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
+    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
+    "testing": true
   },
   {
     "id": "S2E3",
@@ -567,7 +667,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_base",
     "assembly": "ep_s2_e3",
-    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>"
+    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
     "id": "S2E4",
@@ -577,7 +678,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_base",
     "assembly": "ep_s2_e4",
-    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>"
+    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing": true
   },
   {
     "id": "S3E1",
@@ -587,7 +689,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_os",
     "assembly": "ep_s3_e1",
-    "description": "<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>"
+    "description": "<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
+    "testing": true
   },
   {
     "id": "S3E2",
@@ -597,7 +700,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_os",
     "assembly": "ep_s3_e2",
-    "description": "<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>"
+    "description": "<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>",
+    "testing": true
   },
   {
     "id": "S3E3",
@@ -607,7 +711,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_os",
     "assembly": "ep_s3_e3",
-    "description": "<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>"
+    "description": "<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>",
+    "testing": true
   },
   {
     "id": "S3E4",
@@ -617,7 +722,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_os",
     "assembly": "ep_s3_e4",
-    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>"
+    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
+    "testing": true
   },
   {
     "id": "S4E1",
@@ -627,7 +733,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_os",
     "assembly": "ep_s4_e1",
-    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>"
+    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing": true
   },
   {
     "id": "S4E2",
@@ -637,7 +744,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_os",
     "assembly": "ep_s4_e2",
-    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
+    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "testing": true
   },
   {
     "id": "S4E3",
@@ -647,7 +755,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_os",
     "assembly": "ep_s4_e3",
-    "description": "<span data-langkey='example_04_03'>Example of threads.</span>"
+    "description": "<span data-langkey='example_04_03'>Example of threads.</span>",
+    "testing": true
   },
   {
     "id": "S4E4",
@@ -657,7 +766,8 @@
     "hardware": "poc",
     "microcode": "poc_mips_os",
     "assembly": "ep_s4_e4",
-    "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>"
+    "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>",
+    "testing": true
   },
   {
     "id": "S5E1",
@@ -667,7 +777,8 @@
     "hardware": "poc",
     "microcode": "poc_bare",
     "assembly": "poc_s5_e1",
-    "description": "<span data-langkey='example_06_01'>Test example.</span>"
+    "description": "<span data-langkey='example_06_01'>Test example.</span>",
+    "testing": true
   },
   {
     "id": "S6E3",
@@ -677,6 +788,7 @@
     "hardware": "poc",
     "microcode": "poc_mips_os",
     "assembly": "ep_s6_e3",
-    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>"
+    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing": true
   }
 ]

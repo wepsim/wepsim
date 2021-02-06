@@ -26,8 +26,8 @@
     function wepsim_checkpoint_get ( tagName )
     {
 	    // get mode and history
-	    var ws_mode           = get_cfg('ws_mode') ;
-            var history_obj       = wepsim_state_history_get() ;
+	    var ws_mode     = get_cfg('ws_mode') ;
+            var history_obj = wepsim_state_history_get() ;
 
 	    // get current state
 	    var state_current     = wepsim_state_get_clk() ;
@@ -76,7 +76,7 @@
 		// all saved states are loaded into state history
 	        wepsim_state_history_reset() ;
 	        for (var i=0; i<checkpointObj.state_history.length; i++) {
-	             state_history.push(checkpointObj.state_history[i]) ;
+	             ws_info.state_history.push(checkpointObj.state_history[i]) ;
 	        }
 	        wepsim_state_history_list() ;
 

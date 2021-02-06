@@ -66,9 +66,9 @@
 
 	    // check endpoint
 	    var api_endpoint = rest_info.endpoint ;
-	    if (typeof api_endpoint == "function") {
-                api_endpoint = api_endpoint() ;
-	    }
+            if (api_endpoint.value instanceof Vuex.Store) {
+	        api_endpoint = get_value(api_endpoint) ;
+            }
 
 	    if (api_endpoint.trim() === "") {
 		return false ;

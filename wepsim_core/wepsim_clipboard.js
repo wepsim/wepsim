@@ -23,11 +23,11 @@
      * Copy to clipboard
      */
 
-    var clipboard_copy = '' ;
+    ws_info.clipboard_copy = '' ;
 
     function get_clipboard_copy ( )
     {
-        return clipboard_copy ;
+        return ws_info.clipboard_copy ;
     }
 
     // credit for the SelectText function:
@@ -64,7 +64,7 @@
 
                  if (document.execCommand('copy'))
 		 {
-		     clipboard_copy = $('#' + element_name).text() ;
+		     ws_info.clipboard_copy = $('#' + element_name).text() ;
 		     msg = 'successful' ;
 		 }
 	    }
@@ -85,7 +85,7 @@
 		 var copyTextarea = document.getElementById(element_name);
 		 copyTextarea.select();
                  document.execCommand('copy') ;
-		 clipboard_copy = $('#' + element_name).val() ;
+		 ws_info.clipboard_copy = $('#' + element_name).val() ;
 	    }
             catch (err) {
 		 msg = 'unsuccessful' ;

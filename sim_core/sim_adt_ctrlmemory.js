@@ -121,3 +121,40 @@
 		return value ;
         }
 
+
+        //
+        // verbal description
+        //
+
+	function get_verbal_from_current_mpc ( )
+	{
+	     var active_signals = "" ;
+	     var active_verbal  = "" ;
+
+	     var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	     var curr_maddr = get_value(simhw_sim_state(maddr_name)) ;
+
+             var mcelto = simhw_internalState_get('MC', curr_maddr) ;
+             var mins   = get_value(mcelto) ;
+	     for (var key in mins)
+	     {
+		  if ("MADDR" === key) {
+	   	      active_verbal  = active_verbal  + "MADDR is " + mins[key] + ". " ;
+                      continue ;
+		  }
+
+		  active_signals = active_signals + key + " ";
+	   	  active_verbal  = active_verbal  + compute_signal_verbals(key, mins[key]) ;
+	     }
+
+             // set default for empty
+             active_signals = active_signals.trim() ;
+             if (active_signals === "")
+                 active_signals = "<no active signal>" ;
+             if (active_verbal.trim() === "")
+                 active_verbal = "<no actions>" ;
+
+             // return
+             return "Activated signals are: " + active_signals + ". Associated actions are: " + active_verbal ;
+        }
+
