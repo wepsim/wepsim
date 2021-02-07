@@ -141,7 +141,8 @@
 					        "FIRE_IFCHANGED MRDY C"],
                                      fire_name: ['svg_p:tspan3916'],
                                      draw_data: [[], ['svg_p:path3895','svg_p:path3541']],
-                                     draw_name: [[], []]};
+                                     draw_name: [[], []],
+                                     alt_data:  [] };
 
         sim.poc.signals.R        = { name: "R",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
@@ -149,7 +150,8 @@
 					        "MEM_READ BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
                                      fire_name: ['svg_p:text3533-5-2'],
                                      draw_data: [[], ['svg_p:path3557','svg_p:path3571']],
-                                     draw_name: [[], []]};
+                                     draw_name: [[], []],
+                                     alt_data:  [] };
 
         sim.poc.signals.W        = { name: "W",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
@@ -157,7 +159,8 @@
 					        "MEM_WRITE BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
                                      fire_name: ['svg_p:text3533-5-08'],
                                      draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']],
-                                     draw_name: [[], []] };
+                                     draw_name: [[], []],
+                                     alt_data:  [] };
 
         sim.poc.signals.BW       = { name: "BW",
                                      verbal: ['Access to one byte from memory. ',
@@ -171,7 +174,8 @@
 					        'FIRE R; FIRE W'],
                                      fire_name: ['svg_p:text3533-5-2-8'],
                                      draw_data: [['svg_p:path3557-0']],
-                                     draw_name: [[],[]] };
+                                     draw_name: [[],[]],
+                                     alt_data:  [] };
 
 
         /*

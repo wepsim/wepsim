@@ -206,176 +206,218 @@
 
 	/* REGISTER FILE STATES */
 	sim.poc.states.BR = [] ;
-	sim.poc.states.BR[0]          = {name:"R0",    verbal: "Register  0",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[1]          = {name:"R1",    verbal: "Register  1",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[2]          = {name:"R2",    verbal: "Register  2",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[3]          = {name:"R3",    verbal: "Register  3",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[4]          = {name:"R4",    verbal: "Register  4",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[5]          = {name:"R5",    verbal: "Register  5",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[6]          = {name:"R6",    verbal: "Register  6",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[7]          = {name:"R7",    verbal: "Register  7",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[8]          = {name:"R8",    verbal: "Register  8",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[9]          = {name:"R9",    verbal: "Register  9",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[10]         = {name:"R10",   verbal: "Register 10",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[11]         = {name:"R11",   verbal: "Register 11",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[12]         = {name:"R12",   verbal: "Register 12",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[13]         = {name:"R13",   verbal: "Register 13",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[14]         = {name:"R14",   verbal: "Register 14",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[15]         = {name:"R15",   verbal: "Register 15",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[16]         = {name:"R16",   verbal: "Register 16",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[17]         = {name:"R17",   verbal: "Register 17",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[18]         = {name:"R18",   verbal: "Register 18",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[19]         = {name:"R19",   verbal: "Register 19",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[20]         = {name:"R20",   verbal: "Register 20",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[21]         = {name:"R21",   verbal: "Register 21",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[22]         = {name:"R22",   verbal: "Register 22",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[23]         = {name:"R23",   verbal: "Register 23",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[24]         = {name:"R24",   verbal: "Register 24",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[25]         = {name:"R25",   verbal: "Register 25",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[26]         = {name:"R26",   verbal: "Register 26",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[27]         = {name:"R27",   verbal: "Register 27",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[28]         = {name:"R28",   verbal: "Register 28",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[29]         = {name:"R29",   verbal: "Register 29",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[30]         = {name:"R30",   verbal: "Register 30",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[31]         = {name:"R31",   verbal: "Register 31",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[32]         = {name:"R32",   verbal: "Register 32",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[33]         = {name:"R33",   verbal: "Register 33",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[34]         = {name:"R34",   verbal: "Register 34",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[35]         = {name:"R35",   verbal: "Register 35",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[36]         = {name:"R36",   verbal: "Register 36",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[37]         = {name:"R37",   verbal: "Register 37",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[38]         = {name:"R38",   verbal: "Register 38",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[39]         = {name:"R39",   verbal: "Register 39",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[40]         = {name:"R40",   verbal: "Register 40",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[41]         = {name:"R41",   verbal: "Register 41",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[42]         = {name:"R42",   verbal: "Register 42",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[43]         = {name:"R43",   verbal: "Register 43",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[44]         = {name:"R44",   verbal: "Register 44",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[45]         = {name:"R45",   verbal: "Register 45",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[46]         = {name:"R46",   verbal: "Register 46",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[47]         = {name:"R47",   verbal: "Register 47",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[48]         = {name:"R48",   verbal: "Register 48",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[49]         = {name:"R49",   verbal: "Register 49",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[50]         = {name:"R50",   verbal: "Register 50",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[51]         = {name:"R51",   verbal: "Register 51",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[52]         = {name:"R52",   verbal: "Register 52",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[53]         = {name:"R53",   verbal: "Register 53",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[54]         = {name:"R54",   verbal: "Register 54",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[55]         = {name:"R55",   verbal: "Register 55",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[56]         = {name:"R56",   verbal: "Register 56",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[57]         = {name:"R57",   verbal: "Register 57",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[58]         = {name:"R58",   verbal: "Register 58",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[59]         = {name:"R59",   verbal: "Register 59",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[60]         = {name:"R60",   verbal: "Register 60",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[61]         = {name:"R61",   verbal: "Register 61",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[62]         = {name:"R62",   verbal: "Register 62",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states.BR[63]         = {name:"R63",   verbal: "Register 63",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim.poc.states.BR[0]          = { name:"R0",    verbal: "Register  0",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[1]          = { name:"R1",    verbal: "Register  1",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[2]          = { name:"R2",    verbal: "Register  2",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[3]          = { name:"R3",    verbal: "Register  3",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[4]          = { name:"R4",    verbal: "Register  4",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[5]          = { name:"R5",    verbal: "Register  5",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[6]          = { name:"R6",    verbal: "Register  6",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[7]          = { name:"R7",    verbal: "Register  7",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[8]          = { name:"R8",    verbal: "Register  8",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[9]          = { name:"R9",    verbal: "Register  9",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[10]         = { name:"R10",   verbal: "Register 10",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[11]         = { name:"R11",   verbal: "Register 11",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[12]         = { name:"R12",   verbal: "Register 12",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[13]         = { name:"R13",   verbal: "Register 13",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[14]         = { name:"R14",   verbal: "Register 14",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[15]         = { name:"R15",   verbal: "Register 15",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[16]         = { name:"R16",   verbal: "Register 16",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[17]         = { name:"R17",   verbal: "Register 17",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[18]         = { name:"R18",   verbal: "Register 18",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[19]         = { name:"R19",   verbal: "Register 19",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[20]         = { name:"R20",   verbal: "Register 20",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[21]         = { name:"R21",   verbal: "Register 21",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[22]         = { name:"R22",   verbal: "Register 22",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[23]         = { name:"R23",   verbal: "Register 23",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[24]         = { name:"R24",   verbal: "Register 24",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[25]         = { name:"R25",   verbal: "Register 25",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[26]         = { name:"R26",   verbal: "Register 26",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[27]         = { name:"R27",   verbal: "Register 27",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[28]         = { name:"R28",   verbal: "Register 28",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[29]         = { name:"R29",   verbal: "Register 29",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[30]         = { name:"R30",   verbal: "Register 30",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[31]         = { name:"R31",   verbal: "Register 31",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[32]         = { name:"R32",   verbal: "Register 32",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[33]         = { name:"R33",   verbal: "Register 33",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[34]         = { name:"R34",   verbal: "Register 34",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[35]         = { name:"R35",   verbal: "Register 35",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[36]         = { name:"R36",   verbal: "Register 36",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[37]         = { name:"R37",   verbal: "Register 37",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[38]         = { name:"R38",   verbal: "Register 38",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[39]         = { name:"R39",   verbal: "Register 39",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[40]         = { name:"R40",   verbal: "Register 40",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[41]         = { name:"R41",   verbal: "Register 41",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[42]         = { name:"R42",   verbal: "Register 42",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[43]         = { name:"R43",   verbal: "Register 43",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[44]         = { name:"R44",   verbal: "Register 44",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[45]         = { name:"R45",   verbal: "Register 45",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[46]         = { name:"R46",   verbal: "Register 46",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[47]         = { name:"R47",   verbal: "Register 47",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[48]         = { name:"R48",   verbal: "Register 48",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[49]         = { name:"R49",   verbal: "Register 49",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[50]         = { name:"R50",   verbal: "Register 50",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[51]         = { name:"R51",   verbal: "Register 51",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[52]         = { name:"R52",   verbal: "Register 52",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[53]         = { name:"R53",   verbal: "Register 53",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[54]         = { name:"R54",   verbal: "Register 54",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[55]         = { name:"R55",   verbal: "Register 55",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[56]         = { name:"R56",   verbal: "Register 56",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[57]         = { name:"R57",   verbal: "Register 57",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[58]         = { name:"R58",   verbal: "Register 58",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[59]         = { name:"R59",   verbal: "Register 59",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[60]         = { name:"R60",   verbal: "Register 60",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[61]         = { name:"R61",   verbal: "Register 61",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[62]         = { name:"R62",   verbal: "Register 62",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
+	sim.poc.states.BR[63]         = { name:"R63",   verbal: "Register 63",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [], alt_data: [] };
 
-	sim.poc.states["REG_PC"]     = { name:"PC",  verbal: "Program Counter Register",
-                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["REG_MAR"]    = { name:"MAR", verbal: "Memory Address Register",
-                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["REG_MBR"]    = { name:"MBR", verbal: "Memory Data Register",
-                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["REG_IR"]     = { name:"IR",  verbal: "Instruction Register",
-                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["REG_SR"]     = { name:"SR", verbal: "State Register",
-                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["REG_RT1"]    = { name:"RT1",  verbal: "Temporal Register 1",
-                                         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim.poc.states["REG_PC"]         = { name:"PC",  verbal: "Program Counter Register",
+                                             visible:true, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["REG_MAR"]        = { name:"MAR", verbal: "Memory Address Register",
+                                             visible:true, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["REG_MBR"]        = { name:"MBR", verbal: "Memory Data Register",
+                                             visible:true, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["REG_IR"]         = { name:"IR",  verbal: "Instruction Register",
+                                             visible:true, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["REG_SR"]         = { name:"SR", verbal: "State Register",
+                                             visible:true, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["REG_RT1"]        = { name:"RT1",  verbal: "Temporal Register 1",
+                                             visible:true, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
 
 	/* BUSES */
-	sim.poc.states["BUS_IB"]     = { name:"I_BUS", verbal: "Internal Bus",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["BUS_AB"]     = { name:"A_BUS", verbal: "Address Bus",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["BUS_CB"]     = { name:"C_BUS", verbal: "Control Bus",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["BUS_DB"]     = { name:"D_BUS", verbal: "Data Bus",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim.poc.states["BUS_IB"]         = { name:"I_BUS", verbal: "Internal Bus",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["BUS_AB"]         = { name:"A_BUS", verbal: "Address Bus",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["BUS_CB"]         = { name:"C_BUS", verbal: "Control Bus",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["BUS_DB"]         = { name:"D_BUS", verbal: "Data Bus",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
 
 	/* REGISTER FILE (RELATED) STATES */
-	sim.poc.states["RA_T9"]      = { name: "RA_T9",  verbal: "Input of T9 Tristate",
-                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	sim.poc.states["RB_T10"]     = { name: "RB_T10", verbal: "Input of T10 Tristate",
-                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	sim.poc.states["RA_T9"]          = { name: "RA_T9",  verbal: "Input of T9 Tristate",
+                                             visible:false, nbits: "32", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["RB_T10"]         = { name: "RB_T10", verbal: "Input of T10 Tristate",
+                                             visible:false, nbits: "32", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 
 	/* (RELATED) SELEC STATES */
-	sim.poc.states["SELEC_T3"]   = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
-                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	sim.poc.states["SELEC_T3"]       = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
+                                             visible:false, nbits: "32", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 
-	sim.poc.states["ALU_T6"]     = { name:"ALU_T6",  verbal: "Input of T6 Tristate",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["MA_ALU"]     = { name:"MA_ALU",  verbal: "Input ALU via MA",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["MB_ALU"]     = { name:"MB_ALU",  verbal: "Input ALU via MB",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim.poc.states["ALU_T6"]         = { name:"ALU_T6",  verbal: "Input of T6 Tristate",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["MA_ALU"]         = { name:"MA_ALU",  verbal: "Input ALU via MA",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["MB_ALU"]         = { name:"MB_ALU",  verbal: "Input ALU via MB",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
 
-	sim.poc.states["FLAG_C"]     = { name: "FLAG_C", verbal: "Carry Flag",
-                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.poc.states["FLAG_V"]     = { name: "FLAG_V", verbal: "Overflow Flag",
-                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.poc.states["FLAG_N"]     = { name: "FLAG_N", verbal: "Negative Flag",
-                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.poc.states["FLAG_Z"]     = { name: "FLAG_Z", verbal: "Zero Flag",
-                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.poc.states["FLAG_I"]     = { name: "FLAG_I", verbal: "Interruption Flag",
-                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim.poc.states["FLAG_U"]     = { name: "FLAG_U", verbal: "User Flag",
-                                         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim.poc.states["FLAG_C"]         = { name: "FLAG_C", verbal: "Carry Flag",
+                                             visible:true, nbits: "1", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["FLAG_V"]         = { name: "FLAG_V", verbal: "Overflow Flag",
+                                             visible:true, nbits: "1", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["FLAG_N"]         = { name: "FLAG_N", verbal: "Negative Flag",
+                                             visible:true, nbits: "1", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["FLAG_Z"]         = { name: "FLAG_Z", verbal: "Zero Flag",
+                                             visible:true, nbits: "1", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["FLAG_I"]         = { name: "FLAG_I", verbal: "Interruption Flag",
+                                             visible:true, nbits: "1", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["FLAG_U"]         = { name: "FLAG_U", verbal: "User Flag",
+                                             visible:true, nbits: "1", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 
 	/* CONTROL UNIT */
 	sim.poc.states["REG_MICROADDR"]  = { name: "µADDR", verbal: "Microaddress Register",
-                                             visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
+                                             visible:true, nbits: "12", value:0,  default_value:0,
+                                             draw_data: ['svg_cu:text4667'], alt_data: [] };
 	sim.poc.states["REG_MICROINS"]   = { name: "µINS", verbal: "Microinstruction Register",
-                                             visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
+                                             visible:true, nbits: "77", value:{}, default_value:{},
+                                             draw_data: [], alt_data: [] };
 
 	sim.poc.states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch",
-                                             visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "12", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 	sim.poc.states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM",
-                                             visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "12", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 	sim.poc.states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction",
-                                             visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
+                                             visible:false, nbits: "12", value:1, default_value:1,
+                                             draw_data: [], alt_data: [] };
 
 	sim.poc.states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress",
-                                             visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "12", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 	sim.poc.states["MUXC_MUXB"]      = { name: "MUXC_MUXB", verbal: "Output of MUX C",
-                                             visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "1",  value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 	sim.poc.states["INEX"]           = { name: "INEX",      verbal: "Illegal Instruction Exception",
-                                             visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "1",  value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 
 	/* DEVICES AND MEMORY */
 	sim.poc.states["BS_M1"]          = { name: "BS_M1", verbal: "from Memory",
-                                             visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "32", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 	sim.poc.states["BS_TD"]          = { name: "BS_TD", verbal: "Memory",
-                                             visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "32", value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 
 	sim.poc.states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
-                                             visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "8",  value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 
 
 	/* MUX A (RELATED) STATES */
 	sim.poc.states["M1_C1"]          = { name:"M1_C1", verbal: "Input of Memory Data Register",
-                                             visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
 	sim.poc.states["M7_C7"]          = { name:"M7_C7", verbal: "Input of State Register",
-                                             visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
 
 	sim.poc.states["VAL_ZERO"]       = { name: "VAL_ZERO", verbal: "Wired Zero",
-                                             visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+                                             visible:false, nbits: "1",  value:0, default_value:0,
+                                             draw_data: [], alt_data: [] };
 	sim.poc.states["VAL_ONE"]        = { name: "VAL_ONE",  verbal: "Wired One",
-                                             visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
+                                             visible:false, nbits: "32", value:1, default_value:1,
+                                             draw_data: [], alt_data: [] };
 	sim.poc.states["VAL_FOUR"]       = { name: "VAL_FOUR", verbal: "Wired Four",
-                                             visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
+                                             visible:false, nbits: "32", value:4, default_value:4,
+                                             draw_data: [], alt_data: [] };
 
 	/* VIRTUAL */
-	sim.poc.states["REG_IR_DECO"] = { name:"IR_DECO",  verbal: "Instruction Decoded",
-                                          visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["DECO_INS"]    = { name:"DECO_INS", verbal: "Instruction decoded in binary",
-                                          visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["CLK"]         = { name:"CLK",      verbal: "Clock",
-                                          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim.poc.states["ACC_TIME"]    = { name:"ACC_TIME", verbal: "Accumulated CPU time",
-                                          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim.poc.states["REG_IR_DECO"]    = { name:"IR_DECO",  verbal: "Instruction Decoded",
+                                             visible:true,  nbits:"0",  value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["DECO_INS"]       = { name:"DECO_INS", verbal: "Instruction decoded in binary",
+                                             visible:true,  nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["CLK"]            = { name:"CLK",      verbal: "Clock",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
+	sim.poc.states["ACC_TIME"]       = { name:"ACC_TIME", verbal: "Accumulated CPU time",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [], alt_data: [] };
 
 
 	/*
@@ -407,7 +449,8 @@
 					    ['svg_cu:path3484'],
 					    ['svg_cu:path3484-9'],
 					    ['svg_cu:path3108-3','svg_cu:path3260-3-8-6','svg_cu:path3260-3-8','svg_cu:path3260-3']],
-				draw_name: [['svg_cu:path3496','svg_cu:path3414','svg_cu:path3194-08']] };
+				draw_name: [['svg_cu:path3496','svg_cu:path3414','svg_cu:path3194-08']],
+                                alt_data: [] };
 	 sim.poc.signals["B"]   = { name: "B", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV A1 MUXC_MUXB; FIRE A1",
 					  "NOT_ES A1 MUXC_MUXB; FIRE A1"],
@@ -415,21 +458,24 @@
 			       fire_name: ['svg_cu:text3408'],
 			       draw_data: [['svg_cu:path3094-7'],
 					   ['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384','svg_cu:path3108-1','svg_cu:path3100-8-7']],
-			       draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6']] };
+			       draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6']],
+                                alt_data: [] };
 	 sim.poc.signals["A0"] = { name: "A0", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["SBIT_SIGNAL A0A1 0 1; FIRE A0A1",
 					  "SBIT_SIGNAL A0A1 1 1; FIRE A0A1"],
                                depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3406'],
 			       draw_data: [['svg_cu:path3096'], ['svg_cu:path3096']],
-			       draw_name: [[],['svg_cu:path3138-8-1','svg_cu:path3098-2','svg_cu:path3124-2-5']] };
+			       draw_name: [[],['svg_cu:path3138-8-1','svg_cu:path3098-2','svg_cu:path3124-2-5']],
+                                alt_data: [] };
 	 sim.poc.signals["A1"] = { name: "A1", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["SBIT_SIGNAL A0A1 0 0; FIRE A0A1",
 					  "SBIT_SIGNAL A0A1 1 0; FIRE A0A1"],
                                depends_on: ["CLK"],
 			       fire_name: [],
 			       draw_data: [['svg_cu:path3094'], ['svg_cu:path3094']],
-			       draw_name: [[]] };
+			       draw_name: [[]],
+                                alt_data: [] };
 	 sim.poc.signals["A0A1"] = { name: "A0A1", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 				behavior: ["PLUS1 MUXA_MICROADDR REG_MICROADDR",
 					   "CP_FIELD MUXA_MICROADDR REG_MICROINS/MADDR",
@@ -441,91 +487,108 @@
 					    ['svg_cu:path3104', 'svg_cu:path3134', 'svg_cu:path3500', 'svg_cu:path3416'],
 					    ['svg_cu:path3504', 'svg_cu:path3100-8', 'svg_cu:path3234-9'],
 					    ['svg_cu:path3124']],
-				draw_name: [[]] };
+				draw_name: [[]],
+                                alt_data: [] };
 
 	/* REGISTER LOAD */
 	 sim.poc.signals["C0"] = { name: "C0", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_MAR BUS_IB"],
 			       fire_name: ['svg_p:text3077'],
 			       draw_data: [['svg_p:path3081']],
-			       draw_name: [['svg_p:path3075']] };
+			       draw_name: [['svg_p:path3075']],
+                                alt_data: [] };
 	 sim.poc.signals["C1"] = { name: "C1", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_MBR M1_C1"],
 			       fire_name: ['svg_p:text3079'],
 			       draw_data: [['svg_p:path3055']],
-			       draw_name: [['svg_p:path3073']] };
+			       draw_name: [['svg_p:path3073']],
+                                alt_data: [] };
 	 sim.poc.signals["C2"] = { name: "C2", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_PC BUS_IB; UPDATEDPC"],
 			       fire_name: ['svg_p:text3179'],
 			       draw_data: [['svg_p:path3217']],
-			       draw_name: [['svg_p:path3177']] };
+			       draw_name: [['svg_p:path3177']],
+                                alt_data: [] };
 	 sim.poc.signals["C3"] = { name: "C3", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
 			       fire_name: ['svg_p:text3439'],
 			       draw_data: [['svg_p:path3339', 'svg_p:path3913-4']],
-			       draw_name: [['svg_p:path3337']] };
+			       draw_name: [['svg_p:path3337']],
+                                alt_data: [] };
 	 sim.poc.signals["C4"] = { name: "C4", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_RT1 BUS_IB"],
 			       fire_name: ['svg_p:tspan482'],
 			       draw_data: [['svg_p:path3339-4']],
-			       draw_name: [['svg_p:path3337-0']] };
+			       draw_name: [['svg_p:path3337-0']],
+                                alt_data: [] };
 	 sim.poc.signals["C7"] = { name: "C7", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_SR M7_C7; FIRE C"],
 			       fire_name: ['svg_p:text3655'],
 			       draw_data: [['svg_p:path3651-9']],
-			       draw_name: [['svg_p:path3681']] };
+			       draw_name: [['svg_p:path3681']],
+                                alt_data: [] };
 
 	/* TRI-STATES */
 	 sim.poc.signals["TA"]  = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_AB REG_MAR"],
 			       fire_name: ['svg_p:text3091'],
 			       draw_data: [['svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3601-2', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995','svg_p:path3535']],
-			       draw_name: [['svg_p:path3085']] };
+			       draw_name: [['svg_p:path3085']],
+                                alt_data: [] };
 	 sim.poc.signals["TD"]  = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_DB REG_MBR; FIRE R; FIRE W"],
 			       fire_name: ['svg_p:text3103'],
 			       draw_data: [['svg_p:path3101','svg_p:path3587','svg_p:path3419-8','svg_p:path3071','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3491','svg_p:path3641','svg_p:path3541']],
-			       draw_name: [['svg_p:path3095']] };
+			       draw_name: [['svg_p:path3095']],
+                                alt_data: [] };
 	 sim.poc.signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3105'],
 			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049','svg_p:path3063-9', 'svg_p:path3071']],
-			       draw_name: [['svg_p:path3067']] };
+			       draw_name: [['svg_p:path3067']],
+                                alt_data: [] };
 	 sim.poc.signals["T2"]  = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB REG_PC; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3449'],
 			       draw_data: [['svg_p:path3199', 'svg_p:path3201','svg_p:path3049']],
-			       draw_name: [['svg_p:path3329']] };
+			       draw_name: [['svg_p:path3329']],
+                                alt_data: [] };
 	 sim.poc.signals["T3"]  = { name: "T3",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB SELEC_T3; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3451'],
 			       draw_data: [['svg_p:path3349', 'svg_p:path3931', 'svg_p:path3345','svg_p:path3049']],
-			       draw_name: [['svg_p:path3351']] };
+			       draw_name: [['svg_p:path3351']],
+                                alt_data: [] };
 	 sim.poc.signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB ALU_T6; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3457'],
 			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3163-2','svg_p:path3049', 'svg_p:path3317-9', 'svg_p:path3321', 'svg_p:path3261-8']],
-			       draw_name: [['svg_p:path3319']] };
+			       draw_name: [['svg_p:path3319']],
+                                alt_data: [] };
 	 sim.poc.signals["T8"]  = { name: "T8",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB REG_SR; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3657'],
 			       draw_data: [['svg_p:path3651', 'svg_p:path3647','svg_p:path3049']],
-			       draw_name: [['svg_p:path3649']] };
+			       draw_name: [['svg_p:path3649']],
+                                alt_data: [] };
 	 sim.poc.signals["T9"]  = { name: "T9",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB RA_T9; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3147'],
 			       draw_data: [['svg_p:path3143', 'svg_p:path3139','svg_p:path3049','svg_p:path3143-9']],
-			       draw_name: [['svg_p:path3133']] };
+			       draw_name: [['svg_p:path3133']],
+                                alt_data: [] };
 	 sim.poc.signals["T10"] = { name: "T10", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB RB_T10; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3149'],
 			       draw_data: [['svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5']],
-			       draw_name: [['svg_p:path3137']] };
+			       draw_name: [['svg_p:path3137']],
+                                alt_data: [] };
 	 sim.poc.signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
 			       draw_data: [['svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3502']],
-			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
+			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']],
+                                alt_data: [] };
 
 	/* MUX. */
 	 sim.poc.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
@@ -533,27 +596,31 @@
                                depends_on: ["C1"],
 			       fire_name: ['svg_p:text3469'],
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
-			       draw_name: [[], ['svg_p:path3447']] };
+			       draw_name: [[], ['svg_p:path3447']],
+                                alt_data: [] };
 	 sim.poc.signals["M7"]  = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV M7_C7 BUS_IB",
 				          "MV M7_C7 REG_SR; UPDATE_FLAG M7_C7 FLAG_C 31; UPDATE_FLAG M7_C7 FLAG_V 30; UPDATE_FLAG M7_C7 FLAG_N 29; UPDATE_FLAG M7_C7 FLAG_Z 28"],
                                depends_on: ["C7"],
 			       fire_name: ['svg_p:text3673'],
 			       draw_data: [['svg_p:path3691', 'svg_p:path3693', 'svg_p:path3659'], ['svg_p:path3695']],
-			       draw_name: [[], ['svg_p:path3667']] };
+			       draw_name: [[], ['svg_p:path3667']],
+                                alt_data: [] };
 	 sim.poc.signals["MA"]  = { name: "MA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV MA_ALU RA_T9; FIRE COP", "MV MA_ALU BUS_IB; FIRE COP"],
                                depends_on: ["SELA","SELB"],
 			       fire_name: ['svg_p:text3463'],
 			       draw_data: [['svg_p:path3249', 'svg_p:path3161', 'svg_p:path3165'], ['svg_p:path3279']],
-			       draw_name: [[], ['svg_p:path3423']] };
+			       draw_name: [[], ['svg_p:path3423']],
+                                alt_data: [] };
 	 sim.poc.signals["MB"]  = { name: "MB",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV MB_ALU RB_T10; FIRE COP", "MV MB_ALU REG_PC; FIRE COP"],
                                depends_on: ["SELA","SELB"],
 			       fire_name: ['svg_p:text3465'],
 			       draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'],
                                            ['svg_p:path3283']],
-			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
+			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']],
+                                alt_data: [] };
 	 sim.poc.signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
 			       behavior: ["NOP_ALU; UPDATE_NZVC",
                                           "AND ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
@@ -591,60 +658,70 @@
 			       fire_name: ['svg_p:text3303'],
 			       draw_data: [['svg_p:path3237', 'svg_p:path3239',
                                             'svg_p:path3261-8', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3317-9']],
-			       draw_name: [['svg_p:path3009', 'svg_p:path3301']] };
+			       draw_name: [['svg_p:path3009', 'svg_p:path3301']],
+                                alt_data: [] };
 	 sim.poc.signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "6",
 			        behavior: ["FIRE_IFCHANGED MRA SELA; RESET_CHANGED SELA"],
                                 depends_on: ["RA"],
 			        fire_name: ['svg_cu:text3164'],
 			        draw_data: [[]],
-			        draw_name: [[]] };
+			        draw_name: [[]],
+                                alt_data: [] };
 	 sim.poc.signals["SELB"] = { name: "SELB", visible: true, type: "L", value: 0, default_value:0, nbits: "6",
 			        behavior: ["FIRE_IFCHANGED MRB SELB; RESET_CHANGED SELB"],
                                 depends_on: ["RB"],
 			        fire_name: ['svg_cu:text3168'],
 			        draw_data: [[]],
-			        draw_name: [[]] };
+			        draw_name: [[]],
+                                alt_data: [] };
 	 sim.poc.signals["SELC"] = { name: "SELC", visible: true, type: "L", value: 0, default_value:0, nbits: "6",
 			        behavior: ["FIRE_IFCHANGED MRC SELC; RESET_CHANGED SELC"],
                                 depends_on: ["RC"],
 			        fire_name: ['svg_cu:text3172'],
 			        draw_data: [[]],
-			        draw_name: [[]] };
+			        draw_name: [[]],
+                                alt_data: [] };
 	 sim.poc.signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			        behavior: ["FIRE_IFCHANGED MC SELCOP; RESET_CHANGED SELCOP"],
                                 depends_on: ["COP"],
 			        fire_name: ['svg_cu:text3312'],
 			        draw_data: [[]],
-			        draw_name: [[]] };
+			        draw_name: [[]],
+                                alt_data: [] };
 	 sim.poc.signals["EXCODE"] = { name: "EXCODE", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
 			          behavior: ["FIRE T11"],
 			          fire_name: ['svg_cu:text3312-6'],
 			          draw_data: [[]],
-			          draw_name: [[]] };
+			          draw_name: [[]],
+                                alt_data: [] };
 
 	 sim.poc.signals["RA"]  = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "6", forbidden: true,
 			       behavior: ["GET RA_T9 BR RA; FIRE_IFSET T9 1; FIRE_IFSET MA 0"],
                                depends_on: ["SELA"],
 			       fire_name: ['svg_p:text3107'],
 			       draw_data: [[]],
-			       draw_name: [['svg_p:path3109']] };
+			       draw_name: [['svg_p:path3109']],
+                                alt_data: [] };
 	 sim.poc.signals["RB"]  = { name: "RB", visible: true, type: "L", value: 0, default_value:0, nbits: "6", forbidden: true,
 			       behavior: ["GET RB_T10 BR RB; FIRE_IFSET T10 1; FIRE_IFSET MB 0"],
                                depends_on: ["SELB"],
 			       fire_name: ['svg_p:text3123'],
 			       draw_data: [[]],
-			       draw_name: [['svg_p:path3113']] };
+			       draw_name: [['svg_p:path3113']],
+                                alt_data: [] };
 	 sim.poc.signals["RC"]  = { name: "RC", visible: true, type: "L", value: 0, default_value:0, nbits: "6", forbidden: true,
 			       behavior: ["FIRE LC"],
                                depends_on: ["SELC"],
 			       fire_name: ['svg_p:text3125'],
 			       draw_data: [[]],
-			       draw_name: [['svg_p:path3117']] };
+			       draw_name: [['svg_p:path3117']],
+                                alt_data: [] };
 	 sim.poc.signals["LC"]  = { name: "LC", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "SET BR RC BUS_IB"],
 			       fire_name: ['svg_p:text3127'],
 			       draw_data: [['svg_p:path3153', 'svg_p:path3151', 'svg_p:path3129']],
-			       draw_name: [['svg_p:path3121']] };
+			       draw_name: [['svg_p:path3121']],
+                                alt_data: [] };
 
 	 sim.poc.signals["SE"]  = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3",
@@ -652,19 +729,22 @@
                                depends_on: ["T3"],
 			       fire_name: ['svg_p:text3593'],
 			       draw_data: [[]],
-			       draw_name: [['svg_p:path3591','svg_p:path3447-7-7']] };
+			       draw_name: [['svg_p:path3591','svg_p:path3447-7-7']],
+                                alt_data: [] };
 	 sim.poc.signals["SIZE"] = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			       behavior: ['MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3'],
                                depends_on: ["T3"],
 			       fire_name: ['svg_p:text3363'],
 			       draw_data: [[]],
-			       draw_name: [['svg_p:path3355']] };
+			       draw_name: [['svg_p:path3355']],
+                                alt_data: [] };
 	 sim.poc.signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			       behavior: ['MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3'],
                                depends_on: ["T3"],
 			       fire_name: ['svg_p:text3707'],
 			       draw_data: [[]],
-			       draw_name: [['svg_p:path3359']] };
+			       draw_name: [['svg_p:path3359']],
+                                alt_data: [] };
 
 	 sim.poc.signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ['MBIT COP REG_IR 0 5; FIRE_IFCHANGED COP MC',
@@ -672,7 +752,8 @@
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],
-			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
+			       draw_name: [[],['svg_cu:path3306']],
+                                alt_data: [] }; /*path3210 print red color line of rest of control signals*/
 
 	 sim.poc.signals["MRA"]  = { name: "MRA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
@@ -684,7 +765,8 @@
                                               'svg_cu:path3260'],
 				  	     ['svg_cu:path3270','svg_cu:path3258','svg_cu:path3260',
 				  	      'svg_cu:path3294','svg_cu:path3288','svg_cu:path3280']],
-			         draw_name: [[],['svg_cu:path3220']] };
+			         draw_name: [[],['svg_cu:path3220']],
+                                alt_data: [] };
 	 sim.poc.signals["MRB"]  = { name: "MRB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;',
 					    'CP_FIELD RB REG_MICROINS/SELB; FIRE RB;'],
@@ -692,7 +774,8 @@
 			         fire_name: ['svg_cu:text3242'],
 			         draw_data: [['svg_cu:path3196','svg_cu:path3278','svg_cu:path3292'],
 				  	     ['svg_cu:path3282','svg_cu:path3258-4','svg_cu:path3278','svg_cu:path3196']],
-			         draw_name: [[],['svg_cu:path3240']] };
+			         draw_name: [[],['svg_cu:path3240']],
+                                alt_data: [] };
 	 sim.poc.signals["MRC"]  = { name: "MRC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;',
 					    'CP_FIELD RC REG_MICROINS/SELC; FIRE RC;'],
@@ -702,19 +785,22 @@
                                               'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
                                               'svg_cu:path3232','svg_cu:path3292'],
 				  	     ['svg_cu:path3300','svg_cu:path3294','svg_cu:path3292','svg_cu:path3288','svg_cu:path3232']],
-			         draw_name: [[],['svg_cu:path3252']] };
+			         draw_name: [[],['svg_cu:path3252']],
+                                alt_data: [] };
 
 	/* I/O Devices */
 	 sim.poc.signals["IOR"]   = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				 behavior: ["NOP", "MOVE_BITS SCR_IOR 0 1 IOR; FIRE SCR_IOR; MOVE_BITS IO_IOR 0 1 IOR; MOVE_BITS L3D_IOR 0 1 IOR; FIRE IO_IOR; MOVE_BITS KBD_IOR 0 1 IOR; FIRE KBD_IOR; FIRE L3D_IOR"],
 				 fire_name: [],
 				 draw_data: [[], ['svg_p:path3733', 'svg_p:path3491', 'svg_p:text3715']],
-				 draw_name: [[], []]};
+				 draw_name: [[], []],
+                                alt_data: []};
 	 sim.poc.signals["IOW"]   = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 		                 behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW; MOVE_BITS IO_IOW 0 1 IOW; FIRE IO_IOW; MOVE_BITS L3D_IOW 0 1 IOW; FIRE L3D_IOW"],
 				 fire_name: [],
 				 draw_data: [[], ['svg_p:path3735', 'svg_p:path3491', 'svg_p:text3717']],
-				 draw_name: [[], []]};
+				 draw_name: [[], []],
+                                alt_data: []};
 
         /* Virtual Signals, for UI */
 	 sim.poc.signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
