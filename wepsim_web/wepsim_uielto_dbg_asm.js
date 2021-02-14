@@ -229,9 +229,9 @@
 	             else mp[l].bgcolor = "#F0F0F0" ;
 
                      // <skip data segments>
-                     if (false == mp[l].is_assembly) {
-		         continue ;
-                     }
+                  // if (false == mp[l].is_assembly) {
+		  //     continue ;
+                  // }
                      // </skip data segments>
 
                      // several data values repeated -> '...'
