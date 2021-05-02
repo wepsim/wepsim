@@ -304,6 +304,8 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 + The following fragment is a example of how to use WepSIM command-line within Google Colab cell:
 
 ```html
+!npm install  terser jq jshint yargs clear inquirer 
+
 !wget https://github.com/acaldero/wepsim/releases/download/v2.1.5/wepsim-2.1.5.zip
 !unzip -o wepsim-2.1.5.zip
 !rm -fr   wepsim-2.1.5.zip
