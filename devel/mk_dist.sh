@@ -34,7 +34,7 @@ fi
 # install dependencies
 echo "  Requirements:"
 echo "  * terser jq jshint"
-echo "  * yargs clear inquirer fuzzy"
+echo "  * yargs clear inquirer fuzzy commander async"
 echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
 npm install
 
