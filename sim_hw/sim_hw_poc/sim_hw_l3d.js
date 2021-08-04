@@ -95,13 +95,13 @@
 
         sim.poc.states.L3DSR  = { name: "L3DSR", verbal: "L3D State Register",
                                   visible:false, nbits: "32", value: 0, default_value: 0,
-                                  draw_data: [], alt_data: [] };
+                                  draw_data: [] };
         sim.poc.states.L3DCR  = { name: "L3DCR", verbal: "L3D Control Register",
                                   visible:false, nbits: "32", value: 0, default_value: 0,
-                                  draw_data: [], alt_data: [] };
+                                  draw_data: [] };
         sim.poc.states.L3DDR  = { name: "L3DDR", verbal: "L3D Data Register",
                                   visible:false, nbits: "32", value: 0, default_value: 0,
-                                  draw_data: [], alt_data: [] };
+                                  draw_data: [] };
 
 
         /*
@@ -113,16 +113,14 @@
                                      behavior: ["NOP", "L3D_IOR BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE M1"],
                                      fire_name: ['svg_p:tspan4173'],
                                      draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']],
-                                     draw_name: [[], []],
-                                     alt_data: [] };
+                                     draw_name: [[], []] };
 
          sim.poc.signals.L3D_IOW = { name: "L3D_IOW",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      behavior: ["NOP", "L3D_IOW BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE M1; L3D_SYNC"],
                                      fire_name: ['svg_p:text3785-0-6-0-5-5'],
                                      draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']],
-                                     draw_name: [[], []],
-                                     alt_data: [] };
+                                     draw_name: [[], []] };
 
 
         /*

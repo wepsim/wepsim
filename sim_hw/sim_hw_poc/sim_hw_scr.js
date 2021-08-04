@@ -117,10 +117,10 @@
 
         sim.poc.states.DDR    = { name: "DDR", verbal: "Display Data Register", 
                                   visible:false, nbits: "32", value: 0, default_value: 0,
-                                  draw_data: [], alt_data: [] };
+                                  draw_data: [] };
         sim.poc.states.DSR    = { name: "DSR", verbal: "Display State Register", 
                                   visible:false, nbits: "32", value: 0, default_value: 0,
-                                  draw_data: [], alt_data: [] };
+                                  draw_data: [] };
 
 
         /*
@@ -132,16 +132,14 @@
 		                    behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
                                     fire_name: ['svg_p:tspan4004'], 
                                     draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
-                                    draw_name: [[], []],
-                                    alt_data: [] };
+                                    draw_name: [[], []] };
 
         sim.poc.signals.SCR_IOW = { name: "SCR_IOW", 
 		                    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                    behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
                                     fire_name: ['svg_p:tspan4006'], 
                                     draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']], 
-                                    draw_name: [[], []],
-                                    alt_data: [] };
+                                    draw_name: [[], []] };
 
 
         /*
