@@ -770,30 +770,30 @@
 		      states:            {
 					   "mux_0":  {
 						       name: "MUX/0",
-						       ref:  "",
+						       ref:  "REG_IR REG_MICROINS/SELA",
 						       description: "Input 0 of MUX MR, from IR[SelA...SelA+5]"
 						     },
 					   "mux_1":  {
 						       name: "MUX/1",
-						       ref:  "",
+						       ref:  "REG_MICROINS/SELA",
 						       description: "Input 1 of MUX MR, from SelA"
 						     },
 					   "mux_o":  {
 						       name: "MR OUT",
-						       ref:  "",
+						       ref:  "RA",
 						       description: "Output to RA"
 						     }
 					 },
 		      signals:           {
-					   "mr":     {
+					   "ctl":    {
 						       name: "MR",
-						       ref:  "",
+						       ref:  "MR_RA",
 						       description: "Select the input value to send to the output"
 						     }
 					 },
 		      states_inputs:     [ "mux_0", "mux_1" ],
 		      states_outputs:    [ "mux_o" ],
-		      signals_inputs:    [ "mr" ],
+		      signals_inputs:    [ "ctl" ],
 		      signals_output:    [ ]
 		   },
 		   "cu_mux_rb":
@@ -805,24 +805,24 @@
 		      states:            {
 					   "mux_0":  {
 						       name: "MUX/0",
-						       ref:  "",
+						       ref:  "REG_IR REG_MICROINS/SELB",
 						       description: "Input 0 of MUX MR, from IR[SelB...SelB+5]"
 						     },
 					   "mux_1":  {
 						       name: "MUX/1",
-						       ref:  "",
+						       ref:  "REG_MICROINS/SELB",
 						       description: "Input 1 of MUX MR, from SelB"
 						     },
 					   "mux_o":  {
 						       name: "MR OUT",
-						       ref:  "",
+						       ref:  "RB",
 						       description: "Output to RB"
 						     }
 					 },
 		      signals:           {
 					   "mr":     {
 						       name: "MR",
-						       ref:  "",
+						       ref:  "MR_RB",
 						       description: "Select the input value to send to the output"
 						     }
 					 },
@@ -840,24 +840,24 @@
 		      states:            {
 					   "mux_0":  {
 						       name: "MUX/0",
-						       ref:  "",
+						       ref:  "REG_IR REG_MICROINS/SELC",
 						       description: "Input 0 of MUX MR, from IR[SelC...SelC+5]"
 						     },
 					   "mux_1":  {
 						       name: "MUX/1",
-						       ref:  "",
+						       ref:  "REG_MICROINS/SELC",
 						       description: "Input 1 of MUX MR, from SelC"
 						     },
 					   "mux_o":  {
 						       name: "MR OUT",
-						       ref:  "",
+						       ref:  "RC",
 						       description: "Output to RC"
 						     }
 					 },
 		      signals:           {
 					   "mr":     {
 						       name: "MR",
-						       ref:  "",
+						       ref:  "MR_RC",
 						       description: "Select the input value to send to the output"
 						     }
 					 },
@@ -874,31 +874,31 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "mux_0":  {
-						       name: "MUX/0",
-						       ref:  "",
+						       name: "REG_IR/0..4",
+						       ref:  "REG_IR",
 						       description: "Input 0 of MUX MC, from IR3...IR0"
 						     },
 					   "mux_1":  {
-						       name: "MUX/1",
-						       ref:  "",
+						       name: "SELCOP",
+						       ref:  "REG_MICROINS/SELCOP",
 						       description: "Input 1 of MUX MC, from SelCop"
 						     },
 					   "mux_o":  {
-						       name: "MR OUT",
-						       ref:  "",
+						       name: "COP",
+						       ref:  "COP",
 						       description: "Output to COP"
 						     }
 					 },
 		      signals:           {
-					   "mc":     {
+					   "ctl":    {
 						       name: "MC",
-						       ref:  "",
+						       ref:  "MC",
 						       description: "Select the input value to send to the output"
 						     }
 					 },
 		      states_inputs:     [ "mux_0", "mux_1" ],
 		      states_outputs:    [ "mux_o" ],
-		      signals_inputs:    [ "mc" ],
+		      signals_inputs:    [ "ctl" ],
 		      signals_output:    [ ]
 		   },
 
@@ -911,20 +911,20 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "in":     {
-						       name: "IN",
-						       ref:  "",
+						       name: "IDB>",
+						       ref:  "BUS_IB",
 						       description: "Input is the IDB"
 						     },
 					   "out":    {
-						       name: "OUT",
-						       ref:  "",
+						       name: ">MAR",
+						       ref:  "REG_MAR",
 						       description: "Output goes to the Ta tristate"
 						     }
 					 },
 		      signals:           {
 					   "c0":     {
 						       name: "c0",
-						       ref:  "",
+						       ref:  "C0",
 						       description: "Confirm that input is stored"
 						     }
 					 },
@@ -941,20 +941,20 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "in":     {
-						       name: "IN",
-						       ref:  "",
+						       name: "M1>",
+						       ref:  "M1_C1",
 						       description: "Input is the M1 output"
 						     },
 					   "out":    {
-						       name: "OUT",
-						       ref:  "",
+						       name: ">MBR",
+						       ref:  "REG_MBR",
 						       description: "Output goes to the T1 tristate"
 						     }
 					 },
 		      signals:           {
 					   "c1":     {
 						       name: "c1",
-						       ref:  "",
+						       ref:  "C1",
 						       description: "Confirm that input is stored"
 						     }
 					 },
@@ -971,26 +971,26 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "in":     {
-						       name: "IN",
-						       ref:  "",
+						       name: "M2>",
+						       ref:  "M2_C2",
 						       description: "Input is the M2 output"
 						     },
 					   "out":    {
-						       name: "OUT",
-						       ref:  "",
+						       name: ">PC",
+						       ref:  "REG_PC",
 						       description: "Output goes to the T2 tristate"
 						     }
 					 },
 		      signals:           {
-					   "c2":     {
+					   "ctl":    {
 						       name: "c2",
-						       ref:  "",
+						       ref:  "C2",
 						       description: "Confirm that input is stored"
 						     }
 					 },
 		      states_inputs:     [ "in" ],
 		      states_outputs:    [ "out" ],
-		      signals_inputs:    [ "c2" ],
+		      signals_inputs:    [ "ctl" ],
 		      signals_output:    [ ]
 		   },
 		   "ir":
@@ -1001,20 +1001,20 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "in":     {
-						       name: "IN",
-						       ref:  "",
+						       name: "IDB>",
+						       ref:  "BUS_IB",
 						       description: "Input is the IDB"
 						     },
 					   "out":    {
-						       name: "OUT",
-						       ref:  "",
+						       name: ">IR",
+						       ref:  "REG_IR",
 						       description: "Output goes to the IR selector and the CU"
 						     }
 					 },
 		      signals:           {
 					   "c3":     {
 						       name: "c3",
-						       ref:  "",
+						       ref:  "C3",
 						       description: "Confirm that input is stored"
 						     }
 					 },
@@ -1031,26 +1031,26 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "in":     {
-						       name: "IN",
-						       ref:  "",
+						       name: "IDB>",
+						       ref:  "BUS_IB",
 						       description: "Input is the IDB"
 						     },
 					   "out":    {
-						       name: "OUT",
-						       ref:  "",
+						       name: ">RT1",
+						       ref:  "REG_RT1",
 						       description: "Output goes to the T4 tristate"
 						     }
 					 },
 		      signals:           {
-					   "c4":     {
+					   "ctl":    {
 						       name: "c4",
-						       ref:  "",
+						       ref:  "C4",
 						       description: "Confirm that input is stored"
 						     }
 					 },
 		      states_inputs:     [ "in" ],
 		      states_outputs:    [ "out" ],
-		      signals_inputs:    [ "c4" ],
+		      signals_inputs:    [ "ctl" ],
 		      signals_output:    [ ]
 		   },
 		   "rt2":
@@ -1061,26 +1061,26 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "in":     {
-						       name: "IN",
-						       ref:  "",
+						       name: "IDB>",
+						       ref:  "BUS_IB",
 						       description: "Input is the IDB"
 						     },
 					   "out":    {
-						       name: "OUT",
-						       ref:  "",
+						       name: ">RT2",
+						       ref:  "REG_RT2",
 						       description: "Output goes to the T5 tristate"
 						     }
 					 },
 		      signals:           {
-					   "c5":    {
+					   "ctl":    {
 						       name: "c5",
-						       ref:  "",
+						       ref:  "C5",
 						       description: "Confirm that input is stored"
 						     }
 					 },
 		      states_inputs:     [ "in" ],
 		      states_outputs:    [ "out" ],
-		      signals_inputs:    [ "c5" ],
+		      signals_inputs:    [ "ctl" ],
 		      signals_output:    [ ]
 		   },
 		   "rt3":
@@ -1091,26 +1091,26 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "in":     {
-						       name: "IN",
-						       ref:  "",
+						       name: "ALU>",
+						       ref:  "ALU_C6",
 						       description: "Input is the output of the ALU"
 						     },
 					   "out":    {
-						       name: "OUT",
-						       ref:  "",
+						       name: ">RT3",
+						       ref:  "REG_RT3",
 						       description: "Output goes to the T7 tristate"
 						     }
 					 },
 		      signals:           {
-					   "c6":     {
+					   "ctl":    {
 						       name: "c6",
-						       ref:  "",
+						       ref:  "C6",
 						       description: "Confirm that input is stored"
 						     }
 					 },
 		      states_inputs:     [ "in" ],
 		      states_outputs:    [ "out" ],
-		      signals_inputs:    [ "c6" ],
+		      signals_inputs:    [ "ctl" ],
 		      signals_output:    [ ]
 		   },
 		   "sr":
@@ -1121,26 +1121,26 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "in":     {
-						       name: "IN",
-						       ref:  "",
+						       name: "M7>",
+						       ref:  "M7_C7",
 						       description: "Input is the output of the M7"
 						     },
 					   "out":    {
-						       name: "OUT",
-						       ref:  "",
+						       name: ">SR",
+						       ref:  "REG_SR",
 						       description: "Output goes to the T8 input and the CU"
 						     }
 					 },
 		      signals:           {
-					   "c7":     {
+					   "ctl":    {
 						       name: "c7",
-						       ref:  "",
+						       ref:  "C7",
 						       description: "Confirm that input is stored"
 						     }
 					 },
 		      states_inputs:     [ "in" ],
 		      states_outputs:    [ "out" ],
-		      signals_inputs:    [ "c7" ],
+		      signals_inputs:    [ "ctl" ],
 		      signals_output:    [ ]
 		   },
 		   "register_file":
@@ -1152,39 +1152,39 @@
 		      states:            {
 					   "a":     {
 						       name: "A",
-						       ref:  "",
+						       ref:  "RA_T9",
 						       description: "Output of RF to  T9 and MA/0"
 						    },
 					   "b":     {
 						       name: "B",
-						       ref:  "",
+						       ref:  "RB_T10",
 						       description: "Output of RF to T10 and MB/0"
 						    },
 					   "c":     {
 						       name: "C",
-						       ref:  "",
+						       ref:  "BUS_IB",
 						       description: "Input to RF from IDB"
 						    }
 					 },
 		      signals:           {
 					   "ra":    {
 						       name: "RA",
-						       ref:  "",
+						       ref:  "RA",
 						       description: "Select the register which value is sent to A"
 						    },
 					   "rb":    {
 						       name: "RB",
-						       ref:  "",
+						       ref:  "RB",
 						       description: "Select the register which value is sent to B"
 						    },
 					   "rc":    {
 						       name: "RC",
-						       ref:  "",
+						       ref:  "RC",
 						       description: "Select the register where C's value is stored"
 						    },
 					   "lc":    {
 						       name: "LC",
-						       ref:  "",
+						       ref:  "LC",
 						       description: "Confirm that RC is going to be updated"
 						    }
 					 },
@@ -1203,29 +1203,29 @@
 		      states:            {
 					   "a":     {
 						       name: "A",
-						       ref:  "",
+						       ref:  "MA_ALU",
 						       description: "Output from MUX A multiplexor"
 						    },
 					   "b":     {
 						       name: "B",
-						       ref:  "",
+						       ref:  "MB_ALU",
 						       description: "Output from MUX B multiplexor"
 						    },
 					   "alu":   {
 						       name: "ALU",
-						       ref:  "",
+						       ref:  "ALU_C6",
 						       description: "Result goes to the input of T6 and RT3"
 						    },
 					   "flags": {
 						       name: "flags",
-						       ref:  "",
+						       ref:  "SELP_M7",
 						       description: "Updated C,V,N,Z flags"
 						    }
 					 },
 		      signals:           {
 					   "cop":   {
 						       name: "COP",
-						       ref:  "",
+						       ref:  "COP",
 						       description: "Operation code (+, -, *, ...)"
 						    }
 					 },
@@ -1244,30 +1244,30 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "mux_1": {
-						       name: "MUX/1",
-						       ref:  "",
+						       name: "U>",
+						       ref:  "FLAG_U",
 						       description: "Input 1 of SELECT-SR, U"
 						    },
 					   "mux_2": {
-						       name: "MUX/2",
-						       ref:  "",
+						       name: "I>",
+						       ref:  "FLAG_I",
 						       description: "Input 2 of SELECT-SR, I"
 						    },
 					   "mux_3": {
-						       name: "MUX/3",
-						       ref:  "",
+						       name: "C V N Z>",
+						       ref:  "SELP_M7",
 						       description: "Input 3 of SELECT-SR, C V N Z"
 						    },
 					   "mux_o": {
-						       name: "SEL-SR OUT",
-						       ref:  "",
+						       name: ">MUX 7/1",
+						       ref:  "SELP_M7",
 						       description: "Output to MUX 7/1"
 						    }
 					 },
 		      signals:           {
 					   "selp":  {
 						       name: "SelP",
-						       ref:  "",
+						       ref:  "SELP",
 						       description: "Select the input value to send to the output"
 						    }
 					 },
@@ -1284,30 +1284,30 @@
 		      belongs:           "cpu",
 		      states:            {
 					   "mux_i": {
-						       name: "SEL-IR IN",
-						       ref:  "",
+						       name: "IR>",
+						       ref:  "IR",
 						       description: "Input of SELECT-IR from IR"
 						    },
 					   "mux_o": {
-						       name: "SEL-IR OUT",
-						       ref:  "",
-						       description: "Output to IDB"
+						       name: ">T3",
+						       ref:  "SELEC_T3",
+						       description: "Output to IDB though T3"
 						    }
 					 },
 		      signals:           {
 					   "se":     {
 							name: "SE",
-							ref:  "",
+							ref:  "SE",
 							description: "Sign Extension"
 						     },
 					   "size":   {
 							name: "SIZE",
-							ref:  "",
+							ref:  "SIZE",
 							description: "Size"
 						      },
 					   "offset":  {
 							name: "OFFSET",
-							ref:  "",
+							ref:  "OFFSET",
 							description: "Offset"
 						      }
 					 },
@@ -1325,49 +1325,49 @@
 		      states:            {
 					   "from_mbr":  {
 							  name: "MBR",
-							  ref:  "",
+							  ref:  "REG_MBR",
 							  description: "Input from MBR"
 							},
 					   "from_data": {
 							  name: "DATA",
-							  ref:  "",
+							  ref:  "BUS_DB",
 							  description: "Input from Data Bus"
 							},
 					   "be":        {
 							  name: "BE",
-							  ref:  "",
+							  ref:  "BE",
 							  description: "Output to BE"
 							},
 					   "to_mbr":    {
 							  name: "M1/1",
-							  ref:  "",
+							  ref:  "BS_M1",
 							  description: "Output to M1/1"
 							},
 					   "to_td":     {
 							  name: "TD",
-							  ref:  "",
+							  ref:  "BS_TD",
 							  description: "Output to Td/input"
 							}
 					 },
 		      signals:           {
 					   "w":         {
 							  name: "W",
-							  ref:  "",
+							  ref:  "W",
 							  description: "Write into main memory"
 							},
 					   "se":        {
 							  name: "SE",
-							  ref:  "",
+							  ref:  "SE",
 							  description: "Sign Extension"
 							},
 					   "a1a0":      {
 							  name: "A1A0",
-							  ref:  "",
+							  ref:  "A1A0",
 							  description: "A1A0"
 							},
 					   "bw":        {
 							  name: "BW",
-							  ref:  "",
+							  ref:  "BW",
 							  description: "Number of bytes to pack"
 							}
 					 },
@@ -1387,35 +1387,35 @@
 		      states:            {
 					   "addr":      {
 							   name: "ADDR",
-							   ref:  "",
-							   description: ""
+							   ref:  "BUS_AB",
+							   description: "Address bus"
 							},
 					   "data":      {
 							   name: "DATA",
-							   ref:  "",
-							   description: ""
+							   ref:  "BUS_DB",
+							   description: "Data bus"
 							},
 					   "mrdy":      {
 							   name: "MRDY",
-							   ref:  "",
-							   description: ""
+							   ref:  "MRDY",
+							   description: "Memory ready"
 							}
 					 },
 		      signals:           {
 					   "be":        {
 							   name: "BE",
-							   ref:  "",
-							   description: ""
+							   ref:  "BWA",
+							   description: "BW+A1A0"
 							},
 					   "r":         {
 							   name: "R",
-							   ref:  "",
-							   description: ""
+							   ref:  "R",
+							   description: "Read"
 							},
 					   "w":         {
 							   name: "W",
-							   ref:  "",
-							   description: ""
+							   ref:  "W",
+							   description: "Write"
 							}
 					 },
 		      states_inputs:     [ "addr", "data" ],
@@ -1433,20 +1433,20 @@
 		      states:            {
 					   "addr":      {
 							   name: "ADDR",
-							   ref:  "",
-							   description: ""
+							   ref:  "BUS_AB",
+							   description: "Address bus"
 							},
 					   "data":      {
 							   name: "DATA",
-							   ref:  "",
-							   description: ""
+							   ref:  "BUS_DB",
+							   description: "Data bus"
 							}
 					 },
 		      signals:           {
 					   "ior":       {
 							   name: "IOR",
-							   ref:  "",
-							   description: ""
+							   ref:  "IOR",
+							   description: "Read from keyboard"
 							}
 					 },
 		      states_inputs:     [ "addr", "data" ],
@@ -1463,25 +1463,25 @@
 		      states:            {
 					   "addr":      {
 							   name: "ADDR",
-							   ref:  "",
-							   description: ""
+							   ref:  "BUS_AB",
+							   description: "Address bus"
 							},
 					   "data":      {
 							   name: "DATA",
-							   ref:  "",
-							   description: ""
+							   ref:  "BUS_DB",
+							   description: "Data bus"
 							}
 					 },
 		      signals:           {
 					   "ior":       {
 							   name: "IOR",
-							   ref:  "",
+							   ref:  "SCR_IOR",
 							   description: ""
 							},
 					   "iow":       {
 							   name: "IOW",
-							   ref:  "",
-							   description: ""
+							   ref:  "SCR_IOW",
+							   description: "Write into the display"
 							}
 					 },
 		      states_inputs:     [ "addr", "data" ],
