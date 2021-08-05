@@ -181,10 +181,10 @@
          */
 
         sim.ep.elements.keyboard = {
-			      name:              "keyboard",
+			      name:              "Keyboard",
 			      description:       "Keyboard",
 			      type:              "subcomponent",
-			      belongs:           "computer",
+			      belongs:           "KBD",
 			      states:            {
 						   "addr":      {
 								   ref:  "BUS_AB",

@@ -2232,7 +2232,7 @@
 			      name:              "T1",
 			      description:       "Tristate 1",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "REG_MBR",
@@ -2259,7 +2259,7 @@
 			      name:              "T2",
 			      description:       "Tristate 2",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "BUS_IB",
@@ -2286,7 +2286,7 @@
 			      name:              "T3",
 			      description:       "Tristate 3",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "SELEC_T3",
@@ -2313,7 +2313,7 @@
 			      name:              "T4",
 			      description:       "Tristate 4",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "REG_RT1",
@@ -2340,7 +2340,7 @@
 			      name:              "T5",
 			      description:       "Tristate 5",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "REG_RT2",
@@ -2367,7 +2367,7 @@
 			      name:              "T6",
 			      description:       "Tristate 6",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "ALU_C6",
@@ -2394,7 +2394,7 @@
 			      name:              "T7",
 			      description:       "Tristate 7",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "REG_RT3",
@@ -2421,7 +2421,7 @@
 			      name:              "T8",
 			      description:       "Tristate 8",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "REG_SR",
@@ -2448,7 +2448,7 @@
 			      name:              "T9",
 			      description:       "Tristate 9",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "RA_T9",
@@ -2475,7 +2475,7 @@
 			      name:              "T10",
 			      description:       "Tristate 10",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "RB_T10",
@@ -2502,10 +2502,10 @@
 			      name:              "T11",
 			      description:       "Tristate 11",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
-							      ref:  "REG_MICROINS/EXCODE",
+							      ref:  "REG_MICROINS",
 							      description: "Input is the MIR/ExCode output"
 							    },
 						   "out":   {
@@ -2529,7 +2529,7 @@
 			      name:              "Ta",
 			      description:       "Tristate A",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "REG_MAR",
@@ -2556,7 +2556,7 @@
 			      name:              "Td",
 			      description:       "Tristate D",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
 							      ref:  "BS_TD",
@@ -2585,7 +2585,7 @@
 			      name:              "MUX A",
 			      description:       "MUX A",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
 							      ref:  "RA_T9",
@@ -2616,7 +2616,7 @@
 			      name:              "MUX B",
 			      description:       "MUX B",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
 							       ref:  "RB_T10",
@@ -2655,7 +2655,7 @@
 			      name:              "MUX 1",
 			      description:       "MUX 1",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
 							       ref:  "BUS_IB",
@@ -2686,7 +2686,7 @@
 			      name:              "MUX 2",
 			      description:       "MUX 2",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
 							       ref:  "BUS_IB",
@@ -2717,7 +2717,7 @@
 			      name:              "MUX 7",
 			      description:       "MUX 7",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
 							       ref:  "BUS_IB",
@@ -2748,14 +2748,14 @@
 			      name:              "MUX A",
 			      description:       "MUX A",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
 							       ref:  "REG_MICROADDR", // TODO: REG_MICROADDR+1
 							       description: "Input 0 of MUX A, from mADDR + 1"
 							    },
 						   "mux_1": {
-							       ref:  "REG_MICROINS/MADDR",
+							       ref:  "REG_MICROINS",
 							       description: "Input 1 of MUX A, from co2maddr"
 							    },
 						   "mux_2": {
@@ -2791,7 +2791,7 @@
 			      name:              "MUX B",
 			      description:       "MUX B",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
 							       ref:  "MUXC_MUXB",
@@ -2822,7 +2822,7 @@
 			      name:              "MUX C",
 			      description:       "MUX C",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
 							       ref:  "VAL_ZERO",
@@ -2886,17 +2886,17 @@
 	                   } ;
 
         sim.ep.elements.cu_mux_ra  = {
-			      name:              "MUX MR/RA",
+			      name:              "MUX RA",
 			      description:       "MUX MR",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
-							       ref:  "REG_IR REG_MICROINS/SELA",
+							       ref:  "REG_IR REG_MICROINS",
 							       description: "Input 0 of MUX MR, from IR[SelA...SelA+5]"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS/SELA",
+							       ref:  "REG_MICROINS",
 							       description: "Input 1 of MUX MR, from SelA"
 							     },
 						   "mux_o":  {
@@ -2917,17 +2917,17 @@
 	                   } ;
 
         sim.ep.elements.cu_mux_rb  = {
-			      name:              "MUX MR/RB",
+			      name:              "MUX RB",
 			      description:       "MUX MR",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
-							       ref:  "REG_IR REG_MICROINS/SELB",
+							       ref:  "REG_IR REG_MICROINS",
 							       description: "Input 0 of MUX MR, from IR[SelB...SelB+5]"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS/SELB",
+							       ref:  "REG_MICROINS",
 							       description: "Input 1 of MUX MR, from SelB"
 							     },
 						   "mux_o":  {
@@ -2948,17 +2948,17 @@
 	                   } ;
 
         sim.ep.elements.cu_mux_rc  = {
-			      name:              "MUX MR/RC",
+			      name:              "MUX RC",
 			      description:       "MUX MR",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
-							       ref:  "REG_IR REG_MICROINS/SELC",
+							       ref:  "REG_IR REG_MICROINS",
 							       description: "Input 0 of MUX MR, from IR[SelC...SelC+5]"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS/SELC",
+							       ref:  "REG_MICROINS",
 							       description: "Input 1 of MUX MR, from SelC"
 							     },
 						   "mux_o":  {
@@ -2982,14 +2982,14 @@
 			      name:              "MUX MC",
 			      description:       "MUX MC",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
 							       ref:  "REG_IR",
 							       description: "Input 0 of MUX MC, from IR3...IR0"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS/SELCOP",
+							       ref:  "REG_MICROINS",
 							       description: "Input 1 of MUX MC, from SelCop"
 							     },
 						   "mux_o":  {
@@ -3011,11 +3011,11 @@
 
         // CPU - Registers
 
-        sim.ep.elements.mar    = {
-			      name:              "mar",
+        sim.ep.elements.mar = {
+			      name:              "MAR",
 			      description:       "Memory Address Register",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
@@ -3038,11 +3038,11 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.elements.mbr    = {
-			      name:              "mbr",
+        sim.ep.elements.mbr = {
+			      name:              "MBR",
 			      description:       "Memory Data Register",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
 							       ref:  "M1_C1",
@@ -3065,11 +3065,11 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.elements.pc     = {
-			      name:              "pc",
+        sim.ep.elements.pc = {
+			      name:              "PC",
 			      description:       "Programm Counter",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
 							       ref:  "M2_C2",
@@ -3092,11 +3092,11 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.elements.ir     = {
-			      name:              "ir",
+        sim.ep.elements.ir = {
+			      name:              "IR",
 			      description:       "Instruction Register",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
@@ -3119,11 +3119,11 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.elements.rt1    = {
-			      name:              "rt1",
+        sim.ep.elements.rt1 = {
+			      name:              "RT1",
 			      description:       "Temporal Register 1",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
@@ -3146,11 +3146,11 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.elements.rt2    = {
-			      name:              "rt2",
+        sim.ep.elements.rt2 = {
+			      name:              "RT2",
 			      description:       "Temporal Register 2",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
@@ -3173,11 +3173,11 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.elements.rt3    = {
-			      name:              "rt3",
+        sim.ep.elements.rt3 = {
+			      name:              "RT3",
 			      description:       "Temporal Register 3",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
 							       ref:  "ALU_C6",
@@ -3200,11 +3200,11 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.elements.sr     = {
-			      name:              "sr",
+        sim.ep.elements.sr = {
+			      name:              "SR",
 			      description:       "State Register",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
 							       ref:  "M7_C7",
@@ -3231,7 +3231,7 @@
 			      name:              "RF",
 			      description:       "Register File",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "a":     {
 							       ref:  "RA_T9",
@@ -3276,7 +3276,7 @@
 			      name:              "ALU",
 			      description:       "Arithmetic-Logit Unit",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "a":     {
 							       ref:  "MA_ALU",
@@ -3310,10 +3310,10 @@
         // CPU - Selectors
 
         sim.ep.elements.select_sr  = {
-			      name:              "select SR",
+			      name:              "Select SR",
 			      description:       "select SR",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_1": {
 							       ref:  "FLAG_U",
@@ -3345,10 +3345,10 @@
 	                   } ;
 
         sim.ep.elements.select_ir  = {
-			      name:              "select IR",
+			      name:              "Select IR",
 			      description:       "select IR",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "mux_i": {
 							       ref:  "IR",
@@ -3380,10 +3380,10 @@
 	                   } ;
 
         sim.ep.elements.byte_selector = {
-			      name:              "byte selector",
+			      name:              "Byte Selector",
 			      description:       "main memory byte selector",
 			      type:              "subcomponent",
-			      belongs:           "cpu",
+			      belongs:           "CPU",
 			      states:            {
 						   "from_mbr":  {
 								  ref:  "REG_MBR",

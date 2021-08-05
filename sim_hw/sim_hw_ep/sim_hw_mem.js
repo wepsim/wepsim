@@ -343,7 +343,7 @@
 			      name:              "Main memory",
 			      description:       "Main memory subsystem",
 			      type:              "subcomponent",
-			      belongs:           "computer",
+			      belongs:           "MEMORY",
 			      states:            {
 						   "addr":      {
 								   ref:  "BUS_AB",

@@ -247,10 +247,10 @@
          */
 
         sim.ep.elements.display = {
-			      name:              "display",
+			      name:              "Display",
 			      description:       "Display",
 			      type:              "subcomponent",
-			      belongs:           "computer",
+			      belongs:           "SCREEN",
 			      states:            {
 						   "addr":      {
 								   ref:  "BUS_AB",
