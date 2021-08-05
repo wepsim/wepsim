@@ -240,3 +240,40 @@
                                                  }
                                   };
 
+
+        /*
+         *  Model
+         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following model)
+         */
+
+        sim.ep.model.display = {
+			      name:              "display",
+			      description:       "display",
+			      type:              "component",
+			      belongs:           "computer",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								}
+						 },
+			      signals:           {
+						   "ior":       {
+								   ref:  "SCR_IOR",
+								   description: "Read from display (disabled)"
+								},
+						   "iow":       {
+								   ref:  "SCR_IOW",
+								   description: "Write into the display"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "data" ],
+			      signals_inputs:    [ "ior", "iow" ],
+			      signals_output:    [ ]
+		         } ;
+

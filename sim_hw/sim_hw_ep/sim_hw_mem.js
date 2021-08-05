@@ -333,3 +333,48 @@
                                                    }
                                    };
 
+
+        /*
+         *  Model
+	 * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following model)
+	 */
+
+        sim.ep.model.memory = {
+			      name:              "RAM",
+			      description:       "Main memory",
+			      type:              "component",
+			      belongs:           "computer",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								},
+						   "mrdy":      {
+								   ref:  "MRDY",
+								   description: "Memory ready"
+								}
+						 },
+			      signals:           {
+						   "be":        {
+								   ref:  "BWA",
+								   description: "BW+A1A0"
+								},
+						   "r":         {
+								   ref:  "R",
+								   description: "Read"
+								},
+						   "w":         {
+								   ref:  "W",
+								   description: "Write"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "mrdy", "data" ],
+			      signals_inputs:    [ "be", "r", "w" ],
+			      signals_output:    [ ]
+		       } ;
+

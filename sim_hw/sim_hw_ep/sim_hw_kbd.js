@@ -174,3 +174,36 @@
                                                   }
                                    };
 
+
+        /*
+         *  Model
+         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following model)
+         */
+
+        sim.ep.model.keyboard = {
+			      name:              "keyboard",
+			      description:       "Keyboard",
+			      type:              "component",
+			      belongs:           "computer",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								}
+						 },
+			      signals:           {
+						   "ior":       {
+								   ref:  "IOR",
+								   description: "Read from keyboard"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "data" ],
+			      signals_inputs:    [ "ior" ],
+			      signals_output:    [ ]
+		         } ;
+

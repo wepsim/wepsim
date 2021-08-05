@@ -2220,3 +2220,1213 @@
                                                         }
 					   };
 
+
+        /*
+         *  Model
+	 * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following model)
+	 */
+
+        // CPU - Tristates
+
+        sim.ep.model.cpu_t1  = {
+			      name:              "T1",
+			      description:       "Tristate 1",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "REG_MBR",
+							      description: "Input is the value of MBR register"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T1",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t2  = {
+			      name:              "T2",
+			      description:       "Tristate 2",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "BUS_IB",
+							      description: "Input is the PC register output"
+							    },
+						   "out":   {
+							      ref:  "REG_PC",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T2",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t3  = {
+			      name:              "T3",
+			      description:       "Tristate 3",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "SELEC_T3",
+							      description: "Input is the IR register output selector"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T3",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t4  = {
+			      name:              "T4",
+			      description:       "Tristate 4",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "REG_RT1",
+							      description: "Input is the RT1 register output"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T4",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t5  = {
+			      name:              "T5",
+			      description:       "Tristate 5",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "REG_RT2",
+							      description: "Input is the RT2 register output"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T5",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t6  = {
+			      name:              "T6",
+			      description:       "Tristate 6",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "ALU_C6",
+							      description: "Input is the ALU output"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T6",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t7  = {
+			      name:              "T7",
+			      description:       "Tristate 7",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "REG_RT3",
+							      description: "Input is the RT3 register output"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T7",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t8  = {
+			      name:              "T8",
+			      description:       "Tristate 8",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "REG_SR",
+							      description: "Input is the SR register output"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T8",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t9  = {
+			      name:              "T9",
+			      description:       "Tristate 9",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "RA_T9",
+							      description: "Input is the RF/A output"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T9",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t10 = {
+			      name:              "T10",
+			      description:       "Tristate 10",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "RB_T10",
+							      description: "Input is the RF/B output"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T10",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_t11 = {
+			      name:              "T11",
+			      description:       "Tristate 11",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "REG_MICROINS/EXCODE",
+							      description: "Input is the MIR/ExCode output"
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							      description: "Output goes to the IDB"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T11",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_ta  = {
+			      name:              "Ta",
+			      description:       "Tristate A",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "REG_MAR",
+							      description: "Input is the MAR register output"
+							    },
+						   "out":   {
+							      ref:  "BUS_AB",
+							      description: "Output goes to the address bus"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "TA",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        sim.ep.model.cpu_tb  = {
+			      name:              "Td",
+			      description:       "Tristate D",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":    {
+							      ref:  "BS_TD",
+							      description: "Input is the byte selector output"
+							    },
+						   "out":   {
+							      ref:  "BUS_DB",
+							      description: "Output goes to the data bus"
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "TD",
+							      description: "Confirm that output is connected to the input"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
+        // CPU - Multiplexors
+
+        sim.ep.model.cpu_mux_a  = {
+			      name:              "MUX A",
+			      description:       "MUX A",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0": {
+							      ref:  "RA_T9",
+							      description: "Input 0 of MUX A, from RF/A"
+							    },
+						   "mux_1": {
+							      ref:  "REG_RT1",
+							      description: "Input 1 of MUX A, from RT1"
+							    },
+						   "mux_o": {
+							      ref:  "MA_ALU",
+							      description: "Output to ALU/0, from MUX A"
+							    }
+						 },
+			      signals:           {
+						   "ma":    {
+							      ref:  "MA",
+							      description: "Select the input value to send to the output"
+							    }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "ma" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cpu_mux_b  = {
+			      name:              "MUX B",
+			      description:       "MUX B",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0": {
+							       ref:  "RB_T10",
+							       description: "Input 0 of MUX B, from RF/B"
+							    },
+						   "mux_1": {
+							       ref:  "REG_RT2",
+							       description: "Input 1 of MUX B, from RT2"
+							    },
+						   "mux_2": {
+							       ref:  "VAL_FOUR",
+							       description: "Input 2 of MUX B, value 4"
+							    },
+						   "mux_3": {
+							       ref:  "VAL_ONE",
+							       description: "Input 3 of MUX B, value 1"
+							    },
+						   "mux_o": {
+							       ref:  "MB_ALU",
+							       description: "Output to ALU/1, from MUX B"
+							    }
+						 },
+			      signals:           {
+						   "mb":    {
+							       ref:  "MB",
+							       description: "Select the input value to send to the output"
+							    }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1", "mux_2", "mux_3" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "mb" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cpu_mux_1  = {
+			      name:              "MUX 1",
+			      description:       "MUX 1",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0": {
+							       ref:  "BUS_IB",
+							       description: "Input 0 of MUX 1, from IDB"
+							    },
+						   "mux_1": {
+							       ref:  "BS_M1",
+							       description: "Input 1 of MUX 1, from byte selector"
+							    },
+						   "mux_o": {
+							       ref:  "M1_C1",
+							       description: "Output to MBR, from MUX 1"
+							    }
+						 },
+			      signals:           {
+						   "m1":    {
+							       ref:  "M1",
+							       description: "Select the input value to send to the output"
+							    }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "m1" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cpu_mux_2  = {
+			      name:              "MUX 2",
+			      description:       "MUX 2",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0": {
+							       ref:  "BUS_IB",
+							       description: "Input 0 of MUX 2, from IDB"
+							    },
+						   "mux_1": {
+							       ref:  "REG_PC",
+							       description: "Input 1 of MUX 2, PC + 4"
+							    },
+						   "mux_o": {
+							       ref:  "M2_C2",
+							       description: "Output to PC, from MUX 2"
+							    }
+						 },
+			      signals:           {
+						   "m2":    {
+							       ref:  "M2",
+							       description: "Select the input value to send to the output"
+							    }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "m2" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cpu_mux_7  = {
+			      name:              "MUX 7",
+			      description:       "MUX 7",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0": {
+							       ref:  "BUS_IB",
+							       description: "Input 0 of MUX 7, from IDB"
+							    },
+						   "mux_1": {
+							       ref:  "SELP_M7",
+							       description: "Input 1 of MUX 7, from Flag Selector"
+							    },
+						   "mux_o": {
+							       ref:  "M7_C7",
+							       description: "Output to SR, from MUX 7"
+							    }
+						 },
+			      signals:           {
+						   "m7":    {
+							       ref:  "M7",
+							       description: "Select the input value to send to the output"
+							    }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "m7" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cu_mux_a   = {
+			      name:              "MUX A",
+			      description:       "MUX A",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0": {
+							       ref:  "REG_MICROADDR", // TODO: REG_MICROADDR+1
+							       description: "Input 0 of MUX A, from mADDR + 1"
+							    },
+						   "mux_1": {
+							       ref:  "REG_MICROINS/MADDR",
+							       description: "Input 1 of MUX A, from co2maddr"
+							    },
+						   "mux_2": {
+							       ref:  "ROM_MUXA",
+							       description: "Input 2 of MUX A, from mIR/MADDR"
+							    },
+						   "mux_3": {
+							       ref:  "FETCH",
+							       description: "Input 3 of MUX A, from 0"
+							    },
+						   "mux_o": {
+							       ref:  "MUXA_MICROADDR",
+							       description: "Output to mADDR, from MUX A"
+							    }
+						 },
+			      signals:           {
+						   "a0":    {
+							       ref:  "A0A1",
+							       description: "mIR/A0"
+							    },
+						   "a1":    {
+							       ref:  "A0A1",
+							       description: "Output of control unit MUX B"
+							    }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1", "mux_2", "mux_3" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "a0", "a1" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cu_mux_b   = {
+			      name:              "MUX B",
+			      description:       "MUX B",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0": {
+							       ref:  "MUXC_MUXB",
+							       description: "Input 0 of MUX B, from MUX C"
+							    },
+						   "mux_1": {
+							       ref:  "MUXC_MUXB", // TODO: NOT MUXC_MUXB
+							       description: "Input 1 of MUX B, from NOT (MUX C)"
+							    },
+						   "mux_o": {
+							       ref:  "A1",
+							       description: "Output to MUX A/A1, from MUX B"
+							    }
+						 },
+			      signals:           {
+						   "mb":    {
+							       ref:  "B",
+							       description: "Select the input value to send to the output"
+							    }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "mb" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cu_mux_c   = {
+			      name:              "MUX C",
+			      description:       "MUX C",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0":  {
+							       ref:  "VAL_ZERO",
+							       description: "Input  0 of MUX C, from 0"
+							     },
+						   "mux_1":  {
+							       ref:  "INT",
+							       description: "Input  1 of MUX C, from INT"
+							     },
+						   "mux_2":  {
+							       ref:  "IORDY",
+							       description: "Input  2 of MUX C, from IORdy"
+							     },
+						   "mux_3":  {
+							       ref:  "MRDY",
+							       description: "Input  3 of MUX C, from MRdy"
+							     },
+						   "mux_4":  {
+							       ref:  "REG_SR/0",
+							       description: "Input  4 of MUX C, from SR/U"
+							     },
+						   "mux_5":  {
+							       ref:  "REG_SR/1",
+							       description: "Input  5 of MUX C, from SR/I"
+							     },
+						   "mux_6":  {
+							       ref:  "REG_SR/28",
+							       description: "Input  6 of MUX C, from SR/Z"
+							     },
+						   "mux_7":  {
+							       ref:  "REG_SR/29",
+							       description: "Input  7 of MUX C, from SR/N"
+							     },
+						   "mux_8":  {
+							       ref:  "REG_SR/30",
+							       description: "Input  8 of MUX C, from SR/V"
+							     },
+						   "mux_9":  {
+							       ref:  "REG_SR/31",
+							       description: "Input  9 of MUX C, from SR/C"
+							     },
+						   "mux_10": {
+							       ref:  "INEX",
+							       description: "Input 10 of MUX C, from InEx"
+							     },
+						   "mux_o":  {
+							       ref:  "MUXC_MUXB",
+							       description: "Output to MUX B"
+							     }
+						 },
+			      signals:           {
+						   "ctl":    {
+							       ref:  "C",
+							       description: "Output of control unit MUX C"
+							     }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1", "mux_2", "mux_3", "mux_4", "mux_5", "mux_6", "mux_7", "mux_8", "mux_9", "mux_10" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cu_mux_ra  = {
+			      name:              "MUX MR/RA",
+			      description:       "MUX MR",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0":  {
+							       ref:  "REG_IR REG_MICROINS/SELA",
+							       description: "Input 0 of MUX MR, from IR[SelA...SelA+5]"
+							     },
+						   "mux_1":  {
+							       ref:  "REG_MICROINS/SELA",
+							       description: "Input 1 of MUX MR, from SelA"
+							     },
+						   "mux_o":  {
+							       ref:  "RA",
+							       description: "Output to RA"
+							     }
+						 },
+			      signals:           {
+						   "ctl":    {
+							       ref:  "MR_RA",
+							       description: "Select the input value to send to the output"
+							     }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cu_mux_rb  = {
+			      name:              "MUX MR/RB",
+			      description:       "MUX MR",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0":  {
+							       ref:  "REG_IR REG_MICROINS/SELB",
+							       description: "Input 0 of MUX MR, from IR[SelB...SelB+5]"
+							     },
+						   "mux_1":  {
+							       ref:  "REG_MICROINS/SELB",
+							       description: "Input 1 of MUX MR, from SelB"
+							     },
+						   "mux_o":  {
+							       ref:  "RB",
+							       description: "Output to RB"
+							     }
+						 },
+			      signals:           {
+						   "mr":     {
+							       ref:  "MR_RB",
+							       description: "Select the input value to send to the output"
+							     }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "mr" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cu_mux_rc  = {
+			      name:              "MUX MR/RC",
+			      description:       "MUX MR",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0":  {
+							       ref:  "REG_IR REG_MICROINS/SELC",
+							       description: "Input 0 of MUX MR, from IR[SelC...SelC+5]"
+							     },
+						   "mux_1":  {
+							       ref:  "REG_MICROINS/SELC",
+							       description: "Input 1 of MUX MR, from SelC"
+							     },
+						   "mux_o":  {
+							       ref:  "RC",
+							       description: "Output to RC"
+							     }
+						 },
+			      signals:           {
+						   "mr":     {
+							       ref:  "MR_RC",
+							       description: "Select the input value to send to the output"
+							     }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "mr" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.cu_mux_mc  = {
+			      name:              "MUX MC",
+			      description:       "MUX MC",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_0":  {
+							       ref:  "REG_IR",
+							       description: "Input 0 of MUX MC, from IR3...IR0"
+							     },
+						   "mux_1":  {
+							       ref:  "REG_MICROINS/SELCOP",
+							       description: "Input 1 of MUX MC, from SelCop"
+							     },
+						   "mux_o":  {
+							       ref:  "COP",
+							       description: "Output to COP"
+							     }
+						 },
+			      signals:           {
+						   "ctl":    {
+							       ref:  "MC",
+							       description: "Select the input value to send to the output"
+							     }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        // CPU - Registers
+
+        sim.ep.model.mar    = {
+			      name:              "mar",
+			      description:       "Memory Address Register",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":     {
+							       ref:  "BUS_IB",
+							       description: "Input is the IDB"
+							     },
+						   "out":    {
+							       ref:  "REG_MAR",
+							       description: "Output goes to the Ta tristate"
+							     }
+						 },
+			      signals:           {
+						   "c0":     {
+							       ref:  "C0",
+							       description: "Confirm that input is stored"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "c0" ],
+			      signals_output:    [ ]
+	               } ;
+
+        sim.ep.model.mbr    = {
+			      name:              "mbr",
+			      description:       "Memory Data Register",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":     {
+							       ref:  "M1_C1",
+							       description: "Input is the M1 output"
+							     },
+						   "out":    {
+							       ref:  "REG_MBR",
+							       description: "Output goes to the T1 tristate"
+							     }
+						 },
+			      signals:           {
+						   "c1":     {
+							       ref:  "C1",
+							       description: "Confirm that input is stored"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "c1" ],
+			      signals_output:    [ ]
+	               } ;
+
+        sim.ep.model.pc     = {
+			      name:              "pc",
+			      description:       "Programm Counter",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":     {
+							       ref:  "M2_C2",
+							       description: "Input is the M2 output"
+							     },
+						   "out":    {
+							       ref:  "REG_PC",
+							       description: "Output goes to the T2 tristate"
+							     }
+						 },
+			      signals:           {
+						   "ctl":    {
+							       ref:  "C2",
+							       description: "Confirm that input is stored"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	               } ;
+
+        sim.ep.model.ir     = {
+			      name:              "ir",
+			      description:       "Instruction Register",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":     {
+							       ref:  "BUS_IB",
+							       description: "Input is the IDB"
+							     },
+						   "out":    {
+							       ref:  "REG_IR",
+							       description: "Output goes to the IR selector and the CU"
+							     }
+						 },
+			      signals:           {
+						   "c3":     {
+							       ref:  "C3",
+							       description: "Confirm that input is stored"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "c3" ],
+			      signals_output:    [ ]
+	               } ;
+
+        sim.ep.model.rt1    = {
+			      name:              "rt1",
+			      description:       "Temporal Register 1",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":     {
+							       ref:  "BUS_IB",
+							       description: "Input is the IDB"
+							     },
+						   "out":    {
+							       ref:  "REG_RT1",
+							       description: "Output goes to the T4 tristate"
+							     }
+						 },
+			      signals:           {
+						   "ctl":    {
+							       ref:  "C4",
+							       description: "Confirm that input is stored"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	               } ;
+
+        sim.ep.model.rt2    = {
+			      name:              "rt2",
+			      description:       "Temporal Register 2",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":     {
+							       ref:  "BUS_IB",
+							       description: "Input is the IDB"
+							     },
+						   "out":    {
+							       ref:  "REG_RT2",
+							       description: "Output goes to the T5 tristate"
+							     }
+						 },
+			      signals:           {
+						   "ctl":    {
+							       ref:  "C5",
+							       description: "Confirm that input is stored"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	               } ;
+
+        sim.ep.model.rt3    = {
+			      name:              "rt3",
+			      description:       "Temporal Register 3",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":     {
+							       ref:  "ALU_C6",
+							       description: "Input is the output of the ALU"
+							     },
+						   "out":    {
+							       ref:  "REG_RT3",
+							       description: "Output goes to the T7 tristate"
+							     }
+						 },
+			      signals:           {
+						   "ctl":    {
+							       ref:  "C6",
+							       description: "Confirm that input is stored"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	               } ;
+
+        sim.ep.model.sr     = {
+			      name:              "sr",
+			      description:       "State Register",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "in":     {
+							       ref:  "M7_C7",
+							       description: "Input is the output of the M7"
+							     },
+						   "out":    {
+							       ref:  "REG_SR",
+							       description: "Output goes to the T8 input and the CU"
+							     }
+						 },
+			      signals:           {
+						   "ctl":    {
+							       ref:  "C7",
+							       description: "Confirm that input is stored"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	               } ;
+
+        sim.ep.model.register_file = {
+			      name:              "RF",
+			      description:       "Register File",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "a":     {
+							       ref:  "RA_T9",
+							       description: "Output of RF to  T9 and MA/0"
+							    },
+						   "b":     {
+							       ref:  "RB_T10",
+							       description: "Output of RF to T10 and MB/0"
+							    },
+						   "c":     {
+							       ref:  "BUS_IB",
+							       description: "Input to RF from IDB"
+							    }
+						 },
+			      signals:           {
+						   "ra":    {
+							       ref:  "RA",
+							       description: "Select the register which value is sent to A"
+							    },
+						   "rb":    {
+							       ref:  "RB",
+							       description: "Select the register which value is sent to B"
+							    },
+						   "rc":    {
+							       ref:  "RC",
+							       description: "Select the register where C's value is stored"
+							    },
+						   "lc":    {
+							       ref:  "LC",
+							       description: "Confirm that RC is going to be updated"
+							    }
+						 },
+			      states_inputs:     [ "c" ],
+			      states_outputs:    [ "a", "b" ],
+			      signals_inputs:    [ "ra", "rb", "rc", "lc" ],
+			      signals_output:    [ ]
+	               } ;
+
+        // CPU - ALU
+
+        sim.ep.model.cpu_alu = {
+			      name:              "ALU",
+			      description:       "Arithmetic-Logit Unit",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "a":     {
+							       ref:  "MA_ALU",
+							       description: "Output from MUX A multiplexor"
+							    },
+						   "b":     {
+							       ref:  "MB_ALU",
+							       description: "Output from MUX B multiplexor"
+							    },
+						   "alu":   {
+							       ref:  "ALU_C6",
+							       description: "Result goes to the input of T6 and RT3"
+							    },
+						   "flags": {
+							       ref:  "SELP_M7",
+							       description: "Updated C,V,N,Z flags"
+							    }
+						 },
+			      signals:           {
+						   "cop":   {
+							       ref:  "COP",
+							       description: "Operation code (+, -, *, ...)"
+							    }
+						 },
+			      states_inputs:     [ "a", "b" ],
+			      states_outputs:    [ "alu", "flags" ],
+			      signals_inputs:    [ "cop" ],
+			      signals_output:    [ ]
+	                } ;
+
+        // CPU - Selectors
+
+        sim.ep.model.select_sr  = {
+			      name:              "select SR",
+			      description:       "select SR",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_1": {
+							       ref:  "FLAG_U",
+							       description: "Input 1 of SELECT-SR, U"
+							    },
+						   "mux_2": {
+							       ref:  "FLAG_I",
+							       description: "Input 2 of SELECT-SR, I"
+							    },
+						   "mux_3": {
+							       ref:  "SELP_M7",
+							       description: "Input 3 of SELECT-SR, C V N Z"
+							    },
+						   "mux_o": {
+							       ref:  "SELP_M7",
+							       description: "Output to MUX 7/1"
+							    }
+						 },
+			      signals:           {
+						   "selp":  {
+							       ref:  "SELP",
+							       description: "Select the input value to send to the output"
+							    }
+						 },
+			      states_inputs:     [ "mux_1", "mux_2", "mux_3" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "selp" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.select_ir  = {
+			      name:              "select IR",
+			      description:       "select IR",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "mux_i": {
+							       ref:  "IR",
+							       description: "Input of SELECT-IR from IR"
+							    },
+						   "mux_o": {
+							       ref:  "SELEC_T3",
+							       description: "Output to IDB though T3"
+							    }
+						 },
+			      signals:           {
+						   "se":     {
+								ref:  "SE",
+								description: "Sign Extension"
+							     },
+						   "size":   {
+								ref:  "SIZE",
+								description: "Size"
+							      },
+						   "offset":  {
+								ref:  "OFFSET",
+								description: "Offset"
+							      }
+						 },
+			      states_inputs:     [ "mux_i" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ "se", "size", "offset" ],
+			      signals_output:    [ ]
+	                   } ;
+
+        sim.ep.model.byte_selector = {
+			      name:              "byte selector",
+			      description:       "main memory byte selector",
+			      type:              "component",
+			      belongs:           "cpu",
+			      states:            {
+						   "from_mbr":  {
+								  ref:  "REG_MBR",
+								  description: "Input from MBR"
+								},
+						   "from_data": {
+								  ref:  "BUS_DB",
+								  description: "Input from Data Bus"
+								},
+						   "be":        {
+								  ref:  "BE",
+								  description: "Output to BE"
+								},
+						   "to_mbr":    {
+								  ref:  "BS_M1",
+								  description: "Output to M1/1"
+								},
+						   "to_td":     {
+								  ref:  "BS_TD",
+								  description: "Output to Td/input"
+								}
+						 },
+			      signals:           {
+						   "w":         {
+								  ref:  "W",
+								  description: "Write into main memory"
+								},
+						   "se":        {
+								  ref:  "SE",
+								  description: "Sign Extension"
+								},
+						   "a1a0":      {
+								  ref:  "A1A0",
+								  description: "A1A0"
+								},
+						   "bw":        {
+								  ref:  "BW",
+								  description: "Number of bytes to pack"
+								}
+						 },
+			      states_inputs:     [ "from_mbr", "from_data" ],
+			      states_outputs:    [ "be", "to_mbr", "to_td" ],
+			      signals_inputs:    [ "w", "se", "a1a0", "bw" ],
+			      signals_output:    [ ]
+	                   } ;
+
