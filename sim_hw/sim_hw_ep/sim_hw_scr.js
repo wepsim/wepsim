@@ -243,13 +243,13 @@
 
         /*
          *  Model
-         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following model)
+         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
          */
 
-        sim.ep.model.display = {
+        sim.ep.elements.display = {
 			      name:              "display",
-			      description:       "display",
-			      type:              "component",
+			      description:       "Display",
+			      type:              "subcomponent",
 			      belongs:           "computer",
 			      states:            {
 						   "addr":      {

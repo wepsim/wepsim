@@ -177,13 +177,13 @@
 
         /*
          *  Model
-         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following model)
+         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
          */
 
-        sim.ep.model.keyboard = {
+        sim.ep.elements.keyboard = {
 			      name:              "keyboard",
 			      description:       "Keyboard",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "computer",
 			      states:            {
 						   "addr":      {

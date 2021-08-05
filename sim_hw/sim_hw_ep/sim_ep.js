@@ -34,7 +34,7 @@
                        states:              {},
                        signals:             {},
                        behaviors:           {},
-                       model:               {},
+                       elements:            {},
 
                        internal_states:     {},
                        ctrl_states:         {},

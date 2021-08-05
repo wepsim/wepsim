@@ -2223,15 +2223,15 @@
 
         /*
          *  Model
-	 * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following model)
+	 * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
 	 */
 
         // CPU - Tristates
 
-        sim.ep.model.cpu_t1  = {
+        sim.ep.elements.cpu_t1  = {
 			      name:              "T1",
 			      description:       "Tristate 1",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2255,10 +2255,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t2  = {
+        sim.ep.elements.cpu_t2  = {
 			      name:              "T2",
 			      description:       "Tristate 2",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2282,10 +2282,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t3  = {
+        sim.ep.elements.cpu_t3  = {
 			      name:              "T3",
 			      description:       "Tristate 3",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2309,10 +2309,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t4  = {
+        sim.ep.elements.cpu_t4  = {
 			      name:              "T4",
 			      description:       "Tristate 4",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2336,10 +2336,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t5  = {
+        sim.ep.elements.cpu_t5  = {
 			      name:              "T5",
 			      description:       "Tristate 5",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2363,10 +2363,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t6  = {
+        sim.ep.elements.cpu_t6  = {
 			      name:              "T6",
 			      description:       "Tristate 6",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2390,10 +2390,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t7  = {
+        sim.ep.elements.cpu_t7  = {
 			      name:              "T7",
 			      description:       "Tristate 7",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2417,10 +2417,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t8  = {
+        sim.ep.elements.cpu_t8  = {
 			      name:              "T8",
 			      description:       "Tristate 8",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2444,10 +2444,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t9  = {
+        sim.ep.elements.cpu_t9  = {
 			      name:              "T9",
 			      description:       "Tristate 9",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2471,10 +2471,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t10 = {
+        sim.ep.elements.cpu_t10 = {
 			      name:              "T10",
 			      description:       "Tristate 10",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2498,10 +2498,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_t11 = {
+        sim.ep.elements.cpu_t11 = {
 			      name:              "T11",
 			      description:       "Tristate 11",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2525,10 +2525,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_ta  = {
+        sim.ep.elements.cpu_ta  = {
 			      name:              "Ta",
 			      description:       "Tristate A",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2552,10 +2552,10 @@
 			      signals_output:    [ ]
 	                } ;
 
-        sim.ep.model.cpu_tb  = {
+        sim.ep.elements.cpu_tb  = {
 			      name:              "Td",
 			      description:       "Tristate D",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":    {
@@ -2581,10 +2581,10 @@
 
         // CPU - Multiplexors
 
-        sim.ep.model.cpu_mux_a  = {
+        sim.ep.elements.cpu_mux_a  = {
 			      name:              "MUX A",
 			      description:       "MUX A",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0": {
@@ -2612,10 +2612,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cpu_mux_b  = {
+        sim.ep.elements.cpu_mux_b  = {
 			      name:              "MUX B",
 			      description:       "MUX B",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0": {
@@ -2651,10 +2651,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cpu_mux_1  = {
+        sim.ep.elements.cpu_mux_1  = {
 			      name:              "MUX 1",
 			      description:       "MUX 1",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0": {
@@ -2682,10 +2682,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cpu_mux_2  = {
+        sim.ep.elements.cpu_mux_2  = {
 			      name:              "MUX 2",
 			      description:       "MUX 2",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0": {
@@ -2713,10 +2713,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cpu_mux_7  = {
+        sim.ep.elements.cpu_mux_7  = {
 			      name:              "MUX 7",
 			      description:       "MUX 7",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0": {
@@ -2744,10 +2744,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cu_mux_a   = {
+        sim.ep.elements.cu_mux_a   = {
 			      name:              "MUX A",
 			      description:       "MUX A",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0": {
@@ -2787,10 +2787,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cu_mux_b   = {
+        sim.ep.elements.cu_mux_b   = {
 			      name:              "MUX B",
 			      description:       "MUX B",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0": {
@@ -2818,10 +2818,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cu_mux_c   = {
+        sim.ep.elements.cu_mux_c   = {
 			      name:              "MUX C",
 			      description:       "MUX C",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0":  {
@@ -2885,10 +2885,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cu_mux_ra  = {
+        sim.ep.elements.cu_mux_ra  = {
 			      name:              "MUX MR/RA",
 			      description:       "MUX MR",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0":  {
@@ -2916,10 +2916,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cu_mux_rb  = {
+        sim.ep.elements.cu_mux_rb  = {
 			      name:              "MUX MR/RB",
 			      description:       "MUX MR",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0":  {
@@ -2947,10 +2947,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cu_mux_rc  = {
+        sim.ep.elements.cu_mux_rc  = {
 			      name:              "MUX MR/RC",
 			      description:       "MUX MR",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0":  {
@@ -2978,10 +2978,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.cu_mux_mc  = {
+        sim.ep.elements.cu_mux_mc  = {
 			      name:              "MUX MC",
 			      description:       "MUX MC",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_0":  {
@@ -3011,10 +3011,10 @@
 
         // CPU - Registers
 
-        sim.ep.model.mar    = {
+        sim.ep.elements.mar    = {
 			      name:              "mar",
 			      description:       "Memory Address Register",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":     {
@@ -3038,10 +3038,10 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.model.mbr    = {
+        sim.ep.elements.mbr    = {
 			      name:              "mbr",
 			      description:       "Memory Data Register",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":     {
@@ -3065,10 +3065,10 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.model.pc     = {
+        sim.ep.elements.pc     = {
 			      name:              "pc",
 			      description:       "Programm Counter",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":     {
@@ -3092,10 +3092,10 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.model.ir     = {
+        sim.ep.elements.ir     = {
 			      name:              "ir",
 			      description:       "Instruction Register",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":     {
@@ -3119,10 +3119,10 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.model.rt1    = {
+        sim.ep.elements.rt1    = {
 			      name:              "rt1",
 			      description:       "Temporal Register 1",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":     {
@@ -3146,10 +3146,10 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.model.rt2    = {
+        sim.ep.elements.rt2    = {
 			      name:              "rt2",
 			      description:       "Temporal Register 2",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":     {
@@ -3173,10 +3173,10 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.model.rt3    = {
+        sim.ep.elements.rt3    = {
 			      name:              "rt3",
 			      description:       "Temporal Register 3",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":     {
@@ -3200,10 +3200,10 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.model.sr     = {
+        sim.ep.elements.sr     = {
 			      name:              "sr",
 			      description:       "State Register",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "in":     {
@@ -3227,10 +3227,10 @@
 			      signals_output:    [ ]
 	               } ;
 
-        sim.ep.model.register_file = {
+        sim.ep.elements.register_file = {
 			      name:              "RF",
 			      description:       "Register File",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "a":     {
@@ -3272,10 +3272,10 @@
 
         // CPU - ALU
 
-        sim.ep.model.cpu_alu = {
+        sim.ep.elements.cpu_alu = {
 			      name:              "ALU",
 			      description:       "Arithmetic-Logit Unit",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "a":     {
@@ -3309,10 +3309,10 @@
 
         // CPU - Selectors
 
-        sim.ep.model.select_sr  = {
+        sim.ep.elements.select_sr  = {
 			      name:              "select SR",
 			      description:       "select SR",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_1": {
@@ -3344,10 +3344,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.select_ir  = {
+        sim.ep.elements.select_ir  = {
 			      name:              "select IR",
 			      description:       "select IR",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "mux_i": {
@@ -3379,10 +3379,10 @@
 			      signals_output:    [ ]
 	                   } ;
 
-        sim.ep.model.byte_selector = {
+        sim.ep.elements.byte_selector = {
 			      name:              "byte selector",
 			      description:       "main memory byte selector",
-			      type:              "component",
+			      type:              "subcomponent",
 			      belongs:           "cpu",
 			      states:            {
 						   "from_mbr":  {
