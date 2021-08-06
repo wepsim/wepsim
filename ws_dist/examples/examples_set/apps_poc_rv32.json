@@ -1,0 +1,145 @@
+[
+  {
+    "id":		"S1E1",
+    "title":		"Instructions",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r1_e1",
+    "description":	"<span data-langkey='example_01_01'>Simple example.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S1E2",
+    "title":		"Memory access",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r1_e2",
+    "description":	"<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S1E3",
+    "title":		"Looping",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r1_e3",
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S1E4",
+    "title":		"Vector",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r1_e4",
+    "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S2E1",
+    "title":		"I/O",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r2_e1",
+    "description":	"<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing":          false
+  },
+  {
+    "id":		"S2E2",
+    "title":		"Subrutine",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r2_e2",
+    "description":	"<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S2E3",
+    "title":		"Masks & shift",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r2_e3",
+    "description":	"<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S2E4",
+    "title":		"Matrix",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r2_e4",
+    "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S3E1",
+    "title":		"Interruptions",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r3_e1",
+    "description":	"<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S3E2",
+    "title":		"System call",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r3_e2",
+    "description":	"<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S3E3",
+    "title":		"Exception",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r3_e3",
+    "description":	"<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S4E1",
+    "title":		"Int. + syscall + except.",
+    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r4_e1",
+    "description":	"<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S6E3",
+    "title":		"3D-Led",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,poc",
+    "hardware":		"poc",
+    "microcode":	"poc_rv32_base",
+    "assembly":		"ep_r5_e1",
+    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing":          true
+  }
+]

@@ -232,7 +232,11 @@
 
         if (data.assembly != '')
              ret = wepsim_nodejs_help_signal(data, options) ;
-        else ret = wepsim_nodejs_help_instructionset(data, options) ;
+        else 
+        if (data.firmware != '')
+             ret = wepsim_nodejs_help_instructionset(data, options) ;
+        else 
+             ret = wepsim_nodejs_help_components(data, options) ;
  
         console.log(ret.msg);
         return ret.ok ;
@@ -268,6 +272,31 @@
         // return ok
         return true ;
     } ;
+ 
+    //
+    // BUILD-EXAMPLETESTS
+    //
+
+    hash_action["BUILD-EXAMPLETESTS"] = function(data, options)
+    {
+        // initialize
+        wepsim_nodejs_init(data) ;
+
+        // load default examples
+        var examples  = wepsim_nodejs_load_examples() ;
+        var pack_name = "" ;
+        if (data.mode != "") {
+            pack_name = data.mode ;
+        }
+
+        // JSON with test for default examples
+        var json_txt = wepsim_nodejs_examples2tests(pack_name, examples) ;
+        console.log(json_txt);
+
+        // return ok
+        return true ;
+    } ;
+ 
 
     /**
      * WepSIM actions

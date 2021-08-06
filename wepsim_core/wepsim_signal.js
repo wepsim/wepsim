@@ -247,7 +247,7 @@
             }
 	    var jit_dep_edges = new vis.DataSet(tmp_edges) ;
 
-	    var jit_dep_container = document.getElementById('depgraph1') ;
+	    var jit_dep_container = document.getElementById('depgraph1c') ;
 	    var jit_dep_data    = { nodes: jit_dep_nodes,
                                     edges: jit_dep_edges } ;
 	    var jit_dep_options = { interaction: {hover:true},

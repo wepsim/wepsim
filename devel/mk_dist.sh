@@ -34,7 +34,7 @@ fi
 # install dependencies
 echo "  Requirements:"
 echo "  * terser jq jshint"
-echo "  * yargs clear inquirer fuzzy"
+echo "  * yargs clear inquirer fuzzy commander async"
 echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
 npm install
 
@@ -69,6 +69,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
     sim_hw/sim_hw_behavior.js \
+    sim_hw/sim_hw_eltos.js \
     sim_hw/sim_hw_ep/sim_ep.js \
     sim_hw/sim_hw_ep/sim_hw_board.js \
     sim_hw/sim_hw_ep/sim_hw_cpu.js \
@@ -284,7 +285,7 @@ cp    -a external/cordova.js            ws_dist/external/cordova.js
 ## pre-examples (default_packed)
 DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_set/apps_ep_mips_native.json examples/examples_set/apps_poc_mips.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_mips.json
-DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_rv32_native.json"
+DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_rv32_native.json examples/examples_set/apps_poc_rv32.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_rv32.json
 
 ## pre-examples (default.json + apps.json)

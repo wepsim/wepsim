@@ -52,7 +52,7 @@ sys_print:  li   zero 0
            # test int0
            li  t0 0
            out t0 0x1104
-           li  t0 200
+           li  t0 700
            out t0 0x1108
 
            li  t0 0

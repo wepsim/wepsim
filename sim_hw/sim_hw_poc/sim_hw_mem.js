@@ -141,7 +141,7 @@
 					        "FIRE_IFCHANGED MRDY C"],
                                      fire_name: ['svg_p:tspan3916'],
                                      draw_data: [[], ['svg_p:path3895','svg_p:path3541']],
-                                     draw_name: [[], []]};
+                                     draw_name: [[], []] };
 
         sim.poc.signals.R        = { name: "R",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
@@ -149,7 +149,7 @@
 					        "MEM_READ BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
                                      fire_name: ['svg_p:text3533-5-2'],
                                      draw_data: [[], ['svg_p:path3557','svg_p:path3571']],
-                                     draw_name: [[], []]};
+                                     draw_name: [[], []] };
 
         sim.poc.signals.W        = { name: "W",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
