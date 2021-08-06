@@ -232,7 +232,11 @@
 
         if (data.assembly != '')
              ret = wepsim_nodejs_help_signal(data, options) ;
-        else ret = wepsim_nodejs_help_instructionset(data, options) ;
+        else 
+        if (data.firmware != '')
+             ret = wepsim_nodejs_help_instructionset(data, options) ;
+        else 
+             ret = wepsim_nodejs_help_components(data, options) ;
  
         console.log(ret.msg);
         return ret.ok ;

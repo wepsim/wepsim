@@ -295,3 +295,40 @@
                                                   }
                                      };
 
+
+        /*
+         *  Model
+         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+         */
+
+        sim.ep.elements.l3d = {
+			      name:              "L3D",
+			      description:       "3D Led Cube",
+			      type:              "subcomponent",
+			      belongs:           "L3D",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								}
+						 },
+			      signals:           {
+						   "ior":       {
+								   ref:  "L3D_IOR",
+								   description: "Read from L3D"
+								},
+						   "iow":       {
+								   ref:  "L3D_IOW",
+								   description: "Write into the L3D"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "data" ],
+			      signals_inputs:    [ "ior", "iow" ],
+			      signals_output:    [ ]
+		         } ;
+

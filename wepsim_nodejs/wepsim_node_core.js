@@ -811,3 +811,18 @@
 	return wepsim_nodejs_retfill(true, iset_help) ;
     }
 
+    function wepsim_nodejs_help_components ( data, options )
+    {
+	var input_help = '' ;
+
+        var ahw = simhw_active() ;
+        if (ahw === null) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Unknown hardware model.\n") ;
+	}
+
+        simhwelto_prepare_hash(ahw) ;
+	input_help = simhwelto_show_components(ahw) ;
+
+	return wepsim_nodejs_retfill(true, input_help) ;
+    }
+

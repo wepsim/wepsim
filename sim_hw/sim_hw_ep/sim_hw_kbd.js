@@ -197,7 +197,7 @@
 						 },
 			      signals:           {
 						   "ior":       {
-								   ref:  "IOR",
+								   ref:  "KBD_IOR",
 								   description: "Read from keyboard"
 								}
 						 },

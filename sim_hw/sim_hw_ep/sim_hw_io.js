@@ -347,3 +347,40 @@
                                                   }
                                      };
 
+
+        /*
+         *  Model
+         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+         */
+
+        sim.ep.elements.io = {
+			      name:              "IO",
+			      description:       "IO",
+			      type:              "subcomponent",
+			      belongs:           "IO",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								}
+						 },
+			      signals:           {
+						   "ior":       {
+								   ref:  "IO_IOR",
+								   description: "Read from IO device"
+								},
+						   "iow":       {
+								   ref:  "IO_IOW",
+								   description: "Write into the IO device"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "data" ],
+			      signals_inputs:    [ "ior", "iow" ],
+			      signals_output:    [ ]
+		         } ;
+

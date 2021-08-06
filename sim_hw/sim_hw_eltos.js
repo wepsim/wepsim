@@ -19,26 +19,97 @@
  */
 
 
-/*
- *  Alternative image description
- */
+	function simhwelto_get_fulldescription ( elto )
+	{
+	   var o  = "" ;
 
-function simhwalt_get_fulldescription ( elto )
-{
-   var o  = "" ;
+	   o += elto.description + ". " ;
+	   o += "It has " + elto.states_inputs.length + " inputs (" ;
+		for (var i=0; i<elto.states_inputs.length; i++) {
+		     o += elto.states[elto.states_inputs[i]].description ;
+		}
+	   o += "). " ;
+	   o += "It has " + elto.states_outputs.length + " outputs (" ;
+		for (var i=0; i<elto.states_outputs.length; i++) {
+		     o += elto.states[elto.states_outputs[i]].description ;
+		}
+	   o += "). " ;
 
-   o += elto.description + ". " ;
-   o += "It has " + elto.inputs.length + " inputs (" ;
-        for (var i=0; i<elto.inputs.length; i++) {
-             o += elto.states[elto.inputs[i]].description ;
+	   return o ;
+	}
+
+        function simhwelto_prepare_hash ( ahw )
+        {
+	    // build element hash
+            ahw.elements_hash = {} ;
+
+	    // build element hash, by_belong
+            ahw.elements_hash.by_belong = {} ;
+	    for (var e in ahw.elements)
+	    {
+                 elto = ahw.elements[e] ;
+
+                 if (typeof ahw.elements_hash.by_belong[elto.belongs] == "undefined") {
+                     ahw.elements_hash.by_belong[elto.belongs] = [] ;
+                 }
+
+                 ahw.elements_hash.by_belong[elto.belongs].push(elto) ;
+	    }
+
+	    // return hash
+            return ahw.elements_hash ;
         }
-   o += "). " ;
-   o += "It has " + elto.outputs.length + " outputs (" ;
-        for (var i=0; i<elto.inputs.length; i++) {
-             o += elto.states[elto.inputs[i]].description ;
-        }
-   o += "). " ;
 
-   return o ;
-}
+        function simhwelto_show_components ( ahw )
+        {
+	    var o = '' ;
+	    var e = '' ;
+
+	    // header row...
+	    o +=    'Component'.padEnd(10, ' ') + ';' +
+	              'Element'.padEnd(15, ' ') + ';' +
+	          'States (In)'.padEnd(20, ' ') + ';' +
+	         'States (Out)'.padEnd(20, ' ') + ';' +
+	              'Signals'.padEnd(10, ' ') + '\n' ;
+
+	    // rows of elements...
+	    for (var b in ahw.elements_hash.by_belong)
+	    {
+	         for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
+	         {
+		         // new row
+                         elto = ahw.elements_hash.by_belong[b][j] ;
+
+			 // 1) component
+			 o += b.padEnd(10, ' ') + ';' ;
+
+			 // 2) name
+			 o += elto.name.padEnd(15, ' ') + ';' ;
+
+			 // 3) list of input states
+                         e = '' ;
+			 for (i=0; i<elto.states_inputs.length; i++) {
+			      e += elto.states[elto.states_inputs[i]].ref + ' ' ;
+			 }
+			 o += e.padEnd(20, ' ') + ';' ;
+
+			 // 4) list of output states
+                         e = '' ;
+			 for (i=0; i<elto.states_outputs.length; i++) {
+			      e += elto.states[elto.states_outputs[i]].ref + ' ' ;
+			 }
+			 o += e.padEnd(20, ' ') + ';' ;
+
+			 // 5) list of signals
+                         e = '' ;
+			 for (var es in elto.signals) {
+		              e += elto.signals[es].ref + ' ' ;
+			 }
+			 o += e.padEnd(10, ' ') + '\n' ;
+	         }
+	    }
+
+	    // return output
+            return o ;
+        }
 

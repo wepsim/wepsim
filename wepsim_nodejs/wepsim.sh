@@ -5,7 +5,7 @@
    // Help
    //
 
-   var ws_cl_ver = 'WepSIM-cl v1.8.8' ;
+   var ws_cl_ver = 'WepSIM-cl v1.9.1' ;
 
    function ws_help_usage ()
    {
@@ -18,6 +18,7 @@
 	       '\n' +
 	       'For common examples please use:\n' +
 	       ' ./wepsim.sh --examples basic\n' +
+	       ' ./wepsim.sh --examples help\n' +
 	       ' ./wepsim.sh --examples checker\n' +
 	       ' ./wepsim.sh --examples checkpoint\n' +
 	       ' ./wepsim.sh --examples more' ;
@@ -45,6 +46,25 @@
                '\n' +
                'Example for running in an interactive mode...:\n' +
                '   ./wepsim.sh -a interactive --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '' ;
+
+        return o ;
+   }
+
+   function ws_help_examples_help ()
+   {
+       var o = '\n' +
+               ws_cl_ver + '\n' +
+               '> WepSIM simulator interface for command line.\n' +
+               '\n' +
+               'Additional help:\n' +
+               ' * Help about the cop signal:\n' +
+               '   ./wepsim.sh -a help -m ep -s cop\n' +
+               ' * Help about instructions:\n' +
+               '   ./wepsim.sh -a help -m ep -f ./examples/microcode/mc-ep_mips.txt\n' +
+               ' * Help about hardware components:\n' +
+               '   ./wepsim.sh -a help -m ep\n' +
+               '\n' +
                '' ;
 
         return o ;
@@ -108,12 +128,6 @@
        var o = '\n' +
                ws_cl_ver + '\n' +
                '> WepSIM simulator interface for command line.\n' +
-               '\n' +
-               'Additional help:\n' +
-               ' * Help about the cop signal:\n' +
-               '   ./wepsim.sh -a help -m ep -s cop\n' +
-               ' * Help about instructions:\n' +
-               '   ./wepsim.sh -a help -m ep -f ./examples/microcode/mc-ep_mips.txt\n' +
                '\n' +
                'More examples of custom execution:\n' +
                ' * Run some example and limit the "instructions":\n' +
@@ -262,6 +276,9 @@
 
        if ("basic" == argv.examples) {
            o = ws_help_examples_basic() ;
+       }
+       if ("help" == argv.examples) {
+           o = ws_help_examples_help() ;
        }
        else if ("checker" == argv.examples) {
            o = ws_help_examples_check() ;
