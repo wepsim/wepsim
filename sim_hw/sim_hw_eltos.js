@@ -19,25 +19,6 @@
  */
 
 
-	function simhwelto_get_fulldescription ( elto )
-	{
-	   var o  = "" ;
-
-	   o += elto.description + ". " ;
-	   o += "It has " + elto.states_inputs.length + " inputs (" ;
-		for (var i=0; i<elto.states_inputs.length; i++) {
-		     o += elto.states[elto.states_inputs[i]].description ;
-		}
-	   o += "). " ;
-	   o += "It has " + elto.states_outputs.length + " outputs (" ;
-		for (var i=0; i<elto.states_outputs.length; i++) {
-		     o += elto.states[elto.states_outputs[i]].description ;
-		}
-	   o += "). " ;
-
-	   return o ;
-	}
-
         function simhwelto_prepare_hash ( ahw )
         {
 	    // build element hash
@@ -112,4 +93,23 @@
 	    // return output
             return o ;
         }
+
+	function simhwelto_describe_component ( elto )
+	{
+	   var o  = "" ;
+
+	   o += elto.description + ". " ;
+	   o += "It has " + elto.states_inputs.length + " inputs (" ;
+		for (var i=0; i<elto.states_inputs.length; i++) {
+		     o += elto.states[elto.states_inputs[i]].description ;
+		}
+	   o += "). " ;
+	   o += "It has " + elto.states_outputs.length + " outputs (" ;
+		for (var i=0; i<elto.states_outputs.length; i++) {
+		     o += elto.states[elto.states_outputs[i]].description ;
+		}
+	   o += "). " ;
+
+	   return o ;
+	}
 
