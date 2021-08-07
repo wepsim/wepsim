@@ -101,12 +101,12 @@
 	   o += elto.description + ". " ;
 	   o += "It has " + elto.states_inputs.length + " inputs (" ;
 		for (var i=0; i<elto.states_inputs.length; i++) {
-		     o += elto.states[elto.states_inputs[i]].description ;
+		     o += elto.states[elto.states_inputs[i]].description + ' ' ;
 		}
 	   o += "). " ;
 	   o += "It has " + elto.states_outputs.length + " outputs (" ;
 		for (var i=0; i<elto.states_outputs.length; i++) {
-		     o += elto.states[elto.states_outputs[i]].description ;
+		     o += elto.states[elto.states_outputs[i]].description + ' ' ;
 		}
 	   o += "). " ;
 
