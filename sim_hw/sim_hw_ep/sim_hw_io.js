@@ -97,11 +97,14 @@
          */
 
         sim.ep.states.IOSR = { name: "IOSR", verbal: "IO State Register",
-                               visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                               visible:false, nbits: "32", value: 0, default_value: 0,
+                               draw_data: [] };
         sim.ep.states.IOCR = { name: "IOCR", verbal: "IO Control Register",
-                               visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                               visible:false, nbits: "32", value: 0, default_value: 0,
+                               draw_data: [] };
         sim.ep.states.IODR = { name: "IODR", verbal: "IO Data Register",
-                               visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                               visible:false, nbits: "32", value: 0, default_value: 0,
+                               draw_data: [] };
 
 
         /*
@@ -114,7 +117,7 @@
                                         behavior: ["FIRE C", "FIRE C"],
                                         fire_name: ['svg_p:tspan4199'], 
                                         draw_data: [[], ['svg_p:path3809']], 
-                                        draw_name: [[], []]};
+                                        draw_name: [[], []] };
 
          sim.ep.signals.IORDY       = { name: "IORDY", 
                                         visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
@@ -122,35 +125,35 @@
 		                        behavior: ["FIRE_IFCHANGED IORDY C", "FIRE_IFCHANGED IORDY C"],
                                         fire_name: ['svg_p:tspan4089','svg_p:path3793','svg_p:text3911'], 
                                         draw_data: [[], ['svg_p:path3897']], 
-                                        draw_name: [[], []]};
+                                        draw_name: [[], []] };
 
          sim.ep.signals.IO_IOR      = { name: "IO_IOR", 
                                         visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                         behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
                                         fire_name: ['svg_p:tspan4173'], 
                                         draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
-                                        draw_name: [[], []]};
+                                        draw_name: [[], []] };
 
          sim.ep.signals.IO_IOW      = { name: "IO_IOW", 
                                         visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                         behavior: ["NOP", "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
                                         fire_name: ['svg_p:text3785-0-6-0-5-5'], 
                                         draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
-                                        draw_name: [[], []]};
+                                        draw_name: [[], []] };
 
          sim.ep.signals.IO_IE       = { name: "IO_IE", 
                                         visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
                                         behavior: ["NOP", "IO_CHK_I CLK INT INTV; FIRE C"],
                                         fire_name: [], 
                                         draw_data: [[], []], 
-                                        draw_name: [[], []] };
+                                        draw_name: [[], []]  };
 
          sim.ep.signals.INTA        = { name: "INTA", 
                                         visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
                                         behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE BW; FIRE C"],
                                         fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
                                         draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
-                                        draw_name: [[], []] };
+                                        draw_name: [[], []]  };
 
 
         /*
@@ -343,4 +346,41 @@
                                                      return "Reset the I/O device. " ;
                                                   }
                                      };
+
+
+        /*
+         *  Model
+         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+         */
+
+        sim.ep.elements.io = {
+			      name:              "IO",
+			      description:       "IO",
+			      type:              "subcomponent",
+			      belongs:           "IO",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								}
+						 },
+			      signals:           {
+						   "ior":       {
+								   ref:  "IO_IOR",
+								   description: "Read from IO device"
+								},
+						   "iow":       {
+								   ref:  "IO_IOW",
+								   description: "Write into the IO device"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "data" ],
+			      signals_inputs:    [ "ior", "iow" ],
+			      signals_output:    [ ]
+		         } ;
 

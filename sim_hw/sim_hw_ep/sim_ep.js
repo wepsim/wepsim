@@ -34,10 +34,11 @@
                        states:              {},
                        signals:             {},
                        behaviors:           {},
-                       events:              {},
+                       elements:            {},
 
                        internal_states:     {},
-                       ctrl_states:         {}
+                       ctrl_states:         {},
+                       events:              {}
 	             } ;
 
             simhw_add(ep_def) ;

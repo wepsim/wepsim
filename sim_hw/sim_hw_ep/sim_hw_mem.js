@@ -138,14 +138,14 @@
 	    	                     behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
                                      fire_name: ['svg_p:tspan3916','svg_p:text3909'],
                                      draw_data: [[], ['svg_p:path3895','svg_p:path3541']],
-                                     draw_name: [[], []]};
+                                     draw_name: [[], []] };
 
         sim.ep.signals.R         = { name: "R",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 		                     behavior: ["NOP", "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                      fire_name: ['svg_p:text3533-5-2','svg_p:text3713'],
                                      draw_data: [[], ['svg_p:path3557','svg_p:path3571']],
-                                     draw_name: [[], []]};
+                                     draw_name: [[], []] };
 
         sim.ep.signals.W         = { name: "W",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
@@ -332,4 +332,49 @@
                                                        return "Reset main memory (all values will be zeroes). " ;
                                                    }
                                    };
+
+
+        /*
+         *  Model
+	 * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+	 */
+
+        sim.ep.elements.memory = {
+			      name:              "Main memory",
+			      description:       "Main memory subsystem",
+			      type:              "subcomponent",
+			      belongs:           "MEMORY",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								},
+						   "mrdy":      {
+								   ref:  "MRDY",
+								   description: "Memory ready"
+								}
+						 },
+			      signals:           {
+						   "be":        {
+								   ref:  "BWA",
+								   description: "BW+A1A0"
+								},
+						   "r":         {
+								   ref:  "R",
+								   description: "Read"
+								},
+						   "w":         {
+								   ref:  "W",
+								   description: "Write"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "mrdy", "data" ],
+			      signals_inputs:    [ "be", "r", "w" ],
+			      signals_output:    [ ]
+		       } ;
 

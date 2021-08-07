@@ -24,12 +24,12 @@
      */
 
     var hash_action = {} ;
- 
+
 
     //
     // CHECK
     //
- 
+
     hash_action.CHECK = function(data, options)
     {
         // set verbosity handlers
@@ -48,17 +48,17 @@
         console.log(ret.msg);
         return ret.ok ;
     } ;
- 
+
     //
     // RUN
     //
- 
+
     hash_action.RUN = function(data, options)
     {
         // set verbosity handlers
         options.before_instruction = simcore_do_nothing_handler ;
         options.after_instruction  = simcore_do_nothing_handler ;
- 
+
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
 	if (ret.ok === false) {
@@ -71,16 +71,16 @@
         console.log(ret.msg);
         return true ;
     } ;
- 
+
     //
     // STEPBYSTEP
     //
- 
+
     hash_action.STEPBYSTEP = function(data, options)
     {
         // set verbosity handlers
         wepsim_nodejs_verbose_instructionlevel(options) ;
- 
+
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
 	if (ret.ok === false) {
@@ -89,16 +89,16 @@
 
         return ret.ok ;
     } ;
- 
+
     //
     // MICROSTEPBYMICROSTEP
     //
- 
+
     hash_action.MICROSTEPBYMICROSTEP = function(data, options)
     {
         // set verbosity handlers
         wepsim_nodejs_verbose_microinstructionlevel(options) ;
- 
+
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
 	if (ret.ok === false) {
@@ -107,16 +107,16 @@
 
         return ret.ok ;
     } ;
- 
+
     //
     // MICROSTEPVERBALIZED
     //
- 
+
     hash_action.MICROSTEPVERBALIZED = function(data, options)
     {
         // set verbosity handlers
         wepsim_nodejs_verbose_verbalized(options) ;
- 
+
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
 	if (ret.ok === false) {
@@ -125,11 +125,11 @@
 
         return ret.ok ;
     } ;
- 
+
     //
     // INTERACTIVE
     //
- 
+
     hash_action.INTERACTIVE = function(data, options)
     {
         console.log('\n' +
@@ -138,7 +138,7 @@
                     '\n' +
                     'Interactive mode enabled.\n' +
                     '') ;
- 
+
         // run...
         var ret = wepsim_nodejs_runAppInteractive(data, options) ;
 	if (ret.ok === false) {
@@ -146,23 +146,23 @@
             return false ;
 	}
     } ;
- 
+
     //
     // EXPORT-HARDWARE
     //
- 
+
     hash_action["EXPORT-HARDWARE"] = function(data, options)
     {
         var ret = simcore_hardware_export(data.mode) ;
- 
+
         console.log(ret.msg);
         return ret.ok ;
     } ;
- 
+
     //
     // SHOW-RECORD
     //
- 
+
     hash_action["SHOW-RECORD"] = function(data, options)
     {
         var ret = wepsim_nodejs_show_record(data.record) ;
@@ -170,41 +170,41 @@
         console.log(ret) ;
         return true ;
     } ;
- 
+
     //
     // SHOW-MICROCODE
     //
- 
+
     hash_action["SHOW-MICROCODE"] = function(data, options)
     {
         console.log(data.firmware) ;
         return true ;
     } ;
- 
+
     //
     // SHOW-ASSEMBLY
     //
- 
+
     hash_action["SHOW-ASSEMBLY"] = function(data, options)
     {
         console.log(data.assembly) ;
         return true ;
     } ;
- 
+
     //
     // SHOW-MODE
     //
- 
+
     hash_action["SHOW-MODE"] = function(data, options)
     {
         console.log(data.mode) ;
         return true ;
     } ;
- 
+
     //
     // SHOW-CONSOLE
     //
- 
+
     hash_action["SHOW-CONSOLE"] = function(data, options)
     {
         // run...
@@ -219,29 +219,38 @@
         console.log(ret.msg);
         return true ;
     } ;
- 
+
     //
     // HELP (signal, instruction set, etc.)
     //
- 
+
     hash_action.HELP = function(data, options)
     {
         var ret = null ;
 
         wepsim_nodejs_init(data) ;
 
-        if (data.assembly != '')
+        if ((typeof data.assembly != 'undefined') && (data.assembly != '')) {
              ret = wepsim_nodejs_help_signal(data, options) ;
-        else ret = wepsim_nodejs_help_instructionset(data, options) ;
- 
+        }
+   else if ((typeof data.firmware != 'undefined') && (data.firmware != '')) {
+             ret = wepsim_nodejs_help_instructionset(data, options) ;
+        }
+   else if ((typeof options.purify != 'undefined') && (options.purify != '')) {
+             ret = wepsim_nodejs_help_component(data, options) ;
+        }
+   else {
+             ret = wepsim_nodejs_help_components(data, options) ;
+        }
+
         console.log(ret.msg);
         return ret.ok ;
     } ;
- 
+
     //
     // BUILD-CHECKPOINT
     //
- 
+
     hash_action["BUILD-CHECKPOINT"] = function(data, options)
     {
         // pack elements
@@ -269,6 +278,31 @@
         return true ;
     } ;
 
+    //
+    // BUILD-EXAMPLETESTS
+    //
+
+    hash_action["BUILD-EXAMPLETESTS"] = function(data, options)
+    {
+        // initialize
+        wepsim_nodejs_init(data) ;
+
+        // load default examples
+        var examples  = wepsim_nodejs_load_examples() ;
+        var pack_name = "" ;
+        if (data.mode != "") {
+            pack_name = data.mode ;
+        }
+
+        // JSON with test for default examples
+        var json_txt = wepsim_nodejs_examples2tests(pack_name, examples) ;
+        console.log(json_txt);
+
+        // return ok
+        return true ;
+    } ;
+
+
     /**
      * WepSIM actions
      */
@@ -285,7 +319,7 @@
                     ' Please check the command-line syntax used.\n' +
                     ' Action ERROR: ' + err_action + '?\n' +
                     '') ;
- 
+
         return false ;
     }
 

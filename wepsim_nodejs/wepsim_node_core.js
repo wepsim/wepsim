@@ -73,10 +73,12 @@
 
     function wepsim_nodejs_load_jsonfile ( url_json )
     {
-       var jstr   = "" ;
-       var jobj   = [] ;
+       var fs   = null ;
+       var jstr = "" ;
+       var jobj = [] ;
 
        try {
+             fs = require('fs') ;
            jstr = fs.readFileSync(url_json, 'utf8') ;
            jobj = JSON.parse(jstr) ;
        }
@@ -87,6 +89,11 @@
 
        return jobj ;
     }
+
+
+    /*
+     * Examples
+     */
 
     function wepsim_nodejs_load_examples ( )
     {
@@ -107,23 +114,52 @@
        return ws_info.examples ;
     }
 
+    // wepsim_nodejs_examples2tests function will output the 'devel/test_wepsim_packX.json' content for examples
+    function wepsim_nodejs_examples2tests ( example_pack_name, examples )
+    {
+       var d = '' ;
+       var m = '' ;
+       var a = '' ;
+       var h = '' ;
+       var e = '' ;
+
+       var o = '[\n' ;
+       for (var x=0; x<examples.length; x++)
+       {
+            if (false == examples[x].testing) {
+                continue ;
+            }
+
+        //  d = examples[x].id + ' - ' + examples[x].type  + ' - ' + examples[x].title ;
+            d = examples[x].id + ' - ' + examples[x].title ;
+            m = './examples/microcode/mc-' + examples[x].microcode + '.txt' ;
+            a = './examples/assembly/asm-' + examples[x].assembly  + '.txt' ;
+            h = examples[x].hardware ;
+            e = (m != (examples.length-1)) ? ',\n' : '\n' ;
+
+            o += '{\n' +
+                 '\t"pack":        "' + example_pack_name + '",\n' +
+                 '\t"description": "' + d + '",\n' +
+                 '\t"test":        "./ws_dist/wepsim.sh -a run -m ' + h + ' -f ' + m + ' -s ' + a + '",\n' +
+                 '\t"more":        "See WepSIM"\n' +
+                 '}' + e ;
+       }
+       o += ']\n' ;
+
+       return o ;
+    }
+
+
+    /*
+     * States
+     */
+
     function wepsim_nodejs_show_currentstate ( options )
     {
         var state_obj = simcore_simstate_current2state() ;
         var   ret_msg = simcore_simstate_state2checklist(state_obj, options.purify) ;
 
 	return wepsim_nodejs_retfill(true, ret_msg) ;
-    }
-
-    function wepsim_nodejs_show_record ( records )
-    {
-	var ret_msg = '' ;
-	for (var i=0; i<records.length; i++)
-	{
-	     ret_msg += '[' + i + '] ' + records[i].description + '\n' ;
-	}
-
-	return ret_msg ;
     }
 
     function wepsim_nodejs_show_checkresults ( checklist_ok, newones_too )
@@ -137,6 +173,64 @@
 	return wepsim_nodejs_retfill(ret_ok, ret_msg) ;
     }
 
+
+    /*
+     * Records
+     */
+
+    function wepsim_nodejs_show_record ( records )
+    {
+	var ret_msg = '' ;
+	for (var i=0; i<records.length; i++)
+	{
+	     ret_msg += '[' + i + '] ' + records[i].description + '\n' ;
+	}
+
+	return ret_msg ;
+    }
+
+
+    /*
+     * breakpoints
+     */
+
+    var breaks  = {} ;
+    var mbreaks = {} ;
+
+    function wepsim_nodejs_breakpoints_addrm ( break_list, addr )
+    {
+	var hexaddr = "0x" + addr.toString(16) ;
+	var ret = false ;
+
+        if (break_list == "breaks") {
+	    ret = wepsim_execute_toggle_breakpoint(hexaddr) ;
+	    console.log('break on ' + hexaddr + ' ' + !ret) ;
+            breaks[hexaddr] = true ;
+	    if (ret) delete breaks[hexaddr] ;
+        }
+   else if (break_list == "mbreaks") {
+            ret = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
+            console.log('mbreak on ' + hexaddr + ' ' + !ret) ;
+            mbreaks[hexaddr] = true ;
+	    if (ret) delete mbreaks[hexaddr] ;
+        }
+    }
+
+    function wepsim_nodejs_breakpoints_list ( break_list )
+    {
+        var eltos = Object.keys(break_list) ;
+        if (0 == eltos.length) {
+            console.log('no active breakpoints.') ;
+            return ;
+        }
+
+        console.log('active breaks at: ' + eltos.join(', ')) ;
+    }
+
+
+    /*
+     * Execution
+     */
 
     // show source listing
     function wepsim_nodejs_header1 ( )
@@ -241,41 +335,11 @@
 	console.log('Micropc at ' + curr_mpc + '.\t' + get_verbal_from_current_mpc()) ;
     }
 
-    // breakpoints
-    var breaks  = {} ;
-    var mbreaks = {} ;
 
-    function wepsim_nodejs_breakpoints_addrm ( break_list, addr )
-    {
-	var hexaddr = "0x" + addr.toString(16) ;
-	var ret = false ;
+    /*
+     * Interactive
+     */
 
-        if (break_list == "breaks") {
-	    ret = wepsim_execute_toggle_breakpoint(hexaddr) ;
-	    console.log('break on ' + hexaddr + ' ' + !ret) ;
-            breaks[hexaddr] = true ;
-	    if (ret) delete breaks[hexaddr] ;
-        }
-   else if (break_list == "mbreaks") {
-            ret = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
-            console.log('mbreak on ' + hexaddr + ' ' + !ret) ;
-            mbreaks[hexaddr] = true ;
-	    if (ret) delete mbreaks[hexaddr] ;
-        }
-    }
-
-    function wepsim_nodejs_breakpoints_list ( break_list )
-    {
-        var eltos = Object.keys(break_list) ;
-        if (0 == eltos.length) {
-            console.log('no active breakpoints.') ;
-            return ;
-        }
-
-        console.log('active breaks at: ' + eltos.join(', ')) ;
-    }
-
-    // interactive
     function wepsim_nodejs_runInteractiveCmd ( answers, data, options )
     {
         var SIMWARE = get_simware() ;
@@ -745,5 +809,51 @@
         }
 
 	return wepsim_nodejs_retfill(true, iset_help) ;
+    }
+
+    function wepsim_nodejs_help_components ( data, options )
+    {
+	var input_help = '' ;
+
+        var ahw = simhw_active() ;
+        if (ahw === null) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Unknown hardware model.\n") ;
+	}
+
+        simhwelto_prepare_hash(ahw) ;
+	input_help = simhwelto_show_components(ahw) ;
+
+	return wepsim_nodejs_retfill(true, input_help) ;
+    }
+
+    function wepsim_nodejs_help_component ( data, options )
+    {
+        // checks...
+        var ahw = simhw_active() ;
+        if (ahw === null) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Unknown hardware model.\n") ;
+	}
+
+        // get descriptions
+	var input_help    = '' ;
+        var search_str    = '' ;
+        var search_substr = options.purify.toUpperCase() ;
+
+        for (tag in ahw.elements)
+        {
+             elto = ahw.elements[tag] ;
+             search_str = elto.name.toUpperCase() ;
+
+             if (search_str.includes(search_substr)) {
+                 input_help += ' * ' + simhwelto_describe_component(elto) + '\n\n' ;
+             }
+        }
+
+        // set the help to return...
+        if (input_help != '')
+	     input_help = '\n' + 'Descriptions of found elements:\n' + input_help ;
+        else input_help = '\n' + 'Not found elements.\n' ;
+
+	return wepsim_nodejs_retfill(true, input_help) ;
     }
 

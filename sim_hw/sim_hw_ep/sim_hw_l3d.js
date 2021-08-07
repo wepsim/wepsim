@@ -94,11 +94,14 @@
          */
 
         sim.ep.states.L3DSR = { name: "L3DSR", verbal: "L3D State Register",
-                                visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                visible:false, nbits: "32", value: 0, default_value: 0,
+                                draw_data: [] };
         sim.ep.states.L3DCR = { name: "L3DCR", verbal: "L3D Control Register",
-                                visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                visible:false, nbits: "32", value: 0, default_value: 0,
+                                draw_data: [] };
         sim.ep.states.L3DDR = { name: "L3DDR", verbal: "L3D Data Register",
-                                visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                visible:false, nbits: "32", value: 0, default_value: 0,
+                                draw_data: [] };
 
 
         /*
@@ -110,14 +113,14 @@
                                     behavior: ["NOP", "L3D_IOR BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE SBWA"],
                                     fire_name: ['svg_p:tspan4173'], 
                                     draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
-                                    draw_name: [[], []]};
+                                    draw_name: [[], []] };
 
          sim.ep.signals.L3D_IOW = { name: "L3D_IOW", 
                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                     behavior: ["NOP", "L3D_IOW BUS_AB BUS_DB L3DSR L3DCR L3DDR CLK; FIRE SBWA; L3D_SYNC"],
                                     fire_name: ['svg_p:text3785-0-6-0-5-5'], 
                                     draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
-                                    draw_name: [[], []]};
+                                    draw_name: [[], []] };
 
 
         /*
@@ -291,4 +294,41 @@
                                                       return "Sync State with Device. " ;
                                                   }
                                      };
+
+
+        /*
+         *  Model
+         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+         */
+
+        sim.ep.elements.l3d = {
+			      name:              "L3D",
+			      description:       "3D Led Cube",
+			      type:              "subcomponent",
+			      belongs:           "L3D",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								}
+						 },
+			      signals:           {
+						   "ior":       {
+								   ref:  "L3D_IOR",
+								   description: "Read from L3D"
+								},
+						   "iow":       {
+								   ref:  "L3D_IOW",
+								   description: "Write into the L3D"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "data" ],
+			      signals_inputs:    [ "ior", "iow" ],
+			      signals_output:    [ ]
+		         } ;
 

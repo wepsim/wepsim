@@ -605,17 +605,14 @@ slli rd rs1 inm {
             rs1=reg(20,16),
             inm=inm(5,0),
             help='rd = (rs1 << inm)',
-            native,
             {
-                // fields is a default parameter with the instruction field information
-                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
-                var val1 = simcore_native_get_field_from_ir(fields, 2) ;
-
-                var result = simcore_native_get_value("BR", reg2) << val1 ;
-                simcore_native_set_value("BR", reg1, result) ;
-
-                simcore_native_go_maddr(0) ;
+                (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+       loop10a: (A0=0, B=0, C=110, MADDR=bck10aftch),
+                (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
+                (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop10a),
+    bck10aftch: (A0=1, B=1, C=0)
             }
 }
 
@@ -650,17 +647,14 @@ srai rd rs1 inm {
             rs1=reg(20,16),
             inm=inm(15,0),
             help='rd = (rs1 >> inm)',
-            native,
             {
-                // fields is a default parameter with the instruction field information
-                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
-                var inm1 = simcore_native_get_field_from_ir(fields, 2) ;
-
-                var val1 = simcore_native_get_value("BR", reg2) ;
-                simcore_native_set_value("BR", reg1, val1 >> inm1) ;
-
-                simcore_native_go_maddr(0) ;
+                (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+        loop9a: (A0=0, B=0, C=110, MADDR=bck9aftch),
+                (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=110, T6=1, LC=1, SELC=10101),
+                (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop9a),
+     bck9aftch: (A0=1, B=1, C=0)
             }
 }
 
@@ -698,17 +692,14 @@ sll rd rs1 rs2 {
             rs1=reg(20,16),
             rs2=reg(15,11),
             help='rd = rs1 <<< rs2',
-            native,
             {
-                // fields is a default parameter with the instruction field information
-                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
-                var reg3 = simcore_native_get_field_from_ir(fields, 2) ;
-
-                var result = simcore_native_get_value("BR", reg2) << simcore_native_get_value("BR", reg3) ;
-                simcore_native_set_value("BR", reg1, result) ;
-
-                simcore_native_go_maddr(0) ;
+                (MR=0, SELA=1011, T9=1, C4=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+       loop10b: (A0=0, B=0, C=110, MADDR=bck10bftch),
+                (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
+                (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop10b),
+    bck10bftch: (A0=1, B=1, C=0)
             }
 }
 
@@ -779,17 +770,14 @@ srl rd rs1 rs2 {
             rs1=reg(20,16),
             rs2=reg(15,11),
             help='rd = rs1 >>> rs2',
-            native,
             {
-                // fields is a default parameter with the instruction field information
-                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-                var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-                var result = simcore_native_get_value("BR", reg2) >> simcore_native_get_value("BR", reg3) ;
-                simcore_native_set_value("BR", reg1, result) ;
-
-                simcore_native_go_maddr(0) ;
+                (MR=0, SELA=1011, T9=1, C4=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+        loop9b: (A0=0, B=0, C=110, MADDR=bck9bftch),
+                (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=101, T6=1, LC=1, SELC=10101),
+                (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop9b),
+     bck9bftch: (A0=1, B=1, C=0)
             }
 }
 
@@ -801,18 +789,14 @@ sra rd rs1 rs2 {
             rs1=reg(20,16),
             rs2=reg(15,11),
             help='rd = rs1 >> rs2',
-            native,
             {
-                // fields is a default parameter with the instruction field information
-                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
-                var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
-                var reg3 = simcore_native_get_field_from_ir(fields, 2) ;
-
-                var val1 = simcore_native_get_value("BR", reg2) ;
-                var val2 = simcore_native_get_value("BR", reg3) ;
-                simcore_native_set_value("BR", reg1, val1 >> val2) ;
-
-                simcore_native_go_maddr(0) ;
+                (MR=0, SELA=1011, T9=1, C4=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+        loop9c: (A0=0, B=0, C=110, MADDR=bck9cftch),
+                (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=110, T6=1, LC=1, SELC=10101),
+                (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop9c),
+     bck9cftch: (A0=1, B=1, C=0)
             }
 }
 

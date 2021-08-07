@@ -1,7 +1,7 @@
 
 # WepSIM: Wep Elemental Processor Simulator
 
-[![Build Status](https://travis-ci.org/acaldero/wepsim.svg?branch=master)](https://travis-ci.org/acaldero/wepsim)
+[![Build Status](https://travis-ci.com/acaldero/wepsim.svg?branch=master)](https://travis-ci.org/acaldero/wepsim)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
 [![codebeat badge](https://codebeat.co/badges/66773495-9967-4514-8c2c-916293f584b5)](https://codebeat.co/projects/github-com-acaldero-wepsim-master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://www.codacy.com/app/acaldero.uc3m/wepsim)
@@ -303,11 +303,16 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 + The following fragment is a example of how to use WepSIM command-line within Google Colab cell:
 
 ```html
-!wget https://github.com/acaldero/wepsim/releases/download/v2.1.5/wepsim-2.1.5.zip
-!unzip -o wepsim-2.1.5.zip
+!echo "(1/4) Installing pre-requisites..."
+!npm install  terser jq jshint yargs clear inquirer >& /dev/null
+!echo "(2/4) Downloading WepSIM..."
+!wget https://github.com/acaldero/wepsim/releases/download/v2.1.5/wepsim-2.1.5.zip >& /dev/null
+!unzip -o wepsim-2.1.5.zip  >& /dev/null
 !rm -fr   wepsim-2.1.5.zip
+!echo "(3/4) Executing WepSIM..."
 !./wepsim-2.1.5/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.1.5/examples/microcode/mc-ep_mips_base.txt -s ./wepsim-2.1.5/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
 !rm -fr   wepsim-2.1.5
+!echo "(4/4) Showing execution trace as table..."
 
 import pandas as pd
 import io

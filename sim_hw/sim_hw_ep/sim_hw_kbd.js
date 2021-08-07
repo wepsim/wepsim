@@ -77,9 +77,11 @@
          */
 
         sim.ep.states.KBDR   = { name: "KBDR", verbal: "Keyboard Data Register",
-                                 visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                 visible:false, nbits: "32", value: 0, default_value: 0,
+                                 draw_data: [] };
         sim.ep.states.KBSR   = { name: "KBSR", verbal: "Keyboard Status Register",
-                                 visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+                                 visible:false, nbits: "32", value: 0, default_value: 0,
+                                 draw_data: [] };
 
 
         /*
@@ -91,7 +93,7 @@
 		                       behavior: ["NOP", "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE SBWA"],
                                        fire_name: ['svg_p:tspan4057'], 
                                        draw_data: [[], ['svg_p:path3863', 'svg_p:path3847']], 
-                                       draw_name: [[], []]};
+                                       draw_name: [[], []] };
 
 
         /*
@@ -171,4 +173,37 @@
                                                      return "Reset the keyboard content. " ;
                                                   }
                                    };
+
+
+        /*
+         *  Model
+         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+         */
+
+        sim.ep.elements.keyboard = {
+			      name:              "Keyboard",
+			      description:       "Keyboard",
+			      type:              "subcomponent",
+			      belongs:           "KBD",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								}
+						 },
+			      signals:           {
+						   "ior":       {
+								   ref:  "KBD_IOR",
+								   description: "Read from keyboard"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "data" ],
+			      signals_inputs:    [ "ior" ],
+			      signals_output:    [ ]
+		         } ;
 
