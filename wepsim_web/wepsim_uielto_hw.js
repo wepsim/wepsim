@@ -572,7 +572,16 @@
                          elto = ahw.elements_hash.by_belong[b][j] ;
 
 			 // 1) name
-			 o += '<td>' + elto.name + '</td>' ;
+			 o += '<td><a href="#" id="belongs_id_' + j + '" ' +
+			      '   class="popover_hw" data-toggle="popover" ' +
+			      '   onclick="event.preventDefault();" ' +
+			      '   data-html="true" title="" data-content="' + 
+                              elto.description + '<br>' +
+			      '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+			      '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+			      '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
+			      '<span data-langkey=\'Close\'>Close</span></button>' +
+			      '">' + elto.name + '</a></td>' ;
 
 			 // 2) list of input states
 			 c = '<span class="row text-wrap">' ;
