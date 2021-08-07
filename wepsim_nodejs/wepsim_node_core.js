@@ -826,3 +826,34 @@
 	return wepsim_nodejs_retfill(true, input_help) ;
     }
 
+    function wepsim_nodejs_help_component ( data, options )
+    {
+        // checks...
+        var ahw = simhw_active() ;
+        if (ahw === null) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Unknown hardware model.\n") ;
+	}
+
+        // get descriptions
+	var input_help    = '' ;
+        var search_str    = '' ;
+        var search_substr = options.purify.toUpperCase() ;
+
+        for (tag in ahw.elements)
+        {
+             elto = ahw.elements[tag] ;
+             search_str = elto.name.toUpperCase() ;
+
+             if (search_str.includes(search_substr)) {
+                 input_help += ' * ' + simhwelto_describe_component(elto) + '\n\n' ;
+             }
+        }
+
+        // set the help to return...
+        if (input_help != '')
+	     input_help = '\n' + 'Descriptions of found elements:\n' + input_help ;
+        else input_help = '\n' + 'Not found elements.\n' ;
+
+	return wepsim_nodejs_retfill(true, input_help) ;
+    }
+
