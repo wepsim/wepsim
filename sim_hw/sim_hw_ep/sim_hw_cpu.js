@@ -3310,8 +3310,8 @@
         // CPU - Selectors
 
         sim.ep.elements.select_sr  = {
-			      name:              "Select SR",
-			      description:       "select SR",
+			      name:              "Sel-SR",
+			      description:       "Select SR",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
@@ -3345,8 +3345,8 @@
 	                   } ;
 
         sim.ep.elements.select_ir  = {
-			      name:              "Select IR",
-			      description:       "select IR",
+			      name:              "Sel-IR",
+			      description:       "Select IR",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
@@ -3381,7 +3381,7 @@
 
         sim.ep.elements.byte_selector = {
 			      name:              "Byte Selector",
-			      description:       "main memory byte selector",
+			      description:       "Main memory byte selector",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
