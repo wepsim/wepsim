@@ -564,8 +564,10 @@
 	    var o = '' ;
 	    var c = '' ;
 	    var p = '' ;
-	    var elto_c = '' ;
-	    var last_belongs = '' ;
+	    var elto_c         = '' ;
+	    var last_belongs   = '' ;
+	    var state_ref      = '' ;
+	    var state_ref_orig = '' ;
 
             o += '<div class="table-responsive">' +
                  '<table class="table table-sm table-bordered table-striped">' ;
@@ -615,7 +617,8 @@
 			 o += '<td><span class="row text-wrap">' ;
 			 for (i=0; i<elto.states_inputs.length; i++)
 			 {
-				 state_ref = elto.states[elto.states_inputs[i]].ref ;
+				 state_ref_orig = elto.states[elto.states_inputs[i]].ref ;
+				 state_ref      = state_ref_orig.split('/')[0] ;
 
 				 elto_c = 'hw_state_strong_' + state_ref ;
 				 p      = simcoreui_hw_states_popup(ahw.states, state_ref) ;
@@ -624,7 +627,7 @@
 				      '<a href="#" id="hw_state_tt_' + state_ref + '" ' +
 				      '   class="popover_hw" data-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
-				      '   data-html="true" title="" data-content="' + p + '">' + state_ref + '</a>' +
+				      '   data-html="true" title="" data-content="' + p + '">' + state_ref_orig + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
 			 }
 			 o += '</span></td>' ;

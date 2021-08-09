@@ -2892,7 +2892,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
-							       ref:  "REG_IR REG_MICROINS",
+							       ref:  "REG_IR",
 							       description: "Input 0 of MUX MR, from IR[SelA...SelA+5]"
 							     },
 						   "mux_1":  {
@@ -2923,7 +2923,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
-							       ref:  "REG_IR REG_MICROINS",
+							       ref:  "REG_IR",
 							       description: "Input 0 of MUX MR, from IR[SelB...SelB+5]"
 							     },
 						   "mux_1":  {
@@ -2954,7 +2954,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
-							       ref:  "REG_IR REG_MICROINS",
+							       ref:  "REG_IR",
 							       description: "Input 0 of MUX MR, from IR[SelC...SelC+5]"
 							     },
 						   "mux_1":  {
@@ -3351,7 +3351,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_i": {
-							       ref:  "IR",
+							       ref:  "REG_IR",
 							       description: "Input of SELECT-IR from IR"
 							    },
 						   "mux_o": {
