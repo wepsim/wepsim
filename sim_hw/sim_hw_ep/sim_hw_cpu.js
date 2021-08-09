@@ -2262,11 +2262,11 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
-							      ref:  "BUS_IB",
+							      ref:  "REG_PC",
 							      description: "Input is the PC register output"
 							    },
 						   "out":   {
-							      ref:  "REG_PC",
+							      ref:  "BUS_IB",
 							      description: "Output goes to the IDB"
 							    }
 						 },
