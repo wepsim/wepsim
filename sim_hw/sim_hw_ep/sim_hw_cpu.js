@@ -2262,11 +2262,11 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
-							      ref:  "BUS_IB",
+							      ref:  "REG_PC",
 							      description: "Input is the PC register output"
 							    },
 						   "out":   {
-							      ref:  "REG_PC",
+							      ref:  "BUS_IB",
 							      description: "Output goes to the IDB"
 							    }
 						 },
@@ -2892,7 +2892,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
-							       ref:  "REG_IR REG_MICROINS",
+							       ref:  "REG_IR",
 							       description: "Input 0 of MUX MR, from IR[SelA...SelA+5]"
 							     },
 						   "mux_1":  {
@@ -2923,7 +2923,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
-							       ref:  "REG_IR REG_MICROINS",
+							       ref:  "REG_IR",
 							       description: "Input 0 of MUX MR, from IR[SelB...SelB+5]"
 							     },
 						   "mux_1":  {
@@ -2954,7 +2954,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0":  {
-							       ref:  "REG_IR REG_MICROINS",
+							       ref:  "REG_IR",
 							       description: "Input 0 of MUX MR, from IR[SelC...SelC+5]"
 							     },
 						   "mux_1":  {
@@ -3310,8 +3310,8 @@
         // CPU - Selectors
 
         sim.ep.elements.select_sr  = {
-			      name:              "Select SR",
-			      description:       "select SR",
+			      name:              "Sel-SR",
+			      description:       "Select SR",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
@@ -3345,13 +3345,13 @@
 	                   } ;
 
         sim.ep.elements.select_ir  = {
-			      name:              "Select IR",
-			      description:       "select IR",
+			      name:              "Sel-IR",
+			      description:       "Select IR",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_i": {
-							       ref:  "IR",
+							       ref:  "REG_IR",
 							       description: "Input of SELECT-IR from IR"
 							    },
 						   "mux_o": {
@@ -3381,7 +3381,7 @@
 
         sim.ep.elements.byte_selector = {
 			      name:              "Byte Selector",
-			      description:       "main memory byte selector",
+			      description:       "Main memory byte selector",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
