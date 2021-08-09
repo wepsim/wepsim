@@ -94,21 +94,33 @@
             return o ;
         }
 
+	function simhwelto_describe_component_enum ( array_eltos, hash_eltos, enum_name )
+	{
+	   var o  = "" ;
+
+           // enumerate...
+	   o += "It has " + array_eltos.length + " " + enum_name + ": " ;
+		for (var i=0; i<array_eltos.length; i++)
+                {
+		     o += '(' + (i+1) + ') ' + hash_eltos[array_eltos[i]].description ;
+                     if (i != array_eltos.length - 1) o += ', ' ;
+		}
+	   o += ". " ;
+
+	   return o ;
+	}
+
 	function simhwelto_describe_component ( elto )
 	{
 	   var o  = "" ;
 
+           // description
 	   o += elto.description + ". " ;
-	   o += "It has " + elto.states_inputs.length + " inputs (" ;
-		for (var i=0; i<elto.states_inputs.length; i++) {
-		     o += elto.states[elto.states_inputs[i]].description ;
-		}
-	   o += "). " ;
-	   o += "It has " + elto.states_outputs.length + " outputs (" ;
-		for (var i=0; i<elto.states_outputs.length; i++) {
-		     o += elto.states[elto.states_outputs[i]].description ;
-		}
-	   o += "). " ;
+
+           // inputs, outputs and signals
+	   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs") ;
+	   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") ;
+	   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") ;
 
 	   return o ;
 	}

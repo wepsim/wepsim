@@ -356,3 +356,48 @@
                                                    }
                                    };
 
+
+        /*
+         *  Model
+	 * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+	 */
+
+        sim.poc.elements.memory = {
+			      name:              "Main memory",
+			      description:       "Main memory subsystem",
+			      type:              "subcomponent",
+			      belongs:           "MEMORY",
+			      states:            {
+						   "addr":      {
+								   ref:  "BUS_AB",
+								   description: "Address bus"
+								},
+						   "data":      {
+								   ref:  "BUS_DB",
+								   description: "Data bus"
+								},
+						   "mrdy":      {
+								   ref:  "MRDY",
+								   description: "Memory ready"
+								}
+						 },
+			      signals:           {
+						   "bw":        {
+								   ref:  "BW",
+								   description: "Bytes Width"
+								},
+						   "r":         {
+								   ref:  "R",
+								   description: "Read"
+								},
+						   "w":         {
+								   ref:  "W",
+								   description: "Write"
+								}
+						 },
+			      states_inputs:     [ "addr", "data" ],
+			      states_outputs:    [ "mrdy", "data" ],
+			      signals_inputs:    [ "bw", "r", "w" ],
+			      signals_output:    [ ]
+		       } ;
+
