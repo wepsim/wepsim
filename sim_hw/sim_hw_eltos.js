@@ -94,7 +94,7 @@
             return o ;
         }
 
-	function simhwelto_describe_component_enum ( array_eltos, hash_eltos, enum_name )
+	function simhwelto_describe_component_enum ( array_eltos, hash_eltos, enum_name, format )
 	{
 	   var o  = "" ;
 
@@ -107,32 +107,38 @@
 		}
 	   o += ". " ;
 
+           if (format == "html") {
+	       o += "<br>" ;
+           }
+
 	   return o ;
 	}
 
 	function simhwelto_describe_component ( elto, format )
 	{
-	   var o  = "" ;
+	   var o = "" ;
 
-           if (format == "html")
-           {
-		   // description
-		   o += elto.description + ".<br> " ;
-
-		   // inputs, outputs and signals
-		   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs")  + '<br>';
-		   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") + '<br>';
-		   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") + '<br>';
+	   // description
+	   o += elto.description + ". " ;
+           if (format == "html") {
+	       o += "<br>" ;
            }
-           else // format by default is "text"
-           {
-		   // description
-		   o += elto.description + ". " ;
 
-		   // inputs, outputs and signals
-		   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs") ;
-		   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") ;
-		   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") ;
+	   // inputs, outputs and signals
+           if (format == "html") {
+	       o += "<ul><li>" ;
+           }
+	   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs",  format) ;
+           if (format == "html") {
+	       o += "<li>" ;
+           }
+	   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs", format) ;
+           if (format == "html") {
+	       o += "<li>" ;
+           }
+	   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals", format) ;
+           if (format == "html") {
+	       o += "</ul>" ;
            }
 
 	   return o ;
@@ -142,21 +148,39 @@
 	{
 	   var o  = "" ;
 
-           simhwelto_prepare_hash(ahw) ;
+           if (typeof ahw.elements_hash == "undefined") {
+               simhwelto_prepare_hash(ahw) ;
+           }
 
+	   if (format == "html") {
+	       o += '<ul>' ;
+	   }
            for (var b in ahw.elements_hash.by_belong)
            {
-                 o += b + '.<br>' +
-                      '<ul>' ;
+                 if (format == "html") {
+                     o += '<li>' + b + '.<br><ul>' ;
+                 }
+                 else {
+                     o += b + '.' ;
+                 }
 
                  for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
                  {
                          elto = ahw.elements_hash.by_belong[b][j] ;
-                         o += '<li>' + simhwelto_describe_component(elto, format) ;
+
+			 if (format == "html") {
+			     o += '<li>' ;
+                         }
+                         o += simhwelto_describe_component(elto, format) ;
                  }
 
-                 o += '</ul>' ;
+                 if (format == "html") {
+                     o += '</ul>' ;
+                 }
            }
+	   if (format == "html") {
+	       o += '</ul>' ;
+	   }
 
 	   return o ;
 	}
