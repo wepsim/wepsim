@@ -960,6 +960,8 @@
 		    label: i18n_get('gui',wsi,'Save'),
 		    className: 'btn-success col float-right',
 		    callback: function() {
+                            /* eslint-disable no-control-regex */
+
 			    // get values
 			    var nf_title    = $("#frm_title1").val() ;
 			    var nf_message  = $("#frm_message1").val() ;
@@ -985,6 +987,8 @@
 			    simcore_record_setTimeBeforeNow(w_duration) ;
 			    simcore_record_append_new('Close message with title "' + s_title + '".',
 				                      'wsweb_notifyuser_hide();\n') ;
+
+                            /* eslint-enable no-control-regex */
 		    }
 	    };
 
