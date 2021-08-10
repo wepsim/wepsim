@@ -110,17 +110,53 @@
 	   return o ;
 	}
 
-	function simhwelto_describe_component ( elto )
+	function simhwelto_describe_component ( elto, format )
 	{
 	   var o  = "" ;
 
-           // description
-	   o += elto.description + ". " ;
+           if (format == "html")
+           {
+		   // description
+		   o += elto.description + ".<br> " ;
 
-           // inputs, outputs and signals
-	   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs") ;
-	   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") ;
-	   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") ;
+		   // inputs, outputs and signals
+		   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs")  + '<br>';
+		   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") + '<br>';
+		   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") + '<br>';
+           }
+           else // format by default is "text"
+           {
+		   // description
+		   o += elto.description + ". " ;
+
+		   // inputs, outputs and signals
+		   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs") ;
+		   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") ;
+		   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") ;
+           }
+
+	   return o ;
+	}
+
+	function simhwelto_describe_components ( ahw, format )
+	{
+	   var o  = "" ;
+
+           simhwelto_prepare_hash(ahw) ;
+
+           for (var b in ahw.elements_hash.by_belong)
+           {
+                 o += b + '.<br>' +
+                      '<ul>' ;
+
+                 for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
+                 {
+                         elto = ahw.elements_hash.by_belong[b][j] ;
+                         o += '<li>' + simhwelto_describe_component(elto, format) ;
+                 }
+
+                 o += '</ul>' ;
+           }
 
 	   return o ;
 	}

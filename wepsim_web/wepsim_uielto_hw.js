@@ -549,10 +549,7 @@
 
         function simcoreui_hw_elements_popup ( elto )
         {
-	      var d = simhwelto_describe_component(elto) ;
-                  d = d.replaceAll('. ', '. <br>') ;
-
-	      var e = d + '<br>' +
+	      var e = simhwelto_describe_component(elto, 'html') + '<br>' +
 		      '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
 		      '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
 		      '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +

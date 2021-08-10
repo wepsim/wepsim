@@ -119,13 +119,15 @@
 
     function wepsim_open_help_hardware_summary ( )
     {
-            var ahw2 = simhw_active().sim_short_name ;
-	    var img2 = 'examples/hardware/' + ahw2 + '/images/cpu.svg?time=20190102' ;
-	    var lyr2 =  '<object id=svg_p2 ' +
-			'        data=\'' + img2 + '\' ' +
-			'        type=\'image/svg+xml\'>' +
-			'Your browser does not support SVG' +
-			'</object>' ;
+            var ahw2 = simhw_active() ;
+	    var img2 = 'examples/hardware/' + ahw2.sim_short_name + '/images/cpu.svg?time=20210801' ;
+	    var lyr2 = '<object id=svg_p2 ' +
+		       '        data=\'' + img2 + '\' ' +
+		       '        type=\'image/svg+xml\'>' +
+		       'Your browser does not support SVG' +
+		       '</object>' +
+                       simhwelto_describe_components(ahw2, 'html') +
+                       '<br>' ;
 
 	    wepsim_open_help_content(lyr2) ;
 
