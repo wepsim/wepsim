@@ -126,6 +126,7 @@
 		       '        type=\'image/svg+xml\'>' +
 		       'Your browser does not support SVG' +
 		       '</object>' +
+		       '<br>' +
                        simhwelto_describe_components(ahw2, 'html') +
                        '<br>' ;
 

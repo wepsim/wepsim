@@ -64,6 +64,8 @@
                '   ./wepsim.sh -a help -m ep -f ./examples/microcode/mc-ep_mips.txt\n' +
                ' * Help about hardware components:\n' +
                '   ./wepsim.sh -a help -m ep\n' +
+               ' * Help about hardware components (filter by name):\n' +
+               '   ./wepsim.sh -a help -m ep -p t1\n' +
                '\n' +
                '' ;
 
