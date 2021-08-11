@@ -2333,7 +2333,7 @@
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -2360,7 +2360,7 @@
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -2387,7 +2387,7 @@
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -2414,7 +2414,7 @@
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -2441,7 +2441,7 @@
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -2464,11 +2464,11 @@
 			      states:            {
 						   "in":    {
 							      ref:  "RA_T9",
-							      description: "Input is the RF/A output"
+							      description: "Input is the output on port A of the register file"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -2491,11 +2491,11 @@
 			      states:            {
 						   "in":    {
 							      ref:  "RB_T10",
-							      description: "Input is the RF/B output"
+							      description: "Input is the output on port B of the register file"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -2522,7 +2522,7 @@
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -2605,7 +2605,7 @@
 							    },
 						   "mux_1": {
 							      ref:  "BUS_IB",
-							      description: "Input 1 of MUX A, from IDB"
+							      description: "Input 1 of MUX A, from Internal Bus"
 							    },
 						   "mux_o": {
 							      ref:  "MA_ALU",
@@ -2663,7 +2663,7 @@
 			      states:            {
 						   "mux_0": {
 							       ref:  "BUS_IB",
-							       description: "Input 0 of MUX 1, from IDB"
+							       description: "Input 0 of MUX 1, from Internal Bus"
 							    },
 						   "mux_1": {
 							       ref:  "BUS_DB",
@@ -2694,7 +2694,7 @@
 			      states:            {
 						   "mux_0": {
 							       ref:  "BUS_IB",
-							       description: "Input 0 of MUX 7, from IDB"
+							       description: "Input 0 of MUX 7, from Internal Bus"
 							    },
 						   "mux_1": {
 							       ref:  "SELP_M7",
@@ -2724,7 +2724,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
-							       ref:  "REG_MICROADDR", // TODO: REG_MICROADDR+1
+							       ref:  "REG_MICROADDR",
 							       description: "Input 0 of MUX A, from mADDR + 1"
 							    },
 						   "mux_1": {
@@ -2771,7 +2771,7 @@
 							       description: "Input 0 of MUX B, from MUX C"
 							    },
 						   "mux_1": {
-							       ref:  "MUXC_MUXB", // TODO: NOT MUXC_MUXB
+							       ref:  "MUXC_MUXB",
 							       description: "Input 1 of MUX B, from NOT (MUX C)"
 							    },
 						   "mux_o": {
@@ -2869,7 +2869,7 @@
 							       description: "Input 0 of MUX MR, from IR[SelA...SelA+5]"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS",
+							       ref:  "REG_MICROINS/SELA",
 							       description: "Input 1 of MUX MR, from SelA"
 							     },
 						   "mux_o":  {
@@ -2900,7 +2900,7 @@
 							       description: "Input 0 of MUX MR, from IR[SelB...SelB+5]"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS",
+							       ref:  "REG_MICROINS/SELB",
 							       description: "Input 1 of MUX MR, from SelB"
 							     },
 						   "mux_o":  {
@@ -2931,7 +2931,7 @@
 							       description: "Input 0 of MUX MR, from IR[SelC...SelC+5]"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS",
+							       ref:  "REG_MICROINS/SELC",
 							       description: "Input 1 of MUX MR, from SelC"
 							     },
 						   "mux_o":  {
@@ -2962,7 +2962,7 @@
 							       description: "Input 0 of MUX MC, from IR3...IR0"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS",
+							       ref:  "REG_MICROINS/SELCOP",
 							       description: "Input 1 of MUX MC, from SelCop"
 							     },
 						   "mux_o":  {
@@ -2992,7 +2992,7 @@
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
-							       description: "Input is the IDB"
+							       description: "Input is the Internal Bus"
 							     },
 						   "out":    {
 							       ref:  "REG_MAR",
@@ -3073,7 +3073,7 @@
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
-							       description: "Input is the IDB"
+							       description: "Input is the Internal Bus"
 							     },
 						   "out":    {
 							       ref:  "REG_IR",
@@ -3100,7 +3100,7 @@
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
-							       description: "Input is the IDB"
+							       description: "Input is the Internal Bus"
 							     },
 						   "out":    {
 							       ref:  "REG_RT1",
@@ -3162,7 +3162,7 @@
 							    },
 						   "c":     {
 							       ref:  "BUS_IB",
-							       description: "Input to RF from IDB"
+							       description: "Input to RF from Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -3240,7 +3240,7 @@
 							    },
 						   "mux_o": {
 							       ref:  "SELEC_T3",
-							       description: "Output to IDB though T3"
+							       description: "Output to Internal Bus through T3"
 							    }
 						 },
 			      signals:           {

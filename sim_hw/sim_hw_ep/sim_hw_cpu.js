@@ -2240,13 +2240,13 @@
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T1",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2263,17 +2263,17 @@
 			      states:            {
 						   "in":    {
 							      ref:  "REG_PC",
-							      description: "Input is the PC register output"
+							      description: "Input is the value of PC register"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T2",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2290,17 +2290,17 @@
 			      states:            {
 						   "in":    {
 							      ref:  "SELEC_T3",
-							      description: "Input is the IR register output selector"
+							      description: "Input is the output of the selector-IR"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T3",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2317,17 +2317,17 @@
 			      states:            {
 						   "in":    {
 							      ref:  "REG_RT1",
-							      description: "Input is the RT1 register output"
+							      description: "Input is the value of RT1 register"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T4",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2344,17 +2344,17 @@
 			      states:            {
 						   "in":    {
 							      ref:  "REG_RT2",
-							      description: "Input is the RT2 register output"
+							      description: "Input is the value of RT2 register"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T5",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2375,13 +2375,13 @@
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T6",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2398,17 +2398,17 @@
 			      states:            {
 						   "in":    {
 							      ref:  "REG_RT3",
-							      description: "Input is the RT3 register output"
+							      description: "Input is the value of RT3 register"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T7",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2425,17 +2425,17 @@
 			      states:            {
 						   "in":    {
 							      ref:  "REG_SR",
-							      description: "Input is the SR register output"
+							      description: "Input is the value of SR register"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T8",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2452,17 +2452,17 @@
 			      states:            {
 						   "in":    {
 							      ref:  "RA_T9",
-							      description: "Input is the RF/A output"
+							      description: "Input is the value of the Register File port A output"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T9",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2479,17 +2479,17 @@
 			      states:            {
 						   "in":    {
 							      ref:  "RB_T10",
-							      description: "Input is the RF/B output"
+							      description: "Input is the value of the Register File port B output"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T10",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2506,17 +2506,17 @@
 			      states:            {
 						   "in":    {
 							      ref:  "REG_MICROINS",
-							      description: "Input is the MIR/ExCode output"
+							      description: "Input is the microinstruction/ExCode output"
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
-							      description: "Output goes to the IDB"
+							      description: "Output goes to the Internal Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "T11",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2537,13 +2537,13 @@
 							    },
 						   "out":   {
 							      ref:  "BUS_AB",
-							      description: "Output goes to the address bus"
+							      description: "Output goes to the Address Bus"
 							    }
 						 },
 			      signals:           {
 						   "ctl":   {
 							      ref:  "TA",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2560,7 +2560,7 @@
 			      states:            {
 						   "in":    {
 							      ref:  "BS_TD",
-							      description: "Input is the byte selector output"
+							      description: "Input is the Byte Selector output"
 							    },
 						   "out":   {
 							      ref:  "BUS_DB",
@@ -2570,7 +2570,7 @@
 			      signals:           {
 						   "ctl":   {
 							      ref:  "TD",
-							      description: "Confirm that output is connected to the input"
+							      description: "Confirm that input value is copied to the output"
 							    }
 						 },
 			      states_inputs:     [ "in"  ],
@@ -2589,15 +2589,15 @@
 			      states:            {
 						   "mux_0": {
 							      ref:  "RA_T9",
-							      description: "Input 0 of MUX A, from RF/A"
+							      description: "Input 0 of MUX A, from Register File (A)"
 							    },
 						   "mux_1": {
 							      ref:  "REG_RT1",
-							      description: "Input 1 of MUX A, from RT1"
+							      description: "Input 1 of MUX A, from RT1 register"
 							    },
 						   "mux_o": {
 							      ref:  "MA_ALU",
-							      description: "Output to ALU/0, from MUX A"
+							      description: "Output to ALU, operator 0"
 							    }
 						 },
 			      signals:           {
@@ -2620,11 +2620,11 @@
 			      states:            {
 						   "mux_0": {
 							       ref:  "RB_T10",
-							       description: "Input 0 of MUX B, from RF/B"
+							       description: "Input 0 of MUX B, from Register File (B)"
 							    },
 						   "mux_1": {
 							       ref:  "REG_RT2",
-							       description: "Input 1 of MUX B, from RT2"
+							       description: "Input 1 of MUX B, from RT2 register"
 							    },
 						   "mux_2": {
 							       ref:  "VAL_FOUR",
@@ -2636,7 +2636,7 @@
 							    },
 						   "mux_o": {
 							       ref:  "MB_ALU",
-							       description: "Output to ALU/1, from MUX B"
+							       description: "Output to ALU, operator 1"
 							    }
 						 },
 			      signals:           {
@@ -2659,11 +2659,11 @@
 			      states:            {
 						   "mux_0": {
 							       ref:  "BUS_IB",
-							       description: "Input 0 of MUX 1, from IDB"
+							       description: "Input 0 of MUX 1, from Internal Bus"
 							    },
 						   "mux_1": {
 							       ref:  "BS_M1",
-							       description: "Input 1 of MUX 1, from byte selector"
+							       description: "Input 1 of MUX 1, from Byte Selector"
 							    },
 						   "mux_o": {
 							       ref:  "M1_C1",
@@ -2690,7 +2690,7 @@
 			      states:            {
 						   "mux_0": {
 							       ref:  "BUS_IB",
-							       description: "Input 0 of MUX 2, from IDB"
+							       description: "Input 0 of MUX 2, from Internal Bus"
 							    },
 						   "mux_1": {
 							       ref:  "REG_PC",
@@ -2698,7 +2698,7 @@
 							    },
 						   "mux_o": {
 							       ref:  "M2_C2",
-							       description: "Output to PC, from MUX 2"
+							       description: "Output to PC"
 							    }
 						 },
 			      signals:           {
@@ -2721,7 +2721,7 @@
 			      states:            {
 						   "mux_0": {
 							       ref:  "BUS_IB",
-							       description: "Input 0 of MUX 7, from IDB"
+							       description: "Input 0 of MUX 7, from Internal Bus"
 							    },
 						   "mux_1": {
 							       ref:  "SELP_M7",
@@ -2729,7 +2729,7 @@
 							    },
 						   "mux_o": {
 							       ref:  "M7_C7",
-							       description: "Output to SR, from MUX 7"
+							       description: "Output to register SR"
 							    }
 						 },
 			      signals:           {
@@ -2751,16 +2751,16 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
-							       ref:  "REG_MICROADDR", // TODO: REG_MICROADDR+1
-							       description: "Input 0 of MUX A, from mADDR + 1"
+							       ref:  "REG_MICROADDR",
+							       description: "Input 0 of MUX A, from microADDR + 1"
 							    },
 						   "mux_1": {
-							       ref:  "REG_MICROINS",
+							       ref:  "REG_MICROINS/MADDR",
 							       description: "Input 1 of MUX A, from co2maddr"
 							    },
 						   "mux_2": {
 							       ref:  "ROM_MUXA",
-							       description: "Input 2 of MUX A, from mIR/MADDR"
+							       description: "Input 2 of MUX A, from microIR/MADDR"
 							    },
 						   "mux_3": {
 							       ref:  "FETCH",
@@ -2768,7 +2768,7 @@
 							    },
 						   "mux_o": {
 							       ref:  "MUXA_MICROADDR",
-							       description: "Output to mADDR, from MUX A"
+							       description: "Output to microADDR, from MUX A"
 							    }
 						 },
 			      signals:           {
@@ -2798,12 +2798,12 @@
 							       description: "Input 0 of MUX B, from MUX C"
 							    },
 						   "mux_1": {
-							       ref:  "MUXC_MUXB", // TODO: NOT MUXC_MUXB
+							       ref:  "MUXC_MUXB",
 							       description: "Input 1 of MUX B, from NOT (MUX C)"
 							    },
 						   "mux_o": {
 							       ref:  "A1",
-							       description: "Output to MUX A/A1, from MUX B"
+							       description: "Output to MUX A/A1"
 							    }
 						 },
 			      signals:           {
@@ -2896,7 +2896,7 @@
 							       description: "Input 0 of MUX MR, from IR[SelA...SelA+5]"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS",
+							       ref:  "REG_MICROINS/SELA",
 							       description: "Input 1 of MUX MR, from SelA"
 							     },
 						   "mux_o":  {
@@ -2927,7 +2927,7 @@
 							       description: "Input 0 of MUX MR, from IR[SelB...SelB+5]"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS",
+							       ref:  "REG_MICROINS/SELB",
 							       description: "Input 1 of MUX MR, from SelB"
 							     },
 						   "mux_o":  {
@@ -2958,7 +2958,7 @@
 							       description: "Input 0 of MUX MR, from IR[SelC...SelC+5]"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS",
+							       ref:  "REG_MICROINS/SELC",
 							       description: "Input 1 of MUX MR, from SelC"
 							     },
 						   "mux_o":  {
@@ -2989,7 +2989,7 @@
 							       description: "Input 0 of MUX MC, from IR3...IR0"
 							     },
 						   "mux_1":  {
-							       ref:  "REG_MICROINS",
+							       ref:  "REG_MICROINS/SELCOP",
 							       description: "Input 1 of MUX MC, from SelCop"
 							     },
 						   "mux_o":  {
@@ -3019,7 +3019,7 @@
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
-							       description: "Input is the IDB"
+							       description: "Input is the Internal Bus"
 							     },
 						   "out":    {
 							       ref:  "REG_MAR",
@@ -3100,7 +3100,7 @@
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
-							       description: "Input is the IDB"
+							       description: "Input is the Internal Bus"
 							     },
 						   "out":    {
 							       ref:  "REG_IR",
@@ -3127,7 +3127,7 @@
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
-							       description: "Input is the IDB"
+							       description: "Input is the Internal Bus"
 							     },
 						   "out":    {
 							       ref:  "REG_RT1",
@@ -3154,7 +3154,7 @@
 			      states:            {
 						   "in":     {
 							       ref:  "BUS_IB",
-							       description: "Input is the IDB"
+							       description: "Input is the Internal Bus"
 							     },
 						   "out":    {
 							       ref:  "REG_RT2",
@@ -3235,7 +3235,7 @@
 			      states:            {
 						   "a":     {
 							       ref:  "RA_T9",
-							       description: "Output of RF to  T9 and MA/0"
+							       description: "Output of RF to T9 and MA/0"
 							    },
 						   "b":     {
 							       ref:  "RB_T10",
@@ -3243,7 +3243,7 @@
 							    },
 						   "c":     {
 							       ref:  "BUS_IB",
-							       description: "Input to RF from IDB"
+							       description: "Input to RF from Internal Bus"
 							    }
 						 },
 			      signals:           {
@@ -3310,22 +3310,22 @@
         // CPU - Selectors
 
         sim.ep.elements.select_sr  = {
-			      name:              "Sel-SR",
-			      description:       "Select SR",
+			      name:              "Select SR",
+			      description:       "SR register value selector",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_1": {
 							       ref:  "FLAG_U",
-							       description: "Input 1 of SELECT-SR, U"
+							       description: "Input 1 of SELECT-SR, U flag"
 							    },
 						   "mux_2": {
 							       ref:  "FLAG_I",
-							       description: "Input 2 of SELECT-SR, I"
+							       description: "Input 2 of SELECT-SR, I flag"
 							    },
 						   "mux_3": {
 							       ref:  "SELP_M7",
-							       description: "Input 3 of SELECT-SR, C V N Z"
+							       description: "Input 3 of SELECT-SR, flags C V N Z"
 							    },
 						   "mux_o": {
 							       ref:  "SELP_M7",
@@ -3345,8 +3345,8 @@
 	                   } ;
 
         sim.ep.elements.select_ir  = {
-			      name:              "Sel-IR",
-			      description:       "Select IR",
+			      name:              "Select IR",
+			      description:       "Instruction Register value selector",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
@@ -3356,7 +3356,7 @@
 							    },
 						   "mux_o": {
 							       ref:  "SELEC_T3",
-							       description: "Output to IDB though T3"
+							       description: "Output to Internal Bus through T3"
 							    }
 						 },
 			      signals:           {
@@ -3387,7 +3387,7 @@
 			      states:            {
 						   "from_mbr":  {
 								  ref:  "REG_MBR",
-								  description: "Input from MBR"
+								  description: "Input from MBR register"
 								},
 						   "from_data": {
 								  ref:  "BUS_DB",
