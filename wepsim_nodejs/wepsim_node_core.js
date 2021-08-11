@@ -845,7 +845,7 @@
              search_str = elto.name.toUpperCase() ;
 
              if (search_str.includes(search_substr)) {
-                 input_help += ' * ' + simhwelto_describe_component(elto) + '\n\n' ;
+                 input_help += ' * ' + simhwelto_describe_component(elto, 'text') + '\n\n' ;
              }
         }
 
