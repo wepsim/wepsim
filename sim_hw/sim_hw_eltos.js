@@ -103,7 +103,10 @@
 		for (var i=0; i<array_eltos.length; i++)
                 {
 		     o += '(' + (i+1) + ') ' + hash_eltos[array_eltos[i]].description ;
-                     if (i != array_eltos.length - 1) o += ', ' ;
+
+                     if (i != array_eltos.length - 1) {
+                         o += ', ' ;
+		     }
 		}
 	   o += ". " ;
 

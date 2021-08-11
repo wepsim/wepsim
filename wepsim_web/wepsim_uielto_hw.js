@@ -590,8 +590,7 @@
 		      '<span class="row"><span class="col">' +
 		      '<a href="#" class="popover_hw" data-toggle="popover" data-html="true" ' +
 		      '   onclick="event.preventDefault();" title="" data-content="' +
-                      simcoreui_hw_components_popup(ahw, b) +
-		      '">' + b + '</a></span></span>' +
+                      simcoreui_hw_components_popup(ahw, b) + '">' + b + '</a></span></span>' +
                       '</td>' ;
 
 	         for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
