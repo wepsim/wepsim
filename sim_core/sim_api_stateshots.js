@@ -80,7 +80,7 @@
 
         // to prepare filter
 	var filter_ext = [] ;
-	var filter_base = filter.toUpperCase().split(/[,;:]+/).filter(v => v!='') ;
+	var filter_base = filter.toUpperCase().split(/[,;:]+/).filter((v) => v!='') ;
         for (var i=0; i<filter_base.length; i++)
         {
 	     elto = filter_base[i].split('-') ;

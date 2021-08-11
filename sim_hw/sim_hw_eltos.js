@@ -94,7 +94,7 @@
             return o ;
         }
 
-	function simhwelto_describe_component_enum ( array_eltos, hash_eltos, enum_name )
+	function simhwelto_describe_component_enum ( array_eltos, hash_eltos, enum_name, format )
 	{
 	   var o  = "" ;
 
@@ -103,24 +103,87 @@
 		for (var i=0; i<array_eltos.length; i++)
                 {
 		     o += '(' + (i+1) + ') ' + hash_eltos[array_eltos[i]].description ;
-                     if (i != array_eltos.length - 1) o += ', ' ;
+
+                     if (i != array_eltos.length - 1) {
+                         o += ', ' ;
+		     }
 		}
 	   o += ". " ;
+
+           if (format == "html") {
+	       o += "<br>" ;
+           }
 
 	   return o ;
 	}
 
-	function simhwelto_describe_component ( elto )
+	function simhwelto_describe_component ( elto, format )
+	{
+	   var o = "" ;
+
+	   // description
+	   o += elto.description + ". " ;
+           if (format == "html") {
+	       o += "<br>" ;
+           }
+
+	   // inputs, outputs and signals
+           if (format == "html") {
+	       o += "<ul><li>" ;
+           }
+	   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs",  format) ;
+           if (format == "html") {
+	       o += "<li>" ;
+           }
+	   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs", format) ;
+           if (format == "html") {
+	       o += "<li>" ;
+           }
+	   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals", format) ;
+           if (format == "html") {
+	       o += "</ul>" ;
+           }
+
+	   return o ;
+	}
+
+	function simhwelto_describe_components ( ahw, format )
 	{
 	   var o  = "" ;
 
-           // description
-	   o += elto.description + ". " ;
+           if (typeof ahw.elements_hash == "undefined") {
+               simhwelto_prepare_hash(ahw) ;
+           }
 
-           // inputs, outputs and signals
-	   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs") ;
-	   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") ;
-	   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") ;
+	   if (format == "html") {
+	       o += '<ul>' ;
+	   }
+           for (var b in ahw.elements_hash.by_belong)
+           {
+                 if (format == "html") {
+                     o += '<li>' + b + '.<br><ul>' ;
+                 }
+                 else {
+                     o += b + '.' ;
+                 }
+
+                 for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
+                 {
+                         elto = ahw.elements_hash.by_belong[b][j] ;
+
+			 if (format == "html") {
+			     o += '<li>' ;
+                         }
+                         o += simhwelto_describe_component(elto, format) ;
+                 }
+
+                 if (format == "html") {
+                     o += '</ul>' ;
+                 }
+           }
+	   if (format == "html") {
+	       o += '</ul>' ;
+	   }
 
 	   return o ;
 	}

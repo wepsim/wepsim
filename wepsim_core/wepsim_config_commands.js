@@ -73,16 +73,14 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='WepSIM dark mode: true' " +
 				   "		   onclick=\"wepsim_restore_darkmode(true) ; " +
-				   "		             update_cfg('ws_skin_dark_mode', true);" +
-				   "		             return false;\">" +
+				   "		             update_cfg('ws_skin_dark_mode', true);\">" +
 				   "		<input type='radio' name='options' id='radio15-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
 				   "	    </label>" +
 				   "	    <label id='label15-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                                   "               aria-label='WepSIM dark mode: true' " +
+                                   "               aria-label='WepSIM dark mode: false' " +
 				   "		   onclick=\"wepsim_restore_darkmode(false) ; " +
-				   "		             update_cfg('ws_skin_dark_mode', false);" +
-				   "		             return false;\">" +
+				   "		             update_cfg('ws_skin_dark_mode', false);\">" +
 				   "		<input type='radio' name='options' id='radio15-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div>",
