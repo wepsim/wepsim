@@ -310,15 +310,17 @@
 
                 // if (border *text) && (native code) && (reg_maddr === 0) -> can continue
                 if ( (mcelto.is_native) && (0 === reg_maddr) ) {
-                      return ret ;
-                }
-
-                // if (border *text) && (reg_maddr !== 0) -> can continue
-                if (0 !== reg_maddr) {
                     if ( (reg_pc == curr_segments['.ktext'].end) || (reg_pc == curr_segments['.text'].end) ) {
                           return ret;
 		    }
-		}
+                }
+
+                // if (border *text) && (reg_maddr !== 0) -> can continue
+                //if (0 !== reg_maddr) {
+                //    if ( (reg_pc == curr_segments['.ktext'].end) || (reg_pc == curr_segments['.text'].end) ) {
+                //          return ret;
+		//    }
+		//}
 
 		// e.o.c. -> cannot continue
                 ret.ok  = false ;
