@@ -192,27 +192,36 @@
            function quick_config_rf_register_names ( )
            {
               var sim_eltos = simhw_sim_states() ;
-              var SIMWARE = get_simware() ;
+              var SIMWARE   = get_simware() ;
+              var o2 = "" ;
 
+              // get: [ 'r10', 'la' ]
               var logical_defined = [] ;
 	      for (var index=0; index < sim_eltos.BR.length; index++)
               {
 	         if (typeof SIMWARE.registers[index] !== "undefined") {
                      logical_defined = SIMWARE.registers[index] ;
+                     break;
                  }
               }
 
-	       var o2 = quickcfg_html_btnreg('R10',
-	 			             "update_cfg(\"RF_display_name\", \"numerical\");" +
-				             "wepsim_show_rf_names();",
-				             'col-6') ;
+              // make menu
+	      o2 += quickcfg_html_btnreg('R10',
+	 			         "update_cfg(\"RF_display_name\", \"numerical\");" +
+				         "wepsim_show_rf_names();",
+				         'col-6') ;
+              if (logical_defined.length == 0)
                    o2 += "<div class='col-6 p-1'></div>" ;
+              else o2 += quickcfg_html_btnreg(logical_defined.join('|'),
+	 			              "update_cfg(\"RF_display_name\", \"logical\");" +
+				              "wepsim_show_rf_names();",
+				              'col-6') ;
 
               for (var i=0; i<logical_defined.length; i++)
               {
 	           o2 += quickcfg_html_btnreg(logical_defined[i],
 		  		              "update_cfg(\"RF_display_name\", \"logical\");" +
-                                              "wepsim_refresh_rf_names(" + i + ");",
+                                              "wepsim_refresh_rf_names(" + (i+1) + ");",
 				              'col-6') ;
               }
 
@@ -256,32 +265,45 @@
             }
         }
 
+        function wepsim_refresh_rf_names_mkname ( disp_name, SIMWARE, index, logical_index )
+        {
+            var br_value = "" ;
+
+            // numerical name
+            if ( ('logical' != disp_name) || (typeof SIMWARE.registers[index] == "undefined") ) {
+	         br_value = "R" + index ;
+	         br_value = br_value.padEnd(3,' ') ;
+                 return br_value ;
+            }
+
+            // all logical name
+            if (logical_index == 0) {
+		 br_value = SIMWARE.registers[index].join('|') ;
+	         br_value = br_value.padEnd(6,' ') ;
+                 return br_value ;
+            }
+
+            // get logical name
+	    br_value = SIMWARE.registers[index][logical_index - 1] ;
+            if (typeof br_value == "undefined") {
+	        br_value = "R" + index ;
+            }
+	    br_value = br_value.padEnd(3,' ') ;
+            return br_value ;
+        }
+
         function wepsim_refresh_rf_names ( logical_index )
         {
 	    var disp_name = get_cfg('RF_display_name') ;
             var sim_eltos = simhw_sim_states() ;
             var SIMWARE   = get_simware() ;
 
-            var br_value = "" ;
 	    for (var index=0; index < sim_eltos.BR.length; index++)
             {
-                 // get name
-		 br_value = "R"  + index ;
-	         if (
-		      ('logical' == disp_name) &&
-                      (logical_index >= 0) &&
-		      (typeof SIMWARE.registers[index]                !== "undefined") &&
-		      (typeof SIMWARE.registers[index][logical_index] !== "undefined")
-		    )
-		 {
-		    br_value = SIMWARE.registers[index][logical_index] ;
-		 }
-		 br_value = br_value.padEnd(3,' ') ;
-
                  // display name
 		 var obj = document.getElementById("name_RF" + index) ;
 		 if (obj != null) {
-		     obj.innerHTML = br_value ;
+		     obj.innerHTML = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, index, logical_index) ;
 		 }
 	    }
         }
