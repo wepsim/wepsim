@@ -117,6 +117,22 @@
 	$('#help1_ref').data('code','true') ;
     }
 
+    function wepsim_help_search_in_tables ( input_id )
+    {
+	    var o = "" ;
+
+            o += '<div class="row justify-content-center w-100">' +
+                 '<input id="' + input_id + '" ' +
+		 '       onkeyup="var value=$(this).val().toLowerCase();' +
+		 '	             $(\'.table2 td\').filter(function() {' +
+		 '	                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)' +
+		 '	             });"' +
+                 '       class="form-control my-2" type="text" placeholder="Search...">' +
+                 '</div">' ;
+
+	    return o ;
+    }
+
     function wepsim_open_help_hardware_summary ( )
     {
             var ahw2 = simhw_active() ;
@@ -127,7 +143,7 @@
 		       'Your browser does not support SVG' +
 		       '</object>' +
 		       '<br>' +
-                       simhwelto_describe_components(ahw2, 'html') +
+                       wepsim_help_hardware_summary_aux(ahw2) +
                        '<br>' ;
 
 	    wepsim_open_help_content(lyr2) ;
@@ -135,6 +151,60 @@
             // add if recording
             simcore_record_append_new('Open hardware summary',
 		                      'wepsim_open_help_hardware_summary();\n') ;
+    }
+
+    function wepsim_help_hardware_summary_aux ( ahw )
+    {
+	    var o = "" ;
+            var e_in  = '' ;
+            var e_out = '' ;
+            var e_sig = '' ;
+            var i_in  = '<i class="fas fa-sign-in-alt"></i>' ;
+            var i_out = '<i class="fas fa-sign-out-alt"></i>' ;
+            var i_sig = '<i class="fas fa-wave-square"></i>' ;
+
+            // check if empty hardware
+            if (ahw == null) {
+                return '<br>Sorry, no hardware available.' ;
+            }
+
+            // prepare hash (if not done before)
+            if (typeof ahw.elements_hash == "undefined") {
+                simhwelto_prepare_hash(ahw) ;
+            }
+
+            // make tables
+            o += '<div class="container">' +
+                 wepsim_help_search_in_tables("hsinput1") +
+                 '<div class="row justify-content-center">' ;
+            for (var b in ahw.elements_hash.by_belong)
+            {
+                 for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
+                 {
+                    elto = ahw.elements_hash.by_belong[b][j] ;
+
+                   e_in = simhwelto_describe_component_enum(elto.states_inputs,  elto.states, "inputs",  'html') ;
+                  e_out = simhwelto_describe_component_enum(elto.states_outputs, elto.states, "outputs", 'html') ;
+                  e_sig = simhwelto_describe_component_enum(elto.signals_inputs, elto.signals,"signals", 'html') ;
+
+		      o += '<div class="col-md-6 d-flex my-2">' +
+			   '<table class="table table-striped table-bordered table-hover table-sm table-responsive table2">' +
+			   '<thead class="thead-dark"><tr>' +
+                           '<th colspan=3>' + b + ' / ' + elto.description + '</th>' +
+                           '</tr></thead>' +
+			   '<tbody>' +
+	                   '<tr><td>' + i_in  + '</td><td>Inputs'  + '</td><td>' + e_in  + '</td></tr>' +
+	                   '<tr><td>' + i_out + '</td><td>Outputs' + '</td><td>' + e_out + '</td></tr>' +
+	                   '<tr><td>' + i_sig + '</td><td>Signals' + '</td><td>' + e_sig + '</td></tr>' +
+                           '</tbody>' +
+			   '</table>' +
+			   '</div>' ;
+                 }
+            }
+            o += '</div>' +
+                 '</div>' ;
+
+	    return o ;
     }
 
     function wepsim_open_help_assembly_summary ( )
@@ -157,6 +227,13 @@
 
     function wepsim_help_assembly_summary_aux ( ws_firmware )
     {
+            var o = '' ;
+
+            // check if empty firmware
+            if (ws_firmware.length == 0) {
+                return '<br>Sorry, firmware without help for its instructions.' ;
+            }
+
             // tables by first letter...
             var t = {} ;
             var ins_name = '' ;
@@ -183,16 +260,9 @@
             }
 
             // join tables
-            var o  = '<div class="container">' +
-                     '<div class="row justify-content-center">' +
-                     '<input id="hsinput1" ' +
-		     '       onkeyup="var value=$(this).val().toLowerCase();' +
-		     '	             $(\'.table2 tr\').filter(function() {' +
-		     '	                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)' +
-		     '	             });"' +
-                     '       class="form-control my-2" type="text" placeholder="Search..">' +
-                     '</div">' +
-                     '<div class="row justify-content-center">' ;
+            o += '<div class="container">' +
+                 wepsim_help_search_in_tables("hsinput1") +
+                 '<div class="row justify-content-center">' ;
             for (var i=0; i<26; i++)
             {
                 k = String.fromCharCode(97 + i) ;
@@ -211,10 +281,6 @@
             }
             o += '</div>' +
                  '</div>' ;
-
-            if (ws_firmware.length == 0) {
-                o = '<br>Sorry, firmware without help for its instructions.' ;
-            }
 
 	    return o ;
     }
