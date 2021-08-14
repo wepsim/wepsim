@@ -221,6 +221,49 @@
     } ;
 
     //
+    // SHOW-MICROCODE-FIELDS
+    //
+
+    hash_action["SHOW-MICROCODE-FIELDS"] = function(data, options)
+    {
+	var elto_obj    = null ;
+	var elto_fields = null ;
+        var ret = wepsim_nodejs_get_instructionset(data, options) ;
+
+        // empty firmware
+        if (typeof ret.firmware === "undefined")
+        {
+            console.log('Begin microcode-fields\n' +
+                        '<Empty>\n' +
+                        'End microcode-fields\n') ;
+            return true ;
+        }
+
+        // show firmware fields
+        console.log('Begin microcode-fields') ;
+
+        var keys_byname = {};
+        Object.keys(ret.firmware).forEach(function(key) {
+           keys_byname[ret.firmware[key].name] = ret.firmware[key];
+        });
+
+        var keys_sorted = Object.keys(keys_byname).sort() ;
+        for (var i=0; i<keys_sorted.length; i++)
+        {
+    	     elto_obj = keys_byname[keys_sorted[i]] ;
+
+	     if (typeof elto_obj.fields !== "undefined")
+    	          elto_fields = elto_obj.fields ;
+             else elto_fields = [] ;
+
+	     console.log(elto_obj.name + ': ' + JSON.stringify(elto_fields, null, 5)) ;
+        }
+
+        console.log('End microcode-fields\n') ;
+        return true ;
+    } ;
+
+    //
     // HELP (signal, instruction set, etc.)
     //
 

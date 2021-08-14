@@ -608,19 +608,41 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
 
 	// 2) load firmware
         var ret = simcore_compile_firmware(data.firmware) ;
-	if (false === ret.ok)
-	{
+	if (false === ret.ok) {
 	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg) ;
 	}
 
 	// 3) load assembly
         ret = simcore_compile_assembly(data.assembly) ;
-	if (false === ret.ok)
-        {
+	if (false === ret.ok) {
 	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg) ;
 	}
 
 	return wepsim_nodejs_retfill(true, ret.msg) ;
+    }
+
+    function wepsim_nodejs_get_instructionset ( data, options )
+    {
+	// 1) initialization
+        var ret = wepsim_nodejs_init(data) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
+	}
+
+	// 2) load firmware
+        // simcore_reset() ;
+
+        var ret = simcore_compile_firmware(data.firmware) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg) ;
+	}
+
+	// 3) get firmware
+        var SIMWARE  = get_simware() ;
+	ret.firmware = SIMWARE.firmware ;
+
+	// 4) return result
+        return ret ;
     }
 
     // execution
@@ -772,8 +794,7 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
     {
 	var key    = data.assembly.toUpperCase() ;
 	var signal = simhw_sim_signal(key) ;
-	if (typeof signal === "undefined")
-        {
+	if (typeof signal === "undefined") {
 	    return wepsim_nodejs_retfill(false, "ERROR: Unknown signal " + key + ".\n") ;
 	}
 
@@ -809,24 +830,11 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
 
     function wepsim_nodejs_help_instructionset ( data, options )
     {
-	// 1) initialization
-        var ret = wepsim_nodejs_init(data) ;
-	if (false === ret.ok) {
-	    return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
-	}
+	// 1) initialization, load firmware and get firmware
+        var ret = wepsim_nodejs_get_instructionset(data, options) ;
+        var ws_firmware = ret.firmware ;
 
-	// 2) load firmware
-        // simcore_reset() ;
-
-        var ret = simcore_compile_firmware(data.firmware) ;
-	if (false === ret.ok)
-	{
-	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg) ;
-	}
-
-	// 3) get firmware
-        var SIMWARE = get_simware() ;
-        var ws_firmware = SIMWARE.firmware ;
+	// 2) some checks
 	if (typeof ws_firmware === "undefined") {
 	    return wepsim_nodejs_retfill(false, "ERROR: Empty firmware.\n") ;
 	}
@@ -834,6 +842,7 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
 	    return wepsim_nodejs_retfill(false, "INFO: firmware without help.\n") ;
 	}
 
+	// 3) get help for the firmware
 	var iset_help = 'Instruction'.padEnd(25, ' ') + ' | ' + 'Help'.padEnd(25, ' ') + '\n' ;
         for (var k = 0; k < ws_firmware.length; k++)
         {
@@ -1113,6 +1122,49 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
 	// show screen at the end
         ret.msg = get_screen_content() ;
         console.log(ret.msg);
+        return true ;
+    } ;
+
+    //
+    // SHOW-MICROCODE-FIELDS
+    //
+
+    hash_action["SHOW-MICROCODE-FIELDS"] = function(data, options)
+    {
+	var elto_obj    = null ;
+	var elto_fields = null ;
+        var ret = wepsim_nodejs_get_instructionset(data, options) ;
+
+        // empty firmware
+        if (typeof ret.firmware === "undefined")
+        {
+            console.log('Begin microcode-fields\n' +
+                        '<Empty>\n' +
+                        'End microcode-fields\n') ;
+            return true ;
+        }
+
+        // show firmware fields
+        console.log('Begin microcode-fields') ;
+
+        var keys_byname = {};
+        Object.keys(ret.firmware).forEach(function(key) {
+           keys_byname[ret.firmware[key].name] = ret.firmware[key];
+        });
+
+        var keys_sorted = Object.keys(keys_byname).sort() ;
+        for (var i=0; i<keys_sorted.length; i++)
+        {
+    	     elto_obj = keys_byname[keys_sorted[i]] ;
+
+	     if (typeof elto_obj.fields !== "undefined")
+    	          elto_fields = elto_obj.fields ;
+             else elto_fields = [] ;
+
+	     console.log(elto_obj.name + ': ' + JSON.stringify(elto_fields, null, 5)) ;
+        }
+
+        console.log('End microcode-fields\n') ;
         return true ;
     } ;
 
