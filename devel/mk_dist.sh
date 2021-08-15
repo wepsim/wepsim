@@ -169,6 +169,8 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_topbar.js \
     wepsim_web/wepsim_uielto_notifications.js \
     wepsim_web/wepsim_uielto_states.js \
+    wepsim_web/wepsim_uielto_help_hweltos.js \
+    wepsim_web/wepsim_uielto_help_swset.js \
     \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
     wepsim_web/wepsim_uipacker_ddown_info.js \
