@@ -77,7 +77,7 @@
 
 	    // stats about ui
 	    setTimeout(function(){
-		           ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.simulator');
+		           simcore_ga('ui', 'ui.workspace', 'ui.workspace.simulator') ;
 		       }, 50) ;
 
             // add if recording
@@ -98,7 +98,7 @@
 
 	    // stats about ui
 	    setTimeout(function(){
-			   ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.microcode');
+			   simcore_ga('ui', 'ui.workspace', 'ui.workspace.microcode') ;
 		       }, 50) ;
 
             // add if recording
@@ -119,7 +119,7 @@
 
 	    // stats about ui
 	    setTimeout(function(){
-			   ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.assembly');
+			   simcore_ga('ui', 'ui.workspace', 'ui.workspace.assembly') ;
 		       }, 50) ;
 
             // add if recording
@@ -288,7 +288,7 @@
 		                      'wsweb_dialog_open("' + dialog_id + '");\n') ;
 
 	    // stats about ui
-            ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.' + wsweb_dialogs[dialog_id].id) ;
+            simcore_ga('ui', 'ui.dialog', 'ui.dialog.' + wsweb_dialogs[dialog_id].id) ;
 
 	    // return dialog
 	    return d1 ;
@@ -669,7 +669,7 @@
 	    simcore_record_start() ;
 
 	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.record');
+	    simcore_ga('recordbar', 'recordbar.action', 'recordbar.action.record') ;
 
             // return ok
             return true ;
@@ -680,7 +680,7 @@
 	    simcore_record_stop() ;
 
 	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.stop');
+	    simcore_ga('recordbar', 'recordbar.action', 'recordbar.action.stop') ;
 
             // return ok
             return true ;
@@ -691,7 +691,7 @@
 	    simcore_record_reset() ;
 
 	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.reset');
+	    simcore_ga('recordbar', 'recordbar.action', 'recordbar.action.reset') ;
 
             // return ok
             return true ;
@@ -702,7 +702,7 @@
 	    simcore_record_play() ;
 
 	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.play');
+	    simcore_ga('recordbar', 'recordbar.action', 'recordbar.action.play') ;
 
             // return ok
             return true ;
@@ -713,7 +713,7 @@
 	    simcore_record_pause() ;
 
 	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.pause');
+	    simcore_ga('recordbar', 'recordbar.action', 'recordbar.action.pause') ;
 
             // return ok
             return true ;
@@ -724,7 +724,7 @@
 	    simcore_record_playInterval(from, to) ;
 
 	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.play-' + from + '-' + to);
+	    simcore_ga('recordbar', 'recordbar.action', 'recordbar.action.play-' + from + '-' + to) ;
 
             // return ok
             return true ;
@@ -946,7 +946,7 @@
 	    }
 
 	    // stats about recordbar
-	    ga('send', 'event', 'recordbar', 'recordbar.action', 'recordbar.action.add_notification');
+	    simcore_ga('recordbar', 'recordbar.action', 'recordbar.action.add_notification') ;
 
 	    // build the message box
             var wsi = get_cfg('ws_idiom') ;

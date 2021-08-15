@@ -205,9 +205,7 @@ function langError ( context, msgError )
                          "(*) " + i18n_get_TagFor('compiler', 'PROBLEM AROUND LINE') + " " +
 			 context.line + ": <br>" + msgError + ".<br>" ;
 
-	if (typeof ga !== "undefined") {
-            ga('send', 'event', 'compile', 'compile.error', 'compile.error.' + msgError);
-        }
+        simcore_ga('compile', 'compile.error', 'compile.error.' + msgError) ;
 
         return context;
 }

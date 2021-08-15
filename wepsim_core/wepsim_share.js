@@ -60,7 +60,7 @@
 	 }
 
 	 // stats about sharing
-	 ga('send', 'event', 'ui', 'ui.share', 'ui.share.' + info_shared);
+	 simcore_ga('ui', 'ui.share', 'ui.share.' + info_shared) ;
 
 	 return true ;
     }

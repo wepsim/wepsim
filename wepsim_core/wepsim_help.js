@@ -50,7 +50,7 @@
              helpurl = 'help/' + r[0] + '-' + seg_idiom + '.html' ;
              resolve_html_url(helpdiv, helpurl, '#' + r[1], scrolltothetop) ;
 
-             ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel) ;
+             simcore_ga('help', 'help.simulator', 'help.simulator.' + rel) ;
 
              return ;
         }
@@ -62,7 +62,7 @@
 		       ab1 + '-' + seg_idiom + '.html' ;
              resolve_html_url(helpdiv, helpurl, '', scrolltothetop) ;
 
-             ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*') ;
+             simcore_ga('help', 'help.' + ab1, 'help.' + ab1 + '.*') ;
 
              return ;
         }
@@ -70,7 +70,7 @@
         var cod1 = $('#help1_ref').data('code') ;
         if ( (typeof cod1 != "undefined") && (cod1 === "true") )
         {
-            ga('send', 'event', 'help', 'help.code', 'help.code.*') ;
+            simcore_ga('help', 'help.code', 'help.code.*') ;
             return ;
         }
 
@@ -80,7 +80,7 @@
 	     var html_index = table_helps_html(ws_info.help) ;
 	     $(helpdiv).html(html_index) ;
 
-             ga('send', 'event', 'help', 'help.index', 'help.index') ;
+             simcore_ga('help', 'help.index', 'help.index') ;
 
              return ;
         }
@@ -218,7 +218,7 @@
 	 var help_base = 'examples/hardware/' + simhw + '/help/signals-' + curr_idiom + '.html' ;
          resolve_html_url(helpdiv, help_base, '#'+key, function() { $(helpdiv).trigger('create') ; }) ;
 
-         ga('send', 'event', 'help', 'help.signal', 'help.signal.' + simhw + '.' + key);
+         simcore_ga('help', 'help.signal', 'help.signal.' + simhw + '.' + key);
     }
 
     function update_checker_loadhelp ( helpdiv, key )
@@ -228,6 +228,6 @@
 
          resolve_html_url(helpdiv, help_base, '#'+key, function() { $(helpdiv).trigger('create') ; }) ;
 
-         ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
+         simcore_ga('help', 'help.checker', 'help.checker.' + key);
     }
 
