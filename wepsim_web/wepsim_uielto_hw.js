@@ -24,36 +24,55 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_hw extends HTMLElement
+        class ws_hw extends ws_uielto
         {
               constructor ()
               {
                     // parent
                     super();
+
+                    this.update_div_timer = null ;
               }
 
+              // render
               render ( )
               {
+                    // initialize render elements...
+                    super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
+	      {
                     // default content
                     var o1 = '<div id="config_HW" ' +
                              '     style="height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;"></div>' ;
-                    this.innerHTML = o1 ;
 
+                    this.innerHTML = o1 ;
+              }
+
+	      render_populate ( )
+	      {
                     // if no active hardware -> empty
                     var ahw = simhw_active() ;
                     if (ahw === null) {
                         return '' ;
                     }
 
+		    if ($("#config_HW").is(':visible') == false) {
+                        return '' ;
+                    }
+
                     // set and go
-	            simcoreui_init_hw("#config_HW") ;
-
-                    return o1 ;
-              }
-
-              connectedCallback ()
-              {
-                    this.render() ;
+                    if (this.update_div_timer == null) {
+                        this.update_div_timer = setTimeout(function() { 
+	                                                      simcoreui_init_hw("#config_HW") ;
+                                                              this.update_div_timer = null ;
+                                                           }, 100) ;
+		    }
               }
         }
 
