@@ -614,3 +614,27 @@
                       description: "<span data-langkey='Auto-scroll while executing'>Auto-scroll while executing</span>"
                    });
 
+    ws_info.config_ui.push({
+                      id:          "radio17",
+                      type:        "Privacy",
+                      u_class:     "",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label17-true'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Use Google Analytics: true'" +
+				   "		   onclick=\"update_cfg('use_ga', true);\">" +
+				   "		<input type='radio' name='options' id='radio17-true'   autocomplete='off' >On" +
+				   "	    </label>" +
+				   "	    <label id='label17-false'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Use Google Analytics: false'" +
+				   "		   onclick=\"update_cfg('use_ga', false);\">" +
+				   "		<input type='radio' name='options' id='radio17-false'  autocomplete='off' >Off" +
+				   "	    </label>" +
+				   "	</div> ",
+		      code_init:   function() {
+			               $('#label17-' +    get_cfg('use_ga')).button('toggle');
+		                   },
+                      description: "<span data-langkey='Use of Google Analytics to obtain anonymous statistics on the use of the application'>Use of Google Analytics to obtain anonymous statistics on the use of the application</span>"
+                   });
+

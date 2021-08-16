@@ -75,7 +75,7 @@
 	     ws_tour.start() ;
 
 	     // stats about ui
-             ga('send', 'event', 'ui', 'ui.tour', 'ui.tour.newbie');
+             simcore_ga('ui', 'ui.tour', 'ui.tour.newbie') ;
     }
 
     function wepsim_newbie_tour_setLang ( lang )

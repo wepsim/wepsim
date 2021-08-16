@@ -45,9 +45,9 @@
              simcore_record_append_new('Set configuration option ' + field + ' to ' + value,
                                        'update_cfg("' + field + '","' + value + '");\n') ;
 
-             ga('send', 'event', 'config',
-                'config.' + WSCFG.version.value,
-                'config.' + WSCFG.version.value + '.' + field + '.' + value);
+             simcore_ga('config',
+                        'config.' + WSCFG.version.value,
+                        'config.' + WSCFG.version.value + '.' + field + '.' + value) ;
 
              save_cfg() ;
         }
@@ -201,7 +201,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.1.6" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.1.6.20210102A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.1.6.20210801A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -261,7 +261,8 @@
 
 	           /* misc. */
                    "max_json_size":         { upgrade:true,  type:"int",       value:1*1024*1024 },
-                   "verbal_verbose":        { upgrade:false, type:"string",    value:'math' }
+                   "verbal_verbose":        { upgrade:false, type:"string",    value:'math' },
+                   "use_ga":                { upgrade:false, type:"boolean",   value:true }
              } ;
 
              // some mobile-tuning

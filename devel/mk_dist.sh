@@ -52,6 +52,7 @@ cp external/jquery.min.js    ws_dist/external
 #  hardware model + software model + core (simulation ctrl + UI)
 echo "  * ws_dist/min.sim_all.js"
 cat sim_core/sim_cfg.js \
+    sim_core/sim_core_ga.js \
     sim_core/sim_adt_core.js \
     sim_core/sim_core_record.js \
     sim_core/sim_core_ctrl.js \
@@ -169,6 +170,8 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_topbar.js \
     wepsim_web/wepsim_uielto_notifications.js \
     wepsim_web/wepsim_uielto_states.js \
+    wepsim_web/wepsim_uielto_help_hweltos.js \
+    wepsim_web/wepsim_uielto_help_swset.js \
     \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
     wepsim_web/wepsim_uipacker_ddown_info.js \

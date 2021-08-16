@@ -147,8 +147,7 @@
                                   'load_from_example_assembly("' + example_id + '", ' + chain_next_step + ');\n') ;
 
 	// stats about examples
-        ga('send', 'event', 'example', 'example.assembly',
-           'example.assembly.' + sample_hw + "." + sample_asm);
+        simcore_ga('example', 'example.assembly', 'example.assembly.' + sample_hw + "." + sample_asm) ;
     }
 
     function load_from_example_firmware ( example_id, chain_next_step )
@@ -220,8 +219,7 @@
                                   'load_from_example_firmware("' + example_id + '", false);\n') ;
 
 	// stats about examples
-        ga('send', 'event', 'example', 'example.firmware',
-	   'example.firmware.' + sample_hw + "." + sample_mc);
+        simcore_ga('example', 'example.firmware', 'example.firmware.' + sample_hw + "." + sample_mc) ;
     }
 
     function share_example ( m, base_url )
