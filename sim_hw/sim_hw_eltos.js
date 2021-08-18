@@ -94,9 +94,9 @@
             return o ;
         }
 
-	function simhwelto_describe_component_enum ( array_eltos, hash_eltos, enum_name, format )
+	function simhwelto_describe_component_enum ( array_eltos, hash_eltos, enum_name )
 	{
-	   var o  = "" ;
+	   var o = "" ;
 
            // enumerate...
 	   o += "It has " + array_eltos.length + " " + enum_name + ": " ;
@@ -110,10 +110,6 @@
 		}
 	   o += ". " ;
 
-           if (format == "html") {
-	       o += "<br>" ;
-           }
-
 	   return o ;
 	}
 
@@ -121,29 +117,24 @@
 	{
 	   var o = "" ;
 
-	   // description
-	   o += elto.description + ". " ;
-           if (format == "html") {
-	       o += "<br>" ;
+           if (format == "html")
+           {
+	       o += elto.description + '.<br><ul>' +
+	            '<li>' +
+		    simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs")  + '<br>' +
+		    '<li>' +
+		    simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") + '<br>' +
+		    '<li>' +
+		    simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") + '<br>' +
+		    '</ul>' ;
+
+	       return o ;
            }
 
-	   // inputs, outputs and signals
-           if (format == "html") {
-	       o += "<ul><li>" ;
-           }
-	   o += simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs",  format) ;
-           if (format == "html") {
-	       o += "<li>" ;
-           }
-	   o += simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs", format) ;
-           if (format == "html") {
-	       o += "<li>" ;
-           }
-	   o += simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals", format) ;
-           if (format == "html") {
-	       o += "</ul>" ;
-           }
-
-	   return o ;
+	   // "text" by default
+	   return elto.description + ". " +
+	          simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs") +
+	          simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") +
+	          simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") ;
 	}
 

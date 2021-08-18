@@ -30,8 +30,6 @@
               {
                     // parent
                     super();
-
-                    this.update_div_timer = null ;
               }
 
               // render
@@ -47,9 +45,12 @@
 
 	      render_skel ( )
 	      {
+                    var div_id       = 'config_HW_' + this.name_str ;
+                    var css_scroll_y = 'overflow-y:scroll; -webkit-overflow-scrolling:touch;' ;
+
                     // default content
-                    var o1 = '<div id="config_HW" ' +
-                             '     style="height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;"></div>' ;
+                    var o1 = '<div id="' + div_id + '"' +
+                             '     style="height:58vh; width:inherit; ' + css_scroll_y + '"></div>' ;
 
                     this.innerHTML = o1 ;
               }
@@ -62,17 +63,14 @@
                         return '' ;
                     }
 
-		    if ($("#config_HW").is(':visible') == false) {
+                    // if no visible -> skip data population
+                    var div_hash = '#' + 'config_HW_' + this.name_str ;
+		    if ($(div_hash).is(':visible') == false) {
                         return '' ;
                     }
 
                     // set and go
-                    if (this.update_div_timer == null) {
-                        this.update_div_timer = setTimeout(function() { 
-	                                                      simcoreui_init_hw("#config_HW") ;
-                                                              this.update_div_timer = null ;
-                                                           }, 100) ;
-		    }
+	            simcoreui_init_hw(div_hash, this.components_arr) ;
               }
         }
 
@@ -88,20 +86,36 @@
         var ws_signals_show_inactive = true ;
         var ws_states_show_inactive  = true ;
 
-        function simcoreui_init_hw ( div_name )
-        {
-              var ahw = simhw_active() ;
-              simhwelto_prepare_hash(ahw) ;
+        var simcoreui_hwui_fn = {} ;
+        simcoreui_hwui_fn["elements"]  = simcoreui_hw_elements_init ;  // simulated
+        simcoreui_hwui_fn["signals"]   = simcoreui_hw_signals_init ;   // simulation
+        simcoreui_hwui_fn["states"]    = simcoreui_hw_states_init ;    // simulation
+        simcoreui_hwui_fn["behaviors"] = simcoreui_hw_behaviors_init ; // simulation
 
-	      var o = simcoreui_hw_summary_init(ahw) +
-                      // simulated
-                      simcoreui_hw_elements_init(ahw) +
-                      // simulation
-		      simcoreui_hw_signals_init(ahw) +
-		      simcoreui_hw_states_init(ahw)  +
-		      simcoreui_hw_behaviors_init(ahw) ;
+        function simcoreui_init_hw ( div_name, components_arr )
+        {
+              // get active hardware
+              var ahw = simhw_active() ;
+
+              // prepare hash (if not done before)
+              if (typeof ahw.elements_hash == "undefined") {
+                  simhwelto_prepare_hash(ahw) ;
+              }
+
+              // build HTML...
+              var o = simcoreui_hw_summary_init(ahw) ;
+              for (var i=0; i < components_arr.length; i++)
+              {
+                   var cname = components_arr[i] ;
+                   if (typeof simcoreui_hwui_fn[cname] !== "undefined") {
+                       o += simcoreui_hwui_fn[cname](ahw) ;
+                   }
+              }
+
+              // ...load HTML
 	      $(div_name).html(o) ;
 
+              // initialization of recent HTML added components
 	      $('[data-toggle="tooltip"]').tooltip({
 	  	    trigger:   'hover',
 		  sanitizeFn: function (content) {
