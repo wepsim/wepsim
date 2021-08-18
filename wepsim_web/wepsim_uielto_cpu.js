@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_cpu extends HTMLElement
+        class ws_cpu extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,11 +32,14 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+	      render ( )
 	      {
                     // if no active hardware -> empty 
-                    if (simhw_active() === null) {
-                        return "<div id='cpu_ALL'></div>" ;
+                    if (simhw_active() === null)
+                    {
+		        this.innerHTML = "<div id='cpu_ALL'></div>" ;
+                        return ;
                     }
 
 		    // html holder
@@ -77,11 +80,6 @@
 
                         ref_obj = simhw_sim_state('ACC_TIME') ;
                     vue_rebind_state(ref_obj, '#tms_context') ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

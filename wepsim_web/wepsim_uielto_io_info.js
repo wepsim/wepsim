@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_io_info extends HTMLElement
+        class ws_io_info extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,18 +32,18 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+	      render ( )
 	      {
                     // if no active hardware -> empty 
                     if (simhw_active() === null) {
-                        return "<div id='io_ALL'></div>" ;
+		        this.innerHTML = "<div id='io_ALL'></div>" ;
+			return ;
                     }
 
 		    // default content
 		    var curr_iointfactory = simhw_internalState('io_int_factory') ;
-		    if (typeof curr_iointfactory == "undefined") 
-                    {
-		        this.innerHTML = msg_default ;
+		    if (typeof curr_iointfactory == "undefined") {
+		        this.innerHTML = "<div id='io_ALL'></div>" ;
 			return ;
 		    }
 
@@ -94,11 +94,6 @@
                                          '#int'+i+'_act',
                                          function(value){ return value; }) ;
 		    }
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

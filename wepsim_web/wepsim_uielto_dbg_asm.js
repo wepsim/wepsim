@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_dbg_mp extends HTMLElement
+        class ws_dbg_mp extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,7 +32,7 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+	      render ( )
 	      {
 		    // html holder
 		    var o1 = "<center>" +
@@ -62,11 +62,6 @@
 		             "</div>" ;
 
 		    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

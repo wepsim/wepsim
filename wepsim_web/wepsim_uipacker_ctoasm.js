@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_ctoasm extends HTMLElement
+        class ws_ctoasm extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,7 +32,7 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+	      render ( )
 	      {
 		    // html holder
 		    var o1 = '<!-- Nav tabs -->' +
@@ -68,11 +68,6 @@
 	    	             '</div>' ;
 
 		    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

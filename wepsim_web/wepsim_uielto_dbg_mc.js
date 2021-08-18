@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_dbg_mc extends HTMLElement
+        class ws_dbg_mc extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,7 +32,7 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+	      render ( )
 	      {
 		    // html holder
 		    var o1 = "<div id='memory_MC' " +
@@ -40,11 +40,6 @@
                              "</div>" ;
 
 		    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

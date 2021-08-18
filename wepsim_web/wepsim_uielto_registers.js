@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_registers extends HTMLElement
+        class ws_registers extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -63,11 +63,6 @@
 					     i18n_update_tags('cfg') ;
 					     i18n_update_tags('dialogs') ;
 					 }) ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

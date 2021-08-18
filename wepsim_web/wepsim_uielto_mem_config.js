@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_mem_config extends HTMLElement
+        class ws_mem_config extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,11 +32,12 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+	      render ( )
 	      {
 		    // if no active hardware -> empty
 		    if (simhw_active() === null) {
-			return "<div id='config_MP'></div>" ;
+		        this.innerHTML = "<div id='config_MP'></div>" ;
+			return ;
 		    }
 
 		    // html holder
@@ -71,11 +72,6 @@
 		    vue_appyBinding(curr_mp_wc.value,
 				    '#mp_wc',
 				    function(value){ return value; }) ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

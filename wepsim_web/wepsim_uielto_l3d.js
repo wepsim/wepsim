@@ -32,7 +32,7 @@
         var apirest_pass     = "" ;
 
 
-        class ws_l3d extends HTMLElement
+        class ws_l3d extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -40,11 +40,12 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+	      render ( )
 	      {
                     // if no active hardware -> empty
                     if (simhw_active() === null) {
-                        return "<div id='config_L3D'></div>" ;
+		        this.innerHTML = "<div id='config_L3D'></div>" ;
+                        return ;
                     }
 
 		    // default content
@@ -52,7 +53,7 @@
 	            var l3d_dim    = simhw_internalState('l3d_dim') ;
 		    if ( (typeof l3d_states == "undefined") || (typeof l3d_dim == "undefined") )
                     {
-		        this.innerHTML = msg_default ;
+		        this.innerHTML = "<div id='config_L3D'></div>" ;
 			return ;
 		    }
 
@@ -126,11 +127,6 @@
 		        apirest_endpoint.value = vue_observable(apirest_endpoint.value) ;
 		    }
 		    vue_appyBinding(apirest_endpoint.value, '#apirest_endpoint', f_computed_value) ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

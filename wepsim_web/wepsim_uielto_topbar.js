@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_topbar extends HTMLElement
+        class ws_topbar extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,7 +32,7 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+	      render ( )
 	      {
 		    // html holder
 		    var o1 =    '<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">' +
@@ -66,11 +66,6 @@
 				'</nav>' ;
 
 		    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

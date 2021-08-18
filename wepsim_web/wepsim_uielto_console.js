@@ -24,15 +24,16 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_console extends HTMLElement
+        class ws_console extends ws_uielto
         {
-	      constructor ()
-	      {
-		    // parent
-		    super();
-	      }
+              constructor ()
+              {
+                    // parent
+                    super();
+              }
 
-	      render ( msg_default )
+              // render
+	      render ( )
 	      {
 		    // html holder
 		    var o1 = '<label class="my-0" for="kdb_con" style="min-width:95%">' +
@@ -52,11 +53,6 @@
                              '          placeholder="WepSIM" id="kdb_key" rows="2"></textarea>' ;
 
 		    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 
