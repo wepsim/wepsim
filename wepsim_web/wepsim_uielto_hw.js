@@ -45,28 +45,28 @@
 
 	      render_skel ( )
 	      {
-                    var div_id       = 'config_HW_' + this.name_str ;
-                    var css_scroll_y = 'overflow-y:scroll; -webkit-overflow-scrolling:touch;' ;
+                    var div_id    = 'config_HW_' + this.name_str ;
+                    var css_style = 'height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;' ;
 
                     // default content
-                    var o1 = '<div id="' + div_id + '"' +
-                             '     style="height:58vh; width:inherit; ' + css_scroll_y + '"></div>' ;
-
-                    this.innerHTML = o1 ;
+                    this.innerHTML = '<div id="' + div_id + '" style="' + css_style + '"></div>' ;
               }
 
 	      render_populate ( )
 	      {
+                    var div_hash = '#' + 'config_HW_' + this.name_str ;
+
                     // if no active hardware -> empty
                     var ahw = simhw_active() ;
                     if (ahw === null) {
-                        return '' ;
+                        $(div_hash).html('') ;
+                        return ;
                     }
 
                     // if no visible -> skip data population
-                    var div_hash = '#' + 'config_HW_' + this.name_str ;
 		    if ($(div_hash).is(':visible') == false) {
-                        return '' ;
+                        $(div_hash).html('') ;
+                        return ;
                     }
 
                     // set and go

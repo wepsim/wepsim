@@ -32,39 +32,59 @@
 		    super();
 	      }
 
-	      render ( )
+              // render
+              render ( )
+              {
+                    // initialize render elements...
+                    super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
 	      {
+                    var div_id    = 'config_MP_' + this.name_str ;
+                    var css_style = 'height:58vh; width:inherit; overflow-y:auto;' ;
+
+                    // default content
+                    this.innerHTML = '<div id="' + div_id + '" style="' + css_style + '"></div>' ;
+              }
+
+	      render_populate ( )
+	      {
+                    var div_hash = '#config_MP_' + this.name_str ;
+                    var o1 = '' ;
+
 		    // if no active hardware -> empty
 		    if (simhw_active() === null) {
-		        this.innerHTML = "<div id='config_MP'></div>" ;
+                        $(div_hash).html(o1) ;
 			return ;
 		    }
 
 		    // html holder
-		    var o1 = "<div id='config_MP' style='height:58vh; width: inherit; overflow-y: auto;' " +
-			     "     class='container container-fluid'>" +
-		             "<div class='container-fluid'>" +
-			     "<div class='row'>" +
-		             "<div class='col-12' style='padding:0 0 10 0;'>" +
-			     "<div class='card bg-light'>" +
-			     "<div class='card-body p-0' id='mempanel'>" +
-			     "<table class='table table-hover table-sm table-bordered' " +
-			     "       style='margin:0'>" +
-			     "<tbody class='no-ui-mini'>" +
-			     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
-			     "    <td align=center'>" +
-			     "<div id='mp_wc'>" +
-			     "<input type=number v-model.lazy='value' min='0' max='99999999'>" +
-			     "</div>" +
-			     "    </td></tr>" +
-			     "</tbody>" +
-			     "</table>" +
-			     "</div>" +
-			     "</div>" +
-			     "</div>" +
-			     "</div>" ;
+		    o1 += "<div class='container container-fluid'>" +
+			  "<div class='row'>" +
+		          "<div class='col-12' style='padding:0 0 10 0;'>" +
+			  "<div class='card bg-light'>" +
+			  "<div class='card-body p-0' id='mempanel'>" +
+			  "<table class='table table-hover table-sm table-bordered' " +
+			  "       style='margin:0'>" +
+			  "<tbody class='no-ui-mini'>" +
+			  "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
+			  "    <td align=center'>" +
+			  "<div id='mp_wc'>" +
+			  "<input type=number v-model.lazy='value' min='0' max='99999999'>" +
+			  "</div>" +
+			  "    </td></tr>" +
+			  "</tbody>" +
+			  "</table>" +
+			  "</div>" +
+			  "</div>" +
+			  "</div>" ;
 
-		    this.innerHTML = o1 ;
+                    $(div_hash).html(o1) ;
 
 		    // vue binding
 		    var curr_mp_wc = { value: vue_observable(0) } ;

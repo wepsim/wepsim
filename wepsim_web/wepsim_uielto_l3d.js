@@ -40,11 +40,36 @@
 		    super();
 	      }
 
-	      render ( )
+              // render
+              render ( )
+              {
+                    // initialize render elements...
+                    super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
 	      {
+                    var div_id    = 'config_L3D' + this.name_str ;
+                    var css_style = 'height:58vh; width:inherit; overflow-y:auto;' ;
+
+                    // default content
+                    this.innerHTML = '<div id="' + div_id + '" style="' + css_style + '"></div>' ;
+              }
+
+	      render_populate ( )
+	      {
+                    var o1 = '' ;
+                    var div_hash = '#config_L3D' + this.name_str ;
+		    var i = 0 ;
+		    var offset = 0 ;
+
                     // if no active hardware -> empty
                     if (simhw_active() === null) {
-		        this.innerHTML = "<div id='config_L3D'></div>" ;
+                        $(div_hash).html(o1) ;
                         return ;
                     }
 
@@ -53,7 +78,7 @@
 	            var l3d_dim    = simhw_internalState('l3d_dim') ;
 		    if ( (typeof l3d_states == "undefined") || (typeof l3d_dim == "undefined") )
                     {
-		        this.innerHTML = "<div id='config_L3D'></div>" ;
+                        $(div_hash).html(o1) ;
 			return ;
 		    }
 
@@ -64,26 +89,22 @@
 				       'pass':     apirest_pass }) ;
 
 		    // html holder
-		    var i = 0 ;
-		    var offset = 0 ;
-
-		    var o1  = "<div id='config_L3D' style='height:58vh; width:inherit; overflow-y:auto;'>" +
-			      "<div class='container text-right'>" +
-                              "" +
-                              "<a data-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
-                              "   tabindex='0' class='m-auto' role='button'>" +
-                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
-                              "" +
-			      "<table id='collapse-l3dcfg' " +
-                              " class='table table-hover table-sm table-bordered m-0 collapse'>" +
-			      "<tr><td>" +
-                              "<label class='my-0 text-wrap' for='apirest_endpoint'>REST URL (e.g.: http://localhost:5000/matrix)</label>" +
-			      "<input id='apirest_endpoint' type='text' v-model.lazy='value' class='form-control text-info p-0'>" +
-			      "</td></tr>" +
-			      "</table>" +
-                              "" +
-			      "<div class='row mt-3'>" +
-			      "<div class='col-12' style='perspective:1000px; perspective-origin: 50% 50%;'>" ;
+		    o1  += "<div class='container text-right'>" +
+                           "" +
+                           "<a data-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
+                           "   tabindex='0' class='m-auto' role='button'>" +
+                           "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
+                           "" +
+			   "<table id='collapse-l3dcfg' " +
+                           " class='table table-hover table-sm table-bordered m-0 collapse'>" +
+			   "<tr><td>" +
+                           "<label class='my-0 text-wrap' for='apirest_endpoint'>REST URL (e.g.: http://localhost:5000/matrix)</label>" +
+			   "<input id='apirest_endpoint' type='text' v-model.lazy='value' class='form-control text-info p-0'>" +
+			   "</td></tr>" +
+			   "</table>" +
+                           "" +
+			   "<div class='row mt-3'>" +
+			   "<div class='col-12' style='perspective:1000px; perspective-origin: 50% 50%;'>" ;
 		    for (i=0; i<l3d_states.length/(l3d_dim*l3d_dim); i++)
 		    {
 			o1 += "<table class='table table-hover table-sm table-bordered pb-3' style='transform: rotateX(20deg);'>" ;
@@ -102,12 +123,11 @@
 			    }
 			o1 += "</table>" ;
 		    }
-			o1 += "</div>" +
-			      "</div>" +
-			      "</div>" +
-			      "</div>" ;
+		     o1 += "</div>" +
+			   "</div>" +
+			   "</div>" ;
 
-		    this.innerHTML = o1 ;
+                    $(div_hash).html(o1) ;
 
 		    // vue binding
                     var f_computed_value = function(value) { 
