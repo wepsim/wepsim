@@ -50,8 +50,6 @@
              helpurl = 'help/' + r[0] + '-' + seg_idiom + '.html' ;
              resolve_html_url(helpdiv, helpurl, '#' + r[1], scrolltothetop) ;
 
-             simcore_ga('help', 'help.simulator', 'help.simulator.' + rel) ;
-
              return ;
         }
 
@@ -62,15 +60,12 @@
 		       ab1 + '-' + seg_idiom + '.html' ;
              resolve_html_url(helpdiv, helpurl, '', scrolltothetop) ;
 
-             simcore_ga('help', 'help.' + ab1, 'help.' + ab1 + '.*') ;
-
              return ;
         }
 
         var cod1 = $('#help1_ref').data('code') ;
         if ( (typeof cod1 != "undefined") && (cod1 === "true") )
         {
-            simcore_ga('help', 'help.code', 'help.code.*') ;
             return ;
         }
 
@@ -81,7 +76,6 @@
 	     $(helpdiv).html(html_index) ;
 
              simcore_ga('help', 'help.index', 'help.index') ;
-
              return ;
         }
     }

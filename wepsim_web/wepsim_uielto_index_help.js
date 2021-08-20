@@ -86,23 +86,16 @@
     		}
     
     		e_title       = helps[m].title ;
-    		e_itype       = helps[m].i_type ;
     		e_utype       = helps[m].u_type ;
     		e_uclass      = helps[m].u_class ;
     		e_reference   = helps[m].reference ;
     		e_description = helps[m].description ;
     		e_id          = helps[m].id ;
     
-    		var onclick_code = "" ;
-    		if ("relative" === e_itype)
-    		    onclick_code = 'wepsim_help_set_relative(\'' + e_reference + '\');' +
-    				   'wepsim_help_refresh();' ;
-    		if ("absolute" === e_itype)
-    		    onclick_code = 'wepsim_help_set_absolute(\'' + e_reference + '\');' +
-    				   'wepsim_help_refresh();' ;
-    		if ("code" === e_itype)
-    		    onclick_code = e_reference ;
-    
+    		var onclick_code = "simcore_record_append_pending();" +
+    		                   e_reference + ";" +
+                                   "simcore_ga('help', 'help."+e_id+"', 'help."+e_id+"."+e_title+"');" ;
+
     	        if (fmt_toggle === "")
     	            fmt_toggle = "bg-light" ;
     	       else fmt_toggle = "" ;
@@ -124,9 +117,7 @@
                         '          style="cursor:pointer;" ' +
     			'          id="help_index_' + m + '" ' +
                         '          data-langkey="' + e_title + '" ' +
-    		        '          onclick="simcore_record_append_pending(); ' +
-                                            onclick_code + ' ; ' +
-                        '                   return false;">' +
+    		        '          onclick="' + onclick_code + 'return false;">' +
                              e_title + '</span>' +
     			'</div>' +
     			'<div class="col-sm collapse7 show py-1 ' + toggle_cls + '">' +
