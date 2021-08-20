@@ -45,11 +45,9 @@
 
 	      render_skel ( )
 	      {
-                    var div_id    = 'stats_IO_' + this.name_str ;
-                    var css_style = 'height:58vh; width:inherit; overflow-y:auto;' ;
-
                     // default content
-                    this.innerHTML = '<div id="' + div_id + '" style="' + css_style + '"></div>' ;
+                    this.innerHTML = '<div id="' + 'stats_IO_' + this.name_str + '" ' +
+                                     'style="height:58vh; width:inherit; overflow-y:auto;"></div>' ;
               }
 
 	      render_populate ( )
@@ -76,16 +74,20 @@
 			  "<div class='row'>" +
 			  "<div class='col-12'>" +
 			  "<table class='table table-hover table-sm table-bordered'>" +
-			  "<thead>" +
+			  "<thead class='thead-light'>" +
 			  "<tr>" +
-			  "<td align='center' class='w-50 font-weight-bold'>" +
-			  "  <span class='d-none d-sm-inline-flex text-wrap'>Interrupt identificator</span>" +
-			  "  <span class='d-sm-none text-wrap'>Int. Id.<br>(0 - 7)</span>" +
-			  "</td>" +
-			  "<td align='center' class='w-50 font-weight-bold'>" +
-			  "  <span class='d-none d-sm-inline-flex text-wrap'>Counter</span>" +
-			  "  <span class='d-sm-none text-wrap'># Int.<br>(0 - &infin;)</span>" +
-			  "</td>" +
+			  "<th class='w-50 text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='Interrupt identificator'>Interrupt identificator</span>" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'>Int. Id.<br>(0 - 7)</span>" +
+			  "</th>" +
+			  "<th class='w-50 text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='Number of interruptions'>Number of interruptions</span>" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'># Int.<br>(0 - &infin;)</span>" +
+			  "</th>" +
 			  "</tr>" +
 			  "</thead>" +
 			  "<tbody>" ;
@@ -93,12 +95,9 @@
 		    {
 		    o1 += "<tr>" +
 			  "<td id='int" + i + "_act' align=center width=50%>" +
-			  "<span v-bind:class='[ value ? \"font-weight-bold\" : \"\" ]'>" +
-                          "Interrupt " + i +
-                          "</span>" +
+			  "<span v-bind:class='[ value ? \"font-weight-bold\" : \"\" ]'>" + i + "</span>" +
 			  "</td>" +
-			  "<td id='int" + i + "_acc' align=center width=50%>" +
-			  "<span>{{ value }}</span>" +
+			  "<td id='int" + i + "_acc' align=center width=50%>" + "<span>{{ value }}</span>" +
 			  "</td>" +
 			  "</tr>" ;
 		    }

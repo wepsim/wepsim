@@ -45,11 +45,9 @@
 
 	      render_skel ( )
 	      {
-                    var div_id    = 'config_IO_' + this.name_str ;
-                    var css_style = 'height:58vh; width:inherit; overflow-y:auto;' ;
-
                     // default content
-                    this.innerHTML = '<div id="' + div_id + '" style="' + css_style + '"></div>' ;
+                    this.innerHTML = '<div id="' + 'config_IO_' + this.name_str + '" ' +
+                                     'style="height:58vh; width:inherit; overflow-y:auto;"></div>' ;
               }
 
 	      render_populate ( )
@@ -79,20 +77,26 @@
 			  "<div class='card-body p-0' id='iopanel'>" +
 		          "<center>" +
 			  "<table class='table table-hover table-sm table-bordered m-0'>" +
-			  "<thead>" +
+			  "<thead class='thead-light'>" +
 			  "<tr>" +
-			  "<td align='center' style='width:33%' class='font-weight-bold'>" +
-			  "  <span class='d-none d-sm-inline-flex text-wrap'>Interrupt identificator</span>" +
-			  "  <span class='d-sm-none text-wrap'>Int. Id.<br>(0 - 7)</span>" +
-			  "</td>" +
-			  "<td align='center' style='width:33%' class='font-weight-bold'>" +
-			  "  <span class='d-none d-sm-inline-flex text-wrap'>CLK period (0 - &infin;)</span>" +
-			  "  <span class='d-sm-none text-wrap'>CLK ticks <br>(0 - &infin;)</span>" +
-			  "</td>" +
-			  "<td align='center' style='width:33%' class='font-weight-bold'>" +
-			  "  <span class='d-none d-sm-inline-flex text-wrap'>Probability (0 - 1)</span>" +
-			  "  <span class='d-sm-none text-wrap'>Probability <br>(0 - 1)</span>" +
-			  "</td>" +
+			  "<th style='width:33%' class='text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='Interrupt identificator'>Interrupt identificator</span>" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'>Int. Id.<br>(0 - 7)</span>" +
+			  "</th>" +
+			  "<th style='width:33%' class='text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='CLK period'>CLK period</span>" + " (0 - &infin;)" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'>CLK ticks <br>(0 - &infin;)</span>" +
+			  "</th>" +
+			  "<th style='width:33%' class='text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='Probability'>Probability</span>" + " (0 - 1)" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'>Probability <br>(0 - 1)</span>" +
+			  "</th>" +
 			  "</tr>" +
 			  "</thead>" +
 			  "<tbody>" ;

@@ -53,17 +53,15 @@
 
 	      render_skel ( )
 	      {
-                    var div_id    = 'config_L3D' + this.name_str ;
-                    var css_style = 'height:58vh; width:inherit; overflow-y:auto;' ;
-
                     // default content
-                    this.innerHTML = '<div id="' + div_id + '" style="' + css_style + '"></div>' ;
+                    this.innerHTML = '<div id="' + 'config_L3D_' + this.name_str + '" ' +
+                                     'style="height:58vh; width:inherit; overflow-y:auto;"></div>' ;
               }
 
 	      render_populate ( )
 	      {
                     var o1 = '' ;
-                    var div_hash = '#config_L3D' + this.name_str ;
+                    var div_hash = '#config_L3D_' + this.name_str ;
 		    var i = 0 ;
 		    var offset = 0 ;
 

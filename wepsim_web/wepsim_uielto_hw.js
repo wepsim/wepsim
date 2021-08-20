@@ -45,11 +45,9 @@
 
 	      render_skel ( )
 	      {
-                    var div_id    = 'config_HW_' + this.name_str ;
-                    var css_style = 'height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;' ;
-
                     // default content
-                    this.innerHTML = '<div id="' + div_id + '" style="' + css_style + '"></div>' ;
+                    this.innerHTML = '<div id="' + 'config_HW_' + this.name_str + '" ' +
+                                     'style="height:58vh; width:inherit; overflow-y:scroll; -webkit-overflow-scrolling:touch;"></div>' ;
               }
 
 	      render_populate ( )
