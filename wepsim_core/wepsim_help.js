@@ -32,24 +32,6 @@
 	       	                      'wepsim_help_set("' + type + '", "' + ref + '");\n') ;
     }
 
-    function wepsim_open_help_hardware_summary ( )
-    {
-            wepsim_help_set('code', 'hardware_summary') ;
-
-            // add if recording
-            simcore_record_append_new('Open hardware summary',
-		                      'wepsim_open_help_hardware_summary();\n') ;
-    }
-
-    function wepsim_open_help_assembly_summary ( )
-    {
-            wepsim_help_set('code', 'assembly_summary') ;
-
-            // add if recording
-            simcore_record_append_new('Open assembly summary',
-		                      'wepsim_open_help_assembly_summary();\n') ;
-    }
-
 
     /*
      * Help URI

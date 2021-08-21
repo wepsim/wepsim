@@ -523,7 +523,12 @@
 
 	        case 'hw_summary':
 		      wsweb_dialog_open('help') ;
-		      wepsim_open_help_hardware_summary() ;
+                      wepsim_help_set('code', 'hardware_summary') ;
+		      break ;
+
+	        case 'sw_summary':
+		      wsweb_dialog_open('help') ;
+                      wepsim_help_set('code', 'assembly_summary') ;
 		      break ;
 	    }
 

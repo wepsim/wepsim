@@ -118,7 +118,7 @@
                           title:       "Hardware summary",
                           u_type:      "simulated processor",
                           u_class:     "user_microcode",
-                          reference:   "wepsim_open_help_hardware_summary();",
+                          reference:   "wepsim_help_set('code', 'hardware_summary');",
                           description: "<span data-langkey='help_03_03'>Reference card for the simulated elemental processor hardware</span>.<br>"
                        },
                        {
@@ -126,7 +126,7 @@
                           title:       "Assembly summary",
                           u_type:      "simulated processor",
                           u_class:     "",
-                          reference:   "wepsim_open_help_assembly_summary();",
+                          reference:   "wepsim_help_set('code', 'assembly_summary');",
                           description: "<span data-langkey='help_03_04'>Reference card for the simulated elemental processor instruction set</span>.<br>"
                        },
                        {

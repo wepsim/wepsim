@@ -520,7 +520,7 @@
 			   className: 'btn btn-success btn-sm col col-sm-3 float-right shadow-none',
 			   callback:  function() {
 				         // ui elements
-				         wepsim_help_set('index', '') ;
+				         wepsim_help_set('code', 'index') ;
 
 			 		 // uicfg and events
                                          wepsim_uicfg_apply() ;
@@ -542,7 +542,7 @@
             size:    'extra-large',
             onshow:  function() {
 		         // ui elements
-    			 wepsim_help_set('index', '') ;
+    			 wepsim_help_set('code', 'index') ;
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
