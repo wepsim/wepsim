@@ -134,10 +134,11 @@
         {
 	    var img2 = 'examples/hardware/' + seg_hardw + '/images/cpu.svg?time=20210802' ;
 
-	    return '<button class="btn btn-secondary"  type="button"' +
+	    return '<button class="btn btn-secondary w-100" type="button"' +
                    '        data-toggle="collapse"   data-target="#hw_img_collapse1"' +
                    '        aria-expanded="false"   aria-controls="hw_img_collapse1"' +
-                   '>Show/Hide processor as image...</button>' +
+                   '><span data-langkey="Show/Hide processor as image">Show/Hide processor as image</span>...' +
+                   '</button>' +
                    '</br>' +
                    '<div class="collapse" id="hw_img_collapse1">' +
                    '<div class="card card-body px-0 pt-3 pb-0">' +
