@@ -17,9 +17,10 @@ main:
            lb  $1  w1
            lw  $3  w3
 
-            # test sb, sh, sw
+            # test sb, sw
            li  $1  0xF
            sb  $1  w1
+
            li  $2  0xF
            sw  $2  w3
 

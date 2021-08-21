@@ -2866,7 +2866,7 @@
 			      states:            {
 						   "mux_0":  {
 							       ref:  "REG_IR",
-							       description: "Input 0 of MUX MR, from IR[SelA...SelA+5]"
+							       description: "Input 0 of MUX MR, from IR[SelA+0...SelA+4]"
 							     },
 						   "mux_1":  {
 							       ref:  "REG_MICROINS/SELA",
@@ -2897,7 +2897,7 @@
 			      states:            {
 						   "mux_0":  {
 							       ref:  "REG_IR",
-							       description: "Input 0 of MUX MR, from IR[SelB...SelB+5]"
+							       description: "Input 0 of MUX MR, from IR[SelB+0...SelB+4]"
 							     },
 						   "mux_1":  {
 							       ref:  "REG_MICROINS/SELB",
@@ -2928,7 +2928,7 @@
 			      states:            {
 						   "mux_0":  {
 							       ref:  "REG_IR",
-							       description: "Input 0 of MUX MR, from IR[SelC...SelC+5]"
+							       description: "Input 0 of MUX MR, from IR[SelC+0...SelC+4]"
 							     },
 						   "mux_1":  {
 							       ref:  "REG_MICROINS/SELC",

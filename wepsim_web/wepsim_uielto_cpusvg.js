@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_cpusvg extends HTMLElement
+        class ws_cpusvg extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,7 +32,8 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+	      render ( )
 	      {
 		    // html holder
 		    var o1 = "<div class='container-fluid m-0 p-2'>" +
@@ -59,11 +60,6 @@
                              "</div>" ;
 
 		    this.innerHTML = o1 ;
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

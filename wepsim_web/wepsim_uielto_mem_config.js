@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_mem_config extends HTMLElement
+        class ws_mem_config extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,51 +32,93 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+              render ( )
+              {
+                    // initialize render elements...
+                    super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
 	      {
+                    // default content
+                    this.innerHTML = '<div id="' + 'config_MP_' + this.name_str + '" ' +
+                                     'style="height:58vh; width:inherit; overflow-y:auto;"></div>' ;
+              }
+
+	      render_populate ( )
+	      {
+                    var o1 = '' ;
+                    var div_hash  = '#config_MP_' + this.name_str ;
+                    var input_div =      'mp_wc_' + this.name_str ;
+
 		    // if no active hardware -> empty
 		    if (simhw_active() === null) {
-			return "<div id='config_MP'></div>" ;
+                        $(div_hash).html(o1) ;
+			return ;
 		    }
 
 		    // html holder
-		    var o1 = "<div id='config_MP' style='height:58vh; width: inherit; overflow-y: auto;' " +
-			     "     class='container container-fluid'>" +
-		             "<div class='container-fluid'>" +
-			     "<div class='row'>" +
-		             "<div class='col-12' style='padding:0 0 10 0;'>" +
-			     "<div class='card bg-light'>" +
-			     "<div class='card-body p-0' id='mempanel'>" +
-			     "<table class='table table-hover table-sm table-bordered' " +
-			     "       style='margin:0'>" +
-			     "<tbody class='no-ui-mini'>" +
-			     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
-			     "    <td align=center'>" +
-			     "<div id='mp_wc'>" +
-			     "<input type=number v-model.lazy='value' min='0' max='99999999'>" +
-			     "</div>" +
-			     "    </td></tr>" +
-			     "</tbody>" +
-			     "</table>" +
-			     "</div>" +
-			     "</div>" +
-			     "</div>" +
-			     "</div>" ;
+                    if (this.layout == "card")
+	                 o1 += this.render_populate_as_card(input_div) ;
+		    else o1 += this.render_populate_as_table(input_div) ;
 
-		    this.innerHTML = o1 ;
+                    $(div_hash).html(o1) ;
 
 		    // vue binding
 		    var curr_mp_wc = { value: vue_observable(0) } ;
 		    simhw_internalState_reset('MP_wc', curr_mp_wc) ;
 		    vue_appyBinding(curr_mp_wc.value,
-				    '#mp_wc',
+				    '#' + input_div,
 				    function(value){ return value; }) ;
 	      }
 
-	      connectedCallback ()
+	      render_populate_as_table ( input_div )
 	      {
-		    this.render('') ;
-	      }
+		   return "<div class='container container-fluid'>" +
+			  "<div class='row'>" +
+		          "<div class='col p-2'>" +
+			  "<table class='table table-hover table-sm table-bordered m-0'>" +
+			  "<tbody>" +
+			  "<tr><td align=center'>Wait cycles (<u>0</u> - &infin;)</td>" +
+			  "    <td align=center'>" +
+			  "<div id='" + input_div + "'>" +
+			  "<input type=number v-model.lazy='value' min='0' max='99999999'>" +
+			  "</div>" +
+			  "    </td></tr>" +
+			  "</tbody>" +
+			  "</table>" +
+			  "</div>" +
+			  "</div>" +
+			  "</div>" ;
+              }
+
+	      render_populate_as_card ( input_div )
+	      {
+		   return "<div class='container container-fluid'>" +
+			  "<div class='row justify-content-center'>" +
+		          "<div class='col-auto p-2 m-2'>" +
+			  "<div class='card bg-light'>" +
+                          " <h5 class='card-header text-center'>" +
+                          "<span data-langkey='Wait cycles'>Wait cycles</span><br>" +
+                          " </h5>" +
+			  " <div class='card-body'>" +
+                          " <p class='card-text'>" +
+			  "<div id='" + input_div + "'>" +
+			  "<input type=number v-model.lazy='value' min='0' max='99999999'>" +
+			  " </div>" +
+                          " </p>" +
+			  " </div>" +
+			  " <div class='card-footer text-center m-2 p-0'>[<u>0</u> - &infin;)</div>" +
+			  "</div>" +
+			  "</div>" +
+			  "</div>" +
+			  "</div>" ;
+              }
         }
 
         if (typeof window !== "undefined") {

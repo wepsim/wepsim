@@ -415,10 +415,10 @@
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
 					  $('[data-toggle=tooltip]').tooltip('hide');
-        			          simcoreui_init_hw("#config_HW") ;
-	                                  simcoreui_show_hw() ;
+                                          $("#infohw1").attr('components', 'elements,states,signals,behaviors');
+	                                  simcoreui_show_hw();
 					  var ws_idiom = get_cfg('ws_idiom');
-					  i18n_update_tags('gui', ws_idiom) ;
+					  i18n_update_tags('gui', ws_idiom);
                                         }
         } ;
 
@@ -523,7 +523,12 @@
 
 	        case 'hw_summary':
 		      wsweb_dialog_open('help') ;
-		      wepsim_open_help_hardware_summary() ;
+                      wepsim_help_set('code', 'hardware_summary') ;
+		      break ;
+
+	        case 'sw_summary':
+		      wsweb_dialog_open('help') ;
+                      wepsim_help_set('code', 'assembly_summary') ;
 		      break ;
 	    }
 

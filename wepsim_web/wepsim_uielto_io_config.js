@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_io_config extends HTMLElement
+        class ws_io_config extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,76 +32,100 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+              render ( )
+              {
+                    // initialize render elements...
+                    super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
 	      {
+                    // default content
+                    this.innerHTML = '<div id="' + 'config_IO_' + this.name_str + '" ' +
+                                     'style="height:58vh; width:inherit; overflow-y:auto;"></div>' ;
+              }
+
+	      render_populate ( )
+	      {
+		    var  i = 0 ;
+                    var o1 = '' ;
+                    var div_hash = '#config_IO_' + this.name_str ;
+
                     // if no active hardware -> empty 
                     if (simhw_active() === null) {
-                        return "<div id='config_IO'></div>" ;
+                        $(div_hash).html(o1) ;
+			return ;
                     }
 
 		    // default content
 		    var curr_iointfactory = simhw_internalState('io_int_factory') ;
-		    if (typeof curr_iointfactory == "undefined") 
-                    {
-		        this.innerHTML = msg_default ;
+		    if (typeof curr_iointfactory == "undefined") {
+                        $(div_hash).html(o1) ;
 			return ;
 		    }
 
 		    // html holder
-		    var i = 0 ;
-
-		    var o1 = "<div id='config_IO' style='height:58vh; width: inherit; overflow-y: auto;'>" + 
-		             "<div class='container-fluid'>" +
-			     "<div class='row'>" +
-		             "<div class='col-12 p-0'>" +
-			     "<div class='card bg-light m-0'>" +
-			     "<div class='card-body p-0' id='iopanel'>" +
-		             "<center>" +
-			     "<table class='table table-hover table-sm table-bordered m-0'>" +
-			     "<thead>" +
-			     "<tr>" +
-			     "<td align='center' style='width:33%' class='text-justify'>" +
-			     "  <span class='d-none d-sm-inline-flex text-wrap'>Interrupt identificator</span>" +
-			     "  <span class='d-sm-none text-wrap'>Int. Id.<br>(0 - 7)</span>" +
-			     "</td>" +
-			     "<td align='center' style='width:33%' class='text-justify'>" +
-			     "  <span class='d-none d-sm-inline-flex text-wrap'>CLK period (0 - &infin;)</span>" +
-			     "  <span class='d-sm-none text-wrap'>CLK ticks <br>(0 - &infin;)</span>" +
-			     "</td>" +
-			     "<td align='center' style='width:33%' class='text-justify'>" +
-			     "  <span class='d-none d-sm-inline-flex text-wrap'>Probability (0 - 1)</span>" +
-			     "  <span class='d-sm-none text-wrap'>Probability <br>(0 - 1)</span>" +
-			     "</td>" +
-			     "</tr>" +
-			     "</thead>" +
-			     "<tbody>" ;
-		    for (i=0; i<8; i++)
+		    o1 += "<div class='container-fluid'>" +
+			  "<div class='row'>" +
+		          "<div class='col-12 p-0'>" +
+			  "<div class='card bg-light m-0'>" +
+			  "<div class='card-body p-0' id='iopanel'>" +
+		          "<center>" +
+			  "<table class='table table-hover table-sm table-bordered m-0'>" +
+			  "<thead class='thead-light'>" +
+			  "<tr>" +
+			  "<th style='width:33%' class='text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='Interrupt identificator'>Interrupt identificator</span>" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'>Int. Id.<br>(0 - 7)</span>" +
+			  "</th>" +
+			  "<th style='width:33%' class='text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='CLK period'>CLK period</span>" + " (0 - &infin;)" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'>CLK ticks <br>(0 - &infin;)</span>" +
+			  "</th>" +
+			  "<th style='width:33%' class='text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='Probability'>Probability</span>" + " (0 - 1)" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'>Probability <br>(0 - 1)</span>" +
+			  "</th>" +
+			  "</tr>" +
+			  "</thead>" +
+			  "<tbody>" ;
+		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
-		       o1 += "<tr>" +
-			     "<td align='center' class='p-0' style='vertical-align: middle !important'>" +
-			     "<span class='p-0 m-0'>" + i + "</span>" +
-			     "</td>" +
-			     "<td align='center' class='p-0'>" +
-			     "<div id='int" + i + "_per' class='m-0'>" +
-			     "<input type='number' v-model.lazy='value' min='0' max='99999999' class='form-control p-0 m-0'>" +
-			     "</div>" +
-			     "</td>" +
-			     "<td align='center' class='p-0'>" +
-			     "<div id='int" + i + "_pro' class='m-0'>" +
-			     "<input type='number' v-model.lazy='value' min='0' max='1' step='.05' class='form-control p-0 m-0'>" +
-			     "</div>" +
-			     "</td>" +
-			     "</tr>" ;
+		    o1 += "<tr>" +
+			  "<td align='center' class='p-0' style='vertical-align: middle !important'>" +
+			  "<span class='p-0 m-0'>" + i + "</span>" +
+			  "</td>" +
+			  "<td align='center' class='p-0'>" +
+			  "<div id='int" + i + "_per' class='m-0'>" +
+			  "<input type='number' v-model.lazy='value' min='0' max='99999999' class='form-control p-0 m-0'>" +
+			  "</div>" +
+			  "</td>" +
+			  "<td align='center' class='p-0'>" +
+			  "<div id='int" + i + "_pro' class='m-0'>" +
+			  "<input type='number' v-model.lazy='value' min='0' max='1' step='.05' class='form-control p-0 m-0'>" +
+			  "</div>" +
+			  "</td>" +
+			  "</tr>" ;
 		    }
-		       o1 += "</tbody>" +
-			     "</table>" +
-			     "</center>" +
-		             "</div>" +
-			     "</div>" +
-			     "</div>" +
-			     "</div>" ;
+		    o1 += "</tbody>" +
+			  "</table>" +
+			  "</center>" +
+		          "</div>" +
+			  "</div>" +
+			  "</div>" ;
 
-		    this.innerHTML = o1 ;
+                    $(div_hash).html(o1) ;
 
 		    // vue binding
 		    for (i=0; i<curr_iointfactory.length; i++)
@@ -122,11 +146,6 @@
                                          '#int'+i+'_pro',
                                          function(value){ return value; }) ;
 		    }
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

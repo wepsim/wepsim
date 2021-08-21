@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_io_info extends HTMLElement
+        class ws_io_info extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,50 +32,82 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+              render ( )
+              {
+                    // initialize render elements...
+                    super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
 	      {
+                    // default content
+                    this.innerHTML = '<div id="' + 'stats_IO_' + this.name_str + '" ' +
+                                     'style="height:58vh; width:inherit; overflow-y:auto;"></div>' ;
+              }
+
+	      render_populate ( )
+	      {
+		    var  i = 0 ;
+                    var o1 = '' ;
+                    var div_hash = '#stats_IO_' + this.name_str ;
+
                     // if no active hardware -> empty 
                     if (simhw_active() === null) {
-                        return "<div id='io_ALL'></div>" ;
+                        $(div_hash).html(o1) ;
+			return ;
                     }
 
 		    // default content
 		    var curr_iointfactory = simhw_internalState('io_int_factory') ;
-		    if (typeof curr_iointfactory == "undefined") 
-                    {
-		        this.innerHTML = msg_default ;
+		    if (typeof curr_iointfactory == "undefined") {
+                        $(div_hash).html(o1) ;
 			return ;
 		    }
 
 		    // stats holder
-		    var i = 0 ;
-
-		    var o1 = "<div id='io_ALL' style='height:58vh; width: inherit; overflow-y: auto;' " + 
-			     "     class='container container-fluid'>" +
-                             "<div class='container'>" +
-			     "<div class='row'>" +
-			     "<div class='col-12'>" +
-			     "<table class='table table-hover table-sm table-bordered'>" ;
+		    o1 += "<div class='container container-fluid'>" +
+			  "<div class='row'>" +
+			  "<div class='col-12'>" +
+			  "<table class='table table-hover table-sm table-bordered'>" +
+			  "<thead class='thead-light'>" +
+			  "<tr>" +
+			  "<th class='w-50 text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='Interrupt identificator'>Interrupt identificator</span>" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'>Int. Id.<br>(0 - 7)</span>" +
+			  "</th>" +
+			  "<th class='w-50 text-center'>" +
+			    "<span class='d-none d-sm-inline-flex text-wrap'>" +
+                            "<span data-langkey='Number of interruptions'>Number of interruptions</span>" +
+                            "</span>" +
+			    "<span class='d-sm-none text-wrap'># Int.<br>(0 - &infin;)</span>" +
+			  "</th>" +
+			  "</tr>" +
+			  "</thead>" +
+			  "<tbody>" ;
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
-		       o1 += "<tr>" +
-			     "<td id='int" + i + "_act' align=center width=50%>" +
-			     "<span v-bind:class='[ value ? \"font-weight-bold\" : \"\" ]'>" +
-                             "Interrupt " + i +
-                             "</span>" +
-			     "</td>" +
-			     "<td id='int" + i + "_acc' align=center width=50%>" +
-			     "<span>{{ value }}</span>" +
-			     "</td>" +
-			     "</tr>" ;
+		    o1 += "<tr>" +
+			  "<td id='int" + i + "_act' align=center width=50%>" +
+			  "<span v-bind:class='[ value ? \"font-weight-bold\" : \"\" ]'>" + i + "</span>" +
+			  "</td>" +
+			  "<td id='int" + i + "_acc' align=center width=50%>" + "<span>{{ value }}</span>" +
+			  "</td>" +
+			  "</tr>" ;
 		    }
-		    o1 += "</table>" +
-			  "</div>" +
+		    o1 += "</tbody>" +
+			  "</table>" +
 			  "</div>" +
 			  "</div>" +
 			  "</div>" ;
 
-		    this.innerHTML = o1 ;
+                    $(div_hash).html(o1) ;
 
 		    // vue binding
 		    for (i=0; i<curr_iointfactory.length; i++)
@@ -94,11 +126,6 @@
                                          '#int'+i+'_act',
                                          function(value){ return value; }) ;
 		    }
-	      }
-
-	      connectedCallback ()
-	      {
-		    this.render('') ;
 	      }
         }
 

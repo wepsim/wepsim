@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_cpu extends HTMLElement
+        class ws_cpu extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -32,41 +32,41 @@
 		    super();
 	      }
 
-	      render ( msg_default )
+              // render
+              render ( )
+              {
+                    // initialize render elements...
+                    super.render() ;
+
+                    // render current element
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
 	      {
+                    // default content
+                    this.innerHTML = '<div id="' + 'cpu_ALL_' + this.name_str + '" ' +
+                                     'style="height:58vh; width:inherit; overflow-y:auto;"></div>' ;
+              }
+
+	      render_populate ( )
+	      {
+                    var o1 = '' ;
+                    var div_hash = '#cpu_ALL_' + this.name_str ;
+
                     // if no active hardware -> empty 
-                    if (simhw_active() === null) {
-                        return "<div id='cpu_ALL'></div>" ;
+                    if (simhw_active() === null)
+                    {
+                        $(div_hash).html(o1) ;
+			return ;
                     }
 
 		    // html holder
-		    var o1 = "<div id='cpu_ALL' style='height:58vh; width: inherit; overflow-y: auto;' " +
-			     "     class='container container-fluid'>" +
-		             "<div class='col-12'>" +
-			     "<table class='table table-hover table-sm table-bordered'>" +
-			     " <tr>" +
-			     "<td align='center' class='w-50'>Instructions</td>" +
-			     "<td align='center' class='w-50'>" +
-			     "<div id='ins_context'>{{ value }}</div>" +
-			     "</td>" +
-			     " </tr>" +
-			     " <tr>" +
-			     "<td align='center' class='w-50'>CLK ticks</td>" +
-			     "<td align='center' class='w-50'>" +
-			     "<div id='clk_context'>{{ value }}</div>" +
-			     "</td>" +
-			     " </tr>" +
-			     " <tr>" +
-			     "<td align='center' class='w-50'>Acc. msec.</td>" +
-			     "<td align='center' class='w-50'>" +
-			     "<div id='tms_context'>{{ value }}</div>" +
-			     "</td>" +
-			     " </tr>" +
-			     "</table>" +
-			     "</div>" +
-			     "</div>" ;
-
-		    this.innerHTML = o1 ;
+                    if (this.layout == "card")
+	                 o1 += this.render_populate_as_card() ;
+		    else o1 += this.render_populate_as_table() ;
+                    $(div_hash).html(o1) ;
 
                     // vue binding
                     var ref_obj = simhw_sim_state('CLK') ;
@@ -79,9 +79,75 @@
                     vue_rebind_state(ref_obj, '#tms_context') ;
 	      }
 
-	      connectedCallback ()
+	      render_populate_as_table ( )
 	      {
-		    this.render('') ;
+		   return "<div id='cpu_ALL' style='height:58vh; width: inherit; overflow-y: auto;' " +
+			  "     class='container container-fluid'>" +
+		          "<div class='col-12'>" +
+			  "<table class='table table-hover table-sm table-bordered'>" +
+			  " <tr>" +
+			  "<td align='center' class='w-50'>Instructions</td>" +
+			  "<td align='center' class='w-50'>" +
+			  "<div id='ins_context'>{{ value }}</div>" +
+			  "</td>" +
+			  " </tr>" +
+			  " <tr>" +
+			  "<td align='center' class='w-50'>CLK ticks</td>" +
+			  "<td align='center' class='w-50'>" +
+			  "<div id='clk_context'>{{ value }}</div>" +
+			  "</td>" +
+			  " </tr>" +
+			  " <tr>" +
+			  "<td align='center' class='w-50'>Accumulated msec.</td>" +
+			  "<td align='center' class='w-50'>" +
+			  "<div id='tms_context'>{{ value }}</div>" +
+			  "</td>" +
+			  " </tr>" +
+			  "</table>" +
+			  "</div>" +
+			  "</div>" ;
+	      }
+
+	      render_populate_as_card ( )
+	      {
+		   return "<div class='container container-fluid'>" +
+			  "<div class='row justify-content-center'>" +
+
+		          "<div class='col-auto p-2'>" +
+			  "<div class='card bg-light'>" +
+                          " <h5 class='card-header text-center p-2'>" +
+                          "<span data-langkey='Instructions'>Instructions</span><br>" +
+                          " </h5>" +
+			  " <div class='card-body  text-center p-2'>" +
+                          " <p class='card-text'><div id='ins_context'>{{ value }}</div></p>" +
+			  " </div>" +
+			  "</div>" +
+			  "</div>" +
+
+		          "<div class='col-auto p-2'>" +
+			  "<div class='card bg-light'>" +
+                          " <h5 class='card-header text-center p-2'>" +
+                          "<span data-langkey='CLK ticks'>CLK ticks</span><br>" +
+                          " </h5>" +
+			  " <div class='card-body  text-center p-2'>" +
+                          " <p class='card-text'><div id='clk_context'>{{ value }}</div></p>" +
+			  " </div>" +
+			  "</div>" +
+			  "</div>" +
+
+		          "<div class='col-auto p-2'>" +
+			  "<div class='card bg-light'>" +
+                          " <h5 class='card-header text-center p-2'>" +
+                          "<span data-langkey='Accumulated msec.'>Accumulated msec.</span><br>" +
+                          " </h5>" +
+			  " <div class='card-body  text-center p-2'>" +
+                          " <p class='card-text'><div id='tms_context' class='text-truncate'>{{ value }}</div></p>" +
+			  " </div>" +
+			  "</div>" +
+			  "</div>" +
+
+			  "</div>" +
+			  "</div>" ;
 	      }
         }
 
