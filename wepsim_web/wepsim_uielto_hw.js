@@ -85,10 +85,10 @@
         var ws_states_show_inactive  = true ;
 
         var simcoreui_hwui_fn = {} ;
-        simcoreui_hwui_fn["elements"]  = simcoreui_hw_elements_init ;  // simulated
-        simcoreui_hwui_fn["signals"]   = simcoreui_hw_signals_init ;   // simulation
-        simcoreui_hwui_fn["states"]    = simcoreui_hw_states_init ;    // simulation
-        simcoreui_hwui_fn["behaviors"] = simcoreui_hw_behaviors_init ; // simulation
+        simcoreui_hwui_fn.elements  = simcoreui_hw_elements_init ;  // simulated
+        simcoreui_hwui_fn.signals   = simcoreui_hw_signals_init ;   // simulation
+        simcoreui_hwui_fn.states    = simcoreui_hw_states_init ;    // simulation
+        simcoreui_hwui_fn.behaviors = simcoreui_hw_behaviors_init ; // simulation
 
         function simcoreui_init_hw ( div_name, components_arr )
         {
