@@ -56,7 +56,6 @@
     ws_info.voice_commands['(show) help'] = function()
     {
 	 wsweb_dialog_open('help') ;
-         wepsim_help_refresh() ;
     } ;
 
     ws_info.voice_commands['close'] = function()

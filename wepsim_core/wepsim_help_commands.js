@@ -54,8 +54,7 @@
                           title:       "Simulator: firmware",
                           u_type:      "simulator",
                           u_class:     "user_microcode",
-                          reference:   "wepsim_help_set_relative('simulator#help_simulator_firmware');" +
-                                       "wepsim_help_refresh();",
+                          reference:   "wepsim_help_set('relative', 'simulator#help_simulator_firmware');",
                           description: "<span data-langkey='help_02_01'>How to work with the firmware to be loaded into the control memory</span>.<br>"
                        },
                        {
@@ -63,8 +62,7 @@
                           title:       "Microcode format",
                           u_type:      "simulator",
                           u_class:     "user_microcode",
-                          reference:   "wepsim_help_set_relative('simulator#help_firmware_format');" +
-                                       "wepsim_help_refresh();",
+                          reference:   "wepsim_help_set('relative', 'simulator#help_firmware_format');",
                           description: "<span data-langkey='help_02_02'>Syntax of the microcode used</span>.<br>"
                        },
                        {
@@ -72,8 +70,7 @@
                           title:       "Simulator: assembly",
                           u_type:      "simulator",
                           u_class:     "",
-                          reference:   "wepsim_help_set_relative('simulator#help_simulator_assembly');" +
-                                       "wepsim_help_refresh();",
+                          reference:   "wepsim_help_set('relative', 'simulator#help_simulator_assembly');",
                           description: "<span data-langkey='help_02_03'>How to work with the assembly that use the aforementioned firmware</span>.<br>"
                        },
                        {
@@ -81,8 +78,7 @@
                           title:       "Assembly format",
                           u_type:      "simulator",
                           u_class:     "",
-                          reference:   "wepsim_help_set_relative('simulator#help_assembly_format');" +
-                                       "wepsim_help_refresh();",
+                          reference:   "wepsim_help_set('relative', 'simulator#help_assembly_format');",
                           description: "<span data-langkey='help_02_04'>Syntax of the assembly elements</span>.<br>"
                        },
                        {
@@ -90,8 +86,7 @@
                           title:       "Simulator: execution",
                           u_type:      "simulator",
                           u_class:     "",
-                          reference:   "wepsim_help_set_relative('simulator#help_simulator_execution');" +
-                                       "wepsim_help_refresh();",
+                          reference:   "wepsim_help_set('relative', 'simulator#help_simulator_execution');",
                           description: "<span data-langkey='help_02_05'>How the simulator can execute the assembly and firmware</span>.<br>"
                        },
                        {
@@ -99,8 +94,7 @@
                           title:       "Simulator: states",
                           u_type:      "simulator",
                           u_class:     "",
-                          reference:   "wepsim_help_set_relative('simulator#help_dumper');" +
-                                       "wepsim_help_refresh();",
+                          reference:   "wepsim_help_set('relative', 'simulator#help_dumper');",
                           description: "<span data-langkey='help_02_06'>How the simulator can show the current state, and the difference between two states</span>.<br>"
                        },
                        {
@@ -108,8 +102,7 @@
                           title:       "Simulated architecture",
                           u_type:      "simulated processor",
                           u_class:     "",
-                          reference:   "wepsim_help_set_absolute('hardware');" +
-                                       "wepsim_help_refresh();",
+                          reference:   "wepsim_help_set('absolute', 'hardware');",
                           description: "<span data-langkey='help_03_01'>Description of the simulated processor architecture</span>.<br>"
                        },
                        {
@@ -117,8 +110,7 @@
                           title:       "Simulated signals",
                           u_type:      "simulated processor",
                           u_class:     "user_microcode",
-                          reference:   "wepsim_help_set_absolute('signals');" +
-                                       "wepsim_help_refresh();",
+                          reference:   "wepsim_help_set('absolute', 'signals');",
                           description: "<span data-langkey='help_03_02'>Main signals summary of the simulated elemental processor</span>.<br>"
                        },
                        {
@@ -142,8 +134,7 @@
                           title:       "License, platforms, etc.",
                           u_type:      "info",
                           u_class:     "",
-                          reference:   "wepsim_help_set_relative('about#help_about');" +
-                                       "wepsim_help_refresh();",
+                          reference:   "wepsim_help_set('relative', 'about#help_about');",
                           description: "<span data-langkey='help_04_01'>WepSIM license, supported platforms, technologies used</span>.<br>"
                        },
                        {

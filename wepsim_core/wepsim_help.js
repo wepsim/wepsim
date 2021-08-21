@@ -23,108 +23,18 @@
      * Help
      */
 
-    function wepsim_help_refresh ( )
+    function wepsim_help_set ( type, ref )
     {
-        // add if recording
-        simcore_record_append_new('Refresh help content',
-	       	                  'wepsim_help_refresh();\n') ;
+	    $('#help1_ref').attr('components', type + ':' + ref) ;
 
-        // scrolling
-        var helpdiv = '#scroller-help1' ;
-        var scrolltothetop = function() {
-        		        var helpdiv_container = 'scroller-help1' ;
-				var elto = document.getElementById(helpdiv_container) ;
-				if (elto != null)
-				    elto.scrollTop = 0 ;
-                             } ;
-
-        // content
-        var helpurl = '' ;
-	var seg_idiom = get_cfg('ws_idiom') ;
-	var seg_hardw = simhw_active().sim_short_name ;
-
-        var rel = $('#help1_ref').data('relative') ;
-        if ( (typeof rel != "undefined") && (rel != "") )
-        {
-             var r = rel.split("#") ;
-             helpurl = 'help/' + r[0] + '-' + seg_idiom + '.html' ;
-             resolve_html_url(helpdiv, helpurl, '#' + r[1], scrolltothetop) ;
-
-             return ;
-        }
-
-        var ab1 = $('#help1_ref').data('absolute') ;
-        if ( (typeof ab1 != "undefined") && (ab1 != "") )
-        {
-             helpurl = 'examples/hardware/' + seg_hardw + '/help/' +
-		       ab1 + '-' + seg_idiom + '.html' ;
-             resolve_html_url(helpdiv, helpurl, '', scrolltothetop) ;
-
-             return ;
-        }
-
-        var cod1 = $('#help1_ref').data('code') ;
-        if ( (typeof cod1 != "undefined") && (cod1 === "true") )
-        {
-            return ;
-        }
-
-        // empty rel -> show index
-        if ( (typeof rel != "undefined") && (rel == "") )
-        {
-	     var html_index = table_helps_html(ws_info.help) ;
-	     $(helpdiv).html(html_index) ;
-
-             simcore_ga('help', 'help.index', 'help.index') ;
-             return ;
-        }
-    }
-
-    function wepsim_help_set_relative ( rel )
-    {
-        $('#help1_ref').data('relative', rel) ;
-	$('#help1_ref').data('absolute','') ;
-	$('#help1_ref').data('code','false') ;
-
-        // add if recording
-        simcore_record_append_new('Update help content',
-	       	                  'wepsim_help_set_relative("' + rel + '");\n') ;
-    }
-
-    function wepsim_help_set_absolute ( ab1 )
-    {
-        $('#help1_ref').data('relative','') ;
-        $('#help1_ref').data('absolute', ab1) ;
-	$('#help1_ref').data('code','false') ;
-
-        // add if recording
-        simcore_record_append_new('Update help content',
-	       	                  'wepsim_help_set_absolute("' + ab1 + '");\n') ;
-    }
-
-    function wepsim_open_help_content ( content )
-    {
-        $('#scroller-help1').html(content) ;
-
-        $('#help1_ref').data('relative', '') ;
-	$('#help1_ref').data('absolute', '') ;
-	$('#help1_ref').data('code','true') ;
+            // add if recording
+            simcore_record_append_new('Update help content',
+	       	                      'wepsim_help_set("' + type + '", "' + ref + '");\n') ;
     }
 
     function wepsim_open_help_hardware_summary ( )
     {
-            var ahw2 = simhw_active() ;
-	    var img2 = 'examples/hardware/' + ahw2.sim_short_name + '/images/cpu.svg?time=20210801' ;
-	    var lyr2 = '<object id=svg_p2 ' +
-		       '        data=\'' + img2 + '\' ' +
-		       '        type=\'image/svg+xml\'>' +
-		       'Your browser does not support SVG' +
-		       '</object>' +
-		       '<br>' +
-		       '<ws-help-hweltos></ws-help-hweltos>' +
-                       '<br>' ;
-
-	    wepsim_open_help_content(lyr2) ;
+            wepsim_help_set('code', 'hardware_summary') ;
 
             // add if recording
             simcore_record_append_new('Open hardware summary',
@@ -133,9 +43,7 @@
 
     function wepsim_open_help_assembly_summary ( )
     {
-            var lyr1 = '<ws-help-swset></ws-help-swset>' ;
-
-	    wepsim_open_help_content(lyr1) ;
+            wepsim_help_set('code', 'assembly_summary') ;
 
             // add if recording
             simcore_record_append_new('Open assembly summary',

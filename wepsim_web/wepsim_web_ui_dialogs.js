@@ -507,16 +507,11 @@
 	    title:    function() {
                           return wepsim_config_dialog_title("Help",
                                                             "success",
-							    "wepsim_help_refresh();" +	
 							    "var ws_idiom = get_cfg('ws_idiom');" +
 							    "i18n_update_tags('help', ws_idiom);") ;
 		      },
             body:    function() {
-                        return "<div id='help1_ref' style='display:none;'></div>" +
-                               "<div class='ui-body-d ui-content p-0' id='scroller-help1' " +
-                               "     style='min-height:50vh; max-height:70vh; overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
-                               "<ws-help></ws-help>" +
-                               "</div>" ;
+                        return "<ws-help id='help1_ref'></ws-help>" ;
 	             },
 	    buttons: {
 			Index: {
@@ -525,8 +520,7 @@
 			   className: 'btn btn-success btn-sm col col-sm-3 float-right shadow-none',
 			   callback:  function() {
 				         // ui elements
-				         wepsim_help_set_relative('') ;
-				         wepsim_help_refresh() ;
+				         wepsim_help_set('index', '') ;
 
 			 		 // uicfg and events
                                          wepsim_uicfg_apply() ;
@@ -548,8 +542,7 @@
             size:    'extra-large',
             onshow:  function() {
 		         // ui elements
-    			 wepsim_help_set_relative('') ;
-	    		 wepsim_help_refresh();
+    			 wepsim_help_set('index', '') ;
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;

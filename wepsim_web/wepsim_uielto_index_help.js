@@ -34,13 +34,77 @@
 	      }
 
               // render
-	      render ( )
-	      {
+              render ( )
+              {
                     // initialize render elements...
-	            super.render() ;
+                    super.render() ;
 
                     // render current element
-		    this.innerHTML = table_helps_html(ws_info.help) ;
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
+	      {
+                    // default content
+		    this.innerHTML = "<div class='ui-body-d ui-content p-0' id='scroller-help1' " +
+                                     "     style='min-height:50vh; max-height:70vh; " +
+                                     "            overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
+                                     "</div>" ;
+	      }
+
+	      render_populate ( )
+	      {
+		    var helpurl = '' ;
+		    var helpdiv_hash = '#scroller-help1' ; // + this.name_str ;
+
+		    // content
+		    var seg_idiom = get_cfg('ws_idiom') ;
+                    var ahw       = simhw_active() ;
+		    var seg_hardw = ahw.sim_short_name ;
+
+	            var type_ref_arr = this.components_str.split(':') ;
+                    var help_type    = type_ref_arr[0] ;
+                    var help_arg     = type_ref_arr[1] ;
+
+                    var o1 = '<div>Loading...</div>' ;
+                    switch (help_type)
+                    {
+                         case 'relative':
+		              var r = help_arg.split("#") ;
+		              helpurl = 'help/' + r[0] + '-' + seg_idiom + '.html' ;
+		              resolve_html_url(helpdiv_hash, helpurl, '#' + r[1], uielto_help_scrolltothetop) ;
+		              break ;
+
+                         case 'absolute':
+		              helpurl = 'examples/hardware/' + seg_hardw + '/help/' +
+			                help_arg + '-' + seg_idiom + '.html' ;
+		              resolve_html_url(helpdiv_hash, helpurl, '', uielto_help_scrolltothetop) ;
+		              break ;
+
+                         case 'code':
+                              if (help_arg == 'hardware_summary')
+                              {
+			          var img2 = 'examples/hardware/' + seg_hardw + '/images/cpu.svg?time=20210802' ;
+			          o1 = '<object id=svg_p2 ' +
+				       '        data=\'' + img2 + '\' ' +
+				       '        type=\'image/svg+xml\'>' +
+				       'Your browser does not support SVG' +
+				       '</object><br>' +
+				       '<ws-help-hweltos></ws-help-hweltos><br>' ;
+                              }
+                              if (help_arg == 'assembly_summary') {
+                                  o1 = '<ws-help-swset></ws-help-swset>' ;
+                              }
+		              break ;
+
+                         case 'index':
+		              var o1 = table_helps_html(ws_info.help) ;
+		              simcore_ga('help', 'help.index', 'help.index') ;
+		              break ;
+                    }
+
+		    $('#scroller-help1').html(o1) ;
 	      }
         }
 
@@ -51,10 +115,20 @@
          *  Help to HTML
          */
 
+	// scrolling
+        function uielto_help_scrolltothetop ( )
+        {
+	    var helpdiv_hash_container = 'scroller-help1' ;
+	    var elto = document.getElementById(helpdiv_hash_container) ;
+	    if (elto != null)
+	 	elto.scrollTop = 0 ;
+	}
+
+	// set help content
         function table_helps_html ( helps )
         {
             var o = "" ;
-    
+
             var fmt_toggle    = "" ;
             var w100_toggle   = "" ;
             var toggle_cls    = "" ;
@@ -66,7 +140,7 @@
     	    var e_description = "" ;
     	    var e_id          = "" ;
     	    var t_index       = "" ;
-    
+
             var utypes = [] ;
             for (var m=0; m<helps.length; m++)
             {
@@ -74,7 +148,7 @@
     	            utypes.push(helps[m].u_type) ;
                 }
             }
-    
+
             o = o + '<div class="container grid-striped border border-light">' + '<div class="row py-1">' ;
             for (m=0; m<helps.length; m++)
             {
@@ -84,17 +158,17 @@
     			         helps[m].u_type +
     			         "</div>" ;
     		}
-    
+
     		e_title       = helps[m].title ;
     		e_utype       = helps[m].u_type ;
     		e_uclass      = helps[m].u_class ;
     		e_reference   = helps[m].reference ;
     		e_description = helps[m].description ;
     		e_id          = helps[m].id ;
-    
+
     		var onclick_code = "simcore_record_append_pending();" +
     		                   e_reference + ";" +
-                                   "simcore_ga('help', 'help."+e_id+"', 'help."+e_id+"."+e_title+"');" ;
+                                   "simcore_ga('help', 'help." + e_id + "', 'help." + e_id + "." + m + "');" ;
 
     	        if (fmt_toggle === "")
     	            fmt_toggle = "bg-light" ;
@@ -105,9 +179,9 @@
     	        else w100_toggle = "" ;
 
                 toggle_cls = fmt_toggle + ' ' + e_uclass + ' ' + e_utype ;
-    
+
     	        t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
-    
+
     		o = o + fmt_header +
     			'<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
     			'    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
@@ -126,7 +200,7 @@
     	                '<div class="w-100 ' + w100_toggle + ' ' + toggle_cls + '"></div>' ;
            }
            o = o + '</div></div>' ;
-    
+
            return o ;
         }
 
