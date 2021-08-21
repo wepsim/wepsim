@@ -1,7 +1,7 @@
 
 # WepSIM: Wep Elemental Processor Simulator
 
-[![Build Status](https://travis-ci.com/acaldero/wepsim.svg?branch=master)](https://travis-ci.org/acaldero/wepsim)
+[![Build Status](https://travis-ci.com/acaldero/wepsim.svg?branch=master)](https://travis-ci.com/acaldero/wepsim)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
 [![codebeat badge](https://codebeat.co/badges/66773495-9967-4514-8c2c-916293f584b5)](https://codebeat.co/projects/github-com-acaldero-wepsim-master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://www.codacy.com/app/acaldero.uc3m/wepsim)
