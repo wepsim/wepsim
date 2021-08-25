@@ -215,3 +215,105 @@
                 return o1 ;
         }
 
+        ////////////////
+
+        /*
+         var memory     = simhw_internalState('MC') ;
+	 var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	 var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
+         hard_refresh_control_memory_vue(memory, reg_maddr, true) ;
+        */
+ 
+        function hard_refresh_control_memory_vue ( memory, index, redraw )
+        {
+	    var o1 = "" ;
+            var SIMWARE = get_simware() ;
+            var memory  = simhw_internalState('MC') ;
+
+            // build and load HTML
+            o1 += "<center><table class='table table-hover table-sm'>" +
+                  "<tbody id='none'>" ;
+
+            for (key in memory)
+            {
+            o1 += "<tr id='maddr" + key + "' class='d-flex'" +
+                  "    style='font-size:small; color:black; font-weight:normal' " +
+	 	  "    onclick='dbg_set_breakpoint(" + key + "); " +
+                  "             if (event.stopPropagation) event.stopPropagation();'>" +
+ 	     "<td class='col-3 col-md-2 py-0' align='right' v-html='computed_value.labels_str'></td>" +
+	     "<td class='col-auto py-0 px-0' width='1%' id='mcpin"+key+"' v-html='computed_value.b_icon'></td>" +
+	     "<td id='cmval_" + key + "' class='col py-0'>{{ computed_value.value_str }}</td>" +
+                  "</tr>" ;
+            }
+
+            /// one possible access outside control memory...
+            if (memory[index] == "undefined")
+            o1 += "<tr id='maddr" + key + "' class='d-flex' " +
+                  "    style='font-size:small; color:blue; font-weight:bold'>" +
+	 	  "<td class='col-3 col-md-2 py-0' align='right'>{{ computed_value.addr_hex }}</td>" +
+		  "<td class='col-auto py-0 px-0'  width='1%' id='mcpin" + key + "'>&nbsp;</td>" +
+		  "<td class='col py-0' id='cmval_" + key + "'>{{ computed_value.value_str }}</td>" +
+                  "</tr>" ;
+
+            o1 += "</tbody>" +
+                  "</table></center>" ;
+
+            $("#memory_MC").html(o1) ;
+
+            // vue binding
+            var f_computed_value = function(elto) {
+                                       var key = elto.key ;
+                                       var memory  = simhw_internalState('MC') ;
+                                       var SIMWARE = get_simware() ;
+				       var icon_theme = get_cfg('ICON_theme') ;
+				       var icon_pin   = sim_core_breakpointicon_get(icon_theme) ;
+
+                                       var labels = SIMWARE.revlabels[key] ;
+                                       if (typeof labels !== 'undefined')
+                                       labels = '<span>' +
+                                                '<span class="badge badge-pill badge-info text-monospace" ' +
+                                                '      style="position:relative;top:4px;">' +
+                                                labels.padEnd(5, ' ').replace(' ', '&nbsp;') +
+                                                '</span>' +
+                                                '<span style="border:1px solid gray;">0x' +
+                                                parseInt(key).toString(16) +
+                                                '</span>' +
+                                                '</span>' ;
+                                       else
+                                       labels = '<span>0x' + parseInt(key).toString(16) + '</span>' ;
+
+                                       var icon_pin = '&nbsp;' ;
+                                       if (memory[key].breakpoint) {
+				           icon_pin = sim_core_breakpointicon_get(icon_theme) ;
+                                       }
+
+                                       return {
+                                                 addr_hex:   '0x' + parseInt(key).toString(16),
+                                                 value_str:  control_memory_lineToString(memory, key),
+					         labels_str: labels,
+					         b_icon:     icon_pin
+                                              } ;
+                                    } ;
+
+            var ref_obj = null ;
+            for (var key in memory)
+            {
+                 ref_obj = memory[key] ;
+                 ref_obj.key = key ;
+
+                 if (false == (ref_obj instanceof Vuex.Store)) {
+                     ref_obj = vue_observable(ref_obj) ;
+                 }
+
+                 vue_appyBinding(ref_obj, '#maddr'+key, f_computed_value) ;
+            }
+
+            // scroll up/down to index element...
+	    if (redraw) {
+                element_scroll_setRelative('#memory_MC', '#maddr' + index, 0) ;
+            }
+
+            // update old_mc_add for light_update
+            old_mc_addr = index;
+        }
+
