@@ -333,8 +333,9 @@
 
             // build and load HTML
             var o1 = "<center><table id='ctrl_mem' class='table table-hover table-sm'>" +
-                     "<tbody v-for='(elto, index) in value'>" +
-                     "<tr :id='elto.ui.id_row' class='d-flex' " +
+                     "<tbody>" +
+                     "<tr v-for='(elto, index) in computed_value' " +
+                     "    :id='elto.ui.id_row' class='d-flex' " +
                      "    :data-info='elto.key' v-bind:key='elto.key' " +
                      "    :style='elto.ui.style_obj' " +
 	 	     "    onclick='var key = this.getAttribute(\"data-info\"); " +
@@ -350,15 +351,18 @@
             $("#memory_MC").html(o1) ;
 
             // vue binding
-            for (var key in memory) {
-                 memory[key].key = key ;
-                 control_memory_init_vue_computed_value(memory[key]) ;
-            }
+            var f_computed_elements = function(arr) {
+					    for (var key in arr) {
+                                                 arr[key].key = key ;
+						 control_memory_init_vue_computed_value(arr[key]) ;
+					    }
+                                            return arr ;
+                                      } ;
 
             if (false == (memory instanceof Vuex.Store)) {
                 memory = vue_observable(memory) ;
             }
-            vue_appyBinding(memory, '#ctrl_mem') ;
+            vue_appyBinding(memory, '#ctrl_mem', f_computed_elements) ;
 
             // scroll up/down to index element...
 	    if (redraw) {
