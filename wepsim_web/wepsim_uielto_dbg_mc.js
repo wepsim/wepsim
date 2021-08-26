@@ -216,12 +216,60 @@
                 return o1 ;
         }
 
-        ////////////////
+        //////////////// work in progress ////////////////////////
+
+        function control_memory_init_vue_computed_value ( elto )
+        {
+	       var SIMWARE = get_simware() ;
+	       var key_hex = '0x' + parseInt(elto.key).toString(16) ;
+
+               // ui-address_and_tags
+	       var labels = SIMWARE.revlabels[elto.key] ;
+	       if (typeof labels !== 'undefined') {
+		   labels = '<span>' +
+			    '<span class="badge badge-pill badge-info text-monospace" ' +
+			    '      style="position:relative;top:4px;">' +
+			    labels.padEnd(5, ' ').replace(' ', '&nbsp;') +
+			    '</span>' +
+			    '<span style="border:1px solid gray;">' + key_hex + '</span>' +
+			    '</span>' ;
+	       } else {
+		   labels = '<span>' + key_hex + '</span>' ;
+	       }
+
+               // ui-breakpoint-icon
+	       var icon_theme = get_cfg('ICON_theme') ;
+	       var icon_pin = '&nbsp;' ;
+	       if (elto.breakpoint) {
+		   icon_pin = sim_core_breakpointicon_get(icon_theme) ;
+	       }
+
+               // ui-style
+	       var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	       var index      = get_value(simhw_sim_state(maddr_name)) ;
+	       var style_obj = { fontSize:'small', color:'black', fontWeight:'normal' } ;
+	       if (elto.key == index) {
+		   style_obj = { fontSize:'small', color:'blue', fontWeight:'bold' } ;
+	       }
+
+               // ui-value
+	       var memory    = simhw_internalState('MC') ;
+	       var value_str = control_memory_lineToString(memory, elto.key) ;
+
+               // return elto.ui...
+	       elto.ui = {
+			    addr_hex:   key_hex,
+			    value_str:  value_str,
+			    labels_str: labels,
+			    b_icon:     icon_pin,
+			    style_obj:  style_obj
+		         } ;
+
+	       return elto.ui ;
+        }
 
         function control_memory_init_vue ( redraw )
         {
-	    var o1 = "" ;
-            var SIMWARE    = get_simware() ;
             var memory     = simhw_internalState('MC') ;
 	    var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	    var index      = get_value(simhw_sim_state(maddr_name)) ;
@@ -232,8 +280,8 @@
             }
 
             // build and load HTML
-            o1 += "<center><table class='table table-hover table-sm'>" +
-                  "<tbody id='none' data-info='with_vue'>" ;
+            var o1 = "<center><table class='table table-hover table-sm'>" +
+                     "<tbody id='none' data-info='with_vue'>" ;
 
             for (key in memory)
             {
@@ -242,8 +290,8 @@
 	 	  "    onclick='dbg_set_breakpoint(" + key + "); " +
                   "             if (event.stopPropagation) event.stopPropagation();'>" +
  	          "<td class='col-3 col-md-2 py-0' align='right' v-html='computed_value.labels_str'></td>" +
-	          "<td id='mcpin"+key+"' class='col-auto py-0 px-0' width='1%' v-html='computed_value.b_icon'></td>" +
-	          "<td id='cmval_"+key+"' class='col py-0'>{{ computed_value.value_str }}</td>" +
+	          "<td id='mcpin" + key + "' class='col-auto py-0 px-0' width='1%' v-html='computed_value.b_icon'></td>" +
+	          "<td id='cmval_" + key + "' class='col py-0'>{{ computed_value.value_str }}</td>" +
                   "</tr>" ;
             }
 
@@ -253,46 +301,6 @@
             $("#memory_MC").html(o1) ;
 
             // vue binding
-            var f_computed_value = function(elto) {
-                                       var key_hex = '0x' + parseInt(elto.key).toString(16) ;
-                                       var memory  = simhw_internalState('MC') ;
-
-                                       var SIMWARE = get_simware() ;
-                                       var labels = SIMWARE.revlabels[elto.key] ;
-                                       if (typeof labels !== 'undefined') {
-                                           labels = '<span>' +
-                                                    '<span class="badge badge-pill badge-info text-monospace" ' +
-                                                    '      style="position:relative;top:4px;">' +
-                                                    labels.padEnd(5, ' ').replace(' ', '&nbsp;') +
-                                                    '</span>' +
-                                                    '<span style="border:1px solid gray;">'+key_hex+'</span>' +
-                                                    '</span>' ;
-                                       } else {
-                                           labels = '<span>' + key_hex + '</span>' ;
-                                       }
-
-				       var icon_theme = get_cfg('ICON_theme') ;
-                                       var icon_pin = '&nbsp;' ;
-                                       if (elto.breakpoint) {
-				           icon_pin = sim_core_breakpointicon_get(icon_theme) ;
-                                       }
-
-				       var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-				       var index      = get_value(simhw_sim_state(maddr_name)) ;
-				       var style_obj = { fontSize:'small', color:'black', fontWeight:'normal' } ;
-                                       if (elto.key == index) {
-				           style_obj = { fontSize:'small', color:'blue', fontWeight:'bold' } ;
-                                       }
-
-                                       return {
-                                                 addr_hex:   key_hex,
-                                                 value_str:  control_memory_lineToString(memory, elto.key),
-					         labels_str: labels,
-					         b_icon:     icon_pin,
-					         style_obj:  style_obj
-                                              } ;
-                                    } ;
-
             var ref_obj = null ;
             for (var key in memory)
             {
@@ -303,15 +311,58 @@
                      ref_obj = vue_observable(ref_obj) ;
                  }
 
-                 vue_appyBinding(ref_obj, '#maddr'+key, f_computed_value) ;
+                 vue_appyBinding(ref_obj, '#maddr'+key, control_memory_init_vue_computed_value) ;
             }
 
             // scroll up/down to index element...
 	    if (redraw) {
                 element_scroll_setRelative('#memory_MC', '#maddr' + index, 0) ;
             }
+        }
 
-            // update old_mc_add for light_update
-            old_mc_addr = index;
+        function control_memory_init_vue2 ( redraw )
+        {
+            var memory     = simhw_internalState('MC') ;
+	    var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	    var index      = get_value(simhw_sim_state(maddr_name)) ;
+
+            // in case of empty control memory...
+            if (typeof memory[index] == "undefined") {
+                control_memory_set(memory, index, { value:{}, comments:[] }) ;
+            }
+
+            // build and load HTML
+            var o1 = "<center><table id='ctrl_mem' class='table table-hover table-sm'>" +
+                     "<tbody v-for='(elto, index) in value'>" +
+                     "<tr :id='elto.ui.id_row' class='d-flex' " +
+                     "    :data-info='elto.key' v-bind:key='elto.key' " +
+                     "    :style='elto.ui.style_obj' " +
+	 	     "    onclick='var key = this.getAttribute(\"data-info\"); " +
+                     "             dbg_set_breakpoint(key); " +
+                     "             if (event.stopPropagation) event.stopPropagation();'>" +
+ 	             "<td class='col-3 col-md-2 py-0' align='right' v-html='elto.ui.labels_str'></td>" +
+	             "<td class='col-auto py-0 px-0'  width='1%'    v-html='elto.ui.b_icon'></td>" +
+	             "<td class='col py-0'>{{ elto.ui.value_str }}</td>" +
+                     "</tr>" +
+                     "</tbody>" +
+                     "</table></center>" ;
+
+            $("#memory_MC").html(o1) ;
+
+            // vue binding
+            for (var key in memory) {
+                 memory[key].key = key ;
+                 control_memory_init_vue_computed_value(memory[key]) ;
+            }
+
+            if (false == (memory instanceof Vuex.Store)) {
+                memory = vue_observable(memory) ;
+            }
+            vue_appyBinding(memory, '#ctrl_mem') ;
+
+            // scroll up/down to index element...
+	    if (redraw) {
+                element_scroll_setRelative('#memory_MC', '#maddr' + index, 0) ;
+            }
         }
 
