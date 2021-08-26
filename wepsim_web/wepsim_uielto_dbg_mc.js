@@ -238,7 +238,7 @@
             for (key in memory)
             {
             o1 += "<tr id='maddr" + key + "' class='d-flex'" +
-                  "    style='font-size:small; color:black; font-weight:normal' " +
+                  "    v-bind:style='computed_value.style_obj' " +
 	 	  "    onclick='dbg_set_breakpoint(" + key + "); " +
                   "             if (event.stopPropagation) event.stopPropagation();'>" +
  	          "<td class='col-3 col-md-2 py-0' align='right' v-html='computed_value.labels_str'></td>" +
@@ -255,11 +255,9 @@
             // vue binding
             var f_computed_value = function(elto) {
                                        var key_hex = '0x' + parseInt(elto.key).toString(16) ;
-                                       var memory     = simhw_internalState('MC') ;
-                                       var SIMWARE    = get_simware() ;
-				       var icon_theme = get_cfg('ICON_theme') ;
-				       var icon_pin   = sim_core_breakpointicon_get(icon_theme) ;
+                                       var memory  = simhw_internalState('MC') ;
 
+                                       var SIMWARE = get_simware() ;
                                        var labels = SIMWARE.revlabels[elto.key] ;
                                        if (typeof labels !== 'undefined') {
                                            labels = '<span>' +
@@ -273,16 +271,25 @@
                                            labels = '<span>' + key_hex + '</span>' ;
                                        }
 
+				       var icon_theme = get_cfg('ICON_theme') ;
                                        var icon_pin = '&nbsp;' ;
                                        if (elto.breakpoint) {
 				           icon_pin = sim_core_breakpointicon_get(icon_theme) ;
+                                       }
+
+				       var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+				       var index      = get_value(simhw_sim_state(maddr_name)) ;
+				       var style_obj = { fontSize:'small', color:'black', fontWeight:'normal' } ;
+                                       if (elto.key == index) {
+				           style_obj = { fontSize:'small', color:'blue', fontWeight:'bold' } ;
                                        }
 
                                        return {
                                                  addr_hex:   key_hex,
                                                  value_str:  control_memory_lineToString(memory, elto.key),
 					         labels_str: labels,
-					         b_icon:     icon_pin
+					         b_icon:     icon_pin,
+					         style_obj:  style_obj
                                               } ;
                                     } ;
 
