@@ -216,7 +216,7 @@
                 return o1 ;
         }
 
-        //////////////// work in progress ////////////////////////
+        //////////////// vue-based ////////////////////////
 
         function control_memory_init_vue_computed_value ( elto )
         {
@@ -258,6 +258,7 @@
 
                // return elto.ui...
 	       elto.ui = {
+                            id_row:     'maddr' + elto.key,
 			    addr_hex:   key_hex,
 			    value_str:  value_str,
 			    labels_str: labels,
@@ -269,58 +270,6 @@
         }
 
         function control_memory_init_vue ( redraw )
-        {
-            var memory     = simhw_internalState('MC') ;
-	    var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	    var index      = get_value(simhw_sim_state(maddr_name)) ;
-
-            // in case of empty control memory...
-            if (typeof memory[index] == "undefined") {
-                control_memory_set(memory, index, { value:{}, comments:[] }) ;
-            }
-
-            // build and load HTML
-            var o1 = "<center><table class='table table-hover table-sm'>" +
-                     "<tbody id='none' data-info='with_vue'>" ;
-
-            for (key in memory)
-            {
-            o1 += "<tr id='maddr" + key + "' class='d-flex'" +
-                  "    v-bind:style='computed_value.style_obj' " +
-	 	  "    onclick='dbg_set_breakpoint(" + key + "); " +
-                  "             if (event.stopPropagation) event.stopPropagation();'>" +
- 	          "<td class='col-3 col-md-2 py-0' align='right' v-html='computed_value.labels_str'></td>" +
-	          "<td id='mcpin" + key + "' class='col-auto py-0 px-0' width='1%' v-html='computed_value.b_icon'></td>" +
-	          "<td id='cmval_" + key + "' class='col py-0'>{{ computed_value.value_str }}</td>" +
-                  "</tr>" ;
-            }
-
-            o1 += "</tbody>" +
-                  "</table></center>" ;
-
-            $("#memory_MC").html(o1) ;
-
-            // vue binding
-            var ref_obj = null ;
-            for (var key in memory)
-            {
-                 ref_obj = memory[key] ;
-                 ref_obj.key = key ;
-
-                 if (false == (ref_obj instanceof Vuex.Store)) {
-                     ref_obj = vue_observable(ref_obj) ;
-                 }
-
-                 vue_appyBinding(ref_obj, '#maddr'+key, control_memory_init_vue_computed_value) ;
-            }
-
-            // scroll up/down to index element...
-	    if (redraw) {
-                element_scroll_setRelative('#memory_MC', '#maddr' + index, 0) ;
-            }
-        }
-
-        function control_memory_init_vue2 ( redraw )
         {
             var memory     = simhw_internalState('MC') ;
 	    var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
