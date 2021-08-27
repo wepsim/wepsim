@@ -220,10 +220,11 @@
 
         //
         // Vue-based:
-        // * dbg_set_breakpoint_ui ( addr, bp_state ) { return; }
-	// * wepsim_show_dbg_mpc ( ) { return; }
+        // * dbg_set_breakpoint_ui ( addr, bp_state ) { control_memory_init_vue_computed_value(e|bp...); }
+	// * wepsim_show_dbg_mpc ( ) { control_memory_init_vue_computed_value(e|old,new...); }
         // * hard_refresh_control_memory ( memory, index, redraw ) { return control_memory_init_vue(redraw); }
         // * light_refresh_control_memory ( memory, index ) { return; }
+        // * control_memory_init_vue ( redraw ) { ... f_computed_elements = ... try to avoid full for-loop }
         //
 
         function control_memory_init_vue_computed_value ( elto )
