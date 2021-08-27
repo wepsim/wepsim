@@ -49,7 +49,7 @@
 
 
         //
-        // breakpoints
+        //  Breakpoints and show_dbg_mpc
         //
 
         function dbg_set_breakpoint ( addr )
@@ -59,14 +59,7 @@
                 var bp_state = wepsim_execute_toggle_microbreakpoint(hexaddr) ;
 
                 // toggle UI
-                var o1_content = "&nbsp;" ;
-                if (false == bp_state) {
-                    var icon_theme = get_cfg('ICON_theme') ;
-                    o1_content = sim_core_breakpointicon_get(icon_theme) ;
-                }
-
-                var o1 = document.getElementById("mcpin" + addr) ;
-                o1.innerHTML = o1_content ;
+                dbg_set_breakpoint_ui(addr, bp_state) ;
 
                 // notify if dbg_level...
                 var dbg_level = get_cfg('DBG_level') ;
@@ -83,6 +76,18 @@
                                           'dbg_set_breakpoint(' + addr + ');\n') ;
         }
 
+        function dbg_set_breakpoint_ui ( addr, bp_state )
+        {
+                var o1_content = "&nbsp;" ;
+                if (false == bp_state) {
+                    var icon_theme = get_cfg('ICON_theme') ;
+                    o1_content = sim_core_breakpointicon_get(icon_theme) ;
+                }
+
+                var o1 = document.getElementById("mcpin" + addr) ;
+                o1.innerHTML = o1_content ;
+        }
+
 	function wepsim_show_dbg_mpc ( )
 	{
 	        var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
@@ -92,9 +97,25 @@
 	}
 
 
-        /*
-         *  Control Memory UI
-         */
+        //
+        //  Control Memory UI
+        //
+
+        var show_control_memory_deferred = null;
+
+        function wepsim_show_control_memory ( memory, index, redraw )
+        {
+            if (null !== show_control_memory_deferred) {
+                return;
+            }
+
+            show_control_memory_deferred = setTimeout(function () {
+						         if (false === redraw)
+							      light_refresh_control_memory(memory, index);
+                                                         else  hard_refresh_control_memory(memory, index, redraw);
+                                                         show_control_memory_deferred = null;
+                                                      }, cfg_show_control_memory_delay);
+        }
 
         function hard_refresh_control_memory ( memory, index, redraw )
         {
@@ -140,26 +161,6 @@
             o1.css('color', 'blue') ;
             o1.css('font-weight', 'bold') ;
         }
-
-        var show_control_memory_deferred = null;
-
-        function wepsim_show_control_memory ( memory, index, redraw )
-        {
-            if (null !== show_control_memory_deferred) {
-                return;
-            }
-
-            show_control_memory_deferred = setTimeout(function () {
-						         if (false === redraw)
-							      light_refresh_control_memory(memory, index);
-                                                         else  hard_refresh_control_memory(memory, index, redraw);
-                                                         show_control_memory_deferred = null;
-                                                      }, cfg_show_control_memory_delay);
-        }
-
-        //
-        // Auxiliar functions
-        //
 
         function control_memory_showrow ( memory, key, is_current, revlabels )
         {
@@ -216,7 +217,14 @@
                 return o1 ;
         }
 
-        //////////////// vue-based ////////////////////////
+
+        //
+        // Vue-based:
+        // * dbg_set_breakpoint_ui ( addr, bp_state ) { return; }
+	// * wepsim_show_dbg_mpc ( ) { return; }
+        // * hard_refresh_control_memory ( memory, index, redraw ) { return control_memory_init_vue(redraw); }
+        // * light_refresh_control_memory ( memory, index ) { return; }
+        //
 
         function control_memory_init_vue_computed_value ( elto )
         {

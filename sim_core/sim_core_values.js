@@ -205,9 +205,6 @@
 				        },
 				        set (newValue) {
 					   this.$store.commit('set_value', newValue) ;
-				        },
-				        set (index, newValue) {
-					   this.$store.commit('set_value_at', index, newValue) ;
 				        }
 				    },
 				    computed_value () {
@@ -220,6 +217,7 @@
 					this.$store.commit('set_value', newValue) ;
 				    },
 				    set_value_at ( index, newValue ) {
+                                        // Vue.set(this, index, newValue) ;
 					this.$store.commit('set_value_at', index, newValue) ;
 				    },
 				    inc_updates () {
