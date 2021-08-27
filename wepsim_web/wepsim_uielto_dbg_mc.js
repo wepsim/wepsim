@@ -227,7 +227,7 @@
         // * control_memory_init_vue ( redraw ) { ... f_computed_elements = ... try to avoid full for-loop }
         //
 
-        function control_memory_init_vue_computed_value ( elto )
+        function ctrmem_init_vue_computed_value_init ( elto )
         {
 	       var SIMWARE = get_simware() ;
 	       var key_hex = '0x' + parseInt(elto.key).toString(16) ;
@@ -246,21 +246,6 @@
 		   labels = '<span>' + key_hex + '</span>' ;
 	       }
 
-               // ui-breakpoint-icon
-	       var icon_theme = get_cfg('ICON_theme') ;
-	       var icon_pin = '&nbsp;' ;
-	       if (elto.breakpoint) {
-		   icon_pin = sim_core_breakpointicon_get(icon_theme) ;
-	       }
-
-               // ui-style
-	       var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	       var index      = get_value(simhw_sim_state(maddr_name)) ;
-	       var style_obj = { fontSize:'small', color:'black', fontWeight:'normal' } ;
-	       if (elto.key == index) {
-		   style_obj = { fontSize:'small', color:'blue', fontWeight:'bold' } ;
-	       }
-
                // ui-value
 	       var memory    = simhw_internalState('MC') ;
 	       var value_str = control_memory_lineToString(memory, elto.key) ;
@@ -271,9 +256,36 @@
 			    addr_hex:   key_hex,
 			    value_str:  value_str,
 			    labels_str: labels,
-			    b_icon:     icon_pin,
-			    style_obj:  style_obj
+			    b_icon:     '&nbsp;',
+			    style_obj:  { fontSize:'small', color:'black', fontWeight:'normal' }
 		         } ;
+
+	       return elto.ui ;
+        }
+
+        function ctrmem_init_vue_computed_value_update ( elto )
+        {
+               // ui-breakpoint-icon
+	       var icon_theme = get_cfg('ICON_theme') ;
+	       var icon_pin = '&nbsp;' ;
+	       if (elto.breakpoint) {
+		   icon_pin = sim_core_breakpointicon_get(icon_theme) ;
+	       }
+	       elto.ui.b_icon = icon_pin ;
+
+               // ui-style
+	       var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	       var index      = get_value(simhw_sim_state(maddr_name)) ;
+	       var style_obj = { fontSize:'small', color:'black', fontWeight:'normal' } ;
+	       if (elto.key == index) {
+		   style_obj = { fontSize:'small', color:'blue', fontWeight:'bold' } ;
+	       }
+	       elto.ui.style_obj = style_obj ;
+
+               // ui-value
+	       //var memory    = simhw_internalState('MC') ;
+	       //var value_str = control_memory_lineToString(memory, elto.key) ;
+	       //elto.ui.value_str = value_str ;
 
 	       return elto.ui ;
         }
@@ -309,10 +321,14 @@
             $("#memory_MC").html(o1) ;
 
             // vue binding
+	    for (var key in memory) {
+		 memory[key].key = key ;
+		 ctrmem_init_vue_computed_value_init(memory[key]) ;
+	    }
+
             var f_computed_elements = function(arr) {
 					    for (var key in arr) {
-                                                 arr[key].key = key ;
-						 control_memory_init_vue_computed_value(arr[key]) ;
+						 ctrmem_init_vue_computed_value_update(arr[key]) ;
 					    }
                                             return arr ;
                                       } ;
