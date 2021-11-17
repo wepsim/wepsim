@@ -160,6 +160,18 @@ function isToken ( context, text )
          return (getToken(context) == text.trim()) ;
 }
 
+function isToken_arr ( context, arr )
+{
+         for (var i=0; i<arr.length; i++)
+         {
+              if (getToken(context) == arr[i].trim()) {
+                  return true ;
+              }
+         }
+
+         return false ;
+}
+
 
 /*
  *  Error handler

@@ -438,7 +438,8 @@
 
            // prepare data: ins_bin
 	   var next = 0 ;
-           var ins_bin = mp[l].binary ;
+         //var ins_bin = mp[l].binary ;
+	   var ins_bin = parseInt(get_value(mp[l])).toString(2).padStart(32, "0") ;
 	   for (var iw=1; iw<nwords; iw++)
 	   {
 		  next = parseInt(l, 16) + iw*4 ; // 4 -> 32 bits

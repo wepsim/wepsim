@@ -933,7 +933,7 @@ function loadFirmware (text)
 
 	           nextToken(context);
 	           // match mandatory reg|inm|address
-	           if ( !isToken(context, "reg") && !isToken(context, "inm") && !isToken(context, "address") ) {
+                   if ( !isToken_arr(context, ["reg", "inm", "address"]) ) {
 		        return langError(context, "Incorrect type of field (reg, inm or address)") ;
                    }
 
