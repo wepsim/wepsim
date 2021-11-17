@@ -3,7 +3,12 @@
 
 ## 2.1.5 -> 2.1.6:
 * Several minor improvements on RISC-V examples
-* Reworked "Hardware" detail panel
+* Reworked "Hardware" detail panel and hardware help
+* New options for the command-line WepSIM:
+  * New "show-microcode-fields" option
+  * New help option for listing hardware elements
+  * New help option for one hardware element
+* Minor bugs fixed and several refinements added.
 
 ## 2.1.4 -> 2.1.5:
 * Initial support for a compact description for each instruction

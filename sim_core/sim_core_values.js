@@ -175,6 +175,9 @@
 				          set_value ( state, newValue ) {
 				 	     state.value = newValue ;
 				          },
+				          set_value_at ( state, index, newValue ) {
+				 	     state.value[index] = newValue ;
+				          },
 				          inc_updates ( state ) {
 				 	     state.updates++ ;
 				          }
@@ -212,6 +215,10 @@
 				methods: {
 				    set_value ( newValue ) {
 					this.$store.commit('set_value', newValue) ;
+				    },
+				    set_value_at ( index, newValue ) {
+                                        // Vue.set(this, index, newValue) ;
+					this.$store.commit('set_value_at', index, newValue) ;
 				    },
 				    inc_updates () {
 					this.$store.commit('inc_updates') ;

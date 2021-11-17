@@ -43,7 +43,7 @@ echo "checking sim_hw..."
  jshint ./sim_hw/sim_hw_index.js
  jshint ./sim_hw/sim_hw_values.js
 #jshint ./sim_hw/sim_hw_behavior.js
-#jshint ./sim_hw/sim_hw_eltos.js
+ jshint ./sim_hw/sim_hw_eltos.js
  jshint ./sim_hw/sim_hw_poc/sim_poc.js
  jshint ./sim_hw/sim_hw_poc/sim_hw_mem.js
  jshint ./sim_hw/sim_hw_poc/sim_hw_board.js
