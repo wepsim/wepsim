@@ -15,9 +15,13 @@
         addi  sp, sp, 4
         jr    ra
 
-main:   li    a0, 2
+main:   addi  sp, sp, -4
+        sw    ra, 0(sp)
+        
+        li    a0, 2
         jal   ra, accu
 
-        # return
+        lw    ra, 0(sp)
+        addi  sp, sp, 4
         jr    ra
 
