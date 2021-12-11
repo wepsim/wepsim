@@ -1087,7 +1087,8 @@ function read_text ( context, datosCU, ret )
 
 					     if ((field.type == "address") && ("rel" == field.address_type))
                                              {
-					         res = decimal2binary(converted-seg_ptr-WORD_BYTES, size);
+					       // res = decimal2binary(converted-seg_ptr-WORD_BYTES, size);
+					          res = decimal2binary(converted, size);
                                              }
 					 }
 
