@@ -54,13 +54,18 @@ f1:
        jr ra
 
 
-main: 
-       # counting (matrix, 2, 6)
-       la  a0 matrix
-       li  a1 2
-       li  a2 6
-       jal ra counting
+main:   addi  sp, sp, -4
+        sw    ra, 0(sp)
 
-       # return
-       jr  ra
+        # counting (matrix, 2, 6)
+        la  a0 matrix
+        li  a1 2
+        li  a2 6
+        jal ra counting
+
+        lw    ra, 0(sp)
+        addi  sp, sp, 4
+
+        # return
+        jr    ra
 
