@@ -163,7 +163,7 @@ auipc rd offset {
 }
 
 #  JAL rd,offset	Jump and Link			   rd ← pc + length(inst)
-#							   pc ← pc + (offset << 1)
+#							   pc ← pc + offset
 jal rd offset {
 	    co=111111,
 	    nwords=1,
@@ -171,9 +171,8 @@ jal rd offset {
 	    offset=address(19,0)rel,
 	    help='rd = pc; pc = pc + sext(offset)',
 	    {
-		(T2, MR=0, SelC=10101, LC, C4),		    # (rd, RT1) <- PC
-		(SE=1, OFFSET=0, SIZE=10100, T3, C5),       #       RT2 <- offset
-		(MB=1, MC=1, SelCop=111, T6, C5),	    #       RT2 <- RT2 << 1
+		(T2, MR=0, SelC=10101, LC, C5),		      # (rd, RT2) <- PC
+		(SE=1, OFFSET=0, SIZE=10100, T3, C4),         #       RT1 <- offset
 		(MA=1, MB=1, MC=1, SelCop=1010, T6, M2=0, C2, A0=1, B=1, C=0)
 	    }
 }
@@ -193,7 +192,7 @@ jalr rd rs1 offset {
 		(MR=0, SelA=10000, MA=0, MB=1, MC=1, SelCop=1010, T6, C5), # RT2 <- offset + rs1
 		(EXCODE=1, T11, C4),				           # RT1 <- -1
 		(MA=1, MC=1, SelCop=101, T6, C4),			   # RT1 <- ~ -1 (0xFFFFFFFE)
-		(MA=1, MB=1, MC=1, SelCop=1, T6, M2=0, C2),		   # pc <- RT2 & (0xFFFFFFFE)
+		(MA=1, MB=1, MC=1, SelCop=1, T6, M2=0, C2),		   # pc <- RT2 & 0xFFFFFFFE
 		(EXCODE=0, T11, MR=1, SelC=0, LC=1, A0=1, B=1, C=0)
 	    }
 }
