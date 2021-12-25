@@ -415,7 +415,7 @@
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
 					  $('[data-toggle=tooltip]').tooltip('hide');
-                                          $("#infohw1").attr('components', 'elements,states,signals,behaviors');
+                                        //$("#infohw1").attr('components', 'summary,elements,states,signals,behaviors');
 	                                  simcoreui_show_hw();
 					  var ws_idiom = get_cfg('ws_idiom');
 					  i18n_update_tags('gui', ws_idiom);

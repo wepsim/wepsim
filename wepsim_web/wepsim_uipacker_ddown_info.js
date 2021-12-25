@@ -120,7 +120,7 @@
                    ni.cpu   = this.mk_nav_item('tab17', '#cpu',   'CPU stats',            '', '') ;
                    ni.mpcfg = this.mk_nav_item('tab18', '#mpcfg', 'Memory configuration', '', '') ;
                    ni.iocfg = this.mk_nav_item('tab19', '#iocfg', 'I/O configuration',    '', '') ;
-                   ni.ed_hw = this.mk_nav_item('tab22', '#ed_hw', 'Hardware',             '', '') ;
+               //  ni.ed_hw = this.mk_nav_item('tab22', '#ed_hw', 'Hardware',             '', '') ;
                    ni.iol3d = this.mk_nav_item('tab25', '#iol3d', '3D Led',               '', 'user_archived') ;
                    ni.ed_mc = this.mk_nav_item('tab20', '#ed_mc',  'MicroCode',           '', '') ;
                    ni.ed_mp = this.mk_nav_item('tab21', '#ed_mp',  'Assembly',            '', 'user_microcode') ;
@@ -148,7 +148,7 @@
 	           np.mpcfg = this.mk_nav_tabpane_item('mpcfg', '',  '<ws-mem-config id="memcfg1"></ws-mem-config>') ;
 	           np.iocfg = this.mk_nav_tabpane_item('iocfg', '',  '<ws-io-config id="iocfg1"></ws-io-config>') ;
 	           np.iol3d = this.mk_nav_tabpane_item('iol3d', '',  '<ws-l3d id="l3d1"></ws-l3d>') ;
-	           np.ed_hw = this.mk_nav_tabpane_item('ed_hw', '',  '<ws-hw  id="infohw1" components="elements,states,signals,behaviors"></ws-hw>') ;
+	       //  np.ed_hw = this.mk_nav_tabpane_item('ed_hw', '',  '<ws-hw  id="infohw1" components="summary,elements,states,signals,behaviors"></ws-hw>') ;
 
                    np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc layout="placeholder"></ws_edit_mc>') ;
                    np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as layout="placeholder"></ws_edit_as>') ;

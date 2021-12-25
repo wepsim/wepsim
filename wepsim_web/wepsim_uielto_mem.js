@@ -44,10 +44,12 @@
 	      {
 		    // html holder
 		    var o1 = "<div class='container text-right'>" +
+                             '<label class="my-0" for="popover-mem" style="min-width:95%">' +
+                             '<span data-langkey="quick config">quick config</span>: ' +
                              "<a data-toggle='popover-mem' id='popover-mem' " +
 			     "   tabindex='0' class='m-auto show multi-collapse-3'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
-                             "</a>" +
+                             "</a></label>" +
                              "</div>" +
 		             "<div id='memory_MP' style='height:58vh; width:inherit;'></div>" ;
 

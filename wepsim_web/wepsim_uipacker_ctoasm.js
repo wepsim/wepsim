@@ -59,7 +59,54 @@
                              '<!-- Tab panes -->' +
                              '<div class="tab-content">' +
                              '  <div id="eltos_cpu" class="tab-pane active" role="tabpanel">' +
-		             '	   <ws-cpusvg></ws-cpusvg>' +
+
+                             // row with quick config:
+                             "<div class='container text-right'>" +
+                             "<label class='my-0' for='popover-rfcfg' style='min-width:95%'>" +
+                             "<span data-langkey='quick config'>quick config</span>: " +
+                             "<a id='popover-cpuview' tabindex='0' " +
+                             "   class='show multi-collapse-3 btn my-1 col-auto' " +
+                             "   data-toggle='popover-cpuview'>" +
+                             "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
+                             "</label>" +
+                             "</div>" +
+
+                             // row with pill-buttons:
+                             '<div class="row d-none">' +
+                             '  <div class="col">' +
+                             '    <div class="nav nav-pills nav-fill" ' +
+                             '         id="nav-tab1" role="tablist" aria-orientation="horizontal">' +
+                             '      <a class="nav-link m-2 bg-light text-primary active" ' +
+                             '         data-toggle="pill" role="tab" ' +
+                             '         id="cpu_view_graph1" href="#cpu_graph1" ' +
+                             '         aria-controls="cpu_graph1" aria-selected="true">' + 
+                             '<span data-langkey="Graph">Graph</span></a>' +
+                             '      <a class="nav-link m-2 bg-light text-primary" ' +
+                             '         data-toggle="pill" role="tab" ' +
+                             '         id="cpu_view_table1" href="#cpu_table1" ' +
+                             '         aria-controls="cpu_table1" aria-selected="false">' + 
+                             '<span data-langkey="Text">Text</span></a>' +
+                             '    </div>' +
+                             '  </div>' +
+                             '</div>' +
+
+                             // row with panels:
+                             '<div class="row">' +
+                             '  <div class="col">' +
+                             '    <div class="tab-content" id="nav-tab1-content">' +
+                             '      <div role="tabpanel" class="tab-pane fade" ' +
+                             '           id="cpu_table1" aria-labelledby="cpu_view_table1">' +
+                             '      <ws-hw id="infohw1" components="elements"></ws-hw>' +
+                             '      </div>' +
+                             '      <div role="tabpanel" class="tab-pane fade show active" ' +
+                             '           id="cpu_graph1" aria-labelledby="cpu_view_graph1">' +
+                             '	    <ws-cpusvg></ws-cpusvg>' +
+                             '      </div>' +
+                             '    </div>' +
+                             '  </div>' +
+                             '</div>' +
+
+
 		             '  </div>' +
 		             '\n' +
 		             '  <div id="eltos_dbg" class="tab-pane" role="tabpanel">' +
@@ -68,10 +115,45 @@
 	    	             '</div>' ;
 
 		    this.innerHTML = o1 ;
+
+                    // initialize loaded components
+		    wepsim_init_quickcfg("[data-toggle=popover-cpuview]",
+			                 "click",
+			                 quick_config_cpuview,
+					 function(shownEvent) {
+					     i18n_update_tags('cfg') ;
+					     i18n_update_tags('dialogs') ;
+					 }) ;
 	      }
         }
 
         if (typeof window !== "undefined") {
             window.customElements.define('ws-ctoasm', ws_ctoasm) ;
+        }
+
+
+        /*
+         *  Auxiliar to init_x & show_x
+         */
+
+        function quick_config_cpuview ( )
+        {
+	    var o = "<div class='container mt-1'>" +
+                    "<div class='row'>" +
+                       quickcfg_html_header('Display format') +
+	               quickcfg_html_btn('(*) Graph',
+	 			         "" +
+				         "$(\"#cpu_view_graph1\").tab(\"show\");",
+				         'col-6') +
+	               quickcfg_html_btn('Text',
+	 			         "" +
+				         "$(\"#cpu_view_table1\").tab(\"show\");",
+				         'col-6') +
+                       quickcfg_html_br() +
+                       quickcfg_html_close('popover-cpuview') +
+		    "</div>" +
+		    "</div>" ;
+
+	    return o ;
         }
 

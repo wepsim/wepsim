@@ -61,12 +61,6 @@
                         return ;
                     }
 
-                    // if no visible -> skip data population
-		    if ($(div_hash).is(':visible') == false) {
-                        $(div_hash).html('') ;
-                        return ;
-                    }
-
                     // set and go
 	            simcoreui_init_hw(div_hash, this.components_arr) ;
               }
@@ -85,6 +79,7 @@
         var ws_states_show_inactive  = true ;
 
         var simcoreui_hwui_fn = {} ;
+        simcoreui_hwui_fn.summary   = simcoreui_hw_summary_init ;
         simcoreui_hwui_fn.elements  = simcoreui_hw_elements_init ;  // simulated
         simcoreui_hwui_fn.signals   = simcoreui_hw_signals_init ;   // simulation
         simcoreui_hwui_fn.states    = simcoreui_hw_states_init ;    // simulation
@@ -101,12 +96,13 @@
               }
 
               // build HTML...
-              var o = simcoreui_hw_summary_init(ahw) ;
+              var o = '' ;
+              var framed = (components_arr.length > 1) ;
               for (var i=0; i < components_arr.length; i++)
               {
                    var cname = components_arr[i] ;
                    if (typeof simcoreui_hwui_fn[cname] !== "undefined") {
-                       o += simcoreui_hwui_fn[cname](ahw) ;
+                       o += simcoreui_hwui_fn[cname](ahw, framed) ;
                    }
               }
 
@@ -155,7 +151,7 @@
 
         // hw_summary
 
-        function simcoreui_hw_summary_init ( ahw )
+        function simcoreui_hw_summary_init ( ahw, framed )
         {
 	    // card with list
 	    var o = '' ;
@@ -190,7 +186,7 @@
 
         // signal
 
-        function simcoreui_hw_signals_init ( ahw )
+        function simcoreui_hw_signals_init ( ahw, framed )
         {
 	    var elto_c  = '' ;
 	    var e = '' ;
@@ -212,8 +208,13 @@
 	    }
 	    c += '</span>' ;
 
-	    // return card with signal list
-            return simcoreui_hw_init_signals_card(c) ;
+	    // card with signal list
+            if (framed) {
+                c = simcoreui_hw_init_signals_card(c) ;
+            }
+
+            // return signals
+            return c ;
         }
 
         function simcoreui_hw_init_signals_card ( content )
@@ -311,7 +312,7 @@
               return e ;
         }
 
-        function simcoreui_hw_signals_update ( ahw )
+        function simcoreui_hw_signals_update ( ahw, framed )
         {
               var elto_v  = '' ;
               var elto_dv = '' ;
@@ -350,7 +351,7 @@
 
         // hw_states
 
-        function simcoreui_hw_states_init ( ahw )
+        function simcoreui_hw_states_init ( ahw, framed )
         {
 	    var elto_c  = '' ;
 	    var e = '' ;
@@ -364,15 +365,21 @@
 		 e      = simcoreui_hw_states_popup(ahw.states, elto) ;
 
 		 c += '<span class="' + elto_c + ' t-ina col font-weight-normal">' +
-		      '<a href="#" id="hw_state_tt_' + elto + '" ' +
-		      '   class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
+		      '<a href="#" ' +
+                      '   class="hw_state_tt_' + elto + ' popover_hw" ' +
+		      '   data-toggle="popover" onclick="event.preventDefault();" ' +
 		      '   data-html="true" title="" data-content="' + e + '">' + elto + '</a>' +
 		      '</span>' ;
 	    }
 	    c += '</span>' ;
 
 	    // card with state list
-            return simcoreui_hw_init_states_card(c, ahw) ;
+            if (framed) {
+                c = simcoreui_hw_init_states_card(c, ahw) ;
+            }
+
+            // return states
+            return c ;
         }
 
         function simcoreui_hw_init_states_card ( content, ahw )
@@ -528,7 +535,7 @@
 
         // behaviors
 
-        function simcoreui_hw_behaviors_init ( ahw )
+        function simcoreui_hw_behaviors_init ( ahw, framed )
         {
               // list of behaviors
               var c = '<span class="row justify-content-between">' ;
@@ -589,7 +596,7 @@
               return e ;
         }
 
-        function simcoreui_hw_elements_init ( ahw )
+        function simcoreui_hw_elements_init ( ahw, framed )
         {
 	    var i = 0 ;
 	    var o = '' ;
@@ -651,8 +658,9 @@
 				 p      = simcoreui_hw_states_popup(ahw.states, state_ref) ;
 
 				 o += '<span class="' + elto_c + ' t-ina col font-weight-normal">' +
-				      '<a href="#" id="hw_state_tt_' + state_ref + '" ' +
-				      '   class="popover_hw text-wrap" data-toggle="popover" ' +
+				      '<a href="#" ' +
+                                      '   class="hw_state_tt_' + state_ref + ' popover_hw text-wrap" ' +
+				      '   data-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
 				      '   data-html="true" title="" data-content="' + p + '">' +
                                       state_ref_orig + '</a>' +
@@ -670,8 +678,9 @@
 				 p      = simcoreui_hw_states_popup(ahw.states, state_ref) ;
 
 				 o += '<span class="' + elto_c + ' t-ina col font-weight-normal">' +
-				      '<a href="#" id="hw_state_tt_' + state_ref + '" ' +
-				      '   class="popover_hw text-wrap" data-toggle="popover" ' +
+				      '<a href="#" ' +
+                                      '   class="hw_state_tt_' + state_ref + ' popover_hw text-wrap" ' +
+				      '   data-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
 				      '   data-html="true" title="" data-content="' + p + '">' +
                                       state_ref + '</a>' +
@@ -706,8 +715,15 @@
 	    }
             o += '</tbody></table></div>' ;
 
-	    // return card with list
-            return simcoreui_hw_init_elements_card(o) ;
+	    // card with element list
+            if (framed) {
+                o = simcoreui_hw_init_elements_card(o) ;
+            } else {
+                o = '<div class="px-2">' + o + '</div>' ;
+            }
+
+            // return list
+            return o ;
         }
 
         function simcoreui_hw_init_elements_card ( content )
