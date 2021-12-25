@@ -291,16 +291,20 @@
 
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
-	    a.addEventListener("load",function() {
-		simcore_init_eventlistener("svg_p", hash_detail2action, hash_signal2action) ;
-		refresh() ;
-	    }, false);
+            if (a != null) {
+	        a.addEventListener("load",function() {
+		    simcore_init_eventlistener("svg_p", hash_detail2action, hash_signal2action) ;
+		    refresh() ;
+	        }, false);
+            }
 
 	    var b = document.getElementById("svg_cu");
-	    b.addEventListener("load",function() {
-		simcore_init_eventlistener("svg_cu", hash_detail2action, hash_signal2action) ;
-		refresh() ;
-	    }, false);
+            if (b != null) {
+	        b.addEventListener("load",function() {
+	    	    simcore_init_eventlistener("svg_cu", hash_detail2action, hash_signal2action) ;
+		    refresh() ;
+	        }, false);
+            }
 
 	    // initialize hw UI
 	    simcore_init_ui(hash_detail2init) ;

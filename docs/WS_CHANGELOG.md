@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.1.6 -> 2.1.7:
+* Processor as text table.
+* Bump bootstrap from 4.6.0 to 4.6.1
+
 ## 2.1.5 -> 2.1.6:
 * Several minor improvements on RISC-V examples
 * Reworked "Hardware" detail panel and hardware help
