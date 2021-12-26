@@ -71,11 +71,11 @@
                     o1 +=    '<div class="row">' +
                              '  <div class="col">' +
                              '    <div class="tab-content" id="nav-tab1-content">' +
-                             '      <div role="tabpanel" class="tab-pane fade" ' +
+                             '      <div role="tabpanel" class="tab-pane " ' +
                              '           id="cpu_table1" aria-labelledby="cpu_view_table1">' +
                              '      <ws-hw id="infohw1" components="elements"></ws-hw>' +
                              '      </div>' +
-                             '      <div role="tabpanel" class="tab-pane fade show active" ' +
+                             '      <div role="tabpanel" class="tab-pane show active" ' +
                              '           id="cpu_graph1" aria-labelledby="cpu_view_graph1">' +
                              '	    <ws-cpusvg></ws-cpusvg>' +
                              '      </div>' +
@@ -111,8 +111,10 @@
             var show_as_graph = get_cfg('CPUCU_show_graph') ;
 
             if (show_as_graph)
-		 $("#cpu_view_graph1").tab("show") ;
-            else $("#cpu_view_table1").tab("show") ;
+                 $('#cpu_view_graph1').tab("show") ;
+            else $('#cpu_view_table1').tab("show") ;
+
+	    setTimeout(function() { $("#infohw1").attr('components', 'elements'); }, 100);
         }
 
         function quick_config_cpuview ( )
@@ -130,7 +132,8 @@
                                          "col-6") +
                        quickcfg_html_br() +
                        quickcfg_html_header('Split view:') +
-		       '<ws-slider-cpucu name="slider4b" class="col-12"></ws-slider-cpucu>' +
+		       '<ws-slider-cpucu   name="slider4b" class="col-12"></ws-slider-cpucu>' +
+                       '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
                        quickcfg_html_br() +
                        quickcfg_html_close('popover-cpuview') +
 		    "</div>" +

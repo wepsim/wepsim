@@ -124,6 +124,7 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_toolbar.js
  jshint ./wepsim_web/wepsim_uielto_topbar.js
  jshint ./wepsim_web/wepsim_uielto_slider_cpucu.js
+ jshint ./wepsim_web/wepsim_uielto_slider_details.js
  jshint ./wepsim_web/wepsim_uipacker_cpucu.js
  jshint ./wepsim_web/wepsim_uipacker_ctoasm.js
  jshint ./wepsim_web/wepsim_uipacker_ddown_info.js

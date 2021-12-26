@@ -20,11 +20,11 @@
 
 
         /*
-         *  Slider: CPU / Control Unit
+         *  Slider: processor /details
          */
 
         /* jshint esversion: 6 */
-        class ws_slider_cpucu extends ws_uielto
+        class ws_slider_details extends ws_uielto
         {
 	      constructor ()
 	      {
@@ -38,18 +38,18 @@
                     super.render() ;
 
 		    // html holder
-		    var o1 = '<form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
+		    var o1 = '<form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
 			     '<label class="my-0" for="' + this.name_str + '" style="min-width:95%">' +
-                             '<span data-langkey=\'processor\'>processor</span>:' +
+                             '<span data-langkey="details">details</span>:' +
                              '</label>' +
-			     '  <input aria-label="Show CPU/CU" type="range" ' +
-                             '         name="' + this.name_str + '" ' +
-                             '           id="' + this.name_str + '"' +
-			     '	  min="0" max="14" value="7" step="1"' +
-			     '	  data-show-value="false"' +
-                             '         class="custom-range slider col mx-0 px-0"' +
-                             '         oninput="wsweb_set_cpucu_size(this.value);' +
-                             '                  return false;">' +
+			     '      <input aria-label="Show Main/Info" type="range" ' +
+                             '             name="' + this.name_str + '" ' +
+                             '               id="' + this.name_str + '"' +
+			     '             min="0" max="14" value="7" step="1"' +
+			     '             data-show-value="false"' +
+			     '             class="custom-range slider col mx-0 px-0"' +
+			     '             oninput="wsweb_set_c1c2_size(this.value) ;' +
+			     '                      return true;">' +
 			     '</form>' ;
 
 		    // load html
@@ -58,6 +58,6 @@
         }
 
         if (typeof window !== "undefined") {
-            window.customElements.define('ws-slider-cpucu', ws_slider_cpucu) ;
+            window.customElements.define('ws-slider-details', ws_slider_details) ;
         }
 

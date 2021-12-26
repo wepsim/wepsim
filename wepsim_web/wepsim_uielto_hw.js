@@ -61,6 +61,12 @@
                         return ;
                     }
 
+                    // if no visible -> skip data population
+		    if ($(div_hash).is(':visible') == false) {
+                        $(div_hash).html('') ;
+                        return ;
+                    }
+
                     // set and go
 	            simcoreui_init_hw(div_hash, this.components_arr) ;
               }
@@ -111,8 +117,8 @@
 
               // initialization of recent HTML added components
 	      $('[data-toggle="tooltip"]').tooltip({
-	  	    trigger:   'hover',
-		  sanitizeFn: function (content) {
+  	             trigger: 'hover',
+	          sanitizeFn: function (content) {
 			         return content ; // DOMPurify.sanitize(content) ;
 			      }
 	      }) ;
