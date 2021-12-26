@@ -167,20 +167,12 @@
 
 	      render_slider_cpucu ( robj )
 	      {
-		 return '<ws-slider-cpucu name="slider2b"></ws-slider-cpucu>' ;
+		 return '<ws-slider-cpucu   name="slider2b"></ws-slider-cpucu>' ;
 	      }
 
 	      render_slider_c1c2 ( robj )
 	      {
-		 return '<form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
-			'	 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey=\'details\'>details</span>:</label>' +
-			'	 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"' +
-			'		min="0" max="14" value="7" step="1"' +
-			'	        data-show-value="false"' +
-                        '               class="custom-range slider col mx-0 px-0"' +
-                        '               oninput="wsweb_set_c1c2_size(this.value) ;' +
-                        '                        return false;">' +
-			'</form>' ;
+		 return '<ws-slider-details name="slider2a"></ws-slider-details>' ;
 	      }
 
               //

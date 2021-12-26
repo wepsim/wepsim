@@ -109,15 +109,7 @@
 
 		   o += '<li class="list-group-item px-0"> ' +
 			'     <div class="col-sm p-0 ml-1 collapse show">' +
-			'           <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
-			'                <label class="my-0" for="slider3a" style="min-width:95%"><span data-langkey="details">details</span>:</label>' +
-			'                <input aria-label="Show Main/Info" type="range" name="slider3a" id="slider3a"' +
-			'                       min="0" max="14" value="7" step="1"' +
-			'                       data-show-value="false"' +
-			'                       class="custom-range slider col mx-0 px-0"' +
-			'                       oninput="wsweb_set_c1c2_size(this.value) ;' +
-			'                                return true;">' +
-			'           </form>' +
+		        '         <ws-slider-details name="slider3a"></ws-slider-details>' +
 			'     </div>' +
 			'</li>' ;
 
