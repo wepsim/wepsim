@@ -123,6 +123,8 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_states.js
  jshint ./wepsim_web/wepsim_uielto_toolbar.js
  jshint ./wepsim_web/wepsim_uielto_topbar.js
+ jshint ./wepsim_web/wepsim_uielto_slider_cpucu.js
+ jshint ./wepsim_web/wepsim_uipacker_cpucu.js
  jshint ./wepsim_web/wepsim_uipacker_ctoasm.js
  jshint ./wepsim_web/wepsim_uipacker_ddown_info.js
  jshint ./wepsim_web/wepsim_uipacker_ddown_sel.js

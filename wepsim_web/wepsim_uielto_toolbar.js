@@ -167,15 +167,7 @@
 
 	      render_slider_cpucu ( robj )
 	      {
-		 return '<form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
-			'	<label class="my-0" for="slider2b" style="min-width:95%"><span data-langkey=\'processor\'>processor</span>:</label>' +
-			'	<input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"' +
-			'		min="0" max="14" value="7" step="1"' +
-			'	        data-show-value="false"' +
-                        '               class="custom-range slider col mx-0 px-0"' +
-                        '               oninput="wsweb_set_cpucu_size(this.value);' +
-                        '                        return false;">' +
-			'</form>' ;
+		 return '<ws-slider-cpucu name="slider2b"></ws-slider-cpucu>' ;
 	      }
 
 	      render_slider_c1c2 ( robj )

@@ -90,6 +90,7 @@
 			                 "click",
 			                 quick_config_cpuview,
 					 function(shownEvent) {
+				             $("#slider4b").val(get_cfg('CPUCU_size')) ;
 					     i18n_update_tags('cfg') ;
 					     i18n_update_tags('dialogs') ;
 					 }) ;
@@ -127,6 +128,9 @@
                                          "update_cfg(\"CPUCU_show_graph\", false);" +
 				         "show_cpuview_view();",
                                          "col-6") +
+                       quickcfg_html_br() +
+                       quickcfg_html_header('Split view:') +
+		       '<ws-slider-cpucu name="slider4b" class="col-12"></ws-slider-cpucu>' +
                        quickcfg_html_br() +
                        quickcfg_html_close('popover-cpuview') +
 		    "</div>" +
