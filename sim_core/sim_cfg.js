@@ -201,7 +201,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.1.7" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.1.7.20210801A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.1.7.20211210A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -211,6 +211,7 @@
 	           "size_active":           { upgrade:false, type:"float",     value:1.25 },
 	           "size_inactive":         { upgrade:false, type:"float",     value:0.02 },
                    "is_byvalue":            { upgrade:false, type:"boolean",   value:false },
+                   "CPUCU_show_graph":      { upgrade:true,  type:"boolean",   value:true },
 
 	           /* simulation screen: Register File */
                    "RF_display_format":     { upgrade:false, type:"string",    value:'unsigned_16_fill' },

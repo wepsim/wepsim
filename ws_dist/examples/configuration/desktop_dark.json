@@ -44,6 +44,11 @@
     "type": "boolean",
     "value": false
   },
+  "CPUCU_show_graph": {
+    "upgrade": true,
+    "type": "boolean",
+    "value": true
+  },
   "RF_display_format": {
     "upgrade": false,
     "type": "string",

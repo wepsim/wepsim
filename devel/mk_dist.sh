@@ -175,6 +175,7 @@ cat wepsim_web/wepsim_uielto.js \
     \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
     wepsim_web/wepsim_uipacker_ddown_info.js \
+    wepsim_web/wepsim_uipacker_cpucu.js \
     wepsim_web/wepsim_uipacker_ctoasm.js \
     \
     wepsim_web/wepsim_uielto_loadfile.js \
