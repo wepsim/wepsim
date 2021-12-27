@@ -108,9 +108,12 @@
                 'Information from': 		'Информация из',
                 'Pick firm/soft from': 		'Выбрать фирму / софт из',
                 'Welcome tutorial': 		'Добро пожаловать в учебник',
-                'idiom': 			'идиома',
                 'Assembly only': 		'Только сборка',
                 'Micro & Assembly': 		'Микро и сборка',
+
+                'idiom': 			'язык',
+                'quick config': 		'быстрая настройка',
+                'Graph: quick interactive mode':'График: быстрый интерактивный режим',
 
 		'_last_':			'_last_'
     };

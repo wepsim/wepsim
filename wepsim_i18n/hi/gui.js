@@ -96,9 +96,11 @@
 		'Actions':		'क्रिया',
 		'Utilities':		'उपयोगिताएँ',
 		'Welcome tutorial':		'आपका स्वागत है ट्यूटोरियल',
-		'idiom':		'मुहावरा',
 		'Assembly only':		'विधानसभा केवल',
 		'Micro & Assembly':		'माइक्रो और विधानसभा',
+		'idiom':		'मुहावरा',
+		'quick config':		'त्वरित विन्यास',
+                'Graph: quick interactive mode':'ग्राफ: त्वरित इंटरैक्टिव मोड',
 		'_last_':		'_last_'
 
     };

@@ -24,7 +24,8 @@
 	             "General": 							"일반",
                       "Idiom for help, examples, etc.": 		             "도움, 예제 등을위한 관용구",
                       "Notification speed: time before disapear": 	             "알림 속도 : 사라지기 전의 시간",
-	             "Editor": 								"편집자",
+		      "Dark Mode":						     "다크 모드",
+	             "Editor": 							     "편집자",
                       "Editor theme: light or dark": 		                     "편집기 테마 : 밝거나 어두움",
                       "Light": 		                     			     "빛",
                       "Dark": 		                     		             "어두운",
@@ -62,7 +63,9 @@
                       'Auto-scroll while executing': 				     '실행 중 자동 스크롤',
                       "Active voice: external voice control": 	                     "활성 음성 : 외부 음성 제어",
                       "Verbalization: textual or mathematical":      		     "언어학 : 텍스트 또는 수학",
-                      "WepSIM User Interface views":      	     		     "WepSIM 사용자 인터페이스보기"
+                      "WepSIM User Interface views":      	     		     "WepSIM 사용자 인터페이스보기",
+		      "Privacy":						     "은둔",
+		      '_last_':							     '_last_'
 
                   } ;
 

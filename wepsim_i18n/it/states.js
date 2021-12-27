@@ -22,6 +22,7 @@
     i18n.eltos.states.it = {
 
 		'States':				'Stati',
+		'state':				'stato',
 		'Current':				'Attuale',
 		'Current State':			'Stato attuale',
 		'History':				'Storia',

@@ -108,9 +108,12 @@
                 'Information from': 		'からの情報 ',
                 'Pick firm/soft from': 		'からしっかり/ソフトを選ぶ',
                 'Welcome tutorial': 		'ウェルカムチュートリアル',
-                'idiom': 			'熟語',
                 'Assembly only': 		'組み立てのみ',
                 'Micro & Assembly': 		'マイクロ＆アセンブリ',
+
+                'idiom': 			'言語',
+                'quick config': 		'クイック構成',
+                'Graph: quick interactive mode':'グラフ：クイックインタラクティブモード',
 
 		'_last_':			'_last_'
 

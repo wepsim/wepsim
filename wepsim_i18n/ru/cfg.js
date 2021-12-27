@@ -24,6 +24,7 @@
 		'General':							'генеральный',
 		'Idiom for help, examples, etc.':				'Идиома за помощь, примеры и т. Д.',
 		'Notification speed: time before disapear':			'Скорость уведомления: время до исчезновения',
+		'Dark Mode':							'Темный режим',
 		'Editor':							'редактор',
 		'Editor theme: light or dark':					'Тема редактора: светлая или темная',
 		'Light':							'Свет',
@@ -63,6 +64,7 @@
 		'Active voice: external voice control':				'Активный голос: внешнее голосовое управление',
 		'Verbalization: textual or mathematical':			'Вербализация: текстовая или математическая',
 		'WepSIM User Interface views':					'Пользовательский интерфейс WepSIM',
+		'Privacy':							'Конфиденциальность',
 		'_last_':							'_last_'
 
     };

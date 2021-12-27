@@ -24,6 +24,7 @@
     i18n.eltos.states.fr = {
 
 		"States":					"États",
+		'state':					'etat',
 		"Current":					"Actuel",
 		"Current State":				"État actuel",
 		"History":					"Histoire",

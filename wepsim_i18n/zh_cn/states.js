@@ -22,6 +22,7 @@
     i18n.eltos.states.zh_cn = {
 
 		'States':					'状态',
+		'state':					'狀態',
 		'Current':					'当前',
 		'Current State':				'当前状态',
 		'History':					'历史',

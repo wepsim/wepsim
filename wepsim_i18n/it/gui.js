@@ -108,9 +108,12 @@
                 'Information from': 		'Informazioni da',
                 'Pick firm/soft from': 		'Scegli azienda / morbida da',
                 'Welcome tutorial': 		'Tutorial di benvenuto',
-                'idiom': 			'idioma',
                 'Assembly only': 		'Solo assemblaggio',
                 'Micro & Assembly': 		'Micro e assemblaggio',
+
+                'idiom': 			'idioma',
+                'quick config': 		'configurazione rapida',
+                'Graph: quick interactive mode':'Grafico: modalità interattiva rapida',
 
 		'_last_':			'_last_'
 

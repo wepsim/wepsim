@@ -116,9 +116,12 @@
                 'Information from': 				'Information from',
                 'Pick firm/soft from': 				'Pick firm/soft from',
                 'Welcome tutorial': 				'Welcome tutorial',
-                'idiom': 					'idiom',
                 'Assembly only': 				'Assembly only',
                 'Micro & Assembly': 				'Micro & Assembly',
+
+                'idiom': 					'idiom',
+                'quick config': 				'quick config',
+                'Graph: quick interactive mode':		'Graph: quick interactive mode',
 
 		"_last_":					"_last_"
     } ;

@@ -24,6 +24,7 @@
 		'General':							'Geral',
 		'Idiom for help, examples, etc.':				'Idioma para ajuda, exemplos, etc.',
 		'Notification speed: time before disapear':			'Velocidade de notificação: tempo antes de desaparecer',
+		'Dark Mode':							'Modo escuro',
 		'Editor':							'editor',
 		'Editor theme: light or dark':					'Tema do editor: claro ou escuro',
 		'Light':							'Leve',
@@ -63,6 +64,7 @@
 		'Active voice: external voice control':				'Voz ativa: controle de voz externo',
 		'Verbalization: textual or mathematical':			'Verbalização: textual ou matemática',
 		'WepSIM User Interface views':					'Visualizações da Interface do Usuário WepSIM',
+		'Privacy':							'Privacidade',
 		'_last_':							'_last_'
 
     };

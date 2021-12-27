@@ -22,6 +22,7 @@
     i18n.eltos.states.ru = {
 
 		'States':				'состояния',
+		'state':				'государство',
 		'Current':				'Текущий',
 		'Current State':			'Текущее состояние',
 		'History':				'история',

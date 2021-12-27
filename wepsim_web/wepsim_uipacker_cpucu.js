@@ -131,9 +131,17 @@
 				         "show_cpuview_view();",
                                          "col-6") +
                        quickcfg_html_br() +
-                       quickcfg_html_header('Split view:') +
+                       quickcfg_html_header('Graph: split view') +
 		       '<ws-slider-cpucu   name="slider4b" class="col-12"></ws-slider-cpucu>' +
-                       '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
+                   //  '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
+                       quickcfg_html_br() +
+                       quickcfg_html_header('Graph: quick interactive mode') +
+	               quickcfg_html_btn("On: clk + dblclk",
+                                         "update_cfg(\"is_quick_interactive\", true);",
+                                         "col-7") +
+	               quickcfg_html_btn("(*) Off: clk",
+                                         "update_cfg(\"is_quick_interactive\", false);",
+                                         "col-5") +
                        quickcfg_html_br() +
                        quickcfg_html_close('popover-cpuview') +
 		    "</div>" +
