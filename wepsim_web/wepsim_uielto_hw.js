@@ -614,25 +614,22 @@
 	    var state_ref_orig = '' ;
 
 	    // header
-            o += '<div class="table-responsive sticky-top">' +
+            o += '<div class="table-responsive">' +
                  '<table class="table table-sm table-bordered table-striped m-0">' +
                  '<thead><tr>' +
-                 '<th class="col-2 p-1"><span data-langkey="Component">Component</span></th>' +
-                 '<th class="col-2 p-1"><span data-langkey="Element">Element</span></th>' +
-                 '<th class="col-3 p-1"><span data-langkey="States (In)">States (In)</span></th>' +
-                 '<th class="col-3 p-1"><span data-langkey="States (Out)">States (Out)</span></th>' +
-                 '<th class="col-2 p-1"><span data-langkey="Signals">Signals</span></th>' +
-                 '</tr></thead>' +
-                 '</table></div>' ;
+                 '<th class="sticky-top col-2 p-1"><span data-langkey="Component">Component</span></th>' +
+                 '<th class="sticky-top col-2 p-1"><span data-langkey="Element">Element</span></th>' +
+                 '<th class="sticky-top col-3 p-1"><span data-langkey="States (In)">States (In)</span></th>' +
+                 '<th class="sticky-top col-3 p-1"><span data-langkey="States (Out)">States (Out)</span></th>' +
+                 '<th class="sticky-top col-2 p-1"><span data-langkey="Signals">Signals</span></th>' +
+                 '</tr></thead>' ;
 
 	    // rows of elements (name + states + signals)
-            o += '<div class="table-responsive">' +
-                 '<table class="table table-sm table-bordered table-striped">' +
-                 '<tbody>' ;
+            o += '<tbody>' ;
 	    for (var b in ahw.elements_hash.by_belong)
 	    {
 	         o += '<tr>' +
-                      '<td rowspan="' + ahw.elements_hash.by_belong[b].length + '">' +
+                      '<td class="col-2" rowspan="' + ahw.elements_hash.by_belong[b].length + '">' +
 		      '<span class="row"><span class="col">' +
 		      '<a href="#" class="popover_hw" data-toggle="popover" data-html="true" ' +
 		      '   onclick="event.preventDefault();" title="" data-content="' +
@@ -645,8 +642,8 @@
                          elto = ahw.elements_hash.by_belong[b][j] ;
 
 			 // 1) name
-			 o += '<td class="col-2">' +
-		              '<span class="row"><span class="col">' +
+			 o += '<td class="col-2"><span class="row w-100">' +
+		              '<span class="col">' +
                               '<a href="#" id="belongs_id_' + j + '" ' +
 			      '   class="popover_hw" data-toggle="popover" ' +
 			      '   onclick="event.preventDefault();" ' +
@@ -697,7 +694,7 @@
 			 o += '</span></td>' ;
 
 			 // 4) list of signals
-			 o += '<td class="col-2"><span class="row">' ;
+			 o += '<td class="col-2"><span class="row w-100">' ;
 			 for (var es in elto.signals)
 			 {
 				 signal_ref = elto.signals[es].ref ;
