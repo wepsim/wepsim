@@ -22,6 +22,7 @@
     i18n.eltos.states.hi = {
 
 		'States':		'राज्य अमेरिका',
+		'state':				'राज्य ',
 		'Current':		'वर्तमान',
 		'Current State':		'वर्तमान स्थिति',
 		'History':		'इतिहास',

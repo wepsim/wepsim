@@ -108,9 +108,12 @@
                 'Information from': 		'Informação de',
                 'Pick firm/soft from': 		'Escolha firme / macio de',
                 'Welcome tutorial': 		'Tutorial de boas-vindas',
-                'idiom': 			'idioma',
                 'Assembly only': 		'Apenas montagem',
                 'Micro & Assembly': 		'Micro e Montagem',
+
+                'idiom': 			'língua',
+                'quick config': 		'configuração rápida',
+                'Graph: quick interactive mode':'Gráfico: modo interativo rápido',
 
 		'_last_':			'_last_'
     };

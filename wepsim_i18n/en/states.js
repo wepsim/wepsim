@@ -22,6 +22,7 @@
     i18n.eltos.states.en = {
 
 			"States":  			                "States",
+			'state':					'state',
 			"Current":  			                "Current",
 			"Current State":  			        "Current State",
 			"History":  			                "History",

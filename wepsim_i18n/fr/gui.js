@@ -110,9 +110,12 @@
                 'Information from': 		'Information provenant de',
                 'Pick firm/soft from': 		'Choisissez ferme / doux de',
                 'Welcome tutorial': 		'Tutoriel de bienvenue',
-                'idiom': 			'idiome',
                 'Assembly only': 		'Assemblée seulement',
                 'Micro & Assembly': 		'Micro et assemblage',
+
+                'idiom': 			'Langue',
+                'quick config': 		'configuration rapide',
+                'Graph: quick interactive mode':'Graphique : mode interactif rapide',
 
 		"_last_":			"_last_"
 

@@ -24,6 +24,7 @@
 		'General':							'Allmän',
 		'Idiom for help, examples, etc.':				'Idiom för hjälp, exempel etc.',
 		'Notification speed: time before disapear':			'Meddelandehastighet: Tid innan försvinner',
+		'Dark Mode':							'Mörkt läge',
 		'Editor':							'Redaktör',
 		'Editor theme: light or dark':					'Redaktörstema: ljus eller mörk',
 		'Light':							'Ljus',
@@ -64,6 +65,7 @@
 		'Active voice: external voice control':				'Aktiv röst: extern röststyrning',
 		'Verbalization: textual or mathematical':			'Verbalisering: text- eller matematisk',
 		'WepSIM User Interface views':					'WepSIM User Interface visningar',
+		'Privacy':							'Integritet',
 		'_last_':							'_last_'
 
     };

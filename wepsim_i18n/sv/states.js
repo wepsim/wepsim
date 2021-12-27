@@ -22,6 +22,7 @@
     i18n.eltos.states.sv = {
 
 		'States':				'stater',
+		'state':				'stat',
 		'Current':				'Nuvarande',
 		'Current State':			'Nuvarande tillstånd',
 		'History':				'Historia',

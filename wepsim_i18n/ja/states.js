@@ -22,6 +22,7 @@
     i18n.eltos.states.ja = {
 
 		'States':					'州',
+		'state':					'州',
 		'Current':					'現在',
 		'Current State':				'現在の状態',
 		'History':					'歴史',

@@ -22,6 +22,7 @@
     i18n.eltos.states.pt = {
 
 		'States':				'Estados',
+		'state':				'estado',
 		'Current':				'Atual',
 		'Current State':			'Estado atual',
 		'History':				'História',

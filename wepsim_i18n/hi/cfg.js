@@ -24,6 +24,7 @@
 		'General':		'सामान्य',
 		'Idiom for help, examples, etc.':		'मदद, उदाहरण आदि के लिए मुहावरा',
 		'Notification speed: time before disapear':		'अधिसूचना गति: गायब होने से पहले का समय',
+		'Dark Mode':							'डार्क मोड',
 		'Editor':		'संपादक',
 		'Editor theme: light or dark':		'संपादक विषय: प्रकाश या अंधेरा',
 		'Light':		'रोशनी',
@@ -63,6 +64,7 @@
 		'Active voice: external voice control':		'सक्रिय आवाज: बाहरी आवाज नियंत्रण',
 		'Verbalization: textual or mathematical':		'शब्दश: पाठ या गणितीय',
 		'WepSIM User Interface views':		'WepSIM उपयोगकर्ता इंटरफ़ेस दृश्य',
+		'Privacy':							'गोपनीयता',
 		'_last_':		'_last_'
 
     };

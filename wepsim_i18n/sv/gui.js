@@ -114,9 +114,12 @@
                 'Information from': 		'Information från',
                 'Pick firm/soft from': 		'Välj fast / mjukt från',
                 'Welcome tutorial': 		'Välkomsthandledning',
-                'idiom': 			'idiom',
                 'Assembly only': 		'Endast montering',
                 'Micro & Assembly': 		'Micro & Assembly',
+
+                'idiom': 			'språk',
+                'quick config':			'snabb konfiguration',
+                'Graph: quick interactive mode':'Graf: snabbt interaktivt läge',
 
 		'_last_':			'_last_'
     };
