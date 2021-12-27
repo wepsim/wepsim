@@ -613,20 +613,22 @@
 	    var state_ref      = '' ;
 	    var state_ref_orig = '' ;
 
-            o += '<div class="table-responsive">' +
-                 '<table class="table table-sm table-bordered table-striped">' ;
-
 	    // header
-            o += '<thead><tr>' +
-                 '<th class="col p-1"><span data-langkey="Component">Component</span></th>' +
-                 '<th class="col p-1"><span data-langkey="Element">Element</span></th>' +
-                 '<th class="col p-1"><span data-langkey="States (In)">States (In)</span></th>' +
-                 '<th class="col p-1"><span data-langkey="States (Out)">States (Out)</span></th>' +
-                 '<th class="col p-1"><span data-langkey="Signals">Signals</span></th>' +
-                 '</tr></thead>' ;
+            o += '<div class="table-responsive sticky-top">' +
+                 '<table class="table table-sm table-bordered table-striped m-0">' +
+                 '<thead><tr>' +
+                 '<th class="col-2 p-1"><span data-langkey="Component">Component</span></th>' +
+                 '<th class="col-2 p-1"><span data-langkey="Element">Element</span></th>' +
+                 '<th class="col-3 p-1"><span data-langkey="States (In)">States (In)</span></th>' +
+                 '<th class="col-3 p-1"><span data-langkey="States (Out)">States (Out)</span></th>' +
+                 '<th class="col-2 p-1"><span data-langkey="Signals">Signals</span></th>' +
+                 '</tr></thead>' +
+                 '</table></div>' ;
 
 	    // rows of elements (name + states + signals)
-            o += '<tbody>' ;
+            o += '<div class="table-responsive">' +
+                 '<table class="table table-sm table-bordered table-striped">' +
+                 '<tbody>' ;
 	    for (var b in ahw.elements_hash.by_belong)
 	    {
 	         o += '<tr>' +
@@ -643,7 +645,7 @@
                          elto = ahw.elements_hash.by_belong[b][j] ;
 
 			 // 1) name
-			 o += '<td>' +
+			 o += '<td class="col-2">' +
 		              '<span class="row"><span class="col">' +
                               '<a href="#" id="belongs_id_' + j + '" ' +
 			      '   class="popover_hw" data-toggle="popover" ' +
@@ -654,7 +656,7 @@
                               '</td>' ;
 
 			 // 2) list of input states
-			 o += '<td><span class="row w-100">' ;
+			 o += '<td class="col-3"><span class="row w-100">' ;
 			 for (i=0; i<elto.states_inputs.length; i++)
 			 {
 				 state_ref_orig = elto.states[elto.states_inputs[i]].ref ;
@@ -675,7 +677,7 @@
 			 o += '</span></td>' ;
 
 			 // 3) list of output states
-			 o += '<td><span class="row w-100">' ;
+			 o += '<td class="col-3"><span class="row w-100">' ;
 			 for (i=0; i<elto.states_outputs.length; i++)
 			 {
 				 state_ref = elto.states[elto.states_outputs[i]].ref ;
@@ -695,7 +697,7 @@
 			 o += '</span></td>' ;
 
 			 // 4) list of signals
-			 o += '<td><span class="row">' ;
+			 o += '<td class="col-2"><span class="row">' ;
 			 for (var es in elto.signals)
 			 {
 				 signal_ref = elto.signals[es].ref ;
