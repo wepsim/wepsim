@@ -29,6 +29,7 @@
 	    for (var e in ahw.elements)
 	    {
                  elto = ahw.elements[e] ;
+                 elto.key = e ;
 
                  if (typeof ahw.elements_hash.by_belong[elto.belongs] == "undefined") {
                      ahw.elements_hash.by_belong[elto.belongs] = [] ;
@@ -94,7 +95,7 @@
             return o ;
         }
 
-	function simhwelto_describe_component_enum ( array_eltos, hash_eltos, enum_name )
+	function simhwelto_describe_component_enum ( elto_path, array_eltos, hash_eltos, enum_name )
 	{
 	   var o = "" ;
 
@@ -102,8 +103,14 @@
 	   o += "It has " + array_eltos.length + " " + enum_name + ": " ;
 		for (var i=0; i<array_eltos.length; i++)
                 {
-		     o += '(' + (i+1) + ') ' + hash_eltos[array_eltos[i]].description ;
+                     // get translation for associated description...
+                     var k = elto_path + array_eltos[i] ;
+                     var v = i18n_get_TagFor('hw', k.toUpperCase()) ;
 
+                     // build help entry...
+		     o += '(' + (i+1) + ') ' + v ;
+
+                     // add ',' in all entries but the last one...
                      if (i != array_eltos.length - 1) {
                          o += ', ' ;
 		     }
@@ -113,7 +120,7 @@
 	   return o ;
 	}
 
-	function simhwelto_describe_component ( elto, format )
+	function simhwelto_describe_component ( elto_path, elto, format )
 	{
 	   var o = "" ;
 
@@ -121,11 +128,14 @@
            {
 	       o += elto.description + '.<br><ul>' +
 	            '<li>' +
-		    simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs")  + '<br>' +
+		    simhwelto_describe_component_enum(elto_path + ':states:',
+					              elto.states_inputs,  elto.states,  "inputs")  + '<br>' +
 		    '<li>' +
-		    simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") + '<br>' +
+		    simhwelto_describe_component_enum(elto_path + ':states:',
+					              elto.states_outputs, elto.states,  "outputs") + '<br>' +
 		    '<li>' +
-		    simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") + '<br>' +
+		    simhwelto_describe_component_enum(elto_path + ':signals:',
+					              elto.signals_inputs, elto.signals, "signals") + '<br>' +
 		    '</ul>' ;
 
 	       return o ;
@@ -133,8 +143,11 @@
 
 	   // "text" by default
 	   return elto.description + ". " +
-	          simhwelto_describe_component_enum(elto.states_inputs,  elto.states,  "inputs") +
-	          simhwelto_describe_component_enum(elto.states_outputs, elto.states,  "outputs") +
-	          simhwelto_describe_component_enum(elto.signals_inputs, elto.signals, "signals") ;
+	          simhwelto_describe_component_enum(elto_path + ':states:',
+						    elto.states_inputs,  elto.states,  "inputs") +
+	          simhwelto_describe_component_enum(elto_path + ':states:',
+					            elto.states_outputs, elto.states,  "outputs") +
+	          simhwelto_describe_component_enum(elto_path + ':signals:',
+     						    elto.signals_inputs, elto.signals, "signals") ;
 	}
 

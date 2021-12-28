@@ -53,6 +53,8 @@
 			    dialogs: {},
                             // compiler messages
 			    compiler: {},
+                            // hw description
+			    hw: {},
 			    // tutorials
 			    tutorial_welcome: {},
 			    tutorial_simpleusage: {},

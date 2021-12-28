@@ -143,14 +143,16 @@ echo "checking wepsim_nodejs..."
 echo "checking wepsim_i18n..."
  jshint ./wepsim_i18n/i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
- jshint ./wepsim_i18n/$LANG/states.js
  jshint ./wepsim_i18n/$LANG/gui.js
- jshint ./wepsim_i18n/$LANG/cfg.js
- jshint ./wepsim_i18n/$LANG/examples.js
- jshint ./wepsim_i18n/$LANG/help.js
- jshint ./wepsim_i18n/$LANG/dialogs.js
- jshint ./wepsim_i18n/$LANG/tour-intro.js
  jshint ./wepsim_i18n/$LANG/tutorial-welcome.js
  jshint ./wepsim_i18n/$LANG/tutorial-simpleusage.js
+ jshint ./wepsim_i18n/$LANG/tour-intro.js
+ jshint ./wepsim_i18n/$LANG/cfg.js
+ jshint ./wepsim_i18n/$LANG/help.js
+ jshint ./wepsim_i18n/$LANG/states.js
+ jshint ./wepsim_i18n/$LANG/examples.js
+ jshint ./wepsim_i18n/$LANG/compiler.js
+ jshint ./wepsim_i18n/$LANG/hw.js
+ jshint ./wepsim_i18n/$LANG/dialogs.js
 done
 

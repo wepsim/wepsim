@@ -108,6 +108,7 @@ cat wepsim_i18n/$LANG/gui.js \
     wepsim_i18n/$LANG/states.js \
     wepsim_i18n/$LANG/examples.js \
     wepsim_i18n/$LANG/compiler.js \
+    wepsim_i18n/$LANG/hw.js \
     wepsim_i18n/$LANG/dialogs.js  >> ws_dist/wepsim_i18n.js
 cp  wepsim_i18n/$LANG/simulator.html ws_dist/help/simulator-"$LANG".html
 cp  wepsim_i18n/$LANG/about.html     ws_dist/help/about-"$LANG".html
