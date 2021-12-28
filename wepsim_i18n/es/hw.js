@@ -21,6 +21,16 @@
 
     i18n.eltos.hw.es = {
 
+        "Component":                                "Componente",
+        "Element":                                  "Elemento",
+        "States (In)":                              "Estados (In)",
+        "States (Out)":                             "Estados (Out)",
+        "Signals":                                  "Señales",
+        "It has":                                   "Tiene",
+        "inputs":                                   "entradas",
+        "outputs":                                  "salidas",
+        "signals":                                  "señales",
+
  	"EP:CPU_T1:STATES:IN":			"La entrada es el valor del registro MBR",
 	"EP:CPU_T1:STATES:OUT":			"La salida va al bus interno de datos",
 	"EP:CPU_T1:SIGNALS:CTL":		"Confirma que el valor de entrad se copia a la salida",

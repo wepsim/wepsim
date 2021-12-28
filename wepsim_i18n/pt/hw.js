@@ -21,6 +21,16 @@
 
     i18n.eltos.hw.pt = {
 
+        "Component":                                "Componente",
+        "Element":                                  "Elemento",
+        "States (In)":                              "Estados (In)",
+        "States (Out)":                             "Estados (Out)",
+        "Signals":                                  "Sinais",
+        "It has":                                   "Tem",
+        "inputs":                                   "entradas",
+        "outputs":                                  "saídas",
+        "signals":                                  "sinais",
+
 	"EP:CPU_T1:STATES:IN":				"A entrada é o valor do registro MBR",
 	"EP:CPU_T1:STATES:OUT":				"A saída vai para o barramento interno",
 	"EP:CPU_T1:SIGNALS:CTL":			"Confirme se o valor de entrada é copiado para a saída",

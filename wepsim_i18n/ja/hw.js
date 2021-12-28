@@ -21,6 +21,16 @@
 
     i18n.eltos.hw.ja = {
 
+        "Component":                                "コンポーネント",
+        "Element":                                  "エレメント",
+        "States (In)":                              "州 (In)",
+        "States (Out)":                             "州 (Out)",
+        "Signals":                                  "セニャレス",
+        "It has":                                   "それは持っています",
+        "inputs":                                   "入力",
+        "outputs":                                  "出力",
+        "signals":                                  "信号",
+
 	"EP:CPU_T1:STATES:IN":                      "Input is the value of MBR register",
 	"EP:CPU_T1:STATES:OUT":                     "Output goes to the Internal Bus",
 	"EP:CPU_T1:SIGNALS:CTL":                    "Confirm that input value is copied to the output",

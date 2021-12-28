@@ -48,11 +48,11 @@
 	    var e = '' ;
 
 	    // header row...
-	    o +=    'Component'.padEnd(10, ' ') + ';' +
-	              'Element'.padEnd(15, ' ') + ';' +
-	          'States (In)'.padEnd(20, ' ') + ';' +
-	         'States (Out)'.padEnd(20, ' ') + ';' +
-	              'Signals'.padEnd(10, ' ') + '\n' ;
+	    o += i18n_get_TagFor('hw',    'Component').padEnd(10, ' ') + ';' +
+	         i18n_get_TagFor('hw',      'Element').padEnd(15, ' ') + ';' +
+	         i18n_get_TagFor('hw',  'States (In)').padEnd(20, ' ') + ';' +
+	         i18n_get_TagFor('hw', 'States (Out)').padEnd(20, ' ') + ';' +
+	         i18n_get_TagFor('hw',      'Signals').padEnd(10, ' ') + '\n' ;
 
 	    // rows of elements...
 	    for (var b in ahw.elements_hash.by_belong)
@@ -100,7 +100,8 @@
 	   var o = "" ;
 
            // enumerate...
-	   o += "It has " + array_eltos.length + " " + enum_name + ": " ;
+	   o += i18n_get_TagFor('hw', "It has")  + " " + array_eltos.length + " " +
+                i18n_get_TagFor('hw', enum_name) + ": " ;
 		for (var i=0; i<array_eltos.length; i++)
                 {
                      // get translation for associated description...

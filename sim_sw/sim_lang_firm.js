@@ -911,8 +911,13 @@ function loadFirmware (text)
 //             }
 // }
 
-	       var camposInsertados = 0;
+               // overlapping mask (initialized with 'co' field)
                var overlapping = {};
+               for (i=26; i<=31; i++) {
+                    overlapping[i] = 1;
+               }
+
+	       var camposInsertados = 0;
 	       while (camposInsertados < numeroCampos)
 	       {
 	           // match mandatory FIELD
