@@ -187,18 +187,15 @@
 			      belongs:           "KBD",
 			      states:            {
 						   "addr":      {
-								   ref:  "BUS_AB",
-								   description: "Address bus"
+								   ref:  "BUS_AB"
 								},
 						   "data":      {
-								   ref:  "BUS_DB",
-								   description: "Data bus"
+								   ref:  "BUS_DB"
 								}
 						 },
 			      signals:           {
 						   "ior":       {
-								   ref:  "KBD_IOR",
-								   description: "Read from keyboard"
+								   ref:  "KBD_IOR"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],

@@ -308,22 +308,18 @@
 			      belongs:           "L3D",
 			      states:            {
 						   "addr":      {
-								   ref:  "BUS_AB",
-								   description: "Address bus"
+								   ref:  "BUS_AB"
 								},
 						   "data":      {
-								   ref:  "BUS_DB",
-								   description: "Data bus"
+								   ref:  "BUS_DB"
 								}
 						 },
 			      signals:           {
 						   "ior":       {
-								   ref:  "L3D_IOR",
-								   description: "Read from L3D"
+								   ref:  "L3D_IOR"
 								},
 						   "iow":       {
-								   ref:  "L3D_IOW",
-								   description: "Write into the L3D"
+								   ref:  "L3D_IOW"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],

@@ -823,6 +823,106 @@
             return true ;
     }
 
+    // quick cpucu
+    function wsweb_quickcpuview_show ( )
+    {
+	    $('#popover-cpuview').popover('show') ;
+
+            // add if recording
+            simcore_record_append_new('Open the "quick cpuview"',
+		                      'wsweb_quickcpuview_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickcpuview_close ( )
+    {
+	    $('#popover-cpuview').popover('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close the "quick cpuview"',
+		                      'wsweb_quickcpuview_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickcpuview_toggle ( )
+    {
+	    $('#popover-cpuview').popover('toggle') ;
+
+            // add if recording
+            simcore_record_append_new('Toggle the "quick cpuview"',
+		                      'wsweb_quickcpuview_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_cpuview_as_graph ( )
+    {
+            update_cfg("CPUCU_show_graph", true) ;
+            show_cpuview_view() ;
+
+            // add if recording
+            simcore_record_append_new('Toggle to "view as graphic"',
+		                      'wsweb_cpuview_as_graph();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_cpuview_as_text ( )
+    {
+            update_cfg("CPUCU_show_graph", false) ;
+            show_cpuview_view() ;
+
+            // add if recording
+            simcore_record_append_new('Toggle to "view as text"',
+		                      'wsweb_cpuview_as_text();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    // quick rfcfg
+    function wsweb_quickrf_show ( )
+    {
+	    $('#popover-rfcfg').popover('show') ;
+
+            // add if recording
+            simcore_record_append_new('Open the "quick rfcfg"',
+		                      'wsweb_quickrf_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickrf_close ( )
+    {
+	    $('#popover-rfcfg').popover('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close the "quick rfcfg"',
+		                      'wsweb_quickrf_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickrf_toggle ( )
+    {
+	    $('#popover-rfcfg').popover('toggle') ;
+
+            // add if recording
+            simcore_record_append_new('Toggle the "quick rfcfg"',
+		                      'wsweb_quickrf_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
     // recordbar
     function wsweb_recordbar_show ( )
     {

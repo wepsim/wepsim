@@ -369,30 +369,24 @@
 			      belongs:           "MEMORY",
 			      states:            {
 						   "addr":      {
-								   ref:  "BUS_AB",
-								   description: "Address bus"
+								   ref:  "BUS_AB"
 								},
 						   "data":      {
-								   ref:  "BUS_DB",
-								   description: "Data bus"
+								   ref:  "BUS_DB"
 								},
 						   "mrdy":      {
-								   ref:  "MRDY",
-								   description: "Memory ready"
+								   ref:  "MRDY"
 								}
 						 },
 			      signals:           {
 						   "bw":        {
-								   ref:  "BW",
-								   description: "Bytes Width"
+								   ref:  "BW"
 								},
 						   "r":         {
-								   ref:  "R",
-								   description: "Read"
+								   ref:  "R"
 								},
 						   "w":         {
-								   ref:  "W",
-								   description: "Write"
+								   ref:  "W"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],
