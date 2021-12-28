@@ -126,7 +126,7 @@
 				         "wsweb_cpuview_as_graph();",
                                          "col-6") +
 	               quickcfg_html_btn("Text",
-				         "wsweb_cpuview_as_graph();",
+				         "wsweb_cpuview_as_text();",
                                          "col-6") +
                        quickcfg_html_br() +
                        quickcfg_html_header('Graph: split view') +
@@ -134,10 +134,10 @@
                        '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
                        quickcfg_html_br() +
                        quickcfg_html_header('Graph: interactive mode') +
-	               quickcfg_html_btn("(*) On:",
+	               quickcfg_html_btn("(*) On",
                                          "update_cfg(\"is_interactive\", true);",
                                          "col-6") +
-	               quickcfg_html_btn("Off:",
+	               quickcfg_html_btn("Off",
                                          "update_cfg(\"is_interactive\", false);",
                                          "col-6") +
                        quickcfg_html_br() +
