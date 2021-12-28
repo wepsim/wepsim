@@ -254,22 +254,18 @@
 			      belongs:           "SCREEN",
 			      states:            {
 						   "addr":      {
-								   ref:  "BUS_AB",
-								   description: "Address bus"
+								   ref:  "BUS_AB"
 								},
 						   "data":      {
-								   ref:  "BUS_DB",
-								   description: "Data bus"
+								   ref:  "BUS_DB"
 								}
 						 },
 			      signals:           {
 						   "ior":       {
-								   ref:  "SCR_IOR",
-								   description: "Read from display (disabled)"
+								   ref:  "SCR_IOR"
 								},
 						   "iow":       {
-								   ref:  "SCR_IOW",
-								   description: "Write into the display"
+								   ref:  "SCR_IOW"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],

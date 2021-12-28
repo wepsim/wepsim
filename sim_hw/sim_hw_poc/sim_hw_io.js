@@ -356,22 +356,18 @@
 			      belongs:           "IO",
 			      states:            {
 						   "addr":      {
-								   ref:  "BUS_AB",
-								   description: "Address bus"
+								   ref:  "BUS_AB"
 								},
 						   "data":      {
-								   ref:  "BUS_DB",
-								   description: "Data bus"
+								   ref:  "BUS_DB"
 								}
 						 },
 			      signals:           {
 						   "ior":       {
-								   ref:  "IO_IOR",
-								   description: "Read from IO device"
+								   ref:  "IO_IOR"
 								},
 						   "iow":       {
-								   ref:  "IO_IOW",
-								   description: "Write into the IO device"
+								   ref:  "IO_IOW"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],

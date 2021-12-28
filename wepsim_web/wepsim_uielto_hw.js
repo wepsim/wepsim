@@ -591,9 +591,9 @@
               return e ;
         }
 
-        function simcoreui_hw_elements_popup ( elto )
+        function simcoreui_hw_elements_popup ( elto_path, elto )
         {
-	      var e = simhwelto_describe_component(elto, 'html') +
+	      var e = simhwelto_describe_component(elto_path, elto, 'html') +
 		      '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
 		      '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
 		      '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
@@ -640,6 +640,7 @@
 	         {
 		         // new row
                          elto = ahw.elements_hash.by_belong[b][j] ;
+                         elto_path = ahw.sim_short_name + ':' + elto.key ;
 
 			 // 1) name
 			 o += '<td class="col-2"><span class="row w-100">' +
@@ -648,7 +649,7 @@
 			      '   class="popover_hw" data-toggle="popover" ' +
 			      '   onclick="event.preventDefault();" ' +
 			      '   data-html="true" title="" data-content="' +
-                              simcoreui_hw_elements_popup(elto) +
+                              simcoreui_hw_elements_popup(elto_path, elto) +
 			      '">' + elto.name + '</a></span></span>' +
                               '</td>' ;
 

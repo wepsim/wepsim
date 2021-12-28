@@ -852,9 +852,10 @@
         {
              elto = ahw.elements[tag] ;
              search_str = elto.name.toUpperCase() ;
+             elto_path  = ahw.sim_short_name + ':' + tag ;
 
              if (search_str.includes(search_substr)) {
-                 input_help += ' * ' + simhwelto_describe_component(elto, 'text') + '\n\n' ;
+                 input_help += ' * ' + simhwelto_describe_component(elto_path, elto, 'text') + '\n\n' ;
              }
         }
 
