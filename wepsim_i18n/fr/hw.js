@@ -21,6 +21,16 @@
 
     i18n.eltos.hw.fr = {
 
+        "Component":                                "Composant",
+        "Element":                                  "Élément",
+        "States (In)":                              "États (In)",
+        "States (Out)":                             "États (Out)",
+        "Signals":                                  "Signaux",
+        "It has":                                   "Il a",
+        "inputs":                                   "entrées",
+        "outputs":                                  "sorties",
+        "signals":                                  "signaux",
+
 	"EP:CPU_T1:STATES:IN":                      "Input is the value of MBR register",
 	"EP:CPU_T1:STATES:OUT":                     "Output goes to the Internal Bus",
 	"EP:CPU_T1:SIGNALS:CTL":                    "Confirm that input value is copied to the output",

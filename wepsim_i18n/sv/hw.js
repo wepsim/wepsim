@@ -21,6 +21,16 @@
 
     i18n.eltos.hw.sv = {
 
+        "Component":                                "Komponent",
+        "Element":                                  "Element",
+        "States (In)":                              "Starter (In)",
+        "States (Out)":                             "Starter (Out)",
+        "Signals":                                  "Signals",
+        "It has":                                   "Det har",
+        "inputs":                                   "ingångar",
+        "outputs":                                  "utgångar",
+        "signals":                                  "signaler",
+
 	"EP:CPU_T1:STATES:IN":                     "Indata är värdet på MBR-registret",
 	"EP:CPU_T1:STATES:OUT":                    "Utgången går till den interna bussen",
 	"EP:CPU_T1:SIGNALS:CTL":                   "Bekräfta att inmatningsvärdet har kopierats till utgången",

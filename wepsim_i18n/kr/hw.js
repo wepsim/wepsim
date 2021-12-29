@@ -21,6 +21,16 @@
 
     i18n.eltos.hw.kr = {
 
+        "Component":                                "구성 요소",
+        "Element":                                  "요소",
+        "States (In)":                              "상태 (In)",
+        "States (Out)":                             "상태 (Out)",
+        "Signals":                                  "신호",
+        "It has":                                   "그것은 가지고있다",
+        "inputs":                                   "입력",
+        "outputs":                                  "출력",
+        "signals":                                  "신호",
+
 	"EP:CPU_T1:STATES:IN":                      "Input is the value of MBR register",
 	"EP:CPU_T1:STATES:OUT":                     "Output goes to the Internal Bus",
 	"EP:CPU_T1:SIGNALS:CTL":                    "Confirm that input value is copied to the output",
