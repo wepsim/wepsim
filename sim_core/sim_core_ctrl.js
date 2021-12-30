@@ -45,11 +45,12 @@
 
         function check_buses ( fired )
         {
+            var ret = false ;
             var tri_state_names = simhw_internalState('tri_state_names') ;
 
             // Ti + Tj
             if (tri_state_names.indexOf(fired) == -1) {
-                return;
+                return ret;
             }
 
             // TD + R
@@ -63,6 +64,7 @@
                 update_bus_visibility('databus_fire', 'visible') ;
                 simhw_internalState_set('fire_visible', 'databus', true) ;
                 simhw_sim_state("BUS_DB").value = 0xFFFFFFFF;
+                ret = true;
             }
 
             // 1.- counting the number of active tri-states
@@ -70,16 +72,17 @@
             var tri_activated = 0;
 	    var tri_activated_name  = "";
 	    var tri_activated_value = 0;
+            var tcpuko = parseInt(get_value(simhw_sim_state("TCPUKO"))) ;
             for (var i=0; i<tri_state_names.length; i++)
             {
-		 tri_activated_name  = tri_state_names[i] ;
-                 tri_activated_value = parseInt(get_value(simhw_sim_signal(tri_activated_name))) ;
-                 tri_activated      += tri_activated_value ;
-
-		 if (tri_activated_value > 0)
-		     tri_name = tri_activated_name ;
-                 if (tri_activated > 1)
+                 tri_activated_value = tcpuko & Math.pow(2,i) ;
+                 if (tri_activated_value > 0) {
+                     tri_activated++ ;
+		     tri_name = tri_state_names[i] ;
+                 }
+                 if (tri_activated > 1) {
                      break ;
+                 }
             }
 
             // 2.- paint the bus if any tri-state is active
@@ -98,7 +101,10 @@
                 update_bus_visibility('internalbus_fire', 'visible') ;
                 simhw_internalState_set('fire_visible', 'internalbus', true) ;
                 simhw_sim_state("BUS_IB").value = 0xFFFFFFFF;
+                ret = true ;
             }
+
+            return ret ;
         }
 
 
