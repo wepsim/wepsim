@@ -300,15 +300,15 @@
               elto_dv = '0x' + elto_dv.toString(16) ;
 
               e = '<span style=\'text-align:left\'>' +
-                  'name: '          + ahw_signals[elto].name  + '<br>' +
-                  'value: '         + '<span' +
-                                      ' onclick=simcoreui_signal_dialog(\'' + ahw_signals[elto].name + '\'); ' +
-                                      ' class=\'font-weight-bold\'>' + elto_v +
-                                      '</span><br>' +
-                  'default_value: ' + elto_dv                 + '<br>' +
-                  'nbits: '         + ahw_signals[elto].nbits + '<br>' +
-                  'type: '          + ahw_signals[elto].type  + '<br>' +
-                  'visible: '       + ahw_signals[elto].visible +
+                  '<span data-langkey=\'name\'>name</span>: ' + ahw_signals[elto].name  + '<br>' +
+                  '<span data-langkey=\'value\'>value</span>: ' +
+                  '<span onclick=simcoreui_signal_dialog(\'' + ahw_signals[elto].name + '\'); ' +
+                  '      class=\'font-weight-bold\'>' + elto_v +
+                  '</span><br>' +
+                  '<span data-langkey=\'default_value\'>default_value</span>: ' + elto_dv + '<br>' +
+                  '<span data-langkey=\'nbits\'>nbits</span>: '           + ahw_signals[elto].nbits + '<br>' +
+                  '<span data-langkey=\'type\'>type</span>: '             + ahw_signals[elto].type  + '<br>' +
+                  '<span data-langkey=\'visible\'>visible</span>: '       + ahw_signals[elto].visible +
                   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                   '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
                   '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
@@ -481,13 +481,14 @@
 
               // compound
               e = '<span style=\'text-align:left\'>' +
-                  'name: '                 + elto + '<br>' +
-                  'value: '                + '<span id=\'hw_state_value_' + elto + '\' ' +
-                                             '      class=\'font-weight-bold\'>' + elto_v +
-                                             '</span><br>' +
-                  'default_value: '        + elto_dv + '<br>' +
-                  'nbits: '                + elto_nb + '<br>' +
-                  'visible: '              + elto_vi +
+                  '<span data-langkey=\'name\'>name</span>: '                   + elto + '<br>' +
+                  '<span data-langkey=\'value\'>value</span>: ' +
+                  '<span id=\'hw_state_value_' + elto + '\' ' +
+                  '      class=\'font-weight-bold\'>' + elto_v +
+                  '</span><br>' +
+                  '<span data-langkey=\'default_value\'>default_value</span>: ' + elto_dv + '<br>' +
+                  '<span data-langkey=\'nbits\'>nbits</span>: '                 + elto_nb + '<br>' +
+                  '<span data-langkey=\'visible\'>visible</span>: '             + elto_vi +
                   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                   '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
                   '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
@@ -547,19 +548,19 @@
               var c = '<span class="row justify-content-between">' ;
               for (var elto in ahw.behaviors)
               {
-                       c = c + '<span class="col-auto">' +
-                               '<a href="#" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
-                               '   data-html="true" title="" data-content="' +
-                               '<span style=\'text-align:left\'>' +
-                               'name: '            + elto + '<br> ' +
-                               'nparameters: '     + ahw.behaviors[elto].nparameters + '<br> ' +
-                            // 'operation: '       + ahw.behaviors[elto].operation.toString() + '<br> ' +
-                            // 'verbal: '          + ahw.behaviors[elto].verbal.toString() + '<br> ' +
-                               '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
-                               '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                               '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
-                               '</span>' +
-                               '">' + elto + '</a></span>' ;
+                   c = c + '<span class="col-auto">' +
+                           '<a href="#" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
+                           '   data-html="true" title="" data-content="' +
+                           '<span style=\'text-align:left\'>' +
+                           '<span data-langkey=\'name\'>name</span>: '               + elto + '<br> ' +
+                           '<span data-langkey=\'nparameters\'>nparameters</span>: ' + ahw.behaviors[elto].nparameters + '<br> ' +
+                        // 'operation: '       + ahw.behaviors[elto].operation.toString() + '<br> ' +
+                        // 'verbal: '          + ahw.behaviors[elto].verbal.toString() + '<br> ' +
+                           '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+                           '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+                           '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
+                           '</span>' +
+                           '">' + elto + '</a></span>' ;
               }
               c = c + '</span>' ;
 
@@ -580,9 +581,9 @@
 
         function simcoreui_hw_components_popup ( ahw, elto )
         {
-	      var e = 'name: '            + ahw.components[elto].name + '<br> ' +
-		      'version: '         + ahw.components[elto].version + '<br> ' +
-		      'abilities: '       + ahw.components[elto].abilities.join(" + ") +
+	      var e = '<span data-langkey=\'name\'>name</span>: '            + ahw.components[elto].name + '<br> ' +
+		      '<span data-langkey=\'version\'>version</span>: '      + ahw.components[elto].version + '<br> ' +
+		      '<span data-langkey=\'abilities\'>abilities</span>: '  + ahw.components[elto].abilities.join(" + ") +
 		      '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
 		      '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
 		      '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
