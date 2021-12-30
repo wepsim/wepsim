@@ -100,13 +100,14 @@
 	   var o = "" ;
 
            // enumerate...
-	   o += i18n_get_TagFor('hw', "It has")  + " " + array_eltos.length + " " +
-                i18n_get_TagFor('hw', enum_name) + ": " ;
+	   o += '<span data-langkey=\'It has\'>' + i18n_get_TagFor('hw','It has') + '</span>' + " " + array_eltos.length + " " +
+                '<span data-langkey=\'' + enum_name + '\'>' + i18n_get_TagFor('hw',enum_name) + '</span>' + ": " ;
 		for (var i=0; i<array_eltos.length; i++)
                 {
                      // get translation for associated description...
                      var k = elto_path + array_eltos[i] ;
                      var v = i18n_get_TagFor('hw', k.toUpperCase()) ;
+                         v = '<span data-langkey=\'' + k.toUpperCase() + '\'>' + v + '</span>' ;
 
                      // build help entry...
 		     o += '(' + (i+1) + ') ' + v ;
