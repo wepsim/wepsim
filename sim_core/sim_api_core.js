@@ -295,8 +295,18 @@
                 {
                     var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
                     ret.ok  = false ;
-                    ret.msg = "Error: undefined microinstruction at " + hex_maddr + "." ;
+                    ret.msg = "Error: undefined microinstruction at maddr=" + hex_maddr + "." ;
                     return ret ;
+                }
+
+                // if (two or more tri-states are active) -> cannot continue
+                if ( (simhw_internalState_get('fire_visible', 'databus') == true) ||
+                     (simhw_internalState_get('fire_visible', 'internalbus') == true) )
+                {
+                     var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
+                     ret.ok  = false ;
+                     ret.msg = "Error: two or more tri-states are active at maddr=" + hex_maddr + "." ;
+                     return ret ;
                 }
 
                 // if (inside *text) -> can continue
