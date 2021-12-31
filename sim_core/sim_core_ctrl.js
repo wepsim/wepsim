@@ -59,15 +59,22 @@
 	     }
 
 	     // 3.- check if more than one tri-state is active
-	     if (n > 1) {
+	     if (n > 1)
+             {
 	         update_bus_visibility('internalbus_fire', 'visible') ;
 	         simhw_internalState_set('fire_visible', 'internalbus', true) ;
+
 	         simhw_sim_state("BUS_IB").value = 0xFFFFFFFF;
+	       //ws_alert('ALERT: there are ' + n + ' activated tri-states signals.\n');
+               //simcore_notifications_add('runtime error', 'two or more tri-states activated', 'warning', 0) ;
 	     }
 	     else {
 	         update_bus_visibility('internalbus_fire', 'hidden') ;
 	         simhw_internalState_set('fire_visible', 'internalbus', false) ;
 	     }
+
+             // return the number of activated tri-states
+             return n ;
         }
 
         function update_system_bus_fire ( number_active_tri )
@@ -81,8 +88,14 @@
 	     {
 		 update_bus_visibility('databus_fire', 'visible') ;
 		 simhw_internalState_set('fire_visible', 'databus', true) ;
+
 		 simhw_sim_state("BUS_DB").value = 0xFFFFFFFF;
+	       //ws_alert('ALERT: there are ' + number_active_tri + ' activated tri-states signals.\n');
+               //simcore_notifications_add('runtime error', 'two or more tri-states activated', 'warning', 0) ;
 	     }
+
+             // return the number of activated tri-states
+             return number_active_tri ;
         }
 
 
