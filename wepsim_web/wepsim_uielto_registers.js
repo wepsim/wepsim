@@ -119,9 +119,10 @@
 		{
 		    o2 = "<tr><td class='py-1 px-1' colspan='5' align='center'>" +
                          "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " +
-                         "       style='width:65%'>&nbsp;" +
-                         "<span class='badge badge-secondary shadow' " +
-                         "      onclick='hex2values_update(\"" + index + "\");'>update</span>" +
+                         "       style='width:65%'>" +
+                         "<span class='badge badge-secondary shadow mx-2 py-2' " +
+                         "      onclick='hex2values_update(\"" + index + "\");'>" +
+                         "<span data-langkey='update'>update</span></span>" +
                          "</td></tr>";
                 }
 
@@ -356,9 +357,14 @@
                         return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
-		        var index = $(this).attr("data-popover-content");
+		        var index     = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rf" + index + "&quot;" ;
-		        return '<span class="text-dark"><strong>R' + index + '</strong></span>' +
+
+	                var disp_name = get_cfg('RF_display_name') ;
+                        var SIMWARE   = get_simware() ;
+		        var rname = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, index, 0) ;
+
+		        return '<span class="text-dark text-monospace"><strong>' + rname + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    },

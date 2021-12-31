@@ -184,10 +184,10 @@
 
         sim.ep.internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11" ] ;
         sim.ep.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        sim.ep.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col",
-		                                   "REG_PC,col",    "REG_MAR,col", "REG_MBR,col",
-                                                   "REG_RT1,col",   "REG_RT2,col", "REG_RT3,col",
-		                                   "REG_SR,col",    "REG_MICROADDR,col" ] ;
+        sim.ep.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto",
+		                                   "REG_PC,col-auto",    "REG_MAR,col-auto", "REG_MBR,col-auto",
+                                                   "REG_RT1,col-auto",   "REG_RT2,col-auto", "REG_RT3,col-auto",
+		                                   "REG_SR,col-auto",    "REG_MICROADDR,col-auto" ] ;
         sim.ep.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",
                                                    "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
 				          "C0,0", "C1,0",  "C2,0",  "C3,0",  "C4,0",  "C5,0", "C6,0", "C7,0",
