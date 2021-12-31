@@ -176,10 +176,8 @@
 
         function refresh()
         {
-	    for (var key in simhw_sim_signals())
-	    {
+	    for (var key in simhw_sim_signals()) {
 		 update_draw(simhw_sim_signals()[key], simhw_sim_signals()[key].value) ;
-                 check_buses(key);
 	    }
 
 	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;

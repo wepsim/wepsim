@@ -145,8 +145,8 @@
 
         sim.poc.signals.R        = { name: "R",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                     behavior: ["NOP",
-					        "MEM_READ BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
+		                     behavior: ["NOP; CHECK_RTD",
+					        "MEM_READ BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY; CHECK_RTD"],
                                      fire_name: ['svg_p:text3533-5-2'],
                                      draw_data: [[], ['svg_p:path3557','svg_p:path3571']],
                                      draw_name: [[], []] };
