@@ -299,6 +299,15 @@
                     return ret ;
                 }
 
+                // if (two or more tri-states are active) -> cannot continue
+                if (simhw_internalState_get('fire_visible', 'databus') == true)
+                {
+                     var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
+                     ret.ok  = false ;
+                     ret.msg = "Error: two or more tri-states are active " + hex_maddr + "." ;
+                     return ret ;
+                }
+
                 // if (inside *text) -> can continue
                 var curr_segments = simhw_internalState('segments') ;
                 if ( (reg_pc < curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
