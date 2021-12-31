@@ -1748,17 +1748,9 @@
 	sim.ep.behaviors["CHECK_RTD"] = { nparameters: 1,
 				     operation: function(s_expr)
 		                                {
-						    if (simhw_internalState_get('fire_visible', 'databus') == true)
-						    {
-							update_bus_visibility('databus_fire', 'hidden') ;
-							simhw_internalState_set('fire_visible', 'databus', false) ;
-						    }
-						    if ( (simhw_sim_signal("TD").value != 0) && (simhw_sim_signal("R").value != 0) )
-						    {
-							update_bus_visibility('databus_fire', 'visible') ;
-							simhw_internalState_set('fire_visible', 'databus', true) ;
-							simhw_sim_state("BUS_DB").value = 0xFFFFFFFF;
-						    }
+				                var number_active_tri = parseInt(simhw_sim_signal("TD").value) +
+         							        parseInt(simhw_sim_signal("R").value) ;
+        				            update_system_bus_fire(number_active_tri) ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
