@@ -325,14 +325,14 @@
 		 o1_rn = "R"  + index ;
 		 o1_rn = o1_rn.padEnd(3,' ') ;
 
-		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " +
+		 o1_rf += "<button type='button' class='btn p-1 ml-1 mt-1 mb-0 mr-0 col-auto' " +
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
+			  "<span class='w-100 d-block d-sm-none'></span>" +
                           "<span class='badge badge-secondary text-dark' style='background-color:#CEECF5; ' id='tbl_RF"  + index + "'>" +
-			  "<div id='rf_" + index + "'>{{ computed_value }}</div>" +
-                          "</span>" +
+                          "<span id='rf_" + index + "'>{{ computed_value }}</span></span>" +
                           "</button>" ;
 	    }
 
@@ -418,7 +418,7 @@
                         showkey += '<span class="d-none d-sm-inline-flex text-monospace">' + part2 + '</span>' ;
 	        }
 
-                o1 += "<button type='button' class='btn py-0 px-1 mt-1 " + divclass + "' " +
+                o1 += "<button type='button' class='btn p-0 mx-1 mt-1 " + divclass + "' " +
 		      "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
