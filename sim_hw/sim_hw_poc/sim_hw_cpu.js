@@ -418,6 +418,9 @@
 	sim.poc.states["ACC_TIME"]       = { name:"ACC_TIME", verbal: "Accumulated CPU time",
                                              visible:false, nbits:"32", value:0,  default_value:0,
                                              draw_data: [] };
+	sim.poc.states["TTCPU"]         = { name:"TTCPU", verbal: "Several Tristates to the internal data bus in CPU activated",
+                                             visible:false, nbits:"32", value:0,  default_value:0,
+                                             draw_data: [] };
 
 
 	/*
@@ -524,47 +527,47 @@
 			       draw_data: [['svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3601-2', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995','svg_p:path3535']],
 			       draw_name: [['svg_p:path3085']] };
 	 sim.poc.signals["TD"]  = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_DB REG_MBR; FIRE R; FIRE W"],
+			       behavior: ["NOP; CHECK_RTD", "MV BUS_DB REG_MBR; FIRE R; FIRE W; CHECK_RTD"],
 			       fire_name: ['svg_p:text3103'],
 			       draw_data: [['svg_p:path3101','svg_p:path3587','svg_p:path3419-8','svg_p:path3071','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3491','svg_p:path3641','svg_p:path3541']],
 			       draw_name: [['svg_p:path3095']] };
 	 sim.poc.signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M1"],
+			       behavior: ["NOP; RST_TT TTCPU 0", "MV BUS_IB REG_MBR; FIRE M7; FIRE M1; SET_TT TTCPU 0"],
 			       fire_name: ['svg_p:text3105'],
 			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049','svg_p:path3063-9', 'svg_p:path3071']],
 			       draw_name: [['svg_p:path3067']] };
 	 sim.poc.signals["T2"]  = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB REG_PC; FIRE M7; FIRE M1"],
+			       behavior: ["NOP; RST_TT TTCPU 1", "MV BUS_IB REG_PC; FIRE M7; FIRE M1; SET_TT TTCPU 1"],
 			       fire_name: ['svg_p:text3449'],
 			       draw_data: [['svg_p:path3199', 'svg_p:path3201','svg_p:path3049']],
 			       draw_name: [['svg_p:path3329']] };
 	 sim.poc.signals["T3"]  = { name: "T3",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB SELEC_T3; FIRE M7; FIRE M1"],
+			       behavior: ["NOP; RST_TT TTCPU 2", "MV BUS_IB SELEC_T3; FIRE M7; FIRE M1; SET_TT TTCPU 2"],
 			       fire_name: ['svg_p:text3451'],
 			       draw_data: [['svg_p:path3349', 'svg_p:path3931', 'svg_p:path3345','svg_p:path3049']],
 			       draw_name: [['svg_p:path3351']] };
 	 sim.poc.signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB ALU_T6; FIRE M7; FIRE M1"],
+			       behavior: ["NOP; RST_TT TTCPU 3", "MV BUS_IB ALU_T6; FIRE M7; FIRE M1; SET_TT TTCPU 3"],
 			       fire_name: ['svg_p:text3457'],
 			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3163-2','svg_p:path3049', 'svg_p:path3317-9', 'svg_p:path3321', 'svg_p:path3261-8']],
 			       draw_name: [['svg_p:path3319']] };
 	 sim.poc.signals["T8"]  = { name: "T8",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB REG_SR; FIRE M7; FIRE M1"],
+			       behavior: ["NOP; RST_TT TTCPU 4", "MV BUS_IB REG_SR; FIRE M7; FIRE M1; SET_TT TTCPU 4"],
 			       fire_name: ['svg_p:text3657'],
 			       draw_data: [['svg_p:path3651', 'svg_p:path3647','svg_p:path3049']],
 			       draw_name: [['svg_p:path3649']] };
 	 sim.poc.signals["T9"]  = { name: "T9",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB RA_T9; FIRE M7; FIRE M1"],
+			       behavior: ["NOP; RST_TT TTCPU 5", "MV BUS_IB RA_T9; FIRE M7; FIRE M1; SET_TT TTCPU 5"],
 			       fire_name: ['svg_p:text3147'],
 			       draw_data: [['svg_p:path3143', 'svg_p:path3139','svg_p:path3049','svg_p:path3143-9']],
 			       draw_name: [['svg_p:path3133']] };
 	 sim.poc.signals["T10"] = { name: "T10", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB RB_T10; FIRE M7; FIRE M1"],
+			       behavior: ["NOP; RST_TT TTCPU 6", "MV BUS_IB RB_T10; FIRE M7; FIRE M1; SET_TT TTCPU 6"],
 			       fire_name: ['svg_p:text3149'],
 			       draw_data: [['svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5']],
 			       draw_name: [['svg_p:path3137']] };
 	 sim.poc.signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M1"],
+			       behavior: ["NOP; RST_TT TTCPU 7", "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M1; SET_TT TTCPU 7"],
 			       fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
 			       draw_data: [['svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3502']],
 			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
@@ -1710,6 +1713,50 @@
                                                           " (" + show_value(result) + "). " ;
                                                 }
 				   };
+	sim.poc.behaviors["SET_TT"] = { nparameters: 3,
+				     types: ["E", "I"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.poc.states[s_expr[1]]) << 0 ;
+                                                   var b = parseInt(s_expr[2]) ;
+                                                   var m = Math.pow(2, b) ;
+                                                   var r = a | m ;
+						   set_value(sim.poc.states[s_expr[1]], r) ;
+						   update_cpu_bus_fire(r, b) ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+                                                   return "" ;
+                                                }
+				   };
+	sim.poc.behaviors["RST_TT"] = { nparameters: 3,
+				     types: ["E", "I"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[1]]) << 0 ;
+                                                   var b = parseInt(s_expr[2]) ;
+                                                   var m = Math.pow(2, b) ;
+                                                   var r = a & ~m ;
+						   set_value(sim.ep.states[s_expr[1]], r) ;
+						   update_cpu_bus_fire(r, b) ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+                                                   return "" ;
+                                                }
+				   };
+	sim.ep.behaviors["CHECK_RTD"] = { nparameters: 1,
+				     operation: function(s_expr)
+		                                {
+				                var number_active_tri = parseInt(simhw_sim_signal("TD").value) +
+         							        parseInt(simhw_sim_signal("R").value) ;
+        				            update_system_bus_fire(number_active_tri) ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+                                                   return "" ;
+                                                }
+				   };
 	sim.poc.behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
 				     operation: function (s_expr)
@@ -2119,9 +2166,6 @@
 							    }
 
 							    sim.poc.internal_states.fire_stack.pop(s_expr[1]) ;
-
-							    // 3.- check conflicts
-                                                            check_buses(s_expr[1]);
 							},
 						verbal: function (s_expr)
 							{

@@ -244,9 +244,12 @@
 
     function wsweb_execution_run ( )
     {
-            if (simhw_active() !== null)
-            {
-                var mode = get_cfg('ws_mode') ;
+            if (false == inputfirm.is_compiled) {
+		wsweb_dlg_alert('The Microcode is not microcompiled.<br>\n');
+                return false ;
+            }
+
+            if (simhw_active() !== null) {
 	        webui_executionbar_toggle_play('exebar1') ;
             }
 
