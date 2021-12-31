@@ -2139,6 +2139,7 @@
 							    // 1.- Update counter
 							    var val = get_value(sim.ep.states["CLK"]) ;
 							    set_value(sim.ep.states["CLK"], val + 1);
+						            set_value(sim.ep.states["TTCPU"], 0) ;
 
                                                             // 2.- To treat the (Falling) Edge signals
                                                            new_maddr = get_value(sim.ep.states["REG_MICROADDR"]);

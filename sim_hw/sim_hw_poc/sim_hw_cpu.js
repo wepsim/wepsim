@@ -1733,11 +1733,11 @@
 				     types: ["E", "I"],
 				     operation: function(s_expr)
 		                                {
-						   var a = get_value(sim.ep.states[s_expr[1]]) << 0 ;
+						   var a = get_value(sim.poc.states[s_expr[1]]) << 0 ;
                                                    var b = parseInt(s_expr[2]) ;
                                                    var m = Math.pow(2, b) ;
                                                    var r = a & ~m ;
-						   set_value(sim.ep.states[s_expr[1]], r) ;
+						   set_value(sim.poc.states[s_expr[1]], r) ;
 						   update_cpu_bus_fire(r, b) ;
                                                 },
                                         verbal: function (s_expr)
@@ -1745,7 +1745,7 @@
                                                    return "" ;
                                                 }
 				   };
-	sim.ep.behaviors["CHECK_RTD"] = { nparameters: 1,
+	sim.poc.behaviors["CHECK_RTD"] = { nparameters: 1,
 				     operation: function(s_expr)
 		                                {
 				                var number_active_tri = parseInt(simhw_sim_signal("TD").value) +
@@ -2230,6 +2230,7 @@
 							    // 1.- Update counter
 							    var val = get_value(sim.poc.states["CLK"]) ;
 							    set_value(sim.poc.states["CLK"], val + 1);
+						            set_value(sim.poc.states["TTCPU"], 0) ;
 
 							    // 2.- To treat the (Falling) Edge signals
 						           new_maddr = get_value(sim.poc.states["REG_MICROADDR"]);
