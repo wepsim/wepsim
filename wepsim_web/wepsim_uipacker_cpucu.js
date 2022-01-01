@@ -131,7 +131,7 @@
                        quickcfg_html_br() +
                        quickcfg_html_header('Graph: split view') +
 		       '<ws-slider-cpucu   name="slider4b" class="col-12"></ws-slider-cpucu>' +
-                       '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
+                    // '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
                        quickcfg_html_br() +
                        quickcfg_html_header('Graph: interactive mode') +
 	               quickcfg_html_btn("(*) On",
@@ -140,6 +140,17 @@
 	               quickcfg_html_btn("Off",
                                          "update_cfg(\"is_interactive\", false);",
                                          "col-6") +
+                       // <advanced>
+                       quickcfg_html_br() +
+                       quickcfg_html_header('Text: advanced mode') +
+                       quickcfg_html_btn("On",
+                                         "$(\"#infohw1\").attr(\"components\", " +
+                                         "                     \"summary,elements,states,signals,behaviors\");",
+                                         "col-6") +
+                       quickcfg_html_btn("(*) Off",
+                                         "$(\"#infohw1\").attr(\"components\", \"elements\");",
+                                         "col-6") +
+                       // </advanced>
                        quickcfg_html_br() +
                        quickcfg_html_close('popover-cpuview') +
 		    "</div>" +
