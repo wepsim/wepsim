@@ -117,7 +117,7 @@
 		var o2 = "" ;
 		if (get_cfg('is_editable') == true)
 		{
-		    o2 = "<tr><td class='py-1 px-1' colspan='5' align='center'>" +
+		    o2 = "<tr><td class='py-1 px-1 pt-2' colspan='5' align='center'>" +
                          "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " +
                          "       style='width:65%'>" +
                          "<span class='badge badge-secondary shadow mx-2 py-2' " +
