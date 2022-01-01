@@ -340,6 +340,7 @@
 	      {
 		   var o = '' ;
 
+		// o += '<div class="btn-group col-auto my-1 mx-1 p-0 user_archived" style="flex-grow:6;">' +
 		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="col-12 btn btn-light shadow-sm"' +
 			'           data-toggle="tooltip" data-placement="bottom" data-html="true"' +
