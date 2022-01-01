@@ -97,7 +97,7 @@
                            "</label>" +
                            "" +
 			   "<table id='collapse-l3dcfg' " +
-                           " class='table table-hover table-sm table-bordered m-0 collapse'>" +
+                           "       class='table table-hover table-sm table-bordered m-0 collapse'>" +
 			   "<tr><td>" +
                            "<label class='my-0 text-wrap' for='apirest_endpoint'>REST URL (e.g.: http://localhost:5000/matrix)</label>" +
 			   "<input id='apirest_endpoint' type='text' v-model.lazy='value' class='form-control text-info p-0'>" +
@@ -105,10 +105,10 @@
 			   "</table>" +
                            "" +
 			   "<div class='row mt-3'>" +
-			   "<div class='col-12' style='perspective:1000px; perspective-origin: 50% 50%;'>" ;
+			   "<div class='col-12' style='perspective:300px;'>" ;
 		    for (i=0; i<l3d_states.length/(l3d_dim*l3d_dim); i++)
 		    {
-			o1 += "<table class='table table-hover table-sm table-bordered pb-3' style='transform: rotateX(20deg);'>" ;
+			o1 += "<table class='table table-hover table-sm table-bordered pb-3' style='transform:rotateX(20deg);'>" ;
 			    for (var j=0; j<l3d_dim; j++)
 			    {
 			o1 += "<tr>" ;
@@ -117,7 +117,8 @@
 			                 offset = i*Math.pow(l3d_dim, 2) + j*l3d_dim + k ;
 			o1 += "<td align='center' id='l3d" + offset + "_context' class='py-0' " +
                               "    v-on:click='value = !value'>" +
-			      "<i v-bind:class='[ value ? \"fas\" : \"far\", \"fa-lightbulb\" ]'></i>" +
+			      "<i  style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
+                              "    v-bind:class='[ value ? \"fas\" : \"far\", \"fa-lightbulb\" ]'></i>" +
 			      "</td>" ;
 				    }
 			o1 += "</tr>" ;
