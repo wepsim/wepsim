@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -22,6 +22,7 @@
     i18n.eltos.states.zh_cn = {
 
 		'States':					'状态',
+		'state':					'狀態',
 		'Current':					'当前',
 		'Current State':				'当前状态',
 		'History':					'历史',

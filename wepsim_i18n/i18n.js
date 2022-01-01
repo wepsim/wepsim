@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -53,6 +53,8 @@
 			    dialogs: {},
                             // compiler messages
 			    compiler: {},
+                            // hw description
+			    hw: {},
 			    // tutorials
 			    tutorial_welcome: {},
 			    tutorial_simpleusage: {},
@@ -155,6 +157,7 @@
 	         "		      update_cfg('ws_idiom', optValue);" +
 	         "                    i18n_update_tagsFor('gui',      optValue); " +
 	         "                    i18n_update_tagsFor('dialogs',  optValue); " +
+	         "                    i18n_update_tagsFor('hw',       optValue); " +
                  str_onchange +
 	         "                    return true; \"" +
 	         "	   data-native-menu='false'>" ;
@@ -178,6 +181,7 @@
 	         "		        update_cfg('ws_idiom', optValue);" +
 	         "                      i18n_update_tagsFor('gui', optValue);" +
 	         "                      i18n_update_tagsFor('cfg', optValue);" +
+	         "                      i18n_update_tagsFor('hw', optValue);" +
 	         "		        return true;\"" +
 	         "	     data-native-menu='false'>" ;
 	for (var l in i18n.lang)

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -110,9 +110,12 @@
                 'Information from': 		'Information provenant de',
                 'Pick firm/soft from': 		'Choisissez ferme / doux de',
                 'Welcome tutorial': 		'Tutoriel de bienvenue',
-                'idiom': 			'idiome',
                 'Assembly only': 		'Assemblée seulement',
                 'Micro & Assembly': 		'Micro et assemblage',
+
+                'idiom': 			'Langue',
+                'quick config': 		'configuration rapide',
+                'Graph: quick interactive mode':'Graphique : mode interactif rapide',
 
 		"_last_":			"_last_"
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -77,6 +77,7 @@
 	      {
                    // render ddown elements
                    var o1 = '' ;
+                   var u1 = '' ;
                    for (var i=0; i<this.devices.length; i++)
                    {
                         var device = this.devices[i] ;
@@ -84,13 +85,19 @@
                         if (i != 0) {
                             o1 += ' <div class="dropdown-divider m-1"></div>' ;
                         }
-                        o1 += ' <h6 class="text-secondary mb-1">' + device + '</h6>' ;
+
+                        u1 = '' ;
                         for (var j=0; j<this.details[device].length; j++)
                         {
                              var device_detail = this.details[device][j] ;
                              if (this.components_arr.indexOf(device_detail) !== -1) {
-                                 o1 += this.ni[device_detail] ;
+                                 u1 += this.ni[device_detail] ;
                              }
+                        }
+
+                        if (u1 != '') {
+                            o1 += ' <h6 class="text-secondary mb-1">' + device + '</h6>' ;
+                            o1 += u1 ;
                         }
                    }
 
@@ -114,7 +121,8 @@
                                      'CPU':         [ 'all', 'mc', 'cpu' ],
                                      'Main Memory': [ 'mp', 'mpcfg' ],
                                      'Devices':     [ 'con', 'io', 'iocfg', 'iol3d' ],
-                                     'Simulation':  [ 'ed_hw', 'ed_mc', 'ed_mp' ]
+                                     'Simulation':  [ 'ed_mc', 'ed_mp' ]
+                                 //  'Simulation':  [ 'ed_hw', 'ed_mc', 'ed_mp' ]
                                   } ;
                    this.ni = {
 				 all: ' <a class="dropdown-item" href="#" id="s5b_11" value="11"' +
@@ -147,7 +155,6 @@
 			       ed_hw: '      <a class="dropdown-item" href="#" id="s5b_22" value="22"' +
 				      '	 onclick="wsweb_set_details(\'HARDWARE\');' +
 				      '		  return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>',
-
 
 			       ed_mc: '      <a class="dropdown-item user_microcode" href="#" id="s5b_20" value="20"' +
 				      '	 onclick="wsweb_set_details(\'FRM_EDITOR\');' +

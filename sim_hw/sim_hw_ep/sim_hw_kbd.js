@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -187,18 +187,15 @@
 			      belongs:           "KBD",
 			      states:            {
 						   "addr":      {
-								   ref:  "BUS_AB",
-								   description: "Address bus"
+								   ref:  "BUS_AB"
 								},
 						   "data":      {
-								   ref:  "BUS_DB",
-								   description: "Data bus"
+								   ref:  "BUS_DB"
 								}
 						 },
 			      signals:           {
 						   "ior":       {
-								   ref:  "KBD_IOR",
-								   description: "Read from keyboard"
+								   ref:  "KBD_IOR"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],

@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -253,22 +253,18 @@
 			      belongs:           "SCREEN",
 			      states:            {
 						   "addr":      {
-								   ref:  "BUS_AB",
-								   description: "Address bus"
+								   ref:  "BUS_AB"
 								},
 						   "data":      {
-								   ref:  "BUS_DB",
-								   description: "Data bus"
+								   ref:  "BUS_DB"
 								}
 						 },
 			      signals:           {
 						   "ior":       {
-								   ref:  "SCR_IOR",
-								   description: "Read from display (disabled)"
+								   ref:  "SCR_IOR"
 								},
 						   "iow":       {
-								   ref:  "SCR_IOW",
-								   description: "Write into the display"
+								   ref:  "SCR_IOW"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],

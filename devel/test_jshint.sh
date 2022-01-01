@@ -3,7 +3,7 @@ set -x
 
 
 #*
-#*  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -123,6 +123,9 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_states.js
  jshint ./wepsim_web/wepsim_uielto_toolbar.js
  jshint ./wepsim_web/wepsim_uielto_topbar.js
+ jshint ./wepsim_web/wepsim_uielto_slider_cpucu.js
+ jshint ./wepsim_web/wepsim_uielto_slider_details.js
+ jshint ./wepsim_web/wepsim_uipacker_cpucu.js
  jshint ./wepsim_web/wepsim_uipacker_ctoasm.js
  jshint ./wepsim_web/wepsim_uipacker_ddown_info.js
  jshint ./wepsim_web/wepsim_uipacker_ddown_sel.js
@@ -140,14 +143,16 @@ echo "checking wepsim_nodejs..."
 echo "checking wepsim_i18n..."
  jshint ./wepsim_i18n/i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
- jshint ./wepsim_i18n/$LANG/states.js
  jshint ./wepsim_i18n/$LANG/gui.js
- jshint ./wepsim_i18n/$LANG/cfg.js
- jshint ./wepsim_i18n/$LANG/examples.js
- jshint ./wepsim_i18n/$LANG/help.js
- jshint ./wepsim_i18n/$LANG/dialogs.js
- jshint ./wepsim_i18n/$LANG/tour-intro.js
  jshint ./wepsim_i18n/$LANG/tutorial-welcome.js
  jshint ./wepsim_i18n/$LANG/tutorial-simpleusage.js
+ jshint ./wepsim_i18n/$LANG/tour-intro.js
+ jshint ./wepsim_i18n/$LANG/cfg.js
+ jshint ./wepsim_i18n/$LANG/help.js
+ jshint ./wepsim_i18n/$LANG/states.js
+ jshint ./wepsim_i18n/$LANG/examples.js
+ jshint ./wepsim_i18n/$LANG/compiler.js
+ jshint ./wepsim_i18n/$LANG/hw.js
+ jshint ./wepsim_i18n/$LANG/dialogs.js
 done
 

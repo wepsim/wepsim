@@ -3,7 +3,7 @@
 
 
 #*
-#*  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -108,6 +108,7 @@ cat wepsim_i18n/$LANG/gui.js \
     wepsim_i18n/$LANG/states.js \
     wepsim_i18n/$LANG/examples.js \
     wepsim_i18n/$LANG/compiler.js \
+    wepsim_i18n/$LANG/hw.js \
     wepsim_i18n/$LANG/dialogs.js  >> ws_dist/wepsim_i18n.js
 cp  wepsim_i18n/$LANG/simulator.html ws_dist/help/simulator-"$LANG".html
 cp  wepsim_i18n/$LANG/about.html     ws_dist/help/about-"$LANG".html
@@ -172,9 +173,12 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_states.js \
     wepsim_web/wepsim_uielto_help_hweltos.js \
     wepsim_web/wepsim_uielto_help_swset.js \
+    wepsim_web/wepsim_uielto_slider_cpucu.js \
+    wepsim_web/wepsim_uielto_slider_details.js \
     \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
     wepsim_web/wepsim_uipacker_ddown_info.js \
+    wepsim_web/wepsim_uipacker_cpucu.js \
     wepsim_web/wepsim_uipacker_ctoasm.js \
     \
     wepsim_web/wepsim_uielto_loadfile.js \

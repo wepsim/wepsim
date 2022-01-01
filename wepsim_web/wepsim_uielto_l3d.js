@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
  *
  *  This file is part of WepSIM.
  *
@@ -89,9 +89,12 @@
 		    // html holder
 		    o1  += "<div class='container text-right'>" +
                            "" +
+                           '<label class="my-0" for="popover-l3dcfg" style="min-width:95%">' +
+                           '<span data-langkey="quick config">quick config</span>: ' +
                            "<a data-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
-                           "   tabindex='0' class='m-auto' role='button'>" +
+                           "   tabindex='0' class='m-auto' role='button' id='popover-l3dcfg'>" +
                            "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
+                           "</label>" +
                            "" +
 			   "<table id='collapse-l3dcfg' " +
                            " class='table table-hover table-sm table-bordered m-0 collapse'>" +

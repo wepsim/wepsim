@@ -2,12 +2,12 @@
   "version": {
     "upgrade": false,
     "type": "string",
-    "value": "2.1.6"
+    "value": "2.1.7"
   },
   "build": {
     "upgrade": true,
     "type": "string",
-    "value": "2.1.6.20210110A"
+    "value": "2.1.7.20211210A"
   },
   "color_data_active": {
     "upgrade": false,
@@ -43,6 +43,11 @@
     "upgrade": false,
     "type": "boolean",
     "value": false
+  },
+  "CPUCU_show_graph": {
+    "upgrade": true,
+    "type": "boolean",
+    "value": true
   },
   "RF_display_format": {
     "upgrade": false,

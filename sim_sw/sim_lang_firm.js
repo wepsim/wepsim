@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -911,8 +911,13 @@ function loadFirmware (text)
 //             }
 // }
 
-	       var camposInsertados = 0;
+               // overlapping mask (initialized with 'co' field)
                var overlapping = {};
+               for (i=26; i<=31; i++) {
+                    overlapping[i] = 1;
+               }
+
+	       var camposInsertados = 0;
 	       while (camposInsertados < numeroCampos)
 	       {
 	           // match mandatory FIELD

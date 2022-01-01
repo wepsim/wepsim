@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -44,7 +44,9 @@
 		             '		 aria-label="processor"' +
                              '           onclick="wsweb_change_show_processor();' +
                              '                    return false;">' + 
-                   '<em class="fas fa-microchip"></em>&nbsp;<span data-langkey="Processor">Processor</span></a>' +
+                             '<em class="fas fa-microchip"></em>&nbsp;' +
+                             '<span data-langkey="Processor">Processor</span>' +
+                             '</a>' +
                              '    </li>' +
 		             '    <li class="nav-item">' +
                              '        <a id="tab24" href="#eltos_dbg"' +
@@ -59,7 +61,7 @@
                              '<!-- Tab panes -->' +
                              '<div class="tab-content">' +
                              '  <div id="eltos_cpu" class="tab-pane active" role="tabpanel">' +
-		             '	   <ws-cpusvg></ws-cpusvg>' +
+                             '  <ws-cpucu_got></ws-cpucu_got>' +
 		             '  </div>' +
 		             '\n' +
 		             '  <div id="eltos_dbg" class="tab-pane" role="tabpanel">' +

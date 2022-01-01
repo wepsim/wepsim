@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -200,8 +200,8 @@
         {
              var wscfg = {
                    /* version */
-                   "version":               { upgrade:false, type:"string",    value:"2.1.6" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.1.6.20210801A" },
+                   "version":               { upgrade:false, type:"string",    value:"2.1.7" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.1.7.20211210A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -211,6 +211,7 @@
 	           "size_active":           { upgrade:false, type:"float",     value:1.25 },
 	           "size_inactive":         { upgrade:false, type:"float",     value:0.02 },
                    "is_byvalue":            { upgrade:false, type:"boolean",   value:false },
+                   "CPUCU_show_graph":      { upgrade:true,  type:"boolean",   value:true },
 
 	           /* simulation screen: Register File */
                    "RF_display_format":     { upgrade:false, type:"string",    value:'unsigned_16_fill' },

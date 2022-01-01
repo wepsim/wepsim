@@ -1,6 +1,16 @@
 
 # Changelog
 
+## 2.1.6 -> 2.1.7:
+* New:
+  * Processor represented also as text table.
+  * Quick config for processor panel.
+* Minor bugs fixed and several refinements added:
+  * More UI text translated.
+  * Updated detection of several activated tri-states
+* Main external dependencies updated:
+  * Bump bootstrap from 4.6.0 to 4.6.1
+
 ## 2.1.5 -> 2.1.6:
 * Several minor improvements on RISC-V examples
 * Reworked "Hardware" detail panel and hardware help

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -24,6 +24,7 @@
 		'General':							'一般',
 		'Idiom for help, examples, etc.':				'成语的帮助，例子等',
 		'Notification speed: time before disapear':			'通知速度：消失之前的时间',
+		'Dark Mode':							'黑暗模式',
 		'Editor':							'编辑',
 		'Editor theme: light or dark':					'编辑主题：光明或黑暗',
 		'Light':							'光',
@@ -63,6 +64,7 @@
 		'Active voice: external voice control':				'主动语音：外部语音控制',
 		'Verbalization: textual or mathematical':			'语言化：文本或数学',
 		'WepSIM User Interface views':					'WepSIM用户界面视图',
+		'Privacy':							'隐私',
 		'_last_':							'_last_'
 
     };

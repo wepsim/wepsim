@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
  *
  *  This file is part of WepSIM.
  *
@@ -309,22 +309,18 @@
 			      belongs:           "L3D",
 			      states:            {
 						   "addr":      {
-								   ref:  "BUS_AB",
-								   description: "Address bus"
+								   ref:  "BUS_AB"
 								},
 						   "data":      {
-								   ref:  "BUS_DB",
-								   description: "Data bus"
+								   ref:  "BUS_DB"
 								}
 						 },
 			      signals:           {
 						   "ior":       {
-								   ref:  "L3D_IOR",
-								   description: "Read from L3D"
+								   ref:  "L3D_IOR"
 								},
 						   "iow":       {
-								   ref:  "L3D_IOW",
-								   description: "Write into the L3D"
+								   ref:  "L3D_IOW"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],

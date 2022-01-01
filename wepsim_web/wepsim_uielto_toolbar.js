@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -167,28 +167,12 @@
 
 	      render_slider_cpucu ( robj )
 	      {
-		 return '<form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
-			'	<label class="my-0" for="slider2b" style="min-width:95%"><span data-langkey=\'processor\'>processor</span>:</label>' +
-			'	<input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"' +
-			'		min="0" max="14" value="7" step="1"' +
-			'	        data-show-value="false"' +
-                        '               class="custom-range slider col mx-0 px-0"' +
-                        '               oninput="wsweb_set_cpucu_size(this.value);' +
-                        '                        return false;">' +
-			'</form>' ;
+		 return '<ws-slider-cpucu   name="slider2b"></ws-slider-cpucu>' ;
 	      }
 
 	      render_slider_c1c2 ( robj )
 	      {
-		 return '<form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">' +
-			'	 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey=\'details\'>details</span>:</label>' +
-			'	 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"' +
-			'		min="0" max="14" value="7" step="1"' +
-			'	        data-show-value="false"' +
-                        '               class="custom-range slider col mx-0 px-0"' +
-                        '               oninput="wsweb_set_c1c2_size(this.value) ;' +
-                        '                        return false;">' +
-			'</form>' ;
+		 return '<ws-slider-details name="slider2a"></ws-slider-details>' ;
 	      }
 
               //
@@ -384,6 +368,8 @@
                    o += '     <a class="dropdown-item py-2 ' + poc_class + '" ' +
                         '        href="#" id="s4_' + item + '" value="' + item + '" ' +
 			'	 onclick="wsweb_select_main(\'' + item + '\');' +
+                        '                 inputfirm.is_compiled = false; ' +
+                        '                 inputasm.is_compiled  = false; ' +
 			'		  return false;"' + 
                         '     ><em class="fas fa-microchip"></em>&nbsp;' + item.toUpperCase() + '</a>' ;
                    }

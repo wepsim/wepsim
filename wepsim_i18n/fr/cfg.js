@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -26,6 +26,7 @@
 		"General":						"Général",
 		"Idiom for help, examples, etc.":			"Idiome pour l'aide, exemples, etc.",
 		"Notification speed: time before disapear":		"Vitesse de notification: heure avant la disparition",
+		"Dark Mode":						"Mode sombre",
 		"Editor":						"L'éditeur",
 		"Editor theme: light or dark":				"Thème de l'éditeur: clair ou sombre",
 		"Light":						"Clair",
@@ -64,7 +65,9 @@
                 'Auto-scroll while executing': 			        'Défilement automatique lors de l\'exécution',
 		"Active voice: external voice control":			"Voix active: commande vocale externe",
 		"Verbalization: textual or mathematical":		"Verbalisation: textuelle ou mathématique",
-		"WepSIM User Interface views":				"Vues de l'interface utilisateur WepSIM"
+		"WepSIM User Interface views":				"Vues de l'interface utilisateur WepSIM",
+		"Privacy":						"Privacy",
+		"_last_":						"_last_"
 
     } ;
 

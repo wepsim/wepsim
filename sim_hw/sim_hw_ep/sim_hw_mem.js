@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -142,14 +142,16 @@
 
         sim.ep.signals.R         = { name: "R",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                     behavior: ["NOP", "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
+		                     behavior: ["NOP; CHECK_RTD",
+                                                "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY; CHECK_RTD"],
                                      fire_name: ['svg_p:text3533-5-2','svg_p:text3713'],
                                      draw_data: [[], ['svg_p:path3557','svg_p:path3571']],
                                      draw_name: [[], []] };
 
         sim.ep.signals.W         = { name: "W",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                     behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
+		                     behavior: ["NOP",
+                                                "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                      fire_name: ['svg_p:text3533-5-08','svg_p:text3527','svg_p:text3431-7'],
                                      draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']],
                                      draw_name: [[], []] };
@@ -346,30 +348,24 @@
 			      belongs:           "MEMORY",
 			      states:            {
 						   "addr":      {
-								   ref:  "BUS_AB",
-								   description: "Address bus"
+								   ref:  "BUS_AB"
 								},
 						   "data":      {
-								   ref:  "BUS_DB",
-								   description: "Data bus"
+								   ref:  "BUS_DB"
 								},
 						   "mrdy":      {
-								   ref:  "MRDY",
-								   description: "Memory ready"
+								   ref:  "MRDY"
 								}
 						 },
 			      signals:           {
 						   "be":        {
-								   ref:  "BWA",
-								   description: "BW+A1A0"
+								   ref:  "BWA"
 								},
 						   "r":         {
-								   ref:  "R",
-								   description: "Read"
+								   ref:  "R"
 								},
 						   "w":         {
-								   ref:  "W",
-								   description: "Write"
+								   ref:  "W"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],

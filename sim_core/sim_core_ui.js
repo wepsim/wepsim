@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -176,10 +176,8 @@
 
         function refresh()
         {
-	    for (var key in simhw_sim_signals())
-	    {
+	    for (var key in simhw_sim_signals()) {
 		 update_draw(simhw_sim_signals()[key], simhw_sim_signals()[key].value) ;
-                 check_buses(key);
 	    }
 
 	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;

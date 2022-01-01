@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -39,10 +39,12 @@
 	      {
                     // html holder
 		    var o1 = "<div class='container text-right'>" +
+                             '<label class="my-0" for="popover-rfcfg" style="min-width:95%">' +
+                             '<span data-langkey="quick config">quick config</span>: ' +
 		             "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " +
 			     "   tabindex='0' class='m-auto show multi-collapse-3'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
-                             "</a>" +
+                             "</a></label>" +
                              "</div>" +
                              '<div id="' + this.tf_div + '" ' +
                              '     style="width:inherit; overflow-y:auto;"' +
@@ -117,9 +119,10 @@
 		{
 		    o2 = "<tr><td class='py-1 px-1' colspan='5' align='center'>" +
                          "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " +
-                         "       style='width:65%'>&nbsp;" +
-                         "<span class='badge badge-secondary shadow' " +
-                         "      onclick='hex2values_update(\"" + index + "\");'>update</span>" +
+                         "       style='width:65%'>" +
+                         "<span class='badge badge-secondary shadow mx-2 py-2' " +
+                         "      onclick='hex2values_update(\"" + index + "\");'>" +
+                         "<span data-langkey='update'>update</span></span>" +
                          "</td></tr>";
                 }
 
@@ -323,14 +326,14 @@
 		 o1_rn = "R"  + index ;
 		 o1_rn = o1_rn.padEnd(3,' ') ;
 
-		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " +
+		 o1_rf += "<button type='button' class='btn px-1 py-0 ml-1 mt-1 mb-0 mr-0 col-auto' " +
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
+			  "<span class='w-100 d-block d-sm-none'></span>" +
                           "<span class='badge badge-secondary text-dark' style='background-color:#CEECF5; ' id='tbl_RF"  + index + "'>" +
-			  "<div id='rf_" + index + "'>{{ computed_value }}</div>" +
-                          "</span>" +
+                          "<span id='rf_" + index + "'>{{ computed_value }}</span></span>" +
                           "</button>" ;
 	    }
 
@@ -354,9 +357,14 @@
                         return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
-		        var index = $(this).attr("data-popover-content");
+		        var index     = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rf" + index + "&quot;" ;
-		        return '<span class="text-dark"><strong>R' + index + '</strong></span>' +
+
+	                var disp_name = get_cfg('RF_display_name') ;
+                        var SIMWARE   = get_simware() ;
+		        var rname = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, index, 0) ;
+
+		        return '<span class="text-dark text-monospace"><strong>' + rname + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    },
@@ -416,7 +424,7 @@
                         showkey += '<span class="d-none d-sm-inline-flex text-monospace">' + part2 + '</span>' ;
 	        }
 
-                o1 += "<button type='button' class='btn py-0 px-1 mt-1 " + divclass + "' " +
+                o1 += "<button type='button' class='btn py-0 px-1 mt-1 ml-1 " + divclass + "' " +
 		      "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +

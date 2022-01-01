@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2021 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -244,9 +244,12 @@
 
     function wsweb_execution_run ( )
     {
-            if (simhw_active() !== null)
-            {
-                var mode = get_cfg('ws_mode') ;
+            if (false == inputfirm.is_compiled) {
+		wsweb_dlg_alert('The Microcode is not microcompiled.<br>\n');
+                return false ;
+            }
+
+            if (simhw_active() !== null) {
 	        webui_executionbar_toggle_play('exebar1') ;
             }
 
@@ -415,7 +418,7 @@
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
 					  $('[data-toggle=tooltip]').tooltip('hide');
-                                          $("#infohw1").attr('components', 'elements,states,signals,behaviors');
+                                        //$("#infohw1").attr('components', 'summary,elements,states,signals,behaviors');
 	                                  simcoreui_show_hw();
 					  var ws_idiom = get_cfg('ws_idiom');
 					  i18n_update_tags('gui', ws_idiom);
@@ -818,6 +821,106 @@
             // add if recording
             simcore_record_append_new('Toggle the "quick slider"',
 		                      'wsweb_quickslider_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    // quick cpucu
+    function wsweb_quickcpuview_show ( )
+    {
+	    $('#popover-cpuview').popover('show') ;
+
+            // add if recording
+            simcore_record_append_new('Open the "quick cpuview"',
+		                      'wsweb_quickcpuview_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickcpuview_close ( )
+    {
+	    $('#popover-cpuview').popover('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close the "quick cpuview"',
+		                      'wsweb_quickcpuview_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickcpuview_toggle ( )
+    {
+	    $('#popover-cpuview').popover('toggle') ;
+
+            // add if recording
+            simcore_record_append_new('Toggle the "quick cpuview"',
+		                      'wsweb_quickcpuview_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_cpuview_as_graph ( )
+    {
+            update_cfg("CPUCU_show_graph", true) ;
+            show_cpuview_view() ;
+
+            // add if recording
+            simcore_record_append_new('Toggle to "view as graphic"',
+		                      'wsweb_cpuview_as_graph();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_cpuview_as_text ( )
+    {
+            update_cfg("CPUCU_show_graph", false) ;
+            show_cpuview_view() ;
+
+            // add if recording
+            simcore_record_append_new('Toggle to "view as text"',
+		                      'wsweb_cpuview_as_text();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    // quick rfcfg
+    function wsweb_quickrf_show ( )
+    {
+	    $('#popover-rfcfg').popover('show') ;
+
+            // add if recording
+            simcore_record_append_new('Open the "quick rfcfg"',
+		                      'wsweb_quickrf_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickrf_close ( )
+    {
+	    $('#popover-rfcfg').popover('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close the "quick rfcfg"',
+		                      'wsweb_quickrf_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickrf_toggle ( )
+    {
+	    $('#popover-rfcfg').popover('toggle') ;
+
+            // add if recording
+            simcore_record_append_new('Toggle the "quick rfcfg"',
+		                      'wsweb_quickrf_toggle();\n') ;
 
             // return ok
             return true ;

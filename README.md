@@ -4,9 +4,9 @@
 [![Build Status](https://app.travis-ci.com/acaldero/wepsim.svg?branch=master)](https://app.travis-ci.com/acaldero/wepsim)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
 [![codebeat badge](https://codebeat.co/badges/66773495-9967-4514-8c2c-916293f584b5)](https://codebeat.co/projects/github-com-acaldero-wepsim-master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://www.codacy.com/app/acaldero.uc3m/wepsim)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://app.codacy.com/gh/acaldero/wepsim/dashboard)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
-[![Release](https://img.shields.io/badge/Stable-2.1.6-green.svg)](https://github.com/acaldero/wepsim/releases/tag/v2.1.6)
+[![Release](https://img.shields.io/badge/Stable-2.1.7-green.svg)](https://github.com/acaldero/wepsim/releases/tag/v2.1.7)
 
 
 ## Table of contents
@@ -40,9 +40,9 @@
   * Check you have installed Node v10.5.0+, and Bash 4.4.19+:
     * sudo apt-get install nodejs npm bash -y
   * Get WepSIM by executing:
-    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.6/wepsim-2.1.6.zip
-    * unzip wepsim-2.1.6.zip
-    * cd wepsim-2.1.6
+    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.7/wepsim-2.1.7.zip
+    * unzip wepsim-2.1.7.zip
+    * cd wepsim-2.1.7
     * npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
   * Execute wepsim.sh with the help flag in order to show the available command switches:
     * ./wepsim.sh -h
@@ -308,12 +308,12 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 !echo "(1/4) Installing pre-requisites..."
 !npm install  terser jq jshint yargs clear inquirer >& /dev/null
 !echo "(2/4) Downloading WepSIM..."
-!wget https://github.com/acaldero/wepsim/releases/download/v2.1.6/wepsim-2.1.6.zip >& /dev/null
-!unzip -o wepsim-2.1.6.zip  >& /dev/null
-!rm -fr   wepsim-2.1.6.zip
+!wget https://github.com/acaldero/wepsim/releases/download/v2.1.7/wepsim-2.1.7.zip >& /dev/null
+!unzip -o wepsim-2.1.7.zip  >& /dev/null
+!rm -fr   wepsim-2.1.7.zip
 !echo "(3/4) Executing WepSIM..."
-!./wepsim-2.1.6/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.1.6/examples/microcode/mc-ep_mips_base.txt -s ./wepsim-2.1.6/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
-!rm -fr   wepsim-2.1.6
+!./wepsim-2.1.7/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.1.7/examples/microcode/mc-ep_mips_base.txt -s ./wepsim-2.1.7/examples/assembly/asm-ep_s1_e1.txt > ./result.csv
+!rm -fr   wepsim-2.1.7
 !echo "(4/4) Showing execution trace as table..."
 
 import pandas as pd
@@ -401,10 +401,10 @@ cordova plugin add cordova-plugin-whitelist
 
 + 2.1) Copy WepSIM files into the www directory:
 ```bash
-wget https://github.com/acaldero/wepsim/releases/download/v2.1.6/wepsim-2.1.6.zip
-unzip wepsim-2.1.6.zip
+wget https://github.com/acaldero/wepsim/releases/download/v2.1.7/wepsim-2.1.7.zip
+unzip wepsim-2.1.7.zip
 mv www www.initial.$$
-cp -a wepsim-2.1.6/ws_dist www
+cp -a wepsim-2.1.7/ws_dist www
 ```
 
 + 2.2) Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:
