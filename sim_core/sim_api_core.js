@@ -282,6 +282,17 @@
         /**
          * Check if simulation can continue its execution
          */
+        function simcore_packerror_at ( reg_maddr, msg )
+        {
+                var ret = {} ;
+
+                var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
+                ret.ok  = false ;
+                ret.msg = msg + " at maddr=" + hex_maddr + "." ;
+
+                return ret ;
+        }
+
         function simcore_check_if_can_continue2 ( reg_maddr, reg_pc )
         {
                 var ret = {} ;
@@ -291,22 +302,14 @@
                 // if (MC[reg_maddr] == undefined) -> cannot continue
                 var curr_MC = simhw_internalState('MC') ;
                 var mcelto  = control_memory_get(curr_MC, reg_maddr) ;
-                if (typeof mcelto === "undefined")
-                {
-                    var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
-                    ret.ok  = false ;
-                    ret.msg = "Error: undefined microinstruction at maddr=" + hex_maddr + "." ;
-                    return ret ;
+                if (typeof mcelto === "undefined") {
+                    return simcore_packerror_at(reg_maddr, 'Error: undefined microinstruction') ;
                 }
 
                 // if (two or more tri-states are active) -> cannot continue
                 if ( (simhw_internalState_get('fire_visible', 'databus') == true) ||
-                     (simhw_internalState_get('fire_visible', 'internalbus') == true) )
-                {
-                     var hex_maddr = "0x" + parseInt(reg_maddr).toString(16) ;
-                     ret.ok  = false ;
-                     ret.msg = "Error: two or more tri-states are active at maddr=" + hex_maddr + "." ;
-                     return ret ;
+                     (simhw_internalState_get('fire_visible', 'internalbus') == true) ) {
+                     return simcore_packerror_at(reg_maddr, 'Error: two or more tri-states are active') ;
                 }
 
                 // if (inside *text) -> can continue

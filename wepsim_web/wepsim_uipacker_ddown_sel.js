@@ -120,7 +120,7 @@
                    this.details = {
                                      'CPU':         [ 'all', 'mc', 'cpu' ],
                                      'Main Memory': [ 'mp', 'mpcfg' ],
-                                     'Devices':     [ 'con', 'io', 'iocfg', 'iol3d' ],
+                                     'Devices':     [ 'con', 'io', 'iocfg', 'iol3d', 'ioldm' ],
                                      'Simulation':  [ 'ed_mc', 'ed_mp' ]
                                  //  'Simulation':  [ 'ed_hw', 'ed_mc', 'ed_mp' ]
                                   } ;
@@ -152,6 +152,9 @@
 			       iol3d: '      <a class="dropdown-item user_archived" href="#" id="s5b_25" value="25"' +
 				      '	 onclick="wsweb_set_details(\'3DLED\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'I/O 3D-Led\'>I/O 3D-Led</span></a>',
+			       ioldm: '      <a class="dropdown-item user_archived" href="#" id="s5b_27" value="27"' +
+				      '	 onclick="wsweb_set_details(\'LEDMATRIX\');' +
+				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'I/O Led-Matrix\'>I/O Led-Matrix</span></a>',
 			       ed_hw: '      <a class="dropdown-item" href="#" id="s5b_22" value="22"' +
 				      '	 onclick="wsweb_set_details(\'HARDWARE\');' +
 				      '		  return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>',

@@ -20,11 +20,11 @@
    loop_z: beq $t3 $t0 end_z
            # m = <x|y|z|v>
            li  $t5 0
-           or  $t5 $t5 $t1
+           or  $t5 $t5 $t3
            sll $t5 $t5 8
            or  $t5 $t5 $t2
            sll $t5 $t5 8
-           or  $t5 $t5 $t3
+           or  $t5 $t5 $t1
            sll $t5 $t5 8
            or  $t5 $t5 $t6
            # out <x|y|z|v>

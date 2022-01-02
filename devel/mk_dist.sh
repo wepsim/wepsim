@@ -79,6 +79,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_ep/sim_hw_kbd.js \
     sim_hw/sim_hw_ep/sim_hw_scr.js \
     sim_hw/sim_hw_ep/sim_hw_l3d.js \
+    sim_hw/sim_hw_ep/sim_hw_ldm.js \
     sim_hw/sim_hw_poc/sim_poc.js \
     sim_hw/sim_hw_poc/sim_hw_board.js \
     sim_hw/sim_hw_poc/sim_hw_cpu.js \
@@ -87,6 +88,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_poc/sim_hw_kbd.js \
     sim_hw/sim_hw_poc/sim_hw_scr.js \
     sim_hw/sim_hw_poc/sim_hw_l3d.js \
+    sim_hw/sim_hw_poc/sim_hw_ldm.js \
     \
     sim_sw/sim_lang.js \
     sim_sw/sim_decode.js \
@@ -159,6 +161,7 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_io_info.js \
     wepsim_web/wepsim_uielto_io_config.js \
     wepsim_web/wepsim_uielto_l3d.js \
+    wepsim_web/wepsim_uielto_ldm.js \
     wepsim_web/wepsim_uielto_editmc.js \
     wepsim_web/wepsim_uielto_editas.js \
     wepsim_web/wepsim_uielto_dbg_mc.js \

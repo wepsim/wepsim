@@ -254,6 +254,16 @@
 						        }
 	                      },
 
+	    "LEDMATRIX":      {
+						  init: function() {
+							   var o = document.getElementById("ldm1") ;
+							   if (typeof o !== "undefined") o.render(msg_default) ;
+						        },
+						 reset: function() {
+						           return true ;
+						        }
+	                      },
+
 	    "SCREEN":         {
 		                                  init: function() {
 						           return true ;
