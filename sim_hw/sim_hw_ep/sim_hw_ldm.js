@@ -74,7 +74,7 @@
 	 *  States - LEDM parameters
 	 */
 
-        sim.ep.internal_states.ledm_dim    = 16 ;
+        sim.ep.internal_states.ledm_dim    = 24 ;
         sim.ep.internal_states.ledm_neltos = Math.pow(sim.ep.internal_states.ledm_dim, 2) ;
         sim.ep.internal_states.ledm_state  = Array.from({length:sim.ep.internal_states.ledm_neltos}, 
 						       () => ({color:0})) ;
@@ -203,7 +203,7 @@
                                                           var y = (bus_db & 0x00FF0000) >> 16 ;
 
                                                           var p = y*sim.ep.internal_states.ledm_dim + x ;
-                                                          var s = (bus_db & 0x000000FF) != 0 ;
+                                                          var s = (bus_db & 0x000000FF) ;
 
 						          set_var(sim.ep.internal_states.ledm_state[p].color, s);
 						      }

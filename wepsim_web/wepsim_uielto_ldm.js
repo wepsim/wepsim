@@ -105,7 +105,7 @@
 			   "</table>" +
                            "" +
 			   "<div class='row mt-3'>" +
-			   "<div class='col-12' style=''>" ;
+			   "<div class='col-auto' style=''>" ;
 
 			o1 += "<table class='table table-hover table-sm table-bordered pb-3'>" ;
 			    for (var j=0; j<ledm_dim; j++)
@@ -113,9 +113,10 @@
 			o1 += "<tr>" ;
 				    for (var k=0; k<ledm_dim; k++)
 				    {
-			o1 += "<td align='center' id='ledm" + (j*ledm_dim + k) + "_context' " +
+			o1 += "<td align='center' style='height:15px; width:15px;' " +
+                              "    id='ledm" + (j*ledm_dim + k) + "_context' " +
                               "    v-bind:class='[ webui_ledm_value2color(value), \"m-0\" ]' " +
-                              "    v-on:click='value = (value + 1) % 8'>&nbsp;</td>" ;
+                              "    v-on:click='value = (value + 1) % 8'></td>" ;
 				    }
 			o1 += "</tr>" ;
 			    }

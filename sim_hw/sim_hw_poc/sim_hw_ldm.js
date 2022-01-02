@@ -74,7 +74,7 @@
 	 *  States - LEDM parameters
 	 */
 
-        sim.poc.internal_states.ledm_dim    = 16 ;
+        sim.poc.internal_states.ledm_dim    = 24 ;
         sim.poc.internal_states.ledm_neltos = Math.pow(sim.poc.internal_states.ledm_dim, 2) ;
         sim.poc.internal_states.ledm_state  = Array.from({length:sim.poc.internal_states.ledm_neltos}, 
 							() => ({color:0})) ;
@@ -203,7 +203,7 @@
                                                           var y = (bus_db & 0x00FF0000) >> 16 ;
 
                                                           var p = y*sim.poc.internal_states.ledm_dim + x ;
-                                                          var s = (bus_db & 0x000000FF) != 0 ;
+                                                          var s = (bus_db & 0x000000FF) ;
 
 						          var ledmstates = sim.poc.internal_states.ledm_state ;
 						          set_var(ledmstates[p].color, s);
