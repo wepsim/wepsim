@@ -209,6 +209,17 @@
     "testing":          true
   },
   {
+    "id":		"S6E5",
+    "title":		"Led Matrix",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_mips_enhanced",
+    "assembly":		"ep_s6_e5",
+    "description":	"<span data-langkey='example_06_05'>Example for Led matrix.</span>",
+    "testing":          true
+  },
+  {
     "id":		"S7E1",
     "title":		"MIPS32-like",
     "type":		"<span data-langkey='Native'>Native</span>",

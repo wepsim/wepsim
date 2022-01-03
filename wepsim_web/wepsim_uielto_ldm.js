@@ -104,7 +104,7 @@
 			   "</td></tr>" +
 			   "</table>" +
                            "" +
-			   "<div class='row mt-3'>" +
+			   "<div class='row mt-3 justify-content-center'>" +
 			   "<div class='col-auto' style=''>" ;
 
 			o1 += "<table class='table table-hover table-sm table-bordered pb-3'>" ;
