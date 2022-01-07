@@ -119,6 +119,7 @@
                               "    v-on:click='value = !value'>" +
 			      "<i  style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
                               "    v-bind:class='[ value ? \"fas\" : \"far\", \"fa-lightbulb\" ]'></i>" +
+                              "<span class='sr-only'>{{value}}</span>" +
 			      "</td>" ;
 				    }
 			o1 += "</tr>" ;

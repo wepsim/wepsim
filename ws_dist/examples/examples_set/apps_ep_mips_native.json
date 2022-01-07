@@ -187,14 +187,14 @@
     "testing":          true
   },
   {
-    "id":		"S6E4",
+    "id":		"S6E5",
     "title":		"Led Matrix",
     "type":		"<span data-langkey='Special'>Special</span>",
     "modes":		"newbie,intro,asm_mips",
     "hardware":		"ep",
     "microcode":	"ep_mips",
-    "assembly":		"ep_s6_e4",
-    "description":	"<span data-langkey='example_06_04'>Example for Led matrix.</span>",
+    "assembly":		"ep_s6_e5",
+    "description":	"<span data-langkey='example_06_05'>Example for Led matrix.</span>",
     "testing":          true
   }
 ]

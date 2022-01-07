@@ -104,7 +104,7 @@
 			   "</td></tr>" +
 			   "</table>" +
                            "" +
-			   "<div class='row mt-3'>" +
+			   "<div class='row mt-3 justify-content-center'>" +
 			   "<div class='col-auto' style=''>" ;
 
 			o1 += "<table class='table table-hover table-sm table-bordered pb-3'>" ;
@@ -116,7 +116,9 @@
 			o1 += "<td align='center' style='height:15px; width:15px;' " +
                               "    id='ledm" + (j*ledm_dim + k) + "_context' " +
                               "    v-bind:class='[ webui_ledm_value2color(value), \"m-0\" ]' " +
-                              "    v-on:click='value = (value + 1) % 8'></td>" ;
+                              "    v-on:click='value = (value + 1) % 8'>" +
+                              "<span class='sr-only'>{{webui_ledm_value2color(value)}}</span>" +
+                              "</td>" ;
 				    }
 			o1 += "</tr>" ;
 			    }

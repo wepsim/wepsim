@@ -238,13 +238,14 @@
                                                         sim.ep.events.l3d = {} ;
 
 						        // reset the I/O factory
-						        for (var i=0; i<sim.ep.internal_states.l3d_state.length; i++)
-						        {
+						        var n = sim.ep.internal_states.l3d_state.length ;
+						        for (var i=0; i<n; i++) {
 						             set_var(sim.ep.internal_states.l3d_state[i].active, false);
 						        }
 
 						        // REST
-						        var o = '0'.repeat(64) ;
+						            n = Math.pow(sim.ep.internal_states.l3d_dim, 3) ;
+						        var o = '0'.repeat(n) ;
                                                         sim.ep.internal_states.l3d_frame = o ;
 						        simcore_rest_call('L3D', 'POST', '/', {'frame': o}) ;
 							    // 201 (Created) -> ok
@@ -263,11 +264,12 @@
 						        var l3dstates = sim.ep.internal_states.l3d_state ;
 						        var o = '' ;
 						        var p = 0 ;
-						        for (var i=0; i<4; i++)
+                                                        var n = sim.ep.internal_states.l3d_dim ;
+						        for (var i=0; i<n; i++)
 						        {
-						    	     for (var j=0; j<4; j++)
+						    	     for (var j=0; j<n; j++)
 							     {
-							          for (var k=0; k<4; k++)
+							          for (var k=0; k<n; k++)
 							          {
                                                                        p = k*Math.pow(sim.ep.internal_states.l3d_dim, 2) +
 							                   j*sim.ep.internal_states.l3d_dim +

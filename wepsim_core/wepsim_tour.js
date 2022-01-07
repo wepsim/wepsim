@@ -44,16 +44,16 @@
              }
 
 	     ws_tour.setOptions({
-                                steps:              newbie_tour1,
-				keyboardNavigation: true,
-				tooltipClass:       'tooltip-large',
-				showProgress:       true,
-				showStepNumbers:    true,
-				scrollToElement:    true,
-                                nextLabel:          i18n_get('gui', ws_idiom, 'Next'),
-                                prevLabel:          i18n_get('gui', ws_idiom, 'Prev.'),
-	                        overlayOpacity:     '0.2'
-                             }) ;
+                                  steps:              newbie_tour1,
+				  keyboardNavigation: true,
+				  tooltipClass:       'tooltip-large',
+				  showProgress:       true,
+				  showStepNumbers:    true,
+				  scrollToElement:    true,
+                                  nextLabel:          i18n_get('gui', ws_idiom, 'Next'),
+                                  prevLabel:          i18n_get('gui', ws_idiom, 'Prev.'),
+	                          overlayOpacity:     '0.2'
+                               }) ;
 
 	     ws_tour.onbeforechange(function () {
                                         newbie_tour1[this._currentStep].do_before() ;
