@@ -276,7 +276,6 @@ cat external/bootstrap/bootstrap.min.css \
     external/vis/vis-network.min.css \
     external/bootstrap-tokenfield.css \
     external/introjs/introjs.min.css \
-    external/introjs/introjs.cfg.css \
     external/speech-input.css \
     external/dropify/dropify.min.css \
     external/fontawesome/all.css \

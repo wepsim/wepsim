@@ -9,8 +9,9 @@
   * More UI text translated.
   * Updated detection of several activated tri-states
 * Main external dependencies updated:
-  * Bump bootstrap from 4.6.0 to 4.6.1
-  * Bump introjs   from 4.1.0 to 4.3.0
+  * Bump bootstrap  from 4.6.0  to 4.6.1
+  * Bump introjs    from 4.1.0  to 4.3.0
+  * Bump codemirror from 5.52.2 to 5.65.0
 
 ## 2.1.5 -> 2.1.6:
 * Several minor improvements on RISC-V examples
