@@ -152,8 +152,8 @@
 	           np.ioldm = this.mk_nav_tabpane_item('ioldm', '',  '<ws-ledm id="ldm1"></ws-ledm>') ;
 	       //  np.ed_hw = this.mk_nav_tabpane_item('ed_hw', '',  '<ws-hw  id="infohw1" components="summary,elements,states,signals,behaviors"></ws-hw>') ;
 
-                   np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc layout="placeholder"></ws_edit_mc>') ;
-                   np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as layout="placeholder"></ws_edit_as>') ;
+                   np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc layout="compilebar,placeholder"></ws_edit_mc>') ;
+                   np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as layout="compilebar,placeholder"></ws_edit_as>') ;
 
                    return np ;
 	      }

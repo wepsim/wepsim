@@ -81,12 +81,12 @@
 			     '' +
 			     '  <div class="tab-pane fade user_microcode" id="nav-microcode" role="tabpanel" ' +
 			     '       aria-labelledby="nav-microcode-tab">' +
-			     '       <ws-edit-mc layout="editor"></ws-edit-mc>' +
+			     '       <ws-edit-mc layout="compilebar,editor"></ws-edit-mc>' +
 			     '  </div>' +
 			     '' +
 			     '  <div class="tab-pane fade" id="nav-assembly" role="tabpanel" ' +
 			     '       aria-labelledby="nav-assembly-tab">' +
-			     '       <ws-edit-as layout="editor"></ws-edit-as>' +
+			     '       <ws-edit-as layout="compilebar,editor"></ws-edit-as>' +
 			     '  </div>' +
 			     '' +
 			     '  </div>' +

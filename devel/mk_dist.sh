@@ -201,6 +201,10 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_compilationbar.js \
     wepsim_web/wepsim_uielto_toolbar.js \
     \
+    wepsim_web/wepsim_uiscreen_mc.js \
+    wepsim_web/wepsim_uiscreen_asm.js \
+    wepsim_web/wepsim_uiscreen_sim.js \
+    \
     wepsim_web/wepsim_web_api.js \
     wepsim_web/wepsim_web_editor.js \
     wepsim_web/wepsim_web_simulator.js > ws_dist/wepsim_webui.js
