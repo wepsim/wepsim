@@ -54,13 +54,20 @@
 
 	      render_populate ( )
 	      {
-                   var o1 = '' ;
-
+                   // get layout value
                    var ly = 'placeholder' ;
-                   if (this.layout != null)
+                   if (this.layout != null) {
                        ly = this.layout.trim() ;
+                   }
+
+                   // (layout == 'both') -> make & load HTML code
+                   if (ly == 'both') {
+                       this.innerHTML = this.render_layout_both() ;
+                       return ;
+                   }
 
                    // make HTML code
+                   var o1 = '' ;
                    o1  = '<div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">' +
                          '' +
                          '    <div class="row p-0">' +
@@ -78,26 +85,51 @@
                          '' ;
 
                    if (ly == 'placeholder')
-                   o1 += '    <div id="t3_firm_placeholder2" ' + 
-                         '         class="ui-body-d ui-content px-2 py-0" ' + 
-                         '         style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-                         '    </div>' +
-                         '' ;
-                   else
-                   o1 += '    <div id="t3_firm" class="ui-body-d ui-content p-0"' +
-			 '	   style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-			 '	   <label class="my-0" for="inputFirmware"><span data-langkey="microcode">microcode</span>:</label>' +
-			 '	   <textarea aria-label="microcode"' +
-			 '		     style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"' +
-			 '		     placeholder="Please select \'Example\' or \'Load\' first in order to have an initial Microcode."' +
-			 '		     id="inputFirmware" rows="20"></textarea>' +
-                         '    </div>' +
-                         '' ;
+                        o1 += this.render_layout_placeholder() ;
+                   else o1 += this.render_layout_editor() ;
 
                    o1 += '</div>' ;
 
                    // load HTML
                    this.innerHTML = o1 ;
+	      }
+
+              // Auxiliar methods
+	      render_layout_placeholder ( )
+	      {
+                   return '<div id="t3_firm_placeholder2" ' + 
+                          '     class="ui-body-d ui-content px-2 py-0" ' + 
+                          '     style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+                          '</div>' ;
+	      }
+
+	      render_layout_editor ( )
+	      {
+                   return '<div id="t3_firm" class="ui-body-d ui-content p-0"' +
+			  '	style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+	                  this.render_textarea() +
+                          '</div>' ;
+	      }
+
+	      render_layout_both ( )
+	      {
+                   return '<div id="t3_firm_placeholder1" ' + 
+                          '      class="ui-body-d ui-content px-2 py-0" ' + 
+                          '      style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+                          '<div id="t3_firm" class="ui-body-d ui-content p-0">' +
+	                  this.render_textarea() +
+                          '</div>' +
+                          '</div>' ;
+	      }
+
+	      render_textarea ( )
+	      {
+                   return '<label class="my-0" for="inputFirmware">' +
+                          '<span data-langkey="microcode">microcode</span>:</label>' +
+                          '<textarea aria-label="microcode"' +
+			  '	     style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"' +
+			  '	     placeholder="Please select \'Example\' or \'Load\' first in order to have an initial Microcode."' +
+			  '	     id="inputFirmware" rows="20"></textarea>' ;
 	      }
         }
 
