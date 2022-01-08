@@ -55,81 +55,77 @@
 	      render_populate ( )
 	      {
                    // get layout value
-                   var ly = 'placeholder' ;
+                   var ly = [] ;
                    if (this.layout != null) {
-                       ly = this.layout.trim() ;
+                       ly = this.layout.trim().split(',') ;
                    }
 
-                   // (layout == 'both') -> make & load HTML code
-                   if (ly == 'both') {
-                       this.innerHTML = this.render_layout_both() ;
-                       return ;
-                   }
+                   // get id values
+                   var ta_id = "inputFirmware" ;
+                   var ed_id = "t3_firm" ;
 
                    // make HTML code
-                   var o1 = '' ;
-                   o1  = '<div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">' +
-                         '' +
-                         '    <div class="row p-0">' +
-                         '	   <div class="container col-12 pr-0" role="none">' +
-                         '	   <div class="col-sm px-1" role="toolbar" ' + 
-                         '              aria-label="MicroCode Toolbar">' +
-                         '              <ws-compilationbar' +
-                         '                  icons="up"' +
-                         '                  components="btn_mloadsave,btn_mcompile,btn_mshowbin"' +
-                         '                  class="btn-group m-1 d-flex flex-wrap"' +
-                         '                  aria-label="MicroCode Toolbar buttons"></ws-compilationbar>' +
-                         '	   </div>' +
-                         '	   </div>' +
-                         '    </div>' +
-                         '' ;
-
-                   if (ly == 'placeholder')
-                        o1 += this.render_layout_placeholder() ;
-                   else o1 += this.render_layout_editor() ;
-
-                   o1 += '</div>' ;
+                   var o1 = this.render_layout(ly, ta_id, ed_id) ;
+                   if (ly.includes('compilebar')) {
+                       o1 = '<div id="edit_MC" ' +
+                            '     style="width:inherit; overflow-y:auto; overflow-x:hidden;">' + o1 + '</div>' ;
+                   }
 
                    // load HTML
                    this.innerHTML = o1 ;
 	      }
 
               // Auxiliar methods
-	      render_layout_placeholder ( )
+	      render_layout ( ly, ta_id, ed_id )
 	      {
-                   return '<div id="t3_firm_placeholder2" ' + 
-                          '     class="ui-body-d ui-content px-2 py-0" ' + 
-                          '     style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-                          '</div>' ;
+                   var o1 = "" ;
+
+                   if (ly.includes('compilebar'))
+                       o1 += ' <div class="row p-0">' +
+                             '	 <div class="container col-12 pr-0" role="none">' +
+                             '	 <div class="col-sm px-1" role="toolbar" ' + 
+                             '        aria-label="MicroCode Toolbar">' +
+                             '      <ws-compilationbar' +
+                             '            icons="up"' +
+                             '            components="btn_mloadsave,btn_mcompile,btn_mshowbin"' +
+                             '            class="btn-group m-1 d-flex flex-wrap"' +
+                             '            aria-label="MicroCode Toolbar buttons"></ws-compilationbar>' +
+                             '	 </div>' +
+                             '	 </div>' +
+                             ' </div>' ;
+
+                   if (ly.includes('placeholder'))
+                       o1 += '<div id="' + ed_id + '_placeholder2" ' + 
+                             '     class="ui-body-d ui-content px-2 py-0" ' + 
+                             '     style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+                             '</div>' ;
+
+                   if (ly.includes('editor'))
+                       o1 += '<div id="' + ed_id + '" class="ui-body-d ui-content p-0"' +
+			     '	style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+	                     this.render_textarea(ta_id) +
+                             '</div>' ;
+
+                   if (ly.includes('both'))
+                       o1 += '<div id="' + ed_id + '_placeholder1" ' + 
+                             '      class="ui-body-d ui-content px-2 py-0" ' + 
+                             '      style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+                             '<div id="' + ed_id + '" class="ui-body-d ui-content p-0">' +
+	                     this.render_textarea(ta_id) +
+                             '</div>' +
+                             '</div>' ;
+
+                   return o1 ;
 	      }
 
-	      render_layout_editor ( )
+	      render_textarea ( ta_id )
 	      {
-                   return '<div id="t3_firm" class="ui-body-d ui-content p-0"' +
-			  '	style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-	                  this.render_textarea() +
-                          '</div>' ;
-	      }
-
-	      render_layout_both ( )
-	      {
-                   return '<div id="t3_firm_placeholder1" ' + 
-                          '      class="ui-body-d ui-content px-2 py-0" ' + 
-                          '      style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
-                          '<div id="t3_firm" class="ui-body-d ui-content p-0">' +
-	                  this.render_textarea() +
-                          '</div>' +
-                          '</div>' ;
-	      }
-
-	      render_textarea ( )
-	      {
-                   return '<label class="my-0" for="inputFirmware">' +
+                   return '<label class="my-0" for="' + ta_id + '">' +
                           '<span data-langkey="microcode">microcode</span>:</label>' +
                           '<textarea aria-label="microcode"' +
 			  '	     style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"' +
 			  '	     placeholder="Please select \'Example\' or \'Load\' first in order to have an initial Microcode."' +
-			  '	     id="inputFirmware" rows="20"></textarea>' ;
+			  '	     id="' + ta_id + '" rows="20"></textarea>' ;
 	      }
         }
 

@@ -133,6 +133,9 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uipacker_sim_mic_asm.js
  jshint ./wepsim_web/wepsim_uipacker_ddown_info.js
  jshint ./wepsim_web/wepsim_uipacker_ddown_sel.js
+ jshint ./wepsim_web/wepsim_uiscreen_mc.js
+ jshint ./wepsim_web/wepsim_uiscreen_asm.js
+ jshint ./wepsim_web/wepsim_uiscreen_sim.js
  jshint ./wepsim_web/wepsim_web_api.js
  jshint ./wepsim_web/wepsim_web_editor.js
 #jshint ./wepsim_web/wepsim_web_pwa.js
