@@ -208,6 +208,7 @@
 	"EP:L3D:STATES:DATA":                       "Data bus",
 	"EP:L3D:SIGNALS:IOR":                       "Read from L3D",
 	"EP:L3D:SIGNALS:IOW":                       "Write into the L3D",
+
 	"POC:CPU_T1:STATES:IN":                     "Input is the value of MBR register",
 	"POC:CPU_T1:STATES:OUT":                    "Output goes to the Internal Bus",
 	"POC:CPU_T1:SIGNALS:CTL":                   "Confirm that output is connected to the input",
