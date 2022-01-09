@@ -17,10 +17,10 @@ checks:
       threshold: 80
   method-lines:
     config:
-      threshold: 768
+      threshold: 1024
   nested-control-flow:
     config:
-      threshold: 8
+      threshold: 16
   return-statements:
     config:
       threshold: 64
@@ -42,4 +42,3 @@ exclude_patterns:
   - "examples/"
   - "external/"
   - "ws_dist/"
-  - "ws_devel/"
