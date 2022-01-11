@@ -86,7 +86,7 @@
 	              <span id="loading_msg1" class="sr-only">Loading...</span>
 		    </div>
 		    <br/><br/>
-		    <span class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
+		    <span id="ws_loader_msg" class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
 		</td>
 		</tr>
 		</table>
@@ -111,8 +111,8 @@
     {
 	    // basic initialization of wepsim...
 	    simcore_init(true) ;
-	    simcore_welcome() ;
 	    upgrade_cfg() ;
+	    $("#ws_loader_msg").html("Initializing WepSIM...") ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin_ui') ;
@@ -135,19 +135,7 @@
 	    // ...after jquery-ready
 	    $(document).ready(function()
 	    {
-		    try
-		    {
-			    // load ui, and default working-set
-			    wepsim_init_ui() ;
-    			    wepsim_init_default() ;
-
-                            $("#ws_loader").collapse('hide') ;
-		    }
-		    catch(err)
-		    {
-                            $("#ws_loader").collapse('hide') ;
-			    wepsim_general_exception_handler(err) ;
-		    }
+                 $("#ws_loader").collapse('hide') ;
 	    }) ;
 
             // progressive web application

@@ -79,16 +79,15 @@
                    // load HTML
                    this.innerHTML = o1 ;
 
-/* 2.1.8: 
- * Move part of classic/compact HTML code to this function
- * If event name is connectedCallback/attributeChangedCallback then only initialize once
+	           // basic initialization of wepsim first time...
+		   if ("connectedCallback" == event_name)
+		   {
+	               simcore_init(true) ;
+	               simcore_welcome() ;
+	               upgrade_cfg() ;
+		   }
 
-	           // basic initialization of wepsim...
-	           simcore_init(true) ;
-	           simcore_welcome() ;
-	           upgrade_cfg() ;
-
-	           // ...and after jquery-ready
+	           // ...and full initialization after jquery-ready
 	           $(document).ready(function()
 	           {
 		       try
@@ -101,7 +100,6 @@
 			   wepsim_general_exception_handler(err) ;
 		       }
 	           }) ;
-*/
 	      }
         }
 
