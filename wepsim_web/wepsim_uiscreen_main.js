@@ -78,6 +78,30 @@
 
                    // load HTML
                    this.innerHTML = o1 ;
+
+/* 2.1.8: 
+ * Move part of classic/compact HTML code to this function
+ * Add argument to ui_elto this.render -> render in all components -> render_populate that is used to initialize only once (connectedCallback/attributeChangedCallback)
+
+	           // basic initialization of wepsim...
+	           simcore_init(true) ;
+	           simcore_welcome() ;
+	           upgrade_cfg() ;
+
+	           // ...and after jquery-ready
+	           $(document).ready(function()
+	           {
+		       try
+		       {
+			   wepsim_init_ui() ;
+    			   wepsim_init_default() ;
+		       }
+		       catch(err)
+		       {
+			   wepsim_general_exception_handler(err) ;
+		       }
+	           }) ;
+*/
 	      }
         }
 
