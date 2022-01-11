@@ -100,6 +100,7 @@
 		       try
 		       {
 			   wepsim_init_ui() ;
+                           wepsim_example_reset() ;
     			   wepsim_init_default() ;
 		       }
 		       catch(err)
