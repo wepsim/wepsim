@@ -82,16 +82,16 @@
 		<table style="width:100%; height:100%; position:fixed; background-color: white; z-index:4096;">
 		<tr>
 		<td align="center">
-		    <div class="spinner-border spinner-border-xl text-success" role="status">
-	              <span id="loading_msg1" class="sr-only">Loading...</span>
+		    <div id="wsl_spinner1" class="spinner-border spinner-border-xl text-success" role="status">
+	              <span id="wsl_msg1" class="sr-only">Loading...</span>
 		    </div>
 		    <br/><br/>
-		    <span id="ws_loader_msg" class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
+		    <span id="wsl_msg2"
+                          class="text-primary font-weight-bold p-3"><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></span>
 		</td>
 		</tr>
 		</table>
 	</span>
-
 
         <ws-web-main id="ws2" layout="compact"></ws-web-main>
 
@@ -112,7 +112,6 @@
 	    // basic initialization of wepsim...
 	    simcore_init(true) ;
 	    upgrade_cfg() ;
-	    $("#ws_loader_msg").html("Initializing WepSIM...") ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin_ui') ;
@@ -122,7 +121,7 @@
 
 		var msg = 'WepSIM has been updated...' ;
 		console.log(msg) ;
-		$("#loading_msg1").html(msg) ;
+		$("#wsl_msg2").html(msg) ;
 
 	        setTimeout(function(){
 	           window.location='wepsim-classic.html' + window.location.search ;
@@ -132,11 +131,13 @@
 	        window.location='wepsim-' + optValue + '.html' + window.location.search ;
             }
 
-	    // ...after jquery-ready
-	    $(document).ready(function()
-	    {
-                 $("#ws_loader").collapse('hide') ;
-	    }) ;
+	    // show progress...
+	    var m = "<sub><span data-langkey='Initializing'>Initializing</span></sub> WepSIM..." ;
+	    $("#wsl_msg2").html(m) ;
+
+            $(document).ready(function() {
+				 $("#ws_loader").collapse('hide') ;
+			      }) ;
 
             // progressive web application
             wepsim_init_PWA() ;

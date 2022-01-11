@@ -47,8 +47,9 @@
 	      render_skel ( )
 	      {
                    // make HTML code
-                   var o1 = '<h2>Loading...</h2>' +
-                            '<h2>Valid values for the "layout" attribute: classic, compact</h2>' ;
+                   var o1 = '<h2>ws-web-main:<br>' +
+                            '<li>Valid values for the "layout" attribute are: classic or compact</li>' +
+                            '</h2>' ;
 
                    // load HTML
                    this.innerHTML = o1 ;
@@ -85,6 +86,12 @@
 	               simcore_init(true) ;
 	               simcore_welcome() ;
 	               upgrade_cfg() ;
+		   }
+
+                   // (if empty HTML then return)
+		   if ('' == o1) {
+	               this.render_skel() ;
+                       return ;
 		   }
 
 	           // ...and full initialization after jquery-ready
