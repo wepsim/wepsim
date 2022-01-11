@@ -32,7 +32,7 @@
 		    super();
 	      }
 
-	      render ( )
+	      render ( event_name )
 	      {
 		    // html holder
 		    var o1 =    '<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">' +
