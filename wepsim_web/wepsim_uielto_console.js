@@ -33,7 +33,7 @@
               }
 
               // render
-	      render ( )
+	      render ( event_name )
 	      {
 		    // html holder
 		    var o1 = '<label class="my-0" for="kdb_con" style="min-width:95%">' +

@@ -32,7 +32,7 @@
 		    super();
 	      }
 
-	      render ( )
+	      render ( event_name )
 	      {
 		    // html holder
 		    var o1 = '<!-- Nav tabs -->' +
