@@ -33,7 +33,7 @@
 	      }
 
               // render
-	      render ( )
+	      render ( event_name )
 	      {
 		    // html holder
 		    var o1 = "<div class='container-fluid m-0 p-2'>" +

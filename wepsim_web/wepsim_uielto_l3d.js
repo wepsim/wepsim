@@ -41,7 +41,7 @@
 	      }
 
               // render
-              render ( )
+              render ( event_name )
               {
                     // initialize render elements...
                     super.render() ;

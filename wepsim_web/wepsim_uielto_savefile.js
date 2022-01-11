@@ -55,7 +55,7 @@
                         this.setAttribute('jshare', '') ;
 	      }
 
-	      render ( elto )
+	      render ( event_name )
 	      {
                     // update attributes
                     this.update_internal_attributes() ;
@@ -86,12 +86,12 @@
 
 	      connectedCallback ()
 	      {
-		    this.render(this) ;
+		    this.render('connectedCallback') ;
 	      }
 
 	      attributeChangedCallback (name, oldValue, newValue)
 	      {
-		    this.render(this) ;
+		    this.render('attributeChangedCallback') ;
 	      }
 
 	      get fid ( )
