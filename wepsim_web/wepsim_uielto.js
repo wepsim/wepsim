@@ -45,18 +45,12 @@
 
 	      connectedCallback ()
 	      {
-		    this.render() ;
-/* 2.1.8
 		    this.render('connectedCallback') ;
-*/
 	      }
 
 	      attributeChangedCallback (name, oldValue, newValue)
 	      {
-		    this.render() ;
-/* 2.1.8
 		    this.render('attributeChangedCallback') ;
-*/
 	      }
 
               // attributes

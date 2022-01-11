@@ -34,7 +34,7 @@
 	      }
 
               // render
-	      render ( )
+	      render ( event_name )
 	      {
 	            this.render_skel() ;
 	            this.render_populate() ;

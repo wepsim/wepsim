@@ -51,7 +51,7 @@
                     };
 	      }
 
-	      render ( )
+	      render ( event_name )
 	      {
                     // get updated attributes
 	            super.render() ;

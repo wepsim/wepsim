@@ -35,7 +35,7 @@
                     this.tf_div = "states_ALL" ;
 	      }
 
-	      render ( msg_default )
+	      render ( event_name )
 	      {
                     // html holder
 		    var o1 = "<div class='container text-right'>" +
