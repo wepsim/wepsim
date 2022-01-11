@@ -128,10 +128,14 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_topbar.js
  jshint ./wepsim_web/wepsim_uielto_slider_cpucu.js
  jshint ./wepsim_web/wepsim_uielto_slider_details.js
- jshint ./wepsim_web/wepsim_uipacker_cpucu.js
- jshint ./wepsim_web/wepsim_uipacker_ctoasm.js
+ jshint ./wepsim_web/wepsim_uipacker_cpu_cu.js
+ jshint ./wepsim_web/wepsim_uipacker_cto_asm.js
+ jshint ./wepsim_web/wepsim_uipacker_sim_mic_asm.js
  jshint ./wepsim_web/wepsim_uipacker_ddown_info.js
  jshint ./wepsim_web/wepsim_uipacker_ddown_sel.js
+ jshint ./wepsim_web/wepsim_uiscreen_classic.js
+ jshint ./wepsim_web/wepsim_uiscreen_compact.js
+ jshint ./wepsim_web/wepsim_uiscreen_main.js
  jshint ./wepsim_web/wepsim_web_api.js
  jshint ./wepsim_web/wepsim_web_editor.js
 #jshint ./wepsim_web/wepsim_web_pwa.js

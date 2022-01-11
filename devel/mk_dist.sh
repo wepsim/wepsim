@@ -181,8 +181,9 @@ cat wepsim_web/wepsim_uielto.js \
     \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
     wepsim_web/wepsim_uipacker_ddown_info.js \
-    wepsim_web/wepsim_uipacker_cpucu.js \
-    wepsim_web/wepsim_uipacker_ctoasm.js \
+    wepsim_web/wepsim_uipacker_cpu_cu.js \
+    wepsim_web/wepsim_uipacker_cto_asm.js \
+    wepsim_web/wepsim_uipacker_sim_mic_asm.js \
     \
     wepsim_web/wepsim_uielto_loadfile.js \
     wepsim_web/wepsim_uielto_savefile.js \
@@ -199,6 +200,10 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_executionbar.js \
     wepsim_web/wepsim_uielto_compilationbar.js \
     wepsim_web/wepsim_uielto_toolbar.js \
+    \
+    wepsim_web/wepsim_uiscreen_classic.js \
+    wepsim_web/wepsim_uiscreen_compact.js \
+    wepsim_web/wepsim_uiscreen_main.js \
     \
     wepsim_web/wepsim_web_api.js \
     wepsim_web/wepsim_web_editor.js \
