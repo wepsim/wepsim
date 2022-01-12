@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -57,7 +57,7 @@
 			  '            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
 			  '     </div>' +
 			  '     <div class="text-left col">' +
-			  '<span id="record_msg" class="text-left text-truncate">' + 
+			  '<span id="record_msg" class="text-left text-truncate">' +
                           '<em>0/0</em>&nbsp;&lt;empty recording&gt;' +
                           '</span>' +
 			  '     </div>' +
@@ -76,43 +76,43 @@
 		    o1 += '	  <a class="btn btn-sm btn-outline-secondary bg-light shadow-sm rounded px-2 mr-2" href="#"' +
                           '	     data-toggle="tooltip" data-placement="top" data-boundary="window"' +
                           '	     title="Remove recorded session"' +
-                          '	     onclick="wsweb_record_confirmReset(); ' + 
+                          '	     onclick="wsweb_record_confirmReset(); ' +
                           '                   return false;"><em class="fas fa-times text-danger"></em>' +
-                          '	     <span class="d-none d-md-inline-flex pl-1" ' + 
+                          '	     <span class="d-none d-md-inline-flex pl-1" ' +
                           '                data-langkey=\'Reset\'>Reset</span>' +
                           '	  </a>' +
                           '	  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"' +
                           '	     data-toggle="tooltip" data-placement="top" data-boundary="window"' +
                           '	     title="(While recording) add a new comment"' +
-                          '	     onclick="wsweb_notifyuser_add(); ' + 
+                          '	     onclick="wsweb_notifyuser_add(); ' +
                           '                   return false;"><em class="fas fa-comment"></em>' +
                           '	     <span class="d-none d-md-inline-flex pl-1" data-langkey=\'Comment\'>Comment</span>' +
                           '	  </a>' +
                           '	  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"' +
                           '	     data-toggle="tooltip" data-placement="top" data-boundary="window"' +
                           '	     title="Pause/Continue playback"' +
-                          '	     onclick="wsweb_record_pause(); ' + 
+                          '	     onclick="wsweb_record_pause(); ' +
                           '                   return false;"><em class="fas fa-pause"></em>' +
                           '	     <span class="d-none d-md-inline-flex pl-1" data-langkey=\'Pause\'>Pause</span>' +
                           '	  </a>' +
                           '	  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"' +
                           '	     data-toggle="tooltip" data-placement="top" data-boundary="window"' +
                           '	     title="Play"' +
-                          '	     onclick="wsweb_record_play(); ' + 
+                          '	     onclick="wsweb_record_play(); ' +
                           '                   return false;"><em class="fas fa-play"></em>' +
                           '	     <span class="d-none d-md-inline-flex pl-1" data-langkey=\'Play\'>Play</span>' +
                           '	  </a>' +
                           '	  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"' +
                           '	     data-toggle="tooltip" data-placement="top" data-boundary="window" data-html="true"' +
                           '	     title="Stop recording /<br>Reset playback"' +
-                          '	     onclick="wsweb_record_off(); ' + 
+                          '	     onclick="wsweb_record_off(); ' +
                           '                   return false;"><em class="fas fa-square"></em>' +
                           '	     <span class="d-none d-md-inline-flex pl-1" data-langkey=\'Stop\'>Stop</span>' +
                           '	  </a>' +
                           '	  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 ml-2" href="#"' +
                           '	     data-toggle="tooltip" data-placement="top" data-boundary="window"' +
                           '	     title="Start recording session"' +
-                          '	     onclick="wsweb_record_on(); ' + 
+                          '	     onclick="wsweb_record_on(); ' +
                           '                   return false;"><em class="fas fa-circle"></em>' +
                           '	     <span class="d-none d-md-inline-flex pl-1" data-langkey=\'Record\'>Record</span>' +
                           '	  </a>' ;

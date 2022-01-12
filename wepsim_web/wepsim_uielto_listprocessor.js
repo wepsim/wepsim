@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -84,7 +84,7 @@
 			       '    onclick="wepsim_reload_hw(\'' + e_hw + '\') ;' +
 			       '	     wepsim_notify_success(\'<strong>INFO</strong>\', ' +
 			       '			          \'' + e_hw +' processor loaded!.\') ;'+
-			       '	     return false;">' + 
+			       '	     return false;">' +
 			       '<span data-langkey="' + ename + '">' + ename + '</span>' +
 			       '</button>' ;
 		    }

@@ -343,7 +343,7 @@
     function set_ab_size ( diva, divb, new_value )
     {
         // reset
-	var colclass = "col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12 " + 
+	var colclass = "col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12 " +
                        "order-1 order-2 d-none" ;
 	$(diva).removeClass(colclass) ;
 	$(divb).removeClass(colclass) ;
@@ -467,7 +467,7 @@
 	    }) ;
 
 	    // init: quick-menus
-            for (var p in wsweb_quickcfg) 
+            for (var p in wsweb_quickcfg)
             {
                  wepsim_init_quickcfg(wsweb_quickcfg[p].quick_id,
                                       wsweb_quickcfg[p].val_trigger,
@@ -547,7 +547,7 @@
                     '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
                     'In order to execute an example please press the ' +
                     '<span class="btn btn-sm btn-info py-0" ' +
-                    '      onclick="webui_executionbar_toggle_play(\'exebar1\');">Run</span> ' + 
+                    '      onclick="webui_executionbar_toggle_play(\'exebar1\');">Run</span> ' +
                     'button.<br>' ;
 
                 if (url_hash.notify.toLowerCase() !== 'false') {
@@ -559,7 +559,7 @@
     function wepsim_init_default ( )
     {
 	    // Get URL params
-            var url_hash = wepsim_preload_get2hash(window.location, 
+            var url_hash = wepsim_preload_get2hash(window.location,
                                                    wepsim_init_default_preloadFromHash) ;
 
 	    // 1.- Pre-load defaults

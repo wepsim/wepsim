@@ -30,7 +30,7 @@ var cacheName = 'v210g_static';
  * install
  */
 
-self.addEventListener('install', 
+self.addEventListener('install',
 	              function(e) {
 			    e.waitUntil(
 				caches.open(cacheName).then(function(cache) {
@@ -325,7 +325,7 @@ self.addEventListener('install',
   * fetch
   */
 
-self.addEventListener('fetch', 
+self.addEventListener('fetch',
 	              function(event) {
 			  // NEW: https://developer.mozilla.org/es/docs/Web/API/FetchEvent
 			  if (event.request.method != 'GET') {
@@ -337,7 +337,7 @@ self.addEventListener('fetch',
 			      const cache = await caches.open(cacheName);
 			      const cachedResponse = await cache.match(event.request);
 
-			      if ( (event.request.cache === 'only-if-cached') && 
+			      if ( (event.request.cache === 'only-if-cached') &&
                                    (event.request.mode  !== 'same-origin') ) {
 			            return null ;
 			      }

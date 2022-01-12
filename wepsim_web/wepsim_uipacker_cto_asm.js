@@ -43,7 +43,7 @@
                              '     style="border-top-width:3px; border-right-width:3px; border-left-width:3px;"' +
 		             '		 aria-label="processor"' +
                              '           onclick="wsweb_change_show_processor();' +
-                             '                    return false;">' + 
+                             '                    return false;">' +
                              '<em class="fas fa-microchip"></em>&nbsp;' +
                              '<span data-langkey="Processor">Processor</span>' +
                              '</a>' +

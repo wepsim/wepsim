@@ -3,6 +3,9 @@
        'eqeqeq': 'off',
        'no-console': 'off',
        'no-useless-concat': 'off',
-       'no-unused-vars': 'off'
+       'no-unused-vars': 'off',
+       'promise/no-nesting': 'warn',
+       'promise/avoid-new': 'warn',
+       'block-scoped-var': 'warn'
    }
 }

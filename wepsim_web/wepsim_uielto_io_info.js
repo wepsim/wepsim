@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -56,7 +56,7 @@
                     var o1 = '' ;
                     var div_hash = '#stats_IO_' + this.name_str ;
 
-                    // if no active hardware -> empty 
+                    // if no active hardware -> empty
                     if (simhw_active() === null) {
                         $(div_hash).html(o1) ;
 			return ;

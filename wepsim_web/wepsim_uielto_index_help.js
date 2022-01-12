@@ -161,13 +161,15 @@
     	    var e_title       = "" ;
     	    var e_itype       = "" ;
     	    var e_utype       = "" ;
+  	    var e_uclass      = "" ;
     	    var e_reference   = "" ;
     	    var e_description = "" ;
     	    var e_id          = "" ;
     	    var t_index       = "" ;
+            var m = 0;
 
             var utypes = [] ;
-            for (var m=0; m<helps.length; m++)
+            for (m=0; m<helps.length; m++)
             {
     	        if (false === array_includes(utypes, helps[m].u_type)) {
     	            utypes.push(helps[m].u_type) ;

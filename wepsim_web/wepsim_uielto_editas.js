@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -95,7 +95,7 @@
 
                    if (ly.includes('placeholder'))
                        o1 += '<div id="' + ed_id + '_placeholder2" ' +
-                             '     class="ui-body-d ui-content px-2 py-0" ' + 
+                             '     class="ui-body-d ui-content px-2 py-0" ' +
                              '     style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
                              '</div>' ;
 

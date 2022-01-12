@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -26,7 +26,7 @@
         /* jshint esversion: 6 */
         class ws_load_file extends HTMLElement
         {
-              static get observedAttributes() 
+              static get observedAttributes()
 	      {
 	            return [ 'fid', 'jload' ] ;
 	      }

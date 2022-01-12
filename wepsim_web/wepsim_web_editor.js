@@ -94,8 +94,8 @@
     {
          editor.setCursor({ line: pos-1, ch: 0 }) ;
          var marked = editor.addLineClass(pos-1, 'background', 'CodeMirror-selected') ;
-         setTimeout(function(){ 
-			editor.removeLineClass(marked, 'background', 'CodeMirror-selected'); 
+         setTimeout(function(){
+			editor.removeLineClass(marked, 'background', 'CodeMirror-selected');
                     }, 3000) ;
 
    	 var t = editor.charCoords({line: pos, ch: 0}, 'local').top ;
@@ -130,7 +130,7 @@
     function wepsim_get_binary_code ( )
     {
          // compile if needed
-	 if (false == inputasm.is_compiled) 
+	 if (false == inputasm.is_compiled)
          {
 	     var textToCompile = inputasm.getValue() ;
 	     var ok = wepsim_compile_assembly(textToCompile) ;

@@ -1,4 +1,4 @@
-/*    
+/* 
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -26,7 +26,7 @@
         /* jshint esversion: 6 */
         class ws_save_file extends HTMLElement
         {
-              static get observedAttributes() 
+              static get observedAttributes()
 	      {
 	            return [ 'fid', 'jsave', 'jshare' ] ;
 	      }
@@ -76,7 +76,7 @@
 			  " <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
 	                  " <p><input aria-label='filename to save content' id='" + this.fid + "' " +
                           "           class='form-control btn-outline-dark' " +
-                          "           placeholder='File name where information will be saved' " + 
+                          "           placeholder='File name where information will be saved' " +
                           "           style='min-width: 90%;'/></p>" +
 			  "</div>" +
 			  "</div>" ;
