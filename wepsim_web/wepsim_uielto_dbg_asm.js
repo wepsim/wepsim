@@ -231,7 +231,7 @@
 
                      // several data values repeated -> '...'
                      if (
-                          (old_s3_val == s3_val) && 
+                          (old_s3_val == s3_val) &&
                           (false == mp[l].is_assembly) &&
                           (typeof a2l[p] == 'undefined')
                      )
@@ -311,7 +311,7 @@
 		     "    style='line-height:0.9;'>" + s2_instr +
 		     "</td>" +
 		     "<td class='asm_pins   text-monospace col-auto collapse text-secondary' " +
-		     "    style='line-height:0.9;' align='left'>" + s2_instr + 
+		     "    style='line-height:0.9;' align='left'>" + s2_instr +
 		     "</td>" +
 		     "</tr>" ;
 

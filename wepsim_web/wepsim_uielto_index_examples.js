@@ -56,15 +56,15 @@
             // harware
             var ahw      = 'ep' ;
             var ep_modes = wepsim_mode_getAvailableModes() ;
-     
+
             var mode = get_cfg('ws_mode') ;
             if ( (mode !== "null") && (! ep_modes.includes(mode)) ) {
                   ahw = mode ;
             }
-     
+
             // examples
             var base_url = get_cfg('base_url') ;
-     
+
             var fmt_toggle    = "" ;
             var w100_toggle   = "" ;
             var toggle_cls    = "" ;
@@ -78,7 +78,7 @@
             var e_asm         = "" ;
             var e_description = "" ;
             var e_id          = "" ;
-     
+
             // first pass: build data
             var u = "" ;
             var examples_groupby_type = {} ;
@@ -89,12 +89,12 @@
      	       if (! e_modes.split(",").includes(mode)) {
      		   continue ;
      	       }
-     
+
      	       e_hw = examples[m].hardware ;
      	       if (e_hw !== ahw) {
      		   continue ;
      	       }
-     
+
      	       // add example to the example summary
      	       e_title       = examples[m].title ;
      	       e_type        = examples[m].type  ;
@@ -103,10 +103,10 @@
      	       e_asm         = examples[m].assembly ;
      	       e_description = examples[m].description ;
      	       e_id          = examples[m].id ;
-     
+
      	       t_hwmcasm = e_hw + ":" + e_mc + ":" + e_asm ;
      	       t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
-     
+
      	        if (fmt_toggle === "")
      	            fmt_toggle  = "bg-light" ;
      	       else fmt_toggle  = "" ;
@@ -114,7 +114,7 @@
                          w100_toggle = "collapse7 show" ;
      	       else w100_toggle = "" ;
                     toggle_cls = fmt_toggle + ' user_' + e_level ;
-     
+
      	            u = '<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
                              '    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
                              '</div>' +
@@ -128,10 +128,10 @@
      		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-1"' +
                              '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
                                   e_title + '</span>' +
-     		        '<span id="example_reference_' + e_id + '" class="d-none">' + 
-                                  base_url + '?mode=' + mode + 
-     				        '&examples_set=' + ws_info.example_set[ws_info.example_active].name + 
-     				        '&example=' + m + 
+     		        '<span id="example_reference_' + e_id + '" class="d-none">' +
+                                  base_url + '?mode=' + mode +
+     				        '&examples_set=' + ws_info.example_set[ws_info.example_active].name +
+     				        '&example=' + m +
                              '</span>' +
      		        '    <div class="btn-group btn-group-md">' +
                              '           <button type="button" ' +
@@ -171,14 +171,14 @@
                              '    <c>' + e_description + '</c>' +
                              '</div>' +
      	                '<div class="w-100 ' + w100_toggle + ' ' + toggle_cls + '"></div>' ;
-     
+
      	       if (typeof examples_groupby_type[e_type] === "undefined") {
      		   examples_groupby_type[e_type] = [] ;
      	       }
      	       examples_groupby_type[e_type].push({ 'row':   u,
      		                                    'level': e_level }) ;
             }
-     
+
             // second pass: build html
             var o = '' ;
                 u = '' ;
@@ -190,22 +190,22 @@
                      for (var n=0; n<examples_groupby_type[m].length; n++)
                      {
      		     u = u + examples_groupby_type[m][n].row ;
-     
+
      		     if (l !== examples_groupby_type[m][n].level) {
      			 l = '' ;
                           }
                      }
                      u = u + '</div>' ;
-     
+
      	        o = o + "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top user_" + l + "'>" +
      			ahw.toUpperCase() + ": " + m +
      			"</div>" + u ;
             }
-     
+
             if (o.trim() === '') {
      	   o = '&lt;<span data-langkey="No examples available...">No examples are available for the selected hardware</span>&gt;' ;
             }
-     
+
             o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
             return o ;
         }

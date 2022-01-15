@@ -52,7 +52,7 @@
 	      }
 
 	      render_populate ( )
-              {     
+              {
                     // render toolbar elements
                     var o1 = '' ;
                     for (var i=0; i<this.components_arr.length; i++)
@@ -65,14 +65,14 @@
 	      }
 
               render_icon ( icon_html )
-              {     
+              {
                     var o = '' ;
-              
+
                     o += (this.icons_str == 'no') ? ''     : icon_html ;
                     o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
-              
+
                     return o ;
-              }     
+              }
 
 	      render_btns ( name )
 	      {
@@ -83,7 +83,7 @@
                     {
                        case "btn_mloadsave":
 			     o += '<button style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-                                  '        onclick="wsweb_dialog_open(\'load_save_firmware\'); ' + 
+                                  '        onclick="wsweb_dialog_open(\'load_save_firmware\'); ' +
                                   '                 return true;"' +
 			          '	   class="btn btn-light shadow-sm col-auto m-0">' ;
                              o += this.render_icon('<em class="fas fa-file"></em>') ;
@@ -116,8 +116,8 @@
 
                        case "btn_aloadsave":
 			     o += '<button style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			          '        class="btn btn-light shadow-sm col-auto m-0"' + 
-                                  '        onclick="wsweb_dialog_open(\'load_save_assembly\'); ' + 
+			          '        class="btn btn-light shadow-sm col-auto m-0"' +
+                                  '        onclick="wsweb_dialog_open(\'load_save_assembly\'); ' +
                                   '                 return true;">' ;
                              o += this.render_icon('<em class="fas fa-file"></em>') ;
                              o += '<strong><span data-langkey="Load/Save">Load/Save</span></strong>' +

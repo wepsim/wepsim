@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -107,8 +107,8 @@
 
 		    $('#about_' + this.name_str).html(o1) ;
 
-		    this.vueobj = new Vue({ 
-					     el: '#authors_' + this.name_str, 
+		    this.vueobj = new Vue({
+					     el: '#authors_' + this.name_str,
 					     data: { authors: ws_info.authors }
 					  }) ;
 	      }

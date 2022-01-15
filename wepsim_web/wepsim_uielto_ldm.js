@@ -131,7 +131,7 @@
                     $(div_hash).html(o1) ;
 
 		    // vue binding
-                    var f_computed_value = function(value) { 
+                    var f_computed_value = function(value) {
                                                webui_ledm_set() ;
                                                return value ;
                                            } ;
@@ -168,7 +168,7 @@
             return true ;
         }
 
-        var hash_val2col = [ "bg-dark",    "bg-white",  "bg-danger",   "bg-warning", 
+        var hash_val2col = [ "bg-dark",    "bg-white",  "bg-danger",   "bg-warning",
 			     "bg-success", "bg-info",   "bg-primary",  "bg-light" ] ;
 
 	function webui_ledm_value2color ( value )

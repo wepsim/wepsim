@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -100,10 +100,10 @@
 	      mk_nav_item ( n_id, n_href, n_label, n_aclass, n_liclass )
 	      {
                    return '<li class="nav-item ' + n_liclass + '">' +
-                          '<a class="nav-link '  + n_aclass  + '" role="tab" ' + 
+                          '<a class="nav-link '  + n_aclass  + '" role="tab" ' +
                           '   aria-controls="home" aria-selected="true"' +
-                          '   data-toggle="tab" id="' + n_id + '" href="' + n_href + '">' + 
-                          n_label + 
+                          '   data-toggle="tab" id="' + n_id + '" href="' + n_href + '">' +
+                          n_label +
                           '</a>' +
                           '</li>' ;
 	      }

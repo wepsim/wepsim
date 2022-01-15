@@ -133,7 +133,7 @@
                     $(div_hash).html(o1) ;
 
 		    // vue binding
-                    var f_computed_value = function(value) { 
+                    var f_computed_value = function(value) {
                                                webui_l3d_set() ;
                                                return value ;
                                            } ;

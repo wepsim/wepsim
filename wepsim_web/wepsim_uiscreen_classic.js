@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -137,7 +137,7 @@
 			    '		      title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
 			    '		      onclick="wsweb_dialog_open(\'state\');' +
 			    '			       return false;">' +
-                            '<em class="fas fa-camera"></em>' + '&nbsp;' + 
+                            '<em class="fas fa-camera"></em>' + '&nbsp;' +
                             '<span data-langkey="States">States</span></button>' +
 			    '	      <ws-ddown-sel class="col btn-group p-0 mx-1" style="flex-grow:2;"' +
 			    '                       components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp"></ws-ddown-sel>' +

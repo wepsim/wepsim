@@ -56,12 +56,12 @@
                              '      <a class="nav-link m-2 bg-light text-primary active" ' +
                              '         data-toggle="pill" role="tab" ' +
                              '         id="cpu_view_graph1" href="#cpu_graph1" ' +
-                             '         aria-controls="cpu_graph1" aria-selected="true">' + 
+                             '         aria-controls="cpu_graph1" aria-selected="true">' +
                              '<span data-langkey="Graph">Graph</span></a>' +
                              '      <a class="nav-link m-2 bg-light text-primary" ' +
                              '         data-toggle="pill" role="tab" ' +
                              '         id="cpu_view_table1" href="#cpu_table1" ' +
-                             '         aria-controls="cpu_table1" aria-selected="false">' + 
+                             '         aria-controls="cpu_table1" aria-selected="false">' +
                              '<span data-langkey="Text">Text</span></a>' +
                              '    </div>' +
                              '  </div>' +
@@ -114,7 +114,12 @@
                  $('#cpu_view_graph1').tab("show") ;
             else $('#cpu_view_table1').tab("show") ;
 
-	    setTimeout(function() { $("#infohw1").attr('components', 'elements'); }, 100);
+	    setTimeout(function() {
+                          $("#infohw1").attr('components', 'elements') ;
+                          simcoreui_show_hw() ;
+                          var ws_idiom = get_cfg('ws_idiom') ;
+                          i18n_update_tags('hw', ws_idiom) ;
+                       }, 100);
         }
 
         function quick_config_cpuview ( )
@@ -147,11 +152,11 @@
                        quickcfg_html_br() +
                        quickcfg_html_header('Text: show states+signals') +
                        quickcfg_html_btn("(*) All",
-                                         "ws_signals_show_inactive = true; $(\".s-ina\").show();" +             
+                                         "ws_signals_show_inactive = true; $(\".s-ina\").show();" +
                                          "ws_states_show_inactive  = true; $(\".t-ina\").show();",
                                          "col-6") +
                        quickcfg_html_btn("Only active",
-                                         "ws_signals_show_inactive = false; $(\".s-ina\").hide();" +             
+                                         "ws_signals_show_inactive = false; $(\".s-ina\").hide();" +
                                          "ws_states_show_inactive  = false; $(\".t-ina\").hide();",
                                          "col-6") +
                        // <advanced>

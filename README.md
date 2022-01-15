@@ -1,5 +1,5 @@
 
-# WepSIM: Wep Elemental Processor Simulator
+# WepSIM: Web Elemental Processor Simulator
 
 [![Build Status](https://app.travis-ci.com/acaldero/wepsim.svg?branch=master)](https://app.travis-ci.com/acaldero/wepsim)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
@@ -51,12 +51,12 @@
 
 ### 2) Install WepSIM (iOS, Android, Windows, Linux, etc.)
 
-+ WepSIM can be installed on Android 5.0+ from the Goole Play Store at https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
++ WepSIM can be installed on Android 8.0+ from the Goole Play Store at https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 + For other platforms, please follow those steps in order to install WepSIM as a Progressive Web Application (PWA):
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
- **1** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android001_short.jpg) | First, open Safari (iOS, MacOS) or Chrome (Android, Windows, Linux) and load https://acaldero.github.io/wepsim. <br/> From the top-right corner tap on the share icon (Safari) or the menu icon (Chrome).
+ **1** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android001_short.jpg) | First, open Safari (iOS, MacOS) or Chrome (Android, Windows, Linux) and load https://acaldero.github.io/wepsim. <br/> From the top-right corner, tap on the share icon (Safari) or the menu icon (Chrome).
  **2** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android002_short.jpg) | Move within share options until 'add to home screen' option and click on it.
  **3** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android003_short.jpg) | Finally, click in the 'add' option.
  **4** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/images/pwa/pwa_android004_short.jpg) | Then, WepSIM can be launched from the home screen icon.
@@ -70,7 +70,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 1. First, we need to load WepSIM in your favorite web browser. Then click on the Examples button to open the Examples dialog:
    ![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator021.jpg)
-2. In the Examples dialog please click on the colored 'title' of the example and WepSIM will load and compile the associated microcode and assembly code:
+2. In the Examples dialog, please click on the colored 'title' of the example and WepSIM will load and compile the associated microcode and assembly code:
    ![screen:example2](https://raw.githubusercontent.com/acaldero/wepsim/master/images/simulator/simulator022.jpg)
 3. In the simulator workspace you can execute step by step and analyze the state of the components. It is possible to work both, at assembly level or at microcode level:
    ![screen:simulation1](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/simulation_xinstruction.gif)
@@ -98,7 +98,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 ### D) Typical steps to use the "State Management" in WepSIM
 
-+ The values of every visible hardware element is the state in a clock cycle. WepSIM has also a 'state management' dialog where users can see the current state, and check the differences between two states.
++ The value of every visible hardware element is the state in a clock cycle. WepSIM has also a 'state management' dialog where users can see the current state, and check the differences between the two states.
 + From the execution toolbar, please click over the 'state' button to show the state manager dialog:
   ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/images/welcome/states_usage.gif)
 
@@ -118,7 +118,7 @@ register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xfffff;
 
 ### B) Run step by step
 
-+ It is also possible to 'run' 'step by step' the 'asm-ep-S1E1.txt' assembly for the 'ep' architecture with the 'mc-ep_mips_base.txt' microcode, and print for each assembly instruction the state elementes that modify its value:
++ It is also possible to 'run' 'step by step' the 'asm-ep-s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_mips_base.txt' microcode, and print for each assembly instruction the state elements that modify its value:
 
 ```bash
 ./wepsim.sh -a stepbystep -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt
@@ -133,7 +133,7 @@ pc = 0x8014,	sub $5 $2 $3,			register R5 = 0x1; register PC = 0x8018
 
 ### C) Run microstep by microstep
 
-+ And to 'run' 'microstep by microstep' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_mips_base.txt' microcode, and print for each microinstruction the state elementes that modify its value:
++ And to 'run' 'microstep by microstep' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_mips_base.txt' microcode, and print for each microinstruction the state elements that modify its value:
 
 ```bash
 ./wepsim.sh -a microstepbymicrostep -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt
@@ -157,7 +157,7 @@ micropc = 0x35,		MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=1010
 
 ### D) Run & check end state (example when o.k.)
 
-+ You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_mips_base.txt' microcode (**and if it matchs the expected state then the output is going to be**):
++ You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_mips_base.txt' microcode (**and if it matches the expected state, then the output is going to be**):
 
 ```bash
 ./wepsim.sh -a check -m ep -f ./examples/microcode/mc-ep_mips_base.txt -s ./examples/assembly/asm-ep_s1_e1.txt -r ./examples/checklist/cl-ep_s1_e1.txt
@@ -194,11 +194,11 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 
 ### WepSIM Source Code
 
-+ WepSIM GitHub Repository:
+- WepSIM GitHub Repository:
    * Stable  build: https://github.com/wepsim/wepsim
    * Nightly build: https://github.com/acaldero/wepsim
 
-+ The WepSIM architecture can be summarized in the next Figure (made by https://app.diagrams.net):
+- The WepSIM architecture can be summarized in the following Figure (made by https://app.diagrams.net):
 ![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/docs/ws_arch_215-v2.png)
 
 
@@ -302,7 +302,7 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 
 ### WepSIM from Google Colab
 
-+ The following fragment is a example of how to use WepSIM command-line within Google Colab cell:
++ The following fragment is an example of how to use WepSIM command-line within Google Colab cell:
 
 ```html
 !echo "(1/4) Installing pre-requisites..."
@@ -332,7 +332,7 @@ df1
 
 ### WepSIM control API
 
-+ If you want to control an WepSIM instance, there is a WepSIM API in JavaScript available (WepSIM 2.0.6+).
++ If you want to control a WepSIM instance, there is a WepSIM API in JavaScript available (WepSIM 2.0.6+).
   For example, It might be used for building a tutorial.
 
   The following fragment uses the WepSIM control API (wsweb_*):

@@ -362,7 +362,7 @@
                         '\n' +
 			'     <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' ;
 
-                   for (var i=0; i<sim.systems.length; i++) 
+                   for (var i=0; i<sim.systems.length; i++)
                    {
                         var item      = sim.systems[i].sim_short_name ;
                         var poc_class = (item == "poc") ? "user_archived" : "" ;
@@ -371,7 +371,7 @@
 			'	 onclick="wsweb_select_main(\'' + item + '\');' +
                         '                 inputfirm.is_compiled = false; ' +
                         '                 inputasm.is_compiled  = false; ' +
-			'		  return false;"' + 
+			'		  return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;' + item.toUpperCase() + '</a>' ;
                    }
 
@@ -382,14 +382,14 @@
 			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
                         '        onclick="wsweb_select_main(\'asm_mips\');' +
-                        '                 return false;"' + 
+                        '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>int32</sub></a>' +
                         '     <a class="dropdown-item user_archived mb-0 py-2" ' +
                         '        href="#" id="s4_asm_rv32" value="asm_rv32"' +
 			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="RISC-V<sub>32</sub> assembly only (i+m sets)."' +
                         '        onclick="wsweb_select_main(\'asm_rv32\');' +
-                        '                 return false;"' + 
+                        '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>i+m</sub></a>' +
                         '\n' +
 			'   </div>' +
@@ -459,7 +459,7 @@
             var  item = null ;
 	    var  o = '' ;
 
-	    for (var i=0; i<ws_info.example_set.length; i++) 
+	    for (var i=0; i<ws_info.example_set.length; i++)
 	    {
 		item = ws_info.example_set[i] ;
 	        o += '<a class="dropdown-item py-2 " ' +
@@ -468,8 +468,8 @@
 		     '            wepsim_example_load(\'' + item.name + '\');' +
 		     '	     $(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
 	             '            wsweb_dialog_open(\'examples\');' +
-		     '	     return false;"' + 
-		     '><em class="fas fa-cube d-sm-inline d-xs-none text-secondary mr-2"></em>' + 
+		     '	     return false;"' +
+		     '><em class="fas fa-cube d-sm-inline d-xs-none text-secondary mr-2"></em>' +
 		     item.name + '</a>\n' ;
 	    }
 
