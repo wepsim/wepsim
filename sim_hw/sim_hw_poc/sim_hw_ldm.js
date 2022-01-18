@@ -94,14 +94,14 @@
          */
 
         sim.poc.states.LEDMSR  = { name: "LEDMSR", verbal: "LEDM State Register",
-                                  visible:false, nbits: "32", value: 0, default_value: 0,
-                                  draw_data: [] };
+                                   visible:false, nbits: "32", value: 0, default_value: 0,
+                                   draw_data: [] };
         sim.poc.states.LEDMCR  = { name: "LEDMCR", verbal: "LEDM Control Register",
-                                  visible:false, nbits: "32", value: 0, default_value: 0,
-                                  draw_data: [] };
+                                   visible:false, nbits: "32", value: 0, default_value: 0,
+                                   draw_data: [] };
         sim.poc.states.LEDMDR  = { name: "LEDMDR", verbal: "LEDM Data Register",
-                                  visible:false, nbits: "32", value: 0, default_value: 0,
-                                  draw_data: [] };
+                                   visible:false, nbits: "32", value: 0, default_value: 0,
+                                   draw_data: [] };
 
 
         /*
@@ -109,18 +109,18 @@
          */
 
          sim.poc.signals.LEDM_IOR = { name: "LEDM_IOR",
-                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-                                     behavior: ["NOP", "LEDM_IOR BUS_AB BUS_DB LEDMSR LEDMCR LEDMDR CLK; FIRE M1"],
-                                     fire_name: ['svg_p:tspan4173'],
-                                     draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']],
-                                     draw_name: [[], []] };
+                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                      behavior: ["NOP", "LEDM_IOR BUS_AB BUS_DB LEDMSR LEDMCR LEDMDR CLK; FIRE M1"],
+                                      fire_name: ['svg_p:tspan4173'],
+                                      draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']],
+                                      draw_name: [[], []] };
 
          sim.poc.signals.LEDM_IOW = { name: "LEDM_IOW",
-                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-                                     behavior: ["NOP", "LEDM_IOW BUS_AB BUS_DB LEDMSR LEDMCR LEDMDR CLK; FIRE M1; LEDM_SYNC"],
-                                     fire_name: ['svg_p:text3785-0-6-0-5-5'],
-                                     draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']],
-                                     draw_name: [[], []] };
+                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                      behavior: ["NOP", "LEDM_IOW BUS_AB BUS_DB LEDMSR LEDMCR LEDMDR CLK; FIRE M1; LEDM_SYNC"],
+                                      fire_name: ['svg_p:text3785-0-6-0-5-5'],
+                                      draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']],
+                                      draw_name: [[], []] };
 
 
         /*
@@ -215,12 +215,28 @@
                                                       var bus_ab = get_value(sim.poc.states[s_expr[1]]) ;
                                                       var bus_db = get_value(sim.poc.states[s_expr[2]]) ;
 
-                                                      if (bus_ab == LEDMSR_ID)
-                                                          verbal = "I/O device write at LEDMSR with value " + bus_db + ". " ;
-                                                      if (bus_ab == LEDMCR_ID)
-                                                          verbal = "I/O device write at LEDMCR with value " + bus_db + ". " ;
-                                                      if (bus_ab == LEDMDR_ID)
-                                                          verbal = "I/O device write at LEDMDR with value " + bus_db + ". " ;
+						      switch (bus_ab)
+						      {
+						        case LEDMSR_ID:
+                                                             verbal = "I/O device write at LEDMSR with value " + bus_db + ". " ;
+						             break;
+						        case LEDMDR_ID:
+                                                             verbal = "I/O device write at LEDMCR with value " + bus_db + ". " ;
+						             break;
+						        case LEDMCR_ID:
+                                                             var dr = get_value(sim.ep.states[s_expr[5]]) ;
+						             if (0x10 & bus_db)
+							     {
+                                                                 var x = (dr & 0xFF000000) >> 24 ;
+                                                                 var y = (dr & 0x00FF0000) >> 16 ;
+                                                                 var s = (dr & 0x000000FF) ;
+                                                                 verbal = "I/O device write at LEDMCR with value " + bus_db + " (set pixel x:" + x + ", y:" + y + ", with color:" + s + "). " ;
+
+						             }
+						             break;
+						        default:
+						             break;
+						      }
 
                                                       return verbal ;
                                                    }

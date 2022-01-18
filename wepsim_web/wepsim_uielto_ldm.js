@@ -113,11 +113,11 @@
 			o1 += "<tr>" ;
 				    for (var k=0; k<ledm_dim; k++)
 				    {
-			o1 += "<td align='center' style='height:15px; width:15px;' " +
+			o1 += "<td align='center' class='m-0' " +
                               "    id='ledm" + (j*ledm_dim + k) + "_context' " +
-                              "    v-bind:class='[ webui_ledm_value2color(value), \"m-0\" ]' " +
-                              "    v-on:click='value = (value + 1) % 8'>" +
-                              "<span class='sr-only'>{{webui_ledm_value2color(value)}}</span>" +
+                              "    v-bind:style='{ \"background-color\": webui_ledm_value2color(value), height: \"15px\", width: \"15px\"}' " +
+                              "    v-on:click='value = (value + 32) % 256'>" +
+                              "<span class='sr-only'>background-color {{value}}</span>" +
                               "</td>" ;
 				    }
 			o1 += "</tr>" ;
@@ -168,11 +168,10 @@
             return true ;
         }
 
-        var hash_val2col = [ "bg-dark",    "bg-white",  "bg-danger",   "bg-warning",
-			     "bg-success", "bg-info",   "bg-primary",  "bg-light" ] ;
-
-	function webui_ledm_value2color ( value )
+        function webui_ledm_value2color ( value )
         {
-             return hash_val2col[(value % 8)] ;
+             var h = value.toString(16) ;
+
+             return '#' + h + h + h ;
         }
 
