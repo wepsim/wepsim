@@ -152,14 +152,18 @@
         function light_refresh_control_memory ( memory, index )
         {
             o1 = $("#maddr" + old_mc_addr) ;
-            o1.css('color', 'black') ;
-            o1.css('font-weight', 'normal') ;
+            if (o1.is(':visible')) {
+                o1.css('color', 'black') ;
+                o1.css('font-weight', 'normal') ;
+            }
 
             old_mc_addr = index ;
 
             o1 = $("#maddr" + old_mc_addr) ;
-            o1.css('color', 'blue') ;
-            o1.css('font-weight', 'bold') ;
+            if (o1.is(':visible')) {
+                o1.css('color', 'blue') ;
+                o1.css('font-weight', 'bold') ;
+            }
         }
 
         function control_memory_showrow ( memory, key, is_current, revlabels )
