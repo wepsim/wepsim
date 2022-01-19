@@ -251,7 +251,7 @@
 						        // reset the I/O factory
 						        for (var i=0; i<sim.poc.internal_states.ledm_state.length; i++)
 						        {
-						             set_var(sim.poc.internal_states.ledm_state[i].color, false);
+						             set_var(sim.poc.internal_states.ledm_state[i].color, 0);
 						        }
 
 						        // REST
