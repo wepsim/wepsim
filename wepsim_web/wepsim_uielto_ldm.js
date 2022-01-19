@@ -113,11 +113,11 @@
 			o1 += "<tr>" ;
 				    for (var k=0; k<ledm_dim; k++)
 				    {
-			o1 += "<td align='center' style='height:15px; width:15px;' " +
+			o1 += "<td align='center' class='m-0' " +
                               "    id='ledm" + (j*ledm_dim + k) + "_context' " +
-                              "    v-bind:class='[ webui_ledm_value2color(value), \"m-0\" ]' " +
-                              "    v-on:click='value = (value + 1) % 8'>" +
-                              "<span class='sr-only'>{{webui_ledm_value2color(value)}}</span>" +
+                              "    v-bind:style='{ \"background-color\": webui_ledm_value2color(value), height: \"15px\", width: \"15px\"}' " +
+                              "    v-on:click='value = (value + 1) % 256'>" +
+                              "<span class='sr-only'>background-color {{value}}</span>" +
                               "</td>" ;
 				    }
 			o1 += "</tr>" ;
@@ -168,11 +168,26 @@
             return true ;
         }
 
-        var hash_val2col = [ "bg-dark",    "bg-white",  "bg-danger",   "bg-warning",
-			     "bg-success", "bg-info",   "bg-primary",  "bg-light" ] ;
+        color16 = [ "black",  "white",  "red",    "lime",
+                    "blue",   "yellow", "cyan",   "magneta",
+                    "silver", "gray",   "maroon", "olive",
+                    "green",  "purple", "teal",   "navy" ] ;
 
-	function webui_ledm_value2color ( value )
+        function webui_ledm_value2color ( value )
         {
-             return hash_val2col[(value % 8)] ;
+             return color16[value % 16] ;
         }
+
+/*
+        function webui_ledm_value2color ( value )
+        {
+             return color16[value % 16] ;
+             var h1 = ((value >> 5) & 0x7) * (256/8) ;
+             var h2 = ((value >> 2) & 0x7) * (256/8) ;
+             var h3 = ((value >> 0) & 0x3) * (256/4) ;
+
+             return 'rgb(' + h1 + "," + h2 + "," + h3 + ")" ;
+        }
+*/
+
 

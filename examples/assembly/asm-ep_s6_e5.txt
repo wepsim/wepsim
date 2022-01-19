@@ -52,7 +52,10 @@
            or   $t5 $t5 $0
            sll  $t5 $t5 8
            or   $t5 $t5 $t6
-           # out <x|y|0|v>
+           # out <x|y|0|v> to data
+           out  $t5 0x3108
+           # out set pixel to control
+           li   $t5 0x10
            out  $t5 0x3104
            # for (x...
            add  $t2 $t2 $t7
