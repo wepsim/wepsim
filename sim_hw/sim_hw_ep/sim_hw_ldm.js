@@ -179,6 +179,7 @@
                                                       var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
                                                       var bus_db = get_value(sim.ep.states[s_expr[2]]) ;
 
+                                                      // update register...
 						      switch (bus_ab)
 						      {
 						        case LEDMSR_ID:
@@ -189,24 +190,53 @@
 						             break;
 						        case LEDMCR_ID:
                                                              set_value(sim.ep.states[s_expr[4]], bus_db) ;
-
-                                                             // apply command over data register value
-                                                             var dr = get_value(sim.ep.states[s_expr[5]]) ;
-
-                                                             // 0x10 -> set pixel
-						             if (0x10 & bus_db)
-							     {
-                                                                 var x = (dr & 0xFF000000) >> 24 ;
-                                                                 var y = (dr & 0x00FF0000) >> 16 ;
-                                                                 var s = (dr & 0x000000FF) ;
-
-                                                                 // update internal state
-                                                                 var p = y*sim.ep.internal_states.ledm_dim + x ;
-						                 set_var(sim.ep.internal_states.ledm_state[p].color, s);
-						             }
 						             break;
 						        default:
 						             break;
+						      }
+
+                                                      // if command issued then ...
+						      if (LEDMCR_ID == bus_ab)
+                                                      {
+                                                          // apply command over data register value
+                                                          var dr = get_value(sim.ep.states[s_expr[5]]) ;
+
+                                                          // 0x10 -> set pixel
+						          if (0x10 & bus_db)
+							  {
+                                                              var x = (dr & 0xFF000000) >> 24 ;
+                                                              var y = (dr & 0x00FF0000) >> 16 ;
+                                                              var s = (dr & 0x000000FF) ;
+
+                                                              set_value(sim.ep.states[s_expr[3]], 1) ;
+                                                              if ( (x >= sim.ep.internal_states.ledm_dim) &&
+                                                                      (y >= sim.ep.internal_states.ledm_dim) )
+                                                              {
+                                                                   set_value(sim.ep.states[s_expr[3]], -1) ;
+                                                                   return ;
+                                                              }
+
+                                                              // update internal state
+                                                              var p = y*sim.ep.internal_states.ledm_dim + x ;
+						              set_var(sim.ep.internal_states.ledm_state[p].color, s);
+						          }
+
+							  // 0x20 -> DMA
+							  if (0x20 & bus_db)
+							  {
+                                                              set_value(sim.ep.states[s_expr[3]], 1) ;
+
+                                                              // update internal states
+                                                              var s = 0;
+                                                              var neltos = sim.ep.internal_states.ledm_neltos ;
+                                                              for (var p=0; p<neltos; p=p+4) {
+                                                                   s = simcore_native_get_value("MEMORY", dr+p) ;
+                                                                   set_var(sim.ep.internal_states.ledm_state[p+0].color, (s & 0x000000FF) >> 0);
+                                                                   set_var(sim.ep.internal_states.ledm_state[p+1].color, (s & 0x0000FF00) >> 8);
+                                                                   set_var(sim.ep.internal_states.ledm_state[p+2].color, (s & 0x00FF0000) >> 16);
+                                                                   set_var(sim.ep.internal_states.ledm_state[p+3].color, (s & 0xFF000000) >> 24);
+                                                              }
+							  }
 						      }
                                                    },
                                            verbal: function (s_expr) 

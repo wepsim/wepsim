@@ -32,6 +32,7 @@
                  0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0
 
 .text
+    # a) Using Programmed I/O
     main:  la  $t8 msg
            # for (y=0; y<24; y++)
            li  $t7 1
@@ -66,4 +67,14 @@
     end_y:
            # the end
            jr $ra
+
+    # b) Using DMA
+    #main:  # out 'initial address' to data
+    #       la   $t5 msg
+    #       out  $t5 0x3108
+    #       # out 'use DMA' to control
+    #       li   $t5 0x20
+    #       out  $t5 0x3104
+    #       # the end
+    #       jr $ra
 
