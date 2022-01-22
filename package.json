@@ -9,7 +9,7 @@
   },
   "license": "GPL-3.0",
   "devDependencies": {
-    "jshint": "^1.0.0",
+    "jshint": "^2.13.3",
     "terser": "^4.8.0"
   },
   "scripts": {
