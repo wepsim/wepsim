@@ -32,8 +32,14 @@
                  0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0
 
 .text
+    main:  # show using programmed I/O
+           jal main_a
+           # the end
+           jr $ra
+
+
     # a) Using Programmed I/O
-    main:  la  $t8 msg
+   main_a: la  $t8 msg
            # for (y=0; y<24; y++)
            li  $t7 1
            li  $t0 24
@@ -68,13 +74,14 @@
            # the end
            jr $ra
 
+
     # b) Using DMA
-    #main:  # out 'initial address' to data
-    #       la   $t5 msg
-    #       out  $t5 0x3108
-    #       # out 'use DMA' to control
-    #       li   $t5 0x20
-    #       out  $t5 0x3104
-    #       # the end
-    #       jr $ra
+   main_b: # out 'initial address' to the data register
+           la   $t5 msg
+           out  $t5 0x3108
+           # out 'use DMA' to the control register
+           li   $t5 0x20
+           out  $t5 0x3104
+           # the end
+           jr $ra
 
