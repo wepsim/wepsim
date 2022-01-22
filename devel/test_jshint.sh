@@ -52,7 +52,7 @@ echo "checking sim_hw..."
  jshint ./sim_hw/sim_hw_poc/sim_hw_io.js
 #jshint ./sim_hw/sim_hw_poc/sim_hw_cpu.js
  jshint ./sim_hw/sim_hw_poc/sim_hw_l3d.js
- jshint ./sim_hw/sim_hw_poc/sim_hw_ldm.js
+#jshint ./sim_hw/sim_hw_poc/sim_hw_ldm.js
 
  jshint ./sim_hw/sim_hw_ep/sim_hw_mem.js
  jshint ./sim_hw/sim_hw_ep/sim_ep.js
@@ -62,7 +62,7 @@ echo "checking sim_hw..."
  jshint ./sim_hw/sim_hw_ep/sim_hw_scr.js
 #jshint ./sim_hw/sim_hw_ep/sim_hw_cpu.js
  jshint ./sim_hw/sim_hw_ep/sim_hw_l3d.js
- jshint ./sim_hw/sim_hw_ep/sim_hw_ldm.js
+#jshint ./sim_hw/sim_hw_ep/sim_hw_ldm.js
 
 echo "checking wepsim_core..."
  jshint ./wepsim_core/wepsim_help_commands.js
