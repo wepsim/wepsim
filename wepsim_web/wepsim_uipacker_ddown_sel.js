@@ -149,10 +149,10 @@
 			       iocfg: '      <a class="dropdown-item" href="#" id="s5b_19" value="19"' +
 				      '	 onclick="wsweb_set_details(\'IO_CONFIG\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'I/O Configuration\'>I/O Configuration</span></a>',
-			       iol3d: '      <a class="dropdown-item user_archived" href="#" id="s5b_25" value="25"' +
+			       iol3d: '      <a class="dropdown-item" href="#" id="s5b_25" value="25"' +
 				      '	 onclick="wsweb_set_details(\'3DLED\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'3D-Led\'>3D-Led</span></a>',
-			       ioldm: '      <a class="dropdown-item user_archived" href="#" id="s5b_27" value="27"' +
+			       ioldm: '      <a class="dropdown-item" href="#" id="s5b_27" value="27"' +
 				      '	 onclick="wsweb_set_details(\'LEDMATRIX\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Led-Matrix\'>Led-Matrix</span></a>',
 			       ed_hw: '      <a class="dropdown-item" href="#" id="s5b_22" value="22"' +

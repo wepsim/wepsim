@@ -121,8 +121,8 @@
                    ni.mpcfg = this.mk_nav_item('tab18', '#mpcfg', 'Memory configuration', '', '') ;
                    ni.iocfg = this.mk_nav_item('tab19', '#iocfg', 'I/O configuration',    '', '') ;
                //  ni.ed_hw = this.mk_nav_item('tab22', '#ed_hw', 'Hardware',             '', '') ;
-                   ni.iol3d = this.mk_nav_item('tab25', '#iol3d', '3D Led',               '', 'user_archived') ;
-                   ni.ioldm = this.mk_nav_item('tab27', '#ioldm', 'Led Matrix',           '', 'user_archived') ;
+                   ni.iol3d = this.mk_nav_item('tab25', '#iol3d', '3D Led',               '', '') ;
+                   ni.ioldm = this.mk_nav_item('tab27', '#ioldm', 'Led Matrix',           '', '') ;
                    ni.ed_mc = this.mk_nav_item('tab20', '#ed_mc',  'MicroCode',           '', '') ;
                    ni.ed_mp = this.mk_nav_item('tab21', '#ed_mp',  'Assembly',            '', 'user_microcode') ;
 
