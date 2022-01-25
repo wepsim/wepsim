@@ -212,7 +212,7 @@
   "base_url": {
     "upgrade": true,
     "type": "string",
-    "value": "https://acaldero.github.io/wepsim/ws_dist/"
+    "value": "https://wepsim.github.io/wepsim/ws_dist/"
   },
   "example_url": {
     "upgrade": true,
