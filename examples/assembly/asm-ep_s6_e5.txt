@@ -32,8 +32,27 @@
                  0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0
 
 .text
-    main:  # show using programmed I/O
-           jal main_a
+
+
+   main:   # initial address
+           la   $t5 msg
+
+           # for (i=22; i!=0; i--)
+           li   $t0 22
+    loop3: beq  $t0 $0 end3
+
+           # out address to data
+           out  $t5 0x3108
+
+           # out 'DMA'   to control
+           li   $t6 0x20
+           out  $t6 0x3104
+
+           # next
+           addi  $t5 $t5 24
+           addi  $t0 $t0 -1
+           b loop3
+     end3:
            # the end
            jr $ra
 
