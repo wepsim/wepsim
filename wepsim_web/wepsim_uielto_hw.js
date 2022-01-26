@@ -140,12 +140,29 @@
 
               $('.popover_hw').on('show.bs.popover',
                                   function (e) {
-                                      var ahw = simhw_active() ;
-                                      // TODO: hw -> check if states_ref/signals_ref
-                                      var state_ref = e.delegateTarget.dataset.hw ;
-                                      var p = simcoreui_hw_states_popup(ahw.states, state_ref);
-                                      e.delegateTarget.dataset.content = p ;
-                                      // console.log(e);
+                                        var ahw = simhw_active() ;
+					if (typeof ahw == "undefined")
+					    return ;
+
+                                        var elto_ref = e.delegateTarget.dataset.hwid ;
+					if (typeof elto_ref == "undefined")
+					    return ;
+
+                                        var p         = e.delegateTarget.dataset.content ;
+                                        var elto_type = e.delegateTarget.dataset.hwclass ;
+                                        switch (elto_type)
+					{
+					   case "state":
+                                                p = simcoreui_hw_states_popup(ahw.states,  elto_ref) ;
+						break;
+					   case "signal":
+                                                p = simcoreui_hw_signals_popup(ahw.signals, elto_ref) ;
+						break;
+					   default:
+						break;
+					}
+
+                                        e.delegateTarget.dataset.content = p ;
                                   }) ;
         }
 
@@ -213,13 +230,15 @@
 	    for (var elto in ahw.signals)
 	    {
 		 elto_c = 'hw_signal_strong_' + elto ;
-		 e      = simcoreui_hw_signals_popup(ahw.signals, elto) ;
+		 e      = 'signal ' + elto ; // simcoreui_hw_signals_popup(ahw.signals, elto) ;
 
 		 c += '<span class="' + elto_c + ' s-ina col font-weight-normal">' +
 		      '<a href="#" id="hw_signal_tt_' + elto + '" ' +
 		      '   aria-hidden="false" ' +
 		      '   class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
-		      '   data-html="true" title="" data-content="' + e + '">' + elto + '</a>' +
+                      '   data-hwclass="signal" data-hwid="' + elto + '"' +
+                      '   data-content="' + e + '"' +
+		      '   data-html="true" title="">' + elto + '</a>' +
 		      '</span>' ;
 	    }
 	    c += '</span>' ;
@@ -337,7 +356,7 @@
               // list of signals
               for (var elto in ahw.signals)
               {
-                   e = simcoreui_hw_signals_popup(ahw.signals, elto) ;
+                   e = '' ; // simcoreui_hw_signals_popup(ahw.signals, elto) ;
 
                    id_tt     = "hw_signal_tt_"     + elto ;
                    id_strong = "hw_signal_strong_" + elto ;
@@ -378,13 +397,15 @@
 	    for (var elto in ahw.states)
 	    {
 		 elto_c = 'hw_state_strong_' + elto ;
-		 e      = '' ; // simcoreui_hw_states_popup(ahw.states, elto) ;
+		 e      = 'state ' + elto ; // simcoreui_hw_states_popup(ahw.states, elto) ;
 
 		 c += '<span class="' + elto_c + ' t-ina col font-weight-normal">' +
 		      '<a href="#" ' +
                       '   class="hw_state_tt_' + elto + ' popover_hw" ' +
 		      '   data-toggle="popover" onclick="event.preventDefault();" ' +
-		      '   data-html="true" title="" data-content="' + e + '">' + elto + '</a>' +
+                      '   data-hwclass="state" data-hwid="' + elto + '"' +
+                      '   data-content="' + e + '"' +
+		      '   data-html="true" title="">' + elto + '</a>' +
 		      '</span>' ;
 	    }
 	    c += '</span>' ;
@@ -560,7 +581,8 @@
               {
                    c = c + '<span class="col-auto">' +
                            '<a href="#" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
-                           '   data-html="true" title="" data-content="' +
+                           '   data-hwclass="behavior" data-hwid="' + elto + '"' +
+                           '   data-content="' +
                            '<span style=\'text-align:left\'>' +
                            '<span data-langkey=\'name\'>name</span>: '               + elto + '<br> ' +
                            '<span data-langkey=\'nparameters\'>nparameters</span>: ' + ahw.behaviors[elto].nparameters + '<br> ' +
@@ -570,7 +592,8 @@
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
                            '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
                            '</span>' +
-                           '">' + elto + '</a></span>' ;
+                           '"' + 
+                           '   data-html="true" title="">' + elto + '</a></span>' ;
               }
               c = c + '</span>' ;
 
@@ -639,12 +662,15 @@
             o += '<tbody>' ;
 	    for (var b in ahw.elements_hash.by_belong)
 	    {
+                 p = simcoreui_hw_components_popup(ahw, b) ;
+
 	         o += '<tr>' +
                       '<td class="col-2" rowspan="' + ahw.elements_hash.by_belong[b].length + '">' +
 		      '<span class="row"><span class="col">' +
 		      '<a href="#" class="popover_hw" data-toggle="popover" data-html="true" ' +
-		      '   onclick="event.preventDefault();" title="" data-content="' +
-                      simcoreui_hw_components_popup(ahw, b) + '">' + b + '</a></span></span>' +
+                      '   data-hwclass="component" data-hwid="' + b + '"' +
+                      '   data-content="' + p + '"' +
+		      '   onclick="event.preventDefault();" title="">' + b + '</a></span></span>' +
                       '</td>' ;
 
 	         for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
@@ -659,9 +685,9 @@
                               '<a href="#" id="belongs_id_' + j + '" ' +
 			      '   class="popover_hw" data-toggle="popover" ' +
 			      '   onclick="event.preventDefault();" ' +
-			      '   data-html="true" title="" data-content="' +
-                              simcoreui_hw_elements_popup(elto_path, elto) +
-			      '">' + elto.name + '</a></span></span>' +
+                              '   data-hwclass="element" data-hwid="' + elto + '"' +
+                              '   data-content="' + simcoreui_hw_elements_popup(elto_path, elto) + '"' +
+			      '   data-html="true" title="">' + elto.name + '</a></span></span>' +
                               '</td>' ;
 
 			 // 2) list of input states
@@ -672,7 +698,7 @@
 				 state_ref      = state_ref_orig.split('/')[0] ;
 
 				 elto_c = 'hw_state_strong_' + state_ref ;
-				 p      = simcoreui_hw_states_popup(ahw.states, state_ref) ;
+				 p = 'state ' + state_ref; // simcoreui_hw_states_popup(ahw.states, state_ref) ;
 
 				 o += '<span class="' + elto_c + ' t-ina col font-weight-normal">' +
 				      '<a href="#" ' +
@@ -680,7 +706,7 @@
 				      '   data-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
 				      '   data-html="true" title="" ' +
-                                      '   data-hw="' + state_ref + '"' +
+                                      '   data-hwclass="state" data-hwid="' + state_ref + '"' +
                                       '   data-content="' + p + '">' +
                                       state_ref_orig + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
@@ -694,7 +720,7 @@
 				 state_ref = elto.states[elto.states_outputs[i]].ref ;
 
 				 elto_c = 'hw_state_strong_' + state_ref ;
-				 p      = simcoreui_hw_states_popup(ahw.states, state_ref) ;
+				 p = 'state ' + state_ref ; // simcoreui_hw_states_popup(ahw.states, state_ref) ;
 
 				 o += '<span class="' + elto_c + ' t-ina col font-weight-normal">' +
 				      '<a href="#" ' +
@@ -702,7 +728,7 @@
 				      '   data-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
 				      '   data-html="true" title="" ' +
-                                      '   data-hw="' + state_ref + '"' +
+                                      '   data-hwclass="state" data-hwid="' + state_ref + '"' +
                                       '   data-content="' + p + '">' +
                                       state_ref + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
@@ -716,7 +742,7 @@
 				 signal_ref = elto.signals[es].ref ;
 
 				 elto_c = 'hw_signal_strong_' + signal_ref ;
-				 e      = simcoreui_hw_signals_popup(ahw.signals, signal_ref) ;
+				 e = 'signal ' + signal_ref ; // simcoreui_hw_signals_popup(ahw.signals, signal_ref) ;
 
 				 // value
 				 o += '<span class="' + elto_c + ' s-ina col font-weight-normal">' +
@@ -725,7 +751,7 @@
 				      '   class="popover_hw text-wrap" data-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
 				      '   data-html="true" title="" ' +
-                                      '   data-hw="' + signal_ref + '"' +
+                                      '   data-hwclass="signal" data-hwid="' + signal_ref + '"' +
                                       '   data-content="' + e + '">' +
                                       signal_ref + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
