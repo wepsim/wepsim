@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.1.7 -> 2.1.8:
+* Minor bugs fixed and several refinements added:
+  * A little bit faster processor represented as text table.
+
 ## 2.1.6 -> 2.1.7:
 * New:
   * Processor represented also as text table.
