@@ -137,6 +137,16 @@
 			         return content ; // DOMPurify.sanitize(content) ;
 			      }
 	      }) ;
+
+              $('.popover_hw').on('show.bs.popover',
+                                  function (e) {
+                                      var ahw = simhw_active() ;
+                                      // TODO: hw -> check if states_ref/signals_ref
+                                      var state_ref = e.delegateTarget.dataset.hw ;
+                                      var p = simcoreui_hw_states_popup(ahw.states, state_ref);
+                                      e.delegateTarget.dataset.content = p ;
+                                      // console.log(e);
+                                  }) ;
         }
 
         function simcoreui_show_hw ( )
@@ -368,7 +378,7 @@
 	    for (var elto in ahw.states)
 	    {
 		 elto_c = 'hw_state_strong_' + elto ;
-		 e      = simcoreui_hw_states_popup(ahw.states, elto) ;
+		 e      = '' ; // simcoreui_hw_states_popup(ahw.states, elto) ;
 
 		 c += '<span class="' + elto_c + ' t-ina col font-weight-normal">' +
 		      '<a href="#" ' +
@@ -511,7 +521,7 @@
               for (var elto in ahw.states)
               {
                    // popup
-                   e = simcoreui_hw_states_popup(ahw.states, elto) ;
+                   e = '' ; // simcoreui_hw_states_popup(ahw.states, elto) ;
 
                    id_tt     = "hw_state_tt_"     + elto ;
                    id_strong = "hw_state_strong_" + elto ;
@@ -669,7 +679,9 @@
                                       '   class="hw_state_tt_' + state_ref + ' popover_hw text-wrap" ' +
 				      '   data-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
-				      '   data-html="true" title="" data-content="' + p + '">' +
+				      '   data-html="true" title="" ' +
+                                      '   data-hw="' + state_ref + '"' +
+                                      '   data-content="' + p + '">' +
                                       state_ref_orig + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
 			 }
@@ -689,7 +701,9 @@
                                       '   class="hw_state_tt_' + state_ref + ' popover_hw text-wrap" ' +
 				      '   data-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
-				      '   data-html="true" title="" data-content="' + p + '">' +
+				      '   data-html="true" title="" ' +
+                                      '   data-hw="' + state_ref + '"' +
+                                      '   data-content="' + p + '">' +
                                       state_ref + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
 			 }
@@ -710,7 +724,9 @@
 				      '   aria-hidden="false" ' +
 				      '   class="popover_hw text-wrap" data-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
-				      '   data-html="true" title="" data-content="' + e + '">' +
+				      '   data-html="true" title="" ' +
+                                      '   data-hw="' + signal_ref + '"' +
+                                      '   data-content="' + e + '">' +
                                       signal_ref + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
 			 }

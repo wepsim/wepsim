@@ -551,6 +551,7 @@
                     'button.<br>' ;
 
                 if (url_hash.notify.toLowerCase() !== 'false') {
+                    wepsim_notify_close() ;
                     wepsim_notify_do_notify('WepSIM preloads some work', o, 'info', 0) ;
                 }
             }
