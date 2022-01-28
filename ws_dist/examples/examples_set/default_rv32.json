@@ -479,7 +479,7 @@
     "modes": "newbie,intro,poc",
     "hardware": "poc",
     "microcode": "poc_rv32_base",
-    "assembly": "ep_r5_e5",
+    "assembly": "ep_r5_e2",
     "description": "<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
     "testing": true
   }
