@@ -38,24 +38,24 @@
                       id:          "slider3",
                       type:        "General",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label8-2000'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: slow'" +
 				   "		   onclick=\"update_cfg('NOTIF_delay', 2000);\">" +
-				   "		<input type='radio' name='options' id='radio8-2000'   autocomplete='off' ><span data-langkey='Slow'>Slow</span>" +
+				   "		<input type='radio' name='options' id='radio8-2000'   autocomplete='off' class='btn-check'><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
 				   "	    <label id='label8-1000'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: normal'" +
 				   "		   onclick=\"update_cfg('NOTIF_delay', 1000);\">" +
-				   "		<input type='radio' name='options' id='radio8-1000'  autocomplete='off' ><span data-langkey='Normal'>Normal</span>" +
+				   "		<input type='radio' name='options' id='radio8-1000'  autocomplete='off' class='btn-check'><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "	    <label id='label8-100'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: fast'" +
 				   "		   onclick=\"update_cfg('NOTIF_delay', 100);\">" +
-				   "		<input type='radio' name='options' id='radio8-100'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
+				   "		<input type='radio' name='options' id='radio8-100'  autocomplete='off' class='btn-check'><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -68,20 +68,20 @@
                       id:          "radio15",
                       type:        "General",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label15-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='WepSIM dark mode: true' " +
 				   "		   onclick=\"wepsim_restore_darkmode(true) ; " +
 				   "		             update_cfg('ws_skin_dark_mode', true);\">" +
-				   "		<input type='radio' name='options' id='radio15-true'  aria-label='Dark mode: true'  autocomplete='off' >On" +
+				   "		<input type='radio' name='options' id='radio15-true'  aria-label='Dark mode: true'  autocomplete='off' class='btn-check'>On" +
 				   "	    </label>" +
 				   "	    <label id='label15-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='WepSIM dark mode: false' " +
 				   "		   onclick=\"wepsim_restore_darkmode(false) ; " +
 				   "		             update_cfg('ws_skin_dark_mode', false);\">" +
-				   "		<input type='radio' name='options' id='radio15-false' aria-label='Dark mode: false' autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio15-false' aria-label='Dark mode: false' autocomplete='off' class='btn-check'>Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -96,24 +96,24 @@
                       id:          "radio12",
                       type:        "Execution",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label12-50'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: slow'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 50);\">" +
-				   "		<input type='radio' name='options' id='radio12-50'   autocomplete='off' ><span data-langkey='Slow'>Slow</span>" +
+				   "		<input type='radio' name='options' id='radio12-50'   autocomplete='off' class='btn-check'><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
 				   "	    <label id='label12-5'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: normal'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 5);\">" +
-				   "		<input type='radio' name='options' id='radio12-5'  autocomplete='off' ><span data-langkey='Normal'>Normal</span>" +
+				   "		<input type='radio' name='options' id='radio12-5'  autocomplete='off' class='btn-check'><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "	    <label id='label12-1'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: fast'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 1);\">" +
-				   "		<input type='radio' name='options' id='radio12-1'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
+				   "		<input type='radio' name='options' id='radio12-1'  autocomplete='off' class='btn-check'><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -127,19 +127,19 @@
                       id:          "radio1",
                       type:        "Execution",
                       u_class:     "user_archived",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label1-instruction'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: instruction'" +
 				   "		   onclick=\"update_cfg('DBG_level','instruction');\">" +
-				   "		<input type='radio' name='options' id='radio1-instruction'   autocomplete='off' >" +
+				   "		<input type='radio' name='options' id='radio1-instruction'   autocomplete='off' class='btn-check'>" +
 				   "		<span class='d-none d-sm-inline-flex' data-langkey='Instructions'>Instructions</span><span class='d-sm-none'>Instruc.</span></label>" +
 				   "	    </label>" +
 				   "	    <label id='label1-microinstruction'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: microinstruction'" +
 				   "		   onclick=\"update_cfg('DBG_level','microinstruction');\">" +
-				   "		<input type='radio' name='options' id='radio1-microinstruction'  autocomplete='off' >" +
+				   "		<input type='radio' name='options' id='radio1-microinstruction'  autocomplete='off' class='btn-check'>" +
 				   "		<span class='d-none d-sm-inline-flex' data-langkey='&#181;instructions'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
 				   "	    </label>" +
 				   "	</div>",
@@ -155,7 +155,7 @@
                       type:        "Execution",
                       u_class:     "",
                       code_cfg:    "<a href='#' id='breakpointicon1' title='Please select breakpoint icon' tabindex='0'" +
-			           "   data-toggle='popover' data-trigger='click'>" +
+			           "   data-bs-toggle='popover' data-trigger='click'>" +
 		                   "   		<img alt='stop icon' id='img_select1' src='images/stop/stop_classic.gif' class='' " +
 			           "                 style='position:relative; left:10px; height:30px !important; width:30px !important;'>" +
 			           "</a>",
@@ -229,20 +229,20 @@
                       id:          "radio7",
                       type:        "Editor",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label7-default'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"update_cfg('editor_theme','default');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
-				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' ><span data-langkey='Light'>Light</span>" +
+				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' class='btn-check'><span data-langkey='Light'>Light</span>" +
 				   "	    </label>" +
 				   "	    <label id='label7-blackboard'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"update_cfg('editor_theme','blackboard');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
-				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' ><span data-langkey='Dark'>Dark</span>" +
+				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' class='btn-check'><span data-langkey='Dark'>Dark</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -280,25 +280,25 @@
                       id:          "radio2",
                       type:        "Register file",
                       u_class:     "user_archived",
-                      code_cfg:    "    <div class='btn-group-toggle' data-toggle='buttons' >" +
+                      code_cfg:    "    <div class='btn-group-toggle' data-bs-toggle='buttons' >" +
                                    "    <div class='btn-group d-flex btn-group-justified'>" +
 				   "	    <label id='label2-unsigned_16_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_nofill'); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_16_nofill'  autocomplete='off' >1A<sub>16</sub>" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_16_nofill'  autocomplete='off' class='btn-check'>1A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_10_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_nofill');  show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_10_nofill'  autocomplete='off' >32<sub>10</sub>" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_10_nofill'  autocomplete='off' class='btn-check'>32<sub>10</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_8_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_nofill');   show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_8_nofill'   autocomplete='off' >26<sub>8</sub>" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_8_nofill'   autocomplete='off' class='btn-check'>26<sub>8</sub>" +
 				   "	    </label>" +
                                    "    </div>" +
                                    "    <div class='btn-group d-flex btn-group-justified'>" +
@@ -306,19 +306,19 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_fill'); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' >001A<sub>16</sub>" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' class='btn-check'>001A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_10_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_fill'); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' >0032<sub>10</sub>" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' class='btn-check'>0032<sub>10</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_8_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_fill'); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' >0026<sub>8</sub>" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' class='btn-check'>0026<sub>8</sub>" +
 				   "	    </label>" +
                                    "    </div>" +
 				   "	</div>",
@@ -326,7 +326,7 @@
 			               $('#label2-' + get_cfg('RF_display_format')).button('toggle');
 		                   },
                       description: "<span data-langkey='Display format'>Display format</span>&nbsp;" +
-                                   "<a href='#' data-toggle='popover1' title='Example of display formats' data-html='true' " +
+                                   "<a href='#' data-bs-toggle='popover1' title='Example of display formats' data-html='true' " +
                                    "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
@@ -334,18 +334,18 @@
                       id:          "radio3",
                       type:        "Register file",
                       u_class:     "user_archived",
-                      code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label3-numerical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (number)'" +
 				   "		   onclick=\"update_cfg('RF_display_name','numerical'); wepsim_show_rf_names();\">" +
-				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' ><span data-langkey='Numbers'>Numbers</span>" +
+				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' class='btn-check'><span data-langkey='Numbers'>Numbers</span>" +
 				   "	    </label>" +
 				   "	    <label id='label3-logical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (user identification)'" +
 				   "		   onclick=\"update_cfg('RF_display_name','logical'); wepsim_show_rf_names();\">" +
-				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' ><span data-langkey='Labels'>Labels</span>" +
+				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' class='btn-check'><span data-langkey='Labels'>Labels</span>" +
 				   "	    </label>" +
 				   " </div>",
 		      code_init:   function() {
@@ -358,18 +358,18 @@
                       id:          "radio9",
                       type:        "Register file",
                       u_class:     "user_archived",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label9-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 				   "		   aria-label='Is editable: true'" +
 				   "		   onclick=\"update_cfg('is_editable',true);\">" +
-				   "		<input type='radio' name='options' id='radio9-true'  aria-label='Is editable: true'  autocomplete='off' >On" +
+				   "		<input type='radio' name='options' id='radio9-true'  aria-label='Is editable: true'  autocomplete='off' class='btn-check'>On" +
 				   "	    </label>" +
 				   "	    <label id='label9-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 				   "		   aria-label='Is editable: false'" +
 				   "		   onclick=\"update_cfg('is_editable',false);\">" +
-				   "		<input type='radio' name='options' id='radio9-false' aria-label='Is editable: false' autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio9-false' aria-label='Is editable: false' autocomplete='off' class='btn-check'>Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -393,7 +393,7 @@
 		      code_init:   function() {
 			               $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')});
 		                   },
-                      description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
+                      description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-bs-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
     ws_info.config_ui.push({
@@ -418,18 +418,18 @@
                       id:          "radio10",
                       type:        "Circuitry simulation",
                       u_class:     "user_archived user_microcode",
-                      code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label10-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: true'" +
 				   "		   onclick=\"update_cfg('is_byvalue',true);\">" +
-				   "		<input type='radio' name='options' id='radio10-true'   autocomplete='off' >Value" +
+				   "		<input type='radio' name='options' id='radio10-true'   autocomplete='off' class='btn-check'>Value" +
 				   "	    </label>" +
 				   "	    <label id='label10-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: false'" +
 				   "		   onclick=\"update_cfg('is_byvalue',false);\">" +
-				   "		<input type='radio' name='options' id='radio10-false'  autocomplete='off' >Activation" +
+				   "		<input type='radio' name='options' id='radio10-false'  autocomplete='off' class='btn-check'>Activation" +
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() {
@@ -442,18 +442,18 @@
                       id:          "radio5",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label5-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is interactive: true'" +
 				   "		   onclick=\"update_cfg('is_interactive',true);\">" +
-				   "		<input type='radio' name='options' id='radio5-true'   autocomplete='off' >On" +
+				   "		<input type='radio' name='options' id='radio5-true'   autocomplete='off' class='btn-check'>On" +
 				   "	    </label>" +
 				   "	    <label id='label5-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is interactive: false'" +
 				   "		   onclick=\"update_cfg('is_interactive',false);\">" +
-				   "		<input type='radio' name='options' id='radio5-false'  autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio5-false'  autocomplete='off' class='btn-check'>Off" +
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() {
@@ -466,18 +466,18 @@
                       id:          "radio6",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label6-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is quick interactive: true'" +
 				   "		   onclick=\"update_cfg('is_quick_interactive',true);\">" +
-				   "		<input type='radio' name='options' id='radio6-true'   autocomplete='off' >On" +
+				   "		<input type='radio' name='options' id='radio6-true'   autocomplete='off' class='btn-check'>On" +
 				   "	    </label>" +
 				   "	    <label id='label6-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is quick interactive: false'" +
 				   "		   onclick=\"update_cfg('is_quick_interactive',false);\">" +
-				   "		<input type='radio' name='options' id='radio6-false'  autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio6-false'  autocomplete='off' class='btn-check'>Off" +
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() {
@@ -490,18 +490,18 @@
                       id:          "radio11",
                       type:        "Accesibility",
                       u_class:     "user_archived",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label11-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Active voice: true'" +
 				   "		   onclick=\"update_cfg('use_voice',true); wepsim_voice_start();\">" +
-				   "		<input type='radio' name='options' id='radio11-true'   autocomplete='off' >On" +
+				   "		<input type='radio' name='options' id='radio11-true'   autocomplete='off' class='btn-check'>On" +
 				   "	    </label>" +
 				   "	    <label id='label11-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Active voice: false'" +
 				   "		   onclick=\"update_cfg('use_voice',false); wepsim_voice_stop();\">" +
-				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' class='btn-check'>Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -514,18 +514,18 @@
                       id:          "radio13",
                       type:        "Accesibility",
                       u_class:     "user_archived",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label13-text'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Verbose: text'" +
 				   "		   onclick=\"update_cfg('verbal_verbose','text');\">" +
-				   "		<input type='radio' name='options' id='radio13-text'   autocomplete='off' >Text" +
+				   "		<input type='radio' name='options' id='radio13-text'   autocomplete='off' class='btn-check'>Text" +
 				   "	    </label>" +
 				   "	    <label id='label13-math'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Verbose: math'" +
 				   "		   onclick=\"update_cfg('verbal_verbose','math');\">" +
-				   "		<input type='radio' name='options' id='radio13-math'  autocomplete='off' >Math" +
+				   "		<input type='radio' name='options' id='radio13-math'  autocomplete='off' class='btn-check'>Math" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -562,14 +562,14 @@
                       id:          "radio14",
                       type:        "Accesibility",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label14-only_asm__of__only_frequent__on'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='User Interface set of features for WepSIM: false' " +
 				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:on';" +
 				   "		             update_cfg('ws_skin_user', optValue);" +
                                    "                         wepsim_restore_view(optValue);\">" +
-				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is expert: false' autocomplete='off' >On" +
+				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is expert: false' autocomplete='off' class='btn-check'>On" +
 				   "	    </label>" +
 				   "	    <label id='label14-only_asm__of__only_frequent__of'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
@@ -577,7 +577,7 @@
 				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:of';" +
 				   "		             update_cfg('ws_skin_user', optValue);" +
                                    "                         wepsim_restore_view(optValue);\">" +
-				   "		<input type='radio' name='options' id='radio14-true'  aria-label='Is expert: true'  autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio14-true'  aria-label='Is expert: true'  autocomplete='off' class='btn-check'>Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -591,20 +591,20 @@
                       id:          "radio16",
                       type:        "Accesibility",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label16-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='AutoScrolling: true' " +
 				   "		   onclick=\"var optValue = true;" +
 				   "		             update_cfg('AS_enable', optValue);\">" +
-				   "		<input type='radio' name='options' id='radio16-true' aria-label='AutoScroll: true' autocomplete='off' >On" +
+				   "		<input type='radio' name='options' id='radio16-true' aria-label='AutoScroll: true' autocomplete='off' class='btn-check'>On" +
 				   "	    </label>" +
 				   "	    <label id='label16-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='AutoScrolling: false' " +
 				   "		   onclick=\"var optValue = false;" +
 				   "		             update_cfg('AS_enable', optValue);\">" +
-				   "		<input type='radio' name='options' id='radio16-false'  aria-label='AutoScroll: false'  autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio16-false'  aria-label='AutoScroll: false'  autocomplete='off' class='btn-check'>Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -618,18 +618,18 @@
                       id:          "radio17",
                       type:        "Privacy",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <label id='label17-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Use Google Analytics: true'" +
 				   "		   onclick=\"update_cfg('use_ga', true);\">" +
-				   "		<input type='radio' name='options' id='radio17-true'   autocomplete='off' >On" +
+				   "		<input type='radio' name='options' id='radio17-true'   autocomplete='off' class='btn-check'>On" +
 				   "	    </label>" +
 				   "	    <label id='label17-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Use Google Analytics: false'" +
 				   "		   onclick=\"update_cfg('use_ga', false);\">" +
-				   "		<input type='radio' name='options' id='radio17-false'  autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio17-false'  autocomplete='off' class='btn-check'>Off" +
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() {

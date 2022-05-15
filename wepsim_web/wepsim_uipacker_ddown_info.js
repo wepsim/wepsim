@@ -102,7 +102,7 @@
                    return '<li class="nav-item ' + n_liclass + '">' +
                           '<a class="nav-link '  + n_aclass  + '" role="tab" ' +
                           '   aria-controls="home" aria-selected="true"' +
-                          '   data-toggle="tab" id="' + n_id + '" href="' + n_href + '">' +
+                          '   data-bs-toggle="tab" id="' + n_id + '" href="' + n_href + '">' +
                           n_label +
                           '</a>' +
                           '</li>' ;
@@ -168,8 +168,10 @@
 
         function uipacker_ddown_info_set_select ( opt )
         {
+            bootstrap.Tab.getOrCreateInstance('#tab' + opt).show() ; // bs5
+            //                    $('#tab' + opt).trigger('click') ; // bs4
+
             // update interface
-            $('#tab'  + opt).trigger('click') ;
             $('#select5a').val(opt) ;
         }
 

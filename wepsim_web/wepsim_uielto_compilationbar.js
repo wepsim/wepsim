@@ -87,7 +87,7 @@
                                   '                 return true;"' +
 			          '	   class="btn btn-light shadow-sm col-auto m-0">' ;
                              o += this.render_icon('<em class="fas fa-file"></em>') ;
-                             o += '<span class="font-weight-bold" data-langkey="Load/Save">Load/Save</span>' +
+                             o += '<span class="fw-bold" data-langkey="Load/Save">Load/Save</span>' +
                                   '</button>' ;
                              break ;
 

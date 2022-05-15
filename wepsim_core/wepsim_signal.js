@@ -61,7 +61,7 @@
 			 }
 			 str_bolded = ' ' ;
 			 if (k == signal_obj.default_value) {
-			     str_bolded = '<span class="badge badge-info">default value</span>' ;
+			     str_bolded = '<span class="badge bg-info">default value</span>' ;
 			 }
 
 			 behav_raw = signal_obj.behavior[k] ;
@@ -75,7 +75,7 @@
 				       '<label class="m-1 btn-like" id="' + key + '_' + n + '">' +
 				       '  <input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' +
 				       '         value="' + n + '" ' + str_checked + '/>' +
-				       '  <span class="badge badge-secondary badge-pill">' + n + '</span>' + '&nbsp;' +
+				       '  <span class="badge bg-secondary badge-pill">' + n + '</span>' + '&nbsp;' +
 				       '  <span>' + behav_str + '</span>&nbsp;' + str_bolded +
 				       '  <p class="m-0 ml-3 bg-light collapse collapse7"><small>' + behav_raw + '</small></p>' +
 				       '</label>' +
@@ -175,7 +175,7 @@
 
 				    var bb = $('#dlg_updatesignal') ;
 				    bb.find(".modal-title").addClass("mx-auto") ;
-				    bb.find(".bootbox-close-button").addClass("mx-1") ;
+				    bb.find(".bootbox-close-button").addClass("mx-1 btn-close border-0") ;
 				    bb.modal('handleUpdate') ;
 
 				    // uicfg and events
@@ -241,7 +241,7 @@
             for (sig in simhw_sim_signals()) {
                  for (var sigorg in jit_fire_dep[sig]) {
                       tmp_edges.push({from: tmp_hash[sigorg],
-                                      to: tmp_hash[sig],
+                                      to:   tmp_hash[sig],
                                       arrows: 'to'}) ;
                 }
             }

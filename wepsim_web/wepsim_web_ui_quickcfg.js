@@ -33,50 +33,50 @@
 
 				var o = '<ul class="list-group list-group-flush">' ;
 
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
+				   o += '<li class="list-group-item px-0 d-grid"> ' +
+					'  <a class="btn btn-sm btn-outline-dark col p-1 text-start float-end" href="#" ' +
 					'     onclick="wsweb_dialog_open(\'about\'); ' +
 					'              wsweb_quickmenu_close(); ' +
 					'              return true;">' +
-					'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
+					'<em class="fas fa-magic col-2 ps-1 float-start"></em>' +
+					'<span class="col-10">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
 					'</li>' ;
 
 /*
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
+				   o += '<li class="list-group-item px-0 d-grid"> ' +
+					'  <a class="btn btn-sm btn-outline-dark col p-1 text-start float-end" href="#" ' +
 					'     onclick="wepsim_newbie_tour(); ' +
 					'              wsweb_quickmenu_close(); ' +
 					'              return true;">' +
-					'<em class="fas fa-book-reader col-1 pl-1 float-left"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
+					'<em class="fas fa-book-reader col-2 ps-1 float-start"></em>' +
+					'<span class="col-10">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
 					'</li>' ;
 */
 
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <span class="btn-group-toggle" data-toggle="buttons">' +
-					'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-3">' +
-					'  <input type="checkbox" checked="" autocomplete="off">' +
-					'<em class="fas fa-wrench col-1 pl-1 float-left"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide QuickConfig') + '</span></label>' +
+				   o += '<li class="list-group-item px-0 d-grid"> ' +
+					'  <span class="btn-group-toggle" data-bs-toggle="buttons">' +
+					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-3">' +
+					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
+					'<em class="fas fa-wrench col-2 ps-1 float-start"></em>' +
+					'<span class="col-10">' + i18n_get('dialogs',wsi,'Show/Hide QuickConfig') + '</span></label>' +
 					'  </span>' +
 					'</li>' ;
 
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <span class="btn-group-toggle" data-toggle="buttons">' +
-					'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-1">' +
-					'  <input type="checkbox" checked="" autocomplete="off">' +
-					'<em class="fas fa-bars col-1 pl-1 float-left"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide ActionBar') + '</span></label>' +
+				   o += '<li class="list-group-item px-0 d-grid"> ' +
+					'  <span class="btn-group-toggle d-grid" data-bs-toggle="buttons">' +
+					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-1">' +
+					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
+					'<em class="fas fa-bars col-2 ps-1 float-start"></em>' +
+					'<span class="col-10">' + i18n_get('dialogs',wsi,'Show/Hide ActionBar') + '</span></label>' +
 					'  </span>' +
 					'</li>' ;
 
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <span class="btn-group-toggle" data-toggle="buttons">' +
-					'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-2">' +
-					'  <input type="checkbox" checked="" autocomplete="off">' +
-					'<em class="fas fa-sliders-h col-1 pl-1 float-left"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide Slider') + '</span></label>' +
+				   o += '<li class="list-group-item px-0 d-grid"> ' +
+					'  <span class="btn-group-toggle d-grid" data-bs-toggle="buttons">' +
+					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-2">' +
+					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
+					'<em class="fas fa-sliders-h col-2 ps-1 float-start"></em>' +
+					'<span class="col-10">' + i18n_get('dialogs',wsi,'Show/Hide Slider') + '</span></label>' +
 					'  </span>' +
 					'</li>' ;
 
@@ -101,19 +101,19 @@
 
 		var o = '<ul class="list-group list-group-flush">' ;
 
-		   o += '<li class="list-group-item px-0"> ' +
+		   o += '<li class="list-group-item px-0 d-grid"> ' +
 			'     <div id="slider_cpucu" class="col-sm p-0 collapse show user_microcode">' +
 		        '         <ws-slider-cpucu name="slider3b"></ws-slider-cpucu>' +
 			'     </div>' +
 			'</li>' ;
 
-		   o += '<li class="list-group-item px-0"> ' +
-			'     <div class="col-sm p-0 ml-1 collapse show">' +
+		   o += '<li class="list-group-item px-0 d-grid"> ' +
+			'     <div class="col-sm p-0 ms-1 collapse show">' +
 		        '         <ws-slider-details name="slider3a"></ws-slider-details>' +
 			'     </div>' +
 			'</li>' ;
 
-		   o += '<li class="list-group-item px-0"> ' +
+		   o += '<li class="list-group-item px-0 d-grid"> ' +
 			'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
                         quickcfg_html_onoff('18',
                                             'WepSIM dark mode',
@@ -123,7 +123,7 @@
                                             "  update_cfg('ws_skin_dark_mode', true);") +
 			'</li>' ;
 
-		   o += '<li class="list-group-item px-0"> ' +
+		   o += '<li class="list-group-item px-0 d-grid"> ' +
 			'<label class="w-100"><span data-langkey="Reload">Reload</span>...:</label>' +
 			"   <div class='btn btn-sm btn-light btn-outline-dark p-1 col-8 mx-auto' " +
 			"        aria-label='open the reload dialog box' " +
@@ -134,7 +134,7 @@
 			'</li>' ;
 
 /*
-		   o += '<li class="list-group-item px-0"> ' +
+		   o += '<li class="list-group-item px-0 d-grid"> ' +
 			'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
                         quickcfg_html_onoff('17',
                                             'Frequent only',
@@ -144,7 +144,7 @@
 */
 
 		   o += '<button type="button" id="close" data-role="none" ' +
-			'        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
+			'        class="btn btn-sm btn-danger w-100 p-0 mt-3 d-grid" ' +
 			'        onclick="wsweb_quickslider_close(); ' +
 			'                 return false;">' +
 			i18n_get('dialogs',wsi,'Close') +
@@ -167,7 +167,7 @@
          },
 
          popover2: {
-            quick_id:     '[data-toggle=popover2]',
+            quick_id:     '#popover2_asm',
 	    val_trigger:  'click',
 	    fun_content:  function(shownEvent) {
 			      return wepsim_show_asm_columns_checked('popover2_asm') ;
@@ -186,28 +186,38 @@
 
     function wepsim_init_quickcfg ( quick_id, val_trigger, fun_content, fun_ownshown )
     {
-	 return $(quick_id).popover({
-		    trigger:     val_trigger,
-		    html:        true,
-		    placement:  'auto',
-		    animation:   false,
-		    container:  'body',
-		    template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
-			        '<div class="arrow"></div>' +
-                                '<h3 class="popover-header"></h3>' +
-                                '<div class="popover-body"></div>' +
-			        '</div>',
-		    content:    fun_content,
-		    sanitizeFn: function (content) {
-				    return content ; // DOMPurify.sanitize(content) ;
-				}
-	 }).on('shown.bs.popover',
-		                function(shownEvent) {
-                                    fun_ownshown(shownEvent);
+         var obj1 = document.querySelector(quick_id) ;
+         if (null == obj1) {
+             return null ;
+         }
+
+	 var cfg1 = {
+		      trigger:     val_trigger,
+		      html:        true,
+		      placement:  'auto',
+		      animation:   false,
+		      container:  'body',
+		      template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
+			          '<div class="arrow"></div>' +
+                                  '<h3  class="popover-header"></h3>' +
+                                  '<div class="popover-body"></div>' +
+			          '</div>',
+		      content:    fun_content,
+                      sanitize:   false,
+		      sanitizeFn: function (content) {
+				     return content ; // DOMPurify.sanitize(content) ;
+		  		  }
+	            } ;
+
+	 var po1 = new bootstrap.Popover(obj1, cfg1) ;
+         obj1.addEventListener('shown.bs.popover',
+		               function(shownEvent) {
+                                    fun_ownshown(shownEvent) ;
                                     i18n_update_tags('dialogs') ;
                                     i18n_update_tags('gui') ;
                                     i18n_update_tags('cfg') ;
-                                }) ;
+                               }) ;
+         return po1 ;
     }
 
 
@@ -229,38 +239,38 @@
 
     function quickcfg_html_btn ( label2, code2, colwidth2 )
     {
-	 return "<div class='" + colwidth2 + " p-1'>" +
-		"<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+	 return "<div class='" + colwidth2 + " p-1 d-grid'>" +
+		"<buttom class='btn btn-sm btn-outline-secondary col p-1 text-end float-end' " +
 		"        onclick='" + code2 + "; return true;'>" +
-		"<span class='mx-auto px-1 font-weight-bold rounded text-dark' " +
+		"<span class='mx-auto px-1 fw-bold rounded text-dark' " +
                 "      style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
 		"</div>" ;
     }
 
     function quickcfg_html_btnreg ( label2, code2, colwidth2 )
     {
-         return "<div class='" + colwidth2 + " p-1'>" +
-	        "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+         return "<div class='" + colwidth2 + " p-1 d-grid'>" +
+	        "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-end float-end' " +
 	        "        onclick='" + code2 + "; return true;'>" +
-	        "<span class='font-weight-bold text-monospace'>" + label2 + "</span>" + "&nbsp;" +
+	        "<span class='fw-bold font-monospace'>" + label2 + "</span>" + "&nbsp;" +
 	        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
 	        "</div>" ;
     }
 
     function quickcfg_html_onoff ( id2, arial2, code_off2, code_on2 )
     {
-         return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-toggle='buttons'>" +
+         return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-bs-toggle='buttons'>" +
                 "    <label id='label" + id2 + "-false' " +
                 "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                 "           aria-label='" + arial2 + ": false' " +
 		"           onclick=\"" + code_off2 + "; return true;\">" +
-                "    <input type='radio' name='options' id='radio" + id2 + "-false' " +
+                "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-false' " +
                 "           aria-label='" + arial2 + ": false' autocomplete='off'>Off</label>" +
                 "    <label id='label" + id2 + "-true' " +
                 "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                 "           aria-label='" + arial2 + ": true' " +
 		"           onclick=\"" + code_on2 + "; return true;\">" +
-                "    <input type='radio' name='options' id='radio" + id2 + "-true' " +
+                "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-true' " +
                 "           aria-label='" + arial2 + ": true' autocomplete='on'>On</label>" +
                 "</div>" ;
     }

@@ -448,7 +448,7 @@
 	    $("div.wsversion").replaceWith(get_cfg('version'));
 
 	    // tooltip: trigger by hover
-	    $('[data-toggle="tooltip"]').tooltip({
+	    $('[data-bs-toggle="tooltip"]').tooltip({
 		    trigger:   'hover',
 		    sanitizeFn: function (content) {
 				   return content ; // DOMPurify.sanitize(content) ;
@@ -456,7 +456,7 @@
 	    }) ;
 
 	    // help popover...
-	    $('a[data-toggle="popover1"]').popover({
+	    $('a[data-bs-toggle="popover1"]').popover({
 		    placement: 'bottom',
 		    animation: false,
 		    trigger:   'focus, hover',

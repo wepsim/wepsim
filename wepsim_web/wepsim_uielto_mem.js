@@ -43,11 +43,11 @@
 	      render_skel ( )
 	      {
 		    // html holder
-		    var o1 = "<div class='container text-right'>" +
+		    var o1 = "<div class='container text-end'>" +
                              '<label class="my-0" for="popover-mem" style="min-width:95%">' +
                              '<span data-langkey="quick config">quick config</span>: ' +
-                             "<a data-toggle='popover-mem' id='popover-mem' " +
-			     "   tabindex='0' class='m-auto show multi-collapse-3'>" +
+                             "<a data-bs-toggle='popover-mem' id='popover-mem' " +
+			     "   tabindex='0' class='m-auto show multi-collapse-3 border-0'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
                              "</a></label>" +
                              "</div>" +
@@ -56,7 +56,7 @@
 		    this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    wepsim_init_quickcfg("[data-toggle=popover-mem]",
+		    wepsim_init_quickcfg("[data-bs-toggle=popover-mem]",
 			                 "click",
 			                 quick_config_mem,
 					 function(shownEvent) {
@@ -205,7 +205,7 @@
 	         '<div class="row">' +
                  '<div class="list-group sticky-top col-auto collapse hide" ' +
                  '     id="lst_seg1">' + o1 + '</div>' +
-                 '<div data-spy="scroll" data-target="#lst_seg1" data-offset="0" ' +
+                 '<div data-spy="scroll" data-bs-target="#lst_seg1" data-offset="0" ' +
                  '     style="overflow-y:scroll; -webkit-overflow-scrolling:touch; height:50vh; width:inherit;"' +
                  '     class="col" id="lst_ins1">' + o2 + '</div>' +
                  '</div>' +
@@ -270,7 +270,7 @@
 
         function main_memory_showsegrow ( seg_id, seg_name )
         {
-            return '<div id="' +  seg_id + '" class="row" data-toggle="collapse" href="#lst_seg1">' +
+            return '<div id="' +  seg_id + '" class="row" data-bs-toggle="collapse" href="#lst_seg1">' +
                    '<u>' + seg_name + '</u>' +
                    '</div>' ;
         }
@@ -341,12 +341,12 @@
                  {
                      valuei = '<span>' +
                               '<span style="border:1px solid gray;">' + valuei + '</span>' +
-                              '<span class="badge badge-pill badge-info" ' +
+                              '<span class="badge rounded-pill text-bg-info" ' +
                               '      style="position:relative;top:-8px;z-index:2">' + labeli + '</span>' +
                               '</span>' ;
                  }
 
-                 value2 += '<span class="mr-1">' + valuei + '</span>' ;
+                 value2 += '<span class="me-1">' + valuei + '</span>' ;
             }
 
             // build HTML
@@ -355,7 +355,7 @@
 	        "<div class='col-1 px-0' align='center'>" +
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+
-		"<div class='col-6 col-md-5 pr-2' align='right'>" +
+		"<div class='col-6 col-md-5 pe-2' align='right'>" +
                      '<small>0x</small>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
                      '<span> ... </span>' +
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
@@ -419,7 +419,7 @@
                  }
 
 		 old_html  = $("#bg" + base_addrs[elto]).html() ;
-                 old_html += '<div class="badge badge-primary mx-1">' +
+                 old_html += '<div class="badge bg-primary mx-1">' +
                              elto.toUpperCase() +
                              '</div>' +
                           // '<i class="mx-auto text-secondary fas fa-arrow-right"></i>' ;

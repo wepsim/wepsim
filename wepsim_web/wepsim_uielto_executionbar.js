@@ -72,45 +72,45 @@
                     {
                        case "btn_reset":
 			     o += '<button id="btn_reset_' + this.name_str + '" ' + o_style +
-				  '        class="btn btn-light col  pb-1 px-1 mr-1"' +
+				  '        class="btn btn-light col  pb-1 px-1 me-1"' +
 				  '        onclick="wsweb_execution_reset();' +
 				  '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ''     : '<em class="fa fa-power-off"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
-			     o += '<span class="font-weight-bold" data-langkey="Reset">Reset</span>' +
+			     o += '<span class="fw-bold" data-langkey="Reset">Reset</span>' +
 				  '</button>' ;
                                   break ;
 
                        case "btn_emins":
 			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col user_microcode  pb-1 px-1 mr-1"' +
+		                  '        class="btn btn-light col user_microcode  pb-1 px-1 me-1"' +
 			          '        onclick="wsweb_execution_microinstruction();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-step-forward"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
-                             o += '<span class="d-none d-sm-inline-flex font-weight-bold" data-langkey="microInstruction">&#181;Instruction</span><span class="d-sm-none font-weight-bold">&#181;Instr.</span>' +
+                             o += '<span class="d-none d-sm-inline-flex fw-bold" data-langkey="microInstruction">&#181;Instruction</span><span class="d-sm-none fw-bold">&#181;Instr.</span>' +
                                   '</button>' ;
                                   break ;
 
                        case "btn_eins":
 			     o += '<button id="btn_next_instruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col  pb-1 px-1 mr-1"' +
+		                  '        class="btn btn-light col  pb-1 px-1 me-1"' +
 			          '        onclick="wsweb_execution_instruction();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-fast-forward"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
-                             o += '<span class="d-none d-sm-inline-flex font-weight-bold" data-langkey="Instruction">Instruction</span><span class="d-sm-none font-weight-bold">Instr.</span>' +
+                             o += '<span class="d-none d-sm-inline-flex fw-bold" data-langkey="Instruction">Instruction</span><span class="d-sm-none fw-bold">Instr.</span>' +
                                   '</button>' ;
                                   break ;
 
                        case "btn_run":
 			     o += '<button id="btn_run_stop_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col  pb-1 px-1 mr-1"' +
+		                  '        class="btn btn-light col  pb-1 px-1 me-1"' +
                                   '        onclick="wsweb_execution_run();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-play"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
-                             o += '<span class="font-weight-bold" data-langkey="Run">Run</span>' +
+                             o += '<span class="fw-bold" data-langkey="Run">Run</span>' +
                                   '</button>' ;
                                   break ;
                     }

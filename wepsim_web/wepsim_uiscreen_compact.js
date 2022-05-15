@@ -68,10 +68,10 @@
 			 '  </div>' +
 			 '' +
 			 ' <div class="row">' +
-			 '   <div id="col1" class="pt-2 pl-3 pr-2">' +
+			 '   <div id="col1" class="pt-2 ps-3 pe-2">' +
 			 '   <ws-ctoasm></ws-ctoasm>' +
 			 '   </div>' +
-			 '   <div id="col2" class="pt-2 pl-3">' +
+			 '   <div id="col2" class="pt-2 ps-3">' +
 			 '   <ws-simmicasm></ws-simmicasm>' +
 			 '   </div>' +
 			 ' </div>' +
@@ -87,8 +87,8 @@
 	      render_populate_compact_toolbars ( )
 	      {
 		  return  '	  <a id="popover-slidercfg" tabindex="0"' +
-			  '	     class="show multi-collapse-3 btn my-1 col-auto"' +
-			  '	     data-toggle="popover-slidercfg"><strong><strong class="fas fa-wrench text-secondary"></strong></strong></a>' +
+			  '	     class="show multi-collapse-3 btn my-1 col-auto border-0"' +
+			  '	     data-bs-toggle="popover-slidercfg"><strong><strong class="fas fa-wrench text-secondary"></strong></strong></a>' +
 			  '' +
 			  '	  <div class="col-auto px-0 px-sm-2">' +
 			  '	  <ws-toolbar components="[,btn_examples,btn_help,]"' +
@@ -118,7 +118,7 @@
 			  '' +
 			  '	  <div class="w-100 d-md-block d-lg-none"></div>' +
 			  '' +
-			  '	  <div class="col-sm p-0 ml-1 collapse multi-collapse-2 user_microcode">' +
+			  '	  <div class="col-sm p-0 ms-1 collapse multi-collapse-2 user_microcode">' +
 			  '	  <ws-toolbar components="slider_c1c2"></ws-toolbar>' +
 			  '	  </div>' ;
 	      }

@@ -41,7 +41,10 @@
 		   	     "<thead>" +
 			     "<tr style='border-top:2pt solid white;'>" +
 			     "<th width='1%'>" +
-			     "<a tabindex='0' href='#' class='show multi-collapse-3' data-toggle='popover2' id='popover2_asm'><strong class='fas fa-wrench text-secondary'></strong></a>" +
+			     "<a tabindex='0' href='#' class='show multi-collapse-3' " +
+                             "   data-bs-toggle='popover2' id='popover2_asm'>" +
+                             "<strong class='fas fa-wrench text-secondary'></strong>" +
+                             "</a>" +
 			     "</th>" +
                              "<th width='10%' class='asm_label collapse' align='right'><span data-langkey='labels'>labels</span></th>" +
 			     "<th width='15%' class='asm_addr  collapse'              ><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" +
@@ -112,11 +115,11 @@
         function default_asmdbg_content_horizontal_card ( index, datalangkey, content )
         {
     	    return "<div class='card m-3'>" +
-    		   "  <div class='row no-gutters'>" +
+    		   "  <div class='row g-0'>" +
     		   "  <div class='col-md-12'>" + // -
     		   "  <div class='card-body py-0'>" +
     		   "    <p class='card-text'>" +
-    		   "    <div class='badge badge-primary'>" + index + "</div>" +
+    		   "    <div class='badge bg-primary'>" + index + "</div>" +
     		   "    <span data-langkey='" + datalangkey + "'>" + content + "</span>" +
     		   "    </p>" +
     		   "  </div>" +
@@ -148,7 +151,7 @@
     	  return "<div class='card m-2 col-sm'>" +
     		 "  <div class='card-body h-50 py-0'>" +
     		 "    <p class='card-text'>" +
-    		 "    <div class='badge badge-primary'>" + index + "</div>" +
+    		 "    <div class='badge bg-primary'>" + index + "</div>" +
     		 "    <span data-langkey='" + datalangkey + "'>" + content + "</span>" +
     		 "    </p>" +
     		 "  </div>" +
@@ -236,9 +239,9 @@
 
                      if (n_ellipsis > 0)
                      {
-                         o_tde = "<td class='text-monospace col-auto pb-0' " +
+                         o_tde = "<td class='font-monospace col-auto pb-0' " +
                                  "    style='line-height:0.9;' align='left'></td>" ;
-                         o_tdf = "<td class='text-monospace col-auto pb-0' " +
+                         o_tdf = "<td class='font-monospace col-auto pb-0' " +
                                  "    style='line-height:0.9;' align='left'>" +
                                  "&vellip;&vellip; &times;" + n_ellipsis + "</td>" ;
                          o += "<tr>" + o_tde + o_tdf + o_tde + o_tdf + o_tde + o_tde + o_tdf + "</tr>" ;
@@ -251,7 +254,7 @@
 		     if (typeof a2l[p] != "undefined")
 		     {
 			 for (var i=0; i<a2l[p].length; i++) {
-			      s_label = s_label + "<span class='badge badge-info'>" + a2l[p][i] + "</span>" ;
+			      s_label = s_label + "<span class='badge bg-info'>" + a2l[p][i] + "</span>" ;
 			 }
 		     }
 
@@ -286,25 +289,25 @@
 
 	     // join the pieces...
 	     var o = "<tr id='asmdbg" + p + "' bgcolor='" + mp[l].bgcolor + "'>" +
-		     "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
+		     "<td class='asm_label  font-monospace col-auto collapse pb-0' " +
 		     "    style='line-height:0.9;' align='right'>" + s_label +
 		     "</td>" +
-		     "<td class='asm_addr   text-monospace col-auto collapse' " +
+		     "<td class='asm_addr   font-monospace col-auto collapse' " +
 		     "    style='line-height:0.9;'>" + p +
 		     "</td>" +
-		     "<td class='asm_break  text-monospace col-auto show p-0' " +
+		     "<td class='asm_break  font-monospace col-auto show p-0' " +
 		     "    style='line-height:0.9;' id='bp" + p + "' width='1%'>" +
 		     "</td>" +
-		     "<td class='asm_hex    text-monospace col-auto collapse text-secondary' " +
+		     "<td class='asm_hex    font-monospace col-auto collapse text-secondary' " +
 		     "    style='line-height:0.9; width:13%' align='center'>" + s4_hex +
 		     "</td>" +
-		     "<td class='asm_dets   text-monospace col-auto show p-0' " +
+		     "<td class='asm_dets   font-monospace col-auto show p-0' " +
 		     "    style='line-height:0.9;' width='1%' align='left'>" +
 		     "</td>" +
-		     "<td class='asm_ins    text-monospace col-auto collapse text-secondary' " +
+		     "<td class='asm_ins    font-monospace col-auto collapse text-secondary' " +
 		     "    style='line-height:0.9;'>" + s2_instr +
 		     "</td>" +
-		     "<td class='asm_pins   text-monospace col-auto collapse text-secondary' " +
+		     "<td class='asm_pins   font-monospace col-auto collapse text-secondary' " +
 		     "    style='line-height:0.9;' align='left'>" + s2_instr +
 		     "</td>" +
 		     "</tr>" ;
@@ -337,31 +340,31 @@
 	     // join the pieces...
              var o = '' ;
 	     o +=  "<tr id='asmdbg" + p + "' bgcolor='" + mp[l].bgcolor + "'>" +
-		   "<td class='asm_label  text-monospace col-auto collapse pb-0' " +
+		   "<td class='asm_label  font-monospace col-auto collapse pb-0' " +
 		   "    style='line-height:0.9;' align='right' " + oclk + ">" + s_label +
 		   "</td>" +
-		   "<td class='asm_addr   text-monospace col-auto collapse' " +
+		   "<td class='asm_addr   font-monospace col-auto collapse' " +
 		   "    style='line-height:0.9;' " + oclk + ">" + p +
 		   "</td>" +
-		   "<td class='asm_break  text-monospace col-auto show p-0' " +
+		   "<td class='asm_break  font-monospace col-auto show p-0' " +
 		   "    style='line-height:0.9;' id='bp" + p + "' width='1%' " + oclk + ">" +
-	           "<span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
+	           "<span data-bs-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
 		   "</td>" +
-		   "<td class='asm_hex    text-monospace col-auto collapse' " +
+		   "<td class='asm_hex    font-monospace col-auto collapse' " +
 		   "    style='line-height:0.9; width:13%' align='center' " + oclk + ">" + s4_hex +
 		   "</td>" +
-		   "<td class='asm_dets   text-monospace col-auto show p-0' " +
+		   "<td class='asm_dets   font-monospace col-auto show p-0' " +
 		   "    style='line-height:0.9;' width='1%' align='left'>" +
-	           "<span data-toggle='tooltip' rel='tooltip2' data-placement='right' " +
+	           "<span data-bs-toggle='tooltip' rel='tooltip2' data-placement='right' " +
 		   "      data-html='true' data-l='" + l + "'>" +
-		   "<span data-toggle='tooltip' rel='tooltip1' data-placement='right' " +
+		   "<span data-bs-toggle='tooltip' rel='tooltip1' data-placement='right' " +
 		   "      title='click to show instruction format details'>&nbsp;.&nbsp;</span>" +
 		   "</span>" +
 		   "</td>" +
-		   "<td class='asm_ins    text-monospace col-auto collapse' " +
+		   "<td class='asm_ins    font-monospace col-auto collapse' " +
 		   "    style='line-height:0.9;' " + oclk + ">" + s1_instr +
 		   "</td>" +
-		   "<td class='asm_pins   text-monospace col-auto collapse' " +
+		   "<td class='asm_pins   font-monospace col-auto collapse' " +
 		   "    style='line-height:0.9;' align='left' " + oclk + ">" + s2_instr +
 		   "</td>" +
 		   "</tr>" ;
@@ -397,33 +400,49 @@
         {
     	     var wsi = get_cfg('ws_idiom') ;
 
-             var o = '<button type="button" id="asm_label" aria-label="Show label" ' +
+             var o = '<span class="d-grid gap-2">' +
+                 '<button type="button" id="asm_label" aria-label="Show label" ' +
     		 '        onclick="wepsim_click_asm_columns(\'label\'); return false;" ' +
     		 '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
-    		 '<span class="float-left">' + i18n_get('dialogs', wsi, 'Show/Hide labels') + '</span>' +
+    		 '<span class="float-start">' + i18n_get('dialogs', wsi, 'Show/Hide labels') + '</span>' +
     		 '</button>' +
     		 '<button type="button" id="asm_hex" aria-label="Show content" ' +
     		 '        onclick="wepsim_click_asm_columns(\'hex\'); return false;" ' +
                      '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
-    		 '<span class="float-left">' + i18n_get('dialogs', wsi, 'Show/Hide content') + '</span>' +
+    		 '<span class="float-start">' + i18n_get('dialogs', wsi, 'Show/Hide content') + '</span>' +
     		 '</button>' +
     		 '<button type="button" id="asm_ins" aria-label="Show instruction" ' +
     		 '        onclick="wepsim_click_asm_columns(\'ins\'); return false;" ' +
                      '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
-    		 '<span class="float-left">' + i18n_get('dialogs', wsi, 'Show/Hide assembly') + '</span>' +
+    		 '<span class="float-start">' + i18n_get('dialogs', wsi, 'Show/Hide assembly') + '</span>' +
     		 '</button>' +
     		 '<button type="button" id="asm_pins" aria-label="Show pseudoinstruction" ' +
     		 '        onclick="wepsim_click_asm_columns(\'pins\'); return false;" ' +
                      '        class="btn btn-sm btn-block btn-outline-secondary mb-1">' +
-    		 '<span class="float-left">' + i18n_get('dialogs', wsi, 'Show/Hide pseudo-instructions') + '</span>' +
+    		 '<span class="float-start">' + i18n_get('dialogs', wsi, 'Show/Hide pseudo-instructions') + '</span>' +
     		 '</button>' +
                      '<button type="button" id="close" data-role="none" ' +
                      '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
                      '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');">' +
     		          i18n_get('dialogs', wsi, 'Close') +
-    		 '</button>' ;
+    		 '</button>' +
+                 '</span>' ;
 
              return o ;
+        }
+
+	function closeAllTooltips ( )
+	{
+           var e2 = null ;
+
+           var l1 = document.querySelectorAll('[data-bs-toggle="tooltip"]') ;
+    	   for (var i1=0; i1<l1.length; i1++) {
+                e2 = bootstrap.Tooltip.getInstance(l1[i1]) ;
+                if (e2 != null) e2.hide();
+           }
+
+           // bs4:
+           // $(".tooltip").tooltip("hide") ;
         }
 
 	function instruction2tooltip ( mp, l )
@@ -452,7 +471,7 @@
 	   var o  = '<div class=\"text-center p-1 m-1 border border-secondary rounded\">\n' +
 		    ins_quoted  + '<br>\n' +
 		    '</div>' +
-	       	    '<div class=\"text-left p-1 m-1\">\n' +
+	       	    '<div class=\"text-start p-1 m-1\">\n' +
 		    '<b>' + ins_bin + '</b>\n' +
 		    '</div>' ;
 
@@ -462,7 +481,7 @@
 	       u = '+' + firm_reference.cop ;
 	   }
 
-	   o +=	'<div class=\"text-left px-2 my-1\">\n' +
+	   o +=	'<div class=\"text-start px-2 my-1\">\n' +
 	       	'<span class=\"square\">Format:</span>\n' +
 	        '<ul class=\"mb-0\">\n' +
 		' <li>' + firm_reference.name + ': <b>' + firm_reference.co + u + '</b></li>\n' ;
@@ -484,7 +503,7 @@
            if ('' != firm_reference.help.trim())
            {
 	       o += '<span class=\"square\">Help:</span>\n' +
-	            '<div class=\"ml-3\">\n' +
+	            '<div class=\"ms-3\">\n' +
 		    firm_reference.help + '\n' +
 	            '</div>\n' +
                     '</span>' ;
@@ -494,7 +513,7 @@
 	   o += '</div>' ;
            o += '<button type=\"button\" id=\"close\" data-role=\"none\" ' +
                 '        class=\"btn btn-sm btn-danger w-100 p-0 mt-2\" ' +
-                '        onclick=$(\".tooltip\").tooltip("hide");>' +
+                '        onclick=closeAllTooltips();return false;>' +
     		         i18n_get('dialogs', wsi, 'Close') +
     		'</button>' ;
 
@@ -622,7 +641,7 @@
                 $("span[rel='tooltip1']").tooltip('hide') ;
 
                 var o1       = document.getElementById("bp" + hexaddr) ;
-                o1.innerHTML = "<span data-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>" +
+                o1.innerHTML = "<span data-bs-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>" +
 			       inner_elto +
 			       "</span>" ;
 

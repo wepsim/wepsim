@@ -95,7 +95,7 @@
 		    {
 		    o1 += "<tr>" +
 			  "<td id='int" + i + "_act' align=center width=50%>" +
-			  "<span v-bind:class='[ value ? \"font-weight-bold\" : \"\" ]'>" + i + "</span>" +
+			  "<span v-bind:class='[ value ? \"fw-bold\" : \"\" ]'>" + i + "</span>" +
 			  "</td>" +
 			  "<td id='int" + i + "_acc' align=center width=50%>" + "<span>{{ value }}</span>" +
 			  "</td>" +

@@ -65,7 +65,7 @@
 		    });
 
             // show
-	    d1.find('.modal-title').addClass("ml-auto") ;
+	    d1.find('.modal-title').addClass("mx-auto") ;
 	    d1.modal('handleUpdate') ;
 	    d1.modal('show');
 

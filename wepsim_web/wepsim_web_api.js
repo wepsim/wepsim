@@ -418,7 +418,7 @@
 	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
-					  $('[data-toggle=tooltip]').tooltip('hide');
+					  $('[data-bs-toggle=tooltip]').tooltip('hide');
                                         //$("#infohw1").attr('components', 'summary,elements,states,signals,behaviors');
 	                                  simcoreui_show_hw();
 					  var ws_idiom = get_cfg('ws_idiom');
@@ -448,7 +448,7 @@
     {
             if (simhw_active() !== null)
             {
-		$('[data-toggle=tooltip]').tooltip('hide') ;
+		$('[data-bs-toggle=tooltip]').tooltip('hide') ;
 		show_memories_values() ;
                 scroll_memory_to_lastaddress() ;
 		wepsim_reset_max_turbo() ;
@@ -1017,7 +1017,7 @@
 		             buttons:    {
 					    noclose: {
 					        label: "<div id='autoclose1'>&nbsp;</div>",
-					        className: 'float-left mr-auto m-0',
+					        className: 'float-start me-auto m-0',
 					        callback: function() {
 					   		     return false;
 						          }
@@ -1063,11 +1063,11 @@
 
             bbbt.cancel = {
 		    label: i18n_get('gui',wsi,'Close'),
-		    className: 'btn-danger col float-left mr-auto',
+		    className: 'btn-danger col float-start me-auto',
 	    };
             bbbt.end = {
 		    label: i18n_get('gui',wsi,'Save'),
-		    className: 'btn-success col float-right',
+		    className: 'btn-success col float-end',
 		    callback: function() {
                             /* eslint-disable no-control-regex */
 

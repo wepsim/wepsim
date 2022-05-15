@@ -57,7 +57,7 @@
 		        }
 		    }
 
-		    $('a[data-toggle="popover1"]').popover({
+		    $('a[data-bs-toggle="popover1"]').popover({
 		   	     placement:  'bottom',
 			     trigger:    'focus, hover',
 			     animation:  false,
@@ -105,7 +105,7 @@
 
      		row = '<div class="row py-1 ' + fmt_toggle + ' ' + e_u_class + '" id="' + e_type + '">' +
      		      '<div class="col-md-auto">' +
-     		      '    <span class="badge badge-pill badge-light">' + (n+1) + '</span>' +
+     		      '    <span class="badge rounded-pill text-bg-light">' + (n+1) + '</span>' +
      		      '</div>' +
      		      '<div class="col-md-4">'  + e_code_cfg   + '</div>' +
      		      '<div class="col-md collapse7 show align-items-center"><c>' + e_description + '</c></div>' +
@@ -152,7 +152,7 @@
      		     }
      		}
 
-     		o = o + "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top " + l + "'>" +
+     		o = o + "<div class='float-none text-end text-capitalize fw-bold col-12 border-bottom border-secondary bg-white sticky-top " + l + "'>" +
      			"<span data-langkey='" + m + "'>" + m + "</span>" +
      			"</div>" + u ;
             }

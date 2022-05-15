@@ -414,11 +414,11 @@
 	    }
 
 	    // build backup list
-            o = '<div class="btn-group btn-group-toggle list-group m-1" data-toggle="buttons">' ;
+            o = '<div class="btn-group btn-group-toggle list-group m-1" data-bs-toggle="buttons">' ;
 	    obj_wsbackup = obj_wsbackup.reverse() ;
 	    for (i=0; i<obj_wsbackup.length; i++)
 	    {
-		 o += '<label class="list-group-item btn btn-white border-dark text-truncate rounded-sm">' +
+		 o += '<label class="list-group-item btn btn-white border-dark text-truncate rounded-1">' +
 		      '   <input type="radio" name="browserCacheElto" id="' + i + '" autocomplete="off">' + obj_wsbackup[i].tag +
 		      '</label>' ;
 	    }

@@ -49,7 +49,7 @@
                     var o1  = '' ;
 
                     // build HTML
-		    o1 += "<div class='container text-right'>" + "</div>" +
+		    o1 += "<div class='container text-end'>" + "</div>" +
 		          "<div id='memory_segments' style='height:58vh; width:inherit;'></div>" ;
 
 		    this.innerHTML = o1 ;

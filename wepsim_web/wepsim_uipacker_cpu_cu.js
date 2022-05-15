@@ -38,12 +38,12 @@
 		    var o1 = '' ;
 
                     // row with quick config:
-                    o1 +=    "<div class='container text-right col-12 px-3 pt-1'>" +
+                    o1 +=    "<div class='container text-end col-12 px-3 pt-1'>" +
                              "<label class='my-0' for='popover-rfcfg' style='min-width:95%'>" +
                              "<span data-langkey='quick config'>quick config</span>: " +
                              "<a id='popover-cpuview' tabindex='0' " +
-                             "   class='show multi-collapse-3 btn my-1 col-auto' " +
-                             "   data-toggle='popover-cpuview'>" +
+                             "   class='show multi-collapse-3 btn my-1 col-auto border-0' " +
+                             "   data-bs-toggle='popover-cpuview'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
                              "</label>" +
                              "</div>" ;
@@ -54,12 +54,12 @@
                              '    <div class="nav nav-pills nav-fill" ' +
                              '         id="nav-tab1" role="tablist" aria-orientation="horizontal">' +
                              '      <a class="nav-link m-2 bg-light text-primary active" ' +
-                             '         data-toggle="pill" role="tab" ' +
+                             '         data-bs-toggle="pill" role="tab" ' +
                              '         id="cpu_view_graph1" href="#cpu_graph1" ' +
                              '         aria-controls="cpu_graph1" aria-selected="true">' +
                              '<span data-langkey="Graph">Graph</span></a>' +
                              '      <a class="nav-link m-2 bg-light text-primary" ' +
-                             '         data-toggle="pill" role="tab" ' +
+                             '         data-bs-toggle="pill" role="tab" ' +
                              '         id="cpu_view_table1" href="#cpu_table1" ' +
                              '         aria-controls="cpu_table1" aria-selected="false">' +
                              '<span data-langkey="Text">Text</span></a>' +
@@ -86,7 +86,7 @@
 		    this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    wepsim_init_quickcfg("[data-toggle=popover-cpuview]",
+		    wepsim_init_quickcfg("[data-bs-toggle=popover-cpuview]",
 			                 "click",
 			                 quick_config_cpuview,
 					 function(shownEvent) {

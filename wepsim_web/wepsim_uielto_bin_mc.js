@@ -127,7 +127,7 @@
                          line = "";
                          if (j==0)
                               line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>" +
-				      "<span class='badge badge-pill badge-secondary float-left'>" + isignature + "</span>&nbsp;</td>" +
+				      "<span class='badge rounded-pill text-bg-secondary float-start'>" + isignature + "</span>&nbsp;</td>" +
                                       "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
                          else line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
                                       "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;

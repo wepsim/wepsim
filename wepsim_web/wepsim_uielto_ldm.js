@@ -87,11 +87,11 @@
 				       'pass':     apirest_pass }) ;
 
 		    // html holder
-		    o1  += "<div class='container text-right'>" +
+		    o1  += "<div class='container text-end'>" +
                            "" +
                            '<label class="my-0" for="popover-ledmcfg" style="min-width:95%">' +
                            '<span data-langkey="quick config">quick config</span>: ' +
-                           "<a data-toggle='collapse' href='#collapse-ledmcfg' aria-expanded='false' " +
+                           "<a data-bs-toggle='collapse' href='#collapse-ledmcfg' aria-expanded='false' " +
                            "   tabindex='0' class='m-auto' role='button' id='popover-ledmcfg'>" +
                            "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
                            "</label>" +
@@ -117,7 +117,7 @@
                               "    id='ledm" + (j*ledm_dim + k) + "_context' " +
                               "    v-bind:style='{ \"background-color\": webui_ledm_value2color(value), height: \"15px\", width: \"15px\"}' " +
                               "    v-on:click='value = (value + 1) % 256'>" +
-                              "<span class='sr-only'>background-color {{value}}</span>" +
+                              "<span class='visually-hidden'>background-color {{value}}</span>" +
                               "</td>" ;
 				    }
 			o1 += "</tr>" ;

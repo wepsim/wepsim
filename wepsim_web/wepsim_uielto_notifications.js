@@ -52,9 +52,9 @@
 		    o1 += "<div class='card border-secondary h-100'>" +
 			  "<div class='card-header border-light text-secondary bg-light p-1'>" +
 		          "  + <span data-langkey='Recent'>Recent</span>" +
-                          "  <div class='dropdown float-right'>" +
+                          "  <div class='dropdown float-end'>" +
                           "  <button class='btn btn-sm btn-outline-secondary text-danger py-1 dropdown-toggle' " +
-                          "            type='button' id='resetyn' data-toggle='dropdown' " +
+                          "            type='button' id='resetyn' data-bs-toggle='dropdown' " +
                           "            aria-haspopup='true' aria-expanded='false' " +
 			  "            ><span data-langkey='Reset'>Reset</span></button>" +
                           "   </button>" +
@@ -118,12 +118,12 @@
 	
 	             u += '<li class="list-group-item list-group-item-' + notifications[i].type + ' rounded-lg mx-2 my-1 p-2 shadow-sm">' +
 			  '<h5 class="m-0 collapse7 show">' +
-			  '<span class="badge">(' +
+			  '<span class="badge text-dark">(' +
 	                  t.getHours() + ':' + t.getMinutes() + ':' + t.getSeconds() + '.' + t.getMilliseconds() +
 			  ')</span>' +
-			  '<span class="badge">[' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ']</span>' +
+			  '<span class="badge text-dark">[' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ']</span>' +
 			  '</h5>' +
-			  '<span class="text-monospace">' + notifications[i].title + ':' + '</span>' + m +
+			  '<span class="font-monospace">' + notifications[i].title + ':' + '</span>' + m +
 			  '</li>' ;
 		}
 		if (u.trim() === '') {

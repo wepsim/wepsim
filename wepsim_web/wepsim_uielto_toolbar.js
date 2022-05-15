@@ -112,10 +112,10 @@
 		 return '<button class="btn btn-light shadow-sm col-auto user_microcode mx-1 px-2"' +
 		        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                         '        id="btn_micro1"' +
-		        '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+		        '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 		        '        title="This button switches into the \'Microcode\' editor."' +
                         '        onclick="wsweb_change_workspace_microcode();' +
-		        '	          $(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
+		        '	          $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
 		        '	          return false;"' +
 		        '><strong><span class="d-none d-sm-inline-flex" ' +
                         ' data-langkey=\'MicroCode\'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>' ;
@@ -126,10 +126,10 @@
 		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2"' +
 		        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                         '        id="btn_asm1"' +
-			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="This button switches into the \'Assembly\' editor."' +
                         '        onclick="wsweb_change_workspace_assembly();' +
-			'	          $(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
+			'	          $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
 			'		  return false;"' +
 			'><strong><span class="d-none d-sm-inline-flex" data-langkey=\'Assembly\'>Assembly</span><span class="d-sm-none" data-langkey=\'Assembly\'>Assembly</span></strong></button>' ;
 	      }
@@ -138,11 +138,11 @@
 	      {
 		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2"' +
                         '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
                         '        data-transition="none" data-inline="true"' +
 			'        title="This button switches into the \'Simulator\' workspace."' +
                         '        onclick="wsweb_change_workspace_simulator();' +
-			'	          $(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
+			'	          $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
 			'		  return false;"' +
                         '><strong><span data-langkey=\'Simulator\'>Simulator</span></strong></button>' ;
 	      }
@@ -184,7 +184,7 @@
 		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2"' +
 		         '        style="border-width:1 1 1 1px; border-color:#BBBBBB; background-color:#D4DB17; flex-grow:1;"' +
                          '        id="btn_help1"' +
-			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'Help\' dialog."' +
 		         '        onclick="wsweb_dialog_open(\'help\');' +
 			 '	           return false;">' ;
@@ -200,7 +200,7 @@
 		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                          '        id="btn_cfg1"' +
-			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
                          '        onclick="wsweb_dialog_open(\'config\');' +
 			 '    	          return false;">' ;
@@ -215,7 +215,7 @@
 	      {
 		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'Notifications\' dialog."' +
                          '        onclick="wsweb_dialog_open(\'notifications\');' +
 			 '	           return false;">' ;
@@ -230,7 +230,7 @@
 	      {
 		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button toggles the \'Record\' bar."' +
                          '        onclick="wsweb_recordbar_toggle();' +
 			 '	           return false;">' ;
@@ -245,7 +245,7 @@
 	      {
 		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
 		         '        onclick="wsweb_dialog_open(\'state\');' +
 			 '	           $(\'#bot_check1\').carousel(0);' +
@@ -262,7 +262,7 @@
 		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                          '        id="s4_owncode" value="owncode"' +
-			 '        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
 			 '        onclick="wsweb_select_action(\'checkpoint\');' +
 			 '    	           return false;">' ;
@@ -281,7 +281,7 @@
 	      {
 		 return '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="col-12 btn btn-light shadow-sm select6"' +
-			'           data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'           data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'           title="Dropdown on the right let you access to common actions."' +
                         '           style="border-color: #BBBBBB;"' +
 			'           data-action="checkpoint"' +
@@ -293,8 +293,8 @@
 			'   <button id="dd2a" type="button" ' +
                         '           class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
                         '           style="border-color: #BBBBBB;"' +
-			'           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-			'     <span class="sr-only">Toggle Dropdown</span>' +
+			'           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+			'     <span class="visually-hidden">Toggle Dropdown</span>' +
 			'   </button>' +
 			'   <div id="action_menu1" class="dropdown-menu border border-secondary p-2">' +
                         '\n' +
@@ -343,24 +343,24 @@
 		// o += '<div class="btn-group col-auto my-1 mx-1 p-0 user_archived" style="flex-grow:6;">' +
 		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="col-12 btn btn-light shadow-sm"' +
-			'           data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'           data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'           title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."' +
                         '           style="border-color: #BBBBBB;"' +
 			'           id="select4"' +
                         '           onclick="setTimeout(function(){$(\'#dd1\').dropdown(\'toggle\');},50);' +
-			'	            $(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
+			'	            $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
 			'	          //wsweb_set_details(\'HARDWARE\');' +
 			'	            return false;">HW</button>' +
                         '\n' +
 			'   <button id="dd1" type="button" ' +
                         '           class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
                         '           style="border-color: #BBBBBB;"' +
-			'	    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
-                        '   ><span class="sr-only">Toggle Dropdown</span></button>' +
+			'	    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
+                        '   ><span class="visually-hidden">Toggle Dropdown</span></button>' +
                         '\n' +
 			'   <div id="mode_menu" class="dropdown-menu border border-secondary p-2">' +
                         '\n' +
-			'     <h6 class="text-white bg-secondary my-1 user_archived ml-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' ;
+			'     <h6 class="text-white bg-secondary my-1 user_archived ms-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' ;
 
                    for (var i=0; i<sim.systems.length; i++)
                    {
@@ -376,17 +376,17 @@
                    }
 
                    o += '\n' +
-			'     <h6 class="text-white bg-secondary mt-2 my-1 user_archived ml-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>' +
+			'     <h6 class="text-white bg-secondary mt-2 my-1 user_archived ms-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>' +
                         '     <a class="dropdown-item user_archived mb-0 py-2" ' +
                         '        href="#" id="s4_asm_mips" value="asm_mips"' +
-			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
                         '        onclick="wsweb_select_main(\'asm_mips\');' +
                         '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>int32</sub></a>' +
                         '     <a class="dropdown-item user_archived mb-0 py-2" ' +
                         '        href="#" id="s4_asm_rv32" value="asm_rv32"' +
-			'        data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			'        title="RISC-V<sub>32</sub> assembly only (i+m sets)."' +
                         '        onclick="wsweb_select_main(\'asm_rv32\');' +
                         '                 return false;"' +
@@ -404,11 +404,11 @@
 
 		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="btn btn-light col-12 shadow-sm"' +
-			'           data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'           data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 		        '           title="This button opens the \'Examples\' dialog."' +
 		        '           style="border-width:1 1 1 1px; border-color:#BBBBBB;"' +
                         '           id="btn_example1"' +
-			'	    onclick="$(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
+			'	    onclick="$(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
 		        '                    wsweb_dialog_open(\'examples\');' +
 			'	             return false;">' ;
                    o += (robj.icons_str == "no") ? '' : '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>' ;
@@ -418,8 +418,8 @@
 			'   <button id="dd3" type="button" ' +
                         '           class="btn btn-light shadow-sm dropdown-toggle dropdown-toggle-split"' +
                         '           style="border-color: #BBBBBB;"' +
-			'	    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
-                        '   ><span class="sr-only">Toggle Dropdown</span></button>' +
+			'	    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
+                        '   ><span class="visually-hidden">Toggle Dropdown</span></button>' +
                         '\n' +
 			'   <div id="example_menu" class="dropdown-menu border border-secondary p-2">' +
                         '\n' ;
@@ -466,10 +466,10 @@
 	     	     '   href="#" id="exs_' + item.name + '" value="' + i + '" ' +
 		     '   onclick="wepsim_example_reset();' +
 		     '            wepsim_example_load(\'' + item.name + '\');' +
-		     '	     $(\'[data-toggle=tooltip]\').tooltip(\'hide\');' +
+		     '	     $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
 	             '            wsweb_dialog_open(\'examples\');' +
 		     '	     return false;"' +
-		     '><em class="fas fa-cube d-sm-inline d-xs-none text-secondary mr-2"></em>' +
+		     '><em class="fas fa-cube d-sm-inline d-xs-none text-secondary me-2"></em>' +
 		     item.name + '</a>\n' ;
 	    }
 

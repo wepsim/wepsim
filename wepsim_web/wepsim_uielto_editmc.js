@@ -82,7 +82,7 @@
 
                    if (ly.includes('compilebar'))
                        o1 += ' <div class="row p-0">' +
-                             '	 <div class="container col-12 pr-0" role="none">' +
+                             '	 <div class="container col-12 pe-0" role="none">' +
                              '	 <div class="col-sm px-1" role="toolbar" ' +
                              '        aria-label="MicroCode Toolbar">' +
                              '      <ws-compilationbar' +

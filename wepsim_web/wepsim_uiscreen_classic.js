@@ -65,11 +65,11 @@
 			  '         </div>' +
 			  '' +
 			  '         <div class="row">' +
-			  '            <div id="col1" class="pt-2 pl-3 pr-2">' +
+			  '            <div id="col1" class="pt-2 ps-3 pe-2">' +
 			  '            <ws-ctoasm></ws-ctoasm>' +
 			  '            </div>' +
 			  '' +
-			  '            <div id="col2" class="pt-2 pl-3">' +
+			  '            <div id="col2" class="pt-2 ps-3">' +
 			              this.render_populate_classic_details() +
 			  '            </div>' +
 			  '         </div>' +
@@ -89,7 +89,7 @@
 
 	      render_populate_classic_toolbars ( )
 	      {
-                   var o1 = '<div class="col-sm-auto p-1 mr-1 my-1">' +
+                   var o1 = '<div class="col-sm-auto p-1 me-1 my-1">' +
 			    '<ws-toolbar components="[,switch_microcode,switch_assembly,]"></ws-toolbar>' +
 			    '</div>' +
 			    '' +
@@ -106,7 +106,7 @@
 			    '<ws-toolbar components="[,btn_examples,btn_help,btndd_mode,]"></ws-toolbar>' +
 			    '</div>' +
 			    '' +
-			    '<div class="col-sm p-0 ml-1 collapse show multi-collapse-2">' +
+			    '<div class="col-sm p-0 ms-1 collapse show multi-collapse-2">' +
 			    '<ws-toolbar components="slider_c1c2"></ws-toolbar>' +
 			    '</div>' +
 			    '' +
@@ -122,17 +122,17 @@
 
 	      render_populate_classic_details ( )
 	      {
-		   var o1 = '    <div class="row pl-2 pr-3">' +
+		   var o1 = '    <div class="row ps-2 pe-3">' +
 			    '	 <ws-executionbar name="exebar1" class="btn-toolbar btn-block"' +
 			    '			  components="btn_reset,btn_emins,btn_eins,btn_run"' +
 			    '			  icons="up" role="toolbar"></ws-executionbar>' +
 			    '	 </div>' +
 			    '' +
-			    '	 <div class="row pl-2 pr-3 pt-1">' +
+			    '	 <div class="row ps-2 pe-3 pt-1">' +
 			    '	 <div class="btn-toolbar btn-block" role="toolbar">' +
 			    '	      <button class="btn btn-light shadow-sm col py-0 mx-1"' +
 			    '		      style="border-color: #BBBBBB; flex-grow:1;"' +
-			    '		      data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			    '		      data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
 			    '		      title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
 			    '		      onclick="wsweb_dialog_open(\'state\');' +
 			    '			       return false;">' +
@@ -160,19 +160,19 @@
 			 '	<div class="container col-12" role="none">' +
 			 '	<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">' +
 			 '' +
-			 '	      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Microcode, and assembly buttons">' +
+			 '	      <div class="btn-group me-2 my-1" role="group"   aria-label="Toolbar Microcode, and assembly buttons">' +
 			 '		   <ws-toolbar components="switch_microcode,switch_simulator"></ws-toolbar>' +
 			 '	      </div>' +
 			 '' +
-			 '	      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
+			 '	      <div class="btn-group me-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
 			 '		   <ws-compilationbar icons="left" components="btn_aloadsave"></ws-compilationbar>' +
 			 '	      </div>' +
 			 '' +
-			 '	      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
+			 '	      <div class="btn-group me-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
 			 '		   <ws-compilationbar icons="left" components="btn_acompile,btn_ashowbin"></ws-compilationbar>' +
 			 '	      </div>' +
 			 '' +
-			 '	      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">' +
+			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
 			 '		    <button style="background-color: #D4DB17"' +
 			 '			    class="btn btn-light shadow-sm col-auto"' +
 			 '			    onclick="wsweb_dialog_open(\'help\');' +
@@ -181,7 +181,7 @@
 			 '			    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>' +
 			 '	      </div>' +
 			 '' +
-			 '	      <div class="btn-group mr-2 my-1">' +
+			 '	      <div class="btn-group me-2 my-1">' +
 			 '		   <ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>' +
 			 '	      </div>' +
 			 '' +
@@ -206,20 +206,20 @@
 			 '	<div class="container col-12" role="none">' +
 			 '	<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">' +
 			 '' +
-			 '	      <div class="btn-group mr-2 my-1" role="group"' +
+			 '	      <div class="btn-group me-2 my-1" role="group"' +
 			 '		   aria-label="Toolbar Assembly, and Simulator buttons">' +
 			 '		   <ws-toolbar components="switch_assembly,switch_simulator"></ws-toolbar>' +
 			 '	      </div>' +
 			 '' +
-			 '	      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
+			 '	      <div class="btn-group me-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
 			 '		   <ws-compilationbar icons="left" components="btn_mloadsave"></ws-compilationbar>' +
 			 '	      </div>' +
 			 '' +
-			 '	      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
+			 '	      <div class="btn-group me-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
 			 '		   <ws-compilationbar icons="left" components="btn_mcompile,btn_mshowbin"></ws-compilationbar>' +
 			 '	      </div>' +
 			 '' +
-			 '	      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
+			 '	      <div class="btn-group me-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
 			 '		    <button style="background-color: #D4DB17"' +
 			 '			    class="btn btn-light shadow-sm col-auto"' +
 			 '			    onclick="wsweb_dialog_open(\'help\');' +
@@ -228,7 +228,7 @@
 			 '			    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>' +
 			 '	      </div>' +
 			 '' +
-			 '	      <div class="btn-group mr-2 my-1">' +
+			 '	      <div class="btn-group me-2 my-1">' +
 			 '		   <ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>' +
 			 '	      </div>' +
 			 '' +
