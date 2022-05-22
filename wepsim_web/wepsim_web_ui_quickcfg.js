@@ -38,8 +38,8 @@
 					'     onclick="wsweb_dialog_open(\'about\'); ' +
 					'              wsweb_quickmenu_close(); ' +
 					'              return true;">' +
-					'<em class="fas fa-magic col-2 ps-1 float-start"></em>' +
-					'<span class="col-10">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
+					'<em class="fas fa-magic col-1 me-2 float-start"></em>' +
+					'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
 					'</li>' ;
 
 /*
@@ -48,8 +48,8 @@
 					'     onclick="wepsim_newbie_tour(); ' +
 					'              wsweb_quickmenu_close(); ' +
 					'              return true;">' +
-					'<em class="fas fa-book-reader col-2 ps-1 float-start"></em>' +
-					'<span class="col-10">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
+					'<em class="fas fa-book-reader col-1 me-2 float-start"></em>' +
+					'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
 					'</li>' ;
 */
 
@@ -57,8 +57,8 @@
 					'  <span class="btn-group-toggle" data-bs-toggle="buttons">' +
 					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-3">' +
 					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
-					'<em class="fas fa-wrench col-2 ps-1 float-start"></em>' +
-					'<span class="col-10">' + i18n_get('dialogs',wsi,'Show/Hide QuickConfig') + '</span></label>' +
+					'<em class="fas fa-wrench col-1 me-2 float-start"></em>' +
+					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide QuickConfig') + '</span></label>' +
 					'  </span>' +
 					'</li>' ;
 
@@ -66,8 +66,8 @@
 					'  <span class="btn-group-toggle d-grid" data-bs-toggle="buttons">' +
 					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-1">' +
 					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
-					'<em class="fas fa-bars col-2 ps-1 float-start"></em>' +
-					'<span class="col-10">' + i18n_get('dialogs',wsi,'Show/Hide ActionBar') + '</span></label>' +
+					'<em class="fas fa-bars col-1 me-2 float-start"></em>' +
+					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide ActionBar') + '</span></label>' +
 					'  </span>' +
 					'</li>' ;
 
@@ -75,8 +75,8 @@
 					'  <span class="btn-group-toggle d-grid" data-bs-toggle="buttons">' +
 					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-2">' +
 					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
-					'<em class="fas fa-sliders-h col-2 ps-1 float-start"></em>' +
-					'<span class="col-10">' + i18n_get('dialogs',wsi,'Show/Hide Slider') + '</span></label>' +
+					'<em class="fas fa-sliders-h col-1 me-2 float-start"></em>' +
+					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide Slider') + '</span></label>' +
 					'  </span>' +
 					'</li>' ;
 

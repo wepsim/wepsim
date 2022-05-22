@@ -168,8 +168,13 @@
 
         function uipacker_ddown_info_set_select ( opt )
         {
-            bootstrap.Tab.getOrCreateInstance('#tab' + opt).show() ; // bs5
-            //                    $('#tab' + opt).trigger('click') ; // bs4
+            var atab = document.querySelector('#tab' + opt) ;
+            if (null == atab) {
+                return;
+            }
+
+            // show info panel
+            bootstrap.Tab.getOrCreateInstance('#tab' + opt).show() ; //bs4:$('#tab' + opt).trigger('click');
 
             // update interface
             $('#select5a').val(opt) ;

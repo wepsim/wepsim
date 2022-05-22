@@ -4,6 +4,9 @@
 ## 2.1.7 -> 2.1.8:
 * Minor bugs fixed and several refinements added:
   * A little bit faster processor represented as text table.
+* Main external dependencies updated:
+  * Bump bootstrap   from 4.6.1  to 5.2.0
+  * Bump bootbox     from 5.5.2  to 5.5.3
 
 ## 2.1.6 -> 2.1.7:
 * New:
