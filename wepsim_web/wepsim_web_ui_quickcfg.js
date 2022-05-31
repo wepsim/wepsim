@@ -56,7 +56,7 @@
 				   o += '<li class="list-group-item px-0 d-grid"> ' +
 					'  <span class="btn-group-toggle" data-bs-toggle="buttons">' +
 					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-3">' +
-					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
+  					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
 					'<em class="fas fa-wrench col-1 me-2 float-start"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide QuickConfig') + '</span></label>' +
 					'  </span>' +
@@ -65,7 +65,7 @@
 				   o += '<li class="list-group-item px-0 d-grid"> ' +
 					'  <span class="btn-group-toggle d-grid" data-bs-toggle="buttons">' +
 					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-1">' +
-					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
+  					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
 					'<em class="fas fa-bars col-1 me-2 float-start"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide ActionBar') + '</span></label>' +
 					'  </span>' +
@@ -74,7 +74,7 @@
 				   o += '<li class="list-group-item px-0 d-grid"> ' +
 					'  <span class="btn-group-toggle d-grid" data-bs-toggle="buttons">' +
 					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-2">' +
-					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
+  					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
 					'<em class="fas fa-sliders-h col-1 me-2 float-start"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide Slider') + '</span></label>' +
 					'  </span>' +
@@ -144,7 +144,7 @@
 */
 
 		   o += '<button type="button" id="close" data-role="none" ' +
-			'        class="btn btn-sm btn-danger w-100 p-0 mt-3 d-grid" ' +
+  			'        class="btn btn-sm btn-danger w-100 p-0 mt-3 d-grid" ' +
 			'        onclick="wsweb_quickslider_close(); ' +
 			'                 return false;">' +
 			i18n_get('dialogs',wsi,'Close') +
@@ -183,6 +183,38 @@
     //
     // Quick Config
     //
+
+    function wepsim_init_quickcfg_OLD ( quick_id, val_trigger, fun_content, fun_ownshown )
+    {
+         var obj1 = document.querySelector(quick_id) ;
+         if (null == obj1) {
+             return null ;
+         }
+
+	 return $(quick_id).popover({
+		    trigger:     val_trigger,
+		    html:        true,
+		    placement:  'auto',
+		    animation:   false,
+		    container:  'body',
+		    template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
+			        '<div class="arrow"></div>' +
+                                '<h3 class="popover-header"></h3>' +
+                                '<div class="popover-body"></div>' +
+			        '</div>',
+		    content:    fun_content,
+		    sanitizeFn: function (content) {
+				    return content ; // DOMPurify.sanitize(content) ;
+				}
+	 }).on('shown.bs.popover',
+		                function(shownEvent) {
+                                    fun_ownshown(shownEvent);
+                                    i18n_update_tags('dialogs') ;
+                                    i18n_update_tags('gui') ;
+                                    i18n_update_tags('cfg') ;
+                                }) ;
+         return po1 ;
+    }
 
     function wepsim_init_quickcfg ( quick_id, val_trigger, fun_content, fun_ownshown )
     {
@@ -239,7 +271,7 @@
 
     function quickcfg_html_btn ( label2, code2, colwidth2 )
     {
-	 return "<div class='" + colwidth2 + " p-1 d-grid'>" +
+  	 return "<div class='" + colwidth2 + " p-1 d-grid'>" +
 		"<buttom class='btn btn-sm btn-outline-secondary col p-1 text-end float-end' " +
 		"        onclick='" + code2 + "; return true;'>" +
 		"<span class='mx-auto px-1 fw-bold rounded text-dark' " +
