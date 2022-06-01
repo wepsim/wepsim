@@ -356,7 +356,7 @@
 		   "<td class='asm_dets   font-monospace col-auto show p-0' " +
 		   "    style='line-height:0.9;' width='1%' align='left'>" +
 	           "<span data-bs-toggle='tooltip' rel='tooltip2' data-placement='right' " +
-		   "      data-html='true' data-l='" + l + "'>" +
+		   "      data-bs-html='true' data-l='" + l + "'>" +
 		   "<span data-bs-toggle='tooltip' rel='tooltip1' data-placement='right' " +
 		   "      title='click to show instruction format details'>&nbsp;.&nbsp;</span>" +
 		   "</span>" +
@@ -423,8 +423,7 @@
     		 '</button>' +
                      '<button type="button" id="close" data-role="none" ' +
                      '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
-                     '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');">' +
-    		          i18n_get('dialogs', wsi, 'Close') +
+                     '        onclick="wepsim_popovers_hide('+asm_po+');">' + i18n_get('dialogs', wsi, 'Close') +
     		 '</button>' +
                  '</span>' ;
 

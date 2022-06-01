@@ -184,45 +184,8 @@
     // Quick Config
     //
 
-    function wepsim_init_quickcfg_OLD ( quick_id, val_trigger, fun_content, fun_ownshown )
-    {
-         var obj1 = document.querySelector(quick_id) ;
-         if (null == obj1) {
-             return null ;
-         }
-
-	 return $(quick_id).popover({
-		    trigger:     val_trigger,
-		    html:        true,
-		    placement:  'auto',
-		    animation:   false,
-		    container:  'body',
-		    template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
-			        '<div class="arrow"></div>' +
-                                '<h3 class="popover-header"></h3>' +
-                                '<div class="popover-body"></div>' +
-			        '</div>',
-		    content:    fun_content,
-		    sanitizeFn: function (content) {
-				    return content ; // DOMPurify.sanitize(content) ;
-				}
-	 }).on('shown.bs.popover',
-		                function(shownEvent) {
-                                    fun_ownshown(shownEvent);
-                                    i18n_update_tags('dialogs') ;
-                                    i18n_update_tags('gui') ;
-                                    i18n_update_tags('cfg') ;
-                                }) ;
-         return po1 ;
-    }
-
     function wepsim_init_quickcfg ( quick_id, val_trigger, fun_content, fun_ownshown )
     {
-         var obj1 = document.querySelector(quick_id) ;
-         if (null == obj1) {
-             return null ;
-         }
-
 	 var cfg1 = {
 		      trigger:     val_trigger,
 		      html:        true,
@@ -241,15 +204,7 @@
 		  		  }
 	            } ;
 
-	 var po1 = new bootstrap.Popover(obj1, cfg1) ;
-         obj1.addEventListener('shown.bs.popover',
-		               function(shownEvent) {
-                                    fun_ownshown(shownEvent) ;
-                                    i18n_update_tags('dialogs') ;
-                                    i18n_update_tags('gui') ;
-                                    i18n_update_tags('cfg') ;
-                               }) ;
-         return po1 ;
+         return wepsim_popover_init(quick_id, cfg1, fun_ownshown) ;
     }
 
 

@@ -103,7 +103,7 @@
                           '	     <span class="d-none d-md-inline-flex ps-1" data-langkey=\'Play\'>Play</span>' +
                           '	  </a>' +
                           '	  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"' +
-                          '	     data-bs-toggle="tooltip" data-placement="top" data-boundary="window" data-html="true"' +
+                          '	     data-bs-toggle="tooltip" data-placement="top" data-boundary="window" data-bs-html="true"' +
                           '	     title="Stop recording /<br>Reset playback"' +
                           '	     onclick="wsweb_record_off(); ' +
                           '                   return false;"><em class="fas fa-square"></em>' +

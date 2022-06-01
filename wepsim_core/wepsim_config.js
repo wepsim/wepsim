@@ -48,7 +48,7 @@
 		        "               $('#img_select1').attr('class',      '" + ws_info.breakpoint_icon_list[elto].addclass + "');" +
 		        "               $('#img_select1').attr('data-theme', '');" +
 		        "	        set_cfg('ICON_theme','" + elto + "'); save_cfg();" +
-                        "               $('#breakpointicon1').popover('hide');" +
+                        "               wepsim_popover_hide('breakpointicon1');" +
                         "               wepsim_uicfg_apply();\">" ;
 	}
 
@@ -67,7 +67,7 @@
 	        '  <div class="m-0 p-2" style="background-color: #f7f7f7">' +
                 '  <button type="button" id="close" data-role="none" ' +
                 '          class="btn btn-sm btn-danger w-100 p-0" ' +
-                '          onclick="$(\'#breakpointicon1\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
+                '          onclick="wepsim_popover_hide(\'breakpointicon1\');"><span data-langkey="Close">Close</span></button>' +
 		'  </div>' +
 		'</div>' +
 		'</div>' ;

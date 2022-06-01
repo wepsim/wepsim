@@ -194,6 +194,7 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_index_examples.js \
     wepsim_web/wepsim_uielto_index_config.js \
     \
+    wepsim_web/wepsim_web_ui_popover.js \
     wepsim_web/wepsim_web_ui_dialogs.js \
     wepsim_web/wepsim_web_ui_quickcfg.js \
     wepsim_web/wepsim_uielto_recordbar.js \

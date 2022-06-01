@@ -112,7 +112,7 @@
 		 return '<button class="btn btn-light shadow-sm col-auto user_microcode mx-1 px-2"' +
 		        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                         '        id="btn_micro1"' +
-		        '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+		        '        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 		        '        title="This button switches into the \'Microcode\' editor."' +
                         '        onclick="wsweb_change_workspace_microcode();' +
 		        '	          $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
@@ -126,7 +126,7 @@
 		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2"' +
 		        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                         '        id="btn_asm1"' +
-			'        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			'        title="This button switches into the \'Assembly\' editor."' +
                         '        onclick="wsweb_change_workspace_assembly();' +
 			'	          $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
@@ -138,7 +138,7 @@
 	      {
 		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2"' +
                         '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			'        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
                         '        data-transition="none" data-inline="true"' +
 			'        title="This button switches into the \'Simulator\' workspace."' +
                         '        onclick="wsweb_change_workspace_simulator();' +
@@ -184,7 +184,7 @@
 		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2"' +
 		         '        style="border-width:1 1 1 1px; border-color:#BBBBBB; background-color:#D4DB17; flex-grow:1;"' +
                          '        id="btn_help1"' +
-			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Help\' dialog."' +
 		         '        onclick="wsweb_dialog_open(\'help\');' +
 			 '	           return false;">' ;
@@ -200,7 +200,7 @@
 		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                          '        id="btn_cfg1"' +
-			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
                          '        onclick="wsweb_dialog_open(\'config\');' +
 			 '    	          return false;">' ;
@@ -215,7 +215,7 @@
 	      {
 		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Notifications\' dialog."' +
                          '        onclick="wsweb_dialog_open(\'notifications\');' +
 			 '	           return false;">' ;
@@ -230,7 +230,7 @@
 	      {
 		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			 '        title="This button toggles the \'Record\' bar."' +
                          '        onclick="wsweb_recordbar_toggle();' +
 			 '	           return false;">' ;
@@ -245,7 +245,7 @@
 	      {
 		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
 		         '        onclick="wsweb_dialog_open(\'state\');' +
 			 '	           $(\'#bot_check1\').carousel(0);' +
@@ -262,7 +262,7 @@
 		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
 		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
                          '        id="s4_owncode" value="owncode"' +
-			 '        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			 '        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
 			 '        onclick="wsweb_select_action(\'checkpoint\');' +
 			 '    	           return false;">' ;
@@ -281,7 +281,7 @@
 	      {
 		 return '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="col-12 btn btn-light shadow-sm select6"' +
-			'           data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'           data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			'           title="Dropdown on the right let you access to common actions."' +
                         '           style="border-color: #BBBBBB;"' +
 			'           data-action="checkpoint"' +
@@ -343,7 +343,7 @@
 		// o += '<div class="btn-group col-auto my-1 mx-1 p-0 user_archived" style="flex-grow:6;">' +
 		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="col-12 btn btn-light shadow-sm"' +
-			'           data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'           data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			'           title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."' +
                         '           style="border-color: #BBBBBB;"' +
 			'           id="select4"' +
@@ -379,14 +379,14 @@
 			'     <h6 class="text-white bg-secondary mt-2 my-1 user_archived ms-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>' +
                         '     <a class="dropdown-item user_archived mb-0 py-2" ' +
                         '        href="#" id="s4_asm_mips" value="asm_mips"' +
-			'        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
                         '        onclick="wsweb_select_main(\'asm_mips\');' +
                         '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>int32</sub></a>' +
                         '     <a class="dropdown-item user_archived mb-0 py-2" ' +
                         '        href="#" id="s4_asm_rv32" value="asm_rv32"' +
-			'        data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'        data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 			'        title="RISC-V<sub>32</sub> assembly only (i+m sets)."' +
                         '        onclick="wsweb_select_main(\'asm_rv32\');' +
                         '                 return false;"' +
@@ -404,7 +404,7 @@
 
 		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" class="btn btn-light col-12 shadow-sm"' +
-			'           data-bs-toggle="tooltip" data-placement="bottom" data-html="true"' +
+			'           data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
 		        '           title="This button opens the \'Examples\' dialog."' +
 		        '           style="border-width:1 1 1 1px; border-color:#BBBBBB;"' +
                         '           id="btn_example1"' +

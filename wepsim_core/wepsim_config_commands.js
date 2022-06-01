@@ -326,7 +326,7 @@
 			               $('#label2-' + get_cfg('RF_display_format')).button('toggle');
 		                   },
                       description: "<span data-langkey='Display format'>Display format</span>&nbsp;" +
-                                   "<a href='#' data-bs-toggle='popover1' title='Example of display formats' data-html='true' " +
+                                   "<a href='#' data-bs-toggle='popover1' title='Example of display formats' data-bs-html='true' " +
                                    "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
@@ -393,7 +393,7 @@
 		      code_init:   function() {
 			               $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')});
 		                   },
-                      description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-bs-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
+                      description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-bs-toggle='popover1' title='Example of data-path color' data-bs-html='true' data-bs-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
     ws_info.config_ui.push({

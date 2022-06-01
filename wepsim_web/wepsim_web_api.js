@@ -793,7 +793,7 @@
     // quick slider(s)
     function wsweb_quickslider_show ( )
     {
-	    $('#popover-slidercfg').popover('show') ;
+            wepsim_popover_show('popover-slidercfg') ;
 
             // add if recording
             simcore_record_append_new('Open the "quick slider"',
@@ -805,7 +805,7 @@
 
     function wsweb_quickslider_close ( )
     {
-	    $('#popover-slidercfg').popover('hide') ;
+            wepsim_popover_hide('popover-slidercfg') ;
 
             // add if recording
             simcore_record_append_new('Close the "quick slider"',
@@ -817,7 +817,7 @@
 
     function wsweb_quickslider_toggle ( )
     {
-	    $('#popover-slidercfg').popover('toggle') ;
+            wepsim_popover_action('popover-slidercfg', 'toggle') ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick slider"',
@@ -830,7 +830,7 @@
     // quick cpucu
     function wsweb_quickcpuview_show ( )
     {
-	    $('#popover-cpuview').popover('show') ;
+            wepsim_popover_show('popover-cpuview') ;
 
             // add if recording
             simcore_record_append_new('Open the "quick cpuview"',
@@ -842,7 +842,7 @@
 
     function wsweb_quickcpuview_close ( )
     {
-	    $('#popover-cpuview').popover('hide') ;
+            wepsim_popover_hide('popover-cpuview') ;
 
             // add if recording
             simcore_record_append_new('Close the "quick cpuview"',
@@ -854,7 +854,7 @@
 
     function wsweb_quickcpuview_toggle ( )
     {
-	    $('#popover-cpuview').popover('toggle') ;
+            wepsim_popover_action('popover-cpuview', 'toggle') ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick cpuview"',
@@ -893,7 +893,7 @@
     // quick rfcfg
     function wsweb_quickrf_show ( )
     {
-	    $('#popover-rfcfg').popover('show') ;
+            wepsim_popover_show('popover-rfcfg') ;
 
             // add if recording
             simcore_record_append_new('Open the "quick rfcfg"',
@@ -905,7 +905,7 @@
 
     function wsweb_quickrf_close ( )
     {
-	    $('#popover-rfcfg').popover('hide') ;
+            wepsim_popover_hide('popover-rfcfg') ;
 
             // add if recording
             simcore_record_append_new('Close the "quick rfcfg"',
@@ -917,7 +917,7 @@
 
     function wsweb_quickrf_toggle ( )
     {
-	    $('#popover-rfcfg').popover('toggle') ;
+            wepsim_popover_action('popover-rfcfg', 'toggle') ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick rfcfg"',

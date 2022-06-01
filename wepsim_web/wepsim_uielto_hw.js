@@ -179,7 +179,7 @@
         function simcoreui_signal_dialog ( ahw_elto_name )
         {
               wepsim_update_signal_dialog(ahw_elto_name) ;
-              $(".popover_hw").popover("hide") ;
+              wepsim_popovers_hide(".popover_hw") ;
         }
 
         // hw_summary
@@ -238,7 +238,7 @@
 		      '   class="popover_hw" data-bs-toggle="popover" onclick="event.preventDefault();" ' +
                       '   data-hwclass="signal" data-hwid="' + elto + '"' +
                       '   data-content="' + e + '"' +
-		      '   data-html="true" title="">' + elto + '</a>' +
+		      '   data-bs-html="true" title="">' + elto + '</a>' +
 		      '</span>' ;
 	    }
 	    c += '</span>' ;
@@ -285,7 +285,7 @@
         function simcoreui_hw_btn_active_signals_toggle ( )
         {
             var o = '<span class="col-auto btn btn-sm btn-outline-secondary me-2" ' +
-		    '      data-bs-toggle="tooltip" data-html="true" ' +
+		    '      data-bs-toggle="tooltip" data-bs-html="true" ' +
 		    '      title="Shows/Hide inactive signals"' +
 		    '      onclick="ws_signals_show_inactive = !ws_signals_show_inactive;' +
 		    '               $(\'.s-ina\').toggle();' +
@@ -298,7 +298,7 @@
         function simcoreui_hw_btn_signals_dependencies_toggle ( )
         {
             var o = '<span class="col-auto btn btn-sm btn-outline-secondary" ' +
-		    '      data-bs-toggle="tooltip" data-html="true" ' +
+		    '      data-bs-toggle="tooltip" data-bs-html="true" ' +
 		    '      title="Graph of the signal dependencies <br>(it needs several seconds to be displayed)."' +
 		    '      onclick="$(\'#depgraph1c\').collapse(\'toggle\'); ' +
 		    '               show_visgraph(jit_fire_dep, jit_fire_order);" ' +
@@ -340,7 +340,7 @@
                   '<span data-langkey=\'visible\'>visible</span>: '       + ahw_signals[elto].visible +
                   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                   '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                  '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
+                  '        onclick=wepsim_popovers_hide(\'.popover_hw\');>' +
                   '<span data-langkey=\'Close\'>Close</span></button>' +
                   '</span>' ;
 
@@ -404,8 +404,8 @@
                       '   class="hw_state_tt_' + elto + ' popover_hw" ' +
 		      '   data-bs-toggle="popover" onclick="event.preventDefault();" ' +
                       '   data-hwclass="state" data-hwid="' + elto + '"' +
-                      '   data-content="' + e + '"' +
-		      '   data-html="true" title="">' + elto + '</a>' +
+                      '   data-bs-content="' + e + '"' +
+		      '   data-bs-html="true" title="">' + elto + '</a>' +
 		      '</span>' ;
 	    }
 	    c += '</span>' ;
@@ -432,7 +432,7 @@
 		    '              arial-label="active and dependencies">' +
                                simcoreui_hw_btn_active_states_toggle() +
 		    '          <span class="col-auto btn btn-sm btn-outline-secondary me-2" ' +
-		    '                data-bs-toggle="tooltip" data-html="true" ' +
+		    '                data-bs-toggle="tooltip" data-bs-html="true" ' +
 		    '                title="It shows the control states: PC, IR, and SP."' +
 		    '                onclick="$(\'#ctrlstates1\').collapse(\'toggle\');" ' +
 		    '                data-langkey="Control States">Control States</span>' +
@@ -472,7 +472,7 @@
         function simcoreui_hw_btn_active_states_toggle ( )
         {
             var o = '<span class="col-auto btn btn-sm btn-outline-secondary me-2" ' +
-		    '      data-bs-toggle="tooltip" data-html="true" ' +
+		    '      data-bs-toggle="tooltip" data-bs-html="true" ' +
 		    '      title="Shows/Hide inactive states"' +
 		    '      onclick="ws_states_show_inactive = !ws_states_show_inactive;' +
 		    '               $(\'.t-ina\').toggle();' +
@@ -522,7 +522,7 @@
                   '<span data-langkey=\'visible\'>visible</span>: '             + elto_vi +
                   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                   '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                  '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
+                  '        onclick=wepsim_popovers_hide(\'.popover_hw\');>' +
                   '<span data-langkey=\'Close\'>Close</span></button>' +
                   '</span>' ;
 
@@ -582,7 +582,7 @@
                    c = c + '<span class="col-auto">' +
                            '<a href="#" class="popover_hw" data-bs-toggle="popover" onclick="event.preventDefault();" ' +
                            '   data-hwclass="behavior" data-hwid="' + elto + '"' +
-                           '   data-content="' +
+                           '   data-bs-content="' +
                            '<span style=\'text-align:left\'>' +
                            '<span data-langkey=\'name\'>name</span>: '               + elto + '<br> ' +
                            '<span data-langkey=\'nparameters\'>nparameters</span>: ' + ahw.behaviors[elto].nparameters + '<br> ' +
@@ -590,10 +590,10 @@
                         // 'verbal: '          + ahw.behaviors[elto].verbal.toString() + '<br> ' +
                            '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
+                           '        onclick=wepsim_popovers_hide(\'.popover_hw\');><span data-langkey=\'Close\'>Close</span></button>' +
                            '</span>' +
                            '"' + 
-                           '   data-html="true" title="">' + elto + '</a></span>' ;
+                           '   data-bs-html="true" title="">' + elto + '</a></span>' ;
               }
               c = c + '</span>' ;
 
@@ -619,7 +619,7 @@
 		      '<span data-langkey=\'abilities\'>abilities</span>: '  + ahw.components[elto].abilities.join(" + ") +
 		      '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
 		      '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-		      '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
+		      '        onclick=wepsim_popovers_hide(\'.popover_hw\');>' +
 		      '<span data-langkey=\'Close\'>Close</span></button>' ;
 
               return e ;
@@ -630,7 +630,7 @@
 	      var e = simhwelto_describe_component(elto_path, elto, 'html') +
 		      '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
 		      '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-		      '        onclick=$(\'.popover_hw\').popover(\'hide\');>' +
+		      '        onclick=wepsim_popovers_hide(\'.popover_hw\');>' +
 		      '<span data-langkey=\'Close\'>Close</span></button>' ;
 
               return e ;
@@ -667,9 +667,9 @@
 	         o += '<tr>' +
                       '<td class="col-2" rowspan="' + ahw.elements_hash.by_belong[b].length + '">' +
 		      '<span class="row"><span class="col">' +
-		      '<a href="#" class="popover_hw" data-bs-toggle="popover" data-html="true" ' +
+		      '<a href="#" class="popover_hw" data-bs-toggle="popover" data-bs-html="true" ' +
                       '   data-hwclass="component" data-hwid="' + b + '"' +
-                      '   data-content="' + p + '"' +
+                      '   data-bs-content="' + p + '"' +
 		      '   onclick="event.preventDefault();" title="">' + b + '</a></span></span>' +
                       '</td>' ;
 
@@ -686,8 +686,8 @@
 			      '   class="popover_hw" data-bs-toggle="popover" ' +
 			      '   onclick="event.preventDefault();" ' +
                               '   data-hwclass="element" data-hwid="' + elto + '"' +
-                              '   data-content="' + simcoreui_hw_elements_popup(elto_path, elto) + '"' +
-			      '   data-html="true" title="">' + elto.name + '</a></span></span>' +
+                              '   data-bs-content="' + simcoreui_hw_elements_popup(elto_path, elto) + '"' +
+			      '   data-bs-html="true" title="">' + elto.name + '</a></span></span>' +
                               '</td>' ;
 
 			 // 2) list of input states
@@ -705,9 +705,9 @@
                                       '   class="hw_state_tt_' + state_ref + ' popover_hw text-wrap" ' +
 				      '   data-bs-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
-				      '   data-html="true" title="" ' +
+				      '   data-bs-html="true" title="" ' +
                                       '   data-hwclass="state" data-hwid="' + state_ref + '"' +
-                                      '   data-content="' + p + '">' +
+                                      '   data-bs-content="' + p + '">' +
                                       state_ref_orig + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
 			 }
@@ -727,9 +727,9 @@
                                       '   class="hw_state_tt_' + state_ref + ' popover_hw text-wrap" ' +
 				      '   data-bs-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
-				      '   data-html="true" title="" ' +
+				      '   data-bs-html="true" title="" ' +
                                       '   data-hwclass="state" data-hwid="' + state_ref + '"' +
-                                      '   data-content="' + p + '">' +
+                                      '   data-bs-content="' + p + '">' +
                                       state_ref + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
 			 }
@@ -750,9 +750,9 @@
 				      '   aria-hidden="false" ' +
 				      '   class="popover_hw text-wrap" data-bs-toggle="popover" ' +
 				      '   onclick="event.preventDefault();" ' +
-				      '   data-html="true" title="" ' +
+				      '   data-bs-html="true" title="" ' +
                                       '   data-hwclass="signal" data-hwid="' + signal_ref + '"' +
-                                      '   data-content="' + e + '">' +
+                                      '   data-bs-content="' + e + '">' +
                                       signal_ref + '</a>' +
 				      '</span>' + '<span class="w-100"></span>' ;
 			 }

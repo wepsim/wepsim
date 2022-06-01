@@ -44,9 +44,9 @@
 	// bs5 toggle fails	'          onclick="if (typeof wsweb_quickmenu_toggle === \'function\')' +
 	// bs5 toggle fails	'	               wsweb_quickmenu_toggle();' +
 				'          onclick="if (typeof wsweb_quickmenu_show === \'function\')' +
-				'	               wsweb_quickmenu_show();' +
-				'	           return false;"' +
-				'	  data-html="true"' +
+				'	                wsweb_quickmenu_show();' +
+				'	            return false;"' +
+				'	  data-bs-html="true"' +
 				'	  data-placement="bottom">WepSIM&nbsp;<span class="badge rounded-pill text-bg-secondary"><div class="wsversion">loading ...</div></span>' +
 				'       </a>' +
 				'    </span>' +
@@ -80,7 +80,7 @@
         // quick menu
         function topbar_quickmenu_action ( action )
         {
-    	    $('#po1').popover(action) ;
+            wepsim_popover_action('po1', action) ;
 
             // set UI config (if shown)
             if (action != 'hide')

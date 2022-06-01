@@ -271,7 +271,7 @@
                  return ;
              }
 
-             $("[data-bs-toggle=popover4]").popover('hide') ;
+             wepsim_popovers_hide("[data-bs-toggle=popover4]") ;
 
              var  t = 0 ;
              var it = '' ;
@@ -291,7 +291,7 @@
                       'Hour: ' + t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() + '<br>' +
                       '<button type="button" id="close" data-role="none" ' +
                       '        class="btn btn-sm btn-danger w-100 p-0" ' +
-                      '        onclick="$(\'#' + it + '\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
+                      '        onclick="wepsim_popover_hide(it);"><span data-langkey="Close">Close</span></button>' +
                       '</div>' ;
 
                  vrow = '' ;
