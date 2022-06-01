@@ -50,9 +50,9 @@
 
                     // load html
 		    o1 += '<div class="row-fluid px-0 pb-2 pt-0 rounded w-100 collapse" id="record_div"' +
-                          '     style="position:fixed; left:0; top: calc(100vh - 65px); z-index:1024; background-color:#EAEAEA; overflow:auto; -webkit-overflow-scrolling:touch;">' +
+                          '     style="position:fixed; left:0; top: calc(100vh - 70px); z-index:1024; background-color:#EAEAEA; overflow:auto; -webkit-overflow-scrolling:touch;">' +
 		          '' +
-			  '     <div class="progress col" style="height:2px;">' +
+			  '     <div class="progress col-12" style="height:2px;">' +
 			  '	  <div id="record_pb" class="progress-bar" role="progressbar" style="width:0%;"' +
 			  '            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
 			  '     </div>' +
@@ -61,7 +61,7 @@
                           '<em>0/0</em>&nbsp;&lt;empty recording&gt;' +
                           '</span>' +
 			  '     </div>' +
-			  '     <div class="btn-group col" id="record_div_container">' +
+			  '     <div class="btn-group col-12" id="record_div_container">' +
                           '     </div>' +
                           '</div>' ;
 

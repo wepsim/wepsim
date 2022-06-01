@@ -57,15 +57,16 @@
 		        }
 		    }
 
-		    $('a[data-bs-toggle="popover1"]').popover({
-		   	     placement:  'bottom',
-			     trigger:    'focus, hover',
-			     animation:  false,
-			     delay:      { "show": 500, "hide": 100 },
-			     sanitizeFn: function (content) {
+		    var popover_cfg = {
+		   	    placement:  'bottom',
+			    trigger:    'focus, hover',
+			    animation:  false,
+			    delay:      { "show": 500, "hide": 100 },
+			    sanitizeFn: function (content) {
 					     return content ; // DOMPurify.sanitize(content) ;
-				         }
-		    }) ;
+				        }
+		        } ;
+                    wepsim_popovers_init('a[data-bs-toggle="popover1"]', popover_cfg, null) ;
 	      }
         }
 

@@ -23,6 +23,44 @@
     // General popover
     //
 
+    function wepsim_popover_init ( popover_id, popover_cfg, fun_ownshown )
+    {
+         // 1) get object
+         var obj1 = document.querySelector(popover_id) ;
+         if (null == obj1) {
+             return null ;
+         }
+
+         // 2) new popover(object) for object
+	 var po1 = new bootstrap.Popover(obj1, popover_cfg) ;
+
+         // 3) associate event to object
+         if (null != fun_ownshown) {
+             obj1.addEventListener('shown.bs.popover', fun_ownshown) ;
+         }
+
+         return po1 ;
+    }
+
+    function wepsim_popovers_init ( popover_set_id, popover_cfg, fun_ownshown )
+    {
+         // 1) get object list
+         var list1 = document.querySelectorAll(popover_set_id)
+         if (null == list1) {
+             return null ;
+         }
+
+         // 2) new popover(object) for each object in the list
+         var plist1 = [...list1].map(elto => new bootstrap.Popover(elto, popover_cfg))
+
+         // 3) associate event to all objects
+         if (null != fun_ownshown) {
+             [...list1].map(elto => elto.addEventListener('shown.bs.popover', fun_ownshown))
+         }
+
+         return plist1 ;
+    }
+
     function wepsim_popover_init_OLD ( popover_id, popover_cfg, fun_ownshown )
     {
          var obj1 = document.querySelector(popover_id) ;
@@ -38,24 +76,6 @@
                                i18n_update_tags('gui') ;
                                i18n_update_tags('cfg') ;
                            }) ;
-         return po1 ;
-    }
-
-    function wepsim_popover_init ( popover_id, popover_cfg, fun_ownshown )
-    {
-         var obj1 = document.querySelector(popover_id) ;
-         if (null == obj1) {
-             return null ;
-         }
-
-	 var po1 = new bootstrap.Popover(obj1, popover_cfg) ;
-         obj1.addEventListener('shown.bs.popover',
-		               function(shownEvent) {
-                                    fun_ownshown(shownEvent) ;
-                                    i18n_update_tags('dialogs') ;
-                                    i18n_update_tags('gui') ;
-                                    i18n_update_tags('cfg') ;
-                               }) ;
          return po1 ;
     }
 

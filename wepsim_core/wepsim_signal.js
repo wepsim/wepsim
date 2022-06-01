@@ -155,7 +155,7 @@
 						    }
 				    },
 				    close: {
-					label:      '<i class="fa fa-times mr-2"></i>' +
+					label:      '<i class="fa fa-times me-2"></i>' +
 						    '<span data-langkey="Close">Close</span>',
 					className:  'btn-primary btn-sm col col-md-3 float-right',
 					callback:   function() {

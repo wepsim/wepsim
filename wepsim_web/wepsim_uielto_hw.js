@@ -116,40 +116,34 @@
 	      $(div_name).html(o) ;
 
               // initialization of recent HTML added components
-	      $('[data-bs-toggle="tooltip"]').tooltip({
-  	             trigger: 'hover',
-	          sanitizeFn: function (content) {
-			         return content ; // DOMPurify.sanitize(content) ;
-			      }
-	      }) ;
+	      popover_cfg = {
+	  	      trigger:    'hover click',
+		      container:  'body',
+		      placement:  'auto',
+		      template:   '<div class="popover py-2 px-3 bg-dark text-white" role="tooltip">' +
+		    	          '<div class="arrow border-dark" ' +
+			          '     style="border-right-color:black !important;"></div>' +
+			          '<h3 class="popover-header"></h3>' +
+			          '<div class="popover-body text-white border-dark p-0"></div>' +
+			          '</div>',
+		      sanitizeFn: function (content) {
+			             return content ; // DOMPurify.sanitize(content) ;
+			          }
+	          } ;
 
-	      $('.popover_hw').popover({
-	  	  trigger:    'hover click',
-		  container:  'body',
-		  placement:  'auto',
-		  template:   '<div class="popover" role="tooltip">' +
-			      '<div class="arrow border-dark" ' +
-			      '     style="border-right-color:black !important;"></div>' +
-			      '<h3 class="popover-header"></h3>' +
-			      '<div class="popover-body bg-dark text-white border-dark"></div>' +
-			      '</div>',
-		  sanitizeFn: function (content) {
-			         return content ; // DOMPurify.sanitize(content) ;
-			      }
-	      }) ;
-
-              $('.popover_hw').on('show.bs.popover',
-                                  function (e) {
+              var popover_on_show = function (e) {
                                         var ahw = simhw_active() ;
 					if (typeof ahw == "undefined")
 					    return ;
 
-                                        var elto_ref = e.delegateTarget.dataset.hwid ;
+                                        var elto_ref = e.currentTarget.dataset.hwid ;
 					if (typeof elto_ref == "undefined")
 					    return ;
 
-                                        var p         = e.delegateTarget.dataset.content ;
-                                        var elto_type = e.delegateTarget.dataset.hwclass ;
+                                        var pid = e.target.getAttribute('aria-describedby') ;
+                                        var p   = $('#' + pid).html() ;
+
+                                        var elto_type = e.currentTarget.dataset.hwclass ;
                                         switch (elto_type)
 					{
 					   case "state":
@@ -162,8 +156,11 @@
 						break;
 					}
 
-                                        e.delegateTarget.dataset.content = p ;
-                                  }) ;
+                                        // e.currentTarget.dataset.bsContent = p ;
+                                        $('#' + pid).html(p) ;
+                                    } ;
+
+              wepsim_popovers_init('.popover_hw', popover_cfg, popover_on_show) ;
         }
 
         function simcoreui_show_hw ( )
@@ -340,7 +337,7 @@
                   '<span data-langkey=\'visible\'>visible</span>: '       + ahw_signals[elto].visible +
                   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                   '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                  '        onclick=wepsim_popovers_hide(\'.popover_hw\');>' +
+                  "        onclick='wepsim_popovers_hide(\".popover_hw\");'>" +
                   '<span data-langkey=\'Close\'>Close</span></button>' +
                   '</span>' ;
 

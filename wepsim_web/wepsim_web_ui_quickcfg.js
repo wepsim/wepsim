@@ -204,7 +204,14 @@
 		  		  }
 	            } ;
 
-         return wepsim_popover_init(quick_id, cfg1, fun_ownshown) ;
+         return wepsim_popover_init(quick_id,
+                                    cfg1, 
+		                    function(shownEvent) {
+                                         fun_ownshown(shownEvent) ;
+                                         i18n_update_tags('dialogs') ;
+                                         i18n_update_tags('gui') ;
+                                         i18n_update_tags('cfg') ;
+                                    }) ;
     }
 
 
@@ -267,7 +274,7 @@
 	 return "<div class='col p-1 mt-2'>" +
 		"<button type='button' id='close' data-role='none' " +
 		"        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-		"        onclick='$(\"#" + btn2_id + "\").popover(\"hide\");'>" +
+		"        onclick='wepsim_popover_hide(\"" + btn2_id + "\");'>" +
                 "<span data-langkey='Close'>Close</span>" +
                 "</button>" +
 		"</div>" ;

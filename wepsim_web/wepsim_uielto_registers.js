@@ -340,7 +340,7 @@
             $("#states_BR").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1_rf + "</div>");
 
             // Pop-overs
-	    $("[data-bs-toggle=popover-up]").popover({
+            var popover_cfg = {
 	    	    html:      true,
                     placement: 'auto',
                     animation: false,
@@ -372,7 +372,8 @@
 		    sanitizeFn: function (content) {
                         return content ; // DOMPurify.sanitize(content) ;
                     }
-	    }) ;
+	    } ;
+            wepsim_popovers_init("[data-bs-toggle=popover-up]", popover_cfg, null) ;
 
 	    // vue binding
 	    var f_computed_value = function(value) {
@@ -439,7 +440,7 @@
             $("#states_ALL").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1 + "</div>");
 
             // Pop-overs
-	    $("[data-bs-toggle=popover-bottom]").popover({
+	    var popover_cfg = {
 	    	    html:      true,
                     placement: 'bottom',
                     animation: false,
@@ -466,7 +467,8 @@
 		    sanitizeFn: function (content) {
                         return content ; // DOMPurify.sanitize(content) ;
                     }
-	    });
+	    } ;
+            wepsim_popovers_init("[data-bs-toggle=popover-bottom]", popover_cfg, null) ;
 
 	    // vue binding
 	    var f_computed_value = function(value) {

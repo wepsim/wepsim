@@ -456,15 +456,16 @@
 	    }) ;
 
 	    // help popover...
-	    $('a[data-bs-toggle="popover1"]').popover({
-		    placement: 'bottom',
-		    animation: false,
-		    trigger:   'focus, hover',
-		    delay: { "show": 500, "hide": 100 },
-		    sanitizeFn: function (content) {
+	    var popover_cfg = {
+		   placement: 'bottom',
+		   animation: false,
+		   trigger:   'focus, hover',
+		   delay: { "show": 500, "hide": 100 },
+		   sanitizeFn: function (content) {
 				   return content ; // DOMPurify.sanitize(content) ;
-				}
-	    }) ;
+			       }
+	        } ;
+            wepsim_popovers_init('a[data-bs-toggle="popover1"]', popover_cfg, null) ;
 
 	    // init: quick-menus
             for (var p in wsweb_quickcfg)

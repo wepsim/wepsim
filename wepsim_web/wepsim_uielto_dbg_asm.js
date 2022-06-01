@@ -65,6 +65,11 @@
 		             "</div>" ;
 
 		    this.innerHTML = o1 ;
+
+		    wepsim_init_quickcfg(wsweb_quickcfg['popover2'].quick_id,
+					 wsweb_quickcfg['popover2'].val_trigger,
+					 wsweb_quickcfg['popover2'].fun_content,
+					 wsweb_quickcfg['popover2'].fun_ownshown) ;
 	      }
         }
 

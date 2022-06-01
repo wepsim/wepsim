@@ -291,7 +291,7 @@
                       'Hour: ' + t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() + '<br>' +
                       '<button type="button" id="close" data-role="none" ' +
                       '        class="btn btn-sm btn-danger w-100 p-0" ' +
-                      '        onclick="wepsim_popover_hide(it);"><span data-langkey="Close">Close</span></button>' +
+                      '        onclick="wepsim_popover_hide("' + it + '");"><span data-langkey="Close">Close</span></button>' +
                       '</div>' ;
 
                  vrow = '' ;

@@ -163,14 +163,16 @@
 			               var elto = get_cfg('ICON_theme') ;
 			               $('#img_select1').attr("src",   "images/stop/stop_" + elto + ".gif");
 			               $('#img_select1').attr("class", ws_info.breakpoint_icon_list[elto].addclass);
-			               $('#breakpointicon1').popover({ html: true,
-					                               content:  wepsim_show_breakpoint_icon_list,
-								       template: wepsim_show_breakpoint_icon_template(),
-					                               sanitizeFn: function(content){return content;}
-								     }).on('shown.bs.popover',
-								            function(shownEvent) {
-								                   wepsim_uicfg_apply();
-								            });
+			               var popover_cfg = { 
+                                                           html:       true,
+					                   content:    wepsim_show_breakpoint_icon_list,
+							   template:   wepsim_show_breakpoint_icon_template(),
+					                   sanitizeFn: function(content){ return content; }
+							 };
+                                       wepsim_popover_init('#breakpointicon1', popover_cfg, 
+                                                           function(shownEvent) {
+                                                               wepsim_uicfg_apply();
+                                                           });
 		                   },
                       description: "<span data-langkey='Breakpoint icon: icon to be used for breakpoints'>Breakpoint icon: icon to be used for breakpoints</span>"
                    });

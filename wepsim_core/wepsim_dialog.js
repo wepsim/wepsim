@@ -101,7 +101,7 @@
 			    animate:        false,
 			    buttons:        {
 						cancel: {
-						   label:     '<i class="fa fa-times mr-2"></i>' +
+						   label:     '<i class="fa fa-times me-2"></i>' +
                                                               '<span data-langkey="Close">Close</span>',
                                                    className: 'btn btn-primary btn-sm ' +
                                                               'col col-sm-3 float-right shadow-none'
