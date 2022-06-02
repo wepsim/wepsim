@@ -328,7 +328,7 @@
 		                   },
                       description: "<span data-langkey='Display format'>Display format</span>&nbsp;" +
                                    "<a href='#' data-bs-toggle='popover1' title='Example of display formats' data-bs-html='true' " +
-                                   "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
+                                   "   data-bs-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
     ws_info.config_ui.push({
@@ -384,15 +384,15 @@
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
-				   "	 <input type='color'" +
-				   "		aria-label='Color for active data'" +
-				   "		id='colorpicker1'" +
-				   "		data-show-value='false'" +
-				   "		class='noshadow-d m-0' " +
-				   "		onchange=\"update_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh();\">" +
+                                   "<input type='color' " +
+				   "	   aria-label='Color for active data'" +
+                                   "       class='form-control form-control-color noshadow-d' " +
+                                   "       id='colorpicker1' " +
+				   "	   onchange=\"wepsim_config_color_update('color_data_active', this.value, '#colorpicker1');\" " +
+                                   "       title='Choose your color'>" +
 				   "</fieldset>",
 		      code_init:   function() {
-			               $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')});
+                                       wepsim_config_color_initial('color_data_active', '#colorpicker1') ;
 		                   },
                       description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-bs-toggle='popover1' title='Example of data-path color' data-bs-html='true' data-bs-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
@@ -402,15 +402,15 @@
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
-				   "	 <input type='color'" +
-				   "		aria-label='Color for active signal name'" +
-				   "		id='colorpicker2'" +
-				   "		data-show-value='false'" +
-				   "		class='noshadow-d m-0' " +
-				   "		onchange=\"update_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh();\">" +
+                                   "<input type='color' " +
+				   "	   aria-label='Color for active signal name'" +
+                                   "       class='form-control form-control-color noshadow-d' " +
+                                   "       id='colorpicker2' value='#000000' " +
+				   "	   onchange=\"wepsim_config_color_update('color_name_active', this.value, '#colorpicker2');\" " +
+                                   "       title='Choose your color'>" +
 				   "	 </fieldset> ",
 		      code_init:   function() {
-			               $('#colorpicker2').spectrum({ preferredFormat: 'hex', color: get_cfg('color_name_active')});
+                                       wepsim_config_color_initial('color_name_active', '#colorpicker2') ;
 		                   },
                       description: "<span data-langkey='Signal color'>Signal color</span>"
                    });

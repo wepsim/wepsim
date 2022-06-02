@@ -17,7 +17,7 @@
   "color_data_inactive": {
     "upgrade": false,
     "type": "string",
-    "value": "rgb(0, 0, 0)"
+    "value": "#000000"
   },
   "color_name_active": {
     "upgrade": false,
@@ -27,7 +27,7 @@
   "color_name_inactive": {
     "upgrade": false,
     "type": "string",
-    "value": "rgb(0, 0, 0)"
+    "value": "#000000"
   },
   "size_active": {
     "upgrade": false,

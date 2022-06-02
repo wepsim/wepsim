@@ -235,7 +235,6 @@ cat external/vue/vue.min.js \
     external/popper.min.js \
     external/bootstrap/bootstrap.min.js \
     external/bootbox/bootbox.all.min.js \
-    external/spectrum/spectrum.min.js \
     external/timbre.min.js \
     external/codemirror/codemirror.js \
     external/codemirror/mode/javascript/javascript.js \
@@ -274,7 +273,6 @@ echo "  * ws_dist/min.external.css"
 cat external/bootstrap/bootstrap.min.css \
     external/bootstrap-theme.min.css \
     external/dark-mode.css \
-    external/spectrum/spectrum.min.css \
     external/codemirror/codemirror.css \
     external/codemirror/theme/blackboard.css \
     external/codemirror/addon/fold/foldgutter.css \

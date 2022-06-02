@@ -138,6 +138,7 @@
 		"</div>" ;
     }
 
+    // button
     function wepsim_config_button_pretoggle ( config_name, label_prefix )
     {
 	 var val_tag = get_cfg(config_name) ;
@@ -151,5 +152,17 @@
 
          update_cfg(config_name, val_new) ;
 	 $(label_prefix + val_new).button('toggle');
+    }
+
+    // color
+    function wepsim_config_color_initial ( config_name, label_prefix )
+    {
+	 $(label_prefix)[0].value = get_cfg(config_name) ;
+    }
+
+    function wepsim_config_color_update ( config_name, val_new, label_prefix )
+    {
+   	 update_cfg(config_name, val_new) ;
+         refresh() ;
     }
 
