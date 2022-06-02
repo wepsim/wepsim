@@ -120,7 +120,7 @@
 		    o2 = "<tr><td class='py-1 px-1 pt-2' colspan='5' align='center'>" +
                          "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " +
                          "       style='width:65%'>" +
-                         "<span class='badge badge-secondary shadow mx-2 py-2' " +
+                         "<span class='badge text-bg-secondary shadow mx-2 py-2' " +
                          "      onclick='hex2values_update(\"" + index + "\");'>" +
                          "<span data-langkey='update'>update</span></span>" +
                          "</td></tr>";
@@ -347,7 +347,7 @@
                     trigger:   'click',
 		    template:  '<div class="popover shadow" role="tooltip">' +
                                '<div class="arrow"></div>' +
-		               '<h3  class="popover-header row"></h3>' +
+		               '<h3  class="popover-header d-flex"></h3>' +
 		               '<div class="popover-body"></div>' +
 		               '</div>',
 		    container: 'body',
@@ -366,7 +366,7 @@
 
 		        return '<span class="text-dark font-monospace col"><strong>' + rname + '</strong></span>' +
                                '<button type="button" id="close" ' +
-                               '        class="btn-close justify-content-end col-auto" ' +
+                               '        class="btn-close ms-auto" ' +
                                '        onclick="$(' + id_button + ').click();"></button>';
 		    },
 		    sanitizeFn: function (content) {
@@ -446,7 +446,7 @@
                     animation: false,
 		    template:  '<div class="popover shadow" role="tooltip">' +
                                '<div class="arrow"></div>' +
-		               '<h3  class="popover-header row"></h3>' +
+		               '<h3  class="popover-header d-flex"></h3>' +
 		               '<div class="popover-body"></div>' +
 		               '</div>',
 		    content: function() {
@@ -461,7 +461,7 @@
                                simhw_sim_states()[index].name +
                                '</strong></span>' +
                                '<button type="button" id="close" ' +
-                               '        class="btn-close justify-content-end col-auto" ' +
+                               '        class="btn-close ms-auto" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    },
 		    sanitizeFn: function (content) {

@@ -138,3 +138,18 @@
 		"</div>" ;
     }
 
+    function wepsim_config_button_pretoggle ( config_name, label_prefix )
+    {
+	 var val_tag = get_cfg(config_name) ;
+	 $(label_prefix + val_tag).button('toggle');
+    }
+
+    function wepsim_config_button_toggle ( config_name, val_new, label_prefix )
+    {
+	 var val_old = get_cfg(config_name) ;
+	 $(label_prefix + val_old).button('toggle');
+
+         update_cfg(config_name, val_new) ;
+	 $(label_prefix + val_new).button('toggle');
+    }
+
