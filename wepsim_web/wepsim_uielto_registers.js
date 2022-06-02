@@ -38,11 +38,11 @@
 	      render ( event_name )
 	      {
                     // html holder
-		    var o1 = "<div class='container text-end'>" +
+		    var o1 = "<div class='container text-end multi-collapse-3 collapse show'>" +
                              '<label class="my-0" for="popover-rfcfg" style="min-width:95%">' +
                              '<span data-langkey="quick config">quick config</span>: ' +
 		             "<a data-bs-toggle='popover-rfcfg' id='popover-rfcfg' " +
-			     "   tabindex='0' class='m-auto show multi-collapse-3 border-0'>" +
+			     "   tabindex='0' class='m-auto'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
                              "</a></label>" +
                              "</div>" +
@@ -120,7 +120,7 @@
 		    o2 = "<tr><td class='py-1 px-1 pt-2' colspan='5' align='center'>" +
                          "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " +
                          "       style='width:65%'>" +
-                         "<span class='badge text-bg-secondary shadow mx-2 py-2' " +
+                         "<span class='badge text-bg-secondary shadow ms-2 py-2' " +
                          "      onclick='hex2values_update(\"" + index + "\");'>" +
                          "<span data-langkey='update'>update</span></span>" +
                          "</td></tr>";
@@ -326,7 +326,7 @@
 		 o1_rn = "R"  + index ;
 		 o1_rn = o1_rn.padEnd(3,' ') ;
 
-		 o1_rf += "<button type='button' class='btn px-1 py-0 ms-1 mt-1 mb-0 me-0 col-auto border-0' " +
+		 o1_rf += "<button type='button' class='btn px-1 py-0 ms-1 mt-1 mb-0 me-0 col-auto ' " +
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-bs-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
@@ -426,7 +426,7 @@
                         showkey += '<span class="d-none d-sm-inline-flex font-monospace">' + part2 + '</span>' ;
 	        }
 
-                o1 += "<button type='button' class='btn py-0 px-1 mt-1 ms-1 " + divclass + "'  border-0" +
+                o1 += "<button type='button' class='btn py-0 px-1 mt-1 ms-1 " + divclass + "' " +
 		      "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-bs-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +

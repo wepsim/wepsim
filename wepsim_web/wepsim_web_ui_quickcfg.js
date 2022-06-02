@@ -33,8 +33,8 @@
 
 				var o = '<ul class="list-group list-group-flush">' ;
 
-				   o += '<li class="list-group-item px-0 d-grid"> ' +
-					'  <a class="btn btn-sm btn-outline-dark col p-1 text-start float-end" href="#" ' +
+				   o += '<li class="list-group-item px-0"> ' +
+					'  <a class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" href="#" ' +
 					'     onclick="wsweb_dialog_open(\'about\'); ' +
 					'              wsweb_quickmenu_close(); ' +
 					'              return true;">' +
@@ -43,8 +43,8 @@
 					'</li>' ;
 
 /*
-				   o += '<li class="list-group-item px-0 d-grid"> ' +
-					'  <a class="btn btn-sm btn-outline-dark col p-1 text-start float-end" href="#" ' +
+				   o += '<li class="list-group-item px-0"> ' +
+					'  <a class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" href="#" ' +
 					'     onclick="wepsim_newbie_tour(); ' +
 					'              wsweb_quickmenu_close(); ' +
 					'              return true;">' +
@@ -53,27 +53,27 @@
 					'</li>' ;
 */
 
-				   o += '<li class="list-group-item px-0 d-grid"> ' +
-					'  <span class="btn-group-toggle" data-bs-toggle="buttons">' +
-					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-3">' +
+				   o += '<li class="list-group-item px-0"> ' +
+					'  <span class="btn-group-toggle w-100" data-bs-toggle="buttons">' +
+					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" data-bs-toggle="collapse" href=".multi-collapse-3">' +
   					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
 					'<em class="fas fa-wrench col-1 me-2 float-start"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide QuickConfig') + '</span></label>' +
+					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide QuickConfig') + '</span>&nbsp;</label>' +
 					'  </span>' +
 					'</li>' ;
 
-				   o += '<li class="list-group-item px-0 d-grid"> ' +
-					'  <span class="btn-group-toggle d-grid" data-bs-toggle="buttons">' +
-					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-1">' +
+				   o += '<li class="list-group-item px-0"> ' +
+					'  <span class="btn-group-toggle w-100" data-bs-toggle="buttons">' +
+					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" data-bs-toggle="collapse" href=".multi-collapse-1">' +
   					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
 					'<em class="fas fa-bars col-1 me-2 float-start"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide ActionBar') + '</span></label>' +
 					'  </span>' +
 					'</li>' ;
 
-				   o += '<li class="list-group-item px-0 d-grid"> ' +
-					'  <span class="btn-group-toggle d-grid" data-bs-toggle="buttons">' +
-					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end" data-bs-toggle="collapse" href=".multi-collapse-2">' +
+				   o += '<li class="list-group-item px-0"> ' +
+					'  <span class="btn-group-toggle w-100" data-bs-toggle="buttons">' +
+					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" data-bs-toggle="collapse" href=".multi-collapse-2">' +
   					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
 					'<em class="fas fa-sliders-h col-1 me-2 float-start"></em>' +
 					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide Slider') + '</span></label>' +

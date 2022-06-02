@@ -41,7 +41,7 @@
 		   	     "<thead>" +
 			     "<tr style='border-top:2pt solid white;'>" +
 			     "<th width='1%'>" +
-			     "<a tabindex='0' href='#' class='show multi-collapse-3' " +
+			     "<a tabindex='0' href='#' class='multi-collapse-3 collapse show' " +
                              "   data-bs-toggle='popover2' id='popover2_asm'>" +
                              "<strong class='fas fa-wrench text-secondary'></strong>" +
                              "</a>" +
@@ -66,6 +66,7 @@
 
 		    this.innerHTML = o1 ;
 
+		    // initialize loaded components
 		    wepsim_init_quickcfg(wsweb_quickcfg['popover2'].quick_id,
 					 wsweb_quickcfg['popover2'].val_trigger,
 					 wsweb_quickcfg['popover2'].fun_content,

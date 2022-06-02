@@ -82,12 +82,18 @@
 
                    // load HTML
                    this.innerHTML = o1 ;
+
+		   // initialize loaded components
+		   wepsim_init_quickcfg(wsweb_quickcfg['slidercfg'].quick_id,
+                                        wsweb_quickcfg['slidercfg'].val_trigger,
+                                        wsweb_quickcfg['slidercfg'].fun_content,
+                                        wsweb_quickcfg['slidercfg'].fun_ownshown) ;
 	      }
 
 	      render_populate_compact_toolbars ( )
 	      {
 		  return  '	  <a id="popover-slidercfg" tabindex="0"' +
-			  '	     class="show multi-collapse-3 btn my-1 col-auto border-0"' +
+			  '	     class="btn my-1 col-auto border-0 multi-collapse-3 collapse show"' +
 			  '	     data-bs-toggle="popover-slidercfg"><strong><strong class="fas fa-wrench text-secondary"></strong></strong></a>' +
 			  '' +
 			  '	  <div class="col-auto px-0 px-sm-2">' +

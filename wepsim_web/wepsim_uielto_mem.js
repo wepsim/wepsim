@@ -43,11 +43,11 @@
 	      render_skel ( )
 	      {
 		    // html holder
-		    var o1 = "<div class='container text-end'>" +
+		    var o1 = "<div class='container text-end multi-collapse-3 collapse show'>" +
                              '<label class="my-0" for="popover-mem" style="min-width:95%">' +
                              '<span data-langkey="quick config">quick config</span>: ' +
                              "<a data-bs-toggle='popover-mem' id='popover-mem' " +
-			     "   tabindex='0' class='m-auto show multi-collapse-3 border-0'>" +
+			     "   tabindex='0' class='m-auto border-0'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
                              "</a></label>" +
                              "</div>" +
