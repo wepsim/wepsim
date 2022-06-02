@@ -154,6 +154,34 @@
 	 $(label_prefix + val_new).button('toggle');
     }
 
+    function wepsim_config_button_onoff ( config_name, label_prefix )
+    {
+         var id_on    = 'radio17-true' ;
+         var id_off   = 'radio17-false' ;
+	 var aria_on  = "Use Google Analytics: true" ;
+	 var aria_off = "Use Google Analytics: false" ;
+         var config_name = 'use_ga' ;
+         var lbl_prefix = '#label17-' ;
+
+         var o = "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
+		 " <input type='radio' name='options' id='" + id_on + "' autocomplete='off' class='btn-check'>" +
+		 " <label id='label17-true' for='" + id_on + "' " +
+		 "	  class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+		 "	  aria-label='" + aria_on + "'" +
+		 "	  onclick=\"wepsim_config_button_toggle('use_ga', true, " + lbl_prefix + ");\">On" +
+		 " </label>" +
+		 " <input type='radio' name='options' id='" + id_off + "' autocomplete='off' class='btn-check'>" +
+		 " <label id='label17-false' for='" + id_off + "' " +
+		 "	  class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+		 "	  aria-label='" + aria_off + "'" +
+		 "	  onclick=\"wepsim_config_button_toggle('use_ga', false, " + lbl_prefix + ");\">Off" +
+		 " </label>" +
+		 "</div> " ;
+
+         return o ;
+    }
+
+
     // color
     function wepsim_config_color_initial ( config_name, label_prefix )
     {

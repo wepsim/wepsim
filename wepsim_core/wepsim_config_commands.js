@@ -287,30 +287,30 @@
 				   "	    <label id='label2-unsigned_16_nofill' for='radio2-unsigned_16_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_nofill'); show_memories_values();\">1A<sub>16</sub>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_16_nofill','#label2-'); show_memories_values();\">1A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio2-unsigned_10_nofill'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_10_nofill' for='radio2-unsigned_10_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_nofill');  show_memories_values();\">32<sub>10</sub>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_10_nofill','#label2-');  show_memories_values();\">32<sub>10</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_nofill'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_8_nofill' for='radio2-unsigned_8_nofill' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_nofill');   show_memories_values();\">26<sub>8</sub>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_8_nofill','#label2-');   show_memories_values();\">26<sub>8</sub>" +
 				   "	    </label>" +
                                    "    </div>" +
                                    "    <div class='btn-group d-flex btn-group-justified'>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label2-unsigned_16_fill' for='radio2-unsigned_16_nofill' " +
+				   "	    <label id='label2-unsigned_16_fill' for='radio2-unsigned_16_fill' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_16_fill','#label2-'); show_memories_values();\">001A<sub>16</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label2-unsigned_10_fill' for='radio2-unsigned_10_nofill' " +
+				   "	    <label id='label2-unsigned_10_fill' for='radio2-unsigned_10_fill' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_10_fill','#label2-'); show_memories_values();\">0032<sub>10</sub>" +
@@ -386,7 +386,7 @@
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
                                    "<input type='color' " +
 				   "	   aria-label='Color for active data'" +
-                                   "       class='form-control form-control-color noshadow-d' " +
+                                   "       class='form-control form-control-color w-100' " +
                                    "       id='colorpicker1' " +
 				   "	   onchange=\"wepsim_config_color_update('color_data_active', this.value, '#colorpicker1');\" " +
                                    "       title='Choose your color'>" +
@@ -404,7 +404,7 @@
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
                                    "<input type='color' " +
 				   "	   aria-label='Color for active signal name'" +
-                                   "       class='form-control form-control-color noshadow-d' " +
+                                   "       class='form-control form-control-color w-100' " +
                                    "       id='colorpicker2' value='#000000' " +
 				   "	   onchange=\"wepsim_config_color_update('color_name_active', this.value, '#colorpicker2');\" " +
                                    "       title='Choose your color'>" +
@@ -598,19 +598,18 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='AutoScrolling: true' " +
 				   "		   onclick=\"var optValue = true;" +
-				   "		             update_cfg('AS_enable', optValue);\">On" +
+				   "		             wepsim_config_button_toggle('AS_enable', optValue, '#label16-');\">On" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio16-false'  aria-label='AutoScroll: false'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label16-false' for='radio16-false' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='AutoScrolling: false' " +
 				   "		   onclick=\"var optValue = false;" +
-				   "		             update_cfg('AS_enable', optValue);\">Off" +
+				   "		             wepsim_config_button_toggle('AS_enable', optValue, '#label16-');\">Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-			               var optValue = get_cfg('AS_enable') ;
-			               $('#label16-' + optValue).button('toggle') ;
+                                       wepsim_config_button_pretoggle('AS_enable', '#label16-') ;
 		                   },
                       description: "<span data-langkey='Auto-scroll while executing'>Auto-scroll while executing</span>"
                    });

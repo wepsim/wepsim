@@ -168,6 +168,7 @@
             return true ;
         }
 
+/*
         color16 = [ "black",  "white",  "red",    "lime",
                     "blue",   "yellow", "cyan",   "magneta",
                     "silver", "gray",   "maroon", "olive",
@@ -177,17 +178,14 @@
         {
              return color16[value % 16] ;
         }
-
-/*
-        function webui_ledm_value2color ( value )
-        {
-             return color16[value % 16] ;
-             var h1 = ((value >> 5) & 0x7) * (256/8) ;
-             var h2 = ((value >> 2) & 0x7) * (256/8) ;
-             var h3 = ((value >> 0) & 0x3) * (256/4) ;
-
-             return 'rgb(' + h1 + "," + h2 + "," + h3 + ")" ;
-        }
 */
 
+        color14 = [ "#000000", "#FFFFFF", "#FF0000", "#FF8800", "#FFFF00",
+                    "#88FF00", "#00FF00", "#00FF88", "#00FFFF", "#0088FF",
+                    "#0000FF", "#8800FF", "#FF00FF", "#FF0088" ] ;
+
+        function webui_ledm_value2color ( value )
+        {
+             return color14[value % 14] ;
+        }
 

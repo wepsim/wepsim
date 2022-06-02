@@ -366,7 +366,7 @@
 
 		        return '<span class="text-dark font-monospace col"><strong>' + rname + '</strong></span>' +
                                '<button type="button" id="close" ' +
-                               '        class="btn-close ms-auto" ' +
+                               '        class="btn-close border border-secondary ms-auto" ' +
                                '        onclick="$(' + id_button + ').click();"></button>';
 		    },
 		    sanitizeFn: function (content) {
@@ -461,8 +461,8 @@
                                simhw_sim_states()[index].name +
                                '</strong></span>' +
                                '<button type="button" id="close" ' +
-                               '        class="btn-close ms-auto" ' +
-                               '        onclick="$(' + id_button + ').click();">&times;</button>';
+                               '        class="btn-close border border-secondary ms-auto" ' +
+                               '        onclick="$(' + id_button + ').click();"></button>';
 		    },
 		    sanitizeFn: function (content) {
                         return content ; // DOMPurify.sanitize(content) ;
