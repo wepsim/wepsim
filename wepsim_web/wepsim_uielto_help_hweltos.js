@@ -70,7 +70,7 @@
 		    this.innerHTML = o1 ;
 	      }
 
-              describe_element ( array_eltos, hash_eltos, enum_name )
+              describe_element ( elto_path, array_eltos, hash_eltos, enum_name )
               {
                     var o = '<tr>' +
                             '<td>' + this.info_icons[enum_name] + '</td>' +
@@ -79,8 +79,15 @@
                     o += '<td>' ;
                     for (var i=0; i<array_eltos.length; i++)
                     {
-                         o += '(' + (i+1) + ') ' + hash_eltos[array_eltos[i]].description ;
+                         // get translation for associated description...
+                         var k = elto_path + array_eltos[i] ;
+                         var v = i18n_get_TagFor('hw', k.toUpperCase()) ;
+                             v = '<span data-langkey=\'' + k.toUpperCase() + '\'>' + v + '</span>' ;
 
+                         // build help entry...
+                         o += '(' + (i+1) + ') ' + v ;
+
+                         // add '<br>' in all entries but the last one...
                          if (i != array_eltos.length - 1)
                               o += ',<br> ' ;
                          else o += '.' ;
@@ -110,11 +117,13 @@
 
 		    // html holder
 		    var o1 = '' ;
+                    var elto_path = '' ;
 		    for (var b in ahw.elements_hash.by_belong)
 		    {
 			 for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
 			 {
 			      elto = ahw.elements_hash.by_belong[b][j] ;
+                         elto_path = ahw.sim_short_name + ':' + elto.key ;
 
 			      o1 += '<div class="col-md-6 d-flex my-2 table-responsive">' +
 			 	    '<table class="table table-striped table-bordered table-hover table-sm table2">' +
@@ -122,9 +131,12 @@
 				    '<th colspan="3">' + b + ' / ' + elto.description + '</th>' +
 				    '</tr></thead>' +
 				    '<tbody>' +
-			            this.describe_element(elto.states_inputs,  elto.states,  'Inputs') +
-			            this.describe_element(elto.states_outputs, elto.states,  'Outputs') +
-			            this.describe_element(elto.signals_inputs, elto.signals, 'Signals') +
+  	                            this.describe_element(elto_path + ':states:',
+                                                          elto.states_inputs,  elto.states,  'Inputs') +
+                                    this.describe_element(elto_path + ':states:',
+				                          elto.states_outputs, elto.states,  'Outputs') +
+                                    this.describe_element(elto_path + ':signals:',
+                                                          elto.signals_inputs, elto.signals, 'Signals') +
 				    '</tbody>' +
 				    '</table>' +
 				    '</div>' ;
