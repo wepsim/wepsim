@@ -31,7 +31,7 @@
 
 + From Web, please:
   * Check you have a compatible Web browser:
-    * Google Chrome 80+, Mozilla Firefox 74+, Microsoft Edge 85+, and Apple Safari 12+
+    * Google Chrome 90+, Mozilla Firefox 90+, Microsoft Edge 90+, and Apple Safari 15+
   * Open your (compatible) Web browser
   * Click on the link https://wepsim.github.io/wepsim
     * A nightly build version is also available at https://acaldero.github.io/wepsim
@@ -51,7 +51,7 @@
 
 ### 2) Install WepSIM (iOS, Android, Windows, Linux, etc.)
 
-+ WepSIM can be installed on Android 8.0+ from the Goole Play Store at https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
++ WepSIM can be installed on Android 9.0+ from the Goole Play Store at https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 + For other platforms, please follow those steps in order to install WepSIM as a Progressive Web Application (PWA):
 
 Step   | iOS                       |  Android                  | Action to perform

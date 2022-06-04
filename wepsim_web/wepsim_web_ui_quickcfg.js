@@ -117,8 +117,10 @@
 			'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
                         quickcfg_html_onoff('18',
                                             'WepSIM dark mode',
+                                                i18n_get_TagFor('cfg', 'Off'),
                                             "  wepsim_restore_darkmode(false);" +
                                             "  wepsim_config_button_toggle('ws_skin_dark_mode', false, '18');",
+                                                i18n_get_TagFor('cfg', 'On'),
                                             "  wepsim_restore_darkmode(true);" +
                                             "  wepsim_config_button_toggle('ws_skin_dark_mode', true, '18');") +
 			'</li>' ;
@@ -138,7 +140,9 @@
 			'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
                         quickcfg_html_onoff('17',
                                             'Frequent only',
+                                                i18n_get_TagFor('cfg', 'Off'),
                                             "  wepsim_activeview('only_frequent', false);",
+                                                i18n_get_TagFor('cfg', 'On'),
                                             "  wepsim_activeview('only_frequent', true);") +
 			'</li>' ;
 */
@@ -250,13 +254,9 @@
 	        "</div>" ;
     }
 
-    function quickcfg_html_onoff ( id2, arial2, code_off2, code_on2 )
+    function quickcfg_html_onoff ( id2, arial2, nm_off2, code_off2, nm_on2, code_on2 )
     {
-         return wepsim_config_button_html_onoff(id2, arial2,
-                                                i18n_get_TagFor('cfg', 'Off'),
-				                code_off2,
-                                                i18n_get_TagFor('cfg', 'On'),
-				                code_on2) ;
+         return wepsim_config_button_html_onoff(id2, arial2, nm_off2, code_off2, nm_on2, code_on2) ;
     }
 
     function quickcfg_html_close ( btn2_id )

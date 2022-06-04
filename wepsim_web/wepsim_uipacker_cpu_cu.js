@@ -91,6 +91,7 @@
 			                 quick_config_cpuview,
 					 function(shownEvent) {
 				             $("#slider4b").val(get_cfg('CPUCU_size')) ;
+                                             wepsim_config_button_pretoggle('is_interactive', 'QI') ;
 					     i18n_update_tags('cfg') ;
 					     i18n_update_tags('dialogs') ;
 					 }) ;
@@ -142,12 +143,14 @@
 		       // <interactive>
                        quickcfg_html_br() +
                        quickcfg_html_header('Graph: interactive mode') +
-	               quickcfg_html_btn("(*) On",
-                                         "update_cfg(\"is_interactive\", true);",
-                                         "col-6") +
-	               quickcfg_html_btn("Off",
-                                         "update_cfg(\"is_interactive\", false);",
-                                         "col-6") +
+                       quickcfg_html_onoff('QI',
+                                           'is interactive',
+                                                    i18n_get_TagFor('cfg', 'Off'),
+                                           "wepsim_config_button_toggle(\'is_interactive\',false,\'QI\');" +
+                                           "return false;",
+                                           "(*) " + i18n_get_TagFor('cfg', 'On'),
+                                           "wepsim_config_button_toggle(\'is_interactive\',true,\'QI\');" +
+                                           "return false;") +
 		       // <filter>
                        quickcfg_html_br() +
                        quickcfg_html_header('Text: show states+signals') +

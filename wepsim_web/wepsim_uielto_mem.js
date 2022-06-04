@@ -466,15 +466,19 @@
                          quickcfg_html_header("Display segments") +
 			 quickcfg_html_onoff('19',
 					     'show segments',
+                                                "(*) " + i18n_get_TagFor('cfg', 'Off'),
 					     "  $('#lst_seg1').collapse('hide');" +
 					     "  wepsim_config_button_toggle('MEM_show_segments', false, '19');",
+                                                i18n_get_TagFor('cfg', 'On'),
 					     "  $('#lst_seg1').collapse('show');" +
 					     "  wepsim_config_button_toggle('MEM_show_segments', true, '19');") +
                          quickcfg_html_header("Display origin") +
 			 quickcfg_html_onoff('20',
 					     'show origin',
+                                                "(*) " + i18n_get_TagFor('cfg', 'Off'),
 					     "  $('.mp_tooltip').collapse('hide');" +
 					     "  wepsim_config_button_toggle('MEM_show_source', false, '20');",
+                                                i18n_get_TagFor('cfg', 'On'),
 					     "  $('.mp_tooltip').collapse('show');" +
 					     "  wepsim_config_button_toggle('MEM_show_source', true, '20');") +
                      quickcfg_html_br() +

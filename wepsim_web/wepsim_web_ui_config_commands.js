@@ -68,9 +68,11 @@
                       id:          "radio15",
                       type:        "General",
                       u_class:     "",
-                      code_cfg:    quickcfg_html_onoff('15', 'Dark mode',
+                      code_cfg:    wepsim_config_button_html_onoff('15', 'Dark mode',
+                                                  i18n_get_TagFor('cfg', 'Off'),
 		                                   "wepsim_restore_darkmode(false);" +
 		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',false,'15');",
+                                                  i18n_get_TagFor('cfg', 'On'),
 		                                   "wepsim_restore_darkmode(true);" +
 		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',true,'15');"),
 		      code_init:   function() {
@@ -348,8 +350,10 @@
                       id:          "radio9",
                       type:        "Register file",
                       u_class:     "user_archived",
-                      code_cfg:    quickcfg_html_onoff('9', 'Is editable',
+                      code_cfg:    wepsim_config_button_html_onoff('9', 'Is editable',
+                                                     i18n_get_TagFor('cfg', 'Off'),
 		                                       "wepsim_config_button_toggle('is_editable',false,'9');",
+                                                     i18n_get_TagFor('cfg', 'On'),
 		                                       "wepsim_config_button_toggle('is_editable',true,'9');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_editable', '9') ;
@@ -361,14 +365,9 @@
                       id:          "colorpicker1",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
-                      code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
-                                   "<input type='color' " +
-				   "	   aria-label='Color for active data'" +
-                                   "       class='form-control form-control-color w-100' " +
-                                   "       id='colorpicker1' " +
-				   "	   onchange=\"wepsim_config_color_update('color_data_active', this.value, '#colorpicker1');\" " +
-                                   "       title='Choose your color'>" +
-				   "</fieldset>",
+                      code_cfg:    wepsim_config_button_html_color('colorpicker1',
+							           'Color for active active data',
+							           'color_data_active'),
 		      code_init:   function() {
                                        wepsim_config_color_initial('color_data_active', '#colorpicker1') ;
 		                   },
@@ -379,14 +378,9 @@
                       id:          "colorpicker2",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
-                      code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
-                                   "<input type='color' " +
-				   "	   aria-label='Color for active signal name'" +
-                                   "       class='form-control form-control-color w-100' " +
-                                   "       id='colorpicker2' value='#000000' " +
-				   "	   onchange=\"wepsim_config_color_update('color_name_active', this.value, '#colorpicker2');\" " +
-                                   "       title='Choose your color'>" +
-				   "	 </fieldset> ",
+                      code_cfg:    wepsim_config_button_html_color('colorpicker2',
+							           'Color for active signal name',
+							           'color_name_active'),
 		      code_init:   function() {
                                        wepsim_config_color_initial('color_name_active', '#colorpicker2') ;
 		                   },
@@ -397,8 +391,10 @@
                       id:          "radio10",
                       type:        "Circuitry simulation",
                       u_class:     "user_archived user_microcode",
-                      code_cfg:    quickcfg_html_onoff('10', 'Is by value',
+                      code_cfg:    wepsim_config_button_html_onoff('10', 'Is by value',
+                                                     i18n_get_TagFor('cfg', 'Off'),
 		                                       "wepsim_config_button_toggle('is_byvalue',false,'10');",
+                                                     i18n_get_TagFor('cfg', 'On'),
 		                                       "wepsim_config_button_toggle('is_byvalue',true,'10');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_byvalue', '10') ;
@@ -410,8 +406,10 @@
                       id:          "radio5",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
-                      code_cfg:    quickcfg_html_onoff('5', 'Is interactive',
+                      code_cfg:    wepsim_config_button_html_onoff('5', 'Is interactive',
+                                                     i18n_get_TagFor('cfg', 'Off'),
 		                                      "wepsim_config_button_toggle('is_interactive',false,'5');",
+                                                     i18n_get_TagFor('cfg', 'On'),
 		                                      "wepsim_config_button_toggle('is_interactive',true,'5');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_interactive', '5') ;
@@ -423,8 +421,10 @@
                       id:          "radio6",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
-                      code_cfg:    quickcfg_html_onoff('6', 'Is quick interactive',
+                      code_cfg:    wepsim_config_button_html_onoff('6', 'Is quick interactive',
+                                                  i18n_get_TagFor('cfg', 'Off'),
 		                                 "wepsim_config_button_toggle('is_quick_interactive',false,'6');",
+                                                  i18n_get_TagFor('cfg', 'On'),
 		                                 "wepsim_config_button_toggle('is_quick_interactive',true,'6');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_quick_interactive', '6') ;
@@ -436,8 +436,10 @@
                       id:          "radio11",
                       type:        "Accesibility",
                       u_class:     "user_archived",
-                      code_cfg:    quickcfg_html_onoff('11', 'Active voice',
+                      code_cfg:    wepsim_config_button_html_onoff('11', 'Active voice',
+                                                     i18n_get_TagFor('cfg', 'Off'),
 		                                       "wepsim_config_button_toggle('use_voice',false,'11');",
+                                                     i18n_get_TagFor('cfg', 'On'),
 		                                       "wepsim_config_button_toggle('use_voice',true,'11');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('use_voice', '11') ;
@@ -530,8 +532,10 @@
                       id:          "radio16",
                       type:        "Accesibility",
                       u_class:     "",
-                      code_cfg:    quickcfg_html_onoff('16', 'AutoScrolling',
+                      code_cfg:    wepsim_config_button_html_onoff('16', 'AutoScrolling',
+                                                     i18n_get_TagFor('cfg', 'Off'),
 		                                       "wepsim_config_button_toggle('AS_enable',false,'16');",
+                                                     i18n_get_TagFor('cfg', 'On'),
 		                                       "wepsim_config_button_toggle('AS_enable',true,'16');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('AS_enable', '16') ;
@@ -543,8 +547,10 @@
                       id:          "radio17",
                       type:        "Privacy",
                       u_class:     "",
-                      code_cfg:    quickcfg_html_onoff('17', 'Use Google Analytics',
+                      code_cfg:    wepsim_config_button_html_onoff('17', 'Use Google Analytics',
+                                                     i18n_get_TagFor('cfg', 'Off'),
 		                                       "wepsim_config_button_toggle('use_ga',false,'17');",
+                                                     i18n_get_TagFor('cfg', 'On'),
 		                                       "wepsim_config_button_toggle('use_ga',true,'17');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('use_ga', '17') ;

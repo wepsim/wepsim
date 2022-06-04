@@ -214,7 +214,21 @@
 	 $(label_prefix + val_new.replace(/:/g,'__')).button('toggle');
     }
 
+
     // color
+    function wepsim_config_button_html_color ( id2, arial2, cfg_name2 )
+    {
+	 return "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' " +
+                "          style='margin:0 0 0 0'>" +
+	        "   <input type='color' " +
+	        "	   aria-label='" + arial2 + "'" +
+	        "          class='form-control form-control-color w-100' " +
+	        "          id='" + id2 + "' value='#000000' " +
+	        "	   onchange=\"wepsim_config_color_update('" + cfg_name2 + "',this.value,'#"+id2+"');\"" +
+	        "          title='Choose your color'>" +
+	        "</fieldset> " ;
+    }
+
     function wepsim_config_color_initial ( config_name, label_prefix )
     {
 	 $(label_prefix)[0].value = get_cfg(config_name) ;
