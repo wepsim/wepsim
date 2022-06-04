@@ -47,7 +47,7 @@
 				'	                wsweb_quickmenu_show();' +
 				'	            return false;"' +
 				'	  data-bs-html="true"' +
-				'	  data-placement="bottom">WepSIM&nbsp;<span class="badge rounded-pill text-bg-secondary"><div class="wsversion">loading ...</div></span>' +
+				'	  data-bs-placement="bottom">WepSIM&nbsp;<span class="badge rounded-pill text-bg-secondary"><div class="wsversion">loading ...</div></span>' +
 				'       </a>' +
 				'    </span>' +
 				'' +

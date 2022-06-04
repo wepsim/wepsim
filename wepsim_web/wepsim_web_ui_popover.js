@@ -61,24 +61,6 @@
          return plist1 ;
     }
 
-    function wepsim_popover_init_OLD ( popover_id, popover_cfg, fun_ownshown )
-    {
-         var obj1 = document.querySelector(popover_id) ;
-         if (null == obj1) {
-             return null ;
-         }
-
-	 var po1 = $(popover_id).popover(popover_cfg) ; 
-                   po1.on('shown.bs.popover',
-		           function(shownEvent) {
-                               fun_ownshown(shownEvent);
-                               i18n_update_tags('dialogs') ;
-                               i18n_update_tags('gui') ;
-                               i18n_update_tags('cfg') ;
-                           }) ;
-         return po1 ;
-    }
-
     function wepsim_popover_show ( popover_id )
     {
          $('#' + popover_id).popover('show') ;

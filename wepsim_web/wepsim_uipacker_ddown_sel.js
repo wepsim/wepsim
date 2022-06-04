@@ -52,7 +52,7 @@
                    var o1  = '' ;
 
                    o1 += '<button type="button" class="col-12 btn btn-light shadow-sm"' +
-                         '	  data-bs-toggle="tooltip" data-placement="bottom" data-bs-html="true"' +
+                         '	  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
                          '	  title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."' +
                          '	  style="border-color: #BBBBBB;"' +
                          '	  id="select5b"' +

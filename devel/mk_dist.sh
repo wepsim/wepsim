@@ -133,8 +133,6 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_mode.js \
     wepsim_core/wepsim_share.js \
     wepsim_core/wepsim_dialog.js \
-    wepsim_core/wepsim_config.js \
-    wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_help_commands.js \
@@ -185,6 +183,12 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uipacker_cto_asm.js \
     wepsim_web/wepsim_uipacker_sim_mic_asm.js \
     \
+    wepsim_web/wepsim_web_ui_config.js \
+    wepsim_web/wepsim_web_ui_config_commands.js \
+    wepsim_web/wepsim_web_ui_popover.js \
+    wepsim_web/wepsim_web_ui_dialogs.js \
+    wepsim_web/wepsim_web_ui_quickcfg.js \
+    \
     wepsim_web/wepsim_uielto_loadfile.js \
     wepsim_web/wepsim_uielto_savefile.js \
     wepsim_web/wepsim_uielto_listcfg.js \
@@ -194,9 +198,6 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_index_examples.js \
     wepsim_web/wepsim_uielto_index_config.js \
     \
-    wepsim_web/wepsim_web_ui_popover.js \
-    wepsim_web/wepsim_web_ui_dialogs.js \
-    wepsim_web/wepsim_web_ui_quickcfg.js \
     wepsim_web/wepsim_uielto_recordbar.js \
     wepsim_web/wepsim_uielto_executionbar.js \
     wepsim_web/wepsim_uielto_compilationbar.js \

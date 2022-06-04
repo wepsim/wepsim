@@ -140,21 +140,78 @@
 
 
     // button
+    function wepsim_config_button_html_onoff ( id2, arial2, name_off, code_off2, name_on, code_on2 )
+    {
+         return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-bs-toggle='buttons'>" +
+                "    <label id='label" + id2 + "-false' " +
+                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                "           aria-label='" + arial2 + ": false' " +
+		"           onclick=\"" + code_off2 + "; return true;\">" +
+                "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-false' " +
+                "           aria-label='" + arial2 + ": false' autocomplete='off'>" + name_off + "</label>" +
+                "    <label id='label" + id2 + "-true' " +
+                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                "           aria-label='" + arial2 + ": true' " +
+		"           onclick=\"" + code_on2 + "; return true;\">" +
+                "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-true' " +
+                "           aria-label='" + arial2 + ": true' autocomplete='on'>" + name_on + "</label>" +
+                "</div>" ;
+    }
+
+    function wepsim_config_button_html_close ( btn2_id )
+    {
+	 return "<div class='col p-1 mt-2'>" +
+		"<button type='button' id='close' data-role='none' " +
+		"        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		"        onclick='wepsim_popover_hide(\"" + btn2_id + "\");'>" +
+                "<span data-langkey='Close'>Close</span>" +
+                "</button>" +
+		"</div>" ;
+    }
+
     function wepsim_config_button_pretoggle ( config_name, set_id )
     {
-         var label_prefix = '#label' + set_id + '-' ;
 	 var val_tag = get_cfg(config_name) ;
-	 $(label_prefix + val_tag).button('toggle');
+
+         var label_prefix = '#label' + set_id + '-' ;
+         if ($(label_prefix + val_tag).hasClass("active") == false) {
+	     $(label_prefix + val_tag).button('toggle');
+         }
+    }
+
+    function wepsim_config_button_pretoggle_val ( config_name, set_id, val_tag )
+    {
+         var label_prefix = '#label' + set_id + '-' ;
+         if ($(label_prefix + val_tag).hasClass("active") == false) {
+	     $(label_prefix + val_tag).button('toggle');
+         }
+    }
+
+    function wepsim_config_button_pretoggle_val2 ( config_name, set_id, val_tag )
+    {
+         var label_prefix = '#label' + set_id + '-' ;
+         if ($(label_prefix + val_tag.replace(/:/g,'__')).hasClass("active") == false) {
+	     $(label_prefix + val_tag.replace(/:/g,'__')).button('toggle');
+         }
     }
 
     function wepsim_config_button_toggle ( config_name, val_new, set_id )
     {
-         var label_prefix = '#label' + set_id + '-' ;
 	 var val_old = get_cfg(config_name) ;
-	 $(label_prefix + val_old).button('toggle');
-
          update_cfg(config_name, val_new) ;
+
+         var label_prefix = '#label' + set_id + '-' ;
+	 $(label_prefix + val_old).button('toggle');
 	 $(label_prefix + val_new).button('toggle');
+    }
+
+    function wepsim_config_button_toggle2 ( config_name, val_old, val_new, set_id )
+    {
+         update_cfg(config_name, val_new) ;
+
+         var label_prefix = '#label' + set_id + '-' ;
+	 $(label_prefix + val_old.replace(/:/g,'__')).button('toggle');
+	 $(label_prefix + val_new.replace(/:/g,'__')).button('toggle');
     }
 
     // color

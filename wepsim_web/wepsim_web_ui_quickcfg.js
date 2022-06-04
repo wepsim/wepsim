@@ -252,30 +252,15 @@
 
     function quickcfg_html_onoff ( id2, arial2, code_off2, code_on2 )
     {
-         return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-bs-toggle='buttons'>" +
-                "    <label id='label" + id2 + "-false' " +
-                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                "           aria-label='" + arial2 + ": false' " +
-		"           onclick=\"" + code_off2 + "; return true;\">" +
-                "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-false' " +
-                "           aria-label='" + arial2 + ": false' autocomplete='off'>Off</label>" +
-                "    <label id='label" + id2 + "-true' " +
-                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                "           aria-label='" + arial2 + ": true' " +
-		"           onclick=\"" + code_on2 + "; return true;\">" +
-                "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-true' " +
-                "           aria-label='" + arial2 + ": true' autocomplete='on'>On</label>" +
-                "</div>" ;
+         return wepsim_config_button_html_onoff(id2, arial2,
+                                                i18n_get_TagFor('cfg', 'Off'),
+				                code_off2,
+                                                i18n_get_TagFor('cfg', 'On'),
+				                code_on2) ;
     }
 
     function quickcfg_html_close ( btn2_id )
     {
-	 return "<div class='col p-1 mt-2'>" +
-		"<button type='button' id='close' data-role='none' " +
-		"        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-		"        onclick='wepsim_popover_hide(\"" + btn2_id + "\");'>" +
-                "<span data-langkey='Close'>Close</span>" +
-                "</button>" +
-		"</div>" ;
+         return wepsim_config_button_html_close(btn2_id) ;
     }
 

@@ -68,22 +68,11 @@
                       id:          "radio15",
                       type:        "General",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "	    <input type='radio' name='options' id='radio15-true'  aria-label='Dark mode: true'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label15-true' for='radio15-true' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                                   "               aria-label='WepSIM dark mode: true' " +
-				   "		   onclick=\"wepsim_restore_darkmode(true) ; " +
-				   "		             wepsim_config_button_toggle('ws_skin_dark_mode',true,'15');\">On" +
-				   "	    </label>" +
-				   "	    <input type='radio' name='options' id='radio15-false' aria-label='Dark mode: false' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label15-false' for='radio15-false' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                                   "               aria-label='WepSIM dark mode: false' " +
-				   "		   onclick=\"wepsim_restore_darkmode(false) ; " +
-				   "		             wepsim_config_button_toggle('ws_skin_dark_mode',false,'15');\">Off" +
-				   "	    </label>" +
-				   "	</div>",
+                      code_cfg:    quickcfg_html_onoff('15', 'Dark mode',
+		                                   "wepsim_restore_darkmode(false);" +
+		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',false,'15');",
+		                                   "wepsim_restore_darkmode(true);" +
+		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',true,'15');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('ws_skin_dark_mode', '15') ;
 			               wepsim_restore_darkmode(optValue) ;
@@ -162,13 +151,13 @@
 			               var elto = get_cfg('ICON_theme') ;
 			               $('#img_select1').attr("src",   "images/stop/stop_" + elto + ".gif");
 			               $('#img_select1').attr("class", ws_info.breakpoint_icon_list[elto].addclass);
-			               var popover_cfg = { 
+			               var popover_cfg = {
                                                            html:       true,
 					                   content:    wepsim_show_breakpoint_icon_list,
 							   template:   wepsim_show_breakpoint_icon_template(),
 					                   sanitizeFn: function(content){ return content; }
 							 };
-                                       wepsim_popover_init('#breakpointicon1', popover_cfg, 
+                                       wepsim_popover_init('#breakpointicon1', popover_cfg,
                                                            function(shownEvent) {
                                                                wepsim_uicfg_apply();
                                                            });
@@ -359,20 +348,9 @@
                       id:          "radio9",
                       type:        "Register file",
                       u_class:     "user_archived",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio9-true'  aria-label='Is editable: true'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label9-true' for='radio9-true'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-				   "		   aria-label='Is editable: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_editable',true,'9');\">On" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio9-false' aria-label='Is editable: false' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label9-false' for='radio9-false'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-				   "		   aria-label='Is editable: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_editable',false,'9');\">Off" +
-				   "	    </label>" +
-				   "	</div>",
+                      code_cfg:    quickcfg_html_onoff('9', 'Is editable',
+		                                       "wepsim_config_button_toggle('is_editable',false,'9');",
+		                                       "wepsim_config_button_toggle('is_editable',true,'9');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_editable', '9') ;
 		                   },
@@ -419,20 +397,9 @@
                       id:          "radio10",
                       type:        "Circuitry simulation",
                       u_class:     "user_archived user_microcode",
-                      code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio10-true'   autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label10-true' for='radio10-true'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Is by value: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_byvalue',true,'10');\"><span data-langkey='Value'>Value</span>" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio10-false'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label10-false' for='radio10-false'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Is by value: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_byvalue',false,'10');\"><span data-langkey='Activation'>Activation</span>" +
-				   "	    </label>" +
-				   "	</div> ",
+                      code_cfg:    quickcfg_html_onoff('10', 'Is by value',
+		                                       "wepsim_config_button_toggle('is_byvalue',false,'10');",
+		                                       "wepsim_config_button_toggle('is_byvalue',true,'10');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_byvalue', '10') ;
 		                   },
@@ -443,20 +410,9 @@
                       id:          "radio5",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio5-true'   autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label5-true' for='radio5-true'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Is interactive: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_interactive',true,'5');\">On" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio5-false'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label5-false' for='radio5-false'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Is interactive: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_interactive',false,'5');\">Off" +
-				   "	    </label>" +
-				   "	</div> ",
+                      code_cfg:    quickcfg_html_onoff('5', 'Is interactive',
+		                                      "wepsim_config_button_toggle('is_interactive',false,'5');",
+		                                      "wepsim_config_button_toggle('is_interactive',true,'5');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_interactive', '5') ;
 		                   },
@@ -467,20 +423,9 @@
                       id:          "radio6",
                       type:        "Circuitry simulation",
                       u_class:     "user_microcode",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio6-true'   autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label6-true' for='radio6-true'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Is quick interactive: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_quick_interactive',true,'6');\">On" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio6-false'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label6-false' for='radio6-false'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Is quick interactive: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_quick_interactive',false,'6');\">Off" +
-				   "	    </label>" +
-				   "	</div> ",
+                      code_cfg:    quickcfg_html_onoff('6', 'Is quick interactive',
+		                                 "wepsim_config_button_toggle('is_quick_interactive',false,'6');",
+		                                 "wepsim_config_button_toggle('is_quick_interactive',true,'6');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_quick_interactive', '6') ;
 		                   },
@@ -491,20 +436,9 @@
                       id:          "radio11",
                       type:        "Accesibility",
                       u_class:     "user_archived",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio11-true'   autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label11-true' for='radio11-true' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Active voice: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('use_voice',true,'11'); wepsim_voice_start();\">On" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label11-false' for='radio11-false' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Active voice: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('use_voice',false,'11'); wepsim_voice_stop();\">Off" +
-				   "	    </label>" +
-				   "	</div>",
+                      code_cfg:    quickcfg_html_onoff('11', 'Active voice',
+		                                       "wepsim_config_button_toggle('use_voice',false,'11');",
+		                                       "wepsim_config_button_toggle('use_voice',true,'11');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('use_voice', '11') ;
 		                   },
@@ -564,26 +498,30 @@
                       type:        "Accesibility",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is expert: false' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label14-only_asm__of__only_frequent__on' for='radio14-false' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                                   "               aria-label='User Interface set of features for WepSIM: false' " +
-				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:on';" +
-				   "		             update_cfg('ws_skin_user', optValue);" +
-                                   "                         wepsim_restore_view(optValue);\">On" +
-				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio14-true'  aria-label='Is expert: true'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-only_asm__of__only_frequent__of' for='radio14-true' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='User Interface set of features for WepSIM: true' " +
-				   "		   onclick=\"var optValue = 'only_asm:of:only_frequent:of';" +
-				   "		             update_cfg('ws_skin_user', optValue);" +
-                                   "                         wepsim_restore_view(optValue);\">Off" +
+				   "		   onclick=\"var new_val = 'only_asm:of:only_frequent:of';" +
+                                   "                         var val_old = 'only_asm:of:only_frequent:on'; " +
+                                   "                         wepsim_config_button_toggle2('ws_skin_user', " +
+                                   "                                                  val_old, new_val,'14');" +
+                                   "                         wepsim_restore_view(new_val);\">Off" +
+				   "	    </label>" +
+				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is expert: false' autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-only_asm__of__only_frequent__on' for='radio14-false' " +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                                   "               aria-label='User Interface set of features for WepSIM: false' " +
+				   "		   onclick=\"var new_val = 'only_asm:of:only_frequent:on';" +
+                                   "                         var val_old = 'only_asm:of:only_frequent:of'; " +
+                                   "                         wepsim_config_button_toggle2('ws_skin_user', " +
+                                   "                                                  val_old, new_val,'14');" +
+                                   "                         wepsim_restore_view(new_val);\">On" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
 			               var optValue = get_cfg('ws_skin_user') ;
-			               $('#label14-' + optValue.replace(/:/g,"__")).button('toggle') ;
+                                       wepsim_config_button_pretoggle_val2('ws_skin_user', '14', optValue) ;
 		                   },
                       description: "<span data-langkey='Beginner view'>Beginner view</span>"
                    });
@@ -592,22 +530,9 @@
                       id:          "radio16",
                       type:        "Accesibility",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio16-true' aria-label='AutoScroll: true' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label16-true' for='radio16-true' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                                   "               aria-label='AutoScrolling: true' " +
-				   "		   onclick=\"var optValue = true;" +
-				   "		             wepsim_config_button_toggle('AS_enable', optValue, '16');\">On" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio16-false'  aria-label='AutoScroll: false'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label16-false' for='radio16-false' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
-                                   "               aria-label='AutoScrolling: false' " +
-				   "		   onclick=\"var optValue = false;" +
-				   "		             wepsim_config_button_toggle('AS_enable', optValue, '16');\">Off" +
-				   "	    </label>" +
-				   "	</div>",
+                      code_cfg:    quickcfg_html_onoff('16', 'AutoScrolling',
+		                                       "wepsim_config_button_toggle('AS_enable',false,'16');",
+		                                       "wepsim_config_button_toggle('AS_enable',true,'16');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('AS_enable', '16') ;
 		                   },
@@ -618,20 +543,9 @@
                       id:          "radio17",
                       type:        "Privacy",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio17-true'   autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label17-true' for='radio17-true' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Use Google Analytics: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('use_ga', true, '17');\">On" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio17-false'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label17-false' for='radio17-false' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Use Google Analytics: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('use_ga', false, '17');\">Off" +
-				   "	    </label>" +
-				   "	</div> ",
+                      code_cfg:    quickcfg_html_onoff('17', 'Use Google Analytics',
+		                                       "wepsim_config_button_toggle('use_ga',false,'17');",
+		                                       "wepsim_config_button_toggle('use_ga',true,'17');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('use_ga', '17') ;
 		                   },

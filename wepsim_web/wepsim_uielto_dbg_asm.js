@@ -361,9 +361,9 @@
 		   "</td>" +
 		   "<td class='asm_dets   font-monospace col-auto show p-0' " +
 		   "    style='line-height:0.9;' width='1%' align='left'>" +
-	           "<span data-bs-toggle='tooltip' rel='tooltip2' data-placement='right' " +
+	           "<span data-bs-toggle='tooltip' rel='tooltip2' data-bs-placement='right' " +
 		   "      data-bs-html='true' data-l='" + l + "'>" +
-		   "<span data-bs-toggle='tooltip' rel='tooltip1' data-placement='right' " +
+		   "<span data-bs-toggle='tooltip' rel='tooltip1' data-bs-placement='right' " +
 		   "      title='click to show instruction format details'>&nbsp;.&nbsp;</span>" +
 		   "</span>" +
 		   "</td>" +
@@ -445,9 +445,6 @@
                 e2 = bootstrap.Tooltip.getInstance(l1[i1]) ;
                 if (e2 != null) e2.hide();
            }
-
-           // bs4:
-           // $(".tooltip").tooltip("hide") ;
         }
 
 	function instruction2tooltip ( mp, l )

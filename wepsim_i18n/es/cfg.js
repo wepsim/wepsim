@@ -64,6 +64,8 @@
                       "Verbalization: textual or mathematical":      		     "Tipo de verbalizar: texto o matem&aacute;tica",
                       "WepSIM User Interface views":     		     	     "Vistas de la Interfaz de Usuarios+as",
 		      "Privacy":						     "Privacidad",
+		      'On':							     'On',
+		      'Off':							     'Off',
 		      "_last_":							     "_last_"
                   } ;
 
