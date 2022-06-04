@@ -221,6 +221,10 @@
 	"EP:L3D:STATES:DATA":				"데이터 버스",
 	"EP:L3D:SIGNALS:IOR":				"L3D에서 읽기",
 	"EP:L3D:SIGNALS:IOW":				"L3D에 쓰기",
+	"EP:LEDM:STATES:ADDR":				"주소 버스",
+	"EP:LEDM:STATES:DATA":				"데이터 버스",
+	"EP:LEDM:SIGNALS:IOR":				"LEDM에서 읽기",
+	"EP:LEDM:SIGNALS:IOW":				"LEDM에 쓰기",
 
 	"POC:CPU_T1:STATES:IN":				"입력은 MBR 레지스터의 값입니다.",
 	"POC:CPU_T1:STATES:OUT":			"출력이 내부 버스로 이동합니다.",

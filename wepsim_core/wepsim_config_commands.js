@@ -43,23 +43,23 @@
 				   "	    <label id='label8-2000' for='radio8-2000' data-bs-toggle='buttons' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: slow'" +
-				   "		   onclick=\"wepsim_config_button_toggle('NOTIF_delay',2000,'#label8-');\"><span data-langkey='Slow'>Slow</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('NOTIF_delay',2000,'8');\"><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio8-1000'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label8-1000' for='radio8-1000' data-bs-toggle='buttons' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: normal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('NOTIF_delay',1000,'#label8-');\"><span data-langkey='Normal'>Normal</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('NOTIF_delay',1000,'8');\"><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio8-100'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label8-100' for='radio8-100' data-bs-toggle='buttons' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: fast'" +
-				   "		   onclick=\"wepsim_config_button_toggle('NOTIF_delay',100,'#label8-');\"><span data-langkey='Fast'>Fast</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('NOTIF_delay',100,'8');\"><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('NOTIF_delay', '#label8-') ;
+                                       wepsim_config_button_pretoggle('NOTIF_delay', '8') ;
 		                   },
                       description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
                    });
@@ -74,18 +74,18 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='WepSIM dark mode: true' " +
 				   "		   onclick=\"wepsim_restore_darkmode(true) ; " +
-				   "		             wepsim_config_button_toggle('ws_skin_dark_mode',true,'#label15-');\">On" +
+				   "		             wepsim_config_button_toggle('ws_skin_dark_mode',true,'15');\">On" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio15-false' aria-label='Dark mode: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label15-false' for='radio15-false' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='WepSIM dark mode: false' " +
 				   "		   onclick=\"wepsim_restore_darkmode(false) ; " +
-				   "		             wepsim_config_button_toggle('ws_skin_dark_mode',false,'#label15-');\">Off" +
+				   "		             wepsim_config_button_toggle('ws_skin_dark_mode',false,'15');\">Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('ws_skin_dark_mode', '#label15-') ;
+                                       wepsim_config_button_pretoggle('ws_skin_dark_mode', '15') ;
 			               wepsim_restore_darkmode(optValue) ;
 		                   },
                       description: "<span data-langkey='Dark Mode'>Dark Mode</span>"
@@ -100,23 +100,23 @@
 				   "	    <label id='label12-50' for='radio12-50' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: slow'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 50, '#label12-');\"><span data-langkey='Slow'>Slow</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 50, '12');\"><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio12-5'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label12-5' for='radio12-5' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: normal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 5, '#label12-');\"><span data-langkey='Normal'>Normal</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 5, '12');\"><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "        <input type='radio' name='options' id='radio12-1'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label12-1' for='radio12-1'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: fast'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 1, '#label12-');\"><span data-langkey='Fast'>Fast</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 1, '12');\"><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('DBG_delay', '#label12-') ;
+                                       wepsim_config_button_pretoggle('DBG_delay', '12') ;
 		                   },
                       description: "<span data-langkey='Running speed: execution speed'>Running speed: execution speed</span>"
                    });
@@ -131,19 +131,19 @@
 				   "	    <label id='label1-instruction' for='radio1-instruction' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: instruction'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_level','instruction','#label1-');\">" +
+				   "		   onclick=\"wepsim_config_button_toggle('DBG_level','instruction','1');\">" +
 				   "		<span class='d-none d-sm-inline-flex' data-langkey='Instructions'>Instructions</span><span class='d-sm-none'>Instruc.</span></label>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio1-microinstruction'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label1-microinstruction' for='radio1-microinstruction' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: microinstruction'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_level','microinstruction','#label1-');\">" +
+				   "		   onclick=\"wepsim_config_button_toggle('DBG_level','microinstruction','1');\">" +
 				   "		<span class='d-none d-sm-inline-flex' data-langkey='&#181;instructions'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('DBG_level', '#label1-') ;
+                                       wepsim_config_button_pretoggle('DBG_level', '1') ;
 		                   },
                       description: "<span data-langkey='Step-by-step: element in run mode'>Step-by-step: element in run mode</span>"
                    });
@@ -234,20 +234,20 @@
 				   "	    <input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label7-default' for='radio7-default' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
-				   "		   onclick=\"wepsim_config_button_toggle('editor_theme','default','#label7-');" +
+				   "		   onclick=\"wepsim_config_button_toggle('editor_theme','default','7');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\"><span data-langkey='Light'>Light</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label7-blackboard' for='radio7-blackboard' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
-				   "		   onclick=\"wepsim_config_button_toggle('editor_theme','blackboard','#label7-');" +
+				   "		   onclick=\"wepsim_config_button_toggle('editor_theme','blackboard','7');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\"><span data-langkey='Dark'>Dark</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('editor_theme', '#label7-') ;
+                                       wepsim_config_button_pretoggle('editor_theme', '7') ;
 		                   },
                       description: "<span data-langkey='Editor theme: light or dark'>Editor theme: light or dark</span>"
                    });
@@ -287,19 +287,19 @@
 				   "	    <label id='label2-unsigned_16_nofill' for='radio2-unsigned_16_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_16_nofill','#label2-'); show_memories_values();\">1A<sub>16</sub>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_16_nofill','2'); show_memories_values();\">1A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio2-unsigned_10_nofill'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_10_nofill' for='radio2-unsigned_10_nofill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_10_nofill','#label2-');  show_memories_values();\">32<sub>10</sub>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_10_nofill','2');  show_memories_values();\">32<sub>10</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_nofill'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_8_nofill' for='radio2-unsigned_8_nofill' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_8_nofill','#label2-');   show_memories_values();\">26<sub>8</sub>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_8_nofill','2');   show_memories_values();\">26<sub>8</sub>" +
 				   "	    </label>" +
                                    "    </div>" +
                                    "    <div class='btn-group d-flex btn-group-justified'>" +
@@ -307,24 +307,24 @@
 				   "	    <label id='label2-unsigned_16_fill' for='radio2-unsigned_16_fill' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_16_fill','#label2-'); show_memories_values();\">001A<sub>16</sub>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_16_fill','2'); show_memories_values();\">001A<sub>16</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_10_fill' for='radio2-unsigned_10_fill' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_10_fill','#label2-'); show_memories_values();\">0032<sub>10</sub>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_10_fill','2'); show_memories_values();\">0032<sub>10</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_8_fill' for='radio2-unsigned_8_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_8_fill','#label2-'); show_memories_values();\">0026<sub>8</sub>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_8_fill','2'); show_memories_values();\">0026<sub>8</sub>" +
 				   "	    </label>" +
                                    "    </div>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('RF_display_format', '#label2-') ;
+                                       wepsim_config_button_pretoggle('RF_display_format', '2') ;
 		                   },
                       description: "<span data-langkey='Display format'>Display format</span>&nbsp;" +
                                    "<a href='#' data-bs-toggle='popover1' title='Example of display formats' data-bs-html='true' " +
@@ -340,17 +340,17 @@
 				   "	    <label id='label3-numerical' for='radio3-numerical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (number)'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_name','numerical','#label3-'); wepsim_show_rf_names();\"><span data-langkey='Numbers'>Numbers</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_name','numerical','3'); wepsim_show_rf_names();\"><span data-langkey='Numbers'>Numbers</span>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label3-logical' for='radio3-logical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (user identification)'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_name','logical','#label3-'); wepsim_show_rf_names();\"><span data-langkey='Labels'>Labels</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('RF_display_name','logical','3'); wepsim_show_rf_names();\"><span data-langkey='Labels'>Labels</span>" +
 				   "	    </label>" +
 				   " </div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('RF_display_name', '#label3-') ;
+                                       wepsim_config_button_pretoggle('RF_display_name', '3') ;
 		                   },
                       description: "<span data-langkey='Register file names'>Register file names</span>"
                    });
@@ -364,17 +364,17 @@
 				   "	    <label id='label9-true' for='radio9-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 				   "		   aria-label='Is editable: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_editable',true,'#label9-');\">On" +
+				   "		   onclick=\"wepsim_config_button_toggle('is_editable',true,'9');\">On" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio9-false' aria-label='Is editable: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label9-false' for='radio9-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 				   "		   aria-label='Is editable: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_editable',false,'#label9-');\">Off" +
+				   "		   onclick=\"wepsim_config_button_toggle('is_editable',false,'9');\">Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('is_editable', '#label9-') ;
+                                       wepsim_config_button_pretoggle('is_editable', '9') ;
 		                   },
                       description: "<span data-langkey='Editable registers: edit register file values'>Editable registers: edit register file values</span>"
                    });
@@ -424,17 +424,17 @@
 				   "	    <label id='label10-true' for='radio10-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_byvalue',true,'#label10-');\"><span data-langkey='Value'>Value</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('is_byvalue',true,'10');\"><span data-langkey='Value'>Value</span>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio10-false'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label10-false' for='radio10-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_byvalue',false,'#label10-');\"><span data-langkey='Activation'>Activation</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('is_byvalue',false,'10');\"><span data-langkey='Activation'>Activation</span>" +
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('is_byvalue', '#label10-') ;
+                                       wepsim_config_button_pretoggle('is_byvalue', '10') ;
 		                   },
                       description: "<span data-langkey='Show by value or by activation'>Show by value or by activation</span>"
                    });
@@ -448,17 +448,17 @@
 				   "	    <label id='label5-true' for='radio5-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is interactive: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_interactive',true,'#label5-');\">On" +
+				   "		   onclick=\"wepsim_config_button_toggle('is_interactive',true,'5');\">On" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio5-false'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label5-false' for='radio5-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is interactive: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_interactive',false,'#label5-');\">Off" +
+				   "		   onclick=\"wepsim_config_button_toggle('is_interactive',false,'5');\">Off" +
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('is_interactive', '#label5-') ;
+                                       wepsim_config_button_pretoggle('is_interactive', '5') ;
 		                   },
                       description: "<span data-langkey='Interactive mode: signal value can be updated'>Interactive mode: signal value can be updated</span>"
                    });
@@ -472,17 +472,17 @@
 				   "	    <label id='label6-true' for='radio6-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is quick interactive: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_quick_interactive',true,'#label6-');\">On" +
+				   "		   onclick=\"wepsim_config_button_toggle('is_quick_interactive',true,'6');\">On" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio6-false'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label6-false' for='radio6-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is quick interactive: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('is_quick_interactive',false,'#label6-');\">Off" +
+				   "		   onclick=\"wepsim_config_button_toggle('is_quick_interactive',false,'6');\">Off" +
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('is_quick_interactive', '#label6-') ;
+                                       wepsim_config_button_pretoggle('is_quick_interactive', '6') ;
 		                   },
                       description: "<span data-langkey='Quick interactive mode: quick update of signal value'>Quick interactive mode: quick update of signal value</span>"
                    });
@@ -496,17 +496,17 @@
 				   "	    <label id='label11-true' for='radio11-true' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Active voice: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('use_voice',true,'#label11-'); wepsim_voice_start();\">On" +
+				   "		   onclick=\"wepsim_config_button_toggle('use_voice',true,'11'); wepsim_voice_start();\">On" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label11-false' for='radio11-false' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Active voice: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('use_voice',false,'#label11-'); wepsim_voice_stop();\">Off" +
+				   "		   onclick=\"wepsim_config_button_toggle('use_voice',false,'11'); wepsim_voice_stop();\">Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('use_voice', '#label11-') ;
+                                       wepsim_config_button_pretoggle('use_voice', '11') ;
 		                   },
                       description: "<span data-langkey='Active voice: external voice control'>Active voice: external voice control</span>"
                    });
@@ -520,17 +520,17 @@
 				   "	    <label id='label13-text' for='radio13-text' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Verbose: text'" +
-				   "		   onclick=\"wepsim_config_button_toggle('verbal_verbose','text','#label13-');\">Text" +
+				   "		   onclick=\"wepsim_config_button_toggle('verbal_verbose','text','13');\">Text" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio13-math'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label13-math' for='radio13-math' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Verbose: math'" +
-				   "		   onclick=\"wepsim_config_button_toggle('verbal_verbose','math','#label13-');\">Math" +
+				   "		   onclick=\"wepsim_config_button_toggle('verbal_verbose','math','13');\">Math" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('verbal_verbose', '#label13-') ;
+                                       wepsim_config_button_pretoggle('verbal_verbose', '13') ;
 		                   },
                       description: "<span data-langkey='Verbalization: textual or mathematical'>Verbalization: textual or mathematical</span>"
                    });
@@ -598,18 +598,18 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='AutoScrolling: true' " +
 				   "		   onclick=\"var optValue = true;" +
-				   "		             wepsim_config_button_toggle('AS_enable', optValue, '#label16-');\">On" +
+				   "		             wepsim_config_button_toggle('AS_enable', optValue, '16');\">On" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio16-false'  aria-label='AutoScroll: false'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label16-false' for='radio16-false' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
                                    "               aria-label='AutoScrolling: false' " +
 				   "		   onclick=\"var optValue = false;" +
-				   "		             wepsim_config_button_toggle('AS_enable', optValue, '#label16-');\">Off" +
+				   "		             wepsim_config_button_toggle('AS_enable', optValue, '16');\">Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('AS_enable', '#label16-') ;
+                                       wepsim_config_button_pretoggle('AS_enable', '16') ;
 		                   },
                       description: "<span data-langkey='Auto-scroll while executing'>Auto-scroll while executing</span>"
                    });
@@ -623,17 +623,17 @@
 				   "	    <label id='label17-true' for='radio17-true' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Use Google Analytics: true'" +
-				   "		   onclick=\"wepsim_config_button_toggle('use_ga', true, '#label17-');\">On" +
+				   "		   onclick=\"wepsim_config_button_toggle('use_ga', true, '17');\">On" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio17-false'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label17-false' for='radio17-false' " +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Use Google Analytics: false'" +
-				   "		   onclick=\"wepsim_config_button_toggle('use_ga', false, '#label17-');\">Off" +
+				   "		   onclick=\"wepsim_config_button_toggle('use_ga', false, '17');\">Off" +
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('use_ga', '#label17-') ;
+                                       wepsim_config_button_pretoggle('use_ga', '17') ;
 		                   },
                       description: "<span data-langkey='Use of Google Analytics to obtain anonymous statistics on the use of the application'>Use of Google Analytics to obtain anonymous statistics on the use of the application</span>"
                    });

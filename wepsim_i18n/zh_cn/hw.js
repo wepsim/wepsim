@@ -221,6 +221,10 @@
 	"EP:L3D:STATES:DATA":						"數據總線",
 	"EP:L3D:SIGNALS:IOR":						"從 L3D 讀取",
 	"EP:L3D:SIGNALS:IOW":						"寫入 L3D",
+	"EP:LEDM:STATES:ADDR":						"地址總線",
+	"EP:LEDM:STATES:DATA":						"數據總線",
+	"EP:LEDM:SIGNALS:IOR":						"從 LEDM 讀取",
+	"EP:LEDM:SIGNALS:IOW":						"寫入 LEDM",
 
 	"POC:CPU_T1:STATES:IN":						"輸入是 MBR 寄存器的值",
 	"POC:CPU_T1:STATES:OUT":						"輸出到內部總線",

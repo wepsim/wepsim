@@ -140,14 +140,16 @@
 
 
     // button
-    function wepsim_config_button_pretoggle ( config_name, label_prefix )
+    function wepsim_config_button_pretoggle ( config_name, set_id )
     {
+         var label_prefix = '#label' + set_id + '-' ;
 	 var val_tag = get_cfg(config_name) ;
 	 $(label_prefix + val_tag).button('toggle');
     }
 
-    function wepsim_config_button_toggle ( config_name, val_new, label_prefix )
+    function wepsim_config_button_toggle ( config_name, val_new, set_id )
     {
+         var label_prefix = '#label' + set_id + '-' ;
 	 var val_old = get_cfg(config_name) ;
 	 $(label_prefix + val_old).button('toggle');
 

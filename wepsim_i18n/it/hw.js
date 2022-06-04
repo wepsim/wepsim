@@ -221,6 +221,10 @@
 	"EP:L3D:STATES:DATA":	"Bus dati",
 	"EP:L3D:SIGNALS:IOR":	"Leggi da L3D",
 	"EP:L3D:SIGNALS:IOW":	"Scrivi nell'L3D",
+	"EP:LEDM:STATES:ADDR":	"Bus indirizzi",
+	"EP:LEDM:STATES:DATA":	"Bus dati",
+	"EP:LEDM:SIGNALS:IOR":	"Leggi da LEDM",
+	"EP:LEDM:SIGNALS:IOW":	"Scrivi nell'LEDM",
 
 	"POC:CPU_T1:STATES:IN":	"Input è il valore del registro MBR",
 	"POC:CPU_T1:STATES:OUT":	"L'uscita va al bus interno",

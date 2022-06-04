@@ -74,25 +74,12 @@
               {
                     var o = '<tr>' +
                             '<td>' + this.info_icons[enum_name] + '</td>' +
-                            '<td>' + enum_name + ': ' + array_eltos.length + '</td>' ;
-
-                    o += '<td>' ;
-                    for (var i=0; i<array_eltos.length; i++)
-                    {
-                         // get translation for associated description...
-                         var k = elto_path + array_eltos[i] ;
-                         var v = i18n_get_TagFor('hw', k.toUpperCase()) ;
-                             v = '<span data-langkey=\'' + k.toUpperCase() + '\'>' + v + '</span>' ;
-
-                         // build help entry...
-                         o += '(' + (i+1) + ') ' + v ;
-
-                         // add '<br>' in all entries but the last one...
-                         if (i != array_eltos.length - 1)
-                              o += ',<br> ' ;
-                         else o += '.' ;
-                    }
-                    o += "</td></tr>" ;
+                            '<td>' + enum_name + ': ' + array_eltos.length + '</td>' +
+                            '<td>' +
+	                    simhwelto_describe_component_enum_aux(elto_path, array_eltos, 
+								  hash_eltos, enum_name, ',<br>') +
+                            '</td>' +
+                            '</tr>' ;
 
                     return o ;
               }

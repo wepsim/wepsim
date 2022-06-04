@@ -221,6 +221,10 @@
 	"EP:L3D:STATES:DATA":				"Шина данных",
 	"EP:L3D:SIGNALS:IOR":				"Прочитать из L3D",
 	"EP:L3D:SIGNALS:IOW":				"Запишите в L3D",
+	"EP:LEDM:STATES:ADDR":				"Адресная шина",
+	"EP:LEDM:STATES:DATA":				"Шина данных",
+	"EP:LEDM:SIGNALS:IOR":				"Прочитать из LEDM",
+	"EP:LEDM:SIGNALS:IOW":				"Запишите в LEDM",
 
 	"POC:CPU_T1:STATES:IN":				"Ввод - значение регистра MBR",
 	"POC:CPU_T1:STATES:OUT":			"Выход идет на внутреннюю шину",

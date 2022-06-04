@@ -60,10 +60,8 @@
 			                 "click",
 			                 quick_config_mem,
 					 function(shownEvent) {
-                                             var optValue = get_cfg('MEM_show_segments') ;
-                                             $('#label19-' + optValue).button('toggle') ;
-                                                 optValue = get_cfg('MEM_show_source') ;
-                                             $('#label20-' + optValue).button('toggle') ;
+                                             wepsim_config_button_pretoggle('MEM_show_segments', '19') ;
+                                             wepsim_config_button_pretoggle('MEM_show_source',   '20') ;
 					 }) ;
 	      }
 
@@ -469,16 +467,16 @@
 			 quickcfg_html_onoff('19',
 					     'show segments',
 					     "  $('#lst_seg1').collapse('hide');" +
-					     "  update_cfg('MEM_show_segments', false);",
+					     "  wepsim_config_button_toggle('MEM_show_segments', false, '19');",
 					     "  $('#lst_seg1').collapse('show');" +
-					     "  update_cfg('MEM_show_segments', true);") +
+					     "  wepsim_config_button_toggle('MEM_show_segments', true, '19');") +
                          quickcfg_html_header("Display origin") +
 			 quickcfg_html_onoff('20',
 					     'show origin',
 					     "  $('.mp_tooltip').collapse('hide');" +
-					     "  update_cfg('MEM_show_source', false);",
+					     "  wepsim_config_button_toggle('MEM_show_source', false, '20');",
 					     "  $('.mp_tooltip').collapse('show');" +
-					     "  update_cfg('MEM_show_source', true);") +
+					     "  wepsim_config_button_toggle('MEM_show_source', true, '20');") +
                      quickcfg_html_br() +
                        quickcfg_html_close('popover-mem') +
 		     "</div>" +

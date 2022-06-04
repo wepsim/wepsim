@@ -118,9 +118,9 @@
                         quickcfg_html_onoff('18',
                                             'WepSIM dark mode',
                                             "  wepsim_restore_darkmode(false);" +
-                                            "  update_cfg('ws_skin_dark_mode', false);",
+                                            "  wepsim_config_button_toggle('ws_skin_dark_mode', false, '18');",
                                             "  wepsim_restore_darkmode(true);" +
-                                            "  update_cfg('ws_skin_dark_mode', true);") +
+                                            "  wepsim_config_button_toggle('ws_skin_dark_mode', true, '18');") +
 			'</li>' ;
 
 		   o += '<li class="list-group-item px-0 d-grid"> ' +
@@ -161,8 +161,7 @@
                                     $('#label16-' + optValue).button('toggle') ;
 				    optValue = (get_cfg('ws_skin_user').split(":")[3] == 'on') ? true : false ;
                                     $('#label17-' + optValue).button('toggle') ;
-				    optValue = get_cfg('ws_skin_dark_mode') ;
-                                    $('#label18-' + optValue).button('toggle') ;
+                                    wepsim_config_button_pretoggle('ws_skin_dark_mode', '18') ;
                           }
          },
 

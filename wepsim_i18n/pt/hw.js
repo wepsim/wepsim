@@ -221,6 +221,10 @@
 	"EP:L3D:STATES:DATA":				"Barramento de dados",
 	"EP:L3D:SIGNALS:IOR":				"Ler a partir de L3D",
 	"EP:L3D:SIGNALS:IOW":				"Escreva no L3D",
+	"EP:LEDM:STATES:ADDR":				"Barramento de endereços",
+	"EP:LEDM:STATES:DATA":				"Barramento de dados",
+	"EP:LEDM:SIGNALS:IOR":				"Ler a partir de LEDM",
+	"EP:LEDM:SIGNALS:IOW":				"Escreva no LEDM",
 
 	"POC:CPU_T1:STATES:IN":				"A entrada é o valor do registro MBR",
 	"POC:CPU_T1:STATES:OUT":			"A saída vai para o barramento interno",
