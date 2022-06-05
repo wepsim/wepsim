@@ -93,7 +93,7 @@
                                          {
 				             $("#slider4b").val(get_cfg('CPUCU_size')) ;
                                              wepsim_config_button_pretoggle('is_interactive', 'QI') ;
-                                           //$('#labelQ2-true').button('toggle') ; // todo: get current state and set the current state
+                                             wepsim_config_button_pretoggle_val('', 'Q2', ws_signals_show_inactive) ;
 
 					     i18n_update_tags('cfg') ;
 					     i18n_update_tags('dialogs') ;
@@ -158,30 +158,21 @@
                        quickcfg_html_br() +
                        quickcfg_html_header('Text: show states+signals') +
 
-                       quickcfg_html_btn("(*) All",
-                                         "ws_signals_show_inactive = true; $(\".s-ina\").show();" +
-                                         "ws_states_show_inactive  = true; $(\".t-ina\").show();",
-                                         "col-6") +
-                       quickcfg_html_btn("Only active",
-                                         "ws_signals_show_inactive = false; $(\".s-ina\").hide();" +
-                                         "ws_states_show_inactive  = false; $(\".t-ina\").hide();",
-                                         "col-6") +
-
-/*
                        wepsim_config_button_html_2options('Q2', 'Text shows inactive elements',
                                                           "(*) All",
                                                           "true",
+                                                      "var ov = ws_signals_show_inactive;" +
                                                       "ws_signals_show_inactive=true; $(\'.s-ina\').show();" +
                                                       "ws_states_show_inactive =true; $(\'.t-ina\').show();" +
-                                                      "$('#labelQ2-false').button('toggle');" +
+                                                      "$('#labelQ2-' + ov).button('toggle');" +
                                                       "$('#labelQ2-true').button('toggle');",
                                                           "Only active",
                                                           "false",
+                                                      "var ov = ws_signals_show_inactive;" +
                                                       "ws_signals_show_inactive=false; $(\'.s-ina\').hide();" +
                                                       "ws_states_show_inactive =false; $(\'.t-ina\').hide();" +
-                                                      "$('#labelQ2-true').button('toggle');" +
+                                                      "$('#labelQ2-' + ov).button('toggle');" +
                                                       "$('#labelQ2-false').button('toggle');") +
-*/
 
                        // <advanced>
                     // quickcfg_html_br() +

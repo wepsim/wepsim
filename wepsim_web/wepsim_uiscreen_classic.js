@@ -49,6 +49,11 @@
                                              (event) => {
                                                 $('#offcvs1help').html('<ws-help-swset></ws-help-swset>') ;
                                              }) ;
+                    var offcvs2 = document.getElementById('offcvs2') ;
+                    offcvs2.addEventListener('shown.bs.offcanvas', 
+                                             (event) => {
+                                                $('#offcvs2help').html('<ws-help-hweltos></ws-help-hweltos>') ;
+                                             }) ;
 	      }
 
 	      render_skel ( )
@@ -181,16 +186,32 @@
 			 '	      </div>' +
 			 '' +
 			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
-			 '		    <button style="background-color: #D4DB17"' +
-			 '			    class="btn btn-light shadow-sm col-auto"' +
-			 '			    onclick="wsweb_dialog_open(\'help\');' +
-			 '				     wepsim_help_set(\'relative\', \'simulator#help_assembly_format\');' +
-			 '				     return false;"' +
-			 '			    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>' +
-			 '                  <button style="background-color: #D4DB17"' +
-                         '                          class="btn btn-light col-auto" type="button"' +
-			 '                          data-bs-toggle="offcanvas" data-bs-target="#offcvs1"' +
-			 '                          aria-controls="offcvs1"><strong><span data-langkey="Summary">Summary</span></strong></button>' +
+                         '            <div class="dropdown">' +
+                         '                 <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark"' +
+                         '                         style="background-color: #D4DB17" ' +
+                         '                         type="button" id="ddownAsmHelp1" ' +
+                         '                         data-bs-toggle="dropdown" aria-expanded="false">' +
+                         '               <em class="fas fa-info-circle"></em>&nbsp;' +
+                         '               <strong><span data-langkey="Help">Help</span></strong></button>' +
+                         '                 <ul class="dropdown-menu" ' +
+                         '                     style="background-color: #D4DB17"' +
+                         '                     aria-labelledby="ddownAsmHelp1">' +
+                         '                   <li><button class="btn dropdown-item" ' +
+                         '                               onclick="wsweb_dialog_open(\'help\');' +
+                         '                                wepsim_help_set(\'relative\', ' +
+                         '                                                \'simulator#help_assembly_format\');' +
+                         '                                return false;"' +
+                         '                   ><strong><span data-langkey="Assembly format">Assembly format</span></strong></button></li>' +
+                         '                   <li><button class="btn dropdown-item" type="button" ' +
+                         '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs1" ' +
+                         '                               aria-controls="offcvs1"' +
+                         '                   ><strong><span data-langkey="Instruction Summary">Instruction Summary</span></strong></button></li>' +
+                         '                   <li><button class="btn dropdown-item" ' +
+                         '                               onclick="wsweb_dialog_open(\'help\');' +
+                         '                                        return false;"' +
+                         '                   ><strong><span data-langkey="Help index">Help index</span></strong></button></li>' +
+                         '                 </ul>' +
+                         '               </div>' +
 			 '	      </div>' +
 			 '' +
 			 '	      <div class="btn-group me-2 my-1">' +
@@ -210,9 +231,7 @@
                          '       <button type="button" class="btn-close text-reset"' +
                          '               data-bs-dismiss="offcanvas" aria-label="Close"></button>' +
                          '     </div>' +
-                         '     <div id="offcvs1help" class="offcanvas-body">' +
-                         '          <ws-help-swset></ws-help-swset>' +
-                         '     </div>' +
+                         '     <div id="offcvs1help" class="offcanvas-body"></div>' +
                          '</div>' +
 			 '' +
 			 '    <ws-edit-as layout="both"></ws-edit-as>' ;
@@ -244,6 +263,7 @@
 			 '		   <ws-compilationbar icons="left" components="btn_mcompile,btn_mshowbin"></ws-compilationbar>' +
 			 '	      </div>' +
 			 '' +
+/*
 			 '	      <div class="btn-group me-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
 			 '		    <button style="background-color: #D4DB17"' +
 			 '			    class="btn btn-light shadow-sm col-auto"' +
@@ -251,6 +271,40 @@
 			 '				     wepsim_help_set(\'relative\', \'simulator#help_firmware_format\');' +
 			 '				     return false;"' +
 			 '			    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>' +
+			 '	      </div>' +
+			 '' +
+*/
+			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
+                         '            <div class="dropdown">' +
+                         '                 <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark"' +
+                         '                         style="background-color: #D4DB17" ' +
+                         '                         type="button" id="ddownAsmHelp1" ' +
+                         '                         data-bs-toggle="dropdown" aria-expanded="false">' +
+                         '               <em class="fas fa-info-circle"></em>&nbsp;' +
+                         '               <strong><span data-langkey="Help">Help</span></strong></button>' +
+                         '                 <ul class="dropdown-menu" ' +
+                         '                     style="background-color: #D4DB17"' +
+                         '                     aria-labelledby="ddownAsmHelp1">' +
+                         '                   <li><button class="btn dropdown-item" ' +
+                         '                               onclick="wsweb_dialog_open(\'help\');' +
+                         '                                wepsim_help_set(\'relative\', ' +
+                         '                                                \'simulator#help_firmware_format\');' +
+                         '                                return false;"' +
+                         '                   ><strong><span data-langkey="Firmware format">Firmware format</span></strong></button></li>' +
+                         '                   <li><button class="btn dropdown-item" type="button" ' +
+                         '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs2" ' +
+                         '                               aria-controls="offcvs2"' +
+                         '                   ><strong><span data-langkey="Firmware Summary">Firmware Summary</span></strong></button></li>' +
+                         '                   <li><button class="btn dropdown-item" ' +
+                         '                               onclick="wsweb_dialog_open(\'help\');' +
+                         '                                        return false;"' +
+                         '                   ><strong><span data-langkey="Help index">Help index</span></strong></button></li>' +
+                         '                 </ul>' +
+                         '               </div>' +
+			 '	      </div>' +
+			 '' +
+			 '	      <div class="btn-group me-2 my-1">' +
+			 '		   <ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>' +
 			 '	      </div>' +
 			 '' +
 			 '	      <div class="btn-group me-2 my-1">' +
@@ -261,6 +315,17 @@
 			 '	</div>' +
 			 '' +
 			 '    </div>' +
+			 '' +
+                         '<div class="offcanvas offcanvas-end"' +
+                         '     data-bs-scroll="true" data-bs-backdrop="false"' +
+                         '     tabindex="-1" id="offcvs2" aria-labelledby="offcvs2Label">' +
+                         '     <div class="offcanvas-header">' +
+                         '       <h5 class="offcanvas-title" id="offcvs2Label">Firmware summary</h5>' +
+                         '       <button type="button" class="btn-close text-reset"' +
+                         '               data-bs-dismiss="offcanvas" aria-label="Close"></button>' +
+                         '     </div>' +
+                         '     <div id="offcvs2help" class="offcanvas-body"></div>' +
+                         '</div>' +
 			 '' +
 			 '    <ws-edit-mc layout="both"></ws-edit-mc>' ;
 

@@ -112,7 +112,7 @@
 			      elto = ahw.elements_hash.by_belong[b][j] ;
                          elto_path = ahw.sim_short_name + ':' + elto.key ;
 
-			      o1 += '<div class="col-md-6 d-flex my-2 table-responsive">' +
+			      o1 += '<div class="col-md-12 col-lg-6 d-flex my-2 table-responsive">' +
 			 	    '<table class="table table-striped table-bordered table-hover table-sm table2">' +
 				    '<thead class="thead-dark"><tr>' +
 				    '<th colspan="3">' + b + ' / ' + elto.description + '</th>' +
