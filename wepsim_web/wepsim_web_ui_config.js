@@ -144,13 +144,13 @@
     {
          return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-bs-toggle='buttons'>" +
                 "    <label id='label" + id2 + "-false' " +
-                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
                 "           aria-label='" + arial2 + ": false' " +
 		"           onclick=\"" + code_off2 + "; return true;\">" +
                 "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-false' " +
                 "           aria-label='" + arial2 + ": false' autocomplete='off'>" + name_off + "</label>" +
                 "    <label id='label" + id2 + "-true' " +
-                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
                 "           aria-label='" + arial2 + ": true' " +
 		"           onclick=\"" + code_on2 + "; return true;\">" +
                 "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-true' " +

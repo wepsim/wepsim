@@ -41,19 +41,19 @@
                       code_cfg:    "<div class='btn-group d-flex'>" +
 				   "	    <input type='radio' name='options' id='radio8-2000'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label8-2000' for='radio8-2000' data-bs-toggle='buttons' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: slow'" +
 				   "		   onclick=\"wepsim_config_button_toggle('NOTIF_delay',2000,'8');\"><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio8-1000'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label8-1000' for='radio8-1000' data-bs-toggle='buttons' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: normal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('NOTIF_delay',1000,'8');\"><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio8-100'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label8-100' for='radio8-100' data-bs-toggle='buttons' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: fast'" +
 				   "		   onclick=\"wepsim_config_button_toggle('NOTIF_delay',100,'8');\"><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
@@ -89,19 +89,19 @@
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <input type='radio' name='options' id='radio12-50'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label12-50' for='radio12-50' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: slow'" +
 				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 50, '12');\"><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio12-5'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label12-5' for='radio12-5' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: normal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 5, '12');\"><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "        <input type='radio' name='options' id='radio12-1'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label12-1' for='radio12-1'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: fast'" +
 				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 1, '12');\"><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
@@ -120,14 +120,14 @@
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <input type='radio' name='options' id='radio1-instruction'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label1-instruction' for='radio1-instruction' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: instruction'" +
 				   "		   onclick=\"wepsim_config_button_toggle('DBG_level','instruction','1');\">" +
 				   "		<span class='d-none d-sm-inline-flex' data-langkey='Instructions'>Instructions</span><span class='d-sm-none'>Instruc.</span></label>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio1-microinstruction'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label1-microinstruction' for='radio1-microinstruction' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: microinstruction'" +
 				   "		   onclick=\"wepsim_config_button_toggle('DBG_level','microinstruction','1');\">" +
 				   "		<span class='d-none d-sm-inline-flex' data-langkey='&#181;instructions'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
@@ -224,14 +224,14 @@
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "	    <input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label7-default' for='radio7-default' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"wepsim_config_button_toggle('editor_theme','default','7');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\"><span data-langkey='Light'>Light</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label7-blackboard' for='radio7-blackboard' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"wepsim_config_button_toggle('editor_theme','blackboard','7');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\"><span data-langkey='Dark'>Dark</span>" +
@@ -276,19 +276,19 @@
                                    "    <div class='btn-group d-flex btn-group-justified'>" +
 				   "	    <input type='radio' name='options' id='radio2-unsigned_16_nofill'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_16_nofill' for='radio2-unsigned_16_nofill'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_16_nofill','2'); show_memories_values();\">1A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio2-unsigned_10_nofill'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_10_nofill' for='radio2-unsigned_10_nofill'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_10_nofill','2');  show_memories_values();\">32<sub>10</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_nofill'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_8_nofill' for='radio2-unsigned_8_nofill' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_8_nofill','2');   show_memories_values();\">26<sub>8</sub>" +
 				   "	    </label>" +
@@ -296,19 +296,19 @@
                                    "    <div class='btn-group d-flex btn-group-justified'>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_16_fill' for='radio2-unsigned_16_fill' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_16_fill','2'); show_memories_values();\">001A<sub>16</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_10_fill' for='radio2-unsigned_10_fill' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_10_fill','2'); show_memories_values();\">0032<sub>10</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_8_fill' for='radio2-unsigned_8_fill'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_format','unsigned_8_fill','2'); show_memories_values();\">0026<sub>8</sub>" +
 				   "	    </label>" +
@@ -329,13 +329,13 @@
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label3-numerical' for='radio3-numerical'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (number)'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_name','numerical','3'); wepsim_show_rf_names();\"><span data-langkey='Numbers'>Numbers</span>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label3-logical' for='radio3-logical'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (user identification)'" +
 				   "		   onclick=\"wepsim_config_button_toggle('RF_display_name','logical','3'); wepsim_show_rf_names();\"><span data-langkey='Labels'>Labels</span>" +
 				   "	    </label>" +
@@ -454,13 +454,13 @@
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "		<input type='radio' name='options' id='radio13-text'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label13-text' for='radio13-text' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Verbose: text'" +
 				   "		   onclick=\"wepsim_config_button_toggle('verbal_verbose','text','13');\">Text" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio13-math'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label13-math' for='radio13-math' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Verbose: math'" +
 				   "		   onclick=\"wepsim_config_button_toggle('verbal_verbose','math','13');\">Math" +
 				   "	    </label>" +
@@ -502,7 +502,7 @@
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
 				   "		<input type='radio' name='options' id='radio14-true'  aria-label='Is expert: true'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-only_asm__of__only_frequent__of' for='radio14-true' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "               aria-label='User Interface set of features for WepSIM: true' " +
 				   "		   onclick=\"var new_val = 'only_asm:of:only_frequent:of';" +
                                    "                         var val_old = 'only_asm:of:only_frequent:on'; " +
@@ -512,7 +512,7 @@
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is expert: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-only_asm__of__only_frequent__on' for='radio14-false' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "               aria-label='User Interface set of features for WepSIM: false' " +
 				   "		   onclick=\"var new_val = 'only_asm:of:only_frequent:on';" +
                                    "                         var val_old = 'only_asm:of:only_frequent:of'; " +

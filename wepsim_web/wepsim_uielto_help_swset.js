@@ -124,7 +124,7 @@
 			    continue ;
 			}
 
-			o1 += '<div class="col-md-6 d-flex justify-content-center my-2 table-responsive">' +
+			o1 += '<div class="col-md-12 col-lg-6 d-flex justify-content-center my-2 table-responsive">' +
 			      '<h4><span class="badge rounded-pill text-bg-info font-monospace" ' +
 			      '          style="position:relative;top:16px;left:-4px;">' + k + '</span></h4>' +
 			      '<table class="table table-striped table-bordered table-hover table-sm table2">' +

@@ -42,6 +42,13 @@
                     // render current element
 		    this.render_skel() ;
 		    this.render_populate() ;
+
+                    // on events...
+                    var offcvs1 = document.getElementById('offcvs1') ;
+                    offcvs1.addEventListener('shown.bs.offcanvas', 
+                                             event => {
+                                                $('#offcvs1help').html('<ws-help-swset></ws-help-swset>') ;
+                                             }) ;
 	      }
 
 	      render_skel ( )
@@ -55,7 +62,8 @@
 
 	      render_populate ( )
 	      {
-                 var o1 = '<div id="carousel-8" class="carousel" data-interval="false" data-touch="false">' +
+                 var o1 = '<div id="carousel-8" class="carousel" ' +
+                          '     data-bs-interval="false" data-bs-touch="false" data-bs-animation="">' +
 		          '  <div class="carousel-inner">' +
 		          '	  <div class="carousel-item active p-1" id="ws_simulator">' +
 			  '' +
@@ -179,6 +187,10 @@
 			 '				     wepsim_help_set(\'relative\', \'simulator#help_assembly_format\');' +
 			 '				     return false;"' +
 			 '			    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>' +
+			 '                  <button style="background-color: #D4DB17"' +
+                         '                          class="btn btn-light col-auto" type="button"' +
+			 '                          data-bs-toggle="offcanvas" data-bs-target="#offcvs1"' +
+			 '                          aria-controls="offcvs1"><strong><span data-langkey="Summary">Summary</span></strong></button>' +
 			 '	      </div>' +
 			 '' +
 			 '	      <div class="btn-group me-2 my-1">' +
@@ -189,6 +201,19 @@
 			 '	</div>' +
 			 '' +
 			 '    </div>' +
+			 '' +
+                         '<div class="offcanvas offcanvas-end"' +
+                         '     data-bs-scroll="true" data-bs-backdrop="false"' +
+                         '     tabindex="-1" id="offcvs1" aria-labelledby="offcvs1Label">' +
+                         '     <div class="offcanvas-header">' +
+                         '       <h5 class="offcanvas-title" id="offcvs1Label">Assembly summary</h5>' +
+                         '       <button type="button" class="btn-close text-reset"' +
+                         '               data-bs-dismiss="offcanvas" aria-label="Close"></button>' +
+                         '     </div>' +
+                         '     <div id="offcvs1help" class="offcanvas-body">' +
+                         '          <ws-help-swset></ws-help-swset>' +
+                         '     </div>' +
+                         '</div>' +
 			 '' +
 			 '    <ws-edit-as layout="both"></ws-edit-as>' ;
 
