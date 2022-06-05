@@ -46,7 +46,7 @@
                     // on events...
                     var offcvs1 = document.getElementById('offcvs1') ;
                     offcvs1.addEventListener('shown.bs.offcanvas', 
-                                             event => {
+                                             (event) => {
                                                 $('#offcvs1help').html('<ws-help-swset></ws-help-swset>') ;
                                              }) ;
 	      }

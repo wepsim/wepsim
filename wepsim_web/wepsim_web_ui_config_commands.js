@@ -117,22 +117,13 @@
                       id:          "radio1",
                       type:        "Execution",
                       u_class:     "user_archived",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "	    <input type='radio' name='options' id='radio1-instruction'   autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label1-instruction' for='radio1-instruction' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Execution unit: instruction'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_level','instruction','1');\">" +
-				   "		<span class='d-none d-sm-inline-flex' data-langkey='Instructions'>Instructions</span><span class='d-sm-none'>Instruc.</span></label>" +
-				   "	    </label>" +
-				   "	    <input type='radio' name='options' id='radio1-microinstruction'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label1-microinstruction' for='radio1-microinstruction' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Execution unit: microinstruction'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_level','microinstruction','1');\">" +
-				   "		<span class='d-none d-sm-inline-flex' data-langkey='&#181;instructions'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
-				   "	    </label>" +
-				   "	</div>",
+                      code_cfg:    wepsim_config_button_html_2options('1', 'Execution unit',
+                                                   "<span class='d-none d-sm-inline-flex' data-langkey='Instructions'>Instructions</span><span class='d-sm-none'>Instruc.</span>",
+                                                   "instruction",
+		                                   "wepsim_config_button_toggle('DBG_level','instruction','1');",
+                                                   "<span class='d-none d-sm-inline-flex' data-langkey='&#181;instructions'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span>",
+                                                   "microinstruction",
+		                                   "wepsim_config_button_toggle('DBG_level','microinstruction','1');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('DBG_level', '1') ;
 		                   },
@@ -326,20 +317,13 @@
                       id:          "radio3",
                       type:        "Register file",
                       u_class:     "user_archived",
-                      code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label3-numerical' for='radio3-numerical'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
-				   "		   aria-label='register file display name (number)'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_name','numerical','3'); wepsim_show_rf_names();\"><span data-langkey='Numbers'>Numbers</span>" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label3-logical' for='radio3-logical'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
-				   "		   aria-label='register file display name (user identification)'" +
-				   "		   onclick=\"wepsim_config_button_toggle('RF_display_name','logical','3'); wepsim_show_rf_names();\"><span data-langkey='Labels'>Labels</span>" +
-				   "	    </label>" +
-				   " </div>",
+                      code_cfg:    wepsim_config_button_html_2options('3', 'register file display name',
+                                                   "<span data-langkey='Numbers'>Numbers</span>",
+                                                   "numerical",
+		                                   "wepsim_config_button_toggle('RF_display_name','numerical','3'); wepsim_show_rf_names();",
+                                                   "<span data-langkey='Labels'>Labels</span>",
+                                                   "logical",
+		                                   "wepsim_config_button_toggle('RF_display_name','logical','3'); wepsim_show_rf_names();"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('RF_display_name', '3') ;
 		                   },
@@ -451,20 +435,13 @@
                       id:          "radio13",
                       type:        "Accesibility",
                       u_class:     "user_archived",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio13-text'   autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label13-text' for='radio13-text' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Verbose: text'" +
-				   "		   onclick=\"wepsim_config_button_toggle('verbal_verbose','text','13');\">Text" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio13-math'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label13-math' for='radio13-math' " +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Verbose: math'" +
-				   "		   onclick=\"wepsim_config_button_toggle('verbal_verbose','math','13');\">Math" +
-				   "	    </label>" +
-				   "	</div>",
+                      code_cfg:    wepsim_config_button_html_2options('13', 'Verbose',
+                                                   i18n_get_TagFor('cfg', 'Text'),
+                                                   "text",
+		                                   "wepsim_config_button_toggle('verbal_verbose','text','13');",
+                                                   i18n_get_TagFor('cfg', 'Math'),
+                                                   "math",
+		                                   "wepsim_config_button_toggle('verbal_verbose','math','13');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('verbal_verbose', '13') ;
 		                   },

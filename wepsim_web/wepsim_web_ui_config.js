@@ -158,6 +158,26 @@
                 "</div>" ;
     }
 
+    function wepsim_config_button_html_2options ( id2, arial2,
+                                                  name_off, val_off, code_off2,
+                                                  name_on,  val_on,  code_on2 )
+    {
+         return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-bs-toggle='buttons'>" +
+                "  <label id='label" + id2 + "-" + val_off + "' " +
+                "         class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
+                "         aria-label='" + arial2 + ": " + val_off + "' " +
+		"         onclick=\"" + code_off2 + "; return true;\">" +
+                "  <input type='radio' class='btn-check' name='options' id='radio"+id2+"-"+val_off+"' " +
+                "         aria-label='" + arial2 + ": "+val_off+"' autocomplete='off'>"+name_off+"</label>" +
+                "  <label id='label" + id2 + "-" + val_on + "' " +
+                "         class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
+                "         aria-label='" + arial2 + ": " + val_on + "' " +
+		"         onclick=\"" + code_on2 + "; return false;\">" +
+                "  <input type='radio' class='btn-check' name='options' id='radio"+id2+"-"+val_on+"' " +
+                "         aria-label='" + arial2 + ": " + val_on + "' autocomplete='on'>" + name_on + "</label>" +
+                "</div>" ;
+    }
+
     function wepsim_config_button_html_close ( btn2_id )
     {
 	 return "<div class='col p-1 mt-2'>" +
