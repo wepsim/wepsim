@@ -47,12 +47,14 @@
                     var offcvs1 = document.getElementById('offcvs1') ;
                     offcvs1.addEventListener('shown.bs.offcanvas', 
                                              (event) => {
-                                                $('#offcvs1help').html('<ws-help-swset></ws-help-swset>') ;
+                                                var o = '<ws-help-swset layout="offcanvas"></ws-help-swset>';
+                                                $('#offcvs1help').html(o) ;
                                              }) ;
                     var offcvs2 = document.getElementById('offcvs2') ;
                     offcvs2.addEventListener('shown.bs.offcanvas', 
                                              (event) => {
-                                                $('#offcvs2help').html('<ws-help-hweltos></ws-help-hweltos>') ;
+                                                var o = '<ws-help-hweltos layout="offcanvas"></ws-help-hweltos>';
+                                                $('#offcvs2help').html(o) ;
                                              }) ;
 	      }
 
@@ -187,10 +189,10 @@
 			 '' +
 			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
                          '            <div class="dropdown">' +
-                         '                 <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark"' +
-                         '                         style="background-color: #D4DB17" ' +
-                         '                         type="button" id="ddownAsmHelp1" ' +
-                         '                         data-bs-toggle="dropdown" aria-expanded="false">' +
+                         '               <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark"' +
+                         '                 style="background-color:#D4DB17; border-color:#BBBBBB; flex-grow:1;" '+
+                         '                       type="button" id="ddownAsmHelp1" ' +
+                         '                       data-bs-toggle="dropdown" aria-expanded="false">' +
                          '               <em class="fas fa-info-circle"></em>&nbsp;' +
                          '               <strong><span data-langkey="Help">Help</span></strong></button>' +
                          '                 <ul class="dropdown-menu" ' +
@@ -205,7 +207,7 @@
                          '                   <li><button class="btn dropdown-item" type="button" ' +
                          '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs1" ' +
                          '                               aria-controls="offcvs1"' +
-                         '                   ><strong><span data-langkey="Instruction Summary">Instruction Summary</span></strong></button></li>' +
+                         '                   ><strong><span data-langkey="Instruction summary">Instruction summary</span></strong></button></li>' +
                          '                   <li><button class="btn dropdown-item" ' +
                          '                               onclick="wsweb_dialog_open(\'help\');' +
                          '                                        return false;"' +
@@ -223,10 +225,10 @@
 			 '' +
 			 '    </div>' +
 			 '' +
-                         '<div class="offcanvas offcanvas-end"' +
+                         '<div id="offcvs1" class="offcanvas offcanvas-end"' +
                          '     data-bs-scroll="true" data-bs-backdrop="false"' +
-                         '     tabindex="-1" id="offcvs1" aria-labelledby="offcvs1Label">' +
-                         '     <div class="offcanvas-header">' +
+                         '     tabindex="-1" aria-labelledby="offcvs1Label">' +
+                         '     <div class="offcanvas-header bg-light border">' +
                          '       <h5 class="offcanvas-title" id="offcvs1Label">Assembly summary</h5>' +
                          '       <button type="button" class="btn-close text-reset"' +
                          '               data-bs-dismiss="offcanvas" aria-label="Close"></button>' +
@@ -276,15 +278,15 @@
 */
 			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
                          '            <div class="dropdown">' +
-                         '                 <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark"' +
-                         '                         style="background-color: #D4DB17" ' +
-                         '                         type="button" id="ddownAsmHelp1" ' +
-                         '                         data-bs-toggle="dropdown" aria-expanded="false">' +
+                         '               <button class="btn btn-secondary dropdown-toggle col-auto text-dark"' +
+                         '                       style="background-color:#D4DB17; border-color:#BBBBBB; flex-grow:1;" ' +
+                         '                       type="button" id="ddownMicroHelp1" ' +
+                         '                       data-bs-toggle="dropdown" aria-expanded="false">' +
                          '               <em class="fas fa-info-circle"></em>&nbsp;' +
                          '               <strong><span data-langkey="Help">Help</span></strong></button>' +
                          '                 <ul class="dropdown-menu" ' +
                          '                     style="background-color: #D4DB17"' +
-                         '                     aria-labelledby="ddownAsmHelp1">' +
+                         '                     aria-labelledby="ddownMicroHelp1">' +
                          '                   <li><button class="btn dropdown-item" ' +
                          '                               onclick="wsweb_dialog_open(\'help\');' +
                          '                                wepsim_help_set(\'relative\', ' +
@@ -294,7 +296,7 @@
                          '                   <li><button class="btn dropdown-item" type="button" ' +
                          '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs2" ' +
                          '                               aria-controls="offcvs2"' +
-                         '                   ><strong><span data-langkey="Firmware Summary">Firmware Summary</span></strong></button></li>' +
+                         '                   ><strong><span data-langkey="Firmware summary">Firmware summary</span></strong></button></li>' +
                          '                   <li><button class="btn dropdown-item" ' +
                          '                               onclick="wsweb_dialog_open(\'help\');' +
                          '                                        return false;"' +
@@ -319,8 +321,8 @@
                          '<div class="offcanvas offcanvas-end"' +
                          '     data-bs-scroll="true" data-bs-backdrop="false"' +
                          '     tabindex="-1" id="offcvs2" aria-labelledby="offcvs2Label">' +
-                         '     <div class="offcanvas-header">' +
-                         '       <h5 class="offcanvas-title" id="offcvs2Label">Firmware summary</h5>' +
+                         '     <div class="offcanvas-header bg-light border">' +
+                         '       <h5 class="offcanvas-title" id="offcvs2Label">Hardware summary</h5>' +
                          '       <button type="button" class="btn-close text-reset"' +
                          '               data-bs-dismiss="offcanvas" aria-label="Close"></button>' +
                          '     </div>' +
