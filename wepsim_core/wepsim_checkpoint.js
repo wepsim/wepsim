@@ -121,7 +121,7 @@
 		   o +
 		   '</ul>' +
 		   'To close this notification please press in the ' +
-		   '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' ;
+		   '<span class="btn btn-sm btn-info py-0" data-bs-dismiss="alert">X</span> mark. <br>' ;
 	   }
 
 	   if (checkpointObj.notify === true) {

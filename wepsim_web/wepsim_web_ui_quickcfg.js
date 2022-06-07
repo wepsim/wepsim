@@ -29,55 +29,46 @@
             quick_id:     '#po1',
 	    val_trigger:  'manual',
 	    fun_content:  function() {
-				var wsi = get_cfg('ws_idiom') ;
-
 				var o = '<ul class="list-group list-group-flush">' ;
 
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <a class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" href="#" ' +
-					'     onclick="wsweb_dialog_open(\'about\'); ' +
-					'              wsweb_quickmenu_close(); ' +
-					'              return true;">' +
-					'<em class="fas fa-magic col-1 me-2 float-start"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
+				   o += '<li class="list-group-item px-2 pt-0 pb-2"> ' +
+                                        "<span class='col-6'>" +
+		                        '<em class="fas fa-magic col-1 me-2 mt-1 float-start"></em>&nbsp;' +
+                                        "<span data-langkey='About WepSIM'>About WepSIM</span>" +
+                                        "</span>" +
+				        quickcfg_html_br() +
+                                        quickcfg_html_btn('About us',
+					                  'wsweb_dialog_open(\"about\"); ' +
+					                  'wsweb_quickmenu_close(); return true;',
+							  'col-6 me-auto') +
 					'</li>' ;
 
-/*
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <a class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" href="#" ' +
-					'     onclick="wepsim_newbie_tour(); ' +
-					'              wsweb_quickmenu_close(); ' +
-					'              return true;">' +
-					'<em class="fas fa-book-reader col-1 me-2 float-start"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
-					'</li>' ;
-*/
+				   o += '<li class="list-group-item px-0 pt-2"> ' +
+				        "<span class='container px-0'>" +
+				        "<span class='row p-2'>" +
+				         "<span class='col-7'>" +
+		                         '<em class="fas fa-wrench col-1 me-2 mt-1 float-start"></em>&nbsp;' +
+                                         "<span data-langkey='QuickConfig'>QuickConfig</span>" +
+                                         "</span>" +
+                                         quickcfg_html_btntoggle('.multi-collapse-3', 'col-5') +
+				        "</span>" ;
 
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <span class="btn-group-toggle w-100" data-bs-toggle="buttons">' +
-					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" data-bs-toggle="collapse" href=".multi-collapse-3">' +
-  					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
-					'<em class="fas fa-wrench col-1 me-2 float-start"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide QuickConfig') + '</span>&nbsp;</label>' +
-					'  </span>' +
-					'</li>' ;
+				   o += "<span class='row p-2'>" +
+                                         "<span class='col-6'>" +
+		                         '<em class="fas fa-bars col-1 me-2 mt-1 float-start"></em>&nbsp;' +
+                                         "<span data-langkey='ActionBar'>ActionBar</span>" +
+                                         "</span>" +
+                                         quickcfg_html_btntoggle('.multi-collapse-1', 'col-6') +
+				        "</span>" ;
 
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <span class="btn-group-toggle w-100" data-bs-toggle="buttons">' +
-					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" data-bs-toggle="collapse" href=".multi-collapse-1">' +
-  					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
-					'<em class="fas fa-bars col-1 me-2 float-start"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide ActionBar') + '</span></label>' +
-					'  </span>' +
-					'</li>' ;
-
-				   o += '<li class="list-group-item px-0"> ' +
-					'  <span class="btn-group-toggle w-100" data-bs-toggle="buttons">' +
-					'  <label class="btn btn-sm btn-outline-dark col p-1 text-start float-end w-100" data-bs-toggle="collapse" href=".multi-collapse-2">' +
-  					'  <input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
-					'<em class="fas fa-sliders-h col-1 me-2 float-start"></em>' +
-					'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide Slider') + '</span></label>' +
-					'  </span>' +
+				   o += "<span class='row p-2'>" +
+					 "<span class='col-6'>" +
+		                         '<em class="fas fa-sliders-h col-1 me-2 mt-1 float-start"></em>&nbsp;' +
+                                         "<span data-langkey='Sliders'>Sliders</span>" +
+                                         "</span>" +
+                                         quickcfg_html_btntoggle('.multi-collapse-2', 'col-6') +
+				        "</span>" +
+				        "</span>" +
 					'</li>' ;
 
 		                   o += quickcfg_html_close('po1') +
@@ -400,6 +391,22 @@
 	        "<span class='fw-bold font-monospace'>" + label2 + "</span>" + "&nbsp;" +
 	        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
 	        "</div>" ;
+    }
+
+    function quickcfg_html_btntoggle ( label2, colwidth2 )
+    {
+	 var wsi = get_cfg('ws_idiom') ;
+
+         return '<span class="btn-group-toggle ' + colwidth2 + '" data-bs-toggle="buttons">' +
+		'  <label class="btn btn-sm btn-outline-dark p-1 text-start float-end" ' +
+                '         data-bs-toggle="collapse" href="' + label2 + '">' +
+		'<input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
+		'<span class="mx-auto px-1 fw-bold rounded text-dark" ' +
+                '      style="background-color:#CEECF5; ">' +
+                i18n_get('dialogs', wsi, 'Show/Hide') +
+                '</span>' +
+                '  </label>' +
+		'</span>' ;
     }
 
     function quickcfg_html_onoff ( id2, arial2, nm_off2, code_off2, nm_on2, code_on2 )

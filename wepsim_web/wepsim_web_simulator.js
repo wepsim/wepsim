@@ -534,7 +534,7 @@
                 o = 'WepSIM has been instructed to preload some work for you:<br>' +
                     '<ul>' + o + '</ul>' +
                     'To close this notification please press in the ' +
-                    '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
+                    '<span class="btn btn-sm btn-info py-0" data-bs-dismiss="alert">X</span> mark. <br>' +
                     'In order to execute an example please press the ' +
                     '<span class="btn btn-sm btn-info py-0" ' +
                     '      onclick="webui_executionbar_toggle_play(\'exebar1\');">Run</span> ' +

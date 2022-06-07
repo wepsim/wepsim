@@ -398,7 +398,7 @@
         {
     	     var wsi = get_cfg('ws_idiom') ;
 
-             var o = '<span class="d-grid gap-2">' +
+             var o = '<span class="d-grid gap-2 p-1">' +
                      // <labels>
                      quickcfg_html_header(i18n_get('dialogs', wsi, 'Show labels')) +
 		     quickcfg_html_onoff('C0',
@@ -433,7 +433,7 @@
 					 "wepsim_click_asm_columns(\'pins\',\'C4\'); return false;") +
                      // <close>
                      '<button type="button" id="close" data-role="none" ' +
-                     '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
+                     '        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
                      '        onclick="wepsim_popovers_hide('+asm_po+');">' + i18n_get('dialogs', wsi, 'Close') +
     		 '</button>' +
                  '</span>' ;

@@ -182,7 +182,7 @@
     {
 	 return "<div class='col p-1 mt-2'>" +
 		"<button type='button' id='close' data-role='none' " +
-		"        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		"        class='btn btn-sm btn-danger w-100 p-0 mt-2' " +
 		"        onclick='wepsim_popover_hide(\"" + btn2_id + "\");'>" +
                 "<span data-langkey='Close'>Close</span>" +
                 "</button>" +
