@@ -80,12 +80,7 @@
 					'  </span>' +
 					'</li>' ;
 
-				   o += '<button type="button" id="close" data-role="none" ' +
-					'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
-					'        onclick="wsweb_quickmenu_close(); ' +
-					'                 return false;">' +
-					i18n_get('dialogs',wsi,'Close') +
-					'</button>' +
+		                   o += quickcfg_html_close('po1') +
 					'</ul>' ;
 
 				return o ;
@@ -97,7 +92,6 @@
             quick_id:     '#popover-slidercfg',
 	    val_trigger:  'click',
 	    fun_content:  function() {
-		var wsi = get_cfg('ws_idiom') ;
 
 		var o = '<ul class="list-group list-group-flush">' ;
 
@@ -147,24 +141,22 @@
 			'</li>' ;
 */
 
-		   o += '<button type="button" id="close" data-role="none" ' +
-  			'        class="btn btn-sm btn-danger w-100 p-0 mt-3 d-grid" ' +
-			'        onclick="wsweb_quickslider_close(); ' +
-			'                 return false;">' +
-			i18n_get('dialogs',wsi,'Close') +
-			'</button>' +
+		   o += quickcfg_html_close('popover-slidercfg') +
 			'</ul>' ;
 
 		return o ;
                           },
 	    fun_ownshown: function(shownEvent) {
-				    var optValue = false ;
 				    $("#slider3a").val(get_cfg('C1C2_size')) ;
 				    $("#slider3b").val(get_cfg('CPUCU_size')) ;
-				    optValue = (get_cfg('ws_skin_user').split(":")[1] == 'on') ? true : false ;
+
+				    var optValue = false ;
+                                    var skinUser = get_cfg('ws_skin_user') ;
+				    optValue = (skinUser.split(":")[1] == 'on') ? true : false ;
                                     $('#label16-' + optValue).button('toggle') ;
-				    optValue = (get_cfg('ws_skin_user').split(":")[3] == 'on') ? true : false ;
+				    optValue = (skinUser.split(":")[3] == 'on') ? true : false ;
                                     $('#label17-' + optValue).button('toggle') ;
+
                                     wepsim_config_button_pretoggle('ws_skin_dark_mode', '18') ;
                           }
          },
@@ -177,6 +169,154 @@
 		          },
 	    fun_ownshown: function(shownEvent) {
 			      showhideAsmHeader() ;
+                          }
+         },
+
+         pomem1: {
+            quick_id:     '[data-bs-toggle=popover-mem]',
+	    val_trigger:  'click',
+	    fun_content:  function(shownEvent) {
+			      return "<div class='container mt-1'>" +
+				     "<div class='row'>" +
+					 quickcfg_html_header("Display format") +
+					 quickcfg_html_btn("(*) 0x3B<sub>16</sub>",
+							   "update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
+							   "show_memories_values();",
+							   "col-6") +
+					 quickcfg_html_btn("073<sub>8</sub>",
+							   "update_cfg(\"MEM_display_format\", \"unsigned_8_nofill\"); " +
+							   "show_memories_values();",
+							   "col-6") +
+					 quickcfg_html_btn("59<sub>10</sub>",
+							   "update_cfg(\"MEM_display_format\", \"unsigned_10_nofill\"); " +
+							   "show_memories_values();",
+							   "col-6") +
+					 quickcfg_html_btn(";<sub>ascii</sub>",
+							   "update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
+							   "show_memories_values();",
+							   "col-6") +
+				     quickcfg_html_br() +
+					 quickcfg_html_header("Display direction") +
+					 quickcfg_html_btn("(*) 04 -> 00",
+							   "update_cfg(\"MEM_display_direction\", \"h2l\"); " +
+							   "show_memories_values();",
+							   "col-6") +
+					 quickcfg_html_btn("00 -> 04",
+							   "update_cfg(\"MEM_display_direction\", \"l2h\"); " +
+							   "show_memories_values();",
+							   "col-6") +
+				     quickcfg_html_br() +
+					 quickcfg_html_header("Display segments") +
+					 quickcfg_html_onoff('19',
+							     'show segments',
+								"(*) " + i18n_get_TagFor('cfg', 'Off'),
+							     "  $('#lst_seg1').collapse('hide');" +
+							     "  wepsim_config_button_toggle('MEM_show_segments', false, '19');",
+								i18n_get_TagFor('cfg', 'On'),
+							     "  $('#lst_seg1').collapse('show');" +
+							     "  wepsim_config_button_toggle('MEM_show_segments', true, '19');") +
+					 quickcfg_html_header("Display origin") +
+					 quickcfg_html_onoff('20',
+							     'show origin',
+								"(*) " + i18n_get_TagFor('cfg', 'Off'),
+							     "  $('.mp_tooltip').collapse('hide');" +
+							     "  wepsim_config_button_toggle('MEM_show_source', false, '20');",
+								i18n_get_TagFor('cfg', 'On'),
+							     "  $('.mp_tooltip').collapse('show');" +
+							     "  wepsim_config_button_toggle('MEM_show_source', true, '20');") +
+				     quickcfg_html_br() +
+				       quickcfg_html_close('popover-mem') +
+				     "</div>" +
+				     "</div>" ;
+		          },
+	    fun_ownshown: function(shownEvent) {
+                              wepsim_config_button_pretoggle('MEM_show_segments', '19') ;
+                              wepsim_config_button_pretoggle('MEM_show_source',   '20') ;
+                          }
+         },
+
+         popreg1: {
+            quick_id:     '[data-bs-toggle=popover-rfcfg]',
+	    val_trigger:  'click',
+	    fun_content:  function(shownEvent) {
+			      return quick_config_rf();
+		          },
+	    fun_ownshown: function(shownEvent) {
+                          }
+         },
+
+         pocpucu1: {
+            quick_id:     '[data-bs-toggle=popover-cpuview]',
+	    val_trigger:  'click',
+	    fun_content:  function(shownEvent) {
+			    var o = "<div class='container mt-1'>" +
+				    "<div class='row'>" +
+				       // <display format>
+				       quickcfg_html_header('Display format') +
+				       quickcfg_html_btn("(*) Graph",
+							 "wsweb_cpuview_as_graph();",
+							 "col-6") +
+				       quickcfg_html_btn("Text",
+							 "wsweb_cpuview_as_text();",
+							 "col-6") +
+				       // <sliders>
+				       quickcfg_html_br() +
+				       quickcfg_html_header('Graph: split view') +
+				       '<ws-slider-cpucu   name="slider4b" class="col-12"></ws-slider-cpucu>' +
+				    // '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
+				       // <interactive>
+				       quickcfg_html_br() +
+				       quickcfg_html_header('Graph: interactive mode') +
+				       quickcfg_html_onoff('QI',
+							   'is interactive',
+								    i18n_get_TagFor('cfg', 'Off'),
+							   "wepsim_config_button_toggle(\'is_interactive\',false,\'QI\');" +
+							   "return false;",
+							   "(*) " + i18n_get_TagFor('cfg', 'On'),
+							   "wepsim_config_button_toggle(\'is_interactive\',true,\'QI\');" +
+							   "return false;") +
+				       // <filter>
+				       quickcfg_html_br() +
+				       quickcfg_html_header('Text: show states+signals') +
+
+				       wepsim_config_button_html_2options('Q2', 'Text shows inactive elements',
+									  "(*) All",
+									  "true",
+								      "var ov = ws_signals_show_inactive;" +
+								      "ws_signals_show_inactive=true; $(\'.s-ina\').show();" +
+								      "ws_states_show_inactive =true; $(\'.t-ina\').show();" +
+								      "$('#labelQ2-' + ov).button('toggle');" +
+								      "$('#labelQ2-true').button('toggle');",
+									  "Only active",
+									  "false",
+								      "var ov = ws_signals_show_inactive;" +
+								      "ws_signals_show_inactive=false; $(\'.s-ina\').hide();" +
+								      "ws_states_show_inactive =false; $(\'.t-ina\').hide();" +
+								      "$('#labelQ2-' + ov).button('toggle');" +
+								      "$('#labelQ2-false').button('toggle');") +
+
+				       // <advanced>
+				    // quickcfg_html_br() +
+				    // quickcfg_html_header('Text: advanced mode') +
+				    // quickcfg_html_btn("On",
+				    //                   "$(\"#infohw1\").attr(\"components\", " +
+				    //                   "                     \"summary,elements,states,signals,behaviors\");",
+				    //                   "col-6") +
+				    // quickcfg_html_btn("(*) Off",
+				    //                   "$(\"#infohw1\").attr(\"components\", \"elements\");",
+				    //                   "col-6") +
+				       // </advanced>
+				       quickcfg_html_br() +
+				       quickcfg_html_close('popover-cpuview') +
+				    "</div>" +
+				    "</div>" ;
+
+			    return o ;
+		          },
+	    fun_ownshown: function(shownEvent) {
+			      $("#slider4b").val(get_cfg('CPUCU_size')) ;
+			      wepsim_config_button_pretoggle('is_interactive', 'QI') ;
+			      wepsim_config_button_pretoggle_val('', 'Q2', ws_signals_show_inactive) ;
                           }
          }
 
@@ -215,6 +355,14 @@
                                          i18n_update_tags('gui') ;
                                          i18n_update_tags('cfg') ;
                                     }) ;
+    }
+
+    function wepsim_quickcfg_init ( qh_id )
+    {
+         return wepsim_init_quickcfg(wsweb_quickcfg[qh_id].quick_id,
+				     wsweb_quickcfg[qh_id].val_trigger,
+				     wsweb_quickcfg[qh_id].fun_content,
+				     wsweb_quickcfg[qh_id].fun_ownshown) ;
     }
 
 

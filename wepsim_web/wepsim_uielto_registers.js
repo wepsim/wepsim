@@ -58,13 +58,7 @@
                     this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    wepsim_init_quickcfg("[data-bs-toggle=popover-rfcfg]",
-			                 "click",
-			                 quick_config_rf,
-					 function(shownEvent) {
-					     i18n_update_tags('cfg') ;
-					     i18n_update_tags('dialogs') ;
-					 }) ;
+                    wepsim_quickcfg_init('popreg1') ;
 	      }
         }
 

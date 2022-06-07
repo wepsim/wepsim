@@ -468,21 +468,10 @@
             wepsim_popovers_init('a[data-bs-toggle="popover1"]', popover_cfg, null) ;
 
 	    // init: quick-menus
-            for (var p in wsweb_quickcfg)
-            {
-                 wepsim_init_quickcfg(wsweb_quickcfg[p].quick_id,
-                                      wsweb_quickcfg[p].val_trigger,
-		                      wsweb_quickcfg[p].fun_content,
-		                      wsweb_quickcfg[p].fun_ownshown) ;
-            }
+            wepsim_quickcfg_init('pop1') ;
 
-	    // asmdbg
-	    showhideAsmElements() ;
-
-	    var target = $("#asm_table");
-	    $("#asm_debugger_container").scroll(function() {
-	       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
-	    });
+	    // init: dbg_asm
+            showhideAsmElements() ;
 
 	    // initialize editors
 	    inputfirm_cfg = {

@@ -67,10 +67,12 @@
 		    this.innerHTML = o1 ;
 
 		    // initialize loaded components
-		    wepsim_init_quickcfg(wsweb_quickcfg['popover2'].quick_id,
-					 wsweb_quickcfg['popover2'].val_trigger,
-					 wsweb_quickcfg['popover2'].fun_content,
-					 wsweb_quickcfg['popover2'].fun_ownshown) ;
+                    wepsim_quickcfg_init('popover2') ;
+
+		    var target = $("#asm_table");
+		    $("#asm_debugger_container").scroll(function() {
+		       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
+		    });
 	      }
         }
 

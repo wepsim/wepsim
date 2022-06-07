@@ -86,18 +86,7 @@
 		    this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    wepsim_init_quickcfg("[data-bs-toggle=popover-cpuview]",
-			                 "click",
-			                 quick_config_cpuview,
-					 function(shownEvent)
-                                         {
-				             $("#slider4b").val(get_cfg('CPUCU_size')) ;
-                                             wepsim_config_button_pretoggle('is_interactive', 'QI') ;
-                                             wepsim_config_button_pretoggle_val('', 'Q2', ws_signals_show_inactive) ;
-
-					     i18n_update_tags('cfg') ;
-					     i18n_update_tags('dialogs') ;
-					 }) ;
+                    wepsim_quickcfg_init('pocpucu1') ;
 	      }
         }
 
@@ -124,72 +113,5 @@
                           var ws_idiom = get_cfg('ws_idiom') ;
                           i18n_update_tags('hw', ws_idiom) ;
                        }, 100);
-        }
-
-        function quick_config_cpuview ( )
-        {
-	    var o = "<div class='container mt-1'>" +
-                    "<div class='row'>" +
-		       // <display format>
-                       quickcfg_html_header('Display format') +
-	               quickcfg_html_btn("(*) Graph",
-				         "wsweb_cpuview_as_graph();",
-                                         "col-6") +
-	               quickcfg_html_btn("Text",
-				         "wsweb_cpuview_as_text();",
-                                         "col-6") +
-		       // <sliders>
-                       quickcfg_html_br() +
-                       quickcfg_html_header('Graph: split view') +
-		       '<ws-slider-cpucu   name="slider4b" class="col-12"></ws-slider-cpucu>' +
-                    // '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
-		       // <interactive>
-                       quickcfg_html_br() +
-                       quickcfg_html_header('Graph: interactive mode') +
-                       quickcfg_html_onoff('QI',
-                                           'is interactive',
-                                                    i18n_get_TagFor('cfg', 'Off'),
-                                           "wepsim_config_button_toggle(\'is_interactive\',false,\'QI\');" +
-                                           "return false;",
-                                           "(*) " + i18n_get_TagFor('cfg', 'On'),
-                                           "wepsim_config_button_toggle(\'is_interactive\',true,\'QI\');" +
-                                           "return false;") +
-		       // <filter>
-                       quickcfg_html_br() +
-                       quickcfg_html_header('Text: show states+signals') +
-
-                       wepsim_config_button_html_2options('Q2', 'Text shows inactive elements',
-                                                          "(*) All",
-                                                          "true",
-                                                      "var ov = ws_signals_show_inactive;" +
-                                                      "ws_signals_show_inactive=true; $(\'.s-ina\').show();" +
-                                                      "ws_states_show_inactive =true; $(\'.t-ina\').show();" +
-                                                      "$('#labelQ2-' + ov).button('toggle');" +
-                                                      "$('#labelQ2-true').button('toggle');",
-                                                          "Only active",
-                                                          "false",
-                                                      "var ov = ws_signals_show_inactive;" +
-                                                      "ws_signals_show_inactive=false; $(\'.s-ina\').hide();" +
-                                                      "ws_states_show_inactive =false; $(\'.t-ina\').hide();" +
-                                                      "$('#labelQ2-' + ov).button('toggle');" +
-                                                      "$('#labelQ2-false').button('toggle');") +
-
-                       // <advanced>
-                    // quickcfg_html_br() +
-                    // quickcfg_html_header('Text: advanced mode') +
-                    // quickcfg_html_btn("On",
-                    //                   "$(\"#infohw1\").attr(\"components\", " +
-                    //                   "                     \"summary,elements,states,signals,behaviors\");",
-                    //                   "col-6") +
-                    // quickcfg_html_btn("(*) Off",
-                    //                   "$(\"#infohw1\").attr(\"components\", \"elements\");",
-                    //                   "col-6") +
-                       // </advanced>
-                       quickcfg_html_br() +
-                       quickcfg_html_close('popover-cpuview') +
-		    "</div>" +
-		    "</div>" ;
-
-	    return o ;
         }
 

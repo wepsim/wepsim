@@ -85,10 +85,7 @@
                    this.innerHTML = o1 ;
 
 		   // initialize loaded components
-		   wepsim_init_quickcfg(wsweb_quickcfg['slidercfg'].quick_id,
-                                        wsweb_quickcfg['slidercfg'].val_trigger,
-                                        wsweb_quickcfg['slidercfg'].fun_content,
-                                        wsweb_quickcfg['slidercfg'].fun_ownshown) ;
+                   wepsim_quickcfg_init('slidercfg') ;
 	      }
 
 	      render_populate_compact_toolbars ( )

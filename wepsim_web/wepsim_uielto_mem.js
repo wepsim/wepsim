@@ -56,13 +56,7 @@
 		    this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    wepsim_init_quickcfg("[data-bs-toggle=popover-mem]",
-			                 "click",
-			                 quick_config_mem,
-					 function(shownEvent) {
-                                             wepsim_config_button_pretoggle('MEM_show_segments', '19') ;
-                                             wepsim_config_button_pretoggle('MEM_show_source',   '20') ;
-					 }) ;
+                    wepsim_quickcfg_init('pomem1') ;
 	      }
 
 	      render_populate ( )
@@ -424,66 +418,5 @@
                              '' ;
 		 $("#bg" + base_addrs[elto]).html(old_html) ;
             }
-        }
-
-
-        /*
-         * Quick menu (display format)
-         */
-
-        function quick_config_mem ( )
-        {
-	      return "<div class='container mt-1'>" +
-                     "<div class='row'>" +
-                         quickcfg_html_header("Display format") +
-                         quickcfg_html_btn("(*) 0x3B<sub>16</sub>",
-				           "update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
-					   "show_memories_values();",
-                                           "col-6") +
-                         quickcfg_html_btn("073<sub>8</sub>",
-					   "update_cfg(\"MEM_display_format\", \"unsigned_8_nofill\"); " +
-					   "show_memories_values();",
-                                           "col-6") +
-                         quickcfg_html_btn("59<sub>10</sub>",
-					   "update_cfg(\"MEM_display_format\", \"unsigned_10_nofill\"); " +
-					   "show_memories_values();",
-                                           "col-6") +
-                         quickcfg_html_btn(";<sub>ascii</sub>",
-					   "update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
-					   "show_memories_values();",
-                                           "col-6") +
-                     quickcfg_html_br() +
-                         quickcfg_html_header("Display direction") +
-                         quickcfg_html_btn("(*) 04 -> 00",
-					   "update_cfg(\"MEM_display_direction\", \"h2l\"); " +
-					   "show_memories_values();",
-                                           "col-6") +
-                         quickcfg_html_btn("00 -> 04",
-					   "update_cfg(\"MEM_display_direction\", \"l2h\"); " +
-					   "show_memories_values();",
-                                           "col-6") +
-                     quickcfg_html_br() +
-                         quickcfg_html_header("Display segments") +
-			 quickcfg_html_onoff('19',
-					     'show segments',
-                                                "(*) " + i18n_get_TagFor('cfg', 'Off'),
-					     "  $('#lst_seg1').collapse('hide');" +
-					     "  wepsim_config_button_toggle('MEM_show_segments', false, '19');",
-                                                i18n_get_TagFor('cfg', 'On'),
-					     "  $('#lst_seg1').collapse('show');" +
-					     "  wepsim_config_button_toggle('MEM_show_segments', true, '19');") +
-                         quickcfg_html_header("Display origin") +
-			 quickcfg_html_onoff('20',
-					     'show origin',
-                                                "(*) " + i18n_get_TagFor('cfg', 'Off'),
-					     "  $('.mp_tooltip').collapse('hide');" +
-					     "  wepsim_config_button_toggle('MEM_show_source', false, '20');",
-                                                i18n_get_TagFor('cfg', 'On'),
-					     "  $('.mp_tooltip').collapse('show');" +
-					     "  wepsim_config_button_toggle('MEM_show_source', true, '20');") +
-                     quickcfg_html_br() +
-                       quickcfg_html_close('popover-mem') +
-		     "</div>" +
-		     "</div>" ;
         }
 
