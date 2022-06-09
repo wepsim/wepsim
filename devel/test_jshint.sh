@@ -79,9 +79,7 @@ echo "checking wepsim_core..."
  jshint ./wepsim_core/wepsim_dialog.js
  jshint ./wepsim_core/wepsim_state.js
  jshint ./wepsim_core/wepsim_tutorial_simpleusage.js
- jshint ./wepsim_core/wepsim_config.js
 #jshint ./wepsim_core/wepsim_clipboard.js
- jshint ./wepsim_core/wepsim_config_commands.js
  jshint ./wepsim_core/wepsim_tutorial_welcome.js
  jshint ./wepsim_core/wepsim_notify.js
  jshint ./wepsim_core/wepsim_example.js
@@ -140,6 +138,8 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_web_editor.js
 #jshint ./wepsim_web/wepsim_web_pwa.js
  jshint ./wepsim_web/wepsim_web_simulator.js
+ jshint ./wepsim_web/wepsim_web_ui_config.js
+ jshint ./wepsim_web/wepsim_web_ui_config_commands.js
  jshint ./wepsim_web/wepsim_web_ui_dialogs.js
  jshint ./wepsim_web/wepsim_web_ui_quickcfg.js
 

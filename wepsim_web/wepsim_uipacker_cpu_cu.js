@@ -38,12 +38,12 @@
 		    var o1 = '' ;
 
                     // row with quick config:
-                    o1 +=    "<div class='container text-right col-12 px-3 pt-1'>" +
+                    o1 +=    "<div class='container text-end col-12 px-3 pt-1 multi-collapse-3 collapse show'>" +
                              "<label class='my-0' for='popover-rfcfg' style='min-width:95%'>" +
                              "<span data-langkey='quick config'>quick config</span>: " +
                              "<a id='popover-cpuview' tabindex='0' " +
-                             "   class='show multi-collapse-3 btn my-1 col-auto' " +
-                             "   data-toggle='popover-cpuview'>" +
+                             "   class='show multi-collapse-3 btn my-1 col-auto border-0' " +
+                             "   data-bs-toggle='popover-cpuview'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
                              "</label>" +
                              "</div>" ;
@@ -54,12 +54,12 @@
                              '    <div class="nav nav-pills nav-fill" ' +
                              '         id="nav-tab1" role="tablist" aria-orientation="horizontal">' +
                              '      <a class="nav-link m-2 bg-light text-primary active" ' +
-                             '         data-toggle="pill" role="tab" ' +
+                             '         data-bs-toggle="pill" role="tab" ' +
                              '         id="cpu_view_graph1" href="#cpu_graph1" ' +
                              '         aria-controls="cpu_graph1" aria-selected="true">' +
                              '<span data-langkey="Graph">Graph</span></a>' +
                              '      <a class="nav-link m-2 bg-light text-primary" ' +
-                             '         data-toggle="pill" role="tab" ' +
+                             '         data-bs-toggle="pill" role="tab" ' +
                              '         id="cpu_view_table1" href="#cpu_table1" ' +
                              '         aria-controls="cpu_table1" aria-selected="false">' +
                              '<span data-langkey="Text">Text</span></a>' +
@@ -86,14 +86,7 @@
 		    this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    wepsim_init_quickcfg("[data-toggle=popover-cpuview]",
-			                 "click",
-			                 quick_config_cpuview,
-					 function(shownEvent) {
-				             $("#slider4b").val(get_cfg('CPUCU_size')) ;
-					     i18n_update_tags('cfg') ;
-					     i18n_update_tags('dialogs') ;
-					 }) ;
+                    wepsim_quickcfg_init('pocpucu1') ;
 	      }
         }
 
@@ -120,61 +113,5 @@
                           var ws_idiom = get_cfg('ws_idiom') ;
                           i18n_update_tags('hw', ws_idiom) ;
                        }, 100);
-        }
-
-        function quick_config_cpuview ( )
-        {
-	    var o = "<div class='container mt-1'>" +
-                    "<div class='row'>" +
-		       // <display format>
-                       quickcfg_html_header('Display format') +
-	               quickcfg_html_btn("(*) Graph",
-				         "wsweb_cpuview_as_graph();",
-                                         "col-6") +
-	               quickcfg_html_btn("Text",
-				         "wsweb_cpuview_as_text();",
-                                         "col-6") +
-		       // <sliders>
-                       quickcfg_html_br() +
-                       quickcfg_html_header('Graph: split view') +
-		       '<ws-slider-cpucu   name="slider4b" class="col-12"></ws-slider-cpucu>' +
-                    // '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
-		       // <interactive>
-                       quickcfg_html_br() +
-                       quickcfg_html_header('Graph: interactive mode') +
-	               quickcfg_html_btn("(*) On",
-                                         "update_cfg(\"is_interactive\", true);",
-                                         "col-6") +
-	               quickcfg_html_btn("Off",
-                                         "update_cfg(\"is_interactive\", false);",
-                                         "col-6") +
-		       // <filter>
-                       quickcfg_html_br() +
-                       quickcfg_html_header('Text: show states+signals') +
-                       quickcfg_html_btn("(*) All",
-                                         "ws_signals_show_inactive = true; $(\".s-ina\").show();" +
-                                         "ws_states_show_inactive  = true; $(\".t-ina\").show();",
-                                         "col-6") +
-                       quickcfg_html_btn("Only active",
-                                         "ws_signals_show_inactive = false; $(\".s-ina\").hide();" +
-                                         "ws_states_show_inactive  = false; $(\".t-ina\").hide();",
-                                         "col-6") +
-                       // <advanced>
-                    // quickcfg_html_br() +
-                    // quickcfg_html_header('Text: advanced mode') +
-                    // quickcfg_html_btn("On",
-                    //                   "$(\"#infohw1\").attr(\"components\", " +
-                    //                   "                     \"summary,elements,states,signals,behaviors\");",
-                    //                   "col-6") +
-                    // quickcfg_html_btn("(*) Off",
-                    //                   "$(\"#infohw1\").attr(\"components\", \"elements\");",
-                    //                   "col-6") +
-                       // </advanced>
-                       quickcfg_html_br() +
-                       quickcfg_html_close('popover-cpuview') +
-		    "</div>" +
-		    "</div>" ;
-
-	    return o ;
         }
 

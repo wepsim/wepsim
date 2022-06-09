@@ -64,7 +64,9 @@
                       "Active voice: external voice control": 	                     "Active voice: external voice control",
                       "Verbalization: textual or mathematical":      		     "Verbalization: textual or mathematical",
                       "WepSIM User Interface views":      	     		     "WepSIM User Interface views",
-		      "Privacy":						     "Privacidad",
+		      "Privacy":						     "Privacy",
+		      'On':							     'On',
+		      'Off':							     'Off',
 		      "_last_":							     "_last_"
     } ;
 

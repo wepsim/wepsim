@@ -1,0 +1,17 @@
+{
+    "passfail"      : true,
+    "maxerr"        : 100,
+
+    "debug"         : false,
+    "devel"         : true,
+
+    "strict"        : false,
+    "globalstrict"  : false,
+    "-W099"         : true,
+
+    "onevar"        : false,
+    "plusplus"      : false,
+    "sub"           : true,
+    "white"         : false,
+    "indent"        : 2
+}

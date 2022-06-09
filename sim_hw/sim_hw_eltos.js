@@ -95,29 +95,41 @@
             return o ;
         }
 
+	function simhwelto_describe_component_enum_aux ( elto_path, array_eltos, hash_eltos, enum_name, str_enditem )
+	{
+	   var o = "" ;
+
+           // enumerate...
+	   for (var i=0; i<array_eltos.length; i++)
+           {
+                // get translation for associated description...
+                var k = elto_path + array_eltos[i] ;
+                var v = i18n_get_TagFor('hw', k.toUpperCase()) ;
+                    v = '<span data-langkey=\'' + k.toUpperCase() + '\'>' + v + '</span>' ;
+
+                // build help entry...
+		o += '(' + (i+1) + ') ' + v ;
+
+                // add ',' in all entries but the last one...
+                if (i != array_eltos.length - 1) {
+                    o += str_enditem ;
+		}
+	   }
+	   o += ". " ;
+
+	   return o ;
+	}
+
 	function simhwelto_describe_component_enum ( elto_path, array_eltos, hash_eltos, enum_name )
 	{
 	   var o = "" ;
 
            // enumerate...
-	   o += '<span data-langkey=\'It has\'>' + i18n_get_TagFor('hw','It has') + '</span>' + " " + array_eltos.length + " " +
-                '<span data-langkey=\'' + enum_name + '\'>' + i18n_get_TagFor('hw',enum_name) + '</span>' + ": " ;
-		for (var i=0; i<array_eltos.length; i++)
-                {
-                     // get translation for associated description...
-                     var k = elto_path + array_eltos[i] ;
-                     var v = i18n_get_TagFor('hw', k.toUpperCase()) ;
-                         v = '<span data-langkey=\'' + k.toUpperCase() + '\'>' + v + '</span>' ;
-
-                     // build help entry...
-		     o += '(' + (i+1) + ') ' + v ;
-
-                     // add ',' in all entries but the last one...
-                     if (i != array_eltos.length - 1) {
-                         o += ', ' ;
-		     }
-		}
-	   o += ". " ;
+	   o += '<span data-langkey=\'It has\'>' + i18n_get_TagFor('hw','It has') + '</span>' + " " +
+                array_eltos.length + " " +
+                '<span data-langkey=\'' + enum_name + '\'>' + i18n_get_TagFor('hw',enum_name) + '</span>' +
+                ": " +
+	        simhwelto_describe_component_enum_aux(elto_path, array_eltos, hash_eltos, enum_name, ', ') ;
 
 	   return o ;
 	}
@@ -126,30 +138,22 @@
 	{
 	   var o = "" ;
 
-           if (format == "html")
-           {
-	       o += elto.description + '.<br><ul>' +
-	            '<li>' +
-		    simhwelto_describe_component_enum(elto_path + ':states:',
-					              elto.states_inputs,  elto.states,  "inputs")  + '<br>' +
-		    '<li>' +
-		    simhwelto_describe_component_enum(elto_path + ':states:',
-					              elto.states_outputs, elto.states,  "outputs") + '<br>' +
-		    '<li>' +
-		    simhwelto_describe_component_enum(elto_path + ':signals:',
-					              elto.signals_inputs, elto.signals, "signals") + '<br>' +
-		    '</ul>' ;
+	   o += elto.description + '.<br><ul>' +
+	        '<li>' +
+		simhwelto_describe_component_enum(elto_path + ':states:',
+					          elto.states_inputs,  elto.states,  "inputs")  + '<br>' +
+		'<li>' +
+		simhwelto_describe_component_enum(elto_path + ':states:',
+					          elto.states_outputs, elto.states,  "outputs") + '<br>' +
+		'<li>' +
+		simhwelto_describe_component_enum(elto_path + ':signals:',
+					          elto.signals_inputs, elto.signals, "signals") + '<br>' +
+		'</ul>' ;
 
-	       return o ;
+           if (format != "html") {
+               o.replace(/<[^>]*>?/gm, '');
            }
 
-	   // "text" by default
-	   return elto.description + ". " +
-	          simhwelto_describe_component_enum(elto_path + ':states:',
-						    elto.states_inputs,  elto.states,  "inputs") +
-	          simhwelto_describe_component_enum(elto_path + ':states:',
-					            elto.states_outputs, elto.states,  "outputs") +
-	          simhwelto_describe_component_enum(elto_path + ':signals:',
-     						    elto.signals_inputs, elto.signals, "signals") ;
+	   return o ;
 	}
 

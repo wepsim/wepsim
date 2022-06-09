@@ -221,6 +221,10 @@
 	"EP:L3D:STATES:DATA":                      "Databuss",
 	"EP:L3D:SIGNALS:IOR":                      "Läs från L3D",
 	"EP:L3D:SIGNALS:IOW":                      "Skriv in i L3D",
+	"EP:LEDM:STATES:ADDR":                     "Adressbuss",
+	"EP:LEDM:STATES:DATA":                     "Databuss",
+	"EP:LEDM:SIGNALS:IOR":                     "Läs från LEDM",
+	"EP:LEDM:SIGNALS:IOW":                     "Skriv in i LEDM",
 
 	"POC:CPU_T1:STATES:IN":                    "Indata är värdet på MBR-registret",
 	"POC:CPU_T1:STATES:OUT":                   "Utgången går till den interna bussen",

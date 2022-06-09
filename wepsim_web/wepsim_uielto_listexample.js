@@ -52,7 +52,7 @@
 		    o1 += '<div class="card border-secondary h-100">' +
 			  '<div class="card-header border-secondary text-white bg-secondary p-1 text-center">' +
 			  '<h5 class="py-1 m-0">' +
-			  '<em class="fas fa-stream pr-2"></em>' +
+			  '<em class="fas fa-stream pe-2"></em>' +
                           '<span data-langkey="Examples">Examples</span>' +
                           '</h5>' +
 			  '</div>' +

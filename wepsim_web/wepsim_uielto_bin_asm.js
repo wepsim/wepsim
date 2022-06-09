@@ -97,7 +97,7 @@
 	          if (typeof slebal[wadd] != "undefined")
                   {
                        for (var i=0; i<slebal[wadd].length; i++) {
-		            clabel = clabel + "<span class='badge badge-pill badge-secondary float-left'>" + slebal[wadd][i] + "</span>" ;
+		            clabel = clabel + "<span class='badge rounded-pill text-bg-secondary float-start'>" + slebal[wadd][i] + "</span>" ;
                        }
                   }
 	          else clabel = clabel + "&nbsp;" ;

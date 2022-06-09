@@ -87,11 +87,11 @@
 				       'pass':     apirest_pass }) ;
 
 		    // html holder
-		    o1  += "<div class='container text-right'>" +
+		    o1  += "<div class='container text-end'>" +
                            "" +
                            '<label class="my-0" for="popover-l3dcfg" style="min-width:95%">' +
                            '<span data-langkey="quick config">quick config</span>: ' +
-                           "<a data-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
+                           "<a data-bs-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
                            "   tabindex='0' class='m-auto' role='button' id='popover-l3dcfg'>" +
                            "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
                            "</label>" +
@@ -119,7 +119,7 @@
                               "    v-on:click='value = !value'>" +
 			      "<i  style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
                               "    v-bind:class='[ value ? \"fas\" : \"far\", \"fa-lightbulb\" ]'></i>" +
-                              "<span class='sr-only'>{{value}}</span>" +
+                              "<span class='visually-hidden'>{{value}}</span>" +
 			      "</td>" ;
 				    }
 			o1 += "</tr>" ;

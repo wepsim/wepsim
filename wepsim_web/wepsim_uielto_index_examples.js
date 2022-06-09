@@ -116,7 +116,7 @@
                     toggle_cls = fmt_toggle + ' user_' + e_level ;
 
      	            u = '<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
-                             '    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
+                             '    <span class="badge rounded-pill text-bg-light">' + t_index + '</span>' +
                              '</div>' +
                              '<div class="col-sm-4    py-1 ' + toggle_cls + '">' +
                              '     <span style="cursor:pointer;" ' +
@@ -125,7 +125,7 @@
      		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
      		        '                    setTimeout(function() { wsweb_dialog_close(\'examples\'); }, 50);' +
      		        '                    return false;"' +
-     		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-1"' +
+     		        '           class="btn-like bg-primary bg-opacity-75 text-white text-truncate rounded border px-1 me-1"' +
                              '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
                                   e_title + '</span>' +
      		        '<span id="example_reference_' + e_id + '" class="d-none">' +
@@ -135,8 +135,8 @@
                              '</span>' +
      		        '    <div class="btn-group btn-group-md">' +
                              '           <button type="button" ' +
-     		        '                   class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                             '              <span class="sr-only">Toggle Dropdown</span>' +
+     		        '                   class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                             '              <span class="visually-hidden">Toggle Dropdown</span>' +
                              '           </button>' +
                              '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
      		        '             <a onclick="simcore_record_append_pending();' +
@@ -197,7 +197,7 @@
                      }
                      u = u + '</div>' ;
 
-     	        o = o + "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top user_" + l + "'>" +
+     	        o = o + "<div class='col-sm-12 border-bottom border-secondary text-end text-capitalize fw-bold bg-white sticky-top user_" + l + "'>" +
      			ahw.toUpperCase() + ": " + m +
      			"</div>" + u ;
             }

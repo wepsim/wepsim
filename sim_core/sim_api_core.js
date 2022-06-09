@@ -508,6 +508,7 @@
                 var limitless = (options.cycles_limit < 0) ;
                 var cur_addr  = 0 ;
                 var mcelto    = null ;
+                var oolimits  = false ;
 
 		do
             	{
@@ -536,8 +537,12 @@
 		        ret.ok  = false ;
 			break ;
 	            }
+
+                    if ((i_clks >= options.cycles_limit) && (-1 != options.cycles_limit)) {
+                        oolimits = true ;
+                    }
             	}
-		while ( (i_clks < options.cycles_limit) && (0 != cur_addr) );
+		while ( (false == oolimits) && (0 != cur_addr) );
 
 		// no_error && native -> perform a second clock-tick...
 		if ( (true == ret.ok) && (mcelto.is_native) )
@@ -625,7 +630,7 @@
 
 		   // next instruction...
     	           ins_executed++ ;
-                   if (ins_executed > options.instruction_limit)
+                   if ( (ins_executed > options.instruction_limit) && (-1 != options.instruction_limit))
     	           {
     	               ret.ok  = false ;
     	               ret.msg = "more than " + options.instruction_limit + " instructions executed before application ends.";

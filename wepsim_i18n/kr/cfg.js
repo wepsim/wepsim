@@ -65,6 +65,8 @@
                       "Verbalization: textual or mathematical":      		     "언어학 : 텍스트 또는 수학",
                       "WepSIM User Interface views":      	     		     "WepSIM 사용자 인터페이스보기",
 		      "Privacy":						     "은둔",
+		      'On':							     'On',
+		      'Off':							     'Off',
 		      '_last_':							     '_last_'
 
                   } ;
