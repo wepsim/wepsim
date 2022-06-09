@@ -92,12 +92,12 @@
                              '       <a class="btn p-0 text-primary d-none d-md-block"' +
                              '          v-bind:id="author.a_id">{{ author.i_alt }}</a>' +
                              '  </div>' +
-			     '  <div class="card-footer p-1 collapse collapse7 show bg-white text-left">' +
+			     '  <div class="card-footer p-1 collapse collapse7 show bg-white text-start">' +
 			     '	  <div class="list-group list-group-flush">' +
 		             '<component v-for="social in author.socials" ' +
                              '           :is="social.href?\'a\':\'span\'" v-bind:href="social.href || \'\'" ' +
                              '           target="_blank" ' +
-                             '           class="card-link list-group-item p-1 ml-2">' +
+                             '           class="card-link list-group-item p-1 ms-2">' +
                              '<em v-bind:class="social.faclass"></em><span class="m-1">{{ social.name }}</span>' +
                              '</component>' +
                              '    </div>' +

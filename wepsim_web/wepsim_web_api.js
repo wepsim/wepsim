@@ -418,7 +418,7 @@
 	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
-					  $('[data-toggle=tooltip]').tooltip('hide');
+					  $('[data-bs-toggle=tooltip]').tooltip('hide');
                                         //$("#infohw1").attr('components', 'summary,elements,states,signals,behaviors');
 	                                  simcoreui_show_hw();
 					  var ws_idiom = get_cfg('ws_idiom');
@@ -448,7 +448,7 @@
     {
             if (simhw_active() !== null)
             {
-		$('[data-toggle=tooltip]').tooltip('hide') ;
+		$('[data-bs-toggle=tooltip]').tooltip('hide') ;
 		show_memories_values() ;
                 scroll_memory_to_lastaddress() ;
 		wepsim_reset_max_turbo() ;
@@ -793,7 +793,7 @@
     // quick slider(s)
     function wsweb_quickslider_show ( )
     {
-	    $('#popover-slidercfg').popover('show') ;
+            wepsim_popover_show('popover-slidercfg') ;
 
             // add if recording
             simcore_record_append_new('Open the "quick slider"',
@@ -805,7 +805,7 @@
 
     function wsweb_quickslider_close ( )
     {
-	    $('#popover-slidercfg').popover('hide') ;
+            wepsim_popover_hide('popover-slidercfg') ;
 
             // add if recording
             simcore_record_append_new('Close the "quick slider"',
@@ -817,7 +817,7 @@
 
     function wsweb_quickslider_toggle ( )
     {
-	    $('#popover-slidercfg').popover('toggle') ;
+            wepsim_popover_action('popover-slidercfg', 'toggle') ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick slider"',
@@ -830,7 +830,7 @@
     // quick cpucu
     function wsweb_quickcpuview_show ( )
     {
-	    $('#popover-cpuview').popover('show') ;
+            wepsim_popover_show('popover-cpuview') ;
 
             // add if recording
             simcore_record_append_new('Open the "quick cpuview"',
@@ -842,7 +842,7 @@
 
     function wsweb_quickcpuview_close ( )
     {
-	    $('#popover-cpuview').popover('hide') ;
+            wepsim_popover_hide('popover-cpuview') ;
 
             // add if recording
             simcore_record_append_new('Close the "quick cpuview"',
@@ -854,7 +854,7 @@
 
     function wsweb_quickcpuview_toggle ( )
     {
-	    $('#popover-cpuview').popover('toggle') ;
+            wepsim_popover_action('popover-cpuview', 'toggle') ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick cpuview"',
@@ -893,7 +893,7 @@
     // quick rfcfg
     function wsweb_quickrf_show ( )
     {
-	    $('#popover-rfcfg').popover('show') ;
+            wepsim_popover_show('popover-rfcfg') ;
 
             // add if recording
             simcore_record_append_new('Open the "quick rfcfg"',
@@ -905,7 +905,7 @@
 
     function wsweb_quickrf_close ( )
     {
-	    $('#popover-rfcfg').popover('hide') ;
+            wepsim_popover_hide('popover-rfcfg') ;
 
             // add if recording
             simcore_record_append_new('Close the "quick rfcfg"',
@@ -917,7 +917,7 @@
 
     function wsweb_quickrf_toggle ( )
     {
-	    $('#popover-rfcfg').popover('toggle') ;
+            wepsim_popover_action('popover-rfcfg', 'toggle') ;
 
             // add if recording
             simcore_record_append_new('Toggle the "quick rfcfg"',
@@ -1017,7 +1017,7 @@
 		             buttons:    {
 					    noclose: {
 					        label: "<div id='autoclose1'>&nbsp;</div>",
-					        className: 'float-left mr-auto m-0',
+					        className: 'float-start me-auto m-0',
 					        callback: function() {
 					   		     return false;
 						          }
@@ -1063,11 +1063,11 @@
 
             bbbt.cancel = {
 		    label: i18n_get('gui',wsi,'Close'),
-		    className: 'btn-danger col float-left mr-auto',
+		    className: 'btn-danger col float-start me-auto',
 	    };
             bbbt.end = {
 		    label: i18n_get('gui',wsi,'Save'),
-		    className: 'btn-success col float-right',
+		    className: 'btn-success col float-end',
 		    callback: function() {
                             /* eslint-disable no-control-regex */
 

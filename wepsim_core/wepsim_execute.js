@@ -483,7 +483,8 @@
         }
 
 	DBG_limit_instruction += turbo ;
-        if (DBG_limit_instruction > get_cfg('DBG_limitins'))
+        var dbg_limit_ins = get_cfg('DBG_limitins') ;
+        if ( (DBG_limit_instruction > dbg_limit_ins) && (dbg_limit_ins > 0) )
 	{
             wepsim_show_stopbyevent("Limit",
                                     "Number of executed instructions limit reached.<br>" +

@@ -35,9 +35,9 @@
 	    }
 
 	    // create the alert div
-            var btn1   = $('<button type="button" class="close" onclick="wepsim_notify_close(); return false;">') ;
+            var btn1   = $('<button type="button" class="btn-close border border-secondary float-end" onclick="wepsim_notify_close(); return false;">') ;
 	    var alert1 = $('<div class="alert alert-' + ntf_type + ' shadow border border-light">') ;
-	    ac.prepend(alert1.append(btn1.append("&times;")).append(ntf_message)) ;
+	    ac.prepend(alert1.append(btn1.append("")).append(ntf_message)) ;
 
 	    // if delay was passed, set up a timeout to close the alert
 	    if (ntf_delay != 0) {

@@ -1,6 +1,17 @@
 
 # Changelog
 
+## 2.1.7 -> 2.1.8:
+* Main improvements:
+  * Adapting WepSIM to Bootstrap 5.x
+  * Representation of processor as text table is now a little bit faster.
+* Minor bugs fixed and several refinements added.
+  * Unlimited instruction/clock cycles now works
+  * Bootstrap color picker replace the old spectrum color picker
+* Main external dependencies updated:
+  * Bump bootstrap   from 4.6.1  to 5.2.0
+  * Bump bootbox     from 5.5.2  to 5.5.3
+
 ## 2.1.6 -> 2.1.7:
 * New:
   * Processor represented also as text table.

@@ -135,7 +135,7 @@
 	    var img2 = 'examples/hardware/' + seg_hardw + '/images/cpu.svg?time=20210802' ;
 
 	    return '<button class="btn btn-secondary w-100" type="button"' +
-                   '        data-toggle="collapse"   data-target="#hw_img_collapse1"' +
+                   '        data-bs-toggle="collapse"   data-bs-target="#hw_img_collapse1"' +
                    '        aria-expanded="false"   aria-controls="hw_img_collapse1"' +
                    '><span data-langkey="Show/Hide processor as image">Show/Hide processor as image</span>...' +
                    '</button>' +
@@ -181,7 +181,7 @@
             {
     	        fmt_header = "" ;
     	        if (e_utype != helps[m].u_type) {
-    		    fmt_header = "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top'>" +
+    		    fmt_header = "<div class='float-none text-end text-capitalize fw-bold col-12 border-bottom border-secondary bg-white sticky-top'>" +
     			         helps[m].u_type +
     			         "</div>" ;
     		}
@@ -211,7 +211,7 @@
 
     		o = o + fmt_header +
     			'<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
-    			'    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
+    			'    <span class="badge rounded-pill text-bg-light">' + t_index + '</span>' +
     			'</div>' +
     			'<div class="col-sm-4 py-1 ' + toggle_cls + '">' +
     			'    <span class="btn-like bg-success text-white text-truncate rounded border px-1" ' +

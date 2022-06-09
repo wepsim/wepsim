@@ -1,8 +1,15 @@
 
+os: linux
+
+arch:
+  - arm64
+  - ppc64le
+  - s390x
+
 language: node_js
 
 node_js:
-  - "node"
+  - 17  
 
 before_install:
   - rm -fr node_modules

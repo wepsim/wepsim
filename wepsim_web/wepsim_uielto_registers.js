@@ -38,11 +38,11 @@
 	      render ( event_name )
 	      {
                     // html holder
-		    var o1 = "<div class='container text-right'>" +
+		    var o1 = "<div class='container text-end multi-collapse-3 collapse show'>" +
                              '<label class="my-0" for="popover-rfcfg" style="min-width:95%">' +
                              '<span data-langkey="quick config">quick config</span>: ' +
-		             "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " +
-			     "   tabindex='0' class='m-auto show multi-collapse-3'>" +
+		             "<a data-bs-toggle='popover-rfcfg' id='popover-rfcfg' " +
+			     "   tabindex='0' class='m-auto'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
                              "</a></label>" +
                              "</div>" +
@@ -58,13 +58,7 @@
                     this.innerHTML = o1 ;
 
                     // initialize loaded components
-		    wepsim_init_quickcfg("[data-toggle=popover-rfcfg]",
-			                 "click",
-			                 quick_config_rf,
-					 function(shownEvent) {
-					     i18n_update_tags('cfg') ;
-					     i18n_update_tags('dialogs') ;
-					 }) ;
+                    wepsim_quickcfg_init('popreg1') ;
 	      }
         }
 
@@ -120,13 +114,13 @@
 		    o2 = "<tr><td class='py-1 px-1 pt-2' colspan='5' align='center'>" +
                          "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " +
                          "       style='width:65%'>" +
-                         "<span class='badge badge-secondary shadow mx-2 py-2' " +
+                         "<span class='badge text-bg-secondary shadow ms-2 py-2' " +
                          "      onclick='hex2values_update(\"" + index + "\");'>" +
                          "<span data-langkey='update'>update</span></span>" +
                          "</td></tr>";
                 }
 
-		var TD_B   = "<td class='p-0 pl-1 align-middle'>" ;
+		var TD_B   = "<td class='p-0 ps-1 align-middle'>" ;
                 var TD_E   = "</td>" ;
                 var SG_B2  = "<strong class='rounded text-dark' " +
                              "        style='background-color:#CEECF5; font-family:monospace; font-size:105%'>" ;
@@ -326,11 +320,11 @@
 		 o1_rn = "R"  + index ;
 		 o1_rn = o1_rn.padEnd(3,' ') ;
 
-		 o1_rf += "<button type='button' class='btn px-1 py-0 ml-1 mt-1 mb-0 mr-0 col-auto' " +
+		 o1_rf += "<button type='button' class='btn px-1 py-0 ms-1 mt-1 mb-0 me-0 col-auto ' " +
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
-                          "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
+                          "        data-bs-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
+                          "<span id='name_RF" + index + "' class='p-0 font-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
 			  "<span class='w-100 d-block d-sm-none'></span>" +
                           "<span class='badge badge-secondary text-dark' style='background-color:#CEECF5; ' id='tbl_RF"  + index + "'>" +
                           "<span id='rf_" + index + "'>{{ computed_value }}</span></span>" +
@@ -340,14 +334,14 @@
             $("#states_BR").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1_rf + "</div>");
 
             // Pop-overs
-	    $("[data-toggle=popover-up]").popover({
+            var popover_cfg = {
 	    	    html:      true,
                     placement: 'auto',
                     animation: false,
                     trigger:   'click',
 		    template:  '<div class="popover shadow" role="tooltip">' +
                                '<div class="arrow"></div>' +
-		               '<h3  class="popover-header"></h3>' +
+		               '<h3  class="popover-header d-flex"></h3>' +
 		               '<div class="popover-body"></div>' +
 		               '</div>',
 		    container: 'body',
@@ -364,14 +358,16 @@
                         var SIMWARE   = get_simware() ;
 		        var rname = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, index, 0) ;
 
-		        return '<span class="text-dark text-monospace"><strong>' + rname + '</strong></span>' +
-                               '<button type="button" id="close" class="close" ' +
-                               '        onclick="$(' + id_button + ').click();">&times;</button>';
+		        return '<span class="text-dark font-monospace col"><strong>' + rname + '</strong></span>' +
+                               '<button type="button" id="close" ' +
+                               '        class="btn-close border border-secondary ms-auto" ' +
+                               '        onclick="$(' + id_button + ').click();"></button>';
 		    },
 		    sanitizeFn: function (content) {
                         return content ; // DOMPurify.sanitize(content) ;
                     }
-	    }) ;
+	    } ;
+            wepsim_popovers_init("[data-bs-toggle=popover-up]", popover_cfg, null) ;
 
 	    // vue binding
 	    var f_computed_value = function(value) {
@@ -417,16 +413,16 @@
                     part2 = showkey.substring(3, showkey.length) ;
 
 		    if (showkey.length < 3)
-                         showkey = '<span class="text-monospace">' + part1 + '&nbsp;</span>' ;
-		    else showkey = '<span class="text-monospace">' + part1 + '</span>' ;
+                         showkey = '<span class="font-monospace">' + part1 + '&nbsp;</span>' ;
+		    else showkey = '<span class="font-monospace">' + part1 + '</span>' ;
 
 		    if (part2.length > 0)
-                        showkey += '<span class="d-none d-sm-inline-flex text-monospace">' + part2 + '</span>' ;
+                        showkey += '<span class="d-none d-sm-inline-flex font-monospace">' + part2 + '</span>' ;
 	        }
 
-                o1 += "<button type='button' class='btn py-0 px-1 mt-1 ml-1 " + divclass + "' " +
+                o1 += "<button type='button' class='btn py-0 px-1 mt-1 ms-1 " + divclass + "' " +
 		      "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
-                      "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
+                      "        data-bs-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
                       " <span class='badge badge-secondary text-dark' style='background-color:#CEECF5;' id='tbl_"  + s + "'>" +
@@ -438,10 +434,15 @@
             $("#states_ALL").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1 + "</div>");
 
             // Pop-overs
-	    $("[data-toggle=popover-bottom]").popover({
+	    var popover_cfg = {
 	    	    html:      true,
                     placement: 'bottom',
                     animation: false,
+		    template:  '<div class="popover shadow" role="tooltip">' +
+                               '<div class="arrow"></div>' +
+		               '<h3  class="popover-header d-flex"></h3>' +
+		               '<div class="popover-body"></div>' +
+		               '</div>',
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(simhw_sim_states()[index]);
@@ -450,14 +451,18 @@
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rp" + index + "&quot;" ;
-		        return '<span class="text-dark"><strong>' + simhw_sim_states()[index].name + '</strong></span>' +
-                               '<button type="button" id="close" class="close" ' +
-                               '        onclick="$(' + id_button + ').click();">&times;</button>';
+		        return '<span class="text-dark col"><strong>' +
+                               simhw_sim_states()[index].name +
+                               '</strong></span>' +
+                               '<button type="button" id="close" ' +
+                               '        class="btn-close border border-secondary ms-auto" ' +
+                               '        onclick="$(' + id_button + ').click();"></button>';
 		    },
 		    sanitizeFn: function (content) {
                         return content ; // DOMPurify.sanitize(content) ;
                     }
-	    });
+	    } ;
+            wepsim_popovers_init("[data-bs-toggle=popover-bottom]", popover_cfg, null) ;
 
 	    // vue binding
 	    var f_computed_value = function(value) {

@@ -66,9 +66,9 @@
 			  "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 			  " <h5 class='m-0'>" +
 			  " <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
-			  " <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
+			  " <button class='btn btn-light mx-1 float-end py-0 col-auto' " +
                           "         onclick='" + this.jsave + "'><span data-langkey='Save'>Save</span></button>" +
-			  " <button class='btn btn-light mx-1 float-right py-0 col-auto' " +
+			  " <button class='btn btn-light mx-1 float-end py-0 col-auto' " +
                           "         onclick='" + this.jshare + "'><span data-langkey='Share'>Share</span></button>" +
 			  " </h5>" +
 			  "</div>" +

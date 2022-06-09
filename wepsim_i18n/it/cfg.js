@@ -65,6 +65,8 @@
 		'Verbalization: textual or mathematical':			'Verbalizzazione: testuale o matematica',
 		'WepSIM User Interface views':					'Viste dell\'interfaccia utente di WepSIM',
 		'Privacy':							'Privacy',
+		'On':								'On',
+		'Off':								'Off',
 		'_last_':							'_last_'
 
     };

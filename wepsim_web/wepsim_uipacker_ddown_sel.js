@@ -52,7 +52,7 @@
                    var o1  = '' ;
 
                    o1 += '<button type="button" class="col-12 btn btn-light shadow-sm"' +
-                         '	  data-toggle="tooltip" data-placement="bottom" data-html="true"' +
+                         '	  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
                          '	  title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."' +
                          '	  style="border-color: #BBBBBB;"' +
                          '	  id="select5b"' +
@@ -61,8 +61,8 @@
                          '<button id="dd2" type="button" ' +
                          '        class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
                          '	  style="border-color: #BBBBBB;"' +
-                         '	  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                         '<span class="sr-only">Toggle Dropdown</span>' +
+                         '	  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                         '<span class="visually-hidden">Toggle Dropdown</span>' +
                          '</button>' +
                          '<div class="dropdown-menu border border-secondary" ' +
                          '     id="dd2_container" ' +

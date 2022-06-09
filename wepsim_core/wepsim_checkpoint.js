@@ -121,7 +121,7 @@
 		   o +
 		   '</ul>' +
 		   'To close this notification please press in the ' +
-		   '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' ;
+		   '<span class="btn btn-sm btn-info py-0" data-bs-dismiss="alert">X</span> mark. <br>' ;
 	   }
 
 	   if (checkpointObj.notify === true) {
@@ -414,11 +414,11 @@
 	    }
 
 	    // build backup list
-            o = '<div class="btn-group btn-group-toggle list-group m-1" data-toggle="buttons">' ;
+            o = '<div class="btn-group btn-group-toggle list-group m-1" data-bs-toggle="buttons">' ;
 	    obj_wsbackup = obj_wsbackup.reverse() ;
 	    for (i=0; i<obj_wsbackup.length; i++)
 	    {
-		 o += '<label class="list-group-item btn btn-white border-dark text-truncate rounded-sm">' +
+		 o += '<label class="list-group-item btn btn-white border-dark text-truncate rounded-1">' +
 		      '   <input type="radio" name="browserCacheElto" id="' + i + '" autocomplete="off">' + obj_wsbackup[i].tag +
 		      '</label>' ;
 	    }

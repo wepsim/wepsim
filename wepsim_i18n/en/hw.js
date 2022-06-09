@@ -208,6 +208,10 @@
 	"EP:L3D:STATES:DATA":                       "Data bus",
 	"EP:L3D:SIGNALS:IOR":                       "Read from L3D",
 	"EP:L3D:SIGNALS:IOW":                       "Write into the L3D",
+	"EP:LEDM:STATES:ADDR":                      "Address bus",
+	"EP:LEDM:STATES:DATA":                      "Data bus",
+	"EP:LEDM:SIGNALS:IOR":                      "Read from LEDM",
+	"EP:LEDM:SIGNALS:IOW":                      "Write into the LEDM",
 
 	"POC:CPU_T1:STATES:IN":                     "Input is the value of MBR register",
 	"POC:CPU_T1:STATES:OUT":                    "Output goes to the Internal Bus",

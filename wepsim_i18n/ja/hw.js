@@ -221,6 +221,10 @@
 	"EP:L3D:STATES:DATA":	"データバス",
 	"EP:L3D:SIGNALS:IOR":	"L3Dから読み取る",
 	"EP:L3D:SIGNALS:IOW":	"L3Dに書き込む",
+	"EP:LEDM:STATES:ADDR":	"アドレスバス",
+	"EP:LEDM:STATES:DATA":	"データバス",
+	"EP:LEDM:SIGNALS:IOR":	"LEDMから読み取る",
+	"EP:LEDM:SIGNALS:IOW":	"LEDMに書き込む",
 
 	"POC:CPU_T1:STATES:IN":	"入力はMBRレジスタの値です",
 	"POC:CPU_T1:STATES:OUT":	"出力は内部バスに送られます",
