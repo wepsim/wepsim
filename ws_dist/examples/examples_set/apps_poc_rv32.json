@@ -132,6 +132,17 @@
     "testing":          true
   },
   {
+    "id": 		"S6E1",
+    "title": 		"Dummy instruction",
+    "type": 		"<span data-langkey='Special'>Special</span>",
+    "modes": 		"newbie,intro,poc",
+    "hardware": 	"poc",
+    "microcode": 	"poc_rv32_min",
+    "assembly": 	"ep_s6_e1",
+    "description": 	"<span data-langkey='example_06_01'>Test example.</span>",
+    "testing": 		true
+  },
+  {
     "id":		"S6E3",
     "title":		"3D-Led",
     "type":		"<span data-langkey='Special'>Special</span>",

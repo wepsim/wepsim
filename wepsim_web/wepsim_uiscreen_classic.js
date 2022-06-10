@@ -227,6 +227,7 @@
 			 '' +
                          '<div id="offcvs1" class="offcanvas offcanvas-end"' +
                          '     data-bs-scroll="true" data-bs-backdrop="false"' +
+			 '     style="min-width:35vw;" ' +
                          '     tabindex="-1" aria-labelledby="offcvs1Label">' +
                          '     <div class="offcanvas-header bg-light border">' +
                          '       <h5 class="offcanvas-title" id="offcvs1Label">Assembly summary</h5>' +
@@ -320,6 +321,7 @@
 			 '' +
                          '<div class="offcanvas offcanvas-end"' +
                          '     data-bs-scroll="true" data-bs-backdrop="false"' +
+			 '     style="min-width:35vw;" ' +
                          '     tabindex="-1" id="offcvs2" aria-labelledby="offcvs2Label">' +
                          '     <div class="offcanvas-header bg-light border">' +
                          '       <h5 class="offcanvas-title" id="offcvs2Label">Hardware summary</h5>' +

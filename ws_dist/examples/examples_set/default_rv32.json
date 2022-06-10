@@ -144,6 +144,17 @@
   },
   {
     "id": "R5E1",
+    "title": "Dummy instruction",
+    "type": "<span data-langkey='Special'>Special</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_min",
+    "assembly": "ep_s6_e1",
+    "description": "<span data-langkey='example_06_01'>Test example.</span>",
+    "testing": true
+  },
+  {
+    "id": "R5E2",
     "title": "3D-Led",
     "type": "<span data-langkey='Special'>Special</span>",
     "modes": "newbie,intro,ep",
@@ -154,7 +165,7 @@
     "testing": true
   },
   {
-    "id": "R5E2",
+    "id": "R5E3",
     "title": "Led Matrix",
     "type": "<span data-langkey='Special'>Special</span>",
     "modes": "newbie,intro,ep",
@@ -162,6 +173,39 @@
     "microcode": "ep_rv32_bare",
     "assembly": "ep_r5_e2",
     "description": "<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
+    "testing": true
+  },
+  {
+    "id": "R7E1",
+    "title": "MIPS32-like",
+    "type": "<span data-langkey='Native'>Native</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_mips",
+    "assembly": "ep_s4_e2",
+    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "testing": true
+  },
+  {
+    "id": "R7E2",
+    "title": "RISCV32",
+    "type": "<span data-langkey='Native'>Native</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "ep_s7_e2",
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": true
+  },
+  {
+    "id": "R7E3",
+    "title": "Z80-like",
+    "type": "<span data-langkey='Native'>Native</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_z80",
+    "assembly": "ep_s7_e3",
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
     "testing": true
   },
   {
@@ -459,6 +503,17 @@
     "microcode": "poc_rv32_base",
     "assembly": "ep_r4_e1",
     "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing": true
+  },
+  {
+    "id": "S6E1",
+    "title": "Dummy instruction",
+    "type": "<span data-langkey='Special'>Special</span>",
+    "modes": "newbie,intro,poc",
+    "hardware": "poc",
+    "microcode": "poc_rv32_min",
+    "assembly": "ep_s6_e1",
+    "description": "<span data-langkey='example_06_01'>Test example.</span>",
     "testing": true
   },
   {

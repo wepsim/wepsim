@@ -97,18 +97,20 @@
 
 	function simhwelto_describe_component_enum_aux ( elto_path, array_eltos, hash_eltos, enum_name, str_enditem )
 	{
-	   var o = "" ;
+           var o = '', k = '', v = '';
 
            // enumerate...
 	   for (var i=0; i<array_eltos.length; i++)
            {
                 // get translation for associated description...
-                var k = elto_path + array_eltos[i] ;
-                var v = i18n_get_TagFor('hw', k.toUpperCase()) ;
-                    v = '<span data-langkey=\'' + k.toUpperCase() + '\'>' + v + '</span>' ;
+                k = elto_path + array_eltos[i] ;
+                v = i18n_get_TagFor('hw', k.toUpperCase()) ;
+                v = '<span data-langkey=\'' + k.toUpperCase() + '\'>' + v + '</span>' ;
 
                 // build help entry...
-		o += '(' + (i+1) + ') ' + v ;
+                if ("Signals" != enum_name)
+	             o += '(' + (i+1) + ') ' + v ;
+                else o += '(' + (i+1) + ') ' + hash_eltos[array_eltos[i]].ref + ': ' + v ;
 
                 // add ',' in all entries but the last one...
                 if (i != array_eltos.length - 1) {
