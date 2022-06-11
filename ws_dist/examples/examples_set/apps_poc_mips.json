@@ -6,7 +6,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_base",
-    "assembly":		"poc_s1_e1",
+    "assembly":		"mips_ep_s1e1",
     "description":	"<span data-langkey='example_01_01'>Simple example.</span>",
     "testing":          true
   },
@@ -17,7 +17,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_base",
-    "assembly":		"ep_s1_e2",
+    "assembly":		"mips_ep_s1e2",
     "description":	"<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
     "testing":          true
   },
@@ -28,7 +28,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_base",
-    "assembly":		"ep_s1_e3",
+    "assembly":		"mips_ep_s1e3",
     "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
     "testing":          true
   },
@@ -39,7 +39,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_base",
-    "assembly":		"ep_s1_e4",
+    "assembly":		"mips_ep_s1e4",
     "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
     "testing":          true
   },
@@ -50,7 +50,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_base",
-    "assembly":		"ep_s2_e1",
+    "assembly":		"mips_ep_s2e1",
     "description":	"<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
     "testing":          false
   },
@@ -61,7 +61,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_base",
-    "assembly":		"ep_s2_e2",
+    "assembly":		"mips_ep_s2e2",
     "description":	"<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
     "testing":          true
   },
@@ -72,7 +72,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_base",
-    "assembly":		"ep_s2_e3",
+    "assembly":		"mips_ep_s2e3",
     "description":	"<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
     "testing":          true
   },
@@ -83,7 +83,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_base",
-    "assembly":		"ep_s2_e4",
+    "assembly":		"mips_ep_s2e4",
     "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
     "testing":          true
   },
@@ -94,7 +94,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
-    "assembly":		"ep_s3_e1",
+    "assembly":		"mips_ep_s3e1",
     "description":	"<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
     "testing":          true
   },
@@ -105,7 +105,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
-    "assembly":		"ep_s3_e2",
+    "assembly":		"mips_ep_s3e2",
     "description":	"<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>",
     "testing":          true
   },
@@ -116,7 +116,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
-    "assembly":		"ep_s3_e3",
+    "assembly":		"mips_ep_s3e3",
     "description":	"<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>",
     "testing":          true
   },
@@ -127,7 +127,7 @@
     "modes":            "newbie,intro,poc",
     "hardware":         "poc",
     "microcode":        "poc_mips_os",
-    "assembly":         "ep_s3_e4",
+    "assembly":         "mips_ep_s3e4",
     "description":      "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
     "testing":          true
   },
@@ -138,7 +138,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
-    "assembly":		"ep_s4_e1",
+    "assembly":		"mips_ep_s4e1",
     "description":	"<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
     "testing":          true
   },
@@ -149,7 +149,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
-    "assembly":		"ep_s4_e2",
+    "assembly":		"mips_ep_s4e2",
     "description":	"<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
     "testing":          true
   },
@@ -160,7 +160,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
-    "assembly":		"ep_s4_e3",
+    "assembly":		"mips_ep_s4e3",
     "description":	"<span data-langkey='example_04_03'>Example of threads.</span>",
     "testing":          true
   },
@@ -171,7 +171,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
-    "assembly":		"ep_s4_e4",
+    "assembly":		"mips_ep_s4e4",
     "description":	"<span data-langkey='example_04_04'>Example of malloc + free.</span>",
     "testing":          true
   },
@@ -182,7 +182,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_bare",
-    "assembly":		"poc_s5_e1",
+    "assembly":		"mips_ep_s6e1",
     "description":	"<span data-langkey='example_06_01'>Test example.</span>",
     "testing":          true
   },
@@ -193,7 +193,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
-    "assembly":		"ep_s6_e3",
+    "assembly":		"mips_ep_s6e3",
     "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
     "testing":          true
   },
@@ -204,7 +204,7 @@
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
-    "assembly":		"ep_s6_e5",
+    "assembly":		"mips_ep_s6e5",
     "description":	"<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
     "testing":          true
   }

@@ -1,6 +1,9 @@
 
 # Changelog
 
+## 2.1.8 -> 2.1.9:
+* Examples reorganized
+
 ## 2.1.7 -> 2.1.8:
 * Main improvements:
   * Adapting WepSIM to Bootstrap 5.x
