@@ -149,7 +149,7 @@
     "modes": 		"newbie,intro,ep",
     "hardware": 	"ep",
     "microcode": 	"ep_rv32_min",
-    "assembly": 	"mips_ep_s6e1",
+    "assembly": 	"mips_s6e1",
     "description": 	"<span data-langkey='example_06_01'>Test example.</span>",
     "testing": 		true
   },
@@ -193,7 +193,7 @@
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
     "microcode":	"ep_mips",
-    "assembly":		"mips_ep_s4e2",
+    "assembly":		"mips_s4e2",
     "description":	"<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
     "testing":          true
   },

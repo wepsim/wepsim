@@ -196,7 +196,7 @@
 		     },
             body:    function() {
 		        return "<div id='scroller-bin2a' class='container-fluid p-1' " +
-           		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+           		       "     style='max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
 	           	       "<ws-bin_asm></ws-bin_asm>" +
 		               "</div>" ;
 		     },
@@ -243,7 +243,7 @@
 		     },
             body:    function() {
 		        return "<div id='scroller-bin2b' class='container-fluid p-1' " +
-           		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+           		       "     style='max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
 	           	       "<ws-bin_mc></ws-bin_mc>" +
 		               "</div>" ;
 		     },
@@ -368,7 +368,7 @@
 		      },
             body:    function() {
                         return "<div id='scroller-example1' class='container-fluid p-0' " +
-                               "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "     style='overflow:auto; -webkit-overflow-scrolling:touch;'>" +
                                "<ws-examples></ws-examples>" +
                                "</div>" ;
 		     },
@@ -408,7 +408,7 @@
 		      },
             body:    function() {
                         return "<div id='scroller-config2' class='container-fluid p-0' " +
-                               "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "     style='overflow:auto; -webkit-overflow-scrolling:touch;'>" +
 			       "<ws-config></ws-config>" +
                                "</div>" ;
 		     },

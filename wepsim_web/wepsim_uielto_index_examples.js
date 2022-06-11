@@ -116,29 +116,29 @@
                     toggle_cls = fmt_toggle + ' user_' + e_level ;
 
      	            u = '<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
-                             '    <span class="badge rounded-pill text-bg-light">' + t_index + '</span>' +
-                             '</div>' +
-                             '<div class="col-sm-4    py-1 ' + toggle_cls + '">' +
-                             '     <span style="cursor:pointer;" ' +
-     		        '           id="example_' + m + '" ' +
+                        '    <span class="badge rounded-pill text-bg-light">' + t_index + '</span>' +
+                        '</div>' +
+                        '<div class="col-sm-4 py-1 ' + toggle_cls + '">' +
+     		        '     <span id="example_reference_' + e_id + '" class="d-none">' +
+                              base_url + '?mode=' + mode +
+     			 	         '&examples_set=' + ws_info.example_set[ws_info.example_active].name +
+     				         '&example=' + m +
+                        '     </span>' +
+                        '     <button id="example_' + m + '" ' +
+     		        '           class="btn btn-md bg-primary bg-opacity-75 text-white text-truncate border p-0 me-1 w-75"' +
      		        '           onclick="simcore_record_append_pending();' +
      		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
      		        '                    setTimeout(function() { wsweb_dialog_close(\'examples\'); }, 50);' +
      		        '                    return false;"' +
-     		        '           class="btn-like bg-primary bg-opacity-75 text-white text-truncate rounded border px-1 me-1"' +
-                             '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
-                                  e_title + '</span>' +
-     		        '<span id="example_reference_' + e_id + '" class="d-none">' +
-                                  base_url + '?mode=' + mode +
-     				        '&examples_set=' + ws_info.example_set[ws_info.example_active].name +
-     				        '&example=' + m +
-                             '</span>' +
-     		        '    <div class="btn-group btn-group-md">' +
-                             '           <button type="button" ' +
-     		        '                   class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                             '              <span class="visually-hidden">Toggle Dropdown</span>' +
-                             '           </button>' +
-                             '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
+                        '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
+                                    e_title +
+                        '     </button>' +
+                        '     <button type="button" ' +
+     		        '             class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split"' +
+                        '             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                        '        <span class="visually-hidden">Toggle Dropdown</span>' +
+                        '     </button>' +
+                        '     <div class="dropdown-menu bg-info" style="z-index:1024;">' +
      		        '             <a onclick="simcore_record_append_pending();' +
      		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
      		        '                         wsweb_dialog_close(\'examples\'); ' +
@@ -161,15 +161,14 @@
                              '                         return false;"' +
      		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
      	                '             <a onclick="wsweb_dialog_close(\'examples\'); ' +
-                             '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
-                             '                         return false;"' +
+                        '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
+                        '                         return false;"' +
      		        '                class="dropdown-item text-white bg-info user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
-     	                '           </div>' +
-     		        '    </div>' +
-                             '</div>' +
-                             '<div class="col-sm py-1 collapse7 show ' + toggle_cls + '">' +
-                             '    <c>' + e_description + '</c>' +
-                             '</div>' +
+     	                '     </div>' +
+                        '</div>' +
+                        '<div class="col-sm py-1 collapse7 show ' + toggle_cls + '">' +
+                        '    <c>' + e_description + '</c>' +
+                        '</div>' +
      	                '<div class="w-100 ' + w100_toggle + ' ' + toggle_cls + '"></div>' ;
 
      	       if (typeof examples_groupby_type[e_type] === "undefined") {
@@ -189,15 +188,15 @@
      	        l = examples_groupby_type[m][0].level ;
                      for (var n=0; n<examples_groupby_type[m].length; n++)
                      {
-     		     u = u + examples_groupby_type[m][n].row ;
+     		          u = u + examples_groupby_type[m][n].row ;
 
-     		     if (l !== examples_groupby_type[m][n].level) {
-     			 l = '' ;
+     		          if (l !== examples_groupby_type[m][n].level) {
+     			      l = '' ;
                           }
                      }
                      u = u + '</div>' ;
 
-     	        o = o + "<div class='col-sm-12 border-bottom border-secondary text-end text-capitalize fw-bold bg-white sticky-top user_" + l + "'>" +
+     	             o = o + "<div class='col-sm-12 border-bottom border-secondary text-end text-capitalize fw-bold bg-white sticky-top user_" + l + "'>" +
      			ahw.toUpperCase() + ": " + m +
      			"</div>" + u ;
             }

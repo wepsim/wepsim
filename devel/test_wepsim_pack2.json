@@ -20,7 +20,7 @@
    {
       "pack":        "checkpoint",
       "description": "check ok",
-      "test":        "./ws_dist/wepsim.sh -a  check                 --checkpoint ./examples/checkpoint/tutorial_1.txt -r ./examples/checklist/cl-mips_ep_s1e1.txt",
+      "test":        "./ws_dist/wepsim.sh -a  check                 --checkpoint ./examples/checkpoint/tutorial_1.txt -r ./examples/checklist/cl-mips_s1e1.txt",
       "more":        "See WepSIM"
    },
    {
