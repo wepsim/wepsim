@@ -353,9 +353,9 @@
                      '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
                      simcoreui_pack(valkeys[3], 5).toUpperCase() +
                 "</div>" +
-	        "<div class='col-5 col-md-6 px-3'  align='left'>" + value2 + "</div>" +
-	        "<div class='col-7 col-md-6 w-100 mp_tooltip collapse hide' align='left'>&nbsp;</div>" +
-	        "<div class='col-5 col-md-6 px-3  mp_tooltip collapse hide' align='left'>" + src_html + "</div>"+
+	        "<div class='col-5 col-md-6 px-3                          ms-auto'>" + value2 + "</div>" +
+	        "<div class='col-7 col-md-6      mp_tooltip collapse hide ms-auto'>&nbsp;</div>" +
+	        "<div class='col-5 col-md-6 px-3 mp_tooltip collapse hide ms-auto mb-2'>" + src_html + "</div>"+
                 "</div>";
 
 	    return o ;
@@ -363,17 +363,17 @@
 
         function scroll_memory_to_segment ( seg_id )
         {
-            return element_scroll_setRelative('#lst_ins1', '#'+seg_id, -150) ;
+            return element_scroll_setRelative('#lst_ins1', '#'+seg_id, -250) ;
         }
 
         function scroll_memory_to_address ( addr )
         {
-            return element_scroll_setRelative('#lst_ins1', '#addr'+addr, -150) ;
+            return element_scroll_setRelative('#lst_ins1', '#addr'+addr, -250) ;
         }
 
         function scroll_memory_to_lastaddress ( )
         {
-            return element_scroll_setRelative('#lst_ins1', '#addr'+old_main_addr, -150) ;
+            return element_scroll_setRelative('#lst_ins1', '#addr'+old_main_addr, -250) ;
         }
 
         function update_badges ( )

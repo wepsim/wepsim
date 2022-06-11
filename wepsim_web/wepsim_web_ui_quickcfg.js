@@ -240,18 +240,26 @@
             quick_id:     '[data-bs-toggle=popover-cpuview]',
 	    val_trigger:  'click',
 	    fun_content:  function(shownEvent) {
-			    var o = "<div class='container mt-1'>" +
+			    var o = "<div class='container mt-1 p-1'>" +
 				    "<div class='row'>" +
+				    '<ul class="list-group list-group-flush px-0">' +
+				    '<li class="list-group-item px-2 pt-0 pb-3"> ' +
 				       // <display format>
 				       quickcfg_html_header('Display format') +
-				       quickcfg_html_btn("(*) Graph",
-							 "wsweb_cpuview_as_graph();",
-							 "col-6") +
-				       quickcfg_html_btn("Text",
-							 "wsweb_cpuview_as_text();",
-							 "col-6") +
+				       quickcfg_html_onoff('QD',
+							   'display format',
+							   ""     + i18n_get_TagFor('cfg', 'Text'),
+					       "wepsim_config_button_toggle(\'CPUCU_show_graph\',false,\'QD\');" +
+					       "wsweb_cpuview_as_text();" +
+					       "return false;",
+							   "(*) " + i18n_get_TagFor('cfg', 'Graph'),
+					       "wepsim_config_button_toggle(\'CPUCU_show_graph\',true,\'QD\');" +
+					       "wsweb_cpuview_as_graph();" +
+					       "return false;"
+						          ) +
+				    '</li> ' +
 				       // <sliders>
-				       quickcfg_html_br() +
+				    '<li class="list-group-item px-2 pt-0 pb-3"> ' +
 				       quickcfg_html_header('Graph: split view') +
 				       '<ws-slider-cpucu   name="slider4b" class="col-12"></ws-slider-cpucu>' +
 				    // '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
@@ -266,25 +274,28 @@
 							   "(*) " + i18n_get_TagFor('cfg', 'On'),
 							   "wepsim_config_button_toggle(\'is_interactive\',true,\'QI\');" +
 							   "return false;") +
+				    '</li> ' +
 				       // <filter>
+				    '<li class="list-group-item px-2 pt-0 pb-3"> ' +
 				       quickcfg_html_br() +
 				       quickcfg_html_header('Text: show states+signals') +
 
 				       wepsim_config_button_html_2options('Q2', 'Text shows inactive elements',
-									  "(*) All",
-									  "true",
-								      "var ov = ws_signals_show_inactive;" +
-								      "ws_signals_show_inactive=true; $(\'.s-ina\').show();" +
-								      "ws_states_show_inactive =true; $(\'.t-ina\').show();" +
-								      "$('#labelQ2-' + ov).button('toggle');" +
-								      "$('#labelQ2-true').button('toggle');",
 									  "Only active",
 									  "false",
 								      "var ov = ws_signals_show_inactive;" +
 								      "ws_signals_show_inactive=false; $(\'.s-ina\').hide();" +
 								      "ws_states_show_inactive =false; $(\'.t-ina\').hide();" +
 								      "$('#labelQ2-' + ov).button('toggle');" +
-								      "$('#labelQ2-false').button('toggle');") +
+								      "$('#labelQ2-false').button('toggle');",
+									  "(*) All",
+									  "true",
+								      "var ov = ws_signals_show_inactive;" +
+								      "ws_signals_show_inactive=true; $(\'.s-ina\').show();" +
+								      "ws_states_show_inactive =true; $(\'.t-ina\').show();" +
+								      "$('#labelQ2-' + ov).button('toggle');" +
+								      "$('#labelQ2-true').button('toggle');"
+                                                                          ) +
 
 				       // <advanced>
 				    // quickcfg_html_br() +
@@ -296,9 +307,11 @@
 				    // quickcfg_html_btn("(*) Off",
 				    //                   "$(\"#infohw1\").attr(\"components\", \"elements\");",
 				    //                   "col-6") +
+				    '</li> ' +
 				       // </advanced>
 				       quickcfg_html_br() +
 				       quickcfg_html_close('popover-cpuview') +
+				    '</ul>' +
 				    "</div>" +
 				    "</div>" ;
 
@@ -307,6 +320,7 @@
 	    fun_ownshown: function(shownEvent) {
 			      $("#slider4b").val(get_cfg('CPUCU_size')) ;
 			      wepsim_config_button_pretoggle('is_interactive', 'QI') ;
+			      wepsim_config_button_pretoggle('CPUCU_show_graph', 'QD') ;
 			      wepsim_config_button_pretoggle_val('', 'Q2', ws_signals_show_inactive) ;
                           }
          }

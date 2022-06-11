@@ -221,8 +221,12 @@
          update_cfg(config_name, val_new) ;
 
          var label_prefix = '#label' + set_id + '-' ;
-	 $(label_prefix + val_old).button('toggle');
-	 $(label_prefix + val_new).button('toggle');
+         if ($(label_prefix + val_old).hasClass("active") == true) {
+	     $(label_prefix + val_old).button('toggle');
+         }
+         if ($(label_prefix + val_new).hasClass("active") == false) {
+	     $(label_prefix + val_new).button('toggle');
+         }
     }
 
     function wepsim_config_button_toggle2 ( config_name, val_old, val_new, set_id )
