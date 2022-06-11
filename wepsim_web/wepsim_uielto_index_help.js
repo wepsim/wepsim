@@ -181,7 +181,7 @@
             {
     	        fmt_header = "" ;
     	        if (e_utype != helps[m].u_type) {
-    		    fmt_header = "<div class='float-none text-end text-capitalize fw-bold col-12 border-bottom border-secondary bg-white sticky-top'>" +
+    		    fmt_header = "<div class='float-none text-end text-capitalize fw-bold col-12 border-bottom border-secondary bg-white sticky-top mb-2'>" +
     			         helps[m].u_type +
     			         "</div>" ;
     		}
@@ -213,13 +213,13 @@
     			'<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
     			'    <span class="badge rounded-pill text-bg-light">' + t_index + '</span>' +
     			'</div>' +
-    			'<div class="col-sm-4 py-1 ' + toggle_cls + '">' +
-    			'    <span class="btn-like bg-success text-white text-truncate rounded border px-1" ' +
+    			'<div class="col-sm-4 py-1 d-grid gap-2 ' + toggle_cls + '">' +
+    			'    <button class="btn btn-sm bg-success text-white text-truncate text-wrap border px-1" ' +
                         '          style="cursor:pointer;" ' +
     			'          id="help_index_' + m + '" ' +
                         '          data-langkey="' + e_title + '" ' +
     		        '          onclick="' + onclick_code + 'return false;">' +
-                             e_title + '</span>' +
+                             e_title + '</button>' +
     			'</div>' +
     			'<div class="col-sm collapse7 show py-1 ' + toggle_cls + '">' +
     			'    <c>' + e_description + '</c>' +
