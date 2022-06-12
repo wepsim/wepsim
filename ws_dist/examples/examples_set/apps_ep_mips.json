@@ -237,7 +237,7 @@
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
     "microcode":	"ep_rv32_bare",
-    "assembly":		"rv32_ep_s7e2",
+    "assembly":		"rv32_s7e2",
     "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
     "testing":          true
   },
@@ -248,7 +248,7 @@
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
     "microcode":	"ep_z80",
-    "assembly":		"z80_ep_s7e3",
+    "assembly":		"z80_s7e3",
     "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
     "testing":          true
   }

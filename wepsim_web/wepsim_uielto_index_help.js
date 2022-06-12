@@ -214,7 +214,7 @@
     			'    <span class="badge rounded-pill text-bg-light">' + t_index + '</span>' +
     			'</div>' +
     			'<div class="col-sm-4 py-1 d-grid gap-2 ' + toggle_cls + '">' +
-    			'    <button class="btn btn-sm bg-success text-white text-truncate text-wrap border px-1" ' +
+    			'    <button class="btn btn-md bg-success text-white text-truncate text-wrap border p-0 w-75" ' +
                         '          style="cursor:pointer;" ' +
     			'          id="help_index_' + m + '" ' +
                         '          data-langkey="' + e_title + '" ' +
