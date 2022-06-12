@@ -70,7 +70,7 @@
 	      render_populate ( )
 	      {
                  var o1 = '<div id="carousel-8" class="carousel" ' +
-                          '     data-bs-interval="false" data-bs-touch="false" data-bs-animation="">' +
+                          '     data-bs-interval="0" data-bs-touch="false" data-bs-animation="">' +
 		          '  <div class="carousel-inner">' +
 		          '	  <div class="carousel-item active p-1" id="ws_simulator">' +
 			  '' +

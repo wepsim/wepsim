@@ -143,27 +143,27 @@
      		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
      		        '                         wsweb_dialog_close(\'examples\'); ' +
      		        '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load example">Load example</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load example">Load example</span></c></a>' +
      		        '             <a onclick="simcore_record_append_pending();' +
      		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\', false);' +
      		        '                         wsweb_dialog_close(\'examples\'); ' +
      		        '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
      		        '             <a onclick="simcore_record_append_pending();' +
      		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', false);' +
      		        '                         wsweb_dialog_close(\'examples\'); ' +
      		        '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
      		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
      		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
      		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
      		        '                         wsweb_dialog_close(\'examples\'); ' +
                              '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
      	                '             <a onclick="wsweb_dialog_close(\'examples\'); ' +
                         '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
                         '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1 user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
      	                '     </div>' +
                         '</div>' +
                         '<div class="col-sm py-1 collapse7 show ' + toggle_cls + '">' +

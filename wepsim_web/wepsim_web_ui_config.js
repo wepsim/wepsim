@@ -84,7 +84,7 @@
 		"   aria-expanded='false' aria-haspopup='true'>" +
 		"<span class='font-weight-bold' data-langkey='" + name + "'>" + name + "</span>" +
 		"</button>" +
-		"<div class='dropdown-menu' " +
+		"<div class='dropdown-menu mb-2' " +
 		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
 		"     aria-labelledby='dropdown-title1'>" +
                 // details
@@ -92,7 +92,8 @@
 		" <label for='wsdt" + name + "'><span data-langkey='details'>details</span></label>" +
 		" <button class='btn btn-outline-secondary btn-block py-1' " +
                 "         type='button' id='wsdt" + name + "' " +
-		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
+		"         onclick='$(\".collapse7\").collapse(\"toggle\");" +
+		"                  if (event.stopPropagation) event.stopPropagation();'>" +
 		" <span class='text-truncate'>&plusmn; <span data-langkey='Description'>Description</span></span>" +
 		" </button>" +
                 " </div></form>"+
