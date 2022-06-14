@@ -45,13 +45,13 @@
 
                     // on events...
                     var offcvs1 = document.getElementById('offcvs1') ;
-                    offcvs1.addEventListener('shown.bs.offcanvas', 
+                    offcvs1.addEventListener('shown.bs.offcanvas',
                                              (event) => {
                                                 var o = '<ws-help-swset layout="offcanvas"></ws-help-swset>';
                                                 $('#offcvs1help').html(o) ;
                                              }) ;
                     var offcvs2 = document.getElementById('offcvs2') ;
-                    offcvs2.addEventListener('shown.bs.offcanvas', 
+                    offcvs2.addEventListener('shown.bs.offcanvas',
                                              (event) => {
                                                 var o = '<ws-help-hweltos layout="offcanvas"></ws-help-hweltos>';
                                                 $('#offcvs2help').html(o) ;

@@ -353,7 +353,7 @@
 	            } ;
 
          return wepsim_popover_init(quick_id,
-                                    cfg1, 
+                                    cfg1,
 		                    function(shownEvent) {
                                          fun_ownshown(shownEvent) ;
                                          i18n_update_tags('dialogs') ;
