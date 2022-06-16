@@ -115,10 +115,8 @@
      	       else w100_toggle = "" ;
                     toggle_cls = fmt_toggle + ' user_' + e_level ;
 
-     	            u = '<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
-                        '    <span class="badge rounded-pill text-bg-light">' + t_index + '</span>' +
-                        '</div>' +
-                        '<div class="col-sm-4 py-1 ' + toggle_cls + '">' +
+     	            u = '<div class="col-xs-5 col-lg-4  py-1 ' + toggle_cls + '">' +
+                        '     <span class="badge rounded-pill text-bg-light me-2">' + t_index + '</span>' +
      		        '     <span id="example_reference_' + e_id + '" class="d-none">' +
                               base_url + '?mode=' + mode +
      			 	         '&examples_set=' + ws_info.example_set[ws_info.example_active].name +

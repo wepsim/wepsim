@@ -81,7 +81,8 @@
         {
      	     var e_type        = "" ;
      	     var e_u_class     = "" ;
-     	     var e_class       = "" ;
+     	     var e_class_1     = "" ;
+     	     var e_class_2     = "" ;
      	     var e_code_cfg    = "" ;
      	     var e_description = "" ;
      	     var e_id          = "" ;
@@ -105,14 +106,15 @@
      	             fmt_toggle = "bg-light" ;
      	        else fmt_toggle = "" ;
 
-     	        e_class = " collapse7 show " + e_u_class + " " + fmt_toggle ;
+     	        e_class_1 = "                " + e_u_class + " " + fmt_toggle ;
+     	        e_class_2 = " collapse7 show " + e_u_class + " " + fmt_toggle ;
 
-     		row = '<div class="col-md-auto ' + e_class + '">' +
+     		row = '<div class="col-md-auto ' + e_class_1 + '">' +
      		      '    <span class="badge rounded-pill text-bg-light">' + (n+1) + '</span>' +
      		      '</div>' +
-     		      '<div class="col-md-4'                  + e_class + '">' + e_code_cfg  + '</div>' +
-     		      '<div class="col-md align-items-center' + e_class + '"><c>' + e_description + '</c></div>' +
-     		      '<div class="w-100  mb-1'               + e_class + '"></div>' ;
+     		      '<div class="col-md-4'                  + e_class_1 + '">' + e_code_cfg  + '</div>' +
+     		      '<div class="col-md align-items-center' + e_class_2 + '"><c>' + e_description + '</c></div>' +
+     		      '<div class="w-100  mb-1'               + e_class_2 + '"></div>' ;
 
      		// indexing row
      		if (typeof config_groupby_type[e_type] === "undefined") {
