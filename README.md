@@ -390,11 +390,10 @@ cordova platform add ios
 cordova plugin add cordova-plugin-console
 cordova plugin add cordova-plugin-device
 cordova plugin add cordova-plugin-dialogs
+cordova plugin add https://github.com/apache/cordova-plugin-file-transfer.git
 cordova plugin add cordova-plugin-file
-cordova plugin add cordova-plugin-file-transfer
 cordova plugin add cordova-plugin-splashscreen
 cordova plugin add cordova-plugin-web-share
-cordova plugin add cordova-plugin-whitelist
 ```
 
 ### 2) Update WepSIM files:
@@ -403,19 +402,11 @@ cordova plugin add cordova-plugin-whitelist
 ```bash
 wget https://github.com/acaldero/wepsim/releases/download/v2.1.8/wepsim-2.1.8.zip
 unzip wepsim-2.1.8.zip
-mv www www.initial.$$
-cp -a wepsim-2.1.8/ws_dist www
 ```
 
-+ 2.2) Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:
++ 2.2) Build www for the Apache Cordova project:
 ```bash
-sed -i .bak 's/wepsim/android_asset\/www/g' ./www/examples/hardware/ep/images/processor.svg
-```
-
-+ 2.3) Adapt path in files "./www/wepsim-classic.html" and "./www/wepsim-compact.html":
-```bash
-sed -i .bak 's/external\/cordova/cordova/g' ./www/wepsim-classic.html
-sed -i .bak 's/external\/cordova/cordova/g' ./www/wepsim-compact.html
+./wepsim-2.1.8/devel/mk_cordova.sh
 ```
 
 ### 3) Build Android .apk:
@@ -434,5 +425,4 @@ cordova run android
 ```bash
 adb -d install -r ./platforms/android/app/build/outputs/apk/debug/app-debug.apk
 ```
-
 

@@ -294,7 +294,7 @@
                         '           class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
                         '           style="border-color: #BBBBBB;"' +
 			'           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-			'     <span class="visually-hidden">Toggle Dropdown</span>' +
+			'     <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
 			'   </button>' +
 			'   <div id="action_menu1" class="dropdown-menu border border-secondary p-2">' +
                         '\n' +

@@ -118,7 +118,7 @@
                                 "><span data-langkey='Save'>Save</span></button>" +
                                 "  <button type='button' class='btn btn-light dropdown-toggle dropdown-toggle-split' " +
                                 "          data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-                                "    <span class='visually-hidden'>Toggle Dropdown</span>" +
+                                "    <span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
                                 "  </button>" +
                                 "  <div class='dropdown-menu'>" +
                                 "    <h6 class='dropdown-header'>Default:</h6>" +
@@ -367,10 +367,7 @@
 							    "i18n_update_tags('examples', ws_idiom);") ;
 		      },
             body:    function() {
-                        return "<div id='scroller-example1' class='container-fluid p-0' " +
-                               "     style='overflow:auto; -webkit-overflow-scrolling:touch;'>" +
-                               "<ws-examples></ws-examples>" +
-                               "</div>" ;
+                        return "<ws-examples></ws-examples>" ;
 		     },
 	    buttons: {
 			OK: {

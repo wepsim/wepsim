@@ -34,13 +34,32 @@
 	      }
 
               // render
-	      render ( event_name )
-	      {
+              render ( event_name )
+              {
                     // initialize render elements...
-	            super.render() ;
+                    super.render() ;
 
                     // render current element
-		    this.innerHTML = table_examples_html(ws_info.examples) ;
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
+	      {
+		    var examdiv_id = 'scroller-example1' ; // -> '#scroller-' + this.name_str ;
+
+                    // default content
+		    this.innerHTML = "<div class='ui-body-d ui-content p-0' id='" + examdiv_id + "' " +
+                                     "     style='min-height:50vh; max-height:70vh; " +
+                                     "                             -webkit-overflow-scrolling:touch;'>" +
+                                     "</div>" ;
+	      }
+
+	      render_populate ( )
+	      {
+		    var o1 = table_examples_html(ws_info.examples) ;
+
+		    $('#scroller-example1').html(o1) ;
 	      }
         }
 
@@ -134,7 +153,7 @@
                         '     <button type="button" ' +
      		        '             class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split"' +
                         '             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                        '        <span class="visually-hidden">Toggle Dropdown</span>' +
+                        '        <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
                         '     </button>' +
                         '     <div class="dropdown-menu bg-info" style="z-index:1024;">' +
      		        '             <a onclick="simcore_record_append_pending();' +
@@ -200,7 +219,7 @@
             }
 
             if (o.trim() === '') {
-     	   o = '&lt;<span data-langkey="No examples available...">No examples are available for the selected hardware</span>&gt;' ;
+     	        o = '&lt;<span data-langkey="No examples available...">No examples are available for the selected hardware</span>&gt;' ;
             }
 
             o = '<div class="container grid-striped border border-light">' + o + '</div>' ;

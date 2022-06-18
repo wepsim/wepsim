@@ -115,7 +115,7 @@
 		"   data-bs-toggle='dropdown' id='dropdown-title1' " +
 		"   aria-expanded='false' aria-haspopup='true' " +
 		"   class='btn btn-" + color + " dropdown-toggle dropdown-toggle-split'" +
-		"><span class='visually-hidden'>Toggle Dropdown</span>" +
+		"><span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
 		"</button>" +
 		"<div class='dropdown-menu' " +
 		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
