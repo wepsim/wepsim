@@ -114,7 +114,7 @@
      		      '</div>' +
      		      '<div class="col-md-4'                  + e_class_1 + '">' + e_code_cfg  + '</div>' +
      		      '<div class="col-md align-items-center' + e_class_2 + '"><c>' + e_description + '</c></div>' +
-     		      '<div class="w-100  mb-1'               + e_class_2 + '"></div>' ;
+     		      '<div class="w-100  my-1'               + e_class_2 + '"></div>' ;
 
      		// indexing row
      		if (typeof config_groupby_type[e_type] === "undefined") {

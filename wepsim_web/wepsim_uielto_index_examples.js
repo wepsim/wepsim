@@ -51,7 +51,7 @@
                     // default content
 		    this.innerHTML = "<div class='ui-body-d ui-content p-0' id='" + examdiv_id + "' " +
                                      "     style='min-height:50vh; max-height:70vh; " +
-                                     "                             -webkit-overflow-scrolling:touch;'>" +
+                                     "            overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
                                      "</div>" ;
 	      }
 
@@ -134,13 +134,13 @@
      	       else w100_toggle = "" ;
                     toggle_cls = fmt_toggle + ' user_' + e_level ;
 
-     	            u = '<div class="col-xs-5 col-lg-4  py-1 ' + toggle_cls + '">' +
-                        '     <span class="badge rounded-pill text-bg-light me-2">' + t_index + '</span>' +
+     	            u = '<div class="col-xs-5 col-lg-4 btn-group h-100 py-1 ' + toggle_cls + '">' +
      		        '     <span id="example_reference_' + e_id + '" class="d-none">' +
                               base_url + '?mode=' + mode +
      			 	         '&examples_set=' + ws_info.example_set[ws_info.example_active].name +
      				         '&example=' + m +
                         '     </span>' +
+                        '     <span class="badge rounded-pill text-bg-light me-2">' + t_index + '</span>' +
                         '     <button id="example_' + m + '" ' +
      		        '           class="btn btn-md bg-primary bg-opacity-75 text-white text-truncate border p-0 me-1 w-75"' +
      		        '           onclick="simcore_record_append_pending();' +

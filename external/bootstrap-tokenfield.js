@@ -235,7 +235,7 @@
 
       var $token = $('<div class="token" />')
             .append('<span class="token-label" />')
-            .append('<a href="#" class="close" tabindex="-1">&times;</a>')
+            .append('<a href="#" class="btn-close mx-2" tabindex="-1">&times;</a>')
             .data('attrs', attrs)
 
       // Insert token into HTML
