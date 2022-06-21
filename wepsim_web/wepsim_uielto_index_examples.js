@@ -46,7 +46,7 @@
 
 	      render_skel ( )
 	      {
-		    var examdiv_id = 'scroller-example1' ; // -> '#scroller-' + this.name_str ;
+		    var examdiv_id = 'examples1-scroller' ; // -> this.name_str + '-scroller' ;
 
                     // default content
 		    this.innerHTML = "<div class='ui-body-d ui-content p-0' id='" + examdiv_id + "' " +
@@ -57,9 +57,10 @@
 
 	      render_populate ( )
 	      {
-		    var o1 = table_examples_html(ws_info.examples) ;
+		    var examdiv_id = 'examples1-scroller' ; // -> this.name_str + '-scroller' ;
 
-		    $('#scroller-example1').html(o1) ;
+		    var o1 = table_examples_html(ws_info.examples) ;
+		    $('#' + examdiv_id).html(o1) ;
 	      }
         }
 
@@ -224,5 +225,34 @@
 
             o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
             return o ;
+        }
+
+        function table_examplesets_html ( div_list, example_sets )
+        {
+            var  item = null ;
+            var  o = '' ;
+
+            o += '<ul class="list-group list-group-numbered">' ;
+            for (var i=0; i<example_sets.length; i++)
+            {
+                item = example_sets[i] ;
+                o += '<li class="list-group-item d-flex justify-content-between align-items-start" ' +
+                     '    id="exs_' + item.name + '" value="' + i + '" ' +
+                     '    onclick="wepsim_example_reset();' +
+                     '             wepsim_example_load(\'' + item.name + '\');' +
+                     '             wsweb_dialog_close(\'examples\');' +
+                     '             wsweb_dialog_open(\'examples\');' +
+                     '             $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
+                     '             return false;">' +
+                     '  <div class="ms-2 me-auto">' +
+                     '     <div class="fw-bold">' + item.name + '</div>' +
+                           item.description +
+                     '  </div>' +
+                     '  <span class="badge bg-primary rounded-pill">' + item.size + '</span>' +
+                     '</li>' ;
+            }
+            o += '</ul>' ;
+
+	    $(div_list).html(o) ;
         }
 

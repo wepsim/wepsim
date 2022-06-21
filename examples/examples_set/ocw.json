@@ -1,6 +1,8 @@
 [ {
-    "name":         "OCW - UC3M - EC",
-    "url":          "examples/examples_set/ocw_packed.json",
-    "url_base_asm": "examples/assembly_ocw/",
-    "url_base_mc":  "examples/microcode/"
+      "name":         "OCW - UC3M - EC",
+      "url":          "examples/examples_set/ocw_packed.json",
+      "description":  "MIPS instruction set",
+      "size":         "10+",
+      "url_base_asm": "examples/assembly_ocw/",
+      "url_base_mc":  "examples/microcode/"
 } ]

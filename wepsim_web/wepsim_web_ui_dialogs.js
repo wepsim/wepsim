@@ -367,9 +367,24 @@
 							    "i18n_update_tags('examples', ws_idiom);") ;
 		      },
             body:    function() {
-                        return "<ws-examples></ws-examples>" ;
+                        return "<ws-examples id='examples1'></ws-examples>" ;
 		     },
 	    buttons: {
+			Index: {
+			   label:     '<i class="fas fa-list"></i> ' +
+                                      '<span data-langkey="Example sets">Example sets</span>',
+			   className: 'btn btn-info btn-sm col col-sm-4 float-end shadow-none',
+			   callback:  function() {
+				         // ui elements
+                                         table_examplesets_html('#examples1-scroller', ws_info.example_set) ;
+
+			 		 // uicfg and events
+                                         wepsim_uicfg_apply() ;
+	    	 	                 simcore_record_captureInit() ;
+
+					 return false ;
+				      }
+			},
 			OK: {
 				label:     '<i class="fa fa-times me-2"></i>' +
 					   '<span data-langkey="Close">Close</span>',

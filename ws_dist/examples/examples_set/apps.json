@@ -1,25 +1,33 @@
 [
    {
-      "name": "poc_mips",
-      "url":  "examples/examples_set/apps_poc_mips.json",
+      "name":         "poc_mips",
+      "url":          "examples/examples_set/apps_poc_mips.json",
+      "description":  "MIPS instruction set over POC CPU",
+      "size":         "18+",
       "url_base_asm": "examples/assembly/",
       "url_base_mc":  "examples/microcode/"
    },
    {
-      "name": "ep_rv32",
-      "url":  "examples/examples_set/apps_ep_rv32.json",
+      "name":         "ep_rv32",
+      "url":          "examples/examples_set/apps_ep_rv32.json",
+      "description":  "RISC-V instruction set over EP CPU",
+      "size":         "18+",
       "url_base_asm": "examples/assembly/",
       "url_base_mc":  "examples/microcode/"
    },
    {
-      "name": "ep_mips",
-      "url":  "examples/examples_set/apps_ep_mips.json",
+      "name":         "ep_mips",
+      "url":          "examples/examples_set/apps_ep_mips.json",
+      "description":  "MIPS instruction set over EP CPU",
+      "size":         "18+",
       "url_base_asm": "examples/assembly/",
       "url_base_mc":  "examples/microcode/"
    },
    {
-      "name": "ep_z80",
-      "url":  "examples/examples_set/apps_ep_z80.json",
+      "name":         "ep_z80",
+      "url":          "examples/examples_set/apps_ep_z80.json",
+      "description":  "Z80 instruction set over EP CPU",
+      "size":         "1",
       "url_base_asm": "examples/assembly/",
       "url_base_mc":  "examples/microcode/"
    }

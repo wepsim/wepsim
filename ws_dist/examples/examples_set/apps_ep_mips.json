@@ -218,38 +218,5 @@
     "assembly":		"mips_s6e5",
     "description":	"<span data-langkey='example_06_05'>Example for Led matrix.</span>",
     "testing":          true
-  },
-  {
-    "id":		"S7E1",
-    "title":		"MIPS32-like",
-    "type":		"<span data-langkey='Native'>Native</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":		"ep",
-    "microcode":	"ep_mips",
-    "assembly":		"mips_s4e2",
-    "description":	"<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
-    "testing":          true
-  },
-  {
-    "id":		"S7E2",
-    "title":		"RISCV32",
-    "type":		"<span data-langkey='Native'>Native</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":		"ep",
-    "microcode":	"ep_rv32_bare",
-    "assembly":		"rv32_s7e2",
-    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
-    "testing":          true
-  },
-  {
-    "id":		"S7E3",
-    "title":		"Z80-like",
-    "type":		"<span data-langkey='Native'>Native</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":		"ep",
-    "microcode":	"ep_z80",
-    "assembly":		"z80_s7e3",
-    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
-    "testing":          true
   }
 ]
