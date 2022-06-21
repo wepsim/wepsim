@@ -19,14 +19,14 @@
     "name": "Native",
     "url": "examples/examples_set/default_native.json",
     "description": "MIPS vs RISC-V vs Z80 instruction sets",
-    "size": "3",
+    "size": "3+",
     "url_base_asm": "examples/assembly/",
     "url_base_mc": "examples/microcode/"
   },
   {
     "name": "OCW-EC",
     "url": "examples/examples_set/ocw_packed.json",
-    "description": "MIPS examples for opencourseware <a href=https://ocw.uc3m.es/course/view.php?id=136>https://ocw.uc3m.es/course/view.php?id=136</a>",
+    "description": "MIPS examples for <a href=https://ocw.uc3m.es/course/view.php?id=136>opencourseware</a>",
     "size": "10+",
     "url_base_asm": "examples/assembly_ocw/",
     "url_base_mc": "examples/microcode/"

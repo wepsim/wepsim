@@ -373,7 +373,7 @@
 			Index: {
 			   label:     '<i class="fas fa-list"></i> ' +
                                       '<span data-langkey="Example sets">Example sets</span>',
-			   className: 'btn btn-info btn-sm col col-sm-4 float-end shadow-none',
+			   className: 'btn btn-info text-white btn-sm col col-sm-4 float-end shadow-none',
 			   callback:  function() {
 				         // ui elements
                                          table_examplesets_html('#examples1-scroller', ws_info.example_set) ;
