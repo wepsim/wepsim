@@ -2,7 +2,12 @@
 # Changelog
 
 ## 2.1.8 -> 2.1.9:
-* Examples reorganized
+* Main improvements:
+  * Improved example dialog box
+* Minor bugs fixed and several refinements added:
+  * Examples has been reorganized
+* Main external dependencies updated:
+  * Bump bootstrap   from 4.6.1  to 5.2.0 beta 1
 
 ## 2.1.7 -> 2.1.8:
 * Main improvements:
@@ -12,7 +17,7 @@
   * Unlimited instruction/clock cycles now works
   * Bootstrap color picker replace the old spectrum color picker
 * Main external dependencies updated:
-  * Bump bootstrap   from 4.6.1  to 5.2.0
+  * Bump bootstrap   from 4.6.1  to 5.2.0 beta 1
   * Bump bootbox     from 5.5.2  to 5.5.3
 
 ## 2.1.6 -> 2.1.7:

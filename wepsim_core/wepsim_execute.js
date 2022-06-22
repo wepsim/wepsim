@@ -253,6 +253,72 @@
 	return true ;
     }
 
+    function wepsim_memdashboard_notify_offcanvas ( ref_mdash, notif_origin, notifications )
+    {
+        // title
+	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[1] ;
+
+	// content
+	var dialog_msg = '<div style="max-height:80vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
+	for (var k=1; k<notifications; k++) {
+	     dialog_msg += ref_mdash.notify[k] + "\n<br>" ;
+	}
+	dialog_msg += '</div>' ;
+
+	// footer
+	var dialog_footer = '<button class="btn btn-danger col-5 mx-2 my-2"' +
+			    '        onclick="wepsim_execute_stop();' +
+			    '                 wepsim_offcanvas_hide(\'offcvs3\');' +
+			    '                 return false;">' +
+			    '<span data-langkey="Stop">Stop</span></button>' +
+			    '<button class="btn btn-success col-5 mx-2 my-2"' +
+			    '        onclick="wepsim_offcanvas_hide(\'offcvs3\');' +
+                            '                 setTimeout(wepsim_execute_chainplay,' +
+			    '                            get_cfg(\'DBG_delay\'),' +
+			    '                            wepsim_execute_stop);' +
+			    '                 return false;">' +
+			    '<span data-langkey="Continue">Continue</span></button>' ;
+
+	// show as offcanvas...
+	wepsim_offcanvas_set_content("offcvs3", dialog_title, dialog_msg, dialog_footer) ;
+	wepsim_offcanvas_show("offcvs3") ;
+
+	return false ;
+    }
+
+    function wepsim_memdashboard_notify_dialogbox ( ref_mdash, notif_origin, notifications )
+    {
+        // title
+	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[1] ;
+
+	// content
+	var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
+	for (var k=1; k<notifications; k++) {
+	     dialog_msg += ref_mdash.notify[k] + "\n<br>" ;
+	}
+	dialog_msg += '</div>' ;
+
+	// show as dialogbox...
+	bootbox.confirm({
+		title:    dialog_title,
+		message:  dialog_msg,
+		buttons:  {
+			     cancel:  { label: 'Stop',     className: 'btn-danger  btn-sm' },
+			     confirm: { label: 'Continue', className: 'btn-primary btn-sm' }
+			  },
+		callback: function (result) {
+			     if (result) {
+				  setTimeout(wepsim_execute_chainplay,
+					     get_cfg('DBG_delay'),
+					     wepsim_execute_stop) ;
+                             }
+			     else wepsim_execute_stop() ;
+			  }
+	});
+
+	return false ;
+    }
+
     function wepsim_check_memdashboard ( ref_mdash, notif_origin )
     {
         if (typeof ref_mdash === "undefined") {
@@ -269,28 +335,8 @@
 	var notifications = ref_mdash.notify.length ;
 	if (notifications > 1)
            {
-		var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[1] ;
-
-		var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
-		for (var k=1; k<notifications; k++) {
-		     dialog_msg += ref_mdash.notify[k] + "\n<br>" ;
-		}
-                dialog_msg += '</div>' ;
-
-		bootbox.confirm({
-			title:    dialog_title,
-			message:  dialog_msg,
-			buttons:  {
-				     cancel:  { label: 'Stop',     className: 'btn-danger  btn-sm' },
-				     confirm: { label: 'Continue', className: 'btn-primary btn-sm' }
-				  },
-			callback: function (result) {
-				     if (result)
-				          setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), wepsim_execute_stop) ;
-				     else wepsim_execute_stop() ;
-				  }
-		});
-
+                wepsim_memdashboard_notify_offcanvas(ref_mdash, notif_origin, notifications) ;
+             // wepsim_memdashboard_notify_dialogbox(ref_mdash, notif_origin, notifications) ;
 		return false ;
 	   }
 
