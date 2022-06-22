@@ -68,6 +68,11 @@
 			 '  </div>' +
 			 '  </div>' +
 			 '' +
+                         '  <div class="offcanvas offcanvas-start"' +
+                         '       data-bs-scroll="true" data-bs-backdrop="false"' +
+                         '       tabindex="-1" id="offcvs3" aria-labelledby="offcvs3Label">' +
+                         '  </div>' +
+			 '' +
 			 ' <div class="row">' +
 			 '   <div id="col1" class="pt-2 ps-3 pe-2">' +
 			 '   <ws-ctoasm></ws-ctoasm>' +
