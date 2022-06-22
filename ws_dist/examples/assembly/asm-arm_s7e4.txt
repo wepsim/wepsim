@@ -7,23 +7,28 @@
 
 
 .text
-sumav:	   mov  $R3 0
-	   cmp  $R1 $R0
-       b1: beq  f1
-	   ldr  $R5 ($R2) 
-	   adds $R3 $R3 $R5
-	   adds $R2 $R2 4
-	   adds $R1 $R1 -1
-	   cmp  $R0 $R0
-	   beq  b1
+addvec:
+           mov  $R3 0
+
+           # while ($R1 != 0)
+       b1: cmp  $R1 $R0
+           beq  f1
+           ldr  $R5 ($R2) 
+           adds $R3 $R3 $R5
+           adds $R2 $R2 4
+           adds $R1 $R1 -1
+           cmp  $R0 $R0
+           beq  b1
        f1: adds $R5 $R3 0
-	   bx   $LR
+
+         # return $R3
+           bx   $LR
 
 
-main:    # call contar subrutine
+main:    # call subrutine
            mov  $R1 10
            mov  $R2 vector1
-           bl   sumav
+           bl   addvec
 
          # end execution
            halt

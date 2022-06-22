@@ -45,17 +45,17 @@
     function wepsim_popovers_init ( popover_set_id, popover_cfg, fun_ownshown )
     {
          // 1) get object list
-         var list1 = document.querySelectorAll(popover_set_id)
+         var list1 = document.querySelectorAll(popover_set_id) ;
          if (null == list1) {
              return null ;
          }
 
          // 2) new popover(object) for each object in the list
-         var plist1 = [...list1].map(elto => new bootstrap.Popover(elto, popover_cfg))
+         var plist1 = [...list1].map((elto) => new bootstrap.Popover(elto, popover_cfg)) ;
 
          // 3) associate event to all objects
          if (null != fun_ownshown) {
-             [...list1].map(elto => elto.addEventListener('shown.bs.popover', fun_ownshown))
+             [...list1].map((elto) => elto.addEventListener('shown.bs.popover', fun_ownshown)) ;
          }
 
          return plist1 ;
