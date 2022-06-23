@@ -6,7 +6,7 @@
 .text
     main:  # test turning on leds...
            li  s6 1
-   
+
            # for (x=0; x<4; x++)
            li  s7 1
            li  s0 4

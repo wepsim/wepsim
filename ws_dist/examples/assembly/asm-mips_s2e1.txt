@@ -24,7 +24,7 @@ main:
  notready1: in   $27 0x0104
             beq  $27 $0 notready1
             in   $26 0x0100
- 
+
             out  $26 0x1000
  notready2: in   $27 0x1004
             beq  $27 $0 notready2

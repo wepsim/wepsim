@@ -23,7 +23,7 @@ main:
            # loop body
            mul $6 $1 $4
            add $6 $6 $5
-           lw  $6 ($6) 
+           lw  $6 ($6)
            add $7 $7 $6
 
            # loop next...

@@ -22,7 +22,7 @@ main:
         li  $t7 0x001F
         sll $t7 $t7 16
         ori $t0 $0 0xFFFF
-        or  $t7 $t7 $t0         
+        or  $t7 $t7 $t0
 
         # 3.- to apply mask
         #   sign  -> x000 0000 0000 0000 ...

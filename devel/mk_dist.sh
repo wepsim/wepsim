@@ -186,6 +186,7 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_web_ui_config.js \
     wepsim_web/wepsim_web_ui_config_commands.js \
     wepsim_web/wepsim_web_ui_popover.js \
+    wepsim_web/wepsim_web_ui_tooltip.js \
     wepsim_web/wepsim_web_ui_dialogs.js \
     wepsim_web/wepsim_web_ui_quickcfg.js \
     \

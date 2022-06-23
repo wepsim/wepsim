@@ -18,7 +18,7 @@ sys_prt_str: li   $1  1
              add  $26 $26 $1
              b  b5
        fin1: reti
-      
+
 sys_prt_int: li   $1 1
              # push_byte('\0')
              sb   $0 ($sp)
@@ -53,7 +53,7 @@ sys_prt_int: li   $1 1
              beq  $v0 $27 sys_prt_str
              li   $27 1
              beq  $v0 $27 sys_prt_int
-             reti 
+             reti
 
 .data
          w1:    .asciiz  "   hello"

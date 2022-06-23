@@ -81,7 +81,7 @@ sys_sbrk:   la  $v0 bucket0
             beq  $v0 $27 sys_print
             li   $27 9
             beq  $v0 $27 sys_sbrk
-            reti 
+            reti
 
 
 #
@@ -145,7 +145,7 @@ rut_begin_malloc:          # errores
 #   {
 #     s0 = s1 ;
 #     s1 = s1[1] ;
-#   }  
+#   }
 #
                            # search bucket
                            li $s0 0
@@ -274,7 +274,7 @@ rut_end_malloc:            jr $ra
 #
 rut_begin_free:            # errores
                            beq $a0 $0 rut_end_free
-                           la  $1  0x400000 
+                           la  $1  0x400000
                            ble $a0 $1 rut_end_free
 
                            # R.A.
@@ -313,7 +313,7 @@ rut_begin_free:            # errores
 #   }
 #   else
 #   {
-#  
+#
 #     do
 #     {
 #       v0 = v1 ;
@@ -325,7 +325,7 @@ rut_begin_free:            # errores
 #         v0[1]  = ptr ;
 #         break ;
 #       }
-#  
+#
 #     } while (1) ;
 #
                 b_busca_2: move $v0 $v1
@@ -461,7 +461,7 @@ rut_begin_walk:
                            move $a0 $t1
                            li   $v0 1
                            syscall
-                            
+
                            la $a0 msg_enter
                            li $v0 4
                            syscall
@@ -480,8 +480,8 @@ rut_begin_walk:
 
                            lw   $t1 4($t1)
                            b b_ww_1
-                            
-#  
+
+#
                            # R.A.
 rut_exit_walk:             lw   $t1 16($sp) # t1
                            lw   $t0 20($sp) # t0
@@ -497,7 +497,7 @@ rut_end_walk:              jr $ra
 #
 # /*
 #  *  void main ( int argc, char *argv[] )
-#  *  use: 
+#  *  use:
 #  *  do: little tests.
 #  *
 #  */

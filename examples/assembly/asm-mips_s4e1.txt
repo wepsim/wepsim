@@ -34,7 +34,7 @@ sys_print:  li   $0 0
             move $26 $a0
             li   $27 4
             beq  $v0 $27 sys_print
-            reti 
+            reti
 
 
 .data

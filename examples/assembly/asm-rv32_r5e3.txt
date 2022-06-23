@@ -36,7 +36,7 @@ sys_print:  li   zero 0
             mv   t3 a0
             li   t4 4
             beq  a7 t4 sys_print
-            sret 
+            sret
 
 ### user ###
 

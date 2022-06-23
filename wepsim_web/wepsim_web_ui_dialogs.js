@@ -82,7 +82,7 @@
 			 o.find('.modal-title').addClass("ms-auto") ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-lssvasm') ;
@@ -177,7 +177,7 @@
 			 $('.dropify').dropify() ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-lssvfir') ;
@@ -220,7 +220,7 @@
 			 }
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
                          // show binary
@@ -267,7 +267,7 @@
 			 }
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
                          // show binary
@@ -310,7 +310,7 @@
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-about1') ;
@@ -349,7 +349,7 @@
 			 i18n_update_tags('cfg') ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-notifications3') ;
@@ -401,7 +401,7 @@
                          i18n_update_tags('examples', ws_idiom) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-example1') ;
@@ -454,7 +454,7 @@
                          i18n_update_tags('cfg', ws_idiom) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-config2') ;
@@ -561,7 +561,7 @@
                          i18n_update_tags('help', ws_idiom) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-help1') ;
@@ -633,7 +633,7 @@
                          i18n_update_tags('states', ws_idiom) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 	    	 	 simcore_record_captureInit() ;
@@ -751,7 +751,7 @@
 				 i18n_update_tags('dialog', ws_idiom) ;
 
 				 // uicfg and events
-				 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                                 wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 				 wepsim_uicfg_apply() ;
 
 				 simcore_record_captureInit() ;
@@ -789,7 +789,7 @@
             size:    'large',
             onshow:  function() {
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-reload1') ;

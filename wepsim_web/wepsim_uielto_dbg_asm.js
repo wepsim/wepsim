@@ -441,17 +441,6 @@
              return o ;
         }
 
-	function closeAllTooltips ( )
-	{
-           var e2 = null ;
-
-           var l1 = document.querySelectorAll('[data-bs-toggle="tooltip"]') ;
-    	   for (var i1=0; i1<l1.length; i1++) {
-                e2 = bootstrap.Tooltip.getInstance(l1[i1]) ;
-                if (e2 != null) e2.hide();
-           }
-        }
-
 	function instruction2tooltip ( mp, l )
 	{
     	   var wsi = get_cfg('ws_idiom') ;
@@ -520,7 +509,7 @@
 	   o += '</div>' ;
            o += '<button type=\"button\" id=\"close\" data-role=\"none\" ' +
                 '        class=\"btn btn-sm btn-danger w-100 p-0 mt-2\" ' +
-                '        onclick=closeAllTooltips();return false;>' +
+                '        onclick=wepsim_tooltips_closeAll();return false;>' +
     		         i18n_get('dialogs', wsi, 'Close') +
     		'</button>' ;
 

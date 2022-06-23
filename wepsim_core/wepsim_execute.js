@@ -253,15 +253,19 @@
 	return true ;
     }
 
-    function wepsim_memdashboard_notify_offcanvas ( ref_mdash, notif_origin, notifications )
+    function wepsim_memdashboard_notify_offcanvas ( ref_mdash, notif_origin, notifications, skip1st )
     {
+        var k = 1 ;
+        if (skip1st) k++ ;
+
         // title
-	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[1] ;
+	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[k] ;
 
 	// content
 	var dialog_msg = '<div style="max-height:80vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
-	for (var k=1; k<notifications; k++) {
+	while (k<notifications) {
 	     dialog_msg += ref_mdash.notify[k] + "\n<br>" ;
+             k++;
 	}
 	dialog_msg += '</div>' ;
 
@@ -286,15 +290,19 @@
 	return false ;
     }
 
-    function wepsim_memdashboard_notify_dialogbox ( ref_mdash, notif_origin, notifications )
+    function wepsim_memdashboard_notify_dialogbox ( ref_mdash, notif_origin, notifications, skip1st )
     {
+        var k = 1 ;
+        if (skip1st) k++ ;
+
         // title
-	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[1] ;
+	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[k] ;
 
 	// content
 	var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
-	for (var k=1; k<notifications; k++) {
+	while (k<notifications) {
 	     dialog_msg += ref_mdash.notify[k] + "\n<br>" ;
+             k++;
 	}
 	dialog_msg += '</div>' ;
 
@@ -319,6 +327,31 @@
 	return false ;
     }
 
+    function wepsim_check_getnotifyoptions ( firstline )
+    {
+        var ret = { 
+	             showas:      'offcanvas',
+	             skip1stline: false,
+	             eltos2glow:  []
+                  } ;
+
+        var firstline_uppercase = firstline.toUpperCase() ;
+	if (firstline_uppercase.includes('SHOWAS:DIALOGBOX')) {
+	    ret.showas = 'dialogbox' ;
+        }
+
+	if (firstline_uppercase.includes('SKIP1ST:TRUE')) {
+	    ret.skip1stline = true ;
+        }
+
+        var eltos2glow = firstline.match(/glow:.*/g) ;
+        if (eltos2glow != null) {
+            ret.eltos2glow = eltos2glow[0].split(':')[1].split(',') ;
+        }
+
+	return ret ;
+    }
+
     function wepsim_check_memdashboard ( ref_mdash, notif_origin )
     {
         if (typeof ref_mdash === "undefined") {
@@ -335,8 +368,21 @@
 	var notifications = ref_mdash.notify.length ;
 	if (notifications > 1)
            {
-                wepsim_memdashboard_notify_offcanvas(ref_mdash, notif_origin, notifications) ;
-             // wepsim_memdashboard_notify_dialogbox(ref_mdash, notif_origin, notifications) ;
+                var ret = wepsim_check_getnotifyoptions(ref_mdash.notify[1]) ;
+
+                // show content...
+                if ('offcanvas' == ret.showas) 
+                     wepsim_memdashboard_notify_offcanvas(ref_mdash, notif_origin, notifications, ret.skip1stline) ;
+                else wepsim_memdashboard_notify_dialogbox(ref_mdash, notif_origin, notifications, ret.skip1stline) ;
+
+                // glowing elements...
+                for (var i=0; i<ret.eltos2glow.length; i++) {
+                    simcore_record_glowing('#' + ret.eltos2glow[i]) ;
+                }
+
+                // scroll into the current instruction...
+                wsweb_change_show_asmdbg();
+
 		return false ;
 	   }
 

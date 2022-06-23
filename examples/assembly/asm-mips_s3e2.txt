@@ -12,7 +12,7 @@
    msgi1:   .asciiz "Interruption 1."
 
 .ktext
-sys_print:  
+sys_print:
             li   $0 0
             li   $1 1
             beq  $26 $0 fin1
@@ -32,7 +32,7 @@ sys_print:
   sys:      move $26 $a0
             li   $27 4
             beq  $v0 $27 sys_print
-            reti 
+            reti
 
 
 .data

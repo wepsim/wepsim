@@ -30,12 +30,12 @@ sys_prt_str: li   $0 0
              addi $26 $26 1
              b  b5
        fin1: reti
-      
+
 sys_prt_ch:  out  $a0 0x1000
              reti
 
 sys_thcreat: # pcounter++
-             lw   $1 pcounter 
+             lw   $1 pcounter
              addi $1 $1 1
              sw   $1 pcounter
              # $27 = &(ptable[pcounter])
@@ -47,7 +47,7 @@ sys_thcreat: # pcounter++
              li  $1 5
              sw  $1  0($27)
              sw  $a0 4($27)
-             lw  $1 pcounter 
+             lw  $1 pcounter
              sw  $1  8($27)
              li  $1 0
              sw  $1 12($27)
@@ -99,7 +99,7 @@ sys_thexit:  # pA->free = true
              # return
              reti
 
-   rt_div0:  reti 
+   rt_div0:  reti
 
    rt_sys:   # 1.- syscall
              move $26 $a0
@@ -113,7 +113,7 @@ sys_thexit:  # pA->free = true
              beq  $v0 $27 sys_thstart
              li   $27 10
              beq  $v0 $27 sys_thexit
-             reti 
+             reti
 
    rt_i0:    # 2.- interrupt
              # if pA == NULL return
@@ -142,7 +142,7 @@ sys_thexit:  # pA->free = true
              lw  $27 current
              lw  $29 4($27)
              # return
-       e_i0: reti 
+       e_i0: reti
 
 
    kmain:    # 1.- setup process table

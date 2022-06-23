@@ -24,7 +24,7 @@ main:
  notready1: in   x27 0x0104
             beq  x27 x0 notready1
             in   x26 0x0100
- 
+
             out  x26 0x1000
  notready2: in   x27 0x1004
             beq  x27 x0 notready2

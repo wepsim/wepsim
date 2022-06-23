@@ -7,7 +7,7 @@
   result1: .word 0x12345678
 
 .text
-  main: 
+  main:
         # load byte, half, word
         li      a0, result1
         lb      a1, 0(a0)

@@ -242,7 +242,7 @@
                      '             wepsim_example_load(\'' + item.name + '\');' +
                      '             wsweb_dialog_close(\'examples\');' +
                      '             wsweb_dialog_open(\'examples\');' +
-                     '             $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
+                     '             wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
                      '             return false;">' +
                      '  <div class="ms-2 me-auto">' +
                      '     <div class="fw-bold">' + item.name + '</div>' +

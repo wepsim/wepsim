@@ -20,7 +20,7 @@ sys_prt_str: li   $0 0
              addi $26 $26 1
              b  b5
        fin1: reti
-      
+
 sys_prt_int: li   $1 1
              # push_byte('\0')
              sb   $0 ($sp)
@@ -79,7 +79,7 @@ sys_rd_int:  li   $0  0
              in   $27 0x0104
              beq  $27 $0 notready2
              in   $27 0x0100
-             out  $27 0x1000 # echo             
+             out  $27 0x1000 # echo
              # if (ch<'0') || (ch>'9') -> eos2
              li   $1  57
              bgt  $27 $1 eos2
@@ -115,7 +115,7 @@ sys_rd_ch:   li   $0  0
              beq  $v0 $27 sys_prt_ch
              li   $27 12
              beq  $v0 $27 sys_rd_ch
-             reti 
+             reti
 
    rt_i0:    # 2.- interruption
              la   $26 msgi0
@@ -143,11 +143,11 @@ sys_rd_ch:   li   $0  0
            li  $a1 5
            li  $v0 8
            syscall
-           
+
            la  $a0 enter
            li  $v0 4
            syscall
-           
+
            # test syscall 4
            la  $a0 intro_int
            li  $v0 4

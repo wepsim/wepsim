@@ -28,22 +28,22 @@ counting:
        li   $t3 4
        mul  $t2 $t2 $t3
 
-       # elto = *( $a0 + $t2 ) 
+       # elto = *( $a0 + $t2 )
        add  $t2 $a0 $t2
        lw   $t2 ($t2)
 
        bne  $t2 $0 nozero
        li   $t3 1
        add  $v0 $v0 $t3
-nozero: 
+nozero:
 
-       # ... $t1++) 
+       # ... $t1++)
        li   $t3 1
        add  $t1 $t1 $t3
        b b2
 
 f2:
-       # ... $t0++) 
+       # ... $t0++)
        li   $t3 1
        add  $t0 $t0 $t3
        b b1
@@ -53,7 +53,7 @@ f1:
        jr $ra
 
 
-main: 
+main:
        # counting (matrix, 2, 6)
        la  $a0 matrix
        li  $a1 2
