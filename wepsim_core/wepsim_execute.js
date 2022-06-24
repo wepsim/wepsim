@@ -270,18 +270,20 @@
 	dialog_msg += '</div>' ;
 
 	// footer
-	var dialog_footer = '<button class="btn btn-danger col-5 mx-2 my-2"' +
+	var dialog_footer = '<span class="row m-2">' +
+                            '<button class="btn btn-danger col me-2"' +
 			    '        onclick="wepsim_execute_stop();' +
 			    '                 wepsim_offcanvas_hide(\'offcvs3\');' +
 			    '                 return false;">' +
 			    '<span data-langkey="Stop">Stop</span></button>' +
-			    '<button class="btn btn-success col-5 mx-2 my-2"' +
+			    '<button class="btn btn-success col"' +
 			    '        onclick="wepsim_offcanvas_hide(\'offcvs3\');' +
                             '                 setTimeout(wepsim_execute_chainplay,' +
 			    '                            get_cfg(\'DBG_delay\'),' +
 			    '                            wepsim_execute_stop);' +
 			    '                 return false;">' +
-			    '<span data-langkey="Continue">Continue</span></button>' ;
+			    '<span data-langkey="Continue">Continue</span></button>' +
+                            '</span>' ;
 
 	// show as offcanvas...
 	wepsim_offcanvas_set_content("offcvs3", dialog_title, false, dialog_msg, dialog_footer) ;

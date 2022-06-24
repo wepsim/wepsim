@@ -97,7 +97,6 @@
 			  '' +
                           '         <div class="offcanvas offcanvas-start"' +
                           '              data-bs-scroll="true" data-bs-backdrop="false"' +
-			  '              style="min-width:30vw;" ' +
                           '              tabindex="-1" id="offcvs3" aria-labelledby="offcvs3Label">' +
                           '         </div>' +
 			  '' +
@@ -350,16 +349,25 @@
     {
         var o = '' ;
 
-        if (with_close_btn)
-        o  = '    <button type="button" class="btn-close text-reset"' +
-	     '            data-bs-dismiss="offcanvas" aria-label="Close"></button>' ;
+        if (with_close_btn) {
+            o = '<button type="button" class="btn-close text-reset"' +
+	        '        data-bs-dismiss="offcanvas" aria-label="Close"></button>' ;
+        }
 
         o += '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2">' +
-             '    <h5 class="offcanvas-title" id="' + offcanvas_id + 'Label">' + title + '</h5>' +
+             '    <h5 class="offcanvas-title" ' +
+             '        onclick="$(\'#' + offcanvas_id + '\').toggleClass(\'offcanvas-bottom\').toggleClass(\'offcanvas-start\'); "' +
+             '        id="' + offcanvas_id + 'Label">' +
+                  title +
+                  '</h5>' +
                   o +
              '  </div>' +
-             '  <div class="offcanvas-body" id="' + offcanvas_id + 'help">' + content + '</div>' +
-             '  <div class="offcanvas-footer">' + footer + '</div>' ;
+             '  <div class="offcanvas-body" id="' + offcanvas_id + 'help">' +
+                content +
+                '</div>' +
+             '  <div class="offcanvas-footer bg-secondary bg-opacity-25">'  +
+                footer  +
+                '</div>' ;
 
         // set content
         $('#' + offcanvas_id).html(o) ;
