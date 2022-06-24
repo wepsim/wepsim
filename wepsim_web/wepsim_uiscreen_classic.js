@@ -49,6 +49,7 @@
                                              (event) => {
 					       wepsim_offcanvas_set_content('offcvs1',
 									    'Assembly summary',
+									    true,
 					                 '<ws-help-swset layout="offcanvas"></ws-help-swset>',
 									    '') ;
                                              }) ;
@@ -57,6 +58,7 @@
                                              (event) => {
 					       wepsim_offcanvas_set_content('offcvs2',
 									    'Hardware summary',
+									    true,
 						     '<ws-help-hweltos layout="offcanvas"></ws-help-hweltos>',
 									    '') ;
                                              }) ;
@@ -344,14 +346,17 @@
     // General popover
     //
 
-    function wepsim_offcanvas_set_content ( offcanvas_id, title, content, footer )
+    function wepsim_offcanvas_set_content ( offcanvas_id, title, with_close_btn, content, footer )
     {
         var o = '' ;
 
+        if (with_close_btn)
+        o  = '    <button type="button" class="btn-close text-reset"' +
+	     '            data-bs-dismiss="offcanvas" aria-label="Close"></button>' ;
+
         o += '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2">' +
              '    <h5 class="offcanvas-title" id="' + offcanvas_id + 'Label">' + title + '</h5>' +
-	     '    <button type="button" class="btn-close text-reset"' +
-	     '            data-bs-dismiss="offcanvas" aria-label="Close"></button>' +
+                  o +
              '  </div>' +
              '  <div class="offcanvas-body" id="' + offcanvas_id + 'help">' + content + '</div>' +
              '  <div class="offcanvas-footer">' + footer + '</div>' ;

@@ -284,7 +284,7 @@
 			    '<span data-langkey="Continue">Continue</span></button>' ;
 
 	// show as offcanvas...
-	wepsim_offcanvas_set_content("offcvs3", dialog_title, dialog_msg, dialog_footer) ;
+	wepsim_offcanvas_set_content("offcvs3", dialog_title, false, dialog_msg, dialog_footer) ;
 	wepsim_offcanvas_show("offcvs3") ;
 
 	return false ;
@@ -330,9 +330,11 @@
     function wepsim_check_getnotifyoptions ( firstline )
     {
         var ret = { 
-	             showas:      'offcanvas',
-	             skip1stline: false,
-	             eltos2glow:  []
+	             showas:         'offcanvas',
+	             skip1stline:    false,
+	             scroll2current: false,
+	             skipme:         false,
+	             eltos2glow:     []
                   } ;
 
         var firstline_uppercase = firstline.toUpperCase() ;
@@ -342,6 +344,14 @@
 
 	if (firstline_uppercase.includes('SKIP1ST:TRUE')) {
 	    ret.skip1stline = true ;
+        }
+
+	if (firstline_uppercase.includes('SCROLL2CURRENT:TRUE')) {
+	    ret.scroll2current = true ;
+        }
+
+	if (firstline_uppercase.includes('SKIPME:TRUE')) {
+	    ret.skipme = true ;
         }
 
         var eltos2glow = firstline.match(/glow:.*/g) ;
@@ -370,6 +380,10 @@
            {
                 var ret = wepsim_check_getnotifyoptions(ref_mdash.notify[1]) ;
 
+	        if (ret.skipme) {
+	            return true ;
+                }
+
                 // show content...
                 if ('offcanvas' == ret.showas) 
                      wepsim_memdashboard_notify_offcanvas(ref_mdash, notif_origin, notifications, ret.skip1stline) ;
@@ -381,7 +395,9 @@
                 }
 
                 // scroll into the current instruction...
-                wsweb_change_show_asmdbg();
+	        if (ret.scroll2current) {
+                    wsweb_change_show_asmdbg();
+                }
 
 		return false ;
 	   }

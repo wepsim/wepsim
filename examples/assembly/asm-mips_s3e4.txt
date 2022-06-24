@@ -59,7 +59,7 @@ sys_prt_int: li   $1 1
 .text
 
 factorial:
-           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true
            # notify: TIP: Calling conventions
            # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
            # notify:
@@ -153,5 +153,4 @@ factorial:
            # exit
            li   $v0 10
            syscall
-
 
