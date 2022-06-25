@@ -50,7 +50,7 @@
 				       i18n_update_tags('gui',     ws_idiom) ;
 
 				       // auto-close tooltips
-                                       setTimeout(wepsim_tooltips_closeAll, 1000) ;
+                                       setTimeout(wepsim_tooltips_closeAll, 500) ;
 				    },
 		    buttons:        dialog_obj.buttons
 	    } ;

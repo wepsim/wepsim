@@ -53,6 +53,7 @@
 					                 '<ws-help-swset layout="offcanvas"></ws-help-swset>',
 									    '') ;
                                              }) ;
+
                     var offcvs2 = document.getElementById('offcvs2') ;
                     offcvs2.addEventListener('shown.bs.offcanvas',
                                              (event) => {
@@ -356,7 +357,7 @@
 
         o += '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2">' +
              '    <h5 class="offcanvas-title" ' +
-             '        onclick="$(\'#' + offcanvas_id + '\').toggleClass(\'offcanvas-bottom\').toggleClass(\'offcanvas-start\'); "' +
+             '        onclick="wepsim_offcanvas_toggleHV(\'#' + offcanvas_id + '\');"' +
              '        id="' + offcanvas_id + 'Label">' +
                   title +
                   '</h5>' +
@@ -387,5 +388,10 @@
         var bsObj = bootstrap.Offcanvas.getOrCreateInstance(jsObj)
 
         bsObj.hide() ;
+    }
+
+    function wepsim_offcanvas_toggleHV ( offcanvas_id )
+    {
+        $('#' + offcanvas_id).toggleClass('offcanvas-bottom').toggleClass('offcanvas-start') ;
     }
 

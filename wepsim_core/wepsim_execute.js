@@ -336,6 +336,8 @@
 	             skip1stline:    false,
 	             scroll2current: false,
 	             skipme:         false,
+	             panel2view:     [],
+	             detail2view:    [],
 	             eltos2glow:     []
                   } ;
 
@@ -356,12 +358,53 @@
 	    ret.skipme = true ;
         }
 
-        var eltos2glow = firstline.match(/glow:.*/g) ;
+        var eltos2glow = firstline.match(/glow:\S+/g) ;
         if (eltos2glow != null) {
             ret.eltos2glow = eltos2glow[0].split(':')[1].split(',') ;
         }
 
+        var panel2view = firstline.match(/showpanel:\S+/g) ;
+        if (panel2view != null) {
+            ret.panel2view = panel2view[0].split(':')[1] ;
+        }
+
+        var detail2view = firstline.match(/showdetails:\S+/g) ;
+        if (detail2view != null) {
+            ret.detail2view = detail2view[0].split(':')[1] ;
+        }
+
 	return ret ;
+    }
+
+    function wepsim_check_donotifyoptions ( options )
+    {
+	// glowing elements...
+	for (var i=0; i<options.eltos2glow.length; i++) {
+	    simcore_record_glowing('#' + options.eltos2glow[i]) ;
+	}
+
+	// scroll into the current instruction...
+	if (options.scroll2current) {
+	    wsweb_change_show_asmdbg();
+	}
+
+	// setview
+	if (options.panel2view != '')
+	{
+	    if (options.panel2view === "microcode") {
+		wsweb_change_show_processor() ;
+	    }
+	    if (options.panel2view === "assembly") {
+		wsweb_change_show_asmdbg() ;
+	    }
+	}
+
+	// setview
+	if (options.detail2view != '') {
+	    wsweb_set_details(options.detail2view.toUpperCase()) ;
+	}
+
+	return false ;
     }
 
     function wepsim_check_memdashboard ( ref_mdash, notif_origin )
@@ -381,27 +424,16 @@
 	if (notifications > 1)
            {
                 var ret = wepsim_check_getnotifyoptions(ref_mdash.notify[1]) ;
-
 	        if (ret.skipme) {
 	            return true ;
                 }
 
-                // show content...
-                if ('offcanvas' == ret.showas) 
-                     wepsim_memdashboard_notify_offcanvas(ref_mdash, notif_origin, notifications, ret.skip1stline) ;
-                else wepsim_memdashboard_notify_dialogbox(ref_mdash, notif_origin, notifications, ret.skip1stline) ;
+	        // show content...
+	        if ('offcanvas' == ret.showas) 
+	             wepsim_memdashboard_notify_offcanvas(ref_mdash, notif_origin, notifications, ret.skip1stline) ;
+	        else wepsim_memdashboard_notify_dialogbox(ref_mdash, notif_origin, notifications, ret.skip1stline) ;
 
-                // glowing elements...
-                for (var i=0; i<ret.eltos2glow.length; i++) {
-                    simcore_record_glowing('#' + ret.eltos2glow[i]) ;
-                }
-
-                // scroll into the current instruction...
-	        if (ret.scroll2current) {
-                    wsweb_change_show_asmdbg();
-                }
-
-		return false ;
+                return wepsim_check_donotifyoptions(ret) ;
 	   }
 
         // return 'continue to next one'
