@@ -269,58 +269,55 @@ I kodavsnittet kan du definiera subrutiner som kvarstår i kodsegmentet för huv
 
 </p>
 <P>
-Du kan använda radkommentarer med # tecknet. <br />
-Allt som följer denna karaktär till slutet av linjen kommer att ignoreras av monteraren.
-</p>
-<P>
 Ett exempelprogram skulle vara:
 </p>
 <Ul>
-<P>
+
+<pre class="font-monospace">
 .data
-</p>
-<P>
-age1: .word 0x12345678, 20
-</p>
-<P>
-age2: .word 20, 10
-</p>
-<P>
-Resultat: .word 0
-</p>
-<P>
-# 32-bitars ord initialiserat med decimal
-</p>
-<P>
-text: .ascii "Hej \ t"
-</p>
-<P>
-text2: .asciiz "Hej \ t"
-</p>
-<P>
-ihålig: .rymd 16
-</p>
-<P>
-.text
-</p>
-<P>
-.globl huvud
-</p>
-<P>
-huvud: li $ 3 2
-</p>
-<P>
-li $ 4 1
-</p>
-<P>
-li $ 5 0 <br />
-<br />
-</p>
+  age1:      .word 0x12345678, 20 
+  alter2:    .word 20, 10 
+  resultado: .word 0 
+  # 32-bitars ord initialiserat med decimal
+  texto:     .ascii  "Hej \t" 
+  texto2:    .asciiz "Hej \t" 
+  hueco:     .space 16 
+
+.text 
+.globl main 
+ main: li $3 2 
+       li $4 1 
+       li $5 0 
+</pre>
+
 </ul>
 <p class = "cleanuphtml-2">
-<a class="cleanuphtml-1" name="_Toc438322908"> Figur </a> <b> 19 </b> <b> Exempel på data och kod sektioner för att testa mikro aassemblies. </b> <b> <br />
+<a class="cleanuphtml-1" name="_Toc438322908"> Figur </a> <b> 19 </b> <b> Exempel på data och kod sektioner för att testa mikrokod. </b> <b> <br />
 <br /> </b>
 </p>
+	<P>
+	Du kan använda radkommentarer med # tecknet. <br />
+	Allt som följer denna karaktär till slutet av linjen kommer att ignoreras av monteraren.
+
+		Det finns också aktiva kommentarer där speciella taggar används för att utföra vissa åtgärder under körning:
+                <ul>
+                <li>
+		<pre class="m-0"># state:</pre>
+		 Tillåter att spara tillståndet innan instruktionen som föregår kommentaren utförs.
+                </li>
+                <li>
+		<pre class="m-0"># break:</pre>
+		 Tillåter att ställa in en brytpunkt under programkörning.
+                </li>
+                <li>
+		<pre class="m-0">
+# notify: skip1st:true showas:offcanvas scroll2current:true
+# notify: Lorem ipsum dolor sit amet, consectetur...
+                </pre>
+		 Tillåter att stoppa exekvering tillfälligt och visa information i en sidopanel (offcanvas) eller i en dialogruta (dialogbox).
+                </li>
+                </ul>
+	</p>
 
       </div>
 

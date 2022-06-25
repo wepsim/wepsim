@@ -269,58 +269,55 @@ Nella sezione del codice è possibile definire le subroutine che rimangono nel s
 
 </P>
 <P>
-Puoi utilizzare i commenti di riga usando il carattere #. <br />
-Tutto ciò che segue questo personaggio fino alla fine della riga verrà ignorato dall'assemblatore.
-</P>
-<P>
 Un programma di esempio potrebbe essere:
 </P>
 <Ul>
-<P>
-.dati
-</P>
-<P>
-age1: .word 0x12345678, 20
-</P>
-<P>
-age2: .word 20, 10
-</P>
-<P>
-resultado: .word 0
-</P>
-<P>
-# Parola a 32 bit inizializzata con decimale
-</P>
-<P>
-texto: .ascii "Hola \ t"
-</P>
-<P>
-texto2: .asciiz "Hola \ t"
-</P>
-<P>
-hueco: .space 16
-</P>
-<P>
-.testo
-</P>
-<P>
-.globl principale
-</P>
-<P>
-principale: li $ 3 2
-</P>
-<P>
-li $ 4 1
-</P>
-<P>
-li $ 5 0 <br />
-<br />
-</P>
+
+<pre class="font-monospace">
+.data
+  age1:      .word 0x12345678, 20 
+  alter2:    .word 20, 10 
+  resultado: .word 0 
+  # Parola a 32 bit inizializzata con decimale
+  texto:     .ascii  "Hola \t" 
+  texto2:    .asciiz "Hola \t" 
+  hueco:     .space 16 
+
+.text 
+.globl main 
+ main: li $3 2 
+       li $4 1 
+       li $5 0 
+</pre>
+
 </Ul>
 <p class = "cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322908"> Figura </a> <b> 19 </b> <b> Esempio di sezioni di dati e codice per testare microassemblaggi. </b> <b> <br />
 <br /> </b>
 </P>
+	<P>
+	Puoi utilizzare i commenti di riga usando il carattere #. <br />
+	Tutto ciò che segue questo personaggio fino alla fine della riga verrà ignorato dall'assemblatore.
+
+		Esistono anche commenti attivi in cui vengono utilizzate variabili speciali per eseguire determinate azioni in fase di esecuzione:
+                <ul>
+                <li>
+		<pre class="m-0"># state:</pre>
+		 Consente di salvare lo stato prima di eseguire l'istruzione che precede il commento.
+                </li>
+                <li>
+		<pre class="m-0"># break:</pre>
+		 Consente di impostare un punto di interruzione durante l'esecuzione del programma.
+                </li>
+                <li>
+		<pre class="m-0">
+# notify: skip1st:true showas:offcanvas scroll2current:true
+# notify: Lorem ipsum dolor sit amet, consectetur...
+                </pre>
+		 Consente di interrompere temporaneamente l'esecuzione e visualizzare le informazioni in un pannello laterale (offcanvas) o in una finestra di dialogo (dialogbox).
+                </li>
+                </ul>
+	</P>
 
       </Div>
 

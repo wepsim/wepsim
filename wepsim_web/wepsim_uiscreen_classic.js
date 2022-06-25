@@ -357,7 +357,7 @@
 
         o += '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2">' +
              '    <h5 class="offcanvas-title" ' +
-             '        onclick="wepsim_offcanvas_toggleHV(\'#' + offcanvas_id + '\');"' +
+             '        onclick="wepsim_offcanvas_toggleHV(\'' + offcanvas_id + '\');"' +
              '        id="' + offcanvas_id + 'Label">' +
                   title +
                   '</h5>' +

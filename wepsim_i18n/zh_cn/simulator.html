@@ -269,59 +269,56 @@ ori reg1 reg1 sel(15.0, num) <br />
 
 </ p>
 <P>
-您可以使用＃字符使用行注释。<br />
-汇编程序将忽略跟随此字符到行尾的所有内容。
-</ p>
-<P>
 一个示例程序将是：
 </ p>
 <UL>
-<P>
-。数据
-</ p>
-<P>
-age1：.word 0x12345678,20
-</ p>
-<P>
-age2：.word 20,10
-</ p>
-<P>
-resultado：.word 0
-</ p>
-<P>
-#32位字用十进制初始化
-</ p>
-<P>
-texto：.ascii“Hola \ t”
-</ p>
-<P>
-texto2：.asciiz“Hola \ t”
-</ p>
-<P>
-hueco：.space 16
-</ p>
-<P>
-。文本
-</ p>
-<P>
-.globl主要
-</ p>
-<P>
-主要：li $ 3 2
-</ p>
-<P>
-li $ 4 1
-</ p>
-<P>
-li $ 5 0 <br />
-<br />
-</ p>
+
+<pre class="font-monospace">
+.data
+  age1:      .word 0x12345678, 20 
+  alter2:    .word 20, 10 
+  resultado: .word 0 
+  # 32位字用十进制初始化
+  texto:     .ascii  "你好 \t" 
+  texto2:    .asciiz "你好 \t" 
+  hueco:     .space 16 
+
+.text 
+.globl main 
+ main: li $3 2 
+       li $4 1 
+       li $5 0 
+</pre>
+
 </ UL>
 <p class =“cleanuphtml-2”>
 <a class="cleanuphtml-1" name="_Toc438322908">图</a> <b> 19 </ b> <b>测试微型组件的数据和代码部分示例。 </ b> <b> <br />
 <br /> </ b>
 </ p>
 
+	<P>
+	您可以使用＃字符使用行注释。<br />
+	汇编程序将忽略跟随此字符到行尾的所有内容。
+
+		还有一些活动评论，其中特殊标签用于在运行时执行某些操作：
+                <ul>
+                <li>
+		<pre class="m-0"># state:</pre>
+		 允许在执行注释之前的指令之前保存状态。
+                </li>
+                <li>
+		<pre class="m-0"># break:</pre>
+		 允许在程序执行期间设置断点。
+                </li>
+                <li>
+		<pre class="m-0">
+# notify: skip1st:true showas:offcanvas scroll2current:true
+# notify: Lorem ipsum dolor sit amet, consectetur...
+                </pre>
+		 允许暂时停止执行并在侧面板（offcanvas）或对话框（对话框）中显示信息。
+                </li>
+                </ul>
+	</ p>
       </ DIV>
 
 

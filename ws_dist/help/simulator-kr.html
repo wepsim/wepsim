@@ -269,58 +269,55 @@ ori reg1 reg1 sel(15.0, num) <br />
 
 </p>
 <p>
-# 문자를 사용하여 줄 주석을 사용할 수 있습니다. <br />
-이 문자 뒤에 나오는 모든 것이 어셈블러에서 무시됩니다.
-</p>
-<p>
 예제 프로그램은 다음과 같습니다.
 </p>
 <ul>
-<p>
-.데이터
-</p>
-<p>
-age1 : .word 0x12345678, 20
-</p>
-<p>
-age2 : .word 20, 10
-</p>
-<p>
-결과 : .word 0
-</p>
-<p>
-10 진수로 초기화 된 # 32 비트 단어
-</p>
-<p>
-texto : .ascii "Hola \ t"
-</p>
-<p>
-texto2 : .asciiz "Hola \ t"
-</p>
-<p>
-hueco : .space 16
-</p>
-<p>
-.본문
-</p>
-<p>
-.globl main
-</p>
-<p>
-main : li $ 3 2
-</p>
-<p>
-리 $ 4 1
-</p>
-<p>
-li $ 5 0 <br />
-<br />
-</p>
+
+<pre class="font-monospace">
+.data
+  age1:      .word 0x12345678, 20 
+  alter2:    .word 20, 10 
+  resultado: .word 0 
+  # 10 진수로 초기화 된 # 32 비트 단어
+  texto:     .ascii  "Hola \t" 
+  texto2:    .asciiz "Hola \t" 
+  hueco:     .space 16 
+
+.text 
+.globl main 
+ main: li $3 2 
+       li $4 1 
+       li $5 0 
+</pre>
+
 </ul>
 <p class = "cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322908"> 그림 </a> <b> 19 </b> <b> 마이크로 어셈블리를 테스트하는 데이터 및 코드 섹션의 예. </b> <b> <br />
 <br /> </b>
 </p>
+	<p>
+	# 문자를 사용하여 줄 주석을 사용할 수 있습니다. <br />
+	이 문자 뒤에 나오는 모든 것이 어셈블러에서 무시됩니다.
+
+		런타임에 특정 작업을 수행하기 위해 특수 태그가 사용되는 활성 주석도 있습니다.
+                <ul>
+                <li>
+		<pre class="m-0"># state:</pre>
+		 주석 앞의 명령을 실행하기 전에 상태를 저장할 수 있습니다.
+                </li>
+                <li>
+		<pre class="m-0"># break:</pre>
+		 프로그램 실행 중 중단점을 설정할 수 있습니다.
+                </li>
+                <li>
+		<pre class="m-0">
+# notify: skip1st:true showas:offcanvas scroll2current:true
+# notify: Lorem ipsum dolor sit amet, consectetur...
+                </pre>
+		 실행을 일시적으로 중지하고 측면 패널(오프캔버스) 또는 대화 상자(대화 상자)에 정보를 표시할 수 있습니다.
+                </li>
+                </ul>
+	</p>
 
       </div>
 
