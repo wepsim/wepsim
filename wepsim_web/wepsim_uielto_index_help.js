@@ -132,7 +132,7 @@
 	// hardware summary image
         function uielto_help_hw_summary_image ( seg_hardw )
         {
-	    var img2 = 'examples/hardware/' + seg_hardw + '/images/cpu.svg?time=20210802' ;
+	    var img2 = 'examples/hardware/' + seg_hardw + '/images/cpu.svg?time=20220610' ;
 
 	    return '<button class="btn btn-secondary w-100" type="button"' +
                    '        data-bs-toggle="collapse"   data-bs-target="#hw_img_collapse1"' +

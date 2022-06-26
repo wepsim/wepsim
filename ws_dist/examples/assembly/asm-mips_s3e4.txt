@@ -59,7 +59,7 @@ sys_prt_int: li   $1 1
 .text
 
 factorial:
-           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
            # notify: TIP: Calling conventions
            # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
            # notify:
@@ -88,7 +88,7 @@ factorial:
            #    return $a0 * factorial($a0 - 1)
 
    b_else:
-           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 showdetails:register_file
            # notify: TIP: Calling conventions
            # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
            # notify:
@@ -103,7 +103,7 @@ factorial:
            addi $a0 $a0 -1
            jal  factorial
 
-           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 showdetails:register_file
            # notify: TIP: Calling conventions
            # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
            # notify:
@@ -118,7 +118,7 @@ factorial:
            mul  $v0 $v0 $v1
 
    b_efs:
-           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 showdetails:register_file
            # notify: TIP: Calling conventions
            # notify:  Summary: A subrutine might modify $t0..$t9 but keep the value of everything else.
            # notify:
@@ -127,9 +127,9 @@ factorial:
            # notify:  >* B should restore the saved values, just before "jr $ra"
            # notify:
            # notify: Factorial restore the $ra and $fp values.
-           # notify:  * SP = SP + 3*4
            # notify:  * RA = Memory[SP+8]
            # notify:  * FP = Memory[SP+4]
+           # notify:  * SP = SP + 3*4
 
            # finalizar "stack frame"
            lw   $ra 8($sp)

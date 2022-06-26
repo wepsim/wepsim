@@ -24,13 +24,40 @@ sys_print:
       fin1: reti
 
   rti0:     la   $26 msgi0
+
+            # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+            # notify: TIP: Interruption zero
+            # notify: Some hardware raises interruption
+            # notify: For example the clock hardware fires the zero interruption
+            # notify:
+            # notify: Execute an assembly subrutine associated to the zero interruption
+            # notify:
+
             b    sys_print
 
   rti1:     la   $26 msgi1
+
+            # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+            # notify: TIP: Interruption one
+            # notify: Some hardware raises interruption
+            # notify: For example the clock hardware fires the one interruption
+            # notify:
+            # notify: Execute an assembly subrutine associated to the one interruption
+            # notify:
+
             b    sys_print
 
   sys:      move $26 $a0
             li   $27 4
+
+            # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+            # notify: TIP: System call
+            # notify: One instruction that fires an expecial exception
+            # notify: For example the ecall instruction
+            # notify:
+            # notify: Execute an assembly subrutine associated to the system call.
+            # notify:
+
             beq  $v0 $27 sys_print
             reti
 

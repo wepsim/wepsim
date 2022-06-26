@@ -229,7 +229,7 @@
                   "             <div class='row align-items-center'>" +
                   "             <div class='col-auto text-center flex-column d-flex pe-0'>" +
                   "                  <span id='s_clip' class='badge badge-pill text-dark border-secondary border m-2 shadow'>clipboard</span>" +
-                  "                  <div class='row' style='max-height:16vh'><div class='col border-right border-dark'>&nbsp;</div><div class='col'>&nbsp;</div></div>" +
+                  "                  <div class='row' style='max-height:16vh'><div class='col border-end border-dark'>&nbsp;</div><div class='col'>&nbsp;</div></div>" +
                   "                  <span id='s_ref'  class='badge badge-pill text-dark border-secondary border m-2 shadow'>reference</span>" +
                   "             </div>" +
                   "             <div class='col py-2 ps-2'>" +
@@ -296,7 +296,7 @@
 
                  vrow = '' ;
                  if (i != 0)
-                     vrow = '<div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' ;
+                     vrow = '<div class="row h-100"><div class="col border-end border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' ;
 
                  o += '  <div class="row">' +
                       '       <div class="col-auto text-center flex-column d-flex pe-0">' +
