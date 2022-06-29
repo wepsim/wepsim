@@ -143,6 +143,17 @@
     "testing":          true
   },
   {
+    "id":		"R4E3",
+    "title":            "Threads",
+    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"rv32_r4e3",
+    "description":      "<span data-langkey='example_04_03'>Example of threads.</span>",
+    "testing":          true
+  },
+  {
     "id":		"R5E1",
     "title":		"3D-Led",
     "type":		"<span data-langkey='Special'>Special</span>",

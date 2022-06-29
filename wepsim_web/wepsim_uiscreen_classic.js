@@ -377,7 +377,7 @@
     function wepsim_offcanvas_show ( offcanvas_id )
     {
         var jsObj = document.getElementById(offcanvas_id) ;
-        var bsObj = bootstrap.Offcanvas.getOrCreateInstance(jsObj)
+        var bsObj = bootstrap.Offcanvas.getOrCreateInstance(jsObj) ;
 
         bsObj.show() ;
     }
@@ -385,7 +385,7 @@
     function wepsim_offcanvas_hide ( offcanvas_id )
     {
         var jsObj = document.getElementById(offcanvas_id) ;
-        var bsObj = bootstrap.Offcanvas.getOrCreateInstance(jsObj)
+        var bsObj = bootstrap.Offcanvas.getOrCreateInstance(jsObj) ;
 
         bsObj.hide() ;
     }
