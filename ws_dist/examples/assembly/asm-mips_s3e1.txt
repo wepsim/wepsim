@@ -24,15 +24,39 @@ sys_print:  li   $0 0
             b  sys_print
       fin1: reti
 
-  rt_i0:    # 1.- interruption
+  rt_i0:    # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+            # notify: TIP: Interruption zero
+            # notify: Some hardware raises interruption
+            # notify: For example the clock hardware fires the zero interruption
+            # notify:
+            # notify: Execute an assembly subrutine associated to the zero interruption
+            # notify:
+
+            # 1.- interruption
             la   $26 msgi0
             b    sys_print
 
-  rt_i1:    # 2.- interruption
+  rt_i1:    # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+            # notify: TIP: Interruption one
+            # notify: Some hardware raises interruption
+            # notify: For example the clock hardware fires the one interruption
+            # notify:
+            # notify: Execute an assembly subrutine associated to the one interruption
+            # notify:
+
+            # 2.- interruption
             la   $26 msgi1
             b    sys_print
 
-  rt_i2:    # 3.- interruption
+  rt_i2:    # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+            # notify: TIP: Interruption two
+            # notify: Some hardware raises interruption
+            # notify: For example the clock hardware fires the two interruption
+            # notify:
+            # notify: Execute an assembly subrutine associated to the two interruption
+            # notify:
+
+            # 3.- interruption
             la   $26 msgi2
             b    sys_print
 

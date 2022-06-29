@@ -457,18 +457,28 @@
 	var ret  = false ;
         var ret2 = {} ;
 
-	var curr_mp    = simhw_internalState('MP') ;
-        var curr_firm  = simhw_internalState('FIRMWARE') ;
-	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
-	var ref_pc     = simhw_sim_state(pc_name) ;
-	var reg_pc     = get_value(ref_pc) ;
-	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	var ref_maddr  = simhw_sim_state(maddr_name) ;
-	var reg_maddr  = get_value(ref_maddr) ;
-        var ref_mdash  = null ;
+	var curr_mp     = simhw_internalState('MP') ;
+        var curr_firm   = simhw_internalState('FIRMWARE') ;
+	var pc_name     = simhw_sim_ctrlStates_get().pc.state ;
+	var ref_pc      = simhw_sim_state(pc_name) ;
+	var reg_pc      = get_value(ref_pc) ;
+	var maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
+	var ref_maddr   = simhw_sim_state(maddr_name) ;
+	var reg_maddr   = get_value(ref_maddr) ;
+        var ref_mdash   = null ;
+        var fetch_maddr = 0 ;
 
         var i_clks = 0 ;
 	var i = 0 ;
+
+        // try to find fetch address, that is zero by default... 
+        fetch_maddr = 0 ;
+        for (var k in curr_firm.labels_firm) {
+             if ("fetch" == curr_firm.labels_firm[k]) 
+                  fetch_maddr = k ;
+        }
+
+        // execute chunk...
         while (i < chunk)
         {
             // one clock cycle...
@@ -496,8 +506,8 @@
                 return pack_ret2(false, "Breakpoint", 'INFO: Microinstruction is going to be issue.') ;
 	    }
 
-	    if ( ((0 == reg_maddr) && (false == ref_mdash.is_native)) ||
-	         ((0 != reg_maddr) && (true  == ref_mdash.is_native)) )
+	    if ( ((fetch_maddr == reg_maddr) && (false == ref_mdash.is_native)) ||
+	         ((fetch_maddr != reg_maddr) && (true  == ref_mdash.is_native)) )
 	    {
                 ref_mdash = simhw_internalState_get('MP', reg_pc) ;
 	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;

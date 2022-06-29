@@ -95,7 +95,7 @@
     "hardware":		"ep",
     "microcode":	"ep_mips",
     "assembly":		"mips_s3e1",
-    "description":	"<span data-langkey='example_03_01b'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
+    "description":	"<span data-langkey='example_03_02'><b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
     "testing":          true
   },
   {
@@ -106,7 +106,7 @@
     "hardware":		"ep",
     "microcode":	"ep_mips",
     "assembly":		"mips_s3e2",
-    "description":	"<span data-langkey='example_03_02b'>Example with system call support.</span>",
+    "description":	"<span data-langkey='example_03_03'><b>Instructive</b> example with system call support.</span>",
     "testing":          true
   },
   {
@@ -117,7 +117,7 @@
     "hardware":		"ep",
     "microcode":	"ep_mips",
     "assembly":		"mips_s3e3",
-    "description":	"<span data-langkey='example_03_03b'>Example with floating point exception.</span>",
+    "description":	"<span data-langkey='example_03_01'><b>Instructive</b> example with floating point exception.</span>",
     "testing":          true
   },
   {
