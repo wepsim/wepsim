@@ -40,9 +40,9 @@
   * Check you have installed Node v10.5.0+, and Bash 4.4.19+:
     * sudo apt-get install nodejs npm bash -y
   * Get WepSIM by executing:
-    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.8/wepsim-2.1.8.zip
-    * unzip wepsim-2.1.8.zip
-    * cd wepsim-2.1.8
+    * wget https://github.com/acaldero/wepsim/releases/download/v2.1.9/wepsim-2.1.9.zip
+    * unzip wepsim-2.1.9.zip
+    * cd wepsim-2.1.9
     * npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
   * Execute wepsim.sh with the help flag in order to show the available command switches:
     * ./wepsim.sh -h
@@ -308,12 +308,12 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 !echo "(1/4) Installing pre-requisites..."
 !npm install  terser jq jshint yargs clear inquirer >& /dev/null
 !echo "(2/4) Downloading WepSIM..."
-!wget https://github.com/acaldero/wepsim/releases/download/v2.1.8/wepsim-2.1.8.zip >& /dev/null
-!unzip -o wepsim-2.1.8.zip  >& /dev/null
-!rm -fr   wepsim-2.1.8.zip
+!wget https://github.com/acaldero/wepsim/releases/download/v2.1.9/wepsim-2.1.9.zip >& /dev/null
+!unzip -o wepsim-2.1.9.zip  >& /dev/null
+!rm -fr   wepsim-2.1.9.zip
 !echo "(3/4) Executing WepSIM..."
-!./wepsim-2.1.8/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.1.8/examples/microcode/mc-ep_mips_base.txt -s ./wepsim-2.1.8/examples/assembly/asm-mips_s1e1.txt > ./result.csv
-!rm -fr   wepsim-2.1.8
+!./wepsim-2.1.9/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.1.9/examples/microcode/mc-ep_mips_base.txt -s ./wepsim-2.1.9/examples/assembly/asm-mips_s1e1.txt > ./result.csv
+!rm -fr   wepsim-2.1.9
 !echo "(4/4) Showing execution trace as table..."
 
 import pandas as pd
@@ -400,13 +400,13 @@ cordova plugin add cordova-plugin-web-share
 
 + 2.1) Copy WepSIM files into the www directory:
 ```bash
-wget https://github.com/acaldero/wepsim/releases/download/v2.1.8/wepsim-2.1.8.zip
-unzip wepsim-2.1.8.zip
+wget https://github.com/acaldero/wepsim/releases/download/v2.1.9/wepsim-2.1.9.zip
+unzip wepsim-2.1.9.zip
 ```
 
 + 2.2) Build www for the Apache Cordova project:
 ```bash
-./wepsim-2.1.8/devel/mk_cordova.sh
+./wepsim-2.1.9/devel/mk_cordova.sh
 ```
 
 ### 3) Build Android .apk:
