@@ -435,7 +435,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r1e1",
+    "assembly": "rv32_r1e1",
     "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
     "testing": true
   },
@@ -446,7 +446,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r1e2",
+    "assembly": "rv32_r1e2",
     "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
     "testing": true
   },
@@ -457,7 +457,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r1e3",
+    "assembly": "rv32_r1e3",
     "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
     "testing": true
   },
@@ -468,7 +468,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r1e4",
+    "assembly": "rv32_r1e4",
     "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
     "testing": true
   },
@@ -479,7 +479,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r2e1",
+    "assembly": "rv32_r2e1",
     "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
     "testing": false
   },
@@ -490,7 +490,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r2e2",
+    "assembly": "rv32_r2e2",
     "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
     "testing": true
   },
@@ -501,7 +501,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r2e3",
+    "assembly": "rv32_r2e3",
     "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
     "testing": true
   },
@@ -512,7 +512,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r2e4",
+    "assembly": "rv32_r2e4",
     "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
     "testing": true
   },
@@ -523,7 +523,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r2e5",
+    "assembly": "rv32_r2e5",
     "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
     "testing": true
   },
@@ -534,7 +534,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r3e1",
+    "assembly": "rv32_r3e1",
     "description": "<span data-langkey='example_03_01b'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
     "testing": true
   },
@@ -545,7 +545,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r3e2",
+    "assembly": "rv32_r3e2",
     "description": "<span data-langkey='example_03_02b'>Example with system call support.</span>",
     "testing": true
   },
@@ -556,7 +556,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r3e3",
+    "assembly": "rv32_r3e3",
     "description": "<span data-langkey='example_03_03b'>Example with floating point exception.</span>",
     "testing": true
   },
@@ -567,7 +567,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r4e1",
+    "assembly": "rv32_r4e1",
     "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
     "testing": true
   },
@@ -578,7 +578,7 @@
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
     "microcode": "ep_rv32",
-    "assembly": "rv32_ep_r5e1",
+    "assembly": "rv32_r5e1",
     "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
     "testing": true
   },
