@@ -123,14 +123,10 @@
     {
 	    var o = null ;
 
-            // body
-	    o = document.getElementsByTagName('body') ;
-	    if (o.length > 0)
-            {
-	         if (adm === false)
-	              o[0].removeAttribute('data-theme', 'dark') ;
-	         else o[0].setAttribute('data-theme',    'dark') ;
-            }
+            // document
+	    if (adm === false)
+                 document.documentElement.setAttribute('data-theme', 'light') ;
+            else document.documentElement.setAttribute('data-theme', 'dark') ;
 
             // skipped elements
 	    o = document.querySelectorAll('.no-dark-mode') ;
@@ -448,7 +444,7 @@
 	    $("div.wsversion").replaceWith(get_cfg('version'));
 
 	    // tooltip: trigger by hover
-	    $('[data-toggle="tooltip"]').tooltip({
+	    $('[data-bs-toggle="tooltip"]').tooltip({
 		    trigger:   'hover',
 		    sanitizeFn: function (content) {
 				   return content ; // DOMPurify.sanitize(content) ;
@@ -456,32 +452,22 @@
 	    }) ;
 
 	    // help popover...
-	    $('a[data-toggle="popover1"]').popover({
-		    placement: 'bottom',
-		    animation: false,
-		    trigger:   'focus, hover',
-		    delay: { "show": 500, "hide": 100 },
-		    sanitizeFn: function (content) {
+	    var popover_cfg = {
+		   placement: 'bottom',
+		   animation: false,
+		   trigger:   'focus, hover',
+		   delay: { "show": 500, "hide": 100 },
+		   sanitizeFn: function (content) {
 				   return content ; // DOMPurify.sanitize(content) ;
-				}
-	    }) ;
+			       }
+	        } ;
+            wepsim_popovers_init('a[data-bs-toggle="popover1"]', popover_cfg, null) ;
 
 	    // init: quick-menus
-            for (var p in wsweb_quickcfg)
-            {
-                 wepsim_init_quickcfg(wsweb_quickcfg[p].quick_id,
-                                      wsweb_quickcfg[p].val_trigger,
-		                      wsweb_quickcfg[p].fun_content,
-		                      wsweb_quickcfg[p].fun_ownshown) ;
-            }
+            wepsim_quickcfg_init('pop1') ;
 
-	    // asmdbg
-	    showhideAsmElements() ;
-
-	    var target = $("#asm_table");
-	    $("#asm_debugger_container").scroll(function() {
-	       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
-	    });
+	    // init: dbg_asm
+            showhideAsmElements() ;
 
 	    // initialize editors
 	    inputfirm_cfg = {
@@ -544,7 +530,7 @@
                 o = 'WepSIM has been instructed to preload some work for you:<br>' +
                     '<ul>' + o + '</ul>' +
                     'To close this notification please press in the ' +
-                    '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
+                    '<span class="btn btn-sm btn-info py-0" data-bs-dismiss="alert">X</span> mark. <br>' +
                     'In order to execute an example please press the ' +
                     '<span class="btn btn-sm btn-info py-0" ' +
                     '      onclick="webui_executionbar_toggle_play(\'exebar1\');">Run</span> ' +

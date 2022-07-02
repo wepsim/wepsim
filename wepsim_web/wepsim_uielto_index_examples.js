@@ -34,13 +34,33 @@
 	      }
 
               // render
-	      render ( event_name )
-	      {
+              render ( event_name )
+              {
                     // initialize render elements...
-	            super.render() ;
+                    super.render() ;
 
                     // render current element
-		    this.innerHTML = table_examples_html(ws_info.examples) ;
+		    this.render_skel() ;
+		    this.render_populate() ;
+              }
+
+	      render_skel ( )
+	      {
+		    var examdiv_id = 'examples1-scroller' ; // -> this.name_str + '-scroller' ;
+
+                    // default content
+		    this.innerHTML = "<div class='ui-body-d ui-content p-0' id='" + examdiv_id + "' " +
+                                     "     style='min-height:50vh; max-height:70vh; " +
+                                     "            overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
+                                     "</div>" ;
+	      }
+
+	      render_populate ( )
+	      {
+		    var examdiv_id = 'examples1-scroller' ; // -> this.name_str + '-scroller' ;
+
+		    var o1 = table_examples_html(ws_info.examples) ;
+		    $('#' + examdiv_id).html(o1) ;
 	      }
         }
 
@@ -115,61 +135,58 @@
      	       else w100_toggle = "" ;
                     toggle_cls = fmt_toggle + ' user_' + e_level ;
 
-     	            u = '<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
-                             '    <span class="badge badge-pill badge-light">' + t_index + '</span>' +
-                             '</div>' +
-                             '<div class="col-sm-4    py-1 ' + toggle_cls + '">' +
-                             '     <span style="cursor:pointer;" ' +
-     		        '           id="example_' + m + '" ' +
+     	            u = '<div class="col-xs-5 col-lg-4 btn-group h-100 py-1 ' + toggle_cls + '">' +
+     		        '     <span id="example_reference_' + e_id + '" class="d-none">' +
+                              base_url + '?mode=' + mode +
+     			 	         '&examples_set=' + ws_info.example_set[ws_info.example_active].name +
+     				         '&example=' + m +
+                        '     </span>' +
+                        '     <span class="badge rounded-pill text-bg-light me-2">' + t_index + '</span>' +
+                        '     <button id="example_' + m + '" ' +
+     		        '           class="btn btn-md bg-primary bg-opacity-75 text-white text-truncate border p-0 me-1 w-75"' +
      		        '           onclick="simcore_record_append_pending();' +
      		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
      		        '                    setTimeout(function() { wsweb_dialog_close(\'examples\'); }, 50);' +
      		        '                    return false;"' +
-     		        '           class="btn-like bg-info text-white text-truncate rounded border px-1 mr-1"' +
-                             '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
-                                  e_title + '</span>' +
-     		        '<span id="example_reference_' + e_id + '" class="d-none">' +
-                                  base_url + '?mode=' + mode +
-     				        '&examples_set=' + ws_info.example_set[ws_info.example_active].name +
-     				        '&example=' + m +
-                             '</span>' +
-     		        '    <div class="btn-group btn-group-md">' +
-                             '           <button type="button" ' +
-     		        '                   class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                             '              <span class="sr-only">Toggle Dropdown</span>' +
-                             '           </button>' +
-                             '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
+                        '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
+                                    e_title +
+                        '     </button>' +
+                        '     <button type="button" ' +
+     		        '             class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split"' +
+                        '             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                        '        <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
+                        '     </button>' +
+                        '     <div class="dropdown-menu bg-info" style="z-index:1024;">' +
      		        '             <a onclick="simcore_record_append_pending();' +
      		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
      		        '                         wsweb_dialog_close(\'examples\'); ' +
      		        '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load example">Load example</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load example">Load example</span></c></a>' +
      		        '             <a onclick="simcore_record_append_pending();' +
      		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\', false);' +
      		        '                         wsweb_dialog_close(\'examples\'); ' +
      		        '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
      		        '             <a onclick="simcore_record_append_pending();' +
      		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', false);' +
      		        '                         wsweb_dialog_close(\'examples\'); ' +
      		        '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
      		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
      		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
      		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
      		        '                         wsweb_dialog_close(\'examples\'); ' +
                              '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
      	                '             <a onclick="wsweb_dialog_close(\'examples\'); ' +
-                             '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
-                             '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
-     	                '           </div>' +
-     		        '    </div>' +
-                             '</div>' +
-                             '<div class="col-sm py-1 collapse7 show ' + toggle_cls + '">' +
-                             '    <c>' + e_description + '</c>' +
-                             '</div>' +
+                        '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
+                        '                         return false;"' +
+     		        '                class="dropdown-item text-white bg-info my-1 user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
+     	                '     </div>' +
+                        '</div>' +
+                        '<div class="col-sm py-1 collapse7 show ' + toggle_cls + '">' +
+                        '    <c>' + e_description + '</c>' +
+                        '</div>' +
      	                '<div class="w-100 ' + w100_toggle + ' ' + toggle_cls + '"></div>' ;
 
      	       if (typeof examples_groupby_type[e_type] === "undefined") {
@@ -189,24 +206,53 @@
      	        l = examples_groupby_type[m][0].level ;
                      for (var n=0; n<examples_groupby_type[m].length; n++)
                      {
-     		     u = u + examples_groupby_type[m][n].row ;
+     		          u = u + examples_groupby_type[m][n].row ;
 
-     		     if (l !== examples_groupby_type[m][n].level) {
-     			 l = '' ;
+     		          if (l !== examples_groupby_type[m][n].level) {
+     			      l = '' ;
                           }
                      }
                      u = u + '</div>' ;
 
-     	        o = o + "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top user_" + l + "'>" +
+     	             o = o + "<div class='col-sm-12 border-bottom border-secondary text-end text-capitalize fw-bold bg-white sticky-top user_" + l + "'>" +
      			ahw.toUpperCase() + ": " + m +
      			"</div>" + u ;
             }
 
             if (o.trim() === '') {
-     	   o = '&lt;<span data-langkey="No examples available...">No examples are available for the selected hardware</span>&gt;' ;
+     	        o = '&lt;<span data-langkey="No examples available...">No examples are available for the selected hardware</span>&gt;' ;
             }
 
             o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
             return o ;
+        }
+
+        function table_examplesets_html ( div_list, example_sets )
+        {
+            var  item = null ;
+            var  o = '' ;
+
+            o += '<ul class="list-group list-group-numbered">' ;
+            for (var i=0; i<example_sets.length; i++)
+            {
+                item = example_sets[i] ;
+                o += '<li class="list-group-item d-flex justify-content-between align-items-start" ' +
+                     '    id="exs_' + item.name + '" value="' + i + '" ' +
+                     '    onclick="wepsim_example_reset();' +
+                     '             wepsim_example_load(\'' + item.name + '\');' +
+                     '             wsweb_dialog_close(\'examples\');' +
+                     '             wsweb_dialog_open(\'examples\');' +
+                     '             wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+                     '             return false;">' +
+                     '  <div class="ms-2 me-auto">' +
+                     '     <div class="fw-bold">' + item.name + '</div>' +
+                           item.description +
+                     '  </div>' +
+                     '  <span class="badge bg-primary rounded-pill">' + item.size + '</span>' +
+                     '</li>' ;
+            }
+            o += '</ul>' ;
+
+	    $(div_list).html(o) ;
         }
 

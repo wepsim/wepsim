@@ -839,6 +839,33 @@ addi rd rs1 inm {
             }
 }
 
+#  ADDU rd,rs1,imm 	Add Unsigned 				rd ← rs1 + ux(imm)
+addu rd rs1 inm {
+            co=111111,
+            nwords=1,
+            rd=reg(25,21),
+            rs1=reg(20,16),
+            inm=inm(15,0),
+            help='rd = rs1 + UnsignEx(inm)',
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
+                var val    = simcore_native_get_field_from_ir(fields, 2) ;
+
+                var result = simcore_native_get_value("BR", reg2) + val ;
+                simcore_native_set_value("BR", reg1, result) ;
+
+                var flags = 0 ;
+                if (result == 0) flags = flags | 0x10000000 ;
+                if (result <  0) flags = flags | 0x20000000 ;
+                simcore_native_set_value("CPU", "REG_SR", flags) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
 #  SLTI rd,rs1,imm 	Set Less Than Immediate 		rd ← sx(rs1) < sx(imm)
 slti rd rs1 inm {
             co=111111,
@@ -1740,7 +1767,7 @@ pseudoinstructions
         # la rd, label	(several expansions)	Load address
         la rd=reg, label=inm
         {
-            addi rd, zero, label
+            addu rd, zero, label
         }
 
         # mv rd, rs1	addi rd, rs, 0	Copy register

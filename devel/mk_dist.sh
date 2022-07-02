@@ -133,8 +133,6 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_mode.js \
     wepsim_core/wepsim_share.js \
     wepsim_core/wepsim_dialog.js \
-    wepsim_core/wepsim_config.js \
-    wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_help_commands.js \
@@ -185,6 +183,13 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uipacker_cto_asm.js \
     wepsim_web/wepsim_uipacker_sim_mic_asm.js \
     \
+    wepsim_web/wepsim_web_ui_config.js \
+    wepsim_web/wepsim_web_ui_config_commands.js \
+    wepsim_web/wepsim_web_ui_popover.js \
+    wepsim_web/wepsim_web_ui_tooltip.js \
+    wepsim_web/wepsim_web_ui_dialogs.js \
+    wepsim_web/wepsim_web_ui_quickcfg.js \
+    \
     wepsim_web/wepsim_uielto_loadfile.js \
     wepsim_web/wepsim_uielto_savefile.js \
     wepsim_web/wepsim_uielto_listcfg.js \
@@ -194,8 +199,6 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_index_examples.js \
     wepsim_web/wepsim_uielto_index_config.js \
     \
-    wepsim_web/wepsim_web_ui_dialogs.js \
-    wepsim_web/wepsim_web_ui_quickcfg.js \
     wepsim_web/wepsim_uielto_recordbar.js \
     wepsim_web/wepsim_uielto_executionbar.js \
     wepsim_web/wepsim_uielto_compilationbar.js \
@@ -234,7 +237,6 @@ cat external/vue/vue.min.js \
     external/popper.min.js \
     external/bootstrap/bootstrap.min.js \
     external/bootbox/bootbox.all.min.js \
-    external/spectrum/spectrum.min.js \
     external/timbre.min.js \
     external/codemirror/codemirror.js \
     external/codemirror/mode/javascript/javascript.js \
@@ -273,7 +275,6 @@ echo "  * ws_dist/min.external.css"
 cat external/bootstrap/bootstrap.min.css \
     external/bootstrap-theme.min.css \
     external/dark-mode.css \
-    external/spectrum/spectrum.min.css \
     external/codemirror/codemirror.css \
     external/codemirror/theme/blackboard.css \
     external/codemirror/addon/fold/foldgutter.css \
@@ -302,12 +303,15 @@ DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_s
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_mips.json
 DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_rv32_native.json examples/examples_set/apps_poc_rv32.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_rv32.json
+DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_native.json examples/examples_set/apps_poc_native.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_native.json
 
 ## pre-examples (default.json + apps.json)
  echo '[]' | \
- jq ' . + [ { "name": "Default-MIPS",     "url": "examples/examples_set/default_mips.json",    "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "Default-RISCV",    "url": "examples/examples_set/default_rv32.json",    "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "OCW-EC",           "url": "examples/examples_set/ocw_packed.json",      "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
+ jq ' . + [ { "name": "Default-MIPS",     "url": "examples/examples_set/default_mips.json",    "description": "MIPS instruction set",     "size":  "18+",   "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "Default-RISCV",    "url": "examples/examples_set/default_rv32.json",    "description": "RISC-V instruction set",     "size":  "18+",   "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "Native",           "url": "examples/examples_set/default_native.json",  "description": "MIPS vs RISC-V vs Z80 instruction sets",     "size":  "3+",   "url_base_asm": "examples/assembly/",   "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "OCW-EC",           "url": "examples/examples_set/ocw_packed.json",      "description": "MIPS examples for <a href='https://ocw.uc3m.es/course/view.php?id=136'>opencourseware</a>",     "size":  "10+",   "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
 
 cp examples/examples_set/default.json examples/apps.json
 

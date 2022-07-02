@@ -1,11 +1,11 @@
 <! DOCTYPE html PUBLIC "- // W3C // DTD XHTML 1.0 Transitional // EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns = "http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title> </title>
-<meta charset = "UTF-8">
-<meta http-equiv = "Content-type"content = "text/html; charset = UTF-8">
-    <style type = "text/css">
+<meta charset="UTF-8">
+<meta http-equiv="Content-type"content="text/html; charset = UTF-8">
+    <style type="text/css">
 / * <! [CDATA [* /
     : link {color : # 0563C1}
     : 방문한 {color : # 954F72}
@@ -18,10 +18,10 @@
     </style>
 
   <! - http://www.cleanuphtml.com/ ->에 의해 생성 된 클린 HTML
-<meta name = "Generator"content = "HTML 정리"> </head>
+<meta name="Generator"content="HTML 정리"> </head>
   <body>
 
-      <div id = "help_firmware_format">
+      <div id="help_firmware_format">
       <h1> WepSIM의 마이크로 코드 </h1>
 
 <p>
@@ -53,7 +53,7 @@
 }
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <b> 가져 오기 </b>에 대한 설명의 예 : <a class="cleanuphtml-1" name="_Toc438322900"> 그림 </a> <b> 11 </b> <b>
 </p>
 <p>
@@ -78,7 +78,7 @@ A0 = 1, B = 1, C = 0) <br>
 } <br>
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322901"> 그림 </a> <b> 12 </b> <b> 설명 형식 설명의 예 </b>
 </p>
 <p>
@@ -110,7 +110,7 @@ A0 = 1, B = 1, C = 0)
 } <br>
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322902"> 그림 </a> <b> 13 </b> <b> 강의 설명에 대한 세부 정보 : 현장 경찰 </b>
 </p>
 <p>
@@ -169,7 +169,7 @@ parameter1 = address (마지막 비트, 첫 번째 비트) abs, 절대 주소는
 	        }
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322903"> 그림 </a> <b> 14 </b> <b> 등록 이름 지정의 예 </b>
 </p>
 <p>
@@ -198,7 +198,7 @@ ori reg1 reg1 sel(15.0, num) <br />
 
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322904"> 그림 </a> <b> 15 </b> <b> 의사 명령어 (선택 섹션)의 예 </b>
 </p>
 <p>
@@ -212,7 +212,7 @@ ori reg1 reg1 sel(15.0, num) <br />
       </div>
 
 
-      <div id = "help_assembly_format">
+      <div id="help_assembly_format">
       <h1> WepSIM의 어셈블러 </h1>
 
 <p>
@@ -269,106 +269,103 @@ ori reg1 reg1 sel(15.0, num) <br />
 
 </p>
 <p>
-# 문자를 사용하여 줄 주석을 사용할 수 있습니다. <br />
-이 문자 뒤에 나오는 모든 것이 어셈블러에서 무시됩니다.
-</p>
-<p>
 예제 프로그램은 다음과 같습니다.
 </p>
 <ul>
-<p>
-.데이터
-</p>
-<p>
-age1 : .word 0x12345678, 20
-</p>
-<p>
-age2 : .word 20, 10
-</p>
-<p>
-결과 : .word 0
-</p>
-<p>
-10 진수로 초기화 된 # 32 비트 단어
-</p>
-<p>
-texto : .ascii "Hola \ t"
-</p>
-<p>
-texto2 : .asciiz "Hola \ t"
-</p>
-<p>
-hueco : .space 16
-</p>
-<p>
-.본문
-</p>
-<p>
-.globl main
-</p>
-<p>
-main : li $ 3 2
-</p>
-<p>
-리 $ 4 1
-</p>
-<p>
-li $ 5 0 <br />
-<br />
-</p>
+
+<pre class="font-monospace">
+.data
+  age1:      .word 0x12345678, 20 
+  alter2:    .word 20, 10 
+  resultado: .word 0 
+  # 10 진수로 초기화 된 # 32 비트 단어
+  texto:     .ascii  "Hola \t" 
+  texto2:    .asciiz "Hola \t" 
+  hueco:     .space 16 
+
+.text 
+.globl main 
+ main: li $3 2 
+       li $4 1 
+       li $5 0 
+</pre>
+
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322908"> 그림 </a> <b> 19 </b> <b> 마이크로 어셈블리를 테스트하는 데이터 및 코드 섹션의 예. </b> <b> <br />
 <br /> </b>
 </p>
+	<p>
+	# 문자를 사용하여 줄 주석을 사용할 수 있습니다. <br />
+	이 문자 뒤에 나오는 모든 것이 어셈블러에서 무시됩니다.
+
+		런타임에 특정 작업을 수행하기 위해 특수 태그가 사용되는 활성 주석도 있습니다.
+                <ul>
+                <li>
+		<pre class="m-0"># state:</pre>
+		 주석 앞의 명령을 실행하기 전에 상태를 저장할 수 있습니다.
+                </li>
+                <li>
+		<pre class="m-0"># break:</pre>
+		 프로그램 실행 중 중단점을 설정할 수 있습니다.
+                </li>
+                <li>
+		<pre class="m-0">
+# notify: skip1st:true showas:offcanvas scroll2current:true
+# notify: Lorem ipsum dolor sit amet, consectetur...
+                </pre>
+		 실행을 일시적으로 중지하고 측면 패널(오프캔버스) 또는 대화 상자(대화 상자)에 정보를 표시할 수 있습니다.
+                </li>
+                </ul>
+	</p>
 
       </div>
 
 
-      <div id = "help_simulator_firmware">
+      <div id="help_simulator_firmware">
       <h1> WepSIM의 마이크로 코드 관리 </h1>
 
 <p>
                 세 부분 (마이크로 코드, 레지스터 이름 지정 및 의사 명령어 정의)이있는 텍스트 파일이 마이크로 코드 화면에로드됩니다.
 마이크로 코드 형식에 대한 자세한 내용은 'WepSIM의 마이크로 코드'를 참조하십시오.
-이 화면에 액세스하려면 상단 중앙의 마이크로 코드 버튼 (그림 <b class = "cleanuphtml-4"> 그림 16 </b> 참조)을 사용해야합니다.
+이 화면에 액세스하려면 상단 중앙의 마이크로 코드 버튼 (그림 <b class="cleanuphtml-4"> 그림 16 </b> 참조)을 사용해야합니다.
 </p>
 <p>
 
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen 1"src = "images/simulator/firmware001.jpg"alt = ""name = "Imagen 1"/>
+<img max-width="90 %"width="90 %"id="Imagen 1"src="images/simulator/firmware001.jpg"alt=""name="Imagen 1"/>
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Ref434190846"> </a> <a name="_Toc438322905"> </a> <a class="cleanuphtml-1" name="_Ref434190877"> 그림 </a> <b> 16 </b> <b> 기본 화면 : 마이크로 코드로드 옵션 </b>
 </p>
 <p>
 <br />
-                그런 다음 온라인 텍스트 편집기가있는 화면이 나타나며 학생은 마이크로 코드 (설명하기 전에 세 부분)를 설명 할 수 있습니다. 사용자는 상단 툴바의 "로드"버튼을 사용하여 기존 마이크로 코드를로드하거나 이전로드 된 마이크로 코드를 수정하거나 상단 툴바에 "저장"버튼을 사용하여 현재 마이크로 코드를 저장할 수 있습니다. 마이크로 코드가 완성되면 "컴 퓨터"버튼을 클릭하여 마이크로 컴 파일 한 다음 결과 바이너리를 <b class = "cleanuphtml-4"> 그림 17 </b>과 같이 컨트롤 메모리에로드하십시오.
+                그런 다음 온라인 텍스트 편집기가있는 화면이 나타나며 학생은 마이크로 코드 (설명하기 전에 세 부분)를 설명 할 수 있습니다. 사용자는 상단 툴바의 "로드"버튼을 사용하여 기존 마이크로 코드를로드하거나 이전로드 된 마이크로 코드를 수정하거나 상단 툴바에 "저장"버튼을 사용하여 현재 마이크로 코드를 저장할 수 있습니다. 마이크로 코드가 완성되면 "컴 퓨터"버튼을 클릭하여 마이크로 컴 파일 한 다음 결과 바이너리를 <b class="cleanuphtml-4"> 그림 17 </b>과 같이 컨트롤 메모리에로드하십시오.
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen 2"src = "images/simulator/firmware002.jpg"alt = ""name = "Imagen 2"/>
+<img max-width="90 %"width="90 %"id="Imagen 2"src="images/simulator/firmware002.jpg"alt=""name="Imagen 2"/>
 </p>
-<p class = "MsoNormal cleanuphtml-5"> </p>
-<table cellpadding = "0"cellspacing = "0"align = "left">
+<p class="MsoNormal cleanuphtml-5"> </p>
+<table cellpadding="0"cellspacing="0"align="left">
 </table> <br clear="none"/> <clear>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322906"> </a> <a class="cleanuphtml-1" name="_Ref434191423"> 그림 </a> <b> 17 </b> <b> 마이크로 코드 화면 : 텍스트 상자 순서 펌웨어를로드하십시오. </b>
 </p>
 <p>
 <br />
-                새로운 마이크로 코드가 올바르게로드되면 <b class = "cleanuphtml-4"> 그림 18 </b>에 표시된 버튼을 사용하여 컨트롤 메모리에로드 된 바이너리를 확인할 수 있습니다.
+                새로운 마이크로 코드가 올바르게로드되면 <b class="cleanuphtml-4"> 그림 18 </b>에 표시된 버튼을 사용하여 컨트롤 메모리에로드 된 바이너리를 확인할 수 있습니다.
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen4"src = "images/simulator/firmware004.jpg"alt = "제어 메모리 모달을 여는 버튼"/>
+<img max-width="90 %"width="90 %"id="Imagen4"src="images/simulator/firmware004.jpg"alt="제어 메모리 모달을 여는 버튼"/>
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="fig4"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> 그림 </a> <b> 18 </b> <b> 마이크로 코드 화면 : 컨트롤 메모리 내용 표시 . </b>
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen5"src = "images/simulator/firmware005.jpg"alt = "바이너리로 제어 메모리 내용이있는 모달"/>
+<img max-width="90 %"width="90 %"id="Imagen5"src="images/simulator/firmware005.jpg"alt="바이너리로 제어 메모리 내용이있는 모달"/>
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="fig5"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> 그림 </a> <b> 19 </b> <b> 마이크로 코드 화면 : 제어 메모리의 이진 . </b>
 </p>
 <p>
@@ -383,52 +380,52 @@ li $ 5 0 <br />
       </div>
 
 
-      <div id = "help_simulator_assembly">
+      <div id="help_simulator_assembly">
       <h1> WepSIM의 어셈블러 관리 </h1>
 
 <p>
                 두 가지 유형의 섹션 (데이터 및 코드)이있는 텍스트 파일이 어셈블러 화면에로드됩니다.
-                이 화면에 액세스하려면 학생은 상단 툴바에서 어셈블리 버튼 (<b class = "cleanuphtml-3"> 그림 16 </b> 참조)을 선택하십시오.
+                이 화면에 액세스하려면 학생은 상단 툴바에서 어셈블리 버튼 (<b class="cleanuphtml-3"> 그림 16 </b> 참조)을 선택하십시오.
 <br />
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen 3"src = "images/simulator/assembly002.jpg"alt = ""이름 = "Imagen 3"/>
+<img max-width="90 %"width="90 %"id="Imagen 3"src="images/simulator/assembly002.jpg"alt=""이름="Imagen 3"/>
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322909"> </a> <a class="cleanuphtml-1" name="_Toc434155501"> 그림 </a> <b> 20 </b> <b> 기본 화면 : 어셈블러 코드 화면. </b>
 </p>
 <p>
                 그런 다음 어셈블리 코드를로드하고 편집 할 수있는 곳에 텍스트 편집기가 나타납니다. 상단 막대의 "로드"버튼을 사용하여 기존 코드를로드하거나 이전에로드 한 코드를 변경하거나 현재로드 된 코드를 상단 막대에 "저장"버튼을 사용하여 저장할 수 있습니다.
 </p>
 <p>
-코드가 준비되면 <b class = "cleanuphtml-3"> 그림 21 </b>에서와 같이이 코드를 바이너리로 컴파일하고이 바이너리를 메인 메모리에로드하려면 "Compile"버튼을 클릭해야합니다. >.
+코드가 준비되면 <b class="cleanuphtml-3"> 그림 21 </b>에서와 같이이 코드를 바이너리로 컴파일하고이 바이너리를 메인 메모리에로드하려면 "Compile"버튼을 클릭해야합니다. >.
 </p>
 <p>
 
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen 28"src = "images/simulator/assembly003.jpg"alt = ""이름 = "Imagen 28"/>
+<img max-width="90 %"width="90 %"id="Imagen 28"src="images/simulator/assembly003.jpg"alt=""이름="Imagen 28"/>
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322910"> </a> <a class="cleanuphtml-1" name="_Ref434192102"> 그림 </a> <b> 21 </b> <b> 조립품 화면 : 어셈블리 코드. </b> <b> <br />
 <br /> </b>
 </p>
 <p>
-                일단 컴파일되면 <b class = "cleanuphtml-3"> 그림 22 </b>에 표시된 화면으로 넘어갈 것이고, 사용자는 메인 메모리의 내용을 바이너리 (< b class = "cleanuphtml-3"> 그림 23 </b>).
+                일단 컴파일되면 <b class="cleanuphtml-3"> 그림 22 </b>에 표시된 화면으로 넘어갈 것이고, 사용자는 메인 메모리의 내용을 바이너리 (< b class="cleanuphtml-3"> 그림 23 </b>).
 </p>
 <p>
 
 </p>
 <p>
-alt = "어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"/> <img max-width = "90 %"width = "90 %"id = "Imagen 30"src = "images/simulator/assembly004.jpg"
+alt="어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"/> <img max-width="90 %"width="90 %"id="Imagen 30"src="images/simulator/assembly004.jpg"
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> 그림 </a> <b> 22 </b> <b> 조립품 화면 : 버튼을 탐색하려면 주요 메모리 값. </b>
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen 30"src = "images/simulator/assembly005.jpg"alt = "바이너리로 어셈블리 모달"/>
+<img max-width="90 %"width="90 %"id="Imagen 30"src="images/simulator/assembly005.jpg"alt="바이너리로 어셈블리 모달"/>
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> 그림 </a> <b> 23 </b> <b> 조립품 화면 : 이진 값 </b>
 </p>
 <p>
@@ -442,7 +439,7 @@ alt = "어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"
       </div>
 
 
-      <div id = "help_simulator_execution">
+      <div id="help_simulator_execution">
       <h1> WepSIM의 시뮬레이션 </h1>
 
 <p>
@@ -456,23 +453,23 @@ alt = "어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"
                 오른쪽 스크롤 막대를 사용하여 전체 컨트롤 메모리 내용을 검사 할 수 있습니다.
 </li>
 <li>
-                실행될 어셈블리 명령어와 함께 주 메모리 컨텐츠 (<b class = "cleanuphtml-1"> 그림 25 </b> 참조).
+                실행될 어셈블리 명령어와 함께 주 메모리 컨텐츠 (<b class="cleanuphtml-1"> 그림 25 </b> 참조).
                 <i> 중단 점 </i> 열을 클릭하여 중단 점을 설정할 수 있습니다.
                 중단 점이 설정되면이 열에 "중지"아이콘이 나타납니다.
 </li>
 </ul>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen 1"src = "images/simulator/simulator009.jpg"alt = ""이름 = "Imagen 1"/>
+<img max-width="90 %"width="90 %"id="Imagen 1"src="images/simulator/simulator009.jpg"alt=""이름="Imagen 1"/>
 </p>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322913"> </a> <a class="cleanuphtml-2" name="_Ref434192973"> 그림 </a> <b> 24 </b> <b> 기본 화면 : 컨트롤의 시각화 메모리. </b>
 </p>
 <p>
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen 3"src = "images/simulator/simulator010.jpg"alt = ""이름 = "Imagen 3"/>
+<img max-width="90 %"width="90 %"id="Imagen 3"src="images/simulator/simulator010.jpg"alt=""이름="Imagen 3"/>
 </p>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322914"> </a> <a class="cleanuphtml-2" name="_Ref434193222"> 그림 </a> <b> 25 </b> <b> 기본 화면 : 메인의 시각화 메모리 코드. </b>
 </p><p>
 </p>
@@ -480,32 +477,32 @@ alt = "어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"
                 기본 화면에서 다음을 실행할 수 있습니다.
 </p>
 <p>
-"ÂμInstrucci & oacute; n"버튼 (<b class = "cleanuphtml-1"> 그림 26 </b> 참조)을 클릭하여 마이크로 명령어로 마이크로 명령어를 실행하여 다음 클럭 사이클으로 이동하고 연관된 컨트롤을 보냅니다 신호.
+"ÂμInstrucci & oacute; n"버튼 (<b class="cleanuphtml-1"> 그림 26 </b> 참조)을 클릭하여 마이크로 명령어로 마이크로 명령어를 실행하여 다음 클럭 사이클으로 이동하고 연관된 컨트롤을 보냅니다 신호.
 </p>
 <p>
-해당 명령어의 마이크로 코드에 대한 모든 클럭 사이클을 생성하기 위해 "Instrucci & oacute; n"버튼 (<b class = "cleanuphtml-1"> 그림 26 </b> 참조) 가져 오기 시작 부분.
+해당 명령어의 마이크로 코드에 대한 모든 클럭 사이클을 생성하기 위해 "Instrucci & oacute; n"버튼 (<b class="cleanuphtml-1"> 그림 26 </b> 참조) 가져 오기 시작 부분.
 </p>
 <p>
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen 4"src = "images/simulator/simulator011.jpg"alt = ""이름 = "Imagen 4"/>
+<img max-width="90 %"width="90 %"id="Imagen 4"src="images/simulator/simulator011.jpg"alt=""이름="Imagen 4"/>
 </p>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322915"> </a> <a class="cleanuphtml-2" name="_Ref434193775"> 그림 </a> <b> 26 </b> <b> 기본 화면 : 실행 옵션 </b>
 </p>
 <p>
 <br />
-기본 화면의 오른쪽 상단 막대 (<b class = "cleanuphtml-1"> 그림 26 </b> 참조)에있는 "<i> 레지스터 </i>"버튼을 사용하면 프로세서 등록 및 실행 중 변경 방법
+기본 화면의 오른쪽 상단 막대 (<b class="cleanuphtml-1"> 그림 26 </b> 참조)에있는 "<i> 레지스터 </i>"버튼을 사용하면 프로세서 등록 및 실행 중 변경 방법
 </p>
 <p>
-                <b class = "cleanuphtml-1"> 그림 27 </b>과 같이 컨트롤 유닛을 볼 수도 있습니다.
+                <b class="cleanuphtml-1"> 그림 27 </b>과 같이 컨트롤 유닛을 볼 수도 있습니다.
 </p>
 <p>
 </p>
 <p>
-<img max-width = "90 %"width = "90 %"id = "Imagen 8"src = "images/simulator/simulator012.jpg"alt = ""name = "Imagen 8"/>
+<img max-width="90 %"width="90 %"id="Imagen 8"src="images/simulator/simulator012.jpg"alt=""name="Imagen 8"/>
 </p>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322916"> </a> <a class="cleanuphtml-2" name="_Ref434194139"> 그림 </a> <b> 27 </b> <b> 기본 화면 : 제어 장치 시각화. </b>
 </p>
 <p>
@@ -519,7 +516,7 @@ alt = "어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"
       </div>
 
 
-      <div id = "help_checker">
+      <div id="help_checker">
 
               현재 상태가 우리의 요구 사항을 충족하는지 확인할 수 있습니다.
 <p>
@@ -527,7 +524,7 @@ alt = "어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"
 <li> 현재 상태를 확인하려면 요구 사항을 입력하고 '확인'을 누르십시오. </li>
 <c>
 예 : <br>
-<textarea aria-label = "행을 검사하여"rows = "2">
+<textarea aria-label="행을 검사하여"rows="2">
 레지스터 5> = 8; 메모리 1 = 0x10; 화면 0 == first_line
 </textarea>
 </c>
@@ -543,7 +540,7 @@ alt = "어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"
       </div>
 
 
-      <div id = "help_dumper">
+      <div id="help_dumper">
 
 <ul>
 <li>
@@ -551,7 +548,7 @@ alt = "어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"
 기계 상태는 하드웨어의 요소 목록과 그 값입니다.
 간단히하기 위해 0이 아닌 값의 하드웨어 요소 만 표시됩니다. <br>
 예 : <br>
-<textarea aria-label = "행을 검사하여"rows = "2"class = "w-50">
+<textarea aria-label="행을 검사하여"rows="2"class="w-50">
 레지스터 5> = 8; 메모리 1 = 0x10; 화면 0 == first_line
 </textarea>
 <br>
@@ -573,7 +570,7 @@ alt = "어셈블리 화면, 바이너리로 어셈블리를 표시하는 버튼"
 <p>
 <ul>
               이 대화 상자를 사용하는 일반적인 단계가이 애니메이션에 표시됩니다. <br>
-<img class = "w-75"src = "images/welcome/states_usage.gif">
+<img class="w-75"src="images/welcome/states_usage.gif">
 </ul>
 
       </div>

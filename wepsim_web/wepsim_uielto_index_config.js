@@ -57,15 +57,16 @@
 		        }
 		    }
 
-		    $('a[data-toggle="popover1"]').popover({
-		   	     placement:  'bottom',
-			     trigger:    'focus, hover',
-			     animation:  false,
-			     delay:      { "show": 500, "hide": 100 },
-			     sanitizeFn: function (content) {
+		    var popover_cfg = {
+		   	    placement:  'bottom',
+			    trigger:    'focus, hover',
+			    animation:  false,
+			    delay:      { "show": 500, "hide": 100 },
+			    sanitizeFn: function (content) {
 					     return content ; // DOMPurify.sanitize(content) ;
-				         }
-		    }) ;
+				        }
+		        } ;
+                    wepsim_popovers_init('a[data-bs-toggle="popover1"]', popover_cfg, null) ;
 	      }
         }
 
@@ -80,6 +81,8 @@
         {
      	     var e_type        = "" ;
      	     var e_u_class     = "" ;
+     	     var e_class_1     = "" ;
+     	     var e_class_2     = "" ;
      	     var e_code_cfg    = "" ;
      	     var e_description = "" ;
      	     var e_id          = "" ;
@@ -99,17 +102,19 @@
      		e_id          = config[n].id ;
 
      		// related row
-     	        if (fmt_toggle === "")
-     	            fmt_toggle = "bg-light" ;
-     	       else fmt_toggle = "" ;
+     	        if  (fmt_toggle === "")
+     	             fmt_toggle = "bg-light" ;
+     	        else fmt_toggle = "" ;
 
-     		row = '<div class="row py-1 ' + fmt_toggle + ' ' + e_u_class + '" id="' + e_type + '">' +
-     		      '<div class="col-md-auto">' +
-     		      '    <span class="badge badge-pill badge-light">' + (n+1) + '</span>' +
+     	        e_class_1 = "                " + e_u_class + " " + fmt_toggle ;
+     	        e_class_2 = " collapse7 show " + e_u_class + " " + fmt_toggle ;
+
+     		row = '<div class="col-md-auto ' + e_class_1 + '">' +
+     		      '    <span class="badge rounded-pill text-bg-light">' + (n+1) + '</span>' +
      		      '</div>' +
-     		      '<div class="col-md-4">'  + e_code_cfg   + '</div>' +
-     		      '<div class="col-md collapse7 show align-items-center"><c>' + e_description + '</c></div>' +
-     		      '</div>' ;
+     		      '<div class="col-md-4'                  + e_class_1 + '">' + e_code_cfg  + '</div>' +
+     		      '<div class="col-md align-items-center' + e_class_2 + '"><c>' + e_description + '</c></div>' +
+     		      '<div class="w-100  my-1'               + e_class_2 + '"></div>' ;
 
      		// indexing row
      		if (typeof config_groupby_type[e_type] === "undefined") {
@@ -121,7 +126,7 @@
             }
 
             // second pass: build html
-            var o  = '<div class="container grid-striped border border-light">' ;
+            var o  = '<div class="container grid-striped border border-light"><div class="row">' ;
             var u  = '' ;
             var l  = '' ;
             var l1 = [] ;
@@ -130,8 +135,8 @@
             {
      	        u  = '' ;
      	        l2 = {} ;
-                     for (n=0; n<config_groupby_type[m].length; n++)
-                     {
+                for (n=0; n<config_groupby_type[m].length; n++)
+                {
      		     u = u + config_groupby_type[m][n].row ;
 
      	             l1 = config_groupby_type[m][n].u_class.split(' ') ;
@@ -142,7 +147,11 @@
      			  }
      			  l2[l1[li]]++ ;
      		     }
+
+                     if (n%2 == 0) {
+                         u = u + '<div class="w-100 my-1"></div>' ;
                      }
+                }
 
      	        l = '' ;
      	        for (var lj in l2)
@@ -152,11 +161,11 @@
      		     }
      		}
 
-     		o = o + "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top " + l + "'>" +
+     		o = o + "<div class='float-none text-end text-capitalize fw-bold col-12 mb-2 border-bottom border-secondary bg-white sticky-top " + l + "'>" +
      			"<span data-langkey='" + m + "'>" + m + "</span>" +
      			"</div>" + u ;
             }
-            o = o + '</div>' ;
+            o = o + '</div></div>' ;
 
             return o ;
          }

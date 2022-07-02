@@ -221,6 +221,10 @@
 	"EP:L3D:STATES:DATA":	"डेटा बस",
 	"EP:L3D:SIGNALS:IOR":	"L3D से पढ़ें",
 	"EP:L3D:SIGNALS:IOW":	"L3D में लिखें",
+	"EP:LEDM:STATES:ADDR":	"एड्रेस बस",
+	"EP:LEDM:STATES:DATA":	"डेटा बस",
+	"EP:LEDM:SIGNALS:IOR":	"LEDM से पढ़ें",
+	"EP:LEDM:SIGNALS:IOW":	"LEDM में लिखें",
 
 	"POC:CPU_T1:STATES:IN":	"इनपुट एमबीआर रजिस्टर का मान है",
 	"POC:CPU_T1:STATES:OUT":	"आउटपुट आंतरिक बस में जाता है",

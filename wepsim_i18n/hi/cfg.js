@@ -63,8 +63,10 @@
                 'Auto-scroll while executing': 				        'Auto-scroll while executing',
 		'Active voice: external voice control':		'सक्रिय आवाज: बाहरी आवाज नियंत्रण',
 		'Verbalization: textual or mathematical':		'शब्दश: पाठ या गणितीय',
-		'WepSIM User Interface views':		'WepSIM उपयोगकर्ता इंटरफ़ेस दृश्य',
+		'WepSIM User Interface views':			'WepSIM उपयोगकर्ता इंटरफ़ेस दृश्य',
 		'Privacy':							'गोपनीयता',
+		'On':								'On',
+		'Off':								'Off',
 		'_last_':		'_last_'
 
     };

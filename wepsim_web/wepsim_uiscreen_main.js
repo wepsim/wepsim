@@ -20,7 +20,7 @@
 
 
         /*
-         *  Simulation classic
+         *  Simulation main
          */
 
         /* jshint esversion: 6 */

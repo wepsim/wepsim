@@ -7,7 +7,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t30",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT2",
@@ -17,7 +17,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t32",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=32'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=32'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT3",
@@ -27,7 +27,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t35",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=35'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=35'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT5",
@@ -37,7 +37,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t59",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=59'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=59'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT6",
@@ -47,7 +47,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3a_t73",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_1-v2.pdf#page=73'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=73'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3BT7",
@@ -57,7 +57,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t21",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=21'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=21'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT8",
@@ -67,7 +67,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t95",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=95'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=95'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT9",
@@ -77,7 +77,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t110",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=110'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=110'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT10",
@@ -87,7 +87,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t119",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=119'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=119'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT11",
@@ -97,7 +97,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3b_t130",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_2-v2.pdf#page=130'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=130'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3DT87",
@@ -107,7 +107,7 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3d_t87",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_4-v2.pdf#page=87'>compute structure slides: lesson 3d</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/llamada_procedimientos.pdf#page=87'>compute structure slides: lesson 3d</a>"
   },
   {
     "id":          "T3DT111",
@@ -117,6 +117,6 @@
     "hardware":    "ep",
     "microcode":   "ep_mips",
     "assembly":    "ep_l3d_t111",
-    "description": "Code from <a href='http://ocw.uc3m.es/ingenieria-informatica/estructura-de-computadores/transparencias/T3-ensamblador_4-v2.pdf#page=111'>compute structure slides: lesson 3d</a>"
+    "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/llamada_procedimientos.pdf#page=111'>compute structure slides: lesson 3d</a>"
   }
 ]

@@ -184,7 +184,7 @@
 		    }
 
                     maddr = '<span>' +
-                            '<span class="badge badge-pill badge-info text-monospace" ' +
+                            '<span class="badge rounded-pill text-bg-info font-monospace" ' +
                             '      style="position:relative;top:4px;">' + htmllabel + '</span>' +
                             '<span style="border:1px solid gray;">' + maddr + '</span>' +
                             '</span>' ;
@@ -240,7 +240,7 @@
 	       var labels = SIMWARE.revlabels[elto.key] ;
 	       if (typeof labels !== 'undefined') {
 		   labels = '<span>' +
-			    '<span class="badge badge-pill badge-info text-monospace" ' +
+			    '<span class="badge rounded-pill text-bg-info font-monospace" ' +
 			    '      style="position:relative;top:4px;">' +
 			    labels.padEnd(5, ' ').replace(' ', '&nbsp;') +
 			    '</span>' +

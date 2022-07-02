@@ -200,14 +200,14 @@
         {
              var wscfg = {
                    /* version */
-                   "version":               { upgrade:false, type:"string",    value:"2.1.7" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.1.7.20211210A" },
+                   "version":               { upgrade:false, type:"string",    value:"2.1.9" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.1.9.20220515A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
-                   "color_data_inactive":   { upgrade:false, type:"string",    value:"rgb(0, 0, 0)" },
-                   "color_name_active":     { upgrade:false, type:"string",    value:"red" },
-                   "color_name_inactive":   { upgrade:false, type:"string",    value:"rgb(0, 0, 0)" }, // "black"
+                   "color_data_inactive":   { upgrade:false, type:"string",    value:"#000000" },
+                   "color_name_active":     { upgrade:false, type:"string",    value:"#FF0000" },
+                   "color_name_inactive":   { upgrade:false, type:"string",    value:"#000000" }, // "black"
 	           "size_active":           { upgrade:false, type:"float",     value:1.25 },
 	           "size_inactive":         { upgrade:false, type:"float",     value:0.02 },
                    "is_byvalue":            { upgrade:false, type:"boolean",   value:false },

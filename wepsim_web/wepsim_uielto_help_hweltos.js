@@ -71,31 +71,18 @@
 	      }
 
               describe_element ( elto_path, array_eltos, hash_eltos, enum_name )
-              {
-                    var o = '<tr>' +
-                            '<td>' + this.info_icons[enum_name] + '</td>' +
-                            '<td>' + enum_name + ': ' + array_eltos.length + '</td>' ;
+              {
+                    var o = '<tr>' +
+                            '<td>' + this.info_icons[enum_name] + '</td>' +
+                            '<td>' + enum_name + ': ' + array_eltos.length + '</td>' +
+                            '<td>' +
+	                    simhwelto_describe_component_enum_aux(elto_path, array_eltos,
+								  hash_eltos, enum_name, ',<br>') +
+                            '</td>' +
+                            '</tr>' ;
 
-                    o += '<td>' ;
-                    for (var i=0; i<array_eltos.length; i++)
-                    {
-                         // get translation for associated description...
-                         var k = elto_path + array_eltos[i] ;
-                         var v = i18n_get_TagFor('hw', k.toUpperCase()) ;
-                             v = '<span data-langkey=\'' + k.toUpperCase() + '\'>' + v + '</span>' ;
-
-                         // build help entry...
-                         o += '(' + (i+1) + ') ' + v ;
-
-                         // add '<br>' in all entries but the last one...
-                         if (i != array_eltos.length - 1)
-                              o += ',<br> ' ;
-                         else o += '.' ;
-                    }
-                    o += "</td></tr>" ;
-
-                    return o ;
-              }
+                    return o ;
+              }
 
 	      render_populate ( )
 	      {
@@ -117,25 +104,30 @@
 
 		    // html holder
 		    var o1 = '' ;
-		    var elto_path = '' ;
+                    var elto_path = '' ;
+                    var grid = 'col-md-12 col-lg-6 col-xxl-4' ;
+                    if (this.layout == "offcanvas") {
+                        grid = 'col-xs-12 w-100' ;
+                    }
+
 		    for (var b in ahw.elements_hash.by_belong)
 		    {
 			 for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
 			 {
 			      elto = ahw.elements_hash.by_belong[b][j] ;
-		         elto_path = ahw.sim_short_name + ':' + elto.key ;
+                         elto_path = ahw.sim_short_name + ':' + elto.key ;
 
-			      o1 += '<div class="col-md-6 d-flex my-2 table-responsive">' +
+			      o1 += '<div class="' + grid + ' d-flex my-2 table-responsive">' +
 			 	    '<table class="table table-striped table-bordered table-hover table-sm table2">' +
 				    '<thead class="thead-dark"><tr>' +
 				    '<th colspan="3">' + b + ' / ' + elto.description + '</th>' +
 				    '</tr></thead>' +
 				    '<tbody>' +
-			            this.describe_element(elto_path + ':states:',
+  	                            this.describe_element(elto_path + ':states:',
                                                           elto.states_inputs,  elto.states,  'Inputs') +
-			            this.describe_element(elto_path + ':states:',
-                                                          elto.states_outputs, elto.states,  'Outputs') +
-			            this.describe_element(elto_path + ':signals:',
+                                    this.describe_element(elto_path + ':states:',
+				                          elto.states_outputs, elto.states,  'Outputs') +
+                                    this.describe_element(elto_path + ':signals:',
                                                           elto.signals_inputs, elto.signals, 'Signals') +
 				    '</tbody>' +
 				    '</table>' +

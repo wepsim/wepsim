@@ -55,7 +55,8 @@
 
 	      render_populate ( )
 	      {
-	        var o1 = '<div id="carousel-8" class="carousel" data-interval="false" data-touch="false">' +
+	        var o1 = '<div id="carousel-8" class="carousel"' +
+                         '     data-bs-interval="0" data-bs-touch="false" data-bs-animation="">' +
 			 ' <div class="carousel-inner">' +
 			 ' <div class="carousel-item active p-1" id="ws_simulator">' +
 			 '' +
@@ -67,11 +68,16 @@
 			 '  </div>' +
 			 '  </div>' +
 			 '' +
+                         '  <div class="offcanvas offcanvas-start"' +
+                         '       data-bs-scroll="true" data-bs-backdrop="false"' +
+                         '       tabindex="-1" id="offcvs3" aria-labelledby="offcvs3Label">' +
+                         '  </div>' +
+			 '' +
 			 ' <div class="row">' +
-			 '   <div id="col1" class="pt-2 pl-3 pr-2">' +
+			 '   <div id="col1" class="pt-2 ps-3 pe-2">' +
 			 '   <ws-ctoasm></ws-ctoasm>' +
 			 '   </div>' +
-			 '   <div id="col2" class="pt-2 pl-3">' +
+			 '   <div id="col2" class="pt-2 ps-3">' +
 			 '   <ws-simmicasm></ws-simmicasm>' +
 			 '   </div>' +
 			 ' </div>' +
@@ -82,13 +88,16 @@
 
                    // load HTML
                    this.innerHTML = o1 ;
+
+		   // initialize loaded components
+                   wepsim_quickcfg_init('slidercfg') ;
 	      }
 
 	      render_populate_compact_toolbars ( )
 	      {
 		  return  '	  <a id="popover-slidercfg" tabindex="0"' +
-			  '	     class="show multi-collapse-3 btn my-1 col-auto"' +
-			  '	     data-toggle="popover-slidercfg"><strong><strong class="fas fa-wrench text-secondary"></strong></strong></a>' +
+			  '	     class="btn my-1 col-auto border-0 multi-collapse-3 collapse show"' +
+			  '	     data-bs-toggle="popover-slidercfg"><strong><strong class="fas fa-wrench text-secondary"></strong></strong></a>' +
 			  '' +
 			  '	  <div class="col-auto px-0 px-sm-2">' +
 			  '	  <ws-toolbar components="[,btn_examples,btn_help,]"' +
@@ -118,7 +127,7 @@
 			  '' +
 			  '	  <div class="w-100 d-md-block d-lg-none"></div>' +
 			  '' +
-			  '	  <div class="col-sm p-0 ml-1 collapse multi-collapse-2 user_microcode">' +
+			  '	  <div class="col-sm p-0 ms-1 collapse multi-collapse-2 user_microcode">' +
 			  '	  <ws-toolbar components="slider_c1c2"></ws-toolbar>' +
 			  '	  </div>' ;
 	      }

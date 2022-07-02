@@ -96,6 +96,11 @@
 		    var ins_name = '' ;
 		    var ins_help = '' ;
 		    var first_l = '' ;
+                    var grid = 'col-md-12 col-lg-6 col-xxl-4' ;
+                    if (this.layout == "offcanvas") {
+                        grid = 'col-xs-12 w-100' ;
+                    }
+
 		    for (var k = 0; k < ws_firmware.length; k++)
 		    {
 			ins_name = ws_firmware[k].signatureRaw.trim() ;
@@ -124,8 +129,8 @@
 			    continue ;
 			}
 
-			o1 += '<div class="col-md-6 d-flex justify-content-center my-2 table-responsive">' +
-			      '<h4><span class="badge badge-pill badge-info text-monospace" ' +
+			o1 += '<div class="' + grid + ' d-flex justify-content-center my-2 table-responsive">' +
+			      '<h4><span class="badge rounded-pill text-bg-info font-monospace" ' +
 			      '          style="position:relative;top:16px;left:-4px;">' + k + '</span></h4>' +
 			      '<table class="table table-striped table-bordered table-hover table-sm table2">' +
 			      '<thead class="thead-dark"><tr><th>Instruction</th><th>Help</th></tr></thead>' +

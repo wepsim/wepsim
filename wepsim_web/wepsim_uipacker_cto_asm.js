@@ -39,7 +39,7 @@
 		             '<ul class="nav nav-tabs nav-justified nav-tabs">' +
 		             '    <li class="nav-item user_microcode">' +
                              '        <a id="tab26" href="#eltos_cpu"' +
-                             '           class="nav-link active" data-toggle="tab" role="tab"' +
+                             '           class="nav-link active" data-bs-toggle="tab" role="tab"' +
                              '     style="border-top-width:3px; border-right-width:3px; border-left-width:3px;"' +
 		             '		 aria-label="processor"' +
                              '           onclick="wsweb_change_show_processor();' +
@@ -50,7 +50,7 @@
                              '    </li>' +
 		             '    <li class="nav-item">' +
                              '        <a id="tab24" href="#eltos_dbg"' +
-                             '           class="nav-link" data-toggle="tab" role="tab"' +
+                             '           class="nav-link" data-bs-toggle="tab" role="tab"' +
                              '     style="border-top-width:3px; border-right-width:3px; border-left-width:3px;"' +
 		             '		 aria-label="assembly debugger"' +
                              '           onclick="wsweb_change_show_asmdbg();' +

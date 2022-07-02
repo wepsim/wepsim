@@ -1,11 +1,11 @@
 <! DOCTYPE html PUBLIC "- // W3C // DTD XHTML 1.0 Transitional // EN"
     "Http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns = "http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <Голова>
     <Название> </название>
-<meta charset = "UTF-8">
-<meta http-equ = "Content-type" content = "text/html; charset = UTF-8">
-    <style type = "text/css">
+<meta charset="UTF-8">
+<meta http-equ="Content-type" content="text/html; charset = UTF-8">
+    <style type="text/css">
 / * <! [CDATA [* /
     : ссылка {цвет: # 0563C1}
     : посетил {цвет: # 954F72}
@@ -18,10 +18,10 @@
     </Стиль>
 
   <! - Очистить HTML, сгенерированный http://www.cleanuphtml.com/ ->
-<meta name = "Generator" content = "Очистить HTML"> </head>
+<meta name="Generator" content="Очистить HTML"> </head>
   <Тело>
 
-      <div id = "help_firmware_format">
+      <div id="help_firmware_format">
       <h1> Микрокод в WepSIM </h1>
 
 <Р>
@@ -53,7 +53,7 @@
 }
 </Р>
 </UL>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322900"> Рисунок </a> <b> 11 </b> <b> Пример описания для </b> <b> извлечения </b>
 </Р>
 <Р>
@@ -78,7 +78,7 @@ A0 = 1, B = 1, C = 0) <br>
 } <br>
 </Р>
 </UL>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322901"> Рисунок </a> <b> 12 </b> <b> Пример формата описания для инструкции </b>
 </Р>
 <Р>
@@ -110,7 +110,7 @@ A0 = 1, B = 1, C = 0)
 } <br>
 </Р>
 </UL>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322902"> Рисунок </a> <b> 13 </b> <b> Подробно в описании инструкции: полевой коп </b>
 </Р>
 <Р>
@@ -169,7 +169,7 @@ A0 = 1, B = 1, C = 0)
 	        }
 </Р>
 </UL>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322903"> Рисунок </a> <b> 14 </b> <b> Пример именования регистров </b>
 </Р>
 <Р>
@@ -198,7 +198,7 @@ ori reg1 reg1 sel(15.0, num) <br />
 
 </Р>
 </UL>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322904"> Рисунок </a> <b> 15 </b> <b> Пример псевдоинструкции (необязательный раздел) </b>
 </Р>
 <Р>
@@ -212,7 +212,7 @@ ori reg1 reg1 sel(15.0, num) <br />
       </DIV>
 
 
-      <div id = "help_assembly_format">
+      <div id="help_assembly_format">
       <h1> Ассемблер в WepSIM </h1>
 
 <Р>
@@ -269,106 +269,103 @@ ori reg1 reg1 sel(15.0, num) <br />
 
 </Р>
 <Р>
-Вы можете использовать строчные комментарии, используя символ #. <br />
-Все, что следует за этим символом до конца строки, будет игнорироваться ассемблером.
-</Р>
-<Р>
 Пример программы будет:
 </Р>
 <UL>
-<Р>
-.данные
-</Р>
-<Р>
-возраст1: .word 0x12345678, 20
-</Р>
-<Р>
-возраст2: .word 20, 10
-</Р>
-<Р>
-Resultado: .word 0
-</Р>
-<Р>
-# 32-битное слово, инициализированное десятичным
-</Р>
-<Р>
-текст: .ascii "Hola \ t"
-</Р>
-<Р>
-texto2: .asciiz "Hola \ t"
-</Р>
-<Р>
-hueco: .space 16
-</Р>
-<Р>
-.текст
-</Р>
-<Р>
-.globl главная
-</Р>
-<Р>
-main: li $ 3 2
-</Р>
-<Р>
-li $ 4 1
-</Р>
-<Р>
-li $ 5 0 <br />
-<br />
-</Р>
+
+<pre class="font-monospace">
+.data
+  age1:      .word 0x12345678, 20 
+  alter2:    .word 20, 10 
+  resultado: .word 0 
+  # 32-битное слово, инициализированное десятичным
+  texto:     .ascii  "Hola \t" 
+  texto2:    .asciiz "Hola \t" 
+  hueco:     .space 16 
+
+.text 
+.globl main 
+ main: li $3 2 
+       li $4 1 
+       li $5 0 
+</pre>
+
 </UL>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322908"> Рисунок </a> <b> 19 </b> <b> Пример разделов данных и кода для тестирования микроассемблерных сборок. </b> <b> <br />
 <br /> </b>
 </Р>
+	<Р>
+	Вы можете использовать строчные комментарии, используя символ #. <br />
+	Все, что следует за этим символом до конца строки, будет игнорироваться ассемблером.
+
+		Также есть активные комментарии, в которых используются специальные теги для выполнения определенных действий во время выполнения:
+                <ul>
+                <li>
+		<pre class="m-0"># state:</pre>
+		 Позволяет сохранить состояние перед выполнением инструкции, предшествующей комментарию.
+                </li>
+                <li>
+		<pre class="m-0"># break:</pre>
+		 Позволяет установить точку останова во время выполнения программы.
+                </li>
+                <li>
+		<pre class="m-0">
+# notify: skip1st:true showas:offcanvas scroll2current:true
+# notify: Lorem ipsum dolor sit amet, consectetur...
+                </pre>
+		 Позволяет временно остановить выполнение и вывести информацию на боковую панель (offcanvas) или в диалоговое окно (dialogbox).
+                </li>
+                </ul>
+	</Р>
 
       </DIV>
 
 
-      <div id = "help_simulator_firmware">
+      <div id="help_simulator_firmware">
       <h1> Управление микрокодами в WepSIM </h1>
 
 <Р>
                 На экране «Микрокод» загружается текстовый файл с тремя разделами (микрокод, наименование регистра и определение псевдоинструкций).
 Пожалуйста, обратитесь к разделу «Микрокод в WepSIM» для получения дополнительной информации о формате микрокода.
-Чтобы получить доступ к этому экрану, вы должны использовать верхнюю центральную кнопку микрокода (см. Рисунок <b class = "cleanuphtml-4"> рисунок 16 </b>).
+Чтобы получить доступ к этому экрану, вы должны использовать верхнюю центральную кнопку микрокода (см. Рисунок <b class="cleanuphtml-4"> рисунок 16 </b>).
 </Р>
 <Р>
 
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 1" src = "images/simulator/firmware001.jpg" alt = "" name = "Imagen 1" />
+<img max-width="90%" width="90%" id="Imagen 1" src="images/simulator/firmware001.jpg" alt="" name="Imagen 1" />
 </Р>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Ref434190846"> </a> <a name="_Toc438322905"> </a> <a class="cleanuphtml-1" name="_Ref434190877"> Рис. </a> <b> 16 </b> <b> Главный экран: опция для загрузки микрокода. </b>
 </Р>
 <Р>
 <br />
-                Затем появляется экран с онлайн-текстовым редактором, где ученик может описать микрокод (три раздела перед комментариями). Пользователи могут загрузить существующий микрокод с помощью кнопки «Загрузить» на верхней панели инструментов, изменить ранее загруженный микрокод или сохранить текущий микрокод с помощью кнопки «Сохранить» на верхней панели инструментов. Когда микрокод будет готов, нажмите кнопку «ilecompile», чтобы микрокомпилировать его, и загрузите полученный двоичный файл в память элемента управления, как показано на <b class = "cleanuphtml-4"> Рисунок 17 </b>.
+                Затем появляется экран с онлайн-текстовым редактором, где ученик может описать микрокод (три раздела перед комментариями). Пользователи могут загрузить существующий микрокод с помощью кнопки «Загрузить» на верхней панели инструментов, изменить ранее загруженный микрокод или сохранить текущий микрокод с помощью кнопки «Сохранить» на верхней панели инструментов. Когда микрокод будет готов, нажмите кнопку «ilecompile», чтобы микрокомпилировать его, и загрузите полученный двоичный файл в память элемента управления, как показано на <b class="cleanuphtml-4"> Рисунок 17 </b>.
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 2" src = "images/simulator/firmware002.jpg" alt = "" name = "Imagen 2" />
+<img max-width="90%" width="90%" id="Imagen 2" src="images/simulator/firmware002.jpg" alt="" name="Imagen 2" />
 </Р>
-<p class = "MsoNormal cleanuphtml-5"> </p>
-<table cellpadding = "0" cellspacing = "0" align = "left">
+<p class="MsoNormal cleanuphtml-5"> </p>
+<table cellpadding="0" cellspacing="0" align="left">
 </table> <br clear="all" />
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322906"> </a> <a class="cleanuphtml-1" name="_Ref434191423"> Рисунок </a> <b> 17 </b> <b> Экран микрокода: текстовое поле по порядку загрузить прошивку. </b>
 </Р>
 <Р>
 <br />
-                Как только новый микрокод загружен правильно, кнопка, показанная на <b class = "cleanuphtml-4"> Рис. 18 </b>, позволяет студентам проверять двоичный файл, загруженный в память управления.
+                Как только новый микрокод загружен правильно, кнопка, показанная на <b class="cleanuphtml-4"> Рис. 18 </b>, позволяет студентам проверять двоичный файл, загруженный в память управления.
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen4" src = "images/simulator/firmware004.jpg" alt = "Кнопка для открытия модальной памяти элемента управления" />
+<img max-width="90%" width="90%" id="Imagen4" src="images/simulator/firmware004.jpg" alt="Кнопка для открытия модальной памяти элемента управления" />
 </Р>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="fig4"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Рисунок </a> <b> 18 </b> <b> Экран микрокода: показать содержимое управляющей памяти . </B>
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen5" src = "images/simulator/firmware005.jpg" alt = "Модальный с содержимым управляющей памяти в двоичном виде" />
+<img max-width="90%" width="90%" id="Imagen5" src="images/simulator/firmware005.jpg" alt="Модальный с содержимым управляющей памяти в двоичном виде" />
 </Р>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="fig5"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Рисунок </a> <b> 19 </b> <b> Экран микрокода: двоичный файл в управляющей памяти . </B>
 </Р>
 <Р>
@@ -383,52 +380,52 @@ li $ 5 0 <br />
       </DIV>
 
 
-      <div id = "help_simulator_assembly">
+      <div id="help_simulator_assembly">
       <h1> Управление ассемблером в WepSIM </h1>
 
 <Р>
                 Текстовый файл с двумя типами разделов (данные и код) загружается на экран Ассемблера.
-                Для доступа к этому экрану студент должен нажать кнопку «Сборка» (см. <B class = "cleanuphtml-3"> Рисунок 16 </b>) на верхней панели инструментов.
+                Для доступа к этому экрану студент должен нажать кнопку «Сборка» (см. <B class="cleanuphtml-3"> Рисунок 16 </b>) на верхней панели инструментов.
 <br />
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 3" src = "images/simulator/assembly002.jpg" alt = "" name = "Imagen 3" />
+<img max-width="90%" width="90%" id="Imagen 3" src="images/simulator/assembly002.jpg" alt="" name="Imagen 3" />
 </Р>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322909"> </a> <a class="cleanuphtml-1" name="_Toc434155501"> Рисунок </a> <b> 20 </b> <b> Главный экран: экран кода ассемблера. </B>
 </Р>
 <Р>
                 Затем появляется текстовый редактор, где код сборки может быть загружен и отредактирован. Вы можете загрузить существующий код с помощью кнопки «Загрузить» на верхней панели, изменить ранее загруженный код или сохранить код, загруженный в данный момент с помощью кнопки «Сохранить» на верхней панели.
 </Р>
 <Р>
-Как только код будет готов, вы должны нажать кнопку «Компилировать», чтобы скомпилировать этот код в двоичный файл и загрузить этот двоичный файл в основную память, как показано на <b class = "cleanuphtml-3"> Рисунок 21 </b>.
+Как только код будет готов, вы должны нажать кнопку «Компилировать», чтобы скомпилировать этот код в двоичный файл и загрузить этот двоичный файл в основную память, как показано на <b class="cleanuphtml-3"> Рисунок 21 </b>.
 </Р>
 <Р>
 
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 28" src = "images/simulator/assembly003.jpg" alt = "" name = "Imagen 28" />
+<img max-width="90%" width="90%" id="Imagen 28" src="images/simulator/assembly003.jpg" alt="" name="Imagen 28" />
 </Р>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322910"> </a> <a class="cleanuphtml-1" name="_Ref434192102"> Рисунок </a> <b> 21 </b> <b> Экран сборки: текстовый редактор для код сборки. </b> <b> <br />
 <br /> </b>
 </Р>
 <Р>
-                После компиляции он перейдет на экран, показанный на <b class = "cleanuphtml-3"> Рисунок 22 </b>, и пользователь может нажать на кнопку show, чтобы изучить содержимое основной памяти в двоичном виде (< b class = "cleanuphtml-3"> Рисунок 23 </b>).
+                После компиляции он перейдет на экран, показанный на <b class="cleanuphtml-3"> Рисунок 22 </b>, и пользователь может нажать на кнопку show, чтобы изучить содержимое основной памяти в двоичном виде (< b class="cleanuphtml-3"> Рисунок 23 </b>).
 </Р>
 <Р>
 
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 30" src = "images/simulator/assembly004.jpg" alt = "Экран сборки, кнопка для отображения сборки в двоичном виде" />
+<img max-width="90%" width="90%" id="Imagen 30" src="images/simulator/assembly004.jpg" alt="Экран сборки, кнопка для отображения сборки в двоичном виде" />
 </Р>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Рисунок </a> <b> 22 </b> <b> Экран сборки: кнопка для просмотра значения основной памяти. </b>
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 30" src = "images/simulator/assembly005.jpg" alt = "Модальный со сборкой в двоичном виде" />
+<img max-width="90%" width="90%" id="Imagen 30" src="images/simulator/assembly005.jpg" alt="Модальный со сборкой в двоичном виде" />
 </Р>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Рисунок </a> <b> 23 </b> <b> Экран сборки: двоичные значения. </б>
 </Р>
 <Р>
@@ -442,7 +439,7 @@ li $ 5 0 <br />
       </DIV>
 
 
-      <div id = "help_simulator_execution">
+      <div id="help_simulator_execution">
       <h1> Симуляция в WepSIM </h1>
 
 <Р>
@@ -456,23 +453,23 @@ li $ 5 0 <br />
                 С помощью правой полосы прокрутки можно проверить содержимое всей памяти управления.
 </Li>
 <Li>
-                Основное содержимое памяти (см. <B class = "cleanuphtml-1"> Figure 25 </b>) с инструкцией по сборке, которая должна быть выполнена.
+                Основное содержимое памяти (см. <B class="cleanuphtml-1"> Figure 25 </b>) с инструкцией по сборке, которая должна быть выполнена.
                 Можно установить точку останова, щелкнув столбец <i> точки останова </i>.
                 Когда точка останова установлена, в этом столбце появится значок «стоп».
 </Li>
 </UL>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 1" src = "images/simulator/simulator009.jpg" alt = "" name = "Imagen 1" />
+<img max-width="90%" width="90%" id="Imagen 1" src="images/simulator/simulator009.jpg" alt="" name="Imagen 1" />
 </Р>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322913"> </a> <a class="cleanuphtml-2" name="_Ref434192973"> Рисунок </a> <b> 24 </b> <b> Главный экран: визуализация элемента управления память. </B>
 </Р>
 <Р>
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 3" src = "images/simulator/simulator010.jpg" alt = "" name = "Imagen 3" />
+<img max-width="90%" width="90%" id="Imagen 3" src="images/simulator/simulator010.jpg" alt="" name="Imagen 3" />
 </Р>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322914"> </a> <a class="cleanuphtml-2" name="_Ref434193222"> Рисунок </a> <b> 25 </b> <b> Главный экран: визуализация основного код памяти. </b>
 </Р><Р>
 </Р>
@@ -480,32 +477,32 @@ li $ 5 0 <br />
                 На главном экране можно выполнить:
 </Р>
 <Р>
-· Микроинструкция с помощью микроинструкции, нажав на кнопку «Instrucci & oacute; n» (см. <B class = "cleanuphtml-1»> Figure 26 </b>), чтобы перейти к следующему тактовому циклу и отправить соответствующий элемент управления. сигналы.
+· Микроинструкция с помощью микроинструкции, нажав на кнопку «Instrucci & oacute; n» (см. <B class="cleanuphtml-1»> Figure 26 </b>), чтобы перейти к следующему тактовому циклу и отправить соответствующий элемент управления. сигналы.
 </Р>
 <Р>
-· Инструкция за инструкцией, нажав кнопку «Instrucci & oacute; n» (см. <B class = "cleanuphtml-1"> Figure 26 </b>), чтобы сгенерировать все тактовые циклы для микрокода соответствующей инструкции, остановка в начале выборки.
+· Инструкция за инструкцией, нажав кнопку «Instrucci & oacute; n» (см. <B class="cleanuphtml-1"> Figure 26 </b>), чтобы сгенерировать все тактовые циклы для микрокода соответствующей инструкции, остановка в начале выборки.
 </Р>
 <Р>
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 4" src = "images/simulator/simulator011.jpg" alt = "" name = "Imagen 4" />
+<img max-width="90%" width="90%" id="Imagen 4" src="images/simulator/simulator011.jpg" alt="" name="Imagen 4" />
 </Р>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322915"> </a> <a class="cleanuphtml-2" name="_Ref434193775"> Рисунок </a> <b> 26 </b> <b> Главный экран: параметры выполнения. </б>
 </Р>
 <Р>
 <br />
-С помощью кнопки «<i> Registers </i>» в правой верхней части основного экрана (см. <B class = "cleanuphtml-1"> Figure 26 </b>) можно увидеть значения регистр процессора и как они меняются во время исполнения.
+С помощью кнопки «<i> Registers </i>» в правой верхней части основного экрана (см. <B class="cleanuphtml-1"> Figure 26 </b>) можно увидеть значения регистр процессора и как они меняются во время исполнения.
 </Р>
 <Р>
-                Также можно увидеть блок управления, как показано на <b class = "cleanuphtml-1"> Рисунок 27 </b>.
+                Также можно увидеть блок управления, как показано на <b class="cleanuphtml-1"> Рисунок 27 </b>.
 </Р>
 <Р>
 </Р>
 <Р>
-<img max-width = "90%" width = "90%" id = "Imagen 8" src = "images/simulator/simulator012.jpg" alt = "" name = "Imagen 8" />
+<img max-width="90%" width="90%" id="Imagen 8" src="images/simulator/simulator012.jpg" alt="" name="Imagen 8" />
 </Р>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322916"> </a> <a class="cleanuphtml-2" name="_Ref434194139"> Рисунок </a> <b> 27 </b> <b> Главный экран: визуализация блока управления. </B>
 </Р>
 <Р>
@@ -519,7 +516,7 @@ li $ 5 0 <br />
       </DIV>
 
 
-      <div id = "help_checker">
+      <div id="help_checker">
 
               Можно проверить, что текущее состояние соответствует нашим требованиям:
 <Р>
@@ -527,7 +524,7 @@ li $ 5 0 <br />
 <li> Чтобы проверить текущее состояние, введите требования и нажмите «проверить». </li>
 <С>
 Например: <br>
-<textarea aria-label = "проверяет выполнение" row = "2">
+<textarea aria-label="проверяет выполнение" row="2">
 регистр 5> = 8; память 1 = 0x10; экран 0 == first_line
 </TextArea>
 </С>
@@ -543,7 +540,7 @@ li $ 5 0 <br />
       </DIV>
 
 
-      <div id = "help_dumper">
+      <div id="help_dumper">
 
 <UL>
 <Li>
@@ -551,7 +548,7 @@ li $ 5 0 <br />
 Состояние машины - это список элементов аппаратного обеспечения и его значений.
 Для упрощения показаны только аппаратные элементы с ненулевыми значениями. <br>
 Например: <br>
-<textarea aria-label = "проверяет выполнение" row = "2" class = "w-50">
+<textarea aria-label="проверяет выполнение" row="2" class="w-50">
 регистр 5> = 8; память 1 = 0x10; экран 0 == first_line
 </TextArea>
 <br>
@@ -573,7 +570,7 @@ li $ 5 0 <br />
 <Р>
 <UL>
               Типичные шаги для использования этого диалогового окна показаны в этой анимации: <br>
-<img class = "w-75" src = "help/welcome/states_usage.gif">
+<img class="w-75" src="help/welcome/states_usage.gif">
 </UL>
 
       </DIV>
