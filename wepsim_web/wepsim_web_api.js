@@ -418,7 +418,7 @@
 	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
-					  $('[data-bs-toggle=tooltip]').tooltip('hide');
+                                          wepsim_tooltips_hide('[data-bs-toggle=tooltip]');
                                         //$("#infohw1").attr('components', 'summary,elements,states,signals,behaviors');
 	                                  simcoreui_show_hw();
 					  var ws_idiom = get_cfg('ws_idiom');
@@ -448,7 +448,7 @@
     {
             if (simhw_active() !== null)
             {
-		$('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                wepsim_tooltips_hide('[data-bs-toggle=tooltip]');
 		show_memories_values() ;
                 scroll_memory_to_lastaddress() ;
 		wepsim_reset_max_turbo() ;

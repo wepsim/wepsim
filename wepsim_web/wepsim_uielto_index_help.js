@@ -132,7 +132,7 @@
 	// hardware summary image
         function uielto_help_hw_summary_image ( seg_hardw )
         {
-	    var img2 = 'examples/hardware/' + seg_hardw + '/images/cpu.svg?time=20210802' ;
+	    var img2 = 'examples/hardware/' + seg_hardw + '/images/cpu.svg?time=20220610' ;
 
 	    return '<button class="btn btn-secondary w-100" type="button"' +
                    '        data-bs-toggle="collapse"   data-bs-target="#hw_img_collapse1"' +
@@ -181,7 +181,7 @@
             {
     	        fmt_header = "" ;
     	        if (e_utype != helps[m].u_type) {
-    		    fmt_header = "<div class='float-none text-end text-capitalize fw-bold col-12 border-bottom border-secondary bg-white sticky-top'>" +
+    		    fmt_header = "<div class='float-none text-end text-capitalize fw-bold col-12 border-bottom border-secondary bg-white sticky-top mb-2'>" +
     			         helps[m].u_type +
     			         "</div>" ;
     		}
@@ -210,16 +210,14 @@
     	        t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
 
     		o = o + fmt_header +
-    			'<div class="col-sm-auto py-1 ' + toggle_cls + '">' +
-    			'    <span class="badge rounded-pill text-bg-light">' + t_index + '</span>' +
-    			'</div>' +
-    			'<div class="col-sm-4 py-1 ' + toggle_cls + '">' +
-    			'    <span class="btn-like bg-success text-white text-truncate rounded border px-1" ' +
+    			'<div class="col-xs-5 col-lg-4 py-1 ' + toggle_cls + '">' +
+    			'    <span class="badge rounded-pill text-bg-light me-2">' + t_index + '</span>' +
+    			'    <button class="btn btn-md bg-success text-white text-truncate text-wrap border p-0 w-75" ' +
                         '          style="cursor:pointer;" ' +
     			'          id="help_index_' + m + '" ' +
                         '          data-langkey="' + e_title + '" ' +
     		        '          onclick="' + onclick_code + 'return false;">' +
-                             e_title + '</span>' +
+                             e_title + '</button>' +
     			'</div>' +
     			'<div class="col-sm collapse7 show py-1 ' + toggle_cls + '">' +
     			'    <c>' + e_description + '</c>' +

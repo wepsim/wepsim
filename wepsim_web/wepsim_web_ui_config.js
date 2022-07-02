@@ -84,7 +84,7 @@
 		"   aria-expanded='false' aria-haspopup='true'>" +
 		"<span class='font-weight-bold' data-langkey='" + name + "'>" + name + "</span>" +
 		"</button>" +
-		"<div class='dropdown-menu' " +
+		"<div class='dropdown-menu mb-2' " +
 		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
 		"     aria-labelledby='dropdown-title1'>" +
                 // details
@@ -92,7 +92,8 @@
 		" <label for='wsdt" + name + "'><span data-langkey='details'>details</span></label>" +
 		" <button class='btn btn-outline-secondary btn-block py-1' " +
                 "         type='button' id='wsdt" + name + "' " +
-		"         onclick='$(\".collapse7\").collapse(\"toggle\");'>" +
+		"         onclick='$(\".collapse7\").collapse(\"toggle\");" +
+		"                  if (event.stopPropagation) event.stopPropagation();'>" +
 		" <span class='text-truncate'>&plusmn; <span data-langkey='Description'>Description</span></span>" +
 		" </button>" +
                 " </div></form>"+
@@ -114,7 +115,7 @@
 		"   data-bs-toggle='dropdown' id='dropdown-title1' " +
 		"   aria-expanded='false' aria-haspopup='true' " +
 		"   class='btn btn-" + color + " dropdown-toggle dropdown-toggle-split'" +
-		"><span class='visually-hidden'>Toggle Dropdown</span>" +
+		"><span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
 		"</button>" +
 		"<div class='dropdown-menu' " +
 		"     style='overflow-y:auto; max-height:55vh; z-index:100000;' " +
@@ -221,8 +222,12 @@
          update_cfg(config_name, val_new) ;
 
          var label_prefix = '#label' + set_id + '-' ;
-	 $(label_prefix + val_old).button('toggle');
-	 $(label_prefix + val_new).button('toggle');
+         if ($(label_prefix + val_old).hasClass("active") == true) {
+	     $(label_prefix + val_old).button('toggle');
+         }
+         if ($(label_prefix + val_new).hasClass("active") == false) {
+	     $(label_prefix + val_new).button('toggle');
+         }
     }
 
     function wepsim_config_button_toggle2 ( config_name, val_old, val_new, set_id )

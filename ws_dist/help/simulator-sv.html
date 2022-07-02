@@ -1,11 +1,11 @@
 <! DOCTYPE html OFFENTLIG "- // W3C // DTD XHTML 1.0 Transitional // EN"
     "Http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns = "http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <Huvud>
     <title> </title>
-<meta charset = "UTF-8">
-<Meta http-equiv = "Content-Type" content = "text/html; charset = UTF-8">
-    <style type = "text/css">
+<meta charset="UTF-8">
+<Meta http-equiv="Content-Type" content="text/html; charset = UTF-8">
+    <style type="text/css">
 / * <! [CDATA [* /
     : länk {färg: # 0563C1}
     : besökte {färg: # 954F72}
@@ -18,10 +18,10 @@
     </style>
 
   <! - Ren HTML genererad av http://www.cleanuphtml.com/ ->
-<meta name = "Generator" content = "Rensa HTML"> </head>
+<meta name="Generator" content="Rensa HTML"> </head>
   <Body>
 
-      <div id = "help_firmware_format">
+      <div id="help_firmware_format">
       <h1> Mikrokod i WepSIM </h1>
 
 <P>
@@ -53,7 +53,7 @@ hämta: (T2, C0 = 1), <br>
 }
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322900"> Figur </a> <b> 11 </b> <b> Exempel på beskrivning för </b> <b> Hämta </b>
 </p>
 <P>
@@ -78,7 +78,7 @@ A0 = 1, B = 1, C = 0)
 } <br>
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322901"> Figur </a> <b> 12 </b> <b> Exempel på beskrivning för ett instruktionsformat </b>
 </p>
 <P>
@@ -110,7 +110,7 @@ A0 = 1, B = 1, C = 0)
 } <br>
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322902"> Figur </a> <b> 13 </b> <b> Detalj i beskrivningen av en instruktion: fält cop </b>
 </p>
 <P>
@@ -169,7 +169,7 @@ register
 	        }
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322903"> Figur </a> <b> 14 </b> <b> Exempel på registreringsnamn </b>
 </p>
 <P>
@@ -198,7 +198,7 @@ ori reg1 reg1 sel(15.0, num) <br />
 
 </p>
 </ul>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a class="cleanuphtml-1" name="_Toc438322904"> Figur </a> <b> 15 </b> <b> Exempel på pseudo-instruktion (valfritt avsnitt) </b>
 </p>
 <P>
@@ -212,7 +212,7 @@ När operatören "sel (bit-start, bit-end-fält)" tillåter oss att välja ett a
       </div>
 
 
-      <div id = "help_assembly_format">
+      <div id="help_assembly_format">
       <h1> Samlar i WepSIM </h1>
 
 <P>
@@ -269,106 +269,103 @@ I kodavsnittet kan du definiera subrutiner som kvarstår i kodsegmentet för huv
 
 </p>
 <P>
-Du kan använda radkommentarer med # tecknet. <br />
-Allt som följer denna karaktär till slutet av linjen kommer att ignoreras av monteraren.
-</p>
-<P>
 Ett exempelprogram skulle vara:
 </p>
 <Ul>
-<P>
+
+<pre class="font-monospace">
 .data
-</p>
-<P>
-age1: .word 0x12345678, 20
-</p>
-<P>
-age2: .word 20, 10
-</p>
-<P>
-Resultat: .word 0
-</p>
-<P>
-# 32-bitars ord initialiserat med decimal
-</p>
-<P>
-text: .ascii "Hej \ t"
-</p>
-<P>
-text2: .asciiz "Hej \ t"
-</p>
-<P>
-ihålig: .rymd 16
-</p>
-<P>
-.text
-</p>
-<P>
-.globl huvud
-</p>
-<P>
-huvud: li $ 3 2
-</p>
-<P>
-li $ 4 1
-</p>
-<P>
-li $ 5 0 <br />
-<br />
-</p>
+  age1:      .word 0x12345678, 20 
+  alter2:    .word 20, 10 
+  resultado: .word 0 
+  # 32-bitars ord initialiserat med decimal
+  texto:     .ascii  "Hej \t" 
+  texto2:    .asciiz "Hej \t" 
+  hueco:     .space 16 
+
+.text 
+.globl main 
+ main: li $3 2 
+       li $4 1 
+       li $5 0 
+</pre>
+
 </ul>
-<p class = "cleanuphtml-2">
-<a class="cleanuphtml-1" name="_Toc438322908"> Figur </a> <b> 19 </b> <b> Exempel på data och kod sektioner för att testa mikro aassemblies. </b> <b> <br />
+<p class="cleanuphtml-2">
+<a class="cleanuphtml-1" name="_Toc438322908"> Figur </a> <b> 19 </b> <b> Exempel på data och kod sektioner för att testa mikrokod. </b> <b> <br />
 <br /> </b>
 </p>
+	<P>
+	Du kan använda radkommentarer med # tecknet. <br />
+	Allt som följer denna karaktär till slutet av linjen kommer att ignoreras av monteraren.
+
+		Det finns också aktiva kommentarer där speciella taggar används för att utföra vissa åtgärder under körning:
+                <ul>
+                <li>
+		<pre class="m-0"># state:</pre>
+		 Tillåter att spara tillståndet innan instruktionen som föregår kommentaren utförs.
+                </li>
+                <li>
+		<pre class="m-0"># break:</pre>
+		 Tillåter att ställa in en brytpunkt under programkörning.
+                </li>
+                <li>
+		<pre class="m-0">
+# notify: skip1st:true showas:offcanvas scroll2current:true
+# notify: Lorem ipsum dolor sit amet, consectetur...
+                </pre>
+		 Tillåter att stoppa exekvering tillfälligt och visa information i en sidopanel (offcanvas) eller i en dialogruta (dialogbox).
+                </li>
+                </ul>
+	</p>
 
       </div>
 
 
-      <div id = "help_simulator_firmware">
+      <div id="help_simulator_firmware">
       <h1> Mikrokodshantering i WepSIM </h1>
 
 <P>
                 En textfil med tre sektioner (mikrokod, registreringsnamn och definition av pseudoinstruktioner) laddas i Microcode-skärmen.
 Vänligen se "Mikrokod i WepSIM" för mer information om mikrokod format.
-För att få tillgång till denna skärm Du måste använda upp i mitten Mikrokod knappen (se Figur <b class = "cleanuphtml-4"> Figur 16 </b>)
+För att få tillgång till denna skärm Du måste använda upp i mitten Mikrokod knappen (se Figur <b class="cleanuphtml-4"> Figur 16 </b>)
 </p>
 <P>
 
 </p>
 <P>
-<Img max-width = "90%" width = "90%" id = "Bild 1" src = "images/simulator/firmware001.jpg" alt = "" name = "Bild 1" />
+<Img max-width="90%" width="90%" id="Bild 1" src="images/simulator/firmware001.jpg" alt="" name="Bild 1" />
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Ref434190846"> </a> <a name="_Toc438322905"> </a> <a class="cleanuphtml-1" name="_Ref434190877"> Figur </a> <b> 16 </b> <b> Huvudskärm: alternativ för att ladda mikrokod. </b>
 </p>
 <P>
 <br />
-                Därefter visas en skärm med en online textredigerare där studenten kan beskriva mikrokoden (de tre delarna innan kommenterade). Användare kan ladda en befintlig mikrokod genom att använda "Load" -knappen på övre verktygsfältet, ändra eller mikrokod laddad tidigare spara aktuell mikrokod Med "Spara" -knappen på övre verktygsfältet. När mikrokoden är klar, klicka på "μcompile" -knappen för att microcompile den och ladda det binära resulterande styr i minnet, såsom visas i <b class = "cleanuphtml-4"> Figur 17 </b>.
+                Därefter visas en skärm med en online textredigerare där studenten kan beskriva mikrokoden (de tre delarna innan kommenterade). Användare kan ladda en befintlig mikrokod genom att använda "Load" -knappen på övre verktygsfältet, ändra eller mikrokod laddad tidigare spara aktuell mikrokod Med "Spara" -knappen på övre verktygsfältet. När mikrokoden är klar, klicka på "μcompile" -knappen för att microcompile den och ladda det binära resulterande styr i minnet, såsom visas i <b class="cleanuphtml-4"> Figur 17 </b>.
 </p>
 <P>
-<Img max-width = "90%" width = "90%" id = "Bild 2" src = "images/simulator/firmware002.jpg" alt = "" name = "Bild 2" />
+<Img max-width="90%" width="90%" id="Bild 2" src="images/simulator/firmware002.jpg" alt="" name="Bild 2" />
 </p>
-<p class = "MsoNormal cleanuphtml-5"> </p>
-<table cellpadding = "0" cellspacing = "0" align = "left">
+<p class="MsoNormal cleanuphtml-5"> </p>
+<table cellpadding="0" cellspacing="0" align="left">
 </table> <br clear="all" />
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322906"> </a> <a class="cleanuphtml-1" name="_Ref434191423"> Figur </a> <b> 17 </b> <b> Microcode skärmen: textruta för att ladda fast programvaran. </b>
 </p>
 <P>
 <br />
-                När den nya mikrokoden är laddad korrekt visas knappen <b class = "cleanuphtml-4"> Figur 18 </b>
+                När den nya mikrokoden är laddad korrekt visas knappen <b class="cleanuphtml-4"> Figur 18 </b>
 </p>
 <P>
-<Img max-width = "90%" width = "90%" id = "Imagen4" src = "images/simulator/firmware004.jpg" alt = "Button Control för att öppna minnes modal" />
+<Img max-width="90%" width="90%" id="Imagen4" src="images/simulator/firmware004.jpg" alt="Button Control för att öppna minnes modal" />
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="fig4"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Figur </a> <b> 18 </b> <b> Microcode skärm: visar styrminnesinnehåll . </b>
 </p>
 <P>
-<Img max-width = "90%" width = "90%" id = "Imagen5" src = "images/simulator/firmware005.jpg" alt = "Modal kontroll Med minnesinnehållet i binär" />
+<Img max-width="90%" width="90%" id="Imagen5" src="images/simulator/firmware005.jpg" alt="Modal kontroll Med minnesinnehållet i binär" />
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="fig5"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Figur </a> <b> 19 </b> <b> Microcode skärmen: In Control binärt minne . </b>
 </p>
 <P>
@@ -382,52 +379,52 @@ Vänligen kontrollera avsnittet "Simulator: assembly" från hjälp för mer info
       </div>
 
 
-      <div id = "help_simulator_assembly">
+      <div id="help_simulator_assembly">
       <h1> Samlarhantering i WepSIM </h1>
 
 <P>
                 En textfil med två typer av sektioner (data och kod) laddas på Assembler-skärmen.
-                För att komma åt den här skärmen har studenten valt sammansättningsknappen (se <b class = "cleanuphtml-3"> Figur 16 </b>) i den övre verktygsfältet.
+                För att komma åt den här skärmen har studenten valt sammansättningsknappen (se <b class="cleanuphtml-3"> Figur 16 </b>) i den övre verktygsfältet.
 <br />
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 3" src = "images/simulator/assembly002.jpg" alt = "" name = "Bild 3" />
+<img max-width="90%" width="90%" id="Bild 3" src="images/simulator/assembly002.jpg" alt="" name="Bild 3" />
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322909"> </a> <a class="cleanuphtml-1" name="_Toc434155501"> Figur </a> <b> 20 </b> <b> huvudskärmen: Assembler-kod skärm. </b>
 </p>
 <P>
                 Sedan visas en textredigerare där monteringskoden kan laddas och redigeras. Du kan ladda en befintlig kod med knappen "Ladda" på den övre fältet, ändra en kod som tidigare laddats eller spara koden som för närvarande laddas med "Spara" -knappen på översta fältet.
 </p>
 <P>
-När koden är klar, Du måste klicka på "Samla" för att kompilera Denna kod till binär och att ladda esta binär i huvudminnet, såsom visas i <b class = "cleanuphtml-3"> Figur 21 </b>.
+När koden är klar, Du måste klicka på "Samla" för att kompilera Denna kod till binär och att ladda esta binär i huvudminnet, såsom visas i <b class="cleanuphtml-3"> Figur 21 </b>.
 </p>
 <P>
 
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 28" src = "images/simulator/assembly003.jpg" alt = "" name = "Bild 28" />
+<img max-width="90%" width="90%" id="Bild 28" src="images/simulator/assembly003.jpg" alt="" name="Bild 28" />
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322910"> </a> <a class="cleanuphtml-1" name="_Ref434192102"> Figur </a> <b> 21 </b> <b> Monterings skärm: texteditor för den monteringskod. </b> <b> <br />
 <br /> </b>
 </p>
 <P>
-                En gång sammanställts, kommer den att passera till skärmen som visas i <b class = "cleanuphtml-3"> Figur 22 </b>, och användaren kan klicka på knappen show för att undersöka innehållet i huvudminnet i binärt (<b class = "cleanuphtml-3"> Figur 23 </b>).
+                En gång sammanställts, kommer den att passera till skärmen som visas i <b class="cleanuphtml-3"> Figur 22 </b>, och användaren kan klicka på knappen show för att undersöka innehållet i huvudminnet i binärt (<b class="cleanuphtml-3"> Figur 23 </b>).
 </p>
 <P>
 
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 30" src = "images/simulator/assembly004.jpg" alt = "Monteringsskärm, knapp för att visa montering i binär" />
+<img max-width="90%" width="90%" id="Bild 30" src="images/simulator/assembly004.jpg" alt="Monteringsskärm, knapp för att visa montering i binär" />
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Figur </a> <b> 22 </b> <b> Monterings skärm: tangenten för att utforska huvudminnevärden. </b>
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 30" src = "images/simulator/assembly005.jpg" alt = "Modal med enheten i binär" />
+<img max-width="90%" width="90%" id="Bild 30" src="images/simulator/assembly005.jpg" alt="Modal med enheten i binär" />
 </p>
-<p class = "cleanuphtml-2">
+<p class="cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Figur </a> <b> 23 </b> <b> Monterings skärmen: binära värden </b>.
 </p>
 <P>
@@ -441,7 +438,7 @@ När koden är klar, Du måste klicka på "Samla" för att kompilera Denna kod t
       </div>
 
 
-      <div id = "help_simulator_execution">
+      <div id="help_simulator_execution">
       <h1> Simulering i WepSIM </h1>
 
 <P>
@@ -455,23 +452,23 @@ Kontrollminneinnehållet (se <b> Figur 24 </b>), med varje cykelstyrsignal.
                 Med den högra rullningsfältet är det möjligt att inspektera hela innehållet i kontrollminnet.
 </li>
 <Li>
-                Huvudminnesinnehållet (se <b class = "cleanuphtml-1"> Figur 25 </b>), med monteringsinstruktionen som ska utföras.
+                Huvudminnesinnehållet (se <b class="cleanuphtml-1"> Figur 25 </b>), med monteringsinstruktionen som ska utföras.
                 Det är möjligt att ställa in en brytpunkt genom att klicka på kolumnen <i> breakpoints </i>.
                 När en brytpunkt är inställd visas en "stop" -ikon i den här kolumnen.
 </li>
 </ul>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 1" src = "images/simulator/simulator009.jpg" alt = "" name = "Bild 1" />
+<img max-width="90%" width="90%" id="Bild 1" src="images/simulator/simulator009.jpg" alt="" name="Bild 1" />
 </p>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322913"> </a> <a class="cleanuphtml-2" name="_Ref434192973"> Figur </a> <b> 24 </b> <b> huvudskärmen: visualisering av kontroll minne. </b>
 </p>
 <P>
 </p>
 <P>
-<Img max-width = "90%" width = "90%" id = "Bild 3" src = "images/simulator/simulator010.jpg" alt = "" name = "Bild 3" />
+<Img max-width="90%" width="90%" id="Bild 3" src="images/simulator/simulator010.jpg" alt="" name="Bild 3" />
 </p>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322914"> </a> <a class="cleanuphtml-2" name="_Ref434193222"> Figur </a> <b> 25 </b> <b> huvudskärmen: visualisering av den huvudsakliga minneskod. </b></p>
 <P>
 </p>
@@ -479,32 +476,32 @@ Kontrollminneinnehållet (se <b> Figur 24 </b>), med varje cykelstyrsignal.
                 På huvudskärmen är det möjligt att utföra:
 </p>
 <P>
-· Mikroinstruktion genom mikroinstruktion genom att klicka på "μInstrucci & COLLISION OCH" -knappen (se <b class = "cleanuphtml-1"> Figur 26 </b>), att röra sig framåt till nästa klockcykel, och att sända de tillhörande styrsignalerna .
+· Mikroinstruktion genom mikroinstruktion genom att klicka på "μInstrucci & COLLISION OCH" -knappen (se <b class="cleanuphtml-1"> Figur 26 </b>), att röra sig framåt till nästa klockcykel, och att sända de tillhörande styrsignalerna .
 </p>
 <P>
-· Instruktion genom instruktion genom att klicka på "instruktion & oacute; n" knappen (se <b class = "cleanuphtml-1"> Figur 26 </b>) för att generera alla klockcykler för mikrokoden för den motsvarande instruktionen, stannar vid början av hämtningen.
+· Instruktion genom instruktion genom att klicka på "instruktion & oacute; n" knappen (se <b class="cleanuphtml-1"> Figur 26 </b>) för att generera alla klockcykler för mikrokoden för den motsvarande instruktionen, stannar vid början av hämtningen.
 </p>
 <P>
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 4" src = "images/simulator/simulator011.jpg" alt = "" name = "Bild 4" />
+<img max-width="90%" width="90%" id="Bild 4" src="images/simulator/simulator011.jpg" alt="" name="Bild 4" />
 </p>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322915"> </a> <a class="cleanuphtml-2" name="_Ref434193775"> Figur </a> <b> 26 </b> <b> huvudskärmen: exekverings alternativ </b>.
 </p>
 <P>
 <br />
-Med "<i> Register </i>" knappen på det övre högra fältet i huvudskärmen (se <b class = "cleanuphtml-1"> Figur 26 </b>) är det möjligt att se värdena för Processorn registrerar, och hur de ändras under utförandet.
+Med "<i> Register </i>" knappen på det övre högra fältet i huvudskärmen (se <b class="cleanuphtml-1"> Figur 26 </b>) är det möjligt att se värdena för Processorn registrerar, och hur de ändras under utförandet.
 </p>
 <P>
-                Det är också möjligt att se styrenheten, som visas i <b class = "cleanuphtml-1"> Figur 27 </b>.
+                Det är också möjligt att se styrenheten, som visas i <b class="cleanuphtml-1"> Figur 27 </b>.
 </p>
 <P>
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "bild 8" src = "images/simulator/simulator012.jpg" alt = "" name = "bild 8" />
+<img max-width="90%" width="90%" id="bild 8" src="images/simulator/simulator012.jpg" alt="" name="bild 8" />
 </p>
-<p class = "cleanuphtml-3">
+<p class="cleanuphtml-3">
 <a name="_Toc438322916"> </a> <a class="cleanuphtml-2" name="_Ref434194139"> Figur </a> <b> 27 </b> <b> huvudskärmen: visualisering styrenheten. </b>
 </p>
 <P>
@@ -518,7 +515,7 @@ Med "<i> Register </i>" knappen på det övre högra fältet i huvudskärmen (se
       </div>
 
 
-      <div id = "help_checker">
+      <div id="help_checker">
 
               Det är möjligt att kontrollera att det aktuella tillståndet uppfyller våra krav:
 <P>
@@ -526,7 +523,7 @@ Med "<i> Register </i>" knappen på det övre högra fältet i huvudskärmen (se
 <li> För att kontrollera det aktuella tillståndet, fyll i krav och tryck på "checka". </li>
 <C>
 Till exempel: <br>
-<textarea aria-label = "kontrollerar att utföra" rows = "2">
+<textarea aria-label="kontrollerar att utföra" rows="2">
 registrera 5> = 8; minne 1 = 0x10; skärm 0 == first_line
 </textarea>
 </c>
@@ -542,7 +539,7 @@ När tomma krav ställs in beaktas initialtillståndet.
       </div>
 
 
-      <div id = "help_dumper">
+      <div id="help_dumper">
 
 <Ul>
 <Li>
@@ -550,7 +547,7 @@ När tomma krav ställs in beaktas initialtillståndet.
 Maskinens tillstånd är listan över element i hårdvaran och dess värden.
 För att förenkla visas endast de icke-nollvärdena hårdvaruelementen. <br>
 Till exempel: <br>
-<textarea aria-label = "kontrollerar att utföra" rows = "2" class = "w-50">
+<textarea aria-label="kontrollerar att utföra" rows="2" class="w-50">
 registrera 5> = 8; minne 1 = 0x10; skärm 0 == first_line
 </textarea>
 <br>
@@ -572,7 +569,7 @@ Endast de värden som skiljer sig mellan två tillstånd visas.
 <P>
 <Ul>
               De typiska stegen för att använda denna dialogruta visas i denna animering: <br>
-<img class = "w-75" src = "images/welcome/states_usage.gif">
+<img class="w-75" src="images/welcome/states_usage.gif">
 </ul>
 
       </div>

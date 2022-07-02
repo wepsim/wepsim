@@ -82,7 +82,7 @@
 			 o.find('.modal-title').addClass("ms-auto") ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-lssvasm') ;
@@ -118,7 +118,7 @@
                                 "><span data-langkey='Save'>Save</span></button>" +
                                 "  <button type='button' class='btn btn-light dropdown-toggle dropdown-toggle-split' " +
                                 "          data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-                                "    <span class='visually-hidden'>Toggle Dropdown</span>" +
+                                "    <span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
                                 "  </button>" +
                                 "  <div class='dropdown-menu'>" +
                                 "    <h6 class='dropdown-header'>Default:</h6>" +
@@ -177,7 +177,7 @@
 			 $('.dropify').dropify() ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-lssvfir') ;
@@ -196,7 +196,7 @@
 		     },
             body:    function() {
 		        return "<div id='scroller-bin2a' class='container-fluid p-1' " +
-           		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+           		       "     style='max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
 	           	       "<ws-bin_asm></ws-bin_asm>" +
 		               "</div>" ;
 		     },
@@ -220,7 +220,7 @@
 			 }
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
                          // show binary
@@ -243,7 +243,7 @@
 		     },
             body:    function() {
 		        return "<div id='scroller-bin2b' class='container-fluid p-1' " +
-           		       "     style='max-height:70vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+           		       "     style='max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
 	           	       "<ws-bin_mc></ws-bin_mc>" +
 		               "</div>" ;
 		     },
@@ -267,7 +267,7 @@
 			 }
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
                          // show binary
@@ -310,7 +310,7 @@
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-about1') ;
@@ -349,7 +349,7 @@
 			 i18n_update_tags('cfg') ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-notifications3') ;
@@ -367,12 +367,24 @@
 							    "i18n_update_tags('examples', ws_idiom);") ;
 		      },
             body:    function() {
-                        return "<div id='scroller-example1' class='container-fluid p-0' " +
-                               "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
-                               "<ws-examples></ws-examples>" +
-                               "</div>" ;
+                        return "<ws-examples id='examples1'></ws-examples>" ;
 		     },
 	    buttons: {
+			Index: {
+			   label:     '<i class="fas fa-list"></i> ' +
+                                      '<span data-langkey="Example sets">Example sets</span>',
+			   className: 'btn btn-info text-white btn-sm col col-sm-4 float-end shadow-none',
+			   callback:  function() {
+				         // ui elements
+                                         table_examplesets_html('#examples1-scroller', ws_info.example_set) ;
+
+			 		 // uicfg and events
+                                         wepsim_uicfg_apply() ;
+	    	 	                 simcore_record_captureInit() ;
+
+					 return false ;
+				      }
+			},
 			OK: {
 				label:     '<i class="fa fa-times me-2"></i>' +
 					   '<span data-langkey="Close">Close</span>',
@@ -389,7 +401,7 @@
                          i18n_update_tags('examples', ws_idiom) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-example1') ;
@@ -408,7 +420,7 @@
 		      },
             body:    function() {
                         return "<div id='scroller-config2' class='container-fluid p-0' " +
-                               "     style='max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                               "     style='overflow:auto; -webkit-overflow-scrolling:touch;'>" +
 			       "<ws-config></ws-config>" +
                                "</div>" ;
 		     },
@@ -442,7 +454,7 @@
                          i18n_update_tags('cfg', ws_idiom) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-config2') ;
@@ -549,7 +561,7 @@
                          i18n_update_tags('help', ws_idiom) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-help1') ;
@@ -621,7 +633,7 @@
                          i18n_update_tags('states', ws_idiom) ;
 
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 	    	 	 simcore_record_captureInit() ;
@@ -739,7 +751,7 @@
 				 i18n_update_tags('dialog', ws_idiom) ;
 
 				 // uicfg and events
-				 $('[data-bs-toggle=tooltip]').tooltip('hide') ;
+                                 wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 				 wepsim_uicfg_apply() ;
 
 				 simcore_record_captureInit() ;
@@ -777,7 +789,7 @@
             size:    'large',
             onshow:  function() {
 			 // uicfg and events
-			 $('[data-bs-toggle=tooltip]').tooltip('hide');
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-reload1') ;

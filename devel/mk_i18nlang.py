@@ -270,7 +270,6 @@ i18n_eltos['gui'] = {
         "Actions": 					"Actions",
         "Utilities": 					"Utilities",
         "Information from": 				"Information from",
-        "Pick firm/soft from": 				"Pick firm/soft from",
         "Welcome tutorial": 				"Welcome tutorial",
         "idiom": 					"idiom",
         "Assembly only": 				"Assembly only",

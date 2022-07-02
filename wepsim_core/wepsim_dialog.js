@@ -48,6 +48,9 @@
 				       var ws_idiom = get_cfg('ws_idiom') ;
 				       i18n_update_tags('dialogs', ws_idiom) ;
 				       i18n_update_tags('gui',     ws_idiom) ;
+
+				       // auto-close tooltips
+                                       setTimeout(wepsim_tooltips_closeAll, 500) ;
 				    },
 		    buttons:        dialog_obj.buttons
 	    } ;

@@ -13,7 +13,8 @@ begin
                     (M2, C2, T1, C3),
                     (A0, B=0, C=0),
 
-    mrti:           # notify: Before each fetch.
+    mrti:           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:control_memory
+                    # notify: Before each fetch.
                     # notify: After executing any instruction, and before the fetch microcode,
                     # notify: the CPU checks if any interruption is enable. 
                     # notify: 
@@ -35,7 +36,8 @@ begin
                     # RT1 <- MBR
                     (T1=1, C4=1),
 
-    csw_rt1:        # notify: The event handler microsubrutine.
+    csw_rt1:        # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:control_memory
+                    # notify: The event handler microsubrutine.
                     # notify: First, save the current PC+SR:
                     # notify: <font color=blue>push PC</font>
                     # notify: <font color=blue>push SR</font>
@@ -74,6 +76,7 @@ reti {
         nwords=1,
         help='return from event (interruption, exception, syscall)',
         {
+              # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:control_memory
               # notify: The RETI instruction.
               # notify: After the event is handled (interruption, exception or system call)
               # notify: the execution of the current assemble program may stop (e.g.: exception because error)
@@ -105,24 +108,25 @@ syscall {
         nwords=1,
         help='system call',
         {
-                    # notify: The SYSCALL instruction.
-                    # notify: The syscall instruction has an associated event -> The System Call Event.
-                    # notify: It is used to request some service to the operating system.
-                    # notify: The operating system provides the associated assembly handler code
-                    # notify: that reads from registers/stacks the parameters of the syscall 
-                    # notify: and execute the proper actions.
-                    # notify: 
-                    # notify: The syscall microcode sets the associated event identification in RT1:
-                    # notify: <font color=blue>RT1 = 2</font>
-                    # notify: Then, microjump to event handler microsubrutine:
-                    # notify: <font color=blue>go csw_rti</font>
-                    # notify: 
-                    # notify: Rembember: PC already points to next instructions after syscall
+              # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:control_memory
+              # notify: The SYSCALL instruction.
+              # notify: The syscall instruction has an associated event -> The System Call Event.
+              # notify: It is used to request some service to the operating system.
+              # notify: The operating system provides the associated assembly handler code
+              # notify: that reads from registers/stacks the parameters of the syscall 
+              # notify: and execute the proper actions.
+              # notify: 
+              # notify: The syscall microcode sets the associated event identification in RT1:
+              # notify: <font color=blue>RT1 = 2</font>
+              # notify: Then, microjump to event handler microsubrutine:
+              # notify: <font color=blue>go csw_rti</font>
+              # notify: 
+              # notify: Rembember: PC already points to next instructions after syscall
 
-                    # RT1 <- ExCode=2
-                    (ExCode=10, T11, C4),
-                    # csw_rt1(2)
-                    (A0=0, B=1, C=0, MADDR=csw_rt1)
+              # RT1 <- ExCode=2
+              (ExCode=10, T11, C4),
+              # csw_rt1(2)
+              (A0=0, B=1, C=0, MADDR=csw_rt1)
         }
 }
 
@@ -235,6 +239,7 @@ div reg1 reg2 reg3 {
                     # reg1 = reg2 / reg3, go fetch
                     (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
 
+                    # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:control_memory
                     # notify: The FPE-DIV0 exception.
                     # notify: The 'div r1 r2 r3' microcode checks if r3 == 0 before divide at the ALU.
                     # notify: If so (r3==0) there is an associated event -> Floating Point Exception.

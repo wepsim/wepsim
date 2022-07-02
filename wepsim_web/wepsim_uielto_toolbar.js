@@ -115,7 +115,7 @@
 		        '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 		        '        title="This button switches into the \'Microcode\' editor."' +
                         '        onclick="wsweb_change_workspace_microcode();' +
-		        '	          $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
+                        '                 wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 		        '	          return false;"' +
 		        '><strong><span class="d-none d-sm-inline-flex" ' +
                         ' data-langkey=\'MicroCode\'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>' ;
@@ -129,7 +129,7 @@
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="This button switches into the \'Assembly\' editor."' +
                         '        onclick="wsweb_change_workspace_assembly();' +
-			'	          $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
+                        '                 wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 			'		  return false;"' +
 			'><strong><span class="d-none d-sm-inline-flex" data-langkey=\'Assembly\'>Assembly</span><span class="d-sm-none" data-langkey=\'Assembly\'>Assembly</span></strong></button>' ;
 	      }
@@ -142,7 +142,7 @@
                         '        data-transition="none" data-inline="true"' +
 			'        title="This button switches into the \'Simulator\' workspace."' +
                         '        onclick="wsweb_change_workspace_simulator();' +
-			'	          $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
+                        '                 wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 			'		  return false;"' +
                         '><strong><span data-langkey=\'Simulator\'>Simulator</span></strong></button>' ;
 	      }
@@ -294,7 +294,7 @@
                         '           class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
                         '           style="border-color: #BBBBBB;"' +
 			'           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-			'     <span class="visually-hidden">Toggle Dropdown</span>' +
+			'     <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
 			'   </button>' +
 			'   <div id="action_menu1" class="dropdown-menu border border-secondary p-2">' +
                         '\n' +
@@ -348,7 +348,7 @@
                         '           style="border-color: #BBBBBB;"' +
 			'           id="select4"' +
                         '           onclick="setTimeout(function(){$(\'#dd1\').dropdown(\'toggle\');},50);' +
-			'	            $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
+                        '                   wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 			'	          //wsweb_set_details(\'HARDWARE\');' +
 			'	            return false;">HW</button>' +
                         '\n' +
@@ -408,7 +408,7 @@
 		        '           title="This button opens the \'Examples\' dialog."' +
 		        '           style="border-width:1 1 1 1px; border-color:#BBBBBB;"' +
                         '           id="btn_example1"' +
-			'	    onclick="$(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
+			'	    onclick="wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 		        '                    wsweb_dialog_open(\'examples\');' +
 			'	             return false;">' ;
                    o += (robj.icons_str == "no") ? '' : '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>' ;
@@ -466,7 +466,7 @@
 	     	     '   href="#" id="exs_' + item.name + '" value="' + i + '" ' +
 		     '   onclick="wepsim_example_reset();' +
 		     '            wepsim_example_load(\'' + item.name + '\');' +
-		     '	     $(\'[data-bs-toggle=tooltip]\').tooltip(\'hide\');' +
+                     '            wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 	             '            wsweb_dialog_open(\'examples\');' +
 		     '	     return false;"' +
 		     '><em class="fas fa-cube d-sm-inline d-xs-none text-secondary me-2"></em>' +

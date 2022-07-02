@@ -123,14 +123,10 @@
     {
 	    var o = null ;
 
-            // body
-	    o = document.getElementsByTagName('body') ;
-	    if (o.length > 0)
-            {
-	         if (adm === false)
-	              o[0].removeAttribute('data-theme', 'dark') ;
-	         else o[0].setAttribute('data-theme',    'dark') ;
-            }
+            // document
+	    if (adm === false)
+                 document.documentElement.setAttribute('data-theme', 'light') ;
+            else document.documentElement.setAttribute('data-theme', 'dark') ;
 
             // skipped elements
 	    o = document.querySelectorAll('.no-dark-mode') ;

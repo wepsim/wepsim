@@ -76,7 +76,7 @@
                             '<td>' + this.info_icons[enum_name] + '</td>' +
                             '<td>' + enum_name + ': ' + array_eltos.length + '</td>' +
                             '<td>' +
-	                    simhwelto_describe_component_enum_aux(elto_path, array_eltos, 
+	                    simhwelto_describe_component_enum_aux(elto_path, array_eltos,
 								  hash_eltos, enum_name, ',<br>') +
                             '</td>' +
                             '</tr>' ;

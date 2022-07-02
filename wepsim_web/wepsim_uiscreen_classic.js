@@ -45,16 +45,23 @@
 
                     // on events...
                     var offcvs1 = document.getElementById('offcvs1') ;
-                    offcvs1.addEventListener('shown.bs.offcanvas', 
+                    offcvs1.addEventListener('shown.bs.offcanvas',
                                              (event) => {
-                                                var o = '<ws-help-swset layout="offcanvas"></ws-help-swset>';
-                                                $('#offcvs1help').html(o) ;
+					       wepsim_offcanvas_set_content('offcvs1',
+									    'Assembly summary',
+									    true,
+					                 '<ws-help-swset layout="offcanvas"></ws-help-swset>',
+									    '') ;
                                              }) ;
+
                     var offcvs2 = document.getElementById('offcvs2') ;
-                    offcvs2.addEventListener('shown.bs.offcanvas', 
+                    offcvs2.addEventListener('shown.bs.offcanvas',
                                              (event) => {
-                                                var o = '<ws-help-hweltos layout="offcanvas"></ws-help-hweltos>';
-                                                $('#offcvs2help').html(o) ;
+					       wepsim_offcanvas_set_content('offcvs2',
+									    'Hardware summary',
+									    true,
+						     '<ws-help-hweltos layout="offcanvas"></ws-help-hweltos>',
+									    '') ;
                                              }) ;
 	      }
 
@@ -70,7 +77,7 @@
 	      render_populate ( )
 	      {
                  var o1 = '<div id="carousel-8" class="carousel" ' +
-                          '     data-bs-interval="false" data-bs-touch="false" data-bs-animation="">' +
+                          '     data-bs-interval="0" data-bs-touch="false" data-bs-animation="">' +
 		          '  <div class="carousel-inner">' +
 		          '	  <div class="carousel-item active p-1" id="ws_simulator">' +
 			  '' +
@@ -88,6 +95,12 @@
 			              this.render_populate_classic_details() +
 			  '            </div>' +
 			  '         </div>' +
+			  '' +
+                          '         <div class="offcanvas offcanvas-start"' +
+                          '              data-bs-scroll="true" data-bs-backdrop="false"' +
+                          '              tabindex="-1" id="offcvs3" aria-labelledby="offcvs3Label">' +
+                          '         </div>' +
+			  '' +
 		          '	  </div>' +
 		          '	  <div class="carousel-item p-1" id="ws_mcode">' +
 	                            this.screen_mc() +
@@ -226,16 +239,11 @@
 			 '' +
 			 '    </div>' +
 			 '' +
-                         '<div id="offcvs1" class="offcanvas offcanvas-end"' +
-                         '     data-bs-scroll="true" data-bs-backdrop="false"' +
-                         '     tabindex="-1" aria-labelledby="offcvs1Label">' +
-                         '     <div class="offcanvas-header bg-light border">' +
-                         '       <h5 class="offcanvas-title" id="offcvs1Label">Assembly summary</h5>' +
-                         '       <button type="button" class="btn-close text-reset"' +
-                         '               data-bs-dismiss="offcanvas" aria-label="Close"></button>' +
-                         '     </div>' +
-                         '     <div id="offcvs1help" class="offcanvas-body"></div>' +
-                         '</div>' +
+                         '    <div id="offcvs1" class="offcanvas offcanvas-end"' +
+                         '         data-bs-scroll="true" data-bs-backdrop="false"' +
+			 '         style="min-width:35vw;" ' +
+                         '         tabindex="-1" aria-labelledby="offcvs1Label">' +
+                         '    </div>' +
 			 '' +
 			 '    <ws-edit-as layout="both"></ws-edit-as>' ;
 
@@ -319,16 +327,11 @@
 			 '' +
 			 '    </div>' +
 			 '' +
-                         '<div class="offcanvas offcanvas-end"' +
-                         '     data-bs-scroll="true" data-bs-backdrop="false"' +
-                         '     tabindex="-1" id="offcvs2" aria-labelledby="offcvs2Label">' +
-                         '     <div class="offcanvas-header bg-light border">' +
-                         '       <h5 class="offcanvas-title" id="offcvs2Label">Hardware summary</h5>' +
-                         '       <button type="button" class="btn-close text-reset"' +
-                         '               data-bs-dismiss="offcanvas" aria-label="Close"></button>' +
-                         '     </div>' +
-                         '     <div id="offcvs2help" class="offcanvas-body"></div>' +
-                         '</div>' +
+                         '    <div class="offcanvas offcanvas-end"' +
+                         '         data-bs-scroll="true" data-bs-backdrop="false"' +
+			 '         style="min-width:35vw;" ' +
+                         '         tabindex="-1" id="offcvs2" aria-labelledby="offcvs2Label">' +
+                         '    </div>' +
 			 '' +
 			 '    <ws-edit-mc layout="both"></ws-edit-mc>' ;
 
@@ -338,4 +341,58 @@
         }
 
         register_uielto('ws-screen-classic', ws_uiscreen_classic) ;
+
+
+    //
+    // General popover
+    //
+
+    function wepsim_offcanvas_set_content ( offcanvas_id, title, with_close_btn, content, footer )
+    {
+        var o = '' ;
+
+        if (with_close_btn) {
+            o = '<button type="button" class="btn-close text-reset"' +
+	        '        data-bs-dismiss="offcanvas" aria-label="Close"></button>' ;
+        }
+
+        o += '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2">' +
+             '    <h5 class="offcanvas-title" ' +
+             '        onclick="wepsim_offcanvas_toggleHV(\'' + offcanvas_id + '\');"' +
+             '        id="' + offcanvas_id + 'Label">' +
+                  title +
+                  '</h5>' +
+                  o +
+             '  </div>' +
+             '  <div class="offcanvas-body" id="' + offcanvas_id + 'help">' +
+                content +
+                '</div>' +
+             '  <div class="offcanvas-footer bg-secondary bg-opacity-25">'  +
+                footer  +
+                '</div>' ;
+
+        // set content
+        $('#' + offcanvas_id).html(o) ;
+    }
+
+    function wepsim_offcanvas_show ( offcanvas_id )
+    {
+        var jsObj = document.getElementById(offcanvas_id) ;
+        var bsObj = bootstrap.Offcanvas.getOrCreateInstance(jsObj) ;
+
+        bsObj.show() ;
+    }
+
+    function wepsim_offcanvas_hide ( offcanvas_id )
+    {
+        var jsObj = document.getElementById(offcanvas_id) ;
+        var bsObj = bootstrap.Offcanvas.getOrCreateInstance(jsObj) ;
+
+        bsObj.hide() ;
+    }
+
+    function wepsim_offcanvas_toggleHV ( offcanvas_id )
+    {
+        $('#' + offcanvas_id).toggleClass('offcanvas-bottom').toggleClass('offcanvas-start') ;
+    }
 

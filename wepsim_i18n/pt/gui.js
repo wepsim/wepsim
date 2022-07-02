@@ -31,7 +31,7 @@
 		'Save':				'Guardar',
 		'Load/Save':			'Carga/Guardar',
 		'Restore':			'Restaurar',
-		'Help':				'Socorro',
+		'Help':				'Ajuda',
 		'Notifications':		'Notificações',
 		'RecordBar':			'Barra de registro',
 		'Input':			'Entrada',

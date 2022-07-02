@@ -26,9 +26,9 @@
     ws_info.modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
 
     ws_info.default_example = {
-	                         'asm_mips': 'ep:ep_mips:ep_s4_e1',
-	                         'asm_rv32': 'ep:ep_rv32:ep_s7_e2',
-	                         'asm_z80':  'ep:ep_z80:ep_s7_e3'
+	                         'asm_mips': 'ep:ep_mips:mips_s4e1',
+	                         'asm_rv32': 'ep:ep_rv32:rv32_s7e2',
+	                         'asm_z80':  'ep:ep_z80:z80_s7e3'
 	                      } ;
 
 

@@ -56,7 +56,7 @@
 	      render_populate ( )
 	      {
 	        var o1 = '<div id="carousel-8" class="carousel"' +
-                         '     data-bs-interval="false" data-bs-touch="false" data-bs-animation="">' +
+                         '     data-bs-interval="0" data-bs-touch="false" data-bs-animation="">' +
 			 ' <div class="carousel-inner">' +
 			 ' <div class="carousel-item active p-1" id="ws_simulator">' +
 			 '' +
@@ -67,6 +67,11 @@
 			    this.render_populate_compact_toolbars() +
 			 '  </div>' +
 			 '  </div>' +
+			 '' +
+                         '  <div class="offcanvas offcanvas-start"' +
+                         '       data-bs-scroll="true" data-bs-backdrop="false"' +
+                         '       tabindex="-1" id="offcvs3" aria-labelledby="offcvs3Label">' +
+                         '  </div>' +
 			 '' +
 			 ' <div class="row">' +
 			 '   <div id="col1" class="pt-2 ps-3 pe-2">' +

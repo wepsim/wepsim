@@ -589,7 +589,7 @@
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
                            '        onclick=wepsim_popovers_hide(\'.popover_hw\');><span data-langkey=\'Close\'>Close</span></button>' +
                            '</span>' +
-                           '"' + 
+                           '"' +
                            '   data-bs-html="true" title="">' + elto + '</a></span>' ;
               }
               c = c + '</span>' ;
