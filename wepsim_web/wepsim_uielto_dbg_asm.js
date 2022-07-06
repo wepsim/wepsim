@@ -267,7 +267,10 @@
 		     if (typeof a2s[p] !== "undefined")
 		     {
 			 o += "<tr bgcolor='#FEFEFE'>" +
-			      "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[p] + "</font></small></td>" +
+			      "<td class='sticky-top' colspan='7' " +
+                              "    style='line-height:0.3; background-color:white;' align='left'>" +
+                              "<small><font color='gray'>" + a2s[p] + "</font></small>" +
+                              "</td>" +
 			      "</tr>" ;
 		     }
 

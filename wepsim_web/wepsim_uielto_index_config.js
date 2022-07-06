@@ -34,15 +34,36 @@
 	      }
 
               // render
-	      render ( event_name )
-	      {
+              render ( event_name )
+              {
                     // initialize render elements...
-	            super.render() ;
+                    super.render() ;
 
                     // render current element
-		    this.innerHTML = table_config_html(ws_info.config_ui) ;
+                    this.render_skel() ;
+                    this.render_populate() ;
+              }
 
-		    // ui elements
+              render_skel ( )
+              {
+                    var cfgdiv_id = 'config2-scroller' ; // -> this.name_str + '-scroller' ;
+
+                    // default content
+                    this.innerHTML = "<div class='ui-body-d ui-content p-0' id='" + cfgdiv_id + "' " +
+                                     "     style='min-height:50vh; max-height:70vh; " +
+                                     "            overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
+                                     "</div>" ;
+              }
+
+              render_populate ( )
+              {
+                    var cfgdiv_id = 'config2-scroller' ; // -> this.name_str + '-scroller' ;
+
+                    // render HTML elements
+                    var o1 = table_config_html(ws_info.config_ui) ;
+                    $('#' + cfgdiv_id).html(o1) ;
+
+		    // initialize UI elements
                     var m=0 ;
 		    try
 		    {
@@ -67,7 +88,7 @@
 				        }
 		        } ;
                     wepsim_popovers_init('a[data-bs-toggle="popover1"]', popover_cfg, null) ;
-	      }
+              }
         }
 
         register_uielto('ws-config', ws_config) ;
