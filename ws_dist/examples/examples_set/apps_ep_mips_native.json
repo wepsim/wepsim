@@ -187,6 +187,17 @@
     "testing":          true
   },
   {
+    "id":		"S6E4",
+    "title":		"Array of strings",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,asm_mips",
+    "hardware":		"ep",
+    "microcode":	"ep_mips",
+    "assembly":		"mips_s6e4",
+    "description":	"<span data-langkey='example_06_04'>Array of strings.</span>",
+    "testing":          true
+  },
+  {
     "id":		"S6E5",
     "title":		"Led Matrix",
     "type":		"<span data-langkey='Special'>Special</span>",

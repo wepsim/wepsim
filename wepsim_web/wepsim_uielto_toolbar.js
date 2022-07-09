@@ -358,7 +358,9 @@
 			'	    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
                         '   ><span class="visually-hidden">Toggle Dropdown</span></button>' +
                         '\n' +
-			'   <div id="mode_menu" class="dropdown-menu border border-secondary p-2">' +
+			'   <div id="mode_menu" ' +
+			'        style="z-index:1200; " ' +
+                        '        class="dropdown-menu border border-secondary p-2">' +
                         '\n' +
 			'     <h6 class="text-white bg-secondary my-1 user_archived ms-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' ;
 
@@ -421,7 +423,9 @@
 			'	    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
                         '   ><span class="visually-hidden">Toggle Dropdown</span></button>' +
                         '\n' +
-			'   <div id="example_menu" class="dropdown-menu border border-secondary p-2">' +
+			'   <div id="example_menu" ' +
+			'        style="z-index:1200; " ' +
+                        '        class="dropdown-menu border border-secondary p-2">' +
                         '\n' ;
                    o += '   </div>' +
 			'</div>' ;
