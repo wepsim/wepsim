@@ -318,10 +318,6 @@
 			 '		   <ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>' +
 			 '	      </div>' +
 			 '' +
-			 '	      <div class="btn-group me-2 my-1">' +
-			 '		   <ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>' +
-			 '	      </div>' +
-			 '' +
 			 '	</div>' +
 			 '	</div>' +
 			 '' +
