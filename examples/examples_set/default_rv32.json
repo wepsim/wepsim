@@ -143,6 +143,17 @@
     "testing": true
   },
   {
+    "id": "R4E2",
+    "title": "SC 1, 4-5, 8, 11-12",
+    "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "rv32_r4e2",
+    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "testing": true
+  },
+  {
     "id": "R4E3",
     "title": "Threads",
     "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
@@ -514,6 +525,17 @@
     "microcode": "poc_rv32_base",
     "assembly": "rv32_r4e1",
     "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing": true
+  },
+  {
+    "id": "S4E2",
+    "title": "SC 1, 4-5, 8, 11-12",
+    "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "modes": "newbie,intro,poc",
+    "hardware": "poc",
+    "microcode": "poc_rv32_base",
+    "assembly": "rv32_r4e2",
+    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
     "testing": true
   },
   {
