@@ -47,21 +47,14 @@
                     var offcvs1 = document.getElementById('offcvs1') ;
                     offcvs1.addEventListener('shown.bs.offcanvas',
                                              (event) => {
-					       wepsim_offcanvas_set_content('offcvs1',
-									    'Assembly summary',
-									    true,
-					                 '<ws-help-swset layout="offcanvas"></ws-help-swset>',
-									    '') ;
+                                                 wepsim_offcanvas_helponhw('offcvs1', 'assembly_summary') ;
                                              }) ;
 
                     var offcvs2 = document.getElementById('offcvs2') ;
                     offcvs2.addEventListener('shown.bs.offcanvas',
                                              (event) => {
-					       wepsim_offcanvas_set_content('offcvs2',
-									    'Hardware summary',
-									    true,
-						     '<ws-help-hweltos layout="offcanvas"></ws-help-hweltos>',
-									    '') ;
+                                                 var content_name = event.target.getAttribute('data-ws-content') ;
+                                                 wepsim_offcanvas_helponhw('offcvs2', content_name) ;
                                              }) ;
 	      }
 
@@ -304,7 +297,23 @@
                          '                   <li><button class="btn dropdown-item" type="button" ' +
                          '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs2" ' +
                          '                               aria-controls="offcvs2"' +
-                         '                   ><strong><span data-langkey="Firmware summary">Firmware summary</span></strong></button></li>' +
+                         '                               onclick="var offobj = null; ' +
+                         '                                        offobj = document.getElementById(\'offcvs2\');' +
+                         '                                        offobj.setAttribute(\'data-ws-content\', ' +
+                         '                                                            \'hardware_summary\');' +
+                         '                                        wepsim_offcanvas_show(\'offcvs2\');' +
+                         '                                        return false;"' +
+                         '                   ><strong><span data-langkey="Hardware summary">Hardware summary</span></strong></button></li>' +
+                         '                   <li><button class="btn dropdown-item" type="button" ' +
+                         '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs2" ' +
+                         '                               aria-controls="offcvs2"' +
+                         '                               onclick="var offobj = null; ' +
+                         '                                        offobj = document.getElementById(\'offcvs2\');' +
+                         '                                        offobj.setAttribute(\'data-ws-content\', ' +
+                         '                                                            \'signals_summary\');' +
+                         '                                        wepsim_offcanvas_show(\'offcvs2\');' +
+                         '                                        return false;"' +
+                         '                   ><strong><span data-langkey="Signals summary">Signals summary</span></strong></button></li>' +
                          '                   <li><button class="btn dropdown-item" ' +
                          '                               onclick="wsweb_dialog_open(\'help\');' +
                          '                                        return false;"' +
@@ -351,20 +360,20 @@
 	        '        data-bs-dismiss="offcanvas" aria-label="Close"></button>' ;
         }
 
-        o += '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2">' +
-             '    <h5 class="offcanvas-title" ' +
-             '        onclick="wepsim_offcanvas_toggleHV(\'' + offcanvas_id + '\');"' +
-             '        id="' + offcanvas_id + 'Label">' +
+        o = '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2">' +
+            '    <h5 class="offcanvas-title" ' +
+            '        onclick="wepsim_offcanvas_toggleHV(\'' + offcanvas_id + '\');"' +
+            '        id="' + offcanvas_id + 'Label">' +
                   title +
                   '</h5>' +
                   o +
-             '  </div>' +
-             '  <div class="offcanvas-body" id="' + offcanvas_id + 'help">' +
+            '  </div>' +
+            '  <div class="offcanvas-body" id="' + offcanvas_id + 'help">' +
                 content +
                 '</div>' +
-             '  <div class="offcanvas-footer bg-secondary bg-opacity-25">'  +
+            '  <div class="offcanvas-footer bg-secondary bg-opacity-25">'  +
                 footer  +
-                '</div>' ;
+            '  </div>' ;
 
         // set content
         $('#' + offcanvas_id).html(o) ;
@@ -389,5 +398,36 @@
     function wepsim_offcanvas_toggleHV ( offcanvas_id )
     {
         $('#' + offcanvas_id).toggleClass('offcanvas-bottom').toggleClass('offcanvas-start') ;
+    }
+
+    function wepsim_offcanvas_helponhw ( offcanvas_id, content_name )
+    {
+	 var c = '' ;
+
+	 if ("signals_summary" == content_name)
+	 {
+	      c = 'Loading signals...' ;
+	      wepsim_offcanvas_set_content(offcanvas_id, 'Hardware signals', true, c, '') ;
+
+	      var seg_idiom = get_cfg('ws_idiom') ;
+	      var ahw       = simhw_active() ;
+	      var helpurl   = 'examples/hardware/' + ahw.sim_short_name + '/help/signals-' + seg_idiom + '.html' ;
+	      resolve_html_url('#' + offcanvas_id + 'help', helpurl, '#', function(){}) ;
+	 }
+	 else if ("hardware_summary" == content_name)
+	 {
+	      c = '<ws-help-hweltos layout="offcanvas"></ws-help-hweltos>' ;
+	      wepsim_offcanvas_set_content(offcanvas_id, 'Hardware summary', true, c, '') ;
+	 }
+	 else if ("assembly_summary" == content_name)
+	 {
+	      c = '<ws-help-swset layout="offcanvas"></ws-help-swset>' ;
+	      wepsim_offcanvas_set_content(offcanvas_id, 'Assembly summary', true, c, '') ;
+	 }
+	 else
+	 {
+	      c = 'Unknown content name for ' + offcanvas_id ;
+	      wepsim_offcanvas_set_content(offcanvas_id, 'Help', true, c, '') ;
+	 }
     }
 
