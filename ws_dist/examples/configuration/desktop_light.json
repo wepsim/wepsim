@@ -104,6 +104,11 @@
     "type": "int",
     "value": 1000
   },
+  "DBG_skip_notifycolon": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": false
+  },
   "ICON_theme": {
     "upgrade": false,
     "type": "string",
