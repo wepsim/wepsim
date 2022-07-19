@@ -18,7 +18,7 @@ main:
            li  $2  5
 
            # loop header
-    loop1: beq $1 $2 fin1
+    loop1: beq $1 $2 end1
 
            # loop body
            mul $6 $1 $4
@@ -31,5 +31,5 @@ main:
            b loop1
 
            # loop end
-     fin1: jr $ra
+     end1: jr $ra
 

@@ -25,12 +25,12 @@
 .text
 printMsg:    lb   $27 ($26)
              li   $1 0
-             beq  $27 $1 fin2
+             beq  $27 $1 end2
              out  $27 0x1000
              li   $1 1
              add  $26 $26 $1
              b printMsg
-       fin2: jr   $ra
+       end2: jr   $ra
 
 main:
              # push $ra

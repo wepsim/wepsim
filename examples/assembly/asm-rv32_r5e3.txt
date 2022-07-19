@@ -16,13 +16,13 @@
 .ktext
 sys_print:  li   zero 0
             li   t5 1
-            beq  t3 zero fin1
+            beq  t3 zero end1
         b5: lb   t4 0(t3)
-            beq  t4 zero fin1
+            beq  t4 zero end1
             out  t4 0x1000
             add  t3 t3 t5
             beq  zero zero b5
-      fin1: sret
+      end1: sret
 
   rt_i0:    # 1.- interruption
             la   t3 msgi0

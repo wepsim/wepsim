@@ -13,13 +13,13 @@
 
 .ktext
 sys_prt_str: li   zero 0
-             beq  t3 zero fin1
+             beq  t3 zero end1
          b5: lb   t4 0(t3)
-             beq  t4 zero fin1
+             beq  t4 zero end1
              out  t4 0x1000
              addi t3 t3 1
              beq  zero zero b5
-       fin1: sret
+       end1: sret
 
 sys_prt_int: li   t1 1
              # push_byte('\0')

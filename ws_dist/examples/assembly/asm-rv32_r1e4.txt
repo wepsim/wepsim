@@ -18,7 +18,7 @@ main:
            li  x2  5
 
            # loop header
-    loop1: beq x1 x2 fin1
+    loop1: beq x1 x2 end1
 
            # loop body
            mul x6 x1 x4
@@ -31,6 +31,6 @@ main:
            beq x0 x0 loop1
 
            # loop end
-     fin1: jr ra
+     end1: jr ra
 
 

@@ -14,13 +14,13 @@
 .ktext
 sys_print:  li   $0 0
             li   $1 1
-            beq  $26 $0 fin1
+            beq  $26 $0 end1
         b5: lb   $27 ($26)
-            beq  $27 $0 fin1
+            beq  $27 $0 end1
             out  $27 0x1000
             add  $26 $26 $1
             b  b5
-      fin1: reti
+      end1: reti
 
   rt_i0:    # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
             # notify: TIP: Interruption zero

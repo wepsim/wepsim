@@ -23,13 +23,13 @@
 
 .ktext
 sys_prt_str: li   zero 0
-             beq  x28 zero fin1
+             beq  x28 zero end1
          b5: lb   x29 0(x28)
-             beq  x29 zero fin1
+             beq  x29 zero end1
              out  x29 0x1000
              addi x28 x28 1
              beq  zero zero  b5
-       fin1: sret
+       end1: sret
 
 sys_prt_ch:  out  a0 0x1000
              sret
