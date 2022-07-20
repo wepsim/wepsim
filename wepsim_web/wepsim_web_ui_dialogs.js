@@ -419,10 +419,7 @@
 							    "i18n_update_tags('cfg', ws_idiom);") ;
 		      },
             body:    function() {
-                        return "<div id='scroller-config2' class='container-fluid p-0' " +
-                               "     style='overflow:auto; -webkit-overflow-scrolling:touch;'>" +
-			       "<ws-config></ws-config>" +
-                               "</div>" ;
+                        return "<ws-config id='config2'></ws-config>" ;
 		     },
 	    buttons: {
 			Reset: {
@@ -447,7 +444,7 @@
 	             },
             size:    'large',
             onshow:  function() {
-                         setTimeout(function() { $("#scroller-config2").scrollTop(0); }, 50);
+                         setTimeout(function() { $("#config2-scroller").scrollTop(0); }, 50);
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
@@ -457,7 +454,7 @@
                          wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-config2') ;
+			 wsweb_scroll_record('#config2-scroller') ;
 			 simcore_record_captureInit() ;
 		     }
          },

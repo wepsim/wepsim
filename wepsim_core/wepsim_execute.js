@@ -409,6 +409,8 @@
 
     function wepsim_check_memdashboard ( ref_mdash, notif_origin )
     {
+	var ret = true ;
+
         if (typeof ref_mdash === "undefined") {
 	    return true ;
 	}
@@ -423,7 +425,12 @@
 	var notifications = ref_mdash.notify.length ;
 	if (notifications > 1)
            {
-                var ret = wepsim_check_getnotifyoptions(ref_mdash.notify[1]) ;
+                ret = get_cfg('DBG_skip_notifycolon') ;
+	        if (ret) {
+	            return true ;
+                }
+
+                ret = wepsim_check_getnotifyoptions(ref_mdash.notify[1]) ;
 	        if (ret.skipme) {
 	            return true ;
                 }

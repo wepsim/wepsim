@@ -201,7 +201,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.2.0" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.2.0.20220515A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.2.0.20220705A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -227,6 +227,7 @@
                    "DBG_level":             { upgrade:false, type:"string",    value:"microinstruction" },
                    "DBG_limitins":          { upgrade:false, type:"int",       value:10000 },
                    "DBG_limitick":          { upgrade:false, type:"int",       value:1000 },
+                   "DBG_skip_notifycolon":  { upgrade:true,  type:"boolean",   value:false },
                    "ICON_theme":            { upgrade:false, type:"string",    value:'classic' },
                    "AS_enable":             { upgrade:true,  type:"boolean",   value:true },
                    "AS_delay":              { upgrade:true,  type:"int",       value:500 },

@@ -2,6 +2,14 @@
 # Changelog
 
 ## 2.1.9 -> 2.2.0:
+* Main improvements:
+  * Skip "notify:" added to configuration options.
+  * Replace + find operations added to Codemirror editor
+  * RISC-V examples updated
+* Minor bugs fixed and several refinements added:
+  * Examples for POC processor fixed
+* Main external dependencies updated:
+  * Bump bootstrap   from 4.6.1  to 5.2.0
 
 ## 2.1.8 -> 2.1.9:
 * Main improvements:
@@ -9,7 +17,7 @@
 * Minor bugs fixed and several refinements added:
   * Examples has been reorganized
 * Main external dependencies updated:
-  * Bump bootstrap   from 4.6.1  to 5.2.0
+  * Bump bootstrap   from 4.6.1  to 5.2.0 beta 1
   * Bump async       from 3.0.0  to 3.2.2
 
 ## 2.1.7 -> 2.1.8:

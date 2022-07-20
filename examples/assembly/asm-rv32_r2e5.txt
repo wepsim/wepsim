@@ -11,13 +11,13 @@
 .ktext
 sys_prt_str: li   x1  1
              li   x0  0
-             beq  x26 x0 fin1
+             beq  x26 x0 end1
          b5: lb   x27 0(x26)
-             beq  x27 x0 fin1
+             beq  x27 x0 end1
              out  x27 0x1000
              add  x26 x26 x1
              beq  x0  x0  b5
-       fin1: sret
+       end1: sret
 
 sys_prt_int: li   x1 1
              # push_byte('\0')
@@ -127,7 +127,7 @@ factorial:
            # notify:  * RA = Memory[SP+8]
            # notify:  * FP = Memory[SP+4]
 
-           # finalizar "stack frame"
+           # restore the "stack frame"
            lw   ra 8(sp)
            lw   s0 4(sp)
            addi sp sp 12

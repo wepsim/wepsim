@@ -7,7 +7,7 @@
   "build": {
     "upgrade": true,
     "type": "string",
-    "value": "2.2.0.20220110A"
+    "value": "2.2.0.20220510A"
   },
   "color_data_active": {
     "upgrade": false,
@@ -103,6 +103,11 @@
     "upgrade": false,
     "type": "int",
     "value": 1000
+  },
+  "DBG_skip_notifycolon": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": false
   },
   "ICON_theme": {
     "upgrade": false,
@@ -212,7 +217,7 @@
   "base_url": {
     "upgrade": true,
     "type": "string",
-    "value": "https://wepsim.github.io/wepsim/ws_dist/"
+    "value": "https://acaldero.github.io/wepsim/ws_dist/"
   },
   "example_url": {
     "upgrade": true,

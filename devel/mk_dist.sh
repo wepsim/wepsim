@@ -256,6 +256,9 @@ cat external/vue/vue.min.js \
     external/codemirror/addon/runmode/colorize.js \
     external/codemirror/addon/comment/comment.js \
     external/codemirror/addon/comment/continuecomment.js \
+    external/codemirror/addon/search//jump-to-line.js \
+    external/codemirror/addon/search//search.js \
+    external/codemirror/addon/dialog/dialog.js \
     external/jquery.knob.min.js \
     external/vis/vis-network.min.js \
     external/async.min.js \
@@ -279,6 +282,7 @@ cat external/bootstrap/bootstrap.min.css \
     external/codemirror/theme/blackboard.css \
     external/codemirror/addon/fold/foldgutter.css \
     external/codemirror/addon/hint/show-hint.css \
+    external/codemirror/addon/dialog/dialog.css \
     external/vis/vis-network.min.css \
     external/bootstrap-tokenfield.css \
     external/introjs/introjs.min.css \
