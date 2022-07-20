@@ -7,7 +7,7 @@
 * Minor bugs fixed and several refinements added:
   * Examples has been reorganized
 * Main external dependencies updated:
-  * Bump bootstrap   from 4.6.1  to 5.2.0 beta 1
+  * Bump bootstrap   from 4.6.1  to 5.2.0
   * Bump async       from 3.0.0  to 3.2.2
 
 ## 2.1.7 -> 2.1.8:
