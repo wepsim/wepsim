@@ -9,7 +9,7 @@
 * Minor bugs fixed and several refinements added:
   * Examples for POC processor fixed
 * Main external dependencies updated:
-  * Bump bootstrap   from 4.6.1  to 5.2.0 beta 1
+  * Bump bootstrap   from 4.6.1  to 5.2.0
 
 ## 2.1.8 -> 2.1.9:
 * Main improvements:

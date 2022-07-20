@@ -19,7 +19,7 @@ main:
            # for (x1=0; x1 < 5; x1++)
            li  x1  0
            li  x2  5
-    loop2: blt x2 x1 end2
+    loop2: bge x1 x2 end2
            # {
            #   ...
                addi x1 x1 1
@@ -31,7 +31,7 @@ main:
            # for (x1=0; x1 <= 5; x1++)
            li  x1  0
            li  x2  5
-    loop3: ble x2 x1 end3
+    loop3: bgt x1 x2 end3
            # {
            #   ...
                addi x1 x1 1
