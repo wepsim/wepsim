@@ -1,6 +1,8 @@
 
 # Changelog
 
+## 2.1.9 -> 2.2.0:
+
 ## 2.1.8 -> 2.1.9:
 * Main improvements:
   * Improved example dialog box
