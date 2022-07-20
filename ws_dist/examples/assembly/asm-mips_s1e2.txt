@@ -13,14 +13,17 @@
 
 .text
 main:
-            # test lb, lw
+            # test load byte
            lb  $1  w1
+
+            # test load word
            lw  $3  w3
 
-            # test sb, sw
+            # test store byte
            li  $1  0xF
            sb  $1  w1
 
-           li  $2  0xF
+            # test store word
+           li  $2  0x123
            sw  $2  w3
 

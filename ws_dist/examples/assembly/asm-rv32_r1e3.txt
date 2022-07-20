@@ -15,6 +15,7 @@ main:
                beq x0 x0 loop1
            # }
   
+
     end1:
            # for (x1=0; x1 < 5; x1++)
            li  x1  0
@@ -37,6 +38,7 @@ main:
                addi x1 x1 1
                beq x0 x0 loop3
            # }
+
 
      end3: jr ra
 
