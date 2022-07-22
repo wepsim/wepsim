@@ -10,7 +10,7 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "jshint": "^2.13.3",
-    "terser": "^4.8.0"
+    "terser": "^4.8.1"
   },
   "scripts": {
     "test-source1": "./devel/test_jshint.sh",
