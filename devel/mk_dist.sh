@@ -256,8 +256,9 @@ cat external/vue/vue.min.js \
     external/codemirror/addon/runmode/colorize.js \
     external/codemirror/addon/comment/comment.js \
     external/codemirror/addon/comment/continuecomment.js \
-    external/codemirror/addon/search//jump-to-line.js \
-    external/codemirror/addon/search//search.js \
+    external/codemirror/addon/search/jump-to-line.js \
+    external/codemirror/addon/search/searchcursor.js \
+    external/codemirror/addon/search/search.js \
     external/codemirror/addon/dialog/dialog.js \
     external/jquery.knob.min.js \
     external/vis/vis-network.min.js \

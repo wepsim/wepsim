@@ -33,6 +33,17 @@
     "testing":          true
   },
   {
+    "id":		"R1E5",
+    "title":		"If-Then, If-Then-Else",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"rv32_r1e5",
+    "description":	"<span data-langkey='example_01_05'>If-Then and If-Then-Else.</span>",
+    "testing":          true
+  },
+  {
     "id":		"R1E4",
     "title":		"Vector",
     "type":		"<span data-langkey='Initial'>Initial</span>",
@@ -53,17 +64,6 @@
     "assembly":         "rv32_r2e1",
     "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
     "testing":          false
-  },
-  {
-    "id":		"R2E2",
-    "title":		"Subrutine",
-    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes":		"newbie,intro,asm_rv32",
-    "hardware":		"ep",
-    "microcode":	"ep_rv32",
-    "assembly":		"rv32_r2e2",
-    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
-    "testing":          true
   },
   {
     "id":		"R2E3",
@@ -88,6 +88,28 @@
     "testing":          true
   },
   {
+    "id":		"R5E3",
+    "title":		"Array of strings",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"rv32_r5e3",
+    "description":	"<span data-langkey='example_06_04'>Array of strings.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R2E2",
+    "title":		"Subrutine",
+    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"rv32_r2e2",
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing":          true
+  },
+  {
     "id":		"R2E5",
     "title":		"Simple stack conv.",
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
@@ -96,6 +118,17 @@
     "microcode":	"ep_rv32",
     "assembly":		"rv32_r2e5",
     "description":	"<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R2E6",
+    "title":		"Fibonacci.",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"rv32_r2e6",
+    "description":	"<span data-langkey='example_03_05'>Fibonacci</span>",
     "testing":          true
   },
   {
@@ -134,7 +167,7 @@
   {
     "id":		"R4E1",
     "title":		"Int. + syscall + except.",
-    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_rv32",
@@ -145,12 +178,34 @@
   {
     "id":		"R4E2",
     "title":		"SC 1, 4-5, 8, 11-12",
-    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"rv32_r4e2",
     "description":	"<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R5E1",
+    "title":		"3D-Led",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"rv32_r5e1",
+    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing":          true
+  },
+  {
+    "id":               "R5E2",
+    "title":            "Led Matrix",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":         "ep",
+    "microcode":        "ep_rv32_bare",
+    "assembly":         "rv32_r5e2",
+    "description":      "<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
     "testing":          true
   },
   {
@@ -162,39 +217,6 @@
     "microcode":	"ep_rv32",
     "assembly":		"rv32_r4e3",
     "description":      "<span data-langkey='example_04_03'>Example of threads.</span>",
-    "testing":          true
-  },
-  {
-    "id":		"R5E1",
-    "title":		"3D-Led",
-    "type":		"<span data-langkey='Special'>Special</span>",
-    "modes":		"newbie,intro,asm_rv32",
-    "hardware":		"ep",
-    "microcode":	"ep_rv32",
-    "assembly":		"rv32_r5e1",
-    "description":	"<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
-    "testing":          true
-  },
-  {
-    "id":		"R5E3",
-    "title":		"Array of strings",
-    "type":		"<span data-langkey='Special'>Special</span>",
-    "modes":		"newbie,intro,asm_rv32",
-    "hardware":		"ep",
-    "microcode":	"ep_rv32",
-    "assembly":		"rv32_r5e3",
-    "description":	"<span data-langkey='example_06_04'>Array of strings.</span>",
-    "testing":          true
-  },
-  {
-    "id":               "R5E2",
-    "title":            "Led Matrix",
-    "type":             "<span data-langkey='Special'>Special</span>",
-    "modes":		"newbie,intro,asm_rv32",
-    "hardware":         "ep",
-    "microcode":        "ep_rv32_bare",
-    "assembly":         "rv32_r5e2",
-    "description":      "<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
     "testing":          true
   }
 ]
