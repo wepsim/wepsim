@@ -55,17 +55,6 @@
     "testing":          false
   },
   {
-    "id":		"R2E2",
-    "title":		"Subrutine",
-    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":		"ep",
-    "microcode":	"ep_rv32_bare",
-    "assembly":		"rv32_r2e2",
-    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
-    "testing":          true
-  },
-  {
     "id":		"R2E3",
     "title":		"Masks & shift",
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
@@ -88,6 +77,17 @@
     "testing":          true
   },
   {
+    "id":		"R2E2",
+    "title":		"Subrutine",
+    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32_bare",
+    "assembly":		"rv32_r2e2",
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing":          true
+  },
+  {
     "id":		"R2E5",
     "title":		"Simple stack conv.",
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
@@ -96,6 +96,17 @@
     "microcode":	"ep_rv32_bare",
     "assembly":		"rv32_r2e5",
     "description":	"<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R2E6",
+    "title":		"Fibonacci.",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32_bare",
+    "assembly":		"rv32_r2e6",
+    "description":	"<span data-langkey='example_03_05'>Fibonacci</span>",
     "testing":          true
   },
   {

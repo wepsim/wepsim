@@ -44,6 +44,17 @@
     "testing": true
   },
   {
+    "id": "S2E3",
+    "title": "Masks & shift",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_mips_enhanced",
+    "assembly": "mips_s2e3",
+    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "testing": true
+  },
+  {
     "id": "S2E1",
     "title": "I/O",
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
@@ -55,28 +66,6 @@
     "testing": false
   },
   {
-    "id": "S2E2",
-    "title": "Subrutine",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips_enhanced",
-    "assembly": "mips_s2e2",
-    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
-    "testing": true
-  },
-  {
-    "id": "S2E3",
-    "title": "Masks & shift",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips_enhanced",
-    "assembly": "mips_s2e3",
-    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
-    "testing": true
-  },
-  {
     "id": "S2E4",
     "title": "Matrix",
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
@@ -85,6 +74,17 @@
     "microcode": "ep_mips_enhanced",
     "assembly": "mips_s2e4",
     "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing": true
+  },
+  {
+    "id": "S6E4",
+    "title": "Array of strings",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_mips_os",
+    "assembly": "mips_s6e4",
+    "description": "<span data-langkey='example_06_04'>Array of strings.</span>",
     "testing": true
   },
   {
@@ -121,6 +121,61 @@
     "testing": true
   },
   {
+    "id": "S4E1",
+    "title": "Int. + syscall + except.",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_mips_os",
+    "assembly": "mips_s4e1",
+    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing": true
+  },
+  {
+    "id": "S6E3",
+    "title": "3D-Led",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_mips_enhanced",
+    "assembly": "mips_s6e3",
+    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing": true
+  },
+  {
+    "id": "S6E5",
+    "title": "Led Matrix",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_mips_enhanced",
+    "assembly": "mips_s6e5",
+    "description": "<span data-langkey='example_06_05'>Example for Led matrix.</span>",
+    "testing": true
+  },
+  {
+    "id": "S4E2",
+    "title": "SC 1, 4-5, 8, 11-12",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_mips_os",
+    "assembly": "mips_s4e2",
+    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "testing": true
+  },
+  {
+    "id": "S2E2",
+    "title": "Subrutine",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_mips_enhanced",
+    "assembly": "mips_s2e2",
+    "description": "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
+    "testing": true
+  },
+  {
     "id": "S3E4",
     "title": "Simple stack conv.",
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
@@ -132,25 +187,14 @@
     "testing": true
   },
   {
-    "id": "S4E1",
-    "title": "Int. + syscall + except.",
-    "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "id": "S3E5",
+    "title": "Fibonacci",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
     "microcode": "ep_mips_os",
-    "assembly": "mips_s4e1",
-    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
-    "testing": true
-  },
-  {
-    "id": "S4E2",
-    "title": "SC 1, 4-5, 8, 11-12",
-    "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips_os",
-    "assembly": "mips_s4e2",
-    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "assembly": "mips_s3e5",
+    "description": "<span data-langkey='example_03_05'>Fibonacci.</span>",
     "testing": true
   },
   {
@@ -184,39 +228,6 @@
     "microcode": "ep_bare",
     "assembly": "mips_s6e1",
     "description": "<span data-langkey='example_06_01'>Test example.</span>",
-    "testing": true
-  },
-  {
-    "id": "S6E3",
-    "title": "3D-Led",
-    "type": "<span data-langkey='Special'>Special</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips_enhanced",
-    "assembly": "mips_s6e3",
-    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
-    "testing": true
-  },
-  {
-    "id": "S6E4",
-    "title": "Array of strings",
-    "type": "<span data-langkey='Special'>Special</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips_os",
-    "assembly": "mips_s6e4",
-    "description": "<span data-langkey='example_06_04'>Array of strings.</span>",
-    "testing": true
-  },
-  {
-    "id": "S6E5",
-    "title": "Led Matrix",
-    "type": "<span data-langkey='Special'>Special</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips_enhanced",
-    "assembly": "mips_s6e5",
-    "description": "<span data-langkey='example_06_05'>Example for Led matrix.</span>",
     "testing": true
   },
   {
@@ -264,6 +275,17 @@
     "testing": true
   },
   {
+    "id": "S2E3",
+    "title": "Masks & shift",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,asm_mips",
+    "hardware": "ep",
+    "microcode": "ep_mips",
+    "assembly": "mips_s2e3",
+    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "testing": true
+  },
+  {
     "id": "S2E1",
     "title": "I/O",
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
@@ -273,6 +295,28 @@
     "assembly": "mips_s2e1",
     "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
     "testing": false
+  },
+  {
+    "id": "S2E4",
+    "title": "Matrix",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,asm_mips",
+    "hardware": "ep",
+    "microcode": "ep_mips",
+    "assembly": "mips_s2e4",
+    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing": true
+  },
+  {
+    "id": "S6E4",
+    "title": "Array of strings",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,asm_mips",
+    "hardware": "ep",
+    "microcode": "ep_mips",
+    "assembly": "mips_s6e4",
+    "description": "<span data-langkey='example_06_04'>Array of strings.</span>",
+    "testing": true
   },
   {
     "id": "S2E2",
@@ -286,25 +330,25 @@
     "testing": true
   },
   {
-    "id": "S2E3",
-    "title": "Masks & shift",
+    "id": "S3E4",
+    "title": "Simple stack conv.",
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,asm_mips",
     "hardware": "ep",
     "microcode": "ep_mips",
-    "assembly": "mips_s2e3",
-    "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
+    "assembly": "mips_s3e4",
+    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
     "testing": true
   },
   {
-    "id": "S2E4",
-    "title": "Matrix",
+    "id": "S3E5",
+    "title": "Fibonacci",
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,asm_mips",
     "hardware": "ep",
     "microcode": "ep_mips",
-    "assembly": "mips_s2e4",
-    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "assembly": "mips_s3e5",
+    "description": "<span data-langkey='example_03_05'>Fibonacci.</span>",
     "testing": true
   },
   {
@@ -341,20 +385,9 @@
     "testing": true
   },
   {
-    "id": "S3E4",
-    "title": "Simple stack conv.",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,asm_mips",
-    "hardware": "ep",
-    "microcode": "ep_mips",
-    "assembly": "mips_s3e4",
-    "description": "<span data-langkey='example_03_04'><b>Instructive</b> example with simple stack convention.</span>",
-    "testing": true
-  },
-  {
     "id": "S4E1",
     "title": "Int. + syscall + except.",
-    "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_mips",
     "hardware": "ep",
     "microcode": "ep_mips",
@@ -363,9 +396,31 @@
     "testing": true
   },
   {
+    "id": "S6E3",
+    "title": "3D-Led",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "newbie,intro,asm_mips",
+    "hardware": "ep",
+    "microcode": "ep_mips",
+    "assembly": "mips_s6e3",
+    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
+    "testing": true
+  },
+  {
+    "id": "S6E5",
+    "title": "Led Matrix",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "newbie,intro,asm_mips",
+    "hardware": "ep",
+    "microcode": "ep_mips",
+    "assembly": "mips_s6e5",
+    "description": "<span data-langkey='example_06_05'>Example for Led matrix.</span>",
+    "testing": true
+  },
+  {
     "id": "S4E2",
     "title": "syscall 1, 4-5, 8, 11-12",
-    "type": "<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_mips",
     "hardware": "ep",
     "microcode": "ep_mips",
@@ -393,39 +448,6 @@
     "microcode": "ep_mips",
     "assembly": "mips_s4e4",
     "description": "<span data-langkey='example_04_04'>Example of malloc + free.</span>",
-    "testing": true
-  },
-  {
-    "id": "S6E3",
-    "title": "3D-Led",
-    "type": "<span data-langkey='Special'>Special</span>",
-    "modes": "newbie,intro,asm_mips",
-    "hardware": "ep",
-    "microcode": "ep_mips",
-    "assembly": "mips_s6e3",
-    "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
-    "testing": true
-  },
-  {
-    "id": "S6E4",
-    "title": "Array of strings",
-    "type": "<span data-langkey='Special'>Special</span>",
-    "modes": "newbie,intro,asm_mips",
-    "hardware": "ep",
-    "microcode": "ep_mips",
-    "assembly": "mips_s6e4",
-    "description": "<span data-langkey='example_06_04'>Array of strings.</span>",
-    "testing": true
-  },
-  {
-    "id": "S6E5",
-    "title": "Led Matrix",
-    "type": "<span data-langkey='Special'>Special</span>",
-    "modes": "newbie,intro,asm_mips",
-    "hardware": "ep",
-    "microcode": "ep_mips",
-    "assembly": "mips_s6e5",
-    "description": "<span data-langkey='example_06_05'>Example for Led matrix.</span>",
     "testing": true
   },
   {

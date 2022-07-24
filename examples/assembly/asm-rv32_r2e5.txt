@@ -81,7 +81,7 @@ factorial:
            #     return 1
            li   t0 2
            bge  a0 t0 b_else
-           li   a7 1
+           li   a0 1
            beq  x0 x0  b_efs
            # else:
            #    return a0 * factorial(a0 - 1)
@@ -132,16 +132,16 @@ factorial:
            lw   s0 4(sp)
            addi sp sp 12
 
-           # return a7
+           # return a0
            jr ra
 
 
      main:
-           # v1 = factorial(2)
+           # a0 = factorial(2)
            li  a0 2
            jal ra factorial
 
-           # print_int(v1)
+           # print_int(a0)
            li   a7 1
            ecall
 
