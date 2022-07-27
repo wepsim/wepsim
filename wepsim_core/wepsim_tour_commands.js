@@ -101,3 +101,52 @@
 			     }
                           ] ;
 
+    ws_info.tours.tour2 = [
+			     {
+				 title:     'WepSIM',
+				 intro:     i18n_get_welcome(),
+				 step:      '',
+				 position:  'auto',
+				 do_before: function () {
+						  wsweb_select_main('ep') ;
+						  ws_tour.refresh() ;
+						  return true ;
+					    }
+			     },
+			     {
+				 title:     'WepSIM',
+				 element:   '#btn_help1',
+				 intro:     "<span data-langkey='step3'>Step 3</span>",
+				 step:      'step3',
+				 position:  'auto',
+				 do_before: function ()
+					      {
+						  ws_tour.refresh() ;
+						  return true ;
+					      }
+			     },
+			     {
+				 title:     'WepSIM',
+				 element:   '#btn_cfg1',
+				 intro:     "<span data-langkey='step5'>Step 5</span>",
+				 step:      'step5',
+				 position:  'auto',
+				 do_before: function ()
+					      {
+						  ws_tour.refresh() ;
+						  return true ;
+					      }
+			     },
+			     {
+				 title:     'WepSIM',
+				 intro:     "<span data-langkey='step6'>Step 6</span>",
+				 step:      'step6',
+				 position:  'auto',
+				 do_before: function ()
+					      {
+						  ws_tour.refresh() ;
+						  return true ;
+					      }
+			     }
+                          ] ;
+
