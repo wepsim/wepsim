@@ -197,7 +197,7 @@ auipc rd offset {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=inm(19,0),
 	    help='rd = pc + (offset << 12)',
             native,
             {
@@ -207,7 +207,7 @@ auipc rd offset {
 
                 val1 = val1 << 12 ;
 		var reg_pc = simcore_native_get_value("CPU", "REG_PC") ;
-                simcore_native_set_value("BR", reg1, reg_pc + val1) ;
+                simcore_native_set_value("BR", reg1, reg_pc + val1 - 4) ;
 
                 simcore_native_go_maddr(0) ;
             }
@@ -815,7 +815,7 @@ addi rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=inm(11,0),
             help='rd = rs1 + SignEx(inm)',
             native,
             {
@@ -824,8 +824,8 @@ addi rd rs1 inm {
                 var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
                 var val    = simcore_native_get_field_from_ir(fields, 2) ;
 
-                if (val & 0x00008000)
-                    val = val | 0xFFFF0000 ;
+                if (val & 0x00000800)
+                    val = val | 0xFFFFF000 ;
 
                 var result = simcore_native_get_value("BR", reg2) + val ;
                 simcore_native_set_value("BR", reg1, result) ;
@@ -845,7 +845,7 @@ addu rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=inm(11,0),
             help='rd = rs1 + UnsignEx(inm)',
             native,
             {
@@ -1761,13 +1761,15 @@ pseudoinstructions
         # li rd, expression	(several expansions)	Load immediate
         li rd=reg, expression=inm
         {
-            addi rd, zero, expression
+            lui  rd,     sel(31,12,expression)
+            addu rd, rd, sel(11,0,expression)
         }
 
         # la rd, label	(several expansions)	Load address
         la rd=reg, label=inm
         {
-            addu rd, zero, label
+            lui  rd,     sel(31,12,label)
+            addu rd, rd, sel(11,0,label)
         }
 
         # mv rd, rs1	addi rd, rs, 0	Copy register

@@ -1203,15 +1203,18 @@ function read_text ( context, datosCU, ret )
 				// store field
 				if (advance[j] == 1 && (!(isPseudo && counter == -1)))
 				{
-					binaryAux[j][i] = {
-                                                             num_bits:    (label_found ? false : res[0]),
-                                                             free_space:  (label_found ? false : res[1]),
-                                                             startbit:    field.startbit,
-                                                             stopbit:     field.stopbit,
-                                                             rel:         (label_found ? field.address_type : false),
-                                                             islabel:     label_found,
-						             field_name:  value
-                                	                  };
+				    binaryAux[j][i] = {
+                                                         num_bits:    (label_found ? false : res[0]),
+                                                         free_space:  (label_found ? false : res[1]),
+                                                         startbit:    field.startbit,
+                                                         stopbit:     field.stopbit,
+                                                         rel:         (label_found ? field.address_type : false),
+                                                         islabel:     label_found,
+						         field_name:  value,
+                                                         issel:       sel_found,
+                                                         sel_start:   start,
+                                                         sel_stop:    stop
+                                	              };
 				}
 			}
 
@@ -1333,18 +1336,25 @@ function read_text ( context, datosCU, ret )
                                               firmware[instruction][candidate].cop);
 
 		// store candidate fields in machine code
+                var l_addr = "" ;
 		for (i=0; i<binaryAux[candidate].length; i++)
 		{
 			// tag
 			if (binaryAux[candidate][i].islabel)
                         {
-			    ret.labels["0x" + seg_ptr.toString(16)] = {	name:binaryAux[candidate][i].field_name,
-									addr:seg_ptr,
-									startbit:binaryAux[candidate][i].startbit,
-									stopbit:binaryAux[candidate][i].stopbit,
-									rel:binaryAux[candidate][i].rel,
-									nwords:firmware[instruction][candidate].nwords,
-									labelContext:getLabelContext(context) } ;
+			    l_addr = "0x" + seg_ptr.toString(16) ;
+			    ret.labels[l_addr] = { 
+                                                   name:         binaryAux[candidate][i].field_name,
+						   addr:         seg_ptr,
+						   startbit:     binaryAux[candidate][i].startbit,
+						   stopbit:      binaryAux[candidate][i].stopbit,
+						   rel:          binaryAux[candidate][i].rel,
+						   nwords:       firmware[instruction][candidate].nwords,
+						   labelContext: getLabelContext(context),
+                                                   sel_found:    binaryAux[candidate][i].issel,
+                                                   sel_start:    binaryAux[candidate][i].sel_start,
+                                                   sel_stop:     binaryAux[candidate][i].sel_stop
+                                                 } ;
                         }
 			// replace instruction and fields in machine code
 			else
@@ -1353,7 +1363,7 @@ function read_text ( context, datosCU, ret )
 								binaryAux[candidate][i].num_bits,
 								binaryAux[candidate][i].startbit-(-1),
 								binaryAux[candidate][i].stopbit,
-								binaryAux[candidate][i].free_space) ;
+								binaryAux[candidate][i].free_space ) ;
                         }
 		}
 
@@ -1597,6 +1607,15 @@ function simlang_compile (text, datosCU)
 		converted = ret1.number ;
 		if (ret1.isDecimal === true)
                 {
+                        if (ret.labels[i].sel_found)
+                        {
+                            var valuebin = converted.toString(2) ;
+                                valuebin = simcoreui_pack(valuebin, 32) ;
+		                valuebin = valuebin.substring(WORD_LENGTH-ret.labels[i].sel_start-1,
+                                                              WORD_LENGTH-ret.labels[i].sel_stop);
+		            converted = parseInt(valuebin, 2);
+                        }
+
 			var a = decimal2binary(converted, size);
 			num_bits   = a[0] ;
                         free_space = a[1] ;
