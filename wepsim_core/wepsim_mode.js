@@ -71,7 +71,7 @@
 	    // newbie mode...
             if ('newbie' == optValue)
             {
-                 wepsim_newbie_tour() ;
+                 wepsim_newbie_tour('tour2') ;
                  return true ;
             }
 

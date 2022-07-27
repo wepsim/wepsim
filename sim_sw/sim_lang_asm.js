@@ -1073,10 +1073,17 @@ function read_text ( context, datosCU, ret )
                                                                   i18n_get_TagFor('compiler', 'BITS'));
 					     }
 
-					     converted = "0".repeat(res[1]) + res[0];
-					     converted = converted.substring(WORD_LENGTH-start-1,WORD_LENGTH-stop);
-					     converted = parseInt(converted, 2);
-					     s[i+1] = "0x" + converted.toString(16);
+					     if (label_found) {
+					         s[i+1] = value ;
+                                             }
+					     else
+                                             {
+					         converted = "0".repeat(res[1]) + res[0];
+					         converted = converted.substring(WORD_LENGTH-start-1,
+							                         WORD_LENGTH-stop);
+					         converted = parseInt(converted, 2);
+					         s[i+1] = "0x" + converted.toString(16);
+                                             }
 					 }
 
 					 if (! label_found)
@@ -1343,7 +1350,7 @@ function read_text ( context, datosCU, ret )
 			if (binaryAux[candidate][i].islabel)
                         {
 			    l_addr = "0x" + seg_ptr.toString(16) ;
-			    ret.labels[l_addr] = { 
+			    ret.labels[l_addr] = {
                                                    name:         binaryAux[candidate][i].field_name,
 						   addr:         seg_ptr,
 						   startbit:     binaryAux[candidate][i].startbit,

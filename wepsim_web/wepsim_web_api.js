@@ -522,7 +522,7 @@
 		      break ;
 
 	        case 'intro':
-                      wepsim_newbie_tour() ;
+                      wepsim_newbie_tour('tour1') ;
 		      break ;
 
 	        case 'hw_summary':
