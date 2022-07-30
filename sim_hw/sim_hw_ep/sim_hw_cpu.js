@@ -88,16 +88,17 @@
                                                   return false ;
 				              },
 		                  get_state:  function ( reg ) {
+					          var value = 0 ;
 					          var r_reg = reg.toUpperCase().trim() ;
 					          if (typeof sim.ep.states['REG_' + r_reg] != "undefined") {
-					              var value = get_value(sim.ep.states['REG_' + r_reg]) >>> 0;
+					              value = get_value(sim.ep.states['REG_' + r_reg]) >>> 0;
 					              return "0x" + value.toString(16) ;
 					          }
 
 					              r_reg = r_reg.replace('R','') ;
 					          var index = parseInt(r_reg) ;
 					          if (typeof sim.ep.states.BR[index] != "undefined") {
-					              var value = get_value(sim.ep.states.BR[index]) >>> 0;
+					              value = get_value(sim.ep.states.BR[index]) >>> 0;
 					              return "0x" + value.toString(16) ;
 					          }
 
@@ -182,7 +183,7 @@
         sim.ep.internal_states.io_hash      = {} ;
         sim.ep.internal_states.fire_stack   = [] ;
 
-        sim.ep.internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11" ] ;
+        sim.ep.internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12" ] ;
         sim.ep.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         sim.ep.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto",
 		                                   "REG_PC,col-auto",    "REG_MAR,col-auto", "REG_MBR,col-auto",
@@ -354,6 +355,9 @@
 	sim.ep.states["RB_T10"]  = { name: "RB_T10", verbal: "Input of T10 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0,
                                      draw_data: [] };
+	sim.ep.states["HPC_T12"] = { name: "HPC_T12", verbal: "Input of T12 Tristate",
+				     visible:false, nbits: "32", value:0, default_value:0,
+				     draw_data: [] };
 
 	/* (RELATED) SELEC STATES */
 	sim.ep.states["SELEC_T3"]= { name: "SELEC_T3", verbal: "Input of T3 Tristate",
@@ -507,8 +511,8 @@
 					  "NOT_ES A1 MUXC_MUXB; FIRE A1"],
                                depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3408'],
-			       draw_data: [['svg_cu:path3094-7'],
-					   ['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384','svg_cu:path3108-1','svg_cu:path3100-8-7']],
+			       draw_data: [['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384','svg_cu:path3100-8-7'],
+                                           ['svg_cu:path3108-8-7','svg_cu:path3108-1']],
 			       draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6']] };
 	 sim.ep.signals["A0"] = { name: "A0", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["SBIT_SIGNAL A0A1 0 1; FIRE A0A1",
@@ -594,7 +598,7 @@
 	 sim.ep.signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP; RST_TT TTCPU 0", "MV BUS_IB REG_MBR; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 0"],
 			       fire_name: ['svg_p:text3105'],
-			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049','svg_p:path3063-9', 'svg_p:path3071','svg_p:path3071']],
+			       draw_data: [['svg_p:path3071','svg_p:path3049','svg_p:path3063-9','svg_p:path3071','svg_p:path3071','svg_p:path3069']],
 			       draw_name: [['svg_p:path3067']] };
 	 sim.ep.signals["T2"]  = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP; RST_TT TTCPU 1", "MV BUS_IB REG_PC; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 1"],
@@ -644,9 +648,13 @@
 	 sim.ep.signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP; RST_TT TTCPU 10", "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 10"],
 			       fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
-			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3502']],
+			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7']],
 			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
-
+	 sim.ep.signals["T12"] = { name: "T12", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+			       behavior: ["NOP; RST_TT TTCPU 11", "MV BUS_IB HPC_T12; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 11"],
+			       fire_name: ['svg_p:text3147-5-0-1-1'],
+			       draw_data: [['svg_p:path3139-7-1-4-3','svg_cu:path3049']],
+			       draw_name: [['svg_cu:path3133-6-9-7-5']] };
 	/* MUX. */
 	 sim.ep.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BS_M1"],
@@ -680,6 +688,12 @@
 			       draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'], ['svg_p:path3283'],
 					   ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
+	 sim.ep.signals["MH"]  = { name: "MH", visible: true, type: "L",  value: 0, default_value:0, nbits: "2",
+			       behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME"],
+			       fire_name: ['svg_p:text3147-5-0-1-8-4'],
+			       draw_data: [[], ['svg_p:path3081-3-8-5-3']],
+			       draw_name: [[], ['svg_p:path3306-8-7-6']] };
+
 	 sim.ep.signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", forbidden: true,
 			       behavior: ["NOP_ALU; UPDATE_NZVC",
                                           "AND ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
@@ -789,7 +803,7 @@
 					  'CP_FIELD COP REG_MICROINS/SELCOP; FIRE COP;'],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
-			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],
+			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6']],
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
 	 sim.ep.signals["MR"]  = { name: "MR",
@@ -800,12 +814,12 @@
 			                  'MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC;'],
                                depends_on: ["SELA","SELB","SELC"],
 			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
-			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
+			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3188',
                                             'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
-                                            'svg_cu:path3260','svg_cu:path3196','svg_cu:path3278','svg_cu:path3232','svg_cu:path3292'],
+                                            'svg_cu:path3260','svg_cu:path3196','svg_cu:path3278','svg_cu:path3292'],
 					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300','svg_cu:path3258','svg_cu:path3260',
 				            'svg_cu:path3258-4','svg_cu:path3278','svg_cu:path3196','svg_cu:path3294','svg_cu:path3292',
-					    'svg_cu:path3288','svg_cu:path3232','svg_cu:path3280']],
+					    'svg_cu:path3288','svg_cu:path3280']],
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 	 sim.ep.signals["MR_RA"] = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
@@ -1066,11 +1080,17 @@
                                                    var r = s_expr[2].split('/') ;
 						   var sim_elto_org = get_reference(r[0]) ;
 
-                                                   var  newval = get_value(sim_elto_org) ;
-						        newval = newval[r[1]] ;
-                                                   if (typeof newval == "undefined")
-						        newval = "&lt;undefined&gt;" ;
-						   else newval = show_value(newval) ;
+						   var newval = 0 ;
+						   var r = s_expr[2].split('/') ;
+						   var sim_elto_org = get_reference(r[0]) ;
+						   var sim_elto_dst = get_reference(r[1]) ;
+						   if (typeof sim_elto_dst == "undefined")
+						       sim_elto_dst = {} ;
+						   if (typeof    sim_elto_org.value[r[1]] != "undefined")
+							newval = sim_elto_org.value[r[1]];
+					      else if (typeof    sim_elto_dst.default_value != "undefined")
+							newval = sim_elto_dst.default_value;
+					      else      newval = "&lt;undefined&gt;" ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
