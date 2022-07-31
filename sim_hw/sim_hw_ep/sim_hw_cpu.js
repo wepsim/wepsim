@@ -689,10 +689,10 @@
 					   ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	 sim.ep.signals["MH"]  = { name: "MH", visible: true, type: "L",  value: 0, default_value:0, nbits: "2",
-			       behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME"],
-			       fire_name: ['svg_p:text3147-5-0-1-8-4'],
-			       draw_data: [[], ['svg_p:path3081-3-8-5-3']],
-			       draw_name: [[], ['svg_p:path3306-8-7-6']] };
+			            behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "NOP", "NOP"],
+			            fire_name: ['svg_p:text3147-5-0-1-8-4'],
+			            draw_data: [[], ['svg_p:path3081-3-8-5-3']],
+			            draw_name: [[], ['svg_p:path3306-8-7-6']] };
 
 	 sim.ep.signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", forbidden: true,
 			       behavior: ["NOP_ALU; UPDATE_NZVC",
