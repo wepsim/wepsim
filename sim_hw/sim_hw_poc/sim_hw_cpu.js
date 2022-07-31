@@ -2572,6 +2572,30 @@
 			      signals_output:    [ ]
 	                } ;
 
+        sim.poc.elements.cpu_t12 = {
+			      name:              "T12",
+			      description:       "Tristate 12",
+			      type:              "subcomponent",
+			      belongs:           "CPU",
+			      states:            {
+						   "in":    {
+							      ref:  "HPC_T12",
+							    },
+						   "out":   {
+							      ref:  "BUS_IB",
+							    }
+						 },
+			      signals:           {
+						   "ctl":   {
+							      ref:  "T12"
+							    }
+						 },
+			      states_inputs:     [ "in"  ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "ctl" ],
+			      signals_output:    [ ]
+	                } ;
+
         sim.poc.elements.cpu_ta  = {
 			      name:              "Ta",
 			      description:       "Tristate A",
@@ -2728,6 +2752,39 @@
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "m7" ],
 			      signals_output:    [ ]
+	                   } ;
+
+        sim.poc.elements.cpu_mux_h  = {
+			      name:              "MUX H",
+			      description:       "MUX H",
+			      type:              "subcomponent",
+			      belongs:           "CPU",
+			      states:            {
+						   "mux_0": {
+							       ref:  "CLK"
+							    },
+						   "mux_1": {
+							       ref:  "ACC_TIME"
+							    },
+						   "mux_2": {
+							       ref:  "VAL_ZERO"
+							    },
+						   "mux_3": {
+							       ref:  "VAL_ZERO"
+							    },
+						   "mux_o": {
+							       ref:  "HPC_T12"
+							    }
+						 },
+			      signals:           {
+						   "mh":    {
+							       ref:  "MH"
+							    }
+						 },
+			      states_inputs:     [ "mux_0", "mux_1", "mux_2", "mux_3" ],
+			      states_outputs:    [ "mux_o" ],
+			      signals_inputs:    [ ],
+			      signals_output:    [ "mh" ]
 	                   } ;
 
         sim.poc.elements.cu_mux_a   = {
