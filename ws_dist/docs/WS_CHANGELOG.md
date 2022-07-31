@@ -4,6 +4,7 @@
 ## 2.1.9 -> 2.2.0:
 * Main improvements:
   * Skip "notify:" added to configuration options.
+  * Two new Hardware Performance Counter added.
   * Replace + find operations added to Codemirror editor
   * RISC-V examples updated
 * Minor bugs fixed and several refinements added:
