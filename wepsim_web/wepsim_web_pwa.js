@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v210g_static';
+var cacheName = 'v220a_static';
 
 
 /*
@@ -199,7 +199,6 @@ self.addEventListener('install',
                                         './images/splash/iphonex_splash.png',
                                         './images/splash/ipadpro2_splash.png',
                                         './images/cfg-rf.gif',
-                                        './images/examples/compiler-explorer-example.png',
                                         './images/author_jprieto.png',
                                         './images/author_fgarcia.png',
                                         './images/simulator/simulator012.jpg',

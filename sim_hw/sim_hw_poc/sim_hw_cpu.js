@@ -182,7 +182,7 @@
         sim.poc.internal_states.io_hash      = {} ;
         sim.poc.internal_states.fire_stack   = [] ;
 
-        sim.poc.internal_states.tri_state_names = [ "T1","T2","T3","T6","T8","T9","T10","T11" ] ;
+        sim.poc.internal_states.tri_state_names = [ "T1","T2","T3","T6","T8","T9","T10","T11","T12" ] ;
         sim.poc.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         sim.poc.internal_states.filter_states   = [ "REG_IR_DECO,col-12",
                                                     "REG_IR,col-auto",  "REG_PC,col-auto",  "REG_SR,col-auto",
@@ -311,6 +311,9 @@
 	sim.poc.states["RB_T10"]         = { name: "RB_T10", verbal: "Input of T10 Tristate",
                                              visible:false, nbits: "32", value:0, default_value:0,
                                              draw_data: [] };
+	sim.poc.states["HPC_T12"]        = { name: "HPC_T12", verbal: "Input of T12 Tristate",
+				             visible:false, nbits: "32", value:0, default_value:0,
+				             draw_data: [] };
 
 	/* (RELATED) SELEC STATES */
 	sim.poc.states["SELEC_T3"]       = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
@@ -571,6 +574,11 @@
 			       fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
 			       draw_data: [['svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3502']],
 			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
+	 sim.poc.signals["T12"] = { name: "T12", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+			       behavior: ["NOP; RST_TT TTCPU 8", "MV BUS_IB HPC_T12; FIRE M7; FIRE M1; SET_TT TTCPU 8"],
+			       fire_name: ['svg_p:text3147-5-0-1-1'],
+			       draw_data: [['svg_p:path3139-7-1-4-3','svg_cu:path3049']],
+			       draw_name: [['svg_cu:path3133-6-9-7-5']] };
 
 	/* MUX. */
 	 sim.poc.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
@@ -598,7 +606,13 @@
 			       fire_name: ['svg_p:text3465'],
 			       draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'],
                                            ['svg_p:path3283']],
-			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
+			            draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
+	 sim.poc.signals["MH"]  = { name: "MH", visible: true, type: "L",  value: 0, default_value:0, nbits: "2",
+			            behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "NOP", "NOP"],
+			            fire_name: ['svg_p:text3147-5-0-1-8-4'],
+			            draw_data: [[], ['svg_p:path3081-3-8-5-3']],
+			            draw_name: [[], ['svg_p:path3306-8-7-6']] };
+
 	 sim.poc.signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
 			       behavior: ["NOP_ALU; UPDATE_NZVC",
                                           "AND ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
