@@ -2802,8 +2802,8 @@
 						 },
 			      states_inputs:     [ "mux_0", "mux_1", "mux_2", "mux_3" ],
 			      states_outputs:    [ "mux_o" ],
-			      signals_inputs:    [ ],
-			      signals_output:    [ "mh" ]
+			      signals_inputs:    [ "mh" ],
+			      signals_output:    [ ]
 	                   } ;
 
         sim.ep.elements.cu_mux_a   = {
