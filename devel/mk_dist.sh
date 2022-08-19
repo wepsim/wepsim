@@ -304,18 +304,24 @@ cp    -a external/speechkitt            ws_dist/external/
 cp    -a external/cordova.js            ws_dist/external/cordova.js
 
 ## pre-examples (default_packed)
-DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_set/apps_ep_mips_native.json examples/examples_set/apps_poc_mips.json"
+DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_set/apps_poc_mips.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_mips.json
-DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_ep_rv32_native.json examples/examples_set/apps_poc_rv32.json"
+DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_poc_rv32.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_rv32.json
 DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_native.json examples/examples_set/apps_poc_native.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_native.json
+DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips_instructive.json examples/examples_set/apps_poc_mips_instructive.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_mips_instructive.json
+DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32_instructive.json examples/examples_set/apps_poc_rv32_instructive.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_rv32_instructive.json
 
 ## pre-examples (default.json + apps.json)
  echo '[]' | \
- jq ' . + [ { "name": "Default-MIPS",     "url": "examples/examples_set/default_mips.json",    "description": "MIPS instruction set",     "size":  "18+",   "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "Default-RISCV",    "url": "examples/examples_set/default_rv32.json",    "description": "RISC-V instruction set",     "size":  "18+",   "url_base_asm": "examples/assembly/",       "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "Native",           "url": "examples/examples_set/default_native.json",  "description": "MIPS vs RISC-V vs Z80 instruction sets",     "size":  "3+",   "url_base_asm": "examples/assembly/",   "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "Default-MIPS",      "url": "examples/examples_set/default_mips.json",                "description": "MIPS instruction set",           "size":  "18+",   "url_base_asm": "examples/assembly_mips/",     "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "Default-RISCV",     "url": "examples/examples_set/default_rv32.json",                "description": "RISC-V instruction set",         "size":  "18+",   "url_base_asm": "examples/assembly_rv32/",     "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "Instructive-MIPS",  "url": "examples/examples_set/default_mips_instructive.json",    "description": "MIPS instruction set",           "size":  "15+",   "url_base_asm": "examples/assembly_mips/",     "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "Instructive-RISCV", "url": "examples/examples_set/default_rv32_instructive.json",    "description": "RISC-V instruction set",         "size":  "15+",   "url_base_asm": "examples/assembly_rv32/",     "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "Native",            "url": "examples/examples_set/default_native.json",              "description": "MIPS, RISC-V, ARM, Z80",         "size":  "3+",    "url_base_asm": "examples/assembly_native/",   "url_base_mc": "examples/microcode/" } ]' | \
  jq ' . + [ { "name": "OCW-EC",           "url": "examples/examples_set/ocw_packed.json",      "description": "MIPS examples for <a href='https://ocw.uc3m.es/course/view.php?id=136'>opencourseware</a>",     "size":  "10+",   "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
 
 cp examples/examples_set/default.json examples/apps.json
