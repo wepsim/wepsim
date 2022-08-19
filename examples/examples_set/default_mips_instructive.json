@@ -57,24 +57,13 @@
   {
     "id": "S2E3",
     "title": "Masks & shift",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
     "microcode": "ep_mips_enhanced",
     "assembly": "mips_s2e3_help",
     "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
     "testing": true
-  },
-  {
-    "id": "S2E1",
-    "title": "I/O",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips_base",
-    "assembly": "mips_s2e1_help",
-    "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
-    "testing": false
   },
   {
     "id": "S2E4",
@@ -85,17 +74,6 @@
     "microcode": "ep_mips_enhanced",
     "assembly": "mips_s2e4_help",
     "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
-    "testing": true
-  },
-  {
-    "id": "S6E4",
-    "title": "Array of strings",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips_os",
-    "assembly": "mips_s6e4_help",
-    "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_06_04'>Array of strings.</span>",
     "testing": true
   },
   {
@@ -151,17 +129,6 @@
     "microcode": "ep_mips_enhanced",
     "assembly": "mips_s6e5_help",
     "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_06_05'>Example for Led matrix.</span>",
-    "testing": true
-  },
-  {
-    "id": "S2E2",
-    "title": "Subrutine",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_mips_enhanced",
-    "assembly": "mips_s2e2_help",
-    "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
     "testing": true
   },
   {

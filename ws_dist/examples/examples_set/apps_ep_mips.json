@@ -57,24 +57,13 @@
   {
     "id":		"S2E3",
     "title":		"Masks & shift",
-    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
     "microcode":	"ep_mips_enhanced",
     "assembly":		"mips_s2e3",
     "description":	"<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
     "testing":          true
-  },
-  {
-    "id":		"S2E1",
-    "title":		"I/O",
-    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":		"ep",
-    "microcode":	"ep_mips_base",
-    "assembly":		"mips_s2e1",
-    "description":	"<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
-    "testing":          false
   },
   {
     "id":		"S2E4",
@@ -165,6 +154,17 @@
     "testing":          true
   },
   {
+    "id":		"S2E1",
+    "title":		"I/O",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_mips_base",
+    "assembly":		"mips_s2e1",
+    "description":	"<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing":          false
+  },
+  {
     "id":		"S4E2",
     "title":		"SC 1, 4-5, 8, 11-12",
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
@@ -176,17 +176,6 @@
     "testing":          true
   },
   {
-    "id":		"S2E2",
-    "title":		"Subrutine",
-    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":		"ep",
-    "microcode":	"ep_mips_enhanced",
-    "assembly":		"mips_s2e2",
-    "description":	"<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
-    "testing":          true
-  },
-  {
     "id":		"S3E4",
     "title":		"Simple stack conv.",
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
@@ -195,6 +184,17 @@
     "microcode":	"ep_mips_os",
     "assembly":		"mips_s3e4",
     "description":	"<span data-langkey='example_03_04'>Example with simple stack convention.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S2E2",
+    "title":		"Subrutine",
+    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_mips_enhanced",
+    "assembly":		"mips_s2e2",
+    "description":	"<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
     "testing":          true
   },
   {

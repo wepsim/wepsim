@@ -245,7 +245,7 @@
 						        }
 
 						        // REST
-						            n = Math.pow(sim.ep.internal_states.l3d_dim, 3) ;
+						            n = Math.pow(sim.poc.internal_states.l3d_dim, 3) ;
 						        var o = '0'.repeat(n) ;
                                                         sim.poc.internal_states.l3d_frame = o ;
 						        simcore_rest_call('L3D', 'POST', '/', {'frame': o}) ;

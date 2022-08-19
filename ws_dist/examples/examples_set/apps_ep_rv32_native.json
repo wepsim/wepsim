@@ -55,17 +55,6 @@
     "testing":          true
   },
   {
-    "id":		"R2E1",
-    "title":            "I/O",
-    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes":		"newbie,intro,asm_rv32",
-    "hardware":         "ep",
-    "microcode":	"ep_rv32",
-    "assembly":         "rv32_s2e1",
-    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
-    "testing":          false
-  },
-  {
     "id":		"R2E3",
     "title":		"Masks & shift",
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
@@ -99,17 +88,6 @@
     "testing":          true
   },
   {
-    "id":		"R2E2",
-    "title":		"Subrutine",
-    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes":		"newbie,intro,asm_rv32",
-    "hardware":		"ep",
-    "microcode":	"ep_rv32",
-    "assembly":		"rv32_s2e2",
-    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
-    "testing":          true
-  },
-  {
     "id":		"R2E5",
     "title":		"Simple stack conv.",
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
@@ -118,6 +96,17 @@
     "microcode":	"ep_rv32",
     "assembly":		"rv32_s2e5",
     "description":	"<span data-langkey='example_03_04'>Example with simple stack convention.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"R2E2",
+    "title":		"Subrutine",
+    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":		"ep",
+    "microcode":	"ep_rv32",
+    "assembly":		"rv32_s2e2",
+    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
     "testing":          true
   },
   {
@@ -174,6 +163,17 @@
     "assembly":		"rv32_s4e1",
     "description":	"<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
     "testing":          true
+  },
+  {
+    "id":		"R2E1",
+    "title":            "I/O",
+    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":         "ep",
+    "microcode":	"ep_rv32",
+    "assembly":         "rv32_s2e1",
+    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing":          false
   },
   {
     "id":		"R4E2",

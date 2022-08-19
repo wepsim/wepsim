@@ -55,17 +55,6 @@
     "testing": true
   },
   {
-    "id": "R2E1",
-    "title": "I/O",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_rv32_bare",
-    "assembly": "rv32_s2e1_help",
-    "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
-    "testing": false
-  },
-  {
     "id": "R2E3",
     "title": "Masks & shift",
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
@@ -85,28 +74,6 @@
     "microcode": "ep_rv32_bare",
     "assembly": "rv32_s2e4_help",
     "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
-    "testing": true
-  },
-  {
-    "id": "R5E3",
-    "title": "Array of strings",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_rv32_bare",
-    "assembly": "rv32_s5e3_help",
-    "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_06_04'>Array of strings.</span>",
-    "testing": true
-  },
-  {
-    "id": "R2E2",
-    "title": "Subrutine",
-    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes": "newbie,intro,ep",
-    "hardware": "ep",
-    "microcode": "ep_rv32_bare",
-    "assembly": "rv32_s2e2_help",
-    "description": "<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
     "testing": true
   },
   {
