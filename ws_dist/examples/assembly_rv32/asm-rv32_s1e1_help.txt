@@ -5,6 +5,8 @@
 
 .text
   main:
+        li a2 0
+
         #
         # Arithmetic instructions
         #
@@ -12,8 +14,10 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: add two numbers
         # notify: Instructions -> add, addi
-        # notify: * add   register-result register-operand-1 register-operand-2
-        # notify: * addi  register-result register-operand-1 immediate-value
+        # notify: <ul>
+        # notify: <li> add   register-result register-operand-1 register-operand-2
+        # notify: <li> addi  register-result register-operand-1 immediate-value
+        # notify: </ul>
         li      a0, 3
         li      a1, 2
         add     a2, a0, a1   # a2 = 3 + 2
@@ -22,8 +26,10 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: substract two numbers
         # notify: Instructions -> sub
-        # notify: * sub   register-result register-operand-1 register-operand-2
-        # notify: * subi  rd, rs1, #val -> addi rd, rs1, -#val
+        # notify: <ul>
+        # notify: <li> sub   register-result register-operand-1 register-operand-2
+        # notify: <li> subi  rd, rs1, #val -> addi rd, rs1, -#val
+        # notify: </ul>
         li      a0, 0
         li      a1, 2
         sub     a2, a0, a1   # a2 = 0 - 2
@@ -31,15 +37,19 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: multiply two numbers
         # notify: Instructions -> mul
-        # notify: * mul  register-result register-operand-1 register-operand-2
+        # notify: <ul>
+        # notify: <li> mul  register-result register-operand-1 register-operand-2
+        # notify: </ul>
         li      a0, 5
         li      a1, 2
-        mul     a2, a0, a1   # a2 = 5 * 2
+        mul     a2, a0, a1   # a2 = 5 <li> 2
 
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: divide signed
         # notify: Instructions -> div
-        # notify: * div  register-result register-operand-1 register-operand-2
+        # notify: <ul>
+        # notify: <li> div  register-result register-operand-1 register-operand-2
+        # notify: </ul>
         li      a0, 6
         li      a1, 2
         div     a2, a0, a1   # a2 = 6 / 2
@@ -47,7 +57,9 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: remainder signed
         # notify: Instructions -> rem
-        # notify: * rem  register-result register-operand-1 register-operand-2
+        # notify: <ul>
+        # notify: <li> rem  register-result register-operand-1 register-operand-2
+        # notify: </ul>
         li      a0, 5
         li      a1, 2
         rem     a2, a0, a1   # a2 = 5 % 2
@@ -60,8 +72,10 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: bitwise Or
         # notify: Instructions -> or, ori
-        # notify: * or   register-result register-operand-1 register-operand-2
-        # notify: * ori  register-result register-operand-1 immediate-value
+        # notify: <ul>
+        # notify: <li> or   register-result register-operand-1 register-operand-2
+        # notify: <li> ori  register-result register-operand-1 immediate-value
+        # notify: </ul>
         li      a0, 0xF875
         li      a1, 0x00FF
         or      a2, a0, a1    # a2 = 0xF875 | 0x00FF
@@ -70,8 +84,10 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: bitwise and
         # notify: Instructions -> and, andi
-        # notify: * and  register-result register-operand-1 register-operand-2
-        # notify: * andi register-result register-operand-1 immediate-value
+        # notify: <ul>
+        # notify: <li> and  register-result register-operand-1 register-operand-2
+        # notify: <li> andi register-result register-operand-1 immediate-value
+        # notify: </ul>
         li      a0, 0xF875
         li      a1, 0x00FF
         and     a2, a0, a1    # a2 = 0xF875 & 0x00FF
@@ -80,8 +96,10 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: bitwise xor
         # notify: Instructions -> xor, xori
-        # notify: * xor  register-result register-operand-1 register-operand-2
-        # notify: * xori register-result register-operand-1 immediate-value
+        # notify: <ul>
+        # notify: <li> xor  register-result register-operand-1 register-operand-2
+        # notify: <li> xori register-result register-operand-1 immediate-value
+        # notify: </ul>
         li      a0, 0xF875
         li      a1, 0x00FF
         xor     a2, a0, a1    # a2 = 0xF875 ^ 0x00FF
@@ -95,8 +113,10 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: shift right logical
         # notify: Instructions -> srl, srli
-        # notify: * srl  register-result register-operand-1 register-operand-2
-        # notify: * srli register-result register-operand-1 immediate-value
+        # notify: <ul>
+        # notify: <li> srl  register-result register-operand-1 register-operand-2
+        # notify: <li> srli register-result register-operand-1 immediate-value
+        # notify: </ul>
         li      a0, 0x010
         li      a1, 0x3
         srl     a2, a0, a1   # a2 = 0x010 >> 3
@@ -105,8 +125,10 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: shift left logical
         # notify: Instructions -> sll, slli
-        # notify: * ssl  register-result register-operand-1 register-operand-2
-        # notify: * ssli register-result register-operand-1 immediate-value
+        # notify: <ul>
+        # notify: <li> ssl  register-result register-operand-1 register-operand-2
+        # notify: <li> ssli register-result register-operand-1 immediate-value
+        # notify: </ul>
         li      a0, 0x010
         li      a1, 0x3
         sll     a2, a0, a1   # a2 = 0x010 << 3
@@ -115,8 +137,10 @@
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: shift right arithmetic
         # notify: Instructions -> sra, srai
-        # notify: * sra  register-result register-operand-1 register-operand-2
-        # notify: * sra  register-result register-operand-1 immediate-value
+        # notify: <ul>
+        # notify: <li> sra  register-result register-operand-1 register-operand-2
+        # notify: <li> sra  register-result register-operand-1 immediate-value
+        # notify: </ul>
         li      a0, 0x010
         li      a1, 0x3
         sra     a2, a0, a1   # a2 = 0x010 >> 3

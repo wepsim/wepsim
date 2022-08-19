@@ -13,17 +13,34 @@
 
 .text
 main:
-            # test load byte
-           lb  $1  w1
+           li $1 0
+           li $3 0
 
-            # test load word
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+           # notify: TIP: load byte, word
+           # notify: <ul>
+           # notify: <li>lb  register-result label
+           # notify: <li>lw  register-result label
+           # notify: </ul>
+
+           lb  $1  w1
            lw  $3  w3
 
-            # test store byte
+
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+           # notify: TIP: store byte, half, word
+           # notify: <ul>
+           # notify: <li>sb  register-source label
+           # notify: <li>sw  register-source label
+           # notify: </ul>
+
            li  $1  0xF
            sb  $1  w1
 
-            # test store word
            li  $2  0x123
            sw  $2  w3
+
+
+           # return
+           jr  $ra
 
