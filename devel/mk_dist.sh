@@ -322,9 +322,13 @@ jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_s
  jq ' . + [ { "name": "Default-RISCV",     "url": "examples/examples_set/default_rv32.json",                "description": "RISC-V instruction set",         "size":  "18+",   "url_base_asm": "examples/assembly_rv32/",     "url_base_mc": "examples/microcode/" } ]' | \
  jq ' . + [ { "name": "Instructive-MIPS",  "url": "examples/examples_set/default_mips_instructive.json",    "description": "MIPS instruction set",           "size":  "12+",   "url_base_asm": "examples/assembly_mips/",     "url_base_mc": "examples/microcode/" } ]' | \
  jq ' . + [ { "name": "Instructive-RISCV", "url": "examples/examples_set/default_rv32_instructive.json",    "description": "RISC-V instruction set",         "size":  "12+",   "url_base_asm": "examples/assembly_rv32/",     "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "Native",            "url": "examples/examples_set/default_native.json",              "description": "MIPS, RISC-V, ARM, Z80",         "size":  "3+",    "url_base_asm": "examples/assembly_native/",   "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "AG-EC",             "url": "examples/examples_set/ag_packed.json",                   "description": "RISC-V instruction set",         "size":  "10+",    "url_base_asm": "examples/assembly_ag/",       "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "OCW-EC",            "url": "examples/examples_set/ocw_packed.json",                 "description": "MIPS examples for <a href='https://ocw.uc3m.es/course/view.php?id=136'>opencourseware</a>",       "size":  "10+",   "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
+ jq ' . + [ { "name": "AG-EC",             "url": "examples/examples_set/ag_packed.json",                   "description": "RISC-V examples for AG slides",  "size":  "10+",   "url_base_asm": "examples/assembly_ag/",       "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
+
+###########
+# jq ' . + [ { "name": "Native",            "url": "examples/examples_set/default_native.json",              "description": "MIPS, RISC-V, ARM, Z80",         "size":  "3+",    "url_base_asm": "examples/assembly_native/",   "url_base_mc": "examples/microcode/" } ]' | \
+# jq ' . + [ { "name": "AG-EC",             "url": "examples/examples_set/ag_packed.json",                   "description": "RISC-V instruction set",         "size":  "10+",    "url_base_asm": "examples/assembly_ag/",       "url_base_mc": "examples/microcode/" } ]' | \
+# jq ' . + [ { "name": "OCW-EC",            "url": "examples/examples_set/ocw_packed.json",                 "description": "MIPS examples for <a href='https://ocw.uc3m.es/course/view.php?id=136'>opencourseware</a>",       "size":  "10+",   "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
+###########
 
 cp examples/examples_set/default.json examples/apps.json
 

@@ -137,6 +137,7 @@
         {
     	    var wsi = get_cfg('ws_idiom') ;
 
+/*
     	    var o = "<br>" +
                     default_asmdbg_content_horizontal_card("1",
 					                   "simulator intro 1",
@@ -145,6 +146,15 @@
 					                   "simulator intro 2",
     	         					   i18n_get('gui', wsi, 'simulator intro 2') ) +
                     default_asmdbg_content_horizontal_card("3",
+					                   "simulator intro 3",
+    	         					   i18n_get('gui', wsi, 'simulator intro 3') ) ;
+*/
+
+    	    var o = "<br>" +
+                    default_asmdbg_content_horizontal_card("1",
+					                   "simulator intro 2",
+    	         					   i18n_get('gui', wsi, 'simulator intro 2') ) +
+                    default_asmdbg_content_horizontal_card("2",
 					                   "simulator intro 3",
     	         					   i18n_get('gui', wsi, 'simulator intro 3') ) ;
 
