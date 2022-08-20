@@ -1,0 +1,19 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+.text
+ main: 
+       # float PI    = 3,1415;
+       # int   radio = 4;
+       # float length;
+
+         li.s      ft0  3.1415
+         li        t0   4      # 4 en Ca2
+
+       # length = PI * radio;
+
+         fcvt.s.w  ft1, t0     # 4 ieee754
+         fmul.s    ft0, ft0, ft1
+
