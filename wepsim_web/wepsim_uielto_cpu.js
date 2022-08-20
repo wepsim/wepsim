@@ -77,6 +77,9 @@
 
                         ref_obj = simhw_sim_state('ACC_TIME') ;
                     vue_rebind_state(ref_obj, '#tms_context') ;
+
+                        ref_obj = simhw_sim_state('ACC_PWR') ;
+                    vue_rebind_state(ref_obj, '#pwr_context') ;
 	      }
 
 	      render_populate_as_table ( )
@@ -101,6 +104,11 @@
 			  "<td align='center' class='w-50'>Accumulated msec.</td>" +
 			  "<td align='center' class='w-50'>" +
 			  "<div id='tms_context'>{{ value }}</div>" +
+			  "</td>" +
+			  " <tr>" +
+			  "<td align='center' class='w-50'>Accumulated energy</td>" +
+			  "<td align='center' class='w-50'>" +
+			  "<div id='pwr_context'>{{ value }}</div>" +
 			  "</td>" +
 			  " </tr>" +
 			  "</table>" +
@@ -142,6 +150,17 @@
                           " </h5>" +
 			  " <div class='card-body  text-center p-2'>" +
                           " <p class='card-text'><div id='tms_context' class='text-truncate'>{{ value }}</div></p>" +
+			  " </div>" +
+			  "</div>" +
+			  "</div>" +
+
+		          "<div class='col-auto p-2'>" +
+			  "<div class='card bg-light'>" +
+                          " <h5 class='card-header text-center p-2'>" +
+                          "<span data-langkey='Accumulated energy'>Accumulated energy</span><br>" +
+                          " </h5>" +
+			  " <div class='card-body  text-center p-2'>" +
+                          " <p class='card-text'><div id='pwr_context' class='text-truncate'>{{ value }}</div></p>" +
 			  " </div>" +
 			  "</div>" +
 			  "</div>" +
