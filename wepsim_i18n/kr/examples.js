@@ -40,15 +40,15 @@
              "System call":						"System call",
              "Threads":							"Threads",
              "Vector":							"Vector",
-	        "Compiler Explorer":				"Compiler Explorer",
-
+	     "Compiler Explorer":			"Compiler Explorer",
+	     "Instructive":		        	"<b>유익한</b>",
              "example_04_01":				"중단, 시스템 호출 및 예외가있는 고급 예제",
              "example_05_01":				"응용 프로그램 관련 확장 프로그램 : addv + seqv.",
              "example_05_03":				"응용 프로그램 관련 확장 프로그램 : madd + mmul + mxch.",
              "example_03_01":				"부동 소수점 예외가있는 실용적인 예제",
              "example_03_02":				"인터럽트를 지원하는 지침적인 예 : fetch, RETI 및 .ktext/.kdata.",
              "example_03_03":				"시스템 호출을 지원하는 지침적인 예",
-	     "example_03_04":				"간단한 스택 규칙을 사용한 <b> 유익한 </ b> 예제.",
+	     "example_03_04":				"간단한 스택 규칙을 사용한 예제.",
 
              "example_04_04":				"malloc + free 예제",
              "example_04_02":				"정수 및 문자열 인쇄/읽기 용 syscall 예제",

@@ -409,21 +409,24 @@
                                              draw_data: [] };
 
 	/* VIRTUAL */
-	sim.poc.states["REG_IR_DECO"]    = { name:"IR_DECO",  verbal: "Instruction Decoded",
-                                             visible:true,  nbits:"0",  value:0,  default_value:0,
-                                             draw_data: [] };
-	sim.poc.states["DECO_INS"]       = { name:"DECO_INS", verbal: "Instruction decoded in binary",
-                                             visible:true,  nbits:"32", value:0,  default_value:0,
-                                             draw_data: [] };
-	sim.poc.states["CLK"]            = { name:"CLK",      verbal: "Clock",
-                                             visible:false, nbits:"32", value:0,  default_value:0,
-                                             draw_data: [] };
-	sim.poc.states["ACC_TIME"]       = { name:"ACC_TIME", verbal: "Accumulated CPU time",
-                                             visible:false, nbits:"32", value:0,  default_value:0,
-                                             draw_data: [] };
-	sim.poc.states["TTCPU"]         = { name:"TTCPU", verbal: "Several Tristates to the internal data bus in CPU activated",
-                                             visible:false, nbits:"32", value:0,  default_value:0,
-                                             draw_data: [] };
+	sim.poc.states["REG_IR_DECO"] = { name:"IR_DECO",  verbal: "Instruction Decoded",
+                                          visible:true,  nbits:"0",  value:0,  default_value:0,
+                                          draw_data: [] };
+	sim.poc.states["DECO_INS"]    = { name:"DECO_INS", verbal: "Instruction decoded in binary",
+                                          visible:true,  nbits:"32", value:0,  default_value:0,
+                                          draw_data: [] };
+	sim.poc.states["CLK"]         = { name:"CLK",      verbal: "Clock",
+                                          visible:false, nbits:"32", value:0,  default_value:0,
+                                          draw_data: [] };
+	sim.poc.states["ACC_TIME"]    = { name:"ACC_TIME", verbal: "Accumulated CPU time",
+                                          visible:false, nbits:"32", value:0,  default_value:0,
+                                          draw_data: [] };
+	sim.poc.states["TTCPU"]       = { name:"TTCPU", verbal: "Several Tristates to the internal data bus in CPU activated",
+                                          visible:false, nbits:"32", value:0,  default_value:0,
+                                          draw_data: [] };
+	sim.poc.states["ACC_PWR"]     = { name:"ACC_PWR", verbal: "Accumulated Energy Consumption",
+                                          visible:false, nbits:"32", value:0,  default_value:0,
+                                          draw_data: [] };
 
 
 	/*
@@ -608,7 +611,7 @@
                                            ['svg_p:path3283']],
 			            draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	 sim.poc.signals["MH"]  = { name: "MH", visible: true, type: "L",  value: 0, default_value:0, nbits: "2",
-			            behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "NOP", "NOP"],
+			            behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "MV HPC_T12 ACC_PWR", "NOP"],
 			            fire_name: ['svg_p:text3147-5-0-1-8-4'],
 			            draw_data: [[], ['svg_p:path3081-3-8-5-3']],
 			            draw_name: [[], ['svg_p:path3306-8-7-6']] };
@@ -2296,8 +2299,14 @@
 
 						            // measure time (2/2)
 					                    var t1 = performance.now() ;
+
+						            // update time
 							    var val = get_value(sim.poc.states["ACC_TIME"]) ;
-							    set_value(sim.poc.states["ACC_TIME"], val+(t1-t0));
+                                                                val = val + (t1-t0) ;
+							    set_value(sim.poc.states["ACC_TIME"], val);
+
+						            // update power consumption
+							    set_value(sim.poc.states["ACC_PWR"],  16*val);
                                                         },
                                                 verbal: function (s_expr)
                                                         {
@@ -2767,7 +2776,7 @@
 							       ref:  "ACC_TIME"
 							    },
 						   "mux_2": {
-							       ref:  "VAL_ZERO"
+							       ref:  "ACC_PWR"
 							    },
 						   "mux_3": {
 							       ref:  "VAL_ZERO"
@@ -2783,8 +2792,8 @@
 						 },
 			      states_inputs:     [ "mux_0", "mux_1", "mux_2", "mux_3" ],
 			      states_outputs:    [ "mux_o" ],
-			      signals_inputs:    [ ],
-			      signals_output:    [ "mh" ]
+			      signals_inputs:    [ "mh" ],
+			      signals_output:    [ ]
 	                   } ;
 
         sim.poc.elements.cu_mux_a   = {

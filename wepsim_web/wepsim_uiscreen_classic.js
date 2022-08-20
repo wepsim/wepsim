@@ -362,9 +362,10 @@
         }
 
         o = '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2">' +
-            '    <h5 class="offcanvas-title" ' +
+            '    <h5 class="offcanvas-title lh-1" ' +
             '        onclick="wepsim_offcanvas_toggleHV(\'' + offcanvas_id + '\');"' +
             '        id="' + offcanvas_id + 'Label">' +
+                  '<em class="fas fa-retweet me-2"></em>&nbsp;' +
                   title +
                   '</h5>' +
                   o +

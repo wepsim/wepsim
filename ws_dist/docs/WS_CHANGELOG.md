@@ -4,13 +4,13 @@
 ## 2.1.9 -> 2.2.0:
 * Main improvements:
   * Skip "notify:" added to configuration options.
-  * Two new Hardware Performance Counter added.
-  * Replace + find operations added to Codemirror editor
-  * RISC-V examples updated
+  * New Hardware Performance Counter added.
+  * Examples updated
 * Minor bugs fixed and several refinements added:
-  * Examples for POC processor fixed
+  * Replace + find operations added to Codemirror editor
 * Main external dependencies updated:
   * Bump bootstrap   from 4.6.1  to 5.2.0
+  * Bump fontawesome from 5.15.4 to 6.2.0
 
 ## 2.1.8 -> 2.1.9:
 * Main improvements:

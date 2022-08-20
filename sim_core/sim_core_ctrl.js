@@ -229,7 +229,8 @@
                  var mc_obj = simhw_internalState('MC') ;
                  var mcelto = control_memory_get(mc_obj, curr_maddr) ;
                  if (typeof mcelto === "undefined") {
-                     mcelto = {} ;
+                     // mcelto = {} ;
+                        mcelto = { value: {}, comments: null } ; 
                  }
 
                  mcelto.value[key] = simhw_sim_signal(key).value ;
