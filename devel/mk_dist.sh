@@ -270,8 +270,7 @@ cat external/vue/vue.min.js \
     external/annyang.min.js \
     external/speechkitt/speechkitt.min.js \
     external/dropify/dropify.min.js \
-    external/fontawesome/brands.min.js \
-    external/fontawesome/solid.min.js | grep -v sourceMappingURL > ws_dist/external.js
+    external/fontawesome/js/all.min.js | grep -v sourceMappingURL > ws_dist/external.js
 terser -o ws_dist/min.external.js ws_dist/external.js
 rm -fr ws_dist/external.js
 
@@ -289,7 +288,9 @@ cat external/bootstrap/bootstrap.min.css \
     external/introjs/introjs.min.css \
     external/speech-input.css \
     external/dropify/dropify.min.css \
-    external/fontawesome/all.css \
+    external/fontawesome/css/fontawesome.css \
+    external/fontawesome/css/brands.css \
+    external/fontawesome/css/solid.css \
     external/css-tricks.css | grep -v sourceMappingURL > ws_dist/min.external.css
 
 echo "  * ws_dist/external/..."
