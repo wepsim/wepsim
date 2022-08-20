@@ -259,7 +259,7 @@
         if (skip1st) k++ ;
 
         // title
-	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ": " + ref_mdash.notify[k] ;
+	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ":<br>" + ref_mdash.notify[k] ;
 
 	// content
 	var dialog_msg = '<div style="max-height:80vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;

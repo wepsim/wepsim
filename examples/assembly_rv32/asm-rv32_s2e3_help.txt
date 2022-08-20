@@ -8,6 +8,19 @@
 
 .text
 main:
+        # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+        # notify: TIP: binary mask
+        # notify: 1.- to load float in hex form
+        # notify: 2.- to load masks
+        # notify:   sign  -> 1000 0000 0000 0000 ...
+        # notify:   exp.  -> 0111 1111 1000 0000 ...
+        # notify:   mant. -> 0000 0000 0111 1111 ...
+        # notify: 3.- to apply mask
+        # notify:   sign  -> x000 0000 0000 0000 ...
+        # notify:   exp.  -> 0xxx xxxx 1000 0000 ...
+        # notify:   mant. -> 0000 0000 0xxx xxxx ...
+        # notify: 4.- to move as least significant byte
+
         # 1.- to load float in hex form
         lw   s1  float1(x0)
 
