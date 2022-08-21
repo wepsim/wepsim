@@ -269,8 +269,7 @@ cat external/vue/vue.min.js \
     external/speech-input.js \
     external/annyang.min.js \
     external/speechkitt/speechkitt.min.js \
-    external/dropify/dropify.min.js \
-    external/fontawesome/js/all.min.js | grep -v sourceMappingURL > ws_dist/external.js
+    external/dropify/dropify.min.js | grep -v sourceMappingURL > ws_dist/external.js
 terser -o ws_dist/min.external.js ws_dist/external.js
 rm -fr ws_dist/external.js
 
@@ -288,16 +287,11 @@ cat external/bootstrap/bootstrap.min.css \
     external/introjs/introjs.min.css \
     external/speech-input.css \
     external/dropify/dropify.min.css \
-    external/fontawesome/css/fontawesome.css \
-    external/fontawesome/css/brands.css \
-    external/fontawesome/css/solid.css \
     external/css-tricks.css | grep -v sourceMappingURL > ws_dist/min.external.css
 
 echo "  * ws_dist/external/..."
-mkdir -p ws_dist/external/fontawesome/
-   touch ws_dist/external/fontawesome/index.html
-cp    -a external/fontawesome/webfonts  ws_dist/external/fontawesome
-                                  touch ws_dist/external/fontawesome/webfonts/index.html
+cp    -a external/fontawesome           ws_dist/external
+                                  touch ws_dist/external/fontawesome/index.html
 cp    -a external/dropify               ws_dist/external/
                                   touch ws_dist/external/dropify/index.html
 cp    -a external/speechkitt            ws_dist/external/
@@ -315,6 +309,8 @@ DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips_instructive.json example
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_mips_instructive.json
 DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32_instructive.json examples/examples_set/apps_poc_rv32_instructive.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_rv32_instructive.json
+DEFAULT_EXAMPLE_SET="examples/examples_set/ag_ep_rv32_packed.json examples/examples_set/ag_poc_rv32_packed.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/ag_rv32_packed.json
 
 ## pre-examples (default.json + apps.json)
  echo '[]' | \
@@ -323,8 +319,8 @@ jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_s
  jq ' . + [ { "name": "Instructive-MIPS",  "url": "examples/examples_set/default_mips_instructive.json",    "description": "MIPS instruction set",           "size":  "12+",   "url_base_asm": "examples/assembly_mips/",     "url_base_mc": "examples/microcode/" } ]' | \
  jq ' . + [ { "name": "Instructive-RISCV", "url": "examples/examples_set/default_rv32_instructive.json",    "description": "RISC-V instruction set",         "size":  "12+",   "url_base_asm": "examples/assembly_rv32/",     "url_base_mc": "examples/microcode/" } ]' | \
  jq ' . + [ { "name": "Native",            "url": "examples/examples_set/default_native.json",              "description": "MIPS, RISC-V, ARM, Z80",         "size":  "3+",    "url_base_asm": "examples/assembly_native/",   "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "AG-EC",             "url": "examples/examples_set/ag_packed.json",                   "description": "RISC-V instruction set",         "size":  "10+",    "url_base_asm": "examples/assembly_ag/",       "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "OCW-EC",            "url": "examples/examples_set/ocw_packed.json",                 "description": "MIPS examples for <a href='https://ocw.uc3m.es/course/view.php?id=136'>opencourseware</a>",       "size":  "10+",   "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
+ jq ' . + [ { "name": "AG-EC",             "url": "examples/examples_set/ag_rv32_packed.json",              "description": "RISC-V instruction set",         "size":  "10+",   "url_base_asm": "examples/assembly_ag/",       "url_base_mc": "examples/microcode/" } ]' | \
+ jq ' . + [ { "name": "OCW-EC",            "url": "examples/examples_set/ocw_ep_mips_packed.json",          "description": "MIPS examples for <a href='https://ocw.uc3m.es/course/view.php?id=136'>opencourseware</a>",       "size":  "10+",   "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
 
 cp examples/examples_set/default.json examples/apps.json
 

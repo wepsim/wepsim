@@ -41,7 +41,7 @@
   },
   {
     "name": "AG-EC",
-    "url": "examples/examples_set/ag_packed.json",
+    "url": "examples/examples_set/ag_rv32_packed.json",
     "description": "RISC-V instruction set",
     "size": "10+",
     "url_base_asm": "examples/assembly_ag/",
@@ -49,7 +49,7 @@
   },
   {
     "name": "OCW-EC",
-    "url": "examples/examples_set/ocw_packed.json",
+    "url": "examples/examples_set/ocw_ep_mips_packed.json",
     "description": "MIPS examples for <a href=https://ocw.uc3m.es/course/view.php?id=136>opencourseware</a>",
     "size": "10+",
     "url_base_asm": "examples/assembly_ocw/",
