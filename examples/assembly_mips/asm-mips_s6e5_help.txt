@@ -37,7 +37,15 @@
    main:   # initial address
            la   $t5 msg
 
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+           # notify: TIP: led-matrix
+           # notify: Request action to the led-matrix device:
+           # notify: <ul>
+           # notify: <li> Send the address of a matrix (out  s5 0x3108)
+           # notify: <li> Send command to led-matrix (out 0x20 0x3104)
+           # notify: </ul>
            # for (i=22; i!=0; i--)
+
            li   $t0 22
     loop3: beq  $t0 $0 end3
 

@@ -92,6 +92,18 @@ fibonacci:
 
 
      main:
+           addi  sp, sp, -4
+           sw    ra, 0(sp)
+
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+           # notify: TIP: fibonacci(3)
+           # notify: To call a subrutine:
+           # notify: <ul>
+           # notify: <li> Place argument on a0 (li a0 3)
+           # notify: <li> Call subrutine with "jal ra fibonacci" where ra stores the return address
+           # notify: <li> After returning from subrutine, return value is on register a0
+           # notify: </ul>
+
            # a0 = fibonacci(3)
            li  a0 3
            jal ra fibonacci
@@ -104,3 +116,8 @@ fibonacci:
            li   a7 10
            ecall
 
+           lw    ra, 0(sp)
+           addi  sp, sp, 4
+
+           # return
+           jr    ra

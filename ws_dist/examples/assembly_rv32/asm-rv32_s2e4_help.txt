@@ -57,6 +57,15 @@ f1:
 main:   addi  sp, sp, -4
         sw    ra, 0(sp)
 
+        # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+        # notify: TIP: counting(matrix, 2, 6)
+        # notify: To call a subrutine:
+        # notify: <ul>
+        # notify: <li> Place arguments on a0...a7 (up to eight arguments on registers, next on stack)
+        # notify: <li> Call subrutine with "jal ra name" where ra stores the return address
+        # notify: <li> After returning from subrutine/function, return values can be in a0 ... a1
+        # notify: </ul>
+
         # counting (matrix, 2, 6)
         la  a0 matrix
         li  a1 2

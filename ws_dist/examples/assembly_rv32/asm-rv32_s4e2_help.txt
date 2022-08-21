@@ -133,7 +133,17 @@ sys_rd_ch:   li   zero  0
     str1:      .space  127
 
 .text
-    main:  # test ecall 4
+    main:
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+           # notify: TIP: print(intro_str)
+           # notify: To request the print service:
+           # notify: <ul>
+           # notify: <li> Place address of first caracter on a0 (la a0 intro_str)
+           # notify: <li> Place print_string service code on a7 (li a7 4)
+           # notify: <li> Request service by special instruction (ecall)
+           # notify: </ul>
+
+           # test ecall 4
            la  a0 intro_str
            li  a7 4
            ecall
@@ -160,6 +170,15 @@ sys_rd_ch:   li   zero  0
            la  a0 enter
            li  a7 4
            ecall
+
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+           # notify: TIP: print('a')
+           # notify: To request the print char service:
+           # notify: <ul>
+           # notify: <li> Place caracter on a0 (li a0 'a')
+           # notify: <li> Place print_char service code on a7 (li a7 11)
+           # notify: <li> Request service by special instruction (ecall)
+           # notify: </ul>
 
            # test ecall 11
            li  a0 'a'
