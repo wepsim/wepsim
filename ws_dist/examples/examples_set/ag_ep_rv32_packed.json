@@ -6,7 +6,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s32",
+    "assembly":    "rv32_l3a_s32",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -16,7 +16,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s34",
+    "assembly":    "rv32_l3a_s34",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -26,7 +26,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s37",
+    "assembly":    "rv32_l3a_s37",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -36,7 +36,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s44",
+    "assembly":    "rv32_l3a_s44",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -46,7 +46,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s54",
+    "assembly":    "rv32_l3a_s54",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -56,7 +56,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s60",
+    "assembly":    "rv32_l3a_s60",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -66,7 +66,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s61",
+    "assembly":    "rv32_l3a_s61",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -76,7 +76,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s62",
+    "assembly":    "rv32_l3a_s62",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -86,7 +86,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s64",
+    "assembly":    "rv32_l3a_s64",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -96,7 +96,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s66",
+    "assembly":    "rv32_l3a_s66",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -106,7 +106,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s70",
+    "assembly":    "rv32_l3a_s70",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -116,7 +116,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3a_s74",
+    "assembly":    "rv32_l3a_s74",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
@@ -126,7 +126,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3b_s15",
+    "assembly":    "rv32_l3b_s15",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
@@ -136,7 +136,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3b_s25",
+    "assembly":    "rv32_l3b_s25",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
@@ -146,7 +146,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3b_s77",
+    "assembly":    "rv32_l3b_s77",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
@@ -156,7 +156,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3b_s78",
+    "assembly":    "rv32_l3b_s78",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
@@ -166,7 +166,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3b_s79",
+    "assembly":    "rv32_l3b_s79",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
@@ -176,7 +176,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3b_s82",
+    "assembly":    "rv32_l3b_s82",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
@@ -186,7 +186,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3b_s83",
+    "assembly":    "rv32_l3b_s83",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
@@ -196,7 +196,7 @@
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_rv32_bare",
-    "assembly":    "ep_l3b_s85",
+    "assembly":    "rv32_l3b_s85",
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   }
 ]

@@ -53,10 +53,27 @@ f1:
        jr $ra
 
 
-main:
-       # counting (matrix, 2, 6)
+main:  addi  $sp, $sp, -4
+       sw    $ra, ($sp)
+
+       # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+       # notify: TIP: counting(matrix, 2, 6)
+       # notify: To call a subrutine:
+       # notify: <ul>
+       # notify: <li> Place arguments on $a0...$a3 (up to four arguments on registers, next on stack)
+       # notify: <li> Call subrutine with "jal name" where $ra stores the return address
+       # notify: <li> After returning from subrutine, return values can be in $v0 ... $v1
+       # notify: </ul>
+
+       # counting(matrix, 2, 6)
        la  $a0 matrix
        li  $a1 2
        li  $a2 6
        jal counting
+
+       lw   $ra, ($sp)
+       addi $sp, $sp, 4
+
+       # return
+       jr $ra
 
