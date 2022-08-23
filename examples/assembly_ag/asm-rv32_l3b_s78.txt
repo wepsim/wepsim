@@ -4,9 +4,8 @@
 #
 
        # char c1 ;
-       # char c2 = ‘a’;
+       # char c2 = 'a' ;
        # ...
-       # 
        # 
        # main () 
        # {

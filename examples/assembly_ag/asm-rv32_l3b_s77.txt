@@ -7,7 +7,6 @@
        # bool_t b2 = true;
        # ...
        # 
-       # 
        # main () 
        # {
        #    b1 = true ;

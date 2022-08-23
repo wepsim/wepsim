@@ -8,13 +8,13 @@
        # 
        # main () 
        # {
-       #     vec[4] = 8;
-       #    
+       #    vec[4] = 8;
+       #    ...
        # }
 
 .data
-     .align  2  #siguiente dato alineado a 4
-     vec: .space 20   #5 elem.*4 bytes
+     .align  2        # siguiente dato alineado a 4
+     vec: .space 20   # 5 elem. * 4 bytes
 
 .text
  main:  

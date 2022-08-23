@@ -40,18 +40,28 @@
 		         "microcode": function() {
 		                          sim_change_workspace('#main3', 1) ;
 
-			                  setTimeout(function(){
-					                 $("#t3_firm").appendTo("#t3_firm_placeholder1") ;
+					  var t3_firm = document.getElementById("t3_firm");
+					  var ct3firm = document.getElementById("t3_firm_placeholder1");
+					  if (![...ct3firm.children].includes(t3_firm))
+                                          {
+					      $("#t3_firm").appendTo("#t3_firm_placeholder1") ;
+			                      setTimeout(function(){
 					                 inputfirm.refresh() ;
 				                     }, 50) ;
+                                          }
 	                              },
 		         "assembly":  function() {
 					  sim_change_workspace('#main4', 2) ;
 
-					  setTimeout(function(){
-							 $("#t4_asm").appendTo("#t4_asm_placeholder1") ;
+					  var t4_asm = document.getElementById("t4_asm");
+					  var ct4asm = document.getElementById("t4_asm_placeholder1");
+					  if (![...ct4asm.children].includes(t4_asm))
+                                          {
+					      $("#t4_asm").appendTo("#t4_asm_placeholder1") ;
+					      setTimeout(function(){
 							 inputasm.refresh() ;
 						     }, 50) ;
+                                          }
 	                              }
 		       },
 	    "compact": {

@@ -1,0 +1,30 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
+       # int vec[5] ;
+       # int mat[2][3] = {{11,12,13}, 
+       #                  {21,22,23}};
+       # ...
+       # 
+       # main () 
+       # {
+       #   mat[1][2] = mat[1][1] + mat[2][1];
+       #   ...
+       # }
+
+.data
+.align 2
+    vec: .space 20   #5 elem.*4 bytes
+    mat: .word 11, 12, 13
+         .word 21, 22, 23
+    # ...
+
+.text
+ main:  lw  t1 mat+0
+     	lw  t2 mat+12
+	add t3 t1 t2
+	sw  t3 mat+4
+        # ...
+
