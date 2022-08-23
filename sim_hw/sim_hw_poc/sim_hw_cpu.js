@@ -2306,7 +2306,8 @@
 							    set_value(sim.poc.states["ACC_TIME"], val);
 
 						            // update power consumption
-							    set_value(sim.poc.states["ACC_PWR"],  16*val);
+							    val = Math.trunc(16*val) ;
+							    set_value(sim.poc.states["ACC_PWR"], val);
                                                         },
                                                 verbal: function (s_expr)
                                                         {
