@@ -3,12 +3,10 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-
        # double resultado ;
        # double op1 = 100 ;
        # double op2 = -10.27 ;
        # ...
-       # 
        # 
        # main () 
        # {

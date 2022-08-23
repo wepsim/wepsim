@@ -5,7 +5,7 @@
 
 .text
  main: 
-       # float PI    = 3,1415;
+       # float PI    = 3.1415;
        # int   radio = 4;
        # float length;
 

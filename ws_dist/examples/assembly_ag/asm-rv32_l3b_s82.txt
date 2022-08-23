@@ -3,12 +3,10 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-
        # float  resultado ;
        # float  op1 = 100 ;
-       # floar  op2 = 2.5
+       # float  op2 = 2.5 ;
        # ...
-       # 
        # 
        # main () 
        # {

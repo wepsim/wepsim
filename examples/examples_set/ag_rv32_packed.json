@@ -120,7 +120,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT130",
+    "id": "T3BT130",
     "title": "Lesson 3B, Slide 15",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
@@ -130,7 +130,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT140",
+    "id": "T3BT140",
     "title": "Lesson 3B, Slide 25",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
@@ -140,7 +140,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT150",
+    "id": "T3BT150",
     "title": "Lesson 3B, Slide 77",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
@@ -150,7 +150,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT160",
+    "id": "T3BT160",
     "title": "Lesson 3B, Slide 78",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
@@ -160,7 +160,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT170",
+    "id": "T3BT170",
     "title": "Lesson 3B, Slide 79",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
@@ -170,7 +170,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT180",
+    "id": "T3BT180",
     "title": "Lesson 3B, Slide 82",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
@@ -180,7 +180,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT190",
+    "id": "T3BT190",
     "title": "Lesson 3B, Slide 83",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
@@ -190,7 +190,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT200",
+    "id": "T3BT200",
     "title": "Lesson 3B, Slide 85",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,ep",
@@ -200,7 +200,87 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT210",
+    "id": "T3BT210",
+    "title": "Lesson 3B, Slide 86",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "rv32_l3b_s86",
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=86'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id": "T3BT220",
+    "title": "Lesson 3B, Slide 87",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "rv32_l3b_s87",
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=87'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id": "T3BT230",
+    "title": "Lesson 3B, Slide 90",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "rv32_l3b_s90",
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=90'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id": "T3BT240",
+    "title": "Lesson 3B, Slide 91",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "rv32_l3b_s91",
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=91'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id": "T3BT250",
+    "title": "Lesson 3B, Slide 93",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "rv32_l3b_s93",
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=93'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id": "T3BT260",
+    "title": "Lesson 3B, Slide 97",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "rv32_l3b_s97",
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=97'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id": "T3BT270",
+    "title": "Lesson 3B, Slide 101",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "rv32_l3b_s101",
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=101'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id": "T3BT280",
+    "title": "Lesson 3B, Slide 102",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,ep",
+    "hardware": "ep",
+    "microcode": "ep_rv32_bare",
+    "assembly": "rv32_l3b_s102",
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=102'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id": "T3AT10",
     "title": "Lesson 3A, Slide 32",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -210,7 +290,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT220",
+    "id": "T3AT20",
     "title": "Lesson 3A, Slide 34",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -220,7 +300,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT230",
+    "id": "T3AT30",
     "title": "Lesson 3A, Slide 37",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -230,7 +310,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT240",
+    "id": "T3AT40",
     "title": "Lesson 3A, Slide 44",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -240,7 +320,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT250",
+    "id": "T3AT50",
     "title": "Lesson 3A, Slide 54",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -250,7 +330,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT260",
+    "id": "T3AT60",
     "title": "Lesson 3A, Slide 60",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -260,7 +340,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT270",
+    "id": "T3AT70",
     "title": "Lesson 3A, Slide 61",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -270,7 +350,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT280",
+    "id": "T3AT80",
     "title": "Lesson 3A, Slide 62",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -280,7 +360,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT290",
+    "id": "T3AT90",
     "title": "Lesson 3A, Slide 64",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -290,7 +370,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT300",
+    "id": "T3AT100",
     "title": "Lesson 3A, Slide 66",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -300,7 +380,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT310",
+    "id": "T3AT110",
     "title": "Lesson 3A, Slide 70",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -310,7 +390,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT320",
+    "id": "T3AT120",
     "title": "Lesson 3A, Slide 74",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -320,7 +400,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
   {
-    "id": "T3AT330",
+    "id": "T3BT130",
     "title": "Lesson 3B, Slide 15",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -330,7 +410,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT340",
+    "id": "T3BT140",
     "title": "Lesson 3B, Slide 25",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -340,7 +420,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT350",
+    "id": "T3BT150",
     "title": "Lesson 3B, Slide 77",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -350,7 +430,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT360",
+    "id": "T3BT160",
     "title": "Lesson 3B, Slide 78",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -360,7 +440,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT370",
+    "id": "T3BT170",
     "title": "Lesson 3B, Slide 79",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -370,7 +450,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT380",
+    "id": "T3BT180",
     "title": "Lesson 3B, Slide 82",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -380,7 +460,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT390",
+    "id": "T3BT190",
     "title": "Lesson 3B, Slide 83",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -390,7 +470,7 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT400",
+    "id": "T3BT200",
     "title": "Lesson 3B, Slide 85",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
@@ -400,83 +480,83 @@
     "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT410",
+    "id": "T3BT210",
     "title": "Lesson 3B, Slide 86",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_rv32_base",
+    "microcode": "poc_rv32_bare",
     "assembly": "rv32_l3b_s86",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=86'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT420",
+    "id": "T3BT220",
     "title": "Lesson 3B, Slide 87",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_rv32_base",
+    "microcode": "poc_rv32_bare",
     "assembly": "rv32_l3b_s87",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=87'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT430",
+    "id": "T3BT230",
     "title": "Lesson 3B, Slide 90",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_rv32_base",
+    "microcode": "poc_rv32_bare",
     "assembly": "rv32_l3b_s90",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=90'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT440",
+    "id": "T3BT240",
     "title": "Lesson 3B, Slide 91",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_rv32_base",
+    "microcode": "poc_rv32_bare",
     "assembly": "rv32_l3b_s91",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=91'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT450",
+    "id": "T3BT250",
     "title": "Lesson 3B, Slide 93",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_rv32_base",
+    "microcode": "poc_rv32_bare",
     "assembly": "rv32_l3b_s93",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=93'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT460",
+    "id": "T3BT260",
     "title": "Lesson 3B, Slide 97",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_rv32_base",
+    "microcode": "poc_rv32_bare",
     "assembly": "rv32_l3b_s97",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=97'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT470",
+    "id": "T3BT270",
     "title": "Lesson 3B, Slide 101",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_rv32_base",
+    "microcode": "poc_rv32_bare",
     "assembly": "rv32_l3b_s101",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=101'>compute structure slides: lesson 3b</a>"
   },
   {
-    "id": "T3AT480",
+    "id": "T3BT280",
     "title": "Lesson 3B, Slide 102",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
-    "microcode": "poc_rv32_base",
+    "microcode": "poc_rv32_bare",
     "assembly": "rv32_l3b_s102",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=102'>compute structure slides: lesson 3b</a>"
   }
 ]

@@ -8,7 +8,6 @@
        # int  op2 = -10 ;
        # ...
        # 
-       # 
        # main () 
        # {
        #   resultado = op1+op2;

@@ -6,7 +6,7 @@
 .text
  main:
          #  int i, s;
-         #  s=i=0;
+         #  s = i = 0;
 
          li t0 0
          li a0 0
