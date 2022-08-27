@@ -30,11 +30,11 @@
 		         "simulator": function() {
 					  sim_change_workspace('#main1', 0) ;
 
-					  setTimeout(function(){
-							 $("#t3_firm").appendTo("#t3_firm_placeholder2") ;
-							  $("#t4_asm").appendTo("#t4_asm_placeholder2") ;
-							 inputfirm.refresh() ;
-							 inputasm.refresh() ;
+                                          jQuery("#t3_firm").detach().appendTo("#t3_firm_placeholder2") ;
+                                          jQuery( "#t4_asm").detach().appendTo("#t4_asm_placeholder2") ;
+					  setTimeout(function() {
+							inputfirm.refresh() ;
+							inputasm.refresh() ;
 						     }, 50) ;
 	                              },
 		         "microcode": function() {
@@ -44,10 +44,10 @@
 					  var ct3firm = document.getElementById("t3_firm_placeholder1");
 					  if (![...ct3firm.children].includes(t3_firm))
                                           {
-					      $("#t3_firm").appendTo("#t3_firm_placeholder1") ;
+                                              jQuery("#t3_firm").detach().appendTo('#t3_firm_placeholder1');
 			                      setTimeout(function(){
-					                 inputfirm.refresh() ;
-				                     }, 50) ;
+					                    inputfirm.refresh() ;
+				                         }, 50) ;
                                           }
 	                              },
 		         "assembly":  function() {
@@ -57,10 +57,10 @@
 					  var ct4asm = document.getElementById("t4_asm_placeholder1");
 					  if (![...ct4asm.children].includes(t4_asm))
                                           {
-					      $("#t4_asm").appendTo("#t4_asm_placeholder1") ;
+                                              jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder1") ;
 					      setTimeout(function(){
-							 inputasm.refresh() ;
-						     }, 50) ;
+							    inputasm.refresh() ;
+						        }, 50) ;
                                           }
 	                              }
 		       },
