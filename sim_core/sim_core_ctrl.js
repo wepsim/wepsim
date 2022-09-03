@@ -47,14 +47,21 @@
         {
 	     // 1.- number of active tri-state
 	     var n = 0 ;
-	     for (var i=0; i<32; i++) {
-		  n = n + ((tri_mask & Math.pow(2, i)) > 0) ;
+	     var a = 0 ;
+	     var e = -1 ;
+	     for (var i=0; i<32; i++)
+             {
+		  a = tri_mask & Math.pow(2, i) ;
+                  if (a > 0) {
+	              e = i ;
+		      n = n + 1 ;
+	          }
 	     }
 
 	     // 2.- paint the bus if any tri-state is active
 	     if (n > 0) {
 	         var tri_state_names = simhw_internalState('tri_state_names') ;
-	         var tri_name = tri_state_names[tri_index] ;
+	         var tri_name = tri_state_names[e] ;
 	         update_draw(simhw_sim_signal(tri_name), 1) ;
 	     }
 
@@ -230,7 +237,7 @@
                  var mcelto = control_memory_get(mc_obj, curr_maddr) ;
                  if (typeof mcelto === "undefined") {
                      // mcelto = {} ;
-                        mcelto = { value: {}, comments: null } ; 
+                        mcelto = { value: {}, comments: null } ;
                  }
 
                  mcelto.value[key] = simhw_sim_signal(key).value ;
