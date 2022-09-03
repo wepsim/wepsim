@@ -189,8 +189,12 @@
                     return true ;
                 }
 
-                if ( (typeof o1 !== 'undefined') && (typeof o1[0] !== 'undefined') ) {
-	              obj_byid[0].scrollTop = o1[0].offsetTop ;
+                if ( (typeof o1 !== 'undefined') && (typeof o1[0] !== 'undefined') )
+                {
+	              var off1 = o1[0].offsetTop ;
+	              if (off1 > 10)
+                          off1 = off1 - 10 ;
+	              obj_byid[0].scrollTop = off1 ;
                 }
             }
 
