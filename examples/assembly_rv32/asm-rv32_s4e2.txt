@@ -8,8 +8,8 @@
             .word rt_div0
             .word rt_sys
 
-   msgi0:   .asciiz "INT: 0\n"
-   msgi1:   .asciiz "FPE: / by 0\n"
+   msgi0:   .string "INT: 0\n"
+   msgi1:   .string "FPE: / by 0\n"
 
 .ktext
 sys_prt_str: li   zero 0
@@ -127,10 +127,10 @@ sys_rd_ch:   li   zero  0
 
 
 .data
-    intro_str: .asciiz " * Please write a short string (5 chars): "
-    intro_int: .asciiz " * Please write a integer: "
-    enter:     .asciiz "\n"
-    str1:      .space  127
+    intro_str: .string " * Please write a short string (5 chars): "
+    intro_int: .string " * Please write a integer: "
+    enter:     .string "\n"
+    str1:      .zero   127
 
 .text
     main:  # test ecall 4

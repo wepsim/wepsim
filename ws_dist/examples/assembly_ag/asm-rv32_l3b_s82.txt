@@ -3,29 +3,23 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-       # float  resultado ;
-       # float  op1 = 100 ;
-       # float  op2 = 2.5 ;
+       # char c1 ;
+       # char c2 = 'a' ;
        # ...
        # 
        # main () 
        # {
-       #   resultado = op1 + op2 ;
-       #   ...
+       #    c1 = c2;
+       #    ...
        # }
 
- .data
-.align 2
-    resultado:  .space 4 # 4 bytes 
-    op1: 	 .float 100
-    op2: 	 .float 2.5
-    # ...
+.data
+       c1: .space  1     # 1 byte
+       c2: .byte  'a'
+       # ...
 
 .text
-
- main:  flw    f0 op1(x0)
-        flw    f1 op2(x0)
-        fadd.s f3 f1 f2
-        fsw    f3 resultado(x0)
-        # ...
-
+ main: la  t0 c1
+       la  t1 c2
+       lbu t2 0(t1)
+       sb  t2 0(t0)

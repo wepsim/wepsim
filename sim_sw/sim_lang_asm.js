@@ -57,9 +57,11 @@
 		  ".word":      { name:".word",   kindof:"datatype", size:4 },
 		  ".float":     { name:".float",  kindof:"datatype", size:4 },
 		  ".double":    { name:".double", kindof:"datatype", size:8 },
-		  ".space":     { name:".space",  kindof:"datatype", size:1 },
 		  ".ascii":     { name:".ascii",  kindof:"datatype", size:1 },
 		  ".asciiz":    { name:".asciiz", kindof:"datatype", size:1 },
+		  ".space":     { name:".space",  kindof:"datatype", size:1 },
+		  ".string":    { name:".string", kindof:"datatype", size:1 },
+		  ".zero":      { name:".zero",   kindof:"datatype", size:1 },
 
                   // modifiers
 		  ".align":     { name:".align",  kindof:"datatype", size:0 }
@@ -560,7 +562,7 @@ function read_data ( context, datosCU, ret )
                                 writememory_and_reset(ret.mp, gen, 1) ;
 
 				// Align to size
-				while (((gen.seg_ptr+gen.byteWord)%size) != 0)
+				while ( ((gen.seg_ptr+gen.byteWord) % size) != 0 )
                                 {
 					gen.byteWord++;
 					// Word filled
@@ -611,7 +613,9 @@ function read_data ( context, datosCU, ret )
                    }
 
 		   //            .space *20*
-		   else if (".space" == possible_datatype)
+		   //            .zero  *20*
+		   else if ( (".space" == possible_datatype) ||
+                             (".zero"  == possible_datatype) )
                    {
                         // <value>
 		        nextToken(context) ;
@@ -631,13 +635,16 @@ function read_data ( context, datosCU, ret )
                                               "'" + possible_value + "'") ;
 			}
 
-			// Fill with spaces
+			// Fill with spaces/zeroes
 			for (i=0; i<possible_value; i++)
                         {
 				// Word filled
                                 writememory_and_reset(ret.mp, gen, 1) ;
 				gen.byteWord++;
-				gen.track_source.push('_') ;
+
+		                if (".zero" == possible_datatype)
+				     gen.track_source.push('0x0') ;
+				else gen.track_source.push('_') ;
 			}
 
 			nextToken(context) ;
@@ -700,7 +707,10 @@ function read_data ( context, datosCU, ret )
 
 		   //  * .ascii  "hola", " mundo\n"
 		   //  * .asciiz "hola mundo"
-		   else if (".ascii" == possible_datatype || ".asciiz" == possible_datatype)
+		   //  * .string "hola mundo"
+		   else if ( (".ascii"  == possible_datatype) ||
+                             (".asciiz" == possible_datatype) ||
+                             (".string" == possible_datatype) )
                    {
                         // <value> | .<directive>
 		        nextToken(context) ;
@@ -758,7 +768,7 @@ function read_data ( context, datosCU, ret )
 				        gen.track_source.push(possible_value[i]) ;
 				}
 
-                                if (".asciiz" == possible_datatype)
+                                if (".asciiz" == possible_datatype || ".string" == possible_datatype)
                                 {
                                 	// Word filled
                                         writememory_and_reset(ret.mp, gen, 1) ;
