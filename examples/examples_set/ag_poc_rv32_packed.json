@@ -7,7 +7,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s32",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=32'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT20",
@@ -17,7 +17,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s34",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=34'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT30",
@@ -27,7 +27,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s37",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=37'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT40",
@@ -37,7 +37,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s44",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=44'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT50",
@@ -47,7 +47,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s54",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=54'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT60",
@@ -57,7 +57,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s60",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=60'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT70",
@@ -67,7 +67,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s61",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=61'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT80",
@@ -77,7 +77,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s62",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=62'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT90",
@@ -87,7 +87,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s64",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=64'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT100",
@@ -97,7 +97,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s66",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=66'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT110",
@@ -107,7 +107,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s70",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=70'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3AT120",
@@ -117,17 +117,17 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3a_s74",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3a</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-1.pdf#page=74'>compute structure slides: lesson 3a</a>"
   },
   {
     "id":          "T3BT130",
-    "title":       "Lesson 3B, Slide 15",
+    "title":       "Lesson 3B, Slide 19",
     "type":        "<span data-langkey='Initial'>Initial</span>",
     "modes":       "newbie,intro,poc",
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
-    "assembly":    "rv32_l3b_s15",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "assembly":    "rv32_l3b_s19",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=19'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT140",
@@ -137,37 +137,37 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3b_s25",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=25'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT150",
-    "title":       "Lesson 3B, Slide 77",
+    "title":       "Lesson 3B, Slide 29",
     "type":        "<span data-langkey='Initial'>Initial</span>",
     "modes":       "newbie,intro,poc",
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
-    "assembly":    "rv32_l3b_s77",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "assembly":    "rv32_l3b_s29",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=29'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT160",
-    "title":       "Lesson 3B, Slide 78",
+    "title":       "Lesson 3B, Slide 39",
     "type":        "<span data-langkey='Initial'>Initial</span>",
     "modes":       "newbie,intro,poc",
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
-    "assembly":    "rv32_l3b_s78",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "assembly":    "rv32_l3b_s39",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=39'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT170",
-    "title":       "Lesson 3B, Slide 79",
+    "title":       "Lesson 3B, Slide 81",
     "type":        "<span data-langkey='Initial'>Initial</span>",
     "modes":       "newbie,intro,poc",
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
-    "assembly":    "rv32_l3b_s79",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "assembly":    "rv32_l3b_s81",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=81'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT180",
@@ -177,7 +177,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3b_s82",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=82'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT190",
@@ -187,7 +187,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3b_s83",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=83'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT200",
@@ -197,7 +197,7 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_base",
     "assembly":    "rv32_l3b_s85",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=30'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=85'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT210",
@@ -207,37 +207,37 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_bare",
     "assembly":    "rv32_l3b_s86",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=86'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=86'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT220",
-    "title":       "Lesson 3B, Slide 87",
+    "title":       "Lesson 3B, Slide 88",
     "type":        "<span data-langkey='Initial'>Initial</span>",
     "modes":       "newbie,intro,poc",
     "hardware":    "poc",
     "microcode":   "poc_rv32_bare",
-    "assembly":    "rv32_l3b_s87",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=87'>compute structure slides: lesson 3b</a>"
+    "assembly":    "rv32_l3b_s88",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=88'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT230",
+    "title":       "Lesson 3B, Slide 89",
+    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "modes":       "newbie,intro,poc",
+    "hardware":    "poc",
+    "microcode":   "poc_rv32_bare",
+    "assembly":    "rv32_l3b_s89",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=89'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id":          "T3BT240",
     "title":       "Lesson 3B, Slide 90",
     "type":        "<span data-langkey='Initial'>Initial</span>",
     "modes":       "newbie,intro,poc",
     "hardware":    "poc",
     "microcode":   "poc_rv32_bare",
     "assembly":    "rv32_l3b_s90",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=90'>compute structure slides: lesson 3b</a>"
-  },
-  {
-    "id":          "T3BT240",
-    "title":       "Lesson 3B, Slide 91",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
-    "modes":       "newbie,intro,poc",
-    "hardware":    "poc",
-    "microcode":   "poc_rv32_bare",
-    "assembly":    "rv32_l3b_s91",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=91'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=90'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT250",
@@ -247,27 +247,27 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_bare",
     "assembly":    "rv32_l3b_s93",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=93'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=93'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT260",
-    "title":       "Lesson 3B, Slide 97",
+    "title":       "Lesson 3B, Slide 95",
     "type":        "<span data-langkey='Initial'>Initial</span>",
     "modes":       "newbie,intro,poc",
     "hardware":    "poc",
     "microcode":   "poc_rv32_bare",
-    "assembly":    "rv32_l3b_s97",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=97'>compute structure slides: lesson 3b</a>"
+    "assembly":    "rv32_l3b_s95",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=95'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT270",
-    "title":       "Lesson 3B, Slide 101",
+    "title":       "Lesson 3B, Slide 99",
     "type":        "<span data-langkey='Initial'>Initial</span>",
     "modes":       "newbie,intro,poc",
     "hardware":    "poc",
     "microcode":   "poc_rv32_bare",
-    "assembly":    "rv32_l3b_s101",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=101'>compute structure slides: lesson 3b</a>"
+    "assembly":    "rv32_l3b_s99",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=99'>compute structure slides: lesson 3b</a>"
   },
   {
     "id":          "T3BT280",
@@ -277,6 +277,6 @@
     "hardware":    "poc",
     "microcode":   "poc_rv32_bare",
     "assembly":    "rv32_l3b_s102",
-    "description": "Code from <a href='https://aulaglobal.uc3m.es/course/view.php?id=152629.pdf#page=102'>compute structure slides: lesson 3b</a>"
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_ec/transparencias/t3-ensamblador-2.pdf#page=102'>compute structure slides: lesson 3b</a>"
   }
 ]

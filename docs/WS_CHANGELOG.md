@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.2.0 -> 2.2.1:
+* Main external dependencies updated:
+  * Bump bootstrap   from 5.2.0  to 5.2.1
+
 ## 2.1.9 -> 2.2.0:
 * Main improvements:
   * Skip "notify:" added to configuration options.

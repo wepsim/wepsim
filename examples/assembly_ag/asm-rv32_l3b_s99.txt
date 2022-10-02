@@ -23,11 +23,11 @@
 
 
 .data
-   c1:  .space  1    # 1 byte
+   c1:  .zero   1    # 1 byte
    c2:  .byte   'h'
-   ac1: .asciiz "hola"
+   ac1: .string "hola"
    .align 2
-   c:   .space 4  # puntero => dirección
+   c:   .zero 4  # puntero => dirección
    # ...
 
 .text
@@ -37,8 +37,9 @@ main:	        la   t0, ac1
 	buc1:	beqz t1, fin1
 		addi t0, t0, 1
 		addi a0, a0, 1
-		lbu  t1, (t0)
-		beq  x0, x0, buc1
+		lbu  t1, 0(t0)
+		beq  x0, x0, buc1  # j buc1
+
 	fin1:	li a7 1
                 ecall
         # ...

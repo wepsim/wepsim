@@ -3,27 +3,23 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-       # char c1 ;
-       # char c2 = 'h' ;
-       # char *ac1 = "hola" ;
+       # int vec[5] ;
        # ...
        # 
        # main () 
        # {
-       #   printf("%s",ac1) ;
-       #   ...
+       #     vec[4] = 8;
+       #     ...
        # }
 
 .data
-   c1:  .space   1  # 1 byte
-   c2:  .byte   'h'
-   ac1: .asciiz "hola"
-   # ...
+  .align 2       # siguiente dato alineado a 4
+  vec: .zero 20  # 5 elem. * 4 bytes
 
 .text
- main:   
-	 li a7 4
-	 la a0 ac1
-	 ecall
+ main:
+	 li t2  8
+	 li t1  12
+	 sw t2 vec(t1)    	 
          # ...
 
