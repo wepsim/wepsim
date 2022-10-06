@@ -248,7 +248,7 @@
                    "ws_idiom":              { upgrade:false, type:"string",    value:'en' },
                    "use_voice":             { upgrade:false, type:"boolean",   value:false },
                    "ws_skin_ui":            { upgrade:false, type:"string",    value:'classic' },
-                   "ws_skin_user":          { upgrade:false, type:"string",    value:'only_asm:on:only_frequent:on' },
+                   "ws_skin_user":          { upgrade:false, type:"string",    value:'only_asm:of:only_frequent:on' },
                    "ws_skin_dark_mode":     { upgrade:false, type:"boolean",   value:false },
 
 	           /* micro/assembly screen: editor */

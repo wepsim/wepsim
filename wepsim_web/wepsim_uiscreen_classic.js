@@ -124,8 +124,8 @@
 			    '<div class="w-100 d-md-block d-lg-none"></div>' +
 			    '' +
 			    '<div class="col-sm-auto p-1 my-0">' +
-			    '<ws-toolbar components="[,btn_examples,btn_help,btndd_mode,]"></ws-toolbar>' +
-			//  '<ws-toolbar components="[,btn_examples,btn_help,]"></ws-toolbar>' + // for UC3M
+			//  '<ws-toolbar components="[,btn_examples,btn_help,btndd_mode,]"></ws-toolbar>' +
+			    '<ws-toolbar components="[,btn_examples,btn_help,]"></ws-toolbar>' + // for UC3M
 			    '</div>' +
 			    '' +
 			    '<div class="col-sm p-0 ms-1 collapse show multi-collapse-2">' +
