@@ -19,10 +19,10 @@
 
 .text
  main:   
-         li  t0 12
+         li  t0  12
          la  t1  vec
          add t3, t1, t0
          li  t2  8
-         sw  t2, (t3)    	 
+         sw  t2, 0(t3)    	 
          # ...
 
