@@ -24,5 +24,5 @@ while:
          # acción
          addi t0 t0 1
          beq x0 x0 while   # j while
-fin: ...
+fin: # ...
 
