@@ -40,15 +40,15 @@
     "url_base_mc": "examples/microcode/"
   },
   {
-    "name": "AG-EC",
+    "name": "AulaGlobal course",
     "url": "examples/examples_set/ag_rv32_packed.json",
-    "description": "RISC-V instruction set",
+    "description": "RISC-V instruction set for <a href=https://github.com/acaldero/uc3m_ec>aula global</a>",
     "size": "10+",
     "url_base_asm": "examples/assembly_ag/",
     "url_base_mc": "examples/microcode/"
   },
   {
-    "name": "OCW-EC",
+    "name": "OCW course",
     "url": "examples/examples_set/ocw_ep_mips_packed.json",
     "description": "MIPS examples for <a href=https://ocw.uc3m.es/course/view.php?id=136>opencourseware</a>",
     "size": "10+",

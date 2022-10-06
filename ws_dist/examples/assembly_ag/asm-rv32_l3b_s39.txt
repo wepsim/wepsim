@@ -5,20 +5,20 @@
 
 .text
   main:
-         # . . . 
+         # . . . 
 
-         # readInt(&valor)
+         # readInt(&valor)
          li a7 5
          ecall
          mv  t0 a0 # valor en t0
 
-         # valor = valor + 1
+         # valor = valor + 1
          add t0 t0 1
 
-         # printInt
+         # printInt
          mv  a0 t0
          li  a7 1
          ecall
 
-         # . . . 
+         # . . . 
 
