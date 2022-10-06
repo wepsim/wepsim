@@ -4,7 +4,7 @@
 #
 
 .data
-        msg: .asciiz "Please, press letter '0' to end the 'echo' effect.\n"
+        msg: .string "Please, press letter '0' to end the 'echo' effect.\n"
 
 .text
 main:

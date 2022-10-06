@@ -21,6 +21,6 @@
 .text
  main: la t0 b1
        li t1 1
-       sb t1 (t0)
+       sb t1 0(t0)
        # ...
 

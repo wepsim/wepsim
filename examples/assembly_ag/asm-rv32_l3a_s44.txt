@@ -9,11 +9,12 @@
        # int   radio = 4;
        # float length;
 
-         li.s      ft0  3.1415
-         li        t0   4      # 4 en Ca2
+         li        t0, 0x40490E56 # 0x40490E56 -> 3,1415 in IEEE754
 
        # length = PI * radio;
 
-         fcvt.s.w  ft1, t0     # 4 ieee754
-         fmul.s    ft0, ft0, ft1
+         fmv.w.x ft0, t0  # ft0 <- t0
+         li t1 4          # 4 en Ca2
+         fcvt.s.w ft1, t1 # 4 en ieee754
+         fmul.s ft0, ft0, ft1
 

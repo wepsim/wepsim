@@ -27,6 +27,6 @@ while:   bge  t0, t2, fin
          add  t3, t3, t4
          srli t1, t1, 1
          addi t0, t0, 1
-         beq  x0, x0, while
+         beq  x0, x0, while  # j while
 fin:     ...
 

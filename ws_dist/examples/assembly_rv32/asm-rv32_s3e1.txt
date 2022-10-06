@@ -7,8 +7,8 @@
             .word rt_div0
             .word rt_sys
 
-   msgi0:   .asciiz "INT: 0\n"
-   msgi1:   .asciiz "FPE: */0\n"
+   msgi0:   .string "INT: 0\n"
+   msgi1:   .string "FPE: */0\n"
 
 .ktext
 sys_print:  li   zero 0
@@ -39,7 +39,7 @@ sys_print:  li   zero 0
             sret
 
 .data
-    helloworld: .asciiz "hello world...\n"
+    helloworld: .string "hello world...\n"
 
 .text
     main:  # test int0

@@ -201,7 +201,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.2.0" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.2.0.20220705A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.2.0.20220905A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -248,7 +248,7 @@
                    "ws_idiom":              { upgrade:false, type:"string",    value:'en' },
                    "use_voice":             { upgrade:false, type:"boolean",   value:false },
                    "ws_skin_ui":            { upgrade:false, type:"string",    value:'classic' },
-                   "ws_skin_user":          { upgrade:false, type:"string",    value:'only_asm:of:only_frequent:on' },
+                   "ws_skin_user":          { upgrade:false, type:"string",    value:'only_asm:on:only_frequent:on' },
                    "ws_skin_dark_mode":     { upgrade:false, type:"boolean",   value:false },
 
 	           /* micro/assembly screen: editor */
@@ -256,7 +256,7 @@
                    "editor_mode":           { upgrade:false, type:"string",    value:'default' },
 
 	           /* set of urls */
-                   "base_url":              { upgrade:true,  type:"string",    value:'https://wepsim.github.io/wepsim/ws_dist/' },
+                   "base_url":              { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/ws_dist/' },
                    "cfg_url":               { upgrade:true,  type:"string",    value:'examples/configuration/default.json' },
                    "example_url":           { upgrade:true,  type:"string",    value:'examples/examples_set/default.json' },
                    "hw_url":                { upgrade:true,  type:"string",    value:'examples/hardware/hw.json' },

@@ -4,7 +4,7 @@
 #
 
 .data
-  msg_hola: .asciiz "hola mundo\n"
+  msg_hola: .string "hola mundo\n"
 
 .text
   main:
