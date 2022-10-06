@@ -3,7 +3,7 @@
 
 ## 2.2.0 -> 2.2.1:
 * Main external dependencies updated:
-  * Bump bootstrap   from 5.2.0  to 5.2.1
+  * Bump bootstrap   from 5.2.0  to 5.2.2
 
 ## 2.1.9 -> 2.2.0:
 * Main improvements:
