@@ -115,9 +115,11 @@
 				    for (var k=0; k<l3d_dim; k++)
 				    {
 			                 offset = i*Math.pow(l3d_dim, 2) + j*l3d_dim + k ;
-			o1 += "<td align='center' id='l3d" + offset + "_context' class='py-0' " +
-                              "    v-on:click='value = !value'>" +
-			      "<i  style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
+			o1 += "<td align='center' id=\"l3d" + offset + "_context\" class='py-0' " +
+                              "    v-on:click='value = !value'" +
+                              "    onclick=\"l3d_svg_toggle('#l3d" + offset + "_svg');\">" +
+			      "<i  id='l3d" + offset + "_svg' " +
+                              "    style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
                               "    v-bind:class='[ value ? \"fas\" : \"far\", \"fa-lightbulb\" ]'></i>" +
                               "<span class='visually-hidden'>{{value}}</span>" +
 			      "</td>" ;
@@ -167,6 +169,16 @@
 	    }
 
             compute_general_behavior('L3D_SYNC') ;
+            return true ;
+        }
+
+	function l3d_svg_toggle ( id_str )
+        {
+            var obj = document.querySelector(id_str) ;
+            var dp1 = obj.getAttribute("data-prefix") ;
+            dp1 = (dp1 == "far") ? "fas" : "far" ;
+            obj.setAttribute("data-prefix", dp1) ;
+
             return true ;
         }
 
