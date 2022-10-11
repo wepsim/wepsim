@@ -11,6 +11,7 @@
   * New Hardware Performance Counter added.
   * Examples updated
 * Minor bugs fixed and several refinements added:
+  * Translation into Chinesse improved thanks to https://github.com/shiptux
   * Replace + find operations added to Codemirror editor
 * Main external dependencies updated:
   * Bump bootstrap   from 4.6.1  to 5.2.0
