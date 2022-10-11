@@ -19,6 +19,8 @@
  */
 
 
+    // Tranlation thanks to https://github.com/shiptux
+
     i18n.eltos.states.zh_cn = {
 
 		'States':					'状态',

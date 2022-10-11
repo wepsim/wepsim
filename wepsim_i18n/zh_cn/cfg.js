@@ -19,6 +19,8 @@
  */
 
 
+    // Tranlation thanks to https://github.com/shiptux
+
     i18n.eltos.cfg.zh_cn = {
 
 		'General':							'通用',

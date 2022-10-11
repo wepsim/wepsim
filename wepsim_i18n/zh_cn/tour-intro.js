@@ -19,6 +19,8 @@
  */
 
 
+    // Tranlation thanks to https://github.com/shiptux
+
     i18n.eltos.tour_intro.zh_cn = {
 
 		'step1':		'WepSIM有助于更好地理解计算机的工作原理：它是视觉的，交互式的，从信号到中断，系统调用，异常等集成。<br> <br>我们真的相信WepSIM是一种革命性的教学工具。本简短介绍介绍了其界面的关键要素。',

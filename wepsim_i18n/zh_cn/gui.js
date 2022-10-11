@@ -19,6 +19,8 @@
  */
 
 
+    // Tranlation thanks to https://github.com/shiptux
+
     i18n.eltos.gui.zh_cn = {
 
 		'Loading WepSIM...':		'正在加载WepSIM ...',

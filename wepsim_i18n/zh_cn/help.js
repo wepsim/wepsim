@@ -19,6 +19,8 @@
  */
 
 
+    // Tranlation thanks to https://github.com/shiptux
+
     i18n.eltos.help.zh_cn = {
 
 		'Welcome tutorial':		'欢迎教程',

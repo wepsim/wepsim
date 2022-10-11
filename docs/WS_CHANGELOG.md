@@ -2,6 +2,8 @@
 # Changelog
 
 ## 2.2.0 -> 2.2.1:
+* Bugs fixed
+  * Translation into Chinesse improved thanks to https://github.com/shiptux
 * Main external dependencies updated:
   * Bump bootstrap   from 5.2.0  to 5.2.2
 

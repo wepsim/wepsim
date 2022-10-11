@@ -19,6 +19,8 @@
  */
 
 
+    // Tranlation thanks to https://github.com/shiptux
+
     i18n.eltos.dialogs.zh_cn = {
 
 		'Show/Hide ActionBar':			'显示/隐藏动作栏',
