@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -25,8 +25,8 @@
 
         /* jshint esversion: 6 */
         sim.ep.components.LEDM = {
-		                  name: "LEDM", 
-		                  version: "1", 
+		                  name: "LEDM",
+		                  version: "1",
 		                  abilities:    [ "LEDMATRIX" ],
 
 		                  // ui: details
@@ -76,8 +76,12 @@
 
         sim.ep.internal_states.ledm_dim    = 24 ;
         sim.ep.internal_states.ledm_neltos = Math.pow(sim.ep.internal_states.ledm_dim, 2) ;
-        sim.ep.internal_states.ledm_state  = Array.from({length:sim.ep.internal_states.ledm_neltos}, 
-						       () => ({color:0})) ;
+        sim.ep.internal_states.ledm_state  = Array.from({length:sim.ep.internal_states.ledm_neltos},
+						        () => ({color:0})) ;
+        sim.ep.internal_states.color14     = [ "#000000", "#FFFFFF", "#FF0000", "#FF8800", "#FFFF00",
+                                               "#88FF00", "#00FF00", "#00FF88", "#00FFFF", "#0088FF",
+                                               "#0000FF", "#8800FF", "#FF00FF", "#FF0088" ] ;
+        sim.ep.internal_states.ledm_colors = sim.ep.internal_states.color14.map((x) => x) ;
         sim.ep.internal_states.ledm_frame  = '0'.repeat(sim.ep.internal_states.ledm_neltos) ;
 
         var LEDMSR_ID   = 0x3100 ;
@@ -108,18 +112,18 @@
          *  Signals
          */
 
-         sim.ep.signals.LEDM_IOR = { name: "LEDM_IOR", 
-                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+         sim.ep.signals.LEDM_IOR = { name: "LEDM_IOR",
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      behavior: ["NOP", "LEDM_IOR BUS_AB BUS_DB LEDMSR LEDMCR LEDMDR CLK; FIRE SBWA"],
-                                     fire_name: ['svg_p:tspan4173'], 
-                                     draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
+                                     fire_name: ['svg_p:tspan4173'],
+                                     draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']],
                                      draw_name: [[], []] };
 
-         sim.ep.signals.LEDM_IOW = { name: "LEDM_IOW", 
-                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+         sim.ep.signals.LEDM_IOW = { name: "LEDM_IOW",
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      behavior: ["NOP", "LEDM_IOW BUS_AB BUS_DB LEDMSR LEDMCR LEDMDR CLK; FIRE SBWA; LEDM_SYNC"],
-                                     fire_name: ['svg_p:text3785-0-6-0-5-5'], 
-                                     draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
+                                     fire_name: ['svg_p:text3785-0-6-0-5-5'],
+                                     draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']],
                                      draw_name: [[], []] };
 
 
@@ -129,7 +133,7 @@
 
         sim.ep.behaviors.LEDM_IOR   = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
-                                        operation: function (s_expr) 
+                                        operation: function (s_expr)
                                                    {
                                                       var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
                                                       var iosr   = get_value(sim.ep.states[s_expr[3]]) ;
@@ -152,7 +156,7 @@
                                                           set_value(sim.ep.states[s_expr[2]], s) ;
 						      }
                                                    },
-                                           verbal: function (s_expr) 
+                                           verbal: function (s_expr)
                                                    {
                                                       var verbal = "" ;
 
@@ -161,11 +165,11 @@
                                                       var iocr   = get_value(sim.ep.states[s_expr[4]]) ;
                                                       var iodr   = get_value(sim.ep.states[s_expr[5]]) ;
 
-                                                      if (bus_ab == LEDMSR_ID) 
+                                                      if (bus_ab == LEDMSR_ID)
                                                           verbal = "I/O device read at LEDMSR of value " + iosr + ". " ;
-                                                      if (bus_ab == LEDMCR_ID) 
+                                                      if (bus_ab == LEDMCR_ID)
                                                           verbal = "I/O device read at LEDMCR of value " + iocr + ". " ;
-                                                      if (bus_ab == LEDMDR_ID) 
+                                                      if (bus_ab == LEDMDR_ID)
                                                           verbal = "I/O device read at LEDMDR of value " + iodr + ". " ;
 
                                                       return verbal ;
@@ -174,7 +178,7 @@
 
         sim.ep.behaviors.LEDM_IOW   = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
-                                        operation: function (s_expr) 
+                                        operation: function (s_expr)
                                                    {
                                                       var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
                                                       var bus_db = get_value(sim.ep.states[s_expr[2]]) ;
@@ -237,9 +241,28 @@
                                                                    set_var(sim.ep.internal_states.ledm_state[p+3].color, (s & 0xFF000000) >> 24);
                                                               }
 							  }
+
+							  // 0x40 -> DMA colors
+							  if (0x40 & bus_db)
+							  {
+                                                              set_value(sim.ep.states[s_expr[3]], 1) ;
+
+                                                              // update internal colors
+                                                              var s = 0 ;
+                                                              var c = '' ;
+                                                              var neltos = sim.ep.internal_states.ledm_colors.length ;
+                                                              for (var p=0; p<neltos; p++)
+                                                              {
+                                                                   s = simcore_native_get_value("MEMORY", dr+p*4) ;
+                                                                   s = (s & 0xFFFFFF00) >>> 8 ;
+								   s = s.toString(16)
+                                                                   c = '#' + simcoreui_pack(s, 6);
+                                                                   sim.ep.internal_states.ledm_colors[p] = c ;
+                                                              }
+							  }
 						      }
                                                    },
-                                           verbal: function (s_expr) 
+                                           verbal: function (s_expr)
                                                    {
                                                       var verbal = "" ;
                                                       var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
@@ -263,6 +286,9 @@
                                                                  verbal = "I/O device write at LEDMCR with value " + bus_db + " (set pixel x:" + x + ", y:" + y + ", with color:" + s + "). " ;
 
 						             }
+							     if (0x40 & bus_db) {
+                                                                 verbal = "I/O device write at LEDMCR with value " + bus_db + " (set color palette at:" + bus_db + "). " ;
+						             }
 						             break;
 						        default:
 						             break;
@@ -273,14 +299,15 @@
                                       };
 
         sim.ep.behaviors.LEDM_RESET = { nparameters: 1,
-                                       operation: function (s_expr) 
+                                       operation: function (s_expr)
                                                   {
 						        // reset events.ledm
                                                         sim.ep.events.ledm = {} ;
 
 						        // reset the I/O factory
-						        for (var i=0; i<sim.ep.internal_states.ledm_state.length; i++)
-						        {
+                                                        sim.ep.internal_states.ledm_colors = sim.ep.internal_states.color14.map((x) => x) ;
+						        for (var i=0; i<sim.ep.internal_states.ledm_state.length; i++) {
+						             set_var(sim.ep.internal_states.ledm_state[i].color, 1);
 						             set_var(sim.ep.internal_states.ledm_state[i].color, 0);
 						        }
 
@@ -292,7 +319,7 @@
 							    // 201 (Created) -> ok
 							    // 400 (Bad request) -> ko
                                                   },
-                                          verbal: function (s_expr) 
+                                          verbal: function (s_expr)
                                                   {
                                                      return "Reset the I/O device. " ;
                                                   }
@@ -315,7 +342,7 @@
 							}
 
 						        // REST
-						        if (sim.ep.internal_states.ledm_frame != o) 
+						        if (sim.ep.internal_states.ledm_frame != o)
    						        {
                                                             sim.ep.internal_states.ledm_frame = o ;
 
