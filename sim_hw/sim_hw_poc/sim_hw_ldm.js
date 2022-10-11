@@ -76,8 +76,12 @@
 
         sim.poc.internal_states.ledm_dim    = 24 ;
         sim.poc.internal_states.ledm_neltos = Math.pow(sim.poc.internal_states.ledm_dim, 2) ;
-        sim.poc.internal_states.ledm_state  = Array.from({length:sim.poc.internal_states.ledm_neltos}, 
-							() => ({color:0})) ;
+        sim.poc.internal_states.ledm_state  = Array.from({length:sim.poc.internal_states.ledm_neltos},
+							 () => ({color:0})) ;
+        sim.poc.internal_states.color14     = [ "#000000", "#FFFFFF", "#FF0000", "#FF8800", "#FFFF00",
+                                                "#88FF00", "#00FF00", "#00FF88", "#00FFFF", "#0088FF",
+                                                "#0000FF", "#8800FF", "#FF00FF", "#FF0088" ] ;
+        sim.poc.internal_states.ledm_colors = sim.poc.internal_states.color14.map((x) => x) ;
         sim.poc.internal_states.ledm_frame  = '0'.repeat(sim.poc.internal_states.ledm_neltos) ;
 
         var LEDMSR_ID   = 0x3100 ;
@@ -238,6 +242,25 @@
                                                                    set_var(sim.poc.internal_states.ledm_state[p+3].color, (s & 0xFF000000) >> 24);
                                                               }
 							  }
+
+							  // 0x40 -> DMA colors
+							  if (0x40 & bus_db)
+							  {
+                                                              set_value(sim.poc.states[s_expr[3]], 1) ;
+
+                                                              // update internal colors
+                                                              var s = 0 ;
+                                                              var c = '' ;
+                                                              var neltos = sim.poc.internal_states.ledm_colors.length ;
+                                                              for (var p=0; p<neltos; p++)
+                                                              {
+                                                                   s = simcore_native_get_value("MEMORY", dr+p*4) ;
+                                                                   s = (s & 0xFFFFFF00) >>> 8 ;
+								   s = s.toString(16)
+                                                                   c = '#' + simcoreui_pack(s, 6);
+                                                                   sim.poc.internal_states.ledm_colors[p] = c ;
+                                                              }
+							  }
 						      }
                                                    },
                                            verbal: function (s_expr)
@@ -264,6 +287,9 @@
                                                                  verbal = "I/O device write at LEDMCR with value " + bus_db + " (set pixel x:" + x + ", y:" + y + ", with color:" + s + "). " ;
 
 						             }
+							     if (0x40 & bus_db) {
+                                                                 verbal = "I/O device write at LEDMCR with value " + bus_db + " (set color palette at:" + bus_db + "). " ;
+						             }
 						             break;
 						        default:
 						             break;
@@ -280,8 +306,9 @@
                                                         sim.poc.events.ledm = {} ;
 
 						        // reset the I/O factory
-						        for (var i=0; i<sim.poc.internal_states.ledm_state.length; i++)
-						        {
+                                                        sim.poc.internal_states.ledm_colors = sim.poc.internal_states.color14.map((x) => x) ;
+						        for (var i=0; i<sim.poc.internal_states.ledm_state.length; i++) {
+						             set_var(sim.poc.internal_states.ledm_state[i].color, 1);
 						             set_var(sim.poc.internal_states.ledm_state[i].color, 0);
 						        }
 
@@ -315,7 +342,7 @@
 							}
 
 						        // REST
-						        if (sim.poc.internal_states.ledm_frame != o) 
+						        if (sim.poc.internal_states.ledm_frame != o)
    						        {
                                                             sim.poc.internal_states.ledm_frame = o ;
 
