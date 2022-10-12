@@ -78,7 +78,7 @@
         sim.ep.internal_states.ledm_neltos = Math.pow(sim.ep.internal_states.ledm_dim, 2) ;
         sim.ep.internal_states.ledm_state  = Array.from({length:sim.ep.internal_states.ledm_neltos},
 						        () => ({color:0})) ;
-        sim.ep.internal_states.ledm_colors = colors_clone('')
+        sim.ep.internal_states.ledm_colors = colors_clone('') ;
         sim.ep.internal_states.ledm_frame  = '0'.repeat(sim.ep.internal_states.ledm_neltos) ;
 
         var LEDMSR_ID   = 0x3100 ;
