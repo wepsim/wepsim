@@ -78,10 +78,7 @@
         sim.poc.internal_states.ledm_neltos = Math.pow(sim.poc.internal_states.ledm_dim, 2) ;
         sim.poc.internal_states.ledm_state  = Array.from({length:sim.poc.internal_states.ledm_neltos},
 							 () => ({color:0})) ;
-        sim.poc.internal_states.color14     = [ "#000000", "#FFFFFF", "#FF0000", "#FF8800", "#FFFF00",
-                                                "#88FF00", "#00FF00", "#00FF88", "#00FFFF", "#0088FF",
-                                                "#0000FF", "#8800FF", "#FF00FF", "#FF0088" ] ;
-        sim.poc.internal_states.ledm_colors = sim.poc.internal_states.color14.map((x) => x) ;
+        sim.poc.internal_states.ledm_colors = colors_clone('')
         sim.poc.internal_states.ledm_frame  = '0'.repeat(sim.poc.internal_states.ledm_neltos) ;
 
         var LEDMSR_ID   = 0x3100 ;
@@ -256,8 +253,8 @@
                                                               {
                                                                    s = simcore_native_get_value("MEMORY", dr+p*4) ;
                                                                    s = (s & 0xFFFFFF00) >>> 8 ;
-								   s = s.toString(16)
-                                                                   c = '#' + simcoreui_pack(s, 6);
+								   s = s.toString(16) ;
+                                                                   c = '#' + simcoreui_pack(s, 6) ;
                                                                    sim.poc.internal_states.ledm_colors[p] = c ;
                                                               }
 							  }
@@ -306,7 +303,7 @@
                                                         sim.poc.events.ledm = {} ;
 
 						        // reset the I/O factory
-                                                        sim.poc.internal_states.ledm_colors = sim.poc.internal_states.color14.map((x) => x) ;
+                                                        sim.poc.internal_states.ledm_colors = colors_clone('') ;
 						        for (var i=0; i<sim.poc.internal_states.ledm_state.length; i++) {
 						             set_var(sim.poc.internal_states.ledm_state[i].color, 1);
 						             set_var(sim.poc.internal_states.ledm_state[i].color, 0);
