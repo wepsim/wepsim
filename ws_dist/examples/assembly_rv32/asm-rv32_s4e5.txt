@@ -8,8 +8,8 @@
             .word rt_dis3
             .word rt_sys
 
-   msgi0:   .asciiz "INT: 0\n"
-   msgi1:   .asciiz "FPE: */0\n"
+   msgi0:   .string "INT: 0\n"
+   msgi1:   .string "FPE: */0\n"
 
 .ktext
 sys_print:  li   zero 0
@@ -43,8 +43,8 @@ sys_print:  li   zero 0
 
 .data
    guessing: .byte 's', 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-   password: .asciiz "srt"
-   nopass:   .asciiz "x"
+   password: .string "srt"
+   nopass:   .string "x"
 
 .text
 strcmp2:   # save stack
@@ -55,15 +55,15 @@ strcmp2:   # save stack
            sw s3  4(sp)
            sw s4  0(sp)
        
-           # $s3 -> 1 (found) | 0 (not found)
-           # $s4 -> # iterations (simulated clk cycles)
+           # s3 -> 1 (found) | 0 (not found)
+           # s4 -> # iterations (simulated clk cycles)
            li s3 0
            li s4 0
 
-       l3: # $s0 <- a0[s4]
+       l3: # s0 <- a0[s4]
            add  s0 a0 s4
            lb   s0 0(s0)
-           # $s1 <- a1[s4]
+           # s1 <- a1[s4]
            add  s1 a1 s4
            lb   s1 0(s1)
            # (a0 == a1) ?
@@ -107,18 +107,18 @@ main:    # save stack
          la  t0 guessing
          li  t3 -1
          li  t4 1
-     l1: # for (offset=0; $t3 != 1; offset++) {
+     l1: # for (offset=0; t3 != 1; offset++) {
          beq t3 t4 e1
        
          li  t1 'a'   
          li  t2 'z'
-     l2: # for ($t1='a'; $t1<'z'; $t1++) {
+     l2: # for (t1='a'; t1<'z'; t1++) {
          beq t1 t2 e2
        
-         # guessing[offset] = $t1
+         # guessing[offset] = t1
          sb  t1 0(t0)
        
-         # $t3 = strcpy(guessing, pass)
+         # t3 = strcpy(guessing, pass)
          la   a0 guessing
          la   a1 password
          sub  t5 t0 a0
