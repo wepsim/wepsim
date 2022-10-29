@@ -239,6 +239,15 @@
 							return true;
 						     },
 					},
+					next: {
+					   label:     "<span data-langkey='Run'>Run</span>",
+					   className: 'btn btn-secondary col float-left shadow-none mr-auto',
+					   callback: function() {
+							wsweb_dlg_close(dlg_obj) ;
+							wsweb_execution_run();
+							return true;
+						     },
+					},
 					close: {
 					   label:     "<span data-langkey='Close'>Close</span>",
 					   className: 'btn-primary col float-right shadow-none'
