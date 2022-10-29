@@ -73,6 +73,7 @@
 		"Intermediate":					"Intermédiaire",
 		"Laboratory":					"Laboratoire",
 		"Operating Systems":				"Systèmes d'exploitation",
+		'Extra':					'Bonus',
 		"Special":					"Spécial",
 
 	        "Load example":					"Charger l'exemple",

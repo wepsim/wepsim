@@ -70,6 +70,7 @@
 		'Intermediate':			'中间',
 		'Laboratory':			'实验室',
 		'Operating Systems':		'操作系统',
+		'Extra':			'奖金',
 		'Special':			'特别',
 
 		'Load example':			'加載示例',

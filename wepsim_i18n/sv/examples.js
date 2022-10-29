@@ -70,6 +70,7 @@
 		'Intermediate':			'Mellanliggande',
 		'Laboratory':			'Laboratorium',
 		'Operating Systems':		'Operativsystem',
+		'Extra':			'Bonusar',
 		'Special':			'Särskild',
 
 		'Load example':			'Ladda exempel',

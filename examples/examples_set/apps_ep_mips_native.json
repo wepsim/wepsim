@@ -211,7 +211,7 @@
   {
     "id":		"S4E3",
     "title":		"Threads",
-    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type":		"<span data-langkey='Extra'>Extra</span>",
     "modes":		"newbie,intro,asm_mips",
     "hardware":		"ep",
     "microcode":	"ep_mips",
@@ -222,7 +222,7 @@
   {
     "id":		"S4E4",
     "title":		"Alloc.s",
-    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type":		"<span data-langkey='Extra'>Extra</span>",
     "modes":		"newbie,intro,asm_mips",
     "hardware":		"ep",
     "microcode":	"ep_mips",

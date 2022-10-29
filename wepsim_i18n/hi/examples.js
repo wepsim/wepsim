@@ -70,6 +70,7 @@
 		'Intermediate':		'मध्यम',
 		'Laboratory':		'प्रयोगशाला',
 		'Operating Systems':		'ऑपरेटिंग सिस्टम',
+		'Extra':			'बोनस',
 		'Special':		'विशेष',
 
 	        "Load example":					"लोड उदाहरण",

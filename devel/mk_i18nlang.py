@@ -161,6 +161,7 @@ i18n_eltos['examples'] = {
              "Intermediate":				"Intermediate",
              "Laboratory":				"Laboratory",
              "Operating Systems":			"Operating Systems",
+             "Extra":					"Extra",
              "Special":					"Special",
 
              "Load Assembly only": 			"Load Assembly only",

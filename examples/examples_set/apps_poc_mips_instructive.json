@@ -134,7 +134,7 @@
   {
     "id":		"S4E1",
     "title":		"Int. + syscall + except.",
-    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type":		"<span data-langkey='Extra'>Extra</span>",
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
@@ -145,7 +145,7 @@
   {
     "id":		"S4E2",
     "title":		"SC 1, 4-5, 8, 11-12",
-    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type":		"<span data-langkey='Extra'>Extra</span>",
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
@@ -156,7 +156,7 @@
   {
     "id":		"S4E3",
     "title":		"Threads",
-    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type":		"<span data-langkey='Extra'>Extra</span>",
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
@@ -167,7 +167,7 @@
   {
     "id":		"S4E4",
     "title":		"Alloc.s",
-    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type":		"<span data-langkey='Extra'>Extra</span>",
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
     "microcode":	"poc_mips_os",
