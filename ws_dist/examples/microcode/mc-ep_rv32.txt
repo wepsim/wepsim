@@ -68,33 +68,33 @@ ecall {
             help='system call',
             native,
             {
-                        simcore_native_set_value("CPU", "REG_RT1", 2) ;
+                  simcore_native_set_value("CPU", "REG_RT1", 2) ;
 
-                        // push PC
-                        var value  = simcore_native_get_value("CPU", "REG_PC") ;
-                        var reg_sp = simcore_native_get_value("BR", 2) ;
-                        reg_sp = reg_sp - 4 ;
-                        simcore_native_set_value("MEMORY", reg_sp, value) ;
-                        simcore_native_set_value("BR", 2, reg_sp) ;
+                  // push PC
+                  var value  = simcore_native_get_value("CPU", "REG_PC") ;
+                  var reg_sp = simcore_native_get_value("BR", 2) ;
+                  reg_sp = reg_sp - 4 ;
+                  simcore_native_set_value("MEMORY", reg_sp, value) ;
+                  simcore_native_set_value("BR", 2, reg_sp) ;
 
-                        // push SR
-                        value  = simcore_native_get_value("CPU", "REG_SR") ;
-                        reg_sp = simcore_native_get_value("BR", 2) ;
-                        reg_sp = reg_sp - 4 ;
-                        simcore_native_set_value("MEMORY", reg_sp, value) ;
-                        simcore_native_set_value("BR", 2, reg_sp) ;
+                  // push SR
+                  value  = simcore_native_get_value("CPU", "REG_SR") ;
+                  reg_sp = simcore_native_get_value("BR", 2) ;
+                  reg_sp = reg_sp - 4 ;
+                  simcore_native_set_value("MEMORY", reg_sp, value) ;
+                  simcore_native_set_value("BR", 2, reg_sp) ;
 
-                        // MAR <- RT1*4
-                        var addr = simcore_native_get_value("CPU", "REG_RT1") ;
-                        addr = 4 * addr ;
-                        simcore_native_set_value("CPU", "REG_MAR", addr) ;
+                  // MAR <- RT1*4
+                  var addr = simcore_native_get_value("CPU", "REG_RT1") ;
+                  addr = 4 * addr ;
+                  simcore_native_set_value("CPU", "REG_MAR", addr) ;
 
-                        // PC <- MBR <- MP[MAR]
-                        addr = simcore_native_get_value("MEMORY", addr) ;
-                        simcore_native_set_value("CPU", "REG_PC", addr) ;
+                  // PC <- MBR <- MP[MAR]
+                  addr = simcore_native_get_value("MEMORY", addr) ;
+                  simcore_native_set_value("CPU", "REG_PC", addr) ;
 
-                        // fetch
-                        simcore_native_go_maddr(0) ;
+                  // fetch
+                  simcore_native_go_maddr(0) ;
             }
 }
 
