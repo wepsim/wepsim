@@ -149,6 +149,7 @@
 							if (typeof user_input == "undefined") {
 							   user_input = $("input[name='ask_svalue']").val();
 							}
+							user_input = parseInt(user_input) ;
 
 							wepsim_update_signal_with_value(key, user_input) ;
 							wsweb_dialogbox_close_updatesignal() ;
