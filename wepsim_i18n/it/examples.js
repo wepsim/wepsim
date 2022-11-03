@@ -70,6 +70,7 @@
 		'Intermediate':			'Intermedio',
 		'Laboratory':			'Laboratorio',
 		'Operating Systems':		'Sistemi operativi',
+		'Extra':			'Bonus',
 		'Special':			'Speciale',
 
 		'Load example':			'Carica esempio',

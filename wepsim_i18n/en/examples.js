@@ -71,6 +71,7 @@
              "Intermediate":				"Intermediate",
              "Laboratory":				"Laboratory",
              "Operating Systems":			"Operating Systems",
+	     "Extra":					"Bonus",
              "Special":					"Special",
 
 	     "Load example":				"Load example",

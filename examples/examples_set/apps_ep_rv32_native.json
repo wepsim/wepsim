@@ -111,13 +111,13 @@
   },
   {
     "id":		"R2E6",
-    "title":		"Fibonacci.",
+    "title":		"Fibonacci",
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_rv32",
     "assembly":		"rv32_s2e6",
-    "description":	"<span data-langkey='example_03_05'>Fibonacci</span>",
+    "description":	"<span data-langkey='example_03_05'>Fibonacci.</span>",
     "testing":          true
   },
   {
@@ -211,7 +211,7 @@
   {
     "id":		"R4E3",
     "title":            "Threads",
-    "type":		"<span data-langkey='Operating Systems'>Operating Systems</span>",
+    "type":		"<span data-langkey='Extra'>Extra</span>",
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_rv32",
