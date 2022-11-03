@@ -514,8 +514,8 @@
 					  "NOT_ES A1 MUXC_MUXB; FIRE A1"],
                                depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3408'],
-			       draw_data: [['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384','svg_cu:path3100-8-7'],
-                                           ['svg_cu:path3108-8-7','svg_cu:path3108-1']],
+			       draw_data: [['svg_cu:path3100-8-7','svg_cu:path3108-1'],
+                                           ['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384','svg_cu:path3100-8-7']],
 			       draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6']] };
 	 sim.ep.signals["A0"] = { name: "A0", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["SBIT_SIGNAL A0A1 0 1; FIRE A0A1",

@@ -237,7 +237,7 @@
     "modes": "newbie,intro,ep",
     "hardware": "ep",
     "microcode": "ep_rv32_min",
-    "assembly": "mips_s6e1",
+    "assembly": "rv32_s6e1",
     "description": "<span data-langkey='example_06_01'>Test example.</span>",
     "testing": true
   },
@@ -413,7 +413,7 @@
     "modes": "newbie,intro,poc",
     "hardware": "poc",
     "microcode": "poc_rv32_min",
-    "assembly": "mips_s6e1",
+    "assembly": "rv32_s6e1",
     "description": "<span data-langkey='example_06_01'>Test example.</span>",
     "testing": true
   },

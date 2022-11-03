@@ -160,7 +160,7 @@
     "modes": 		"newbie,intro,poc",
     "hardware": 	"poc",
     "microcode": 	"poc_rv32_min",
-    "assembly": 	"mips_s6e1",
+    "assembly": 	"rv32_s6e1",
     "description": 	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_06_01'>Test example.</span>",
     "testing": 		true
   },
