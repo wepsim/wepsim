@@ -203,6 +203,34 @@
 
     function wepsim_show_stopbyevent ( msg1, msg2 )
     {
+	var buttons = {} ;
+	    buttons.states = {
+	       label:     "<span data-langkey='States'>States</span>",
+	       className: 'btn btn-secondary col float-left shadow-none mr-auto',
+	       callback:  function() {
+	    		     wsweb_dlg_close(dlg_obj) ;
+			     wsweb_dialog_open('state') ;
+			     return true;
+		          }
+	    };
+	var ret = simcore_check_if_can_continue() ;
+	if (ret.ok)
+        {
+	    buttons.continue = {
+	       label:     "<span data-langkey='Continue'>Continue</span>",
+	       className: 'btn btn-secondary col float-left shadow-none mr-auto',
+	       callback:  function() {
+			     wsweb_dlg_close(dlg_obj) ;
+			     wsweb_execution_run();
+			     return true;
+		          }
+	    };
+        }
+	    buttons.close = {
+	       label:     "<span data-langkey='Close'>Close</span>",
+	       className: 'btn-primary col float-right shadow-none'
+	    };
+
 	var dlg_obj = {
 			id:      'current_state2',
 			title:   function() {
@@ -229,21 +257,7 @@
 					   '</div>' +
 					   '</div>' ;
                                  },
-			buttons: {
-					states: {
-					   label:     "<span data-langkey='States'>States</span>",
-					   className: 'btn btn-secondary col float-left shadow-none mr-auto',
-					   callback: function() {
-							wsweb_dlg_close(dlg_obj) ;
-							wsweb_dialog_open('state') ;
-							return true;
-						     },
-					},
-					close: {
-					   label:     "<span data-langkey='Close'>Close</span>",
-					   className: 'btn-primary col float-right shadow-none'
-					}
-				 },
+			buttons: buttons,
 			size:    '',
 			onshow:  function() {}
 		      } ;

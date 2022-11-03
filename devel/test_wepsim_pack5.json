@@ -73,25 +73,25 @@
   },
   {
        "pack":             "MIPS32 default examples",
-       "description":	   "S4E1 - Operating Systems - Int. + syscall + except.",
+       "description":	   "S4E1 - Extra - Int. + syscall + except.",
        "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly_mips/asm-mips_s4e1.txt",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
-       "description":	   "S4E2 - Operating Systems - SC 1, 4-5, 8, 11-12",
+       "description":	   "S4E2 - Extra - SC 1, 4-5, 8, 11-12",
        "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly_mips/asm-mips_s4e2.txt",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
-       "description":	   "S4E3 - Operating Systems - Threads",
+       "description":	   "S4E3 - Extra - Threads",
        "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly_mips/asm-mips_s4e3.txt",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
-       "description":	   "S4E4 - Operating Systems - Alloc.s",
+       "description":	   "S4E4 - Extra - Alloc.s",
        "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips_os.txt -s ./examples/assembly_mips/asm-mips_s4e4.txt",
        "more":             "See WepSIM"
   },
@@ -205,25 +205,25 @@
   },
   {
        "pack":             "MIPS32 default examples",
-       "description":	   "S4E1 - Operating Systems - Int. + syscall + except.",
+       "description":	   "S4E1 - Extra - Int. + syscall + except.",
        "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly_mips/asm-mips_s4e1.txt",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
-       "description":	   "S4E2 - Operating Systems - syscall 1, 4-5, 8, 11-12",
+       "description":	   "S4E2 - Extra - syscall 1, 4-5, 8, 11-12",
        "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly_mips/asm-mips_s4e2.txt",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
-       "description":      "S4E3 - Operating Systems - Threads",
+       "description":      "S4E3 - Extra - Threads",
        "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly_mips/asm-mips_s4e3.txt",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
-       "description":	   "S4E4 - Operating Systems - Alloc.s",
+       "description":	   "S4E4 - Extra - Alloc.s",
        "test":             "echo ./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/mc-ep_mips.txt -s ./examples/assembly_mips/asm-mips_s4e4.txt",
        "more":             "See WepSIM"
   },

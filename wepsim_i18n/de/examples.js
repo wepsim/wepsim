@@ -70,6 +70,7 @@
 		'Intermediate':			'Mittlere',
 		'Laboratory':			'Labor',
 		'Operating Systems':		'Betriebssysteme',
+		'Extra':			'Boni',
 		'Special':			'Besondere',
 		'Load example':			'Beispiel laden',
 		'Load Assembly only':		'Nur Baugruppe laden',
