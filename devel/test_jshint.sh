@@ -23,7 +23,7 @@ set -x
 
 
 echo "checking sim_core..."
- jshint ./sim_core/sim_core_ui.js
+#jshint ./sim_core/sim_core_ui.js
  jshint ./sim_core/sim_core_voice.js
  jshint ./sim_core/sim_api_stateshots.js
  jshint ./sim_core/sim_api_native.js
@@ -134,7 +134,7 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uiscreen_classic.js
  jshint ./wepsim_web/wepsim_uiscreen_compact.js
  jshint ./wepsim_web/wepsim_uiscreen_main.js
- jshint ./wepsim_web/wepsim_web_api.js
+#jshint ./wepsim_web/wepsim_web_api.js
  jshint ./wepsim_web/wepsim_web_editor.js
 #jshint ./wepsim_web/wepsim_web_pwa.js
  jshint ./wepsim_web/wepsim_web_simulator.js

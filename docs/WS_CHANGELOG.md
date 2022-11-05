@@ -2,6 +2,8 @@
 # Changelog
 
 ## 2.2.0 -> 2.2.1:
+* Main improvements:
+  * Examples improved
 * Main external dependencies updated:
   * Bump bootstrap   from 5.2.0  to 5.2.2
 
