@@ -254,8 +254,8 @@
   },
   {
     "id":		"S7E1",
-    "title":		"MIPS32-like",
-    "type":		"<span data-langkey='Native'>Native</span>",
+    "title":		"Vector",
+    "type":		"<span data-langkey='Special'>Special</span>",
     "modes":		"newbie,intro,asm_mips",
     "hardware":		"ep",
     "microcode":	"ep_bare",

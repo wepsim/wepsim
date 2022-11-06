@@ -120,6 +120,30 @@ reti {
 
 
 #
+# Power consumption
+#
+
+# LDE rd        Load Energy     rd ← ux(energy_acc)
+lde reg1  {
+     co=111111,
+     nwords=1,
+     reg1=reg(25,21),
+     help='reg1 = load accumulated power consumption',
+     native,
+     {
+         // fields is a default parameter with the instruction field information
+         var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+
+         // get accumulated time (CLK) as power consumption (ACC_PWR)
+         var result = simcore_native_get_value("CPU", "CLK") * 10 ;
+         simcore_native_set_value("BR", reg1, result) ;
+
+         simcore_native_go_maddr(0) ;
+     }
+}
+
+
+#
 # ALU (logic)
 #
 
