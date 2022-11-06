@@ -90,15 +90,21 @@
 
         if (sid.length > 0)
              eltos.sample_hw = sid[0] ;
-        else console.log("warning: example without hardware id (ep*:mips/mc-base:mips/asm-set1)") ;
+        else console.log("warning: example without hardware id\n" +
+                         " * example  id: " + example_id + "\n" +
+                         " * expected id: *ep*:microcode_X:assembly_Y\n") ;
 
         if (sid.length > 1)
              eltos.sample_mc = sid[1] + ".mc" ;
-        else console.log("warning: example without microcode id (ep:mips/mc-base*:mips/asm-set1)") ;
+        else console.log("warning: example without microcode id\n" +
+                         " * example  id: " + example_id + "\n" +
+                         " * expected id: ep:*microcode_X*:assembly_Y\n") ;
 
-        if (sid.length > 3)
-             eltos.sample_asm = sid[3] + ".asm" ;
-        else console.log("warning: example without assembly id (ep:mips/mc-base:mips/asm-set1*)") ;
+        if (sid.length > 2)
+             eltos.sample_asm = sid[2] + ".asm" ;
+        else console.log("warning: example without assembly id\n" +
+                         " * example  id: " + example_id + "\n" +
+                         " * expected id: ep:microcode_X:*assembly_Y*\n") ;
 
         return eltos ;
     }
