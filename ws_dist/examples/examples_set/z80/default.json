@@ -1,9 +1,9 @@
 [
   {
     "id": "S7E3",
-    "title": "Instructions",
-    "type": "<span data-langkey='Initial'>Initial</span>",
-    "modes": "newbie,intro,asm_z80",
+    "title": "Z80-like",
+    "type": "<span data-langkey='Native'>Native</span>",
+    "modes": "newbie,intro,ep,asm_z80",
     "hardware": "ep",
     "microcode": "ep_bare",
     "assembly": "s7e3",

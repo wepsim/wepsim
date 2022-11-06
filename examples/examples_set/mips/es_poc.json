@@ -218,16 +218,5 @@
     "assembly":		"s6e5",
     "description":	"<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
     "testing":          true
-  },
-  {
-    "id":		"S7E1",
-    "title":		"MIPS32-like",
-    "type":		"<span data-langkey='Native'>Native</span>",
-    "modes":		"newbie,intro,poc",
-    "hardware":		"poc",
-    "microcode":	"poc_os",
-    "assembly":		"s7e1",
-    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
-    "testing":          true
   }
 ]

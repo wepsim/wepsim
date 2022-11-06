@@ -196,16 +196,5 @@
     "assembly":		"s5e2",
     "description":	"<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
     "testing":          true
-  },
-  {
-    "id":		"S7E2",
-    "title":		"RISCV32",
-    "type":		"<span data-langkey='Native'>Native</span>",
-    "modes":		"newbie,intro,poc",
-    "hardware":		"poc",
-    "microcode":	"poc_base",
-    "assembly":		"s7e2",
-    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
-    "testing":          true
   }
 ]
