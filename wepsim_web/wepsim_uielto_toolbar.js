@@ -466,6 +466,8 @@
 	    for (var i=0; i<ws_info.example_set.length; i++)
 	    {
 		item = ws_info.example_set[i] ;
+                if (item.visible == false) continue ;
+
 	        o += '<a class="dropdown-item py-2 " ' +
 	     	     '   href="#" id="exs_' + item.name + '" value="' + i + '" ' +
 		     '   onclick="wepsim_example_reset();' +

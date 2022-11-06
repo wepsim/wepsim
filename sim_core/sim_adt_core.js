@@ -89,10 +89,12 @@
 			    a_id:    "fgarcia",
 			    a_name:  "F&eacute;lix Garc&iacute;a Carballeira",
 			    socials: {
-					lkin:    { name:"linkedin", faclass:"fab fa-linkedin", href:"" },
-					rgate:   { name:"r-gate", faclass:"fab fa-researchgate",
-						   href:"https://www.researchgate.net/profile/Felix_Garcia-Carballeira" },
-					github:  { name:"github", faclass:"fab fa-github", href:"" }
+					lkin:   { name:"linkedin", faclass:"fab fa-linkedin",
+                                                  href:"https://es.linkedin.com/in/f%C3%A9lix-garc%C3%ADa-carballeira-4ab48a14" },
+					rgate:  { name:"r-gate", faclass:"fab fa-researchgate",
+						  href:"https://www.researchgate.net/profile/Felix_Garcia-Carballeira" },
+					github: { name:"github", faclass:"fab fa-github",
+                                                  href:"" }
 				     }
 			  },
 			  {
@@ -102,12 +104,12 @@
 			    a_id:    "acaldero",
 			    a_name:  "Alejandro Calder&oacute;n Mateos",
 			    socials: {
-					lkin:    { name: "linkedin", faclass: "fab fa-linkedin",
-						   href:"https://www.linkedin.com/in/alejandro-calderon-mateos/" },
-					rgate:   { name: "r-gate", faclass: "fab fa-researchgate",
-						   href:"https://www.researchgate.net/profile/Alejandro_Calderon2" },
-					github:  { name: "github", faclass: "fab fa-github",
-						   href:"https://github.com/acaldero/" }
+					lkin:   { name: "linkedin", faclass: "fab fa-linkedin",
+						  href: "https://www.linkedin.com/in/alejandro-calderon-mateos/" },
+					rgate:  { name: "r-gate", faclass: "fab fa-researchgate",
+						  href: "https://www.researchgate.net/profile/Alejandro_Calderon2" },
+					github: { name: "github", faclass: "fab fa-github",
+						  href: "https://github.com/acaldero/" }
 				     }
 			  },
 			  {
@@ -117,10 +119,12 @@
 			    a_id:    "jprieto",
 			    a_name:  "Javier Prieto Cepeda",
 			    socials: {
-					lkin:    { name: "linkedin", faclass: "fab fa-linkedin",
-						   href:"https://www.linkedin.com/in/javier-prieto-cepeda" },
-					rgate:   { name: "r-gate", faclass: "fab fa-researchgate", href:"" },
-					github:  { name: "github", faclass: "fab fa-github", href:"" }
+					lkin:   { name: "linkedin", faclass: "fab fa-linkedin",
+						  href: "https://www.linkedin.com/in/javier-prieto-cepeda" },
+					rgate:  { name: "r-gate", faclass: "fab fa-researchgate",
+                                                  href: "https://www.researchgate.net/profile/Javier-Prieto-Cepeda" },
+					github: { name: "github", faclass: "fab fa-github",
+                                                  href: "https://github.com/jprieto92/" }
 				     }
 			  },
 			  {

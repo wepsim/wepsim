@@ -220,7 +220,9 @@
             }
 
             if (o.trim() === '') {
-     	        o = '&lt;<span data-langkey="No examples available...">No examples are available for the selected hardware</span>&gt;' ;
+     	        o = '<br>' +
+                    '&lt;<span data-langkey="No examples available...">No examples are available for the selected hardware</span>&gt;<br>' +
+                    '&lt;<span data-langkey="Please list example sets...">Please list the available example sets</span>&gt;<br>' ;
             }
 
             o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
@@ -236,6 +238,8 @@
             for (var i=0; i<example_sets.length; i++)
             {
                 item = example_sets[i] ;
+                if (item.visible == false) continue ;
+
                 o += '<li class="list-group-item d-flex justify-content-between align-items-start" ' +
                      '    id="exs_' + item.name + '" value="' + i + '" ' +
                      '    onclick="wepsim_example_reset();' +
