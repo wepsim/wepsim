@@ -46,10 +46,10 @@
 	      <p>
 	        begin <br>
 	        { <br>
-	                fetch:    (T2, C0=1), <br>
-	                             (Ta, Td, R, BW=11, C1), <br>
-	                             (M2, C2, T1, C3), <br>
-	                             (A0, B=0, C=0000) <br>
+	          &nbsp;&nbsp;     fetch:    (T2, C0=1), <br>
+	          &nbsp;&nbsp; &nbsp;&nbsp;  (Ta, Td, R, BW=11, C1), <br>
+	          &nbsp;&nbsp; &nbsp;&nbsp;  (M2, C2, T1, C3), <br>
+	          &nbsp;&nbsp; &nbsp;&nbsp;  (A0, B=0, C=0000) <br>
 	        }
 	      </p>
 	      </ul>
@@ -66,15 +66,15 @@
 	      <p>
 	        inst1 field1 field2 field3<br>
 	        {<br>
-	                    co=000000,<br>
-	                    nwords=1,<br>
-	                    field1=reg(25,21),<br>
-	                    field2=reg(20,16),<br>
-	                    field3=reg(15,11),<br>
-	                    {<br>
-	                           (Cop=1001, SelP=11, C7, T6, LC, SelA=10100, SelB=01111, SelC=10111,<br>
-	                             A0=1, B=1, C=0)<br>
-	                    }<br>
+	          &nbsp;&nbsp;   co=000000,<br>
+	          &nbsp;&nbsp;   nwords=1,<br>
+	          &nbsp;&nbsp;   field1=reg(25,21),<br>
+	          &nbsp;&nbsp;   field2=reg(20,16),<br>
+	          &nbsp;&nbsp;   field3=reg(15,11),<br>
+	          &nbsp;&nbsp;   {<br>
+	          &nbsp;&nbsp; &nbsp;&nbsp;   (Cop=1001, SelP=11, C7, T6, LC, SelA=10100, SelB=01111, SelC=10111,<br>
+	          &nbsp;&nbsp; &nbsp;&nbsp;   A0=1, B=1, C=0)<br>
+	          &nbsp;&nbsp;   }<br>
 	        }<br>
 	      </p>
 	      </ul>
@@ -97,16 +97,16 @@
 	      <p>
 	        inst1 field1 field2 field3<br>
 	        {<br>
-	                    co=000000,<br>
-	                    <b>cop=0000,</b><br>
-	                    nwords=1,<br>
-	                    field1=reg(25,21),<br>
-	                    field2=reg(20,16),<br>
-	                    field3=reg(15,11),<br>
-	                    {<br>
-	                           (Cop=1001, SelP=11, C7, T6, LC, SelA=10100, SelB=01111, SelC=10111,<br>
-	                             A0=1, B=1, C=0)
-	                    }<br>
+	           &nbsp;&nbsp;   co=000000,<br>
+	           &nbsp;&nbsp;   <b>cop=0000,</b><br>
+	           &nbsp;&nbsp;   nwords=1,<br>
+	           &nbsp;&nbsp;   field1=reg(25,21),<br>
+	           &nbsp;&nbsp;   field2=reg(20,16),<br>
+	           &nbsp;&nbsp;   field3=reg(15,11),<br>
+	           &nbsp;&nbsp;   {<br>
+	           &nbsp;&nbsp; &nbsp;&nbsp;  (Cop=1001, SelP=11, C7, T6, LC, SelA=10100, SelB=01111, SelC=10111,<br>
+	           &nbsp;&nbsp; &nbsp;&nbsp;  A0=1, B=1, C=0) <br>
+	           &nbsp;&nbsp;   }<br>
 	        }<br>
 	      </p>
 	      </ul>
@@ -115,25 +115,33 @@
 	      </p>
 	      <p>
 	        <br />
-		The following fields indicate for each of the parameters what type (registration, immediately or address) as well as the start and end bits (from 0 up to 31) where the value of that parameter is.
+		The following information indicates for each of the fields what type (registration, immediately or address) as well as the start and end bits (from 0 up to 31) where the value of that fields is.
 	      </p>
 	      <p>
-		The parameter type is indicated by:
+		The field type is indicated by:
 	      </p>
-<ul>
-	      <li>
-	        parameter1 = reg(last-bit, first-bit), <br> for a register.
-	      </li>
-	      <li>
-	        parameter1 = inm(last-bit, first-bit), <br> for an immediate value.
-	      </li>
-	      <li>
-	        parameter1 = address(last-bit, first-bit)rel, <br> for a relative (to PC register) address.
-	      </li>
-	      <li>
-	        parameter1 = address(last-bit, first-bit)abs, <br> for an absolute address.
-	      </li>
-</ul>
+
+		<ul>
+		<table border=1 cellpadding="5" cellspacing="5">
+			<tr>
+			<td> fields1 = <strong>reg</strong>(last-bit, first-bit) </td>
+			<td> For a register.</td>
+			</tr>
+			<tr>
+			<td> fields1 = <strong>inm</strong>(last-bit, first-bit)</td>
+			<td> For an immediate value.</td>
+			</tr>
+			<tr>
+			<td> fields1 = <strong>address</strong>(last-bit, first-bit)<strong>rel</strong></td>
+			<td> For a relative (to PC register) address.</td>
+			</tr>
+			<tr>
+			<td> fields1 = <strong>address</strong>(last-bit, first-bit)<strong>abs</strong></td>
+			<td> For an absolute address.</td>
+			</tr>
+		</table>
+		</ul>
+
 	      <p>
 		Then, a new block is open where the microprogram for the instruction is described. The signals of each cycle are in parentheses and such cycles are separated by commas. If there is only one cycle then it is not necessary the comma. Within the parentheses the signs and the corresponding value is indicated. A only-bit signal can be expressed just by the name of the signal (it means that its value is one). The value of the signal should indicate in binary, using as many bits as the signal has. Signals and their corresponding value are separated using a comma.
 	      </p>
@@ -147,25 +155,25 @@
 	      </p>
 	      <p>
 	        { <br>
-	                  0=($zero, $0), <br>
-	                  1=($at, $1), <br>
-	                  2=($v0, $2), <br>
-	                  3=($v1, $3), <br>
-	                  4=($a0, $4), <br>
-	                  5=($a1, $5), <br>
-	                  6=($a2, $6), <br>
-	                  7=($a3, $7), <br>
-	                  .  <br>
-	                  .  <br>
-	                  .  <br>
-	                  24=($t8, $24), <br>
-	                  25=($t9, $25), <br>
-	                  26=($k0, $26), <br>
-	                  27=($k1, $27), <br>
-	                  28=($gp, $28), <br>
-	                  29=($sp, $29) (stack_pointer), <br>
-	                  30=($fp, $30), <br>
-	                  31=($ra, $31)  <br>
+	          &nbsp;&nbsp;        0=($zero, $0), <br>
+	          &nbsp;&nbsp;        1=($at, $1), <br>
+	          &nbsp;&nbsp;        2=($v0, $2), <br>
+	          &nbsp;&nbsp;        3=($v1, $3), <br>
+	          &nbsp;&nbsp;        4=($a0, $4), <br>
+	          &nbsp;&nbsp;        5=($a1, $5), <br>
+	          &nbsp;&nbsp;        6=($a2, $6), <br>
+	          &nbsp;&nbsp;        7=($a3, $7), <br>
+	          &nbsp;&nbsp;        .  <br>
+	          &nbsp;&nbsp;        .  <br>
+	          &nbsp;&nbsp;        .  <br>
+	          &nbsp;&nbsp;        24=($t8, $24), <br>
+	          &nbsp;&nbsp;        25=($t9, $25), <br>
+	          &nbsp;&nbsp;        26=($k0, $26), <br>
+	          &nbsp;&nbsp;        27=($k1, $27), <br>
+	          &nbsp;&nbsp;        28=($gp, $28), <br>
+	          &nbsp;&nbsp;        29=($sp, $29) (stack_pointer), <br>
+	          &nbsp;&nbsp;        30=($fp, $30), <br>
+	          &nbsp;&nbsp;        31=($ra, $31)  <br>
 	        }
 	      </p>
 	      </ul>
