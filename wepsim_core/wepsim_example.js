@@ -77,6 +77,32 @@
      * Example UI management
      */
 
+    function example_id2hash ( example_id )
+    {
+        var eltos = {
+               sample_hw:  "",
+               sample_mc:  "",
+               sample_asm: ""
+            } ;
+
+	// example_id -> url
+        var sid = example_id.split(":") ;
+
+        if (sid.length > 0)
+             eltos.sample_hw = sid[0] ;
+        else console.log("warning: example without hardware id (ep*:mips/mc-base:mips/asm-set1)") ;
+
+        if (sid.length > 1)
+             eltos.sample_mc = sid[1] + ".mc" ;
+        else console.log("warning: example without microcode id (ep:mips/mc-base*:mips/asm-set1)") ;
+
+        if (sid.length > 3)
+             eltos.sample_asm = sid[3] + ".asm" ;
+        else console.log("warning: example without assembly id (ep:mips/mc-base:mips/asm-set1*)") ;
+
+        return eltos ;
+    }
+
     function load_from_example_assembly ( example_id, chain_next_step )
     {
         if (-1 == ws_info.example_active) {
@@ -88,24 +114,8 @@
 	inputasm.refresh();
 
 	// example_id -> url
-        var sid = example_id.split(":") ;
-
-        var sample_hw  = "" ;
-        if (sid.length > 0)
-             sample_hw = sid[0] ;
-        else console.log("warning: example without hardware id") ;
-
-        var sample_mc  = "" ;
-        if (sid.length > 1)
-             sample_mc = sid[1] ;
-        else console.log("warning: example without microcode id") ;
-
-        var sample_asm = "" ;
-        if (sid.length > 2)
-             sample_asm = sid[2] ;
-        else console.log("warning: example without assembly id") ;
-
-        var url = ws_info.example_set[ws_info.example_active].url_base_asm + "asm-" + sample_asm + ".txt" ;
+        var eltos = example_id2hash(example_id) ;
+        var url   = ws_info.example_set[ws_info.example_active].url_base_asm + "/" + eltos.sample_asm ;
 
 	// do next
         var do_next = function( mcode ) {
@@ -147,7 +157,7 @@
                                   'load_from_example_assembly("' + example_id + '", ' + chain_next_step + ');\n') ;
 
 	// stats about examples
-        simcore_ga('example', 'example.assembly', 'example.assembly.' + sample_hw + "." + sample_asm) ;
+        simcore_ga('example', 'example.assembly', 'example.assembly.' + eltos.sample_hw + "." + eltos.sample_asm) ;
     }
 
     function load_from_example_firmware ( example_id, chain_next_step )
@@ -159,27 +169,11 @@
 
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
+	inputfirm.setOption('readOnly', false);
 
 	// example_id -> url
-        var sid = example_id.split(":") ;
-
-        var sample_hw  = "" ;
-        if (sid.length > 0)
-             sample_hw = sid[0] ;
-        else console.log("warning: example without hardware id") ;
-
-        var sample_mc  = "" ;
-        if (sid.length > 1)
-             sample_mc = sid[1] ;
-        else console.log("warning: example without microcode id") ;
-
-        var sample_asm = "" ;
-        if (sid.length > 2)
-             sample_asm = sid[2] ;
-        else console.log("warning: example without assembly id") ;
-
-        var url = ws_info.example_set[ws_info.example_active].url_base_mc + "mc-" + sample_mc + ".txt" ;
-	inputfirm.setOption('readOnly', false);
+        var eltos = example_id2hash(example_id) ;
+        var url   = ws_info.example_set[ws_info.example_active].url_base_mc + "/" + eltos.sample_mc ;
 
 	// do next
         var do_next = function( mcode ) {
@@ -219,7 +213,7 @@
                                   'load_from_example_firmware("' + example_id + '", false);\n') ;
 
 	// stats about examples
-        simcore_ga('example', 'example.firmware', 'example.firmware.' + sample_hw + "." + sample_mc) ;
+        simcore_ga('example', 'example.firmware', 'example.firmware.' + eltos.sample_hw + "." + eltos.sample_mc) ;
     }
 
     function share_example ( m, base_url )

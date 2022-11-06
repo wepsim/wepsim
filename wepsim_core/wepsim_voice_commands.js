@@ -45,12 +45,9 @@
 	 wsweb_dialog_open('examples') ;
     } ;
 
-    ws_info.voice_commands['load example :id (from) :level'] = function ( id, level )
+    ws_info.voice_commands['load example :mc_name (from) :asm_name'] = function ( mc_name, asm_name )
     {
-         var ex_id = parseInt(id) ;
-         var ex_lv = parseInt(level) ;
-
-         load_from_example_firmware("ep:s" + ex_lv + "_e" + ex_lv, true) ;
+         load_from_example_firmware("ep:" + mc_name + ":" + asm_name, true) ;
     } ;
 
     ws_info.voice_commands['(show) help'] = function()

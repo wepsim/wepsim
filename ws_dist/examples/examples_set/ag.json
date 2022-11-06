@@ -1,8 +1,0 @@
-[ {
-      "name":         "AG - UC3M - EC",
-      "url":          "examples/examples_set/ag_ep_rv32_packed.json",
-      "description":  "RISC-V32 instruction set",
-      "size":         "10+",
-      "url_base_asm": "examples/assembly_ag/",
-      "url_base_mc":  "examples/microcode/"
-} ]
