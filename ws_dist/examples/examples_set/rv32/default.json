@@ -445,7 +445,7 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s1e1",
     "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
     "testing": true
@@ -456,7 +456,7 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s1e2",
     "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
     "testing": true
@@ -467,7 +467,7 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s1e3",
     "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
     "testing": true
@@ -478,7 +478,7 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s1e5",
     "description": "<span data-langkey='example_01_05'>If-Then and If-Then-Else.</span>",
     "testing": true
@@ -489,7 +489,7 @@
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s1e4",
     "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
     "testing": true
@@ -500,7 +500,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s2e3",
     "description": "<span data-langkey='example_02_03'>More extended example with masks, shift, and basic .text/.data segment.</span>",
     "testing": true
@@ -511,7 +511,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s2e4",
     "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
     "testing": true
@@ -522,7 +522,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s5e3",
     "description": "<span data-langkey='example_06_04'>Array of strings.</span>",
     "testing": true
@@ -533,7 +533,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s2e5",
     "description": "<span data-langkey='example_03_04'>Example with simple stack convention.</span>",
     "testing": true
@@ -544,7 +544,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s2e2",
     "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
     "testing": true
@@ -555,7 +555,7 @@
     "type": "<span data-langkey='Intermediate'>Intermediate</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s2e6",
     "description": "<span data-langkey='example_03_05'>Fibonacci.</span>",
     "testing": true
@@ -566,7 +566,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s3e1",
     "description": "<span data-langkey='example_03_02'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
     "testing": true
@@ -577,7 +577,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s3e2",
     "description": "<span data-langkey='example_03_03'>Example with system call support.</span>",
     "testing": true
@@ -588,7 +588,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s3e3",
     "description": "<span data-langkey='example_03_01'>Example with floating point exception.</span>",
     "testing": true
@@ -599,7 +599,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s4e1",
     "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
     "testing": true
@@ -610,7 +610,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s2e1",
     "description": "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
     "testing": false
@@ -621,7 +621,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s4e2",
     "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
     "testing": true
@@ -632,7 +632,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s5e1",
     "description": "<span data-langkey='example_06_03'>Example for 3D-Led.</span>",
     "testing": true
@@ -643,7 +643,7 @@
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s5e2",
     "description": "<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
     "testing": true
@@ -654,7 +654,7 @@
     "type": "<span data-langkey='Extra'>Extra</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s4e3",
     "description": "<span data-langkey='example_04_03'>Example of threads.</span>",
     "testing": true
@@ -665,7 +665,7 @@
     "type": "<span data-langkey='Extra'>Extra</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s4e5",
     "description": "<span data-langkey='example_04_05'>Example of side-channel attack.</span>",
     "testing": true
@@ -687,7 +687,7 @@
     "type": "<span data-langkey='Native'>Native</span>",
     "modes": "newbie,intro,asm_rv32",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_os",
     "assembly": "s7e2",
     "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
     "testing": true
