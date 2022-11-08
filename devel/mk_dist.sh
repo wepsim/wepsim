@@ -66,6 +66,7 @@ cat sim_core/sim_cfg.js \
     sim_core/sim_core_values.js \
     sim_core/sim_adt_ctrlmemory.js \
     sim_core/sim_adt_mainmemory.js \
+    sim_core/sim_adt_cachememory.js \
     \
     sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
