@@ -35,10 +35,7 @@
          *                           0: {
          *                                 tags: {
          *                                          0: {
-         *                                                0:{a:0, c:0},
-         *                                                1:{a:0, c:0},
-         *                                                2:{a:0, c:0},
-         *                                                3:{a:0, c:0}
+         *                                                n_access:0
          *                                             }
          *                                       }
          *                              }
@@ -85,9 +82,9 @@
                            offset: 0
                         } ;
 
-            parts.tag = address & memory_cfg.mask_tag >> (32 - memory_cfg.tag_size) ;
-            parts.set = address & memory_cfg.mask_set >> (memory_cfg.offset_size) ;
-            parts.off = address & memory_cfg.mask_off ;
+            parts.tag    = (address & memory_cfg.mask_tag) >> (32 - memory_cfg.tag_size) ;
+            parts.set    = (address & memory_cfg.mask_set) >> (memory_cfg.offset_size) ;
+            parts.offset = (address & memory_cfg.mask_off) ;
 
             return parts ;
         }
@@ -109,9 +106,7 @@
             // if tag is loaded in any entry of the set -> update stats and return hit (true)
             if (typeof memory.sets[parts.set].tags[parts.tag] != "undefined")
             {
-                var n = memory.sets[parts.set].tags[parts.tag][parts.offset].a ;
-                memory.sets[parts.set].tags[parts.tag][parts.offset].a = n + 1 ;
-
+                (memory.sets[parts.set].tags[parts.tag].n_access)++ ;
                 memory.stats.n_access++ ;
                 memory.stats.n_hits++ ;
 
@@ -133,12 +128,7 @@
             }
 
             // load tag in set, update stats and return miss (false)
-            memory.sets[parts.set].tags[parts.tag] = {
-                                                         0:{a:0, c:0},
-                                                         1:{a:0, c:0},
-                                                         2:{a:0, c:0},
-                                                         3:{a:0, c:0}
-                                                     } ;
+            memory.sets[parts.set].tags[parts.tag] = { n_access:1 } ;
             memory.sets[parts.set].number_tags++ ;
 
             memory.stats.n_access++ ;
