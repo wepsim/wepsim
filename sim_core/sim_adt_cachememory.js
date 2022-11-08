@@ -21,6 +21,11 @@
 
         /*
          *  cache_memory => {
+         *               "stats": {
+         *                           n_access: 0,
+         *                           n_hits:   0,
+         *                           n_misses: 0
+         *                        },
          *               "cfg":   {
          *                           tag_size: 1,
          *                           set_size: 1,
@@ -41,6 +46,23 @@
          *               ...
          *            }
          */
+
+        function cache_memory_init ( )
+        {
+            return {
+                       "stats": {
+                                   n_access: 0,
+                                   n_hits:   0,
+                                   n_misses: 0
+                                },
+                       "cfg":   {
+                                   tag_size: 1,
+                                   set_size: 1,
+                                   off_size: 1
+                                },
+                       "sets":  { }
+                   } ;
+        }
 
         function cache_memory_update_cfg ( memory_cfg, tag_size, set_size, off_size )
         {
@@ -63,8 +85,8 @@
                            offset: 0
                         } ;
 
-            parts.tag = address & memory_cfg.mask_tag >> (32 - tag_size) ;
-            parts.set = address & memory_cfg.mask_set >> (off_size) ;
+            parts.tag = address & memory_cfg.mask_tag >> (32 - memory_cfg.tag_size) ;
+            parts.set = address & memory_cfg.mask_set >> (memory_cfg.offset_size) ;
             parts.off = address & memory_cfg.mask_off ;
 
             return parts ;
@@ -84,11 +106,15 @@
                                          } ;
             }
 
-            // if tag is loaded in any entry of the set -> increase number access and return hit
+            // if tag is loaded in any entry of the set -> update stats and return hit (true)
             if (typeof memory.sets[parts.set].tags[parts.tag] != "undefined")
             {
                 var n = memory.sets[parts.set].tags[parts.tag][parts.offset].a ;
                 memory.sets[parts.set].tags[parts.tag][parts.offset].a = n + 1 ;
+
+                memory.stats.n_access++ ;
+                memory.stats.n_hits++ ;
+
                 return true ;
             }
 
@@ -106,7 +132,7 @@
                 memory.sets[parts.set].number_tags-- ;
             }
 
-            // load tag in set and return miss
+            // load tag in set, update stats and return miss (false)
             memory.sets[parts.set].tags[parts.tag] = {
                                                          0:{a:0, c:0},
                                                          1:{a:0, c:0},
@@ -114,6 +140,10 @@
                                                          3:{a:0, c:0}
                                                      } ;
             memory.sets[parts.set].number_tags++ ;
+
+            memory.stats.n_access++ ;
+            memory.stats.n_misses++ ;
+
             return false ;
         }
 
