@@ -63,27 +63,20 @@
             return parts ;
         }
 
-        function cache_memory_stats_updatehit ( memory, set, tag, r_w )
+        function cache_memory_update_stats ( memory, set, tag, r_w, m_h )
         {
             // global stats
-            memory.stats.n_access++ ;
-            memory.stats.n_hits++ ;
+            (memory.stats.n_access)++ ;
+
+            if (m_h == "miss") {
+                (memory.stats.n_misses)++ ;
+            } else {
+                (memory.stats.n_hits)++ ;
+	    }
 
             // block stats
             (memory.sets[set].tags[tag].n_access)++ ;
-            if (r_w == "write") {
-                memory.sets[set].tags[tag].dirty = 1 ;
-            }
-        }
 
-        function cache_memory_stats_updatemiss ( memory, set, tag, r_w )
-        {
-            // global stats
-            memory.stats.n_access++ ;
-            memory.stats.n_misses++ ;
-
-            // block stats
-            (memory.sets[set].tags[tag].n_access)++ ;
             if (r_w == "write") {
                 memory.sets[set].tags[tag].dirty = 1 ;
             }
@@ -119,7 +112,13 @@
         // API
         //
 
-        function cache_memory_init ( tag_size, set_size, off_size )
+        // Example: var cm = cache_memory_init(5, 7, 20, "first", null) ;
+        //                   * tag_size:         5 bits, 
+        //                   * set_size:         7 bits, 
+        //                   * offset_size:     20 bits, 
+        //                   * replace_policy:  "first" | "lfu", 
+        //                   * next_cache_level: null (none)
+        function cache_memory_init ( tag_size, set_size, off_size, replace_pol, next_cache )
         {
             var c = {
                        "stats": {
@@ -128,10 +127,14 @@
                                    n_misses: 0
                                 },
                        "cfg":   {
-                                   tag_size: tag_size,
-                                   set_size: set_size,
-                                   off_size: off_size,
-                                   replace_pol: "first"
+                                   tag_size:    tag_size,
+                                   set_size:    set_size,
+                                   off_size:    off_size,
+                                   replace_pol: replace_pol,
+			           mask_tag:    0,
+			           mask_set:    0,
+			           mask_off:    0,
+			           next_cache:  next_cache
                                 },
                        "sets":  { }
                    } ;
@@ -145,6 +148,10 @@
             return c ;
         }
 
+        // Example: var h_or_m = cache_memory_access(cm, 0x12345678, "read")
+        //                       * memory:  cm
+        //                       * address: 0x12345678
+        //                       * r_w:     "read" | "write"
         function cache_memory_access ( memory, address, r_w )
         {
             // divide address into set:tag:offset
@@ -160,7 +167,7 @@
             if ( (typeof memory.sets[parts.set].tags[parts.tag] != "undefined") &&
                         (memory.sets[parts.set].tags[parts.tag].valid == 1) )
             {
-                cache_memory_stats_updatehit(memory, parts.set, parts.tag, r_w) ;
+                cache_memory_update_stats(memory, parts.set, parts.tag, r_w, "hit") ;
                 return true ;
             }
 
@@ -177,23 +184,27 @@
             memory.sets[parts.set].tags[parts.tag] = { n_access:0, valid:1, dirty:0 } ;
             memory.sets[parts.set].number_tags++ ;
 
-            cache_memory_stats_updatemiss(memory, parts.set, parts.tag, r_w) ;
+            cache_memory_update_stats(memory, parts.set, parts.tag, r_w, "miss") ;
             return false ;
         }
 
-        function cache_memory_stats_show ( memory )
+        // Example: cache_memory_show_stats(cm)
+        //          * memory:  cm
+        function cache_memory_show_stats ( memory )
         {
             var o = "" ;
 
-            o += "" +
-                 "cfg\n" +
+	    // cfg
+            o += "cfg\n" +
                  "---\n" +
                  "* tag_size:    " + memory.cfg.tag_size + "\n" +
                  "* set_size:    " + memory.cfg.set_size + "\n" +
                  "* offset_size: " + memory.cfg.off_size + "\n" +
                  "* replace_pol: " + memory.cfg.replace_pol + "\n" +
-                 "\n" +
-                 "stats\n" +
+                 "\n" ;
+
+	    // stats
+            o += "stats\n" +
                  "-----\n" +
                  "* access: " + memory.stats.n_access + "\n" +
                  "* hits:   " + memory.stats.n_hits   + "\n" +
@@ -201,6 +212,28 @@
                  "* hit  ratio: " + (memory.stats.n_hits   / memory.stats.n_access) + "\n" +
                  "* miss ratio: " + (memory.stats.n_misses / memory.stats.n_access) + "\n" +
                  "\n" ;
+
+	    // sets/tags
+            o += "" +
+                 "sets/tags\n" +
+                 "---------\n" ;
+            var ks = null ;
+	    var kt = null ;
+            ks = Object.keys(memory.sets) ;
+	    for (const elto_set of ks)
+	    {
+	         o += " * " + (elto_set >>> 0) + ":\n" ;
+		 kt = Object.keys(memory.sets[elto_set].tags) ;
+	         for (const elto_tag of kt)
+		 {
+	              o += "     * " + (elto_tag >>> 0) + ": " +
+			   "{ " +
+			   " n_access: " + memory.sets[elto_set].tags[elto_tag].n_access + ", " +
+			   " valid: "    + memory.sets[elto_set].tags[elto_tag].valid + ", " +
+			   " dirty: "    + memory.sets[elto_set].tags[elto_tag].dirty + " " +
+			   "}\n" ;
+	         }
+	    }
 
             return o ;
         }
