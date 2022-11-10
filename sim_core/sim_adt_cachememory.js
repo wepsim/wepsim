@@ -30,7 +30,8 @@
          *                           tag_size: 1,
          *                           set_size: 1,
          *                           off_size: 1,
-         *                           replace_pol: "first"
+         *                           replace_pol: "first",
+         *                           next_cache: null
          *                        },
          *               "sets":  {
          *                           0: {
@@ -45,23 +46,8 @@
 
 
         //
-        // Auxiliar
+        // Auxiliar functions
         //
-
-        function cache_memory_split ( memory_cfg, address )
-        {
-            var parts = {
-                           set: 0,
-                           tag: 0,
-                           offset: 0
-                        } ;
-
-            parts.tag    = (address & memory_cfg.mask_tag) >> (32 - memory_cfg.tag_size) ;
-            parts.set    = (address & memory_cfg.mask_set) >> (memory_cfg.offset_size) ;
-            parts.offset = (address & memory_cfg.mask_off) ;
-
-            return parts ;
-        }
 
         function cache_memory_update_stats ( memory, set, tag, r_w, m_h )
         {
@@ -156,6 +142,23 @@
                                      next_cache) ;
         }
 
+        // Example: var parts = cache_memory_split(cm, 0x12345678)
+        //          console.log("set: " + parts.set + ", tag: " + parts.tag + ", off: " + parts.offset) ;
+        function cache_memory_split ( memory, address )
+        {
+            var parts = {
+                           set: 0,
+                           tag: 0,
+                           offset: 0
+                        } ;
+
+            parts.tag    = (address & memory.cfg.mask_tag) >> (32 - memory.cfg.tag_size) ;
+            parts.set    = (address & memory.cfg.mask_set) >> (     memory.cfg.offset_size) ;
+            parts.offset = (address & memory.cfg.mask_off) ;
+
+            return parts ;
+        }
+
         // Example: var h_or_m = cache_memory_access(cm, 0x12345678, "read")
         //                       * memory:  cm
         //                       * address: 0x12345678
@@ -163,11 +166,10 @@
         function cache_memory_access ( memory, address, r_w )
         {
             // divide address into set:tag:offset
-            var parts = cache_memory_split(memory.cfg, address) ;
+            var parts = cache_memory_split(memory, address) ;
 
             // initialize set (if not done before)
-            if (typeof memory.sets[parts.set] == "undefined")
-            {
+            if (typeof memory.sets[parts.set] == "undefined") {
                 memory.sets[parts.set] = { tags:{}, number_tags:0 } ;
             }
 
@@ -191,58 +193,14 @@
             // load tag in set, update stats and return miss (false)
             memory.sets[parts.set].tags[parts.tag] = { n_access:0, valid:1, dirty:0 } ;
             memory.sets[parts.set].number_tags++ ;
-
             cache_memory_update_stats(memory, parts.set, parts.tag, r_w, "miss") ;
+
+            // chain request to the next cache level... if any
+            if (memory.cfg.next_cache != null) {
+                cache_memory_access(memory.cfg.next_cache, address, r_w) ;
+            }
+
+            // return miss (false) for this cache
             return false ;
-        }
-
-        // Example: cache_memory_show_stats(cm)
-        //          * memory:  cm
-        function cache_memory_show_stats ( memory )
-        {
-            var o = "" ;
-
-	    // cfg
-            o += "cfg\n" +
-                 "---\n" +
-                 "* tag_size:    " + memory.cfg.tag_size + "\n" +
-                 "* set_size:    " + memory.cfg.set_size + "\n" +
-                 "* offset_size: " + memory.cfg.off_size + "\n" +
-                 "* replace_pol: " + memory.cfg.replace_pol + "\n" +
-                 "\n" ;
-
-	    // stats
-            o += "stats\n" +
-                 "-----\n" +
-                 "* access: " + memory.stats.n_access + "\n" +
-                 "* hits:   " + memory.stats.n_hits   + "\n" +
-                 "* misses: " + memory.stats.n_misses + "\n" +
-                 "* hit  ratio: " + (memory.stats.n_hits   / memory.stats.n_access) + "\n" +
-                 "* miss ratio: " + (memory.stats.n_misses / memory.stats.n_access) + "\n" +
-                 "\n" ;
-
-	    // sets/tags
-            o += "" +
-                 "sets/tags\n" +
-                 "---------\n" ;
-            var ks = null ;
-	    var kt = null ;
-            ks = Object.keys(memory.sets) ;
-	    for (const elto_set of ks)
-	    {
-	         o += " * " + (elto_set >>> 0) + ":\n" ;
-		 kt = Object.keys(memory.sets[elto_set].tags) ;
-	         for (const elto_tag of kt)
-		 {
-	              o += "     * " + (elto_tag >>> 0) + ": " +
-			   "{ " +
-			   " n_access: " + memory.sets[elto_set].tags[elto_tag].n_access + ", " +
-			   " valid: "    + memory.sets[elto_set].tags[elto_tag].valid + ", " +
-			   " dirty: "    + memory.sets[elto_set].tags[elto_tag].dirty + " " +
-			   "}\n" ;
-	         }
-	    }
-
-            return o ;
         }
 

@@ -68,9 +68,9 @@
 
 		    // vue binding
                     var curr_cfg = {
-                        tag_size:    { value: vue_observable(10) },
-                        set_size:    { value: vue_observable(14) },
-                        off_size:    { value: vue_observable(8) },
+                        tag_size:    { value: vue_observable(22) },
+                        set_size:    { value: vue_observable(5) },
+                        off_size:    { value: vue_observable(5) },
                         replace_pol: { value: vue_observable("first") }
                     } ;
 		    simhw_internalState_reset('CM_cfg', curr_cfg) ;
@@ -79,7 +79,7 @@
                                 var cm_cfg = simhw_internalState('CM_cfg') ;
                                 cache_memory_init2(cm_cfg, null); // TODO: init2 -> update_cfg(...no null)
                                 return value;
-                             }
+                             } ;
 		    vue_appyBinding(curr_cfg.tag_size.value,    '#tag_size_' + this.name_str, f1) ;
 		    vue_appyBinding(curr_cfg.set_size.value,    '#set_size_' + this.name_str, f1) ;
 		    vue_appyBinding(curr_cfg.off_size.value,    '#off_size_' + this.name_str, f1) ;
