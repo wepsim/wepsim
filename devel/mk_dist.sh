@@ -154,6 +154,8 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_cpu.js \
     wepsim_web/wepsim_uielto_mem.js \
     wepsim_web/wepsim_uielto_mem_config.js \
+    wepsim_web/wepsim_uielto_cache.js \
+    wepsim_web/wepsim_uielto_cache_config.js \
     wepsim_web/wepsim_uielto_registers.js \
     wepsim_web/wepsim_uielto_console.js \
     wepsim_web/wepsim_uielto_hw.js \

@@ -113,10 +113,10 @@
         //
 
         // Example: var cm = cache_memory_init(5, 7, 20, "first", null) ;
-        //                   * tag_size:         5 bits, 
-        //                   * set_size:         7 bits, 
-        //                   * offset_size:     20 bits, 
-        //                   * replace_policy:  "first" | "lfu", 
+        //                   * tag_size:         5 bits,
+        //                   * set_size:         7 bits,
+        //                   * offset_size:     20 bits,
+        //                   * replace_policy:  "first" | "lfu",
         //                   * next_cache_level: null (none)
         function cache_memory_init ( tag_size, set_size, off_size, replace_pol, next_cache )
         {
@@ -146,6 +146,14 @@
             c.cfg.mask_off = (Math.pow(2, off_size) - 1) >>> 0 ;
 
             return c ;
+        }
+
+        // Example: var cm = cache_memory_init2(cfg, null) ;
+        function cache_memory_init2 ( cfg, next_cache )
+        {
+            return cache_memory_init(cfg.tag_size, cfg.set_size, cfg.off_size,
+                                     cfg.replace_pol,
+                                     next_cache) ;
         }
 
         // Example: var h_or_m = cache_memory_access(cm, 0x12345678, "read")

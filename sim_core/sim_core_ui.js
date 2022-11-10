@@ -147,6 +147,11 @@
 	    return simcore_action_ui("MEMORY", 0, "show_control_memory")(memory, index, redraw) ;
         }
 
+        function show_cache_memory ( memory )
+        {
+	    return simcore_action_ui("MEMORY", 0, "show_cache_memory")(memory) ;
+        }
+
         function show_memories_values ( )
         {
 	    // main memory
@@ -160,6 +165,9 @@
 	    var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
 
 	    show_control_memory(simhw_internalState('MC'), reg_maddr, true) ;
+
+	    // cache memory
+	    show_cache_memory(simhw_internalState('CM')) ;
 	}
 
         // CPU svg: update_draw

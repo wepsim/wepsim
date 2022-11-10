@@ -161,11 +161,11 @@
                             '<em class="fas fa-camera"></em>' + '&nbsp;' +
                             '<span data-langkey="States">States</span></button>' +
 			    '	      <ws-ddown-sel class="col btn-group p-0 mx-1" style="flex-grow:2;"' +
-			    '                       components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp"></ws-ddown-sel>' +
+			    '                       components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp,cm,cmcfg"></ws-ddown-sel>' +
 			    '	 </div>' +
 			    '	 </div>' +
 			    '' +
-			    '	 <ws-ddown-info components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp"></ws-ddown-info>' +
+			    '	 <ws-ddown-info components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp,cm,cmcfg"></ws-ddown-info>' +
 			    '' ;
 
                    // return HTML

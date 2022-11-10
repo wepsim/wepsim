@@ -116,13 +116,14 @@
 
 	      mk_items_hash ()
 	      {
-                   this.devices = [ 'CPU', 'Main Memory', 'Devices', 'Simulation' ] ;
+                   this.devices = [ 'CPU', 'Main Memory', 'Cache Memory', 'Devices', 'Simulation' ] ;
                    this.details = {
-                                     'CPU':         [ 'all', 'mc', 'cpu' ],
-                                     'Main Memory': [ 'mp', 'mpcfg' ],
-                                     'Devices':     [ 'con', 'io', 'iocfg', 'iol3d', 'ioldm' ],
-                                     'Simulation':  [ 'ed_mc', 'ed_mp' ]
-                                 //  'Simulation':  [ 'ed_hw', 'ed_mc', 'ed_mp' ]
+                                     'CPU':          [ 'all', 'mc', 'cpu' ],
+                                     'Main Memory':  [ 'mp', 'mpcfg' ],
+                                     'Cache Memory': [ 'cm', 'cmcfg' ],
+                                     'Devices':      [ 'con', 'io', 'iocfg', 'iol3d', 'ioldm' ],
+                                     'Simulation':   [ 'ed_mc', 'ed_mp' ]
+                                 //  'Simulation':   [ 'ed_hw', 'ed_mc', 'ed_mp' ]
                                   } ;
                    this.ni = {
 				 all: ' <a class="dropdown-item" href="#" id="s5b_11" value="11"' +
@@ -140,6 +141,12 @@
 			       mpcfg: '      <a class="dropdown-item" href="#" id="s5b_18" value="18"' +
 				      '	 onclick="wsweb_set_details(\'MEMORY_CONFIG\');' +
 				      '		  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span></a>',
+				  cm: ' <a class="dropdown-item" href="#" id="s5b_28" value="28"' +
+				      '	 onclick="wsweb_set_details(\'CACHE\');' +
+				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Memory\'>Memory</span></a>',
+			       cmcfg: ' <a class="dropdown-item" href="#" id="s5b_29" value="29"' +
+				      '	 onclick="wsweb_set_details(\'CACHE_CONFIG\');' +
+				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span></a>',
 				 con: '      <a class="dropdown-item" href="#" id="s5b_12" value="12"' +
 				      '	 onclick="wsweb_set_details(\'SCREEN\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Keyboard+Display\'>Keyboard+Display</span></a>',

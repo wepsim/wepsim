@@ -422,6 +422,8 @@
 	    "CPU_STATS":      function(){ wsweb_set_details_select(17); show_memories_values(); },
 	    "MEMORY":         function(){ wsweb_set_details_select(14); show_memories_values(); },
 	    "MEMORY_CONFIG":  function(){ wsweb_set_details_select(18); show_memories_values(); },
+	    "CACHE":          function(){ wsweb_set_details_select(28); show_memories_values(); },
+	    "CACHE_CONFIG":   function(){ wsweb_set_details_select(29); show_memories_values(); },
 	    "KEYBOARD":       function(){ wsweb_set_details_select(12); show_memories_values(); },
 	    "SCREEN":         function(){ wsweb_set_details_select(12); show_memories_values(); },
 	    "IO_STATS":       function(){ wsweb_set_details_select(15); show_memories_values(); },

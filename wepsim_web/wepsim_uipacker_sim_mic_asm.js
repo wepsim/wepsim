@@ -76,7 +76,7 @@
 			     '    </div>' +
 			     '    </div>' +
 			     '' +
-			     '    <ws-ddown-info components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm"></ws-ddown-info>' +
+			     '    <ws-ddown-info components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,cm,cmcfg"></ws-ddown-info>' +
 			     '  </div>' +
 			     '' +
 			     '  <div class="tab-pane fade user_microcode" id="nav-microcode" role="tabpanel" ' +

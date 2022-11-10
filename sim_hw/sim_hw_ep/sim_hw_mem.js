@@ -124,8 +124,11 @@
 	 */
 
         sim.ep.internal_states.segments  = {} ;
-        sim.ep.internal_states.MP        = {} ;
         sim.ep.internal_states.MP_wc     = 0 ;
+        sim.ep.internal_states.MP        = {} ;
+        sim.ep.internal_states.CM_on     = 1 ;
+        sim.ep.internal_states.CM_cfg    = { tag_size:10, set_size:14, off_size:8, replace_pol:"first" } ;
+        sim.ep.internal_states.CM        = cache_memory_init2(sim.ep.internal_states.CM_cfg, null) ;
 
 
         /*
@@ -135,7 +138,7 @@
         sim.ep.signals.MRDY      = { name: "MRDY",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      depends_on: ["CLK"],
-	    	                     behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
+	    	                     behavior:  ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
                                      fire_name: ['svg_p:tspan3916','svg_p:text3909'],
                                      draw_data: [[], ['svg_p:path3895','svg_p:path3541']],
                                      draw_name: [[], []] };
@@ -198,6 +201,10 @@
                                                       sim.ep.states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim.ep.signals[s_expr[4]].value = 1;
 				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, false) ;
+
+                                                      // cache
+                                                      if (1 == sim.ep.internal_states.CM_on)
+                                                          cache_memory_access(sim.ep.internal_states.CM, address, "read") ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -286,6 +293,10 @@
 
                                                       sim.ep.signals[s_expr[4]].value = 1;
 				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, true) ;
+
+                                                      // cache
+                                                      if (1 == sim.ep.internal_states.CM_on)
+                                                          cache_memory_access(sim.ep.internal_states.CM, address, "write") ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
