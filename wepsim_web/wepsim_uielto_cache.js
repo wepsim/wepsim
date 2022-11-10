@@ -55,9 +55,7 @@
 
                     // cache memory
                     var cm_ref = simhw_internalState('CM') ;
-                    if ( (typeof cm_ref != "undefined") &&
-                         (Object.keys(cm_ref).length !== 0) )
-                    {
+                    if ( (typeof cm_ref != "undefined") && (Object.keys(cm_ref).length !== 0) ) {
                           o1 = wepsim_show_cache_as_text(cm_ref) ;
                     }
 
@@ -132,7 +130,7 @@
             ks = Object.keys(memory.sets) ;
 	    for (const elto_set of ks)
 	    {
-                 elto_set_bin = parseInt(elto_set).toString(2) + '<sub>2</sub>' ;
+                 elto_set_bin = parseInt(elto_set).toString(2).padStart(memory.cfg.set_size,'0') + '<sub>2</sub>' ;
 	         o += "<table class='table table-bordered table-striped table-hover table-sm w-75 pb-2'>" +
                       "<thead>" +
 	              "<tr><th align='center' colspan=4>set: " + elto_set_bin + "</th></tr>" +

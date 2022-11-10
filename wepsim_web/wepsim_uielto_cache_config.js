@@ -62,80 +62,122 @@
 			return ;
 		    }
 
+                    // default content
+                    var curr_cfg = simhw_internalState('CM_cfg') ;
+                    if (typeof curr_cfg == "undefined") {
+                        $(div_hash).html('') ;
+                        return ;
+                    }
+
 		    // html holder
-		    var o1 = this.render_populate_as_table() ;
+		    var o1 = this.render_populate_as_table(curr_cfg) ;
                     $(div_hash).html(o1) ;
 
 		    // vue binding
-                    var curr_cfg = {
-                        tag_size:    { value: vue_observable(22) },
-                        set_size:    { value: vue_observable(5) },
-                        off_size:    { value: vue_observable(5) },
-                        replace_pol: { value: vue_observable("first") }
-                    } ;
-		    simhw_internalState_reset('CM_cfg', curr_cfg) ;
+                    for (var i=0; i<curr_cfg.length; i++)
+                    {
+                         if (false == (curr_cfg[i].tag_size instanceof Vuex.Store)) {
+                             curr_cfg[i].tag_size = vue_observable(curr_cfg[i].tag_size) ;
+                         }
+                         if (false == (curr_cfg[i].set_size instanceof Vuex.Store)) {
+                             curr_cfg[i].set_size = vue_observable(curr_cfg[i].set_size) ;
+                         }
+                         if (false == (curr_cfg[i].off_size instanceof Vuex.Store)) {
+                             curr_cfg[i].off_size = vue_observable(curr_cfg[i].off_size) ;
+                         }
+                         if (false == (curr_cfg[i].replace_pol instanceof Vuex.Store)) {
+                             curr_cfg[i].replace_pol = vue_observable(curr_cfg[i].replace_pol) ;
+                         }
 
-                    var f1 = function(value) {
-                                var cm_cfg = simhw_internalState('CM_cfg') ;
-                                cache_memory_init2(cm_cfg, null); // TODO: init2 -> update_cfg(...no null)
-                                return value;
-                             } ;
-		    vue_appyBinding(curr_cfg.tag_size.value,    '#tag_size_' + this.name_str, f1) ;
-		    vue_appyBinding(curr_cfg.set_size.value,    '#set_size_' + this.name_str, f1) ;
-		    vue_appyBinding(curr_cfg.off_size.value,    '#off_size_' + this.name_str, f1) ;
-		    vue_appyBinding(curr_cfg.replace_pol.value, '#replace_pol_' + this.name_str, f1) ;
+                         vue_appyBinding(curr_cfg[i].tag_size,
+                                         '#tag_size_'+i+'_'+this.name_str,
+                                         function(value) { return value; }) ;
+                         vue_appyBinding(curr_cfg[i].set_size,
+                                         '#set_size_'+i+'_'+this.name_str,
+                                         function(value) { return value; }) ;
+                         vue_appyBinding(curr_cfg[i].off_size,
+                                         '#off_size_'+i+'_'+this.name_str,
+                                         function(value) { return value; }) ;
+                         vue_appyBinding(curr_cfg[i].replace_pol,
+                                         '#replace_pol_'+i+'_'+this.name_str,
+                                         function(value) { return value; }) ;
+                    }
 
-                    var curr_on = { value: vue_observable(0) } ;
-		    simhw_internalState_reset('CM_on', curr_on) ;
-		    vue_appyBinding(curr_on.value, '#cm_on_' + this.name_str, f1) ;
+                    simhw_internalState_reset('CM_cfg', curr_cfg) ;
 	      }
 
-	      render_populate_as_table ( )
+	      render_populate_as_table ( curr_cfg )
 	      {
-		   return "<div class='container container-fluid'>" +
+		     var o = '' ;
+
+		     o += "<div class='container container-fluid'>" +
 			  "<div class='row'>" +
-		          "<div class='col p-2'>" +
-			  "<table class='table table-hover table-sm table-bordered m-0'>" +
+		          "<div class='col p-2'>" ;
+
+                   for (var i=0; i<curr_cfg.length; i++)
+                   {
+		     o += "<table class='table table-hover table-sm table-bordered m-0'>" +
 			  "<tbody>" +
 			  "<tr><td align=center'>Cache active</td>" +
 			  "    <td align=center'>" +
-			  "<div id='cm_on_" + this.name_str + "'>" +
-			  "<input type='number' v-model.lazy='value'>" +
+			  "<div id='cm_on_" + i + "_" + this.name_str + "'>" +
+			  "<input type='number' v-model.lazy='value' min='0' max='1'>" +
 			  "</div>" +
 			  "    </td></tr>" +
 			  "<tr><td align=center'>Tag size</td>" +
 			  "    <td align=center'>" +
-			  "<div id='tag_size_" + this.name_str + "'>" +
-			  "<input type='number' v-model.lazy='value'>" +
+			  "<div id='tag_size_" + i + "_" + this.name_str + "'>" +
+			  "<input type='number' v-model.lazy='value' min='0' max='32'>" +
 			  "</div>" +
 			  "    </td></tr>" +
 			  "<tr><td align=center'>Set size</td>" +
 			  "    <td align=center'>" +
-			  "<div id='set_size_" + this.name_str + "'>" +
-			  "<input type='number' v-model.lazy='value'>" +
+			  "<div id='set_size_" + i + "_" + this.name_str + "'>" +
+			  "<input type='number' v-model.lazy='value' min='0' max='32'>" +
 			  "</div>" +
 			  "    </td></tr>" +
 			  "<tr><td align=center'>Offset size</td>" +
 			  "    <td align=center'>" +
-			  "<div id='off_size_" + this.name_str + "'>" +
-			  "<input type='number' v-model.lazy='value'>" +
+			  "<div id='off_size_" + i + "_" + this.name_str + "'>" +
+			  "<input type='number' v-model.lazy='value' min='0' max='32'>" +
 			  "</div>" +
 			  "    </td></tr>" +
 			  "<tr><td align=center'>Replace policy</td>" +
 			  "    <td align=center'>" +
-			  "<div id='replace_pol_" + this.name_str + "'>" +
+			  "<div id='replace_pol_" + i + "_" + this.name_str + "'>" +
 			  "<input type='text' v-model.lazy='value'>" +
 			  "</div>" +
 			  "    </td></tr>" +
 			  "</tbody>" +
-			  "</table>" +
+			  "</table>" ;
+                   }
+
+		     o += "</div>" +
+			  "</div>" +
+			  "<div class='row'>" +
+		          "<div class='col p-2'>" +
+			  "<button class='btn btn-info' onclick='wepsim_apply_cacheconfig();'>Apply</button>" +
 			  "</div>" +
 			  "</div>" +
 			  "</div>" ;
+
+		     return o ;
               }
         }
 
         if (typeof window !== "undefined") {
             window.customElements.define('ws-cache-config', ws_cache_config) ;
+        }
+
+
+        /*
+         *  Cache config UI
+         */
+
+        function wepsim_apply_cacheconfig ( )
+        {
+              var curr_cfg = simhw_internalState('CM_cfg') ;
+              var curr_cm  = cache_memory_init2(curr_cfg[0], null) ;
+              simhw_internalState_reset('CM', curr_cm) ;
         }
 

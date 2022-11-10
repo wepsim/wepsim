@@ -129,6 +129,10 @@
         sim.poc.internal_states.MP        = {} ;
         sim.poc.internal_states.MP_wc     = 0 ;
 
+        sim.poc.internal_states.CM_cfg    = [] ;
+        sim.poc.internal_states.CM_cfg[0] = { tag_size:22, set_size:5, off_size:5, replace_pol:"first" } ;
+        sim.poc.internal_states.CM        = cache_memory_init2(sim.poc.internal_states.CM_cfg, null) ;
+
 
         /*
          *  Signals
@@ -217,6 +221,10 @@
                                                       sim.poc.states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim.poc.signals[s_expr[4]].value = 1;
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, false) ;
+
+                                                      // cache
+                                                      if (1 == sim.poc.internal_states.CM_cfg.length > 0)
+                                                          cache_memory_access(sim.poc.internal_states.CM, address, "read") ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -308,6 +316,10 @@
 
                                                       sim.poc.signals[s_expr[4]].value = 1 ;
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, true) ;
+
+                                                      // cache
+                                                      if (1 == sim.poc.internal_states.CM_cfg.length > 0)
+                                                          cache_memory_access(sim.poc.internal_states.CM, address, "write") ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
