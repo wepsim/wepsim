@@ -89,41 +89,61 @@
 
             o += "<h5>stats</h5>\n" +
                  "<ul>" +
-                 "<li> # access: " + memory.stats.n_access + "</li>\n" +
-                 "<li> # hits:   " + memory.stats.n_hits   + "</li>\n" +
-                 "<li> # misses: " + memory.stats.n_misses + "</li>\n" +
-                 "<li> hit  ratio: " +  hit_ratio.toFixed(2) + "</li>\n" +
-                 "<li> miss ratio: " + miss_ratio.toFixed(2) + "</li>\n" +
+                 "<table class='table table-bordered table-hover table-sm w-75'>" +
+                 "<thead>" +
+                 "<tr><th># access</th><th># hits</th><th># misses</th></tr>" +
+                 "</thead>" +
+                 "<tbody>" +
+                 "<td>" + memory.stats.n_access + "</td>" +
+                 "<td>" + memory.stats.n_hits   + "</td>" +
+                 "<td>" + memory.stats.n_misses + "</td>" +
+                 "</tbody>" +
+                 "</table>" +
+                 "<span>hit-ratio  <span class='badge bg-success'>"+hit_ratio.toFixed(2)+"</span></span>\n" +
+                 "<span>miss-ratio <span class='badge bg-danger'>"+miss_ratio.toFixed(2)+"</span></span>\n" +
                  "</ul>" +
                  "\n" ;
 
 	    // cfg
             o += "<h5>configuration</h5>\n" +
                  "<ul>" +
-                 "<li> tag size:       " + memory.cfg.tag_size    + "</li>\n" +
-                 "<li> set size:       " + memory.cfg.set_size    + "</li>\n" +
-                 "<li> offset size:    " + memory.cfg.off_size    + "</li>\n" +
+                 "<li> size of fields (in bits):</li>\n" +
+                 "<table class='table table-bordered table-hover table-sm w-75'>" +
+                 "<thead>" +
+                 "<tr><th>tag</th><th>set</th><th>offset</th></tr>" +
+                 "</thead>" +
+                 "<tbody>" +
+                 "<td>" + memory.cfg.tag_size + "</td>" +
+                 "<td>" + memory.cfg.set_size + "</td>" +
+                 "<td>" + memory.cfg.off_size + "</td>" +
+                 "</tbody>" +
+                 "</table>" +
                  "<li> replace policy: " + memory.cfg.replace_pol + "</li>\n" +
                  "</ul>" +
                  "\n" ;
 
 	    // sets/tags
-            o += "<h5>sets/tags</h5>\n" ;
+            o += "<h5>sets/tags</h5>\n" +
+                 "<ul>" ;
             var ks = null ;
 	    var kt = null ;
+            var elto_set_bin = '' ;
+            var elto_tag_bin = '' ;
             ks = Object.keys(memory.sets) ;
 	    for (const elto_set of ks)
 	    {
-	         o += "<table class='table table-bordered table-striped table-hover table-sm pb-2'>" +
+                 elto_set_bin = parseInt(elto_set).toString(2) + '<sub>2</sub>' ;
+	         o += "<table class='table table-bordered table-striped table-hover table-sm w-75 pb-2'>" +
                       "<thead>" +
-	              "<tr><th align='center' colspan=4>set: " + (elto_set >>> 0) + "</th></tr>" +
+	              "<tr><th align='center' colspan=4>set: " + elto_set_bin + "</th></tr>" +
 	              "<tr><th>tag</th><th>valid</th><th>dirty</th><th># access</th></tr>" +
                       "</thead><tbody>" ;
 		 kt = Object.keys(memory.sets[elto_set].tags) ;
 	         for (const elto_tag of kt)
 		 {
+                      elto_tag_bin = parseInt(elto_tag).toString(2) + '<sub>2</sub>' ;
 	              o += "<tr>" +
-			   "<td>" + (elto_tag >>> 0) + "</td>" +
+			   "<td>" + elto_tag_bin + "</td>" +
 			   "<td>" + memory.sets[elto_set].tags[elto_tag].valid    + "</td>" +
 			   "<td>" + memory.sets[elto_set].tags[elto_tag].dirty    + "</td>" +
 			   "<td>" + memory.sets[elto_set].tags[elto_tag].n_access + "</td>" +
@@ -131,6 +151,7 @@
 	         }
 	         o += "</tbody></table>" ;
 	    }
+            o += "</ul>\n" ;
 
             return o ;
         }
