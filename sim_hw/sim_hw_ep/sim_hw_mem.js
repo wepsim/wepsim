@@ -128,8 +128,7 @@
         sim.ep.internal_states.MP        = {} ;
 
         sim.ep.internal_states.CM_cfg    = [] ;
-        sim.ep.internal_states.CM_cfg[0] = { vps_size:0, set_size:6, off_size:5, replace_pol:"first" } ;
-        sim.ep.internal_states.CM        = cache_memory_init2(sim.ep.internal_states.CM_cfg[0], null) ;
+        sim.ep.internal_states.CM        = {} ;
   
 
 

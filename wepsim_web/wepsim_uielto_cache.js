@@ -42,22 +42,31 @@
 
 	      render_skel ( )
 	      {
+                    var div_id    = 'memory_CACHE' ;
                     var style_dim = "height:58vh; width:inherit; " ;
                     var style_ovf = "overflow:auto; -webkit-overflow-scrolling:touch; " ;
 
 		    // html holder
-		    this.innerHTML = "<div id='memory_CACHE' style='" + style_dim + style_ovf + "'></div>" ;
+		    this.innerHTML = "<div id='"    + div_id    + "' " +
+                                     "     style='" + style_dim + style_ovf + "'></div>" ;
 	      }
 
 	      render_populate ( )
 	      {
+                    var div_hash = '#memory_CACHE' ;
+
+		    // if no active hardware -> empty
+		    if (simhw_active() === null) {
+                        $(div_hash).html('') ;
+			return ;
+		    }
+
                     // cache memory
                     var cm_ref = simhw_internalState('CM') ;
 
                     // information associated as HTML
                     var o1 = wepsim_show_cache_memory(cm_ref) ;
-
-                    $("#memory_CACHE").html(o1) ;
+                    $(div_hash).html(o1) ;
 	      }
         }
 
@@ -78,6 +87,7 @@
 
             o += "<h5>stats</h5>\n" +
                  "<ul>" +
+                 "<li> #access = #hits + #misses:</li>\n" +
                  "<table class='table table-bordered table-hover table-sm w-75'>" +
                  "<thead>" +
                  "<tr><th># access</th><th># hits</th><th># misses</th></tr>" +
@@ -88,8 +98,10 @@
                  "<td>" + memory.stats.n_misses + "</td>" +
                  "</tbody>" +
                  "</table>" +
+                 "<li>\n" +
                  "<span>hit-ratio  <span class='badge bg-success'>"+hit_ratio.toFixed(2)+"</span></span> & " +
                  "<span>miss-ratio <span class='badge bg-danger'>"+miss_ratio.toFixed(2)+"</span></span>\n" +
+                 "</li>\n" +
                  "</ul>" +
                  "\n" ;
 
@@ -99,6 +111,20 @@
         function wepsim_show_cache_cfg ( memory )
         {
             var o = "" ;
+            var cm_type    = '' ;
+            var field_type = '' ;
+
+            // cache type...
+            if (0 == memory.cfg.set_size) {
+                cm_type    = "direct-mapped" ;
+                field_type = 'index' ;
+            }
+            else {
+                if (0 == memory.cfg.vps_size)
+                     cm_type = "fully associative" ;
+                else cm_type = "set-associative" ;
+                field_type = 'set' ;
+            }
 
 	    // cfg
             o += "<h5>configuration</h5>\n" +
@@ -106,7 +132,7 @@
                  "<li> size of fields (in bits):</li>\n" +
                  "<table class='table table-bordered table-hover table-sm w-75'>" +
                  "<thead>" +
-                 "<tr><th>tag</th><th>set/index</th><th>offset</th></tr>" +
+                 "<tr><th>tag</th><th>" + field_type + "</th><th>offset</th></tr>" +
                  "</thead>" +
                  "<tbody>" +
                  "<td>" + memory.cfg.tag_size + "</td>" +
@@ -114,6 +140,7 @@
                  "<td>" + memory.cfg.off_size + "</td>" +
                  "</tbody>" +
                  "</table>" +
+                 "<li> type: <span class='badge bg-secondary'>" + cm_type + "</span></li>\n" +
                  "<li> replace policy: <span class='badge bg-secondary'>" + memory.cfg.replace_pol + "</span></li>\n" +
                  "</ul>" +
                  "\n" ;

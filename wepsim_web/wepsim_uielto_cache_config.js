@@ -45,11 +45,13 @@
 
 	      render_skel ( )
 	      {
-                    var div_hash = 'config_CACHE_' + this.name_str ;
+                    var div_id    = 'config_CACHE_' + this.name_str ;
+                    var style_dim = "height:58vh; width:inherit; " ;
+                    var style_ovf = "overflow:auto; -webkit-overflow-scrolling:touch; " ;
 
                     // default content
-                    this.innerHTML = '<div id="' + div_hash + '" ' +
-                                     'style="height:58vh; width:inherit; overflow-y:auto;"></div>' ;
+                    this.innerHTML = '<div id="'    + div_id    + '" ' +
+                                     '     style="' + style_dim + style_ovf + '"></div>' ;
               }
 
 	      render_populate ( )
@@ -72,36 +74,6 @@
 		    // html holder
 		    var o1 = this.render_populate_as_table(curr_cfg) ;
                     $(div_hash).html(o1) ;
-
-		    // vue binding
-                    for (var i=0; i<curr_cfg.length; i++)
-                    {
-                         if (false == (curr_cfg[i].tag_size instanceof Vuex.Store)) {
-                             curr_cfg[i].tag_size = vue_observable(curr_cfg[i].tag_size) ;
-                         }
-                         if (false == (curr_cfg[i].set_size instanceof Vuex.Store)) {
-                             curr_cfg[i].set_size = vue_observable(curr_cfg[i].set_size) ;
-                         }
-                         if (false == (curr_cfg[i].off_size instanceof Vuex.Store)) {
-                             curr_cfg[i].off_size = vue_observable(curr_cfg[i].off_size) ;
-                         }
-                         if (false == (curr_cfg[i].replace_pol instanceof Vuex.Store)) {
-                             curr_cfg[i].replace_pol = vue_observable(curr_cfg[i].replace_pol) ;
-                         }
-
-                         vue_appyBinding(curr_cfg[i].tag_size,
-                                         '#tag_size_'+i+'_'+this.name_str,
-                                         function(value) { return value; }) ;
-                         vue_appyBinding(curr_cfg[i].set_size,
-                                         '#set_size_'+i+'_'+this.name_str,
-                                         function(value) { return value; }) ;
-                         vue_appyBinding(curr_cfg[i].off_size,
-                                         '#off_size_'+i+'_'+this.name_str,
-                                         function(value) { return value; }) ;
-                         vue_appyBinding(curr_cfg[i].replace_pol,
-                                         '#replace_pol_'+i+'_'+this.name_str,
-                                         function(value) { return value; }) ;
-                    }
 	      }
 
 	      render_populate_as_table ( curr_cfg )
@@ -110,56 +82,79 @@
 
 		     o += "<div class='container container-fluid'>" +
 			  "<div class='row'>" +
-		          "<div class='col p-2'>" ;
-
-                   for (var i=0; i<curr_cfg.length; i++)
-                   {
-		     o += "<table class='table table-hover table-sm table-bordered m-0'>" +
+		          "<div class='col p-2'>" +
+		          "<table class='table table-hover table-sm table-bordered m-0'>" +
 			  "<tbody>" +
 			  "<tr><td align=center'>Cache active</td>" +
 			  "    <td align=center'>" +
-			  "<div id='cm_on_" + i + "_" + this.name_str + "'>" +
-			  "<input type='number' v-model.lazy='value' min='0' max='1'>" +
+			  "<div class='form-check'>" +
+			  "  <input class='form-check-input' type='radio' name='cm_state' id='cm_enabled'>" +
+			  "  <label class='form-check-label' for='cm_enabled' " +
+			  "         onclick='wepsim_cm_enable();'>" +
+			  "    Enabled" +
+			  "  </label>" +
+			  "</div>" +
+			  "<div class='form-check'>" +
+			  "  <input class='form-check-input' type='radio' name='cm_state' id='cm_disabled' checked>" +
+			  "  <label class='form-check-label' for='cm_disabled' " +
+			  "         onclick='wepsim_cm_disable();'>" +
+			  "    Disabled" +
+			  "  </label>" +
 			  "</div>" +
 			  "    </td></tr>" +
-			  "<tr><td align=center'>Tag size</td>" +
+			  "</tbody>" +
+			  "</table>" +
+		          "</div>" +
+			  "</div>" ;
+
+		     o += "<div class='row'>" +
+		          "<div class='col p-2'>" ;
+                   for (var i=0; i<1; i++)
+                   {
+		     o += "<table class='table table-hover table-sm table-bordered m-0'>" +
+			  "<tbody>" +
+			  "<tr><td align=center'>bits for offset<br> (identify byte inside block/line/via)</td>" +
 			  "    <td align=center'>" +
-			  "<div id='tag_size_" + i + "_" + this.name_str + "'>" +
-			  "<input type='number' v-model.lazy='value' min='0' max='32'>" +
-			  "</div>" +
+			  "    <div id='off_size_" + i + "_" + this.name_str + "'>" +
+			  "    <input type='number' " +
+                          "           onchange='wepsim_cm_update_cfg(" + i + ", \"off_size\", parseInt(this.value));' " +
+			  "           min='0' max='32'>" +
+			  "    </div>" +
 			  "    </td></tr>" +
-			  "<tr><td align=center'>Set size</td>" +
+			  "<tr><td align=center'>bits for set<br> (identify set in cache)</td>" +
 			  "    <td align=center'>" +
-			  "<div id='set_size_" + i + "_" + this.name_str + "'>" +
-			  "<input type='number' v-model.lazy='value' min='0' max='32'>" +
-			  "</div>" +
+			  "    <div id='set_size_" + i + "_" + this.name_str + "'>" +
+			  "    <input type='number' " +
+                          "           onchange='wepsim_cm_update_cfg(" + i + ", \"set_size\", parseInt(this.value));' " +
+			  "           min='0' max='32'>" +
+			  "    </div>" +
 			  "    </td></tr>" +
-			  "<tr><td align=center'>Offset size</td>" +
+			  "<tr><td align=center'>bits for vias per set<br> (identify a via within a set)</td>" +
 			  "    <td align=center'>" +
-			  "<div id='off_size_" + i + "_" + this.name_str + "'>" +
-			  "<input type='number' v-model.lazy='value' min='0' max='32'>" +
-			  "</div>" +
+			  "    <div id='vps_size_" + i + "_" + this.name_str + "'>" +
+			  "    <input type='number' " +
+                          "           onchange='wepsim_cm_update_cfg(" + i + ", \"vps_size\", parseInt(this.value));' " +
+			  "           min='0' max='32'>" +
+			  "    </div>" +
 			  "    </td></tr>" +
 			  "<tr><td align=center'>Replace policy</td>" +
 			  "    <td align=center'>" +
-			  "<div id='replace_pol_" + i + "_" + this.name_str + "'>" +
-			  "<input type='text' v-model.lazy='value'>" +
-			  "</div>" +
+			  "    <select class='form-select' " +
+                          "            id='replace_pol_" + i + "_" + this.name_str + "'>" +
+                          "            onchange='wepsim_cm_update_cfg(" + i + ", \"replace_pol\", this.value);'" +
+                          "            aria-label='Replace policy'>" +
+			  "      <option value='first' selected>First</option>" +
+			  "      <option value='lfu'>LRF</option>" +
+			  "    </select>" +
 			  "    </td></tr>" +
 			  "</tbody>" +
 			  "</table>" ;
                    }
-
 		     o += "</div>" +
-			  "</div>" +
-			  "<div class='row'>" +
-		          "<div class='col p-2'>" +
-			  "<button class='btn btn-info' onclick='wepsim_apply_cacheconfig();'>Apply</button>" +
-			  "</div>" +
 			  "</div>" +
 			  "</div>" ;
 
-		     return o ;
+		   return o ;
               }
         }
 
@@ -172,10 +167,31 @@
          *  Cache config UI
          */
 
-        function wepsim_apply_cacheconfig ( )
+        function wepsim_cm_enable ( )
+        {
+              var curr_cfg = [ { vps_size:0, set_size:6, off_size:5, replace_pol:"first" } ] ;
+              var curr_cm  = cache_memory_init2(curr_cfg[0], null) ;
+              simhw_internalState_reset('CM',     curr_cm) ;
+              simhw_internalState_reset('CM_cfg', curr_cfg);
+        }
+
+        function wepsim_cm_disable ( )
+        {
+              var curr_cfg = { vps_size:0, set_size:0, off_size:0, replace_pol:"first" } ;
+              var curr_cm  = cache_memory_init2(curr_cfg, null) ;
+              simhw_internalState_reset('CM_cfg', []);
+              simhw_internalState_reset('CM',     curr_cm) ;
+        }
+
+        function wepsim_cm_update_cfg ( index, field, value )
         {
               var curr_cfg = simhw_internalState('CM_cfg') ;
-              var curr_cm  = cache_memory_init2(curr_cfg[0], null) ;
-              simhw_internalState_reset('CM', curr_cm) ;
+              if (curr_cfg.length > 0)
+              {
+                  curr_cfg[index][field] = value ;
+
+                  var curr_cm  = cache_memory_init2(curr_cfg[index], null) ;
+                  simhw_internalState_reset('CM', curr_cm) ;
+              }
         }
 
