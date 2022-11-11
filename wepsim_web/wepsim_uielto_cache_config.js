@@ -102,8 +102,6 @@
                                          '#replace_pol_'+i+'_'+this.name_str,
                                          function(value) { return value; }) ;
                     }
-
-                    simhw_internalState_reset('CM_cfg', curr_cfg) ;
 	      }
 
 	      render_populate_as_table ( curr_cfg )
