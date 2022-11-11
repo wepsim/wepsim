@@ -28,6 +28,7 @@
          *                        },
          *               "cfg":   {
          *                           tag_size: 1,
+         *                           vps_size: 1,
          *                           set_size: 1,
          *                           off_size: 1,
          *                           replace_pol: "first",
@@ -98,38 +99,33 @@
         // API
         //
 
-        // Example: var cm = cache_memory_init(5, 7, 20, "first", null) ;
-        //                   * tag_size:         5 bits,
-        //                   * set_size:         7 bits,
-        //                   * offset_size:     20 bits,
+        // Example: var cm = cache_memory_init(0, 6, 5, "first", null) ;
+        //                   * bits for via_per_set:    0 bits,
+        //                   * bits for set_per_cache:  6 bits,
+        //                   * bits for offset in line: 5 bits,
         //                   * replace_policy:  "first" | "lfu",
         //                   * next_cache_level: null (none)
-        function cache_memory_init ( tag_size, set_size, off_size, replace_pol, next_cache )
+        function cache_memory_init ( vps_size, set_size, off_size, replace_pol, next_cache )
         {
-            var c = {
-                       "stats": {
-                                   n_access: 0,
-                                   n_hits:   0,
-                                   n_misses: 0
-                                },
-                       "cfg":   {
-                                   tag_size:    tag_size,
-                                   set_size:    set_size,
-                                   off_size:    off_size,
-                                   replace_pol: replace_pol,
-			           mask_tag:    0,
-			           mask_set:    0,
-			           mask_off:    0,
-			           next_cache:  next_cache
-                                },
-                       "sets":  { }
-                   } ;
+            var c = { "stats":{}, "cfg":{}, "sets":{} } ;
 
-            c.cfg.mask_tag = (Math.pow(2, tag_size) - 1) ;
-            c.cfg.mask_tag = (c.cfg.mask_tag << (32 - tag_size)) >>> 0 ;
-            c.cfg.mask_set = (Math.pow(2, set_size) - 1) ;
-            c.cfg.mask_set = (c.cfg.mask_set << (off_size)) >>> 0 ;
-            c.cfg.mask_off = (Math.pow(2, off_size) - 1) >>> 0 ;
+	    c.stats.n_access = 0 ;
+	    c.stats.n_hits   = 0 ;
+	    c.stats.n_misses = 0 ;
+
+	    c.cfg.tag_size = 32 - set_size - off_size ;
+	    c.cfg.vps_size = vps_size ;
+	    c.cfg.set_size = set_size ;
+	    c.cfg.off_size = off_size ;
+
+            c.cfg.mask_tag = (Math.pow(2, c.cfg.tag_size) - 1) >>> 0 ;
+            c.cfg.mask_set = (Math.pow(2, c.cfg.set_size) - 1) >>> 0 ;
+            c.cfg.mask_off = (Math.pow(2, c.cfg.off_size) - 1) >>> 0 ;
+            c.cfg.mask_tag = (c.cfg.mask_tag << (32 - c.cfg.tag_size)) >>> 0 ;
+            c.cfg.mask_set = (c.cfg.mask_set <<      (c.cfg.off_size)) >>> 0 ;
+
+	    c.cfg.replace_pol = replace_pol ;
+	    c.cfg.next_cache  = next_cache ;
 
             return c ;
         }
@@ -137,7 +133,7 @@
         // Example: var cm = cache_memory_init2(cfg, null) ;
         function cache_memory_init2 ( cfg, next_cache )
         {
-            return cache_memory_init(cfg.tag_size, cfg.set_size, cfg.off_size,
+            return cache_memory_init(cfg.vps_size, cfg.set_size, cfg.off_size,
                                      cfg.replace_pol,
                                      next_cache) ;
         }
@@ -147,13 +143,14 @@
         function cache_memory_split ( memory, address )
         {
             var parts = {
-                           set: 0,
-                           tag: 0,
+                           set:    0,
+                           tag:    0,
                            offset: 0
                         } ;
 
-            parts.tag    = (address & memory.cfg.mask_tag) >> (32 - memory.cfg.tag_size) ;
-            parts.set    = (address & memory.cfg.mask_set) >> (     memory.cfg.offset_size) ;
+            address      = (address >>> 0) ;
+            parts.tag    = (address & memory.cfg.mask_tag) >>> (32 - memory.cfg.tag_size) ;
+            parts.set    = (address & memory.cfg.mask_set) >>> (     memory.cfg.off_size) ;
             parts.offset = (address & memory.cfg.mask_off) ;
 
             return parts ;

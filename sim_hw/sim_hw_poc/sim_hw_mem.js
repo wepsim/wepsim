@@ -130,7 +130,7 @@
         sim.poc.internal_states.MP_wc     = 0 ;
 
         sim.poc.internal_states.CM_cfg    = [] ;
-        sim.poc.internal_states.CM_cfg[0] = { tag_size:22, set_size:5, off_size:5, replace_pol:"first" } ;
+        sim.poc.internal_states.CM_cfg[0] = { vps_size:0, set_size:6, off_size:5, replace_pol:"first" } ;
         sim.poc.internal_states.CM        = cache_memory_init2(sim.poc.internal_states.CM_cfg, null) ;
 
 

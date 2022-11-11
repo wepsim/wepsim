@@ -42,22 +42,20 @@
 
 	      render_skel ( )
 	      {
-		    // html holder
-		    var o1 = "<div id='memory_CACHE' " +
-                             "     style='height:58vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'></div>" ;
+                    var style_dim = "height:58vh; width:inherit; " ;
+                    var style_ovf = "overflow:auto; -webkit-overflow-scrolling:touch; " ;
 
-		    this.innerHTML = o1 ;
+		    // html holder
+		    this.innerHTML = "<div id='memory_CACHE' style='" + style_dim + style_ovf + "'></div>" ;
 	      }
 
 	      render_populate ( )
 	      {
-                    var o1 = '' ;
-
                     // cache memory
                     var cm_ref = simhw_internalState('CM') ;
-                    if ( (typeof cm_ref != "undefined") && (Object.keys(cm_ref).length !== 0) ) {
-                          o1 = wepsim_show_cache_as_text(cm_ref) ;
-                    }
+
+                    // information associated as HTML
+                    var o1 = wepsim_show_cache_memory(cm_ref) ;
 
                     $("#memory_CACHE").html(o1) ;
 	      }
@@ -70,14 +68,7 @@
          *  Cache Memory UI
          */
 
-        function wepsim_show_cache_memory ( memory )
-        {
-              var o1 = wepsim_show_cache_as_html(memory) ;
-
-              $("#memory_CACHE").html(o1) ;
-        }
-
-        function wepsim_show_cache_as_html ( memory )
+        function wepsim_show_cache_stats ( memory )
         {
             var o = "" ;
 
@@ -97,10 +88,17 @@
                  "<td>" + memory.stats.n_misses + "</td>" +
                  "</tbody>" +
                  "</table>" +
-                 "<span>hit-ratio  <span class='badge bg-success'>"+hit_ratio.toFixed(2)+"</span></span>\n" +
+                 "<span>hit-ratio  <span class='badge bg-success'>"+hit_ratio.toFixed(2)+"</span></span> & " +
                  "<span>miss-ratio <span class='badge bg-danger'>"+miss_ratio.toFixed(2)+"</span></span>\n" +
                  "</ul>" +
                  "\n" ;
+
+            return o ;
+        }
+
+        function wepsim_show_cache_cfg ( memory )
+        {
+            var o = "" ;
 
 	    // cfg
             o += "<h5>configuration</h5>\n" +
@@ -108,7 +106,7 @@
                  "<li> size of fields (in bits):</li>\n" +
                  "<table class='table table-bordered table-hover table-sm w-75'>" +
                  "<thead>" +
-                 "<tr><th>tag</th><th>set</th><th>offset</th></tr>" +
+                 "<tr><th>tag</th><th>set/index</th><th>offset</th></tr>" +
                  "</thead>" +
                  "<tbody>" +
                  "<td>" + memory.cfg.tag_size + "</td>" +
@@ -116,9 +114,16 @@
                  "<td>" + memory.cfg.off_size + "</td>" +
                  "</tbody>" +
                  "</table>" +
-                 "<li> replace policy: " + memory.cfg.replace_pol + "</li>\n" +
+                 "<li> replace policy: <span class='badge bg-secondary'>" + memory.cfg.replace_pol + "</span></li>\n" +
                  "</ul>" +
                  "\n" ;
+
+            return o ;
+        }
+
+        function wepsim_show_cache_content ( memory )
+        {
+            var o = "" ;
 
 	    // sets/tags
             o += "<h5>sets/tags</h5>\n" +
@@ -130,8 +135,8 @@
             ks = Object.keys(memory.sets) ;
 	    for (const elto_set of ks)
 	    {
-                 elto_set_bin = parseInt(elto_set).toString(2).padStart(memory.cfg.set_size,'0') + '<sub>2</sub>' ;
-	         o += "<table class='table table-bordered table-striped table-hover table-sm w-75 pb-2'>" +
+                 elto_set_bin = parseInt(elto_set).toString(2).padStart(memory.cfg.set_size,'0') + '<sub>2</sub>';
+	         o += "<table class='table table-bordered table-striped table-hover table-sm w-auto pb-2'>" +
                       "<thead>" +
 	              "<tr><th align='center' colspan=4>set: " + elto_set_bin + "</th></tr>" +
 	              "<tr><th>tag</th><th>valid</th><th>dirty</th><th># access</th></tr>" +
@@ -139,7 +144,7 @@
 		 kt = Object.keys(memory.sets[elto_set].tags) ;
 	         for (const elto_tag of kt)
 		 {
-                      elto_tag_bin = parseInt(elto_tag).toString(2) + '<sub>2</sub>' ;
+                      elto_tag_bin = parseInt(elto_tag).toString(2).padStart(memory.cfg.tag_size,'0') + '<sub>2</sub>';
 	              o += "<tr>" +
 			   "<td>" + elto_tag_bin + "</td>" +
 			   "<td>" + memory.sets[elto_set].tags[elto_tag].valid    + "</td>" +
@@ -154,51 +159,17 @@
             return o ;
         }
 
-        function wepsim_show_cache_as_text ( memory )
+        function wepsim_show_cache_memory ( memory )
         {
-            var o = "" ;
+              var o1 = '' ;
 
-	    // cfg
-            o += "cfg\n" +
-                 "---\n" +
-                 "* tag_size:    " + memory.cfg.tag_size + "\n" +
-                 "* set_size:    " + memory.cfg.set_size + "\n" +
-                 "* offset_size: " + memory.cfg.off_size + "\n" +
-                 "* replace_pol: " + memory.cfg.replace_pol + "\n" +
-                 "\n" ;
+              if ( (typeof memory != "undefined") && (Object.keys(memory).length !== 0) )
+              {
+                    o1 += wepsim_show_cache_stats(memory) ;
+                    o1 += wepsim_show_cache_cfg(memory) ;
+                    o1 += wepsim_show_cache_content(memory) ;
+              }
 
-	    // stats
-            o += "stats\n" +
-                 "-----\n" +
-                 "* access: " + memory.stats.n_access + "\n" +
-                 "* hits:   " + memory.stats.n_hits   + "\n" +
-                 "* misses: " + memory.stats.n_misses + "\n" +
-                 "* hit  ratio: " + (memory.stats.n_hits   / memory.stats.n_access) + "\n" +
-                 "* miss ratio: " + (memory.stats.n_misses / memory.stats.n_access) + "\n" +
-                 "\n" ;
-
-	    // sets/tags
-            o += "" +
-                 "sets/tags\n" +
-                 "---------\n" ;
-            var ks = null ;
-	    var kt = null ;
-            ks = Object.keys(memory.sets) ;
-	    for (const elto_set of ks)
-	    {
-	         o += " * " + (elto_set >>> 0) + ":\n" ;
-		 kt = Object.keys(memory.sets[elto_set].tags) ;
-	         for (const elto_tag of kt)
-		 {
-	              o += "     * " + (elto_tag >>> 0) + ": " +
-			   "{ " +
-			   " n_access: " + memory.sets[elto_set].tags[elto_tag].n_access + ", " +
-			   " valid: "    + memory.sets[elto_set].tags[elto_tag].valid + ", " +
-			   " dirty: "    + memory.sets[elto_set].tags[elto_tag].dirty + " " +
-			   "}\n" ;
-	         }
-	    }
-
-            return o ;
+              $("#memory_CACHE").html(o1) ;
         }
 
