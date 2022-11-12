@@ -326,7 +326,14 @@
 	         simhw_internalState_set('segments', key, SIMWARE['seg'][key]) ;
 	    }
 
-	    // 6.- show memories...
+	    // 6.- load the CM with default values...
+            var o = simhw_internalState('CM_cfg') ;
+            if (o.length > 0) {
+                o = cache_memory_init2(o[0], null) ;
+                simhw_internalState_reset('CM', o) ;
+            }
+
+	    // 7.- show memories...
             show_main_memory   (mp_obj, 0, true, true) ;
             show_control_memory(mc_obj, 0, true) ;
 	}

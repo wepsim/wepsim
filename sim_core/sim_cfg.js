@@ -201,7 +201,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.2.1" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.2.1.20220905A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.2.1.20221110A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -264,6 +264,7 @@
 	           /* misc. */
                    "max_json_size":         { upgrade:true,  type:"int",       value:1*1024*1024 },
                    "verbal_verbose":        { upgrade:false, type:"string",    value:'math' },
+                   "extended_ui":           { upgrade:false, type:"boolean",   value:false },
                    "use_ga":                { upgrade:false, type:"boolean",   value:true }
              } ;
 

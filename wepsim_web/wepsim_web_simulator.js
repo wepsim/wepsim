@@ -206,6 +206,7 @@
 		                      show_main_memory: wepsim_show_main_memory,
 		                        show_asmdbg_pc: wepsim_show_asmdbg_pc,
                                    show_control_memory: wepsim_show_control_memory,
+		                     show_cache_memory: wepsim_show_cache_memory,
 		                          show_dbg_mpc: wepsim_show_dbg_mpc,
 				           show_dbg_ir: wepsim_show_dbg_ir
 	                      },

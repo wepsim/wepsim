@@ -40,6 +40,7 @@
 	            super.render() ;
 
                     // render current element
+                    this.extended_ui = false ;
 		    this.render_skel() ;
 		    this.render_populate() ;
 
@@ -110,33 +111,39 @@
 
 	      render_populate_classic_toolbars ( )
 	      {
-                   var o1 = '<div class="col-sm-auto p-1 me-1 my-1">' +
-			    '<ws-toolbar components="[,switch_microcode,switch_assembly,]"></ws-toolbar>' +
-			    '</div>' +
-			    '' +
-			    '<div class="w-100 d-block d-sm-none"></div>' +
-			    '' +
-			    '<div id="slider_cpucu" ' +
-                            '     class="col-sm p-0 collapse show multi-collapse-2 user_microcode">' +
-			    '<ws-toolbar components="slider_cpucu"></ws-toolbar>' +
-			    '</div>' +
-			    '' +
-			    '<div class="w-100 d-md-block d-lg-none"></div>' +
-			    '' +
-			    '<div class="col-sm-auto p-1 my-0">' +
-			 // '<ws-toolbar components="[,btn_examples,btn_help,btndd_mode,]"></ws-toolbar>' +
-			    '<ws-toolbar components="[,btn_examples,btn_help,]"></ws-toolbar>' + // for UC3M
-			    '</div>' +
-			    '' +
-			    '<div class="col-sm p-0 ms-1 collapse show multi-collapse-2">' +
-			    '<ws-toolbar components="slider_c1c2"></ws-toolbar>' +
-			    '</div>' +
-			    '' +
-			    '<div class="w-100 d-sm-block d-md-none"></div>' +
-			    '' +
-			    '<div class="col-sm-auto p-1 my-0">' +
-			    '<ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>' +
-			    '</div>' ;
+                   var o1 = '' ;
+                   var ui1 = '' ;
+
+                   if (this.extended_ui)
+		       ui1 = '[,btn_examples,btn_help,btndd_mode,]' ;
+		  else ui1 = '[,btn_examples,btn_help,]' ;
+
+                   o1 += '<div class="col-sm-auto p-1 me-1 my-1">' +
+			 '<ws-toolbar components="[,switch_microcode,switch_assembly,]"></ws-toolbar>' +
+			 '</div>' +
+			 '' +
+			 '<div class="w-100 d-block d-sm-none"></div>' +
+			 '' +
+			 '<div id="slider_cpucu" ' +
+                         '     class="col-sm p-0 collapse show multi-collapse-2 user_microcode">' +
+			 '<ws-toolbar components="slider_cpucu"></ws-toolbar>' +
+			 '</div>' +
+			 '' +
+			 '<div class="w-100 d-md-block d-lg-none"></div>' +
+			 '' +
+			 '<div class="col-sm-auto p-1 my-0">' +
+			 '<ws-toolbar components="' + ui1 + '"></ws-toolbar>' +
+                         '</div>' +
+			 '' +
+			 '<div class="col-sm p-0 ms-1 collapse show multi-collapse-2">' +
+			 '<ws-toolbar components="slider_c1c2"></ws-toolbar>' +
+			 '</div>' +
+			 '' +
+			 '<div class="w-100 d-sm-block d-md-none"></div>' +
+			 '' +
+			 '<div class="col-sm-auto p-1 my-0">' +
+			 '<ws-toolbar components="[,btn_config,btndd_action,]"></ws-toolbar>' +
+			 '</div>' ;
 
                    // return HTML
                    return o1 ;
@@ -144,6 +151,12 @@
 
 	      render_populate_classic_details ( )
 	      {
+                   var ui1 = '' ;
+
+                   if (this.extended_ui)
+		       ui1 = 'mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp,cm,cmcfg' ;
+		  else ui1 = 'mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp' ;
+
 		   var o1 = '    <div class="row ps-2 pe-3">' +
 			    '	 <ws-executionbar name="exebar1" class="btn-toolbar btn-block"' +
 			    '			  components="btn_reset,btn_emins,btn_eins,btn_run"' +
@@ -161,11 +174,11 @@
                             '<em class="fas fa-camera"></em>' + '&nbsp;' +
                             '<span data-langkey="States">States</span></button>' +
 			    '	      <ws-ddown-sel class="col btn-group p-0 mx-1" style="flex-grow:2;"' +
-			    '                       components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp"></ws-ddown-sel>' +
+			    '                       components="' + ui1 + '"></ws-ddown-sel>' +
 			    '	 </div>' +
 			    '	 </div>' +
 			    '' +
-			    '	 <ws-ddown-info components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp"></ws-ddown-info>' +
+			    '	 <ws-ddown-info components="' + ui1 + '"></ws-ddown-info>' +
 			    '' ;
 
                    // return HTML
