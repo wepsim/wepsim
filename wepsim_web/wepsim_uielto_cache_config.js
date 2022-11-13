@@ -90,33 +90,62 @@
         {
 	     var o = '' ;
 
-	     o += "<table class='table table-hover table-sm table-bordered m-0'>" +
+	     o += "<div class='row'>" +
+		  "<div class='col p-2'>" +
+	          "<table class='table table-hover table-sm table-bordered m-0'>" +
 		  "<tbody>" +
-		  "<tr><td align=center'>bits for offset<br> (identify byte inside block/line/via)</td>" +
+		  "<tr>" +
+                  "    <td class='w-50'>line/via: bits to identify line/via in cache</td>" +
+                  "    <td class='w-50'>offset: bits to identify byte inside line/via</td>" +
+                  "</tr>" +
+		  "<tr>" +
+		  "    <td align=center'>" +
+		  "    <div id='via_size_" + index + "_" + this.name_str + "'>" +
+		  "    <input type='number' " +
+		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
+		  "           min='0' max='32'>" +
+		  "    </div>" +
+		  "    </td>" +
 		  "    <td align=center'>" +
 		  "    <div id='off_size_" + index + "_" + this.name_str + "'>" +
 		  "    <input type='number' " +
 		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
 		  "           min='0' max='32'>" +
 		  "    </div>" +
-		  "    </td></tr>" +
-		  "<tr><td align=center'>bits for set<br> (identify set in cache)</td>" +
-		  "    <td align=center'>" +
+		  "    </td>" +
+                  "</tr>" +
+                  "</tbody>" +
+                  "</table>" +
+		  "</div>" +
+		  "</div>" ;
+
+	     o += "<div class='row'>" +
+		  "<div class='col p-2'>" +
+	          "<table class='table table-hover table-sm table-bordered m-0 w-50'>" +
+		  "<tbody>" +
+                  "<tr>" +
+		  "    <td class=''>bits to identify set in cache (0: direct, all: full-assoc.)</td>" +
+                  "</tr>" +
+                  "<tr>" +
+		  "    <td>" +
 		  "    <div id='set_size_" + index + "_" + this.name_str + "'>" +
 		  "    <input type='number' " +
 		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value));' " +
 		  "           min='0' max='32'>" +
 		  "    </div>" +
-		  "    </td></tr>" +
-		  "<tr><td align=center'>bits for vias per set<br> (identify a via within a set)</td>" +
-		  "    <td align=center'>" +
-		  "    <div id='vps_size_" + index + "_" + this.name_str + "'>" +
-		  "    <input type='number' " +
-		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"vps_size\", parseInt(this.value));' " +
-		  "           min='0' max='32'>" +
-		  "    </div>" +
-		  "    </td></tr>" +
-		  "<tr><td align=center'>Replace policy</td>" +
+		  "    </td>" +
+                  "</tr>" +
+		  "</tbody>" +
+		  "</table>" +
+		  "</div>" +
+		  "</div>" ;
+
+	     o += "<div class='row'>" +
+		  "<div class='col p-2'>" +
+	          "<table class='table table-hover table-sm table-bordered m-0'>" +
+		  "<tbody>" +
+		  "<tr>" +
+		  "    <td align=center'>Replace policy</td>" +
 		  "    <td align=center'>" +
 		  "    <select class='form-select' " +
 		  "            id='replace_pol_" + index + "_" + this.name_str + "'>" +
@@ -125,9 +154,12 @@
 		  "      <option value='first' selected>First</option>" +
 		  "      <option value='lfu'>LRF</option>" +
 		  "    </select>" +
-		  "    </td></tr>" +
+		  "    </td>" +
+		  "</tr>" +
 		  "</tbody>" +
-		  "</table>" ;
+		  "</table>" +
+		  "</div>" +
+		  "</div>" ;
 
 	   return o ;
         }
@@ -203,11 +235,15 @@
               var curr_cm  = simhw_internalState('CM') ;
               var curr_cfg = simhw_internalState('CM_cfg') ;
 
-              if (curr_cfg.length > 0)
-              {
-                  curr_cfg[index][field] = value ;
-                  curr_cm[index] = cache_memory_init2(curr_cfg[index], null) ;
+              if (0 == curr_cfg.length) {
+                  return ;
               }
+              if ( (('via_size' == field) || ('set_size' == field)) && (curr_cfg[index]['set_size'] > curr_cfg[index]['via_size']) ) {
+                  return ;
+              }
+
+              curr_cfg[index][field] = value ;
+              curr_cm[index] = cache_memory_init2(curr_cfg[index], null) ;
 
               simhw_internalState_reset('CM_cfg', curr_cfg) ;
               simhw_internalState_reset('CM',     curr_cm) ;

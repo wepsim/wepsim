@@ -87,17 +87,11 @@
 
             o += "<h5>stats</h5>\n" +
                  "<ul>" +
-                 "<li> #access = #hits + #misses:</li>\n" +
-                 "<table class='table table-bordered table-hover table-sm w-75'>" +
-                 "<thead>" +
-                 "<tr><th># access</th><th># hits</th><th># misses</th></tr>" +
-                 "</thead>" +
-                 "<tbody>" +
-                 "<td>" + memory.stats.n_access + "</td>" +
-                 "<td>" + memory.stats.n_hits   + "</td>" +
-                 "<td>" + memory.stats.n_misses + "</td>" +
-                 "</tbody>" +
-                 "</table>" +
+                 "<li> " +
+                 "#access <span class='badge bg-info'>" + memory.stats.n_access + "</span> = " +
+                 "#hits   <span class='badge bg-info'>" + memory.stats.n_hits   + "</span> + " +
+                 "#misses <span class='badge bg-info'>" + memory.stats.n_misses + "</span>   " +
+                 "</li>\n" +
                  "<li>\n" +
                  "<span>hit-ratio  <span class='badge bg-success'>"+hit_ratio.toFixed(2)+"</span></span> & " +
                  "<span>miss-ratio <span class='badge bg-danger'>"+miss_ratio.toFixed(2)+"</span></span>\n" +
@@ -196,7 +190,7 @@
               if ( (typeof memory == "undefined") || (Object.keys(memory).length == 0) )
               {
                     document.getElementById(div_id).style.opacity = "0.5" ;
-                    cache_memory[0] = cache_memory_init(0, 6, 5, "first", null) ;
+                    cache_memory[0] = cache_memory_init(12, 3, 5, "first", null) ;
               }
               else
               {

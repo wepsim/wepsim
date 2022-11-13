@@ -27,10 +27,11 @@
          *                           n_misses: 0
          *                        },
          *               "cfg":   {
-         *                           tag_size: 1,
-         *                           vps_size: 1,
-         *                           set_size: 1,
+         *                           via_size: 1,
          *                           off_size: 1,
+         *                           set_size: 1,
+         *                           vps_size: 1,
+         *                           tag_size: 1,
          *                           replace_pol: "first",
          *                           next_cache: null
          *                        },
@@ -99,13 +100,13 @@
         // API
         //
 
-        // Example: var cm = cache_memory_init(0, 6, 5, "first", null) ;
-        //                   * bits for via_per_set:    0 bits,
-        //                   * bits for set_per_cache:  6 bits,
-        //                   * bits for offset in line: 5 bits,
+        // Example: var cm = cache_memory_init(12, 5, 6, "first", null) ;
+        //                   * bits for via    in line: 12 bits,
+        //                   * bits for offset in line:  5 bits,
+        //                   * bits for set_per_cache:   6 bits,
         //                   * replace_policy:  "first" | "lfu",
         //                   * next_cache_level: null (none)
-        function cache_memory_init ( vps_size, set_size, off_size, replace_pol, next_cache )
+        function cache_memory_init ( via_size, off_size, set_size, replace_pol, next_cache )
         {
             var c = { "stats":{}, "cfg":{}, "sets":{} } ;
 
@@ -113,10 +114,11 @@
 	    c.stats.n_hits   = 0 ;
 	    c.stats.n_misses = 0 ;
 
-	    c.cfg.tag_size = 32 - set_size - off_size ;
-	    c.cfg.vps_size = vps_size ;
-	    c.cfg.set_size = set_size ;
+	    c.cfg.via_size = via_size ;
 	    c.cfg.off_size = off_size ;
+	    c.cfg.set_size = set_size ;
+	    c.cfg.vps_size = via_size - set_size ;
+	    c.cfg.tag_size = 32 - set_size - off_size ;
 
             c.cfg.mask_tag = (Math.pow(2, c.cfg.tag_size) - 1) >>> 0 ;
             c.cfg.mask_set = (Math.pow(2, c.cfg.set_size) - 1) >>> 0 ;
@@ -133,9 +135,10 @@
         // Example: var cm = cache_memory_init2(cfg, null) ;
         function cache_memory_init2 ( cfg, next_cache )
         {
-            return cache_memory_init(cfg.vps_size, cfg.set_size, cfg.off_size,
+            return cache_memory_init(cfg.via_size, cfg.off_size,
+                                     cfg.set_size,
                                      cfg.replace_pol,
-                                     next_cache) ;
+                                     cfg.next_cache) ;
         }
 
         // Example: var parts = cache_memory_split(cm, 0x12345678)
