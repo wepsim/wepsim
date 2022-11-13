@@ -85,19 +85,14 @@
             var hit_ratio  = (memory.stats.n_hits   / memory.stats.n_access) ;
             var miss_ratio = (memory.stats.n_misses / memory.stats.n_access) ;
 
-            o += "<h5>stats</h5>\n" +
+            o += "<h5 class='pt-2 mb-0'>Stats</h5>\n" +
+                 "<hr class='mt-0'>" +
                  "<ul>" +
-                 "<li> #access = #hits + #misses:</li>\n" +
-                 "<table class='table table-bordered table-hover table-sm w-75'>" +
-                 "<thead>" +
-                 "<tr><th># access</th><th># hits</th><th># misses</th></tr>" +
-                 "</thead>" +
-                 "<tbody>" +
-                 "<td>" + memory.stats.n_access + "</td>" +
-                 "<td>" + memory.stats.n_hits   + "</td>" +
-                 "<td>" + memory.stats.n_misses + "</td>" +
-                 "</tbody>" +
-                 "</table>" +
+                 "<li> " +
+                 "#access <span class='badge bg-info'>" + memory.stats.n_access + "</span> = " +
+                 "#hits   <span class='badge bg-info'>" + memory.stats.n_hits   + "</span> + " +
+                 "#misses <span class='badge bg-info'>" + memory.stats.n_misses + "</span>   " +
+                 "</li>\n" +
                  "<li>\n" +
                  "<span>hit-ratio  <span class='badge bg-success'>"+hit_ratio.toFixed(2)+"</span></span> & " +
                  "<span>miss-ratio <span class='badge bg-danger'>"+miss_ratio.toFixed(2)+"</span></span>\n" +
@@ -127,10 +122,11 @@
             }
 
 	    // cfg
-            o += "<h5>configuration</h5>\n" +
+            o += "<h5 class='pt-2 mb-0'>Configuration</h5>\n" +
+                 "<hr class='mt-0'>" +
                  "<ul>" +
                  "<li> size of fields (in bits):</li>\n" +
-                 "<table class='table table-bordered table-hover table-sm w-75'>" +
+                 "<table class='table table-bordered table-hover table-sm'>" +
                  "<thead>" +
                  "<tr><th>tag</th><th>" + field_type + "</th><th>offset</th></tr>" +
                  "</thead>" +
@@ -153,8 +149,8 @@
             var o = "" ;
 
 	    // sets/tags
-            o += "<h5>sets/tags</h5>\n" +
-                 "<ul>" ;
+            o += "<h5 class='pt-2 mb-0'>Sets & Tags</h5>\n" +
+                 "<hr class='mt-0'>" ;
             var ks = null ;
 	    var kt = null ;
             var elto_set_bin = '' ;
@@ -181,7 +177,6 @@
 	         }
 	         o += "</tbody></table>" ;
 	    }
-            o += "</ul>\n" ;
 
             return o ;
         }
@@ -196,7 +191,7 @@
               if ( (typeof memory == "undefined") || (Object.keys(memory).length == 0) )
               {
                     document.getElementById(div_id).style.opacity = "0.5" ;
-                    cache_memory[0] = cache_memory_init(0, 6, 5, "first", null) ;
+                    cache_memory[0] = cache_memory_init(12, 3, 5, "first", null) ;
               }
               else
               {
