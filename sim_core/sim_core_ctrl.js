@@ -327,11 +327,13 @@
 	    }
 
 	    // 6.- load the CM with default values...
-            var o = simhw_internalState('CM_cfg') ;
-            if (o.length > 0) {
-                o = cache_memory_init2(o[0], null) ;
-                simhw_internalState_reset('CM', o) ;
+            var curr_cm  = [] ;
+            var curr_cfg = simhw_internalState('CM_cfg') ;
+            for (var i=0; i<curr_cfg.length; i++) {
+                 curr_cm[i] = cache_memory_init2(curr_cfg[i], null) ;
             }
+            simhw_internalState_reset('CM_cfg', curr_cfg) ;
+            simhw_internalState_reset('CM',     curr_cm) ;
 
 	    // 7.- show memories...
             show_main_memory   (mp_obj, 0, true, true) ;
