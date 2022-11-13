@@ -130,7 +130,7 @@
         sim.poc.internal_states.MP_wc     = 0 ;
 
         sim.poc.internal_states.CM_cfg    = [] ;
-        sim.poc.internal_states.CM        = {} ;
+        sim.poc.internal_states.CM        = [] ;
 
 
         /*
@@ -222,8 +222,8 @@
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, false) ;
 
                                                       // cache
-                                                      if (1 == sim.poc.internal_states.CM_cfg.length > 0)
-                                                          cache_memory_access(sim.poc.internal_states.CM, address, "read") ;
+                                                      if (sim.poc.internal_states.CM.length > 0)
+                                                          cache_memory_access(sim.poc.internal_states.CM[0], address, "read") ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -317,8 +317,8 @@
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, true) ;
 
                                                       // cache
-                                                      if (1 == sim.poc.internal_states.CM_cfg.length > 0)
-                                                          cache_memory_access(sim.poc.internal_states.CM, address, "write") ;
+                                                      if (sim.poc.internal_states.CM.length > 0)
+                                                          cache_memory_access(sim.poc.internal_states.CM[0], address, "write") ;
                                                    },
                                            verbal: function (s_expr)
                                                    {

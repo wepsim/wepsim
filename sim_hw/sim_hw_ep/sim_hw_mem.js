@@ -128,7 +128,7 @@
         sim.ep.internal_states.MP        = {} ;
 
         sim.ep.internal_states.CM_cfg    = [] ;
-        sim.ep.internal_states.CM        = {} ;
+        sim.ep.internal_states.CM        = [] ;
   
 
 
@@ -204,8 +204,8 @@
 				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, false) ;
 
                                                       // cache
-                                                      if (sim.ep.internal_states.CM_cfg.length > 0)
-                                                          cache_memory_access(sim.ep.internal_states.CM, address, "read") ;
+                                                      if (sim.ep.internal_states.CM.length > 0)
+                                                          cache_memory_access(sim.ep.internal_states.CM[0], address, "read") ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -296,8 +296,8 @@
 				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, true) ;
 
                                                       // cache
-                                                      if (sim.ep.internal_states.CM_cfg.length > 0)
-                                                          cache_memory_access(sim.ep.internal_states.CM, address, "write") ;
+                                                      if (sim.ep.internal_states.CM.length > 0)
+                                                          cache_memory_access(sim.ep.internal_states.CM[0], address, "write") ;
                                                    },
                                            verbal: function (s_expr)
                                                    {

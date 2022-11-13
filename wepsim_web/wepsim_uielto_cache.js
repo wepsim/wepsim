@@ -189,14 +189,30 @@
         function wepsim_show_cache_memory ( memory )
         {
               var o1 = '' ;
+              var div_id = 'memory_CACHE' ;
+              var cache_memory = [] ;
 
-              if ( (typeof memory != "undefined") && (Object.keys(memory).length !== 0) )
+              // default working values...
+              if ( (typeof memory == "undefined") || (Object.keys(memory).length == 0) )
               {
-                    o1 += wepsim_show_cache_stats(memory) ;
-                    o1 += wepsim_show_cache_cfg(memory) ;
-                    o1 += wepsim_show_cache_content(memory) ;
+                    document.getElementById(div_id).style.opacity = "0.5" ;
+                    cache_memory[0] = cache_memory_init(0, 6, 5, "first", null) ;
+              }
+              else
+              {
+                    document.getElementById(div_id).style.opacity = "1.0" ;
+                    cache_memory = memory ;
               }
 
+              // cache_memory in HTML
+              for (var i=0; i<cache_memory.length; i++)
+              {
+                   o1 += wepsim_show_cache_stats(cache_memory[i]) ;
+                   o1 += wepsim_show_cache_cfg(cache_memory[i]) ;
+                   o1 += wepsim_show_cache_content(cache_memory[i]) ;
+              }
+
+              // load HTML
               $("#memory_CACHE").html(o1) ;
         }
 

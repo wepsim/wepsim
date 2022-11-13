@@ -105,7 +105,7 @@
                    $("#dd2_container").html(o1) ;
 
                    // reload configuration
-                   uipacker_ddown_sel_set_select(11) ;
+                    uipacker_ddown_sel_set_select(11) ;
                    uipacker_ddown_info_set_select(11) ;
 	      }
 
@@ -116,7 +116,13 @@
 
 	      mk_items_hash ()
 	      {
-                   this.devices = [ 'CPU', 'Main Memory', 'Cache Memory', 'Devices', 'Simulation' ] ;
+                   this.devices = [ 'CPU',
+                                    'Main Memory',
+                                    'Cache Memory',
+                                    'Devices',
+                                    'Simulation' ] ;
+
+
                    this.details = {
                                      'CPU':          [ 'all', 'mc', 'cpu' ],
                                      'Main Memory':  [ 'mp', 'mpcfg' ],
@@ -143,10 +149,10 @@
 				      '		  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span></a>',
 				  cm: ' <a class="dropdown-item" href="#" id="s5b_28" value="28"' +
 				      '	 onclick="wsweb_set_details(\'CACHE\');' +
-				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Memory\'>Memory</span></a>',
+				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Memory\'>Memory</span> <span class="badge text-bg-secondary py-0 px-1">beta</span> </a>',
 			       cmcfg: ' <a class="dropdown-item" href="#" id="s5b_29" value="29"' +
 				      '	 onclick="wsweb_set_details(\'CACHE_CONFIG\');' +
-				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span></a>',
+				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span> <span class="badge text-bg-secondary py-0 px-1">beta</span> </a>',
 				 con: '      <a class="dropdown-item" href="#" id="s5b_12" value="12"' +
 				      '	 onclick="wsweb_set_details(\'SCREEN\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Keyboard+Display\'>Keyboard+Display</span></a>',
