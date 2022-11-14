@@ -93,7 +93,7 @@
 	     o += "<div class='row'>" +
 		  "<div class='col p-2'>" +
 		  "<h5>Cache-" + (index+1) + "</h5>" +
-	          "<table class='table table-hover table-sm table-bordered m-0'>" +
+	          "<table class='table table-hover table-sm table-bordered m-0 border border-light'>" +
 		  "<tbody>" +
 		  "<tr>" +
                   "    <td class='border border-dark w-50 text-center'>line/via</td>" +
@@ -121,11 +121,17 @@
                   "</table>" +
 	          "<table class='table table-hover table-sm table-bordered m-0 w-50'>" +
 		  "<tbody>" +
+		  "    <td align='center' class='border border-dark'>tag</td>" +
+		  "    <td align='center' class='border border-dark'>set</td>" +
                   "<tr>" +
-		  "    <td align='center'>" +
-                  "    <label for='cmcfg_range' class='form-label'>(0: direct, max: full-assoc.)</label>" +
-                  "    <input type='range' class='form-range' min='0' max='5' id='cmcfg_range' " +
+		  "    <td align='left' colspan='2'>" +
+                  "    <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'>(0: direct, max: full-assoc.)</label>" +
+                  "    <input type='range' class='form-range pt-1' min='0' max='5' id='cmcfg_range' " +
                   "       onchange='wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value));'>" +
+		  "    </td>" +
+                  "</tr>" +
+                  "<tr>" +
+		  "    <td align='center' colspan='2'>" +
                   "    # bits for set in cache" +
 		  "    </td>" +
                   "</tr>" +
@@ -167,24 +173,22 @@
 		 "<div class='col p-2'>" +
 		 "<table class='table table-hover table-sm table-bordered m-0'>" +
 		 "<tbody>" +
-		 "<tr><td class='align-middle'>Cache memory</td>" +
-		 "    <td align='center'>" +
-		 "    <div class='form-check' onclick='wepsim_cm_enable();'>" +
-		 "      <input class='form-check-input' type='radio' name='cm_state' id='cm_enabled'>" +
-		 "      <label class='form-check-label' for='cm_enabled'>Enabled</label>" +
-		 "    </div>" +
-		 "    <div class='form-check' onclick='wepsim_cm_disable();'>" +
-		 "      <input class='form-check-input' type='radio' name='cm_state' id='cm_disabled' checked>" +
-		 "      <label class='form-check-label' for='cm_disabled'>Disabled</label>" +
-		 "    </div>" +
-		 "    </td></tr>" +
+		 "<tr>" +
+		 "    <td align='right'>" +
+                 "    <div class='form-check form-switch w-50'>" +
+                 "      <label class='form-check-label' for='cm_switch'>Cache memory</label>" +
+                 "      <input class='form-check-input mx-0' id='cm_switch' " +
+                 "             type='checkbox' role='switch' onclick='wepsim_cm_toggle();'>" +
+                 "    </div>" +
+		 "    </td>" +
+                 "</tr>" +
 		 "</tbody>" +
 		 "</table>" +
 		 "</div>" +
 		 "</div>" ;
 
 	    o += "<div class='row'>" +
-		 "<div class='col p-2'>" ;
+		 "<div class='col'>" ;
             o += wepsim_show_cm_level_cfg(memory_cfg, 0) ;
 	    for (var i=1; i<memory_cfg.length; i++) {
             o += wepsim_show_cm_level_cfg(memory_cfg, i) ;
@@ -218,6 +222,15 @@
               simhw_internalState_reset('CM', []);
         }
 
+        function wepsim_cm_toggle ( )
+        {
+              var curr_cm  = simhw_internalState('CM') ;
+
+              if (curr_cm.length != 0)
+                   wepsim_cm_disable() ;
+              else wepsim_cm_enable() ;
+        }
+
         function wepsim_cm_update_cfg ( index, field, value )
         {
               var curr_cm  = simhw_internalState('CM') ;
@@ -229,8 +242,7 @@
               if ( (('via_size' == field) || ('set_size' == field)) && (curr_cfg[index]['set_size'] > curr_cfg[index]['via_size']) ) {
                   return ;
               }
-              if ('via_size' == field)
-              {
+              if ('via_size' == field) {
                   document.getElementById("cmcfg_range").max = value ;
               }
 
