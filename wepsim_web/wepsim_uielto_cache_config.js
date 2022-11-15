@@ -167,68 +167,20 @@
         function wepsim_show_cache_memory_cfg ( memory_cfg )
         {
 	    var o = '' ;
+	    var i = 0 ;
 
-	    o += "<div class='container container-fluid'>" +
-		 "<div class='row'>" +
-		 "<div class='col p-2'>" +
-		 "<table class='table table-hover table-sm table-bordered m-0'>" +
-		 "<tbody>" +
-		 "<tr>" +
-		 "    <td align='right'>" +
-                 "    <div class='form-check form-switch w-50'>" +
-                 "      <label class='form-check-label' for='cm_switch'>Cache memory</label>" +
-                 "      <input class='form-check-input mx-0' id='cm_switch' " +
-                 "             type='checkbox' role='switch' onclick='wepsim_cm_toggle();'>" +
-                 "    </div>" +
-		 "    </td>" +
-                 "</tr>" +
-		 "</tbody>" +
-		 "</table>" +
-		 "</div>" +
-		 "</div>" ;
-
-	    o += "<div class='row'>" +
-		 "<div class='col'>" ;
-            o += wepsim_show_cm_level_cfg(memory_cfg, 0) ;
-	    for (var i=1; i<memory_cfg.length; i++) {
-            o += wepsim_show_cm_level_cfg(memory_cfg, i) ;
+	         o += "<div class='container container-fluid'>" ;
+	              "<div class='row'>" +
+		      "<div class='col'>" ;
+	    for (i=0; i<memory_cfg.length; i++) {
+                 o += wepsim_show_cm_level_cfg(memory_cfg, i) ;
 	    }
-	    o += "</div>" +
-		 "</div>" +
-		 "</div>" ;
+                 o += wepsim_show_cm_level_cfg(memory_cfg, i) ; // add extra option to add a new cache-level
+	         o += "</div>" +
+		      "</div>" +
+		      "</div>" ;
 
 	   return o ;
-        }
-
-        function wepsim_cm_enable ( )
-        {
-              var curr_cm  = [] ;
-              var curr_cfg = simhw_internalState('CM_cfg') ;
-
-              if (0 == curr_cfg.length) {
-                  curr_cfg[0] = { vps_size:0, set_size:6, off_size:5, replace_pol:"first" } ;
-              }
-
-              for (var i=0; i<curr_cfg.length; i++) {
-                  curr_cm[i] = cache_memory_init2(curr_cfg[i], null) ;
-              }
-
-              simhw_internalState_reset('CM_cfg', curr_cfg) ;
-              simhw_internalState_reset('CM',     curr_cm) ;
-        }
-
-        function wepsim_cm_disable ( )
-        {
-              simhw_internalState_reset('CM', []);
-        }
-
-        function wepsim_cm_toggle ( )
-        {
-              var curr_cm  = simhw_internalState('CM') ;
-
-              if (curr_cm.length != 0)
-                   wepsim_cm_disable() ;
-              else wepsim_cm_enable() ;
         }
 
         function wepsim_cm_update_cfg ( index, field, value )

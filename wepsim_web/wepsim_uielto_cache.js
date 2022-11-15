@@ -47,8 +47,22 @@
                     var style_ovf = "overflow:auto; -webkit-overflow-scrolling:touch; " ;
 
 		    // html holder
-		    this.innerHTML = "<div id='"    + div_id    + "' " +
-                                     "     style='" + style_dim + style_ovf + "'></div>" ;
+		    this.innerHTML = "<div class='container container-fluid d-flex justify-content-center'>" +
+		                     "<div class='row row-cols-auto'>" +
+		                     "<div class='col p-2'>Cache memory</div>" +
+		                     "<div class='col p-2'>" +
+                                     "    <div class='form-check form-switch px-0'>" +
+                                     "        <label class='form-check-label' for='cm_switch'>enable/disable</label>" +
+                                     "        <input class='form-check-input mx-2' id='cm_switch' " +
+                                     "               type='checkbox' role='switch' onclick='wepsim_cm_toggle(); wsweb_select_refresh();'>" +
+                                     "    </div>" +
+		                     "</div>" +
+		                     "<div class='col p-2'>" +
+		                     "    <span class='btn btn-sm btn-info text-white py-0' onclick='wsweb_select_refresh();'>Refresh</span>" +
+		                     "</div>" +
+		                     "</div>" +
+		                     "</div>" +
+		                     "<div id='" + div_id + "' style='" + style_dim + style_ovf + "'></div>" ;
 	      }
 
 	      render_populate ( )
@@ -209,5 +223,41 @@
 
               // load HTML
               $("#memory_CACHE").html(o1) ;
+        }
+
+
+        /*
+         *  Cache Memory Enable/Disable
+         */
+
+        function wepsim_cm_enable ( )
+        {
+              var curr_cm  = [] ;
+              var curr_cfg = simhw_internalState('CM_cfg') ;
+
+              if (0 == curr_cfg.length) {
+                  curr_cfg[0] = { vps_size:0, set_size:6, off_size:5, replace_pol:"first" } ;
+              }
+
+              for (var i=0; i<curr_cfg.length; i++) {
+                  curr_cm[i] = cache_memory_init2(curr_cfg[i], null) ;
+              }
+
+              simhw_internalState_reset('CM_cfg', curr_cfg) ;
+              simhw_internalState_reset('CM',     curr_cm) ;
+        }
+
+        function wepsim_cm_disable ( )
+        {
+              simhw_internalState_reset('CM', []);
+        }
+
+        function wepsim_cm_toggle ( )
+        {
+              var curr_cm  = simhw_internalState('CM') ;
+
+              if (curr_cm.length != 0)
+                   wepsim_cm_disable() ;
+              else wepsim_cm_enable() ;
         }
 
