@@ -172,16 +172,17 @@
 						      var address = sim.ep.states[s_expr[1]].value;
                                                       var dbvalue = sim.ep.states[s_expr[2]].value;
                                                       var bw      = sim.ep.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.ep.states[s_expr[5]].value) ;
+                                                      var clk     = get_value(sim.ep.states[s_expr[5]]) ;
 
                                                       sim.ep.signals[s_expr[4]].value = 0;
-						      var remain = get_var(sim.ep.internal_states.MP_wc);
+						      var remain = get_value(sim.ep.internal_states.MP_wc);
 						      if (
                                                            (typeof sim.ep.events.mem[clk-1] != "undefined") &&
 						           (sim.ep.events.mem[clk-1] > 0)
                                                          ) {
 						              remain = sim.ep.events.mem[clk-1] - 1;
                                                            }
+						      var first_time = typeof sim.ep.events.mem[clk] == "undefined" ;
 						      sim.ep.events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
@@ -204,8 +205,9 @@
 				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, false) ;
 
                                                       // cache
-                                                      if (sim.ep.internal_states.CM.length > 0)
+						      if (first_time && (sim.ep.internal_states.CM.length > 0)) {
                                                           cache_memory_access(sim.ep.internal_states.CM[0], address, "read") ;
+                                                      }
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -214,7 +216,7 @@
 						      var address = sim.ep.states[s_expr[1]].value;
                                                       var dbvalue = sim.ep.states[s_expr[2]].value;
                                                       var bw      = sim.ep.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.ep.states[s_expr[5]].value) ;
+                                                      var clk     = get_value(sim.ep.states[s_expr[5]]) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )
@@ -248,16 +250,17 @@
 						      var address = sim.ep.states[s_expr[1]].value;
                                                       var dbvalue = sim.ep.states[s_expr[2]].value;
                                                       var bw      = sim.ep.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.ep.states[s_expr[5]].value) ;
+                                                      var clk     = get_value(sim.ep.states[s_expr[5]]) ;
 
                                                       sim.ep.signals[s_expr[4]].value = 0;
-						      var remain = get_var(sim.ep.internal_states.MP_wc);
+						      var remain = get_value(sim.ep.internal_states.MP_wc);
 						      if (
                                                            (typeof sim.ep.events.mem[clk-1] != "undefined") &&
 						           (sim.ep.events.mem[clk-1] > 0)
                                                          ) {
 						              remain = sim.ep.events.mem[clk-1] - 1;
                                                            }
+						      var first_time = typeof sim.ep.events.mem[clk] == "undefined" ;
 						      sim.ep.events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
@@ -296,8 +299,9 @@
 				                      show_main_memory(sim.ep.internal_states.MP, address, full_redraw, true) ;
 
                                                       // cache
-                                                      if (sim.ep.internal_states.CM.length > 0)
+						      if (first_time && (sim.ep.internal_states.CM.length > 0)) {
                                                           cache_memory_access(sim.ep.internal_states.CM[0], address, "write") ;
+                                                      }
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -306,7 +310,7 @@
 						      var address = sim.ep.states[s_expr[1]].value;
                                                       var dbvalue = sim.ep.states[s_expr[2]].value;
                                                       var bw      = sim.ep.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.ep.states[s_expr[5]].value) ;
+                                                      var clk     = get_value(sim.ep.states[s_expr[5]]) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )

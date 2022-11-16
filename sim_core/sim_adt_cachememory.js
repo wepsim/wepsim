@@ -24,7 +24,9 @@
          *               "stats": {
          *                           n_access: 0,
          *                           n_hits:   0,
-         *                           n_misses: 0
+         *                           n_misses: 0,
+         *                           last_address: 0,
+         *                           last_request: "read"
          *                        },
          *               "cfg":   {
          *                           via_size: 1,
@@ -52,10 +54,14 @@
         // Auxiliar functions
         //
 
-        function cache_memory_update_stats ( memory, set, tag, r_w, m_h )
+        function cache_memory_update_stats ( memory, address, parts, r_w, m_h )
         {
             // global stats
             (memory.stats.n_access)++ ;
+             memory.stats.last_addr  = address ;
+             memory.stats.last_parts = parts ;
+             memory.stats.last_r_w   = r_w ;
+             memory.stats.last_h_m   = m_h ;
 
             if (m_h == "miss") {
                 (memory.stats.n_misses)++ ;
@@ -64,10 +70,10 @@
 	    }
 
             // block stats
-            (memory.sets[set].tags[tag].n_access)++ ;
+            (memory.sets[parts.set].tags[parts.tag].n_access)++ ;
 
             if (r_w == "write") {
-                memory.sets[set].tags[tag].dirty = 1 ;
+                memory.sets[parts.set].tags[parts.tag].dirty = 1 ;
             }
         }
 
@@ -112,10 +118,6 @@
         {
             var c = { "stats":{}, "cfg":{}, "sets":{} } ;
 
-	    c.stats.n_access = 0 ;
-	    c.stats.n_hits   = 0 ;
-	    c.stats.n_misses = 0 ;
-
 	    c.cfg.via_size = via_size ;
 	    c.cfg.off_size = off_size ;
 	    c.cfg.set_size = set_size ;
@@ -131,6 +133,14 @@
 	    c.cfg.replace_pol = replace_pol ;
 	    c.cfg.su_pol      = su_pol ;
 	    c.cfg.next_cache  = next_cache ;
+
+	    c.stats.n_access = 0 ;
+	    c.stats.n_hits   = 0 ;
+	    c.stats.n_misses = 0 ;
+            c.stats.last_addr  = 0x0 ;
+            c.stats.last_parts = cache_memory_split(c, 0x0) ;
+            c.stats.last_r_w   = "" ;
+            c.stats.last_h_m   = "" ;
 
             return c ;
         }
@@ -181,7 +191,7 @@
             if ( (typeof memory.sets[parts.set].tags[parts.tag] != "undefined") &&
                         (memory.sets[parts.set].tags[parts.tag].valid == 1) )
             {
-                cache_memory_update_stats(memory, parts.set, parts.tag, r_w, "hit") ;
+                cache_memory_update_stats(memory, address, parts, r_w, "hit") ;
                 return true ;
             }
 
@@ -197,7 +207,7 @@
             // load tag in set, update stats and return miss (false)
             memory.sets[parts.set].tags[parts.tag] = { n_access:0, valid:1, dirty:0 } ;
             memory.sets[parts.set].number_tags++ ;
-            cache_memory_update_stats(memory, parts.set, parts.tag, r_w, "miss") ;
+            cache_memory_update_stats(memory, address, parts, r_w, "miss") ;
 
             // chain request to the next cache level... if any
             if (memory.cfg.next_cache != null) {
