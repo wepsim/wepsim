@@ -33,6 +33,7 @@
          *                           vps_size: 1,
          *                           tag_size: 1,
          *                           replace_pol: "first",
+         *                           su_pol:      "unified",
          *                           next_cache: null
          *                        },
          *               "sets":  {
@@ -100,13 +101,14 @@
         // API
         //
 
-        // Example: var cm = cache_memory_init(12, 5, 6, "first", null) ;
+        // Example: var cm = cache_memory_init(12, 5, 6, "first", "unified", null) ;
         //                   * bits for via    in line: 12 bits,
         //                   * bits for offset in line:  5 bits,
         //                   * bits for set_per_cache:   6 bits,
-        //                   * replace_policy:  "first" | "lfu",
-        //                   * next_cache_level: null (none)
-        function cache_memory_init ( via_size, off_size, set_size, replace_pol, next_cache )
+        //                   * replace_policy:           "first" | "lfu",
+        //                   * su_policy:                "unified" | "split_i" | "split_d",
+        //                   * next_cache_level:          null (none)
+        function cache_memory_init ( via_size, off_size, set_size, replace_pol, su_pol, next_cache )
         {
             var c = { "stats":{}, "cfg":{}, "sets":{} } ;
 
@@ -127,6 +129,7 @@
             c.cfg.mask_set = (c.cfg.mask_set <<      (c.cfg.off_size)) >>> 0 ;
 
 	    c.cfg.replace_pol = replace_pol ;
+	    c.cfg.su_pol      = su_pol ;
 	    c.cfg.next_cache  = next_cache ;
 
             return c ;
@@ -138,6 +141,7 @@
             return cache_memory_init(cfg.via_size, cfg.off_size,
                                      cfg.set_size,
                                      cfg.replace_pol,
+                                     cfg.su_pol,
                                      cfg.next_cache) ;
         }
 

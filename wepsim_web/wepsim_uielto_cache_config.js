@@ -96,8 +96,8 @@
 	          "<table class='table table-hover table-sm table-bordered m-0 border border-light'>" +
 		  "<tbody>" +
 		  "<tr>" +
-                  "    <td class='border border-dark w-50 text-center'>line/via</td>" +
-                  "    <td class='border border-dark w-50 text-center'>offset</td>" +
+                  "    <td class='border border-dark w-50 text-center'><strong>line/via</strong></td>" +
+                  "    <td class='border border-dark w-50 text-center'><strong>offset</strong></td>" +
                   "</tr>" +
 		  "<tr>" +
 		  "    <td align='center'>" +
@@ -122,10 +122,10 @@
 	          "<table class='table table-hover table-sm table-bordered m-0 w-50'>" +
 		  "<tbody>" +
 		  "    <td align='center' class='border border-dark'>tag</td>" +
-		  "    <td align='center' class='border border-dark'>set</td>" +
+		  "    <td align='center' class='border border-dark'><strong>set</strong></td>" +
                   "<tr>" +
 		  "    <td align='left' colspan='2'>" +
-                  "    <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'>(0: direct, max: full-assoc.)</label>" +
+                  "    <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'>(0: full-assoc., max:direct)</label>" +
                   "    <input type='range' class='form-range pt-1' min='0' max='5' id='cmcfg_range' " +
                   "       onchange='wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value));'>" +
 		  "    </td>" +
@@ -153,6 +153,19 @@
 		  "            aria-label='Replace policy'>" +
 		  "      <option value='first' selected>First</option>" +
 		  "      <option value='lfu'>LRF</option>" +
+		  "    </select>" +
+		  "    </td>" +
+		  "</tr>" +
+		  "<tr>" +
+		  "    <td class='text-center align-middle'>Split/unified</td>" +
+		  "    <td class='text-center'>" +
+		  "    <select class='form-select' " +
+		  "            id='su_pol_" + index + "_" + this.name_str + "'>" +
+		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"su_pol\", this.value);'" +
+		  "            aria-label='Replace policy'>" +
+		  "      <option value='unify' selected>Unified</option>" +
+		  "      <option value='split_i'>Split (instruction)</option>" +
+		  "      <option value='split_d'>Split (data)</option>" +
 		  "    </select>" +
 		  "    </td>" +
 		  "</tr>" +

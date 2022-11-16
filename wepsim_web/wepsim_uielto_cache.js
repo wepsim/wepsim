@@ -52,7 +52,7 @@
 		                     "<div class='col p-2'>Cache memory</div>" +
 		                     "<div class='col p-2'>" +
                                      "    <div class='form-check form-switch px-0'>" +
-                                     "        <label class='form-check-label' for='cm_switch'>enable/disable</label>" +
+                                     "        <label class='form-check-label' for='cm_switch'>enable</label>" +
                                      "        <input class='form-check-input mx-2' id='cm_switch' " +
                                      "               type='checkbox' role='switch' onclick='wepsim_cm_toggle(); wsweb_select_refresh();'>" +
                                      "    </div>" +
@@ -152,6 +152,7 @@
                  "</table>" +
                  "<li> type: <span class='badge bg-secondary'>" + cm_type + "</span></li>\n" +
                  "<li> replace policy: <span class='badge bg-secondary'>" + memory.cfg.replace_pol + "</span></li>\n" +
+                 "<li> split/unified: <span class='badge bg-secondary'>" + memory.cfg.su_pol + "</span></li>\n" +
                  "</ul>" +
                  "\n" ;
 
@@ -205,7 +206,7 @@
               if ( (typeof memory == "undefined") || (Object.keys(memory).length == 0) )
               {
                     document.getElementById(div_id).style.opacity = "0.5" ;
-                    cache_memory[0] = cache_memory_init(12, 3, 5, "first", null) ;
+                    cache_memory[0] = cache_memory_init(12, 3, 5, "first", "unified", null) ;
               }
               else
               {
@@ -236,7 +237,7 @@
               var curr_cfg = simhw_internalState('CM_cfg') ;
 
               if (0 == curr_cfg.length) {
-                  curr_cfg[0] = { vps_size:0, set_size:6, off_size:5, replace_pol:"first" } ;
+                  curr_cfg[0] = { vps_size:0, set_size:6, off_size:5, replace_pol:"first", su_pol:"unified" } ;
               }
 
               for (var i=0; i<curr_cfg.length; i++) {
