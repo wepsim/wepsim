@@ -94,10 +94,14 @@
         function wepsim_show_cache_stats ( memory )
         {
             var o = "" ;
+            var hit_ratio  = 0.0 ;
+            var miss_ratio = 0.0 ;
 
 	    // stats
-            var hit_ratio  = (memory.stats.n_hits   / memory.stats.n_access) ;
-            var miss_ratio = (memory.stats.n_misses / memory.stats.n_access) ;
+            if (memory.stats.n_access != 0) {
+                hit_ratio  = (memory.stats.n_hits   / memory.stats.n_access) ;
+                miss_ratio = (memory.stats.n_misses / memory.stats.n_access) ;
+            }
 
             o += "<h5 class='pt-2 mb-0'>Stats</h5>\n" +
                  "<hr class='mt-0'>" +
@@ -126,6 +130,10 @@
                 o1 = ' is a ' + memory.stats.last_h_m ;
             }
 
+            var tag_bin =    parseInt(memory.stats.last_parts.tag).toString(2).padStart(memory.cfg.tag_size, '0') ;
+            var set_bin =    parseInt(memory.stats.last_parts.set).toString(2).padStart(memory.cfg.set_size, '0') ;
+            var off_bin = parseInt(memory.stats.last_parts.offset).toString(2).padStart(memory.cfg.off_size, '0') ;
+
 	    // last address
             o += "<a class='text-decoration-none text-dark' data-bs-toggle='collapse' href='#collapse_cm_last' " +
                  "   aria-expanded='false' aria-controls='collapse_cm_last'>\n" +
@@ -137,14 +145,8 @@
                  "<li> " + memory.stats.last_r_w + " address 0x" + memory.stats.last_addr.toString(16) + o1 +
                  "</li>\n" +
                  "<table class='table table-bordered table-hover table-sm'>" +
-                 "<thead>" +
-                 "<tr><th>tag</th><th>set/index</th><th>offset</th></tr>" +
-                 "</thead>" +
-                 "<tbody>" +
-                 "<td>" + memory.stats.last_parts.tag    + "</td>" +
-                 "<td>" + memory.stats.last_parts.set    + "</td>" +
-                 "<td>" + memory.stats.last_parts.offset + "</td>" +
-                 "</tbody>" +
+                 "<thead><tr><th>tag</th><th>set/index</th><th>offset</th></tr></thead>" +
+                 "<tbody><tr><td>"+tag_bin+"</td>"+"<td>"+set_bin+"</td>"+"<td>"+off_bin+"</td></tr></tbody>" +
                  "</table>" +
                  "</ul>" +
 		 " </div>" +

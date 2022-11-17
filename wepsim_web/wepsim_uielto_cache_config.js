@@ -172,7 +172,7 @@
 	     o += "<div class='row'>" +
 		  "<div class='col p-2'>" +
                   "<div class='accordion-group'>" +
-                  "    <div class='collapse' id='cpp_fa'>" +
+                  "    <div class='collapse show' id='cpp_fa'>" +
 	          "      <table class='table table-hover table-sm table-bordered m-0'>" +
 		  "      <tbody>" +
 		  "      <tr>" +
