@@ -119,24 +119,6 @@
                   "</tr>" +
                   "</tbody>" +
                   "</table>" +
-	          "<table class='table table-hover table-sm table-bordered m-0 w-50'>" +
-		  "<tbody>" +
-		  "    <td align='center' class='border border-dark'>tag</td>" +
-		  "    <td align='center' class='border border-dark'><strong>set</strong></td>" +
-                  "<tr>" +
-		  "    <td align='left' colspan='2'>" +
-                  "    <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'>(0: full-assoc., max:direct)</label>" +
-                  "    <input type='range' class='form-range pt-1' min='0' max='5' id='cmcfg_range' " +
-                  "       onchange='wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value));'>" +
-		  "    </td>" +
-                  "</tr>" +
-                  "<tr>" +
-		  "    <td align='center' colspan='2'>" +
-                  "    # bits for set in cache" +
-		  "    </td>" +
-                  "</tr>" +
-		  "</tbody>" +
-		  "</table>" +
 		  "</div>" +
 		  "</div>" ;
 
@@ -145,22 +127,10 @@
 	          "<table class='table table-hover table-sm table-bordered m-0'>" +
 		  "<tbody>" +
 		  "<tr>" +
-		  "    <td class='text-center align-middle'>Replace policy</td>" +
-		  "    <td class='text-center'>" +
-		  "    <select class='form-select' " +
-		  "            id='replace_pol_" + index + "_" + this.name_str + "'>" +
-		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"replace_pol\", this.value);'" +
-		  "            aria-label='Replace policy'>" +
-		  "      <option value='first' selected>First</option>" +
-		  "      <option value='lfu'>LRF</option>" +
-		  "    </select>" +
-		  "    </td>" +
-		  "</tr>" +
-		  "<tr>" +
 		  "    <td class='text-center align-middle'>Split/unified</td>" +
 		  "    <td class='text-center'>" +
 		  "    <select class='form-select' " +
-		  "            id='su_pol_" + index + "_" + this.name_str + "'>" +
+		  "            id='su_pol_" + index + "_" + this.name_str + "' " +
 		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"su_pol\", this.value);'" +
 		  "            aria-label='Replace policy'>" +
 		  "      <option value='unify' selected>Unified</option>" +
@@ -169,8 +139,79 @@
 		  "    </select>" +
 		  "    </td>" +
 		  "</tr>" +
+		  "<tr>" +
+		  "    <td class='text-center align-middle'>Replace policy</td>" +
+		  "    <td class='text-center'>" +
+		  "    <select class='form-select' " +
+		  "            id='replace_pol_" + index + "_" + this.name_str + "' " +
+		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"replace_pol\", this.value);'" +
+		  "            aria-label='Replace policy'>" +
+		  "      <option value='first' selected>First</option>" +
+		  "      <option value='lfu'>LRF</option>" +
+		  "    </select>" +
+		  "    </td>" +
+		  "</tr>" +
+		  "<tr>" +
+		  "    <td class='text-center align-middle'>Cache placement policy</td>" +
+		  "    <td class='text-center'>" +
+		  "    <select class='form-select' " +
+		  "            id='replace_cpp_" + index + "_" + this.name_str + "' " +
+		  "            onchange='wepsim_cm_update_placement(" + index + ", this.value);'" +
+		  "            aria-label='Cache placement policy'>" +
+		  "      <option value='fa' selected>Fully associative</option>" +
+		  "      <option value='sa'         >Set-associative</option>" +
+		  "      <option value='dm'         >Direct-mapped</option>" +
+		  "    </select>" +
+		  "    </td>" +
+		  "</tr>" +
 		  "</tbody>" +
 		  "</table>" +
+		  "</div>" +
+		  "</div>" ;
+
+	     o += "<div class='row'>" +
+		  "<div class='col p-2'>" +
+                  "<div class='accordion-group'>" +
+                  "    <div class='collapse' id='cpp_fa'>" +
+	          "      <table class='table table-hover table-sm table-bordered m-0'>" +
+		  "      <tbody>" +
+		  "      <tr>" +
+		  "          <td align='center' class='border border-dark w-50'>tag</td>" +
+		  "          <td align='center' class='border border-dark w-50'>offset</td>" +
+		  "      </tr>" +
+		  "      </tbody>" +
+		  "      </table>" +
+                  "    </div>" +
+                  "    <div class='collapse' id='cpp_sa'>" +
+	          "      <table class='table table-hover table-sm table-bordered m-0'>" +
+		  "      <tbody>" +
+		  "      <tr>" +
+		  "          <td align='center' class='border border-dark w-25'>tag</td>" +
+		  "          <td align='center' class='border border-dark w-25'><strong>set</strong></td>" +
+		  "          <td align='center' class='border border-dark w-50'>offset</td>" +
+		  "      </tr>" +
+		  "      <tr>" +
+		  "          <td align='center' colspan='3'>" +
+                  "          <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'># bits for set in cache<br>(0: full-assoc., max:direct)</label>" +
+                  "          <input type='range' class='form-range pt-1' min='0' max='5' id='cmcfg_range' " +
+                  "             onchange='wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value));'>" +
+		  "          </td>" +
+		  "      </tr>" +
+		  "      </tbody>" +
+		  "      </table>" +
+                  "    </div>" +
+                  "    <div class='collapse' id='cpp_dm'>" +
+	          "      <table class='table table-hover table-sm table-bordered m-0'>" +
+		  "      <tbody>" +
+		  "      <tr>" +
+		  "          <td align='center' class='border border-dark w-25'>tag</td>" +
+		  "          <td align='center' class='border border-dark w-25'>index</td>" +
+		  "          <td align='center' class='border border-dark w-50'>offset</td>" +
+		  "      </tr>" +
+		  "      </tbody>" +
+		  "      </table>" +
+                  "    </div>" +
+                  "</div>" +
 		  "</div>" +
 		  "</div>" ;
 
@@ -204,8 +245,9 @@
               if (0 == curr_cfg.length) {
                   return ;
               }
-              if ( (('via_size' == field) || ('set_size' == field)) && (curr_cfg[index]['set_size'] > curr_cfg[index]['via_size']) ) {
-                  return ;
+              if ( (('via_size' == field) || ('set_size' == field)) &&
+                   (curr_cfg[index]['set_size'] > curr_cfg[index]['via_size']) ) {
+                    return ;
               }
               if ('via_size' == field) {
                   document.getElementById("cmcfg_range").max = value ;
@@ -216,5 +258,39 @@
 
               simhw_internalState_reset('CM_cfg', curr_cfg) ;
               simhw_internalState_reset('CM',     curr_cm) ;
+        }
+
+        function wepsim_cm_update_placement ( index, value )
+        {
+              $("#cpp_fa").hide();
+              $("#cpp_sa").hide();
+              $("#cpp_dm").hide();
+
+	      // Fully associative
+              if ('fa' == value)
+              {
+                  wepsim_cm_update_cfg(index, "set_size", 0) ;
+                  $("#cpp_fa").show();
+              }
+
+	      // Set-associative
+              if ('sa' == value)
+              {
+                  wepsim_cm_update_cfg(index, "set_size", parseInt(this.value)) ;
+                  $("#cpp_sa").show();
+              }
+
+	      // Direct-mapped
+              if ('dm' == value)
+              {
+                  var curr_cfg = simhw_internalState('CM_cfg') ;
+                  var curr_sz  = 0 ;
+                  if (typeof curr_cfg[index] != "undefined") {
+                      curr_sz  = parseInt(curr_cfg[index]['via_size']) ;
+                  }
+
+                  wepsim_cm_update_cfg(index, "set_size", curr_sz) ;
+                  $("#cpp_dm").show();
+              }
         }
 
