@@ -3,7 +3,8 @@
 
 ## 2.2.0 -> 2.2.1:
 * Main improvements:
-  * Examples improved
+  * Examples re-organized and improved
+  * Initial support for L1 cache
 * Main external dependencies updated:
   * Bump bootstrap   from 5.2.0  to 5.2.2
 
