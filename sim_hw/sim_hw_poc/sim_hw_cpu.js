@@ -522,7 +522,7 @@
 			       draw_data: [['svg_p:path3339-4']],
 			       draw_name: [['svg_p:path3337-0']] };
 	 sim.poc.signals["C7"] = { name: "C7", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_SR M7_C7; FIRE C"],
+			       behavior: ["NOP", "MV REG_SR M7_C7"],
 			       fire_name: ['svg_p:text3655'],
 			       draw_data: [['svg_p:path3651-9']],
 			       draw_name: [['svg_p:path3681']] };

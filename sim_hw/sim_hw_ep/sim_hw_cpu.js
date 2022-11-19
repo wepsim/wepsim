@@ -581,7 +581,7 @@
 			       draw_data: [['svg_p:path3325', 'svg_p:path3323']],
 			       draw_name: [['svg_p:path3245']] };
 	 sim.ep.signals["C7"] = { name: "C7", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "LOAD REG_SR M7_C7; FIRE C"],
+			       behavior: ["NOP", "LOAD REG_SR M7_C7"],
 			       fire_name: ['svg_p:text3655'],
 			       draw_data: [['svg_p:path3651-9']],
 			       draw_name: [['svg_p:path3681']] };

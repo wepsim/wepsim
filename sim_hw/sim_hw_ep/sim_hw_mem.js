@@ -206,7 +206,7 @@
 
                                                       // cache
 						      if (first_time && (sim.ep.internal_states.CM.length > 0)) {
-                                                          cache_memory_access(sim.ep.internal_states.CM[0], address, "read") ;
+                                                          cache_memory_access(sim.ep.internal_states.CM[0], address, "read", clk) ;
                                                       }
                                                    },
                                            verbal: function (s_expr)
@@ -300,7 +300,7 @@
 
                                                       // cache
 						      if (first_time && (sim.ep.internal_states.CM.length > 0)) {
-                                                          cache_memory_access(sim.ep.internal_states.CM[0], address, "write") ;
+                                                          cache_memory_access(sim.ep.internal_states.CM[0], address, "write", clk) ;
                                                       }
                                                    },
                                            verbal: function (s_expr)

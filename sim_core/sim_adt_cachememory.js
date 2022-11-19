@@ -41,7 +41,7 @@
          *               "sets":  {
          *                           0: {
          *                                 tags: {
-         *                                          0: { n_access:0, valid:0, dirty:0 }
+         *                                          0: { n_access:0, valid:0, dirty:0, timestamp:0 }
          *                                       }
          *                              }
          *                        }
@@ -54,7 +54,7 @@
         // Auxiliar functions
         //
 
-        function cache_memory_update_stats ( memory, address, parts, r_w, m_h )
+        function cache_memory_update_stats ( memory, address, parts, r_w, m_h, clock_timestamp )
         {
             // global stats
             (memory.stats.n_access)++ ;
@@ -75,18 +75,19 @@
             if (r_w == "write") {
                 memory.sets[parts.set].tags[parts.tag].dirty = 1 ;
             }
+
+            memory.sets[parts.set].tags[parts.tag].timestamp = clock_timestamp ;
         }
 
         function cache_memory_select_victim ( memory, set )
         {
             var keys = Object.keys(memory.sets[set].tags) ;
             var tag_victim  = 0 ;
-            var tag_naccess = 0 ;
 
             if (memory.cfg.replace_pol == "lfu")
             {
 		tag_victim  = keys[0] ;
-                tag_naccess = memory.sets[parts.set].tags[tag_victim].n_access ;
+                var tag_naccess = memory.sets[parts.set].tags[tag_victim].n_access ;
 		for (var i=1; i<keys.length; i++) {
                      if (tag_naccess > memory.sets[parts.set].tags[keys[i]].n_access) {
 		         tag_victim = keys[i] ;
@@ -95,7 +96,19 @@
                 }
             }
 
-            if (memory.cfg.replace_pol == "first") {
+       else if (memory.cfg.replace_pol == "fifo")
+            {
+		tag_victim  = keys[0] ;
+                var tag_stamp = memory.sets[parts.set].tags[tag_victim].timestamp ;
+		for (var i=1; i<keys.length; i++) {
+                     if (tag_stamp > memory.sets[parts.set].tags[keys[i]].timestamp) {
+		         tag_victim = keys[i] ;
+                         tag_stamp = memory.sets[parts.set].tags[tag_victim].timestamp ;
+                     }
+                }
+            }
+
+       else if (memory.cfg.replace_pol == "first") {
                 tag_victim = keys[0] ;
             }
 
@@ -173,11 +186,12 @@
             return parts ;
         }
 
-        // Example: var h_or_m = cache_memory_access(cm, 0x12345678, "read")
-        //                       * memory:  cm
-        //                       * address: 0x12345678
-        //                       * r_w:     "read" | "write"
-        function cache_memory_access ( memory, address, r_w )
+        // Example: var h_or_m = cache_memory_access(cm, 0x12345678, "read", clock_timestamp)
+        //                       * memory:    cm
+        //                       * address:   0x12345678
+        //                       * r_w:       "read" | "write"
+        //                       * clk_stamp: 100
+        function cache_memory_access ( memory, address, r_w, clock_timestamp )
         {
             // divide address into set:tag:offset
             var parts = cache_memory_split(memory, address) ;
@@ -191,7 +205,7 @@
             if ( (typeof memory.sets[parts.set].tags[parts.tag] != "undefined") &&
                         (memory.sets[parts.set].tags[parts.tag].valid == 1) )
             {
-                cache_memory_update_stats(memory, address, parts, r_w, "hit") ;
+                cache_memory_update_stats(memory, address, parts, r_w, "hit", clock_timestamp) ;
                 return true ;
             }
 
@@ -207,7 +221,7 @@
             // load tag in set, update stats and return miss (false)
             memory.sets[parts.set].tags[parts.tag] = { n_access:0, valid:1, dirty:0 } ;
             memory.sets[parts.set].number_tags++ ;
-            cache_memory_update_stats(memory, address, parts, r_w, "miss") ;
+            cache_memory_update_stats(memory, address, parts, r_w, "miss", clock_timestamp) ;
 
             // chain request to the next cache level... if any
             if (memory.cfg.next_cache != null) {

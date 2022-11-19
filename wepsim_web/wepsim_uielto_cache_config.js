@@ -91,8 +91,11 @@
 	     var o = '' ;
 
 	     o += "<div class='row'>" +
-		  "<div class='col p-2'>" +
-		  "<h5>Cache-" + (index+1) + "</h5>" +
+		  "<h5 class='col px-2 pt-2 pb-0'>Cache-" + (index+1) + "</h5>" +
+		  "</div>" +
+		  "" +
+	          "<div class='row'>" +
+		  "<div class='col p-2 ms-2'>" +
 	          "<table class='table table-hover table-sm table-bordered m-0 border border-light'>" +
 		  "<tbody>" +
 		  "<tr>" +
@@ -120,16 +123,16 @@
                   "</tbody>" +
                   "</table>" +
 		  "</div>" +
-		  "</div>" ;
-
-	     o += "<div class='row'>" +
-		  "<div class='col p-2'>" +
-	          "<table class='table table-hover table-sm table-bordered m-0'>" +
-		  "<tbody>" +
-		  "<tr>" +
-		  "    <td class='text-center align-middle'>Split/unified</td>" +
-		  "    <td class='text-center'>" +
-		  "    <select class='form-select' " +
+		  "</div>" +
+		  "" +
+	          "<div class='row'>" +
+		  "<div class='col p-2 ms-2'>" +
+                  "<form>" +
+                  "  <div class='row mb-3'>" +
+                  "    <label for='su_pol_" + index + "_" + this.name_str + "' " +
+                  "           class='col-3 col-form-label'>Split/unified</label>" +
+                  "    <div class='col'>" +
+		  "    <select class='form-select form-control' " +
 		  "            id='su_pol_" + index + "_" + this.name_str + "' " +
 		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"su_pol\", this.value);'" +
 		  "            aria-label='Replace policy'>" +
@@ -137,23 +140,27 @@
 		  "      <option value='split_i'>Split (instruction)</option>" +
 		  "      <option value='split_d'>Split (data)</option>" +
 		  "    </select>" +
-		  "    </td>" +
-		  "</tr>" +
-		  "<tr>" +
-		  "    <td class='text-center align-middle'>Replace policy</td>" +
-		  "    <td class='text-center'>" +
+                  "    </div>" +
+                  "  </div>" +
+                  "  " +
+                  "  <div class='row mb-3'>" +
+                  "    <label for='replace_pol_" + index + "_" + this.name_str + "' " +
+                  "           class='col-3 col-form-label'>Replace policy</label>" +
+                  "    <div class='col'>" +
 		  "    <select class='form-select' " +
 		  "            id='replace_pol_" + index + "_" + this.name_str + "' " +
 		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"replace_pol\", this.value);'" +
 		  "            aria-label='Replace policy'>" +
-		  "      <option value='first' selected>First</option>" +
-		  "      <option value='lfu'>LRF</option>" +
+		  "      <option value='lfu' selected>LFU</option>" +
+		  "      <option value='fifo'>FIFO</option>" +
 		  "    </select>" +
-		  "    </td>" +
-		  "</tr>" +
-		  "<tr>" +
-		  "    <td class='text-center align-middle'>Cache placement policy</td>" +
-		  "    <td class='text-center'>" +
+                  "    </div>" +
+                  "  </div>" +
+                  "  " +
+                  "  <div class='row mb-3'>" +
+                  "    <label for='replace_cpp_" + index + "_" + this.name_str + "' " +
+                  "           class='col-3 col-form-label'>Cache placement policy</label>" +
+                  "    <div class='col'>" +
 		  "    <select class='form-select' " +
 		  "            id='replace_cpp_" + index + "_" + this.name_str + "' " +
 		  "            onchange='wepsim_cm_update_placement(" + index + ", this.value);'" +
@@ -162,15 +169,7 @@
 		  "      <option value='sa'         >Set-associative</option>" +
 		  "      <option value='dm'         >Direct-mapped</option>" +
 		  "    </select>" +
-		  "    </td>" +
-		  "</tr>" +
-		  "</tbody>" +
-		  "</table>" +
-		  "</div>" +
-		  "</div>" ;
-
-	     o += "<div class='row'>" +
-		  "<div class='col p-2'>" +
+		  "    " +
                   "<div class='accordion-group'>" +
                   "    <div class='collapse show' id='cpp_fa'>" +
 	          "      <table class='table table-hover table-sm table-bordered m-0'>" +
@@ -192,9 +191,9 @@
 		  "      </tr>" +
 		  "      <tr>" +
 		  "          <td align='center' colspan='3'>" +
-                  "          <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'># bits for set in cache<br>(0: full-assoc., max:direct)</label>" +
                   "          <input type='range' class='form-range pt-1' min='0' max='5' id='cmcfg_range' " +
                   "             onchange='wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value));'>" +
+                  "          <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'># bits for set in cache &nbsp;(0: full-assoc., max:direct)</label>" +
 		  "          </td>" +
 		  "      </tr>" +
 		  "      </tbody>" +
@@ -212,6 +211,10 @@
 		  "      </table>" +
                   "    </div>" +
                   "</div>" +
+                  "    " +
+                  "    </div>" +
+                  "  </div>" +
+                  "</form>" +
 		  "</div>" +
 		  "</div>" ;
 
