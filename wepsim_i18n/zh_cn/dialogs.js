@@ -19,12 +19,14 @@
  */
 
 
+    // Tranlation thanks to https://github.com/shiptux
+
     i18n.eltos.dialogs.zh_cn = {
 
-		'Show/Hide ActionBar':			'显示/隐藏ActionBar',
+		'Show/Hide ActionBar':			'显示/隐藏动作栏',
 		'Show/Hide Slider':			'显示/隐藏滑块',
 		'WepSIM User Interface skin':		'WepSIM用户界面皮肤',
-		'Initial intro':			'最初的介绍',
+		'Initial intro':			'初始介绍',
 		'About WepSIM':				'关于WepSIM',
 		'Title':				'标题',
 		'Message':				'信息',
@@ -34,11 +36,11 @@
 		'Sure Control Memory...':		'你想让我保存当前的控制存储器内容而不是编辑器内容吗？',
 		'Show/Hide labels':			'显示/隐藏标签',
 		'Show/Hide content':			'显示/隐藏内容',
-		'Show/Hide assembly':			'显示/隐藏程序集',
+		'Show/Hide assembly':			'显示/隐藏汇编',
 		'Show/Hide pseudo-instructions':	'显示/隐藏伪指令',
 		'Close':				'关',
 		'details':				'细节',
-                'idiom': 				'成语',
+                'idiom': 				'语言',
 
 		'_last_':				'_last_'
 

@@ -23,6 +23,6 @@ while:
          bge  t0 t1  fin
          # acción
          addi t0 t0 1
-         beq x0 x0 while
-fin: ...
+         beq x0 x0 while   # j while
+fin: # ...
 

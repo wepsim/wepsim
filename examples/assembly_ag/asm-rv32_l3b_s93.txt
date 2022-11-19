@@ -3,24 +3,27 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-       # // variables globales
+       # char c1 ;
+       # char c2 = 'h' ;
+       # char *ac1 = "hola" ;
+       # ...
        # 
-       # char v1;
-       # int v2 ;
-       # float v3 = 3.14 ;
-       # 
-       # char v4 = "ec" ;
-       # 
-       # int v5[] = { 20, 22 } ;
+       # main () 
+       # {
+       #   printf("%s",ac1) ;
+       #   ...
+       # }
 
 .data
-   v1: .byte 0
+   c1:  .zero    1  # 1 byte
+   c2:  .byte   'h'
+   ac1: .string "hola"
+   # ...
 
-.align 2
-   v2: .space 4
-   v3: .float 3.14
-   v4: .asciiz "ec"
-
-.align 2
-   v5: .word 20, 22 
+.text
+ main:   
+	 li a7 4
+	 la a0 ac1
+	 ecall
+         # ...
 

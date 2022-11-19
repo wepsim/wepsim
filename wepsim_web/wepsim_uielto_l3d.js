@@ -115,12 +115,12 @@
 				    for (var k=0; k<l3d_dim; k++)
 				    {
 			                 offset = i*Math.pow(l3d_dim, 2) + j*l3d_dim + k ;
-			o1 += "<td align='center' id='l3d" + offset + "_context' class='py-0' " +
-                              "    v-on:click='value = !value'>" +
-			      "<i  style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
-                              "    v-bind:class='[ value ? \"fas\" : \"far\", \"fa-lightbulb\" ]'></i>" +
-                              "<span class='visually-hidden'>{{value}}</span>" +
-			      "</td>" ;
+
+			                 o1 += "<td align='center' id=\"l3d" + offset + "_context\" class='py-0' " +
+                                               "    v-on:click='value = !value'>" +
+	                                       l3d_svg_icon(offset, k) +
+                                               "<span class='visually-hidden'>{{value}}</span>" +
+			                       "</td>" ;
 				    }
 			o1 += "</tr>" ;
 			    }
@@ -168,5 +168,23 @@
 
             compute_general_behavior('L3D_SYNC') ;
             return true ;
+        }
+
+	function l3d_svg_icon ( offset, k )
+        {
+            var id_str = "l3d" + offset + "_svg" ;
+
+	    icon = "<span v-show='value'>" +
+                   "<i id='" + id_str + "' " +
+		   "   style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
+		   "   class='fas fa-lightbulb'></i>" +
+                   "</span>" +
+                   "<span v-show='!value'>" +
+                   "<i id='" + id_str + "' " +
+		   "   style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
+		   "   class='far fa-lightbulb'></i>" +
+                   "</span>" ;
+
+            return icon ;
         }
 

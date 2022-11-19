@@ -19,11 +19,13 @@
  */
 
 
+    // Tranlation thanks to https://github.com/shiptux
+
     i18n.eltos.cfg.zh_cn = {
 
-		'General':							'一般',
-		'Idiom for help, examples, etc.':				'成语的帮助，例子等',
-		'Notification speed: time before disapear':			'通知速度：消失之前的时间',
+		'General':							'通用',
+		'Idiom for help, examples, etc.':				'帮助，例子等',
+		'Notification speed: time before disapear':			'通知速度：消失时间',
 		'Dark Mode':							'黑暗模式',
 		'Editor':							'编辑',
 		'Editor theme: light or dark':					'编辑主题：光明或黑暗',
@@ -39,7 +41,7 @@
 		'Instructions':							'说明',
 		'Instruction':							'指令',
 		'&#181;instructions':						'μinstructions',
-		'microInstruction':						'μInstruction',
+		'microInstruction':						'微指令',
 		'Breakpoint icon: icon to be used for breakpoints':		'断点图标：用于断点的图标',
 		'Limit instructions: number of instructions to be executed':	'限制指令：要执行的指令数',
 		'Limit instruction ticks: to limit clock ticks':		'限制指令标记：每条指令的时钟标记限制',
@@ -65,8 +67,8 @@
 		'Verbalization: textual or mathematical':			'语言化：文本或数学',
 		'WepSIM User Interface views':					'WepSIM用户界面视图',
 		'Privacy':							'隐私',
-		'On':								'On',
-		'Off':								'Off',
+		'On':								'开',
+		'Off':								'关',
 		'_last_':							'_last_'
 
     };
