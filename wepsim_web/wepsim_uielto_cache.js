@@ -121,33 +121,58 @@
             return o ;
         }
 
+        function wepsim_show_table_info ( memory, t_num, s_num, o_num )
+        {
+            var o = '' ;
+
+            if (0 == memory.cfg.set_size) {
+		// full-associative
+                o = "<table class='table table-bordered table-hover table-sm'>" +
+                    "<thead><tr><th>tag</th><th>offset</th></tr></thead>" +
+                    "<tbody><tr><td>"+t_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" +
+                    "</table>" ;
+            }
+	    else if (memory.cfg.via_size == memory.cfg.set_size) {
+		// direct-mapped
+                o = "<table class='table table-bordered table-hover table-sm'>" +
+                    "<thead><tr><th>tag</th><th>index</th><th>offset</th></tr></thead>" +
+                    "<tbody><tr><td>"+t_num+"</td>"+"<td>"+s_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" +
+                    "</table>" ;
+            }
+	    else {
+		// set associative
+                o = "<table class='table table-bordered table-hover table-sm'>" +
+                    "<thead><tr><th>tag</th><th>set</th><th>offset</th></tr></thead>" +
+                    "<tbody><tr><td>"+t_num+"</td>"+"<td>"+s_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" +
+                    "</table>" ;
+            }
+
+            return o ;
+        }
+
         function wepsim_show_cache_last ( memory )
         {
             var o = "" ;
-
-            var o1 = '' ;
-            if (memory.stats.last_h_m !='') {
-                o1 = ' is a ' + memory.stats.last_h_m ;
-            }
 
             var tag_bin =    parseInt(memory.stats.last_parts.tag).toString(2).padStart(memory.cfg.tag_size, '0') ;
             var set_bin =    parseInt(memory.stats.last_parts.set).toString(2).padStart(memory.cfg.set_size, '0') ;
             var off_bin = parseInt(memory.stats.last_parts.offset).toString(2).padStart(memory.cfg.off_size, '0') ;
 
+            var o1 = '' ;
+            if (memory.stats.last_h_m != '') {
+                o1 = ' is a ' + memory.stats.last_h_m ;
+            }
+
 	    // last address
-            o += "<a class='text-decoration-none text-dark' data-bs-toggle='collapse' href='#collapse_cm_last' " +
+            o  = "<a class='text-decoration-none text-dark' data-bs-toggle='collapse' href='#collapse_cm_last' " +
                  "   aria-expanded='false' aria-controls='collapse_cm_last'>\n" +
                  "<h5 class='pt-2 mb-0'>Last access</h5>\n" +
                  "</a>\n" +
                  "<hr class='mt-0'>\n" +
 		 " <div class='collapse show' id='collapse_cm_last'>\n" +
                  "<ul>\n" +
-                 "<li> " + memory.stats.last_r_w + " address 0x" + memory.stats.last_addr.toString(16) + o1 +
-                 "</li>\n" +
-                 "<table class='table table-bordered table-hover table-sm'>" +
-                 "<thead><tr><th>tag</th><th>set/index</th><th>offset</th></tr></thead>" +
-                 "<tbody><tr><td>"+tag_bin+"</td>"+"<td>"+set_bin+"</td>"+"<td>"+off_bin+"</td></tr></tbody>" +
-                 "</table>" +
+                 "<li>\n" + memory.stats.last_r_w + " address 0x" + memory.stats.last_addr.toString(16) + o1 + "</li>\n" +
+                 wepsim_show_table_info(memory, tag_bin, set_bin, off_bin) +
                  "</ul>" +
 		 " </div>" +
                  "\n" ;
@@ -158,22 +183,21 @@
         function wepsim_show_cache_cfg ( memory )
         {
             var o = "" ;
-            var cm_type    = 'set-associative' ;
-            var field_type = 'set' ;
 
             // cache type...
+            var cm_type = '' ;
             if (0 == memory.cfg.set_size) {
-                cm_type    = "fully associative" ;
+                cm_type = "fully associative" ;
+            }
+            else if (0 == memory.cfg.vps_size) {
+                cm_type = "direct-mapped" ;
             }
             else {
-                if (0 == memory.cfg.vps_size) {
-                    cm_type = "direct-mapped" ;
-                    field_type = 'index' ;
-                }
+                cm_type = 'set-associative' ;
             }
 
 	    // cfg
-            o += "<a class='text-decoration-none text-dark' data-bs-toggle='collapse' href='#collapse_cm_cfg' " +
+            o  = "<a class='text-decoration-none text-dark' data-bs-toggle='collapse' href='#collapse_cm_cfg' " +
                  "   aria-expanded='false' aria-controls='collapse_cm_cfg'>\n" +
                  "<h5 class='pt-2 mb-0'>Configuration</h5>\n" +
                  "</a>\n" +
@@ -181,16 +205,7 @@
 		 " <div class='collapse' id='collapse_cm_cfg'>\n" +
                  "<ul>\n" +
                  "<li> size of fields (in bits):</li>\n" +
-                 "<table class='table table-bordered table-hover table-sm'>" +
-                 "<thead>" +
-                 "<tr><th>tag</th><th>" + field_type + "</th><th>offset</th></tr>" +
-                 "</thead>" +
-                 "<tbody>" +
-                 "<td>" + memory.cfg.tag_size + "</td>" +
-                 "<td>" + memory.cfg.set_size + "</td>" +
-                 "<td>" + memory.cfg.off_size + "</td>" +
-                 "</tbody>" +
-                 "</table>" +
+                 wepsim_show_table_info(memory, memory.cfg.tag_size, memory.cfg.set_size, memory.cfg.off_size) +
                  "<li> type: <span class='badge bg-secondary'>" + cm_type + "</span></li>\n" +
                  "<li> replace policy: <span class='badge bg-secondary'>" + memory.cfg.replace_pol + "</span></li>\n" +
                  "<li> split/unified: <span class='badge bg-secondary'>" + memory.cfg.su_pol + "</span></li>\n" +
@@ -268,10 +283,13 @@
               // cache_memory in HTML
               for (var i=0; i<cache_memory.length; i++)
               {
-                   o1 += wepsim_show_cache_stats(cache_memory[i]) ;
-                   o1 += wepsim_show_cache_last(cache_memory[i]) ;
-                   o1 += wepsim_show_cache_cfg(cache_memory[i]) ;
-                   o1 += wepsim_show_cache_content(cache_memory[i]) ;
+		   o1 += "<h5>Cache-" + (i+1) + "</h5>" +
+		         "<ul>" +
+                         wepsim_show_cache_stats(cache_memory[i]) +
+                         wepsim_show_cache_last(cache_memory[i]) +
+                         wepsim_show_cache_cfg(cache_memory[i]) +
+                         wepsim_show_cache_content(cache_memory[i]) +
+		         "</ul>" ;
               }
 
               // load HTML
@@ -289,11 +307,12 @@
               var curr_cfg = simhw_internalState('CM_cfg') ;
 
               if (0 == curr_cfg.length) {
-                  curr_cfg[0] = { vps_size:0, set_size:6, off_size:5, replace_pol:"first", su_pol:"unified" } ;
+                  var memory_cfg_zero = cache_memory_init(12, 5, 6, "fifo", "unified", null) ;
+                  curr_cfg[0] = memory_cfg_zero.cfg ;
               }
 
               for (var i=0; i<curr_cfg.length; i++) {
-                  curr_cm[i] = cache_memory_init2(curr_cfg[i], null) ;
+                   curr_cm[i] = cache_memory_init2(curr_cfg[i], null) ;
               }
 
               simhw_internalState_reset('CM_cfg', curr_cfg) ;
