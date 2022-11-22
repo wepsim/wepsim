@@ -106,6 +106,7 @@
 		  "    <td align='center'>" +
 		  "    <div id='via_size_" + index + "_" + this.name_str + "'>" +
 		  "    <input type='number' " +
+		  "           value='" + memory_cfg.cfg.via_size + "' " +
 		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
 		  "           min='0' max='32'>" +
 		  "    </div>" +
@@ -114,6 +115,7 @@
 		  "    <td align='center'>" +
 		  "    <div id='off_size_" + index + "_" + this.name_str + "'>" +
 		  "    <input type='number' " +
+		  "           value='" + memory_cfg.cfg.off_size + "' " +
 		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
 		  "           min='0' max='32'>" +
 		  "    </div>" +
@@ -223,21 +225,22 @@
 
         function wepsim_show_cache_memory_cfg ( memory_cfg )
         {
-	    var o = '' ;
-	    var i = 0 ;
+	      var o = '' ;
+	      var i = 0 ;
+              var memory_cfg_zero = cache_memory_init(12, 5, 6, "fifo", "unified", null) ;
 
 	         o += "<div class='container container-fluid'>" ;
 	              "<div class='row'>" +
 		      "<div class='col'>" ;
-	    for (i=0; i<memory_cfg.length; i++) {
-                 o += wepsim_show_cm_level_cfg(memory_cfg, i) ;
-	    }
-                 o += wepsim_show_cm_level_cfg(memory_cfg, i) ; // add extra option to add a new cache-level
+	      for (i=0; i<memory_cfg.length; i++) {
+                 o += wepsim_show_cm_level_cfg(memory_cfg[i], i) ;
+	      }
+                 o += wepsim_show_cm_level_cfg(memory_cfg_zero, i) ; // add extra option to add a new cache-level
 	         o += "</div>" +
 		      "</div>" +
 		      "</div>" ;
 
-	   return o ;
+	     return o ;
         }
 
         function wepsim_cm_update_cfg ( index, field, value )

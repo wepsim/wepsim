@@ -115,6 +115,20 @@
             return tag_victim ;
         }
 
+        function segments_addr_within_text ( address )
+        {
+	    return (((address >= sim_segments[".text"].begin ) && (address <= sim_segments[".text"].end ))
+                     ||
+		    ((address >= sim_segments[".ktext"].begin) && (address <= sim_segments[".ktext"].end))) ;
+        }
+
+        function segments_addr_within_data ( address )
+        {
+	    return (((address >= sim_segments[".data"].begin ) && (address <= sim_segments[".data"].end ))
+                     ||
+		    ((address >= sim_segments[".kdata"].begin) && (address <= sim_segments[".kdata"].end))) ;
+        }
+
 
         //
         // API
@@ -161,10 +175,8 @@
         // Example: var cm = cache_memory_init2(cfg, null) ;
         function cache_memory_init2 ( cfg, next_cache )
         {
-            return cache_memory_init(cfg.via_size, cfg.off_size,
-                                     cfg.set_size,
-                                     cfg.replace_pol,
-                                     cfg.su_pol,
+            return cache_memory_init(cfg.via_size, cfg.off_size, cfg.set_size,
+                                     cfg.replace_pol, cfg.su_pol,
                                      cfg.next_cache) ;
         }
 
@@ -193,6 +205,16 @@
         //                       * clk_stamp: 100
         function cache_memory_access ( memory, address, r_w, clock_timestamp )
         {
+            if (memory.cfg.su_pol != 'unified')
+            {
+                if (('split_i' == memory.cfg.su_pol) && (segments_addr_within_text(address) == false)) {
+                      return ;
+                }
+                if (('split_d' == memory.cfg.su_pol) && (segments_addr_within_data(address) == false)) {
+                      return ;
+                }
+            }
+
             // divide address into set:tag:offset
             var parts = cache_memory_split(memory, address) ;
 
