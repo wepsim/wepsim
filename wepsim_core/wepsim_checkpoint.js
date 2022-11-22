@@ -418,8 +418,10 @@
 	    obj_wsbackup = obj_wsbackup.reverse() ;
 	    for (i=0; i<obj_wsbackup.length; i++)
 	    {
-		 o += '<label class="list-group-item btn btn-white border-dark text-truncate rounded-1">' +
-		      '   <input type="radio" name="browserCacheElto" id="' + i + '" autocomplete="off">' + obj_wsbackup[i].tag +
+		 o += '<label data-bs-toggle="list" ' +
+                      '       class="list-group-item btn btn-white border-dark text-truncate rounded-1">' +
+		      '   <input type="radio" name="browserCacheElto" ' +
+                      '          id="' + i + '" autocomplete="off">' + obj_wsbackup[i].tag +
 		      '</label>' ;
 	    }
             o += '</div>' ;

@@ -169,7 +169,7 @@
                  "<h5 class='pt-2 mb-0'>Last access</h5>\n" +
                  "</a>\n" +
                  "<hr class='mt-0'>\n" +
-		 " <div class='collapse show' id='collapse_cm_last'>\n" +
+		 " <div class='collapse show me-2' id='collapse_cm_last'>\n" +
                  "<ul>\n" +
                  "<li>\n" + memory.stats.last_r_w + " address 0x" + memory.stats.last_addr.toString(16) + o1 + "</li>\n" +
                  wepsim_show_table_info(memory, tag_bin, set_bin, off_bin) +
@@ -202,7 +202,7 @@
                  "<h5 class='pt-2 mb-0'>Configuration</h5>\n" +
                  "</a>\n" +
                  "<hr class='mt-0'>\n" +
-		 " <div class='collapse' id='collapse_cm_cfg'>\n" +
+		 " <div class='collapse me-2' id='collapse_cm_cfg'>\n" +
                  "<ul>\n" +
                  "<li> size of fields (in bits):</li>\n" +
                  wepsim_show_table_info(memory, memory.cfg.tag_size, memory.cfg.set_size, memory.cfg.off_size) +
