@@ -3,10 +3,11 @@
 
 ## 2.2.0 -> 2.2.1:
 * Main improvements:
-  * Examples re-organized and improved
-  * Initial support for L1 cache
+  * Examples updated
+  * Initial version of a single L1 cache simulator
+  * Minor bugfixes
 * Main external dependencies updated:
-  * Bump bootstrap   from 5.2.0  to 5.2.2
+  * Bump bootstrap from 5.2.0 to 5.2.3
 
 ## 2.1.9 -> 2.2.0:
 * Main improvements:
