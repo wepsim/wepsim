@@ -242,17 +242,11 @@ str reg1 (reg2) {
      co=010000,
      nwords=1,
      reg1 = reg(25,21),
-     reg2 = reg(15,11),
-     native,
+     reg2 = reg(20,16),
      {
-         var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-
-         var addr   = simcore_native_get_value("BR", reg2) ;
-         var value1 = simcore_native_get_value("BR", reg1) ;
-         simcore_native_set_value("MEMORY", addr, value1) ;
-
-         simcore_native_go_maddr(0) ;
+         (MR=0,  SELA=10000, T9=1, C0=1),
+         (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
+         (BW=11, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
      }
 }
 
@@ -260,18 +254,12 @@ ldr reg1 (reg2) {
      co=010011,
      nwords=1,
      reg1 = reg(25,21),
-     reg2 = reg(15,11),
-     native,
+     reg2 = reg(20,16),
+     help='$r1 = (MEM[$r2+3] ... MEM[$r2])',
      {
-         // fields is a default parameter with the instruction field information
-         var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-
-         var addr  = simcore_native_get_value("BR", reg2) ;
-         var value = simcore_native_get_value("MEMORY", addr) ;
-         simcore_native_set_value("BR", reg1, value) ;
-
-         simcore_native_go_maddr(0) ;
+         (MR=0, SELA=10000, T9=1, C0),
+         (TA=1, R=1, BW=11, M1=1, C1=1),
+         (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
      }
 }
 

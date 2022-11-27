@@ -15,7 +15,8 @@ main:
        # notify: TIP: $5 = 2 + 1
        # notify: Instructions -> add
        # notify: <ul>
-       # notify: <li> add   register-result register-operand-1 register-operand-2
+       # notify: <li> add r1 r2 r3
+       # notify:      <ul><li> r1 = r2 + r3</li></ul>
        # notify: </ul>
        li  $2 2
        li  $3 1
@@ -25,7 +26,8 @@ main:
        # notify: TIP: $5 = 2 - 1
        # notify: Instructions -> sub
        # notify: <ul>
-       # notify: <li> sub   register-result register-operand-1 register-operand-2
+       # notify: <li> sub r1 r2 r3
+       # notify:      <ul><li> r1 = r2 - r3</li></ul>
        # notify: </ul>
        li  $2 2
        li  $3 1
@@ -35,7 +37,8 @@ main:
        # notify: TIP: $5 = 2 * 3
        # notify: Instructions -> mul
        # notify: <ul>
-       # notify: <li> mul   register-result register-operand-1 register-operand-2
+       # notify: <li> mul r1 r2 r3
+       # notify:      <ul><li> r1 = r2 * r3</li></ul>
        # notify: </ul>
        li  $2 2
        li  $3 3
@@ -45,7 +48,8 @@ main:
        # notify: TIP: $5 = 3 / 2
        # notify: Instructions -> div
        # notify: <ul>
-       # notify: <li> div   register-result register-operand-1 register-operand-2
+       # notify: <li> div r1 r2 r3
+       # notify:      <ul><li> r1 = r2 / r3</li></ul>
        # notify: </ul>
        li  $2 3
        li  $3 2
@@ -55,7 +59,8 @@ main:
        # notify: TIP: $5 = 3 % 2
        # notify: Instructions -> rem
        # notify: <ul>
-       # notify: <li> rem   register-result register-operand-1 register-operand-2
+       # notify: <li> rem r1 r2 r3
+       # notify:      <ul><li> r1 = r2 % r3</li></ul>
        # notify: </ul>
        li  $2 3
        li  $3 2
@@ -69,7 +74,8 @@ main:
        # notify: TIP: $5 = 1 & 0
        # notify: Instructions -> and
        # notify: <ul>
-       # notify: <li> and   register-result register-operand-1 register-operand-2
+       # notify: <li> and r1 r2 r3
+       # notify:      <ul><li> r1 = r2 & r3</li></ul>
        # notify: </ul>
        li  $2 1
        li  $3 0
@@ -79,7 +85,8 @@ main:
        # notify: TIP: $5 = 1 | 0
        # notify: Instructions -> or
        # notify: <ul>
-       # notify: <li> or   register-result register-operand-1 register-operand-2
+       # notify: <li> or  r1 r2 r3
+       # notify:      <ul><li> r1 = r2 | r3</li></ul>
        # notify: </ul>
        li  $2 1
        li  $3 0
@@ -89,7 +96,8 @@ main:
        # notify: TIP: $5 = ! $5
        # notify: Instructions -> not
        # notify: <ul>
-       # notify: <li> not   register-result register-operand-1 register-operand-2
+       # notify: <li> not r1 r2
+       # notify:      <ul><li> r1 = ! r2</li></ul>
        # notify: </ul>
        li  $5 0
        not $5
@@ -98,7 +106,8 @@ main:
        # notify: TIP: $5 = 1 ^ 0
        # notify: Instructions -> xor
        # notify: <ul>
-       # notify: <li> xor   register-result register-operand-1 register-operand-2
+       # notify: <li> xor r1 r2 r3
+       # notify:      <ul><li> r1 = r2 ^ r3</li></ul>
        # notify: </ul>
        li  $2 1
        li  $3 0
@@ -112,16 +121,18 @@ main:
        # notify: TIP: $5 = 8 >> 2
        # notify: Instructions -> srl (shift right logical)
        # notify: <ul>
-       # notify: <li> srl   register-result register-operand-1 register-operand-2
+       # notify: <li> srl r1 r2 inm
+       # notify:      <ul><li> r1 = r2 >> inm</li></ul>
        # notify: </ul>
        li  $2 8
        srl $5 $2 2
 
        # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
-       # notify: TIP: $5 = 1 << 3 
+       # notify: TIP: $5 = 1 << 3
        # notify: Instructions -> sll (shift left logical)
        # notify: <ul>
-       # notify: <li> sll   register-result register-operand-1 register-operand-2
+       # notify: <li> sll r1 r2 inm
+       # notify:      <ul><li> r1 = r2 << inm</li></ul>
        # notify: </ul>
        li  $2 2
        sll $5 $2 3

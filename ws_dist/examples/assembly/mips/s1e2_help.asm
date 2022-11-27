@@ -19,8 +19,10 @@ main:
    # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
    # notify: TIP: load byte, word
    # notify: <ul>
-   # notify: <li>lb  register-result label
-   # notify: <li>lw  register-result label
+   # notify: <li>lb  r1 label</li>
+   # notify:     <ul><li> r1 = mem[label]</li></ul>
+   # notify: <li>lw  r1 label</li>
+   # notify:     <ul><li> r1 = mem[label]</li></ul>
    # notify: </ul>
 
    lb  $1  w1
@@ -30,8 +32,10 @@ main:
    # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
    # notify: TIP: store byte, half, word
    # notify: <ul>
-   # notify: <li>sb  register-source label
-   # notify: <li>sw  register-source label
+   # notify: <li>sb  r1 label</li>
+   # notify:     <ul><li> mem[label] = r1</li></ul>
+   # notify: <li>sw  r1 label</li>
+   # notify:     <ul><li> mem[label] = r1</li></ul>
    # notify: </ul>
 
    li  $1  0xF
