@@ -37,7 +37,7 @@
     * A nightly build version is also available at https://acaldero.github.io/wepsim
 
 + From Linux/Unix command line, please:
-  * Check you have installed Node v10.5.0+, and Bash 4.4.19+:
+  * Check you have installed Node v16.10+, and Bash 4.4.19+:
     * sudo apt-get install nodejs npm bash -y
   * Get WepSIM by executing:
     * wget https://github.com/acaldero/wepsim/releases/download/v2.2.1/wepsim-2.2.1.zip

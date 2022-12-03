@@ -211,7 +211,7 @@
 
                                                               set_value(sim.ep.states[s_expr[3]], 1) ;
                                                               if ( (x >= sim.ep.internal_states.ledm_dim) &&
-                                                                      (y >= sim.ep.internal_states.ledm_dim) )
+                                                                   (y >= sim.ep.internal_states.ledm_dim) )
                                                               {
                                                                    set_value(sim.ep.states[s_expr[3]], -1) ;
                                                                    return ;
@@ -255,6 +255,14 @@
 								   s = s.toString(16) ;
                                                                    c = '#' + simcoreui_pack(s, 6) ;
                                                                    sim.ep.internal_states.ledm_colors[p] = c ;
+                                                              }
+
+                                                              // update internal states
+                                                              neltos = sim.ep.internal_states.ledm_neltos ;
+                                                              for (var p=0; p<neltos; p++) {
+								   s = get_var(sim.ep.internal_states.ledm_state[p].color);
+								   set_var(sim.ep.internal_states.ledm_state[p].color, ~s);
+								   set_var(sim.ep.internal_states.ledm_state[p].color, s);
                                                               }
 							  }
 						      }

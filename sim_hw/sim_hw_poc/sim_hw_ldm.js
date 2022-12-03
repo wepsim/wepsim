@@ -257,6 +257,14 @@
                                                                    c = '#' + simcoreui_pack(s, 6) ;
                                                                    sim.poc.internal_states.ledm_colors[p] = c ;
                                                               }
+
+                                                              // update internal states
+                                                              neltos = sim.poc.internal_states.ledm_neltos ;
+                                                              for (var p=0; p<neltos; p++) {
+								   s = get_var(sim.poc.internal_states.ledm_state[p].color);
+								   set_var(sim.poc.internal_states.ledm_state[p].color, ~s);
+								   set_var(sim.poc.internal_states.ledm_state[p].color, s);
+                                                              }
 							  }
 						      }
                                                    },

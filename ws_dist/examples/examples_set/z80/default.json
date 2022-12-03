@@ -5,7 +5,7 @@
     "type": "<span data-langkey='Native'>Native</span>",
     "modes": "newbie,intro,ep,asm_z80",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_js",
     "assembly": "s7e3",
     "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
     "testing": true

@@ -14,9 +14,12 @@
      # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
      # notify: TIP: load byte, half, word
      # notify: <ul>
-     # notify: <li>lb  register-result immediate-value(register-operand-1)
-     # notify: <li>lh  register-result immediate-value(register-operand-1)
-     # notify: <li>lw  register-result immediate-value(register-operand-1)
+     # notify: <li>lb  r1 inm(r2)</li>
+     # notify:     <ul><li> r1 = mem[r2 + inm]/8</li></ul>
+     # notify: <li>lh  r1 inm(r2)</li>
+     # notify:     <ul><li> r1 = mem[r2 + inm]/16</li></ul>
+     # notify: <li>lw  r1 inm(r2)</li>
+     # notify:     <ul><li> r1 = mem[r2 + inm]/32</li></ul>
      # notify: </ul>
 
      la      a0, result1
@@ -32,9 +35,12 @@
      # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
      # notify: TIP: store byte, half, word
      # notify: <ul>
-     # notify: <li>sb  register-result immediate-value(register-operand-1)
-     # notify: <li>sh  register-result immediate-value(register-operand-1)
-     # notify: <li>sw  register-result immediate-value(register-operand-1)
+     # notify: <li>sb  r1 inm(r2)</li>
+     # notify:     <ul><li> mem[r2 + inm] = r1/8</li></ul>
+     # notify: <li>sh  r1 inm(r2)</li>
+     # notify:     <ul><li> mem[r2 + inm] = r1/16</li></ul>
+     # notify: <li>sw  r1 inm(r2)</li>
+     # notify:     <ul><li> mem[r2 + inm] = r1/32</li></ul>
      # notify: </ul>
 
      la      a0, result1

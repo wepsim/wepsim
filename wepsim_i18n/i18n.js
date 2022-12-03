@@ -33,7 +33,7 @@
 			    fr: "Fran&ccedil;ais - Google-translate",
 			    pt: "Portugu&ecirc;s - Google-translate",
 			    ja: "日本語 - Google-translate",
-			 zh_cn: "汉语 - Google-translate",
+			 zh_cn: "汉语 - Thanks to shiptux@github",
 			    ru: "русский язык - Google-translate",
 			    sv: "Svenska - Google-translate",
 			    de: "Deutsch - Google-translate"

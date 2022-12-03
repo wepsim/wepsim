@@ -91,8 +91,9 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_poc/sim_hw_l3d.js \
     sim_hw/sim_hw_poc/sim_hw_ldm.js \
     \
-    sim_sw/sim_lang.js \
     sim_sw/sim_decode.js \
+    sim_sw/sim_seg.js \
+    sim_sw/sim_lang.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js

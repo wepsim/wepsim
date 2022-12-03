@@ -16,8 +16,10 @@ main:
     # notify: TIP: add two numbers
     # notify: Instructions -> add, addi
     # notify: <ul>
-    # notify: <li> add   register-result register-operand-1 register-operand-2
-    # notify: <li> addi  register-result register-operand-1 immediate-value
+    # notify: <li> add  r1 r2 r3
+    # notify:      <ul><li> r1 = r2 + r3</li></ul>
+    # notify: <li> addi r1 r2 inm
+    # notify:      <ul><li> r1 = r2 + inm</li></ul>
     # notify: </ul>
     li      a0, 3
     li      a1, 2
@@ -28,8 +30,14 @@ main:
     # notify: TIP: substract two numbers
     # notify: Instructions -> sub
     # notify: <ul>
-    # notify: <li> sub   register-result register-operand-1 register-operand-2
-    # notify: <li> subi  rd, rs1, #val -> addi rd, rs1, -#val
+    # notify: <li> sub  r1 r2 r3</li>
+    # notify:      <ul><li> r1 = r2 - r3</li></ul>
+    # notify: <li> subi r1 r2  inm</li>
+    # notify: <li> addi r1 r2 -inm</li>
+    # notify:      <ul>
+    # notify:      <li> r1 = r2 - inm</li>
+    # notify:      <li> r1 = r2 + (-inm)</li>
+    # notify:      </ul>
     # notify: </ul>
     li      a0, 0
     li      a1, 2
@@ -39,7 +47,8 @@ main:
     # notify: TIP: multiply two numbers
     # notify: Instructions -> mul
     # notify: <ul>
-    # notify: <li> mul  register-result register-operand-1 register-operand-2
+    # notify: <li> mul  r1 r2 r3
+    # notify:      <ul><li> r1 = r2 * r3</li></ul>
     # notify: </ul>
     li      a0, 5
     li      a1, 2
@@ -49,7 +58,8 @@ main:
     # notify: TIP: divide signed
     # notify: Instructions -> div
     # notify: <ul>
-    # notify: <li> div  register-result register-operand-1 register-operand-2
+    # notify: <li> div  r1 r2 r3
+    # notify:      <ul><li> r1 = r2 * r3</li></ul>
     # notify: </ul>
     li      a0, 6
     li      a1, 2
@@ -59,7 +69,8 @@ main:
     # notify: TIP: remainder signed
     # notify: Instructions -> rem
     # notify: <ul>
-    # notify: <li> rem  register-result register-operand-1 register-operand-2
+    # notify: <li> rem  r1 r2 r3
+    # notify:      <ul><li> r1 = r2 * r3</li></ul>
     # notify: </ul>
     li      a0, 5
     li      a1, 2
@@ -74,8 +85,10 @@ main:
     # notify: TIP: bitwise Or
     # notify: Instructions -> or, ori
     # notify: <ul>
-    # notify: <li> or   register-result register-operand-1 register-operand-2
-    # notify: <li> ori  register-result register-operand-1 immediate-value
+    # notify: <li> or   r1 r2 r3
+    # notify:      <ul><li> r1 = r2 | r3</li></ul>
+    # notify: <li> ori  r1 r2 inm
+    # notify:      <ul><li> r1 = r2 | inm</li></ul>
     # notify: </ul>
     li      a0, 0xF875
     li      a1, 0x00FF
@@ -86,8 +99,10 @@ main:
     # notify: TIP: bitwise and
     # notify: Instructions -> and, andi
     # notify: <ul>
-    # notify: <li> and  register-result register-operand-1 register-operand-2
-    # notify: <li> andi register-result register-operand-1 immediate-value
+    # notify: <li> and  r1 r2 r3
+    # notify:      <ul><li> r1 = r2 & r3</li></ul>
+    # notify: <li> andi r1 r2 inm
+    # notify:      <ul><li> r1 = r2 & inm</li></ul>
     # notify: </ul>
     li      a0, 0xF875
     li      a1, 0x00FF
@@ -98,8 +113,10 @@ main:
     # notify: TIP: bitwise xor
     # notify: Instructions -> xor, xori
     # notify: <ul>
-    # notify: <li> xor  register-result register-operand-1 register-operand-2
-    # notify: <li> xori register-result register-operand-1 immediate-value
+    # notify: <li> xor  r1 r2 r3
+    # notify:      <ul><li> r1 = r2 ^ r3</li></ul>
+    # notify: <li> xori r1 r2 inm
+    # notify:      <ul><li> r1 = r2 ^ inm</li></ul>
     # notify: </ul>
     li      a0, 0xF875
     li      a1, 0x00FF
@@ -115,8 +132,10 @@ main:
     # notify: TIP: shift right logical
     # notify: Instructions -> srl, srli
     # notify: <ul>
-    # notify: <li> srl  register-result register-operand-1 register-operand-2
-    # notify: <li> srli register-result register-operand-1 immediate-value
+    # notify: <li> srl  r1 r2 r3
+    # notify:      <ul><li> r1 = r2 >> r3</li></ul>
+    # notify: <li> srli r1 r2 inm
+    # notify:      <ul><li> r1 = r2 >> inm</li></ul>
     # notify: </ul>
     li      a0, 0x010
     li      a1, 0x3
@@ -127,8 +146,10 @@ main:
     # notify: TIP: shift left logical
     # notify: Instructions -> sll, slli
     # notify: <ul>
-    # notify: <li> ssl  register-result register-operand-1 register-operand-2
-    # notify: <li> ssli register-result register-operand-1 immediate-value
+    # notify: <li> ssl  r1 r2 r3
+    # notify:      <ul><li> r1 = r2 << r3</li></ul>
+    # notify: <li> ssli r1 r2 inm
+    # notify:      <ul><li> r1 = r2 << inm</li></ul>
     # notify: </ul>
     li      a0, 0x010
     li      a1, 0x3
@@ -139,8 +160,10 @@ main:
     # notify: TIP: shift right arithmetic
     # notify: Instructions -> sra, srai
     # notify: <ul>
-    # notify: <li> sra  register-result register-operand-1 register-operand-2
-    # notify: <li> sra  register-result register-operand-1 immediate-value
+    # notify: <li> sra  r1 r2 r3
+    # notify:      <ul><li> r1 = r2 >> r3</li></ul>
+    # notify: <li> srai r1 r2 inm
+    # notify:      <ul><li> r1 = r2 >> inm</li></ul>
     # notify: </ul>
     li      a0, 0x010
     li      a1, 0x3

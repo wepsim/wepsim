@@ -209,6 +209,17 @@
     "testing":          true
   },
   {
+    "id":               "R5E5",
+    "title":            "Led Matrix",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":            "newbie,intro,ep",
+    "hardware":         "ep",
+    "microcode":        "ep_bare",
+    "assembly":         "s5e4",
+    "description":      "<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
+    "testing":          true
+  },
+  {
     "id":		"R4E3",
     "title":            "Threads",
     "type":		"<span data-langkey='Extra'>Extra</span>",
