@@ -17,7 +17,7 @@ main:
          # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
          # notify:   int a=1;
          # notify:   int b=2;
-         # notify: 
+         # notify:
          # notify:   if (a < b):
          # notify:       a = b;
          # notify: </pre>
@@ -28,7 +28,7 @@ main:
          # notify:  if_1: blt $t1 $t2 t_1
          # notify:        b   e_1
          # notify:   t_1: move $t1 $t2
-         # notify:   e_1: 
+         # notify:   e_1:
          # notify: </pre>
 
          # int a=1;
@@ -94,7 +94,7 @@ main:
          # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
          # notify: int a=1;
          # notify: int b=2;
-         # notify: 
+         # notify:
          # notify: if (a < b):
          # notify:     &lt;assembly for action 1&gt;
          # notify: else:

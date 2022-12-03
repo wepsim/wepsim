@@ -31,6 +31,9 @@
 	      {
 		    // parent
 		    super();
+
+                    // initialize is false
+                    this.elto_initialized = 0 ;
 	      }
 
               // render
@@ -45,7 +48,11 @@
 
 	      connectedCallback ()
 	      {
-		    this.render('connectedCallback') ;
+                    if (0 == this.elto_initialized)
+                    {
+		        this.render('connectedCallback') ;
+                        this.elto_initialized = 1 ;
+                    }
 	      }
 
 	      attributeChangedCallback (name, oldValue, newValue)
