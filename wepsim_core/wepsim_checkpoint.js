@@ -421,8 +421,8 @@
 		 o += '<label data-bs-toggle="list" ' +
                       '       class="list-group-item btn btn-white border-dark text-truncate rounded-1">' +
 		      '   <input type="radio" name="browserCacheElto" ' +
-                      '          id="' + i + '" autocomplete="off">' + obj_wsbackup[i].tag +
-		      '</label>' ;
+                      '          id="' + i + '" autocomplete="off" class="btn-check" ' +
+                      '>' + obj_wsbackup[i].tag + '</label>' ;
 	    }
             o += '</div>' ;
 
