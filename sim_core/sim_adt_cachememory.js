@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -194,10 +194,10 @@
             if (memory.cfg.su_pol != 'unified')
             {
                 if (('split_i' == memory.cfg.su_pol) && (segments_addr_within_text(address) == false)) {
-                      return ;
+                      return false ;
                 }
                 if (('split_d' == memory.cfg.su_pol) && (segments_addr_within_data(address) == false)) {
-                      return ;
+                      return false ;
                 }
             }
 

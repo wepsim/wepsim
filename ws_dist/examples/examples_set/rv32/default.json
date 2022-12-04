@@ -199,7 +199,7 @@
   },
   {
     "id": "R5E4",
-    "title": "Led Matrix",
+    "title": "Led Matrix (movement)",
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
@@ -210,7 +210,7 @@
   },
   {
     "id": "R5E5",
-    "title": "Led Matrix",
+    "title": "Led Matrix (colors)",
     "type": "<span data-langkey='Advanced'>Advanced</span>",
     "modes": "newbie,intro,ep",
     "hardware": "ep",
@@ -441,7 +441,7 @@
   },
   {
     "id": "S6E5",
-    "title": "Led Matrix",
+    "title": "Led Matrix (movement)",
     "type": "<span data-langkey='Special'>Special</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
@@ -452,7 +452,7 @@
   },
   {
     "id": "S6E6",
-    "title": "Led Matrix",
+    "title": "Led Matrix (colors)",
     "type": "<span data-langkey='Special'>Special</span>",
     "modes": "newbie,intro,poc",
     "hardware": "poc",
