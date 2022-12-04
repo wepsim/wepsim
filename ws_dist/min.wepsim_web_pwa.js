@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v220a_static';
+var cacheName = 'v221a_static';
 
 
 /*
@@ -114,7 +114,7 @@ self.addEventListener('install',
                                         './examples/microcode/rv32/ep_min.mc',
                                         './examples/microcode/rv32/poc_base.mc',
                                         './examples/microcode/rv32/poc_min.mc',
-                                        './examples/microcode/z80/mc-ep_bare.txt',
+                                        './examples/microcode/z80/ep_bare.mc',
                                         './examples/examples_set/mips/default.json',
                                         './examples/examples_set/rv32/default.json',
                                         './images/author_jprieto.png',
