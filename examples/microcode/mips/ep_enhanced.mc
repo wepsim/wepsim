@@ -473,6 +473,20 @@ sb reg addr {
          }
 }
 
+sb reg1 inm1(reg2) {
+         co=111111,
+         nwords=1,
+         reg1 = reg(25,21),
+         inm1 = inm(15,0),
+         reg2 = reg(20,16),
+         {
+             (SE=1,  SIZE=10000, OFFSET=0, T3, C5),
+             (MR=0,  SELA=10000, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
+             (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
+             (BW=0,  TA=1, TD=1, W=1,  A0=1, B=1, C=0)
+         }
+}
+
 
 #
 # IN/OUT

@@ -144,12 +144,23 @@
   },
   {
     "id":		"S6E5",
-    "title":		"Led Matrix",
+    "title":		"Led Matrix (movement)",
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
     "microcode":	"ep_enhanced",
     "assembly":		"s6e5",
+    "description":	"<span data-langkey='example_06_05'>Example for Led matrix.</span>",
+    "testing":          true
+  },
+  {
+    "id":		"S6E6",
+    "title":		"Led Matrix (color)",
+    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_enhanced",
+    "assembly":		"s6e6",
     "description":	"<span data-langkey='example_06_05'>Example for Led matrix.</span>",
     "testing":          true
   },
