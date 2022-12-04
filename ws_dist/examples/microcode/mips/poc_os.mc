@@ -503,6 +503,34 @@ sw reg1 val(reg2) {
             }
 }
 
+lb reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+             val=inm(15,0),
+            reg2=reg(20,16),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=100000, LC),
+                (MRA=1, SELA=100000, MRB=0, SELB=10000, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
+                (TA=1, R=1, BW=0, M1=1, C1=1),
+                (T1=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
+            }
+}
+
+sb reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            val  = inm(15,0),
+            reg2 = reg(20,16),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=100000, LC),
+                (MRA=1, SELA=100000, MRB=0, SELB=10000, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
+                (MRA=0, SELA=10101, T9=1, M1=0, C1=1),
+                (TA=1, TD=1, W=1, BW=0, A0=1, B=1, C=0)
+            }
+}
+
 
 #
 # IN/OUT
