@@ -103,20 +103,29 @@
                 miss_ratio = (memory.stats.n_misses / memory.stats.n_access) ;
             }
 
-            o += "<h5 class='pt-2 mb-0'>Stats</h5>\n" +
-                 "<hr class='mt-0'>" +
-                 "<ul>" +
-                 "<li> " +
+            o += "<div class='accordion-item'>" +
+                 "  <h2 class='accordion-header' id='cm-stats'>" +
+                 "    <button class='accordion-button p-1 fs-5' type='button' " +
+                 "            data-bs-toggle='collapse' data-bs-target='#cm-stats-collapse' " +
+                 "            aria-expanded='true' aria-controls='cm-stats-collapse'>Stats</button>" +
+                 "  </h2>" +
+                 "  <div id='cm-stats-collapse' class='accordion-collapse collapse show' " +
+                 "       aria-labelledby='cm-stats'>" +
+                 "  <div class='accordion-body px-2 py-3'>" +
+                 "  <ul>" +
+                 "  <li> " +
                  "#access <span class='badge bg-info'>" + memory.stats.n_access + "</span> = " +
                  "#hits   <span class='badge bg-info'>" + memory.stats.n_hits   + "</span> + " +
                  "#misses <span class='badge bg-info'>" + memory.stats.n_misses + "</span>   " +
-                 "</li>\n" +
-                 "<li>\n" +
+                 "  </li>\n" +
+                 "  <li>\n" +
                  "<span>hit-ratio  <span class='badge bg-success'>"+hit_ratio.toFixed(2)+"</span></span> & " +
                  "<span>miss-ratio <span class='badge bg-danger'>"+miss_ratio.toFixed(2)+"</span></span>\n" +
-                 "</li>\n" +
-                 "</ul>" +
-                 "\n" ;
+                 "  </li>\n" +
+                 "  </ul>" +
+                 "  </div>" +
+                 "  </div>" +
+                 "</div>" ;
 
             return o ;
         }
@@ -164,18 +173,23 @@
             }
 
 	    // last address
-            o  = "<a class='text-decoration-none text-dark' data-bs-toggle='collapse' href='#collapse_cm_last' " +
-                 "   aria-expanded='false' aria-controls='collapse_cm_last'>\n" +
-                 "<h5 class='pt-2 mb-0'>Last access</h5>\n" +
-                 "</a>\n" +
-                 "<hr class='mt-0'>\n" +
-		 " <div class='collapse show me-2' id='collapse_cm_last'>\n" +
-                 "<ul>\n" +
-                 "<li>\n" + memory.stats.last_r_w + " address 0x" + memory.stats.last_addr.toString(16) + o1 + "</li>\n" +
-                 wepsim_show_table_info(memory, tag_bin, set_bin, off_bin) +
-                 "</ul>" +
-		 " </div>" +
-                 "\n" ;
+            o = "<div class='accordion-item'>" +
+                "  <h2 class='accordion-header' id='cm-la'>" +
+                "    <button class='accordion-button p-1 fs-5' type='button' " +
+                "            data-bs-toggle='collapse' data-bs-target='#cm-la-collapse' " +
+                "            aria-expanded='true' aria-controls='cm-la-collapse'>Last access</button>" +
+                "  </h2>" +
+                "  <div id='cm-la-collapse' class='accordion-collapse collapse show' " +
+                "       aria-labelledby='cm-la'>" +
+                "  <div class='accordion-body px-2 py-3'>" +
+                "  <ul>\n" +
+                "  <li>\n" + memory.stats.last_r_w + " address 0x" +
+                             memory.stats.last_addr.toString(16) + o1 + "</li>\n" +
+                   wepsim_show_table_info(memory, tag_bin, set_bin, off_bin) +
+                "  </ul>" +
+                " </div>" +
+                " </div>" +
+                "</div>" ;
 
             return o ;
         }
@@ -197,21 +211,26 @@
             }
 
 	    // cfg
-            o  = "<a class='text-decoration-none text-dark' data-bs-toggle='collapse' href='#collapse_cm_cfg' " +
-                 "   aria-expanded='false' aria-controls='collapse_cm_cfg'>\n" +
-                 "<h5 class='pt-2 mb-0'>Configuration</h5>\n" +
-                 "</a>\n" +
-                 "<hr class='mt-0'>\n" +
-		 " <div class='collapse me-2' id='collapse_cm_cfg'>\n" +
-                 "<ul>\n" +
-                 "<li> size of fields (in bits):</li>\n" +
-                 wepsim_show_table_info(memory, memory.cfg.tag_size, memory.cfg.set_size, memory.cfg.off_size) +
-                 "<li> type: <span class='badge bg-secondary'>" + cm_type + "</span></li>\n" +
-                 "<li> replace policy: <span class='badge bg-secondary'>" + memory.cfg.replace_pol + "</span></li>\n" +
-                 "<li> split/unified: <span class='badge bg-secondary'>" + memory.cfg.su_pol + "</span></li>\n" +
-                 "</ul>" +
-		 " </div>" +
-                 "\n" ;
+            o = "<div class='accordion-item'>" +
+                "  <h2 class='accordion-header' id='cm-cfg'>" +
+                "    <button class='accordion-button p-1 fs-5 collapsed' type='button' " +
+                "            data-bs-toggle='collapse' data-bs-target='#cm-cfg-collapse' " +
+                "            aria-expanded='false' " +
+                "            aria-controls='cm-cfg-collapse'>Configuration</button>" +
+                "  </h2>" +
+                "  <div id='cm-cfg-collapse' class='accordion-collapse collapse' " +
+                "       aria-labelledby='cm-cfg'>" +
+                "  <div class='accordion-body px-2 py-3'>" +
+                "<ul>\n" +
+                "<li> size of fields (in bits):</li>\n" +
+                wepsim_show_table_info(memory, memory.cfg.tag_size, memory.cfg.set_size, memory.cfg.off_size) +
+                "<li> type: <span class='badge bg-secondary'>" + cm_type + "</span></li>\n" +
+                "<li> replace policy: <span class='badge bg-secondary'>" + memory.cfg.replace_pol + "</span></li>\n" +
+                "<li> split/unified: <span class='badge bg-secondary'>" + memory.cfg.su_pol + "</span></li>\n" +
+                "</ul>" +
+                "  </div>" +
+                "  </div>" +
+                "</div>" ;
 
             return o ;
         }
@@ -252,12 +271,18 @@
                 o1 = "&lt;Empty&gt;" ;
             }
 
-            o += "<a class='text-decoration-none text-dark' data-bs-toggle='collapse' href='#collapse_cm_cnt' " +
-                 "   aria-expanded='false' aria-controls='collapse_cm_cnt'>\n" +
-                 "<h5 class='pt-2 mb-0'>Sets & Tags</h5>\n" +
-                 "</a>\n" +
-                 "<hr class='mt-0'>\n" +
-		 " <div class='collapse' id='collapse_cm_cnt'>\n" + o1 + "</div>\n" ;
+	    // content
+            o = "<div class='accordion-item'>" +
+                "  <h2 class='accordion-header' id='cm-cnt'>" +
+                "    <button class='accordion-button p-1 fs-5 collapsed' type='button' " +
+                "            data-bs-toggle='collapse' data-bs-target='#cm-cnt-collapse' " +
+                "            aria-expanded='false' aria-controls='cm-cnt-collapse'>Sets & Tags</button>" +
+                "  </h2>" +
+                "  <div id='cm-cnt-collapse' class='accordion-collapse collapse' " +
+                "       aria-labelledby='cm-cnt'>" +
+                "  <div class='accordion-body px-2 py-3'>" + o1 + "</div>" +
+                "  </div>" +
+                "</div>" ;
 
             return o ;
         }
@@ -284,12 +309,13 @@
               for (var i=0; i<cache_memory.length; i++)
               {
 		   o1 += "<h5>Cache-" + (i+1) + "</h5>" +
-		         "<ul>" +
+                         "<div class='accordion ms-4 accordion-flush' " +
+                         "     id='accordionPanelsStayOpenExample'>" +
                          wepsim_show_cache_stats(cache_memory[i]) +
                          wepsim_show_cache_last(cache_memory[i]) +
                          wepsim_show_cache_cfg(cache_memory[i]) +
                          wepsim_show_cache_content(cache_memory[i]) +
-		         "</ul>" ;
+		         "</div>" ;
               }
 
               // load HTML
