@@ -22,21 +22,22 @@
         /*
          *  cache_memory => {
          *               "stats": {
-         *                           n_access: 0,
-         *                           n_hits:   0,
-         *                           n_misses: 0,
+         *                           n_access:     0,
+         *                           n_hits:       0,
+         *                           n_misses:     0,
          *                           last_address: 0,
          *                           last_request: "read"
          *                        },
          *               "cfg":   {
-         *                           via_size: 1,
-         *                           off_size: 1,
-         *                           set_size: 1,
-         *                           vps_size: 1,
-         *                           tag_size: 1,
+         *                           name:        "L1",
+         *                           via_size:    1,
+         *                           off_size:    1,
+         *                           set_size:    1,
+         *                           vps_size:    1,
+         *                           tag_size:    1,
          *                           replace_pol: "first",
          *                           su_pol:      "unified",
-         *                           next_cache: null
+         *                           next_cache:  -1
          *                        },
          *               "sets":  {
          *                           0: {
@@ -121,16 +122,18 @@
         //
 
         // Example: var cm = cache_memory_init(12, 5, 6, "first", "unified", null) ;
+        //                   * name:                    "L1"
         //                   * bits for via    in line: 12 bits,
         //                   * bits for offset in line:  5 bits,
         //                   * bits for set_per_cache:   6 bits,
-        //                   * replace_policy:           "first" | "lfu",
-        //                   * su_policy:                "unified" | "split_i" | "split_d",
-        //                   * next_cache_level:          null (none)
-        function cache_memory_init ( via_size, off_size, set_size, replace_pol, su_pol, next_cache )
+        //                   * replace_policy:          "first" | "lfu",
+        //                   * su_policy:               "unified" | "split_i" | "split_d",
+        //                   * next_cache_level:         -1 (none)
+        function cache_memory_init ( name, via_size, off_size, set_size, replace_pol, su_pol, next_cache )
         {
             var c = { "stats":{}, "cfg":{}, "sets":{} } ;
 
+	    c.cfg.name     = name ;
 	    c.cfg.via_size = via_size ;
 	    c.cfg.off_size = off_size ;
 	    c.cfg.set_size = set_size ;
@@ -158,13 +161,35 @@
             return c ;
         }
 
-        // Example: var cm = cache_memory_init2(cfg, null) ;
-        function cache_memory_init2 ( cfg, next_cache )
+        // Example: var cm = cache_memory_init2(cfg) ;
+        function cache_memory_init2 ( cfg )
         {
-            return cache_memory_init(cfg.via_size, cfg.off_size, cfg.set_size,
+            return cache_memory_init(cfg.name,
+                                     cfg.via_size, cfg.off_size, cfg.set_size,
                                      cfg.replace_pol, cfg.su_pol,
                                      cfg.next_cache) ;
         }
+
+        // Example: var array_cm = cache_memory_init3(array_cm_cfg) ;
+        function cache_memory_init3 ( array_cm_cfg )
+        {
+            var array_cm = [] ;
+            for (var i=0; i<array_cm_cfg.length; i++) {
+                 array_cm[i] = cache_memory_init2(array_cm_cfg[i].cfg) ;
+            }
+
+            var next_cache_id = null ;
+            for (var i=0; i<array_cm_cfg.length; i++)
+            {
+                 next_cache_id = array_cm_cfg[i].cfg.next_cache ;
+                 if (next_cache_id != -1)
+                      array_cm[i].cfg.next_cache = array_cm[next_cache_id] ;
+                 else array_cm[i].cfg.next_cache = null ;
+            }
+
+            return array_cm ;
+        }
+
 
         // Example: var parts = cache_memory_split(cm, 0x12345678)
         //          console.log("set: " + parts.set + ", tag: " + parts.tag + ", off: " + parts.offset) ;

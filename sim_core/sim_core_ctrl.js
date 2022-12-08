@@ -327,11 +327,8 @@
 	    }
 
 	    // 6.- load the CM with default values...
-            var curr_cm  = [] ;
             var curr_cfg = simhw_internalState('CM_cfg') ;
-            for (var i=0; i<curr_cfg.length; i++) {
-                 curr_cm[i] = cache_memory_init2(curr_cfg[i], null) ;
-            }
+            var curr_cm  = cache_memory_init3(curr_cfg) ;
             simhw_internalState_reset('CM_cfg', curr_cfg) ;
             simhw_internalState_reset('CM',     curr_cm) ;
 
