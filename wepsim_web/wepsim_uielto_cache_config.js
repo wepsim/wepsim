@@ -51,7 +51,8 @@
 
                     // default content
                     this.innerHTML = '<div id="'    + div_id    + '" ' +
-                                     '     style="' + style_dim + style_ovf + '"></div>' ;
+                                     '     style="' + style_dim + style_ovf + '">' +
+                                     '</div>' ;
               }
 
 	      render_populate ( )
@@ -289,7 +290,8 @@
 	    var o = '' ;
 	    var i = 0 ;
 
-	    o = '' ;
+	    o = '<h5><span data-langkey="Processor">Processor</span></h5>' +
+	        '<div class="vr" style="width:3px"></div>' ;
 	    for (i=0; i<memory_cfg.length; i++) {
                  o += wepsim_show_cm_level_cfg(div_hash, memory_cfg, i) ;
 	    }
@@ -298,7 +300,7 @@
 	        "<div class='row'>" +
 		"<div class='col'>" + o + "</div>" +
 		"</div>" +
-		"<div class='row'>" +
+		"<div class='row mt-2'>" +
 		"<div class='col'>" +
 		"<span class='btn btn-sm btn-success text-white py-0' " +
                 "      onclick='wepsim_cm_add_cachelevel(\""+div_hash+"\","+i+");'>Add new</span>" +
