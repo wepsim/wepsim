@@ -48,7 +48,9 @@
 
 		    // html holder
 		    this.innerHTML = "<div class='container container-fluid d-flex justify-content-center'>" +
-		                     "<div id='" + div_id + "' style='" + style_dim + style_ovf + "'>" +
+		                     "<div class='container' " +
+                                     "     id='" + div_id + "' style='" + style_dim + style_ovf + "'>" +
+                                     "</div>" +
                                      "</div>" ;
 	      }
 
@@ -123,21 +125,21 @@
 
             if (0 == memory.cfg.set_size) {
 		// full-associative
-                o = "<table class='table table-bordered table-hover table-sm'>" +
+                o = "<table class='table table-bordered table-hover table-sm w-auto'>" +
                     "<thead><tr><th>tag</th><th>offset</th></tr></thead>" +
                     "<tbody><tr><td>"+t_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" +
                     "</table>" ;
             }
 	    else if (memory.cfg.via_size == memory.cfg.set_size) {
 		// direct-mapped
-                o = "<table class='table table-bordered table-hover table-sm'>" +
+                o = "<table class='table table-bordered table-hover table-sm w-auto'>" +
                     "<thead><tr><th>tag</th><th>index</th><th>offset</th></tr></thead>" +
                     "<tbody><tr><td>"+t_num+"</td>"+"<td>"+s_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" +
                     "</table>" ;
             }
 	    else {
 		// set associative
-                o = "<table class='table table-bordered table-hover table-sm'>" +
+                o = "<table class='table table-bordered table-hover table-sm w-auto'>" +
                     "<thead><tr><th>tag</th><th>set</th><th>offset</th></tr></thead>" +
                     "<tbody><tr><td>"+t_num+"</td>"+"<td>"+s_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" +
                     "</table>" ;
@@ -172,8 +174,8 @@
                 "  <ul class='mb-1'>\n" +
                 "  <li>\n" + memory.stats.last_r_w + " address 0x" +
                              memory.stats.last_addr.toString(16) + o1 + "</li>\n" +
-                "  </ul>" +
                    wepsim_show_table_info(memory, tag_bin, set_bin, off_bin) +
+                "  </ul>" +
                 " </div>" +
                 " </div>" +
                 "</div>" ;

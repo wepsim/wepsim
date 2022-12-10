@@ -273,14 +273,12 @@
 		  "</div>" +
 		  "" +
 	          "<div class='row ms-1'>" +
-		  "<div class='col p-2'>" +
-                  "<form>" +
+                  "<form class='col'>" +
                   wepsim_show_cm_level_cfg_splitunify(memory_cfg, index) +
                   wepsim_show_cm_level_cfg_replacepol(memory_cfg, index) +
                   wepsim_show_cm_level_cfg_placepol  (memory_cfg, index) +
                   wepsim_show_cm_level_cfg_nextcm    (memory_cfg, index) +
                   "</form>" +
-		  "</div>" +
 		  "</div>" ;
 
 	   return o ;
