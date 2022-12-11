@@ -55,6 +55,12 @@
                     }
 	      }
 
+              attributeChangedCallback (name, oldValue, newValue)
+              {
+                    if (oldValue != newValue)
+                        this.render('attributeChangedCallback') ;
+              }
+
               // attributes
               static get observedAttributes()
 	      {
