@@ -1,11 +1,40 @@
 {
+    "root": true,
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+	"es2021": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+	   "ecmaVersion": 2018,
+	   "jsx": true,
+           "arrowFunctions": true,
+           "blockBindings": true,
+           "classes": true,
+           "defaultParameters": true,
+           "destructuring": true,
+           "forOf": true,
+           "generators": true,
+           "modules": true,
+           "objectLiteralComputedProperties": true,
+           "objectLiteralDuplicateProperties": true,
+           "objectLiteralShorthandMethods": true,
+           "objectLiteralShorthandProperties": true,
+           "restParams": true,
+           "spread": true,
+           "superInFunctions": true,
+           "templateStrings": true,
+           "unicodeCodePointEscapes": true,
+           "globalReturn": true
+        }
+   },
    "rules": {
-       'eqeqeq': 'off',
-       'no-console': 'off',
-       'no-useless-concat': 'off',
-       'no-unused-vars': 'off',
-       'promise/no-nesting': 'warn',
-       'promise/avoid-new': 'warn',
-       'block-scoped-var': 'warn'
+       "eqeqeq": "off",
+       "no-console": "off",
+       "no-useless-concat": "off",
+       "no-unused-vars": "off",
+       "block-scoped-var": "off"
    }
 }

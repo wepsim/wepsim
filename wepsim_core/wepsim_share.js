@@ -29,6 +29,7 @@
 	 {
 	     var msg = 'Sorry, unable to share:<br>\n' +
 		       'navigator.share is not available.<br>' +
+		       'But you can use the following QR-code:<br>' +
 		       '<br>' +
 		       '<div id="qrcode1" class="mx-auto"></div>' +
 		       '<br>' ;
