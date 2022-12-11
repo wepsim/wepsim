@@ -109,6 +109,12 @@
 		       }
 	           }) ;
 	      }
+
+              // attributeChanged for layout
+              attributeChangedCallback (name, oldValue, newValue)
+              {
+                    this.render('attributeChangedCallback') ;
+              }
         }
 
         register_uielto('ws-web-main', ws_web_main) ;
