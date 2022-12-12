@@ -43,7 +43,7 @@
                     this.update_internal_attributes() ;
 
 		    // set an empty "container" by default
-		    this.innerHTML = '' ;
+		    //this.innerHTML = '' ;
 	      }
 
 	      connectedCallback ()
@@ -55,10 +55,11 @@
                     }
 	      }
 
-	      attributeChangedCallback (name, oldValue, newValue)
-	      {
-		    this.render('attributeChangedCallback') ;
-	      }
+              attributeChangedCallback (name, oldValue, newValue)
+              {
+                    if (oldValue != newValue)
+                        this.render('attributeChangedCallback') ;
+              }
 
               // attributes
               static get observedAttributes()

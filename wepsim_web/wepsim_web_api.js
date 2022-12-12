@@ -30,38 +30,46 @@
 		         "simulator": function() {
 					  sim_change_workspace('#main1', 0) ;
 
-                                          jQuery("#t3_firm").detach().appendTo("#t3_firm_placeholder2") ;
-                                          jQuery( "#t4_asm").detach().appendTo("#t4_asm_placeholder2") ;
-					  setTimeout(function() {
-							inputfirm.refresh() ;
-							inputasm.refresh() ;
-						     }, 50) ;
+			  var actual_details = $('#select5b').html() ;
+			  var actual_micro = '<span class="bg-dark text-white">Sim</span>&nbsp;MicroCode' ;
+			  var actual_asm   = '<span class="bg-dark text-white">Sim</span>&nbsp;Assembly';
+
+			                  if (actual_micro == actual_details) {
+                                              jQuery("#t3_firm").detach().appendTo("#t3_firm_placeholder2");
+					      setTimeout(function() {
+							    inputfirm.refresh();
+						         }, 50) ;
+					  }
+			             else if (actual_asm == actual_details) {
+                                              jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder2");
+					      setTimeout(function() {
+							    inputasm.refresh() ;
+						         }, 50) ;
+					  }
 	                              },
 		         "microcode": function() {
 		                          sim_change_workspace('#main3', 1) ;
 
 					  var t3_firm = document.getElementById("t3_firm");
 					  var ct3firm = document.getElementById("t3_firm_placeholder1");
-					  if (![...ct3firm.children].includes(t3_firm))
-                                          {
+					  if (![...ct3firm.children].includes(t3_firm)) {
                                               jQuery("#t3_firm").detach().appendTo('#t3_firm_placeholder1');
-			                      setTimeout(function(){
-					                    inputfirm.refresh() ;
-				                         }, 50) ;
                                           }
+			                  setTimeout(function(){
+					                inputfirm.refresh() ;
+				                     }, 50) ;
 	                              },
 		         "assembly":  function() {
 					  sim_change_workspace('#main4', 2) ;
 
 					  var t4_asm = document.getElementById("t4_asm");
 					  var ct4asm = document.getElementById("t4_asm_placeholder1");
-					  if (![...ct4asm.children].includes(t4_asm))
-                                          {
+					  if (![...ct4asm.children].includes(t4_asm)) {
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder1") ;
-					      setTimeout(function(){
-							    inputasm.refresh() ;
-						        }, 50) ;
                                           }
+					  setTimeout(function(){
+							inputasm.refresh() ;
+						     }, 50) ;
 	                              }
 		       },
 	    "compact": {
@@ -418,6 +426,7 @@
     var hash_detail2action = {
 	    "CLOCK":          function(){ wepsim_execute_microinstruction(); },
 	    "REGISTER_FILE":  function(){ wsweb_set_details_select(11); },
+
 	    "CONTROL_MEMORY": function(){ wsweb_set_details_select(16); show_memories_values(); },
 	    "CPU_STATS":      function(){ wsweb_set_details_select(17); show_memories_values(); },
 	    "MEMORY":         function(){ wsweb_set_details_select(14); show_memories_values(); },
@@ -431,11 +440,30 @@
 	    "3DLED":          function(){ wsweb_set_details_select(25); show_memories_values(); },
 	    "LEDMATRIX":      function(){ wsweb_set_details_select(27); show_memories_values(); },
 
-	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
-	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
+
+	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20);
+					  var t3_firm = document.getElementById("t3_firm");
+					  var ct3firm = document.getElementById("t3_firm_placeholder2");
+					  if (![...ct3firm.children].includes(t3_firm)) {
+                                              jQuery("#t3_firm").detach().appendTo('#t3_firm_placeholder2');
+                                          }
+					  setTimeout(function() {
+                                                        inputfirm.refresh();
+						     }, 50) ;
+                                        },
+	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);
+					  var t4_asm = document.getElementById("t4_asm");
+					  var ct4asm = document.getElementById("t4_asm_placeholder2");
+					  if (![...ct4asm.children].includes(t4_asm)) {
+                                              jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder2") ;
+                                          }
+					  setTimeout(function() {
+							inputasm.refresh() ;
+						     }, 50) ;
+                                        },
+
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
                                           wepsim_tooltips_hide('[data-bs-toggle=tooltip]');
-                                        //$("#infohw1").attr('components', 'summary,elements,states,signals,behaviors');
 	                                  simcoreui_show_hw();
 					  var ws_idiom = get_cfg('ws_idiom');
 					  i18n_update_tags('gui', ws_idiom);
