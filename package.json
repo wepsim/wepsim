@@ -9,6 +9,9 @@
   },
   "license": "GPL-3.0",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.29.0",
+    "eslint-plugin-json-format": "^2.0.1",
     "jshint": "^2.13.3",
     "terser": "^4.8.1"
   },
@@ -23,9 +26,11 @@
     "inquirer": "^8.2.0",
     "inquirer-autocomplete-prompt": "^1.0.2",
     "inquirer-command-prompt": "^0.1.0",
+    "optionator": "^0.9.1",
     "readline-sync": "^1.4.10",
     "vue": "^2.6.12",
     "vuex": "^3.6.0",
+    "winston": "^2.2.0",
     "yargs": "^15.4.1"
   }
 }

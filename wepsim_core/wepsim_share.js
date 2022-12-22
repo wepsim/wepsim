@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -29,6 +29,7 @@
 	 {
 	     var msg = 'Sorry, unable to share:<br>\n' +
 		       'navigator.share is not available.<br>' +
+		       'But you can use the following QR-code:<br>' +
 		       '<br>' +
 		       '<div id="qrcode1" class="mx-auto"></div>' +
 		       '<br>' ;

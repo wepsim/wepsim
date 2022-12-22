@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -70,6 +70,7 @@
 		'Intermediate':			'Intermedio',
 		'Laboratory':			'Laboratorio',
 		'Operating Systems':		'Sistemi operativi',
+		'Extra':			'Bonus',
 		'Special':			'Speciale',
 
 		'Load example':			'Carica esempio',

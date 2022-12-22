@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -326,7 +326,13 @@
 	         simhw_internalState_set('segments', key, SIMWARE['seg'][key]) ;
 	    }
 
-	    // 6.- show memories...
+	    // 6.- load the CM with default values...
+            var curr_cfg = simhw_internalState('CM_cfg') ;
+            var curr_cm  = cache_memory_init3(curr_cfg) ;
+            simhw_internalState_reset('CM_cfg', curr_cfg) ;
+            simhw_internalState_reset('CM',     curr_cm) ;
+
+	    // 7.- show memories...
             show_main_memory   (mp_obj, 0, true, true) ;
             show_control_memory(mc_obj, 0, true) ;
 	}

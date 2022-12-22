@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -86,6 +86,7 @@
 	{
 		var i = 0 ;
 		var s = "" ;
+		var n = "" ;
 
                 var filter = simhw_internalState('filter_signals') ;
 
@@ -95,9 +96,14 @@
                         "<td bgcolor='#FFCC00'   style='border-style: solid; border-width:1px; border-color:lightgray;' align='center'><small><b>&#181;dir</b></small></td>" +
                         "<td bgcolor='white'     style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;&nbsp;</td>" ;
 		var contSignals=1;
-		for (i=0; i<filter.length; i++) {
+		for (i=0; i<filter.length; i++)
+                {
                      s = filter[i].split(",")[0] ;
-		     h += "<td align='center' style='border-style: solid; border-width:1px;'><small><b>" + simhw_sim_signals()[s].name + "</b></small></td>";
+                     n = simhw_sim_signals()[s] ;
+                     if (typeof n == "undefined")
+                         continue ;
+                     n = n.name ;
+		     h += "<td align='center' style='border-style: solid; border-width:1px;'><small><b>" + n + "</b></small></td>";
 		     contSignals++;
 		}
 		h += "</tr>" ;
@@ -142,6 +148,11 @@
 		         for (var k=0; k<filter.length; k++)
 			 {
                               s = filter[k].split(",")[0] ;
+
+                              n = simhw_sim_signals()[s] ;
+                              if (typeof n == "undefined") {
+                                  continue ;
+                              }
 
 			      var svalue = parseInt(simhw_sim_signals()[s].default_value);
                               var newval = false;

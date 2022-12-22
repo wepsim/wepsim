@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -129,6 +129,9 @@
         sim.poc.internal_states.MP        = {} ;
         sim.poc.internal_states.MP_wc     = 0 ;
 
+        sim.poc.internal_states.CM_cfg    = [] ;
+        sim.poc.internal_states.CM        = [] ;
+
 
         /*
          *  Signals
@@ -185,16 +188,17 @@
 						      var address = sim.poc.states[s_expr[1]].value;
                                                       var dbvalue = sim.poc.states[s_expr[2]].value;
                                                       var bw      = sim.poc.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.poc.states[s_expr[5]].value) ;
+                                                      var clk     = get_value(sim.poc.states[s_expr[5]]) ;
 
                                                       sim.poc.signals[s_expr[4]].value = 0;
-						      var remain = get_var(sim.poc.internal_states.MP_wc);
+						      var remain = get_value(sim.poc.internal_states.MP_wc);
 						      if (
                                                            (typeof sim.poc.events.mem[clk-1] != "undefined") &&
 						           (sim.poc.events.mem[clk-1] > 0)
                                                          ) {
 						              remain = sim.poc.events.mem[clk-1] - 1;
                                                            }
+						      var first_time = typeof sim.poc.events.mem[clk] == "undefined" ;
 						      sim.poc.events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
@@ -217,6 +221,11 @@
                                                       sim.poc.states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim.poc.signals[s_expr[4]].value = 1;
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, false) ;
+
+                                                      // cache
+						      if (first_time && (sim.poc.internal_states.CM.length > 0)) {
+                                                          cache_memory_access(sim.poc.internal_states.CM[0], address, "read", clk) ;
+                                                      }
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -225,7 +234,7 @@
 						      var address = sim.poc.states[s_expr[1]].value;
                                                       var dbvalue = sim.poc.states[s_expr[2]].value;
                                                       var bw      = sim.poc.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.poc.states[s_expr[5]].value) ;
+                                                      var clk     = get_value(sim.poc.states[s_expr[5]]) ;
 
                                                       // bit-width
 						      switch (bw)
@@ -260,16 +269,17 @@
 						      var address = sim.poc.states[s_expr[1]].value;
                                                       var dbvalue = sim.poc.states[s_expr[2]].value;
                                                       var bw      = sim.poc.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.poc.states[s_expr[5]].value) ;
+                                                      var clk     = get_value(sim.poc.states[s_expr[5]]) ;
 
                                                       sim.poc.signals[s_expr[4]].value = 0;
-						      var remain = get_var(sim.poc.internal_states.MP_wc);
+						      var remain = get_value(sim.poc.internal_states.MP_wc);
 						      if (
                                                            (typeof sim.poc.events.mem[clk-1] != "undefined") &&
 						           (sim.poc.events.mem[clk-1] > 0)
                                                          ) {
 						              remain = sim.poc.events.mem[clk-1] - 1;
                                                            }
+						      var first_time = typeof sim.poc.events.mem[clk] == "undefined" ;
 						      sim.poc.events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
@@ -308,6 +318,11 @@
 
                                                       sim.poc.signals[s_expr[4]].value = 1 ;
 				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, true) ;
+
+                                                      // cache
+						      if (first_time && (sim.poc.internal_states.CM.length > 0)) {
+                                                          cache_memory_access(sim.poc.internal_states.CM[0], address, "write", clk) ;
+                                                      }
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -316,7 +331,7 @@
 						      var address = sim.poc.states[s_expr[1]].value;
                                                       var dbvalue = sim.poc.states[s_expr[2]].value;
                                                       var bw      = sim.poc.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.poc.states[s_expr[5]].value) ;
+                                                      var clk     = get_value(sim.poc.states[s_expr[5]]) ;
 
                                                       // bit-width
 						      switch (bw)

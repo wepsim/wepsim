@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -189,7 +189,8 @@
                                                     "REG_RT1,col-auto",
                                                     "REG_MAR,col-auto", "REG_MBR,col-auto", "REG_MICROADDR,col-auto" ] ;
         sim.poc.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",
-                                                    "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
+                                                    "SELA,5", "SELB,5", "SELC,2", "SELCOP,0",
+                                                    "MRA,0",  "MRB,0",  "MRC,0",  "MC,0",
 				            "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C7,0",
 				            "T1,0", "T2,0",   "T3,0",   "T6,0",   "T8,0",
                                             "T9,0", "T10,0",  "T11,0",

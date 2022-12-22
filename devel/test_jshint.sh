@@ -3,7 +3,7 @@ set -x
 
 
 #*
-#*  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -23,7 +23,7 @@ set -x
 
 
 echo "checking sim_core..."
- jshint ./sim_core/sim_core_ui.js
+#jshint ./sim_core/sim_core_ui.js
  jshint ./sim_core/sim_core_voice.js
  jshint ./sim_core/sim_api_stateshots.js
  jshint ./sim_core/sim_api_native.js
@@ -36,6 +36,7 @@ echo "checking sim_core..."
 
 echo "checking sim_sw..."
  jshint ./sim_sw/sim_lang.js
+#jshint ./sim_sw/sim_seg.js
 #jshint ./sim_sw/sim_lang_firm.js
 #jshint ./sim_sw/sim_lang_asm.js
 
@@ -134,7 +135,7 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uiscreen_classic.js
  jshint ./wepsim_web/wepsim_uiscreen_compact.js
  jshint ./wepsim_web/wepsim_uiscreen_main.js
- jshint ./wepsim_web/wepsim_web_api.js
+#jshint ./wepsim_web/wepsim_web_api.js
  jshint ./wepsim_web/wepsim_web_editor.js
 #jshint ./wepsim_web/wepsim_web_pwa.js
  jshint ./wepsim_web/wepsim_web_simulator.js

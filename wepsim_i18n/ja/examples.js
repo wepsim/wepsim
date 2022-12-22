@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -21,25 +21,25 @@
 
     i18n.eltos.examples.ja = {
 
-		'addv + seqv.':		'addv + seqv',
-		'Alloc.s':		'同種',
+		'addv + seqv.':			'addv + seqv',
+		'Alloc.s':			'同種',
 		'Dummy instruction':		'ダミー指導',
-		'Exception':		'例外',
-		'Instructions':		'説明書',
+		'Exception':			'例外',
+		'Instructions':			'説明書',
 		'Interruptions':		'中断',
-		'Int. + syscall + except.':		'Int。 + syscall +以外。',
-		'I/O':		'I/O',
-		'Looping':		'ループ',
+		'Int. + syscall + except.':	'Int。 + syscall +以外。',
+		'I/O':				'I/O',
+		'Looping':			'ループ',
 		'madd, mmul, mxch':		'助け、気分、こころ',
 		'Masks & shift':		'マスク＆シフト',
-		'Matrix':		'マトリックス',
+		'Matrix':			'マトリックス',
 		'Memory access':		'メモリアクセス',
 		'SC 1, 4-5, 8, 11-12':		'SC 1、4〜5、8、11〜12',
-		'Subrutine':		'サブルーチン',
-		'syscall 1, 4-5, 8, 11-12':		'システムコール1、4〜5、8、11〜12',
-		'System call':		'システムコール',
-		'Threads':		'スレッド',
-		'Vector':		'ベクター',
+		'Subrutine':			'サブルーチン',
+		'syscall 1, 4-5, 8, 11-12':	'システムコール1、4〜5、8、11〜12',
+		'System call':			'システムコール',
+		'Threads':			'スレッド',
+		'Vector':			'ベクター',
 	        "Compiler Explorer":		"Compiler Explorer",
 		'Instructive':		        '<b>有益な</b>',
 		'example_04_01':		'割り込み、システムコール、および例外を含む高度な例',
@@ -65,21 +65,22 @@
 		'example_01_02':		'フェッチ、メモリアクセス、および基本的な.text/.dataセグメントを使用した簡単な例。',
 		'example_06_01':		'テスト例',
 	        "example_06_02":	                    	"単純なコンパイラエクスプローラの例.",
-		'Advanced':		'高度な',
-		'Initial':		'初期',
-		'Intermediate':		'中級',
-		'Laboratory':		'実験室',
+		'Advanced':			'高度な',
+		'Initial':			'初期',
+		'Intermediate':			'中級',
+		'Laboratory':			'実験室',
 		'Operating Systems':		'オペレーティングシステム',
-		'Special':		'特殊',
+		'Extra':			'ボーナス',
+		'Special':			'特殊',
 
 		'Load example':			'ロード例',
 		'Load Assembly only':		'荷重アセンブリのみ',
 		'Load Firmware only':		'ファームウェアのみをロード',
-		'Copy reference to clipboard':		'クリップボードへの参照のコピー',
-		'Share':		'共有（アンドロイド）',
-		'No examples available...':		'選択したハードウェアの例はありません',
+		'Copy reference to clipboard':	'クリップボードへの参照のコピー',
+		'Share':			'共有（アンドロイド）',
+		'No examples available...':	'選択したハードウェアの例はありません',
 		'Simple example':		'簡単な例',
-		'_last_':		'_last_'
+		'_last_':			'_last_'
 
     };
 

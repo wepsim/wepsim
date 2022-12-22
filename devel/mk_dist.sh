@@ -3,7 +3,7 @@
 
 
 #*
-#*  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -66,6 +66,7 @@ cat sim_core/sim_cfg.js \
     sim_core/sim_core_values.js \
     sim_core/sim_adt_ctrlmemory.js \
     sim_core/sim_adt_mainmemory.js \
+    sim_core/sim_adt_cachememory.js \
     \
     sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
@@ -90,8 +91,9 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_poc/sim_hw_l3d.js \
     sim_hw/sim_hw_poc/sim_hw_ldm.js \
     \
-    sim_sw/sim_lang.js \
     sim_sw/sim_decode.js \
+    sim_sw/sim_seg.js \
+    sim_sw/sim_lang.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
@@ -153,6 +155,8 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_cpu.js \
     wepsim_web/wepsim_uielto_mem.js \
     wepsim_web/wepsim_uielto_mem_config.js \
+    wepsim_web/wepsim_uielto_cache.js \
+    wepsim_web/wepsim_uielto_cache_config.js \
     wepsim_web/wepsim_uielto_registers.js \
     wepsim_web/wepsim_uielto_console.js \
     wepsim_web/wepsim_uielto_hw.js \
@@ -298,35 +302,31 @@ cp    -a external/speechkitt            ws_dist/external/
                                   touch ws_dist/external/speechkitt/index.html
 cp    -a external/cordova.js            ws_dist/external/cordova.js
 
-## pre-examples (default_packed)
-DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips.json examples/examples_set/apps_poc_mips.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_mips.json
-DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32.json examples/examples_set/apps_poc_rv32.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_rv32.json
-DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_native.json examples/examples_set/apps_poc_native.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_native.json
-DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_mips_instructive.json examples/examples_set/apps_poc_mips_instructive.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_mips_instructive.json
-DEFAULT_EXAMPLE_SET="examples/examples_set/apps_ep_rv32_instructive.json examples/examples_set/apps_poc_rv32_instructive.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/default_rv32_instructive.json
-DEFAULT_EXAMPLE_SET="examples/examples_set/ag_ep_rv32_packed.json examples/examples_set/ag_poc_rv32_packed.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/ag_rv32_packed.json
-
-## pre-examples (default.json + apps.json)
- echo '[]' | \
- jq ' . + [ { "name": "Default-MIPS",      "url": "examples/examples_set/default_mips.json",                "description": "MIPS instruction set",           "size":  "18+",   "url_base_asm": "examples/assembly_mips/",     "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "Default-RISCV",     "url": "examples/examples_set/default_rv32.json",                "description": "RISC-V instruction set",         "size":  "18+",   "url_base_asm": "examples/assembly_rv32/",     "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "Instructive-MIPS",  "url": "examples/examples_set/default_mips_instructive.json",    "description": "MIPS instruction set",           "size":  "12+",   "url_base_asm": "examples/assembly_mips/",     "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "Instructive-RISCV", "url": "examples/examples_set/default_rv32_instructive.json",    "description": "RISC-V instruction set",         "size":  "12+",   "url_base_asm": "examples/assembly_rv32/",     "url_base_mc": "examples/microcode/" } ]' | \
- jq ' . + [ { "name": "AG-EC",             "url": "examples/examples_set/ag_rv32_packed.json",              "description": "RISC-V instruction set",         "size":  "10+",   "url_base_asm": "examples/assembly_ag/",       "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
-
-###########
-# jq ' . + [ { "name": "Native",            "url": "examples/examples_set/default_native.json",              "description": "MIPS, RISC-V, ARM, Z80",         "size":  "3+",    "url_base_asm": "examples/assembly_native/",   "url_base_mc": "examples/microcode/" } ]' | \
-# jq ' . + [ { "name": "AG-EC",             "url": "examples/examples_set/ag_rv32_packed.json",              "description": "RISC-V instruction set",         "size":  "10+",   "url_base_asm": "examples/assembly_ag/",       "url_base_mc": "examples/microcode/" } ]' | \
-# jq ' . + [ { "name": "OCW-EC",            "url": "examples/examples_set/ocw_ep_mips_packed.json",          "description": "MIPS examples for <a href='https://ocw.uc3m.es/course/view.php?id=136'>opencourseware</a>",       "size":  "10+",   "url_base_asm": "examples/assembly_ocw/",   "url_base_mc": "examples/microcode/" } ]' > examples/examples_set/default.json
-###########
-
-cp examples/examples_set/default.json examples/apps.json
+### default available examples
+# MIPS
+DEFAULT_EXAMPLE_SET="examples/examples_set/mips/es_ep.json examples/examples_set/mips/es_poc.json examples/examples_set/mips/es_ep_native.json examples/examples_set/mips/es_poc_native.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/mips/default.json
+# MIPS instructive
+DEFAULT_EXAMPLE_SET="examples/examples_set/mips/es_ep_instructive.json examples/examples_set/mips/es_poc_instructive.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/mips/default_instructive.json
+# RV32
+DEFAULT_EXAMPLE_SET="examples/examples_set/rv32/es_ep.json examples/examples_set/rv32/es_poc.json examples/examples_set/rv32/es_ep_native.json examples/examples_set/rv32/es_poc_native.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/rv32/default.json
+# RV32 instructive
+DEFAULT_EXAMPLE_SET="examples/examples_set/rv32/es_ep_instructive.json examples/examples_set/rv32/es_poc_instructive.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/rv32/default_instructive.json
+# ARM
+DEFAULT_EXAMPLE_SET="examples/examples_set/arm/es_ep.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/arm/default.json
+# Z80
+DEFAULT_EXAMPLE_SET="examples/examples_set/z80/es_ep.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/z80/default.json
+# OpenCourseWare
+DEFAULT_EXAMPLE_SET="examples/examples_set/mips_ocw/es_ep.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/mips_ocw/default.json
+# Aula Global (UC3M)
+DEFAULT_EXAMPLE_SET="examples/examples_set/rv32_ag/es_ep.json examples/examples_set/rv32_ag/es_poc.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/rv32_ag/default.json
 
 #  examples
 echo "  * ws_dist/examples/..."

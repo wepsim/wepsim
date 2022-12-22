@@ -2,7 +2,7 @@
 
 
 #*
-#*  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -161,6 +161,7 @@ i18n_eltos['examples'] = {
              "Intermediate":				"Intermediate",
              "Laboratory":				"Laboratory",
              "Operating Systems":			"Operating Systems",
+             "Extra":					"Extra",
              "Special":					"Special",
 
              "Load Assembly only": 			"Load Assembly only",

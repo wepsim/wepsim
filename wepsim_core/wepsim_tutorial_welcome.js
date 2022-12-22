@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -66,7 +66,7 @@
 				     message:     "<span data-langkey='message_5'>message 5</span>",
 				     code_pre:    function() {  },
 				     code_post:   function() {
-						      var welcome_example = "ep:ep_mips_base:mips_s1e1" ;
+                                                      var welcome_example="ep:mips/ep_base.mc:mips/s1e1.asm";
 						      load_from_example_firmware(welcome_example, true);
 						  },
 				     wait_next:   100

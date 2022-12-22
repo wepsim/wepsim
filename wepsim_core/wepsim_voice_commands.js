@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -45,12 +45,9 @@
 	 wsweb_dialog_open('examples') ;
     } ;
 
-    ws_info.voice_commands['load example :id (from) :level'] = function ( id, level )
+    ws_info.voice_commands['load example :mc_name (from) :asm_name'] = function ( mc_name, asm_name )
     {
-         var ex_id = parseInt(id) ;
-         var ex_lv = parseInt(level) ;
-
-         load_from_example_firmware("ep:s" + ex_lv + "_e" + ex_lv, true) ;
+         load_from_example_firmware("ep:" + mc_name + ":" + asm_name, true) ;
     } ;
 
     ws_info.voice_commands['(show) help'] = function()

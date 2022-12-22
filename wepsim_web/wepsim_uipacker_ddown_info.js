@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -123,8 +123,10 @@
                //  ni.ed_hw = this.mk_nav_item('tab22', '#ed_hw', 'Hardware',             '', '') ;
                    ni.iol3d = this.mk_nav_item('tab25', '#iol3d', '3D Led',               '', '') ;
                    ni.ioldm = this.mk_nav_item('tab27', '#ioldm', 'Led Matrix',           '', '') ;
-                   ni.ed_mc = this.mk_nav_item('tab20', '#ed_mc',  'MicroCode',           '', '') ;
-                   ni.ed_mp = this.mk_nav_item('tab21', '#ed_mp',  'Assembly',            '', 'user_microcode') ;
+                   ni.ed_mc = this.mk_nav_item('tab20', '#ed_mc', 'MicroCode',            '', '') ;
+                   ni.ed_mp = this.mk_nav_item('tab21', '#ed_mp', 'Assembly',             '', 'user_microcode') ;
+                   ni.cm    = this.mk_nav_item('tab28', '#cm',    'Cache',                '', '') ;
+                   ni.cmcfg = this.mk_nav_item('tab29', '#cmcfg', 'Cache configuration',  '', '') ;
 
                    return ni ;
 	      }
@@ -154,6 +156,8 @@
 
                    np.ed_mc = this.mk_nav_tabpane_item('ed_mc', '',  '<ws-edit-mc layout="compilebar,placeholder"></ws_edit_mc>') ;
                    np.ed_mp = this.mk_nav_tabpane_item('ed_mp', '',  '<ws-edit-as layout="compilebar,placeholder"></ws_edit_as>') ;
+	           np.cm    = this.mk_nav_tabpane_item('cm',    '',  '<ws-cachememory></ws-cachememory>') ;
+	           np.cmcfg = this.mk_nav_tabpane_item('cmcfg', '',  '<ws-cache-config id="cmcfg1"></ws-cache-config>') ;
 
                    return np ;
 	      }

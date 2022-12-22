@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -132,8 +132,8 @@
 
         //  d = examples[x].id + ' - ' + examples[x].type  + ' - ' + examples[x].title ;
             d = examples[x].id + ' - ' + examples[x].title ;
-            m = './examples/microcode/mc-' + examples[x].microcode + '.txt' ;
-            a = './examples/assembly/asm-' + examples[x].assembly  + '.txt' ;
+            m = './examples/microcode/' + examples[x].microcode + '.txt' ;
+            a = './examples/assembly/'  + examples[x].assembly  + '.txt' ;
             h = examples[x].hardware ;
             e = (m != (examples.length-1)) ? ',\n' : '\n' ;
 

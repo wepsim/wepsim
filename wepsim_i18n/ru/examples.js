@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -64,22 +64,23 @@
 		'example_01_03':		'Простой пример с получением, ветвью и основным сегментом .text.',
 		'example_01_02':		'Простой пример с извлечением, доступом к памяти и базовым сегментом .text/.data.',
 		'example_06_01':		'Тестовый пример.',
-	        "example_06_02":	                    	"Пример простого компилятора.",
-		'Advanced':		'продвинутый',
-		'Initial':		'начальный',
-		'Intermediate':		'промежуточный',
-		'Laboratory':		'лаборатория',
+	        "example_06_02":	        'Пример простого компилятора.',
+		'Advanced':			'продвинутый',
+		'Initial':			'начальный',
+		'Intermediate':			'промежуточный',
+		'Laboratory':			'лаборатория',
 		'Operating Systems':		'Операционные системы',
-		'Special':		'Специальный',
+		'Extra':			'бонусы',
+		'Special':			'Специальный',
 
 		'Load example':			'Пример загрузки',
 		'Load Assembly only':		'Только загрузка',
 		'Load Firmware only':		'Загрузить только прошивку',
-		'Copy reference to clipboard':		'Скопировать ссылку в буфер обмена',
-		'Share':		'Поделиться',
-		'No examples available...':		'Для выбранного оборудования отсутствуют примеры.',
+		'Copy reference to clipboard':	'Скопировать ссылку в буфер обмена',
+		'Share':			'Поделиться',
+		'No examples available...':	'Для выбранного оборудования отсутствуют примеры.',
 		'Simple example':		'Простой пример',
-		'_last_':		'_last_'
+		'_last_':			'_last_'
 
     };
 

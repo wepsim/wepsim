@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2022 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Javier Lopez Gomez
  *
  *  This file is part of WepSIM.
  *
@@ -78,10 +78,7 @@
         sim.ep.internal_states.ledm_neltos = Math.pow(sim.ep.internal_states.ledm_dim, 2) ;
         sim.ep.internal_states.ledm_state  = Array.from({length:sim.ep.internal_states.ledm_neltos},
 						        () => ({color:0})) ;
-        sim.ep.internal_states.color14     = [ "#000000", "#FFFFFF", "#FF0000", "#FF8800", "#FFFF00",
-                                               "#88FF00", "#00FF00", "#00FF88", "#00FFFF", "#0088FF",
-                                               "#0000FF", "#8800FF", "#FF00FF", "#FF0088" ] ;
-        sim.ep.internal_states.ledm_colors = sim.ep.internal_states.color14.map((x) => x) ;
+        sim.ep.internal_states.ledm_colors = colors_clone('') ;
         sim.ep.internal_states.ledm_frame  = '0'.repeat(sim.ep.internal_states.ledm_neltos) ;
 
         var LEDMSR_ID   = 0x3100 ;
@@ -214,7 +211,7 @@
 
                                                               set_value(sim.ep.states[s_expr[3]], 1) ;
                                                               if ( (x >= sim.ep.internal_states.ledm_dim) &&
-                                                                      (y >= sim.ep.internal_states.ledm_dim) )
+                                                                   (y >= sim.ep.internal_states.ledm_dim) )
                                                               {
                                                                    set_value(sim.ep.states[s_expr[3]], -1) ;
                                                                    return ;
@@ -255,9 +252,17 @@
                                                               {
                                                                    s = simcore_native_get_value("MEMORY", dr+p*4) ;
                                                                    s = (s & 0xFFFFFF00) >>> 8 ;
-								   s = s.toString(16)
-                                                                   c = '#' + simcoreui_pack(s, 6);
+								   s = s.toString(16) ;
+                                                                   c = '#' + simcoreui_pack(s, 6) ;
                                                                    sim.ep.internal_states.ledm_colors[p] = c ;
+                                                              }
+
+                                                              // update internal states
+                                                              neltos = sim.ep.internal_states.ledm_neltos ;
+                                                              for (var p=0; p<neltos; p++) {
+								   s = get_var(sim.ep.internal_states.ledm_state[p].color);
+								   set_var(sim.ep.internal_states.ledm_state[p].color, ~s);
+								   set_var(sim.ep.internal_states.ledm_state[p].color, s);
                                                               }
 							  }
 						      }
@@ -305,7 +310,7 @@
                                                         sim.ep.events.ledm = {} ;
 
 						        // reset the I/O factory
-                                                        sim.ep.internal_states.ledm_colors = sim.ep.internal_states.color14.map((x) => x) ;
+                                                        sim.ep.internal_states.ledm_colors = colors_clone('') ;
 						        for (var i=0; i<sim.ep.internal_states.ledm_state.length; i++) {
 						             set_var(sim.ep.internal_states.ledm_state[i].color, 1);
 						             set_var(sim.ep.internal_states.ledm_state[i].color, 0);
