@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.2.1 -> 2.2.2:
+* Main improvements:
+* Main external dependencies updated:
+
 ## 2.2.0 -> 2.2.1:
 * Main improvements:
   * Examples updated
