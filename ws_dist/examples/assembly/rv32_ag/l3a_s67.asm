@@ -4,25 +4,24 @@
 #
 
 .text
- main:
+ main: 
 
-         # int i;
-         # 
-         # main () 
-         # {
-         #    i=0;
-         #    while (i < 10) {
-         #      /* acción */
-         #      i = i + 1 ;
-         #    }
-         # }
+       # int b1 = 4; 
+       # int b2 = 2;
+       # 
+       # main () 
+       # {
+       #   if (b2 == 8) {
+       #       b1 = 1;
+       #   }
+       #   ...
+       # }
 
-         li  t0 0
-         li  t1 10
-while:
-         bge  t0 t1  fin
-         # acción
-         addi t0 t0 1
-         beq x0 x0 while   # j while
-fin: # ...
+         li   t0 4
+         li   t1 2
+         li   t2 8
+
+         bne  t0 t2  fin1
+         li   t1 1
+  fin1:  # ...
 

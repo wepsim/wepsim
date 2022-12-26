@@ -6,22 +6,23 @@
 .text
  main: 
 
-       # int b1 = 4; 
-       # int b2 = 2;
+       # int a=1; 
+       # int b=2;
        # 
        # main () 
        # {
-       #   if (b2 == 8) {
-       #       b1 = 1;
+       #   if (a < b) {
+       #      a = b;
        #   }
        #   ...
        # }
 
-         li   t0 4
-         li   t1 2
-         li   t2 8
+         li  t1 1
+         li  t2 2
 
-         bne  t0 t2  fin1
-         li   t1 1
-  fin1:  # ...
+ if_2:   bge t1 t2 fin_2
+
+ then_2: mv t1 t2
+
+ fin_2: # ...
 
