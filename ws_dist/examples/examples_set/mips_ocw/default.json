@@ -2,7 +2,7 @@
   {
     "id": "T3AT1",
     "title": "Lesson 3A, Slide 30",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -12,7 +12,7 @@
   {
     "id": "T3AT2",
     "title": "Lesson 3A, Slide 32",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -22,7 +22,7 @@
   {
     "id": "T3AT3",
     "title": "Lesson 3A, Slide 35",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -32,7 +32,7 @@
   {
     "id": "T3AT5",
     "title": "Lesson 3A, Slide 59",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -42,7 +42,7 @@
   {
     "id": "T3AT6",
     "title": "Lesson 3A, Slide 73",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -52,7 +52,7 @@
   {
     "id": "T3BT7",
     "title": "Lesson 3B, Slide 21",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -62,7 +62,7 @@
   {
     "id": "T3BT8",
     "title": "Lesson 3B, Slide 95",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -72,7 +72,7 @@
   {
     "id": "T3BT9",
     "title": "Lesson 3B, Slide 110",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -82,7 +82,7 @@
   {
     "id": "T3BT10",
     "title": "Lesson 3B, Slide 119",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -92,7 +92,7 @@
   {
     "id": "T3BT11",
     "title": "Lesson 3B, Slide 130",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -102,7 +102,7 @@
   {
     "id": "T3DT87",
     "title": "Lesson 3D, Slide 87",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly IV'>Assembly IV</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
@@ -112,7 +112,7 @@
   {
     "id": "T3DT111",
     "title": "Lesson 3D, Slide 111",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Assembly IV'>Assembly IV</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
     "microcode": "ep_bare",
