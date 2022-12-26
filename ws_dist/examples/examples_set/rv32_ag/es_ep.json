@@ -2,7 +2,7 @@
   {
     "id":          "T3AT10",
     "title":       "Lesson 3A, Slide 35",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -12,7 +12,7 @@
   {
     "id":          "T3AT20",
     "title":       "Lesson 3A, Slide 37",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -22,7 +22,7 @@
   {
     "id":          "T3AT30",
     "title":       "Lesson 3A, Slide 39",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -32,7 +32,7 @@
   {
     "id":          "T3AT50",
     "title":       "Lesson 3A, Slide 56",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -42,7 +42,7 @@
   {
     "id":          "T3AT60",
     "title":       "Lesson 3A, Slide 63",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -52,7 +52,7 @@
   {
     "id":          "T3AT70",
     "title":       "Lesson 3A, Slide 64",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -62,7 +62,7 @@
   {
     "id":          "T3AT80",
     "title":       "Lesson 3A, Slide 65",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -72,7 +72,7 @@
   {
     "id":          "T3AT90",
     "title":       "Lesson 3A, Slide 67",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -82,7 +82,7 @@
   {
     "id":          "T3AT100",
     "title":       "Lesson 3A, Slide 70",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -92,7 +92,7 @@
   {
     "id":          "T3AT110",
     "title":       "Lesson 3A, Slide 74",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -102,7 +102,7 @@
   {
     "id":          "T3AT120",
     "title":       "Lesson 3A, Slide 78",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -112,7 +112,7 @@
   {
     "id":          "T3BT130",
     "title":       "Lesson 3B, Slide 19",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -122,7 +122,7 @@
   {
     "id":          "T3BT150",
     "title":       "Lesson 3B, Slide 29",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -132,7 +132,7 @@
   {
     "id":          "T3BT160",
     "title":       "Lesson 3B, Slide 39",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -142,7 +142,7 @@
   {
     "id":          "T3BT170",
     "title":       "Lesson 3B, Slide 81",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -152,7 +152,7 @@
   {
     "id":          "T3BT180",
     "title":       "Lesson 3B, Slide 82",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -162,7 +162,7 @@
   {
     "id":          "T3BT190",
     "title":       "Lesson 3B, Slide 83",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -172,7 +172,7 @@
   {
     "id":          "T3BT200",
     "title":       "Lesson 3B, Slide 88",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -182,7 +182,7 @@
   {
     "id":          "T3BT210",
     "title":       "Lesson 3B, Slide 89",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -192,7 +192,7 @@
   {
     "id":          "T3BT240",
     "title":       "Lesson 3B, Slide 90",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -202,7 +202,7 @@
   {
     "id":          "T3BT250",
     "title":       "Lesson 3B, Slide 93",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -212,7 +212,7 @@
   {
     "id":          "T3BT260",
     "title":       "Lesson 3B, Slide 95",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -222,7 +222,7 @@
   {
     "id":          "T3BT270",
     "title":       "Lesson 3B, Slide 99",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
@@ -232,11 +232,81 @@
   {
     "id":          "T3BT280",
     "title":       "Lesson 3B, Slide 102",
-    "type":        "<span data-langkey='Initial'>Initial</span>",
+    "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep",
     "hardware":    "ep",
     "microcode":   "ep_bare",
     "assembly":    "l3b_s102",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=102'>compute structure slides: lesson 3b</a>"
+  },
+  {
+    "id":          "T4BT300",
+    "title":       "Lesson 4B, Slide 58",
+    "type":        "<span data-langkey='Processor II'>Processor II</span>",
+    "modes":       "newbie,intro,ep",
+    "hardware":    "ep",
+    "microcode":   "ep_min",
+    "assembly":    "l4b_s58",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=58'>compute structure slides: lesson 4b</a>"
+  },
+  {
+    "id":          "T4BT310",
+    "title":       "Lesson 4B, Slide 63",
+    "type":        "<span data-langkey='Processor II'>Processor II</span>",
+    "modes":       "newbie,intro,ep",
+    "hardware":    "ep",
+    "microcode":   "ep_bare",
+    "assembly":    "l4b_s63",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=63'>compute structure slides: lesson 4b</a>"
+  },
+  {
+    "id":          "T4BT320",
+    "title":       "Lesson 4B, Slide 69",
+    "type":        "<span data-langkey='Processor II'>Processor II</span>",
+    "modes":       "newbie,intro,ep",
+    "hardware":    "ep",
+    "microcode":   "ep_bare",
+    "assembly":    "l4b_s69",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=69'>compute structure slides: lesson 4b</a>"
+  },
+  {
+    "id":          "T4BT330",
+    "title":       "Lesson 4B, Slide 78",
+    "type":        "<span data-langkey='Processor II'>Processor II</span>",
+    "modes":       "newbie,intro,ep",
+    "hardware":    "ep",
+    "microcode":   "ep_bare",
+    "assembly":    "l4b_s78",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=78'>compute structure slides: lesson 4b</a>"
+  },
+  {
+    "id":          "T4BT340",
+    "title":       "Lesson 4B, Slide 79",
+    "type":        "<span data-langkey='Processor II'>Processor II</span>",
+    "modes":       "newbie,intro,ep",
+    "hardware":    "ep",
+    "microcode":   "ep_bare",
+    "assembly":    "l4b_s79",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=79'>compute structure slides: lesson 4b</a>"
+  },
+  {
+    "id":          "T4BT350",
+    "title":       "Lesson 4B, Slide 85",
+    "type":        "<span data-langkey='Processor II'>Processor II</span>",
+    "modes":       "newbie,intro,ep",
+    "hardware":    "ep",
+    "microcode":   "ep_bare",
+    "assembly":    "l4b_s85",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=85'>compute structure slides: lesson 4b</a>"
+  },
+  {
+    "id":          "T4BT360",
+    "title":       "Lesson 4B, Slide 89",
+    "type":        "<span data-langkey='Processor II'>Processor II</span>",
+    "modes":       "newbie,intro,ep",
+    "hardware":    "ep",
+    "microcode":   "ep_bare",
+    "assembly":    "l4b_s89",
+    "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=89'>compute structure slides: lesson 4b</a>"
   }
 ]
