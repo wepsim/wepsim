@@ -31,8 +31,8 @@
 					  sim_change_workspace('#main1', 0) ;
 
 			                  var actual_details = $('#select5b').text() ;
-			                  var actual_micro = 'Sim MicroCode' ;
-			                  var actual_asm   = 'Sim Assembly';
+			                  var actual_micro   = 'Sim MicroCode' ;
+			                  var actual_asm     = 'Sim Assembly';
 
 			                  if (actual_micro == actual_details) {
                                               jQuery("#t3_firm").detach().appendTo("#t3_firm_placeholder2");
