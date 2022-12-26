@@ -29,7 +29,7 @@
   {
     "name":         "RISCV-AulaGlobal",
     "url":          "examples/examples_set/rv32_ag/default.json",
-    "description":  "RISC-V instruction set for <a href=https://github.com/acaldero/uc3m_ec>aula global</a>",
+    "description":  "RISC-V instruction set for <a href=https://github.com/acaldero/uc3m_cs>aula global</a>",
     "visible":      true,
     "size":         "10+",
     "url_base_asm": "examples/assembly/rv32_ag",
