@@ -13,7 +13,7 @@
          mv  t0 a0 # valor en t0
 
          # valor = valor + 1
-         add t0 t0 1
+         addi t0 t0 1
 
          # printInt
          mv  a0 t0
