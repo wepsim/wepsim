@@ -2,7 +2,7 @@
   {
     "name":         "RISCV",
     "url":          "examples/examples_set/rv32/default.json",
-    "description":  "RISC-V instruction set",
+    "description":  "RISC-V 32-bit instructions for I and M sets",
     "visible":      true,
     "size":         "18+",
     "url_base_asm": "examples/assembly/rv32",
@@ -11,7 +11,7 @@
   {
     "name":         "Default-RISCV",
     "url":          "examples/examples_set/rv32/default.json",
-    "description":  "RISC-V instruction set",
+    "description":  "RISC-V 32-bit instructions for I and M sets",
     "visible":      false,
     "size":         "18+",
     "url_base_asm": "examples/assembly/rv32",
@@ -20,7 +20,7 @@
   {
     "name":         "RISCV-Instructive",
     "url":          "examples/examples_set/rv32/default_instructive.json",
-    "description":  "RISC-V instruction set",
+    "description":  "RISC-V 32-bit instructions for I and M sets with comments",
     "visible":      true,
     "size":         "12+",
     "url_base_asm": "examples/assembly/rv32",
@@ -29,7 +29,7 @@
   {
     "name":         "RISCV-AulaGlobal",
     "url":          "examples/examples_set/rv32_ag/default.json",
-    "description":  "RISC-V instruction set for <a href=https://github.com/acaldero/uc3m_cs>aula global</a>",
+    "description":  "RISC-V instruction set for the <a href=https://github.com/acaldero/uc3m_cs>aula global</a> slides",
     "visible":      true,
     "size":         "10+",
     "url_base_asm": "examples/assembly/rv32_ag",
@@ -38,7 +38,7 @@
   {
     "name":         "MIPS",
     "url":          "examples/examples_set/mips/default.json",
-    "description":  "MIPS instruction set",
+    "description":  "MIPS 32-bit instruction set",
     "visible":      true,
     "size":         "18+",
     "url_base_asm": "examples/assembly/mips",
@@ -47,7 +47,7 @@
   {
     "name":         "Default-MIPS",
     "url":          "examples/examples_set/mips/default.json",
-    "description":  "MIPS instruction set",
+    "description":  "MIPS 32-bit instruction set",
     "visible":      false,
     "size":         "18+",
     "url_base_asm": "examples/assembly/mips",
@@ -56,7 +56,7 @@
   {
     "name":         "MIPS-Instructive",
     "url":          "examples/examples_set/mips/default_instructive.json",
-    "description":  "MIPS instruction set",
+    "description":  "MIPS 32-bit instruction set",
     "visible":      true,
     "size":         "12+",
     "url_base_asm": "examples/assembly/mips",
@@ -65,7 +65,7 @@
   {
     "name":         "MIPS-OCW",
     "url":          "examples/examples_set/mips_ocw/default.json",
-    "description":  "MIPS examples for <a href=https://ocw.uc3m.es/course/view.php?id=136>opencourseware</a>",
+    "description":  "MIPS examples for the <a href=https://ocw.uc3m.es/course/view.php?id=136>opencourseware</a> slides",
     "visible":      true,
     "size":         "10+",
     "url_base_asm": "examples/assembly/mips_ocw",
@@ -74,7 +74,7 @@
   {
     "name":         "ARM",
     "url":          "examples/examples_set/arm/default.json",
-    "description":  "ARM-like instruction set",
+    "description":  "ARM-like basic instruction set",
     "visible":      true,
     "size":         "1+",
     "url_base_asm": "examples/assembly/arm",
@@ -83,7 +83,7 @@
   {
     "name":         "Z80",
     "url":          "examples/examples_set/z80/default.json",
-    "description":  "Z80-like instruction set",
+    "description":  "Z80-like basic instruction set",
     "visible":      true,
     "size":         "1+",
     "url_base_asm": "examples/assembly/z80",
