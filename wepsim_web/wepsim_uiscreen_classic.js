@@ -165,8 +165,8 @@
 			    '' +
 			    '	 <div class="row ps-2 pe-3 pt-1">' +
 			    '	 <div class="btn-toolbar btn-block" role="toolbar">' +
-			    '	      <button class="btn btn-light shadow-sm col py-0 mx-1"' +
-			    '		      style="border-color: #BBBBBB; flex-grow:1;"' +
+			    '	      <button class="btn btn-light shadow-sm col py-0 mx-1 border border-secondary"' +
+			    '		      style="flex-grow:1;"' +
 			    '		      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			    '		      title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
 			    '		      onclick="wsweb_dialog_open(\'state\');' +
