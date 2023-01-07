@@ -3,6 +3,7 @@
 
 ## 2.2.1 -> 2.2.2:
 * Main improvements:
+  * Several minor improvements
 * Main external dependencies updated:
   * Bump bootbox from 5.5.3 to 6.0.0
 
