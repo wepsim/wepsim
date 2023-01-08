@@ -42,10 +42,10 @@
        // try to load each one
        for (var i=0; i<ws_info.example_set.length; i++)
        {
-            if (ws_info.example_set[i].name.toUpperCase() !== e_name.toUpperCase()) { 
+            if (ws_info.example_set[i].aliases.includes(e_name) == false) {
                 continue ;
             }
-            if (typeof ws_info.example_set[i].url === "undefined") { 
+            if (typeof ws_info.example_set[i].url === "undefined") {
                 continue ;
             }
 
@@ -229,12 +229,13 @@
 	     e_description = e_description.replace(/<[^>]+>/g,'') ;
 	 var e_id          = ws_info.examples[m].id ;
 	 var e_hw          = ws_info.examples[m].hardware ;
+         var es_name       = ws_info.example_set[ws_info.example_active].name ;
 
 	 // share information
 	 var share_title = 'WepSIM example ' + e_id + '...' ;
 	 var share_text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description + '):\n' ;
-	 var share_url   = '' + base_url + '?mode=' + e_hw + 
-                                           '&examples_set=' + ws_info.example_set[ws_info.example_active].name + 
+	 var share_url   = '' + base_url + '?mode=' + e_hw +
+                                           '&examples_set=' + es_name +
                                            '&example=' + m ;
 
 	 return share_information('example_' + m,

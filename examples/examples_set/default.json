@@ -1,26 +1,19 @@
 [
   {
     "name":         "RISCV",
+    "aliases":      [ "RISCV", "Default-RISCV", "riscv", "default-riscv" ],
     "url":          "examples/examples_set/rv32/default.json",
-    "description":  "RISC-V instruction set",
+    "description":  "RISC-V 32-bit instructions for I and M sets",
     "visible":      true,
     "size":         "18+",
     "url_base_asm": "examples/assembly/rv32",
     "url_base_mc":  "examples/microcode/rv32"
   },
   {
-    "name":         "Default-RISCV",
-    "url":          "examples/examples_set/rv32/default.json",
-    "description":  "RISC-V instruction set",
-    "visible":      false,
-    "size":         "18+",
-    "url_base_asm": "examples/assembly/rv32",
-    "url_base_mc":  "examples/microcode/rv32"
-  },
-  {
     "name":         "RISCV-Instructive",
+    "aliases":      [ "RISCV-Instructive", "riscv-instructive" ],
     "url":          "examples/examples_set/rv32/default_instructive.json",
-    "description":  "RISC-V instruction set",
+    "description":  "RISC-V 32-bit instructions for I and M sets with comments",
     "visible":      true,
     "size":         "12+",
     "url_base_asm": "examples/assembly/rv32",
@@ -28,8 +21,9 @@
   },
   {
     "name":         "RISCV-AulaGlobal",
+    "aliases":      [ "RISCV-AulaGlobal", "riscv-aulaglobal" ],
     "url":          "examples/examples_set/rv32_ag/default.json",
-    "description":  "RISC-V instruction set for <a href=https://github.com/acaldero/uc3m_ec>aula global</a>",
+    "description":  "RISC-V instruction set for the <a href=https://github.com/acaldero/uc3m_cs>aula global</a> slides",
     "visible":      true,
     "size":         "10+",
     "url_base_asm": "examples/assembly/rv32_ag",
@@ -37,26 +31,19 @@
   },
   {
     "name":         "MIPS",
+    "aliases":      [ "MIPS", "Default-MIPS", "mips", "default-mips" ],
     "url":          "examples/examples_set/mips/default.json",
-    "description":  "MIPS instruction set",
+    "description":  "MIPS 32-bit instruction set",
     "visible":      true,
     "size":         "18+",
     "url_base_asm": "examples/assembly/mips",
     "url_base_mc":  "examples/microcode/mips"
   },
   {
-    "name":         "Default-MIPS",
-    "url":          "examples/examples_set/mips/default.json",
-    "description":  "MIPS instruction set",
-    "visible":      false,
-    "size":         "18+",
-    "url_base_asm": "examples/assembly/mips",
-    "url_base_mc":  "examples/microcode/mips"
-  },
-  {
     "name":         "MIPS-Instructive",
+    "aliases":      [ "MIPS-Instructive", "mips-instructive" ],
     "url":          "examples/examples_set/mips/default_instructive.json",
-    "description":  "MIPS instruction set",
+    "description":  "MIPS 32-bit instruction set",
     "visible":      true,
     "size":         "12+",
     "url_base_asm": "examples/assembly/mips",
@@ -64,8 +51,9 @@
   },
   {
     "name":         "MIPS-OCW",
+    "aliases":      [ "MIPS-OCW", "mips-ocw" ],
     "url":          "examples/examples_set/mips_ocw/default.json",
-    "description":  "MIPS examples for <a href=https://ocw.uc3m.es/course/view.php?id=136>opencourseware</a>",
+    "description":  "MIPS examples for the <a href=https://ocw.uc3m.es/course/view.php?id=136>opencourseware</a> slides",
     "visible":      true,
     "size":         "10+",
     "url_base_asm": "examples/assembly/mips_ocw",
@@ -73,8 +61,9 @@
   },
   {
     "name":         "ARM",
+    "aliases":      [ "ARM", "arm" ],
     "url":          "examples/examples_set/arm/default.json",
-    "description":  "ARM-like instruction set",
+    "description":  "ARM-like basic instruction set",
     "visible":      true,
     "size":         "1+",
     "url_base_asm": "examples/assembly/arm",
@@ -82,8 +71,9 @@
   },
   {
     "name":         "Z80",
+    "aliases":      [ "Z80", "z80" ],
     "url":          "examples/examples_set/z80/default.json",
-    "description":  "Z80-like instruction set",
+    "description":  "Z80-like basic instruction set",
     "visible":      true,
     "size":         "1+",
     "url_base_asm": "examples/assembly/z80",

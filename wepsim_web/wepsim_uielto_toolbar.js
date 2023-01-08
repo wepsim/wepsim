@@ -109,22 +109,21 @@
 
 	      render_switch_microcode ( robj )
 	      {
-		 return '<button class="btn btn-light shadow-sm col-auto user_microcode mx-1 px-2"' +
-		        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-                        '        id="btn_micro1"' +
-		        '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
-		        '        title="This button switches into the \'Microcode\' editor."' +
-                        '        onclick="wsweb_change_workspace_microcode();' +
-                        '                 wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
-		        '	          return false;"' +
+		 return '<button ' +
+                        '    class="btn btn-light shadow-sm col-auto user_microcode mx-1 px-2 border border-secondary"' +
+                        '    id="btn_micro1"' +
+		        '    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
+		        '    title="This button switches into the \'Microcode\' editor."' +
+                        '    onclick="wsweb_change_workspace_microcode();' +
+                        '             wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+		        '	      return false;"' +
 		        '><strong><span class="d-none d-sm-inline-flex" ' +
                         ' data-langkey=\'MicroCode\'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>' ;
 	      }
 
 	      render_switch_assembly ( robj )
 	      {
-		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2"' +
-		        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
+		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2 border border-secondary"' +
                         '        id="btn_asm1"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="This button switches into the \'Assembly\' editor."' +
@@ -136,8 +135,7 @@
 
 	      render_switch_simulator ( robj )
 	      {
-		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2"' +
-                        '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
+		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2 border border-secondary"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
                         '        data-transition="none" data-inline="true"' +
 			'        title="This button switches into the \'Simulator\' workspace."' +
@@ -181,8 +179,8 @@
 
 	      render_btn_help ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2"' +
-		         '        style="border-width:1 1 1 1px; border-color:#BBBBBB; background-color:#D4DB17; flex-grow:1;"' +
+		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2 border border-secondary"' +
+		         '        style="background-color:#D4DB17; flex-grow:1;"' +
                          '        id="btn_help1"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Help\' dialog."' +
@@ -197,8 +195,7 @@
 
 	      render_btn_config ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
+		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2 border border-secondary"' +
                          '        id="btn_cfg1"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
@@ -213,8 +210,7 @@
 
 	      render_btn_notifications ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
+		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Notifications\' dialog."' +
                          '        onclick="wsweb_dialog_open(\'notifications\');' +
@@ -228,8 +224,7 @@
 
 	      render_btn_recordbar ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
+		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button toggles the \'Record\' bar."' +
                          '        onclick="wsweb_recordbar_toggle();' +
@@ -243,8 +238,7 @@
 
 	      render_btn_states ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
+		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
 		         '        onclick="wsweb_dialog_open(\'state\');' +
@@ -259,8 +253,7 @@
 
 	      render_btn_checkpoint ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2"' +
-		    	 '        style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
+		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2 border border-secondary"' +
                          '        id="s4_owncode" value="owncode"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
@@ -280,10 +273,10 @@
 	      render_btndd_action ( robj )
 	      {
 		 return '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
-			'   <button type="button" class="col-12 btn btn-light shadow-sm select6"' +
+			'   <button type="button" ' +
+                        '           class="col-12 btn btn-light shadow-sm select6 border border-secondary"' +
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'           title="Dropdown on the right let you access to common actions."' +
-                        '           style="border-color: #BBBBBB;"' +
 			'           data-action="checkpoint"' +
 			'	    onclick="var action = $(\'#select6a\').attr(\'data-action\');' +
 	                '                    wsweb_do_action(action);' +
@@ -291,12 +284,12 @@
 			'           id="select6a"' +
                         '   ><strong><em class="fas fa-clone"></em>&nbsp;<span data-langkey="Actions">Actions</span></strong></button>' +
 			'   <button id="dd2a" type="button" ' +
-                        '           class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
-                        '           style="border-color: #BBBBBB;"' +
+                        '           class="btn btn-light dropdown-toggle dropdown-toggle-split border border-secondary"' +
 			'           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
 			'     <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
 			'   </button>' +
-			'   <div id="action_menu1" class="dropdown-menu border border-secondary p-2">' +
+			'   <div id="action_menu1"' +
+                        '        class="dropdown-menu border border-secondary p-2">' +
                         '\n' +
                         '     <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"' +
                         '     ><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>' +
@@ -341,20 +334,18 @@
 		   var o = '' ;
 
 		   o += '<div class="btn-group col-auto my-1 mx-1 p-0 user_archived" style="flex-grow:6;">' +
-		// o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
-			'   <button type="button" class="col-12 btn btn-light shadow-sm"' +
+			'   <button type="button"' +
+                        '           class="col-12 btn btn-light shadow-sm border border-secondary"' +
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'           title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."' +
-                        '           style="border-color: #BBBBBB;"' +
 			'           id="select4"' +
                         '           onclick="setTimeout(function(){$(\'#dd1\').dropdown(\'toggle\');},50);' +
-                        '                   wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
-			'	          //wsweb_set_details(\'HARDWARE\');' +
-			'	            return false;">HW</button>' +
+                        '                    wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+			'	          // wsweb_set_details(\'HARDWARE\');' +
+			'	             return false;">HW</button>' +
                         '\n' +
 			'   <button id="dd1" type="button" ' +
-                        '           class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
-                        '           style="border-color: #BBBBBB;"' +
+                        '           class="btn btn-light dropdown-toggle dropdown-toggle-split border border-secondary"' +
 			'	    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
                         '   ><span class="visually-hidden">Toggle Dropdown</span></button>' +
                         '\n' +
@@ -405,10 +396,10 @@
 		   var o = '' ;
 
 		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
-			'   <button type="button" class="btn btn-light col-12 shadow-sm"' +
+			'   <button type="button"' +
+                        '           class="btn btn-light col-12 shadow-sm border border-secondary"' +
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 		        '           title="This button opens the \'Examples\' dialog."' +
-		        '           style="border-width:1 1 1 1px; border-color:#BBBBBB;"' +
                         '           id="btn_example1"' +
 			'	    onclick="wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 		        '                    wsweb_dialog_open(\'examples\');' +
@@ -418,8 +409,7 @@
                    o += '<strong><span data-langkey=\'Examples\'>Examples</span></strong></button>' ;
                    o += '\n' +
 			'   <button id="dd3" type="button" ' +
-                        '           class="btn btn-light shadow-sm dropdown-toggle dropdown-toggle-split"' +
-                        '           style="border-color: #BBBBBB;"' +
+                        '           class="btn btn-light shadow-sm dropdown-toggle dropdown-toggle-split border border-secondary"' +
 			'	    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
                         '   ><span class="visually-hidden">Toggle Dropdown</span></button>' +
                         '\n' +

@@ -25,14 +25,23 @@
 
         function simcore_ga ( category, action, label )
         {
-            if (typeof ga === "undefined") {
-                return ;
-            }
-
             if (get_cfg('use_ga') == false) {
                 return ;
             }
 
-            ga('send', 'event', category, action, label) ;
+            if (typeof ga !== "undefined")
+            {
+                ga('send', 'event', category, action, label) ;
+            }
+
+            if (typeof gtag !== "undefined")
+            {
+                gtag('event',
+                     action,
+                     {
+                        'event_category' : category,
+                        'event_label' : label
+                     });
+            }
         }
 

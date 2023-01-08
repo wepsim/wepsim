@@ -82,10 +82,10 @@
                     switch (name)
                     {
                        case "btn_mloadsave":
-			     o += '<button style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
+			     o += '<button ' +
                                   '        onclick="wsweb_dialog_open(\'load_save_firmware\'); ' +
                                   '                 return true;"' +
-			          '	   class="btn btn-light shadow-sm col-auto m-0">' ;
+			          '	   class="btn btn-light shadow-sm col-auto m-0 border border-secondary">' ;
                              o += this.render_icon('<em class="fas fa-file"></em>') ;
                              o += '<span class="fw-bold" data-langkey="Load/Save">Load/Save</span>' +
                                   '</button>' ;
@@ -115,8 +115,8 @@
                              break ;
 
                        case "btn_aloadsave":
-			     o += '<button style="border-width:1 1 1 1px; border-color: #BBBBBB;"' +
-			          '        class="btn btn-light shadow-sm col-auto m-0"' +
+			     o += '<button ' +
+			          '        class="btn btn-light shadow-sm col-auto m-0 border border-secondary"' +
                                   '        onclick="wsweb_dialog_open(\'load_save_assembly\'); ' +
                                   '                 return true;">' ;
                              o += this.render_icon('<em class="fas fa-file"></em>') ;
