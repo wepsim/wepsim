@@ -62,10 +62,12 @@
                     }
 
                     // if no visible -> skip data population
+/*
 		    if ($(div_hash).is(':visible') == false) {
                         $(div_hash).html('') ;
                         return ;
                     }
+*/
 
                     // set and go
 	            simcoreui_init_hw(div_hash, this.components_arr) ;
