@@ -11,10 +11,10 @@
 
 ## Table of contents
 
-- [Getting WepSIM](#getting-wepsim)
+- Getting WepSIM
   - [Run WepSIM](#getting-wepsim)
   - [Install WepSIM](#install-wepsim-as-pwa)
-- [Getting Started](#getting-started)
+- Getting Started
   - [Visual UI](#getting-started-visualui)
   - [Command Line](#getting-started-command-line)
 - [Getting Started: Developers](#getting-started-developers)
@@ -38,14 +38,20 @@
 
 + From Linux/Unix command line, please:
   * Check you have installed Node v16.10+, and Bash 4.4.19+:
-    * sudo apt-get install nodejs npm bash -y
+    ```bash
+    sudo apt-get install nodejs npm bash -y
+    ```
   * Get WepSIM by executing:
-    * wget https://github.com/acaldero/wepsim/releases/download/v2.2.1/wepsim-2.2.1.zip
-    * unzip wepsim-2.2.1.zip
-    * cd wepsim-2.2.1
-    * npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
+    ```bash
+    wget https://github.com/acaldero/wepsim/releases/download/v2.2.1/wepsim-2.2.1.zip
+    unzip wepsim-2.2.1.zip
+    cd wepsim-2.2.1
+    npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
+    ``` 
   * Execute wepsim.sh with the help flag in order to show the available command switches:
-    * ./wepsim.sh -h
+    ```bash
+    ./wepsim.sh -h
+    ```
 
 <a name="install-wepsim-as-pwa"/>
 
