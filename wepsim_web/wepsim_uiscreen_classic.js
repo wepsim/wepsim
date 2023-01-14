@@ -209,8 +209,8 @@
 			 '' +
 			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
                          '            <div class="dropdown">' +
-                         '               <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark"' +
-                         '                 style="background-color:#D4DB17; border-color:#BBBBBB; flex-grow:1;" '+
+                         '               <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark border border-secondary"' +
+                         '                 style="background-color:#D4DB17; flex-grow:1;" '+
                          '                       type="button" id="ddownAsmHelp1" ' +
                          '                       data-bs-toggle="dropdown" aria-expanded="false">' +
                          '               <em class="fas fa-info-circle"></em>&nbsp;' +
@@ -293,8 +293,8 @@
 */
 			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
                          '            <div class="dropdown">' +
-                         '               <button class="btn btn-secondary dropdown-toggle col-auto text-dark"' +
-                         '                       style="background-color:#D4DB17; border-color:#BBBBBB; flex-grow:1;" ' +
+                         '               <button class="btn btn-secondary dropdown-toggle col-auto text-dark border border-secondary"' +
+                         '                       style="background-color:#D4DB17; flex-grow:1;" ' +
                          '                       type="button" id="ddownMicroHelp1" ' +
                          '                       data-bs-toggle="dropdown" aria-expanded="false">' +
                          '               <em class="fas fa-info-circle"></em>&nbsp;' +
