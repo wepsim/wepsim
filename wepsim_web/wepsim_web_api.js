@@ -31,16 +31,13 @@
 					  sim_change_workspace('#main1', 0) ;
 
 			                  var actual_details = $('#select5b').text() ;
-			                  var actual_micro   = 'Sim MicroCode' ;
-			                  var actual_asm     = 'Sim Assembly';
-
-			                  if (actual_micro == actual_details) {
+			                  if (actual_details.includes('MicroCode')) {
                                               jQuery("#t3_firm").detach().appendTo("#t3_firm_placeholder2");
 					      setTimeout(function() {
 							    inputfirm.refresh();
 						         }, 50) ;
 					  }
-			             else if (actual_asm == actual_details) {
+			             else if (actual_details.includes('Assembly')) {
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder2");
 					      setTimeout(function() {
 							    inputasm.refresh() ;
@@ -55,9 +52,13 @@
 					  if (![...ct3firm.children].includes(t3_firm)) {
                                               jQuery("#t3_firm").detach().appendTo('#t3_firm_placeholder1');
                                           }
-			                  setTimeout(function(){
-					                inputfirm.refresh() ;
-				                     }, 50) ;
+
+					  if (inputfirm.is_refreshed != true) {
+					      inputfirm.is_refreshed = true ;
+			                      setTimeout(function(){
+					                    inputfirm.refresh() ;
+				                         }, 50) ;
+                                          }
 	                              },
 		         "assembly":  function() {
 					  sim_change_workspace('#main4', 2) ;
@@ -67,9 +68,13 @@
 					  if (![...ct4asm.children].includes(t4_asm)) {
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder1") ;
                                           }
-					  setTimeout(function(){
-							inputasm.refresh() ;
-						     }, 50) ;
+
+					  if (inputasm.is_refreshed != true) {
+					      inputasm.is_refreshed = true ;
+					      setTimeout(function(){
+							    inputasm.refresh() ;
+					    	         }, 50) ;
+					  }
 	                              }
 		       },
 	    "compact": {

@@ -130,7 +130,7 @@
                 var VAL_B  = SG_B2 + "&nbsp;" ;
                 var VAL_E  = "&nbsp;</strong>&nbsp;" ;
 
-		var o1 = "<table class='table table-bordered table-hover table-sm mb-1'>" +
+		var o1 = "<table class='table table-bordered border-secondary table-hover table-sm mb-1'>" +
 			 "<tbody>" +
 			 "<tr>" + TD_B1 + "hex."   + TD_E12 + TD_B2 + valuehex         + TD_E12 + "</tr>" +
 			 "<tr>" + TD_B1 + "oct."   + TD_E12 + TD_B2 + valueoct         + TD_E12 + "</tr>" +
@@ -320,8 +320,9 @@
 		 o1_rn = "R"  + index ;
 		 o1_rn = o1_rn.padEnd(3,' ') ;
 
-		 o1_rf += "<button type='button' class='btn px-1 py-0 ms-1 mt-1 mb-0 me-0 col-auto ' " +
-			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
+		 o1_rf += "<button type='button' " +
+                          "        class='btn px-1 py-0 ms-1 mt-1 mb-0 me-0 col-auto border border-secondary ' " +
+			  "        style='background-color:#f5f5f5' data-role='none' " +
                           "        data-bs-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "<span id='name_RF" + index + "' class='p-0 font-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
@@ -420,8 +421,9 @@
                         showkey += '<span class="d-none d-sm-inline-flex font-monospace">' + part2 + '</span>' ;
 	        }
 
-                o1 += "<button type='button' class='btn py-0 px-1 mt-1 ms-1 " + divclass + "' " +
-		      "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
+                o1 += "<button type='button' " +
+                      "        class='btn py-0 px-1 mt-1 ms-1 " + divclass + " border border-secondary' " +
+		      "        style='background-color:#f5f5f5' data-role='none' " +
                       "        data-bs-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
