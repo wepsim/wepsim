@@ -70,13 +70,15 @@
             editor_obj.refresh();
 
             // event onChange
-	    editor_obj.is_modified = true ;
-	    editor_obj.is_compiled = false ;
+	    editor_obj.is_modified  = true ;
+	    editor_obj.is_compiled  = false ;
+	    editor_obj.is_refreshed = false ;
 
             editor_obj.on("change",
                           function (cmi, change) {
-                             cmi.is_modified = true ;
-                             cmi.is_compiled = false ;
+                             cmi.is_modified  = true ;
+                             cmi.is_compiled  = false ;
+                             cmi.is_refreshed = false ;
                           }) ;
 
             // return object

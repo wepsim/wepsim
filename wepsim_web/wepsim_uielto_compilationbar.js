@@ -94,7 +94,7 @@
                        case "btn_mcompile":
 			     o += '<button style="background-color: #CCCCCC"' +
 		                  '        id="mcc1"' +
-		                  '        class="btn btn-light shadow-sm col-auto mx-1"' +
+		                  '        class="btn btn-light shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	   data-transition="none" data-inline="true"' +
 			          '	   onclick="wsweb_firmware_compile();' +
                                   '                 return false;">' ;
@@ -106,7 +106,7 @@
                        case "btn_mshowbin":
 			     o += '<button style="background-color: #DDDDDD"' +
 		                  '        id="mob1"' +
-		                  '        class="btn btn-light shadow-sm col-auto mx-1"' +
+		                  '        class="btn btn-light shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	   onclick="wsweb_dialog_open(\'binary_fir\');' +
                                   '                 return false;">' ;
                              o += this.render_icon('<em class="fa fa-memory"></em>') ;
@@ -127,7 +127,7 @@
                        case "btn_acompile":
 		             o += '<button style="background-color: #CCCCCC"' +
                                   '        id="acc1"' +
-		                  '        class="btn btn-light shadow-sm col-auto mx-1"' +
+		                  '        class="btn btn-light shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	   data-transition="none" data-inline="true"' +
 			          '	   onclick="wsweb_assembly_compile();' +
                                   '                 return false;">' ;
@@ -139,7 +139,7 @@
                        case "btn_ashowbin":
 		             o += '<button style="background-color: #DDDDDD"' +
                                   '        id="aob1"' +
-		                  '        class="btn btn-light shadow-sm col-auto mx-1"' +
+		                  '        class="btn btn-light shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	     onclick="wsweb_dialog_open(\'binary_asm\');' +
                                   '                   return false;">' ;
                              o += this.render_icon('<em class="fas fa-memory"></em>') ;
