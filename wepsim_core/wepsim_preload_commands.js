@@ -96,6 +96,32 @@
 		      }
 	 },
 
+	 // parameter: assembly code (asm)
+	 {
+	    'name':   'asm',
+	    'action': function( hash )
+		      {
+			 var result_txt = '' ;
+                         var asm_code   = '' ;
+
+                         try {
+                            asm_code   = hash.asm ;
+			    result_txt = ' has been loaded' ;
+                         }
+                         catch (e) {
+                            asm_code   = '' ;
+			    result_txt = ' could not be loaded' ;
+                         }
+
+			 if ('' != asm_code) {
+                             inputasm.setValue(asm_code) ;
+                             inputasm.refresh() ;
+			 }
+
+			 return '<li>Examples from URI ' + result_txt + '.</li>' ;
+		      }
+	 },
+
 	 // parameter: simulator UI
 	 {
 	    'name':   'simulator',
