@@ -27,20 +27,41 @@
     {
 	 if (typeof navigator.share === 'undefined')
 	 {
-	     var msg = 'Sorry, unable to share:<br>\n' +
-		       'navigator.share is not available.<br>' +
-		       'But you can use the following QR-code:<br>' +
-		       '<br>' +
-		       '<div id="qrcode1" class="mx-auto"></div>' +
-		       '<br>' ;
+	     var msg = '' ;
+             var url_to_share = '' ;
+
+             // new dialog
+	     msg = 'Sorry, unable to share:<br>\n' +
+		   'navigator.share is not available.<br>' +
+		   '<br>' +
+		   '<div      id="qrcode1" class="mx-auto mb-3"></div>' +
+		   '<textarea id="qrcode2" class="form-control"' +
+                   '          row="5" style="width: 100%; height:100%"' +
+                   '>Loading qr...</textarea>' +
+		   '<br>' ;
 	     wsweb_dlg_alert(msg) ;
 
-             if (share_url !== "") {
-                 var qrcode = new QRCode("qrcode1") ;
-                     qrcode.makeCode(share_url) ;
+             // new URL
+             url_to_share =            get_cfg('base_url') +
+                            '?mode=' + get_cfg('ws_mode') +
+                         // '&examples_set=RISCV' +
+                            '&asm=' + encodeURIComponent(share_text) ;
+
+             // new QR
+             try {
+                $("#qrcode2").html(url_to_share) ;
+                $("#qrcode1").html('But you can use the following QR-code:<br>') ;
+                var qrcode = new QRCode("qrcode1") ;
+                qrcode.makeCode(url_to_share) ;
+             }
+             catch (e) {
+                $("#qrcode1").html('') ;
+                if (typeof navigator.clipboard != "undefined")
+                    navigator.clipboard.writeText(url_to_share);
              }
 
-	     return false ;
+             // return ok
+	     return true ;
 	 }
 
 	 // build data
