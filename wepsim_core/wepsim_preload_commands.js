@@ -105,7 +105,7 @@
                          var asm_code   = '' ;
 
                          try {
-                            asm_code   = hash.asm ;
+                            asm_code   = window.atob(hash.asm) ;
 			    result_txt = ' has been loaded' ;
                          }
                          catch (e) {
@@ -118,7 +118,33 @@
                              inputasm.refresh() ;
 			 }
 
-			 return '<li>Examples from URI ' + result_txt + '.</li>' ;
+			 return '<li>Assembly from URI ' + result_txt + '.</li>' ;
+		      }
+	 },
+
+	 // parameter: micro code (mc)
+	 {
+	    'name':   'mc',
+	    'action': function( hash )
+		      {
+			 var result_txt = '' ;
+                         var mc_code    = '' ;
+
+                         try {
+                            mc_code    = window.atob(hash.mc) ;
+			    result_txt = ' has been loaded' ;
+                         }
+                         catch (e) {
+                            mc_code    = '' ;
+			    result_txt = ' could not be loaded' ;
+                         }
+
+			 if ('' != mc_code) {
+                             inputfirm.setValue(mc_code) ;
+                             inputfirm.refresh() ;
+			 }
+
+			 return '<li>Microcode from URI ' + result_txt + '.</li>' ;
 		      }
 	 },
 

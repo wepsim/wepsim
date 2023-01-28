@@ -27,37 +27,31 @@
     {
 	 if (typeof navigator.share === 'undefined')
 	 {
-	     var msg = '' ;
-             var url_to_share = '' ;
-
              // new dialog
-	     msg = 'Sorry, unable to share:<br>\n' +
-		   'navigator.share is not available.<br>' +
-		   '<br>' +
-		   '<div      id="qrcode1" class="mx-auto mb-3"></div>' +
-		   '<textarea id="qrcode2" class="form-control"' +
-                   '          row="5" style="width: 100%; height:100%"' +
-                   '>Loading qr...</textarea>' +
-		   '<br>' ;
+	     var msg = 'Sorry, unable to share:<br>\n' +
+		       'navigator.share is not available.<br>' +
+		       '<br>' +
+	               '<div      id="qrcode1" class="mx-auto"></div>' +
+		       '<br>' +
+	               '<textarea id="qrcode2" class="form-control" row="5" ' +
+                       '          style="width: 100%; height:100%"' +
+                       '          onclick="navigator.clipboard.writeText(this.value);" ' +
+                       '>Loading...</textarea>' +
+	               '<br>' ;
+
 	     wsweb_dlg_alert(msg) ;
 
-             // new URL
-             url_to_share =            get_cfg('base_url') +
-                            '?mode=' + get_cfg('ws_mode') +
-                         // '&examples_set=RISCV' +
-                            '&asm=' + encodeURIComponent(share_text) ;
-
-             // new QR
-             try {
-                $("#qrcode2").html(url_to_share) ;
+             // get URL and QR
+             try
+             {
+                $("#qrcode2").html(share_text) ;
                 $("#qrcode1").html('But you can use the following QR-code:<br>') ;
                 var qrcode = new QRCode("qrcode1") ;
-                qrcode.makeCode(url_to_share) ;
+                qrcode.makeCode(share_text) ;
              }
              catch (e) {
                 $("#qrcode1").html('') ;
-                if (typeof navigator.clipboard != "undefined")
-                    navigator.clipboard.writeText(url_to_share);
+                $("#qrcode2").html(share_text) ;
              }
 
              // return ok
@@ -84,6 +78,28 @@
 	 // stats about sharing
 	 simcore_ga('ui', 'ui.share', 'ui.share.' + info_shared) ;
 
+	 return true ;
+    }
+
+    function share_work_as_uri ( info_shared, share_title )
+    {
+         var url_to_share = '' ;
+
+         // get URL and QR
+         try {
+            url_to_share =            get_cfg('base_url') +
+                           '?mode=' + get_cfg('ws_mode') +
+                           '&mc='   + window.btoa(escape(inputfirm.getValue())) +
+                           '&asm='  + window.btoa(escape(inputasm.getValue())) ;
+         }
+         catch (e) {
+            url_to_share = '' ;
+         }
+
+         // share current work
+         share_information(info_shared, share_title, url_to_share, '') ;
+
+         // return ok
 	 return true ;
     }
 
