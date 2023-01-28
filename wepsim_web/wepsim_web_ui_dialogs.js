@@ -48,9 +48,7 @@
                                 "            return false;'" +
                                 "    jshare='var sorg   = \"assembly\"; " +
                                 "            var stitle = \"Assembly code...\"; " +
-                                "            var stext  = inputasm.getValue(); " +
-                                "            var surl   = \"\"; " +
-                                "            share_information(sorg, stitle, stext, surl); " +
+                                "            share_work_as_uri(sorg, stitle); " +
                                 "            return false;'" +
                                 "></ws-save-file>" +
                                "</div>" +
