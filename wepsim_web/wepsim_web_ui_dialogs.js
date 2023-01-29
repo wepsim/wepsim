@@ -48,9 +48,8 @@
                                 "            return false;'" +
                                 "    jshare='var sorg   = \"assembly\"; " +
                                 "            var stitle = \"Assembly code...\"; " +
-                                "            var stext  = inputasm.getValue(); " +
-                                "            var surl   = \"\"; " +
-                                "            share_information(sorg, stitle, stext, surl); " +
+                                "            var seltos = \"asm\"; " +
+                                "            share_work_as_uri(sorg, stitle, seltos); " +
                                 "            return false;'" +
                                 "></ws-save-file>" +
                                "</div>" +
@@ -362,7 +361,7 @@
             id:      "example1",
 	    title:    function() {
                           return wepsim_config_dialog_title("Examples",
-                                                            "info",
+                                                            "primary",
 							    "var ws_idiom = get_cfg('ws_idiom');" +
 							    "i18n_update_tags('examples', ws_idiom);") ;
 		      },
