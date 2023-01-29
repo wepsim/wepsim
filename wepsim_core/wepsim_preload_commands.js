@@ -104,7 +104,11 @@
 			 var result_txt = '' ;
                          var asm_code   = '' ;
 
-                         try {
+                         try
+                         {
+                            // Next line of code based on:
+                            // https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings
+                         // asm_code   = decodeURIComponent(escape(window.atob( hash.asm )));
                             asm_code   = window.atob(hash.asm) ;
 			    result_txt = ' has been loaded' ;
                          }
@@ -122,7 +126,7 @@
 		      }
 	 },
 
-	 // parameter: micro code (mc)
+	 // parameter: microcode (mc)
 	 {
 	    'name':   'mc',
 	    'action': function( hash )
@@ -130,7 +134,11 @@
 			 var result_txt = '' ;
                          var mc_code    = '' ;
 
-                         try {
+                         try
+                         {
+                            // Next line of code based on:
+                            // https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings
+                         // mc_code    = decodeURIComponent(escape(window.atob( hash.mc )));
                             mc_code    = window.atob(hash.mc) ;
 			    result_txt = ' has been loaded' ;
                          }
