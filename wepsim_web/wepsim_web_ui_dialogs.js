@@ -48,7 +48,7 @@
                                 "            return false;'" +
                                 "    jshare='var sorg   = \"assembly\"; " +
                                 "            var stitle = \"Assembly code...\"; " +
-                                "            var seltos = \"asm\"; " +
+                                "            var seltos = \"asm,mc\"; " +
                                 "            share_work_as_uri(sorg, stitle, seltos); " +
                                 "            return false;'" +
                                 "></ws-save-file>" +
@@ -106,8 +106,16 @@
 			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 		                "  <h5 class='m-0'>" +
 				"  <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
-                                //
                                 "<div class='btn-group float-end'>" +
+                                //
+				"  <button class='btn btn-light py-0 col-auto' " +
+                                "          onclick='var sorg   = \"microcode\"; " +
+                                "                   var stitle = \"Microcode...\"; " +
+                                "                   var seltos = \"mc\"; " +
+                                "                   share_work_as_uri(sorg, stitle, seltos); " +
+                                "                   return false;'" +
+                                "><span data-langkey='Share'>Share</span></button>" +
+                                //
 				"  <button class='btn btn-light mx-1 py-0 col-auto' " +
                                 "          onclick='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
 		                "                   var textToWrite       = inputfirm.getValue();" +

@@ -89,18 +89,23 @@
          var asm_e = '' ;
 
          // build the associate URI
+         // * Thanks to Santiago and Diego for LZString reference
          try
          {
             url_to_share = get_cfg('base_url') + '?mode=' + get_cfg('ws_mode') ;
 
-            if (share_eltos.includes('mc')) {
-                mc_e  = window.btoa((inputfirm.getValue())) ;
+            if (share_eltos.includes('mc'))
+            {
+             // mc_e  = window.btoa((inputfirm.getValue())) ;
              // mc_e  = window.btoa(unescape(encodeURIComponent( inputfirm.getValue() )));
+                mc_e  = LZString.compressToEncodedURIComponent(  inputfirm.getValue() ) ;
                 url_to_share = url_to_share + '&mc=' + mc_e ;
             }
-            if (share_eltos.includes('asm')) {
-                asm_e = window.btoa((inputasm.getValue())) ;
-             // asm_e = window.btoa(unescape(encodeURIComponent(  inputasm.getValue() )));
+            if (share_eltos.includes('asm'))
+            {
+             // asm_e = window.btoa((inputasm.getValue())) ;
+             // asm_e = window.btoa(unescape(encodeURIComponent( inputasm.getValue() )));
+                asm_e = LZString.compressToEncodedURIComponent(  inputasm.getValue() ) ;
                 url_to_share = url_to_share + '&asm=' + asm_e ;
             }
          }
