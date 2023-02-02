@@ -360,6 +360,22 @@
 	         share_title += ' (' + obj_tagName.value + ')...' ;
 	    else share_title += '...' ;
 
+            // share checkpoint as URI
+            var url_to_share = '' ;
+            var share_text   = '' ;
+            try
+            {
+               share_text = LZString.compressToEncodedURIComponent(checkpointStr) ;
+            // share_text = window.btoa(checkpointStr) ;
+            // share_text = window.btoa(unescape(encodeURIComponent( checkpointStr ))) ;
+               share_text = get_cfg('base_url') + '?mode=' + get_cfg('ws_mode') +
+                                                  '&chkp=' + share_text ;
+            }
+            catch (e) {
+               url_to_share = '' ;
+               share_text   = '' ;
+            }
+
             return share_information('checkpoint',
                                      share_title,
                                      share_text,

@@ -195,6 +195,26 @@
 		      }
 	 },
 
+	 // parameter: chkp
+	 {
+	    'name':   'chkp',
+	    'action': function( hash )
+		      {
+                         try
+                         {
+                            chkp_text = LZString.decompressFromBase64(hash.checkpoint) ;
+                            chkp_obj  = JSON.parse(chkp_text) ;
+
+                            var obj_fileToLoad = { name: '' } ;
+                            wepsim_checkpoint_loadFromObj(chkp_obj, obj_fileToLoad) ;
+                         }
+                         catch (e) {
+                         }
+
+			 return '' ;
+		      }
+	 },
+
 	 // dummy parameter: notify
 	 // in wepsim_preload_fromHash
 	 {

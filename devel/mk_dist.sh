@@ -267,6 +267,7 @@ cat external/vue/vue.min.js \
     external/jquery.knob.min.js \
     external/vis/vis-network.min.js \
     external/async.min.js \
+    external/compress/lz-string.min.js \
     external/qrcode/qrcode.min.js \
     external/bootstrap-tokenfield.js \
     external/introjs/introjs.min.js \
