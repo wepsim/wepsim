@@ -20,7 +20,7 @@
 - [Getting Started: Developers](#getting-started-developers)
   - [WepSIM Source Code](#wepsim-source-code)
   - [WepSIM engine API](#wepsim-engine-api)
-  - [WepSIM control API](#wepsim-control-api)
+  - [WepSIM Links](#wepsim-links)
   - [WepSIM on Google Colab](#wepsim-gcolab)
   - [WepSIM for Apache Cordova](#wepsim-apache-cordova)
 
@@ -334,45 +334,48 @@ df1
 ```
 
 
-<a name="wepsim-control-api"/>
+<a name="wepsim-links"/>
 
-### WepSIM control API
+### WepSIM Links
 
-+ If you want to control a WepSIM instance, there is a WepSIM API in JavaScript available (WepSIM 2.0.6+).
-  For example, It might be used for building a tutorial.
+In the WepSIM URL you can use several arguments to perform certain actions automatically.
+This is an example:
+```javascript
+http://wepsim.github.io/wepsim/ws_dist/?mode=ep&examples_set=RISCV&example=0&simulator=assembly:14&notify=false
+```
 
-  The following fragment uses the WepSIM control API (wsweb_*):
+In particular WepSIM supports the following arguments:
+* ***mode***: execution mode for WepSIM. 
+  The included modes are: *ep* (default), *poc*, *asm_mips* and *asm_rv32*
+* ***config_set***: set of configuration options to use by default.
+  The included configuration set are: *Desktop*, *Mobile*, *Desktop-Dark*, *Mobile-Dark*
+* ***examples_set***: the example set to be used.
+  The included example set are: *RISCV*, *RISCV-Instructive*, *RISCV-AulaGlobal*, *MIPS-Instructive*, *MIPS-OCW*, *ARM*, *Z80*
+* ***example***: the indentifier of the example within the example set.
+  Valid values are: 0, 1, ...
+* ***simulator***: this argument configure the user interface to show.
+  It has the following format: "panel:detail" where:
+  * "panel" can be:
+    * *microcode* in order to show the circuit panel.
+    * *assembly*  in order to show the assembly panel. 
+  * "detail" can be:
+     * *11* for the register file.
+     * *16* for the control memory.
+     * *14* for the memory.
+     * *12* for the keyboard and screen.
+     * *25* for the 3d-led panel.
+     * *27* for the led-matrix.
+* ***checkpoint***: URL pointing to the checkpoint to be loaded.
+* ***notify***: true (by default) or false (don't show a dialog with the preloaded actions)
 
-```html
-    <div class="container">
+But there is one more argument that can be added:
+* ***asm***: assembly code to be loaded from the URL.
+  This assembly code can be obtained from the ***share*** option in the "Load/Save" dialog box.
+  This argument can be combined with the example argument so the assembly code in the URL is loaded instead of the assembly code in the example.
 
-	    <nav class="nav nav-pills nav-justified">
-		  <a href="#"
-		     class="nav-item nav-link border border-secondary"
-		     onclick="var context1 = document.getElementById('iframe1');
-			      context1.src = 'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?' +
-					     'notify=false&' +
-                                             'example=13&' +
-					     'simulator=assembly:screen';
-			      return false;">Step 1.- Load Example</a>
-
-		  <a href="#"
-		     class="nav-item nav-link border border-secondary"
-		     onclick="var context1 = document.getElementById('iframe1').contentWindow;
-			      context1.wsweb_execution_run();
-			      return false;">Step 2.- Run</a>
-        </nav>
-
-        <div class="row">
-            <div class="col-12">
-			<div class="embed-responsive embed-responsive-4by3">
-		        <iframe class="w-100 border border-secondary embed-responsive-item"
-		                id="iframe1" src=""></iframe>
-			</div>
-            </div>
-        </div>
-
-    </div>
+As example of ***asm***:
+```javascript
+http://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=ep&examples_set=RISCV&example=0&asm=FAYlAIHUFMAcGUCSBZcAKAFgFy7AzgFwD0RA7nHgJYC2AdAOaVYYCuARrZQPZkU1EBKUMGC0A1gBMAhlinBwCgG7QAxli4AnAgtqlNE8AFoAjPIXmLOvRoMmzly7v3gNWAPp4AnnhHis0AA8sYC88N1hXDywtcAAbSnMA4wVTBzT4xIAGBUz7NPM2aABHBQCAJgA2cADs6AA7CVT8tgBWbVi2RLKAdnBMtHKKoXzLQpLqnurahqaRhS4WLFLJzKTM9byRqQkDCarB6tm5sdLsqYVWzYV6xu08DWhgkO9wyMo6rHaE0uSjkZBwLAWHgMG42J5-GgAOQAHUyUOGcwUeE6pz6aDwsERSLw7GRsHAmMOVzSbHo0GW+2ybAAzCSHBkfgooYYofTLAsloccmsNkiFIzuUY-vlqCxYpS9sSRrTtACgSCwRDoGgHtQBgAaYyZAQAagALAAObFzAEBcAAXnAEkoik12pNI0FSXA2vZFjVy16ByS7vMNsUkp9IvS325Rr9Cm2u3K3smvv5cTDLpDDhRXV6-UxjvyuNRRKJCf5bDqFKlNXAtPZADMaXLARp3u48NF3vQMVjI+Bo-jCQSi0iOhn0dmuycJt7stWyl3OV6+rzconxxXzrWa2U7g8nuZIqFtAoAcZaIZCd4VFJYrEuz2pVJsjUu87Jvqx8Uo3HeqFXs3ok-k5MqajO+3afmeYQRO4TZdvcjwiKI-hBCI1aUGwXB1FIKgqJQBB+tGCQFgSJgVH6eCkLuUjgIaHY5pYZHmHg2T6jRpHkciyRZp2foApQ1boPe4AADzgDSAguI8LAaHUrp+tQgbItk95+oKAlAQKYZ4MkM5ImwsRloxhLJNWNymNxhmWuAKFoRhWGUGgAmnsYtEWPh3bZAZdhIgAVpeCgaJRVnoZh2GyfJ5lKWZijZFagU2dh9nZKeZTOeYrkCR52lzD5EouAFqFBbZIhIgC26SdJmm6kpSK3ulyQRRYxkzO0bG5VRLGDi1BnMaOHUMRx7VzK5hGuiRZmlVJbl+l5Gi5fBljUFI7y4cVbkWbFwV2aJynfAJdLeb5-mWflcWUEVpoNk2bhNglKXqalvRqeAqiXteZmBEw233a6S5zM9V4iEAA
 ```
 
 

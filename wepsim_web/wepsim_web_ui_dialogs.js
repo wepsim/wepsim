@@ -48,7 +48,7 @@
                                 "            return false;'" +
                                 "    jshare='var sorg   = \"assembly\"; " +
                                 "            var stitle = \"Assembly code...\"; " +
-                                "            var seltos = \"asm,mc\"; " +
+                                "            var seltos = \"asm\"; " +
                                 "            share_work_as_uri(sorg, stitle, seltos); " +
                                 "            return false;'" +
                                 "></ws-save-file>" +
