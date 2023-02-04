@@ -20,7 +20,7 @@
 - [Getting Started: Developers](#getting-started-developers)
   - [WepSIM Source Code](#wepsim-source-code)
   - [WepSIM engine API](#wepsim-engine-api)
-  - [WepSIM control API](#wepsim-control-api)
+  - [WepSIM Links](#wepsim-links)
   - [WepSIM on Google Colab](#wepsim-gcolab)
   - [WepSIM for Apache Cordova](#wepsim-apache-cordova)
 
@@ -327,47 +327,39 @@ for item in df1.columns[:]:
 df1
 ```
 
+<a name="wepsim-links"/>
 
-<a name="wepsim-control-api"/>
+### WepSIM Links
 
-### WepSIM control API
-
-+ If you want to control a WepSIM instance, there is a WepSIM API in JavaScript available (WepSIM 2.0.6+).
-  For example, It might be used for building a tutorial.
-
-  The following fragment uses the WepSIM control API (wsweb_*):
-
-```html
-    <div class="container">
-
-	    <nav class="nav nav-pills nav-justified">
-		  <a href="#"
-		     class="nav-item nav-link border border-secondary"
-		     onclick="var context1 = document.getElementById('iframe1');
-			      context1.src = 'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?' +
-					     'notify=false&' +
-                                             'example=13&' +
-					     'simulator=assembly:screen';
-			      return false;">Step 1.- Load Example</a>
-
-		  <a href="#"
-		     class="nav-item nav-link border border-secondary"
-		     onclick="var context1 = document.getElementById('iframe1').contentWindow;
-			      context1.wsweb_execution_run();
-			      return false;">Step 2.- Run</a>
-        </nav>
-
-        <div class="row">
-            <div class="col-12">
-			<div class="embed-responsive embed-responsive-4by3">
-		        <iframe class="w-100 border border-secondary embed-responsive-item"
-		                id="iframe1" src=""></iframe>
-			</div>
-            </div>
-        </div>
-
-    </div>
+In the WepSIM URL you can use several arguments to perform certain actions automatically.
+This is an example:
+```javascript
+http://wepsim.github.io/wepsim/ws_dist/?mode=ep&examples_set=RISCV&example=0&simulator=assembly:14&notify=false
 ```
+
+In particular WepSIM supports the following arguments:
+* ***mode***: execution mode for WepSIM. 
+  The included modes are: *ep* (default), *poc*, *asm_mips* and *asm_rv32*
+* ***config_set***: set of configuration options to use by default.
+  The included configuration set are: *Desktop*, *Mobile*, *Desktop-Dark*, *Mobile-Dark*
+* ***examples_set***: the example set to be used.
+  The included example set are: *RISCV*, *RISCV-Instructive*, *RISCV-AulaGlobal*, *MIPS-Instructive*, *MIPS-OCW*, *ARM*, *Z80*
+* ***example***: the indentifier of the example within the example set.
+  Valid values are: 0, 1, ...
+* ***simulator***: this argument configure the user interface to show.
+  It has the following format: "panel:detail" where:
+  * "panel" can be:
+    * *microcode* in order to show the circuit panel.
+    * *assembly*  in order to show the assembly panel. 
+  * "detail" can be:
+     * *11* for the register file.
+     * *16* for the control memory.
+     * *14* for the memory.
+     * *12* for the keyboard and screen.
+     * *25* for the 3d-led panel.
+     * *27* for the led-matrix.
+* ***checkpoint***: URL pointing to the checkpoint to be loaded.
+* ***notify***: true (by default) or false (don't show a dialog with the preloaded actions)
 
 
 <a name="wepsim-apache-cordova"/>
