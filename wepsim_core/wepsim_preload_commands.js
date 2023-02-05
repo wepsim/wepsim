@@ -91,7 +91,8 @@
 			  var example_uri = example_obj.hardware + ":" +
                                             example_obj.microcode + ":" +
                                             example_obj.assembly ;
-			  load_from_example_firmware(example_uri, true) ;
+                          var load_example_assembly = ('' == hash.asm) ? true : false ;
+			  load_from_example_firmware(example_uri, load_example_assembly) ;
 			  return '<li>Example titled <strong>' + example_obj.title + '</strong> has been loaded.</li> ' ;
 		      }
 	 },
@@ -106,8 +107,6 @@
 
                          try
                          {
-                         // mc_code    = decodeURIComponent(escape(window.atob( hash.mc )));
-                         // mc_code    = window.atob(hash.mc) ;
                             mc_code    = LZString.decompressFromEncodedURIComponent( hash.mc ) ;
 			    result_txt = ' has been loaded' ;
                          }
@@ -121,7 +120,7 @@
                              inputfirm.refresh() ;
 			 }
 
-			 return '<li>Microcode from URI ' + result_txt + '.</li>' ;
+			 return '<li><b>Microcode from URI</b> ' + result_txt + '.</li>' ;
 		      }
 	 },
 
@@ -135,8 +134,6 @@
 
                          try
                          {
-                         // asm_code   = decodeURIComponent(escape(window.atob( hash.asm )));
-                         // asm_code   = window.atob(hash.asm) ;
                             asm_code   = LZString.decompressFromEncodedURIComponent( hash.asm ) ;
 			    result_txt = ' has been loaded' ;
                          }
@@ -150,7 +147,7 @@
                              inputasm.refresh() ;
 			 }
 
-			 return '<li>Assembly from URI ' + result_txt + '.</li>' ;
+			 return '<li><b>Assembly from URI</b> ' + result_txt + '.</li>' ;
 		      }
 	 },
 
