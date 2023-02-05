@@ -120,7 +120,7 @@
                              inputfirm.refresh() ;
 			 }
 
-			 return '<li>Microcode from URI ' + result_txt + '.</li>' ;
+			 return '<li><b>Microcode from URI</b> ' + result_txt + '.</li>' ;
 		      }
 	 },
 
@@ -147,7 +147,7 @@
                              inputasm.refresh() ;
 			 }
 
-			 return '<li>Assembly from URI ' + result_txt + '.</li>' ;
+			 return '<li><b>Assembly from URI</b> ' + result_txt + '.</li>' ;
 		      }
 	 },
 
