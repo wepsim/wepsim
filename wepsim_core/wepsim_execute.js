@@ -345,7 +345,7 @@
 
     function wepsim_check_getnotifyoptions ( firstline )
     {
-        var ret = { 
+        var ret = {
 	             showas:         'offcanvas',
 	             skip1stline:    false,
 	             scroll2current: false,
@@ -450,7 +450,7 @@
                 }
 
 	        // show content...
-	        if ('offcanvas' == ret.showas) 
+	        if ('offcanvas' == ret.showas)
 	             wepsim_memdashboard_notify_offcanvas(ref_mdash, notif_origin, notifications, ret.skip1stline) ;
 	        else wepsim_memdashboard_notify_dialogbox(ref_mdash, notif_origin, notifications, ret.skip1stline) ;
 
@@ -492,10 +492,10 @@
         var i_clks = 0 ;
 	var i = 0 ;
 
-        // try to find fetch address, that is zero by default... 
+        // try to find fetch address, that is zero by default...
         fetch_maddr = 0 ;
         for (var k in curr_firm.labels_firm) {
-             if ("fetch" == curr_firm.labels_firm[k]) 
+             if ("fetch" == curr_firm.labels_firm[k])
                   fetch_maddr = k ;
         }
 

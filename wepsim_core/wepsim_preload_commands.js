@@ -142,9 +142,16 @@
 			    result_txt = ' could not be loaded' ;
                          }
 
-			 if ('' != asm_code) {
+			 if ('' != asm_code)
+                         {
                              inputasm.setValue(asm_code) ;
                              inputasm.refresh() ;
+
+			     if ('' != hash.example)
+			     setTimeout(function() {
+					    wsweb_firmware_compile() ;
+					    wsweb_assembly_compile() ;
+					}, 500);
 			 }
 
 			 return '<li><b>Assembly from URI</b> ' + result_txt + '.</li>' ;

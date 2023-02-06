@@ -20,15 +20,15 @@
 
 
         /*
-         *  Save file
+         *  Share link
          */
 
         /* jshint esversion: 6 */
-        class ws_save_file extends HTMLElement
+        class ws_share_link extends HTMLElement
         {
               static get observedAttributes()
 	      {
-	            return [ 'fid', 'jsave' ] ;
+	            return [ 'fid', 'jshare' ] ;
 	      }
 
 	      constructor ()
@@ -44,10 +44,10 @@
                     if (fid === null)
                         this.setAttribute('fid', 'id52') ;
 
-                    // jload
-                    var jload = this.getAttribute('jload') ;
-                    if (jload === null)
-                        this.setAttribute('jload', '') ;
+                    // jshare
+                    var jshare = this.getAttribute('jshare') ;
+                    if (jshare === null)
+                        this.setAttribute('jshare', '') ;
 	      }
 
 	      render ( event_name )
@@ -60,21 +60,46 @@
 		    o1 += "<div class='card border-secondary h-100'>" +
 			  "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 			  " <h5 class='m-0'>" +
-			  " <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
+			  " <span class='text-white bg-secondary' data-langkey='Link'>Link</span>" +
 			  " <button class='btn btn-light mx-1 float-end py-0 col-auto' " +
-                          "         onclick='" + this.jsave + "'><span data-langkey='Save'>Save</span></button>" +
+                          '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
+                          '                  share_uri(\'share\', \'title\', \'text\', c);" ' +
+                          "><span data-langkey='Share'>Share</span></button>" +
 			  " </h5>" +
 			  "</div>" +
 			  "<div class='card-body'>" +
-			  " <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
-	                  " <p><input aria-label='filename to save content' id='" + this.fid + "' " +
-                          "           class='form-control btn-outline-dark' " +
-                          "           placeholder='File name where information will be saved' " +
-                          "           style='min-width: 90%;'/></p>" +
+		          'You can use the following link:<br>' +
+	                  '<textarea id="qrcode2" class="form-control" row="5" ' +
+                          '          onclick="navigator.clipboard.writeText(this.value);" ' +
+                          '>Loading...</textarea>' +
+                          '<span class="btn btn-sm btn-success w-100" ' +
+                          '      onclick="var c = document.getElementById(\'qrcode2\').value;' +
+                          '               navigator.clipboard.writeText(c);">Copy to clipboard</span>' +
+	                  '<br>' +
+	                  '<div id="qrcode1" class="mx-auto"></div>' +
+		          '<br>' +
 			  "</div>" +
 			  "</div>" ;
 
                     this.innerHTML = o1 ;
+
+                    // get URL and QR
+	            var this_jshare = this.jshare ;
+                    setTimeout(function() {
+				    try
+				    {
+				       var share_text = share_as_uri(this_jshare) ;
+				       $("#qrcode2").html(share_text) ;
+
+				    // $("#qrcode1").html('You can use the following QR-code:<br>') ;
+				    // var qrcode = new QRCode("qrcode1") ;
+				    // qrcode.makeCode(share_text) ;
+				    }
+				    catch (e) {
+				    // $("#qrcode1").html(e) ;
+				       $("#qrcode1").html('') ;
+				    }
+                               }, 200) ;
 	      }
 
 	      connectedCallback ()
@@ -97,18 +122,18 @@
                    this.setAttribute('fid', value) ;
 	      }
 
-	      get jsave ( )
+	      get jshare ( )
 	      {
-                   return this.getAttribute('jsave') ;
+                   return this.getAttribute('jshare') ;
 	      }
 
-	      set jsave ( value )
+	      set jshare ( value )
 	      {
-                   this.setAttribute('jsave', value) ;
+                   this.setAttribute('jshare', value) ;
 	      }
         }
 
         if (typeof window !== "undefined") {
-            window.customElements.define('ws-save-file', ws_save_file) ;
+            window.customElements.define('ws-share-link', ws_share_link) ;
         }
 
