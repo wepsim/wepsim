@@ -28,7 +28,7 @@
         {
               static get observedAttributes()
 	      {
-	            return [ 'fid', 'jsave' ] ;
+	            return [ 'fid', 'jsave', 'jshare' ] ;
 	      }
 
 	      constructor ()
@@ -48,6 +48,11 @@
                     var jload = this.getAttribute('jload') ;
                     if (jload === null)
                         this.setAttribute('jload', '') ;
+
+                    // jshare
+                    var jshare = this.getAttribute('jshare') ;
+                    if (jshare === null)
+                        this.setAttribute('jshare', '') ;
 	      }
 
 	      render ( event_name )
@@ -63,6 +68,8 @@
 			  " <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
 			  " <button class='btn btn-light mx-1 float-end py-0 col-auto' " +
                           "         onclick='" + this.jsave + "'><span data-langkey='Save'>Save</span></button>" +
+		       // " <button class='btn btn-light mx-1 float-end py-0 col-auto' " +
+                       // "         onclick='" + this.jshare + "'><span data-langkey='Share'>Share</span></button>" +
 			  " </h5>" +
 			  "</div>" +
 			  "<div class='card-body'>" +
@@ -105,6 +112,16 @@
 	      set jsave ( value )
 	      {
                    this.setAttribute('jsave', value) ;
+	      }
+
+	      get jshare ( )
+	      {
+                   return this.getAttribute('jshare') ;
+	      }
+
+	      set jshare ( value )
+	      {
+                   this.setAttribute('jshare', value) ;
 	      }
         }
 

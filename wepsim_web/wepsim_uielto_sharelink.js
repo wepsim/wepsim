@@ -63,7 +63,7 @@
 			  " <span class='text-white bg-secondary' data-langkey='Link'>Link</span>" +
 			  " <button class='btn btn-light mx-1 float-end py-0 col-auto' " +
                           '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
-                          '                  share_uri(\'share\', \'title\', \'text\', c);" ' +
+                          '                  share_information(\'share\', \'title\', \'text\', c);" ' +
                           "><span data-langkey='Share'>Share</span></button>" +
 			  " <button class='btn btn-light mx-1 float-end py-0 col-auto' " +
                           '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
@@ -76,12 +76,12 @@
 			  "<div class='card-body'>" +
 		          'You can use the following link:<br>' +
 	                  '<textarea id="qrcode2" class="form-control" ' +
-	                  '          row="5" style="height:75%" ' +
+	                  '          row="5" style="height:70%" ' +
                           '          onclick="navigator.clipboard.writeText(this.value);" ' +
                           '>Loading...</textarea>' +
 	                  '<br>' +
-	                  '<div id="qrcode1" class="mx-auto"></div>' +
-		          '<br>' +
+	               // '<div id="qrcode1" class="mx-auto"></div>' +
+		       // '<br>' +
 			  "</div>" +
 			  "</div>" ;
 

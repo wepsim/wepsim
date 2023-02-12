@@ -37,7 +37,7 @@
 	           '<textarea id="qrcode2" class="form-control" row="5" ' +
                    '          style="width: 100%; height:100%"' +
                    '          onclick="navigator.clipboard.writeText(this.value);">' +
-                   share_text +
+                   share_url +
                    '</textarea>' +
                    '<span class="btn btn-sm btn-success" ' +
                    '      onclick="var c = document.getElementById(\'qrcode2\').value;' +
@@ -51,11 +51,11 @@
          {
             $("#qrcode1").html('You can use the following QR-code:<br>') ;
             var qrcode = new QRCode("qrcode1") ;
-            qrcode.makeCode(share_text) ;
+            qrcode.makeCode(share_url) ;
          }
          catch (e) {
          // $("#qrcode1").html(e) ;
-            $("#qrcode1").html('') ;
+            $("#qrcode1").html('You can use the following link:<br>' + share_url) ;
          }
 
          // return ok
@@ -87,6 +87,7 @@
          }
          catch (e) {
             url_to_share = '' ;
+         // console.log("ERROR on share_as_uri: url_to_share cannot be build\n") ;
          }
 
          // return link
