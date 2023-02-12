@@ -25,40 +25,76 @@
 
     function share_information ( info_shared, share_title, share_text, share_url )
     {
-	 if (typeof navigator.share === 'undefined')
+	 if (typeof navigator.share !== 'undefined')
 	 {
-             // new dialog
-	     var msg = 'Sorry, unable to share:<br>\n' +
-		       'navigator.share is not available.<br>' +
-		       '<br>' +
-	               '<div      id="qrcode1" class="mx-auto"></div>' +
-		       '<br>' +
-		       'Click the following text to copy into the clipboard:<br>' +
-	               '<textarea id="qrcode2" class="form-control" row="5" ' +
-                       '          style="width: 100%; height:100%"' +
-                       '          onclick="navigator.clipboard.writeText(this.value);" ' +
-                       '>Loading...</textarea>' +
-	               '<br>' ;
-
-	     wsweb_dlg_alert(msg) ;
-
-             // get URL and QR
-             try
-             {
-                $("#qrcode2").html(share_text) ;
-                $("#qrcode1").html('But you can use the following QR-code:<br>') ;
-                var qrcode = new QRCode("qrcode1") ;
-                qrcode.makeCode(share_text) ;
-             }
-             catch (e) {
-                $("#qrcode1").html('') ;
-                $("#qrcode2").html(share_text) ;
-             }
-
-             // return ok
-	     return true ;
+             return share_uri(info_shared, share_title, share_text, share_url) ;
 	 }
 
+         // new dialog
+	 var msg = '<div id="qrcode1" class="mx-auto"></div>' +
+		   '<br>' +
+		   'You can use the following link:<br>' +
+	           '<textarea id="qrcode2" class="form-control" row="5" ' +
+                   '          style="width: 100%; height:100%"' +
+                   '          onclick="navigator.clipboard.writeText(this.value);">' +
+                   share_text +
+                   '</textarea>' +
+                   '<span class="btn btn-sm btn-success" ' +
+                   '      onclick="var c = document.getElementById(\'qrcode2\').value;' +
+                   '               navigator.clipboard.writeText(c);">Copy to clipboard</span>' +
+	           '<br>' ;
+
+	 wsweb_dlg_alert(msg) ;
+
+         // get URL and QR
+         try
+         {
+            $("#qrcode1").html('You can use the following QR-code:<br>') ;
+            var qrcode = new QRCode("qrcode1") ;
+            qrcode.makeCode(share_text) ;
+         }
+         catch (e) {
+         // $("#qrcode1").html(e) ;
+            $("#qrcode1").html('') ;
+         }
+
+         // return ok
+	 return true ;
+    }
+
+    function share_as_uri ( share_eltos )
+    {
+         var url_to_share = '' ;
+         var txt_enc      = '' ;
+
+         // build the associate URI
+         try
+         {
+            url_to_share = get_cfg('base_url') + '?mode=' + get_cfg('ws_mode') ;
+
+            // * Thanks to Santiago and Diego for the LZString link
+
+            if (share_eltos.includes('mc'))
+            {
+                txt_enc  = LZString.compressToEncodedURIComponent(  inputfirm.getValue() ) ;
+                url_to_share = url_to_share + '&mc=' + txt_enc ;
+            }
+            if (share_eltos.includes('asm'))
+            {
+                txt_enc = LZString.compressToEncodedURIComponent(  inputasm.getValue() ) ;
+                url_to_share = url_to_share + '&asm=' + txt_enc ;
+            }
+         }
+         catch (e) {
+            url_to_share = '' ;
+         }
+
+         // return link
+	 return url_to_share ;
+    }
+
+    function share_uri ( info_shared, share_title, share_text, share_url )
+    {
 	 // build data
 	 var data = {} ;
 
@@ -79,40 +115,6 @@
 	 // stats about sharing
 	 simcore_ga('ui', 'ui.share', 'ui.share.' + info_shared) ;
 
-	 return true ;
-    }
-
-    function share_work_as_uri ( info_shared, share_title, share_eltos )
-    {
-         var url_to_share = '' ;
-         var mc_e  = '' ;
-         var asm_e = '' ;
-
-         // build the associate URI
-         // * Thanks to Santiago and Diego for the LZString link
-         try
-         {
-            url_to_share = get_cfg('base_url') + '?mode=' + get_cfg('ws_mode') ;
-
-            if (share_eltos.includes('mc'))
-            {
-                mc_e  = LZString.compressToEncodedURIComponent(  inputfirm.getValue() ) ;
-                url_to_share = url_to_share + '&mc=' + mc_e ;
-            }
-            if (share_eltos.includes('asm'))
-            {
-                asm_e = LZString.compressToEncodedURIComponent(  inputasm.getValue() ) ;
-                url_to_share = url_to_share + '&asm=' + asm_e ;
-            }
-         }
-         catch (e) {
-            url_to_share = '' ;
-         }
-
-         // share current work
-         share_information(info_shared, share_title, url_to_share, '') ;
-
-         // return ok
 	 return true ;
     }
 

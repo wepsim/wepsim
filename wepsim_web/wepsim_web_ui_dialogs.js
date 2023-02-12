@@ -37,7 +37,13 @@
 		         return "<div id='scroller-lssvasm' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-6 p-2'>" +
+                               "<div class='col-12 col-sm-4 p-2'>" +
+                                "<ws-share-link " +
+                                "    fid='inputToShareAs2' " +
+                                "    jshare='asm' " +
+                                "></ws-share-link>" +
+                               "</div>" +
+                               "<div class='col-12 col-sm-4 p-2'>" +
                                 "<ws-save-file " +
                                 "    fid='inputFileNameToSaveAs2' " +
                                 "    jsave='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
@@ -46,14 +52,9 @@
 				"	     wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
 		                "            inputasm.is_modified = false;" +
                                 "            return false;'" +
-                                "    jshare='var sorg   = \"assembly\"; " +
-                                "            var stitle = \"Assembly code...\"; " +
-                                "            var seltos = \"asm\"; " +
-                                "            share_work_as_uri(sorg, stitle, seltos); " +
-                                "            return false;'" +
                                 "></ws-save-file>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-6 p-2'>" +
+                               "<div class='col-12 col-sm-4 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad2' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
@@ -101,21 +102,18 @@
 		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-6 p-2'>" +
+                               "<div class='col-12 col-sm-4 p-2'>" +
+                                "<ws-share-link " +
+                                "    fid='inputToShareAs2' " +
+                                "    jshare='mc' " +
+                                "></ws-share-link>" +
+                               "</div>" +
+                               "<div class='col-12 col-sm-4 p-2'>" +
 		                "<div class='card border-secondary h-100'>" +
 			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 		                "  <h5 class='m-0'>" +
 				"  <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
                                 "<div class='btn-group float-end'>" +
-                                //
-				"  <button class='btn btn-light py-0 col-auto' " +
-                                "          onclick='var sorg   = \"microcode\"; " +
-                                "                   var stitle = \"Microcode...\"; " +
-                                "                   var seltos = \"mc\"; " +
-                                "                   share_work_as_uri(sorg, stitle, seltos); " +
-                                "                   return false;'" +
-                                "><span data-langkey='Share'>Share</span></button>" +
-                                //
 				"  <button class='btn btn-light mx-1 py-0 col-auto' " +
                                 "          onclick='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
 		                "                   var textToWrite       = inputfirm.getValue();" +
@@ -153,7 +151,7 @@
 			     	" </div>" +
 			   	"</div>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-6 p-2'>" +
+                               "<div class='col-12 col-sm-4 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
