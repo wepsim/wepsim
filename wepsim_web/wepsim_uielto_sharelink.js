@@ -65,16 +65,20 @@
                           '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
                           '                  share_uri(\'share\', \'title\', \'text\', c);" ' +
                           "><span data-langkey='Share'>Share</span></button>" +
+			  " <button class='btn btn-light mx-1 float-end py-0 col-auto' " +
+                          '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
+                          '                  navigator.clipboard.writeText(c); ' +
+                          '                  wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+                          '                                        \'Copied to clipboard!\');" ' +
+                          "><span data-langkey='Copy'>Copy</span></button>" +
 			  " </h5>" +
 			  "</div>" +
 			  "<div class='card-body'>" +
 		          'You can use the following link:<br>' +
-	                  '<textarea id="qrcode2" class="form-control" row="5" ' +
+	                  '<textarea id="qrcode2" class="form-control" ' +
+	                  '          row="5" style="height:75%" ' +
                           '          onclick="navigator.clipboard.writeText(this.value);" ' +
                           '>Loading...</textarea>' +
-                          '<span class="btn btn-sm btn-success w-100" ' +
-                          '      onclick="var c = document.getElementById(\'qrcode2\').value;' +
-                          '               navigator.clipboard.writeText(c);">Copy to clipboard</span>' +
 	                  '<br>' +
 	                  '<div id="qrcode1" class="mx-auto"></div>' +
 		          '<br>' +
