@@ -44,6 +44,60 @@
 		return valuef ;
         }
 
+        function uint_to_float32 ( value )
+        {
+              var buf = new ArrayBuffer(4) ;
+              (new Uint32Array(buf))[0] = value ;
+              return (new Float32Array(buf))[0] ;
+        }
+
+        function float32_to_uint ( value )
+        {
+              var buf = new ArrayBuffer(4) ;
+              (new Float32Array(buf))[0] = value ;
+              return (new Uint32Array(buf))[0];
+        }
+
+	/**
+	 * IEEE 754 class of number
+	 * @param s {Number} sign
+	 * @param e {Number} exponent
+	 * @param m {Number} mantinsa
+	 * @return {number} class as integer:
+	 *      0 -> -infinite
+	 *      1 -> -normalized number
+	 *      2 -> -non-normalized number
+	 *      3 -> -0
+	 *      4 -> +0
+	 *      5 -> +normalized number
+	 *      6 -> +non-normalized number
+	 *      7 -> +inf
+	 *      8 -> -NaN
+	 *      9 -> +NaN
+	 */
+	function float_class ( s, e, m )
+	{
+	      let rd = 0 ;
+
+	      if (!m && !e) {
+		  rd = s ? 1<<3 : 1<<4 ;
+              }
+	      else if (!e) {
+		  rd = s ? 1<<2 : 1<<5 ;
+              }
+	      else if (!(e ^ 255)) {
+		  if (m)
+		      rd = s ? 1<<8 : 1<<9 ;
+		  else
+		      rd = s ? 1<<0 : 1<<7 ;
+              }
+	      else {
+		  rd = s ? 1<<1 : 1<<6 ;
+              }
+
+	      return rd ;
+	}
+
         function hex2char8 ( hexvalue )
         {
                 var valuec = [] ;
