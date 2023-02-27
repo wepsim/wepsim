@@ -1211,6 +1211,87 @@ xnor reg1 reg2 reg3 {
 
 
 #
+# RISC-V F
+#
+
+#  FADD.S rd,rs1,rs2         Add                      f(rd) ← f(rs1) + f(rs2)
+fadd.s reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
+      help='r1 = r2 + r3',
+      {
+          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10000, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
+#  FSUB.S rd,rs1,rs2         Subtract                 f(rd) ← f(rs1) - f(rs2)
+fsub.s reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
+      help='r1 = r2 - r3',
+      {
+          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
+#  FMUL.S rd,rs1,rs2         Multiply                 f(rd) ← f(rs1) * f(rs2)
+fmul.s reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
+      help='r1 = r2 * r3',
+      {
+          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
+#  FDIV.S rd,rs1,rs2         Divide                 f(rd) ← f(rs1) / f(rs2)
+fdiv.s reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
+      help='r1 = r2 / r3',
+      {
+          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
+#  FCVT.W.S rd,rs1             Convert                 f(rd) ← sext(s32_{f32}(f(rs1)))
+fcvt.w.s reg1 reg2 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      help='r1 = float2int(r2)',
+      {
+          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
+#  FCLASS.S rd,rs1             Convert                 x(rd) ← classify(f(rs1))
+fclass.s reg1 reg2 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      help='r1 = classify(r2)',
+      {
+          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
+
+#
 # Register naming
 #
 
