@@ -60,30 +60,34 @@
 
 	/**
 	 * IEEE 754 class of number
-	 * @param s {Number} sign
-	 * @param e {Number} exponent
-	 * @param m {Number} mantinsa
+	 * @param a {Number} sign + exponent + mantissa
 	 * @return {number} class as integer:
 	 *      0 -> -infinite
 	 *      1 -> -normalized number
 	 *      2 -> -non-normalized number
 	 *      3 -> -0
 	 *      4 -> +0
-	 *      5 -> +normalized number
-	 *      6 -> +non-normalized number
+	 *      5 -> +non-normalized number
+	 *      6 -> +normalized number
 	 *      7 -> +inf
-	 *      8 -> -NaN
-	 *      9 -> +NaN
+	 *      8 -> -NaN (signaling)
+	 *      9 -> +NaN (quiet)
 	 */
-	function float_class ( s, e, m )
+	function float_class ( a )
 	{
+              var s = a & 0x80000000;
+                  s = s >> 31 ;
+              var e = a & 0x7F800000;
+                  e = e >> 23 ;
+              var m = a & 0x007FFFFF;
+
 	      let rd = 0 ;
 
 	      if (!m && !e) {
 		  rd = s ? 1<<3 : 1<<4 ;
               }
 	      else if (!e) {
-		  rd = s ? 1<<2 : 1<<5 ;
+		  rd = s ? 1<<2 : 1<<6 ;
               }
 	      else if (!(e ^ 255)) {
 		  if (m)
@@ -92,7 +96,7 @@
 		      rd = s ? 1<<0 : 1<<7 ;
               }
 	      else {
-		  rd = s ? 1<<1 : 1<<6 ;
+		  rd = s ? 1<<1 : 1<<5 ;
               }
 
 	      return rd ;

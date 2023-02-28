@@ -720,8 +720,8 @@
 					  "FDIV ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "FCVT ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "FCLASS ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADDU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "SUBU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-                                          "NOP_ALU",
                                           "NOP_ALU",
                                           "NOP_ALU",
                                           "NOP_ALU",
@@ -1607,6 +1607,39 @@
                                                    return "ALU output = " + show_value(result) + " (LUI). " ;
                                                 }
 				   };
+	sim.ep.behaviors["ADDU"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a + b ;
+						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a + b ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU ADDU with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (ADDU). " ;
+                                                }
+				   };
 	sim.ep.behaviors["SUBU"] = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
@@ -1839,10 +1872,7 @@
 						   var a = get_value(sim.ep.states[s_expr[1]]) >>> 0 ;
 
 						   // get float type
-						   var s = a & 0x80000000;
-						   var e = a & 0x7F800000;
-						   var m = a & 0x007FFFFF;
-	                                           var result = float_class (s, e, m) ;
+	                                           var result = float_class(a) ;
 
 						   set_value(sim.ep.states[s_expr[1]], result) ;
 
