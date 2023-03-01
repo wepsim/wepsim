@@ -122,7 +122,7 @@ out reg val {
 # Power consumption
 #
 
-# LDE rd      Load Energy     rd ← ux(energy_acc) 
+# LDE rd      Load Energy     rd ← ux(energy_acc)
 lde reg1  {
       co=111111,
       nwords=1,
@@ -863,7 +863,7 @@ and reg1 reg2 reg3 {
       }
 }
 
-#  FENCE pred,succ         Fence         
+#  FENCE pred,succ         Fence
 fence pred succ {
       co=111111,
       nwords=1,
@@ -874,7 +874,7 @@ fence pred succ {
       }
 }
 
-#  FENCE.I             Fence Instruction         
+#  FENCE.I             Fence Instruction
 fence.i {
       co=111111,
       nwords=1,
@@ -1143,72 +1143,6 @@ max rd rs1 rs2 {
       }
 }
 
-#  ANDN rd,rs1,rs2         And with rs2 inverted                     rd ← ux(rs1) ∧ ~ux(rs2)
-andn reg1 reg2 reg3 {
-      co=111111,
-      nwords=1,
-      reg1=reg(25,21),
-      reg2=reg(20,16),
-      reg3=reg(15,11),
-      help='reg1 = ux(rs1) & ~ux(rs2)',
-      native,
-      {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var result = simcore_native_get_value("BR", reg2) & ~simcore_native_get_value("BR", reg3) ;
-          simcore_native_set_value("BR", reg1, result) ;
-
-          simcore_native_go_maddr(0) ;
-      }
-}
-
-#  ORN rd,rs1,rs2         Or with rs2 inverted                     rd ← ux(rs1) v ~ux(rs2)
-orn reg1 reg2 reg3 {
-      co=111111,
-      nwords=1,
-      reg1=reg(25,21),
-      reg2=reg(20,16),
-      reg3=reg(15,11),
-      help='reg1 = ux(rs1) | ~ux(rs2)',
-      native,
-      {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var result = simcore_native_get_value("BR", reg2) | ~simcore_native_get_value("BR", reg3) ;
-          simcore_native_set_value("BR", reg1, result) ;
-
-          simcore_native_go_maddr(0) ;
-      }
-}
-
-#  xnor rd,rs1,rs2         Xnor with rs2 inverted                     rd ← ux(rs1) xor ~ux(rs2)
-xnor reg1 reg2 reg3 {
-      co=111111,
-      nwords=1,
-      reg1=reg(25,21),
-      reg2=reg(20,16),
-      reg3=reg(15,11),
-      help='reg1 = ux(rs1) xor ~ux(rs2)',
-      native,
-      {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var result = simcore_native_get_value("BR", reg2) ^ ~simcore_native_get_value("BR", reg3) ;
-          simcore_native_set_value("BR", reg1, result) ;
-
-          simcore_native_go_maddr(0) ;
-      }
-}
-
 
 #
 # RISC-V F
@@ -1223,7 +1157,7 @@ fadd.s reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 + r3',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10000, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10000, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
@@ -1236,7 +1170,7 @@ fsub.s reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 - r3',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
@@ -1249,7 +1183,7 @@ fmul.s reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 * r3',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
@@ -1262,7 +1196,7 @@ fdiv.s reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 / r3',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
@@ -1274,7 +1208,7 @@ fcvt.w.s reg1 reg2 {
       reg2=reg(20,16),
       help='r1 = float2int(r2)',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=0000, MA=0, MB=0, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
@@ -1286,7 +1220,7 @@ fclass.s reg1 reg2 {
       reg2=reg(20,16),
       help='r1 = classify(r2)',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=0000, MA=0, MB=0, SELCOP=10101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 

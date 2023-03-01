@@ -1874,7 +1874,8 @@
 						   var a = get_value(sim.ep.states[s_expr[1]]) >>> 0 ;
 
 						   // get float type
-	                                           var result = float_class(a) ;
+						   var result = hex2float(a) ;
+	                                               result = float_class(result) ;
 
 						   set_value(sim.ep.states[s_expr[1]], result) ;
 

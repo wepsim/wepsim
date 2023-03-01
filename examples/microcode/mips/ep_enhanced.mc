@@ -26,7 +26,7 @@ begin
 	  # PC <- MAR
 	    (T1, M2=0, C2),
 
-fetch:         
+fetch:
 	  # MAR <- PC
 	    (T2, C0),
 	  # MBR <- M[MAR]
@@ -757,6 +757,17 @@ cvt.w.s reg1 reg2 {
       }
 }
 
+fclass.s reg1 reg2 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      help='r1 = classify(r2)',
+      {
+          (MC=1, MR=0, SELA=10000, SELB=0000, MA=0, MB=0, SELCOP=10101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
 
 #
 # Misc
@@ -849,12 +860,12 @@ registers
 
 pseudoinstructions
 {
-	li reg1=reg num=inm 
+	li reg1=reg num=inm
         {	
             li  reg1 sel(31,16,num)
             sll reg1 reg1 16
             li  $0   sel(15,0,num)
-            or  reg1 reg1 $0 
+            or  reg1 reg1 $0
         }
 }
 
