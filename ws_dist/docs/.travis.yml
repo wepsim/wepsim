@@ -1,0 +1,26 @@
+
+os: linux
+
+arch:
+  - arm64
+  - ppc64le
+  - s390x
+
+language: node_js
+
+node_js:
+  - 17  
+
+before_install:
+  - rm -fr node_modules
+  - npm install
+  - jshint --version
+  - terser --version
+  - sudo apt-get -y install jq
+  - jq --version
+
+script:
+  - npm run test-source1
+  - npm run test-wepsim-node1
+  - npm run test-wepsim-node2
+

@@ -706,7 +706,7 @@ add.s reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 + r3',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10000, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10000, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
@@ -718,7 +718,7 @@ sub.s reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 - r3',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
@@ -730,7 +730,7 @@ mul.s reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 * r3',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
@@ -742,7 +742,7 @@ div.s reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 / r3',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
@@ -753,7 +753,7 @@ cvt.w.s reg1 reg2 {
       reg2=reg(20,16),
       help='r1 = float2int(r2)',
       {
-          (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, SELB=0000, MA=0, MB=0, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 

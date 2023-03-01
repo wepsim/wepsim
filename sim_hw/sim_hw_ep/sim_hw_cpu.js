@@ -1826,10 +1826,12 @@
 
 						   var result = a ;
                                                    if (1 == b) {
-						       result = a.toFixed(5) ;
+						       result = result.toFixed(5) ;
+						    // result = float2hex(result) ; // TODO
                                                    }
                                                    else {
-						       result = Math.round(a) ;
+						       result =  hex2float(result) ;
+						       result = Math.round(result) ;
                                                    }
 
 						   set_value(sim.ep.states[s_expr[1]], result) ;

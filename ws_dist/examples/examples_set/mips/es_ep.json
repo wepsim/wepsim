@@ -262,5 +262,16 @@
     "assembly":		"s6e1",
     "description":	"<span data-langkey='example_06_01'>Test example.</span>",
     "testing":          true
+  },
+  {
+    "id":		"S6E2",
+    "title":		"IEEE 754 (32 bits)",
+    "type":		"<span data-langkey='Special'>Special</span>",
+    "modes":		"newbie,intro,ep",
+    "hardware":		"ep",
+    "microcode":	"ep_enhanced",
+    "assembly":		"s6e7",
+    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing":          true
   }
 ]
