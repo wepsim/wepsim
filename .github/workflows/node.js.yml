@@ -28,7 +28,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - run: npm run build --if-present
-    - run: npm test-source1
-    - run: npm test-wepsim-node1
-    - run: npm test-wepsim-node2
+    - run: npm run test-source1
+    - run: npm run test-wepsim-node1
+    - run: npm run test-wepsim-node2
 
