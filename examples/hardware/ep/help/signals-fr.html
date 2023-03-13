@@ -1,18 +1,18 @@
-<html xmlns="http://www.w3.org/1999/xhtml"> <head>
-    <titre> </titre>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title></title>
     <style type="text/css">
-/ * & lt;! [CDATA [* /
-    : link {color: # 0563C1}
-    : visité {color: # 954F72}
+/*&lt;![CDATA[*/
+    :link { color: #0563C1 }
+    :visited { color: #954F72 }
     a.cleanuphtml-4 {font-weight: bold}
     p.cleanuphtml-3 {text-align: center}
     div.cleanuphtml-2 {text-align: center}
     p.cleanuphtml-1 {font-weight: bold}
-   /*]] & gt; * /
+    /*]]&gt;*/
     </style>
   <! - Clean HTML généré par http://www.cleanuphtml.com/ ->
-<meta content="HTML de nettoyage" name="Générateur"> </head>
-  <body lang="FR-GB" xml: lang="FR-GB">
+  <meta content="HTML de nettoyage" name="Générateur"> </head>
+  <body lang="fr-FR" xml: lang="fr-FR">
       <h2> L'unité de contrôle </h2>
       <p>
 
@@ -589,7 +589,7 @@
                 </td>
                 <td valign="top">
                   <div>
-                    & nbsp;
+                    &nbsp;
                   </div>
                 </td>
               </tr>
@@ -768,7 +768,104 @@
                 </td>
                 <td valign="top">
                   <div>
-                    (A & lt; 16) & amp; 0xFFFF0000
+                    (A &lt; &lt; 16) &amp; 0xFFFF0000
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td valign="top">
+                  <div>
+                    10000
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  +  B (float ieee754)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10001
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  -  B (float ieee754)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10010
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  *  B (float ieee754)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10011
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  /  B (float ieee754)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10100
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A<sub>int32</sub> &lt;- B<sub>ieee754</sub> (truncate)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10101
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    classe de décimal (B)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10110
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  +  B (unsigned int. add)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10111
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  -  B (unsigned int. sub)
                   </div>
                 </td>
               </tr>
@@ -3992,8 +4089,8 @@ Par défaut, la mémoire lit ou écrit en un cycle d'horloge. Si la mémoire est
           <div id="LC">
                 <p>
                   <b>
-REMARQUE: Ce mécanisme est uniquement destiné à des tests. Vous ne devez pas utiliser ces signals dans la version finale de votre microcode. <br>
-Veuillez éviter d'utiliser directement RA, RB, RC et Cop, car sa valeur est générée par SelA (SelB, SelC, SelCop) et MR. <br>
+                  REMARQUE: Ce mécanisme est uniquement destiné à des tests. Vous ne devez pas utiliser ces signals dans la version finale de votre microcode. <br>
+                  Veuillez éviter d'utiliser directement RA, RB, RC et Cop, car sa valeur est générée par SelA (SelB, SelC, SelCop) et MR. <br>
 </b>
                 </p>
                 <p>
