@@ -3,6 +3,7 @@
 
 ## 2.2.1 -> 2.2.2:
 * Main improvements:
+  * Initial support for 32-bits floating point ALU
   * Share by link improved
   * Several minor improvements
 * Main external dependencies updated:

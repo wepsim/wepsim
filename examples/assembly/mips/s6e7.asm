@@ -33,7 +33,15 @@ main:
     lw  $3 a2
     div.s $5 $2 $3
 
-    # convert:  $5 = 3.5
+    # convert:  $5 = (int) 3.5
     lw  $2 a1
     cvt.w.s $5 $2
+
+    # convert:  $5 = (float32) 3
+    li  $2  3
+    cvt.s.w $5 $2
+
+    # class:  $5 = class(3.5)
+    lw  $2 a1
+    fclass.s $5 $2
 

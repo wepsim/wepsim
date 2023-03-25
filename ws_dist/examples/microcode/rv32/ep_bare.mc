@@ -5,8 +5,8 @@
 
 begin
 {
-           # ensure R0 is zero
-           (EXCODE=0, T11, MR=1, SelC=0, LC=1),
+          # ensure R0 is zero
+          (EXCODE=0, T11, MR=1, SelC=0, LC=1),
 
           # if (INT) go mrti
           (A0=0, B=0, C=1, MADDR=mrti),
@@ -1088,63 +1088,6 @@ remu rd rs1 rs2 {
 
 
 #
-# RV32B
-#
-
-# MIN rd,rs1,rs2         Minimum                     rd ← min( ux(rs1) , ux(rs2) )
-min rd rs1 rs2 {
-      co=111111,
-      nwords=1,
-      rd=reg(25,21),
-      rs1=reg(20,16),
-      rs2=reg(15,11),
-      help='rd = min(ux(rs1), ux(rs2))',
-      native,
-      {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var val1 = simcore_native_get_value("BR", reg2) ;
-          var val2 = simcore_native_get_value("BR", reg3) ;
-
-          if (val1 < val2)
-               simcore_native_set_value("BR", reg1, val1) ;
-          else simcore_native_set_value("BR", reg1, val2) ;
-
-          simcore_native_go_maddr(0) ;
-      }
-}
-
-# MAX rd,rs1,rs2         Maximum                     rd ← max( ux(rs1) , ux(rs2) )
-max rd rs1 rs2 {
-      co=111111,
-      nwords=1,
-      rd=reg(25,21),
-      rs1=reg(20,16),
-      rs2=reg(15,11),
-      help='rd = max(ux(rs1), ux(rs2))',
-      native,
-      {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var val1 = simcore_native_get_value("BR", reg2) ;
-          var val2 = simcore_native_get_value("BR", reg3) ;
-
-          if (val1 > val2)
-               simcore_native_set_value("BR", reg1, val1) ;
-          else simcore_native_set_value("BR", reg1, val2) ;
-
-          simcore_native_go_maddr(0) ;
-      }
-}
-
-
-#
 # RISC-V F
 #
 
@@ -1208,7 +1151,19 @@ fcvt.w.s reg1 reg2 {
       reg2=reg(20,16),
       help='r1 = float2int(r2)',
       {
-          (MC=1, MR=0, SELA=10000, SELB=0000, MA=0, MB=0, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+          (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
+#  FCVT.S.W rd,rs1             Convert                 f(rd) ← (f32)(x(rs1))
+fcvt.s.w reg1 reg2 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      help='r1 = int2float(r2)',
+      {
+          (MC=1, MR=0, SELA=10000, MA=0, MB=10, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 

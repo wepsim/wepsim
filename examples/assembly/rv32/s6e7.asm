@@ -41,8 +41,17 @@ main:
     lw  x3, 0(x3)
     fdiv.s x5 x2 x3
 
-    # convert:  x5 = 3.5
+    # convert:  x5 = (int) 3.5
     li  x2, a1
     lw  x2, 0(x2)
     fcvt.w.s x5 x2
+
+    # convert:  x5 = (float32) 3
+    li  x2, 3
+    fcvt.s.w x5 x2
+
+    # class:    x5 = class(3.5)
+    li  x2, a1
+    lw  x2, 0(x2)
+    fclass x5 x2
 

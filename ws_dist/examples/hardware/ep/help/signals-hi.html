@@ -827,9 +827,8 @@
                   </div>
                 </td>
                 <td valign="top">
-                  <div>
-                    A<sub>int32</sub> &lt;- B<sub>ieee754</sub> (truncate)
-                  </div>
+                  <div> B=1: A<sub>int32   &lt;- ieee754</sub> (truncate) </div>
+                  <div> B=4: A<sub>ieee754 &lt;- int32</sub> </div>
                 </td>
               </tr>
               <tr>
@@ -870,6 +869,26 @@
               </tr>
             </Tbody> </तालिका>
           </Div>
+
+          <p>
+          </p>
+          <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered table-sm">
+          <thead class="table-dark">
+             <tr> <th valign="top">Class of float</th> <th valign="top">32-bits IEEE754</th> </tr>
+          </thead>
+          <tbody>  
+             <tr> <td valign="top"><div> 0 </div></td> <td valign="top"><div>             -infinite </div></td> </tr>
+             <tr> <td valign="top"><div> 1 </div></td> <td valign="top"><div>     -normalized number</div></td> </tr>
+             <tr> <td valign="top"><div> 2 </div></td> <td valign="top"><div> -non-normalized number</div></td> </tr>
+             <tr> <td valign="top"><div> 3 </div></td> <td valign="top"><div>                     -0</div></td> </tr>
+             <tr> <td valign="top"><div> 4 </div></td> <td valign="top"><div>                     +0</div></td> </tr>
+             <tr> <td valign="top"><div> 5 </div></td> <td valign="top"><div> +non-normalized number</div></td> </tr>
+             <tr> <td valign="top"><div> 6 </div></td> <td valign="top"><div>     +normalized number</div></td> </tr>
+             <tr> <td valign="top"><div> 7 </div></td> <td valign="top"><div>                  +inf </div></td> </tr>
+             <tr> <td valign="top"><div> 8 </div></td> <td valign="top"><div>       -NaN (signaling)</div></td> </tr>
+             <tr> <td valign="top"><div> 9 </div></td> <td valign="top"><div>           +NaN (quiet)</div></td> </tr>
+          </tbody> 
+          </table> 
         </Div>
 
         <div id="FLAG_O">

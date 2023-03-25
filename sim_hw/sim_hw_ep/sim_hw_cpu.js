@@ -1825,14 +1825,27 @@
                                                    var b = get_value(sim.ep.states[s_expr[3]]) ;
 
 						   var result = a ;
-                                                   if (1 == b) {
-						       result = result.toFixed(5) ;
-						    // result = float2hex(result) ; // TODO
-                                                   }
-                                                   else {
+						   switch (b)
+						   {
+						     case 1:
+						       result =  hex2float(result) ;
+						       result = Math.trunc(result) ;
+						       break;
+
+						     case 2:
 						       result =  hex2float(result) ;
 						       result = Math.round(result) ;
-                                                   }
+						       break;
+
+						     case 4:
+						       result = result.toFixed(5) ;
+						       result =    parseFloat(result) ;
+						       result = float2decimal(result) ;
+						       break;
+
+						     default:
+						       break;
+						   }
 
 						   set_value(sim.ep.states[s_expr[1]], result) ;
 
@@ -1848,16 +1861,31 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-						   var a = get_value(sim.ep.states[s_expr[2]]) ;
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
                                                    var b = get_value(sim.ep.states[s_expr[3]]) ;
 
 						   var result = a ;
-                                                   if (1 == b) {
-						       result = a.toFixed(5) ;
-                                                   }
-                                                   else {
-						       result = Math.round(a) ;
-                                                   }
+						   switch (b)
+						   {
+						     case 1:
+						       result =  hex2float(result) ;
+						       result = Math.trunc(result) ;
+						       break;
+
+						     case 2:
+						       result =  hex2float(result) ;
+						       result = Math.round(result) ;
+						       break;
+
+						     case 4:
+						       result = result.toFixed(5) ;
+						       result =    parseFloat(result) ;
+						       result = float2decimal(result) ;
+						       break;
+
+						     default:
+						       break;
+						   }
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -1871,11 +1899,10 @@
 				     types: ["E", "E"],
 				     operation: function(s_expr)
 		                                {
-						   var a = get_value(sim.ep.states[s_expr[1]]) >>> 0 ;
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
 
 						   // get float type
-						   var result = hex2float(a) ;
-	                                               result = float_class(result) ;
+						   var result = float_class(a) ;
 
 						   set_value(sim.ep.states[s_expr[1]], result) ;
 
@@ -1891,9 +1918,10 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-						   var a = get_value(sim.ep.states[s_expr[1]]) ;
+						   var a = get_value(sim.ep.states[s_expr[1]]) >>> 0 ;
 
-						   var result = a ; // TODO: fclass
+						   // get float type
+						   var result = float_class(a) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {

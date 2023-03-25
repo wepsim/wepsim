@@ -254,16 +254,6 @@ function decimal2binary ( number, size )
 	return [num_bits, size-num_bits.length] ;
 }
 
-function float2binary ( f, size )
-{
-        var buf   = new ArrayBuffer(8) ;
-        var float = new Float32Array(buf) ;
-        var uint  = new Uint32Array(buf) ;
-
-        float[0] = f ;
-        return decimal2binary(uint[0], size) ;
-}
-
 function get_inm_value ( value )
 {
         var ret1 = { } ;
