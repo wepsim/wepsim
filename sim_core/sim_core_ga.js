@@ -37,10 +37,11 @@
             if (typeof gtag !== "undefined")
             {
                 gtag('event',
-                     action,
+                     label,
                      {
-                        'event_category' : category,
-                        'event_label' : label
+                        'event_category': category,
+                        'event_action':   action,
+                        'event_label':    label
                      });
             }
         }
