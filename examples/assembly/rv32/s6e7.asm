@@ -53,5 +53,5 @@ main:
     # class:    x5 = class(3.5)
     li  x2, a1
     lw  x2, 0(x2)
-    fclass x5 x2
+    fclass.s x5 x2
 
