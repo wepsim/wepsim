@@ -753,11 +753,11 @@ sltu rd rs1 rs2 {
       {
           (ExCode=0, T11, SelC=10101, MR=0, LC=1),
           (T8, C5),
-          (SELA=10000, SELB=1011, MC=1, SELCOP=10111  23, SELP=11, M7, C7),
-          (A0=0, B=1, C=111, MADDR=bck8ftch),
+          (SELA=10000, SELB=1011, MC=1, SELCOP=10111, SELP=11, M7, C7),
+          (A0=0, B=1, C=111, MADDR=bck9ftch),
           (T5, M7=0, C7),
           (ExCode=1, T11, SelC=10101, MR=0, LC=1),
-bck8ftch: (T5, M7=0, C7),
+bck9ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
       }
 }
