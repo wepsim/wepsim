@@ -722,8 +722,8 @@
 					  "FCLASS ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "ADDU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "SUBU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-                                          "NOP_ALU",
-                                          "NOP_ALU",
+					  "MULU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "DIVU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
                                           "NOP_ALU",
                                           "NOP_ALU",
                                           "NOP_ALU",
@@ -1496,7 +1496,7 @@
                                                    return "ALU output = " + show_value(result) + " (MUL). " ;
                                                 }
 				   };
-	sim.ep.behaviors["DIV"]      = { nparameters: 4,
+	sim.ep.behaviors["DIV"] = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
@@ -1671,6 +1671,82 @@
                                                    }
 
                                                    return "ALU output = " + show_value(result) + " (SUBU). " ;
+                                                }
+				   };
+	sim.ep.behaviors["MULU"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a * b ;
+						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a * b ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU MULU with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (MULU). " ;
+                                                }
+				   };
+	sim.ep.behaviors["DIVU"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+
+						   if (0 == b) {
+						       set_value(sim.ep.states[s_expr[1]], 0) ;
+
+						       sim.ep.internal_states.alu_flags.flag_n = 0 ;
+						       sim.ep.internal_states.alu_flags.flag_z = 1 ;
+						       sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						       sim.ep.internal_states.alu_flags.flag_c = 0 ;
+                                                       return ;
+                                                   }
+
+				                   var result = Math.floor(a / b) ;
+				                   set_value(sim.ep.states[s_expr[1]], result) ;
+						   sim.ep.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+
+						   if (0 == b) {
+                                                       return "ALU DIVU zero by zero (oops!). " ;
+						   }
+
+				                   var result = Math.floor(a / b) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU DIVU with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (DIVU). " ;
                                                 }
 				   };
 	sim.ep.behaviors["FADD"] = { nparameters: 4,

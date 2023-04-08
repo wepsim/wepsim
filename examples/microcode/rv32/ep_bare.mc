@@ -305,25 +305,16 @@ bltu rs1 rs2 offset {
       rs2=reg(20,16),
       offset=address(15,0)rel,
       help='if (ux(rs1) < ux(rs2)) pc += offset',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var offset = simcore_native_get_field_from_ir(fields, 2) ;
-
-          reg1 = simcore_native_get_value("BR", reg1) ;
-          reg2 = simcore_native_get_value("BR", reg2) ;
-          if (reg1 < reg2)
-          {
-            var pc = simcore_native_get_value("CPU", "REG_PC") ;
-            if ((offset & 0x8000) > 0)
-                 offset = offset | 0xFFFF0000 ;
-            pc = pc + offset ;
-            simcore_native_set_value("CPU", "REG_PC", pc) ;
-          }
-
-          simcore_native_go_maddr(0) ;
+          (T8, C5),
+          (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
+          (A0=0, B=1, C=111, MADDR=bck6ftch),
+          (T5, M7=0, C7),
+          (T2, C4),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+bck6ftch: (T5, M7=0, C7),
+          (A0=1, B=1, C=0)
       }
 }
 
@@ -335,25 +326,16 @@ bgeu rs1 rs2 offset {
       rs2=reg(20,16),
       offset=address(15,0)rel,
       help='if (ux(rs1) >= ux(rs2)) pc += offset',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var offset = simcore_native_get_field_from_ir(fields, 2) ;
-
-          reg1 = simcore_native_get_value("BR", reg1) ;
-          reg2 = simcore_native_get_value("BR", reg2) ;
-          if (reg1 >= reg2)
-          {
-            var pc = simcore_native_get_value("CPU", "REG_PC") ;
-            if ((offset & 0x8000) > 0)
-                 offset = offset | 0xFFFF0000 ;
-            pc = pc + offset ;
-            simcore_native_set_value("CPU", "REG_PC", pc) ;
-          }
-
-          simcore_native_go_maddr(0) ;
+          (T8, C5),
+          (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
+          (A0=0, B=0, C=111, MADDR=bck7ftch),
+          (T5, M7=0, C7),
+          (T2, C4),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+bck7ftch: (T5, M7=0, C7),
+          (A0=1, B=1, C=0)
       }
 }
 
@@ -748,18 +730,15 @@ slt rd rs1 rs2 {
       rs1=reg(20,16),
       rs2=reg(15,11),
       help='rd = (rs1 < rs2) ? 1 : 0',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var rd  = simcore_native_get_field_from_ir(fields, 0) ;
-          var rs1 = simcore_native_get_field_from_ir(fields, 1) ;
-          var rs2 = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var reg1 = simcore_native_get_value("BR", rs1) ;
-          var reg2 = simcore_native_get_value("BR", rs2) ;
-           simcore_native_set_value("BR", rd, (reg1 < reg2)) ;
-
-          simcore_native_go_maddr(0) ;
+          (ExCode=0, T11, SelC=10101, MR=0, LC=1),
+          (T8, C5),
+          (SELA=10000, SELB=1011, MC=1, SELCOP=1011, SELP=11, M7, C7),
+          (A0=0, B=1, C=111, MADDR=bck8ftch),
+          (T5, M7=0, C7),
+          (ExCode=1, T11, SelC=10101, MR=0, LC=1),
+bck8ftch: (T5, M7=0, C7),
+          (A0=1, B=1, C=0)
       }
 }
 
@@ -771,18 +750,15 @@ sltu rd rs1 rs2 {
       rs1=reg(20,16),
       rs2=reg(15,11),
       help='rd = (ux(rs1) < ux(rs2)) ? 1 : 0',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var rd  = simcore_native_get_field_from_ir(fields, 0) ;
-          var rs1 = simcore_native_get_field_from_ir(fields, 1) ;
-          var rs2 = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var reg1 = simcore_native_get_value("BR", rs1) ;
-          var reg2 = simcore_native_get_value("BR", rs2) ;
-           simcore_native_set_value("BR", rd, (Math.abs(reg1) < Math.abs(reg2))) ;
-
-          simcore_native_go_maddr(0) ;
+          (ExCode=0, T11, SelC=10101, MR=0, LC=1),
+          (T8, C5),
+          (SELA=10000, SELB=1011, MC=1, SELCOP=10111  23, SELP=11, M7, C7),
+          (A0=0, B=1, C=111, MADDR=bck8ftch),
+          (T5, M7=0, C7),
+          (ExCode=1, T11, SelC=10101, MR=0, LC=1),
+bck8ftch: (T5, M7=0, C7),
+          (A0=1, B=1, C=0)
       }
 }
 
@@ -1004,49 +980,16 @@ divu rd rs1 rs2 {
       rs1=reg(20,16),
       rs2=reg(15,11),
       help='reg1 = ux(reg2) / ux(reg3)',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3 = simcore_native_get_field_from_ir(fields, 2) ;
-
-          if (simcore_native_get_value("BR", reg3) != 0)
-          {
-            var val1 = simcore_native_get_value("BR", reg2) ;
-            var val2 = simcore_native_get_value("BR", reg3) ;
-            simcore_native_set_value("BR", reg1, Math.abs(val1) / Math.abs(val2)) ;
-            simcore_native_go_maddr(0) ;
-            return ;
-          }
-
-          simcore_native_set_value("CPU", "REG_RT1", 1) ;
-
-          // push PC
-          var value  = simcore_native_get_value("CPU", "REG_PC") ;
-          var reg_sp = simcore_native_get_value("BR", 2) ;
-          reg_sp = reg_sp - 4 ;
-          simcore_native_set_value("MEMORY", reg_sp, value) ;
-          simcore_native_set_value("BR", 2, reg_sp) ;
-
-          // push SR
-          value  = simcore_native_get_value("CPU", "REG_SR") ;
-          reg_sp = simcore_native_get_value("BR", 2) ;
-          reg_sp = reg_sp - 4 ;
-          simcore_native_set_value("MEMORY", reg_sp, value) ;
-          simcore_native_set_value("BR", 2, reg_sp) ;
-
-          // MAR <- RT1*4
-          var addr = simcore_native_get_value("CPU", "REG_RT1") ;
-          addr = 4 * addr ;
-          simcore_native_set_value("CPU", "REG_MAR", addr) ;
-
-          // PC <- MBR <- MP[MAR]
-          addr = simcore_native_get_value("MEMORY", addr) ;
-          simcore_native_set_value("CPU", "REG_PC", addr) ;
-
-          // fetch
-          simcore_native_go_maddr(0) ;
+          # if (reg3 == 0)
+          (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
+          (A0=0, B=0, C=110, MADDR=fpe2),
+          # reg1 = reg2 / reg3, go fetch
+          (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=11001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
+    fpe2: # RT1 <- ExCode=1
+          (ExCode=1, T11, C4),
+          # csw_rt1(2)
+          (A0=0, B=1, C=0, MADDR=csw_rt1)
       }
 }
 
