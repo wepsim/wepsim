@@ -567,11 +567,11 @@
 
           </p>
           <div >
-            <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered table-sm">
+            <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered table-sm w-auto mx-auto">
               <thead> <tr>
                 <td valign="top">
                   <div>
-                    COP（C0P <sub> 4 </sub> -COP <sub> 0 </sub>）
+                    COP (COP <sub> 4 </sub> - COP <sub> 0 </sub>)
                   </div>
                 </td>
                 <td valign="top">
@@ -827,10 +827,24 @@
                   </div>
                 </td>
                 <td valign="top">
-                  <div> B=1: A<sub>int32   &lt;- ieee754</sub> (truncate) </div>
-                  <div> B=4: A<sub>ieee754 &lt;- int32</sub> </div>
+                  <div> convert (A) </div>
                 </td>
               </tr>
+
+              <tr>
+                <td valign="top" colspan="2" align="center">
+          <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered table-sm w-auto">
+          <thead class="table-dark">
+             <tr> <th valign="top">B</th> <th valign="top"> convert(A)</th> </tr>
+          </thead>
+          <tbody>
+             <tr> <td valign="top"><div> B=1 </div></td> <td valign="top"><div> int32   &lt;- ieee754 (truncate) </div></td> </tr>
+             <tr> <td valign="top"><div> B=4 </div></td> <td valign="top"><div> ieee754 &lt;- int32              </div></td> </tr>
+          </tbody>
+          </table>
+                </td>
+              </tr>
+
               <tr>
                 <td valign="top">
                   <div>
@@ -839,9 +853,12 @@
                 </td>
                 <td valign="top">
                   <div>
-                    浮動小数点のクラス (B)
-          <br>
-          <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered table-sm">
+                    浮動小数点のクラス (B) <span class="btn btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#classoffloat" arial-expanded="true" arial-controls="class of float">+/-</span>
+                </td>
+              <tr>
+                <td id="classoffloat" valign="top" colspan="2" align="center" class="m-2 p-2 collapse show">
+
+          <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered table-sm w-auto">
           <thead class="table-dark">
              <tr> <th valign="top">浮動小数点のクラス</th> <th valign="top">32-bits IEEE754</th> </tr>
           </thead>
@@ -869,7 +886,7 @@
                 </td>
                 <td valign="top">
                   <div>
-                    A  +  B (unsigned int. add)
+                    A  +  B (unsigned +)
                   </div>
                 </td>
               </tr>
@@ -881,8 +898,24 @@
                 </td>
                 <td valign="top">
                   <div>
-                    A  -  B (unsigned int. sub)
+                    A  -  B (unsigned -)
                   </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div> 11000 </div>
+                </td>
+                <td valign="top">
+                  <div> A  *  B (unsigned *) </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div> 11001 </div>
+                </td>
+                <td valign="top">
+                  <div> A  /  B (unsigned /) </div>
                 </td>
               </tr>
             </tbody> </table>
