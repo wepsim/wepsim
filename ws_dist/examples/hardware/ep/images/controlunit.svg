@@ -1055,7 +1055,7 @@
          id="tspan4439"
          y="760.84027"
          x="-522.85352"
-         stroke-width="0.999882">IR3 -- IR0</tspan></text>
+         stroke-width="0.999882">IR4 -- IR0</tspan></text>
     <text
        id="text3330"
        font-size="13.5108px"
@@ -1065,7 +1065,7 @@
        y="548.59412"
        x="745.70453"
        stroke-width="0.99987"
-       fill="#000000">4</text>
+       fill="#000000">5</text>
     <text
        id="text3332"
        font-size="13.5108px"
@@ -2225,7 +2225,7 @@
        y="346.50204"
        x="186.72241"
        stroke-width="0.999888"
-       fill="#000000">4</text>
+       fill="#000000">5</text>
     <path
        id="path3110-0-7"
        stroke-linejoin="round"

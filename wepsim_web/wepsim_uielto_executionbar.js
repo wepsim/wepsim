@@ -65,14 +65,14 @@
 	      render_btns ( name )
 	      {
                     var o = '' ;
-		    var o_style = 'style="background-color:#CCCCCC; border-color:white; border-width:1 1 1 1px;"' ;
+		    var o_style = 'style="background-color:#CCCCCC;"' ;
 
                     // load html
                     switch (name)
                     {
                        case "btn_reset":
 			     o += '<button id="btn_reset_' + this.name_str + '" ' + o_style +
-				  '        class="btn btn-light col  pb-1 px-1 me-1"' +
+				  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="t" ' +
 				  '        onclick="wsweb_execution_reset();' +
 				  '                 return false;">' ;
@@ -84,7 +84,7 @@
 
                        case "btn_emins":
 			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col user_microcode  pb-1 px-1 me-1"' +
+		                  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary user_microcode"' +
 		                  '        accesskey="m" ' +
 			          '        onclick="wsweb_execution_microinstruction();' +
                                   '                 return false;">' ;
@@ -96,7 +96,7 @@
 
                        case "btn_eins":
 			     o += '<button id="btn_next_instruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col  pb-1 px-1 me-1"' +
+		                  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="i" ' +
 			          '        onclick="wsweb_execution_instruction();' +
                                   '                 return false;">' ;
@@ -108,7 +108,7 @@
 
                        case "btn_run":
 			     o += '<button id="btn_run_stop_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col  pb-1 px-1 me-1"' +
+		                  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="r" ' +
                                   '        onclick="wsweb_execution_run();' +
                                   '                 return false;">' ;

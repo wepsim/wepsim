@@ -697,7 +697,7 @@
 			            draw_data: [[], ['svg_p:path3081-3-8-5-3']],
 			            draw_name: [[], ['svg_p:path3306-8-7-6']] };
 
-	 sim.ep.signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", forbidden: true,
+	 sim.ep.signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
 			       behavior: ["NOP_ALU; UPDATE_NZVC",
                                           "AND ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "OR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
@@ -713,7 +713,23 @@
 					  "MUL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "DIV ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "MOD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "LUI ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3"],
+					  "LUI ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FADD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FSUB ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FMUL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FDIV ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FCVT ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FCLASS ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADDU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "SUBU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "MULU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "DIVU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+                                          "NOP_ALU",
+                                          "NOP_ALU",
+                                          "NOP_ALU",
+                                          "NOP_ALU",
+                                          "NOP_ALU",
+                                          "NOP_ALU"],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_p:text3303'],
 			       draw_data: [['svg_p:path3237', 'svg_p:path3239',
@@ -746,7 +762,7 @@
 			        fire_name: ['svg_cu:text3172'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
-	 sim.ep.signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
+	 sim.ep.signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			        behavior:  ["FIRE MC"],
                                 depends_on: ["COP"],
 			        fire_name: ['svg_cu:text3312'],
@@ -802,7 +818,7 @@
 			       draw_name: [['svg_p:path3359']] };
 
 	 sim.ep.signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ['MBIT COP REG_IR 0 4; FIRE COP;',
+			       behavior: ['MBIT COP REG_IR 0 5; FIRE COP;',
 					  'CP_FIELD COP REG_MICROINS/SELCOP; FIRE COP;'],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
@@ -1080,11 +1096,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-                                                   var r = s_expr[2].split('/') ;
-						   var sim_elto_org = get_reference(r[0]) ;
-
 						   var newval = 0 ;
-						   var r = s_expr[2].split('/') ;
+                                                   var r = s_expr[2].split('/') ;
 						   var sim_elto_org = get_reference(r[0]) ;
 						   var sim_elto_dst = get_reference(r[1]) ;
 						   if (typeof sim_elto_dst == "undefined")
@@ -1450,7 +1463,7 @@
                                                    return "ALU output = " + show_value(result) + " (SUB). " ;
                                                 }
 				   };
-	sim.ep.behaviors["MUL"]      = { nparameters: 4,
+	sim.ep.behaviors["MUL"]  = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
@@ -1483,7 +1496,7 @@
                                                    return "ALU output = " + show_value(result) + " (MUL). " ;
                                                 }
 				   };
-	sim.ep.behaviors["DIV"]      = { nparameters: 4,
+	sim.ep.behaviors["DIV"] = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
@@ -1592,6 +1605,406 @@
                                                    }
 
                                                    return "ALU output = " + show_value(result) + " (LUI). " ;
+                                                }
+				   };
+	sim.ep.behaviors["ADDU"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a + b ;
+						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a + b ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU ADDU with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (ADDU). " ;
+                                                }
+				   };
+	sim.ep.behaviors["SUBU"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a - b ;
+						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a - b ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU SUBU with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (SUBU). " ;
+                                                }
+				   };
+	sim.ep.behaviors["MULU"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a * b ;
+						   set_value(sim.ep.states[s_expr[1]], result >>> 0) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+						   var result = a * b ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU MULU with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (MULU). " ;
+                                                }
+				   };
+	sim.ep.behaviors["DIVU"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+
+						   if (0 == b) {
+						       set_value(sim.ep.states[s_expr[1]], 0) ;
+
+						       sim.ep.internal_states.alu_flags.flag_n = 0 ;
+						       sim.ep.internal_states.alu_flags.flag_z = 1 ;
+						       sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						       sim.ep.internal_states.alu_flags.flag_c = 0 ;
+                                                       return ;
+                                                   }
+
+				                   var result = Math.floor(a / b) ;
+				                   set_value(sim.ep.states[s_expr[1]], result) ;
+						   sim.ep.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) >>> 0 ;
+
+						   if (0 == b) {
+                                                       return "ALU DIVU zero by zero (oops!). " ;
+						   }
+
+				                   var result = Math.floor(a / b) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU DIVU with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (DIVU). " ;
+                                                }
+				   };
+	sim.ep.behaviors["FADD"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = hex2float(a) + hex2float(b) ;
+
+						   set_value(sim.ep.states[s_expr[1]], float32_to_uint(result)) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = hex2float(a) + hex2float(b) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU FADD with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (FADD). " ;
+                                                }
+				   };
+	sim.ep.behaviors["FSUB"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = hex2float(a) - hex2float(b) ;
+
+						   set_value(sim.ep.states[s_expr[1]], float32_to_uint(result)) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = hex2float(a) - hex2float(b) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU FSUB with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (FSUB). " ;
+                                                }
+				   };
+	sim.ep.behaviors["FMUL"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = hex2float(a) * hex2float(b) ;
+
+						   set_value(sim.ep.states[s_expr[1]], float32_to_uint(result)) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = hex2float(a) * hex2float(b) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU FMUL with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (FMUL). " ;
+                                                }
+				   };
+	sim.ep.behaviors["FDIV"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = hex2float(a) / hex2float(b) ; // TODO
+
+						   set_value(sim.ep.states[s_expr[1]], float32_to_uint(result)) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = hex2float(a) - hex2float(b) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU FDIV with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (FDIV). " ;
+                                                }
+				   };
+	sim.ep.behaviors["FCVT"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = a ;
+						   switch (b)
+						   {
+						     case 1:
+						       result =  hex2float(result) ;
+						       result = Math.trunc(result) ;
+						       break;
+
+						     case 2:
+						       result =  hex2float(result) ;
+						       result = Math.round(result) ;
+						       break;
+
+						     case 4:
+						       result = result.toFixed(5) ;
+						       result =    parseFloat(result) ;
+						       result = float2decimal(result) ;
+						       break;
+
+						     default:
+						       break;
+						   }
+
+						   set_value(sim.ep.states[s_expr[1]], result) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim.ep.states[s_expr[3]]) ;
+
+						   var result = a ;
+						   switch (b)
+						   {
+						     case 1:
+						       result =  hex2float(result) ;
+						       result = Math.trunc(result) ;
+						       break;
+
+						     case 2:
+						       result =  hex2float(result) ;
+						       result = Math.round(result) ;
+						       break;
+
+						     case 4:
+						       result = result.toFixed(5) ;
+						       result =    parseFloat(result) ;
+						       result = float2decimal(result) ;
+						       break;
+
+						     default:
+						       break;
+						   }
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU FCVT with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (FCVT). " ;
+                                                }
+				   };
+	sim.ep.behaviors["FCLASS"] = { nparameters: 3,
+				     types: ["E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim.ep.states[s_expr[2]]) >>> 0 ;
+
+						   // get float type
+						   var result = float_class(a) ;
+
+						   set_value(sim.ep.states[s_expr[1]], result) ;
+
+						   sim.ep.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim.ep.internal_states.alu_flags.flag_c = 0 ;
+
+						   sim.ep.internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							sim.ep.internal_states.alu_flags.flag_v = 1 ;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim.ep.states[s_expr[1]]) >>> 0 ;
+
+						   // get float type
+						   var result = float_class(a) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU FCLASS with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (FCLASS). " ;
                                                 }
 				   };
 	sim.ep.behaviors["PLUS1"]    = { nparameters: 3,

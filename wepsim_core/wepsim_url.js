@@ -241,9 +241,9 @@
                     var max_json_size = get_cfg('max_json_size') ;
 		    if (size < max_json_size) {
 	                $.getJSON(json_url, do_after).fail(function(e) {
-				                              wepsim_notify_do_notify('getJSON', 
-									              'There was some problem for getting ' + json_url, 
-									              'warning', 
+				                              wepsim_notify_do_notify('getJSON',
+									              'There was some problem for getting ' + json_url,
+									              'warning',
 									              0);
 			                                   }) ;
 		    }
