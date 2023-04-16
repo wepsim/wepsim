@@ -51,16 +51,15 @@
 	      {
                    var o1  = '' ;
 
-                   o1 += '<button type="button" class="col-12 btn btn-light shadow-sm"' +
+                   o1 += '<button type="button"' +
+                         '        class="col-12 btn btn-light shadow-sm border border-secondary"' +
                          '	  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
                          '	  title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."' +
-                         '	  style="border-color: #BBBBBB;"' +
                          '	  id="select5b"' +
                          '	  onclick="wsweb_select_refresh();' +
                          '		   return false;">Refresh</button>' +
                          '<button id="dd2" type="button" ' +
-                         '        class="btn btn-light dropdown-toggle dropdown-toggle-split"' +
-                         '	  style="border-color: #BBBBBB;"' +
+                         '        class="btn btn-light dropdown-toggle dropdown-toggle-split border border-secondary border border-secondary"' +
                          '	  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                          '<span class="visually-hidden sr-only">Toggle Dropdown</span>' +
                          '</button>' +

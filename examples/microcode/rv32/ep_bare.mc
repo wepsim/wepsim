@@ -5,8 +5,8 @@
 
 begin
 {
-           # ensure R0 is zero
-           (EXCODE=0, T11, MR=1, SelC=0, LC=1),
+          # ensure R0 is zero
+          (EXCODE=0, T11, MR=1, SelC=0, LC=1),
 
           # if (INT) go mrti
           (A0=0, B=0, C=1, MADDR=mrti),
@@ -122,7 +122,7 @@ out reg val {
 # Power consumption
 #
 
-# LDE rd      Load Energy     rd ← ux(energy_acc) 
+# LDE rd      Load Energy     rd ← ux(energy_acc)
 lde reg1  {
       co=111111,
       nwords=1,
@@ -305,25 +305,16 @@ bltu rs1 rs2 offset {
       rs2=reg(20,16),
       offset=address(15,0)rel,
       help='if (ux(rs1) < ux(rs2)) pc += offset',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var offset = simcore_native_get_field_from_ir(fields, 2) ;
-
-          reg1 = simcore_native_get_value("BR", reg1) ;
-          reg2 = simcore_native_get_value("BR", reg2) ;
-          if (reg1 < reg2)
-          {
-            var pc = simcore_native_get_value("CPU", "REG_PC") ;
-            if ((offset & 0x8000) > 0)
-                 offset = offset | 0xFFFF0000 ;
-            pc = pc + offset ;
-            simcore_native_set_value("CPU", "REG_PC", pc) ;
-          }
-
-          simcore_native_go_maddr(0) ;
+          (T8, C5),
+          (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
+          (A0=0, B=1, C=111, MADDR=bck6ftch),
+          (T5, M7=0, C7),
+          (T2, C4),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+bck6ftch: (T5, M7=0, C7),
+          (A0=1, B=1, C=0)
       }
 }
 
@@ -335,25 +326,16 @@ bgeu rs1 rs2 offset {
       rs2=reg(20,16),
       offset=address(15,0)rel,
       help='if (ux(rs1) >= ux(rs2)) pc += offset',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var offset = simcore_native_get_field_from_ir(fields, 2) ;
-
-          reg1 = simcore_native_get_value("BR", reg1) ;
-          reg2 = simcore_native_get_value("BR", reg2) ;
-          if (reg1 >= reg2)
-          {
-            var pc = simcore_native_get_value("CPU", "REG_PC") ;
-            if ((offset & 0x8000) > 0)
-                 offset = offset | 0xFFFF0000 ;
-            pc = pc + offset ;
-            simcore_native_set_value("CPU", "REG_PC", pc) ;
-          }
-
-          simcore_native_go_maddr(0) ;
+          (T8, C5),
+          (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
+          (A0=0, B=0, C=111, MADDR=bck7ftch),
+          (T5, M7=0, C7),
+          (T2, C4),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+bck7ftch: (T5, M7=0, C7),
+          (A0=1, B=1, C=0)
       }
 }
 
@@ -748,18 +730,15 @@ slt rd rs1 rs2 {
       rs1=reg(20,16),
       rs2=reg(15,11),
       help='rd = (rs1 < rs2) ? 1 : 0',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var rd  = simcore_native_get_field_from_ir(fields, 0) ;
-          var rs1 = simcore_native_get_field_from_ir(fields, 1) ;
-          var rs2 = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var reg1 = simcore_native_get_value("BR", rs1) ;
-          var reg2 = simcore_native_get_value("BR", rs2) ;
-           simcore_native_set_value("BR", rd, (reg1 < reg2)) ;
-
-          simcore_native_go_maddr(0) ;
+          (ExCode=0, T11, SelC=10101, MR=0, LC=1),
+          (T8, C5),
+          (SELA=10000, SELB=1011, MC=1, SELCOP=1011, SELP=11, M7, C7),
+          (A0=0, B=1, C=111, MADDR=bck8ftch),
+          (T5, M7=0, C7),
+          (ExCode=1, T11, SelC=10101, MR=0, LC=1),
+bck8ftch: (T5, M7=0, C7),
+          (A0=1, B=1, C=0)
       }
 }
 
@@ -771,18 +750,15 @@ sltu rd rs1 rs2 {
       rs1=reg(20,16),
       rs2=reg(15,11),
       help='rd = (ux(rs1) < ux(rs2)) ? 1 : 0',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var rd  = simcore_native_get_field_from_ir(fields, 0) ;
-          var rs1 = simcore_native_get_field_from_ir(fields, 1) ;
-          var rs2 = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var reg1 = simcore_native_get_value("BR", rs1) ;
-          var reg2 = simcore_native_get_value("BR", rs2) ;
-           simcore_native_set_value("BR", rd, (Math.abs(reg1) < Math.abs(reg2))) ;
-
-          simcore_native_go_maddr(0) ;
+          (ExCode=0, T11, SelC=10101, MR=0, LC=1),
+          (T8, C5),
+          (SELA=10000, SELB=1011, MC=1, SELCOP=10111, SELP=11, M7, C7),
+          (A0=0, B=1, C=111, MADDR=bck9ftch),
+          (T5, M7=0, C7),
+          (ExCode=1, T11, SelC=10101, MR=0, LC=1),
+bck9ftch: (T5, M7=0, C7),
+          (A0=1, B=1, C=0)
       }
 }
 
@@ -863,7 +839,7 @@ and reg1 reg2 reg3 {
       }
 }
 
-#  FENCE pred,succ         Fence         
+#  FENCE pred,succ         Fence
 fence pred succ {
       co=111111,
       nwords=1,
@@ -874,7 +850,7 @@ fence pred succ {
       }
 }
 
-#  FENCE.I             Fence Instruction         
+#  FENCE.I             Fence Instruction
 fence.i {
       co=111111,
       nwords=1,
@@ -1004,49 +980,16 @@ divu rd rs1 rs2 {
       rs1=reg(20,16),
       rs2=reg(15,11),
       help='reg1 = ux(reg2) / ux(reg3)',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3 = simcore_native_get_field_from_ir(fields, 2) ;
-
-          if (simcore_native_get_value("BR", reg3) != 0)
-          {
-            var val1 = simcore_native_get_value("BR", reg2) ;
-            var val2 = simcore_native_get_value("BR", reg3) ;
-            simcore_native_set_value("BR", reg1, Math.abs(val1) / Math.abs(val2)) ;
-            simcore_native_go_maddr(0) ;
-            return ;
-          }
-
-          simcore_native_set_value("CPU", "REG_RT1", 1) ;
-
-          // push PC
-          var value  = simcore_native_get_value("CPU", "REG_PC") ;
-          var reg_sp = simcore_native_get_value("BR", 2) ;
-          reg_sp = reg_sp - 4 ;
-          simcore_native_set_value("MEMORY", reg_sp, value) ;
-          simcore_native_set_value("BR", 2, reg_sp) ;
-
-          // push SR
-          value  = simcore_native_get_value("CPU", "REG_SR") ;
-          reg_sp = simcore_native_get_value("BR", 2) ;
-          reg_sp = reg_sp - 4 ;
-          simcore_native_set_value("MEMORY", reg_sp, value) ;
-          simcore_native_set_value("BR", 2, reg_sp) ;
-
-          // MAR <- RT1*4
-          var addr = simcore_native_get_value("CPU", "REG_RT1") ;
-          addr = 4 * addr ;
-          simcore_native_set_value("CPU", "REG_MAR", addr) ;
-
-          // PC <- MBR <- MP[MAR]
-          addr = simcore_native_get_value("MEMORY", addr) ;
-          simcore_native_set_value("CPU", "REG_PC", addr) ;
-
-          // fetch
-          simcore_native_go_maddr(0) ;
+          # if (reg3 == 0)
+          (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
+          (A0=0, B=0, C=110, MADDR=fpe2),
+          # reg1 = reg2 / reg3, go fetch
+          (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=11001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
+    fpe2: # RT1 <- ExCode=1
+          (ExCode=1, T11, C4),
+          # csw_rt1(2)
+          (A0=0, B=1, C=0, MADDR=csw_rt1)
       }
 }
 
@@ -1088,124 +1031,94 @@ remu rd rs1 rs2 {
 
 
 #
-# RV32B
+# RISC-V F
 #
 
-# MIN rd,rs1,rs2         Minimum                     rd ← min( ux(rs1) , ux(rs2) )
-min rd rs1 rs2 {
-      co=111111,
-      nwords=1,
-      rd=reg(25,21),
-      rs1=reg(20,16),
-      rs2=reg(15,11),
-      help='rd = min(ux(rs1), ux(rs2))',
-      native,
-      {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var val1 = simcore_native_get_value("BR", reg2) ;
-          var val2 = simcore_native_get_value("BR", reg3) ;
-
-          if (val1 < val2)
-               simcore_native_set_value("BR", reg1, val1) ;
-          else simcore_native_set_value("BR", reg1, val2) ;
-
-          simcore_native_go_maddr(0) ;
-      }
-}
-
-# MAX rd,rs1,rs2         Maximum                     rd ← max( ux(rs1) , ux(rs2) )
-max rd rs1 rs2 {
-      co=111111,
-      nwords=1,
-      rd=reg(25,21),
-      rs1=reg(20,16),
-      rs2=reg(15,11),
-      help='rd = max(ux(rs1), ux(rs2))',
-      native,
-      {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var val1 = simcore_native_get_value("BR", reg2) ;
-          var val2 = simcore_native_get_value("BR", reg3) ;
-
-          if (val1 > val2)
-               simcore_native_set_value("BR", reg1, val1) ;
-          else simcore_native_set_value("BR", reg1, val2) ;
-
-          simcore_native_go_maddr(0) ;
-      }
-}
-
-#  ANDN rd,rs1,rs2         And with rs2 inverted                     rd ← ux(rs1) ∧ ~ux(rs2)
-andn reg1 reg2 reg3 {
+#  FADD.S rd,rs1,rs2         Add                      f(rd) ← f(rs1) + f(rs2)
+fadd.s reg1 reg2 reg3 {
       co=111111,
       nwords=1,
       reg1=reg(25,21),
       reg2=reg(20,16),
       reg3=reg(15,11),
-      help='reg1 = ux(rs1) & ~ux(rs2)',
-      native,
+      help='r1 = r2 + r3',
       {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var result = simcore_native_get_value("BR", reg2) & ~simcore_native_get_value("BR", reg3) ;
-          simcore_native_set_value("BR", reg1, result) ;
-
-          simcore_native_go_maddr(0) ;
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10000, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
-#  ORN rd,rs1,rs2         Or with rs2 inverted                     rd ← ux(rs1) v ~ux(rs2)
-orn reg1 reg2 reg3 {
+#  FSUB.S rd,rs1,rs2         Subtract                 f(rd) ← f(rs1) - f(rs2)
+fsub.s reg1 reg2 reg3 {
       co=111111,
       nwords=1,
       reg1=reg(25,21),
       reg2=reg(20,16),
       reg3=reg(15,11),
-      help='reg1 = ux(rs1) | ~ux(rs2)',
-      native,
+      help='r1 = r2 - r3',
       {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var result = simcore_native_get_value("BR", reg2) | ~simcore_native_get_value("BR", reg3) ;
-          simcore_native_set_value("BR", reg1, result) ;
-
-          simcore_native_go_maddr(0) ;
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 
-#  xnor rd,rs1,rs2         Xnor with rs2 inverted                     rd ← ux(rs1) xor ~ux(rs2)
-xnor reg1 reg2 reg3 {
+#  FMUL.S rd,rs1,rs2         Multiply                 f(rd) ← f(rs1) * f(rs2)
+fmul.s reg1 reg2 reg3 {
       co=111111,
       nwords=1,
       reg1=reg(25,21),
       reg2=reg(20,16),
       reg3=reg(15,11),
-      help='reg1 = ux(rs1) xor ~ux(rs2)',
-      native,
+      help='r1 = r2 * r3',
       {
-          // fields is a default parameter with the instruction field information
-          var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
-          var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
 
-          var result = simcore_native_get_value("BR", reg2) ^ ~simcore_native_get_value("BR", reg3) ;
-          simcore_native_set_value("BR", reg1, result) ;
+#  FDIV.S rd,rs1,rs2         Divide                 f(rd) ← f(rs1) / f(rs2)
+fdiv.s reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
+      help='r1 = r2 / r3',
+      {
+          (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=10011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
 
-          simcore_native_go_maddr(0) ;
+#  FCVT.W.S rd,rs1             Convert                 f(rd) ← sext(s32_{f32}(f(rs1)))
+fcvt.w.s reg1 reg2 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      help='r1 = float2int(r2)',
+      {
+          (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
+#  FCVT.S.W rd,rs1             Convert                 f(rd) ← (f32)(x(rs1))
+fcvt.s.w reg1 reg2 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      help='r1 = int2float(r2)',
+      {
+          (MC=1, MR=0, SELA=10000, MA=0, MB=10, SELCOP=10100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+      }
+}
+
+#  FCLASS.S rd,rs1             Convert                 x(rd) ← classify(f(rs1))
+fclass.s reg1 reg2 {
+      co=111111,
+      nwords=1,
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      help='r1 = classify(r2)',
+      {
+          (MC=1, MR=0, SELA=10000, SELB=0000, MA=0, MB=0, SELCOP=10101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
       }
 }
 

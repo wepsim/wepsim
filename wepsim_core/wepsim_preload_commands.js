@@ -107,7 +107,14 @@
 
                          try
                          {
-                            mc_code    = LZString.decompressFromEncodedURIComponent( hash.mc ) ;
+			    if ('cache' == hash.mc) {
+			         var cpts = wepsim_checkpoint_backup_load() ;
+                                 if (cpts.length != 0)
+			             mc_code = cpts[0].firmware ;
+                            }
+                            else {
+                                 mc_code = LZString.decompressFromEncodedURIComponent( hash.mc ) ;
+                            }
 			    result_txt = ' has been loaded' ;
                          }
                          catch (e) {
@@ -134,7 +141,14 @@
 
                          try
                          {
-                            asm_code   = LZString.decompressFromEncodedURIComponent( hash.asm ) ;
+			    if ('cache' == hash.asm) {
+			         var cpts = wepsim_checkpoint_backup_load() ;
+                                 if (cpts.length != 0)
+			             asm_code = cpts[0].assembly ;
+                            }
+                            else {
+                                 asm_code = LZString.decompressFromEncodedURIComponent( hash.asm ) ;
+                            }
 			    result_txt = ' has been loaded' ;
                          }
                          catch (e) {

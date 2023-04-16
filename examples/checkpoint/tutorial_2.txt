@@ -14,7 +14,7 @@
       "mimetype": "application/javascript",
       "file_extension": ".js"
     },
-    "title": "WepSIM 2.2.1",
+    "title": "WepSIM 2.2.2",
     "nteract": {
       "version": "nteract-on-jupyter@2.0.0"
     }

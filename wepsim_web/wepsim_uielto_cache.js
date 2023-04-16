@@ -66,8 +66,9 @@
                     var cm_ref = simhw_internalState('CM') ;
 
                     // information associated as HTML
-                    var o1 = wepsim_show_cache_memory(cm_ref) ;
+                    var o1 = wepsim_show_cache_memory_skel(cm_ref) ;
                     $(div_hash).html(o1) ;
+                    wepsim_show_cache_memory_all(cm_ref) ;
 	      }
         }
 
@@ -109,8 +110,6 @@
 
         function wepsim_show_cache_stats ( level, memory )
         {
-            var o = "" ;
-
 	    // hit/miss
             var hit_ratio  = 0.0 ;
             var miss_ratio = 0.0 ;
@@ -123,21 +122,13 @@
             var tag_bin =    parseInt(memory.stats.last_parts.tag).toString(2).padStart(memory.cfg.tag_size, '0') ;
             var set_bin =    parseInt(memory.stats.last_parts.set).toString(2).padStart(memory.cfg.set_size, '0') ;
             var off_bin = parseInt(memory.stats.last_parts.offset).toString(2).padStart(memory.cfg.off_size, '0') ;
+
             var o1 = '' ;
             if (memory.stats.last_h_m != '') {
                 o1 = ' is a ' + "<span class='badge bg-secondary'>" + memory.stats.last_h_m + "</span>" ;
             }
 
-            o += "<div class='accordion-item'>" +
-                 "  <h2 class='accordion-header' id='cm-stats'>" +
-                 "    <button class='accordion-button p-1 fs-5' type='button' " +
-                 "            data-bs-toggle='collapse' data-bs-target='#cm-stats-collapse-" + level + "' " +
-                 "            aria-expanded='true' aria-controls='cm-stats-collapse'>Stats</button>" +
-                 "  </h2>" +
-                 "  <div id='cm-stats-collapse-" + level + "' class='accordion-collapse collapse show' " +
-                 "       aria-labelledby='cm-stats'>" +
-                 "  <div class='accordion-body px-2 py-3'>" +
-                 "  <ul class='mb-1 ps-3'>" +
+            o1 = "  <ul class='mb-1 ps-3'>" +
                  "  <li> " +
                  "#access <span class='badge bg-info'>" + memory.stats.n_access + "</span> = " +
                  "#hits   <span class='badge bg-info'>" + memory.stats.n_hits   + "</span> + " +
@@ -154,17 +145,15 @@
                  o1 +
                  "  </li>\n" +
                     wepsim_show_table_info(memory, tag_bin, set_bin, off_bin) +
-                 "  </ul>" +
-                 "  </div>" +
-                 "  </div>" +
-                 "</div>" ;
+                 "  </ul>" ;
 
-            return o ;
+            // return stats
+            return o1 ;
         }
 
         function wepsim_show_cache_cfg ( level, memory )
         {
-            var o = "" ;
+            var o1 = "" ;
 
             // cache type...
             var cm_type = '' ;
@@ -178,34 +167,20 @@
                 cm_type = 'set-associative' ;
             }
 
-	    // cfg
-            o = "<div class='accordion-item'>" +
-                "  <h2 class='accordion-header' id='cm-cfg'>" +
-                "    <button class='accordion-button p-1 fs-5 collapsed bg-light' type='button' " +
-                "            data-bs-toggle='collapse' data-bs-target='#cm-cfg-collapse-" + level + "' " +
-                "            aria-expanded='false' " +
-                "            aria-controls='cm-cfg-collapse'>Configuration</button>" +
-                "  </h2>" +
-                "  <div id='cm-cfg-collapse-" + level + "' class='accordion-collapse collapse' " +
-                "       aria-labelledby='cm-cfg'>" +
-                "  <div class='accordion-body px-2 py-3'>" +
-                "<ul class='mb-1 ps-3'>\n" +
-                "<li> size of fields (in bits):</li>\n" +
-                wepsim_show_table_info(memory, memory.cfg.tag_size, memory.cfg.set_size, memory.cfg.off_size) +
-                "<li> type: <span class='badge bg-secondary'>" + cm_type + "</span></li>\n" +
-                "<li> replace policy: <span class='badge bg-secondary'>" + memory.cfg.replace_pol + "</span></li>\n" +
-                "<li> split/unified: <span class='badge bg-secondary'>" + memory.cfg.su_pol + "</span></li>\n" +
-                "</ul>" +
-                "  </div>" +
-                "  </div>" +
-                "</div>" ;
+            o1 = "<ul class='mb-1 ps-3'>\n" +
+                 "<li> size of fields (in bits):</li>\n" +
+                 wepsim_show_table_info(memory, memory.cfg.tag_size, memory.cfg.set_size, memory.cfg.off_size) +
+                 "<li> type:           <span class='badge bg-secondary'>" + cm_type + "</span></li>\n" +
+                 "<li> replace policy: <span class='badge bg-secondary'>" + memory.cfg.replace_pol + "</span></li>\n" +
+                 "<li> split/unified:  <span class='badge bg-secondary'>" + memory.cfg.su_pol + "</span></li>\n" +
+                 "</ul>" ;
 
-            return o ;
+	    // return cfg
+            return o1 ;
         }
 
         function wepsim_show_cache_content ( level, memory )
         {
-            var o  = "" ;
             var o1 = "" ;
 
 	    // sets/tags
@@ -239,82 +214,154 @@
                 o1 = "&lt;Empty&gt;" ;
             }
 
-	    // content
-            o = "<div class='accordion-item'>" +
-                "  <h2 class='accordion-header' id='cm-cnt-" + level + "'>" +
-                "    <button class='accordion-button p-1 fs-5 collapsed bg-light' type='button' " +
-                "            data-bs-toggle='collapse' data-bs-target='#cm-cnt-collapse-" + level + "' " +
-                "            aria-expanded='false' aria-controls='cm-cnt-collapse'>Sets & Tags</button>" +
-                "  </h2>" +
-                "  <div id='cm-cnt-collapse-" + level + "' class='accordion-collapse collapse' " +
-                "       aria-labelledby='cm-cnt-" + level + "'>" +
-                "  <div class='accordion-body px-2 py-3'>" + o1 + "</div>" +
-                "  </div>" +
-                "</div>" ;
-
-            return o ;
-        }
-
-        function wepsim_show_cache_info ( level, memory )
-        {
-              var o1 = '' ;
-
-              // cache_memory in HTML
-	      o1 += "<div class='row p-2'>" +
-		    "<div class='col-auto'>" +
-                    "<h5>Cache-" + level + "</h5>" +
-		    "</div>" +
-		    "<div class='col'>" +
-		    "<span class='btn btn-sm btn-info text-white py-0' " +
-                    "      onclick='wepsim_show_cache_memory_i(" + level + ");'" +
-                    ">Refresh</span>" +
-		    "</div>" +
-		    "</div>" +
-                    "<div class='accordion ms-3 mb-3 accordion-flush' id='cm-info-" + level + "'>" +
-                       wepsim_show_cache_stats(level, memory) +
-                       wepsim_show_cache_cfg  (level, memory) +
-                       wepsim_show_cache_content(level, memory) +
-		    "</div>" ;
-
-              // load HTML
-              return o1 ;
+	    // return content
+            return o1 ;
         }
 
         function wepsim_show_cache_memory_i ( level )
         {
+              // check arguments
               var cm_ref = simhw_internalState('CM') ;
               if (typeof cm_ref == "undefined") return ;
 
               var cm_i   = cm_ref[level-1] ;
               if (typeof cm_i == "undefined") return ;
 
-              var o1 = wepsim_show_cache_stats(level, cm_i) +
-                       wepsim_show_cache_cfg  (level, cm_i) +
-                       wepsim_show_cache_content(level, cm_i) ;
+              // (1/3) update stats
+              o1 = wepsim_show_cache_stats(level, cm_i) ;
+              $("#cm-info-stat-ph-" + level).html(o1) ;
 
-              $("#cm-info-" + level).html(o1) ;
+              // (2/3) update configuration
+              o1 = wepsim_show_cache_cfg(level, cm_i) ;
+              $("#cm-info-cfg-ph-" + level).html(o1) ;
+
+              // (3/3) update content
+              o1 = wepsim_show_cache_content(level, cm_i) ;
+              $("#cm-info-cnt-ph-" + level).html(o1) ;
+        }
+
+        function wepsim_show_cache_memory_skel ( cache_memory )
+        {
+              var o1 = "" ;
+
+              if ( (typeof cache_memory == "undefined") || (Object.keys(cache_memory).length == 0) )
+              {
+                    o1 = "<h5><span data-langkey='Processor'>Processor</span></h5>" +
+                         "<div class='vr' style='width:3px'></div>" +
+                         "<br>" +
+                         "No cache memory was already defined.<br>" +
+                         "Please use the " +
+		         "<span class='btn btn-sm btn-info text-white py-0' " +
+                         "      onclick='wsweb_set_details_select(29);'>cache configuration</span> first." +
+                         "<br>" +
+                         "<div class='vr' style='width:3px'></div>" +
+                         "<h5><span data-langkey='Memory'>Memory</span></h5>" ;
+
+                    return o1 ;
+              }
+
+              o1 = "<h5><span data-langkey='Processor'>Processor</span></h5>" +
+                   "<div class='vr' style='width:3px'></div>" ;
+
+	      // cache_memory in HTML
+              for (var i=0; i<cache_memory.length; i++)
+              {
+	      o1 += "<div class='row p-2'>" +
+		    "<div class='col-auto'>" +
+		    "<h5>Cache-" + (i+1) + "</h5>" +
+		    "</div>" +
+		    "<div class='col'>" +
+		    "<span class='btn btn-sm btn-info text-white py-0' " +
+		    "      onclick='wepsim_show_cache_memory_i(" + (i+1) + ");'" +
+		    ">Refresh</span>" +
+		    "</div>" +
+		    "</div>" +
+                    "" +
+		    "<div class='accordion ms-3 mb-3 accordion-flush' id='cm-info-" + (i+1) + "'>" +
+                    "" +
+                    "  <div class='accordion-item'>" +
+                    "    <h2 class='accordion-header' id='cm-stats'>" +
+                    "      <button class='accordion-button p-1 fs-5' type='button' " +
+                    "              data-bs-toggle='collapse' data-bs-target='#cm-stats-collapse-" + (i+1) + "' " +
+                    "              aria-expanded='true' aria-controls='cm-stats-collapse'>Stats</button>" +
+                    "    </h2>" +
+                    "    <div id='cm-stats-collapse-" + (i+1) + "' class='accordion-collapse collapse show' " +
+                    "         aria-labelledby='cm-stats'>" +
+		    "         <div id='cm-info-stat-ph-" + (i+1) + "' class='accordion-body px-2 py-3'>" +
+                    "         " + // wepsim_show_cache_stats((i+1), cache_memory[i]) +
+                    "         </div>" +
+                    "    </div>" +
+                    "  </div>" +
+                    "" +
+                    "  <div class='accordion-item'>" +
+                    "    <h2 class='accordion-header' id='cm-cfg'>" +
+                    "      <button class='accordion-button p-1 fs-5 collapsed bg-light' type='button' " +
+                    "              data-bs-toggle='collapse' data-bs-target='#cm-cfg-collapse-" + (i+1) + "' " +
+                    "              aria-expanded='false' " +
+                    "              aria-controls='cm-cfg-collapse'>Configuration</button>" +
+                    "    </h2>" +
+                    "    <div id='cm-cfg-collapse-" + (i+1) + "' class='accordion-collapse collapse' " +
+                    "         aria-labelledby='cm-cfg'>" +
+		    "         <div id='cm-info-cfg-ph-" + (i+1) + "' class='accordion-body px-2 py-3'>" +
+		    "         " + // wepsim_show_cache_cfg((i+1), cache_memory[i]) +
+                    "         </div>" +
+                    "    </div>" +
+                    "  </div>" +
+                    "" +
+	            "  <div class='accordion-item'>" +
+		    "    <h2 class='accordion-header' id='cm-cnt-" + (i+1) + "'>" +
+		    "      <button class='accordion-button p-1 fs-5 collapsed bg-light' type='button' " +
+		    "              data-bs-toggle='collapse' data-bs-target='#cm-cnt-collapse-" + (i+1) + "' " +
+		    "              aria-expanded='false' aria-controls='cm-cnt-collapse'>Sets & Tags</button>" +
+		    "    </h2>" +
+		    "    <div id='cm-cnt-collapse-" + (i+1) + "' class='accordion-collapse collapse' " +
+		    "         aria-labelledby='cm-cnt-" + (i+1) + "'>" +
+		    "         <div id='cm-info-cnt-ph-" + (i+1) + "' class='accordion-body px-2 py-3'>" +
+	            "         " + // wepsim_show_cache_content((i+1), cache_memory[i]) +
+                    "         </div>" +
+		    "    </div>" +
+		    "  </div>" +
+                    "" +
+		    "</div>" ;
+              }
+
+              o1 += "<div class='vr' style='width:3px'></div>" +
+                    "<h5><span data-langkey='Memory'>Memory</span></h5>" ;
+
+              return o1 ;
+        }
+
+        function wepsim_show_cache_memory_all ( cache_memory )
+        {
+              if (typeof cache_memory == "undefined") {
+                  return ;
+              }
+              if (Object.keys(cache_memory).length == 0) {
+                  return ;
+              }
+
+	      // cache_memory in HTML
+              var o1 = "" ;
+              for (var i=0; i<cache_memory.length; i++)
+              {
+		   // (1/3) update stats
+		   o1 = wepsim_show_cache_stats(i+1, cache_memory[i]) ;
+		   $("#cm-info-stat-ph-" + (i+1)).html(o1) ;
+
+		   // (2/3) update configuration
+		   o1 = wepsim_show_cache_cfg(i+1, cache_memory[i]) ;
+		   $("#cm-info-cfg-ph-" + (i+1)).html(o1) ;
+
+		   // (3/3) update content
+		   o1 = wepsim_show_cache_content(i+1, cache_memory[i]) ;
+		   $("#cm-info-cnt-ph-" + (i+1)).html(o1) ;
+              }
         }
 
         function wepsim_show_cache_memory ( cache_memory )
         {
-              var o1 = "<h5><span data-langkey='Processor'>Processor</span></h5>" +
-                       "<div class='vr' style='width:3px'></div>" ;
-
-              if ( (typeof cache_memory != "undefined") && (Object.keys(cache_memory).length != 0) )
-              {
-                    for (var i=0; i<cache_memory.length; i++) {
-                         o1 += wepsim_show_cache_info(i+1, cache_memory[i]) ;
-                    }
-              }
-              else
-              {
-                    o1 += "<br>" +
-                          "No cache memory was already defined.<br>" +
-                          "Please use the " +
-		          "<span class='btn btn-sm btn-info text-white py-0' " +
-                          "      onclick='wsweb_set_details_select(29);'>cache configuration</span>." ;
-              }
-
+              var o1 = wepsim_show_cache_memory_skel(cache_memory) ;
               $("#memory_CACHE").html(o1) ;
+              wepsim_show_cache_memory_all(cache_memory) ;
         }
 

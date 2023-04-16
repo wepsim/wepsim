@@ -37,7 +37,7 @@
         var doc = document
             , text = doc.getElementById(element)
             , range, selection
-        ;   
+        ;
         if (doc.body.createTextRange)
 	{
             range = document.body.createTextRange();
@@ -46,7 +46,7 @@
         }
 	else if (window.getSelection)
 	{
-            selection = window.getSelection();       
+            selection = window.getSelection();
             range = document.createRange();
             range.selectNodeContents(text);
             selection.removeAllRanges();

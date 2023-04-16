@@ -25,6 +25,31 @@
 
         // numbers
 
+	function float2binary ( f, size )
+	{
+		var buf   = new ArrayBuffer(8) ;
+		var float = new Float32Array(buf) ;
+		var uint  = new Uint32Array(buf) ;
+
+		float[0] = f ;
+		return decimal2binary(uint[0], size) ;
+	}
+
+	function float2decimal ( f )
+	{
+		var buf   = new ArrayBuffer(8) ;
+		var float = new Float32Array(buf) ;
+		var uint  = new Uint32Array(buf) ;
+
+		float[0] = f ;
+                return uint[0] ;
+	}
+
+	function float2hex ( f )
+	{
+                return float2decimal(f).toString(16) ;
+	}
+
         function hex2float ( hexvalue )
         {
 		var sign     = (hexvalue & 0x80000000) ? -1 : 1;
@@ -43,6 +68,93 @@
 
 		return valuef ;
         }
+
+        function uint_to_float32 ( value )
+        {
+              var buf = new ArrayBuffer(4) ;
+              (new Uint32Array(buf))[0] = value ;
+              return (new Float32Array(buf))[0] ;
+        }
+
+        function float32_to_uint ( value )
+        {
+              var buf = new ArrayBuffer(4) ;
+              (new Float32Array(buf))[0] = value ;
+              return (new Uint32Array(buf))[0];
+        }
+
+	/**
+	 * IEEE 754 class of number
+	 * @param a {Number} sign + exponent + mantissa
+	 * @return {number} class as integer:
+	 *      0 -> -infinite
+	 *      1 -> -normalized number
+	 *      2 -> -non-normalized number
+	 *      3 -> -0
+	 *      4 -> +0
+	 *      5 -> +non-normalized number
+	 *      6 -> +normalized number
+	 *      7 -> +inf
+	 *      8 -> -NaN (signaling)
+	 *      9 -> +NaN (quiet)
+	 */
+	function float_class ( a )
+	{
+              var s = a & 0x80000000;
+                  s = s >> 31 ;
+              var e = a & 0x7F800000;
+                  e = e >> 23 ;
+              var m = a & 0x007FFFFF;
+
+	      let rd = 0 ;
+
+	      if (!m && !e) {
+		  rd = s ? 3 : 4 ;
+              }
+	      else if (!e) {
+		  rd = s ? 2 : 6 ;
+              }
+	      else if (!(e ^ 255)) {
+		  if (m)
+		      rd = s ? 8 : 9 ;
+		  else
+		      rd = s ? 0 : 7 ;
+              }
+	      else {
+		  rd = s ? 1 : 5 ;
+              }
+
+	      return rd ;
+	}
+
+	function float_class_power2 ( a )
+	{
+              var s = a & 0x80000000;
+                  s = s >> 31 ;
+              var e = a & 0x7F800000;
+                  e = e >> 23 ;
+              var m = a & 0x007FFFFF;
+
+	      let rd = 0 ;
+
+	      if (!m && !e) {
+		  rd = s ? 1<<3 : 1<<4 ;
+              }
+	      else if (!e) {
+		  rd = s ? 1<<2 : 1<<6 ;
+              }
+	      else if (!(e ^ 255)) {
+		  if (m)
+		      rd = s ? 1<<8 : 1<<9 ;
+		  else
+		      rd = s ? 1<<0 : 1<<7 ;
+              }
+	      else {
+		  rd = s ? 1<<1 : 1<<5 ;
+              }
+
+	      return rd ;
+	}
 
         function hex2char8 ( hexvalue )
         {

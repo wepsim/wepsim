@@ -57,7 +57,7 @@
 
 	    // 2.- get parameters
             var parameters = new URL(window_location).searchParams ;
-            for (i=0; i<ws_info.preload_tasks.length; i++) 
+            for (i=0; i<ws_info.preload_tasks.length; i++)
             {
                  hash_field = ws_info.preload_tasks[i].name ;
                  hash[hash_field] = parameters.get(hash_field) ;
@@ -75,7 +75,7 @@
 	           uri_obj = new URL(hash.preload) ;
 	           wepsim_url_json(uri_obj.pathname, f_preload_fromHash) ;
 		}
-		catch (e) { 
+		catch (e) {
 		   ws_alert('unable to preload json from "' + uri_obj.pathname + '"') ;
                 }
 	    }

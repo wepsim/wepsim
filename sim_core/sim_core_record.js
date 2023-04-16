@@ -341,8 +341,8 @@
             ws_last_time = Date.now() ;
 
             // min. distance -> glowing time
-	    if ( (0 == distance) && (ws_records.length > 0) && 
-                 (ws_records[ws_records.length-1].description === "_pending event_") ) 
+	    if ( (0 == distance) && (ws_records.length > 0) &&
+                 (ws_records[ws_records.length-1].description === "_pending event_") )
             {
 	         distance = ws_glowing_time ;
 	    }

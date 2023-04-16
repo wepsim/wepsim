@@ -89,7 +89,7 @@
              }
 
 	     var step = '' ;
-	     for (var i=0; i<newbie_tour1.length; i++) 
+	     for (var i=0; i<newbie_tour1.length; i++)
 	     {
 		  step = newbie_tour1[i].step ;
                   if ("" !== step) {

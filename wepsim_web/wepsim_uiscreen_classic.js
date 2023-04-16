@@ -40,7 +40,7 @@
 	            super.render() ;
 
                     // render current element
-                    this.extended_ui = false ;
+                    this.extended_ui = true ;
 		    this.render_skel() ;
 		    this.render_populate() ;
 
@@ -70,7 +70,7 @@
 
 	      render_populate ( )
 	      {
-                 var o1 = '<div id="carousel-8" class="carousel" ' +
+                 var o1 = '<div id="carousel-8" class="carousel carousel-fade" ' +
                           '     data-bs-interval="0" data-bs-touch="false" data-bs-animation="false">' +
 		          '  <div class="carousel-inner">' +
 		          '	  <div class="carousel-item active p-1" id="ws_simulator">' +
@@ -165,8 +165,8 @@
 			    '' +
 			    '	 <div class="row ps-2 pe-3 pt-1">' +
 			    '	 <div class="btn-toolbar btn-block" role="toolbar">' +
-			    '	      <button class="btn btn-light shadow-sm col py-0 mx-1"' +
-			    '		      style="border-color: #BBBBBB; flex-grow:1;"' +
+			    '	      <button class="btn btn-light shadow-sm col py-0 mx-1 border border-secondary"' +
+			    '		      style="flex-grow:1;"' +
 			    '		      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			    '		      title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
 			    '		      onclick="wsweb_dialog_open(\'state\');' +
@@ -209,8 +209,8 @@
 			 '' +
 			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
                          '            <div class="dropdown">' +
-                         '               <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark"' +
-                         '                 style="background-color:#D4DB17; border-color:#BBBBBB; flex-grow:1;" '+
+                         '               <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark border border-secondary"' +
+                         '                 style="background-color:#D4DB17; flex-grow:1;" '+
                          '                       type="button" id="ddownAsmHelp1" ' +
                          '                       data-bs-toggle="dropdown" aria-expanded="false">' +
                          '               <em class="fas fa-info-circle"></em>&nbsp;' +
@@ -293,8 +293,8 @@
 */
 			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
                          '            <div class="dropdown">' +
-                         '               <button class="btn btn-secondary dropdown-toggle col-auto text-dark"' +
-                         '                       style="background-color:#D4DB17; border-color:#BBBBBB; flex-grow:1;" ' +
+                         '               <button class="btn btn-secondary dropdown-toggle col-auto text-dark border border-secondary"' +
+                         '                       style="background-color:#D4DB17; flex-grow:1;" ' +
                          '                       type="button" id="ddownMicroHelp1" ' +
                          '                       data-bs-toggle="dropdown" aria-expanded="false">' +
                          '               <em class="fas fa-info-circle"></em>&nbsp;' +

@@ -29,7 +29,7 @@
                               '                 var shkey = $(\'#ask_skey\').val(); ' +
                               '                 update_signal_loadhelp(\'#help2\', shval, shkey);" ' +
 			      '        type="button" class="btn btn-success">Help</button>' ;
-	        
+
                 return wepsim_config_dialog_dropdown("success",
 						     b_btns,
 						     'var shval = $(\'#ask_shard\').val(); ' +
@@ -103,7 +103,7 @@
 	        return   '<div id="bot_signal" class="carousel" data-ride="carousel" data-interval="false">' +
 			 '  <div class="carousel-inner" role="listbox">' +
 			 '    <div class="carousel-item active">' +
-			 '    <div id="scroller-signal" ' + 
+			 '    <div id="scroller-signal" ' +
                          '         style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' +
 			 '         <form class="form-horizontal" style="white-space:wrap;">' +
 			 '         <input aria-label="value for ' + key     + '" id="ask_skey"  name="ask_skey"  type="hidden" value="' + key     + '" class="form-control input-md"> ' +
@@ -130,10 +130,10 @@
                 // open dialog
                 var dlg_obj = {
 			id:      'dlg_updatesignal',
-			title:   function() { 
+			title:   function() {
 				    return wepsim_update_signal_dialog_title(key) ;
 				 },
-			body:    function() { 
+			body:    function() {
 				    return wepsim_update_signal_dialog_body(key, signal_obj) ;
 				 },
 			value:   signal_obj.value,
@@ -164,7 +164,7 @@
 						   }
 				    }
 		        },
-			onshow:  function() { 
+			onshow:  function() {
 				    // ui ajust
 				    if (typeof $(".dial").knob !== "undefined")
 				    {

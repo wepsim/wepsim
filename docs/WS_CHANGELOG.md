@@ -1,6 +1,15 @@
 
 # Changelog
 
+## 2.2.1 -> 2.2.2:
+* Main improvements:
+  * Initial support for 32-bits floating point ALU
+  * Share by link improved
+  * Several minor improvements
+* Main external dependencies updated:
+  * Bump bootbox     from 5.5.3 to 6.0.0
+  * Bump fontawesome from 6.2.0 to 6.2.1
+
 ## 2.2.0 -> 2.2.1:
 * Main improvements:
   * Examples updated
