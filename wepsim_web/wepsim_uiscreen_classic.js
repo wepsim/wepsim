@@ -40,7 +40,7 @@
 	            super.render() ;
 
                     // render current element
-                    this.extended_ui = true ;
+                    this.extended_ui = false ;
 		    this.render_skel() ;
 		    this.render_populate() ;
 
