@@ -37,8 +37,10 @@ echo "checking sim_core..."
 echo "checking sim_sw..."
  jshint ./sim_sw/sim_lang.js
 #jshint ./sim_sw/sim_seg.js
-#jshint ./sim_sw/sim_lang_firm.js
-#jshint ./sim_sw/sim_lang_asm.js
+#jshint ./sim_sw/sim_lang_firm_v1.js
+#jshint ./sim_sw/sim_lang_firm_v2.js
+#jshint ./sim_sw/sim_lang_asm_v1.js
+#jshint ./sim_sw/sim_lang_asm_v2.js
 
 echo "checking sim_hw..."
  jshint ./sim_hw/sim_hw_index.js
