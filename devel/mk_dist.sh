@@ -93,6 +93,7 @@ cat sim_core/sim_cfg.js \
     \
     sim_sw/sim_decode.js \
     sim_sw/sim_seg.js \
+    sim_sw/sim_lang_cis2native.js \
     sim_sw/sim_lang.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js > ws_dist/sim_all.js

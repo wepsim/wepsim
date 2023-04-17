@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 2.2.2 -> 2.2.3:
+* Main improvements:
+  * Module "creator instruction set to native" added
+* Main external dependencies updated:
+
 ## 2.2.1 -> 2.2.2:
 * Main improvements:
   * Initial support for 32-bits floating point ALU
