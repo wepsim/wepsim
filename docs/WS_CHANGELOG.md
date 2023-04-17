@@ -3,7 +3,7 @@
 
 ## 2.2.2 -> 2.2.3:
 * Main improvements:
-  * Module "creator instruction set to native" added
+  * Firmware syntax improved
 * Main external dependencies updated:
 
 ## 2.2.1 -> 2.2.2:

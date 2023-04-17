@@ -93,9 +93,10 @@ cat sim_core/sim_cfg.js \
     \
     sim_sw/sim_decode.js \
     sim_sw/sim_seg.js \
-    sim_sw/sim_lang_cis2native.js \
     sim_sw/sim_lang.js \
-    sim_sw/sim_lang_firm.js \
+    sim_sw/sim_lang_firm_v1.js \
+    sim_sw/sim_lang_firm_v2.js \
+    sim_sw/sim_lang_firm_creator2native.js \
     sim_sw/sim_lang_asm.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
