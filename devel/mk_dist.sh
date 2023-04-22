@@ -64,6 +64,7 @@ cat sim_core/sim_cfg.js \
     sim_core/sim_core_rest.js \
     sim_core/sim_core_notify.js \
     sim_core/sim_core_values.js \
+    sim_core/sim_core_decode.js \
     sim_core/sim_adt_ctrlmemory.js \
     sim_core/sim_adt_mainmemory.js \
     sim_core/sim_adt_cachememory.js \
@@ -91,14 +92,16 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_poc/sim_hw_l3d.js \
     sim_hw/sim_hw_poc/sim_hw_ldm.js \
     \
-    sim_sw/sim_decode.js \
-    sim_sw/sim_seg.js \
-    sim_sw/sim_lang.js \
-    sim_sw/sim_lang_firm_v1.js \
-    sim_sw/sim_lang_firm_v2.js \
-    sim_sw/sim_lang_firm_creator2native.js \
-    sim_sw/sim_lang_asm_v1.js \
-    sim_sw/sim_lang_asm_v2.js > ws_dist/sim_all.js
+    sim_sw/lexical.js \
+    sim_sw/firmware/firm_mcode.js \
+    sim_sw/firmware/firm_begin.js \
+    sim_sw/firmware/firm_pseudoinstructions.js \
+    sim_sw/firmware/firm_registers.js \
+    sim_sw/firmware/firm_instruction.js \
+    sim_sw/firmware/creator2native.js \
+    sim_sw/firmware.js \
+    sim_sw/assembly/memory_segments.js \
+    sim_sw/assembly.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
 
