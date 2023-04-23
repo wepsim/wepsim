@@ -34,12 +34,13 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
 // }
 
        var instruccionAux = {};
-       instruccionAux.name        = getToken(context) ;
-       instruccionAux["mc-start"] = context.contadorMC ;
-       instruccionAux.nwords      = 1 ;
-       instruccionAux.is_native   = false;
-       instruccionAux.help        = '' ;
-       instruccionAux.overlapping = {};
+       instruccionAux.name         = getToken(context) ;
+       instruccionAux["mc-start"]  = context.contadorMC ;
+       instruccionAux.nwords       = 1 ;
+       instruccionAux.is_native    = false ;
+       instruccionAux.help         = '' ;
+       instruccionAux.overlapping  = {} ;
+       instruccionAux.numeroCampos = 0 ;
 
        // semantic check: valid instruction name
        var re_name = "[a-zA-Z_0-9\.]*" ;
@@ -53,7 +54,6 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
        var firma = "";
        var firmaGlobal= "";
        var firmaUsuario= "";
-       var numeroCampos = 0;
        var campos = [];
 
        firma = getToken(context)  + ',';
@@ -87,12 +87,12 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
 
 	       campoAux.name = auxValue ;
 	       campos.push(campoAux);
-	       numeroCampos++;
+	       instruccionAux.numeroCampos++;
 	       firma = firma + auxValue ;
 	       firmaUsuario = firmaUsuario + auxValue;
 	       nextToken(context);
 
-	       if (numeroCampos > 100) {
+	       if (instruccionAux.numeroCampos > 100) {
 		   return langError(context,
 				    i18n_get_TagFor('compiler', 'MORE 100 FIELDS')) ;
 	       }
@@ -123,7 +123,7 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
 		       var campoAux = {};
 		       campoAux.name = getToken(context) ;
 		       campos.push(campoAux);
-		       numeroCampos++;
+		       instruccionAux.numeroCampos++;
 
 		       firma = firma + getToken(context) ;
 		       firmaUsuario = firmaUsuario + getToken(context);			
@@ -185,7 +185,7 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
 	       // match op
 	       if (isToken(context,"op"))
 	       {
-	           ret = firm_instruction_co_read(context, instruccionAux, xr_info, all_ones_co) ;
+	           ret = firm_instruction_co_read_v2(context, instruccionAux, xr_info, all_ones_co) ;
 	           if (typeof ret.error != "undefined") {
 		       return ret ;
 	           }
@@ -197,30 +197,36 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
 	       // match optional cop
 	       if (isToken(context,"cop"))
 	       {
-		   ret = firm_instruction_cop_read(context, instruccionAux) ;
+                   ret = firm_instruction_keynumber_read(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
+
+                   instruccionAux.cop = ret.value ;
                    continue ;
 	       }
 
 	       // match optional "nwords"
 	       if (isToken(context, "nwords"))
 	       {
-		   ret = firm_instruction_nword_read(context, instruccionAux) ;
+                   ret = firm_instruction_keynumber_read(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
+
+                   instruccionAux.nwords = ret.value ;
                    continue ;
 	       }
 
 	       // match optional help
 	       if (isToken(context,"help"))
 	       {
-		   ret = firm_instruction_help_read(context, instruccionAux) ;
+		   ret = firm_instruction_keystring_read(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
+
+                   instruccionAux.help = ret.value ;
                    continue ;
 	       }
 
@@ -256,7 +262,7 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
        }
 
        // semantic check: number of fields
-       if (camposInsertados != numeroCampos)
+       if (camposInsertados != instruccionAux.numeroCampos)
        {
 	   return langError(context,
 			    i18n_get_TagFor('compiler', 'NO FIELD')) ; // TODO

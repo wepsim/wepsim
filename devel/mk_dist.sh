@@ -94,10 +94,11 @@ cat sim_core/sim_cfg.js \
     \
     sim_sw/lexical.js \
     sim_sw/firmware/firm_mcode.js \
-    sim_sw/firmware/firm_fields.js \
     sim_sw/firmware/firm_begin.js \
     sim_sw/firmware/firm_pseudoinstructions.js \
     sim_sw/firmware/firm_registers.js \
+    sim_sw/firmware/firm_fields_v1.js \
+    sim_sw/firmware/firm_fields_v2.js \
     sim_sw/firmware/firm_instruction_v1.js \
     sim_sw/firmware/firm_instruction_v2.js \
     sim_sw/firmware/creator2native.js \
