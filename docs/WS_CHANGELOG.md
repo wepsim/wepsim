@@ -1,9 +1,9 @@
 
 # Changelog
 
-## 2.2.2 -> 2.2.3:
+## 2.2.2 -> 2.3.0:
 * Main improvements:
-  * Firmware syntax improved
+  * Firmware reworked
 * Main external dependencies updated:
 
 ## 2.2.1 -> 2.2.2:
