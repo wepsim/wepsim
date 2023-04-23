@@ -471,7 +471,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
        return {} ;
 }
 
-function firm_instruction_read_flexible_fields ( context, xr_info, all_ones_co )
+function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_info, all_ones_co )
 {
        var ret = {};
 
@@ -487,16 +487,20 @@ function firm_instruction_read_flexible_fields ( context, xr_info, all_ones_co )
 //             }
 // }
 
-       var campos = instruccionAux.fields ;
+       var campos       = instruccionAux.fields ;
+       var firma        = instruccionAux.signature ;
+       var firmaUsuario = instruccionAux.signatureUser ;
+       var firmaGlobal  = instruccionAux.signatureGlobal ;
 
        var co_inserted = 0;
        var camposInsertados = 0;
+       nextToken(context);
        while (! isToken(context,"{"))
        {
 	       // match op
-	       if (isToken(context,"op"))
+	       if (isToken(context,"co"))
 	       {
-	           ret = firm_instruction_co_read_v2(context, instruccionAux, xr_info, all_ones_co) ;
+	           ret = firm_instruction_co_read(context, instruccionAux, xr_info, all_ones_co) ;
 	           if (typeof ret.error != "undefined") {
 		       return ret ;
 	           }
@@ -543,7 +547,7 @@ function firm_instruction_read_flexible_fields ( context, xr_info, all_ones_co )
 
 	       // match field...
 	       {
-		   ret = firm_instruction_field_read_v2(context, instruccionAux, camposInsertados) ;
+		   ret = firm_instruction_field_read(context, instruccionAux, camposInsertados) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
@@ -563,7 +567,8 @@ function firm_instruction_read_flexible_fields ( context, xr_info, all_ones_co )
 	       }
        }
 
-       instruccionAux.fields = campos;
+       instruccionAux.fields       = campos;
+       instruccionAux.signatureRaw = firmaUsuario;
 
        // semantic check: co must exist
        if (1 != co_inserted)

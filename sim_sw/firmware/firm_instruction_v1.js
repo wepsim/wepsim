@@ -61,8 +61,9 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
        nextToken(context);
 
        // match optional ,
-       while (isToken(context, ','))
+       while (isToken(context, ',')) {
 	      nextToken(context);
+       }
 
        while (! isToken(context,"{"))
        {
@@ -178,7 +179,8 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 //             }
 // }
 
-       ret = firm_instruction_read_fixed_fields(context, instruccionAux, xr_info, all_ones_co) ;
+    // ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;
+       ret = firm_instruction_read_fixed_fields   (context, instruccionAux, xr_info, all_ones_co) ;
        if (typeof ret.error != "undefined") {
            return ret ;     
        }    
