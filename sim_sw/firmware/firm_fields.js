@@ -108,13 +108,6 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
 // }
 
        nextToken(context);
-       // match mandatory co
-       if (! isToken(context,"co")) {
-	     return langError(context,
-			      i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
-       }
-
-       nextToken(context);
        // match mandatory =
        if (! isToken(context,"=")) {
 	     return langError(context,
@@ -159,6 +152,19 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
 	   }
        }
 
+       // overlapping mask (initialized with 'co' field)
+       stop  = 26 ;
+       start = 31 ;
+       for (i=stop; i<=start; i++)
+       {
+		if (typeof instruccionAux.overlapping[i] != "undefined") {
+		    return langError(context,
+				     i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				     campos[camposInsertados].name) ;
+		}
+
+		instruccionAux.overlapping[i] = 1;
+       }
 
        return {} ;
 }
@@ -217,6 +223,111 @@ function firm_instruction_cop_read ( context, instruccionAux )
 }
 
 function firm_instruction_field_read_v1 ( context, instruccionAux, campos, camposInsertados )
+{
+	// match mandatory FIELD
+	var tmp_name = getToken(context) ;
+	if (campos[camposInsertados].name != tmp_name) {
+	       return langError(context,
+				i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
+				"'" + tmp_name + "'. " +
+				i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
+	}
+
+	nextToken(context);
+	// match mandatory =
+	if (! isToken(context,"=")) {
+	       return langError(context,
+				i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+	}
+
+	nextToken(context);
+	// match mandatory reg|inm|address
+	if ( !isToken_arr(context, ["reg", "inm", "address"]) ) {
+		return langError(context, "Incorrect type of field (reg, inm or address)") ;
+	}
+
+	campos[camposInsertados].type = getToken(context) ;
+
+	nextToken(context);
+	// match mandatory (
+	if (! isToken(context,"(")) {
+		 return langError(context,
+				  i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+	}
+
+	nextToken(context);
+	// match mandatory START_BIT
+	campos[camposInsertados].startbit = getToken(context) ;
+
+	// check startbit range
+	var start = parseInt(campos[camposInsertados].startbit);
+	if (start > 32*parseInt(instruccionAux.nwords)-1) {
+	       return langError(context,
+				i18n_get_TagFor('compiler', 'STARTBIT OoR') +
+				"'" + getToken(context) + "'") ;
+	}
+
+	nextToken(context);
+	// match mandatory ,
+	if (! isToken(context,",")) {
+		 return langError(context,
+				  i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
+	}
+
+	nextToken(context);
+	// match mandatory STOP_BIT
+	campos[camposInsertados].stopbit = getToken(context) ;
+
+	// check stopbit range
+	var stop  = parseInt(campos[camposInsertados].stopbit);
+	if (stop > 32*parseInt(instruccionAux.nwords)) {
+	       return langError(context,
+				i18n_get_TagFor('compiler', 'STOPBIT OoR') +
+				"'" + getToken(context) + "'") ;
+	}
+
+	// check overlapping
+	for (i=stop; i<=start; i++)
+	{
+		if (typeof instruccionAux.overlapping[i] != "undefined") {
+		    return langError(context,
+				     i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				     campos[camposInsertados].name) ;
+		}
+
+		instruccionAux.overlapping[i] = 1;
+	}
+
+	nextToken(context);
+	// match mandatory )
+	if (! isToken(context,")")) {
+		 return langError(context,
+				  i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+	}
+
+	nextToken(context);
+	if (campos[camposInsertados].type == "address")
+	{
+	       // match mandatory abs|rel
+	       if (getToken(context) !="abs" && getToken(context) !="rel") {
+		   return langError(context,
+				    i18n_get_TagFor('compiler', 'INCORRECT ADDRESSING')) ;
+	       }
+
+	       // match mandatory ADDRESS_TYPE
+	       campos[camposInsertados].address_type = getToken(context) ;
+	       nextToken(context);
+	}
+
+	// match optional ,
+	if (isToken(context, ",")) {
+	       nextToken(context);
+	}
+
+       return {} ;
+}
+
+function firm_instruction_field_read_v2 ( context, instruccionAux, campos, camposInsertados )
 {
 	// match mandatory FIELD
 	var tmp_name = getToken(context) ;

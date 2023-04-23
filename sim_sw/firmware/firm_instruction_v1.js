@@ -175,16 +175,18 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 //             }
 // }
 
+       nextToken(context);
+       // match mandatory co
+       if (! isToken(context,"co")) {
+	     return langError(context,
+			      i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
+       }
+
        // read co=xxxxxx field...
        ret = firm_instruction_co_read(context, instruccionAux, xr_info, all_ones_co) ;
        if (typeof ret.error != "undefined") {
            return ret ;     
        }    
-
-       // overlapping mask (initialized with 'co' field)
-       for (i=26; i<=31; i++) {
-	    instruccionAux.overlapping[i] = 1;
-       }
 
 
 // li reg val {

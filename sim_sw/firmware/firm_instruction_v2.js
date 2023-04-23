@@ -61,8 +61,9 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
        nextToken(context);
 
        // match optional ,
-       while (isToken(context, ','))
+       while (isToken(context, ',')) {
 	      nextToken(context);
+       }
 
        while (! isToken(context,"{"))
        {
@@ -166,119 +167,101 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
 
 
 // li reg val {
-//             *co=000000,*
-//             nwords=1,
+//             *co=000000,
+//             [cop=0000,]
+//             [nwords=1,]
 //             reg=reg(25,21),
 //             val=inm(15,0),
-//             {
-//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
-//             }
-// }
-
-       // read co=xxxxxx field...
-       ret = firm_instruction_co_read(context, instruccionAux, xr_info, all_ones_co) ;
-       if (typeof ret.error != "undefined") {
-           return ret ;     
-       }    
-
-       // overlapping mask (initialized with 'co' field)
-       for (i=26; i<=31; i++) {
-	    instruccionAux.overlapping[i] = 1;
-       }
-
-
-// li reg val {
-//             co=000000,
-//             *[cop=0000,]*
-//             nwords=1,
-//             reg=reg(25,21),
-//             val=inm(15,0),
-//             {
-//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
-//             }
-// }
-
-       // match optional cop
-       if (isToken(context,"cop"))
-       {
-           ret = firm_instruction_cop_read(context, instruccionAux) ;
-           if (typeof ret.error != "undefined") {
-               return ret ;     
-           }    
-       }
-
-// li reg val {
-//             co=000000,
-//             *[nwords=1,]*
-//             reg=reg(25,21),
-//             val=inm(15,0),
-//             {
-//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
-//             }
-// }
-
-       // match optional "nwords"
-       if (isToken(context, "nwords"))
-       {
-           ret = firm_instruction_nword_read(context, instruccionAux) ;
-           if (typeof ret.error != "undefined") {
-               return ret ;     
-           }    
-       }
-
-// li reg val {
-//             co=000000,
-//             nwords=1,
-//             *reg=reg(25,21),
-//              val=inm(15,0),*
+//             [help='this instruction is used for...',]*
 //             {
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
 //             }
 // }
 
        var camposInsertados = 0;
-       while (camposInsertados < numeroCampos)
+       var co_inserted = 0;
+       while (! isToken(context,"{"))
        {
-           ret = firm_instruction_field_read_v1(context, instruccionAux, campos, camposInsertados) ;
-           if (typeof ret.error != "undefined") {
-               return ret ;     
-           }    
+	       // match op
+	       if (isToken(context,"op"))
+	       {
+	           ret = firm_instruction_co_read(context, instruccionAux, xr_info, all_ones_co) ;
+	           if (typeof ret.error != "undefined") {
+		       return ret ;
+	           }
 
-	   firma = firma.replace("," + campos[camposInsertados].name, "," + campos[camposInsertados].type);
-	   firma = firma.replace("(" + campos[camposInsertados].name, "(" + campos[camposInsertados].type);
-	   firma = firma.replace(")" + campos[camposInsertados].name, ")" + campos[camposInsertados].type);
-	   firmaUsuario = firmaUsuario.replace(campos[camposInsertados].name, campos[camposInsertados].type);
+                   co_inserted = 1 ;
+                   continue ;
+	       }
 
-	   instruccionAux.signature     = firma;
-	   instruccionAux.signatureUser = firmaUsuario;
-	   firmaGlobal = firma.replace("address","num");
-	   firmaGlobal = firmaGlobal.replace("inm" , "num");
-	   instruccionAux.signatureGlobal = firmaGlobal;
+	       // match optional cop
+	       if (isToken(context,"cop"))
+	       {
+		   ret = firm_instruction_cop_read(context, instruccionAux) ;
+		   if (typeof ret.error != "undefined") {
+		       return ret ;
+		   }
+                   continue ;
+	       }
 
-	   camposInsertados++;
+	       // match optional "nwords"
+	       if (isToken(context, "nwords"))
+	       {
+		   ret = firm_instruction_nword_read(context, instruccionAux) ;
+		   if (typeof ret.error != "undefined") {
+		       return ret ;
+		   }
+                   continue ;
+	       }
+
+	       // match optional help
+	       if (isToken(context,"help"))
+	       {
+		   ret = firm_instruction_help_read(context, instruccionAux) ;
+		   if (typeof ret.error != "undefined") {
+		       return ret ;
+		   }
+                   continue ;
+	       }
+
+	       // match field...
+	       {
+		   ret = firm_instruction_field_read_v2(context, instruccionAux, campos, camposInsertados) ;
+		   if (typeof ret.error != "undefined") {
+		       return ret ;
+		   }
+
+		   firma = firma.replace("," + campos[camposInsertados].name, "," + campos[camposInsertados].type);
+		   firma = firma.replace("(" + campos[camposInsertados].name, "(" + campos[camposInsertados].type);
+		   firma = firma.replace(")" + campos[camposInsertados].name, ")" + campos[camposInsertados].type);
+		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados].name, campos[camposInsertados].type);
+
+		   instruccionAux.signature     = firma;
+		   instruccionAux.signatureUser = firmaUsuario;
+		   firmaGlobal = firma.replace("address","num");
+		   firmaGlobal = firmaGlobal.replace("inm" , "num");
+		   instruccionAux.signatureGlobal = firmaGlobal;
+
+		   camposInsertados++;
+	       }
        }
 
        instruccionAux.fields = campos;
 
-// li reg val {
-//             co=000000,
-//             nwords=1,
-//             reg=reg(25,21),
-//             val=inm(15,0),
-//             *[help='this instruction is used for...',]*
-//             {
-//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
-//             }
-// }
-
-       // match optional help
-       if (isToken(context,"help"))
+       // semantic check: co must exist
+       if (1 != co_inserted)
        {
-           ret = firm_instruction_help_read(context, instruccionAux) ;
-           if (typeof ret.error != "undefined") {
-               return ret ;     
-           }    
+	   return langError(context,
+			    i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
        }
+
+       // semantic check: number of fields
+       if (camposInsertados != numeroCampos)
+       {
+	   return langError(context,
+			    i18n_get_TagFor('compiler', 'NO FIELD')) ; // TODO
+       }
+
 
 // li reg val {
 //             co=000000,
