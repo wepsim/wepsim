@@ -37,6 +37,7 @@ echo "checking sim_core..."
 echo "checking sim_sw..."
  jshint ./sim_sw/lexical.js
  jshint ./sim_sw/firmware/firm_mcode.js
+ jshint ./sim_sw/firmware/firm_fields.js
 #jshint ./sim_sw/firmware/firm_instruction_v2.js
  jshint ./sim_sw/firmware/firm_pseudoinstructions.js
  jshint ./sim_sw/firmware/firm_registers.js
