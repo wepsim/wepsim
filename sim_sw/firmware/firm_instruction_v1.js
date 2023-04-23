@@ -19,8 +19,85 @@
  */
 
 
+function firm_instruction_nword_read ( context, instruccionAux )
+{
+
+// li reg val {
+//             co=000000,
+//             *[nwords=1,]*
+//             reg=reg(25,21),
+//             val=inm(15,0),
+//             {
+//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
+//             }
+// }
+
+       nextToken(context);
+       // match mandatory =
+       if (! isToken(context,"=")) {
+	   return langError(context,
+			    i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+       }
+
+       nextToken(context);
+       // match mandatory NWORDS
+       instruccionAux.nwords = getToken(context) ;
+
+       nextToken(context);
+       // match optional ,
+       if (isToken(context,",")) {
+	   nextToken(context);
+       }
+
+       return {} ;
+}
+
+function firm_instruction_help_read ( context, instruccionAux )
+{
+
+// li reg val {
+//             co=000000,
+//             nwords=1,
+//             reg=reg(25,21),
+//             val=inm(15,0),
+//             *[help='this instruction is used for...',]*
+//             {
+//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
+//             }
+// }
+
+       // match optional help
+       nextToken(context);
+       // match mandatory =
+       if (! isToken(context,"=")) {
+	     return langError(context,
+			      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+       }
+
+       nextToken(context);
+       // match mandatory HELP value
+       instruccionAux.help = getToken(context) ;
+
+       // semantic check: valid value
+       if ("STRING" != getTokenType(context)) {
+	    return langError(context,
+			     i18n_get_TagFor('compiler', 'UNKNOWN ESCAPE CHAR') +
+			     "'" + getToken(context) + "'") ;
+       }
+
+       nextToken(context);
+       // match optional ,
+       if (isToken(context,",")) {
+	   nextToken(context);
+       }
+
+       return {} ;
+}
+
+
 function firm_instruction_read ( context, xr_info, all_ones_co )
 {
+       var ret = {};
 
 // *li reg val {*
 //             co=000000,
@@ -35,6 +112,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
        var instruccionAux = {};
        instruccionAux.name        = getToken(context) ;
        instruccionAux["mc-start"] = context.contadorMC ;
+       instruccionAux.nwords      = 1 ;
 
        // semantic check: valid instruction name
        var re_name = "[a-zA-Z_0-9\.]*" ;
@@ -159,6 +237,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
        instruccionAux.signatureUser   = firmaUsuario;
        instruccionAux.signatureRaw    = firmaUsuario;
 
+
 // li reg val {
 //             *co=000000,*
 //             nwords=1,
@@ -273,7 +352,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 
 // li reg val {
 //             co=000000,
-//             *nwords=1,*
+//             *[nwords=1,]*
 //             reg=reg(25,21),
 //             val=inm(15,0),
 //             {
@@ -281,27 +360,14 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 //             }
 // }
 
-       // match mandatory nwords
-       if (! isToken(context,"nwords")) {
-	   return langError(context,
-			    i18n_get_TagFor('compiler', 'NO NWORDS')) ;
+       // match optional "nwords"
+       if (isToken(context, "nwords"))
+       {
+           ret = firm_instruction_nword_read(context, instruccionAux) ;
+           if (typeof ret.error != "undefined") {
+               return ret ;     
+           }    
        }
-
-       nextToken(context);
-       // match mandatory =
-       if (! isToken(context,"=")) {
-	   return langError(context,
-			    i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-       }
-
-       nextToken(context);
-       // match mandatory NWORDS
-       instruccionAux.nwords = getToken(context) ;
-
-       nextToken(context);
-       // match optional ,
-       if (isToken(context,","))
-	   nextToken(context);
 
 // li reg val {
 //             co=000000,
@@ -452,29 +518,10 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
        // match optional help
        if (isToken(context,"help"))
        {
-	       nextToken(context);
-	       // match mandatory =
-	       if (! isToken(context,"=")) {
-		     return langError(context,
-				      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-	       }
-
-	       nextToken(context);
-	       // match mandatory HELP value
-	       instruccionAux.help = getToken(context) ;
-
-	       // semantic check: valid value
-	       if ("STRING" != getTokenType(context)) {
-		    return langError(context,
-				     i18n_get_TagFor('compiler', 'UNKNOWN ESCAPE CHAR') +
-				     "'" + getToken(context) + "'") ;
-	       }
-
-	       nextToken(context);
-	       // match optional ,
-	       if (isToken(context,",")) {
-		   nextToken(context);
-	       }
+           ret = firm_instruction_help_read(context, instruccionAux) ;
+           if (typeof ret.error != "undefined") {
+               return ret ;     
+           }    
        }
 
 // li reg val {

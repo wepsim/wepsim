@@ -97,7 +97,8 @@ cat sim_core/sim_cfg.js \
     sim_sw/firmware/firm_begin.js \
     sim_sw/firmware/firm_pseudoinstructions.js \
     sim_sw/firmware/firm_registers.js \
-    sim_sw/firmware/firm_instruction.js \
+    sim_sw/firmware/firm_instruction_v1.js \
+    sim_sw/firmware/firm_instruction_v2.js \
     sim_sw/firmware/creator2native.js \
     sim_sw/firmware.js \
     sim_sw/assembly/memory_segments.js \

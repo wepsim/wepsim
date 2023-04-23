@@ -126,10 +126,33 @@ function loadFirmware (text)
 	   context.pseudoInstructions	= [];
 	   context.stackRegister	= null ;
            context.comments             = [] ;
+           context.version              = 1 ;
 
            var i = 0 ;
 
            nextToken(context) ;
+           // optional: firmware_version: 2
+           if (isToken(context, "firmware_version"))
+           {
+	       nextToken(context);
+	       // match mandatory =
+	       if (! isToken(context,"=")) {
+		     return langError(context,
+				      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+	       }
+
+	       nextToken(context);
+	       // match mandatory FIRMWARE_VERSION
+               context.comments = [] ;
+	       context.version = getToken(context) ;
+
+               nextToken(context);
+               // match optional ,
+               if (isToken(context,","))
+	           nextToken(context);
+           }
+
+           // firmware (registers, instructions, etc.)
            while (context.t < context.text.length)
            {
 		// *registers
@@ -192,7 +215,10 @@ function loadFirmware (text)
 		//             }
 		// }*
 
-               ret = firm_instruction_read(context, xr_info, all_ones_co) ;
+               if (2 == context.version)
+                    ret = firm_instruction_read_v2(context, xr_info, all_ones_co) ;
+               else ret = firm_instruction_read   (context, xr_info, all_ones_co) ;
+
 	       if (typeof ret.error != "undefined") {
 	           return ret ;
                }
