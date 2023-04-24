@@ -180,7 +180,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 // }
 
        if (2 == context.version) {
-           ret = firm_instruction_read_flexible_fields_v2(context, instruccionAux, xr_info, all_ones_co) ;
+           ret = firm_instruction_read_fields_v2(context, instruccionAux, xr_info, all_ones_co) ;
        }
        else {
         // ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;

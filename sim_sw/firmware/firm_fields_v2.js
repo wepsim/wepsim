@@ -81,7 +81,7 @@ function firm_instruction_co_read_v2 ( context, instruccionAux, xr_info, all_one
 		if (typeof instruccionAux.overlapping[i] != "undefined") {
 		    return langError(context,
 				     i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
-				     campos[camposInsertados].name) ;
+				     'co') ;
 		}
 
 		instruccionAux.overlapping[i] = 1;
@@ -314,7 +314,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux, camposInserta
        return {} ;
 }
 
-function firm_instruction_read_flexible_fields_v2 ( context, instruccionAux, xr_info, all_ones_co )
+function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all_ones_co )
 {
        var ret = {};
 
