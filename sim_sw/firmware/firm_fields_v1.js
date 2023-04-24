@@ -481,7 +481,8 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 //             [nwords=1,]
 //             reg=reg(25,21),
 //             val=inm(15,0),
-//             [help='this instruction is used for...',]*
+//             [help='this instruction is used for...',]
+//             [native,]*
 //             {
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
 //             }
@@ -512,12 +513,11 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 	       // match optional cop
 	       if (isToken(context,"cop"))
 	       {
-                   ret = firm_instruction_keynumber_read(context, instruccionAux) ;
+                   ret = firm_instruction_cop_read(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
 
-                   instruccionAux.cop = ret.value ;
                    continue ;
 	       }
 
@@ -542,6 +542,18 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 		   }
 
                    instruccionAux.help = ret.value ;
+                   continue ;
+	       }
+
+	       // match optional 'native' + ','
+	       if (isToken(context,"native"))
+	       {
+		   instruccionAux["is_native"] = true;
+		   nextToken(context);
+
+		   if (isToken(context,","))
+		       nextToken(context);
+
                    continue ;
 	       }
 
@@ -582,28 +594,6 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
        {
 	   return langError(context,
 			    i18n_get_TagFor('compiler', 'NO FIELD')) ; // TODO
-       }
-
-
-// li reg val {
-//             co=000000,
-//             nwords=1,
-//             reg=reg(25,21),
-//             val=inm(15,0),
-//             *[native,]*
-//             {
-//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
-//             }
-// }
-
-       // match optional 'native' + ','
-       if (isToken(context, "native"))
-       {
-	   instruccionAux["is_native"] = true;
-	   nextToken(context);
-
-	   if (isToken(context,","))
-	       nextToken(context);
        }
 
        // semantic check: valid pending value (cop.length if native.false)

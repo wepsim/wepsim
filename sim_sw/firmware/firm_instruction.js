@@ -19,7 +19,7 @@
  */
 
 
-function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
+function firm_instruction_read ( context, xr_info, all_ones_co )
 {
        var ret = {};
 
@@ -41,6 +41,7 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
        instruccionAux.help         = '' ;
        instruccionAux.overlapping  = {} ;
        instruccionAux.numeroCampos = 0 ;
+       instruccionAux.fields       = [] ;
 
        // semantic check: valid instruction name
        var re_name = "[a-zA-Z_0-9\.]*" ;
@@ -54,7 +55,6 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
        var firma = "";
        var firmaGlobal= "";
        var firmaUsuario= "";
-       var campos = [];
 
        firma = getToken(context)  + ',';
        firmaUsuario = getToken(context) + " ";
@@ -86,7 +86,7 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
 	       }
 
 	       campoAux.name = auxValue ;
-	       campos.push(campoAux);
+	       instruccionAux.fields.push(campoAux);
 	       instruccionAux.numeroCampos++;
 	       firma = firma + auxValue ;
 	       firmaUsuario = firmaUsuario + auxValue;
@@ -122,7 +122,7 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
 		   {
 		       var campoAux = {};
 		       campoAux.name = getToken(context) ;
-		       campos.push(campoAux);
+		       instruccionAux.fields.push(campoAux);
 		       instruccionAux.numeroCampos++;
 
 		       firma = firma + getToken(context) ;
@@ -169,136 +169,27 @@ function firm_instruction_read_v2 ( context, xr_info, all_ones_co )
 // li reg val {
 //             *co=000000,
 //             [cop=0000,]
-//             [nwords=1,]
-//             reg=reg(25,21),
-//             val=inm(15,0),
-//             [help='this instruction is used for...',]*
-//             {
-//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
-//             }
-// }
-
-       var camposInsertados = 0;
-       var co_inserted = 0;
-       while (! isToken(context,"{"))
-       {
-	       // match op
-	       if (isToken(context,"op"))
-	       {
-	           ret = firm_instruction_co_read_v2(context, instruccionAux, xr_info, all_ones_co) ;
-	           if (typeof ret.error != "undefined") {
-		       return ret ;
-	           }
-
-                   co_inserted = 1 ;
-                   continue ;
-	       }
-
-	       // match optional cop
-	       if (isToken(context,"cop"))
-	       {
-                   ret = firm_instruction_keynumber_read(context, instruccionAux) ;
-		   if (typeof ret.error != "undefined") {
-		       return ret ;
-		   }
-
-                   instruccionAux.cop = ret.value ;
-                   continue ;
-	       }
-
-	       // match optional "nwords"
-	       if (isToken(context, "nwords"))
-	       {
-                   ret = firm_instruction_keynumber_read(context, instruccionAux) ;
-		   if (typeof ret.error != "undefined") {
-		       return ret ;
-		   }
-
-                   instruccionAux.nwords = ret.value ;
-                   continue ;
-	       }
-
-	       // match optional help
-	       if (isToken(context,"help"))
-	       {
-		   ret = firm_instruction_keystring_read(context, instruccionAux) ;
-		   if (typeof ret.error != "undefined") {
-		       return ret ;
-		   }
-
-                   instruccionAux.help = ret.value ;
-                   continue ;
-	       }
-
-	       // match field...
-	       {
-		   ret = firm_instruction_field_read_v2(context, instruccionAux, campos, camposInsertados) ;
-		   if (typeof ret.error != "undefined") {
-		       return ret ;
-		   }
-
-		   firma = firma.replace("," + campos[camposInsertados].name, "," + campos[camposInsertados].type);
-		   firma = firma.replace("(" + campos[camposInsertados].name, "(" + campos[camposInsertados].type);
-		   firma = firma.replace(")" + campos[camposInsertados].name, ")" + campos[camposInsertados].type);
-		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados].name, campos[camposInsertados].type);
-
-		   instruccionAux.signature     = firma;
-		   instruccionAux.signatureUser = firmaUsuario;
-		   firmaGlobal = firma.replace("address","num");
-		   firmaGlobal = firmaGlobal.replace("inm" , "num");
-		   instruccionAux.signatureGlobal = firmaGlobal;
-
-		   camposInsertados++;
-	       }
-       }
-
-       instruccionAux.fields = campos;
-
-       // semantic check: co must exist
-       if (1 != co_inserted)
-       {
-	   return langError(context,
-			    i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
-       }
-
-       // semantic check: number of fields
-       if (camposInsertados != instruccionAux.numeroCampos)
-       {
-	   return langError(context,
-			    i18n_get_TagFor('compiler', 'NO FIELD')) ; // TODO
-       }
-
-
-// li reg val {
-//             co=000000,
 //             nwords=1,
 //             reg=reg(25,21),
 //             val=inm(15,0),
-//             *[native,]*
+//             [help='this instruction is used for...',]
+//             [native,]*
 //             {
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
 //             }
 // }
 
-       // match optional 'native' + ','
-       if (isToken(context, "native"))
-       {
-	   instruccionAux["is_native"] = true;
-	   nextToken(context);
-
-	   if (isToken(context,","))
-	       nextToken(context);
+       if (2 == context.version) {
+           ret = firm_instruction_read_flexible_fields_v2(context, instruccionAux, xr_info, all_ones_co) ;
+       }
+       else {
+        // ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;
+           ret = firm_instruction_read_fixed_fields   (context, instruccionAux, xr_info, all_ones_co) ;
+       }
+       if (typeof ret.error != "undefined") {
+           return ret ;
        }
 
-       // semantic check: valid pending value (cop.length if native.false)
-       if ( (instruccionAux["is_native"]  === false) &&
-	    (typeof instruccionAux.cop !== 'undefined') &&
-	    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
-       {
-	    return langError(context,
-			     i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
-			     "'" + getToken(context) + "'") ;
-       }
 
 // li reg val {
 //             co=000000,

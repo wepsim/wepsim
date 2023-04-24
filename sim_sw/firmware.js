@@ -215,10 +215,7 @@ function loadFirmware (text)
 		//             }
 		// }*
 
-               if (2 == context.version)
-                    ret = firm_instruction_read_v2(context, xr_info, all_ones_co) ;
-               else ret = firm_instruction_read   (context, xr_info, all_ones_co) ;
-
+               ret = firm_instruction_read(context, xr_info, all_ones_co) ;
 	       if (typeof ret.error != "undefined") {
 	           return ret ;
                }

@@ -43,8 +43,7 @@ echo "checking sim_sw..."
 #jshint ./sim_sw/firmware/firm_instruction_v1.js
  jshint ./sim_sw/firmware/firm_fields_v1.js
  jshint ./sim_sw/firmware/firm_fields_v2.js
-#jshint ./sim_sw/firmware/firm_instruction_v1.js
-#jshint ./sim_sw/firmware/firm_instruction_v2.js
+#jshint ./sim_sw/firmware/firm_instruction.js
 #jshint ./sim_sw/firmware.js
  jshint ./sim_sw/firmware/creator2native.js
 #jshint ./sim_sw/assembly/memory_segments.js
