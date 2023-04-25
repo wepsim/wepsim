@@ -209,31 +209,20 @@ function firm_instruction_keystring_read ( context, instruccionAux )
        return ret ;
 }
 
-function firm_instruction_field_read_v2 ( context, instruccionAux, camposInsertados )
+function firm_instruction_field_read_v2 ( context, instruccionAux )
 {
-	// match mandatory FIELD
-	var tmp_name = getToken(context) ;
-	if (instruccionAux.fields[camposInsertados].name != tmp_name) {
-	       return langError(context,
-				i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
-				"'" + tmp_name + "'. " +
-				i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
+        var tmp_fields = {} ;
+
+        // ...
+        // reg(15:19)=rs1,
+        // ...
+
+	// match mandatory FIELD-type: oc|funct|reg|inm|address-rel|address-abs
+	if ( !isToken_arr(context, ["oc", "funct", "reg", "inm", "address-rel", "address-abs"]) ) {
+		return langError(context, "Incorrect type of field (oc, funct, reg, inm, address-rel or address-abs)") ;
 	}
 
-	nextToken(context);
-	// match mandatory =
-	if (! isToken(context,"=")) {
-	       return langError(context,
-				i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-	}
-
-	nextToken(context);
-	// match mandatory reg|inm|address
-	if ( !isToken_arr(context, ["reg", "inm", "address"]) ) {
-		return langError(context, "Incorrect type of field (reg, inm or address)") ;
-	}
-
-	instruccionAux.fields[camposInsertados].type = getToken(context) ;
+	tmp_fields.type = getToken(context) ;
 
 	nextToken(context);
 	// match mandatory (
@@ -244,10 +233,10 @@ function firm_instruction_field_read_v2 ( context, instruccionAux, camposInserta
 
 	nextToken(context);
 	// match mandatory START_BIT
-	instruccionAux.fields[camposInsertados].startbit = getToken(context) ;
+	tmp_fields.startbit = getToken(context) ;
 
 	// check startbit range
-	var start = parseInt(instruccionAux.fields[camposInsertados].startbit);
+	var start = parseInt(tmp_fields.startbit);
 	if (start > 32*parseInt(instruccionAux.nwords)-1) {
 	       return langError(context,
 				i18n_get_TagFor('compiler', 'STARTBIT OoR') +
@@ -255,34 +244,22 @@ function firm_instruction_field_read_v2 ( context, instruccionAux, camposInserta
 	}
 
 	nextToken(context);
-	// match mandatory ,
-	if (! isToken(context,",")) {
+	// match mandatory :
+	if (! isToken(context,":")) {
 		 return langError(context,
-				  i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
+				  i18n_get_TagFor('compiler', 'COLON NOT FOUND')) ;
 	}
 
 	nextToken(context);
 	// match mandatory STOP_BIT
-	instruccionAux.fields[camposInsertados].stopbit = getToken(context) ;
+	tmp_fields.stopbit = getToken(context) ;
 
 	// check stopbit range
-	var stop  = parseInt(instruccionAux.fields[camposInsertados].stopbit);
+	var stop  = parseInt(tmp_fields.stopbit);
 	if (stop > 32*parseInt(instruccionAux.nwords)) {
 	       return langError(context,
 				i18n_get_TagFor('compiler', 'STOPBIT OoR') +
 				"'" + getToken(context) + "'") ;
-	}
-
-	// check overlapping
-	for (i=stop; i<=start; i++)
-	{
-		if (typeof instruccionAux.overlapping[i] != "undefined") {
-		    return langError(context,
-				     i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
-				     instruccionAux.fields[camposInsertados].name) ;
-		}
-
-		instruccionAux.overlapping[i] = 1;
 	}
 
 	nextToken(context);
@@ -293,22 +270,47 @@ function firm_instruction_field_read_v2 ( context, instruccionAux, camposInserta
 	}
 
 	nextToken(context);
-	if (instruccionAux.fields[camposInsertados].type == "address")
-	{
-	       // match mandatory abs|rel
-	       if (getToken(context) !="abs" && getToken(context) !="rel") {
-		   return langError(context,
-				    i18n_get_TagFor('compiler', 'INCORRECT ADDRESSING')) ;
-	       }
-
-	       // match mandatory ADDRESS_TYPE
-	       instruccionAux.fields[camposInsertados].address_type = getToken(context) ;
-	       nextToken(context);
+	// match mandatory =
+	if (! isToken(context,"=")) {
+	       return langError(context,
+				i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 	}
 
+	nextToken(context);
+	// match mandatory FIELD
+	var tmp_name = getToken(context) ;
+        var index_name = -1 ;
+        for (var i=0; (i<instruccionAux.fields.length) && (index_name == -1); i++)
+        {
+	     if (instruccionAux.fields[i].name == tmp_name)
+             {
+	         instruccionAux.fields[i] = tmp_fields ;
+                 index_name = i ;
+             }
+        }
+        if (index_name == -1) {
+	       return langError(context,
+				i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
+				"'" + tmp_name + "'. " +
+				i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
+        }
+
+	nextToken(context);
 	// match optional ,
 	if (isToken(context, ",")) {
 	       nextToken(context);
+	}
+
+	// check overlapping
+	for (i=stop; i<=start; i++)
+	{
+		if (typeof instruccionAux.overlapping[i] != "undefined") {
+		    return langError(context,
+				     i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				     instruccionAux.fields[index_name].name) ;
+		}
+
+		instruccionAux.overlapping[i] = 1;
 	}
 
        return {} ;
@@ -322,8 +324,8 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 //             *co=000000,
 //             [cop=0000,]
 //             [nwords=1,]
-//             reg=reg(25,21),
-//             val=inm(15,0),
+//             reg(25,21)=reg,
+//             inm(15,0)=val,
 //             [help='this instruction is used for...',]
 //             [native,]*
 //             {
@@ -402,7 +404,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 
 	       // match field...
 	       {
-		   ret = firm_instruction_field_read_v2(context, instruccionAux, camposInsertados) ;
+		   ret = firm_instruction_field_read_v2(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
@@ -451,3 +453,4 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 
        return {} ;
 }
+

@@ -134,8 +134,17 @@ function nextToken ( context )
           // insert token
           tok = context.text.substring(first, last) ;
 	  tok = tok.trim() ;
-          if ("TAG" == token_type) {
-              tok = tok + ":" ;
+          if ("TAG" == token_type)
+          {
+              if (isNaN(tok))
+              { // (tok != "25") -> "label:"
+                   tok = tok + ":" ;
+              }
+              else
+              { // (tok == "25") -> "25" ("25:20")
+                   token_type = "NUMBER" ;
+                   context.t = context.t - 1;
+              }
           }
 
           context.tokens.push(tok) ;
