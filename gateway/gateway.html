@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+<script>
+/*
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Diego Alonso Camarmas, Alejandro Calderon Mateos
+ *
+ *  This file is part of WepSIM.
+ *
+ *  WepSIM is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  WepSIM is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+</script>
+        <title>CREATOR - gateway</title>
+    </head>
+    <body>
+        <center>
+	<table border="0" cellspacing="10" cellpadding="10">
+	<tr>
+	<td>
+		<label for="div_info">(4) Output:</label><br>
+		<textarea id="div_info" name="div_info" rows="30" cols="50">
+		</textarea>
+	</td>
+	<td>
+		<label for="div_asm">(3) Press the button to flash:</label><br>
+		<button id="btn_flash"
+			onclick="crtor_do_flash('div_asm', 'div_url', 'div_info');">Press to flash...</button>
+		<p>
+		<label for="div_asm">(1) Put the assembly code here:</label><br>
+		<textarea id="div_asm" name="div_asm" 
+                          style="width:100%"
+                          rows="25" cols="50">
+li x1, 1
+li x2, 2
+		</textarea>
+		</p>
+
+		<p>
+		<label for="div_url">(2) Set the gateway URL:</label><br>
+		<input type="text" style="width:100%"
+		       id="div_url" name="div_url" 
+		       value="http://localhost:8080">
+		</p>
+	</td>
+	</tr>
+	</table>
+        </center>
+    </body>
+</html>
+
+<script>
+
+	async function crtor_remote_flash ( flash_url, flash_args, info_div )
+	{
+             var fetch_args = {
+			        method:  'POST',
+			        headers: {
+				            'Content-type': 'application/json',
+				            'Accept':       'application/json'
+				         },
+			        body:    JSON.stringify(flash_args)
+	 	              } ;
+
+             try
+             {
+                var res  = await fetch(flash_url, fetch_args) ;
+                var jres = await res.json();
+	        info_div.value = JSON.stringify(jres, null, 2) ;
+             }
+             catch (err)
+             {
+	        info_div.value = err ;
+             }
+	}
+
+	function crtor_do_flash ( div_asm_name, div_url_name, div_info_name )
+	{
+	     var udiv = document.getElementById(div_url_name) ;
+	     var furl = udiv.value + "/flash" ;
+
+             var dasm = document.getElementById(div_asm_name) ;
+	     var farg = {
+			   target_board: "esp32-c3",
+			   target_port:  "/dev/ttyUSB0",
+			   assembly:     dasm.value,
+			} ;
+
+	     var idiv = document.getElementById(div_info_name) ;
+	     crtor_remote_flash(furl, farg, idiv) ;
+	}
+
+</script>
+
