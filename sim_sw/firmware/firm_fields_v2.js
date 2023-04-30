@@ -19,32 +19,8 @@
  */
 
 
-function firm_instruction_co_read_v2 ( context, instruccionAux, xr_info, all_ones_co )
+function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_co )
 {
-
-// li reg val {
-//             ...
-//             *co=000000,*
-//             ...
-// }
-
-       nextToken(context);
-       // match mandatory =
-       if (! isToken(context,"=")) {
-	     return langError(context,
-			      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-       }
-
-       nextToken(context);
-       // match mandatory CO
-       instruccionAux.co = getToken(context) ;
-
-       nextToken(context);
-       // match optional ,
-       if (isToken(context,",")) {
-	   nextToken(context);
-       }
-
        // semantic check: valid value
        if ( (instruccionAux.co.match("[01]*")[0] != instruccionAux.co) ||
 	    (instruccionAux.co.length !== xr_info.ir.default_eltos.co.length) )
@@ -73,51 +49,11 @@ function firm_instruction_co_read_v2 ( context, instruccionAux, xr_info, all_one
 	   }
        }
 
-       // overlapping mask (initialized with 'co' field)
-       stop  = 26 ;
-       start = 31 ;
-       for (i=stop; i<=start; i++)
-       {
-		if (typeof instruccionAux.overlapping[i] != "undefined") {
-		    return langError(context,
-				     i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
-				     'co') ;
-		}
-
-		instruccionAux.overlapping[i] = 1;
-       }
-
        return {} ;
 }
 
-function firm_instruction_cop_read_v2 ( context, instruccionAux )
+function firm_instruction_check_cop ( context, instruccionAux )
 {
-
-// li reg val {
-//             co=000000,
-//             ...
-//             *[cop=0000,]*
-//             nwords=1,
-//             ...
-// }
-
-       nextToken(context);
-       // match mandatory =
-       if (! isToken(context,"=")) {
-	     return langError(context,
-			      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-       }
-
-       nextToken(context);
-       // match mandatory COP value
-       instruccionAux.cop = getToken(context) ;
-
-       nextToken(context);
-       // match optional ,
-       if (isToken(context,",")) {
-	   nextToken(context);
-       }
-
 	// semantic check: valid value
 	if (instruccionAux.cop.match("[01]*")[0] != instruccionAux.cop) {
 	    return langError(context,
@@ -139,7 +75,6 @@ function firm_instruction_cop_read_v2 ( context, instruccionAux )
 
        return {} ;
 }
-
 
 function firm_instruction_keynumber_read ( context, instruccionAux )
 {
@@ -224,6 +159,15 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 
 	tmp_fields.type = getToken(context) ;
 
+	if ("address-rel" == tmp_fields.type) {
+             tmp_fields.type         = "address" ;
+             tmp_fields.address_type = "rel" ;
+        }
+	if ("address-abs" == tmp_fields.type) {
+             tmp_fields.type         = "address" ;
+             tmp_fields.address_type = "abs" ;
+        }
+
 	nextToken(context);
 	// match mandatory (
 	if (! isToken(context,"(")) {
@@ -279,20 +223,30 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 	nextToken(context);
 	// match mandatory FIELD
 	var tmp_name = getToken(context) ;
-        var index_name = -1 ;
-        for (var i=0; (i<instruccionAux.fields.length) && (index_name == -1); i++)
+
+        if (["oc", "cop"].includes(tmp_fields.type))
         {
-	     if (instruccionAux.fields[i].name == tmp_name)
-             {
-	         instruccionAux.fields[i] = tmp_fields ;
-                 index_name = i ;
-             }
+                tmp_fields.value = tmp_name ; // oc(8,7)=*10101*
         }
-        if (index_name == -1) {
-	       return langError(context,
-				i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
-				"'" + tmp_name + "'. " +
-				i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
+        else
+        {
+		tmp_fields.name = tmp_name ; // reg(8,7)=*rs1*
+
+		var index_name = -1 ;
+		for (var i=0; (i<instruccionAux.fields.length) && (index_name == -1); i++)
+		{
+		     if (instruccionAux.fields[i].name == tmp_name)
+		     {
+			 instruccionAux.fields[i] = tmp_fields ;
+			 index_name = i ;
+		     }
+		}
+		if (index_name == -1) {
+		     return langError(context,
+				      i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
+				      "'" + tmp_name + "'. " +
+				      i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
+		}
         }
 
 	nextToken(context);
@@ -313,7 +267,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 		instruccionAux.overlapping[i] = 1;
 	}
 
-       return {} ;
+       return tmp_fields ;
 }
 
 function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all_ones_co )
@@ -321,11 +275,11 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
        var ret = {};
 
 // li reg val {
-//             *co=000000,
-//             [cop=0000,]
-//             [nwords=1,]
-//             reg(25,21)=reg,
-//             inm(15,0)=val,
+//            *[nwords=1,]
+//              oc(31,26)=000000,
+//             [cop(31,26)=000000,]
+//              reg(25,21)=reg,
+//              inm(15,0)=val,
 //             [help='this instruction is used for...',]
 //             [native,]*
 //             {
@@ -344,30 +298,41 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
        while (! isToken(context,"{"))
        {
 	       // match op
-	       if (isToken(context,"co"))
+	       if (isToken(context,"oc"))
 	       {
-	           ret = firm_instruction_co_read_v2(context, instruccionAux, xr_info, all_ones_co) ;
-	           if (typeof ret.error != "undefined") {
-		       return ret ;
-	           }
-
-                   co_inserted = 1 ;
-                   continue ;
-	       }
-
-	       // match optional cop
-	       if (isToken(context,"cop"))
-	       {
-                   ret = firm_instruction_cop_read_v2(context, instruccionAux) ;
+		   ret = firm_instruction_field_read_v2(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
 
-                   continue ;
+                   instruccionAux.co = ret.value ;
+
+                   ret = firm_instruction_check_oc(context, instruccionAux, xr_info, all_ones_co) ;
+		   if (typeof ret.error != "undefined") {
+		       return ret ;
+		   }
+
+                   co_inserted = 1 ;
+	       }
+
+	       // match optional cop
+          else if (isToken(context,"cop"))
+	       {
+		   ret = firm_instruction_field_read_v2(context, instruccionAux) ;
+		   if (typeof ret.error != "undefined") {
+		       return ret ;
+		   }
+
+                   instruccionAux.cop = ret.value ;
+
+                   ret = firm_instruction_check_cop(context, instruccionAux) ;
+		   if (typeof ret.error != "undefined") {
+		       return ret ;
+		   }
 	       }
 
 	       // match optional "nwords"
-	       if (isToken(context, "nwords"))
+	  else if (isToken(context, "nwords"))
 	       {
                    ret = firm_instruction_keynumber_read(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
@@ -375,11 +340,10 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		   }
 
                    instruccionAux.nwords = ret.value ;
-                   continue ;
 	       }
 
 	       // match optional help
-	       if (isToken(context,"help"))
+	  else if (isToken(context,"help"))
 	       {
 		   ret = firm_instruction_keystring_read(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
@@ -387,23 +351,20 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		   }
 
                    instruccionAux.help = ret.value ;
-                   continue ;
 	       }
 
 	       // match optional 'native' + ','
-	       if (isToken(context,"native"))
+	  else if (isToken(context,"native"))
 	       {
 		   instruccionAux["is_native"] = true;
 		   nextToken(context);
 
 		   if (isToken(context,","))
 		       nextToken(context);
-
-                   continue ;
 	       }
 
 	       // match field...
-	       {
+	  else {
 		   ret = firm_instruction_field_read_v2(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
@@ -442,9 +403,9 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
        }
 
        // semantic check: valid pending value (cop.length if native.false)
-       if ( (instruccionAux["is_native"]  === false) &&
-	    (typeof instruccionAux.cop !== 'undefined') &&
-	    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
+       if ( (instruccionAux["is_native"] === false) &&
+	    (typeof instruccionAux.cop   !== 'undefined') &&
+	    (instruccionAux.cop.length   !== xr_info.ir.default_eltos.cop.length) )
        {
 	    return langError(context,
 			     i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +

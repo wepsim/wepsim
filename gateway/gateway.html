@@ -40,7 +40,7 @@
 			onclick="crtor_do_flash('div_asm', 'div_url', 'div_info');">Press to flash...</button>
 		<p>
 		<label for="div_asm">(1) Put the assembly code here:</label><br>
-		<textarea id="div_asm" name="div_asm" 
+		<textarea id="div_asm" name="div_asm"
                           style="width:100%"
                           rows="25" cols="50">
 li x1, 1
@@ -51,7 +51,7 @@ li x2, 2
 		<p>
 		<label for="div_url">(2) Set the gateway URL:</label><br>
 		<input type="text" style="width:100%"
-		       id="div_url" name="div_url" 
+		       id="div_url" name="div_url"
 		       value="http://localhost:8080">
 		</p>
 	</td>
@@ -72,7 +72,7 @@ li x2, 2
 				            'Accept':       'application/json'
 				         },
 			        body:    JSON.stringify(flash_args)
-	 	              } ;
+                 } ;
 
              try
              {
