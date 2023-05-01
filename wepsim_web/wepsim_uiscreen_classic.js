@@ -374,7 +374,7 @@
 	        '        data-bs-dismiss="offcanvas" aria-label="Close"></button>' ;
         }
 
-        o = '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2">' +
+        o = '  <div class="offcanvas-header bg-secondary bg-opacity-25 border p-2 mt-5">' +
             '    <h5 class="offcanvas-title lh-1" ' +
             '        onclick="wepsim_offcanvas_toggleHV(\'' + offcanvas_id + '\');"' +
             '        id="' + offcanvas_id + 'Label">' +

@@ -94,7 +94,6 @@ sret {
 #
 
 in reg val {
-     nwords=1,
      oc(31:26)=111111,
      reg(25:21)=reg,
      inm(15:0)=val,
@@ -107,7 +106,6 @@ in reg val {
 }
 
 out reg val {
-     nwords=1,
      oc(31:26)=111111,
      reg(25:21)=reg,
      inm(15:0)=val,
@@ -144,7 +142,6 @@ lde reg1  {
 
 #  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
 lui rd inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       inm(19:0)=inm,
@@ -161,7 +158,6 @@ lui rd inm {
 
 #  AUIPC rd,offset         Add Upper Immediate to PC         rd ← pc + (offset << 12)
 auipc rd offset {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       inm(19:0)=offset,
@@ -182,7 +178,6 @@ auipc rd offset {
 #  JAL rd,offset        Jump and Link           rd ← pc + length(inst)
 #                                               pc ← pc + offset
 jal rd offset {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       address-rel(19:0)=offset,
@@ -197,7 +192,6 @@ jal rd offset {
 #  JALR rd,rs1,offset   Jump and Link Register   rd ← pc + length(inst)
 #                                              	 pc ← (rs1 + offset) & -2
 jalr rd rs1 offset {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -217,7 +211,6 @@ jalr rd rs1 offset {
 
 #  BEQ rs1,rs2,offset         Branch Equal                         if rs1 = rs2 then pc ← pc + offset
 beq rs1 rs2 offset {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs1,
       reg(20:16)=rs2,
@@ -238,7 +231,6 @@ bck2ftch: (T5, M7=0, C7),
 
 #  BNE rs1,rs2,offset         Branch Not Equal                     if rs1 ≠ rs2 then pc ← pc + offset
 bne rs1 rs2 offset {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs1,
       reg(20:16)=rs2,
@@ -259,7 +251,6 @@ bck3ftch: (T5, M7=0, C7),
 
 #  BLT rs1,rs2,offset         Branch Less Than                     if rs1 < rs2 then pc ← pc + offset
 blt rs1 rs2 offset {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs1,
       reg(20:16)=rs2,
@@ -280,7 +271,6 @@ bck5ftch: (T5, M7=0, C7),
 
 #  BGE rs1,rs2,offset         Branch Greater than Equal             if rs1 ≥ rs2 then pc ← pc + offset
 bge rs1 rs2 offset {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs1,
       reg(20:16)=rs2,
@@ -301,7 +291,6 @@ bck4ftch: (T5, M7=0, C7),
 
 #  BLTU rs1,rs2,offset         Branch Less Than Unsigned             if rs1 < rs2 then pc ← pc + offset
 bltu rs1 rs2 offset {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs1,
       reg(20:16)=rs2,
@@ -322,7 +311,6 @@ bck6ftch: (T5, M7=0, C7),
 
 #  BGEU rs1,rs2,offset         Branch Greater than Equal Unsigned         if rs1 ≥ rs2 then pc ← pc + offset
 bgeu rs1 rs2 offset {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs1,
       reg(20:16)=rs2,
@@ -343,7 +331,6 @@ bck7ftch: (T5, M7=0, C7),
 
 #  LB rd,offset(rs1)         Load Byte                         rd ← s8[rs1 + offset]
 lb rd offset(rs1) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       inm(15:0)=offset,
@@ -359,7 +346,6 @@ lb rd offset(rs1) {
 
 #  LH rd,offset(rs1)         Load Half                         rd ← s16[rs1 + offset]
 lh rd offset(rs1) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       inm(15:0)=offset,
@@ -375,7 +361,6 @@ lh rd offset(rs1) {
 
 #  LW rd,offset(rs1)         Load Word                         rd ← s32[rs1 + offset]
 lw rd offset(rs1) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       inm(15:0)=offset,
@@ -391,7 +376,6 @@ lw rd offset(rs1) {
 
 #  LBU rd,offset(rs1)         Load Byte Unsigned                     rd ← u8[rs1 + offset]
 lbu rd offset(rs1) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       inm(15:0)=offset,
@@ -407,7 +391,6 @@ lbu rd offset(rs1) {
 
 #  LHU rd,offset(rs1)         Load Half Unsigned                     rd ← u16[rs1 + offset]
 lhu rd offset(rs1) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       inm(15:0)=offset,
@@ -423,7 +406,6 @@ lhu rd offset(rs1) {
 
 #  SB rs2,offset(rs1)         Store Byte                         u8[rs1 + offset] ← rs2
 sb rs2 offset(rs1) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs2,
       inm(15:0)=offset,
@@ -439,7 +421,6 @@ sb rs2 offset(rs1) {
 
 #  SH rs2,offset(rs1)         Store Half                         u16[rs1 + offset] ← rs2
 sh rs2 offset(rs1) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs2,
       inm(15:0)=offset,
@@ -455,7 +436,6 @@ sh rs2 offset(rs1) {
 
 #  SW rs2,offset(rs1)         Store Word                         u32[rs1 + offset] ← rs2
 sw reg1 val(reg2) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       inm(15:0)=val,
@@ -471,7 +451,6 @@ sw reg1 val(reg2) {
 
 #  SBU rs2,offset(rs1)         Store Byte Unsigned                    u8[rs1 + offset] ← rs2
 sbu rs2 offset(rs1) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs2,
       reg(20:16)=rs1,
@@ -487,7 +466,6 @@ sbu rs2 offset(rs1) {
 
 #  SHU rs2,offset(rs1)         Store Half Unsigned                    u16[rs1 + offset] ← rs2
 shu rs2 offset(rs1) {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rs2,
       reg(20:16)=rs1,
@@ -503,7 +481,6 @@ shu rs2 offset(rs1) {
 
 #  ADDI rd,rs1,imm         Add Immediate                         rd ← rs1 + sx(imm)
 addi rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -517,7 +494,6 @@ addi rd rs1 inm {
 
 #  ADDU rd,rs1,imm         Add Unsigned                         rd ← rs1 + ux(imm)
 addu rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -531,7 +507,6 @@ addu rd rs1 inm {
 
 #  SLTI rd,rs1,imm         Set Less Than Immediate             rd ← sx(rs1) < sx(imm)
 slti rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -556,7 +531,6 @@ slti rd rs1 inm {
 
 #  SLTIU rd,rs1,imm         Set Less Than Immediate Unsigned         rd ← ux(rs1) < ux(imm)
 sltiu rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -578,7 +552,6 @@ sltiu rd rs1 inm {
 
 #  XORI rd,rs1,imm         Xor Immediate                         rd ← ux(rs1) ⊕ ux(imm)
 xori rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -592,7 +565,6 @@ xori rd rs1 inm {
 
 #  ORI rd,rs1,imm         Or Immediate                         rd ← ux(rs1) ∨ ux(imm)
 ori rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -606,7 +578,6 @@ ori rd rs1 inm {
 
 #  ANDI rd,rs1,imm         And Immediate                         rd ← ux(rs1) ∧ ux(imm)
 andi rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -620,7 +591,6 @@ andi rd rs1 inm {
 
 #  SLLI rd,rs1,imm         Shift Left Logical Immediate             rd ← ux(rs1) « ux(imm)
 slli rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -640,7 +610,6 @@ bck10aftch: (A0=1, B=1, C=0)
 
 #  SRLI rd,rs1,imm         Shift Right Logical Immediate             rd ← ux(rs1) » ux(imm)
 srli rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -662,7 +631,6 @@ srli rd rs1 inm {
 
 #  SRAI rd,rs1,imm         Shift Right Arithmetic Immediate         rd ← sx(rs1) » ux(imm)
 srai rd rs1 inm {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -681,7 +649,6 @@ srai rd rs1 inm {
 
 #  ADD rd,rs1,rs2         Add                                 rd ← sx(rs1) + sx(rs2)
 add reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -694,7 +661,6 @@ add reg1 reg2 reg3 {
 
 #  SUB rd,rs1,rs2         Subtract                         rd ← sx(rs1) - sx(rs2)
 sub reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -707,7 +673,6 @@ sub reg1 reg2 reg3 {
 
 #  SLL rd,rs1,rs2         Shift Left Logical                     rd ← ux(rs1) « rs2
 sll rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -726,7 +691,6 @@ bck10bftch: (A0=1, B=1, C=0)
 
 #  SLT rd,rs1,rs2         Set Less Than                         rd ← sx(rs1) < sx(rs2)
 slt rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -746,7 +710,6 @@ bck8ftch: (T5, M7=0, C7),
 
 #  SLTU rd,rs1,rs2         Set Less Than Unsigned                     rd ← ux(rs1) < ux(rs2)
 sltu rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -766,7 +729,6 @@ bck9ftch: (T5, M7=0, C7),
 
 #  XOR rd,rs1,rs2         Xor                                 rd ← ux(rs1) ⊕ ux(rs2)
 xor reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -779,7 +741,6 @@ xor reg1 reg2 reg3 {
 
 #  SRL rd,rs1,rs2         Shift Right Logical                     rd ← ux(rs1) » rs2
 srl rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -798,7 +759,6 @@ srl rd rs1 rs2 {
 
 #  SRA rd,rs1,rs2         Shift Right Arithmetic                     rd ← sx(rs1) » rs2
 sra rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -817,7 +777,6 @@ sra rd rs1 rs2 {
 
 #  OR rd,rs1,rs2         Or                                 rd ← ux(rs1) ∨ ux(rs2)
 or reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -830,7 +789,6 @@ or reg1 reg2 reg3 {
 
 #  AND rd,rs1,rs2         And                                 rd ← ux(rs1) ∧ ux(rs2)
 and reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -843,7 +801,6 @@ and reg1 reg2 reg3 {
 
 #  FENCE pred,succ         Fence
 fence pred succ {
-      nwords=1,
       oc(31:26)=111111,
       inm(25:21)=pred,
       inm(15:0)=succ,
@@ -855,7 +812,6 @@ fence pred succ {
 #  FENCE.I             Fence Instruction
 fence.i {
       oc(31:26)=111111,
-      nwords=1,
       {
           (A0=1, B=1, C=0)
       }
@@ -870,7 +826,6 @@ fence.i {
 
 # MUL rd,rs1,rs2         Multiply         rd ← ux(rs1) × ux(rs2)
 mul reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -883,7 +838,6 @@ mul reg1 reg2 reg3 {
 
 # MULH rd,rs1,rs2         Multiply High Signed         rd ← (sx(rs1) × sx(rs2)) » xlen
 mulh rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -907,7 +861,6 @@ mulh rd rs1 rs2 {
 
 # MULHSU rd,rs1,rs2         Multiply High Signed Unsigned         rd ← (sx(rs1) × ux(rs2)) » xlen
 mulhsu rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -931,7 +884,6 @@ mulhsu rd rs1 rs2 {
 
 # MULHU rd,rs1,rs2         Multiply High Unsigned Unsigned         rd ← (ux(rs1) × ux(rs2)) » xlen
 mulhu rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -955,7 +907,6 @@ mulhu rd rs1 rs2 {
 
 # DIV rd,rs1,rs2         Divide Signed         rd ← sx(rs1) ÷ sx(rs2)
 div reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -976,7 +927,6 @@ div reg1 reg2 reg3 {
 
 # DIVU rd,rs1,rs2         Divide Unsigned         rd ← ux(rs1) ÷ ux(rs2)
 divu rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -997,7 +947,6 @@ divu rd rs1 rs2 {
 
 # REM rd,rs1,rs2         Remainder Signed         rd ← sx(rs1) mod sx(rs2)
 rem reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -1010,7 +959,6 @@ rem reg1 reg2 reg3 {
 
 # REMU rd,rs1,rs2         Remainder Unsigned         rd ← ux(rs1) mod ux(rs2)
 remu rd rs1 rs2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
@@ -1038,7 +986,6 @@ remu rd rs1 rs2 {
 
 #  FADD.S rd,rs1,rs2         Add                      f(rd) ← f(rs1) + f(rs2)
 fadd.s reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -1051,7 +998,6 @@ fadd.s reg1 reg2 reg3 {
 
 #  FSUB.S rd,rs1,rs2         Subtract                 f(rd) ← f(rs1) - f(rs2)
 fsub.s reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -1064,7 +1010,6 @@ fsub.s reg1 reg2 reg3 {
 
 #  FMUL.S rd,rs1,rs2         Multiply                 f(rd) ← f(rs1) * f(rs2)
 fmul.s reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -1077,7 +1022,6 @@ fmul.s reg1 reg2 reg3 {
 
 #  FDIV.S rd,rs1,rs2         Divide                 f(rd) ← f(rs1) / f(rs2)
 fdiv.s reg1 reg2 reg3 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -1090,7 +1034,6 @@ fdiv.s reg1 reg2 reg3 {
 
 #  FCVT.W.S rd,rs1             Convert                 f(rd) ← sext(s32_{f32}(f(rs1)))
 fcvt.w.s reg1 reg2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -1102,7 +1045,6 @@ fcvt.w.s reg1 reg2 {
 
 #  FCVT.S.W rd,rs1             Convert                 f(rd) ← (f32)(x(rs1))
 fcvt.s.w reg1 reg2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,
@@ -1114,7 +1056,6 @@ fcvt.s.w reg1 reg2 {
 
 #  FCLASS.S rd,rs1             Convert                 x(rd) ← classify(f(rs1))
 fclass.s reg1 reg2 {
-      nwords=1,
       oc(31:26)=111111,
       reg(25:21)=reg1,
       reg(20:16)=reg2,

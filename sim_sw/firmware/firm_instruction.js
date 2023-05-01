@@ -42,6 +42,8 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
        instruccionAux.overlapping  = {} ;
        instruccionAux.numeroCampos = 0 ;
        instruccionAux.fields       = [] ;
+       instruccionAux.fields_all   = [] ;
+       instruccionAux.fields_funct = [] ;
 
        // semantic check: valid instruction name
        var re_name = "[a-zA-Z_0-9\.]*" ;

@@ -3,7 +3,7 @@
 
 ## 2.2.2 -> 2.3.0:
 * Main improvements:
-  * Firmware reworked
+  * Added firmware version 2
 * Main external dependencies updated:
 
 ## 2.2.1 -> 2.2.2:

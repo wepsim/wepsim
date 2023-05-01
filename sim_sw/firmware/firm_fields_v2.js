@@ -147,13 +147,14 @@ function firm_instruction_keystring_read ( context, instruccionAux )
 function firm_instruction_field_read_v2 ( context, instruccionAux )
 {
         var tmp_fields = {} ;
+	var field_list = ["oc", "cop", "funct", "reg", "inm", "address-rel", "address-abs"] ;
 
         // ...
         // reg(15:19)=rs1,
         // ...
 
-	// match mandatory FIELD-type: oc|funct|reg|inm|address-rel|address-abs
-	if ( !isToken_arr(context, ["oc", "funct", "reg", "inm", "address-rel", "address-abs"]) ) {
+	// match mandatory FIELD-type: oc|cop|funct|reg|inm|address-rel|address-abs
+	if ( !isToken_arr(context, field_list) ) {
 		return langError(context, "Incorrect type of field (oc, funct, reg, inm, address-rel or address-abs)") ;
 	}
 
@@ -224,7 +225,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 	// match mandatory FIELD
 	var tmp_name = getToken(context) ;
 
-        if (["oc", "cop"].includes(tmp_fields.type))
+        if (["oc", "cop", "funct"].includes(tmp_fields.type))
         {
                 tmp_fields.value = tmp_name ; // oc(8,7)=*10101*
         }
@@ -267,7 +268,10 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 		instruccionAux.overlapping[i] = 1;
 	}
 
-       return tmp_fields ;
+        // add to field list (fields_all)
+	instruccionAux.fields_all.push(tmp_fields) ;
+
+        return tmp_fields ;
 }
 
 function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all_ones_co )
@@ -329,6 +333,17 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
+	       }
+
+	       // match optional funct
+          else if (isToken(context,"funct"))
+	       {
+		   ret = firm_instruction_field_read_v2(context, instruccionAux) ;
+		   if (typeof ret.error != "undefined") {
+		       return ret ;
+		   }
+ 
+                   instruccionAux.fields_funct.push(ret.value) ;
 	       }
 
 	       // match optional "nwords"
