@@ -1,8 +1,9 @@
-#!/bin/bash
-set -x
+#!/bin/sh
+#set -x
+
 
 #*
-#*  Copyright 2015-2023 Felix Garcia Carballeira
+#*  Copyright 2022-2023 Felix Garcia Carballeira, Diego Alonso Camarmas, Alejandro Calderon Mateos
 #*
 #*  This file is part of WepSIM.
 #*
@@ -19,10 +20,25 @@ set -x
 #*  You should have received a copy of the GNU Lesser General Public License
 #*  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
 #*
-#*/
 
-echo "./creator_prepare.sh $1"
-echo "idf.py build"
-echo "idf.py -p /dev/cu.usbserial-1110  flash"
-echo "idf.py  p /dev/cu.usbserial-1110  monitor"
+
+# default values
+ASM_FILE="tmp_assembly.s"
+DEV_FILE="/dev/cu.usbserial-1110"
+
+# get arguments
+if [ "$1" != "" ]; then
+     ASM_FILE=$1
+fi
+if [ "$2" != "" ]; then
+     DEV_FILE=$2
+fi
+
+# transform tmp_assembly.s
+python3 creator_build.py ${ASM_FILE}
+
+# flashing...
+idf.py build                    > tmp_output.txt 2>&1
+idf.py -p ${DEV_FILE} flash    >> tmp_output.txt 2>&1
+idf.py -p ${DEV_FILE} monitor  >> tmp_output.txt 2>&1
 

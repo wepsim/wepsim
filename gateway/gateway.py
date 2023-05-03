@@ -1,5 +1,8 @@
+#!/usr/bin/env python3
+
+
 #*
-#*  Copyright 2015-2023 Felix Garcia Carballeira, Diego Alonso Camarmas, Alejandro Calderon Mateos
+#*  Copyright 2022-2023 Felix Garcia Carballeira, Diego Carmarmas Alonso, Alejandro Calderon Mateos
 #*
 #*  This file is part of WepSIM.
 #*
@@ -16,28 +19,32 @@
 #*  You should have received a copy of the GNU Lesser General Public License
 #*  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
 #*
-#*/
 
 
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, Response
 from flask_cors import CORS, cross_origin
-import subprocess
+import subprocess, os
+
+def do_get_form(request):
+    try:
+        return send_file('gateway.html')
+    except Exception as e:
+        return str(e)
 
 def do_flash_request(request):
     try:
        req_data = request.get_json()
-       asm_code = req_data['assembly']
 
-       text_file = open("assembly.s", "w")
+       asm_code = req_data['assembly']
+       text_file = open("tmp_assembly.s", "w")
        ret = text_file.write(asm_code)
        text_file.close()
 
-       # execute flashing script
-       result = subprocess.run(['./flash.sh', 'assembly.s'], stdout=subprocess.PIPE)
-       req_data['output'] = result.stdout.decode("utf-8")
+       target_device = req_data['target_port']
+
+       result = subprocess.run(['./flash.sh', 'tmp_assembly.s', target_device])
        req_data['status'] = 'done'
     except Exception as e:
-       req_data['output'] = ''
        req_data['status'] = 'error'
 
     return jsonify(req_data)
@@ -48,23 +55,33 @@ app  = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-# GET / -> send gateway.html
+# (1) GET / -> send gateway.html
 @app.route("/", methods=["GET"])
 @cross_origin()
-def get_method():
-    try:
-        return send_file('gateway.html')
-    except Exception as e:
-        return str(e)
+def get_form():
+    return do_get_form(request)
 
-# POST /flash -> flash
+# (2) POST /flash -> flash
 @app.route("/flash", methods=["POST"])
 @cross_origin()
-def post_method():
-    print(request)
-    req_data = do_flash_request(request)
-    print(req_data)
-    return req_data
+def post_flash():
+    return do_flash_request(request)
+
+# (3) GET /status -> send tmp_output.txt
+@app.route("/status", methods=["GET"])
+@cross_origin()
+def get_status():
+    def generate():
+        try:
+            fin = open("tmp_output.txt",  "rt")
+            for line in fin:
+                yield "data: " + line + "\n"
+            fin.close()
+            yield "data: \n\n"
+            os.remove("tmp_output.txt")
+        except Exception as e:
+            return str(e)
+    return Response(generate(), mimetype= 'text/event-stream') ;
 
 # Run
 app.run(host='0.0.0.0', port=8080, debug=True)
