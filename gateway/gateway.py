@@ -25,6 +25,46 @@ from flask import Flask, request, jsonify, send_file, Response
 from flask_cors import CORS, cross_origin
 import subprocess, os
 
+
+# Adapt assembly file...
+def creator_build(file_src, file_dst):
+	try:
+		fin  = open(file_src, "rt")
+		fout = open(file_dst, "wt")
+
+		# add initial header
+		fout.write(".text\n");
+		fout.write(".type main, @function\n")
+		fout.write(".globl main\n")
+
+		datos = []
+		# for each line in the input file...
+		for line in fin:
+			datos = line.split()
+			if (len(datos) > 0):
+				if (datos[0] == 'rdcycle'):
+					fout.write("####\n ")
+					fout.write("addi sp, sp, -8\n")
+					fout.write("sw ra, 0(sp)\n")
+					fout.write("jal _esp_cpu_set_cycle_count\n")
+					fout.write("lw ra, 0(sp)\n")
+					fout.write("addi sp, sp, 8\n")
+					fout.write("mv "+datos[1]+" a0\n")
+					fout.write("####\n ")
+				else:
+					line2 = line.replace('ecall', '#### \n addi sp, sp, -8 \n sw ra, 0(sp) \n jal _myecall \n lw ra, 0(sp) \n addi sp, sp, 8 \n ####')
+					fout.write(line2)
+
+		# close input + output files
+		fin.close()
+		fout.close()
+		return 1 ;
+
+	except Exception as e:
+		print("Error adapting assembly file... :-/")
+		return -1 ;
+
+
 def do_get_form(request):
     try:
         return send_file('gateway.html')
@@ -34,16 +74,44 @@ def do_get_form(request):
 def do_flash_request(request):
     try:
        req_data = request.get_json()
+       asm_code      = req_data['assembly']
+       target_device = req_data['target_port']
+       board         = req_data['target_board']
 
-       asm_code = req_data['assembly']
+       # save assembly in tmp_assembly.s
        text_file = open("tmp_assembly.s", "w")
        ret = text_file.write(asm_code)
        text_file.close()
 
-       target_device = req_data['target_port']
+       # tmp_assembly.s -> main/program.s
+       creator_build('tmp_assembly.s', 'main/program.s');
+       req_data['status'] = ''
 
-       result = subprocess.run(['./flash.sh', 'tmp_assembly.s', target_device])
-       req_data['status'] = 'done'
+       # idf.py fullclean
+       var cmd = ['idf.py',  'fullclean']
+       result = subprocess.run(cmd)
+       req_data['status'] += result.stdout
+
+       # idf.py set-target <board>
+       cmd = ['idf.py',  'set-target', board]
+       result = subprocess.run(cmd)
+       req_data['status'] += result.stdout
+
+       # idf.py build
+       cmd = ['idf.py', 'build']
+       result = subprocess.run(cmd)
+       req_data['status'] += result.stdout
+
+       # idf.py -p <target_device> flash
+       cmd = ['idf.py', '-p', target_device, 'flash']
+       result = subprocess.run(cmd)
+       req_data['status'] += result.stdout
+
+       # idf.py -p <target_device> monitor
+       cmd = ['idf.py', '-p', target_device, 'monitor']
+       result = subprocess.run(cmd)
+       req_data['status'] += result.stdout
+
     except Exception as e:
        req_data['status'] = 'error'
 
@@ -77,6 +145,7 @@ def get_status():
             for line in fin:
                 yield "data: " + line + "\n"
             fin.close()
+            yield "event: end\n"
             yield "data: \n\n"
             os.remove("tmp_output.txt")
         except Exception as e:
