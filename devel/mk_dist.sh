@@ -367,6 +367,9 @@ chmod a+x ws_dist/*.sh
 ./ws_dist/wepsim.sh -a export-hardware -m ep  > ws_dist/examples/hardware/ep/hw_def.json
 ./ws_dist/wepsim.sh -a export-hardware -m poc > ws_dist/examples/hardware/poc/hw_def.json
 
+# add gateway.zip
+zip -9r ./ws_dist/gateway.zip gateway/
+
 # the end
 echo ""
 echo "  WepSIM packed in ws_dist (if no error was shown)."

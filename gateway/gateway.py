@@ -1,29 +1,36 @@
 #!/usr/bin/env python3
 
+#
+#  Copyright 2022-2023 Felix Garcia Carballeira, Diego Carmarmas Alonso, Alejandro Calderon Mateos
+#
+#  This file is part of WepSIM.
+#
+#  WepSIM is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  WepSIM is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Lesser General Public License for more details.
+#
+#  You should have received a copy of the GNU Lesser General Public License
+#  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+#
 
-#*
-#*  Copyright 2022-2023 Felix Garcia Carballeira, Diego Carmarmas Alonso, Alejandro Calderon Mateos
-#*
-#*  This file is part of WepSIM.
-#*
-#*  WepSIM is free software: you can redistribute it and/or modify
-#*  it under the terms of the GNU Lesser General Public License as published by
-#*  the Free Software Foundation, either version 3 of the License, or
-#*  (at your option) any later version.
-#*
-#*  WepSIM is distributed in the hope that it will be useful,
-#*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#*  GNU Lesser General Public License for more details.
-#*
-#*  You should have received a copy of the GNU Lesser General Public License
-#*  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
-#*
 
-
-from flask import Flask, request, jsonify, send_file, Response
+from flask      import Flask, request, jsonify, send_file, Response
 from flask_cors import CORS, cross_origin
 import subprocess, os
+
+
+# (1) method to send form...
+def do_get_form(request):
+    try:
+        return send_file('gateway.html')
+    except Exception as e:
+        return str(e)
 
 
 # Adapt assembly file...
@@ -58,62 +65,50 @@ def creator_build(file_src, file_dst):
 		# close input + output files
 		fin.close()
 		fout.close()
-		return 1 ;
+		return 0 ;
 
 	except Exception as e:
 		print("Error adapting assembly file... :-/")
 		return -1 ;
 
-
-def do_get_form(request):
-    try:
-        return send_file('gateway.html')
-    except Exception as e:
-        return str(e)
-
+# (1) method to request flashing...
 def do_flash_request(request):
     try:
+       # (A) preparing work space...
        req_data = request.get_json()
+
        asm_code      = req_data['assembly']
        target_device = req_data['target_port']
        board         = req_data['target_board']
 
-       # save assembly in tmp_assembly.s
+       cmd = [
+                ['idf.py', 'fullclean'],
+                ['idf.py', 'set-target', board],
+                ['idf.py', 'build'],
+                ['idf.py', '-p', target_device, 'flash'],
+                ['idf.py', '-p', target_device, 'monitor']
+             ]
+
+       # (B) save assembly in tmp_assembly.s
        text_file = open("tmp_assembly.s", "w")
        ret = text_file.write(asm_code)
        text_file.close()
 
-       # tmp_assembly.s -> main/program.s
-       creator_build('tmp_assembly.s', 'main/program.s');
+       # (C) tmp_assembly.s -> main/program.s
        req_data['status'] = ''
+       ret = creator_build('tmp_assembly.s', 'main/program.s');
+       if ret != 0:
+          req_data['status'] = 'error when building assembly'
 
-       # idf.py fullclean
-       var cmd = ['idf.py',  'fullclean']
-       result = subprocess.run(cmd)
-       req_data['status'] += result.stdout
-
-       # idf.py set-target <board>
-       cmd = ['idf.py',  'set-target', board]
-       result = subprocess.run(cmd)
-       req_data['status'] += result.stdout
-
-       # idf.py build
-       cmd = ['idf.py', 'build']
-       result = subprocess.run(cmd)
-       req_data['status'] += result.stdout
-
-       # idf.py -p <target_device> flash
-       cmd = ['idf.py', '-p', target_device, 'flash']
-       result = subprocess.run(cmd)
-       req_data['status'] += result.stdout
-
-       # idf.py -p <target_device> monitor
-       cmd = ['idf.py', '-p', target_device, 'monitor']
-       result = subprocess.run(cmd)
-       req_data['status'] += result.stdout
+       # (D) execute list of commands
+       for i in range(len(cmd)):
+           if ret == 0:
+              result = subprocess.run(cmd[i])
+              req_data['status'] += result.stdout + '\n'
+              ret = result.returncode
 
     except Exception as e:
-       req_data['status'] = 'error'
+       req_data['status'] = 'error: ' + e
 
     return jsonify(req_data)
 
