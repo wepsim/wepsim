@@ -47,7 +47,7 @@ def creator_build(file_src, file_dst):
 		datos = []
 		# for each line in the input file...
 		for line in fin:
-			datos = line.split()
+			datos = line.strip().split()
 			if (len(datos) > 0):
 				if (datos[0] == 'rdcycle'):
 					fout.write("####\n ")
@@ -58,7 +58,7 @@ def creator_build(file_src, file_dst):
 					fout.write("addi sp, sp, 8\n")
 					fout.write("mv "+datos[1]+" a0\n")
 					fout.write("####\n ")
-				else:
+				if (datos[0] == 'ecall'):
 					line2 = line.replace('ecall', '#### \n addi sp, sp, -8 \n sw ra, 0(sp) \n jal _myecall \n lw ra, 0(sp) \n addi sp, sp, 8 \n ####')
 					fout.write(line2)
 
@@ -95,9 +95,11 @@ def do_flash_request(request):
        text_file.close()
 
        # (C) tmp_assembly.s -> main/program.s
+       req_data['error']  = 'false'
        req_data['status'] = ''
        ret = creator_build('tmp_assembly.s', 'main/program.s');
        if ret != 0:
+          req_data['error']  = 'true'
           req_data['status'] = 'error when building assembly'
 
        # (D) execute list of commands
@@ -106,9 +108,12 @@ def do_flash_request(request):
               result = subprocess.run(cmd[i])
               req_data['status'] += result.stdout + '\n'
               ret = result.returncode
+           else:
+              req_data['error']  = 'true'
 
     except Exception as e:
-       req_data['status'] = 'error: ' + e
+       req_data['error']  = 'true'
+       req_data['status'] = 'error: ' + str(e)
 
     return jsonify(req_data)
 

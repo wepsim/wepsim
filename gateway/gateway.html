@@ -138,12 +138,17 @@ factorial:
              {
                 var res  = await fetch(flash_url, fetch_args) ;
                 var jres = await res.json();
-                info_div.value = jres.status + '\n' ; // JSON.stringify(jres, null, 2) + '\n' ;
+                info_div.value = jres.status + '\n' ;
              }
              catch (err)
              {
                 info_div.value = err + '\n' ;
+                return -1;
              }
+
+             if (jres.error == 'false')
+                  return 0;
+             else return -1;
 	}
 
 	function gateway_do_flash ( div_asm_name, div_url_name, div_dev_name, div_target_name, div_info_name )
@@ -162,16 +167,18 @@ factorial:
 			   assembly:     dasm.value,
 			} ;
 
-	     gateway_remote_flash(furl + "/flash", farg, idiv);
+	     var ret = gateway_remote_flash(furl + "/flash", farg, idiv);
 
-             // do remote flash...
-             var s = new EventSource(furl + "/status");
-             s.onmessage = (e) => { 
-                                     idiv.value += e.data + '\n' ;
-                                  };
-             s.addEventListener("end", (event) => { 
-                                     s.close();
-                                  }) ;
+	     // do remote flash...
+             ret.then(result => {
+		     var s = new EventSource(furl + "/status");
+		     s.onmessage = (e) => { 
+					     idiv.value += e.data + '\n' ;
+					  };
+		     s.addEventListener("end", (event) => { 
+					     s.close();
+					  }) ;
+             }) ;
 	}
 
 </script>
