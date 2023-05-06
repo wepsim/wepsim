@@ -278,12 +278,13 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 {
        var ret = {};
 
-// li reg val {
+// li reg val offset {
 //            *[nwords=1,]
 //              oc(31,26)=000000,
 //             [cop(31,26)=000000,]
 //              reg(25,21)=reg,
 //              inm(15,0)=val,
+//              address-rel(12|10:5|4:1|11)=offset,
 //             [help='this instruction is used for...',]
 //             [native,]*
 //             {

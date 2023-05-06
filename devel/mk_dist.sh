@@ -368,7 +368,8 @@ chmod a+x ws_dist/*.sh
 ./ws_dist/wepsim.sh -a export-hardware -m poc > ws_dist/examples/hardware/poc/hw_def.json
 
 # add gateway.zip
-zip -9r ./ws_dist/gateway.zip gateway/
+mkdir -p   ./ws_dist/gateway
+zip   -9qr ./ws_dist/gateway/esp32.zip gateway/esp32/
 
 # the end
 echo ""

@@ -123,7 +123,7 @@ factorial:
 
 <script>
 
-	async function gateway_remote_flash ( flash_url, flash_args, info_div )
+	async function gateway_request_flash ( flash_url, flash_args )
 	{
              var fetch_args = {
 			        method:  'POST',
@@ -134,25 +134,29 @@ factorial:
 			        body:    JSON.stringify(flash_args)
 	 	              } ;
 
-             try
-             {
-                var res  = await fetch(flash_url, fetch_args) ;
-                var jres = await res.json();
-                info_div.value = jres.status + '\n' ;
-             }
-             catch (err)
-             {
-                info_div.value = err + '\n' ;
-                return -1;
-             }
+             var res  = await fetch(flash_url, fetch_args) ;
+             var jres = await res.json();
 
-             if (jres.error == 'false')
-                  return 0;
-             else return -1;
+             return jres ;
+	}
+
+	function gateway_request_status ( status_url, info_div )
+	{
+	     var s = new EventSource(status_url) ;
+
+	     s.onmessage = (e) => { 
+				     info_div.value += e.data + '\n' ;
+				  };
+
+	     s.addEventListener("end",
+                                (event) => { 
+					      s.close();
+				           }) ;
 	}
 
 	function gateway_do_flash ( div_asm_name, div_url_name, div_dev_name, div_target_name, div_info_name )
 	{
+             // name to objects...
              var ddev = document.getElementById(div_dev_name) ;
              var ddet = document.getElementById(div_target_name) ;
              var dasm = document.getElementById(div_asm_name) ;
@@ -166,19 +170,19 @@ factorial:
 			   target_port:  ddev.value,
 			   assembly:     dasm.value,
 			} ;
+	     var ret = gateway_request_flash(furl + "/flash", farg);
 
-	     var ret = gateway_remote_flash(furl + "/flash", farg, idiv);
-
-	     // do remote flash...
+	     // working with the async result...
+             ret.catch(e => {
+                         idiv.value = str(e) + '\n' ;
+                      }) ;
              ret.then(result => {
-		     var s = new EventSource(furl + "/status");
-		     s.onmessage = (e) => { 
-					     idiv.value += e.data + '\n' ;
-					  };
-		     s.addEventListener("end", (event) => { 
-					     s.close();
-					  }) ;
-             }) ;
+                         idiv.value = result.status + '\n' ;
+
+                         if (result.error == 'false') {
+	                     gateway_request_status(furl + "/status", idiv) ;
+                         }
+                     }) ;
 	}
 
 </script>
