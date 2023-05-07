@@ -190,6 +190,50 @@
 		      }
          },
 
+         flash_assembly: {
+            id:        "flashasm",
+	    title:     function() {
+                          return wepsim_config_dialog_title("Flash Assembly",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		       },
+            body:      function() {
+		         return "<div id='scroller-flashasm' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 p-2'>" +
+                                '<ws-flash_asm>' +
+                                '</ws-flash_asm>' +
+                               "</div>" +
+                               "</div>" +
+			   	"</div>" ;
+	              },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       wsweb_dialog_close('flash_assembly') ;
+					   }
+			 }
+	              },
+            size:     'large',
+            onshow:   function() {
+			 var o = $("#flashasm") ;
+		         o.find('.modal-header').attr("style", "background-color: black !important") ;
+			 o.find('.modal-title').addClass("ms-auto") ;
+
+			 // uicfg and events
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 wepsim_uicfg_apply() ;
+
+			 wsweb_scroll_record('#scroller-flashasm') ;
+			 simcore_record_captureInit() ;
+		      }
+         },
+
 	 // binary_asm
          binary_asm: {
             id:      "bin_asm",

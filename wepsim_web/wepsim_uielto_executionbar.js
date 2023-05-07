@@ -117,6 +117,32 @@
                              o += '<span class="fw-bold" data-langkey="Run">Run</span>' +
                                   '</button>' ;
                                   break ;
+
+                       case "btn_run2":
+			     o += '<div class="btn-group col py-0 pe-1" role="group">' +
+                                  '<button id="btn_run_stop_' + this.name_str + '"' + o_style +
+		                  '        class="btn btn-light border-secondary w-75"' +
+		                  '        accesskey="r" ' +
+                                  '        onclick="wsweb_execution_run();' +
+                                  '                 return false;">' ;
+                             o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-play"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += '<span class="fw-bold" data-langkey="Run">Run</span>' +
+                                  '</button>' +
+                                  '' +
+                                  '<button type="button" ' + o_style +
+                                  '        class="btn dropdown-toggle dropdown-toggle-split border-secondary w-25" ' +
+                                  '        data-bs-toggle="dropdown" aria-expanded="false">' +
+                                  '  <span class="visually-hidden">Toggle Dropdown</span>' +
+                                  '</button>' +
+                                  '<ul class="dropdown-menu">' +
+                                  '    <li><a class="dropdown-item" ' +
+                                  '           onclick="wsweb_execution_run(); return false;">Run</a></li>' +
+                                  '    <li><a class="dropdown-item" ' +
+                                  '           onclick="wsweb_dialog_open(\'flash_assembly\');">Flash</a></li>' +
+                                  '</ul>' +
+                                  '</div>' ;
+                                  break ;
                     }
 
                     return o ;

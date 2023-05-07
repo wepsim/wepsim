@@ -178,6 +178,7 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_bin_mc.js \
     wepsim_web/wepsim_uielto_dbg_asm.js \
     wepsim_web/wepsim_uielto_bin_asm.js \
+    wepsim_web/wepsim_uielto_flash_asm.js \
     wepsim_web/wepsim_uielto_cpusvg.js \
     wepsim_web/wepsim_uielto_about.js \
     wepsim_web/wepsim_uielto_segments.js \
