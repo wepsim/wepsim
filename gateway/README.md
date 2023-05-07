@@ -18,12 +18,12 @@ Follow the instruction from:
 
 1.- Download the .zip file associated with your board, for example:
 ```
-wget https://acaldero.github.io/wepsim/ws_dist/gateway/esp32.zip
+wget https://acaldero.github.io/wepsim/ws_dist/gateway/esp32c3.zip
 ```
 
 2.- unzip file, for example:
 ```
-unzip -a esp32.zip
+unzip -a esp32c3.zip
 ```
 
 
@@ -31,7 +31,7 @@ unzip -a esp32.zip
 
 1.- launch gateway
 ```
-cd gateway/esp32/
+cd gateway/esp32c3/
 python3 gateway.py
 ```
 
@@ -40,6 +40,6 @@ python3 gateway.py
 firefox https://127.0.0.1:8080 &
 ```
 
-3.- follow the instructions in the form
+3.- follow the instructions from the loaded web form
 
 

@@ -49,7 +49,7 @@ def creator_build(file_in, file_out):
 		data = []
 		# for each line in the input file...
 		for line in fin:
-			data = lines.strip().split()
+			data = line.strip().split()
 			if (len(data) > 0):
 				if (data[0] == 'rdcycle'):
 					fout.write("#### rdcycle" + data[1] + "####\n")
@@ -60,6 +60,7 @@ def creator_build(file_in, file_out):
 					fout.write("addi sp, sp, 8\n")
 					fout.write("mv "+ data[1] +" a0\n")
 					fout.write("####################\n")
+					continue
 
 				if (data[0] == 'ecall'):
 					fout.write("#### ecall ####\n")
@@ -69,6 +70,9 @@ def creator_build(file_in, file_out):
 					fout.write("lw ra, 0(sp)\n")
 					fout.write("addi sp, sp, 8\n")
 					fout.write("###############\n")
+					continue
+
+			fout.write(line)
 
 		# close input + output files
 		fin.close()
@@ -76,18 +80,28 @@ def creator_build(file_in, file_out):
 		return 0
 
 	except Exception as e:
-		print("Error adapting assembly file... :-/")
+		print("Error adapting assembly file: ", str(e))
 		return -1
 
+def do_cmd(req_data, cmd_array):
+	result = subprocess.run(cmd_array, capture_output=True)
 
-# Flasing assembly program into target board
+	if result.stdout != None:
+		req_data['status'] += result.stdout.decode('utf-8') + '\n'
+	if result.returncode != None:
+		req_data['error']   = result.returncode
+
+	return req_data['error']
+
+
+# (2) Flasing assembly program into target board
 def do_flash_request(request):
-	req_data['status'] = ''
 	try:
 		req_data = request.get_json()
 		target_device      = req_data['target_port']
 		target_board       = req_data['target_board']
 		asm_code           = req_data['assembly']
+		req_data['status'] = ''
 
 		# create temporal assembly file
 		text_file = open("tmp_assembly.s", "w")
@@ -101,29 +115,15 @@ def do_flash_request(request):
 
 		# flashing steps...
 		if error == 0:
-			result = subprocess.run(['idf.py',  'fullclean'])
-			req_data['status'] += result.stdout + '\n'
-			error = result.returncode
-
+                        error = do_cmd(req_data, ['idf.py',  'fullclean'])
 		if error == 0:
-			result = subprocess.run(['idf.py',  'set-target', target_board])
-			req_data['status'] += result.stdout + '\n'
-			error = result.returncode
-
+			error = do_cmd(req_data, ['idf.py',  'set-target', target_board])
 		if error == 0:
-			result = subprocess.run(['idf.py', 'build'])
-			req_data['status'] += result.stdout + '\n'
-			error = result.returncode
-
+			error = do_cmd(req_data, ['idf.py', 'build'])
 		if error == 0:
-			result = subprocess.run(['idf.py', '-p', target_device, 'flash'])
-			req_data['status'] += result.stdout + '\n'
-			error = result.returncode
-
+			error = do_cmd(req_data, ['idf.py', '-p', target_device, 'flash'])
 		if error == 0:
-			result = subprocess.run(['idf.py', '-p', target_device, 'monitor'])
-			req_data['status'] += result.stdout + '\n'
-			error = result.returncode
+			error = do_cmd(req_data, ['idf.py', '-p', target_device, 'monitor'])
 
 	except Exception as e:
 		req_data['status'] += str(e) + '\n'

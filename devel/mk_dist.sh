@@ -369,7 +369,11 @@ chmod a+x ws_dist/*.sh
 
 # add gateway.zip
 mkdir -p   ./ws_dist/gateway
-zip   -9qr ./ws_dist/gateway/esp32.zip gateway/esp32/
+#zip   -9qr ./ws_dist/gateway/esp32s2.zip gateway/esp32s2/
+ zip   -9qr ./ws_dist/gateway/esp32s3.zip gateway/esp32s3/
+ zip   -9qr ./ws_dist/gateway/esp32c3.zip gateway/esp32c3/
+#zip   -9qr ./ws_dist/gateway/esp32c5.zip gateway/esp32c5/
+#zip   -9qr ./ws_dist/gateway/esp32c6.zip gateway/esp32c6/
 
 # the end
 echo ""
