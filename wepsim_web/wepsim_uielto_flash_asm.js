@@ -88,10 +88,14 @@
 				'</div>' +
                                 '' +
 				'<div class="py-2">' +
-				'<button type="button" class="btn btn-success w-100"' +
+				'<button type="button" class="btn btn-success w-75"' +
 				'        id="btn_flash"' +
 				'        onclick="gateway_do_flash(\'div_url\', \'div_dev\', \'div_target\', \'div_info\');"' +
                                 '>Check values and press the button to flash</button>' +
+				'<button type="button" class="btn btn-danger w-25"' +
+				'        id="btn_cancel"' +
+				'        onclick="gateway_do_cancel(\'div_url\', \'div_info\');"' +
+                                '>Cancel</button>' +
 				'</div>' +
                                 '' +
 				'<label for="div_info">Output:</label><br>' +
@@ -115,7 +119,7 @@
          *  Flashing
          */
 
-	async function gateway_request_flash ( flash_url, flash_args, div_info )
+	async function gateway_do_request ( flash_url, flash_args, div_info )
 	{
              var fetch_args = {
 			        method:  'POST',
@@ -128,7 +132,6 @@
 
              try
              {
-                div_info.value = 'Flashing...\n' ;
                 var res  = await fetch(flash_url, fetch_args) ;
                 var jres = await res.json() ;
              }
@@ -163,6 +166,7 @@
 	     var idiv = document.getElementById(div_info_name) ;
 
              // do remote flash...
+             idiv.value = 'Flashing...\n' ;
              var fasm = inputasm.getValue() ;
 	     var farg = {
 			   target_board: ddet.value,
@@ -170,7 +174,7 @@
 			   assembly:     fasm
 			} ;
              var furl = udiv.value ;
-	     var ret = gateway_request_flash(furl + "/flash", farg, idiv);
+	     var ret = gateway_do_request(furl + "/flash", farg, idiv);
 
 	     // working with the async result...
              ret.then(result => {
@@ -186,4 +190,24 @@
                      }) ;
 	}
 
+	function gateway_do_cancel ( div_url_name, div_info_name )
+	{
+             // name to objects...
+	     var udiv = document.getElementById(div_url_name) ;
+	     var idiv = document.getElementById(div_info_name) ;
+
+             // do remote flash...
+             idiv.value = 'Cancel...\n' ;
+             var furl = udiv.value ;
+	     var ret = gateway_do_request(furl + "/cancel", {}, idiv);
+
+	     // working with the async result...
+             ret.then(result => {
+		         if (typeof result == "undefined") {
+                            idiv.value = 'Error on cancel.\n' ;
+		         }
+
+                         idiv.value = result.status + '\n' ;
+                     }) ;
+	}
 

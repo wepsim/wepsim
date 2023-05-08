@@ -11,7 +11,6 @@ pip3 install flask flask_cors
 
 Follow the instruction from:
 * [Get started from espressif - Linux](https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/linux-setup.html)
-* [Get started from espressif](https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/index.html#get-started-get-esp-idf)
 
 
 ## 2. Install gateway

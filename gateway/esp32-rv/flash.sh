@@ -3,7 +3,7 @@ set -x
 
 
 if ! [ -x "$(command -v idf.py)" ]; then
-  echo 'Error: idf.py is not installed.' >&2
+  echo 'Error: idf.py is not installed.'
   exit 1
 fi
 

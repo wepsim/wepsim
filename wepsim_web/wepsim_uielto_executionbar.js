@@ -118,7 +118,7 @@
                                   '</button>' ;
                                   break ;
 
-                       case "btn_run2":
+                       case "btn_rnf":
 			     o += '<div class="btn-group col py-0 pe-1" role="group">' +
                                   '<button id="btn_run_stop_' + this.name_str + '"' + o_style +
 		                  '        class="btn btn-light border-secondary w-75"' +
