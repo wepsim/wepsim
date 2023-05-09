@@ -88,14 +88,17 @@
 				'</div>' +
                                 '' +
 				'<div class="py-2">' +
-				'<button type="button" class="btn btn-success w-75"' +
+				'<label for="btn_flash">(4) Check values and press the button to flash:</label><br>' +
+                                '<div class="btn-group" role="group" aria-label="flash_and_cancel">' +
+				'<button type="button" class="btn btn-success"' +
 				'        id="btn_flash"' +
 				'        onclick="gateway_do_flash(\'div_url\', \'div_dev\', \'div_target\', \'div_info\');"' +
-                                '>Check values and press the button to flash</button>' +
-				'<button type="button" class="btn btn-danger w-25"' +
+                                '>Flash</button>' +
+				'<button type="button" class="btn btn-danger"' +
 				'        id="btn_cancel"' +
 				'        onclick="gateway_do_cancel(\'div_url\', \'div_info\');"' +
                                 '>Cancel</button>' +
+                                '</div>' +
 				'</div>' +
                                 '' +
 				'<label for="div_info">Output:</label><br>' +
@@ -138,6 +141,8 @@
              catch (e)
              {
                 div_info.value = e + '\n' ;
+		if (e == "TypeError: Failed to fetch")
+                    div_info.value += 'Please check you execute "python3 gateway.py" properly.\n' ;
              }
 
              return jres ;
