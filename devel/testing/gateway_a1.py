@@ -13,7 +13,7 @@
 #
 #  WepSIM is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU Lesser General Public License for more details.
 #
 #  You should have received a copy of the GNU Lesser General Public License
@@ -23,20 +23,21 @@
 
 from flask import Flask, request, jsonify, send_file, Response
 from flask_cors import CORS, cross_origin
+import subprocess, shutil, multiprocessing
 
-import subprocess, os, threading
 
-import watchdog.events
-import watchdog.observers
-import time
+######### Global variables ###################
+
+flash_process = None
+result = None
 
 
 ######### Auxiliar functions #################
 
-# Adapt assembly file, for (2)
+# Adapt assembly file, for do_flashing
 def creator_build(file_in, file_out):
 	# open input + output files
-	fin	 = open(file_in, "rt")
+	fi   = open(file_in, "rt")
 	fout = open(file_out, "wt")
 
 	# write header
@@ -77,63 +78,8 @@ def creator_build(file_in, file_out):
 	fout.close()
 
 
-result = None
-
-def do_cmd(req_data, cmd_array):
-	req_data['status'] = ''
-	req_data['error']  = 0
-
-	global result
-	result = subprocess.Popen(cmd_array, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-	if result.stdout != None:
-		req_data['status'] = 'result: ' + str(result)
-	if result.returncode != None:
-		req_data['error']  = result.returncode
-
-
-# Fragment based on: https://www.geeksforgeeks.org/create-a-watchdog-in-python-to-look-for-filesystem-changes/
-added_dev_elto = ''
-observer = None
-
-class observerHandler(watchdog.events.PatternMatchingEventHandler):
-	def __init__(self):
-		watchdog.events.PatternMatchingEventHandler.__init__(self, patterns=['*'],
-								     ignore_directories=False, case_sensitive=False)
- 
-	def on_created(self, event):
-		global added_dev_elto
-		added_dev_elto = event.src_path
-		print("detected new entry: ", event.src_path)
-
-	def on_moved(self, event):
-		global added_dev_elto
-		added_dev_elto = event.src_path
-		print("detected new entry: ", event.src_path)
-
-def do_start_observer():
-	event_handler = observerHandler()
-	global observer
-	observer = watchdog.observers.Observer()
-	observer.schedule(event_handler, path=r"/dev/", recursive=True)
-	observer.start()
-
-def do_stop_observer():
-	observer.stop()
- 
-
-######### Action functions ###################
-
-# (1) Get form values
-def do_get_form(request):
-	try:
-		return send_file('gateway.html')
-	except Exception as e:
-		return str(e)
-
-
-# (2) Flasing assembly program into target board
-def do_flash_request(request):
+# Flasing assembly program into target board, for (2)
+def do_flashing(request):
 	try:
 		req_data = request.get_json()
 		target_device = req_data['target_port']
@@ -149,7 +95,44 @@ def do_flash_request(request):
 		creator_build('tmp_assembly.s', "main/program.s");
 
 		# execute flashing script
-		do_cmd(req_data, ['sh', '-c', './flash.sh', target_board, target_device])
+		global result
+		result = subprocess.Popen(['./flash.sh', target_board, target_device],
+					stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+	except Exception as e:
+		pass
+
+	global flash_process
+	flash_process = None
+
+
+######### Action functions ###################
+
+# (1) Get form values
+def do_get_form(request):
+	try:
+		return send_file('gateway.html')
+	except Exception as e:
+		return str(e)
+
+
+# (2) Do flash request
+def do_flash_request(request):
+	try:
+		req_data = request.get_json()
+		req_data['status'] = ''
+		req_data['error']  = 0
+
+		try:
+			shutil.rmtree('build')
+		except Exception as e:
+			pass
+
+		global flash_process
+		if flash_process == None:
+			flash_process = multiprocessing.Process(target=do_flashing, args=(request,))
+			flash_process.start()
+			#flash_process.join()
 
 	except Exception as e:
 		req_data['status'] = str(e) + '\n'
@@ -174,22 +157,26 @@ def do_stream_output():
 	yield  'data: END_OF_SSE\n\n'
 
 
-# (4) Get cancel request
-def do_get_cancel(request):
-	try:
-		req_data = request.get_json()
-		do_cmd(req_data, ['pkill', 'python'])
+# (4) Cancel running flash process
+def do_cancel_work(request):
+	req_data = request.get_json()
 
-	except Exception as e:
-		req_data['error']  = -1
-		req_data['status'] = str(e) + '\n'
+	global flash_process
+	if flash_process != None:
+		flash_process.terminate()
+		req_data['status'] = 'Ok'
+	else:
+		req_data['status'] = 'Done!'
 
+	flash_process = None
+	result        = None
 	return jsonify(req_data)
 
 
 ######### Main ###############################
 
 if __name__ == "__main__":
+
 	# Setup flask and cors:
 	app  = Flask(__name__)
 	cors = CORS(app)
@@ -213,27 +200,12 @@ if __name__ == "__main__":
 	def get_status():
 		return Response(do_stream_output(), mimetype= 'text/event-stream') ;
 
-	# (4) POST /stop -> pkill python
-	@app.route("/stop", methods=["POST"])
+	# (4) POST /cancel -> pkill python
+	@app.route("/cancel", methods=["POST"])
 	@cross_origin()
-	def get_cancel():
-		return do_get_cancel(request)
+	def post_stop_flash():
+		return do_cancel_work(request)
 
-
-	# Observer + Flask
-	do_start_observer()
-
-	try:
-		# Run flask app
-		app.run(host='0.0.0.0', port=8080, debug=True)
-
-	except KeyboardInterrupt:
-		observer.stop()
-
-		# Fragment based on: https://copyprogramming.com/howto/how-to-close-a-flask-web-server-with-python
-		shutdown_func = request.environ.get('werkzeug.server.shutdown')
-		if shutdown_func != None:
-			shutdown_func()
-
-	observer.join()
+	# Run
+	app.run(host='0.0.0.0', port=8080, debug=True)
 

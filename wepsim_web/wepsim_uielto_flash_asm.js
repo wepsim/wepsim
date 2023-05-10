@@ -64,33 +64,32 @@
                         '       role="tabpanel" aria-labelledby="nav-help-tab" tabindex="0">' +
                         '' +
                         '<br><ul>' +
-			'<li><b>(1) Install required software for your board</b></li>' +
+			'<li><b>[1] Install required software for your board</b></li>' +
 			'For example, follow the "Get started" from espressif:' +
 			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/linux-setup.html">Linux</a>, ' +
 			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/windows-setup.html">Windows</a>, ' +
 			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/macos-setup.html">MacOS</a>' +
 			'<p></p>' +
-			'<li><b>(2) Get the gateway associated with your board</b></li>' +
+			'<li><b>[2] Get the gateway associated with your board</b></li>' +
 			'For example, for the ESP32-C3 board:' +
 			'<pre>' +
-			'wget https://acaldero.github.io/wepsim/ws_dist/gateway/esp32c3.zip' +
+			'wget https://acaldero.github.io/wepsim/ws_dist/gateway/esp32c3.zip\n' +
 			'unzip -a esp32c3.zip' +
 			'</pre>' +
 			'<p></p>' +
 			'<li><b>(3) Execute the gateway.py</b></li>' +
 			'For example, for esp32c3:' +
 			'<pre>' +
-			'cd esp32c3' +
+			'. $HOME/esp/esp-idf/export.sh\n' +
+			'cd esp32c3; ' +
 			'python3 gateway.py' +
 			'</pre>' +
 			'<p></p>' +
-			'<li><b>(4) Form to flash</b></li>' +
-			'Please open your web browser on the displayed URL while executing gateway.py.' +
-			'For example:' +
+			'<li><b>(4) Use the Web page form to flash</b></li>' +
+			'Please open your web browser on the displayed URL while executing gateway.py. For example:' +
 			'<pre>' +
 			'firefox https://127.0.0.1:8080 &' +
 			'</pre>' +
-			'Then, please follow the instructions from the loaded Web page' +
                         '</ul>' +
                         '' +
 			'  </div>' +
@@ -142,10 +141,10 @@
 				'        id="btn_flash"' +
 				'        onclick="gateway_do_flash(\'div_url\', \'div_dev\', \'div_target\', \'div_info\');"' +
                                 '>Flash</button>' +
-		//		'<button type="button" class="btn btn-danger"' +
-		//		'        id="btn_cancel"' +
-		//		'        onclick="gateway_do_cancel(\'div_url\', \'div_info\');"' +
-                //              '>Cancel</button>' +
+		  		'<button type="button" class="btn btn-danger"' +
+		  		'        id="btn_cancel"' +
+		  		'        onclick="gateway_do_stop(\'div_url\', \'div_info\');"' +
+                                '>Cancel</button>' +
                                 '</div>' +
 				'</div>' +
                                 '' +
@@ -250,7 +249,7 @@
                      }) ;
 	}
 
-	function gateway_do_cancel ( div_url_name, div_info_name )
+	function gateway_do_stop ( div_url_name, div_info_name )
 	{
              // name to objects...
 	     var udiv = document.getElementById(div_url_name) ;
@@ -259,7 +258,7 @@
              // do remote flash...
              idiv.value = 'Cancel...\n' ;
              var furl = udiv.value ;
-	     var ret = gateway_do_request(furl + "/cancel", {}, idiv);
+	     var ret = gateway_do_request(furl + "/stop", {}, idiv);
 
 	     // working with the async result...
              ret.then(result => {
