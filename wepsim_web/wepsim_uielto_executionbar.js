@@ -135,11 +135,18 @@
                                   '        data-bs-toggle="dropdown" aria-expanded="false">' +
                                   '  <span class="visually-hidden">Toggle Dropdown</span>' +
                                   '</button>' +
-                                  '<ul class="dropdown-menu">' +
-                                  '    <li><a class="dropdown-item" ' +
-                                  '           onclick="wsweb_execution_run(); return false;">Run</a></li>' +
-                                  '    <li><a class="dropdown-item" ' +
-                                  '           onclick="wsweb_dialog_open(\'flash_assembly\');">Flash</a></li>' +
+                                  '<ul class="dropdown-menu border border-secondary">' +
+                                  '    <li><a  class="dropdown-item" ' +
+                                  '            onclick="wsweb_execution_run(); return false;">' +
+                                  '<i class="fa-solid fa-person-running"></i>&nbsp;' +
+			          '<span data-langkey="Run">Run</span>' +
+                                   '</a></li>' +
+                                  '    <li><hr class="dropdown-divider"></li>' +
+                                  '    <li><a  class="dropdown-item" ' +
+                                  '            onclick="wsweb_dialog_open(\'flash_assembly\');">' +
+                                  '<i class="fa-solid fa-bolt"></i>&nbsp;' +
+			          '<span data-langkey="Flash">Flash</span>' +
+			          '</a></li>' +
                                   '</ul>' +
                                   '</div>' ;
                                   break ;

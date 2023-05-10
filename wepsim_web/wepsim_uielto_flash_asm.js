@@ -140,8 +140,8 @@
              }
              catch (e)
              {
-                div_info.value = e + '\n' ;
-		if (e == "TypeError: Failed to fetch")
+                div_info.value = e.toString() + '\n' ;
+		if (e.toString() == "TypeError: Failed to fetch")
                     div_info.value += 'Please check you execute "python3 gateway.py" properly.\n' ;
              }
 
@@ -152,14 +152,15 @@
 	{
 	     var s = new EventSource(status_url) ;
 
-	     s.onmessage = (e) => {
-				     info_div.value += e.data + '\n' ;
-				  };
+	     s.onmessage = function(event) {
+                              if ('END_OF_SSE' == event.data) {
+                                  s.close() ;
+                                  return ;
+                              }
 
-	     s.addEventListener("end",
-                                (event) => {
-					      s.close();
-				           }) ;
+			      info_div.value += event.data + '\n' ;
+			      info_div.scrollTop = info_div.scrollHeight;
+			   };
 	}
 
 	function gateway_do_flash ( div_url_name, div_dev_name, div_target_name, div_info_name )
@@ -189,7 +190,7 @@
 
                          idiv.value = result.status + '\n' ;
 
-                         if (result.error == 'false') {
+                         if (result.error == 0) {
 	                     gateway_request_status(furl + "/status", idiv) ;
                          }
                      }) ;
