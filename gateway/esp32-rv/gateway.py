@@ -23,7 +23,12 @@
 
 from flask import Flask, request, jsonify, send_file, Response
 from flask_cors import CORS, cross_origin
-import subprocess, os
+
+import subprocess, os, threading
+
+import watchdog.events
+import watchdog.observers
+import time
 
 
 ######### Auxiliar functions #################
@@ -86,6 +91,36 @@ def do_cmd(req_data, cmd_array):
 	if result.returncode != None:
 		req_data['error']  = result.returncode
 
+
+# Fragment based on: https://www.geeksforgeeks.org/create-a-watchdog-in-python-to-look-for-filesystem-changes/
+added_dev_elto = ''
+observer = None
+
+class observerHandler(watchdog.events.PatternMatchingEventHandler):
+	def __init__(self):
+		watchdog.events.PatternMatchingEventHandler.__init__(self, patterns=['*'],
+								     ignore_directories=False, case_sensitive=False)
+ 
+	def on_created(self, event):
+		global added_dev_elto
+		added_dev_elto = event.src_path
+		print("detected new entry: ", event.src_path)
+
+	def on_moved(self, event):
+		global added_dev_elto
+		added_dev_elto = event.src_path
+		print("detected new entry: ", event.src_path)
+
+def do_start_observer():
+	event_handler = observerHandler()
+	global observer
+	observer = watchdog.observers.Observer()
+	observer.schedule(event_handler, path=r"/dev/", recursive=True)
+	observer.start()
+
+def do_stop_observer():
+	observer.stop()
+ 
 
 ######### Action functions ###################
 
@@ -184,6 +219,21 @@ if __name__ == "__main__":
 	def get_cancel():
 		return do_get_cancel(request)
 
-	# Run
-	app.run(host='0.0.0.0', port=8080, debug=True)
+
+	# Observer + Flask
+	do_start_observer()
+
+	try:
+		# Run flask app
+		app.run(host='0.0.0.0', port=8080, debug=True)
+
+	except KeyboardInterrupt:
+		observer.stop()
+
+		# Fragment based on: https://copyprogramming.com/howto/how-to-close-a-flask-web-server-with-python
+		shutdown_func = request.environ.get('werkzeug.server.shutdown')
+		if shutdown_func != None:
+			shutdown_func()
+
+	observer.join()
 

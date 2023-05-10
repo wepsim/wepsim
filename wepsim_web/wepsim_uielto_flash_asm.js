@@ -49,8 +49,56 @@
 		    // html holder
 		    var o1 = "<div id='scroller-flashasm' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+			'<nav>' +
+			'  <div class="nav nav-tabs" id="nav-tab" role="tablist">' +
+			'    <button class="nav-link"' +
+			'            id="nav-help-tab" data-bs-target="#nav-help" aria-controls="nav-help" ' +
+			'            data-bs-toggle="tab" type="button" role="tab" aria-selected="true">Help</button>' +
+			'    <button class="nav-link active" ' +
+			'            id="nav-flash-tab" data-bs-target="#nav-flash" aria-controls="nav-flash" ' +
+			'            data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Flash</button>' +
+			'  </div>' +
+			'</nav>' +
+			'<div class="tab-content" id="nav-tabContent">' +
+			'  <div class="tab-pane fade" id="nav-help" ' +
+                        '       role="tabpanel" aria-labelledby="nav-help-tab" tabindex="0">' +
+                        '' +
+                        '<br><ul>' +
+			'<li><b>(1) Install required software for your board</b></li>' +
+			'For example, follow the "Get started" from espressif:' +
+			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/linux-setup.html">Linux</a>, ' +
+			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/windows-setup.html">Windows</a>, ' +
+			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/macos-setup.html">MacOS</a>' +
+			'<p></p>' +
+			'<li><b>(2) Get the gateway associated with your board</b></li>' +
+			'For example, for the ESP32-C3 board:' +
+			'<pre>' +
+			'wget https://acaldero.github.io/wepsim/ws_dist/gateway/esp32c3.zip' +
+			'unzip -a esp32c3.zip' +
+			'</pre>' +
+			'<p></p>' +
+			'<li><b>(3) Execute the gateway.py</b></li>' +
+			'For example, for esp32c3:' +
+			'<pre>' +
+			'cd esp32c3' +
+			'python3 gateway.py' +
+			'</pre>' +
+			'<p></p>' +
+			'<li><b>(4) Form to flash</b></li>' +
+			'Please open your web browser on the displayed URL while executing gateway.py.' +
+			'For example:' +
+			'<pre>' +
+			'firefox https://127.0.0.1:8080 &' +
+			'</pre>' +
+			'Then, please follow the instructions from the loaded Web page' +
+                        '</ul>' +
+                        '' +
+			'  </div>' +
+			'  <div class="tab-pane fade show active" id="nav-flash"' +
+                        '       role="tabpanel" aria-labelledby="nav-flash-tab" tabindex="0">' +
+                        '' +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 p-2'>" +
+                               "<div class='col-6 p-2'>" +
                                 '' +
 				'<div class="py-2">' +
 				'<label for="div_url">(1) Set the URL where gateway.py is listening:</label><br>' +
@@ -60,20 +108,7 @@
 				'</div>' +
                                 '' +
 				'<div class="py-2">' +
-				'<label for="div_dev" class="form-label">(2) Set Port:</label>' +
-				'<input class="form-control w-100 border border-black" list="dlo_dev"' +
-				'       id="div_dev" name="div_dev"' +
-				'       type="text" ' +
-				'       value="/dev/ttyUSB0"' +
-				'       placeholder="/dev/... (type to search)">' +
-				'<datalist id="dlo_dev">' +
-				'  <option value="/dev/ttyUSB0">' +
-				'  <option value="/dev/cu.usbserial-210">' +
-				'</datalist>' +
-				'</div>' +
-                                '' +
-				'<div class="py-2">' +
-				'<label for="div_target">(3) Set target:</label><br>' +
+				'<label for="div_target">(2) Set model of your board:</label><br>' +
 				'<input class="form-control w-100 border border-black" list="dlo_target"' +
 				'       id="div_target" name="div_target"' +
 				'       type="text" ' +
@@ -88,28 +123,47 @@
 				'</div>' +
                                 '' +
 				'<div class="py-2">' +
+				'<label for="div_dev" class="form-label">(3) Set port where is connected:</label>' +
+				'<input class="form-control w-100 border border-black" list="dlo_dev"' +
+				'       id="div_dev" name="div_dev"' +
+				'       type="text" ' +
+				'       value="/dev/ttyUSB0"' +
+				'       placeholder="/dev/... (type to search)">' +
+				'<datalist id="dlo_dev">' +
+				'  <option value="/dev/ttyUSB0">' +
+				'  <option value="/dev/cu.usbserial-210">' +
+				'</datalist>' +
+				'</div>' +
+                                '' +
+				'<div class="py-2">' +
 				'<label for="btn_flash">(4) Check values and press the button to flash:</label><br>' +
-                                '<div class="btn-group" role="group" aria-label="flash_and_cancel">' +
-				'<button type="button" class="btn btn-success"' +
+                                '<div class="btn-group w-100" role="group" aria-label="flash_and_cancel">' +
+				'<button type="button w-25" class="btn btn-success"' +
 				'        id="btn_flash"' +
 				'        onclick="gateway_do_flash(\'div_url\', \'div_dev\', \'div_target\', \'div_info\');"' +
                                 '>Flash</button>' +
-				'<button type="button" class="btn btn-danger"' +
-				'        id="btn_cancel"' +
-				'        onclick="gateway_do_cancel(\'div_url\', \'div_info\');"' +
-                                '>Cancel</button>' +
+		//		'<button type="button" class="btn btn-danger"' +
+		//		'        id="btn_cancel"' +
+		//		'        onclick="gateway_do_cancel(\'div_url\', \'div_info\');"' +
+                //              '>Cancel</button>' +
                                 '</div>' +
 				'</div>' +
                                 '' +
-				'<label for="div_info">Output:</label><br>' +
+                               "</div>" +
+                               "<div class='col-6 p-2'>" +
+                                '' +
+				'<label for="div_info">(5) Output:</label><br>' +
 				'<textarea class="form-control border border-black"' +
 				'	  id="div_info" name="div_info"' +
-				'	  rows="5" cols="50">' +
+				'	  rows="10" cols="50">' +
 				'</textarea>' +
                                 '' +
                                "</div>" +
                                "</div>" +
-			   	"</div>" ;
+			   	"</div>" +
+                        '' +
+			'  </div>' +
+			'</div>' ;
 
 		    this.innerHTML = o1 ;
 	      }
