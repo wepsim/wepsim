@@ -137,11 +137,11 @@
 				'<div class="py-2">' +
 				'<label for="btn_flash">(4) Check values and press the button to flash:</label><br>' +
                                 '<div class="btn-group w-100" role="group" aria-label="flash_and_cancel">' +
-				'<button type="button w-25" class="btn btn-success"' +
+				'<button type="button" class="btn btn-outline-success"' +
 				'        id="btn_flash"' +
 				'        onclick="gateway_do_flash(\'div_url\', \'div_dev\', \'div_target\', \'div_info\');"' +
                                 '>Flash</button>' +
-		  		'<button type="button" class="btn btn-danger"' +
+		  		'<button type="button" class="btn btn-outline-danger"' +
 		  		'        id="btn_cancel"' +
 		  		'        onclick="gateway_do_stop(\'div_url\', \'div_info\');"' +
                                 '>Cancel</button>' +
@@ -193,7 +193,7 @@
              }
              catch (e)
              {
-                div_info.value = e.toString() + '\n' ;
+                div_info.value = e.toString() + '\n\n' ;
 		if (e.toString() == "TypeError: Failed to fetch")
                     div_info.value += 'Please check you execute "python3 gateway.py" properly.\n' ;
              }
@@ -262,11 +262,9 @@
 
 	     // working with the async result...
              ret.then(result => {
-		         if (typeof result == "undefined") {
-                            idiv.value = 'Error on cancel.\n' ;
+		         if (typeof result != "undefined") {
+                            idiv.value = result.status + '\n' ;
 		         }
-
-                         idiv.value = result.status + '\n' ;
                      }) ;
 	}
 
