@@ -6,5 +6,9 @@
    { 
       "name": "poc",
       "url":  "examples/hardware/poc/hw_def.json"
+   },
+   {
+      "name": "rv",
+      "url":  "examples/hardware/rv/hw_def.json"
    }
 ]
