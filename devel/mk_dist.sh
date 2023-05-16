@@ -91,6 +91,10 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_poc/sim_hw_scr.js \
     sim_hw/sim_hw_poc/sim_hw_l3d.js \
     sim_hw/sim_hw_poc/sim_hw_ldm.js \
+    sim_hw/sim_hw_rv/sim_rv.js \
+    sim_hw/sim_hw_rv/sim_hw_board.js \
+    sim_hw/sim_hw_rv/sim_hw_cpu.js \
+    sim_hw/sim_hw_rv/sim_hw_mem.js \
     \
     sim_sw/lexical.js \
     sim_sw/firmware/firm_mcode.js \
