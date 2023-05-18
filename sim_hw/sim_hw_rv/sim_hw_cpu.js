@@ -29,7 +29,7 @@
 		                  abilities:    [ "CPU" ],
 
 		                  // ui: details
-		                  details_name: [ "REGISTER_FILE", "CLOCK", "CPU_STATS" ],
+                                  details_name: [ "REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS" ],
                                   details_fire: [ ['svg_p:id17'], ['svg_p:id155', 'svg_p:id156', 'svg_p:id157', 'svg_p:id158',
 								  'svg_p:id159', 'svg_p:id160', 'svg_p:id161', 'svg_p:id162', 'svg_p:id163'], ['svg_p:id148'] ],
 
