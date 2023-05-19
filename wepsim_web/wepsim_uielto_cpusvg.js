@@ -85,20 +85,24 @@
 	   o = o.getElementById(r[1]);
            if (o === null) return;
 
+           var w = o.style.strokeWidth;
+           if (w === null) w = 1;
+
            if (active)
            {
-               o.style.setProperty("stroke",       color_active, "");
-               o.style.setProperty("fill",         color_active, "");
-               o.style.setProperty("stroke-width", size_active,  "");
+               o.style.setProperty("stroke",       color_active,     "");
+               o.style.setProperty("fill",         color_active,     "");
+               o.style.setProperty("stroke-width", w * size_active,  "");
            }
            else
            {
-               if (o.style.getPropertyValue("stroke") === color_inactive)
+               if (o.style.getPropertyValue("stroke") === color_inactive) {
                    return;
+               }
 
-               o.style.setProperty("stroke",       color_inactive, "");
-               o.style.setProperty("fill",         color_inactive, "");
-               o.style.setProperty("stroke-width", size_inactive,  "");
+               o.style.setProperty("stroke",       color_inactive,     "");
+               o.style.setProperty("fill",         color_inactive,     "");
+               o.style.setProperty("stroke-width", w * size_inactive,  "");
            }
         }
 
