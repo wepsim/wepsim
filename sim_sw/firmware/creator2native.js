@@ -23,77 +23,6 @@
      * WepSIM import
      */
 
-   // assert
-   function simlang_native_adapt_replaceAssert ( icode )
-   {
-        var rc = '' ;
-        var re = '' ;
-
-        // replace assert
-        re = /assert\((.*)\)/ ;
-        if (icode.search(re) != -1) 
-        {
-		var match = re.exec(icode) ;
-		try
-		{
-		    var params = match[1].split(";") ;
-		    var p1     = params[1].trim() ;
-
-		    rc = 'if (' + params[0] + ') {\n' +
-		         '    set_screen_content(' + p1 + ') ;\n' +
-		         '}\n' ;
-		    re = /assert\((.*)\)/g ;
-		    icode = icode.replace(re, rc) ;
-		}
-		catch (e)
-		{
-		    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
-		    console.log(match) ;
-		}
-        }
-
-        // return (transformed) pseudocode
-        return icode ;
-   }
-
-   // check_stack_limit
-   function simlang_native_adapt_replaceCheckStackLimit ( icode )
-   {
-        var rc = '' ;
-        var re = '' ;
-
-        // replace check_stack_limit
-        re = /check_stack_limit\((.*)\)/ ;
-        if (icode.search(re) != -1) 
-        {
-                var match  = re.exec(icode) ;
-		try
-		{
-                    var params = match[1].split(";") ;
-                    var p2     = params[2].trim() ;
-
-                    rc = 'if (f_' + p2 + ' == simhw_sim_ctrlStates_get().sp.state) {\n' +
-                         '    if (' + p2 + ' < sim_segments.data.begin) {\n' +
-                         '        set_screen_content("Stack Overflow") ;\n' +
-                         '    }\n' +
-                         '    if (' + p2 + ' > sim_segments.data.end) {\n' +
-                         '        set_screen_content("Stack Underflow") ;\n' +
-                         '    }\n' +
-                         '}\n' ;
-                    re = /check_stack_limit\((.*)\)/g ;
-                    icode = icode.replace(re, rc) ;
-		}
-		catch (e)
-		{
-		    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
-		    console.log(match) ;
-		}
-        }
-
-        // return (transformed) pseudocode
-        return icode ;
-   }
-
    // syscall
    function simlang_native_adapt_replaceSyscall ( icode )
    {
@@ -196,34 +125,6 @@
         return icode ;
    }
 
-   // MP.x.[y+z]
-   function simlang_native_adapt_replaceMemoryAccess ( icode, a_type, a_mask )
-   {
-        // replace MP.*.[val+reg2]
-        var re = new RegExp("MP."  + a_type + ".\\[([^\\]]*)\\]", "g") ;
-        if (icode.search(re) != -1)
-        {
-                var match = re.exec(icode) ;
-		try
-		{
-		    var param = match[1] ;
-
-		    icode = icode.replace(re, 'value') ;
-		    icode = 'value = simcore_native_get_value("MEMORY", ' + param + ') ;\n' +
-			    'value = value & ' + a_mask + ';\n' +
-			     icode +
-			    'simcore_native_set_value("MEMORY", ' + param + ', value) ;\n' ;
-		}
-		catch (e)
-		{
-		    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
-		    console.log(match) ;
-		}
-        }
-
-        return icode ;
-   }
-
    // LO, HI, PC, ...
    function simlang_native_adapt_provideRegister ( icode, reg_log, rf_phy, reg_phy )
    {
@@ -248,37 +149,6 @@
                     icode +
                     "simcore_native_set_value('CPU', pc_name, PC) ;\n" ;
         }
-
-        return icode ;
-   }
-
-   function simlang_native_adapt_replaceField ( icode, h_names )
-   {
-        // replace Field.2.(31,16) -> sel(31,16,<field2>)
-        var re = new RegExp("Field\\.([^\\.]+)\\.\\(([^\\\\)]*)\\)", "g") ;
-	var match = re.exec(icode) ;
-	while (match !== null)
-	{
-		try
-		{
-		    var index  = match[1] ;
-		    var params = match[2].split(",") ;
-		    var p1     = params[0].trim() ;
-		    var p2     = params[1].trim() ;
-
-		    // replace field
-                    var me    = new RegExp('Field\\.' + index + '\\.\\(' + p1 + ',' + p2 + '\\)', 'g') ;
-                    var value = 'sel(' + parseInt(p2) + ',' + parseInt(p1) + ',' + h_names[index] + ')' ;
-		    icode = icode.replace(me, value) ;
-		}
-		catch (e)
-		{
-		    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
-		    console.log(match) ;
-		}
-
-		match = re.exec(icode) ;
-	}
 
         return icode ;
    }
@@ -334,18 +204,12 @@
         }
 
         // transform...
-        lines_code = simlang_native_adapt_replaceAssert(lines_code) ;
-        lines_code = simlang_native_adapt_replaceCheckStackLimit(lines_code) ;
         lines_code = simlang_native_adapt_replaceSyscall(lines_code) ;
 
         lines_code = simlang_native_adapt_provideRegister(lines_code, "HI", "CPU", "'REG_RT2'") ;
         lines_code = simlang_native_adapt_provideRegister(lines_code, "LO", "CPU", "'REG_RT1'") ;
         lines_code = simlang_native_adapt_provideRegister(lines_code, "ra", "BR", "31") ;
         lines_code = simlang_native_adapt_providePC(lines_code) ;
-
-        lines_code = simlang_native_adapt_replaceMemoryAccess(lines_code, "w", "0xFFFFFFFF") ;
-        lines_code = simlang_native_adapt_replaceMemoryAccess(lines_code, "h", "0x0000FFFF") ;
-        lines_code = simlang_native_adapt_replaceMemoryAccess(lines_code, "b", "0x000000FF") ;
 
         // add initial \t\t...
         lines_code = simlang_native_adapt_addInitialTabTab(lines_code) ;
@@ -366,7 +230,7 @@
 
    function simlang_native_adapt_headerField ( fname, tname, start, stop )
    {
-        return "\t" + fname + "=" + tname + "(" + start + "," + stop + "),\n" ;
+        return "\t" + tname + "(" + start + ":" + stop + ")=" + fname + ",\n" ;
    }
 
    // (1/4) instruction set -> fetch
@@ -380,6 +244,7 @@
             '# WepSIM (https://wepsim.github.io/wepsim/)\n' +
             '#\n' +
             '\n' +
+            'firmware_version = 2\n' +
             '\n' +
             '##\n' +
             '## Microcode Section\n' +
@@ -634,7 +499,7 @@
             // d: code
             d = pseudoinstruction_list[i].definition.replace(/\$/g, "") ;
             d = simlang_native_adapt_replaceIf(d) ;
-            d = simlang_native_adapt_replaceField(d, hn) ;
+            //d = simlang_native_adapt_replaceField(d, hn) ;
             d = simlang_native_adapt_addInitialTabTab(d) ;
 
             // compount

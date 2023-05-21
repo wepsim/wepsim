@@ -262,6 +262,10 @@
     function wepsim_config_color_update ( config_name, val_new, label_prefix )
     {
    	 update_cfg(config_name, val_new) ;
+
+          wepsim_svg_stop_drawing() ;
+         wepsim_svg_start_drawing() ;
+
          refresh() ;
     }
 
