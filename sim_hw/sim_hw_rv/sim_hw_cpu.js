@@ -2494,10 +2494,10 @@
 							      ref:  "BW"
 							    },
 						   "mux_1": {
-							      ref:  "NZ_M1"
+							      ref:  "ZN"
 							    },
 						   "mux_o": {
-							      ref:  "M1_RF"
+							      ref:  "W_DATA"
 							    }
 						 },
 			      signals:           {
@@ -2575,13 +2575,13 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
-							      ref:  "ALU_WOUT"
+							      ref:  "WOUT"
 							    },
 						   "mux_1": {
-							      ref:  "OUT_M4"
+							      ref:  "ALU_WOUT"
 							    },
 						   "mux_o": {
-							      ref:  "PC"
+							      ref:  "REG_PC"
 							    }
 						 },
 			      signals:           {
@@ -2604,7 +2604,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
-							       ref:  "N_Z_JUMP_PCWRITE"
+							       ref:  "N_OR_Z_AND_JUMP_PCWRITE"
 							     },
 						   "out":    {
 							       ref:  "REG_PC"
@@ -2632,6 +2632,9 @@
 							     },
 						   "out":    {
 							       ref:  "REG_IR"
+							     },
+							"imm":   {
+							       ref:  "VAL_IMM"
 							     }
 						 },
 			      signals:           {
@@ -2640,7 +2643,7 @@
 							     }
 						 },
 			      states_inputs:     [ "in" ],
-			      states_outputs:    [ "out" ],
+			      states_outputs:    [ "out", "imm" ],
 			      signals_inputs:    [ "IRWRITE" ],
 			      signals_output:    [ ]
 	               } ;
@@ -2675,23 +2678,23 @@
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
-						   "rreg1":     {
-							       ref:  "IR"
+						   "ir[19:15]":     {
+							       ref:  "REG_R1"
 							    },
-						   "rreg2":     {
-							       ref:  "IR"
+						   "ir[24:20]":     {
+							       ref:  "REG_R2"
 							    },
-						   "wreg2":     {
-							       ref:  "IR"
+						   "ir[11:7]":     {
+							       ref:  "REG_W2"
 							    },
-						   "wdata":     {
-							       ref:  "M1"
+						   "w_data":     {
+							       ref:  "W_DATA"
 								},
-						   "rdata1":     {
-							       ref:  "M2"
+						   "r_data1":     {
+							       ref:  "R_DATA1"
 							    },
-						   "rdata2":     {
-							       ref:  "M3"
+						   "r_data2":     {
+							       ref:  "R_DATA2"
 							    }
 						 },
 			      signals:           {
@@ -2699,8 +2702,8 @@
 							       ref:  "RW"
 							    }
 						 },
-			      states_inputs:     [ "rreg1", "rreg2", "wreg2", "wdata" ],
-			      states_outputs:    [ "rdata1", "rdata2" ],
+			      states_inputs:     [ "ir[19:15]", "ir[24:20]", "ir[11:7]", "w_data" ],
+			      states_outputs:    [ "r_data1", "r_data2" ],
 			      signals_inputs:    [ "rw"],
 			      signals_output:    [ ]
 	               } ;
@@ -2723,7 +2726,7 @@
 							       ref:  "ALU_WOUT"
 							    },
 						   "flags": {
-							       ref:  "ZN_M1"
+							       ref:  "ZN"
 							    }
 						 },
 			      signals:           {
@@ -2738,36 +2741,6 @@
 	                } ;
 
         // CPU - Selectors
-
-        sim.rv.elements.select_sr  = {
-			      name:              "Select SR",
-			      description:       "SR register value selector",
-			      type:              "subcomponent",
-			      belongs:           "CPU",
-			      states:            {
-						   "mux_1": {
-							       ref:  "FLAG_U"
-							    },
-						   "mux_2": {
-							       ref:  "FLAG_I"
-							    },
-						   "mux_3": {
-							       ref:  "SELP_M7"
-							    },
-						   "mux_o": {
-							       ref:  "SELP_M7"
-							    }
-						 },
-			      signals:           {
-						   "selp":  {
-							       ref:  "SELP"
-							    }
-						 },
-			      states_inputs:     [ "mux_1", "mux_2", "mux_3" ],
-			      states_outputs:    [ "mux_o" ],
-			      signals_inputs:    [ "selp" ],
-			      signals_output:    [ ]
-	                   } ;
 
         sim.rv.elements.byte_selector = {
 			      name:              "Byte Selector",
