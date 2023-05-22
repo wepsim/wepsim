@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Juan Banga Pardo
  *
  *  This file is part of WepSIM.
  *
@@ -490,7 +490,7 @@
 	sim.rv.signals["M3"]  = { name: "M3",  visible: true, type: "L", value: 0, default_value:0, nbits: "2",
 			       behavior: ["MV M3_ALU R_DATA2; FIRE ALUOP", "MV M3_ALU VAL_FOUR; FIRE ALUOP", "MV M3_ALU VAL_IMM; FIRE ALUOP", "NOP"],
 			       fire_name: ['svg_p:id131'],
-			       draw_data: [['svg_p:id44'], ['svg_p:id74'], ['svg_p:id45', 'svg_p:id76', 'svg_p:id77']],
+			       draw_data: [['svg_p:id44b', 'svg_p:id44c'], ['svg_p:id74b', 'svg_p:id74c'], ['svg_p:id45b', 'svg_p:id45c', 'svg_p:id76b', 'svg_p:id77b']],
 			       draw_name: [[], ['svg_p:id124']] };
 	sim.rv.signals["M4"]  = { name: "M4", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV M4_PC REG_OUT", "MV M4_PC ALU_WOUT"],
