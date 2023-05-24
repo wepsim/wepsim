@@ -435,9 +435,9 @@
 	/* REGISTER LOAD */
 	sim.rv.signals["PCWRITE"] = { name: "PCWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_PC M4_PC; UPDATEDPC"],
-				   fire_name: ['svg_p:id112'],
-				   draw_data: [['svg_p:id101']],
-				   draw_name: [['svg_p:id110']] };
+				   fire_name: ['svg_p:text7155'],
+				   draw_data: [['svg_p:path7125', 'svg_p:path7127']],
+				   draw_name: [['svg_p:path7145']] };
 	//Logic gates PC
 	sim.rv.signals["JUMP"] = { name: "JUMP", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD_J REG_PC M4_PC; UPDATEDPC_J"],
