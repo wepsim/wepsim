@@ -428,22 +428,22 @@
 					   "MV MUXA_MICROADDR ROM_MUXA",
 					   "MV MUXA_MICROADDR FETCH"],
                                 depends_on: ["CLK"],
-				fire_name: ['svg_p:id170'],
-				draw_data: [['svg_p:id166', 'svg_p:id167', 'svg_p:id168'],['svg_p:id169']],
-				draw_name: [['svg_p:id153', 'svg_p:id149']] };
+				fire_name: ['svg_p:text7417'],
+				draw_data: [['svg_p:path7391', 'svg_p:path7393', 'svg_p:path7395', 'svg_p:path7397', 'svg_p:path7399', 'svg_p:path7401']],
+				draw_name: [['svg_p:path7357', 'svg_p:path7329', 'svg_p:path7331']] };
 
 	/* REGISTER LOAD */
 	sim.rv.signals["PCWRITE"] = { name: "PCWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_PC M4_PC; UPDATEDPC"],
 				   fire_name: ['svg_p:text7155'],
-				   draw_data: [['svg_p:path7125', 'svg_p:path7127']],
-				   draw_name: [['svg_p:path7145']] };
+				   draw_data: [[]],
+				   draw_name: [['svg_p:path7145', 'svg_p:path7125', 'svg_p:path7127']] };
 	//Logic gates PC
 	sim.rv.signals["JUMP"] = { name: "JUMP", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD_J REG_PC M4_PC; UPDATEDPC_J"],
-				   fire_name: ['svg_p:id118'],
-				   draw_data: [['svg_p:id104']],
-				   draw_name: [['svg_p:id102']] };
+				   fire_name: ['svg_p:text7173'],
+				   draw_data: [[]],
+				   draw_name: [['svg_p:path7133', 'svg_p:path7143', 'svg_p:path7147', 'svg_p:path7135']] };
 
 	/* IR REGISTER */
 
@@ -456,48 +456,50 @@
 
 	sim.rv.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_IR RDATA; DECO; MBIT_SN R_IMM REG_IR REG_MICROINS/R_IMM 5; LOAD VAL_IMM R_IMM"],
-				   fire_name: ['svg_p:id146'],
-				   draw_data: [['svg_p:id28']],
-				   draw_name: [['svg_p:id145']] };
+				   fire_name: ['svg_p:text7309'],
+				   draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
+				   draw_name: [['svg_p:path7301']] };
 
 	/* OUT REGISTER */
 	sim.rv.signals["WOUT"] = { name: "WOUT", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_OUT ALU_WOUT"],
-				   fire_name: ['svg_p:id140'],
-				   draw_data: [['svg_p:id47']],
-				   draw_name: [['svg_p:id139']] };
+				   fire_name: ['svg_p:text7279'],
+				   draw_data: [['svg_p:path6837', 'svg_p:path6839']],
+				   draw_name: [['svg_p:path7271']] };
 
 	/* INSTRUCTION MEMORY */
 	sim.rv.signals["IMR"] = { name: "IMR", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "READ_IM"],
-				   fire_name: ['svg_p:id128'],
-				   draw_data: [['svg_p:id25']],
-				   draw_name: [['svg_p:id127']] };
+				   fire_name: ['svg_p:text7213'],
+				   draw_data: [['svg_p:path6691', 'svg_p:path6693']],
+				   draw_name: [['svg_p:path7205']] };
 
 
 	/* MUX. */
 	sim.rv.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV M1_RW BS_M1", "MV M1_RW REG_SR"],
                                depends_on: ["RW"],
-			       fire_name: ['svg_p:id129'],
-			       draw_data: [['svg_p:id155','svg_p:id159','svg_p:id195'], ['svg_p:id156','svg_p:id179','svg_p:id178','svg_p:id208', 'svg_p:id181', 'svg_p:id182']],
-			       draw_name: [[], ['svg_p:id123']] };
+			       fire_name: ['svg_p:text7221'],
+			       draw_data: [['svg_p:path7021','svg_p:path7023','svg_p:path7565', 'svg_p:path6911','svg_p:path6895','svg_p:path6897'], ['svg_p:path7621','svg_p:path7025','svg_p:path7017','svg_p:path7019', 'svg_p:path6899', 'svg_p:path6901']],
+			       draw_name: [[], ['svg_p:path7195']] };
 	sim.rv.signals["M2"]  = { name: "M2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
-			       fire_name: ['svg_p:id130'],
-			       draw_data: [['svg_p:id38', 'svg_p:id72', 'svg_p:id69', 'svg_p:id71', 'svg_p:id70'], ['svg_p:id39']],
-			       draw_name: [[], ['svg_p:id125']] };
+                               depends_on: ["ALUOP"],
+			       fire_name: ['svg_p:text7229'],
+			       draw_data: [['svg_p:path6691-3', 'svg_p:path6987', 'svg_p:path6989', 'svg_p:path6983', 'svg_p:path6991', 'svg_p:path6775', 'svg_p:path6777'], ['svg_p:path6779', 'svg_p:path6781']],
+			       draw_name: [[], ['svg_p:path7199']] };
 	sim.rv.signals["M3"]  = { name: "M3",  visible: true, type: "L", value: 0, default_value:0, nbits: "2",
 			       behavior: ["MV M3_ALU R_DATA2; FIRE ALUOP", "MV M3_ALU VAL_FOUR; FIRE ALUOP", "MV M3_ALU VAL_IMM; FIRE ALUOP", "NOP"],
-			       fire_name: ['svg_p:id131'],
-			       draw_data: [['svg_p:id44b', 'svg_p:id44c'], ['svg_p:id74b', 'svg_p:id74c'], ['svg_p:id45b', 'svg_p:id45c', 'svg_p:id76b', 'svg_p:id77b']],
-			       draw_name: [[], ['svg_p:id124']] };
+			       fire_name: ['svg_p:text7237'],
+                               depends_on: ["ALUOP"],
+			       draw_data: [['svg_p:path6821', 'svg_p:path6823'], ['svg_p:path7001', 'svg_p:path7003'], ['svg_p:path7015', 'svg_p:path7013', 'svg_p:path6825', 'svg_p:path6827']],
+			       draw_name: [[], ['svg_p:path7197']] };
 	sim.rv.signals["M4"]  = { name: "M4", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV M4_PC REG_OUT", "MV M4_PC ALU_WOUT"],
                                depends_on: ["PCWRITE"],
-			       fire_name: ['svg_p:id142'],
-			       draw_data: [['svg_p:id87','svg_p:id86','svg_p:id126'], ['svg_p:id97','svg_p:id96','svg_p:id90']],
-			       draw_name: [[], ['svg_p:id141']] };
+			       fire_name: ['svg_p:text7289'],
+			       draw_data: [['svg_p:path7075','svg_p:path7043','svg_p:path7045', 'svg_p:path7047', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037'], ['svg_p:path6837-6', 'svg_p:path7073','svg_p:path7115','svg_p:path7117', 'svg_p:path7119', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037']],
+			       draw_name: [[], ['svg_p:path7281']] };
 
 	sim.rv.signals["ALUOP"] = { name: "ALUOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
 					behavior: ["NOP_ALU; UPDATE_NZ",
@@ -516,9 +518,9 @@
 								"DIV ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"LUI ALU_WOUT M2_ALU; UPDATE_NZ"],
-			       fire_name: ['svg_p:id138'],
-			       draw_data: [['svg_p:id49', 'svg_p:id48', 'svg_p:id47']],
-			       draw_name: [['svg_p:id134', 'svg_p:id136']] };
+			       fire_name: ['svg_p:text7269'],
+			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843', 'svg_p:path6837', 'svg_p:path6839']],
+			       draw_name: [['svg_p:path7249']] };
 
 				   /*
 					behavior: ["NOP_ALU; UPDATE_NZ",
@@ -589,9 +591,9 @@
 
 	sim.rv.signals["RW"]  = { name: "RW", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 					behavior: ["NOP", "MBIT_SN REG_R1 REG_IR REG_MICROINS/REG_R1 5; GET R_DATA1 BR REG_R1; MBIT_SN REG_R2 REG_IR REG_MICROINS/REG_R2 5; GET R_DATA2 BR REG_R2; MBIT_SN REG_W2 REG_IR REG_MICROINS/REG_W2 5; SET BR REG_W2 M1_RW"],
-					fire_name: ['svg_p:id144'],
-					draw_data: [['svg_p:id58', 'svg_p:id60', 'svg_p:id61']],
-					draw_name: [['svg_p:id143']] };
+					fire_name: ['svg_p:text7299'],
+					draw_data: [['svg_p:path6725', 'svg_p:path6727', 'svg_p:path6729', 'svg_p:path6731', 'svg_p:path6733', 'svg_p:path6735', 'svg_p:path6915', 'svg_p:path6913', 'svg_p:path6907', 'svg_p:path6909']],
+					draw_name: [['svg_p:path7291']] };
 
 	/* W-Byte & R-Byte Selector */
 	sim.rv.signals["BW"] =  { name: "BW",
@@ -678,15 +680,15 @@
 	sim.rv.signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_N VAL_ZERO", "MV FLAG_N VAL_ONE"],
                                   depends_on: ["ALUOP"],
-		  	          fire_name: ['svg_p:id204', 'svg_p:id121'],
-			          draw_data: [['svg_p:id204', 'svg_p:id113']],
-			          draw_name: [[]] };
+		  	          fire_name: ['svg_p:text7607', 'svg_p:text7185'],
+			          draw_data: [['svg_p:path7251']],
+			          draw_name: [['svg_p:path7157']] };
 	sim.rv.signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_Z VAL_ZERO", "MV FLAG_Z VAL_ONE"],
                                   depends_on: ["ALUOP"],
-		  	          fire_name: ['svg_p:id205', 'svg_p:id122'],
-			          draw_data: [['svg_p:id205', 'svg_p:id104']],
-			          draw_name: [[]] };
+		  	          fire_name: ['svg_p:text7615', 'svg_p:text7193'],
+			          draw_data: [['svg_p:path7617']],
+			          draw_name: [['svg_p:path7165']] };
 
 
 	/*
