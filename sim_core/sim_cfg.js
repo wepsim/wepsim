@@ -208,7 +208,11 @@
                    "color_data_inactive":   { upgrade:false, type:"string",    value:"#000000" },
                    "color_name_active":     { upgrade:false, type:"string",    value:"#FF0000" },
                    "color_name_inactive":   { upgrade:false, type:"string",    value:"#000000" }, // "black"
+<<<<<<< HEAD
 	           "size_active":           { upgrade:false, type:"float",     value:2.00 },
+=======
+	           "size_active":           { upgrade:false, type:"float",     value:3.00 },
+>>>>>>> upstream/master
 	           "size_inactive":         { upgrade:false, type:"float",     value:1.00 },
                    "is_byvalue":            { upgrade:false, type:"boolean",   value:false },
                    "CPUCU_show_graph":      { upgrade:true,  type:"boolean",   value:true },

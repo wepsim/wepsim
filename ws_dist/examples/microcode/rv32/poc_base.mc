@@ -135,8 +135,8 @@ out reg val {
 # Power consumption
 #
 
-# LDE rd  	Load Energy 	rd ← ux(energy_acc) 
-lde reg1  {
+# RDCYCLE rd  	Load Energy 	rd ← ux(energy_acc) 
+rdcycle reg1  {
 	    co=111111,
 	    nwords=1,
 	    reg1=reg(25,21),
