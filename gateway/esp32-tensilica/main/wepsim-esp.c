@@ -81,8 +81,8 @@ void app_main(void)
     /////////
 
  
-    printf("Started programa... \n");
-    printf("-------------------\n");
+    printf("Started program...\n");
+    printf("------------------\n");
 
     int x = esp_cpu_get_cycle_count();
 
@@ -91,7 +91,7 @@ void app_main(void)
     x= esp_cpu_get_cycle_count() - x ;
 
     printf("Finished program: %d cycles \n", x);
-    printf("-------------------\n");
+    printf("------------------\n");
 
     return;
 
