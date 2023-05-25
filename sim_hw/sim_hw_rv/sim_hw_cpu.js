@@ -30,8 +30,8 @@
 
 		                  // ui: details
                                   details_name: [ "REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS" ],
-                                  details_fire: [ ['svg_p:id17'], ['svg_p:id155', 'svg_p:id156', 'svg_p:id157', 'svg_p:id158',
-								  'svg_p:id159', 'svg_p:id160', 'svg_p:id161', 'svg_p:id162', 'svg_p:id163'], ['svg_p:id148'] ],
+                                  details_fire: [ ['svg_p:text6639'], ['svg_p:path7363', 'svg_p:path7365', 'svg_p:path7367', 'svg_p:path7369',
+								  'svg_p:path7371', 'svg_p:path7373', 'svg_p:path7375', 'svg_p:path7377', 'svg_p:path7379'], ['svg_p:text7327'] ],
 
 		                  // state: write_state, read_state, get_state
 		                  write_state:  function ( vec ) {
@@ -186,7 +186,7 @@
         sim.rv.internal_states.tri_state_names = [] ;
         sim.rv.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         sim.rv.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto", "REG_PC,col-auto", "REG_OUT,col-auto",
-												  "REG_SR,col-auto", "REG_MICROADDR,col-auto", "RDATA,col-auto", "ROM_MUXA,col-auto", "MUXA_MICROADDR,col-auto", "R_DATA1,col-auto", "R_DATA2,col-auto", "VAL_IMM,col-auto"] ;
+												  "REG_MICROADDR,col-auto", "RDATA,col-auto", "ROM_MUXA,col-auto", "MUXA_MICROADDR,col-auto", "R_DATA1,col-auto", "R_DATA2,col-auto", "VAL_IMM,col-auto", "DM_BS,col-auto","BS_M1,col-auto","M1_RW,col-auto"] ;
         sim.rv.internal_states.filter_signals  = [ "CU,0", "ALUOP,0", "COP,0", "M1,0", "M2,0", "M3,0", "M4,0",
 												"JUMP,0", "PCWRITE,0", "IMR,0", "IRWRITE,0", "RW,0", "WOUT,0",
 												"DMR,0", "DMW,0", "Word BE,0", "Byte BE,0" ] ;
@@ -308,11 +308,6 @@
 	sim.rv.states["REG_IR"]  = { name:"IR",  verbal: "Instruction Register",
                                      visible:true, nbits:"32", value:0,  default_value:0,
                                      draw_data: [] };
-	//CONSULTAR
-	sim.rv.states["REG_SR"]  = { name:"SR", verbal: "State Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0,
-                                     draw_data: [] };
-
 	sim.rv.states["REG_OUT"]  = { name:"OUT", verbal: "Out Register",
                                      visible:true, nbits:"32", value:0,  default_value:0,
                                      draw_data: [] };
@@ -476,12 +471,6 @@
 
 
 	/* MUX. */
-	sim.rv.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M1_RW BS_M1", "MV M1_RW REG_SR"],
-                               depends_on: ["RW"],
-			       fire_name: ['svg_p:text7221'],
-			       draw_data: [['svg_p:path7021','svg_p:path7023','svg_p:path7565', 'svg_p:path6911','svg_p:path6895','svg_p:path6897'], ['svg_p:path7621','svg_p:path7025','svg_p:path7017','svg_p:path7019', 'svg_p:path6899', 'svg_p:path6901']],
-			       draw_name: [[], ['svg_p:path7195']] };
 	sim.rv.signals["M2"]  = { name: "M2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
                                depends_on: ["ALUOP"],
@@ -596,6 +585,7 @@
 					draw_name: [['svg_p:path7291']] };
 
 	/* W-Byte & R-Byte Selector */
+	/*
 	sim.rv.signals["BW"] =  { name: "BW",
 		               verbal: ['Select one byte (based on A1A0) from Word. ',
                                         'Select two bytes (one Half Word based on A1A0) from Word. ',
@@ -675,6 +665,33 @@
 				fire_name: [],
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
+	*/
+	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
+				behavior: ['MV DM_BS REG_OUT',
+					   'NOP',
+					   'NOP',
+					   'NOP'],
+                               depends_on: ["WOUT"],
+				 fire_name: ['svg_p:text7555'],
+				 draw_data: [[]],
+				 draw_name: [['svg_p:path7529']] };
+
+	sim.rv.signals["BBE"] = { name: "BBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
+				behavior: ['MV BS_M1 DM_BS',
+					   'NOP',
+					   'NOP',
+					   'NOP'],
+                               depends_on: ["WOUT"],
+				 fire_name: ['svg_p:text7433'],
+				 draw_data: [['svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
+				 draw_name: [['svg_p:path7425']] };
+
+	sim.rv.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
+				behavior: ["MV M1_RW BS_M1", "MV M1_RW FLAG_N"],
+							depends_on: ["RW"],
+				fire_name: ['svg_p:text7221'],
+				draw_data: [['svg_p:path7021','svg_p:path7023','svg_p:path7565', 'svg_p:path6911','svg_p:path6895','svg_p:path6897'], ['svg_p:path7621','svg_p:path7025','svg_p:path7017','svg_p:path7019', 'svg_p:path6899', 'svg_p:path6901']],
+				draw_name: [[], ['svg_p:path7195']] };
 
 	/* Virtual Signals, for UI */
 	sim.rv.signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
@@ -2496,7 +2513,7 @@
 							      ref:  "BW"
 							    },
 						   "mux_1": {
-							      ref:  "ZN"
+							      ref:  "FLAG_N"
 							    },
 						   "mux_o": {
 							      ref:  "W_DATA"
@@ -2647,30 +2664,6 @@
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out", "imm" ],
 			      signals_inputs:    [ "IRWRITE" ],
-			      signals_output:    [ ]
-	               } ;
-
-        sim.rv.elements.sr = {
-			      name:              "SR",
-			      description:       "State Register",
-			      type:              "subcomponent",
-			      belongs:           "CPU",
-			      states:            {
-						   "in":     {
-							       ref:  "M7_C7"
-							     },
-						   "out":    {
-							       ref:  "REG_SR"
-							     }
-						 },
-			      signals:           {
-						   "ctl":    {
-							       ref:  "C7"
-							     }
-						 },
-			      states_inputs:     [ "in" ],
-			      states_outputs:    [ "out" ],
-			      signals_inputs:    [ "ctl" ],
 			      signals_output:    [ ]
 	               } ;
 

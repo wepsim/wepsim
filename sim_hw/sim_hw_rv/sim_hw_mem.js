@@ -138,18 +138,19 @@
 
         sim.rv.signals.DMR         = { name: "DMR",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                     behavior: ["NOP; CHECK_RTD",
-                                                "MEM_READ BUS_AB BUS_DB BWA CLK; CHECK_RTD"],
-                                     fire_name: ['svg_p:id201','svg_p:id184'],
-                                     draw_data: [[], ['svg_p:id187','svg_p:id198', 'svg_p:id210', 'svg_p:id209', 'svg_p:id207']],
+		                     behavior: ["NOP",//"MV DM_BS REG_OUT",
+                                                //"MEM_READ BUS_AB BUS_DB BWA CLK; CHECK_RTD"],
+                                                "NOP"],
+                                     fire_name: ['svg_p:text7589','svg_p:text7507'],
+                                     draw_data: [[], ['svg_p:path7525','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
                                      draw_name: [[], []] };
 
         sim.rv.signals.DMW         = { name: "DMW",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 		                     behavior: ["NOP",
                                                 "MEM_WRITE BUS_AB BUS_DB BWA CLK"],
-                                     fire_name: ['svg_p:id202','svg_p:id185'],
-                                     draw_data: [[], ['svg_p:id188','svg_p:id198', 'svg_p:id210', 'svg_p:id209', 'svg_p:id207', 'svg_p:id200']],
+                                     fire_name: ['svg_p:text7597','svg_p:text7515'],
+                                     draw_data: [[], ['svg_p:path7527','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573', 'svg_p:path7075-2', 'svg_p:path7043', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581']],
                                      draw_name: [[], []] };
 
 
