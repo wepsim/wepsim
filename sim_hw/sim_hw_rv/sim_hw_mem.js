@@ -30,7 +30,7 @@
 
 		                  // ui: details
                                   details_name: [ "MEMORY", "MEMORY_CONFIG" ],
-                                  details_fire: [ ['svg_p:id181'], [] ],
+                                  details_fire: [ ['svg_p:text7483'], [] ],
 
 		                  // state: write_state, read_state, get_state
 		                  write_state: function ( vec ) {
@@ -150,7 +150,7 @@
 		                     behavior: ["NOP",
                                                 "MEM_WRITE BUS_AB BUS_DB BWA CLK"],
                                      fire_name: ['svg_p:text7597','svg_p:text7515'],
-                                     draw_data: [[], ['svg_p:path7527','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573', 'svg_p:path7075-2', 'svg_p:path7043', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581']],
+                                     draw_data: [[], ['svg_p:path7527','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
                                      draw_name: [[], []] };
 
 

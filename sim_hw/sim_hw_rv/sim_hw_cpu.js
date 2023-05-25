@@ -671,9 +671,9 @@
 					   'NOP',
 					   'NOP',
 					   'NOP'],
-                               depends_on: ["WOUT"],
+                               depends_on: ["RW"],
 				 fire_name: ['svg_p:text7555'],
-				 draw_data: [[]],
+				 draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581']],
 				 draw_name: [['svg_p:path7529']] };
 
 	sim.rv.signals["BBE"] = { name: "BBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
@@ -681,7 +681,7 @@
 					   'NOP',
 					   'NOP',
 					   'NOP'],
-                               depends_on: ["WOUT"],
+                               depends_on: ["RW"],
 				 fire_name: ['svg_p:text7433'],
 				 draw_data: [['svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
 				 draw_name: [['svg_p:path7425']] };
