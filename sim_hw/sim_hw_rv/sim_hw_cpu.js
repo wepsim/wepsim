@@ -519,7 +519,7 @@
 								"MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"LUI ALU_WOUT M2_ALU; UPDATE_NZ"],
 			       fire_name: ['svg_p:text7269'],
-			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843', 'svg_p:path6837', 'svg_p:path6839']],
+			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
 			       draw_name: [['svg_p:path7249']] };
 
 				   /*
