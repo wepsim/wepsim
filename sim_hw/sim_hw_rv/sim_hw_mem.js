@@ -129,45 +129,20 @@
 
         sim.rv.internal_states.CM_cfg    = [] ;
         sim.rv.internal_states.CM        = [] ;
-  
-
-
-        /*
-         *  Signals
-         */
-
-        sim.rv.signals.DMR         = { name: "DMR",
-                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                     behavior: ["NOP",//"MV DM_BS REG_OUT",
-                                                //"MEM_READ BUS_AB BUS_DB BWA CLK; CHECK_RTD"],
-                                                "NOP"],
-                                     fire_name: ['svg_p:text7589','svg_p:text7507'],
-                                     draw_data: [[], ['svg_p:path7525','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
-                                     draw_name: [[], []] };
-
-        sim.rv.signals.DMW         = { name: "DMW",
-                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                     behavior: ["NOP",
-                                                "MEM_WRITE BUS_AB BUS_DB BWA CLK"],
-                                     fire_name: ['svg_p:text7597','svg_p:text7515'],
-                                     draw_data: [[], ['svg_p:path7527','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
-                                     draw_name: [[], []] };
-
 
         /*
          *  Syntax of behaviors
          */
 
         sim.rv.behaviors.MEM_READ   = { nparameters: 6,
-                                        types: ["E", "E", "S", "S", "E"],
+                                        types: ["E", "E", "S", "E"],
                                         operation: function (s_expr)
                                                    {
 						      var address = sim.rv.states[s_expr[1]].value;
                                                       var dbvalue = sim.rv.states[s_expr[2]].value;
                                                       var bw      = sim.rv.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.rv.states[s_expr[5]]) ;
+                                                      var clk     = get_value(sim.rv.states[s_expr[4]]) ;
 
-                                                      sim.rv.signals[s_expr[4]].value = 0;
 						      var remain = get_value(sim.rv.internal_states.MP_wc);
 						      if (
                                                            (typeof sim.rv.events.mem[clk-1] != "undefined") &&
@@ -194,7 +169,6 @@
                                                       dbvalue = main_memory_fusionvalues(dbvalue, value, bw) ;
 
                                                       sim.rv.states[s_expr[2]].value = (dbvalue >>> 0);
-                                                     sim.rv.signals[s_expr[4]].value = 1;
 				                      show_main_memory(sim.rv.internal_states.MP, address, full_redraw, false) ;
 
                                                       // cache
@@ -209,7 +183,7 @@
 						      var address = sim.rv.states[s_expr[1]].value;
                                                       var dbvalue = sim.rv.states[s_expr[2]].value;
                                                       var bw      = sim.rv.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.rv.states[s_expr[5]]) ;
+                                                      var clk     = get_value(sim.rv.states[s_expr[4]]) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )
@@ -237,15 +211,14 @@
                                       };
 
         sim.rv.behaviors.MEM_WRITE  = { nparameters: 6,
-                                        types: ["E", "E", "S", "S", "E"],
+                                        types: ["E", "E", "S", "E"],
                                         operation: function (s_expr)
                                                    {
 						      var address = sim.rv.states[s_expr[1]].value;
                                                       var dbvalue = sim.rv.states[s_expr[2]].value;
                                                       var bw      = sim.rv.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.rv.states[s_expr[5]]) ;
+                                                      var clk     = get_value(sim.rv.states[s_expr[4]]) ;
 
-                                                      sim.rv.signals[s_expr[4]].value = 0;
 						      var remain = get_value(sim.rv.internal_states.MP_wc);
 						      if (
                                                            (typeof sim.rv.events.mem[clk-1] != "undefined") &&
@@ -288,7 +261,6 @@
 										   address,
 									           melto) ;
 
-                                                      sim.rv.signals[s_expr[4]].value = 1;
 				                      show_main_memory(sim.rv.internal_states.MP, address, full_redraw, true) ;
 
                                                       // cache
@@ -303,7 +275,7 @@
 						      var address = sim.rv.states[s_expr[1]].value;
                                                       var dbvalue = sim.rv.states[s_expr[2]].value;
                                                       var bw      = sim.rv.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.rv.states[s_expr[5]]) ;
+                                                      var clk     = get_value(sim.rv.states[s_expr[4]]) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )
@@ -367,8 +339,8 @@
 								}
 						 },
 			      signals:           {
-						   "be":        {
-								   ref:  "BWA"
+						   "wbe":        {
+								   ref:  "WBE"
 								},
 						   "dmr":         {
 								   ref:  "DMR"
@@ -379,7 +351,7 @@
 						 },
 			      states_inputs:     [ "addr", "wdata" ],
 			      states_outputs:    [ "rdata" ],
-			      signals_inputs:    [ "be", "dmr", "dmw" ],
+			      signals_inputs:    [ "wbe", "dmr", "dmw" ],
 			      signals_output:    [ ]
 		       } ;
 

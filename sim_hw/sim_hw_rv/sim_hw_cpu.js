@@ -584,7 +584,6 @@
 					draw_data: [['svg_p:path6725', 'svg_p:path6727', 'svg_p:path6729', 'svg_p:path6731', 'svg_p:path6733', 'svg_p:path6735', 'svg_p:path6915', 'svg_p:path6913', 'svg_p:path6907', 'svg_p:path6909']],
 					draw_name: [['svg_p:path7291']] };
 
-	/* W-Byte & R-Byte Selector */
 	/*
 	sim.rv.signals["BW"] =  { name: "BW",
 		               verbal: ['Select one byte (based on A1A0) from Word. ',
@@ -666,26 +665,38 @@
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
 	*/
-	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
-				behavior: ['MV DM_BS REG_OUT',
-					   'NOP',
-					   'NOP',
-					   'NOP'],
-                               depends_on: ["RW"],
-				 fire_name: ['svg_p:text7555'],
-				 draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581']],
-				 draw_name: [['svg_p:path7529']] };
 
-	sim.rv.signals["BBE"] = { name: "BBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
+	 /* DATA MEMORY SIGNALS */
+	sim.rv.signals.DMR = { name: "DMR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				behavior: ["MV DM_BS REG_OUT",
+						"MEM_READ M3_ALU DM_BS WBE CLK"],
+				fire_name: ['svg_p:text7589','svg_p:text7507'],
+				draw_data: [[], ['svg_p:path7525','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
+				draw_name: [[], []] };
+	sim.rv.signals.DMW = { name: "DMW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				behavior: ["NOP",
+						"MEM_WRITE M3_ALU DM_BS WBE CLK"],
+				fire_name: ['svg_p:text7597','svg_p:text7515'],
+				draw_data: [[], ['svg_p:path7527','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
+				draw_name: [[], []] };
+
+	/* BYTE/WORD SELECTOR*/
+	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+				behavior: ['NOP',
+					   'NOP'],
+							depends_on: ["RW"],
+				fire_name: ['svg_p:text7555'],
+				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581']],
+				draw_name: [['svg_p:path7529']] };
+	sim.rv.signals["BBE"] = { name: "BBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
 				behavior: ['MV BS_M1 DM_BS',
-					   'NOP',
-					   'NOP',
 					   'NOP'],
-                               depends_on: ["RW"],
-				 fire_name: ['svg_p:text7433'],
-				 draw_data: [['svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
-				 draw_name: [['svg_p:path7425']] };
+							depends_on: ["RW"],
+				fire_name: ['svg_p:text7433'],
+				draw_data: [['svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
+				draw_name: [['svg_p:path7425']] };
 
+	//MUX1 MUST BE AFTER B/W SELECTOR
 	sim.rv.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 				behavior: ["MV M1_RW BS_M1", "MV M1_RW FLAG_N"],
 							depends_on: ["RW"],
