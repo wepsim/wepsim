@@ -548,9 +548,19 @@ function saveFirmware ( SIMWARE )
 			file += '\t' +"co=" + SIMWARE.firmware[i].co + "," + '\n';
 		}
 
+		if (typeof SIMWARE.firmware[i].oc != "undefined")
+		{
+			file += '\t' +"oc=" + SIMWARE.firmware[i].oc + "," + '\n';
+		}
+
 		if (typeof SIMWARE.firmware[i].cop != "undefined")
 		{
 			file += '\t' +"cop=" + SIMWARE.firmware[i].cop + "," + '\n';
+		}
+
+		if (typeof SIMWARE.firmware[i].funct != "undefined")
+		{
+			file += '\t' +"funct=" + SIMWARE.firmware[i].funct + "," + '\n';
 		}
 
 		if (typeof SIMWARE.firmware[i].nwords != "undefined")
@@ -564,6 +574,7 @@ function saveFirmware ( SIMWARE )
 			{
 				for (var j=0;j<SIMWARE.firmware[i].fields.length;j++)
 				{
+					//CAMBIAR, HAY RANGOS SEPARADOS
 					file += '\t' + SIMWARE.firmware[i].fields[j].name + " = " + SIMWARE.firmware[i].fields[j].type;
 					file += "(" + SIMWARE.firmware[i].fields[j].startbit + "," + SIMWARE.firmware[i].fields[j].stopbit + ")";					
 					if (SIMWARE.firmware[i].fields[j].type == "address")
@@ -694,7 +705,6 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		ret.op_code = parseInt(oc, 2) ;
 
 		// funct
-		// CAMBIAR, FUNCT PUEDE CONTENER RANGOS SEPARADOS
 		var funct = bits.substr(ep_ir.default_eltos.funct.begin, ep_ir.default_eltos.funct.length);
 		ret.funct = parseInt(funct, 2) ;
 
