@@ -680,6 +680,31 @@ function saveFirmware ( SIMWARE )
 function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
 	if (curr_firm.version == 2) {
+		var ret = {
+					"oinstruction": null,
+					op_code: 0,
+					funct: 0
+				} ;
+
+		// instructions as 32-string
+		var bits = binstruction.toString(2).padStart(32, "0") ;
+
+		// op-code
+		var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
+		ret.op_code = parseInt(oc, 2) ;
+
+		// funct
+		// CAMBIAR, FUNCT PUEDE CONTENER RANGOS SEPARADOS
+		var funct = bits.substr(ep_ir.default_eltos.funct.begin, ep_ir.default_eltos.funct.length);
+		ret.funct = parseInt(funct, 2) ;
+
+		if ("undefined" == typeof curr_firm.ocfunct_hash[oc]) {
+			return ret ;
+		}
+
+		if (false == curr_firm.ocfunct_hash[oc].withfunct)
+			ret.oinstruction = curr_firm.ocfunct_hash[oc].i ;
+		else ret.oinstruction = curr_firm.ocfunct_hash[oc][funct] ;
 
 	} else {
 		var ret = {
