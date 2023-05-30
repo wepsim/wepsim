@@ -134,7 +134,7 @@
          *  Syntax of behaviors
          */
 
-        sim.rv.behaviors.MEM_READ   = { nparameters: 6,
+        sim.rv.behaviors.MEM_READ   = { nparameters: 5,
                                         types: ["E", "E", "S", "E"],
                                         operation: function (s_expr)
                                                    {
@@ -210,7 +210,7 @@
                                                    }
                                       };
 
-        sim.rv.behaviors.MEM_WRITE  = { nparameters: 6,
+        sim.rv.behaviors.MEM_WRITE  = { nparameters: 5,
                                         types: ["E", "E", "S", "E"],
                                         operation: function (s_expr)
                                                    {
