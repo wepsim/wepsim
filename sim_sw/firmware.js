@@ -185,7 +185,8 @@ function loadFirmware (text)
 
            var     xr_info = simhw_sim_ctrlStates_get() ;
            var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
-		   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
+		   //var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
+		   var all_ones_oc = "1".repeat(7) ;
 
            var context = {} ;
 	   context.line           	= 1 ;
@@ -524,9 +525,10 @@ function loadFirmware (text)
            ret.seg                = {} ;
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
-	   ret.stackRegister	  = context.stackRegister ;
-	   ret.cocop_hash	  = context.cocop_hash ;
-	   ret.revlabels	  = context.revlabels ;
+           ret.stackRegister      = context.stackRegister ;
+           ret.cocop_hash         = context.cocop_hash ;
+           ret.oc_funct_hash      = context.oc_funct_hash ;
+           ret.revlabels          = context.revlabels ;
 
            return ret ;
 }

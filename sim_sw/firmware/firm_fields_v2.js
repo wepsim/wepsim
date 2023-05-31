@@ -226,29 +226,84 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 					i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
 		}
 
-		var bits = [] ;
-		var bits_aux = [0, 0] ;
-		while (! isToken(context,")")) {
-			nextToken(context);
-			bits_aux[0] = getToken(context) ;
+		var start;
+		var stop;
 
-			nextToken(context);
-			// match mandatory :
-			if (! isToken(context,":") || ! isToken(context,"|")) {
-				return langError(context,
-						i18n_get_TagFor('compiler', 'COLON OR PIPE NOT FOUND')) ;
-			}
-			if (isToken(context,":")) {
-				nextToken(context);
-				bits_aux[1] = getToken(context) ;
-			} else if (isToken(context,"|")) {
-				bits_aux[1] = bits_aux[0] ;
-			}
-
-			bits.push(bits_aux) ;
+		nextToken(context);
+		// match mandatory START_BIT
+		// check startbit range
+		start = getToken(context);
+		stop = start;
+		if (start > 32*parseInt(instruccionAux.nwords)-1) {
+			return langError(context,
+					i18n_get_TagFor('compiler', 'STARTBIT OoR') +
+					"'" + getToken(context) + "'") ;
 		}
 
-		tmp_fields.bits = bits ;
+		nextToken(context);
+		// if it's shaped like (start:end|bit|start:end)
+		if (isToken(context,":")) {
+			nextToken(context);
+			// match mandatory STOP_BIT
+			// check stopbit range
+			stop  = getToken(context);
+			if (stop > 32*parseInt(instruccionAux.nwords)) {
+				return langError(context,
+						i18n_get_TagFor('compiler', 'STOPBIT OoR') +
+						"'" + getToken(context) + "'") ;
+			}
+
+			// if it's a fixed range don't do anything more (start:end)
+			nextToken(context);
+			if (isToken(context,")")) {
+				tmp_fields.startbit = start;
+				tmp_fields.stopbit = stop;
+			}
+		}
+
+		// if it's a normal case
+		if (isToken(context,"|")) {
+			// all bit ranges
+			var bits = [] ;
+			// auxiliary to add ranges
+			var bits_aux = [start, stop] ;
+			bits.push(bits_aux) ;
+
+			while (! isToken(context,")")) {
+				nextToken(context);
+				bits_aux[0] = getToken(context) ;
+				// check bit range
+				if (bits_aux[0] > 32*parseInt(instruccionAux.nwords)) {
+					return langError(context,
+							i18n_get_TagFor('compiler', 'BIT OoR') +
+							"'" + getToken(context) + "'") ;
+				}
+
+				nextToken(context);
+				// match mandatory : or |
+				if (! isToken(context,":") || ! isToken(context,"|")) {
+					return langError(context,
+							i18n_get_TagFor('compiler', 'COLON OR PIPE NOT FOUND')) ;
+				}
+				if (isToken(context,":")) {
+					nextToken(context);
+					bits_aux[1] = getToken(context) ;
+				} else if (isToken(context,"|")) {
+					bits_aux[1] = bits_aux[0] ;
+				}
+				// check bit range
+				if (bits_aux[1] > 32*parseInt(instruccionAux.nwords)) {
+					return langError(context,
+							i18n_get_TagFor('compiler', 'BIT OoR') +
+							"'" + getToken(context) + "'") ;
+				}
+
+				// bit range is added
+				bits.push(bits_aux) ;
+			}
+
+			tmp_fields.bits = bits ;
+		}
 
 	}
 
