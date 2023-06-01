@@ -685,7 +685,7 @@
 				verbal: ['Select the full Word.',
 						'Select inferior byte from Word.'],
 				behavior: ['MV BS_M1 DM_BS',
-					   'NOP'],
+					   'BWSEL BS_M1 DM_BS SE'],
 							depends_on: ["RW"],
 				fire_name: ['svg_p:text7555', 'svg_p:text7433'],
 				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581', 'svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
@@ -2100,6 +2100,32 @@
 						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                 }
 				   };
+
+	sim.rv.behaviors["BWSEL"] = { nparameters: 4,
+					types: ["X", "X", "S"],
+					operation: function(s_expr)
+							{
+								sim_elto_org = get_reference(s_expr[2]) ;
+								sim_elto_dst = get_reference(s_expr[1]) ;
+								var sign_ext = sim.rv.signals[s_expr[3]].value;
+								console.log(sim_elto_org);
+								console.log(sim_elto_dst);
+								console.log(sign_ext);
+
+								if (sign_ext) {
+									//Extend byte sign to full Word
+								} else {
+									//Add zeros to 24 superior bits
+								}
+								newval       = get_value(sim_elto_org) ;
+								set_value(sim_elto_dst, newval) ;
+							},
+					verbal: function (s_expr)
+							{
+								return "" ;
+							}
+				};
+
 	sim.rv.behaviors["EXT_SIG"] =  { nparameters: 3,
 				     types: ["E", "I"],
 				     operation: function (s_expr)
