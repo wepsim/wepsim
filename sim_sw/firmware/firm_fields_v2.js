@@ -147,15 +147,16 @@ function firm_instruction_keystring_read ( context, instruccionAux )
 function firm_instruction_field_read_v2 ( context, instruccionAux )
 {
         var tmp_fields = {} ;
-	var field_list = ["oc", "funct", "reg", "inm", "address-rel", "address-abs"] ;
+		var field_list = ["oc", "funct", "reg", "imm", "address-rel", "address-abs"] ;
+		var complex_field_list = ["address-rel", "address-abs"] ;
 
         // ...
         // reg(15:19)=rs1,
         // ...
 
-	// match mandatory FIELD-type: oc|funct|reg|inm|address-rel|address-abs
+	// match mandatory FIELD-type: oc|funct|reg|imm|address-rel|address-abs
 	if ( !isToken_arr(context, field_list) ) {
-		return langError(context, "Incorrect type of field (oc, funct, reg, inm, address-rel or address-abs)") ;
+		return langError(context, "Incorrect type of field (oc, funct, reg, imm, address-rel or address-abs)") ;
 	}
 
 	tmp_fields.type = getToken(context) ;
@@ -169,49 +170,159 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
              tmp_fields.address_type = "abs" ;
         }
 
-	nextToken(context);
-	// match mandatory (
-	if (! isToken(context,"(")) {
-		 return langError(context,
-				  i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
-	}
+	if ( !isToken_arr(context, complex_field_list) ) {
+		//Normal start and stop bit behaivour (start:end)
+		nextToken(context);
+		// match mandatory (
+		if (! isToken(context,"(")) {
+			return langError(context,
+					i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+		}
 
-	nextToken(context);
-	// match mandatory START_BIT
-	tmp_fields.startbit = getToken(context) ;
+		nextToken(context);
+		// match mandatory START_BIT
+		tmp_fields.startbit = getToken(context) ;
 
-	// check startbit range
-	var start = parseInt(tmp_fields.startbit);
-	if (start > 32*parseInt(instruccionAux.nwords)-1) {
-	       return langError(context,
-				i18n_get_TagFor('compiler', 'STARTBIT OoR') +
-				"'" + getToken(context) + "'") ;
-	}
+		// check startbit range
+		var start = parseInt(tmp_fields.startbit);
+		if (start > 32*parseInt(instruccionAux.nwords)-1) {
+			return langError(context,
+					i18n_get_TagFor('compiler', 'STARTBIT OoR') +
+					"'" + getToken(context) + "'") ;
+		}
 
-	nextToken(context);
-	// match mandatory :
-	if (! isToken(context,":")) {
-		 return langError(context,
-				  i18n_get_TagFor('compiler', 'COLON NOT FOUND')) ;
-	}
+		nextToken(context);
+		// match mandatory :
+		if (! isToken(context,":")) {
+			return langError(context,
+					i18n_get_TagFor('compiler', 'COLON NOT FOUND')) ;
+		}
 
-	nextToken(context);
-	// match mandatory STOP_BIT
-	tmp_fields.stopbit = getToken(context) ;
+		nextToken(context);
+		// match mandatory STOP_BIT
+		tmp_fields.stopbit = getToken(context) ;
 
-	// check stopbit range
-	var stop  = parseInt(tmp_fields.stopbit);
-	if (stop > 32*parseInt(instruccionAux.nwords)) {
-	       return langError(context,
-				i18n_get_TagFor('compiler', 'STOPBIT OoR') +
-				"'" + getToken(context) + "'") ;
-	}
+		// check stopbit range
+		var stop  = parseInt(tmp_fields.stopbit);
+		if (stop > 32*parseInt(instruccionAux.nwords)) {
+			return langError(context,
+					i18n_get_TagFor('compiler', 'STOPBIT OoR') +
+					"'" + getToken(context) + "'") ;
+		}
 
-	nextToken(context);
-	// match mandatory )
-	if (! isToken(context,")")) {
-		 return langError(context,
-				  i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+		nextToken(context);
+		// match mandatory )
+		if (! isToken(context,")")) {
+			return langError(context,
+					i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+		}
+
+	} else {
+		//Complex fields (start:end|bit|start:end) ORDER MATTERS
+		nextToken(context);
+		// match mandatory (
+		if (! isToken(context,"(")) {
+			return langError(context,
+					i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+		}
+
+		var start;
+		var stop;
+
+		nextToken(context);
+		// match mandatory START_BIT
+		// check startbit range
+		start = getToken(context);
+		stop = start;
+		if (start > 32*parseInt(instruccionAux.nwords)-1) {
+			return langError(context,
+					i18n_get_TagFor('compiler', 'STARTBIT OoR') +
+					"'" + getToken(context) + "'") ;
+		}
+
+		nextToken(context);
+		// if it's shaped like (start:end|bit|start:end)
+		if (isToken(context,":")) {
+			nextToken(context);
+			// match mandatory STOP_BIT
+			// check stopbit range
+			stop  = getToken(context);
+			if (stop > 32*parseInt(instruccionAux.nwords)) {
+				return langError(context,
+						i18n_get_TagFor('compiler', 'STOPBIT OoR') +
+						"'" + getToken(context) + "'") ;
+			}
+
+			// if it's a fixed range don't do anything more (start:end)
+			nextToken(context);
+			if (isToken(context,")")) {
+				tmp_fields.startbit = start;
+				tmp_fields.stopbit = stop;
+			}
+		}
+
+		// if it's a normal case
+		if (isToken(context,"|")) {
+			// all bit ranges
+			var bits = [] ;
+			// auxiliary to add ranges
+			var bits_aux = [start, stop] ;
+			bits.push(bits_aux) ;
+
+			while (! isToken(context,")")) {
+				nextToken(context);
+				bits_aux[0] = getToken(context) ;
+				// check bit range
+				if (bits_aux[0] > 32*parseInt(instruccionAux.nwords)) {
+					return langError(context,
+							i18n_get_TagFor('compiler', 'BIT OoR') +
+							"'" + getToken(context) + "'") ;
+				}
+
+				nextToken(context);
+				// match mandatory : or |
+				if (! isToken(context,":") || ! isToken(context,"|")) {
+					return langError(context,
+							i18n_get_TagFor('compiler', 'COLON OR PIPE NOT FOUND')) ;
+				}
+				if (isToken(context,":")) {
+					nextToken(context);
+					bits_aux[1] = getToken(context) ;
+				} else if (isToken(context,"|")) {
+					bits_aux[1] = bits_aux[0] ;
+				}
+				// check bit range
+				if (bits_aux[1] > 32*parseInt(instruccionAux.nwords)) {
+					return langError(context,
+							i18n_get_TagFor('compiler', 'BIT OoR') +
+							"'" + getToken(context) + "'") ;
+				}
+
+				// bit range is added
+				bits.push(bits_aux) ;
+			}
+
+			// count number of bits read
+			var total_bits = 0;
+			for (i=0; i<bits.length; i++) {
+				total_bits += bits[i][0] - bits[i][1] + 1;
+			}
+			// relative addresses (S and B-type instructions) are 12 bits long
+			if (tmp_fields.address_type === "rel" && bits != 12) {
+				return langError(context,
+							i18n_get_TagFor('compiler', 'ADDRESS-REL MUST BE 12 BITS') +
+							"'" + getToken(context) + "'") ;
+			}
+			// absolute addresses (J-type instructions) are 20 bits long
+			if (tmp_fields.address_type === "abs" && bits != 20) {
+				return langError(context,
+							i18n_get_TagFor('compiler', 'ADDRESS-ABS MUST BE 20 BITS') +
+							"'" + getToken(context) + "'") ;
+			}
+
+			tmp_fields.bits = bits ;
+		}
+
 	}
 
 	nextToken(context);
@@ -283,7 +394,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 //              oc(31,26)=000000,
 //             [funct(31,26)=000000,]
 //              reg(25,21)=reg,
-//              inm(15,0)=val,
+//              imm(15,0)=val,
 //              address-rel(12|10:5|4:1|11)=offset,
 //             [help='this instruction is used for...',]
 //             [native,]*
@@ -394,7 +505,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		   instruccionAux.signature     = firma;
 		   instruccionAux.signatureUser = firmaUsuario;
 		   firmaGlobal = firma.replace("address","num");
-		   firmaGlobal = firmaGlobal.replace("inm" , "num");
+		   firmaGlobal = firmaGlobal.replace("imm" , "num");
 		   instruccionAux.signatureGlobal = firmaGlobal;
 
 		   camposInsertados++;

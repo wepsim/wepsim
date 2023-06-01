@@ -30,8 +30,8 @@
 
 		                  // ui: details
                                   details_name: [ "REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS" ],
-                                  details_fire: [ ['svg_p:id17'], ['svg_p:id155', 'svg_p:id156', 'svg_p:id157', 'svg_p:id158',
-								  'svg_p:id159', 'svg_p:id160', 'svg_p:id161', 'svg_p:id162', 'svg_p:id163'], ['svg_p:id148'] ],
+                                  details_fire: [ ['svg_p:text6639'], ['svg_p:path7363', 'svg_p:path7365', 'svg_p:path7367', 'svg_p:path7369',
+								  'svg_p:path7371', 'svg_p:path7373', 'svg_p:path7375', 'svg_p:path7377', 'svg_p:path7379'], ['svg_p:text7327'] ],
 
 		                  // state: write_state, read_state, get_state
 		                  write_state:  function ( vec ) {
@@ -186,7 +186,7 @@
         sim.rv.internal_states.tri_state_names = [] ;
         sim.rv.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         sim.rv.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto", "REG_PC,col-auto", "REG_OUT,col-auto",
-												  "REG_SR,col-auto", "REG_MICROADDR,col-auto", "RDATA,col-auto", "ROM_MUXA,col-auto", "MUXA_MICROADDR,col-auto", "R_DATA1,col-auto", "R_DATA2,col-auto", "VAL_IMM,col-auto"] ;
+												  "REG_MICROADDR,col-auto", "RDATA,col-auto", "ROM_MUXA,col-auto", "MUXA_MICROADDR,col-auto", "R_DATA1,col-auto", "R_DATA2,col-auto", "VAL_IMM,col-auto", "DM_BS,col-auto","BS_M1,col-auto","M1_RW,col-auto"] ;
         sim.rv.internal_states.filter_signals  = [ "CU,0", "ALUOP,0", "COP,0", "M1,0", "M2,0", "M3,0", "M4,0",
 												"JUMP,0", "PCWRITE,0", "IMR,0", "IRWRITE,0", "RW,0", "WOUT,0",
 												"DMR,0", "DMW,0", "Word BE,0", "Byte BE,0" ] ;
@@ -308,11 +308,6 @@
 	sim.rv.states["REG_IR"]  = { name:"IR",  verbal: "Instruction Register",
                                      visible:true, nbits:"32", value:0,  default_value:0,
                                      draw_data: [] };
-	//CONSULTAR
-	sim.rv.states["REG_SR"]  = { name:"SR", verbal: "State Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0,
-                                     draw_data: [] };
-
 	sim.rv.states["REG_OUT"]  = { name:"OUT", verbal: "Out Register",
                                      visible:true, nbits:"32", value:0,  default_value:0,
                                      draw_data: [] };
@@ -428,22 +423,22 @@
 					   "MV MUXA_MICROADDR ROM_MUXA",
 					   "MV MUXA_MICROADDR FETCH"],
                                 depends_on: ["CLK"],
-				fire_name: ['svg_p:id170'],
-				draw_data: [['svg_p:id166', 'svg_p:id167', 'svg_p:id168'],['svg_p:id169']],
-				draw_name: [['svg_p:id153', 'svg_p:id149']] };
+				fire_name: ['svg_p:text7417'],
+				draw_data: [['svg_p:path7391', 'svg_p:path7393', 'svg_p:path7395', 'svg_p:path7397', 'svg_p:path7399', 'svg_p:path7401']],
+				draw_name: [['svg_p:path7357', 'svg_p:path7329', 'svg_p:path7331']] };
 
 	/* REGISTER LOAD */
 	sim.rv.signals["PCWRITE"] = { name: "PCWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_PC M4_PC; UPDATEDPC"],
-				   fire_name: ['svg_p:id112'],
-				   draw_data: [['svg_p:id101']],
-				   draw_name: [['svg_p:id110']] };
+				   fire_name: ['svg_p:text7155'],
+				   draw_data: [[]],
+				   draw_name: [['svg_p:path7145', 'svg_p:path7125', 'svg_p:path7127']] };
 	//Logic gates PC
 	sim.rv.signals["JUMP"] = { name: "JUMP", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD_J REG_PC M4_PC; UPDATEDPC_J"],
-				   fire_name: ['svg_p:id118'],
-				   draw_data: [['svg_p:id104']],
-				   draw_name: [['svg_p:id102']] };
+				   fire_name: ['svg_p:text7173'],
+				   draw_data: [[]],
+				   draw_name: [['svg_p:path7133', 'svg_p:path7143', 'svg_p:path7147', 'svg_p:path7135']] };
 
 	/* IR REGISTER */
 
@@ -456,48 +451,44 @@
 
 	sim.rv.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_IR RDATA; DECO; MBIT_SN R_IMM REG_IR REG_MICROINS/R_IMM 5; LOAD VAL_IMM R_IMM"],
-				   fire_name: ['svg_p:id146'],
-				   draw_data: [['svg_p:id28']],
-				   draw_name: [['svg_p:id145']] };
+				   fire_name: ['svg_p:text7309'],
+				   draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
+				   draw_name: [['svg_p:path7301']] };
 
 	/* OUT REGISTER */
 	sim.rv.signals["WOUT"] = { name: "WOUT", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_OUT ALU_WOUT"],
-				   fire_name: ['svg_p:id140'],
-				   draw_data: [['svg_p:id47']],
-				   draw_name: [['svg_p:id139']] };
+				   fire_name: ['svg_p:text7279'],
+				   draw_data: [['svg_p:path6837', 'svg_p:path6839']],
+				   draw_name: [['svg_p:path7271']] };
 
 	/* INSTRUCTION MEMORY */
 	sim.rv.signals["IMR"] = { name: "IMR", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "READ_IM"],
-				   fire_name: ['svg_p:id128'],
-				   draw_data: [['svg_p:id25']],
-				   draw_name: [['svg_p:id127']] };
+				   fire_name: ['svg_p:text7213'],
+				   draw_data: [['svg_p:path6691', 'svg_p:path6693']],
+				   draw_name: [['svg_p:path7205']] };
 
 
 	/* MUX. */
-	sim.rv.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M1_RW BS_M1", "MV M1_RW REG_SR"],
-                               depends_on: ["RW"],
-			       fire_name: ['svg_p:id129'],
-			       draw_data: [['svg_p:id155','svg_p:id159','svg_p:id195'], ['svg_p:id156','svg_p:id179','svg_p:id178','svg_p:id208', 'svg_p:id181', 'svg_p:id182']],
-			       draw_name: [[], ['svg_p:id123']] };
 	sim.rv.signals["M2"]  = { name: "M2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
-			       fire_name: ['svg_p:id130'],
-			       draw_data: [['svg_p:id38', 'svg_p:id72', 'svg_p:id69', 'svg_p:id71', 'svg_p:id70'], ['svg_p:id39']],
-			       draw_name: [[], ['svg_p:id125']] };
+                               depends_on: ["ALUOP"],
+			       fire_name: ['svg_p:text7229'],
+			       draw_data: [['svg_p:path6691-3', 'svg_p:path6987', 'svg_p:path6989', 'svg_p:path6983', 'svg_p:path6991', 'svg_p:path6775', 'svg_p:path6777'], ['svg_p:path6779', 'svg_p:path6781']],
+			       draw_name: [[], ['svg_p:path7199']] };
 	sim.rv.signals["M3"]  = { name: "M3",  visible: true, type: "L", value: 0, default_value:0, nbits: "2",
 			       behavior: ["MV M3_ALU R_DATA2; FIRE ALUOP", "MV M3_ALU VAL_FOUR; FIRE ALUOP", "MV M3_ALU VAL_IMM; FIRE ALUOP", "NOP"],
-			       fire_name: ['svg_p:id131'],
-			       draw_data: [['svg_p:id44b', 'svg_p:id44c'], ['svg_p:id74b', 'svg_p:id74c'], ['svg_p:id45b', 'svg_p:id45c', 'svg_p:id76b', 'svg_p:id77b']],
-			       draw_name: [[], ['svg_p:id124']] };
+			       fire_name: ['svg_p:text7237'],
+                               depends_on: ["ALUOP"],
+			       draw_data: [['svg_p:path6821', 'svg_p:path6823'], ['svg_p:path7001', 'svg_p:path7003'], ['svg_p:path7015', 'svg_p:path7013', 'svg_p:path6825', 'svg_p:path6827']],
+			       draw_name: [[], ['svg_p:path7197']] };
 	sim.rv.signals["M4"]  = { name: "M4", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV M4_PC REG_OUT", "MV M4_PC ALU_WOUT"],
                                depends_on: ["PCWRITE"],
-			       fire_name: ['svg_p:id142'],
-			       draw_data: [['svg_p:id87','svg_p:id86','svg_p:id126'], ['svg_p:id97','svg_p:id96','svg_p:id90']],
-			       draw_name: [[], ['svg_p:id141']] };
+			       fire_name: ['svg_p:text7289'],
+			       draw_data: [['svg_p:path7075','svg_p:path7043','svg_p:path7045', 'svg_p:path7047', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037'], ['svg_p:path6837-6', 'svg_p:path7073','svg_p:path7115','svg_p:path7117', 'svg_p:path7119', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037']],
+			       draw_name: [[], ['svg_p:path7281']] };
 
 	sim.rv.signals["ALUOP"] = { name: "ALUOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
 					behavior: ["NOP_ALU; UPDATE_NZ",
@@ -516,9 +507,9 @@
 								"DIV ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"LUI ALU_WOUT M2_ALU; UPDATE_NZ"],
-			       fire_name: ['svg_p:id138'],
-			       draw_data: [['svg_p:id49', 'svg_p:id48', 'svg_p:id47']],
-			       draw_name: [['svg_p:id134', 'svg_p:id136']] };
+			       fire_name: ['svg_p:text7269'],
+			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
+			       draw_name: [['svg_p:path7249']] };
 
 				   /*
 					behavior: ["NOP_ALU; UPDATE_NZ",
@@ -589,11 +580,11 @@
 
 	sim.rv.signals["RW"]  = { name: "RW", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 					behavior: ["NOP", "MBIT_SN REG_R1 REG_IR REG_MICROINS/REG_R1 5; GET R_DATA1 BR REG_R1; MBIT_SN REG_R2 REG_IR REG_MICROINS/REG_R2 5; GET R_DATA2 BR REG_R2; MBIT_SN REG_W2 REG_IR REG_MICROINS/REG_W2 5; SET BR REG_W2 M1_RW"],
-					fire_name: ['svg_p:id144'],
-					draw_data: [['svg_p:id58', 'svg_p:id60', 'svg_p:id61']],
-					draw_name: [['svg_p:id143']] };
+					fire_name: ['svg_p:text7299'],
+					draw_data: [['svg_p:path6725', 'svg_p:path6727', 'svg_p:path6729', 'svg_p:path6731', 'svg_p:path6733', 'svg_p:path6735', 'svg_p:path6915', 'svg_p:path6913', 'svg_p:path6907', 'svg_p:path6909']],
+					draw_name: [['svg_p:path7291']] };
 
-	/* W-Byte & R-Byte Selector */
+	/*
 	sim.rv.signals["BW"] =  { name: "BW",
 		               verbal: ['Select one byte (based on A1A0) from Word. ',
                                         'Select two bytes (one Half Word based on A1A0) from Word. ',
@@ -673,20 +664,71 @@
 				fire_name: [],
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
+	*/
+
+	 /* DATA MEMORY SIGNALS */
+	sim.rv.signals.DMR = { name: "DMR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				behavior: ["MV DM_BS REG_OUT",
+						"MEM_READ M3_ALU DM_BS WBE CLK"],
+				fire_name: ['svg_p:text7589','svg_p:text7507'],
+				draw_data: [[], ['svg_p:path7525','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
+				draw_name: [[], []] };
+	sim.rv.signals.DMW = { name: "DMW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				behavior: ["NOP",
+						"MEM_WRITE M3_ALU DM_BS WBE CLK"],
+				fire_name: ['svg_p:text7597','svg_p:text7515'],
+				draw_data: [[], ['svg_p:path7527','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
+				draw_name: [[], []] };
+
+	/* BYTE/WORD SELECTOR*/
+	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+				verbal: ['Select the full Word.',
+						'Select inferior byte from Word.'],
+				behavior: ['MV BS_M1 DM_BS',
+					   'BWSEL BS_M1 DM_BS SE'],
+							depends_on: ["RW"],
+				fire_name: ['svg_p:text7555', 'svg_p:text7433'],
+				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581', 'svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
+				draw_name: [['svg_p:path7529', 'svg_p:path7425']] };
+	/*
+	sim.rv.signals["BBE"] = { name: "BBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+				behavior: ['MV BS_M1 DM_BS',
+					   'NOP'],
+							depends_on: ["RW"],
+				fire_name: ['svg_p:text7433'],
+				draw_data: [['svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
+				draw_name: [['svg_p:path7425']] };
+	*/
+	sim.rv.signals["SE"]  = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				verbal: ['If WBE is enabled, set the 24 superior bits of Word to 0.',
+						'If WBE is enabled, extend byte sign to Word.'],
+				behavior: ["NOP",
+							"NOP"],
+				fire_name: ['svg_p:text7453'],
+				draw_data: [[]],
+				draw_name: [['svg_p:path7445']] };
+
+	//MUX1 MUST BE AFTER B/W SELECTOR
+	sim.rv.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
+				behavior: ["MV M1_RW BS_M1", "MV M1_RW FLAG_N"],
+							depends_on: ["RW"],
+				fire_name: ['svg_p:text7221'],
+				draw_data: [['svg_p:path7021','svg_p:path7023','svg_p:path7565', 'svg_p:path6911','svg_p:path6895','svg_p:path6897'], ['svg_p:path7621','svg_p:path7025','svg_p:path7017','svg_p:path7019', 'svg_p:path6899', 'svg_p:path6901']],
+				draw_name: [[], ['svg_p:path7195']] };
 
 	/* Virtual Signals, for UI */
 	sim.rv.signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_N VAL_ZERO", "MV FLAG_N VAL_ONE"],
                                   depends_on: ["ALUOP"],
-		  	          fire_name: ['svg_p:id204', 'svg_p:id121'],
-			          draw_data: [['svg_p:id204', 'svg_p:id113']],
-			          draw_name: [[]] };
+		  	          fire_name: ['svg_p:text7607', 'svg_p:text7185'],
+			          draw_data: [['svg_p:path7251']],
+			          draw_name: [['svg_p:path7157']] };
 	sim.rv.signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_Z VAL_ZERO", "MV FLAG_Z VAL_ONE"],
                                   depends_on: ["ALUOP"],
-		  	          fire_name: ['svg_p:id205', 'svg_p:id122'],
-			          draw_data: [['svg_p:id205', 'svg_p:id104']],
-			          draw_name: [[]] };
+		  	          fire_name: ['svg_p:text7615', 'svg_p:text7193'],
+			          draw_data: [['svg_p:path7617']],
+			          draw_name: [['svg_p:path7165']] };
 
 
 	/*
@@ -2058,6 +2100,32 @@
 						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                 }
 				   };
+
+	sim.rv.behaviors["BWSEL"] = { nparameters: 4,
+					types: ["X", "X", "S"],
+					operation: function(s_expr)
+							{
+								sim_elto_org = get_reference(s_expr[2]) ;
+								sim_elto_dst = get_reference(s_expr[1]) ;
+								var sign_ext = sim.rv.signals[s_expr[3]].value;
+								console.log(sim_elto_org);
+								console.log(sim_elto_dst);
+								console.log(sign_ext);
+
+								if (sign_ext) {
+									//Extend byte sign to full Word
+								} else {
+									//Add zeros to 24 superior bits
+								}
+								newval       = get_value(sim_elto_org) ;
+								set_value(sim_elto_dst, newval) ;
+							},
+					verbal: function (s_expr)
+							{
+								return "" ;
+							}
+				};
+
 	sim.rv.behaviors["EXT_SIG"] =  { nparameters: 3,
 				     types: ["E", "I"],
 				     operation: function (s_expr)
@@ -2494,10 +2562,10 @@
 							      ref:  "BW"
 							    },
 						   "mux_1": {
-							      ref:  "NZ_M1"
+							      ref:  "FLAG_N"
 							    },
 						   "mux_o": {
-							      ref:  "M1_RF"
+							      ref:  "W_DATA"
 							    }
 						 },
 			      signals:           {
@@ -2575,13 +2643,13 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
-							      ref:  "ALU_WOUT"
+							      ref:  "WOUT"
 							    },
 						   "mux_1": {
-							      ref:  "OUT_M4"
+							      ref:  "ALU_WOUT"
 							    },
 						   "mux_o": {
-							      ref:  "PC"
+							      ref:  "REG_PC"
 							    }
 						 },
 			      signals:           {
@@ -2604,7 +2672,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
-							       ref:  "N_Z_JUMP_PCWRITE"
+							       ref:  "N_OR_Z_AND_JUMP_PCWRITE"
 							     },
 						   "out":    {
 							       ref:  "REG_PC"
@@ -2632,6 +2700,9 @@
 							     },
 						   "out":    {
 							       ref:  "REG_IR"
+							     },
+							"imm":   {
+							       ref:  "VAL_IMM"
 							     }
 						 },
 			      signals:           {
@@ -2640,32 +2711,8 @@
 							     }
 						 },
 			      states_inputs:     [ "in" ],
-			      states_outputs:    [ "out" ],
+			      states_outputs:    [ "out", "imm" ],
 			      signals_inputs:    [ "IRWRITE" ],
-			      signals_output:    [ ]
-	               } ;
-
-        sim.rv.elements.sr = {
-			      name:              "SR",
-			      description:       "State Register",
-			      type:              "subcomponent",
-			      belongs:           "CPU",
-			      states:            {
-						   "in":     {
-							       ref:  "M7_C7"
-							     },
-						   "out":    {
-							       ref:  "REG_SR"
-							     }
-						 },
-			      signals:           {
-						   "ctl":    {
-							       ref:  "C7"
-							     }
-						 },
-			      states_inputs:     [ "in" ],
-			      states_outputs:    [ "out" ],
-			      signals_inputs:    [ "ctl" ],
 			      signals_output:    [ ]
 	               } ;
 
@@ -2675,23 +2722,23 @@
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
-						   "rreg1":     {
-							       ref:  "IR"
+						   "ir[19:15]":     {
+							       ref:  "REG_R1"
 							    },
-						   "rreg2":     {
-							       ref:  "IR"
+						   "ir[24:20]":     {
+							       ref:  "REG_R2"
 							    },
-						   "wreg2":     {
-							       ref:  "IR"
+						   "ir[11:7]":     {
+							       ref:  "REG_W2"
 							    },
-						   "wdata":     {
-							       ref:  "M1"
+						   "w_data":     {
+							       ref:  "W_DATA"
 								},
-						   "rdata1":     {
-							       ref:  "M2"
+						   "r_data1":     {
+							       ref:  "R_DATA1"
 							    },
-						   "rdata2":     {
-							       ref:  "M3"
+						   "r_data2":     {
+							       ref:  "R_DATA2"
 							    }
 						 },
 			      signals:           {
@@ -2699,8 +2746,8 @@
 							       ref:  "RW"
 							    }
 						 },
-			      states_inputs:     [ "rreg1", "rreg2", "wreg2", "wdata" ],
-			      states_outputs:    [ "rdata1", "rdata2" ],
+			      states_inputs:     [ "ir[19:15]", "ir[24:20]", "ir[11:7]", "w_data" ],
+			      states_outputs:    [ "r_data1", "r_data2" ],
 			      signals_inputs:    [ "rw"],
 			      signals_output:    [ ]
 	               } ;
@@ -2723,7 +2770,7 @@
 							       ref:  "ALU_WOUT"
 							    },
 						   "flags": {
-							       ref:  "ZN_M1"
+							       ref:  "ZN"
 							    }
 						 },
 			      signals:           {
@@ -2738,36 +2785,6 @@
 	                } ;
 
         // CPU - Selectors
-
-        sim.rv.elements.select_sr  = {
-			      name:              "Select SR",
-			      description:       "SR register value selector",
-			      type:              "subcomponent",
-			      belongs:           "CPU",
-			      states:            {
-						   "mux_1": {
-							       ref:  "FLAG_U"
-							    },
-						   "mux_2": {
-							       ref:  "FLAG_I"
-							    },
-						   "mux_3": {
-							       ref:  "SELP_M7"
-							    },
-						   "mux_o": {
-							       ref:  "SELP_M7"
-							    }
-						 },
-			      signals:           {
-						   "selp":  {
-							       ref:  "SELP"
-							    }
-						 },
-			      states_inputs:     [ "mux_1", "mux_2", "mux_3" ],
-			      states_outputs:    [ "mux_o" ],
-			      signals_inputs:    [ "selp" ],
-			      signals_output:    [ ]
-	                   } ;
 
         sim.rv.elements.byte_selector = {
 			      name:              "Byte Selector",

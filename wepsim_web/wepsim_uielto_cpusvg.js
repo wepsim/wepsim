@@ -116,9 +116,23 @@
          */
         var DRAW_stop = false ;
 
+        var cfg_color_data_active   = '#0066FF' ;
+        var cfg_color_data_inactive = '#000000' ;
+        var cfg_color_name_active   = '#FF0000' ;
+        var cfg_color_name_inactive = '#000000' ;
+        var cfg_size_active         = 3.0 ;
+        var cfg_size_inactive       = 1.0 ;
+
 	function wepsim_svg_start_drawing ( )
         {
             DRAW_stop = false ;
+
+	    cfg_color_data_active   = get_cfg('color_data_active') ;
+	    cfg_color_data_inactive = get_cfg('color_data_inactive') ;
+	    cfg_color_name_active   = get_cfg('color_name_active') ;
+	    cfg_color_name_inactive = get_cfg('color_name_inactive') ;
+	    cfg_size_active         = get_cfg('size_active') ;
+	    cfg_size_inactive       = get_cfg('size_inactive') ;
         }
 
 	function wepsim_svg_stop_drawing ( )
@@ -168,25 +182,36 @@
 	    }
 
             /* 2) Draw data segments... */
-	    var cfg_color_data_active   = get_cfg('color_data_active') ;
-	    var cfg_color_data_inactive = get_cfg('color_data_inactive') ;
-	    var cfg_color_name_active   = get_cfg('color_name_active') ;
-	    var cfg_color_name_inactive = get_cfg('color_name_inactive') ;
-	    var cfg_size_active         = get_cfg('size_active') ;
-	    var cfg_size_inactive       = get_cfg('size_inactive') ;
-
 	    if (obj.draw_data.length > 1)
 	    // (different draws)
 	    {
-		    for (i=0; i<obj.draw_data.length; i++)
+	        // no active...
+		for (i=0; i<obj.draw_data.length; i++)
+	        {
+                    if (i===value) continue;
+
 		    for (j=0; j<obj.draw_data[i].length; j++) {
 	                   wepsim_svg_obj_draw(obj.draw_data[i][j],
-                                               (i===value) && draw_it,
+                                               false,
                                                cfg_color_data_active,
                                                cfg_color_data_inactive,
                                                cfg_size_active,
                                                cfg_size_inactive) ;
 		    }
+		}
+
+	        // active one...
+	        if (typeof obj.draw_data[value] != "undefined")
+	        {
+		    for (j=0; j<obj.draw_data[value].length; j++) {
+	                   wepsim_svg_obj_draw(obj.draw_data[value][j],
+                                               draw_it,
+                                               cfg_color_data_active,
+                                               cfg_color_data_inactive,
+                                               cfg_size_active,
+                                               cfg_size_inactive) ;
+		    }
+		}
 	    }
 	    else if (obj.nbits === 1)
 	    // (same draw) && (nbits === 1)
@@ -217,15 +242,33 @@
 	    if (obj.draw_name.length > 1)
 	    // (different draws)
 	    {
-		    for (i=0; i<obj.draw_name.length; i++)
+	        // no active...
+		for (i=0; i<obj.draw_name.length; i++)
+	        {
+                    if (i===value) continue;
+
 		    for (j=0; j<obj.draw_name[i].length; j++) {
 	                   wepsim_svg_obj_draw(obj.draw_name[i][j],
-                                               (i===value) && draw_it,
+                                               false,
                                                cfg_color_name_active,
                                                cfg_color_name_inactive,
                                                cfg_size_active,
                                                cfg_size_inactive) ;
 		    }
+		}
+
+	        // active one...
+	        if (typeof obj.draw_name[value] != "undefined")
+	        {
+		    for (j=0; j<obj.draw_name[value].length; j++) {
+	                   wepsim_svg_obj_draw(obj.draw_name[value][j],
+                                               draw_it,
+                                               cfg_color_name_active,
+                                               cfg_color_name_inactive,
+                                               cfg_size_active,
+                                               cfg_size_inactive) ;
+		    }
+		}
 	    }
 	    else if (obj.nbits === 1)
 	    // (same draw) && (nbits === 1)

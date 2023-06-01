@@ -98,9 +98,9 @@ main:    # save stack
          # reference value to s1
          la   $a0 nopass
          la   $a1 password
-         lde  $s0
+         rdcycle  $s0
          jal  strcmp2
-         lde  $s1
+         rdcycle  $s1
          sub  $s1 $s1 $s0        
 
          # loop to guess keyword
@@ -124,9 +124,9 @@ main:    # save stack
          sub  $t5 $t0 $a0
          move $a0 $t0
          add  $a1 $a1 $t5
-         lde  $s0
+         rdcycle  $s0
          jal  strcmp2
-         lde  $t3
+         rdcycle  $t3
          sub  $t3 $t3 $s0
        
          # if ($v0 == 1) return
