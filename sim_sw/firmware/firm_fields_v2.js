@@ -302,6 +302,24 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 				bits.push(bits_aux) ;
 			}
 
+			// count number of bits read
+			var total_bits = 0;
+			for (i=0; i<bits.length; i++) {
+				total_bits += bits[i][0] - bits[i][1] + 1;
+			}
+			// relative addresses (S and B-type instructions) are 12 bits long
+			if (tmp_fields.address_type === "rel" && bits != 12) {
+				return langError(context,
+							i18n_get_TagFor('compiler', 'ADDRESS-REL MUST BE 12 BITS') +
+							"'" + getToken(context) + "'") ;
+			}
+			// absolute addresses (J-type instructions) are 20 bits long
+			if (tmp_fields.address_type === "abs" && bits != 20) {
+				return langError(context,
+							i18n_get_TagFor('compiler', 'ADDRESS-ABS MUST BE 20 BITS') +
+							"'" + getToken(context) + "'") ;
+			}
+
 			tmp_fields.bits = bits ;
 		}
 
