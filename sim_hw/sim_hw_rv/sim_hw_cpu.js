@@ -682,12 +682,15 @@
 
 	/* BYTE/WORD SELECTOR*/
 	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
-				behavior: ['NOP',
+				verbal: ['Select the full Word.',
+						'Select inferior byte from Word.'],
+				behavior: ['MV BS_M1 DM_BS',
 					   'NOP'],
 							depends_on: ["RW"],
-				fire_name: ['svg_p:text7555'],
-				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581']],
-				draw_name: [['svg_p:path7529']] };
+				fire_name: ['svg_p:text7555', 'svg_p:text7433'],
+				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581', 'svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
+				draw_name: [['svg_p:path7529', 'svg_p:path7425']] };
+	/*
 	sim.rv.signals["BBE"] = { name: "BBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
 				behavior: ['MV BS_M1 DM_BS',
 					   'NOP'],
@@ -695,6 +698,15 @@
 				fire_name: ['svg_p:text7433'],
 				draw_data: [['svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
 				draw_name: [['svg_p:path7425']] };
+	*/
+	sim.rv.signals["SE"]  = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				verbal: ['If WBE is enabled, set the 24 superior bits of Word to 0.',
+						'If WBE is enabled, extend byte sign to Word.'],
+				behavior: ["NOP",
+							"NOP"],
+				fire_name: ['svg_p:text7453'],
+				draw_data: [[]],
+				draw_name: [['svg_p:path7445']] };
 
 	//MUX1 MUST BE AFTER B/W SELECTOR
 	sim.rv.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
