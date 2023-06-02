@@ -4,15 +4,31 @@
 
 begin
 {
-
- fetch:   # IR <- MP[PC]
-          (IMR),
-          # Decode, PC <- PC + 4
-          (AluOp=1010, M3=01, M4, PCWrite, IRWrite),
-          # Control Unit signal
-          (CU=10)
+   fetch:   # IR <- MP[PC]
+              (IMR),
+            # Decode, PC <- PC + 4
+              (AluOp=1010, M3=01, M4, PCWrite, IRWrite),
+            # Control Unit signal
+              (CU=10)
 
 }
+
+
+#  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
+lui rd inm{
+      co=111111,
+      nwords=1,
+      rd=reg(11,7),
+      inm=inm(24,20),
+      help='rd = (inm << 12)',
+      {
+          (RW),
+          # TODO: rd <- lui(imm)
+          (M2, M3=10, AluOp=1010, WOut),
+          (RW, CU=11)
+      }
+}
+
 
 #  AND rd,rs1,rs2         And                                 rd ← ux(rs1) ∧ ux(rs2)
 and reg1 reg2 reg3 {
@@ -24,7 +40,7 @@ and reg1 reg2 reg3 {
       help='r1 = r2 & r3',
       {
           (RW),
-          (M2, M3=10, AluOp=0001, WOut),
+          (M2, M3=0, AluOp=0001, WOut),
           (RW, CU=11)
       }
 }
@@ -54,7 +70,7 @@ or reg1 reg2 reg3 {
       help='r1 = r2 | r3',
       {
           (RW),
-          (M2, M3=10, AluOp=0010, WOut),
+          (M2, M3=0, AluOp=0010, WOut),
           (RW, CU=11)
       }
 }
@@ -84,7 +100,7 @@ xor reg1 reg2 reg3 {
       help='r1 = r2 ^ r3',
       {
           (RW),
-          (M2, M3=10, AluOp=0100, WOut),
+          (M2, M3=0, AluOp=0100, WOut),
           (RW, CU=11)
       }
 }
@@ -114,7 +130,7 @@ add reg1 reg2 reg3 {
       help='r1 = r2 + r3',
       {
           (RW),
-          (M2, M3=10, AluOp=1010, WOut),
+          (M2, M3=0, AluOp=1010, WOut),
           (RW, CU=11)
       }
 }
@@ -134,21 +150,6 @@ addi rd rs1 inm {
       }
 }
 
-#  SUBI rd,rs1,imm         Sub Immediate                         rd ← rs1 - sx(imm)
-subi rd rs1 inm {
-      co=111111,
-      nwords=1,
-      rd=reg(11,7),
-      rs1=reg(19,15),
-      inm=inm(24,20),
-      help='rd = rs1 - SignEx(inm)',
-      {
-          (RW),
-          (M2, M3=10, AluOp=1011, WOut),
-          (RW, CU=11)
-      }
-}
-
 #  SUB rd,rs1,rs2         Subtract                         rd ← sx(rs1) - sx(rs2)
 sub reg1 reg2 reg3 {
       co=111111,
@@ -157,6 +158,22 @@ sub reg1 reg2 reg3 {
       reg2=reg(19,15),
       reg3=reg(24,20),
       help='r1 = r2 - r3',
+      {
+          (RW),
+          (M2, M3=0, AluOp=1011, WOut),
+          (RW, CU=11)
+      }
+}
+
+
+#  SUBI rd,rs1,imm         Sub Immediate                         rd ← rs1 - sx(imm)
+subi rd rs1 inm {
+      co=111111,
+      nwords=1,
+      rd=reg(11,7),
+      rs1=reg(19,15),
+      inm=inm(24,20),
+      help='rd = rs1 - SignEx(inm)',
       {
           (RW),
           (M2, M3=10, AluOp=1011, WOut),
@@ -174,25 +191,11 @@ mul reg1 reg2 reg3 {
       help='reg1 = reg2 * reg3',
       {
           (RW),
-          (M2, M3=10, AluOp=1100, WOut),
+          (M2, M3=0, AluOp=1100, WOut),
           (RW, CU=11)
       }
 }
 
-#  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
-lui rd inm {
-      co=111111,
-      nwords=1,
-      rd=reg(11,7),
-      inm=inm(24,20),
-      help='rd = (inm << 12)',
-      {
-          #rd <- lui(imm)
-          (RW),
-          (M2, M3=10, AluOp=1111, WOut),
-          (RW, CU=11)
-      }
-}
 
 #
 # Register naming
@@ -267,3 +270,4 @@ registers
     30=(t5,  x30),
     31=(t6,  x31)
 }
+

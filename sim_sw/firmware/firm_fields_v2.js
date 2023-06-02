@@ -147,8 +147,8 @@ function firm_instruction_keystring_read ( context, instruccionAux )
 function firm_instruction_field_read_v2 ( context, instruccionAux )
 {
         var tmp_fields = {} ;
-		var field_list = ["oc", "funct", "reg", "imm", "address-rel", "address-abs"] ;
-		var complex_field_list = ["address-rel", "address-abs"] ;
+	var field_list = ["oc", "funct", "reg", "imm", "address-rel", "address-abs"] ;
+	var complex_field_list = ["address-rel", "address-abs"] ;
 
         // ...
         // reg(15:19)=rs1,
@@ -170,8 +170,12 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
              tmp_fields.address_type = "abs" ;
         }
 
-	if ( !isToken_arr(context, complex_field_list) ) {
-		//Normal start and stop bit behaivour (start:end)
+	if ( !isToken_arr(context, complex_field_list) )
+	{
+		// ...
+		// reg*(start:stop)*=rs1,
+		// ...
+
 		nextToken(context);
 		// match mandatory (
 		if (! isToken(context,"(")) {
@@ -216,9 +220,15 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 			return langError(context,
 					i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
 		}
+	}
+	else
+	{
+		// ...
+		// address-rel*(...)*=rs1,
+		// ...
 
-	} else {
-		//Complex fields (start:end|bit|start:end) ORDER MATTERS
+		// Complex fields (start:end|bit|start:end) ORDER MATTERS!!
+
 		nextToken(context);
 		// match mandatory (
 		if (! isToken(context,"(")) {
@@ -226,14 +236,12 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 					i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
 		}
 
-		var start;
-		var stop;
-
 		nextToken(context);
 		// match mandatory START_BIT
+		var start = getToken(context);
+		var stop  = start;
+
 		// check startbit range
-		start = getToken(context);
-		stop = start;
 		if (start > 32*parseInt(instruccionAux.nwords)-1) {
 			return langError(context,
 					i18n_get_TagFor('compiler', 'STARTBIT OoR') +
@@ -242,7 +250,8 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 
 		nextToken(context);
 		// if it's shaped like (start:end|bit|start:end)
-		if (isToken(context,":")) {
+		if (isToken(context,":"))
+		{
 			nextToken(context);
 			// match mandatory STOP_BIT
 			// check stopbit range
@@ -261,15 +270,20 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 			}
 		}
 
+		// TODO: avoid (10:20)|
+
 		// if it's a normal case
-		if (isToken(context,"|")) {
+		if (isToken(context,"|"))
+		{
 			// all bit ranges
 			var bits = [] ;
+
 			// auxiliary to add ranges
 			var bits_aux = [start, stop] ;
 			bits.push(bits_aux) ;
 
-			while (! isToken(context,")")) {
+			while (! isToken(context,")"))
+			{
 				nextToken(context);
 				bits_aux[0] = getToken(context) ;
 				// check bit range
@@ -281,7 +295,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 
 				nextToken(context);
 				// match mandatory : or |
-				if (! isToken(context,":") || ! isToken(context,"|")) {
+				if (! isToken(context,":") && ! isToken(context,"|")) {
 					return langError(context,
 							i18n_get_TagFor('compiler', 'COLON OR PIPE NOT FOUND')) ;
 				}
@@ -291,6 +305,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 				} else if (isToken(context,"|")) {
 					bits_aux[1] = bits_aux[0] ;
 				}
+
 				// check bit range
 				if (bits_aux[1] > 32*parseInt(instruccionAux.nwords)) {
 					return langError(context,
@@ -307,6 +322,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 			for (i=0; i<bits.length; i++) {
 				total_bits += bits[i][0] - bits[i][1] + 1;
 			}
+
 			// relative addresses (S and B-type instructions) are 12 bits long
 			if (tmp_fields.address_type === "rel" && bits != 12) {
 				return langError(context,
