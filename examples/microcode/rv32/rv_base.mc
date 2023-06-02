@@ -1,4 +1,3 @@
-
 #
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
@@ -15,6 +14,111 @@ begin
 
 }
 
+#  AND rd,rs1,rs2         And                                 rd ← ux(rs1) ∧ ux(rs2)
+and reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(11,7),
+      reg2=reg(19,15),
+      reg3=reg(24,20),
+      help='r1 = r2 & r3',
+      {
+          (RW),
+          (M2, M3=10, AluOp=0001, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  ANDI rd,rs1,imm         And Immediate                         rd ← ux(rs1) ∧ ux(imm)
+andi rd rs1 inm {
+      co=111111,
+      nwords=1,
+      rd=reg(11,7),
+      rs1=reg(19,15),
+      inm=inm(24,20),
+      help='rd = rs1 & inm',
+      {
+          (RW),
+          (M2, M3=10, AluOp=0001, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  OR rd,rs1,rs2         Or                                 rd ← ux(rs1) ∨ ux(rs2)
+or reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(11,7),
+      reg2=reg(19,15),
+      reg3=reg(24,20),
+      help='r1 = r2 | r3',
+      {
+          (RW),
+          (M2, M3=10, AluOp=0010, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  ORI rd,rs1,imm         Or Immediate                         rd ← ux(rs1) ∨ ux(imm)
+ori rd rs1 inm {
+      co=111111,
+      nwords=1,
+      rd=reg(11,7),
+      rs1=reg(19,15),
+      inm=inm(24,20),
+      help='rd = rs1 | inm',
+      {
+          (RW),
+          (M2, M3=10, AluOp=0010, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  XOR rd,rs1,rs2         Xor                                 rd ← ux(rs1) ⊕ ux(rs2)
+xor reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(11,7),
+      reg2=reg(19,15),
+      reg3=reg(24,20),
+      help='r1 = r2 ^ r3',
+      {
+          (RW),
+          (M2, M3=10, AluOp=0100, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  XORI rd,rs1,imm         Xor Immediate                         rd ← ux(rs1) ⊕ ux(imm)
+xori rd rs1 inm {
+      co=111111,
+      nwords=1,
+      rd=reg(11,7),
+      rs1=reg(19,15),
+      inm=inm(24,20),
+      help='rd = ux(rs1) ^ ux(inm)',
+      {
+          (RW),
+          (M2, M3=10, AluOp=0100, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  ADD rd,rs1,rs2         Add                                 rd ← sx(rs1) + sx(rs2)
+add reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(11,7),
+      reg2=reg(19,15),
+      reg3=reg(24,20),
+      help='r1 = r2 + r3',
+      {
+          (RW),
+          (M2, M3=10, AluOp=1010, WOut),
+          (RW, CU=11)
+      }
+}
+
 #  ADDI rd,rs1,imm         Add Immediate                         rd ← rs1 + sx(imm)
 addi rd rs1 inm {
       co=111111,
@@ -25,7 +129,8 @@ addi rd rs1 inm {
       help='rd = rs1 + SignEx(inm)',
       {
           (RW),
-          (M2, M3=10, AluOp=1010, WOUT,CU=11)
+          (M2, M3=10, AluOp=1010, WOut),
+          (RW, CU=11)
       }
 }
 
@@ -33,15 +138,61 @@ addi rd rs1 inm {
 subi rd rs1 inm {
       co=111111,
       nwords=1,
-      rd=reg(25,21),
-      rs1=reg(20,16),
-      inm=inm(11,0),
-      help='rd = rs1 + SignEx(inm)',
+      rd=reg(11,7),
+      rs1=reg(19,15),
+      inm=inm(24,20),
+      help='rd = rs1 - SignEx(inm)',
       {
-          (M2, M3=10, AluOp=1011, WOUT, CU=11)
+          (RW),
+          (M2, M3=10, AluOp=1011, WOut),
+          (RW, CU=11)
       }
 }
 
+#  SUB rd,rs1,rs2         Subtract                         rd ← sx(rs1) - sx(rs2)
+sub reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(11,7),
+      reg2=reg(19,15),
+      reg3=reg(24,20),
+      help='r1 = r2 - r3',
+      {
+          (RW),
+          (M2, M3=10, AluOp=1011, WOut),
+          (RW, CU=11)
+      }
+}
+
+# MUL rd,rs1,rs2         Multiply         rd ← ux(rs1) × ux(rs2)
+mul reg1 reg2 reg3 {
+      co=111111,
+      nwords=1,
+      reg1=reg(11,7),
+      reg2=reg(19,15),
+      reg3=reg(24,20),
+      help='reg1 = reg2 * reg3',
+      {
+          (RW),
+          (M2, M3=10, AluOp=1100, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
+lui rd inm {
+      co=111111,
+      nwords=1,
+      rd=reg(11,7),
+      inm=inm(24,20),
+      help='rd = (inm << 12)',
+      {
+          #rd <- lui(imm)
+          (RW),
+          (M2, M3=10, AluOp=1111, WOut),
+          (RW, CU=11)
+      }
+}
 
 #
 # Register naming
@@ -116,4 +267,3 @@ registers
     30=(t5,  x30),
     31=(t6,  x31)
 }
-

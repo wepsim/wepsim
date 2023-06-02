@@ -161,8 +161,11 @@
         sim.rv.ctrl_states.ir  = {
 		                    name:  "IR",
 		                    state: "REG_IR",
-		                    default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
-			                             "cop": { "begin": 28, "end": 31, "length": 4 } },
+		                    default_eltos:	{	"co":	{ "begin":  0, "end":  5, "length": 6 },
+												"cop":	{ "begin": 28, "end": 31, "length": 4 },
+												"oc":	{ "begin":  0, "end":  6, "length": 7 },
+												"funct":{ "begin": 12, "end": 14, "length": 3 }
+											},
 		                    is_pointer: false
 	                         } ;
 		sim.rv.ctrl_states.mpc = {
@@ -483,7 +486,7 @@
 			       draw_data: [['svg_p:path7075','svg_p:path7043','svg_p:path7045', 'svg_p:path7047', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037'], ['svg_p:path6837-6', 'svg_p:path7073','svg_p:path7115','svg_p:path7117', 'svg_p:path7119', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037']],
 			       draw_name: [[], ['svg_p:path7281']] };
 
-	sim.rv.signals["ALUOP"] = { name: "ALUOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
+	sim.rv.signals["ALUOP"] = { name: "ALUOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 					behavior: ["NOP_ALU; UPDATE_NZ",
 								"AND ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"OR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
@@ -499,46 +502,26 @@
 								"MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"DIV ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"LUI ALU_WOUT M2_ALU; UPDATE_NZ"],
+								"LUI ALU_WOUT M2_ALU; UPDATE_NZ",
+								"ADDU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"SUBU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"MULU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"DIVU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU"],
 			       fire_name: ['svg_p:text7269'],
 			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
 			       draw_name: [['svg_p:path7249']] };
-
-				   /*
-					behavior: ["NOP_ALU; UPDATE_NZ",
-                                          "AND ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-					  "OR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-					  "NOT ALU_WOUT M2_ALU; UPDATE_NZ",
-					  "XOR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-					  "SRL ALU_WOUT M2_ALU; UPDATE_NZ",
-					  "SRA ALU_WOUT M2_ALU; UPDATE_NZ",
-					  "SL ALU_WOUT M2_ALU; UPDATE_NZ",
-					  "RR ALU_WOUT M2_ALU; UPDATE_NZ",
-					  "RL ALU_WOUT M2_ALU; UPDATE_NZ",
-					  "ADD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-					  "SUB ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-					  "MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-					  "DIV ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-					  "MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-					  "LUI ALU_WOUT M2_ALU; UPDATE_NZ",
-					  "FADD; UPDATE_NZ",
-					  "FSUB; UPDATE_NZ",
-					  "FMUL; UPDATE_NZ",
-					  "FDIV; UPDATE_NZ",
-					  "FCVT; UPDATE_NZ",
-					  "FCLASS; UPDATE_NZ",
-					  "ADDU; UPDATE_NZ",
-					  "SUBU; UPDATE_NZ",
-					  "MULU; UPDATE_NZ",
-					  "DIVU; UPDATE_NZ",
-                                          "NOP_ALU",
-                                          "NOP_ALU",
-                                          "NOP_ALU",
-                                          "NOP_ALU",
-                                          "NOP_ALU",
-                                          "NOP_ALU"],
-										  */
-
 
 	/* REGISTER FILE */
 	sim.rv.signals["REG_R1"] = { name: "REG_R1", visible: true, type: "L", value: 0, default_value:15, nbits: "5",
