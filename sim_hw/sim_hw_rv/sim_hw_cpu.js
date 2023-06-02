@@ -2095,23 +2095,49 @@
 				   };
 
 	sim.rv.behaviors["BWSEL"] = { nparameters: 4,
-					types: ["X", "X", "S"],
+					types: ["E", "E", "S"],
 					operation: function(s_expr)
 							{
+								/*
 								sim_elto_org = get_reference(s_expr[2]) ;
 								sim_elto_dst = get_reference(s_expr[1]) ;
 								var sign_ext = sim.rv.signals[s_expr[3]].value;
-								console.log(get_value(sim_elto_org));
-								console.log(get_value(sim_elto_dst));
+								console.log(get_value(sim_elto_org).toString(2));
+								console.log(get_value(sim_elto_dst).toString(2));
 								console.log(sign_ext);
+								//newval = get_value(sim_elto_org) ;
+								//set_value(sim_elto_dst, newval) ;
+								*/
+								var posd = 0 ;
+								var poso = 0 ;
+								var len  = 8 ;
+								var sign_ext = sim.rv.signals[s_expr[3]].value;
+
+								var n1 = get_value(sim.rv.states[s_expr[2]]).toString(2); // to binary
+								var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+									n2 = n2.substr(31 - (poso + len) + 1, len);
+								var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+								var n4 = "00000000000000000000000000000000".substr(0, posd);
+								n3 = n3 + n4;
+								console.log("N1: " + n1);
+								console.log("N3: " + n3);
+								console.log("N3 parseado: " + parseInt(n3, 2));
 
 								if (sign_ext) {
 									//Extend byte sign to full Word
+									var s1 = n3 ;
+									var s2 = ("00000000000000000000000000000000".substring(0, 32 - s1.length) + s1) ;
+									var s3 = s2.substr(31 - 7, 31);
+									var s4 = s3;
+									if ("1" == s2[31 - 7]) {  // check signed-extension
+										s4 = "11111111111111111111111111111111".substring(0, 32 - s3.length) + s4;
+									}
+									console.log("S4: " + s4);
+									console.log("S4 parseado: " + parseInt(s4, 2))
+									set_value(sim.rv.states[s_expr[1]], parseInt(s4, 2));
 								} else {
 									//Add zeros to 24 superior bits
-									//Just copy without doing anything since it's already 32 bit
-									newval = get_value(sim_elto_org) ;
-									set_value(sim_elto_dst, newval) ;
+									set_value(sim.rv.states[s_expr[1]], parseInt(n3, 2));
 								}
 							},
 					verbal: function (s_expr)
