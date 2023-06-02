@@ -298,13 +298,6 @@
 	sim.rv.states["REG_PC"]  = { name:"PC",  verbal: "Program Counter Register",
                                      visible:true, nbits:"32", value:0,  default_value:0,
                                      draw_data: [] };
-	//MAR y MBR problemas
-	sim.rv.states["REG_MAR"] = { name:"MAR", verbal: "Memory Address Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0,
-                                     draw_data: [] };
-	sim.rv.states["REG_MBR"] = { name:"MBR", verbal: "Memory Data Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0,
-                                     draw_data: [] };
 	sim.rv.states["REG_IR"]  = { name:"IR",  verbal: "Instruction Register",
                                      visible:true, nbits:"32", value:0,  default_value:0,
                                      draw_data: [] };
@@ -2102,23 +2095,50 @@
 				   };
 
 	sim.rv.behaviors["BWSEL"] = { nparameters: 4,
-					types: ["X", "X", "S"],
+					types: ["E", "E", "S"],
 					operation: function(s_expr)
 							{
+								/*
 								sim_elto_org = get_reference(s_expr[2]) ;
 								sim_elto_dst = get_reference(s_expr[1]) ;
 								var sign_ext = sim.rv.signals[s_expr[3]].value;
-								console.log(sim_elto_org);
-								console.log(sim_elto_dst);
+								console.log(get_value(sim_elto_org).toString(2));
+								console.log(get_value(sim_elto_dst).toString(2));
 								console.log(sign_ext);
+								//newval = get_value(sim_elto_org) ;
+								//set_value(sim_elto_dst, newval) ;
+								*/
+								var posd = 0 ;
+								var poso = 0 ;
+								var len  = 8 ;
+								var sign_ext = sim.rv.signals[s_expr[3]].value;
+
+								var n1 = get_value(sim.rv.states[s_expr[2]]).toString(2); // to binary
+								var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+									n2 = n2.substr(31 - (poso + len) + 1, len);
+								var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+								var n4 = "00000000000000000000000000000000".substr(0, posd);
+								n3 = n3 + n4;
+								console.log("N1: " + n1);
+								console.log("N3: " + n3);
+								console.log("N3 parseado: " + parseInt(n3, 2));
 
 								if (sign_ext) {
 									//Extend byte sign to full Word
+									var s1 = n3 ;
+									var s2 = ("00000000000000000000000000000000".substring(0, 32 - s1.length) + s1) ;
+									var s3 = s2.substr(31 - 7, 31);
+									var s4 = s3;
+									if ("1" == s2[31 - 7]) {  // check signed-extension
+										s4 = "11111111111111111111111111111111".substring(0, 32 - s3.length) + s4;
+									}
+									console.log("S4: " + s4);
+									console.log("S4 parseado: " + parseInt(s4, 2))
+									set_value(sim.rv.states[s_expr[1]], parseInt(s4, 2));
 								} else {
 									//Add zeros to 24 superior bits
+									set_value(sim.rv.states[s_expr[1]], parseInt(n3, 2));
 								}
-								newval       = get_value(sim_elto_org) ;
-								set_value(sim_elto_dst, newval) ;
 							},
 					verbal: function (s_expr)
 							{
@@ -2559,7 +2579,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
-							      ref:  "BW"
+							      ref:  "BS_M1"
 							    },
 						   "mux_1": {
 							      ref:  "FLAG_N"
@@ -2586,7 +2606,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
-							      ref:  "PC"
+							      ref:  "REG_PC"
 							    },
 						   "mux_1": {
 							      ref:  "R_DATA1"
@@ -2643,7 +2663,7 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "mux_0": {
-							      ref:  "WOUT"
+							      ref:  "REG_OUT"
 							    },
 						   "mux_1": {
 							      ref:  "ALU_WOUT"
@@ -2672,20 +2692,23 @@
 			      belongs:           "CPU",
 			      states:            {
 						   "in":     {
-							       ref:  "N_OR_Z_AND_JUMP_PCWRITE"
+							       ref:  "M4_PC"
 							     },
 						   "out":    {
 							       ref:  "REG_PC"
 							     }
 						 },
 			      signals:           {
-						   "ctl":    {
+						   "pcwrite":    {
 							       ref:  "PCWRITE"
+							     },
+						   "jump":    {
+							       ref:  "JUMP"
 							     }
 						 },
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
-			      signals_inputs:    [ "ctl" ],
+			      signals_inputs:    [ "pcwrite", "jump" ],
 			      signals_output:    [ ]
 	               } ;
 
@@ -2769,8 +2792,11 @@
 						   "alu":   {
 							       ref:  "ALU_WOUT"
 							    },
-						   "flags": {
-							       ref:  "ZN"
+						   "flagn": {
+							       ref:  "FLAG_N"
+							    },
+						   "flagz": {
+							       ref:  "FLAG_Z"
 							    }
 						 },
 			      signals:           {
@@ -2779,7 +2805,7 @@
 							    }
 						 },
 			      states_inputs:     [ "a", "b" ],
-			      states_outputs:    [ "alu", "flags" ],
+			      states_outputs:    [ "alu", "flagn", "flagz" ],
 			      signals_inputs:    [ "cop" ],
 			      signals_output:    [ ]
 	                } ;
@@ -2787,43 +2813,28 @@
         // CPU - Selectors
 
         sim.rv.elements.byte_selector = {
-			      name:              "Byte Selector",
-			      description:       "Main memory byte selector",
+			      name:              "Byte/Word Selector",
+			      description:       "Main memory byte or word selector",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
-						   "from_mbr":  {
-								  ref:  "REG_MBR"
-								},
-						   "from_data": {
+						   "from_dm":  {
 								  ref:  "DM_BS"
 								},
-						   "be":        {
-								  ref:  "BE"
-								},
-						   "to_mbr":    {
+						   "to_m1":    {
 								  ref:  "BS_M1"
-								},
-						   "to_td":     {
-								  ref:  "BS_BS"
 								}
 						 },
 			      signals:           {
-						   "w":         {
-								  ref:  "W"
+						   "wbe":       {
+								  ref:  "WBE"
 								},
 						   "se":        {
 								  ref:  "SE"
-								},
-						   "a1a0":      {
-								  ref:  "A1A0"
-								},
-						   "bw":        {
-								  ref:  "BW"
 								}
 						 },
-			      states_inputs:     [ "from_mbr", "from_data" ],
-			      states_outputs:    [ "be", "to_mbr", "to_td" ],
-			      signals_inputs:    [ "w", "se", "a1a0", "bw" ],
+			      states_inputs:     [ "from_dm" ],
+			      states_outputs:    [ "to_m1"],
+			      signals_inputs:    [ "wbe", "se" ],
 			      signals_output:    [ ]
 	                   } ;
