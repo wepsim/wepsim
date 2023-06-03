@@ -161,14 +161,15 @@
         sim.rv.ctrl_states.ir  = {
 		                    name:  "IR",
 		                    state: "REG_IR",
-		                    default_eltos:	{	"co":	{ "begin":  0, "end":  5, "length": 6 },
-												"cop":	{ "begin": 28, "end": 31, "length": 4 },
-												"oc":	{ "begin":  0, "end":  6, "length": 7 },
-												"funct":{ "begin": 12, "end": 14, "length": 3 }
-											},
+		                    default_eltos:	{
+					    			"co":	{ "begin":  0, "end":  5, "length": 6 },
+								"cop":	{ "begin": 28, "end": 31, "length": 4 },
+								"oc":	{ "begin":  0, "end":  6, "length": 7 },
+								"funct":{ "begin": 12, "end": 14, "length": 3 }
+							},
 		                    is_pointer: false
 	                         } ;
-		sim.rv.ctrl_states.mpc = {
+	sim.rv.ctrl_states.mpc = {
 		                    name:  "mPC",
 		                    state: "REG_MICROADDR",
 		                    is_pointer: false
@@ -437,12 +438,14 @@
 				   draw_name: [['svg_p:path7133', 'svg_p:path7143', 'svg_p:path7147', 'svg_p:path7135']] };
 
 	/* IR REGISTER */
+
 	//Read immediate value
 	sim.rv.signals["R_IMM"] = { name: "R_IMM", visible: true, type: "L", value: 0, default_value:20, nbits: "5",
 			        behavior:  ["NOP"],
 			        fire_name: [],
 			        draw_data: [[]],
 			        draw_name: [[]] };
+
 	sim.rv.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_IR RDATA; DECO; MBIT_SN R_IMM REG_IR REG_MICROINS/R_IMM 5; LOAD VAL_IMM R_IMM"],
 				   fire_name: ['svg_p:text7309'],
@@ -660,10 +663,19 @@
 						'Select inferior byte from Word.'],
 				behavior: ['MV BS_M1 DM_BS',
 					   'BWSEL BS_M1 DM_BS SE'],
-							depends_on: ["RW"],
+				depends_on: ["RW"],
 				fire_name: ['svg_p:text7555', 'svg_p:text7433'],
 				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581', 'svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
 				draw_name: [['svg_p:path7529', 'svg_p:path7425']] };
+	/*
+	sim.rv.signals["BBE"] = { name: "BBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+				behavior: ['MV BS_M1 DM_BS',
+					   'NOP'],
+				depends_on: ["RW"],
+				fire_name: ['svg_p:text7433'],
+				draw_data: [['svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
+				draw_name: [['svg_p:path7425']] };
+	*/
 	sim.rv.signals["SE"]  = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				verbal: ['If WBE is enabled, set the 24 superior bits of Word to 0.',
 						'If WBE is enabled, extend byte sign to Word.'],
@@ -746,9 +758,9 @@
                                      types: ["X", "X"],
                                      operation: function(s_expr)
                                                 {
-						   sim_elto_org = get_reference(s_expr[2]) ;
-						   sim_elto_dst = get_reference(s_expr[1]) ;
-                                                   newval       = get_value(sim_elto_org) ;
+						   var sim_elto_org = get_reference(s_expr[2]) ;
+						   var sim_elto_dst = get_reference(s_expr[1]) ;
+                                                   var newval       = get_value(sim_elto_org) ;
                                                    set_value(sim_elto_dst, newval) ;
                                                 },
                                         verbal: function (s_expr)
@@ -772,17 +784,22 @@
                                      types: ["X", "X"],
                                      operation: function(s_expr)
                                                 {
-							if (!(get_value(sim.rv.states["FLAG_N"]) || get_value(sim.rv.states["FLAG_Z"]))) {
-									return ;
-								}
-						   sim_elto_org = get_reference(s_expr[2]) ;
-						   sim_elto_dst = get_reference(s_expr[1]) ;
-                                                   newval       = get_value(sim_elto_org) ;
+						   if (!(get_value(sim.rv.states["FLAG_N"]) && get_value(sim.rv.states["FLAG_Z"]))) {
+							return ;
+						   }
+
+						   var sim_elto_org = get_reference(s_expr[2]) ;
+						   var sim_elto_dst = get_reference(s_expr[1]) ;
+                                                   var newval       = get_value(sim_elto_org) ;
                                                    set_value(sim_elto_dst, newval) ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
-													return "Jump if N or Z" ;
+						   var sim_elto_org = get_reference(s_expr[2]) ;
+						   var sim_elto_dst = get_reference(s_expr[1]) ;
+                                                   var newval       = get_value(sim_elto_org) ;
+
+						   return "Jump if N or Z (new value is '" + newval + "' )" ;
                                                 }
                                    };
         sim.rv.behaviors["CP_FIELD"] = { nparameters: 3,
@@ -1913,7 +1930,7 @@
 						              "value "     + parseInt(n3, 2) + ". " ;
                                                    }
 
-                                                   return show_verbal(s_expr[1]) + " = " + from_elto + " (" + parseInt(n3, 2) + "). " ;
+                                                   return show_verbal(s_expr[1]) + " = " + from_elto + " (" + parseInt(n3, 2) + "). <br>" ;
                                                 }
 				   };
 	sim.rv.behaviors["SBIT_SIGNAL"] = { nparameters: 4,
@@ -2114,7 +2131,7 @@
 							},
 					verbal: function (s_expr)
 							{
-								return "" ;
+								return "" ;  // TODO
 							}
 				};
 
@@ -2239,9 +2256,7 @@
                                            verbal: function (s_expr)
                                                    {
 							var verbal = "" ;
-
 							var address = get_value(sim.rv.states['REG_PC']);
-
 							var value = main_memory_getvalue(sim.rv.internal_states.MP, address) ;
 
 							if (typeof value === "undefined")
@@ -2249,16 +2264,17 @@
 
 							var verbose = get_cfg('verbal_verbose') ;
 							if (verbose !== 'math') {
-								verbal = "Try to read an instruction from Instruction Memory " +
-										"at address 0x"  + address.toString(16) + " with value 0x" + value.toString(16) + ". " ;
+							    verbal = "Try to read an instruction from Instruction Memory " +
+								     "at address 0x"  + address.toString(16) + " with value 0x" + value.toString(16) + ". " ;
+							    return verbal ;
 							}
 
 							verbal = "Memory output = 0x" + value.toString(16) +
-										" (Read an instruction from Instruction Memory" +
-										" at address 0x" + address.toString(16)  + "). " ;
+								 " (Read an instruction from Instruction Memory" +
+								 " at address 0x" + address.toString(16)  + "). " ;
 
 							return verbal ;
-												   }
+						   }
 				   };
 
 	sim.rv.behaviors["DECO"]    = { nparameters: 1,
@@ -2528,7 +2544,7 @@
                                                         },
                                                 verbal: function (s_expr)
                                                         {
-                                                           return "Update flags N-Z." ;
+                                                           return "Update flags N-Z." ; // TODO: add values of N and Z
 /*
 								  sim.rv.internal_states.alu_flags.flag_n + " " +
 								  sim.rv.internal_states.alu_flags.flag_z + " " +
@@ -2810,3 +2826,4 @@
 			      signals_inputs:    [ "wbe", "se" ],
 			      signals_output:    [ ]
 	                   } ;
+
