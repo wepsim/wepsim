@@ -286,15 +286,53 @@
 
     function wepsim_activehw ( mode )
     {
+            var ahw = null ;
+            var o   = null ;
+
+            // activate the associated hardware
 	    simhw_setActive(mode) ;
 
+            // check hardware is active
+            ahw = simhw_active() ;
+            if (typeof ahw == "undefined") return false ;
+            if (       ahw == null)        return false ;
+
             // reload images
-	    var o = document.getElementById('svg_p') ;
-	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
-	        o = document.getElementById('svg_cu') ;
-	    if (o != null) o.setAttribute('data', simhw_active().sim_img_controlunit) ;
-	        o = document.getElementById('svg_p2') ;
-	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
+	    o = document.getElementById('svg_p') ;
+	    if (o != null) {
+	        o.setAttribute('class', 'd-none') ;
+	        if (ahw.sim_img_processor != "") {
+		    o.setAttribute('data',  ahw.sim_img_processor) ;
+		    o.setAttribute('class', 'd-block') ;
+	        }
+	    }
+
+	    o = document.getElementById('svg_p') ;
+	    if (o != null) {
+	        o.setAttribute('class', 'd-none') ;
+	        if (ahw.sim_img_processor != "") {
+	    	    o.setAttribute('data',  ahw.sim_img_processor) ;
+		    o.setAttribute('class', 'd-block') ;
+	        }
+	    }
+
+	    o = document.getElementById('svg_cu') ;
+	    if (o != null) {
+	        o.setAttribute('class', 'd-none') ;
+	        if (ahw.sim_img_controlunit != "") {
+		    o.setAttribute('data', ahw.sim_img_controlunit) ;
+		    o.setAttribute('class', 'd-block') ;
+	        }
+	    }
+
+	    o = document.getElementById('svg_p2') ;
+	    if (o != null) {
+	        o.setAttribute('class', 'd-none') ;
+	        if (ahw.sim_img_cpu != "") {
+		    o.setAttribute('data', ahw.sim_img_cpu) ;
+		    o.setAttribute('class', 'd-block') ;
+	        }
+	    }
 
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
@@ -351,15 +389,19 @@
            case 0:    $(diva).addClass('col-12 order-1') ;
                       $(divb).addClass('col-12') ;
                       break ;
+
            case 1:    $(diva).addClass('d-none') ;
                       $(divb).addClass('col-12 order-2') ;
                       break ;
+
            case 13:   $(diva).addClass('col-12 order-1') ;
                       $(divb).addClass('d-none') ;
                       break ;
+
            case 14:   $(diva).addClass('col-12') ;
                       $(divb).addClass('col-12 order-2') ;
                       break ;
+
            default:   $(diva).addClass('col-' + (new_value-1)) ;   //  1,  2, 3, ...
                       $(divb).addClass('col-' + (13-new_value)) ;  // 11, 10, 9, ...
                       break ;

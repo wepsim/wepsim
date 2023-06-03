@@ -61,7 +61,7 @@
                              '<!-- Tab panes -->' +
                              '<div class="tab-content">' +
                              '  <div id="eltos_cpu" class="tab-pane active" role="tabpanel">' +
-                             '  <ws-cpucu_got></ws-cpucu_got>' +
+                             '     <ws-cpucu_got></ws-cpucu_got>' +
 		             '  </div>' +
 		             '\n' +
 		             '  <div id="eltos_dbg" class="tab-pane" role="tabpanel">' +

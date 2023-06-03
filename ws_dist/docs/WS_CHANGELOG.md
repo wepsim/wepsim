@@ -5,6 +5,7 @@
 * Main improvements:
   * Added firmware version 2
 * Main external dependencies updated:
+  * Bump bootstrap from 5.2.3 to 5.3.0
 
 ## 2.2.1 -> 2.2.2:
 * Main improvements:
