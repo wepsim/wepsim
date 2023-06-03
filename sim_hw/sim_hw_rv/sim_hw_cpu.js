@@ -2544,7 +2544,8 @@
                                                         },
                                                 verbal: function (s_expr)
                                                         {
-                                                           return "Update flags N-Z." ; // TODO: add values of N and Z
+                                                           return "Update flags N (" + sim.rv.internal_states.alu_flags.flag_n
+														    + ") and Z (" + sim.rv.internal_states.alu_flags.flag_z + ").";
 /*
 								  sim.rv.internal_states.alu_flags.flag_n + " " +
 								  sim.rv.internal_states.alu_flags.flag_z + " " +
