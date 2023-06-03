@@ -270,7 +270,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 			}
 		}
 
-		// TODO: avoid (10:20)|
+		// avoid (10:20)| not selecting next token
 
 		// if it's a normal case
 		if (isToken(context,"|"))
