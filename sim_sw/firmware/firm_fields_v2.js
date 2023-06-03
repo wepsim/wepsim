@@ -281,7 +281,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 
 				nextToken(context);
 				// match mandatory : or |
-				if (! isToken(context,":") || ! isToken(context,"|")) {
+				if (! isToken(context,":") && ! isToken(context,"|")) {
 					return langError(context,
 							i18n_get_TagFor('compiler', 'COLON OR PIPE NOT FOUND')) ;
 				}
