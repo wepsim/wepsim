@@ -425,6 +425,8 @@
 				draw_name: [['svg_p:path7357', 'svg_p:path7329', 'svg_p:path7331']] };
 
 	/* REGISTER LOAD */
+
+	/* PC REGISTER */
 	sim.rv.signals["PCWRITE"] = { name: "PCWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_PC M4_PC; UPDATEDPC"],
 				   fire_name: ['svg_p:text7155'],
@@ -438,14 +440,12 @@
 				   draw_name: [['svg_p:path7133', 'svg_p:path7143', 'svg_p:path7147', 'svg_p:path7135']] };
 
 	/* IR REGISTER */
-
 	//Read immediate value
 	sim.rv.signals["R_IMM"] = { name: "R_IMM", visible: true, type: "L", value: 0, default_value:20, nbits: "5",
 			        behavior:  ["NOP"],
 			        fire_name: [],
 			        draw_data: [[]],
 			        draw_name: [[]] };
-
 	sim.rv.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_IR RDATA; DECO; MBIT_SN R_IMM REG_IR REG_MICROINS/R_IMM 5; LOAD VAL_IMM R_IMM"],
 				   fire_name: ['svg_p:text7309'],
@@ -465,64 +465,6 @@
 				   fire_name: ['svg_p:text7213'],
 				   draw_data: [['svg_p:path6691', 'svg_p:path6693']],
 				   draw_name: [['svg_p:path7205']] };
-
-
-	/* MUX. */
-	sim.rv.signals["M2"]  = { name: "M2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
-                               depends_on: ["ALUOP"],
-			       fire_name: ['svg_p:text7229'],
-			       draw_data: [['svg_p:path6691-3', 'svg_p:path6987', 'svg_p:path6989', 'svg_p:path6983', 'svg_p:path6991', 'svg_p:path6775', 'svg_p:path6777'], ['svg_p:path6779', 'svg_p:path6781']],
-			       draw_name: [[], ['svg_p:path7199']] };
-	sim.rv.signals["M3"]  = { name: "M3",  visible: true, type: "L", value: 0, default_value:0, nbits: "2",
-			       behavior: ["MV M3_ALU R_DATA2; FIRE ALUOP", "MV M3_ALU VAL_FOUR; FIRE ALUOP", "MV M3_ALU VAL_IMM; FIRE ALUOP", "NOP"],
-			       fire_name: ['svg_p:text7237'],
-                               depends_on: ["ALUOP"],
-			       draw_data: [['svg_p:path6821', 'svg_p:path6823'], ['svg_p:path7001', 'svg_p:path7003'], ['svg_p:path7015', 'svg_p:path7013', 'svg_p:path6825', 'svg_p:path6827']],
-			       draw_name: [[], ['svg_p:path7197']] };
-	sim.rv.signals["M4"]  = { name: "M4", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M4_PC REG_OUT", "MV M4_PC ALU_WOUT"],
-                               depends_on: ["PCWRITE"],
-			       fire_name: ['svg_p:text7289'],
-			       draw_data: [['svg_p:path7075','svg_p:path7043','svg_p:path7045', 'svg_p:path7047', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037'], ['svg_p:path6837-6', 'svg_p:path7073','svg_p:path7115','svg_p:path7117', 'svg_p:path7119', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037']],
-			       draw_name: [[], ['svg_p:path7281']] };
-
-	sim.rv.signals["ALUOP"] = { name: "ALUOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-					behavior: ["NOP_ALU; UPDATE_NZ",
-								"AND ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"OR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"NOT ALU_WOUT M2_ALU; UPDATE_NZ",
-								"XOR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SRL ALU_WOUT M2_ALU; UPDATE_NZ",
-								"SRA ALU_WOUT M2_ALU; UPDATE_NZ",
-								"SL ALU_WOUT M2_ALU; UPDATE_NZ",
-								"RR ALU_WOUT M2_ALU; UPDATE_NZ",
-								"RL ALU_WOUT M2_ALU; UPDATE_NZ",
-								"ADD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SUB ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"DIV ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"LUI ALU_WOUT M2_ALU; UPDATE_NZ",
-								"ADDU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SUBU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"MULU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"DIVU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU"],
-			       fire_name: ['svg_p:text7269'],
-			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
-			       draw_name: [['svg_p:path7249']] };
 
 	/* REGISTER FILE */
 	sim.rv.signals["REG_R1"] = { name: "REG_R1", visible: true, type: "L", value: 0, default_value:15, nbits: "5",
@@ -560,6 +502,64 @@
 					fire_name: ['svg_p:text7299'],
 					draw_data: [['svg_p:path6725', 'svg_p:path6727', 'svg_p:path6729', 'svg_p:path6731', 'svg_p:path6733', 'svg_p:path6735', 'svg_p:path6915', 'svg_p:path6913', 'svg_p:path6907', 'svg_p:path6909']],
 					draw_name: [['svg_p:path7291']] };
+
+	/* MUX. */
+	sim.rv.signals["M2"]  = { name: "M2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+			       behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
+                               depends_on: ["ALUOP"],
+			       fire_name: ['svg_p:text7229'],
+			       draw_data: [['svg_p:path6691-3', 'svg_p:path6987', 'svg_p:path6989', 'svg_p:path6983', 'svg_p:path6991', 'svg_p:path6775', 'svg_p:path6777'], ['svg_p:path6779', 'svg_p:path6781']],
+			       draw_name: [[], ['svg_p:path7199']] };
+	sim.rv.signals["M3"]  = { name: "M3",  visible: true, type: "L", value: 0, default_value:0, nbits: "2",
+			       behavior: ["MV M3_ALU R_DATA2; FIRE ALUOP", "MV M3_ALU VAL_FOUR; FIRE ALUOP", "MV M3_ALU VAL_IMM; FIRE ALUOP", "NOP"],
+			       fire_name: ['svg_p:text7237'],
+                               depends_on: ["ALUOP"],
+			       draw_data: [['svg_p:path6821', 'svg_p:path6823'], ['svg_p:path7001', 'svg_p:path7003'], ['svg_p:path7015', 'svg_p:path7013', 'svg_p:path6825', 'svg_p:path6827']],
+			       draw_name: [[], ['svg_p:path7197']] };
+	sim.rv.signals["M4"]  = { name: "M4", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
+			       behavior: ["MV M4_PC REG_OUT", "MV M4_PC ALU_WOUT"],
+                               depends_on: ["PCWRITE"],
+			       fire_name: ['svg_p:text7289'],
+			       draw_data: [['svg_p:path7075','svg_p:path7043','svg_p:path7045', 'svg_p:path7047', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037'], ['svg_p:path6837-6', 'svg_p:path7073','svg_p:path7115','svg_p:path7117', 'svg_p:path7119', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037']],
+			       draw_name: [[], ['svg_p:path7281']] };
+
+	/* ALU */
+	sim.rv.signals["ALUOP"] = { name: "ALUOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+					behavior: ["NOP_ALU; UPDATE_NZ",
+								"AND ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"OR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"NOT ALU_WOUT M2_ALU; UPDATE_NZ",
+								"XOR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"SRL ALU_WOUT M2_ALU; UPDATE_NZ",
+								"SRA ALU_WOUT M2_ALU; UPDATE_NZ",
+								"SL ALU_WOUT M2_ALU; UPDATE_NZ",
+								"RR ALU_WOUT M2_ALU; UPDATE_NZ",
+								"RL ALU_WOUT M2_ALU; UPDATE_NZ",
+								"ADD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"SUB ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"DIV ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"LUI ALU_WOUT M2_ALU; UPDATE_NZ",
+								"ADDU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"SUBU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"MULU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"DIVU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU",
+								"NOP_ALU"],
+			       fire_name: ['svg_p:text7269'],
+			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
+			       draw_name: [['svg_p:path7249']] };
 
 	/*
 	sim.rv.signals["BW"] =  { name: "BW",
@@ -643,7 +643,7 @@
 				draw_name: [[],[]] };
 	*/
 
-	 /* DATA MEMORY SIGNALS */
+	/* DATA MEMORY SIGNALS */
 	sim.rv.signals.DMR = { name: "DMR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				behavior: ["MV DM_BS REG_OUT",
 						"MEM_READ M3_ALU DM_BS WBE CLK"],
@@ -659,23 +659,12 @@
 
 	/* BYTE/WORD SELECTOR*/
 	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
-				verbal: ['Select the full Word.',
-						'Select inferior byte from Word.'],
 				behavior: ['MV BS_M1 DM_BS',
 					   'BWSEL BS_M1 DM_BS SE'],
 				depends_on: ["RW"],
 				fire_name: ['svg_p:text7555', 'svg_p:text7433'],
 				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581', 'svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
 				draw_name: [['svg_p:path7529', 'svg_p:path7425']] };
-	/*
-	sim.rv.signals["BBE"] = { name: "BBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
-				behavior: ['MV BS_M1 DM_BS',
-					   'NOP'],
-				depends_on: ["RW"],
-				fire_name: ['svg_p:text7433'],
-				draw_data: [['svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
-				draw_name: [['svg_p:path7425']] };
-	*/
 	sim.rv.signals["SE"]  = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				verbal: ['If WBE is enabled, set the 24 superior bits of Word to 0.',
 						'If WBE is enabled, extend byte sign to Word.'],
@@ -1812,20 +1801,6 @@
                                                    return "" ;
                                                 }
 				   };
-	//COMPROBAR POR TD
-	sim.rv.behaviors["CHECK_RTD"] = { nparameters: 1,
-				     operation: function(s_expr)
-		                                {
-								//CONSULTAR
-				                // var number_active_tri = parseInt(simhw_sim_signal("TD").value) +
-         							    //     parseInt(simhw_sim_signal("R").value) ;
-        				        //     update_system_bus_fire(number_active_tri) ;
-                                                },
-                                        verbal: function (s_expr)
-                                                {
-                                                   return "" ;
-                                                }
-				   };
 	sim.rv.behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
 				     operation: function (s_expr)
@@ -2087,16 +2062,7 @@
 					types: ["E", "E", "S"],
 					operation: function(s_expr)
 							{
-								/*
-								sim_elto_org = get_reference(s_expr[2]) ;
-								sim_elto_dst = get_reference(s_expr[1]) ;
-								var sign_ext = sim.rv.signals[s_expr[3]].value;
-								console.log(get_value(sim_elto_org).toString(2));
-								console.log(get_value(sim_elto_dst).toString(2));
-								console.log(sign_ext);
-								//newval = get_value(sim_elto_org) ;
-								//set_value(sim_elto_dst, newval) ;
-								*/
+								// Pre-defined positions and length
 								var posd = 0 ;
 								var poso = 0 ;
 								var len  = 8 ;
@@ -2108,21 +2074,16 @@
 								var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
 								var n4 = "00000000000000000000000000000000".substr(0, posd);
 								n3 = n3 + n4;
-								console.log("N1: " + n1);
-								console.log("N3: " + n3);
-								console.log("N3 parseado: " + parseInt(n3, 2));
 
 								if (sign_ext) {
 									//Extend byte sign to full Word
-									var s1 = n3 ;
+									var s1 = n2 ;
 									var s2 = ("00000000000000000000000000000000".substring(0, 32 - s1.length) + s1) ;
 									var s3 = s2.substr(31 - 7, 31);
 									var s4 = s3;
 									if ("1" == s2[31 - 7]) {  // check signed-extension
 										s4 = "11111111111111111111111111111111".substring(0, 32 - s3.length) + s4;
 									}
-									console.log("S4: " + s4);
-									console.log("S4 parseado: " + parseInt(s4, 2))
 									set_value(sim.rv.states[s_expr[1]], parseInt(s4, 2));
 								} else {
 									//Add zeros to 24 superior bits
@@ -2131,7 +2092,49 @@
 							},
 					verbal: function (s_expr)
 							{
-								return "" ;  // TODO
+								var posd = 0 ;
+								var poso = 0 ;
+								var len  = 8 ;
+								var sign_ext = sim.rv.signals[s_expr[3]].value;
+
+								var n1 = get_value(sim.rv.states[s_expr[2]]).toString(2);
+								var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+									n2 = n2.substr(31 - (poso + len) + 1, len);
+								var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+								var n4 = "00000000000000000000000000000000".substr(0, posd);
+								n3 = n3 + n4;
+
+								if (sign_ext) {
+									var s1 = n2 ;
+									var s2 = ("00000000000000000000000000000000".substring(0, 32 - s1.length) + s1) ;
+									var s3 = s2.substr(31 - 7, 31);
+									var s4 = s3;
+									if ("1" == s2[31 - 7]) {
+										s4 = "11111111111111111111111111111111".substring(0, 32 - s3.length) + s4;
+									}
+									var value = parseInt(s4, 2);
+
+									var verbose = get_cfg('verbal_verbose') ;
+									if (verbose !== 'math') {
+										return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(value) +
+											+ " (copied " + len + " bits, from bit " + poso + " to bit " + posd +  " with sign extension)." ;
+									} else {
+										 return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[2]) +
+											" (" + show_value(value) + ", " + len + " bits, from bit " + poso +
+											" of " + s_expr[2] + " to bit " + posd + " of " + s_expr[1] + "). " ;
+									}
+								} else {
+									var value = parseInt(n3, 2);
+									var verbose = get_cfg('verbal_verbose') ;
+									if (verbose !== 'math') {
+										return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(value) +
+											+ " (copied " + len + " bits, from bit " + poso + " to bit " + posd +  " without sign extension)." ;
+									} else {
+										return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[2]) +
+											" (" + show_value(value) + ", " + len + " bits, from bit " + poso +
+											" of " + s_expr[2] + " to bit " + posd + " of " + s_expr[1] + "). " ;
+									}
+								}
 							}
 				};
 
