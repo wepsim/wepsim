@@ -190,7 +190,7 @@
         sim.rv.internal_states.tri_state_names = [] ;
         sim.rv.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         sim.rv.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto", "REG_PC,col-auto", "REG_OUT,col-auto",
-												  "REG_MICROADDR,col-auto", "RDATA,col-auto", "ROM_MUXA,col-auto", "MUXA_MICROADDR,col-auto", "R_DATA1,col-auto", "R_DATA2,col-auto", "VAL_IMM,col-auto", "DM_BS,col-auto","BS_M1,col-auto","M1_RW,col-auto"] ;
+													"VAL_IMM,col-auto", "M3_ALU,col-auto", "DM_BS,col-auto","BS_M1,col-auto","M1_RW,col-auto"] ;
         sim.rv.internal_states.filter_signals  = [ "CU,0", "ALUOP,0", "COP,0", "M1,0", "M2,0", "M3,0", "M4,0",
 												"JUMP,0", "PCWRITE,0", "IMR,0", "IRWRITE,0", "RW,0", "WOUT,0",
 												"DMR,0", "DMW,0", "Word BE,0", "Byte BE,0" ] ;
