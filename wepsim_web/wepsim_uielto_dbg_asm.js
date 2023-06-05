@@ -227,7 +227,7 @@
 		var s_label = "" ;
 
                 var o = "<center>" +
-                        "<table data-role='table' class='table table-sm'>" +
+                        "<table data-role='table' class='table-sm table-hover'>" +
                         "<tbody>" ;
                 for (l in mp)
                 {
