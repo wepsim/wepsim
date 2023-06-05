@@ -563,8 +563,8 @@
 
 	/* DATA MEMORY SIGNALS */
 	sim.rv.signals.DMR = { name: "DMR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-				behavior: ["MV DM_BS REG_OUT",
-						"MEM_READ M3_ALU DM_BS WBE CLK"],
+				behavior: ["MV DM_BS REG_OUT; FIRE WBE",
+						"MEM_READ M3_ALU DM_BS WBE CLK; FIRE WBE"],
 				fire_name: ['svg_p:text7589','svg_p:text7507'],
 				draw_data: [[], ['svg_p:path7525','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
 				draw_name: [[], []] };
