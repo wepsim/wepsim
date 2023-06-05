@@ -138,8 +138,8 @@
                                         types: ["E", "E", "S", "E"],
                                         operation: function (s_expr)
                                                    {
-						      var address = sim.rv.states[s_expr[1]].value;
-                                                      var dbvalue = sim.rv.states[s_expr[2]].value;
+						      var address = "0x" + get_value(sim.rv.states[s_expr[1]]).toString(16);
+                                                      var dbvalue = get_value(sim.rv.states[s_expr[2]]);
                                                       var bw      = sim.rv.signals[s_expr[3]].value;
                                                       var clk     = get_value(sim.rv.states[s_expr[4]]) ;
 
@@ -166,9 +166,14 @@
                					      }
 
                                                       // BW -> See Tables in Help
-                                                      dbvalue = main_memory_fusionvalues(dbvalue, value, bw) ;
+                                                      if ( bw == 1 ) {
+                                                        var byte_s = 0x0000;
+                                                        dbvalue = main_memory_fusionvalues(dbvalue, value, byte_s) ;
+                                                      } else {
+                                                        dbvalue = value;
+                                                      }
 
-                                                      sim.rv.states[s_expr[2]].value = (dbvalue >>> 0);
+                                                      set_value(sim.rv.states[s_expr[2]], dbvalue >>> 0);
 				                      show_main_memory(sim.rv.internal_states.MP, address, full_redraw, false) ;
 
                                                       // cache
@@ -180,16 +185,14 @@
                                                    {
 					              var verbal = "" ;
 
-						      var address = sim.rv.states[s_expr[1]].value;
-                                                      var dbvalue = sim.rv.states[s_expr[2]].value;
+						      var address = "0x" + get_value(sim.rv.states[s_expr[1]]).toString(16);
+                                                      var dbvalue = get_value(sim.rv.states[s_expr[2]]);
                                                       var bw      = sim.rv.signals[s_expr[3]].value;
                                                       var clk     = get_value(sim.rv.states[s_expr[4]]) ;
 
 					              var bw_type = "word" ;
-                                                           if ( 0 == (bw & 0x0000000C) )
+                                                           if ( bw == 1 )
 							  bw_type = "byte" ;
-                                                      else if ( 1 == (bw & 0x0000000C) )
-							  bw_type = "half" ;
 
                                                       var value = main_memory_getvalue(sim.rv.internal_states.MP,
                                                                                        address) ;
@@ -199,12 +202,11 @@
                                                       var verbose = get_cfg('verbal_verbose') ;
                                                       if (verbose !== 'math') {
                                                           verbal = "Try to read a " + bw_type + " from memory " +
-							           "at address 0x"  + address.toString(16) + " with value 0x" + value.toString(16) + ". " ;
+							           "at address "  + address + " with value 0x" + value.toString(16) + ". " ;
                                                       }
 
                                                       verbal = "Memory output = 0x" + value.toString(16) +
-                                                               " (Read a " + bw_type +
-							       " from 0x" + address.toString(16)  + "). " ;
+                                                               " (Read a " + bw_type + " from " + address + "). " ;
 
                                                       return verbal ;
                                                    }
@@ -214,8 +216,8 @@
                                         types: ["E", "E", "S", "E"],
                                         operation: function (s_expr)
                                                    {
-						      var address = sim.rv.states[s_expr[1]].value;
-                                                      var dbvalue = sim.rv.states[s_expr[2]].value;
+						      var address = "0x" + get_value(sim.rv.states[s_expr[1]]).toString(16);
+                                                      var dbvalue = get_value(sim.rv.states[s_expr[2]]);
                                                       var bw      = sim.rv.signals[s_expr[3]].value;
                                                       var clk     = get_value(sim.rv.states[s_expr[4]]) ;
 
@@ -242,7 +244,13 @@
                  				      }
 
                                                       // BW -> See Tables in Help
-                                                      value = main_memory_fusionvalues(value, dbvalue, bw) ;
+                                                      if ( bw == 1 ) {
+                                                        var byte_s = 0x0000;
+                                                        value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
+                                                      } else {
+                                                        var byte_s = 0x000C;
+                                                        value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
+                                                      }
 
 						      // PC
 						      var origin = '' ;
@@ -272,16 +280,14 @@
                                                    {
 					              var verbal = "" ;
 
-						      var address = sim.rv.states[s_expr[1]].value;
-                                                      var dbvalue = sim.rv.states[s_expr[2]].value;
+						      var address = "0x" + get_value(sim.rv.states[s_expr[1]]).toString(16);
+                                                      var dbvalue = get_value(sim.rv.states[s_expr[2]]);
                                                       var bw      = sim.rv.signals[s_expr[3]].value;
                                                       var clk     = get_value(sim.rv.states[s_expr[4]]) ;
 
 					              var bw_type = "word" ;
-                                                           if ( 0 == (bw & 0x0000000C) )
+                                                           if ( bw == 1 )
 							  bw_type = "byte" ;
-                                                      else if ( 1 == (bw & 0x0000000C) )
-							  bw_type = "half" ;
 
                                                       var value = main_memory_getvalue(sim.rv.internal_states.MP,
                                                                                        address) ;
@@ -291,14 +297,11 @@
                                                       var verbose = get_cfg('verbal_verbose') ;
                                                       if (verbose !== 'math') {
                                                           verbal = "Try to write a " + bw_type + " to memory " +
-							           "at address 0x"  + address.toString(16) +
-                                                                   " with value " + value.toString(16) + ". " ;
+							           "at address "  + address + " with value " + value.toString(16) + ". " ;
                                                       }
 
-                                                      verbal = "Memory[0x" + address.toString(16) + "] = " +
-							       "0x" + value.toString(16) +
-                                                               " (Write a " + bw_type +
-							       " to 0x" + address.toString(16)  + "). " ;
+                                                      verbal = "Memory[" + address + "] = " + "0x" + value.toString(16) +
+                                                               " (Write a " + bw_type + " to " + address + "). " ;
 
                                                       return verbal ;
                                                    }
