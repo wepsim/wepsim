@@ -2035,22 +2035,22 @@
 									var verbose = get_cfg('verbal_verbose') ;
 									if (verbose !== 'math') {
 										return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(value) +
-											+ " (copied " + len + " bits, from bit " + poso + " to bit " + posd +  " with sign extension)." ;
+											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+8) +  " with sign extension)." ;
 									} else {
 										 return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[2]) +
 											" (" + show_value(value) + ", " + len + " bits, from bit " + poso +
-											" of " + s_expr[2] + " to bit " + posd + " of " + s_expr[1] + "). " ;
+											" of " + s_expr[2] + " to bit " + (posd+8) + " of " + s_expr[1] + "). " ;
 									}
 								} else {
 									var value = parseInt(n3, 2);
 									var verbose = get_cfg('verbal_verbose') ;
 									if (verbose !== 'math') {
 										return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(value) +
-											+ " (copied " + len + " bits, from bit " + poso + " to bit " + posd +  " without sign extension)." ;
+											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+8) +  " without sign extension)." ;
 									} else {
 										return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[2]) +
 											" (" + show_value(value) + ", " + len + " bits, from bit " + poso +
-											" of " + s_expr[2] + " to bit " + posd + " of " + s_expr[1] + "). " ;
+											" of " + s_expr[2] + " to bit " + (posd+8) + " of " + s_expr[1] + "). " ;
 									}
 								}
 							}
