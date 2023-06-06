@@ -39,11 +39,11 @@
 	  ecall
 
            # t1 = factorial(5)
-
-#rdcycle t0
+      rdcycle t0
            jal factorial
-#rdcycle t1
-           # print_int(t1)
+      rdcycle t1
+
+           # print_int(a0)
            li  a7, 1
            ecall
 
@@ -51,6 +51,7 @@
 	   li a7, 11
 	   ecall
 
+           # print_int(t1-t0)
  	   sub a0, t1, t0
 	   li a7, 1
 	   ecall
