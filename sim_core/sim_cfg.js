@@ -187,7 +187,7 @@
                  return false ;
 	     }
 
-             if (typeof navigator.userAgentData.mobile != "undefined") {
+             if (typeof navigator.userAgentData != "undefined") {
                  return navigator.userAgentData.mobile ;
 	     }
 
