@@ -51,7 +51,7 @@
          }
 
          // 2) new popover(object) for each object in the list
-         var plist1 = [...list1].map(elto => new bootstrap.Popover(elto, popover_cfg)) ;
+         var plist1 = [...list1].map((elto) => new bootstrap.Popover(elto, popover_cfg)) ;
 
          // 3) associate event to all objects
          if (null != fun_ownshown) {
