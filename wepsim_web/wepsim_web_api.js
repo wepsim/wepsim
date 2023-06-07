@@ -1003,7 +1003,7 @@
 
     function wsweb_recordbar_close ( )
     {
-	    $('#record_div').collapse('hide') ;
+	    $('#record_div').hide() ;
 
             // add if recording
             simcore_record_append_new('Close the "record toolbar"',

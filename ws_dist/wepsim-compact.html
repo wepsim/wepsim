@@ -140,7 +140,7 @@
 	    $("#wsl_msg2").html(m) ;
 
             $(document).ready(function() {
-				 $("#ws_loader").collapse('hide') ;
+				 $("#ws_loader").hide() ;
 			      }) ;
 
             // progressive web application
@@ -151,7 +151,7 @@
     }
     catch(err)
     {
-          $("#ws_loader").collapse('hide') ;
+          $("#ws_loader").hide() ;
 
           wepsim_general_exception_handler(err) ;
     }
