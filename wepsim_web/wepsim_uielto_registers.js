@@ -346,13 +346,13 @@
 		               '<div class="popover-body"></div>' +
 		               '</div>',
 		    container: 'body',
-		    content: function() {
-		        var index = $(this).attr("data-popover-content");
+		    content: function(obj) {
+                        var index    = $(obj).attr('data-popover-content') ;
                         var hexvalue = get_value(simhw_sim_states().BR[index]);
                         return hex2values(hexvalue, index) ;
 		    },
-		    title: function() {
-		        var index     = $(this).attr("data-popover-content");
+		    title: function(obj) {
+                        var index     = $(obj).attr('data-popover-content') ;
                         var id_button = "&quot;#rf" + index + "&quot;" ;
 
 	                var disp_name = get_cfg('RF_display_name') ;
@@ -445,13 +445,13 @@
 		               '<h3  class="popover-header d-flex"></h3>' +
 		               '<div class="popover-body"></div>' +
 		               '</div>',
-		    content: function() {
-		        var index = $(this).attr("data-popover-content");
+		    content: function(obj) {
+                        var index    = $(obj).attr('data-popover-content') ;
                         var hexvalue = get_value(simhw_sim_states()[index]);
                         return hex2values(hexvalue, index) ;
 		    },
-		    title: function() {
-		        var index = $(this).attr("data-popover-content");
+		    title: function(obj) {
+                        var index     = $(obj).attr('data-popover-content') ;
                         var id_button = "&quot;#rp" + index + "&quot;" ;
 		        return '<span class="text-dark col"><strong>' +
                                simhw_sim_states()[index].name +
