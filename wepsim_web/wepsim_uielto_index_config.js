@@ -123,15 +123,17 @@
      		e_id          = config[n].id ;
 
      		// related row
+/*
      	        if  (fmt_toggle === "")
-     	             fmt_toggle = "bg-light" ;
+     	             fmt_toggle = "bg-body-tertiary" ;
      	        else fmt_toggle = "" ;
+*/
 
      	        e_class_1 = "                " + e_u_class + " " + fmt_toggle ;
      	        e_class_2 = " collapse7 show " + e_u_class + " " + fmt_toggle ;
 
-     		row = '<div class="col-md-auto ' + e_class_1 + '">' +
-     		      '    <span class="badge rounded-pill text-bg-light">' + (n+1) + '</span>' +
+     		row = '<div class="col-md-auto border-top' + e_class_1 + '">' +
+     		      '    <span class="badge rounded-pill text-secondary">' + (n+1) + '</span>' +
      		      '</div>' +
      		      '<div class="col-md-4'                  + e_class_1 + '">' + e_code_cfg  + '</div>' +
      		      '<div class="col-md align-items-center' + e_class_2 + '"><c>' + e_description + '</c></div>' +
@@ -170,7 +172,7 @@
      		     }
 
                      if (n%2 == 0) {
-                         u = u + '<div class="w-100 my-1"></div>' ;
+                         u = u + '<div class="w-100 mb-2"></div>' ;
                      }
                 }
 
@@ -182,7 +184,7 @@
      		     }
      		}
 
-     		o = o + "<div class='float-none text-end text-capitalize fw-bold col-12 mb-2 border-bottom border-secondary bg-white sticky-top " + l + "'>" +
+     		o = o + "<div class='float-none text-end text-capitalize fw-bold col-12 border-bottom border-secondary bg-body sticky-top " + l + "'>" +
      			"<span data-langkey='" + m + "'>" + m + "</span>" +
      			"</div>" + u ;
             }

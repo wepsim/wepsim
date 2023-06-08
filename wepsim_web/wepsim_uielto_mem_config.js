@@ -102,7 +102,7 @@
 		   return "<div class='container container-fluid'>" +
 			  "<div class='row justify-content-center'>" +
 		          "<div class='col-auto p-2 m-2'>" +
-			  "<div class='card bg-light'>" +
+			  "<div class='card bg-body-tertiary'>" +
                           " <h5 class='card-header text-center'>" +
                           "<span data-langkey='Wait cycles'>Wait cycles</span><br>" +
                           " </h5>" +

@@ -75,7 +75,7 @@
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_1'>" +
                   "    <h5 class='m-0'>" +
                   "            <a data-bs-toggle='collapse' href='#states3'><span class='text-white bg-dark' data-langkey='Current State'>Current State</span></a>:&nbsp;" +
-                  "            <span class='btn btn-light btn-sm float-end py-0'" +
+                  "            <span class='btn bg-body-tertiary btn-sm float-end py-0'" +
                   "                  onclick='wepsim_state_history_add();" +
                   "                           wepsim_notify_success(\"<strong>INFO</strong>\", \"Added !.\");" +
                   "                           wepsim_state_history_list();" +
@@ -169,7 +169,7 @@
                   "          <a data-bs-toggle='collapse' href='#history3'><span class='text-white bg-dark' data-langkey='History'>History</span></a>:&nbsp;" +
                   "" +
                   "          <div class='dropdown float-end'>" +
-                  "            <button class='btn btn-sm btn-light text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
+                  "            <button class='btn btn-sm text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
                   "                    type='button' id='resetyn2' data-bs-toggle='dropdown' " +
                   "                    aria-haspopup='true' aria-expanded='false' " +
                   "                    ><span data-langkey='Reset'>Reset</span><span class='d-none d-sm-inline-flex'>&nbsp;<span data-langkey='history'>history</span></span></button>" +
@@ -213,7 +213,7 @@
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_3'>" +
                   "    <h5 class='m-0'>" +
                   "            <a data-bs-toggle='collapse' href='#check_results_scroll1'><span class='text-white bg-dark' data-langkey='Differences'>Differences</span></a>:" +
-                  "            <span class='btn btn-light btn-sm float-end py-0'" +
+                  "            <span class='btn bg-body-tertiary btn-sm float-end py-0'" +
                   "                  onclick='wepsim_clipboard_CopyFromDiv(\"check_results_scroll1\");" +
                   "                           return false;'" +
                   "                  data-inline='true'>" +
@@ -284,7 +284,7 @@
                  it = t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '-' +
                       t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '-' + t.getMilliseconds() ;
 
-                 tt = '<div id="popover-content-' + it + '" class="d-none bg-light">' +
+                 tt = '<div id="popover-content-' + it + '" class="d-none bg-body-tertiary">' +
                       ws_info.state_history[i].title + '<br>' +
                       '<b>was inserted at:</b><br>' +
                       'Date: ' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '<br>' +
