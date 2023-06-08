@@ -33,45 +33,45 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
        // semantic check: 'oc' is not already used
        if (instruccionAux.oc != all_ones_oc)
        {
-	   if ( (typeof context.oc_funct[instruccionAux.oc] !== "undefined") &&
-		       (context.oc_funct[instruccionAux.oc].funct === null) )
+	   if ( (typeof context.oc_eoc[instruccionAux.oc] !== "undefined") &&
+		       (context.oc_eoc[instruccionAux.oc].eoc === null) )
 	   {
 		 return langError(context,
 				  i18n_get_TagFor('compiler', 'OC ALREADY USED') +
-				  context.oc_funct[instruccionAux.oc].signature) ;
+				  context.oc_eoc[instruccionAux.oc].signature) ;
 	   }
 
-	   if (typeof context.oc_funct[instruccionAux.oc] == "undefined")
+	   if (typeof context.oc_eoc[instruccionAux.oc] == "undefined")
 	   {
-	       context.oc_funct[instruccionAux.oc] = {} ;
-	       context.oc_funct[instruccionAux.oc].signature = instruccionAux.signature ;
-	       context.oc_funt[instruccionAux.oc].funct       = null ;
+	       context.oc_eoc[instruccionAux.oc] = {} ;
+	       context.oc_eoc[instruccionAux.oc].signature = instruccionAux.signature ;
+	       context.oc_eoc[instruccionAux.oc].eoc       = null ;
 	   }
        }
 
        return {} ;
 }
 
-function firm_instruction_check_funct ( context, instruccionAux )
+function firm_instruction_check_eoc ( context, instruccionAux )
 {
 	// semantic check: valid value
-	if (instruccionAux.funct.match("[01]*")[0] != instruccionAux.funct) {
+	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc) {
 	    return langError(context,
-			     i18n_get_TagFor('compiler', 'INCORRECT FUNCT BIN.') +
-			     "'" + instruccionAux.funct + "'") ;
+			     i18n_get_TagFor('compiler', 'INCORRECT EOC BIN.') +
+			     "'" + instruccionAux.eoc + "'") ;
 	}
 
-	// semantic check: 'oc+funct' is not already used
-	if (        (context.oc_funct[instruccionAux.oc].funct != null) &&
-	     (typeof context.oc_funct[instruccionAux.oc].funct[instruccionAux.funct] != "undefined") )
+	// semantic check: 'oc+eoc' is not already used
+	if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
+	     (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
 	{
 	      return langError(context,
-			       i18n_get_TagFor('compiler', 'OC+FUNCT ALREADY USED') +
-			       "'" + context.oc_funct[instruccionAux.oc].funct[instruccionAux.funct] + "'") ;
+			       i18n_get_TagFor('compiler', 'OC+EOC ALREADY USED') +
+			       "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
 	}
-	if (context.oc_funct[instruccionAux.oc].funct == null)
-	    context.oc_funct[instruccionAux.oc].funct = {};
-	    context.oc_funct[instruccionAux.oc].funct[instruccionAux.funct] = instruccionAux.signature ;
+	if (context.oc_eoc[instruccionAux.oc].eoc == null)
+	    context.oc_eoc[instruccionAux.oc].eoc = {};
+	    context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
 
        return {} ;
 }
@@ -147,16 +147,16 @@ function firm_instruction_keystring_read ( context, instruccionAux )
 function firm_instruction_field_read_v2 ( context, instruccionAux )
 {
         var tmp_fields = {} ;
-	var field_list = ["oc", "funct", "reg", "imm", "address-rel", "address-abs"] ;
-	var complex_field_list = ["address-rel", "address-abs"] ;
+	var field_list = ["oc", "eoc", "reg", "imm", "address-rel", "address-abs"] ;
+	var complex_field_list = ["eoc", "address-rel", "address-abs"] ;
 
         // ...
         // reg(15:19)=rs1,
         // ...
 
-	// match mandatory FIELD-type: oc|funct|reg|imm|address-rel|address-abs
+	// match mandatory FIELD-type: oc|eoc|reg|imm|address-rel|address-abs
 	if ( !isToken_arr(context, field_list) ) {
-		return langError(context, "Incorrect type of field (oc, funct, reg, imm, address-rel or address-abs)") ;
+		return langError(context, "Incorrect type of field (oc, eoc, reg, imm, address-rel or address-abs)") ;
 	}
 
 	tmp_fields.type = getToken(context) ;
@@ -352,7 +352,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 	// match mandatory FIELD
 	var tmp_name = getToken(context) ;
 
-        if (["oc", "funct"].includes(tmp_fields.type))
+        if (["oc", "eoc"].includes(tmp_fields.type))
         {
                 tmp_fields.value = tmp_name ; // oc(8,7)=*10101*
         }
@@ -408,7 +408,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 // li reg val offset {
 //            *[nwords=1,]
 //              oc(31,26)=000000,
-//             [funct(31,26)=000000,]
+//             [eoc(31,26)=000000,]
 //              reg(25,21)=reg,
 //              imm(15,0)=val,
 //              address-rel(12|10:5|4:1|11)=offset,
@@ -447,31 +447,31 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
                    oc_inserted = 1 ;
 	       }
 
-	       // match optional funct
-          else if (isToken(context,"funct"))
+	       // match optional eoc
+          else if (isToken(context,"eoc"))
 	       {
 		   ret = firm_instruction_field_read_v2(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
 
-                   instruccionAux.funct = ret.value ;
+                   instruccionAux.eoc = ret.value ;
 
-                   ret = firm_instruction_check_funct(context, instruccionAux) ;
+                   ret = firm_instruction_check_eoc(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
 	       }
 
-	       // match optional funct
-          else if (isToken(context,"funct"))
+	       // match optional eoc
+          else if (isToken(context,"eoc"))
 	       {
 		   ret = firm_instruction_field_read_v2(context, instruccionAux) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
  
-                   instruccionAux.fields_funct.push(ret.value) ;
+                   instruccionAux.fields_eoc.push(ret.value) ;
 	       }
 
 	       // match optional "nwords"
@@ -545,13 +545,14 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 			    i18n_get_TagFor('compiler', 'NO FIELD')) ; // TODO
        }
 
-       // semantic check: valid pending value (funct.length if native.false)
+       // semantic check: valid pending value (eoc.length if native.false)
        if ( (instruccionAux["is_native"] === false) &&
-	    (typeof instruccionAux.funct   !== 'undefined') &&
-	    (instruccionAux.funct.length   !== xr_info.ir.default_eltos.funct.length) )
+	    (typeof instruccionAux.eoc   !== 'undefined') &&
+	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.length) &&
+	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.funct3.length))
        {
 	    return langError(context,
-			     i18n_get_TagFor('compiler', 'BAD FUNCT BIN. LEN.') +
+			     i18n_get_TagFor('compiler', 'BAD EOC BIN. LEN.') +
 			     "'" + getToken(context) + "'") ;
        }
 
