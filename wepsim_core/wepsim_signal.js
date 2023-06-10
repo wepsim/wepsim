@@ -77,7 +77,7 @@
 				       '         value="' + n + '" ' + str_checked + '/>' +
 				       '  <span class="badge bg-secondary badge-pill">' + n + '</span>' + '&nbsp;' +
 				       '  <span>' + behav_str + '</span>&nbsp;' + str_bolded +
-				       '  <p class="m-0 ml-3 bg-light collapse collapse7"><small>' + behav_raw + '</small></p>' +
+				       '  <p class="m-0 ml-3 bg-body-tertiary collapse collapse7"><small>' + behav_raw + '</small></p>' +
 				       '</label>' +
 				       '</li>' ;
 		    }

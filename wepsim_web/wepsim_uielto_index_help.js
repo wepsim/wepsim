@@ -181,7 +181,7 @@
             {
     	        fmt_header = "" ;
     	        if (e_utype != helps[m].u_type) {
-    		    fmt_header = "<div class='float-none text-end text-capitalize fw-bold col-12 border-bottom border-secondary bg-white sticky-top mb-2'>" +
+    		    fmt_header = "<div class='float-none text-end text-capitalize fw-bold col-12 border-bottom border-secondary bg-body sticky-top mb-2'>" +
     			         helps[m].u_type +
     			         "</div>" ;
     		}
@@ -198,7 +198,7 @@
                                    "simcore_ga('help', 'help.index', 'help.index." + m + "');" ;
 
     	        if (fmt_toggle === "")
-    	            fmt_toggle = "bg-light" ;
+    	            fmt_toggle = "bg-body-tertiary" ;
     	       else fmt_toggle = "" ;
 
     	        if (m % 2 == 0)
@@ -211,7 +211,7 @@
 
     		o = o + fmt_header +
     			'<div class="col-xs-5 col-lg-4 py-1 ' + toggle_cls + '">' +
-    			'    <span class="badge rounded-pill text-bg-light me-2">' + t_index + '</span>' +
+    			'    <span class="badge rounded-pill text-secondary me-2">' + t_index + '</span>' +
     			'    <button class="btn btn-md bg-success text-white text-truncate text-wrap border p-0 w-75" ' +
                         '          style="cursor:pointer;" ' +
     			'          id="help_index_' + m + '" ' +

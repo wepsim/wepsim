@@ -33,7 +33,7 @@ def ecall_pre(fout):
     down_i = 120
     for up_i in range(32):
         if up_i != 2:
-           fout.write("sw x", up_i, ",  ", down_i, "(sp)\n")
+            fout.write("sw x", up_i, ",  ", down_i, "(sp)\n")
         down_i = down_i - 4
 
 # ecall - epilog
@@ -41,7 +41,7 @@ def ecall_post(fout):
     down_i = 120
     for up_i in range(32):
         if up_i != 2:
-           fout.write("lw x", up_i, ",  ", down_i, "(sp)\n")
+            fout.write("lw x", up_i, ",  ", down_i, "(sp)\n")
         down_i = down_i - 4
     fout.write("addi sp, sp, 128\n")
     fout.write("###############\n")
@@ -172,9 +172,9 @@ def do_cmd(req_data, cmd_array):
     result   = subprocess.run(cmd_array, capture_output=False)
 
     if result.stdout != None:
-       req_data['status'] += result.stdout.decode('utf-8') + '\n'
+        req_data['status'] += result.stdout.decode('utf-8') + '\n'
     if result.returncode != None:
-       req_data['error']   = result.returncode
+        req_data['error']   = result.returncode
 
     return req_data['error']
 
@@ -196,17 +196,17 @@ def do_flash_request(request):
         # transform th temporal assembly file
         error = creator_build('tmp_assembly.s', "main/program.s");
         if error != 0:
-           req_data['status'] += 'Error adapting assembly file...\n'
+            req_data['status'] += 'Error adapting assembly file...\n'
 
         # flashing steps...
         if error == 0:
-           error = do_cmd(req_data, ['idf.py',  'fullclean'])
+            error = do_cmd(req_data, ['idf.py',  'fullclean'])
         if error == 0:
-           error = do_cmd(req_data, ['idf.py',  'set-target', target_board])
+            error = do_cmd(req_data, ['idf.py',  'set-target', target_board])
         if error == 0:
-           error = do_cmd(req_data, ['idf.py', 'build'])
+            error = do_cmd(req_data, ['idf.py', 'build'])
         if error == 0:
-           error = do_cmd(req_data, ['idf.py', '-p', target_device, 'flash'])
+            error = do_cmd(req_data, ['idf.py', '-p', target_device, 'flash'])
 
     except Exception as e:
         req_data['status'] += str(e) + '\n'

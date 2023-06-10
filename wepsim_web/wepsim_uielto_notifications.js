@@ -50,7 +50,7 @@
 
                     // build HTML
 		    o1 += "<div class='card border-secondary h-100'>" +
-			  "<div class='card-header border-light text-secondary bg-light p-1'>" +
+			  "<div class='card-header border-light text-secondary bg-body-tertiary p-1'>" +
 		          "  + <span data-langkey='Recent'>Recent</span>" +
                           "  <div class='dropdown float-end'>" +
                           "  <button class='btn btn-sm btn-outline-secondary text-danger py-1 dropdown-toggle' " +
@@ -82,7 +82,7 @@
                           // placeholder
                           "</div>" +
 			  "</div>" +
-			  "<div class='card-footer border-light text-secondary bg-light p-1'>" +
+			  "<div class='card-footer border-light text-secondary bg-body-tertiary p-1'>" +
 		          "  - <span data-langkey='Recent'>Recent</span>" +
 			  " </div>" +
 			  "</div>" ;

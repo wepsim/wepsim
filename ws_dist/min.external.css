@@ -862,7 +862,6 @@ li.CodeMirror-hint-active {
 .modal-header {
 	padding: 7px 7px 7px 7px !important;
         border-color: #AAAAAA !important;
-        background-color: #EEEEEE !important;
 }
 .modal-body {
 	padding: 10px 10px 10px 10px !important;
@@ -870,7 +869,6 @@ li.CodeMirror-hint-active {
 .modal-footer {
 	padding: 7px 7px 7px 7px !important;
         border-color: #AAAAAA !important;
-        background-color: #EEEEEE !important;
 }
 
 
