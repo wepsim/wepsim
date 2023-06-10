@@ -149,7 +149,7 @@
             }
 
             // second pass: build html
-            var o  = '<div class="container grid-striped border border-light"><div class="row">' ;
+            var o  = '<div class="container grid-striped border border-tertiary"><div class="row">' ;
             var u  = '' ;
             var l  = '' ;
             var l1 = [] ;

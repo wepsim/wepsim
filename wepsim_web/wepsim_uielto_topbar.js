@@ -35,7 +35,7 @@
 	      render ( event_name )
 	      {
 		    // html holder
-		    var o1 =    '<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">' +
+		    var o1 =    '<nav class="navbar navbar-expand-lg fixed-top p-0 bg-body-secondary">' +
 				'    <span class="navbar-brand me-auto">' +
 				'       <a class="ui-title ps-2 mx-2 text-primary" ' +
                                 '          style="text-decoration: none"' +

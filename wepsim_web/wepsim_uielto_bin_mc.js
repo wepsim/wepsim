@@ -90,11 +90,11 @@
 
                 var filter = simhw_internalState('filter_signals') ;
 
-		var h = "<tr bgcolor='#FF9900'>" +
-                        "<td bgcolor='white'     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" +
-                        "<td bgcolor='lightblue' style='border-style: solid; border-width:1px; border-color:lightgray;'>co</td>" +
-                        "<td bgcolor='#FFCC00'   style='border-style: solid; border-width:1px; border-color:lightgray;' align='center'><small><b>&#181;dir</b></small></td>" +
-                        "<td bgcolor='white'     style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;&nbsp;</td>" ;
+		var h = "<tr>" +
+                        "<td class='           text-dark        border-secondary'></td>" +
+                        "<td class='bg-info    text-dark border border-secondary'>co</td>" +
+                        "<td class='bg-warning text-dark'                         align='center'><small><b>&#181;dir</b></small></td>" +
+                        "<td class='                            border-secondary'>&nbsp;&nbsp;</td>" ;
 		var contSignals=1;
 		for (i=0; i<filter.length; i++)
                 {
@@ -142,8 +142,8 @@
                               madd = "0x" + (mstart + j).toString(16) ;
                          else madd = mstart + j ;
 
-			 line += "<td align='center'  style='border-style: solid; border-width:1px; border-color:lightgray;' bgcolor='white'>" + madd + "</td>" +
-                                 "<td bgcolor='white' style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
+			 line += "<td class='bg-white text-dark' align='center'  style='border-style: solid; border-width:1px; border-color:lightgray;'>" + madd + "</td>" +
+                                 "<td  style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
 			 var mins = mcode[j] ;
 		         for (var k=0; k<filter.length; k++)
 			 {

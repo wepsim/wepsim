@@ -377,7 +377,7 @@
 
     function quickcfg_html_br ( )
     {
-	 return "<div class='w-100 border border-light'></div>" ;
+	 return "<div class='w-100 border border-tertiary'></div>" ;
     }
 
     function quickcfg_html_header ( label2 )

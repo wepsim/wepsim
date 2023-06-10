@@ -176,7 +176,7 @@
                 }
             }
 
-            o = o + '<div class="container grid-striped border border-light">' + '<div class="row py-1">' ;
+            o = o + '<div class="container grid-striped border border-tertiary">' + '<div class="row py-1">' ;
             for (m=0; m<helps.length; m++)
             {
     	        fmt_header = "" ;

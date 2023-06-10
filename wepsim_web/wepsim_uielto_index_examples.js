@@ -225,7 +225,7 @@
                     '&lt;<span data-langkey="Please list example sets...">Please list the available example sets</span>&gt;<br>' ;
             }
 
-            o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
+            o = '<div class="container grid-striped border border-tertiary">' + o + '</div>' ;
             return o ;
         }
 
