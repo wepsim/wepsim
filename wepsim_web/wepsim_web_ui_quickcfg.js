@@ -31,18 +31,6 @@
 	    fun_content:  function() {
 				var o = '<ul class="list-group list-group-flush">' ;
 
-				   o += '<li class="list-group-item px-2 pt-0 pb-2"> ' +
-                                        "<span class='col-6'>" +
-		                        '<em class="fas fa-magic col-1 me-2 mt-1 float-start"></em>&nbsp;' +
-                                        "<span data-langkey='About WepSIM'>About WepSIM</span>" +
-                                        "</span>" +
-				        quickcfg_html_br() +
-                                        quickcfg_html_btn('About us',
-					                  'wsweb_dialog_open(\"about\"); ' +
-					                  'wsweb_quickmenu_close(); return true;',
-							  'col-6 me-auto') +
-					'</li>' ;
-
 				   o += '<li class="list-group-item px-0 pt-2"> ' +
 				        "<span class='container px-0'>" +
 				        "<span class='row p-2'>" +
