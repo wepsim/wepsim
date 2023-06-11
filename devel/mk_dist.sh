@@ -91,6 +91,10 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_poc/sim_hw_scr.js \
     sim_hw/sim_hw_poc/sim_hw_l3d.js \
     sim_hw/sim_hw_poc/sim_hw_ldm.js \
+    sim_hw/sim_hw_rv/sim_rv.js \
+    sim_hw/sim_hw_rv/sim_hw_board.js \
+    sim_hw/sim_hw_rv/sim_hw_cpu.js \
+    sim_hw/sim_hw_rv/sim_hw_mem.js \
     \
     sim_sw/lexical.js \
     sim_sw/firmware/firm_mcode.js \
@@ -321,7 +325,7 @@ jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_s
 DEFAULT_EXAMPLE_SET="examples/examples_set/mips/es_ep_instructive.json examples/examples_set/mips/es_poc_instructive.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/mips/default_instructive.json
 # RV32
-DEFAULT_EXAMPLE_SET="examples/examples_set/rv32/es_ep.json examples/examples_set/rv32/es_poc.json examples/examples_set/rv32/es_ep_native.json examples/examples_set/rv32/es_poc_native.json"
+DEFAULT_EXAMPLE_SET="examples/examples_set/rv32/es_ep.json examples/examples_set/rv32/es_poc.json examples/examples_set/rv32/es_ep_native.json examples/examples_set/rv32/es_poc_native.json examples/examples_set/rv32/es_rv.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/rv32/default.json
 # RV32 instructive
 DEFAULT_EXAMPLE_SET="examples/examples_set/rv32/es_ep_instructive.json examples/examples_set/rv32/es_poc_instructive.json"

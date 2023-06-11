@@ -101,12 +101,92 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
            return ret ;
 }
 
+function find_first_ocfunct ( context, curr_instruction, first_oc, last_oc )
+{
+           var k = 0 ;
+           var m = 0 ;
+
+           var ret = {} ;
+               ret.label_oc  = '' ;
+               ret.label_funct = '' ;
+
+	   // analize if instruction has any field that uses cop bits... -> m points to
+           var funct_overlaps = false ;
+	   for (m=0; m<curr_instruction.fields.length; m++)
+           {
+	        if (curr_instruction.fields[m].stopbit === "0")
+                {
+                    funct_overlaps = true ;
+	   	    break ;
+	        }
+	   }
+
+           // find first free 'oc-funct' code
+	   for (j=first_oc; j<last_oc; j++)
+	   {
+                // new initial oc...
+		ret.label_oc = j.toString(2).padStart(6, "0") ;
+
+                // (1/3) check for free oc-0000...
+		if (typeof context.oc_funct[ret.label_oc] === "undefined")
+                {
+		    context.oc_funct[ret.label_oc]         = {} ;
+		    context.oc_funct[ret.label_oc].withfunct = false ;
+		    return ret ;
+                }
+
+                // (2/3) search for free oc-funct...
+                if (typeof curr_instruction.funct !== "undefined")
+                {
+                    // funct in use... -> skip funct
+		    if (typeof context.oc_funct[ret.label_oc].funct[curr_instruction.funct] !== "undefined") {
+		        continue ;
+		    }
+
+                    // use funct
+		    ret.label_funct = curr_instruction.funct ;
+		    return ret ;
+                }
+
+                // (3/3) check if skip (new instruction overlaps || existing instructions overlap)...
+                if (funct === true) {
+		    continue ;
+                }
+                if (context.oc_funct[ret.label_oc].withfunct === false) {
+		    continue ;
+                }
+
+                // new initial oc-funct...
+                first_funct = 0 ;
+                last_funct  = Math.pow(2, 4) - 1 ;
+		for (k=first_funct; k<last_funct; k++)
+		{
+		     ret.label_funct = k.toString(2).padStart(4, "0") ;
+
+                     if (        (context.oc_funct[ret.label_oc].funct === null) ||
+                          (typeof context.oc_funct[ret.label_oc].funct === 'undefined') )
+                     {
+		          context.oc_funct[ret.label_oc].funct = {};
+                          return ret ;
+                     }
+                     if (typeof context.oc_funct[ret.label_oc].funct[ret.label_funct] === "undefined")
+                     {
+                          return ret ;
+                     }
+		}
+	   }
+
+           return ret ;
+}
+
 function loadFirmware (text)
 {
            var ret = {} ;
 
            var     xr_info = simhw_sim_ctrlStates_get() ;
            var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
+		   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
+		   //var all_ones_oc = "1".repeat(7) ;
 
            var context = {} ;
 	   context.line           	= 1 ;
@@ -117,6 +197,7 @@ function loadFirmware (text)
 	   context.labelsNotFound 	= [] ;
 	   context.instrucciones  	= [] ;
 	   context.co_cop         	= {} ;
+	   context.oc_funct       	= {} ;
 	   context.registers      	= [] ;
            context.text           	= text ;
 	   context.tokens         	= [] ;
@@ -215,7 +296,7 @@ function loadFirmware (text)
 		//             }
 		// }*
 
-               ret = firm_instruction_read(context, xr_info, all_ones_co) ;
+               ret = firm_instruction_read(context, xr_info, all_ones_co, all_ones_oc) ;
 	       if (typeof ret.error != "undefined") {
 	           return ret ;
                }
@@ -250,46 +331,88 @@ function loadFirmware (text)
 		         	i18n_get_TagFor('compiler', 'NO LABEL BEGIN')) ;
            }
 
-           // RESOLVE: co=111111... (111111... === "please, find one free 'co' for me...")
            var ir_info = simhw_sim_ctrlStates_get() ;
-           var ir_co_length = 6 ;
-           if (typeof ir_info !== "undefined") {
-               ir_co_length = ir_info.ir.default_eltos.co.length ;
-           }
-           var first_co = 0 ;
-           var last_co = Math.pow(2, ir_co_length) - 1 ;
-           var last_co_str = last_co.toString(2) ;
+		   if (context.version == 2) {
+			    // RESOLVE: oc=111111... (111111... === "please, find one free 'oc' for me...")
+				var ir_oc_length = 6 ;
+				if (typeof ir_info !== "undefined") {
+					ir_oc_length = ir_info.ir.default_eltos.oc.length ;
+				}
+				var first_oc = 0 ;
+				var last_oc = Math.pow(2, ir_oc_length) - 1 ;
+				var last_oc_str = last_oc.toString(2) ;
 
-           var curr_instruction = null ;
-           for (i=0; i<context.instrucciones.length; i++)
-           {
-                curr_instruction = context.instrucciones[i] ;
+				var curr_instruction = null ;
+				for (i=0; i<context.instrucciones.length; i++)
+				{
+						curr_instruction = context.instrucciones[i] ;
 
-                // skip non-111111... cases
-                if ( (curr_instruction.name === "begin") || (curr_instruction.co !== last_co_str) ) {
-                     continue ;
-                }
+						// skip non-111111... cases
+						if ( (curr_instruction.name === "begin") || (curr_instruction.oc !== last_oc_str) ) {
+							continue ;
+						}
 
-                // find first free 'co-cop' code
-                var r = find_first_cocop(context, curr_instruction, first_co, last_co) ;
-		if (r.j >= last_co) {
-	             return langError(context,
-		         	      i18n_get_TagFor('compiler', 'NO CO CODES')) ;
-		}
+						// find first free 'oc-funct' code
+						var r = find_first_occfunct(context, curr_instruction, first_oc, last_oc) ;
+				if (r.j >= last_oc) {
+						return langError(context,
+								i18n_get_TagFor('compiler', 'NO OC CODES')) ;
+				}
 
-                // work with this free 'co-cop' code
-		first_co = parseInt(r.label_co, 2) ;
+						// work with this free 'oc-funct' code
+				first_oc = parseInt(r.label_oc, 2) ;
 
-		curr_instruction.co = r.label_co ;
-		context.co_cop[r.label_co].signature = curr_instruction.signature ;
+				curr_instruction.oc = r.label_oc ;
+				context.oc_funct[r.label_oc].signature = curr_instruction.signature ;
 
-		if (r.label_cop !== "")
-                {
-		    curr_instruction.cop = r.label_cop ;
-		    context.co_cop[r.label_co].cop[r.label_cop] = curr_instruction.signature ;
-		    context.co_cop[r.label_co].withcop = true ;
-                }
-           }
+				if (r.label_funct !== "")
+						{
+					curr_instruction.funct = r.label_funct ;
+					context.oc_funct[r.label_oc].funct[r.label_funct] = curr_instruction.signature ;
+					context.oc_funct[r.label_oc].withfunct = true ;
+						}
+				}
+		   } else {
+			    // RESOLVE: co=111111... (111111... === "please, find one free 'co' for me...")
+				var ir_co_length = 6 ;
+				if (typeof ir_info !== "undefined") {
+					ir_co_length = ir_info.ir.default_eltos.co.length ;
+				}
+				var first_co = 0 ;
+				var last_co = Math.pow(2, ir_co_length) - 1 ;
+				var last_co_str = last_co.toString(2) ;
+
+				var curr_instruction = null ;
+				for (i=0; i<context.instrucciones.length; i++)
+				{
+						curr_instruction = context.instrucciones[i] ;
+
+						// skip non-111111... cases
+						if ( (curr_instruction.name === "begin") || (curr_instruction.co !== last_co_str) ) {
+							continue ;
+						}
+
+						// find first free 'co-cop' code
+						var r = find_first_cocop(context, curr_instruction, first_co, last_co) ;
+				if (r.j >= last_co) {
+						return langError(context,
+								i18n_get_TagFor('compiler', 'NO CO CODES')) ;
+				}
+
+						// work with this free 'co-cop' code
+				first_co = parseInt(r.label_co, 2) ;
+
+				curr_instruction.co = r.label_co ;
+				context.co_cop[r.label_co].signature = curr_instruction.signature ;
+
+				if (r.label_cop !== "")
+						{
+					curr_instruction.cop = r.label_cop ;
+					context.co_cop[r.label_co].cop[r.label_cop] = curr_instruction.signature ;
+					context.co_cop[r.label_co].withcop = true ;
+						}
+				}
+		   }
 
            // TO RESOLVE labels
 	   var labelsFounded=0;
@@ -334,29 +457,56 @@ function loadFirmware (text)
 	   }
 	   eval(mk_native) ;
 
-           // co_cop_hash
-	   var fico  = 0 ;
-	   var ficop = 0 ;
-	   context.cocop_hash = {} ;
-	   for (var fi in context.instrucciones)
-	   {
-		 if (context.instrucciones[fi].name == "begin") {
-		     continue ;
-		 }
+	   if (context.version == 2) {
+		   // oc_funct_hash
+			var fioc  = 0 ;
+			var fifunct = 0 ;
+			context.ocfunct_hash = {} ;
+			for (var fi in context.instrucciones)
+			{
+				if (context.instrucciones[fi].name == "begin") {
+					continue ;
+				}
 
-		 fico  = context.instrucciones[fi].co ;
-		 if (typeof context.cocop_hash[fico] == "undefined") {
-		     context.cocop_hash[fico] = {} ;
-		 }
+				fioc  = context.instrucciones[fi].oc ;
+				if (typeof context.ocfunct_hash[fioc] == "undefined") {
+					context.ocfunct_hash[fioc] = {} ;
+				}
 
-		 if (typeof context.instrucciones[fi].cop == "undefined") {
-		     context.cocop_hash[fico].withcop = false ;
-		     context.cocop_hash[fico].i       = context.instrucciones[fi] ;
-		 } else {
-		     ficop = context.instrucciones[fi].cop ;
-		     context.cocop_hash[fico].withcop = true ;
-		     context.cocop_hash[fico][ficop]  = context.instrucciones[fi] ;
-		 }
+				if (typeof context.instrucciones[fi].funct == "undefined") {
+					context.ocfunct_hash[fico].withfunct = false ;
+					context.ocfunct_hash[fico].i       = context.instrucciones[fi] ;
+				} else {
+					fifunct = context.instrucciones[fi].funct ;
+					context.ocfunct_hash[fioc].withfunct = true ;
+					context.ocfunct_hash[fioc][fifunct]  = context.instrucciones[fi] ;
+				}
+			}
+	   } else {
+            // co_cop_hash
+			var fico  = 0 ;
+			var ficop = 0 ;
+			context.cocop_hash = {} ;
+			for (var fi in context.instrucciones)
+			{
+				if (context.instrucciones[fi].name == "begin") {
+					continue ;
+				}
+
+				fico  = context.instrucciones[fi].co ;
+				if (typeof context.cocop_hash[fico] == "undefined") {
+					context.cocop_hash[fico] = {} ;
+				}
+
+				if (typeof context.instrucciones[fi].cop == "undefined") {
+					context.cocop_hash[fico].withcop = false ;
+					context.cocop_hash[fico].i       = context.instrucciones[fi] ;
+				} else {
+					ficop = context.instrucciones[fi].cop ;
+					context.cocop_hash[fico].withcop = true ;
+					context.cocop_hash[fico][ficop]  = context.instrucciones[fi] ;
+				}
+			}
 	   }
 
            // revlabels
@@ -368,15 +518,17 @@ function loadFirmware (text)
            // return results
            ret = {} ;
            ret.error              = null ;
+		   ret.version            = context.version ;
            ret.firmware           = context.instrucciones ;
            ret.labels_firm        = context.etiquetas ;
            ret.mp                 = {} ;
            ret.seg                = {} ;
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
-	   ret.stackRegister	  = context.stackRegister ;
-	   ret.cocop_hash	  = context.cocop_hash ;
-	   ret.revlabels	  = context.revlabels ;
+           ret.stackRegister      = context.stackRegister ;
+           ret.cocop_hash         = context.cocop_hash ;
+           ret.oc_funct_hash      = context.oc_funct_hash ;
+           ret.revlabels          = context.revlabels ;
 
            return ret ;
 }
@@ -398,9 +550,19 @@ function saveFirmware ( SIMWARE )
 			file += '\t' +"co=" + SIMWARE.firmware[i].co + "," + '\n';
 		}
 
+		if (typeof SIMWARE.firmware[i].oc != "undefined")
+		{
+			file += '\t' +"oc=" + SIMWARE.firmware[i].oc + "," + '\n';
+		}
+
 		if (typeof SIMWARE.firmware[i].cop != "undefined")
 		{
 			file += '\t' +"cop=" + SIMWARE.firmware[i].cop + "," + '\n';
+		}
+
+		if (typeof SIMWARE.firmware[i].funct != "undefined")
+		{
+			file += '\t' +"funct=" + SIMWARE.firmware[i].funct + "," + '\n';
 		}
 
 		if (typeof SIMWARE.firmware[i].nwords != "undefined")
@@ -414,6 +576,7 @@ function saveFirmware ( SIMWARE )
 			{
 				for (var j=0;j<SIMWARE.firmware[i].fields.length;j++)
 				{
+					//CAMBIAR, HAY RANGOS SEPARADOS
 					file += '\t' + SIMWARE.firmware[i].fields[j].name + " = " + SIMWARE.firmware[i].fields[j].type;
 					file += "(" + SIMWARE.firmware[i].fields[j].startbit + "," + SIMWARE.firmware[i].fields[j].stopbit + ")";					
 					if (SIMWARE.firmware[i].fields[j].type == "address")
@@ -529,30 +692,58 @@ function saveFirmware ( SIMWARE )
 
 function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
-    var ret = {
-                 "oinstruction": null,
-                  op_code: 0,
-                 cop_code: 0
-              } ;
+	if (curr_firm.version == 2) {
+		var ret = {
+					"oinstruction": null,
+					op_code: 0,
+					funct: 0
+				} ;
 
-    // instructions as 32-string
-    var bits = binstruction.toString(2).padStart(32, "0") ;
+		// instructions as 32-string
+		var bits = binstruction.toString(2).padStart(32, "0") ;
 
-    // op-code
-    var co = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length);
-    ret.op_code = parseInt(co, 2) ;
+		// op-code
+		var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
+		ret.op_code = parseInt(oc, 2) ;
 
-    // cop-code
-    var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
-    ret.cop_code = parseInt(cop, 2) ;
+		// funct
+		var funct = bits.substr(ep_ir.default_eltos.funct.begin, ep_ir.default_eltos.funct.length);
+		ret.funct = parseInt(funct, 2) ;
 
-    if ("undefined" == typeof curr_firm.cocop_hash[co]) {
-        return ret ;
-    }
+		if ("undefined" == typeof curr_firm.ocfunct_hash[oc]) {
+			return ret ;
+		}
 
-    if (false == curr_firm.cocop_hash[co].withcop)
-         ret.oinstruction = curr_firm.cocop_hash[co].i ;
-    else ret.oinstruction = curr_firm.cocop_hash[co][cop] ;
+		if (false == curr_firm.ocfunct_hash[oc].withfunct)
+			ret.oinstruction = curr_firm.ocfunct_hash[oc].i ;
+		else ret.oinstruction = curr_firm.ocfunct_hash[oc][funct] ;
+
+	} else {
+		var ret = {
+					"oinstruction": null,
+					op_code: 0,
+					cop_code: 0
+				} ;
+
+		// instructions as 32-string
+		var bits = binstruction.toString(2).padStart(32, "0") ;
+
+		// op-code
+		var co = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length);
+		ret.op_code = parseInt(co, 2) ;
+
+		// cop-code
+		var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
+		ret.cop_code = parseInt(cop, 2) ;
+
+		if ("undefined" == typeof curr_firm.cocop_hash[co]) {
+			return ret ;
+		}
+
+		if (false == curr_firm.cocop_hash[co].withcop)
+			ret.oinstruction = curr_firm.cocop_hash[co].i ;
+		else ret.oinstruction = curr_firm.cocop_hash[co][cop] ;
+	}
 
     return ret ;
 }
