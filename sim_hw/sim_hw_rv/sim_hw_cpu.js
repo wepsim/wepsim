@@ -163,9 +163,11 @@
 		                    state: "REG_IR",
 		                    default_eltos:	{
 					    			"co":	{ "begin":  0, "end":  5, "length": 6 },
-								"cop":	{ "begin": 28, "end": 31, "length": 4 },
-								"oc":	{ "begin":  0, "end":  6, "length": 7 },
-								"funct":{ "begin": 12, "end": 14, "length": 3 }
+								"cop":		{ "begin": 28, "end": 31, "length": 4 },
+								"oc":		{ "begin":  0, "end":  6, "length": 7 },
+								"funct3":	{ "begin": 12, "end": 14, "length": 3 },
+								"funct7":	{ "begin": 25, "end": 31, "length": 7 },
+								"eoc":		{ "bits": [[25,31], [12,14]], "length": 10}
 							},
 		                    is_pointer: false
 	                         } ;
@@ -439,6 +441,7 @@
 				   draw_name: [['svg_p:path7133', 'svg_p:path7143', 'svg_p:path7147', 'svg_p:path7135']] };
 
 	/* IR REGISTER */
+	/*
 	//Read immediate value
 	sim.rv.signals["R_IMM"] = { name: "R_IMM", visible: true, type: "L", value: 0, default_value:20, nbits: "5",
 			        behavior:  ["NOP"],
@@ -450,6 +453,33 @@
 				   fire_name: ['svg_p:text7309'],
 				   draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
 				   draw_name: [['svg_p:path7301']] };
+	*/
+
+	sim.rv.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
+					behavior: ["NOP", "LOAD REG_IR RDATA; DECO"],
+					fire_name: ['svg_p:text7309'],
+					draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
+					draw_name: [['svg_p:path7301']] };
+	sim.rv.signals["SIZE"] = { name: "SIZE", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+					behavior: ["NOP"],
+					fire_name: [],
+					draw_data: [[]],
+					draw_name: [[]] };
+	sim.rv.signals["GEN_IMM"] = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+					behavior: ["NOP", "MBITS VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM"],
+					fire_name: [],
+					draw_data: [[]],
+					draw_name: [[]] };
+	sim.rv.signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+					behavior: ["NOP"],
+					fire_name: [],
+					draw_data: [[]],
+					draw_name: [[]] };
+	sim.rv.signals["SE_IMM"] = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+					behavior: ["NOP", "NOP"],
+					fire_name: [],
+					draw_data: [[]],
+					draw_name: [[]] };
 
 	/* OUT REGISTER */
 	sim.rv.signals["WOUT"] = { name: "WOUT", visible: true, type: "E", value: 0, default_value:0, nbits: "1",

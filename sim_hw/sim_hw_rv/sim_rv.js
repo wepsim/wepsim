@@ -27,7 +27,7 @@
                        sim_name:            "RISC-V Processor",
                        sim_short_name:      "rv",
                        sim_img_processor:   "examples/hardware/rv/images/processor.svg",
-                       sim_img_controlunit: "examples/hardware/rv/images/controlunit.svg",
+                       sim_img_controlunit: "",
                        sim_img_cpu:         "examples/hardware/rv/images/cpu.svg",
 
                        components:          {},

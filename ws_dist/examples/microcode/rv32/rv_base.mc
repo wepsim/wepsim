@@ -22,12 +22,13 @@ lui rd inm{
       inm=inm(24,20),
       help='rd = (inm << 12)',
       {
-          (RW),
+          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
           # TODO: rd <- lui(imm)
           (M2, M3=10, AluOp=1010, WOut),
           (RW, CU=11)
       }
 }
+
 
 
 #  AND rd,rs1,rs2         And                                 rd ← ux(rs1) ∧ ux(rs2)
@@ -54,7 +55,7 @@ andi rd rs1 inm {
       inm=inm(24,20),
       help='rd = rs1 & inm',
       {
-          (RW),
+          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
           (M2, M3=10, AluOp=0001, WOut),
           (RW, CU=11)
       }
@@ -84,7 +85,7 @@ ori rd rs1 inm {
       inm=inm(24,20),
       help='rd = rs1 | inm',
       {
-          (RW),
+          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
           (M2, M3=10, AluOp=0010, WOut),
           (RW, CU=11)
       }
@@ -114,7 +115,7 @@ xori rd rs1 inm {
       inm=inm(24,20),
       help='rd = ux(rs1) ^ ux(inm)',
       {
-          (RW),
+          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
           (M2, M3=10, AluOp=0100, WOut),
           (RW, CU=11)
       }
@@ -144,7 +145,7 @@ addi rd rs1 inm {
       inm=inm(24,20),
       help='rd = rs1 + SignEx(inm)',
       {
-          (RW),
+          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
           (M2, M3=10, AluOp=1010, WOut),
           (RW, CU=11)
       }
@@ -175,7 +176,7 @@ subi rd rs1 inm {
       inm=inm(24,20),
       help='rd = rs1 - SignEx(inm)',
       {
-          (RW),
+          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
           (M2, M3=10, AluOp=1011, WOut),
           (RW, CU=11)
       }
