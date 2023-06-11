@@ -51,7 +51,7 @@
 
                     // build HTML
 		    o1 += '<div class="container">' +
-			  '<div class="row justify-content-center w-100 my-2 mx-0 sticky-top bg-white">' +
+			  '<div class="row justify-content-center w-100 my-2 mx-0 sticky-top bg-body">' +
 			  '<input id="' + id_search + '" ' +
 			  '       onkeyup="var value=$(this).val().toLowerCase();' +
 			  '	             $(\'.table2 tr\').filter(function() {' +

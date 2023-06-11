@@ -71,7 +71,7 @@
         {
              o = "" ;
 
-             o += "<div class='card mb-1'>" +
+             o += "<div class='card mb-2'>" +
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_1'>" +
                   "    <h5 class='m-0'>" +
                   "            <a data-bs-toggle='collapse' href='#states3' class='btn btn-sm fs-5 float-start p-0'><span class='text-white bg-dark' data-langkey='Current State'>Current State</span></a>:&nbsp;" +
@@ -163,7 +163,7 @@
         {
              o = "" ;
 
-             o += "<div class='card mb-1'>" +
+             o += "<div class='card mb-2'>" +
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_2'>" +
                   "    <h5 class='m-0'>" +
                   "          <a data-bs-toggle='collapse' href='#history3' class='btn btn-sm fs-5 float-start p-0'><span class='text-white bg-dark' data-langkey='History'>History</span></a>:&nbsp;" +
@@ -175,14 +175,14 @@
                   "                    ><span data-langkey='Reset'>Reset</span><span class='d-none d-sm-inline-flex'>&nbsp;<span data-langkey='history'>history</span></span></button>" +
                   "            </button>" +
                   "            <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
-                  "             <a class='dropdown-item py-2 bg-white text-danger' type='button' " +
+                  "             <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
                   "                onclick='wepsim_state_history_reset();" +
                   "                         wepsim_notify_success(\"<strong>INFO</strong>\", \"Removed all !.\");" +
                   "                         wepsim_state_history_list() ;" +
                   "                         return false;'" +
                   "                 ><span data-langkey='Yes'>Yes</span></a>" +
                   "              <div class='dropdown-divider'></div>" +
-                  "              <a class='dropdown-item py-2 bg-white text-info' type='button' " +
+                  "              <a class='dropdown-item py-2 bg-body text-info' type='button' " +
                   "                 ><span data-langkey='No'>No</span></a>" +
                   "            </div>" +
                   "          </div>" +
@@ -310,7 +310,7 @@
                       '       </div>' +
                       '       <div class="col py-2 ps-0">' +
                       '             <div class="btn-group float-none" role="group" aria-label="State information for ' + it + '">' +
-                      '                   <button class="btn btn-outline-dark btn-sm col-auto float-end"' +
+                      '                   <button class="btn btn-outline-secondary btn-sm col-auto float-end"' +
                       '                           onclick="wepsim_state_results_empty();  ' +
                       '                                    $(\'#collapse_' + i + '\').collapse(\'show\'); ' +
                       '                                    wepsim_clipboard_CopyFromDiv(\'state_' + i + '\');  ' +
@@ -318,7 +318,7 @@
                       '                                    $(\'#s_clip\').html(\'' + ws_info.state_history[i].title_short + '\'); ' +
                       '                                    $(\'#s_ref\').html(\'reference\'); " ' +
                       '                           type="button"><span data-langkey="Copy">Copy</span><span class="d-none d-sm-inline-flex">&nbsp;<span data-langkey="to clipboard">to clipboard</span></span></button>' +
-                      '                   <button class="btn btn-outline-dark btn-sm col-auto float-end"' +
+                      '                   <button class="btn btn-outline-secondary btn-sm col-auto float-end"' +
                       '                           onclick="var txt_chklst1 = get_clipboard_copy();' +
                       '                                    var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);' +
                       '                                    var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
@@ -327,7 +327,7 @@
                       '                                    $(\'#s_ref\').html(\'' + ws_info.state_history[i].title_short + '\'); ' +
                       '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
                       '                           type="button"><span data-langkey="Check">Check</span> <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
-                      '                   <button class="btn btn-outline-dark btn-sm col-auto float-end"' +
+                      '                   <button class="btn btn-outline-secondary btn-sm col-auto float-end"' +
                       '                                data-bs-toggle="collapse" data-bs-target="#collapse_'+i+'">&plusmn; <span data-langkey="Show">Show</span></button>' +
                       '             </div>' +
                                     tt +

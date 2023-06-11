@@ -209,7 +209,7 @@ function langError ( context, msgError )
 
         // print lines
         context.error = "<br>" +
-                        "<pre class='border rounded p-3' style='background-color: inherit !important'>" +
+                        "<pre class='border rounded p-3 bg-dark text-white'>" +
                         "...\n" ;
         for (var i=lowI; i<highI; i++)
         {

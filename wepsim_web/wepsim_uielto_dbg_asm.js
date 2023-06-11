@@ -39,7 +39,7 @@
 		             "<div id='asm_table' style='overflow-x:auto; -webkit-overflow-scrolling:touch;'>" +
 		   	     "<table class='table table-hover table-table-striped' style='margin-bottom:0px; min-width:700px;'>" +
 		   	     "<thead>" +
-			     "<tr style='border-top:2pt solid white;'>" +
+			     "<tr>" +
 			     "<th width='1%'>" +
 			     "<a tabindex='0' href='#' class='multi-collapse-3 collapse show' " +
                              "   data-bs-toggle='popover2' id='popover2_asm'>" +
@@ -732,9 +732,9 @@
                     $("span[rel='tooltip2']").tooltip({
                             trigger:   'click',
                             html:       true,
-                            title:      function() {
+                            title:      function(obj) {
                                            $("span[rel='tooltip1']").tooltip('hide') ;
-				           var l = this.getAttribute('data-l') ;
+				           var l = $(obj).attr('data-l') ;
                                            var curr_mp = simhw_internalState('MP') ;
                                            return instruction2tooltip(curr_mp, l) ;
                                         },

@@ -100,7 +100,7 @@
 
 		   o += '<li class="list-group-item px-0 d-grid"> ' +
 			'<label class="w-100"><span data-langkey="Reload">Reload</span>...:</label>' +
-			"   <div class='btn btn-sm btn-outline-dark p-1 col-8 mx-auto' " +
+			"   <div class='btn btn-sm btn-outline-secondary p-1 col-8 mx-auto' " +
 			"        aria-label='open the reload dialog box' " +
 			"        onclick=\"wsweb_quickslider_close(); " +
 			"                  wsweb_dialog_open('reload'); " +
@@ -400,7 +400,7 @@
 	 var wsi = get_cfg('ws_idiom') ;
 
          return '<span class="btn-group-toggle ' + colwidth2 + '" data-bs-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-dark p-1 text-start float-end" ' +
+		'  <label class="btn btn-sm btn-outline-secondary p-1 text-start float-end" ' +
                 '         data-bs-toggle="collapse" href="' + label2 + '">' +
 		'<input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
 		'<span class="mx-auto px-1 fw-bold rounded bg-info-subtle text-body" ' +
