@@ -284,8 +284,8 @@
 		     // join the pieces...
 		     if (typeof a2s[p] !== "undefined")
 		     {
-			 o += "<tr bgcolor='#FEFEFE'>" +
-			      "<td class='sticky-top bg-white' colspan='7' align='left' style='line-height:0.3;'>" +
+			 o += "<tr>" +
+			      "<td class='sticky-top bg-body' colspan='7' align='left' style='line-height:0.3;'>" +
                               "<small><font color='gray'>" + a2s[p] + "</font></small>" +
                               "</td>" +
 			      "</tr>" ;

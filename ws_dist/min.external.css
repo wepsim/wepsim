@@ -17,6 +17,17 @@
    background-color: #070c15 !important;
 }
 
+
+.data-theme-dark {
+   filter: invert(92%) hue-rotate(182deg) !important;
+   background-color: #10100F !important;
+}
+
+.data-theme-nodark {
+   filter: invert(100%) hue-rotate(178deg) !important;
+   background-color: #070C15 !important;
+}
+
 /* BASICS */
 
 .CodeMirror {
