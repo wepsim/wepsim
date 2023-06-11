@@ -3,9 +3,11 @@
 
 ## 2.2.2 -> 2.3.0:
 * Main improvements:
-  * Added firmware version 2
+  * Initial version based on bootstrap 5.3.x colors
+  * Added firmware version 2 support
 * Main external dependencies updated:
   * Bump bootstrap from 5.2.3 to 5.3.0
+  * Bump jquery    from 3.6.0 to 3.7.0
 
 ## 2.2.1 -> 2.2.2:
 * Main improvements:

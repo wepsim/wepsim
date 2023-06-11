@@ -65,14 +65,13 @@
 	      render_btns ( name )
 	      {
                     var o = '' ;
-		    var o_style = 'style="background-color:#CCCCCC;"' ;
 
                     // load html
                     switch (name)
                     {
                        case "btn_reset":
-			     o += '<button id="btn_reset_' + this.name_str + '" ' + o_style +
-				  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary"' +
+			     o += '<button id="btn_reset_' + this.name_str + '" ' +
+				  '        class="btn bg-body-secondary col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="t" ' +
 				  '        onclick="wsweb_execution_reset();' +
 				  '                 return false;">' ;
@@ -83,8 +82,8 @@
                                   break ;
 
                        case "btn_emins":
-			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary user_microcode"' +
+			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' +
+		                  '        class="btn bg-body-secondary col pb-1 px-1 me-1 border-secondary user_microcode"' +
 		                  '        accesskey="m" ' +
 			          '        onclick="wsweb_execution_microinstruction();' +
                                   '                 return false;">' ;
@@ -95,8 +94,8 @@
                                   break ;
 
                        case "btn_eins":
-			     o += '<button id="btn_next_instruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary"' +
+			     o += '<button id="btn_next_instruction_' + this.name_str + '"' +
+		                  '        class="btn bg-body-secondary col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="i" ' +
 			          '        onclick="wsweb_execution_instruction();' +
                                   '                 return false;">' ;
@@ -107,8 +106,8 @@
                                   break ;
 
                        case "btn_run":
-			     o += '<button id="btn_run_stop_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary"' +
+			     o += '<button id="btn_run_stop_' + this.name_str + '"' +
+		                  '        class="btn bg-body-secondary col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="r" ' +
                                   '        onclick="wsweb_execution_run();' +
                                   '                 return false;">' ;
@@ -120,8 +119,8 @@
 
                        case "btn_rnf":
 			     o += '<div class="btn-group col py-0 pe-1" role="group">' +
-                                  '<button id="btn_run_stop_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light border-secondary w-75"' +
+                                  '<button id="btn_run_stop_' + this.name_str + '"' +
+		                  '        class="btn bg-body-secondary border-secondary w-75"' +
 		                  '        accesskey="r" ' +
                                   '        onclick="wsweb_execution_run();' +
                                   '                 return false;">' ;
@@ -130,8 +129,8 @@
                              o += '<span class="fw-bold" data-langkey="Run">Run</span>' +
                                   '</button>' +
                                   '' +
-                                  '<button type="button" ' + o_style +
-                                  '        class="btn dropdown-toggle dropdown-toggle-split border-secondary w-25" ' +
+                                  '<button type="button" ' +
+                                  '        class="btn dropdown-toggle dropdown-toggle-split border-secondary bg-body-secondary w-25" ' +
                                   '        data-bs-toggle="dropdown" aria-expanded="false">' +
                                   '  <span class="visually-hidden">Toggle Dropdown</span>' +
                                   '</button>' +

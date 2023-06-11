@@ -125,16 +125,16 @@
 
             // document
 	    if (adm === false)
-                 document.documentElement.setAttribute('data-theme', 'light') ;
-            else document.documentElement.setAttribute('data-theme', 'dark') ;
+                 document.documentElement.setAttribute('data-bs-theme', 'light') ;
+            else document.documentElement.setAttribute('data-bs-theme', 'dark') ;
 
             // skipped elements
 	    o = document.querySelectorAll('.no-dark-mode') ;
             for (var i=0; i<o.length; i++)
             {
 	         if (adm === false)
-	              o[i].removeAttribute('data-theme', 'nodark') ;
-	         else o[i].setAttribute('data-theme',    'nodark') ;
+	              o[i].removeAttribute('data-bs-theme', 'nodark') ;
+	         else o[i].setAttribute('data-bs-theme',    'nodark') ;
             }
 
 	    return true ;

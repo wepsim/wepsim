@@ -122,7 +122,7 @@
 			  "<div class='row justify-content-center'>" +
 
 		          "<div class='col-auto p-2'>" +
-			  "<div class='card bg-light'>" +
+			  "<div class='card bg-body-tertiary'>" +
                           " <h5 class='card-header text-center p-2'>" +
                           "<span data-langkey='Instructions'>Instructions</span><br>" +
                           " </h5>" +
@@ -133,7 +133,7 @@
 			  "</div>" +
 
 		          "<div class='col-auto p-2'>" +
-			  "<div class='card bg-light'>" +
+			  "<div class='card bg-body-tertiary'>" +
                           " <h5 class='card-header text-center p-2'>" +
                           "<span data-langkey='CLK ticks'>CLK ticks</span><br>" +
                           " </h5>" +
@@ -144,7 +144,7 @@
 			  "</div>" +
 
 		          "<div class='col-auto p-2'>" +
-			  "<div class='card bg-light'>" +
+			  "<div class='card bg-body-tertiary'>" +
                           " <h5 class='card-header text-center p-2'>" +
                           "<span data-langkey='Accumulated msec.'>Accumulated msec.</span><br>" +
                           " </h5>" +
@@ -155,7 +155,7 @@
 			  "</div>" +
 
 		          "<div class='col-auto p-2'>" +
-			  "<div class='card bg-light'>" +
+			  "<div class='card bg-body-tertiary'>" +
                           " <h5 class='card-header text-center p-2'>" +
                           "<span data-langkey='Accumulated energy'>Accumulated energy</span><br>" +
                           " </h5>" +

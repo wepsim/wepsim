@@ -17,6 +17,17 @@
    background-color: #070c15 !important;
 }
 
+
+.data-theme-dark {
+   filter: invert(92%) hue-rotate(182deg) !important;
+   background-color: #10100F !important;
+}
+
+.data-theme-nodark {
+   filter: invert(100%) hue-rotate(178deg) !important;
+   background-color: #070C15 !important;
+}
+
 /* BASICS */
 
 .CodeMirror {
@@ -862,7 +873,6 @@ li.CodeMirror-hint-active {
 .modal-header {
 	padding: 7px 7px 7px 7px !important;
         border-color: #AAAAAA !important;
-        background-color: #EEEEEE !important;
 }
 .modal-body {
 	padding: 10px 10px 10px 10px !important;
@@ -870,7 +880,6 @@ li.CodeMirror-hint-active {
 .modal-footer {
 	padding: 7px 7px 7px 7px !important;
         border-color: #AAAAAA !important;
-        background-color: #EEEEEE !important;
 }
 
 

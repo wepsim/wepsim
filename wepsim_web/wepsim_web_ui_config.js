@@ -46,7 +46,7 @@
 		        "     style='height:6vh; min-height:30px;'" +
 		        "     onclick=\"$('#img_select1').attr('src',        'images/stop/stop_" + elto + ".gif');" +
 		        "               $('#img_select1').attr('class',      '" + ws_info.breakpoint_icon_list[elto].addclass + "');" +
-		        "               $('#img_select1').attr('data-theme', '');" +
+		        "               $('#img_select1').attr('data-bs-theme', '');" +
 		        "	        set_cfg('ICON_theme','" + elto + "'); save_cfg();" +
                         "               wepsim_popover_hide('breakpointicon1');" +
                         "               wepsim_uicfg_apply();\">" ;
@@ -145,13 +145,13 @@
     {
          return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-bs-toggle='buttons'>" +
                 "    <label id='label" + id2 + "-false' " +
-                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
+                "           class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                 "           aria-label='" + arial2 + ": false' " +
 		"           onclick=\"" + code_off2 + "; return true;\">" +
                 "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-false' " +
                 "           aria-label='" + arial2 + ": false' autocomplete='off'>" + name_off + "</label>" +
                 "    <label id='label" + id2 + "-true' " +
-                "           class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
+                "           class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                 "           aria-label='" + arial2 + ": true' " +
 		"           onclick=\"" + code_on2 + "; return true;\">" +
                 "    <input type='radio' class='btn-check' name='options' id='radio" + id2 + "-true' " +
@@ -165,13 +165,13 @@
     {
          return "<div class='col-12 p-0 btn-group btn-group-toggle d-flex' data-bs-toggle='buttons'>" +
                 "  <label id='label" + id2 + "-" + val_off + "' " +
-                "         class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
+                "         class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                 "         aria-label='" + arial2 + ": " + val_off + "' " +
 		"         onclick=\"" + code_off2 + "; return true;\">" +
                 "  <input type='radio' class='btn-check' name='options' id='radio"+id2+"-"+val_off+"' " +
                 "         aria-label='" + arial2 + ": "+val_off+"' autocomplete='off'>"+name_off+"</label>" +
                 "  <label id='label" + id2 + "-" + val_on + "' " +
-                "         class='btn btn-sm btn-light w-50 btn-outline-secondary p-1 fw-bold' " +
+                "         class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                 "         aria-label='" + arial2 + ": " + val_on + "' " +
 		"         onclick=\"" + code_on2 + "; return false;\">" +
                 "  <input type='radio' class='btn-check' name='options' id='radio"+id2+"-"+val_on+"' " +
