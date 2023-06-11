@@ -147,7 +147,7 @@
 			      	" <div class='card-body'>" +
 		                "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
 	                        "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs'" +
-                                "          class='form-control btn-outline-dark' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" +
+                                "          class='form-control btn-outline-secondary' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" +
 			     	" </div>" +
 			   	"</div>" +
                                "</div>" +
@@ -717,7 +717,7 @@
                                     "             return false;'" +
                                     "   ></ws-save-file>" +
                                     "   <input aria-label='associated tag to be saved' id='tagToSave1'" +
-                                    "          class='form-control btn-outline-dark' " +
+                                    "          class='form-control btn-outline-secondary' " +
                                     "          type='hidden' " +
                                     "          value='" + now + "' " +
                                     "          placeholder='Associated tag to be saved (if any)' " +
@@ -753,13 +753,13 @@
                                     "			    ><span data-langkey='Reset'>Reset</span></button>" +
                                     "		    </button>" +
                                     "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
-                                    "		     <a class='dropdown-item py-2 bg-white text-danger' type='button' " +
+                                    "		     <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
                                     "			onclick='wepsim_checkpoint_clearCache();" +
                                     "				 wepsim_checkpoint_listCache(\"browserCacheList1\");" +
                                     "				 return false;'" +
                                     "			 ><span data-langkey='Yes'>Yes</span></a>" +
                                     "		      <div class='dropdown-divider'></div>" +
-                                    "		      <a class='dropdown-item py-2 bg-white text-info' type='button' " +
+                                    "		      <a class='dropdown-item py-2 bg-body text-info' type='button' " +
                                     "			 ><span data-langkey='No'>No</span></a>" +
                                     "		    </div>" +
                                     "		  </div>" +

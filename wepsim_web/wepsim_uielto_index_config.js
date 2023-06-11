@@ -132,13 +132,13 @@
      	        e_class_1 = "                " + e_u_class + " " + fmt_toggle ;
      	        e_class_2 = " collapse7 show " + e_u_class + " " + fmt_toggle ;
 
-     		row = '<div class="col-md-auto p-3 border-top ' + e_class_1 + '">' +
+     		row = '<div class="col-md-auto py-2 border-top ' + e_class_1 + '">' +
      		      '    <span class="badge rounded-pill text-secondary">' + (n+1) + '</span>' +
      		      '</div>' +
-     		      '<div class="col-md-4    p-3 border-top ' + e_class_1 + '">' +
+     		      '<div class="col-md-4    py-2 border-top ' + e_class_1 + '">' +
                            e_code_cfg  +
                       '</div>' +
-     		      '<div class="col-md      p-3 border-top align-items-center ' + e_class_2 + '">' +
+     		      '<div class="col-md      py-2 border-top align-items-center ' + e_class_2 + '">' +
                            '<c>' + e_description + '</c>' +
                       '</div>' +
      		      '<div class="w-100       p-0 m-0 ' + e_class_2 + '">' +

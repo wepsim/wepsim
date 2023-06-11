@@ -8,6 +8,7 @@
 * Main external dependencies updated:
   * Bump bootstrap from 5.2.3 to 5.3.0
   * Bump jquery    from 3.6.0 to 3.7.0
+  * Bump introjs   from 4.3.0 to 7.0.1
 
 ## 2.2.1 -> 2.2.2:
 * Main improvements:
