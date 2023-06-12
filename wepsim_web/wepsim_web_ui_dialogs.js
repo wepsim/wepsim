@@ -77,10 +77,6 @@
 	              },
             size:     'large',
             onshow:   function() {
-			 var o = $("#lssvasm") ;
-		         o.find('.modal-header').attr("style", "background-color: black !important") ;
-			 o.find('.modal-title').addClass("ms-auto") ;
-
 			 // uicfg and events
                          wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
@@ -174,10 +170,6 @@
 	              },
             size:     'large',
             onshow:   function() {
-			 var o = $("#lssvfir") ;
-		         o.find('.modal-header').attr("style", "background-color: black !important") ;
-			 o.find('.modal-title').addClass("ms-auto") ;
-
 		         // dropify
 			 $('.dropify').dropify() ;
 
@@ -221,10 +213,6 @@
 	              },
             size:     'large',
             onshow:   function() {
-			 var o = $("#flashasm") ;
-		         o.find('.modal-header').attr("style", "background-color: black !important") ;
-			 o.find('.modal-title').addClass("ms-auto") ;
-
 			 // uicfg and events
                          wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
@@ -264,7 +252,9 @@
                          // get binary
 			 var simware = wepsim_get_binary_code() ;
 			 if (null == simware) {
-                             setTimeout(function() { wsweb_dialog_close('binary_asm'); }, 50) ;
+                             setTimeout(function() {
+                                wsweb_dialog_close('binary_asm') ;
+                             }, 50) ;
 			     return ;
 			 }
 
@@ -273,7 +263,7 @@
 			 wepsim_uicfg_apply() ;
 
                          // show binary
-                         setTimeout(function(){
+                         setTimeout(function() {
                             $('#bin_asm').modal('handleUpdate') ;
 			    wsweb_scroll_record('#scroller-bin2a') ;
 			    simcore_record_captureInit() ;
@@ -311,7 +301,9 @@
                          // get binary
 			 var simware = wepsim_get_binary_microcode() ;
 			 if (null == simware) {
-                             setTimeout(function() { wsweb_dialog_close('binary_fir'); }, 50) ;
+                             setTimeout(function() {
+                                           wsweb_dialog_close('binary_fir');
+                             }, 50) ;
 			     return ;
 			 }
 
@@ -493,7 +485,9 @@
 	             },
             size:    'large',
             onshow:  function() {
-                         setTimeout(function() { $("#config2-scroller").scrollTop(0); }, 50);
+                         setTimeout(function() {
+                                       $("#config2-scroller").scrollTop(0);
+                         }, 50);
 
 		         // ui lang
                          var ws_idiom = get_cfg('ws_idiom') ;
