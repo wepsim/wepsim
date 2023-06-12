@@ -15,49 +15,101 @@ begin
 
 
 #  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
-lui rd inm{
+lui rd inm {
       co=111111,
       nwords=1,
-      rd=reg(11,7),
-      inm=inm(24,20),
+      rd=reg(25,21),
+      inm=inm(15,0),
       help='rd = (inm << 12)',
       {
-          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, RW),
           # TODO: rd <- lui(imm)
           (M2, M3=10, AluOp=1010, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
+#
+# LOAD/STORE
+#
 
+lw reg addr {
+         co=000100,
+         nwords=1,
+         reg=reg(25,21),
+         addr=address(15,0)abs,
+         help='r1 = (MEM[addr] ... MEM[addr+3])',
+         {
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, M3=10, DMR),
+             (REG_W2=10101, RW)
+         }
+}
+
+sw reg addr {
+         co=000101,
+         nwords=1,
+         reg=reg(25,21),
+         addr=address(15,0)abs,
+         help='MEM[addr] = r1',
+         {
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101, M2, M3=10, AluOp=11111, WOut),
+             (DMW),
+             (REG_W2=10101, RW)
+         }
+}
+
+lb reg addr {
+         co=001000,
+         nwords=1,
+         reg=reg(25,21),
+         addr=address(15,0)abs,
+         help='r1 = MEM[addr]',
+         {
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, M3=10, WBE, DMR),
+             (REG_W2=10101, RW)
+         }
+}
+
+sb reg addr {
+         co=001001,
+         nwords=1,
+         reg=reg(25,21),
+         addr=address(15,0)abs,
+         help='MEM[addr] = r1',
+         {
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101, M2, M3=10, AluOp=11111, WOut),
+             (WBE, DMW),
+             (REG_W2=10101, RW)
+         }
+}
 
 #  AND rd,rs1,rs2         And                                 rd ← ux(rs1) ∧ ux(rs2)
 and reg1 reg2 reg3 {
       co=111111,
       nwords=1,
-      reg1=reg(11,7),
-      reg2=reg(19,15),
-      reg3=reg(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
       help='r1 = r2 & r3',
       {
-          (RW),
+          (REG_R1=10000, REG_R2=1011, REG_W2=10101, RW),
           (M2, M3=0, AluOp=0001, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
 #  ANDI rd,rs1,imm         And Immediate                         rd ← ux(rs1) ∧ ux(imm)
-andi rd rs1 inm {
+andi reg1 reg2 inm {
       co=111111,
       nwords=1,
-      rd=reg(11,7),
-      rs1=reg(19,15),
-      inm=inm(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      inm=inm(15,0),
       help='rd = rs1 & inm',
       {
-          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000, RW),
           (M2, M3=10, AluOp=0001, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -65,29 +117,29 @@ andi rd rs1 inm {
 or reg1 reg2 reg3 {
       co=111111,
       nwords=1,
-      reg1=reg(11,7),
-      reg2=reg(19,15),
-      reg3=reg(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
       help='r1 = r2 | r3',
       {
-          (RW),
+          (REG_R1=10000, REG_R2=1011, REG_W2=10101, RW),
           (M2, M3=0, AluOp=0010, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
 #  ORI rd,rs1,imm         Or Immediate                         rd ← ux(rs1) ∨ ux(imm)
-ori rd rs1 inm {
+ori reg1 reg2 inm {
       co=111111,
       nwords=1,
-      rd=reg(11,7),
-      rs1=reg(19,15),
-      inm=inm(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      inm=inm(15,0),
       help='rd = rs1 | inm',
       {
-          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000, RW),
           (M2, M3=10, AluOp=0010, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -95,29 +147,29 @@ ori rd rs1 inm {
 xor reg1 reg2 reg3 {
       co=111111,
       nwords=1,
-      reg1=reg(11,7),
-      reg2=reg(19,15),
-      reg3=reg(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
       help='r1 = r2 ^ r3',
       {
-          (RW),
+          (REG_R1=10000, REG_R2=1011, REG_W2=10101, RW),
           (M2, M3=0, AluOp=0100, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
 #  XORI rd,rs1,imm         Xor Immediate                         rd ← ux(rs1) ⊕ ux(imm)
-xori rd rs1 inm {
+xori reg1 reg2 inm {
       co=111111,
       nwords=1,
-      rd=reg(11,7),
-      rs1=reg(19,15),
-      inm=inm(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      inm=inm(15,0),
       help='rd = ux(rs1) ^ ux(inm)',
       {
-          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000, RW),
           (M2, M3=10, AluOp=0100, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -125,29 +177,29 @@ xori rd rs1 inm {
 add reg1 reg2 reg3 {
       co=111111,
       nwords=1,
-      reg1=reg(11,7),
-      reg2=reg(19,15),
-      reg3=reg(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
       help='r1 = r2 + r3',
       {
-          (RW),
+          (REG_R1=10000, REG_R2=1011, REG_W2=10101, RW),
           (M2, M3=0, AluOp=1010, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
 #  ADDI rd,rs1,imm         Add Immediate                         rd ← rs1 + sx(imm)
-addi rd rs1 inm {
+addi reg1 reg2 inm {
       co=111111,
       nwords=1,
-      rd=reg(11,7),
-      rs1=reg(19,15),
-      inm=inm(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      inm=inm(15,0),
       help='rd = rs1 + SignEx(inm)',
       {
-          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000, RW),
           (M2, M3=10, AluOp=1010, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -155,30 +207,30 @@ addi rd rs1 inm {
 sub reg1 reg2 reg3 {
       co=111111,
       nwords=1,
-      reg1=reg(11,7),
-      reg2=reg(19,15),
-      reg3=reg(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
       help='r1 = r2 - r3',
       {
-          (RW),
+          (REG_R1=10000, REG_R2=1011, REG_W2=10101, RW),
           (M2, M3=0, AluOp=1011, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
 
 #  SUBI rd,rs1,imm         Sub Immediate                         rd ← rs1 - sx(imm)
-subi rd rs1 inm {
+subi reg1 reg2 inm {
       co=111111,
       nwords=1,
-      rd=reg(11,7),
-      rs1=reg(19,15),
-      inm=inm(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      inm=inm(15,0),
       help='rd = rs1 - SignEx(inm)',
       {
-          (OFFSET=10100, SIZE=101, GEN_IMM=1, RW),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000, RW),
           (M2, M3=10, AluOp=1011, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -186,14 +238,14 @@ subi rd rs1 inm {
 mul reg1 reg2 reg3 {
       co=111111,
       nwords=1,
-      reg1=reg(11,7),
-      reg2=reg(19,15),
-      reg3=reg(24,20),
+      reg1=reg(25,21),
+      reg2=reg(20,16),
+      reg3=reg(15,11),
       help='reg1 = reg2 * reg3',
       {
-          (RW),
+          (REG_R1=10000, REG_R2=1011, REG_W2=10101, RW),
           (M2, M3=0, AluOp=1100, WOut),
-          (RW, CU=11)
+          (REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -271,4 +323,3 @@ registers
     30=(t5,  x30),
     31=(t6,  x31)
 }
-

@@ -527,7 +527,8 @@
                                      draw_data: [] };
 
 	sim.rv.signals["RW"]  = { name: "RW", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-					behavior: ["NOP", "MBIT_SN REG_R1 REG_IR REG_MICROINS/REG_R1 5; GET R_DATA1 BR REG_R1; MBIT_SN REG_R2 REG_IR REG_MICROINS/REG_R2 5; GET R_DATA2 BR REG_R2; MBIT_SN REG_W2 REG_IR REG_MICROINS/REG_W2 5; SET BR REG_W2 M1_RW"],
+					behavior: ["MBIT_SN REG_R1 REG_IR REG_MICROINS/REG_R1 5; GET R_DATA1 BR REG_R1; MBIT_SN REG_R2 REG_IR REG_MICROINS/REG_R2 5; GET R_DATA2 BR REG_R2",
+								"MBIT_SN REG_W2 REG_IR REG_MICROINS/REG_W2 5; SET BR REG_W2 M1_RW"],
 					fire_name: ['svg_p:text7299'],
 					draw_data: [['svg_p:path6725', 'svg_p:path6727', 'svg_p:path6729', 'svg_p:path6731', 'svg_p:path6733', 'svg_p:path6735', 'svg_p:path6915', 'svg_p:path6913', 'svg_p:path6907', 'svg_p:path6909']],
 					draw_name: [['svg_p:path7291']] };
@@ -585,7 +586,7 @@
 								"NOP_ALU",
 								"NOP_ALU",
 								"NOP_ALU",
-								"NOP_ALU"],
+								"MV ALU_WOUT M2_ALU; UPDATE_NZ"],
 			       fire_name: ['svg_p:text7269'],
 			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
 			       draw_name: [['svg_p:path7249']] };
