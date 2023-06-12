@@ -114,14 +114,14 @@
 		                "  <h5 class='m-0'>" +
 				"  <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
                                 "<div class='btn-group float-end'>" +
-				"  <button class='btn btn-light mx-1 py-0 col-auto' " +
+				"  <button class='btn bg-body-tertiary mx-1 py-0 col-auto' " +
                                 "          onclick='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
 		                "                   var textToWrite       = inputfirm.getValue();" +
 		                "                   wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
 		                "                   inputfirm.is_modified = false;" +
 				"		    return false;'" +
                                 "><span data-langkey='Save'>Save</span></button>" +
-                                "  <button type='button' class='btn btn-light dropdown-toggle dropdown-toggle-split' " +
+                                "  <button type='button' class='btn bg-body-tertiary dropdown-toggle dropdown-toggle-split' " +
                                 "          data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
                                 "    <span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
                                 "  </button>" +
@@ -147,7 +147,7 @@
 			      	" <div class='card-body'>" +
 		                "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
 	                        "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs'" +
-                                "          class='form-control btn-outline-dark' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" +
+                                "          class='form-control btn-outline-secondary' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" +
 			     	" </div>" +
 			   	"</div>" +
                                "</div>" +
@@ -717,7 +717,7 @@
                                     "             return false;'" +
                                     "   ></ws-save-file>" +
                                     "   <input aria-label='associated tag to be saved' id='tagToSave1'" +
-                                    "          class='form-control btn-outline-dark' " +
+                                    "          class='form-control btn-outline-secondary' " +
                                     "          type='hidden' " +
                                     "          value='" + now + "' " +
                                     "          placeholder='Associated tag to be saved (if any)' " +
@@ -739,7 +739,7 @@
                                     "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
                                     "	  <h5 class='m-0'>" +
                                     "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
-                                    "	    <button class='btn btn-light mx-1 float-end py-0 col-auto'" +
+                                    "	    <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto'" +
                                     "		    onclick='var ret = wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
                                     "			     wsweb_dialog_close(\"current_checkpoint\");" +
                                     "			     if (ret.error)" +
@@ -747,19 +747,19 @@
                                     "			     else wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
                                     "			     return false;'><span data-langkey='Load'>Load</span></button>" +
                                     "		  <div class='dropdown float-end'>" +
-                                    "		    <button class='btn btn-light text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
+                                    "		    <button class='btn bg-body-tertiary text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
                                     "			    type='button' id='resetyn2' data-bs-toggle='dropdown' " +
                                     "			    aria-haspopup='true' aria-expanded='false' " +
                                     "			    ><span data-langkey='Reset'>Reset</span></button>" +
                                     "		    </button>" +
                                     "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
-                                    "		     <a class='dropdown-item py-2 bg-white text-danger' type='button' " +
+                                    "		     <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
                                     "			onclick='wepsim_checkpoint_clearCache();" +
                                     "				 wepsim_checkpoint_listCache(\"browserCacheList1\");" +
                                     "				 return false;'" +
                                     "			 ><span data-langkey='Yes'>Yes</span></a>" +
                                     "		      <div class='dropdown-divider'></div>" +
-                                    "		      <a class='dropdown-item py-2 bg-white text-info' type='button' " +
+                                    "		      <a class='dropdown-item py-2 bg-body text-info' type='button' " +
                                     "			 ><span data-langkey='No'>No</span></a>" +
                                     "		    </div>" +
                                     "		  </div>" +

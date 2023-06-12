@@ -48,6 +48,7 @@
 	      {
                     // build HTML
                     var o1  = "<form>" +
+			      "" +
 			      "	<div class='form-group m-0'>" +
 			      "	   <label for='about_license' class='text-secondary'>License:</label>" +
 			      "	   <span class='text-primary'" +
@@ -55,6 +56,7 @@
 			      "		                 wsweb_dialog_close('about');" +
 			      "			         return false;'>GNU Lesser General Public 3</span>" +
 			      "	</div>" +
+			      "" +
 			      "	<div class='form-group'>" +
 			      "	   <label for='about_authors' class='text-secondary'>Authors:</label>" +
 			      "	   <div id='about_" + this.name_str + "'>" +
@@ -66,6 +68,14 @@
 			      "	     </ul>" +
 			      "	   </div>" +
 			      "	</div>" +
+			      "" +
+			      '    <div class="mx-auto mt-2 bg-white">' +
+			      '       <div class="row mx-auto">' +
+			      '          <span class="col me-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></span>' +
+			      '          <span class="col ms-auto"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></span>' +
+			      '       </div>' +
+			      '    </div>' +
+			      "" +
 			      "</form>" ;
 
 		    this.innerHTML = o1 ;
@@ -82,7 +92,7 @@
 		    // html holder
 		    var o1 = '<div id="authors_' + this.name_str + '" ' +
                              '     class="card-desk row mx-auto" style="max-width:512px;">' +
-			     '<div v-for="author in authors" class="card bg-white text-center col-3 p-0">' +
+			     '<div v-for="author in authors" class="card bg-tertiary text-center col-3 p-0">' +
 			     '  <img class="card-img-top img-fluid shadow no-dark-mode" ' +
                              '       v-bind:id="authors.c_id"' +
                              '       v-bind:src="author.i_src" v-bind:alt="author.i_alt" />' +
@@ -92,7 +102,7 @@
                              '       <a class="btn p-0 text-primary d-none d-md-block"' +
                              '          v-bind:id="author.a_id">{{ author.i_alt }}</a>' +
                              '  </div>' +
-			     '  <div class="card-footer p-1 collapse collapse7 show bg-white text-start">' +
+			     '  <div class="card-footer p-1 collapse collapse7 show bg-secundary text-start">' +
 			     '	  <div class="list-group list-group-flush">' +
 		             '<component v-for="social in author.socials" ' +
                              '           :is="social.href?\'a\':\'span\'" v-bind:href="social.href || \'\'" ' +

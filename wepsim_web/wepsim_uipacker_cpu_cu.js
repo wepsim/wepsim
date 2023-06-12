@@ -53,12 +53,12 @@
                              '  <div class="col">' +
                              '    <div class="nav nav-pills nav-fill" ' +
                              '         id="nav-tab1" role="tablist" aria-orientation="horizontal">' +
-                             '      <a class="nav-link m-2 bg-light text-primary active" ' +
+                             '      <a class="nav-link m-2 bg-body-tertiary text-primary active" ' +
                              '         data-bs-toggle="pill" role="tab" ' +
                              '         id="cpu_view_graph1" href="#cpu_graph1" ' +
                              '         aria-controls="cpu_graph1" aria-selected="true">' +
                              '<span data-langkey="Graph">Graph</span></a>' +
-                             '      <a class="nav-link m-2 bg-light text-primary" ' +
+                             '      <a class="nav-link m-2 bg-body-tertiary text-primary" ' +
                              '         data-bs-toggle="pill" role="tab" ' +
                              '         id="cpu_view_table1" href="#cpu_table1" ' +
                              '         aria-controls="cpu_table1" aria-selected="false">' +

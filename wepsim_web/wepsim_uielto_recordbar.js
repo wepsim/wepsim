@@ -73,7 +73,7 @@
                     var o1  = '' ;
 
                     // load html
-		    o1 += '  <a class="btn btn-sm btn-outline-secondary bg-light shadow-sm rounded px-2 me-2" href="#"' +
+		    o1 += '  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 me-2" href="#"' +
                           '     data-bs-toggle="tooltip" data-bs-placement="top" data-boundary="window"' +
                           '     title="Remove recorded session"' +
                           '     onclick="wsweb_record_confirmReset(); ' +

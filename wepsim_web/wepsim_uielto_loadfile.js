@@ -62,7 +62,7 @@
 			  "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 			  " <h5 class='m-0'>" +
 			  " <span class='text-white bg-secondary' data-langkey='Input'>Input</span>" +
-			  " <button class='btn btn-light mx-1 float-end py-0 col-auto' " +
+			  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
                           "         onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
 			  "  </h5>" +
 			  "</div>" +
