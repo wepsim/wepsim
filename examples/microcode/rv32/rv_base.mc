@@ -20,11 +20,9 @@ lui rd inm {
       nwords=1,
       rd=reg(25,21),
       inm=inm(15,0),
-      help='rd = (inm << 12)',
+      help='rd = (inm << 15)',
       {
-          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101),
-          # TODO: rd <- lui(imm)
-          (M2, M3=10, AluOp=1010, WOut),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=1010, WOut),
           (REG_W2=10101, RW, CU=11)
       }
 }
@@ -40,7 +38,8 @@ lw reg addr {
          addr=address(15,0)abs,
          help='r1 = (MEM[addr] ... MEM[addr+3])',
          {
-             (OFFSET=0, SIZE=10000, GEN_IMM=1, M3=10, DMR, REG_W2=10101, RW, CU=11)
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, M3=10, DMR),
+             (REG_W2=10101, RW, CU=11)
          }
 }
 
@@ -52,8 +51,8 @@ sw reg addr {
          help='MEM[addr] = r1',
          {
              (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101),
-             (M2, AluOp=11111, WOut),
-             (M3=10, DMW, CU=11)
+             (M2, M3=10, AluOp=11111, WOut),
+             (DMW, CU=11)
          }
 }
 
@@ -64,7 +63,8 @@ lb reg addr {
          addr=address(15,0)abs,
          help='r1 = MEM[addr]',
          {
-             (OFFSET=0, SIZE=10000, GEN_IMM=1, M3=10, WBE, DMR, REG_W2=10101, RW, CU=11)
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, M3=10, WBE, DMR),
+             (REG_W2=10101, RW, CU=11)
          }
 }
 
@@ -76,8 +76,8 @@ sb reg addr {
          help='MEM[addr] = r1',
          {
              (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101),
-             (M2, AluOp=11111, WOut),
-             (M3=10, WBE, DMW, CU=11)
+             (M2, M3=10, AluOp=11111, WOut),
+             (WBE, DMW, CU=11)
          }
 }
 
@@ -90,7 +90,7 @@ and reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 & r3',
       {
-          (REG_R1=10000, REG_R2=1011, REG_W2=10101),
+          (REG_R1=10000, REG_R2=1011),
           (M2, M3=0, AluOp=0001, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -105,7 +105,7 @@ andi reg1 reg2 inm {
       inm=inm(15,0),
       help='rd = rs1 & inm',
       {
-          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
           (M2, M3=10, AluOp=0001, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -120,7 +120,7 @@ or reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 | r3',
       {
-          (REG_R1=10000, REG_R2=1011, REG_W2=10101),
+          (REG_R1=10000, REG_R2=1011),
           (M2, M3=0, AluOp=0010, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -135,7 +135,7 @@ ori reg1 reg2 inm {
       inm=inm(15,0),
       help='rd = rs1 | inm',
       {
-          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
           (M2, M3=10, AluOp=0010, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -150,7 +150,7 @@ xor reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 ^ r3',
       {
-          (REG_R1=10000, REG_R2=1011, REG_W2=10101),
+          (REG_R1=10000, REG_R2=1011),
           (M2, M3=0, AluOp=0100, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -165,7 +165,7 @@ xori reg1 reg2 inm {
       inm=inm(15,0),
       help='rd = ux(rs1) ^ ux(inm)',
       {
-          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
           (M2, M3=10, AluOp=0100, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -180,7 +180,7 @@ add reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 + r3',
       {
-          (REG_R1=10000, REG_R2=1011, REG_W2=10101),
+          (REG_R1=10000, REG_R2=1011),
           (M2, M3=0, AluOp=1010, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -195,7 +195,7 @@ addi reg1 reg2 inm {
       inm=inm(15,0),
       help='rd = rs1 + SignEx(inm)',
       {
-          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
           (M2, M3=10, AluOp=1010, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -210,7 +210,7 @@ sub reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='r1 = r2 - r3',
       {
-          (REG_R1=10000, REG_R2=1011, REG_W2=10101),
+          (REG_R1=10000, REG_R2=1011),
           (M2, M3=0, AluOp=1011, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -226,7 +226,7 @@ subi reg1 reg2 inm {
       inm=inm(15,0),
       help='rd = rs1 - SignEx(inm)',
       {
-          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_W2=10101, REG_R1=10000),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
           (M2, M3=10, AluOp=1011, WOut),
           (REG_W2=10101, RW, CU=11)
       }
@@ -241,12 +241,97 @@ mul reg1 reg2 reg3 {
       reg3=reg(15,11),
       help='reg1 = reg2 * reg3',
       {
-          (REG_R1=10000, REG_R2=1011, REG_W2=10101),
+          (REG_R1=10000, REG_R2=1011),
           (M2, M3=0, AluOp=1100, WOut),
           (REG_W2=10101, RW, CU=11)
       }
 }
 
+#
+# b*
+#
+
+b offset {
+         co=001100,
+         nwords=1,
+         offset=address(15,0)rel,
+         help='pc = pc + offset',
+         {
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, M2, M4, PCWrite, CU=11)
+         }
+}
+
+beq reg reg offset {
+         co=001101,
+         nwords=1,
+         reg=reg(25,21),
+         reg=reg(20,16),
+         offset=address(15,0)rel,
+         help='if ($r1 == $r2) pc += offset',
+         {
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut)
+             (REG_R1=10101, REG_R2=10000, M2, M3=0, AluOp=1011, jump),
+             (CU=11)
+         }
+}
+
+#
+# j*
+#
+
+j addr {
+         co=010011,
+         nwords=1,
+         addr=address(15,0)abs,
+         help='pc = addr',
+         {
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=1010, M4=1, PCWrite, CU=11)
+         }
+}
+
+# NEEDS FIX ON REG_W2
+jal addr {
+         co=010100,
+         nwords=1,
+         addr=address(15,0)abs,
+         help='$ra = pc; pc = addr',
+         {
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=1010, WOut),
+             (REG_W2=11111, M4=0, PCWrite, CU=11)
+         }
+}
+
+jr reg1 {
+         co=010101,
+         nwords=1,
+         reg1=reg(25,21),
+         help='pc = r1',
+         {
+             (REG_R1=10101, AluOp=1010, M2, M4, PCWrite, CU=11)
+         }
+}
+
+j reg1 {
+         co=111111,
+         nwords=1,
+         reg1=reg(25,21),
+         {
+             (REG_R1=10101, AluOp=1010, M2, M4, PCWrite, CU=11)
+         }
+}
+
+
+#
+# Misc
+#
+
+nop {
+        co=010110,
+        nwords=1,
+        {
+             (CU=11)
+        }
+}
 
 #
 # Register naming
