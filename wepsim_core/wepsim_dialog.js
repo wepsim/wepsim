@@ -71,6 +71,8 @@
 	    d1.find('.modal-header').addClass("bg-body-secondary") ;
 	    d1.find('.modal-footer').addClass("bg-body-secondary") ;
 	    d1.find('.modal-title').addClass("mx-auto") ;
+	    d1.find('.bootbox-close-button').addClass("mx-1 btn-close border-0") ;
+
 	    d1.modal('handleUpdate') ;
 	    d1.modal('show');
 
