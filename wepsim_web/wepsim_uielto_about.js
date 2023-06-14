@@ -69,10 +69,10 @@
 			      "	   </div>" +
 			      "	</div>" +
 			      "" +
-			      '    <div class="mx-auto mt-2 bg-white">' +
+			      '    <div class="mx-auto mt-3 bg-white">' +
 			      '       <div class="row mx-auto">' +
 			      '          <span class="col me-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></span>' +
-			      '          <span class="col ms-auto"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></span>' +
+			      '          <span class="col ms-auto"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" class="img-fluid rounded m-0 p-0" /></span>' +
 			      '       </div>' +
 			      '    </div>' +
 			      "" +
@@ -102,12 +102,12 @@
                              '       <a class="btn p-0 text-primary d-none d-md-block"' +
                              '          v-bind:id="author.a_id">{{ author.i_alt }}</a>' +
                              '  </div>' +
-			     '  <div class="card-footer p-1 collapse collapse7 show bg-secundary text-start">' +
+			     '  <div class="card-footer p-0 collapse collapse7 show bg-secundary text-start">' +
 			     '	  <div class="list-group list-group-flush">' +
 		             '<component v-for="social in author.socials" ' +
                              '           :is="social.href?\'a\':\'span\'" v-bind:href="social.href || \'\'" ' +
                              '           target="_blank" ' +
-                             '           class="card-link list-group-item p-1 ms-2">' +
+                             '           class="card-link list-group-item p-2 ms-2">' +
                              '<em v-bind:class="social.faclass"></em><span class="m-1">{{ social.name }}</span>' +
                              '</component>' +
                              '    </div>' +

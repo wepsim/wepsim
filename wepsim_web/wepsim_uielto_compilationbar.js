@@ -92,9 +92,8 @@
                              break ;
 
                        case "btn_mcompile":
-			     o += '<button style="background-color: #CCCCCC"' +
-		                  '        id="mcc1"' +
-		                  '        class="btn bg-body-tertiary shadow-sm col-auto mx-1 border border-secondary"' +
+			     o += '<button id="mcc1"' +
+		                  '        class="btn bg-secondary-subtle shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	   data-transition="none" data-inline="true"' +
 			          '	   onclick="wsweb_firmware_compile();' +
                                   '                 return false;">' ;
@@ -125,9 +124,8 @@
                              break ;
 
                        case "btn_acompile":
-		             o += '<button style="background-color: #CCCCCC"' +
-                                  '        id="acc1"' +
-		                  '        class="btn bg-body-tertiary shadow-sm col-auto mx-1 border border-secondary"' +
+		             o += '<button id="acc1"' +
+		                  '        class="btn bg-secondary-subtle shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	   data-transition="none" data-inline="true"' +
 			          '	   onclick="wsweb_assembly_compile();' +
                                   '                 return false;">' ;

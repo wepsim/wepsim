@@ -179,8 +179,8 @@
 
 	      render_btn_help ( robj )
 	      {
-		 var o = '<button class="btn bg-opacity-25 bg-success shadow-sm col-auto my-1 mx-1 px-2 border border-secondary"' +
-		         '        style="background-color:#D4DB17; flex-grow:1;"' +
+		 var o = '<button class="btn shadow-sm col-auto my-1 mx-1 px-2 border border-secondary bg-help"' +
+		         '        style="flex-grow:1;"' +
                          '        id="btn_help1"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Help\' dialog."' +

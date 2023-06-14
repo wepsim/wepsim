@@ -47,8 +47,8 @@
                              "</a>" +
 			     "</th>" +
                              "<th width='10%' class='asm_label collapse' align='right'><span data-langkey='labels'>labels</span></th>" +
-			     "<th width='15%' class='asm_addr  collapse'              ><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" +
-                             "<th width='1%'  class='asm_addr  collapse' align='right'><span data-langkey='breakpoint'>breakpoint</span></th>" +
+			     "<th width='15%' class='asm_addr  collapse' align='center'><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" +
+                             "<th width='1%'  class='asm_brk   collapse' align='right'><span data-langkey='breakpoint'>breakpoint</span></th>" +
                              "<th width='14%' class='asm_hex   collapse' align='right'><span data-langkey='content'>content</span></th>" +
                              "<th width='30%' class='asm_ins   collapse' align='left' ><span data-langkey='assembly'>assembly</span></th>" +
 			     "<th width='30%' class='asm_pins  collapse' align='left' ><span>pseudo</span><span class='d-none d-md-inline'><small><span data-langkey='instructions'>instructions</span></small></span></th>" +
@@ -318,7 +318,7 @@
 		     "    style='line-height:0.9;' align='right'>" + s_label +
 		     "</td>" +
 		     "<td class='asm_addr   font-monospace col-auto collapse' " +
-		     "    style='line-height:0.9;'>" + p +
+		     "    style='line-height:0.9;' align='center'>" + p +
 		     "</td>" +
 		     "<td class='asm_break  font-monospace col-auto show p-0' " +
 		     "    style='line-height:0.9;' id='bp" + p + "' width='1%'>" +
@@ -369,7 +369,7 @@
 		   "    style='line-height:0.9;' align='right' " + oclk + ">" + s_label +
 		   "</td>" +
 		   "<td class='asm_addr   font-monospace col-auto collapse' " +
-		   "    style='line-height:0.9;' " + oclk + ">" + p +
+		   "    style='line-height:0.9;' align='center' " + oclk + ">" + p +
 		   "</td>" +
 		   "<td class='asm_break  font-monospace col-auto show p-0' " +
 		   "    style='line-height:0.9;' id='bp" + p + "' width='1%' " + oclk + ">" +
@@ -588,25 +588,22 @@
                 if (typeof curr_mp[old_addr] !== "undefined")
                 {
                        o1 = $("#asmdbg" + old_addr_hex + " td") ;
-                     //o1.css('background-color', curr_mp[old_addr].bgcolor) ;
-                       o1.removeClass('bg-success bg-opacity-50') ;
+                       o1.removeClass('bg-debug-asm') ;
                 }
                 else
                 {
                      for (var l in curr_mp)
                      {
                           p  = "0x" + l.toString(16) ;
-                            o1 = $("#asmdbg" + p + " td") ;
-                          //o1.css('background-color', curr_mp[l].bgcolor) ;
-                            o1.removeClass('bg-success bg-opacity-50') ;
+                          o1 = $("#asmdbg" + p + " td") ;
+                          o1.removeClass('bg-debug-asm') ;
                      }
                 }
                 old_addr = reg_pc ;
 
                 // try to set the current asmdbg_pc
                 o1 = $("#asmdbg" + curr_addr_hex + " td") ;
-                //o1.css('background-color', '#00EE88') ;
-                  o1.addClass('bg-success bg-opacity-50') ;
+                o1.addClass('bg-debug-asm') ;
 
                 // check if current asmdbg_pc is available
                 if (typeof o1 === "undefined") {
