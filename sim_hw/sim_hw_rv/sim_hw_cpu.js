@@ -420,10 +420,10 @@
 					   "CP_FIELD MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA",
 					   "MV MUXA_MICROADDR FETCH",
-					   "JUMP_MADDR_N MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR",
-					   "JUMP_MADDR_Z MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR",
-					   "NOP",
-					   "NOP"],
+					   "JUMP_MADDR_N MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR 0",
+					   "JUMP_MADDR_N MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR 1",
+					   "JUMP_MADDR_Z MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR 0",
+					   "JUMP_MADDR_Z MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR 1"],
                                 depends_on: ["CLK"],
 				fire_name: ['svg_p:text7417'],
 				draw_data: [['svg_p:path7391', 'svg_p:path7393', 'svg_p:path7395', 'svg_p:path7397', 'svg_p:path7399', 'svg_p:path7401']],
@@ -785,11 +785,11 @@
                                                 }
                                    };
 
-	        sim.rv.behaviors["JUMP_MADDR_N"] = { nparameters: 4,
-                                     types: ["X", "X", "E"],
+	        sim.rv.behaviors["JUMP_MADDR_N"] = { nparameters: 5,
+                                     types: ["X", "X", "E", "I"],
                                      operation: function(s_expr)
                                                 {
-									if (!(get_value(sim.rv.states["FLAG_N"]))) {
+									if (get_value(sim.rv.states["FLAG_N"]) != parseInt(s_expr[4])) {
 										var a = get_value(sim.rv.states[s_expr[3]]) << 0 ;
 										var result = a + 1 ;
 										set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
@@ -847,15 +847,19 @@
 																		" (" + newval + "). " ;
 									}
 									*/
-													return "Jump to REG_MICROINS/MADDR if flag N = 1, else Input microaddress = Microaddress Register + 1." ;
+													if (parseInt(s_expr[4])) {
+														return "Jump to REG_MICROINS/MADDR if Flag N = 1.";
+													} else {
+														return "Jump to REG_MICROINS/MADDR if Flag N = 0.";
+													}
                                                 }
                                    };
 
-	        sim.rv.behaviors["JUMP_MADDR_Z"] = { nparameters: 4,
-                                     types: ["X", "X", "E"],
+	        sim.rv.behaviors["JUMP_MADDR_Z"] = { nparameters: 5,
+                                     types: ["X", "X", "E", "I"],
                                      operation: function(s_expr)
                                                 {
-									if (!(get_value(sim.rv.states["FLAG_Z"]))) {
+									if (get_value(sim.rv.states["FLAG_Z"]) != parseInt(s_expr[4])) {
 										var a = get_value(sim.rv.states[s_expr[3]]) << 0 ;
 										var result = a + 1 ;
 										set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
@@ -913,7 +917,11 @@
 																		" (" + newval + "). " ;
 									}
 									*/
-													return "Jump to REG_MICROINS/MADDR if flag Z = 1, else Input microaddress = Microaddress Register + 1." ;
+													if (parseInt(s_expr[4])) {
+														return "Jump to REG_MICROINS/MADDR if Flag Z = 1.";
+													} else {
+														return "Jump to REG_MICROINS/MADDR if Flag Z = 0.";
+													}
                                                 }
                                    };
 

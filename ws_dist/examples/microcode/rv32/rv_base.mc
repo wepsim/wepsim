@@ -261,7 +261,6 @@ b offset {
          }
 }
 
-# NEEDS FIX
 beq reg reg offset {
          co=001101,
          nwords=1,
@@ -273,7 +272,7 @@ beq reg reg offset {
              (OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
              (REG_R1=10101, REG_R2=10000),
              (M2, M3=0, AluOp=1011),
-             (CU=101, MADDR=bck2ftch),
+             (CU=111, MADDR=bck2ftch),
              (CU=11),
              bck2ftch: (PCWrite, CU=11)
          }
