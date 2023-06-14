@@ -22,7 +22,7 @@ lui rd inm {
       inm=inm(15,0),
       help='rd = (inm << 15)',
       {
-          (OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=1010, WOut),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=11111, WOut),
           (REG_W2=10101, RW, CU=11)
       }
 }
@@ -51,7 +51,7 @@ sw reg addr {
          help='MEM[addr] = r1',
          {
              (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101),
-             (M2, M3=10, AluOp=11111, WOut),
+             (M2, M3=10, AluOp=11110, WOut),
              (DMW, CU=11)
          }
 }
@@ -76,7 +76,7 @@ sb reg addr {
          help='MEM[addr] = r1',
          {
              (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101),
-             (M2, M3=10, AluOp=11111, WOut),
+             (M2, M3=10, AluOp=11110, WOut),
              (WBE, DMW, CU=11)
          }
 }
@@ -261,6 +261,7 @@ b offset {
          }
 }
 
+# NEEDS FIX
 beq reg reg offset {
          co=001101,
          nwords=1,
@@ -269,68 +270,84 @@ beq reg reg offset {
          offset=address(15,0)rel,
          help='if ($r1 == $r2) pc += offset',
          {
-             (OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut)
-             (REG_R1=10101, REG_R2=10000, M2, M3=0, AluOp=1011, jump),
-             (CU=11)
+             (OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+             (REG_R1=10101, REG_R2=10000),
+             (M2, M3=0, AluOp=1011),
+             (CU=101, MADDR=bck2ftch),
+             (CU=11),
+             bck2ftch: (PCWrite, CU=11)
          }
 }
 
-#
-# j*
-#
-
-j addr {
-         co=010011,
-         nwords=1,
-         addr=address(15,0)abs,
-         help='pc = addr',
-         {
-             (OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=1010, M4=1, PCWrite, CU=11)
-         }
+#  JAL rd,offset        Jump and Link                       rd ← pc + length(inst)
+#                                               pc ← pc + offset
+jal rd offset {
+      co=111111,
+      nwords=1,
+      rd=reg(25,21),
+      offset=address(19,0)rel,
+      help='rd = pc; pc = pc + sext(offset)',
+      {
+          (M2=0, AluOp=11110, WOut),
+          (REG_W2=10101, RW),
+          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, M4, PCWrite, CU=11)
+      }
 }
 
-# NEEDS FIX ON REG_W2
-jal addr {
-         co=010100,
-         nwords=1,
-         addr=address(15,0)abs,
-         help='$ra = pc; pc = addr',
-         {
-             (OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=1010, WOut),
-             (REG_W2=11111, M4=0, PCWrite, CU=11)
-         }
+#  JALR rd,rs1,offset   Jump and Link Register              rd ← pc + length(inst)
+#                                              pc ← (rs1 + offset) & -2
+jalr rd rs1 offset {
+      co=111111,
+      nwords=1,
+      rd=reg(25,21),
+      rs1=reg(20,16),
+      offset=address(15,0)rel,
+      help='rd = pc; pc = rs1 + offset',
+      {
+          (M2=0, AluOp=11110, WOut),
+          (REG_W2=10101, RW),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000, M2, M3=10, AluOp=1010, M4, PCWrite, CU=11)
+      }
 }
 
-jr reg1 {
-         co=010101,
-         nwords=1,
-         reg1=reg(25,21),
-         help='pc = r1',
-         {
-             (REG_R1=10101, AluOp=1010, M2, M4, PCWrite, CU=11)
-         }
-}
+pseudoinstructions
+{
+    # nop        addi zero,zero,0        No operation
+    nop
+    {
+        addi zero zero 0
+    }
 
-j reg1 {
-         co=111111,
-         nwords=1,
-         reg1=reg(25,21),
-         {
-             (REG_R1=10101, AluOp=1010, M2, M4, PCWrite, CU=11)
-         }
-}
+    # li rd, expression        (several expansions)        Load immediate
+    li rd=reg, expression=inm
+    {
+        lui  rd,     sel(31,12,expression)
+        addu rd, rd, sel(11,0,expression)
+    }
 
+    # j offset        jal x0, offset        Jump
+    j offset=inm
+    {
+        jal zero, offset
+    }
 
-#
-# Misc
-#
+    # jal offset        jal x1, offset        Jump register
+    #jal offset=inm
+    #{
+    #    jal ra, offset
+    #}
 
-nop {
-        co=010110,
-        nwords=1,
-        {
-             (CU=11)
-        }
+    # jr rs            jalr x0, rs, 0        Jump register
+    jr rs=reg
+    {
+        jalr zero, rs, 0
+    }
+
+    # ret        jalr x0, x1, 0        Return from subroutine
+    ret
+    {
+        jalr zero, ra, 0
+    }
 }
 
 #

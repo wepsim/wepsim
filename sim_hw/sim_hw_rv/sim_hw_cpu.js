@@ -415,11 +415,15 @@
 	 */
 
 	/* CONTROL UNIT */
-	sim.rv.signals["CU"] = { name: "CU", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+	sim.rv.signals["CU"] = { name: "CU", visible: true, type: "L", value: 0, default_value: 0, nbits: "3",
 				behavior: ["PLUS1 MUXA_MICROADDR REG_MICROADDR",
 					   "CP_FIELD MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA",
-					   "MV MUXA_MICROADDR FETCH"],
+					   "MV MUXA_MICROADDR FETCH",
+					   "JUMP_MADDR_N MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR",
+					   "JUMP_MADDR_Z MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR",
+					   "NOP",
+					   "NOP"],
                                 depends_on: ["CLK"],
 				fire_name: ['svg_p:text7417'],
 				draw_data: [['svg_p:path7391', 'svg_p:path7393', 'svg_p:path7395', 'svg_p:path7397', 'svg_p:path7399', 'svg_p:path7401']],
@@ -585,8 +589,8 @@
 								"NOP_ALU",
 								"NOP_ALU",
 								"NOP_ALU",
-								"NOP_ALU",
-								"MV ALU_WOUT M2_ALU; UPDATE_NZ"],
+								"MV ALU_WOUT M2_ALU; UPDATE_NZ",
+								"MV ALU_WOUT M3_ALU; UPDATE_NZ"],
 			       fire_name: ['svg_p:text7269'],
 			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
 			       draw_name: [['svg_p:path7249']] };
@@ -721,7 +725,7 @@
                                      types: ["X", "X"],
                                      operation: function(s_expr)
                                                 {
-						   if (!(get_value(sim.rv.states["FLAG_N"]) && get_value(sim.rv.states["FLAG_Z"]))) {
+						   if (!(get_value(sim.rv.states["FLAG_N"])) && !(get_value(sim.rv.states["FLAG_Z"]))) {
 							return ;
 						   }
 
@@ -780,6 +784,139 @@
                                                           " (" + newval + "). " ;
                                                 }
                                    };
+
+	        sim.rv.behaviors["JUMP_MADDR_N"] = { nparameters: 4,
+                                     types: ["X", "X", "E"],
+                                     operation: function(s_expr)
+                                                {
+									if (!(get_value(sim.rv.states["FLAG_N"]))) {
+										var a = get_value(sim.rv.states[s_expr[3]]) << 0 ;
+										var result = a + 1 ;
+										set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
+									} else {
+										r = s_expr[2].split('/') ;
+										sim_elto_org = get_reference(r[0]) ;
+
+										newval = get_value(sim_elto_org) ;
+										newval = newval[r[1]] ;
+										if (typeof newval != "undefined") {
+											sim_elto_dst = get_reference(s_expr[1]) ;
+											set_value(sim_elto_dst, newval);
+										}
+									}
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+													/*
+									if (!(get_value(sim.rv.states["FLAG_N"]))) {
+										var a = get_value(sim.rv.states[s_expr[2]]) << 0 ;
+										var result = a + 1 ;
+
+										var verbose = get_cfg('verbal_verbose') ;
+										if (verbose !== 'math') {
+											return "Copy to " + show_verbal(s_expr[1]) + " " +
+													show_verbal(s_expr[2]) + " plus one with result " +
+													show_value(result) + ". " ;
+										}
+
+										return show_verbal(s_expr[1]) + " = " +
+												show_verbal(s_expr[2]) + " + 1" +
+												" (" + show_value(result) + "). " ;
+									} else {
+										var newval = 0 ;
+										var r = s_expr[2].split('/') ;
+										var sim_elto_org = get_reference(r[0]) ;
+										var sim_elto_dst = get_reference(r[1]) ;
+										if (typeof sim_elto_dst == "undefined")
+											sim_elto_dst = {} ;
+										if (typeof    sim_elto_org.value[r[1]] != "undefined")
+											newval = sim_elto_org.value[r[1]];
+										else if (typeof    sim_elto_dst.default_value != "undefined")
+											newval = sim_elto_dst.default_value;
+										else      newval = "&lt;undefined&gt;" ;
+
+																var verbose = get_cfg('verbal_verbose') ;
+																if (verbose !== 'math') {
+																	return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
+												" to " + show_verbal(s_expr[1]) +
+																			" value " + newval + ". " ;
+																}
+
+																return show_verbal(s_expr[1]) + " = " +
+																		show_verbal(r[0]) + "." + r[1] +
+																		" (" + newval + "). " ;
+									}
+									*/
+													return "Jump to REG_MICROINS/MADDR if flag N = 1, else Input microaddress = Microaddress Register + 1." ;
+                                                }
+                                   };
+
+	        sim.rv.behaviors["JUMP_MADDR_Z"] = { nparameters: 4,
+                                     types: ["X", "X", "E"],
+                                     operation: function(s_expr)
+                                                {
+									if (!(get_value(sim.rv.states["FLAG_Z"]))) {
+										var a = get_value(sim.rv.states[s_expr[3]]) << 0 ;
+										var result = a + 1 ;
+										set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
+									} else {
+										r = s_expr[2].split('/') ;
+										sim_elto_org = get_reference(r[0]) ;
+
+										newval = get_value(sim_elto_org) ;
+										newval = newval[r[1]] ;
+										if (typeof newval != "undefined") {
+											sim_elto_dst = get_reference(s_expr[1]) ;
+											set_value(sim_elto_dst, newval);
+										}
+									}
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+													/*
+									if (!(get_value(sim.rv.states["FLAG_Z"]))) {
+										var a = get_value(sim.rv.states[s_expr[2]]) << 0 ;
+										var result = a + 1 ;
+
+										var verbose = get_cfg('verbal_verbose') ;
+										if (verbose !== 'math') {
+											return "Copy to " + show_verbal(s_expr[1]) + " " +
+													show_verbal(s_expr[2]) + " plus one with result " +
+													show_value(result) + ". " ;
+										}
+
+										return show_verbal(s_expr[1]) + " = " +
+												show_verbal(s_expr[2]) + " + 1" +
+												" (" + show_value(result) + "). " ;
+									} else {
+										var newval = 0 ;
+										var r = s_expr[2].split('/') ;
+										var sim_elto_org = get_reference(r[0]) ;
+										var sim_elto_dst = get_reference(r[1]) ;
+										if (typeof sim_elto_dst == "undefined")
+											sim_elto_dst = {} ;
+										if (typeof    sim_elto_org.value[r[1]] != "undefined")
+											newval = sim_elto_org.value[r[1]];
+										else if (typeof    sim_elto_dst.default_value != "undefined")
+											newval = sim_elto_dst.default_value;
+										else      newval = "&lt;undefined&gt;" ;
+
+																var verbose = get_cfg('verbal_verbose') ;
+																if (verbose !== 'math') {
+																	return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
+												" to " + show_verbal(s_expr[1]) +
+																			" value " + newval + ". " ;
+																}
+
+																return show_verbal(s_expr[1]) + " = " +
+																		show_verbal(r[0]) + "." + r[1] +
+																		" (" + newval + "). " ;
+									}
+									*/
+													return "Jump to REG_MICROINS/MADDR if flag Z = 1, else Input microaddress = Microaddress Register + 1." ;
+                                                }
+                                   };
+
 	sim.rv.behaviors["NOT_ES"]   = { nparameters: 3,
 				     types: ["S", "E"],
 				     operation: function (s_expr)
@@ -2466,7 +2603,7 @@
 	sim.rv.behaviors["UPDATEDPC_J"]     = { nparameters: 1,
 				            operation: function(s_expr)
 							{
-								if (!(get_value(sim.rv.states["FLAG_N"]) || get_value(sim.rv.states["FLAG_Z"]))) {
+								if (!(get_value(sim.rv.states["FLAG_N"])) && !(get_value(sim.rv.states["FLAG_Z"]))) {
 									return ;
 								}
                                                             show_asmdbg_pc();
