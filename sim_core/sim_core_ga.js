@@ -29,11 +29,6 @@
                 return ;
             }
 
-            if (typeof ga !== "undefined")
-            {
-                ga('send', 'event', category, action, label) ;
-            }
-
             if (typeof gtag !== "undefined")
             {
                 gtag('event',

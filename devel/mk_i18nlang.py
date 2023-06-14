@@ -177,6 +177,7 @@ i18n_eltos['examples'] = {
 i18n_eltos['gui'] = {
 
 	"Loading WepSIM...":  			        "Loading WepSIM...",
+	"About":                                 	"About",
 	"Configuration":  			        "Configuration",
 	"MicroCode":  			        	"MicroCode",
 	"Assembly": 		     			"Assembly",

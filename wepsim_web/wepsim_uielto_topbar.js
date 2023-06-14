@@ -59,7 +59,7 @@
 				'          onclick="wsweb_dialog_open(\'about\');' +
 				'	            return true;"' +
 				'	  data-bs-html="true"' +
-				'	  data-bs-placement="bottom"><span data-langkey="About ...">About ...</span></a>' +
+				'	  data-bs-placement="bottom"><span data-langkey="About">About</span>...</a>' +
 				'    </span>' +
 				'</nav>' ;
 

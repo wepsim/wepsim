@@ -24,6 +24,7 @@
     i18n.eltos.gui.zh_cn = {
 
 		'Loading WepSIM...':		'正在加载WepSIM ...',
+		'About':			'关于',
 		'Configuration':		'配置',
 		'MicroCode':			'微代码',
 		'Assembly':			'汇编',

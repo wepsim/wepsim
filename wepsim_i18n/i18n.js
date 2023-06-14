@@ -174,7 +174,7 @@
 
     function i18n_get_selectcfg ( )
     {
-        var o  = " <select name='select7' id='select7' class='form-control form-control-sm custom-select'" +
+        var o  = " <select name='select7' id='select7' class='form-control form-control-sm custom-select border-secondary'" +
 	         "	     aria-label='idiom for examples and help' " +
 	         "	     onchange=\"var opt = $(this).find('option:selected');" +
 	         "	 	        var optValue = opt.val();" +

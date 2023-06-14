@@ -24,6 +24,7 @@
     i18n.eltos.gui.kr = {
 
 		"Loading WepSIM...":  			        "WepSIM로드 중...",
+                "About":                              		"소개",
 		"Configuration":  			        "구성",
 		"MicroCode":  			        	"마이크로 코드",
 		"Assembly": 		     			"어셈블리",
