@@ -276,15 +276,15 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 		if (isToken(context,"|"))
 		{
 			// all bit ranges
-			var bits = [] ;
+			var bits = [[start, stop]] ;
 
 			// auxiliary to add ranges
-			var bits_aux = [start, stop] ;
-			bits.push(bits_aux) ;
+			var bits_aux = [] ;
 
 			while (! isToken(context,")"))
 			{
 				nextToken(context);
+				if (getToken(context) == ")") continue;
 				bits_aux[0] = getToken(context) ;
 				// check bit range
 				if (bits_aux[0] > 32*parseInt(instruccionAux.nwords)) {
@@ -294,6 +294,10 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 				}
 
 				nextToken(context);
+				if (getToken(context) == ")") {
+					bits.push([bits_aux[0], bits_aux[0]]);
+					continue;
+				}
 				// match mandatory : or |
 				if (! isToken(context,":") && ! isToken(context,"|")) {
 					return langError(context,
@@ -302,8 +306,10 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 				if (isToken(context,":")) {
 					nextToken(context);
 					bits_aux[1] = getToken(context) ;
+					nextToken(context);
 				} else if (isToken(context,"|")) {
 					bits_aux[1] = bits_aux[0] ;
+					//nextToken(context);
 				}
 
 				// check bit range
@@ -314,7 +320,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 				}
 
 				// bit range is added
-				bits.push(bits_aux) ;
+				bits.push([bits_aux[0], bits_aux[1]]) ;
 			}
 
 			// count number of bits read
@@ -337,6 +343,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 			}
 
 			tmp_fields.bits = bits ;
+			console.log(bits);
 		}
 
 	}

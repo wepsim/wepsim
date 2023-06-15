@@ -2,8 +2,7 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-FIRMWARE_VERSION=2
-
+firmware_version=2,
 begin
 {
    fetch:   # IR <- MP[PC]
@@ -15,12 +14,11 @@ begin
 
 }
 
-
 #  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
 lui rd imm {
       oc(6:0)=1111111,
       reg(11:7)=rd,
-      imm(31:12)=imm
+      imm(31:12)=imm,
       help='rd = (inm << 12)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=11111, WOut),
@@ -32,7 +30,7 @@ lui rd imm {
 auipc rd offset {
       oc(6:0)=1111111
       reg(11:7)=rd,
-      imm(31:12)=offset
+      imm(31:12)=offset,
       help='rd = pc + (offset << 12)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10011, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
@@ -48,8 +46,8 @@ lw rd offset(rs1) {
          oc(6:0)=0000100,
          eoc(14:12)=111,
          reg(11:7)=rd,
-         reg(19:15)=rs1
-         address(31:20)abs=offset,
+         reg(19:15)=rs1,
+         address-abs(31:20)=offset,
          help='r1 = (MEM[addr] ... MEM[addr+3])',
          {
              ()
@@ -61,7 +59,7 @@ sw rs2 offset(rs1) {
          eoc(14:12)=111,
          reg(19:15)=rs1,
          reg(24:20)=rs2,
-         address(11:7|31:25)abs=offset,
+         address-abs(11:7|31:25)=offset,
          help='MEM[addr] = r1',
          {
              ()
@@ -72,7 +70,7 @@ sw rs2 offset(rs1) {
 #  ADD rd,rs1,rs2         Add                                 rd ← sx(rs1) + sx(rs2)
 add rd rs1 rs2 {
       oc(6:0)=1111111,
-      eoc(14:12|31:25)=1111111111
+      eoc(14:12|31:25)=1111111111,
       reg(11:7)=rd,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
@@ -90,7 +88,7 @@ addi rd rs1 imm {
       eoc(14:12)=111,
       reg(11:7)=rd,
       reg(19:15)=rs1,
-      imm(31:20)=imm
+      imm(31:20)=imm,
       help='rd = rs1 + SignEx(inm)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
@@ -108,7 +106,7 @@ beq rs1 rs2 offset {
       oc(6:0)=0001101,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
-      address(11:8|30:25|7|31)rel=offset,
+      address-rel(11:8|30:25|7|31)=offset,
       help='if ($r1 == $r2) pc += offset',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
@@ -125,7 +123,7 @@ bne rs1 rs2 offset {
       oc(6:0)=1111111,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
-      address(11:8|30:25|7|31)rel=offset,
+      address-rel(11:8|30:25|7|31)=offset,
       help='if ($r1 != $r2) pc += offset',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
@@ -142,7 +140,7 @@ bge rs1 rs2 offset {
       oc(6:0)=1111111,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
-      address(11:8|30:25|7|31)rel=offset,
+      address-rel(11:8|30:25|7|31)=offset,
       help='if (rs1 >= rs2) pc += offset',
       {
           (OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
@@ -156,7 +154,7 @@ bge rs1 rs2 offset {
 jal rd offset {
       oc(6:0)=1111111,
       reg(11:7)=rd,
-      address(30:21|20|19:12|31)rel=offset,
+      address-rel(30:21|20|19:12|31)=offset,
       help='rd = pc; pc = pc + sext(offset)',
       {
           (M2=0, AluOp=11110, WOut),
@@ -172,7 +170,7 @@ jalr rd rs1 offset {
       eoc(14:12)=111,
       reg(11:7)=rd,
       reg(19:15)=rs1,
-      address(31:20)rel=offset,
+      address-rel(31:20)=offset,
       help='rd = pc; pc = rs1 + offset',
       {
           (M2=0, AluOp=11110, WOut),
