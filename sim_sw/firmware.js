@@ -101,75 +101,75 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
            return ret ;
 }
 
-function find_first_ocfunct ( context, curr_instruction, first_oc, last_oc )
+function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
 {
            var k = 0 ;
            var m = 0 ;
 
            var ret = {} ;
                ret.label_oc  = '' ;
-               ret.label_funct = '' ;
+               ret.label_eoc = '' ;
 
-	   // analize if instruction has any field that uses cop bits... -> m points to
-           var funct_overlaps = false ;
+	   // analize if instruction has any field that uses eoc bits... -> m points to
+           var eoc_overlaps = false ;
 	   for (m=0; m<curr_instruction.fields.length; m++)
            {
 	        if (curr_instruction.fields[m].stopbit === "0")
                 {
-                    funct_overlaps = true ;
+                    eoc_overlaps = true ;
 	   	    break ;
 	        }
 	   }
 
-           // find first free 'oc-funct' code
+           // find first free 'oc-eoc' code
 	   for (j=first_oc; j<last_oc; j++)
 	   {
                 // new initial oc...
 		ret.label_oc = j.toString(2).padStart(6, "0") ;
 
                 // (1/3) check for free oc-0000...
-		if (typeof context.oc_funct[ret.label_oc] === "undefined")
+		if (typeof context.oc_eoc[ret.label_oc] === "undefined")
                 {
-		    context.oc_funct[ret.label_oc]         = {} ;
-		    context.oc_funct[ret.label_oc].withfunct = false ;
+		    context.oc_eoc[ret.label_oc]         = {} ;
+		    context.oc_eoc[ret.label_oc].witheoc = false ;
 		    return ret ;
                 }
 
-                // (2/3) search for free oc-funct...
-                if (typeof curr_instruction.funct !== "undefined")
+                // (2/3) search for free oc-eoc...
+                if (typeof curr_instruction.eoc !== "undefined")
                 {
-                    // funct in use... -> skip funct
-		    if (typeof context.oc_funct[ret.label_oc].funct[curr_instruction.funct] !== "undefined") {
+                    // eoc in use... -> skip eoc
+		    if (typeof context.oc_eoc[ret.label_oc].eoc[curr_instruction.eoc] !== "undefined") {
 		        continue ;
 		    }
 
-                    // use funct
-		    ret.label_funct = curr_instruction.funct ;
+                    // use eoc
+		    ret.label_eoc = curr_instruction.eoc ;
 		    return ret ;
                 }
 
                 // (3/3) check if skip (new instruction overlaps || existing instructions overlap)...
-                if (funct === true) {
+                if (eoc === true) {
 		    continue ;
                 }
-                if (context.oc_funct[ret.label_oc].withfunct === false) {
+                if (context.oc_eoc[ret.label_oc].witheoc === false) {
 		    continue ;
                 }
 
-                // new initial oc-funct...
-                first_funct = 0 ;
-                last_funct  = Math.pow(2, 4) - 1 ;
-		for (k=first_funct; k<last_funct; k++)
+                // new initial oc-eoc...
+                first_eoc = 0 ;
+                last_eoc  = Math.pow(2, 4) - 1 ;
+		for (k=first_eoc; k<last_eoc; k++)
 		{
-		     ret.label_funct = k.toString(2).padStart(4, "0") ;
+		     ret.label_eoc = k.toString(2).padStart(4, "0") ;
 
-                     if (        (context.oc_funct[ret.label_oc].funct === null) ||
-                          (typeof context.oc_funct[ret.label_oc].funct === 'undefined') )
+                     if (        (context.oc_eoc[ret.label_oc].eoc === null) ||
+                          (typeof context.oc_eoc[ret.label_oc].eoc === 'undefined') )
                      {
-		          context.oc_funct[ret.label_oc].funct = {};
+		          context.oc_eoc[ret.label_oc].eoc = {};
                           return ret ;
                      }
-                     if (typeof context.oc_funct[ret.label_oc].funct[ret.label_funct] === "undefined")
+                     if (typeof context.oc_eoc[ret.label_oc].eoc[ret.label_eoc] === "undefined")
                      {
                           return ret ;
                      }
@@ -197,7 +197,7 @@ function loadFirmware (text)
 	   context.labelsNotFound 	= [] ;
 	   context.instrucciones  	= [] ;
 	   context.co_cop         	= {} ;
-	   context.oc_funct       	= {} ;
+	   context.oc_eoc       	= {} ;
 	   context.registers      	= [] ;
            context.text           	= text ;
 	   context.tokens         	= [] ;
@@ -352,24 +352,24 @@ function loadFirmware (text)
 							continue ;
 						}
 
-						// find first free 'oc-funct' code
-						var r = find_first_occfunct(context, curr_instruction, first_oc, last_oc) ;
+						// find first free 'oc-eoc' code
+						var r = find_first_oceoc(context, curr_instruction, first_oc, last_oc) ;
 				if (r.j >= last_oc) {
 						return langError(context,
 								i18n_get_TagFor('compiler', 'NO OC CODES')) ;
 				}
 
-						// work with this free 'oc-funct' code
+						// work with this free 'oc-eoc' code
 				first_oc = parseInt(r.label_oc, 2) ;
 
 				curr_instruction.oc = r.label_oc ;
-				context.oc_funct[r.label_oc].signature = curr_instruction.signature ;
+				context.oc_eoc[r.label_oc].signature = curr_instruction.signature ;
 
-				if (r.label_funct !== "")
+				if (r.label_eoc !== "")
 						{
-					curr_instruction.funct = r.label_funct ;
-					context.oc_funct[r.label_oc].funct[r.label_funct] = curr_instruction.signature ;
-					context.oc_funct[r.label_oc].withfunct = true ;
+					curr_instruction.eoc = r.label_eoc ;
+					context.oc_eoc[r.label_oc].eoc[r.label_eoc] = curr_instruction.signature ;
+					context.oc_eoc[r.label_oc].witheoc = true ;
 						}
 				}
 		   } else {
@@ -458,10 +458,10 @@ function loadFirmware (text)
 	   eval(mk_native) ;
 
 	   if (context.version == 2) {
-		   // oc_funct_hash
+		   // oc_eoc_hash
 			var fioc  = 0 ;
-			var fifunct = 0 ;
-			context.ocfunct_hash = {} ;
+			var fieoc = 0 ;
+			context.oceoc_hash = {} ;
 			for (var fi in context.instrucciones)
 			{
 				if (context.instrucciones[fi].name == "begin") {
@@ -469,17 +469,17 @@ function loadFirmware (text)
 				}
 
 				fioc  = context.instrucciones[fi].oc ;
-				if (typeof context.ocfunct_hash[fioc] == "undefined") {
-					context.ocfunct_hash[fioc] = {} ;
+				if (typeof context.oceoc_hash[fioc] == "undefined") {
+					context.oceoc_hash[fioc] = {} ;
 				}
 
-				if (typeof context.instrucciones[fi].funct == "undefined") {
-					context.ocfunct_hash[fico].withfunct = false ;
-					context.ocfunct_hash[fico].i       = context.instrucciones[fi] ;
+				if (typeof context.instrucciones[fi].eoc == "undefined") {
+					context.oceoc_hash[fico].witheoc = false ;
+					context.oceoc_hash[fico].i       = context.instrucciones[fi] ;
 				} else {
-					fifunct = context.instrucciones[fi].funct ;
-					context.ocfunct_hash[fioc].withfunct = true ;
-					context.ocfunct_hash[fioc][fifunct]  = context.instrucciones[fi] ;
+					fieoc = context.instrucciones[fi].eoc ;
+					context.oceoc_hash[fioc].witheoc = true ;
+					context.oceoc_hash[fioc][fieoc]  = context.instrucciones[fi] ;
 				}
 			}
 	   } else {
@@ -527,7 +527,7 @@ function loadFirmware (text)
            ret.pseudoInstructions = context.pseudoInstructions ;
            ret.stackRegister      = context.stackRegister ;
            ret.cocop_hash         = context.cocop_hash ;
-           ret.oc_funct_hash      = context.oc_funct_hash ;
+           ret.oceoc_hash         = context.oceoc_hash ;
            ret.revlabels          = context.revlabels ;
 
            return ret ;
@@ -560,9 +560,9 @@ function saveFirmware ( SIMWARE )
 			file += '\t' +"cop=" + SIMWARE.firmware[i].cop + "," + '\n';
 		}
 
-		if (typeof SIMWARE.firmware[i].funct != "undefined")
+		if (typeof SIMWARE.firmware[i].eoc != "undefined")
 		{
-			file += '\t' +"funct=" + SIMWARE.firmware[i].funct + "," + '\n';
+			file += '\t' +"eoc=" + SIMWARE.firmware[i].eoc + "," + '\n';
 		}
 
 		if (typeof SIMWARE.firmware[i].nwords != "undefined")
@@ -696,7 +696,7 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		var ret = {
 					"oinstruction": null,
 					op_code: 0,
-					funct: 0
+					eoc: 0
 				} ;
 
 		// instructions as 32-string
@@ -706,17 +706,18 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
 		ret.op_code = parseInt(oc, 2) ;
 
-		// funct
-		var funct = bits.substr(ep_ir.default_eltos.funct.begin, ep_ir.default_eltos.funct.length);
-		ret.funct = parseInt(funct, 2) ;
+		// eoc
+		// NEEDS FIX
+		var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+		ret.eoc = parseInt(eoc, 2) ;
 
-		if ("undefined" == typeof curr_firm.ocfunct_hash[oc]) {
+		if ("undefined" == typeof curr_firm.oceoc_hash[oc]) {
 			return ret ;
 		}
 
-		if (false == curr_firm.ocfunct_hash[oc].withfunct)
-			ret.oinstruction = curr_firm.ocfunct_hash[oc].i ;
-		else ret.oinstruction = curr_firm.ocfunct_hash[oc][funct] ;
+		if (false == curr_firm.oceoc_hash[oc].witheoc)
+			ret.oinstruction = curr_firm.oceoc_hash[oc].i ;
+		else ret.oinstruction = curr_firm.oceoc_hash[oc][eoc] ;
 
 	} else {
 		var ret = {
