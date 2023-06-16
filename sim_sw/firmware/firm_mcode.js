@@ -33,28 +33,28 @@ function firm_mcode_signals_read ( context )
 
            var microprograma = [];
            var microcomments = [];
-           resetComments(context) ;
+           frm_resetComments(context) ;
 
 	   // match mandatory {
-	   if (! isToken(context, "{") ) {
-                 return langError(context,
+	   if (! frm_isToken(context, "{") ) {
+                 return frm_langError(context,
                                   i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
            }
 
-           nextToken(context) ;
-	   while (! isToken(context, "}") )
+           frm_nextToken(context) ;
+	   while (! frm_isToken(context, "}") )
 	   {
 	       var microInstruccionAux = {};
 
 	       // match optional etiq:
-	       if (! isToken(context, "(") )
+	       if (! frm_isToken(context, "(") )
 	       {
 	           // match mandatory LABEL
-		   var newLabelName = getToken(context) ;
+		   var newLabelName = frm_getToken(context) ;
                        newLabelName = newLabelName.substring(0, newLabelName.length-1) ; // remove the ending ':'
 
-		   if ("TAG" != getTokenType(context)) {
-                        return langError(context,
+		   if ("TAG" != frm_getTokenType(context)) {
+                        return frm_langError(context,
                                          i18n_get_TagFor('compiler', 'LABEL NOT FOUND') +
                                          "'" + newLabelName + "'") ;
                    }
@@ -63,48 +63,48 @@ function firm_mcode_signals_read ( context )
 		   for (var contadorMCAux in context.etiquetas)
 		   {
 			if (context.etiquetas[contadorMCAux] == newLabelName) {
-                            return langError(context,
+                            return frm_langError(context,
                                              i18n_get_TagFor('compiler', 'REPEATED LABEL') +
-                                             "'" + getToken(context) + "'") ;
+                                             "'" + frm_getToken(context) + "'") ;
                         }
 		   }
 		   context.etiquetas[context.contadorMC] = newLabelName ;
 
                    // semantic check: valid token
                    if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName ) {
-                       return langError(context,
+                       return frm_langError(context,
                                         i18n_get_TagFor('compiler', 'INVALID LABEL FORMAT') +
-                                        "'" + getToken(context) + "'") ;
+                                        "'" + frm_getToken(context) + "'") ;
                    }
 
-                   nextToken(context) ;
+                   frm_nextToken(context) ;
 	       }
 
 	       // match mandatory (
-	       if (! isToken(context, "(") ) {
-                     return langError(context,
+	       if (! frm_isToken(context, "(") ) {
+                     return frm_langError(context,
                                       i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
                }
 
-               nextToken(context) ;
-	       while (! isToken(context, ")") )
+               frm_nextToken(context) ;
+	       while (! frm_isToken(context, ")") )
 	       {
 		   // match mandatory SIGNAL
-		   var nombre_tok = getToken(context).toUpperCase();
+		   var nombre_tok = frm_getToken(context).toUpperCase();
 
 		   if (nombre_tok == "MADDR")
 		   {
-                        nextToken(context) ;
+                        frm_nextToken(context) ;
 			// match mandatory =
-			if (! isToken(context, "=") ) {
-                            return langError(context,
+			if (! frm_isToken(context, "=") ) {
+                            return frm_langError(context,
                                              i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
                         }
 
-                        nextToken(context) ;
+                        frm_nextToken(context) ;
 			// match mandatory VALUE
 			var labelsNotFoundAux={};
-			labelsNotFoundAux.nombre = getToken(context) ;
+			labelsNotFoundAux.nombre = frm_getToken(context) ;
 			labelsNotFoundAux.cycle  = microprograma.length;
 			labelsNotFoundAux.index  = context.i;
 			labelsNotFoundAux.instruction = context.instrucciones.length;
@@ -112,7 +112,7 @@ function firm_mcode_signals_read ( context )
 			var etiquetaFounded = 0;
 			for (var k in context.etiquetas)
 			{
-				if ( isToken(context, context.etiquetas[k]) )
+				if ( frm_isToken(context, context.etiquetas[k]) )
 				{
 					microInstruccionAux[nombre_tok] = k.toString();
 					etiquetaFounded = 1;
@@ -123,80 +123,80 @@ function firm_mcode_signals_read ( context )
 			    context.labelsNotFound.push(labelsNotFoundAux);
 			}
 
-                        nextToken(context) ;
+                        frm_nextToken(context) ;
 			// match optional ,
-			if ( isToken(context, ",") )
-                             nextToken(context) ;
+			if ( frm_isToken(context, ",") )
+                             frm_nextToken(context) ;
 
 			continue ;
 		   }
 
                    // semantic check: valid signal id
 		   if (typeof simhw_sim_signal(nombre_tok) == "undefined") {
-                       return langError(context,
+                       return frm_langError(context,
                                         i18n_get_TagFor('compiler', 'SIGNAL NOT EXISTS') +
                                         "'" + nombre_tok + "'") ;
                    }
 
                    // semantic check: signal id can be used
 		   if (typeof simhw_sim_signal(nombre_tok).forbidden != "undefined") {
-                       return langError(context,
+                       return frm_langError(context,
                                         nombre_tok + ' ' + i18n_get_TagFor('compiler', 'SIGNAL NO DIRECTLY')) ;
                    }
 
 		   microInstruccionAux[nombre_tok] = 1; // signal is active so far...
 
-                   nextToken(context) ;
+                   frm_nextToken(context) ;
 		   // match optional =
-		   if ( isToken(context, "=") )
+		   if ( frm_isToken(context, "=") )
 		   {
-                        nextToken(context) ;
+                        frm_nextToken(context) ;
 			// match mandatory VALUE
-			microInstruccionAux[nombre_tok] = parseInt(getToken(context) , 2);
+			microInstruccionAux[nombre_tok] = parseInt(frm_getToken(context) , 2);
 
                         // semantic check: valid value
-                        if (getToken(context).match("[01]*")[0] != getToken(context)) {
-                            return langError(context,
+                        if (frm_getToken(context).match("[01]*")[0] != frm_getToken(context)) {
+                            return frm_langError(context,
                                              i18n_get_TagFor('compiler', 'INCORRECT BIN. FORMAT') +
-                                             "'" + getToken(context) + "'") ;
+                                             "'" + frm_getToken(context) + "'") ;
                         }
 
                         // semantic check: value within range
 		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, simhw_sim_signal(nombre_tok).nbits)) {
-                            return langError(context,
+                            return frm_langError(context,
                                              i18n_get_TagFor('compiler', 'OUT OF RANGE') +
-                                             "'" + getToken(context) + "'") ;
+                                             "'" + frm_getToken(context) + "'") ;
                         }
 
-                        nextToken(context) ;
+                        frm_nextToken(context) ;
 		   }
 
 		   // match optional ,
-		   if ( isToken(context, ",") ) {
-                        nextToken(context) ;
+		   if ( frm_isToken(context, ",") ) {
+                        frm_nextToken(context) ;
                    }
 	       }
 
-               var acc_cmt = getComments(context) ;
+               var acc_cmt = frm_getComments(context) ;
                microcomments.push(acc_cmt);
-               resetComments(context) ;
+               frm_resetComments(context) ;
 
 	       microprograma.push(microInstruccionAux);
 	       context.contadorMC++;
 
-               nextToken(context) ;
-	       if ( isToken(context, ",") )
-                    nextToken(context) ;
+               frm_nextToken(context) ;
+	       if ( frm_isToken(context, ",") )
+                    frm_nextToken(context) ;
 	   }
 
            // semantic check: empty microcode is not valid
 	   if (microprograma.length === 0) {
-	       return langError(context,
+	       return frm_langError(context,
 			        i18n_get_TagFor('compiler', 'EMPTY MICROCODE')) ;
            }
 
 	   // match mandatory }
-           nextToken(context) ;
+           frm_nextToken(context) ;
 
            return { 
                     'NATIVE':        '',
@@ -211,20 +211,20 @@ function read_native ( context )
            var microcomments = [];
 
 	   // match mandatory {
-	   if (! isToken(context, "{") ) {
-                 return langError(context,
+	   if (! frm_isToken(context, "{") ) {
+                 return frm_langError(context,
                                   i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
            }
 
 	   // read the rest...
-	   nextNative(context) ;
-	   var native_code = getToken(context) ;
+	   frm_nextNative(context) ;
+	   var native_code = frm_getToken(context) ;
 
 	   microprograma.push({}) ;
            microcomments.push('') ;
 
 	   // match mandatory }
-           nextToken(context) ;
+           frm_nextToken(context) ;
 
            return { 
                     'NATIVE':        native_code,

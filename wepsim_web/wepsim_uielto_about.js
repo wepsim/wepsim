@@ -107,7 +107,7 @@
 		             '<component v-for="social in author.socials" ' +
                              '           :is="social.href?\'a\':\'span\'" v-bind:href="social.href || \'\'" ' +
                              '           target="_blank" ' +
-                             '           class="card-link list-group-item p-2 ms-2">' +
+                             '           class="list-group-item p-2 mx-auto w-100">' +
                              '<em v-bind:class="social.faclass"></em><span class="m-1">{{ social.name }}</span>' +
                              '</component>' +
                              '    </div>' +

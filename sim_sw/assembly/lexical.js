@@ -23,7 +23,7 @@
  *  Token management
  */
 
-function nextToken ( context )
+function asm_nextToken ( context )
 {
 	  var tok   = "" ;
 	  var first = "" ;
@@ -154,22 +154,22 @@ function nextToken ( context )
           return context ;
 }
 
-function getToken ( context )
+function asm_getToken ( context )
 {
 	 return context.tokens[context.i] ;
 }
 
-function getTokenType ( context )
+function asm_getTokenType ( context )
 {
 	 return context.token_types[context.i] ;
 }
 
-function isToken ( context, text )
+function asm_isToken ( context, text )
 {
          return (getToken(context) == text.trim()) ;
 }
 
-function isToken_arr ( context, arr )
+function asm_isToken_arr ( context, arr )
 {
          for (var i=0; i<arr.length; i++)
          {
@@ -186,7 +186,7 @@ function isToken_arr ( context, arr )
  *  Error handler
  */
 
-function langError ( context, msgError )
+function asm_langError ( context, msgError )
 {
         // detect lines
 	var line2 = 0 ;
@@ -231,24 +231,24 @@ function langError ( context, msgError )
         return context;
 }
 
-function getLabelContext ( context )
+function asm_getLabelContext ( context )
 {
         return { t: context.t, line: context.line, newlines: context.newlines.slice() } ;
 }
 
-function setLabelContext ( context, labelContext )
+function asm_setLabelContext ( context, labelContext )
 {
         context.t = labelContext.t ;
         context.line = labelContext.line ;
         context.newlines = labelContext.newlines ;
 }
 
-function getComments ( context )
+function asm_getComments ( context )
 {
         return context.comments.join('\n') ;
 }
 
-function resetComments ( context )
+function asm_resetComments ( context )
 {
         context.comments = [] ;
 }
@@ -260,7 +260,7 @@ function resetComments ( context )
 
 // TODO: some checking of this code before running (like an anti-virus)
 
-function nextNative ( context )
+function asm_nextNative ( context )
 {
 	 var first = context.t ;
 	 var last  = context.t ;

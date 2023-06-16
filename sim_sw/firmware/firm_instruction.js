@@ -34,7 +34,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 // }
 
        var instruccionAux = {};
-       instruccionAux.name         = getToken(context) ;
+       instruccionAux.name         = frm_getToken(context) ;
        instruccionAux["mc-start"]  = context.contadorMC ;
        instruccionAux.nwords       = 1 ;
        instruccionAux.is_native    = false ;
@@ -48,7 +48,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
        // semantic check: valid instruction name
        var re_name = "[a-zA-Z_0-9\.]*" ;
        if (instruccionAux.name.match(re_name)[0] != instruccionAux.name) {
-	   return langError(context,
+	   return frm_langError(context,
 			    i18n_get_TagFor('compiler', 'INS. NAME') +
 			    "'" + instruccionAux.name + "' " +
 			    i18n_get_TagFor('compiler', 'NOT VALID FOR') + re_name) ;
@@ -58,28 +58,28 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
        var firmaGlobal= "";
        var firmaUsuario= "";
 
-       firma = getToken(context)  + ',';
-       firmaUsuario = getToken(context) + " ";
-       nextToken(context);
+       firma = frm_getToken(context)  + ',';
+       firmaUsuario = frm_getToken(context) + " ";
+       frm_nextToken(context);
 
        // match optional ,
-       while (isToken(context, ',')) {
-	      nextToken(context);
+       while (frm_isToken(context, ',')) {
+	      frm_nextToken(context);
        }
 
-       while (! isToken(context,"{"))
+       while (! frm_isToken(context,"{"))
        {
 	   // match optional ,
-	   while (isToken(context, ','))
-		  nextToken(context);
+	   while (frm_isToken(context, ','))
+		  frm_nextToken(context);
 
 	   var plus_found = false;
 
 	   // match optional FIELD
-	   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
+	   if ( !frm_isToken(context, ",") && !frm_isToken(context, "(") && !frm_isToken(context, ")") )
 	   {
 	       var campoAux = {};
-	       var auxValue = getToken(context);
+	       var auxValue = frm_getToken(context);
 	
 	       if (auxValue[auxValue.length-1] == "+")
 	       {
@@ -92,24 +92,24 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 	       instruccionAux.numeroCampos++;
 	       firma = firma + auxValue ;
 	       firmaUsuario = firmaUsuario + auxValue;
-	       nextToken(context);
+	       frm_nextToken(context);
 
 	       if (instruccionAux.numeroCampos > 100) {
-		   return langError(context,
+		   return frm_langError(context,
 				    i18n_get_TagFor('compiler', 'MORE 100 FIELDS')) ;
 	       }
 	       if (auxValue == "co") {
-		   return langError(context,
+		   return frm_langError(context,
 				    i18n_get_TagFor('compiler', 'CO AS FIELD NAME')) ;
 	       }
 	       if (auxValue == "nwords") {
-		   return langError(context,
+		   return frm_langError(context,
 				    i18n_get_TagFor('compiler', 'NW AS FIELD NAME')) ;
 	       }
 	   }
 
 	   // match optional "(" FIELD ")"
-	   if (isToken(context, "("))
+	   if (frm_isToken(context, "("))
 	   {
 		   firma = firma + ',(';
 
@@ -118,37 +118,37 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 			firmaUsuario = firmaUsuario + '+(';
 		   else	firmaUsuario = firmaUsuario + ' (';
 
-		   nextToken(context);
+		   frm_nextToken(context);
 
-		   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
+		   if ( !frm_isToken(context, ",") && !frm_isToken(context, "(") && !frm_isToken(context, ")") )
 		   {
 		       var campoAux = {};
-		       campoAux.name = getToken(context) ;
+		       campoAux.name = frm_getToken(context) ;
 		       instruccionAux.fields.push(campoAux);
 		       instruccionAux.numeroCampos++;
 
-		       firma = firma + getToken(context) ;
-		       firmaUsuario = firmaUsuario + getToken(context);			
+		       firma = firma + frm_getToken(context) ;
+		       firmaUsuario = firmaUsuario + frm_getToken(context);			
 
-		       nextToken(context);
+		       frm_nextToken(context);
 		   }
 		   else
 		   {
-		       return langError(context,
+		       return frm_langError(context,
 					i18n_get_TagFor('compiler', 'MISSING TOKEN ON') +
 					"'" + context.co_cop[instruccionAux.co].signature + "'") ;
 		   }
 
-		   if (isToken(context,")"))
+		   if (frm_isToken(context,")"))
 		   {
 			firma = firma + ')';
 			firmaUsuario = firmaUsuario + ')';
 
-			nextToken(context);
+			frm_nextToken(context);
 		   }
 		   else
 		   {
-		       return langError(context,
+		       return frm_langError(context,
 					i18n_get_TagFor('compiler', 'MISSING ) ON') +
 					"'" + context.co_cop[instruccionAux.co].signature + "'") ;
 		   }
@@ -228,12 +228,12 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 //             }
 // *}*
 
-       if (! isToken(context,"}")) {
-	   return langError(context,
+       if (! frm_isToken(context,"}")) {
+	   return frm_langError(context,
 			    i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
        }
 
-       nextToken(context);
+       frm_nextToken(context);
 
        return {} ;
 }

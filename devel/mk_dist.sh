@@ -50,8 +50,7 @@ while getopts 'vdh' opt; do
       echo "   npm i codemirror @codemirror/lang-javascript"
       echo "   npm i codemirror @codemirror/view";
       echo "   npm i codemirror @codemirror/state";
-      echo "   npm i codemirror @codemirror/gutter";
-      echo "   npm i codemirror @codemirror/highlight";
+      echo "   npm i codemirror @codemirror/language";
       echo ""
       exit
       ;;
@@ -140,7 +139,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_poc/sim_hw_l3d.js \
     sim_hw/sim_hw_poc/sim_hw_ldm.js \
     \
-    sim_sw/lexical.js \
+    sim_sw/firmware/lexical.js \
     sim_sw/firmware/firm_mcode.js \
     sim_sw/firmware/firm_begin.js \
     sim_sw/firmware/firm_pseudoinstructions.js \
@@ -150,6 +149,7 @@ cat sim_core/sim_cfg.js \
     sim_sw/firmware/firm_instruction.js \
     sim_sw/firmware/creator2native.js \
     sim_sw/firmware.js \
+    sim_sw/assembly/lexical.js \
     sim_sw/assembly/memory_segments.js \
     sim_sw/assembly.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
