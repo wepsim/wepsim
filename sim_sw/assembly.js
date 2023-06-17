@@ -428,26 +428,26 @@ function read_data ( context, datosCU, ret )
                           }
 
 			  return asm_langError(context,
-			                   i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
-                                           "'" + possible_tag + "'") ;
+			                       i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
+                                               "'" + possible_tag + "'") ;
 		      }
 
 		      var tag = possible_tag.substring(0, possible_tag.length-1);
 
    		      if (! isValidTag(tag)) {
 			  return asm_langError(context,
-			                   i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
-                                           "'" + tag + "'") ;
+			                       i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                               "'" + tag + "'") ;
 		      }
 		      if (context.firmware[tag]) {
 			  return asm_langError(context,
-			                   i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-                                           "'" + tag + "'") ;
+			                       i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                               "'" + tag + "'") ;
 		      }
 		      if (ret.labels2[tag]) {
 			  return asm_langError(context,
-			                   i18n_get_TagFor('compiler', 'REPEATED TAG') +
-                                           "'" + tag + "'") ;
+			                       i18n_get_TagFor('compiler', 'REPEATED TAG') +
+                                               "'" + tag + "'") ;
 		      }
 
 		      // Store tag
@@ -496,20 +496,20 @@ function read_data ( context, datosCU, ret )
 				    if (".word" !== possible_datatype)
                                     {
 					return asm_langError(context,
-			                                 i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
-                                                         "'" + possible_value + "'") ;
+			                                     i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
+                                                             "'" + possible_value + "'") ;
 				    }
 
                                     // check valid label
 				    if (! isValidTag(possible_value)) {
 					 return asm_langError(context,
-							  i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
-                                                          "'" + possible_value + "'") ;
+							      i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                                              "'" + possible_value + "'") ;
    				    }
 				    if (context.firmware[possible_value]) {
 					return asm_langError(context,
-			                                 i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-                                                         "'" + possible_value + "'") ;
+			                                     i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                                             "'" + possible_value + "'") ;
    				    }
 
 				    number = 0 ;
@@ -528,11 +528,11 @@ function read_data ( context, datosCU, ret )
 				if (free_space < 0)
                                 {
 				    return asm_langError(context,
-                                                     i18n_get_TagFor('compiler', 'EXPECTED VALUE') + possible_datatype +
-                                                     "' (" + size*BYTE_LENGTH + " bits), " +
-                                                     i18n_get_TagFor('compiler', 'BUT INSERTED') + possible_value +
-                                                     "' (" + num_bits.length + " bits) " +
-                                                     i18n_get_TagFor('compiler', 'INSTEAD') ) ;
+                                                         i18n_get_TagFor('compiler', 'EXPECTED VALUE') + possible_datatype +
+                                                         "' (" + size*BYTE_LENGTH + " bits), " +
+                                                         i18n_get_TagFor('compiler', 'BUT INSERTED') + possible_value +
+                                                         "' (" + num_bits.length + " bits) " +
+                                                         i18n_get_TagFor('compiler', 'INSTEAD') ) ;
 				}
 
 				// Word filled
@@ -603,13 +603,13 @@ function read_data ( context, datosCU, ret )
 			possible_value = ret1.number ;
                         if (ret1.isDecimal == false) {
 			    return asm_langError(context,
-			                     i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') +
-                                             "'" + possible_value + "'") ;
+			                         i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') +
+                                                 "'" + possible_value + "'") ;
 		        }
 			if (possible_value < 0) {
 			     return asm_langError(context,
-			                      i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') +
-                                              "'" + possible_value + "'") ;
+			                          i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') +
+                                                  "'" + possible_value + "'") ;
 			}
 
 			// Fill with spaces/zeroes
@@ -640,9 +640,9 @@ function read_data ( context, datosCU, ret )
 			if ( (ret1.isDecimal == false) && (possible_value >= 0) )
                         {
 			     return asm_langError(context,
-			                      i18n_get_TagFor('compiler', 'INVALID ALIGN VALUE') +
-                                              "'" + possible_value + "'. " +
-			                      i18n_get_TagFor('compiler', 'REMEMBER ALIGN VAL')) ;
+			                          i18n_get_TagFor('compiler', 'INVALID ALIGN VALUE') +
+                                                  "'" + possible_value + "'. " +
+			                          i18n_get_TagFor('compiler', 'REMEMBER ALIGN VAL')) ;
 		        }
 
 			// Word filled
@@ -706,21 +706,21 @@ function read_data ( context, datosCU, ret )
 				// check string
 				if ("\"" !== possible_value[0]) {
 			            return asm_langError(context,
-			                             i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
-                                                     "'" + possible_value + "'") ;
+			                                 i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
+                                                         "'" + possible_value + "'") ;
 			        }
 				if ("\"" !== possible_value[possible_value.length-1]) {
 			            return asm_langError(context,
-			                             i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
+			                                 i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
 			        }
 				if ("" == possible_value) {
 			            return asm_langError(context,
-			                             i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
+			                                 i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
 			        }
 		                if ("STRING" != asm_getTokenType(context)) {
 			            return asm_langError(context,
-			                             i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
-                                                     "'" + possible_value + "'") ;
+			                                 i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
+                                                         "'" + possible_value + "'") ;
 			        }
 
 				// process characters of the string
@@ -784,8 +784,8 @@ function read_data ( context, datosCU, ret )
 		   else
 		   {
 			return asm_langError(context,
-				         i18n_get_TagFor('compiler', 'UNEXPECTED DATATYPE') +
-                                         "'" + possible_datatype + "'") ;
+				             i18n_get_TagFor('compiler', 'UNEXPECTED DATATYPE') +
+                                             "'" + possible_datatype + "'") ;
 		   }
            }
 
@@ -862,25 +862,25 @@ function read_text ( context, datosCU, ret )
                             }
 
 			    return asm_langError(context,
-			                     i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
-                                             "'" + possible_tag + "'") ;
+			                         i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
+                                                 "'" + possible_tag + "'") ;
                         }
 
 		        var tag = possible_tag.substring(0, possible_tag.length-1);
    		        if (!isValidTag(tag)) {
 			    return asm_langError(context,
-			                     i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
-                                             "'" + tag + "'") ;
+			                         i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                                 "'" + tag + "'") ;
                         }
 			if (firmware[tag]) {
 			    return asm_langError(context,
-			                     i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-                                             "'" + tag + "'") ;
+			                         i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                                 "'" + tag + "'") ;
                         }
 			if (ret.labels2[tag]) {
 			    return asm_langError(context,
-			                     i18n_get_TagFor('compiler', 'REPEATED TAG') +
-                                             "'" + tag + "'") ;
+			                         i18n_get_TagFor('compiler', 'REPEATED TAG') +
+                                                 "'" + tag + "'") ;
                         }
 
 			// store tag
@@ -1054,10 +1054,10 @@ function read_text ( context, datosCU, ret )
 
 					     if (res[1] < 0) {
 						 return asm_langError(context,
-								  "'" + value + "' " +
-							          i18n_get_TagFor('compiler', 'BIGGER THAN') +
-								  WORD_LENGTH + " " +
-                                                                  i18n_get_TagFor('compiler', 'BITS'));
+								      "'" + value + "' " +
+							              i18n_get_TagFor('compiler', 'BIGGER THAN') +
+								      WORD_LENGTH + " " +
+                                                                      i18n_get_TagFor('compiler', 'BITS'));
 					     }
 
 					     if (label_found) {
@@ -1160,8 +1160,8 @@ function read_text ( context, datosCU, ret )
 
 				    default:
 					 return asm_langError(context,
-						          i18n_get_TagFor('compiler', 'UNKNOWN 1') +
-                                                          "'" + field.type + "'") ;
+						              i18n_get_TagFor('compiler', 'UNKNOWN 1') +
+                                                              "'" + field.type + "'") ;
 				}
 
 				// check if bits fit in the space
@@ -1262,15 +1262,15 @@ function read_text ( context, datosCU, ret )
 			// No candidate
 			if (advance.length === 1) {
 			    return asm_langError(context,
-                                             error + ". <br>" +
-				             i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
-                                             format);
+                                                 error + ". <br>" +
+				                 i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
+                                                 format);
 			}
 
 			return asm_langError(context,
-				         i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
-				         i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
-				         i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
+				             i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
+				             i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
+				             i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 		}
 
 		if (sum_res > 1)
@@ -1279,7 +1279,7 @@ function read_text ( context, datosCU, ret )
 			candidate = get_candidate(advance, firmware[instruction]);
 			if (candidate === false) {
 			    return asm_langError(context,
-				             i18n_get_TagFor('compiler', 'SEVERAL CANDIDATES') + format) ;
+				                 i18n_get_TagFor('compiler', 'SEVERAL CANDIDATES') + format) ;
 			}
 		}
 
@@ -1549,8 +1549,8 @@ function simlang_compile (text, datosCU)
 
 	       if (typeof ret.seg[segname] === "undefined") {
 		   return asm_langError(context,
-		                    i18n_get_TagFor('compiler', 'INVALID SEGMENT NAME') +
-                                    "'" + segname + "'") ;
+		                        i18n_get_TagFor('compiler', 'INVALID SEGMENT NAME') +
+                                        "'" + segname + "'") ;
 	       }
 
 	       if ("data" == ret.seg[segname].kindof) {
@@ -1580,8 +1580,8 @@ function simlang_compile (text, datosCU)
 		if (typeof value === "undefined") {
 		    asm_setLabelContext(context, ret.labels[i].labelContext);
 		    return asm_langError(context,
-				     i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') +
-                                     "'" + ret.labels[i].name + "'") ;
+				         i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') +
+                                         "'" + ret.labels[i].name + "'") ;
 		}
 
 		// Get the words in memory (machine code) where the label is used
@@ -1675,7 +1675,7 @@ function simlang_compile (text, datosCU)
                   (typeof ret.labels2["kmain"] === "undefined" ) )
              {
 		   return asm_langError(context,
-		                    i18n_get_TagFor('compiler', 'NO MAIN OR KMAIN')) ;
+		                        i18n_get_TagFor('compiler', 'NO MAIN OR KMAIN')) ;
              }
 	 }
 

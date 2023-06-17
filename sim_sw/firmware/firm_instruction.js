@@ -49,9 +49,9 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
        var re_name = "[a-zA-Z_0-9\.]*" ;
        if (instruccionAux.name.match(re_name)[0] != instruccionAux.name) {
 	   return frm_langError(context,
-			    i18n_get_TagFor('compiler', 'INS. NAME') +
-			    "'" + instruccionAux.name + "' " +
-			    i18n_get_TagFor('compiler', 'NOT VALID FOR') + re_name) ;
+			        i18n_get_TagFor('compiler', 'INS. NAME') +
+			        "'" + instruccionAux.name + "' " +
+			        i18n_get_TagFor('compiler', 'NOT VALID FOR') + re_name) ;
        }
 
        var firma = "";
@@ -96,15 +96,15 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 
 	       if (instruccionAux.numeroCampos > 100) {
 		   return frm_langError(context,
-				    i18n_get_TagFor('compiler', 'MORE 100 FIELDS')) ;
+				        i18n_get_TagFor('compiler', 'MORE 100 FIELDS')) ;
 	       }
 	       if (auxValue == "co") {
 		   return frm_langError(context,
-				    i18n_get_TagFor('compiler', 'CO AS FIELD NAME')) ;
+				        i18n_get_TagFor('compiler', 'CO AS FIELD NAME')) ;
 	       }
 	       if (auxValue == "nwords") {
 		   return frm_langError(context,
-				    i18n_get_TagFor('compiler', 'NW AS FIELD NAME')) ;
+				        i18n_get_TagFor('compiler', 'NW AS FIELD NAME')) ;
 	       }
 	   }
 
@@ -135,8 +135,8 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 		   else
 		   {
 		       return frm_langError(context,
-					i18n_get_TagFor('compiler', 'MISSING TOKEN ON') +
-					"'" + context.co_cop[instruccionAux.co].signature + "'") ;
+					    i18n_get_TagFor('compiler', 'MISSING TOKEN ON') +
+					    "'" + context.co_cop[instruccionAux.co].signature + "'") ;
 		   }
 
 		   if (frm_isToken(context,")"))
@@ -149,8 +149,8 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 		   else
 		   {
 		       return frm_langError(context,
-					i18n_get_TagFor('compiler', 'MISSING ) ON') +
-					"'" + context.co_cop[instruccionAux.co].signature + "'") ;
+					    i18n_get_TagFor('compiler', 'MISSING ) ON') +
+					    "'" + context.co_cop[instruccionAux.co].signature + "'") ;
 		   }
 	   }
 
@@ -230,7 +230,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 
        if (! frm_isToken(context,"}")) {
 	   return frm_langError(context,
-			    i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
+			        i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
        }
 
        frm_nextToken(context);

@@ -32,7 +32,7 @@ function firm_registers_read ( context )
        frm_nextToken(context) ;
        if (! frm_isToken(context, "{")) {
 	     return frm_langError(context,
-			      i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
+			          i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
        }
 
        // skip {
@@ -44,7 +44,7 @@ function firm_registers_read ( context )
 	   frm_nextToken(context) ;
 	   if (! frm_isToken(context, "=")) {
 		 return frm_langError(context,
-				  i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+				      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 	   }
 
 	   frm_nextToken(context) ;
@@ -58,7 +58,7 @@ function firm_registers_read ( context )
 		 frm_nextToken(context) ;
 		 if (frm_isToken(context, ")")) {
 		     return frm_langError(context,
-				      i18n_get_TagFor('compiler', 'EMPTY NAME LIST')) ;
+				          i18n_get_TagFor('compiler', 'EMPTY NAME LIST')) ;
 		 }
 
 		 context.registers[nombre_reg] = [] ;
@@ -78,13 +78,13 @@ function firm_registers_read ( context )
 	   {
 		if (context.stackRegister != null) {
 		    return frm_langError(context,
-				     i18n_get_TagFor('compiler', 'DUPLICATE SP')) ;
+				         i18n_get_TagFor('compiler', 'DUPLICATE SP')) ;
 		}
 
 		frm_nextToken(context);
 		if (! frm_isToken(context, "stack_pointer")) {
 		    return frm_langError(context,
-				     i18n_get_TagFor('compiler', 'NO SP')) ;
+				         i18n_get_TagFor('compiler', 'NO SP')) ;
 		}
 
 		context.stackRegister = nombre_reg;
@@ -92,7 +92,7 @@ function firm_registers_read ( context )
 		frm_nextToken(context);
 		if (! frm_isToken(context, ")")) {
 		    return frm_langError(context,
-				     i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+				         i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
 		}
 
 		frm_nextToken(context);

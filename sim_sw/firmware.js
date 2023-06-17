@@ -138,7 +138,7 @@ function loadFirmware (text)
 	       // match mandatory =
 	       if (! frm_isToken(context,"=")) {
 		     return frm_langError(context,
-				      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+				          i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 	       }
 
 	       frm_nextToken(context);
@@ -224,7 +224,7 @@ function loadFirmware (text)
            // CHECK: stack_pointer exists
 	   if (context.stackRegister == null) {
 	       return frm_langError(context,
-				i18n_get_TagFor('compiler', 'SP NOT DEFINED')) ;
+				    i18n_get_TagFor('compiler', 'SP NOT DEFINED')) ;
            }
 
            // CHECK: fetch exists + fetch label
@@ -241,13 +241,13 @@ function loadFirmware (text)
                     }
 		    if (found === false) {
 	                return frm_langError(context,
-		         		 i18n_get_TagFor('compiler', 'NO LABEL FETCH')) ;
+		         		     i18n_get_TagFor('compiler', 'NO LABEL FETCH')) ;
                     }
                 }
            }
            if (found === false) {
 	       return frm_langError(context,
-		         	i18n_get_TagFor('compiler', 'NO LABEL BEGIN')) ;
+		         	    i18n_get_TagFor('compiler', 'NO LABEL BEGIN')) ;
            }
 
            // RESOLVE: co=111111... (111111... === "please, find one free 'co' for me...")
@@ -274,7 +274,7 @@ function loadFirmware (text)
                 var r = find_first_cocop(context, curr_instruction, first_co, last_co) ;
 		if (r.j >= last_co) {
 	             return frm_langError(context,
-		         	      i18n_get_TagFor('compiler', 'NO CO CODES')) ;
+		         	          i18n_get_TagFor('compiler', 'NO CO CODES')) ;
 		}
 
                 // work with this free 'co-cop' code
@@ -310,8 +310,8 @@ function loadFirmware (text)
 			{
                             // CHECK: label is defined
 	                    return frm_langError(context,
-		                	     i18n_get_TagFor('compiler', 'NO LABEL MADDR') +
-                                             context.labelsNotFound[i].nombre) ;
+		                	         i18n_get_TagFor('compiler', 'NO LABEL MADDR') +
+                                                 context.labelsNotFound[i].nombre) ;
 			}
 
                         labelsFounded = 0;

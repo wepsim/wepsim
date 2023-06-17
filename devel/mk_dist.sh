@@ -70,7 +70,6 @@ echo "  Step for npm install/update:"
 echo "  * terser jshint"
 echo "  * yargs clear inquirer fuzzy commander async"
 echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
-echo "  * codemirror @codemirror/lang-javascript"
 echo "  * rollup @rollup/plugin-node-resolve"
 npm install
 echo "  Done.\n"

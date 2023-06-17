@@ -513,47 +513,11 @@
             showhideAsmElements() ;
 
 	    // initialize editors
-	    inputfirm_cfg = {
-			        value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-			        lineNumbers: true,
-			        lineWrapping: true,
-			        matchBrackets: true,
-			        tabSize: 2,
-			        foldGutter: {
-			  	   rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-			        },
-			        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-			        mode: "text/javascript"
-			    } ;
-	    inputfirm = sim_init_editor("inputFirmware", inputfirm_cfg) ;
+	    inputfirm_cfg = sim_cm_get_firmcfg() ;
+	    inputfirm     = sim_init_editor("inputFirmware", inputfirm_cfg) ;
 
-	    inputasm_cfg = {
-				value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-				lineNumbers: true,
-				lineWrapping: true,
-				matchBrackets: true,
-				tabSize: 2,
-				extraKeys: {
-				  "Ctrl-Space": function(cm) {
-				      CodeMirror.showHint(cm, function(cm, options) {
-					      var simware = get_simware();
-					      var cur = cm.getCursor();
-					      var result = [];
-					      for (var i=0; i<simware.firmware.length; i++) {
-						   if (simware.firmware[i].name != "begin") {
-							result.push(simware.firmware[i].signatureUser) ;
-						   }
-					      }
-					      return { list: result, from: cur, to: cur } ;
-				      });
-				  },
-				  "Ctrl-/": function(cm) {
-                                      cm.execCommand('toggleComment');
-				  }
-				},
-				mode: "gas"
-			    } ;
-	    inputasm = sim_init_editor("inputAssembly", inputasm_cfg) ;
+	    inputasm_cfg  = sim_cm_get_asmcfg() ;
+	    inputasm      = sim_init_editor("inputAssembly", inputasm_cfg) ;
 
 	    // init: voice
 	    wepsim_voice_init() ;
