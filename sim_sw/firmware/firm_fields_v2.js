@@ -343,7 +343,6 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 			}
 
 			tmp_fields.bits = bits ;
-			console.log(bits);
 		}
 
 	}
