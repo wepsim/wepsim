@@ -56,8 +56,70 @@
             }
     }
 
+    function sim_cm_get_firmcfg ( )
+    {
+	    return {
+			value: "\n\n\n\n\n\n\n\n\n\n\n\n",
+			lineNumbers: true,
+			lineWrapping: true,
+			matchBrackets: true,
+			tabSize: 2,
+			foldGutter: {
+			   rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
+			},
+			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+			mode: "text/javascript"
+		   } ;
+    }
+
+    function sim_cm_get_asmcfg ( )
+    {
+	    return {
+			value: "\n\n\n\n\n\n\n\n\n\n\n\n",
+			lineNumbers: true,
+			lineWrapping: true,
+			matchBrackets: true,
+			tabSize: 2,
+			extraKeys: {
+			  "Ctrl-Space": function(cm) {
+			      CodeMirror.showHint(cm, function(cm, options) {
+				      var simware = get_simware();
+				      var cur = cm.getCursor();
+				      var result = [];
+				      for (var i=0; i<simware.firmware.length; i++) {
+					   if (simware.firmware[i].name != "begin") {
+						result.push(simware.firmware[i].signatureUser) ;
+					   }
+				      }
+				      return { list: result, from: cur, to: cur } ;
+			      });
+			  },
+			  "Ctrl-/": function(cm) {
+			      cm.execCommand('toggleComment');
+			  }
+			},
+			mode: "gas"
+		   } ;
+    }
+
     function sim_init_editor ( editor_id, editor_cfg )
     {
+/*
+            var view = new EditorView({
+			      doc: "\n\n\n\n\n\n\n\n\n\n",
+			      extensions: [
+				 basicSetup,
+				 history(),
+				 keymap.of([...defaultKeymap, ...historyKeymap]),
+				 javascript(),
+				 syntaxHighlighting(defaultHighlightStyle),
+			      ],
+			      parent: document.getElementById(editor_id)
+			   }) ;
+
+            return view ;
+*/
+
 	    var editor_obj = CodeMirror.fromTextArea(document.getElementById(editor_id), editor_cfg) ;
 
             // default values

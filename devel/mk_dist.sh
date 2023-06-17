@@ -70,10 +70,10 @@ echo "  Step for npm install/update:"
 echo "  * terser jshint"
 echo "  * yargs clear inquirer fuzzy commander async"
 echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
-echo "  * codemirror @codemirror/lang-javascript"
 echo "  * rollup @rollup/plugin-node-resolve"
 npm install
-echo "  Done.\n"
+echo "  Done."
+echo ""
 
 
 # pre-bundle
@@ -82,7 +82,8 @@ echo "  * codemirror6"
 node_modules/.bin/rollup -c external/codemirror6/rollup.config.mjs
 terser -o external/codemirror6/min.codemirror.js external/codemirror6/codemirror.bundle.js
 rm -fr external/codemirror6/codemirror.bundle.js
-echo "  Done.\n"
+echo "  Done."
+echo ""
 
 
 # skeleton
