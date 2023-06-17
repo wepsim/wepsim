@@ -165,7 +165,7 @@
 			    '' +
 			    '	 <div class="row ps-2 pe-3 pt-1">' +
 			    '	 <div class="btn-toolbar btn-block" role="toolbar">' +
-			    '	      <button class="btn btn-light shadow-sm col py-0 mx-1 border border-secondary"' +
+			    '	      <button class="btn bg-body-tertiary shadow-sm col py-0 mx-1 border border-secondary"' +
 			    '		      style="flex-grow:1;"' +
 			    '		      data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			    '		      title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
@@ -209,26 +209,25 @@
 			 '' +
 			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
                          '            <div class="dropdown">' +
-                         '               <button class="btn btn-secondary dropdown-toggle shadow-sm col-auto text-dark border border-secondary"' +
-                         '                 style="background-color:#D4DB17; flex-grow:1;" '+
+                         '               <button class="btn dropdown-toggle shadow-sm col-auto border border-secondary bg-help"' +
+                         '                 style="flex-grow:1;" '+
                          '                       type="button" id="ddownAsmHelp1" ' +
                          '                       data-bs-toggle="dropdown" aria-expanded="false">' +
                          '               <em class="fas fa-info-circle"></em>&nbsp;' +
                          '               <strong><span data-langkey="Help">Help</span></strong></button>' +
-                         '                 <ul class="dropdown-menu" ' +
-                         '                     style="background-color: #D4DB17"' +
+                         '                 <ul class="dropdown-menu bg-help" ' +
                          '                     aria-labelledby="ddownAsmHelp1">' +
-                         '                   <li><button class="btn dropdown-item" ' +
+                         '                   <li><button class="btn dropdown-item bg-help" ' +
                          '                               onclick="wsweb_dialog_open(\'help\');' +
                          '                                wepsim_help_set(\'relative\', ' +
                          '                                                \'simulator#help_assembly_format\');' +
                          '                                return false;"' +
                          '                   ><strong><span data-langkey="Assembly format">Assembly format</span></strong></button></li>' +
-                         '                   <li><button class="btn dropdown-item" type="button" ' +
+                         '                   <li><button class="btn dropdown-item bg-help" type="button" ' +
                          '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs1" ' +
                          '                               aria-controls="offcvs1"' +
                          '                   ><strong><span data-langkey="Instruction summary">Instruction summary</span></strong></button></li>' +
-                         '                   <li><button class="btn dropdown-item" ' +
+                         '                   <li><button class="btn dropdown-item bg-help" ' +
                          '                               onclick="wsweb_dialog_open(\'help\');' +
                          '                                        return false;"' +
                          '                   ><strong><span data-langkey="Help index">Help index</span></strong></button></li>' +
@@ -282,8 +281,7 @@
 			 '' +
 /*
 			 '	      <div class="btn-group me-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
-			 '		    <button style="background-color: #D4DB17"' +
-			 '			    class="btn btn-light shadow-sm col-auto"' +
+			 '		    <button class="btn shadow-sm col-auto bg-help"' +
 			 '			    onclick="wsweb_dialog_open(\'help\');' +
 			 '				     wepsim_help_set(\'relative\', \'simulator#help_firmware_format\');' +
 			 '				     return false;"' +
@@ -293,22 +291,21 @@
 */
 			 '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
                          '            <div class="dropdown">' +
-                         '               <button class="btn btn-secondary dropdown-toggle col-auto text-dark border border-secondary"' +
-                         '                       style="background-color:#D4DB17; flex-grow:1;" ' +
+                         '               <button class="btn dropdown-toggle col-auto border border-secondary bg-help"' +
+                         '                       style="flex-grow:1;" ' +
                          '                       type="button" id="ddownMicroHelp1" ' +
                          '                       data-bs-toggle="dropdown" aria-expanded="false">' +
                          '               <em class="fas fa-info-circle"></em>&nbsp;' +
                          '               <strong><span data-langkey="Help">Help</span></strong></button>' +
-                         '                 <ul class="dropdown-menu" ' +
-                         '                     style="background-color: #D4DB17"' +
+                         '                 <ul class="dropdown-menu bg-help" ' +
                          '                     aria-labelledby="ddownMicroHelp1">' +
-                         '                   <li><button class="btn dropdown-item" ' +
+                         '                   <li><button class="btn dropdown-item bg-help" ' +
                          '                               onclick="wsweb_dialog_open(\'help\');' +
                          '                                wepsim_help_set(\'relative\', ' +
                          '                                                \'simulator#help_firmware_format\');' +
                          '                                return false;"' +
                          '                   ><strong><span data-langkey="Firmware format">Firmware format</span></strong></button></li>' +
-                         '                   <li><button class="btn dropdown-item" type="button" ' +
+                         '                   <li><button class="btn dropdown-item bg-help" type="button" ' +
                          '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs2" ' +
                          '                               aria-controls="offcvs2"' +
                          '                               onclick="var offobj = null; ' +
@@ -318,7 +315,7 @@
                          '                                        wepsim_offcanvas_show(\'offcvs2\');' +
                          '                                        return false;"' +
                          '                   ><strong><span data-langkey="Hardware summary">Hardware summary</span></strong></button></li>' +
-                         '                   <li><button class="btn dropdown-item" type="button" ' +
+                         '                   <li><button class="btn dropdown-item bg-help" type="button" ' +
                          '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs2" ' +
                          '                               aria-controls="offcvs2"' +
                          '                               onclick="var offobj = null; ' +
@@ -328,7 +325,7 @@
                          '                                        wepsim_offcanvas_show(\'offcvs2\');' +
                          '                                        return false;"' +
                          '                   ><strong><span data-langkey="Signals summary">Signals summary</span></strong></button></li>' +
-                         '                   <li><button class="btn dropdown-item" ' +
+                         '                   <li><button class="btn dropdown-item bg-help" ' +
                          '                               onclick="wsweb_dialog_open(\'help\');' +
                          '                                        return false;"' +
                          '                   ><strong><span data-langkey="Help index">Help index</span></strong></button></li>' +

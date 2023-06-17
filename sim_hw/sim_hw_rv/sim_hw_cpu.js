@@ -163,9 +163,11 @@
 		                    state: "REG_IR",
 		                    default_eltos:	{
 					    			"co":	{ "begin":  0, "end":  5, "length": 6 },
-								"cop":	{ "begin": 28, "end": 31, "length": 4 },
-								"oc":	{ "begin":  0, "end":  6, "length": 7 },
-								"funct":{ "begin": 12, "end": 14, "length": 3 }
+								"cop":		{ "begin": 28, "end": 31, "length": 4 },
+								"oc":		{ "begin":  0, "end":  6, "length": 7 },
+								"funct3":	{ "begin": 12, "end": 14, "length": 3 },
+								"funct7":	{ "begin": 25, "end": 31, "length": 7 },
+								"eoc":		{ "bits": [[25,31], [12,14]], "length": 10}
 							},
 		                    is_pointer: false
 	                         } ;
@@ -189,11 +191,10 @@
 
         sim.rv.internal_states.tri_state_names = [] ;
         sim.rv.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        sim.rv.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto", "REG_PC,col-auto", "REG_OUT,col-auto",
-													"VAL_IMM,col-auto", "M3_ALU,col-auto", "DM_BS,col-auto","BS_M1,col-auto","M1_RW,col-auto"] ;
-        sim.rv.internal_states.filter_signals  = [ "CU,0", "ALUOP,0", "COP,0", "M1,0", "M2,0", "M3,0", "M4,0",
-												"JUMP,0", "PCWRITE,0", "IMR,0", "IRWRITE,0", "RW,0", "WOUT,0",
-												"DMR,0", "DMW,0", "Word BE,0", "Byte BE,0" ] ;
+        sim.rv.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto", "REG_PC,col-auto", "VAL_IMM,col-auto",
+												"REG_OUT,col-auto", "DM_BS,col-auto"] ;
+        sim.rv.internal_states.filter_signals  = [ "CU,0", "ALUOP,0","M1,0", "M2,0", "M3,0", "M4,0", "JUMP,0", "PCWRITE,0",
+												"IMR,0", "IRWRITE,0", "RW,0", "WOUT,0", "DMR,0", "DMW,0", "WBE,0", "SE,0" ] ;
         sim.rv.internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0 } ;
 
 	/*
@@ -414,11 +415,15 @@
 	 */
 
 	/* CONTROL UNIT */
-	sim.rv.signals["CU"] = { name: "CU", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+	sim.rv.signals["CU"] = { name: "CU", visible: true, type: "L", value: 0, default_value: 0, nbits: "3",
 				behavior: ["PLUS1 MUXA_MICROADDR REG_MICROADDR",
 					   "CP_FIELD MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA",
-					   "MV MUXA_MICROADDR FETCH"],
+					   "MV MUXA_MICROADDR FETCH",
+					   "JUMP_MADDR_N MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR 0",
+					   "JUMP_MADDR_N MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR 1",
+					   "JUMP_MADDR_Z MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR 0",
+					   "JUMP_MADDR_Z MUXA_MICROADDR REG_MICROINS/MADDR REG_MICROADDR 1"],
                                 depends_on: ["CLK"],
 				fire_name: ['svg_p:text7417'],
 				draw_data: [['svg_p:path7391', 'svg_p:path7393', 'svg_p:path7395', 'svg_p:path7397', 'svg_p:path7399', 'svg_p:path7401']],
@@ -440,6 +445,7 @@
 				   draw_name: [['svg_p:path7133', 'svg_p:path7143', 'svg_p:path7147', 'svg_p:path7135']] };
 
 	/* IR REGISTER */
+	/*
 	//Read immediate value
 	sim.rv.signals["R_IMM"] = { name: "R_IMM", visible: true, type: "L", value: 0, default_value:20, nbits: "5",
 			        behavior:  ["NOP"],
@@ -451,6 +457,33 @@
 				   fire_name: ['svg_p:text7309'],
 				   draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
 				   draw_name: [['svg_p:path7301']] };
+	*/
+
+	sim.rv.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
+					behavior: ["NOP", "LOAD REG_IR RDATA; DECO"],
+					fire_name: ['svg_p:text7309'],
+					draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
+					draw_name: [['svg_p:path7301']] };
+	sim.rv.signals["SIZE"] = { name: "SIZE", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+					behavior: ["NOP"],
+					fire_name: [],
+					draw_data: [[]],
+					draw_name: [[]] };
+	sim.rv.signals["GEN_IMM"] = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+					behavior: ["NOP", "MBITS VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM"],
+					fire_name: [],
+					draw_data: [[]],
+					draw_name: [[]] };
+	sim.rv.signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+					behavior: ["NOP"],
+					fire_name: [],
+					draw_data: [[]],
+					draw_name: [[]] };
+	sim.rv.signals["SE_IMM"] = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+					behavior: ["NOP", "NOP"],
+					fire_name: [],
+					draw_data: [[]],
+					draw_name: [[]] };
 
 	/* OUT REGISTER */
 	sim.rv.signals["WOUT"] = { name: "WOUT", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
@@ -498,7 +531,8 @@
                                      draw_data: [] };
 
 	sim.rv.signals["RW"]  = { name: "RW", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-					behavior: ["NOP", "MBIT_SN REG_R1 REG_IR REG_MICROINS/REG_R1 5; GET R_DATA1 BR REG_R1; MBIT_SN REG_R2 REG_IR REG_MICROINS/REG_R2 5; GET R_DATA2 BR REG_R2; MBIT_SN REG_W2 REG_IR REG_MICROINS/REG_W2 5; SET BR REG_W2 M1_RW"],
+					behavior: ["MBIT_SN REG_R1 REG_IR REG_MICROINS/REG_R1 5; GET R_DATA1 BR REG_R1; MBIT_SN REG_R2 REG_IR REG_MICROINS/REG_R2 5; GET R_DATA2 BR REG_R2",
+								"MBIT_SN REG_W2 REG_IR REG_MICROINS/REG_W2 5; SET BR REG_W2 M1_RW"],
 					fire_name: ['svg_p:text7299'],
 					draw_data: [['svg_p:path6725', 'svg_p:path6727', 'svg_p:path6729', 'svg_p:path6731', 'svg_p:path6733', 'svg_p:path6735', 'svg_p:path6915', 'svg_p:path6913', 'svg_p:path6907', 'svg_p:path6909']],
 					draw_name: [['svg_p:path7291']] };
@@ -555,8 +589,8 @@
 								"NOP_ALU",
 								"NOP_ALU",
 								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU"],
+								"MV ALU_WOUT M2_ALU; UPDATE_NZ",
+								"MV ALU_WOUT M3_ALU; UPDATE_NZ"],
 			       fire_name: ['svg_p:text7269'],
 			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
 			       draw_name: [['svg_p:path7249']] };
@@ -691,7 +725,7 @@
                                      types: ["X", "X"],
                                      operation: function(s_expr)
                                                 {
-						   if (!(get_value(sim.rv.states["FLAG_N"]) && get_value(sim.rv.states["FLAG_Z"]))) {
+						   if (!(get_value(sim.rv.states["FLAG_N"])) && !(get_value(sim.rv.states["FLAG_Z"]))) {
 							return ;
 						   }
 
@@ -750,6 +784,147 @@
                                                           " (" + newval + "). " ;
                                                 }
                                    };
+
+	        sim.rv.behaviors["JUMP_MADDR_N"] = { nparameters: 5,
+                                     types: ["X", "X", "E", "I"],
+                                     operation: function(s_expr)
+                                                {
+									if (get_value(sim.rv.states["FLAG_N"]) != parseInt(s_expr[4])) {
+										var a = get_value(sim.rv.states[s_expr[3]]) << 0 ;
+										var result = a + 1 ;
+										set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
+									} else {
+										r = s_expr[2].split('/') ;
+										sim_elto_org = get_reference(r[0]) ;
+
+										newval = get_value(sim_elto_org) ;
+										newval = newval[r[1]] ;
+										if (typeof newval != "undefined") {
+											sim_elto_dst = get_reference(s_expr[1]) ;
+											set_value(sim_elto_dst, newval);
+										}
+									}
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+													/*
+									if (!(get_value(sim.rv.states["FLAG_N"]))) {
+										var a = get_value(sim.rv.states[s_expr[2]]) << 0 ;
+										var result = a + 1 ;
+
+										var verbose = get_cfg('verbal_verbose') ;
+										if (verbose !== 'math') {
+											return "Copy to " + show_verbal(s_expr[1]) + " " +
+													show_verbal(s_expr[2]) + " plus one with result " +
+													show_value(result) + ". " ;
+										}
+
+										return show_verbal(s_expr[1]) + " = " +
+												show_verbal(s_expr[2]) + " + 1" +
+												" (" + show_value(result) + "). " ;
+									} else {
+										var newval = 0 ;
+										var r = s_expr[2].split('/') ;
+										var sim_elto_org = get_reference(r[0]) ;
+										var sim_elto_dst = get_reference(r[1]) ;
+										if (typeof sim_elto_dst == "undefined")
+											sim_elto_dst = {} ;
+										if (typeof    sim_elto_org.value[r[1]] != "undefined")
+											newval = sim_elto_org.value[r[1]];
+										else if (typeof    sim_elto_dst.default_value != "undefined")
+											newval = sim_elto_dst.default_value;
+										else      newval = "&lt;undefined&gt;" ;
+
+																var verbose = get_cfg('verbal_verbose') ;
+																if (verbose !== 'math') {
+																	return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
+												" to " + show_verbal(s_expr[1]) +
+																			" value " + newval + ". " ;
+																}
+
+																return show_verbal(s_expr[1]) + " = " +
+																		show_verbal(r[0]) + "." + r[1] +
+																		" (" + newval + "). " ;
+									}
+									*/
+													if (parseInt(s_expr[4])) {
+														return "Jump to REG_MICROINS/MADDR if Flag N = 1.";
+													} else {
+														return "Jump to REG_MICROINS/MADDR if Flag N = 0.";
+													}
+                                                }
+                                   };
+
+	        sim.rv.behaviors["JUMP_MADDR_Z"] = { nparameters: 5,
+                                     types: ["X", "X", "E", "I"],
+                                     operation: function(s_expr)
+                                                {
+									if (get_value(sim.rv.states["FLAG_Z"]) != parseInt(s_expr[4])) {
+										var a = get_value(sim.rv.states[s_expr[3]]) << 0 ;
+										var result = a + 1 ;
+										set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
+									} else {
+										r = s_expr[2].split('/') ;
+										sim_elto_org = get_reference(r[0]) ;
+
+										newval = get_value(sim_elto_org) ;
+										newval = newval[r[1]] ;
+										if (typeof newval != "undefined") {
+											sim_elto_dst = get_reference(s_expr[1]) ;
+											set_value(sim_elto_dst, newval);
+										}
+									}
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+													/*
+									if (!(get_value(sim.rv.states["FLAG_Z"]))) {
+										var a = get_value(sim.rv.states[s_expr[2]]) << 0 ;
+										var result = a + 1 ;
+
+										var verbose = get_cfg('verbal_verbose') ;
+										if (verbose !== 'math') {
+											return "Copy to " + show_verbal(s_expr[1]) + " " +
+													show_verbal(s_expr[2]) + " plus one with result " +
+													show_value(result) + ". " ;
+										}
+
+										return show_verbal(s_expr[1]) + " = " +
+												show_verbal(s_expr[2]) + " + 1" +
+												" (" + show_value(result) + "). " ;
+									} else {
+										var newval = 0 ;
+										var r = s_expr[2].split('/') ;
+										var sim_elto_org = get_reference(r[0]) ;
+										var sim_elto_dst = get_reference(r[1]) ;
+										if (typeof sim_elto_dst == "undefined")
+											sim_elto_dst = {} ;
+										if (typeof    sim_elto_org.value[r[1]] != "undefined")
+											newval = sim_elto_org.value[r[1]];
+										else if (typeof    sim_elto_dst.default_value != "undefined")
+											newval = sim_elto_dst.default_value;
+										else      newval = "&lt;undefined&gt;" ;
+
+																var verbose = get_cfg('verbal_verbose') ;
+																if (verbose !== 'math') {
+																	return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
+												" to " + show_verbal(s_expr[1]) +
+																			" value " + newval + ". " ;
+																}
+
+																return show_verbal(s_expr[1]) + " = " +
+																		show_verbal(r[0]) + "." + r[1] +
+																		" (" + newval + "). " ;
+									}
+									*/
+													if (parseInt(s_expr[4])) {
+														return "Jump to REG_MICROINS/MADDR if Flag Z = 1.";
+													} else {
+														return "Jump to REG_MICROINS/MADDR if Flag Z = 0.";
+													}
+                                                }
+                                   };
+
 	sim.rv.behaviors["NOT_ES"]   = { nparameters: 3,
 				     types: ["S", "E"],
 				     operation: function (s_expr)
@@ -2436,7 +2611,7 @@
 	sim.rv.behaviors["UPDATEDPC_J"]     = { nparameters: 1,
 				            operation: function(s_expr)
 							{
-								if (!(get_value(sim.rv.states["FLAG_N"]) || get_value(sim.rv.states["FLAG_Z"]))) {
+								if (!(get_value(sim.rv.states["FLAG_N"])) && !(get_value(sim.rv.states["FLAG_Z"]))) {
 									return ;
 								}
                                                             show_asmdbg_pc();

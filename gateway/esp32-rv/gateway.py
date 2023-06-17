@@ -32,17 +32,17 @@ def ecall_pre(fout):
     fout.write("addi sp, sp, -128\n")
     down_i = 120
     for up_i in range(32):
-      if i != 2:
-         fout.write("sw x", up_i, ",  ", down_i, "(sp)\n")
-      down_i = down_i - 4
+        if up_i != 2:
+            fout.write("sw x", up_i, ",  ", down_i, "(sp)\n")
+        down_i = down_i - 4
 
 # ecall - epilog
 def ecall_post(fout):
     down_i = 120
     for up_i in range(32):
-      if i != 2:
-         fout.write("lw x", up_i, ",  ", down_i, "(sp)\n")
-      down_i = down_i - 4
+        if up_i != 2:
+            fout.write("lw x", up_i, ",  ", down_i, "(sp)\n")
+        down_i = down_i - 4
     fout.write("addi sp, sp, 128\n")
     fout.write("###############\n")
 
@@ -169,77 +169,77 @@ def creator_build(file_in, file_out):
         return -1
 
 def do_cmd(req_data, cmd_array):
-        result   = subprocess.run(cmd_array, capture_output=False)
+    result   = subprocess.run(cmd_array, capture_output=False)
 
-        if result.stdout != None:
-            req_data['status'] += result.stdout.decode('utf-8') + '\n'
-        if result.returncode != None:
-            req_data['error']   = result.returncode
+    if result.stdout != None:
+        req_data['status'] += result.stdout.decode('utf-8') + '\n'
+    if result.returncode != None:
+        req_data['error']   = result.returncode
 
-        return req_data['error']
+    return req_data['error']
 
 
 # (2) Flasing assembly program into target board
 def do_flash_request(request):
-        try:
-            req_data = request.get_json()
-            target_device      = req_data['target_port']
-            target_board       = req_data['target_board']
-            asm_code           = req_data['assembly']
-            req_data['status'] = ''
+    try:
+        req_data = request.get_json()
+        target_device      = req_data['target_port']
+        target_board       = req_data['target_board']
+        asm_code           = req_data['assembly']
+        req_data['status'] = ''
 
-            # create temporal assembly file
-            text_file = open("tmp_assembly.s", "w")
-            ret = text_file.write(asm_code)
-            text_file.close()
+        # create temporal assembly file
+        text_file = open("tmp_assembly.s", "w")
+        text_file.write(asm_code)
+        text_file.close()
 
-            # transform th temporal assembly file
-            error = creator_build('tmp_assembly.s', "main/program.s");
-            if error != 0:
-                    req_data['status'] += 'Error adapting assembly file...\n'
+        # transform th temporal assembly file
+        error = creator_build('tmp_assembly.s', "main/program.s");
+        if error != 0:
+            req_data['status'] += 'Error adapting assembly file...\n'
 
-            # flashing steps...
-            if error == 0:
-                error = do_cmd(req_data, ['idf.py',  'fullclean'])
-            if error == 0:
-                error = do_cmd(req_data, ['idf.py',  'set-target', target_board])
-            if error == 0:
-                error = do_cmd(req_data, ['idf.py', 'build'])
-            if error == 0:
-                error = do_cmd(req_data, ['idf.py', '-p', target_device, 'flash'])
+        # flashing steps...
+        if error == 0:
+            error = do_cmd(req_data, ['idf.py',  'fullclean'])
+        if error == 0:
+            error = do_cmd(req_data, ['idf.py',  'set-target', target_board])
+        if error == 0:
+            error = do_cmd(req_data, ['idf.py', 'build'])
+        if error == 0:
+            error = do_cmd(req_data, ['idf.py', '-p', target_device, 'flash'])
 
-        except Exception as e:
-            req_data['status'] += str(e) + '\n'
+    except Exception as e:
+        req_data['status'] += str(e) + '\n'
 
-        return jsonify(req_data)
+    return jsonify(req_data)
 
 
 # (3) Run program into the target board
 def do_monitor_request(request):
-        try:
-            req_data = request.get_json()
-            target_device      = req_data['target_port']
-            req_data['status'] = ''
+    try:
+        req_data = request.get_json()
+        target_device      = req_data['target_port']
+        req_data['status'] = ''
 
-            do_cmd(req_data, ['idf.py', '-p', target_device, 'monitor'])
+        do_cmd(req_data, ['idf.py', '-p', target_device, 'monitor'])
 
-        except Exception as e:
-            req_data['status'] += str(e) + '\n'
+    except Exception as e:
+        req_data['status'] += str(e) + '\n'
 
-        return jsonify(req_data)
+    return jsonify(req_data)
 
 
 # (4) Stop flashing
 def do_stop_flash_request(request):
-        try:
-            req_data = request.get_json()
-            req_data['status'] = ''
-            do_cmd(req_data, ['pkill',  'idf.py'])
+    try:
+        req_data = request.get_json()
+        req_data['status'] = ''
+        do_cmd(req_data, ['pkill',  'idf.py'])
 
-        except Exception as e:
-            req_data['status'] += str(e) + '\n'
+    except Exception as e:
+        req_data['status'] += str(e) + '\n'
 
-        return jsonify(req_data)
+    return jsonify(req_data)
 
 
 # Setup flask and cors:

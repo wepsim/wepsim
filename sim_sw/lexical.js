@@ -58,7 +58,7 @@ function nextToken ( context )
 	  }
 	
           // if {},()=: token, insert token
-          if ( ("{},()=:".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
+          if ( ("{},()=:|".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {
                tok = context.text[context.t] ;
                context.t++ ;
@@ -105,7 +105,7 @@ function nextToken ( context )
           {
 		  // read until whitespaces
 		  first = context.t ;
-		  while ( ("{},()=:# \t\n\r".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
+		  while ( ("{},()=:|# \t\n\r".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
 			 context.t++;
 		  }
 		  last = context.t ;
@@ -209,7 +209,7 @@ function langError ( context, msgError )
 
         // print lines
         context.error = "<br>" +
-                        "<pre class='border rounded p-3' style='background-color: inherit !important'>" +
+                        "<pre class='border rounded p-3 bg-dark text-white'>" +
                         "...\n" ;
         for (var i=lowI; i<highI; i++)
         {

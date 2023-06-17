@@ -73,7 +73,7 @@
 		    o1 += "<div class='container-fluid'>" +
 			  "<div class='row'>" +
 		          "<div class='col-12 p-0'>" +
-			  "<div class='card bg-light m-0'>" +
+			  "<div class='card bg-body-tertiary m-0'>" +
 			  "<div class='card-body p-0' id='iopanel'>" +
 		          "<center>" +
 			  "<table class='table table-hover table-sm table-bordered m-0'>" +

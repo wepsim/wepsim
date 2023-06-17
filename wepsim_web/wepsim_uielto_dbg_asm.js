@@ -37,9 +37,9 @@
 		    // html holder
 		    var o1 = "<center>" +
 		             "<div id='asm_table' style='overflow-x:auto; -webkit-overflow-scrolling:touch;'>" +
-		   	     "<table class='table ui-responsive ui-table' style='margin-bottom:0px; min-width:700px;'>" +
+		   	     "<table class='table table-hover table-table-striped' style='margin-bottom:0px; min-width:700px;'>" +
 		   	     "<thead>" +
-			     "<tr style='border-top:2pt solid white;'>" +
+			     "<tr>" +
 			     "<th width='1%'>" +
 			     "<a tabindex='0' href='#' class='multi-collapse-3 collapse show' " +
                              "   data-bs-toggle='popover2' id='popover2_asm'>" +
@@ -47,8 +47,8 @@
                              "</a>" +
 			     "</th>" +
                              "<th width='10%' class='asm_label collapse' align='right'><span data-langkey='labels'>labels</span></th>" +
-			     "<th width='15%' class='asm_addr  collapse'              ><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" +
-                             "<th width='1%'  class='asm_addr  collapse' align='right'><span data-langkey='breakpoint'>breakpoint</span></th>" +
+			     "<th width='15%' class='asm_addr  collapse' align='center'><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" +
+                             "<th width='1%'  class='asm_brk   collapse' align='right'><span data-langkey='breakpoint'>breakpoint</span></th>" +
                              "<th width='14%' class='asm_hex   collapse' align='right'><span data-langkey='content'>content</span></th>" +
                              "<th width='30%' class='asm_ins   collapse' align='left' ><span data-langkey='assembly'>assembly</span></th>" +
 			     "<th width='30%' class='asm_pins  collapse' align='left' ><span>pseudo</span><span class='d-none d-md-inline'><small><span data-langkey='instructions'>instructions</span></small></span></th>" +
@@ -227,7 +227,7 @@
 		var s_label = "" ;
 
                 var o = "<center>" +
-                        "<table data-role='table' class='table-sm table-hover'>" +
+                        "<table data-role='table' class='table table-sm table-striped table-hover'>" +
                         "<tbody>" ;
                 for (l in mp)
                 {
@@ -237,9 +237,11 @@
 		     s3_val = get_value(mp[l]) ;
 
                      // set cell bgcolor
+/*
 	             if  (a % 8 === 0)
 		          mp[l].bgcolor = "#F8F8F8" ;
 	             else mp[l].bgcolor = "#F0F0F0" ;
+*/
 
                      // <skip data segments>
                   // if (false == mp[l].is_assembly) {
@@ -282,9 +284,8 @@
 		     // join the pieces...
 		     if (typeof a2s[p] !== "undefined")
 		     {
-			 o += "<tr bgcolor='#FEFEFE'>" +
-			      "<td class='sticky-top' colspan='7' " +
-                              "    style='line-height:0.3; background-color:white;' align='left'>" +
+			 o += "<tr>" +
+			      "<td class='sticky-top bg-body' colspan='7' align='left' style='line-height:0.3;'>" +
                               "<small><font color='gray'>" + a2s[p] + "</font></small>" +
                               "</td>" +
 			      "</tr>" ;
@@ -312,12 +313,12 @@
 	     var p        = "0x" + parseInt(l).toString(16) ;
 
 	     // join the pieces...
-	     var o = "<tr id='asmdbg" + p + "' bgcolor='" + mp[l].bgcolor + "'>" +
+	     var o = "<tr id='asmdbg" + p + "'>" +
 		     "<td class='asm_label  font-monospace col-auto collapse pb-0' " +
 		     "    style='line-height:0.9;' align='right'>" + s_label +
 		     "</td>" +
 		     "<td class='asm_addr   font-monospace col-auto collapse' " +
-		     "    style='line-height:0.9;'>" + p +
+		     "    style='line-height:0.9;' align='center'>" + p +
 		     "</td>" +
 		     "<td class='asm_break  font-monospace col-auto show p-0' " +
 		     "    style='line-height:0.9;' id='bp" + p + "' width='1%'>" +
@@ -363,12 +364,12 @@
 
 	     // join the pieces...
              var o = '' ;
-	     o +=  "<tr id='asmdbg" + p + "' bgcolor='" + mp[l].bgcolor + "'>" +
+	     o +=  "<tr id='asmdbg" + p + "'>" +
 		   "<td class='asm_label  font-monospace col-auto collapse pb-0' " +
 		   "    style='line-height:0.9;' align='right' " + oclk + ">" + s_label +
 		   "</td>" +
 		   "<td class='asm_addr   font-monospace col-auto collapse' " +
-		   "    style='line-height:0.9;' " + oclk + ">" + p +
+		   "    style='line-height:0.9;' align='center' " + oclk + ">" + p +
 		   "</td>" +
 		   "<td class='asm_break  font-monospace col-auto show p-0' " +
 		   "    style='line-height:0.9;' id='bp" + p + "' width='1%' " + oclk + ">" +
@@ -586,23 +587,23 @@
                 var p = null ;
                 if (typeof curr_mp[old_addr] !== "undefined")
                 {
-                     o1 = $("#asmdbg" + old_addr_hex) ;
-                     o1.css('background-color', curr_mp[old_addr].bgcolor) ;
+                       o1 = $("#asmdbg" + old_addr_hex + " td") ;
+                       o1.removeClass('bg-debug-asm') ;
                 }
                 else
                 {
                      for (var l in curr_mp)
                      {
                           p  = "0x" + l.toString(16) ;
-                          o1 = $("#asmdbg" + p) ;
-                          o1.css('background-color', curr_mp[l].bgcolor) ;
+                          o1 = $("#asmdbg" + p + " td") ;
+                          o1.removeClass('bg-debug-asm') ;
                      }
                 }
                 old_addr = reg_pc ;
 
                 // try to set the current asmdbg_pc
-                o1 = $("#asmdbg" + curr_addr_hex) ;
-                o1.css('background-color', '#00EE88') ;
+                o1 = $("#asmdbg" + curr_addr_hex + " td") ;
+                o1.addClass('bg-debug-asm') ;
 
                 // check if current asmdbg_pc is available
                 if (typeof o1 === "undefined") {
@@ -728,9 +729,9 @@
                     $("span[rel='tooltip2']").tooltip({
                             trigger:   'click',
                             html:       true,
-                            title:      function() {
+                            title:      function(obj) {
                                            $("span[rel='tooltip1']").tooltip('hide') ;
-				           var l = this.getAttribute('data-l') ;
+				           var l = $(obj).attr('data-l') ;
                                            var curr_mp = simhw_internalState('MP') ;
                                            return instruction2tooltip(curr_mp, l) ;
                                         },

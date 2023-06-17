@@ -31,18 +31,6 @@
 	    fun_content:  function() {
 				var o = '<ul class="list-group list-group-flush">' ;
 
-				   o += '<li class="list-group-item px-2 pt-0 pb-2"> ' +
-                                        "<span class='col-6'>" +
-		                        '<em class="fas fa-magic col-1 me-2 mt-1 float-start"></em>&nbsp;' +
-                                        "<span data-langkey='About WepSIM'>About WepSIM</span>" +
-                                        "</span>" +
-				        quickcfg_html_br() +
-                                        quickcfg_html_btn('About us',
-					                  'wsweb_dialog_open(\"about\"); ' +
-					                  'wsweb_quickmenu_close(); return true;',
-							  'col-6 me-auto') +
-					'</li>' ;
-
 				   o += '<li class="list-group-item px-0 pt-2"> ' +
 				        "<span class='container px-0'>" +
 				        "<span class='row p-2'>" +
@@ -112,7 +100,7 @@
 
 		   o += '<li class="list-group-item px-0 d-grid"> ' +
 			'<label class="w-100"><span data-langkey="Reload">Reload</span>...:</label>' +
-			"   <div class='btn btn-sm btn-light btn-outline-dark p-1 col-8 mx-auto' " +
+			"   <div class='btn btn-sm btn-outline-secondary p-1 col-8 mx-auto' " +
 			"        aria-label='open the reload dialog box' " +
 			"        onclick=\"wsweb_quickslider_close(); " +
 			"                  wsweb_dialog_open('reload'); " +
@@ -377,7 +365,7 @@
 
     function quickcfg_html_br ( )
     {
-	 return "<div class='w-100 border border-light'></div>" ;
+	 return "<div class='w-100 border border-tertiary'></div>" ;
     }
 
     function quickcfg_html_header ( label2 )
@@ -392,8 +380,8 @@
   	 return "<div class='" + colwidth2 + " p-1 d-grid'>" +
 		"<buttom class='btn btn-sm btn-outline-secondary col p-1 text-end float-end' " +
 		"        onclick='" + code2 + "; return true;'>" +
-		"<span class='mx-auto px-1 fw-bold rounded text-dark' " +
-                "      style='background-color:#CEECF5; '>" + label2 + "</span></buttom>" +
+		"<span class='mx-auto px-1 fw-bold rounded bg-info-subtle text-body' " +
+                "      style=''>" + label2 + "</span></buttom>" +
 		"</div>" ;
     }
 
@@ -403,7 +391,7 @@
 	        "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-end float-end' " +
 	        "        onclick='" + code2 + "; return true;'>" +
 	        "<span class='fw-bold font-monospace'>" + label2 + "</span>" + "&nbsp;" +
-	        "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
+	        "<span class='mx-auto px-1 rounded bg-info-subtle' style=''>0</span></buttom>" +
 	        "</div>" ;
     }
 
@@ -412,11 +400,11 @@
 	 var wsi = get_cfg('ws_idiom') ;
 
          return '<span class="btn-group-toggle ' + colwidth2 + '" data-bs-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-dark p-1 text-start float-end" ' +
+		'  <label class="btn btn-sm btn-outline-secondary p-1 text-start float-end" ' +
                 '         data-bs-toggle="collapse" href="' + label2 + '">' +
 		'<input type="checkbox" class="btn-check" checked="" autocomplete="off">' +
-		'<span class="mx-auto px-1 fw-bold rounded text-dark" ' +
-                '      style="background-color:#CEECF5; ">' +
+		'<span class="mx-auto px-1 fw-bold rounded bg-info-subtle text-body" ' +
+                '      style="">' +
                 i18n_get('dialogs', wsi, 'Show/Hide') +
                 '</span>' +
                 '  </label>' +
