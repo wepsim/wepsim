@@ -96,7 +96,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_rv/sim_hw_cpu.js \
     sim_hw/sim_hw_rv/sim_hw_mem.js \
     \
-    sim_sw/lexical.js \
+    sim_sw/firmware/lexical.js \
     sim_sw/firmware/firm_mcode.js \
     sim_sw/firmware/firm_begin.js \
     sim_sw/firmware/firm_pseudoinstructions.js \
@@ -106,6 +106,7 @@ cat sim_core/sim_cfg.js \
     sim_sw/firmware/firm_instruction.js \
     sim_sw/firmware/creator2native.js \
     sim_sw/firmware.js \
+    sim_sw/assembly/lexical.js \
     sim_sw/assembly/memory_segments.js \
     sim_sw/assembly.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js

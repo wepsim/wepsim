@@ -30,8 +30,10 @@
 
 		                  // ui: details
                                   details_name: [ "REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS" ],
-                                  details_fire: [ ['svg_p:text6639'], ['svg_p:path7363', 'svg_p:path7365', 'svg_p:path7367', 'svg_p:path7369',
-								  'svg_p:path7371', 'svg_p:path7373', 'svg_p:path7375', 'svg_p:path7377', 'svg_p:path7379'], ['svg_p:text7327'] ],
+                                  details_fire: [ ['svg_p:text6639'],
+                                                  ['svg_p:path7363', 'svg_p:path7365', 'svg_p:path7367', 'svg_p:path7369',
+						   'svg_p:path7371', 'svg_p:path7373', 'svg_p:path7375', 'svg_p:path7377', 'svg_p:path7379'],
+                                                  ['svg_p:text7327'] ],
 
 		                  // state: write_state, read_state, get_state
 		                  write_state:  function ( vec ) {
@@ -39,7 +41,7 @@
                                                       vec.CPU = {} ;
                                                   }
 
-					          var internal_reg = ["PC", "SR"] ;
+					          var internal_reg = [ "PC" ] ;
 
 						  var value = 0 ;
 					          for (var i=0; i<sim.rv.states.BR.length; i++)

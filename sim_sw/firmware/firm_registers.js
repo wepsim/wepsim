@@ -29,82 +29,82 @@ function firm_registers_read ( context )
 	// }*
 
        // skip 'registers'
-       nextToken(context) ;
-       if (! isToken(context, "{")) {
-	     return langError(context,
+       frm_nextToken(context) ;
+       if (! frm_isToken(context, "{")) {
+	     return frm_langError(context,
 			      i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
        }
 
        // skip {
-       nextToken(context) ;
-       while (! isToken(context, "}"))
+       frm_nextToken(context) ;
+       while (! frm_isToken(context, "}"))
        {
-	   var nombre_reg = getToken(context) ;
+	   var nombre_reg = frm_getToken(context) ;
 
-	   nextToken(context) ;
-	   if (! isToken(context, "=")) {
-		 return langError(context,
+	   frm_nextToken(context) ;
+	   if (! frm_isToken(context, "=")) {
+		 return frm_langError(context,
 				  i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 	   }
 
-	   nextToken(context) ;
-	   if (! isToken(context, "(")) {
-		 // context.registers[nombre_reg] = getToken(context) ;
+	   frm_nextToken(context) ;
+	   if (! frm_isToken(context, "(")) {
+		 // context.registers[nombre_reg] = frm_getToken(context) ;
 		 context.registers[nombre_reg] = [] ;
-		 context.registers[nombre_reg].push(getToken(context)) ;
+		 context.registers[nombre_reg].push(frm_getToken(context)) ;
 	   }
 	   else
 	   {
-		 nextToken(context) ;
-		 if (isToken(context, ")")) {
-		     return langError(context,
+		 frm_nextToken(context) ;
+		 if (frm_isToken(context, ")")) {
+		     return frm_langError(context,
 				      i18n_get_TagFor('compiler', 'EMPTY NAME LIST')) ;
 		 }
 
 		 context.registers[nombre_reg] = [] ;
-		 while (! isToken(context, ")"))
+		 while (! frm_isToken(context, ")"))
 		 {
-		       context.registers[nombre_reg].push(getToken(context)) ;
+		       context.registers[nombre_reg].push(frm_getToken(context)) ;
 
-		       nextToken(context) ;
-		       if (isToken(context,",")) {
-			   nextToken(context);
+		       frm_nextToken(context) ;
+		       if (frm_isToken(context,",")) {
+			   frm_nextToken(context);
 		       }
 		 }
 	   }
 
-	   nextToken(context) ;
-	   if (isToken(context, "("))
+	   frm_nextToken(context) ;
+	   if (frm_isToken(context, "("))
 	   {
 		if (context.stackRegister != null) {
-		    return langError(context,
+		    return frm_langError(context,
 				     i18n_get_TagFor('compiler', 'DUPLICATE SP')) ;
 		}
 
-		nextToken(context);
-		if (! isToken(context, "stack_pointer")) {
-		    return langError(context,
+		frm_nextToken(context);
+		if (! frm_isToken(context, "stack_pointer")) {
+		    return frm_langError(context,
 				     i18n_get_TagFor('compiler', 'NO SP')) ;
 		}
 
 		context.stackRegister = nombre_reg;
 
-		nextToken(context);
-		if (! isToken(context, ")")) {
-		    return langError(context,
+		frm_nextToken(context);
+		if (! frm_isToken(context, ")")) {
+		    return frm_langError(context,
 				     i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
 		}
 
-		nextToken(context);
+		frm_nextToken(context);
 	   }
 	
-	   if (isToken(context,",")) {
-	       nextToken(context);
+	   if (frm_isToken(context,",")) {
+	       frm_nextToken(context);
 	   }
        }
 
        // skip }
-       nextToken(context);
+       frm_nextToken(context);
 
        return {} ;
 }
