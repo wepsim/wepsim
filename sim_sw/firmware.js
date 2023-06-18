@@ -185,8 +185,8 @@ function loadFirmware (text)
 
            var     xr_info = simhw_sim_ctrlStates_get() ;
            var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
-		   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
-		   //var all_ones_oc = "1".repeat(7) ;
+	   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
+        // var all_ones_oc = "1".repeat(7) ;
 
            var context = {} ;
 	   context.line           	= 1 ;

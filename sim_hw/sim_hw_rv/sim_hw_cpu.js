@@ -164,7 +164,7 @@
 		                    name:  "IR",
 		                    state: "REG_IR",
 		                    default_eltos:	{
-					    			"co":	{ "begin":  0, "end":  5, "length": 6 },
+					    			"co":		{ "begin":  0, "end":  5, "length": 6 },
 								"cop":		{ "begin": 28, "end": 31, "length": 4 },
 								"oc":		{ "begin":  0, "end":  6, "length": 7 },
 								"funct3":	{ "begin": 12, "end": 14, "length": 3 },
