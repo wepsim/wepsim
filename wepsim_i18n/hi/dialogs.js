@@ -25,7 +25,7 @@
 		'Show/Hide Slider':		'स्लाइडर दिखाएँ / छिपाएँ',
 		'WepSIM User Interface skin':	'WepSIM यूजर इंटरफेस स्किन',
 		'Initial intro':		'प्रारंभिक परिचय',
-		'About WepSIM':		'WepSIM के बारे में',
+		'About WepSIM':			'WepSIM के बारे में',
 		'Title':		'शीर्षक',
 		'Message':		'संदेश',
 		'Duration':		'अवधि',

@@ -22,6 +22,7 @@
     i18n.eltos.gui.ja = {
 
 		'Loading WepSIM...':		'WepSIMを読み込んでいます...',
+		'About':			'について',
 		'Configuration':		'設定',
 		'MicroCode':			'マイクロコード',
 		'Assembly':			'アセンブリ',

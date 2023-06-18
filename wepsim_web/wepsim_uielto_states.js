@@ -71,11 +71,11 @@
         {
              o = "" ;
 
-             o += "<div class='card mb-2'>" +
+             o += "<div class='card mb-2 border-secondary'>" +
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_1'>" +
                   "    <h5 class='m-0'>" +
                   "            <a data-bs-toggle='collapse' href='#states3' class='btn btn-sm fs-5 float-start p-0'><span class='text-white bg-dark' data-langkey='Current State'>Current State</span></a>:&nbsp;" +
-                  "            <span class='btn bg-body-tertiary btn-sm float-end'" +
+                  "            <span class='btn bg-body-tertiary text-primary border-secondary btn-sm float-end'" +
                   "                  onclick='wepsim_state_history_add();" +
                   "                           wepsim_notify_success(\"<strong>INFO</strong>\", \"Added !.\");" +
                   "                           wepsim_state_history_list();" +
@@ -126,14 +126,14 @@
                   "             </div>" +
                   "             </div>" +
                   "" +
-                  "             <div class='row'" +
-                  "                  style='max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
+                  "             <div class='row'>" +
                   "             <div class='col p-1'>" +
                   "                <div id='collapse_X' class='mt-2 collapse show'>" +
                   "                        <form id='end_state_form1'" +
                   "                              class='form-horizontal mb-2'" +
-                  "                              style='white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;'>" +
+                  "                              style='white-space:wrap; width:100%;'>" +
                   "                           <label class='my-0' for='end_state1'>state:</label>" +
+                  "                           <div style='max-height:35vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
                   "                           <textarea aria-label='current_state'" +
                   "                                     placeholder='Default...'" +
                   "                                     id='end_state1'" +
@@ -147,6 +147,7 @@
                   "                                     class='form-control input-xs'" +
                   "                                     rows='5'></textarea>" +
                   "                        </form>" +
+                  "                        </div>" +
                   "                </div>" +
                   "             </div>" +
                   "             </div>" +
@@ -163,7 +164,7 @@
         {
              o = "" ;
 
-             o += "<div class='card mb-2'>" +
+             o += "<div class='card mb-2 border-secondary'>" +
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_2'>" +
                   "    <h5 class='m-0'>" +
                   "          <a data-bs-toggle='collapse' href='#history3' class='btn btn-sm fs-5 float-start p-0'><span class='text-white bg-dark' data-langkey='History'>History</span></a>:&nbsp;" +
@@ -209,11 +210,11 @@
         {
              o = "" ;
 
-             o += "<div class='card mb-1'>" +
+             o += "<div class='card mb-1 border-secondary'>" +
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_3'>" +
                   "    <h5 class='m-0'>" +
                   "            <a data-bs-toggle='collapse' href='#check_results_scroll1' class='btn btn-sm fs-5 float-start p-0'><span class='text-white bg-dark' data-langkey='Differences'>Differences</span></a>:" +
-                  "            <span class='btn bg-body-tertiary btn-sm float-end'" +
+                  "            <span class='btn bg-body-tertiary text-primary border-secondary btn-sm float-end'" +
                   "                  onclick='wepsim_clipboard_CopyFromDiv(\"check_results_scroll1\");" +
                   "                           return false;'" +
                   "                  data-inline='true'>" +

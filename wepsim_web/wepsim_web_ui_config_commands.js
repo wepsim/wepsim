@@ -164,7 +164,7 @@
                       type:        "Execution",
                       u_class:     "",
                       code_cfg:    " <div class='form-group m-0'>" +
-				   "	    <select name='select6' id='select6' class='form-control form-control-sm custom-select'" +
+				   "	    <select name='select6' id='select6' class='form-control form-control-sm custom-select border-secondary'" +
 				   "		    aria-label='max. ticks per instruction' " +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
 				   "			       var optValue = opt.val();" +
@@ -189,7 +189,7 @@
                       type:        "Execution",
                       u_class:     "",
                       code_cfg:    " <div class='form-group m-0'>" +
-				   "	    <select name='select3' id='select3' class='form-control form-control-sm custom-select'" +
+				   "	    <select name='select3' id='select3' class='form-control form-control-sm custom-select border-secondary'" +
 				   "		    aria-label='max. ticks per instruction' " +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
 				   "			       var optValue = opt.val();" +
@@ -258,7 +258,7 @@
                       type:        "Editor",
                       u_class:     "",
                       code_cfg:    "<div class='form-group m-0'>" +
-			           "   <select name='select2' id='select2' class='form-control form-control-sm custom-select'" +
+			           "   <select name='select2' id='select2' class='form-control form-control-sm custom-select border-secondary'" +
 			           "	    aria-label='Editor mode'    " +
 			           "	    onchange=\"var opt = $(this).find('option:selected');" +
 			           "		      var optValue = opt.val();" +
@@ -472,7 +472,7 @@
                       type:        "Accesibility",
                       u_class:     "",
                       code_cfg:    "<div class='form-group m-0'>" +
-                                   " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
+                                   " <select name='select8' id='select8' class='form-control form-control-sm custom-select border-secondary'" +
                                    "         aria-label='User Interface for WepSIM' " +
                                    "         onchange=\"var opt = $(this).find('option:selected');" +
                                    "                    var optValue = opt.val();" +

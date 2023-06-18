@@ -22,6 +22,7 @@
     i18n.eltos.gui.sv = {
 
 		'Loading WepSIM...':		'Laddar WepSIM ...',
+		'About':			'Om',
 		'Configuration':		'Konfiguration',
 		'MicroCode':			'Mikrokod',
 		'Assembly':			'Hopsättning',

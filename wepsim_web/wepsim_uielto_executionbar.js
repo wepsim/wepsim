@@ -71,7 +71,7 @@
                     {
                        case "btn_reset":
 			     o += '<button id="btn_reset_' + this.name_str + '" ' +
-				  '        class="btn bg-body-secondary col pb-1 px-1 me-1 border-secondary"' +
+				  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="t" ' +
 				  '        onclick="wsweb_execution_reset();' +
 				  '                 return false;">' ;
@@ -83,7 +83,7 @@
 
                        case "btn_emins":
 			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' +
-		                  '        class="btn bg-body-secondary col pb-1 px-1 me-1 border-secondary user_microcode"' +
+		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary user_microcode"' +
 		                  '        accesskey="m" ' +
 			          '        onclick="wsweb_execution_microinstruction();' +
                                   '                 return false;">' ;
@@ -95,7 +95,7 @@
 
                        case "btn_eins":
 			     o += '<button id="btn_next_instruction_' + this.name_str + '"' +
-		                  '        class="btn bg-body-secondary col pb-1 px-1 me-1 border-secondary"' +
+		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="i" ' +
 			          '        onclick="wsweb_execution_instruction();' +
                                   '                 return false;">' ;
@@ -107,7 +107,7 @@
 
                        case "btn_run":
 			     o += '<button id="btn_run_stop_' + this.name_str + '"' +
-		                  '        class="btn bg-body-secondary col pb-1 px-1 me-1 border-secondary"' +
+		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="r" ' +
                                   '        onclick="wsweb_execution_run();' +
                                   '                 return false;">' ;
@@ -120,7 +120,7 @@
                        case "btn_rnf":
 			     o += '<div class="btn-group col py-0 pe-1" role="group">' +
                                   '<button id="btn_run_stop_' + this.name_str + '"' +
-		                  '        class="btn bg-body-secondary border-secondary w-75"' +
+		                  '        class="btn bg-secondary-subtle border-secondary w-75"' +
 		                  '        accesskey="r" ' +
                                   '        onclick="wsweb_execution_run();' +
                                   '                 return false;">' ;
@@ -130,7 +130,7 @@
                                   '</button>' +
                                   '' +
                                   '<button type="button" ' +
-                                  '        class="btn dropdown-toggle dropdown-toggle-split border-secondary bg-body-secondary w-25" ' +
+                                  '        class="btn dropdown-toggle dropdown-toggle-split border-secondary bg-secondary-subtle w-25" ' +
                                   '        data-bs-toggle="dropdown" aria-expanded="false">' +
                                   '  <span class="visually-hidden">Toggle Dropdown</span>' +
                                   '</button>' +

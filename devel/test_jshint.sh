@@ -48,6 +48,7 @@ echo "checking sim_sw..."
  jshint ./sim_sw/firmware/creator2native.js
  jshint ./sim_sw/assembly/lexical.js
 #jshint ./sim_sw/assembly/memory_segments.js
+ jshint ./sim_sw/assembly/lexical.js
 #jshint ./sim_sw/assembly.js
 
 echo "checking sim_hw..."

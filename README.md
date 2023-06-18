@@ -522,13 +522,13 @@ cordova plugin add cordova-plugin-web-share
 
 + 2.1) Copy WepSIM files into the www directory:
 ```bash
-wget https://github.com/acaldero/wepsim/releases/download/v2.2.1/wepsim-2.2.1.zip
-unzip wepsim-2.2.1.zip
+wget https://github.com/acaldero/wepsim/archive/refs/heads/master.zip
+unzip master.zip
 ```
 
 + 2.2) Build www for the Apache Cordova project:
 ```bash
-./wepsim-2.2.1/devel/mk_cordova.sh
+./wepsim-master/devel/mk_cordova.sh
 ```
 
 ### 3) Build Android .apk:

@@ -22,6 +22,7 @@
     i18n.eltos.gui.ru = {
 
 		'Loading WepSIM...':		'Загрузка WepSIM ...',
+		'About':			'О компании',
 		'Configuration':		'конфигурация',
 		'MicroCode':			'микрокода',
 		'Assembly':			'сборочный',

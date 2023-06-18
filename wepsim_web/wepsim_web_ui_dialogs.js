@@ -232,8 +232,7 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
-		        return "<div id='scroller-bin2a' class='container-fluid p-1' " +
-           		       "     style='max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+		        return "<div id='scroller-bin2a' class='container-fluid p-1'>" +
 	           	       "<ws-bin_asm></ws-bin_asm>" +
 		               "</div>" ;
 		     },
@@ -281,8 +280,7 @@
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
-		        return "<div id='scroller-bin2b' class='container-fluid p-1' " +
-           		       "     style='max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+		        return "<div id='scroller-bin2b' class='container-fluid p-1'>" +
 	           	       "<ws-bin_mc></ws-bin_mc>" +
 		               "</div>" ;
 		     },
