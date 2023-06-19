@@ -474,8 +474,8 @@ function loadFirmware (text)
 				}
 
 				if (typeof context.instrucciones[fi].eoc == "undefined") {
-					context.oceoc_hash[fico].witheoc = false ;
-					context.oceoc_hash[fico].i       = context.instrucciones[fi] ;
+					context.oceoc_hash[fioc].witheoc = false ;
+					context.oceoc_hash[fioc].i       = context.instrucciones[fi] ;
 				} else {
 					fieoc = context.instrucciones[fi].eoc ;
 					context.oceoc_hash[fioc].witheoc = true ;
@@ -526,8 +526,8 @@ function loadFirmware (text)
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
            ret.stackRegister      = context.stackRegister ;
-           ret.cocop_hash         = context.cocop_hash ;
-           ret.oceoc_hash         = context.oceoc_hash ;
+		   if (context.version == 2) 	ret.oceoc_hash = context.oceoc_hash ;
+		   else 						ret.cocop_hash = context.cocop_hash ;
            ret.revlabels          = context.revlabels ;
 
            return ret ;
@@ -713,11 +713,9 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 			var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
 			if (eoc == 000 || eoc == 101) {
 				eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
-			}
-			if (oc == 0110011) {
+			} else if (oc == 0110011) {
 				eoc += 0000001;
 			}
-			console.log(eoc);
 		} else {
 			var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
 		}

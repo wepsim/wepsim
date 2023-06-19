@@ -339,7 +339,7 @@
                                      visible:true, nbits: "1", value:0, default_value:0,
                                      draw_data: [] };
 
-	/* CONTROL UNIT */
+	/* (BLACKBOX) CONTROL UNIT */
 	sim.rv.states["REG_MICROADDR"]  = { name: "µADDR", verbal: "Microaddress Register",
                                             visible:true, nbits: "12", value:0,  default_value:0,
 											draw_data: [] };
@@ -369,9 +369,6 @@
                                             visible:false, nbits: "32", value:0, default_value:0,
                                             draw_data: [] };
 	sim.rv.states["BS_M1"]          = { name: "BS_M1", verbal: "From Byte/Word Selector to Mux 1",
-                                            visible:false, nbits: "32", value:0, default_value:0,
-                                            draw_data: [] };
-	sim.rv.states["BS_BS"]          = { name: "BS_BS", verbal: "Internal Byte/Word Selector",
                                             visible:false, nbits: "32", value:0, default_value:0,
                                             draw_data: [] };
 
@@ -2865,7 +2862,7 @@
 
         sim.rv.elements.cpu_alu = {
 			      name:              "ALU",
-			      description:       "Arithmetic-Logit Unit",
+			      description:       "Arithmetic-Logic Unit",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
