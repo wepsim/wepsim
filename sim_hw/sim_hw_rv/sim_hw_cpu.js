@@ -167,9 +167,8 @@
 					    			"co":		{ "begin":  0, "end":  5, "length": 6 },
 								"cop":		{ "begin": 28, "end": 31, "length": 4 },
 								"oc":		{ "begin":  0, "end":  6, "length": 7 },
-								"funct3":	{ "begin": 12, "end": 14, "length": 3 },
-								"funct7":	{ "begin": 25, "end": 31, "length": 7 },
-								"eoc":		{ "bits": [[25,31], [12,14]], "length": 10}
+								//"eoc":		{ "type": 	1, "begin": 12, "end": 14, "length": 3 },
+								"eoc":		{ "type": 	2, "bits": [[12,14], [25,31]], "lengths": [3, 7] }
 							},
 		                    is_pointer: false
 	                         } ;

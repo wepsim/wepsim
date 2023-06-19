@@ -707,8 +707,20 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		ret.op_code = parseInt(oc, 2) ;
 
 		// eoc
-		// NEEDS FIX
-		var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+		// this needs A LOT of explaining
+		// https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
+		if (ep_ir.default_eltos.eoc.type == 2) {
+			var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
+			if (eoc == 000 || eoc == 101) {
+				eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+			}
+			if (oc == 0110011) {
+				eoc += 0000001;
+			}
+			console.log(eoc);
+		} else {
+			var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+		}
 		ret.eoc = parseInt(eoc, 2) ;
 
 		if ("undefined" == typeof curr_firm.oceoc_hash[oc]) {
