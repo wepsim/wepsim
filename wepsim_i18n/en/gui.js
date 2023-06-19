@@ -22,6 +22,7 @@
     i18n.eltos.gui.en = {
 
 		"Loading WepSIM...":  			        "Loading WepSIM...",
+                "About":                         		"About",
 		"Configuration":  			        "Configuration",
 		"MicroCode":  			        	"MicroCode",
 		"Assembly": 		     			"Assembly",

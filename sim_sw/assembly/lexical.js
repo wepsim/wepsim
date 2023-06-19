@@ -23,7 +23,7 @@
  *  Token management
  */
 
-function nextToken ( context )
+function asm_nextToken ( context )
 {
 	  var tok   = "" ;
 	  var first = "" ;
@@ -154,26 +154,26 @@ function nextToken ( context )
           return context ;
 }
 
-function getToken ( context )
+function asm_getToken ( context )
 {
 	 return context.tokens[context.i] ;
 }
 
-function getTokenType ( context )
+function asm_getTokenType ( context )
 {
 	 return context.token_types[context.i] ;
 }
 
-function isToken ( context, text )
+function asm_isToken ( context, text )
 {
-         return (getToken(context) == text.trim()) ;
+         return (asm_getToken(context) == text.trim()) ;
 }
 
-function isToken_arr ( context, arr )
+function asm_isToken_arr ( context, arr )
 {
          for (var i=0; i<arr.length; i++)
          {
-              if (getToken(context) == arr[i].trim()) {
+              if (asm_getToken(context) == arr[i].trim()) {
                   return true ;
               }
          }
@@ -186,7 +186,7 @@ function isToken_arr ( context, arr )
  *  Error handler
  */
 
-function langError ( context, msgError )
+function asm_langError ( context, msgError )
 {
         // detect lines
 	var line2 = 0 ;
@@ -231,60 +231,25 @@ function langError ( context, msgError )
         return context;
 }
 
-function getLabelContext ( context )
+function asm_getLabelContext ( context )
 {
         return { t: context.t, line: context.line, newlines: context.newlines.slice() } ;
 }
 
-function setLabelContext ( context, labelContext )
+function asm_setLabelContext ( context, labelContext )
 {
         context.t = labelContext.t ;
         context.line = labelContext.line ;
         context.newlines = labelContext.newlines ;
 }
 
-function getComments ( context )
+function asm_getComments ( context )
 {
         return context.comments.join('\n') ;
 }
 
-function resetComments ( context )
+function asm_resetComments ( context )
 {
         context.comments = [] ;
-}
-
-
-/*
- *  Native
- */
-
-// TODO: some checking of this code before running (like an anti-virus)
-
-function nextNative ( context )
-{
-	 var first = context.t ;
-	 var last  = context.t ;
-
-	 // to detect blocks inside blocks -> { if () {} }
-	 var braces = 1 ;
-	 while ( (context.t < context.text.length) && (braces != 0) )
-	 {
-	     if ('{' == context.text[context.t])
-		  braces++ ;
-	     if ('}' == context.text[context.t])
-		  braces-- ;
-
-	     context.t++;
-	 }
-	 last = context.t - 1 ;
-
-	 // store the comment but do not return it as token
-	 var tok  = context.text.substring(first, last) ;
-
-         context.tokens.push(tok) ;
-         context.token_types.push("NATIVE") ;
-         context.i = context.tokens.length - 1 ;
-
-         return context ;
 }
 

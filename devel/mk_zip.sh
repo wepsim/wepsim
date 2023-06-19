@@ -42,3 +42,5 @@ cd gateway
 #zip   -9qr ../ws_dist/gateway/esp32c6.zip esp32c6/
 popd
 
+echo "  Done."
+

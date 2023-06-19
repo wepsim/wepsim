@@ -27,19 +27,65 @@ echo ""
 echo "  WepSIM packer"
 echo " ---------------"
 echo ""
-if [ $# -gt 0 ]; then
-     set -x
-fi
 
-# install dependencies
-echo "  Requirements:"
-echo "  * terser jq jshint"
+
+# arguments
+while getopts 'vdh' opt; do
+  case "$opt" in
+    v)
+      echo "  getopts: processing verbose..."
+      echo ""
+      set -x
+      ;;
+
+    d)
+      echo "  Please install first:"
+      echo "   sudo apt-get install jq"
+      echo ""
+      echo "   npm i terser jshint"
+      echo "   npm i yargs clear inquirer fuzzy commander async"
+      echo "   npm i inquirer-command-prompt inquirer-autocomplete-prompt"
+      echo "   npm i rollup @rollup/plugin-node-resolve"
+      echo ""
+      echo "   npm i codemirror @codemirror/lang-javascript"
+      echo "   npm i codemirror @codemirror/view";
+      echo "   npm i codemirror @codemirror/state";
+      echo "   npm i codemirror @codemirror/language";
+      echo ""
+      exit
+      ;;
+
+    ?|h)
+      echo "  Usage: $(basename $0) [-v] [-d]"
+      echo ""
+      exit 1
+      ;;
+  esac
+done
+shift "$(($OPTIND -1))"
+
+
+# install npm dependencies
+echo "  Step for npm install/update:"
+echo "  * terser jshint"
 echo "  * yargs clear inquirer fuzzy commander async"
 echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
+echo "  * rollup @rollup/plugin-node-resolve"
 npm install
+echo "  Done.\n"
+
+
+# pre-bundle
+echo "  Step for rollup:"
+echo "  * codemirror6"
+node_modules/.bin/rollup -c external/codemirror6/rollup.config.mjs
+terser -o external/codemirror6/min.codemirror.js external/codemirror6/codemirror.bundle.js
+rm -fr external/codemirror6/codemirror.bundle.js
+echo "  Done.\n"
+
 
 # skeleton
-echo "  Packing:"
+echo "  Step for packing:"
 echo "  * ws_dist"
                     mkdir -p ws_dist
                     touch    ws_dist/index.html
@@ -96,7 +142,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_rv/sim_hw_cpu.js \
     sim_hw/sim_hw_rv/sim_hw_mem.js \
     \
-    sim_sw/lexical.js \
+    sim_sw/firmware/lexical.js \
     sim_sw/firmware/firm_mcode.js \
     sim_sw/firmware/firm_begin.js \
     sim_sw/firmware/firm_pseudoinstructions.js \
@@ -106,6 +152,7 @@ cat sim_core/sim_cfg.js \
     sim_sw/firmware/firm_instruction.js \
     sim_sw/firmware/creator2native.js \
     sim_sw/firmware.js \
+    sim_sw/assembly/lexical.js \
     sim_sw/assembly/memory_segments.js \
     sim_sw/assembly.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js

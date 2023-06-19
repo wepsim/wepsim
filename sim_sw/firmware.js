@@ -185,8 +185,8 @@ function loadFirmware (text)
 
            var     xr_info = simhw_sim_ctrlStates_get() ;
            var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
-		   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
-		   //var all_ones_oc = "1".repeat(7) ;
+	   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
+        // var all_ones_oc = "1".repeat(7) ;
 
            var context = {} ;
 	   context.line           	= 1 ;
@@ -211,26 +211,26 @@ function loadFirmware (text)
 
            var i = 0 ;
 
-           nextToken(context) ;
+           frm_nextToken(context) ;
            // optional: firmware_version: 2
-           if (isToken(context, "firmware_version"))
+           if (frm_isToken(context, "firmware_version"))
            {
-	       nextToken(context);
+	       frm_nextToken(context);
 	       // match mandatory =
-	       if (! isToken(context,"=")) {
-		     return langError(context,
+	       if (! frm_isToken(context,"=")) {
+		     return frm_langError(context,
 				      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 	       }
 
-	       nextToken(context);
+	       frm_nextToken(context);
 	       // match mandatory FIRMWARE_VERSION
                context.comments = [] ;
-	       context.version = getToken(context) ;
+	       context.version = frm_getToken(context) ;
 
-               nextToken(context);
+               frm_nextToken(context);
                // match optional ,
-               if (isToken(context,","))
-	           nextToken(context);
+               if (frm_isToken(context,","))
+	           frm_nextToken(context);
            }
 
            // firmware (registers, instructions, etc.)
@@ -243,7 +243,7 @@ function loadFirmware (text)
 		//    31=$ra
 		// }*
 
-               if (isToken(context, "registers"))
+               if (frm_isToken(context, "registers"))
                {
                    ret = firm_registers_read(context) ;
 	           if (typeof ret.error != "undefined") {
@@ -260,7 +260,7 @@ function loadFirmware (text)
 		// }*
 		//
 
-               if (isToken(context, "pseudoinstructions"))
+               if (frm_isToken(context, "pseudoinstructions"))
                {
                    ret = firm_pseudoinstructions_read(context) ;
 	           if (typeof ret.error != "undefined") {
@@ -276,7 +276,7 @@ function loadFirmware (text)
 		//            (A0, B=0, C=0)
 		// }*
 
-               if (isToken(context, "begin"))
+               if (frm_isToken(context, "begin"))
                {
                    ret = firm_begin_read(context) ;
 	           if (typeof ret.error != "undefined") {
@@ -304,7 +304,7 @@ function loadFirmware (text)
 
            // CHECK: stack_pointer exists
 	   if (context.stackRegister == null) {
-	       return langError(context,
+	       return frm_langError(context,
 				i18n_get_TagFor('compiler', 'SP NOT DEFINED')) ;
            }
 
@@ -321,13 +321,13 @@ function loadFirmware (text)
                          }
                     }
 		    if (found === false) {
-	                return langError(context,
+	                return frm_langError(context,
 		         		 i18n_get_TagFor('compiler', 'NO LABEL FETCH')) ;
                     }
                 }
            }
            if (found === false) {
-	       return langError(context,
+	       return frm_langError(context,
 		         	i18n_get_TagFor('compiler', 'NO LABEL BEGIN')) ;
            }
 
@@ -355,7 +355,7 @@ function loadFirmware (text)
 						// find first free 'oc-eoc' code
 						var r = find_first_oceoc(context, curr_instruction, first_oc, last_oc) ;
 				if (r.j >= last_oc) {
-						return langError(context,
+						return frm_langError(context,
 								i18n_get_TagFor('compiler', 'NO OC CODES')) ;
 				}
 
@@ -395,7 +395,7 @@ function loadFirmware (text)
 						// find first free 'co-cop' code
 						var r = find_first_cocop(context, curr_instruction, first_co, last_co) ;
 				if (r.j >= last_co) {
-						return langError(context,
+						return frm_langError(context,
 								i18n_get_TagFor('compiler', 'NO CO CODES')) ;
 				}
 
@@ -432,7 +432,7 @@ function loadFirmware (text)
 			if (labelsFounded == 0)
 			{
                             // CHECK: label is defined
-	                    return langError(context,
+	                    return frm_langError(context,
 		                	     i18n_get_TagFor('compiler', 'NO LABEL MADDR') +
                                              context.labelsNotFound[i].nombre) ;
 			}

@@ -51,7 +51,7 @@
                     // default content
                     this.innerHTML = "<div class='ui-body-d ui-content p-0' id='" + cfgdiv_id + "' " +
                                      "     style='min-height:50vh; max-height:70vh; " +
-                                     "            overflow-y:auto; -webkit-overflow-scrolling:touch;'>" +
+                                     "            overflow-y:auto; overflow-x:auto; -webkit-overflow-scrolling:touch;'>" +
                                      "</div>" ;
               }
 
@@ -108,8 +108,6 @@
      	     var e_description = "" ;
      	     var e_id          = "" ;
 
-             var fmt_toggle    = "" ;
-             var fmt_header    = "" ;
 
              // first pass: build data
              var row = "" ;
@@ -123,25 +121,19 @@
      		e_id          = config[n].id ;
 
      		// related row
-/*
-     	        if  (fmt_toggle === "")
-     	             fmt_toggle = "bg-body-tertiary" ;
-     	        else fmt_toggle = "" ;
-*/
+     	        e_class_1 = "                " + e_u_class + " " ;
+     	        e_class_2 = " collapse7 show " + e_u_class + " " ;
 
-     	        e_class_1 = "                " + e_u_class + " " + fmt_toggle ;
-     	        e_class_2 = " collapse7 show " + e_u_class + " " + fmt_toggle ;
-
-     		row = '<div class="col-md-auto py-2 border-top ' + e_class_1 + '">' +
+     		row = '<div class="w-100 p-0 m-0 border-top border-2 '   + e_class_2 + '">' +
+                      '</div>' +
+                      '<div class="col-md-auto py-2 ' + e_class_1 + '">' +
      		      '    <span class="badge rounded-pill text-secondary">' + (n+1) + '</span>' +
      		      '</div>' +
-     		      '<div class="col-md-4    py-2 border-top ' + e_class_1 + '">' +
+     		      '<div class="col-md-4    py-2 ' + e_class_1 + '">' +
                            e_code_cfg  +
                       '</div>' +
-     		      '<div class="col-md      py-2 border-top align-items-center ' + e_class_2 + '">' +
+     		      '<div class="col-md      py-2 align-items-center ' + e_class_2 + '">' +
                            '<c>' + e_description + '</c>' +
-                      '</div>' +
-     		      '<div class="w-100       p-0 m-0 ' + e_class_2 + '">' +
                       '</div>' ;
 
      		// indexing row

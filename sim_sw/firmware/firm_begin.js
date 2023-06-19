@@ -28,27 +28,27 @@ function firm_begin_read ( context )
 	// }*
 
 	var instruccionAux = {};
-	instruccionAux.name         = getToken(context) ;
+	instruccionAux.name         = frm_getToken(context) ;
 	instruccionAux["mc-start"]  = context.contadorMC ;
 	instruccionAux["is_native"] = false;
 
         // skip 'begin'
-	nextToken(context);
+	frm_nextToken(context);
 
 	// match optional ,
-	if (isToken(context,",")) {
-	    nextToken(context);
+	if (frm_isToken(context,",")) {
+	    frm_nextToken(context);
 	}
 
 	// match optional native
-	if (isToken(context, "native"))
+	if (frm_isToken(context, "native"))
 	{
 	    instruccionAux["is_native"] = true;
-	    nextToken(context);
+	    frm_nextToken(context);
 
 	    // match optional ,
-	    if (isToken(context,",")) {
-		nextToken(context);
+	    if (frm_isToken(context,",")) {
+		frm_nextToken(context);
             }
 
 	    // add 'fetch' label

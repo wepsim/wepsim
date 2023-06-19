@@ -29,25 +29,25 @@ function firm_pseudoinstructions_read ( context )
 	//
 
         // skip 'pseudoinstructions'
-	nextToken(context);
-	if (! isToken(context, "{")) {
-	     return langError(context,
+	frm_nextToken(context);
+	if (! frm_isToken(context, "{")) {
+	     return frm_langError(context,
 			      i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
 	}
 
         // skip {
-	nextToken(context);
-	while (! isToken(context, "}"))
+	frm_nextToken(context);
+	while (! frm_isToken(context, "}"))
 	{
 		var pseudoInstructionAux = {};			
 		var pseudoInitial	 = {};
 		pseudoInitial.signature	 = "";
 		pseudoInitial.name	 = "";
 		pseudoInitial.fields	 = [];
-		pseudoInitial.name	 = getToken(context);
-		pseudoInitial.signature	 = pseudoInitial.signature + getToken(context) + "," ;
-		nextToken(context);
-		while (! isToken(context, "{"))
+		pseudoInitial.name	 = frm_getToken(context);
+		pseudoInitial.signature	 = pseudoInitial.signature + frm_getToken(context) + "," ;
+		frm_nextToken(context);
+		while (! frm_isToken(context, "{"))
 		{
 			var pseudoFieldAux = {};
 			pseudoFieldAux.name     = "" ;
@@ -55,36 +55,36 @@ function firm_pseudoinstructions_read ( context )
 			pseudoFieldAux.indirect = false ;
 
 			// *(name)*=type
-			if (isToken(context, "("))
+			if (frm_isToken(context, "("))
 			{
-			    nextToken(context);
-			    pseudoFieldAux.name += getToken(context);
+			    frm_nextToken(context);
+			    pseudoFieldAux.name += frm_getToken(context);
 
-			    nextToken(context);
-			    if (! isToken(context, ")")) {
-				return langError(context,
+			    frm_nextToken(context);
+			    if (! frm_isToken(context, ")")) {
+				return frm_langError(context,
 						 i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
 			    }
 
-			    nextToken(context);
+			    frm_nextToken(context);
 			    pseudoFieldAux.indirect = true ;
 			}
 			// *name*=type
 			else
 			{
-			    pseudoFieldAux.name += getToken(context);
-			    nextToken(context);
+			    pseudoFieldAux.name += frm_getToken(context);
+			    frm_nextToken(context);
 			}
 
 			// name*=*type
-			if (! isToken(context, "=")) {
-			      return langError(context,
+			if (! frm_isToken(context, "=")) {
+			      return frm_langError(context,
 					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND') + ' (for name=type)') ;
 			}
 
 			// name=*type*
-			nextToken(context);
-			pseudoFieldAux.type += getToken(context).replace("num", "inm");
+			frm_nextToken(context);
+			pseudoFieldAux.type += frm_getToken(context).replace("num", "inm");
 
 			switch (pseudoFieldAux.type)
 			{
@@ -94,7 +94,7 @@ function firm_pseudoinstructions_read ( context )
 				case "address":
 				     break;
 				default:						
-				     return langError(context,
+				     return frm_langError(context,
 						      i18n_get_TagFor('compiler', 'INVALID PARAMETER') + pseudoFieldAux.type + '.' +
 						      i18n_get_TagFor('compiler', 'ALLOWED PARAMETER')) ;
 			}
@@ -102,16 +102,16 @@ function firm_pseudoinstructions_read ( context )
 			pseudoInitial.fields.push(pseudoFieldAux);
 
 			if (pseudoFieldAux.indirect == true)
-			     pseudoInitial.signature += "(" + getToken(context) + "),";
-			else pseudoInitial.signature += getToken(context) + ",";
+			     pseudoInitial.signature += "(" + frm_getToken(context) + "),";
+			else pseudoInitial.signature += frm_getToken(context) + ",";
 
-			nextToken(context);
-			if (isToken(context, ",")) {
-			    nextToken(context);
+			frm_nextToken(context);
+			if (frm_isToken(context, ",")) {
+			    frm_nextToken(context);
 			}
 		}
 
-		nextToken(context);
+		frm_nextToken(context);
 		pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"inm");
 		pseudoInstructionAux.initial = pseudoInitial;	
 		var contPseudoFinish = 0;
@@ -122,40 +122,40 @@ function firm_pseudoinstructions_read ( context )
 		var inStart = 0;
 		var cont = false;
 
-		while (! isToken(context, "}"))
+		while (! frm_isToken(context, "}"))
 		{
 			if (inStart == 0)
 			{
 				for (i=0; i<context.instrucciones.length; i++)
 				{
-					if (context.instrucciones[i].name == getToken(context)){
+					if (context.instrucciones[i].name == frm_getToken(context)){
 						cont = true;
 						break;
 					}	
 				}
 				if (!cont) {
-				    return langError(context,
+				    return frm_langError(context,
 						     i18n_get_TagFor('compiler', 'UNDEF. INSTR.') +
-						     "'" + getToken(context) + "'") ;
+						     "'" + frm_getToken(context) + "'") ;
 				}
 			}
 
-			if (getToken(context) == ";")
+			if (frm_getToken(context) == ";")
 			     inStart = 0;
 			else inStart++;
 
-			pseudoFinishAux.signature = pseudoFinishAux.signature + getToken(context) + " ";
-			nextToken(context);
+			pseudoFinishAux.signature = pseudoFinishAux.signature + frm_getToken(context) + " ";
+			frm_nextToken(context);
 		}
 
 		pseudoInstructionAux.finish=pseudoFinishAux;
 		pseudoInstructionAux.finish.signature=pseudoInstructionAux.finish.signature.replace(';','\n');
 		context.pseudoInstructions.push(pseudoInstructionAux);
-		nextToken(context);
+		frm_nextToken(context);
 	}
 
         // skip }
-	nextToken(context);
+	frm_nextToken(context);
 
         return {} ;
 }

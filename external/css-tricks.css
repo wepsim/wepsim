@@ -4,11 +4,11 @@
  */
 
 .slider::-webkit-slider-runnable-track {
-        background-color: lightgray;
+        background-color: #E8E8E8;
 }
 
 .slider::-moz-range-track {
-        background-color: lightgray;
+        background-color: #E8E8E8;
 }
 
 
