@@ -149,7 +149,7 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
                 }
 
                 // (3/3) check if skip (new instruction overlaps || existing instructions overlap)...
-                if (eoc === true) {
+                if (eoc_overlaps === true) {
 		    continue ;
                 }
                 if (context.oc_eoc[ret.label_oc].witheoc === false) {
@@ -186,7 +186,7 @@ function loadFirmware (text)
            var     xr_info = simhw_sim_ctrlStates_get() ;
            var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
 	   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
-        // var all_ones_oc = "1".repeat(7) ;
+        // var all_ones_oc = "1".repeat(10) ;
 
            var context = {} ;
 	   context.line           	= 1 ;
@@ -474,8 +474,8 @@ function loadFirmware (text)
 				}
 
 				if (typeof context.instrucciones[fi].eoc == "undefined") {
-					context.oceoc_hash[fico].witheoc = false ;
-					context.oceoc_hash[fico].i       = context.instrucciones[fi] ;
+					context.oceoc_hash[fioc].witheoc = false ;
+					context.oceoc_hash[fioc].i       = context.instrucciones[fi] ;
 				} else {
 					fieoc = context.instrucciones[fi].eoc ;
 					context.oceoc_hash[fioc].witheoc = true ;
@@ -526,8 +526,8 @@ function loadFirmware (text)
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
            ret.stackRegister      = context.stackRegister ;
-           ret.cocop_hash         = context.cocop_hash ;
-           ret.oceoc_hash         = context.oceoc_hash ;
+		   if (context.version == 2) 	ret.oceoc_hash = context.oceoc_hash ;
+		   else 						ret.cocop_hash = context.cocop_hash ;
            ret.revlabels          = context.revlabels ;
 
            return ret ;
@@ -707,8 +707,18 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		ret.op_code = parseInt(oc, 2) ;
 
 		// eoc
-		// NEEDS FIX
-		var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+		// this needs A LOT of explaining
+		// https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
+		if (ep_ir.default_eltos.eoc.type == 2) {
+			var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
+			if (eoc == 000 || eoc == 101) {
+				eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+			} else if (oc == 0110011) {
+				eoc += 0000001;
+			}
+		} else {
+			var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+		}
 		ret.eoc = parseInt(eoc, 2) ;
 
 		if ("undefined" == typeof curr_firm.oceoc_hash[oc]) {

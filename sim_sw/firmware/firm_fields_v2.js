@@ -330,13 +330,13 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 			}
 
 			// relative addresses (S and B-type instructions) are 12 bits long
-			if (tmp_fields.address_type === "rel" && bits != 12) {
+			if (tmp_fields.address_type === "rel" && total_bits != 12) {
 				return frm_langError(context,
 							i18n_get_TagFor('compiler', 'ADDRESS-REL MUST BE 12 BITS') +
 							"'" + frm_getToken(context) + "'") ;
 			}
 			// absolute addresses (J-type instructions) are 20 bits long
-			if (tmp_fields.address_type === "abs" && bits != 20) {
+			if (tmp_fields.address_type === "abs" && total_bits != 20) {
 				return frm_langError(context,
 							i18n_get_TagFor('compiler', 'ADDRESS-ABS MUST BE 20 BITS') +
 							"'" + frm_getToken(context) + "'") ;
@@ -453,6 +453,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
                    oc_inserted = 1 ;
 	       }
 
+	       //REPEATED EOC, NEEDS FIX
 	       // match optional eoc
           else if (frm_isToken(context,"eoc"))
 	       {

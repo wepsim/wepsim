@@ -167,9 +167,8 @@
 					    			"co":		{ "begin":  0, "end":  5, "length": 6 },
 								"cop":		{ "begin": 28, "end": 31, "length": 4 },
 								"oc":		{ "begin":  0, "end":  6, "length": 7 },
-								"funct3":	{ "begin": 12, "end": 14, "length": 3 },
-								"funct7":	{ "begin": 25, "end": 31, "length": 7 },
-								"eoc":		{ "bits": [[25,31], [12,14]], "length": 10}
+								//"eoc":		{ "type": 	1, "begin": 12, "end": 14, "length": 3 },
+								"eoc":		{ "type": 	2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
 							},
 		                    is_pointer: false
 	                         } ;
@@ -340,7 +339,7 @@
                                      visible:true, nbits: "1", value:0, default_value:0,
                                      draw_data: [] };
 
-	/* CONTROL UNIT */
+	/* (BLACKBOX) CONTROL UNIT */
 	sim.rv.states["REG_MICROADDR"]  = { name: "µADDR", verbal: "Microaddress Register",
                                             visible:true, nbits: "12", value:0,  default_value:0,
 											draw_data: [] };
@@ -370,9 +369,6 @@
                                             visible:false, nbits: "32", value:0, default_value:0,
                                             draw_data: [] };
 	sim.rv.states["BS_M1"]          = { name: "BS_M1", verbal: "From Byte/Word Selector to Mux 1",
-                                            visible:false, nbits: "32", value:0, default_value:0,
-                                            draw_data: [] };
-	sim.rv.states["BS_BS"]          = { name: "BS_BS", verbal: "Internal Byte/Word Selector",
                                             visible:false, nbits: "32", value:0, default_value:0,
                                             draw_data: [] };
 
@@ -2866,7 +2862,7 @@
 
         sim.rv.elements.cpu_alu = {
 			      name:              "ALU",
-			      description:       "Arithmetic-Logit Unit",
+			      description:       "Arithmetic-Logic Unit",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {
