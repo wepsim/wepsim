@@ -453,6 +453,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
                    oc_inserted = 1 ;
 	       }
 
+	       //REPEATED EOC, NEEDS FIX
 	       // match optional eoc
           else if (frm_isToken(context,"eoc"))
 	       {

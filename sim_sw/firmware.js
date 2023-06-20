@@ -149,7 +149,7 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
                 }
 
                 // (3/3) check if skip (new instruction overlaps || existing instructions overlap)...
-                if (eoc === true) {
+                if (eoc_overlaps === true) {
 		    continue ;
                 }
                 if (context.oc_eoc[ret.label_oc].witheoc === false) {
@@ -186,7 +186,7 @@ function loadFirmware (text)
            var     xr_info = simhw_sim_ctrlStates_get() ;
            var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
 	   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
-        // var all_ones_oc = "1".repeat(7) ;
+        // var all_ones_oc = "1".repeat(10) ;
 
            var context = {} ;
 	   context.line           	= 1 ;

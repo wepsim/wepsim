@@ -168,7 +168,7 @@
 								"cop":		{ "begin": 28, "end": 31, "length": 4 },
 								"oc":		{ "begin":  0, "end":  6, "length": 7 },
 								//"eoc":		{ "type": 	1, "begin": 12, "end": 14, "length": 3 },
-								"eoc":		{ "type": 	2, "bits": [[12,14], [25,31]], "lengths": [3, 7] }
+								"eoc":		{ "type": 	2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
 							},
 		                    is_pointer: false
 	                         } ;
