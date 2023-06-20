@@ -315,3 +315,41 @@
             o.style.visibility = value ;
         }
 
+	function wepsim_svg_darkmode ( darkmode, svg_id )
+        {
+            var back_new = '' ;
+            var fore_new = '' ;
+
+            if (false == darkmode) {
+                back_new = 'white' ;
+                fore_new = 'black' ;
+	        cfg_color_data_inactive = '#000000' ;
+	        cfg_color_name_inactive = '#000000' ;
+            }
+            else {
+                back_new = 'black' ;
+                fore_new = 'white' ;
+	        cfg_color_data_inactive = '#FFFFFF' ;
+	        cfg_color_name_inactive = '#FFFFFF' ;
+            }
+
+	    var svg_p = document.getElementById(svg_id);
+            if (null == svg_p) return ;
+
+	    var svg   = svg_p.contentDocument;
+            if (null == svg)   return ;
+
+	    var svg2 = svg.querySelector('svg') ;
+            if (null == svg2)   return ;
+
+	    svg2.setAttribute('style', 'background-color:' + back_new);
+	    var elements = svg.querySelectorAll("path")
+	    for (var i = 0; i < elements.length; i++) {
+	         elements[i].style.fill = fore_new ;
+	    }
+	    var elements = svg.querySelectorAll("text")
+	    for (var i = 0; i < elements.length; i++) {
+	         elements[i].style.fill = fore_new ;
+	    }
+        }
+

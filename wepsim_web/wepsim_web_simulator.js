@@ -119,14 +119,9 @@
             $(classes).addClass('d-none') ;
     }
 
-    function wepsim_restore_darkmode ( adm )
+    function wepsim_restore_darkmode_aux ( adm )
     {
 	    var o = null ;
-
-            // document
-	    if (adm === false)
-                 document.documentElement.setAttribute('data-bs-theme', 'light') ;
-            else document.documentElement.setAttribute('data-bs-theme', 'dark') ;
 
             // skipped elements
 	    o = document.querySelectorAll('.no-dark-mode') ;
@@ -136,6 +131,51 @@
 	              o[i].removeAttribute('data-bs-theme', 'nodark') ;
 	         else o[i].setAttribute('data-bs-theme',    'nodark') ;
             }
+
+            // updating svg
+            wepsim_svg_darkmode(adm, "svg_p") ;
+            wepsim_svg_darkmode(adm, "svg_cu") ;
+
+            // updating editors
+            if (adm)
+	         wepsim_config_button_toggle('editor_theme', 'blackboard', '7');
+            else wepsim_config_button_toggle('editor_theme', 'default',    '7');
+
+	    sim_cfg_editor_theme(inputfirm) ;
+	    sim_cfg_editor_theme(inputasm) ;
+
+	    return true ;
+    }
+
+    var observer_darkmode = null ;
+
+    function wepsim_restore_darkmode ( adm )
+    {
+	    var o = null ;
+
+            // document
+	    if (adm === false)
+                 document.documentElement.setAttribute('data-bs-theme', 'light') ;
+            else document.documentElement.setAttribute('data-bs-theme', 'dark') ;
+
+            // set visual updates for dark/light mode
+            wepsim_restore_darkmode_aux(adm) ;
+
+/*
+            // event onChange (TODO: move to some *_init function)
+            if (observer_darkmode == null)
+            {
+                observer = new MutationObserver(function ( mutations ) {
+						    var is_black_mode = get_cfg("ws_skin_dark_mode") ;
+						    wepsim_restore_darkmode_aux(is_black_mode) ;
+			                        }) ;
+
+                observer.observe(document.documentElement, {
+                                    attributes: true,
+                                    attributeFilter: [ "data-bs-theme" ]
+                                 });
+            }
+*/
 
 	    return true ;
     }
