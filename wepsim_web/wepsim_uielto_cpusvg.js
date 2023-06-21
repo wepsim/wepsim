@@ -89,7 +89,7 @@
            var w = o.getAttribute('stroke-width');
            if (w == null) return;
 
-           var wb = o.getAttribute('backup-stroke-width'); 
+           var wb = o.getAttribute('backup-stroke-width');
            if (wb == null) {
                wb = parseFloat(w);
                o.setAttribute('backup-stroke-width', wb);
@@ -111,28 +111,51 @@
            }
         }
 
+
         /*
          *  Drawing part
          */
+
         var DRAW_stop = false ;
 
+        var cfg_color_background    = 'white' ;
         var cfg_color_data_active   = '#0066FF' ;
-        var cfg_color_data_inactive = '#000000' ;
         var cfg_color_name_active   = '#FF0000' ;
+        var cfg_color_data_inactive = '#000000' ;
         var cfg_color_name_inactive = '#000000' ;
         var cfg_size_active         = 3.0 ;
         var cfg_size_inactive       = 1.0 ;
+
+	function wepsim_svg_update_drawing ( )
+        {
+            // 1) from configuration
+	    cfg_color_data_active   = get_cfg('color_data_active') ;
+	    cfg_color_name_active   = get_cfg('color_name_active') ;
+	    cfg_color_data_inactive = get_cfg('color_data_inactive') ;
+	    cfg_color_name_inactive = get_cfg('color_name_inactive') ;
+	    cfg_size_active         = get_cfg('size_active') ;
+	    cfg_size_inactive       = get_cfg('size_inactive') ;
+
+            // 2) modify because dark-mode
+            var is_black_mode = get_cfg("ws_skin_dark_mode") ;
+
+            if (false == is_black_mode) {
+                cfg_color_background    = 'white' ;
+	        cfg_color_data_inactive = '#000000' ;
+	        cfg_color_name_inactive = '#000000' ;
+            }
+            else {
+                cfg_color_background    = 'black' ;
+	        cfg_color_data_inactive = '#FFFFFF' ;
+	        cfg_color_name_inactive = '#FFFFFF' ;
+            }
+        }
 
 	function wepsim_svg_start_drawing ( )
         {
             DRAW_stop = false ;
 
-	    cfg_color_data_active   = get_cfg('color_data_active') ;
-	    cfg_color_data_inactive = get_cfg('color_data_inactive') ;
-	    cfg_color_name_active   = get_cfg('color_name_active') ;
-	    cfg_color_name_inactive = get_cfg('color_name_inactive') ;
-	    cfg_size_active         = get_cfg('size_active') ;
-	    cfg_size_inactive       = get_cfg('size_inactive') ;
+	    wepsim_svg_update_drawing() ;
         }
 
 	function wepsim_svg_stop_drawing ( )
@@ -315,24 +338,8 @@
             o.style.visibility = value ;
         }
 
-	function wepsim_svg_darkmode ( darkmode, svg_id )
+	function wepsim_svg_apply_darkmode ( svg_id )
         {
-            var back_new = '' ;
-            var fore_new = '' ;
-
-            if (false == darkmode) {
-                back_new = 'white' ;
-                fore_new = 'black' ;
-	        cfg_color_data_inactive = '#000000' ;
-	        cfg_color_name_inactive = '#000000' ;
-            }
-            else {
-                back_new = 'black' ;
-                fore_new = 'white' ;
-	        cfg_color_data_inactive = '#FFFFFF' ;
-	        cfg_color_name_inactive = '#FFFFFF' ;
-            }
-
 	    var svg_p = document.getElementById(svg_id);
             if (null == svg_p) return ;
 
@@ -342,14 +349,55 @@
 	    var svg2 = svg.querySelector('svg') ;
             if (null == svg2)   return ;
 
-	    svg2.setAttribute('style', 'background-color:' + back_new);
+	    svg2.setAttribute('style', 'background-color:' + cfg_color_background);
 	    var elements = svg.querySelectorAll("path")
 	    for (var i = 0; i < elements.length; i++) {
-	         elements[i].style.fill = fore_new ;
+	         elements[i].style.fill = cfg_color_data_inactive ;
 	    }
+
 	    var elements = svg.querySelectorAll("text")
 	    for (var i = 0; i < elements.length; i++) {
-	         elements[i].style.fill = fore_new ;
+	         elements[i].style.fill = cfg_color_data_inactive ;
 	    }
+        }
+
+        function wepsim_svg_refresh ( id_arr )
+        {
+            var o = null ;
+
+            // set darkmode
+	    wepsim_svg_update_drawing() ;
+
+            // refresh svg (just in case)
+            for (var i in id_arr)
+            {
+                     o = document.getElementById(id_arr[i]) ;
+                 if (o === null) continue ;
+
+		 wepsim_svg_apply_darkmode(id_arr[i]) ;
+            }
+        }
+
+        function wepsim_svg_reload ( id_arr )
+        {
+            var o = null ;
+            var a = null ;
+
+            // set darkmode
+	    wepsim_svg_update_drawing() ;
+
+            // reload svg (just in case)
+            for (var i in id_arr)
+            {
+                     o = document.getElementById(id_arr[i]) ;
+                 if (o === null) continue ;
+
+                 o.onload = function(obj) {
+			        wepsim_svg_apply_darkmode(obj.currentTarget.id) ;
+                            } ;
+
+                 a = o.getAttribute('data') ;
+                     o.setAttribute('data', a) ;
+            }
         }
 

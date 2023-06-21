@@ -39,12 +39,12 @@
 	      {
                     // html holder
 		    var o1 = "<div class='container text-end multi-collapse-3 collapse show'>" +
-                             '<label class="my-0" for="popover-rfcfg" style="min-width:95%">' +
+                             '<span class="my-0" for="popover-rfcfg" style="min-width:95%">' +
                              '<span data-langkey="quick config">quick config</span>: ' +
 		             "<a data-bs-toggle='popover-rfcfg' id='popover-rfcfg' " +
 			     "   tabindex='0' class='m-auto'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
-                             "</a></label>" +
+                             "</a></span>" +
                              "</div>" +
                              '<div id="' + this.tf_div + '" ' +
                              '     style="width:inherit; overflow-y:auto;"' +

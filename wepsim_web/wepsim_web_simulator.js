@@ -119,22 +119,13 @@
             $(classes).addClass('d-none') ;
     }
 
-    function wepsim_restore_darkmode_aux ( adm )
+    function wepsim_appy_darkmode ( adm )
     {
 	    var o = null ;
+            var id_arr = [ "svg_p", "svg_cu" ] ;
 
-            // skipped elements
-	    o = document.querySelectorAll('.no-dark-mode') ;
-            for (var i=0; i<o.length; i++)
-            {
-	         if (adm === false)
-	              o[i].removeAttribute('data-bs-theme', 'nodark') ;
-	         else o[i].setAttribute('data-bs-theme',    'nodark') ;
-            }
-
-            // updating svg
-            wepsim_svg_darkmode(adm, "svg_p") ;
-            wepsim_svg_darkmode(adm, "svg_cu") ;
+            // refresh svg
+            wepsim_svg_refresh(id_arr) ;
 
             // updating editors
             if (adm)
@@ -147,8 +138,6 @@
 	    return true ;
     }
 
-    var observer_darkmode = null ;
-
     function wepsim_restore_darkmode ( adm )
     {
 	    var o = null ;
@@ -159,15 +148,21 @@
             else document.documentElement.setAttribute('data-bs-theme', 'dark') ;
 
             // set visual updates for dark/light mode
-            wepsim_restore_darkmode_aux(adm) ;
+            wepsim_appy_darkmode(adm) ;
 
-/*
-            // event onChange (TODO: move to some *_init function)
+	    return true ;
+    }
+
+    var observer_darkmode = null ;
+
+    function wepsim_keepsync_darkmode ( )
+    {
+            // event handler for onChange (only once)
             if (observer_darkmode == null)
             {
                 observer = new MutationObserver(function ( mutations ) {
 						    var is_black_mode = get_cfg("ws_skin_dark_mode") ;
-						    wepsim_restore_darkmode_aux(is_black_mode) ;
+						    wepsim_appy_darkmode(is_black_mode) ;
 			                        }) ;
 
                 observer.observe(document.documentElement, {
@@ -175,7 +170,6 @@
                                     attributeFilter: [ "data-bs-theme" ]
                                  });
             }
-*/
 
 	    return true ;
     }

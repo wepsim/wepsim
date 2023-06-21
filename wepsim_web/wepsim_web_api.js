@@ -163,13 +163,7 @@
             if (simhw_active() !== null)
             {
                 // reload svg (just in case)
-                for (var i in id_arr)
-                {
-                         o = document.getElementById(id_arr[i]) ;
-                     if (o === null) continue ;
-                     a = o.getAttribute('data') ;
-                         o.setAttribute('data', a) ;
-                }
+                wepsim_svg_reload(id_arr) ;
 
                 // start drawing again
 	        wepsim_svg_start_drawing() ;

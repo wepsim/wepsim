@@ -89,12 +89,12 @@
 		    // html holder
 		    o1  += "<div class='container text-end'>" +
                            "" +
-                           '<label class="my-0" for="popover-l3dcfg" style="min-width:95%">' +
+                           '<span class="my-0" for="popover-l3dcfg" style="min-width:95%">' +
                            '<span data-langkey="quick config">quick config</span>: ' +
                            "<a data-bs-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
                            "   tabindex='0' class='m-auto' role='button' id='popover-l3dcfg'>" +
                            "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
-                           "</label>" +
+                           "</span>" +
                            "" +
 			   "<table id='collapse-l3dcfg' " +
                            "       class='table table-hover table-sm table-bordered m-0 collapse'>" +
