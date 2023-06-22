@@ -343,7 +343,6 @@ function loadFirmware (text)
 				var last_oc_str = last_oc.toString(2) ;
 
 				var curr_instruction = null ;
-				console.log(context.instrucciones);
 				for (i=0; i<context.instrucciones.length; i++)
 				{
 						curr_instruction = context.instrucciones[i] ;

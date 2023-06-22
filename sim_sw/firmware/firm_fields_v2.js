@@ -563,7 +563,8 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
        if ( (instruccionAux["is_native"] === false) &&
 	    (typeof instruccionAux.eoc   !== 'undefined') &&
 	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.length) &&
-	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.funct3.length))
+	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.lengths[0]) &&
+	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.lengths[1]))
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD EOC BIN. LEN.') +
