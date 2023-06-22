@@ -52,10 +52,13 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
        return {} ;
 }
 
-function firm_instruction_check_eoc ( context, instruccionAux )
+function firm_instruction_check_eoc ( context, instruccionAux, xr_info )
 {
 	// semantic check: valid value
-	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc) {
+	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc ||
+	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length &&
+	    instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[0] &&
+	    instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[1])) {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'INCORRECT EOC BIN.') +
 			         "'" + instruccionAux.eoc + "'") ;
@@ -463,13 +466,16 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		   }
 
                    instruccionAux.eoc = ret.value ;
+				   instruccionAux.fields_eoc.push(ret.value) ;
 
-                   ret = firm_instruction_check_eoc(context, instruccionAux) ;
+				   //Problema aquí
+                   ret = firm_instruction_check_eoc(context, instruccionAux, xr_info) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
 	       }
 
+	       /*
 	       // match optional eoc
           else if (frm_isToken(context,"eoc"))
 	       {
@@ -480,6 +486,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
  
                    instruccionAux.fields_eoc.push(ret.value) ;
 	       }
+	       */
 
 	       // match optional "nwords"
 	  else if (frm_isToken(context, "nwords"))
