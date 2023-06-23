@@ -228,6 +228,13 @@
             quick_id:     '[data-bs-toggle=popover-cpuview]',
 	    val_trigger:  'click',
 	    fun_content:  function(shownEvent) {
+                             var got = get_cfg('CPUCU_show_graph') ;
+                             var show_text  = '' ;
+                             var show_graph = '' ;
+                            if (got)
+                                 show_graph = 'show' ;
+                            else show_text  = 'show' ;
+
 			    var o = "<div class='container mt-1 p-1'>" +
 				    "<div class='row'>" +
 				    '<ul class="list-group list-group-flush px-0">' +
@@ -237,23 +244,29 @@
 				       quickcfg_html_onoff('QD',
 							   'display format',
 							   ""     + i18n_get_TagFor('cfg', 'Text'),
-					       "wepsim_config_button_toggle(\'CPUCU_show_graph\',false,\'QD\');" +
+					       "wepsim_config_button_toggle(\'CPUCU_show_graph\', false, \'QD\');" +
 					       "wsweb_cpuview_as_text();" +
+                                               "$(\'#collapse_text\').show();" +
+                                               "$(\'#collapse_graph\').hide();" +
 					       "return false;",
 							   "(*) " + i18n_get_TagFor('cfg', 'Graph'),
-					       "wepsim_config_button_toggle(\'CPUCU_show_graph\',true,\'QD\');" +
+					       "wepsim_config_button_toggle(\'CPUCU_show_graph\', true, \'QD\');" +
 					       "wsweb_cpuview_as_graph();" +
+                                               "$(\'#collapse_text\').hide();" +
+                                               "$(\'#collapse_graph\').show();" +
 					       "return false;"
 						          ) +
 				    '</li> ' +
 				       // <sliders>
+
+                                    '<div class="collapse ' + show_graph + '" id="collapse_graph">' +
 				    '<li class="list-group-item px-2 pt-0 pb-3"> ' +
-				       quickcfg_html_header('Graph: split view') +
+				       quickcfg_html_header('Split view') +
 				       '<ws-slider-cpucu   name="slider4b" class="col-12"></ws-slider-cpucu>' +
 				    // '<ws-slider-details name="slider4a" class="col-12"></ws-slider-details>' +
 				       // <interactive>
 				       quickcfg_html_br() +
-				       quickcfg_html_header('Graph: interactive mode') +
+				       quickcfg_html_header('Interactive mode') +
 				       quickcfg_html_onoff('QI',
 							   'is interactive',
 								    i18n_get_TagFor('cfg', 'Off'),
@@ -263,10 +276,13 @@
 							   "wepsim_config_button_toggle(\'is_interactive\',true,\'QI\');" +
 							   "return false;") +
 				    '</li> ' +
+                                    '</div>' +
+
 				       // <filter>
+                                    '<div class="collapse ' + show_text + '" id="collapse_text">' +
 				    '<li class="list-group-item px-2 pt-0 pb-3"> ' +
 				       quickcfg_html_br() +
-				       quickcfg_html_header('Text: show states+signals') +
+				       quickcfg_html_header('Show states+signals') +
 
 				       wepsim_config_button_html_2options('Q2', 'Text shows inactive elements',
 									  "Only active",
@@ -296,6 +312,7 @@
 				    //                   "$(\"#infohw1\").attr(\"components\", \"elements\");",
 				    //                   "col-6") +
 				    '</li> ' +
+                                    '</div>' +
 				       // </advanced>
 				       quickcfg_html_br() +
 				       quickcfg_html_close('popover-cpuview') +

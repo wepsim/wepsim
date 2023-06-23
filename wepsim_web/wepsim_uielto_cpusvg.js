@@ -340,21 +340,26 @@
 
 	function wepsim_svg_apply_darkmode ( svg_id )
         {
-	    var svg_p = document.getElementById(svg_id);
-            if (null == svg_p) return ;
+	    var svg_o = document.getElementById(svg_id);
+            if (null == svg_o) return ;
 
-	    var svg   = svg_p.contentDocument;
+	    var svg   = svg_o.contentDocument;
             if (null == svg)   return ;
 
 	    var svg2 = svg.querySelector('svg') ;
-            if (null == svg2)   return ;
+            if (null == svg2)  return ;
 
+            // 1) background
 	    svg2.setAttribute('style', 'background-color:' + cfg_color_background);
+
+            // 2) path
 	    var elements = svg.querySelectorAll("path")
 	    for (var i = 0; i < elements.length; i++) {
 	         elements[i].style.fill = cfg_color_data_inactive ;
+                 elements[i].setAttribute('stroke', cfg_color_data_inactive);
 	    }
 
+            // 3) text
 	    var elements = svg.querySelectorAll("text")
 	    for (var i = 0; i < elements.length; i++) {
 	         elements[i].style.fill = cfg_color_data_inactive ;
