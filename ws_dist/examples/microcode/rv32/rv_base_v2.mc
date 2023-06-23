@@ -59,7 +59,7 @@ sw rs2 offset(rs1) {
          eoc(14:12)=111,
          reg(19:15)=rs1,
          reg(24:20)=rs2,
-         address-abs(11:7|31:25)=offset,
+         address-rel(11:7|31:25)=offset,
          help='MEM[addr] = r1',
          {
              ()
@@ -69,8 +69,8 @@ sw rs2 offset(rs1) {
 
 #  ADD rd,rs1,rs2         Add                                 rd ← sx(rs1) + sx(rs2)
 add rd rs1 rs2 {
-      oc(6:0)=1111111,
-      eoc(14:12|31:25)=1111111111,
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0000000000,
       reg(11:7)=rd,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
@@ -82,9 +82,24 @@ add rd rs1 rs2 {
       }
 }
 
+#  SUB rd,rs1,rs2         Sub                                 rd ← sx(rs1) - sx(rs2)
+sub rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0000100000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 + r3',
+      {
+          (REG_R1=10000, REG_R2=1011),
+          (M2, M3=0, AluOp=1011, WOut),
+          (RW, CU=11)
+      }
+}
+
 #  ADDI rd,rs1,imm         Add Immediate                         rd ← rs1 + sx(imm)
 addi rd rs1 imm {
-      oc(6:0)=1111111,
+      oc(6:0)=1111100,
       eoc(14:12)=111,
       reg(11:7)=rd,
       reg(19:15)=rs1,
@@ -154,7 +169,7 @@ bge rs1 rs2 offset {
 jal rd offset {
       oc(6:0)=1111111,
       reg(11:7)=rd,
-      address-rel(30:21|20|19:12|31)=offset,
+      address-abs(30:21|20|19:12|31)=offset,
       help='rd = pc; pc = pc + sext(offset)',
       {
           (M2=0, AluOp=11110, WOut),
@@ -166,7 +181,7 @@ jal rd offset {
 #  JALR rd,rs1,offset   Jump and Link Register              rd ← pc + length(inst)
 #                                              pc ← (rs1 + offset) & -2
 jalr rd rs1 offset {
-      oc(6:0)=1111111,
+      oc(6:0)=1111000,
       eoc(14:12)=111,
       reg(11:7)=rd,
       reg(19:15)=rs1,
