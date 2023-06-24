@@ -119,22 +119,56 @@
             $(classes).addClass('d-none') ;
     }
 
+    function wepsim_appy_darkmode ( adm )
+    {
+	    var o = null ;
+            var id_arr = [ "svg_p", "svg_cu" ] ;
+
+            // refresh svg
+            wepsim_svg_refresh(id_arr) ;
+
+            // updating editors
+            if (adm)
+	         wepsim_config_button_toggle('editor_theme', 'blackboard', '7');
+            else wepsim_config_button_toggle('editor_theme', 'default',    '7');
+
+	    sim_cfg_editor_theme(inputfirm) ;
+	    sim_cfg_editor_theme(inputasm) ;
+
+	    return true ;
+    }
+
     function wepsim_restore_darkmode ( adm )
     {
 	    var o = null ;
 
             // document
 	    if (adm === false)
-                 document.documentElement.setAttribute('data-theme', 'light') ;
-            else document.documentElement.setAttribute('data-theme', 'dark') ;
+                 document.documentElement.setAttribute('data-bs-theme', 'light') ;
+            else document.documentElement.setAttribute('data-bs-theme', 'dark') ;
 
-            // skipped elements
-	    o = document.querySelectorAll('.no-dark-mode') ;
-            for (var i=0; i<o.length; i++)
+            // set visual updates for dark/light mode
+            wepsim_appy_darkmode(adm) ;
+
+	    return true ;
+    }
+
+    var observer_darkmode = null ;
+
+    function wepsim_keepsync_darkmode ( )
+    {
+            // event handler for onChange (only once)
+            if (observer_darkmode == null)
             {
-	         if (adm === false)
-	              o[i].removeAttribute('data-theme', 'nodark') ;
-	         else o[i].setAttribute('data-theme',    'nodark') ;
+                observer = new MutationObserver(function ( mutations ) {
+						    var is_black_mode = get_cfg("ws_skin_dark_mode") ;
+						    wepsim_appy_darkmode(is_black_mode) ;
+			                        }) ;
+
+                observer.observe(document.documentElement, {
+                                    attributes: true,
+                                    attributeFilter: [ "data-bs-theme" ]
+                                 });
             }
 
 	    return true ;
@@ -286,15 +320,53 @@
 
     function wepsim_activehw ( mode )
     {
+            var ahw = null ;
+            var o   = null ;
+
+            // activate the associated hardware
 	    simhw_setActive(mode) ;
 
+            // check hardware is active
+            ahw = simhw_active() ;
+            if (typeof ahw == "undefined") return false ;
+            if (       ahw == null)        return false ;
+
             // reload images
-	    var o = document.getElementById('svg_p') ;
-	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
-	        o = document.getElementById('svg_cu') ;
-	    if (o != null) o.setAttribute('data', simhw_active().sim_img_controlunit) ;
-	        o = document.getElementById('svg_p2') ;
-	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
+	    o = document.getElementById('svg_p') ;
+	    if (o != null) {
+	        o.setAttribute('class', 'd-none') ;
+	        if (ahw.sim_img_processor != "") {
+		    o.setAttribute('data',  ahw.sim_img_processor) ;
+		    o.setAttribute('class', 'd-block') ;
+	        }
+	    }
+
+	    o = document.getElementById('svg_p') ;
+	    if (o != null) {
+	        o.setAttribute('class', 'd-none') ;
+	        if (ahw.sim_img_processor != "") {
+	    	    o.setAttribute('data',  ahw.sim_img_processor) ;
+		    o.setAttribute('class', 'd-block') ;
+	        }
+	    }
+
+	    o = document.getElementById('svg_cu') ;
+	    if (o != null) {
+	        o.setAttribute('class', 'd-none') ;
+	        if (ahw.sim_img_controlunit != "") {
+		    o.setAttribute('data', ahw.sim_img_controlunit) ;
+		    o.setAttribute('class', 'd-block') ;
+	        }
+	    }
+
+	    o = document.getElementById('svg_p2') ;
+	    if (o != null) {
+	        o.setAttribute('class', 'd-none') ;
+	        if (ahw.sim_img_cpu != "") {
+		    o.setAttribute('data', ahw.sim_img_cpu) ;
+		    o.setAttribute('class', 'd-block') ;
+	        }
+	    }
 
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
@@ -351,15 +423,19 @@
            case 0:    $(diva).addClass('col-12 order-1') ;
                       $(divb).addClass('col-12') ;
                       break ;
+
            case 1:    $(diva).addClass('d-none') ;
                       $(divb).addClass('col-12 order-2') ;
                       break ;
+
            case 13:   $(diva).addClass('col-12 order-1') ;
                       $(divb).addClass('d-none') ;
                       break ;
+
            case 14:   $(diva).addClass('col-12') ;
                       $(divb).addClass('col-12 order-2') ;
                       break ;
+
            default:   $(diva).addClass('col-' + (new_value-1)) ;   //  1,  2, 3, ...
                       $(divb).addClass('col-' + (13-new_value)) ;  // 11, 10, 9, ...
                       break ;
@@ -471,47 +547,11 @@
             showhideAsmElements() ;
 
 	    // initialize editors
-	    inputfirm_cfg = {
-			        value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-			        lineNumbers: true,
-			        lineWrapping: true,
-			        matchBrackets: true,
-			        tabSize: 2,
-			        foldGutter: {
-			  	   rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-			        },
-			        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-			        mode: "text/javascript"
-			    } ;
-	    inputfirm = sim_init_editor("inputFirmware", inputfirm_cfg) ;
+	    inputfirm_cfg = sim_cm_get_firmcfg() ;
+	    inputfirm     = sim_init_editor("inputFirmware", inputfirm_cfg) ;
 
-	    inputasm_cfg = {
-				value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-				lineNumbers: true,
-				lineWrapping: true,
-				matchBrackets: true,
-				tabSize: 2,
-				extraKeys: {
-				  "Ctrl-Space": function(cm) {
-				      CodeMirror.showHint(cm, function(cm, options) {
-					      var simware = get_simware();
-					      var cur = cm.getCursor();
-					      var result = [];
-					      for (var i=0; i<simware.firmware.length; i++) {
-						   if (simware.firmware[i].name != "begin") {
-							result.push(simware.firmware[i].signatureUser) ;
-						   }
-					      }
-					      return { list: result, from: cur, to: cur } ;
-				      });
-				  },
-				  "Ctrl-/": function(cm) {
-                                      cm.execCommand('toggleComment');
-				  }
-				},
-				mode: "gas"
-			    } ;
-	    inputasm = sim_init_editor("inputAssembly", inputasm_cfg) ;
+	    inputasm_cfg  = sim_cm_get_asmcfg() ;
+	    inputasm      = sim_init_editor("inputAssembly", inputasm_cfg) ;
 
 	    // init: voice
 	    wepsim_voice_init() ;

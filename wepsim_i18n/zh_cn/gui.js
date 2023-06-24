@@ -24,6 +24,7 @@
     i18n.eltos.gui.zh_cn = {
 
 		'Loading WepSIM...':		'正在加载WepSIM ...',
+		'About':			'关于',
 		'Configuration':		'配置',
 		'MicroCode':			'微代码',
 		'Assembly':			'汇编',
@@ -72,9 +73,9 @@
 		'assembly':			'汇编',
 		'instructions':			'说明',
 
-                "simulator intro 1": "您可以选择要使用的硬件。默认的是EP（元素处理器）硬件。<br>您可以使用<span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">模式选择器</span>更改使用的硬件。",
+                "simulator intro 1": "您可以选择要使用的硬件。默认的是EP（元素处理器）硬件。<br>您可以使用<span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">模式选择器</span>更改使用的硬件。",
 
-                "simulator intro 2": "然后你需要加载微代码（定义指令集）和汇编代码。”你可以使用<span class='text-primary bg-light' onclick='wsweb_dialog_open(\"examples\");'>示例</span>，<span class='text-primary bg-light' onclick='wsweb_select_action(\"checkpoint\");'>从文件加载它</span>，或者您可以编辑<span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>新的微码</span>和<span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>新的汇编代码</span>。",
+                "simulator intro 2": "然后你需要加载微代码（定义指令集）和汇编代码。”你可以使用<span class='text-primary bg-body-tertiary' onclick='wsweb_dialog_open(\"examples\");'>示例</span>，<span class='text-primary bg-body-tertiary' onclick='wsweb_select_action(\"checkpoint\");'>从文件加载它</span>，或者您可以编辑<span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_microcode();'>新的微码</span>和<span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_assembly();'>新的汇编代码</span>。",
 
                 "simulator intro 3": "最后，在模拟器中，您可以执行微码加上之前加载的程序集。<br>您可以在微指令级别或汇编指令级别执行它。",
 

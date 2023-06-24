@@ -39,13 +39,13 @@
 
                     // row with quick config:
                     o1 +=    "<div class='container text-end col-12 px-3 pt-1 multi-collapse-3 collapse show'>" +
-                             "<label class='my-0' for='popover-rfcfg' style='min-width:95%'>" +
+                             "<span class='my-0' for='popover-cpuview' style='min-width:95%'>" +
                              "<span data-langkey='quick config'>quick config</span>: " +
                              "<a id='popover-cpuview' tabindex='0' " +
                              "   class='show multi-collapse-3 btn my-1 col-auto border-0' " +
                              "   data-bs-toggle='popover-cpuview'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
-                             "</label>" +
+                             "</span>" +
                              "</div>" ;
 
                     // row with pill-buttons:
@@ -53,12 +53,12 @@
                              '  <div class="col">' +
                              '    <div class="nav nav-pills nav-fill" ' +
                              '         id="nav-tab1" role="tablist" aria-orientation="horizontal">' +
-                             '      <a class="nav-link m-2 bg-light text-primary active" ' +
+                             '      <a class="nav-link m-2 bg-body-tertiary text-primary active" ' +
                              '         data-bs-toggle="pill" role="tab" ' +
                              '         id="cpu_view_graph1" href="#cpu_graph1" ' +
                              '         aria-controls="cpu_graph1" aria-selected="true">' +
                              '<span data-langkey="Graph">Graph</span></a>' +
-                             '      <a class="nav-link m-2 bg-light text-primary" ' +
+                             '      <a class="nav-link m-2 bg-body-tertiary text-primary" ' +
                              '         data-bs-toggle="pill" role="tab" ' +
                              '         id="cpu_view_table1" href="#cpu_table1" ' +
                              '         aria-controls="cpu_table1" aria-selected="false">' +

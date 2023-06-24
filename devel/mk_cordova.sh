@@ -33,7 +33,7 @@ fi
 
 # preparing www
 mv www www.initial.$$
-cp -a ./wepsim-2.1.8/ws_dist www
+cp -a ./wepsim-master/ws_dist www
 
 # adapting paths...
 sed -i .bak 's/wepsim/android_asset\/www/g' ./www/examples/hardware/ep/images/processor.svg

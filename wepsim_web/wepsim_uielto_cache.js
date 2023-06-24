@@ -295,7 +295,7 @@
                     "" +
                     "  <div class='accordion-item'>" +
                     "    <h2 class='accordion-header' id='cm-cfg'>" +
-                    "      <button class='accordion-button p-1 fs-5 collapsed bg-light' type='button' " +
+                    "      <button class='accordion-button p-1 fs-5 collapsed bg-body-tertiary' type='button' " +
                     "              data-bs-toggle='collapse' data-bs-target='#cm-cfg-collapse-" + (i+1) + "' " +
                     "              aria-expanded='false' " +
                     "              aria-controls='cm-cfg-collapse'>Configuration</button>" +
@@ -310,7 +310,7 @@
                     "" +
 	            "  <div class='accordion-item'>" +
 		    "    <h2 class='accordion-header' id='cm-cnt-" + (i+1) + "'>" +
-		    "      <button class='accordion-button p-1 fs-5 collapsed bg-light' type='button' " +
+		    "      <button class='accordion-button p-1 fs-5 collapsed bg-body-tertiary' type='button' " +
 		    "              data-bs-toggle='collapse' data-bs-target='#cm-cnt-collapse-" + (i+1) + "' " +
 		    "              aria-expanded='false' aria-controls='cm-cnt-collapse'>Sets & Tags</button>" +
 		    "    </h2>" +

@@ -146,11 +146,11 @@
                 // output...
 		var o  = "";
 		    o += "<center>" +
-		 	 "<table style='table-layout:auto; border-style: solid; border-width:0px;'>" +
+		 	 "<table class='border-0' style='table-layout:auto; border-style: solid; border-width:0px;'>" +
 			 "<tr>" +
-			 "<th style='border-style: solid; border-width:0px;'>labels</th>" +
-			 "<th style='border-style: solid; border-width:1px;'>address</th>" +
-			 "<th style='border-style: solid; border-width:1px;'>" +
+			 "<th class='border border-0'>labels</th>" +
+			 "<th class='border border-1'>address</th>" +
+			 "<th class='border border-1'>" +
                          "<table border=0 width=100%>" +
                        //"<tr><td colspan=8 align=center>content </td></tr>" +
                          "<tr align=center>" +
@@ -166,7 +166,7 @@
                          "  <td width='12%' align='center' >&nbsp;<sup>7&nbsp;&nbsp;......&nbsp;&nbsp;0</sup>&nbsp;</td>" +
                          "</tr>" +
                          "</table>" +
-			 "<th style='border-style: solid; border-width:0px;' align='right'>&nbsp;&nbsp;segment</th>" +
+			 "<th class='border border-0' align='right'>&nbsp;&nbsp;segment</th>" +
 			 "</tr>" ;
 
 	   	var color="white";
@@ -189,10 +189,10 @@
 
                              v = get_value(mp[c]) ;
 
-			     p = "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
-                                 "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-			         "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
-			         "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
+			     p = "<tr class=\"font-monospace fs-6 text-dark\">" +
+                                 "<td class='border border-0' align='right'>" + labels2html_aux(slebal,c) + "</td>" +
+			         "<td        style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
+			         "<td        style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
 			          v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" ;
 
                              if (0 == rows) {
@@ -204,7 +204,7 @@
                              rows++;
 	             }
 
-		     p = "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
+		     p = "<tr class=\"font-monospace fs-6\">" +
                          "<td>&nbsp;</td>" +
 			 "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16).toUpperCase() + "</td>" +
 			 "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" ;
@@ -218,7 +218,7 @@
                      o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
 	             if (seg[skey].name != ".stack") {
-		         o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
+		         o += "<tr class=\"font-monospace fs-6\">" +
                               "<td>&nbsp;</td>" +
                               "<td valign='middle' align='center' height='25px'>...</td>" +
                               "<td valign='middle' align='center' height='25px'>...</td>" +

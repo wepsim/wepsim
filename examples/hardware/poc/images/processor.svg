@@ -95,7 +95,8 @@
      d="m 100.09665,137.8638 699.75006,-0.25444 v -3.1796 l -699.75006,0.25437 v 3.1799 z m 1.24656,-6.4022 -7.380813,4.7908 7.380813,4.7485 v -9.5395 z m 697.2625,9.3274 7.38072,-4.7485 -7.38072,-4.791 v 9.5394 z"
      id="path2995" />
   <path
-     style="fill:#bbe0e3;fill-rule:evenodd;stroke-width:0.945286"
+     style="fill:#EAEDDF;fill-rule:evenodd;stroke-width:0.945286"
+     fill-opacity="0.0"
      inkscape:connector-curvature="0"
      d="M 98.494508,15.086357 V 107.71436 H 271.84617 V 15.086357 Z"
      id="path2997" />
@@ -646,7 +647,7 @@
      xml:space="preserve"
      font-size="23.785px"
      id="text3183"><tspan
-       style="fill:#000000;stroke-width:1.00002"
+       style="stroke-width:1.00002"
        x="583.53827"
        y="281.24625"
        id="tspan3853">Control Unit</tspan></text>
@@ -1394,7 +1395,8 @@
      font-size="11.893px"
      id="text3709">5</text>
   <path
-     style="fill:#bbe0e3;fill-rule:evenodd;stroke-width:0.92726"
+     style="fill:#EAEDDF;fill-rule:evenodd;stroke-width:0.92726"
+     fill-opacity="0.0"
      inkscape:connector-curvature="0"
      d="M 298.2916,31.581519 V 106.66542 H 412.92883 V 31.581519 Z"
      id="path3815" />
@@ -1438,7 +1440,8 @@
      font-size="23.784px"
      id="text3829">Keyboard</text>
   <path
-     style="fill:#bbe0e3;fill-rule:evenodd;stroke-width:0.977461"
+     style="fill:#EAEDDF;fill-rule:evenodd;stroke-width:0.977461"
+     fill-opacity="0.0"
      inkscape:connector-curvature="0"
      d="M 434.62566,31.907406 V 106.9418 H 562.15072 V 31.907406 Z"
      id="path3831" />
@@ -2202,7 +2205,8 @@
      d="m 321.90096,207.11388 v -58.87543 h -1.167 v 58.87543 z"
      id="path3419-8" />
   <path
-     style="fill:#bbe0e3;fill-rule:evenodd;stroke-width:0.94021"
+     style="fill:#EAEDDF;fill-rule:evenodd;stroke-width:0.94021"
+     fill-opacity="0.0"
      inkscape:connector-curvature="0"
      d="M 582.67404,30.988409 V 107.47307 H 804.46182 V 30.988409 Z"
      id="path3745" />

@@ -9,23 +9,21 @@ main:
 
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: for (x1=0; x1 != 5; x1++)
-        # notify: High-level:
-        # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+        # notify: <li> In high-level:
+        # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
         # notify:   x1=0
         # notify:   while x1 != 5:
         # notify:         ...
-        # notify:         x1++
-        # notify: </pre>
-        # notify: Low-level:
-        # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
-        # notify:              li reg1 initial-value
-        # notify:              li reg2 last-value
-        # notify:   label_b1: beq reg1 reg2 label_e1
-        # notify:              ...
-        # notify:              update reg1
-        # notify:              branch label_b1
-        # notify:   label_e1:
-        # notify: </pre>
+        # notify:         x1++     </pre>
+        # notify: <li> In low-level:
+        # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
+        # notify:       li reg1 initial-value
+        # notify:       li reg2 last-value
+        # notify:   B1: beq reg1 reg2 E1
+        # notify:       ...
+        # notify:       update reg1
+        # notify:       branch B1
+        # notify:   E1:   </pre>
 
         li  x1  0
         li  x2  5
@@ -41,23 +39,21 @@ main:
 
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: for (x1=0; x1 < 5; x1++)
-        # notify: High-level:
-        # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+        # notify: <li> In high-level:
+        # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
         # notify:  x1=0
         # notify:  while x1 < 5:
         # notify:        ...
-        # notify:        x1++
-        # notify: </pre>
-        # notify: Low-level:
-        # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
-        # notify:             li reg1 initial-value
-        # notify:             li reg2 last-value
-        # notify:  label_b1: beq reg1 reg2 label_e1
-        # notify:             ...
-        # notify:             update reg1
-        # notify:             branch label_b1
-        # notify:  label_e1:
-        # notify: </pre>
+        # notify:        x1++   </pre>
+        # notify: <li> In low-level:
+        # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
+        # notify:      li reg1 initial-value
+        # notify:      li reg2 last-value
+        # notify:  B1: beq reg1 reg2 E1
+        # notify:      ...
+        # notify:      update reg1
+        # notify:      branch B1
+        # notify:  E1:   </pre>
 
         li  x1  0
         li  x2  5
@@ -73,23 +69,21 @@ main:
 
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: for (x1=0; x1 <= 5; x1++)
-        # notify: High-level:
-        # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+        # notify: <li> In high-level:
+        # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
         # notify:  x1=0
         # notify:  while x1 <= 5:
         # notify:        ...
-        # notify:        x1++
-        # notify: </pre>
-        # notify: Low-level:
-        # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
-        # notify:             li reg1 initial-value
-        # notify:             li reg2 last-value
-        # notify:  label_b1: bgt reg1 reg2 label_e1
-        # notify:             ...
-        # notify:             update reg1
-        # notify:             branch label_b1
-        # notify:  label_e1:
-        # notify: </pre>
+        # notify:        x1++   </pre>
+        # notify: <li> In low-level:
+        # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
+        # notify:      li reg1 initial-value
+        # notify:      li reg2 last-value
+        # notify:  B1: bgt reg1 reg2 E1
+        # notify:      ...
+        # notify:      update reg1
+        # notify:      branch B1
+        # notify:  E1:   </pre>
 
         li  x1  0
         li  x2  5

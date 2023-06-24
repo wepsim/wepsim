@@ -26,10 +26,10 @@
         /* jshint esversion: 6 */
 
 
-        var apirest_name     = "L3D" ;
-        var apirest_endpoint = { value: "" } ;
-        var apirest_user     = "" ;
-        var apirest_pass     = "" ;
+        var l3d_apirest_name     = "L3D" ;
+        var l3d_apirest_endpoint = { value: "" } ;
+        var l3d_apirest_user     = "" ;
+        var l3d_apirest_pass     = "" ;
 
 
         class ws_l3d extends ws_uielto
@@ -81,26 +81,26 @@
 		    }
 
 		    // API REST
-		    simcore_rest_add(apirest_name,
-				     { 'endpoint': apirest_endpoint,
-				       'user':     apirest_user,
-				       'pass':     apirest_pass }) ;
+		    simcore_rest_add(l3d_apirest_name,
+				     { 'endpoint': l3d_apirest_endpoint,
+				       'user':     l3d_apirest_user,
+				       'pass':     l3d_apirest_pass }) ;
 
 		    // html holder
 		    o1  += "<div class='container text-end'>" +
                            "" +
-                           '<label class="my-0" for="popover-l3dcfg" style="min-width:95%">' +
+                           '<span class="my-0" for="popover-l3dcfg" style="min-width:95%">' +
                            '<span data-langkey="quick config">quick config</span>: ' +
                            "<a data-bs-toggle='collapse' href='#collapse-l3dcfg' aria-expanded='false' " +
                            "   tabindex='0' class='m-auto' role='button' id='popover-l3dcfg'>" +
                            "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
-                           "</label>" +
+                           "</span>" +
                            "" +
 			   "<table id='collapse-l3dcfg' " +
                            "       class='table table-hover table-sm table-bordered m-0 collapse'>" +
 			   "<tr><td>" +
-                           "<label class='my-0 text-wrap' for='apirest_endpoint'>REST URL (e.g.: http://localhost:5000/matrix)</label>" +
-			   "<input id='apirest_endpoint' type='text' v-model.lazy='value' class='form-control text-info p-0'>" +
+                           "<label class='my-0 text-wrap' for='l3d_apirest_endpoint'>REST URL (e.g.: http://localhost:5000/matrix)</label>" +
+			   "<input id='l3d_apirest_endpoint' type='text' v-model.lazy='value' class='form-control text-info p-0'>" +
 			   "</td></tr>" +
 			   "</table>" +
                            "" +
@@ -146,10 +146,10 @@
                          vue_appyBinding(l3d_states[i].active, '#l3d'+i+'_context', f_computed_value) ;
 		    }
 
-		    if (false == (apirest_endpoint.value instanceof Vuex.Store)) {
-		        apirest_endpoint.value = vue_observable(apirest_endpoint.value) ;
+		    if (false == (l3d_apirest_endpoint.value instanceof Vuex.Store)) {
+		        l3d_apirest_endpoint.value = vue_observable(l3d_apirest_endpoint.value) ;
 		    }
-		    vue_appyBinding(apirest_endpoint.value, '#apirest_endpoint', f_computed_value) ;
+		    vue_appyBinding(l3d_apirest_endpoint.value, '#l3d_apirest_endpoint', f_computed_value) ;
 	      }
         }
 

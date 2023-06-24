@@ -22,6 +22,7 @@
     i18n.eltos.gui.de = {
 
 		'Loading WepSIM...':		'WepSIM wird geladen ...',
+		'About':			'Über',
 		'Configuration':		'Aufbau',
 		'MicroCode':			'MicroCode',
 		'Assembly':			'Versammlung',
@@ -70,9 +71,9 @@
 		'assembly':			'versammlung',
 		'instructions':			'anleitung',
 
-                "simulator intro 1":  "Sie können die zu verwendende Hardware auswählen. Die Standardhardware ist die EP-Hardware (Elemental Processor). <br> Sie können <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">den Modus-Wahlschalter</span>, um die verwendete Hardware zu ändern.",
+                "simulator intro 1":  "Sie können die zu verwendende Hardware auswählen. Die Standardhardware ist die EP-Hardware (Elemental Processor). <br> Sie können <span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">den Modus-Wahlschalter</span>, um die verwendete Hardware zu ändern.",
 
-                "simulator intro 2": "Dann müssen Sie den Mikrocode (definiert den Befehlssatz) und den Assembler-Code laden. <br> Sie können <span class='text-primary bg-light' onclick='wsweb_dialog_open(\"examples\");'> ein Beispiel</span>, <span class ='text-primary bg-light' onclick='wsweb_select_action(\"checkpoint\");'>lade es aus einer Datei</span> oder Sie können <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>einen neuen Mikrocode</span> und <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>ein neuer Assembly-Code</span>. ",
+                "simulator intro 2": "Dann müssen Sie den Mikrocode (definiert den Befehlssatz) und den Assembler-Code laden. <br> Sie können <span class='text-primary bg-body-tertiary' onclick='wsweb_dialog_open(\"examples\");'> ein Beispiel</span>, <span class ='text-primary bg-body-tertiary' onclick='wsweb_select_action(\"checkpoint\");'>lade es aus einer Datei</span> oder Sie können <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_microcode();'>einen neuen Mikrocode</span> und <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_assembly();'>ein neuer Assembly-Code</span>. ",
 
                 "simulator intro 3": "Schließlich können Sie im Simulator den zuvor geladenen Mikrocode plus Assembly ausführen. <br> Sie können ihn sowohl auf Mikrobefehls- als auch auf Assemblybefehlsebene ausführen.",
 

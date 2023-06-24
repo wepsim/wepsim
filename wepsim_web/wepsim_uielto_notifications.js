@@ -50,7 +50,7 @@
 
                     // build HTML
 		    o1 += "<div class='card border-secondary h-100'>" +
-			  "<div class='card-header border-light text-secondary bg-light p-1'>" +
+			  "<div class='card-header border-body text-secondary bg-body-tertiary p-1'>" +
 		          "  + <span data-langkey='Recent'>Recent</span>" +
                           "  <div class='dropdown float-end'>" +
                           "  <button class='btn btn-sm btn-outline-secondary text-danger py-1 dropdown-toggle' " +
@@ -59,7 +59,7 @@
 			  "            ><span data-langkey='Reset'>Reset</span></button>" +
                           "   </button>" +
                           "    <div class='dropdown-menu' aria-labelledby='resetyn'>" +
-                          "     <a class='dropdown-item py-2 bg-white text-danger' type='button' " +
+                          "     <a class='dropdown-item py-2 bg-tertiary text-danger' type='button' " +
                           "        onclick='simcore_notifications_reset(); " +
 			  "		    var notifications = simcore_notifications_get(); " +
 			  "	            var ntf_html = table_notifications_html(notifications); " +
@@ -71,7 +71,7 @@
 			  "		    return false;'" +
                           "         ><span data-langkey='Yes'>Yes</span></a>" +
 			  "      <div class='dropdown-divider'></div>" +
-                          "      <a class='dropdown-item py-2 bg-white text-info' type='button' " +
+                          "      <a class='dropdown-item py-2 bg-tertiary text-info' type='button' " +
                           "         ><span data-langkey='No'>No</span></a>" +
                           "    </div>" +
                           "  </div>" +
@@ -82,7 +82,7 @@
                           // placeholder
                           "</div>" +
 			  "</div>" +
-			  "<div class='card-footer border-light text-secondary bg-light p-1'>" +
+			  "<div class='card-footer border-light text-secondary bg-body-tertiary p-1'>" +
 		          "  - <span data-langkey='Recent'>Recent</span>" +
 			  " </div>" +
 			  "</div>" ;
@@ -118,10 +118,10 @@
 	
 	             u += '<li class="list-group-item list-group-item-' + notifications[i].type + ' rounded-lg mx-2 my-1 p-2 shadow-sm">' +
 			  '<h5 class="m-0 collapse7 show">' +
-			  '<span class="badge text-dark">(' +
+			  '<span class="badge text-secondary">(' +
 	                  t.getHours() + ':' + t.getMinutes() + ':' + t.getSeconds() + '.' + t.getMilliseconds() +
 			  ')</span>' +
-			  '<span class="badge text-dark">[' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ']</span>' +
+			  '<span class="badge text-secondary">[' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ']</span>' +
 			  '</h5>' +
 			  '<span class="font-monospace">' + notifications[i].title + ':' + '</span>' + m +
 			  '</li>' ;
@@ -131,7 +131,7 @@
 		}
 	
 		// build html
-		var o = '<div id="container-notifications3" class="card border-white" ' +
+		var o = '<div id="container-notifications3" class="card border-secondary" ' +
 	                '     style="max-height:50vh; overflow:auto; -webkit-overflow-scrolling: touch;">' +
 		        '<ul class="list-group list-group-flush">' +
 	                u +

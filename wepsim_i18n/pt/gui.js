@@ -22,6 +22,7 @@
     i18n.eltos.gui.pt = {
 
 		'Loading WepSIM...':		'Carregando o WepSIM ...',
+		'About':			'Sobre',
 		'Configuration':		'Configuração',
 		'MicroCode':			'MicroCode',
 		'Assembly':			'Montagem',
@@ -70,9 +71,9 @@
 		'assembly':			'montagem',
 		'instructions':			'instruções',
 
-                "simulator intro 1": "Você pode selecionar o hardware a ser usado. O padrão é o hardware EP (Elemental Processor). <br> Você pode usar o dropdown <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">o seletor de modo</span> para alterar o hardware usado.",
+                "simulator intro 1": "Você pode selecionar o hardware a ser usado. O padrão é o hardware EP (Elemental Processor). <br> Você pode usar o dropdown <span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">o seletor de modo</span> para alterar o hardware usado.",
 
-                "simulator intro 2": "Então você precisa carregar o microcódigo (define o conjunto de instruções) e o código assembly. <br> Você pode usar <span class='text-primary bg-light' onclick='wsweb_dialog_open(\"examples\");'>um exemplo</span>, <span class='text-primary bg-light'onclick='wsweb_select_action(\"checkpoint\");'>carrega de um arquivo</span>, ou você pode editar <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>um novo microcódigo</span> e <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>um novo código de montagem</span>.",
+                "simulator intro 2": "Então você precisa carregar o microcódigo (define o conjunto de instruções) e o código assembly. <br> Você pode usar <span class='text-primary bg-body-tertiary' onclick='wsweb_dialog_open(\"examples\");'>um exemplo</span>, <span class='text-primary bg-body-tertiary'onclick='wsweb_select_action(\"checkpoint\");'>carrega de um arquivo</span>, ou você pode editar <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_microcode();'>um novo microcódigo</span> e <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_assembly();'>um novo código de montagem</span>.",
 
                 "simulator intro 3": "Finalmente, no simulador você é capaz de executar o microcódigo plus montado antes. Você pode executá-lo em nível de microinstrução ou em nível de instrução de montagem.",
 

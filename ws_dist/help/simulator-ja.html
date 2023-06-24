@@ -205,9 +205,153 @@ ori reg1 reg1 sel(15.0, num) <br />
 <br />
 ここで、 "sel（bit-start、bit-end field）"演算子を使うと、疑似命令から1つのフィールドのビット数を選択できます。
 </p>
-<p>
 
-</p>
+
+<br />
+<h3>例によるまとめ</h3>
+<center>
+<table class="table table-hover table-bordered table-sm"
+       cellpadding="2" cellspacing="2" border="1">
+<thead>
+  <tr>
+    <th>Section</th>
+    <th>Firmware version 1</th>
+    <th>Firmware version 2</th>
+  </tr>
+</thead>
+
+<tbody>
+<tr>
+<td rowspan="2">1. List of microprograms</td>
+<td>
+<pre>
+
+
+ begin
+ {
+   fetch: (T2, C0=1),
+          (Ta, Td, R, BW=11, C1),
+          (M2, C2, T1, C3),
+          (A0, B=0, C=0000)
+ }
+</pre>
+</td>
+<td>
+<pre>
+ <b>firmware_version=2</b>
+
+ begin
+ {
+   fetch: (T2, C0=1),
+          (Ta, Td, R, BW=11, C1),
+          (M2, C2, T1, C3),
+          (A0, B=0, C=0000)
+ }
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+<pre>
+inst1 field1 field2 field3
+{
+     co=000000,
+     cop=0000,
+     nwords=1,
+     field1=reg(25,21),
+     field2=inm(20,16),
+     field3=address(15,11)rel,
+     {
+        (Cop=1001, SelP=11, C7),
+        (A0=1, B=1, C=0)
+     }
+}
+</pre>
+</td>
+<td>
+<pre>
+inst1 field1 field2 field3
+{
+   <b>nwords=1,
+   co(31,27)=000000,
+   funct(10,8)=000,
+   reg(25,21)=field1,
+   inm(20,16)=field2,
+   address-rel(15,11)=field3,</b>
+   {
+      (Cop=1001, SelP=11, C7),
+      (A0=1, B=1, C=0)
+   }
+}
+</pre>
+</td>
+</tr>
+
+<tr>
+<td>2. Register naming</td>
+<td>
+<pre>
+registers
+{
+  0=($zero, $0),
+  1=($at, $1),
+  .
+  .
+  28=($gp, $28),
+  29=($sp, $29) (stack_pointer),
+  30=($fp, $30),
+  31=($ra, $31)
+}
+</pre>
+</td>
+<td>
+<pre>
+registers
+{
+  0=($zero, $0),
+  1=($at, $1),
+  .
+  .
+  28=($gp, $28),
+  29=($sp, $29) (stack_pointer),
+  30=($fp, $30),
+  31=($ra, $31)
+}
+</pre>
+</td>
+</tr>
+
+<tr>
+<td>3. Pseudo-instructions</td>
+<td>
+<pre>
+pseudoinstructions
+{
+  li reg1=reg num=inm
+  {
+     lui reg1 sel(31,16,num) ;
+     ori reg1 reg1 sel(15,0,num)
+  }
+}
+</pre>
+</td>
+<td>
+<pre>
+pseudoinstructions
+{
+  li reg1=reg num=inm
+  {
+     lui reg1 sel(31,16,num) ;
+     ori reg1 reg1 sel(15,0,num)
+  }
+}
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</center>
+
 
       </div>
 

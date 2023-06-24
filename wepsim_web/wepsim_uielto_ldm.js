@@ -26,10 +26,10 @@
         /* jshint esversion: 6 */
 
 
-        var apirest_name     = "LEDM" ;
-        var apirest_endpoint = { value: "" } ;
-        var apirest_user     = "" ;
-        var apirest_pass     = "" ;
+        var ledm_apirest_name     = "LEDM" ;
+        var ledm_apirest_endpoint = { value: "" } ;
+        var ledm_apirest_user     = "" ;
+        var ledm_apirest_pass     = "" ;
 
 
         class ws_ledm extends ws_uielto
@@ -81,26 +81,26 @@
 		    }
 
 		    // API REST
-		    simcore_rest_add(apirest_name,
-				     { 'endpoint': apirest_endpoint,
-				       'user':     apirest_user,
-				       'pass':     apirest_pass }) ;
+		    simcore_rest_add(ledm_apirest_name,
+				     { 'endpoint': ledm_apirest_endpoint,
+				       'user':     ledm_apirest_user,
+				       'pass':     ledm_apirest_pass }) ;
 
 		    // html holder
 		    o1  += "<div class='container text-end'>" +
                            "" +
-                           '<label class="my-0" for="popover-ledmcfg" style="min-width:95%">' +
+                           '<span class="my-0" for="popover-ledmcfg" style="min-width:95%">' +
                            '<span data-langkey="quick config">quick config</span>: ' +
                            "<a data-bs-toggle='collapse' href='#collapse-ledmcfg' aria-expanded='false' " +
                            "   tabindex='0' class='m-auto' role='button' id='popover-ledmcfg'>" +
                            "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
-                           "</label>" +
+                           "</span>" +
                            "" +
 			   "<table id='collapse-ledmcfg' " +
                            "       class='table table-hover table-sm table-bordered m-0 collapse'>" +
 			   "<tr><td>" +
-                           "<label class='my-0 text-wrap' for='apirest_endpoint'>REST URL (e.g.: http://localhost:5000/matrix)</label>" +
-			   "<input id='apirest_endpoint' type='text' v-model.lazy='value' class='form-control text-info p-0'>" +
+                           "<label class='my-0 text-wrap' for='ledm_apirest_endpoint'>REST URL (e.g.: http://localhost:5000/matrix)</label>" +
+			   "<input id='ledm_apirest_endpoint' type='text' v-model.lazy='value' class='form-control text-info p-0'>" +
 			   "</td></tr>" +
 			   "</table>" +
                            "" +
@@ -144,10 +144,10 @@
                          vue_appyBinding(ledm_states[i].color, '#ledm'+i+'_context', f_computed_value) ;
 		    }
 
-		    if (false == (apirest_endpoint.value instanceof Vuex.Store)) {
-		        apirest_endpoint.value = vue_observable(apirest_endpoint.value) ;
+		    if (false == (ledm_apirest_endpoint.value instanceof Vuex.Store)) {
+		        ledm_apirest_endpoint.value = vue_observable(ledm_apirest_endpoint.value) ;
 		    }
-		    vue_appyBinding(apirest_endpoint.value, '#apirest_endpoint', f_computed_value) ;
+		    vue_appyBinding(ledm_apirest_endpoint.value, '#ledm_apirest_endpoint', f_computed_value) ;
 	      }
         }
 

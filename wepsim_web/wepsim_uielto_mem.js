@@ -44,12 +44,12 @@
 	      {
 		    // html holder
 		    var o1 = "<div class='container text-end multi-collapse-3 collapse show'>" +
-                             '<label class="my-0" for="popover-mem" style="min-width:95%">' +
+                             '<span class="my-0" for="popover-mem" style="min-width:95%">' +
                              '<span data-langkey="quick config">quick config</span>: ' +
                              "<a data-bs-toggle='popover-mem' id='popover-mem' " +
 			     "   tabindex='0' class='m-auto border-0'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
-                             "</a></label>" +
+                             "</a></span>" +
                              "</div>" +
 		             "<div id='memory_MP' style='height:58vh; width:inherit;'></div>" ;
 
@@ -239,14 +239,24 @@
 
             // blue for last memory access
             o1 = $("#addr" + old_main_addr) ;
-            o1.css('color', 'black') ;
-            o1.css('font-weight', 'normal') ;
+            if (o1.is(':visible'))
+            {
+		//o1.css('color', 'black') ;
+		  o1.removeClass('text-primary').addClass('text-body-emphasis') ;
+		//o1.css('font-weight', 'normal') ;
+		  o1.removeClass('fw-bold').addClass('fw-normal') ;
+            }
 
             old_main_addr = index ;
 
             o1 = $("#addr" + old_main_addr) ;
-            o1.css('color', 'blue') ;
-            o1.css('font-weight', 'bold') ;
+            if (o1.is(':visible'))
+            {
+		//o1.css('color', 'blue') ;
+		  o1.removeClass('text-body-emphasis').addClass('text-primary') ;
+		//o1.css('font-weight', 'bold') ;
+		  o1.removeClass('fw-normal').addClass('fw-bold') ;
+            }
 
             // show badges
             update_badges() ;
@@ -311,9 +321,9 @@
             }
 
             // wcolor
-            var wcolor = "color:black; font-weight:normal; " ;
+            var wcolor = "text-body-emphasis fw-normal " ;
 	    if (is_current) {
-                wcolor = "color:blue;  font-weight:bold; " ;
+                wcolor = "text-primary       fw-bold " ;
             }
 
             // value2
@@ -342,8 +352,8 @@
             }
 
             // build HTML
-	    o = "<div class='row' id='addr" + addr + "'" +
-                "     style='" + wcolor + " font-size:small; border-bottom: 1px solid lightgray !important'>" +
+	    o = "<div class='row " + wcolor + "' id='addr" + addr + "'" +
+                "     style='font-size:small; border-bottom: 1px solid lightgray !important'>" +
 	        "<div class='col-1 px-0' align='center'>" +
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+

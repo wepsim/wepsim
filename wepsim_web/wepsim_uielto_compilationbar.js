@@ -85,16 +85,15 @@
 			     o += '<button ' +
                                   '        onclick="wsweb_dialog_open(\'load_save_firmware\'); ' +
                                   '                 return true;"' +
-			          '	   class="btn btn-light shadow-sm col-auto m-0 border border-secondary">' ;
+			          '	   class="btn bg-body-tertiary shadow-sm col-auto m-0 border border-secondary">' ;
                              o += this.render_icon('<em class="fas fa-file"></em>') ;
                              o += '<span class="fw-bold" data-langkey="Load/Save">Load/Save</span>' +
                                   '</button>' ;
                              break ;
 
                        case "btn_mcompile":
-			     o += '<button style="background-color: #CCCCCC"' +
-		                  '        id="mcc1"' +
-		                  '        class="btn btn-light shadow-sm col-auto mx-1 border border-secondary"' +
+			     o += '<button id="mcc1"' +
+		                  '        class="btn bg-secondary-subtle shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	   data-transition="none" data-inline="true"' +
 			          '	   onclick="wsweb_firmware_compile();' +
                                   '                 return false;">' ;
@@ -106,7 +105,7 @@
                        case "btn_mshowbin":
 			     o += '<button style="background-color: #DDDDDD"' +
 		                  '        id="mob1"' +
-		                  '        class="btn btn-light shadow-sm col-auto mx-1 border border-secondary"' +
+		                  '        class="btn bg-body-tertiary shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	   onclick="wsweb_dialog_open(\'binary_fir\');' +
                                   '                 return false;">' ;
                              o += this.render_icon('<em class="fa fa-memory"></em>') ;
@@ -116,7 +115,7 @@
 
                        case "btn_aloadsave":
 			     o += '<button ' +
-			          '        class="btn btn-light shadow-sm col-auto m-0 border border-secondary"' +
+			          '        class="btn bg-body-tertiary shadow-sm col-auto m-0 border border-secondary"' +
                                   '        onclick="wsweb_dialog_open(\'load_save_assembly\'); ' +
                                   '                 return true;">' ;
                              o += this.render_icon('<em class="fas fa-file"></em>') ;
@@ -125,9 +124,8 @@
                              break ;
 
                        case "btn_acompile":
-		             o += '<button style="background-color: #CCCCCC"' +
-                                  '        id="acc1"' +
-		                  '        class="btn btn-light shadow-sm col-auto mx-1 border border-secondary"' +
+		             o += '<button id="acc1"' +
+		                  '        class="btn bg-secondary-subtle shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	   data-transition="none" data-inline="true"' +
 			          '	   onclick="wsweb_assembly_compile();' +
                                   '                 return false;">' ;
@@ -139,7 +137,7 @@
                        case "btn_ashowbin":
 		             o += '<button style="background-color: #DDDDDD"' +
                                   '        id="aob1"' +
-		                  '        class="btn btn-light shadow-sm col-auto mx-1 border border-secondary"' +
+		                  '        class="btn bg-body-tertiary shadow-sm col-auto mx-1 border border-secondary"' +
 			          '	     onclick="wsweb_dialog_open(\'binary_asm\');' +
                                   '                   return false;">' ;
                              o += this.render_icon('<em class="fas fa-memory"></em>') ;

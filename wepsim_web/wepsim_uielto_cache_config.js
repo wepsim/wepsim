@@ -92,7 +92,7 @@
           var memory_cfg_i = memory_cfg[index] ;
 
 	  var o = "" +
-	          "<table class='table table-hover table-sm table-bordered m-0 border border-light'>" +
+	          "<table class='table table-hover table-sm table-bordered m-0 border border-tertiary'>" +
 		  "<tbody>" +
 		  "<tr>" +
                   "    <td class='border border-dark w-50 text-center'><strong>line/via</strong></td>" +

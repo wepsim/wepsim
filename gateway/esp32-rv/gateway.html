@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>WepSIM - Gateway</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    </head>
+
+    <body>
+	<div class="row p-2 bg-body-tertiary">
+	  <div class="col">
+                <h2>Gateway</h2>
+	  </div>
+	</div>
+
+	<form class="row p-2">
+	  <div class="col-4">
+		<label for="div_asm">(1) Put the assembly code here:</label><br>
+		<textarea class="form-control border border-black"
+                          id="div_asm" name="div_asm"
+                          style="width:100%"
+                          rows="20" cols="50">
+#
+# ARCOS.INF.UC3M.ES
+# BY-NC-SA (https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es)
+#
+
+.text
+
+     main:
+	   addi sp, sp, -8
+ 	   sw ra, 0(sp)
+
+	  li a7, 5
+	  ecall
+
+           # t1 = factorial(5)
+      rdcycle t0
+           jal factorial
+      rdcycle t1
+
+           # print_int(a0)
+           li  a7, 1
+           ecall
+
+	   li a0, '\n'
+	   li a7, 11
+	   ecall
+
+           # print_int(t1-t0)
+ 	   sub a0, t1, t0
+	   li a7, 1
+	   ecall
+
+ 	   lw ra, 0(sp)
+	   addi sp, sp, 8
+	   jr ra
+
+
+factorial:
+           # crear "stack frame" para $ra, $fp y una variable local
+           addi sp, sp, -12
+           sw   ra, 8(sp)
+           sw   fp, 4(sp)
+           addi fp, sp, 4
+
+           # if (a0 < 2):
+           #     return 1
+           li x5, 2
+           bge  a0, t0, b_else
+           li   a0, 1
+           beq  x0, x0, b_efs
+           # else:
+           #    return a0 * factorial(a0 - 1)
+   b_else: sw   a0, -4(fp)
+           addi a0, a0, -1
+           jal  x1, factorial
+           lw   t1, -4(fp)
+           mul  a0, a0, t1
+
+           # finalizar "stack frame"
+   b_efs:  lw   ra, 8(sp)
+           lw   fp, 4(sp)
+           addi sp, sp, 12
+
+           # return t0
+           jr ra
+		</textarea>
+	  </div>
+
+	  <div class="col-4">
+		<p>
+		<label for="div_url">(2) Set the URL where gateway.py is listening:</label><br>
+		<input type="text" class="w-100 border border-black"
+		       id="div_url" name="div_url"
+		       value="http://localhost:8080">
+		</p>
+
+		<p>
+		<label for="div_dev" class="form-label">(3) Set Port:</label>
+		<input class="form-control w-100 border border-black" list="dlo_dev"
+		       id="div_dev" name="div_dev"
+		       type="text" 
+		       value="/dev/ttyUSB0"
+                       placeholder="/dev/... (type to search)">
+		<datalist id="dlo_dev">
+		  <option value="/dev/ttyUSB0">
+		  <option value="/dev/cu.usbserial-210">
+		</datalist>
+		</p>
+
+		<p>
+		<label for="div_target">(4) Set target:</label><br>
+		<input class="form-control w-100 border border-black" list="dlo_target"
+		       id="div_target" name="div_target"
+                       type="text" 
+		       value="esp32c3"
+                       placeholder="esp32... (type to search)">
+		<datalist id="dlo_target">
+		  <option value="esp32c3">
+		  <option value="esp32c6">
+		  <option value="esp32s2">
+		  <option value="esp32s3">
+		</datalist>
+		</p>
+
+		<p>
+		<label for="btn_flash">(5) Check form values and press the button to flash:</label><br>
+		<button type="button" class="btn btn-primary"
+                        id="btn_flash"
+			onclick="gateway_do_flash('div_asm', 'div_url', 'div_dev', 'div_target', 'div_info');">Press to flash...</button>
+		</p>
+	  </div>
+
+	  <div class="col-4">
+                <label for="div_info">(6) Output:</label><br>
+                <textarea class="form-control border border-black"
+                          id="div_info" name="div_info"
+                          rows="20" cols="50">
+                </textarea>
+	  </div>
+	</form>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+    </body>
+
+</html>
+
+
+<script>
+
+	async function gateway_request_flash ( flash_url, flash_args, div_info )
+	{
+             var fetch_args = {
+			        method:  'POST',
+			        headers: {
+				            'Content-type': 'application/json',
+				            'Accept':       'application/json'
+				         },
+			        body:    JSON.stringify(flash_args)
+	 	              } ;
+
+             try
+             {
+                div_info.value = 'Flashing...\n' ;
+                var res  = await fetch(flash_url, fetch_args) ;
+                var jres = await res.json() ;
+             }
+             catch (e)
+             {
+                div_info.value = e + '\n' ;
+             }
+
+             return jres ;
+	}
+
+	function gateway_request_status ( status_url, info_div )
+	{
+	     var s = new EventSource(status_url) ;
+
+	     s.onmessage = function(event) {
+                              if ('END_OF_SSE' == event.data) {
+                                  s.close() ;
+                                  return ;
+                              }
+
+			      info_div.value += event.data + '\n' ;
+			      info_div.scrollTop = info_div.scrollHeight;
+			   };
+	}
+
+	function gateway_do_flash ( div_asm_name, div_url_name, div_dev_name, div_target_name, div_info_name )
+	{
+             // name to objects...
+             var ddev = document.getElementById(div_dev_name) ;
+             var ddet = document.getElementById(div_target_name) ;
+             var dasm = document.getElementById(div_asm_name) ;
+	     var udiv = document.getElementById(div_url_name) ;
+	     var idiv = document.getElementById(div_info_name) ;
+
+             // do remote flash...
+             var furl = udiv.value ;
+	     var farg = {
+			   target_board: ddet.value,
+			   target_port:  ddev.value,
+			   assembly:     dasm.value,
+			} ;
+	     var ret = gateway_request_flash(furl + "/flash", farg, idiv);
+
+	     // working with the async result...
+             ret.then(result => {
+		         if (typeof result == "undefined") {
+			    return ;
+		         }
+
+                         idiv.value = result.status + '\n' ;
+
+                         if (result.error == 0) {
+	                     gateway_request_status(furl + "/status", idiv) ;
+                         }
+                     }) ;
+	}
+
+</script>
+

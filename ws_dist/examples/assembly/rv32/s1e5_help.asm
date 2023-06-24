@@ -13,16 +13,16 @@ main:
 
          # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
          # notify: TIP: if-then
-         # notify: High-level:
-         # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+         # notify: <li> In high-level:
+         # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
          # notify:   int a=1;
          # notify:   int b=2;
          # notify:
          # notify:   if (a < b):
          # notify:       a = b;
          # notify: </pre>
-         # notify: Low-level:
-         # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+         # notify: <li> In low-level:
+         # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
          # notify:        li  $t1 1
          # notify:        li  $t2 2
          # notify:  if_1: blt $t1 $t2 t_1
@@ -53,16 +53,16 @@ main:
 
          # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
          # notify: TIP: if-then
-         # notify: High-level:
-         # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+         # notify: <li> In high-level:
+         # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
 	 # notify: int a=1;
 	 # notify: int b=2;
 	 # notify:
          # notify: if (a < b):
 	 # notify:     a = b;
          # notify: </pre>
-         # notify: Low-level:
-         # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+         # notify: <li> In low-level:
+         # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
 	 # notify:       li t1 1
 	 # notify:       li t2 2
 	 # notify: if_2: bge t1 t2 e_2
@@ -90,8 +90,8 @@ main:
 
          # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
          # notify: TIP: if-then
-         # notify: High-level:
-         # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+         # notify: <li> In high-level:
+         # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
          # notify: int a=1;
          # notify: int b=2;
          # notify:
@@ -100,8 +100,8 @@ main:
          # notify: else:
          # notify:     &lt;assembly for action 2&gt;
          # notify: </pre>
-         # notify: Low-level:
-         # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+         # notify: <li> In low-level:
+         # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
          # notify:       li  t1 1
          # notify:       li  t2 2
          # notify: if_3: bge t1 t2 l_3

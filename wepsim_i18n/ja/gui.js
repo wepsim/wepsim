@@ -22,6 +22,7 @@
     i18n.eltos.gui.ja = {
 
 		'Loading WepSIM...':		'WepSIMを読み込んでいます...',
+		'About':			'について',
 		'Configuration':		'設定',
 		'MicroCode':			'マイクロコード',
 		'Assembly':			'アセンブリ',
@@ -70,9 +71,9 @@
 		'assembly':			'アセンブリ',
 		'instructions':			'説明書',
 
-                "simulator intro 1": "使用するハードウェアを選択できます。デフォルトのハードウェアはEP（Elemental Processor）ハードウェアです。<br> <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">モードセレクタ</span>を使用して、使用するハードウェアを変更します。",
+                "simulator intro 1": "使用するハードウェアを選択できます。デフォルトのハードウェアはEP（Elemental Processor）ハードウェアです。<br> <span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">モードセレクタ</span>を使用して、使用するハードウェアを変更します。",
 
-                "simulator intro 2": "次に、マイクロコード（命令セットを定義）とアセンブリコードをロードする必要があります。<br> <span class='text-primary bg-light' onclick='wsweb_dialog_open(\"examples\");'>例</span>、<span class='text-primary bg-light' onclick = 'wsweb_select_action(\"checkpoint\");'>ファイルから読み込む</span>、または<span class='text-primary bg-light 'onclick='wsweb_change_workspace_microcode();'>新しいマイクロコード</span>および<span class='text-primary bg-light 'onclick='wsweb_change_workspace_assembly();'>新しいアセンブリコード</span>。",
+                "simulator intro 2": "次に、マイクロコード（命令セットを定義）とアセンブリコードをロードする必要があります。<br> <span class='text-primary bg-body-tertiary' onclick='wsweb_dialog_open(\"examples\");'>例</span>、<span class='text-primary bg-body-tertiary' onclick = 'wsweb_select_action(\"checkpoint\");'>ファイルから読み込む</span>、または<span class='text-primary bg-body-tertiary 'onclick='wsweb_change_workspace_microcode();'>新しいマイクロコード</span>および<span class='text-primary bg-body-tertiary 'onclick='wsweb_change_workspace_assembly();'>新しいアセンブリコード</span>。",
 
                 "simulator intro 3": "最後に、シミュレーターでは、以前にロードされたマイクロコードとアセンブリを実行できます。<br>マイクロ命令レベルまたはアセンブリ命令レベルで両方を実行できます。",
 

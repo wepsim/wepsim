@@ -65,14 +65,13 @@
 	      render_btns ( name )
 	      {
                     var o = '' ;
-		    var o_style = 'style="background-color:#CCCCCC;"' ;
 
                     // load html
                     switch (name)
                     {
                        case "btn_reset":
-			     o += '<button id="btn_reset_' + this.name_str + '" ' + o_style +
-				  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary"' +
+			     o += '<button id="btn_reset_' + this.name_str + '" ' +
+				  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="t" ' +
 				  '        onclick="wsweb_execution_reset();' +
 				  '                 return false;">' ;
@@ -83,8 +82,8 @@
                                   break ;
 
                        case "btn_emins":
-			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary user_microcode"' +
+			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' +
+		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary user_microcode"' +
 		                  '        accesskey="m" ' +
 			          '        onclick="wsweb_execution_microinstruction();' +
                                   '                 return false;">' ;
@@ -95,8 +94,8 @@
                                   break ;
 
                        case "btn_eins":
-			     o += '<button id="btn_next_instruction_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary"' +
+			     o += '<button id="btn_next_instruction_' + this.name_str + '"' +
+		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="i" ' +
 			          '        onclick="wsweb_execution_instruction();' +
                                   '                 return false;">' ;
@@ -107,8 +106,8 @@
                                   break ;
 
                        case "btn_run":
-			     o += '<button id="btn_run_stop_' + this.name_str + '"' + o_style +
-		                  '        class="btn btn-light col pb-1 px-1 me-1 border-secondary"' +
+			     o += '<button id="btn_run_stop_' + this.name_str + '"' +
+		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="r" ' +
                                   '        onclick="wsweb_execution_run();' +
                                   '                 return false;">' ;
@@ -116,6 +115,39 @@
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                              o += '<span class="fw-bold" data-langkey="Run">Run</span>' +
                                   '</button>' ;
+                                  break ;
+
+                       case "btn_rnf":
+			     o += '<div class="btn-group col py-0 pe-1" role="group">' +
+                                  '<button id="btn_run_stop_' + this.name_str + '"' +
+		                  '        class="btn bg-secondary-subtle border-secondary w-75"' +
+		                  '        accesskey="r" ' +
+                                  '        onclick="wsweb_execution_run();' +
+                                  '                 return false;">' ;
+                             o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-play"></em>' ;
+                             o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                             o += '<span class="fw-bold" data-langkey="Run">Run</span>' +
+                                  '</button>' +
+                                  '' +
+                                  '<button type="button" ' +
+                                  '        class="btn dropdown-toggle dropdown-toggle-split border-secondary bg-secondary-subtle w-25" ' +
+                                  '        data-bs-toggle="dropdown" aria-expanded="false">' +
+                                  '  <span class="visually-hidden">Toggle Dropdown</span>' +
+                                  '</button>' +
+                                  '<ul class="dropdown-menu border border-secondary">' +
+                                  '    <li><a  class="dropdown-item" ' +
+                                  '            onclick="wsweb_execution_run(); return false;">' +
+                                  '<i class="fa-solid fa-person-running"></i>&nbsp;' +
+			          '<span data-langkey="Run">Run</span>' +
+                                   '</a></li>' +
+                                  '    <li><hr class="dropdown-divider"></li>' +
+                                  '    <li><a  class="dropdown-item" ' +
+                                  '            onclick="wsweb_dialog_open(\'flash_assembly\');">' +
+                                  '<i class="fa-solid fa-bolt"></i>&nbsp;' +
+			          '<span data-langkey="Flash">Flash</span>' +
+			          '</a></li>' +
+                                  '</ul>' +
+                                  '</div>' ;
                                   break ;
                     }
 

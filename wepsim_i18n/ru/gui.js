@@ -22,6 +22,7 @@
     i18n.eltos.gui.ru = {
 
 		'Loading WepSIM...':		'Загрузка WepSIM ...',
+		'About':			'О компании',
 		'Configuration':		'конфигурация',
 		'MicroCode':			'микрокода',
 		'Assembly':			'сборочный',
@@ -70,9 +71,9 @@
 		'assembly':			'сборка',
 		'instructions':			'инструкции',
 
-                "simulator intro 1": "Вы можете выбрать оборудование, которое будет использоваться. По умолчанию используется оборудование EP (Elemental Processor). <br> Вы можете использовать <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">селектор режима</span> для изменения используемого оборудования.",
+                "simulator intro 1": "Вы можете выбрать оборудование, которое будет использоваться. По умолчанию используется оборудование EP (Elemental Processor). <br> Вы можете использовать <span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">селектор режима</span> для изменения используемого оборудования.",
 
-                "simulator intro 2": "Затем вам нужно загрузить микрокод (определяет набор инструкций) и код сборки. <br> Вы можете использовать <span class='text-primary bg-light' onclick='wsweb_dialog_open(\"examples\");'>пример</span>, <span class='text-primary bg-light' onclick='wsweb_select_action(\"checkpoint\");'> загрузить его из файла </span>, или вы можете редактировать <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>новый микрокод</span> и <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>новый код сборки</ span>. ",
+                "simulator intro 2": "Затем вам нужно загрузить микрокод (определяет набор инструкций) и код сборки. <br> Вы можете использовать <span class='text-primary bg-body-tertiary' onclick='wsweb_dialog_open(\"examples\");'>пример</span>, <span class='text-primary bg-body-tertiary' onclick='wsweb_select_action(\"checkpoint\");'> загрузить его из файла </span>, или вы можете редактировать <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_microcode();'>новый микрокод</span> и <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_assembly();'>новый код сборки</ span>. ",
 
                 "simulator intro 3": "Наконец, в симуляторе вы можете выполнить микрокод плюс сборку, загруженную ранее. <br> Вы можете выполнить его как на уровне микрокоманды, так и на уровне инструкции сборки.",
 

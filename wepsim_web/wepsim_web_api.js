@@ -163,13 +163,7 @@
             if (simhw_active() !== null)
             {
                 // reload svg (just in case)
-                for (var i in id_arr)
-                {
-                         o = document.getElementById(id_arr[i]) ;
-                     if (o === null) continue ;
-                     a = o.getAttribute('data') ;
-                         o.setAttribute('data', a) ;
-                }
+                wepsim_svg_reload(id_arr) ;
 
                 // start drawing again
 	        wepsim_svg_start_drawing() ;
@@ -1003,7 +997,7 @@
 
     function wsweb_recordbar_close ( )
     {
-	    $('#record_div').collapse('hide') ;
+	    $('#record_div').hide() ;
 
             // add if recording
             simcore_record_append_new('Close the "record toolbar"',
@@ -1153,13 +1147,13 @@
 	    var bbmsg = '<div class="container">' +
 		        '<label for="frm_title1"><em>'    + i18n_get('dialogs',wsi,'Title') + ':</em></label>' +
 			'<p><input aria-label="title" id="frm_title1" ' +
-			'	  class="form-control btn-outline-dark" placeholder="Title for the notification" style="min-width: 90%;"/></p>' +
+			'	  class="form-control btn-outline-secondary" placeholder="Title for the notification" style="min-width: 90%;"/></p>' +
 		        '<label for="frm_message1"><em>'  + i18n_get('dialogs',wsi,'Message') + ':</em></label>' +
 			'<p><textarea aria-label="message" id="frm_message1" rows="5" ' +
-			'	      class="form-control btn-outline-dark" placeholder="Message for the notification" style="min-width: 90%;"/></textarea></p>' +
+			'	      class="form-control btn-outline-secondary" placeholder="Message for the notification" style="min-width: 90%;"/></textarea></p>' +
 		        '<label for="frm_duration1"><em>' + i18n_get('dialogs',wsi,'Duration') + ':</em></label>' +
 			'<p><input aria-label="duration" id="frm_duration1" type="number" ' +
-			'	  class="form-control btn-outline-dark" placeholder="Duration for the notification in seconds" style="min-width: 90%;"/></p>' +
+			'	  class="form-control btn-outline-secondary" placeholder="Duration for the notification in seconds" style="min-width: 90%;"/></p>' +
 		        '</div>' ;
 
             // dialog
