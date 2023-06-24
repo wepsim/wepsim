@@ -353,14 +353,14 @@
 	    svg2.setAttribute('style', 'background-color:' + cfg_color_background);
 
             // 2) path
-	    var elements = svg.querySelectorAll("path")
+	    var elements = svg.querySelectorAll("path") ;
 	    for (var i = 0; i < elements.length; i++) {
 	         elements[i].style.fill = cfg_color_data_inactive ;
-                 elements[i].setAttribute('stroke', cfg_color_data_inactive);
+                 elements[i].setAttribute('stroke', cfg_color_data_inactive) ;
 	    }
 
             // 3) text
-	    var elements = svg.querySelectorAll("text")
+	    var elements = svg.querySelectorAll("text") ;
 	    for (var i = 0; i < elements.length; i++) {
 	         elements[i].style.fill = cfg_color_data_inactive ;
 	    }
