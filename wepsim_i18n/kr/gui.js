@@ -24,6 +24,7 @@
     i18n.eltos.gui.kr = {
 
 		"Loading WepSIM...":  			        "WepSIM로드 중...",
+                "About":                              		"소개",
 		"Configuration":  			        "구성",
 		"MicroCode":  			        	"마이크로 코드",
 		"Assembly": 		     			"어셈블리",
@@ -73,9 +74,9 @@
 	                "assembly":                                     "어셈블리",
 	                "instructions":                                 "명령",
 
-                        "simulator intro 1": "사용할 하드웨어를 선택할 수 있습니다. 기본 하드웨어는 EP (Elemental Processor) 하드웨어입니다. <br> <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">모드 선택기</span>를 반환하십시오.",
+                        "simulator intro 1": "사용할 하드웨어를 선택할 수 있습니다. 기본 하드웨어는 EP (Elemental Processor) 하드웨어입니다. <br> <span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">모드 선택기</span>를 반환하십시오.",
 
-                        "simulator intro 2": "그런 다음 마이크로 코드 (명령 세트 정의)와 어셈블리 코드를로드해야합니다. <br> <span class='text-primary bg-light' onclick='wsweb_dialog_open(\"examples\");'>예</span>, <span class='text-primary bg-light' onclick='wsweb_select_action(\"checkpoint\");'>파일에서로드</span> 또는 <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>새로운 마이크로 코드</span> 및 <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>새로운 어셈블리 코드</span>.",
+                        "simulator intro 2": "그런 다음 마이크로 코드 (명령 세트 정의)와 어셈블리 코드를로드해야합니다. <br> <span class='text-primary bg-body-tertiary' onclick='wsweb_dialog_open(\"examples\");'>예</span>, <span class='text-primary bg-body-tertiary' onclick='wsweb_select_action(\"checkpoint\");'>파일에서로드</span> 또는 <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_microcode();'>새로운 마이크로 코드</span> 및 <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_assembly();'>새로운 어셈블리 코드</span>.",
 
                         "simulator intro 3": "마지막으로, 시뮬레이터에서 이전에로드 된 마이크로 코드와 어셈블리를 실행할 수 있습니다. <br> 마이크로 명령 레벨이나 어셈블리 명령 레벨에서 둘 다 실행할 수 있습니다.",
 

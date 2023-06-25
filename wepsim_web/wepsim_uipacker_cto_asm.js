@@ -39,8 +39,7 @@
 		             '<ul class="nav nav-tabs nav-justified nav-tabs">' +
 		             '    <li class="nav-item user_microcode">' +
                              '        <a id="tab26" href="#eltos_cpu"' +
-                             '           class="nav-link active" data-bs-toggle="tab" role="tab"' +
-                             '     style="border-top-width:3px; border-right-width:3px; border-left-width:3px;"' +
+                             '           class="nav-link border-3 active" data-bs-toggle="tab" role="tab"' +
 		             '		 aria-label="processor"' +
                              '           onclick="wsweb_change_show_processor();' +
                              '                    return false;">' +
@@ -50,8 +49,7 @@
                              '    </li>' +
 		             '    <li class="nav-item">' +
                              '        <a id="tab24" href="#eltos_dbg"' +
-                             '           class="nav-link" data-bs-toggle="tab" role="tab"' +
-                             '     style="border-top-width:3px; border-right-width:3px; border-left-width:3px;"' +
+                             '           class="nav-link border-3" data-bs-toggle="tab" role="tab"' +
 		             '		 aria-label="assembly debugger"' +
                              '           onclick="wsweb_change_show_asmdbg();' +
                              '                    return false;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey="Assembly">Assembly</span><span class="d-none d-sm-inline-flex" data-langkey="Assembly Debugger">Assembly Debugger</span></a>' +
@@ -61,7 +59,7 @@
                              '<!-- Tab panes -->' +
                              '<div class="tab-content">' +
                              '  <div id="eltos_cpu" class="tab-pane active" role="tabpanel">' +
-                             '  <ws-cpucu_got></ws-cpucu_got>' +
+                             '     <ws-cpucu_got></ws-cpucu_got>' +
 		             '  </div>' +
 		             '\n' +
 		             '  <div id="eltos_dbg" class="tab-pane" role="tabpanel">' +

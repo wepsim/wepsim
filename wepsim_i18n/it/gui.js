@@ -22,6 +22,7 @@
     i18n.eltos.gui.it = {
 
 		'Loading WepSIM...':		'Caricamento WepSIM ...',
+		'About':			'Informazioni',
 		'Configuration':		'Configurazione',
 		'MicroCode':			'MicroCode',
 		'Assembly':			'Montaggio',
@@ -70,9 +71,9 @@
 		'assembly':			'montaggio',
 		'instructions':			'Istruzioni',
 
-                "simulator intro 1": "È possibile selezionare l'hardware da utilizzare. Quello predefinito è l'hardware EP (Elemental Processor). <br> È possibile utilizzare <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">il selettore di modalità</span> per modificare l'hardware utilizzato.",
+                "simulator intro 1": "È possibile selezionare l'hardware da utilizzare. Quello predefinito è l'hardware EP (Elemental Processor). <br> È possibile utilizzare <span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">il selettore di modalità</span> per modificare l'hardware utilizzato.",
 
-                 "simulator intro 2": "Quindi devi caricare il microcodice (definisce il set di istruzioni) e il codice assembly. <br> Puoi usare <span class='text-primary bg-light' onclick='wsweb_dialog_open(\"examples\");'> un esempio </span>,  <span class = 'text-primary bg-light' onclick = 'wsweb_select_action(\"checkpoint\");'>caricalo da un file</span>, oppure puoi modificare <span class='text-primary bg-light 'onclick='wsweb_change_workspace_microcode();'>un nuovo microcodice</span> e <span class ='text-primary bg-light 'onclick='wsweb_change_workspace_assembly();'>un nuovo codice assembly</span>. ",
+                 "simulator intro 2": "Quindi devi caricare il microcodice (definisce il set di istruzioni) e il codice assembly. <br> Puoi usare <span class='text-primary bg-body-tertiary' onclick='wsweb_dialog_open(\"examples\");'> un esempio </span>,  <span class = 'text-primary bg-body-tertiary' onclick = 'wsweb_select_action(\"checkpoint\");'>caricalo da un file</span>, oppure puoi modificare <span class='text-primary bg-body-tertiary 'onclick='wsweb_change_workspace_microcode();'>un nuovo microcodice</span> e <span class ='text-primary bg-body-tertiary 'onclick='wsweb_change_workspace_assembly();'>un nuovo codice assembly</span>. ",
 
                  "simulator intro 3": "Infine, nel simulatore è possibile eseguire il microcodice più assembly precedentemente caricato. <br> È possibile eseguirlo entrambi, a livello di microistruzione o di istruzione di assembly.",
 

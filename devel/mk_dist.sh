@@ -27,19 +27,67 @@ echo ""
 echo "  WepSIM packer"
 echo " ---------------"
 echo ""
-if [ $# -gt 0 ]; then
-     set -x
-fi
 
-# install dependencies
-echo "  Requirements:"
-echo "  * terser jq jshint"
+
+# arguments
+while getopts 'vdh' opt; do
+  case "$opt" in
+    v)
+      echo "  getopts: processing verbose..."
+      echo ""
+      set -x
+      ;;
+
+    d)
+      echo "  Please install first:"
+      echo "   sudo apt-get install jq"
+      echo ""
+      echo "   npm i terser jshint"
+      echo "   npm i yargs clear inquirer fuzzy commander async"
+      echo "   npm i inquirer-command-prompt inquirer-autocomplete-prompt"
+      echo "   npm i rollup @rollup/plugin-node-resolve"
+      echo ""
+      echo "   npm i codemirror @codemirror/lang-javascript"
+      echo "   npm i codemirror @codemirror/view";
+      echo "   npm i codemirror @codemirror/state";
+      echo "   npm i codemirror @codemirror/language";
+      echo ""
+      exit
+      ;;
+
+    ?|h)
+      echo "  Usage: $(basename $0) [-v] [-d]"
+      echo ""
+      exit 1
+      ;;
+  esac
+done
+shift "$(($OPTIND -1))"
+
+
+# install npm dependencies
+echo "  Step for npm install/update:"
+echo "  * terser jshint"
 echo "  * yargs clear inquirer fuzzy commander async"
 echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
+echo "  * rollup @rollup/plugin-node-resolve"
 npm install
+echo "  Done."
+echo ""
+
+
+# pre-bundle
+echo "  Step for rollup:"
+echo "  * codemirror6"
+node_modules/.bin/rollup -c external/codemirror6/rollup.config.mjs
+terser -o external/codemirror6/min.codemirror.js external/codemirror6/codemirror.bundle.js
+rm -fr external/codemirror6/codemirror.bundle.js
+echo "  Done."
+echo ""
+
 
 # skeleton
-echo "  Packing:"
+echo "  Step for packing:"
 echo "  * ws_dist"
                     mkdir -p ws_dist
                     touch    ws_dist/index.html
@@ -64,6 +112,7 @@ cat sim_core/sim_cfg.js \
     sim_core/sim_core_rest.js \
     sim_core/sim_core_notify.js \
     sim_core/sim_core_values.js \
+    sim_core/sim_core_decode.js \
     sim_core/sim_adt_ctrlmemory.js \
     sim_core/sim_adt_mainmemory.js \
     sim_core/sim_adt_cachememory.js \
@@ -91,11 +140,22 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_poc/sim_hw_l3d.js \
     sim_hw/sim_hw_poc/sim_hw_ldm.js \
     \
-    sim_sw/sim_decode.js \
-    sim_sw/sim_seg.js \
-    sim_sw/sim_lang.js \
-    sim_sw/sim_lang_firm.js \
-    sim_sw/sim_lang_asm.js > ws_dist/sim_all.js
+    sim_sw/firmware/lexical.js \
+    sim_sw/firmware/firm_mcode.js \
+    sim_sw/firmware/firm_begin.js \
+    sim_sw/firmware/firm_pseudoinstructions.js \
+    sim_sw/firmware/firm_registers.js \
+    sim_sw/firmware/firm_fields_v1.js \
+    sim_sw/firmware/firm_fields_v2.js \
+    sim_sw/firmware/firm_instruction.js \
+    sim_sw/firmware/creator2native.js \
+    sim_sw/firmware.js \
+    sim_sw/assembly/lexical.js \
+    sim_sw/assembly/memory_segments.js \
+    sim_sw/assembly/datatypes.js \
+    sim_sw/assembly/asm_v1.js \
+    sim_sw/assembly/asm_v2.js \
+    sim_sw/assembly.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
 
@@ -170,6 +230,7 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_bin_mc.js \
     wepsim_web/wepsim_uielto_dbg_asm.js \
     wepsim_web/wepsim_uielto_bin_asm.js \
+    wepsim_web/wepsim_uielto_flash_asm.js \
     wepsim_web/wepsim_uielto_cpusvg.js \
     wepsim_web/wepsim_uielto_about.js \
     wepsim_web/wepsim_uielto_segments.js \

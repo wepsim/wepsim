@@ -39,12 +39,12 @@
 	      {
                     // html holder
 		    var o1 = "<div class='container text-end multi-collapse-3 collapse show'>" +
-                             '<label class="my-0" for="popover-rfcfg" style="min-width:95%">' +
+                             '<span class="my-0" for="popover-rfcfg" style="min-width:95%">' +
                              '<span data-langkey="quick config">quick config</span>: ' +
 		             "<a data-bs-toggle='popover-rfcfg' id='popover-rfcfg' " +
 			     "   tabindex='0' class='m-auto'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong>" +
-                             "</a></label>" +
+                             "</a></span>" +
                              "</div>" +
                              '<div id="' + this.tf_div + '" ' +
                              '     style="width:inherit; overflow-y:auto;"' +
@@ -122,8 +122,8 @@
 
 		var TD_B   = "<td class='p-0 ps-1 align-middle'>" ;
                 var TD_E   = "</td>" ;
-                var SG_B2  = "<strong class='rounded text-dark' " +
-                             "        style='background-color:#CEECF5; font-family:monospace; font-size:105%'>" ;
+                var SG_B2  = "<strong class='rounded bg-info-subtle text-body' " +
+                             "        style='font-family:monospace; font-size:105%'>" ;
 		var TD_B1  = TD_B + "<strong>" ;
                 var TD_B2  = TD_B + SG_B2 ;
                 var TD_E12 = "</strong>" + TD_E ;
@@ -321,13 +321,13 @@
 		 o1_rn = o1_rn.padEnd(3,' ') ;
 
 		 o1_rf += "<button type='button' " +
-                          "        class='btn px-1 py-0 ms-1 mt-1 mb-0 me-0 col-auto border border-secondary ' " +
-			  "        style='background-color:#f5f5f5' data-role='none' " +
+                          "        class='btn px-1 py-0 ms-1 mt-1 mb-0 me-0 col-auto border border-secondary bg-body-tertiary' " +
+			  "        style='' data-role='none' " +
                           "        data-bs-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "<span id='name_RF" + index + "' class='p-0 font-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
 			  "<span class='w-100 d-block d-sm-none'></span>" +
-                          "<span class='badge badge-secondary text-dark' style='background-color:#CEECF5; ' id='tbl_RF"  + index + "'>" +
+                          "<span class='badge badge-secondary bg-info-subtle text-body' style='' id='tbl_RF"  + index + "'>" +
                           "<span id='rf_" + index + "'>{{ computed_value }}</span></span>" +
                           "</button>" ;
 	    }
@@ -346,20 +346,20 @@
 		               '<div class="popover-body"></div>' +
 		               '</div>',
 		    container: 'body',
-		    content: function() {
-		        var index = $(this).attr("data-popover-content");
+		    content: function(obj) {
+                        var index    = $(obj).attr('data-popover-content') ;
                         var hexvalue = get_value(simhw_sim_states().BR[index]);
                         return hex2values(hexvalue, index) ;
 		    },
-		    title: function() {
-		        var index     = $(this).attr("data-popover-content");
+		    title: function(obj) {
+                        var index     = $(obj).attr('data-popover-content') ;
                         var id_button = "&quot;#rf" + index + "&quot;" ;
 
 	                var disp_name = get_cfg('RF_display_name') ;
                         var SIMWARE   = get_simware() ;
 		        var rname = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, index, 0) ;
 
-		        return '<span class="text-dark font-monospace col"><strong>' + rname + '</strong></span>' +
+		        return '<span class="text-body font-monospace col"><strong>' + rname + '</strong></span>' +
                                '<button type="button" id="close" ' +
                                '        class="btn-close border border-secondary ms-auto" ' +
                                '        onclick="$(' + id_button + ').click();"></button>';
@@ -422,12 +422,12 @@
 	        }
 
                 o1 += "<button type='button' " +
-                      "        class='btn py-0 px-1 mt-1 ms-1 " + divclass + " border border-secondary' " +
-		      "        style='background-color:#f5f5f5' data-role='none' " +
+                      "        class='btn py-0 px-1 mt-1 ms-1 " + divclass + " border border-secondary bg-body-tertiary' " +
+		      "        style='' data-role='none' " +
                       "        data-bs-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
-                      " <span class='badge badge-secondary text-dark' style='background-color:#CEECF5;' id='tbl_"  + s + "'>" +
+                      " <span class='badge badge-secondary bg-info-subtle text-body' style='' id='tbl_"  + s + "'>" +
 		      "<div id='rf_" + s + "'>{{ computed_value }}</div>" +
                       "</span>" +
                       "</button>" ;
@@ -445,15 +445,15 @@
 		               '<h3  class="popover-header d-flex"></h3>' +
 		               '<div class="popover-body"></div>' +
 		               '</div>',
-		    content: function() {
-		        var index = $(this).attr("data-popover-content");
+		    content: function(obj) {
+                        var index    = $(obj).attr('data-popover-content') ;
                         var hexvalue = get_value(simhw_sim_states()[index]);
                         return hex2values(hexvalue, index) ;
 		    },
-		    title: function() {
-		        var index = $(this).attr("data-popover-content");
+		    title: function(obj) {
+                        var index     = $(obj).attr('data-popover-content') ;
                         var id_button = "&quot;#rp" + index + "&quot;" ;
-		        return '<span class="text-dark col"><strong>' +
+		        return '<span class="text-body col"><strong>' +
                                simhw_sim_states()[index].name +
                                '</strong></span>' +
                                '<button type="button" id="close" ' +

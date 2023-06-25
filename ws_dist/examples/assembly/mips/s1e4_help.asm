@@ -16,7 +16,7 @@ main:
         # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
         # notify: TIP: loop
         # notify: Typical loop elements:
-        # notify: <pre  class="font-monospace lh-1 m-0 overflow-visible">
+        # notify: <pre  class="font-monospace m-0 overflow-visible lh-1">
         # notify: * initialization of counters:
         # notify:     li  $1  0
         # notify:     li  $2  5

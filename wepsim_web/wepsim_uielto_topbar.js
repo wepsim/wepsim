@@ -35,7 +35,7 @@
 	      render ( event_name )
 	      {
 		    // html holder
-		    var o1 =    '<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">' +
+		    var o1 =    '<nav class="navbar navbar-expand-lg fixed-top p-0 bg-body-secondary">' +
 				'    <span class="navbar-brand me-auto">' +
 				'       <a class="ui-title ps-2 mx-2 text-primary" ' +
                                 '          style="text-decoration: none"' +
@@ -51,21 +51,16 @@
 				'       </a>' +
 				'    </span>' +
 				'' +
-				'    <button class="navbar-toggler ms-auto btn-outline-secondary" data-bs-toggle="collapse"' +
-				'            data-bs-target="#navbarSupportedContent"' +
-				'            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">' +
-				'	<em class="fas fa-bars"></em>' +
-				'    </button>' +
-				'' +
-				'    <div id="navbarSupportedContent" class="collapse navbar-collapse mx-auto py-0 flex-row" style="background-color: #EAEAEA">' +
-				'       <div class="navbar-nav nav-pills ms-auto col-md-8">' +
-				'       <ul class="nav nav-pills ms-auto">' +
-				'          <li class="nav-item ms-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></li>' +
-				'          <li class="nav-item ms-auto"><strong>.</strong></li>' +
-				'          <li class="nav-item ms-auto"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></li>' +
-				'       </ul>' +
-				'       </div>' +
-				'    </div>' +
+				'    <span class="navbar-brand ms-auto">' +
+				'       <a class="ui-title ps-2 mx-2 text-primary" ' +
+                                '          style="text-decoration: none"' +
+				'          id="po1"' +
+				'	   data-container="body"' +
+				'          onclick="wsweb_dialog_open(\'about\');' +
+				'	            return true;"' +
+				'	  data-bs-html="true"' +
+				'	  data-bs-placement="bottom"><span data-langkey="About">About</span>...</a>' +
+				'    </span>' +
 				'</nav>' ;
 
 		    this.innerHTML = o1 ;

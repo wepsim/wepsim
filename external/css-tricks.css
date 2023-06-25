@@ -1,41 +1,20 @@
 
-//
-//
-//
+/*
+ * sliders...
+ */
+
+.slider::-webkit-slider-runnable-track {
+        background-color: #E8E8E8;
+}
+
+.slider::-moz-range-track {
+        background-color: #E8E8E8;
+}
+
 
 /*
-.slider {
-        -webkit-appearance: none;
-        width: 100%;
-        border-radius: 20px;
-        background: #e3e3e3;
-        outline: none;
-        opacity: 1.0;
-        -webkit-transition: .2s;
-        transition: opacity .2s;
-}
-.slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 35px;
-        height: 25px;
-        border-radius: 50%;
-        background: #4CAF50;
-        cursor: pointer;
-}
-.slider::-moz-range-thumb {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        background: #4CAF50;
-        cursor: pointer;
-}
-*/
-
-
-//
-// http://stackoverflow.com/questions/10814178/css-performance-relative-to-translatez0
-//
+ * http://stackoverflow.com/questions/10814178/css-performance-relative-to-translatez0
+ */
 
 .trick-hwacceleration {
         -webkit-transform: translatez(0);
@@ -46,9 +25,9 @@
 }
 
 
-//
-// Modal
-//
+/*
+ * Modal
+ */
 
 @include media-breakpoint-only(sm) {
        .modal-lg { max-width: 95vw !important;  }
@@ -66,7 +45,6 @@
 .modal-header {
 	padding: 7px 7px 7px 7px !important;
         border-color: #AAAAAA !important;
-        background-color: #EEEEEE !important;
 }
 .modal-body {
 	padding: 10px 10px 10px 10px !important;
@@ -74,13 +52,12 @@
 .modal-footer {
 	padding: 7px 7px 7px 7px !important;
         border-color: #AAAAAA !important;
-        background-color: #EEEEEE !important;
 }
 
 
-//
-// BootBox
-//
+/*
+ * BootBox
+ */
 
  .bootbox .modal-body {
         overflow: auto;
@@ -105,9 +82,9 @@
 }
 
 
-//
-// Unsorted
-//
+/*
+ * Unsorted
+ */
 
 .ui-icon-reset:after {
 	background-image: url("images/reset.svg");
@@ -134,19 +111,21 @@
 }
 
 
-//
-// Dark Mode
-//
+/*
+ * Dark Mode
+ */
 
 .no-dark-mode {
+/*
    filter: invert(90%) hue-rotate(170deg) !important;
    background-color: #111 !important;
+*/
 }
 
 
-//
-// IntroJS
-//
+/*
+ * IntroJS
+ */
 
 @media only screen and (max-width: 500px) {
    .tooltip-large {
@@ -167,5 +146,28 @@
       min-width: 25vw;
       max-width: 35vw;
    }
+}
+
+
+/*
+ *  Colors
+ */
+
+:root {
+   --color-help-green: #D4DB17;
+}
+
+.bg-help {
+   color: black !important;
+   background-color: #D4DB17 !important;
+}
+
+.bg-debug-asm {
+   color: black !important;
+   background-color: #00EE88 !important;
+}
+
+.bg-toolbar-action {
+   background-color: #CCCCCC !important;
 }
 

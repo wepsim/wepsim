@@ -145,6 +145,10 @@
                '   ./wepsim.sh -a export-hardware -m ep > examples/hardware/ep/hw_def.json\n' +
                ' * Run in an interactive REPL interface (beta):\n' +
                '   ./wepsim.sh -a interactive --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '\n' +
+               ' * Build MIPS32-like microcode for testing in command-line:\n' +
+               '   ./wepsim.sh -a import-creator --checkpoint ./MIPS_32.json > microcode.txt\n' +
+               '   ./wepsim.sh -a run -m ep -f ./microcode.txt -s examples/assembly/mips/s6e3.asm\n' +
                '' ;
 
         return o ;

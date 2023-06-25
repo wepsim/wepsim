@@ -174,7 +174,7 @@
 
     function i18n_get_selectcfg ( )
     {
-        var o  = " <select name='select7' id='select7' class='form-control form-control-sm custom-select'" +
+        var o  = " <select name='select7' id='select7' class='form-control form-control-sm custom-select border-secondary'" +
 	         "	     aria-label='idiom for examples and help' " +
 	         "	     onchange=\"var opt = $(this).find('option:selected');" +
 	         "	 	        var optValue = opt.val();" +
@@ -199,7 +199,7 @@
                 "<span class=\"row\">" ;
         for (var key in i18n.lang)
         {
-            o += "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" " + 
+            o += "<a class=\"btn btn-sm btn-outline-secondary mx-2 my-2 col-auto\" href=\"#\" " + 
                  "   onclick=\"wepsim_newbie_tour_reload('" + key + "');\">" + 
                  i18n_get('gui', key, 'Welcome') + 
                  "</a>" ;

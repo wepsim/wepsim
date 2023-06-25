@@ -183,11 +183,17 @@
 
         function is_mobile ( )
         {
+          // return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ;
+
              if (typeof navigator === "undefined") {
                  return false ;
 	     }
 
-             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ;
+             if (typeof navigator.userAgentData == "undefined") {
+                 return false ;
+	     }
+
+             return navigator.userAgentData.mobile ;
         }
 
         function is_cordova ( )
@@ -200,16 +206,16 @@
         {
              var wscfg = {
                    /* version */
-                   "version":               { upgrade:false, type:"string",    value:"2.2.2" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.2.2.20221210A" },
+                   "version":               { upgrade:false, type:"string",    value:"2.3.0" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.3.0.20230415A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
                    "color_data_inactive":   { upgrade:false, type:"string",    value:"#000000" },
                    "color_name_active":     { upgrade:false, type:"string",    value:"#FF0000" },
                    "color_name_inactive":   { upgrade:false, type:"string",    value:"#000000" }, // "black"
-	           "size_active":           { upgrade:false, type:"float",     value:1.25 },
-	           "size_inactive":         { upgrade:false, type:"float",     value:0.02 },
+	           "size_active":           { upgrade:false, type:"float",     value:3.00 },
+	           "size_inactive":         { upgrade:false, type:"float",     value:1.00 },
                    "is_byvalue":            { upgrade:false, type:"boolean",   value:false },
                    "CPUCU_show_graph":      { upgrade:true,  type:"boolean",   value:true },
 

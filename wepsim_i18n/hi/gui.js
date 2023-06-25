@@ -22,6 +22,7 @@
     i18n.eltos.gui.hi = {
 
 		'Loading WepSIM...':		'WepSIM लोड हो रहा है ...',
+		'About':			'के बारे में',
 		'Configuration':		'विन्यास',
 		'MicroCode':		'माइक्रोकोड',
 		'Assembly':		'सभा',

@@ -110,7 +110,7 @@
 	      render_switch_microcode ( robj )
 	      {
 		 return '<button ' +
-                        '    class="btn btn-light shadow-sm col-auto user_microcode mx-1 px-2 border border-secondary"' +
+                        '    class="btn bg-body-tertiary shadow-sm col-auto user_microcode mx-1 px-2 border border-secondary"' +
                         '    id="btn_micro1"' +
 		        '    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 		        '    title="This button switches into the \'Microcode\' editor."' +
@@ -123,7 +123,7 @@
 
 	      render_switch_assembly ( robj )
 	      {
-		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2 border border-secondary"' +
+		 return '<button class="btn bg-body-tertiary shadow-sm col-auto mx-1 px-2 border border-secondary"' +
                         '        id="btn_asm1"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="This button switches into the \'Assembly\' editor."' +
@@ -135,7 +135,7 @@
 
 	      render_switch_simulator ( robj )
 	      {
-		 return '<button class="btn btn-light shadow-sm col-auto mx-1 px-2 border border-secondary"' +
+		 return '<button class="btn bg-body-tertiary shadow-sm col-auto mx-1 px-2 border border-secondary"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
                         '        data-transition="none" data-inline="true"' +
 			'        title="This button switches into the \'Simulator\' workspace."' +
@@ -179,8 +179,8 @@
 
 	      render_btn_help ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2 border border-secondary"' +
-		         '        style="background-color:#D4DB17; flex-grow:1;"' +
+		 var o = '<button class="btn shadow-sm col-auto my-1 mx-1 px-2 border border-secondary bg-help"' +
+		         '        style="flex-grow:1;"' +
                          '        id="btn_help1"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Help\' dialog."' +
@@ -195,7 +195,7 @@
 
 	      render_btn_config ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2 border border-secondary"' +
+		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
                          '        id="btn_cfg1"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
@@ -210,7 +210,7 @@
 
 	      render_btn_notifications ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm col-auto my-1 mx-1 px-2 border border-secondary"' +
+		 var o = '<button class="btn bg-body-tertiary shadow-sm col-auto my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Notifications\' dialog."' +
                          '        onclick="wsweb_dialog_open(\'notifications\');' +
@@ -224,7 +224,7 @@
 
 	      render_btn_recordbar ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2 border border-secondary"' +
+		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button toggles the \'Record\' bar."' +
                          '        onclick="wsweb_recordbar_toggle();' +
@@ -238,7 +238,7 @@
 
 	      render_btn_states ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2 border border-secondary"' +
+		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
 		         '        onclick="wsweb_dialog_open(\'state\');' +
@@ -253,7 +253,7 @@
 
 	      render_btn_checkpoint ( robj )
 	      {
-		 var o = '<button class="btn btn-light shadow-sm my-1 mx-1 px-2 border border-secondary"' +
+		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
                          '        id="s4_owncode" value="owncode"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
@@ -274,7 +274,7 @@
 	      {
 		 return '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button" ' +
-                        '           class="col-12 btn btn-light shadow-sm select6 border border-secondary"' +
+                        '           class="col-12 btn bg-body-tertiary shadow-sm select6 border border-secondary"' +
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'           title="Dropdown on the right let you access to common actions."' +
 			'           data-action="checkpoint"' +
@@ -284,7 +284,7 @@
 			'           id="select6a"' +
                         '   ><strong><em class="fas fa-clone"></em>&nbsp;<span data-langkey="Actions">Actions</span></strong></button>' +
 			'   <button id="dd2a" type="button" ' +
-                        '           class="btn btn-light dropdown-toggle dropdown-toggle-split border border-secondary"' +
+                        '           class="btn bg-body-tertiary dropdown-toggle dropdown-toggle-split border border-secondary"' +
 			'           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
 			'     <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
 			'   </button>' +
@@ -335,7 +335,7 @@
 
 		   o += '<div class="btn-group col-auto my-1 mx-1 p-0 user_archived" style="flex-grow:6;">' +
 			'   <button type="button"' +
-                        '           class="col-12 btn btn-light shadow-sm border border-secondary"' +
+                        '           class="col-12 btn bg-body-tertiary shadow-sm border border-secondary"' +
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'           title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."' +
 			'           id="select4"' +
@@ -345,7 +345,7 @@
 			'	             return false;">HW</button>' +
                         '\n' +
 			'   <button id="dd1" type="button" ' +
-                        '           class="btn btn-light dropdown-toggle dropdown-toggle-split border border-secondary"' +
+                        '           class="btn bg-body-tertiary dropdown-toggle dropdown-toggle-split border border-secondary"' +
 			'	    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
                         '   ><span class="visually-hidden">Toggle Dropdown</span></button>' +
                         '\n' +
@@ -397,7 +397,7 @@
 
 		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
 			'   <button type="button"' +
-                        '           class="btn btn-light col-12 shadow-sm border border-secondary"' +
+                        '           class="btn bg-body-tertiary col-12 shadow-sm border border-secondary"' +
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 		        '           title="This button opens the \'Examples\' dialog."' +
                         '           id="btn_example1"' +
@@ -409,7 +409,7 @@
                    o += '<strong><span data-langkey=\'Examples\'>Examples</span></strong></button>' ;
                    o += '\n' +
 			'   <button id="dd3" type="button" ' +
-                        '           class="btn btn-light shadow-sm dropdown-toggle dropdown-toggle-split border border-secondary"' +
+                        '           class="btn bg-body-tertiary shadow-sm dropdown-toggle dropdown-toggle-split border border-secondary"' +
 			'	    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' +
                         '   ><span class="visually-hidden">Toggle Dropdown</span></button>' +
                         '\n' +

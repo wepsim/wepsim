@@ -65,7 +65,7 @@
 			     '' +
 			     '    <div class="px-1 pt-1">' +
 			     '    <ws-executionbar name="exebar1" class="btn-toolbar btn-block"' +
-			     '		           components="btn_reset,btn_emins,btn_eins,btn_run"' +
+			     '		           components="btn_reset,btn_emins,btn_eins,btn_rnf"' +
 			     '		           icons="up" role="toolbar"></ws-executionbar>' +
 			     '    </div>' +
 			     '' +

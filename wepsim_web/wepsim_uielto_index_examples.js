@@ -128,22 +128,22 @@
      	       t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
 
      	        if (fmt_toggle === "")
-     	            fmt_toggle  = "bg-light" ;
+     	            fmt_toggle  = "bg-body-tertiary" ;
      	       else fmt_toggle  = "" ;
      	        if (m % 2 == 0)
                          w100_toggle = "collapse7 show" ;
      	       else w100_toggle = "" ;
                     toggle_cls = fmt_toggle + ' user_' + e_level ;
 
-     	            u = '<div class="col-xs-5 col-lg-4 btn-group h-100 py-1 ' + toggle_cls + '">' +
+     	            u = '<div class="col-xs-5 col-lg-4 btn-group h-100 align-self-center ' + toggle_cls + '">' +
      		        '     <span id="example_reference_' + e_id + '" class="d-none">' +
                               base_url + '?mode=' + mode +
      			 	         '&examples_set=' + ws_info.example_set[ws_info.example_active].name +
      				         '&example=' + m +
                         '     </span>' +
-                        '     <span class="badge rounded-pill text-bg-light me-2">' + t_index + '</span>' +
+                        '     <span class="badge rounded-pill text-secondary me-2 align-self-center">' + t_index + '</span>' +
                         '     <button id="example_' + m + '" ' +
-     		        '           class="btn btn-md bg-primary bg-opacity-75 text-white text-truncate border p-0 me-1 w-75"' +
+     		        '           class="btn btn-md bg-primary bg-opacity-75 text-white text-truncate border py-0 me-1 w-75"' +
      		        '           onclick="simcore_record_append_pending();' +
      		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
      		        '                    setTimeout(function() { wsweb_dialog_close(\'examples\'); }, 50);' +
@@ -152,7 +152,7 @@
                                     e_title +
                         '     </button>' +
                         '     <button type="button" ' +
-     		        '             class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split"' +
+     		        '             class="btn btn-md btn-outline-info dropdown-toggle dropdown-toggle-split py-0"' +
                         '             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '        <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
                         '     </button>' +
@@ -214,7 +214,7 @@
                      }
                      u = u + '</div>' ;
 
-     	             o = o + "<div class='col-sm-12 border-bottom border-secondary text-end text-capitalize fw-bold bg-white sticky-top user_" + l + "'>" +
+     	             o = o + "<div class='col-sm-12 border-bottom border-secondary text-end text-capitalize fw-bold bg-body sticky-top user_" + l + "'>" +
      			ahw.toUpperCase() + ": " + m +
      			"</div>" + u ;
             }
@@ -225,7 +225,7 @@
                     '&lt;<span data-langkey="Please list example sets...">Please list the available example sets</span>&gt;<br>' ;
             }
 
-            o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
+            o = '<div class="container grid-striped border border-tertiary">' + o + '</div>' ;
             return o ;
         }
 

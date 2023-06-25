@@ -24,6 +24,7 @@
     i18n.eltos.gui.fr = {
 
 		"Loading WepSIM...":		"Chargement de WepSIM ...",
+		"About":                        "À propos de",
 		"Configuration":		"Configuration",
 		"MicroCode":			"MicroCode",
 		"Assembly":			"Assembly",
@@ -72,9 +73,9 @@
 		"assembly":			"assembly",
 		"instructions":			"instructions",
 
-                "simulator intro 1": "Vous pouvez sélectionner le matériel à utiliser. Le matériel par défaut est le matériel EP (Elemental Processor). <br> Vous pouvez utiliser <span class='text-primary bg-light' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">le sélecteur de mode</span> pour changer le matériel utilisé.",
+                "simulator intro 1": "Vous pouvez sélectionner le matériel à utiliser. Le matériel par défaut est le matériel EP (Elemental Processor). <br> Vous pouvez utiliser <span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">le sélecteur de mode</span> pour changer le matériel utilisé.",
 
-                "simulator intro 2": "Vous devez ensuite charger le microcode (définit le jeu d'instructions) et le code d'assemblage. <br> Vous pouvez utiliser <span class='text-primary bg-light' onclick='wsweb_dialog_open(\"examples\");'>un exemple</span>, <span class='text-primary bg-light' onclick='wsweb_select_action(\"checkpoint\");'>chargez-le à partir d'un fichier</span>, ou vous pouvez modifier <span class='text-primary bg-light' onclick='wsweb_change_workspace_microcode();'>un nouveau microcode</span> et <span class='text-primary bg-light' onclick='wsweb_change_workspace_assembly();'>un nouveau code d'assemblage</span>.",
+                "simulator intro 2": "Vous devez ensuite charger le microcode (définit le jeu d'instructions) et le code d'assemblage. <br> Vous pouvez utiliser <span class='text-primary bg-body-tertiary' onclick='wsweb_dialog_open(\"examples\");'>un exemple</span>, <span class='text-primary bg-body-tertiary' onclick='wsweb_select_action(\"checkpoint\");'>chargez-le à partir d'un fichier</span>, ou vous pouvez modifier <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_microcode();'>un nouveau microcode</span> et <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_assembly();'>un nouveau code d'assemblage</span>.",
 
                 "simulator intro 3": "Enfin, dans le simulateur, vous pouvez exécuter le microcode plus l'assembly chargé auparavant. <br> Vous pouvez l'exécuter simultanément, au niveau de la microinstruction ou au niveau de l'instruction d'assemblage.",
 
