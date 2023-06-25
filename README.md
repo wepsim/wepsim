@@ -43,11 +43,7 @@
     ```
   * Get WepSIM by executing:
     ```bash
-<<<<<<< HEAD
     wget https://github.com/wepsim/wepsim/releases/download/v2.3.0/wepsim-2.3.0.zip
-=======
-    wget https://github.com/acaldero/wepsim/releases/download/v2.3.0/wepsim-2.3.0.zip
->>>>>>> 4b3b8a2dbb9dca59f66bb66703b22ed6f845728c
     unzip wepsim-2.3.0.zip
     cd wepsim-2.3.0
     npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
@@ -318,11 +314,7 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 !echo "(1/4) Installing pre-requisites..."
 !npm install  terser jq jshint yargs clear inquirer >& /dev/null
 !echo "(2/4) Downloading WepSIM..."
-<<<<<<< HEAD
 !wget https://github.com/wepsim/wepsim/releases/download/v2.3.0/wepsim-2.3.0.zip >& /dev/null
-=======
-!wget https://github.com/acaldero/wepsim/releases/download/v2.3.0/wepsim-2.3.0.zip >& /dev/null
->>>>>>> 4b3b8a2dbb9dca59f66bb66703b22ed6f845728c
 !unzip -o wepsim-2.3.0.zip  >& /dev/null
 !rm -fr   wepsim-2.3.0.zip
 !echo "(3/4) Executing WepSIM..."
