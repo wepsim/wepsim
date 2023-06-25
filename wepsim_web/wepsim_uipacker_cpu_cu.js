@@ -39,13 +39,13 @@
 
                     // row with quick config:
                     o1 +=    "<div class='container text-end col-12 px-3 pt-1 multi-collapse-3 collapse show'>" +
-                             "<label class='my-0' for='popover-cpuview' style='min-width:95%'>" +
+                             "<span class='my-0' for='popover-cpuview' style='min-width:95%'>" +
                              "<span data-langkey='quick config'>quick config</span>: " +
                              "<a id='popover-cpuview' tabindex='0' " +
                              "   class='show multi-collapse-3 btn my-1 col-auto border-0' " +
                              "   data-bs-toggle='popover-cpuview'>" +
                              "<strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" +
-                             "</label>" +
+                             "</span>" +
                              "</div>" ;
 
                     // row with pill-buttons:

@@ -1322,9 +1322,10 @@
        fill="#000000">11</text>
     <path
        id="path3382"
-       d="m 274.51462,367.73009 10.03506,-18.092 10.036,18.092 z"
+       d="m 274.48461,363.19816 10.18188,-13.60702 10.18285,13.60702 z"
        fill-rule="evenodd"
        stroke-width="0.30"
+       fill-opacity="0.0"
        fill="#ffffff" />
     <path
        id="path3384"
@@ -1361,13 +1362,13 @@
        d="m 418.59422,342.94009 v 35.106 h 25.23137 v -35.106 z"
        fill-rule="evenodd"
        stroke-width="0.30"
-       fill="#d9d9d9" />
+       fill="#d9d9d9" fill-opacity="0.0" />
     <path
        id="path3398"
        d="m 441.5975,342.94009 v 35.106 h 35.12515 v -35.106 z"
        fill-rule="evenodd"
        stroke-width="0.30"
-       fill="#d9d9d9" />
+       fill="#d9d9d9" fill-opacity="0.0" />
     <path
        id="path3400"
        stroke-linejoin="round"
@@ -1379,7 +1380,7 @@
        d="m 392.87678,342.94009 v 35.106 h 25.04561 v -35.106 z"
        fill-rule="evenodd"
        stroke-width="0.30"
-       fill="#d9d9d9" />
+       fill="#d9d9d9" fill-opacity="0.0" />
     <path
        id="path3404"
        stroke-linejoin="round"
@@ -1463,7 +1464,7 @@
        y="638.2663"
        x="108.62843"
        stroke-width="0.30"
-       fill="#ffffff">º</text>
+       fill="#ffffff"></text>
     <path
        id="path3426"
        stroke-linejoin="round"
@@ -2265,13 +2266,13 @@
     <path
        id="path3100-8-7"
        stroke-linejoin="round"
-       d="m 313.44166,387.47009 -0.16647,61.41 h 1.39217 l 0.16643,-61.41 z"
+       d="m 313.44648,381.74222 -0.16516,67.13174 h 1.38122 l 0.16512,-67.13174 z"
        stroke="#000000"
        stroke-width="0.30" />
     <path
        id="path3108-1"
        stroke-linejoin="round"
-       d="m 314.92774,387.66009 -0.29886,-55.066 -1.47782,-0.69881 v 55.766 z m 3.68114,-54.812 -4.55628,-10.87 -4.25731,10.695 z"
+       d="m 314.92886,381.69407 -0.29932,-50.06993 -1.4801,-0.63541 v 50.70642 z m 3.6868,-49.83898 -4.56329,-9.88378 -4.26386,9.72466 z"
        stroke="#000000"
        stroke-width="0.30" />
     <path

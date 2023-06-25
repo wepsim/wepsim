@@ -38,7 +38,7 @@ function firm_mcode_signals_read ( context )
 	   // match mandatory {
 	   if (! frm_isToken(context, "{") ) {
                  return frm_langError(context,
-                                  i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
+                                      i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
            }
 
            frm_nextToken(context) ;
@@ -55,8 +55,8 @@ function firm_mcode_signals_read ( context )
 
 		   if ("TAG" != frm_getTokenType(context)) {
                         return frm_langError(context,
-                                         i18n_get_TagFor('compiler', 'LABEL NOT FOUND') +
-                                         "'" + newLabelName + "'") ;
+                                             i18n_get_TagFor('compiler', 'LABEL NOT FOUND') +
+                                             "'" + newLabelName + "'") ;
                    }
 
 	           // semantic check: existing LABEL
@@ -64,8 +64,8 @@ function firm_mcode_signals_read ( context )
 		   {
 			if (context.etiquetas[contadorMCAux] == newLabelName) {
                             return frm_langError(context,
-                                             i18n_get_TagFor('compiler', 'REPEATED LABEL') +
-                                             "'" + frm_getToken(context) + "'") ;
+                                                 i18n_get_TagFor('compiler', 'REPEATED LABEL') +
+                                                 "'" + frm_getToken(context) + "'") ;
                         }
 		   }
 		   context.etiquetas[context.contadorMC] = newLabelName ;
@@ -73,8 +73,8 @@ function firm_mcode_signals_read ( context )
                    // semantic check: valid token
                    if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName ) {
                        return frm_langError(context,
-                                        i18n_get_TagFor('compiler', 'INVALID LABEL FORMAT') +
-                                        "'" + frm_getToken(context) + "'") ;
+                                            i18n_get_TagFor('compiler', 'INVALID LABEL FORMAT') +
+                                            "'" + frm_getToken(context) + "'") ;
                    }
 
                    frm_nextToken(context) ;
@@ -83,7 +83,7 @@ function firm_mcode_signals_read ( context )
 	       // match mandatory (
 	       if (! frm_isToken(context, "(") ) {
                      return frm_langError(context,
-                                      i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+                                          i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
                }
 
                frm_nextToken(context) ;
@@ -98,7 +98,7 @@ function firm_mcode_signals_read ( context )
 			// match mandatory =
 			if (! frm_isToken(context, "=") ) {
                             return frm_langError(context,
-                                             i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                                                 i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
                         }
 
                         frm_nextToken(context) ;
@@ -134,14 +134,14 @@ function firm_mcode_signals_read ( context )
                    // semantic check: valid signal id
 		   if (typeof simhw_sim_signal(nombre_tok) == "undefined") {
                        return frm_langError(context,
-                                        i18n_get_TagFor('compiler', 'SIGNAL NOT EXISTS') +
-                                        "'" + nombre_tok + "'") ;
+                                            i18n_get_TagFor('compiler', 'SIGNAL NOT EXISTS') +
+                                            "'" + nombre_tok + "'") ;
                    }
 
                    // semantic check: signal id can be used
 		   if (typeof simhw_sim_signal(nombre_tok).forbidden != "undefined") {
                        return frm_langError(context,
-                                        nombre_tok + ' ' + i18n_get_TagFor('compiler', 'SIGNAL NO DIRECTLY')) ;
+                                            nombre_tok + ' ' + i18n_get_TagFor('compiler', 'SIGNAL NO DIRECTLY')) ;
                    }
 
 		   microInstruccionAux[nombre_tok] = 1; // signal is active so far...
@@ -157,15 +157,15 @@ function firm_mcode_signals_read ( context )
                         // semantic check: valid value
                         if (frm_getToken(context).match("[01]*")[0] != frm_getToken(context)) {
                             return frm_langError(context,
-                                             i18n_get_TagFor('compiler', 'INCORRECT BIN. FORMAT') +
-                                             "'" + frm_getToken(context) + "'") ;
+                                                 i18n_get_TagFor('compiler', 'INCORRECT BIN. FORMAT') +
+                                                 "'" + frm_getToken(context) + "'") ;
                         }
 
                         // semantic check: value within range
 		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, simhw_sim_signal(nombre_tok).nbits)) {
                             return frm_langError(context,
-                                             i18n_get_TagFor('compiler', 'OUT OF RANGE') +
-                                             "'" + frm_getToken(context) + "'") ;
+                                                 i18n_get_TagFor('compiler', 'OUT OF RANGE') +
+                                                 "'" + frm_getToken(context) + "'") ;
                         }
 
                         frm_nextToken(context) ;
@@ -192,7 +192,7 @@ function firm_mcode_signals_read ( context )
            // semantic check: empty microcode is not valid
 	   if (microprograma.length === 0) {
 	       return frm_langError(context,
-			        i18n_get_TagFor('compiler', 'EMPTY MICROCODE')) ;
+			            i18n_get_TagFor('compiler', 'EMPTY MICROCODE')) ;
            }
 
 	   // match mandatory }
@@ -213,7 +213,7 @@ function read_native ( context )
 	   // match mandatory {
 	   if (! frm_isToken(context, "{") ) {
                  return frm_langError(context,
-                                  i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
+                                      i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
            }
 
 	   // read the rest...

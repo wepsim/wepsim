@@ -131,7 +131,7 @@
             editor_obj.setSize("auto","auto");
             editor_obj.refresh();
 
-            // event onChange
+            // event onChange -> update is_* attributes
 	    editor_obj.is_modified  = true ;
 	    editor_obj.is_compiled  = false ;
 	    editor_obj.is_refreshed = false ;

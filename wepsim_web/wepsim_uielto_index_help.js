@@ -210,7 +210,7 @@
     	        t_index   = (m+1).toString().padStart(2, ' ').replace(/ /g, '&nbsp;') ;
 
     		o = o + fmt_header +
-    			'<div class="col-xs-5 col-lg-4 py-1 ' + toggle_cls + '">' +
+    			'<div class="col-xs-5 col-lg-4 py-1 align-self-center ' + toggle_cls + '">' +
     			'    <span class="badge rounded-pill text-secondary me-2">' + t_index + '</span>' +
     			'    <button class="btn btn-md bg-success text-white text-truncate text-wrap border p-0 w-75" ' +
                         '          style="cursor:pointer;" ' +
