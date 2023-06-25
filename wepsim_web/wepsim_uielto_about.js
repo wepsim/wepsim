@@ -69,12 +69,13 @@
 			      "	   </div>" +
 			      "	</div>" +
 			      "" +
-			      '    <div class="mx-auto mt-3 bg-white">' +
+			      '    <div class="mx-auto mt-3 bg-white rounded">' +
 			      '       <div class="row mx-auto">' +
-			      '          <span class="col me-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></span>' +
+			      '          <span class="col me-auto"><img alt="ARCOS group logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></span>' +
 			      '          <span class="col ms-auto"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" class="img-fluid rounded m-0 p-0" /></span>' +
 			      '       </div>' +
 			      '    </div>' +
+			      '    <br/>' +
 			      "" +
 			      "</form>" ;
 

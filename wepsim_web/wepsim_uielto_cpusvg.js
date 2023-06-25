@@ -87,7 +87,9 @@
 
            // get initial stroke-width and backup if needed
            var w = o.getAttribute('stroke-width');
-           if (w == null) return;
+           if (w == null) {
+               w = 0.70 ;
+           }
 
            var wb = o.getAttribute('backup-stroke-width');
            if (wb == null) {
@@ -353,14 +355,14 @@
 	    svg2.setAttribute('style', 'background-color:' + cfg_color_background);
 
             // 2) path
-	    var elements = svg.querySelectorAll("path")
+	    var elements = svg.querySelectorAll("path") ;
 	    for (var i = 0; i < elements.length; i++) {
 	         elements[i].style.fill = cfg_color_data_inactive ;
-                 elements[i].setAttribute('stroke', cfg_color_data_inactive);
+                 elements[i].setAttribute('stroke', cfg_color_data_inactive) ;
 	    }
 
             // 3) text
-	    var elements = svg.querySelectorAll("text")
+	    var elements = svg.querySelectorAll("text") ;
 	    for (var i = 0; i < elements.length; i++) {
 	         elements[i].style.fill = cfg_color_data_inactive ;
 	    }
@@ -403,6 +405,38 @@
 
                  a = o.getAttribute('data') ;
                      o.setAttribute('data', a) ;
+            }
+        }
+
+        function wepsim_svg_reload_full ( id_arr, img_arr )
+        {
+            var o = null ;
+            var a = null ;
+
+            // set darkmode
+	    wepsim_svg_update_drawing() ;
+
+            // reload svg (just in case)
+            for (var i in id_arr)
+            {
+                 // skip empty image
+                 if ( ('' == img_arr[i]) || (null == img_arr[i]) ) {
+                      continue ;
+                 }
+
+                 // skip invalid id value
+                 o = document.getElementById(id_arr[i]) ;
+                 if (o === null) {
+                     continue ;
+                 }
+
+                 // set dark-mode after load
+                 o.onload = function(obj) {
+			        wepsim_svg_apply_darkmode(obj.currentTarget.id) ;
+                            } ;
+
+                 // load image
+                 o.setAttribute('data',  img_arr[i]) ;
             }
         }
 

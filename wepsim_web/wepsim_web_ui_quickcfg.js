@@ -345,7 +345,7 @@
 		      placement:  'auto',
 		      animation:   false,
 		      container:  'body',
-		      template:   '<div class="popover shadow border border-secondary" role="tooltip">' +
+		      template:   '<div class="popover shadow border border-secondary w-100" role="tooltip">' +
 			          '<div class="arrow"></div>' +
                                   '<h3  class="popover-header"></h3>' +
                                   '<div class="popover-body"></div>' +

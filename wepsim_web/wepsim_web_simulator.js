@@ -332,41 +332,9 @@
             if (       ahw == null)        return false ;
 
             // reload images
-	    o = document.getElementById('svg_p') ;
-	    if (o != null) {
-	        o.setAttribute('class', 'd-none') ;
-	        if (ahw.sim_img_processor != "") {
-		    o.setAttribute('data',  ahw.sim_img_processor) ;
-		    o.setAttribute('class', 'd-block') ;
-	        }
-	    }
-
-	    o = document.getElementById('svg_p') ;
-	    if (o != null) {
-	        o.setAttribute('class', 'd-none') ;
-	        if (ahw.sim_img_processor != "") {
-	    	    o.setAttribute('data',  ahw.sim_img_processor) ;
-		    o.setAttribute('class', 'd-block') ;
-	        }
-	    }
-
-	    o = document.getElementById('svg_cu') ;
-	    if (o != null) {
-	        o.setAttribute('class', 'd-none') ;
-	        if (ahw.sim_img_controlunit != "") {
-		    o.setAttribute('data', ahw.sim_img_controlunit) ;
-		    o.setAttribute('class', 'd-block') ;
-	        }
-	    }
-
-	    o = document.getElementById('svg_p2') ;
-	    if (o != null) {
-	        o.setAttribute('class', 'd-none') ;
-	        if (ahw.sim_img_cpu != "") {
-		    o.setAttribute('data', ahw.sim_img_cpu) ;
-		    o.setAttribute('class', 'd-block') ;
-	        }
-	    }
+            var svg_arr = [ 'svg_p',               'svg_cu',               'svg_p2' ] ;
+            var img_arr = [ ahw.sim_img_processor, ahw.sim_img_controlunit, ahw.sim_img_cpu ] ;
+            wepsim_svg_reload_full(svg_arr, img_arr) ;
 
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
