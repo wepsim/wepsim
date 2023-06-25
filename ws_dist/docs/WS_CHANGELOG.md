@@ -3,12 +3,13 @@
 
 ## 2.2.2 -> 2.3.0:
 * Main improvements:
-  * Initial version based on bootstrap 5.3.x colors
-  * Added firmware version 2 support
+  * Migration to bootstrap 5.3 colors and dark mode
+  * Support added for firmware version 2
 * Main external dependencies updated:
-  * Bump bootstrap from 5.2.3 to 5.3.0
-  * Bump jquery    from 3.6.0 to 3.7.0
-  * Bump introjs   from 4.3.0 to 7.0.1
+  * Bump bootstrap   from 5.2.3 to 5.3.0
+  * Bump jquery      from 3.6.0 to 3.7.0
+  * Bump introjs     from 4.3.0 to 7.0.1
+  * Bump fontawesome from 6.2.1 to 6.4.0
 
 ## 2.2.1 -> 2.2.2:
 * Main improvements:

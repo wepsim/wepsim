@@ -183,15 +183,17 @@
 
         function is_mobile ( )
         {
+          // return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ;
+
              if (typeof navigator === "undefined") {
                  return false ;
 	     }
 
-             if (typeof navigator.userAgentData != "undefined") {
-                 return navigator.userAgentData.mobile ;
+             if (typeof navigator.userAgentData == "undefined") {
+                 return false ;
 	     }
 
-             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ;
+             return navigator.userAgentData.mobile ;
         }
 
         function is_cordova ( )

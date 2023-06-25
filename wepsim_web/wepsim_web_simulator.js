@@ -119,6 +119,25 @@
             $(classes).addClass('d-none') ;
     }
 
+    function wepsim_appy_darkmode ( adm )
+    {
+	    var o = null ;
+            var id_arr = [ "svg_p", "svg_cu" ] ;
+
+            // refresh svg
+            wepsim_svg_refresh(id_arr) ;
+
+            // updating editors
+            if (adm)
+	         wepsim_config_button_toggle('editor_theme', 'blackboard', '7');
+            else wepsim_config_button_toggle('editor_theme', 'default',    '7');
+
+	    sim_cfg_editor_theme(inputfirm) ;
+	    sim_cfg_editor_theme(inputasm) ;
+
+	    return true ;
+    }
+
     function wepsim_restore_darkmode ( adm )
     {
 	    var o = null ;
@@ -128,13 +147,28 @@
                  document.documentElement.setAttribute('data-bs-theme', 'light') ;
             else document.documentElement.setAttribute('data-bs-theme', 'dark') ;
 
-            // skipped elements
-	    o = document.querySelectorAll('.no-dark-mode') ;
-            for (var i=0; i<o.length; i++)
+            // set visual updates for dark/light mode
+            wepsim_appy_darkmode(adm) ;
+
+	    return true ;
+    }
+
+    var observer_darkmode = null ;
+
+    function wepsim_keepsync_darkmode ( )
+    {
+            // event handler for onChange (only once)
+            if (observer_darkmode == null)
             {
-	         if (adm === false)
-	              o[i].removeAttribute('data-bs-theme', 'nodark') ;
-	         else o[i].setAttribute('data-bs-theme',    'nodark') ;
+                observer = new MutationObserver(function ( mutations ) {
+						    var is_black_mode = get_cfg("ws_skin_dark_mode") ;
+						    wepsim_appy_darkmode(is_black_mode) ;
+			                        }) ;
+
+                observer.observe(document.documentElement, {
+                                    attributes: true,
+                                    attributeFilter: [ "data-bs-theme" ]
+                                 });
             }
 
 	    return true ;

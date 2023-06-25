@@ -72,7 +72,8 @@ echo "  * yargs clear inquirer fuzzy commander async"
 echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
 echo "  * rollup @rollup/plugin-node-resolve"
 npm install
-echo "  Done.\n"
+echo "  Done."
+echo ""
 
 
 # pre-bundle
@@ -81,7 +82,8 @@ echo "  * codemirror6"
 node_modules/.bin/rollup -c external/codemirror6/rollup.config.mjs
 terser -o external/codemirror6/min.codemirror.js external/codemirror6/codemirror.bundle.js
 rm -fr external/codemirror6/codemirror.bundle.js
-echo "  Done.\n"
+echo "  Done."
+echo ""
 
 
 # skeleton
@@ -154,6 +156,9 @@ cat sim_core/sim_cfg.js \
     sim_sw/firmware.js \
     sim_sw/assembly/lexical.js \
     sim_sw/assembly/memory_segments.js \
+    sim_sw/assembly/datatypes.js \
+    sim_sw/assembly/asm_v1.js \
+    sim_sw/assembly/asm_v2.js \
     sim_sw/assembly.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js

@@ -32,7 +32,7 @@ function firm_instruction_nword_read ( context, instruccionAux )
        // match mandatory =
        if (! frm_isToken(context,"=")) {
 	   return frm_langError(context,
-			    i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+			        i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
        }
 
        frm_nextToken(context);
@@ -64,7 +64,7 @@ function firm_instruction_help_read ( context, instruccionAux )
        // match mandatory =
        if (! frm_isToken(context,"=")) {
 	     return frm_langError(context,
-			      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+			          i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
        }
 
        frm_nextToken(context);
@@ -74,8 +74,8 @@ function firm_instruction_help_read ( context, instruccionAux )
        // semantic check: valid value
        if ("STRING" != frm_getTokenType(context)) {
 	    return frm_langError(context,
-			     i18n_get_TagFor('compiler', 'UNKNOWN ESCAPE CHAR') +
-			     "'" + frm_getToken(context) + "'") ;
+			         i18n_get_TagFor('compiler', 'UNKNOWN ESCAPE CHAR') +
+			         "'" + frm_getToken(context) + "'") ;
        }
 
        frm_nextToken(context);
@@ -100,7 +100,7 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
        // match mandatory =
        if (! frm_isToken(context,"=")) {
 	     return frm_langError(context,
-			      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+			          i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
        }
 
        frm_nextToken(context);
@@ -118,8 +118,8 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
 	    (instruccionAux.co.length !== xr_info.ir.default_eltos.co.length) )
        {
 	   return frm_langError(context,
-			    i18n_get_TagFor('compiler', 'INCORRECT CO BIN.') +
-			    "'" + instruccionAux.co + "'") ;
+			        i18n_get_TagFor('compiler', 'INCORRECT CO BIN.') +
+			        "'" + instruccionAux.co + "'") ;
        }
 
        // semantic check: 'co' is not already used
@@ -129,8 +129,8 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
 		       (context.co_cop[instruccionAux.co].cop === null) )
 	   {
 		 return frm_langError(context,
-				  i18n_get_TagFor('compiler', 'CO ALREADY USED') +
-				  context.co_cop[instruccionAux.co].signature) ;
+				      i18n_get_TagFor('compiler', 'CO ALREADY USED') +
+				      context.co_cop[instruccionAux.co].signature) ;
 	   }
 
 	   if (typeof context.co_cop[instruccionAux.co] == "undefined")
@@ -148,8 +148,8 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
        {
 		if (typeof instruccionAux.overlapping[i] != "undefined") {
 		    return frm_langError(context,
-				     i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
-				     'co') ;
+				         i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				         'co') ;
 		}
 
 		instruccionAux.overlapping[i] = 1;
@@ -173,7 +173,7 @@ function firm_instruction_cop_read ( context, instruccionAux )
        // match mandatory =
        if (! frm_isToken(context,"=")) {
 	     return frm_langError(context,
-			      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+			          i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
        }
 
        frm_nextToken(context);
@@ -189,8 +189,8 @@ function firm_instruction_cop_read ( context, instruccionAux )
 	// semantic check: valid value
 	if (instruccionAux.cop.match("[01]*")[0] != instruccionAux.cop) {
 	    return frm_langError(context,
-			     i18n_get_TagFor('compiler', 'INCORRECT COP BIN.') +
-			     "'" + instruccionAux.cop + "'") ;
+			         i18n_get_TagFor('compiler', 'INCORRECT COP BIN.') +
+			         "'" + instruccionAux.cop + "'") ;
 	}
 
 	// semantic check: 'co+cop' is not already used
@@ -198,8 +198,8 @@ function firm_instruction_cop_read ( context, instruccionAux )
 	     (typeof context.co_cop[instruccionAux.co].cop[instruccionAux.cop] != "undefined") )
 	{
 	      return frm_langError(context,
-			       i18n_get_TagFor('compiler', 'CO+COP ALREADY USED') +
-			       "'" + context.co_cop[instruccionAux.co].cop[instruccionAux.cop] + "'") ;
+			           i18n_get_TagFor('compiler', 'CO+COP ALREADY USED') +
+			           "'" + context.co_cop[instruccionAux.co].cop[instruccionAux.cop] + "'") ;
 	}
 	if (context.co_cop[instruccionAux.co].cop == null)
 	    context.co_cop[instruccionAux.co].cop = {};
@@ -214,16 +214,16 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	var tmp_name = frm_getToken(context) ;
 	if (instruccionAux.fields[camposInsertados].name != tmp_name) {
 	       return frm_langError(context,
-				i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
-				"'" + tmp_name + "'. " +
-				i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
+				    i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
+				    "'" + tmp_name + "'. " +
+				    i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
 	}
 
 	frm_nextToken(context);
 	// match mandatory =
 	if (! frm_isToken(context,"=")) {
 	       return frm_langError(context,
-				i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+				    i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 	}
 
 	frm_nextToken(context);
@@ -238,7 +238,7 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	// match mandatory (
 	if (! frm_isToken(context,"(")) {
 		 return frm_langError(context,
-				  i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+				      i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
 	}
 
 	frm_nextToken(context);
@@ -249,15 +249,15 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	var start = parseInt(instruccionAux.fields[camposInsertados].startbit);
 	if (start > 32*parseInt(instruccionAux.nwords)-1) {
 	       return frm_langError(context,
-				i18n_get_TagFor('compiler', 'STARTBIT OoR') +
-				"'" + frm_getToken(context) + "'") ;
+				    i18n_get_TagFor('compiler', 'STARTBIT OoR') +
+				    "'" + frm_getToken(context) + "'") ;
 	}
 
 	frm_nextToken(context);
 	// match mandatory ,
 	if (! frm_isToken(context,",")) {
 		 return frm_langError(context,
-				  i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
+				      i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
 	}
 
 	frm_nextToken(context);
@@ -268,8 +268,8 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	var stop  = parseInt(instruccionAux.fields[camposInsertados].stopbit);
 	if (stop > 32*parseInt(instruccionAux.nwords)) {
 	       return frm_langError(context,
-				i18n_get_TagFor('compiler', 'STOPBIT OoR') +
-				"'" + frm_getToken(context) + "'") ;
+				    i18n_get_TagFor('compiler', 'STOPBIT OoR') +
+				    "'" + frm_getToken(context) + "'") ;
 	}
 
 	// check overlapping
@@ -277,8 +277,8 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	{
 		if (typeof instruccionAux.overlapping[i] != "undefined") {
 		    return frm_langError(context,
-				     i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
-				     instruccionAux.fields[camposInsertados].name) ;
+				         i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				         instruccionAux.fields[camposInsertados].name) ;
 		}
 
 		instruccionAux.overlapping[i] = 1;
@@ -288,7 +288,7 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	// match mandatory )
 	if (! frm_isToken(context,")")) {
 		 return frm_langError(context,
-				  i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+				      i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
 	}
 
 	frm_nextToken(context);
@@ -297,7 +297,7 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	       // match mandatory abs|rel
 	       if (frm_getToken(context) !="abs" && frm_getToken(context) !="rel") {
 		   return frm_langError(context,
-				    i18n_get_TagFor('compiler', 'INCORRECT ADDRESSING')) ;
+				        i18n_get_TagFor('compiler', 'INCORRECT ADDRESSING')) ;
 	       }
 
 	       // match mandatory ADDRESS_TYPE
@@ -331,7 +331,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
        // match mandatory co
        if (! frm_isToken(context,"co")) {
 	     return frm_langError(context,
-			      i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
+			          i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
        }
 
        // read co=xxxxxx field...
@@ -464,8 +464,8 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 	    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
        {
 	    return frm_langError(context,
-			     i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
-			     "'" + frm_getToken(context) + "'") ;
+			         i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
+			         "'" + frm_getToken(context) + "'") ;
        }
 
        return {} ;
@@ -586,14 +586,14 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
        if (1 != co_inserted)
        {
 	   return frm_langError(context,
-			    i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
+			        i18n_get_TagFor('compiler', 'NO CO FIELD')) ;
        }
 
        // semantic check: number of fields
        if (camposInsertados != instruccionAux.numeroCampos)
        {
 	   return frm_langError(context,
-			    i18n_get_TagFor('compiler', 'NO FIELD')) ; // TODO
+			        i18n_get_TagFor('compiler', 'NO FIELD')) ; // TODO
        }
 
        // semantic check: valid pending value (cop.length if native.false)
@@ -602,7 +602,7 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 	    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
        {
 	    return frm_langError(context,
-			     i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
+			         i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
 			     "'" + frm_getToken(context) + "'") ;
        }
 

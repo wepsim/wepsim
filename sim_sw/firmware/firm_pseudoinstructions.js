@@ -32,7 +32,7 @@ function firm_pseudoinstructions_read ( context )
 	frm_nextToken(context);
 	if (! frm_isToken(context, "{")) {
 	     return frm_langError(context,
-			      i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
+			          i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
 	}
 
         // skip {
@@ -63,7 +63,7 @@ function firm_pseudoinstructions_read ( context )
 			    frm_nextToken(context);
 			    if (! frm_isToken(context, ")")) {
 				return frm_langError(context,
-						 i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+						     i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
 			    }
 
 			    frm_nextToken(context);
@@ -79,7 +79,7 @@ function firm_pseudoinstructions_read ( context )
 			// name*=*type
 			if (! frm_isToken(context, "=")) {
 			      return frm_langError(context,
-					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND') + ' (for name=type)') ;
+					           i18n_get_TagFor('compiler', 'EQUAL NOT FOUND') + ' (for name=type)') ;
 			}
 
 			// name=*type*
@@ -95,7 +95,7 @@ function firm_pseudoinstructions_read ( context )
 				     break;
 				default:						
 				     return frm_langError(context,
-						      i18n_get_TagFor('compiler', 'INVALID PARAMETER') + pseudoFieldAux.type + '.' +
+						          i18n_get_TagFor('compiler', 'INVALID PARAMETER') + pseudoFieldAux.type + '.' +
 						      i18n_get_TagFor('compiler', 'ALLOWED PARAMETER')) ;
 			}
 
@@ -135,8 +135,8 @@ function firm_pseudoinstructions_read ( context )
 				}
 				if (!cont) {
 				    return frm_langError(context,
-						     i18n_get_TagFor('compiler', 'UNDEF. INSTR.') +
-						     "'" + frm_getToken(context) + "'") ;
+						         i18n_get_TagFor('compiler', 'UNDEF. INSTR.') +
+						         "'" + frm_getToken(context) + "'") ;
 				}
 			}
 
