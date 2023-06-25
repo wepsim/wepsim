@@ -233,7 +233,7 @@
       // Bail out if there if attributes are empty or event was defaultPrevented
       if (!createEvent.attrs || createEvent.isDefaultPrevented()) return
 
-      var $token = $('<div class="token" />')
+      var $token = $('<div class="token bg-black text-white" />')
             .append('<span class="token-label" />')
             .append('<a href="#" class="btn-close mx-2" tabindex="-1">&times;</a>')
             .data('attrs', attrs)

@@ -59,11 +59,13 @@
 			      "" +
 			      "	<div class='form-group'>" +
 			      "	   <label for='about_authors' class='text-secondary'>Authors:</label>" +
-			      "	   <div id='about_" + this.name_str + "'>" +
+			      "	   <div id='about_" + this.name_str + "' " +
+                              "         style='overflow:auto; -webkit-overflow-scrolling:touch;' >"+
 			      "	     <ul>" +
                               "      <li>Felix Garcia Carballeira</li>" +
                               "      <li>Javier Prieto Cepeda</li>" +
                               "      <li>Saul Alonso Monsalve</li>" +
+                              "      <li>Juan Banga Pardo</li>" +
                               "      <li>Alejandro Calderon Mateos</li>" +
 			      "	     </ul>" +
 			      "	   </div>" +
@@ -71,11 +73,10 @@
 			      "" +
 			      '    <div class="mx-auto mt-3 bg-white rounded">' +
 			      '       <div class="row mx-auto">' +
-			      '          <span class="col me-auto"><img alt="ARCOS group logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></span>' +
+			      '          <span class="col me-auto"><img alt="ARCOS group logo" src="images/arcos.svg" class="img-fluid rounded m-0 p-1" /></span>' +
 			      '          <span class="col ms-auto"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" class="img-fluid rounded m-0 p-0" /></span>' +
 			      '       </div>' +
 			      '    </div>' +
-			      '    <br/>' +
 			      "" +
 			      "</form>" ;
 
@@ -92,12 +93,12 @@
 
 		    // html holder
 		    var o1 = '<div id="authors_' + this.name_str + '" ' +
-                             '     class="card-desk row mx-auto" style="max-width:512px;">' +
-			     '<div v-for="author in authors" class="card bg-tertiary text-center col-3 p-0">' +
+                             '     class="card-desk row mx-auto">' +
+			     '<div v-for="author in authors" class="card bg-tertiary text-center col p-0">' +
 			     '  <img class="card-img-top img-fluid shadow no-dark-mode" ' +
                              '       v-bind:id="authors.c_id"' +
                              '       v-bind:src="author.i_src" v-bind:alt="author.i_alt" />' +
-			     '  <div class="card-body p-3">' +
+			     '  <div class="card-body pt-2 pb-1 px-0">' +
                              '       <a class="btn p-0 text-primary d-md-none text-vertical-lr "' +
                              '          v-bind:id="author.a_id">{{ author.i_alt }}</a>' +
                              '       <a class="btn p-0 text-primary d-none d-md-block"' +

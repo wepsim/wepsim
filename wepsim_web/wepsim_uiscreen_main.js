@@ -80,19 +80,21 @@
                    // load HTML
                    this.innerHTML = o1 ;
 
-	           // basic initialization of wepsim first time...
-		   if ("connectedCallback" == event_name)
-		   {
-	               simcore_init(true) ;
-	               simcore_welcome() ;
-	               upgrade_cfg() ;
-		   }
-
                    // (if empty HTML then return)
 		   if ('' == o1) {
 	               this.render_skel() ;
                        return ;
 		   }
+
+                   // initialization only on "connectedCallback"
+		   if ("connectedCallback" != event_name) {
+                       return ;
+		   }
+
+	           // basic initialization of wepsim first time...
+	           simcore_init(true) ;
+	           simcore_welcome() ;
+	           upgrade_cfg() ;
 
 	           // ...and full initialization after jquery-ready
 	           $(document).ready(function()
