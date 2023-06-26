@@ -141,6 +141,21 @@
 					github:  { name: "github", faclass: "fab fa-github",
 						   href:"https://github.com/saulam/" }
 				     }
+			  },
+			  {
+			    c_id:    "collapse-author-5",
+			    i_src:   "images/author_juanbanpar.png",
+			    i_alt:   "Juan Banga Pardo",
+			    a_id:    "juanbanpar",
+			    a_name:  "Juan Banga Pardo",
+			    socials: {
+					lkin:    { name: "linkedin", faclass: "fab fa-linkedin",
+						   href:"https://www.linkedin.com/in/juanbangapardo/" },
+					rgate:   { name: "r-gate", faclass: "fab fa-researchgate",
+						   href:"" },
+					github:  { name: "github", faclass: "fab fa-github",
+						   href:"https://github.com/juanbanpar/" }
+				     }
 			  }
                         ] ;
 

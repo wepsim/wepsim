@@ -344,7 +344,7 @@
 				           }
 			     }
 	             },
-            size:    '',
+            size:    'large',
             onshow:  function() {
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
 

@@ -904,7 +904,7 @@ li.CodeMirror-hint-active {
         transition: none !important;
 }
 
-    .tokenfield .token .token-label {
+.tokenfield .token .token-label {
         max-width: none!important;
 }
 
