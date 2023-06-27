@@ -357,7 +357,8 @@
             // 2) path
 	    var elements = svg.querySelectorAll("path") ;
 	    for (var i = 0; i < elements.length; i++) {
-	         elements[i].style.fill = cfg_color_data_inactive ;
+	         elements[i].style.fill   = cfg_color_data_inactive ;
+	         elements[i].style.stroke = cfg_color_data_inactive ;
                  elements[i].setAttribute('stroke', cfg_color_data_inactive) ;
 	    }
 
