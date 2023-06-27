@@ -10,7 +10,7 @@
    width="100%"
    xml:space="preserve"
    id="svg7629"
-   sodipodi:docname="risc-v-o3-mk4.svg"
+   sodipodi:docname="risc-v-o3-mk8.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -27,7 +27,7 @@
    inkscape:deskcolor="#d1d1d1"
    showgrid="false"
    inkscape:zoom="0.038355922"
-   inkscape:cx="26866.777"
+   inkscape:cx="17963.328"
    inkscape:cy="9333.6304"
    inkscape:window-width="1872"
    inkscape:window-height="1051"
@@ -186,20 +186,20 @@
    id="text6665"
    style="stroke-linejoin:round">
 <tspan
-     class="TextParagraph"
-     font-family="Arial, sans-serif"
-     font-size="494px"
-     font-weight="700"
-     id="tspan6663"
+   class="TextParagraph"
+   font-family="Arial, sans-serif"
+   font-size="494px"
+   font-weight="700"
+   id="tspan6663"
+   style="stroke-linejoin:round"><tspan
+     class="TextPosition"
+     x="1937"
+     y="8678"
+     id="tspan6661"
      style="stroke-linejoin:round"><tspan
-       class="TextPosition"
-       x="1937"
-       y="8678"
-       id="tspan6661"
-       style="stroke-linejoin:round"><tspan
-         fill="#000000"
-         style="white-space:pre;stroke-linejoin:round"
-         id="tspan6659">PC</tspan></tspan></tspan></text><text
+       fill="#000000"
+       style="white-space:pre;stroke-linejoin:round"
+       id="tspan6659">PC</tspan></tspan></tspan></text><text
    class="SVGTextShape"
    id="text6673"
    style="stroke-linejoin:round"><tspan
@@ -2228,6 +2228,7 @@
 <path
    d="m 18071,1919 c 32,0 63,1 90,4 28,3 50,6 66,11 16,5 25,10 25,15 l -1,973 c 0,5 8,10 24,15 16,5 39,8 66,11 28,3 59,4 91,4 -32,0 -63,1 -91,4 -27,3 -50,7 -66,11 -16,5 -24,10 -24,15 v 974 c 0,5 -8,10 -24,15 -16,5 -39,8 -66,11 -28,3 -59,4 -90,4"
    fill="none"
+   fill-opacity="0.0"
    stroke="#000"
    stroke-linejoin="round"
    stroke-width="18"
@@ -2335,7 +2336,7 @@
    font-size="423px"
    font-weight="700"
    id="text7467"
-   style="stroke-linejoin:round"
+   style="stroke-linejoin:round;opacity:1"
    x="-26.071594"
    y="-26.071594"><tspan
      class="TextParagraph"
