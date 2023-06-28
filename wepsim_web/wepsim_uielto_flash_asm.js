@@ -97,7 +97,7 @@
                         '       role="tabpanel" aria-labelledby="nav-flash-tab" tabindex="0">' +
                         '' +
                                "<div class='row m-0'>" +
-                               "<div class='col-6 p-2'>" +
+                               "<div class='col-xs-12 col-md-6 p-2'>" +
                                 '' +
 				'<div class="py-2">' +
 				'<label for="div_url">(1) Set the URL where gateway.py is listening:</label><br>' +
@@ -149,10 +149,10 @@
 				'</div>' +
                                 '' +
                                "</div>" +
-                               "<div class='col-6 p-2'>" +
+                               "<div class='col-xs-12 col-md-6 p-2'>" +
                                 '' +
 				'<label for="div_info">(5) Output:</label><br>' +
-				'<textarea class="form-control border border-black"' +
+				'<textarea class="form-control border border-secondary"' +
 				'	  id="div_info" name="div_info"' +
 				'	  rows="10" cols="50">' +
 				'</textarea>' +
