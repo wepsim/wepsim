@@ -10,7 +10,7 @@
    width="100%"
    xml:space="preserve"
    id="svg7629"
-   sodipodi:docname="risc-v-o3-mk4.svg"
+   sodipodi:docname="processor.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -28,9 +28,9 @@
    inkscape:pagecheckerboard="0"
    inkscape:deskcolor="#d1d1d1"
    showgrid="false"
-   inkscape:zoom="0.038355922"
-   inkscape:cx="26866.777"
-   inkscape:cy="9333.6304"
+   inkscape:zoom="0.10848693"
+   inkscape:cx="18075.91"
+   inkscape:cy="4175.6182"
    inkscape:window-width="1872"
    inkscape:window-height="1051"
    inkscape:window-x="0"
@@ -305,6 +305,20 @@
 </tspan>
 </text>
 <path
+   class="TextParagraph"
+   font-family="Arial, sans-serif"
+   font-size="494px"
+   font-weight="700"
+   id="tspan6663"
+   style="stroke-linejoin:round"><tspan
+     class="TextPosition"
+     x="1937"
+     y="8678"
+     id="tspan6661"
+     style="stroke-linejoin:round"><tspan
+       fill="#000000"
+       style="white-space:pre;stroke-linejoin:round"
+       id="tspan6659">PC</tspan></tspan></tspan></text><path
    d="m 2772,8489 2266,-8"
    fill="none"
    stroke="#000"
@@ -769,6 +783,7 @@
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 24267,8515 1657,20"
    fill="none"
    stroke="#000"
@@ -1227,6 +1242,7 @@
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 10591,11087 2,3106"
    fill="none"
    stroke="#000"
@@ -1413,6 +1429,7 @@
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 1286,8498 289,1"
    fill="none"
    stroke="#000"
@@ -1849,6 +1866,7 @@
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 7679,2303 381,2"
    fill="none"
    stroke="#000"
@@ -1923,6 +1941,7 @@
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 6108,2468 608,2"
    fill="none"
    stroke="#000"
@@ -2001,6 +2020,7 @@
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 13488,10599 2,449"
    fill="none"
    stroke="#000"
@@ -2169,6 +2189,7 @@
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 10403,12738 440,525"
    fill="none"
    stroke="#000"
@@ -2201,6 +2222,7 @@
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 23167,5884 2,722"
    fill="none"
    stroke="#000"
@@ -2271,6 +2293,37 @@
 </tspan>
 </text>
 <path
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:317.748px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:747.292;stroke-linejoin:round"
+   x="24585.855"
+   y="5912.5532"
+   transform="scale(0.94541219,1.0577397)"><tspan
+     sodipodi:role="line"
+     id="tspan2214"
+     x="24585.855"
+     y="5912.5532"
+     style="stroke-width:747.292">5</tspan></text><text
+   class="SVGTextShape"
+   id="text7261-0"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:317.748px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:747.292;stroke-linejoin:round"
+   x="13724.227"
+   y="4967.5825"
+   transform="scale(0.94541219,1.0577397)"><tspan
+     sodipodi:role="line"
+     id="tspan2214-9"
+     x="13724.227"
+     y="4967.5825"
+     style="stroke-width:747.292">32</tspan></text><text
+   class="SVGTextShape"
+   id="text7261-0-3"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:317.748px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:747.292;stroke-linejoin:round"
+   x="11291.376"
+   y="12240.45"
+   transform="scale(0.94541219,1.0577397)"><tspan
+     sodipodi:role="line"
+     id="tspan2214-9-6"
+     x="11291.376"
+     y="12240.45"
+     style="stroke-width:747.292">32</tspan></text><path
    d="m 26581,7124 2,449"
    fill="none"
    stroke="#000"
@@ -2310,9 +2363,10 @@ stroke-width="31.4739"
 </tspan>
 </text>
 <path
-   d="m 23690,3873 2,722"
+   d="m 23690,3873 2,722"   style="stroke-linejoin:round" /><path
+   d="m 23702.3,3873.3545 3.472,512.7183"
    fill="none"
-   stroke="#000"
+   stroke="#000000"
    stroke-linejoin="round"
    stroke-width="35"
    id="path7281"
@@ -2349,6 +2403,7 @@ stroke-width="31.4739"
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 16741,11028 2,722"
    fill="none"
    stroke="#000"
@@ -2387,7 +2442,7 @@ stroke-width="31.4739"
 </tspan>
 </tspan>
 </text>
-<path
+<path   style="stroke-linejoin:round" /><path
    d="m 10590,5424 2,577"
    fill="none"
    stroke="#000"
@@ -2404,9 +2459,15 @@ stroke-width="31.4739"
    y="-1469.963"
    transform="scale(0.90668655,1.102917)">
 <tspan
+   id="text7453-3-3-2-0-28"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="4760.6152"
+   x="11188.736"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7309"><tspan
      class="TextParagraph"
      font-family="Arial, sans-serif"
-     font-size="416.627px"
+     font-size="384.731px"
      font-weight="400"
      id="tspan7307"
      stroke-width="39.3128"
@@ -2426,6 +2487,8 @@ stroke-width="31.4739"
 </tspan>
 </tspan>
 </text>
+     id="tspan7451-6-5-7-6-97"
+     style="stroke-width:52.5296;stroke-linejoin:round">IRWrite</tspan></text>
 <path
    d="M 14357,4037 H 11422 V 1761 h 5869 v 2276 z"
    fill="#d9d9d9"
@@ -2580,6 +2643,7 @@ stroke-width="31.4739"
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 12897,6269 -1136,2"
    fill="none"
    stroke="#000"
@@ -2706,6 +2770,7 @@ stroke-width="31.4739"
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 17287,2108 536,1"
    fill="none"
    stroke="#000"
@@ -2881,6 +2946,97 @@ stroke-width="31.4739"
 </tspan>
 </text>
 <text
+   class="SVGTextShape"
+   id="text7453-3"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="6277.4712"
+   x="29154.469"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7279"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6"
+     style="stroke-width:52.5296;stroke-linejoin:round">WOut</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-5"
+   style="font-size:17.0697px;stroke-width:40.145;stroke-linejoin:round"
+   y="11565.592"
+   x="25420.568"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7615"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="401.137px"
+     font-weight="400"
+     id="tspan7451-6-0"
+     style="stroke-width:54.7696;stroke-linejoin:round">Z</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-5-1"
+   style="font-size:17.0697px;stroke-width:40.145;stroke-linejoin:round"
+   y="9001.8535"
+   x="25395.5"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7615"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="401.137px"
+     font-weight="400"
+     id="tspan7451-6-0-0"
+     style="stroke-width:54.7696;stroke-linejoin:round">Z</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-5-3"
+   style="font-size:17.0697px;stroke-width:40.145;stroke-linejoin:round"
+   y="11570.97"
+   x="26115.479"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7607"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="401.137px"
+     font-weight="400"
+     id="tspan7451-6-0-6"
+     style="stroke-width:54.7696;stroke-linejoin:round">N</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-5-3-6"
+   style="font-size:17.0697px;stroke-width:40.145;stroke-linejoin:round"
+   y="8993.5918"
+   x="26093.15"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7607"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="401.137px"
+     font-weight="400"
+     id="tspan7451-6-0-6-3"
+     style="stroke-width:54.7696;stroke-linejoin:round">N</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="8099.9512"
+   x="31015.084"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7589"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5"
+     style="stroke-width:52.5296;stroke-linejoin:round">DMR</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-9"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="8730.7158"
+   x="31003.02"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7597"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-1"
+     style="stroke-width:52.5296;stroke-linejoin:round">DMW</tspan></text><text
    class="SVGTextShape"
    font-family="Arial, sans-serif"
    font-size="423px"
@@ -3092,6 +3248,7 @@ stroke-width="31.4739"
 </tspan>
 </text>
 <path
+         id="tspan7477">Memory</tspan></tspan></tspan></text><path
    d="m 28684,8907 432,2"
    fill="none"
    stroke="#000"
@@ -3131,6 +3288,28 @@ stroke-width="31.4739"
      stroke-width="712.681">Word/Byte BE</tspan>
 </text>
 <text
+   class="SVGTextShape"
+   id="text7539-36"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="29306.904"
+   y="7633.9229"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7"
+     x="29306.904"
+     y="7633.9229"
+     style="stroke-width:830.178">WData</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-5"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="29282.461"
+   y="9008.5127"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-3"
+     x="29282.461"
+     y="9008.5127"
+     style="stroke-width:830.178">R</tspan></text><text
    class="SVGTextShape"
    id="text7539-3"
     stroke-width="684.271"
@@ -3346,6 +3525,7 @@ stroke-width="31.4739"
 </tspan>
 </text>
 <path
+   style="stroke-linejoin:round" /><path
    d="m 22888,10502 2,1938"
    fill="none"
    stroke="#000"
@@ -3401,3 +3581,353 @@ stroke-width="31.4739"
      stroke-width="684.271">Sign Ext</tspan>
 </text>
 </svg>
+=======
+     style="stroke-width:684.271">Sign Ext</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="5155.8501"
+   x="25330.17"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7269"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7"
+     style="stroke-width:52.5296;stroke-linejoin:round">AluOp</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="4422.021"
+   x="22397.197"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7229"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6"
+     style="stroke-width:52.5296;stroke-linejoin:round">M2</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-78"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="12409.902"
+   x="24967.074"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7229"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-4"
+     style="stroke-width:52.5296;stroke-linejoin:round">31 0's</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-7"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="11139.298"
+   x="22359.891"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7237"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-9"
+     style="stroke-width:52.5296;stroke-linejoin:round">M3</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-2"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="10858.916"
+   x="18345.188"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7299"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-0"
+     style="stroke-width:52.5296;stroke-linejoin:round">RW</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-23"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="9410.2773"
+   x="14766.996"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7221"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-7"
+     style="stroke-width:52.5296;stroke-linejoin:round">M1</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-5"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="4293.3125"
+   x="26170.883"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7289"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-92"
+     style="stroke-width:52.5296;stroke-linejoin:round">M4</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-3"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="9059.8008"
+   x="4526.7734"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7213"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-6"
+     style="stroke-width:52.5296;stroke-linejoin:round">IMR</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-3-1"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="3450.1946"
+   x="4438.6685"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7213"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-6-2"
+     style="stroke-width:52.5296;stroke-linejoin:round">PCWrite</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-3-19"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="2936.1619"
+   x="6911.4492"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7173"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-6-4"
+     style="stroke-width:52.5296;stroke-linejoin:round">jump</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-3-7"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="2585.6848"
+   x="9064.2236"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7193"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-6-8"
+     style="stroke-width:52.5296;stroke-linejoin:round">Z</tspan></text><text
+   class="SVGTextShape"
+   id="text7453-3-3-2-0-3-7-4"
+   style="font-size:16.3715px;stroke-width:38.5031;stroke-linejoin:round"
+   y="2188.4773"
+   x="9046.2373"
+   transform="scale(0.89619145,1.115833)"
+   inkscape:label="text7185"><tspan
+     class="TextParagraph"
+     font-family="Arial, sans-serif"
+     font-size="384.731px"
+     font-weight="400"
+     id="tspan7451-6-5-7-6-6-8-5"
+     style="stroke-width:52.5296;stroke-linejoin:round">N</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-56"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="29308.588"
+   y="9710.9277"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-2"
+     x="29308.588"
+     y="9710.9277"
+     style="stroke-width:830.178">W</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-9"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="29295.523"
+   y="10322.29"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-1"
+     x="29295.523"
+     y="10322.29"
+     style="stroke-width:830.178">Addr</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-9-2"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="5373.3916"
+   y="8594.377"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-1-2"
+     x="5373.3916"
+     y="8594.377"
+     style="stroke-width:830.178">Addr</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-9-2-8"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="7267.1016"
+   y="8585.1797"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-1-2-9"
+     x="7267.1016"
+     y="8585.1797"
+     style="stroke-width:830.178">RData</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-9-2-8-7"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="5337.77"
+   y="10085.506"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-1-2-9-3"
+     x="5337.77"
+     y="10085.506"
+     style="stroke-width:830.178">R</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-2"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="31085.285"
+   y="8631.2891"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-7"
+     x="31085.285"
+     y="8631.2891"
+     style="stroke-width:830.178">RData</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="15032.134"
+   y="7227.8574"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9"
+     x="15032.134"
+     y="7227.8574"
+     style="stroke-width:830.178">Read Reg 1</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0-612"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="17485.779"
+   y="7615.605"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9-93"
+     x="17485.779"
+     y="7615.605"
+     style="stroke-width:830.178">Read</tspan><tspan
+     sodipodi:role="line"
+     x="17485.779"
+     y="8056.8438"
+     style="stroke-width:830.178"
+     id="tspan4682">Data 1</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0-612-1"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="17423.189"
+   y="9275.1465"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9-93-9"
+     x="17423.189"
+     y="9275.1465"
+     style="stroke-width:830.178">Read</tspan><tspan
+     sodipodi:role="line"
+     x="17423.189"
+     y="9716.3848"
+     style="stroke-width:830.178"
+     id="tspan4682-4">Data 2</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0-612-1-5"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:415.648px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:977.537;stroke-linejoin:round"
+   x="18608.619"
+   y="2797.6648"
+   transform="scale(0.99784466,1.00216)"
+   inkscape:label="text7417"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9-93-9-4"
+     x="18608.619"
+     y="2797.6648"
+     style="stroke-width:977.537">Control</tspan><tspan
+     sodipodi:role="line"
+     x="18608.619"
+     y="3317.2249"
+     style="stroke-width:977.537"
+     id="tspan4682-4-7">Signals</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0-3"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="15028.274"
+   y="8057.1011"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9-6"
+     x="15028.274"
+     y="8057.1011"
+     style="stroke-width:830.178">Read Reg 2</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0-6"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="15055.986"
+   y="9372.3906"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9-2"
+     x="15055.986"
+     y="9372.3906"
+     style="stroke-width:830.178">Write Reg 2</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0-61"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="15055.987"
+   y="10328.965"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9-8"
+     x="15055.987"
+     y="10328.965"
+     style="stroke-width:830.178">Write Data</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0-7"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="11989.101"
+   y="6990.1528"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9-9"
+     x="11989.101"
+     y="6990.1528"
+     style="stroke-width:830.178">IR[19:15]</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0-7-2"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="11981.143"
+   y="7826.0762"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9-9-0"
+     x="11981.143"
+     y="7826.0762"
+     style="stroke-width:830.178">IR[24:20]</tspan></text><text
+   class="SVGTextShape"
+   id="text7539-36-0-7-23"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
+   x="11971.905"
+   y="9141.3662"
+   transform="scale(0.99784466,1.00216)"><tspan
+     sodipodi:role="line"
+     id="tspan5133-7-9-9-7"
+     x="11971.905"
+     y="9141.3662"
+     style="stroke-width:830.178">IR[11:7]</tspan></text></svg>
