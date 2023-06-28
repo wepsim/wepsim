@@ -310,15 +310,20 @@
    font-size="494px"
    font-weight="700"
    id="tspan6663"
-   style="stroke-linejoin:round"><tspan
+   style="stroke-linejoin:round">
+<tspan
      class="TextPosition"
      x="1937"
      y="8678"
      id="tspan6661"
-     style="stroke-linejoin:round"><tspan
+     style="stroke-linejoin:round">
+<tspan
        fill="#000000"
        style="white-space:pre;stroke-linejoin:round"
-       id="tspan6659">PC</tspan></tspan></tspan></text><path
+       id="tspan6659">PC</tspan>
+</tspan>
+</path>
+<path
    d="m 2772,8489 2266,-8"
    fill="none"
    stroke="#000"
@@ -2301,7 +2306,8 @@
      id="tspan2214"
      x="24585.855"
      y="5912.5532"
-     style="stroke-width:747.292">5</tspan></text><text
+     style="stroke-width:747.292">5</tspan></path>
+<text
    class="SVGTextShape"
    id="text7261-0"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:317.748px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:747.292;stroke-linejoin:round"
@@ -2464,7 +2470,8 @@ stroke-width="31.4739"
    y="4760.6152"
    x="11188.736"
    transform="scale(0.89619145,1.115833)"
-   inkscape:label="text7309"><tspan
+   inkscape:label="text7309">
+<tspan
      class="TextParagraph"
      font-family="Arial, sans-serif"
      font-size="384.731px"
@@ -2486,9 +2493,8 @@ stroke-width="31.4739"
          id="tspan7303">IRWrite</tspan>
 </tspan>
 </tspan>
+</tspan>
 </text>
-     id="tspan7451-6-5-7-6-97"
-     style="stroke-width:52.5296;stroke-linejoin:round">IRWrite</tspan></text>
 <path
    d="M 14357,4037 H 11422 V 1761 h 5869 v 2276 z"
    fill="#d9d9d9"
@@ -3248,7 +3254,6 @@ stroke-width="31.4739"
 </tspan>
 </text>
 <path
-         id="tspan7477">Memory</tspan></tspan></tspan></text><path
    d="m 28684,8907 432,2"
    fill="none"
    stroke="#000"
@@ -3919,15 +3924,19 @@ stroke-width="31.4739"
      id="tspan5133-7-9-9-0"
      x="11981.143"
      y="7826.0762"
-     style="stroke-width:830.178">IR[24:20]</tspan></text><text
+     style="stroke-width:830.178">IR[24:20]</tspan></text>
+<text
    class="SVGTextShape"
    id="text7539-36-0-7-23"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:352.991px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:830.178;stroke-linejoin:round"
    x="11971.905"
    y="9141.3662"
-   transform="scale(0.99784466,1.00216)"><tspan
+   transform="scale(0.99784466,1.00216)">
+<tspan
      sodipodi:role="line"
      id="tspan5133-7-9-9-7"
      x="11971.905"
      y="9141.3662"
-     style="stroke-width:830.178">IR[11:7]</tspan></text></svg>
+     style="stroke-width:830.178">IR[11:7]</tspan></text>
+</svg>
+
