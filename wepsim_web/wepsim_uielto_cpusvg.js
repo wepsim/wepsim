@@ -118,7 +118,8 @@
          *  Drawing part
          */
 
-        var DRAW_stop = false ;
+        var DRAW_stop    = false ;
+        var is_dark_mode = false ;
 
         var cfg_color_background    = 'white' ;
         var cfg_color_data_active   = '#0066FF' ;
@@ -139,9 +140,9 @@
 	    cfg_size_inactive       = get_cfg('size_inactive') ;
 
             // 2) modify because dark-mode
-            var is_black_mode = get_cfg("ws_skin_dark_mode") ;
+            is_dark_mode = get_cfg("ws_skin_dark_mode") ;
 
-            if (false == is_black_mode) {
+            if (false == is_dark_mode) {
                 cfg_color_background    = 'white' ;
 	        cfg_color_data_inactive = '#000000' ;
 	        cfg_color_name_inactive = '#000000' ;
@@ -355,11 +356,25 @@
 	    svg2.setAttribute('style', 'background-color:' + cfg_color_background);
 
             // 2) path
-	    var elements = svg.querySelectorAll("path") ;
-	    for (var i = 0; i < elements.length; i++) {
+            var def_color = null ;
+	    var elements  = svg.querySelectorAll("path") ;
+	    for (var i = 0; i < elements.length; i++)
+            {
+                 def_color = elements[i].getAttribute('wepsim:color') ;
+                 if (def_color != null)
+                 {
+	             elements[i].style.fill   = def_color ;
+	             elements[i].style.stroke = def_color ;
+                  // elements[i].setAttribute('fill',   def_color) ;
+                  // elements[i].setAttribute('stroke', def_color) ;
+
+                     continue ;
+                 }
+
 	         elements[i].style.fill   = cfg_color_data_inactive ;
 	         elements[i].style.stroke = cfg_color_data_inactive ;
-                 elements[i].setAttribute('stroke', cfg_color_data_inactive) ;
+             //  elements[i].setAttribute('fill',   cfg_color_data_inactive) ;
+             //  elements[i].setAttribute('stroke', cfg_color_data_inactive) ;
 	    }
 
             // 3) text
@@ -386,33 +401,11 @@
             }
         }
 
-        function wepsim_svg_reload ( id_arr )
+        function wepsim_svg_reload ( id_arr, img_arr )
         {
             var o = null ;
             var a = null ;
-
-            // set darkmode
-	    wepsim_svg_update_drawing() ;
-
-            // reload svg (just in case)
-            for (var i in id_arr)
-            {
-                     o = document.getElementById(id_arr[i]) ;
-                 if (o === null) continue ;
-
-                 o.onload = function(obj) {
-			        wepsim_svg_apply_darkmode(obj.currentTarget.id) ;
-                            } ;
-
-                 a = o.getAttribute('data') ;
-                     o.setAttribute('data', a) ;
-            }
-        }
-
-        function wepsim_svg_reload_full ( id_arr, img_arr )
-        {
-            var o = null ;
-            var a = null ;
+            var d = "" ;
 
             // set darkmode
 	    wepsim_svg_update_drawing() ;
@@ -421,7 +414,7 @@
             for (var i in id_arr)
             {
                  // skip empty image
-                 if ( ('' == img_arr[i]) || (null == img_arr[i]) ) {
+                 if (null == img_arr[i]) {
                       continue ;
                  }
 
@@ -437,7 +430,13 @@
                             } ;
 
                  // load image
-                 o.setAttribute('data',  img_arr[i]) ;
+                 o.setAttribute('data', img_arr[i]) ;
+
+                 // hide empty image
+                 if ("" != img_arr[i])
+                      d = "block" ;
+                 else d = "none" ;
+                 o.style.setProperty("display", d) ;
             }
         }
 
