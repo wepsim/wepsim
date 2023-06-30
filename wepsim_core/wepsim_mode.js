@@ -23,31 +23,40 @@
      * Execution Modes
      */
 
-    ws_info.modes = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
+    ws_info.modes = [ 'ep', 'poc', 'rv', 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
 
     ws_info.default_example = {
+	                         'ep':       'Default-MIPS',
+	                         'poc':      'Default-MIPS',
+	                         'rv':       'Default-RISCV',
 	                         'asm_mips': 'ep:ep_mips:mips_s4e1',
 	                         'asm_rv32': 'ep:ep_rv32:rv32_s7e2',
 	                         'asm_z80':  'ep:ep_z80:z80_s7e3'
 	                      } ;
 
+    ws_info.modes_ep = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
 
-    // get list of modes
-    function wepsim_mode_getAvailableModes ( )
+
+    // get equivalent base mode
+    function wepsim_mode_getBaseMode ( derive_model )
     {
-        return ws_info.modes ;
+        if (derive_model == null) {
+            return 'ep' ;
+        }
+
+        if (ws_info.modes_ep.includes(derive_model)) {
+            return 'ep' ;
+        }
+
+        return derive_model ;
     }
 
     // Change WepSIM mode -> activate_hw + UI view
     function wepsim_mode_change ( optValue )
     {
-            var hwid = -1 ;
-
 	    // switch active hardware by name...
-	    if (ws_info.modes.includes(optValue))
-                 hwid = simhw_getIdByName('ep') ;
-	    else hwid = simhw_getIdByName(optValue) ;
-
+            var bm   = wepsim_mode_getBaseMode(optValue) ;
+            var hwid = simhw_getIdByName(bm) ;
             if (hwid != -1) {
                 wepsim_activehw(hwid) ;
 	    }
@@ -58,6 +67,7 @@
 	    {
                 wepsim_activeview('only_asm', true) ;
 		load_from_example_firmware(ws_info.default_example[optValue], false) ;
+                return true ;
 	    }
 
 	    // intro mode...
@@ -75,7 +85,8 @@
                  return true ;
             }
 
-            // return ok
+            // load default example
+            wepsim_example_load(ws_info.default_example[optValue]) ;
             return true ;
     }
 
