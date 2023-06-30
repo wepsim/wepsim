@@ -155,15 +155,19 @@
 
     function wsweb_change_show_processor ( )
     {
-            var id_arr = [ 'svg_p', 'svg_cu', 'svg_p2' ] ;
-            var o = null ;
-            var a = null ;
+            var ahw = null ;
+            var svg_arr = [ 'svg_p', 'svg_cu', 'svg_p2' ] ;
+            var img_arr = [    null,     null,     null ] ;
 
 	    $("#tab26").tab('show') ;
-            if (simhw_active() !== null)
+
+            ahw = simhw_active() ;
+            if ( (typeof ahw != "undefined") && (ahw != null) )
             {
+                img_arr = [ ahw.sim_img_processor, ahw.sim_img_controlunit, ahw.sim_img_cpu ] ;
+
                 // reload svg (just in case)
-                wepsim_svg_reload(id_arr) ;
+                wepsim_svg_reload(svg_arr, img_arr) ;
 
                 // start drawing again
 	        wepsim_svg_start_drawing() ;
