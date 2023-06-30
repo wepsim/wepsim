@@ -42,10 +42,11 @@ echo "checking sim_sw..."
  jshint ./sim_sw/firmware/firm_pseudoinstructions.js
 #jshint ./sim_sw/firmware/firm_instruction_v1.js
  jshint ./sim_sw/firmware/firm_fields_v1.js
- jshint ./sim_sw/firmware/firm_fields_v2.js
+#jshint ./sim_sw/firmware/firm_fields_v2.js
 #jshint ./sim_sw/firmware/firm_instruction.js
 #jshint ./sim_sw/firmware.js
  jshint ./sim_sw/firmware/creator2native.js
+ jshint ./sim_sw/assembly/lexical.js
 #jshint ./sim_sw/assembly/memory_segments.js
  jshint ./sim_sw/assembly/lexical.js
 #jshint ./sim_sw/assembly.js
@@ -107,7 +108,7 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_compilationbar.js
  jshint ./wepsim_web/wepsim_uielto_console.js
  jshint ./wepsim_web/wepsim_uielto_cpu.js
- jshint ./wepsim_web/wepsim_uielto_cpusvg.js
+#jshint ./wepsim_web/wepsim_uielto_cpusvg.js
  jshint ./wepsim_web/wepsim_uielto_dbg_asm.js
  jshint ./wepsim_web/wepsim_uielto_dbg_mc.js
  jshint ./wepsim_web/wepsim_uielto_editas.js

@@ -334,7 +334,7 @@
             // reload images
             var svg_arr = [ 'svg_p',               'svg_cu',               'svg_p2' ] ;
             var img_arr = [ ahw.sim_img_processor, ahw.sim_img_controlunit, ahw.sim_img_cpu ] ;
-            wepsim_svg_reload_full(svg_arr, img_arr) ;
+            wepsim_svg_reload(svg_arr, img_arr) ;
 
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
@@ -567,7 +567,7 @@
 	       // 1.B.- Pre-load examples
                var ws_examples_index_url = get_cfg('example_url') ;
                wepsim_example_loadSet(ws_examples_index_url) ;
-               wepsim_example_load('Default-MIPS') ;
+            // wepsim_example_load('Default-MIPS') ;
 
 	       // 1.C.- Pre-load UI configuration
                cfgset_init() ;
