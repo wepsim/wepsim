@@ -58,7 +58,7 @@ function asm_nextToken ( context )
 	  }
 	
           // if {},()=: token, insert token
-          if ( ("{},()=:|".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
+          if ( ("{},()=:".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {
                tok = context.text[context.t] ;
                context.t++ ;
@@ -105,7 +105,7 @@ function asm_nextToken ( context )
           {
 		  // read until whitespaces
 		  first = context.t ;
-		  while ( ("{},()=:|# \t\n\r".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
+		  while ( ("{},()=:# \t\n\r".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
 			 context.t++;
 		  }
 		  last = context.t ;

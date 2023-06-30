@@ -378,7 +378,7 @@
 	    }
 
             // 3) text
-	    var elements = svg.querySelectorAll("text") ;
+	    elements = svg.querySelectorAll("text") ;
 	    for (var i = 0; i < elements.length; i++) {
 	         elements[i].style.fill = cfg_color_data_inactive ;
 	    }

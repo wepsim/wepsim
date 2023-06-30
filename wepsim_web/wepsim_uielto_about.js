@@ -77,7 +77,6 @@
 			      '          <span class="col ms-auto"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" class="img-fluid rounded m-0 p-0" /></span>' +
 			      '       </div>' +
 			      '    </div>' +
-			      '    <br/>' +
 			      "" +
 			      "</form>" ;
 
