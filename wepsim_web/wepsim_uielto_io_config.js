@@ -108,12 +108,16 @@
 			  "</td>" +
 			  "<td align='center' class='p-0'>" +
 			  "<div id='int" + i + "_per' class='m-0'>" +
-			  "<input type='number' v-model.lazy='value' min='0' max='99999999' class='form-control p-0 m-0'>" +
+			  "<input type='number' v-model.lazy='value' " +
+                          "       name='input_io_per_" + i + "' " +
+                          "       min='0' max='99999999' class='form-control p-0 m-0'>" +
 			  "</div>" +
 			  "</td>" +
 			  "<td align='center' class='p-0'>" +
 			  "<div id='int" + i + "_pro' class='m-0'>" +
-			  "<input type='number' v-model.lazy='value' min='0' max='1' step='.05' class='form-control p-0 m-0'>" +
+			  "<input type='number' v-model.lazy='value' " +
+                          "       name='input_io_pro_" + i + "' " +
+                          "       min='0' max='1' step='.05' class='form-control p-0 m-0'>" +
 			  "</div>" +
 			  "</td>" +
 			  "</tr>" ;
