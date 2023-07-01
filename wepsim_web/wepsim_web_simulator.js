@@ -128,9 +128,15 @@
             wepsim_svg_refresh(id_arr) ;
 
             // updating editors
-            if (adm)
-	         wepsim_config_button_toggle('editor_theme', 'blackboard', '7');
-            else wepsim_config_button_toggle('editor_theme', 'default',    '7');
+            var edt_theme = get_cfg('editor_theme') ;
+            if (('default' == edt_theme) && (adm)) {
+                 edt_theme = 'blackboard' ;
+            }
+            if (('blackboard' == edt_theme) && (false == adm)) {
+                 edt_theme = 'default' ;
+            }
+
+            wepsim_config_select_toggle('editor_theme', edt_theme, '5') ;
 
 	    sim_cfg_editor_theme(inputfirm) ;
 	    sim_cfg_editor_theme(inputasm) ;
@@ -567,7 +573,7 @@
 	       // 1.B.- Pre-load examples
                var ws_examples_index_url = get_cfg('example_url') ;
                wepsim_example_loadSet(ws_examples_index_url) ;
-               wepsim_example_load('Default-MIPS') ;
+            // wepsim_example_load('Default-MIPS') ;
 
 	       // 1.C.- Pre-load UI configuration
                cfgset_init() ;

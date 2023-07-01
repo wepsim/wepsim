@@ -74,13 +74,8 @@
         function table_examples_html ( examples )
         {
             // harware
-            var ahw      = 'ep' ;
-            var ep_modes = wepsim_mode_getAvailableModes() ;
-
             var mode = get_cfg('ws_mode') ;
-            if ( (mode !== "null") && (! ep_modes.includes(mode)) ) {
-                  ahw = mode ;
-            }
+            var ahw  = wepsim_mode_getBaseMode(mode) ;
 
             // examples
             var base_url = get_cfg('base_url') ;
