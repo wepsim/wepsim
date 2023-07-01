@@ -404,6 +404,521 @@ span.CodeMirror-selectedtext { background: none; }
 
 .cm-s-blackboard .CodeMirror-activeline-background { background: #3C3636; }
 .cm-s-blackboard .CodeMirror-matchingbracket { outline:1px solid grey;color:white !important; }
+.cm-s-eclipse span.cm-meta { color: #FF1717; }
+.cm-s-eclipse span.cm-keyword { line-height: 1em; font-weight: bold; color: #7F0055; }
+.cm-s-eclipse span.cm-atom { color: #219; }
+.cm-s-eclipse span.cm-number { color: #164; }
+.cm-s-eclipse span.cm-def { color: #00f; }
+.cm-s-eclipse span.cm-variable { color: black; }
+.cm-s-eclipse span.cm-variable-2 { color: #0000C0; }
+.cm-s-eclipse span.cm-variable-3, .cm-s-eclipse span.cm-type { color: #0000C0; }
+.cm-s-eclipse span.cm-property { color: black; }
+.cm-s-eclipse span.cm-operator { color: black; }
+.cm-s-eclipse span.cm-comment { color: #3F7F5F; }
+.cm-s-eclipse span.cm-string { color: #2A00FF; }
+.cm-s-eclipse span.cm-string-2 { color: #f50; }
+.cm-s-eclipse span.cm-qualifier { color: #555; }
+.cm-s-eclipse span.cm-builtin { color: #30a; }
+.cm-s-eclipse span.cm-bracket { color: #cc7; }
+.cm-s-eclipse span.cm-tag { color: #170; }
+.cm-s-eclipse span.cm-attribute { color: #00c; }
+.cm-s-eclipse span.cm-link { color: #219; }
+.cm-s-eclipse span.cm-error { color: #f00; }
+
+.cm-s-eclipse .CodeMirror-activeline-background { background: #e8f2ff; }
+.cm-s-eclipse .CodeMirror-matchingbracket { outline:1px solid grey; color:black !important; }
+.cm-s-cobalt.CodeMirror { background: #002240; color: white; }
+.cm-s-cobalt div.CodeMirror-selected { background: #b36539; }
+.cm-s-cobalt .CodeMirror-line::selection, .cm-s-cobalt .CodeMirror-line > span::selection, .cm-s-cobalt .CodeMirror-line > span > span::selection { background: rgba(179, 101, 57, .99); }
+.cm-s-cobalt .CodeMirror-line::-moz-selection, .cm-s-cobalt .CodeMirror-line > span::-moz-selection, .cm-s-cobalt .CodeMirror-line > span > span::-moz-selection { background: rgba(179, 101, 57, .99); }
+.cm-s-cobalt .CodeMirror-gutters { background: #002240; border-right: 1px solid #aaa; }
+.cm-s-cobalt .CodeMirror-guttermarker { color: #ffee80; }
+.cm-s-cobalt .CodeMirror-guttermarker-subtle { color: #d0d0d0; }
+.cm-s-cobalt .CodeMirror-linenumber { color: #d0d0d0; }
+.cm-s-cobalt .CodeMirror-cursor { border-left: 1px solid white; }
+
+.cm-s-cobalt span.cm-comment { color: #08f; }
+.cm-s-cobalt span.cm-atom { color: #845dc4; }
+.cm-s-cobalt span.cm-number, .cm-s-cobalt span.cm-attribute { color: #ff80e1; }
+.cm-s-cobalt span.cm-keyword { color: #ffee80; }
+.cm-s-cobalt span.cm-string { color: #3ad900; }
+.cm-s-cobalt span.cm-meta { color: #ff9d00; }
+.cm-s-cobalt span.cm-variable-2, .cm-s-cobalt span.cm-tag { color: #9effff; }
+.cm-s-cobalt span.cm-variable-3, .cm-s-cobalt span.cm-def, .cm-s-cobalt .cm-type { color: white; }
+.cm-s-cobalt span.cm-bracket { color: #d8d8d8; }
+.cm-s-cobalt span.cm-builtin, .cm-s-cobalt span.cm-special { color: #ff9e59; }
+.cm-s-cobalt span.cm-link { color: #845dc4; }
+.cm-s-cobalt span.cm-error { color: #9d1e15; }
+
+.cm-s-cobalt .CodeMirror-activeline-background { background: #002D57; }
+.cm-s-cobalt .CodeMirror-matchingbracket { outline:1px solid grey;color:white !important; }
+/**
+    Name:       IDEA default theme
+    From IntelliJ IDEA by JetBrains
+ */
+
+.cm-s-idea span.cm-meta { color: #808000; }
+.cm-s-idea span.cm-number { color: #0000FF; }
+.cm-s-idea span.cm-keyword { line-height: 1em; font-weight: bold; color: #000080; }
+.cm-s-idea span.cm-atom { font-weight: bold; color: #000080; }
+.cm-s-idea span.cm-def { color: #000000; }
+.cm-s-idea span.cm-variable { color: black; }
+.cm-s-idea span.cm-variable-2 { color: black; }
+.cm-s-idea span.cm-variable-3, .cm-s-idea span.cm-type { color: black; }
+.cm-s-idea span.cm-property { color: black; }
+.cm-s-idea span.cm-operator { color: black; }
+.cm-s-idea span.cm-comment { color: #808080; }
+.cm-s-idea span.cm-string { color: #008000; }
+.cm-s-idea span.cm-string-2 { color: #008000; }
+.cm-s-idea span.cm-qualifier { color: #555; }
+.cm-s-idea span.cm-error { color: #FF0000; }
+.cm-s-idea span.cm-attribute { color: #0000FF; }
+.cm-s-idea span.cm-tag { color: #000080; }
+.cm-s-idea span.cm-link { color: #0000FF; }
+.cm-s-idea .CodeMirror-activeline-background { background: #FFFAE3; }
+
+.cm-s-idea span.cm-builtin { color: #30a; }
+.cm-s-idea span.cm-bracket { color: #cc7; }
+.cm-s-idea  { font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;}
+
+
+.cm-s-idea .CodeMirror-matchingbracket { outline:1px solid grey; color:black !important; }
+
+.CodeMirror-hints.idea {
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  color: #616569;
+  background-color: #ebf3fd !important;
+}
+
+.CodeMirror-hints.idea .CodeMirror-hint-active {
+  background-color: #a2b8c9 !important;
+  color: #5c6065 !important;
+}.cm-s-the-matrix.CodeMirror { background: #000000; color: #00FF00; }
+.cm-s-the-matrix div.CodeMirror-selected { background: #2D2D2D; }
+.cm-s-the-matrix .CodeMirror-line::selection, .cm-s-the-matrix .CodeMirror-line > span::selection, .cm-s-the-matrix .CodeMirror-line > span > span::selection { background: rgba(45, 45, 45, 0.99); }
+.cm-s-the-matrix .CodeMirror-line::-moz-selection, .cm-s-the-matrix .CodeMirror-line > span::-moz-selection, .cm-s-the-matrix .CodeMirror-line > span > span::-moz-selection { background: rgba(45, 45, 45, 0.99); }
+.cm-s-the-matrix .CodeMirror-gutters { background: #060; border-right: 2px solid #00FF00; }
+.cm-s-the-matrix .CodeMirror-guttermarker { color: #0f0; }
+.cm-s-the-matrix .CodeMirror-guttermarker-subtle { color: white; }
+.cm-s-the-matrix .CodeMirror-linenumber { color: #FFFFFF; }
+.cm-s-the-matrix .CodeMirror-cursor { border-left: 1px solid #00FF00; }
+
+.cm-s-the-matrix span.cm-keyword { color: #008803; font-weight: bold; }
+.cm-s-the-matrix span.cm-atom { color: #3FF; }
+.cm-s-the-matrix span.cm-number { color: #FFB94F; }
+.cm-s-the-matrix span.cm-def { color: #99C; }
+.cm-s-the-matrix span.cm-variable { color: #F6C; }
+.cm-s-the-matrix span.cm-variable-2 { color: #C6F; }
+.cm-s-the-matrix span.cm-variable-3, .cm-s-the-matrix span.cm-type { color: #96F; }
+.cm-s-the-matrix span.cm-property { color: #62FFA0; }
+.cm-s-the-matrix span.cm-operator { color: #999; }
+.cm-s-the-matrix span.cm-comment { color: #CCCCCC; }
+.cm-s-the-matrix span.cm-string { color: #39C; }
+.cm-s-the-matrix span.cm-meta { color: #C9F; }
+.cm-s-the-matrix span.cm-qualifier { color: #FFF700; }
+.cm-s-the-matrix span.cm-builtin { color: #30a; }
+.cm-s-the-matrix span.cm-bracket { color: #cc7; }
+.cm-s-the-matrix span.cm-tag { color: #FFBD40; }
+.cm-s-the-matrix span.cm-attribute { color: #FFF700; }
+.cm-s-the-matrix span.cm-error { color: #FF0000; }
+
+.cm-s-the-matrix .CodeMirror-activeline-background { background: #040; }
+.cm-s-neat span.cm-comment { color: #a86; }
+.cm-s-neat span.cm-keyword { line-height: 1em; font-weight: bold; color: blue; }
+.cm-s-neat span.cm-string { color: #a22; }
+.cm-s-neat span.cm-builtin { line-height: 1em; font-weight: bold; color: #077; }
+.cm-s-neat span.cm-special { line-height: 1em; font-weight: bold; color: #0aa; }
+.cm-s-neat span.cm-variable { color: black; }
+.cm-s-neat span.cm-number, .cm-s-neat span.cm-atom { color: #3a3; }
+.cm-s-neat span.cm-meta { color: #555; }
+.cm-s-neat span.cm-link { color: #3a3; }
+
+.cm-s-neat .CodeMirror-activeline-background { background: #e8f2ff; }
+.cm-s-neat .CodeMirror-matchingbracket { outline:1px solid grey; color:black !important; }
+/*
+ * abbott.css
+ * A warm, dark theme for prose and code, with pastels and pretty greens.
+ *
+ * Ported from abbott.vim (https://github.com/bcat/abbott.vim) version 2.1.
+ * Original design and CodeMirror port by Jonathan Rascher.
+ *
+ * This theme shares the following color palette with the Vim color scheme.
+ *
+ * Brown shades:
+ *   bistre: #231c14
+ *   chocolate: #3c3022
+ *   cocoa: #745d42
+ *   vanilla_cream: #fef3b4
+ *
+ * Red shades:
+ *   crimson: #d80450
+ *   cinnabar: #f63f05
+ *
+ * Green shades:
+ *   dark_olive: #273900
+ *   forest_green: #24a507
+ *   chartreuse: #a0ea00
+ *   pastel_chartreuse: #d8ff84
+ *
+ * Yellow shades:
+ *   marigold: #fbb32f
+ *   lemon_meringue: #fbec5d
+ *
+ * Blue shades:
+ *   cornflower_blue: #3f91f1
+ *   periwinkle_blue: #8ccdf0
+ *
+ * Magenta shades:
+ *   french_pink: #ec6c99
+ *   lavender: #e6a2f3
+ *
+ * Cyan shades:
+ *   zomp: #39a78d
+ *   seafoam_green: #00ff7f
+ */
+
+/* Style the UI: */
+
+/* Equivalent to Vim's Normal group. */
+.cm-s-abbott.CodeMirror {
+  background: #231c14 /* bistre */;
+  color: #d8ff84 /* pastel_chartreuse */;
+}
+
+/* Roughly equivalent to Vim's LineNr group. */
+.cm-s-abbott .CodeMirror-gutters {
+  background: #231c14 /* bistre */;
+  border: none;
+}
+.cm-s-abbott .CodeMirror-linenumber { color: #fbec5d /* lemon_meringue */; }
+
+.cm-s-abbott .CodeMirror-guttermarker { color: #f63f05 /* cinnabar */; }
+
+/* Roughly equivalent to Vim's FoldColumn group. */
+.cm-s-abbott .CodeMirror-guttermarker-subtle { color: #fbb32f /* marigold */; }
+
+/*
+ * Roughly equivalent to Vim's CursorColumn group. (We use a brighter color
+ * since Vim's cursorcolumn option highlights a whole column, whereas
+ * CodeMirror's rule just highlights a thin line.)
+ */
+.cm-s-abbott .CodeMirror-ruler { border-color: #745d42 /* cocoa */; }
+
+/* Equivalent to Vim's Cursor group in insert mode. */
+.cm-s-abbott .CodeMirror-cursor { border-color: #a0ea00 /* chartreuse */; }
+
+/* Equivalent to Vim's Cursor group in normal mode. */
+.cm-s-abbott.cm-fat-cursor .CodeMirror-cursor,
+.cm-s-abbott .cm-animate-fat-cursor {
+  /*
+   * CodeMirror doesn't allow changing the foreground color of the character
+   * under the cursor, so we can't use a reverse video effect for the cursor.
+   * Instead, make it semitransparent.
+   */
+  background: rgba(160, 234, 0, 0.5) /* chartreuse */;
+}
+.cm-s-abbott.cm-fat-cursor .CodeMirror-cursors {
+  /*
+   * Boost the z-index so the fat cursor shows up on top of text and
+   * matchingbracket/matchingtag highlights.
+   */
+  z-index: 3;
+}
+
+/* Equivalent to Vim's Cursor group in replace mode. */
+.cm-s-abbott .CodeMirror-overwrite .CodeMirror-cursor {
+  border-bottom: 1px solid #a0ea00 /* chartreuse */;
+  border-left: none;
+  width: auto;
+}
+
+/* Roughly equivalent to Vim's CursorIM group. */
+.cm-s-abbott .CodeMirror-secondarycursor {
+  border-color: #00ff7f /* seafoam_green */;
+}
+
+/* Roughly equivalent to Vim's Visual group. */
+.cm-s-abbott .CodeMirror-selected,
+.cm-s-abbott.CodeMirror-focused .CodeMirror-selected {
+  background: #273900 /* dark_olive */;
+}
+.cm-s-abbott .CodeMirror-line::selection,
+.cm-s-abbott .CodeMirror-line > span::selection,
+.cm-s-abbott .CodeMirror-line > span > span::selection {
+  background: #273900 /* dark_olive */;
+}
+.cm-s-abbott .CodeMirror-line::-moz-selection,
+.cm-s-abbott .CodeMirror-line > span::-moz-selection,
+.cm-s-abbott .CodeMirror-line > span > span::-moz-selection {
+  background: #273900 /* dark_olive */;
+}
+
+/* Roughly equivalent to Vim's SpecialKey group. */
+.cm-s-abbott .cm-tab { color: #00ff7f /* seafoam_green */; }
+
+/* Equivalent to Vim's Search group. */
+.cm-s-abbott .cm-searching {
+  background: #fef3b4 /* vanilla_cream */ !important;
+  color: #231c14 /* bistre */ !important;
+}
+
+/* Style syntax highlighting modes: */
+
+/* Equivalent to Vim's Comment group. */
+.cm-s-abbott span.cm-comment {
+  color: #fbb32f /* marigold */;
+  font-style: italic;
+}
+
+/* Equivalent to Vim's String group. */
+.cm-s-abbott span.cm-string,
+.cm-s-abbott span.cm-string-2 {
+  color: #e6a2f3 /* lavender */;
+}
+
+/* Equivalent to Vim's Constant group. */
+.cm-s-abbott span.cm-number,
+.cm-s-abbott span.cm-string.cm-url { color: #f63f05 /* cinnabar */; }
+
+/* Roughly equivalent to Vim's SpecialKey group. */
+.cm-s-abbott span.cm-invalidchar { color: #00ff7f /* seafoam_green */; }
+
+/* Equivalent to Vim's Special group. */
+.cm-s-abbott span.cm-atom { color: #fef3b4 /* vanilla_cream */; }
+
+/* Equivalent to Vim's Delimiter group. */
+.cm-s-abbott span.cm-bracket,
+.cm-s-abbott span.cm-punctuation {
+  color: #fef3b4 /* vanilla_cream */;
+}
+
+/* Equivalent Vim's Operator group. */
+.cm-s-abbott span.cm-operator { font-weight: bold; }
+
+/* Roughly equivalent to Vim's Identifier group. */
+.cm-s-abbott span.cm-def,
+.cm-s-abbott span.cm-variable,
+.cm-s-abbott span.cm-variable-2,
+.cm-s-abbott span.cm-variable-3 {
+  color: #8ccdf0 /* periwinkle_blue */;
+}
+
+/* Roughly equivalent to Vim's Function group. */
+.cm-s-abbott span.cm-builtin,
+.cm-s-abbott span.cm-property,
+.cm-s-abbott span.cm-qualifier {
+  color: #3f91f1 /* cornflower_blue */;
+}
+
+/* Equivalent to Vim's Type group. */
+.cm-s-abbott span.cm-type { color: #24a507 /* forest_green */; }
+
+/* Equivalent to Vim's Keyword group. */
+.cm-s-abbott span.cm-keyword {
+  color: #d80450 /* crimson */;
+  font-weight: bold;
+}
+
+/* Equivalent to Vim's PreProc group. */
+.cm-s-abbott span.cm-meta { color: #ec6c99 /* french_pink */; }
+
+/* Equivalent to Vim's htmlTagName group (linked to Statement). */
+.cm-s-abbott span.cm-tag {
+  color: #d80450 /* crimson */;
+  font-weight: bold;
+}
+
+/* Equivalent to Vim's htmlArg group (linked to Type). */
+.cm-s-abbott span.cm-attribute { color: #24a507 /* forest_green */; }
+
+/* Equivalent to Vim's htmlH1, markdownH1, etc. groups (linked to Title). */
+.cm-s-abbott span.cm-header {
+  color: #d80450 /* crimson */;
+  font-weight: bold;
+}
+
+/* Equivalent to Vim's markdownRule group (linked to PreProc). */
+.cm-s-abbott span.cm-hr { color: #ec6c99 /* french_pink */; }
+
+/* Roughly equivalent to Vim's Underlined group. */
+.cm-s-abbott span.cm-link { color: #e6a2f3 /* lavender */; }
+
+/* Equivalent to Vim's diffRemoved group. */
+.cm-s-abbott span.cm-negative {
+  background: #d80450 /* crimson */;
+  color: #231c14 /* bistre */;
+}
+
+/* Equivalent to Vim's diffAdded group. */
+.cm-s-abbott span.cm-positive {
+  background: #a0ea00 /* chartreuse */;
+  color: #231c14 /* bistre */;
+  font-weight: bold;
+}
+
+/* Equivalent to Vim's Error group. */
+.cm-s-abbott span.cm-error {
+  background: #d80450 /* crimson */;
+  color: #231c14 /* bistre */;
+}
+
+/* Style addons: */
+
+/* Equivalent to Vim's MatchParen group. */
+.cm-s-abbott span.CodeMirror-matchingbracket {
+  background: #745d42 /* cocoa */ !important;
+  color: #231c14 /* bistre */ !important;
+  font-weight: bold;
+}
+
+/*
+ * Roughly equivalent to Vim's Error group. (Vim doesn't seem to have a direct
+ * equivalent in its own matchparen plugin, but many syntax highlighting plugins
+ * mark mismatched brackets as Error.)
+ */
+.cm-s-abbott span.CodeMirror-nonmatchingbracket {
+  background: #d80450 /* crimson */ !important;
+  color: #231c14 /* bistre */ !important;
+}
+
+.cm-s-abbott .CodeMirror-matchingtag,
+.cm-s-abbott .cm-matchhighlight {
+  outline: 1px solid #39a78d /* zomp */;
+}
+
+/* Equivalent to Vim's CursorLine group. */
+.cm-s-abbott .CodeMirror-activeline-background,
+.cm-s-abbott .CodeMirror-activeline-gutter {
+  background: #3c3022 /* chocolate */;
+}
+
+/* Equivalent to Vim's CursorLineNr group. */
+.cm-s-abbott .CodeMirror-activeline-gutter .CodeMirror-linenumber {
+  color: #d8ff84 /* pastel_chartreuse */;
+  font-weight: bold;
+}
+
+/* Roughly equivalent to Vim's Folded group. */
+.cm-s-abbott .CodeMirror-foldmarker {
+  color: #f63f05 /* cinnabar */;
+  text-shadow: none;
+}
+/*
+  MDN-LIKE Theme - Mozilla
+  Ported to CodeMirror by Peter Kroon <plakroon@gmail.com>
+  Report bugs/issues here: https://github.com/codemirror/CodeMirror/issues
+  GitHub: @peterkroon
+
+  The mdn-like theme is inspired on the displayed code examples at: https://developer.mozilla.org/en-US/docs/Web/CSS/animation
+
+*/
+.cm-s-mdn-like.CodeMirror { color: #999; background-color: #fff; }
+.cm-s-mdn-like div.CodeMirror-selected { background: #cfc; }
+.cm-s-mdn-like .CodeMirror-line::selection, .cm-s-mdn-like .CodeMirror-line > span::selection, .cm-s-mdn-like .CodeMirror-line > span > span::selection { background: #cfc; }
+.cm-s-mdn-like .CodeMirror-line::-moz-selection, .cm-s-mdn-like .CodeMirror-line > span::-moz-selection, .cm-s-mdn-like .CodeMirror-line > span > span::-moz-selection { background: #cfc; }
+
+.cm-s-mdn-like .CodeMirror-gutters { background: #f8f8f8; border-left: 6px solid rgba(0,83,159,0.65); color: #333; }
+.cm-s-mdn-like .CodeMirror-linenumber { color: #aaa; padding-left: 8px; }
+.cm-s-mdn-like .CodeMirror-cursor { border-left: 2px solid #222; }
+
+.cm-s-mdn-like .cm-keyword { color: #6262FF; }
+.cm-s-mdn-like .cm-atom { color: #F90; }
+.cm-s-mdn-like .cm-number { color:  #ca7841; }
+.cm-s-mdn-like .cm-def { color: #8DA6CE; }
+.cm-s-mdn-like span.cm-variable-2, .cm-s-mdn-like span.cm-tag { color: #690; }
+.cm-s-mdn-like span.cm-variable-3, .cm-s-mdn-like span.cm-def, .cm-s-mdn-like span.cm-type { color: #07a; }
+
+.cm-s-mdn-like .cm-variable { color: #07a; }
+.cm-s-mdn-like .cm-property { color: #905; }
+.cm-s-mdn-like .cm-qualifier { color: #690; }
+
+.cm-s-mdn-like .cm-operator { color: #cda869; }
+.cm-s-mdn-like .cm-comment { color:#777; font-weight:normal; }
+.cm-s-mdn-like .cm-string { color:#07a; font-style:italic; }
+.cm-s-mdn-like .cm-string-2 { color:#bd6b18; } /*?*/
+.cm-s-mdn-like .cm-meta { color: #000; } /*?*/
+.cm-s-mdn-like .cm-builtin { color: #9B7536; } /*?*/
+.cm-s-mdn-like .cm-tag { color: #997643; }
+.cm-s-mdn-like .cm-attribute { color: #d6bb6d; } /*?*/
+.cm-s-mdn-like .cm-header { color: #FF6400; }
+.cm-s-mdn-like .cm-hr { color: #AEAEAE; }
+.cm-s-mdn-like .cm-link { color:#ad9361; font-style:italic; text-decoration:none; }
+.cm-s-mdn-like .cm-error { border-bottom: 1px solid red; }
+
+div.cm-s-mdn-like .CodeMirror-activeline-background { background: #efefff; }
+div.cm-s-mdn-like span.CodeMirror-matchingbracket { outline:1px solid grey; color: inherit; }
+
+.cm-s-mdn-like.CodeMirror { background-image: url(data:image/png;base64,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); }
+/*
+Name:   DuoTone-Light
+Author: by Bram de Haan, adapted from DuoTone themes by Simurai (http://simurai.com/projects/2016/01/01/duotone-themes)
+
+CodeMirror template by Jan T. Sott (https://github.com/idleberg), adapted by Bram de Haan (https://github.com/atelierbram/)
+*/
+
+.cm-s-duotone-light.CodeMirror { background: #faf8f5; color: #b29762; }
+.cm-s-duotone-light div.CodeMirror-selected { background: #e3dcce !important; }
+.cm-s-duotone-light .CodeMirror-gutters { background: #faf8f5; border-right: 0px; }
+.cm-s-duotone-light .CodeMirror-linenumber { color: #cdc4b1; }
+
+/* begin cursor */
+.cm-s-duotone-light .CodeMirror-cursor { border-left: 1px solid #93abdc; /* border-left: 1px solid #93abdc80; */ border-right: .5em solid #93abdc; /* border-right: .5em solid #93abdc80; */ opacity: .5; }
+.cm-s-duotone-light .CodeMirror-activeline-background { background: #e3dcce;  /* background: #e3dcce80; */ opacity: .5; }
+.cm-s-duotone-light .cm-fat-cursor .CodeMirror-cursor { background: #93abdc; /* #93abdc80; */ opacity: .5; }
+/* end cursor */
+
+.cm-s-duotone-light span.cm-atom, .cm-s-duotone-light span.cm-number, .cm-s-duotone-light span.cm-keyword, .cm-s-duotone-light span.cm-variable, .cm-s-duotone-light span.cm-attribute, .cm-s-duotone-light span.cm-quote, .cm-s-duotone-light-light span.cm-hr, .cm-s-duotone-light-light span.cm-link { color: #063289; }
+
+.cm-s-duotone-light span.cm-property { color: #b29762; }
+.cm-s-duotone-light span.cm-punctuation, .cm-s-duotone-light span.cm-unit, .cm-s-duotone-light span.cm-negative { color: #063289; }
+.cm-s-duotone-light span.cm-string, .cm-s-duotone-light span.cm-operator { color: #1659df; }
+.cm-s-duotone-light span.cm-positive { color: #896724; }
+
+.cm-s-duotone-light span.cm-variable-2, .cm-s-duotone-light span.cm-variable-3, .cm-s-duotone-light span.cm-type, .cm-s-duotone-light span.cm-string-2, .cm-s-duotone-light span.cm-url { color: #896724; }
+.cm-s-duotone-light span.cm-def, .cm-s-duotone-light span.cm-tag, .cm-s-duotone-light span.cm-builtin, .cm-s-duotone-light span.cm-qualifier, .cm-s-duotone-light span.cm-header, .cm-s-duotone-light span.cm-em { color: #2d2006; }
+.cm-s-duotone-light span.cm-bracket, .cm-s-duotone-light span.cm-comment { color: #b6ad9a; }
+
+/* using #f00 red for errors, don't think any of the colorscheme variables will stand out enough, ... maybe by giving it a background-color ... */
+/* .cm-s-duotone-light span.cm-error { background: #896724; color: #728fcb; } */
+.cm-s-duotone-light span.cm-error, .cm-s-duotone-light span.cm-invalidchar { color: #f00; }
+
+.cm-s-duotone-light span.cm-header { font-weight: normal; }
+.cm-s-duotone-light .CodeMirror-matchingbracket { text-decoration: underline; color: #faf8f5 !important; }
+
+.cm-s-erlang-dark.CodeMirror { background: #002240; color: white; }
+.cm-s-erlang-dark div.CodeMirror-selected { background: #b36539; }
+.cm-s-erlang-dark .CodeMirror-line::selection, .cm-s-erlang-dark .CodeMirror-line > span::selection, .cm-s-erlang-dark .CodeMirror-line > span > span::selection { background: rgba(179, 101, 57, .99); }
+.cm-s-erlang-dark .CodeMirror-line::-moz-selection, .cm-s-erlang-dark .CodeMirror-line > span::-moz-selection, .cm-s-erlang-dark .CodeMirror-line > span > span::-moz-selection { background: rgba(179, 101, 57, .99); }
+.cm-s-erlang-dark .CodeMirror-gutters { background: #002240; border-right: 1px solid #aaa; }
+.cm-s-erlang-dark .CodeMirror-guttermarker { color: white; }
+.cm-s-erlang-dark .CodeMirror-guttermarker-subtle { color: #d0d0d0; }
+.cm-s-erlang-dark .CodeMirror-linenumber { color: #d0d0d0; }
+.cm-s-erlang-dark .CodeMirror-cursor { border-left: 1px solid white; }
+
+.cm-s-erlang-dark span.cm-quote      { color: #ccc; }
+.cm-s-erlang-dark span.cm-atom       { color: #f133f1; }
+.cm-s-erlang-dark span.cm-attribute  { color: #ff80e1; }
+.cm-s-erlang-dark span.cm-bracket    { color: #ff9d00; }
+.cm-s-erlang-dark span.cm-builtin    { color: #eaa; }
+.cm-s-erlang-dark span.cm-comment    { color: #77f; }
+.cm-s-erlang-dark span.cm-def        { color: #e7a; }
+.cm-s-erlang-dark span.cm-keyword    { color: #ffee80; }
+.cm-s-erlang-dark span.cm-meta       { color: #50fefe; }
+.cm-s-erlang-dark span.cm-number     { color: #ffd0d0; }
+.cm-s-erlang-dark span.cm-operator   { color: #d55; }
+.cm-s-erlang-dark span.cm-property   { color: #ccc; }
+.cm-s-erlang-dark span.cm-qualifier  { color: #ccc; }
+.cm-s-erlang-dark span.cm-special    { color: #ffbbbb; }
+.cm-s-erlang-dark span.cm-string     { color: #3ad900; }
+.cm-s-erlang-dark span.cm-string-2   { color: #ccc; }
+.cm-s-erlang-dark span.cm-tag        { color: #9effff; }
+.cm-s-erlang-dark span.cm-variable   { color: #50fe50; }
+.cm-s-erlang-dark span.cm-variable-2 { color: #e0e; }
+.cm-s-erlang-dark span.cm-variable-3, .cm-s-erlang-dark span.cm-type { color: #ccc; }
+.cm-s-erlang-dark span.cm-error      { color: #9d1e15; }
+
+.cm-s-erlang-dark .CodeMirror-activeline-background { background: #013461; }
+.cm-s-erlang-dark .CodeMirror-matchingbracket { outline:1px solid grey; color:white !important; }
 .CodeMirror-foldmarker {
   color: blue;
   text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
