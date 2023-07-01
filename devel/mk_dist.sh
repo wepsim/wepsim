@@ -350,6 +350,15 @@ cat external/bootstrap/bootstrap.min.css \
     external/dark-mode.css \
     external/codemirror/codemirror.css \
     external/codemirror/theme/blackboard.css \
+    external/codemirror/theme/eclipse.css \
+    external/codemirror/theme/cobalt.css \
+    external/codemirror/theme/idea.css \
+    external/codemirror/theme/the-matrix.css \
+    external/codemirror/theme/neat.css \
+    external/codemirror/theme/abbott.css \
+    external/codemirror/theme/mdn-like.css \
+    external/codemirror/theme/duotone-light.css \
+    external/codemirror/theme/erlang-dark.css \
     external/codemirror/addon/fold/foldgutter.css \
     external/codemirror/addon/hint/show-hint.css \
     external/codemirror/addon/dialog/dialog.css \

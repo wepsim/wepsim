@@ -517,7 +517,7 @@
 	 sim.poc.signals["C3"]  = { name: "C3", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			            behavior: ["NOP", "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
 			            fire_name: ['svg_p:text3439'],
-			            draw_data: [['svg_p:path3339', 'svg_p:path3913-4']],
+			            draw_data: [['svg_p:path3339', 'svg_p:path3913-4', 'svg_p:path3659-1']],
 			            draw_name: [['svg_p:path3337']] };
 	 sim.poc.signals["C4"]  = { name: "C4", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			            behavior: ["NOP", "MV REG_RT1 BUS_IB"],
@@ -554,7 +554,7 @@
 	 sim.poc.signals["T3"]  = { name: "T3",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			            behavior: ["NOP; RST_TT TTCPU 2", "MV BUS_IB SELEC_T3; FIRE M7; FIRE M1; SET_TT TTCPU 2"],
 			            fire_name: ['svg_p:text3451'],
-			            draw_data: [['svg_p:path3347','svg_p:path3349', 'svg_p:path3931', 'svg_p:path3345','svg_p:path3049']],
+			            draw_data: [['svg_p:path3347','svg_p:path3349', 'svg_p:path3931', 'svg_p:path3345','svg_p:path3049', 'svg_p:path3341']],
 			            draw_name: [['svg_p:path3351']] };
 	 sim.poc.signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			            behavior: ["NOP; RST_TT TTCPU 3", "MV BUS_IB ALU_T6; FIRE M7; FIRE M1; SET_TT TTCPU 3"],
@@ -584,22 +584,22 @@
 	 sim.poc.signals["T12"] = { name: "T12", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			            behavior: ["NOP; RST_TT TTCPU 8", "MV BUS_IB HPC_T12; FIRE M7; FIRE M1; SET_TT TTCPU 8"],
 			            fire_name: ['svg_p:text3147-5-0-1-1'],
-			            draw_data: [['svg_p:path3131-3-8-4-31','svg_p:path3139-7-1-4-3','svg_cu:path3049']],
-			            draw_name: [['svg_cu:path3133-6-9-7-5']] };
+			            draw_data: [['svg_p:path3131-3-8-4-31','svg_p:path3139-7-1-4-3','svg_cu:path3049', 'svg_p:path3081-3-8-5-3', 'svg_p:path3081-3-8-5-3-7']],
+			            draw_name: [['svg_p:path3133-6-9-7-5']] };
 
 	/* MUX. */
 	 sim.poc.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			            behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BUS_DB"],
                                     depends_on: ["C1"],
 			            fire_name: ['svg_p:text3469'],
-			            draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
+			            draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583', 'svg_p:path3491']],
 			            draw_name: [[], ['svg_p:path3447']] };
 	 sim.poc.signals["M7"]  = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			            behavior: ["MV M7_C7 BUS_IB",
 				               "MV M7_C7 REG_SR; UPDATE_FLAG M7_C7 FLAG_C 31; UPDATE_FLAG M7_C7 FLAG_V 30; UPDATE_FLAG M7_C7 FLAG_N 29; UPDATE_FLAG M7_C7 FLAG_Z 28"],
                                     depends_on: ["C7"],
 			            fire_name: ['svg_p:text3673'],
-			            draw_data: [['svg_p:path3691', 'svg_p:path3693', 'svg_p:path3659'], ['svg_p:path3695']],
+			            draw_data: [['svg_p:path3691', 'svg_p:path3693', 'svg_p:path3659'], ['svg_p:path3695', 'svg_p:path3331']],
 			            draw_name: [[], ['svg_p:path3667']] };
 	 sim.poc.signals["MA"]  = { name: "MA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			            behavior: ["MV MA_ALU RA_T9; FIRE COP", "MV MA_ALU BUS_IB; FIRE COP"],

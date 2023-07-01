@@ -164,7 +164,8 @@
                       type:        "Execution",
                       u_class:     "",
                       code_cfg:    " <div class='form-group m-0'>" +
-				   "	    <select name='select6' id='select6' class='form-control form-control-sm custom-select border-secondary'" +
+				   "	    <select name='select6' id='select6' " +
+                                   "                class='form-control form-control-sm form-select border-secondary'" +
 				   "		    aria-label='max. ticks per instruction' " +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
 				   "			       var optValue = opt.val();" +
@@ -189,7 +190,8 @@
                       type:        "Execution",
                       u_class:     "",
                       code_cfg:    " <div class='form-group m-0'>" +
-				   "	    <select name='select3' id='select3' class='form-control form-control-sm custom-select border-secondary'" +
+				   "	    <select name='select3' id='select3' " +
+                                   "                class='form-control form-control-sm form-select border-secondary'" +
 				   "		    aria-label='max. ticks per instruction' " +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
 				   "			       var optValue = opt.val();" +
@@ -226,29 +228,35 @@
 	              description: "<span data-langkey='Skip notify: comments'>Skip notify: comments</span>"
                    });
 
-
     ws_info.config_ui.push({
-                      id:          "radio7",
+                      id:          "select5",
                       type:        "Editor",
                       u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "	    <input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label7-default' for='radio7-default' " +
-				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;' " +
-				   "		   onclick=\"wepsim_config_button_toggle('editor_theme','default','7');" +
-				   "			     sim_cfg_editor_theme(inputfirm) ;" +
-				   "			     sim_cfg_editor_theme(inputasm) ;\"><span data-langkey='Light'>Light</span>" +
-				   "	    </label>" +
-				   "	    <input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label7-blackboard' for='radio7-blackboard' " +
-				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;' " +
-				   "		   onclick=\"wepsim_config_button_toggle('editor_theme','blackboard','7');" +
-				   "			     sim_cfg_editor_theme(inputfirm) ;" +
-				   "			     sim_cfg_editor_theme(inputasm) ;\"><span data-langkey='Dark'>Dark</span>" +
-				   "	    </label>" +
-				   "	</div>",
-		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('editor_theme', '7') ;
+                      code_cfg:    "<div class='form-group m-0'>" +
+			           "   <select name='select5' id='select5' " +
+                                   "        class='form-control form-control-sm form-select border-secondary'" +
+			           "	    aria-label='Editor theme'    " +
+			           "	    onchange=\"var opt = $(this).find('option:selected');" +
+			           "		      var optValue = opt.val();" +
+			           "		      update_cfg('editor_theme', optValue);" +
+			           "		      sim_cfg_editor_theme(inputfirm);" +
+			           "		      sim_cfg_editor_theme(inputasm);\"" +
+			           "	    data-native-menu='false'>" +
+			           "	<option value='default'>(💡) default</option>" +
+			           "	<option value='blackboard'>(🔅) blackboard</option>" +
+			           "	<option value='eclipse'>(💡) eclipse</option>" +
+			           "	<option value='cobalt'>(🔅) cobalt</option>" +
+			           "	<option value='idea'>(💡) idea</option>" +
+			           "	<option value='the-matrix'>(🔅) the-matrix</option>" +
+			           "	<option value='neat'>(💡) neat</option>" +
+			           "	<option value='abbott'>(🔅) abbott</option>" +
+			           "	<option value='mdn-like'>(💡) mdn-like</option>" +
+			           "	<option value='erlang-dark'>(🔅) erlang-dark</option>" +
+			           "	<option value='duotone-light'>(💡) duotone-light</option>" +
+			           "    </select>" +
+			           "</div>",
+                      code_init:   function() {
+			               $('#select5').val(get_cfg('editor_theme'));
 		                   },
                       description: "<span data-langkey='Editor theme: light or dark'>Editor theme: light or dark</span>"
                    });
@@ -258,7 +266,8 @@
                       type:        "Editor",
                       u_class:     "",
                       code_cfg:    "<div class='form-group m-0'>" +
-			           "   <select name='select2' id='select2' class='form-control form-control-sm custom-select border-secondary'" +
+			           "   <select name='select2' id='select2' " +
+                                   "        class='form-control form-control-sm form-select border-secondary'" +
 			           "	    aria-label='Editor mode'    " +
 			           "	    onchange=\"var opt = $(this).find('option:selected');" +
 			           "		      var optValue = opt.val();" +
@@ -472,7 +481,8 @@
                       type:        "Accesibility",
                       u_class:     "",
                       code_cfg:    "<div class='form-group m-0'>" +
-                                   " <select name='select8' id='select8' class='form-control form-control-sm custom-select border-secondary'" +
+                                   " <select name='select8' id='select8' " +
+                                   "         class='form-control form-control-sm form-select border-secondary'" +
                                    "         aria-label='User Interface for WepSIM' " +
                                    "         onchange=\"var opt = $(this).find('option:selected');" +
                                    "                    var optValue = opt.val();" +
