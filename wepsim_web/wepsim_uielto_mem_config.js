@@ -87,7 +87,9 @@
 			  "<tr><td align=center'>Wait cycles (<u>0</u> - &infin;)</td>" +
 			  "    <td align=center'>" +
 			  "<div id='" + input_div + "'>" +
-			  "<input type=number v-model.lazy='value' min='0' max='99999999'>" +
+			  "<input type=number v-model.lazy='value' " +
+                          "       name='input_mem_wait' " +
+                          "       min='0' max='99999999'>" +
 			  "</div>" +
 			  "    </td></tr>" +
 			  "</tbody>" +

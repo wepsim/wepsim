@@ -223,11 +223,17 @@
 
          var label_prefix = '#label' + set_id + '-' ;
          if ($(label_prefix + val_old).hasClass("active") == true) {
-	     $(label_prefix + val_old).button('toggle');
+	     $(label_prefix + val_old).button('toggle') ;
          }
          if ($(label_prefix + val_new).hasClass("active") == false) {
-	     $(label_prefix + val_new).button('toggle');
+	     $(label_prefix + val_new).button('toggle') ;
          }
+    }
+
+    function wepsim_config_select_toggle ( config_name, val_new, set_id )
+    {
+         $('#select' + set_id).val(val_new) ;
+         update_cfg('editor_theme', val_new) ;
     }
 
     function wepsim_config_button_toggle2 ( config_name, val_old, val_new, set_id )
