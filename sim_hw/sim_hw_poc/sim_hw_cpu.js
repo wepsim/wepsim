@@ -747,17 +747,20 @@
 			              fire_name: ['svg_cu:text3222'],
 			              draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
                                                    'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
-                                                   'svg_cu:path3260'],
+                                                   'svg_cu:path3260','svg_cu:path3200','svg_cu:path3266','svg_cu:path3138','svg_cu:path3268',
+                                                   'svg_cu:path3198'],
 				  	          ['svg_cu:path3270','svg_cu:path3258','svg_cu:path3260',
-				  	           'svg_cu:path3294','svg_cu:path3288','svg_cu:path3280']],
+				  	           'svg_cu:path3294','svg_cu:path3288','svg_cu:path3280','svg_cu:path3258','svg_cu:path3280',
+                                                   'svg_cu:path3266']],
 			              draw_name: [[],['svg_cu:path3220']] };
 	 sim.poc.signals["MRB"]  = { name: "MRB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			              behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;',
 					         'CP_FIELD RB REG_MICROINS/SELB; FIRE RB;'],
                                       depends_on: ["SELB"],
 			              fire_name: ['svg_cu:text3242'],
-			              draw_data: [['svg_cu:path3196','svg_cu:path3278','svg_cu:path3292'],
-				  	          ['svg_cu:path3282','svg_cu:path3258-4','svg_cu:path3278','svg_cu:path3196']],
+			              draw_data: [['svg_cu:path3196','svg_cu:path3278','svg_cu:path3292','svg_cu:path3138-1','svg_cu:path3204'],
+				  	          ['svg_cu:path3282','svg_cu:path3258-4','svg_cu:path3278',
+                                                   'svg_cu:path3196','svg_cu:path3258-4','svg_cu:path3204','svg_cu:path3264']],
 			              draw_name: [[],['svg_cu:path3240']] };
 	 sim.poc.signals["MRC"]  = { name: "MRC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			              behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;',
@@ -766,7 +769,7 @@
 			              fire_name: ['svg_cu:text3254'],
 			              draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
                                                    'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
-                                                   'svg_cu:path3232','svg_cu:path3292'],
+                                                   'svg_cu:path3232','svg_cu:path3292','svg_cu:path3138-1-5','svg_cu:path3208','svg_cu:path3316'],
 				  	          ['svg_cu:path3300','svg_cu:path3294','svg_cu:path3292','svg_cu:path3288','svg_cu:path3232']],
 			              draw_name: [[],['svg_cu:path3252']] };
 
