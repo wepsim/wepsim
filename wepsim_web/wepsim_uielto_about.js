@@ -73,8 +73,12 @@
 			      "" +
 			      '    <div class="mx-auto mt-3 bg-white rounded">' +
 			      '       <div class="row mx-auto">' +
-			      '          <span class="col me-auto"><img alt="ARCOS group logo" src="images/arcos.svg" class="img-fluid rounded m-0 p-1" /></span>' +
-			      '          <span class="col ms-auto"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" class="img-fluid rounded m-0 p-0" /></span>' +
+			      '          <span class="col me-auto" style="max-height:8vh">' +
+                              '<img alt="ARCOS group logo" ' +
+                              '     src="images/arcos.svg" class="img-fluid rounded   m-0 p-1 h-100" /></span>' +
+			      '          <span class="col me-auto" style="max-height:8vh">' +
+                              '<img alt="Computer Science and Engineering Departament logo" ' +
+                              '     src="images/dptoinf.png" class="img-fluid rounded m-0 p-0 h-100" /></span>' +
 			      '       </div>' +
 			      '    </div>' +
 			      "" +

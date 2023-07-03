@@ -573,7 +573,6 @@
 	       // 1.B.- Pre-load examples
                var ws_examples_index_url = get_cfg('example_url') ;
                wepsim_example_loadSet(ws_examples_index_url) ;
-            // wepsim_example_load('Default-MIPS') ;
 
 	       // 1.C.- Pre-load UI configuration
                cfgset_init() ;
@@ -603,12 +602,13 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('min.wepsim_web_pwa.js').catch(function() {
-		    wepsim_notify_error("<h4>Warning:" +
-		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
-		                        "Progressive Web Applications requires a HTTPS connection " +
-		                        "with a valid certificate, so PWA is disabled.<br/>" +
-		                        "Please use the 'x' to close this notification.") ;
+		navigator.serviceWorker.register('min.wepsim_web_pwa.js').catch(function()
+                {
+		    wepsim_notify_warning("<h4>Warning:" +
+		  		          "<br/>WepSIM was used over a HTTP connection.</h4>",
+		                          "Progressive Web Applications requires a HTTPS connection " +
+		                          "with a valid certificate, so PWA is disabled.<br/>" +
+		                          "Please use the 'x' to close this notification.") ;
 		}) ;
 	    }
     }

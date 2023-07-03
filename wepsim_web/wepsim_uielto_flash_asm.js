@@ -65,7 +65,7 @@
                         '' +
                         '<br><ul>' +
 			'<li><b>[1] Install required software for your board</b></li>' +
-			'For example, follow the "Get started" from espressif:' +
+			'For example, follow the "Get started" from espressif: ' +
 			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/linux-setup.html">Linux</a>, ' +
 			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/windows-setup.html">Windows</a>, ' +
 			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/macos-setup.html">MacOS</a>' +
@@ -100,7 +100,7 @@
                                "<div class='col-xs-12 col-md-6 p-2'>" +
                                 '' +
 				'<div class="py-2">' +
-				'<label for="div_url">(1) Set the URL where gateway.py is listening:</label><br>' +
+				'<label for="div_url">(1) Set the URL where gateway.py is listening on:</label><br>' +
 				'<input type="text" class="w-100 border border-black"' +
 				'       id="div_url" name="div_url"' +
 				'       value="http://localhost:8080">' +
@@ -108,7 +108,7 @@
                                 '' +
 				'<div class="py-2">' +
 				'<label for="div_target">(2) Set model of your board:</label><br>' +
-				'<input class="form-control w-100 border border-black" list="dlo_target"' +
+				'<input class="form-control w-100 border border-body" list="dlo_target"' +
 				'       id="div_target" name="div_target"' +
 				'       type="text" ' +
 				'       value="esp32c3"' +
@@ -123,7 +123,7 @@
                                 '' +
 				'<div class="py-2">' +
 				'<label for="div_dev" class="form-label">(3) Set port where is connected:</label>' +
-				'<input class="form-control w-100 border border-black" list="dlo_dev"' +
+				'<input class="form-control w-100 border border-body" list="dlo_dev"' +
 				'       id="div_dev" name="div_dev"' +
 				'       type="text" ' +
 				'       value="/dev/ttyUSB0"' +
@@ -193,9 +193,9 @@
              }
              catch (e)
              {
-                div_info.value = e.toString() + '\n\n' ;
+                    div_info.value  = 'Error found:\n' + e.toString() + '\n\n' ;
 		if (e.toString() == "TypeError: Failed to fetch")
-                    div_info.value += 'Please check you execute "python3 gateway.py" properly.\n' ;
+                    div_info.value += 'TIP:\n'         + 'Please check you execute "python3 gateway.py" properly.\n' ;
              }
 
              return jres ;
