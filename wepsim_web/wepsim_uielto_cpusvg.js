@@ -424,19 +424,19 @@
                      continue ;
                  }
 
+                 // hide empty image
+                 if ("" != img_arr[i])
+                      d = "block" ;
+                 else d = "none" ;
+                 o.style.setProperty("display", d) ;
+
                  // set dark-mode after load
                  o.onload = function(obj) {
 			        wepsim_svg_apply_darkmode(obj.currentTarget.id) ;
                             } ;
 
                  // load image
-                 o.setAttribute('data', img_arr[i]) ;
-
-                 // hide empty image
-                 if ("" != img_arr[i])
-                      d = "block" ;
-                 else d = "none" ;
-                 o.style.setProperty("display", d) ;
+                 o.setAttribute('data', img_arr[i] + '?now=' + Date.now()) ;
             }
         }
 
