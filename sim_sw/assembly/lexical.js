@@ -166,14 +166,14 @@ function asm_getTokenType ( context )
 
 function asm_isToken ( context, text )
 {
-         return (asm_getToken(context) == text.trim()) ;
+         return (getToken(context) == text.trim()) ;
 }
 
 function asm_isToken_arr ( context, arr )
 {
          for (var i=0; i<arr.length; i++)
          {
-              if (asm_getToken(context) == arr[i].trim()) {
+              if (getToken(context) == arr[i].trim()) {
                   return true ;
               }
          }
