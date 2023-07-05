@@ -1,0 +1,78 @@
+vermelho.
+                 Se a probabilidade for 0.5, a interrupção associada é disparada com 50% de probabilidade.
+                 </li>
+</ul>
+</p>
+
+<h2>
+<a name="_Toc438325788"> Organização interna: sinais de controle </a>
+</h2>
+<p>
+
+</p>
+<p>
+A unidade de controle no WepSIM é microprocessável. A Control Memory tem 4096 micro palavras com 76 bits cada uma (veja <b class = "cleanuphtml-1"> Figura 5 </b>).
+</p>
+<p class = "cleanuphtml-3">
+</p>
+<br clear="all" />
+<div class = "WordSection2"> </div>
+<br clear="all" />
+<div class = "WordSection3">
+<p class = "cleanuphtml-3">
+<a name="_Toc438322894"> </a> <a class="cleanuphtml-2" name="_Ref434141431"> Figura </a> <b> 5 </b> <b> formato de microinstrução </b>
+</p>
+<p>
+                A nomenclatura geral usada para nomear os sinais de controle é:
+</p>
+<p>
+Â · Cx: sinal para carregar dados no registrador X
+</p>
+<p>
+Â · Tx: sinal de ativação tristate para X
+</p>
+<p>
+Â · Ry: registrar a identificação para o valor de saída no registrador y
+</p>
+<p>
+Â · Mx: valor de seleção do multiplexador X
+</p>
+<p>
+Além disso, o sinal LC indica a atualização do arquivo de registrador, o Cop indica a operação a ser executada na ALU, Selp seleciona quais bits serão atualizados no registrador de status (SR), A1A0 são os dois bits menos significativos de um endereço de memória e O BW nos permite especificar o tamanho dos dados que são acessados ​​na memória: uma palavra completa, uma meia palavra ou um byte.
+</p>
+<p>
+
+</p>
+<p>
+O processador (veja <b class = "cleanuphtml-1"> Figura 6 </b>) pode ser considerado dividido em 7 partes: acesso à memória (MAR, MBR, etc.), gerenciamento de registro de contador de programa (PC, etc.) , gestão de registos de instruções (IR, etc.), unidade de controlo (unidade de controlo), banco de registos (ficheiro de registos), ULA e gestão do registo de estado (SR, etc.).
+</p>
+<p>
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322895"> </a> <a class="cleanuphtml-2" name="_Ref434141629"> Figura </a> <b> 6 </b> <b> Processador em detalhes </b>
+</p>
+<p>
+<br />
+A unidade de controle (veja <b class = "cleanuphtml-1"> Figura 7 </b>) é dividida em cinco partes: controle do seguinte endereço de micro (MUX A, etc.), a transformação do código de operação para o microaddress correspondente (co2uAddr), controle da seleção condicional de microaddress (MUX B, MUX C, etc.), a memória de controle com o registrador de microinstrução e finalmente os seletores RA, RB, RC e Cop.
+</p>
+<p>
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322896"> </a> <a class="cleanuphtml-2" name="_Ref434141950"> Figura </a> <b> 7 </b> <b> Detalhes da unidade de controle. </b >
+</p>
+<p>
+Para endereçar a memória de controle, são necessários 12 bits com sequenciamento implícito. Você pode especificar como microaddress de memória de controle (veja <b class = "cleanuphtml-1"> Figura 8) a próxima posição de memória, ou usando parte da microinstrução, ou use a saída de um módulo de tradução (com a partida microaddress associado a um código de operação) ou zero microaddress (0) de onde a busca começa.
+</p>
+<p class = "cleanuphtml-3">
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322897"> </a> <a class="cleanuphtml-2" name="_Ref434143860"> Figura </a> <b> 8 </b> <b> Opções para o MUX A </b>
+</p>
+<p class = "cleanuphtml-4"> </p>
+<p class = "cleanuphtml-4"> </p>
+</div>
+
+      </div>
+
+  </body>
+</html>
