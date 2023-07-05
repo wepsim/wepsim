@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2023 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2023 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos, Juan Banga Pardo
  *
  *  This file is part of WepSIM.
  *
@@ -19,21 +19,170 @@
  */
 
 
-/*
- *  Compile assembly
- */
-
-function read_data  ( context, datosCU, ret )
+// Pass 0: prepare context
+function simlang_compile_prepare_context ( datosCU )
 {
-     // TODO
+           var context = {} ;
+	   context.line           	= 1 ;
+	   context.error          	= null ;
+	   context.i              	= 0 ;
+	   context.contadorMC     	= 0 ;
+	   context.etiquetas      	= {} ;
+	   context.labelsNotFound 	= [] ;
+	   context.instrucciones  	= [] ;
+	   context.co_cop         	= {} ;
+	   context.registers      	= [] ;   // here
+           context.text           	= '' ;
+	   context.tokens         	= [] ;
+	   context.token_types    	= [] ;
+	   context.t              	= 0 ;
+	   context.newlines       	= [] ;
+	   context.pseudoInstructions	= [];    // here
+	   context.stackRegister	= null ;
+	   context.firmware             = {} ;   // here
+           context.comments             = [] ;
+
+	   // Fill register names
+	   for (i=0; i<datosCU.registers.length; i++)
+	   {
+		if (typeof datosCU.registers[i] === 'undefined') {
+                    continue ;
+                }
+		for (var j=0; j<datosCU.registers[i].length; j++) {
+		     context.registers[datosCU.registers[i][j]] = i ;
+                }
+	   }
+
+	   // Fill firmware
+           var elto = null ;
+	   for (i=0; i<datosCU.firmware.length; i++)
+           {
+		var aux = datosCU.firmware[i];
+
+	   	if (typeof context.firmware[aux.name] === "undefined") {
+	   	    context.firmware[aux.name] = [];
+		}
+
+	   	elto = { 
+                         name:                aux.name,
+			 nwords:              parseInt(aux.nwords),
+			 co:                  (typeof aux.co !== "undefined" ? aux.co : false),
+			 cop:                 (typeof aux.cop !== "undefined" ? aux.cop : false),
+			 fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
+			 signature:           aux.signature,
+			 signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
+			 isPseudoinstruction: false
+                       } ;
+	   	context.firmware[aux.name].push(elto) ;
+	   }
+
+	   // fill pseudoinstructions
+	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
+	   {
+		var initial = datosCU.pseudoInstructions[i].initial ;
+		var finish  = datosCU.pseudoInstructions[i].finish ;
+
+		if (typeof context.pseudoInstructions[initial.name] === "undefined")
+                {
+	 	    context.pseudoInstructions[initial.name] = 0 ;
+		    if (typeof context.firmware[initial.name] === "undefined") {
+		        context.firmware[initial.name] = [] ;
+		    }
+		}
+
+		context.pseudoInstructions[initial.name]++;
+
+                elto = {
+                          name:initial.name,
+			  fields:(typeof initial.fields !== "undefined" ? initial.fields : false),
+			  signature:initial.signature,
+			  signatureUser:initial.signature.replace(/,/g," "),
+			  finish:finish.signature,
+			  isPseudoinstruction:true
+                       } ;
+                context.firmware[initial.name].push(elto) ;
+	   }
+
+	   return context ;
 }
 
-function read_text  ( context, datosCU, ret )
-{
-     // TODO
-}
 
 // pass 1: compile assembly (without replace pseudo-instructions)
+function read_data_v2  ( context, datosCU, ret )
+{
+     // TODO
+}
+
+function read_text_v2  ( context, datosCU, ret )
+{
+          //
+          // TODO
+          //
+
+          asm_nextToken(context) ;
+
+	  // Loop while token read is not a segment directive (.text/.data/...)
+	  while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
+          {
+		// check tag(s) or error
+		while (
+                   (typeof context.firmware[asm_getToken(context)] === "undefined") &&
+                   (! is_end_of_file(context))
+                )
+                {
+			var possible_tag = asm_getToken(context);
+
+			// check tag
+		        if ("TAG" != asm_getTokenType(context))
+                        {
+                            if ("" == possible_tag) {
+                                possible_tag = "[empty]" ;
+                            }
+
+			    return asm_langError(context,
+			                         i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
+                                                 "'" + possible_tag + "'") ;
+                        }
+
+		        var tag = possible_tag.substring(0, possible_tag.length-1);
+   		        if (!isValidTag(tag)) {
+			    return asm_langError(context,
+			                         i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                                 "'" + tag + "'") ;
+                        }
+			if (context.firmware[tag]) {
+			    return asm_langError(context,
+			                         i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                                 "'" + tag + "'") ;
+                        }
+			if (ret.labels2[tag]) {
+			    return asm_langError(context,
+			                         i18n_get_TagFor('compiler', 'REPEATED TAG') +
+                                                 "'" + tag + "'") ;
+                        }
+
+			// store tag
+			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
+
+			asm_nextToken(context);
+		}
+
+		// check if end of file has been reached
+                if (is_end_of_file(context)) {
+               	    break ;
+                }
+
+		// get instruction
+		var instruction = asm_getToken(context) ;
+
+                // get possible fields...
+
+
+          }
+
+          return ret ;
+}
+
 function simlang_compile_pass1 ( context, text )
 {
           var ret = {};
@@ -43,9 +192,8 @@ function simlang_compile_pass1 ( context, text )
           ret.labels2    = {} ;
           ret.revlabels2 = {} ;
           ret.revseg     = [] ;
-
-	  data_found = false;
-	  text_found = false;
+	  ret.data_found = false;
+	  ret.text_found = false;
 
           //
           // .segment
@@ -63,13 +211,13 @@ function simlang_compile_pass1 ( context, text )
 	       }
 
 	       if ("data" == ret.seg[segname].kindof) {
-		   read_data(context, datosCU, ret);
-		   data_found = true;
+		   read_data_v2(context, datosCU, ret);
+		   ret.data_found = true;
 	       }
 
 	       if ("text" == ret.seg[segname].kindof) {
-		   read_text(context, datosCU, ret);
-		   text_found = true;
+		   read_text_v2(context, datosCU, ret);
+		   ret.text_found = true;
 	       }
 
 	       // Check errors
@@ -82,11 +230,13 @@ function simlang_compile_pass1 ( context, text )
 	 return ret;
 }
 
+
 // pass 2: replace pseudo-instructions
 function simlang_compile_pass2 ( context, ret )
 {
      // TODO
 }
+
 
 // pass 3: check that all used labels are defined in the text
 function simlang_compile_pass3 ( context, ret )
@@ -189,7 +339,7 @@ function simlang_compile_pass3 ( context, ret )
 	 }
 
 	 // check if main or kmain in assembly code
-	 if (text_found)
+	 if (ret.text_found)
          {
 	       if ( (typeof ret.labels2["main"] === "undefined" ) &&
                     (typeof ret.labels2["kmain"] === "undefined" ) )
@@ -212,87 +362,16 @@ function simlang_compile_pass3 ( context, ret )
 	 return ret;
 }
 
-function simlang_compile_prepare_context ( datosCU )
-{
-           var elto = null ;
-           var context = {} ;
 
-	   context.line           	= 1 ;
-	   context.error          	= null ;
-	   context.i              	= 0 ;
-	   context.contadorMC     	= 0 ;
-	   context.etiquetas      	= {} ;
-	   context.labelsNotFound 	= [] ;
-	   context.instrucciones  	= [] ;
-	   context.co_cop         	= {} ;
-	   context.registers      	= [] ;
-           context.text           	= text ;
-	   context.tokens         	= [] ;
-	   context.token_types    	= [] ;
-	   context.t              	= 0 ;
-	   context.newlines       	= [] ;
-	   context.pseudoInstructions	= [];
-	   context.stackRegister	= null ;
-	   context.firmware             = {} ;
-           context.comments             = [] ;
-
-	   // fill firmware
-	   for (i=0; i<datosCU.firmware.length; i++)
-           {
-		var aux = datosCU.firmware[i];
-
-	   	if (typeof context.firmware[aux.name] === "undefined") {
-	   	    context.firmware[aux.name] = [];
-		}
-
-	   	elto = { 
-                         name:                aux.name,
-			 nwords:              parseInt(aux.nwords),
-			 co:                  (typeof aux.co !== "undefined" ? aux.co : false),
-			 cop:                 (typeof aux.cop !== "undefined" ? aux.cop : false),
-			 fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
-			 signature:           aux.signature,
-			 signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
-			 isPseudoinstruction: false
-                       } ;
-	   	context.firmware[aux.name].push(elto) ;
-	   }
-
-	   // fill pseudoinstructions
-	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
-	   {
-		var initial = datosCU.pseudoInstructions[i].initial ;
-		var finish  = datosCU.pseudoInstructions[i].finish ;
-
-		if (typeof context.pseudoInstructions[initial.name] === "undefined")
-                {
-	 	    context.pseudoInstructions[initial.name] = 0 ;
-		    if (typeof context.firmware[initial.name] === "undefined") {
-		        context.firmware[initial.name] = [] ;
-		    }
-		}
-
-		context.pseudoInstructions[initial.name]++;
-
-                elto = {
-                          name:initial.name,
-			  fields:(typeof initial.fields !== "undefined" ? initial.fields : false),
-			  signature:initial.signature,
-			  signatureUser:initial.signature.replace(/,/g," "),
-			  finish:finish.signature,
-			  isPseudoinstruction:true
-                       } ;
-                context.firmware[initial.name].push(elto) ;
-	   }
-
-	   return context ;
-}
-
+/*
+ *  Compile assembly
+ */
 
 function simlang_compile_v2 ( text, datosCU )
 {
            // pass 0: prepare context
-           var context = simlang_compile_prepare_context(datosCU) ;
+           var context  = simlang_compile_prepare_context(datosCU) ;
+           context.text = text ;
 
            // pass 1: compile assembly (without replace pseudo-instructions)
            var ret = simlang_compile_pass1(context, text) ;
