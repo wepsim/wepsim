@@ -40,6 +40,8 @@
        var jobj = null ;
 
        // try to load each one
+       ws_info.examples = [] ;
+
        for (var i=0; i<ws_info.example_set.length; i++)
        {
             if (ws_info.example_set[i].aliases.includes(e_name) == false) {

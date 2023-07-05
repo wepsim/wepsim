@@ -92,14 +92,14 @@
           var memory_cfg_i = memory_cfg[index] ;
 
 	  var o = "" +
-	          "<table class='table table-hover table-sm table-bordered m-0 border border-tertiary'>" +
+	          "<table class='table table-hover table-sm table-bordered m-0'>" +
 		  "<tbody>" +
 		  "<tr>" +
                   "    <td class='border border-dark w-50 text-center'><strong>line/via</strong></td>" +
                   "    <td class='border border-dark w-50 text-center'><strong>offset</strong></td>" +
                   "</tr>" +
 		  "<tr>" +
-		  "    <td align='center'>" +
+		  "    <td align='center' class='border border-2 border-tertiary'>" +
 		  "    <div id='via_size_" + index + "_" + this.name_str + "'>" +
 		  "    <input type='number' " +
 		  "           value='" + memory_cfg_i.cfg.via_size + "' " +
@@ -108,7 +108,7 @@
 		  "    </div>" +
                   "    # bits for line in cache" +
 		  "    </td>" +
-		  "    <td align='center'>" +
+		  "    <td align='center' class='border border-2 border-tertiary'>" +
 		  "    <div id='off_size_" + index + "_" + this.name_str + "'>" +
 		  "    <input type='number' " +
 		  "           value='" + memory_cfg_i.cfg.off_size + "' " +
@@ -128,9 +128,9 @@
         {
 	  var o = "  <div class='row mb-3'>" +
                   "    <label for='su_pol_" + index + "_" + this.name_str + "' " +
-                  "           class='col-3 col-form-label' " +
+                  "           class='col-xs-12 col-md-4 col-form-label' " +
                   "    ><span data-langkey='Split/unified'>Split/unified</span></label>" +
-                  "    <div class='col'>" +
+                  "    <div class='col-xs-12 col-md-8'>" +
 		  "    <select class='form-select form-control' " +
 		  "            id='su_pol_" + index + "_" + this.name_str + "' " +
 		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"su_pol\", this.value);'" +
@@ -149,9 +149,9 @@
         {
 	  var o = "  <div class='row mb-3'>" +
                   "    <label for='replace_pol_" + index + "_" + this.name_str + "' " +
-                  "           class='col-3 col-form-label' " +
+                  "           class='col-xs-12 col-md-4 col-form-label' " +
                   "    ><span data-langkey='Replace policy'>Replace policy</span></label>" +
-                  "    <div class='col'>" +
+                  "    <div class='col-xs-12 col-md-8'>" +
 		  "    <select class='form-select' " +
 		  "            id='replace_pol_" + index + "_" + this.name_str + "' " +
 		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"replace_pol\", this.value);'" +
@@ -169,9 +169,9 @@
         {
 	  var o = "  <div class='row mb-3'>" +
                   "    <label for='replace_cpp_" + index + "_" + this.name_str + "' " +
-                  "           class='col-3 col-form-label'" +
+                  "           class='col-xs-12 col-md-4 col-form-label'" +
                   "    ><span data-langkey='Cache placement policy'>Cache placement policy</span></label>" +
-                  "    <div class='col'>" +
+                  "    <div class='col-xs-12 col-md-8'>" +
 		  "    <select class='form-select' " +
 		  "            id='replace_cpp_" + index + "_" + this.name_str + "' " +
 		  "            onchange='wepsim_cm_update_placement(" + index + ", this.value);'" +
@@ -233,9 +233,9 @@
         {
 	  var o = "<div class='row mb-3'>" +
                   "  <label for='su_pol_" + index + "_" + this.name_str + "' " +
-                  "         class='col-3 col-form-label' " +
+                  "         class='col-xs-12 col-md-4 col-form-label' " +
                   "  ><span data-langkey='Next Cache'>Next Cache</span></label>" +
-                  "  <div class='col'>" +
+                  "  <div class='col-xs-12 col-md-8'>" +
 		  "  <select class='form-select form-control' " +
 		  "          id='su_next_" + index + "_" + this.name_str + "' " +
 		  "          onchange='wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);'" +
@@ -275,9 +275,9 @@
 		  "" +
 	          "<div class='row ms-1'>" +
                   "<form class='col'>" +
+                  wepsim_show_cm_level_cfg_placepol  (memory_cfg, index) +
                   wepsim_show_cm_level_cfg_splitunify(memory_cfg, index) +
                   wepsim_show_cm_level_cfg_replacepol(memory_cfg, index) +
-                  wepsim_show_cm_level_cfg_placepol  (memory_cfg, index) +
                   wepsim_show_cm_level_cfg_nextcm    (memory_cfg, index) +
                   "</form>" +
 		  "</div>" ;

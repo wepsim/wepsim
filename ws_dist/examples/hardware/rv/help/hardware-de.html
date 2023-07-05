@@ -1,0 +1,44 @@
+rot.
+                 Wenn die Wahrscheinlichkeit 0,5 beträgt, wird die zugehörige Unterbrechung mit 50% der Wahrscheinlichkeit ausgelöst.
+                 </li>
+</ul>
+</p>
+
+<h2>
+<a name="_Toc438325788"> Interne Organisation: Kontrollsignale </a>
+</h2>
+<p>
+
+</p>
+<p>
+Die Steuereinheit in WepSIM ist mikroprogrammierbar. Der Steuerspeicher verfügt über 4096 Mikrowörter mit jeweils 76 Bits (siehe <b class = "cleanuphtml-1"> Abbildung 5 </b>).
+</p>
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322895"> </a> <a class="cleanuphtml-2" name="_Ref434141629"> Abbildung </a> <b> 6 </b> <b> Prozessor im Detail </b>
+</p>
+<p>
+<br />
+Die Steuereinheit (siehe <b class = "cleanuphtml-1"> Abbildung 7 </b>) ist in fünf Teile unterteilt: Steuerung der folgenden Mikro-Adresse (MUX A usw.), Umwandlung des Opcodes in die entsprechende Mikro-Adresse (co2uAddr), Steuerung der bedingten Auswahl von Microaddress (MUX B, MUX C usw.), Steuerspeicher mit Mikrobefehlsregister und schließlich Selektoren RA, RB, RC und Cop.
+</p>
+<p>
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322896"> </a> <a class="cleanuphtml-2" name="_Ref434141950"> Abbildung </a> <b> 7 </b> <b> Details zur Steuereinheit </b >
+</p>
+<p>
+Für die Adressierung des Steuerspeichers werden 12 Bit bei impliziter Sequenzierung benötigt. Sie können als Steuerspeicher die Microaddress (siehe <b class = "cleanuphtml-1"> Abbildung 8 </b>) der nächsten Speicherposition oder einen Teil des Mikrobefehls verwenden oder die Ausgabe eines Übersetzungsmoduls (mit dem Start) verwenden Mikroadresse, die einem Operationscode zugeordnet ist, oder Null-Mikroadresse (0), von der der Abruf beginnt.
+</p>
+<p class = "cleanuphtml-3">
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322897"> </a> <a class="cleanuphtml-2" name="_Ref434143860"> Abbildung </a> <b> 8 </b> <b> Optionen für den MUX A </b>
+</p>
+<p class = "cleanuphtml-4"> </p>
+<p class = "cleanuphtml-4"> </p>
+</div>
+
+      </div>
+
+  </body>
+</html>
