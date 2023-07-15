@@ -39,6 +39,6 @@ exclude_patterns:
   - "images/"
   - "docs/"
   - "help/"
-  - "examples/"
+  - "repo/"
   - "external/"
   - "ws_dist/"

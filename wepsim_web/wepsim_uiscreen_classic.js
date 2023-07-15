@@ -40,7 +40,8 @@
 	            super.render() ;
 
                     // render current element
-                    this.extended_ui = false ;
+                    this.extended_ui = false ; // 2.2.2
+                    this.extended_ui = true  ; // 2.3.0
 		    this.render_skel() ;
 		    this.render_populate() ;
 
@@ -423,7 +424,7 @@
 
 	      var seg_idiom = get_cfg('ws_idiom') ;
 	      var ahw       = simhw_active() ;
-	      var helpurl   = 'examples/hardware/' + ahw.sim_short_name + '/help/signals-' + seg_idiom + '.html' ;
+	      var helpurl   = 'repo/hardware/' + ahw.sim_short_name + '/help/signals-' + seg_idiom + '.html' ;
 	      resolve_html_url('#' + offcanvas_id + 'help', helpurl, '#', function(){}) ;
 	 }
 	 else if ("hardware_summary" == content_name)
