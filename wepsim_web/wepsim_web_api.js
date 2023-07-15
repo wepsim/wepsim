@@ -155,24 +155,10 @@
 
     function wsweb_change_show_processor ( )
     {
-            var ahw = null ;
-            var svg_arr = [ 'svg_p', 'svg_cu', 'svg_p2' ] ;
-            var img_arr = [    null,     null,     null ] ;
-
 	    $("#tab26").tab('show') ;
 
-            ahw = simhw_active() ;
-            if ( (typeof ahw != "undefined") && (ahw != null) )
-            {
-                img_arr = [ ahw.sim_img_processor, ahw.sim_img_controlunit, ahw.sim_img_cpu ] ;
-
-                // reload svg (just in case)
-                wepsim_svg_reload(svg_arr, img_arr) ;
-
-                // start drawing again
-	        wepsim_svg_start_drawing() ;
-	        refresh() ;
-            }
+            wepsim_svg_start_drawing() ;
+            cpucu_show_graph() ;
 
             // add if recording
             simcore_record_append_new('Show processor details',
@@ -185,7 +171,9 @@
     function wsweb_change_show_asmdbg ( )
     {
 	    $("#tab24").tab('show') ;
-            if (simhw_active() !== null)
+
+            var ahw = simhw_active() ;
+            if (ahw !== null)
             {
                 wepsim_svg_stop_drawing() ;
 

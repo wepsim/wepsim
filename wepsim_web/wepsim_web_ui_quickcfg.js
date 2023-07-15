@@ -305,11 +305,10 @@
 				    // quickcfg_html_br() +
 				    // quickcfg_html_header('Text: advanced mode') +
 				    // quickcfg_html_btn("On",
-				    //                   "$(\"#infohw1\").attr(\"components\", " +
-				    //                   "                     \"summary,elements,states,signals,behaviors\");",
+				    //                   "cpucu_show_table(\"summary,elements,states,signals,behaviors\");",
 				    //                   "col-6") +
 				    // quickcfg_html_btn("(*) Off",
-				    //                   "$(\"#infohw1\").attr(\"components\", \"elements\");",
+				    //                   "cpucu_show_table(\"elements\");",
 				    //                   "col-6") +
 				    '</li> ' +
                                     '</div>' +

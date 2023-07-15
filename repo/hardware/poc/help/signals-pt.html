@@ -1,0 +1,1566 @@
+<html xmlns="http://www.w3.org/1999/xhtml"> <cabeça>
+    <title> </title>
+    <style type="text/css">
+/ * & lt;! [CDATA [* /
+    : link {color: # 0563C1}
+    : visitou {color: # 954F72}
+    a.cleanuphtml-4 {font-weight: bold}
+    p.cleanuphtml-3 {text-align: center}
+    div.cleanuphtml-2 {text-align: center}
+    p.cleanuphtml-1 {font-weight: bold}
+   /*]] & gt; * /
+    </style>
+  <! - Limpe o HTML gerado por http://www.cleanuphtml.com/ ->
+<meta content="Limpar HTML" name="Gerador"> </head>
+  <body lang="PT-GB" xml: lang="PT-GB">
+      <h2> A unidade de controle </h2>
+      <p class="cleanuphtml-1">
+
+      </p>
+      <div id="A0">
+        <p>
+          <b> MUXA </b> <b> </b> 2 bits
+        </p>
+        <p>
+          A unidade de controle
+        </p>
+        <p class="cleanuphtml-1">
+
+        </p>
+        <div class="cleanuphtml-2">
+          <table width="448" cellspacing="0" cellpadding="0" fronteira="0">
+            <tbody> <tr>
+              <td valign="top">
+                <p class="cleanuphtml-1">
+                  A0
+                </p>
+              </td>
+              <td valign="top">
+                <p class="cleanuphtml-1">
+                  A1
+                </p>
+              </td>
+              <td valign="top">
+                <p class="cleanuphtml-1">
+                  Saída
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  0
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  Próxima mDir
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  1
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  ir para mDir
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  1
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  0
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  vá para o microProgram associado (ROM)
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  1
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  1
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  Buscar
+                </p>
+              </td>
+            </tr>
+          </tbody> </table>
+        </div>
+        <p class="cleanuphtml-1">
+
+        </p>
+        <p>
+          MDir sendo o valor multiplexado com os campos SelA, SelB e parte do SelE.
+        </p>
+        <p>
+
+        </p>
+        <p class="cleanuphtml-3">
+          <img style="max-width: 90%" alt="" nome="Imagen 1" src="repo/hardware/poc/help/signals/imagem001.jpg" id="Imagen 1">
+        </p>
+        <p class="cleanuphtml-3">
+          <b> Figura </b> <b> 8 </b> <b> Opções para o MUX A </b>
+        </p>
+        <p>
+
+        </p>
+        <p class="cleanuphtml-1">
+
+        </p>
+        <p class="cleanuphtml-1">
+
+        </p> <b> <br clear="all"> </b>
+        <p class="cleanuphtml-1">
+
+        </p>
+      </div>
+      <div id="B">
+        <p>
+          <b> MUXB </b> <b> </b> 1 bit
+        </p>
+        <p>
+          Selecione a condição ou condição negada como o valor de entrada para A1:
+        </p>
+        <p class="cleanuphtml-1">
+
+        </p>
+        <div class="cleanuphtml-2">
+          <table width="376" cellspacing="0" cellpadding="0" fronteira="0">
+            <tbody> <tr>
+              <td valign="top">
+                <p class="cleanuphtml-1">
+                  B
+                </p>
+              </td>
+              <td valign="top">
+                <p class="cleanuphtml-1">
+                  Saída
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  Valor de saída MUXC
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  1
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  Valor negado
+                </p>
+              </td>
+            </tr>
+          </tbody> </table>
+        </div>
+        <p class="cleanuphtml-1">
+
+        </p>
+        <p class="cleanuphtml-1">
+
+        </p>
+        <p class="cleanuphtml-1">
+
+        </p>
+      </div>
+      <div id="C">
+        <p>
+          <b> MUXC </b> <b> </b> 4 bits
+        </p>
+        <p>
+          Selecione o micro endereço para carregar no registrador de endereço micro:
+        </p>
+        <p class="cleanuphtml-1">
+
+        </p>
+        <div class="cleanuphtml-2">
+          <table cellspacing="0" cellpadding="0" fronteira="0">
+            <tbody> <tr>
+              <td valign="top">
+                <p class="cleanuphtml-1">
+                  MUXC (MuxC <sub> 3 </sub> -MuxC <sub> 0 </sub>)
+                </p>
+              </td>
+              <td valign="top">
+                <p class="cleanuphtml-1">
+                  Saída
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0000
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  0
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0001
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  INT
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0010
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  IORdy
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0011
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  MRdy
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0100
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  você
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0101
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  Eu
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0110
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  Z
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  0111
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  N
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  1000
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  V
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <p>
+                  1001
+                </p>
+              </td>
+              <td valign="top">
+                <p>
+                  C
+                </p>
+              </td>
+            </tr>
+          </tbody> </table>
+        </div>
+        <p class="cleanuphtml-1">
+
+        </p> <b> <br clear="all"> </b>
+        <p class="cleanuphtml-1">
+
+        </p>
+      </div>
+
+          <div id="SELCOP">
+          <div id="MC">
+          <p>
+            <b> MC </b> <b> </b> 1 bit <br>
+            <b> SELCOP </b> <b> </b> 5 bits
+          </p>
+          <p>
+            Permite selecionar o valor para o COP.
+          </p>
+          </div>
+          </div>
+
+          <div id="SELA">
+          <div id="SELB">
+          <div id="SELC">
+          <div id="MRA">
+          <div id="MRB">
+          <div id="MRC">
+          <p>
+            <b> MRA </b> <b> </b> 1 bit <br>
+            <b> MRB </b> <b> </b> 1 bit <br>
+            <b> MRC </b> <b> </b> 1 bit <br>
+            <b> SELA </b> <b> </b> 6 bits <br>
+            <b> SELB </b> <b> </b> 6 bits <br>
+            <b> SELC </b> <b> </b> 6 bits
+          </p>
+          <p>
+            Permite selecionar o valor para RA, RB e RC.
+            Se MRx for igual a 1, o valor SELx representará o ID do registrador. do arquivo de registro que você deseja usar:
+          </p>
+          <p class="cleanuphtml-3">
+            <img style="max-width: 90%" id="Imagen 82" src="repo/hardware/poc/help/signals/imagem009.png" name="Imagen 92" alt="">
+          </p>
+          <p class="cleanuphtml-3">
+            <a class="cleanuphtml-4" name="_Toc438322899"> Figura </a> <b> 20 </b> <b> Detalhes dos signals de gerenciamento RA, RB e RC </b>
+          </p>
+
+          <p>
+            Se MRx for igual a 0, então o valor SELx representa o deslocamento dentro do registro de instruções a partir do qual 6 bits são tirados,
+            e o valor desses 6 bits é o identificador do registrador no arquivo de registro:
+          </p>
+          <p class="cleanuphtml-3">
+            <img style="max-width: 90%" id="Imagen 82" src="repo/hardware/poc/help/signals/imagem010.png" name="Imagen 93" alt="">
+          </p>
+          <p class="cleanuphtml-3">
+<a class="cleanuphtml-4" name="_Toc438322899"> Figura </a> <b> 20 </b> <b> Detalhes dos signals de gerenciamento RA, RB e RC </b>
+          </p>
+
+          <p>
+          </p>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <h2>
+          A unidade central de processamento: ALU
+        </h2>
+        <p class="cleanuphtml-1"> </p>
+
+          <div id="MA">
+          <p>
+            <b> MA </b> <b> </b> 1 bit
+          </p>
+          <p>
+            Selecione qual valor usar como operador A na ALU:
+          </p>
+          <p>
+
+          </p>
+          <div class="cleanuphtml-2">
+            <table width="524" cellspacing="0" cellpadding="0" fronteira="0">
+              <tbody> <tr>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    MA
+                  </p>
+                </td>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    Seleção
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    0
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Seleção dada pelo sinal RA
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Valor contido no registrador RT1
+                  </p>
+                </td>
+              </tr>
+            </tbody> </table>
+          </div>
+          <p>
+
+          </p>
+          <p class="cleanuphtml-1">
+
+          </p>
+        </div>
+
+<div id="MB">
+          <p>
+            <b> MB </b> <b> </b> 2 bits
+          </p>
+          <p>
+            Selecione qual valor será usado como operador B na ALU:
+          </p>
+          <p>
+
+          </p>
+          <div class="cleanuphtml-2">
+            <table width="524" cellspacing="0" cellpadding="0" fronteira="0">
+              <tbody> <tr>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    MB
+                  </p>
+                </td>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    Seleção
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    00
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Seleção dada pelo sinal RB
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    01
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Valor contido no registro RT2
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    10
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    4 valor
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    11
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    1 valor
+                  </p>
+                </td>
+              </tr>
+            </tbody> </table>
+          </div>
+          <p>
+
+          </p> <b> <br clear="all"> </b>
+          <p class="cleanuphtml-1">
+
+          </p>
+          <p class="cleanuphtml-1">
+
+          </p>
+        </div>
+
+        <div id="COP">
+          <p>
+            <b> COP </b> <b> </b> 5 bits
+          </p>
+          <p>
+            Selecione a operação que é executada na ALU:
+          </p>
+          <p>
+
+          </p>
+          <div class="cleanuphtml-2">
+            <table cellspacing="0" cellpadding="0" fronteira="0">
+              <tbody> <tr>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    COP (C0P <sub> 4 </sub> -C0P <sub> 0 </sub>)
+                  </p>
+                </td>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    Operação
+                  </p>
+                </td>
+              </tr>
+              <tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    0000
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    & nbsp;
+                  </p>
+                </td>
+              </tr>
+                <td valign="top">
+                  <p>
+                    0001
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    A e B
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    0010
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    A ou B
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    0011
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    não (A)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    0100
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    A xor B
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    0101
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Deslocamento Lógico Direito (A)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    0110
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Aritmética do turno certo (A)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    0111
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Deslocar para a esquerda (A)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1000
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Rodar para a Direita (A)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1001
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Rodar para a Esquerda (A)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1010
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    A + B
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1011
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    A - B
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1100
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    A * B (com estouro)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1101
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    A/B (divisão inteira)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1110
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    % B (divisão inteira)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1111
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    (A & lt; & lt; 16) & amp; 0xFFFF0000
+                  </p>
+                </td>
+              </tr>
+            </tbody> </table>
+          </div>
+        </div>
+
+        <div id="FLAG_O">
+          <div id="FLAG_N">
+            <div id="FLAG_Z">
+              <p>
+                <b> O N Z </b> 1 bit/cada
+              </p>
+              <p>
+                Valores biestáveis ​​gerados pela última operação realizada na ULA
+              </p>
+              <p>
+
+              </p>
+              <div class="cleanuphtml-2">
+                <table width="605" cellspacing="0" cellpadding="0" fronteira="0">
+                  <tbody> <tr>
+                    <td valign="top">
+                      <p>
+                        Resultado
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        O
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        N
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        Z
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Resultado positivo
+                      </p>
+                      <p>
+                        (0 é considerado positivo)
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Resultado == 0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        1
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Resultado negativo
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        1
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Transbordar
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        1
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        Divisão por zero
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        1
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p class="cleanuphtml-3">
+                        1
+                      </p>
+                    </td>
+                  </tr>
+                </tbody> </table>
+              </div>
+              <p>
+
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <h2>
+          A unidade central de processamento: Registro do Estado (SR)
+        </h2>
+        <p class="cleanuphtml-1"> </p>
+
+
+        <div id="SELP">
+          <p>
+            <b> SelP </b> <b> </b> 2 bits
+          </p>
+          <p>
+            Selecione quais bits serão atualizados no registrador de status:
+          </p>
+          <p>
+
+          </p>
+          <div class="cleanuphtml-2">
+            <table width="563" cellspacing="0" cellpadding="0" fronteira="0">
+              <tbody> <tr>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    SelP (SelP <sub> 1 </sub> -SelP <sub> 0 </sub>)
+                  </p>
+                </td>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    Seleção
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    00
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    O N Z I U
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    01
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    O N Z I <b> U '</b>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    10
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    O N Z <b> Eu '</b> U
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    11
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    <b> O 'N' Z '</b> Eu
+                  </p>
+                </td>
+              </tr>
+            </tbody> </table>
+          </div>
+          <p>
+          </p>
+          <p>
+          </p>
+        </div>
+
+
+        <div id="M7">
+          <p>
+            <b> M7 </b> <b> </b> 1 bit
+          </p>
+          <p>
+            Seleciona qual valor é carregado no registrador de status:
+          </p>
+          <p>
+
+          </p>
+          <div class="cleanuphtml-2">
+            <table width="563" cellspacing="0" cellpadding="0" fronteira="0">
+              <tbody> <tr>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    M7
+                  </p>
+                </td>
+                <td valign="top">
+                  <p class="cleanuphtml-1">
+                    Seleção
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    0
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Barramento Interno
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <p>
+                    1
+                  </p>
+                </td>
+                <td valign="top">
+                  <p>
+                    Saída selecionada por SelP
+                  </p>
+                </td>
+              </tr>
+            </tbody> </table>
+          </div>
+          <p class="cleanuphtml-1">
+
+          </p>
+          <p class="cleanuphtml-1">
+
+          </p>
+        </div>
+
+
+
+
+        <h2>
+          A unidade central de processamento: Registro de instruções (IR)
+        </h2>
+        <p class="cleanuphtml-1"> </p>
+
+        <div id="SE">
+        <div id="SIZE">
+        <div id="OFFSET">
+              <p>
+                <b> SE </b> 1 bit
+              </p>
+              <p>
+                <b> TAMANHO </b> 5 bits
+              </p>
+              <p>
+                <b> OFFSET </b> 5 bits
+              </p>
+              <p>
+                Eles permitem selecionar uma seção de bits contida no registro de instruções a ser descarregada no barramento interno.
+              </p>
+              <p>
+
+              </p>
+              <p>
+
+              </p>
+              <p>
+                Por exemplo, dado o seguinte conteúdo no registro de instruções:
+              </p>
+              <p class="cleanuphtml-3">
+                <img style="max-width: 90%" id="Imagen 15" src="repo/hardware/poc/help/signals/imagem002.png" name="Imagen 15" alt="">
+              </p>
+              <p>
+                Valores:
+              </p>
+              <p>
+
+              </p>
+              <div class="cleanuphtml-2">
+                <table cellspacing="0" cellpadding="0" border="1" classe="Tablanormal11">
+                  <tbody> <tr>
+                    <td valign="top">
+                      <p>
+                        SE
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        TAMANHO
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        OFFSET
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        SAÍDA
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        01000
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        10010
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <img style="max-width: 90%" id="Imagen 16" src="repo/hardware/poc/help/signals/image003.jpg" name="Imagen 16" alt="">
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        0
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        00110
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        00000
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <img style="max-width: 90%" id="Imagen 17" src="repo/hardware/poc/help/signals/image004.jpg" name="Imagen 17" alt="">
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        1
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        01000
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        10010
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <img style="max-width: 90%" id="Imagen 18" src="repo/hardware/poc/help/signals/imagem005.jpg" name="Imagen 18" alt="">
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <p>
+                        1
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        00110
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        00000
+                      </p>
+                    </td>
+                    <td valign="top">
+                      <p>
+                        <img style="max-width: 90%" id="Imagen 19" src="repo/hardware/poc/help/signals/image006.jpg" name="Imagen 19" alt="">
+                      </p>
+                    </td>
+                  </tr>
+                </tbody> </table>
+              </div>
+              <p>
+
+              </p>
+              <p>
+
+              </p>
+              <p>
+
+              </p> <b> <br clear="all"> </b>
+              <p class="cleanuphtml-1">
+
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2>
+          A unidade central de processamento: acesso à memória principal
+        </h2>
+        <p class="cleanuphtml-1"> </p>
+
+        <div id="M1">
+          <p>
+            <b> M1 </b> <b> </b> 1 bit
+          </p>
+          <p>
+            Eles permitem que você selecione qual valor pode ser usado para atualizar o registrador de dados (MBR): com o valor da memória ou o valor do barramento de dados interno.
+          </p>
+          <p>
+          </p>
+        </div>
+
+	<div id="MH">
+          <p>
+            <b>MH</b><b>     </b>             1 bit
+          </p>
+          <p>
+            Este sinal permite selecionar o Hardware Performance Counter (HPC) para trabalhar com:
+          </p>
+          <p>
+	    <ul>
+	    <li><b>00</b>: Número de ciclos de clock.</li>
+	    <li><b>01</b>: Tempo de CPU acumulado.</li>
+	    <li><b>10</b>: Consumo de Energia Acumulado.</li>
+	    <li><b>11</b>: &lt;Não usado&gt;.</li>
+	    </ul>
+          </p>
+          <p>
+            O <a href="https://en.wikipedia.org/wiki/Hardware_performance_counter">Contador de desempenho de hardware</a> é um conjunto de registros de finalidade especial para armazenar estatísticas sobre atividades relacionadas a hardware. Ele é usado para realizar análises de desempenho ou consumo de energia de baixo nível.
+          </p>
+        </div>
+
+
+        <div id="BW">
+<div id="R">
+<div id="W">
+<div id="MRDY">
+                  <p>
+                    <b> R </b> <b> </b> 1 bit <br>
+                    <b> W </b> <b> </b> 1 bit <br>
+                    <b> MRdy </b> <b> </b> 1 bit <br>
+                    <b> BW </b> <b> </b> 2 bits <br>
+                  </p>
+                  <p>
+Sinais de controle da memória principal: R para leitura, W para gravação. <br>
+BW controla o número de bytes a serem lidos/gravados: 0 para um byte, 1 para dois bytes (meia palavra) e 3 para quatro bytes (uma palavra). <br>
+Por padrão, a memória lê ou grava em um ciclo de clock. Se a memória estiver configurada para vários ciclos de clock, o sinal MRdy será definido quando a memória terminar a solicitação de R/W.
+                  </p>
+                  <p>
+                  </p>
+        </div>
+        </div>
+        </div>
+        </div>
+
+                  </p>
+                  <br clear="all">
+                  <p>
+                  </p>
+
+        <h2>
+          A unidade central de processamento: Register File (RF).
+        </h2>
+        <p class="cleanuphtml-1"> </p>
+
+          <div id="RA">
+          <div id="RB">
+          <div id="RC">
+          <div id="LC">
+                <p>
+                  <b>
+NOTA: Este mecanismo é apenas para fins de teste. Você não deve usar esses signals na versão final do seu microcódigo. <br>
+Por favor, evite usar RA, RB, RC e Cop diretamente porque seu valor é gerado por SelA (SelB, SelC, SelCop) e MR. <br>
+</b>
+                </p>
+                <p>
+                  <b> RA </b> <b> </b> 6 bits
+                </p>
+                <p>
+                  <b> RB </b> <b> </b> 6 bits
+                </p>
+                <p>
+                  <b> RC </b> <b> </b> 6 bits
+                </p>
+                <p>
+                  <b> LC </b> <b> </b> 1 bit
+                </p>
+                <p>
+                  Eles permitem que você selecione um registrador cujo valor vai para A (RA) ou B (RB), ou para atualizar o valor do registro selecionado (RC).
+                  No caso de atualizar o registro, além de usar o sinal RC, use o sinal LC com um valor de 1. <br>
+                </p>
+                <p>
+
+                </p>
+                <p class="cleanuphtml-3">
+                  <img style="max-width: 90%" id="Imagen 25" src="repo/hardware/poc/help/signals/image007.jpg" name="Imagen 25" alt="">
+                </p>
+                <p class="cleanuphtml-3">
+                  <a class="cleanuphtml-4" name="_Toc438322898"> Figura </a> <b> 9 </b> <b> Opções disponíveis para o MUX A </b>
+                </p> <br clear="all">
+                <p>
+
+                </p>
+                <p>
+
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>
+          A unidade central de processamento: Contador de programas (PC)
+        </h2>
+        <p class="cleanuphtml-1"> </p>
+
+          <div id="M2">
+          <p>
+            <b> M2 </b> <b> </b> 1 bit
+          </p>
+          <p>
+            Eles permitem que você selecione qual valor pode ser usado para atualizar o registro do contador de programa (PC):
+            adicionando quatro ao conteúdo atual do PC ou o valor que vem do barramento de dados interno.
+          </p>
+          <p>
+
+          </p>
+          <p class="cleanuphtml-3">
+            <img style="max-width: 90%" id="Imagen 82" src="repo/hardware/poc/help/signals/image008.jpg" name="Imagen 82" alt="">
+          </p>
+          <p class="cleanuphtml-3">
+            <a class="cleanuphtml-4" name="_Toc438322899"> Figura </a> <b> 10 </b> <b> Detalhe das opções de gerenciamento de registros de PC </b>
+          </p>
+          <p>
+          </p>
+        </div>
+
+
+        <h2> A unidade central de processamento: registra </h2>
+        <p class="cleanuphtml-1"> </p>
+        <div id="C0">
+        <div id="C1">
+        <div id="C2">
+        <div id="C3">
+        <div id="C4">
+        <div id="C5">
+        <div id="C6">
+        <div id="C7">
+          <p>
+            <b> C0, ..., C7 </b> <b> </b> 1 bit
+          </p>
+          <p>
+            Ele irá armazenar no registro associado, o valor da entrada do registro
+            no final do ciclo do relógio.
+          </p>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <h2> A unidade central de processamento: Acesso ao barramento de dados </h2>
+        <p class="cleanuphtml-1"> </p>
+        <div id="TD">
+          <p>
+            <b> Td </b> <b> </b> 1 bit
+          </p>
+          <p>
+            Copie o valor do registrador MBR, após ser transformado pelo componente 'bytes selector', no barramento de dados.
+          </p>
+        </div>
+
+        <h2> A unidade central de processamento: Acesso ao barramento de endereços </h2>
+        <p class="cleanuphtml-1"> </p>
+        <div id="TA">
+          <p>
+            <b> Ta </b> <b> </b> 1 bit
+          </p>
+          <p>
+            Copie o valor do registro MAR no barramento de endereços.
+          </p>
+        </div>
+
+        <h2> A unidade central de processamento: Acesso ao barramento de dados interno </h2>
+        <p class="cleanuphtml-1"> </p>
+        <div id="T0">
+        <div id="T1">
+        <div id="T2">
+        <div id="T3">
+        <div id="T4">
+        <div id="T5">
+        <div id="T6">
+        <div id="T7">
+        <div id="T8">
+        <div id="T9">
+        <div id="T10">
+        <div id="T11">
+        <div id="T12">
+          <p>
+            <b> T1, ..., T12 </b> <b> </b> 1 bit
+          </p>
+          <p>
+            Copie o valor na entrada do elemento tri-state associado no barramento de dados interno, durante o ciclo do relógio.
+          </p>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <h2> A unidade central de processamento: os sinalizadores ALU, mais os sinalizadores I e U </h2>
+        <p class="cleanuphtml-1"> </p>
+        <div id="TEST_C">
+        <div id="TEST_V">
+        <div id="TEST_N">
+        <div id="TEST_Z">
+        <div id="TEST_I">
+        <div id="TEST_U">
+          <p>
+            <b>
+NOTA: este mecanismo é apenas para fins de teste. Você não deve usar esses signals na versão final do seu microcódigo. </Br>
+Por favor, evite usar TEST_C, ... diretamente porque seu valor é gerado pela ALU. <br>
+</b>
+          </p>
+          <p>
+            <b> TEST_C, ..., TEST_U </b> <b> </b> 1 bit
+          </p>
+          <p>
+            Permita que o usuário altere os valores dos sinalizadores enquanto são gerados pelos elementos de hardware. <br>
+            Os sinalizadores disponíveis atuais são:
+            <ul>
+            <li> <b> C </b>: carregar </li>
+<ul>
+<li> <b> Adicione um b </b>: (a & gt; & gt; & gt; 31) && (b & gt; & gt; & gt; 31) </li>
+</ul>
+            <li> <b> V </b>: oVerflow </li>
+<ul>
+<li> <b> Adicione um b </b>: (a + b & lt; 0) && (a & gt;=0) && (b & gt;=0) || (a + b & gt;=0) && (a & lt; 0) && (b & lt; 0) </li>
+</ul>
+            <li> <b> N </b>: negativo </li>
+<ul>
+<li> <b> Adicione um b </b>: (a + b & lt; 0) </li>
+</ul>
+            <li> <b> Z </b>: zero </li>
+<ul>
+<li> <b> Adicione um b </b>: (a + b == 0) </li>
+</ul>
+<br>
+            <li> <b> I </b>: Interrupção ativada/Interrupção desativada </li>
+            <li> <b> U </b>: nível do usuário/nível do kernel </li>
+            </ul>
+          </p>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <p class="cleanuphtml-1"> </p>
+        <div id="EXCODE">
+          <p>
+            <b> ExCode </b> <b> </b> 4 bits
+          </p>
+          <p>
+             Deixe o microprogramador especificar um valor inmediate que deve ser copiado no barramento de dados interno com o sinal T11.
+          </p>
+        </div>
+
+
+      <h2> Os elementos de entrada/saída </h2>
+      <p class="cleanuphtml-1"> </p>
+        <div id="IORDY">
+<div id="IOR">
+<div id="IOW">
+                  <p>
+                    <b> IOR </b> <b> </b> 1 bit <br>
+                    <b> IOW </b> <b> </b> 1 bit <br>
+                    <b> IORdy </b> <b> </b> 1 bit <br>
+                  </p>
+                  <p>
+                      Sinais de controle para os dispositivos de E/S: IOR para leitura, IOW para gravação e, se os dispositivos forem assíncronos, o sinal IORdy é definido quando o dispositivo finaliza a solicitação.
+                  </p>
+                  <p>
+                  </p>
+        </div>
+        </div>
+        </div>
+
+</body>
+</html>
+

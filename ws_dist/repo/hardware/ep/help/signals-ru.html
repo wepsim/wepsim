@@ -1,0 +1,4372 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title></title>
+    <style type="text/css">
+/*&lt;![CDATA[*/
+    :link { color: #0563C1 }
+    :visited { color: #954F72 }
+    a.cleanuphtml-4 {font-weight: bold}
+    p.cleanuphtml-3 {text-align: center}
+    div.cleanuphtml-2 {text-align: center}
+    p.cleanuphtml-1 {font-weight: bold}
+    /*]]&gt;*/
+    </style>
+  <meta content="Очистить HTML" name="Генератор"> </head>
+  <body lang="ru-ru" xml: lang="ru-ru">
+      <h2> Блок управления </h2>
+      <p>
+
+      </Р>
+      <div id="A0">
+        <Р>
+          <b> MUXA </b> <b> </b> 2 бита
+        </Р>
+        <Р>
+          Блок управления
+        </Р>
+        <p>
+
+        </Р>
+        <div >
+          <table width="448" cellspacing="0" cellpadding="0" border="0">
+            <TBODY> <TR>
+              <td valign="top">
+                <p>
+                  A0
+                </Р>
+              </TD>
+              <td valign="top">
+                <p>
+                  A1
+                </Р>
+              </TD>
+              <td valign="top">
+                <p>
+                  Выход
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  0
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  Next mDir
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  1
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  перейти к МДР
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  1
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  0
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  перейти к соответствующей микропрограмме (ПЗУ)
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  1
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  1
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  получать
+                </Р>
+              </TD>
+            </TR>
+          </TBODY> </table>
+        </DIV>
+        <p>
+
+        </Р>
+        <Р>
+          MDir - значение, мультиплексированное с полями SelA, SelB и частью SelE.
+        </Р>
+        <Р>
+
+        </Р>
+        <p>
+          <img style="max-width: 90%" alt="" name="Imagen 1" src="repo/hardware/ep/help/signals/image001.jpg" id="Imagen 1">
+        </Р>
+        <p>
+          <b> Рисунок </b> <b> 8 </b> <b> Параметры для MUX A </b>
+        </Р>
+        <Р>
+
+        </Р>
+        <p>
+
+        </Р>
+        <p>
+
+        </p> <b> <br clear="all"> </b>
+        <p>
+
+        </Р>
+      </DIV>
+      <div id="B">
+        <Р>
+          <b> MUXB </b> <b> </b> 1 бит
+        </Р>
+        <Р>
+          Выберите запрещенное условие или условие в качестве входного значения для A1:
+        </Р>
+        <p>
+
+        </Р>
+        <div >
+          <table width="376" cellspacing="0" cellpadding="0" border="0">
+            <TBODY> <TR>
+              <td valign="top">
+                <p>
+                  В
+                </Р>
+              </TD>
+              <td valign="top">
+                <p>
+                  Выход
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  Выходное значение MUXC
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  1
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  Отрицательное значение
+                </Р>
+              </TD>
+            </TR>
+          </TBODY> </table>
+        </DIV>
+        <p>
+
+        </Р>
+        <p>
+
+        </Р>
+        <p>
+
+        </Р>
+      </DIV>
+      <div id="C">
+        <Р>
+          <b> MUXC </b> <b> </b> 4 бита
+        </Р>
+        <Р>
+          Выберите микро адрес для загрузки в регистр микро адресов:
+        </Р>
+        <p>
+
+        </Р>
+        <div >
+          <table cellspacing="0" cellpadding="0" border="0">
+            <TBODY> <TR>
+              <td valign="top">
+                <p>
+                  MUXC (MuxC <sub> 3 </sub> -MuxC <sub> 0 </sub>)
+                </Р>
+              </TD>
+              <td valign="top">
+                <p>
+                  Выход
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0000
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  0
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0001
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  INT
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0010
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  IORDY
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0011
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  MRdy
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0100
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  U
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0101
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  я
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0110
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  Z
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  0111
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  N
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  1000
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  В
+                </Р>
+              </TD>
+            </TR>
+            <TR>
+              <td valign="top">
+                <Р>
+                  1001
+                </Р>
+              </TD>
+              <td valign="top">
+                <Р>
+                  С
+                </Р>
+              </TD>
+            </TR>
+          </TBODY> </table>
+        </DIV>
+        <p>
+
+        </p> <b> <br clear="all"> </b>
+        <p>
+
+        </Р>
+      </DIV>
+
+          <div id="SELCOP">
+          <div id="MC">
+          <Р>
+            <b> MC </b> <b> </b> 1 бит <br>
+            <b> SELCOP </b> <b> </b> 5 бита
+          </Р>
+          <Р>
+            Позволяет выбрать значение для КС.
+          </Р>
+          </DIV>
+          </DIV>
+
+          <div id="SELA">
+          <div id="SELB">
+          <div id="SELC">
+          <div id="MR">
+          <Р>
+            <b> MR </b> <b> </b> 1 бит <br>
+            <b> SELA </b> <b> </b> 5 битов <br>
+            <b> SELB </b> <b> </b> 5 битов <br>
+            <b> SELC </b> <b> </b> 5 бит
+          </Р>
+          <Р>
+            Позволяет выбрать значение для RA, RB и RC.
+            Если MR равен 1, тогда значение SELA будет представлять идентификатор регистра. файла реестра, который вы хотите использовать:
+          </Р>
+          <p>
+            <img style="max-width: 90%" id="Imagen 82" src="repo/hardware/ep/help/signal/image009.png" name="Imagen 92" alt="">
+          </Р>
+          <p>
+            <a  name="_Toc438322899"> Рисунок </a> <b> 20 </b> <b> Подробности signals управления RA, RB и RC </b>
+          </Р>
+
+          <Р>
+            Если MR равно 0, тогда значение SELA представляет смещение в регистре команд, из которого берутся 5 битов,
+            и значение этих 5 битов является идентификатором регистра в файле регистра:
+          </Р>
+          <p>
+            <img style="max-width: 90%" id="Imagen 82" src="repo/hardware/ep/help/signal/image010.png" name="Imagen 93" alt="">
+          </Р>
+          <p>
+<a  name="_Toc438322899"> Рисунок </a> <b> 20 </b> <b> Подробности signals управления RA, RB и RC </b>
+          </Р>
+
+          <Р>
+          </Р>
+        </DIV>
+        </DIV>
+        </DIV>
+        </DIV>
+
+        <H2>
+          Центральный процессор: ALU
+        </H2>
+        <p> </p>
+
+          <div id="MA">
+          <Р>
+            <b> MA </b> <b> </b> 1 бит
+          </Р>
+          <Р>
+            Выберите, какое значение использовать в качестве оператора A в ALU:
+          </Р>
+          <Р>
+
+          </Р>
+          <div >
+            <table width="524" cellspacing="0" cellpadding="0" border="0">
+              <TBODY> <TR>
+                <td valign="top">
+                  <p>
+                    Массачусетс
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <p>
+                    выбор
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    0
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Выбор по сигналу RA
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    1
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Значение, содержащееся в регистре RT1
+                  </Р>
+                </TD>
+              </TR>
+            </TBODY> </table>
+          </DIV>
+          <Р>
+
+          </Р>
+          <p>
+
+          </Р>
+        </DIV>
+
+<div id="MB">
+          <Р>
+            <b> МБ </b> <b> </b> 2 бита
+          </Р>
+          <Р>
+            Выберите, какое значение будет использоваться в качестве оператора B в ALU:
+          </Р>
+          <Р>
+
+          </Р>
+          <div >
+            <table width="524" cellspacing="0" cellpadding="0" border="0">
+              <TBODY> <TR>
+                <td valign="top">
+                  <p>
+                    мегабайт
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <p>
+                    выбор
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    00
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Выбор по сигналу RB
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Значение, содержащееся в регистре RT2
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    10
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    4 значение
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    11
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    1 значение
+                  </Р>
+                </TD>
+              </TR>
+            </TBODY> </table>
+          </DIV>
+          <Р>
+
+          </p> <b> <br clear="all"> </b>
+          <p>
+
+          </Р>
+          <p>
+
+          </Р>
+        </DIV>
+
+        <div id="COP">
+          <Р>
+            <b> COP </b> <b> </b> 5 бита
+          </Р>
+          <Р>
+            Выберите операцию, которая выполняется в ALU:
+          </Р>
+          <Р>
+
+          </Р>
+          <div >
+            <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered table-sm w-auto mx-auto">
+              <Thead> <TR>
+                <td valign="top">
+                  <div>
+                    COP (COP <sub> 4 </sub> - COP <sub> 0 </sub>)
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <div>
+                    операция
+                  </Р>
+                </TD>
+              </tr> </thead>
+              <tbody> <tr>
+                <td valign="top">
+                  <Р>
+                    00000
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    &NBSP;
+                  </Р>
+                </TD>
+              </TR>
+                <td valign="top">
+                  <Р>
+                    00001
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    А и Б
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    00010
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    А или Б
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    00011
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    не (А)
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    00100
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    A xor B
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    00101
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Shift Right Logical (A)
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    00110
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Арифметика сдвига вправо (A)
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    00111
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Сдвиг влево (A)
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01000
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Поверните вправо (A)
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01001
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Поверните налево (A)
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01010
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    А + Б
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01011
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    A - B
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01100
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    A * B (с переливом)
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01101
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    A / B (целочисленное деление)
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01110
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    A % B (целочисленное деление)
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01111
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    (A &lt; &lt; 16) &amp; 0xFFFF0000
+                  </Р>
+                </TD>
+              </TR>
+
+              <tr>
+                <td valign="top">
+                  <div>
+                    10000
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  +  B (float ieee754)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10001
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  -  B (float ieee754)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10010
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  *  B (float ieee754)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10011
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  /  B (float ieee754)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10100
+                  </div>
+                </td>
+                <td valign="top">
+                  <span> convert (A) </span> <span class="btn btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#classofconvert" arial-expanded="true" arial-controls="class of float">+/-</span> 
+                </td>
+              </tr>
+
+              <tr>
+                <td id="classofconvert" valign="top" colspan="2" align="center" class="m-2 p-2 collapse show">
+          <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered table-sm w-auto">
+          <thead class="table-dark">
+             <tr> <th valign="top">B</th> <th valign="top"> convert(A)</th> </tr>
+          </thead>
+          <tbody>
+             <tr> <td valign="top"><div> B=1 </div></td> <td valign="top"><div> int32   &lt;- ieee754 (truncate) </div></td> </tr>
+             <tr> <td valign="top"><div> B=4 </div></td> <td valign="top"><div> ieee754 &lt;- int32              </div></td> </tr>
+          </tbody>
+          </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td valign="top">
+                  <div>
+                    10101
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    класс поплавка (B) <span class="btn btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#classoffloat" arial-expanded="true" arial-controls="class of float">+/-</span>
+                </td>
+              <tr>
+                <td id="classoffloat" valign="top" colspan="2" align="center" class="m-2 p-2 collapse show">
+
+          <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered table-sm w-auto">
+          <thead class="table-dark">
+             <tr> <th valign="top">класс поплавка</th> <th valign="top">32-bits IEEE754</th> </tr>
+          </thead>
+          <tbody>
+             <tr> <td valign="top"><div> 0 </div></td> <td valign="top"><div>             -infinite </div></td> </tr>
+             <tr> <td valign="top"><div> 1 </div></td> <td valign="top"><div>     -normalized number</div></td> </tr>
+             <tr> <td valign="top"><div> 2 </div></td> <td valign="top"><div> -non-normalized number</div></td> </tr>
+             <tr> <td valign="top"><div> 3 </div></td> <td valign="top"><div>                     -0</div></td> </tr>
+             <tr> <td valign="top"><div> 4 </div></td> <td valign="top"><div>                     +0</div></td> </tr>
+             <tr> <td valign="top"><div> 5 </div></td> <td valign="top"><div> +non-normalized number</div></td> </tr>
+             <tr> <td valign="top"><div> 6 </div></td> <td valign="top"><div>     +normalized number</div></td> </tr>
+             <tr> <td valign="top"><div> 7 </div></td> <td valign="top"><div>                  +inf </div></td> </tr>
+             <tr> <td valign="top"><div> 8 </div></td> <td valign="top"><div>       -NaN (signaling)</div></td> </tr>
+             <tr> <td valign="top"><div> 9 </div></td> <td valign="top"><div>           +NaN (quiet)</div></td> </tr>
+          </tbody>
+          </table>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10110
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  +  B (unsigned +)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div>
+                    10111
+                  </div>
+                </td>
+                <td valign="top">
+                  <div>
+                    A  -  B (unsigned -)
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div> 11000 </div>
+                </td>
+                <td valign="top">
+                  <div> A  *  B (unsigned *) </div>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <div> 11001 </div>
+                </td>
+                <td valign="top">
+                  <div> A  /  B (unsigned /) </div>
+                </td>
+              </tr>
+            </TBODY> </table>
+          </DIV>
+
+        </DIV>
+
+        <div id="FLAG_O">
+          <div id="FLAG_N">
+            <div id="FLAG_Z">
+              <Р>
+                <b> O N Z </b> 1 бит/каждый
+              </Р>
+              <Р>
+                Бистабильные значения, созданные последней операцией, выполненной в ALU
+              </Р>
+              <Р>
+
+              </Р>
+              <div >
+                <table width="605" cellspacing="0" cellpadding="0" border="0">
+                  <TBODY> <TR>
+                    <td valign="top">
+                      <Р>
+                        Результат
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        О
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        N
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        Z
+                      </Р>
+                    </TD>
+                  </TR>
+                  <TR>
+                    <td valign="top">
+                      <Р>
+                        Положительный результат
+                      </Р>
+                      <Р>
+                        (0 считается положительным)
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                  </TR>
+                  <TR>
+                    <td valign="top">
+                      <Р>
+                        Результат == 0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        1
+                      </Р>
+                    </TD>
+                  </TR>
+                  <TR>
+                    <td valign="top">
+                      <Р>
+                        Отрицательный результат
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        1
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                  </TR>
+                  <TR>
+                    <td valign="top">
+                      <Р>
+                        перелив
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        1
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                  </TR>
+                  <TR>
+                    <td valign="top">
+                      <Р>
+                        Деление на ноль
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        1
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <p>
+                        1
+                      </Р>
+                    </TD>
+                  </TR>
+                </TBODY> </table>
+              </DIV>
+              <Р>
+
+              </Р>
+            </DIV>
+          </DIV>
+        </DIV>
+
+
+        <H2>
+          Центральный процессор: Государственный реестр (СР)
+        </H2>
+        <p> </p>
+
+
+        <div id="SELP">
+          <Р>
+            <b> SelP </b> <b> </b> 2 бита
+          </Р>
+          <Р>
+            Выберите, какие биты будут обновляться в регистре состояния:
+          </Р>
+          <Р>
+
+          </Р>
+          <div >
+            <table width="563" cellspacing="0" cellpadding="0" border="0">
+              <TBODY> <TR>
+                <td valign="top">
+                  <p>
+                    SelP (SelP <sub> 1 </sub> -SelP <sub> 0 </sub>)
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <p>
+                    выбор
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    00
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    C V N Z I U
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    01
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    C V N Z I <b> U '</b>
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    10
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    C V N Z <b> I '</b> U
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    11
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    <b> O 'N' Z '</b> I U
+                  </Р>
+                </TD>
+              </TR>
+            </TBODY> </table>
+          </DIV>
+          <Р>
+          </Р>
+          <Р>
+          </Р>
+        </DIV>
+
+
+        <div id="M7">
+          <Р>
+            <b> M7 </b> <b> </b> 1 бит
+          </Р>
+          <Р>
+            Выбирает, какое значение загружается в регистр состояния:
+          </Р>
+          <Р>
+
+          </Р>
+          <div >
+            <table width="563" cellspacing="0" cellpadding="0" border="0">
+              <TBODY> <TR>
+                <td valign="top">
+                  <p>
+                    M7
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <p>
+                    выбор
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    0
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Внутренняя шина
+                  </Р>
+                </TD>
+              </TR>
+              <TR>
+                <td valign="top">
+                  <Р>
+                    1
+                  </Р>
+                </TD>
+                <td valign="top">
+                  <Р>
+                    Выход выбран SelP
+                  </Р>
+                </TD>
+              </TR>
+            </TBODY> </table>
+          </DIV>
+          <p>
+
+          </Р>
+          <p>
+
+          </Р>
+        </DIV>
+
+
+
+
+        <H2>
+          Центральный процессор: запись инструкций (IR)
+        </H2>
+        <p> </p>
+
+        <div id="SE">
+        <div id="SIZE">
+        <div id="OFFSET">
+              <Р>
+                <b> SE </b> 1 бит
+              </Р>
+              <Р>
+                <b> РАЗМЕР </b> 5 бит
+              </Р>
+              <Р>
+                <b> OFFSET </b> 5 бит
+              </Р>
+              <Р>
+                Они позволяют выбрать раздел битов, содержащийся в регистре команд, для выгрузки на внутреннюю шину.
+              </Р>
+              <Р>
+
+              </Р>
+              <Р>
+
+              </Р>
+              <Р>
+                Например, с учетом следующего содержимого в регистре команд:
+              </Р>
+              <p>
+                <img style="max-width: 90%" id="Imagen 15" src="repo/hardware/ep/help/signal/image002.png" name="Imagen 15" alt="">
+              </Р>
+              <Р>
+                Ценности:
+              </Р>
+              <Р>
+
+              </Р>
+              <div >
+                <table cellspacing="0" cellpadding="0" border="1" class="Tablanormal11">
+                  <TBODY> <TR>
+                    <td valign="top">
+                      <Р>
+                        SE
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        РАЗМЕР
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        OFFSET
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        ВЫХОД
+                      </Р>
+                    </TD>
+                  </TR>
+                  <TR>
+                    <td valign="top">
+                      <Р>
+                        0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        01000
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        10010
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        <img style="max-width: 90%" id="Imagen 16" src="repo/hardware/ep/help/signal/image003.jpg" name="Imagen 16" alt="">
+                      </Р>
+                    </TD>
+                  </TR>
+                  <TR>
+                    <td valign="top">
+                      <Р>
+                        0
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        00110
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        00000
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        <img style="max-width: 90%" id="Imagen 17" src="repo/hardware/ep/help/signals/image004.jpg" name="Imagen 17" alt="">
+                      </Р>
+                    </TD>
+                  </TR>
+                  <TR>
+                    <td valign="top">
+                      <Р>
+                        1
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        01000
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        10010
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        <img style="max-width: 90%" id="Imagen 18" src="repo/hardware/ep/help/signal/image005.jpg" name="Imagen 18" alt="">
+                      </Р>
+                    </TD>
+                  </TR>
+                  <TR>
+                    <td valign="top">
+                      <Р>
+                        1
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        00110
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        00000
+                      </Р>
+                    </TD>
+                    <td valign="top">
+                      <Р>
+                        <img style="max-width: 90%" id="Imagen 19" src="repo/hardware/ep/help/signal/image006.jpg" name="Imagen 19" alt="">
+                      </Р>
+                    </TD>
+                  </TR>
+                </TBODY> </table>
+              </DIV>
+              <Р>
+
+              </Р>
+              <Р>
+
+              </Р>
+              <Р>
+
+              </p> <b> <br clear="all"> </b>
+              <p>
+
+              </Р>
+            </DIV>
+          </DIV>
+        </DIV>
+
+        <H2>
+          Центральный процессор: доступ к основной памяти
+        </H2>
+        <p> </p>
+
+<div id="M1">
+          <Р>
+            <b> M1 </b> <b> </b> 1 бит
+          </Р>
+          <Р>
+            Они позволяют выбрать, какое значение можно использовать для обновления регистра данных (MBR): значением из памяти или значением из внутренней шины данных.
+          </Р>
+          <Р>
+          </Р>
+        </DIV>
+
+
+	<div id="MH">
+          <p>
+            <b>MH</b><b>     </b>             1 bit
+          </p>
+          <p>
+            Этот сигнал позволяет выбрать аппаратный счетчик производительности (HPC) для работы с:
+          </p>
+          <p>
+	    <ul>
+	    <li><b>00</b>: Количество тактов.</li>
+	    <li><b>01</b>: Накопленное процессорное время.</li>
+	    <li><b>10</b>: Накопленная потребляемая мощность.</li>
+	    <li><b>11</b>: &lt;Не используется&gt;.</li>
+	    </ul>
+          </p>
+          <p>
+            <a href="https://en.wikipedia.org/wiki/Hardware_performance_counter">Счетчик производительности оборудования</a> – это набор специальных регистров для хранения статистики о действиях, связанных с оборудованием. Он используется для проведения низкоуровневого анализа производительности или энергопотребления.
+          </p>
+        </div>
+
+
+        <div id="SBWA">
+        <div id="BWA">
+<div id="R">
+<div id="W">
+        <div id="BE">
+<div id="MRDY">
+                  <Р>
+                    <b> R </b> <b> </b> 1 бит <br>
+                    <b> W </b> <b> </b> 1 бит <br>
+                    <b> BE </b> <b> </b> 4 бита <br>
+                    <b> MRdy </b> <b> </b> 1 бит <br>
+                  </Р>
+                  <Р>
+Управляющие сигналы основной памяти: R для чтения, W для записи, BE для выбора байтов. <br>
+По умолчанию память читает или записывает за один такт. Если память сконфигурирована на несколько тактов, сигнал MRdy устанавливается, когда память заканчивает запрос R/W.
+                  </Р>
+                  <Р>
+                    BE3=BW1, BE2=BW0, BE1=A1, BE0=A0
+                  </Р>
+                  <Р>
+
+                  </Р>
+                  <Р>
+                    BE позволяет выбрать байт (ы) в слове для чтения и место их размещения в шине:
+                  </Р>
+                  <p>
+
+                  </Р>
+                  <table width="1063" cellspacing="0" cellpadding="0" border="0" align="left">
+                    <TBODY> <TR>
+                      <td valign="top" colspan="4">
+                        <Р>
+                          Байт в слове памяти
+                        </Р>
+                      </TD>
+                      <td valign="top" colspan="4">
+                        <Р>
+                          Выбор байтов
+                        </Р>
+                      </TD>
+                      <td valign="top" colspan="4">
+                        <Р>
+                          Выход на автобус
+                        </Р>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <td valign="top">
+                        <Р>
+                          D <суб> 31 </суб> -D <суб> 24 </суб>
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          D <суб> 23 </суб> -D <суб> 16 </суб>
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          D <суб> 15 </суб> -D <суб> 8 </суб>
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          D <суб> 7 </суб> -D <суб> 0 </суб>
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          BE <суб> 3 </суб>
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          BE <суб> 2 </суб>
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          BE <суб> 1 </суб>
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          BE <суб> 0 </суб>
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          D31-D24
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          D23-D16
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          D15-D8
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          D7-D0
+                        </Р>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ----
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ----
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 0
+                        </Р>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ----
+                        </Р>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Икс
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Икс
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ---
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          ----
+                        </Р>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 0
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Икс
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Икс
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 3
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 2
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 1
+                        </Р>
+                      </TD>
+                      <td valign="top">
+                        <Р>
+                          Байт 0
+                        </Р>
+                      </TD>
+                    </TR>
+                  </TBODY> </table>
+                  <p>
+                    <br clear="all">
+                  </Р>
+                  <p>
+
+                  </Р>
+                  <Р>
+                    А также выбор байта (байтов) в слове, которое нужно записать, и место их размещения в слове памяти:
+                  </Р>
+                  <Р>
+
+                  </Р>
+                  <Р>
+
+                  </Р>
+                  <div >
+                    <table width="1084" cellspacing="0" cellpadding="0" border="0">
+                      <TBODY> <TR>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Данные в автобусе
+                          </Р>
+                        </TD>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Выбор байтов
+                          </Р>
+                        </TD>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Байты, записанные в слове памяти
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            D <суб> 31 </суб> -D <суб> 24 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D <суб> 23 </суб> -D <суб> 16 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D <суб> 15 </суб> -D <суб> 8 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D <суб> 7 </суб> -D <суб> 0 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BE <суб> 3 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BE <суб> 2 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BE <суб> 1 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BE <суб> 0 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D <суб> 31 </суб> -D <суб> 24 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D <суб> 23 </суб> -D <суб> 16 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D <суб> 15 </суб> -D <суб> 8 </суб>
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D7-D0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ----
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ----
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ----
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ----
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                      </TR>
+                    </TBODY> </table>
+                  </DIV>
+        </DIV>
+        </DIV>
+        </DIV>
+        </DIV>
+        </DIV>
+
+                  <Р>
+                  </Р>
+                  <br clear="all">
+                  <Р>
+                  </Р>
+                  <Р>
+                  </Р>
+                  <Р>
+                  </Р>
+
+        <div id="BW">
+        <div id="A1A0">
+                  <Р>
+                    <b> BW </b> (2 бита) <br>
+                    <b> A1A0 </b> (2 бита) <br>
+                    <b> SE </b> (1 бит) <br>
+                    <b> W </b> (1 бит)
+                  </Р>
+                  <Р>
+                    Входные сигналы для селектора байтов (W-байтовый и R-байтовый селекторы).
+                  </Р>
+                  <Р>
+
+                  </Р>
+                  <Р>
+                    Селектор байтов: W=0, SE=0 (R-байтовый селектор):
+                  </Р>
+                  <div >
+                    <table width="1061" cellspacing="0" cellpadding="0" border="0">
+                      <TBODY> <TR>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Входные байты
+                          </Р>
+                        </TD>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Выбор байтов
+                          </Р>
+                        </TD>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Выходные байты
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            D31-D24
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D23-D16
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D15-D8
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D7-D0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BW1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BW0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            A1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            A0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D31-D24
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D23-D16
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D15-D8
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D7-D0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                      </TR>
+                    </TBODY> </table>
+                  </DIV>
+                  <Р>
+
+                  </Р>
+                  <Р>
+
+                  </Р>
+                  <Р>
+                    Селектор байтов: W=0, SE=1 (R-байтовый селектор):
+                  </Р>
+                  <Р>
+
+                  </Р>
+                  <div >
+                    <table width="935" cellspacing="0" cellpadding="0" border="0">
+                      <TBODY> <TR>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Входные байты
+                          </Р>
+                        </TD>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Выбор байтов
+                          </Р>
+                        </TD>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Выходные байты
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            D31-D24
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D23-D16
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D15-D8
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D7-D0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BW1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BW0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            A1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            A0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D31-D24
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D23-D16
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D15-D8
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D7-D0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            S
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Икс
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 3
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 2
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                      </TR>
+                    </TBODY> </table>
+                  </DIV>
+                  <Р>
+
+                  </Р>
+                  <Р>
+
+                  </Р>
+                  <Р>
+                    Селектор байтов: W=1, SE={0,1} (W-селектор байтов):
+                  </Р>
+                  <div >
+                    <table width="935" cellspacing="0" cellpadding="0" border="0">
+                      <TBODY> <TR>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Входные байты
+                          </Р>
+                        </TD>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Выбор байтов
+                          </Р>
+                        </TD>
+                        <td valign="top" colspan="4">
+                          <Р>
+                            Выходные байты (в шину)
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            D31-D24
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D23-D16
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D15-D8
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D7-D0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BW1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            BW0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            A1
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            A0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D31-D24
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D23-D16
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D15-D8
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            D7-D0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            0
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Байт 0
+                          </Р>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            ---
+                          </Р>
+                        </TD>
+                        <td valign="top">
+                          <Р>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            ---
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            X
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 3
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 2
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 1
+                          </p>
+                        </td>
+                        <td valign="top">
+                          <p>
+                            Byte 0
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </div>
+                </div>
+        </div>
+        </div>
+
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
+
+        <h2>
+          The central processing unit: Register File (RF).
+        </h2>
+        <p></p>
+
+          <div id="RA">
+          <div id="RB">
+          <div id="RC">
+          <div id="LC">
+                <p>
+                  <b>
+		  NOTE: This mechanism is for testing purposes only. You should not use those signals in the final version of your microcode.<br>
+		  Please avoid to use RA, RB, RC, and Cop directly because its value are generated by SelA (SelB, SelC, SelCop) and MR.<br>
+		  </b>
+                </p>
+                <p>
+                  <b>RA</b><b>      </b>             5 bits
+                </p>
+                <p>
+                  <b>RB</b><b>      </b>             5 bits
+                </p>
+                <p>
+                  <b>RC</b><b>                  </b> 5 bits
+                </p>
+                <p>
+                  <b>LC</b><b>                  </b> 1 bit
+                </p>
+                <p>
+                  They allow you to select a register which value goes to A (RA) or B (RB), or to update the value of the selected record (RC).
+                  In the case of updating the register, in addition to using the RC signal, use the LC signal with a value of 1.<br>
+                </p>
+                <p>
+
+                </p>
+                <p>
+                  <img style="max-width:90%" id="Imagen 25" src="repo/hardware/ep/help/signals/image007.jpg" name="Imagen 25" alt="">
+                </p>
+                <p>
+                  <a  name="_Toc438322898">Figure</a> <b>9</b> <b>Options available for the MUX A</b>
+                </p><br clear="all">
+                <p>
+
+                </p>
+                <p>
+
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>
+          The central processing unit: Program Counter (PC)
+        </h2>
+        <p></p>
+
+          <div id="M2">
+          <p>
+            <b>M2</b><b>     </b>             1 bit
+          </p>
+          <p>
+            They allow you to select which value can be used to update the program counter register (PC):
+            adding four to the current PC content or the value that comes from the internal data bus.
+          </p>
+          <p>
+
+          </p>
+          <p>
+            <img style="max-width:90%" id="Imagen 82" src="repo/hardware/ep/help/signals/image008.jpg" name="Imagen 82" alt="">
+          </p>
+          <p>
+            <a  name="_Toc438322899">Figure</a> <b>10</b> <b>Detail of the PC register management options</b>
+          </p>
+          <p>
+          </p>
+        </div>
+
+
+        <h2> The central processing unit: Registers</h2>
+        <p> </p>
+        <div id="C0">
+        <div id="C1">
+        <div id="C2">
+        <div id="C3">
+        <div id="C4">
+        <div id="C5">
+        <div id="C6">
+        <div id="C7">
+          <p>
+            <b>C0, ..., C7</b><b>           </b> 1 bit
+          </p>
+          <p>
+            It will store in the associated register, the value from the input of the register
+            at the end of the clock cycle.
+          </p>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <h2> The central processing unit: Access to the data bus </h2>
+        <p> </p>
+        <div id="TD">
+          <p>
+            <b>Td</b><b>     </b> 1 bit
+          </p>
+          <p>
+            Copy the value of the MBR register, after being transformed by the 'bytes selector' componente, into the data bus.
+          </p>
+        </div>
+
+        <h2> The central processing unit: Access to the address bus </h2>
+        <p> </p>
+        <div id="TA">
+          <p>
+            <b>Ta</b><b>     </b> 1 bit
+          </p>
+          <p>
+            Copy the value from the MAR register into the address bus.
+          </p>
+        </div>
+
+        <h2> The central processing unit: Access to the internal data bus </h2>
+        <p> </p>
+        <div id="T0">
+        <div id="T1">
+        <div id="T2">
+        <div id="T3">
+        <div id="T4">
+        <div id="T5">
+        <div id="T6">
+        <div id="T7">
+        <div id="T8">
+        <div id="T9">
+        <div id="T10">
+        <div id="T11">
+        <div id="T12">
+          <p>
+            <b>T1, ..., T12</b><b>           </b> 1 bit
+          </p>
+          <p>
+            Copy the value in the input of the associated tri-state element into the internal data bus, during the clock cycle.
+          </p>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <h2> The central processing unit: The ALU flags, plus I and U flags </h2>
+        <p> </p>
+        <div id="TEST_C">
+        <div id="TEST_V">
+        <div id="TEST_N">
+        <div id="TEST_Z">
+        <div id="TEST_I">
+        <div id="TEST_U">
+          <p>
+            <b>
+		 NOTE: this mechanism is for testing purposes only. You should not use those signals in the final version of your microcode.</br>
+		 Please avoid to use TEST_C, ... directly because its value are generated by the ALU.<br>
+	    </b>
+          </p>
+          <p>
+            <b>TEST_C, ..., TEST_U</b><b>           </b> 1 bit
+          </p>
+          <p>
+            Let user to change on-the-fly the values of flags as they were generated by the hardware elements.<br>
+            The current available flags are:
+            <ul>
+            <li><b>C</b>: Carry</li>
+		    <ul>
+		    <li><b>Add a b</b>: (a &gt;&gt;&gt; 31) && (b &gt;&gt;&gt; 31)</li>
+		    </ul>
+            <li><b>V</b>: oVerflow</li>
+		    <ul>
+		    <li><b>Add a b</b>: (a+b &lt; 0) && (a &gt;= 0) && (b &gt;= 0) || (a+b &gt;= 0) && (a &lt;  0) && (b &lt;  0)</li>
+		    </ul>
+            <li><b>N</b>: Negative</li>
+		    <ul>
+		    <li><b>Add a b</b>: (a+b  &lt; 0)</li>
+		    </ul>
+            <li><b>Z</b>: Zero</li>
+		    <ul>
+		    <li><b>Add a b</b>: (a+b == 0)</li>
+		    </ul>
+	    <br>
+            <li><b>I</b>: Interruption enabled/Interruption disabled</li>
+            <li><b>U</b>: User level/Kernel level</li>
+            </ul>
+          </p>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <p> </p>
+        <div id="EXCODE">
+          <p>
+            <b>ExCode</b><b>           </b> 4 bits
+          </p>
+          <p>
+             Let microprogrammer to specify a inmediate value that should be copy into the internal data bus with signal T11.
+          </p>
+        </div>
+
+
+      <h2>The Input/Output Elements</h2>
+      <p></p>
+        <div id="IORDY">
+	<div id="IOR">
+	<div id="IOW">
+                  <p>
+                    <b>IOR</b><b>       </b> 1 bit <br>
+                    <b>IOW</b><b>       </b> 1 bit <br>
+                    <b>IORdy</b><b>     </b> 1 bit <br>
+                  </p>
+                  <p>
+                      Control signals for the I/O devices: IOR for read, IOW for write, and if the devices is asynchronous the IORdy signal is set when device ends the request.
+                  </p>
+                  <p>
+                  </p>
+        </div>
+        </div>
+        </div>
+
+</body>
+</html>
+
