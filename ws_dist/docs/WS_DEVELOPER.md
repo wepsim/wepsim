@@ -177,9 +177,9 @@ mv www www.initial.$$
 cp -a wepsim-2.0.11/ws_dist www
 ```
 
-+ 2.2) Adapt path in "www/examples/hardware/ep/images/processor.svg" for Apache Cordova:
++ 2.2) Adapt path in "www/repo/hardware/ep/images/processor.svg" for Apache Cordova:
 ```bash
-sed -i .bak 's/wepsim/android_asset\/www/g' ./www/examples/hardware/ep/images/processor.svg
+sed -i .bak 's/wepsim/android_asset\/www/g' ./www/repo/hardware/ep/images/processor.svg
 ```
 
 + 2.3) Adapt path in files "./www/wepsim-classic.html" and "./www/wepsim-compact.html":

@@ -337,27 +337,9 @@
             if (typeof ahw == "undefined") return false ;
             if (       ahw == null)        return false ;
 
-            // reload images
-            var svg_arr = [ 'svg_p',               'svg_cu',               'svg_p2' ] ;
-            var img_arr = [ ahw.sim_img_processor, ahw.sim_img_controlunit, ahw.sim_img_cpu ] ;
-            wepsim_svg_reload(svg_arr, img_arr) ;
-
-            // reload images event-handlers
-	    var a = document.getElementById("svg_p");
-            if (a != null) {
-	        a.addEventListener("load",function() {
-		    simcore_init_eventlistener("svg_p", hash_detail2action, hash_signal2action) ;
-		    refresh() ;
-	        }, false);
-            }
-
-	    var b = document.getElementById("svg_cu");
-            if (b != null) {
-	        b.addEventListener("load",function() {
-	    	    simcore_init_eventlistener("svg_cu", hash_detail2action, hash_signal2action) ;
-		    refresh() ;
-	        }, false);
-            }
+            // reload images and associated textual representation
+            cpucu_show_graph() ;
+            cpucu_show_table('elements') ;
 
 	    // initialize hw UI
 	    simcore_init_ui(hash_detail2init) ;

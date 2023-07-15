@@ -103,15 +103,58 @@
         {
             var show_as_graph = get_cfg('CPUCU_show_graph') ;
 
+            // (1/2) show as graph
             if (show_as_graph)
-                 $('#cpu_view_graph1').tab("show") ;
-            else $('#cpu_view_table1').tab("show") ;
+            {
+                $('#cpu_view_graph1').tab("show") ;
+                return ;
+            }
 
+            // (2/2) show as table
+            $('#cpu_view_table1').tab("show") ;
 	    setTimeout(function() {
-                          $("#infohw1").attr('components', 'elements') ;
-                          simcoreui_show_hw() ;
-                          var ws_idiom = get_cfg('ws_idiom') ;
-                          i18n_update_tags('hw', ws_idiom) ;
+                          cpucu_show_table('elements') ;
                        }, 100);
+        }
+
+        function cpucu_show_graph ( )
+        {
+            var ahw = simhw_active() ;
+            if ( (typeof ahw == "undefined") || (ahw == null) )
+            {
+                 return ;
+            }
+
+            var svg_arr = [ 'svg_p',               'svg_cu',               'svg_p2' ] ;
+            var img_arr = [ ahw.sim_img_processor, ahw.sim_img_controlunit, ahw.sim_img_cpu ] ;
+
+            // reload svg
+            wepsim_svg_reload(svg_arr, img_arr) ;
+
+            // reload images event-handlers
+	    var a = document.getElementById("svg_p");
+            if (a != null) {
+	        a.addEventListener("load", function() {
+		    simcore_init_eventlistener("svg_p", hash_detail2action, hash_signal2action) ;
+		    refresh() ;
+	        }, false);
+            }
+
+	    var b = document.getElementById("svg_cu");
+            if (b != null) {
+	        b.addEventListener("load", function() {
+	    	    simcore_init_eventlistener("svg_cu", hash_detail2action, hash_signal2action) ;
+		    refresh() ;
+	        }, false);
+            }
+        }
+
+        function cpucu_show_table ( eltos_to_show )
+        {
+	    $("#infohw1").attr('components', '') ;
+	    $("#infohw1").attr('components', eltos_to_show) ;
+
+            var ws_idiom = get_cfg('ws_idiom') ;
+            i18n_update_tags('hw', ws_idiom) ;
         }
 
