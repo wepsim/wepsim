@@ -115,26 +115,26 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 ### A) Run (and print the final state)
 
-+ From the command line it is possible to 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print the final state:
++ From the command line it is possible to 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode, and print the final state:
 
 ```bash
-./wepsim.sh -a run -m ep -f ./repo/microcode/mips/mc-ep_base.txt -s ./repo/assembly/mips/s1e1.asm
-register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xfffff; register PC = 0x8018; memory 0x8000 = 0x8400002; memory 0x8004 = 0x8600001; memory 0x8008 = 0xa21809; memory 0x800c = 0x8400002; memory 0x8010 = 0x8600001; memory 0x8014 = 0xa2180a;
+./wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e5.asm
+register R9 = 0x1; register R10 = 0x2; register R29 = 0x100000; memory 0x8000 = 0x9200001; memory 0x8004 = 0x9400002; memory 0x8008 = 0x412a0004; memory 0x800c = 0x30000004; memory 0x8010 = 0x52a0000; memory 0x8014 = 0x9200001; memory 0x8018 = 0x9400002; memory 0x801c = 0x3d2a0004; memory 0x8020 = 0x52a0000; memory 0x8024 = 0x9200001; memory 0x8028 = 0x9400002; memory 0x802c = 0x3d2a0004; memory 0x8030 = 0x30000000; memory 0x8034 = 0x57e00000; 
 ```
 
 ### B) Run step by step
 
-+ It is also possible to 'run' 'step by step' the 's1_e1.asm' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each assembly instruction the state elements that modify its value:
++ It is also possible to 'run' 'step by step' the 's1_e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode, and print for each assembly instruction the state elements that modify its value:
 
 ```bash
 ./wepsim.sh -a stepbystep -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
 pc,		instruction,			changes_from_zero_or_current_value
-pc = 0x8000,	li $2 2,			register R2 = 0x2; register R29 = 0xfffff; register PC = 0x8004
+pc = 0x8000,	li $2 2,			register R2 = 0x2; register R29 = 0x100000; register PC = 0x8004
 pc = 0x8004,	li $3 1,			register R3 = 0x1; register PC = 0x8008
 pc = 0x8008,	add $5 $2 $3,			register R5 = 0x3; register PC = 0x800c
 pc = 0x800c,	li $2 2,			register PC = 0x8010
 pc = 0x8010,	li $3 1,			register PC = 0x8014
-pc = 0x8014,	sub $5 $2 $3,			register R5 = 0x1; register PC = 0x8018
+...
 ```
 
 ### C) Run microstep by microstep
@@ -148,17 +148,13 @@ micropc = 0x0,		T2 C0,
 micropc = 0x1,		TA R BW=11 M1 C1,				
 micropc = 0x2,		M2 C2 T1 C3,				register PC = 0x8004
 micropc = 0x3,		A0 B=0 C=0,				
-micropc = 0x67,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,register R2 = 0x2; register R29 = 0xfffff
+micropc = 0xd3,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,register R2 = 0x2; register R29 = 0x100000
 micropc = 0x0,		T2 C0,					
 micropc = 0x1,		TA R BW=11 M1 C1,				
 micropc = 0x2,		M2 C2 T1 C3,				register PC = 0x8008
 micropc = 0x3,		A0 B=0 C=0,				
-micropc = 0x67,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,register R3 = 0x1
-micropc = 0x0,		T2 C0,					
-micropc = 0x1,		TA R BW=11 M1 C1,				
-micropc = 0x2,		M2 C2 T1 C3,				register PC = 0x800c
-micropc = 0x3,		A0 B=0 C=0,				
-micropc = 0x35,		MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0,register R5 = 0x3
+micropc = 0xd3,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,register R3 = 0x1
+...
 ```
 
 ### D) Run & check end state (example when o.k.)
@@ -176,7 +172,7 @@ OK: Execution: no error reported
 
 ```bash
 ./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e2.txt
-ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), cpu[R3]='0' (expected '0x1'), cpu[R29]='0x100000' (expected '0xfffff'), cpu[PC]='0x8078' (expected '0x8018'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010'),
+ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), cpu[R3]='0' (expected '0x1'), cpu[R29]='0x100000' (expected '0xfffff'), cpu[PC]='0x8078' (expected '0x8018'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010'), 
 ```
 
 ### F) Run microstep by microstep with verbalized output
