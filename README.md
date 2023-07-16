@@ -163,7 +163,7 @@ micropc = 0xd3,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,register 
 
 ```bash
 ./wepsim.sh -a check -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips/s1e1.asm -r ./examples/checklist/mips/cl-s1e1.txt
-OK: Execution: no error examplesrted
+OK: Execution: no error reported
 ```
 
 ### E) Run & check end state (example when k.o.)
@@ -285,7 +285,7 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 	ret = simcore_execute_program(options) ;
     }
 
-    // 6) show a final examplesrt
+    // 6) show a final report
     if (false != ret.ok) {
 	var state_obj = simcore_simstate_current2state() ;
 	ret.msg = simcore_simstate_state2checklist(state_obj, '') ;
