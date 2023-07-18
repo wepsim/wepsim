@@ -25,6 +25,6 @@
 
 function simlang_compile ( text, datosCU )
 {
-     return simlang_compile_v1(text, datosCU) ;
+     return simlang_compile_v2(text, datosCU) ;
 }
 

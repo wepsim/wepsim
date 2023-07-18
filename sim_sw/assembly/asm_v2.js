@@ -18,6 +18,10 @@
  *
  */
 
+// Auxiliary functions
+
+
+
 
 // Pass 0: prepare context
 function simlang_compile_prepare_context ( datosCU )
@@ -31,6 +35,7 @@ function simlang_compile_prepare_context ( datosCU )
 	   context.labelsNotFound 	= [] ;
 	   context.instrucciones  	= [] ;
 	   context.co_cop         	= {} ;
+	   context.oc_eoc         	= {} ;
 	   context.registers      	= [] ;   // here
            context.text           	= '' ;
 	   context.tokens         	= [] ;
@@ -68,6 +73,8 @@ function simlang_compile_prepare_context ( datosCU )
 			 nwords:              parseInt(aux.nwords),
 			 co:                  (typeof aux.co !== "undefined" ? aux.co : false),
 			 cop:                 (typeof aux.cop !== "undefined" ? aux.cop : false),
+			 oc:                  (typeof aux.oc !== "undefined" ? aux.oc : false),
+			 eoc:                 (typeof aux.eoc !== "undefined" ? aux.eoc : false),
 			 fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
 			 signature:           aux.signature,
 			 signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
@@ -108,9 +115,426 @@ function simlang_compile_prepare_context ( datosCU )
 
 
 // pass 1: compile assembly (without replace pseudo-instructions)
-function read_data_v2  ( context, datosCU, ret )
+function read_data_v2  ( context, ret )
 {
-     // TODO
+	// Reused from version 1, auxiliary functions TO BE CHANGED
+	var seg_name = asm_getToken(context) ;
+
+	var gen = {};
+	gen.byteWord     = 0;
+	gen.track_source = [] ;
+	gen.comments     = [] ;
+	gen.machineCode  = reset_assembly(1);
+	gen.seg_ptr      = ret.seg[seg_name].begin ;
+
+	//
+	//  .data
+	//  *.text*
+	//
+
+	asm_nextToken(context) ;
+
+	// Loop while token read is not a segment directive (.text/.data/...)
+	while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
+	{
+		//
+		//  * etiq1: *
+		//  * etiq2: *  .word 2, 4
+		//
+		var possible_tag = "" ;
+		// Loop for tag reading
+		while (!is_directive_datatype(asm_getToken(context)) && !is_end_of_file(context))
+		{
+			// tagX
+			possible_tag = asm_getToken(context) ;
+
+			// check tag
+			if ("TAG" != asm_getTokenType(context))
+			{
+				// Empty tag
+				if ("" == possible_tag) {
+					possible_tag = "[empty]" ;
+				}
+
+				return asm_langError(context,
+									i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
+												"'" + possible_tag + "'") ;
+			}
+
+			var tag = possible_tag.substring(0, possible_tag.length-1);
+
+			// Check tag format
+			if (! isValidTag(tag)) {
+				return asm_langError(context,
+									i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+												"'" + tag + "'") ;
+			}
+			// Check for invalid tags
+			if (context.firmware[tag]) {
+				return asm_langError(context,
+									i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+												"'" + tag + "'") ;
+			}
+			// Check for repeated tags
+			if (ret.labels2[tag]) {
+				return asm_langError(context,
+									i18n_get_TagFor('compiler', 'REPEATED TAG') +
+												"'" + tag + "'") ;
+			}
+
+			// Store tag
+			ret.labels2[tag] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16);
+
+			// .<datatype> | tagX+1
+			asm_nextToken(context) ;
+		}
+
+		// check if end of file has been reached
+		if (is_end_of_file(context)) break;
+
+		//
+		//    etiq1:
+		//    etiq2: *.word* 2, 4
+		//
+
+		var possible_datatype = asm_getToken(context) ;
+
+		//
+		//    .word  *2, 4, 0x8F, 'a', 077*
+		//    .float *1.2345*
+		//
+		if ( (".word"   == possible_datatype) ||
+			(".half"   == possible_datatype) ||
+			(".byte"   == possible_datatype) ||
+			(".float"  == possible_datatype) ||
+			(".double" == possible_datatype) )
+		{
+			// Get value size in bytes
+			var size = get_datatype_size(possible_datatype) ;
+
+			// <value> | .<directive>
+			asm_nextToken(context) ;
+			var possible_value = asm_getToken(context) ;
+
+			// Loop until next datatype or EOF
+			while (!is_directive(asm_getToken(context)) && !is_end_of_file(context))
+			{
+				var label_found = false;
+
+				// Get value
+				var ret1 = get_inm_value(possible_value) ;
+				var number = ret1.number ;
+				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
+				{
+					// check if datatype is numeric
+					if (".word" !== possible_datatype)
+					{
+						return asm_langError(context,
+												i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
+																"'" + possible_value + "'") ;
+					}
+
+					// check valid label
+					if (! isValidTag(possible_value)) {
+						return asm_langError(context,
+												i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+																"'" + possible_value + "'") ;
+					}
+					if (context.firmware[possible_value]) {
+						return asm_langError(context,
+												i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+																"'" + possible_value + "'") ;
+					}
+
+					number = 0 ;
+					label_found = true ;
+				}
+
+				// Decimal --> binary
+				if (ret1.isDecimal == true) a = decimal2binary(number, size*BYTE_LENGTH) ;
+				else a = float2binary(number, size*BYTE_LENGTH) ;
+
+				num_bits = a[0] ;
+				free_space = a[1] ;
+
+				// Check size
+				if (free_space < 0)
+				{
+				return asm_langError(context,
+										i18n_get_TagFor('compiler', 'EXPECTED VALUE') + possible_datatype +
+										"' (" + size*BYTE_LENGTH + " bits), " +
+										i18n_get_TagFor('compiler', 'BUT INSERTED') + possible_value +
+										"' (" + num_bits.length + " bits) " +
+										i18n_get_TagFor('compiler', 'INSTEAD') ) ;
+				}
+
+				// Word filled
+				writememory_and_reset(ret.mp, gen, 1) ;
+
+				// Align to size
+				while ( ((gen.seg_ptr+gen.byteWord) % size) != 0 )
+				{
+					gen.byteWord++;
+					// Word filled
+					writememory_and_reset(ret.mp, gen, 1) ;
+				}
+
+				// Store tag
+				if ("" != possible_tag) {
+					ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16) ;
+					possible_tag = "" ;
+				}
+
+				// Label as number (later translation)
+				if (label_found) {
+				ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value,
+										addr:gen.seg_ptr,
+										startbit:31,
+										stopbit:0,
+										rel:undefined,
+										nwords:1,
+										labelContext:asm_getLabelContext(context) };
+				}
+
+				// Store number in machine code
+				gen.machineCode = assembly_replacement(gen.machineCode,
+														num_bits,
+														BYTE_LENGTH*(size+gen.byteWord),
+														BYTE_LENGTH*gen.byteWord, free_space) ;
+				gen.byteWord += size ;
+				gen.track_source.push(possible_value) ;
+
+				// optional ','
+				asm_nextToken(context) ;
+				if ("," == asm_getToken(context)) asm_nextToken(context) ;
+
+				if ( is_directive(asm_getToken(context)) ||
+					("TAG" == asm_getTokenType(context)) ||
+					("." == asm_getToken(context)[0]) )
+					break ; // end loop, already read token (tag/directive)
+
+				// <value> | .<directive>
+				possible_value = asm_getToken(context) ;
+			}
+		}
+
+		//
+		//    .space *20*
+		//    .zero  *20*
+		//
+		else if ( (".space" == possible_datatype) ||
+					(".zero"  == possible_datatype) )
+		{
+			// <value>
+			asm_nextToken(context) ;
+			var possible_value = asm_getToken(context) ;
+
+			// Check
+			var ret1 = isDecimal(possible_value) ;
+			possible_value = ret1.number ;
+			if (ret1.isDecimal == false) {
+				return asm_langError(context,
+										i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') +
+														"'" + possible_value + "'") ;
+			}
+			// A positive number must be given
+			if (possible_value < 0) {
+				return asm_langError(context,
+										i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') +
+														"'" + possible_value + "'") ;
+			}
+
+			// Fill with spaces/zeroes
+			for (i=0; i<possible_value; i++)
+			{
+				// Word filled
+				writememory_and_reset(ret.mp, gen, 1) ;
+				gen.byteWord++;
+
+				if (".zero" == possible_datatype) gen.track_source.push('0x0') ;
+				else gen.track_source.push('_') ;
+			}
+
+			asm_nextToken(context) ;
+		}
+
+		//
+		//    .align *2*
+		//
+		else if (".align" == possible_datatype)
+		{
+			// <value>
+			asm_nextToken(context) ;
+			var possible_value = asm_getToken(context) ;
+
+			// Check if number
+			var ret1 = isDecimal(possible_value) ;
+			possible_value = ret1.number ;
+			if ( (ret1.isDecimal == false) && (possible_value >= 0) )
+			{
+				return asm_langError(context,
+										i18n_get_TagFor('compiler', 'INVALID ALIGN VALUE') +
+												"'" + possible_value + "'. " +
+										i18n_get_TagFor('compiler', 'REMEMBER ALIGN VAL')) ;
+			}
+
+			// Word filled
+			writememory_and_reset(ret.mp, gen, 1) ;
+
+			// Calculate offset
+			var align_offset = Math.pow(2,parseInt(possible_value)) ;
+
+			switch (align_offset) {
+				case 1:
+					break;
+				case 2:
+					if (gen.byteWord & 1 == 1)
+						gen.byteWord++;
+					break;
+				default:
+					// Fill with spaces
+					writememory_and_reset(ret.mp, gen, 1) ;
+					while ((gen.seg_ptr%align_offset != 0) || (gen.byteWord != 0))
+					{
+						// Word filled
+						gen.byteWord++;
+						writememory_and_reset(ret.mp, gen, 1) ;
+					}
+					/*
+						while (true) {
+							// Word filled
+							writememory_and_reset(ret.mp, gen, 1) ;
+							if (gen.seg_ptr%align_offset == 0 && gen.byteWord == 0)
+								break;
+							gen.byteWord++;
+						}
+					*/
+			}
+
+			asm_nextToken(context) ;
+		}
+
+		//
+		//  * .ascii  "hola", " mundo\n"
+		//  * .asciiz "hola mundo"
+		//  * .string "hola mundo"
+		//
+		else if ( (".ascii"  == possible_datatype) ||
+					(".asciiz" == possible_datatype) ||
+					(".string" == possible_datatype) )
+		{
+			// <value> | .<directive>
+			asm_nextToken(context) ;
+			var possible_value = asm_getToken(context) ;
+			var ret1 = treatControlSequences(possible_value) ;
+			if (true == ret1.error) return asm_langError(context, ret1.string);
+			possible_value = ret1.string ;
+
+			while (!is_directive(asm_getToken(context)) && !is_end_of_file(context))
+			{
+				// Word filled
+				writememory_and_reset(ret.mp, gen, 1) ;
+
+				// check string
+				if ("\"" !== possible_value[0]) {
+					return asm_langError(context,
+											i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
+															"'" + possible_value + "'") ;
+				}
+				// string must end with "\"
+				if ("\"" !== possible_value[possible_value.length-1]) {
+					return asm_langError(context,
+											i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
+				}
+				// string must not be empty
+				if ("" == possible_value) {
+					return asm_langError(context,
+											i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
+				}
+				// check quotes
+				if ("STRING" != asm_getTokenType(context)) {
+					return asm_langError(context,
+											i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
+															"'" + possible_value + "'") ;
+				}
+
+				// process characters of the string
+				for (i=0; i<possible_value.length; i++)
+				{
+					// Word filled
+					writememory_and_reset(ret.mp, gen, 1) ;
+
+					if (possible_value[i] == "\"") continue;
+
+					num_bits = possible_value.charCodeAt(i).toString(2);
+
+					// Store character in machine code
+					gen.machineCode = assembly_replacement(gen.machineCode,
+															num_bits,
+															BYTE_LENGTH*(1+gen.byteWord),
+															BYTE_LENGTH*gen.byteWord,
+															BYTE_LENGTH-num_bits.length) ;
+					gen.byteWord++;
+					gen.track_source.push(possible_value[i]) ;
+				}
+
+				if (".asciiz" == possible_datatype || ".string" == possible_datatype)
+				{
+					// Word filled
+					writememory_and_reset(ret.mp, gen, 1) ;
+
+					num_bits = "\0".charCodeAt(0).toString(2);
+
+					// Store field in machine code
+					gen.machineCode = assembly_replacement(gen.machineCode,
+															num_bits,
+															BYTE_LENGTH*(1+gen.byteWord),
+															BYTE_LENGTH*gen.byteWord,
+															BYTE_LENGTH-num_bits.length) ;
+					gen.byteWord++;
+					gen.track_source.push('0x0') ;
+				}
+
+				// optional ','
+				asm_nextToken(context);
+
+				if ("," == asm_getToken(context)) asm_nextToken(context);
+
+				if ( is_directive(asm_getToken(context)) || ("TAG" == asm_getTokenType(context)) || "." == asm_getToken(context)[0] )
+					break ; // end loop, already read token (tag/directive)
+
+				// <value> | .<directive>
+				possible_value = asm_getToken(context);
+				ret1 = treatControlSequences(possible_value) ;
+
+				if (true == ret1.error) return asm_langError(context, ret1.string);
+
+				possible_value = ret1.string ;
+			}
+		}
+		else
+		{
+			return asm_langError(context,
+									i18n_get_TagFor('compiler', 'UNEXPECTED DATATYPE') +
+													"'" + possible_datatype + "'") ;
+		}
+	}
+
+	// Fill memory after reading all .data
+	if (gen.byteWord > 0)
+	{
+		var melto = {
+						"value":           gen.machineCode,
+						"source_tracking": gen.track_source,
+						"comments":        gen.comments
+					} ;
+		main_memory_set(ret.mp, "0x" + gen.seg_ptr.toString(16), melto) ;
+		gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
+	}
+
+	//DEBUG
+	console.log(gen);
+	ret.seg[seg_name].end = gen.seg_ptr ;  // end of segment is just last pointer value...
 }
 
 function read_text_v2  ( context, datosCU, ret )
@@ -211,7 +635,7 @@ function simlang_compile_pass1 ( context, text )
 	       }
 
 	       if ("data" == ret.seg[segname].kindof) {
-		   read_data_v2(context, datosCU, ret);
+		   read_data_v2(context, ret);
 		   ret.data_found = true;
 	       }
 
