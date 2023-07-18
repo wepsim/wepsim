@@ -532,8 +532,6 @@ function read_data_v2  ( context, ret )
 		gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
 	}
 
-	//DEBUG
-	console.log(gen);
 	ret.seg[seg_name].end = gen.seg_ptr ;  // end of segment is just last pointer value...
 }
 
@@ -607,7 +605,7 @@ function read_text_v2  ( context, datosCU, ret )
           return ret ;
 }
 
-function simlang_compile_pass1 ( context, text )
+function simlang_compile_pass1 ( context, datosCU, text )
 {
           var ret = {};
 	  ret.seg        = sim_segments ;
@@ -638,6 +636,8 @@ function simlang_compile_pass1 ( context, text )
 		   read_data_v2(context, ret);
 		   ret.data_found = true;
 	       }
+	       //DEBUG
+	       //console.log(ret);
 
 	       if ("text" == ret.seg[segname].kindof) {
 		   read_text_v2(context, datosCU, ret);
@@ -798,7 +798,7 @@ function simlang_compile_v2 ( text, datosCU )
            context.text = text ;
 
            // pass 1: compile assembly (without replace pseudo-instructions)
-           var ret = simlang_compile_pass1(context, text) ;
+           var ret = simlang_compile_pass1(context, datosCU, text) ;
 	   if (ret.error != null) {
 	       return ret;
 	   }
