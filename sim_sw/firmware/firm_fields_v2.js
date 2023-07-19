@@ -456,7 +456,6 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
                    oc_inserted = 1 ;
 	       }
 
-	       //REPEATED EOC, NEEDS FIX
 	       // match optional eoc
           else if (frm_isToken(context,"eoc"))
 	       {
@@ -468,25 +467,11 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
                    instruccionAux.eoc = ret.value ;
 				   instruccionAux.fields_eoc.push(ret.value) ;
 
-				   //Problema aquí
                    ret = firm_instruction_check_eoc(context, instruccionAux, xr_info) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
 	       }
-
-	       /*
-	       // match optional eoc
-          else if (frm_isToken(context,"eoc"))
-	       {
-		   ret = firm_instruction_field_read_v2(context, instruccionAux) ;
-		   if (typeof ret.error != "undefined") {
-		       return ret ;
-		   }
- 
-                   instruccionAux.fields_eoc.push(ret.value) ;
-	       }
-	       */
 
 	       // match optional "nwords"
 	  else if (frm_isToken(context, "nwords"))
