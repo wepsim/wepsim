@@ -20,8 +20,27 @@
 
 // Auxiliary functions
 
+function bits_size ( bits )
+{
+	var len = 0;
+	for (var i=0; i<bits.length; i++)
+	{
+		len += bits[i][0] - bits[i][1] + 1
+	}
+	return len ;
+}
 
+function assembly_oc_eoc(machineCode, oc, eoc)
+{
+        var xr_info = simhw_sim_ctrlStates_get() ;
 
+	if (oc !== false)
+	    machineCode = assembly_replacement(machineCode, oc, WORD_LENGTH, WORD_LENGTH-6, 0);
+	if (eoc !== false)
+	    machineCode = assembly_replacement(machineCode, eoc, xr_info.ir.default_eltos.eoc.length, 0, 0);
+
+	return machineCode;
+}
 
 // Pass 0: prepare context
 function simlang_compile_prepare_context ( datosCU )
@@ -537,51 +556,54 @@ function read_data_v2  ( context, ret )
 
 function read_text_v2  ( context, datosCU, ret )
 {
-          //
-          // TODO
-          //
+	//
+	// TODO
+	//
 
-          asm_nextToken(context) ;
+	console.log(context.firmware);
 
-	  // Loop while token read is not a segment directive (.text/.data/...)
-	  while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
-          {
+	var seg_name = asm_getToken(context) ;
+	var seg_ptr  = ret.seg[seg_name].begin ;
+
+	var error = "" ;
+
+	asm_nextToken(context) ;
+
+	// Loop while token read is not a segment directive (.text/.data/...)
+	while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
+	{
 		// check tag(s) or error
-		while (
-                   (typeof context.firmware[asm_getToken(context)] === "undefined") &&
-                   (! is_end_of_file(context))
-                )
-                {
+		while ( (typeof context.firmware[asm_getToken(context)] === "undefined") &&
+				(! is_end_of_file(context)) )
+		{
 			var possible_tag = asm_getToken(context);
 
 			// check tag
-		        if ("TAG" != asm_getTokenType(context))
-                        {
-                            if ("" == possible_tag) {
-                                possible_tag = "[empty]" ;
-                            }
+			if ("TAG" != asm_getTokenType(context))
+			{
+				if ("" == possible_tag) possible_tag = "[empty]" ;
 
-			    return asm_langError(context,
-			                         i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
-                                                 "'" + possible_tag + "'") ;
-                        }
+				return asm_langError(context,
+										i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
+														"'" + possible_tag + "'") ;
+			}
 
-		        var tag = possible_tag.substring(0, possible_tag.length-1);
-   		        if (!isValidTag(tag)) {
-			    return asm_langError(context,
-			                         i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
-                                                 "'" + tag + "'") ;
-                        }
+			var tag = possible_tag.substring(0, possible_tag.length-1);
+			if (!isValidTag(tag)) {
+				return asm_langError(context,
+										i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+														"'" + tag + "'") ;
+			}
 			if (context.firmware[tag]) {
-			    return asm_langError(context,
-			                         i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-                                                 "'" + tag + "'") ;
-                        }
+				return asm_langError(context,
+										i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+														"'" + tag + "'") ;
+			}
 			if (ret.labels2[tag]) {
-			    return asm_langError(context,
-			                         i18n_get_TagFor('compiler', 'REPEATED TAG') +
-                                                 "'" + tag + "'") ;
-                        }
+				return asm_langError(context,
+										i18n_get_TagFor('compiler', 'REPEATED TAG') +
+														"'" + tag + "'") ;
+			}
 
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
@@ -590,19 +612,317 @@ function read_text_v2  ( context, datosCU, ret )
 		}
 
 		// check if end of file has been reached
-                if (is_end_of_file(context)) {
-               	    break ;
-                }
+		if (is_end_of_file(context)) break ;
 
 		// get instruction
 		var instruction = asm_getToken(context) ;
 
-                // get possible fields...
+		// get possible fields...
+		var signature_fields      	= [];	// e.g. [[reg,reg], [reg,imm], [reg,addr,imm]]
+		var signature_user_fields 	= [];	// signature user fields
+		var advance 				= [];	// array that indicates wheather each signature can be considered or not
+		var max_length 				= 0;	// max number of parameters of the signatures
+		var binaryAux  				= [];	// necessary parameters of the fields of each signature
 
+		// Fill parameters
+		var firmware_instruction_length = 0 ;
+		if (typeof context.firmware[instruction] !== "undefined") {
+		    firmware_instruction_length = context.firmware[instruction].length ;
+		}
 
-          }
+		var val = [] ;
+		for (i=0; i<firmware_instruction_length; i++)
+		{
+			signature_fields[i]      			= context.firmware[instruction][i].signature.split(",") ;
+			signature_user_fields[i] 			= context.firmware[instruction][i].signatureUser.split(" ") ;
+			signature_fields[i].shift() ;
+			signature_user_fields[i].shift() ;
+			advance[i]   						= 1 ;
+			binaryAux[i] 						= [] ;
+			max_length   						= Math.max(max_length, signature_fields[i].length) ;
+		}
 
-          return ret ;
+		// Iterate over fields
+		var converted;
+		var value;
+
+		var s = [];
+		s[0] = instruction;
+		for (i=0; i<max_length; i++)
+		{
+			// get next field...
+			// optional ','
+			asm_nextToken(context);
+			if ("," == asm_getToken(context)) asm_nextToken(context);
+
+			// ... from source
+			value = asm_getToken(context);
+
+			if (("TAG" != asm_getTokenType(context)) && (!context.firmware[value]))
+				s[i+1] = value ;
+
+			// vertical search (different signatures)
+			for (j=0; j<advance.length; j++)
+			{
+				// check whether explore this alternative
+				if (advance[j] == 0) continue;
+
+				if (i >= signature_fields[j].length)
+				{
+					// if next token is not instruction or tag
+					if ( ("TAG" != asm_getTokenType(context)) &&
+						(!context.firmware[value]) &&
+						(!is_end_of_file(context)) )
+						advance[j] = 0;
+
+					continue;
+				}
+
+				// get field information
+				var field = context.firmware[instruction][j].fields[i] ;
+				//DEBUG
+				console.log(field);
+				if (field.startbit !== undefined && field.stopbit !== undefined)
+					var size = field.startbit - field.stopbit + 1 ;
+				else
+					var size = bits_size(field.bits) ;
+
+				// check field
+				switch(field.type)
+				{
+					// 0xFFFFF,... | 23, 'b', ...
+					case "address":
+					case "inm":
+					case "imm":
+						// Get value
+						var ret1 = get_inm_value(value) ;
+						converted = ret1.number ;
+						// Check numeric datatype
+						if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
+						{
+							error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
+													"'" + value + "'" ;
+
+							if ((value[0] == "'")) {
+								advance[j] = 0 ;
+								break ;
+							}
+							if (! isValidTag(value)) {
+								advance[j] = 0 ;
+								break ;
+							}
+							if (context.firmware[value]) {
+								error = i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+														"'" + value + "'" ;
+								advance[j] = 0 ;
+								break ;
+							}
+
+							label_found = true ;
+						}
+						//DEBUG
+						// console.log(ret1);
+
+						break;
+
+					// $1...
+				    case "reg":
+						// Check presence of value
+						if (typeof value === "undefined") {
+							error = i18n_get_TagFor('compiler', 'INS. MISSING FIELD') ;
+							advance[j] = 0 ;
+							break ;
+						}
+
+						var aux = false;
+						// Check for "(regX)"
+						if (value.startsWith("("))
+						{
+							// Check if the behaivour is defined
+							if ("(reg)" != signature_fields[j][i]) {
+								error = i18n_get_TagFor('compiler', 'UNEXPECTED (REG)') ;
+								advance[j] = 0 ;
+								break ;
+							}
+							asm_nextToken(context);
+							value = asm_getToken(context);
+							aux = true;
+						}
+						else
+						{
+							// If "(regX)" is defined and not found error must be returned
+							if ("(reg)" == signature_fields[j][i]) {
+								error = i18n_get_TagFor('compiler', 'EXPECTED (REG)') +
+														"'" + value + "'" ;
+								advance[j] = 0 ;
+								break ;
+							}
+						}
+
+						if (typeof context.registers[value] === "undefined")
+						{
+							error = i18n_get_TagFor('compiler', 'EXPECTED REG') +
+													"'" + value + "'" ;
+							advance[j] = 0 ;
+							break ;
+						}
+						if (aux)
+						{
+							s[i+1] = "(" + value + ")";
+
+							// check closing ')'
+							asm_nextToken(context);
+							aux = asm_getToken(context);
+							if (")" != aux) {
+								error = i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND') ;
+								advance[j] = 0 ;
+								break ;
+							}
+						}
+
+						var ret1  = isDecimal(context.registers[value]) ;
+						converted = ret1.number ;
+						var res = decimal2binary(converted, size);
+						value = s[i+1] ;
+						//DEBUG
+						// console.log(ret1);
+						// console.log(res);
+						// console.log(value);
+						break;
+
+					default:
+						return asm_langError(context,
+												i18n_get_TagFor('compiler', 'UNKNOWN 1') +
+																"'" + field.type + "'") ;
+				}
+
+				// check if bits fit in the space
+				if (advance[j] == 1 && !label_found)
+				{
+					if (res[1] < 0)
+					{
+						if (field.type == "address" && "rel" == field.address_type)
+						{
+							error = "Relative value (" +
+													(converted - seg_ptr - WORD_BYTES) +
+													" in decimal)"+
+									i18n_get_TagFor('compiler', 'NEEDS') +
+													res[0].length +
+									i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+													size + " " +
+									i18n_get_TagFor('compiler', 'BITS') ;
+						}
+						else
+						{
+							error = "'" + value + "'" +
+									i18n_get_TagFor('compiler', 'NEEDS') +
+													res[0].length +
+									i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+													size + " " +
+									i18n_get_TagFor('compiler', 'BITS') ;
+						}
+
+						advance[j] = 0;
+					}
+				}
+				// store field
+				if (advance[j] == 1)
+				{
+					binaryAux[j][i] = {
+										num_bits:	(label_found ? false : res[0]),
+										free_space:	(label_found ? false : res[1]),
+										startbit:	field.startbit,
+										stopbit:	field.stopbit,
+										bits:		field.bits,
+										rel:		(label_found ? field.address_type : false),
+										islabel:	label_found,
+										field_name:	value,
+										issel:		sel_found,
+										sel_start:	start,
+										sel_stop:	stop
+									};
+				}
+			}
+
+			if (sum_array(advance) == 0) break;
+
+			if ("TAG" == asm_getTokenType(context) || context.firmware[value])
+			    break;
+		}
+
+		// get candidate
+		for (i=0; i<advance.length; i++)
+		{
+			if (advance[i] == 1) candidate = i ;
+			break ;
+		}
+
+		// instruction format
+		var format = "" ;
+		for (i=0; i<firmware_instruction_length; i++)
+		{
+			if (i>0 && i<firmware[instruction].length-1)
+				format += ", " ;
+
+			if (i>0 && i==firmware[instruction].length-1)
+				format += " or " ;
+
+			format += "'" + firmware[instruction][i].signatureUser + "'" ;
+		}
+		if (format == "") {
+			format = "'" + instruction + "' " +
+						i18n_get_TagFor('compiler', 'UNKNOWN MC FORMAT') ;
+		}
+
+		// check solution
+		var sum_res = sum_array(advance) ;
+
+		if (sum_res == 0)
+		{
+			// No candidate
+			if (advance.length === 1) {
+				return asm_langError(context,
+										error + ". <br>" +
+										i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
+										format);
+			}
+
+			return asm_langError(context,
+									i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
+									i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
+									i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
+		}
+
+		if (sum_res > 1)
+		{
+			// Multiple candidates
+			candidate = get_candidate(advance, firmware[instruction]);
+			if (candidate === false) {
+			    return asm_langError(context,
+				                 i18n_get_TagFor('compiler', 'SEVERAL CANDIDATES') + format) ;
+			}
+		}
+
+		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
+		if ( firmware[instruction][candidate].co !== undefined &&
+			firmware[instruction][candidate].cop !== undefined )
+		{
+			// replace OC and EOC in machine code
+			machineCode = assembly_co_cop(machineCode,
+											firmware[instruction][candidate].co,
+											firmware[instruction][candidate].cop);
+		}
+		else
+		{
+			// replace CO and COP in machine code
+			machineCode = assembly_oc_eoc(machineCode,
+											firmware[instruction][candidate].oc,
+											firmware[instruction][candidate].eoc);
+		}
+
+	}
+
+	return ret ;
 }
 
 function simlang_compile_pass1 ( context, datosCU, text )
@@ -610,7 +930,7 @@ function simlang_compile_pass1 ( context, datosCU, text )
           var ret = {};
 	  ret.seg        = sim_segments ;
           ret.mp         = {} ;
-	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit}
+	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit, bits}
           ret.labels2    = {} ;
           ret.revlabels2 = {} ;
           ret.revseg     = [] ;
