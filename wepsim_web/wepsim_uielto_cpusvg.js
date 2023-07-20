@@ -404,11 +404,11 @@
         function wepsim_svg_reload ( id_arr, img_arr )
         {
             var o = null ;
-            var a = null ;
             var d = "" ;
 
-            // set darkmode
+            // update default drawing
 	    wepsim_svg_update_drawing() ;
+	    wsweb_set_cpucu_size(7);
 
             // reload svg (just in case)
             for (var i in id_arr)
@@ -425,18 +425,31 @@
                  }
 
                  // hide empty image
-                 if ("" != img_arr[i])
-                      d = "block" ;
-                 else d = "none" ;
-                 o.style.setProperty("display", d) ;
+                 d = '' ;
+		 if ('' != img_arr[i]) {
+                     d = img_arr[i] + '?now=' + Date.now() ;
+		 }
+		 else {
+		     wsweb_set_cpucu_size(14);
+		 }
 
                  // set dark-mode after load
-                 o.onload = function(obj) {
-			        wepsim_svg_apply_darkmode(obj.currentTarget.id) ;
-                            } ;
+		 o.style.setProperty("visibility", "hidden") ;
+    		 o.style.setProperty("display",    "block") ;
+                 o.img_data = img_arr[i].trim() ;
+                 o.onload   = function(obj) {
+                                  var obj_target = obj.target ;
+			          wepsim_svg_apply_darkmode(obj.currentTarget.id) ;
+
+		                  obj_target.style.setProperty("visibility", "visible") ;
+    		                  obj_target.style.setProperty("display",    "none") ;
+		                  if ('' != obj_target.img_data) {
+                                      setTimeout(function(){ obj_target.style.setProperty("display", "block"); }, 25);
+                                  }
+                              } ;
 
                  // load image
-                 o.setAttribute('data', img_arr[i] + '?now=' + Date.now()) ;
+                 o.setAttribute('data', d) ;
             }
         }
 
