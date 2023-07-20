@@ -2,67 +2,67 @@
    {
       "pack":        "Test possible assembly errors",
       "description": "Error1: non-open string (...'')",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e01.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e01.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error2: non-closed string ('...)",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e02.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e02.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error3: illegal instruction lx",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e03.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e03.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error4: illegal register t20",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e04.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e04.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error5: incorrect syntax --> la t2 max",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e05.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e05.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error6: repeated tag --> max",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e06.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e06.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error7: illegal tag --> max1",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e07.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e07.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error8: illegal directive --> .bytes",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e08.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e08.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error9: invalid number --> 1hello2",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e09.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e09.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error10: instruction with more elements",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e10.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e10.asm",
       "more":        "See WepSIM"
    },
    {
       "pack":        "Test possible assembly errors",
       "description": "Error11: empty directive",
-      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips_test/e11.asm",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips_test/e11.asm",
       "more":        "See WepSIM"
    }
 ]

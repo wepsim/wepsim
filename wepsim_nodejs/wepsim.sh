@@ -34,18 +34,18 @@
                '\n' +
                'Examples for running some work and show the...:\n' +
                ' * ...final state:\n' +
-               '   ./wepsim.sh -a run -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips/s1e1.asm\n' +
+               '   ./wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm\n' +
                ' * ...modified state on each assembly instruction executed:\n' +
-               '   ./wepsim.sh -a stepbystep -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips/s1e1.asm\n' +
+               '   ./wepsim.sh -a stepbystep -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm\n' +
                ' * ...modified state on each microinstruction executed:\n' +
-               '   ./wepsim.sh -a microstepbymicrostep -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips/s1e1.asm\n' +
+               '   ./wepsim.sh -a microstepbymicrostep -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm\n' +
                '\n' +
                'In previous examples you can use the "-m ep -f <firmware> -s <assembly>" or some equivalent checkpoint:\n' +
-               '   ./wepsim.sh -a run        --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
-               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a run        --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a stepbystep --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
                '\n' +
                'Example for running in an interactive mode...:\n' +
-               '   ./wepsim.sh -a interactive --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a interactive --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
                '' ;
 
         return o ;
@@ -61,7 +61,7 @@
                ' * Help about the cop signal:\n' +
                '   ./wepsim.sh -a help -m ep -s cop\n' +
                ' * Help about instructions:\n' +
-               '   ./wepsim.sh -a help -m ep -f ./examples/microcode/mips/ep_base.mc\n' +
+               '   ./wepsim.sh -a help -m ep -f ./repo/microcode/mips/ep_base.mc\n' +
                ' * Help about hardware components:\n' +
                '   ./wepsim.sh -a help -m ep\n' +
                ' * Help about hardware components (filter by name):\n' +
@@ -80,19 +80,19 @@
                '\n' +
                'Examples to show the state at the end of some work:\n' +
                ' * Filter final state of execution:\n' +
-               '   ./wepsim.sh -a run --checkpoint ./examples/checkpoint/tutorial_1.txt --purify "R0-R5;0x100-0x8000"\n' +
+               '   ./wepsim.sh -a run --checkpoint ./repo/checkpoint/tutorial_1.txt --purify "R0-R5;0x100-0x8000"\n' +
                ' * Show console output after execution:\n' +
-               '   ./wepsim.sh -a show-console -m ep -f ./examples/microcode/mips/ep_os.mc -s ./examples/assembly/mips/s4e1.asm\n' +
+               '   ./wepsim.sh -a show-console -m ep -f ./repo/microcode/mips/ep_os.mc -s ./repo/assembly/mips/s4e1.asm\n' +
                '\n' +
                'Examples for checks at the end of some work:\n' +
                ' * Check that your work meets the expected final state (so it works):\n' +
-               '   ./wepsim.sh -a check -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips/s1e1.asm -r ./examples/checklist/mips/cl-s1e1.txt\n' +
+               '   ./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e1.txt\n' +
                '\n' +
                'More examples of custom execution:\n' +
                ' * Run some example and limit the "instructions":\n' +
-               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxi 2048\n' +
+               '   ./wepsim.sh -a stepbystep --checkpoint ./repo/checkpoint/tutorial_1.txt --maxi 2048\n' +
                ' * Run some example and limit the "clock cycles":\n' +
-               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxc 10000\n' +
+               '   ./wepsim.sh -a stepbystep --checkpoint ./repo/checkpoint/tutorial_1.txt --maxc 10000\n' +
                '\n' +
                'In previous examples you can combine flags, for example: -a check with --purify R0-R31\n' +
                '' ;
@@ -108,18 +108,18 @@
                '\n' +
                'Examples for building a checkpoint file:\n' +
                ' * From assembly and microcode, and print it to standard output:\n' +
-               '   ./wepsim.sh -a build-checkpoint -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips/s1e1.asm\n' +
+               '   ./wepsim.sh -a build-checkpoint -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm\n' +
                '\n' +
                'Examples for disassembling a checkpoint files:\n' +
                ' * Show assembly within checkpoint:\n' +
-               '   ./wepsim.sh -a show-assembly  --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a show-assembly  --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
                ' * Show microcode within checkpoint:\n' +
-               '   ./wepsim.sh -a show-microcode --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a show-microcode --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
                '\n' +
                ' * Show mode used in the checkpoint:\n' +
-               '   ./wepsim.sh -a show-mode      --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a show-mode      --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
                ' * Show recorded session:\n' +
-               '   ./wepsim.sh -a show-record    --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a show-record    --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
                '' ;
 
         return o ;
@@ -133,22 +133,22 @@
                '\n' +
                'More examples of custom execution:\n' +
                ' * Run some example and limit the "instructions":\n' +
-               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxi 2048\n' +
+               '   ./wepsim.sh -a stepbystep --checkpoint ./repo/checkpoint/tutorial_1.txt --maxi 2048\n' +
                ' * Run some example and limit the "clock cycles":\n' +
-               '   ./wepsim.sh -a stepbystep --checkpoint ./examples/checkpoint/tutorial_1.txt --maxc 10000\n' +
+               '   ./wepsim.sh -a stepbystep --checkpoint ./repo/checkpoint/tutorial_1.txt --maxc 10000\n' +
                '\n' +
                ' * Run some example and show a description for each microinstruction executed:\n' +
-               '   ./wepsim.sh -a microstepverbalized -m ep -f ./examples/microcode/mips/ep_base.mc -s ./examples/assembly/mips/s1e1.asm --verbal text\n' +
+               '   ./wepsim.sh -a microstepverbalized -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm --verbal text\n' +
                '\n' +
                'Example for developers:\n' +
                ' * Export hardware definition as JSON:\n' +
-               '   ./wepsim.sh -a export-hardware -m ep > examples/hardware/ep/hw_def.json\n' +
+               '   ./wepsim.sh -a export-hardware -m ep > repo/hardware/ep/hw_def.json\n' +
                ' * Run in an interactive REPL interface (beta):\n' +
-               '   ./wepsim.sh -a interactive --checkpoint ./examples/checkpoint/tutorial_1.txt\n' +
+               '   ./wepsim.sh -a interactive --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
                '\n' +
                ' * Build MIPS32-like microcode for testing in command-line:\n' +
                '   ./wepsim.sh -a import-creator --checkpoint ./MIPS_32.json > microcode.txt\n' +
-               '   ./wepsim.sh -a run -m ep -f ./microcode.txt -s examples/assembly/mips/s6e3.asm\n' +
+               '   ./wepsim.sh -a run -m ep -f ./microcode.txt -s repo/assembly/mips/s6e3.asm\n' +
                '' ;
 
         return o ;

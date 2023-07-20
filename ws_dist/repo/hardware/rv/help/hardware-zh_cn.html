@@ -1,0 +1,197 @@
+<！DOCTYPE html PUBLIC“ -  // W3C // DTD XHTML 1.0 Transitional // EN”
+    “http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
+<html xmlns =“http://www.w3.org/1999/xhtml”>
+  <HEAD>
+    <TITLE> </TITLE>
+<meta charset =“UTF-8”>
+<meta http-equiv =“Content-type”content =“text/html; charset = UTF-8”>
+    <style type =“text/css”>
+/ * <！[CDATA [* /
+    ：link {color：＃0563C1}
+    ：visit {color：＃954F72}
+    p.cleanuphtml-5 {margin-bottom：8.0pt; line-height：80％}
+    b.cleanuphtml-4 {font-style：italic}
+    p.cleanuphtml-3 {font-weight：bold}
+    p.cleanuphtml-2 {text-align：center}
+    a.cleanuphtml-1 {font-weight：bold}
+   /*]]> * /
+    </样式>
+
+  <！ - 清理由http://www.cleanuphtml.com/  - >生成的HTML
+<meta name =“Generator”content =“Cleanup HTML”> </head>
+  <BODY>
+
+      <div id =“help_simulator_arch”>
+      <h1> WepSIM架构</h1>
+
+<p> </p>
+<P>
+ 整个模拟系统（参见<b class =“cleanuphtml-1”>图1 </b>）包括处理器，1 MB内存模块（在字节级寻址），键盘，显示器和I/O可能产生中断的设备。
+</p>
+<P>
+</p>
+<P>
+</p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322890"> </a> <a class="cleanuphtml-2" name="_Ref434141389">图</a> <b> 1 </b> <b>完整系统</b>
+</p>
+<P>
+</p>
+<P>
+                处理器（参见<b class =“cleanuphtml-1”>图2 </b>）是32位CPU，可以处理多达64个可定义的用户指令（MIPS样式，ARM样式等），并且它有一个寄存器32个寄存器的文件，带有端口映射的I/O（隔离的I/O）。
+</p>
+<P>
+</p>
+<p class =“cleanuphtml-3”>
+</p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322891"> </a> <a class="cleanuphtml-2" name="_Ref434142801">图</a> <b> 2 </b> <b> WepSIM处理器</b>
+</p>
+<P>
+</p>
+<P>
+处理器使用32位地址，使用地址总线（<i>地址总线</i>）作为地址和数据总线（<i>数据总线</i>）向/从存储器发送/接收数据。
+</p>
+<P>
+
+</p>
+<P>
+处理器等待存储器周期以执行读操作（用R信号激活）或写操作（用W信号激活）。
+</p>
+<P>
+
+</p>
+<P>
+主存储器使用<i> Little-Endian </i>，如<b class =“cleanuphtml-1”>图3 </b>所示。
+</p>
+<P>
+
+</p>
+<p class =“cleanuphtml-3”>
+</p>
+<p class =“cleanuphtml-3”>
+
+</p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322892"> </a> <a class="cleanuphtml-2" name="_Ref434149687">图</a> <b> 3 </b> <b>内存中的字节排列。</b>
+</p>
+<P>
+
+</p>
+<P>
+                因此，最低有效字节位于最低内存地址。
+</p>
+<P>
+
+</p>
+<P>
+      存储器访问在字节级执行。
+</p>
+<P>
+    对于字节选择，一方面需要指示您所在单词的方向（A <sub> 31 </sub> ... A <sub> 2 </sub> 00），另一方面指示字节在您想要访问的那个单词内（BE <sub> 3 </sub> ... BE <sub> 0 </sub>）。
+</p>
+<P>
+
+</p>
+<p class =“cleanuphtml-3”>
+</p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322893"> </a> <a class="cleanuphtml-2" name="_Ref434150369">图</a> <b> 4 </b> <b> Memoria模块</b>
+</p>
+<P>
+
+</p>
+<P>
+<b class =“cleanuphtml-1”>图4 </b>显示了所提到的这些输入/输出，这是分别连接R和W请求信号进行读写所必需的。
+</p>
+
+<P>
+              可以配置模拟硬件：<br>
+<UL>
+<LI>
+                 <b>内存</b>：内存查找某些数据所需的周期数。<br>
+                 默认值为零，这意味着数据可用
+                 在向存储器请求之后的下一个时钟周期。
+                 </LI>
+<LI>
+                 <b> I/O </b>：触发中断的周期数。<br>
+                 默认值为零，这意味着禁用了触发中断。
+                 如果'CLK周期'是（例如）100并且'概率'是1，那么
+                 每100个CPU时钟周期，相关的中断就是fi红色。
+                 如果概率为0.5，则以50％的概率触发相关的中断。
+                 </LI>
+</UL>
+</p>
+
+<H2>
+<a name="_Toc438325788">内部组织：控制信号</a>
+</H2>
+<P>
+
+</p>
+<P>
+WepSIM中的控制单元是可编程的控制单元。控制存储器有4096个微字，每个微字76位（参见<b class =“cleanuphtml-1”>图5 </b>）。
+</p>
+<p class =“cleanuphtml-3”>
+</p>
+<br clear="all" />
+<div class =“WordSection2”> </div>
+<br clear="all" />
+<div class =“WordSection3”>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322894"> </a> <a class="cleanuphtml-2" name="_Ref434141431">图</a> <b> 5 </b> <b>微指令格式</b>
+</p>
+<P>
+                用于命名控制信号的一般命名法是：
+</p>
+<P>
+·Cx：用于将数据加载到寄存器X的信号
+</p>
+<P>
+·Tx：X的三态激活信号
+</p>
+<P>
+·Ry：寄存器y中输出值的寄存器标识
+</p>
+<P>
+·Mx：多路复用器X选择值
+</p>
+<P>
+另外，LC信号表示更新寄存器文件，Cop表示要在ALU中执行的操作，Selp选择将在状态寄存器（SR）上更新哪些位，A1A0是存储器地址的两个最低有效位，以及BW允许我们指定在内存中访问的数据的大小：完整的单词，半字或字节。
+</p>
+<P>
+
+</p>
+<P>
+处理器（见<b class =“cleanuphtml-1”>图6 </b>）可以分为7个部分：存储器访问（MAR，MBR等），程序计数器寄存器管理（PC等） ，指令寄存器管理（IR等），控制单元（控制单元），寄存器组（寄存器文件），ALU和状态寄存器（SR等）的管理。
+</p>
+<P>
+</p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322895"> </a> <a class="cleanuphtml-2" name="_Ref434141629">图</a> <b> 6 </b> <b>处理器详情</b>
+</p>
+<P>
+<br />
+控制单元（见<b class =“cleanuphtml-1”>图7 </b>）分为五个部分：控制以下微地址（MUX A等），将操作码转换为相应的微地址（co2uAddr），控制微地址的条件选择（MUX B，MUX C等），控制存储器具有微指令寄存器，最后选择器RA，RB，RC和Cop。
+</p>
+<P>
+</p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322896"> </a> <a class="cleanuphtml-2" name="_Ref434141950">图</a> <b> 7 </b> <b>控制单元详细信息。</b >
+</p>
+<P>
+为了寻址控制存储器，隐式排序需要12位。您可以指定控制存储器microaddress（参见<b class =“cleanuphtml-1”>图8 </b>）下一个存储器位置，或使用部分微指令，或使用转换模块的输出（带启动）与操作代码相关联的微地址），或从获取开始的零微地址（0）。
+</p>
+<p class =“cleanuphtml-3”>
+</p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322897"> </a> <a class="cleanuphtml-2" name="_Ref434143860">图</a> <b> 8 </b> <b> MUX A的选项</b>
+</p>
+<p class =“cleanuphtml-4”> </p>
+<p class =“cleanuphtml-4”> </p>
+</DIV>
+
+      </DIV>
+
+  </BODY>
+</HTML>

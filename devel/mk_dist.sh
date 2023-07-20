@@ -380,41 +380,41 @@ cp    -a external/cordova.js            ws_dist/external/cordova.js
 
 ### default available examples
 # MIPS
-DEFAULT_EXAMPLE_SET="examples/examples_set/mips/es_ep.json examples/examples_set/mips/es_poc.json examples/examples_set/mips/es_ep_native.json examples/examples_set/mips/es_poc_native.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/mips/default.json
+DEFAULT_EXAMPLE_SET="repo/examples_set/mips/es_ep.json repo/examples_set/mips/es_poc.json repo/examples_set/mips/es_ep_native.json repo/examples_set/mips/es_poc_native.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/mips/default.json
 # MIPS instructive
-DEFAULT_EXAMPLE_SET="examples/examples_set/mips/es_ep_instructive.json examples/examples_set/mips/es_poc_instructive.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/mips/default_instructive.json
+DEFAULT_EXAMPLE_SET="repo/examples_set/mips/es_ep_instructive.json repo/examples_set/mips/es_poc_instructive.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/mips/default_instructive.json
 # RV32
-DEFAULT_EXAMPLE_SET="examples/examples_set/rv32/es_ep.json examples/examples_set/rv32/es_poc.json examples/examples_set/rv32/es_ep_native.json examples/examples_set/rv32/es_poc_native.json examples/examples_set/rv32/es_rv.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/rv32/default.json
+DEFAULT_EXAMPLE_SET="repo/examples_set/rv32/es_ep.json repo/examples_set/rv32/es_poc.json repo/examples_set/rv32/es_ep_native.json repo/examples_set/rv32/es_poc_native.json repo/examples_set/rv32/es_rv.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/rv32/default.json
 # RV32 instructive
-DEFAULT_EXAMPLE_SET="examples/examples_set/rv32/es_ep_instructive.json examples/examples_set/rv32/es_poc_instructive.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/rv32/default_instructive.json
+DEFAULT_EXAMPLE_SET="repo/examples_set/rv32/es_ep_instructive.json repo/examples_set/rv32/es_poc_instructive.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/rv32/default_instructive.json
 # ARM
-DEFAULT_EXAMPLE_SET="examples/examples_set/arm/es_ep.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/arm/default.json
+DEFAULT_EXAMPLE_SET="repo/examples_set/arm/es_ep.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/arm/default.json
 # Z80
-DEFAULT_EXAMPLE_SET="examples/examples_set/z80/es_ep.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/z80/default.json
+DEFAULT_EXAMPLE_SET="repo/examples_set/z80/es_ep.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/z80/default.json
 # OpenCourseWare
-DEFAULT_EXAMPLE_SET="examples/examples_set/mips_ocw/es_ep.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/mips_ocw/default.json
+DEFAULT_EXAMPLE_SET="repo/examples_set/mips_ocw/es_ep.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/mips_ocw/default.json
 # Aula Global (UC3M)
-DEFAULT_EXAMPLE_SET="examples/examples_set/rv32_ag/es_ep.json examples/examples_set/rv32_ag/es_poc.json"
-jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > examples/examples_set/rv32_ag/default.json
+DEFAULT_EXAMPLE_SET="repo/examples_set/rv32_ag/es_ep.json repo/examples_set/rv32_ag/es_poc.json"
+jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/rv32_ag/default.json
 
 #  examples
-echo "  * ws_dist/examples/..."
-cp -a examples  ws_dist/
+echo "  * ws_dist/repo/..."
+cp -a repo    ws_dist/
 
 #  docs
 echo "  * ws_dist/docs/..."
-cp -a docs      ws_dist/
+cp -a docs    ws_dist/
 
 #  images
 echo "  * ws_dist/images/..."
-cp -a images    ws_dist/
+cp -a images  ws_dist/
 
 #  user interface
 echo "  * ws_dist/*.html"
@@ -430,8 +430,8 @@ cp wepsim_nodejs/wepsim.sh        ws_dist/
 chmod a+x ws_dist/*.sh
 
 #  json: update processors
-./ws_dist/wepsim.sh -a export-hardware -m ep  > ws_dist/examples/hardware/ep/hw_def.json
-./ws_dist/wepsim.sh -a export-hardware -m poc > ws_dist/examples/hardware/poc/hw_def.json
+./ws_dist/wepsim.sh -a export-hardware -m ep  > ws_dist/repo/hardware/ep/hw_def.json
+./ws_dist/wepsim.sh -a export-hardware -m poc > ws_dist/repo/hardware/poc/hw_def.json
 
 # the end
 echo ""

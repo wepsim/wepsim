@@ -1,0 +1,78 @@
+빨간.
+                 확률이 0.5이면 관련된 간섭이 확률의 50 %로 시작됩니다.
+                 </li>
+</ul>
+</p>
+
+<h2>
+<a name="_Toc438325788"> 내부 조직 : 제어 신호 </a>
+</h2>
+<p>
+
+</p>
+<p>
+WepSIM의 제어 장치는 마이크로 프로그램 가능합니다. 제어 메모리에는 각각 76 비트의 4096 마이크로 단어가 있습니다 (<b class = "cleanuphtml-1"> 그림 5 </b> 참조).
+</p>
+<p class = "cleanuphtml-3">
+</p>
+<br clear="names">>
+<div class = "WordSection2"> </div>
+<br clear="names">>
+<div class = "WordSection3">
+<p class = "cleanuphtml-3">
+<a name="_Toc438322894"> </a> <a class="cleanuphtml-2" name="_Ref434141431"> 그림 </a> <b> 5 </b> <b> 마이크로 명령어 형식 </b>
+</p>
+<p>
+                제어 신호의 이름을 지정하는 데 사용되는 일반적인 명칭은 다음과 같습니다.
+</p>
+<p>
+Â · Cx : 레지스터 X에 데이터로드를위한 신호
+</p>
+<p>
+Â · Tx : X에 대한 tristate 활성화 신호
+</p>
+<p>
+Â · Ry : 레지스터 y의 출력 값에 대한 레지스터 식별
+</p>
+<p>
+Mx : 멀티플렉서 X 선택 값
+</p>
+<p>
+또한, LC 신호는 레지스터 파일을 업데이트하는 것을 지시하고, Cop은 ALU에서 수행 될 동작을 지시하고, 셀프는 상태 레지스터 (SR)에서 어떤 비트가 업데이트 될지를 선택하고, A1A0은 메모리 어드레스의 최하위 2 비트이며, BW를 사용하면 메모리에서 액세스되는 데이터의 크기 (전체 단어, 반 단어 또는 바이트)를 지정할 수 있습니다.
+</p>
+<p>
+
+</p>
+<p>
+메모리 액세스 (MAR, MBR 등), 프로그램 카운터 레지스터 관리 (PC 등), 메모리 액세스 (MAR, MBR 등)의 7 가지 부분으로 나누어 볼 수 있습니다 (<b class = "cleanuphtml-1"> 그림 6 </b> 참조) , 명령어 레지스터 관리 (IR 등), 컨트롤 유닛 (컨트롤 유닛), 레지스터 뱅크 (레지스터 파일), ALU 및 상태 레지스터 관리 (SR 등).
+</p>
+<p>
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322895"> </a> <a class="cleanuphtml-2" name="_Ref434141629"> 그림 </a> <b> 6 </b> <b> 프로세서 세부 정보 </b>
+</p>
+<p>
+<br />
+제어 단위 (<b class = "cleanuphtml-1"> 그림 7 </b> 참조)는 5 개의 부분으로 나뉩니다. 다음 마이크로 주소 (MUX A 등) 제어, op 코드를 해당 마이크로 주소 (co2uAddr), 마이크로 주소 (MUX B, MUX C 등)의 조건부 선택 제어, 마이크로 인스트럭션 레지스터 및 최종 선택기 RA, RB, RC 및 Cop로 제어 메모리.
+</p>
+<p>
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322896"> </a> <a class="cleanuphtml-2" name="_Ref434141950"> 그림 </a> <b> 7 </b> <b> 제어 장치 세부 정보 </b >
+</p>
+<p>
+제어 메모리를 처리하려면 암시 ​​적 시퀀싱에 12 비트가 필요합니다. 다음 메모리 위치를 제어 메모리 마이크로 주소 (<b class = "cleanuphtml-1"> 그림 8 </b> 참조)로 지정하거나 마이크로 명령어의 일부를 사용하거나 번역 모듈의 출력을 사용할 수 있습니다 (시작 연산 코드와 연관된 마이크로 주소), 또는 페치가 시작되는 곳으로부터의 0 마이크로 어드레스 (0).
+</p>
+<p class = "cleanuphtml-3">
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322897"> </a> <a class="cleanuphtml-2" name="_Ref434143860"> 그림 </a> <b> 8 </b> <b> MUX A 옵션 < b>
+</p>
+<p class = "cleanuphtml-4"> </p>
+<p class = "cleanuphtml-4"> </p>
+</div>
+
+      </div>
+
+  </body>
+</html>

@@ -26,9 +26,9 @@
         var ep_def = {
                        sim_name:            "Elemental Processor",
                        sim_short_name:      "ep",
-                       sim_img_processor:   "examples/hardware/ep/images/processor.svg",
-                       sim_img_controlunit: "examples/hardware/ep/images/controlunit.svg",
-                       sim_img_cpu:         "examples/hardware/ep/images/cpu.svg",
+                       sim_img_processor:   "repo/hardware/ep/images/processor.svg",
+                       sim_img_controlunit: "repo/hardware/ep/images/controlunit.svg",
+                       sim_img_cpu:         "repo/hardware/ep/images/cpu.svg",
 
                        components:          {},
                        states:              {},

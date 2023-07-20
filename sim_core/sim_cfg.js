@@ -207,7 +207,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.3.0" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.3.0.20230415A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.3.0.20230701A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -217,15 +217,15 @@
 	           "size_active":           { upgrade:false, type:"float",     value:3.00 },
 	           "size_inactive":         { upgrade:false, type:"float",     value:1.00 },
                    "is_byvalue":            { upgrade:false, type:"boolean",   value:false },
-                   "CPUCU_show_graph":      { upgrade:true,  type:"boolean",   value:true },
+                   "CPUCU_show_graph":      { upgrade:false, type:"boolean",   value:true },
 
 	           /* simulation screen: Register File */
                    "RF_display_format":     { upgrade:false, type:"string",    value:'unsigned_16_fill' },
                    "RF_display_name":       { upgrade:false, type:"string",    value:'numerical' },
-                   "MEM_display_format":    { upgrade:true,  type:"string",    value:'unsigned_16_nofill' },
-                   "MEM_show_segments":     { upgrade:true,  type:"boolean",   value:false },
-                   "MEM_show_source":       { upgrade:true,  type:"boolean",   value:false },
-                   "MEM_display_direction": { upgrade:true,  type:"string",    value:'h2l' },
+                   "MEM_display_format":    { upgrade:false, type:"string",    value:'unsigned_16_nofill' },
+                   "MEM_show_segments":     { upgrade:false, type:"boolean",   value:false },
+                   "MEM_show_source":       { upgrade:false, type:"boolean",   value:false },
+                   "MEM_display_direction": { upgrade:false, type:"string",    value:'h2l' },
                    "is_editable":           { upgrade:false, type:"boolean",   value:true },
 
 	           /* simulation screen: Execution */
@@ -233,15 +233,15 @@
                    "DBG_level":             { upgrade:false, type:"string",    value:"microinstruction" },
                    "DBG_limitins":          { upgrade:false, type:"int",       value:10000 },
                    "DBG_limitick":          { upgrade:false, type:"int",       value:1000 },
-                   "DBG_skip_notifycolon":  { upgrade:true,  type:"boolean",   value:false },
+                   "DBG_skip_notifycolon":  { upgrade:false, type:"boolean",   value:false },
                    "ICON_theme":            { upgrade:false, type:"string",    value:'classic' },
-                   "AS_enable":             { upgrade:true,  type:"boolean",   value:true },
-                   "AS_delay":              { upgrade:true,  type:"int",       value:500 },
+                   "AS_enable":             { upgrade:false, type:"boolean",   value:true },
+                   "AS_delay":              { upgrade:false, type:"int",       value:500 },
 
 	           /* simulation screen: Notification, etc. */
                    "NOTIF_delay":           { upgrade:false, type:"int",       value:1000 },
-                   "CPUCU_size":            { upgrade:true,  type:"int",       value:7    },
-                   "C1C2_size":             { upgrade:true,  type:"int",       value:8    },
+                   "CPUCU_size":            { upgrade:false, type:"int",       value:7    },
+                   "C1C2_size":             { upgrade:false, type:"int",       value:8    },
                    "SHOWCODE_label":        { upgrade:false, type:"boolean",   value:true },
                    "SHOWCODE_addr":         { upgrade:false, type:"boolean",   value:true },
                    "SHOWCODE_hex":          { upgrade:false, type:"boolean",   value:true },
@@ -263,9 +263,9 @@
 
 	           /* set of urls */
                    "base_url":              { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/ws_dist/' },
-                   "cfg_url":               { upgrade:true,  type:"string",    value:'examples/configuration/default.json' },
-                   "example_url":           { upgrade:true,  type:"string",    value:'examples/examples_set/default.json' },
-                   "hw_url":                { upgrade:true,  type:"string",    value:'examples/hardware/hw.json' },
+                   "cfg_url":               { upgrade:true,  type:"string",    value:'repo/configuration/default.json' },
+                   "example_url":           { upgrade:true,  type:"string",    value:'repo/examples_set/default.json' },
+                   "hw_url":                { upgrade:true,  type:"string",    value:'repo/hardware/hw.json' },
 
 	           /* misc. */
                    "max_json_size":         { upgrade:true,  type:"int",       value:1*1024*1024 },

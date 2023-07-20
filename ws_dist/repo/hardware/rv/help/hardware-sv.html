@@ -1,0 +1,197 @@
+<! DOCTYPE html PUBLIC "- // W3C // DTD XHTML 1.0 Transitional // EN"
+    "Http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <Head>
+    <Title> </title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+/ * <! [CDATA [* /
+    : länk {färg: # 0563C1}
+    : besökte {color: # 954F72}
+    p.cleanuphtml-5 {margin-bottom: 8.0pt; line-höjd: 80%}
+    b.cleanuphtml-4 {font-style: italic}
+    p.cleanuphtml-3 {font-weight: bold}
+    p.cleanuphtml-2 {text-align: center}
+    a.cleanuphtml-1 {font-weight: bold}
+   /*]]> * /
+    </Style>
+
+  <! - Ren HTML genererad av http://www.cleanuphtml.com/ ->
+<meta name="Generator" content="Cleanup HTML"> </head>
+  <Body>
+
+      <div id="help_simulator_arch">
+      <h1> WepSIM-arkitektur </h1>
+
+<p> </p>
+<P>
+ Hela simulerade systemet (se <b class="cleanuphtml-1"> Figur 1 </b>) innehåller processorn, en 1 MB minnesmodul (adresserad på bytenivå), ett tangentbord, en skärm och en I/O enheter som kan generera avbrott.
+</P>
+<P>
+</P>
+<P>
+</P>
+<p class="cleanuphtml-3">
+<a name="_Toc438322890"> </a> <a class="cleanuphtml-2" name="_Ref434141389"> Bild </a> <b> 1 </b> <b> Helt system </b>
+</P>
+<P>
+</P>
+<P>
+                Processorn (se <b class="cleanuphtml-1"> Figur 2 </b>) är 32 bitar CPU som fungerar med upp till 64 definierbara användarinstruktioner (MIPS-stil, ARM-stil, etc.), och den har ett register fil med 32 register, med portkartad I/O (isolerad I/O).
+</P>
+<P>
+</P>
+<p class="cleanuphtml-3">
+</P>
+<p class="cleanuphtml-3">
+<a name="_Toc438322891"> </a> <a class="cleanuphtml-2" name="_Ref434142801"> Bild </a> <b> 2 </b> <b> WepSIM-processor </b>
+</P>
+<P>
+</P>
+<P>
+Processorn använder 32-bitars adresser och använder adressbussen (<i> adressbuss </i>) för adress- och databuss (<i> databuss </i>) för att skicka/ta emot data till/från minnet.
+</P>
+<P>
+
+</P>
+<P>
+Processorn väntar på en minnecykel för att utföra läsoperationen (aktiverad med R-signalen) eller skrivoperationen (aktiverad med W-signalen).
+</P>
+<P>
+
+</P>
+<P>
+Huvudminnet använder <i> Little-Endian </i> som visas i <b class="cleanuphtml-1"> Figur 3 </b>.
+</P>
+<P>
+
+</P>
+<p class="cleanuphtml-3">
+</P>
+<p class="cleanuphtml-3">
+
+</P>
+<p class="cleanuphtml-3">
+<a name="_Toc438322892"> </a> <a class="cleanuphtml-2" name="_Ref434149687"> Bild </a> <b> 3 </b> <b> Byte-arrangemang i minnet. </b>
+</P>
+<P>
+
+</P>
+<P>
+                Därför är den minst betydande byten vid den lägsta minnesadressen.
+</P>
+<P>
+
+</P>
+<P>
+      Minnesåtkomst utförs på bytenivå.
+</P>
+<P>
+    För byteval krävs å ena sidan riktningen för ordet där du är (A <sub> 31 </sub> ... A <sub> 2 </sub> 00), och å andra sidan byte inom det ordet som du vill komma åt (BE <sub> 3 </sub> ... BE <sub> 0 </sub>).
+</P>
+<P>
+
+</P>
+<p class="cleanuphtml-3">
+</P>
+<p class="cleanuphtml-3">
+<a name="_Toc438322893"> </a> <a class="cleanuphtml-2" name="_Ref434150369"> Bild </a> <b> 4 </b> <b> Memoria-modul </b>
+</P>
+<P>
+
+</P>
+<P>
+<B class="cleanuphtml-1"> Figur 4 </b> visar dessa nämnda ingångar/utgångar, vilket är nödvändigt för att gå med i R- och W-begäran-signalerna för respektive läsning och skrivning.
+</P>
+
+<P>
+              Den simulerade hårdvaran kan konfigureras: <br>
+<Ul>
+<Li>
+                 <b> Minne </b>: antal cykler som minnet behöver för att leta efter data. <br>
+                 Standardvärdet är noll, och det betyder att data är tillgängliga
+                 vid nästa klockcykel efter att ha begärt det till/från minnet.
+                 </Li>
+<Li>
+                 <b> I/O </b>: antal cykler för att avfyra avbrott. <br>
+                 Standardvärdet är noll, och det betyder att avbrottsavbrott är inaktiverade.
+                 Om "CLK-perioden" är (till exempel) 100 och "Sannolikheten" är 1, då
+                 varje 100 CPU-klocka cyklar den tillhörande avbrotten avfyras.
+                 Om sannolikheten är 0,5 avfyras tillhörande avbrott med 50% sannolikhet.
+                 </Li>
+</Ul>
+</P>
+
+<H2>
+<a name="_Toc438325788"> Intern organisation: kontrollsignaler </a>
+</H2>
+<P>
+
+</P>
+<P>
+Styrenheten i WepSIM är en mikroprogrammerbar enhet. Kontrollminnet har 4096 mikroord med 76 bitar vardera (se <b class="cleanuphtml-1"> Figur 5 </b>).
+</P>
+<p class="cleanuphtml-3">
+</P>
+<br clear="all" />
+<div class="WordSection2"> </div>
+<br clear="all" />
+<div class="WordSection3">
+<p class="cleanuphtml-3">
+<a name="_Toc438322894"> </a> <a class="cleanuphtml-2" name="_Ref434141431"> Bild </a> <b> 5 </b> <b> mikroinstruktionsformat </b>
+</P>
+<P>
+                Den allmänna nomenklaturen som används för att namnge styrsignalerna är:
+</P>
+<P>
+· Cx: signal för att ladda data i registret X
+</P>
+<P>
+· Tx: tristat aktiveringssignal för X
+</P>
+<P>
+· Ry: registeridentifiering för utgångsvärdet i register y
+</P>
+<P>
+· Mx: val av multiplexer X-val
+</P>
+<P>
+Dessutom indikerar LC-signalen uppdatering av registerfilen, Cop indikerar den operation som ska utföras i ALU, Selp väljer vilka bitar som ska uppdateras i statusregistret (SR), A1A0 är de två minst signifikanta bitarna i en minnesadress, och BW tillåter oss att ange storleken på de data som åtkomst i minnet: ett komplett ord, ett halvt ord eller en byte.
+</P>
+<P>
+
+</P>
+<P>
+Processorn (se <b class="cleanuphtml-1"> Figur 6 </b>) kan betraktas som indelad i sju delar: minnesåtkomst (MAR, MBR, etc.), programräknaregistreringshantering (PC, etc.) , instruktionsregisterhantering (IR osv.), styrenhet (styrenhet), registerbank (registerfil), ALU och hantering av statusregistret (SR, etc.).
+</P>
+<P>
+</P>
+<p class="cleanuphtml-3">
+<a name="_Toc438322895"> </a> <a class="cleanuphtml-2" name="_Ref434141629"> Bild </a> <b> 6 </b> <b> Processor i detaljer </b>
+</P>
+<P>
+<br />
+Styrenheten (se <b class="cleanuphtml-1"> Figur 7 </b>) är uppdelad i fem delar: styrning av följande mikrådress (MUX A, etc.), omvandlingen av opoden till motsvarande microaddress (co2uAddr), styrning av det villkorade valet av microaddress (MUX B, MUX C, etc.), styrminnet med mikroinstruktionsregistret och slutligen väljare RA, RB, RC och Cop.
+</P>
+<P>
+</P>
+<p class="cleanuphtml-3">
+<a name="_Toc438322896"> </a> <a class="cleanuphtml-2" name="_Ref434141950"> Bild </a> <b> 7 </b> <b> Kontrollenhetsdetaljer. </b >
+</P>
+<P>
+För att adressera kontrollminnet krävs 12 bitar med implicit sekvensering. Du kan ange som kontrollminnes microaddress (se <b class="cleanuphtml-1"> Figur 8 </b>) nästa minnesposition, eller använda en del av mikroinstruktionen, eller använda utgången från en översättningsmodul (med start microaddress associerad med en operationskod), eller zero microaddress (0) varifrån hämtningen börjar.
+</P>
+<p class="cleanuphtml-3">
+</P>
+<p class="cleanuphtml-3">
+<a name="_Toc438322897"> </a> <a class="cleanuphtml-2" name="_Ref434143860"> Bild </a> <b> 8 </b> <b> Alternativ för MUX A </b>
+</P>
+<p class="cleanuphtml-4"> </p>
+<p class="cleanuphtml-4"> </p>
+</Div>
+
+      </Div>
+
+  </Body>
+</Html>

@@ -147,6 +147,9 @@
         {
             var sim_components = simhw_sim_components() ;
 
+            if (typeof sim_components[component_name].details_ui === "undefined") {
+                return simcore_do_nothing_handler ;
+            }
             if (typeof sim_components[component_name].details_ui[detail_id][action_name] === "undefined") {
                 return simcore_do_nothing_handler ;
             }

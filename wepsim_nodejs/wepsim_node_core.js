@@ -132,8 +132,8 @@
 
         //  d = examples[x].id + ' - ' + examples[x].type  + ' - ' + examples[x].title ;
             d = examples[x].id + ' - ' + examples[x].title ;
-            m = './examples/microcode/' + examples[x].microcode + '.txt' ;
-            a = './examples/assembly/'  + examples[x].assembly  + '.txt' ;
+            m = './repo/microcode/' + examples[x].microcode + '.txt' ;
+            a = './repo/assembly/'  + examples[x].assembly  + '.txt' ;
             h = examples[x].hardware ;
             e = (m != (examples.length-1)) ? ',\n' : '\n' ;
 
