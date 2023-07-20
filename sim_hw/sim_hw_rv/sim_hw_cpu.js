@@ -2381,21 +2381,33 @@
 						    var oi = decode_instruction(sim.rv.internal_states.FIRMWARE,
                                                                                 sim.rv.ctrl_states.ir,
 						                                get_value(sim.rv.states['REG_IR'])) ;
+							console.log(sim.rv.internal_states.FIRMWARE);
+							console.log(oi) ;
 						    if (null == oi.oinstruction)
                                                     {
-                                                         ws_alert('ERROR: undefined instruction code in IR (' +
+														if (oi.cop_code !== undefined) {
+															ws_alert('ERROR: undefined instruction code in IR (' +
 							          'co:'  +  oi.op_code.toString(2) + ', ' +
 							          'cop:' + oi.cop_code.toString(2) + ')') ;
+														} else if (oi.eoc !== undefined) {
+                                                         ws_alert('ERROR: undefined instruction code in IR (' +
+							          'co:'  +  oi.op_code.toString(2) + ', ' +
+							          'eoc:' + oi.eoc.toString(2) + ')') ;
+													}
 							 sim.rv.states['ROM_MUXA'].value = 0 ;
 							 sim.rv.states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
 						    // 2.- oi.oinstruction -> rom_addr
-                                                    var rom_addr = oi.op_code << 6;
+						    if (sim.rv.internal_states.FIRMWARE.version === 2)
+								var rom_addr = oi.op_code << 5;
+							else
+								var rom_addr = oi.op_code << 6;
 						    if (typeof oi.oinstruction.cop != "undefined") {
                                                         rom_addr = rom_addr + oi.cop_code ;
-						    }
+						    } else if (typeof oi.oinstruction.eoc != "undefined")
+								                        rom_addr = rom_addr + oi.eoc_code ;
 
 						    // 2.- ! sim.rv.internal_states['ROM'][rom_addr] -> error
 						    if (typeof sim.rv.internal_states['ROM'][rom_addr] == "undefined")
