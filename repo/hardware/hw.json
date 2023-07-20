@@ -1,0 +1,14 @@
+[ 
+   { 
+      "name": "ep",
+      "url":  "repo/hardware/ep/hw_def.json"
+   },
+   { 
+      "name": "poc",
+      "url":  "repo/hardware/poc/hw_def.json"
+   },
+   {
+      "name": "rv",
+      "url":  "repo/hardware/rv/hw_def.json"
+   }
+]

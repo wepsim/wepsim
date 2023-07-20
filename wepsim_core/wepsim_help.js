@@ -99,7 +99,7 @@
     {
 	 var curr_idiom = get_cfg('ws_idiom') ;
 
-	 var help_base = 'examples/hardware/' + simhw + '/help/signals-' + curr_idiom + '.html' ;
+	 var help_base = 'repo/hardware/' + simhw + '/help/signals-' + curr_idiom + '.html' ;
          resolve_html_url(helpdiv, help_base, '#'+key, function() { $(helpdiv).trigger('create') ; }) ;
 
          simcore_ga('help', 'help.signal', 'help.signal.' + simhw + '.' + key);

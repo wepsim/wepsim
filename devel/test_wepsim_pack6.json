@@ -2,229 +2,229 @@
 {
 	"pack":        "RISC-V default examples",
 	"description": "R1E1 - Instructions",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s1e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s1e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R1E2 - Memory access",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s1e2.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s1e2.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R1E3 - Looping",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s1e3.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s1e3.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R1E4 - Vector",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s1e4.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s1e4.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R2E2 - Subrutine",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s2e2.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s2e2.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R2E3 - Masks & shift",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s2e3.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s2e3.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R2E4 - Matrix",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s2e4.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s2e4.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R2E5 - Simple stack conv.",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s2e5.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s2e5.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R3E1 - Interruptions",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s3e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s3e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R3E2 - System call",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s3e2.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s3e2.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R3E3 - Exception",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s3e3.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s3e3.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R4E1 - Int. + syscall + except.",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s4e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s4e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R5E1 - 3D-Led",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_bare.mc -s ./examples/assembly/rv32/s5e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_bare.mc -s ./repo/assembly/rv32/s5e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R1E1 - Instructions",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s1e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s1e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R1E2 - Memory access",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s1e2.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s1e2.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R1E3 - Looping",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s1e3.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s1e3.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R1E4 - Vector",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s1e4.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s1e4.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R2E2 - Subrutine",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s2e2.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s2e2.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R2E3 - Masks & shift",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s2e3.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s2e3.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R2E4 - Matrix",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s2e4.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s2e4.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R2E5 - Simple stack conv.",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s2e5.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s2e5.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R3E1 - Interruptions",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s3e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s3e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R3E2 - System call",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s3e2.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s3e2.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R3E3 - Exception",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s3e3.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s3e3.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R4E1 - Int. + syscall + except.",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s4e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s4e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "R5E1 - 3D-Led",
-	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./examples/microcode/rv32/ep_base.mc -s ./examples/assembly/rv32/s5e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32/s5e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S1E1 - Instructions",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s1e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s1e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S1E2 - Memory access",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s1e2.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s1e2.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S1E3 - Looping",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s1e3.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s1e3.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S1E4 - Vector",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s1e4.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s1e4.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S2E2 - Subrutine",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s2e2.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s2e2.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S2E3 - Masks & shift",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s2e3.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s2e3.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S2E4 - Matrix",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s2e4.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s2e4.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S3E1 - Interruptions",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s3e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s3e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S3E2 - System call",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s3e2.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s3e2.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S3E3 - Exception",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s3e3.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s3e3.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S4E1 - Int. + syscall + except.",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s4e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s4e1.asm",
 	"more":        "See WepSIM"
 },
 {
 	"pack":        "RISC-V default examples",
 	"description": "S6E3 - 3D-Led",
-	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./examples/microcode/rv32/poc_base.mc -s ./examples/assembly/rv32/s5e1.asm",
+	"test":        "./ws_dist/wepsim.sh -a run -m poc -f ./repo/microcode/rv32/poc_base.mc -s ./repo/assembly/rv32/s5e1.asm",
 	"more":        "See WepSIM"
 }
 ]

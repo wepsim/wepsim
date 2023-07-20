@@ -80,7 +80,7 @@
 		              break ;
 
                          case 'absolute':
-		              helpurl = 'examples/hardware/' + seg_hardw + '/help/' +
+		              helpurl = 'repo/hardware/' + seg_hardw + '/help/' +
 			                help_arg + '-' + seg_idiom + '.html' ;
 		              resolve_html_url(helpdiv_hash, helpurl, '', uielto_help_scrolltothetop) ;
                               simcore_ga('help', 'help.absolute', 'help.absolute.' + help_arg) ;
@@ -132,7 +132,7 @@
 	// hardware summary image
         function uielto_help_hw_summary_image ( seg_hardw )
         {
-	    var img2 = 'examples/hardware/' + seg_hardw + '/images/cpu.svg?time=20220610' ;
+	    var img2 = 'repo/hardware/' + seg_hardw + '/images/cpu.svg?time=20220610' ;
 
 	    return '<button class="btn btn-secondary w-100" type="button"' +
                    '        data-bs-toggle="collapse"   data-bs-target="#hw_img_collapse1"' +

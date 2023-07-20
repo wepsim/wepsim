@@ -322,7 +322,7 @@
 
     function wepsim_checkpoint_loadExample ( tutorial_name )
     {
-	    var file_uri = 'examples/checkpoint/' + tutorial_name ;
+	    var file_uri = 'repo/checkpoint/' + tutorial_name ;
 
 	    // lambda (auxiliar) function
 	    var function_after_loaded = function (data_text)
