@@ -2401,15 +2401,23 @@
 						    }
 
 						    // 2.- oi.oinstruction -> rom_addr
-						    if (sim.rv.internal_states.FIRMWARE.version === 2)
+						    if (sim.rv.internal_states.FIRMWARE.version == 2) {
+								// NEEDS FIX
 								var rom_addr = oi.op_code << 7;
-							else
+								console.log("op_code: " + oi.op_code);
+							} else {
 								var rom_addr = oi.op_code << 6;
-						    if (typeof oi.oinstruction.cop != "undefined") {
+							}
+							console.log("Dirección ROM OC: " + rom_addr);
+						    if (oi.oinstruction.cop !== undefined) {
+														console.log("cop_code: " + oi.cop_code);
                                                         rom_addr = rom_addr + oi.cop_code ;
-						    } else if (typeof oi.oinstruction.eoc != "undefined")
-								                        rom_addr = rom_addr + oi.eoc_code ;
+						    } else if (oi.oinstruction.eoc !== undefined) {
+														console.log("eoc: " + oi.eoc);
+								                        rom_addr = rom_addr + oi.eoc ;
+							}
 
+							console.log("Dirección ROM final: " + rom_addr);
 						    // 2.- ! sim.rv.internal_states['ROM'][rom_addr] -> error
 						    if (typeof sim.rv.internal_states['ROM'][rom_addr] == "undefined")
 						    {

@@ -55,10 +55,11 @@ function setCharAt(str, index, chr) {
 function assembly_replace (machineCode, num_bits, startbit, stopbit, bits, free_space)
 {
 	var xr_info = simhw_sim_ctrlStates_get() ;
-	var endian = xr_info.ir.default_eltos.endian.type ;
+	var endian = xr_info.ir.default_eltos.endian;
+	if (endian !== undefined) var endian_type = endian.type;
 
 	// Little endian like RV
-	if (endian === 2) {
+	if (endian_type === 2) {
 		if (startbit !== undefined && stopbit !== undefined) {
 			// Normal assembly replace for continuous fields
 			var j = num_bits.length-1;

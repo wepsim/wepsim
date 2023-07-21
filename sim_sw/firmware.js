@@ -702,8 +702,12 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		// instructions as 32-string
 		var bits = binstruction.toString(2).padStart(32, "0") ;
 
+		// check bit order
+		var endian = ep_ir.default_eltos.endian;
+		if (endian !== undefined) var endian_type = endian.type;
+
 		// op-code
-		if (ep_ir.default_eltos.endian.type == 2) {
+		if (endian_type === 2) {
 			var oc = bits.substr(31-ep_ir.default_eltos.oc.end, ep_ir.default_eltos.oc.length);
 		} else {
 			var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
@@ -713,7 +717,7 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		// eoc
 		// this needs A LOT of explaining
 		// https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
-		if (ep_ir.default_eltos.endian.type == 2) {
+		if (endian_type === 2) {
 			if (ep_ir.default_eltos.eoc.type == 2) {
 				var eoc = bits.substr(31-ep_ir.default_eltos.eoc.bits[0][1], ep_ir.default_eltos.eoc.lengths[0]);
 				if (oc == '0110011') {
@@ -725,7 +729,7 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		} else {
 			if (ep_ir.default_eltos.eoc.type == 2) {
 				var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
-				if (oc == 0110011) {
+				if (oc == '0110011') {
 					eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
 				}
 			} else {
