@@ -703,19 +703,34 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		var bits = binstruction.toString(2).padStart(32, "0") ;
 
 		// op-code
-		var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
+		if (ep_ir.default_eltos.endian.type == 2) {
+			var oc = bits.substr(31-ep_ir.default_eltos.oc.end, ep_ir.default_eltos.oc.length);
+		} else {
+			var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
+		}
 		ret.op_code = parseInt(oc, 2) ;
 
 		// eoc
 		// this needs A LOT of explaining
 		// https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
-		if (ep_ir.default_eltos.eoc.type == 2) {
-			var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
-			if (oc == 0110011) {
-				eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+		if (ep_ir.default_eltos.endian.type == 2) {
+			if (ep_ir.default_eltos.eoc.type == 2) {
+				var eoc = bits.substr(31-ep_ir.default_eltos.eoc.bits[0][1], ep_ir.default_eltos.eoc.lengths[0]);
+				if (oc == '0110011') {
+					eoc += bits.substr(31-ep_ir.default_eltos.eoc.bits[1][1], ep_ir.default_eltos.eoc.lengths[1]);
+				}
+			} else {
+				var eoc = bits.substr(31-ep_ir.default_eltos.eoc.end, 31-ep_ir.default_eltos.eoc.begin);
 			}
 		} else {
-			var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+			if (ep_ir.default_eltos.eoc.type == 2) {
+				var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
+				if (oc == 0110011) {
+					eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+				}
+			} else {
+				var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+			}
 		}
 		ret.eoc = parseInt(eoc, 2) ;
 

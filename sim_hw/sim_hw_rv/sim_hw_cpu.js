@@ -164,11 +164,12 @@
 		                    name:  "IR",
 		                    state: "REG_IR",
 		                    default_eltos:	{
-					    			"co":		{ "begin":  0, "end":  5, "length": 6 },
+								"co":		{ "begin":  0, "end":  5, "length": 6 },
 								"cop":		{ "begin": 28, "end": 31, "length": 4 },
 								"oc":		{ "begin":  0, "end":  6, "length": 7 },
 								//"eoc":		{ "type": 	1, "begin": 12, "end": 14, "length": 3 },
-								"eoc":		{ "type": 	2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
+								"eoc":		{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 },
+								"endian":	{ "type": 2 }
 							},
 		                    is_pointer: false
 	                         } ;
@@ -2401,7 +2402,7 @@
 
 						    // 2.- oi.oinstruction -> rom_addr
 						    if (sim.rv.internal_states.FIRMWARE.version === 2)
-								var rom_addr = oi.op_code << 5;
+								var rom_addr = oi.op_code << 7;
 							else
 								var rom_addr = oi.op_code << 6;
 						    if (typeof oi.oinstruction.cop != "undefined") {
