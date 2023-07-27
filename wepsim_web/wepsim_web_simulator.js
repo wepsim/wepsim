@@ -59,6 +59,7 @@
 	    wsweb_change_workspace_simulator() ;
 	    wsweb_change_show_processor() ;
 	    wsweb_set_details('REGISTER_FILE') ;
+            show_cpuview_view() ;
 
 	    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
 	    wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
