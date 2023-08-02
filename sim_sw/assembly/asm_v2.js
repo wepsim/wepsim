@@ -30,60 +30,57 @@ function bits_size ( bits )
 	return len ;
 }
 
-function assembly_oc_eoc(machineCode, oc, eoc)
+function assembly_oc_eoc ( machineCode, oc, eoc )
 {
 	var xr_info = simhw_sim_ctrlStates_get() ;
 	var bits = xr_info.ir.default_eltos.eoc.bits ;
 
 	if (oc !== false)
-	    machineCode = assembly_replace(machineCode, oc, xr_info.ir.default_eltos.oc.begin, xr_info.ir.default_eltos.oc.end, 0, 0);
+	    machineCode = assembly_replace(machineCode, oc, 7, 0, 0, 0);
 	if (eoc !== false)
 		if(eoc.length === 3) {
-			machineCode = assembly_replace(machineCode, eoc, xr_info.ir.default_eltos.eoc.bits[0][0], xr_info.ir.default_eltos.eoc.bits[0][1], 0, 0);
+			machineCode = assembly_replace(machineCode, eoc, 14+1, 12, 0, 0);
 		} else {
-			machineCode = assembly_replace(machineCode, eoc, undefined, 0, bits, 0);
+			machineCode = assembly_replace(machineCode, eoc, undefined, undefined, bits, 0);
 		}
 
 	return machineCode;
 }
 
-function setCharAt(str, index, chr) {
+function setCharAt ( str, index, chr ) {
 	if(index > str.length-1) return str;
 	return str.substring(0,index) + chr + str.substring(index+1);
 }
 
-function assembly_replace (machineCode, num_bits, startbit, stopbit, bits, free_space)
+function assembly_replace ( machineCode, num_bits, startbit, stopbit, bits, free_space )
 {
-	var xr_info = simhw_sim_ctrlStates_get() ;
-	var endian = xr_info.ir.default_eltos.endian;
-	if (endian !== undefined) var endian_type = endian.type;
 
-	// Little endian like RV
-	if (endian_type === 2) {
-		if (startbit !== undefined && stopbit !== undefined) {
-			// Normal assembly replace for continuous fields
-			var j = num_bits.length-1;
-			for (i=(WORD_LENGTH-1)-startbit-free_space; i >= (WORD_LENGTH-1)-stopbit; i--) {
-				machineCode = setCharAt(machineCode, i, num_bits[j]);
-				j--;
-			}
-		} else {
-			// Assembly replace for separated fields
-			var j = num_bits.length-1;
-			for (k=bits.length-1; k >= 0; k--) {
-				if (j > 0) {
-					for (i=(WORD_LENGTH-1)-bits[k][0]; i >= (WORD_LENGTH-1)-bits[k][1]; i--) {
-						machineCode = setCharAt(machineCode, i, num_bits[j]);
-						j--;
-					}
-				}
-			}
-		}
-	// Big endian like EP
-	} else {
+	if (startbit !== undefined && stopbit !== undefined) {
 		// Version 1 assembly compiler code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
 		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);
+	} else {
+		// Assembly replace for separated fields
+		/*
+		var j = num_bits.length-1;
+		for (k=bits.length-1; k >= 0; k--) {
+			if (j > 0) {
+				for (i=(WORD_LENGTH-1)-bits[k][0]; i >= (WORD_LENGTH-1)-bits[k][1]; i--) {
+					machineCode = setCharAt(machineCode, i, num_bits[j]);
+					j--;
+				}
+			}
+		}
+		*/
+		var j = 0;
+		for (k=0; k < bits.length; k++) {
+			if (j < num_bits.length) {
+				for (i=bits[k][0]; i < bits[k][1]; i++) {
+					machineCode = setCharAt(machineCode, i, num_bits[j]);
+					j++;
+				}
+			}
+		}
 	}
 
 	return machineCode;
@@ -982,6 +979,7 @@ function read_text_v2  ( context, datosCU, ret )
 		else
 		{
 			// replace CO and COP in machine code
+			console.log(context.firmware[instruction][candidate]);
 			machineCode = assembly_oc_eoc(machineCode,
 											context.firmware[instruction][candidate].oc,
 											context.firmware[instruction][candidate].eoc);
