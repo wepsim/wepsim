@@ -1033,6 +1033,7 @@ function read_text_v2  ( context, datosCU, ret )
 			{
 				case "address":
 				case "inm":
+				case "imm":
 				case "reg":
 				case "(reg)":
 					s_def = s_def + " " + s[j];

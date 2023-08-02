@@ -158,7 +158,6 @@ cat sim_core/sim_cfg.js \
     sim_sw/assembly/memory_segments.js \
     sim_sw/assembly/datatypes.js \
     sim_sw/assembly/asm_v1.js \
-    sim_sw/assembly/asm_v1_1.js \
     sim_sw/assembly/asm_v2.js \
     sim_sw/assembly.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
