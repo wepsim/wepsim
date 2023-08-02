@@ -117,6 +117,18 @@
                        }, 100);
         }
 
+		function eventhandler_load_svg_p_initlisteners ( )
+		{
+		    simcore_init_eventlistener("svg_p", hash_detail2action, hash_signal2action) ;
+		    refresh() ;
+		}
+
+		function eventhandler_load_svg_cu_initlisteners ( )
+		{
+	    	    simcore_init_eventlistener("svg_cu", hash_detail2action, hash_signal2action) ;
+		    refresh() ;
+		}
+
         function cpucu_show_graph ( )
         {
             var ahw = simhw_active() ;
@@ -134,18 +146,12 @@
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
             if (a != null) {
-	        a.addEventListener("load", function() {
-		    simcore_init_eventlistener("svg_p", hash_detail2action, hash_signal2action) ;
-		    refresh() ;
-	        }, false);
+	        a.addEventListener("load", eventhandler_load_svg_p_initlisteners, false);
             }
 
 	    var b = document.getElementById("svg_cu");
             if (b != null) {
-	        b.addEventListener("load", function() {
-	    	    simcore_init_eventlistener("svg_cu", hash_detail2action, hash_signal2action) ;
-		    refresh() ;
-	        }, false);
+	        b.addEventListener("load", eventhandler_load_svg_cu_initlisteners, false);
             }
         }
 
