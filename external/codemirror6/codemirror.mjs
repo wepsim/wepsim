@@ -4,7 +4,7 @@
    import { javascript }                                from "@codemirror/lang-javascript"
    import { keymap }                                    from "@codemirror/view"
    import { defaultKeymap, history, historyKeymap }     from "@codemirror/commands"
-   import { syntaxHighlighting, defaultHighlightStyle } from "@codemirror/language"
+// import { syntaxHighlighting, defaultHighlightStyle } from "@codemirror/language"
    import { autocompletion }                            from "@codemirror/autocomplete"
 
 
