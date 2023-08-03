@@ -170,7 +170,8 @@
 								"oc":		{ "begin": 25, "end": 31, "length": 7 },
 								//"eoc":		{ "type": 	1, "begin": 12, "end": 14, "length": 3 },
 								//"eoc":		{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
-								"eoc":		{ "type": 2, "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
+								"eoc":		{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
+								//"eoc":		{ "type": 2, "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
 							},
 		                    is_pointer: false
 	                         } ;

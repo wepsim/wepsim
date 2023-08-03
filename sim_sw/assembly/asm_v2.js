@@ -33,7 +33,7 @@ function bits_size ( bits )
 function assembly_oc_eoc ( machineCode, oc, eoc )
 {
 	var xr_info = simhw_sim_ctrlStates_get() ;
-	var bits = xr_info.ir.default_eltos.eoc.bits ;
+	var bits = xr_info.ir.default_eltos.eoc.bits_field ;
 
 	if (oc !== false)
 	    machineCode = assembly_replace(machineCode, oc, 7, 0, 0, 0);
@@ -59,6 +59,10 @@ function assembly_replace ( machineCode, num_bits, startbit, stopbit, bits, free
 		// Version 1 assembly compiler code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
 		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);
+
+		if (machineCode.length < 32) {
+			machineCode = "0".repeat(32-machineCode.length) + machineCode;
+		}
 	} else {
 		// Assembly replace for separated fields
 		/*
@@ -72,12 +76,25 @@ function assembly_replace ( machineCode, num_bits, startbit, stopbit, bits, free
 			}
 		}
 		*/
+		/*
 		var j = 0;
 		for (k=0; k < bits.length; k++) {
 			if (j < num_bits.length) {
 				for (i=bits[k][0]; i < bits[k][1]; i++) {
 					machineCode = setCharAt(machineCode, i, num_bits[j]);
 					j++;
+				}
+			}
+		}
+		*/
+		console.log("Previous machine code: " + machineCode);
+		var j = 0;
+		for (var k=0; k < bits.length; k++) {
+			for (var i=(31-bits[k][0]); i < (32-bits[k][1]); i++) {
+				if (j < num_bits.length) {
+					machineCode = setCharAt(machineCode, i, num_bits[j]);
+					j++;
+					console.log(machineCode);
 				}
 			}
 		}
@@ -782,7 +799,7 @@ function read_text_v2  ( context, datosCU, ret )
 						}
 
 						//DEBUG
-						// console.log(ret1);
+						console.log("Inmediato: " + ret1);
 
 						break;
 
@@ -993,6 +1010,7 @@ function read_text_v2  ( context, datosCU, ret )
 		var l_addr = "" ;
 		for (i=0; i<binaryAux[candidate].length; i++)
 		{
+			console.log(binaryAux[candidate]);
 			// tag
 			if (binaryAux[candidate][i].islabel)
 			{
@@ -1014,6 +1032,7 @@ function read_text_v2  ( context, datosCU, ret )
 			// replace instruction and fields in machine code
 			else
 			{
+				console.log(binaryAux[candidate][i]);
 				machineCode = assembly_replace( machineCode,
 								binaryAux[candidate][i].num_bits,
 								binaryAux[candidate][i].startbit-(-1),
