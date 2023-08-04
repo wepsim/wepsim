@@ -60,6 +60,7 @@ function assembly_replace ( machineCode, num_bits, startbit, stopbit, bits, free
 		var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
 		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);
 
+		//Prevent word to be less than 32 bits
 		if (machineCode.length < 32) {
 			machineCode = "0".repeat(32-machineCode.length) + machineCode;
 		}
