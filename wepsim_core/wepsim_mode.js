@@ -29,9 +29,9 @@
 	                         'ep':       'Default-MIPS',
 	                         'poc':      'Default-MIPS',
 	                         'rv':       'Default-RISCV',
-	                         'asm_mips': 'ep:ep_mips:mips_s4e1',
-	                         'asm_rv32': 'ep:ep_rv32:rv32_s7e2',
-	                         'asm_z80':  'ep:ep_z80:z80_s7e3'
+	                         'asm_mips': 'ep:ep_bare:mips_s4e1',
+	                         'asm_rv32': 'ep:ep_os:rv32_s7e2',
+	                         'asm_z80':  'ep:ep_js:z80_s7e3'
 	                      } ;
 
     ws_info.modes_ep = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;

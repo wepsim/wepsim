@@ -19,7 +19,7 @@
  */
 
 
-function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
+function firm_instruction_read ( context, xr_info, all_ones_co )
 {
        var ret = {};
 
@@ -43,7 +43,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
        instruccionAux.numeroCampos = 0 ;
        instruccionAux.fields       = [] ;
        instruccionAux.fields_all   = [] ;
-       instruccionAux.fields_eoc   = [] ;
+       instruccionAux.fields_funct = [] ;
 
        // semantic check: valid instruction name
        var re_name = "[a-zA-Z_0-9\.]*" ;
@@ -182,7 +182,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 // }
 
        if (2 == context.version) {
-           ret = firm_instruction_read_fields_v2(context, instruccionAux, xr_info, all_ones_oc) ;
+           ret = firm_instruction_read_fields_v2(context, instruccionAux, xr_info, all_ones_co) ;
        }
        else {
         // ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;
