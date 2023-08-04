@@ -619,7 +619,7 @@ function read_data_v2  ( context, ret )
 function read_text_v2  ( context, datosCU, ret )
 {
 	//
-	// TODO
+	// REMOVE PSEUDO
 	//
 
 	console.log(context.firmware);

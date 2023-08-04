@@ -2446,8 +2446,7 @@
 						    var oi = decode_instruction(sim.rv.internal_states.FIRMWARE,
                                                                                 sim.rv.ctrl_states.ir,
 						                                get_value(sim.rv.states['REG_IR'])) ;
-							console.log(sim.rv.internal_states.FIRMWARE);
-							console.log(oi) ;
+
 						    if (null == oi.oinstruction)
                                                     {
 														if (oi.cop_code !== undefined) {
@@ -2465,24 +2464,13 @@
 						    }
 
 						    // 2.- oi.oinstruction -> rom_addr
-						    if (sim.rv.internal_states.FIRMWARE.version == 2) {
-								// NEEDS FIX
-								var rom_addr = oi.op_code << 7;
-								console.log("op_code: " + oi.op_code);
-							} else {
-								var rom_addr = oi.op_code << 6;
-							}
-							console.log("Dirección ROM OC: " + rom_addr);
+							var rom_addr = oi.op_code << 6;
 						    if (oi.oinstruction.cop !== undefined) {
-														console.log("cop_code: " + oi.cop_code);
                                                         rom_addr = rom_addr + oi.cop_code ;
 						    } else if (oi.oinstruction.eoc !== undefined) {
-														console.log("eoc: " + oi.eoc);
 								                        rom_addr = rom_addr + oi.eoc ;
 							}
 
-							console.log("Dirección ROM final: " + rom_addr);
-							console.log(sim.rv.internal_states);
 						    // 2.- ! sim.rv.internal_states['ROM'][rom_addr] -> error
 						    if (typeof sim.rv.internal_states['ROM'][rom_addr] == "undefined")
 						    {
