@@ -164,11 +164,14 @@
 		                    name:  "IR",
 		                    state: "REG_IR",
 		                    default_eltos:	{
-					    			"co":		{ "begin":  0, "end":  5, "length": 6 },
+								"co":		{ "begin":  0, "end":  5, "length": 6 },
 								"cop":		{ "begin": 28, "end": 31, "length": 4 },
-								"oc":		{ "begin":  0, "end":  6, "length": 7 },
+								//"oc":		{ "begin":  0, "end":  6, "length": 7 },
+								"oc":		{ "begin": 25, "end": 31, "length": 7 },
 								//"eoc":		{ "type": 	1, "begin": 12, "end": 14, "length": 3 },
-								"eoc":		{ "type": 	2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
+								//"eoc":		{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
+								"eoc":		{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
+								//"eoc":		{ "type": 2, "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
 							},
 		                    is_pointer: false
 	                         } ;
@@ -2381,22 +2384,42 @@
 						    var oi = decode_instruction(sim.rv.internal_states.FIRMWARE,
                                                                                 sim.rv.ctrl_states.ir,
 						                                get_value(sim.rv.states['REG_IR'])) ;
+							console.log(sim.rv.internal_states.FIRMWARE);
+							console.log(oi) ;
 						    if (null == oi.oinstruction)
                                                     {
-                                                         ws_alert('ERROR: undefined instruction code in IR (' +
+														if (oi.cop_code !== undefined) {
+															ws_alert('ERROR: undefined instruction code in IR (' +
 							          'co:'  +  oi.op_code.toString(2) + ', ' +
 							          'cop:' + oi.cop_code.toString(2) + ')') ;
+														} else if (oi.eoc !== undefined) {
+                                                         ws_alert('ERROR: undefined instruction code in IR (' +
+							          'co:'  +  oi.op_code.toString(2) + ', ' +
+							          'eoc:' + oi.eoc.toString(2) + ')') ;
+													}
 							 sim.rv.states['ROM_MUXA'].value = 0 ;
 							 sim.rv.states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
 						    // 2.- oi.oinstruction -> rom_addr
-                                                    var rom_addr = oi.op_code << 6;
-						    if (typeof oi.oinstruction.cop != "undefined") {
+						    if (sim.rv.internal_states.FIRMWARE.version == 2) {
+								// NEEDS FIX
+								var rom_addr = oi.op_code << 7;
+								console.log("op_code: " + oi.op_code);
+							} else {
+								var rom_addr = oi.op_code << 6;
+							}
+							console.log("Dirección ROM OC: " + rom_addr);
+						    if (oi.oinstruction.cop !== undefined) {
+														console.log("cop_code: " + oi.cop_code);
                                                         rom_addr = rom_addr + oi.cop_code ;
-						    }
+						    } else if (oi.oinstruction.eoc !== undefined) {
+														console.log("eoc: " + oi.eoc);
+								                        rom_addr = rom_addr + oi.eoc ;
+							}
 
+							console.log("Dirección ROM final: " + rom_addr);
 						    // 2.- ! sim.rv.internal_states['ROM'][rom_addr] -> error
 						    if (typeof sim.rv.internal_states['ROM'][rom_addr] == "undefined")
 						    {

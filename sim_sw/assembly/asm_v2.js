@@ -30,14 +30,75 @@ function bits_size ( bits )
 	return len ;
 }
 
-function assembly_oc_eoc(machineCode, oc, eoc)
+function assembly_oc_eoc ( machineCode, oc, eoc )
 {
-        var xr_info = simhw_sim_ctrlStates_get() ;
+	var xr_info = simhw_sim_ctrlStates_get() ;
+	var bits = xr_info.ir.default_eltos.eoc.bits_field ;
 
 	if (oc !== false)
-	    machineCode = assembly_replacement(machineCode, oc, WORD_LENGTH, WORD_LENGTH-6, 0);
+	    machineCode = assembly_replace(machineCode, oc, 7, 0, 0, 0);
 	if (eoc !== false)
-	    machineCode = assembly_replacement(machineCode, eoc, xr_info.ir.default_eltos.eoc.length, 0, 0);
+		if(eoc.length === 3) {
+			machineCode = assembly_replace(machineCode, eoc, 14+1, 12, 0, 0);
+		} else {
+			machineCode = assembly_replace(machineCode, eoc, undefined, undefined, bits, 0);
+		}
+
+	return machineCode;
+}
+
+function setCharAt ( str, index, chr ) {
+	if(index > str.length-1) return str;
+	return str.substring(0,index) + chr + str.substring(index+1);
+}
+
+function assembly_replace ( machineCode, num_bits, startbit, stopbit, bits, free_space )
+{
+
+	if (startbit !== undefined && stopbit !== undefined) {
+		// Version 1 assembly compiler code
+		var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
+		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);
+
+		if (machineCode.length < 32) {
+			machineCode = "0".repeat(32-machineCode.length) + machineCode;
+		}
+	} else {
+		// Assembly replace for separated fields
+		/*
+		var j = num_bits.length-1;
+		for (k=bits.length-1; k >= 0; k--) {
+			if (j > 0) {
+				for (i=(WORD_LENGTH-1)-bits[k][0]; i >= (WORD_LENGTH-1)-bits[k][1]; i--) {
+					machineCode = setCharAt(machineCode, i, num_bits[j]);
+					j--;
+				}
+			}
+		}
+		*/
+		/*
+		var j = 0;
+		for (k=0; k < bits.length; k++) {
+			if (j < num_bits.length) {
+				for (i=bits[k][0]; i < bits[k][1]; i++) {
+					machineCode = setCharAt(machineCode, i, num_bits[j]);
+					j++;
+				}
+			}
+		}
+		*/
+		console.log("Previous machine code: " + machineCode);
+		var j = 0;
+		for (var k=0; k < bits.length; k++) {
+			for (var i=(31-bits[k][0]); i < (32-bits[k][1]); i++) {
+				if (j < num_bits.length) {
+					machineCode = setCharAt(machineCode, i, num_bits[j]);
+					j++;
+					console.log(machineCode);
+				}
+			}
+		}
+	}
 
 	return machineCode;
 }
@@ -618,11 +679,11 @@ function read_text_v2  ( context, datosCU, ret )
 		var instruction = asm_getToken(context) ;
 
 		// get possible fields...
-		var signature_fields      	= [];	// e.g. [[reg,reg], [reg,imm], [reg,addr,imm]]
-		var signature_user_fields 	= [];	// signature user fields
+		var signature_fields		= [];	// e.g. [[reg,reg], [reg,imm], [reg,addr,imm]]
+		var signature_user_fields	= [];	// signature user fields
 		var advance 				= [];	// array that indicates wheather each signature can be considered or not
-		var max_length 				= 0;	// max number of parameters of the signatures
-		var binaryAux  				= [];	// necessary parameters of the fields of each signature
+		var max_length				= 0;	// max number of parameters of the signatures
+		var binaryAux				= [];	// necessary parameters of the fields of each signature
 
 		// Fill parameters
 		var firmware_instruction_length = 0 ;
@@ -633,7 +694,7 @@ function read_text_v2  ( context, datosCU, ret )
 		var val = [] ;
 		for (i=0; i<firmware_instruction_length; i++)
 		{
-			signature_fields[i]      			= context.firmware[instruction][i].signature.split(",") ;
+			signature_fields[i]					= context.firmware[instruction][i].signature.split(",") ;
 			signature_user_fields[i] 			= context.firmware[instruction][i].signatureUser.split(" ") ;
 			signature_fields[i].shift() ;
 			signature_user_fields[i].shift() ;
@@ -687,6 +748,9 @@ function read_text_v2  ( context, datosCU, ret )
 				else
 					var size = bits_size(field.bits) ;
 
+				var label_found = false ;
+				var sel_found   = false ;
+
 				// check field
 				switch(field.type)
 				{
@@ -720,8 +784,22 @@ function read_text_v2  ( context, datosCU, ret )
 
 							label_found = true ;
 						}
+
+						if ( !label_found )
+						{
+							if (ret1.isDecimal == true)
+								var res = decimal2binary(converted, size) ;
+							else var res = float2binary(converted, size) ;
+
+							if ((field.type == "address") && ("rel" == field.address_type))
+							{
+								// res = decimal2binary(converted-seg_ptr-WORD_BYTES, size);
+								res = decimal2binary(converted, size);
+							}
+						}
+
 						//DEBUG
-						// console.log(ret1);
+						console.log("Inmediato: " + ret1);
 
 						break;
 
@@ -836,10 +914,10 @@ function read_text_v2  ( context, datosCU, ret )
 										bits:		field.bits,
 										rel:		(label_found ? field.address_type : false),
 										islabel:	label_found,
-										field_name:	value,
+										field_name:	value/*,
 										issel:		sel_found,
 										sel_start:	start,
-										sel_stop:	stop
+										sel_stop:	stop*/
 									};
 				}
 			}
@@ -861,13 +939,13 @@ function read_text_v2  ( context, datosCU, ret )
 		var format = "" ;
 		for (i=0; i<firmware_instruction_length; i++)
 		{
-			if (i>0 && i<firmware[instruction].length-1)
+			if (i>0 && i<context.firmware[instruction].length-1)
 				format += ", " ;
 
-			if (i>0 && i==firmware[instruction].length-1)
+			if (i>0 && i==context.firmware[instruction].length-1)
 				format += " or " ;
 
-			format += "'" + firmware[instruction][i].signatureUser + "'" ;
+			format += "'" + context.firmware[instruction][i].signatureUser + "'" ;
 		}
 		if (format == "") {
 			format = "'" + instruction + "' " +
@@ -903,26 +981,173 @@ function read_text_v2  ( context, datosCU, ret )
 			}
 		}
 
-		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
-		if ( firmware[instruction][candidate].co !== undefined &&
-			firmware[instruction][candidate].cop !== undefined )
+		var machineCode = reset_assembly(context.firmware[instruction][candidate].nwords);
+		//DEBUG
+		console.log("Código máquina original: " + machineCode) ;
+		if ( context.firmware[instruction][candidate].co !== false )
 		{
 			// replace OC and EOC in machine code
 			machineCode = assembly_co_cop(machineCode,
-											firmware[instruction][candidate].co,
-											firmware[instruction][candidate].cop);
+											context.firmware[instruction][candidate].co,
+											context.firmware[instruction][candidate].cop);
+			//DEBUG
+			console.log("Código máquina co+cop: " + machineCode) ;
 		}
 		else
 		{
 			// replace CO and COP in machine code
+			console.log(context.firmware[instruction][candidate]);
 			machineCode = assembly_oc_eoc(machineCode,
-											firmware[instruction][candidate].oc,
-											firmware[instruction][candidate].eoc);
+											context.firmware[instruction][candidate].oc,
+											context.firmware[instruction][candidate].eoc);
+			//DEBUG
+			console.log("OC: " + context.firmware[instruction][candidate].oc) ;
+			console.log("EOC: " + context.firmware[instruction][candidate].eoc) ;
+			console.log("Código máquina oc+eoc: " + machineCode) ;
 		}
 
+		// store candidate fields in machine code
+		var l_addr = "" ;
+		for (i=0; i<binaryAux[candidate].length; i++)
+		{
+			console.log(binaryAux[candidate]);
+			// tag
+			if (binaryAux[candidate][i].islabel)
+			{
+				l_addr = "0x" + seg_ptr.toString(16) ;
+				ret.labels[l_addr] = {
+										name:         binaryAux[candidate][i].field_name,
+										addr:         seg_ptr,
+										startbit:     binaryAux[candidate][i].startbit,
+										stopbit:      binaryAux[candidate][i].stopbit,
+										bits:         binaryAux[candidate][i].bits,
+										rel:          binaryAux[candidate][i].rel,
+										nwords:       context.firmware[instruction][candidate].nwords,
+										labelContext: asm_getLabelContext(context)/*,
+										sel_found:    binaryAux[candidate][i].issel,
+										sel_start:    binaryAux[candidate][i].sel_start,
+										sel_stop:     binaryAux[candidate][i].sel_stop*/
+									} ;
+			}
+			// replace instruction and fields in machine code
+			else
+			{
+				console.log(binaryAux[candidate][i]);
+				machineCode = assembly_replace( machineCode,
+								binaryAux[candidate][i].num_bits,
+								binaryAux[candidate][i].startbit-(-1),
+								binaryAux[candidate][i].stopbit,
+								binaryAux[candidate][i].bits,
+								binaryAux[candidate][i].free_space ) ;
+			}
+		}
+		//DEBUG
+		console.log("Código máquina final: " + machineCode);
+
+		// fix instruction format
+		s_def = s[0] ;
+		for (i=0, j=1; i<signature_user_fields[candidate].length; i++, j++)
+		{
+			switch(signature_user_fields[candidate][i])
+			{
+				case "address":
+				case "inm":
+				case "imm":
+				case "reg":
+				case "(reg)":
+					s_def = s_def + " " + s[j];
+					break;
+				default:
+					s_def = s_def + " " + s[j] + s[j+1];
+					j++;
+			}
+		}
+
+		//pseudo
+		var s_ori = s_def ;
+
+		// ref has the associated information in firmware for this instruction
+		var ref = context.firmware[instruction][candidate] ;
+		var new_ref = ref ;
+		while (false === ref.isPseudoinstruction)
+		{
+			if ( context.firmware[instruction][candidate].co !== false ) {
+				var new_ref = datosCU.cocop_hash[context.firmware[instruction][candidate].co] ;
+				if (new_ref.withcop)
+					new_ref = new_ref[context.firmware[instruction][candidate].cop] ;
+				else new_ref = new_ref.i ;
+
+				// <TO-CHECK>:
+				if (typeof new_ref == "undefined") {
+					ref = datosCU.cocop_hash[context.firmware[instruction][candidate].co] ;
+					ref = ref.i ;
+					break ;
+				}
+				// </TO-CHECK>:
+
+				ref = new_ref ;
+			} else {
+				var new_ref = datosCU.oceoc_hash[context.firmware[instruction][candidate].oc] ;
+				if (new_ref.witheoc)
+					new_ref = new_ref[context.firmware[instruction][candidate].eoc] ;
+				else new_ref = new_ref.i ;
+
+				// <TO-CHECK>:
+				if (typeof new_ref == "undefined") {
+					ref = datosCU.oceoc_hash[context.firmware[instruction][candidate].oc] ;
+					ref = ref.i ;
+					break ;
+				}
+				// </TO-CHECK>:
+
+				ref = new_ref ;
+			}
+		}
+
+		// process machine code with several words...
+		for (i=context.firmware[instruction][candidate].nwords-1; i>=0; i--)
+		{
+			if (i<context.firmware[instruction][candidate].nwords-1) {
+				s_def = "" ;
+			}
+
+			var acc_cmt = asm_getComments(context) ;
+			var melto = {
+							value:           machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
+							binary:          machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
+							source:          s_def,
+							// source_original: s_ori,
+							source_tracking: [ s_ori ],
+							firm_reference:  ref,
+							comments:        [ acc_cmt ],
+							is_assembly:     true
+						} ;
+			main_memory_set(ret.mp, "0x" + seg_ptr.toString(16), melto) ;
+			asm_resetComments(context) ;
+
+			seg_ptr = seg_ptr + WORD_BYTES ;
+		}
+
+		// if instruction candidates with less than max_length fields
+		//    then we read ahead next token, otherwise we need to read next token
+		var equals_fields = true ;
+		for (var c=0; c<signature_fields.length; c++)
+		{
+			if (max_length !== signature_fields[c].length) {
+				equals_fields = false ;
+				break ;
+			}
+		}
+		if ( (equals_fields || (asm_getToken(context) == ")")) )
+		{
+			asm_nextToken(context) ;
+		}
+
+		if (context.t > context.text.length) break ;
 	}
 
-	return ret ;
+	//return ret ;
+	ret.seg[seg_name].end = seg_ptr ;  // end of segment is just last pointer value...
 }
 
 function simlang_compile_pass1 ( context, datosCU, text )
@@ -979,6 +1204,8 @@ function simlang_compile_pass1 ( context, datosCU, text )
 function simlang_compile_pass2 ( context, ret )
 {
      // TODO
+
+	return ret;
 }
 
 
@@ -1061,10 +1288,11 @@ function simlang_compile_pass3 ( context, ret )
                 }
 
 		// Store field in machine code
-		machineCode = assembly_replacement(machineCode,
+		machineCode = assembly_replace(machineCode,
                                                    num_bits,
                                                    ret.labels[i].startbit-(-1),
                                                    ret.labels[i].stopbit,
+                                                   ret.labels[i].bits,
                                                    free_space) ;
 
 		// process machine code with several words...
@@ -1125,6 +1353,7 @@ function simlang_compile_v2 ( text, datosCU )
 
            // pass 2: replace pseudo-instructions
            ret = simlang_compile_pass2(context, ret) ;
+		   console.log(ret);
 	   if (ret.error != null) {
 	       return ret;
 	   }
