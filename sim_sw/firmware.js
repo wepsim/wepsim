@@ -337,7 +337,7 @@ function loadFirmware (text)
            // co_cop_hash
 	   var fico  = 0 ;
 	   var ficop = 0 ;
-	   context.cocop_hash = {} ;
+	   context.hash_cocop = {} ;
 	   for (var fi in context.instrucciones)
 	   {
 		 if (context.instrucciones[fi].name == "begin") {
@@ -345,24 +345,24 @@ function loadFirmware (text)
 		 }
 
 		 fico  = context.instrucciones[fi].co ;
-		 if (typeof context.cocop_hash[fico] == "undefined") {
-		     context.cocop_hash[fico] = {} ;
+		 if (typeof context.hash_cocop[fico] == "undefined") {
+		     context.hash_cocop[fico] = {} ;
 		 }
 
 		 if (typeof context.instrucciones[fi].cop == "undefined") {
-		     context.cocop_hash[fico].withcop = false ;
-		     context.cocop_hash[fico].i       = context.instrucciones[fi] ;
+		     context.hash_cocop[fico].withcop = false ;
+		     context.hash_cocop[fico].i       = context.instrucciones[fi] ;
 		 } else {
 		     ficop = context.instrucciones[fi].cop ;
-		     context.cocop_hash[fico].withcop = true ;
-		     context.cocop_hash[fico][ficop]  = context.instrucciones[fi] ;
+		     context.hash_cocop[fico].withcop = true ;
+		     context.hash_cocop[fico][ficop]  = context.instrucciones[fi] ;
 		 }
 	   }
 
-           // revlabels
-           context.revlabels = {} ;
+           // hash_labels_rev
+           context.hash_labels_rev = {} ;
            for (key in context.instrucciones) {
-                context.revlabels[context.instrucciones[key]["mc-start"]] = context.instrucciones[key].name ;
+                context.hash_labels_rev[context.instrucciones[key]["mc-start"]] = context.instrucciones[key].name ;
            }
 
            // return results
@@ -375,8 +375,8 @@ function loadFirmware (text)
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
 	   ret.stackRegister	  = context.stackRegister ;
-	   ret.cocop_hash	  = context.cocop_hash ;
-	   ret.revlabels	  = context.revlabels ;
+	   ret.hash_cocop	  = context.hash_cocop ;
+	   ret.hash_labels_rev	  = context.hash_labels_rev ;
 
            return ret ;
 }
@@ -546,13 +546,13 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
     var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
     ret.cop_code = parseInt(cop, 2) ;
 
-    if ("undefined" == typeof curr_firm.cocop_hash[co]) {
+    if ("undefined" == typeof curr_firm.hash_cocop[co]) {
         return ret ;
     }
 
-    if (false == curr_firm.cocop_hash[co].withcop)
-         ret.oinstruction = curr_firm.cocop_hash[co].i ;
-    else ret.oinstruction = curr_firm.cocop_hash[co][cop] ;
+    if (false == curr_firm.hash_cocop[co].withcop)
+         ret.oinstruction = curr_firm.hash_cocop[co].i ;
+    else ret.oinstruction = curr_firm.hash_cocop[co][cop] ;
 
     return ret ;
 }

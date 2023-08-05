@@ -25,6 +25,22 @@
 
 function simlang_compile ( text, datosCU )
 {
-     return simlang_compile_v1(text, datosCU) ;
+     var ret = null ;
+
+     ///// DANGER /////
+/*
+     try
+     {
+        ret = wsasm_compile_v1_helper(datosCU, text) ;
+     }
+     catch (error)
+     {
+        console.log(error) ;
+     }
+*/
+     ///// DANGER /////
+
+     ret = simlang_compile_v1(text, datosCU) ;
+     return ret ;
 }
 
