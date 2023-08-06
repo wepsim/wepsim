@@ -869,6 +869,8 @@ function wsasm_obj2mem  ( ret )
                     for (var j=0; j<ret.obj[i].value.length; j++)
                     {
                          valuebin = ret.obj[i].value[j].toString(2) ;
+                         valuebin = valuebin.padStart(BYTE_LENGTH, '0') ;
+
                          writememory_and_accumulate(ret.mp, gen, valuebin, 1) ;
 
                          if (0 == gen.track_source.length) {
