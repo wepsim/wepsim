@@ -166,18 +166,10 @@
 		                    default_eltos:	{
 								"co":		{ "begin":  0, "end":  5, "length": 6 },
 								"cop":		{ "begin": 28, "end": 31, "length": 4 },
-								//"oc":		{ "begin":  0, "end":  6, "length": 7 },
 								"oc":		{ "begin": 25, "end": 31, "length": 7 },
-								//"eoc":		{ "type": 	1, "begin": 12, "end": 14, "length": 3 },
+								"eoc":		{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
 								//"eoc":		{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
-								"eoc":		{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 },
 								//"eoc":		{ "type": 2, "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
-								"type_r":	{ "bits_d": [] },
-								"type_i":	{ "bits_d": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
-								"type_s":	{ "bits_d": [0, 1, 2, 3, 4, 5, 6, 20, 21, 22, 23, 24] },
-								"type_b":	{ "bits_d": [0, 24, 1, 2, 3, 4, 5, 6, 20, 21, 22, 23] },
-								"type_u":	{ "bits_d": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19] },
-								"type_j":	{ "bits_d": [12, 13, 14, 15, 16, 17, 18, 19, 11, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
 							},
 		                    is_pointer: false
 	                         } ;
@@ -484,7 +476,7 @@
 					draw_name: [[]] };
 	*/
 	sim.rv.signals["GEN_IMM"] = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-					behavior: ["NOP", "DECO_IMM VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM TYPE_IMM"],
+					behavior: ["NOP", "DECO_IMM VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM"],
 					fire_name: [],
 					draw_data: [[]],
 					draw_name: [[]] };
@@ -495,11 +487,6 @@
 					draw_name: [[]] };
 	sim.rv.signals["SE_IMM"] = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 					behavior: ["NOP", "NOP"],
-					fire_name: [],
-					draw_data: [[]],
-					draw_name: [[]] };
-	sim.rv.signals["TYPE_IMM"] = { name: "TYPE_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "3",
-					behavior: ["NOP"],
 					fire_name: [],
 					draw_data: [[]],
 					draw_name: [[]] };
@@ -2127,49 +2114,59 @@
                                                 }
 				   };
 
-	sim.rv.behaviors["DECO_IMM"]    = { nparameters: 8,
-				     types: ["E", "I", "E", "S", "S", "I", "S", "S"],
-				     operation: function(s_expr)
+	sim.rv.behaviors["DECO_IMM"] 	= { nparameters: 8,
+					types: ["E", "I", "E", "S", "S", "I", "S"],
+					operation: function(s_expr)
 						{
-							var type = parseInt(sim.rv.signals[s_expr[8]].value) ;
-
-							switch (type)
-							{
-								case 0:
-									var offset = parseInt(sim.rv.signals[s_expr[4]].value) ;
-									var size   = parseInt(sim.rv.signals[s_expr[5]].value) ;
-
-									var n1 = get_value(sim.rv.states[s_expr[3]]).toString(2); // to binary
-									var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
-										n2 = n2.substr(31 - (offset + size - 1), size);
-
-									var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
-									if ( ("1" ==  sim.rv.signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
-															{    // check signed-extension
-										n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
+							var oi = decode_instruction(sim.rv.internal_states.FIRMWARE,
+														sim.rv.ctrl_states.ir,
+														get_value(sim.rv.states['REG_IR'])) ;
+							var bits = [];
+							var startbit;
+							var stopbit;
+							for (var i=0; i < oi.oinstruction.fields.length; i++) {
+								if (oi.oinstruction.fields[i].type == "inm" ||
+									oi.oinstruction.fields[i].type == "imm" ||
+									oi.oinstruction.fields[i].type == "address") {
+										if (oi.oinstruction.fields[i].bits !== undefined) {
+											bits = oi.oinstruction.fields[i].bits;
+										} else {
+											bits[0] = new Array(2);
+											bits[0][0] = oi.oinstruction.fields[i].startbit;
+											bits[0][1] = oi.oinstruction.fields[i].stopbit;
+										}
 									}
-
-									set_value(sim.rv.states[s_expr[1]], parseInt(n3, 2));
-
-									break;
-								case 1:
-									break;
-								case 2:
-									break;
-								case 3:
-									break;
-								case 4:
-									break;
-								case 5:
-									break;
-								default:
 							}
-                                                },
-                                        verbal: function (s_expr)
-                                                {
-													return "Generate immediate value" ;
-                                                }
-				   };
+
+							var offset = parseInt(sim.rv.signals[s_expr[4]].value) ;
+							var size   = parseInt(sim.rv.signals[s_expr[5]].value) ;
+
+							var n1 = get_value(sim.rv.states[s_expr[3]]).toString(2); // to binary
+							n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
+
+							var n2 = "";
+							for (var i=bits.length-1; i >= 0; i--) {
+								for (var j=31-bits[i][0]; j <= 31-bits[i][1]; j++) {
+									n2 += n1[j];
+								}
+							}
+							n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2) ;
+							n2 = n2.substr(31 - (size - 1), size);
+							n2 = n2 + "0".repeat(offset);
+
+							var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+							if ( ("1" ==  sim.rv.signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
+							{	// check signed-extension
+								n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
+							}
+
+							set_value(sim.rv.states[s_expr[1]], parseInt(n3, 2));
+						},
+						verbal: function (s_expr)
+						{
+							return "Generate immediate value" ;
+						}
+				};
 
 	sim.rv.behaviors["BSEL"] =  { nparameters: 6,
 				     types: ["E", "I", "I", "E", "I"],

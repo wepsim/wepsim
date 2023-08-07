@@ -18,8 +18,6 @@
  *
  */
 
-// Auxiliary functions
-
 function bits_size ( bits )
 {
 	var len = 0;
@@ -30,29 +28,40 @@ function bits_size ( bits )
 	return len ;
 }
 
-function assembly_oc_eoc ( machineCode, oc, eoc )
-{
-	var xr_info = simhw_sim_ctrlStates_get() ;
-	var bits = xr_info.ir.default_eltos.eoc.bits_field ;
-
-	if (oc !== false)
-	    machineCode = assembly_replace(machineCode, oc, 7, 0, 0, 0);
-	if (eoc !== false)
-		if(eoc.length === 3) {
-			machineCode = assembly_replace(machineCode, eoc, 14+1, 12, 0, 0);
-		} else {
-			machineCode = assembly_replace(machineCode, eoc, undefined, undefined, bits, 0);
-		}
-
-	return machineCode;
-}
 
 function setCharAt ( str, index, chr ) {
 	if(index > str.length-1) return str;
 	return str.substring(0,index) + chr + str.substring(index+1);
 }
 
-function assembly_replace ( machineCode, num_bits, startbit, stopbit, bits, free_space )
+function assembly_oc_eoc_v2 ( machineCode, oc, eoc )
+{
+	var xr_info = simhw_sim_ctrlStates_get() ;
+	var bits = xr_info.ir.default_eltos.eoc.bits_field ;
+
+	if (oc !== false)
+	    machineCode = assembly_replace_v2(machineCode, oc, 7, 0, 0, 0);
+	if (eoc !== false)
+		if(eoc.length === 3) {
+			machineCode = assembly_replace_v2(machineCode, eoc, 14+1, 12, 0, 0);
+		} else {
+			//machineCode = assembly_replace_v2(machineCode, eoc, undefined, undefined, bits, 0);
+			var j = 0;
+			for (var k=0; k < bits.length; k++) {
+				for (var i=(31-bits[k][0]); i <= (31-bits[k][1]); i++) {
+					if (j < eoc.length) {
+						machineCode = setCharAt(machineCode, i, eoc[j]);
+						j++;
+					}
+				}
+			}
+
+		}
+
+	return machineCode;
+}
+
+function assembly_replace_v2 ( machineCode, num_bits, startbit, stopbit, bits, free_space )
 {
 
 	if (startbit !== undefined && stopbit !== undefined) {
@@ -66,36 +75,13 @@ function assembly_replace ( machineCode, num_bits, startbit, stopbit, bits, free
 		}
 	} else {
 		// Assembly replace for separated fields
-		/*
 		var j = num_bits.length-1;
-		for (k=bits.length-1; k >= 0; k--) {
-			if (j > 0) {
-				for (i=(WORD_LENGTH-1)-bits[k][0]; i >= (WORD_LENGTH-1)-bits[k][1]; i--) {
+		for (var k=0; k < bits.length; k++) {
+			//for (var i=(31-bits[k][0]); i < (32-bits[k][1]); i++) {
+			for (var i=(31-bits[k][1]); i >= (31-bits[k][0]); i--) {
+				if (j >= 0) {
 					machineCode = setCharAt(machineCode, i, num_bits[j]);
 					j--;
-				}
-			}
-		}
-		*/
-		/*
-		var j = 0;
-		for (k=0; k < bits.length; k++) {
-			if (j < num_bits.length) {
-				for (i=bits[k][0]; i < bits[k][1]; i++) {
-					machineCode = setCharAt(machineCode, i, num_bits[j]);
-					j++;
-				}
-			}
-		}
-		*/
-		console.log("Previous machine code: " + machineCode);
-		var j = 0;
-		for (var k=0; k < bits.length; k++) {
-			for (var i=(31-bits[k][0]); i < (32-bits[k][1]); i++) {
-				if (j < num_bits.length) {
-					machineCode = setCharAt(machineCode, i, num_bits[j]);
-					j++;
-					console.log(machineCode);
 				}
 			}
 		}
@@ -104,366 +90,272 @@ function assembly_replace ( machineCode, num_bits, startbit, stopbit, bits, free
 	return machineCode;
 }
 
-// Pass 0: prepare context
-function simlang_compile_prepare_context ( datosCU )
+/*
+ *   Load segments
+ */
+
+function read_data_v2 ( context, datosCU, ret )
 {
-           var context = {} ;
-	   context.line           	= 1 ;
-	   context.error          	= null ;
-	   context.i              	= 0 ;
-	   context.contadorMC     	= 0 ;
-	   context.etiquetas      	= {} ;
-	   context.labelsNotFound 	= [] ;
-	   context.instrucciones  	= [] ;
-	   context.co_cop         	= {} ;
-	   context.oc_eoc         	= {} ;
-	   context.registers      	= [] ;   // here
-           context.text           	= '' ;
-	   context.tokens         	= [] ;
-	   context.token_types    	= [] ;
-	   context.t              	= 0 ;
-	   context.newlines       	= [] ;
-	   context.pseudoInstructions	= [];    // here
-	   context.stackRegister	= null ;
-	   context.firmware             = {} ;   // here
-           context.comments             = [] ;
+           var seg_name = asm_getToken(context) ;
 
-	   // Fill register names
-	   for (i=0; i<datosCU.registers.length; i++)
-	   {
-		if (typeof datosCU.registers[i] === 'undefined') {
-                    continue ;
-                }
-		for (var j=0; j<datosCU.registers[i].length; j++) {
-		     context.registers[datosCU.registers[i][j]] = i ;
-                }
-	   }
+	   var gen = {};
+	   gen.byteWord     = 0;
+           gen.track_source = [] ;
+           gen.comments     = [] ;
+	   gen.machineCode  = reset_assembly(1);
+           gen.seg_ptr      = ret.seg[seg_name].begin ;
 
-	   // Fill firmware
-           var elto = null ;
-	   for (i=0; i<datosCU.firmware.length; i++)
+	   //
+	   //  .data
+	   //  *.text*
+	   //
+
+           asm_nextToken(context) ;
+
+	   // Loop while token read is not a segment directive (.text/.data/...)
+	   while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
            {
-		var aux = datosCU.firmware[i];
+		   //
+		   //  * etiq1: *
+		   //  * etiq2: *  .word 2, 4
+		   //
 
-	   	if (typeof context.firmware[aux.name] === "undefined") {
-	   	    context.firmware[aux.name] = [];
-		}
+		   var possible_tag = "" ;
+		   while (!is_directive_datatype(asm_getToken(context)) && !is_end_of_file(context))
+		   {
+                      // tagX
+		      possible_tag = asm_getToken(context) ;
 
-	   	elto = { 
-                         name:                aux.name,
-			 nwords:              parseInt(aux.nwords),
-			 co:                  (typeof aux.co !== "undefined" ? aux.co : false),
-			 cop:                 (typeof aux.cop !== "undefined" ? aux.cop : false),
-			 oc:                  (typeof aux.oc !== "undefined" ? aux.oc : false),
-			 eoc:                 (typeof aux.eoc !== "undefined" ? aux.eoc : false),
-			 fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
-			 signature:           aux.signature,
-			 signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
-			 isPseudoinstruction: false
-                       } ;
-	   	context.firmware[aux.name].push(elto) ;
-	   }
+                      // check tag
+		      if ("TAG" != asm_getTokenType(context))
+                      {
+                          if ("" == possible_tag) {
+                              possible_tag = "[empty]" ;
+                          }
 
-	   // fill pseudoinstructions
-	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
-	   {
-		var initial = datosCU.pseudoInstructions[i].initial ;
-		var finish  = datosCU.pseudoInstructions[i].finish ;
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
+                                               "'" + possible_tag + "'") ;
+		      }
 
-		if (typeof context.pseudoInstructions[initial.name] === "undefined")
-                {
-	 	    context.pseudoInstructions[initial.name] = 0 ;
-		    if (typeof context.firmware[initial.name] === "undefined") {
-		        context.firmware[initial.name] = [] ;
-		    }
-		}
+		      var tag = possible_tag.substring(0, possible_tag.length-1);
 
-		context.pseudoInstructions[initial.name]++;
+   		      if (! isValidTag(tag)) {
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                               "'" + tag + "'") ;
+		      }
+		      if (context.firmware[tag]) {
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                               "'" + tag + "'") ;
+		      }
+		      if (ret.labels2[tag]) {
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'REPEATED TAG') +
+                                               "'" + tag + "'") ;
+		      }
 
-                elto = {
-                          name:initial.name,
-			  fields:(typeof initial.fields !== "undefined" ? initial.fields : false),
-			  signature:initial.signature,
-			  signatureUser:initial.signature.replace(/,/g," "),
-			  finish:finish.signature,
-			  isPseudoinstruction:true
-                       } ;
-                context.firmware[initial.name].push(elto) ;
-	   }
+		      // Store tag
+		      ret.labels2[tag] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16);
 
-	   return context ;
-}
+		      // .<datatype> | tagX+1
+		      asm_nextToken(context) ;
+		   }
 
+		   // check if end of file has been reached
+		   if (is_end_of_file(context)) {
+			break;
+                   }
 
-// pass 1: compile assembly (without replace pseudo-instructions)
-function read_data_v2  ( context, ret )
-{
-	// Reused from version 1, auxiliary functions TO BE CHANGED
-	var seg_name = asm_getToken(context) ;
+		   //
+		   //    etiq1:
+		   //    etiq2: *.word* 2, 4
+		   //
 
-	var gen = {};
-	gen.byteWord     = 0;
-	gen.track_source = [] ;
-	gen.comments     = [] ;
-	gen.machineCode  = reset_assembly(1);
-	gen.seg_ptr      = ret.seg[seg_name].begin ;
+		   var possible_datatype = asm_getToken(context) ;
 
-	//
-	//  .data
-	//  *.text*
-	//
-
-	asm_nextToken(context) ;
-
-	// Loop while token read is not a segment directive (.text/.data/...)
-	while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
-	{
-		//
-		//  * etiq1: *
-		//  * etiq2: *  .word 2, 4
-		//
-		var possible_tag = "" ;
-		// Loop for tag reading
-		while (!is_directive_datatype(asm_getToken(context)) && !is_end_of_file(context))
-		{
-			// tagX
-			possible_tag = asm_getToken(context) ;
-
-			// check tag
-			if ("TAG" != asm_getTokenType(context))
-			{
-				// Empty tag
-				if ("" == possible_tag) {
-					possible_tag = "[empty]" ;
-				}
-
-				return asm_langError(context,
-									i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
-												"'" + possible_tag + "'") ;
-			}
-
-			var tag = possible_tag.substring(0, possible_tag.length-1);
-
-			// Check tag format
-			if (! isValidTag(tag)) {
-				return asm_langError(context,
-									i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
-												"'" + tag + "'") ;
-			}
-			// Check for invalid tags
-			if (context.firmware[tag]) {
-				return asm_langError(context,
-									i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-												"'" + tag + "'") ;
-			}
-			// Check for repeated tags
-			if (ret.labels2[tag]) {
-				return asm_langError(context,
-									i18n_get_TagFor('compiler', 'REPEATED TAG') +
-												"'" + tag + "'") ;
-			}
-
-			// Store tag
-			ret.labels2[tag] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16);
-
-			// .<datatype> | tagX+1
-			asm_nextToken(context) ;
-		}
-
-		// check if end of file has been reached
-		if (is_end_of_file(context)) break;
-
-		//
-		//    etiq1:
-		//    etiq2: *.word* 2, 4
-		//
-
-		var possible_datatype = asm_getToken(context) ;
-
-		//
-		//    .word  *2, 4, 0x8F, 'a', 077*
-		//    .float *1.2345*
-		//
-		if ( (".word"   == possible_datatype) ||
-			(".half"   == possible_datatype) ||
-			(".byte"   == possible_datatype) ||
-			(".float"  == possible_datatype) ||
-			(".double" == possible_datatype) )
-		{
+		   //            .word  *2, 4, 0x8F, 'a', 077*
+		   //            .float *1.2345*
+		   if ( (".word"   == possible_datatype) ||
+		        (".half"   == possible_datatype) ||
+		        (".byte"   == possible_datatype) ||
+		        (".float"  == possible_datatype) ||
+		        (".double" == possible_datatype) )
+                   {
 			// Get value size in bytes
 			var size = get_datatype_size(possible_datatype) ;
 
-			// <value> | .<directive>
-			asm_nextToken(context) ;
-			var possible_value = asm_getToken(context) ;
+                        // <value> | .<directive>
+		        asm_nextToken(context) ;
+                        var possible_value = asm_getToken(context) ;
 
-			// Loop until next datatype or EOF
 			while (!is_directive(asm_getToken(context)) && !is_end_of_file(context))
-			{
+                        {
 				var label_found = false;
 
 				// Get value
 				var ret1 = get_inm_value(possible_value) ;
 				var number = ret1.number ;
 				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
-				{
-					// check if datatype is numeric
-					if (".word" !== possible_datatype)
-					{
-						return asm_langError(context,
-												i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
-																"'" + possible_value + "'") ;
-					}
+                                {
+				    if (".word" !== possible_datatype)
+                                    {
+					return asm_langError(context,
+			                                     i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
+                                                             "'" + possible_value + "'") ;
+				    }
 
-					// check valid label
-					if (! isValidTag(possible_value)) {
-						return asm_langError(context,
-												i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
-																"'" + possible_value + "'") ;
-					}
-					if (context.firmware[possible_value]) {
-						return asm_langError(context,
-												i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-																"'" + possible_value + "'") ;
-					}
+                                    // check valid label
+				    if (! isValidTag(possible_value)) {
+					 return asm_langError(context,
+							      i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                                              "'" + possible_value + "'") ;
+   				    }
+				    if (context.firmware[possible_value]) {
+					return asm_langError(context,
+			                                     i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                                             "'" + possible_value + "'") ;
+   				    }
 
-					number = 0 ;
-					label_found = true ;
-				}
+				    number = 0 ;
+				    label_found = true ;
+                                }
 
 				// Decimal --> binary
-				if (ret1.isDecimal == true) a = decimal2binary(number, size*BYTE_LENGTH) ;
-				else a = float2binary(number, size*BYTE_LENGTH) ;
+			        if (ret1.isDecimal == true)
+			   	     a = decimal2binary(number, size*BYTE_LENGTH) ;
+			        else a =   float2binary(number, size*BYTE_LENGTH) ;
 
-				num_bits = a[0] ;
-				free_space = a[1] ;
+			        num_bits   = a[0] ;
+                                free_space = a[1] ;
 
 				// Check size
 				if (free_space < 0)
-				{
-				return asm_langError(context,
-										i18n_get_TagFor('compiler', 'EXPECTED VALUE') + possible_datatype +
-										"' (" + size*BYTE_LENGTH + " bits), " +
-										i18n_get_TagFor('compiler', 'BUT INSERTED') + possible_value +
-										"' (" + num_bits.length + " bits) " +
-										i18n_get_TagFor('compiler', 'INSTEAD') ) ;
+                                {
+				    return asm_langError(context,
+                                                         i18n_get_TagFor('compiler', 'EXPECTED VALUE') + possible_datatype +
+                                                         "' (" + size*BYTE_LENGTH + " bits), " +
+                                                         i18n_get_TagFor('compiler', 'BUT INSERTED') + possible_value +
+                                                         "' (" + num_bits.length + " bits) " +
+                                                         i18n_get_TagFor('compiler', 'INSTEAD') ) ;
 				}
 
 				// Word filled
-				writememory_and_reset(ret.mp, gen, 1) ;
+                                writememory_and_reset(ret.mp, gen, 1) ;
 
 				// Align to size
 				while ( ((gen.seg_ptr+gen.byteWord) % size) != 0 )
-				{
+                                {
 					gen.byteWord++;
 					// Word filled
-					writememory_and_reset(ret.mp, gen, 1) ;
+                                        writememory_and_reset(ret.mp, gen, 1) ;
 				}
 
-				// Store tag
-				if ("" != possible_tag) {
-					ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16) ;
-					possible_tag = "" ;
+		                // Store tag
+                                if ("" != possible_tag) {
+		                    ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (gen.seg_ptr+gen.byteWord).toString(16) ;
+				    possible_tag = "" ;
 				}
 
 				// Label as number (later translation)
 				if (label_found) {
-				ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value,
-										addr:gen.seg_ptr,
-										startbit:31,
-										stopbit:0,
-										rel:undefined,
-										nwords:1,
-										labelContext:asm_getLabelContext(context) };
+				    ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value,
+										    addr:gen.seg_ptr,
+										    startbit:31,
+										    stopbit:0,
+										    rel:undefined,
+										    nwords:1,
+										    labelContext:asm_getLabelContext(context) };
 				}
 
 				// Store number in machine code
 				gen.machineCode = assembly_replacement(gen.machineCode,
-														num_bits,
-														BYTE_LENGTH*(size+gen.byteWord),
-														BYTE_LENGTH*gen.byteWord, free_space) ;
+								       num_bits,
+            					                       BYTE_LENGTH*(size+gen.byteWord),
+            					                       BYTE_LENGTH*gen.byteWord, free_space) ;
 				gen.byteWord += size ;
 				gen.track_source.push(possible_value) ;
 
 				// optional ','
 				asm_nextToken(context) ;
-				if ("," == asm_getToken(context)) asm_nextToken(context) ;
+				if ("," == asm_getToken(context)) {
+				    asm_nextToken(context) ;
+                                }
 
-				if ( is_directive(asm_getToken(context)) ||
-					("TAG" == asm_getTokenType(context)) ||
-					("." == asm_getToken(context)[0]) )
-					break ; // end loop, already read token (tag/directive)
+			        if ( is_directive(asm_getToken(context)) ||
+                                     ("TAG" == asm_getTokenType(context)) ||
+                                     ("." == asm_getToken(context)[0]) )
+                                {
+				      break ; // end loop, already read token (tag/directive)
+                                }
 
-				// <value> | .<directive>
+                                // <value> | .<directive>
 				possible_value = asm_getToken(context) ;
-			}
-		}
+                        }
+                   }
 
-		//
-		//    .space *20*
-		//    .zero  *20*
-		//
-		else if ( (".space" == possible_datatype) ||
-					(".zero"  == possible_datatype) )
-		{
-			// <value>
-			asm_nextToken(context) ;
-			var possible_value = asm_getToken(context) ;
+		   //            .space *20*
+		   //            .zero  *20*
+		   else if ( (".space" == possible_datatype) ||
+                             (".zero"  == possible_datatype) )
+                   {
+                        // <value>
+		        asm_nextToken(context) ;
+                        var possible_value = asm_getToken(context) ;
 
 			// Check
 			var ret1 = isDecimal(possible_value) ;
 			possible_value = ret1.number ;
-			if (ret1.isDecimal == false) {
-				return asm_langError(context,
-										i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') +
-														"'" + possible_value + "'") ;
-			}
-			// A positive number must be given
+                        if (ret1.isDecimal == false) {
+			    return asm_langError(context,
+			                         i18n_get_TagFor('compiler', 'NO NUMBER OF BYTES') +
+                                                 "'" + possible_value + "'") ;
+		        }
 			if (possible_value < 0) {
-				return asm_langError(context,
-										i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') +
-														"'" + possible_value + "'") ;
+			     return asm_langError(context,
+			                          i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') +
+                                                  "'" + possible_value + "'") ;
 			}
 
 			// Fill with spaces/zeroes
 			for (i=0; i<possible_value; i++)
-			{
+                        {
 				// Word filled
-				writememory_and_reset(ret.mp, gen, 1) ;
+                                writememory_and_reset(ret.mp, gen, 1) ;
 				gen.byteWord++;
 
-				if (".zero" == possible_datatype) gen.track_source.push('0x0') ;
+		                if (".zero" == possible_datatype)
+				     gen.track_source.push('0x0') ;
 				else gen.track_source.push('_') ;
 			}
 
 			asm_nextToken(context) ;
-		}
+                   }
 
-		//
-		//    .align *2*
-		//
-		else if (".align" == possible_datatype)
-		{
-			// <value>
-			asm_nextToken(context) ;
-			var possible_value = asm_getToken(context) ;
+		   //            .align *2*
+		   else if (".align" == possible_datatype)
+                   {
+                        // <value>
+		        asm_nextToken(context) ;
+                        var possible_value = asm_getToken(context) ;
 
 			// Check if number
 			var ret1 = isDecimal(possible_value) ;
 			possible_value = ret1.number ;
 			if ( (ret1.isDecimal == false) && (possible_value >= 0) )
-			{
-				return asm_langError(context,
-										i18n_get_TagFor('compiler', 'INVALID ALIGN VALUE') +
-												"'" + possible_value + "'. " +
-										i18n_get_TagFor('compiler', 'REMEMBER ALIGN VAL')) ;
-			}
+                        {
+			     return asm_langError(context,
+			                          i18n_get_TagFor('compiler', 'INVALID ALIGN VALUE') +
+                                                  "'" + possible_value + "'. " +
+			                          i18n_get_TagFor('compiler', 'REMEMBER ALIGN VAL')) ;
+		        }
 
 			// Word filled
-			writememory_and_reset(ret.mp, gen, 1) ;
+                        writememory_and_reset(ret.mp, gen, 1) ;
 
 			// Calculate offset
-			var align_offset = Math.pow(2,parseInt(possible_value)) ;
+                        var align_offset = Math.pow(2,parseInt(possible_value)) ;
 
 			switch (align_offset) {
 				case 1:
@@ -474,198 +366,228 @@ function read_data_v2  ( context, ret )
 					break;
 				default:
 					// Fill with spaces
-					writememory_and_reset(ret.mp, gen, 1) ;
+                                        writememory_and_reset(ret.mp, gen, 1) ;
 					while ((gen.seg_ptr%align_offset != 0) || (gen.byteWord != 0))
-					{
+                                        {
 						// Word filled
 						gen.byteWord++;
-						writememory_and_reset(ret.mp, gen, 1) ;
+                                                writememory_and_reset(ret.mp, gen, 1) ;
 					}
-					/*
-						while (true) {
-							// Word filled
-							writememory_and_reset(ret.mp, gen, 1) ;
-							if (gen.seg_ptr%align_offset == 0 && gen.byteWord == 0)
-								break;
-							gen.byteWord++;
-						}
-					*/
+				/*
+					while (true)
+                                        {
+						// Word filled
+                                                writememory_and_reset(ret.mp, gen, 1) ;
+						if (gen.seg_ptr%align_offset == 0 && gen.byteWord == 0)
+							break;
+						gen.byteWord++;
+					}
+				*/
 			}
 
 			asm_nextToken(context) ;
-		}
+                   }
 
-		//
-		//  * .ascii  "hola", " mundo\n"
-		//  * .asciiz "hola mundo"
-		//  * .string "hola mundo"
-		//
-		else if ( (".ascii"  == possible_datatype) ||
-					(".asciiz" == possible_datatype) ||
-					(".string" == possible_datatype) )
-		{
-			// <value> | .<directive>
-			asm_nextToken(context) ;
-			var possible_value = asm_getToken(context) ;
-			var ret1 = treatControlSequences(possible_value) ;
-			if (true == ret1.error) return asm_langError(context, ret1.string);
-			possible_value = ret1.string ;
+		   //  * .ascii  "hola", " mundo\n"
+		   //  * .asciiz "hola mundo"
+		   //  * .string "hola mundo"
+		   else if ( (".ascii"  == possible_datatype) ||
+                             (".asciiz" == possible_datatype) ||
+                             (".string" == possible_datatype) )
+                   {
+                        // <value> | .<directive>
+		        asm_nextToken(context) ;
+                        var possible_value = asm_getToken(context) ;
+                        var ret1 = treatControlSequences(possible_value) ;
+			if (true == ret1.error) {
+			    return asm_langError(context, ret1.string);
+		        }
+                        possible_value = ret1.string ;
 
 			while (!is_directive(asm_getToken(context)) && !is_end_of_file(context))
-			{
+                        {
 				// Word filled
-				writememory_and_reset(ret.mp, gen, 1) ;
+                                writememory_and_reset(ret.mp, gen, 1) ;
 
 				// check string
 				if ("\"" !== possible_value[0]) {
-					return asm_langError(context,
-											i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
-															"'" + possible_value + "'") ;
-				}
-				// string must end with "\"
+			            return asm_langError(context,
+			                                 i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
+                                                         "'" + possible_value + "'") ;
+			        }
 				if ("\"" !== possible_value[possible_value.length-1]) {
-					return asm_langError(context,
-											i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
-				}
-				// string must not be empty
+			            return asm_langError(context,
+			                                 i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
+			        }
 				if ("" == possible_value) {
-					return asm_langError(context,
-											i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
-				}
-				// check quotes
-				if ("STRING" != asm_getTokenType(context)) {
-					return asm_langError(context,
-											i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
-															"'" + possible_value + "'") ;
-				}
+			            return asm_langError(context,
+			                                 i18n_get_TagFor('compiler', 'NOT CLOSED STRING')) ;
+			        }
+		                if ("STRING" != asm_getTokenType(context)) {
+			            return asm_langError(context,
+			                                 i18n_get_TagFor('compiler', 'NO QUOTATION MARKS') +
+                                                         "'" + possible_value + "'") ;
+			        }
 
 				// process characters of the string
 				for (i=0; i<possible_value.length; i++)
-				{
+                                {
 					// Word filled
-					writememory_and_reset(ret.mp, gen, 1) ;
+                                        writememory_and_reset(ret.mp, gen, 1) ;
 
-					if (possible_value[i] == "\"") continue;
+					if (possible_value[i] == "\"") {
+                                            continue;
+                                        }
 
 					num_bits = possible_value.charCodeAt(i).toString(2);
 
 					// Store character in machine code
 					gen.machineCode = assembly_replacement(gen.machineCode,
-															num_bits,
-															BYTE_LENGTH*(1+gen.byteWord),
-															BYTE_LENGTH*gen.byteWord,
-															BYTE_LENGTH-num_bits.length) ;
+      									       num_bits,
+									       BYTE_LENGTH*(1+gen.byteWord),
+									       BYTE_LENGTH*gen.byteWord,
+									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
-					gen.track_source.push(possible_value[i]) ;
+				        gen.track_source.push(possible_value[i]) ;
 				}
 
-				if (".asciiz" == possible_datatype || ".string" == possible_datatype)
-				{
-					// Word filled
-					writememory_and_reset(ret.mp, gen, 1) ;
+                                if (".asciiz" == possible_datatype || ".string" == possible_datatype)
+                                {
+                                	// Word filled
+                                        writememory_and_reset(ret.mp, gen, 1) ;
 
 					num_bits = "\0".charCodeAt(0).toString(2);
 
 					// Store field in machine code
 					gen.machineCode = assembly_replacement(gen.machineCode,
-															num_bits,
-															BYTE_LENGTH*(1+gen.byteWord),
-															BYTE_LENGTH*gen.byteWord,
-															BYTE_LENGTH-num_bits.length) ;
+								               num_bits,
+									       BYTE_LENGTH*(1+gen.byteWord),
+									       BYTE_LENGTH*gen.byteWord,
+									       BYTE_LENGTH-num_bits.length) ;
 					gen.byteWord++;
-					gen.track_source.push('0x0') ;
+				        gen.track_source.push('0x0') ;
 				}
 
 				// optional ','
 				asm_nextToken(context);
 
-				if ("," == asm_getToken(context)) asm_nextToken(context);
+				if ("," == asm_getToken(context)) {
+				    asm_nextToken(context);
+			        }
 
-				if ( is_directive(asm_getToken(context)) || ("TAG" == asm_getTokenType(context)) || "." == asm_getToken(context)[0] )
-					break ; // end loop, already read token (tag/directive)
+			        if ( is_directive(asm_getToken(context)) || ("TAG" == asm_getTokenType(context)) || "." == asm_getToken(context)[0] )
+				     break ; // end loop, already read token (tag/directive)
 
-				// <value> | .<directive>
+                                // <value> | .<directive>
 				possible_value = asm_getToken(context);
-				ret1 = treatControlSequences(possible_value) ;
-
-				if (true == ret1.error) return asm_langError(context, ret1.string);
-
-				possible_value = ret1.string ;
-			}
-		}
-		else
-		{
+                                ret1 = treatControlSequences(possible_value) ;
+				if (true == ret1.error) {
+				    return asm_langError(context, ret1.string);
+			        }
+                                possible_value = ret1.string ;
+                        }
+		   }
+		   else
+		   {
 			return asm_langError(context,
-									i18n_get_TagFor('compiler', 'UNEXPECTED DATATYPE') +
-													"'" + possible_datatype + "'") ;
-		}
-	}
+				             i18n_get_TagFor('compiler', 'UNEXPECTED DATATYPE') +
+                                             "'" + possible_datatype + "'") ;
+		   }
+           }
 
-	// Fill memory after reading all .data
-	if (gen.byteWord > 0)
-	{
-		var melto = {
-						"value":           gen.machineCode,
-						"source_tracking": gen.track_source,
-						"comments":        gen.comments
-					} ;
-		main_memory_set(ret.mp, "0x" + gen.seg_ptr.toString(16), melto) ;
-		gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
-	}
+	   // Fill memory
+	   if (gen.byteWord > 0)
+	   {
+	        var melto = {
+			      "value":           gen.machineCode,
+			      "source_tracking": gen.track_source,
+			      "comments":        gen.comments
+			    } ;
+                main_memory_set(ret.mp, "0x" + gen.seg_ptr.toString(16), melto) ;
 
-	ret.seg[seg_name].end = gen.seg_ptr ;  // end of segment is just last pointer value...
+                gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
+	   }
+
+           ret.seg[seg_name].end = gen.seg_ptr ;  // end of segment is just last pointer value...
 }
 
-function read_text_v2  ( context, datosCU, ret )
+function read_text_v2 ( context, datosCU, ret )
 {
-	//
-	// REMOVE PSEUDO
-	//
+	   //
+	   //  .text
+	   //
 
-	console.log(context.firmware);
+           var seg_name = asm_getToken(context) ;
+           var seg_ptr  = ret.seg[seg_name].begin ;
 
-	var seg_name = asm_getToken(context) ;
-	var seg_ptr  = ret.seg[seg_name].begin ;
+	   // get firmware and pseudoinstructions
+	   var firmware = context.firmware;
+	   var pseudoInstructions = context.pseudoInstructions;
 
-	var error = "" ;
+	   var finish = [] ;
+	   var isPseudo = false;
+	   var pfinish = [] ;
+	   var npseudoInstructions = 0 ;
+	   var pseudo_fields = {} ;
 
-	asm_nextToken(context) ;
+	   var counter = -1;
+	   var candidate ;
+	   var error = "" ;
 
-	// Loop while token read is not a segment directive (.text/.data/...)
-	while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
-	{
-		// check tag(s) or error
-		while ( (typeof context.firmware[asm_getToken(context)] === "undefined") &&
-				(! is_end_of_file(context)) )
-		{
+	   // Fill register names
+	   var registers = {} ;
+	   for (i=0; i<datosCU.registers.length; i++)
+	   {
+		if (typeof datosCU.registers[i] === 'undefined') {
+                    continue ;
+                }
+		for (var j=0; j<datosCU.registers[i].length; j++) {
+		     registers[datosCU.registers[i][j]] = i ;
+                }
+	   }
+
+           asm_nextToken(context) ;
+
+	   // Loop while token read is not a segment directive (.text/.data/...)
+	   while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
+           {
+		// check tag or error
+		while (
+                   (! isPseudo) &&
+                   (typeof firmware[asm_getToken(context)] === "undefined") &&
+                   (! is_end_of_file(context))
+                )
+                {
 			var possible_tag = asm_getToken(context);
 
 			// check tag
-			if ("TAG" != asm_getTokenType(context))
-			{
-				if ("" == possible_tag) possible_tag = "[empty]" ;
+		        if ("TAG" != asm_getTokenType(context))
+                        {
+                            if ("" == possible_tag) {
+                                possible_tag = "[empty]" ;
+                            }
 
-				return asm_langError(context,
-										i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
-														"'" + possible_tag + "'") ;
-			}
+			    return asm_langError(context,
+			                         i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
+                                                 "'" + possible_tag + "'") ;
+                        }
 
-			var tag = possible_tag.substring(0, possible_tag.length-1);
-			if (!isValidTag(tag)) {
-				return asm_langError(context,
-										i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
-														"'" + tag + "'") ;
-			}
-			if (context.firmware[tag]) {
-				return asm_langError(context,
-										i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-														"'" + tag + "'") ;
-			}
+		        var tag = possible_tag.substring(0, possible_tag.length-1);
+   		        if (!isValidTag(tag)) {
+			    return asm_langError(context,
+			                         i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                                 "'" + tag + "'") ;
+                        }
+			if (firmware[tag]) {
+			    return asm_langError(context,
+			                         i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                                 "'" + tag + "'") ;
+                        }
 			if (ret.labels2[tag]) {
-				return asm_langError(context,
-										i18n_get_TagFor('compiler', 'REPEATED TAG') +
-														"'" + tag + "'") ;
-			}
+			    return asm_langError(context,
+			                         i18n_get_TagFor('compiler', 'REPEATED TAG') +
+                                                 "'" + tag + "'") ;
+                        }
 
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
@@ -674,34 +596,57 @@ function read_text_v2  ( context, datosCU, ret )
 		}
 
 		// check if end of file has been reached
-		if (is_end_of_file(context)) break ;
+                if (is_end_of_file(context)) {
+               	    break ;
+                }
 
 		// get instruction
-		var instruction = asm_getToken(context) ;
+		var instruction = null ;
+		if (! isPseudo) {
+			finish = [] ;
+			instruction = asm_getToken(context) ;
+		}
+		else {
+			instruction = pfinish[counter++] ;
+                }
 
-		// get possible fields...
-		var signature_fields		= [];	// e.g. [[reg,reg], [reg,imm], [reg,addr,imm]]
-		var signature_user_fields	= [];	// signature user fields
-		var advance 				= [];	// array that indicates wheather each signature can be considered or not
-		var max_length				= 0;	// max number of parameters of the signatures
-		var binaryAux				= [];	// necessary parameters of the fields of each signature
+		var signature_fields      = [];	// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var signature_user_fields = [];	// signature user fields
+		var advance = [];		// array that indicates wheather each signature can be considered or not
+		var max_length = 0;		// max number of parameters of the signatures
+		var binaryAux  = [];		// necessary parameters of the fields of each signature
 
 		// Fill parameters
 		var firmware_instruction_length = 0 ;
-		if (typeof context.firmware[instruction] !== "undefined") {
-		    firmware_instruction_length = context.firmware[instruction].length ;
+		if (typeof firmware[instruction] !== "undefined") {
+		    firmware_instruction_length = firmware[instruction].length ;
 		}
 
 		var val = [] ;
 		for (i=0; i<firmware_instruction_length; i++)
 		{
-			signature_fields[i]					= context.firmware[instruction][i].signature.split(",") ;
-			signature_user_fields[i] 			= context.firmware[instruction][i].signatureUser.split(" ") ;
+			signature_fields[i]      = firmware[instruction][i].signature.split(",") ;
+			signature_user_fields[i] = firmware[instruction][i].signatureUser.split(" ") ;
 			signature_fields[i].shift() ;
 			signature_user_fields[i].shift() ;
-			advance[i]   						= 1 ;
-			binaryAux[i] 						= [] ;
-			max_length   						= Math.max(max_length, signature_fields[i].length) ;
+			advance[i]   = 1 ;
+			binaryAux[i] = [] ;
+			max_length   = Math.max(max_length, signature_fields[i].length) ;
+			finish[i]    = [] ;
+
+			// pseudoinstruction
+			if (
+                             (typeof pseudoInstructions[instruction] !== "function") &&
+			     (pseudoInstructions[instruction]) &&
+                             (typeof firmware[instruction][i].finish !== "undefined")
+                           )
+                        {
+				val = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ") ;
+				val.pop() ;
+				finish[i] = val ;
+
+				npseudoInstructions = 0 ;
+			}
 		}
 
 		// Iterate over fields
@@ -709,41 +654,57 @@ function read_text_v2  ( context, datosCU, ret )
 		var value;
 
 		var s = [];
-		s[0] = instruction;
+                s[0] = instruction;
 		for (i=0; i<max_length; i++)
-		{
-			// get next field...
-			// optional ','
-			asm_nextToken(context);
-			if ("," == asm_getToken(context)) asm_nextToken(context);
+                {
+                        // get next field...
+			if (counter == -1)
+                        {
+				// optional ','
+				asm_nextToken(context);
+				if ("," == asm_getToken(context)) {
+				    asm_nextToken(context);
+                                }
 
-			// ... from source
-			value = asm_getToken(context);
+                                // ... from source
+				value = asm_getToken(context);
+			}
+			else
+                        {
+                                // ... from pseudoins (associated code)
+				var aux_fields = pfinish[counter++];
+				if (pseudo_fields[aux_fields])
+				     value = pseudo_fields[aux_fields];
+				else value = aux_fields;
+			}
 
-			if (("TAG" != asm_getTokenType(context)) && (!context.firmware[value]))
-				s[i+1] = value ;
+			if (("TAG" != asm_getTokenType(context)) && (!firmware[value])) {
+                            s[i+1] = value ;
+                        }
 
 			// vertical search (different signatures)
 			for (j=0; j<advance.length; j++)
-			{
+                        {
 				// check whether explore this alternative
-				if (advance[j] == 0) continue;
+				if (advance[j] == 0) {
+				    continue;
+                                }
 
 				if (i >= signature_fields[j].length)
-				{
-					// if next token is not instruction or tag
-					if ( ("TAG" != asm_getTokenType(context)) &&
-						(!context.firmware[value]) &&
-						(!is_end_of_file(context)) )
-						advance[j] = 0;
+                                {
+				    // if next token is not instruction or tag
+				    if ( ("TAG" != asm_getTokenType(context)) &&
+                                         (!firmware[value]) &&
+                                         (!is_end_of_file(context)) )
+                                    {
+				          advance[j] = 0;
+                                    }
 
-					continue;
+				    continue;
 				}
 
 				// get field information
-				var field = context.firmware[instruction][j].fields[i] ;
-				//DEBUG
-				console.log(field);
+				var field = firmware[instruction][j].fields[i] ;
 				if (field.startbit !== undefined && field.stopbit !== undefined)
 					var size = field.startbit - field.stopbit + 1 ;
 				else
@@ -754,125 +715,163 @@ function read_text_v2  ( context, datosCU, ret )
 
 				// check field
 				switch(field.type)
-				{
-					// 0xFFFFF,... | 23, 'b', ...
-					case "address":
-					case "inm":
+                	        {
+				    // 0xFFFFF,... | 23, 'b', ...
+				    case "address":
+				    case "inm":
 					case "imm":
-						// Get value
-						var ret1 = get_inm_value(value) ;
-						converted = ret1.number ;
-						// Check numeric datatype
-						if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
-						{
-							error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
-													"'" + value + "'" ;
+					 if (isPseudo && ("sel" == value))
+                                         {
+						counter++;
+						var start = pfinish[counter++];
+						var stop  = pfinish[counter++];
+			 			var value = pseudo_fields[pfinish[counter++]];
+						counter++;
+						sel_found = true;
+					 }
 
-							if ((value[0] == "'")) {
-								advance[j] = 0 ;
-								break ;
-							}
-							if (! isValidTag(value)) {
-								advance[j] = 0 ;
-								break ;
-							}
-							if (context.firmware[value]) {
-								error = i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-														"'" + value + "'" ;
-								advance[j] = 0 ;
-								break ;
-							}
+					 // Get value
+       					 var ret1 = get_inm_value(value) ;
+					 converted = ret1.number ;
+                                         if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
+                                         {
+			                     error = i18n_get_TagFor('compiler', 'NO NUMERIC DATATYPE') +
+                                                     "'" + value + "'" ;
 
-							label_found = true ;
-						}
+                                             if ((value[0] == "'")) {
+                                                  advance[j] = 0 ;
+                                                  break ;
+                                             }
+					     if (! isValidTag(value)) {
+						  advance[j] = 0 ;
+						  break ;
+					     }
+					     if (firmware[value]) {
+			                          error = i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                                          "'" + value + "'" ;
+						  advance[j] = 0 ;
+						  break ;
+					     }
 
-						if ( !label_found )
-						{
-							if (ret1.isDecimal == true)
-								var res = decimal2binary(converted, size) ;
-							else var res = float2binary(converted, size) ;
+					     label_found = true ;
+                                         }
 
-							if ((field.type == "address") && ("rel" == field.address_type))
-							{
-								// res = decimal2binary(converted-seg_ptr-WORD_BYTES, size);
-								res = decimal2binary(converted, size);
-							}
-						}
+					 if (sel_found)
+                                         {
+                                             if (ret1.isDecimal == true)
+					          res = decimal2binary(converted, WORD_LENGTH) ;
+					     else res =   float2binary(converted, WORD_LENGTH) ;
 
-						//DEBUG
-						console.log("Inmediato: " + ret1);
+					     if (res[1] < 0) {
+						 return asm_langError(context,
+								      "'" + value + "' " +
+							              i18n_get_TagFor('compiler', 'BIGGER THAN') +
+								      WORD_LENGTH + " " +
+                                                                      i18n_get_TagFor('compiler', 'BITS'));
+					     }
 
-						break;
+					     if (label_found) {
+					         s[i+1] = value ;
+                                             }
+					     else
+                                             {
+					         converted = "0".repeat(res[1]) + res[0];
+					         converted = converted.substring(WORD_LENGTH-start-1,
+							                         WORD_LENGTH-stop);
+					         converted = parseInt(converted, 2);
+					         s[i+1] = "0x" + converted.toString(16);
+                                             }
+					 }
 
-					// $1...
+					 if (! label_found)
+                                         {
+                                             if (ret1.isDecimal == true)
+					          var res = decimal2binary(converted, size) ;
+					     else var res =   float2binary(converted, size) ;
+
+					     if ((field.type == "address") && ("rel" == field.address_type))
+                                             {
+					       // res = decimal2binary(converted-seg_ptr-WORD_BYTES, size);
+					          res = decimal2binary(converted, size);
+                                             }
+					 }
+
+					 break;
+
+				    // $1...
 				    case "reg":
-						// Check presence of value
-						if (typeof value === "undefined") {
-							error = i18n_get_TagFor('compiler', 'INS. MISSING FIELD') ;
-							advance[j] = 0 ;
-							break ;
+					 if (typeof value === "undefined") {
+			                     error = i18n_get_TagFor('compiler', 'INS. MISSING FIELD') ;
+					     advance[j] = 0 ;
+					     break ;
+					 }
+
+					 var aux = false;
+					 if (value.startsWith("("))
+                                         {
+						if ("(reg)" != signature_fields[j][i]) {
+			                             error = i18n_get_TagFor('compiler', 'UNEXPECTED (REG)') ;
+						     advance[j] = 0 ;
+						     break ;
 						}
 
-						var aux = false;
-						// Check for "(regX)"
-						if (value.startsWith("("))
-						{
-							// Check if the behaivour is defined
-							if ("(reg)" != signature_fields[j][i]) {
-								error = i18n_get_TagFor('compiler', 'UNEXPECTED (REG)') ;
-								advance[j] = 0 ;
-								break ;
-							}
-							asm_nextToken(context);
-							value = asm_getToken(context);
-							aux = true;
+						if (counter == -1) {
+						    asm_nextToken(context);
+						    value = asm_getToken(context);
 						}
-						else
-						{
-							// If "(regX)" is defined and not found error must be returned
-							if ("(reg)" == signature_fields[j][i]) {
-								error = i18n_get_TagFor('compiler', 'EXPECTED (REG)') +
-														"'" + value + "'" ;
-								advance[j] = 0 ;
-								break ;
-							}
+						else {
+						    value = pseudo_fields[pfinish[counter++]];
 						}
 
-						if (typeof context.registers[value] === "undefined")
-						{
-							error = i18n_get_TagFor('compiler', 'EXPECTED REG') +
-													"'" + value + "'" ;
-							advance[j] = 0 ;
-							break ;
+						aux = true;
+					 }
+					 else
+					 {
+						if ("(reg)" == signature_fields[j][i]) {
+			                             error = i18n_get_TagFor('compiler', 'EXPECTED (REG)') +
+                                                             "'" + value + "'" ;
+						     advance[j] = 0 ;
+						     break ;
 						}
-						if (aux)
-						{
-							s[i+1] = "(" + value + ")";
+					 }
 
-							// check closing ')'
+					 if (typeof registers[value] === "undefined")
+                                         {
+			                        error = i18n_get_TagFor('compiler', 'EXPECTED REG') +
+                                                        "'" + value + "'" ;
+						advance[j] = 0 ;
+						break ;
+					 }
+					 if (aux)
+                                         {
+						s[i+1] = "(" + value + ")";
+
+						// check closing ')'
+						if (counter == -1) {
 							asm_nextToken(context);
 							aux = asm_getToken(context);
-							if (")" != aux) {
-								error = i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND') ;
-								advance[j] = 0 ;
-								break ;
-							}
+						}
+						else {
+							aux = pfinish[counter++];
 						}
 
-						var ret1  = isDecimal(context.registers[value]) ;
-						converted = ret1.number ;
-						var res = decimal2binary(converted, size);
-						value = s[i+1] ;
-						//DEBUG
-						// console.log(ret1);
-						// console.log(res);
-						// console.log(value);
-						break;
+						if (")" != aux) {
+			                             error = i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND') ;
+						     advance[j] = 0 ;
+						     break ;
+						}
+					 }
 
-					default:
-						return asm_langError(context,
-												i18n_get_TagFor('compiler', 'UNKNOWN 1') +
-																"'" + field.type + "'") ;
+					 var ret1  = isDecimal(registers[value]) ;
+					 converted = ret1.number ;
+					 var res = decimal2binary(converted, size);
+                                         value = s[i+1] ;
+					 break;
+
+				    default:
+					 return asm_langError(context,
+						              i18n_get_TagFor('compiler', 'UNKNOWN 1') +
+                                                              "'" + field.type + "'") ;
 				}
 
 				// check if bits fit in the space
@@ -881,99 +880,112 @@ function read_text_v2  ( context, datosCU, ret )
 					if (res[1] < 0)
 					{
 						if (field.type == "address" && "rel" == field.address_type)
-						{
-							error = "Relative value (" +
-													(converted - seg_ptr - WORD_BYTES) +
-													" in decimal)"+
-									i18n_get_TagFor('compiler', 'NEEDS') +
-													res[0].length +
-									i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
-													size + " " +
-									i18n_get_TagFor('compiler', 'BITS') ;
-						}
+                                                {
+						     error = "Relative value (" +
+                                                             (converted - seg_ptr - WORD_BYTES) +
+                                                             " in decimal)"+
+				                             i18n_get_TagFor('compiler', 'NEEDS') +
+                                                             res[0].length +
+				                             i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+                                                             size + " " +
+				                             i18n_get_TagFor('compiler', 'BITS') ;
+                                                }
 						else
-						{
-							error = "'" + value + "'" +
-									i18n_get_TagFor('compiler', 'NEEDS') +
-													res[0].length +
-									i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
-													size + " " +
-									i18n_get_TagFor('compiler', 'BITS') ;
-						}
+                                                {
+                                                     error = "'" + value + "'" +
+				                             i18n_get_TagFor('compiler', 'NEEDS') +
+                                                             res[0].length +
+				                             i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+                                                             size + " " +
+				                             i18n_get_TagFor('compiler', 'BITS') ;
+                                                }
 
 						advance[j] = 0;
 					}
 				}
+
 				// store field
-				if (advance[j] == 1)
+				if (advance[j] == 1 && (!(isPseudo && counter == -1)))
 				{
-					binaryAux[j][i] = {
-										num_bits:	(label_found ? false : res[0]),
-										free_space:	(label_found ? false : res[1]),
-										startbit:	field.startbit,
-										stopbit:	field.stopbit,
-										bits:		field.bits,
-										rel:		(label_found ? field.address_type : false),
-										islabel:	label_found,
-										field_name:	value/*,
-										issel:		sel_found,
-										sel_start:	start,
-										sel_stop:	stop*/
-									};
+				    binaryAux[j][i] = {
+                                                         num_bits:    (label_found ? false : res[0]),
+                                                         free_space:  (label_found ? false : res[1]),
+                                                         startbit:    field.startbit,
+                                                         stopbit:     field.stopbit,
+                                                         bits:        field.bits,
+                                                         rel:         (label_found ? field.address_type : false),
+                                                         islabel:     label_found,
+						         field_name:  value,
+                                                         issel:       sel_found,
+                                                         sel_start:   start,
+                                                         sel_stop:    stop
+                                	              };
 				}
 			}
 
-			if (sum_array(advance) == 0) break;
-
-			if ("TAG" == asm_getTokenType(context) || context.firmware[value])
+			if (sum_array(advance) == 0) {
 			    break;
+			}
+
+			if ("TAG" == asm_getTokenType(context) || firmware[value]) {
+			    break;
+			}
 		}
 
 		// get candidate
 		for (i=0; i<advance.length; i++)
 		{
-			if (advance[i] == 1) candidate = i ;
-			break ;
+		     if (advance[i] == 1)
+                     {
+			 candidate = i ;
+// <TOCHECK>
+                         if (! isPseudo) {
+			      pfinish = finish[candidate] ;
+                         }
+                         isPseudo  = (isPseudo) || (typeof firmware[instruction][i].finish !== "undefined") ;
+// </TOCHECK>
+			 break ;
+		     }
 		}
 
 		// instruction format
 		var format = "" ;
 		for (i=0; i<firmware_instruction_length; i++)
 		{
-			if (i>0 && i<context.firmware[instruction].length-1)
+			if (i>0 && i<firmware[instruction].length-1) {
 				format += ", " ;
-
-			if (i>0 && i==context.firmware[instruction].length-1)
+                        }
+			if (i>0 && i==firmware[instruction].length-1) {
 				format += " or " ;
-
-			format += "'" + context.firmware[instruction][i].signatureUser + "'" ;
+                        }
+			format += "'" + firmware[instruction][i].signatureUser + "'" ;
 		}
-		if (format == "") {
-			format = "'" + instruction + "' " +
-						i18n_get_TagFor('compiler', 'UNKNOWN MC FORMAT') ;
+                if (format == "") {
+                    format = "'" + instruction + "' " +
+			     i18n_get_TagFor('compiler', 'UNKNOWN MC FORMAT') ;
 		}
 
 		// check solution
 		var sum_res = sum_array(advance) ;
 
 		if (sum_res == 0)
-		{
+                {
 			// No candidate
 			if (advance.length === 1) {
-				return asm_langError(context,
-										error + ". <br>" +
-										i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
-										format);
+			    return asm_langError(context,
+                                                 error + ". <br>" +
+				                 i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
+                                                 format);
 			}
 
 			return asm_langError(context,
-									i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
-									i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
-									i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
+				             i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
+				             i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + format + ". " +
+				             i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 		}
 
 		if (sum_res > 1)
-		{
+                {
 			// Multiple candidates
 			candidate = get_candidate(advance, firmware[instruction]);
 			if (candidate === false) {
@@ -982,68 +994,95 @@ function read_text_v2  ( context, datosCU, ret )
 			}
 		}
 
-		var machineCode = reset_assembly(context.firmware[instruction][candidate].nwords);
-		//DEBUG
-		console.log("Código máquina original: " + machineCode) ;
-		if ( context.firmware[instruction][candidate].co !== false )
+		// store pseudo_fields[field]=value, and continue
+		if (isPseudo)
+		{
+			if (counter == -1)
+			{
+				var s_ori = s.join(" ") ;
+                                    s_ori = s_ori.trim() ;
+
+                                var key = "" ;
+                                var val = "" ;
+				pseudo_fields = {} ;
+				for (i=0; i<signature_fields[candidate].length; i++)
+                                {
+				     key = firmware[instruction][candidate].fields[i].name ;
+				     val = s[i+1] ;
+
+                                     // if (val == "($2)") -> val = $2
+                                     if (val.startsWith("("))
+                                         val = val.substring(1, val.length) ;
+                                     if (val.endsWith(")"))
+                                         val = val.substring(0, val.length-1) ;
+
+				     pseudo_fields[key] = val ;
+				}
+
+				counter++ ;
+				continue ;
+			}
+
+			npseudoInstructions++ ;
+			if (npseudoInstructions > 1) {
+			    s_ori = "&nbsp;" ; // s_ori = "---";
+			}
+
+			if (pfinish[counter] == "\n") {
+			    counter++ ;
+			}
+		}
+
+		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
+
+		if ( firmware[instruction][candidate].co !== false )
 		{
 			// replace OC and EOC in machine code
 			machineCode = assembly_co_cop(machineCode,
-											context.firmware[instruction][candidate].co,
-											context.firmware[instruction][candidate].cop);
-			//DEBUG
-			console.log("Código máquina co+cop: " + machineCode) ;
+											firmware[instruction][candidate].co,
+											firmware[instruction][candidate].cop);
 		}
 		else
 		{
 			// replace CO and COP in machine code
-			console.log(context.firmware[instruction][candidate]);
-			machineCode = assembly_oc_eoc(machineCode,
-											context.firmware[instruction][candidate].oc,
-											context.firmware[instruction][candidate].eoc);
-			//DEBUG
-			console.log("OC: " + context.firmware[instruction][candidate].oc) ;
-			console.log("EOC: " + context.firmware[instruction][candidate].eoc) ;
-			console.log("Código máquina oc+eoc: " + machineCode) ;
+			machineCode = assembly_oc_eoc_v2(machineCode,
+											firmware[instruction][candidate].oc,
+											firmware[instruction][candidate].eoc);
 		}
 
 		// store candidate fields in machine code
-		var l_addr = "" ;
+                var l_addr = "" ;
 		for (i=0; i<binaryAux[candidate].length; i++)
 		{
-			console.log(binaryAux[candidate]);
 			// tag
 			if (binaryAux[candidate][i].islabel)
-			{
-				l_addr = "0x" + seg_ptr.toString(16) ;
-				ret.labels[l_addr] = {
-										name:         binaryAux[candidate][i].field_name,
-										addr:         seg_ptr,
-										startbit:     binaryAux[candidate][i].startbit,
-										stopbit:      binaryAux[candidate][i].stopbit,
-										bits:         binaryAux[candidate][i].bits,
-										rel:          binaryAux[candidate][i].rel,
-										nwords:       context.firmware[instruction][candidate].nwords,
-										labelContext: asm_getLabelContext(context)/*,
-										sel_found:    binaryAux[candidate][i].issel,
-										sel_start:    binaryAux[candidate][i].sel_start,
-										sel_stop:     binaryAux[candidate][i].sel_stop*/
-									} ;
-			}
+                        {
+			    l_addr = "0x" + seg_ptr.toString(16) ;
+			    ret.labels[l_addr] = {
+                                                   name:         binaryAux[candidate][i].field_name,
+						   addr:         seg_ptr,
+						   startbit:     binaryAux[candidate][i].startbit,
+						   stopbit:      binaryAux[candidate][i].stopbit,
+						   bits:         binaryAux[candidate][i].bits,
+						   rel:          binaryAux[candidate][i].rel,
+						   nwords:       firmware[instruction][candidate].nwords,
+						   labelContext: asm_getLabelContext(context),
+                                                   sel_found:    binaryAux[candidate][i].issel,
+                                                   sel_start:    binaryAux[candidate][i].sel_start,
+                                                   sel_stop:     binaryAux[candidate][i].sel_stop
+                                                 } ;
+                        }
 			// replace instruction and fields in machine code
 			else
-			{
-				console.log(binaryAux[candidate][i]);
-				machineCode = assembly_replace( machineCode,
+                        {
+			    machineCode = assembly_replace_v2(	machineCode,
 								binaryAux[candidate][i].num_bits,
 								binaryAux[candidate][i].startbit-(-1),
 								binaryAux[candidate][i].stopbit,
 								binaryAux[candidate][i].bits,
 								binaryAux[candidate][i].free_space ) ;
-			}
+                        }
 		}
-		//DEBUG
-		console.log("Código máquina final: " + machineCode);
 
 		// fix instruction format
 		s_def = s[0] ;
@@ -1064,29 +1103,30 @@ function read_text_v2  ( context, datosCU, ret )
 			}
 		}
 
-		//pseudo
-		var s_ori = s_def ;
+		if (!isPseudo) {
+		     var s_ori = s_def ;
+		}
 
 		// ref has the associated information in firmware for this instruction
-		var ref = context.firmware[instruction][candidate] ;
-		var new_ref = ref ;
+		var ref = firmware[instruction][candidate] ;
+                var new_ref = ref ;
 		while (false === ref.isPseudoinstruction)
 		{
-			if ( context.firmware[instruction][candidate].co !== false ) {
-				var new_ref = datosCU.cocop_hash[context.firmware[instruction][candidate].co] ;
+			if ( firmware[instruction][candidate].co !== false ) {
+				var new_ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
 				if (new_ref.withcop)
-					new_ref = new_ref[context.firmware[instruction][candidate].cop] ;
+					new_ref = new_ref[firmware[instruction][candidate].cop] ;
 				else new_ref = new_ref.i ;
 
-				// <TO-CHECK>:
-				if (typeof new_ref == "undefined") {
-					ref = datosCU.cocop_hash[context.firmware[instruction][candidate].co] ;
+							// <TO-CHECK>:
+							if (typeof new_ref == "undefined") {
+					ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
 					ref = ref.i ;
-					break ;
-				}
-				// </TO-CHECK>:
+								break ;
+					}
+							// </TO-CHECK>:
 
-				ref = new_ref ;
+							ref = new_ref ;
 			} else {
 				var new_ref = datosCU.oceoc_hash[context.firmware[instruction][candidate].oc] ;
 				if (new_ref.witheoc)
@@ -1106,62 +1146,142 @@ function read_text_v2  ( context, datosCU, ret )
 		}
 
 		// process machine code with several words...
-		for (i=context.firmware[instruction][candidate].nwords-1; i>=0; i--)
-		{
-			if (i<context.firmware[instruction][candidate].nwords-1) {
-				s_def = "" ;
+		for (i=firmware[instruction][candidate].nwords-1; i>=0; i--)
+                {
+			if (i<firmware[instruction][candidate].nwords-1) {
+			    s_def = "" ;
 			}
 
-			var acc_cmt = asm_getComments(context) ;
-			var melto = {
-							value:           machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
-							binary:          machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
-							source:          s_def,
-							// source_original: s_ori,
-							source_tracking: [ s_ori ],
-							firm_reference:  ref,
-							comments:        [ acc_cmt ],
-							is_assembly:     true
-						} ;
+                        var acc_cmt = asm_getComments(context) ;
+	                var melto = {
+		        	       value:           machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
+				       binary:          machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
+				       source:          s_def,
+				    // source_original: s_ori,
+		        	       source_tracking: [ s_ori ],
+				       firm_reference:  ref,
+		        	       comments:        [ acc_cmt ],
+				       is_assembly:     true
+		        	    } ;
 			main_memory_set(ret.mp, "0x" + seg_ptr.toString(16), melto) ;
-			asm_resetComments(context) ;
+                        asm_resetComments(context) ;
 
-			seg_ptr = seg_ptr + WORD_BYTES ;
+                	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
 
-		// if instruction candidates with less than max_length fields
-		//    then we read ahead next token, otherwise we need to read next token
-		var equals_fields = true ;
-		for (var c=0; c<signature_fields.length; c++)
-		{
-			if (max_length !== signature_fields[c].length) {
-				equals_fields = false ;
-				break ;
-			}
-		}
-		if ( (equals_fields || (asm_getToken(context) == ")")) )
-		{
-			asm_nextToken(context) ;
+		// pseudoinstruction finished
+		if ((isPseudo) && (counter == pfinish.length))
+                {
+			isPseudo            = false ;
+			counter             = -1 ;
+			npseudoInstructions = 0 ;
 		}
 
-		if (context.t > context.text.length) break ;
-	}
+                // if instruction candidates with less than max_length fields
+                //    then we read ahead next token, otherwise we need to read next token
+                var equals_fields = true ;
+                for (var c=0; c<signature_fields.length; c++)
+                {
+                     if (max_length !== signature_fields[c].length) {
+                         equals_fields = false ;
+                         break ;
+		     }
+                }
+                if ( (isPseudo == false) && (equals_fields || (asm_getToken(context) == ")")) )
+                {
+		    asm_nextToken(context) ;
+                }
 
-	//return ret ;
-	ret.seg[seg_name].end = seg_ptr ;  // end of segment is just last pointer value...
+		if (context.t > context.text.length) {
+		    break ;
+		}
+           }
+
+           ret.seg[seg_name].end = seg_ptr ;  // end of segment is just last pointer value...
 }
 
-function simlang_compile_pass1 ( context, datosCU, text )
+
+/*
+ *  Compile assembly
+ */
+
+function simlang_compile_v2 (text, datosCU)
 {
+           var context = {} ;
+	   context.line           	= 1 ;
+	   context.error          	= null ;
+	   context.i              	= 0 ;
+	   context.contadorMC     	= 0 ;
+	   context.etiquetas      	= {} ;
+	   context.labelsNotFound 	= [] ;
+	   context.instrucciones  	= [] ;
+	   context.co_cop         	= {} ;
+	   context.oc_eoc         	= {} ;
+	   context.registers      	= [] ;
+           context.text           	= text ;
+	   context.tokens         	= [] ;
+	   context.token_types    	= [] ;
+	   context.t              	= 0 ;
+	   context.newlines       	= [] ;
+	   context.pseudoInstructions	= [];
+	   context.stackRegister	= null ;
+	   context.firmware             = {} ;
+           context.comments             = [] ;
+
+	   // fill firmware
+	   for (i=0; i<datosCU.firmware.length; i++)
+           {
+		var aux = datosCU.firmware[i];
+
+	   	if (typeof context.firmware[aux.name] === "undefined") {
+	   	    context.firmware[aux.name] = [];
+		}
+
+	   	context.firmware[aux.name].push({ name:                aux.name,
+						  nwords:              parseInt(aux.nwords),
+						  co:                  (typeof aux.co !== "undefined" ? aux.co : false),
+						  cop:                 (typeof aux.cop !== "undefined" ? aux.cop : false),
+						  oc:                  (typeof aux.oc !== "undefined" ? aux.oc : false),
+						  eoc:                 (typeof aux.eoc !== "undefined" ? aux.eoc : false),
+						  fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
+						  signature:           aux.signature,
+						  signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
+						  isPseudoinstruction: false  });
+	   }
+
+	   // fill pseudoinstructions
+	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
+	   {
+		var initial = datosCU.pseudoInstructions[i].initial ;
+		var finish  = datosCU.pseudoInstructions[i].finish ;
+
+		if (typeof context.pseudoInstructions[initial.name] === "undefined")
+                {
+	 	    context.pseudoInstructions[initial.name] = 0 ;
+		    if (typeof context.firmware[initial.name] === "undefined") {
+		        context.firmware[initial.name] = [] ;
+		    }
+		}
+
+		context.pseudoInstructions[initial.name]++;
+                context.firmware[initial.name].push({ 	name:initial.name,
+							fields:(typeof initial.fields !== "undefined" ? initial.fields : false),
+							signature:initial.signature,
+							signatureUser:initial.signature.replace(/,/g," "),
+							finish:finish.signature,
+							isPseudoinstruction:true });
+	   }
+
           var ret = {};
 	  ret.seg        = sim_segments ;
           ret.mp         = {} ;
-	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit, bits}
+	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit}
           ret.labels2    = {} ;
           ret.revlabels2 = {} ;
           ret.revseg     = [] ;
-	  ret.data_found = false;
-	  ret.text_found = false;
+
+	  data_found = false;
+	  text_found = false;
 
           //
           // .segment
@@ -1179,15 +1299,13 @@ function simlang_compile_pass1 ( context, datosCU, text )
 	       }
 
 	       if ("data" == ret.seg[segname].kindof) {
-		   read_data_v2(context, ret);
-		   ret.data_found = true;
+		   read_data_v2(context, datosCU, ret);
+		   data_found = true;
 	       }
-	       //DEBUG
-	       //console.log(ret);
 
 	       if ("text" == ret.seg[segname].kindof) {
 		   read_text_v2(context, datosCU, ret);
-		   ret.text_found = true;
+		   text_found = true;
 	       }
 
 	       // Check errors
@@ -1197,23 +1315,8 @@ function simlang_compile_pass1 ( context, datosCU, text )
 	       }
 	 }
 
-	 return ret;
-}
-
-
-// pass 2: replace pseudo-instructions
-function simlang_compile_pass2 ( context, ret )
-{
-     // TODO
-
-	return ret;
-}
-
-
-// pass 3: check that all used labels are defined in the text
-function simlang_compile_pass3 ( context, ret )
-{
-         for (var i in ret.labels)
+	 // Check that all used labels are defined in the text
+         for (i in ret.labels)
          {
 		// Get label value (address number)
 		var value = ret.labels2[ret.labels[i].name];
@@ -1264,7 +1367,7 @@ function simlang_compile_pass3 ( context, ret )
 
 			if ("rel" == ret.labels[i].rel)
                         {
-			    a = decimal2binary(converted - ret.labels[i].addr - WORD_BYTES, size);
+			    var a = decimal2binary(converted - ret.labels[i].addr - WORD_BYTES, size);
 			    num_bits   = a[0] ;
                             free_space = a[1] ;
 			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) +
@@ -1289,7 +1392,7 @@ function simlang_compile_pass3 ( context, ret )
                 }
 
 		// Store field in machine code
-		machineCode = assembly_replace(machineCode,
+		machineCode = assembly_replace_v2(machineCode,
                                                    num_bits,
                                                    ret.labels[i].startbit-(-1),
                                                    ret.labels[i].stopbit,
@@ -1312,14 +1415,14 @@ function simlang_compile_pass3 ( context, ret )
 	 }
 
 	 // check if main or kmain in assembly code
-	 if (ret.text_found)
+	 if (text_found)
          {
-	       if ( (typeof ret.labels2["main"] === "undefined" ) &&
-                    (typeof ret.labels2["kmain"] === "undefined" ) )
-               {
-	  	     return asm_langError(context,
-		                          i18n_get_TagFor('compiler', 'NO MAIN OR KMAIN')) ;
-               }
+	     if ( (typeof ret.labels2["main"] === "undefined" ) &&
+                  (typeof ret.labels2["kmain"] === "undefined" ) )
+             {
+		   return asm_langError(context,
+		                        i18n_get_TagFor('compiler', 'NO MAIN OR KMAIN')) ;
+             }
 	 }
 
          // reverse labels (hash labels2 -> key)
@@ -1333,38 +1436,5 @@ function simlang_compile_pass3 ( context, ret )
          }
 
 	 return ret;
-}
-
-
-/*
- *  Compile assembly
- */
-
-function simlang_compile_v2 ( text, datosCU )
-{
-           // pass 0: prepare context
-           var context  = simlang_compile_prepare_context(datosCU) ;
-           context.text = text ;
-
-           // pass 1: compile assembly (without replace pseudo-instructions)
-           var ret = simlang_compile_pass1(context, datosCU, text) ;
-	   if (ret.error != null) {
-	       return ret;
-	   }
-
-           // pass 2: replace pseudo-instructions
-           ret = simlang_compile_pass2(context, ret) ;
-		   console.log(ret);
-	   if (ret.error != null) {
-	       return ret;
-	   }
-
-	   // pass 3: check that all used labels are defined in the text
-           ret = simlang_compile_pass3(context, ret) ;
-	   if (ret.error != null) {
-	       return ret;
-	   }
-
-	   return ret;
 }
 
