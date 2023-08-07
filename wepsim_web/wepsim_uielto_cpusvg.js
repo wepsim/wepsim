@@ -401,6 +401,24 @@
             }
         }
 
+		function eventhandler_load_svg_set_darkmode ( obj )
+		{
+			  var obj_target = obj.target ;
+			  wepsim_svg_apply_darkmode(obj.currentTarget.id) ;
+
+                          // trick because safari fires load event again if setProperty set display to block :-(
+			  if (false == obj_target.img_first) {
+			      return ;
+			  }
+			  obj_target.img_first = false ;
+
+			  obj_target.style.setProperty("visibility", "visible") ;
+			  obj_target.style.setProperty("display",    "none") ;
+			  if ('' != obj_target.img_data) {
+			      setTimeout(function(){ obj_target.style.setProperty("display", "block"); }, 25);
+			  }
+		}
+
         function wepsim_svg_reload ( id_arr, img_arr )
         {
             var o = null ;
@@ -436,17 +454,9 @@
                  // set dark-mode after load
 		 o.style.setProperty("visibility", "hidden") ;
     		 o.style.setProperty("display",    "block") ;
-                 o.img_data = img_arr[i].trim() ;
-                 o.onload   = function(obj) {
-                                  var obj_target = obj.target ;
-			          wepsim_svg_apply_darkmode(obj.currentTarget.id) ;
-
-		                  obj_target.style.setProperty("visibility", "visible") ;
-    		                  obj_target.style.setProperty("display",    "none") ;
-		                  if ('' != obj_target.img_data) {
-                                      setTimeout(function(){ obj_target.style.setProperty("display", "block"); }, 25);
-                                  }
-                              } ;
+                 o.img_data  = img_arr[i].trim() ;
+                 o.img_first = true ;
+	         o.addEventListener("load", eventhandler_load_svg_set_darkmode, false) ;
 
                  // load image
                  o.setAttribute('data', d) ;
