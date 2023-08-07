@@ -705,10 +705,11 @@ function read_text_v2 ( context, datosCU, ret )
 
 				// get field information
 				var field = firmware[instruction][j].fields[i] ;
-				if (field.startbit !== undefined && field.stopbit !== undefined)
-					var size = field.startbit - field.stopbit + 1 ;
-				else
+				console.log(field);
+				if (field.bits !== undefined)
 					var size = bits_size(field.bits) ;
+				else
+					var size = field.startbit - field.stopbit + 1 ;
 
 				var label_found = false ;
 				var sel_found   = false ;
