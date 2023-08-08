@@ -381,7 +381,8 @@ function wsasm_src2obj_data ( context, ret )
 
                    else if (wsasm_has_datatype_attr(elto.datatype, "align"))
                    {
-		        //   .align *2*
+		        //   .align  *2*
+		        //   .balign *4*
 
                         // <value>
 		        asm_nextToken(context) ;
@@ -399,7 +400,10 @@ function wsasm_src2obj_data ( context, ret )
 		        }
 
 			// Calculate offset
-                        var align_offset = Math.pow(2, parseInt(possible_value)) ;
+                        var align_offset = parseInt(possible_value) ;  // .balign
+                        if (".align" == elto.datatype) {
+                            align_offset = Math.pow(2, align_offset) ; // .align
+		        }
 
 			// ELTO: spaces/zeroes
                         elto.seg_name  = seg_name ;
@@ -407,6 +411,9 @@ function wsasm_src2obj_data ( context, ret )
 			elto.comments.push(acc_cmt) ;
 		        elto.byte_size = align_offset ;
 			elto.value     = possible_value ;
+
+                        ret_obj.push(elto) ;
+                        elto = wsasm_new_objElto(null) ;
 
 			asm_nextToken(context) ;
                    }
@@ -660,6 +667,7 @@ function wsasm_resolve_data_labels ( context, ret )
                          padding  = elto_align - (last_assigned[seg_name] % elto_align) ;
                          last_assigned[seg_name] += padding ;
                      }
+
                      continue ;
               }
 
@@ -678,14 +686,15 @@ function wsasm_resolve_data_labels ( context, ret )
               }
 
               // machine_code and total size...
-              if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string"))
-              {
+// TODO: check if .align 2 means that ALL (not only the following address) must be align to 2^2. If yes then uncomment next block.
+/*
+              if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string")) {
                     ret.obj[i].padding = elto_align - (ret.obj[i].byte_size % elto_align) ;
               }
-              else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "space"))
-              {
+              else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "space")) {
                     ret.obj[i].padding = elto_align - (ret.obj[i].byte_size % elto_align) ;
               }
+*/
 
               // update last address of segment...
               last_assigned[seg_name] = elto_ptr + ret.obj[i].byte_size + ret.obj[i].padding ;
@@ -865,7 +874,7 @@ function wsasm_obj2mem  ( ret )
               // (1/3) if .align X then address of next elto must be multiple of 2^X
               if (wsasm_has_datatype_attr(ret.obj[i].datatype, "align"))
               {
-                     elto_align = ret.obj[i].byte_size ;
+                     var elto_align = ret.obj[i].byte_size ;
                      if (elto_align > 1)
                      {
                          var last_assigned = parseInt(gen.addr) + gen.byteWord ;
@@ -877,6 +886,7 @@ function wsasm_obj2mem  ( ret )
 
                      // flush current word if needed...
                      wsasm_writememory_if_word(ret.mp, gen, [], []) ;
+                     last_assig_word[seg_name] = gen.addr ;
 
                      continue ;
               }

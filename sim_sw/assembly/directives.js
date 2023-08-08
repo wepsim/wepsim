@@ -34,6 +34,7 @@ ws_directives = {
 		  ".byte":      { name:".byte",   kindof:"datatype", size:1, attrs:["numeric"] },
 		  ".half":      { name:".half",   kindof:"datatype", size:2, attrs:["numeric"] },
 		  ".word":      { name:".word",   kindof:"datatype", size:4, attrs:["numeric"] },
+		  ".dword":     { name:".dword",  kindof:"datatype", size:8, attrs:["numeric"] },
 		  ".float":     { name:".float",  kindof:"datatype", size:4, attrs:["numeric"] },
 		  ".double":    { name:".double", kindof:"datatype", size:8, attrs:["numeric"] },
 		  ".ascii":     { name:".ascii",  kindof:"datatype", size:1, attrs:["string"]  },
@@ -43,7 +44,8 @@ ws_directives = {
 		  ".zero":      { name:".zero",   kindof:"datatype", size:1, attrs:["space"]   },
 
                   // modifiers
-		  ".align":     { name:".align",  kindof:"datatype", size:0, attrs:["align"]   }
+		  ".align":     { name:".align",  kindof:"datatype", size:0, attrs:["align"]   },
+		  ".balign":    { name:".balign", kindof:"datatype", size:0, attrs:["align"]   }
                 } ;
 
 
