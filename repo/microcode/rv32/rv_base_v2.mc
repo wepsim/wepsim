@@ -14,6 +14,78 @@ begin
 
 }
 
+#  ADD rd,rs1,rs2         Add                                 rd ← sx(rs1) + sx(rs2)
+add rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0000000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 + r3',
+      {
+          (),
+          (M2, M3=0, AluOp=1010, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  ADDI rd,rs1,imm         Add Immediate                         rd ← rs1 + sx(imm)
+addi rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 + SignEx(inm)',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  AND rd,rs1,rs2         And                                 rd ← ux(rs1) ∧ ux(rs2)
+and rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1110000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 & r3',
+      {
+          (),
+          (M2, M3=0, AluOp=0001, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  ANDI rd,rs1,imm         And Immediate                         rd ← ux(rs1) ∧ ux(imm)
+andi rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=111,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 & inm',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=0001, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  AUIPC rd,offset         Add Upper Immediate to PC         rd ← pc + (offset << 12)
+auipc rd offset {
+      oc(6:0)=0010111
+      reg(11:7)=rd,
+      imm(31:12)=offset,
+      help='rd = pc + (offset << 12)',
+      {
+          (SE_IMM=0, OFFSET=1100, SIZE=10100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (RW, CU=11)
+      }
+}
+
 #  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
 lui rd imm {
       oc(6:0)=1111111,
@@ -22,18 +94,6 @@ lui rd imm {
       help='rd = (inm << 12)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=11111, WOut),
-          (RW, CU=11)
-      }
-}
-
-#  AUIPC rd,offset         Add Upper Immediate to PC         rd ← pc + (offset << 12)
-auipc rd offset {
-      oc(6:0)=1111111
-      reg(11:7)=rd,
-      imm(31:12)=offset,
-      help='rd = pc + (offset << 12)',
-      {
-          (SE_IMM=1, OFFSET=0, SIZE=10011, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (RW, CU=11)
       }
 }
@@ -66,22 +126,6 @@ sw rs2 offset(rs1) {
          }
 }
 
-
-#  ADD rd,rs1,rs2         Add                                 rd ← sx(rs1) + sx(rs2)
-add rd rs1 rs2 {
-      oc(6:0)=0110011,
-      eoc(14:12|31:25)=0000000000,
-      reg(11:7)=rd,
-      reg(19:15)=rs1,
-      reg(24:20)=rs2,
-      help='r1 = r2 + r3',
-      {
-          (REG_R1=10000, REG_R2=1011),
-          (M2, M3=0, AluOp=1010, WOut),
-          (RW, CU=11)
-      }
-}
-
 #  SUB rd,rs1,rs2         Sub                                 rd ← sx(rs1) - sx(rs2)
 sub rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -93,21 +137,6 @@ sub rd rs1 rs2 {
       {
           (REG_R1=10000, REG_R2=1011),
           (M2, M3=0, AluOp=1011, WOut),
-          (RW, CU=11)
-      }
-}
-
-#  ADDI rd,rs1,imm         Add Immediate                         rd ← rs1 + sx(imm)
-addi rd rs1 imm {
-      oc(6:0)=1111100,
-      eoc(14:12)=111,
-      reg(11:7)=rd,
-      reg(19:15)=rs1,
-      imm(31:20)=imm,
-      help='rd = rs1 + SignEx(inm)',
-      {
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
-          (M2, M3=10, AluOp=1010, WOut),
           (RW, CU=11)
       }
 }

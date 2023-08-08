@@ -38,12 +38,14 @@ function assembly_oc_eoc_v2 ( machineCode, oc, eoc )
 {
 	var xr_info = simhw_sim_ctrlStates_get() ;
 	var bits = xr_info.ir.default_eltos.eoc.bits_field ;
+	var start = 31 - xr_info.ir.default_eltos.oc.begin + 1;
+	var stop = 31 - xr_info.ir.default_eltos.oc.end;
 
 	if (oc !== false)
-	    machineCode = assembly_replace_v2(machineCode, oc, 7, 0, 0, 0);
+	    machineCode = assembly_replace_v2(machineCode, oc, start, stop, 0, 0);
 	if (eoc !== false)
 		if(eoc.length === 3) {
-			machineCode = assembly_replace_v2(machineCode, eoc, 14+1, 12, 0, 0);
+			machineCode = assembly_replace_v2(machineCode, eoc, bits[0][0]+1, bits[0][1], 0, 0);
 		} else {
 			//machineCode = assembly_replace_v2(machineCode, eoc, undefined, undefined, bits, 0);
 			var j = 0;

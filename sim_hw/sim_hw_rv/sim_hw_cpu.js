@@ -454,7 +454,7 @@
 	sim.rv.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_IR RDATA; DECO; MBIT_SN R_IMM REG_IR REG_MICROINS/R_IMM 5; LOAD VAL_IMM R_IMM"],
 				   fire_name: ['svg_p:text7309'],
-				   draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
+				   draw_data: [['svg_p:path6711', 'svg_p:path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
 				   draw_name: [['svg_p:path7301']] };
 	*/
 
@@ -463,33 +463,26 @@
 					fire_name: ['svg_p:text7309'],
 					draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
 					draw_name: [['svg_p:path7301']] };
-	sim.rv.signals["SIZE"] = { name: "SIZE", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-					behavior: ["NOP"],
-					fire_name: [],
-					draw_data: [[]],
-					draw_name: [[]] };
-	/*
-	sim.rv.signals["GEN_IMM"] = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-					behavior: ["NOP", "MBITS VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM"],
-					fire_name: [],
-					draw_data: [[]],
-					draw_name: [[]] };
-	*/
 	sim.rv.signals["GEN_IMM"] = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 					behavior: ["NOP", "DECO_IMM VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM"],
-					fire_name: [],
+					fire_name: ['svg_p:text7300'],
+					draw_data: [['svg_p:path6981', 'svg_p:path6903', 'svg_p:path:6904']],
+					draw_name: [['svg_p:path7146']] };
+	sim.rv.signals["SE_IMM"] = { name: "SE_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+					behavior: ["NOP", "NOP"],
+					fire_name: ['svg_p:text7301'],
 					draw_data: [[]],
-					draw_name: [[]] };
+					draw_name: [['svg_p:path7292']] };
+	sim.rv.signals["SIZE"] = { name: "SIZE", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+					behavior: ["NOP"],
+					fire_name: ['svg_p:text7302'],
+					draw_data: [[]],
+					draw_name: [['svg_p:path7293']] };
 	sim.rv.signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 					behavior: ["NOP"],
-					fire_name: [],
+					fire_name: ['svg_p:text7303'],
 					draw_data: [[]],
-					draw_name: [[]] };
-	sim.rv.signals["SE_IMM"] = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-					behavior: ["NOP", "NOP"],
-					fire_name: [],
-					draw_data: [[]],
-					draw_name: [[]] };
+					draw_name: [['svg_p:path7294']] };
 
 	/* OUT REGISTER */
 	sim.rv.signals["WOUT"] = { name: "WOUT", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
