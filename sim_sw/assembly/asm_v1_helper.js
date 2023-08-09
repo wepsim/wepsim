@@ -126,7 +126,10 @@ function wsasm_new_objElto ( base_elto )
                        datatype:     '', // datatype
                        byte_size:    0,  // size(datatype) in bytes
                        value:        0,
-                       pending:      null
+
+                       binary:         '',
+                       firm_reference: null,
+                       pending:        null
                    } ;
 
         if (null != base_elto) {
@@ -143,6 +146,22 @@ function wsasm_is_EndOfFile (context)
         return ("" === asm_getToken(context)) && (context.t >= context.text.length) ;
 }
 
+function wsasm_is_ValidTag ( tag )
+{
+        var tg = tag.trim() ;
+        if ("" == tg) {
+            return false;
+        }
+
+        var ret = isDecimal(tg[0]) ;
+        if (ret.isDecimal == true) {
+            return false;
+        }
+
+        var myRegEx  = /[^a-z,_\d]/i ;
+        return !(myRegEx.test(tag)) ;
+}
+
 
 function wsasm_src2obj_data ( context, ret )
 {
@@ -150,26 +169,28 @@ function wsasm_src2obj_data ( context, ret )
            var possible_value = "" ;
            var tag            = "" ;
            var acc_cmt        = "" ;
+	   var ret1    = null ;
            var elto    = null ;
-           var ret_obj = [] ;
 
 	   //
-	   //  *.data*    *.data*
-	   //   .text       label1: .directive "value"
+	   //  *.data*   |   *.data*
+	   //   .text    |    label1: .directive "value"
 	   //
 
            var seg_name = asm_getToken(context) ;
            asm_nextToken(context) ;
            elto = wsasm_new_objElto(null) ;
 
-
 	   //
-	   //   .data      .data
-	   //  *.text*     *label1: .directive "value"*
+	   //   .data    |   .data
+	   //  *.text*   |   *label1: .directive "value"*
 	   //
 
 	   // Loop while token read is not a segment directive (.text/.data/...) or end_of_file is found
-	   while (!is_directive_segment(asm_getToken(context)) && !wsasm_is_EndOfFile(context))
+	   while (
+                   (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/...
+                   (! wsasm_is_EndOfFile(context))                            // NOT end-of-file
+                 )
            {
 		   //
 		   //  * label1: *
@@ -180,7 +201,10 @@ function wsasm_src2obj_data ( context, ret )
                    asm_resetComments(context) ;
 
 		   possible_tag = "" ;
-		   while (!is_directive_datatype(asm_getToken(context)) && !wsasm_is_EndOfFile(context))
+		   while (
+                           (! wsasm_is_directive_datatype(asm_getToken(context))) &&  // NOT .data/...
+                           (! wsasm_is_EndOfFile(context))                            // NOT end-of-file
+                         )
 		   {
                       // tagX
 		      possible_tag = asm_getToken(context) ;
@@ -199,7 +223,7 @@ function wsasm_src2obj_data ( context, ret )
 
 		      tag = possible_tag.substring(0, possible_tag.length-1);
 
-   		      if (! isValidTag(tag)) {
+   		      if (! wsasm_is_ValidTag(tag)) {
 			  return asm_langError(context,
 			                       i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
                                                "'" + tag + "'") ;
@@ -246,12 +270,12 @@ function wsasm_src2obj_data ( context, ret )
 		        asm_nextToken(context) ;
                         possible_value = asm_getToken(context) ;
 
-			while (!is_directive(asm_getToken(context)) && !wsasm_is_EndOfFile(context))
+			while (!wsasm_is_directive(asm_getToken(context)) && !wsasm_is_EndOfFile(context))
                         {
 				var label_found = false;
 
 				// Get value
-				var ret1   = get_inm_value(possible_value) ;
+				    ret1   = get_inm_value(possible_value) ;
 				var number = ret1.number ;
 				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                                 {
@@ -263,7 +287,7 @@ function wsasm_src2obj_data ( context, ret )
 				    }
 
                                     // check valid label
-				    if (! isValidTag(possible_value)) {
+				    if (! wsasm_is_ValidTag(possible_value)) {
 					 return asm_langError(context,
 							      i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
                                                               "'" + possible_value + "'") ;
@@ -317,7 +341,7 @@ function wsasm_src2obj_data ( context, ret )
 		                elto.comments.push(acc_cmt) ;
 			        elto.value    = number ;
 
-				ret_obj.push(elto) ;
+				ret.obj.push(elto) ;
                                 elto = wsasm_new_objElto(elto) ; // new elto, same datatype
 
 
@@ -327,7 +351,7 @@ function wsasm_src2obj_data ( context, ret )
 				    asm_nextToken(context) ;
                                 }
 
-			        if ( is_directive(asm_getToken(context)) ||
+			        if ( wsasm_is_directive(asm_getToken(context)) ||
                                      ("TAG" == asm_getTokenType(context)) ||
                                      ("." == asm_getToken(context)[0]) )
                                 {
@@ -349,7 +373,7 @@ function wsasm_src2obj_data ( context, ret )
                         possible_value = asm_getToken(context) ;
 
 			// Check
-			var ret1 = isDecimal(possible_value) ;
+			ret1 = isDecimal(possible_value) ;
 			possible_value = ret1.number ;
                         if (ret1.isDecimal == false) {
 			    return asm_langError(context,
@@ -373,7 +397,7 @@ function wsasm_src2obj_data ( context, ret )
 		        elto.byte_size = possible_value ;
 			elto.value     = byte_val ;
 
-			ret_obj.push(elto) ;
+			ret.obj.push(elto) ;
 			elto = wsasm_new_objElto(null) ;
 
 			asm_nextToken(context) ;
@@ -389,7 +413,7 @@ function wsasm_src2obj_data ( context, ret )
                         possible_value = asm_getToken(context) ;
 
 			// Check if number
-			var ret1 = isDecimal(possible_value) ;
+			ret1 = isDecimal(possible_value) ;
 			possible_value = ret1.number ;
 			if ( (ret1.isDecimal == false) && (possible_value >= 0) )
                         {
@@ -412,7 +436,7 @@ function wsasm_src2obj_data ( context, ret )
 		        elto.byte_size = align_offset ;
 			elto.value     = possible_value ;
 
-                        ret_obj.push(elto) ;
+                        ret.obj.push(elto) ;
                         elto = wsasm_new_objElto(null) ;
 
 			asm_nextToken(context) ;
@@ -428,13 +452,13 @@ function wsasm_src2obj_data ( context, ret )
 		        asm_nextToken(context) ;
                         possible_value = asm_getToken(context) ;
 
-                        var ret1 = treatControlSequences(possible_value) ;
+                        ret1 = treatControlSequences(possible_value) ;
 			if (true == ret1.error) {
 			    return asm_langError(context, ret1.string);
 		        }
                         possible_value = ret1.string ;
 
-			while (!is_directive(asm_getToken(context)) && !wsasm_is_EndOfFile(context))
+			while (!wsasm_is_directive(asm_getToken(context)) && !wsasm_is_EndOfFile(context))
                         {
 				// check string
 				if ("\"" !== possible_value[0]) {
@@ -475,7 +499,7 @@ function wsasm_src2obj_data ( context, ret )
                                 }
 				elto.byte_size = elto.value.length ;
 
-				ret_obj.push(elto) ;
+				ret.obj.push(elto) ;
 				elto = wsasm_new_objElto(elto) ;
 
 
@@ -486,7 +510,7 @@ function wsasm_src2obj_data ( context, ret )
 				    asm_nextToken(context);
 			        }
 
-			        if ( is_directive(asm_getToken(context)) || ("TAG" == asm_getTokenType(context)) || "." == asm_getToken(context)[0] )
+			        if ( wsasm_is_directive(asm_getToken(context)) || ("TAG" == asm_getTokenType(context)) || "." == asm_getToken(context)[0] )
 				     break ; // end loop, already read token (tag/directive)
 
                                 // <value> | .<directive>
@@ -506,82 +530,166 @@ function wsasm_src2obj_data ( context, ret )
 		   }
            }
 
-	   // Fill ret with obj and return ret
-           ret.obj = ret_obj ;
+	   // Return ret
            return ret ;
+}
+
+
+function wsasm_encode_instruction ( context, ret, elto )
+{
+           // TODO: magic to transform elto into binary
+
+           return "0".repeat(32) ;
 }
 
 function wsasm_src2obj_text ( context, ret )
 {
-          //
-          // TODO
-          //
+	   var possible_tag   = "" ;
+           var possible_value = "" ;
+           var tag            = "" ;
+           var acc_cmt        = "" ;
+           var opx            = "" ;
+           var elto    = null ;
 
-          asm_nextToken(context) ;
+	   //
+	   //  *.text*   |  *.text*
+	   //   .data    |    label1: instr op1 op2 op3
+	   //
 
-	  // Loop while token read is not a segment directive (.text/.data/...)
-	  while (!is_directive_segment(asm_getToken(context)) && !wsasm_is_EndOfFile(context))
-          {
-/*****
-		// check tag(s) or error
-		while (
-                   (typeof context.firmware[asm_getToken(context)] === "undefined") &&
-                   (! wsasm_is_EndOfFile(context))
-                )
-                {
-			var possible_tag = asm_getToken(context);
+           var seg_name = asm_getToken(context) ;
+           asm_nextToken(context) ;
+           elto = wsasm_new_objElto(null) ;
 
-			// check tag
-		        if ("TAG" != asm_getTokenType(context))
-                        {
-                            if ("" == possible_tag) {
-                                possible_tag = "[empty]" ;
-                            }
+	   //
+	   //   .text    |   .text
+	   //  *.data*   |   *label1: instr op1 op2 op3*
+	   //
 
-			    return asm_langError(context,
-			                         i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
-                                                 "'" + possible_tag + "'") ;
-                        }
+	   // Loop while token read is not a segment directive (.text/.data/...) or end_of_file is found
+	   while (
+                   (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/...
+                   (! wsasm_is_EndOfFile(context))                            // NOT end-of-file
+                 )
+           {
+		   //
+		   //  * label1: *
+	           //  * label2: *  instr op1 op2 op3
+		   //
 
-		        var tag = possible_tag.substring(0, possible_tag.length-1);
-   		        if (!isValidTag(tag)) {
-			    return asm_langError(context,
-			                         i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
-                                                 "'" + tag + "'") ;
-                        }
-			if (context.firmware[tag]) {
-			    return asm_langError(context,
-			                         i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
-                                                 "'" + tag + "'") ;
-                        }
-			if (ret.labels2[tag]) {
-			    return asm_langError(context,
-			                         i18n_get_TagFor('compiler', 'REPEATED TAG') +
-                                                 "'" + tag + "'") ;
-                        }
+                   acc_cmt = asm_getComments(context) ;
+                   asm_resetComments(context) ;
 
-			// store tag
-			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
+		   possible_tag = "" ;
+		   while (
+                           (typeof context.firmware[asm_getToken(context)] === "undefined") &&  // NOT instruction
+                           (! wsasm_is_EndOfFile(context))                                      // NOT end-of-file
+                         )
+		   {
+                      // tagX
+		      possible_tag = asm_getToken(context) ;
 
-			asm_nextToken(context);
-		}
-*****/
+                      // check tag
+		      if ("TAG" != asm_getTokenType(context))
+                      {
+                          if ("" == possible_tag) {
+                              possible_tag = "[empty]" ;
+                          }
 
-		// check if end of file has been reached
-                if (wsasm_is_EndOfFile(context)) {
-               	    break ;
-                }
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
+                                               "'" + possible_tag + "'") ;
+		      }
 
-		// get instruction
-		var instruction = asm_getToken(context) ;
-                asm_nextToken(context) ;
+		      tag = possible_tag.substring(0, possible_tag.length-1);
 
-                // get possible fields...
-                // ...
-          }
+   		      if (! wsasm_is_ValidTag(tag)) {
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                               "'" + tag + "'") ;
+		      }
+		      if (context.firmware[tag]) {
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                               "'" + tag + "'") ;
+		      }
+		      if (ret.labels2[tag]) {
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'REPEATED TAG') +
+                                               "'" + tag + "'") ;
+		      }
 
-          return ret ;
+		      // Store tag
+                      elto.labels.push(tag) ;
+
+		      // .<datatype> | tagX+1
+		      asm_nextToken(context) ;
+		   }
+
+		   // check if end of file has been reached
+		   if (wsasm_is_EndOfFile(context)) {
+			break;
+                   }
+
+		   //
+		   //    label1:
+	           //    label2:   *instr* op1 op2 op3
+		   //
+
+                   elto.seg_name  = seg_name ;
+		   elto.datatype  = "instruction" ;
+                   elto.byte_size = WORD_BYTES ;
+		   elto.value     = {
+                                       "instruction":  asm_getToken(context),
+                                       "operands":     []
+                                    } ;
+
+		   //
+		   //    label1:
+	           //    label2:    instr  *op1, op2 op3*
+		   //
+
+		   //
+                   // TODO: build auxiliar function to read operands -> reg | 10(reg) | 10+20 | 10 | (reg) | ...
+		   //
+
+                   asm_nextToken(context) ;
+                   opx = asm_getToken(context) ;
+		   while (
+                           (typeof context.firmware[opx] === "undefined") &&          // NOT instruction
+	                   (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/....
+		           ("TAG" != asm_getTokenType(context)) &&                    // NOT label:
+                           (! wsasm_is_EndOfFile(context))                            // NOT end-of-file
+                         )
+		   {
+                      elto.value.operands.push(opx) ;
+
+                      asm_nextToken(context) ;
+                      opx = asm_getToken(context) ;
+
+                      // More than 100 operands? really? umm, might be an error...
+                      if (elto.value.operands.length > 100)
+                      {
+		          return asm_langError(context,
+                                               i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
+                                               i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + elto.value.instruction + ". " +
+                                               i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
+                      }
+		   }
+
+		   elto.source         = elto.value.instruction + ' ' + elto.value.operands.join(' ') ;
+                   elto.firm_reference = context.firmware[elto.value.instruction] ;
+                   elto.binary         = wsasm_encode_instruction(context, ret, elto) ;
+		   elto.comments.push(acc_cmt) ;
+		   elto.track_source.push(elto.source) ;
+
+		   ret.obj.push(elto) ;
+		   elto = wsasm_new_objElto(elto) ; // new elto, same datatype
+           }
+
+	   // Return ret
+           return ret ;
 }
+
 
 function wsasm_compile_src2obj ( context, ret )
 {
@@ -628,14 +736,14 @@ function wsasm_compile_src2obj ( context, ret )
 // pass 2: replace pseudo-instructions
 function wsasm_resolve_pseudo ( context, ret )
 {
-     // TODO
+         // TODO: magic to replace pseudoinstruction with the instructions(s)...
 
 	 return ret;
 }
 
 
 // pass 3: check that all used labels are defined in the text
-function wsasm_resolve_data_labels ( context, ret )
+function wsasm_resolve_labels ( context, ret )
 {
          var seg_name = '' ;
          var seg_ptr  = 0 ;
@@ -647,11 +755,6 @@ function wsasm_resolve_data_labels ( context, ret )
 
          for (var i=0; i<ret.obj.length; i++)
          {
-              // skip instructions right now...
-              if ('instruction' == ret.obj[i].datatype) {
-                     continue ;
-              }
-
               // get starting address of segment
               seg_name = ret.obj[i].seg_name ;
               seg_ptr  = ret.seg[seg_name].begin ;
@@ -686,15 +789,13 @@ function wsasm_resolve_data_labels ( context, ret )
               }
 
               // machine_code and total size...
-// TODO: check if .align 2 means that ALL (not only the following address) must be align to 2^2. If yes then uncomment next block.
-/*
+              // https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
               if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string")) {
                     ret.obj[i].padding = elto_align - (ret.obj[i].byte_size % elto_align) ;
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "space")) {
                     ret.obj[i].padding = elto_align - (ret.obj[i].byte_size % elto_align) ;
               }
-*/
 
               // update last address of segment...
               last_assigned[seg_name] = elto_ptr + ret.obj[i].byte_size + ret.obj[i].padding ;
@@ -713,18 +814,6 @@ function wsasm_resolve_data_labels ( context, ret )
               }
          }
 
-         return ret ;
-}
-
-
-function wsasm_resolve_labels ( context, ret )
-{
-         ret = wsasm_resolve_data_labels(context, ret) ;
-	 if (ret.error != null) {
-	     return ret;
-	 }
-
-     // TODO: wsasm_resolve_text_labels(...)
 
          // reverse labels (hash labels2 -> key)
          for (var key in ret.labels2) {
@@ -736,7 +825,7 @@ function wsasm_resolve_labels ( context, ret )
               ret.seg_rev.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
          }
 
-	 return ret;
+         return ret ;
 }
 
 
@@ -755,16 +844,21 @@ function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
         var melto = {
                       "value":           gen.machine_code,
                       "source_tracking": gen.track_source,
-                      "comments":        gen.comments
+                      "comments":        gen.comments,
+		      "binary":          gen.machine_code,
+                      "firm_reference":  gen.firm_reference,
+                      "is_assembly":     gen.is_assembly,
                     } ;
         main_memory_set(mp, gen.addr, melto) ;
- 
+
         // set 'gen' to 'default' values for next word...
-        gen.track_source = track_source ;
-        gen.comments     = track_comments ;
-        gen.machine_code = '' ;
-        gen.byteWord     =  0 ;
-        gen.addr         = '0x' + (parseInt(gen.addr) + WORD_BYTES).toString(16) ;
+        gen.byteWord       =  0 ;
+        gen.addr           = '0x' + (parseInt(gen.addr) + WORD_BYTES).toString(16) ;
+        gen.machine_code   = '' ;
+        gen.track_source   = track_source ;
+        gen.comments       = track_comments ;
+        gen.firm_reference = null ;
+        gen.is_assembly    = false ;
 }
 
 function wsasm_writememory_and_accumulate ( mp, gen, valuebin )
@@ -862,7 +956,7 @@ function wsasm_obj2mem  ( ret )
 
          for (var i=0; i<ret.obj.length; i++)
          {
-              // update initial word address for this segment if needed...
+              // (1) update initial word address for this segment if needed...
               seg_name = ret.obj[i].seg_name ;
               if (typeof last_assig_word[seg_name] == "undefined")
               {
@@ -871,7 +965,7 @@ function wsasm_obj2mem  ( ret )
               }
               gen.addr = last_assig_word[seg_name] ; // recover last saved value if we switch to other segment
 
-              // (1/3) if .align X then address of next elto must be multiple of 2^X
+              // (2) if .align X then address of next elto must be multiple of 2^X
               if (wsasm_has_datatype_attr(ret.obj[i].datatype, "align"))
               {
                      var elto_align = ret.obj[i].byte_size ;
@@ -891,24 +985,30 @@ function wsasm_obj2mem  ( ret )
                      continue ;
               }
 
+              // (3) instructions and data...
               gen.track_source.push(...ret.obj[i].track_source) ;   // concate arrays...
               gen.comments = ret.obj[i].comments ;                  // ...but replace existing comments
 
-              // (2/3) instructions...
               if ('instruction' == ret.obj[i].datatype)
               {
-                     // TODO: do stuff for instruction...
+                    valuebin = ret.obj[i].binary ;
+                    n_bytes  = ret.obj[i].binary.length / BYTE_LENGTH ;
+                    for (var j=0; j<n_bytes; j++)
+                    {
+                         gen.firm_reference = ret.obj[i].firm_reference ;
+                         gen.is_assembly    = true ;
 
-                     continue ;
+                         valuebin8 = valuebin.substr(j*BYTE_LENGTH, BYTE_LENGTH) ;
+                         wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin8,
+                                                               ret.obj[i].track_source, ret.obj[i].comments) ;
+                    }
               }
-
-              // (2/3) data...
-              if (wsasm_has_datatype_attr(ret.obj[i].datatype, "numeric"))
+              else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "numeric"))
               {
                     n_bytes  = wsasm_get_datatype_size(ret.obj[i].datatype) ;
                     valuebin = (ret.obj[i].value >>> 0).toString(2) ;
                     if (ret.obj[i].value > 0)
-                         valuebin = valuebin.padStart(n_bytes*BYTE_LENGTH, '0') ; 
+                         valuebin = valuebin.padStart(n_bytes*BYTE_LENGTH, '0') ;
                     else valuebin = valuebin.substr(valuebin.length-n_bytes*BYTE_LENGTH, n_bytes*BYTE_LENGTH) ;
 
                     // next: fill as Little-endian... ;-)
