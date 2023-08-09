@@ -2625,6 +2625,10 @@
                                                                 }
                                                             }
 
+                                                            // 5.- Register 0 must always be zero.
+                                                            sim.rv.states.BR[0].value = 0;
+
+
 						            // measure time (2/2)
 					                    var t1 = performance.now() ;
 
