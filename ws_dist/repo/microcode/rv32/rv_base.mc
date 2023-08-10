@@ -35,7 +35,7 @@ addi rd rs1 imm {
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(31:20)=imm,
-      help='rd = rs1 + SignEx(inm)',
+      help='rd = rs1 + SignEx(imm)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
           (M2, M3=10, AluOp=1010, WOut),
@@ -46,11 +46,11 @@ addi rd rs1 imm {
 #  ADDU rd,rs1,imm         Add Unsigned                         rd ← rs1 + sx(imm)
 addu rd rs1 imm {
       oc(6:0)=0010011,
-      eoc(14:12)=010,
+      eoc(14:12)=101,
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(31:20)=imm,
-      help='rd = rs1 + inm',
+      help='rd = rs1 + imm',
       {
           (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1),
           (M2, M3=10, AluOp=10000, WOut),
@@ -80,7 +80,7 @@ andi rd rs1 imm {
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(31:20)=imm,
-      help='rd = rs1 & inm',
+      help='rd = rs1 & imm',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
           (M2, M3=10, AluOp=0001, WOut),
@@ -90,7 +90,7 @@ andi rd rs1 imm {
 
 #  AUIPC rd,offset         Add Upper Immediate to PC         rd ← pc + (offset << 12)
 auipc rd offset {
-      oc(6:0)=0010111
+      oc(6:0)=0010111,
       reg(11:7)=rd,
       imm(31:12)=offset,
       help='rd = pc + (offset << 12)',
@@ -121,7 +121,7 @@ bck2ftch: (PCWrite, CU=11)
 #  BGE rs1,rs2,offset         Branch Greater than Equal             if rs1 ≥ rs2 then pc ← pc + offset
 bge rs1 rs2 offset {
       oc(6:0)=1100011,
-      eoc(14:12)=101
+      eoc(14:12)=101,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
       address-rel(11:8|30:25|7|31)=offset,
@@ -136,7 +136,7 @@ bge rs1 rs2 offset {
 #  BGEU rs1,rs2,offset         Branch Greater than Equal             if rs1 ≥ rs2 then pc ← pc + offset
 bgeu rs1 rs2 offset {
       oc(6:0)=1100011,
-      eoc(14:12)=111
+      eoc(14:12)=111,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
       address-rel(11:8|30:25|7|31)=offset,
@@ -203,6 +203,88 @@ bck5ftch: (PCWrite, CU=11)
       }
 }
 
+# TODO
+# DIV rd,rs1,rs2         Divide Signed         rd ← sx(rs1) ÷ sx(rs2)
+div rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1000000001,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='reg1 = reg2 / reg3',
+      {
+          (CU=11)
+#          # if (reg3 == 0)
+#          (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
+#          (A0=0, B=0, C=110, MADDR=fpe1),
+#          # reg1 = reg2 / reg3, go fetch
+#          (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
+#    fpe1: # RT1 <- ExCode=1
+#          (ExCode=1, T11, C4),
+#          # csw_rt1(2)
+#          (A0=0, B=1, C=0, MADDR=csw_rt1)
+      }
+}
+
+# TODO
+# DIVU rd,rs1,rs2         Divide Unsigned         rd ← ux(rs1) ÷ ux(rs2)
+divu rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1010000001,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='reg1 = ux(reg2) / ux(reg3)',
+      {
+          (CU=11)
+#          # if (reg3 == 0)
+#          (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
+#          (A0=0, B=0, C=110, MADDR=fpe2),
+#          # reg1 = reg2 / reg3, go fetch
+#          (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=11001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
+#    fpe2: # RT1 <- ExCode=1
+#          (ExCode=1, T11, C4),
+#          # csw_rt1(2)
+#          (A0=0, B=1, C=0, MADDR=csw_rt1)
+      }
+}
+
+ecall {
+     oc(6:0)=1110011,
+     eoc(14:12|31:25)=0000000000,
+     help='environment call',
+     {
+         ()
+     }
+}
+
+ebreak {
+     oc(6:0)=1110011,
+     eoc(14:12|31:25)=0000000001,
+     help='environment break',
+     {
+         ()
+     }
+}
+
+#  FENCE pred,succ         Fence
+fence pred succ {
+      oc(6:0)=0001111,
+      imm(27:24)=pred,
+      imm(23:20)=succ,
+      {
+          (CU=11)
+      }
+}
+
+#  FENCE.I             Fence Instruction
+fence.i {
+      oc(6:0)=0011111,
+      {
+          (CU=11)
+      }
+}
+
 #  JAL rd,offset        Jump and Link                       rd ← pc + 4
 #                                                           pc ← pc + offset
 jal rd offset {
@@ -233,14 +315,76 @@ jalr rd rs1 offset {
       }
 }
 
+#  LB rd,offset(rs1)         Load Byte                         rd ← s8[rs1 + offset]
+lb rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='rd = (00, 00, 00, MEM[rs1 + offset])',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010, WBE=1, DMR),
+          (RW, CU=11)
+      }
+}
+
+#  LBU rd,offset(rs1)         Load Byte Unsigned                rd ← s8[rs1 + offset]
+lbu rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=100,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='rd = (00, 00, 00, MEM[rs1 + offset])',
+      {
+          (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010, WBE=1, DMR),
+          (RW, CU=11)
+      }
+}
+
+# TODO
+#  LH rd,offset(rs1)         Load Half                         rd ← s16[rs1 + offset]
+lh rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=001,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010, WBE=1, DMR),
+          (RW, CU=11)
+      }
+}
+
+# TODO
+#  LHU rd,offset(rs1)         Load Half Unsigned                rd ← s16[rs1 + offset]
+lhu rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=101,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
+      {
+          (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010, WBE=1, DMR),
+          (RW, CU=11)
+      }
+}
+
 #  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
 lui rd imm {
       oc(6:0)=0110111,
       reg(11:7)=rd,
       imm(31:12)=imm,
-      help='rd = (inm << 12)',
+      help='rd = (imm << 12)',
       {
-          (SE_IMM=1, OFFSET=10100, SIZE=10100, GEN_IMM=1, M2, M3=10, AluOp=11111, WOut),
+          (SE_IMM=1, OFFSET=1100, SIZE=10100, GEN_IMM=1, M2, M3=10, AluOp=11111, WOut),
           (RW, CU=11)
       }
 }
@@ -252,7 +396,7 @@ lw rd offset(rs1) {
       reg(11:7)=rd,
       reg(19:15)=rs1,
       address-abs(31:20)=offset,
-      help='r1 = (MEM[addr] ... MEM[addr+3])',
+      help='rd = (MEM[rs1+offset+3] .. MEM[rs1+offset])',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
           (M2, M3=10, AluOp=1010, DMR),
@@ -372,7 +516,7 @@ ori rd rs1 imm {
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(31:20)=imm,
-      help='rd = rs1 | inm',
+      help='rd = rs1 | imm',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
           (M2, M3=10, AluOp=0010, WOut),
@@ -418,6 +562,233 @@ remu rd rs1 rs2 {
       }
 }
 
+# TODO
+#  SLL rd,rs1,rs2         Shift Left Logical                     rd ← ux(rs1) « rs2
+sll rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0010000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = rs1 <<< rs2',
+      {
+#            (MR=0, SELA=1011, T9=1, C4=1),
+#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+#   loop10b: (A0=0, B=0, C=110, MADDR=bck10bftch),
+#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
+#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+#            (A0=0, B=1, C=0, MADDR=loop10b),
+#bck10bftch: (A0=1, B=1, C=0)
+            (),
+            (M2, M3=0, AluOp=1100, WOut),
+loop10b:    (CU=111, MADDR=loop10b),
+            (),
+            (M2, M3=0, AluOp=0111, WOut),
+            (),
+            (CU=10, MADDR=loop10b),
+bck10bftch: (CU=11)
+      }
+}
+
+# TODO
+#  SLLI rd,rs1,imm         Shift Left Logical Immediate             rd ← ux(rs1) « ux(imm)
+slli rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12|31:25)=0010000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(24:20)=imm,
+      help='rd = (rs1 << imm)',
+      {
+            (CU=11)
+#            (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
+#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+#   loop10a: (A0=0, B=0, C=110, MADDR=bck10aftch),
+#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
+#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+#            (A0=0, B=1, C=0, MADDR=loop10a),
+#bck10aftch: (A0=1, B=1, C=0)
+            (CU=11)
+      }
+}
+
+# TODO
+#  SLT rd,rs1,rs2         Set Less Than                         rd ← sx(rs1) < sx(rs2)
+slt rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0100000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = (rs1 < rs2) ? 1 : 0',
+      {
+          (CU=11)
+#          (ExCode=0, T11, SelC=10101, MR=0, LC=1),
+#          (T8, C5),
+#          (SELA=10000, SELB=1011, MC=1, SELCOP=1011, SELP=11, M7, C7),
+#          (A0=0, B=1, C=111, MADDR=bck8ftch),
+#          (T5, M7=0, C7),
+#          (ExCode=1, T11, SelC=10101, MR=0, LC=1),
+#bck8ftch: (T5, M7=0, C7),
+#          (A0=1, B=1, C=0)
+          (CU=11)
+      }
+}
+
+#  SLTI rd,rs1,imm         Set Less Than Immediate             rd ← sx(rs1) < sx(imm)
+slti rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=010,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = (rs1 < imm) ? 1 : 0',
+      native,
+      {
+          // fields is a default parameter with the instruction field information
+          var rd   = simcore_native_get_field_from_ir(fields, 0) ;
+          var rs1  = simcore_native_get_field_from_ir(fields, 1) ;
+          var inm1 = simcore_native_get_field_from_ir(fields, 2) ;
+
+          if (inm1 & 0x00008000)
+              inm1 = inm1 | 0xFFFF0000 ;
+
+          var reg1 = simcore_native_get_value("BR", rs1) ;
+          simcore_native_set_value("BR", rd, (reg1 < inm1)) ;
+
+          simcore_native_go_maddr(0) ;
+      }
+}
+
+# TODO
+#  SLTU rd,rs1,rs2         Set Less Than Unsigned                     rd ← ux(rs1) < ux(rs2)
+sltu rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0110000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = (ux(rs1) < ux(rs2)) ? 1 : 0',
+      {
+          (CU=11)
+#          (ExCode=0, T11, SelC=10101, MR=0, LC=1),
+#          (T8, C5),
+#          (SELA=10000, SELB=1011, MC=1, SELCOP=10111, SELP=11, M7, C7),
+#          (A0=0, B=1, C=111, MADDR=bck9ftch),
+#          (T5, M7=0, C7),
+#          (ExCode=1, T11, SelC=10101, MR=0, LC=1),
+#bck9ftch: (T5, M7=0, C7),
+#          (A0=1, B=1, C=0)
+      }
+}
+
+#  SLTIU rd,rs1,imm         Set Less Than Immediate Unsigned         rd ← ux(rs1) < ux(imm)
+sltiu rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=011,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = (ux(rs1) < ux(imm)) ? 1 : 0',
+      native,
+      {
+          // fields is a default parameter with the instruction field information
+          var rd   = simcore_native_get_field_from_ir(fields, 0) ;
+          var rs1  = simcore_native_get_field_from_ir(fields, 1) ;
+          var inm1 = simcore_native_get_field_from_ir(fields, 2) ;
+
+          var reg1 = simcore_native_get_value("BR", rs1) ;
+          simcore_native_set_value("BR", rd, (Math.abs(reg1) < Math.abs(inm1))) ;
+
+          simcore_native_go_maddr(0) ;
+      }
+}
+
+# TODO
+#  SRA rd,rs1,rs2         Shift Right Arithmetic                     rd ← sx(rs1) » rs2
+sra rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1010100000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = rs1 >> rs2',
+      {
+            (CU=11)
+#            (MR=0, SELA=1011, T9=1, C4=1),
+#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+#    loop9c: (A0=0, B=0, C=110, MADDR=bck9cftch),
+#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=110, T6=1, LC=1, SELC=10101),
+#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+#            (A0=0, B=1, C=0, MADDR=loop9c),
+# bck9cftch: (A0=1, B=1, C=0)
+      }
+}
+
+# TODO
+#  SRAI rd,rs1,imm         Shift Right Arithmetic Immediate         rd ← sx(rs1) » ux(imm)
+srai rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12|31:25)=1010100000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(24:20)=imm,
+      help='rd = (rs1 >> imm)',
+      {
+            (CU=11)
+#            (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
+#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+#    loop9a: (A0=0, B=0, C=110, MADDR=bck9aftch),
+#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=110, T6=1, LC=1, SELC=10101),
+#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+#            (A0=0, B=1, C=0, MADDR=loop9a),
+# bck9aftch: (A0=1, B=1, C=0)
+      }
+}
+
+# TODO
+#  SRL rd,rs1,rs2         Shift Right Logical                     rd ← ux(rs1) » rs2
+srl rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1010000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = rs1 >>> rs2',
+      {
+            (CU=11)
+#            (MR=0, SELA=1011, T9=1, C4=1),
+#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+#    loop9b: (A0=0, B=0, C=110, MADDR=bck9bftch),
+#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=101, T6=1, LC=1, SELC=10101),
+#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+#            (A0=0, B=1, C=0, MADDR=loop9b),
+# bck9bftch: (A0=1, B=1, C=0)
+      }
+}
+
+#  SRLI rd,rs1,imm         Shift Right Logical Immediate             rd ← ux(rs1) » ux(imm)
+srli rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12|31:25)=1010000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(24:20)=imm,
+      help='rd = (rs1 >>> imm)',
+      native,
+      {
+          // fields is a default parameter with the instruction field information
+          var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
+          var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
+          var val1 = simcore_native_get_field_from_ir(fields, 2) ;
+
+          var result = simcore_native_get_value("BR", reg2) >>> val1 ;
+          simcore_native_set_value("BR", reg1, result) ;
+
+          simcore_native_go_maddr(0) ;
+      }
+}
+
 #  SUB rd,rs1,rs2         Sub                                 rd ← sx(rs1) - sx(rs2)
 sub rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -435,12 +806,12 @@ sub rd rs1 rs2 {
 
 #  SUBI rd,rs1,imm         Sub Immediate                         rd ← rs1 - sx(imm)
 subi rd rs1 imm {
-      oc(6:0)=0010011,
+      oc(6:0)=1000000,
       eoc(14:12)=001,
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(31:20)=imm,
-      help='rd = rs1 - SignEx(inm)',
+      help='rd = rs1 - SignEx(imm)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
           (M2, M3=10, AluOp=1011, WOut),
@@ -448,18 +819,38 @@ subi rd rs1 imm {
       }
 }
 
-#  SUBU rd,rs1,imm         Sub Unsigned                         rd ← rs1 - sx(imm)
-subu rd rs1 imm {
-      oc(6:0)=0010011,
-      eoc(14:12)=011,
-      reg(11:7)=rd,
+#  SB rs2,offset(rs1)         Store Byte                         u8[rs1 + offset] ← rs2
+sb rs2 offset(rs1) {
+      oc(6:0)=0100011,
+      eoc(14:12)=000,
       reg(19:15)=rs1,
-      imm(31:20)=imm,
-      help='rd = rs1 - SignEx(inm)',
+      reg(24:20)=rs2,
+      address-rel(11:7|31:25)=offset,
+      help='MEM[rs1 + offset] = rs2/8',
       {
-          (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=10001, WOut),
-          (RW, CU=11)
+          (),
+          (M2, M3=0, AluOp=11111, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010),
+          (WBE=1, DMW, CU=11)
+      }
+}
+
+# TODO
+#  SH rs2,offset(rs1)         Store Half                         u16[rs1 + offset] ← rs2
+sh rs2 offset(rs1) {
+      oc(6:0)=0100011,
+      eoc(14:12)=001,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:7|31:25)=offset,
+      help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
+      {
+          (),
+          (M2, M3=0, AluOp=11111, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010),
+          (WBE=1, DMW, CU=11)
       }
 }
 
@@ -470,7 +861,7 @@ sw rs2 offset(rs1) {
       reg(19:15)=rs1,
       reg(24:20)=rs2,
       address-rel(11:7|31:25)=offset,
-      help='MEM[addr] = r1',
+      help='MEM[rs1+offset+3 .. rs1+offset] = rs2',
       {
           (),
           (M2, M3=0, AluOp=11111, WOut),
@@ -502,7 +893,7 @@ xori rd rs1 imm {
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(31:20)=imm,
-      help='rd = rs1 ^ inm',
+      help='rd = rs1 ^ imm',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
           (M2, M3=10, AluOp=0100, WOut),
