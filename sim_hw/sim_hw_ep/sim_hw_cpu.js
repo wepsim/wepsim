@@ -840,7 +840,7 @@
                                                    'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
                                                    'svg_cu:path3260','svg_cu:path3196','svg_cu:path3278','svg_cu:path3292','svg_cu:path3142',
                                                    'svg_cu:path3258-4','svg_cu:path3390-7','svg_cu:path3258','svg_cu:path3280',
-                                                   'svg_cu:path3200','svg_cu:path3204','svg_cu:path3208'],
+                                                   'svg_cu:path3200','svg_cu:path3204','svg_cu:path3208','svg_cu:path3268','svg_cu:path3316'],
 					          ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300','svg_cu:path3258','svg_cu:path3260',
 				                   'svg_cu:path3258-4','svg_cu:path3278','svg_cu:path3196','svg_cu:path3294','svg_cu:path3292',
 					           'svg_cu:path3288','svg_cu:path3280','svg_cu:path3258','svg_cu:path3258-4','svg_cu:path3390-7',
