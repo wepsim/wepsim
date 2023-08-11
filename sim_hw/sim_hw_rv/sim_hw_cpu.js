@@ -563,11 +563,11 @@
 								"OR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"NOT ALU_WOUT M2_ALU; UPDATE_NZ",
 								"XOR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SRL ALU_WOUT M2_ALU; UPDATE_NZ",
-								"SRA ALU_WOUT M2_ALU; UPDATE_NZ",
-								"SL ALU_WOUT M2_ALU; UPDATE_NZ",
-								"RR ALU_WOUT M2_ALU; UPDATE_NZ",
-								"RL ALU_WOUT M2_ALU; UPDATE_NZ",
+								"SRL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"SRA ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"SL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"RR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"RL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"ADD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"SUB ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
@@ -1082,10 +1082,11 @@
                                                 }
 				   };
 	sim.rv.behaviors["SRL"]      = { nparameters: 3,
-				     types: ["E", "E"],
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) >>> 1 ;
+											var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+											var result = (get_value(sim.rv.states[s_expr[2]])) >>> shifts ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1095,7 +1096,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) >>> 1 ;
+				                   var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = (get_value(sim.rv.states[s_expr[2]])) >>> shifts ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -1106,10 +1108,11 @@
                                                 }
 				   };
 	sim.rv.behaviors["SRA"]      = { nparameters: 3,
-				     types: ["E", "E"],
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) >> 1 ;
+											var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+											var result = (get_value(sim.rv.states[s_expr[2]])) >> shifts ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1119,7 +1122,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) >> 1 ;
+				                   var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = (get_value(sim.rv.states[s_expr[2]])) >> shifts ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -1129,11 +1133,12 @@
                                                    return "ALU output = " + show_value(result) + " (SRA). " ;
                                                 }
 				   };
-	sim.rv.behaviors["SL"]       = { nparameters: 3,
-				     types: ["E", "E"],
+	sim.rv.behaviors["SL"]       = { nparameters: 4,
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) << 1 ;
+											var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+											var result = (get_value(sim.rv.states[s_expr[2]])) << shifts ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1143,7 +1148,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) << 1 ;
+				                   var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = (get_value(sim.rv.states[s_expr[2]])) << shifts ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -1154,10 +1160,11 @@
                                                 }
 				   };
 	sim.rv.behaviors["RR"]       = { nparameters: 3,
-				     types: ["E", "E"],
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = ((get_value(sim.rv.states[s_expr[2]])) >>> 1) | (((get_value(sim.rv.states[s_expr[2]])) & 1) << 31) ;
+				                   var rotations = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = ((get_value(sim.rv.states[s_expr[2]])) >>> rotations) | (((get_value(sim.rv.states[s_expr[2]])) & rotations) << 31) ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1167,7 +1174,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = ((get_value(sim.rv.states[s_expr[2]])) >>> 1) | (((get_value(sim.rv.states[s_expr[2]])) & 1) << 31) ;
+				                   var rotations = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = ((get_value(sim.rv.states[s_expr[2]])) >>> rotations) | (((get_value(sim.rv.states[s_expr[2]])) & rotations) << 31) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -1181,7 +1189,8 @@
 				     types: ["E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = ((get_value(sim.rv.states[s_expr[2]])) << 1) | (((get_value(sim.rv.states[s_expr[2]])) & 0X80000000) >>> 31) ;
+				                   var rotations = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = ((get_value(sim.rv.states[s_expr[2]])) << rotations) | (((get_value(sim.rv.states[s_expr[2]])) & 0X80000000) >>> 31) ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1191,7 +1200,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = ((get_value(sim.rv.states[s_expr[2]])) << 1) | (((get_value(sim.rv.states[s_expr[2]])) & 0X80000000) >>> 31) ;
+				                   var rotations = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = ((get_value(sim.rv.states[s_expr[2]])) << rotations) | (((get_value(sim.rv.states[s_expr[2]])) & 0X80000000) >>> 31) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {

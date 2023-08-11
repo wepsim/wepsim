@@ -560,7 +560,6 @@ remu rd rs1 rs2 {
       }
 }
 
-# TODO
 #  SLL rd,rs1,rs2         Shift Left Logical                     rd ← ux(rs1) « rs2
 sll rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -570,43 +569,24 @@ sll rd rs1 rs2 {
       reg(24:20)=rs2,
       help='rd = rs1 <<< rs2',
       {
-#            (MR=0, SELA=1011, T9=1, C4=1),
-#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-#   loop10b: (A0=0, B=0, C=110, MADDR=bck10bftch),
-#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
-#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
-#            (A0=0, B=1, C=0, MADDR=loop10b),
-#bck10bftch: (A0=1, B=1, C=0)
             (),
-            (M2, M3=0, AluOp=1100, WOut),
-loop10b:    (CU=111, MADDR=loop10b),
-            (),
-            (M2, M3=0, AluOp=0111, WOut),
-            (),
-            (CU=10, MADDR=loop10b),
-bck10bftch: (CU=11)
+            (M2, M3=0, AluOp=111, WOut),
+            (RW, CU=11)
       }
 }
 
-# TODO
 #  SLLI rd,rs1,imm         Shift Left Logical Immediate             rd ← ux(rs1) « ux(imm)
 slli rd rs1 imm {
       oc(6:0)=0010011,
-      eoc(14:12|31:25)=0010000000,
+      eoc(14:12|31:25)=001,
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(24:20)=imm,
       help='rd = (rs1 << imm)',
       {
-            (CU=11)
-#            (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
-#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-#   loop10a: (A0=0, B=0, C=110, MADDR=bck10aftch),
-#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
-#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
-#            (A0=0, B=1, C=0, MADDR=loop10a),
-#bck10aftch: (A0=1, B=1, C=0)
-            (CU=11)
+            (SE_IMM=1, OFFSET=0, SIZE=101, GEN_IMM=1),
+            (M2, M3=10, AluOp=111, WOut),
+            (RW, CU=11)
       }
 }
 
@@ -702,7 +682,6 @@ sltiu rd rs1 imm {
       }
 }
 
-# TODO
 #  SRA rd,rs1,rs2         Shift Right Arithmetic                     rd ← sx(rs1) » rs2
 sra rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -712,18 +691,12 @@ sra rd rs1 rs2 {
       reg(24:20)=rs2,
       help='rd = rs1 >> rs2',
       {
-            (CU=11)
-#            (MR=0, SELA=1011, T9=1, C4=1),
-#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-#    loop9c: (A0=0, B=0, C=110, MADDR=bck9cftch),
-#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=110, T6=1, LC=1, SELC=10101),
-#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
-#            (A0=0, B=1, C=0, MADDR=loop9c),
-# bck9cftch: (A0=1, B=1, C=0)
+            (),
+            (M2, M3=0, AluOp=110, WOut),
+            (RW, CU=11)
       }
 }
 
-# TODO
 #  SRAI rd,rs1,imm         Shift Right Arithmetic Immediate         rd ← sx(rs1) » ux(imm)
 srai rd rs1 imm {
       oc(6:0)=0010011,
@@ -733,18 +706,12 @@ srai rd rs1 imm {
       imm(24:20)=imm,
       help='rd = (rs1 >> imm)',
       {
-            (CU=11)
-#            (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
-#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-#    loop9a: (A0=0, B=0, C=110, MADDR=bck9aftch),
-#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=110, T6=1, LC=1, SELC=10101),
-#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
-#            (A0=0, B=1, C=0, MADDR=loop9a),
-# bck9aftch: (A0=1, B=1, C=0)
+            (SE_IMM=1, OFFSET=0, SIZE=101, GEN_IMM=1),
+            (M2, M3=10, AluOp=110, WOut),
+            (RW, CU=11)
       }
 }
 
-# TODO
 #  SRL rd,rs1,rs2         Shift Right Logical                     rd ← ux(rs1) » rs2
 srl rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -754,14 +721,9 @@ srl rd rs1 rs2 {
       reg(24:20)=rs2,
       help='rd = rs1 >>> rs2',
       {
-            (CU=11)
-#            (MR=0, SELA=1011, T9=1, C4=1),
-#            (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-#    loop9b: (A0=0, B=0, C=110, MADDR=bck9bftch),
-#            (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=101, T6=1, LC=1, SELC=10101),
-#            (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
-#            (A0=0, B=1, C=0, MADDR=loop9b),
-# bck9bftch: (A0=1, B=1, C=0)
+            (),
+            (M2, M3=0, AluOp=101, WOut),
+            (RW, CU=11)
       }
 }
 
