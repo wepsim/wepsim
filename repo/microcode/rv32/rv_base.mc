@@ -213,16 +213,15 @@ div rd rs1 rs2 {
       reg(24:20)=rs2,
       help='reg1 = reg2 / reg3',
       {
+          #if (rs2 == 0)
+          (),
+          (M2, M3=1, AluOp=1100),
+          (CU=111, MADDR=fpe1),
+          # rd = rs1 / rs2, go fetch
+          (M2, M3=0, AluOp=1101, WOut),
+          (RW, CU=11)
+    fpe1: #csw? excode?
           (CU=11)
-#          # if (reg3 == 0)
-#          (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
-#          (A0=0, B=0, C=110, MADDR=fpe1),
-#          # reg1 = reg2 / reg3, go fetch
-#          (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
-#    fpe1: # RT1 <- ExCode=1
-#          (ExCode=1, T11, C4),
-#          # csw_rt1(2)
-#          (A0=0, B=1, C=0, MADDR=csw_rt1)
       }
 }
 
@@ -236,16 +235,15 @@ divu rd rs1 rs2 {
       reg(24:20)=rs2,
       help='reg1 = ux(reg2) / ux(reg3)',
       {
+          #if (rs2 == 0)
+          (),
+          (M2, M3=1, AluOp=1100),
+          (CU=111, MADDR=fpe2),
+          # rd = rs1 / rs2, go fetch
+          (M2, M3=0, AluOp=10011, WOut),
+          (RW, CU=11)
+    fpe2: #csw? excode?
           (CU=11)
-#          # if (reg3 == 0)
-#          (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
-#          (A0=0, B=0, C=110, MADDR=fpe2),
-#          # reg1 = reg2 / reg3, go fetch
-#          (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=11001, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
-#    fpe2: # RT1 <- ExCode=1
-#          (ExCode=1, T11, C4),
-#          # csw_rt1(2)
-#          (A0=0, B=1, C=0, MADDR=csw_rt1)
       }
 }
 
