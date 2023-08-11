@@ -637,7 +637,7 @@
 	sim.rv.signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_N VAL_ZERO", "MV FLAG_N VAL_ONE"],
                                   depends_on: ["ALUOP"],
-		  	          fire_name: ['svg_p:text7607', 'svg_p:text7185'],
+		  	          fire_name: ['svg_p:text351', 'svg_p:text7185'],
 			          draw_data: [['svg_p:path7251']],
 			          draw_name: [['svg_p:path7157']] };
 	sim.rv.signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
