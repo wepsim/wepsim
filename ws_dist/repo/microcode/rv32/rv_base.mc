@@ -354,7 +354,7 @@ lh rd offset(rs1) {
       help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=1, DMR),
+          (M2, M3=10, AluOp=1010, WBE=10, DMR),
           (RW, CU=11)
       }
 }
@@ -370,7 +370,7 @@ lhu rd offset(rs1) {
       help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
       {
           (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=1, DMR),
+          (M2, M3=10, AluOp=1010, WBE=10, DMR),
           (RW, CU=11)
       }
 }
@@ -578,7 +578,7 @@ sll rd rs1 rs2 {
 #  SLLI rd,rs1,imm         Shift Left Logical Immediate             rd ← ux(rs1) « ux(imm)
 slli rd rs1 imm {
       oc(6:0)=0010011,
-      eoc(14:12|31:25)=001,
+      eoc(14:12|31:25)=0010000000,
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(24:20)=imm,
@@ -590,7 +590,6 @@ slli rd rs1 imm {
       }
 }
 
-# TODO
 #  SLT rd,rs1,rs2         Set Less Than                         rd ← sx(rs1) < sx(rs2)
 slt rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -600,16 +599,8 @@ slt rd rs1 rs2 {
       reg(24:20)=rs2,
       help='rd = (rs1 < rs2) ? 1 : 0',
       {
-          (CU=11)
-#          (ExCode=0, T11, SelC=10101, MR=0, LC=1),
-#          (T8, C5),
-#          (SELA=10000, SELB=1011, MC=1, SELCOP=1011, SELP=11, M7, C7),
-#          (A0=0, B=1, C=111, MADDR=bck8ftch),
-#          (T5, M7=0, C7),
-#          (ExCode=1, T11, SelC=10101, MR=0, LC=1),
-#bck8ftch: (T5, M7=0, C7),
-#          (A0=1, B=1, C=0)
-          (CU=11)
+          (),
+          (M2, M3=0, AluOp=1011, M1, RW, CU=11),
       }
 }
 
@@ -638,7 +629,6 @@ slti rd rs1 imm {
       }
 }
 
-# TODO
 #  SLTU rd,rs1,rs2         Set Less Than Unsigned                     rd ← ux(rs1) < ux(rs2)
 sltu rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -648,15 +638,8 @@ sltu rd rs1 rs2 {
       reg(24:20)=rs2,
       help='rd = (ux(rs1) < ux(rs2)) ? 1 : 0',
       {
-          (CU=11)
-#          (ExCode=0, T11, SelC=10101, MR=0, LC=1),
-#          (T8, C5),
-#          (SELA=10000, SELB=1011, MC=1, SELCOP=10111, SELP=11, M7, C7),
-#          (A0=0, B=1, C=111, MADDR=bck9ftch),
-#          (T5, M7=0, C7),
-#          (ExCode=1, T11, SelC=10101, MR=0, LC=1),
-#bck9ftch: (T5, M7=0, C7),
-#          (A0=1, B=1, C=0)
+          (),
+          (M2, M3=0, AluOp=10001, M1, RW, CU=11),
       }
 }
 
@@ -810,7 +793,7 @@ sh rs2 offset(rs1) {
           (M2, M3=0, AluOp=11111, WOut),
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
           (M2, M3=10, AluOp=1010),
-          (WBE=1, DMW, CU=11)
+          (WBE=10, DMW, CU=11)
       }
 }
 

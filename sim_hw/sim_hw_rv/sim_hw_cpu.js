@@ -609,9 +609,11 @@
 				draw_name: [[], []] };
 
 	/* BYTE/WORD SELECTOR*/
-	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
 				behavior: ['MV BS_M1 DM_BS',
-					   'BWSEL BS_M1 DM_BS SE'],
+					   'BWSEL BS_M1 DM_BS 0 0 8 SE',
+					   'BWSEL BS_M1 DM_BS 0 0 16 SE',
+					   'NOP'],
 				depends_on: ["RW"],
 				fire_name: ['svg_p:text7555', 'svg_p:text7433'],
 				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581', 'svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
@@ -2214,15 +2216,15 @@
                                                 }
 				   };
 
-	sim.rv.behaviors["BWSEL"] = { nparameters: 4,
-					types: ["E", "E", "S"],
+	sim.rv.behaviors["BWSEL"] = { nparameters: 7,
+					types: ["E", "E", "I", "I", "I", "S"],
 					operation: function(s_expr)
 							{
 								// Pre-defined positions and length
-								var posd = 0 ;
-								var poso = 0 ;
-								var len  = 8 ;
-								var sign_ext = sim.rv.signals[s_expr[3]].value;
+								var posd = parseInt(s_expr[3]) ;
+								var poso = parseInt(s_expr[4]) ;
+								var len  = parseInt(s_expr[5]) ;
+								var sign_ext = sim.rv.signals[s_expr[6]].value;
 
 								var n1 = get_value(sim.rv.states[s_expr[2]]).toString(2); // to binary
 								var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
@@ -2232,26 +2234,26 @@
 								n3 = n3 + n4;
 
 								if (sign_ext) {
-									//Extend byte sign to full Word
+									//Extend byte/half sign to full Word
 									var s1 = n2 ;
 									var s2 = ("00000000000000000000000000000000".substring(0, 32 - s1.length) + s1) ;
-									var s3 = s2.substr(31 - 7, 31);
+									var s3 = s2.substr(31 - (len-1), 31);
 									var s4 = s3;
-									if ("1" == s2[31 - 7]) {  // check signed-extension
+									if ("1" == s2[31 - (len-1)]) {  // check signed-extension
 										s4 = "11111111111111111111111111111111".substring(0, 32 - s3.length) + s4;
 									}
 									set_value(sim.rv.states[s_expr[1]], parseInt(s4, 2));
 								} else {
-									//Add zeros to 24 superior bits
+									//Add zeros to superior bits
 									set_value(sim.rv.states[s_expr[1]], parseInt(n3, 2));
 								}
 							},
 					verbal: function (s_expr)
 							{
-								var posd = 0 ;
-								var poso = 0 ;
-								var len  = 8 ;
-								var sign_ext = sim.rv.signals[s_expr[3]].value;
+								var posd = parseInt(s_expr[3]) ;
+								var poso = parseInt(s_expr[4]) ;
+								var len  = parseInt(s_expr[5]) ;
+								var sign_ext = sim.rv.signals[s_expr[6]].value;
 
 								var n1 = get_value(sim.rv.states[s_expr[2]]).toString(2);
 								var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
@@ -2263,9 +2265,9 @@
 								if (sign_ext) {
 									var s1 = n2 ;
 									var s2 = ("00000000000000000000000000000000".substring(0, 32 - s1.length) + s1) ;
-									var s3 = s2.substr(31 - 7, 31);
+									var s3 = s2.substr(31 - (len-1), 31);
 									var s4 = s3;
-									if ("1" == s2[31 - 7]) {
+									if ("1" == s2[31 - (len-1)]) {
 										s4 = "11111111111111111111111111111111".substring(0, 32 - s3.length) + s4;
 									}
 									var value = parseInt(s4, 2);
@@ -2273,7 +2275,7 @@
 									var verbose = get_cfg('verbal_verbose') ;
 									if (verbose !== 'math') {
 										return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(value) +
-											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+8) +  " with sign extension)." ;
+											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+len) +  " with sign extension)." ;
 									} else {
 										 return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[2]) +
 											" (" + show_value(value) + ", " + len + " bits, from bit " + poso +
@@ -2284,7 +2286,7 @@
 									var verbose = get_cfg('verbal_verbose') ;
 									if (verbose !== 'math') {
 										return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(value) +
-											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+8) +  " without sign extension)." ;
+											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+len) +  " without sign extension)." ;
 									} else {
 										return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[2]) +
 											" (" + show_value(value) + ", " + len + " bits, from bit " + poso +
@@ -2885,7 +2887,7 @@
 						   "out":    {
 							       ref:  "REG_IR"
 							     },
-							"imm":   {
+						   "imm":   {
 							       ref:  "VAL_IMM"
 							     }
 						 },
@@ -2897,6 +2899,39 @@
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out", "imm" ],
 			      signals_inputs:    [ "IRWRITE" ],
+			      signals_output:    [ ]
+	               } ;
+
+		sim.rv.elements.imm_gen = {
+			      name:              "IMM_GEN",
+			      description:       "Immediate Generator",
+			      type:              "subcomponent",
+			      belongs:           "CPU",
+			      states:            {
+						   "in":     {
+							       ref:  "REG_IR"
+							     },
+						   "out":    {
+							       ref:  "VAL_IMM"
+							     }
+						 },
+			      signals:           {
+						   "GEN_IMM":     {
+							       ref:  "GEN_IMM"
+							     },
+						   "SE_IMM":     {
+							       ref:  "SE_IMM"
+							     },
+						   "SIZE":     {
+							       ref:  "SIZE"
+							     },
+						   "OFFSET":     {
+							       ref:  "OFFSET"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "GEN_IMM", "SE_IMM", "SIZE", "OFFSET" ],
 			      signals_output:    [ ]
 	               } ;
 
