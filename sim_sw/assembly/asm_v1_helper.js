@@ -39,9 +39,9 @@
 //     .data
 //       l1: .word l1  <- l1 need to be translated into its address
 //
-// [4] Transform 'instruction' elto into binary AND
+// [4] Transform 'instruction' elto into binary, including labels
 //     Example:
-//       li $1 0x123   <- 000000 000001 0001.0010.0011
+//       li $1 l1
 //
 // [5] Replace pseudoinstruction with the instructions(s)...
 //     Example:
@@ -591,28 +591,30 @@ function wsasm_encode_instruction ( context, ret, elto )
            // (1) Instruction, copy 'co' field...
            candidate = elto.firm_reference[elto.firm_reference_index] ;
 
-	   for (var i=0; i<=candidate.co.length; i++) {
+	   for (var i=0; i<candidate.co.length; i++) {
 		arr_encoded[i] = candidate.co[i] ;
 	   }
 
-           // (2) Fields, copy values (e.g.: elto.value.signature = [ 'li', *'reg', 'inm'* ])
-           for (var i=1; i<elto.value.signature.length; i++)
+           // (2) Fields, copy values...
+           //     Example:
+           //     * elto.value.signature = [ 'li', *'reg', 'inm'* ]
+           //     * candidate.fields = [ {name: 'r1', type: 'reg', startbit: 0, stopbit: 5}, {...} ]
+           for (var j=0; j<candidate.fields.length; j++)
            {
-                // ej.: candidate.fields = [ {name: 'r1', type: 'reg', startbit: 0, stopbit: 5}, {...} ]
-                for (var j=0; j<candidate.fields.length; j++)
-                {
-                     // start/stop bit...
-                     if (elto.value.signature[i] == candidate.fields[j].type)
-                     {
-                         start_bit = 31 - parseInt(candidate.fields[j].startbit) ;
-                         stop_bit  = 31 - parseInt(candidate.fields[j].stopbit) ;
-                         n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
-                     }
+                // skip if fields of different type...
+                if (elto.value.signature[j+1] != candidate.fields[j].type) {
+                    continue ; // TODO: this should be an error case since candidate must match with this instruction...
+                }
 
-                     // value...
-                     if ("inm" == elto.value.signature[i])
-                     {
-			 ret1 = get_inm_value(elto.value.fields[i-1]) ; // fields omits 'li' that signature has ...
+                // start/stop bit...
+                start_bit = 31 - parseInt(candidate.fields[j].startbit) ;
+                stop_bit  = 31 - parseInt(candidate.fields[j].stopbit) ;
+                n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
+
+                // value...
+                if ("inm" == elto.value.signature[j+1])
+                {
+			 ret1 = get_inm_value(elto.value.fields[j]) ;
 
 			 if (ret1.isDecimal == true)
 			      a = decimal2binary(ret1.number, n_bits) ;
@@ -630,26 +632,30 @@ function wsasm_encode_instruction ( context, ret, elto )
                          }
 
 			 value = value.padStart(n_bits, '0') ;
-                     }
-                     else if ("reg" == elto.value.signature[i])
-                     {
-                         value = elto.value.fields[i-1] ;  // fields array does not start with instruction name as signature does
+                }
+                else if ("reg" == elto.value.signature[j+1])
+                {
+                         value = elto.value.fields[j] ;
                          value = context.registers[value] ;
 			 value = (value >>> 0).toString(2) ;
 			 value = value.padStart(n_bits, '0') ;
-                     }
-                //   else if ("address" == elto.value.signature[i])
-                //   {
-                //        TODO[4]: transform 'instruction' elto into binary AND
-                //   }
-                //   else if ("..." == elto.value.signature[i])  // TODO: more types of fields such as (reg)...
-                //   {
-                //   }
+                }
+           //   else if ("address" == elto.value.signature[j+1])
+           //   {
+           //        TODO[4]: transform 'instruction' elto into binary
+           //   }
+           //   else if ("..." == elto.value.signature[j+1])  // TODO: more types of fields such as (reg)...
+           //   {
+           //   }
+                else
+                {
+                         // TODO: this is a sink case, should be error if not field type is detected
+			 value = "0".padStart(n_bits, '0') ;
+                }
 
-                     // add field...
-                     for (var k=start_bit; k<=stop_bit; k++) {
-                          arr_encoded[k] = value[k-start_bit] ;
-                     }
+                // add field...
+                for (var k=start_bit; k<=stop_bit; k++) {
+                     arr_encoded[k] = value[k-start_bit] ;
                 }
            }
 
@@ -822,10 +828,17 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 	   }
 
-	   // CHECK: signature match at least one firm_reference...
+           // Return ret
+           return ret ;
+}
+
+function wsasm_src2obj_text_candidates ( context, ret, elto )
+{
            var candidates = 0 ;
            var signature_as_string = elto.value.signature.join(' ') ;
            var candidate_as_string = '' ;
+
+	   // CHECK: signature match at least one firm_reference...
            for (var i=0; i<elto.firm_reference.length; i++)
            {
                 // TODO [1]: find a way to match the unique instruction format that better fits
@@ -957,7 +970,6 @@ function wsasm_src2obj_text ( context, ret )
                                        "fields":       [],
                                        "signature":    [ possible_inst ]
                                     } ;
-                   elto.firm_reference = context.firmware[possible_inst] ;
 
 		   //
 		   //    label1:
@@ -969,9 +981,16 @@ function wsasm_src2obj_text ( context, ret )
 		       return ret;
 		   }
 
+                   // Find candidate from firm_reference
+                   elto.firm_reference = context.firmware[possible_inst] ;
+                   ret = wsasm_src2obj_text_candidates(context, ret, elto) ;
+		   if (ret.error != null) {
+		       return ret;
+		   }
+
 		   // ELTO: instruction + fields
-		   elto.source         = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
-                   elto.binary         = wsasm_encode_instruction(context, ret, elto) ;
+		   elto.source  = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
+                   elto.binary  = wsasm_encode_instruction(context, ret, elto) ;
 		   elto.comments.push(acc_cmt) ;
 		   elto.track_source.push(elto.source) ;
 
