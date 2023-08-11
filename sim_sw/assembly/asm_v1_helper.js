@@ -19,30 +19,33 @@
  */
 
 
-
 //
 // Known Issues (TODO list):
 //
-// * Review the pending labels (forth and back)
-//   Example:
-//     loop1: beq $t0 $t1 end1
-//            ...
-//            b loop1
-//      end1: ...
+// [1] If there are several 'candidates' instruction select the best fit
+//     Example:
+//       li $1 0x123   <- instruction register inm
+//       li $1 lab1    <- instruction register address
 //
-// * Label as number (perform later translation)
-//   Example:
-//   .data
-//     l1: .word l1  <- l1 need to be translated into its address
+// [2] Review the pending labels (forth and back)
+//     Example:
+//       loop1: beq $t0 $t1 end1
+//              ...
+//              b loop1
+//        end1: ...
 //
-// * Transform 'instruction' elto into binary
-//   Example:
-//   .text
-//     li $1 0x123   <- 000000 000001 0001.0010.0011
+// [3] Label as number (perform later translation)
+//     Example:
+//     .data
+//       l1: .word l1  <- l1 need to be translated into its address
 //
-// * Replace pseudoinstruction with the instructions(s)...
-//   Example:
-//     li reg 0x12345678 <- lui reg 0x1234 + add reg reg 0x5678
+// [4] Transform 'instruction' elto into binary AND
+//     Example:
+//       li $1 0x123   <- 000000 000001 0001.0010.0011
+//
+// [5] Replace pseudoinstruction with the instructions(s)...
+//     Example:
+//       li reg 0x12345678 <- lui reg 0x1234 + add reg reg 0x5678
 //
 
 
@@ -154,9 +157,10 @@ function wsasm_new_objElto ( base_elto )
                        byte_size:    0,  // size(datatype) in bytes
                        value:        0,
 
-                       binary:         '',
-                       firm_reference: null,
-                       pending:        null
+                       binary:               '',
+                       firm_reference:       null,
+                       firm_reference_index: -1,
+                       pending:              null
                    } ;
 
         if (null != base_elto) {
@@ -568,9 +572,88 @@ function wsasm_src2obj_data ( context, ret )
 
 function wsasm_encode_instruction ( context, ret, elto )
 {
-           // TODO: transform elto into binary
+           // 31(MSB) ............. 0(LSB)
+           //            ^     ^
+           //          start  stop
+           var start_bit = 0 ;
+           var stop_bit  = 0 ;
+           var n_bits    = 0 ;
+           var value       = 0 ;
+           var val_encoded = "" ;
+           var arr_encoded = "" ;
+           var ret1      = null ;
+           var candidate = null ;
 
-           return "0".repeat(32) ;
+           // prepare val_encoded...
+           val_encoded = "0".repeat(32) ;
+           arr_encoded = val_encoded.split('');
+
+           // (1) Instruction, copy 'co' field...
+           candidate = elto.firm_reference[elto.firm_reference_index] ;
+
+	   for (var i=0; i<=candidate.co.length; i++) {
+		arr_encoded[i] = candidate.co[i] ;
+	   }
+
+           // (2) Fields, copy values (e.g.: elto.value.signature = [ 'li', *'reg', 'inm'* ])
+           for (var i=1; i<elto.value.signature.length; i++)
+           {
+                // ej.: candidate.fields = [ {name: 'r1', type: 'reg', startbit: 0, stopbit: 5}, {...} ]
+                for (var j=0; j<candidate.fields.length; j++)
+                {
+                     // start/stop bit...
+                     if (elto.value.signature[i] == candidate.fields[j].type)
+                     {
+                         start_bit = 31 - parseInt(candidate.fields[j].startbit) ;
+                         stop_bit  = 31 - parseInt(candidate.fields[j].stopbit) ;
+                         n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
+                     }
+
+                     // value...
+                     if ("inm" == elto.value.signature[i])
+                     {
+			 ret1 = get_inm_value(elto.value.fields[i-1]) ; // fields omits 'li' that signature has ...
+
+			 if (ret1.isDecimal == true)
+			      a = decimal2binary(ret1.number, n_bits) ;
+			 else a =   float2binary(ret1.number, n_bits) ;
+
+			 value = a[0] ;
+                         if (a[1] < 0)
+                         {
+			     return asm_langError(context,
+						  i18n_get_TagFor('compiler', 'EXPECTED VALUE') + 'immediate' +
+						  "' (" + n_bits + " bits), " +
+						  i18n_get_TagFor('compiler', 'BUT INSERTED') + elto.value.fields[i-1] +
+						  "' (" + value.length + " bits) " +
+						  i18n_get_TagFor('compiler', 'INSTEAD') ) ;
+                         }
+
+			 value = value.padStart(n_bits, '0') ;
+                     }
+                     else if ("reg" == elto.value.signature[i])
+                     {
+                         value = elto.value.fields[i-1] ;  // fields array does not start with instruction name as signature does
+                         value = context.registers[value] ;
+			 value = (value >>> 0).toString(2) ;
+			 value = value.padStart(n_bits, '0') ;
+                     }
+                //   else if ("address" == elto.value.signature[i])
+                //   {
+                //        TODO[4]: transform 'instruction' elto into binary AND
+                //   }
+                //   else if ("..." == elto.value.signature[i])  // TODO: more types of fields such as (reg)...
+                //   {
+                //   }
+
+                     // add field...
+                     for (var k=start_bit; k<=stop_bit; k++) {
+                          arr_encoded[k] = value[k-start_bit] ;
+                     }
+                }
+           }
+
+           return arr_encoded.join('') ;
 }
 
 function wsasm_src2obj_text_instr_op ( context, ret, elto )
@@ -696,7 +779,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 		  // immediate only
                   else
                   {
-	              elto.value.fields.push(ret1.number) ;
+	              elto.value.fields.push(possible_inm) ;
 	              elto.value.signature.push('inm') ;
                       continue ;
                   }
@@ -734,7 +817,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 	   if (elto.value.fields.length > 100)
 	   {
 	       return asm_langError(context,
-				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
+				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO')    + "<br>" +
 				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + elto.value.instruction + ". " +
 				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 	   }
@@ -742,17 +825,27 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 	   // CHECK: signature match at least one firm_reference...
            var candidates = 0 ;
            var signature_as_string = elto.value.signature.join(' ') ;
+           var candidate_as_string = '' ;
            for (var i=0; i<elto.firm_reference.length; i++)
            {
-                if (elto.firm_reference[i].signatureUser == signature_as_string) {
+                // TODO [1]: find a way to match the unique instruction format that better fits
+
+                candidate_as_string = elto.firm_reference[i].signatureUser ;
+                if (candidate_as_string == signature_as_string) {
                     candidates ++ ;
+                    elto.firm_reference_index = i ;
+                }
+                candidate_as_string = candidate_as_string.replace('address', 'inm') ;
+                if (candidate_as_string == signature_as_string) {
+                    candidates ++ ;
+                    elto.firm_reference_index = i ;
                 }
            }
 
 	   if (0 == candidates)
 	   {
 	       return asm_langError(context,
-				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO') + "<br>" +
+				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO')    + "<br>" +
 				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + signature_as_string + ". " +
 				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 	   }
@@ -937,7 +1030,7 @@ function wsasm_compile_src2obj ( context, ret )
 // pass 2: replace pseudo-instructions
 function wsasm_resolve_pseudo ( context, ret )
 {
-         // TODO: replace pseudoinstruction with the instructions(s)...
+         // TODO[5]: replace pseudoinstruction with the instructions(s)...
 
 	 return ret;
 }
@@ -1007,7 +1100,7 @@ function wsasm_resolve_labels ( context, ret )
          {
               if (ret.obj[i].pending != null)
               {
-                  // TODO: review the pending labels (forth and back)
+                  // TODO[2]: review the pending labels (forth and back)
               }
          }
 
@@ -1140,6 +1233,7 @@ function wsasm_obj2mem  ( ret )
          var valuebin  = '' ;
          var valuebin8 = '' ;
 
+         var seg_name_old    = '' ;
          var seg_name        = '' ;
          var last_assig_word = {} ;
 
@@ -1152,8 +1246,16 @@ function wsasm_obj2mem  ( ret )
 
          for (var i=0; i<ret.obj.length; i++)
          {
-              // (1) update initial word address for this segment if needed...
+              // (1) flushing if there is some pending data in 'seg_name_old' segment...
               seg_name = ret.obj[i].seg_name ;
+	      if (seg_name_old != seg_name)
+              {
+	          if (seg_name_old != '')
+                      wsasm_zeropadding_and_writememory(ret.mp, gen) ;
+                  seg_name_old = seg_name ;
+	      }
+
+              // ...and update initial word address for this segment if needed...
               if (typeof last_assig_word[seg_name] == "undefined")
               {
                   gen.addr = "0x" + ret.obj[i].elto_ptr.toString(16) ;
