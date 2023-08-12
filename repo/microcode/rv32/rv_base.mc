@@ -252,7 +252,7 @@ ecall {
      eoc(14:12|31:25)=0000000000,
      help='environment call',
      {
-         ()
+         (CU=11)
      }
 }
 
@@ -261,7 +261,7 @@ ebreak {
      eoc(14:12|31:25)=0000000001,
      help='environment break',
      {
-         ()
+         (CU=11)
      }
 }
 
