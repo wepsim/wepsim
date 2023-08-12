@@ -593,11 +593,6 @@ function wsasm_encode_instruction ( context, ret, elto )
            //     * candidate.fields = [ {name: 'r1', type: 'reg', startbit: 0, stopbit: 5}, {...} ]
            for (var j=0; j<candidate.fields.length; j++)
            {
-                // skip if fields of different type...
-                if (elto.value.signature[j+1] != candidate.fields[j].type) {
-                    continue ; // TODO: this should be an error case since candidate must match with this instruction...
-                }
-
                 // start/stop bit...
                 start_bit  = parseInt(candidate.fields[j].startbit) ;
                 stop_bit   = parseInt(candidate.fields[j].stopbit) ;
@@ -637,6 +632,14 @@ function wsasm_encode_instruction ( context, ret, elto )
 			 value = (value >>> 0).toString(2) ;
 			 value = value.padStart(n_bits, '0') ;
                 }
+                else if ("(reg)" == elto.value.signature[j+1])
+                {
+                         value = elto.value.fields[j] ;
+                         value = value.replace('(', '').replace(')', '') ;
+                         value = context.registers[value] ;
+			 value = (value >>> 0).toString(2) ;
+			 value = value.padStart(n_bits, '0') ;
+                }
                 else if ("address" == elto.value.signature[j+1])
                 {
                          elto.pending = {
@@ -654,11 +657,11 @@ function wsasm_encode_instruction ( context, ret, elto )
                 }
            //   else if ("..." == elto.value.signature[j+1])
            //   {
-           //        TODO: more types of fields such as (reg) ??
+           //        TODO: more types of fields ??
            //   }
                 else
                 {
-                         // TODO: this is a sink case, should be error if not field type is detected ??
+                         // TODO: this is a sink case... Should be error if not field type is detected ??
 			 value = "0".padStart(n_bits, '0') ;
                 }
 
@@ -773,8 +776,10 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 						  i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
 			}
 
-			elto.value.fields.push(ret1.number + '(' + reg_name + ')') ;
-			elto.value.signature.push('inm(reg)') ;
+			elto.value.fields.push(possible_inm) ;
+			elto.value.signature.push('inm') ;
+			elto.value.fields.push('(' + reg_name + ')') ;
+			elto.value.signature.push('(reg)') ;
 
 			// next operand...
 			asm_nextToken(context) ;
@@ -1140,6 +1145,9 @@ function wsasm_resolve_labels ( context, ret )
                   if ("field-data" == elto.pending.type) {
                       elto.value = value ;
                   }
+
+               // TODO: address-abs vs address-rel
+               // value = (address-abs) ? value : value - address_this_instruction + 4;
 
 		  value = (value >>> 0).toString(2) ;
 		  value = value.padStart(elto.pending.n_bits, '0') ;

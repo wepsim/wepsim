@@ -426,7 +426,7 @@
 
             // update default drawing
 	    wepsim_svg_update_drawing() ;
-	    wsweb_set_cpucu_size(7);
+            wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
 
             // reload svg (just in case)
             for (var i in id_arr)
@@ -448,7 +448,9 @@
                      d = img_arr[i] + '?now=' + Date.now() ;
 		 }
 		 else {
-		     wsweb_set_cpucu_size(14);
+		     // wsweb_set_cpucu_size(14) without remembering 14...
+                     $('#slider2b').val(14) ;
+                     set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', 14) ;
 		 }
 
                  // set dark-mode after load
