@@ -34,20 +34,7 @@
 //              b loop1
 //        end1: ...
 //
-// [3] Label as number (perform later translation)
-//     Example:
-//     .data
-//       l1: .word l1  <- l1 need to be translated into its address
-//
-// [4] Transform 'instruction' elto into binary, including labels
-//     Example:
-//       li $1 l1
-//
-// [5] Multi-word instructions
-//     Example:
-//       la reg 0x12345678 <- 32 bit for 'la reg' + 32 bits for '0x12345678'
-//
-// [6] Replace pseudoinstruction with the instructions(s)...
+// [3] Replace pseudoinstruction with the instructions(s)...
 //     Example:
 //       li reg 0x12345678 <- lui reg 0x1234 + add reg reg 0x5678
 //
@@ -612,9 +599,14 @@ function wsasm_encode_instruction ( context, ret, elto )
                 }
 
                 // start/stop bit...
-                start_bit = (elto.byte_size * BYTE_LENGTH - 1) - parseInt(candidate.fields[j].startbit) ;
-                stop_bit  = (elto.byte_size * BYTE_LENGTH - 1) - parseInt(candidate.fields[j].stopbit) ;
-                n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
+                start_bit  = parseInt(candidate.fields[j].startbit) ;
+                stop_bit   = parseInt(candidate.fields[j].stopbit) ;
+                 lower_bit = Math.min(start_bit, stop_bit) ;
+                 w_n_bits  = WORD_BYTES * BYTE_LENGTH ;
+                 w_index   = ~~(lower_bit / w_n_bits) ;
+                start_bit  = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit ; // w_index*64+32-1 - start_bit 
+                stop_bit   = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit ;  // w_index*64+32-1 - stop_bit 
+                n_bits     = Math.abs(stop_bit - start_bit) + 1 ;
 
                 // value...
                 if ("inm" == elto.value.signature[j+1])
@@ -657,14 +649,16 @@ function wsasm_encode_instruction ( context, ret, elto )
                                            rel:          false,
 					   labelContext: asm_getLabelContext(context)
                                         } ;
+
+                         continue ; // no field to add -> skip add field
                 }
-           //   else if ("..." == elto.value.signature[j+1])  // TODO: more types of fields such as (reg)...
+           //   else if ("..." == elto.value.signature[j+1])
            //   {
-           //        TODO[4]: transform 'instruction' elto into binary
+           //        TODO: more types of fields such as (reg) ??
            //   }
                 else
                 {
-                         // TODO: this is a sink case, should be error if not field type is detected?
+                         // TODO: this is a sink case, should be error if not field type is detected ??
 			 value = "0".padStart(n_bits, '0') ;
                 }
 
@@ -808,7 +802,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
               } /* </immediate> */
 
 
-              // TODO: other possible fields:
+              // TODO: other possible fields if needed...
               // if (<other type of field)
               // {
               //      ...
@@ -1067,7 +1061,7 @@ function wsasm_compile_src2obj ( context, ret )
 // pass 2: replace pseudo-instructions
 function wsasm_resolve_pseudo ( context, ret )
 {
-         // TODO[6]: replace pseudoinstruction with the instructions(s)...
+         // TODO[3]: replace pseudoinstruction with the instructions(s)...
 
 	 return ret;
 }
@@ -1143,19 +1137,17 @@ function wsasm_resolve_labels ( context, ret )
               {
                   value = elto.pending.label ;
                   value = parseInt(ret.labels2[value]) ;
-                  if ("field-data" == elto.pending.type)
+                  if ("field-data" == elto.pending.type) {
                       elto.value = value ;
+                  }
 
 		  value = (value >>> 0).toString(2) ;
 		  value = value.padStart(elto.pending.n_bits, '0') ;
                   arr_encoded = elto.binary.split('') ;
-		  for (var k=elto.pending.start_bit; k<=elto.pending.stop_bit; k++)
-                  {
-if (elto.pending.start_bit < 0) continue; // TODO[5]: when multi-word instructions are supported this line can be removed
-			     arr_encoded[k] = value[k-elto.pending.start_bit] ;
+		  for (var k=elto.pending.start_bit; k<=elto.pending.stop_bit; k++) {
+		       arr_encoded[k] = value[k-elto.pending.start_bit] ;
 		  }
                   elto.binary = arr_encoded.join('') ;
-
 
                   // TODO[2]: review the pending labels (forth and back)
               }
