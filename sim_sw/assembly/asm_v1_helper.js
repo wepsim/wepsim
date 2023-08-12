@@ -43,7 +43,11 @@
 //     Example:
 //       li $1 l1
 //
-// [5] Replace pseudoinstruction with the instructions(s)...
+// [5] Multi-word instructions
+//     Example:
+//       la reg 0x12345678 <- 32 bit for 'la reg' + 32 bits for '0x12345678'
+//
+// [6] Replace pseudoinstruction with the instructions(s)...
 //     Example:
 //       li reg 0x12345678 <- lui reg 0x1234 + add reg reg 0x5678
 //
@@ -358,12 +362,13 @@ function wsasm_src2obj_data ( context, ret )
 				if (label_found)
                                 {
                                     elto.pending = {
-						       name:         possible_value,
+                                                       type:         "field-data",
+						       label:        possible_value,
 						       addr:         elto.seg_ptr,
-						       startbit:     31,           // TODO
-						       stopbit:      0,            // TODO
-						       rel:          undefined,    // TODO
-						       nwords:       1,
+						       start_bit:    0,
+						       stop_bit:     WORD_BYTES*BYTE_LENGTH-1,
+						       n_bits:       WORD_BYTES*BYTE_LENGTH,
+						       rel:          false,
 						       labelContext: asm_getLabelContext(context)
                                                    } ;
 				}
@@ -572,9 +577,9 @@ function wsasm_src2obj_data ( context, ret )
 
 function wsasm_encode_instruction ( context, ret, elto )
 {
-           // 31(MSB) ............. 0(LSB)
-           //            ^     ^
-           //          start  stop
+           // .../63/31(MSB) ..................... 0(LSB)
+           //                      ^         ^
+           //                 start_bit  stop_bit
            var start_bit = 0 ;
            var stop_bit  = 0 ;
            var n_bits    = 0 ;
@@ -585,7 +590,7 @@ function wsasm_encode_instruction ( context, ret, elto )
            var candidate = null ;
 
            // prepare val_encoded...
-           val_encoded = "0".repeat(32) ;
+           val_encoded = "0".repeat(elto.byte_size * BYTE_LENGTH) ;
            arr_encoded = val_encoded.split('');
 
            // (1) Instruction, copy 'co' field...
@@ -607,8 +612,8 @@ function wsasm_encode_instruction ( context, ret, elto )
                 }
 
                 // start/stop bit...
-                start_bit = 31 - parseInt(candidate.fields[j].startbit) ;
-                stop_bit  = 31 - parseInt(candidate.fields[j].stopbit) ;
+                start_bit = (elto.byte_size * BYTE_LENGTH - 1) - parseInt(candidate.fields[j].startbit) ;
+                stop_bit  = (elto.byte_size * BYTE_LENGTH - 1) - parseInt(candidate.fields[j].stopbit) ;
                 n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
 
                 // value...
@@ -640,16 +645,26 @@ function wsasm_encode_instruction ( context, ret, elto )
 			 value = (value >>> 0).toString(2) ;
 			 value = value.padStart(n_bits, '0') ;
                 }
-           //   else if ("address" == elto.value.signature[j+1])
+                else if ("address" == elto.value.signature[j+1])
+                {
+                         elto.pending = {
+                                           type:         "field-instruction",
+                                           label:        elto.value.fields[j],
+                                           addr:         0,
+                                           start_bit:    start_bit,
+                                           stop_bit:     stop_bit,
+                                           n_bits:       n_bits,
+                                           rel:          false,
+					   labelContext: asm_getLabelContext(context)
+                                        } ;
+                }
+           //   else if ("..." == elto.value.signature[j+1])  // TODO: more types of fields such as (reg)...
            //   {
            //        TODO[4]: transform 'instruction' elto into binary
            //   }
-           //   else if ("..." == elto.value.signature[j+1])  // TODO: more types of fields such as (reg)...
-           //   {
-           //   }
                 else
                 {
-                         // TODO: this is a sink case, should be error if not field type is detected
+                         // TODO: this is a sink case, should be error if not field type is detected?
 			 value = "0".padStart(n_bits, '0') ;
                 }
 
@@ -863,6 +878,9 @@ function wsasm_src2obj_text_candidates ( context, ret, elto )
 				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 	   }
 
+           // update size for multi-word instructions
+           elto.byte_size = elto.firm_reference[elto.firm_reference_index].nwords * WORD_BYTES ;
+
            // Return ret
            return ret ;
 }
@@ -989,8 +1007,8 @@ function wsasm_src2obj_text ( context, ret )
 		   }
 
 		   // ELTO: instruction + fields
-		   elto.source  = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
-                   elto.binary  = wsasm_encode_instruction(context, ret, elto) ;
+		   elto.source = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
+                   elto.binary = wsasm_encode_instruction(context, ret, elto) ;
 		   elto.comments.push(acc_cmt) ;
 		   elto.track_source.push(elto.source) ;
 
@@ -1049,7 +1067,7 @@ function wsasm_compile_src2obj ( context, ret )
 // pass 2: replace pseudo-instructions
 function wsasm_resolve_pseudo ( context, ret )
 {
-         // TODO[5]: replace pseudoinstruction with the instructions(s)...
+         // TODO[6]: replace pseudoinstruction with the instructions(s)...
 
 	 return ret;
 }
@@ -1115,10 +1133,30 @@ function wsasm_resolve_labels ( context, ret )
          }
 
          // review the pending labels (forth and back)
+         var elto  = null ;
+         var value = 0 ;
+         var arr_encoded = null ;
          for (var i=0; i<ret.obj.length; i++)
          {
-              if (ret.obj[i].pending != null)
+              elto = ret.obj[i] ;
+              if (elto.pending != null)
               {
+                  value = elto.pending.label ;
+                  value = parseInt(ret.labels2[value]) ;
+                  if ("field-data" == elto.pending.type)
+                      elto.value = value ;
+
+		  value = (value >>> 0).toString(2) ;
+		  value = value.padStart(elto.pending.n_bits, '0') ;
+                  arr_encoded = elto.binary.split('') ;
+		  for (var k=elto.pending.start_bit; k<=elto.pending.stop_bit; k++)
+                  {
+if (elto.pending.start_bit < 0) continue; // TODO[5]: when multi-word instructions are supported this line can be removed
+			     arr_encoded[k] = value[k-elto.pending.start_bit] ;
+		  }
+                  elto.binary = arr_encoded.join('') ;
+
+
                   // TODO[2]: review the pending labels (forth and back)
               }
          }
