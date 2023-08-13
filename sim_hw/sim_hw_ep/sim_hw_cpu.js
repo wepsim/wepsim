@@ -518,7 +518,8 @@
                                     depends_on: ["CLK"],
 			            fire_name: ['svg_cu:text3408'],
 			            draw_data: [['svg_cu:path3100-8-7', 'svg_cu:path3108-1', 'svg_cu:path3200-1'],
-                                                ['svg_cu:path3392', 'svg_cu:path3372', 'svg_cu:path3390', 'svg_cu:path3384', 'svg_cu:path3100-8-7', 'svg_cu:path3386']],
+                                                ['svg_cu:path3392', 'svg_cu:path3372', 'svg_cu:path3390', 'svg_cu:path3384',
+                                                 'svg_cu:path3100-8-7', 'svg_cu:path3386', 'svg_cu:path3200-1']],
 			            draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6']] };
 	 sim.ep.signals["A0"]   = { name: "A0", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
 			            behavior: ["SBIT_SIGNAL A0A1 0 1; FIRE A0A1",
@@ -840,7 +841,7 @@
                                                    'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
                                                    'svg_cu:path3260','svg_cu:path3196','svg_cu:path3278','svg_cu:path3292','svg_cu:path3142',
                                                    'svg_cu:path3258-4','svg_cu:path3390-7','svg_cu:path3258','svg_cu:path3280',
-                                                   'svg_cu:path3200','svg_cu:path3204','svg_cu:path3208'],
+                                                   'svg_cu:path3200','svg_cu:path3204','svg_cu:path3208','svg_cu:path3268','svg_cu:path3316'],
 					          ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300','svg_cu:path3258','svg_cu:path3260',
 				                   'svg_cu:path3258-4','svg_cu:path3278','svg_cu:path3196','svg_cu:path3294','svg_cu:path3292',
 					           'svg_cu:path3288','svg_cu:path3280','svg_cu:path3258','svg_cu:path3258-4','svg_cu:path3390-7',
