@@ -19,28 +19,13 @@
  */
 
 
-//
-// Known Issues (TODO list):
-//
-// [1] If there are several 'candidates' instruction select the best fit
-//     Example:
-//       li $1 0x123   <- instruction register inm
-//       li $1 lab1    <- instruction register address
-//
-// [2] Review the pending labels (forth and back)
-//     Example:
-//       loop1: beq $t0 $t1 end1
-//              ...
-//              b loop1
-//        end1: ...
-//
-// [3] Replace pseudoinstruction with the instructions(s)...
-//     Example:
-//       li reg 0x12345678 <- lui reg 0x1234 + add reg reg 0x5678
-//
+/* See README_ng.md for more information */
 
 
+//
 // Pass 0: prepare context
+//
+
 function wsasm_prepare_context ( CU_data, asm_source )
 {
            var context = {} ;
@@ -125,7 +110,9 @@ function wsasm_prepare_context ( CU_data, asm_source )
 }
 
 
-// pass 1: compile assembly to obj (data and text without replacing pseudo-instructions)
+//
+// Pass 1: compile assembly to obj (data and text without replacing pseudo-instructions)
+//
 
   //  <source>            -> <eltos>
   //                      ->
@@ -1063,7 +1050,10 @@ function wsasm_compile_src2obj ( context, ret )
 }
 
 
-// pass 2: replace pseudo-instructions
+//
+// Pass 2: replace pseudo-instructions
+//
+
 function wsasm_resolve_pseudo ( context, ret )
 {
          // TODO[3]: replace pseudoinstruction with the instructions(s)...
@@ -1072,7 +1062,10 @@ function wsasm_resolve_pseudo ( context, ret )
 }
 
 
-// pass 3: check that all used labels are defined in the text
+//
+// Pass 3: check that all used labels are defined in the text
+//
+
 function wsasm_resolve_labels ( context, ret )
 {
          var seg_name = '' ;
