@@ -125,7 +125,7 @@
 
             // labels (seg)
             var SIMWARE = get_simware() ;
-            var seglabels = SIMWARE.revseg ;
+            var seglabels = SIMWARE.hash_seg_rev ;
 
             // memory
             var base_addrs = main_memory_get_baseaddr() ;
@@ -189,7 +189,7 @@
                 if (s2 !== '') o2 += s2 ;
 
                 // (add row)
-                o2 += main_memory_showrow(cfg, memory_cpy, keys[k], (keys[k] == index), SIMWARE.revlabels2) ;
+                o2 += main_memory_showrow(cfg, memory_cpy, keys[k], (keys[k] == index), SIMWARE.hash_labels2_rev) ;
             }
 
             // pack and load html

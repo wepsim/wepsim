@@ -25,6 +25,16 @@
 
 function simlang_compile ( text, datosCU )
 {
-     return simlang_compile_v1(text, datosCU) ;
+     var ret = null ;
+
+/* ***** <TESTING_AREA> ***** */
+     if (typeof ws_bypass != "undefined") {
+          ret = wsasm_src2mem(text, datosCU) ;
+     }
+/* ***** </TESTING_AREA> ***** */
+
+     ret = simlang_compile_v1(text, datosCU) ;
+
+     return ret ;
 }
 
