@@ -323,7 +323,7 @@ lb rd offset(rs1) {
       help='rd = (00, 00, 00, MEM[rs1 + offset])',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=1, DMR),
+          (M2, M3=10, AluOp=1010, SE=1, WBE=1, DMR),
           (RW, CU=11)
       }
 }
@@ -338,7 +338,7 @@ lbu rd offset(rs1) {
       help='rd = (00, 00, 00, MEM[rs1 + offset])',
       {
           (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=1, DMR),
+          (M2, M3=10, AluOp=1010, SE=0, WBE=1, DMR),
           (RW, CU=11)
       }
 }
@@ -354,7 +354,7 @@ lh rd offset(rs1) {
       help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=10, DMR),
+          (M2, M3=10, AluOp=1010, SE=1, WBE=10, DMR),
           (RW, CU=11)
       }
 }
@@ -370,7 +370,7 @@ lhu rd offset(rs1) {
       help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
       {
           (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=10, DMR),
+          (M2, M3=10, AluOp=1010, SE=0, WBE=10, DMR),
           (RW, CU=11)
       }
 }
@@ -779,7 +779,6 @@ sb rs2 offset(rs1) {
       }
 }
 
-# TODO
 #  SH rs2,offset(rs1)         Store Half                         u16[rs1 + offset] ← rs2
 sh rs2 offset(rs1) {
       oc(6:0)=0100011,

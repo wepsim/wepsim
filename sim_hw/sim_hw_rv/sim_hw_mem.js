@@ -169,6 +169,9 @@
                                                       if ( bw == 1 ) {
                                                         var byte_s = 0x0000;
                                                         dbvalue = main_memory_fusionvalues(dbvalue, value, byte_s) ;
+                                                      } else if ( bw == 2 ) {
+                                                        var byte_s = 0x0004;
+                                                        dbvalue = main_memory_fusionvalues(dbvalue, value, byte_s) ;
                                                       } else {
                                                         dbvalue = value;
                                                       }
@@ -193,6 +196,8 @@
 					              var bw_type = "word" ;
                                                            if ( bw == 1 )
 							  bw_type = "byte" ;
+                                                       else if ( bw == 2 )
+							  bw_type = "half" ;
 
                                                       var value = main_memory_getvalue(sim.rv.internal_states.MP,
                                                                                        address) ;
@@ -247,6 +252,9 @@
                                                       if ( bw == 1 ) {
                                                         var byte_s = 0x0000;
                                                         value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
+                                                      } else if ( bw == 2 ) {
+                                                        var byte_s = 0x0004;
+                                                        value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
                                                       } else {
                                                         var byte_s = 0x000C;
                                                         value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
@@ -288,6 +296,8 @@
 					              var bw_type = "word" ;
                                                            if ( bw == 1 )
 							  bw_type = "byte" ;
+                                                       else if ( bw == 2 )
+							  bw_type = "half" ;
 
                                                       var value = main_memory_getvalue(sim.rv.internal_states.MP,
                                                                                        address) ;

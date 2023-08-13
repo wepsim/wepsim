@@ -323,8 +323,7 @@ lb rd offset(rs1) {
       help='rd = (00, 00, 00, MEM[rs1 + offset])',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=1, DMR),
-          (RW, CU=11)
+          (M2, M3=10, AluOp=1010, SE=1, WBE=1, DMR, RW, CU=11)
       }
 }
 
@@ -338,12 +337,10 @@ lbu rd offset(rs1) {
       help='rd = (00, 00, 00, MEM[rs1 + offset])',
       {
           (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=1, DMR),
-          (RW, CU=11)
+          (M2, M3=10, AluOp=1010, SE=0, WBE=1, DMR, RW, CU=11)
       }
 }
 
-# TODO
 #  LH rd,offset(rs1)         Load Half                         rd ← s16[rs1 + offset]
 lh rd offset(rs1) {
       oc(6:0)=0000011,
@@ -354,12 +351,10 @@ lh rd offset(rs1) {
       help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=10, DMR),
-          (RW, CU=11)
+          (M2, M3=10, AluOp=1010, SE=1, WBE=10, DMR, RW, CU=11)
       }
 }
 
-# TODO
 #  LHU rd,offset(rs1)         Load Half Unsigned                rd ← s16[rs1 + offset]
 lhu rd offset(rs1) {
       oc(6:0)=0000011,
@@ -370,8 +365,7 @@ lhu rd offset(rs1) {
       help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
       {
           (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, WBE=10, DMR),
-          (RW, CU=11)
+          (M2, M3=10, AluOp=1010, SE=0, WBE=10, DMR, RW, CU=11)
       }
 }
 
@@ -397,8 +391,7 @@ lw rd offset(rs1) {
       help='rd = (MEM[rs1+offset+3] .. MEM[rs1+offset])',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
-          (M2, M3=10, AluOp=1010, DMR),
-          (RW, CU=11)
+          (M2, M3=10, AluOp=1010, DMR, RW, CU=11)
       }
 }
 
@@ -779,7 +772,6 @@ sb rs2 offset(rs1) {
       }
 }
 
-# TODO
 #  SH rs2,offset(rs1)         Store Half                         u16[rs1 + offset] ← rs2
 sh rs2 offset(rs1) {
       oc(6:0)=0100011,

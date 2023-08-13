@@ -707,11 +707,12 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 		ret.op_code = parseInt(oc, 2) ;
 
 		// eoc
-		// this needs A LOT of explaining
 		// https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
 		if (ep_ir.default_eltos.eoc.type == 2) {
 			var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
-			if (oc == '0110011') {
+			if (oc == '0110011' || oc == '1110011') {
+				eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+			} else if (oc == '0010011' && (eoc == '001' || eoc == '101')) {
 				eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
 			}
 		} else {
