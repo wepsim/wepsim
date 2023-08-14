@@ -1115,14 +1115,14 @@ function read_text_v2 ( context, datosCU, ret )
 		while (false === ref.isPseudoinstruction)
 		{
 			if ( firmware[instruction][candidate].co !== false ) {
-				var new_ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
+				var new_ref = datosCU.hash_cocop[firmware[instruction][candidate].co] ;
 				if (new_ref.withcop)
 					new_ref = new_ref[firmware[instruction][candidate].cop] ;
 				else new_ref = new_ref.i ;
 
 							// <TO-CHECK>:
 							if (typeof new_ref == "undefined") {
-					ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
+					ref = datosCU.hash_cocop[firmware[instruction][candidate].co] ;
 					ref = ref.i ;
 								break ;
 					}
@@ -1130,14 +1130,14 @@ function read_text_v2 ( context, datosCU, ret )
 
 							ref = new_ref ;
 			} else {
-				var new_ref = datosCU.oceoc_hash[context.firmware[instruction][candidate].oc] ;
+				var new_ref = datosCU.hash_oceoc[context.firmware[instruction][candidate].oc] ;
 				if (new_ref.witheoc)
 					new_ref = new_ref[context.firmware[instruction][candidate].eoc] ;
 				else new_ref = new_ref.i ;
 
 				// <TO-CHECK>:
 				if (typeof new_ref == "undefined") {
-					ref = datosCU.oceoc_hash[context.firmware[instruction][candidate].oc] ;
+					ref = datosCU.hash_oceoc[context.firmware[instruction][candidate].oc] ;
 					ref = ref.i ;
 					break ;
 				}
