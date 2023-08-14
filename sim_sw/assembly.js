@@ -29,7 +29,7 @@ function simlang_compile ( text, datosCU )
 
 /* ***** <TESTING_AREA> ***** */
      if (typeof ws_bypass != "undefined") {
-          ret = wsasm_src2mem(text, datosCU) ;
+          ret = wsasm_src2mem(datosCU, text) ;
      }
 /* ***** </TESTING_AREA> ***** */
 
