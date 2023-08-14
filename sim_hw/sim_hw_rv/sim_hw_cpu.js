@@ -164,11 +164,12 @@
 		                    name:  "IR",
 		                    state: "REG_IR",
 		                    default_eltos:	{
-					    			"co":		{ "begin":  0, "end":  5, "length": 6 },
+								"co":		{ "begin":  0, "end":  5, "length": 6 },
 								"cop":		{ "begin": 28, "end": 31, "length": 4 },
-								"oc":		{ "begin":  0, "end":  6, "length": 7 },
-								//"eoc":		{ "type": 	1, "begin": 12, "end": 14, "length": 3 },
-								"eoc":		{ "type": 	2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
+								"oc":		{ "begin": 25, "end": 31, "length": 7 },
+								"eoc":		{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
+								//"eoc":		{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
+								//"eoc":		{ "type": 2, "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
 							},
 		                    is_pointer: false
 	                         } ;
@@ -453,7 +454,7 @@
 	sim.rv.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "LOAD REG_IR RDATA; DECO; MBIT_SN R_IMM REG_IR REG_MICROINS/R_IMM 5; LOAD VAL_IMM R_IMM"],
 				   fire_name: ['svg_p:text7309'],
-				   draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
+				   draw_data: [['svg_p:path6711', 'svg_p:path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
 				   draw_name: [['svg_p:path7301']] };
 	*/
 
@@ -462,26 +463,28 @@
 					fire_name: ['svg_p:text7309'],
 					draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
 					draw_name: [['svg_p:path7301']] };
+	sim.rv.signals["GEN_IMM"] = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+					behavior: ["NOP", "DECO_IMM VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM"],
+					fire_name: ['svg_p:text7300'],
+					draw_data: [['svg_p:path6981', 'svg_p:path6903', 'svg_p:path:6904']],
+					draw_name: [['svg_p:path7146']] };
+	sim.rv.signals["SE_IMM"] = { name: "SE_IMM", visible: true, type: "L", value: 0, default_value:1, nbits: "1",
+					verbal: ['Set superior bits of immediate value to 0.',
+								'Extend sign of immediate value.'],
+					behavior: ["NOP", "NOP"],
+					fire_name: ['svg_p:text7301'],
+					draw_data: [[]],
+					draw_name: [['svg_p:path7292']] };
 	sim.rv.signals["SIZE"] = { name: "SIZE", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 					behavior: ["NOP"],
-					fire_name: [],
+					fire_name: ['svg_p:text7302'],
 					draw_data: [[]],
-					draw_name: [[]] };
-	sim.rv.signals["GEN_IMM"] = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-					behavior: ["NOP", "MBITS VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM"],
-					fire_name: [],
-					draw_data: [[]],
-					draw_name: [[]] };
+					draw_name: [['svg_p:path7293']] };
 	sim.rv.signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 					behavior: ["NOP"],
-					fire_name: [],
+					fire_name: ['svg_p:text7303'],
 					draw_data: [[]],
-					draw_name: [[]] };
-	sim.rv.signals["SE_IMM"] = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-					behavior: ["NOP", "NOP"],
-					fire_name: [],
-					draw_data: [[]],
-					draw_name: [[]] };
+					draw_name: [['svg_p:path7294']] };
 
 	/* OUT REGISTER */
 	sim.rv.signals["WOUT"] = { name: "WOUT", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
@@ -562,11 +565,11 @@
 								"OR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"NOT ALU_WOUT M2_ALU; UPDATE_NZ",
 								"XOR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SRL ALU_WOUT M2_ALU; UPDATE_NZ",
-								"SRA ALU_WOUT M2_ALU; UPDATE_NZ",
-								"SL ALU_WOUT M2_ALU; UPDATE_NZ",
-								"RR ALU_WOUT M2_ALU; UPDATE_NZ",
-								"RL ALU_WOUT M2_ALU; UPDATE_NZ",
+								"SRL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"SRA ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"SL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"RR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+								"RL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"ADD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"SUB ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
@@ -596,27 +599,29 @@
 	/* DATA MEMORY SIGNALS */
 	sim.rv.signals.DMR = { name: "DMR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				behavior: ["MV DM_BS REG_OUT; FIRE WBE",
-						"MEM_READ M3_ALU DM_BS WBE CLK; FIRE WBE"],
+						"MEM_READ ALU_WOUT DM_BS WBE CLK; FIRE WBE"],
 				fire_name: ['svg_p:text7589','svg_p:text7507'],
-				draw_data: [[], ['svg_p:path7525','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
+				draw_data: [[], ['svg_p:path7525', 'svg_p:path6837-6', 'svg_p:path7073', 'svg_p:path7619', 'svg_p:path7571', 'svg_p:path7573']],
 				draw_name: [[], []] };
 	sim.rv.signals.DMW = { name: "DMW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				behavior: ["NOP",
-						"MEM_WRITE M3_ALU DM_BS WBE CLK"],
+						"MEM_WRITE ALU_WOUT DM_BS WBE CLK"],
 				fire_name: ['svg_p:text7597','svg_p:text7515'],
-				draw_data: [[], ['svg_p:path7527','svg_p:path6841-5', 'svg_p:path7577', 'svg_p:path7619', 'svg_p:path7623', 'svg_p:path7625', 'svg_p:path7571', 'svg_p:path7573']],
+				draw_data: [[], ['svg_p:path7527', 'svg_p:path6837-6', 'svg_p:path7073', 'svg_p:path7619', 'svg_p:path7571', 'svg_p:path7573']],
 				draw_name: [[], []] };
 
 	/* BYTE/WORD SELECTOR*/
-	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+	sim.rv.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
 				behavior: ['MV BS_M1 DM_BS',
-					   'BWSEL BS_M1 DM_BS SE'],
+					   'BWSEL BS_M1 DM_BS 0 0 8 SE',
+					   'BWSEL BS_M1 DM_BS 0 0 16 SE',
+					   'NOP'],
 				depends_on: ["RW"],
 				fire_name: ['svg_p:text7555', 'svg_p:text7433'],
 				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581', 'svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
 				draw_name: [['svg_p:path7529', 'svg_p:path7425']] };
-	sim.rv.signals["SE"]  = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-				verbal: ['If WBE is enabled, set the 24 superior bits of Word to 0.',
+	sim.rv.signals["SE"]  = { name: "SE", visible: true, type: "L", value: 0, default_value:1, nbits: "1",
+				verbal: ['If WBE is enabled, set superior bits of Word to 0.',
 						'If WBE is enabled, extend byte sign to Word.'],
 				behavior: ["NOP",
 							"NOP"],
@@ -636,7 +641,7 @@
 	sim.rv.signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_N VAL_ZERO", "MV FLAG_N VAL_ONE"],
                                   depends_on: ["ALUOP"],
-		  	          fire_name: ['svg_p:text7607', 'svg_p:text7185'],
+		  	          fire_name: ['svg_p:text351', 'svg_p:text7185'],
 			          draw_data: [['svg_p:path7251']],
 			          draw_name: [['svg_p:path7157']] };
 	sim.rv.signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
@@ -1081,10 +1086,11 @@
                                                 }
 				   };
 	sim.rv.behaviors["SRL"]      = { nparameters: 3,
-				     types: ["E", "E"],
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) >>> 1 ;
+											var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+											var result = (get_value(sim.rv.states[s_expr[2]])) >>> shifts ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1094,7 +1100,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) >>> 1 ;
+				                   var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = (get_value(sim.rv.states[s_expr[2]])) >>> shifts ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -1105,10 +1112,11 @@
                                                 }
 				   };
 	sim.rv.behaviors["SRA"]      = { nparameters: 3,
-				     types: ["E", "E"],
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) >> 1 ;
+											var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+											var result = (get_value(sim.rv.states[s_expr[2]])) >> shifts ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1118,7 +1126,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) >> 1 ;
+				                   var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = (get_value(sim.rv.states[s_expr[2]])) >> shifts ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -1128,11 +1137,12 @@
                                                    return "ALU output = " + show_value(result) + " (SRA). " ;
                                                 }
 				   };
-	sim.rv.behaviors["SL"]       = { nparameters: 3,
-				     types: ["E", "E"],
+	sim.rv.behaviors["SL"]       = { nparameters: 4,
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) << 1 ;
+											var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+											var result = (get_value(sim.rv.states[s_expr[2]])) << shifts ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1142,7 +1152,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = (get_value(sim.rv.states[s_expr[2]])) << 1 ;
+				                   var shifts = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = (get_value(sim.rv.states[s_expr[2]])) << shifts ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -1153,10 +1164,11 @@
                                                 }
 				   };
 	sim.rv.behaviors["RR"]       = { nparameters: 3,
-				     types: ["E", "E"],
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = ((get_value(sim.rv.states[s_expr[2]])) >>> 1) | (((get_value(sim.rv.states[s_expr[2]])) & 1) << 31) ;
+				                   var rotations = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = ((get_value(sim.rv.states[s_expr[2]])) >>> rotations) | (((get_value(sim.rv.states[s_expr[2]])) & rotations) << 31) ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1166,7 +1178,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = ((get_value(sim.rv.states[s_expr[2]])) >>> 1) | (((get_value(sim.rv.states[s_expr[2]])) & 1) << 31) ;
+				                   var rotations = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = ((get_value(sim.rv.states[s_expr[2]])) >>> rotations) | (((get_value(sim.rv.states[s_expr[2]])) & rotations) << 31) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -1180,7 +1193,8 @@
 				     types: ["E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = ((get_value(sim.rv.states[s_expr[2]])) << 1) | (((get_value(sim.rv.states[s_expr[2]])) & 0X80000000) >>> 31) ;
+				                   var rotations = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = ((get_value(sim.rv.states[s_expr[2]])) << rotations) | (((get_value(sim.rv.states[s_expr[2]])) & 0X80000000) >>> 31) ;
 						   set_value(sim.rv.states[s_expr[1]], result >>> 0) ;
 
 						   sim.rv.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1190,7 +1204,8 @@
                                                 },
                                         verbal: function (s_expr)
                                                 {
-				                   var result = ((get_value(sim.rv.states[s_expr[2]])) << 1) | (((get_value(sim.rv.states[s_expr[2]])) & 0X80000000) >>> 31) ;
+				                   var rotations = get_value(sim.rv.states[s_expr[3]]) ;
+				                   var result = ((get_value(sim.rv.states[s_expr[2]])) << rotations) | (((get_value(sim.rv.states[s_expr[2]])) & 0X80000000) >>> 31) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
@@ -2106,6 +2121,60 @@
                                                 }
 				   };
 
+	sim.rv.behaviors["DECO_IMM"] 	= { nparameters: 8,
+					types: ["E", "I", "E", "S", "S", "I", "S"],
+					operation: function(s_expr)
+						{
+							var oi = decode_instruction(sim.rv.internal_states.FIRMWARE,
+														sim.rv.ctrl_states.ir,
+														get_value(sim.rv.states['REG_IR'])) ;
+							var bits = [];
+							var startbit;
+							var stopbit;
+							for (var i=0; i < oi.oinstruction.fields.length; i++) {
+								if (oi.oinstruction.fields[i].type == "inm" ||
+									oi.oinstruction.fields[i].type == "imm" ||
+									oi.oinstruction.fields[i].type == "address") {
+										if (oi.oinstruction.fields[i].bits !== undefined) {
+											bits = oi.oinstruction.fields[i].bits;
+										} else {
+											bits[0] = new Array(2);
+											bits[0][0] = oi.oinstruction.fields[i].startbit;
+											bits[0][1] = oi.oinstruction.fields[i].stopbit;
+										}
+									}
+							}
+
+							var offset = parseInt(sim.rv.signals[s_expr[4]].value) ;
+							var size   = parseInt(sim.rv.signals[s_expr[5]].value) ;
+
+							var n1 = get_value(sim.rv.states[s_expr[3]]).toString(2); // to binary
+							n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
+
+							var n2 = "";
+							for (var i=bits.length-1; i >= 0; i--) {
+								for (var j=31-bits[i][0]; j <= 31-bits[i][1]; j++) {
+									n2 += n1[j];
+								}
+							}
+							n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2) ;
+							n2 = n2.substr(31 - (size - 1), size);
+							n2 = n2 + "0".repeat(offset);
+
+							var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+							if ( ("1" ==  sim.rv.signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
+							{	// check signed-extension
+								n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
+							}
+
+							set_value(sim.rv.states[s_expr[1]], parseInt(n3, 2));
+						},
+						verbal: function (s_expr)
+						{
+							return "Generate immediate value" ;
+						}
+				};
+
 	sim.rv.behaviors["BSEL"] =  { nparameters: 6,
 				     types: ["E", "I", "I", "E", "I"],
 				     operation: function (s_expr)
@@ -2149,15 +2218,15 @@
                                                 }
 				   };
 
-	sim.rv.behaviors["BWSEL"] = { nparameters: 4,
-					types: ["E", "E", "S"],
+	sim.rv.behaviors["BWSEL"] = { nparameters: 7,
+					types: ["E", "E", "I", "I", "I", "S"],
 					operation: function(s_expr)
 							{
 								// Pre-defined positions and length
-								var posd = 0 ;
-								var poso = 0 ;
-								var len  = 8 ;
-								var sign_ext = sim.rv.signals[s_expr[3]].value;
+								var posd = parseInt(s_expr[3]) ;
+								var poso = parseInt(s_expr[4]) ;
+								var len  = parseInt(s_expr[5]) ;
+								var sign_ext = sim.rv.signals[s_expr[6]].value;
 
 								var n1 = get_value(sim.rv.states[s_expr[2]]).toString(2); // to binary
 								var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
@@ -2167,26 +2236,27 @@
 								n3 = n3 + n4;
 
 								if (sign_ext) {
-									//Extend byte sign to full Word
+									//Extend byte/half sign to full Word
 									var s1 = n2 ;
 									var s2 = ("00000000000000000000000000000000".substring(0, 32 - s1.length) + s1) ;
-									var s3 = s2.substr(31 - 7, 31);
+									var s3 = s2.substr(31 - (len-1), 31);
 									var s4 = s3;
-									if ("1" == s2[31 - 7]) {  // check signed-extension
+									if ("1" == s2[31 - (len-1)]) {  // check signed-extension
 										s4 = "11111111111111111111111111111111".substring(0, 32 - s3.length) + s4;
 									}
 									set_value(sim.rv.states[s_expr[1]], parseInt(s4, 2));
 								} else {
-									//Add zeros to 24 superior bits
+									//Add zeros to superior bits
+									n3 = "00000000000000000000000000000000".substring(0, 32 - n3.length) + n3;
 									set_value(sim.rv.states[s_expr[1]], parseInt(n3, 2));
 								}
 							},
 					verbal: function (s_expr)
 							{
-								var posd = 0 ;
-								var poso = 0 ;
-								var len  = 8 ;
-								var sign_ext = sim.rv.signals[s_expr[3]].value;
+								var posd = parseInt(s_expr[3]) ;
+								var poso = parseInt(s_expr[4]) ;
+								var len  = parseInt(s_expr[5]) ;
+								var sign_ext = sim.rv.signals[s_expr[6]].value;
 
 								var n1 = get_value(sim.rv.states[s_expr[2]]).toString(2);
 								var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
@@ -2198,9 +2268,9 @@
 								if (sign_ext) {
 									var s1 = n2 ;
 									var s2 = ("00000000000000000000000000000000".substring(0, 32 - s1.length) + s1) ;
-									var s3 = s2.substr(31 - 7, 31);
+									var s3 = s2.substr(31 - (len-1), 31);
 									var s4 = s3;
-									if ("1" == s2[31 - 7]) {
+									if ("1" == s2[31 - (len-1)]) {
 										s4 = "11111111111111111111111111111111".substring(0, 32 - s3.length) + s4;
 									}
 									var value = parseInt(s4, 2);
@@ -2208,7 +2278,7 @@
 									var verbose = get_cfg('verbal_verbose') ;
 									if (verbose !== 'math') {
 										return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(value) +
-											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+8) +  " with sign extension)." ;
+											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+len) +  " with sign extension)." ;
 									} else {
 										 return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[2]) +
 											" (" + show_value(value) + ", " + len + " bits, from bit " + poso +
@@ -2219,7 +2289,7 @@
 									var verbose = get_cfg('verbal_verbose') ;
 									if (verbose !== 'math') {
 										return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(value) +
-											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+8) +  " without sign extension)." ;
+											+ " (copied " + len + " bits, from bit " + poso + " to bit " + (posd+len) +  " without sign extension)." ;
 									} else {
 										return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[2]) +
 											" (" + show_value(value) + ", " + len + " bits, from bit " + poso +
@@ -2381,21 +2451,30 @@
 						    var oi = decode_instruction(sim.rv.internal_states.FIRMWARE,
                                                                                 sim.rv.ctrl_states.ir,
 						                                get_value(sim.rv.states['REG_IR'])) ;
+
 						    if (null == oi.oinstruction)
                                                     {
-                                                         ws_alert('ERROR: undefined instruction code in IR (' +
+														if (oi.cop_code !== undefined) {
+															ws_alert('ERROR: undefined instruction code in IR (' +
 							          'co:'  +  oi.op_code.toString(2) + ', ' +
 							          'cop:' + oi.cop_code.toString(2) + ')') ;
+														} else if (oi.eoc !== undefined) {
+                                                         ws_alert('ERROR: undefined instruction code in IR (' +
+							          'co:'  +  oi.op_code.toString(2) + ', ' +
+							          'eoc:' + oi.eoc.toString(2) + ')') ;
+													}
 							 sim.rv.states['ROM_MUXA'].value = 0 ;
 							 sim.rv.states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
 						    // 2.- oi.oinstruction -> rom_addr
-                                                    var rom_addr = oi.op_code << 6;
-						    if (typeof oi.oinstruction.cop != "undefined") {
+							var rom_addr = oi.op_code << 6;
+						    if (oi.oinstruction.cop !== undefined) {
                                                         rom_addr = rom_addr + oi.cop_code ;
-						    }
+						    } else if (oi.oinstruction.eoc !== undefined) {
+								                        rom_addr = rom_addr + oi.eoc ;
+							}
 
 						    // 2.- ! sim.rv.internal_states['ROM'][rom_addr] -> error
 						    if (typeof sim.rv.internal_states['ROM'][rom_addr] == "undefined")
@@ -2560,6 +2639,10 @@
                                                                      fn_updateL_now(jit_fire_order[i]) ;
                                                                 }
                                                             }
+
+                                                            // 5.- Register 0 must always be zero.
+                                                            sim.rv.states.BR[0].value = 0;
+
 
 						            // measure time (2/2)
 					                    var t1 = performance.now() ;
@@ -2807,7 +2890,7 @@
 						   "out":    {
 							       ref:  "REG_IR"
 							     },
-							"imm":   {
+						   "imm":   {
 							       ref:  "VAL_IMM"
 							     }
 						 },
@@ -2819,6 +2902,39 @@
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out", "imm" ],
 			      signals_inputs:    [ "IRWRITE" ],
+			      signals_output:    [ ]
+	               } ;
+
+		sim.rv.elements.imm_gen = {
+			      name:              "IMM_GEN",
+			      description:       "Immediate Generator",
+			      type:              "subcomponent",
+			      belongs:           "CPU",
+			      states:            {
+						   "in":     {
+							       ref:  "REG_IR"
+							     },
+						   "out":    {
+							       ref:  "VAL_IMM"
+							     }
+						 },
+			      signals:           {
+						   "GEN_IMM":     {
+							       ref:  "GEN_IMM"
+							     },
+						   "SE_IMM":     {
+							       ref:  "SE_IMM"
+							     },
+						   "SIZE":     {
+							       ref:  "SIZE"
+							     },
+						   "OFFSET":     {
+							       ref:  "OFFSET"
+							     }
+						 },
+			      states_inputs:     [ "in" ],
+			      states_outputs:    [ "out" ],
+			      signals_inputs:    [ "GEN_IMM", "SE_IMM", "SIZE", "OFFSET" ],
 			      signals_output:    [ ]
 	               } ;
 

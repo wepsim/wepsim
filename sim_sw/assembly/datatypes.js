@@ -32,6 +32,22 @@
  *  Datatypes
  */
 
+ sim_datatypes = {
+                        ".byte":      { name:".byte",   kindof:"datatype", size:1 },
+                        ".half":      { name:".half",   kindof:"datatype", size:2 },
+                        ".word":      { name:".word",   kindof:"datatype", size:4 },
+                        ".float":     { name:".float",  kindof:"datatype", size:4 },
+                        ".double":    { name:".double", kindof:"datatype", size:8 },
+                        ".ascii":     { name:".ascii",  kindof:"datatype", size:1 },
+                        ".asciiz":    { name:".asciiz", kindof:"datatype", size:1 },
+                        ".space":     { name:".space",  kindof:"datatype", size:1 },
+                        ".string":    { name:".string", kindof:"datatype", size:1 },
+                        ".zero":      { name:".zero",   kindof:"datatype", size:1 },
+
+                        //modifiers
+                        ".align":     { name:".align",  kindof:"datatype", size:0 }
+                } ;
+
 function isDecimal ( n )
 {
         var ret = {
