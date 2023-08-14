@@ -203,7 +203,6 @@ bck5ftch: (PCWrite, CU=11)
       }
 }
 
-# TODO
 # DIV rd,rs1,rs2         Divide Signed         rd ← sx(rs1) ÷ sx(rs2)
 div rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -220,12 +219,10 @@ div rd rs1 rs2 {
           # rd = rs1 / rs2, go fetch
           (M2, M3=0, AluOp=1101, WOut),
           (RW, CU=11)
-    fpe1: #csw? excode?
-          (CU=11)
+    fpe1: (CU=11)
       }
 }
 
-# TODO
 # DIVU rd,rs1,rs2         Divide Unsigned         rd ← ux(rs1) ÷ ux(rs2)
 divu rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -242,8 +239,7 @@ divu rd rs1 rs2 {
           # rd = rs1 / rs2, go fetch
           (M2, M3=0, AluOp=10011, WOut),
           (RW, CU=11)
-    fpe2: #csw? excode?
-          (CU=11)
+    fpe2: (CU=11)
       }
 }
 
@@ -371,7 +367,7 @@ lhu rd offset(rs1) {
 
 #  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
 lui rd imm {
-      oc(6:0)=0110111,
+      oc(6:0)=0010110,
       reg(11:7)=rd,
       imm(31:12)=imm,
       help='rd = (imm << 12)',
@@ -902,7 +898,7 @@ pseudoinstructions
     li rd=reg, expression=inm
     {
         lui  rd,     sel(31,12,expression)
-        addu rd, rd, sel(11,0,expression)
+        addi rd, rd, sel(11,0,expression)
     }
 
     # la rd, label        (several expansions)        Load address
