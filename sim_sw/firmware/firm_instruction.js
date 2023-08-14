@@ -19,7 +19,7 @@
  */
 
 
-function firm_instruction_read ( context, xr_info, all_ones_co )
+function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 {
        var ret = {};
 
@@ -43,7 +43,8 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
        instruccionAux.numeroCampos = 0 ;
        instruccionAux.fields       = [] ;
        instruccionAux.fields_all   = [] ;
-       instruccionAux.fields_funct = [] ;
+       instruccionAux.fields_eoc   = [] ; // v2
+       instruccionAux.fields_funct = [] ; // firmware+assembly version 1, just in case don't remove please !!
 
        // semantic check: valid instruction name
        var re_name = "[a-zA-Z_0-9\.]*" ;
@@ -182,7 +183,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co )
 // }
 
        if (2 == context.version) {
-           ret = firm_instruction_read_fields_v2(context, instruccionAux, xr_info, all_ones_co) ;
+           ret = firm_instruction_read_fields_v2(context, instruccionAux, xr_info, all_ones_oc) ;
        }
        else {
         // ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;

@@ -20,121 +20,8 @@
 
 
 //
-// Known Issues (TODO list):
+// Pass 1: compile assembly to JSON object (see README_ng.md for more information)
 //
-// [1] If there are several 'candidates' instruction select the best fit
-//     Example:
-//       li $1 0x123   <- instruction register inm
-//       li $1 lab1    <- instruction register address
-//
-// [2] Review the pending labels (forth and back)
-//     Example:
-//       loop1: beq $t0 $t1 end1
-//              ...
-//              b loop1
-//        end1: ...
-//
-// [3] Replace pseudoinstruction with the instructions(s)...
-//     Example:
-//       li reg 0x12345678 <- lui reg 0x1234 + add reg reg 0x5678
-//
-
-
-// Pass 0: prepare context
-function wsasm_prepare_context ( CU_data, asm_source )
-{
-           var context = {} ;
-	   context.line           	= 1 ;
-	   context.error          	= null ;
-	   context.i              	= 0 ;
-           context.text                 = asm_source ;
-	   context.tokens         	= [] ;
-	   context.token_types    	= [] ;
-	   context.t              	= 0 ;
-           context.comments             = [] ;
-	   context.newlines       	= [] ;
-	   context.registers      	= [] ;   // here
-	   context.firmware             = {} ;   // here
-	   context.pseudoInstructions	= [];    // here
-	   context.stackRegister	= null ;
-
-	   // Fill register names
-	   for (i=0; i<CU_data.registers.length; i++)
-	   {
-		if (typeof CU_data.registers[i] === 'undefined') {
-                    continue ;
-                }
-		for (var j=0; j<CU_data.registers[i].length; j++) {
-		     context.registers[CU_data.registers[i][j]] = i ;
-                }
-	   }
-
-	   // Fill firmware
-           var elto = null ;
-	   for (i=0; i<CU_data.firmware.length; i++)
-           {
-		var aux = CU_data.firmware[i];
-
-	   	if (typeof context.firmware[aux.name] === "undefined") {
-	   	    context.firmware[aux.name] = [];
-		}
-
-	   	elto = {
-                         name:                aux.name,
-			 nwords:              parseInt(aux.nwords),
-			 co:                  (typeof aux.co     !== "undefined" ? aux.co     : false),
-			 cop:                 (typeof aux.cop    !== "undefined" ? aux.cop    : false),
-			 fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
-			 signature:           aux.signature,
-			 signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
-			 isPseudoinstruction: false
-                       } ;
-	   	context.firmware[aux.name].push(elto) ;
-	   }
-
-	   // fill pseudoinstructions
-	   var initial = null ;
-	   var finish  = null ;
-	   for (i=0; i<CU_data.pseudoInstructions.length; i++)
-	   {
-		initial = CU_data.pseudoInstructions[i].initial ;
-		finish  = CU_data.pseudoInstructions[i].finish ;
-
-		if (typeof context.pseudoInstructions[initial.name] === "undefined")
-                {
-	 	    context.pseudoInstructions[initial.name] = 0 ;
-		    if (typeof context.firmware[initial.name] === "undefined") {
-		        context.firmware[initial.name] = [] ;
-		    }
-		}
-
-		context.pseudoInstructions[initial.name]++;
-
-                elto = {
-                          name:                initial.name,
-			  fields:              (typeof initial.fields !== "undefined" ? initial.fields : false),
-			  signature:           initial.signature,
-			  signatureUser:       initial.signature.replace(/,/g," "),
-			  finish:              finish.signature,
-			  isPseudoinstruction: true
-                       } ;
-                context.firmware[initial.name].push(elto) ;
-	   }
-
-	   return context ;
-}
-
-
-// pass 1: compile assembly to obj (data and text without replacing pseudo-instructions)
-
-  //  <source>            -> <eltos>
-  //                      ->
-  //  *l1:                -> [
-  //   l2:   .word 0x2,*  ->   { "l1,l2", ".word", 4, 0x2, ... }, // elto
-  //        *      0x4 *  ->   { ""     , ".word", 4, 0x4, ... }, // elto
-  //  *l3:  .byte 1*      ->   { "l3",    ".byte", 1, 0x1, ... }, // elto
-  //              2*      ->   { "",      ".byte", 1, 0x2, ... }  // elto
-  //                      -> ]
 
 function wsasm_new_objElto ( base_elto )
 {
@@ -184,6 +71,12 @@ function wsasm_is_ValidTag ( tag )
         return !(myRegEx.test(tag)) ;
 }
 
+
+ //
+ //  Auxiliar for wsasm_src2obj_helper(context, ret)
+ //    * wsasm_src2obj_data(context, ret)
+ //    * wsasm_src2obj_text(context, ret)
+ // 
 
 function wsasm_src2obj_data ( context, ret )
 {
@@ -561,6 +454,13 @@ function wsasm_src2obj_data ( context, ret )
            return ret ;
 }
 
+
+ //
+ //  Auxiliar for wsasm_src2obj_text(context, ret)
+ //    * wsasm_encode_instruction(context, ret, elto)
+ //    * wsasm_src2obj_text_instr_op(context, ret, elto)
+ //    * wsasm_src2obj_text_candidates(context, ret, elto)
+ //
 
 function wsasm_encode_instruction ( context, ret, elto )
 {
@@ -1020,7 +920,7 @@ function wsasm_src2obj_text ( context, ret )
 }
 
 
-function wsasm_compile_src2obj ( context, ret )
+function wsasm_src2obj_helper ( context, ret )
 {
 	  ret.data_found = false;
 	  ret.text_found = false;
@@ -1063,7 +963,10 @@ function wsasm_compile_src2obj ( context, ret )
 }
 
 
-// pass 2: replace pseudo-instructions
+//
+// Pass 2: replace pseudo-instructions (see README_ng.md for more information)
+//
+
 function wsasm_resolve_pseudo ( context, ret )
 {
          // TODO[3]: replace pseudoinstruction with the instructions(s)...
@@ -1072,7 +975,10 @@ function wsasm_resolve_pseudo ( context, ret )
 }
 
 
-// pass 3: check that all used labels are defined in the text
+//
+// Pass 3: check that all used labels are defined in the text (see README_ng.md for more information)
+//
+
 function wsasm_resolve_labels ( context, ret )
 {
          var seg_name = '' ;
@@ -1175,9 +1081,13 @@ function wsasm_resolve_labels ( context, ret )
 }
 
 
- /*
-  *  Auxiliar for binary
-  */
+ //
+ //  Auxiliar for wsasm_obj2mem(ret)
+ //     * wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
+ //     * wsasm_writememory_and_accumulate ( mp, gen, valuebin )
+ //     * wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source, track_comments )
+ //     * wsasm_zeropadding_and_writememory ( mp, gen )
+ //
 
 function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
 {
@@ -1241,46 +1151,132 @@ function wsasm_zeropadding_and_writememory ( mp, gen )
 
 
 /*
- *  Public API
+ *  Public API (see README_ng.md for more information)
  */
 
-function wsasm_src2obj ( CU_data, asm_source )
+function wsasm_prepare_context ( CU_data, asm_source )
 {
-         var ret = {} ;
-         ret.obj         = [] ;
-         ret.mp          = {} ;
-	 ret.seg         = sim_segments ;
-         ret.seg_rev     = [] ;
-         ret.labels2     = {} ;
-         ret.labels2_rev = {} ;
-	 ret.labels      = {} ; // [addr] = {name, addr, startbit, stopbit}
+           var context = {} ;
+	   context.line           	= 1 ;
+	   context.error          	= null ;
+	   context.i              	= 0 ;
+           context.text                 = asm_source ;
+	   context.tokens         	= [] ;
+	   context.token_types    	= [] ;
+	   context.t              	= 0 ;
+           context.comments             = [] ;
+	   context.newlines       	= [] ;
+	   context.registers      	= [] ;   // here
+	   context.firmware             = {} ;   // here
+	   context.pseudoInstructions	= [];    // here
+	   context.stackRegister	= null ;
 
-         // pass 0: prepare context
-         var context = wsasm_prepare_context(CU_data, asm_source) ;
-	 if (context == null) {
-               return asm_langError(context,
-                                    i18n_get_TagFor('compiler', 'UNKNOWN 2')) ;
-	 }
+	   // Check arguments
+           if (typeof CU_data == "undefined") {
+               return { error: 'CU_data is undefined in wsasm_prepare_context\n' } ;
+           }
 
-         // pass 1: compile assembly (without replace pseudo-instructions)
-         ret = wsasm_compile_src2obj(context, ret) ;
-	 if (ret.error != null) {
+	   // Fill register names
+	   for (i=0; i<CU_data.registers.length; i++)
+	   {
+		if (typeof CU_data.registers[i] === 'undefined') {
+                    continue ;
+                }
+		for (var j=0; j<CU_data.registers[i].length; j++) {
+		     context.registers[CU_data.registers[i][j]] = i ;
+                }
+	   }
+
+	   // Fill firmware
+           var elto = null ;
+	   for (i=0; i<CU_data.firmware.length; i++)
+           {
+		var aux = CU_data.firmware[i];
+
+	   	if (typeof context.firmware[aux.name] === "undefined") {
+	   	    context.firmware[aux.name] = [];
+		}
+
+	   	elto = {
+                         name:                aux.name,
+			 nwords:              parseInt(aux.nwords),
+			 co:                  (typeof aux.co     !== "undefined" ? aux.co     : false),
+			 cop:                 (typeof aux.cop    !== "undefined" ? aux.cop    : false),
+			 fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
+			 signature:           aux.signature,
+			 signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
+			 isPseudoinstruction: false
+                       } ;
+	   	context.firmware[aux.name].push(elto) ;
+	   }
+
+	   // fill pseudoinstructions
+	   var initial = null ;
+	   var finish  = null ;
+	   for (i=0; i<CU_data.pseudoInstructions.length; i++)
+	   {
+		initial = CU_data.pseudoInstructions[i].initial ;
+		finish  = CU_data.pseudoInstructions[i].finish ;
+
+		if (typeof context.pseudoInstructions[initial.name] === "undefined")
+                {
+	 	    context.pseudoInstructions[initial.name] = 0 ;
+		    if (typeof context.firmware[initial.name] === "undefined") {
+		        context.firmware[initial.name] = [] ;
+		    }
+		}
+
+		context.pseudoInstructions[initial.name]++;
+
+                elto = {
+                          name:                initial.name,
+			  fields:              (typeof initial.fields !== "undefined" ? initial.fields : false),
+			  signature:           initial.signature,
+			  signatureUser:       initial.signature.replace(/,/g," "),
+			  finish:              finish.signature,
+			  isPseudoinstruction: true
+                       } ;
+                context.firmware[initial.name].push(elto) ;
+	   }
+
+	   return context ;
+}
+
+function wsasm_src2obj ( context )
+{
+           var ret = {} ;
+           ret.obj         = [] ;
+           ret.mp          = {} ;
+  	   ret.seg         = sim_segments ;
+           ret.seg_rev     = [] ;
+           ret.labels2     = {} ;
+           ret.labels2_rev = {} ;
+	   ret.labels      = {} ; // [addr] = {name, addr, startbit, stopbit}
+
+	   // Check arguments
+           if (typeof context == "undefined") {
+               return { error: 'Context is undefined in wsasm_src2obj\n' } ;
+           }
+
+           // pass 1: compile raw assembly
+           ret = wsasm_src2obj_helper(context, ret) ;
+	   if (ret.error != null) {
+	         return ret;
+	   }
+
+           // pass 2: replace pseudo-instructions
+           ret = wsasm_resolve_pseudo(context, ret) ;
+	   if (ret.error != null) {
 	       return ret;
-	 }
+	   }
 
-         // pass 2: replace pseudo-instructions
-         ret = wsasm_resolve_pseudo(context, ret) ;
-	 if (ret.error != null) {
-	     return ret;
-	 }
+	   // pass 3: resolve all labels (translate into addresses)
+           ret = wsasm_resolve_labels(context, ret) ;
+	   if (ret.error != null) {
+	       return ret;
+	   }
 
-	 // pass 3: check that all used labels are defined in the text
-         ret = wsasm_resolve_labels(context, ret) ;
-	 if (ret.error != null) {
-	     return ret;
-	 }
-
-	 return ret;
+	   return ret;
 }
 
 function wsasm_obj2mem  ( ret )
@@ -1301,6 +1297,7 @@ function wsasm_obj2mem  ( ret )
          gen.track_source = [] ;
          gen.comments     = [] ;
 
+         ret.mp = {} ;
          for (var i=0; i<ret.obj.length; i++)
          {
               // (1) flushing if there is some pending data in 'seg_name_old' segment...
@@ -1407,13 +1404,19 @@ function wsasm_obj2mem  ( ret )
          return ret ;
 }
 
-function wsasm_src2mem ( text, datosCU )
+function wsasm_src2mem ( datosCU, text )
 {
-     var ret = null ;
+     var ret     = null ;
+     var context = null ;
 
      try
      {
-         ret = wsasm_src2obj(datosCU, text) ;
+         context = wsasm_prepare_context(datosCU, text) ;
+	 if (context.error != null) {
+	     return context;
+	 }
+
+         ret = wsasm_src2obj(context) ;
 	 if (ret.error != null) {
 	     return ret;
 	 }
@@ -1425,8 +1428,9 @@ function wsasm_src2mem ( text, datosCU )
      }
      catch (e)
      {
-         console.log("'wsasm_src2mem' found an ERROR :-(\n" + e) ;
-         console.log(e.stack) ;
+         console.log("ERROR on 'wsasm_src2mem' function :-(") ;
+         console.log("Details:\n " + e) ;
+         console.log("Stack:\n"    + e.stack) ;
      }
 
      return ret ;

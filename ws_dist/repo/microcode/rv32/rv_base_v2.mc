@@ -14,59 +14,6 @@ begin
 
 }
 
-#  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
-lui rd imm {
-      oc(6:0)=1111111,
-      reg(11:7)=rd,
-      imm(31:12)=imm,
-      help='rd = (inm << 12)',
-      {
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=11111, WOut),
-          (RW, CU=11)
-      }
-}
-
-#  AUIPC rd,offset         Add Upper Immediate to PC         rd ← pc + (offset << 12)
-auipc rd offset {
-      oc(6:0)=1111111
-      reg(11:7)=rd,
-      imm(31:12)=offset,
-      help='rd = pc + (offset << 12)',
-      {
-          (SE_IMM=1, OFFSET=0, SIZE=10011, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
-          (RW, CU=11)
-      }
-}
-
-#
-# LOAD/STORE
-#
-
-lw rd offset(rs1) {
-         oc(6:0)=0000100,
-         eoc(14:12)=111,
-         reg(11:7)=rd,
-         reg(19:15)=rs1,
-         address-abs(31:20)=offset,
-         help='r1 = (MEM[addr] ... MEM[addr+3])',
-         {
-             ()
-         }
-}
-
-sw rs2 offset(rs1) {
-         oc(6:0)=0000101,
-         eoc(14:12)=111,
-         reg(19:15)=rs1,
-         reg(24:20)=rs2,
-         address-rel(11:7|31:25)=offset,
-         help='MEM[addr] = r1',
-         {
-             ()
-         }
-}
-
-
 #  ADD rd,rs1,rs2         Add                                 rd ← sx(rs1) + sx(rs2)
 add rd rs1 rs2 {
       oc(6:0)=0110011,
@@ -76,8 +23,255 @@ add rd rs1 rs2 {
       reg(24:20)=rs2,
       help='r1 = r2 + r3',
       {
-          (REG_R1=10000, REG_R2=1011),
+          (),
           (M2, M3=0, AluOp=1010, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  ADDI rd,rs1,imm         Add Immediate                         rd ← rs1 + sx(imm)
+addi rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 + SignEx(inm)',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  AND rd,rs1,rs2         And                                 rd ← ux(rs1) ∧ ux(rs2)
+and rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1110000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 & r3',
+      {
+          (),
+          (M2, M3=0, AluOp=0001, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  ANDI rd,rs1,imm         And Immediate                         rd ← ux(rs1) ∧ ux(imm)
+andi rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=111,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 & inm',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=0001, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  AUIPC rd,offset         Add Upper Immediate to PC         rd ← pc + (offset << 12)
+auipc rd offset {
+      oc(6:0)=0010111
+      reg(11:7)=rd,
+      imm(31:12)=offset,
+      help='rd = pc + (offset << 12)',
+      {
+          (SE_IMM=1, OFFSET=1100, SIZE=10100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  BEQ rs1,rs2,offset         Branch Equal                         if rs1 = rs2 then pc ← pc + offset
+beq rs1 rs2 offset {
+      oc(6:0)=1100011,
+      eoc(14:12)=000,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:8|30:25|7|31)=offset,
+      help='if ($r1 == $r2) pc += offset',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (),
+          (M2, M3=0, AluOp=1011),
+          (CU=111, MADDR=bck2ftch),
+          (CU=11),
+bck2ftch: (PCWrite, CU=11)
+      }
+}
+
+#  BGE rs1,rs2,offset         Branch Greater than Equal             if rs1 ≥ rs2 then pc ← pc + offset
+bge rs1 rs2 offset {
+      oc(6:0)=1100011,
+      eoc(14:12)=101
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:8|30:25|7|31)=offset,
+      help='if (rs1 >= rs2) pc += offset',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (),
+          (M2, M3=0, AluOp=1011, jump, CU=11)
+      }
+}
+
+#  BGEU rs1,rs2,offset         Branch Greater than Equal             if rs1 ≥ rs2 then pc ← pc + offset
+bgeu rs1 rs2 offset {
+      oc(6:0)=1100011,
+      eoc(14:12)=111
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:8|30:25|7|31)=offset,
+      help='if (rs1 >= rs2) pc += offset',
+      {
+          (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (),
+          (M2, M3=0, AluOp=1011, jump, CU=11)
+      }
+}
+
+# BLT
+#  BLT rs1,rs2,offset         Branch Less Than             if rs1 < rs2 then pc ← pc + offset
+blt rs1 rs2 offset {
+      oc(6:0)=1100011,
+      eoc(14:12)=100,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:8|30:25|7|31)=offset,
+      help='if ($r1 < $r2) pc += offset',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (),
+          (M2, M3=0, AluOp=1011),
+          (CU=101, MADDR=bck3ftch),
+          (CU=11),
+bck3ftch: (PCWrite, CU=11)
+      }
+}
+
+#  BLTU rs1,rs2,offset         Branch Less Than Unsigned             if rs1 < rs2 then pc ← pc + offset
+bltu rs1 rs2 offset {
+      oc(6:0)=1100011,
+      eoc(14:12)=110,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:8|30:25|7|31)=offset,
+      help='if ($r1 < $r2) pc += offset',
+      {
+          (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (),
+          (M2, M3=0, AluOp=1011),
+          (CU=101, MADDR=bck4ftch),
+          (CU=11),
+bck4ftch: (PCWrite, CU=11)
+      }
+}
+
+#  BNE rs1,rs2,offset         Branch Not Equal                     if rs1 ≠ rs2 then pc ← pc + offset
+bne rs1 rs2 offset {
+      oc(6:0)=1100011,
+      eoc(14:12)=001,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:8|30:25|7|31)=offset,
+      help='if ($r1 != $r2) pc += offset',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (),
+          (M2, M3=0, AluOp=1011),
+          (CU=110, MADDR=bck5ftch),
+          (CU=11),
+bck5ftch: (PCWrite, CU=11)
+      }
+}
+
+#  JAL rd,offset        Jump and Link                       rd ← pc + 4
+#                                                           pc ← pc + offset
+jal rd offset {
+      oc(6:0)=1101111,
+      reg(11:7)=rd,
+      address-abs(30:21|20|19:12|31)=offset,
+      help='rd = pc; pc = pc + sext(offset)',
+      {
+          (M2=0, AluOp=11110, WOut),
+          (RW),
+          (SE_IMM=1, OFFSET=0, SIZE=10100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, M4, PCWrite, CU=11)
+      }
+}
+
+#  JALR rd,rs1,offset   Jump and Link Register              rd ← pc + 4
+#                                                           pc ← (rs1 + offset) & -2 # FIX -1
+jalr rd rs1 offset {
+      oc(6:0)=1100111,
+      eoc(14:12)=000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-rel(31:20)=offset,
+      help='rd = pc; pc = rs1 + offset',
+      {
+          (M2=0, AluOp=11110, WOut),
+          (RW),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2, M3=10, AluOp=1010, M4, PCWrite, CU=11)
+      }
+}
+
+#  LUI rd,imm         Load Upper Immediate                     rd ← imm << 12
+lui rd imm {
+      oc(6:0)=0110111,
+      reg(11:7)=rd,
+      imm(31:12)=imm,
+      help='rd = (inm << 12)',
+      {
+          (SE_IMM=1, OFFSET=10100, SIZE=10100, GEN_IMM=1, M2, M3=10, AluOp=11111, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  LW rd,offset(rs1)         Load Word                         rd ← s32[rs1 + offset]
+lw rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=010,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='r1 = (MEM[addr] ... MEM[addr+3])',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010, DMR),
+          (RW, CU=11)
+      }
+}
+
+#  OR rd,rs1,rs2         Or                                 rd ← ux(rs1) ∨ ux(rs2)
+or rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1100000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 | r3',
+      {
+          (),
+          (M2, M3=0, AluOp=0010, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  ORI rd,rs1,imm         Or Immediate                         rd ← ux(rs1) ∨ ux(imm)
+ori rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=110,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 | inm',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=0010, WOut),
           (RW, CU=11)
       }
 }
@@ -91,106 +285,71 @@ sub rd rs1 rs2 {
       reg(24:20)=rs2,
       help='r1 = r2 + r3',
       {
-          (REG_R1=10000, REG_R2=1011),
+          (),
           (M2, M3=0, AluOp=1011, WOut),
           (RW, CU=11)
       }
 }
 
-#  ADDI rd,rs1,imm         Add Immediate                         rd ← rs1 + sx(imm)
-addi rd rs1 imm {
-      oc(6:0)=1111100,
-      eoc(14:12)=111,
+#  SUBI rd,rs1,imm         Sub Immediate                         rd ← rs1 - sx(imm)
+subi rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=001,
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(31:20)=imm,
-      help='rd = rs1 + SignEx(inm)',
+      help='rd = rs1 - SignEx(inm)',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
-          (M2, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1011, WOut),
           (RW, CU=11)
       }
 }
 
-#
-# b*
-#
-
-#  BEQ rs1,rs2,offset         Branch Equal                         if rs1 = rs2 then pc ← pc + offset
-beq rs1 rs2 offset {
-      oc(6:0)=0001101,
+#  SW rs2,offset(rs1)         Store Word                         u32[rs1 + offset] ← rs2
+sw rs2 offset(rs1) {
+      oc(6:0)=0100011,
+      eoc(14:12)=010,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
-      address-rel(11:8|30:25|7|31)=offset,
-      help='if ($r1 == $r2) pc += offset',
+      address-rel(11:7|31:25)=offset,
+      help='MEM[addr] = r1',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
-          (M2, M3=0, AluOp=1011),
-          (CU=111, MADDR=bck2ftch),
-          (CU=11),
-bck2ftch: (PCWrite, CU=11)
+          (M2, M3=0, AluOp=11111, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=1010),
+          (DMW, CU=11)
       }
 }
 
-#  BNE rs1,rs2,offset         Branch Not Equal                     if rs1 ≠ rs2 then pc ← pc + offset
-bne rs1 rs2 offset {
-      oc(6:0)=1111111,
-      reg(19:15)=rs1,
-      reg(24:20)=rs2,
-      address-rel(11:8|30:25|7|31)=offset,
-      help='if ($r1 != $r2) pc += offset',
-      {
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
-          (),
-          (M2, M3=0, AluOp=1011),
-          (CU=110, MADDR=bck3ftch),
-          (CU=11),
-bck3ftch: (PCWrite, CU=11)
-      }
-}
-
-#  BGE rs1,rs2,offset         Branch Greater than Equal             if rs1 ≥ rs2 then pc ← pc + offset
-bge rs1 rs2 offset {
-      oc(6:0)=1111111,
-      reg(19:15)=rs1,
-      reg(24:20)=rs2,
-      address-rel(11:8|30:25|7|31)=offset,
-      help='if (rs1 >= rs2) pc += offset',
-      {
-          (OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
-          (),
-          (M2, M3=0, AluOp=1011, jump, CU=11)
-      }
-}
-
-#  JAL rd,offset        Jump and Link                       rd ← pc + length(inst)
-#                                               pc ← pc + offset
-jal rd offset {
-      oc(6:0)=1111111,
-      reg(11:7)=rd,
-      address-abs(30:21|20|19:12|31)=offset,
-      help='rd = pc; pc = pc + sext(offset)',
-      {
-          (M2=0, AluOp=11110, WOut),
-          (RW),
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, M4, PCWrite, CU=11)
-      }
-}
-
-#  JALR rd,rs1,offset   Jump and Link Register              rd ← pc + length(inst)
-#                                              pc ← (rs1 + offset) & -2
-jalr rd rs1 offset {
-      oc(6:0)=1111000,
-      eoc(14:12)=111,
+#  XOR rd,rs1,rs2         Xor                                 rd ← ux(rs1) ⊕ ux(rs2)
+xor rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1000000000,
       reg(11:7)=rd,
       reg(19:15)=rs1,
-      address-rel(31:20)=offset,
-      help='rd = pc; pc = rs1 + offset',
+      reg(24:20)=rs2,
+      help='r1 = r2 ^ r3',
       {
-          (M2=0, AluOp=11110, WOut),
-          (RW),
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=1010, M4, PCWrite, CU=11)
+          (),
+          (M2, M3=0, AluOp=0100, WOut),
+          (RW, CU=11)
+      }
+}
+
+#  XORI rd,rs1,imm         Xor Immediate                         rd ← ux(rs1) ⊕ ux(imm)
+xori rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=100,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 ^ inm',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1),
+          (M2, M3=10, AluOp=0100, WOut),
+          (RW, CU=11)
       }
 }
 
@@ -209,10 +368,10 @@ pseudoinstructions
     }
 
     # jal offset        jal x1, offset        Jump register
-    #jal offset=inm
-    #{
-    #    jal ra, offset
-    #}
+    jal offset=inm
+    {
+        jal ra, offset
+    }
 
     # jr rs            jalr x0, rs, 0        Jump register
     jr rs=reg
