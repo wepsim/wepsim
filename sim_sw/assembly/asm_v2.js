@@ -37,9 +37,9 @@ function setCharAt ( str, index, chr ) {
 function assembly_oc_eoc_v2 ( machineCode, oc, eoc )
 {
 	var xr_info = simhw_sim_ctrlStates_get() ;
-	var bits = xr_info.ir.default_eltos.eoc.bits_field ;
+	var bits  = xr_info.ir.default_eltos.eoc.bits_field ;
 	var start = 31 - xr_info.ir.default_eltos.oc.begin + 1;
-	var stop = 31 - xr_info.ir.default_eltos.oc.end;
+	var stop  = 31 - xr_info.ir.default_eltos.oc.end;
 
 	if (oc !== false)
 	    machineCode = assembly_replace_v2(machineCode, oc, start, stop, 0, 0);
@@ -1279,8 +1279,8 @@ function simlang_compile_v2 (text, datosCU)
           ret.mp         = {} ;
 	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit}
           ret.labels2    = {} ;
-          ret.revlabels2 = {} ;
-          ret.revseg     = [] ;
+          ret.hash_labels2_rev = {} ;
+          ret.hash_seg_rev     = [] ;
 
 	  data_found = false;
 	  text_found = false;
@@ -1429,12 +1429,12 @@ function simlang_compile_v2 (text, datosCU)
 
          // reverse labels (hash labels2 -> key)
          for (var key in ret.labels2) {
-              ret.revlabels2[ret.labels2[key]] = key ;
+              ret.hash_labels2_rev[ret.labels2[key]] = key ;
          }
 
          // reverse segments (hash segname -> properties)
          for (var skey in ret.seg) {
-              ret.revseg.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
+              ret.hash_seg_rev.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
          }
 
 	 return ret;

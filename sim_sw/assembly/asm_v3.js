@@ -1168,8 +1168,8 @@ function simlang_compile_pass1 ( context, datosCU, text )
           ret.mp         = {} ;
 	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit, bits}
           ret.labels2    = {} ;
-          ret.revlabels2 = {} ;
-          ret.revseg     = [] ;
+          ret.hash_labels2_rev = {} ;
+          ret.hash_seg_rev     = [] ;
 	  ret.data_found = false;
 	  ret.text_found = false;
 
@@ -1334,12 +1334,12 @@ function simlang_compile_pass3 ( context, ret )
 
          // reverse labels (hash labels2 -> key)
          for (var key in ret.labels2) {
-              ret.revlabels2[ret.labels2[key]] = key ;
+              ret.hash_labels2_rev[ret.labels2[key]] = key ;
          }
 
          // reverse segments (hash segname -> properties)
          for (var skey in ret.seg) {
-              ret.revseg.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
+              ret.hash_seg_rev.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
          }
 
 	 return ret;
