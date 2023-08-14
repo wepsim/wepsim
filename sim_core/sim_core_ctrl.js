@@ -296,13 +296,25 @@
                }
 
 	       var ma = SIMWARE['firmware'][i]["mc-start"] ;
-	       var co = parseInt(SIMWARE['firmware'][i]["co"], 2) ;
-               var cop = 0 ;
-	       if (typeof SIMWARE['firmware'][i]["cop"] != "undefined") {
-	           cop = parseInt(SIMWARE['firmware'][i]["cop"], 2) ;
-               }
 
-               var rom_addr = 64*co + cop ;
+           if (SIMWARE.version == 2) {
+               var oc = parseInt(SIMWARE['firmware'][i]["oc"], 2) ;
+                var eoc = 0 ;
+                if (typeof SIMWARE['firmware'][i]["eoc"] != "undefined") {
+                    eoc = parseInt(SIMWARE['firmware'][i]["eoc"], 2) ;
+                    }
+
+                var rom_addr = 64*oc + eoc ;
+            } else {
+                var co = parseInt(SIMWARE['firmware'][i]["co"], 2) ;
+                var cop = 0 ;
+                if (typeof SIMWARE['firmware'][i]["cop"] != "undefined") {
+                    cop = parseInt(SIMWARE['firmware'][i]["cop"], 2) ;
+                    }
+
+                var rom_addr = 64*co + cop ;
+            }
+
 	       simhw_internalState_set('ROM', rom_addr, ma) ;
                SIMWARE['cihash'][rom_addr] = SIMWARE['firmware'][i]['signature'] ;
 	    }
