@@ -27,13 +27,11 @@ function simlang_compile ( text, datosCU )
 {
      var ret = null ;
 
-/* ***** <TESTING_AREA> ***** */
-     if (typeof ws_bypass != "undefined") {
-          ret = wsasm_src2mem(datosCU, text) ;
-     }
-/* ***** </TESTING_AREA> ***** */
+//   ret = simlang_compile_v1(text, datosCU) ;  // Initial version
 
-     ret = simlang_compile_v1(text, datosCU) ;
+//   ret = wsasm_src2mem(datosCU, text) ; // Testing...
+
+     ret = simlang_compile_v2(text, datosCU) ;
 
      return ret ;
 }
