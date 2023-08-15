@@ -219,7 +219,8 @@ div rd rs1 rs2 {
           # rd = rs1 / rs2, go fetch
           (M2, M3=0, AluOp=1101, WOut),
           (RW, CU=11)
-    fpe1: (CU=11)
+    fpe1: # future work: to signal exception so it can be handled
+          (CU=11)
       }
 }
 
@@ -239,7 +240,8 @@ divu rd rs1 rs2 {
           # rd = rs1 / rs2, go fetch
           (M2, M3=0, AluOp=10011, WOut),
           (RW, CU=11)
-    fpe2: (CU=11)
+    fpe2: # future work: to signal exception so it can be handled
+          (CU=11)
       }
 }
 

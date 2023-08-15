@@ -316,7 +316,7 @@
             }
 
 	       simhw_internalState_set('ROM', rom_addr, ma) ;
-               SIMWARE['cihash'][rom_addr] = SIMWARE['firmware'][i]['signature'] ;
+               SIMWARE['hash_ci'][rom_addr] = SIMWARE['firmware'][i]['signature'] ;
 	    }
 
 	    // 4.- load the MP from SIMWARE['mp']

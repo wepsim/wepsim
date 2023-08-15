@@ -34,10 +34,14 @@
                        '     style="position:fixed; top:10%; z-index:1024;">') ;
 		$("body").append(ac) ;
 	    }
+ 
+	    // div configuration...
+            var btn1_close_class = "btn-close border border-secondary float-end alert-dismissible" ;
+            var ale1_div_class   = "alert alert-" + ntf_type + " shadow border border-tertiary" ;
 
 	    // create the alert div
-            var btn1   = $('<button type="button" class="btn-close border border-secondary float-end" onclick="wepsim_notify_close(); return false;">') ;
-	    var alert1 = $('<div class="alert alert-' + ntf_type + ' shadow border border-tertiary text-black">') ;
+            var btn1   = $('<button type="button" class="' + btn1_close_class + '" onclick="wepsim_notify_close(); return false;">') ;
+	    var alert1 = $('<div class="' + ale1_div_class + '">') ;
 	    ac.prepend(alert1.append(btn1.append("")).append(ntf_message)) ;
 
 	    // if delay was passed, set up a timeout to close the alert

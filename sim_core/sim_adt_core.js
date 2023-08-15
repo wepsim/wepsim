@@ -55,11 +55,11 @@
 				 stackRegister:       null,
 
                                  // auxiliar datatypes
-				 cihash:              {},
-				 cocop_hash:          {},
-				 revlabels:           {},
-				 revlabels2:          {},
-				 revseg:              []
+				 hash_ci:             {},
+				 hash_cocop:          {},
+				 hash_labels_rev:     {},
+				 hash_labels2_rev:    {},
+				 hash_seg_rev:        []
                             } ;
 
 

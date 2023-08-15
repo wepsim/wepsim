@@ -37,9 +37,9 @@ function setCharAt ( str, index, chr ) {
 function assembly_oc_eoc_v2 ( machineCode, oc, eoc )
 {
 	var xr_info = simhw_sim_ctrlStates_get() ;
-	var bits = xr_info.ir.default_eltos.eoc.bits_field ;
+	var bits  = xr_info.ir.default_eltos.eoc.bits_field ;
 	var start = 31 - xr_info.ir.default_eltos.oc.begin + 1;
-	var stop = 31 - xr_info.ir.default_eltos.oc.end;
+	var stop  = 31 - xr_info.ir.default_eltos.oc.end;
 
 	if (oc !== false)
 	    machineCode = assembly_replace_v2(machineCode, oc, start, stop, 0, 0);
@@ -1115,14 +1115,14 @@ function read_text_v2 ( context, datosCU, ret )
 		while (false === ref.isPseudoinstruction)
 		{
 			if ( firmware[instruction][candidate].co !== false ) {
-				var new_ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
+				var new_ref = datosCU.hash_cocop[firmware[instruction][candidate].co] ;
 				if (new_ref.withcop)
 					new_ref = new_ref[firmware[instruction][candidate].cop] ;
 				else new_ref = new_ref.i ;
 
 							// <TO-CHECK>:
 							if (typeof new_ref == "undefined") {
-					ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
+					ref = datosCU.hash_cocop[firmware[instruction][candidate].co] ;
 					ref = ref.i ;
 								break ;
 					}
@@ -1130,14 +1130,14 @@ function read_text_v2 ( context, datosCU, ret )
 
 							ref = new_ref ;
 			} else {
-				var new_ref = datosCU.oceoc_hash[context.firmware[instruction][candidate].oc] ;
+				var new_ref = datosCU.hash_oceoc[context.firmware[instruction][candidate].oc] ;
 				if (new_ref.witheoc)
 					new_ref = new_ref[context.firmware[instruction][candidate].eoc] ;
 				else new_ref = new_ref.i ;
 
 				// <TO-CHECK>:
 				if (typeof new_ref == "undefined") {
-					ref = datosCU.oceoc_hash[context.firmware[instruction][candidate].oc] ;
+					ref = datosCU.hash_oceoc[context.firmware[instruction][candidate].oc] ;
 					ref = ref.i ;
 					break ;
 				}
@@ -1279,8 +1279,8 @@ function simlang_compile_v2 (text, datosCU)
           ret.mp         = {} ;
 	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit}
           ret.labels2    = {} ;
-          ret.revlabels2 = {} ;
-          ret.revseg     = [] ;
+          ret.hash_labels2_rev = {} ;
+          ret.hash_seg_rev     = [] ;
 
 	  data_found = false;
 	  text_found = false;
@@ -1429,12 +1429,12 @@ function simlang_compile_v2 (text, datosCU)
 
          // reverse labels (hash labels2 -> key)
          for (var key in ret.labels2) {
-              ret.revlabels2[ret.labels2[key]] = key ;
+              ret.hash_labels2_rev[ret.labels2[key]] = key ;
          }
 
          // reverse segments (hash segname -> properties)
          for (var skey in ret.seg) {
-              ret.revseg.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
+              ret.hash_seg_rev.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
          }
 
 	 return ret;

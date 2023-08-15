@@ -1083,14 +1083,14 @@ function read_text_v3  ( context, datosCU, ret )
 		while (false === ref.isPseudoinstruction)
 		{
 			if ( context.firmware[instruction][candidate].co !== false ) {
-				var new_ref = datosCU.cocop_hash[context.firmware[instruction][candidate].co] ;
+				var new_ref = datosCU.hash_cocop[context.firmware[instruction][candidate].co] ;
 				if (new_ref.withcop)
 					new_ref = new_ref[context.firmware[instruction][candidate].cop] ;
 				else new_ref = new_ref.i ;
 
 				// <TO-CHECK>:
 				if (typeof new_ref == "undefined") {
-					ref = datosCU.cocop_hash[context.firmware[instruction][candidate].co] ;
+					ref = datosCU.hash_cocop[context.firmware[instruction][candidate].co] ;
 					ref = ref.i ;
 					break ;
 				}
@@ -1098,14 +1098,14 @@ function read_text_v3  ( context, datosCU, ret )
 
 				ref = new_ref ;
 			} else {
-				var new_ref = datosCU.oceoc_hash[context.firmware[instruction][candidate].oc] ;
+				var new_ref = datosCU.hash_oceoc[context.firmware[instruction][candidate].oc] ;
 				if (new_ref.witheoc)
 					new_ref = new_ref[context.firmware[instruction][candidate].eoc] ;
 				else new_ref = new_ref.i ;
 
 				// <TO-CHECK>:
 				if (typeof new_ref == "undefined") {
-					ref = datosCU.oceoc_hash[context.firmware[instruction][candidate].oc] ;
+					ref = datosCU.hash_oceoc[context.firmware[instruction][candidate].oc] ;
 					ref = ref.i ;
 					break ;
 				}
@@ -1168,8 +1168,8 @@ function simlang_compile_pass1 ( context, datosCU, text )
           ret.mp         = {} ;
 	  ret.labels     = {} ; // [addr] = {name, addr, startbit, stopbit, bits}
           ret.labels2    = {} ;
-          ret.revlabels2 = {} ;
-          ret.revseg     = [] ;
+          ret.hash_labels2_rev = {} ;
+          ret.hash_seg_rev     = [] ;
 	  ret.data_found = false;
 	  ret.text_found = false;
 
@@ -1334,12 +1334,12 @@ function simlang_compile_pass3 ( context, ret )
 
          // reverse labels (hash labels2 -> key)
          for (var key in ret.labels2) {
-              ret.revlabels2[ret.labels2[key]] = key ;
+              ret.hash_labels2_rev[ret.labels2[key]] = key ;
          }
 
          // reverse segments (hash segname -> properties)
          for (var skey in ret.seg) {
-              ret.revseg.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
+              ret.hash_seg_rev.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
          }
 
 	 return ret;
