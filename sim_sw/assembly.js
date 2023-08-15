@@ -29,7 +29,10 @@ function simlang_compile ( text, datosCU )
 
 //   ret = simlang_compile_v1(text, datosCU) ;  // Initial version
 
-//   ret = wsasm_src2mem(datosCU, text) ; // Testing...
+     // Testing...
+     if (typeof ws_ng != "undefined")
+     ret = wsasm_src2mem(datosCU, text) ;
+else
 
      ret = simlang_compile_v2(text, datosCU) ;
 
