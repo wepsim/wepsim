@@ -129,7 +129,10 @@ bge rs1 rs2 offset {
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
-          (M2, M3=0, AluOp=1011, jump, CU=11)
+          (M2, M3=0, AluOp=1011),
+          (CU=100, MADDR=bck3ftch),
+          (CU=11),
+bck3ftch: (PCWrite, CU=11)
       }
 }
 
@@ -142,9 +145,12 @@ bgeu rs1 rs2 offset {
       address-rel(11:8|30:25|7|31)=offset,
       help='if (rs1 >= rs2) pc += offset',
       {
-          (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
-          (M2, M3=0, AluOp=1011, jump, CU=11)
+          (M2, M3=0, AluOp=10001),
+          (CU=100, MADDR=bck4ftch),
+          (CU=11),
+bck4ftch: (PCWrite, CU=11)
       }
 }
 
@@ -161,9 +167,9 @@ blt rs1 rs2 offset {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
           (M2, M3=0, AluOp=1011),
-          (CU=101, MADDR=bck3ftch),
+          (CU=101, MADDR=bck5ftch),
           (CU=11),
-bck3ftch: (PCWrite, CU=11)
+bck5ftch: (PCWrite, CU=11)
       }
 }
 
@@ -176,12 +182,12 @@ bltu rs1 rs2 offset {
       address-rel(11:8|30:25|7|31)=offset,
       help='if ($r1 < $r2) pc += offset',
       {
-          (SE_IMM=0, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
-          (M2, M3=0, AluOp=1011),
-          (CU=101, MADDR=bck4ftch),
+          (M2, M3=0, AluOp=10001),
+          (CU=101, MADDR=bck6ftch),
           (CU=11),
-bck4ftch: (PCWrite, CU=11)
+bck6ftch: (PCWrite, CU=11)
       }
 }
 
@@ -197,9 +203,9 @@ bne rs1 rs2 offset {
           (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
           (M2, M3=0, AluOp=1011),
-          (CU=110, MADDR=bck5ftch),
+          (CU=110, MADDR=bck7ftch),
           (CU=11),
-bck5ftch: (PCWrite, CU=11)
+bck7ftch: (PCWrite, CU=11)
       }
 }
 
@@ -286,7 +292,7 @@ fence.i {
 jal rd offset {
       oc(6:0)=1101111,
       reg(11:7)=rd,
-      address-abs(30:21|20|19:12|31)=offset,
+      address-rel(30:21|20|19:12|31)=offset,
       help='rd = pc; pc = pc + sext(offset)',
       {
           (M2=0, AluOp=11110, WOut),
@@ -941,10 +947,10 @@ pseudoinstructions
     }
 
     # jal offset        jal x1, offset        Jump register
-    jal offset=inm
-    {
-        jal ra, offset
-    }
+    #jal offset=inm
+    #{
+    #    jal ra, offset
+    #}
 
     # jr rs            jalr x0, rs, 0        Jump register
     jr rs=reg

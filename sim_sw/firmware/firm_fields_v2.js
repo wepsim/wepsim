@@ -332,8 +332,8 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 				total_bits += bits[i][0] - bits[i][1] + 1;
 			}
 
-			// relative addresses (S and B-type instructions) are 12 bits long
-			if (tmp_fields.address_type === "rel" && total_bits != 12) {
+			// relative addresses (S and B-type instructions) are 12 or 20 bits long
+			if (tmp_fields.address_type === "rel" && total_bits != 12 && total_bits != 20) {
 				return frm_langError(context,
 							i18n_get_TagFor('compiler', 'ADDRESS-REL MUST BE 12 BITS') +
 							"'" + frm_getToken(context) + "'") ;
