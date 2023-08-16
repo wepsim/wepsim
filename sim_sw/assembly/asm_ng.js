@@ -89,6 +89,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 		elto.fields              = [] ;
 		elto.signature           = aux.signature ;
 		elto.signature_type      = aux.name ;
+		elto.signature_size      = [] ;
 		elto.isPseudoinstruction = false ;
 
 		if (typeof aux.co     !== "undefined")         elto.co     = aux.co ;
@@ -97,7 +98,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 		if (typeof aux.signatureUser !== "undefined")  elto.signature_type = aux.signatureUser ;
 
                 // asm_start/asm_stop bit...
-		elto.signature_size = elto.co.length.toString(10) ;
+		elto.signature_size.push(elto.co.length) ;
                 for (let j=0; j<elto.fields.length; j++)
                 {
                      // initial values...
@@ -117,7 +118,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                      elto.fields[j].asm_stop_bit  = stop_bit ;
                      elto.fields[j].asm_n_bits    = n_bits ;
 
-		     elto.signature_size = elto.signature_size + ' ' + n_bits ;
+		     elto.signature_size.push(n_bits) ;
                 }
 
                 // TODO: add support for firmware v2
@@ -151,14 +152,19 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 
 		context.pseudoInstructions[initial.name]++;
 
-                elto = {
-                          name:                initial.name,
-			  fields:              (typeof initial.fields !== "undefined" ? initial.fields : false),
-			  signature:           initial.signature,
-			  signature_type:      initial.signature.replace(/,/g," "),
-			  finish:              finish.signature,
-			  isPseudoinstruction: true
-                       } ;
+                // initial elto fields...
+                elto = {} ;
+
+                elto.name                = initial.name ;
+	        elto.fields              = [] ;
+	        elto.signature           = initial.signature ;
+	        elto.signature_type      = initial.signature.replace(/,/g," ") ;
+	        elto.finish              = finish.signature ;
+	        elto.isPseudoinstruction = true ;
+
+                if (typeof initial.fields !== "undefined")  elto.fields = initial.fields ;
+
+                // add elto to firmware
                 context.firmware[initial.name].push(elto) ;
 	   }
 
@@ -601,7 +607,7 @@ function wsasm_encode_instruction ( context, ret, elto )
 
            // (2) Fields, copy values...
            //     Example:
-           //     * elto.value.signature = [ 'li', *'reg', 'inm'* ]
+           //     * elto.value.signature_type = [ 'li', *'reg', 'inm'* ]
            //     * candidate.fields = [ {name: 'r1', type: 'reg', asm_start_bit: 0, asm_stop_bit: 5}, {...} ]
            for (let j=0; j<candidate.fields.length; j++)
            {
@@ -611,7 +617,7 @@ function wsasm_encode_instruction ( context, ret, elto )
                 n_bits    = candidate.fields[j].asm_n_bits ;
 
                 // value...
-                if ("inm" == elto.value.signature[j+1])
+                if ("inm" == elto.value.signature_type[j+1])
                 {
 			 ret1 = get_inm_value(elto.value.fields[j]) ;
 
@@ -632,14 +638,14 @@ function wsasm_encode_instruction ( context, ret, elto )
 
 			 value = value.padStart(n_bits, '0') ;
                 }
-                else if ("reg" == elto.value.signature[j+1])
+                else if ("reg" == elto.value.signature_type[j+1])
                 {
                          value = elto.value.fields[j] ;
                          value = context.registers[value] ;
 			 value = (value >>> 0).toString(2) ;
 			 value = value.padStart(n_bits, '0') ;
                 }
-                else if ("(reg)" == elto.value.signature[j+1])
+                else if ("(reg)" == elto.value.signature_type[j+1])
                 {
                          value = elto.value.fields[j] ;
                          value = value.replace('(', '').replace(')', '') ;
@@ -647,7 +653,7 @@ function wsasm_encode_instruction ( context, ret, elto )
 			 value = (value >>> 0).toString(2) ;
 			 value = value.padStart(n_bits, '0') ;
                 }
-                else if ("address" == elto.value.signature[j+1])
+                else if ("address" == elto.value.signature_type[j+1])
                 {
                          elto.pending = {
                                            type:         "field-instruction",
@@ -662,7 +668,7 @@ function wsasm_encode_instruction ( context, ret, elto )
 
                          continue ; // no field to add -> skip add field
                 }
-           //   else if ("..." == elto.value.signature[j+1])
+           //   else if ("..." == elto.value.signature_type[j+1])
            //   {
            //        TODO: more types of fields ??
            //   }
@@ -694,7 +700,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 		   (typeof context.firmware[opx] === "undefined") &&          // NOT instruction
 		   (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/....
 		   ("TAG" != asm_getTokenType(context)) &&                    // NOT label:
-		   (! wsasm_isEndOfFile(context)) &&                         // NOT end-of-file
+		   (! wsasm_isEndOfFile(context)) &&                          // NOT end-of-file
 	           (elto.value.fields.length < 100)                           // NOT 100+ fields already stored...
 		 )
 	   {
@@ -702,7 +708,8 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 	      if (typeof context.registers[opx] != "undefined")
               {
 	          elto.value.fields.push(opx) ;
-	          elto.value.signature.push('reg') ;
+	          elto.value.signature_type.push('reg') ;
+	          elto.value.signature_size.push(context.registers[opx].toString(2).length) ;
 
                   // next operand...
 	          asm_nextToken(context) ;
@@ -737,7 +744,8 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
                   }
 
 	          elto.value.fields.push('(' + reg_name + ')') ;
-	          elto.value.signature.push('(reg)') ;
+	          elto.value.signature_type.push('(reg)') ;
+	          elto.value.signature_size.push(context.registers[reg_name].toString(2).length) ;
 
                   // next operand...
 	          asm_nextToken(context) ;
@@ -784,9 +792,12 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 			}
 
 			elto.value.fields.push(possible_inm) ;
-			elto.value.signature.push('inm') ;
+			elto.value.signature_type.push('inm') ;
+	                elto.value.signature_size.push(parseInt(possible_inm).toString(2).length) ;
+
 			elto.value.fields.push('(' + reg_name + ')') ;
-			elto.value.signature.push('(reg)') ;
+			elto.value.signature_type.push('(reg)') ;
+	                elto.value.signature_size.push(context.registers[reg_name].toString(2).length) ;
 
 			// next operand...
 			asm_nextToken(context) ;
@@ -807,7 +818,8 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
                   else
                   {
 	              elto.value.fields.push(possible_inm) ;
-	              elto.value.signature.push('inm') ;
+	              elto.value.signature_type.push('inm') ;
+	              elto.value.signature_size.push(parseInt(possible_inm).toString(2).length) ;
                       continue ;
                   }
 
@@ -830,7 +842,8 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
                  )
               {
 	          elto.value.fields.push(opx) ;
-	          elto.value.signature.push('address') ;
+	          elto.value.signature_type.push('address') ;
+	          elto.value.signature_size.push(parseInt(opx).toString(2).length) ;
 
 		  // next operand...
 		  asm_nextToken(context) ;
@@ -853,38 +866,66 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
            return ret ;
 }
 
+function wsasm_src2obj_text_isCandidate ( elto_firm_reference_i, elto_value )
+{
+           // get candidate signature_type and signature_size...
+           var candidate_type_as_string1 = elto_firm_reference_i.signature_type ;
+           var candidate_type_as_string2 = elto_firm_reference_i.signature_type.replace('address', 'inm') ;
+           var candidate_size_as_intarr  = elto_firm_reference_i.signature_size ;
+
+           // get elto signature_type and signature_size...
+           var signature_type_as_string = elto_value.signature_type.join(' ') ;
+           var signature_size_as_intarr = elto_value.signature_size ;
+
+           // if candidate has not the same types as expected then return is NOT candidate
+           if (
+                 (candidate_type_as_string1 != signature_type_as_string) &&
+                 (candidate_type_as_string2 != signature_type_as_string)
+              )
+           {
+                return false ;
+           }
+
+           // if candidate is smaller than expected then return is NOT candidate
+           for (let j=0; j<candidate_size_as_intarr.length; j++)
+           {
+                if (candidate_size_as_intarr[j] < signature_size_as_intarr[j]) {
+                    return false ;
+                }
+           }
+
+           return true ;
+}
+
 function wsasm_src2obj_text_candidates ( context, ret, elto )
 {
-           var candidates = 0 ;
-           var signature_as_string = elto.value.signature.join(' ') ;
-           var candidate_as_string = '' ;
+           // TODO [1]:
+           //  * find a way to match the unique instruction format that better fits
+           //  * initial version to be improved
 
-	   // CHECK: signature match at least one firm_reference...
+           var candidates = 0 ;
+
+           // for each candidate...
            for (var i=0; i<elto.firm_reference.length; i++)
            {
-                // TODO [1]: find a way to match the unique instruction format that better fits
-
-                candidate_as_string = elto.firm_reference[i].signature_type ;
-                if (candidate_as_string == signature_as_string) {
-                    candidates ++ ;
-                    elto.firm_reference_index = i ;
-                }
-                candidate_as_string = candidate_as_string.replace('address', 'inm') ;
-                if (candidate_as_string == signature_as_string) {
-                    candidates ++ ;
+                // ... check if it is candidate, reference to the last one
+                if (wsasm_src2obj_text_isCandidate(elto.firm_reference[i], elto.value) == true)
+                {
+                    candidates++ ;
                     elto.firm_reference_index = i ;
                 }
            }
 
+	   // CHECK: elto signature* match at least one firm_reference
 	   if (0 == candidates)
 	   {
 	       return asm_langError(context,
 				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO')    + "<br>" +
-				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + signature_as_string + ". " +
+				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + signature_type_as_string + ". " +
 				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 	   }
 
-           // update size for multi-word instructions
+           // update instruction size for multi-word instructions (e.g.: 'la address' in 2 words)
            elto.byte_size = elto.firm_reference[elto.firm_reference_index].nwords * WORD_BYTES ;
 
            // Return ret
@@ -989,11 +1030,12 @@ function wsasm_src2obj_text ( context, ret )
                    elto.seg_name  = seg_name ;
 		   elto.datatype  = "instruction" ;
                    elto.byte_size = WORD_BYTES ;
-		   elto.value     = {
-                                       "instruction":  possible_inst,
-                                       "fields":       [],
-                                       "signature":    [ possible_inst ]
-                                    } ;
+		   elto.value     = {} ;
+
+		   elto.value.instruction    = possible_inst ;
+		   elto.value.fields         = [] ;
+		   elto.value.signature_type = [ possible_inst ] ;
+		   elto.value.signature_size = [ possible_inst.length ] ;
 
 		   //
 		   //    label1:
