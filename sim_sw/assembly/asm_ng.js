@@ -63,26 +63,58 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 {
            let elto = null ;
 	   let aux  = null ;
+           let start_bit = 0 ;
+           let stop_bit  = 0 ;
+           let lower_bit = 0 ;
+           let w_n_bits  = 0 ;
+           let w_index   = 0 ;
 
 	   // Fill firmware
-	   for (i=0; i<CU_data.firmware.length; i++)
+	   for (let i=0; i<CU_data.firmware.length; i++)
            {
 		aux = CU_data.firmware[i];
 
 	   	if (typeof context.firmware[aux.name] === "undefined") {
-	   	    context.firmware[aux.name] = [];
+	   	    context.firmware[aux.name] = [] ;
 		}
 
-	   	elto = {
-                         name:                aux.name,
-			 nwords:              parseInt(aux.nwords),
-			 co:                  (typeof aux.co     !== "undefined" ? aux.co     : false),
-			 cop:                 (typeof aux.cop    !== "undefined" ? aux.cop    : false),
-			 fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
-			 signature:           aux.signature,
-			 signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
-			 isPseudoinstruction: false
-                       } ;
+                // initial elto fields...
+                elto = {} ;
+                elto.name   = aux.name ;
+		elto.nwords = parseInt(aux.nwords) ;
+
+		elto.co     = (typeof aux.co     !== "undefined" ? aux.co     : false) ;
+		elto.cop    = (typeof aux.cop    !== "undefined" ? aux.cop    : false) ;
+		elto.fields = (typeof aux.fields !== "undefined" ? aux.fields : false) ;
+
+		elto.signature      = aux.signature ;
+		elto.signature_type = (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ) ;
+
+		elto.isPseudoinstruction = false ;
+
+                // start/stop bit...
+                for (let j=0; j<elto.fields.length; j++)
+                {
+                     // initial values...
+                     start_bit  = parseInt(elto.fields[j].startbit) ;
+                     stop_bit   = parseInt(elto.fields[j].stopbit) ;
+
+                     // translate from startbit/stop_bit to asm_start_bit/asm_stop_bit...
+                     lower_bit = Math.min(start_bit, stop_bit) ;
+                     w_n_bits  = WORD_BYTES * BYTE_LENGTH ;
+                     w_index   = ~~(lower_bit / w_n_bits) ;
+                     start_bit = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit ; // w_index*64+32-1 - start_bit 
+                     stop_bit  = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit ;  // w_index*64+32-1 - stop_bit 
+
+                     // copy back the computed values
+                     elto.fields[j].asm_start_bit = start_bit ;
+                     elto.fields[j].asm_stop_bit  = stop_bit ;
+                     elto.fields[j].asm_n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
+                }
+
+                // TODO: add support for firmware v2
+
+                // add elto to firmware
 	   	context.firmware[aux.name].push(elto) ;
 	   }
 
@@ -115,7 +147,7 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
                           name:                initial.name,
 			  fields:              (typeof initial.fields !== "undefined" ? initial.fields : false),
 			  signature:           initial.signature,
-			  signatureUser:       initial.signature.replace(/,/g," "),
+			  signature_type:      initial.signature.replace(/,/g," "),
 			  finish:              finish.signature,
 			  isPseudoinstruction: true
                        } ;
@@ -555,25 +587,20 @@ function wsasm_encode_instruction ( context, ret, elto )
            // (1) Instruction, copy 'co' field...
            candidate = elto.firm_reference[elto.firm_reference_index] ;
 
-	   for (var i=0; i<candidate.co.length; i++) {
+	   for (let i=0; i<candidate.co.length; i++) {
 		arr_encoded[i] = candidate.co[i] ;
 	   }
 
            // (2) Fields, copy values...
            //     Example:
            //     * elto.value.signature = [ 'li', *'reg', 'inm'* ]
-           //     * candidate.fields = [ {name: 'r1', type: 'reg', startbit: 0, stopbit: 5}, {...} ]
-           for (var j=0; j<candidate.fields.length; j++)
+           //     * candidate.fields = [ {name: 'r1', type: 'reg', asm_start_bit: 0, asm_stop_bit: 5}, {...} ]
+           for (let j=0; j<candidate.fields.length; j++)
            {
-                // start/stop bit... (TODO: a) move to prepare and b) add support for firmware v2
-                start_bit  = parseInt(candidate.fields[j].startbit) ;
-                stop_bit   = parseInt(candidate.fields[j].stopbit) ;
-                 lower_bit = Math.min(start_bit, stop_bit) ;
-                 w_n_bits  = WORD_BYTES * BYTE_LENGTH ;
-                 w_index   = ~~(lower_bit / w_n_bits) ;
-                start_bit  = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit ; // w_index*64+32-1 - start_bit 
-                stop_bit   = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit ;  // w_index*64+32-1 - stop_bit 
-                n_bits     = Math.abs(stop_bit - start_bit) + 1 ;
+                // start/stop bit...
+                start_bit = candidate.fields[j].asm_start_bit ;
+                stop_bit  = candidate.fields[j].asm_stop_bit ;
+                n_bits    = candidate.fields[j].asm_n_bits ;
 
                 // value...
                 if ("inm" == elto.value.signature[j+1])
@@ -829,7 +856,7 @@ function wsasm_src2obj_text_candidates ( context, ret, elto )
            {
                 // TODO [1]: find a way to match the unique instruction format that better fits
 
-                candidate_as_string = elto.firm_reference[i].signatureUser ;
+                candidate_as_string = elto.firm_reference[i].signature_type ;
                 if (candidate_as_string == signature_as_string) {
                     candidates ++ ;
                     elto.firm_reference_index = i ;
