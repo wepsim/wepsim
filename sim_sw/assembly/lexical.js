@@ -23,6 +23,11 @@
  *  Token management
  */
 
+function wsasm_isEndOfFile (context)
+{
+        return ("" === asm_getToken(context)) && (context.t >= context.text.length) ;
+}
+
 function asm_nextToken ( context )
 {
 	  var tok   = "" ;
@@ -231,6 +236,11 @@ function asm_langError ( context, msgError )
         return context;
 }
 
+
+/*
+ *  Label context management
+ */
+
 function asm_getLabelContext ( context )
 {
         return { t: context.t, line: context.line, newlines: context.newlines.slice() } ;
@@ -242,6 +252,11 @@ function asm_setLabelContext ( context, labelContext )
         context.line = labelContext.line ;
         context.newlines = labelContext.newlines ;
 }
+
+
+/*
+ *  Comments management
+ */
 
 function asm_getComments ( context )
 {
