@@ -20,7 +20,7 @@
 
 
 //
-// Pass 1: compile assembly to JSON object (see README_ng.md for more information)
+// Management of JSON object (see README_ng.md for more information)
 //
 
 function wsasm_new_objElto ( base_elto )
@@ -50,10 +50,127 @@ function wsasm_new_objElto ( base_elto )
         return elto ;
 }
 
-function wsasm_is_EndOfFile (context)
+
+//
+//  (1/3) Prepare context for compiling and loading   (see README_ng.md for more information)
+//
+//  Auxiliar function tree for wsasm_prepare_context ( CU_data, asm_source )
+//   * wsasm_prepare_context_firmware           ( context, CU_data )
+//   * wsasm_prepare_context_pseudoinstructions ( context, CU_data )
+//
+
+function wsasm_prepare_context_firmware ( context, CU_data )
 {
-        return ("" === asm_getToken(context)) && (context.t >= context.text.length) ;
+           let elto = null ;
+	   let aux  = null ;
+           let start_bit = 0 ;
+           let stop_bit  = 0 ;
+           let lower_bit = 0 ;
+           let w_n_bits  = 0 ;
+           let w_index   = 0 ;
+
+	   // Fill firmware
+	   for (let i=0; i<CU_data.firmware.length; i++)
+           {
+		aux = CU_data.firmware[i];
+
+	   	if (typeof context.firmware[aux.name] === "undefined") {
+	   	    context.firmware[aux.name] = [] ;
+		}
+
+                // initial elto fields...
+                elto = {} ;
+                elto.name   = aux.name ;
+		elto.nwords = parseInt(aux.nwords) ;
+
+		elto.co     = (typeof aux.co     !== "undefined" ? aux.co     : false) ;
+		elto.cop    = (typeof aux.cop    !== "undefined" ? aux.cop    : false) ;
+		elto.fields = (typeof aux.fields !== "undefined" ? aux.fields : false) ;
+
+		elto.signature      = aux.signature ;
+		elto.signature_type = (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ) ;
+
+		elto.isPseudoinstruction = false ;
+
+                // start/stop bit...
+                for (let j=0; j<elto.fields.length; j++)
+                {
+                     // initial values...
+                     start_bit  = parseInt(elto.fields[j].startbit) ;
+                     stop_bit   = parseInt(elto.fields[j].stopbit) ;
+
+                     // translate from startbit/stop_bit to asm_start_bit/asm_stop_bit...
+                     lower_bit = Math.min(start_bit, stop_bit) ;
+                     w_n_bits  = WORD_BYTES * BYTE_LENGTH ;
+                     w_index   = ~~(lower_bit / w_n_bits) ;
+                     start_bit = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit ; // w_index*64+32-1 - start_bit 
+                     stop_bit  = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit ;  // w_index*64+32-1 - stop_bit 
+
+                     // copy back the computed values
+                     elto.fields[j].asm_start_bit = start_bit ;
+                     elto.fields[j].asm_stop_bit  = stop_bit ;
+                     elto.fields[j].asm_n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
+                }
+
+                // TODO: add support for firmware v2
+
+                // add elto to firmware
+	   	context.firmware[aux.name].push(elto) ;
+	   }
+
+	   return context ;
 }
+
+function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
+{
+           let elto    = null ;
+	   let initial = null ;
+	   let finish  = null ;
+
+	   // Fill pseudoinstructions
+	   for (i=0; i<CU_data.pseudoInstructions.length; i++)
+	   {
+		initial = CU_data.pseudoInstructions[i].initial ;
+		finish  = CU_data.pseudoInstructions[i].finish ;
+
+		if (typeof context.pseudoInstructions[initial.name] === "undefined")
+                {
+	 	    context.pseudoInstructions[initial.name] = 0 ;
+		    if (typeof context.firmware[initial.name] === "undefined") {
+		        context.firmware[initial.name] = [] ;
+		    }
+		}
+
+		context.pseudoInstructions[initial.name]++;
+
+                elto = {
+                          name:                initial.name,
+			  fields:              (typeof initial.fields !== "undefined" ? initial.fields : false),
+			  signature:           initial.signature,
+			  signature_type:      initial.signature.replace(/,/g," "),
+			  finish:              finish.signature,
+			  isPseudoinstruction: true
+                       } ;
+                context.firmware[initial.name].push(elto) ;
+	   }
+
+	   return context ;
+}
+
+
+//
+//  (2/3) Compile assembly to JSON object (see README_ng.md for more information)
+//
+//  Auxiliar function tree for wsasm_src2obj ( context )
+//   * wsasm_src2obj_helper ( context, ret )
+//      * wsasm_src2obj_data(context, ret)
+//      * wsasm_src2obj_text(context, ret)
+//         * wsasm_encode_instruction(context, ret, elto)
+//         * wsasm_src2obj_text_instr_op(context, ret, elto)
+//         * wsasm_src2obj_text_candidates(context, ret, elto)
+//   * wsasm_resolve_pseudo ( context, ret )
+//   * wsasm_resolve_labels ( context, ret )
+// 
 
 function wsasm_is_ValidTag ( tag )
 {
@@ -71,12 +188,6 @@ function wsasm_is_ValidTag ( tag )
         return !(myRegEx.test(tag)) ;
 }
 
-
- //
- //  Auxiliar for wsasm_src2obj_helper(context, ret)
- //    * wsasm_src2obj_data(context, ret)
- //    * wsasm_src2obj_text(context, ret)
- // 
 
 function wsasm_src2obj_data ( context, ret )
 {
@@ -104,7 +215,7 @@ function wsasm_src2obj_data ( context, ret )
 	   // Loop while token read is not a segment directive (.text/.data/...) or end_of_file is found
 	   while (
                    (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/...
-                   (! wsasm_is_EndOfFile(context))                            // NOT end-of-file
+                   (! wsasm_isEndOfFile(context))                            // NOT end-of-file
                  )
            {
 		   //
@@ -118,7 +229,7 @@ function wsasm_src2obj_data ( context, ret )
 		   possible_tag = "" ;
 		   while (
                            (! wsasm_is_directive_datatype(asm_getToken(context))) &&  // NOT .data/...
-                           (! wsasm_is_EndOfFile(context))                            // NOT end-of-file
+                           (! wsasm_isEndOfFile(context))                            // NOT end-of-file
                          )
 		   {
                       // tagX
@@ -163,7 +274,7 @@ function wsasm_src2obj_data ( context, ret )
 		   }
 
 		   // check if end of file has been reached
-		   if (wsasm_is_EndOfFile(context)) {
+		   if (wsasm_isEndOfFile(context)) {
 			break;
                    }
 
@@ -186,7 +297,7 @@ function wsasm_src2obj_data ( context, ret )
 		        asm_nextToken(context) ;
                         possible_value = asm_getToken(context) ;
 
-			while (!wsasm_is_directive(asm_getToken(context)) && !wsasm_is_EndOfFile(context))
+			while (!wsasm_is_directive(asm_getToken(context)) && !wsasm_isEndOfFile(context))
                         {
 				var label_found = false;
 
@@ -377,7 +488,7 @@ function wsasm_src2obj_data ( context, ret )
 		        }
                         possible_value = ret1.string ;
 
-			while (!wsasm_is_directive(asm_getToken(context)) && !wsasm_is_EndOfFile(context))
+			while (!wsasm_is_directive(asm_getToken(context)) && !wsasm_isEndOfFile(context))
                         {
 				// CHECK string
 				if ("\"" !== possible_value[0]) {
@@ -455,13 +566,6 @@ function wsasm_src2obj_data ( context, ret )
 }
 
 
- //
- //  Auxiliar for wsasm_src2obj_text(context, ret)
- //    * wsasm_encode_instruction(context, ret, elto)
- //    * wsasm_src2obj_text_instr_op(context, ret, elto)
- //    * wsasm_src2obj_text_candidates(context, ret, elto)
- //
-
 function wsasm_encode_instruction ( context, ret, elto )
 {
            // .../63/31(MSB) ..................... 0(LSB)
@@ -483,25 +587,20 @@ function wsasm_encode_instruction ( context, ret, elto )
            // (1) Instruction, copy 'co' field...
            candidate = elto.firm_reference[elto.firm_reference_index] ;
 
-	   for (var i=0; i<candidate.co.length; i++) {
+	   for (let i=0; i<candidate.co.length; i++) {
 		arr_encoded[i] = candidate.co[i] ;
 	   }
 
            // (2) Fields, copy values...
            //     Example:
            //     * elto.value.signature = [ 'li', *'reg', 'inm'* ]
-           //     * candidate.fields = [ {name: 'r1', type: 'reg', startbit: 0, stopbit: 5}, {...} ]
-           for (var j=0; j<candidate.fields.length; j++)
+           //     * candidate.fields = [ {name: 'r1', type: 'reg', asm_start_bit: 0, asm_stop_bit: 5}, {...} ]
+           for (let j=0; j<candidate.fields.length; j++)
            {
                 // start/stop bit...
-                start_bit  = parseInt(candidate.fields[j].startbit) ;
-                stop_bit   = parseInt(candidate.fields[j].stopbit) ;
-                 lower_bit = Math.min(start_bit, stop_bit) ;
-                 w_n_bits  = WORD_BYTES * BYTE_LENGTH ;
-                 w_index   = ~~(lower_bit / w_n_bits) ;
-                start_bit  = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit ; // w_index*64+32-1 - start_bit 
-                stop_bit   = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit ;  // w_index*64+32-1 - stop_bit 
-                n_bits     = Math.abs(stop_bit - start_bit) + 1 ;
+                start_bit = candidate.fields[j].asm_start_bit ;
+                stop_bit  = candidate.fields[j].asm_stop_bit ;
+                n_bits    = candidate.fields[j].asm_n_bits ;
 
                 // value...
                 if ("inm" == elto.value.signature[j+1])
@@ -587,7 +686,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 		   (typeof context.firmware[opx] === "undefined") &&          // NOT instruction
 		   (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/....
 		   ("TAG" != asm_getTokenType(context)) &&                    // NOT label:
-		   (! wsasm_is_EndOfFile(context)) &&                         // NOT end-of-file
+		   (! wsasm_isEndOfFile(context)) &&                         // NOT end-of-file
 	           (elto.value.fields.length < 100)                           // NOT 100+ fields already stored...
 		 )
 	   {
@@ -757,7 +856,7 @@ function wsasm_src2obj_text_candidates ( context, ret, elto )
            {
                 // TODO [1]: find a way to match the unique instruction format that better fits
 
-                candidate_as_string = elto.firm_reference[i].signatureUser ;
+                candidate_as_string = elto.firm_reference[i].signature_type ;
                 if (candidate_as_string == signature_as_string) {
                     candidates ++ ;
                     elto.firm_reference_index = i ;
@@ -810,7 +909,7 @@ function wsasm_src2obj_text ( context, ret )
 	   // Loop while token read is not a segment directive (.text/.data/...) or end_of_file is found
 	   while (
                    (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/...
-                   (! wsasm_is_EndOfFile(context))                            // NOT end-of-file
+                   (! wsasm_isEndOfFile(context))                            // NOT end-of-file
                  )
            {
 		   //
@@ -824,7 +923,7 @@ function wsasm_src2obj_text ( context, ret )
 		   possible_tag = "" ;
 		   while (
                            (typeof context.firmware[asm_getToken(context)] === "undefined") &&  // NOT instruction
-                           (! wsasm_is_EndOfFile(context))                                      // NOT end-of-file
+                           (! wsasm_isEndOfFile(context))                                      // NOT end-of-file
                          )
 		   {
                       // tagX
@@ -869,7 +968,7 @@ function wsasm_src2obj_text ( context, ret )
 		   }
 
 		   // check if end of file has been reached
-		   if (wsasm_is_EndOfFile(context)) {
+		   if (wsasm_isEndOfFile(context)) {
 			break;
                    }
 
@@ -930,7 +1029,7 @@ function wsasm_src2obj_helper ( context, ret )
           // ...
           //
           asm_nextToken(context) ;
-          while (!wsasm_is_EndOfFile(context))
+          while (!wsasm_isEndOfFile(context))
           {
 	       var segname = asm_getToken(context);
 
@@ -942,19 +1041,23 @@ function wsasm_src2obj_helper ( context, ret )
                                         "'" + segname + "'") ;
 	       }
 
+	       // Compile .data and check errors
 	       if ("data" == ret.seg[segname].kindof) {
 		   ret = wsasm_src2obj_data(context, ret);
 		   ret.data_found = true;
 	       }
 
+	       if (ret.error != null) {
+		   return ret;
+	       }
+
+	       // Compile .text and check errors
 	       if ("text" == ret.seg[segname].kindof) {
 		   ret = wsasm_src2obj_text(context, ret);
 		   ret.text_found = true;
 	       }
 
-	       // Check errors
-	       if (context.error != null) {
-	       	   ret.error = context.error;
+	       if (ret.error != null) {
 		   return ret;
 	       }
 	 }
@@ -963,10 +1066,6 @@ function wsasm_src2obj_helper ( context, ret )
 }
 
 
-//
-// Pass 2: replace pseudo-instructions (see README_ng.md for more information)
-//
-
 function wsasm_resolve_pseudo ( context, ret )
 {
          // TODO[3]: replace pseudoinstruction with the instructions(s)...
@@ -974,10 +1073,6 @@ function wsasm_resolve_pseudo ( context, ret )
 	 return ret;
 }
 
-
-//
-// Pass 3: check that all used labels are defined in the text (see README_ng.md for more information)
-//
 
 function wsasm_resolve_labels ( context, ret )
 {
@@ -1081,13 +1176,15 @@ function wsasm_resolve_labels ( context, ret )
 }
 
 
- //
- //  Auxiliar for wsasm_obj2mem(ret)
- //     * wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
- //     * wsasm_writememory_and_accumulate ( mp, gen, valuebin )
- //     * wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source, track_comments )
- //     * wsasm_zeropadding_and_writememory ( mp, gen )
- //
+//
+//  (3/3) Load JSON object to main memory (see README_ng.md for more information)
+//
+//  Auxiliar function tree for wsasm_obj2mem ( ret )
+//   * wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
+//   * wsasm_writememory_and_accumulate ( mp, gen, valuebin )
+//   * wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source, track_comments )
+//   * wsasm_zeropadding_and_writememory ( mp, gen )
+//
 
 function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
 {
@@ -1150,25 +1247,25 @@ function wsasm_zeropadding_and_writememory ( mp, gen )
 }
 
 
-/*
- *  Public API (see README_ng.md for more information)
- */
+ /*
+  *  Public API (see README_ng.md for more information)
+  */
 
 function wsasm_prepare_context ( CU_data, asm_source )
 {
            var context = {} ;
-	   context.line           	= 1 ;
+	   context.line           	= 1 ;          // here
 	   context.error          	= null ;
-	   context.i              	= 0 ;
-           context.text                 = asm_source ;
+	   context.i              	= 0 ;          // here
+           context.text                 = asm_source ; // here
 	   context.tokens         	= [] ;
 	   context.token_types    	= [] ;
-	   context.t              	= 0 ;
+	   context.t              	= 0 ;          // here
            context.comments             = [] ;
 	   context.newlines       	= [] ;
-	   context.registers      	= [] ;   // here
-	   context.firmware             = {} ;   // here
-	   context.pseudoInstructions	= [];    // here
+	   context.registers      	= [] ;         // here
+	   context.firmware             = {} ;         // here
+	   context.pseudoInstructions	= [];          // here
 	   context.stackRegister	= null ;
 
 	   // Check arguments
@@ -1188,57 +1285,12 @@ function wsasm_prepare_context ( CU_data, asm_source )
 	   }
 
 	   // Fill firmware
-           var elto = null ;
-	   for (i=0; i<CU_data.firmware.length; i++)
-           {
-		var aux = CU_data.firmware[i];
+           context = wsasm_prepare_context_firmware(context, CU_data) ;
 
-	   	if (typeof context.firmware[aux.name] === "undefined") {
-	   	    context.firmware[aux.name] = [];
-		}
+	   // Fill pseudoinstructions
+           context = wsasm_prepare_context_pseudoinstructions(context, CU_data) ;
 
-	   	elto = {
-                         name:                aux.name,
-			 nwords:              parseInt(aux.nwords),
-			 co:                  (typeof aux.co     !== "undefined" ? aux.co     : false),
-			 cop:                 (typeof aux.cop    !== "undefined" ? aux.cop    : false),
-			 fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
-			 signature:           aux.signature,
-			 signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
-			 isPseudoinstruction: false
-                       } ;
-	   	context.firmware[aux.name].push(elto) ;
-	   }
-
-	   // fill pseudoinstructions
-	   var initial = null ;
-	   var finish  = null ;
-	   for (i=0; i<CU_data.pseudoInstructions.length; i++)
-	   {
-		initial = CU_data.pseudoInstructions[i].initial ;
-		finish  = CU_data.pseudoInstructions[i].finish ;
-
-		if (typeof context.pseudoInstructions[initial.name] === "undefined")
-                {
-	 	    context.pseudoInstructions[initial.name] = 0 ;
-		    if (typeof context.firmware[initial.name] === "undefined") {
-		        context.firmware[initial.name] = [] ;
-		    }
-		}
-
-		context.pseudoInstructions[initial.name]++;
-
-                elto = {
-                          name:                initial.name,
-			  fields:              (typeof initial.fields !== "undefined" ? initial.fields : false),
-			  signature:           initial.signature,
-			  signatureUser:       initial.signature.replace(/,/g," "),
-			  finish:              finish.signature,
-			  isPseudoinstruction: true
-                       } ;
-                context.firmware[initial.name].push(elto) ;
-	   }
-
+           // return context
 	   return context ;
 }
 

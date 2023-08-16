@@ -349,8 +349,6 @@ rm -fr ws_dist/external.js
 
 echo "  * ws_dist/min.external.css"
 cat external/bootstrap/bootstrap.min.css \
-    external/bootstrap-theme.min.css \
-    external/dark-mode.css \
     external/codemirror/codemirror.css \
     external/codemirror/theme/blackboard.css \
     external/codemirror/theme/eclipse.css \

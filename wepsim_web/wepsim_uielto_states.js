@@ -196,7 +196,7 @@
                   "             style='max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>" +
                   "             <div id='history1'>" +
                   "                  <div class='pt-2'></div>" +
-                  "                  <span style='background-color:#FCFC00'>&lt;<span data-langkey='Empty history'>Empty history</span>&gt;</span>" +
+                  "                  <span class='bg-warning text-dark bg-opacity-75'>&lt;<span data-langkey='Empty history'>Empty history</span>&gt;</span>" +
                   "             </div>" +
                   "        </div>" +
                   "    </div>" +
@@ -235,7 +235,7 @@
                   "             </div>" +
                   "             <div class='col py-2 ps-2'>" +
                   "                  <div id='check_results1'>" +
-                  "                       <span style='background-color:#FCFC00'>&lt;<span data-langkey='Empty (only modified values are shown)'>Empty (only modified values are shown)</span>&gt;</span>" +
+                  "                       <span class='bg-warning text-dark bg-opacity-75'>&lt;<span data-langkey='Empty (only modified values are shown)'>Empty (only modified values are shown)</span>&gt;</span>" +
                   "                  </div>" +
                   "             </div>" +
                   "             </div>" +
@@ -255,7 +255,7 @@
         function wepsim_state_history_empty ( )
         {
              var empty_history = '<div class="pt-2"></div>' +
-                                 '<span style="background-color:#FCFC00">' +
+                                 '<span class="bg-warning text-dark bg-opacity-75">' +
                                  '&lt;<span data-langkey="Empty history">Empty history</span>&gt;' +
                                  '</span>' ;
 
@@ -401,7 +401,7 @@
 
         function wepsim_state_results_empty ( )
         {
-    	     var empty_results = '<span style="background-color:#FCFC00">' +
+    	     var empty_results = '<span class="bg-warning text-dark bg-opacity-75">' +
                                  '&lt;Empty (only modified values are shown)&gt;' +
                                  '</span>' ;
 
