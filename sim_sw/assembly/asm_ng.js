@@ -68,6 +68,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
            let lower_bit = 0 ;
            let w_n_bits  = 0 ;
            let w_index   = 0 ;
+           let n_bits    = 0 ;
 
 	   // Fill firmware
 	   for (let i=0; i<CU_data.firmware.length; i++)
@@ -80,19 +81,23 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 
                 // initial elto fields...
                 elto = {} ;
-                elto.name   = aux.name ;
-		elto.nwords = parseInt(aux.nwords) ;
 
-		elto.co     = (typeof aux.co     !== "undefined" ? aux.co     : false) ;
-		elto.cop    = (typeof aux.cop    !== "undefined" ? aux.cop    : false) ;
-		elto.fields = (typeof aux.fields !== "undefined" ? aux.fields : false) ;
-
-		elto.signature      = aux.signature ;
-		elto.signature_type = (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ) ;
-
+                elto.name                = aux.name ;
+		elto.nwords              = parseInt(aux.nwords) ;
+		elto.co                  = '' ;
+		elto.cop                 = '' ;
+		elto.fields              = [] ;
+		elto.signature           = aux.signature ;
+		elto.signature_type      = aux.name ;
 		elto.isPseudoinstruction = false ;
 
-                // start/stop bit...
+		if (typeof aux.co     !== "undefined")         elto.co     = aux.co ;
+		if (typeof aux.cop    !== "undefined")         elto.cop    = aux.cop ;
+		if (typeof aux.fields !== "undefined")         elto.fields = aux.fields ;
+		if (typeof aux.signatureUser !== "undefined")  elto.signature_type = aux.signatureUser ;
+
+                // asm_start/asm_stop bit...
+		elto.signature_size = elto.co.length.toString(10) ;
                 for (let j=0; j<elto.fields.length; j++)
                 {
                      // initial values...
@@ -105,11 +110,14 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                      w_index   = ~~(lower_bit / w_n_bits) ;
                      start_bit = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit ; // w_index*64+32-1 - start_bit 
                      stop_bit  = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit ;  // w_index*64+32-1 - stop_bit 
+                     n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
 
                      // copy back the computed values
                      elto.fields[j].asm_start_bit = start_bit ;
                      elto.fields[j].asm_stop_bit  = stop_bit ;
-                     elto.fields[j].asm_n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
+                     elto.fields[j].asm_n_bits    = n_bits ;
+
+		     elto.signature_size = elto.signature_size + ' ' + n_bits ;
                 }
 
                 // TODO: add support for firmware v2
