@@ -19,12 +19,12 @@
 ## 1) Public API
 
 + **wsasm_prepare_context(CU_data, asm_source)**
-   * Prepare context from firmware (CU_data) and source code (asm_source) build the context object to be used in next steps
+   * It prepare context from firmware (CU_data) and source code (asm_source) and builds the context object to be used in the next steps
 
 + **wsasm_src2obj(CU_data, asm_source)**
    * Assembler-NG API function to transform from source to JSON object
    * Notes:
-       * pseudo-instruction: no supported right now
+       * pseudo-instruction: not supported right now
        * multiple definition instructions: not supported right now
 + **wsasm_obj2mem(ret)**
    * Assembler-NG API to transform from JSON object to main memory content (binary)
@@ -36,14 +36,14 @@
 
 The TODO list includes:
 
- 1. If there are several 'candidates' instruction, then select the best fit
+ 1. If there are several 'candidates' instructions, then select the best fit.
      Example:
     ```
     li $1 0x123   <- instruction register inm
     li $1 lab1    <- instruction register address
     ```
 
- 2. Review all pending labels (back and forth referenced)
+ 2. Review all pending labels (back and forth referenced).
      Example:
     ```
     loop1: beq $t0 $t1 end1
@@ -67,9 +67,9 @@ The TODO list includes:
 * Performed by:
     **wsasm_prepare_context(CU_data, asm_source)**
  * Description:
-   * It prepares the context from firmware (CU_data) and source code (asm_source) build the context object to be used in next steps
-  * Auxiliar functions are:
-      * wsasm_prepare_context_firmware                  ( context, CU_data )
+   * It prepares the context from firmware (CU_data) and source code (asm_source) and builds the context object to be used in the next steps
+  * Auxiliary functions are:
+      * wsasm_prepare_context_firmware           ( context, CU_data )
       * wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 
 ```mermaid
@@ -92,7 +92,7 @@ sequenceDiagram
      **wsasm_src2obj ( CU_data, asm_source )**
   * Description:
     * Compile assembly to JSON object
-    * Auxiliar functions are:
+  * Auxiliary functions are:
        * wsasm_src2obj_helper ( context, ret )
           * wsasm_src2obj_data(context, ret) 
           * wsasm_src2obj_text(context, ret)
@@ -109,7 +109,7 @@ sequenceDiagram
          * **wsasm_src2obj_data(context, ret)**: read the .data segment and build the associated JSON object fragment.
          * **wsasm_src2obj_text(context, ret)**: read the .text segment and build the associated JSON object fragment.
            * **wsasm_src2obj_text_instr_op(context, ret, elto)**: read instructions' fields
-           * **wsasm_src2obj_text_candidates(context, ret, elto)**: find in firmware the first definition that match the read instruction
+           * **wsasm_src2obj_text_candidates(context, ret, elto)**: find in firmware the first definition that matches the read instruction
            * **wsasm_encode_instruction(context, ret, elto)**: encode in binary (string) an instruction.
      + pass 2: replace pseudo-instructions (PENDING ~100%)
        * **wsasm_resolve_pseudo(context, ret)**: replace pseudo-instructions
@@ -125,7 +125,7 @@ sequenceDiagram
     **wsasm_obj2mem ( ret )**
  * Description:
    * Load JSON object into main memory
-  * Auxiliar functions are:
+  * Auxiliary functions are:
       * wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
       * wsasm_writememory_and_accumulate ( mp, gen, valuebin )
       * wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source, track_comments )
@@ -145,7 +145,7 @@ sequenceDiagram
 
 ### D) Elements in the JSON object
 
-+ Each elemento from the JSON object array or **elto** represents any element from the assembly source code (.word, one ascii char from .ascii, one instruction, etc.).
++ Each element from the JSON object array or **elto** represents any element from the assembly source code (.word, one ascii char from .ascii, one instruction, etc.).
   * For example, from the source code:
     ```
      l1:
