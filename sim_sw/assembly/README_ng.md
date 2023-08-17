@@ -36,22 +36,16 @@
 
 The TODO list includes:
 
- 1. If there are several 'candidates' instructions, then select the best fit.
+ 1. Review all pending labels (back and forth referenced + relative and absolute encoded).
      Example:
     ```
-    li $1 0x123   <- instruction register inm
-    li $1 lab1    <- instruction register address
-    ```
-
- 2. Review all pending labels (back and forth referenced).
-     Example:
-    ```
-    loop1: beq $t0 $t1 end1
+    li $1 lab1               <- small address as immediate
+    loop1: beq $t0 $t1 end1  <- relative end1
            ...
-           b loop1
+           b loop1           <- relative/absolute loop1
      end1: ...
     ```
- 3. Replace pseudo-instruction with the associated instructions(s).
+ 2. Replace pseudo-instruction with the associated instructions(s).
      Example:
     ```
     li reg 0x12345678 <- lui reg 0x1234

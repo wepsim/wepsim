@@ -621,9 +621,11 @@ function wsasm_encode_instruction ( context, ret, elto )
                 {
 			 ret1 = get_inm_value(elto.value.fields[j]) ;
 
-			 if (ret1.isDecimal == true)
+			 if (ret1.isDecimal)
 			      a = decimal2binary(ret1.number, n_bits) ;
-			 else a =   float2binary(ret1.number, n_bits) ;
+			 else if (ret1.isFloat)
+                              a =   float2binary(ret1.number, n_bits) ;
+                         else a = [ 0, -1 ] ; // TODO: pending = {...} and continue if inm is label 
 
 			 value = a[0] ;
                          if (a[1] < 0)
@@ -687,6 +689,31 @@ function wsasm_encode_instruction ( context, ret, elto )
            return arr_encoded.join('') ;
 }
 
+function wsasm_src2obj_text_get_nbits_for ( context, type, value )
+{
+           var b = WORD_BYTES * BYTE_LENGTH ;
+
+           if ("register" == type) {
+	       return context.registers[value].toString(2).length ;
+           }
+
+           if ("immediate" == type)
+           {
+               var a = null ;
+	       var ret1 = get_inm_value(value) ;
+
+	       if (ret1.isDecimal)
+		    a = decimal2binary(ret1.number, b) ;
+	       else if (ret1.isFloat)
+	            a =   float2binary(ret1.number, b) ;
+	       else return b ;
+
+	       return a[0].length ;
+           }
+
+           return b ;
+}
+
 function wsasm_src2obj_text_instr_op ( context, ret, elto )
 {
            var opx  = "" ;
@@ -709,7 +736,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
               {
 	          elto.value.fields.push(opx) ;
 	          elto.value.signature_type.push('reg') ;
-	          elto.value.signature_size.push(context.registers[opx].toString(2).length) ;
+	          elto.value.signature_size.push(wsasm_src2obj_text_get_nbits_for(context, "register", opx)) ;
 
                   // next operand...
 	          asm_nextToken(context) ;
@@ -745,7 +772,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 
 	          elto.value.fields.push('(' + reg_name + ')') ;
 	          elto.value.signature_type.push('(reg)') ;
-	          elto.value.signature_size.push(context.registers[reg_name].toString(2).length) ;
+	          elto.value.signature_size.push(wsasm_src2obj_text_get_nbits_for(context, "register", reg_name)) ;
 
                   // next operand...
 	          asm_nextToken(context) ;
@@ -793,11 +820,11 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 
 			elto.value.fields.push(possible_inm) ;
 			elto.value.signature_type.push('inm') ;
-	                elto.value.signature_size.push(parseInt(possible_inm).toString(2).length) ;
+	                elto.value.signature_size.push(wsasm_src2obj_text_get_nbits_for(context, "immediate", possible_inm)) ;
 
 			elto.value.fields.push('(' + reg_name + ')') ;
 			elto.value.signature_type.push('(reg)') ;
-	                elto.value.signature_size.push(context.registers[reg_name].toString(2).length) ;
+	                elto.value.signature_size.push(wsasm_src2obj_text_get_nbits_for(context, "register", reg_name)) ;
 
 			// next operand...
 			asm_nextToken(context) ;
@@ -819,7 +846,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
                   {
 	              elto.value.fields.push(possible_inm) ;
 	              elto.value.signature_type.push('inm') ;
-	              elto.value.signature_size.push(parseInt(possible_inm).toString(2).length) ;
+	              elto.value.signature_size.push(wsasm_src2obj_text_get_nbits_for(context, "immediate", possible_inm)) ;
                       continue ;
                   }
 
@@ -843,7 +870,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
               {
 	          elto.value.fields.push(opx) ;
 	          elto.value.signature_type.push('address') ;
-	          elto.value.signature_size.push(parseInt(opx).toString(2).length) ;
+	          elto.value.signature_size.push(wsasm_src2obj_text_get_nbits_for(context, "immediate", opx)) ;
 
 		  // next operand...
 		  asm_nextToken(context) ;
@@ -866,7 +893,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
            return ret ;
 }
 
-function wsasm_src2obj_text_isCandidate ( elto_firm_reference_i, elto_value )
+function wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
 {
            // get candidate signature_type and signature_size...
            var candidate_type_as_string1 = elto_firm_reference_i.signature_type ;
@@ -883,36 +910,44 @@ function wsasm_src2obj_text_isCandidate ( elto_firm_reference_i, elto_value )
                  (candidate_type_as_string2 != signature_type_as_string)
               )
            {
-                return false ;
+                return -1 ;
            }
 
            // if candidate is smaller than expected then return is NOT candidate
+           var distance = 0 ;
            for (let j=0; j<candidate_size_as_intarr.length; j++)
            {
                 if (candidate_size_as_intarr[j] < signature_size_as_intarr[j]) {
-                    return false ;
+                    return -1 ;
                 }
+
+                distance = distance + (candidate_size_as_intarr[j] - signature_size_as_intarr[j]) ;
            }
 
-           return true ;
+           return distance ;
 }
 
 function wsasm_src2obj_text_candidates ( context, ret, elto )
 {
-           // TODO [1]:
-           //  * find a way to match the unique instruction format that better fits
-           //  * initial version to be improved
-
            var candidates = 0 ;
+           var distance   = 0 ;
 
-           // for each candidate...
+           // for each candidate, check if can be used...
+           elto.firm_reference_distance = -1 ;
+           elto.firm_reference_index    =  0 ;
            for (var i=0; i<elto.firm_reference.length; i++)
            {
-                // ... check if it is candidate, reference to the last one
-                if (wsasm_src2obj_text_isCandidate(elto.firm_reference[i], elto.value) == true)
+                distance = wsasm_src2obj_text_getDistance(elto.firm_reference[i], elto.value) ;
+                if (distance < 0) {
+                    continue ;
+                }
+
+                candidates++ ;
+                if ( (elto.firm_reference_distance < 0) ||
+                     (elto.firm_reference_distance > distance) )
                 {
-                    candidates++ ;
-                    elto.firm_reference_index = i ;
+                    elto.firm_reference_distance = distance ;
+                    elto.firm_reference_index    = i ;
                 }
            }
 
@@ -972,7 +1007,7 @@ function wsasm_src2obj_text ( context, ret )
 		   possible_tag = "" ;
 		   while (
                            (typeof context.firmware[asm_getToken(context)] === "undefined") &&  // NOT instruction
-                           (! wsasm_isEndOfFile(context))                                      // NOT end-of-file
+                           (! wsasm_isEndOfFile(context))                                       // NOT end-of-file
                          )
 		   {
                       // tagX
@@ -1033,9 +1068,10 @@ function wsasm_src2obj_text ( context, ret )
 		   elto.value     = {} ;
 
 		   elto.value.instruction    = possible_inst ;
+                   elto.firm_reference       = context.firmware[possible_inst] ;
 		   elto.value.fields         = [] ;
 		   elto.value.signature_type = [ possible_inst ] ;
-		   elto.value.signature_size = [ possible_inst.length ] ;
+		   elto.value.signature_size = [ elto.firm_reference[0].co.length ] ;
 
 		   //
 		   //    label1:
@@ -1048,7 +1084,6 @@ function wsasm_src2obj_text ( context, ret )
 		   }
 
                    // Find candidate from firm_reference
-                   elto.firm_reference = context.firmware[possible_inst] ;
                    ret = wsasm_src2obj_text_candidates(context, ret, elto) ;
 		   if (ret.error != null) {
 		       return ret;
