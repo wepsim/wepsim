@@ -19,6 +19,8 @@
  */
 
 
+/* jshint esversion: 6 */
+
 //
 // Management of JSON object (see README_ng.md for more information)
 //
@@ -101,6 +103,8 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 		elto.signature_size.push(elto.co.length) ;
                 for (let j=0; j<elto.fields.length; j++)
                 {
+                     // TODO: add support for firmware v2 ("elto.fields[j].startbit/stopbit" probably is an array)
+
                      // initial values...
                      start_bit  = parseInt(elto.fields[j].startbit) ;
                      stop_bit   = parseInt(elto.fields[j].stopbit) ;
@@ -121,7 +125,11 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 		     elto.signature_size.push(n_bits) ;
                 }
 
-                // TODO: add support for firmware v2
+                // Derived attributes: signature_user for "reg (5 bits)"
+                elto.signature_user = '' ;
+                for (let j=0; j<elto.signature_type.length; j++) {
+                     elto.signature_user += elto.signature_type[j] + ' (' + elto.signature_size[j] + ' bits) ' ;
+                }
 
                 // add elto to firmware
 	   	context.firmware[aux.name].push(elto) ;
@@ -179,7 +187,7 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 //   * wsasm_src2obj_helper ( context, ret )
 //      * wsasm_src2obj_data(context, ret)
 //      * wsasm_src2obj_text(context, ret)
-//         * wsasm_encode_instruction(context, ret, elto)
+//         * wsasm_encode_instruction(context, ret, elto, candidate)
 //         * wsasm_src2obj_text_instr_op(context, ret, elto)
 //         * wsasm_src2obj_text_candidates(context, ret, elto)
 //   * wsasm_resolve_pseudo ( context, ret )
@@ -229,7 +237,7 @@ function wsasm_src2obj_data ( context, ret )
 	   // Loop while token read is not a segment directive (.text/.data/...) or end_of_file is found
 	   while (
                    (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/...
-                   (! wsasm_isEndOfFile(context))                            // NOT end-of-file
+                   (! wsasm_isEndOfFile(context))                             // NOT end-of-file
                  )
            {
 		   //
@@ -243,7 +251,7 @@ function wsasm_src2obj_data ( context, ret )
 		   possible_tag = "" ;
 		   while (
                            (! wsasm_is_directive_datatype(asm_getToken(context))) &&  // NOT .data/...
-                           (! wsasm_isEndOfFile(context))                            // NOT end-of-file
+                           (! wsasm_isEndOfFile(context))                             // NOT end-of-file
                          )
 		   {
                       // tagX
@@ -311,13 +319,17 @@ function wsasm_src2obj_data ( context, ret )
 		        asm_nextToken(context) ;
                         possible_value = asm_getToken(context) ;
 
-			while (!wsasm_is_directive(asm_getToken(context)) && !wsasm_isEndOfFile(context))
+			while (
+                                (! wsasm_is_directive(asm_getToken(context)) ) &&
+                                (! wsasm_isEndOfFile(context) )
+                              )
                         {
-				var label_found = false;
+				let label_found = false;
+				let number      = 0 ;
 
 				// Get value
-				    ret1   = get_inm_value(possible_value) ;
-				var number = ret1.number ;
+				ret1   = get_inm_value(possible_value) ;
+				number = ret1.number ;
 				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                                 {
                                     // CHECK numerical datatype
@@ -343,25 +355,27 @@ function wsasm_src2obj_data ( context, ret )
 				    number = 0 ;
 				    label_found = true ;
                                 }
-
-				// Decimal --> binary
-			        if (ret1.isDecimal == true)
-			   	     a = decimal2binary(number, elto.byte_size*BYTE_LENGTH) ;
-			        else a =   float2binary(number, elto.byte_size*BYTE_LENGTH) ;
-
-			        num_bits   = a[0] ;
-                                free_space = a[1] ;
-
-				// CHECK size
-				if (free_space < 0)
+                                else
                                 {
-				    return asm_langError(context,
-                                                         i18n_get_TagFor('compiler', 'EXPECTED VALUE') + elto.datatype +
-                                                         "' (" + elto.byte_size*BYTE_LENGTH + " bits), " +
-                                                         i18n_get_TagFor('compiler', 'BUT INSERTED') + possible_value +
-                                                         "' (" + num_bits.length + " bits) " +
-                                                         i18n_get_TagFor('compiler', 'INSTEAD') ) ;
-				}
+				    // Decimal/Float --> binary
+				    if (ret1.isDecimal == true)
+				         a = decimal2binary(number, elto.byte_size*BYTE_LENGTH) ;
+				    else a =   float2binary(number, elto.byte_size*BYTE_LENGTH) ;
+
+				    num_bits   = a[0] ;
+				    free_space = a[1] ;
+
+				    // CHECK size
+				    if (free_space < 0)
+				    {
+				        return asm_langError(context,
+							     i18n_get_TagFor('compiler', 'EXPECTED VALUE') + elto.datatype +
+							     "' (" + elto.byte_size*BYTE_LENGTH + " bits), " +
+							     i18n_get_TagFor('compiler', 'BUT INSERTED') + possible_value +
+							     "' (" + num_bits.length + " bits) " +
+							     i18n_get_TagFor('compiler', 'INSTEAD') ) ;
+				    }
+                                }
 
 				// Label as number (later translation)
 				if (label_found)
@@ -580,7 +594,7 @@ function wsasm_src2obj_data ( context, ret )
 }
 
 
-function wsasm_encode_instruction ( context, ret, elto )
+function wsasm_encode_instruction ( context, ret, elto, candidate )
 {
            // .../63/31(MSB) ..................... 0(LSB)
            //                      ^         ^
@@ -592,15 +606,12 @@ function wsasm_encode_instruction ( context, ret, elto )
            var val_encoded = "" ;
            var arr_encoded = "" ;
            var ret1      = null ;
-           var candidate = null ;
 
            // prepare val_encoded...
            val_encoded = "0".repeat(elto.byte_size * BYTE_LENGTH) ;
            arr_encoded = val_encoded.split('');
 
            // (1) Instruction, copy 'co' field...
-           candidate = elto.firm_reference[elto.firm_reference_index] ;
-
 	   for (let i=0; i<candidate.co.length; i++) {
 		arr_encoded[i] = candidate.co[i] ;
 	   }
@@ -617,24 +628,42 @@ function wsasm_encode_instruction ( context, ret, elto )
                 n_bits    = candidate.fields[j].asm_n_bits ;
 
                 // value...
-                if ("inm" == elto.value.signature_type[j+1])
+                if ( ["inm", "address"].includes(elto.value.signature_type[j+1]) )
                 {
 			 ret1 = get_inm_value(elto.value.fields[j]) ;
 
+			 if ( (!ret1.isDecimal) && (!ret1.isFloat) )
+                         {
+                              elto.pending = {
+                                                type:         "field-instruction",
+                                                label:        elto.value.fields[j],
+                                                addr:         0,
+                                                start_bit:    start_bit,
+                                                stop_bit:     stop_bit,
+                                                n_bits:       n_bits,
+                                                rel:          false,
+					        labelContext: asm_getLabelContext(context)
+                                             } ;
+
+                              if ("address" == elto.value.signature_type[j+1]) {
+                                   elto.pending.rel = ("abs" != candidate.fields[j].address_type) ;
+                              }
+
+                              continue ; // no full field to add (label to be resolved) -> skip add field
+                         }
+
 			 if (ret1.isDecimal)
 			      a = decimal2binary(ret1.number, n_bits) ;
-			 else if (ret1.isFloat)
-                              a =   float2binary(ret1.number, n_bits) ;
-                         else a = [ 0, -1 ] ; // TODO: pending = {...} and continue if inm is label 
+			 else a =   float2binary(ret1.number, n_bits) ;
 
 			 value = a[0] ;
                          if (a[1] < 0)
                          {
 			     return asm_langError(context,
-						  i18n_get_TagFor('compiler', 'EXPECTED VALUE') + 'immediate' +
-						  "' (" + n_bits + " bits), " +
+						  i18n_get_TagFor('compiler', 'EXPECTED VALUE') + " immediate" +
+						  " (" + n_bits + " bits), " +
 						  i18n_get_TagFor('compiler', 'BUT INSERTED') + elto.value.fields[i-1] +
-						  "' (" + value.length + " bits) " +
+						  " (" + value.length + " bits) " +
 						  i18n_get_TagFor('compiler', 'INSTEAD') ) ;
                          }
 
@@ -655,28 +684,11 @@ function wsasm_encode_instruction ( context, ret, elto )
 			 value = (value >>> 0).toString(2) ;
 			 value = value.padStart(n_bits, '0') ;
                 }
-                else if ("address" == elto.value.signature_type[j+1])
-                {
-                         elto.pending = {
-                                           type:         "field-instruction",
-                                           label:        elto.value.fields[j],
-                                           addr:         0,
-                                           start_bit:    start_bit,
-                                           stop_bit:     stop_bit,
-                                           n_bits:       n_bits,
-                                           rel:          false,
-					   labelContext: asm_getLabelContext(context)
-                                        } ;
-
-                         continue ; // no field to add -> skip add field
-                }
-           //   else if ("..." == elto.value.signature_type[j+1])
-           //   {
-           //        TODO: more types of fields ??
-           //   }
                 else
                 {
-                         // TODO: this is a sink case... Should be error if not field type is detected ??
+                         // TODO: Should be error if not field type is detected ??
+
+                         // this is a sink case...
 			 value = "0".padStart(n_bits, '0') ;
                 }
 
@@ -719,6 +731,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
            var opx  = "" ;
            var ret1 = null ;
            var possible_inm = 0 ;
+	   var reg_name = "" ;
 
 	   asm_nextToken(context) ;
 	   opx = asm_getToken(context) ;
@@ -749,7 +762,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
               {
                   // (*x0*)
 	          asm_nextToken(context) ;
-	          var reg_name = asm_getToken(context) ;
+	          reg_name = asm_getToken(context) ;
 
                   // CHECK register name
 	          if (typeof context.registers[reg_name] == "undefined")
@@ -797,7 +810,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 
 			// 0x12345(*x0*)
 			asm_nextToken(context) ;
-			var reg_name = asm_getToken(context) ;
+			reg_name = asm_getToken(context) ;
 
                         // CHECK register name
 			if (typeof context.registers[reg_name] == "undefined")
@@ -870,6 +883,7 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
               {
 	          elto.value.fields.push(opx) ;
 	          elto.value.signature_type.push('address') ;
+// TODO: until address is not known we cannot measure the minimal number of bit to encode it... Load as pending?
 	          elto.value.signature_size.push(wsasm_src2obj_text_get_nbits_for(context, "immediate", opx)) ;
 
 		  // next operand...
@@ -888,6 +902,12 @@ function wsasm_src2obj_text_instr_op ( context, ret, elto )
 				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + elto.value.instruction + ". " +
 				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 	   }
+
+           // Derived attributes: signature_user for "reg (5 bits)"
+           elto.value.signature_user = '' ;
+           for (let j=0; j<elto.value.signature_type.length; j++) {
+                elto.value.signature_user += elto.value.signature_type[j] + ' (' + elto.value.signature_size[j] + '+ bits) ' ;
+           }
 
            // Return ret
            return ret ;
@@ -956,7 +976,7 @@ function wsasm_src2obj_text_candidates ( context, ret, elto )
 	   {
 	       return asm_langError(context,
 				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO')    + "<br>" +
-				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + signature_type_as_string + ". " +
+				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + " " + elto.value.signature_user + ". " +
 				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 	   }
 
@@ -974,7 +994,8 @@ function wsasm_src2obj_text ( context, ret )
 	   var possible_inst  = "" ;
            var tag     = "" ;
            var acc_cmt = "" ;
-           var elto    = null ;
+           var elto      = null ;
+           var candidate = null ;
 
 	   //
 	   //  *.text*   |  *.text*
@@ -993,7 +1014,7 @@ function wsasm_src2obj_text ( context, ret )
 	   // Loop while token read is not a segment directive (.text/.data/...) or end_of_file is found
 	   while (
                    (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/...
-                   (! wsasm_isEndOfFile(context))                            // NOT end-of-file
+                   (! wsasm_isEndOfFile(context))                             // NOT end-of-file
                  )
            {
 		   //
@@ -1088,10 +1109,11 @@ function wsasm_src2obj_text ( context, ret )
 		   if (ret.error != null) {
 		       return ret;
 		   }
+                   candidate = elto.firm_reference[elto.firm_reference_index] ;
 
 		   // ELTO: instruction + fields
 		   elto.source = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
-                   elto.binary = wsasm_encode_instruction(context, ret, elto) ;
+                   elto.binary = wsasm_encode_instruction(context, ret, elto, candidate) ;
 		   elto.comments.push(acc_cmt) ;
 		   elto.track_source.push(elto.source) ;
 
@@ -1169,7 +1191,7 @@ function wsasm_resolve_labels ( context, ret )
          var tag = '' ;
          var last_assigned = {} ;
 
-         for (var i=0; i<ret.obj.length; i++)
+         for (let i=0; i<ret.obj.length; i++)
          {
               // get starting address of segment
               seg_name = ret.obj[i].seg_name ;
@@ -1221,7 +1243,7 @@ function wsasm_resolve_labels ( context, ret )
          var elto  = null ;
          var value = 0 ;
          var arr_encoded = null ;
-         for (var i=0; i<ret.obj.length; i++)
+         for (let i=0; i<ret.obj.length; i++)
          {
               elto = ret.obj[i] ;
               if (elto.pending != null)
@@ -1232,8 +1254,10 @@ function wsasm_resolve_labels ( context, ret )
                       elto.value = value ;
                   }
 
-               // TODO: address-abs vs address-rel
-               // value = (address-abs) ? value : value - address_this_instruction + 4;
+                  // TODO: address-abs vs address-rel
+                  if (elto.pending.rel != true)
+                       value = (value >>> 0) ;
+                  else value = (value >>> 0) - elto.pending.addr + WORD_BYTES ;
 
 		  value = (value >>> 0).toString(2) ;
 		  value = value.padStart(elto.pending.n_bits, '0') ;
@@ -1501,7 +1525,7 @@ function wsasm_obj2mem  ( ret )
                     else valuebin = valuebin.substr(valuebin.length-n_bytes*BYTE_LENGTH, n_bytes*BYTE_LENGTH) ;
 
                     // next: fill as Little-endian... ;-)
-                    for (var j=0; j<n_bytes; j++)
+                    for (let j=0; j<n_bytes; j++)
                     {
                          valuebin8 = valuebin.substr(j*BYTE_LENGTH, BYTE_LENGTH) ;
                          wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin8,
@@ -1510,7 +1534,7 @@ function wsasm_obj2mem  ( ret )
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string"))
               {
-                    for (var j=0; j<ret.obj[i].value.length; j++)
+                    for (let j=0; j<ret.obj[i].value.length; j++)
                     {
                          valuebin = ret.obj[i].value[j].toString(2) ;
                          valuebin = valuebin.padStart(BYTE_LENGTH, '0') ;
@@ -1523,7 +1547,7 @@ function wsasm_obj2mem  ( ret )
               {
                     valuebin = "0".repeat(BYTE_LENGTH) ; // TO-CHECK: ummm, share the same object for all space is right?
 
-                    for (var j=0; j<ret.obj[i].byte_size; j++)
+                    for (let j=0; j<ret.obj[i].byte_size; j++)
                     {
                          wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin,
                                                                ret.obj[i].track_source, ret.obj[i].comments) ;
