@@ -90,7 +90,7 @@ sequenceDiagram
        * wsasm_src2obj_helper ( context, ret )
           * wsasm_src2obj_data(context, ret) 
           * wsasm_src2obj_text(context, ret)
-             * wsasm_encode_instruction(context, ret, elto)
+             * wsasm_encode_instruction(context, ret, elto, candidate)
              * wsasm_src2obj_text_instr_op(context, ret, elto)
              * wsasm_src2obj_text_candidates(context, ret, elto)
        * wsasm_resolve_pseudo ( context, ret )
@@ -104,7 +104,7 @@ sequenceDiagram
          * **wsasm_src2obj_text(context, ret)**: read the .text segment and build the associated JSON object fragment.
            * **wsasm_src2obj_text_instr_op(context, ret, elto)**: read instructions' fields
            * **wsasm_src2obj_text_candidates(context, ret, elto)**: find in firmware the first definition that matches the read instruction
-           * **wsasm_encode_instruction(context, ret, elto)**: encode in binary (string) an instruction.
+           * **wsasm_encode_instruction(context, ret, elto, candidate)**: encode in binary (string) an instruction.
      + pass 2: replace pseudo-instructions (PENDING ~100%)
        * **wsasm_resolve_pseudo(context, ret)**: replace pseudo-instructions
      + pass 3: check that all used labels are defined in the text (PENDING ~50%)
