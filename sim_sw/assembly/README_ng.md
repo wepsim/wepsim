@@ -88,11 +88,11 @@ sequenceDiagram
     * Compile assembly to JSON object
   * Auxiliary functions are:
        * wsasm_src2obj_helper ( context, ret )
-          * wsasm_src2obj_data(context, ret) 
-          * wsasm_src2obj_text(context, ret)
-             * wsasm_encode_instruction(context, ret, elto, candidate)
-             * wsasm_src2obj_text_instr_op(context, ret, elto)
-             * wsasm_src2obj_text_candidates(context, ret, elto)
+          * wsasm_src2obj_data ( context, ret ) 
+          * wsasm_src2obj_text ( context, ret )
+             * wsasm_src2obj_text_instr_ops  ( context, ret, elto )
+             * wsasm_src2obj_text_candidates ( context, ret, elto )
+             * wsasm_encode_instruction      ( context, ret, elto, candidate )
        * wsasm_resolve_pseudo ( context, ret )
        * wsasm_resolve_labels ( context, ret )    
 
