@@ -40,7 +40,7 @@ function wsasm_new_objElto ( base_elto )
                        binary:               '',
                        firm_reference:       null,
                        firm_reference_index: -1,
-                       pending:              null
+                       pending:              []
                    } ;
 
         if (null != base_elto) {
@@ -197,7 +197,7 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 //   * wsasm_src2obj_helper ( context, ret )
 //      * wsasm_src2obj_data (context, ret)
 //      * wsasm_src2obj_text (context, ret)
-//         * wsasm_src2obj_text_instr_ops (context, ret, elto)
+//         * wsasm_src2obj_text_instr_ops (context, ret, elto, pseudo_context)
 //            * wsasm_src2obj_text_instr_op_match ( context, ret, elto )
 //         * wsasm_src2obj_text_candidates (context, ret, elto)
 //         * wsasm_encode_instruction (context, ret, elto, candidate)
@@ -362,16 +362,16 @@ function wsasm_src2obj_data ( context, ret )
    				    }
 
 				    // Label as number (later translation)
-                                    elto.pending = {
-                                                       type:         "field-data",
-						       label:        possible_value,
-						       addr:         elto.seg_ptr,
-						       start_bit:    0,
-						       stop_bit:     WORD_BYTES*BYTE_LENGTH-1,
-						       n_bits:       WORD_BYTES*BYTE_LENGTH,
-						       rel:          false,
-						       labelContext: asm_getLabelContext(context)
-                                                   } ;
+                                    elto.pending.push({
+                                                         type:         "field-data",
+						         label:        possible_value,
+						         addr:         elto.seg_ptr,
+						         start_bit:    0,
+						         stop_bit:     WORD_BYTES*BYTE_LENGTH-1,
+						         n_bits:       WORD_BYTES*BYTE_LENGTH,
+						         rel:          false,
+						         labelContext: asm_getLabelContext(context)
+                                                     }) ;
                                 }
                                 else
                                 {
@@ -638,7 +638,7 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                 n_bits    = candidate.fields[j].asm_n_bits ;
 
                 // value to be encode...
-                if ( ["inm", "(inm)", "address"].includes(elto.value.signature_type_arr[j+1]) )
+                if ( ["inm", "(inm)", "address", "(address)"].includes(elto.value.signature_type_arr[j+1]) )
                 {
                          value = elto.value.fields[j] ;
                          if ('(' == value[0]) {
@@ -648,18 +648,18 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
 			 ret1 = get_inm_value(value) ;
 			 if ( (!ret1.isDecimal) && (!ret1.isFloat) )
                          {
-                              elto.pending = {
-                                                type:         "field-instruction",
-                                                label:        elto.value.fields[j],
-                                                addr:         0,
-                                                start_bit:    start_bit,
-                                                stop_bit:     stop_bit,
-                                                n_bits:       n_bits,
-                                                rel:          false,
-					        labelContext: asm_getLabelContext(context)
-                                             } ;
+                              elto.pending.push({
+                                                   type:         "field-instruction",
+                                                   label:        elto.value.fields[j],
+                                                   addr:         0,
+                                                   start_bit:    start_bit,
+                                                   stop_bit:     stop_bit,
+                                                   n_bits:       n_bits,
+                                                   rel:          false,
+					           labelContext: asm_getLabelContext(context)
+                                               }) ;
 
-                              if ("address" == elto.value.signature_type_arr[j+1])
+                              if (["address", "(address)"].includes(elto.value.signature_type_arr[j+1]))
                               {
                                    if (   (typeof candidate.fields[j].address_type != "undefined") &&
                                         ("abs" != candidate.fields[j].address_type) )
@@ -715,14 +715,74 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
            return arr_encoded.join('') ;
 }
 
-function wsasm_src2obj_text_instr_op_canContinue ( context )
+function wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
 {
-           var curr_token = asm_getToken(context) ;
+           // get candidate signature_type and signature_size...
+           var candidate_type_as_string = elto_firm_reference_i.signature_type_str.replaceAll('address', 'inm') ;
+           var candidate_size_as_intarr = elto_firm_reference_i.signature_size_arr ;
 
-           return (typeof context.firmware[curr_token] === "undefined") &&   // NOT instruction
-		  (! wsasm_is_directive_segment(curr_token))            &&   // NOT .data/....
-		  ("TAG" != asm_getTokenType(context))                  &&   // NOT label:
-		  (! wsasm_isEndOfFile(context)) ;                           // NOT end-of-file
+           // get elto signature_type and signature_size...
+           var signature_type_as_string = elto_value.signature_type_arr.join(' ').replaceAll('address', 'inm') ;
+           var signature_size_as_intarr = elto_value.signature_size_arr ;
+
+           // if candidate has not the same types as expected then return is NOT candidate
+           if (candidate_type_as_string != signature_type_as_string) {
+               return -1 ;
+           }
+
+           // if candidate is smaller than expected then return is NOT candidate
+           var distance = 0 ;
+           for (let j=0; j<candidate_size_as_intarr.length; j++)
+           {
+                if (candidate_size_as_intarr[j] < signature_size_as_intarr[j]) {
+                    return -1 ;
+                }
+
+                distance = distance + (candidate_size_as_intarr[j] - signature_size_as_intarr[j]) ;
+           }
+
+           return distance ;
+}
+
+function wsasm_src2obj_text_candidates ( context, ret, elto )
+{
+           var candidates = 0 ;
+           var distance   = 0 ;
+
+           // for each candidate, check if can be used...
+           elto.firm_reference_distance = -1 ;
+           elto.firm_reference_index    =  0 ;
+           for (var i=0; i<elto.firm_reference.length; i++)
+           {
+                distance = wsasm_src2obj_text_getDistance(elto.firm_reference[i], elto.value) ;
+                if (distance < 0) {
+                    continue ;
+                }
+
+                candidates++ ;
+                if ( (elto.firm_reference_distance < 0) ||
+                     (elto.firm_reference_distance > distance) )
+                {
+                    elto.firm_reference_distance = distance ;
+                    elto.firm_reference_index    = i ;
+                }
+           }
+
+	   // CHECK: elto signature* match at least one firm_reference
+	   if (0 == candidates)
+	   {
+	       return asm_langError(context,
+				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO')    + "<br>"  +
+				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + " for " + elto.source +" is " +
+                                    elto.value.signature_user + ". " +
+				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
+	   }
+
+           // update instruction size for multi-word instructions (e.g.: 'la address' in 2 words)
+           elto.byte_size = elto.firm_reference[elto.firm_reference_index].nwords * WORD_BYTES ;
+
+           // Return ret
+           return ret ;
 }
 
 function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parentheses )
@@ -799,47 +859,152 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 	   return ret ;
 }
 
-function wsasm_src2obj_text_instr_ops ( context, ret, elto )
+function wsasm_src2obj_text_ops_getAtom ( context, pseudo_context )
+{
+         var opx = '' ;
+
+	 if (pseudo_context != null)
+         {
+             // if (end-of-file) -> return ''
+	     if (pseudo_context.index >= pseudo_context.parts.length) {
+	         return '' ; // return empty string
+             }
+
+	     pseudo_context.index++ ;
+	     opx = pseudo_context.parts[pseudo_context.index] ;
+         }
+         else
+         {
+             // if (end-of-file || label:) -> return ''
+             if ( (wsasm_isEndOfFile(context)) || ("TAG" == asm_getTokenType(context)) ) {
+	           return '' ; // return empty string
+             }
+
+             asm_nextToken(context) ;
+             opx = asm_getToken(context) ;
+         }
+
+         // if (instruction || .data/...) -> return ''
+	 if ( (typeof context.firmware[opx] !== "undefined") || (wsasm_is_directive_segment(opx)) ) {
+	       return '' ; // not an atom -> return empty string
+	 }
+
+	 return opx ;
+}
+
+function wsasm_src2obj_text_instr_ops ( context, ret, elto, pseudo_context )
 {
            var ret1 = null ;
 	   var opx  = '' ;
            var atom = '' ;
            var par  = false ;
 
-           // skip instruction name, go first element of the first field...
-	   asm_nextToken(context) ;
+           // Example of instruction:
+           //   "add x1 x2 x3"
+           // Example of pseudoinstruction:
+           //   "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
 
-	   while (
-                    wsasm_src2obj_text_instr_op_canContinue(context) &&
-	            (elto.value.fields.length < 100)                     // NOT 100+ fields already stored...
-		 )
+           // skip instruction name...
+           opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+
+	   while ( (opx != '') && (elto.value.fields.length < 100) )
 	   {
-	      opx  = asm_getToken(context) ;
+              // optional *,*
+	      if (',' == opx) {
+                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+                  if ('' == opx) continue ;
+              }
+
               atom = opx ;
               par  = false ;
 
+              // *sel*(31 ,  12 ,  label )
+	      if ('sel' == opx)
+              {
+                  var sel    = { start:0, stop: 0, label:'' } ;
+                  var valbin = '0' ;
+
+                  // sel*(*31 ,  12 ,  label )
+                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	          if ('(' != opx) {
+		      return asm_langError(context,
+                                           i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+                  }
+
+                  // sel (*31*,  12 ,  label )
+                  sel.stop = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+                  sel.stop = parseInt(sel.stop) ;
+	          if (isNaN(sel.stop)) {
+		      return asm_langError(context,
+                                           i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + atom_stop) ;
+                  }
+
+                  // sel ( 31*,* 12 ,  label )
+                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	          if (',' != opx) {
+		      return asm_langError(context,
+                                           i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
+                  }
+
+                  // sel ( 31 , *12*,  label )
+                  sel.start = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+                  sel.start = parseInt(sel.start) ;
+	          if (isNaN(sel.start)) {
+		      return asm_langError(context,
+                                           i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + atom_start) ;
+                  }
+
+                  // sel ( 31 ,  12*,* label )
+                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	          if (',' != opx) {
+		      return asm_langError(context,
+                                           i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
+                  }
+
+                  // sel ( 31 ,  12 , *label*)
+                  sel.label = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	          if (! wsasm_is_ValidTag(sel.label)) {
+		      return asm_langError(context,
+                                           i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + atom_label) ;
+                  }
+
+                  // sel ( 31 ,  12 ,  label*)*
+                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	          if (')' != opx) {
+		      return asm_langError(context,
+                                           i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+                  }
+
+                  valbin = ret.labels[sel.label] ;
+	          if (typeof valbin != "undefined")
+                  {
+                      // if label is already defined then used it
+                      valbin = parseInt(valbin).toString(2) ;
+                      valbin = valbin.padStart(WORD_BYTES * BYTE_LENGTH, '0') ;
+                      valbin = valbin.substring(sel.stop, sel.start+1) ;
+                      atom   = parseInt(valbin, 2) ;
+                  }
+                  else
+                  {
+                      // if label is not defined then define 'sel(...)' as a new 'label'... ;-)
+                      atom = "sel" + "_" + sel.start + "_" + sel.stop + "_" + sel.label ;
+                  }
+              }
               // *(*x0)
-	      if ('(' == opx)
+	      else if ('(' == opx)
               {
                   par = true ;
 
                   // (*x0*)
-	          asm_nextToken(context) ;
-	          atom = asm_getToken(context) ;
-
-                  if (wsasm_src2obj_text_instr_op_canContinue(context) == false)
-                  {
+                  atom = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+                  if ("" == atom) {
 		      return asm_langError(context,
                                            i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
                   }
 
                   // (x0*)*
-	          asm_nextToken(context) ;
-	          opx = asm_getToken(context) ;
-
-                  // CHECK missing )
-	          if (')' != opx)
-                  {
+                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	          if (')' != opx) {
 		      return asm_langError(context,
                                            i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
                   }
@@ -852,7 +1017,7 @@ function wsasm_src2obj_text_instr_ops ( context, ret, elto )
               }
 
 	      // next operand...
-	      asm_nextToken(context) ;
+              opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
 	   }
 
 	   // CHECK: More than 100 fields? really? umm, might be an error...
@@ -860,7 +1025,9 @@ function wsasm_src2obj_text_instr_ops ( context, ret, elto )
 	   {
 	       return asm_langError(context,
 				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO')    + "<br>" +
-				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + elto.value.instruction + ". " +
+				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') +
+                                    " for '" + elto.source + "' " +
+                                    " is "   + elto.value.instruction + ". " +
 				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
 	   }
 
@@ -872,76 +1039,6 @@ function wsasm_src2obj_text_instr_ops ( context, ret, elto )
            for (let j=0; j<elto.value.signature_type_arr.length; j++) {
                 elto.value.signature_user += elto.value.signature_type_arr[j] + ' (' + elto.value.signature_size_arr[j] + '+ bits) ' ;
            }
-
-           // Return ret
-           return ret ;
-}
-
-function wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
-{
-           // get candidate signature_type and signature_size...
-           var candidate_type_as_string = elto_firm_reference_i.signature_type_str.replaceAll('address', 'inm') ;
-           var candidate_size_as_intarr = elto_firm_reference_i.signature_size_arr ;
-
-           // get elto signature_type and signature_size...
-           var signature_type_as_string = elto_value.signature_type_arr.join(' ').replaceAll('address', 'inm') ;
-           var signature_size_as_intarr = elto_value.signature_size_arr ;
-
-           // if candidate has not the same types as expected then return is NOT candidate
-           if (candidate_type_as_string != signature_type_as_string) {
-               return -1 ;
-           }
-
-           // if candidate is smaller than expected then return is NOT candidate
-           var distance = 0 ;
-           for (let j=0; j<candidate_size_as_intarr.length; j++)
-           {
-                if (candidate_size_as_intarr[j] < signature_size_as_intarr[j]) {
-                    return -1 ;
-                }
-
-                distance = distance + (candidate_size_as_intarr[j] - signature_size_as_intarr[j]) ;
-           }
-
-           return distance ;
-}
-
-function wsasm_src2obj_text_candidates ( context, ret, elto )
-{
-           var candidates = 0 ;
-           var distance   = 0 ;
-
-           // for each candidate, check if can be used...
-           elto.firm_reference_distance = -1 ;
-           elto.firm_reference_index    =  0 ;
-           for (var i=0; i<elto.firm_reference.length; i++)
-           {
-                distance = wsasm_src2obj_text_getDistance(elto.firm_reference[i], elto.value) ;
-                if (distance < 0) {
-                    continue ;
-                }
-
-                candidates++ ;
-                if ( (elto.firm_reference_distance < 0) ||
-                     (elto.firm_reference_distance > distance) )
-                {
-                    elto.firm_reference_distance = distance ;
-                    elto.firm_reference_index    = i ;
-                }
-           }
-
-	   // CHECK: elto signature* match at least one firm_reference
-	   if (0 == candidates)
-	   {
-	       return asm_langError(context,
-				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO')    + "<br>"  +
-				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + " for " + elto.source +" is " +
-                                    elto.value.signature_user + ". " +
-				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
-	   }
-
-           // update instruction size for multi-word instructions (e.g.: 'la address' in 2 words)
-           elto.byte_size = elto.firm_reference[elto.firm_reference_index].nwords * WORD_BYTES ;
 
            // Return ret
            return ret ;
@@ -1070,7 +1167,7 @@ function wsasm_src2obj_text ( context, ret )
 	           //    label2:    instr  *op1, op2 op3*
 		   //
 
-                   ret = wsasm_src2obj_text_instr_ops(context, ret, elto) ;
+                   ret = wsasm_src2obj_text_instr_ops(context, ret, elto, null) ;
 		   if (ret.error != null) {
 		       return ret;
 		   }
@@ -1149,172 +1246,6 @@ function wsasm_src2obj_helper ( context, ret )
 }
 
 
-function wsasm_src2obj_text_pseudoinstr_ops_getAtom ( context, pseudo_context )
-{
-	 pseudo_context.index++ ;                            // asm_nextToken(context) ;
-	 opx = pseudo_context.parts[pseudo_context.index] ;  // asm_getToken(context) ;
-
-	 if (
-	       (typeof context.firmware[opx] !== "undefined")  ||     // instruction
-	       (wsasm_is_directive_segment(opx))               ||     // .data/....
-	       (pseudo_context.index >= pseudo_context.parts.length)  // end-of-file
-	     )
-	 {
-	      return '' ; // not an atom -> return empty string
-	 }
-
-	 return opx ;
-}
-
-function wsasm_src2obj_text_pseudoinstr_ops ( context, ret, elto, pseudo_context )
-{
-           var ret1 = null ;
-	   var opx  = '' ;
-           var atom = '' ;
-           var par  = false ;
-
-           // Example: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
-
-           // skip instruction name...
-           opx = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-
-	   while ( (opx != '') && (elto.value.fields.length < 100) )
-	   {
-              // *,*
-	      if (',' == opx) {
-                  opx = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-                  if ('' == opx) continue ;
-              }
-
-              atom = opx ;
-              par  = false ;
-
-              // *sel*(31 ,  12 ,  label )
-	      if ('sel' == opx)
-              {
-                  var sel    = { start:0, stop: 0, label:'' } ;
-                  var valbin = '0' ;
-
-                  // sel*(*31 ,  12 ,  label )
-                  opx = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-	          if ('(' != opx) {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
-                  }
-
-                  // sel (*31*,  12 ,  label )
-                  sel.stop = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-                  sel.stop = parseInt(sel.stop) ;
-	          if (isNaN(sel.stop)) {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + atom_stop) ;
-                  }
-
-                  // sel ( 31*,* 12 ,  label )
-                  opx = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-	          if (',' != opx) {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
-                  }
-
-                  // sel ( 31 , *12*,  label )
-                  sel.start = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-                  sel.start = parseInt(sel.start) ;
-	          if (isNaN(sel.start)) {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + atom_start) ;
-                  }
-
-                  // sel ( 31 ,  12*,* label )
-                  opx = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-	          if (',' != opx) {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
-                  }
-
-                  // sel ( 31 ,  12 , *label*)
-                  sel.label = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-	          if (! wsasm_is_ValidTag(sel.label)) {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + atom_label) ;
-                  }
-
-                  // sel ( 31 ,  12 ,  label*)*
-                  opx = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-	          if (')' != opx) {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
-                  }
-
-                  // TODO: define labels before pseudoinstruction or postpone label resolution (better)...
-/*
-                  valbin = ret.labels[sel.label] ;
-	          if (typeof valbin == "undefined") {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'LABEL NOT DEFINED')) ;
-                  }
-
-                  valbin = parseInt(valbin).toString(2) ;
-                  valbin = valbin.padStart(WORD_BYTES * BYTE_LENGTH, '0') ;
-                  valbin = valbin.substring(sel.stop, sel.start+1) ;
-                  atom   = parseInt(valbin, 2) ;
-*/
-
-                  // define sel(...) as label ;-)
-                  atom = "sel_" + sel.label.replaceAll('_', '__') + "_" + sel.stop + "_" + sel.start ;
-              }
-              // *(*x0)
-	      else if ('(' == opx)
-              {
-                  par = true ;
-
-                  // (*x0*)
-                  atom = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-                  if ("" == atom) {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
-                  }
-
-                  // (x0*)*
-                  opx = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-	          if (')' != opx) {
-		      return asm_langError(context,
-                                           i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
-                  }
-              }
-
-              // match 'atom' + parentheses and add to elto.fields...
-              ret1 = wsasm_src2obj_text_instr_op_match(context, ret, elto, atom, par) ;
-              if (ret1.error != null) {
-                  return ret1 ;
-              }
-
-	      // next operand...
-              opx = wsasm_src2obj_text_pseudoinstr_ops_getAtom(context, pseudo_context) ;
-	   }
-
-	   // CHECK: More than 100 fields? really? umm, might be an error...
-	   if (elto.value.fields.length > 100)
-	   {
-	       return asm_langError(context,
-				    i18n_get_TagFor('compiler', 'NOT MATCH MICRO')    + "<br>" +
-				    i18n_get_TagFor('compiler', 'REMEMBER I. FORMAT') + elto.value.instruction + ". " +
-				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
-	   }
-
-           // elto: derived attributes...
-	   elto.value.signature_type_str = elto.value.signature_type_arr.join(' ') ;
-	   elto.value.signature_size_str = elto.value.signature_size_arr.join(' ') ;
-
-           elto.value.signature_user = '' ;
-           for (let j=0; j<elto.value.signature_type_arr.length; j++) {
-                elto.value.signature_user += elto.value.signature_type_arr[j] + ' (' + elto.value.signature_size_arr[j] + '+ bits) ' ;
-           }
-
-           // Return ret
-           return ret ;
-}
-
 //
 // TODO[3]: replace pseudoinstruction with the instructions(s)...
 //
@@ -1370,7 +1301,7 @@ function wsasm_resolve_pseudo ( context, ret )
 		 elto.value.signature_size_arr = [] ;
 
                  // Match fields of the pseudoinstruction...
-                 ret1 = wsasm_src2obj_text_pseudoinstr_ops(context, ret, elto, pseudo_context) ;
+                 ret1 = wsasm_src2obj_text_instr_ops(context, ret, elto, pseudo_context) ;
                  if (ret1.error != null) {
                      return ret1 ;
                  }
@@ -1400,7 +1331,7 @@ function wsasm_resolve_pseudo ( context, ret )
 }
 
 
-function wsasm_resolve_labels ( context, ret )
+function wsasm_compute_labels ( context, ret )
 {
          var seg_name = '' ;
          var seg_ptr  = 0 ;
@@ -1458,6 +1389,15 @@ function wsasm_resolve_labels ( context, ret )
               last_assigned[seg_name] = elto_ptr + ret.obj[i].byte_size + ret.obj[i].padding ;
          }
 
+         return ret ;
+}
+
+function wsasm_resolve_labels ( context, ret )
+{
+         // compute address of labels (with current object)...
+      // ret.labels2 = [] ;
+         ret = wsasm_compute_labels(context, ret) ;
+
          // review the pending labels (forth and back)
          var elto  = null ;
          var value = 0 ;
@@ -1465,25 +1405,32 @@ function wsasm_resolve_labels ( context, ret )
          for (let i=0; i<ret.obj.length; i++)
          {
               elto = ret.obj[i] ;
-              if (elto.pending != null)
+              for (let j=0; j<elto.pending.length; j++)
               {
-                  value = elto.pending.label ;
+                  value = elto.pending[j].label ;
+                  if (typeof ret.labels2[value] == "undefined") {
+                      // TODO: show error message
+                      continue ;
+                  }
+
+                  // TODO: detect if value is 'sel_xx_yy_lz'...
+
                   value = parseInt(ret.labels2[value]) ;
-                  if ("field-data" == elto.pending.type) {
+                  if ("field-data" == elto.pending[j].type) {
                       elto.value = value ;
                   }
 
-                  // TODO: address-abs vs address-rel
-                  if (elto.pending.rel != true)
+                  // address-abs vs address-rel
+                  if (elto.pending[j].rel != true)
                        value = (value >>> 0) ;
-                  else value = (value >>> 0) - elto.pending.addr + WORD_BYTES ;
+                  else value = (value >>> 0) - elto.pending[j].addr + WORD_BYTES ;
 
-                  // TODO: if value doesn't fit in n_bits... might we try another candidate and recompute?
+                  // TODO: if value doesn't fit in n_bits... might we try another candidate, recompute, and redo first loop!
 		  value = (value >>> 0).toString(2) ;
-		  value = value.padStart(elto.pending.n_bits, '0') ;
+		  value = value.padStart(elto.pending[j].n_bits, '0') ;
                   arr_encoded = elto.binary.split('') ;
-		  for (var k=elto.pending.start_bit; k<=elto.pending.stop_bit; k++) {
-		       arr_encoded[k] = value[k-elto.pending.start_bit] ;
+		  for (var k=elto.pending[j].start_bit; k<=elto.pending[j].stop_bit; k++) {
+		       arr_encoded[k] = value[k-elto.pending[j].start_bit] ;
 		  }
                   elto.binary = arr_encoded.join('') ;
 
