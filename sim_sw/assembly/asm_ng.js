@@ -19,7 +19,7 @@
  */
 
 
-/* jshint esversion: 6 */
+/* jshint esversion: 9 */
 
 //
 // Management of JSON object (see README_ng.md for more information)
@@ -195,14 +195,15 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 //
 //  Auxiliar function tree for wsasm_src2obj ( context )
 //   * wsasm_src2obj_helper ( context, ret )
-//      * wsasm_src2obj_data (context, ret)
-//      * wsasm_src2obj_text (context, ret)
-//         * wsasm_src2obj_text_instr_ops (context, ret, elto, pseudo_context)
-//            * wsasm_src2obj_text_instr_op_match ( context, ret, elto )
-//         * wsasm_src2obj_text_candidates (context, ret, elto)
-//         * wsasm_encode_instruction (context, ret, elto, candidate)
+//      * wsasm_src2obj_data ( context, ret )
+//      * wsasm_src2obj_text ( context, ret )
+//         * wsasm_src2obj_text_instr_ops  ( context, ret, elto, pseudo_context )
+//         * wsasm_src2obj_text_candidates ( context, ret, elto )
+//         * wsasm_encode_instruction      ( context, ret, elto, candidate )
 //   * wsasm_resolve_pseudo ( context, ret )
 //   * wsasm_resolve_labels ( context, ret )
+//      * wsasm_compute_labels  ( context, ret, start_at_obj_i )
+//      * wsasm_get_label_value ( context, ret, label )
 //
 
 function wsasm_is_ValidTag ( tag )
@@ -844,16 +845,10 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 	       elto.value.fields.push(atom) ;
 	       elto.value.signature_type_arr.push('address') ;
 	   }
+
+           // while address is unknown we cannot compute the minimal number of bits to encode it -> 1 single bit
+           // in resolve_labels we compute the minimal (and if needed, recompute candidate)...
 	   elto.value.signature_size_arr.push(1) ;
-// TODO:
-// * 1 single byte or 32 bit for address?
-//   solution:
-//   * until address is not known we cannot measure the minimal number of bit to encode it -> 1 single bit
-//   * in resolve_labels, at if elto.pending... add:
-//     + while label.size doesn't fit the field.n_bits
-//       + re-compute the candidates
-//       + if not candidate then return error
-//       + encode value with the new candiate and try to solve label again
 
 	   // return ok
 	   return ret ;
@@ -1246,9 +1241,6 @@ function wsasm_src2obj_helper ( context, ret )
 }
 
 
-//
-// TODO[3]: replace pseudoinstruction with the instructions(s)...
-//
 function wsasm_resolve_pseudo ( context, ret )
 {
          var pseudo_context = { parts: null, index: 0 } ;
@@ -1331,7 +1323,7 @@ function wsasm_resolve_pseudo ( context, ret )
 }
 
 
-function wsasm_compute_labels ( context, ret )
+function wsasm_compute_labels ( context, ret, start_at_obj_i )
 {
          var seg_name = '' ;
          var seg_ptr  = 0 ;
@@ -1341,7 +1333,7 @@ function wsasm_compute_labels ( context, ret )
          var tag = '' ;
          var last_assigned = {} ;
 
-         for (let i=0; i<ret.obj.length; i++)
+         for (let i=start_at_obj_i; i<ret.obj.length; i++)
          {
               // get starting address of segment
               seg_name = ret.obj[i].seg_name ;
@@ -1392,32 +1384,107 @@ function wsasm_compute_labels ( context, ret )
          return ret ;
 }
 
+function wsasm_get_label_value ( context, ret, label )
+{
+         var value = ret.labels2[label] ;
+
+         // if label -> return associated value as integer
+	 if (typeof value !== "undefined")
+         {
+              ret.aux_value = (parseInt(value) >>> 0).toString(2) ;
+              return ret ;
+	 }
+
+         // try to detect if value is 'sel_xx_yy_lz'...
+         var value_arr = label.split(/^sel_(\d+)_(\d+)_(.*)/s) ;
+	 if (value_arr.length < 5)
+         {
+	     return asm_langError(context,
+				  i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + label) ;
+	 }
+
+         // Example:
+         // ['', '12', '31', 'w1', '']
+         //  0    1     2     3    4
+         var w_n_bits  = WORD_BYTES * BYTE_LENGTH ;
+         var sel_start = (w_n_bits-1) - parseInt(value_arr[1]) ;
+         var sel_stop  = (w_n_bits-1) - parseInt(value_arr[2]) ;
+         var sel_label = value_arr[3] ;
+
+         // if label not found -> return error
+         value = ret.labels2[sel_label] ;
+	 if (typeof value === "undefined")
+         {
+	     return asm_langError(context,
+				  i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + sel_label) ;
+	 }
+
+	 // compute selection...
+         ret.aux_value = parseInt(value).toString(2).padStart(w_n_bits).substring(sel_start, sel_stop+1) ;
+         return ret ;
+}
+
 function wsasm_resolve_labels ( context, ret )
 {
-         // compute address of labels (with current object)...
-      // ret.labels2 = [] ;
-         ret = wsasm_compute_labels(context, ret) ;
-
-         // review the pending labels (forth and back)
          var elto  = null ;
          var value = 0 ;
          var arr_encoded = null ;
+         var ret1      = null ;
+         var candidate = null ;
+
+         // compute address of labels (with current object)...
+         ret = wsasm_compute_labels(context, ret, 0) ;
+	 if (ret.error != null) {
+	     return ret;
+	 }
+
+         // for all object elements...
          for (let i=0; i<ret.obj.length; i++)
          {
               elto = ret.obj[i] ;
+
+              // ...review the pending labels (forth and back)
               for (let j=0; j<elto.pending.length; j++)
               {
-                  value = elto.pending[j].label ;
-                  if (typeof ret.labels2[value] == "undefined") {
-                      // TODO: show error message
-                      continue ;
+                  ret = wsasm_get_label_value(context, ret, elto.pending[j].label) ;
+	          if (ret.error != null) {
+	              return ret;
+	          }
+
+                  // to remember: value is binary as string at this point of code
+                  value = ret.aux_value ;
+
+                  // while label.size doesn't fit the field.n_bits...
+                  while (value.length > elto.pending[j].n_bits)
+                  {
+                      // Resetting pending elements in this instruction (encode_instruction will populate it again)...
+                      elto.pending = [] ;
+
+                      // Find a new candidate from firm_reference that might fit...
+                      ret1 = wsasm_src2obj_text_candidates(context, ret, elto) ;
+		      if (ret1.error != null) {
+		          return ret1 ;
+		      }
+                      candidate = elto.firm_reference[elto.firm_reference_index] ;
+
+                      // Fill initial binary with the initial candidate...
+                      elto.binary = wsasm_encode_instruction(context, ret, elto, candidate) ;
+
+		      // RE-compute address of labels (from current element) in case following labels becomes updated...
+		      ret = wsasm_compute_labels(context, ret, i) ;
+		      if (ret.error != null) {
+		          return ret;
+		      }
                   }
-
-                  // TODO: detect if value is 'sel_xx_yy_lz'...
-
-                  value = parseInt(ret.labels2[value]) ;
-                  if ("field-data" == elto.pending[j].type) {
-                      elto.value = value ;
+                  if (value.length > elto.pending[j].n_bits)
+                  {
+		      return asm_langError(context,
+                                           "'" + elto.pending[j].label + "'" +
+                                           i18n_get_TagFor('compiler', 'NEEDS') +
+                                           value.length +
+                                           i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+                                           elto.pending[j].n_bits + " " + 
+                                           i18n_get_TagFor('compiler', 'BITS')) ;
                   }
 
                   // address-abs vs address-rel
@@ -1425,7 +1492,12 @@ function wsasm_resolve_labels ( context, ret )
                        value = (value >>> 0) ;
                   else value = (value >>> 0) - elto.pending[j].addr + WORD_BYTES ;
 
-                  // TODO: if value doesn't fit in n_bits... might we try another candidate, recompute, and redo first loop!
+                  // data-field -> update elto.value (is not an object as inst-field)
+                  if ("field-data" == elto.pending[j].type) {
+                      elto.value = value ;
+                  }
+
+                  // update elto.binary
 		  value = (value >>> 0).toString(2) ;
 		  value = value.padStart(elto.pending[j].n_bits, '0') ;
                   arr_encoded = elto.binary.split('') ;
@@ -1433,8 +1505,6 @@ function wsasm_resolve_labels ( context, ret )
 		       arr_encoded[k] = value[k-elto.pending[j].start_bit] ;
 		  }
                   elto.binary = arr_encoded.join('') ;
-
-                  // TODO[2]: review the pending labels (forth and back)
               }
          }
 
