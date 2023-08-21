@@ -39,7 +39,7 @@
 		'NO MAIN OR KMAIN':		'Tags \'principal\' ou \'kmain\' não são definidos no segmento de texto (s). É obrigatória a definir pelo menos uma dessas marcas, a fim de executar um programa',
 		'UNKNOWN 1':			'Ocorreu um erro desconhecido (1) para o tipo de campo: ',
 		'UNKNOWN 2':			'erro inesperado (2)',
-		'REMEMBER FORMAT USED':		'Lembre-se do formato de instrução que está a tentar utilizar. ',
+		'REMEMBER FORMAT USED':		'Lembre-se do formato de instrução que está a tentar utilizar ',
 		'REMEMBER I. FORMAT':		'Lembre-se que o formato de instrução tem sido definida como: ',
 		'SEVERAL CANDIDATES':		'Instrução e campos de combinar com mais de um microprograma. Por favor, verifique o microcódigo. Atualmente, o formato de instrução pode ser: ',
 		'NOT MATCH FORMAT':		'Instrução e os campos não coincidirem com microprogram. ',

@@ -39,7 +39,7 @@
 		'NO MAIN OR KMAIN':		'Tags \'main:\' oder \'kmain:\' ist nicht im Text-Segment (en) definiert ist. Es ist Pflicht, mindestens eines dieses Tags zu definieren, um ein Programm auszuführen,',
 		'UNKNOWN 1':			'Ein unbekannter Fehler aufgetreten ist (1) für den Feldtyp: ',
 		'UNKNOWN 2':			'Unerwarteter Fehler (2)',
-		'REMEMBER FORMAT USED':		'Erinnern Sie sich an das Anweisungsformat, das Sie versuchen, für.',
+		'REMEMBER FORMAT USED':		'Erinnern Sie sich an das Anweisungsformat, das Sie versuchen, für ',
 		'REMEMBER I. FORMAT':		'Denken Sie daran, dass das Befehlsformat hat wie definiert: ',
 		'SEVERAL CANDIDATES':		'Instruktion und Felder übereinstimmen mit mehr als einem Mikro. Bitte überprüfen Sie das Mikro. Derzeit kann das Befehlsformat sein: ',
 		'NOT MATCH FORMAT':		'Instruktion und Felder stimmen nicht überein mit Mikro.',
