@@ -36,7 +36,7 @@
 
 The TODO list includes:
 
- 1. Review all pending labels (back and forth referenced + relative and absolute encoded).
+ 1. Review all pending labels and if it does not fit, try another instruction/pseudoinstruction candidate.
      Example:
     ```
     li $1 lab1               <- small address as immediate
@@ -45,12 +45,8 @@ The TODO list includes:
            b loop1           <- relative/absolute loop1
      end1: ...
     ```
- 2. Replace pseudo-instruction with the associated instructions(s).
-     Example:
-    ```
-    li reg 0x12345678 <- lui reg 0x1234
-                      <- add reg reg 0x5678
-    ```
+ 2. Add support for firmware v2.
+
 
 ## 3) Organization
 
