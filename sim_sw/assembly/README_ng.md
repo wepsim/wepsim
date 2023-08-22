@@ -36,27 +36,19 @@
 
 The TODO list includes:
 
- 1. If there are several 'candidates' instructions, then select the best fit.
+ 1. Review all pending labels and if it does not fit, try another instruction/pseudoinstruction candidate.
      Example:
     ```
-    li $1 0x123   <- instruction register inm
-    li $1 lab1    <- instruction register address
-    ```
-
- 2. Review all pending labels (back and forth referenced).
-     Example:
-    ```
-    loop1: beq $t0 $t1 end1
+    li $1 lab1               <- small address as immediate
+    loop1: beq $t0 $t1 end1  <- relative end1
            ...
-           b loop1
+           b loop1           <- relative/absolute loop1
      end1: ...
     ```
- 3. Replace pseudo-instruction with the associated instructions(s).
-     Example:
-    ```
-    li reg 0x12345678 <- lui reg 0x1234
-                      <- add reg reg 0x5678
-    ```
+ 2. Add support for firmware v2.
+
+ 3. Check differences with asm_v1. Now two things are going to be different: .align and error messages.
+
 
 ## 3) Organization
 
@@ -94,14 +86,14 @@ sequenceDiagram
     * Compile assembly to JSON object
   * Auxiliary functions are:
        * wsasm_src2obj_helper ( context, ret )
-          * wsasm_src2obj_data(context, ret) 
-          * wsasm_src2obj_text(context, ret)
-             * wsasm_encode_instruction(context, ret, elto)
-             * wsasm_src2obj_text_instr_op(context, ret, elto)
-             * wsasm_src2obj_text_candidates(context, ret, elto)
+          * wsasm_src2obj_data ( context, ret ) 
+          * wsasm_src2obj_text ( context, ret )
+             * wsasm_src2obj_text_elto_fields  ( context, ret, elto, pseudo_context )
+             * wsasm_find_candidate_and_encode ( context, ret, elto )
        * wsasm_resolve_pseudo ( context, ret )
        * wsasm_resolve_labels ( context, ret )    
-
+        * wsasm_compute_labels  ( context, ret, start_at_obj_i )
+        * wsasm_get_label_value ( context, ret, label )
 
   + Compile assembly to JSON object in three main steps:
      + pass 1: compile assembly (PENDING ~10%)
@@ -109,8 +101,8 @@ sequenceDiagram
          * **wsasm_src2obj_data(context, ret)**: read the .data segment and build the associated JSON object fragment.
          * **wsasm_src2obj_text(context, ret)**: read the .text segment and build the associated JSON object fragment.
            * **wsasm_src2obj_text_instr_op(context, ret, elto)**: read instructions' fields
-           * **wsasm_src2obj_text_candidates(context, ret, elto)**: find in firmware the first definition that matches the read instruction
-           * **wsasm_encode_instruction(context, ret, elto)**: encode in binary (string) an instruction.
+           * **wsasm_find_instr_candidates(context, ret, elto)**: find in firmware the first definition that matches the read instruction
+           * **wsasm_encode_instruction(context, ret, elto, candidate)**: encode in binary (string) an instruction.
      + pass 2: replace pseudo-instructions (PENDING ~100%)
        * **wsasm_resolve_pseudo(context, ret)**: replace pseudo-instructions
      + pass 3: check that all used labels are defined in the text (PENDING ~50%)

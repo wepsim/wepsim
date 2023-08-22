@@ -36,6 +36,8 @@ function simlang_compile ( text, datosCU )
 
      ret = simlang_compile_v2(text, datosCU) ;
 
+//   ret = wsasm_src2mem(datosCU, text) ;  // TESTING
+
      return ret ;
 }
 
