@@ -684,23 +684,24 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
 			 ret1 = get_inm_value(value) ;
 			 if ( (!ret1.isDecimal) && (!ret1.isFloat) )
                          {
-                              elto.pending.push({
-                                                   type:         "field-instruction",
-                                                   label:        elto.value.fields[j],
-                                                   addr:         0,
-                                                   start_bit:    start_bit,
-                                                   stop_bit:     stop_bit,
-                                                   n_bits:       n_bits,
-                                                   rel:          false,
-					           labelContext: asm_getLabelContext(context)
-                                               }) ;
+                              var pinfo = {
+                                             type:         "field-instruction",
+                                             label:        elto.value.fields[j],
+                                             addr:         0,
+                                             start_bit:    start_bit,
+                                             stop_bit:     stop_bit,
+                                             n_bits:       n_bits,
+                                             rel:          false,
+					     labelContext: asm_getLabelContext(context)
+                                          } ;
+                              elto.pending.push(pinfo) ;
 
                               if (["address", "(address)"].includes(elto.value.signature_type_arr[j+1]))
                               {
                                    if (   (typeof candidate.fields[j].address_type != "undefined") &&
                                         ("abs" != candidate.fields[j].address_type) )
                                    {
-                                        elto.pending.rel = true ;
+                                        pinfo.rel = true ;
                                    }
                               }
 
@@ -1544,9 +1545,19 @@ function wsasm_resolve_labels ( context, ret )
                       if (elto.pending[j].rel)
                       {
                           value = parseInt(value, 2) ;
-                          value = (value >>> 0) - elto.pending[j].addr + WORD_BYTES ;
-                          value = value.toString(2) ;
+                          value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
+                          if (value < 0)
+                          {
+                              value = (value >>> 0).toString(2);
+                              value = "1" + value.replace(/^[1]+/g, "");
+                              value = value.padStart(elto.pending[j].n_bits, '1') ;
+                          }
+                          else 
+                          {
+                              value = value.toString(2) ;
+                          }
                       }
+
                   }
 
                   if (value.length > elto.pending[j].n_bits)
@@ -1560,18 +1571,18 @@ function wsasm_resolve_labels ( context, ret )
                                            i18n_get_TagFor('compiler', 'BITS')) ;
                   }
 
-                  // data-field -> update elto.value (is not an object as inst-field)
-                  if ("field-data" == elto.pending[j].type) {
-                      elto.value = value ;
-                  }
-
                   // update elto.binary
-		  value = value.padStart(elto.pending[j].n_bits, '0') ;
+                  value = value.padStart(elto.pending[j].n_bits, '0') ;
                   arr_encoded = elto.binary.split('') ;
 		  for (var k=elto.pending[j].start_bit; k<=elto.pending[j].stop_bit; k++) {
 		       arr_encoded[k] = value[k-elto.pending[j].start_bit] ;
 		  }
                   elto.binary = arr_encoded.join('') ;
+
+                  // data-field -> update elto.value (is not an object as inst-field)
+                  if ("field-data" == elto.pending[j].type) {
+                      elto.value = parseInt(value, 2) ;
+                  }
               }
          }
 
@@ -1606,13 +1617,25 @@ function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
             return ;
         }
 
+        // reorder for little-endian by default...
+        if (true)
+        {
+            var b_index = 0 ;
+	    gen.binary  = '' ;
+            for (let j=0; j<WORD_BYTES; j++)
+            {
+                 b_index = WORD_BYTES - j - 1 ;
+	         gen.binary += gen.machine_code.substr(b_index*BYTE_LENGTH, BYTE_LENGTH) ;
+            }
+        }
+
         // write into memory current word...
         var melto = {
-                      "value":           gen.machine_code,
+                      "value":           gen.binary,
                       "source":          gen.source,
                       "source_tracking": gen.track_source,
                       "comments":        gen.comments,
-		      "binary":          gen.machine_code,
+		      "binary":          gen.binary,
                       "firm_reference":  gen.firm_reference,
                       "is_assembly":     gen.is_assembly,
                     } ;
@@ -1762,6 +1785,7 @@ function wsasm_obj2mem  ( ret )
          var n_bytes   = 0 ;
          var valuebin  = '' ;
          var valuebin8 = '' ;
+         var b_index   = 0 ;
          var candidate = null ;
 
          var seg_name_old    = '' ;
@@ -1835,7 +1859,9 @@ function wsasm_obj2mem  ( ret )
                          gen.firm_reference = candidate ;
                          gen.is_assembly    = true ;
 
-                         valuebin8 = valuebin.substr(j*BYTE_LENGTH, BYTE_LENGTH) ;
+                         // fill for big-endian by default...
+                         b_index = (n_bytes - j - 1)*BYTE_LENGTH ;
+                         valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
                          wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin8,
                                                                ret.obj[i].track_source, ret.obj[i].comments) ;
                     }
@@ -1850,16 +1876,20 @@ function wsasm_obj2mem  ( ret )
                          valuebin = valuebin.padStart(n_bytes*BYTE_LENGTH, '0') ;
                     else valuebin = valuebin.substr(valuebin.length-n_bytes*BYTE_LENGTH, n_bytes*BYTE_LENGTH) ;
 
-                    // next: fill as Little-endian... ;-)
+                    // next: fill byte by byte
                     for (let j=0; j<n_bytes; j++)
                     {
-                         valuebin8 = valuebin.substr(j*BYTE_LENGTH, BYTE_LENGTH) ;
+                         // fill for big-endian by default...
+                         b_index = (n_bytes - j - 1)*BYTE_LENGTH ;
+                         valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
+
                          wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin8,
                                                                ret.obj[i].track_source, ret.obj[i].comments) ;
                     }
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string"))
               {
+                    // next: fill byte by byte
                     for (let j=0; j<ret.obj[i].value.length; j++)
                     {
                          valuebin = ret.obj[i].value[j].toString(2) ;
