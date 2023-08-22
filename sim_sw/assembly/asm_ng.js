@@ -69,13 +69,24 @@ function wsasm_make_signature_user ( elto, use_as_around )
 
 function wsasm_get_sel_valbin ( value, start_bit, stop_bit )
 {
-         var w_n_bits  = WORD_BYTES * BYTE_LENGTH ;
-         var sel_stop  = (w_n_bits-1) - stop_bit ;
-         var sel_start = (w_n_bits-1) - start_bit ;
+         var sel_start = 0 ;
+         var sel_stop  = 0 ;
+         var valbin    = 0 ;
 
-         var valbin = parseInt(value) ;
-             valbin = valbin.toString(2).padStart(w_n_bits, '0') ; // TODO: check if negative value -> padStart with '1'
-             valbin = valbin.substring(sel_start, sel_stop+1) ;
+         if (start_bit > stop_bit) // 31>12
+         {
+             sel_start = (WORD_LENGTH - 1) - start_bit ; // 0
+             sel_stop  = (WORD_LENGTH - 1) - stop_bit ;  // 19
+         }
+         else // 0>11
+         {
+             sel_stop  = (WORD_LENGTH - 1) - start_bit ; // 31
+             sel_start = (WORD_LENGTH - 1) - stop_bit ;  // 20
+         }
+
+         valbin = parseInt(value) ;
+         valbin = valbin.toString(2).padStart(WORD_LENGTH, '0') ; // TODO: check if negative value -> padStart with '1' ??
+         valbin = valbin.substring(sel_start, sel_stop+1) ; // [0:19], [20,31]
 
          return valbin ;
 }
@@ -141,7 +152,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 
                      // translate from startbit/stop_bit to asm_start_bit/asm_stop_bit...
                      lower_bit = Math.min(start_bit, stop_bit) ;
-                     w_n_bits  = WORD_BYTES * BYTE_LENGTH ;
+                     w_n_bits  = WORD_LENGTH ;
                      w_index   = ~~(lower_bit / w_n_bits) ;
                      start_bit = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit ; // w_index*64+32-1 - start_bit 
                      stop_bit  = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit ;  // w_index*64+32-1 - stop_bit 
@@ -1341,17 +1352,17 @@ function wsasm_resolve_pseudo ( context, ret )
                      return ret1 ;
                  }
 
-                 // Find candidate from firm_reference and fill initial binary based on it...
-                 ret = wsasm_find_candidate_and_encode(context, ret, elto) ;
-		 if (ret.error != null) {
-		     return ret ;
-		 }
-
                  // Fill related source...
                  if (0 == eltos.length)
                       elto.track_source.push(pseudo_elto.source) ;
                  else elto.track_source.push("&nbsp;") ;
 	  	 elto.source = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
+
+                 // Find candidate from firm_reference and fill initial binary based on it...
+                 ret = wsasm_find_candidate_and_encode(context, ret, elto) ;
+		 if (ret.error != null) {
+		     return ret ;
+		 }
 
                  if (0 == eltos.length)
                      elto.labels = pseudo_elto.labels ;
@@ -1872,9 +1883,9 @@ function wsasm_obj2mem  ( ret )
 
                     n_bytes  = wsasm_get_datatype_size(ret.obj[i].datatype) ;
                     valuebin = (ret.obj[i].value >>> 0).toString(2) ;
-                    if (ret.obj[i].value > 0)
-                         valuebin = valuebin.padStart(n_bytes*BYTE_LENGTH, '0') ;
-                    else valuebin = valuebin.substr(valuebin.length-n_bytes*BYTE_LENGTH, n_bytes*BYTE_LENGTH) ;
+                    if (ret.obj[i].value < 0)
+                         valuebin = valuebin.substr(valuebin.length-n_bytes*BYTE_LENGTH, n_bytes*BYTE_LENGTH) ;
+                    else valuebin = valuebin.padStart(n_bytes*BYTE_LENGTH, '0') ;
 
                     // next: fill byte by byte
                     for (let j=0; j<n_bytes; j++)
@@ -1917,6 +1928,11 @@ function wsasm_obj2mem  ( ret )
 
          // flushing if there is some pending data
          wsasm_zeropadding_and_writememory(ret.mp, gen) ;
+
+         // copy back the last asigned address
+         for (let seg_name in last_assig_word) {
+              ret.seg[seg_name].end = parseInt(last_assig_word[seg_name]) ;
+         }
 
          return ret ;
 }

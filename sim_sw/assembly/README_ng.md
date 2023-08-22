@@ -47,6 +47,8 @@ The TODO list includes:
     ```
  2. Add support for firmware v2.
 
+ 3. Check differences with asm_v1. Now two things are going to be different: .align and error messages.
+
 
 ## 3) Organization
 
