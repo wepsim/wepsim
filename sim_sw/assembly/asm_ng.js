@@ -1386,7 +1386,7 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
          var seg_ptr  = 0 ;
          var elto_ptr = 0 ;
          var padding  = 0 ;
-         var elto_align = 4 ;
+         var elto_align = 0 ; // by default, align to byte
          var tag = '' ;
          var last_assigned = {} ;
 
@@ -1414,6 +1414,14 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
               // get starting address of next elto
               elto_ptr = last_assigned[seg_name] ;
 
+              if ( (ret.obj[i].datatype != "instruction") &&
+                   (wsasm_get_datatype_size(ret.obj[i].datatype) == WORD_BYTES) )
+              {
+                  // align .word to WORD_BYTES bytes
+                  if (elto_ptr % WORD_BYTES != 0)
+                      elto_ptr += WORD_BYTES - (elto_ptr % WORD_BYTES) ;
+              }
+
               ret.obj[i].seg_ptr     = seg_ptr ;             // starting address of the .data/.kdata segment
               ret.obj[i].elto_ptr    = elto_ptr ;
               ret.obj[i].byte_offset = elto_ptr - seg_ptr ;  // offset within .data segment
@@ -1426,12 +1434,14 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
               }
 
               // machine_code and total size...
-              // https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
-              if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string")) {
-                    ret.obj[i].padding = elto_align - (ret.obj[i].byte_size % elto_align) ;
-              }
-              else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "space")) {
-                    ret.obj[i].padding = elto_align - (ret.obj[i].byte_size % elto_align) ;
+              if (elto_align != 0)
+              {
+                  if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string")) {
+                        ret.obj[i].padding = elto_align - (ret.obj[i].byte_size % elto_align) ;
+                  }
+                  else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "space")) {
+                        ret.obj[i].padding = elto_align - (ret.obj[i].byte_size % elto_align) ;
+                  }
               }
 
               // update last address of segment...
