@@ -543,9 +543,11 @@ i18n_eltos['compiler'] = {
 			   "It is compulsory to define at least one of those tags in order to execute a program",
    "UNKNOWN 1":            "An unknown error ocurred (1) for field type: ",
    "UNKNOWN 2":            "Unexpected error (2)",
+   "REMEMBER FORMAT USED": "Remember the instruction format you try to use ",
    "REMEMBER I. FORMAT":   "Remember that the instruction format has been defined as: ",
    "SEVERAL CANDIDATES":   "Instruction and fields match with more than one instruction in microcode. " +
 			   "Please check the microcode. Currently, the instruction format can be: ",
+   "NOT MATCH FORMAT":     "Instruction and fields don't match with defined formats in microcode. ",
    "NOT MATCH MICRO":      "Instruction and fields don't match with microprogram. ",
    "CHECK MICROCODE":      "Please check the microcode. Probably you forgot to add a field, " +
                            "a number is out of range, or you just used a wrong instruction",

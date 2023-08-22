@@ -335,7 +335,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 			// relative addresses (S and B-type instructions) are 12 or 20 bits long
 			if (tmp_fields.address_type === "rel" && total_bits != 12 && total_bits != 20) {
 				return frm_langError(context,
-							i18n_get_TagFor('compiler', 'ADDRESS-REL MUST BE 12 BITS') +
+							i18n_get_TagFor('compiler', 'ADDRESS-REL MUST BE 12 OR 20 BITS') +
 							"'" + frm_getToken(context) + "'") ;
 			}
 			// absolute addresses (J-type instructions) are 20 bits long
