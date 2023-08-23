@@ -48,18 +48,18 @@
 				 mp:                  {},
 				 seg:                 {},
 				 labels:              {},
-				 labels2:             {},
+				 labels_asm:          {},
 				 labels_firm:         {},
 				 registers:           {},
 				 pseudoInstructions:  [],
 				 stackRegister:       null,
 
                                  // auxiliar datatypes
-				 hash_ci:             {},
-				 hash_cocop:          {},
-				 hash_labels_rev:     {},
-				 hash_labels2_rev:    {},
-				 hash_seg_rev:        []
+				 hash_ci:                {},
+				 hash_cocop:             {},
+				 hash_labels_firm_rev:   {},
+				 hash_labels_asm_rev:    {},
+				 hash_seg_rev:           []
                             } ;
 
 

@@ -69,7 +69,7 @@
 		    }
 
 		    // get html code
-		    var o = mp2html(simware.mp, simware.labels2, simware.seg) ;
+		    var o = mp2html(simware.mp, simware.labels_asm, simware.seg) ;
 		    $('#compile_bin2a').html(o) ;
 
 		    for (var skey in simware.seg) {
@@ -86,7 +86,7 @@
          *  obj2html
          */
 
-	function labels2html_aux ( slebal, c )
+	function labels_asmhtml_aux ( slebal, c )
 	{
 	     var clabel = "" ;
 	     var wadd   = "" ;
@@ -190,7 +190,7 @@
                              v = get_value(mp[c]) ;
 
 			     p = "<tr class=\"font-monospace fs-6 text-dark\">" +
-                                 "<td class='border border-0' align='right'>" + labels2html_aux(slebal,c) + "</td>" +
+                                 "<td class='border border-0' align='right'>" + labels_asmhtml_aux(slebal,c) + "</td>" +
 			         "<td        style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 			         "<td        style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
 			          v.substr(0,8)  + "&nbsp;" + v.substr(8,8)  + "&nbsp;" + v.substr(16,8) + "&nbsp;" + v.substr(24,8) + "</td>" ;

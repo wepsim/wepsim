@@ -98,7 +98,7 @@
   {
        "pack":             "MIPS32 default examples",
        "description":	   "S6E1 - Special - Dummy instruction",
-       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_bare.mc -s ./repo/assembly/mips/s6e1.asm",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_min.mc -s ./repo/assembly/mips/s6e1.asm",
        "more":             "See WepSIM"
   },
   {
@@ -164,7 +164,7 @@
   {
        "pack":             "MIPS32 default examples",
        "description":	   "S2E2 - Intermediate - Subrutine",
-       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s2e2.asm",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_bare.mc -s ./repo/assembly/mips/s2e2.asm",
        "more":             "See WepSIM"
   },
   {
@@ -182,31 +182,31 @@
   {
        "pack":             "MIPS32 default examples",
        "description":	   "S3E1 - Advanced - Interruptions",
-       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s3e1.asm",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_bare.mc -s ./repo/assembly/mips/s3e1.asm",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
        "description":	   "S3E2 - Advanced - System call",
-       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s3e2.asm",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_bare.mc -s ./repo/assembly/mips/s3e2.asm",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
        "description":	   "S3E3 - Advanced - Exception",
-       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s3e3.asm",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_bare.mc -s ./repo/assembly/mips/s3e3.asm",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
        "description":	   "S3E4 - Intermediate - Simple stack conv.",
-       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s3e4.asm",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_bare.mc -s ./repo/assembly/mips/s3e4.asm",
        "more":             "See WepSIM"
   },
   {
        "pack":             "MIPS32 default examples",
        "description":	   "S4E1 - Extra - Int. + syscall + except.",
-       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s4e1.asm",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_bare.mc -s ./repo/assembly/mips/s4e1.asm",
        "more":             "See WepSIM"
   },
   {

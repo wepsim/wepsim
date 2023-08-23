@@ -517,18 +517,18 @@ function loadFirmware (text)
 
            // return results
            ret = {} ;
-           ret.error              = null ;
-		   ret.version            = context.version ;
-           ret.firmware           = context.instrucciones ;
-           ret.labels_firm        = context.etiquetas ;
-           ret.mp                 = {} ;
-           ret.seg                = {} ;
-           ret.registers          = context.registers ;
-           ret.pseudoInstructions = context.pseudoInstructions ;
-           ret.stackRegister      = context.stackRegister ;
-		   if (context.version == 2) 	ret.hash_oceoc = context.hash_oceoc ;
-		   else 						ret.hash_cocop = context.hash_cocop ;
-           ret.revlabels          = context.revlabels ;
+           ret.error                = null ;
+	   ret.version              = context.version ;
+           ret.firmware             = context.instrucciones ;
+           ret.labels_firm          = context.etiquetas ;
+           ret.mp                   = {} ;
+           ret.seg                  = {} ;
+           ret.registers            = context.registers ;
+           ret.pseudoInstructions   = context.pseudoInstructions ;
+           ret.stackRegister        = context.stackRegister ;
+	   if (context.version == 2) 	ret.hash_oceoc = context.hash_oceoc ;
+	   else 			ret.hash_cocop = context.hash_cocop ;
+           ret.hash_labels_firm_rev = context.revlabels ;
 
            return ret ;
 }
