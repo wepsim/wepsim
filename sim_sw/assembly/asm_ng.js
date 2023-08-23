@@ -1829,6 +1829,8 @@ function wsasm_obj2mem  ( ret )
          var seg_name_old    = '' ;
          var seg_name        = '' ;
          var last_assig_word = {} ;
+         var word_1 = 0 ;
+         var word_2 = 0 ;
 
          var gen = {} ;
          gen.byteWord       = 0 ;
@@ -1861,7 +1863,9 @@ function wsasm_obj2mem  ( ret )
 
               // ... and setup the working address for the new obj[i]
               gen.addr = last_assig_word[seg_name] ; // recover last saved value if we switch to other segment
-              if ((ret.obj[i].elto_ptr / WORD_BYTES) > (parseInt(gen.addr) / WORD_BYTES)) {
+              word_1 = (ret.obj[i].elto_ptr / WORD_BYTES) >>> 0 ;
+              word_2 = (parseInt(gen.addr)  / WORD_BYTES) >>> 0 ;
+              if (word_1 > word_2) {
                   wsasm_zeropadding_and_writememory(ret.mp, gen) ;
                   gen.addr = "0x" + ret.obj[i].elto_ptr.toString(16) ;
               }
