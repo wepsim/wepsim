@@ -189,7 +189,7 @@
                 if (s2 !== '') o2 += s2 ;
 
                 // (add row)
-                o2 += main_memory_showrow(cfg, memory_cpy, keys[k], (keys[k] == index), SIMWARE.hash_labels2_rev) ;
+                o2 += main_memory_showrow(cfg, memory_cpy, keys[k], (keys[k] == index), SIMWARE.hash_labels_asm_rev) ;
             }
 
             // pack and load html

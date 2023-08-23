@@ -47,7 +47,10 @@ The TODO list includes:
     ```
  2. Add support for firmware v2.
 
- 3. Check differences with asm_v1. Now two things are going to be different: .align and error messages.
+ 3. Check differences with asm_v1, now two things are going to be different:
+    * .align tries to follow: 
+      https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
+    * Error messages
 
 
 ## 3) Organization
@@ -96,16 +99,16 @@ sequenceDiagram
         * wsasm_get_label_value ( context, ret, label )
 
   + Compile assembly to JSON object in three main steps:
-     + pass 1: compile assembly (PENDING ~10%)
+     + pass 1: compile assembly
        * **wsasm_compile_src2obj(context, ret)**: read several .data/.kdata/.text/... segments and build the JSON object.
          * **wsasm_src2obj_data(context, ret)**: read the .data segment and build the associated JSON object fragment.
          * **wsasm_src2obj_text(context, ret)**: read the .text segment and build the associated JSON object fragment.
            * **wsasm_src2obj_text_instr_op(context, ret, elto)**: read instructions' fields
            * **wsasm_find_instr_candidates(context, ret, elto)**: find in firmware the first definition that matches the read instruction
            * **wsasm_encode_instruction(context, ret, elto, candidate)**: encode in binary (string) an instruction.
-     + pass 2: replace pseudo-instructions (PENDING ~100%)
+     + pass 2: replace pseudo-instructions
        * **wsasm_resolve_pseudo(context, ret)**: replace pseudo-instructions
-     + pass 3: check that all used labels are defined in the text (PENDING ~50%)
+     + pass 3: check that all used labels are defined in the text
        * **wsasm_resolve_labels(context, ret)**: check that all used labels are defined in the text
 
 

@@ -59,11 +59,14 @@
                                 "    fid='fileToLoad2' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
                                 "           wepsim_file_loadFrom(ftl, " +
-                                "		                 function(txt){ inputasm.setValue(txt); });" +
+                                "		                 function(txt){ " +
+			        "		             wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "		             inputasm.setValue(txt);" +
+                                "		                              });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
                                "</div>" +
-			   	"</div>" ;
+			       "</div>" ;
 	              },
 	    buttons:  {
 			 close: {
@@ -152,7 +155,10 @@
                                 "    fid='fileToLoad' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
                                 "           wepsim_file_loadFrom(ftl, " +
-                                "		                 function(txt){ inputfirm.setValue(txt); });" +
+                                "		                 function(txt){ " +
+			        "		             wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "		             inputfirm.setValue(txt);" +
+                                "		                              });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
                                "</div>" +
