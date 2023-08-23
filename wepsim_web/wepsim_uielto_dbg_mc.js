@@ -129,7 +129,7 @@
 
             // build and load HTML
             for (var key in memory) {
-                 o1 += control_memory_showrow(memory, key, (key == index), SIMWARE.hash_labels_rev) ;
+                 o1 += control_memory_showrow(memory, key, (key == index), SIMWARE.hash_labels_firm_rev) ;
             }
 
             o1 = "<center><table class='table table-hover table-sm'>" +
@@ -244,7 +244,7 @@
 	       var key_hex = '0x' + parseInt(elto.key).toString(16) ;
 
                // ui-address_and_tags
-	       var labels = SIMWARE.hash_labels_rev[elto.key] ;
+	       var labels = SIMWARE.hash_labels_firm_rev[elto.key] ;
 	       if (typeof labels !== 'undefined') {
 		   labels = '<span>' +
 			    '<span class="badge rounded-pill text-bg-info font-monospace" ' +

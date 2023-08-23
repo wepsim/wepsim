@@ -330,7 +330,7 @@ function wsasm_src2obj_data ( context, ret )
 			                       i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
                                                "'" + tag + "'") ;
 		      }
-		      if (ret.labels2[tag]) {
+		      if (ret.labels_asm[tag]) {
 			  return asm_langError(context,
 			                       i18n_get_TagFor('compiler', 'REPEATED TAG') +
                                                "'" + tag + "'") ;
@@ -601,6 +601,7 @@ function wsasm_src2obj_data ( context, ret )
   				     elto.track_source.push('0x0') ;
                                 }
 				elto.byte_size = elto.value.length ;
+				elto.source    = possible_value ;
 
 				ret.obj.push(elto) ;
 				elto = wsasm_new_objElto(elto) ;
@@ -832,6 +833,8 @@ function wsasm_find_instr_candidates ( context, ret, elto )
 	             i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') + " for '" + msg + "':<br>" +
 	             elto.value.signature_user + ".<br>" +
 	             i18n_get_TagFor('compiler', 'CHECK MICROCODE') ;
+
+// TODO: add the list of available candidates (if any) to help students to match its instructions...
 
 	       return asm_langError(context, msg) ;
 	   }
@@ -1171,7 +1174,7 @@ function wsasm_src2obj_text ( context, ret )
 			                       i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
                                                "'" + tag + "'") ;
 		      }
-		      if (ret.labels2[tag]) {
+		      if (ret.labels_asm[tag]) {
 			  return asm_langError(context,
 			                       i18n_get_TagFor('compiler', 'REPEATED TAG') +
                                                "'" + tag + "'") ;
@@ -1377,8 +1380,9 @@ function wsasm_resolve_pseudo ( context, ret )
 		     return ret ;
 		 }
 
-                 if (0 == eltos.length)
+                 if (0 == eltos.length) {
                      elto.labels = pseudo_elto.labels ;
+		 }
 
                  // add elto to some temporal array
                  eltos.push(elto) ;
@@ -1440,10 +1444,10 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
               ret.obj[i].byte_offset = elto_ptr - seg_ptr ;  // offset within .data segment
               ret.obj[i].padding     = 0 ;
 
-              // add labels2...
+              // add labels_asm...
               for (var j=0; j<ret.obj[i].labels.length; j++) {
                      tag = ret.obj[i].labels[j] ;
-		     ret.labels2[tag] = "0x" + elto_ptr.toString(16) ;
+		     ret.labels_asm[tag] = "0x" + elto_ptr.toString(16) ;
               }
 
               // machine_code and total size...
@@ -1470,7 +1474,7 @@ function wsasm_get_label_value ( context, ret, label )
          var valbin = '' ;
 
          // if label -> return associated value as integer
-         value = ret.labels2[label] ;
+         value = ret.labels_asm[label] ;
 	 if (typeof value !== "undefined")
          {
               valbin = (parseInt(value) >>> 0).toString(2) ;
@@ -1494,7 +1498,7 @@ function wsasm_get_label_value ( context, ret, label )
          var sel_label = value_arr[1] ;
 
          // if label not found -> return error
-         value = ret.labels2[sel_label] ;
+         value = ret.labels_asm[sel_label] ;
 	 if (typeof value === "undefined")
          {
 	     return asm_langError(context,
@@ -1620,9 +1624,9 @@ function wsasm_resolve_labels ( context, ret )
               }
          }
 
-         // build reverse lookup hash labels (hash labels2 -> key)
-         for (var key in ret.labels2) {
-              ret.hash_labels2_rev[ret.labels2[key]] = key ;
+         // build reverse lookup hash labels (hash labels_asm -> key)
+         for (var key in ret.labels_asm) {
+              ret.hash_labels_asm_rev[ret.labels_asm[key]] = key ;
          }
 
          // build reverse lookup hash segments (hash segname -> properties)
@@ -1780,12 +1784,12 @@ function wsasm_src2obj ( context )
            var ret = {} ;
            ret.obj = [] ;
            ret.mp  = {} ;
-  	   ret.seg              = sim_segments ;
-           ret.hash_seg_rev     = [] ;
-           ret.labels2          = {} ;
-           ret.hash_labels2_rev = {} ;
-	   ret.labels           = {} ; // [addr] = {name, addr, startbit, stopbit}
-           ret.labels_valbin    = {} ;
+  	   ret.seg                 = sim_segments ;
+           ret.hash_seg_rev        = [] ;
+           ret.labels_asm          = {} ;
+           ret.hash_labels_asm_rev = {} ;
+	   ret.labels              = {} ; // [addr] = {name, addr, startbit, stopbit}
+           ret.labels_valbin       = {} ;
 
 	   // Check arguments
            if (typeof context == "undefined") {
@@ -1848,13 +1852,19 @@ function wsasm_obj2mem  ( ret )
                   seg_name_old = seg_name ;
 	      }
 
-              // ...and update initial word address for this segment if needed...
+              // ...update initial word address for this segment if needed...
               if (typeof last_assig_word[seg_name] == "undefined")
               {
                   gen.addr = "0x" + ret.obj[i].elto_ptr.toString(16) ;
                   last_assig_word[seg_name] = gen.addr ;
               }
+
+              // ... and setup the working address for the new obj[i]
               gen.addr = last_assig_word[seg_name] ; // recover last saved value if we switch to other segment
+              if ((ret.obj[i].elto_ptr / WORD_BYTES) > (parseInt(gen.addr) / WORD_BYTES)) {
+                  wsasm_zeropadding_and_writememory(ret.mp, gen) ;
+                  gen.addr = "0x" + ret.obj[i].elto_ptr.toString(16) ;
+              }
 
               // (2) if .align X then address of next elto must be multiple of 2^X
               if (wsasm_has_datatype_attr(ret.obj[i].datatype, "align"))
