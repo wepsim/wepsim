@@ -779,14 +779,18 @@ function wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
            }
 
            // if candidate is smaller than expected then return is NOT candidate
-           var distance = 0 ;
+           var distance   = 0 ;
+           var distance_j = 0 ;
+           var offset_j   = 0 ;
+           offset_j = candidate_size_as_intarr.length - signature_size_as_intarr.length ;
            for (let j=0; j<candidate_size_as_intarr.length; j++)
            {
-                if (candidate_size_as_intarr[j] < signature_size_as_intarr[j]) {
+                distance_j = candidate_size_as_intarr[j+offset_j] - signature_size_as_intarr[j] ;
+                if (distance_j < 0) {
                     return -1 ;
                 }
 
-                distance = distance + (candidate_size_as_intarr[j] - signature_size_as_intarr[j]) ;
+                distance = distance + distance_j ;
            }
 
            return distance ;
@@ -819,11 +823,17 @@ function wsasm_find_instr_candidates ( context, ret, elto )
 	   // CHECK: elto signature* match at least one firm_reference
 	   if (0 == candidates)
 	   {
-	       return asm_langError(context,
-				    i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + "<br>"  +
-				    i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') + " for '" + elto.source + "':<br>" +
-                                    elto.value.signature_user + ".<br>" +
-				    i18n_get_TagFor('compiler', 'CHECK MICROCODE')) ;
+               var msg = elto.source ;
+               if (typeof elto.associated_pseudo !== "undefined") {
+                   msg = elto.source + ' (as part of "' + elto.associated_pseudo.source + '")' ;
+               }
+
+               msg = i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + "<br>"  +
+	             i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') + " for '" + msg + "':<br>" +
+	             elto.value.signature_user + ".<br>" +
+	             i18n_get_TagFor('compiler', 'CHECK MICROCODE') ;
+
+	       return asm_langError(context, msg) ;
 	   }
 
            // update instruction size for multi-word instructions (e.g.: 'la address' in 2 words)
@@ -871,7 +881,7 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 	               elto.value.fields.push(atom) ;
 	               elto.value.signature_type_arr.push('inm') ;
 		   }
-	           elto.value.signature_size_arr.push(a[3]) ; // a[3]: minimum number of bits to represent a[0]...
+	           elto.value.signature_size_arr.push(a[2]) ; // a[2]: minimum number of bits to represent a[0]...
 
 		   // return ok
 		   return ret ;
@@ -1201,18 +1211,6 @@ function wsasm_src2obj_text ( context, ret )
 		   elto.value.signature_type_arr = [ possible_inst ] ;
 		   elto.value.signature_size_arr = [] ;
 
-		   if (elto.firm_reference[0].isPseudoinstruction == false)
-		   {
-		       elto.datatype = "instruction" ;
-		       elto.value.signature_size_arr.push(elto.firm_reference[0].co.length) ;
-		   }
-		   else
-		   {
-		       elto.datatype = "pseudoinstruction" ;
-		       elto.value.signature_size_arr.push(0) ;
-                       elto.binary   = '' ;
-		   }
-
 		   //
 		   //    label1:
 	           //    label2:    instr  *op1, op2 op3*
@@ -1229,14 +1227,29 @@ function wsasm_src2obj_text ( context, ret )
 		   elto.comments.push(acc_cmt) ;
 		   elto.track_source.push(elto.source) ;
 
-                   // if instruction -> find candidate from firm_reference and fill initial binary based on it...
-		   if (elto.firm_reference[0].isPseudoinstruction == false)
+		   // Find candidate from firm_reference
+		   ret = wsasm_find_instr_candidates(context, ret, elto) ;
+		   if (ret.error != null) {
+		       return ret;
+		   }
+
+		   var candidate = elto.firm_reference[elto.firm_reference_index] ;
+
+                   // if instruction -> fill initial binary based on candidate...
+		   if (candidate.isPseudoinstruction == false)
                    {
-                       ret = wsasm_find_candidate_and_encode(context, ret, elto) ;
-		       if (ret.error != null) {
-		           return ret;
-		       }
+		        elto.datatype = "instruction" ;
+		   //   elto.value.signature_size_arr.push(elto.firm_reference[0].co.length) ; // TODO: push at the beginning !!
+
+			// Fill initial binary with the initial candidate...
+			elto.binary = wsasm_encode_instruction(context, ret, elto, candidate) ;
                    }
+		   else
+		   {
+		       elto.datatype = "pseudoinstruction" ;
+		   //  elto.value.signature_size_arr.push(0) ; // TODO: push at the beginning !!
+		       elto.binary   = '' ;
+		   }
 
 		   // ELTO: instruction + fields
 		   ret.obj.push(elto) ;
@@ -1314,9 +1327,9 @@ function wsasm_resolve_pseudo ( context, ret )
 
               pseudo_elto = ret.obj[i] ;
               pseudo_values   = pseudo_elto.source.trim().split(' ') ;
-              pseudo_replaced = pseudo_elto.firm_reference[0].finish ;
+              pseudo_replaced = pseudo_elto.firm_reference[pseudo_elto.firm_reference_index].finish ;
               for (let k=0; k<(pseudo_values.length-1); k++) {
-                   pseudo_replaced = pseudo_replaced.replaceAll(pseudo_elto.firm_reference[0].fields[k].name,
+                   pseudo_replaced = pseudo_replaced.replaceAll(pseudo_elto.firm_reference[pseudo_elto.firm_reference_index].fields[k].name,
                                                                 pseudo_values[k+1]) ;
               }
               // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
@@ -1343,7 +1356,7 @@ function wsasm_resolve_pseudo ( context, ret )
 		 elto.value.instruction        = possible_inst ;
 	         elto.value.fields             = [] ;
 	         elto.value.signature_type_arr = [ possible_inst ] ;
-	         elto.value.signature_size_arr = [ elto.firm_reference[0].co.length ] ;
+	     //  elto.value.signature_size_arr = [ elto.firm_reference[pseudo_elto.firm_reference_index].co.length ] ;
 		 elto.value.signature_size_arr = [] ;
 
                  // Match fields of the pseudoinstruction...
