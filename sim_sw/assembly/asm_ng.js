@@ -1437,12 +1437,12 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
               // get starting address of next elto
               elto_ptr = last_assigned[seg_name] ;
 
-              if ( (ret.obj[i].datatype != "instruction") &&
-                   (wsasm_get_datatype_size(ret.obj[i].datatype) == WORD_BYTES) )
+              if (ret.obj[i].datatype != "instruction")
               {
-                  // align .word to WORD_BYTES bytes
-                  if (elto_ptr % WORD_BYTES != 0)
-                      elto_ptr += WORD_BYTES - (elto_ptr % WORD_BYTES) ;
+                  // align datatype to datatype_size in bytes (4 in multiple of 4, 2 in multiple of 2...)
+                  var datatype_size = wsasm_get_datatype_size(ret.obj[i].datatype) ;
+                  if (elto_ptr % datatype_size != 0)
+                      elto_ptr += datatype_size - (elto_ptr % datatype_size) ;
               }
 
               ret.obj[i].seg_ptr     = seg_ptr ;             // starting address of the .data/.kdata segment
@@ -1650,9 +1650,10 @@ function wsasm_resolve_labels ( context, ret )
 //  Auxiliar function tree for wsasm_obj2mem  ( ret )
 //   * wsasm_writememory_if_word              ( mp, gen, track_source, track_comments )
 //   * wsasm_writememory_and_accumulate       ( mp, gen, valuebin )
-//   * wsasm_writememory_and_accumulate_part  ( mp, gen, valuebin, track_source, track_comments )
-//   * wsasm_writememory_and_accumulate_part2 ( mp, gen, valuebin, track_source_j, track_source, track_comments )
 //   * wsasm_zeropadding_and_writememory      ( mp, gen )
+//   * wsasm_writememory_and_accumulate_part  ( mp, gen, valuebin, track_source_j, track_source, track_comments )
+//   * wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
+//   * wsasm_writememory_and_accumulate_part_for_big_endian    ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
 //
 
 function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
@@ -1705,23 +1706,6 @@ function wsasm_writememory_and_accumulate ( mp, gen, valuebin )
         gen.byteWord     += 1 ;
 }
 
-function wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source, track_comments )
-{
-        wsasm_writememory_if_word(mp, gen, track_source, track_comments) ;
-
-        gen.machine_code += valuebin ;
-        gen.byteWord     += 1 ;
-}
-
-function wsasm_writememory_and_accumulate_part2 ( mp, gen, valuebin, track_source_j, track_source, track_comments )
-{
-        wsasm_writememory_if_word(mp, gen, track_source, track_comments) ;
-
-        gen.machine_code += valuebin ;
-        gen.byteWord     += 1 ;
-        gen.track_source.push(track_source_j) ;
-}
-
 function wsasm_zeropadding_and_writememory ( mp, gen )
 {
         if (0 == gen.byteWord) {
@@ -1737,6 +1721,45 @@ function wsasm_zeropadding_and_writememory ( mp, gen )
         // write last full word...
         wsasm_writememory_if_word(mp, gen, [], []) ;
 }
+
+function wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source_j, track_source, track_comments )
+{
+        wsasm_writememory_if_word(mp, gen, track_source, track_comments) ;
+
+        gen.machine_code += valuebin ;
+        gen.byteWord     += 1 ;
+
+        if (track_source_j != null) {
+            gen.track_source.push(track_source_j) ;
+	}
+}
+
+function wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
+{
+         var b_index   = j_byte * BYTE_LENGTH ;
+	 var valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
+
+	 wsasm_writememory_and_accumulate_part(ret_mp, gen, valuebin8, null, obj_i.track_source, obj_i.comments) ;
+}
+
+function wsasm_writememory_and_accumulate_part_for_big_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
+{
+	 var b_index = 0 ;
+
+         if (n_bytes < WORD_BYTES) {
+             b_index = n_bytes - j_byte - 1 ;
+         }
+         else {
+	     b_index = (j_byte / WORD_BYTES) >>> 0 ;
+	     b_index = b_index * WORD_BYTES + WORD_BYTES - (j_byte % WORD_BYTES) - 1 ;
+         }
+
+         b_index = b_index * BYTE_LENGTH ;
+	 var valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
+
+	 wsasm_writememory_and_accumulate_part(ret_mp, gen, valuebin8, null, obj_i.track_source, obj_i.comments) ;
+}
+
 
 
  /*
@@ -1824,24 +1847,6 @@ function wsasm_src2obj ( context )
 	   return ret;
 }
 
-function wsasm_writememory_and_accumulate_part_for_big_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
-{
-	 var b_index = 0 ;
-
-         if (n_bytes < WORD_BYTES) {
-             b_index = n_bytes - j_byte - 1 ;
-         }
-         else {
-	     b_index = (j_byte / WORD_BYTES) >>> 0 ;
-	     b_index = b_index * WORD_BYTES + WORD_BYTES - (j_byte % WORD_BYTES) - 1 ;
-         }
-
-         b_index = b_index * BYTE_LENGTH ;
-	 var valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
-
-	 wsasm_writememory_and_accumulate_part(ret_mp, gen, valuebin8, obj_i.track_source, obj_i.comments) ;
-}
-
 function wsasm_obj2mem  ( ret )
 {
 	 var addr      = '' ;
@@ -1886,10 +1891,22 @@ function wsasm_obj2mem  ( ret )
 
               // ... and setup the working address for the new obj[i]
               gen.addr = last_assig_word[seg_name] ; // recover last saved value if we switch to other segment
+
+              // skip .byte to .half/.word/... alignment if needed
+              if ((i != 0) && (ret.obj[i].seg_name == ret.obj[i-1].seg_name))
+              {
+                   word_1 = ret.obj[i].elto_ptr - (ret.obj[i-1].elto_ptr + ret.obj[i-1].byte_size) ;
+                   if (word_1 > 0) {
+                       valuebin = "0".repeat(BYTE_LENGTH) ;
+                       for (let j=0; j<word_1; j++) {
+                            wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin, null, [], ret.obj[i].comments) ;
+                       }
+                   }
+              }
+
               word_1 = (ret.obj[i].elto_ptr / WORD_BYTES) >>> 0 ;
               word_2 = (parseInt(gen.addr)  / WORD_BYTES) >>> 0 ;
               if (word_1 > word_2) {
-                  wsasm_zeropadding_and_writememory(ret.mp, gen) ;
                   gen.addr = "0x" + ret.obj[i].elto_ptr.toString(16) ;
               }
 
@@ -1959,8 +1976,8 @@ function wsasm_obj2mem  ( ret )
                          valuebin = ret.obj[i].value[j].toString(2) ;
                          valuebin = valuebin.padStart(BYTE_LENGTH, '0') ;
 
-                         wsasm_writememory_and_accumulate_part2(ret.mp, gen, valuebin, ret.obj[i].track_source[j],
-                                                                [], ret.obj[i].comments) ;
+                         wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin, ret.obj[i].track_source[j],
+                                                               [], ret.obj[i].comments) ;
                     }
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "space"))
@@ -1969,8 +1986,8 @@ function wsasm_obj2mem  ( ret )
 
                     for (let j=0; j<ret.obj[i].byte_size; j++)
                     {
-                         wsasm_writememory_and_accumulate_part2(ret.mp, gen, valuebin, ret.obj[i].track_source[j],
-                                                                [], ret.obj[i].comments) ;
+                         wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin, ret.obj[i].track_source[j],
+                                                               [], ret.obj[i].comments) ;
                     }
               }
 
@@ -2017,6 +2034,8 @@ function wsasm_src2mem ( datosCU, text )
          console.log("ERROR on 'wsasm_src2mem' function :-(") ;
          console.log("Details:\n " + e) ;
          console.log("Stack:\n"    + e.stack) ;
+
+	 ret.error = "Compilation error found, please review your assembly code (" + e.toString() + ")" ;
      }
 
      return ret ;
