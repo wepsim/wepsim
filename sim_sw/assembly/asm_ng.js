@@ -189,7 +189,7 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 	   let finish  = null ;
 
 	   // Fill pseudoinstructions
-	   for (i=0; i<CU_data.pseudoInstructions.length; i++)
+	   for (let i=0; i<CU_data.pseudoInstructions.length; i++)
 	   {
 		initial = CU_data.pseudoInstructions[i].initial ;
 		finish  = CU_data.pseudoInstructions[i].finish ;
@@ -231,11 +231,17 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 //  (2/3) Compile assembly to JSON object (see README_ng.md for more information)
 //
 //  Auxiliar function tree for wsasm_src2obj ( context )
-//   * wsasm_src2obj_helper ( context, ret )
+//   * wsasm_src2obj_helper  ( context, ret )
 //      * wsasm_src2obj_data ( context, ret )
 //      * wsasm_src2obj_text ( context, ret )
 //         * wsasm_src2obj_text_elto_fields  ( context, ret, elto, pseudo_context )
+//           * wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parentheses )
+//           * wsasm_src2obj_text_ops_getAtom ( context, pseudo_context )
 //         * wsasm_find_candidate_and_encode ( context, ret, elto )
+//           * wsasm_encode_instruction ( context, ret, elto, candidate )
+//             * wsasm_encode_field ( arr_encoded, value, start_bit, stop_bit )
+//           * wsasm_find_instr_candidates ( context, ret, elto )
+//             * wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
 //   * wsasm_resolve_pseudo ( context, ret )
 //   * wsasm_resolve_labels ( context, ret )
 //      * wsasm_compute_labels  ( context, ret, start_at_obj_i )
@@ -586,7 +592,7 @@ function wsasm_src2obj_data ( context, ret )
                                 elto.seg_name  = seg_name ;
 				elto.comments.push(acc_cmt) ;
 			        elto.value = [] ;
-                                for (i=0; i<possible_value.length; i++)
+                                for (let i=0; i<possible_value.length; i++)
                                 {
                                      if (possible_value[i] == "\"") {
                                          continue;
@@ -805,7 +811,7 @@ function wsasm_find_instr_candidates ( context, ret, elto )
            // for each candidate, check if can be used...
            elto.firm_reference_distance = -1 ;
            elto.firm_reference_index    =  0 ;
-           for (var i=0; i<elto.firm_reference.length; i++)
+           for (let i=0; i<elto.firm_reference.length; i++)
            {
                 distance = wsasm_src2obj_text_getDistance(elto.firm_reference[i], elto.value) ;
                 if (distance < 0) {
@@ -1236,7 +1242,7 @@ function wsasm_src2obj_text ( context, ret )
 		       return ret;
 		   }
 
-		   var candidate = elto.firm_reference[elto.firm_reference_index] ;
+		   candidate = elto.firm_reference[elto.firm_reference_index] ;
 
                    // if instruction -> fill initial binary based on candidate...
 		   if (candidate.isPseudoinstruction == false)
@@ -1641,11 +1647,12 @@ function wsasm_resolve_labels ( context, ret )
 //
 //  (3/3) Load JSON object to main memory (see README_ng.md for more information)
 //
-//  Auxiliar function tree for wsasm_obj2mem ( ret )
-//   * wsasm_writememory_if_word             ( mp, gen, track_source, track_comments )
-//   * wsasm_writememory_and_accumulate      ( mp, gen, valuebin )
-//   * wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source, track_comments )
-//   * wsasm_zeropadding_and_writememory     ( mp, gen )
+//  Auxiliar function tree for wsasm_obj2mem  ( ret )
+//   * wsasm_writememory_if_word              ( mp, gen, track_source, track_comments )
+//   * wsasm_writememory_and_accumulate       ( mp, gen, valuebin )
+//   * wsasm_writememory_and_accumulate_part  ( mp, gen, valuebin, track_source, track_comments )
+//   * wsasm_writememory_and_accumulate_part2 ( mp, gen, valuebin, track_source_j, track_source, track_comments )
+//   * wsasm_zeropadding_and_writememory      ( mp, gen )
 //
 
 function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
@@ -1817,13 +1824,29 @@ function wsasm_src2obj ( context )
 	   return ret;
 }
 
+function wsasm_writememory_and_accumulate_part_for_big_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
+{
+	 var b_index = 0 ;
+
+         if (n_bytes < WORD_BYTES) {
+             b_index = n_bytes - j_byte - 1 ;
+         }
+         else {
+	     b_index = (j_byte / WORD_BYTES) >>> 0 ;
+	     b_index = b_index * WORD_BYTES + WORD_BYTES - (j_byte % WORD_BYTES) - 1 ;
+         }
+
+         b_index = b_index * BYTE_LENGTH ;
+	 var valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
+
+	 wsasm_writememory_and_accumulate_part(ret_mp, gen, valuebin8, obj_i.track_source, obj_i.comments) ;
+}
+
 function wsasm_obj2mem  ( ret )
 {
 	 var addr      = '' ;
          var n_bytes   = 0 ;
          var valuebin  = '' ;
-         var valuebin8 = '' ;
-         var b_index   = 0 ;
          var candidate = null ;
 
          var seg_name_old    = '' ;
@@ -1842,7 +1865,7 @@ function wsasm_obj2mem  ( ret )
          gen.firm_reference = null ;
 
          ret.mp = {} ;
-         for (var i=0; i<ret.obj.length; i++)
+         for (let i=0; i<ret.obj.length; i++)
          {
               // (1) flushing if there is some pending data in 'seg_name_old' segment...
               seg_name = ret.obj[i].seg_name ;
@@ -1878,7 +1901,7 @@ function wsasm_obj2mem  ( ret )
                      {
                          var last_assigned = parseInt(gen.addr) + gen.byteWord ;
                          var padding       = elto_align - (last_assigned % elto_align) ;
-                         for (var k=0; k<padding; k++) {
+                         for (let k=0; k<padding; k++) {
                               wsasm_writememory_and_accumulate(ret.mp, gen, '0'.repeat(BYTE_LENGTH)) ;
                          }
                      }
@@ -1900,18 +1923,15 @@ function wsasm_obj2mem  ( ret )
 
                     valuebin = ret.obj[i].binary ;
                     n_bytes  = ret.obj[i].binary.length / BYTE_LENGTH ;
-                    for (var j=0; j<n_bytes; j++)
+                    for (let j=0; j<n_bytes; j++)
                     {
                          candidate = ret.obj[i].firm_reference_index ;
                          candidate = ret.obj[i].firm_reference[candidate] ;
                          gen.firm_reference = candidate ;
                          gen.is_assembly    = true ;
 
-                         // fill for big-endian by default...
-                         b_index = (n_bytes - j - 1)*BYTE_LENGTH ;
-                         valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
-                         wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin8,
-                                                               ret.obj[i].track_source, ret.obj[i].comments) ;
+			 // fill for big-endian by default...
+			 wsasm_writememory_and_accumulate_part_for_big_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
                     }
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "numeric"))
@@ -1927,12 +1947,8 @@ function wsasm_obj2mem  ( ret )
                     // next: fill byte by byte
                     for (let j=0; j<n_bytes; j++)
                     {
-                         // fill for big-endian by default...
-                         b_index = (n_bytes - j - 1)*BYTE_LENGTH ;
-                         valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
-
-                         wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin8,
-                                                               ret.obj[i].track_source, ret.obj[i].comments) ;
+			 // fill for big-endian by default...
+			 wsasm_writememory_and_accumulate_part_for_big_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
                     }
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string"))
