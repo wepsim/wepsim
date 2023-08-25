@@ -141,6 +141,11 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 		elto.signature_size_str  = '' ;  // computed later
 		elto.signature_size_arr  = [] ;  // computed later
 
+                // tooltip with details...
+		elto["mc-start"] = aux["mc-start"] ;
+		elto.microcode   = aux.microcode ;
+		elto.help        = aux.help ;
+
 		if (typeof aux.co     !== "undefined")         elto.co     = aux.co ;
 		if (typeof aux.cop    !== "undefined")         elto.cop    = aux.cop ;
 		if (typeof aux.fields !== "undefined")         elto.fields = aux.fields ;
@@ -844,15 +849,21 @@ function wsasm_find_instr_candidates ( context, ret, elto )
                    msg = elto.source + ' (as part of "' + elto.associated_pseudo.source + '")' ;
                }
 
-               msg = i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + "<br>"  +
+               msg = i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + ".<br>"  +
 	             i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
-                     " for '" + msg + "': " + elto.value.signature_user + ".<br>" ;
+                     "'" + msg + "': <br>\u00D7 " + elto.value.signature_user + ".<br>" ;
 
 	       msg += i18n_get_TagFor('compiler', 'NOT MATCH FORMAT') + ":<br>" ;
-               for (let i=0; i<elto.firm_reference.length; i++) {
-                    msg += "\u2022 " + elto.firm_reference[i].signature_user + ".<br>" ;
+               for (let key in context.firmware)
+               {
+                    if ( (key.includes(elto.value.instruction)) || (elto.value.instruction.includes(key)) )
+                    {
+                          for (let k=0; k<context.firmware[key].length; k++) {
+                               msg += "\u2022 " + context.firmware[key][k].signature_user + ".<br>" ;
+                          }
+                    }
                }
-	       msg += i18n_get_TagFor('compiler', 'CHECK MICROCODE') + ".<br>" ;
+	       msg += i18n_get_TagFor('compiler', 'CHECK MICROCODE') ;
 
 	       return asm_langError(context, msg) ;
 	   }

@@ -27,6 +27,7 @@
 		'Idiom for help, examples, etc.':				'帮助，例子等',
 		'Notification speed: time before disapear':			'通知速度：消失时间',
 		'Dark Mode':							'黑暗模式',
+		'Use of experimental features':					'使用实验功能',
 		'Editor':							'编辑',
 		'Editor theme: light or dark':					'编辑主题：光明或黑暗',
 		'Light':							'光',
@@ -38,6 +39,7 @@
 		'Normal':							'正常',
 		'Fast':								'快速',
 		'Step-by-step: element in run mode':				'循序渐进：运行模式中的元素',
+
 		'Instructions':							'说明',
 		'Instruction':							'指令',
 		'&#181;instructions':						'μinstructions',
