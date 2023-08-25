@@ -271,6 +271,7 @@
                    "max_json_size":         { upgrade:true,  type:"int",       value:1*1024*1024 },
                    "verbal_verbose":        { upgrade:false, type:"string",    value:'math' },
                    "extended_ui":           { upgrade:false, type:"boolean",   value:false },
+                   "beta_features":         { upgrade:false, type:"boolean",   value:false },
                    "use_ga":                { upgrade:false, type:"boolean",   value:true }
              } ;
 

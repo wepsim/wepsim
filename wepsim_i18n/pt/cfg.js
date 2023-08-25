@@ -25,6 +25,7 @@
 		'Idiom for help, examples, etc.':				'Idioma para ajuda, exemplos, etc.',
 		'Notification speed: time before disapear':			'Velocidade de notificação: tempo antes de desaparecer',
 		'Dark Mode':							'Modo escuro',
+		'Use of experimental features':					'Uso de recursos experimentais',
 		'Editor':							'editor',
 		'Editor theme: light or dark':					'Tema do editor: claro ou escuro',
 		'Light':							'Leve',
@@ -36,6 +37,7 @@
 		'Normal':							'Normal',
 		'Fast':								'Rápido',
 		'Step-by-step: element in run mode':				'Passo-a-passo: elemento no modo de execução',
+
 		'Instructions':							'Instruções',
 		'Instruction':							'Instrução',
 		'&#181;instructions':						'instruções',
