@@ -258,7 +258,7 @@
     "type":		"<span data-langkey='Special'>Special</span>",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
-    "microcode":	"ep_bare",
+    "microcode":	"ep_min",
     "assembly":		"s6e1",
     "description":	"<span data-langkey='example_06_01'>Test example.</span>",
     "testing":          true

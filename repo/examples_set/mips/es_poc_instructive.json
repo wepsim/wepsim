@@ -181,7 +181,7 @@
     "type":		"<span data-langkey='Special'>Special</span>",
     "modes":		"newbie,intro,poc",
     "hardware":		"poc",
-    "microcode":	"poc_bare",
+    "microcode":	"poc_min",
     "assembly":		"s6e1",
     "description":	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_06_01'>Test example.</span>",
     "testing":          true
