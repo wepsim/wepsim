@@ -60,8 +60,9 @@
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
                                 "           wepsim_file_loadFrom(ftl, " +
                                 "		                 function(txt){ " +
-			        "		             wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "		             inputasm.setValue(txt);" +
+    				"                            wsweb_dialog_close(\"load_save_assembly\");" +
+			        "		             wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "		                              });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
@@ -156,8 +157,10 @@
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
                                 "           wepsim_file_loadFrom(ftl, " +
                                 "		                 function(txt){ " +
-			        "		             wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "		             inputfirm.setValue(\"Please wait...\");" +
+    				"                            wsweb_dialog_close(\"load_save_firmware\");" +
                                 "		             inputfirm.setValue(txt);" +
+			        "		             wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "		                              });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +

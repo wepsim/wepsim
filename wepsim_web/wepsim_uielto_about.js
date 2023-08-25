@@ -114,7 +114,8 @@
                              '           :is="social.href?\'a\':\'span\'" v-bind:href="social.href || \'\'" ' +
                              '           target="_blank" ' +
                              '           class="list-group-item p-2 mx-auto w-100">' +
-                             '<em v-bind:class="social.faclass"></em><span class="m-1">{{ social.name }}</span>' +
+                             '<em   v-bind:class="social.faclass"></em>' +
+                             '<span class="m-1 d-none d-sm-inline">{{ social.name }}</span>' +
                              '</component>' +
                              '    </div>' +
                              '  </div>' +

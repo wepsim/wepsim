@@ -25,6 +25,7 @@
 		'Idiom for help, examples, etc.':				'Идиома за помощь, примеры и т. Д.',
 		'Notification speed: time before disapear':			'Скорость уведомления: время до исчезновения',
 		'Dark Mode':							'Темный режим',
+		'Use of experimental features':					'Использование экспериментальных функций',
 		'Editor':							'редактор',
 		'Editor theme: light or dark':					'Тема редактора: светлая или темная',
 		'Light':							'Свет',
@@ -36,6 +37,7 @@
 		'Normal':							'Нормальный',
 		'Fast':								'Быстро',
 		'Step-by-step: element in run mode':				'Шаг за шагом: элемент в режиме запуска',
+
 		'Instructions':							'инструкции',
 		'Instruction':							'инструкция',
 		'&#181;instructions':						'μinstructions',

@@ -80,6 +80,9 @@
     function wepsim_file_loadFrom ( fileToLoad, functionOnLoad )
     {
         // checks
+        if (typeof fileToLoad === "undefined") {
+            return false ;
+        }
         var fileReader = new FileReader();
         if (fileReader === null) {
             return false ;

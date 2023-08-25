@@ -25,6 +25,7 @@
 		'Idiom for help, examples, etc.':				'Idioma per aiuto, esempi, ecc.',
 		'Notification speed: time before disapear':			'Velocità di notifica: tempo prima che scompaia',
 		'Dark Mode':							'Modalità scura',
+		'Use of experimental features':					'Utilizzo di funzionalità sperimentali',
 		'Editor':							'editore',
 		'Editor theme: light or dark':					'Tema dell\'editor: chiaro o scuro',
 		'Light':							'Luce',

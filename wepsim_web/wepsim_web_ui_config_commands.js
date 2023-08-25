@@ -35,6 +35,25 @@
                    });
 
     ws_info.config_ui.push({
+                      id:          "radio15",
+                      type:        "General",
+                      u_class:     "",
+                      code_cfg:    wepsim_config_button_html_onoff('15', 'Dark mode',
+                                                  i18n_get_TagFor('cfg', 'Off'),
+		                                   "wepsim_restore_darkmode(false);" +
+		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',false,'15');",
+                                                  i18n_get_TagFor('cfg', 'On'),
+		                                   "wepsim_restore_darkmode(true);" +
+		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',true,'15');"),
+		      code_init:   function() {
+                                       wepsim_config_button_pretoggle('ws_skin_dark_mode', '15') ;
+			               var optValue = get_cfg('ws_skin_dark_mode') ;
+			               wepsim_restore_darkmode(optValue) ;
+		                   },
+                      description: "<span data-langkey='Dark Mode'>Dark Mode</span>"
+                   });
+
+    ws_info.config_ui.push({
                       id:          "slider3",
                       type:        "General",
                       u_class:     "",
@@ -65,22 +84,18 @@
                    });
 
     ws_info.config_ui.push({
-                      id:          "radio15",
+                      id:          "radio18",
                       type:        "General",
                       u_class:     "",
-                      code_cfg:    wepsim_config_button_html_onoff('15', 'Dark mode',
-                                                  i18n_get_TagFor('cfg', 'Off'),
-		                                   "wepsim_restore_darkmode(false);" +
-		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',false,'15');",
-                                                  i18n_get_TagFor('cfg', 'On'),
-		                                   "wepsim_restore_darkmode(true);" +
-		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',true,'15');"),
+                      code_cfg:    wepsim_config_button_html_onoff('18', 'Use experimental features',
+                                                     i18n_get_TagFor('cfg', 'Off'),
+		                                       "wepsim_config_button_toggle('beta_features',false,'18');",
+                                                     i18n_get_TagFor('cfg', 'On'),
+		                                       "wepsim_config_button_toggle('beta_features',true,'18');"),
 		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('ws_skin_dark_mode', '15') ;
-			               var optValue = get_cfg('ws_skin_dark_mode') ;
-			               wepsim_restore_darkmode(optValue) ;
+                                       wepsim_config_button_pretoggle('beta_features', '18') ;
 		                   },
-                      description: "<span data-langkey='Dark Mode'>Dark Mode</span>"
+                      description: "<span data-langkey='Use of experimental features'>Use of experimental features</span>"
                    });
 
     ws_info.config_ui.push({

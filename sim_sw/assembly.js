@@ -27,16 +27,20 @@ function simlang_compile ( text, datosCU )
 {
      var ret = null ;
 
-//   ret = simlang_compile_v1(text, datosCU) ;  // Initial version
-
-     // Testing...
-     if (typeof ws_ng != "undefined") {
+     if ( get_cfg('beta_features') )
+     {
+         // Testing in beta...
          ret = wsasm_src2mem(datosCU, text) ;
-     }
+     }   
+     else   
+     {   
+         // Initial version for 2023/24...
+    //   ret = simlang_compile_v1(text, datosCU) ;  // disabled for testing Juan Banga version... 
 
-     ret = simlang_compile_v2(text, datosCU) ;
-
-//   ret = wsasm_src2mem(datosCU, text) ;  // TESTING
+         // Juan Banga version with support for firmware 2
+         // (but additional full-testing is still pending to ensure that all laboratories are fully compatible with 0-problems)
+         ret = simlang_compile_v2(text, datosCU) ;
+     }   
 
      return ret ;
 }
