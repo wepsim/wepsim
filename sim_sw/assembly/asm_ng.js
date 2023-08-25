@@ -141,6 +141,11 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 		elto.signature_size_str  = '' ;  // computed later
 		elto.signature_size_arr  = [] ;  // computed later
 
+                // tooltip with details...
+		elto["mc-start"] = aux["mc-start"] ;
+		elto.microcode   = aux.microcode ;
+		elto.help        = aux.help ;
+
 		if (typeof aux.co     !== "undefined")         elto.co     = aux.co ;
 		if (typeof aux.cop    !== "undefined")         elto.cop    = aux.cop ;
 		if (typeof aux.fields !== "undefined")         elto.fields = aux.fields ;
