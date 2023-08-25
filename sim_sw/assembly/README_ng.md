@@ -91,8 +91,7 @@ sequenceDiagram
        * wsasm_src2obj_helper ( context, ret )
           * wsasm_src2obj_data ( context, ret ) 
           * wsasm_src2obj_text ( context, ret )
-             * wsasm_src2obj_text_elto_fields  ( context, ret, elto, pseudo_context )
-             * wsasm_find_candidate_and_encode ( context, ret, elto )
+            ...
        * wsasm_resolve_pseudo ( context, ret )
        * wsasm_resolve_labels ( context, ret )    
         * wsasm_compute_labels  ( context, ret, start_at_obj_i )
@@ -103,9 +102,14 @@ sequenceDiagram
        * **wsasm_compile_src2obj(context, ret)**: read several .data/.kdata/.text/... segments and build the JSON object.
          * **wsasm_src2obj_data(context, ret)**: read the .data segment and build the associated JSON object fragment.
          * **wsasm_src2obj_text(context, ret)**: read the .text segment and build the associated JSON object fragment.
-           * **wsasm_src2obj_text_instr_op(context, ret, elto)**: read instructions' fields
-           * **wsasm_find_instr_candidates(context, ret, elto)**: find in firmware the first definition that matches the read instruction
-           * **wsasm_encode_instruction(context, ret, elto, candidate)**: encode in binary (string) an instruction.
+           * wsasm_src2obj_text_elto_fields  ( context, ret, elto, pseudo_context )
+             * **wsasm_src2obj_text_instr_op_match (context, ret, elto)**: read instructions' fields
+             * wsasm_src2obj_text_ops_getAtom ( context, pseudo_context )
+           * wsasm_find_candidate_and_encode ( context, ret, elto )
+             * **wsasm_encode_instruction(context, ret, elto, candidate)**: encode in binary (string) an instruction.
+               * wsasm_encode_field ( arr_encoded, value, start_bit, stop_bit )
+               * **wsasm_find_instr_candidates(context, ret, elto)**: find in firmware the first definition that matches the read instruction
+                 * wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
      + pass 2: replace pseudo-instructions
        * **wsasm_resolve_pseudo(context, ret)**: replace pseudo-instructions
      + pass 3: check that all used labels are defined in the text
