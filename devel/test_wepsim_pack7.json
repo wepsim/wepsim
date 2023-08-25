@@ -6,13 +6,13 @@
 	"more":        "See WepSIM"
 },
 {
-	"pack":        "RISC-V default examples",
+	"pack":        "RISC-V RV test",
 	"description": "R1E1 - Instructions",
 	"test":        "./ws_dist/wepsim.sh -a run -m rv -f ./repo/microcode/rv32/rv_base.mc -s ./repo/assembly/rv32/s1e1.asm",
 	"more":        "See WepSIM"
 },
 {
-	"pack":        "RISC-V default examples",
+	"pack":        "RISC-V RV test",
 	"description": "R1E2 - Memory access",
 	"test":        "./ws_dist/wepsim.sh -a run -m rv -f ./repo/microcode/rv32/rv_base.mc -s ./repo/assembly/rv32/s1e2.asm",
 	"more":        "See WepSIM"

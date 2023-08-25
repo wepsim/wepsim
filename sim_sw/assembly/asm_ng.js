@@ -74,6 +74,7 @@ function wsasm_get_sel_valbin ( value, start_bit, stop_bit )
          var sel_start = 0 ;
          var sel_stop  = 0 ;
          var valbin    = 0 ;
+         var a = null ;
 
          if (start_bit > stop_bit) // 31>12
          {
@@ -86,7 +87,8 @@ function wsasm_get_sel_valbin ( value, start_bit, stop_bit )
              sel_start = (WORD_LENGTH - 1) - stop_bit ;  // 20
          }
 
-         valbin = parseInt(value) ;
+         a = get_decimal_value(value) ;
+         valbin = parseInt(a.number) ;
          if (valbin < 0)
               valbin = (valbin >>> 0).toString(2) ;
          else valbin = valbin.toString(2).padStart(WORD_LENGTH, '0') ;
