@@ -54,12 +54,14 @@ function wsasm_new_objElto ( base_elto )
 
 function wsasm_make_signature_user ( elto, use_as_around )
 {
+        var offset = elto.signature_type_arr.length - elto.signature_size_arr.length ;
+
 	elto.signature_user = '' ;
 	for (let j=0; j<elto.signature_size_arr.length; j++)
         {
 	     elto.signature_user = elto.signature_user +
                                    '[' +
-                                       elto.signature_type_arr[j] + ', ' +
+                                       elto.signature_type_arr[j+offset] + ', ' +
                                        elto.signature_size_arr[j] + use_as_around + ' bits' +
                                    ']' ;
 	}
@@ -85,9 +87,11 @@ function wsasm_get_sel_valbin ( value, start_bit, stop_bit )
          }
 
          valbin = parseInt(value) ;
-         valbin = valbin.toString(2).padStart(WORD_LENGTH, '0') ; // TODO: check if negative value -> padStart with '1' ??
-         valbin = valbin.substring(sel_start, sel_stop+1) ; // [0:19], [20,31]
+         if (valbin < 0)
+              valbin = (valbin >>> 0).toString(2) ;
+         else valbin = valbin.toString(2).padStart(WORD_LENGTH, '0') ;
 
+         valbin = valbin.substring(sel_start, sel_stop+1) ; // [0:19], [20,31]
          return valbin ;
 }
 
@@ -213,11 +217,14 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 	        elto.finish              = finish.signature ;
 	        elto.signature           = initial.signature ;
 	        elto.signature_type_str  = initial.signature.replace(/,/g," ") ;
+
+                if (typeof initial.fields !== "undefined")  elto.fields = initial.fields ;
+
+                // elto: derived fields...
 	        elto.signature_type_arr  = elto.signature_type_str.split(' ') ;
 		elto.signature_size_arr  = Array(elto.signature_type_arr.length).fill(WORD_BYTES*BYTE_LENGTH);
 		elto.signature_size_str  = elto.signature_size_arr.join(' ') ;
-
-                if (typeof initial.fields !== "undefined")  elto.fields = initial.fields ;
+                elto.signature_user      = wsasm_make_signature_user(elto, '') ;
 
                 // add elto to firmware
                 context.firmware[initial.name].push(elto) ;
@@ -602,7 +609,7 @@ function wsasm_src2obj_data ( context, ret )
                                      num_bits = possible_value.charCodeAt(i) ;
 			             elto.value.push(num_bits) ;
                                 }
-                                if (".asciiz" == elto.datatype) {
+                                if ([".asciiz", ".string"].includes(elto.datatype)) {
                                      elto.value.push(0) ;
   				     elto.track_source.push('0x0') ;
                                 }
@@ -836,11 +843,14 @@ function wsasm_find_instr_candidates ( context, ret, elto )
                }
 
                msg = i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + "<br>"  +
-	             i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') + " for '" + msg + "':<br>" +
-	             elto.value.signature_user + ".<br>" +
-	             i18n_get_TagFor('compiler', 'CHECK MICROCODE') ;
+	             i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
+                     " for '" + msg + "': " + elto.value.signature_user + ".<br>" ;
 
-// TODO: add the list of available candidates (if any) to help students to match its instructions...
+	       msg += i18n_get_TagFor('compiler', 'NOT MATCH FORMAT') + ":<br>" ;
+               for (let i=0; i<elto.firm_reference.length; i++) {
+                    msg += "\u2022 " + elto.firm_reference[i].signature_user + ".<br>" ;
+               }
+	       msg += i18n_get_TagFor('compiler', 'CHECK MICROCODE') + ".<br>" ;
 
 	       return asm_langError(context, msg) ;
 	   }
@@ -1248,7 +1258,7 @@ function wsasm_src2obj_text ( context, ret )
 		   if (candidate.isPseudoinstruction == false)
                    {
 		        elto.datatype = "instruction" ;
-		   //   elto.value.signature_size_arr.push(elto.firm_reference[0].co.length) ; // TODO: push at the beginning !!
+		        elto.value.signature_size_arr.unshift(elto.firm_reference[0].co.length) ; // push at the beginning
 
 			// Fill initial binary with the initial candidate...
 			elto.binary = wsasm_encode_instruction(context, ret, elto, candidate) ;
@@ -1256,7 +1266,7 @@ function wsasm_src2obj_text ( context, ret )
 		   else
 		   {
 		       elto.datatype = "pseudoinstruction" ;
-		   //  elto.value.signature_size_arr.push(0) ; // TODO: push at the beginning !!
+		       elto.value.signature_size_arr.unshift(0) ; // push at the beginning
 		       elto.binary   = '' ;
 		   }
 
@@ -1902,6 +1912,8 @@ function wsasm_obj2mem  ( ret )
                             wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin, null, [], ret.obj[i].comments) ;
                        }
                    }
+                   // flush current word if needed...
+                   wsasm_writememory_if_word(ret.mp, gen, [], []) ;
               }
 
               word_1 = (ret.obj[i].elto_ptr / WORD_BYTES) >>> 0 ;
