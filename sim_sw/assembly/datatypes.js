@@ -225,7 +225,7 @@ function decimal2binary ( number, size )
 	return [num_base2, size-num_base2.length, num_base2_length] ;
 }
 
-function get_inm_value ( value )
+function get_imm_value ( value )
 {
         var ret1 = { } ;
         var ret  = {

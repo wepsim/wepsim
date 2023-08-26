@@ -313,7 +313,7 @@ function read_data_v3  ( context, ret )
 				var label_found = false;
 
 				// Get value
-				var ret1 = get_inm_value(possible_value) ;
+				var ret1 = get_imm_value(possible_value) ;
 				var number = ret1.number ;
 				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
 				{
@@ -770,7 +770,7 @@ function read_text_v3  ( context, datosCU, ret )
 					case "inm":
 					case "imm":
 						// Get value
-						var ret1 = get_inm_value(value) ;
+						var ret1 = get_imm_value(value) ;
 						converted = ret1.number ;
 						// Check numeric datatype
 						if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )

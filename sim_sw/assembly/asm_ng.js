@@ -60,10 +60,10 @@ function wsasm_make_signature_user ( elto, use_as_around )
 	for (let j=0; j<elto.signature_size_arr.length; j++)
         {
 	     elto.signature_user = elto.signature_user +
-                                   '[' +
+                                   '[ ' +
                                        elto.signature_type_arr[j+offset] + ', ' +
                                        elto.signature_size_arr[j] + use_as_around + ' bits' +
-                                   ']' ;
+                                   ' ]' ;
 	}
 
 	return elto.signature_user ;
@@ -395,7 +395,7 @@ function wsasm_src2obj_data ( context, ret )
 				let number = 0 ;
 
 				// Get value
-				ret1 = get_inm_value(possible_value) ;
+				ret1 = get_imm_value(possible_value) ;
 				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                                 {
                                     // CHECK numerical datatype
@@ -713,7 +713,7 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                               value = value.replace('(', '').replace(')', '') ;
                          }
 
-			 ret1 = get_inm_value(value) ;
+			 ret1 = get_imm_value(value) ;
 			 if ( (!ret1.isDecimal) && (!ret1.isFloat) )
                          {
                               var pinfo = {
@@ -846,12 +846,12 @@ function wsasm_find_instr_candidates ( context, ret, elto )
 	   {
                var msg = elto.source ;
                if (typeof elto.associated_pseudo !== "undefined") {
-                   msg = elto.source + ' (as part of "' + elto.associated_pseudo.source + '")' ;
+                   msg = elto.source + ' (part of pseudoinstruction "' + elto.associated_pseudo.source + '")' ;
                }
 
                msg = i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + ".<br>"  +
 	             i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
-                     "'" + msg + "': <br>\u00D7 " + elto.value.signature_user + ".<br>" ;
+                     "'" + msg + "': <br>\u2718 " + elto.value.signature_user + "<br>" ;
 
 	       msg += i18n_get_TagFor('compiler', 'NOT MATCH FORMAT') + ":<br>" ;
                for (let key in context.firmware)
@@ -859,7 +859,7 @@ function wsasm_find_instr_candidates ( context, ret, elto )
                     if ( (key.includes(elto.value.instruction)) || (elto.value.instruction.includes(key)) )
                     {
                           for (let k=0; k<context.firmware[key].length; k++) {
-                               msg += "\u2022 " + context.firmware[key][k].signature_user + ".<br>" ;
+                               msg += "\u2714 " + context.firmware[key][k].signature_user + "<br>" ;
                           }
                     }
                }
@@ -897,7 +897,7 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
            }
 
            // if atom is immediate -> 0x123, 12, 3.14, ...
-	   var ret1 = get_inm_value(atom) ;
+	   var ret1 = get_imm_value(atom) ;
 	   if ( (ret1.isDecimal) || (ret1.isFloat) )
            {
                    var a = null ;
@@ -1049,7 +1049,7 @@ function wsasm_src2obj_text_elto_fields ( context, ret, elto, pseudo_context )
                   }
 
                   // check if sel.label is number or tag...
-		  a = get_inm_value(sel.label) ;
+		  a = get_imm_value(sel.label) ;
 		  if (a.isDecimal)
                   {
                       valbin = wsasm_get_sel_valbin(sel.label, sel.start, sel.stop) ;
@@ -1350,6 +1350,8 @@ function wsasm_resolve_pseudo ( context, ret )
          var ret1           = null ;
          var pseudo_values  = '' ;
          var pseudo_replace = '' ;
+         var pseudo_elto_candidate = null ;
+         var pseudo_value_k = '' ;
 
          for (let i=0; i<ret.obj.length; i++)
          {
@@ -1358,11 +1360,13 @@ function wsasm_resolve_pseudo ( context, ret )
               }
 
               pseudo_elto = ret.obj[i] ;
+              pseudo_elto_candidate = pseudo_elto.firm_reference[pseudo_elto.firm_reference_index] ;
+
               pseudo_values   = pseudo_elto.source.trim().split(' ') ;
-              pseudo_replaced = pseudo_elto.firm_reference[pseudo_elto.firm_reference_index].finish ;
+              pseudo_replaced = pseudo_elto_candidate.finish ;
               for (let k=0; k<(pseudo_values.length-1); k++) {
-                   pseudo_replaced = pseudo_replaced.replaceAll(pseudo_elto.firm_reference[pseudo_elto.firm_reference_index].fields[k].name,
-                                                                pseudo_values[k+1]) ;
+                   pseudo_value_k  = pseudo_values[k+1].replaceAll('(', '').replaceAll(')', '') ;
+                   pseudo_replaced = pseudo_replaced.replaceAll(pseudo_elto_candidate.fields[k].name, pseudo_value_k) ;
               }
               // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
               pseudo_context.parts = pseudo_replaced.split(' ') ;
@@ -1388,7 +1392,7 @@ function wsasm_resolve_pseudo ( context, ret )
 		 elto.value.instruction        = possible_inst ;
 	         elto.value.fields             = [] ;
 	         elto.value.signature_type_arr = [ possible_inst ] ;
-	     //  elto.value.signature_size_arr = [ elto.firm_reference[pseudo_elto.firm_reference_index].co.length ] ;
+	     //  elto.value.signature_size_arr = [ pseudo_elto_candidate.co.length ] ;
 		 elto.value.signature_size_arr = [] ;
 
                  // Match fields of the pseudoinstruction...
@@ -1619,7 +1623,7 @@ function wsasm_resolve_labels ( context, ret )
                               value = "1" + value.replace(/^[1]+/g, "");
                               value = value.padStart(elto.pending[j].n_bits, '1') ;
                           }
-                          else 
+                          else
                           {
                               value = value.toString(2) ;
                           }

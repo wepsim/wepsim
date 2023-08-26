@@ -128,8 +128,8 @@
 
             // escape html end attribute char
             if (typeof src == "string") {
-                src = src.replace(/'/g, '')
-                         .replace(/"/g, '') ;
+                src = src.replaceAll(/'/g, '\u{0027}')
+                         .replaceAll(/"/g, '\u{0022}') ;
             }
 
 	    return src ;
