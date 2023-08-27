@@ -87,7 +87,7 @@ sequenceDiagram
        * wsasm_resolve_pseudo ( context, ret )
        * wsasm_resolve_labels ( context, ret )
         * wsasm_compute_labels  ( context, ret, start_at_obj_i )
-        * wsasm_get_label_value ( context, ret, label )
+        * wsasm_get_label_value ( context, ret, elto, label )
 
   + Compile assembly to JSON object in three main steps:
      + pass 1: compile assembly

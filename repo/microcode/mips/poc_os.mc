@@ -580,7 +580,7 @@ beq reg reg offset {
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
-            offset=address(13,0)rel,
+            offset=address(15,0)rel,
             {
                 (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
@@ -598,7 +598,7 @@ bne reg reg offset {
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
-            offset=address(13,0)rel,
+            offset=address(15,0)rel,
             {
                 (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
@@ -616,7 +616,7 @@ bge reg reg offset {
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
-            offset=address(13,0)rel,
+            offset=address(15,0)rel,
             {
                 (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
@@ -634,7 +634,7 @@ ble reg reg offset {
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
-            offset=address(13,0)rel,
+            offset=address(15,0)rel,
             {
                 (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
@@ -652,7 +652,7 @@ blt reg reg offset {
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
-            offset=address(13,0)rel,
+            offset=address(15,0)rel,
             {
                 (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
@@ -670,7 +670,7 @@ bgt reg reg offset {
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
-            offset=address(13,0)rel,
+            offset=address(15,0)rel,
             {
                 (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
