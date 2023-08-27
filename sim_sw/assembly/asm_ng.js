@@ -340,7 +340,7 @@ function wsasm_src2obj_data ( context, ret )
 		      tag = possible_tag.substring(0, possible_tag.length-1);
 
                       // CHECK tag is not an instruction, is repeated or has an invalid format
-   		      if (! wsasm_is_ValidTag(tag)) {
+   		      if (wsasm_is_ValidTag(tag) == false) {
 			  return asm_langError(context,
 			                       i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
                                                "'" + tag + "'") ;
@@ -388,8 +388,8 @@ function wsasm_src2obj_data ( context, ret )
                         possible_value = asm_getToken(context) ;
 
 			while (
-                                (! wsasm_is_directive(asm_getToken(context)) ) &&
-                                (! wsasm_isEndOfFile(context) )
+                                (wsasm_is_directive(asm_getToken(context)) == false) &&
+                                (wsasm_isEndOfFile(context) == false)
                               )
                         {
 				let number = 0 ;
@@ -407,7 +407,7 @@ function wsasm_src2obj_data ( context, ret )
 				    }
 
                                     // CHECK valid label
-				    if (! wsasm_is_ValidTag(possible_value)) {
+				    if (wsasm_is_ValidTag(possible_value) == false) {
 					 return asm_langError(context,
 							      i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
                                                               "'" + possible_value + "'") ;
@@ -1057,7 +1057,7 @@ function wsasm_src2obj_text_elto_fields ( context, ret, elto, pseudo_context )
                   }
                   else
                   {
-	              if (! wsasm_is_ValidTag(sel.label)) {
+	              if (wsasm_is_ValidTag(sel.label) == false) {
 		            return asm_langError(context,
                                                  i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ": '" + sel.label + "'") ;
                       }
@@ -1193,7 +1193,7 @@ function wsasm_src2obj_text ( context, ret )
 		      tag = possible_tag.substring(0, possible_tag.length-1);
 
                       // CHECK valid tag
-   		      if (! wsasm_is_ValidTag(tag)) {
+   		      if (wsasm_is_ValidTag(tag) == false) {
 			  return asm_langError(context,
 			                       i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
                                                "'" + tag + "'") ;
@@ -1358,6 +1358,13 @@ function wsasm_resolve_pseudo ( context, ret )
               if ("pseudoinstruction" != ret.obj[i].datatype) {
                    continue ; // skip instructions...
               }
+              if (null == ret.obj[i].firm_reference)
+              {
+                   // skip empty pseudoinstructions:
+                   //        pseudo
+                   // label:         <- empty line with label, former pseudo
+                   continue ;
+              }
 
               pseudo_elto = ret.obj[i] ;
               pseudo_elto_candidate = pseudo_elto.firm_reference[pseudo_elto.firm_reference_index] ;
@@ -1464,12 +1471,13 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
               // get starting address of next elto
               elto_ptr = last_assigned[seg_name] ;
 
-              if (ret.obj[i].datatype != "instruction")
+              if ([ "instruction", "pseudoinstruction" ].includes(ret.obj[i].datatype) == false)
               {
                   // align datatype to datatype_size in bytes (4 in multiple of 4, 2 in multiple of 2...)
                   var datatype_size = wsasm_get_datatype_size(ret.obj[i].datatype) ;
-                  if (elto_ptr % datatype_size != 0)
+                  if (elto_ptr % datatype_size != 0) {
                       elto_ptr += datatype_size - (elto_ptr % datatype_size) ;
+                  }
               }
 
               ret.obj[i].seg_ptr     = seg_ptr ;             // starting address of the .data/.kdata segment
@@ -2038,7 +2046,7 @@ function wsasm_obj2mem  ( ret )
 
 function wsasm_src2mem ( datosCU, text )
 {
-     var ret     = null ;
+     var ret     = { error: 'ERROR: unknown error found :-(' } ;
      var context = null ;
 
      try
@@ -2064,7 +2072,10 @@ function wsasm_src2mem ( datosCU, text )
          console.log("Details:\n " + e) ;
          console.log("Stack:\n"    + e.stack) ;
 
-	 ret.error = "Compilation error found, please review your assembly code (" + e.toString() + ")" ;
+	 ret.error = "Compilation error found !<br>" +
+                     "Please review your assembly code and try another way to write your algorithm.<br>" +
+                     "<br>" +
+                     e.toString() ;
      }
 
      return ret ;
