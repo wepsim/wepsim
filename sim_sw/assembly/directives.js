@@ -49,7 +49,7 @@ ws_directives = {
                 } ;
 
 
-/* 
+/*
  * API
  */
 
@@ -57,7 +57,7 @@ function wsasm_is_directive_kindof ( text, kindof )
 {
         if (typeof ws_directives[text] === "undefined")
         {
-         // console.log("ERROR: not defined directive: " + text + "\n")
+//          console.log("ERROR: not defined directive: " + text + "\n")
             return false ;
         }
 

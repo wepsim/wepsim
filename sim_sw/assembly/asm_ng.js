@@ -1460,10 +1460,17 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
               if (wsasm_has_datatype_attr(ret.obj[i].datatype, "align"))
               {
                      elto_align = ret.obj[i].byte_size ;
-                     if (elto_align > 1) {
-                         padding  = elto_align - (last_assigned[seg_name] % elto_align) ;
+                     if (elto_align > 1)
+                     {
+                         padding = last_assigned[seg_name] % elto_align ; // temporal value for padding
+                         if (padding != 0) {
+                             padding = elto_align - padding ;
+                         }
                          last_assigned[seg_name] += padding ;
                      }
+
+                     // update x.elto_ptr so obj2mem will skip those bytes...
+                     ret.obj[i].elto_ptr = last_assigned[seg_name] ;
 
                      continue ;
               }
@@ -1948,23 +1955,8 @@ function wsasm_obj2mem  ( ret )
               }
 
               // (2) if .align X then address of next elto must be multiple of 2^X
-              if (wsasm_has_datatype_attr(ret.obj[i].datatype, "align"))
-              {
-                     var elto_align = ret.obj[i].byte_size ;
-                     if (elto_align > 1)
-                     {
-                         var last_assigned = parseInt(gen.addr) + gen.byteWord ;
-                         var padding       = elto_align - (last_assigned % elto_align) ;
-                         for (let k=0; k<padding; k++) {
-                              wsasm_writememory_and_accumulate(ret.mp, gen, '0'.repeat(BYTE_LENGTH)) ;
-                         }
-                     }
-
-                     // flush current word if needed...
-                     wsasm_writememory_if_word(ret.mp, gen, [], []) ;
-                     last_assig_word[seg_name] = gen.addr ;
-
-                     continue ;
+              if (wsasm_has_datatype_attr(ret.obj[i].datatype, "align")) {
+                  continue ; // skip align, already memory filled if needed
               }
 
               // (3) instructions and data...

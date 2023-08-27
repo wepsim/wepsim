@@ -198,7 +198,7 @@ function firm_mcode_signals_read ( context )
 	   // match mandatory }
            frm_nextToken(context) ;
 
-           return { 
+           return {
                     'NATIVE':        '',
                     'microprograma': microprograma,
                     'microcomments': microcomments
@@ -226,7 +226,7 @@ function read_native ( context )
 	   // match mandatory }
            frm_nextToken(context) ;
 
-           return { 
+           return {
                     'NATIVE':        native_code,
                     'microprograma': microprograma,
                     'microcomments': microcomments

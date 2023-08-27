@@ -28,7 +28,7 @@
 	WORD_LENGTH = WORD_BYTES * BYTE_LENGTH ;
 
 
-/* 
+/*
  *  Datatypes
  */
 
