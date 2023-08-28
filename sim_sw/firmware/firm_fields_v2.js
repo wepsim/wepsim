@@ -397,7 +397,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 	{
 		if (typeof instruccionAux.overlapping[i] != "undefined") {
 		    return frm_langError(context,
-				         i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				         i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') +
 				     instruccionAux.fields[index_name].name) ;
 		}
 

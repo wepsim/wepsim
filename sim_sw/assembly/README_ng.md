@@ -36,21 +36,13 @@
 
 The TODO list includes:
 
- 1. Review all pending labels and if it does not fit, try another instruction/pseudoinstruction candidate.
-     Example:
-    ```
-    li $1 lab1               <- small address as immediate
-    loop1: beq $t0 $t1 end1  <- relative end1
-           ...
-           b loop1           <- relative/absolute loop1
-     end1: ...
-    ```
- 2. Add support for firmware v2.
-
- 3. Check differences with asm_v1, now two things are going to be different:
-    * .align tries to follow: 
+ 1. Check that asm_ng works initially like asm_v1:
+    * Review all pending labels: relative/absolute address, forth/back labels, etc.
+    * Review the algorithm to find the instruction/pseudoinstruction that better fits the values.
+    * Review that .align follows (and it is OK):
       https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
-    * Error messages
+
+ 2. Add support for firmware v2.
 
 
 ## 3) Organization
@@ -89,13 +81,13 @@ sequenceDiagram
     * Compile assembly to JSON object
   * Auxiliary functions are:
        * wsasm_src2obj_helper ( context, ret )
-          * wsasm_src2obj_data ( context, ret ) 
+          * wsasm_src2obj_data ( context, ret )
           * wsasm_src2obj_text ( context, ret )
             ...
        * wsasm_resolve_pseudo ( context, ret )
-       * wsasm_resolve_labels ( context, ret )    
+       * wsasm_resolve_labels ( context, ret )
         * wsasm_compute_labels  ( context, ret, start_at_obj_i )
-        * wsasm_get_label_value ( context, ret, label )
+        * wsasm_get_label_value ( context, ret, elto, label )
 
   + Compile assembly to JSON object in three main steps:
      + pass 1: compile assembly

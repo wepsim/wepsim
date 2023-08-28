@@ -95,7 +95,7 @@
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('beta_features', '18') ;
 		                   },
-                      description: "<span data-langkey='Use of experimental features'>Use of experimental features</span>"
+                      description: "<span data-langkey='Use of experimental features'>Use of experimental features</span> ⚠️"
                    });
 
     ws_info.config_ui.push({
