@@ -148,7 +148,7 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
        {
 		if (typeof instruccionAux.overlapping[i] != "undefined") {
 		    return frm_langError(context,
-				         i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				         i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') +
 				         'co') ;
 		}
 
@@ -277,7 +277,7 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	{
 		if (typeof instruccionAux.overlapping[i] != "undefined") {
 		    return frm_langError(context,
-				         i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') + 
+				         i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') +
 				         instruccionAux.fields[camposInsertados].name) ;
 		}
 
@@ -337,8 +337,8 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
        // read co=xxxxxx field...
        ret = firm_instruction_co_read(context, instruccionAux, xr_info, all_ones_co) ;
        if (typeof ret.error != "undefined") {
-           return ret ;     
-       }    
+           return ret ;
+       }
 
 
 // li reg val {
@@ -357,8 +357,8 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
        {
            ret = firm_instruction_cop_read(context, instruccionAux) ;
            if (typeof ret.error != "undefined") {
-               return ret ;     
-           }    
+               return ret ;
+           }
        }
 
 // li reg val {
@@ -376,8 +376,8 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
        {
            ret = firm_instruction_nword_read(context, instruccionAux) ;
            if (typeof ret.error != "undefined") {
-               return ret ;     
-           }    
+               return ret ;
+           }
        }
 
 // li reg val {
@@ -399,8 +399,8 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
        {
            ret = firm_instruction_field_read(context, instruccionAux, camposInsertados) ;
            if (typeof ret.error != "undefined") {
-               return ret ;     
-           }    
+               return ret ;
+           }
 
 	   firma = firma.replace("," + campos[camposInsertados].name, "," + campos[camposInsertados].type);
 	   firma = firma.replace("(" + campos[camposInsertados].name, "(" + campos[camposInsertados].type);
@@ -434,8 +434,8 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
        {
            ret = firm_instruction_help_read(context, instruccionAux) ;
            if (typeof ret.error != "undefined") {
-               return ret ;     
-           }    
+               return ret ;
+           }
        }
 
 // li reg val {

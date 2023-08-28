@@ -41,7 +41,7 @@
             var f  = match[1].trim() ;
             var p  = match[2].trim().split(",") ;
 
-	    switch (f) 
+	    switch (f)
 	    {
 	       case 'capi_print_char':
                      rc = '// ' + f + ' \n' +
@@ -142,7 +142,7 @@
    function simlang_native_adapt_providePC ( icode )
    {
         var re = /PC/g ;
-        if (icode.search(re) != -1) 
+        if (icode.search(re) != -1)
         {
             icode = "var pc_name = simhw_sim_ctrlStates_get().pc.state ;\n" +
                     "var PC = simcore_native_get_value('CPU', pc_name) ;\n" +
@@ -197,7 +197,7 @@
         var code_lines = lines_code.split(";") ;
         if (
              (code_lines.length === 1) &&
-             (!lines_code.trim().startsWith("if")) 
+             (!lines_code.trim().startsWith("if"))
            )
         {
               lines_code = lines_code + ";\n" ;
@@ -331,18 +331,18 @@
                      case "INT-Reg":
                      case "SFP-Reg":
                                      var rf_name = 'BR' ;
-                                     if (io.fields[j].type === "SFP-Reg") 
+                                     if (io.fields[j].type === "SFP-Reg")
                                          rf_name = 'BR2' ;
 
-				     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
-										   io.fields[j].startbit, 
+				     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg",
+										   io.fields[j].startbit,
                                                                                    io.fields[j].stopbit) ;
 				     gfields[k] = simlang_native_adapt_getField(k-1, rf_name, io.fields[j].name) ;
 				     sfields[k] = simlang_native_adapt_setField(k-1, rf_name, io.fields[j].name) ;
                                      break ;
                      case "DFP-Reg":
-				     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
-										   io.fields[j].startbit, 
+				     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg",
+										   io.fields[j].startbit,
                                                                                    io.fields[j].stopbit) ;
 
 				     gfields[k] = "\t\t"+ "var f_" + io.fields[j].name + " = " +
@@ -351,7 +351,7 @@
 						  "simcore_native_get_value('BR2', f_" + io.fields[j].name + "+0) ;\n" +
 						  "\t\t"+ "var   " + io.fields[j].name + "2 = " +
 						  "simcore_native_get_value('BR2', f_" + io.fields[j].name + "+1) ;\n" +
-						  "\t\t"+ "var   " + io.fields[j].name + " = " + 
+						  "\t\t"+ "var   " + io.fields[j].name + " = " +
 						  "(" + io.fields[j].name + "1) | (" + io.fields[j].name + "2 << 32);\n" ;
 
 				     sfields[k] = "\t\t " + io.fields[j].name + "1 = ((" + io.fields[j].name + " << 32) >> 32);\n" +
@@ -362,8 +362,8 @@
 						  "f_" + io.fields[j].name + "+1, " + io.fields[j].name + "2);\n" ;
                                      break ;
                      case "inm":
-				     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "inm", 
-										   io.fields[j].startbit, 
+				     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "inm",
+										   io.fields[j].startbit,
                                                                                    io.fields[j].stopbit) ;
 
 				     gfields[k] = "\t\t" + "var " + io.fields[j].name + " = " +
@@ -377,28 +377,28 @@
 
             // adapt elements
             var lines_code = simlang_native_adapt_instructionDefinition(io.definition) ;
-            if (lines_code.trim() !== "") 
+            if (lines_code.trim() !== "")
             {
                 lines_code = "\t\t" + "// instruction specific code" + "\n" +
                              lines_code   + "\n" ;
             }
 
             var gfields_str = gfields.join("") ;
-            if (gfields_str.trim() !== "") 
+            if (gfields_str.trim() !== "")
             {
                 gfields_str = "\t\t" + "// get fields values..." + "\n" +
                               gfields_str + "\n" ;
             }
 
             var sfields_str = sfields.join("") ;
-            if (sfields_str.trim() !== "") 
+            if (sfields_str.trim() !== "")
             {
                 sfields_str = "\t\t" + "// set fields values..." + "\n" +
                               sfields_str + "\n" ;
             }
 
             // compount elements
-            o += "\n" + 
+            o += "\n" +
                  line_signature + " {" + "\n" +
                  co_cop +
                  "\t" + "nwords=" + io.nwords + "," + "\n" +
@@ -426,7 +426,7 @@
        // register section
        var index = 0 ;
        for (index=0; index<register_list.length; index++) {
-            if (register_list[index].type === 'int_registers') 
+            if (register_list[index].type === 'int_registers')
                 break ;
        }
 
@@ -442,7 +442,7 @@
        // register list
        if (typeof register_list[index].elements != "undefined")
        {
-           for (var i=0; i<register_list[index].elements.length; i++) 
+           for (var i=0; i<register_list[index].elements.length; i++)
            {
                 d = register_list[index].elements[i].name ;
                 if (i === 29) {
