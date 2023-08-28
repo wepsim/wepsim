@@ -1600,6 +1600,23 @@ function wsasm_resolve_labels ( context, ret )
                   // to remember: value is binary as string at this point of code
                   value = ret.labels_valbin[elto.pending[j].label] ;
 
+                  // address-abs vs address-rel
+                  if (elto.pending[j].rel)
+                  {
+                      value = parseInt(value, 2) ;
+                      value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
+                      if (value < 0)
+                      {
+                          value = (value >>> 0).toString(2);
+                          value = "1" + value.replace(/^[1]+/g, "");
+                          value = value.padStart(elto.pending[j].n_bits, '1') ;
+                      }
+                      else
+                      {
+                          value = value.toString(2) ;
+                      }
+                  }
+
                   // instruction-field
                   if ("field-instruction" == elto.pending[j].type)
                   {
@@ -1607,8 +1624,8 @@ function wsasm_resolve_labels ( context, ret )
                       elto.value.signature_size_arr[elto.pending[j].field_j + 1] = value.length ;
                       elto.value.signature_size_str = elto.value.signature_size_arr.join(' ') ;
 
-                      // while label.size doesn't fit the field.n_bits...
-                      while (value.length > elto.pending[j].n_bits)  // TODO: while or if?
+                      // if label.size doesn't fit the field.n_bits, try (at least) another one...
+                      if (value.length > elto.pending[j].n_bits)
                       {
                           // Resetting pending elements in this instruction (encode_instruction will populate it again)...
                           elto.pending = [] ;
@@ -1639,24 +1656,6 @@ function wsasm_resolve_labels ( context, ret )
 		              }
                           }
                       }
-
-                      // address-abs vs address-rel
-                      if (elto.pending[j].rel)
-                      {
-                          value = parseInt(value, 2) ;
-                          value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
-                          if (value < 0)
-                          {
-                              value = (value >>> 0).toString(2);
-                              value = "1" + value.replace(/^[1]+/g, "");
-                              value = value.padStart(elto.pending[j].n_bits, '1') ;
-                          }
-                          else
-                          {
-                              value = value.toString(2) ;
-                          }
-                      }
-
                   }
 
                   if (value.length > elto.pending[j].n_bits)
