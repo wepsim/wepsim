@@ -107,6 +107,19 @@
 		'BUT INSERTED':			'men införd',
 		'INSTEAD':			'istället',
 
+           	"ADDRESS-ABS MUST BE 20 BITS":		"Address-abs måste vara 20 bitar",
+           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
+           	"BAD EOC BIN. LEN.":			"felaktigt antal bitar för eoc-fält",
+           	"BIT OoR":				"bit OoR",
+           	"COLON NOT FOUND":			": hittades inte",
+           	"COLON OR PIPE NOT FOUND":		": eller | hittades inte",
+           	"INCORRECT EOC BIN.":			"Felaktig eoc binär",
+           	"INCORRECT OC BIN.":			"Felaktig  oc binär",
+           	"NO FIELD":				"No field",
+           	"NO OC FIELD":				"No oc field",
+           	"OC ALREADY USED":			"oc redan använt",
+           	"OC+EOC ALREADY USED":			"oc+eoc används redan",
+
 		'_last_':			'_last_'
 
     };

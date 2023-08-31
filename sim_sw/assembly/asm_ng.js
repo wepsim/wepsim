@@ -139,8 +139,8 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                 elto.name                = aux.name ;
 		elto.isPseudoinstruction = false ;
 		elto.nwords              = parseInt(aux.nwords) ;
-		elto.co                  = '' ;
-		elto.cop                 = '' ;
+		elto.oc                  = '' ;
+		elto.eoc                 = '' ;
 		elto.fields              = [] ;
 		elto.signature           = aux.signature ;
 		elto.signature_type_str  = aux.name ;
@@ -153,13 +153,13 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 		elto.microcode   = aux.microcode ;
 		elto.help        = aux.help ;
 
-		if (typeof aux.co     !== "undefined")         elto.co     = aux.co ;
-		if (typeof aux.cop    !== "undefined")         elto.cop    = aux.cop ;
+		if (typeof aux.co     !== "undefined")         elto.oc     = aux.co ;
+		if (typeof aux.cop    !== "undefined")         elto.eoc    = aux.cop ;
 		if (typeof aux.fields !== "undefined")         elto.fields = aux.fields ;
 		if (typeof aux.signatureUser !== "undefined")  elto.signature_type_str = aux.signatureUser ;
 
                 // elto: asm_start_bit/asm_stop_bit fields...
-		elto.signature_size_arr.push(elto.co.length) ;
+		elto.signature_size_arr.push(elto.oc.length) ;
                 for (let j=0; j<elto.fields.length; j++)
                 {
                      // TODO: add support for firmware v2 ("elto.fields[j].startbit/stopbit" probably is an array)
@@ -701,8 +701,8 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
            arr_encoded = val_encoded.split('');
 
            // (1) Instruction, copy 'co' and 'cop' field...
-           wsasm_encode_field(arr_encoded, candidate.co,  0, candidate.co.length-1) ;
-           wsasm_encode_field(arr_encoded, candidate.cop, bit_size-candidate.cop.length, bit_size-1) ;
+           wsasm_encode_field(arr_encoded, candidate.oc,  0, candidate.oc.length-1) ;
+           wsasm_encode_field(arr_encoded, candidate.eoc, bit_size-candidate.eoc.length, bit_size-1) ;
 
            // (2) Fields, copy values...
            //     Example:
@@ -787,9 +787,7 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                 }
 
                 // add field...
-                for (let k=start_bit; k<=stop_bit; k++) {
-                     arr_encoded[k] = value[k-start_bit] ;
-                }
+                wsasm_encode_field(arr_encoded, value, start_bit, stop_bit) ;
            }
 
            return arr_encoded.join('') ;
@@ -1284,7 +1282,7 @@ function wsasm_src2obj_text ( context, ret )
 		   if (candidate.isPseudoinstruction == false)
                    {
 		        elto.datatype = "instruction" ;
-		        elto.value.signature_size_arr.unshift(elto.firm_reference[0].co.length) ; // push at the beginning
+		        elto.value.signature_size_arr.unshift(elto.firm_reference[0].oc.length) ; // push at the beginning
 
 			// Fill initial binary with the initial candidate...
 			elto.binary = wsasm_encode_instruction(context, ret, elto, candidate) ;

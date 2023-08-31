@@ -107,6 +107,19 @@
 		'BUT INSERTED':			'लेकिन डाला',
 		'INSTEAD':			'बजाय',
 
+           	"ADDRESS-ABS MUST BE 20 BITS":		"एड्रेस-एब्स 20 बिट होना चाहिए",
+           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
+           	"BAD EOC BIN. LEN.":			"ईओसी फ़ील्ड के लिए बिट्स की गलत संख्या ",
+           	"BIT OoR":				"Bit OoR",
+           	"COLON NOT FOUND":			": नहीं मिला",
+           	"COLON OR PIPE NOT FOUND":		": या | नहीं मिला",
+           	"INCORRECT EOC BIN.":			"Incorrect eoc bin.",
+           	"INCORRECT OC BIN.":			"Incorrect oc bin.",
+           	"NO FIELD":				"No field",
+           	"NO OC FIELD":				"No oc field",
+           	"OC ALREADY USED":			"ओसी पहले से ही इस्तेमाल किया जा चुका है ",
+           	"OC+EOC ALREADY USED":			"oc+eoc पहले से ही उपयोग किया जा चुका है",
+
 		'_last_':			'_last_'
 
     };
