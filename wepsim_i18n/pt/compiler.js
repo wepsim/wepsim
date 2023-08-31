@@ -106,6 +106,20 @@
 		'EXPECTED VALUE':		'valor esperado que se encaixa em um \'',
 		'BUT INSERTED':			'mas inserido',
 		'INSTEAD':			'em vez de',
+
+           	"ADDRESS-ABS MUST BE 20 BITS":		"O endereço-abs deve ter 20 bits",
+           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
+           	"BAD EOC BIN. LEN.":			"número incorreto de bits para o campo eoc",
+           	"BIT OoR":				"bit OoR",
+           	"COLON NOT FOUND":			": não encontrado",
+           	"COLON OR PIPE NOT FOUND":		": ou | não encontrado",
+           	"INCORRECT EOC BIN.":			"Binário eoc incorreto",
+           	"INCORRECT OC BIN.":			"Binário  oc incorreto",
+           	"NO FIELD":				"No field",
+           	"NO OC FIELD":				"No oc field",
+           	"OC ALREADY USED":			"oc já usado",
+           	"OC+EOC ALREADY USED":			"oc+eoc já usado",
+
 		'_last_':			'_last_'
 
     };

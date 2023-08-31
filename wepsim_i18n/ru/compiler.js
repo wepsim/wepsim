@@ -107,6 +107,19 @@
 		'BUT INSERTED':			'но вставлено',
 		'INSTEAD':			'вместо',
 
+           	"ADDRESS-ABS MUST BE 20 BITS":		"Адрес-abs должен быть 20 бит.",
+           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
+           	"BAD EOC BIN. LEN.":			"неправильное количество бит в поле eoc",
+           	"BIT OoR":				"Bit OoR",
+           	"COLON NOT FOUND":			": не найдено",
+           	"COLON OR PIPE NOT FOUND":		": или | не найдено",
+           	"INCORRECT EOC BIN.":			"Неправильный двоичный файл eoc",
+           	"INCORRECT OC BIN.":			"Неправильный двоичный файл  oc",
+           	"NO FIELD":				"No field",
+           	"NO OC FIELD":				"No oc field",
+           	"OC ALREADY USED":			"ок уже использовал",
+           	"OC+EOC ALREADY USED":			"oc+eoc уже использовано",
+
 		'_last_':			'_last_'
 
     };

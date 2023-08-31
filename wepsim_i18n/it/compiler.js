@@ -107,6 +107,19 @@
 		'BUT INSERTED':			'ma inserito',
 		'INSTEAD':			'anziché',
 
+           	"ADDRESS-ABS MUST BE 20 BITS":		'L\'indirizzo abs deve essere di 20 bit',
+           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
+           	"BAD EOC BIN. LEN.":			"numero errato di bit per il campo eoc",
+           	"BIT OoR":				"bit OoR",
+           	"COLON NOT FOUND":			": non trovato",
+           	"COLON OR PIPE NOT FOUND":		": o | non trovato",
+           	"INCORRECT EOC BIN.":			"binario eoc errato",
+           	"INCORRECT OC BIN.":			"binario  oc errato",
+           	"NO FIELD":				"No field",
+           	"NO OC FIELD":				"No oc field",
+           	"OC ALREADY USED":			"oc già utilizzato",
+           	"OC+EOC ALREADY USED":			"oc+eoc già utilizzato",
+
 		'_last_':			'_last_'
 
     };

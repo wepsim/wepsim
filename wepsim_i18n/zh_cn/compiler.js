@@ -107,6 +107,19 @@
 		'BUT INSERTED':			'但插入',
 		'INSTEAD':			'代替',
 
+           	"ADDRESS-ABS MUST BE 20 BITS":		"地址绝对值必须是 20 位",
+           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
+           	"BAD EOC BIN. LEN.":			"eoc 字段的位數不正確",
+           	"BIT OoR":				"Bit OoR",
+           	"COLON NOT FOUND":			"： 未找到",
+           	"COLON OR PIPE NOT FOUND":		": 或 |未找到",
+           	"INCORRECT EOC BIN.":			"eoc 二進製文件不正確",
+           	"INCORRECT OC BIN.":			" oc 二進製文件不正確",
+           	"NO FIELD":				"No field",
+           	"NO OC FIELD":				"No oc field",
+           	"OC ALREADY USED":			"oc已经使用了",
+           	"OC+EOC ALREADY USED":			"oc+eoc 已使用",
+
 		'_last_':			'_last_'
 
     };
