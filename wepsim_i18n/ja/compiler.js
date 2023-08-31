@@ -107,6 +107,19 @@
 		'BUT INSERTED':			'しかし挿入',
 		'INSTEAD':			'その代わり',
 
+           	"ADDRESS-ABS MUST BE 20 BITS":		"Address-abs は 20 ビットである必要があります",
+           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
+           	"BAD EOC BIN. LEN.":			"eoc フィールドのビット数が正しくありません",
+           	"BIT OoR":				"Bit OoR",
+           	"COLON NOT FOUND":			"： 見つかりません",
+           	"COLON OR PIPE NOT FOUND":		": または |見つかりません",
+           	"INCORRECT EOC BIN.":			"不正な eoc バイナリ",
+           	"INCORRECT OC BIN.":			"不正な  oc バイナリ",
+           	"NO FIELD":				"No field",
+           	"NO OC FIELD":				"No oc field",
+           	"OC ALREADY USED":			"ocはすでに使用されています",
+           	"OC+EOC ALREADY USED":			"oc+eocはすでに使用されています",
+
 		'_last_':			'_last_'
 
     };

@@ -39,15 +39,18 @@
         // update_cfg = set_cfg + ga + save_cfg
         function update_cfg ( field, value )
         {
+             if (WSCFG[field].value != value)
+             {
+                 simcore_ga('config',
+                            'config.' + WSCFG.version.value,
+                            'config.' + WSCFG.version.value + '.' + field + '.' + value) ;
+             }
+
              WSCFG[field].value = value ;
 
              // add if recording
              simcore_record_append_new('Set configuration option ' + field + ' to ' + value,
                                        'update_cfg("' + field + '","' + value + '");\n') ;
-
-             simcore_ga('config',
-                        'config.' + WSCFG.version.value,
-                        'config.' + WSCFG.version.value + '.' + field + '.' + value) ;
 
              save_cfg() ;
         }
