@@ -841,8 +841,6 @@ function wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
 
            // if candidate has not the same types as expected then return is NOT candidate
            if (candidate_type_as_string != signature_type_as_string) {
-console.log(' > candidate: ' + candidate_type_as_string) ; // TODO
-console.log(' > signature: ' + signature_type_as_string) ; // TODO
                return -1 ;
            }
 
