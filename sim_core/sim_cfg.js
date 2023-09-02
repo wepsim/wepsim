@@ -172,7 +172,7 @@
                 }
             }
 
-            // quick fix to force to upgrade to 2.3.0 options for ws_skin_users...
+            // quick fix to force to upgrade to 2.3.x options for ws_skin_users...
             if (WSCFG["ws_skin_user"].value.startsWith("only_asm:")) {
                 WSCFG["ws_skin_user"] = { upgrade:false,  type:"string", value:'extra_mcode:extra_morecfg:extra_share' } ;
             }
