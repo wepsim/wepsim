@@ -37,7 +37,7 @@
 		    // html holder
 		    var o1 = '<!-- Nav tabs -->' +
 		             '<ul class="nav nav-tabs nav-justified nav-tabs">' +
-		             '    <li class="nav-item user_microcode">' +
+		             '    <li class="nav-item wsx_microcode">' +
                              '        <a id="tab26" href="#eltos_cpu"' +
                              '           class="nav-link border-3 active" data-bs-toggle="tab" role="tab"' +
 		             '		 aria-label="processor"' +

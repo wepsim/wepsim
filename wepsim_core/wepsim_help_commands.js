@@ -53,7 +53,7 @@
                           id:          "simulator",
                           title:       "Simulator: firmware",
                           u_type:      "simulator",
-                          u_class:     "user_microcode",
+                          u_class:     "wsx_microcode",
                           reference:   "wepsim_help_set('relative', 'simulator#help_simulator_firmware');",
                           description: "<span data-langkey='help_02_01'>How to work with the firmware to be loaded into the control memory</span>.<br>"
                        },
@@ -61,7 +61,7 @@
                           id:          "microcode",
                           title:       "Microcode format",
                           u_type:      "simulator",
-                          u_class:     "user_microcode",
+                          u_class:     "wsx_microcode",
                           reference:   "wepsim_help_set('relative', 'simulator#help_firmware_format');",
                           description: "<span data-langkey='help_02_02'>Syntax of the microcode used</span>.<br>"
                        },
@@ -109,7 +109,7 @@
                           id:          "architecture",
                           title:       "Simulated signals",
                           u_type:      "simulated processor",
-                          u_class:     "user_microcode",
+                          u_class:     "wsx_microcode",
                           reference:   "wepsim_help_set('absolute', 'signals');",
                           description: "<span data-langkey='help_03_02'>Main signals summary of the simulated elemental processor</span>.<br>"
                        },
@@ -117,7 +117,7 @@
                           id:          "architecture",
                           title:       "Hardware summary",
                           u_type:      "simulated processor",
-                          u_class:     "user_microcode",
+                          u_class:     "wsx_microcode",
                           reference:   "wepsim_help_set('code', 'hardware_summary');",
                           description: "<span data-langkey='help_03_03'>Reference card for the simulated elemental processor hardware</span>.<br>"
                        },

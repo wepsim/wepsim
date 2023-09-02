@@ -192,7 +192,7 @@
   "ws_skin_user": {
     "upgrade": false,
     "type": "string",
-    "value": "only_asm:of:only_frequent:of"
+    "value": "extra_mcode:extra_morecfg:extra_share"
   },
   "ws_skin_dark_mode": {
     "upgrade": false,

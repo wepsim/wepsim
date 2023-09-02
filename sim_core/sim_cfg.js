@@ -257,7 +257,7 @@
                    "ws_idiom":              { upgrade:false, type:"string",    value:'en' },
                    "use_voice":             { upgrade:false, type:"boolean",   value:false },
                    "ws_skin_ui":            { upgrade:false, type:"string",    value:'classic' },
-                   "ws_skin_user":          { upgrade:false, type:"string",    value:'only_asm:of:only_frequent:of' },
+                   "ws_skin_user":          { upgrade:true,  type:"string",    value:'extra_mcode:extra_morecfg:extra_share' },
                    "ws_skin_dark_mode":     { upgrade:false, type:"boolean",   value:false },
 
 	           /* micro/assembly screen: editor */
@@ -274,7 +274,6 @@
                    "max_json_size":         { upgrade:true,  type:"int",       value:1*1024*1024 },
                    "verbal_verbose":        { upgrade:false, type:"string",    value:'math' },
                    "extended_ui":           { upgrade:false, type:"boolean",   value:false },
-                   "beta_features":         { upgrade:false, type:"boolean",   value:false },
                    "use_ga":                { upgrade:false, type:"boolean",   value:true }
              } ;
 
