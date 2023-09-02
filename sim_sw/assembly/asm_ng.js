@@ -22,9 +22,10 @@
 /* jshint esversion: 9 */
 
 //
-// Management of JSON object (see README_ng.md for more information)
+// General auxiliar functions
 //
 
+// Management of JSON object (see README_ng.md for more information)
 function wsasm_new_objElto ( base_elto )
 {
         var elto = {
@@ -102,6 +103,22 @@ function wsasm_eltoError ( context, elto, msg )
          asm_setLabelContext(context, elto.associated_context) ;
 
          return asm_langError(context, msg) ;
+}
+
+function wsasm_is_ValidTag ( tag )
+{
+        var tg = tag.trim() ;
+        if ("" == tg) {
+            return false;
+        }
+
+        var ret = isDecimal(tg[0]) ;
+        if (ret.isDecimal == true) {
+            return false;
+        }
+
+        var myRegEx = /[^a-z,_\d]/i ;
+        return !(myRegEx.test(tag)) ;
 }
 
 
@@ -268,23 +285,6 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 //      * wsasm_compute_labels  ( context, ret, start_at_obj_i )
 //      * wsasm_get_label_value ( context, ret, elto, label )
 //
-
-function wsasm_is_ValidTag ( tag )
-{
-        var tg = tag.trim() ;
-        if ("" == tg) {
-            return false;
-        }
-
-        var ret = isDecimal(tg[0]) ;
-        if (ret.isDecimal == true) {
-            return false;
-        }
-
-        var myRegEx = /[^a-z,_\d]/i ;
-        return !(myRegEx.test(tag)) ;
-}
-
 
 function wsasm_src2obj_data ( context, ret )
 {
@@ -2048,8 +2048,10 @@ function wsasm_obj2mem  ( ret )
 
 function wsasm_src2mem ( datosCU, text )
 {
-     var ret     = { error: 'ERROR: unknown error found :-(' } ;
      var context = null ;
+     var ret = { 
+                  error: i18n_get_TagFor('compiler', 'UNKNOWN 2')
+               } ;
 
      try
      {

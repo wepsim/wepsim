@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.3.0 -> 2.3.1:
+* Main improvements:
+  * Support added for assembler with firmware version 2
+
 ## 2.2.2 -> 2.3.0:
 * Main improvements:
   * Migration to bootstrap 5.3 colors and dark mode

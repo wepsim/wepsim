@@ -172,7 +172,7 @@
                 }
             }
 
-            // quick fix to force to upgrade to 2.3.0 options for ws_skin_users...
+            // quick fix to force to upgrade to 2.3.x options for ws_skin_users...
             if (WSCFG["ws_skin_user"].value.startsWith("only_asm:")) {
                 WSCFG["ws_skin_user"] = { upgrade:false,  type:"string", value:'extra_mcode:extra_morecfg:extra_share' } ;
             }
@@ -214,8 +214,8 @@
         {
              var wscfg = {
                    /* version */
-                   "version":               { upgrade:false, type:"string",    value:"2.3.0" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.3.0.20230901A" },
+                   "version":               { upgrade:false, type:"string",    value:"2.3.1" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.3.1.20230901B" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },

@@ -6,7 +6,7 @@
 [![codebeat badge](https://codebeat.co/badges/66773495-9967-4514-8c2c-916293f584b5)](https://codebeat.co/projects/github-com-acaldero-wepsim-master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://app.codacy.com/gh/acaldero/wepsim/dashboard)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
-[![Release](https://img.shields.io/badge/Stable-2.3.0-green.svg)](https://github.com/acaldero/wepsim/releases/tag/v2.3.0)
+[![Release](https://img.shields.io/badge/Stable-2.3.1-green.svg)](https://github.com/acaldero/wepsim/releases/tag/v2.3.1)
 
 
 ## Table of contents
@@ -43,9 +43,9 @@
     ```
   * Get WepSIM by executing:
     ```bash
-    wget https://github.com/acaldero/wepsim/releases/download/v2.3.0/wepsim-2.3.0.zip
-    unzip wepsim-2.3.0.zip
-    cd wepsim-2.3.0
+    wget https://github.com/acaldero/wepsim/releases/download/v2.3.1/wepsim-2.3.1.zip
+    unzip wepsim-2.3.1.zip
+    cd wepsim-2.3.1
     npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
     ``` 
   * Execute wepsim.sh with the help flag in order to show the available command switches:
@@ -310,12 +310,12 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 !echo "(1/4) Installing pre-requisites..."
 !npm install  terser jq jshint yargs clear inquirer >& /dev/null
 !echo "(2/4) Downloading WepSIM..."
-!wget https://github.com/acaldero/wepsim/releases/download/v2.3.0/wepsim-2.3.0.zip >& /dev/null
-!unzip -o wepsim-2.3.0.zip  >& /dev/null
-!rm -fr   wepsim-2.3.0.zip
+!wget https://github.com/acaldero/wepsim/releases/download/v2.3.1/wepsim-2.3.1.zip >& /dev/null
+!unzip -o wepsim-2.3.1.zip  >& /dev/null
+!rm -fr   wepsim-2.3.1.zip
 !echo "(3/4) Executing WepSIM..."
-!./wepsim-2.3.0/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.0/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.0/repo/assembly/mips/s1e1.asm > ./result.csv
-!rm -fr   wepsim-2.3.0
+!./wepsim-2.3.1/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.1/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.1/repo/assembly/mips/s1e1.asm > ./result.csv
+!rm -fr   wepsim-2.3.1
 !echo "(4/4) Showing execution trace as table..."
 
 import pandas as pd
