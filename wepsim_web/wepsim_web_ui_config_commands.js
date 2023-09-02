@@ -21,6 +21,11 @@
 
     ws_info.config_ui = [] ;
 
+
+    //
+    // General
+    //
+
     ws_info.config_ui.push({
                       id:          "select7",
                       type:        "General",
@@ -83,20 +88,10 @@
                       description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
                    });
 
-    ws_info.config_ui.push({
-                      id:          "radio18",
-                      type:        "General",
-                      u_class:     "",
-                      code_cfg:    wepsim_config_button_html_onoff('18', 'Use experimental features',
-                                                     i18n_get_TagFor('cfg', 'Off'),
-		                                       "wepsim_config_button_toggle('beta_features',false,'18');",
-                                                     i18n_get_TagFor('cfg', 'On'),
-		                                       "wepsim_config_button_toggle('beta_features',true,'18');"),
-		      code_init:   function() {
-                                       wepsim_config_button_pretoggle('beta_features', '18') ;
-		                   },
-                      description: "<span data-langkey='Use of experimental features'>Use of experimental features</span> ⚠️"
-                   });
+
+    //
+    // Execution
+    //
 
     ws_info.config_ui.push({
                       id:          "radio12",
@@ -132,7 +127,7 @@
     ws_info.config_ui.push({
                       id:          "radio1",
                       type:        "Execution",
-                      u_class:     "user_archived",
+                      u_class:     "wsx_morecfg",
                       code_cfg:    wepsim_config_button_html_2options('1', 'Execution unit',
                                                    "<span class='d-none d-sm-inline-flex' data-langkey='Instructions'>Instructions</span><span class='d-sm-none'>Instruc.</span>",
                                                    "instruction",
@@ -243,6 +238,11 @@
 	              description: "<span data-langkey='Skip notify: comments'>Skip notify: comments</span>"
                    });
 
+
+    //
+    // Editor
+    //
+
     ws_info.config_ui.push({
                       id:          "select5",
                       type:        "Editor",
@@ -302,10 +302,15 @@
                       description: "<span data-langkey='Editor mode: vim, emacs, etc.'>Editor mode: vim, emacs, etc.</span>"
                    });
 
+
+    //
+    // Register file
+    //
+
     ws_info.config_ui.push({
                       id:          "radio2",
                       type:        "Register file",
-                      u_class:     "user_archived",
+                      u_class:     "wsx_morecfg",
                       code_cfg:    "    <div class='btn-group-toggle' data-bs-toggle='buttons' >" +
                                    "    <div class='btn-group d-flex btn-group-justified'>" +
 				   "	    <input type='radio' name='options' id='radio2-unsigned_16_nofill'  autocomplete='off' class='btn-check'>" +
@@ -359,7 +364,7 @@
     ws_info.config_ui.push({
                       id:          "radio3",
                       type:        "Register file",
-                      u_class:     "user_archived",
+                      u_class:     "wsx_morecfg",
                       code_cfg:    wepsim_config_button_html_2options('3', 'register file display name',
                                                    "<span data-langkey='Numbers'>Numbers</span>",
                                                    "numerical",
@@ -376,7 +381,7 @@
     ws_info.config_ui.push({
                       id:          "radio9",
                       type:        "Register file",
-                      u_class:     "user_archived",
+                      u_class:     "wsx_morecfg",
                       code_cfg:    wepsim_config_button_html_onoff('9', 'Is editable',
                                                      i18n_get_TagFor('cfg', 'Off'),
 		                                       "wepsim_config_button_toggle('is_editable',false,'9');",
@@ -388,10 +393,15 @@
                       description: "<span data-langkey='Editable registers: edit register file values'>Editable registers: edit register file values</span>"
                    });
 
+
+    //
+    // Circuitry simulation
+    //
+
     ws_info.config_ui.push({
                       id:          "colorpicker1",
                       type:        "Circuitry simulation",
-                      u_class:     "user_microcode",
+                      u_class:     "wsx_microcode",
                       code_cfg:    wepsim_config_button_html_color('colorpicker1',
 							           'Color for active active data',
 							           'color_data_active'),
@@ -404,7 +414,7 @@
     ws_info.config_ui.push({
                       id:          "colorpicker2",
                       type:        "Circuitry simulation",
-                      u_class:     "user_microcode",
+                      u_class:     "wsx_microcode",
                       code_cfg:    wepsim_config_button_html_color('colorpicker2',
 							           'Color for active signal name',
 							           'color_name_active'),
@@ -417,7 +427,7 @@
     ws_info.config_ui.push({
                       id:          "radio10",
                       type:        "Circuitry simulation",
-                      u_class:     "user_archived user_microcode",
+                      u_class:     "wsx_morecfg wsx_microcode",
                       code_cfg:    wepsim_config_button_html_onoff('10', 'Is by value',
                                                      i18n_get_TagFor('cfg', 'Off'),
 		                                       "wepsim_config_button_toggle('is_byvalue',false,'10');",
@@ -432,7 +442,7 @@
     ws_info.config_ui.push({
                       id:          "radio5",
                       type:        "Circuitry simulation",
-                      u_class:     "user_microcode",
+                      u_class:     "wsx_microcode",
                       code_cfg:    wepsim_config_button_html_onoff('5', 'Is interactive',
                                                      i18n_get_TagFor('cfg', 'Off'),
 		                                      "wepsim_config_button_toggle('is_interactive',false,'5');",
@@ -447,7 +457,7 @@
     ws_info.config_ui.push({
                       id:          "radio6",
                       type:        "Circuitry simulation",
-                      u_class:     "user_microcode",
+                      u_class:     "wsx_microcode",
                       code_cfg:    wepsim_config_button_html_onoff('6', 'Is quick interactive',
                                                   i18n_get_TagFor('cfg', 'Off'),
 		                                 "wepsim_config_button_toggle('is_quick_interactive',false,'6');",
@@ -459,10 +469,15 @@
                       description: "<span data-langkey='Quick interactive mode: quick update of signal value'>Quick interactive mode: quick update of signal value</span>"
                    });
 
+
+    //
+    // Accesibility
+    //
+
     ws_info.config_ui.push({
                       id:          "radio11",
                       type:        "Accesibility",
-                      u_class:     "user_archived",
+                      u_class:     "wsx_morecfg",
                       code_cfg:    wepsim_config_button_html_onoff('11', 'Active voice',
                                                      i18n_get_TagFor('cfg', 'Off'),
 		                                       "wepsim_config_button_toggle('use_voice',false,'11');",
@@ -477,7 +492,7 @@
     ws_info.config_ui.push({
                       id:          "radio13",
                       type:        "Accesibility",
-                      u_class:     "user_archived",
+                      u_class:     "wsx_morecfg",
                       code_cfg:    wepsim_config_button_html_2options('13', 'Verbose',
                                                    i18n_get_TagFor('cfg', 'Text'),
                                                    "text",
@@ -517,39 +532,6 @@
                    });
 
     ws_info.config_ui.push({
-                      id:          "radio14",
-                      type:        "Accesibility",
-                      u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio14-true'  aria-label='Is expert: true'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label14-only_asm__of__only_frequent__of' for='radio14-true' " +
-				   "		   class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
-                                   "               aria-label='User Interface set of features for WepSIM: true' " +
-				   "		   onclick=\"var new_val = 'only_asm:of:only_frequent:of';" +
-                                   "                         var val_old = 'only_asm:of:only_frequent:on'; " +
-                                   "                         wepsim_config_button_toggle2('ws_skin_user', " +
-                                   "                                                  val_old, new_val,'14');" +
-                                   "                         wepsim_restore_view(new_val);\">Off" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio14-false' aria-label='Is expert: false' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label14-only_asm__of__only_frequent__on' for='radio14-false' " +
-				   "		   class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
-                                   "               aria-label='User Interface set of features for WepSIM: false' " +
-				   "		   onclick=\"var new_val = 'only_asm:of:only_frequent:on';" +
-                                   "                         var val_old = 'only_asm:of:only_frequent:of'; " +
-                                   "                         wepsim_config_button_toggle2('ws_skin_user', " +
-                                   "                                                  val_old, new_val,'14');" +
-                                   "                         wepsim_restore_view(new_val);\">On" +
-				   "	    </label>" +
-				   "	</div>",
-		      code_init:   function() {
-			               var optValue = get_cfg('ws_skin_user') ;
-                                       wepsim_config_button_pretoggle_val2('ws_skin_user', '14', optValue) ;
-		                   },
-                      description: "<span data-langkey='Beginner view'>Beginner view</span>"
-                   });
-
-    ws_info.config_ui.push({
                       id:          "radio16",
                       type:        "Accesibility",
                       u_class:     "",
@@ -564,6 +546,11 @@
                       description: "<span data-langkey='Auto-scroll while executing'>Auto-scroll while executing</span>"
                    });
 
+
+    //
+    // Privacy
+    //
+
     ws_info.config_ui.push({
                       id:          "radio17",
                       type:        "Privacy",
@@ -577,5 +564,133 @@
                                        wepsim_config_button_pretoggle('use_ga', '17') ;
 		                   },
                       description: "<span data-langkey='Use of Google Analytics to obtain anonymous statistics on the use of the application'>Use of Google Analytics to obtain anonymous statistics on the use of the application</span>"
+                   });
+
+
+    //
+    // Extra Features
+    //
+
+    ws_info.config_ui.push({
+                      id:          "radio14a",
+                      type:        "Extra Features",
+                      u_class:     "",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
+				   "		<input type='radio' name='options' id='radio14a-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-beta_cache-false' for='radio14a-true' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: true' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('beta_cache',false,'14');\">Off" +
+				   "	    </label>" +
+				   "		<input type='radio' name='options' id='radio14a-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-beta_cache-true' for='radio14a-false' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: false' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('beta_cache',true,'14');\">On" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() {
+                                       wepsim_config_button_pretoggle_val2('ws_skin_user', 'beta_cache', '14') ;
+		                   },
+                      description: "<span data-langkey='Cache'>Cache</span>&nbsp;" +
+                                   "<span class='badge text-bg-secondary py-0 px-1'>beta</span>"
+                   });
+
+    ws_info.config_ui.push({
+                      id:          "radio14b",
+                      type:        "Extra Features",
+                      u_class:     "",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
+				   "		<input type='radio' name='options' id='radio14b-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-beta_poc-false' for='radio14b-true' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: true' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('beta_poc',false,'14');\">Off" +
+				   "	    </label>" +
+				   "		<input type='radio' name='options' id='radio14b-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-beta_poc-true' for='radio14b-false' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: false' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('beta_poc',true,'14');\">On" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() {
+                                       wepsim_config_button_pretoggle_val2('ws_skin_user', 'beta_poc', '14') ;
+		                   },
+                      description: "<span data-langkey='POC CPU'>POC (proof of concept) CPU</span>&nbsp;" +
+                                   "<span class='badge text-bg-secondary py-0 px-1'>beta</span>"
+                   });
+
+    ws_info.config_ui.push({
+                      id:          "radio14c",
+                      type:        "Extra Features",
+                      u_class:     "",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
+				   "		<input type='radio' name='options' id='radio14c-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-beta_ngc-false' for='radio14c-true' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: true' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('beta_ngc',false,'14');\">Off" +
+				   "	    </label>" +
+				   "		<input type='radio' name='options' id='radio14c-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-beta_ngc-true' for='radio14c-false' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: false' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('beta_ngc',true,'14');\">On" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() {
+                                       wepsim_config_button_pretoggle_val2('ws_skin_user', 'beta_ngc', '14') ;
+		                   },
+                      description: "<span data-langkey='NGC'>Next-Generation Compiler</span>&nbsp;" +
+                                   "<span class='badge text-bg-secondary py-0 px-1'>beta</span>"
+                   });
+
+    ws_info.config_ui.push({
+                      id:          "radio14d",
+                      type:        "Extra Features",
+                      u_class:     "",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
+				   "		<input type='radio' name='options' id='radio14d-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-extra_morecfg-false' for='radio14d-true' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: true' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('extra_morecfg',false,'14');\">Off" +
+				   "	    </label>" +
+				   "		<input type='radio' name='options' id='radio14d-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-extra_morecfg-true' for='radio14d-false' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: false' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('extra_morecfg',true,'14');\">On" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() {
+                                       wepsim_config_button_pretoggle_val2('ws_skin_user', 'extra_morecfg', '14') ;
+		                   },
+                      description: "<span data-langkey='More configuration options'>More configuration options</span>&nbsp;"
+                   });
+
+    ws_info.config_ui.push({
+                      id:          "radio14e",
+                      type:        "Extra Features",
+                      u_class:     "",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
+				   "		<input type='radio' name='options' id='radio14e-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-extra_share-false' for='radio14e-true' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: true' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('extra_share',false,'14');\">Off" +
+				   "	    </label>" +
+				   "		<input type='radio' name='options' id='radio14e-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-extra_share-true' for='radio14e-false' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface set of features for WepSIM: false' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('extra_share',true,'14');\">On" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() {
+                                       wepsim_config_button_pretoggle_val2('ws_skin_user', 'extra_share', '14') ;
+		                   },
+                      description: "<span data-langkey='More share options'>More share options</span>&nbsp;"
                    });
 

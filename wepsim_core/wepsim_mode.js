@@ -62,10 +62,10 @@
 	    }
 
 	    // show/hide microcode...
-            wepsim_activeview('only_asm', false) ;
+            wepsim_activeview('extra_mcode', true) ;
 	    if (optValue.startsWith('asm_'))
 	    {
-                wepsim_activeview('only_asm', true) ;
+                wepsim_activeview('extra_mcode', false) ;
 		load_from_example_firmware(ws_info.default_example[optValue], false) ;
                 return true ;
 	    }

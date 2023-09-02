@@ -124,7 +124,7 @@
                    ni.iol3d = this.mk_nav_item('tab25', '#iol3d', '3D Led',               '', '') ;
                    ni.ioldm = this.mk_nav_item('tab27', '#ioldm', 'Led Matrix',           '', '') ;
                    ni.ed_mc = this.mk_nav_item('tab20', '#ed_mc', 'MicroCode',            '', '') ;
-                   ni.ed_mp = this.mk_nav_item('tab21', '#ed_mp', 'Assembly',             '', 'user_microcode') ;
+                   ni.ed_mp = this.mk_nav_item('tab21', '#ed_mp', 'Assembly',             '', 'wsx_microcode') ;
                    ni.cm    = this.mk_nav_item('tab28', '#cm',    'Cache',                '', '') ;
                    ni.cmcfg = this.mk_nav_item('tab29', '#cmcfg', 'Cache configuration',  '', '') ;
 

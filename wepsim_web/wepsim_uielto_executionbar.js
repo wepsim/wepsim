@@ -83,7 +83,7 @@
 
                        case "btn_emins":
 			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' +
-		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary user_microcode"' +
+		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary wsx_microcode"' +
 		                  '        accesskey="m" ' +
 			          '        onclick="wsweb_execution_microinstruction();' +
                                   '                 return false;">' ;

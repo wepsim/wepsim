@@ -125,7 +125,7 @@
 			 '<div class="w-100 d-block d-sm-none"></div>' +
 			 '' +
 			 '<div id="slider_cpucu" ' +
-                         '     class="col-sm p-0 collapse show multi-collapse-2 user_microcode">' +
+                         '     class="col-sm p-0 collapse show multi-collapse-2 wsx_microcode">' +
 			 '<ws-toolbar components="slider_cpucu"></ws-toolbar>' +
 			 '</div>' +
 			 '' +

@@ -70,54 +70,68 @@
             // update current skin
 	    var cur_skin_user = get_cfg('ws_skin_user').split(":") ;
 
-	    if ('only_asm' === view)
-	    {
-	        cur_skin_user[0] = 'only_asm' ;
-	        cur_skin_user[1] = (is_set) ? 'on' : 'of' ;
-	    }
-	    if ('only_frequent' === view)
-	    {
-	        cur_skin_user[2] = 'only_frequent' ;
-	        cur_skin_user[3] = (is_set) ? 'on' : 'of' ;
-	    }
+            let index = cur_skin_user.indexOf(view) ;
+            if (index > -1) {
+                cur_skin_user.splice(index, 1) ;
+            }
+            if (is_set) {
+	        cur_skin_user.push(view) ;
+            }
 
             // update cfg
 	    var new_skin_user = cur_skin_user.join(":") ;
 	    update_cfg('ws_skin_user', new_skin_user) ;
-	    $('#label14-' + new_skin_user.replace(/:/g,"__")).button('toggle');
+
+            // update cfg dialog (just in case)
+            wepsim_config_button_pretoggle_val2('ws_skin_user', view, '14') ;
 
             // update view
             wepsim_restore_view(new_skin_user) ;
     }
 
+
+    var hash_opt_wsx = {
+			  'extra_mcode':   '.wsx_microcode',
+			  'extra_morecfg': '.wsx_morecfg',
+			  'extra_share':   '.wsx_share',
+			  'beta_poc':      '.wsx_poc',
+			  'beta_cache':    '.wsx_cache',
+			  'beta_ngc':      '.wsx_ngc'
+		       } ;
+
     function wepsim_restore_view ( view )
     {
+	    var classes = '' ;
+            var all_classes = [] ;
             var new_classes = [] ;
 	    var cur_skin_user = view.split(":") ;
-	    if ('only_asm' === cur_skin_user[0])
-	    {
-              //$(".multi-collapse-2").collapse("show") ;
-		inputfirm.setOption('readOnly', false) ;
 
-	        if ('on' === cur_skin_user[1])
-                {
-		   //$("#tab24").click() ;     // TOCHECK
-		     $("#tab24").tab("show") ; // TOCHECK
+            // get associated classes for base, extra, beta, etc.
+            var keys = Object.keys(hash_opt_wsx) ;
+            for (var i=0; i<keys.length; i++)
+            {
+		 all_classes.push(hash_opt_wsx[keys[i]]) ;
+                 if (cur_skin_user.includes(keys[i]) == false) {
+		     new_classes.push(hash_opt_wsx[keys[i]]) ;
+	         }
+            }
 
-		     inputfirm.setOption('readOnly', true) ;
-		     new_classes.push('.user_microcode') ;
-		}
-	    }
-	    if ('only_frequent' === cur_skin_user[2])
-	    {
-	        if ('on' === cur_skin_user[3])
-		    new_classes.push('.user_archived') ;
-	    }
-
-	    var classes = '.user_archived, .user_microcode' ;
+            // show/hide elements...
+	    classes = all_classes.join(", ") ;
 	    $(classes).removeClass('d-none') ;
             classes = new_classes.join(", ") ;
             $(classes).addClass('d-none') ;
+
+            if (cur_skin_user.includes('extra_mcode') == false)
+	    {
+		$("#tab24").tab("show") ;
+		inputfirm.setOption('readOnly', true) ;
+	    }
+	    else
+	    {
+              //$(".multi-collapse-2").collapse("show") ;
+		inputfirm.setOption('readOnly', false) ;
+	    }
     }
 
     function wepsim_appy_darkmode ( adm )

@@ -75,7 +75,7 @@
 		var o = '<ul class="list-group list-group-flush">' ;
 
 		   o += '<li class="list-group-item px-0 d-grid"> ' +
-			'     <div id="slider_cpucu" class="col-sm p-0 collapse show user_microcode">' +
+			'     <div id="slider_cpucu" class="col-sm p-0 collapse show wsx_microcode">' +
 		        '         <ws-slider-cpucu name="slider3b"></ws-slider-cpucu>' +
 			'     </div>' +
 			'</li>' ;
@@ -107,18 +107,6 @@
 			"                  return true;\">" +
                         "<i class='fas fa-redo'></i>&nbsp;<span data-langkey='Reload'>Reload</span></div>" +
 			'</li>' ;
-
-/*
-		   o += '<li class="list-group-item px-0 d-grid"> ' +
-			'<label><span data-langkey="beginner view">beginner view</span>:</label>' +
-                        quickcfg_html_onoff('17',
-                                            'Frequent only',
-                                                i18n_get_TagFor('cfg', 'Off'),
-                                            "  wepsim_activeview('only_frequent', false);",
-                                                i18n_get_TagFor('cfg', 'On'),
-                                            "  wepsim_activeview('only_frequent', true);") +
-			'</li>' ;
-*/
 
 		   o += quickcfg_html_close('popover-slidercfg') +
 			'</ul>' ;
