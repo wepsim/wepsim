@@ -110,7 +110,7 @@
 	      render_switch_microcode ( robj )
 	      {
 		 return '<button ' +
-                        '    class="btn bg-body-tertiary shadow-sm col-auto user_microcode mx-1 px-2 border border-secondary"' +
+                        '    class="btn bg-body-tertiary shadow-sm col-auto wsx_microcode mx-1 px-2 border border-secondary"' +
                         '    id="btn_micro1"' +
 		        '    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 		        '    title="This button switches into the \'Microcode\' editor."' +
@@ -333,7 +333,7 @@
 	      {
 		   var o = '' ;
 
-		   o += '<div class="btn-group col-auto my-1 mx-1 p-0 user_archived" style="flex-grow:6;">' +
+		   o += '<div class="btn-group col-auto my-1 mx-1 p-0 wsx_morecfg" style="flex-grow:6;">' +
 			'   <button type="button"' +
                         '           class="col-12 btn bg-body-tertiary shadow-sm border border-secondary"' +
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -353,12 +353,12 @@
 			'        style="z-index:1200; " ' +
                         '        class="dropdown-menu border border-secondary p-2">' +
                         '\n' +
-			'     <h6 class="text-white bg-secondary my-1 user_archived ms-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' ;
+			'     <h6 class="text-white bg-secondary my-1 wsx_morecfg ms-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' ;
 
                    for (var i=0; i<sim.systems.length; i++)
                    {
                         var item      = sim.systems[i].sim_short_name ;
-                        var poc_class = (item == "poc") ? "user_archived" : "" ;
+                        var poc_class = (item == "poc") ? "wsx_poc" : "" ;
                    o += '     <a class="dropdown-item py-2 ' + poc_class + '" ' +
                         '        href="#" id="s4_' + item + '" value="' + item + '" ' +
 			'	 onclick="wsweb_select_main(\'' + item + '\');' +
@@ -369,15 +369,15 @@
                    }
 
                    o += '\n' +
-			'     <h6 class="text-white bg-secondary mt-2 my-1 user_archived ms-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>' +
-                        '     <a class="dropdown-item user_archived mb-0 py-2" ' +
+			'     <h6 class="text-white bg-secondary mt-2 my-1 wsx_morecfg ms-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>' +
+                        '     <a class="dropdown-item wsx_morecfg mb-0 py-2" ' +
                         '        href="#" id="s4_asm_mips" value="asm_mips"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
                         '        onclick="wsweb_select_main(\'asm_mips\');' +
                         '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>int32</sub></a>' +
-                        '     <a class="dropdown-item user_archived mb-0 py-2" ' +
+                        '     <a class="dropdown-item wsx_morecfg mb-0 py-2" ' +
                         '        href="#" id="s4_asm_rv32" value="asm_rv32"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="RISC-V<sub>32</sub> assembly only (i+m sets)."' +

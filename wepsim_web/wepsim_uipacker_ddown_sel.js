@@ -95,7 +95,7 @@
                         }
 
                         if (u1 != '') {
-                            o1 += ' <h6 class="text-secondary mb-1">' + device + '</h6>' ;
+                            o1 += this.di[device] ;
                             o1 += u1 ;
                         }
                    }
@@ -121,7 +121,6 @@
                                     'Devices',
                                     'Simulation' ] ;
 
-
                    this.details = {
                                      'CPU':          [ 'all', 'mc', 'cpu' ],
                                      'Main Memory':  [ 'mp', 'mpcfg' ],
@@ -130,11 +129,19 @@
                                      'Simulation':   [ 'ed_mc', 'ed_mp' ]
                                  //  'Simulation':   [ 'ed_hw', 'ed_mc', 'ed_mp' ]
                                   } ;
+                   this.di = {
+                                 'CPU':          '<h6 class="text-secondary mb-1">CPU</h6>',
+                                 'Main Memory':  '<h6 class="text-secondary mb-1">Main Memory</h6>',
+                                 'Cache Memory': '<h6 class="text-secondary mb-1 wsx_cache">Cache Memory</h6>',
+                                 'Devices':      '<h6 class="text-secondary mb-1">Devices</h6>',
+                                 'Simulation':   '<h6 class="text-secondary mb-1">Simulation</h6>'
+                             } ;
+
                    this.ni = {
 				 all: ' <a class="dropdown-item" href="#" id="s5b_11" value="11"' +
 				      '	 onclick="wsweb_set_details(\'REGISTER_FILE\');' +
 				      '		  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey=\'Registers\'>Registers</span></a>',
-				  mc: ' <a class="dropdown-item user_microcode" href="#" id="s5b_16" value="16"' +
+				  mc: ' <a class="dropdown-item wsx_microcode" href="#" id="s5b_16" value="16"' +
 				      '	 onclick="wsweb_set_details(\'CONTROL_MEMORY\');' +
 				      '		  return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey=\'Control Memory\'>Control Memory</span></a>',
 				 cpu: ' <a class="dropdown-item" href="#" id="s5b_17" value="17"' +
@@ -146,10 +153,10 @@
 			       mpcfg: '      <a class="dropdown-item" href="#" id="s5b_18" value="18"' +
 				      '	 onclick="wsweb_set_details(\'MEMORY_CONFIG\');' +
 				      '		  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span></a>',
-				  cm: ' <a class="dropdown-item" href="#" id="s5b_28" value="28"' +
+				  cm: ' <a class="dropdown-item wsx_cache" href="#" id="s5b_28" value="28"' +
 				      '	 onclick="wsweb_set_details(\'CACHE\');' +
 				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Memory\'>Memory</span> <span class="badge text-bg-secondary py-0 px-1">beta</span> </a>',
-			       cmcfg: ' <a class="dropdown-item" href="#" id="s5b_29" value="29"' +
+			       cmcfg: ' <a class="dropdown-item wsx_cache" href="#" id="s5b_29" value="29"' +
 				      '	 onclick="wsweb_set_details(\'CACHE_CONFIG\');' +
 				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span> <span class="badge text-bg-secondary py-0 px-1">beta</span> </a>',
 				 con: '      <a class="dropdown-item" href="#" id="s5b_12" value="12"' +
@@ -171,7 +178,7 @@
 				      '	 onclick="wsweb_set_details(\'HARDWARE\');' +
 				      '		  return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>',
 
-			       ed_mc: '      <a class="dropdown-item user_microcode" href="#" id="s5b_20" value="20"' +
+			       ed_mc: '      <a class="dropdown-item wsx_microcode" href="#" id="s5b_20" value="20"' +
 				      '	 onclick="wsweb_set_details(\'FRM_EDITOR\');' +
 				      '		  return false;"><span class="bg-dark text-white">Sim</span>&nbsp;MicroCode</a>',
 			       ed_mp: '      <a class="dropdown-item" href="#" id="s5b_21" value="21"' +

@@ -176,7 +176,7 @@
      	                '             <a onclick="wsweb_dialog_close(\'examples\'); ' +
                         '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
                         '                         return false;"' +
-     		        '                class="dropdown-item text-white bg-info my-1 user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
+     		        '                class="dropdown-item text-white bg-info my-1 wsx_share" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
      	                '     </div>' +
                         '</div>' +
                         '<div class="col-sm py-1 collapse7 show ' + toggle_cls + '">' +

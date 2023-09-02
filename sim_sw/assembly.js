@@ -27,7 +27,8 @@ function simlang_compile ( text, datosCU )
 {
      var ret = null ;
 
-     if ( get_cfg('beta_features') )
+     var skin_arr = get_cfg('ws_skin_user').split(':') ;
+     if (skin_arr.includes('beta_ngc'))
      {
          // Testing in beta for the next-generation compiler...
          ret = wsasm_src2mem(datosCU, text) ;

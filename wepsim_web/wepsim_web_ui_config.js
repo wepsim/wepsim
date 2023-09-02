@@ -194,25 +194,34 @@
     {
 	 var val_tag = get_cfg(config_name) ;
 
-         var label_prefix = '#label' + set_id + '-' ;
-         if ($(label_prefix + val_tag).hasClass("active") == false) {
-	     $(label_prefix + val_tag).button('toggle');
+         var label_prefix = '#label' + set_id + '-' + val_tag ;
+         if ($(label_prefix).hasClass("active") == false) {
+	     $(label_prefix).button('toggle');
          }
     }
 
     function wepsim_config_button_pretoggle_val ( config_name, set_id, val_tag )
     {
-         var label_prefix = '#label' + set_id + '-' ;
-         if ($(label_prefix + val_tag).hasClass("active") == false) {
-	     $(label_prefix + val_tag).button('toggle');
+         var label_prefix = '#label' + set_id + '-' + val_tag ;
+         if ($(label_prefix).hasClass("active") == false) {
+	     $(label_prefix).button('toggle');
          }
     }
 
-    function wepsim_config_button_pretoggle_val2 ( config_name, set_id, val_tag )
+    function wepsim_config_button_pretoggle_val2 ( cfg_id, value, set_id )
     {
-         var label_prefix = '#label' + set_id + '-' ;
-         if ($(label_prefix + val_tag.replace(/:/g,'__')).hasClass("active") == false) {
-	     $(label_prefix + val_tag.replace(/:/g,'__')).button('toggle');
+         var optValue = get_cfg(cfg_id).split(":") ;
+         var index    = optValue.indexOf(value) ;
+         var active   = (index > -1) ;
+
+         var label_prefix = '#label' + set_id + '-' + value + '-' + active ;
+         if ($(label_prefix).hasClass("active") == false) {
+	     $(label_prefix).button('toggle');
+         }
+
+             label_prefix = '#label' + set_id + '-' + value + '-' + (!active) ;
+         if ($(label_prefix).hasClass("active") != false) {
+	     $(label_prefix).button('toggle');
          }
     }
 
@@ -236,15 +245,15 @@
          update_cfg('editor_theme', val_new) ;
     }
 
-    function wepsim_config_button_toggle2 ( config_name, val_old, val_new, set_id )
+    function wepsim_config_button_toggle2 ( value, active, set_id )
     {
-         update_cfg(config_name, val_new) ;
+         wepsim_activeview(value, active) ;
 
-         var label_prefix = '#label' + set_id + '-' ;
-	 $(label_prefix + val_old.replace(/:/g,'__')).button('toggle');
-	 $(label_prefix + val_new.replace(/:/g,'__')).button('toggle');
+         var label_prefix = '#label' + set_id + '-' + value + active ;
+	 $(label_prefix).button('toggle');
+             label_prefix = '#label' + set_id + '-' + value + (! active) ;
+	 $(label_prefix).button('toggle');
     }
-
 
     // color
     function wepsim_config_button_html_color ( id2, arial2, cfg_name2 )

@@ -43,7 +43,7 @@
 			     '       data-bs-toggle="tab" href="#nav-simulation" role="tab"' +
 			     '       aria-controls="nav-home" aria-selected="true">' +
 			     '<span class="d-none d-sm-inline-flex" data-langkey="Simulation">Simulation</span><span class="d-sm-none">Sim.</span></a>' +
-			     '    <a class="nav-item nav-link user_microcode"    id="nav-microcode-tab" data-oldid="s5b_20"' +
+			     '    <a class="nav-item nav-link wsx_microcode"    id="nav-microcode-tab" data-oldid="s5b_20"' +
 			     '       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"' +
 			     '       onclick="setTimeout(function(){ inputfirm.refresh(); }, 200) ;' +
 			     '                return false;"' +
@@ -79,7 +79,7 @@
 			     '    <ws-ddown-info components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,cm,cmcfg"></ws-ddown-info>' +
 			     '  </div>' +
 			     '' +
-			     '  <div class="tab-pane fade user_microcode" id="nav-microcode" role="tabpanel" ' +
+			     '  <div class="tab-pane fade wsx_microcode" id="nav-microcode" role="tabpanel" ' +
 			     '       aria-labelledby="nav-microcode-tab">' +
 			     '       <ws-edit-mc layout="compilebar,editor"></ws-edit-mc>' +
 			     '  </div>' +
