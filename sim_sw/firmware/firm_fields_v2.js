@@ -159,7 +159,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 
 	// match mandatory FIELD-type: oc|eoc|reg|imm|address-rel|address-abs
 	if ( !frm_isToken_arr(context, field_list) ) {
-		return frm_langError(context, "Incorrect type of field (oc, eoc, reg, imm, address-rel or address-abs)") ;
+	      return frm_langError(context, "Incorrect type of field (oc, eoc, reg, imm, address-rel or address-abs)") ;
 	}
 
 	tmp_fields.type = frm_getToken(context) ;
@@ -189,6 +189,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 		frm_nextToken(context);
 		// match mandatory START_BIT
 		tmp_fields.startbit = frm_getToken(context) ;
+		tmp_fields.bits_start = [ tmp_fields.startbit ] ;
 
 		// check startbit range
 		var start = parseInt(tmp_fields.startbit);
@@ -208,6 +209,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 		frm_nextToken(context);
 		// match mandatory STOP_BIT
 		tmp_fields.stopbit = frm_getToken(context) ;
+		tmp_fields.bits_stop = [ tmp_fields.stopbit ] ;
 
 		// check stopbit range
 		var stop  = parseInt(tmp_fields.stopbit);
@@ -267,9 +269,12 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 
 			// if it's a fixed range don't do anything more (start:end)
 			frm_nextToken(context);
-			if (frm_isToken(context,")")) {
+			if (frm_isToken(context,")"))
+                        {
 				tmp_fields.startbit = start;
-				tmp_fields.stopbit = stop;
+				tmp_fields.stopbit  = stop;
+		                tmp_fields.bits_start = [ tmp_fields.startbit ] ;
+		                tmp_fields.bits_stop  = [ tmp_fields.stopbit  ] ;
 			}
 		}
 
@@ -279,7 +284,9 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 		if (frm_isToken(context,"|"))
 		{
 			// all bit ranges
-			var bits = [[start, stop]] ;
+			var bits = [[ start, stop ]] ;
+			var bits_start = [ start ] ;
+			var bits_stop  = [ stop  ] ;
 
 			// auxiliary to add ranges
 			var bits_aux = [] ;
@@ -297,8 +304,11 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 				}
 
 				frm_nextToken(context);
-				if (frm_getToken(context) == ")") {
+				if (frm_getToken(context) == ")")
+                                {
 					bits.push([bits_aux[0], bits_aux[0]]);
+			                bits_start.push(bits_aux[0]) ;
+			                 bits_stop.push(bits_aux[0]) ;
 					continue;
 				}
 				// match mandatory : or |
@@ -324,12 +334,14 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 
 				// bit range is added
 				bits.push([bits_aux[0], bits_aux[1]]) ;
+				bits_start.push(bits_aux[0]) ;
+				 bits_stop.push(bits_aux[1]) ;
 			}
 
 			// count number of bits read
 			var total_bits = 0;
 			for (i=0; i<bits.length; i++) {
-				total_bits += bits[i][0] - bits[i][1] + 1;
+			     total_bits += bits[i][0] - bits[i][1] + 1;
 			}
 
 			// relative addresses (S and B-type instructions) are 12 or 20 bits long
@@ -346,8 +358,9 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 			}
 
 			tmp_fields.bits = bits ;
+			tmp_fields.bits_start = bits_start ;
+			tmp_fields.bits_stop  = bits_stop ;
 		}
-
 	}
 
 	frm_nextToken(context);
@@ -512,10 +525,10 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		       return ret ;
 		   }
 
-		   firma = firma.replace("," + campos[camposInsertados].name, "," + campos[camposInsertados].type);
-		   firma = firma.replace("(" + campos[camposInsertados].name, "(" + campos[camposInsertados].type);
-		   firma = firma.replace(")" + campos[camposInsertados].name, ")" + campos[camposInsertados].type);
-		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados].name, campos[camposInsertados].type);
+		   firma = firma.replace("," + ret.name, "," + ret.type);
+		   firma = firma.replace("(" + ret.name, "(" + ret.type);
+		   firma = firma.replace(")" + ret.name, ")" + ret.type);
+		   firmaUsuario = firmaUsuario.replace(ret.name, ret.type);
 
 		   instruccionAux.signature     = firma;
 		   instruccionAux.signatureUser = firmaUsuario;

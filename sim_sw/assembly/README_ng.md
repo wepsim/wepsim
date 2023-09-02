@@ -36,13 +36,11 @@
 
 The TODO list includes:
 
- 1. Check that asm_ng works initially like asm_v1:
-    * Review all pending labels: relative/absolute address, forth/back labels, etc.
-    * Review the algorithm to find the instruction/pseudoinstruction that better fits the values.
-    * Review that .align follows (and it is OK):
+ 1. Check that asm_ng works like asm_v1 and asm_v2
+ 2. Review existing algorithms:
+    * The algorithm to find the instruction/pseudoinstruction that better fits the values.
+    * The algorithm for .align follows (and it is OK):
       https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
-
- 2. Add support for firmware v2.
 
 
 ## 3) Organization

@@ -134,8 +134,8 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 {
            let elto = null ;
 	   let aux  = null ;
-           let start_bit = 0 ;
-           let stop_bit  = 0 ;
+           let start_bit = [] ;
+           let stop_bit  = [] ;
            let lower_bit = 0 ;
            let w_n_bits  = 0 ;
            let w_index   = 0 ;
@@ -165,37 +165,67 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 		elto.signature_size_str  = '' ;  // computed later
 		elto.signature_size_arr  = [] ;  // computed later
 
+		if (typeof aux.signatureUser !== "undefined")
+                    elto.signature_type_str = aux.signatureUser ;
+
                 // tooltip with details...
 		elto["mc-start"] = aux["mc-start"] ;
 		elto.microcode   = aux.microcode ;
 		elto.help        = aux.help ;
 
-		if (typeof aux.co     !== "undefined")         elto.oc     = aux.co ;
-		if (typeof aux.cop    !== "undefined")         elto.eoc    = aux.cop ;
-		if (typeof aux.fields !== "undefined")         elto.fields = aux.fields ;
-		if (typeof aux.signatureUser !== "undefined")  elto.signature_type_str = aux.signatureUser ;
+                // fields
+		if (typeof aux.co !== "undefined")
+                     elto.oc = aux.co ;
+                else if (typeof aux.oc !== "undefined")
+                     elto.oc = aux.oc ;
+                else elto.oc = '' ; // begin {...}
+
+		if (typeof aux.cop !== "undefined")
+                     elto.eoc = aux.cop ;
+                else if (typeof aux.eoc !== "undefined")
+                     elto.eoc = aux.eoc ;
+                else elto.eoc = '' ; // begin {...}
+
+		if (typeof aux.fields !== "undefined") {
+                    elto.fields = aux.fields ;
+                }
 
                 // elto: asm_start_bit/asm_stop_bit fields...
 		elto.signature_size_arr.push(elto.oc.length) ;
                 for (let j=0; j<elto.fields.length; j++)
                 {
-                     // TODO: add support for firmware v2 ("elto.fields[j].startbit/stopbit" probably is an array)
-
                      // initial values...
-                     start_bit  = parseInt(elto.fields[j].startbit) ;
-                     stop_bit   = parseInt(elto.fields[j].stopbit) ;
+                     start_bit = [] ;
+                     stop_bit  = [] ;
+                     if (1 == CU_data.version)
+                     {
+                         start_bit[0] = parseInt(elto.fields[j].startbit) ;
+                         stop_bit[0]  = parseInt(elto.fields[j].stopbit) ;
+                     }
+                     else // (2 == CU_data.version)
+                     {
+                         for (let m=0; m<elto.fields[j].bits_start.length; m++)
+                         {
+                              start_bit[m] = parseInt(elto.fields[j].bits_start[m]) ;
+                              stop_bit[m]  = parseInt(elto.fields[j].bits_stop[m]) ;
+                         }
+                     }
 
                      // translate from startbit/stop_bit to asm_start_bit/asm_stop_bit...
-                     lower_bit = Math.min(start_bit, stop_bit) ;
-                     w_n_bits  = WORD_LENGTH ;
-                     w_index   = ~~(lower_bit / w_n_bits) ;
-                     start_bit = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit ; // w_index*64+32-1 - start_bit 
-                     stop_bit  = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit ;  // w_index*64+32-1 - stop_bit 
-                     n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
+                     n_bits = 0 ;
+                     for (let m=0; m<start_bit.length; m++)
+                     {
+                          lower_bit    = Math.min(start_bit[m], stop_bit[m]) ;
+                          w_n_bits     = WORD_LENGTH ;
+                          w_index      = ~~(lower_bit / w_n_bits) ;
+                          start_bit[m] = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit[m] ; // w_index*64+32-1 - start_bit 
+                          stop_bit[m]  = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit[m] ;  // w_index*64+32-1 - stop_bit 
+                          n_bits       = n_bits + Math.abs(stop_bit[m] - start_bit[m]) + 1 ;
 
-                        // .../63/31(MSB) ..................... 0(LSB)
-                        //                      ^         ^
-                        //                 start_bit  stop_bit
+                          // .../63/31(MSB) ..................... 0(LSB)
+                          //                      ^         ^
+                          //                 start_bit  stop_bit
+                     }
 
                      // copy back the computed values
                      elto.fields[j].asm_start_bit = start_bit ;
@@ -206,6 +236,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                 }
 
                 // elto: derived fields...
+elto.signature_type_str = elto.signature_type_str.replaceAll('inm', 'imm') ;        // TODO: temporal fix
 		elto.signature_size_str = elto.signature_size_arr.join(' ') ;
 		elto.signature_type_arr = elto.signature_type_str.split(' ') ;
                 elto.signature_user     = wsasm_make_signature_user(elto, '') ;
@@ -252,10 +283,11 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
                 if (typeof initial.fields !== "undefined")  elto.fields = initial.fields ;
 
                 // elto: derived fields...
-	        elto.signature_type_arr  = elto.signature_type_str.split(' ') ;
-		elto.signature_size_arr  = Array(elto.signature_type_arr.length).fill(WORD_BYTES*BYTE_LENGTH);
-		elto.signature_size_str  = elto.signature_size_arr.join(' ') ;
-                elto.signature_user      = wsasm_make_signature_user(elto, '') ;
+elto.signature_type_str = elto.signature_type_str.replaceAll('inm', 'imm') ;        // TODO: temporal fix
+	        elto.signature_type_arr = elto.signature_type_str.split(' ') ;
+		elto.signature_size_arr = Array(elto.signature_type_arr.length).fill(WORD_BYTES*BYTE_LENGTH);
+		elto.signature_size_str = elto.signature_size_arr.join(' ') ;
+                elto.signature_user     = wsasm_make_signature_user(elto, '') ;
 
                 // add elto to firmware
                 context.firmware[initial.name].push(elto) ;
@@ -338,7 +370,7 @@ function wsasm_src2obj_data ( context, ret )
                           if ("" == possible_tag) {
                               possible_tag = "[empty]" ;
                           }
- 
+
 			  return asm_langError(context,
 			                       i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
                                                "'" + possible_tag + "'") ;
@@ -432,8 +464,8 @@ function wsasm_src2obj_data ( context, ret )
                                                          type:         "field-data",
 						         label:        possible_value,
 						         addr:         elto.seg_ptr,
-						         start_bit:    0,
-						         stop_bit:     WORD_BYTES*BYTE_LENGTH-1,
+						         start_bit:    [ 0 ],
+						         stop_bit:     [ WORD_BYTES*BYTE_LENGTH-1 ],
 						         n_bits:       WORD_BYTES*BYTE_LENGTH,
 						         rel:          false,
 						         labelContext: asm_getLabelContext(context),
@@ -679,8 +711,11 @@ function wsasm_src2obj_data ( context, ret )
 
 function wsasm_encode_field ( arr_encoded, value, start_bit, stop_bit )
 {
-           for (let k=start_bit; k<=stop_bit; k++) {
-                arr_encoded[k] = value[k-start_bit] ;
+           for (let m=0; m<=start_bit.length; m++)
+           {
+                for (let k=start_bit[m]; k<=stop_bit[m]; k++) {
+                     arr_encoded[k] = value[k - start_bit[m]] ;
+                }
            }
 }
 
@@ -701,13 +736,14 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
            arr_encoded = val_encoded.split('');
 
            // (1) Instruction, copy 'co' and 'cop' field...
-           wsasm_encode_field(arr_encoded, candidate.oc,  0, candidate.oc.length-1) ;
-           wsasm_encode_field(arr_encoded, candidate.eoc, bit_size-candidate.eoc.length, bit_size-1) ;
+           wsasm_encode_field(arr_encoded, candidate.oc,  [0], [candidate.oc.length-1]) ;
+           wsasm_encode_field(arr_encoded, candidate.eoc, [bit_size-candidate.eoc.length], [bit_size-1]) ;
+           // TODO: review if candidate.oc/eoc might have several bits...
 
            // (2) Fields, copy values...
            //     Example:
-           //     * elto.value.signature_type_arr = [ 'li', *'reg', 'inm'* ]
-           //     * candidate.fields = [ {name: 'r1', type: 'reg', asm_start_bit: 0, asm_stop_bit: 5}, {...} ]
+           //     * elto.value.signature_type_arr = [ 'li', *'reg', 'imm'* ]
+           //     * candidate.fields = [ {name: 'r1', type: 'reg', asm_start_bit: [0], asm_stop_bit: [5]}, {...} ]
            for (let j=0; j<candidate.fields.length; j++)
            {
                 // start/stop bit...
@@ -716,7 +752,7 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                 n_bits    = candidate.fields[j].asm_n_bits ;
 
                 // value to be encode...
-                if ( ["inm", "(inm)", "address", "(address)"].includes(elto.value.signature_type_arr[j+1]) )
+                if ( ["imm", "(imm)", "address", "(address)"].includes(elto.value.signature_type_arr[j+1]) )
                 {
                          value = elto.value.fields[j] ;
                          if ('(' == value[0]) {
@@ -796,15 +832,17 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
 function wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
 {
            // get candidate signature_type and signature_size...
-           var candidate_type_as_string = elto_firm_reference_i.signature_type_str.replaceAll('address', 'inm') ;
+           var candidate_type_as_string = elto_firm_reference_i.signature_type_str.replaceAll('address', 'imm') ;
            var candidate_size_as_intarr = elto_firm_reference_i.signature_size_arr ;
 
            // get elto signature_type and signature_size...
-           var signature_type_as_string = elto_value.signature_type_arr.join(' ').replaceAll('address', 'inm') ;
+           var signature_type_as_string = elto_value.signature_type_arr.join(' ').replaceAll('address', 'imm') ;
            var signature_size_as_intarr = elto_value.signature_size_arr ;
 
            // if candidate has not the same types as expected then return is NOT candidate
            if (candidate_type_as_string != signature_type_as_string) {
+console.log(' > candidate: ' + candidate_type_as_string) ; // TODO
+console.log(' > signature: ' + signature_type_as_string) ; // TODO
                return -1 ;
            }
 
@@ -916,11 +954,11 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 
 		   if (parentheses) {
 		       elto.value.fields.push('(' + atom + ')') ;
-		       elto.value.signature_type_arr.push('(inm)') ;
+		       elto.value.signature_type_arr.push('(imm)') ;
 		   }
 		   else {
 	               elto.value.fields.push(atom) ;
-	               elto.value.signature_type_arr.push('inm') ;
+	               elto.value.signature_type_arr.push('imm') ;
 		   }
 	           elto.value.signature_size_arr.push(a[2]) ; // a[2]: minimum number of bits to represent a[0]...
 
@@ -1670,9 +1708,7 @@ function wsasm_resolve_labels ( context, ret )
                   // update elto.binary
                   value = value.padStart(elto.pending[j].n_bits, '0') ;
                   arr_encoded = elto.binary.split('') ;
-		  for (var k=elto.pending[j].start_bit; k<=elto.pending[j].stop_bit; k++) {
-		       arr_encoded[k] = value[k-elto.pending[j].start_bit] ;
-		  }
+                  wsasm_encode_field(arr_encoded, value, elto.pending[j].start_bit, elto.pending[j].stop_bit) ;
                   elto.binary = arr_encoded.join('') ;
 
                   // data-field -> update elto.value (is not an object as inst-field)
@@ -1834,6 +1870,7 @@ function wsasm_prepare_context ( CU_data, asm_source )
 	   context.firmware             = {} ;         // here
 	   context.pseudoInstructions	= [];          // here
 	   context.stackRegister	= null ;
+	   context.version	        = CU_data.version ;
 
 	   // Check arguments
            if (typeof CU_data == "undefined") {
@@ -2049,7 +2086,7 @@ function wsasm_obj2mem  ( ret )
 function wsasm_src2mem ( datosCU, text )
 {
      var context = null ;
-     var ret = { 
+     var ret = {
                   error: i18n_get_TagFor('compiler', 'UNKNOWN 2')
                } ;
 
