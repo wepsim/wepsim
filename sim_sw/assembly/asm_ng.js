@@ -156,70 +156,108 @@ function wsasm_order2index_startstop ( start_bit, stop_bit )
 
 function wsasm_prepare_oc ( elto, aux )
 {
-	elto.oc = { value:'', asm_start_bit:[], asm_stop_bit:[] } ;
+	elto.oc = {
+                     value:         '',    // "begin {...}" has no 'co/oc' field
+                     asm_start_bit: [ 0 ], // initial value to 0:0 to skip this field by default
+                     asm_stop_bit:  [ 0 ]
+                  } ;
 
-        // elto.oc.value
-	if (typeof aux.co !== "undefined")
+        // set elto.oc.value
+	if (typeof aux.co !== "undefined") {
 	     elto.oc.value = aux.co ;
-	else if (typeof aux.oc !== "undefined")
-	     elto.oc.value = aux.oc ;
-	else elto.oc.value = '' ; // begin {...}
-
-        // elto.oc.asm_start/stop_bit
-	if ( (typeof aux.fields_all         != "undefined") &&
-	     (typeof aux.fields_all[0]      != "undefined") &&
-	     (typeof aux.fields_all[0].type != "undefined") &&
-	     (aux.fields_all[0].type == "oc") )
-	{
-	    for (let m=0; m<aux.fields_all[0].bits_start.length; m++)
-	    {
-		 elto.oc.asm_start_bit[m] = parseInt(aux.fields_all[0].bits_start) ;
-                 elto.oc.asm_stop_bit [m] = parseInt(aux.fields_all[0].bits_stop) ;
-	    }
-
-            // translate bit to index...
-            elto.oc.asm_n_bits = wsasm_order2index_startstop(elto.oc.asm_start_bit, elto.oc.asm_stop_bit) ;
-	}
+        }
 	else
-	{
-	    elto.oc.asm_start_bit[0] = 0 ;
-	    elto.oc.asm_stop_bit [0] = elto.oc.value.length - 1 ;
-	}
+        if (typeof aux.oc !== "undefined") {
+	     elto.oc.value = aux.oc ;
+        }
+
+        // IF empty 'oc' -> return default elto...
+        if (0 == elto.oc.value.length) {
+            return elto ;
+        }
+
+        // copy start/stop from ir.default_eltos by default
+        var xr_info = simhw_sim_ctrlStates_get() ;
+	elto.oc.asm_start_bit[0] = parseInt(xr_info.ir.default_eltos.oc.begin) ;
+	elto.oc.asm_stop_bit [0] = parseInt(xr_info.ir.default_eltos.oc.end) ;
+
+        // IF firmware v1 -> return elto...
+	if (typeof aux.fields_all == "undefined") {
+            return elto ;
+        }
+
+        // IF firmware v2 with start/stop bit -> copy + return elto
+        for (let k=0; k<aux.fields_all.length; k++)
+        {
+	     if (typeof aux.fields_all[k].type == "undefined") {
+                 continue ;
+             }
+	     if (aux.fields_all[k].type != "oc") {
+                 continue ;
+             }
+
+             // copy start/stop bits...
+	     for (let m=0; m<aux.fields_all[k].bits_start.length; m++) {
+	    	  elto.oc.asm_start_bit[m] = parseInt(aux.fields_all[k].bits_start[m]) ;
+                  elto.oc.asm_stop_bit [m] = parseInt(aux.fields_all[k].bits_stop[m]) ;
+	     }
+
+             // translate bit to index...
+             elto.oc.asm_n_bits = wsasm_order2index_startstop(elto.oc.asm_start_bit, elto.oc.asm_stop_bit) ;
+        }
 
         return elto ;
 }
 
 function wsasm_prepare_eoc ( elto, aux )
 {
-	elto.eoc = { value:'', asm_start_bit:[], asm_stop_bit:[] } ;
+	elto.eoc = {
+                      value:         '',    // "begin {...}" has no 'cop/eoc' field
+                      asm_start_bit: [ 0 ], // initial value to 0:0 to skip this field by default
+                      asm_stop_bit:  [ 0 ]
+                   } ;
 
-        // elto.oc.value
-	if (typeof aux.cop !== "undefined")
+        // elto.eoc.value
+	if (typeof aux.cop !== "undefined") {
 	     elto.eoc.value = aux.cop ;
-	else if (typeof aux.eoc !== "undefined")
+        }
+	else if (typeof aux.eoc !== "undefined") {
 	     elto.eoc.value = aux.eoc ;
-	else elto.eoc.value = '' ; // begin {...}
+        }
 
-        // elto.oc.asm_start/stop_bit
-	if ( (typeof aux.fields_all         != "undefined") &&
-	     (typeof aux.fields_all[1]      != "undefined") &&
-	     (typeof aux.fields_all[1].type != "undefined") &&
-	     (aux.fields_all[1].type == "eoc") )
-	{
-	    for (let m=0; m<aux.fields_all[1].bits_start.length; m++)
-	    {
-		 elto.eoc.asm_start_bit[m] = parseInt(aux.fields_all[1].bits_start) ;
-                 elto.eoc.asm_stop_bit [m] = parseInt(aux.fields_all[1].bits_stop) ;
-	    }
+        // copy start/stop from ir.default_eltos by default
+        var xr_info = simhw_sim_ctrlStates_get() ;
+/*
+	elto.eoc.asm_start_bit[0] = parseInt(xr_info.ir.default_eltos.eoc.begin) ;
+	elto.eoc.asm_stop_bit [0] = parseInt(xr_info.ir.default_eltos.eoc.end) ;
+*/
+	elto.eoc.asm_start_bit[0] = elto.nwords*WORD_BYTES*BYTE_LENGTH - elto.eoc.value.length ;
+	elto.eoc.asm_stop_bit [0] = elto.nwords*WORD_BYTES*BYTE_LENGTH - 1 ;
 
-            // translate bit to index...
-            elto.eoc.asm_n_bits = wsasm_order2index_startstop(elto.eoc.asm_start_bit, elto.eoc.asm_stop_bit) ;
-	}
-	else
-	{
-	    elto.eoc.asm_start_bit[0] = elto.nwords*WORD_BYTES*BYTE_LENGTH - elto.eoc.value.length ;
-	    elto.eoc.asm_stop_bit [0] = elto.nwords*WORD_BYTES*BYTE_LENGTH - 1 ;
-	}
+        // IF firmware v1 -> return elto...
+	if (typeof aux.fields_all == "undefined") {
+            return elto ;
+        }
+
+        // IF firmware v2 with start/stop bit -> copy + return elto
+        for (let k=0; k<aux.fields_all.length; k++)
+        {
+	     if (typeof aux.fields_all[k].type == "undefined") {
+                 continue ;
+             }
+	     if (aux.fields_all[k].type != "eoc") {
+                 continue ;
+             }
+
+             // copy start/stop bits...
+	     for (let m=0; m<aux.fields_all[k].bits_start.length; m++) {
+	    	  elto.eoc.asm_start_bit[m] = parseInt(aux.fields_all[k].bits_start[m]) ;
+                  elto.eoc.asm_stop_bit [m] = parseInt(aux.fields_all[k].bits_stop[m]) ;
+	     }
+
+             // translate bit to index...
+             elto.eoc.asm_n_bits = wsasm_order2index_startstop(elto.eoc.asm_start_bit, elto.eoc.asm_stop_bit) ;
+        }
 
         return elto ;
 }

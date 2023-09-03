@@ -171,7 +171,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 
 // li reg val {
 //             *co=000000,
-//             [cop=0000,]
+//             [cop=00000,]
 //             nwords=1,
 //             reg=reg(25,21),
 //             val=inm(15,0),
