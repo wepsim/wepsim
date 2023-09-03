@@ -164,7 +164,7 @@ function firm_instruction_cop_read ( context, instruccionAux )
 // li reg val {
 //             co=000000,
 //             ...
-//             *[cop=0000,]*
+//             *[cop=00000,]*
 //             nwords=1,
 //             ...
 // }
@@ -343,7 +343,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 
 // li reg val {
 //             co=000000,
-//             *[cop=0000,]*
+//             *[cop=00000,]*
 //             [nwords=1,]
 //             reg=reg(25,21),
 //             val=inm(15,0),
@@ -477,7 +477,7 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 
 // li reg val {
 //             *co=000000,
-//             [cop=0000,]
+//             [cop=00000,]
 //             [nwords=1,]
 //             reg=reg(25,21),
 //             val=inm(15,0),

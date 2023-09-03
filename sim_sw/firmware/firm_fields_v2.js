@@ -150,7 +150,7 @@ function firm_instruction_keystring_read ( context, instruccionAux )
 function firm_instruction_field_read_v2 ( context, instruccionAux )
 {
         var tmp_fields = {} ;
-	var field_list = ["oc", "eoc", "reg", "imm", "address-rel", "address-abs"] ;
+	var field_list = ["oc", "eoc", "reg", "imm", "inm", "address-rel", "address-abs"] ;
 	var complex_field_list = ["eoc", "address-rel", "address-abs"] ;
 
         // ...
@@ -534,6 +534,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		   instruccionAux.signatureUser = firmaUsuario;
 		   firmaGlobal = firma.replace("address","num");
 		   firmaGlobal = firmaGlobal.replace("imm" , "num");
+		   firmaGlobal = firmaGlobal.replace("inm" , "num"); // TODO: temporal fix
 		   instruccionAux.signatureGlobal = firmaGlobal;
 
 		   camposInsertados++;
