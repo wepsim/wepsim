@@ -67,7 +67,7 @@ reti {
 
 and reg1 reg2 reg3 {
          co=000000,
-         cop=0000,
+         cop=00000,
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
@@ -93,7 +93,7 @@ andi reg1 reg2 val {
 
 or reg1 reg2 reg3 {
          co=000000,
-         cop=0001,
+         cop=00001,
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
@@ -119,7 +119,7 @@ ori reg1 reg2 val {
 
 not reg {
          co=000000,
-         cop=0010,
+         cop=00010,
          nwords=1,
          reg=reg(25,21),
          help='r1 = ~r1',
@@ -130,7 +130,7 @@ not reg {
 
 xor reg1 reg2 reg3 {
          co=000000,
-         cop=0011,
+         cop=00011,
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
@@ -156,7 +156,7 @@ xori reg1 reg2 val {
 
 add reg1 reg2 reg3 {
          co=000000,
-         cop=1001,
+         cop=01001,
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
@@ -182,7 +182,7 @@ addi reg1 reg2 val {
 
 sub reg1 reg2 reg3 {
          co=000000,
-         cop=1010,
+         cop=01010,
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
@@ -208,7 +208,7 @@ sub reg1 reg2 val {
 
 mul reg1 reg2 reg3 {
          co=000000,
-         cop=1011,
+         cop=01011,
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
@@ -234,7 +234,7 @@ mul reg1 reg2 val {
 
 div reg1 reg2 reg3 {
          co=000000,
-         cop=1100,
+         cop=01100,
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
@@ -247,7 +247,7 @@ div reg1 reg2 reg3 {
 
 rem reg1 reg2 reg3 {
          co=000000,
-         cop=1110,
+         cop=01110,
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
