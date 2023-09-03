@@ -133,6 +133,9 @@
 
     function getURLTimeStamp ( )
     {
+                return Date.now() ;
+
+/*
 		var dateObj = new Date();
 		var year    = dateObj.getUTCFullYear();
 		var month   = dateObj.getUTCMonth() + 1;
@@ -141,6 +144,7 @@
 		var minutes = dateObj.getUTCMinutes();
 
 		return year + month + day + hour + minutes ;
+*/
     }
 
     function fetchURL ( f_url )
