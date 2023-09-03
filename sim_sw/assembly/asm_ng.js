@@ -227,12 +227,14 @@ function wsasm_prepare_eoc ( elto, aux )
 
         // copy start/stop from ir.default_eltos by default
         var xr_info = simhw_sim_ctrlStates_get() ;
-/*
 	elto.eoc.asm_start_bit[0] = parseInt(xr_info.ir.default_eltos.eoc.begin) ;
 	elto.eoc.asm_stop_bit [0] = parseInt(xr_info.ir.default_eltos.eoc.end) ;
-*/
-	elto.eoc.asm_start_bit[0] = elto.nwords*WORD_BYTES*BYTE_LENGTH - elto.eoc.value.length ;
-	elto.eoc.asm_stop_bit [0] = elto.nwords*WORD_BYTES*BYTE_LENGTH - 1 ;
+
+        // IF empty 'eoc' -> return elto...
+        if (0 == elto.eoc.value.length) {
+	    elto.eoc.asm_start_bit[0] = elto.eoc.asm_stop_bit[0] + 1 ; // in order to skip empty eoc
+            return elto ;
+        }
 
         // IF firmware v1 -> return elto...
 	if (typeof aux.fields_all == "undefined") {
@@ -822,10 +824,13 @@ function wsasm_src2obj_data ( context, ret )
 
 function wsasm_encode_field ( arr_encoded, value, start_bit, stop_bit )
 {
+           var val_i = 0 ;
            for (let m=0; m<=start_bit.length; m++)
            {
-                for (let k=start_bit[m]; k<=stop_bit[m]; k++) {
-                     arr_encoded[k] = value[k - start_bit[m]] ;
+                for (let k=start_bit[m]; k<=stop_bit[m]; k++)
+                {
+                     arr_encoded[k] = value[val_i] ;
+                     val_i++ ;
                 }
            }
 }
