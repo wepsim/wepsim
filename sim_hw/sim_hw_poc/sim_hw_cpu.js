@@ -163,7 +163,7 @@
 		                     default_eltos: {
 					    		"co":	{ "begin":  0, "end":  5, "length": 6 },
 							"cop":	{ "begin": 27, "end": 31, "length": 5 },
-							"oc":	{ "begin":  0, "end":  6, "length": 7 },
+					    		"oc":	{ "begin":  0, "end":  5, "length": 6 },
 							"eoc":	{ "begin": 27, "end": 31, "length": 5 },
 						    },
 		                     is_pointer: false

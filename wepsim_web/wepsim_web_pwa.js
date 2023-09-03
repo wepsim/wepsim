@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v230a_static';
+var cacheName = 'v230c_static';
 
 
 /*
