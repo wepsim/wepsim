@@ -491,19 +491,33 @@
 		    '<b>' + ins_bin + '</b>\n' +
 		    '</div>' ;
 
-	   // details: co, cop & fields
-	   var u = '' ;
-	   if (typeof    firm_reference.cop !== 'undefined') {
-	       u = '+' + firm_reference.cop ;
+	   // details: co+cop & fields
+	   var u_oc_eoc = '' ;
+	   if (typeof firm_reference.op !== 'undefined') {
+	       u_oc_eoc += firm_reference.op ;
+	   }
+	   else if (typeof firm_reference.oc !== 'undefined')
+	   { // firmware v2
+	       u_oc_eoc += firm_reference.oc.value ;
+	   }
+	   if (typeof firm_reference.cop !== 'undefined') {
+	       u_oc_eoc += '+' + firm_reference.cop ;
+	   }
+	   else if (typeof firm_reference.eoc !== 'undefined')
+	   { // firmware v2
+	       if (firm_reference.eoc.value !== '')
+	       u_oc_eoc += '+' + firm_reference.eoc.value ;
 	   }
 
 	   o +=	'<div class=\"text-start px-2 my-1\">\n' +
 	       	'<span class=\"square\">Format:</span>\n' +
 	        '<ul class=\"mb-0\">\n' +
-		' <li>' + firm_reference.name + ': <b>' + firm_reference.co + u + '</b></li>\n' ;
+	        ' <li>' + firm_reference.name + ': <b>' + u_oc_eoc + '</b></li>\n' ;
+
 	   var fields = firm_reference.fields ;
 	   for (var f=0; f<fields.length; f++) {
-	        o += ' <li>' + fields[f].name + ': bits <b>' + fields[f].stopbit + '</b> to <b>' + fields[f].startbit + '</b></li>\n' ;
+	        o += ' <li>' + fields[f].name + 
+                     ': bits <b>' + fields[f].stopbit + '</b> to <b>' + fields[f].startbit + '</b></li>\n' ;
 	   }
 	   o += '</ul>\n' ;
 
