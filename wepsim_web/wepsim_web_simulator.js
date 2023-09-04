@@ -70,7 +70,7 @@
             // update current skin
 	    var cur_skin_user = get_cfg('ws_skin_user').split(":") ;
 
-            let index = cur_skin_user.indexOf(view) ;
+            var index = cur_skin_user.indexOf(view) ;
             if (index > -1) {
                 cur_skin_user.splice(index, 1) ;
             }

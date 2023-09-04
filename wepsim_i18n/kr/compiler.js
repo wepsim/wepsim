@@ -107,8 +107,6 @@
 		'BUT INSERTED':			'하지만 삽입',
 		'INSTEAD':			'대신',
 
-           	"ADDRESS-ABS MUST BE 20 BITS":		"주소-abs는 20비트여야 합니다.",
-           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
            	"BAD EOC BIN. LEN.":			"eoc 필드의 비트 수가 잘못되었습니다.",
            	"BIT OoR":				"bit OoR",
            	"COLON NOT FOUND":			": 찾을 수 없음",

@@ -107,8 +107,6 @@
            "BUT INSERTED":           "pero insertado ",
            "INSTEAD":                "en su lugar",
 
-           "ADDRESS-ABS MUST BE 20 BITS":		"Address-abs debe ser de 20 bits",
-           "ADDRESS-REL MUST BE 12 OR 20 BITS":		"Address-rel must be 12 or 20 bits",
            "BAD EOC BIN. LEN.":				"número incorrecto de bits para el campo eoc",
            "BIT OoR":					"bit OoR",
            "COLON NOT FOUND":				"falta ':'",

@@ -493,20 +493,27 @@
 
 	   // details: co+cop & fields
 	   var u_oc_eoc = '' ;
-	   if (typeof firm_reference.op !== 'undefined') {
-	       u_oc_eoc += firm_reference.op ;
+	   if (typeof firm_reference.co !== 'undefined')
+	   { // firmware v1
+	       u_oc_eoc += firm_reference.co ;
 	   }
 	   else if (typeof firm_reference.oc !== 'undefined')
 	   { // firmware v2
 	       u_oc_eoc += firm_reference.oc.value ;
 	   }
-	   if (typeof firm_reference.cop !== 'undefined') {
-	       u_oc_eoc += '+' + firm_reference.cop ;
+	   else if (typeof firm_reference.op !== 'undefined') {
+	       u_oc_eoc += firm_reference.op ;
+	   }
+
+	   if (typeof firm_reference.cop !== 'undefined')
+	   { // firmware v1
+	       if (firm_reference.cop !== '')
+	           u_oc_eoc += '+' + firm_reference.cop ;
 	   }
 	   else if (typeof firm_reference.eoc !== 'undefined')
 	   { // firmware v2
 	       if (firm_reference.eoc.value !== '')
-	       u_oc_eoc += '+' + firm_reference.eoc.value ;
+	           u_oc_eoc += '+' + firm_reference.eoc.value ;
 	   }
 
 	   o +=	'<div class=\"text-start px-2 my-1\">\n' +
@@ -515,10 +522,24 @@
 	        ' <li>' + firm_reference.name + ': <b>' + u_oc_eoc + '</b></li>\n' ;
 
 	   var fields = firm_reference.fields ;
-	   for (var f=0; f<fields.length; f++) {
-	        o += ' <li>' + fields[f].name + 
-                     ': bits <b>' + fields[f].stopbit + '</b> to <b>' + fields[f].startbit + '</b></li>\n' ;
-	   }
+	   if (typeof firm_reference.eoc !== 'undefined')
+	   { // firmware v2
+	       for (var f=0; f<fields.length; f++)
+               {
+	            o += ' <li>' + fields[f].name                     + ': bits <b>' +
+                                   fields[f].asm_stop_bit.toString()  + '</b> to <b>' +
+                                   fields[f].asm_start_bit.toString() + '</b></li>\n' ;
+	       }
+           }
+           else
+	   { // firmware v1
+	       for (var f=0; f<fields.length; f++)
+               {
+	            o += ' <li>' + fields[f].name     + ': bits <b>' +
+                                   fields[f].stopbit  + '</b> to <b>' +
+                                   fields[f].startbit + '</b></li>\n' ;
+	       }
+           }
 	   o += '</ul>\n' ;
 
 	   // details: microcode

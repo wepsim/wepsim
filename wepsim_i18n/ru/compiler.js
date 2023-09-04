@@ -107,8 +107,6 @@
 		'BUT INSERTED':			'но вставлено',
 		'INSTEAD':			'вместо',
 
-           	"ADDRESS-ABS MUST BE 20 BITS":		"Адрес-abs должен быть 20 бит.",
-           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
            	"BAD EOC BIN. LEN.":			"неправильное количество бит в поле eoc",
            	"BIT OoR":				"Bit OoR",
            	"COLON NOT FOUND":			": не найдено",

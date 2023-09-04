@@ -107,8 +107,6 @@
 		'BUT INSERTED':			'しかし挿入',
 		'INSTEAD':			'その代わり',
 
-           	"ADDRESS-ABS MUST BE 20 BITS":		"Address-abs は 20 ビットである必要があります",
-           	"ADDRESS-REL MUST BE 12 OR 20 BITS":	"Address-rel must be 12 or 20 bits",
            	"BAD EOC BIN. LEN.":			"eoc フィールドのビット数が正しくありません",
            	"BIT OoR":				"Bit OoR",
            	"COLON NOT FOUND":			"： 見つかりません",
