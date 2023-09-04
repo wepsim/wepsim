@@ -22,9 +22,10 @@
 /* jshint esversion: 9 */
 
 //
-// Management of JSON object (see README_ng.md for more information)
+// General auxiliar functions
 //
 
+// Management of JSON object (see README_ng.md for more information)
 function wsasm_new_objElto ( base_elto )
 {
         var elto = {
@@ -104,6 +105,46 @@ function wsasm_eltoError ( context, elto, msg )
          return asm_langError(context, msg) ;
 }
 
+function wsasm_is_ValidTag ( tag )
+{
+        var tg = tag.trim() ;
+        if ("" == tg) {
+            return false;
+        }
+
+        var ret = isDecimal(tg[0]) ;
+        if (ret.isDecimal == true) {
+            return false;
+        }
+
+        var myRegEx = /[^a-z,_\d]/i ;
+        return !(myRegEx.test(tag)) ;
+}
+
+function wsasm_order2index_startstop ( start_bit, stop_bit )
+{
+     // Translate from startbit/stop_bit to asm_start_bit/asm_stop_bit:
+     //
+     // .../63/31(MSB) ..................... 0(LSB)
+     //                      ^         ^
+     //                 start_bit  stop_bit
+
+     var lower_bit = 0 ;
+     var w_index   = 0 ;
+     var n_bits    = 0 ;
+     var w_n_bits  = WORD_LENGTH ;
+     for (let m=0; m<start_bit.length; m++)
+     {
+          lower_bit    = Math.min(start_bit[m], stop_bit[m]) ;
+          w_index      = ~~(lower_bit / w_n_bits) ;
+          start_bit[m] = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit[m] ; // w_index*64+32-1 - start_bit 
+          stop_bit[m]  = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit[m] ;  // w_index*64+32-1 - stop_bit 
+	  n_bits       = n_bits + Math.abs(stop_bit[m] - start_bit[m]) + 1 ;
+     }
+
+     return n_bits ;
+}
+
 
 //
 //  (1/3) Prepare context for compiling and loading   (see README_ng.md for more information)
@@ -113,12 +154,122 @@ function wsasm_eltoError ( context, elto, msg )
 //   * wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 //
 
+function wsasm_prepare_oc ( elto, aux )
+{
+	elto.oc = {
+                     value:         '',    // "begin {...}" has no 'co/oc' field
+                     asm_start_bit: [ 0 ], // initial value to 0:0 to skip this field by default
+                     asm_stop_bit:  [ 0 ]
+                  } ;
+
+        // set elto.oc.value
+	if (typeof aux.co !== "undefined") {
+	     elto.oc.value = aux.co ;
+        }
+	else
+        if (typeof aux.oc !== "undefined") {
+	     elto.oc.value = aux.oc ;
+        }
+
+        // IF empty 'oc' -> return default elto...
+        if (0 == elto.oc.value.length) {
+            return elto ;
+        }
+
+        // copy start/stop from ir.default_eltos by default
+        var xr_info = simhw_sim_ctrlStates_get() ;
+	elto.oc.asm_start_bit[0] = parseInt(xr_info.ir.default_eltos.oc.begin) ;
+	elto.oc.asm_stop_bit [0] = parseInt(xr_info.ir.default_eltos.oc.end) ;
+
+        // IF firmware v1 -> return elto...
+	if (typeof aux.fields_all == "undefined") {
+            return elto ;
+        }
+
+        // IF firmware v2 with start/stop bit -> copy + return elto
+        for (let k=0; k<aux.fields_all.length; k++)
+        {
+	     if (typeof aux.fields_all[k].type == "undefined") {
+                 continue ;
+             }
+	     if (aux.fields_all[k].type != "oc") {
+                 continue ;
+             }
+
+             // copy start/stop bits...
+	     for (let m=0; m<aux.fields_all[k].bits_start.length; m++) {
+	    	  elto.oc.asm_start_bit[m] = parseInt(aux.fields_all[k].bits_start[m]) ;
+                  elto.oc.asm_stop_bit [m] = parseInt(aux.fields_all[k].bits_stop[m]) ;
+	     }
+
+             // translate bit to index...
+             elto.oc.asm_n_bits = wsasm_order2index_startstop(elto.oc.asm_start_bit, elto.oc.asm_stop_bit) ;
+        }
+
+        return elto ;
+}
+
+function wsasm_prepare_eoc ( elto, aux )
+{
+	elto.eoc = {
+                      value:         '',    // "begin {...}" has no 'cop/eoc' field
+                      asm_start_bit: [ 0 ], // initial value to 0:0 to skip this field by default
+                      asm_stop_bit:  [ 0 ]
+                   } ;
+
+        // elto.eoc.value
+	if (typeof aux.cop !== "undefined") {
+	     elto.eoc.value = aux.cop ;
+        }
+	else if (typeof aux.eoc !== "undefined") {
+	     elto.eoc.value = aux.eoc ;
+        }
+
+        // copy start/stop from ir.default_eltos by default
+        var xr_info = simhw_sim_ctrlStates_get() ;
+	elto.eoc.asm_start_bit[0] = parseInt(xr_info.ir.default_eltos.eoc.begin) ;
+	elto.eoc.asm_stop_bit [0] = parseInt(xr_info.ir.default_eltos.eoc.end) ;
+
+        // IF empty 'eoc' -> return elto...
+        if (0 == elto.eoc.value.length) {
+	    elto.eoc.asm_start_bit[0] = elto.eoc.asm_stop_bit[0] + 1 ; // in order to skip empty eoc
+            return elto ;
+        }
+
+        // IF firmware v1 -> return elto...
+	if (typeof aux.fields_all == "undefined") {
+            return elto ;
+        }
+
+        // IF firmware v2 with start/stop bit -> copy + return elto
+        for (let k=0; k<aux.fields_all.length; k++)
+        {
+	     if (typeof aux.fields_all[k].type == "undefined") {
+                 continue ;
+             }
+	     if (aux.fields_all[k].type != "eoc") {
+                 continue ;
+             }
+
+             // copy start/stop bits...
+	     for (let m=0; m<aux.fields_all[k].bits_start.length; m++) {
+	    	  elto.eoc.asm_start_bit[m] = parseInt(aux.fields_all[k].bits_start[m]) ;
+                  elto.eoc.asm_stop_bit [m] = parseInt(aux.fields_all[k].bits_stop[m]) ;
+	     }
+
+             // translate bit to index...
+             elto.eoc.asm_n_bits = wsasm_order2index_startstop(elto.eoc.asm_start_bit, elto.eoc.asm_stop_bit) ;
+        }
+
+        return elto ;
+}
+
 function wsasm_prepare_context_firmware ( context, CU_data )
 {
            let elto = null ;
 	   let aux  = null ;
-           let start_bit = 0 ;
-           let stop_bit  = 0 ;
+           let start_bit = [] ;
+           let stop_bit  = [] ;
            let lower_bit = 0 ;
            let w_n_bits  = 0 ;
            let w_index   = 0 ;
@@ -139,46 +290,55 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                 elto.name                = aux.name ;
 		elto.isPseudoinstruction = false ;
 		elto.nwords              = parseInt(aux.nwords) ;
-		elto.oc                  = '' ;
-		elto.eoc                 = '' ;
-		elto.fields              = [] ;
+		elto.oc                  = {} ;  // computed later
+		elto.eoc                 = {} ;  // computed later
+		elto.fields              = [] ;  // computed later
 		elto.signature           = aux.signature ;
 		elto.signature_type_str  = aux.name ;
 		elto.signature_type_arr  = '' ;  // computed later
 		elto.signature_size_str  = '' ;  // computed later
 		elto.signature_size_arr  = [] ;  // computed later
 
+		if (typeof aux.signatureUser !== "undefined") {
+                    elto.signature_type_str = aux.signatureUser ;
+                }
+
                 // tooltip with details...
 		elto["mc-start"] = aux["mc-start"] ;
 		elto.microcode   = aux.microcode ;
 		elto.help        = aux.help ;
 
-		if (typeof aux.co     !== "undefined")         elto.oc     = aux.co ;
-		if (typeof aux.cop    !== "undefined")         elto.eoc    = aux.cop ;
-		if (typeof aux.fields !== "undefined")         elto.fields = aux.fields ;
-		if (typeof aux.signatureUser !== "undefined")  elto.signature_type_str = aux.signatureUser ;
+                // fields: oc + eoc
+                wsasm_prepare_oc(elto, aux) ;
+                wsasm_prepare_eoc(elto, aux) ;
 
-                // elto: asm_start_bit/asm_stop_bit fields...
-		elto.signature_size_arr.push(elto.oc.length) ;
+                // fields...
+		if (typeof aux.fields !== "undefined") {
+                    elto.fields = aux.fields ;
+                }
+
+		elto.signature_size_arr.push(elto.oc.value.length) ;
                 for (let j=0; j<elto.fields.length; j++)
                 {
-                     // TODO: add support for firmware v2 ("elto.fields[j].startbit/stopbit" probably is an array)
-
                      // initial values...
-                     start_bit  = parseInt(elto.fields[j].startbit) ;
-                     stop_bit   = parseInt(elto.fields[j].stopbit) ;
+                     start_bit = [] ;
+                     stop_bit  = [] ;
+                     if (1 == CU_data.version)
+                     {
+                         start_bit[0] = parseInt(elto.fields[j].startbit) ;
+                         stop_bit[0]  = parseInt(elto.fields[j].stopbit) ;
+                     }
+                     else // (2 == CU_data.version)
+                     {
+                         for (let m=0; m<elto.fields[j].bits_start.length; m++)
+                         {
+                              start_bit[m] = parseInt(elto.fields[j].bits_start[m]) ;
+                              stop_bit[m]  = parseInt(elto.fields[j].bits_stop[m]) ;
+                         }
+                     }
 
                      // translate from startbit/stop_bit to asm_start_bit/asm_stop_bit...
-                     lower_bit = Math.min(start_bit, stop_bit) ;
-                     w_n_bits  = WORD_LENGTH ;
-                     w_index   = ~~(lower_bit / w_n_bits) ;
-                     start_bit = w_index * 2 * w_n_bits + w_n_bits - 1 - start_bit ; // w_index*64+32-1 - start_bit 
-                     stop_bit  = w_index * 2 * w_n_bits + w_n_bits - 1 - stop_bit ;  // w_index*64+32-1 - stop_bit 
-                     n_bits    = Math.abs(stop_bit - start_bit) + 1 ;
-
-                        // .../63/31(MSB) ..................... 0(LSB)
-                        //                      ^         ^
-                        //                 start_bit  stop_bit
+                     n_bits = wsasm_order2index_startstop(start_bit, stop_bit) ;
 
                      // copy back the computed values
                      elto.fields[j].asm_start_bit = start_bit ;
@@ -189,6 +349,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                 }
 
                 // elto: derived fields...
+elto.signature_type_str = elto.signature_type_str.replaceAll('inm', 'imm') ;        // TODO: temporal fix
 		elto.signature_size_str = elto.signature_size_arr.join(' ') ;
 		elto.signature_type_arr = elto.signature_type_str.split(' ') ;
                 elto.signature_user     = wsasm_make_signature_user(elto, '') ;
@@ -235,10 +396,11 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
                 if (typeof initial.fields !== "undefined")  elto.fields = initial.fields ;
 
                 // elto: derived fields...
-	        elto.signature_type_arr  = elto.signature_type_str.split(' ') ;
-		elto.signature_size_arr  = Array(elto.signature_type_arr.length).fill(WORD_BYTES*BYTE_LENGTH);
-		elto.signature_size_str  = elto.signature_size_arr.join(' ') ;
-                elto.signature_user      = wsasm_make_signature_user(elto, '') ;
+elto.signature_type_str = elto.signature_type_str.replaceAll('inm', 'imm') ;        // TODO: temporal fix
+	        elto.signature_type_arr = elto.signature_type_str.split(' ') ;
+		elto.signature_size_arr = Array(elto.signature_type_arr.length).fill(WORD_BYTES*BYTE_LENGTH);
+		elto.signature_size_str = elto.signature_size_arr.join(' ') ;
+                elto.signature_user     = wsasm_make_signature_user(elto, '') ;
 
                 // add elto to firmware
                 context.firmware[initial.name].push(elto) ;
@@ -268,23 +430,6 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 //      * wsasm_compute_labels  ( context, ret, start_at_obj_i )
 //      * wsasm_get_label_value ( context, ret, elto, label )
 //
-
-function wsasm_is_ValidTag ( tag )
-{
-        var tg = tag.trim() ;
-        if ("" == tg) {
-            return false;
-        }
-
-        var ret = isDecimal(tg[0]) ;
-        if (ret.isDecimal == true) {
-            return false;
-        }
-
-        var myRegEx = /[^a-z,_\d]/i ;
-        return !(myRegEx.test(tag)) ;
-}
-
 
 function wsasm_src2obj_data ( context, ret )
 {
@@ -338,7 +483,7 @@ function wsasm_src2obj_data ( context, ret )
                           if ("" == possible_tag) {
                               possible_tag = "[empty]" ;
                           }
- 
+
 			  return asm_langError(context,
 			                       i18n_get_TagFor('compiler', 'NO TAG OR DIRECTIVE') +
                                                "'" + possible_tag + "'") ;
@@ -432,8 +577,8 @@ function wsasm_src2obj_data ( context, ret )
                                                          type:         "field-data",
 						         label:        possible_value,
 						         addr:         elto.seg_ptr,
-						         start_bit:    0,
-						         stop_bit:     WORD_BYTES*BYTE_LENGTH-1,
+						         start_bit:    [ 0 ],
+						         stop_bit:     [ WORD_BYTES*BYTE_LENGTH-1 ],
 						         n_bits:       WORD_BYTES*BYTE_LENGTH,
 						         rel:          false,
 						         labelContext: asm_getLabelContext(context),
@@ -679,8 +824,14 @@ function wsasm_src2obj_data ( context, ret )
 
 function wsasm_encode_field ( arr_encoded, value, start_bit, stop_bit )
 {
-           for (let k=start_bit; k<=stop_bit; k++) {
-                arr_encoded[k] = value[k-start_bit] ;
+           var val_i = 0 ;
+           for (let m=0; m<=start_bit.length; m++)
+           {
+                for (let k=start_bit[m]; k<=stop_bit[m]; k++)
+                {
+                     arr_encoded[k] = value[val_i] ;
+                     val_i++ ;
+                }
            }
 }
 
@@ -701,13 +852,15 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
            arr_encoded = val_encoded.split('');
 
            // (1) Instruction, copy 'co' and 'cop' field...
-           wsasm_encode_field(arr_encoded, candidate.oc,  0, candidate.oc.length-1) ;
-           wsasm_encode_field(arr_encoded, candidate.eoc, bit_size-candidate.eoc.length, bit_size-1) ;
+           wsasm_encode_field(arr_encoded,
+                              candidate.oc.value,  candidate.oc.asm_start_bit,  candidate.oc.asm_stop_bit) ;
+           wsasm_encode_field(arr_encoded,
+                              candidate.eoc.value, candidate.eoc.asm_start_bit, candidate.eoc.asm_stop_bit) ;
 
            // (2) Fields, copy values...
            //     Example:
-           //     * elto.value.signature_type_arr = [ 'li', *'reg', 'inm'* ]
-           //     * candidate.fields = [ {name: 'r1', type: 'reg', asm_start_bit: 0, asm_stop_bit: 5}, {...} ]
+           //     * elto.value.signature_type_arr = [ 'li', *'reg', 'imm'* ]
+           //     * candidate.fields = [ {name: 'r1', type: 'reg', asm_start_bit: [0], asm_stop_bit: [5]}, {...} ]
            for (let j=0; j<candidate.fields.length; j++)
            {
                 // start/stop bit...
@@ -716,7 +869,7 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                 n_bits    = candidate.fields[j].asm_n_bits ;
 
                 // value to be encode...
-                if ( ["inm", "(inm)", "address", "(address)"].includes(elto.value.signature_type_arr[j+1]) )
+                if ( ["imm", "(imm)", "address", "(address)"].includes(elto.value.signature_type_arr[j+1]) )
                 {
                          value = elto.value.fields[j] ;
                          if ('(' == value[0]) {
@@ -796,11 +949,11 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
 function wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
 {
            // get candidate signature_type and signature_size...
-           var candidate_type_as_string = elto_firm_reference_i.signature_type_str.replaceAll('address', 'inm') ;
+           var candidate_type_as_string = elto_firm_reference_i.signature_type_str.replaceAll('address', 'imm') ;
            var candidate_size_as_intarr = elto_firm_reference_i.signature_size_arr ;
 
            // get elto signature_type and signature_size...
-           var signature_type_as_string = elto_value.signature_type_arr.join(' ').replaceAll('address', 'inm') ;
+           var signature_type_as_string = elto_value.signature_type_arr.join(' ').replaceAll('address', 'imm') ;
            var signature_size_as_intarr = elto_value.signature_size_arr ;
 
            // if candidate has not the same types as expected then return is NOT candidate
@@ -916,11 +1069,11 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 
 		   if (parentheses) {
 		       elto.value.fields.push('(' + atom + ')') ;
-		       elto.value.signature_type_arr.push('(inm)') ;
+		       elto.value.signature_type_arr.push('(imm)') ;
 		   }
 		   else {
 	               elto.value.fields.push(atom) ;
-	               elto.value.signature_type_arr.push('inm') ;
+	               elto.value.signature_type_arr.push('imm') ;
 		   }
 	           elto.value.signature_size_arr.push(a[2]) ; // a[2]: minimum number of bits to represent a[0]...
 
@@ -1670,9 +1823,7 @@ function wsasm_resolve_labels ( context, ret )
                   // update elto.binary
                   value = value.padStart(elto.pending[j].n_bits, '0') ;
                   arr_encoded = elto.binary.split('') ;
-		  for (var k=elto.pending[j].start_bit; k<=elto.pending[j].stop_bit; k++) {
-		       arr_encoded[k] = value[k-elto.pending[j].start_bit] ;
-		  }
+                  wsasm_encode_field(arr_encoded, value, elto.pending[j].start_bit, elto.pending[j].stop_bit) ;
                   elto.binary = arr_encoded.join('') ;
 
                   // data-field -> update elto.value (is not an object as inst-field)
@@ -1834,6 +1985,7 @@ function wsasm_prepare_context ( CU_data, asm_source )
 	   context.firmware             = {} ;         // here
 	   context.pseudoInstructions	= [];          // here
 	   context.stackRegister	= null ;
+	   context.version	        = CU_data.version ;
 
 	   // Check arguments
            if (typeof CU_data == "undefined") {
@@ -2048,8 +2200,10 @@ function wsasm_obj2mem  ( ret )
 
 function wsasm_src2mem ( datosCU, text )
 {
-     var ret     = { error: 'ERROR: unknown error found :-(' } ;
      var context = null ;
+     var ret = {
+                  error: i18n_get_TagFor('compiler', 'UNKNOWN 2')
+               } ;
 
      try
      {
