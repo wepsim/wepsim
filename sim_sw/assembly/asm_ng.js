@@ -105,6 +105,35 @@ function wsasm_eltoError ( context, elto, msg )
          return asm_langError(context, msg) ;
 }
 
+function wsasm_get_similar_candidates ( context, elto )
+{
+         var msg = elto.source ;
+         if (typeof elto.associated_pseudo !== "undefined") {
+	     msg = elto.source + ' (part of pseudoinstruction "' + elto.associated_pseudo.source + '")' ;
+         }
+
+         msg = i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + "<br>"  +
+	       i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
+	       "'" + msg + "': <br>" +
+	       "<span class='m-2'>\u2718</span> " +
+	       elto.value.signature_user + "<br>" ;
+
+         msg += i18n_get_TagFor('compiler', 'NOT MATCH FORMAT') + ":<br>" ;
+         for (let key in context.firmware)
+         {
+	      if ( (key.includes(elto.value.instruction)) || (elto.value.instruction.includes(key)) )
+	      {
+		  for (let k=0; k<context.firmware[key].length; k++) {
+		       msg += "<span class='m-1'>\u2714</span> " +
+			      context.firmware[key][k].signature_user + "<br>" ;
+		  }
+	      }
+         }
+         msg += i18n_get_TagFor('compiler', 'CHECK MICROCODE') ;
+
+         return msg ;
+}
+
 function wsasm_is_ValidTag ( tag )
 {
         var tg = tag.trim() ;
@@ -1004,30 +1033,9 @@ function wsasm_find_instr_candidates ( context, ret, elto )
            }
 
 	   // CHECK: elto signature* match at least one firm_reference
-	   if (0 == candidates)
-	   {
-               var msg = elto.source ;
-               if (typeof elto.associated_pseudo !== "undefined") {
-                   msg = elto.source + ' (part of pseudoinstruction "' + elto.associated_pseudo.source + '")' ;
-               }
-
-               msg = i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + ".<br>"  +
-	             i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
-                     "'" + msg + "': <br>\u2718 " + elto.value.signature_user + "<br>" ;
-
-	       msg += i18n_get_TagFor('compiler', 'NOT MATCH FORMAT') + ":<br>" ;
-               for (let key in context.firmware)
-               {
-                    if ( (key.includes(elto.value.instruction)) || (elto.value.instruction.includes(key)) )
-                    {
-                          for (let k=0; k<context.firmware[key].length; k++) {
-                               msg += "\u2714 " + context.firmware[key][k].signature_user + "<br>" ;
-                          }
-                    }
-               }
-	       msg += i18n_get_TagFor('compiler', 'CHECK MICROCODE') ;
-
-	       return wsasm_eltoError(context, elto, msg) ;
+	   if (0 == candidates) {
+               var msg = wsasm_get_similar_candidates(context, elto) ;
+               return asm_langError(context, msg) ;
 	   }
 
            // update instruction size for multi-word instructions (e.g.: 'la address' in 2 words)
@@ -1303,6 +1311,9 @@ function wsasm_src2obj_text ( context, ret )
            var elto      = null ;
            var candidate = null ;
 
+           var xr_info = simhw_sim_ctrlStates_get() ;
+	   var oc_size = parseInt(xr_info.ir.default_eltos.oc.length) ;
+
 	   //
 	   //  *.text*   |  *.text*
 	   //   .data    |    label1: instr op1 op2 op3
@@ -1405,7 +1416,7 @@ function wsasm_src2obj_text ( context, ret )
                    elto.firm_reference           = context.firmware[possible_inst] ;
 		   elto.value.fields             = [] ;
 		   elto.value.signature_type_arr = [ possible_inst ] ;
-		   elto.value.signature_size_arr = [] ;
+		   elto.value.signature_size_arr = [ oc_size ] ;
 
 		   //
 		   //    label1:
