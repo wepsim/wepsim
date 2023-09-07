@@ -23,8 +23,9 @@ function bits_size ( bits )
 	var len = 0;
 	for (var i=0; i<bits.length; i++)
 	{
-		len += bits[i][0] - bits[i][1] + 1
+	     len += bits[i][0] - bits[i][1] + 1 ;
 	}
+
 	return len ;
 }
 
