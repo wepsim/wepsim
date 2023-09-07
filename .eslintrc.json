@@ -35,6 +35,7 @@
        "no-console": "off",
        "no-useless-concat": "off",
        "no-unused-vars": "off",
-       "block-scoped-var": "off"
+       "block-scoped-var": "off",
+       "no-lone-blocks": "off"
    }
 }
