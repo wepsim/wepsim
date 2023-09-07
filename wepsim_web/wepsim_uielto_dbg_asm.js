@@ -198,17 +198,24 @@
 	function assembly2html ( mp, labels, seg )
 	{
 		var l = "" ;
+                var an = 0 ;
+                var as = "" ;
 
-                // prepare hashtable...
+                // prepare hashtable for address to labels...
                 var a2l = {} ;
                 for (l in labels)
 		{
-                     if (typeof a2l[labels[l]] == "undefined") {
-                         a2l[labels[l]] = [] ;
+                     an = parseInt(labels[l]) ;
+                     an = an - (an % WORD_BYTES) ;
+                     as = "0x" + an.toString(16) ;
+
+                     if (typeof a2l[as] == "undefined") {
+                         a2l[as] = [] ;
 		     }
-                     a2l[labels[l]].push(l);
+                     a2l[as].push(l);
                 }
 
+                // prepare hashtable for address to segments...
                 var a2s = {} ;
                 for (l in seg)
 		{
@@ -277,7 +284,7 @@
 		     if (typeof a2l[p] != "undefined")
 		     {
 			 for (var i=0; i<a2l[p].length; i++) {
-			      s_label = s_label + "<span class='badge bg-info'>" + a2l[p][i] + "</span>" ;
+			      s_label = s_label + "<span class='badge bg-info mx-1'>" + a2l[p][i] + "</span>" ;
 			 }
 		     }
 

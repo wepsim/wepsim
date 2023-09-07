@@ -1878,7 +1878,7 @@ function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
         }
 
         // reorder for little-endian by default...
-        if (true)
+//      if (true)
         {
             var b_index = 0 ;
 	    gen.binary  = '' ;
