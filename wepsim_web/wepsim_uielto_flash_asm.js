@@ -224,6 +224,16 @@
 	     var udiv = document.getElementById(div_url_name) ;
 	     var idiv = document.getElementById(div_info_name) ;
 
+             // prepare assembly code...
+             var SIMWARE = get_simware() ;
+             var fasm = inputasm.getValue() ;
+             var ret  = wsasm_src2src(SIMWARE, fasm, { instruction_comma: true }) ;
+             if (ret.error != null) { 
+                 return ret;
+             }
+
+             fasm = ret.src_alt ; // normalized syntax
+
              // do remote flash...
              idiv.value = 'Flashing...\n' ;
              var fasm = inputasm.getValue() ;

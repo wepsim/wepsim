@@ -639,11 +639,12 @@ function wsasm_src2obj_data ( context, ret )
                                 }
 
 				// Add ELTO
-                                elto.seg_name = seg_name ;
-		                elto.source   = possible_value ;
+                                elto.seg_name   = seg_name ;
+		                elto.source     = possible_value ;
 				elto.track_source.push(possible_value) ;
 		                elto.comments.push(acc_cmt) ;
-			        elto.value    = number ;
+			        elto.value      = number ;
+                                elto.source_alt = elto.datatype + ' ' + possible_value ;
 
 				ret.obj.push(elto) ;
                                 elto = wsasm_new_objElto(elto) ; // new elto, same datatype
@@ -696,11 +697,12 @@ function wsasm_src2obj_data ( context, ret )
 			}
 
 			// ELTO: spaces/zeroes
-                        elto.seg_name  = seg_name ;
+                        elto.seg_name   = seg_name ;
 			elto.comments.push(acc_cmt) ;
-		        elto.byte_size = possible_value ;
-			elto.value     = byte_val ;
+		        elto.byte_size  = possible_value ;
+			elto.value      = byte_val ;
   			elto.track_source = Array(ret1.number).fill('_') ;
+                        elto.source_alt = elto.datatype + ' ' + possible_value ;
 
 			ret.obj.push(elto) ;
 			elto = wsasm_new_objElto(null) ;
@@ -735,11 +737,12 @@ function wsasm_src2obj_data ( context, ret )
 		        }
 
 			// ELTO: spaces/zeroes
-                        elto.seg_name  = seg_name ;
+                        elto.seg_name   = seg_name ;
 			elto.track_source.push('.align ' + possible_value) ;
 			elto.comments.push(acc_cmt) ;
-		        elto.byte_size = align_offset ;
-			elto.value     = possible_value ;
+		        elto.byte_size  = align_offset ;
+			elto.value      = possible_value ;
+                        elto.source_alt = elto.datatype + ' ' + possible_value ;
 
                         ret.obj.push(elto) ;
                         elto = wsasm_new_objElto(null) ;
@@ -786,9 +789,11 @@ function wsasm_src2obj_data ( context, ret )
                                                          "'" + possible_value + "'") ;
 			        }
 
-				// process characters of the string
-                                elto.seg_name  = seg_name ;
+			        // ELTO: string
+                                elto.seg_name   = seg_name ;
 				elto.comments.push(acc_cmt) ;
+
+				// process characters of the string
 			        elto.value = [] ;
                                 for (let i=0; i<possible_value.length; i++)
                                 {
@@ -804,8 +809,9 @@ function wsasm_src2obj_data ( context, ret )
                                      elto.value.push(0) ;
   				     elto.track_source.push('0x0') ;
                                 }
-				elto.byte_size = elto.value.length ;
-				elto.source    = possible_value ;
+				elto.byte_size  = elto.value.length ;
+				elto.source     = possible_value ;
+                                elto.source_alt = elto.datatype + ' ' + possible_value.replaceAll('\n', '\\n') ;
 
 				ret.obj.push(elto) ;
 				elto = wsasm_new_objElto(elto) ;
@@ -1428,9 +1434,14 @@ function wsasm_src2obj_text ( context, ret )
 		       return ret;
 		   }
 
-                   if (elto.value.fields.length > 0)
-		        elto.source = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
-		   else elto.source = elto.value.instruction ;
+                   if (elto.value.fields.length > 0) {
+		        elto.source     = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
+		        elto.source_alt = elto.value.instruction + ' ' + elto.value.fields.join(', ') ;
+                   }
+		   else {
+                        elto.source     = elto.value.instruction ;
+                        elto.source_alt = elto.source ;
+                   }
 		   elto.comments.push(acc_cmt) ;
 		   elto.track_source.push(elto.source) ;
 
@@ -1586,7 +1597,8 @@ function wsasm_resolve_pseudo ( context, ret )
                  if (0 == eltos.length)
                       elto.track_source.push(pseudo_elto.source) ;
                  else elto.track_source.push("&nbsp;") ;
-	  	 elto.source = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
+	  	 elto.source     = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
+	  	 elto.source_alt = elto.value.instruction + ' ' + elto.value.fields.join(', ') ;
 
                  // Find candidate from firm_reference and fill initial binary based on it...
                  ret = wsasm_find_candidate_and_encode(context, ret, elto) ;
@@ -1854,6 +1866,50 @@ function wsasm_resolve_labels ( context, ret )
               ret.hash_seg_rev.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
          }
 
+         return ret ;
+}
+
+function wsasm_obj2src ( context, ret, options )
+{
+         var o = '' ;
+         var elto = null ;
+         var curr_segment = '' ;
+
+         // check params
+         if (typeof ret.obj == "undefined") {
+	     return wsasm_eltoError(context, elto,
+				    i18n_get_TagFor('compiler', 'UNKNOWN 2')) ; // TODO: update error message
+         }
+
+         // prepare options...
+         if (typeof options.instruction_comma == "undefined") {
+             options.instruction_comma = true ;
+         }
+
+         // for all object elements...
+         for (let i=0; i<ret.obj.length; i++)
+         {
+              elto = ret.obj[i] ;
+
+              // switch to another segment
+              if (curr_segment != elto.seg_name) {
+                  curr_segment = elto.seg_name ;
+                  o += '\n' + curr_segment + '\n' ;
+              }
+
+              // show labels
+              for (let j=0; j<elto.labels.length; j++) {
+                   o += elto.labels[j] + ":\n" ;
+              }
+
+              // show element source code
+              if ( ('instruction' == elto.datatype) && (false == options.instruction_comma) )
+                   o += "\t" + elto.source_alt.replaceAll(',', '') + "\n" ;
+              else o += "\t" + elto.source_alt + "\n" ;
+         }
+
+         // return alternative source
+         ret.src_alt = o ;
          return ret ;
 }
 
@@ -2236,6 +2292,45 @@ function wsasm_src2mem ( datosCU, text )
      catch (e)
      {
          console.log("ERROR on 'wsasm_src2mem' function :-(") ;
+         console.log("Details:\n " + e) ;
+         console.log("Stack:\n"    + e.stack) ;
+
+	 ret.error = "Compilation error found !<br>" +
+                     "Please review your assembly code and try another way to write your algorithm.<br>" +
+                     "<br>" +
+                     e.toString() ;
+     }
+
+     return ret ;
+}
+
+function wsasm_src2src ( datosCU, text, options )
+{
+     var context = null ;
+     var ret = {
+                  error: i18n_get_TagFor('compiler', 'UNKNOWN 2')
+               } ;
+
+     try
+     {
+         context = wsasm_prepare_context(datosCU, text) ;
+	 if (context.error != null) {
+	     return context;
+	 }
+
+         ret = wsasm_src2obj(context) ;
+	 if (ret.error != null) {
+	     return ret;
+	 }
+
+         ret = wsasm_obj2src(context, ret, options) ;
+	 if (ret.error != null) {
+	     return ret;
+	 }
+     }
+     catch (e)
+     {
+         console.log("ERROR on 'wsasm_src2src' function :-(") ;
          console.log("Details:\n " + e) ;
          console.log("Stack:\n"    + e.stack) ;
 

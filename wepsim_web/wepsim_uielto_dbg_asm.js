@@ -321,7 +321,7 @@
 
 	     // join the pieces...
 	     var o = "<tr id='asmdbg" + p + "'>" +
-		     "<td class='asm_label  font-monospace col-auto collapse pb-0' " +
+		     "<td class='asm_label  font-monospace col-2 collapse pb-0' " +
 		     "    style='line-height:0.9;' align='right'>" + s_label +
 		     "</td>" +
 		     "<td class='asm_addr   font-monospace col-auto collapse' " +
