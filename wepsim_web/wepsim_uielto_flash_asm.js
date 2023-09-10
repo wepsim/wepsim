@@ -236,7 +236,7 @@
 	     var ret = gateway_do_request(furl + "/flash", farg, idiv);
 
 	     // working with the async result...
-             ret.then(result => {
+             ret.then((result) => {
 		         if (typeof result == "undefined") {
 			    return ;
 		         }

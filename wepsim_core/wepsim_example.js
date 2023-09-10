@@ -197,6 +197,9 @@
                                 return ;
 			    }
 
+                           // update register view (just in case firmware is updated)
+                           wepsim_show_rf_names() ;
+
                            // chain to next task
                            if (true === chain_next_step)
                            {
