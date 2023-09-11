@@ -1859,7 +1859,11 @@ function wsasm_resolve_labels ( context, ret )
                   arr_encoded = elto.binary.split('') ;
                   wsasm_encode_field(arr_encoded, value, elto.pending[j].start_bit, elto.pending[j].stop_bit) ;
                   elto.binary = arr_encoded.join('') ;
-                  elto.value  = elto.binary ;
+
+                  // data-field -> update elto.value (is not an object as inst-field)
+                  if ("field-data" == elto.pending[j].type) {
+                      elto.value = elto.binary ;
+                  }
               }
          }
 
