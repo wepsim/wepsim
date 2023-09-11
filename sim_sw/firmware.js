@@ -32,6 +32,17 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
                ret.label_co  = '' ;
                ret.label_cop = '' ;
 
+           // get the default length of the co+cop fields...
+           var xr_info = simhw_sim_ctrlStates_get() ;
+           var oc_length = 6 ;
+           if (typeof xr_info.ir.default_eltos.co.length !== "undefined") {
+               oc_length = parseInt(xr_info.ir.default_eltos.co.length) ;
+           }
+	   var eoc_length = 4 ;
+           if (typeof xr_info.ir.default_eltos.cop.length !== "undefined") {
+	       eoc_length = parseInt(xr_info.ir.default_eltos.cop.length) ;
+           }
+
 	   // analize if instruction has any field that uses cop bits... -> m points to
            var cop_overlaps = false ;
 	   for (m=0; m<curr_instruction.fields.length; m++)
@@ -47,7 +58,7 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
 	   for (j=first_co; j<last_co; j++)
 	   {
                 // new initial co...
-		ret.label_co = j.toString(2).padStart(6, "0") ;
+		ret.label_co = j.toString(2).padStart(oc_length, "0") ;
 
                 // (1/3) check for free co-0000...
 		if (typeof context.co_cop[ret.label_co] === "undefined")
@@ -83,7 +94,7 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
                 last_cop  = Math.pow(2, 4) - 1 ;
 		for (k=first_cop; k<last_cop; k++)
 		{
-		     ret.label_cop = k.toString(2).padStart(4, "0") ;
+		     ret.label_cop = k.toString(2).padStart(eoc_length, "0") ;
 
                      if (        (context.co_cop[ret.label_co].cop === null) ||
                           (typeof context.co_cop[ret.label_co].cop === 'undefined') )
@@ -186,7 +197,6 @@ function loadFirmware (text)
            var     xr_info = simhw_sim_ctrlStates_get() ;
            var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
 	   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
-        // var all_ones_oc = "1".repeat(10) ; // TODO: remove it?
 
            var context = {} ;
 	   context.line           	= 1 ;
@@ -331,88 +341,92 @@ function loadFirmware (text)
 		         	i18n_get_TagFor('compiler', 'NO LABEL BEGIN')) ;
            }
 
-           var ir_info = simhw_sim_ctrlStates_get() ;
-		   if (context.version == 2) {
-			    // RESOLVE: oc=111111... (111111... === "please, find one free 'oc' for me...")
-				var ir_oc_length = 6 ;
-				if (typeof ir_info !== "undefined") {
-					ir_oc_length = ir_info.ir.default_eltos.oc.length ;
-				}
-				var first_oc = 0 ;
-				var last_oc = Math.pow(2, ir_oc_length) - 1 ;
-				var last_oc_str = last_oc.toString(2) ;
+	   // RESOLVE: oc=111111... (111111... === "please, find one free 'oc' for me...")
+	   if (context.version == 2)
+           {
+		var ir_oc_length = 6 ;
+		if (typeof xr_info !== "undefined") {
+		    ir_oc_length = xr_info.ir.default_eltos.oc.length ;
+		}
 
-				var curr_instruction = null ;
-				for (i=0; i<context.instrucciones.length; i++)
-				{
-						curr_instruction = context.instrucciones[i] ;
+		var first_oc = 0 ;
+		var last_oc = Math.pow(2, ir_oc_length) - 1 ;
+		var last_oc_str = last_oc.toString(2) ;
 
-						// skip non-111111... cases
-						if ( (curr_instruction.name === "begin") || (curr_instruction.oc !== last_oc_str) ) {
-							continue ;
-						}
+		var curr_instruction = null ;
+		for (i=0; i<context.instrucciones.length; i++)
+		{
+			curr_instruction = context.instrucciones[i] ;
 
-						// find first free 'oc-eoc' code
-						var r = find_first_oceoc(context, curr_instruction, first_oc, last_oc) ;
-				if (r.j >= last_oc) {
-						return frm_langError(context,
-								i18n_get_TagFor('compiler', 'NO OC CODES')) ;
-				}
+			// skip non-111111... cases
+			if ( (curr_instruction.name === "begin") || (curr_instruction.oc !== last_oc_str) ) {
+				continue ;
+			}
 
-						// work with this free 'oc-eoc' code
-				first_oc = parseInt(r.label_oc, 2) ;
+			// find first free 'oc-eoc' code
+			var r = find_first_oceoc(context, curr_instruction, first_oc, last_oc) ;
+			if (r.j >= last_oc) {
+			    return frm_langError(context,
+						 i18n_get_TagFor('compiler', 'NO OC CODES')) ;
+			}
 
-				curr_instruction.oc = r.label_oc ;
-				context.oc_eoc[r.label_oc].signature = curr_instruction.signature ;
+			// work with this free 'oc-eoc' code
+			first_oc = parseInt(r.label_oc, 2) ;
 
-				if (r.label_eoc !== "")
-						{
-					curr_instruction.eoc = r.label_eoc ;
-					context.oc_eoc[r.label_oc].eoc[r.label_eoc] = curr_instruction.signature ;
-					context.oc_eoc[r.label_oc].witheoc = true ;
-						}
-				}
-		   } else {
-			    // RESOLVE: co=111111... (111111... === "please, find one free 'co' for me...")
-				var ir_co_length = 6 ;
-				if (typeof ir_info !== "undefined") {
-					ir_co_length = ir_info.ir.default_eltos.co.length ;
-				}
-				var first_co = 0 ;
-				var last_co = Math.pow(2, ir_co_length) - 1 ;
-				var last_co_str = last_co.toString(2) ;
+			curr_instruction.oc = r.label_oc ;
+			context.oc_eoc[r.label_oc].signature = curr_instruction.signature ;
 
-				var curr_instruction = null ;
-				for (i=0; i<context.instrucciones.length; i++)
-				{
-						curr_instruction = context.instrucciones[i] ;
+			if (r.label_eoc !== "")
+			{
+			    curr_instruction.eoc = r.label_eoc ;
+			    context.oc_eoc[r.label_oc].eoc[r.label_eoc] = curr_instruction.signature ;
+			    context.oc_eoc[r.label_oc].witheoc = true ;
+			}
+		}
+	   }
+           else
+           {
+		// RESOLVE: co=111111... (111111... === "please, find one free 'co' for me...")
+		var ir_co_length = 6 ;
+		if (typeof xr_info !== "undefined") {
+		    ir_co_length = xr_info.ir.default_eltos.co.length ;
+		}
 
-						// skip non-111111... cases
-						if ( (curr_instruction.name === "begin") || (curr_instruction.co !== last_co_str) ) {
-							continue ;
-						}
+		var first_co = 0 ;
+		var last_co = Math.pow(2, ir_co_length) - 1 ;
+		var last_co_str = last_co.toString(2) ;
 
-						// find first free 'co-cop' code
-						var r = find_first_cocop(context, curr_instruction, first_co, last_co) ;
-				if (r.j >= last_co) {
-						return frm_langError(context,
-								i18n_get_TagFor('compiler', 'NO CO CODES')) ;
-				}
+		var curr_instruction = null ;
+		for (i=0; i<context.instrucciones.length; i++)
+		{
+			curr_instruction = context.instrucciones[i] ;
 
-						// work with this free 'co-cop' code
-				first_co = parseInt(r.label_co, 2) ;
+			// skip non-111111... cases
+			if ( (curr_instruction.name === "begin") || (curr_instruction.co !== last_co_str) ) {
+			      continue ;
+			}
 
-				curr_instruction.co = r.label_co ;
-				context.co_cop[r.label_co].signature = curr_instruction.signature ;
+			// find first free 'co-cop' code
+			var r = find_first_cocop(context, curr_instruction, first_co, last_co) ;
+			if (r.j >= last_co) {
+			    return frm_langError(context,
+						 i18n_get_TagFor('compiler', 'NO CO CODES')) ;
+			}
 
-				if (r.label_cop !== "")
-						{
-					curr_instruction.cop = r.label_cop ;
-					context.co_cop[r.label_co].cop[r.label_cop] = curr_instruction.signature ;
-					context.co_cop[r.label_co].withcop = true ;
-						}
-				}
-		   }
+			// work with this free 'co-cop' code
+			first_co = parseInt(r.label_co, 2) ;
+
+			curr_instruction.co = r.label_co ;
+			context.co_cop[r.label_co].signature = curr_instruction.signature ;
+
+			if (r.label_cop !== "")
+			{
+			    curr_instruction.cop = r.label_cop ;
+			    context.co_cop[r.label_co].cop[r.label_cop] = curr_instruction.signature ;
+			    context.co_cop[r.label_co].withcop = true ;
+			}
+		}
+	   }
 
            // TO RESOLVE labels
 	   var labelsFounded=0;
