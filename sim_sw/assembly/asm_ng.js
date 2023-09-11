@@ -209,6 +209,7 @@ function wsasm_prepare_oc ( elto, aux )
         var xr_info = simhw_sim_ctrlStates_get() ;
 	elto.oc.asm_start_bit[0] = parseInt(xr_info.ir.default_eltos.oc.begin) ;
 	elto.oc.asm_stop_bit [0] = parseInt(xr_info.ir.default_eltos.oc.end) ;
+        elto.oc.asm_n_bits       = elto.oc.asm_stop_bit[0] - elto.oc.asm_start_bit[0] + 1 ;
 
         // IF firmware v1 -> return elto...
 	if (typeof aux.fields_all == "undefined") {
@@ -258,10 +259,12 @@ function wsasm_prepare_eoc ( elto, aux )
         var xr_info = simhw_sim_ctrlStates_get() ;
 	elto.eoc.asm_start_bit[0] = parseInt(xr_info.ir.default_eltos.eoc.begin) ;
 	elto.eoc.asm_stop_bit [0] = parseInt(xr_info.ir.default_eltos.eoc.end) ;
+        elto.eoc.asm_n_bits       = elto.eoc.asm_stop_bit[0] - elto.eoc.asm_start_bit[0] + 1 ;
 
         // IF empty 'eoc' -> return elto...
         if (0 == elto.eoc.value.length) {
 	    elto.eoc.asm_start_bit[0] = elto.eoc.asm_stop_bit[0] + 1 ; // in order to skip empty eoc
+            elto.eoc.asm_n_bits       = 0 ;
             return elto ;
         }
 
@@ -643,7 +646,7 @@ function wsasm_src2obj_data ( context, ret )
 		                elto.source     = possible_value ;
 				elto.track_source.push(possible_value) ;
 		                elto.comments.push(acc_cmt) ;
-			        elto.value      = number ;
+			        elto.value      = num_bits ;
                                 elto.source_alt = elto.datatype + ' ' + possible_value ;
 
 				ret.obj.push(elto) ;
@@ -864,6 +867,10 @@ function wsasm_encode_field ( arr_encoded, value, start_bit, stop_bit )
            {
                 for (let k=start_bit[m]; k<=stop_bit[m]; k++)
                 {
+                     if (typeof value[val_i] == "undefined") {
+                         console.log("wsasm_encode_field: value.length < encode space :-S") ;
+                     }
+
                      arr_encoded[k] = value[val_i] ;
                      val_i++ ;
                 }
@@ -1327,7 +1334,9 @@ function wsasm_src2obj_text ( context, ret )
 
            var seg_name = asm_getToken(context) ;
            asm_nextToken(context) ;
+
            elto = wsasm_new_objElto(null) ;
+           elto.seg_name = seg_name ;
 
 	   //
 	   //   .text    |   .text
@@ -1414,7 +1423,6 @@ function wsasm_src2obj_text ( context, ret )
 		   //
 
 	           possible_inst  = asm_getToken(context) ;
-                   elto.seg_name  = seg_name ;
                    elto.byte_size = WORD_BYTES ;
 		   elto.value     = {} ;
 
@@ -1639,7 +1647,7 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
               seg_name = ret.obj[i].seg_name ;
               seg_ptr  = ret.seg[seg_name].begin ;
               if (typeof last_assigned[seg_name] == "undefined") {
-                    last_assigned[seg_name] = seg_ptr ;
+                  last_assigned[seg_name] = seg_ptr ;
               }
 
               // if .align X then address of next elto must be multiple of 2^X
@@ -1664,7 +1672,7 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
               // get starting address of next elto
               elto_ptr = last_assigned[seg_name] ;
 
-              if ([ "instruction", "pseudoinstruction" ].includes(ret.obj[i].datatype) == false)
+              if ([ "", "instruction", "pseudoinstruction" ].includes(ret.obj[i].datatype) == false)
               {
                   // align datatype to datatype_size in bytes (4 in multiple of 4, 2 in multiple of 2...)
                   var datatype_size = wsasm_get_datatype_size(ret.obj[i].datatype) ;
@@ -2214,10 +2222,7 @@ function wsasm_obj2mem  ( ret )
                     gen.track_source.push(...ret.obj[i].track_source) ;
 
                     n_bytes  = wsasm_get_datatype_size(ret.obj[i].datatype) ;
-                    valuebin = (ret.obj[i].value >>> 0).toString(2) ;
-                    if (ret.obj[i].value < 0)
-                         valuebin = valuebin.substr(valuebin.length-n_bytes*BYTE_LENGTH, n_bytes*BYTE_LENGTH) ;
-                    else valuebin = valuebin.padStart(n_bytes*BYTE_LENGTH, '0') ;
+                    valuebin = ret.obj[i].value.padStart(n_bytes*BYTE_LENGTH, '0') ;
 
                     // next: fill byte by byte
                     for (let j=0; j<n_bytes; j++)
