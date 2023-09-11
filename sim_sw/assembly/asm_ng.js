@@ -479,7 +479,9 @@ function wsasm_src2obj_data ( context, ret )
 
            var seg_name = asm_getToken(context) ;
            asm_nextToken(context) ;
+
            elto = wsasm_new_objElto(null) ;
+           elto.seg_name = seg_name ;
 
 	   //
 	   //   .data    |   .data
@@ -578,7 +580,8 @@ function wsasm_src2obj_data ( context, ret )
                                 (wsasm_isEndOfFile(context) == false)
                               )
                         {
-				let number = 0 ;
+				let number   = 0 ;
+			        let num_bits = "0" ;
 
 				// Get value
 				ret1 = get_imm_value(possible_value) ;
@@ -1859,7 +1862,7 @@ function wsasm_resolve_labels ( context, ret )
 
                   // data-field -> update elto.value (is not an object as inst-field)
                   if ("field-data" == elto.pending[j].type) {
-                      elto.value = parseInt(value, 2) ;
+                      elto.value = elto.binary ;
                   }
               }
          }
