@@ -40,7 +40,6 @@
 	            super.render() ;
 
                     // render current element
-                    this.extended_ui = true ;
 		    this.render_skel() ;
 		    this.render_populate() ;
 
@@ -111,12 +110,10 @@
 
 	      render_populate_classic_toolbars ( )
 	      {
-                   var o1 = '' ;
+                   var o1  = '' ;
                    var ui1 = '' ;
 
-                   if (this.extended_ui)
-		       ui1 = '[,btn_examples,btn_help,btndd_mode,]' ;
-		  else ui1 = '[,btn_examples,btn_help,]' ;
+		   ui1 += '[,btn_examples,btn_help,btndd_mode,]' ;
 
                    o1 += '<div class="col-sm-auto p-1 me-1 my-1">' +
 			 '<ws-toolbar components="[,switch_microcode,switch_assembly,]"></ws-toolbar>' +
@@ -151,11 +148,7 @@
 
 	      render_populate_classic_details ( )
 	      {
-                   var ui1 = '' ;
-
-                   if (this.extended_ui)
-		       ui1 = 'mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp,cm,cmcfg' ;
-		  else ui1 = 'mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp' ;
+		   var ui1 = 'mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp,cm,cmcfg' ;
 
 		   var o1 = '    <div class="row ps-2 pe-3">' +
 			    '	 <ws-executionbar name="exebar1" class="btn-toolbar btn-block"' +

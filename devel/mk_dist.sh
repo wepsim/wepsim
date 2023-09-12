@@ -158,7 +158,6 @@ cat sim_core/sim_cfg.js \
     sim_sw/assembly/memory_segments.js \
     sim_sw/assembly/directives.js \
     sim_sw/assembly/datatypes.js \
-    sim_sw/assembly/asm_v1.js \
     sim_sw/assembly/asm_v2.js \
     sim_sw/assembly/asm_ng.js \
     sim_sw/assembly.js > ws_dist/sim_all.js

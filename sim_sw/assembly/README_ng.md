@@ -1,6 +1,4 @@
 
-
-
 # asm-ng: WepSIM Assembler (Next-Generation)
 
 ## Table of contents
@@ -36,7 +34,7 @@
 
 The TODO list includes:
 
- 1. Check that asm_ng works like asm_v1 and asm_v2
+ 1. Check that asm_ng works like asm_v2
  2. Review existing algorithms:
     * The algorithm to find the instruction/pseudoinstruction that better fits the values.
     * The algorithm for .align follows (and it is OK):

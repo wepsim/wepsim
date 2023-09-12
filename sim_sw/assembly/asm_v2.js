@@ -42,15 +42,19 @@ function assembly_oc_eoc_v2 ( machineCode, oc, eoc )
 	var start = 31 - xr_info.ir.default_eltos.oc.begin + 1;
 	var stop  = 31 - xr_info.ir.default_eltos.oc.end;
 
-	if (oc !== false)
+	if (oc !== false) {
 	    machineCode = assembly_replace_v2(machineCode, oc, start, stop, 0, 0);
+        }
+
 	if (eoc !== false)
-		if(eoc.length === 3) {
+        {
+		if (eoc.length === 3) {
 			machineCode = assembly_replace_v2(machineCode, eoc, bits[0][0]+1, bits[0][1], 0, 0);
 		} else {
 			//machineCode = assembly_replace_v2(machineCode, eoc, undefined, undefined, bits, 0);
 			var j = 0;
-			for (var k=0; k < bits.length; k++) {
+			for (var k=0; k < bits.length; k++)
+                        {
 				for (var i=(31-bits[k][0]); i <= (31-bits[k][1]); i++) {
 					if (j < eoc.length) {
 						machineCode = setCharAt(machineCode, i, eoc[j]);
@@ -60,6 +64,7 @@ function assembly_oc_eoc_v2 ( machineCode, oc, eoc )
 			}
 
 		}
+        }
 
 	return machineCode;
 }
@@ -72,7 +77,7 @@ function assembly_replace_v2 ( machineCode, num_bits, startbit, stopbit, bits, f
 		var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
 		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);
 
-		//Prevent word to be less than 32 bits
+		// Prevent word to be less than 32 bits
 		if (machineCode.length < 32) {
 			machineCode = "0".repeat(32-machineCode.length) + machineCode;
 		}
