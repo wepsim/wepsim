@@ -536,7 +536,7 @@ function wsasm_src2obj_data ( context, ret )
 			                       i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
                                                "'" + tag + "'") ;
 		      }
-		      if (ret.labels_asm[tag]) {
+		      if (typeof ret.labels_asm[tag] != "undefined") {
 			  return asm_langError(context,
 			                       i18n_get_TagFor('compiler', 'REPEATED TAG') +
                                                "'" + tag + "'") ;
@@ -544,6 +544,7 @@ function wsasm_src2obj_data ( context, ret )
 
 		      // Store tag
                       elto.labels.push(tag) ;
+		      ret.labels_asm[tag] = 0 ;
 
 		      // .<datatype> | tagX+1
 		      asm_nextToken(context) ;
@@ -569,7 +570,7 @@ function wsasm_src2obj_data ( context, ret )
 		        //  .float *1.2345*
 
 			// Get value size in bytes
-			elto.byte_size = get_datatype_size(elto.datatype) ;
+			elto.byte_size = wsasm_get_datatype_size(elto.datatype) ;
 
                         // <value> | .<directive>
 		        asm_nextToken(context) ;
@@ -1051,7 +1052,7 @@ function wsasm_find_instr_candidates ( context, ret, elto )
 	   // CHECK: elto signature* match at least one firm_reference
 	   if (0 == candidates) {
                var msg = wsasm_get_similar_candidates(context, elto) ;
-               return asm_langError(context, msg) ;
+               return wsasm_eltoError(context, elto, msg) ;
 	   }
 
            // update instruction size for multi-word instructions (e.g.: 'la address' in 2 words)
@@ -1394,7 +1395,7 @@ function wsasm_src2obj_text ( context, ret )
 			                       i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
                                                "'" + tag + "'") ;
 		      }
-		      if (ret.labels_asm[tag]) {
+		      if (typeof ret.labels_asm[tag] != "undefined") {
 			  return asm_langError(context,
 			                       i18n_get_TagFor('compiler', 'REPEATED TAG') +
                                                "'" + tag + "'") ;
@@ -1402,6 +1403,7 @@ function wsasm_src2obj_text ( context, ret )
 
 		      // Store tag
                       elto.labels.push(tag) ;
+		      ret.labels_asm[tag] = 0 ;
 
 		      // .<datatype> | tagX+1
 		      asm_nextToken(context) ;
@@ -2125,6 +2127,17 @@ function wsasm_src2obj ( context )
 	   if (ret.error != null) {
 	       return ret;
 	   }
+
+           // check if main or kmain in assembly code
+           if (ret.text_found)
+           {
+               if ( (typeof ret.labels_asm["main"]  === "undefined" ) &&
+                    (typeof ret.labels_asm["kmain"] === "undefined" ) )
+               {
+                     return asm_langError(context,
+                                          i18n_get_TagFor('compiler', 'NO MAIN OR KMAIN')) ;
+               }
+           }
 
 	   return ret;
 }
