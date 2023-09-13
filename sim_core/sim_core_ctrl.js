@@ -38,6 +38,23 @@
             return false ;
 	}
 
+	// Next two functions taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+	function base_escapeRegExp ( string )
+	{
+	    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+	}
+
+	function base_replaceAll ( base_str, match, replacement )
+	{
+	    // ES12+
+	    if (typeof base_str.replaceAll != "undefined") {
+	        return base_str.replaceAll(match, replacement) ;
+	    }
+
+	    // older javascript engines
+	    return base_str.replace(new RegExp(base_escapeRegExp(match), 'g'), ()=>replacement);
+	}
+
 
         /*
          *  checking & updating

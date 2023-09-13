@@ -18,6 +18,175 @@
  *
  */
 
+
+// Auxiliar from v1
+//
+ directives = {
+                  // segments
+                  ".kdata":     { name:".kdata",  kindof:"segment",  size:0 },
+		  ".ktext":     { name:".ktext",  kindof:"segment",  size:0 },
+		  ".data":      { name:".data",   kindof:"segment",  size:0 },
+		  ".text":      { name:".text",   kindof:"segment",  size:0 },
+
+                  // datatypes
+		  ".byte":      { name:".byte",   kindof:"datatype", size:1 },
+		  ".half":      { name:".half",   kindof:"datatype", size:2 },
+		  ".word":      { name:".word",   kindof:"datatype", size:4 },
+		  ".float":     { name:".float",  kindof:"datatype", size:4 },
+		  ".double":    { name:".double", kindof:"datatype", size:8 },
+		  ".ascii":     { name:".ascii",  kindof:"datatype", size:1 },
+		  ".asciiz":    { name:".asciiz", kindof:"datatype", size:1 },
+		  ".space":     { name:".space",  kindof:"datatype", size:1 },
+		  ".string":    { name:".string", kindof:"datatype", size:1 },
+		  ".zero":      { name:".zero",   kindof:"datatype", size:1 },
+
+                  // modifiers
+		  ".align":     { name:".align",  kindof:"datatype", size:0 }
+              } ;
+
+function is_directive ( text )
+{
+	return (typeof directives[text] !== "undefined");
+}
+
+function is_directive_segment ( text )
+{
+        return is_directive_kindof(text, 'segment') ;
+}
+
+function is_directive_datatype ( text )
+{
+        return is_directive_kindof(text, 'datatype') ;
+}
+
+function is_directive_kindof ( text, kindof )
+{
+        if (typeof directives[text] === "undefined") {
+            // console.log("ERROR: not defined directive: " + text + "\n")
+            return false ;
+        }
+
+        return (directives[text].kindof == kindof) ;
+}
+
+function get_datatype_size ( datatype )
+{
+	if (typeof directives[datatype] === "undefined") {
+	    console.log("ERROR: not defined datatype: " + datatype + "\n") ;
+	    return 0 ;
+   	}
+
+	return directives[datatype].size ;
+}
+
+function isValidTag ( tag )
+{
+        if (tag.trim() == "") {
+	    return false;
+        }
+
+	var ret = isDecimal(tag[0]) ;
+	if (ret.isDecimal == true) {
+	    return false;
+        }
+
+	var myRegEx  = /[^a-z,_\d]/i ;
+	return !(myRegEx.test(tag)) ;
+}
+
+function is_end_of_file (context)
+{
+	return ("" === asm_getToken(context)) && (context.t >= context.text.length) ;
+}
+
+function reset_assembly (nwords)
+{
+        return "0".repeat(WORD_LENGTH*nwords);
+}
+
+function assembly_replacement (machineCode, num_bits, startbit, stopbit, free_space)
+{
+	var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
+	machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);
+
+	return machineCode;
+}
+
+function assembly_co_cop(machineCode, co, cop)
+{
+        var xr_info = simhw_sim_ctrlStates_get() ;
+
+	if (co !== false)
+	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0);
+	if (cop !== false)
+	    machineCode = assembly_replacement(machineCode, cop, xr_info.ir.default_eltos.cop.length, 0, 0);
+
+	return machineCode;
+}
+
+function writememory_and_reset ( mp, gen, nwords )
+{
+	if (gen.byteWord >= WORD_BYTES)
+        {
+	    var melto = {
+			  "value":           gen.machineCode,
+			  "source_tracking": gen.track_source,
+			  "comments":        gen.comments
+			} ;
+            main_memory_set(mp, "0x" + gen.seg_ptr.toString(16), melto) ;
+
+            gen.seg_ptr      = gen.seg_ptr + WORD_BYTES ;
+            gen.byteWord     = 0 ;
+            gen.track_source = [] ;
+            gen.comments     = [] ;
+            gen.machineCode  = reset_assembly(nwords) ;
+        }
+}
+
+function sum_array ( a )
+{
+	return a.reduce(function(a, b) { return a + b; }, 0);
+}
+
+function get_candidate ( advance, instruction )
+{
+	var candidate = false;
+	var candidates = {};
+	var signatures = {};
+
+	for (i=0; i<advance.length; i++)
+        {
+		if (advance[i]) {
+			candidates[i] = instruction[i].nwords;
+			signatures[instruction[i].signature] = 0;
+		}
+	}
+
+	if (Object.keys(signatures).length === 1)
+        {
+		var min = false;
+		for (var i in candidates)
+                {
+			if (min == false) {
+				min = candidates[i];
+				candidate = i;
+			}
+			else if (min == candidates[i]) {
+                                 candidate = false;
+			}
+			else if (min > candidates[i]) {
+				min = candidates[i];
+				candidate = i;
+			}
+		}
+	}
+
+	return candidate ? parseInt(candidate) : candidate;
+}
+
+
+
+// Auxiliar for v2
 function bits_size ( bits )
 {
 	var len = 0;
@@ -28,7 +197,6 @@ function bits_size ( bits )
 
 	return len ;
 }
-
 
 function setCharAt ( str, index, chr ) {
 	if(index > str.length-1) return str;
