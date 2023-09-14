@@ -112,8 +112,7 @@ function wsasm_get_similar_candidates ( context, elto )
 	     msg = elto.source + ' (part of pseudoinstruction "' + elto.associated_pseudo.source + '")' ;
          }
 
-         msg = i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + "<br>"  +
-	       i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
+         msg = i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
 	       "'" + msg + "': <br>" +
 	       "<span class='m-2'>\u2718</span> " +
 	       elto.value.signature_user + "<br>" ;
@@ -129,7 +128,7 @@ function wsasm_get_similar_candidates ( context, elto )
 		  }
 	      }
          }
-         msg += i18n_get_TagFor('compiler', 'CHECK MICROCODE') ;
+         msg += i18n_get_TagFor('compiler', 'CHECKS') ;
 
          return msg ;
 }
@@ -381,7 +380,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                 }
 
                 // elto: derived fields...
-elto.signature_type_str = base_replaceAll(elto.signature_type_str, 'inm', 'imm') ;        // TODO: temporal fix
+                elto.signature_type_str = base_replaceAll(elto.signature_type_str, 'inm', 'imm') ;  // TODO: temporal fix
 		elto.signature_size_str = elto.signature_size_arr.join(' ') ;
 		elto.signature_type_arr = elto.signature_type_str.split(' ') ;
                 elto.signature_user     = wsasm_make_signature_user(elto, '') ;
@@ -428,7 +427,7 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
                 if (typeof initial.fields !== "undefined")  elto.fields = initial.fields ;
 
                 // elto: derived fields...
-elto.signature_type_str = base_replaceAll(elto.signature_type_str, 'inm', 'imm') ;        // TODO: temporal fix
+                elto.signature_type_str = base_replaceAll(elto.signature_type_str, 'inm', 'imm') ;  // TODO: temporal fix
 	        elto.signature_type_arr = elto.signature_type_str.split(' ') ;
 		elto.signature_size_arr = Array(elto.signature_type_arr.length).fill(WORD_BYTES*BYTE_LENGTH);
 		elto.signature_size_str = elto.signature_size_arr.join(' ') ;
