@@ -35,9 +35,6 @@ function simlang_compile ( text, datosCU )
      }
      else
      {
-         // Initial version for 2023/24...
-//       ret = simlang_compile_v1(text, datosCU) ;  // disabled for testing Juan Banga version...
-
          // Juan Banga version with support for firmware 2 based on simlang_compile_v1
          ret = simlang_compile_v2(text, datosCU) ;
      }

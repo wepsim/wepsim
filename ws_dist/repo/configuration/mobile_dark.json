@@ -2,12 +2,12 @@
   "version": {
     "upgrade": false,
     "type": "string",
-    "value": "2.3.0"
+    "value": "2.3.1"
   },
   "build": {
     "upgrade": true,
     "type": "string",
-    "value": "2.3.0.20230501A"
+    "value": "2.3.1.20230501A"
   },
   "color_data_active": {
     "upgrade": false,

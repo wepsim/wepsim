@@ -142,8 +142,11 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
        }
 
        // overlapping mask (initialized with 'co' field)
-       stop  = 26 ;
-       start = 31 ;
+       var xr_info = simhw_sim_ctrlStates_get() ;
+       stop  = 31 - parseInt(xr_info.ir.default_eltos.oc.end) ;   // 5 -> 26
+       start = 31 - parseInt(xr_info.ir.default_eltos.oc.begin) ; // 0 -> 31
+//     stop  = 26 ;
+//     start = 31 ;
        for (i=stop; i<=start; i++)
        {
 		if (typeof instruccionAux.overlapping[i] != "undefined") {
