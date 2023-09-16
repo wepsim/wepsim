@@ -112,8 +112,7 @@ function wsasm_get_similar_candidates ( context, elto )
 	     msg = elto.source + ' (part of pseudoinstruction "' + elto.associated_pseudo.source + '")' ;
          }
 
-         msg = i18n_get_TagFor('compiler', 'NOT MATCH FORMAT')     + "<br>"  +
-	       i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
+         msg = i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
 	       "'" + msg + "': <br>" +
 	       "<span class='m-2'>\u2718</span> " +
 	       elto.value.signature_user + "<br>" ;
@@ -129,7 +128,7 @@ function wsasm_get_similar_candidates ( context, elto )
 		  }
 	      }
          }
-         msg += i18n_get_TagFor('compiler', 'CHECK MICROCODE') ;
+         msg += i18n_get_TagFor('compiler', 'CHECKS') ;
 
          return msg ;
 }
@@ -381,7 +380,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                 }
 
                 // elto: derived fields...
-elto.signature_type_str = elto.signature_type_str.replaceAll('inm', 'imm') ;        // TODO: temporal fix
+                elto.signature_type_str = base_replaceAll(elto.signature_type_str, 'inm', 'imm') ;  // TODO: temporal fix
 		elto.signature_size_str = elto.signature_size_arr.join(' ') ;
 		elto.signature_type_arr = elto.signature_type_str.split(' ') ;
                 elto.signature_user     = wsasm_make_signature_user(elto, '') ;
@@ -428,7 +427,7 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
                 if (typeof initial.fields !== "undefined")  elto.fields = initial.fields ;
 
                 // elto: derived fields...
-elto.signature_type_str = elto.signature_type_str.replaceAll('inm', 'imm') ;        // TODO: temporal fix
+                elto.signature_type_str = base_replaceAll(elto.signature_type_str, 'inm', 'imm') ;  // TODO: temporal fix
 	        elto.signature_type_arr = elto.signature_type_str.split(' ') ;
 		elto.signature_size_arr = Array(elto.signature_type_arr.length).fill(WORD_BYTES*BYTE_LENGTH);
 		elto.signature_size_str = elto.signature_size_arr.join(' ') ;
@@ -818,8 +817,8 @@ function wsasm_src2obj_data ( context, ret )
                                 }
 				elto.byte_size  = elto.value.length ;
 				elto.source     = possible_value ;
-                                elto.source_alt = elto.datatype + ' ' + possible_value.replaceAll('\n', '\\n') ;
-
+                                elto.source_alt = elto.datatype + ' ' + base_replaceAll(possible_value, '\n', '\\n') ;
+				
 				ret.obj.push(elto) ;
 				elto = wsasm_new_objElto(elto) ;
 
@@ -995,11 +994,11 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
 function wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
 {
            // get candidate signature_type and signature_size...
-           var candidate_type_as_string = elto_firm_reference_i.signature_type_str.replaceAll('address', 'imm') ;
+           var candidate_type_as_string = base_replaceAll(elto_firm_reference_i.signature_type_str, 'address', 'imm') ;
            var candidate_size_as_intarr = elto_firm_reference_i.signature_size_arr ;
 
            // get elto signature_type and signature_size...
-           var signature_type_as_string = elto_value.signature_type_arr.join(' ').replaceAll('address', 'imm') ;
+           var signature_type_as_string = base_replaceAll(elto_value.signature_type_arr.join(' '), 'address', 'imm') ;
            var signature_size_as_intarr = elto_value.signature_size_arr ;
 
            // if candidate has not the same types as expected then return is NOT candidate
@@ -1570,9 +1569,12 @@ function wsasm_resolve_pseudo ( context, ret )
 
               pseudo_values   = pseudo_elto.source.trim().split(' ') ;
               pseudo_replaced = pseudo_elto_candidate.finish ;
-              for (let k=0; k<(pseudo_values.length-1); k++) {
-                   pseudo_value_k  = pseudo_values[k+1].replaceAll('(', '').replaceAll(')', '') ;
-                   pseudo_replaced = pseudo_replaced.replaceAll(pseudo_elto_candidate.fields[k].name, pseudo_value_k) ;
+              for (let k=0; k<(pseudo_values.length-1); k++)
+	      {
+                   pseudo_value_k = base_replaceAll(pseudo_values[k+1], '(', '') ;
+		   pseudo_value_k = base_replaceAll(pseudo_value_k,     ')', '') ;
+
+                   pseudo_replaced = base_replaceAll(pseudo_replaced, pseudo_elto_candidate.fields[k].name, pseudo_value_k) ;
               }
               // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
               pseudo_context.parts = pseudo_replaced.split(' ') ;
@@ -1917,7 +1919,7 @@ function wsasm_obj2src ( context, ret, options )
 
               // show element source code
               if ( ('instruction' == elto.datatype) && (false == options.instruction_comma) )
-                   o += "\t" + elto.source_alt.replaceAll(',', '') + "\n" ;
+                   o += "\t" + base_replaceAll(elto.source_alt, ',', '') + "\n" ;
               else o += "\t" + elto.source_alt + "\n" ;
          }
 

@@ -1,6 +1,4 @@
 
-
-
 # asm-ng: WepSIM Assembler (Next-Generation)
 
 ## Table of contents
@@ -21,13 +19,23 @@
 + **wsasm_prepare_context(CU_data, asm_source)**
    * It prepare context from firmware (CU_data) and source code (asm_source) and builds the context object to be used in the next steps
 
-+ **wsasm_src2obj(CU_data, asm_source)**
++ **wsasm_src2obj(context)**
    * Assembler-NG API function to transform from source to JSON object
    * Notes:
        * pseudo-instruction: not supported right now
        * multiple definition instructions: not supported right now
+
 + **wsasm_obj2mem(ret)**
    * Assembler-NG API to transform from JSON object to main memory content (binary)
+
++ **wsasm_src2mem(datosCU, text)**
+   * Assembler-NG API to transform from source to main memory content (binary)
+   * Equivalent to wsasm_prepare_context + wsasm_src2obj + wsasm_obj2mem
+
++ **wsasm_src2src(datosCU, text, options)**
+   * Assembler-NG API to transform from source to source (following options)
+   * The current available option(s) is/are:
+     * options.instruction_comma = true -> add ',' between instructions fields (e.g.: li x0 1 -> li x0, 1)
 
 
 <a name="asmng-todo"/>
@@ -36,7 +44,7 @@
 
 The TODO list includes:
 
- 1. Check that asm_ng works like asm_v1 and asm_v2
+ 1. Check that asm_ng works like asm_v2
  2. Review existing algorithms:
     * The algorithm to find the instruction/pseudoinstruction that better fits the values.
     * The algorithm for .align follows (and it is OK):
@@ -74,7 +82,7 @@ sequenceDiagram
 ### B) Compile to JSON object
 
   * Performed by:
-     **wsasm_src2obj ( CU_data, asm_source )**
+     **wsasm_src2obj ( context )**
   * Description:
     * Compile assembly to JSON object
   * Auxiliary functions are:
