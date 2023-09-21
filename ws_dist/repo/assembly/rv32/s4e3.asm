@@ -160,10 +160,10 @@ sys_thexit:  # pA->free = true
              li a7 30
              ecall
 
-             # 2.- enable i0 each 550 ticks
+             # 2.- enable i0 each 580 ticks
    begin_rr: li  x5 0
              out x5 0x1104
-             li  x5 550
+             li  x5 580
              out x5 0x1108
 
              # 3.- start for thread 1
