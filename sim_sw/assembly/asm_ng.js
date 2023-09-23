@@ -37,6 +37,7 @@ function wsasm_new_objElto ( base_elto )
                        datatype:     '', // datatype
                        byte_size:    0,  // size(datatype) in bytes
                        value:        0,
+                       format:       '',
 
                        binary:               '',
                        firm_reference:       null,
@@ -88,7 +89,7 @@ function wsasm_get_sel_valbin ( value, start_bit, stop_bit )
              sel_start = (WORD_LENGTH - 1) - stop_bit ;  // 20
          }
 
-         a = get_decimal_value(value) ;
+         a = dt_get_decimal_value(value) ;
          valbin = parseInt(a.number) ;
          if (valbin < 0)
               valbin = (valbin >>> 0).toString(2) ;
@@ -553,7 +554,7 @@ function wsasm_src2obj_data ( context, ret )
 
 		   // check if end of file has been reached
 		   if (wsasm_isEndOfFile(context)) {
-			break;
+		       break;
                    }
 
 		   //
@@ -584,7 +585,7 @@ function wsasm_src2obj_data ( context, ret )
 			        let num_bits = "0" ;
 
 				// Get value
-				ret1 = get_imm_value(possible_value) ;
+				ret1 = dt_get_imm_value(possible_value) ;
 				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                                 {
                                     // CHECK numerical datatype
@@ -651,6 +652,7 @@ function wsasm_src2obj_data ( context, ret )
 		                elto.comments.push(acc_cmt) ;
 			        elto.value      = num_bits ;
                                 elto.source_alt = elto.datatype + ' ' + possible_value ;
+			        elto.format     = ret1.format ;
 
 				ret.obj.push(elto) ;
                                 elto = wsasm_new_objElto(elto) ; // new elto, same datatype
@@ -921,8 +923,8 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                               value = value.replace('(', '').replace(')', '') ;
                          }
 
-			 ret1 = get_imm_value(value) ;
-			 if ( (!ret1.isDecimal) && (!ret1.isFloat) )
+			 ret1 = dt_get_imm_value(value) ;
+			 if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                          {
                               var pinfo = {
                                              type:         "field-instruction",
@@ -1083,7 +1085,7 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
            }
 
            // if atom is immediate -> 0x123, 12, 3.14, ...
-	   var ret1 = get_imm_value(atom) ;
+	   var ret1 = dt_get_imm_value(atom) ;
 	   if ( (ret1.isDecimal) || (ret1.isFloat) )
            {
                    var a = null ;
@@ -1235,11 +1237,11 @@ function wsasm_src2obj_text_elto_fields ( context, ret, elto, pseudo_context )
                   }
 
                   // check if sel.label is number or tag...
-		  a = get_imm_value(sel.label) ;
+		  a = dt_get_imm_value(sel.label) ;
 		  if (a.isDecimal)
                   {
                       valbin = wsasm_get_sel_valbin(sel.label, sel.start, sel.stop) ;
-                      atom   = parseInt(valbin, 2).toString(10) ;
+                      atom   = dt_binary2format(valbin, a.format) ;
                   }
                   else
                   {

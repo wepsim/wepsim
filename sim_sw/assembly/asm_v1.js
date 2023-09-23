@@ -293,7 +293,7 @@ function read_data ( context, datosCU, ret )
 				var label_found = false;
 
 				// Get value
-				var ret1 = get_imm_value(possible_value) ;
+				var ret1 = dt_get_imm_value(possible_value) ;
 				var number = ret1.number ;
 				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                                 {
@@ -825,7 +825,7 @@ function read_text ( context, datosCU, ret )
 					 }
 
 					 // Get value
-       					 var ret1 = get_imm_value(value) ;
+       					 var ret1 = dt_get_imm_value(value) ;
 					 converted = ret1.number ;
                                          if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                                          {
