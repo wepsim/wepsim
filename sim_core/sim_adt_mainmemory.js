@@ -129,10 +129,15 @@
             // escape html end attribute char
             if (typeof src == "string")
 	    {
-//              src = src.replaceAll(/'/g, '\u{0027}')
-//                       .replaceAll(/"/g, '\u{0022}') ;
                 src = src.replace(/'/g, '\u{0027}')
-                         .replace(/"/g, '\u{0022}') ;
+                         .replace(/"/g, '\u{0022}')
+                    //   .replace(/\n/, '&lt;LF&gt;')
+                         .replace(/\n/, '\u{021A9}')
+                    //   .replace(/\r/, '&lt;CR&gt;')
+                         .replace(/\r/, '&#9226;')
+                    //   .replace(/\t/, '&lt;TAB&gt;')
+                         .replace(/\t/, '&rarrb;')
+                         .replace(/\f/, '&lt;FF&gt;') ;
             }
 
 	    return src ;
