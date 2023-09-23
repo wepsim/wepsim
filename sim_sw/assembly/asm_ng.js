@@ -553,8 +553,14 @@ function wsasm_src2obj_data ( context, ret )
 		   elto.associated_context = asm_getLabelContext(context) ;
 
 		   // check if end of file has been reached
-		   if (wsasm_isEndOfFile(context)) {
-		       break;
+		   if (wsasm_isEndOfFile(context))
+                   {
+		        // ELTO: in case of ending with 'label:' but without data value
+                        if (elto.labels.length > 0) {
+		            ret.obj.push(elto) ;
+                        }
+
+			break;
                    }
 
 		   //
@@ -1939,8 +1945,8 @@ function wsasm_obj2src ( context, ret, options )
 //   * wsasm_writememory_and_accumulate       ( mp, gen, valuebin )
 //   * wsasm_zeropadding_and_writememory      ( mp, gen )
 //   * wsasm_writememory_and_accumulate_part  ( mp, gen, valuebin, track_source_j, track_source, track_comments )
-//   * wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
 //   * wsasm_writememory_and_accumulate_part_for_big_endian    ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
+//   * wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
 //
 
 function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
@@ -1950,25 +1956,13 @@ function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
             return ;
         }
 
-        // reorder for little-endian by default...
-//      if (true)
-        {
-            var b_index = 0 ;
-	    gen.binary  = '' ;
-            for (let j=0; j<WORD_BYTES; j++)
-            {
-                 b_index = WORD_BYTES - j - 1 ;
-	         gen.binary += gen.machine_code.substr(b_index*BYTE_LENGTH, BYTE_LENGTH) ;
-            }
-        }
-
         // write into memory current word...
         var melto = {
-                      "value":           gen.binary,
+                      "value":           gen.machine_code,
                       "source":          gen.source,
                       "source_tracking": gen.track_source,
                       "comments":        gen.comments,
-		      "binary":          gen.binary,
+		      "binary":          gen.machine_code,
                       "firm_reference":  gen.firm_reference,
                       "is_assembly":     gen.is_assembly,
                     } ;
@@ -1989,7 +1983,7 @@ function wsasm_writememory_and_accumulate ( mp, gen, valuebin )
 {
         wsasm_writememory_if_word(mp, gen, [], []) ;
 
-        gen.machine_code += valuebin ;
+        gen.machine_code  = valuebin + gen.machine_code ;  //  3,2,1,0
         gen.byteWord     += 1 ;
 }
 
@@ -2013,7 +2007,7 @@ function wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source
 {
         wsasm_writememory_if_word(mp, gen, track_source, track_comments) ;
 
-        gen.machine_code += valuebin ;
+        gen.machine_code  = valuebin + gen.machine_code ;  //  3,2,1,0
         gen.byteWord     += 1 ;
 
         if (track_source_j != null) {
@@ -2021,7 +2015,7 @@ function wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source
 	}
 }
 
-function wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
+function wsasm_writememory_and_accumulate_part_for_big_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
 {
          var b_index   = j_byte * BYTE_LENGTH ;
 	 var valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
@@ -2029,7 +2023,7 @@ function wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, 
 	 wsasm_writememory_and_accumulate_part(ret_mp, gen, valuebin8, null, obj_i.track_source, obj_i.comments) ;
 }
 
-function wsasm_writememory_and_accumulate_part_for_big_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
+function wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
 {
 	 var b_index = 0 ;
 
@@ -2233,8 +2227,8 @@ function wsasm_obj2mem  ( ret )
                          gen.firm_reference = candidate ;
                          gen.is_assembly    = true ;
 
-			 // fill for big-endian by default...
-			 wsasm_writememory_and_accumulate_part_for_big_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
+			 // fill for little-endian by default...
+			 wsasm_writememory_and_accumulate_part_for_little_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
                     }
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "numeric"))
@@ -2247,8 +2241,8 @@ function wsasm_obj2mem  ( ret )
                     // next: fill byte by byte
                     for (let j=0; j<n_bytes; j++)
                     {
-			 // fill for big-endian by default...
-			 wsasm_writememory_and_accumulate_part_for_big_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
+			 // fill for little-endian by default...
+			 wsasm_writememory_and_accumulate_part_for_little_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
                     }
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string"))
