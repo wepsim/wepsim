@@ -331,10 +331,13 @@
                                                      sim.poc.events.io = {} ;
 
 						     // reset the I/O factory
-						     for (var i=0; i<sim.poc.internal_states.io_int_factory.length; i++)
+						     var io_int_factory = sim.poc.internal_states.io_int_factory ;
+						     for (var i=0; i<io_int_factory.length; i++)
 						     {
-						      set_var(sim.poc.internal_states.io_int_factory[i].accumulated, 0);
-						      set_var(sim.poc.internal_states.io_int_factory[i].active, false);
+						          set_var(io_int_factory[i].accumulated, 0) ;
+						          set_var(io_int_factory[i].active,      false) ;
+						          set_var(io_int_factory[i].probability, 0.5) ;
+						          set_var(io_int_factory[i].period,      0) ;
 						     }
                                                   },
                                           verbal: function (s_expr) 

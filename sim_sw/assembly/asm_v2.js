@@ -19,65 +19,9 @@
  */
 
 
+//
 // Auxiliar from v1
 //
- directives = {
-                  // segments
-                  ".kdata":     { name:".kdata",  kindof:"segment",  size:0 },
-		  ".ktext":     { name:".ktext",  kindof:"segment",  size:0 },
-		  ".data":      { name:".data",   kindof:"segment",  size:0 },
-		  ".text":      { name:".text",   kindof:"segment",  size:0 },
-
-                  // datatypes
-		  ".byte":      { name:".byte",   kindof:"datatype", size:1 },
-		  ".half":      { name:".half",   kindof:"datatype", size:2 },
-		  ".word":      { name:".word",   kindof:"datatype", size:4 },
-		  ".float":     { name:".float",  kindof:"datatype", size:4 },
-		  ".double":    { name:".double", kindof:"datatype", size:8 },
-		  ".ascii":     { name:".ascii",  kindof:"datatype", size:1 },
-		  ".asciiz":    { name:".asciiz", kindof:"datatype", size:1 },
-		  ".space":     { name:".space",  kindof:"datatype", size:1 },
-		  ".string":    { name:".string", kindof:"datatype", size:1 },
-		  ".zero":      { name:".zero",   kindof:"datatype", size:1 },
-
-                  // modifiers
-		  ".align":     { name:".align",  kindof:"datatype", size:0 }
-              } ;
-
-function is_directive ( text )
-{
-	return (typeof directives[text] !== "undefined");
-}
-
-function is_directive_segment ( text )
-{
-        return is_directive_kindof(text, 'segment') ;
-}
-
-function is_directive_datatype ( text )
-{
-        return is_directive_kindof(text, 'datatype') ;
-}
-
-function is_directive_kindof ( text, kindof )
-{
-        if (typeof directives[text] === "undefined") {
-            // console.log("ERROR: not defined directive: " + text + "\n")
-            return false ;
-        }
-
-        return (directives[text].kindof == kindof) ;
-}
-
-function get_datatype_size ( datatype )
-{
-	if (typeof directives[datatype] === "undefined") {
-	    console.log("ERROR: not defined datatype: " + datatype + "\n") ;
-	    return 0 ;
-   	}
-
-	return directives[datatype].size ;
-}
 
 function isValidTag ( tag )
 {
@@ -266,6 +210,7 @@ function assembly_replace_v2 ( machineCode, num_bits, startbit, stopbit, bits, f
 	return machineCode;
 }
 
+
 /*
  *   Load segments
  */
@@ -289,7 +234,7 @@ function read_data_v2 ( context, datosCU, ret )
            asm_nextToken(context) ;
 
 	   // Loop while token read is not a segment directive (.text/.data/...)
-	   while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
+	   while (!wsasm_is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
            {
 		   //
 		   //  * etiq1: *
@@ -297,7 +242,7 @@ function read_data_v2 ( context, datosCU, ret )
 		   //
 
 		   var possible_tag = "" ;
-		   while (!is_directive_datatype(asm_getToken(context)) && !is_end_of_file(context))
+		   while (!wsasm_is_directive_datatype(asm_getToken(context)) && !is_end_of_file(context))
 		   {
                       // tagX
 		      possible_tag = asm_getToken(context) ;
@@ -360,18 +305,18 @@ function read_data_v2 ( context, datosCU, ret )
 		        (".double" == possible_datatype) )
                    {
 			// Get value size in bytes
-			var size = get_datatype_size(possible_datatype) ;
+			var size = wsasm_get_datatype_size(possible_datatype) ;
 
                         // <value> | .<directive>
 		        asm_nextToken(context) ;
                         var possible_value = asm_getToken(context) ;
 
-			while (!is_directive(asm_getToken(context)) && !is_end_of_file(context))
+			while (!wsasm_is_directive(asm_getToken(context)) && !is_end_of_file(context))
                         {
 				var label_found = false;
 
 				// Get value
-				var ret1 = get_imm_value(possible_value) ;
+				var ret1 = dt_get_imm_value(possible_value) ;
 				var number = ret1.number ;
 				if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                                 {
@@ -459,7 +404,7 @@ function read_data_v2 ( context, datosCU, ret )
 				    asm_nextToken(context) ;
                                 }
 
-			        if ( is_directive(asm_getToken(context)) ||
+			        if ( wsasm_is_directive(asm_getToken(context)) ||
                                      ("TAG" == asm_getTokenType(context)) ||
                                      ("." == asm_getToken(context)[0]) )
                                 {
@@ -580,7 +525,7 @@ function read_data_v2 ( context, datosCU, ret )
 		        }
                         possible_value = ret1.string ;
 
-			while (!is_directive(asm_getToken(context)) && !is_end_of_file(context))
+			while (!wsasm_is_directive(asm_getToken(context)) && !is_end_of_file(context))
                         {
 				// Word filled
                                 writememory_and_reset(ret.mp, gen, 1) ;
@@ -651,7 +596,7 @@ function read_data_v2 ( context, datosCU, ret )
 				    asm_nextToken(context);
 			        }
 
-			        if ( is_directive(asm_getToken(context)) || ("TAG" == asm_getTokenType(context)) || "." == asm_getToken(context)[0] )
+			        if ( wsasm_is_directive(asm_getToken(context)) || ("TAG" == asm_getTokenType(context)) || "." == asm_getToken(context)[0] )
 				     break ; // end loop, already read token (tag/directive)
 
                                 // <value> | .<directive>
@@ -725,7 +670,7 @@ function read_text_v2 ( context, datosCU, ret )
            asm_nextToken(context) ;
 
 	   // Loop while token read is not a segment directive (.text/.data/...)
-	   while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
+	   while (!wsasm_is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
            {
 		// check tag or error
 		while (
@@ -907,7 +852,7 @@ function read_text_v2 ( context, datosCU, ret )
 					 }
 
 					 // Get value
-       					 var ret1 = get_imm_value(value) ;
+       					 var ret1 = dt_get_imm_value(value) ;
 					 converted = ret1.number ;
                                          if ( (ret1.isDecimal == false) && (ret1.isFloat == false) )
                                          {
