@@ -29,14 +29,14 @@
 function wsasm_new_objElto ( base_elto )
 {
         var elto = {
-		       comments:     [], // need_in_memory as comments: array of string
+		       comments:     [],  // need_in_memory as comments: array of string
 		       labels:       [],
-		       track_source: [], // need_in_memory as source_tracking: array of string
+		       track_source: [],  // need_in_memory as source_tracking: array of string
 
                        seg_name:     '',
-                       datatype:     '', // datatype
-                       byte_size:    0,  // size(datatype) in bytes
-                       value:        0,
+                       datatype:     '',  // datatype
+                       byte_size:     0,  // size(datatype) in bytes
+                       value:        '0',
                        format:       '',
 
                        binary:               '',
