@@ -1609,6 +1609,7 @@ function wsasm_resolve_pseudo ( context, ret )
 	         elto.value.fields             = [] ;
 	         elto.value.signature_type_arr = [ possible_inst ] ;
 		 elto.value.signature_size_arr = [] ;
+                 elto.associated_context       = pseudo_elto.associated_context ;
 
                  // Match fields of the pseudoinstruction...
                  ret1 = wsasm_src2obj_text_elto_fields(context, ret, elto, pseudo_context) ;
