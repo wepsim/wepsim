@@ -330,8 +330,16 @@
 
         function refresh()
         {
-	    for (var key in simhw_sim_signals()) {
-		 update_draw(simhw_sim_signals()[key], simhw_sim_signals()[key].value) ;
+	    var all_signals = simhw_sim_signals() ;
+            var one_signals = {} ;
+
+	    for (var key in all_signals) {
+                 if (all_signals[key].value == 0)
+		      update_draw(all_signals[key], all_signals[key].value) ;
+                 else one_signals[key] = 1 ;
+	    }
+	    for (var key in one_signals) {
+		 update_draw(all_signals[key], all_signals[key].value) ;
 	    }
 
 	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
