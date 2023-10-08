@@ -1566,8 +1566,8 @@ function wsasm_resolve_pseudo ( context, ret )
               }
               if (null == ret.obj[i].firm_reference)
               {
-                   // skip empty pseudoinstructions:
-                   //        pseudo
+                   // skip empty pseudoinstructions, example:
+                   //        "pseudo"
                    // label:         <- empty line with label, former pseudo
                    continue ;
               }
@@ -1631,7 +1631,8 @@ function wsasm_resolve_pseudo ( context, ret )
 		 }
 
                  if (0 == eltos.length) {
-                     elto.labels = pseudo_elto.labels ;
+                     elto.labels   = pseudo_elto.labels ;
+		     elto.comments = pseudo_elto.comments.slice() ;
 		 }
 
                  // add elto to some temporal array
