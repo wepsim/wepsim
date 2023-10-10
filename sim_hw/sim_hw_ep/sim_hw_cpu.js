@@ -543,7 +543,7 @@
 					       "MV MUXA_MICROADDR FETCH"],
                                     depends_on: ["CLK"],
 				    fire_name: [],
-				    draw_data: [['svg_cu:path3102', 'svg_cu:path3100', 'svg_cu:path3098', 'svg_cu:path3100-9', 'svg_cu:path3088', 'svg_cu:path3082'],
+				    draw_data: [['svg_cu:path3102', 'svg_cu:path3100', 'svg_cu:path3098', 'svg_cu:path3100-9', 'svg_cu:path3088', 'svg_cu:path3082','svg_cu:path3040'],
 					        ['svg_cu:path3104', 'svg_cu:path3134', 'svg_cu:path3500', 'svg_cu:path3416'],
 					        ['svg_cu:path3124-2-4', 'svg_cu:path3124-2', 'svg_cu:path3504', 'svg_cu:path3100-8', 'svg_cu:path3234-9'],
 					        ['svg_cu:path3124']],
@@ -845,7 +845,7 @@
                                                    'svg_cu:path3200','svg_cu:path3204','svg_cu:path3208','svg_cu:path3268','svg_cu:path3316'],
 					          ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300','svg_cu:path3258','svg_cu:path3260',
 				                   'svg_cu:path3258-4','svg_cu:path3278','svg_cu:path3196','svg_cu:path3294','svg_cu:path3292',
-					           'svg_cu:path3288','svg_cu:path3280','svg_cu:path3258','svg_cu:path3258-4','svg_cu:path3390-7',
+					           'svg_cu:path3288','svg_cu:path3280','svg_cu:path3258','svg_cu:path3258-4',
                                                    'svg_cu:path3268','svg_cu:path3364','svg_cu:path3316']],
 			              draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 	 sim.ep.signals["MR_RA"]  = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",

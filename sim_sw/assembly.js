@@ -31,7 +31,7 @@ function simlang_compile ( text, datosCU )
      if (skin_arr.includes('beta_ngc'))
      {
          // Testing in beta for the next-generation compiler...
-         ret = wsasm_src2mem(datosCU, text) ;
+         ret = wsasm_src2mem(datosCU, text, {}) ;
      }
      else
      {
