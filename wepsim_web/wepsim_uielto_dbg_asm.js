@@ -243,13 +243,6 @@
 	             p = "0x" + a.toString(16) ;
 		     s3_val = get_value(mp[l]) ;
 
-                     // set cell bgcolor
-/*
-	             if  (a % 8 === 0)
-		          mp[l].bgcolor = "#F8F8F8" ;
-	             else mp[l].bgcolor = "#F0F0F0" ;
-*/
-
                      // <skip data segments>
                   // if (false == mp[l].is_assembly) {
 		  //     continue ;
@@ -321,7 +314,7 @@
 
 	     // join the pieces...
 	     var o = "<tr id='asmdbg" + p + "'>" +
-		     "<td class='asm_label  font-monospace col-auto collapse pb-0' " +
+		     "<td class='asm_label  font-monospace col-2 collapse pb-0' " +
 		     "    style='line-height:0.9;' align='right'>" + s_label +
 		     "</td>" +
 		     "<td class='asm_addr   font-monospace col-auto collapse' " +
@@ -359,7 +352,8 @@
 
 	     // mark pseudo + n-words
 	     if (s1_instr === '') {
-		 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
+	           s1_instr = '<span class="text-secondary text-center">&quot;<sub>' + s2_instr + '</sub></span>' ;
+	           s2_instr = '<span class="text-secondary text-center">&quot;<sub>' + s2_instr + '</sub></span>' ;
 	     }
 	else if (s1_instr != s2_instr) {
 		 s1_instr = '<span class="text-primary">' + s1_instr + '</span>' ;

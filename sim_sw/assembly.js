@@ -31,13 +31,10 @@ function simlang_compile ( text, datosCU )
      if (skin_arr.includes('beta_ngc'))
      {
          // Testing in beta for the next-generation compiler...
-         ret = wsasm_src2mem(datosCU, text) ;
+         ret = wsasm_src2mem(datosCU, text, {}) ;
      }
      else
      {
-         // Initial version for 2023/24...
-//       ret = simlang_compile_v1(text, datosCU) ;  // disabled for testing Juan Banga version...
-
          // Juan Banga version with support for firmware 2 based on simlang_compile_v1
          ret = simlang_compile_v2(text, datosCU) ;
      }
