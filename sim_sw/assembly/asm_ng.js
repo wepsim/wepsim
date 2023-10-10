@@ -29,14 +29,14 @@
 function wsasm_new_objElto ( base_elto )
 {
         var elto = {
-		       comments:     [], // need_in_memory as comments: array of string
+		       comments:     [],  // need_in_memory as comments: array of string
 		       labels:       [],
-		       track_source: [], // need_in_memory as source_tracking: array of string
+		       track_source: [],  // need_in_memory as source_tracking: array of string
 
                        seg_name:     '',
-                       datatype:     '', // datatype
-                       byte_size:    0,  // size(datatype) in bytes
-                       value:        0,
+                       datatype:     '',  // datatype
+                       byte_size:     0,  // size(datatype) in bytes
+                       value:        '0',
                        format:       '',
 
                        binary:               '',
@@ -172,6 +172,33 @@ function wsasm_order2index_startstop ( start_bit, stop_bit )
      }
 
      return n_bits ;
+}
+
+function wsasm_mk_default_options ( )
+{
+           var options = {} ;
+
+           // Initialize default options...
+	   options.field_multipart_order = "backwards" ; // "backwards" | "forwards" ;
+	   options.mandatory_comma       = false ; // false | true
+           options.instruction_comma     = true  ; // true  | false
+
+           return options ;
+}
+
+function wsasm_expand_options ( base_options )
+{
+           var options = wsasm_mk_default_options() ;
+
+           // Replace default options if exits in base_options
+           for (var key in options)
+           {
+                if (typeof base_options[key] !== "undefined") {
+                    options[key] = base_options[key] ;
+                }
+           }
+
+           return options ;
 }
 
 
@@ -362,10 +389,22 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                      }
                      else // (2 == CU_data.version)
                      {
-                         for (let m=0; m<elto.fields[j].bits_start.length; m++)
+                         if ("forwards" == context.options.field_multipart_order)
                          {
-                              start_bit[m] = parseInt(elto.fields[j].bits_start[m]) ;
-                              stop_bit[m]  = parseInt(elto.fields[j].bits_stop[m]) ;
+				 for (let m=0; m<elto.fields[j].bits_start.length; m++)
+				 {
+				      start_bit[m] = parseInt(elto.fields[j].bits_start[m]) ;
+	                              stop_bit[m]  = parseInt(elto.fields[j].bits_stop[m]) ;
+				 }
+                         }
+                         else // "backwards"
+                         {
+				 for (let m=0; m<elto.fields[j].bits_start.length; m++)
+				 {
+                                      om = elto.fields[j].bits_start.length - 1 - m ;
+				      start_bit[m] = parseInt(elto.fields[j].bits_start[om]) ;
+	                              stop_bit[m]  = parseInt(elto.fields[j].bits_stop[om]) ;
+				 }
                          }
                      }
 
@@ -833,7 +872,6 @@ function wsasm_src2obj_data ( context, ret )
 
 				// optional ','
 				asm_nextToken(context);
-
 				if ("," == asm_getToken(context)) {
 				    asm_nextToken(context);
 			        }
@@ -1180,12 +1218,6 @@ function wsasm_src2obj_text_elto_fields ( context, ret, elto, pseudo_context )
 
 	   while ( (opx != '') && (elto.value.fields.length < 100) )
 	   {
-              // optional *,*
-	      if (',' == opx) {
-                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
-                  if ('' == opx) continue ;
-              }
-
               atom = opx ;
               par  = false ;
 
@@ -1286,8 +1318,19 @@ function wsasm_src2obj_text_elto_fields ( context, ret, elto, pseudo_context )
                   return ret1 ;
               }
 
-	      // next operand...
+	      // *,* OR next operand...
               opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	      if (',' == opx)
+              {
+                  do {
+                    opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+                  } while (',' == opx) ;
+              }
+              else if (('' != opx) && (context.options.mandatory_comma))
+              {
+		  return asm_langError(context,
+				       i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
+              }
 	   }
 
 	   // CHECK: More than 100 fields? really? umm, might be an error...
@@ -1566,8 +1609,8 @@ function wsasm_resolve_pseudo ( context, ret )
               }
               if (null == ret.obj[i].firm_reference)
               {
-                   // skip empty pseudoinstructions:
-                   //        pseudo
+                   // skip empty pseudoinstructions, example:
+                   //        "pseudo"
                    // label:         <- empty line with label, former pseudo
                    continue ;
               }
@@ -1609,6 +1652,7 @@ function wsasm_resolve_pseudo ( context, ret )
 	         elto.value.fields             = [] ;
 	         elto.value.signature_type_arr = [ possible_inst ] ;
 		 elto.value.signature_size_arr = [] ;
+                 elto.associated_context       = pseudo_elto.associated_context ;
 
                  // Match fields of the pseudoinstruction...
                  ret1 = wsasm_src2obj_text_elto_fields(context, ret, elto, pseudo_context) ;
@@ -1630,7 +1674,8 @@ function wsasm_resolve_pseudo ( context, ret )
 		 }
 
                  if (0 == eltos.length) {
-                     elto.labels = pseudo_elto.labels ;
+                     elto.labels   = pseudo_elto.labels ;
+		     elto.comments = pseudo_elto.comments.slice() ;
 		 }
 
                  // add elto to some temporal array
@@ -1905,9 +1950,7 @@ function wsasm_obj2src ( context, ret, options )
          }
 
          // prepare options...
-         if (typeof options.instruction_comma == "undefined") {
-             options.instruction_comma = true ;
-         }
+         options = wsasm_expand_options(options) ;
 
          // for all object elements...
          for (let i=0; i<ret.obj.length; i++)
@@ -2042,33 +2085,37 @@ function wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, 
 }
 
 
-
  /*
   *  Public API (see README_ng.md for more information)
   */
 
-function wsasm_prepare_context ( CU_data, asm_source )
+function wsasm_prepare_context ( CU_data, options )
 {
-           var context = {} ;
-	   context.line           	= 1 ;          // here
-	   context.error          	= null ;
-	   context.i              	= 0 ;          // here
-           context.text                 = asm_source ; // here
-	   context.tokens         	= [] ;
-	   context.token_types    	= [] ;
-	   context.t              	= 0 ;          // here
-           context.comments             = [] ;
-	   context.newlines       	= [] ;
-	   context.registers      	= [] ;         // here
-	   context.firmware             = {} ;         // here
-	   context.pseudoInstructions	= [];          // here
-	   context.stackRegister	= null ;
-	   context.version	        = CU_data.version ;
-
 	   // Check arguments
            if (typeof CU_data == "undefined") {
                return { error: 'CU_data is undefined in wsasm_prepare_context\n' } ;
            }
+
+           // Initialize context...
+           var context = {} ;
+	   context.line           	= 1 ;      // here
+	   context.error          	= null ;
+	   context.i              	= 0 ;      // here
+           context.text                 = '' ;     // here
+	   context.tokens         	= [] ;
+	   context.token_types    	= [] ;
+	   context.t              	= 0 ;      // here
+           context.comments             = [] ;
+	   context.newlines       	= [] ;
+	   context.registers      	= [] ;     // here
+	   context.firmware             = {} ;     // here
+	   context.pseudoInstructions	= [];      // here
+	   context.stackRegister	= null ;
+	   context.version	        = CU_data.version ;
+	   context.options              = {} ;     // here
+
+           // Fill the assembler configuration
+           context.options = wsasm_expand_options(options) ;
 
 	   // Fill register names
 	   for (i=0; i<CU_data.registers.length; i++)
@@ -2091,8 +2138,36 @@ function wsasm_prepare_context ( CU_data, asm_source )
 	   return context ;
 }
 
+function wsasm_prepare_source ( context, asm_source )
+{
+	   // Check arguments
+           if (typeof context == "undefined") {
+               return { error: 'context is undefined in wsasm_prepare_source\n' } ;
+           }
+
+           // set a new assembler source code
+	   context.line        	= 1 ;          // here
+	   context.error       	= null ;
+	   context.i            = 0 ;          // here
+           context.text         = asm_source ; // here
+	   context.tokens       = [] ;
+	   context.token_types  = [] ;
+	   context.t            = 0 ;          // here
+           context.comments     = [] ;
+	   context.newlines     = [] ;
+
+           // return context
+	   return context ;
+}
+
 function wsasm_src2obj ( context )
 {
+	   // Check arguments
+           if (typeof context == "undefined") {
+               return { error: 'Context is undefined in wsasm_src2obj\n' } ;
+           }
+
+           // Initialize ret object
            var ret = {} ;
            ret.obj = [] ;
            ret.mp  = {} ;
@@ -2102,11 +2177,6 @@ function wsasm_src2obj ( context )
            ret.hash_labels_asm_rev = {} ;
 	   ret.labels              = {} ; // [addr] = {name, addr, startbit, stopbit}
            ret.labels_valbin       = {} ;
-
-	   // Check arguments
-           if (typeof context == "undefined") {
-               return { error: 'Context is undefined in wsasm_src2obj\n' } ;
-           }
 
            // pass 1: compile raw assembly
            ret = wsasm_src2obj_helper(context, ret) ;
@@ -2284,7 +2354,7 @@ function wsasm_obj2mem  ( ret )
          return ret ;
 }
 
-function wsasm_src2mem ( datosCU, text )
+function wsasm_src2mem ( datosCU, asm_source, options )
 {
      var context = null ;
      var ret = {
@@ -2293,7 +2363,12 @@ function wsasm_src2mem ( datosCU, text )
 
      try
      {
-         context = wsasm_prepare_context(datosCU, text) ;
+         context = wsasm_prepare_context(datosCU, options) ;
+	 if (context.error != null) {
+	     return context;
+	 }
+
+         context = wsasm_prepare_source(context, asm_source) ;
 	 if (context.error != null) {
 	     return context;
 	 }
