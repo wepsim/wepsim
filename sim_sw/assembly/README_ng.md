@@ -16,26 +16,27 @@
 
 ## 1) Public API
 
-+ **wsasm_prepare_context(CU_data, options)**
++ **wsasm_prepare_context(CU_data, options) -> context**
    * It prepare context from firmware (CU_data) plus the default configuration (options), and it builds the context object to be used in the next steps
 
-+ **wsasm_prepare_source(context, asm_source)**
++ **wsasm_prepare_source(context, asm_source) -> context**
    * It prepare context with the source code (asm_source) for the next steps
 
-+ **wsasm_src2obj(context)**
++ **wsasm_src2obj(context) -> ret**
    * Assembler API function to transform from source to JSON object
 
-+ **wsasm_obj2mem(ret)**
++ **wsasm_obj2mem(ret) -> ret**
    * Assembler API to transform from JSON object to main memory content (binary)
 
-+ **wsasm_src2mem(datosCU, asm_source, options)**
++ **wsasm_src2mem(datosCU, asm_source, options) -> ret**
    * Assembler API to transform from source to main memory content (binary)
    * Equivalent to wsasm_prepare_context + wsasm_prepare_source + wsasm_prepare_options + wsasm_src2obj + wsasm_obj2mem
 
-+ **wsasm_src2src(datosCU, text, options)**
++ **wsasm_src2src(datosCU, text, options) -> ret**
    * Assembler API to transform from source to source (following options)
    * The current available option(s) is/are:
-     * options.instruction_comma = true -> add ',' between instructions fields (e.g.: li x0 1 -> li x0, 1)
+     * options.instruction_comma = true => add ',' between instructions fields (e.g.: li x0 1 -> li x0, 1)
+   * It returns the source code at ret.src_alt
 
 
 <a name="asmng-todo"/>
@@ -123,10 +124,10 @@ sequenceDiagram
  * Description:
    * Load JSON object into main memory
   * Auxiliary functions are:
-      * wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
-      * wsasm_writememory_and_accumulate ( mp, gen, valuebin )
-      * wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source, track_comments )
-      * wsasm_zeropadding_and_writememory ( mp, gen )
+      * wsasm_writememory_if_word                    ( mp, gen, track_source, track_comments )
+      * wsasm_writememory_and_accumulate             ( mp, gen, valuebin )
+      * wsasm_writememory_and_accumulate_part        ( mp, gen, valuebin, track_source_j, track_source, track_comments )
+      * wsasm_zeropadding_and_writememory            ( mp, gen )
 
 ```mermaid
 sequenceDiagram
