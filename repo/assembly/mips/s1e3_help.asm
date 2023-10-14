@@ -30,7 +30,7 @@ main:
     loop1: beq $1 $2 end1
            # {
            #   ...
-               add $1 $1 1
+               addi $1 $1 1
                b loop1
            # }
 
@@ -60,7 +60,7 @@ main:
     loop2: bge $1 $2 end2
            # {
            #   ...
-               add $1 $1 1
+               addi $1 $1 1
                b loop2
            # }
 
@@ -90,7 +90,7 @@ main:
     loop3: bgt $1 $2 end3
            # {
            #   ...
-               add $1 $1 1
+               addi $1 $1 1
                b loop3
            # }
 
