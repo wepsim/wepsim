@@ -38,6 +38,7 @@ function wsasm_new_objElto ( base_elto )
                        byte_size:     0,  // size(datatype) in bytes
                        value:        '0',
                        format:       '',
+                       endian:       'none', // 1 byte: 'none', >1 byte: 'little' | 'big'
 
                        binary:               '',
                        firm_reference:       null,
@@ -49,6 +50,7 @@ function wsasm_new_objElto ( base_elto )
 	    elto.seg_name  = base_elto.seg_name ;
 	    elto.datatype  = base_elto.datatype ;
             elto.byte_size = base_elto.byte_size ;
+            elto.endian    = base_elto.endian ;
         }
 
         return elto ;
@@ -616,6 +618,9 @@ function wsasm_src2obj_data ( context, ret )
 
 			// Get value size in bytes
 			elto.byte_size = wsasm_get_datatype_size(elto.datatype) ;
+                        if (elto.byte_size > 1) {
+                            elto.endian = context.endian ;
+                        }
 
                         // <value> | .<directive>
 		        asm_nextToken(context) ;
@@ -1391,6 +1396,7 @@ function wsasm_src2obj_text ( context, ret )
 
            elto = wsasm_new_objElto(null) ;
            elto.seg_name = seg_name ;
+           elto.endian   = context.endian ;
 
 	   //
 	   //   .text    |   .text
@@ -1988,8 +1994,7 @@ function wsasm_obj2src ( context, ret, options )
 //   * wsasm_writememory_and_accumulate       ( mp, gen, valuebin )
 //   * wsasm_zeropadding_and_writememory      ( mp, gen )
 //   * wsasm_writememory_and_accumulate_part  ( mp, gen, valuebin, track_source_j, track_source, track_comments )
-//   * wsasm_writememory_and_accumulate_part_for_big_endian    ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
-//   * wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
+//   * wsasm_writememory_and_accumulate_part_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
 //
 
 function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
@@ -2058,30 +2063,36 @@ function wsasm_writememory_and_accumulate_part ( mp, gen, valuebin, track_source
 	}
 }
 
-function wsasm_writememory_and_accumulate_part_for_big_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
+function wsasm_writememory_and_accumulate_part_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
 {
-         var b_index   = j_byte * BYTE_LENGTH ;
-	 var valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
+	var b_index = 0 ;
+ 
+        switch (obj_i.endian)
+	{
+           case 'big':    // big endian
+                b_index = j_byte * BYTE_LENGTH ;
+                break ;
 
-	 wsasm_writememory_and_accumulate_part(ret_mp, gen, valuebin8, null, obj_i.track_source, obj_i.comments) ;
-}
+           case 'little': // little endian
+		if (n_bytes < WORD_BYTES) {
+		    b_index = n_bytes - j_byte - 1 ;
+		}
+		else {
+		    b_index = (j_byte / WORD_BYTES) >>> 0 ;
+		    b_index = b_index * WORD_BYTES + WORD_BYTES - (j_byte % WORD_BYTES) - 1 ;
+		}
 
-function wsasm_writememory_and_accumulate_part_for_little_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
-{
-	 var b_index = 0 ;
+		b_index = b_index * BYTE_LENGTH ;
+                break ;
 
-         if (n_bytes < WORD_BYTES) {
-             b_index = n_bytes - j_byte - 1 ;
-         }
-         else {
-	     b_index = (j_byte / WORD_BYTES) >>> 0 ;
-	     b_index = b_index * WORD_BYTES + WORD_BYTES - (j_byte % WORD_BYTES) - 1 ;
-         }
+           default:  // none
+		b_index = n_bytes - j_byte - 1 ;
+		b_index = b_index * BYTE_LENGTH ;
+                break ;
+	}
 
-         b_index = b_index * BYTE_LENGTH ;
-	 var valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
-
-	 wsasm_writememory_and_accumulate_part(ret_mp, gen, valuebin8, null, obj_i.track_source, obj_i.comments) ;
+	var valuebin8 = valuebin.substr(b_index, BYTE_LENGTH) ;
+	wsasm_writememory_and_accumulate_part(ret_mp, gen, valuebin8, null, obj_i.track_source, obj_i.comments) ;
 }
 
 
@@ -2113,6 +2124,7 @@ function wsasm_prepare_context ( CU_data, options )
 	   context.stackRegister	= null ;
 	   context.version	        = CU_data.version ;
 	   context.options              = {} ;     // here
+           context.endian               = 'little' ; // TODO: get from firmware
 
            // Fill the assembler configuration
            context.options = wsasm_expand_options(options) ;
@@ -2298,7 +2310,7 @@ function wsasm_obj2mem  ( ret )
                          gen.is_assembly    = true ;
 
 			 // fill for little-endian by default...
-			 wsasm_writememory_and_accumulate_part_for_little_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
+			 wsasm_writememory_and_accumulate_part_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
                     }
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "numeric"))
@@ -2312,7 +2324,7 @@ function wsasm_obj2mem  ( ret )
                     for (let j=0; j<n_bytes; j++)
                     {
 			 // fill for little-endian by default...
-			 wsasm_writememory_and_accumulate_part_for_little_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
+			 wsasm_writememory_and_accumulate_part_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
                     }
               }
               else if (wsasm_has_datatype_attr(ret.obj[i].datatype, "string"))

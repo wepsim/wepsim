@@ -3,6 +3,7 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
+firmware_version=2,
 begin
 {
    fetch:   # IR <- MP[PC]
@@ -14,7 +15,7 @@ begin
 }
 
 test {
-   co=010110,
+   oc(6:0)=0010110,
    nwords=1,
    {
        (),

@@ -187,17 +187,6 @@
     "testing":          true
   },
   {
-    "id":		"S2E2",
-    "title":		"Subrutine",
-    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes":		"newbie,intro,asm_mips",
-    "hardware":		"ep",
-    "microcode":	"ep_bare",
-    "assembly":		"s2e2",
-    "description":	"<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>",
-    "testing":          true
-  },
-  {
     "id":		"S3E5",
     "title":		"Fibonacci",
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
@@ -239,17 +228,6 @@
     "microcode":	"ep_bare",
     "assembly":		"s4e5",
     "description":      "<span data-langkey='example_04_05'>Example of side-channel attack.</span>",
-    "testing":          true
-  },
-  {
-    "id":		"S6E1",
-    "title":		"Dummy instruction",
-    "type":		"<span data-langkey='Special'>Special</span>",
-    "modes":		"newbie,intro,asm_mips",
-    "hardware":		"ep",
-    "microcode":	"ep_bare",
-    "assembly":		"s6e1",
-    "description":	"<span data-langkey='example_06_01'>Test example.</span>",
     "testing":          true
   },
   {

@@ -120,15 +120,15 @@ reti {
 
 
 #
-# Power consumption
+# Related to power consumption
 #
 
-# RDCYCLE rd        Load Energy     rd ← ux(energy_acc)
+# RDCYCLE rd        Load clock cycles     rd ← ux(clock_cycles_acc)
 rdcycle reg1  {
      co=111111,
      nwords=1,
      reg1=reg(25,21),
-     help='reg1 = load accumulated power consumption',
+     help='reg1 = load accumulated clock cycles',
      native,
      {
          // fields is a default parameter with the instruction field information

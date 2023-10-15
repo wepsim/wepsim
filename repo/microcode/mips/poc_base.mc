@@ -118,7 +118,7 @@ addi reg1 reg2 val {
             }
 }
 
-add reg1 reg2 val {
+addi reg1 reg2 val {
             co=111111,
             nwords=1,
             reg1 = reg(25,21),
