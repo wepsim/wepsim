@@ -269,27 +269,46 @@
 
     function wepsim_memdashboard_notify_offcanvas ( ref_mdash, notif_origin, notifications, skip1st )
     {
+        // find index 'k' of the first line for the notify...
+        let k = 0 ;
+        let lineuc = '' ;
+	while (k < notifications)
+        {
+            lineuc = ref_mdash.notify[k].toUpperCase() ;
+	    k++ ;
+
+            if (lineuc.includes("SKIP1ST")) {
+                break ;
+	    }
+	}
+	if (k >= notifications) {
+            k = 0 ;
+        }
+
+        // get title info
+        let title_info = '' ;
+        if (typeof ref_mdash.notify[k] != "undefined")
+	{
+            title_info = ref_mdash.notify[k] ;
+            if (true == skip1st) {
+                k++ ;
+            }
+	}
+
         // title
-	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ":<br>" + ref_mdash.notify[k] ;
+	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ":<br>" + title_info ;
 
 	// content
         var dialog_msg = '<div style="max-height:80vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
-        for (var k=0; k<notifications; k++)
+        while (k < notifications)
         {
-             if (true == skip1st)
-             {
-                 if (ref_mdash.notify[k].includes("skip1st")) {
-                     k++ ;
-                     skip1st = false ;
-                 }
-                 continue ;
-             }
-      
 	     dialog_msg += ref_mdash.notify[k] + "\n" ;
 
              if (ref_mdash.notify[k].includes("<html>") == false) {
 	         dialog_msg += "<br>" ;
              }
+
+             k++ ;
 	}
 	dialog_msg += '</div>' ;
 
