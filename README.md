@@ -1,10 +1,10 @@
 
 # WepSIM: Web Elemental Processor Simulator
 
-![Build Status](https://github.com/acaldero/wepsim/actions/workflows/node.js.yml/badge.svg)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
-[![codebeat badge](https://codebeat.co/badges/66773495-9967-4514-8c2c-916293f584b5)](https://codebeat.co/projects/github-com-acaldero-wepsim-master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://app.codacy.com/gh/acaldero/wepsim/dashboard)
+![Build Status](https://github.com/wepsim/wepsim/actions/workflows/node.js.yml/badge.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/wepsim/wepsim/maintainability)
+[![codebeat badge](https://codebeat.co/badges/66773495-9967-4514-8c2c-916293f584b5)](https://codebeat.co/projects/github-com-wepsim-wepsim-master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://app.codacy.com/gh/wepsim/wepsim/dashboard)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![Release](https://img.shields.io/badge/Stable-2.3.1-green.svg)](https://github.com/wepsim/wepsim/releases/tag/v2.3.1)
 
@@ -198,7 +198,7 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 
 - WepSIM GitHub Repository:
    * Stable  build: https://github.com/wepsim/wepsim
-   * Nightly build: https://github.com/acaldero/wepsim
+   * Nightly build: https://github.com/wepsim/wepsim
 
 - The WepSIM architecture can be summarized in the following Figure (made by https://app.diagrams.net):
 ![screen:example1](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/ws_arch_215-v2.png)

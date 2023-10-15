@@ -269,17 +269,27 @@
 
     function wepsim_memdashboard_notify_offcanvas ( ref_mdash, notif_origin, notifications, skip1st )
     {
-        var k = 1 ;
-        if (skip1st) k++ ;
-
         // title
 	var dialog_title = "Notify @ 0x" + parseInt(notif_origin).toString(16) + ":<br>" + ref_mdash.notify[k] ;
 
 	// content
-	var dialog_msg = '<div style="max-height:80vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
-	while (k<notifications) {
-	     dialog_msg += ref_mdash.notify[k] + "\n<br>" ;
-             k++;
+        var dialog_msg = '<div style="max-height:80vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
+        for (var k=0; k<notifications; k++)
+        {
+             if (true == skip1st)
+             {
+                 if (ref_mdash.notify[k].includes("skip1st")) {
+                     k++ ;
+                     skip1st = false ;
+                 }
+                 continue ;
+             }
+      
+	     dialog_msg += ref_mdash.notify[k] + "\n" ;
+
+             if (ref_mdash.notify[k].includes("<html>") == false) {
+	         dialog_msg += "<br>" ;
+             }
 	}
 	dialog_msg += '</div>' ;
 

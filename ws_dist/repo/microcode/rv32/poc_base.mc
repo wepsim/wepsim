@@ -132,15 +132,15 @@ out reg val {
 
 
 #
-# Power consumption
+# Related to power consumption
 #
 
-# RDCYCLE rd  	Load Energy 	rd ← ux(energy_acc) 
+# RDCYCLE rd  	Load clock cycles 	rd ← ux(clock_cycles_acc) 
 rdcycle reg1  {
 	    co=111111,
 	    nwords=1,
 	    reg1=reg(25,21),
-	    help='reg1 = load accumulated power consumption',
+	    help='reg1 = load accumulated clock cycles',
 	    {
 		     (MH=1, T12=1, SELC=10101, LC=1, A0=1, B=1, C=0)
 	    }
