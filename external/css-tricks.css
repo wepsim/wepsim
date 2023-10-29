@@ -112,14 +112,11 @@
 
 
 /*
- * Dark Mode
+ * Glow
  */
 
-.no-dark-mode {
-/*
-   filter: invert(90%) hue-rotate(170deg) !important;
-   background-color: #111 !important;
-*/
+.bg-glow {
+   background-color: orange !important;
 }
 
 

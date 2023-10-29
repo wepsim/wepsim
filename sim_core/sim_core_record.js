@@ -121,11 +121,11 @@
 	 }
 
          // add class and...
-         ui_obj.addClass('btn-warning') ;
+         ui_obj.addClass('bg-glow') ;
 
          // ...remove it after 'ws_glowing_time' ms.
          setTimeout(function() {
-		       ui_obj.removeClass('btn-warning') ;
+		       ui_obj.removeClass('bg-glow') ;
 	            }, ws_glowing_time) ;
     }
 
