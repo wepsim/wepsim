@@ -41,5 +41,15 @@
                          events:              {}
 	              } ;
 
+            // registering elements
+                  board_base_register ( poc_def ) ;
+            cpu_poc_register          ( poc_def ) ;
+            mem_poc_register          ( poc_def ) ;
+              io_screen_base_register ( poc_def ) ;
+            io_keyboard_base_register ( poc_def ) ;
+                 io_clk_base_register ( poc_def ) ;
+                 io_l3d_base_register ( poc_def ) ;
+                 io_ldm_base_register ( poc_def ) ;
+
             simhw_add(poc_def) ;
 
