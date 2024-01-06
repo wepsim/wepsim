@@ -58,8 +58,13 @@ echo "checking sim_hw..."
  jshint ./sim_hw/sim_hw_eltos.js
 
  jshint ./sim_hw/hw_items/board_base.js
- jshint ./sim_hw/hw_items/mem_ep.js
 #jshint ./sim_hw/hw_items/cpu_ep.js
+#jshint ./sim_hw/hw_items/cpu_rv.js
+#jshint ./sim_hw/hw_items/cpu_poc.js
+#jshint ./sim_hw/hw_items/cu_poc.js
+ jshint ./sim_hw/hw_items/mem_ep.js
+#jshint ./sim_hw/hw_items/mem_rv.js
+#jshint ./sim_hw/hw_items/mem_poc.js
  jshint ./sim_hw/hw_items/io_screen_base.js
  jshint ./sim_hw/hw_items/io_keyboard_base.js
  jshint ./sim_hw/hw_items/io_clk_base.js
@@ -68,26 +73,7 @@ echo "checking sim_hw..."
 
  jshint ./sim_hw/hw_ep.js
  jshint ./sim_hw/hw_poc.js
-
-#jshint ./sim_hw/sim_hw_poc/sim_poc.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_mem.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_board.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_kbd.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_scr.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_io.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_cpu.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_l3d.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_ldm.js
-
-#jshint ./sim_hw/sim_hw_ep/sim_ep.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_mem.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_io.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_board.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_kbd.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_scr.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_cpu.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_l3d.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_ldm.js
+#jshint ./sim_hw/hw_rv.js
 
 echo "checking wepsim_core..."
  jshint ./wepsim_core/wepsim_help_commands.js

@@ -51,5 +51,6 @@ function board_base_register ( sim_p )
 					    }
                                };
 
+        return sim_p ;
 }
 

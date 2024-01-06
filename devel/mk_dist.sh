@@ -124,9 +124,12 @@ cat sim_core/sim_cfg.js \
     \
     sim_hw/hw_items/board_base.js \
     sim_hw/hw_items/mem_ep.js \
+    sim_hw/hw_items/mem_rv.js \
     sim_hw/hw_items/mem_poc.js \
     sim_hw/hw_items/cpu_ep.js \
     sim_hw/hw_items/cpu_poc.js \
+    sim_hw/hw_items/cpu_rv.js \
+    sim_hw/hw_items/cu_poc.js \
     sim_hw/hw_items/io_clk_base.js \
     sim_hw/hw_items/io_screen_base.js \
     sim_hw/hw_items/io_keyboard_base.js \
@@ -135,11 +138,7 @@ cat sim_core/sim_cfg.js \
     \
     sim_hw/hw_ep.js \
     sim_hw/hw_poc.js \
-    \
-    sim_hw/hw_rv/sim_rv.js \
-    sim_hw/hw_rv/sim_hw_board.js \
-    sim_hw/hw_rv/sim_hw_cpu.js \
-    sim_hw/hw_rv/sim_hw_mem.js \
+    sim_hw/hw_rv.js \
     \
     sim_sw/firmware/lexical.js \
     sim_sw/firmware/firm_mcode.js \

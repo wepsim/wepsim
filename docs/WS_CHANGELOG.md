@@ -4,6 +4,7 @@
 ## 2.3.0 -> 2.3.1:
 * Main improvements:
   * New default assembler with full support for firmware version 2
+  * Initial changes for better hardware maintenace
   * Several minor improvements
 * Main external dependencies updated:
   * Bump bootstrap   from 5.3.1  to 5.3.2

@@ -23,6 +23,10 @@
  *  L3D
  */
 
+var L3DSR_ID   = 0x2100 ;
+var L3DCR_ID   = 0x2104 ;
+var L3DDR_ID   = 0x2108 ;
+
 function io_l3d_base_register ( sim_p )
 {
         /* jshint esversion: 6 */
@@ -81,10 +85,6 @@ function io_l3d_base_register ( sim_p )
         sim_p.internal_states.l3d_state  = Array.from({length:sim_p.internal_states.l3d_neltos},
 						       () => ({active:false})) ;
         sim_p.internal_states.l3d_frame  = '0'.repeat(sim_p.internal_states.l3d_neltos) ;
-
-        var L3DSR_ID   = 0x2100 ;
-        var L3DCR_ID   = 0x2104 ;
-        var L3DDR_ID   = 0x2108 ;
 
         sim_p.internal_states.io_hash[L3DSR_ID] = "L3DSR" ;
         sim_p.internal_states.io_hash[L3DCR_ID] = "L3DCR" ;
@@ -332,5 +332,6 @@ function io_l3d_base_register ( sim_p )
 			      signals_output:    [ ]
 		         } ;
 
+        return sim_p ;
 }
 

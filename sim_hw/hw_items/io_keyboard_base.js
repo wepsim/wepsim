@@ -209,5 +209,7 @@ function io_keyboard_base_register ( sim_p )
 			      signals_inputs:    [ "ior" ],
 			      signals_output:    [ ]
 		         } ;
+
+        return sim_p ;
 }
 

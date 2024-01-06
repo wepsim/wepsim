@@ -412,5 +412,6 @@ function mem_poc_register ( sim_p )
 			      signals_output:    [ ]
 		       } ;
 
+        return sim_p ;
 }
 

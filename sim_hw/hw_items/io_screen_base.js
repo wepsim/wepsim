@@ -274,5 +274,7 @@ function io_screen_base_register ( sim_p )
 			      signals_inputs:    [ "ior", "iow" ],
 			      signals_output:    [ ]
 		         } ;
+
+        return sim_p ;
 }
 

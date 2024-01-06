@@ -23,6 +23,10 @@
  *  LEDM
  */
 
+var LEDMSR_ID   = 0x3100 ;
+var LEDMCR_ID   = 0x3104 ;
+var LEDMDR_ID   = 0x3108 ;
+
 function io_ldm_base_register ( sim_p )
 {
         /* jshint esversion: 6 */
@@ -82,10 +86,6 @@ function io_ldm_base_register ( sim_p )
 						        () => ({color:0})) ;
         sim_p.internal_states.ledm_colors = colors_clone('') ;
         sim_p.internal_states.ledm_frame  = '0'.repeat(sim_p.internal_states.ledm_neltos) ;
-
-        var LEDMSR_ID   = 0x3100 ;
-        var LEDMCR_ID   = 0x3104 ;
-        var LEDMDR_ID   = 0x3108 ;
 
         sim_p.internal_states.io_hash[LEDMSR_ID] = "LEDMSR" ;
         sim_p.internal_states.io_hash[LEDMCR_ID] = "LEDMCR" ;
@@ -397,5 +397,6 @@ function io_ldm_base_register ( sim_p )
 			      signals_output:    [ ]
 		         } ;
 
+        return sim_p ;
 }
 

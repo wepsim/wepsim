@@ -19,12 +19,12 @@
  */
 
 
+/*
+ *  CPU
+ */
+
 function cpu_ep_register ( sim_p )
 {
-	/*
-	 *  CPU
-	 */
-
         sim_p.components["CPU"] = {
 		                  name: "CPU",
 		                  version: "1",
@@ -1293,7 +1293,7 @@ function cpu_ep_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (XOR). " ;
                                                 }
 				   };
-	sim_p.behaviors["SRL"]      = { nparameters: 3,
+	sim_p.behaviors["SRL"]   = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr)
 		                                {
@@ -1317,7 +1317,7 @@ function cpu_ep_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (SRL). " ;
                                                 }
 				   };
-	sim_p.behaviors["SRA"]      = { nparameters: 3,
+	sim_p.behaviors["SRA"]   = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr)
 		                                {
@@ -1341,7 +1341,7 @@ function cpu_ep_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (SRA). " ;
                                                 }
 				   };
-	sim_p.behaviors["SL"]       = { nparameters: 3,
+	sim_p.behaviors["SL"]    = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr)
 		                                {
@@ -3836,5 +3836,6 @@ function cpu_ep_register ( sim_p )
 			      signals_output:    [ ]
 	                   } ;
 
+        return sim_p ;
 }
 

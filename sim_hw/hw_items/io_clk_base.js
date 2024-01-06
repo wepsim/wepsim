@@ -385,5 +385,6 @@ function io_clk_base_register ( sim_p )
 			      signals_output:    [ ]
 		         } ;
 
+        return sim_p ;
 }
 

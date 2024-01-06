@@ -44,6 +44,7 @@
             // registering elements
                   board_base_register ( poc_def ) ;
             cpu_poc_register          ( poc_def ) ;
+             cu_poc_register          ( poc_def ) ;
             mem_poc_register          ( poc_def ) ;
               io_screen_base_register ( poc_def ) ;
             io_keyboard_base_register ( poc_def ) ;
