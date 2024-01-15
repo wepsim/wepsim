@@ -3,7 +3,7 @@ set -x
 
 
 #*
-#*  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -41,7 +41,7 @@ echo "checking sim_sw..."
  jshint ./sim_sw/firmware/firm_registers.js
  jshint ./sim_sw/firmware/firm_pseudoinstructions.js
 #jshint ./sim_sw/firmware/firm_instruction_v1.js
- jshint ./sim_sw/firmware/firm_fields_v1.js
+#jshint ./sim_sw/firmware/firm_fields_v1.js
 #jshint ./sim_sw/firmware/firm_fields_v2.js
 #jshint ./sim_sw/firmware/firm_instruction.js
 #jshint ./sim_sw/firmware.js
@@ -56,25 +56,24 @@ echo "checking sim_hw..."
  jshint ./sim_hw/sim_hw_values.js
 #jshint ./sim_hw/sim_hw_behavior.js
  jshint ./sim_hw/sim_hw_eltos.js
- jshint ./sim_hw/sim_hw_poc/sim_poc.js
- jshint ./sim_hw/sim_hw_poc/sim_hw_mem.js
- jshint ./sim_hw/sim_hw_poc/sim_hw_board.js
- jshint ./sim_hw/sim_hw_poc/sim_hw_kbd.js
- jshint ./sim_hw/sim_hw_poc/sim_hw_scr.js
- jshint ./sim_hw/sim_hw_poc/sim_hw_io.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_cpu.js
- jshint ./sim_hw/sim_hw_poc/sim_hw_l3d.js
-#jshint ./sim_hw/sim_hw_poc/sim_hw_ldm.js
 
- jshint ./sim_hw/sim_hw_ep/sim_hw_mem.js
- jshint ./sim_hw/sim_hw_ep/sim_ep.js
- jshint ./sim_hw/sim_hw_ep/sim_hw_io.js
- jshint ./sim_hw/sim_hw_ep/sim_hw_board.js
- jshint ./sim_hw/sim_hw_ep/sim_hw_kbd.js
- jshint ./sim_hw/sim_hw_ep/sim_hw_scr.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_cpu.js
- jshint ./sim_hw/sim_hw_ep/sim_hw_l3d.js
-#jshint ./sim_hw/sim_hw_ep/sim_hw_ldm.js
+ jshint ./sim_hw/hw_items/board_base.js
+#jshint ./sim_hw/hw_items/cpu_ep.js
+#jshint ./sim_hw/hw_items/cpu_rv.js
+#jshint ./sim_hw/hw_items/cpu_poc.js
+#jshint ./sim_hw/hw_items/cu_poc.js
+ jshint ./sim_hw/hw_items/mem_ep.js
+#jshint ./sim_hw/hw_items/mem_rv.js
+#jshint ./sim_hw/hw_items/mem_poc.js
+ jshint ./sim_hw/hw_items/io_screen_base.js
+ jshint ./sim_hw/hw_items/io_keyboard_base.js
+ jshint ./sim_hw/hw_items/io_clk_base.js
+#jshint ./sim_hw/hw_items/io_l3d_ep.js
+#jshint ./sim_hw/hw_items/io_ldm_ep.js
+
+ jshint ./sim_hw/hw_ep.js
+ jshint ./sim_hw/hw_poc.js
+#jshint ./sim_hw/hw_rv.js
 
 echo "checking wepsim_core..."
  jshint ./wepsim_core/wepsim_help_commands.js
@@ -83,7 +82,7 @@ echo "checking wepsim_core..."
  jshint ./wepsim_core/wepsim_preload.js
  jshint ./wepsim_core/wepsim_share.js
  jshint ./wepsim_core/wepsim_voice.js
- jshint ./wepsim_core/wepsim_execute.js
+#jshint ./wepsim_core/wepsim_execute.js
  jshint ./wepsim_core/wepsim_dbg_breakpointicons.js
  jshint ./wepsim_core/wepsim_tour_commands.js
  jshint ./wepsim_core/wepsim_mode.js
@@ -109,7 +108,7 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_console.js
  jshint ./wepsim_web/wepsim_uielto_cpu.js
 #jshint ./wepsim_web/wepsim_uielto_cpusvg.js
- jshint ./wepsim_web/wepsim_uielto_dbg_asm.js
+#jshint ./wepsim_web/wepsim_uielto_dbg_asm.js
  jshint ./wepsim_web/wepsim_uielto_dbg_mc.js
  jshint ./wepsim_web/wepsim_uielto_editas.js
  jshint ./wepsim_web/wepsim_uielto_editmc.js

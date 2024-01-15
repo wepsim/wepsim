@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -19,11 +19,16 @@
  */
 
 
-	/*
-	 *  SCREEN
-	 */
+/*
+ *  SCREEN
+ */
 
-        sim.ep.components.SCREEN = {
+var DDR_ID = 0x1000 ;
+var DSR_ID = 0x1004 ;
+
+function io_screen_base_register ( sim_p )
+{
+        sim_p.components.SCREEN = {
 		                  name: "SCREEN", 
 		                  version: "1", 
 		                  abilities:    [ "SCREEN" ],
@@ -38,7 +43,7 @@
                                                       vec.SCREEN = {} ;
 				                  }
 
-					          var sim_screen = sim.ep.internal_states.screen_content ;
+					          var sim_screen = sim_p.internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 					          for (var i=0; i<sim_lines.length; i++)
 					          {
@@ -72,7 +77,7 @@
                                                   return false ;
 				             },
 		                  get_state: function ( line ) {
-					          var sim_screen = sim.ep.internal_states.screen_content ;
+					          var sim_screen = sim_p.internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 						  var index = parseInt(line) ;
 						  if (typeof sim_lines[index] != "undefined")
@@ -83,10 +88,10 @@
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-        				            return sim.ep.internal_states.screen_content ;
+        				            return sim_p.internal_states.screen_content ;
                                                },
                                   set_value:   function ( elto, value ) {
-        				            sim.ep.internal_states.screen_content = value ;
+        				            sim_p.internal_states.screen_content = value ;
 						    return value ;
                                                }
                             	};
@@ -96,28 +101,25 @@
 	 *  States - IO parameters
 	 */
 
-        var DDR_ID   = 0x1000 ;
-        var DSR_ID   = 0x1004 ;
-
-        sim.ep.internal_states.io_hash[DDR_ID] = "DDR" ;
-        sim.ep.internal_states.io_hash[DSR_ID] = "DSR" ;
+        sim_p.internal_states.io_hash[DDR_ID] = "DDR" ;
+        sim_p.internal_states.io_hash[DSR_ID] = "DSR" ;
 
 
 	/*
 	 *  Internal States
 	 */
 
-        sim.ep.internal_states.screen_content = "" ;
+        sim_p.internal_states.screen_content = "" ;
 
 
         /*
          *  States
          */
 
-        sim.ep.states.DDR   = { name: "DDR", verbal: "Display Data Register", 
+        sim_p.states.DDR   = { name: "DDR", verbal: "Display Data Register", 
                                 visible:false, nbits: "32", value: 0, default_value: 0,
                                 draw_data: [] };
-        sim.ep.states.DSR   = { name: "DSR", verbal: "Display State Register", 
+        sim_p.states.DSR   = { name: "DSR", verbal: "Display State Register", 
                                 visible:false, nbits: "32", value: 0, default_value: 0,
                                 draw_data: [] };
 
@@ -126,14 +128,14 @@
          *  Signals
          */
 
-        sim.ep.signals.SCR_IOR = { name: "SCR_IOR", 
+        sim_p.signals.SCR_IOR = { name: "SCR_IOR", 
                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
                                    fire_name: ['svg_p:tspan4004'], 
                                    draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
                                    draw_name: [[], []] };
 
-        sim.ep.signals.SCR_IOW = { name: "SCR_IOW", 
+        sim_p.signals.SCR_IOW = { name: "SCR_IOW", 
                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
                                    fire_name: ['svg_p:tspan4006'], 
@@ -145,26 +147,26 @@
          *  Syntax of behaviors
          */
 
-        sim.ep.behaviors.SCR_IOR      = { nparameters: 6,
+        sim_p.behaviors.SCR_IOR      = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr) 
                                                  {
-                                                    var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
-                                                    var ddr    = get_value(sim.ep.states[s_expr[3]]) ;
-                                                    var dsr    = get_value(sim.ep.states[s_expr[4]]) ;
+                                                    var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
+                                                    var ddr    = get_value(sim_p.states[s_expr[3]]) ;
+                                                    var dsr    = get_value(sim_p.states[s_expr[4]]) ;
 
                                                     if (bus_ab == DDR_ID)
-                                                        set_value(sim.ep.states[s_expr[2]], ddr) ;
+                                                        set_value(sim_p.states[s_expr[2]], ddr) ;
                                                     if (bus_ab == DSR_ID)
-                                                        set_value(sim.ep.states[s_expr[2]], dsr) ;
+                                                        set_value(sim_p.states[s_expr[2]], dsr) ;
                                                  },
                                          verbal: function (s_expr) 
                                                  {
 					            var verbal = "" ;
 
-                                                    var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
-                                                    var ddr    = get_value(sim.ep.states[s_expr[3]]) ;
-                                                    var dsr    = get_value(sim.ep.states[s_expr[4]]) ;
+                                                    var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
+                                                    var ddr    = get_value(sim_p.states[s_expr[3]]) ;
+                                                    var dsr    = get_value(sim_p.states[s_expr[4]]) ;
 
                                                     if (bus_ab == DDR_ID)
                                                         verbal = "Try to read from the screen the DDR value " + ddr + ". " ;
@@ -175,13 +177,13 @@
                                                  }
                                 };
 
-        sim.ep.behaviors.SCR_IOW      = { nparameters: 6,
+        sim_p.behaviors.SCR_IOW      = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr) 
                                                  {
-                                                      var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
-                                                      var bus_db = get_value(sim.ep.states[s_expr[2]]) ;
-                                                      var clk    = get_value(sim.ep.states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim_p.states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab != DDR_ID) {
@@ -203,22 +205,22 @@
                                                       {
                                                          // (b) visible
                                                          var screen = get_screen_content() ;
-                                                         if (typeof sim.ep.events.screen[clk] != "undefined") 
+                                                         if (typeof sim_p.events.screen[clk] != "undefined") 
                                                              screen = screen.substr(0, screen.length-1);
                                                          set_screen_content(screen + String.fromCharCode(bus_db));
                                                       }
 
-                                                      set_value(sim.ep.states[s_expr[3]], bus_db) ;
-                                                      set_value(sim.ep.states[s_expr[4]], 1) ;
-                                                      sim.ep.events.screen[clk] = bus_db ;
+                                                      set_value(sim_p.states[s_expr[3]], bus_db) ;
+                                                      set_value(sim_p.states[s_expr[4]], 1) ;
+                                                      sim_p.events.screen[clk] = bus_db ;
                                                  },
                                          verbal: function (s_expr) 
                                                  {
 					              var verbal = "" ;
 
-                                                      var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
-                                                      var bus_db = get_value(sim.ep.states[s_expr[2]]) ;
-                                                      var clk    = get_value(sim.ep.states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim_p.states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab == DDR_ID)
@@ -228,11 +230,11 @@
                                                  }
                                 };
 
-        sim.ep.behaviors.SCREEN_RESET = { nparameters: 1,
+        sim_p.behaviors.SCREEN_RESET = { nparameters: 1,
                                       operation: function (s_expr) 
                                                  {
 						     // reset events.screen
-                                                     sim.ep.events.screen = {} ;
+                                                     sim_p.events.screen = {} ;
                                                  },
                                          verbal: function (s_expr) 
                                                  {
@@ -246,7 +248,7 @@
          * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
          */
 
-        sim.ep.elements.display = {
+        sim_p.elements.display = {
 			      name:              "Display",
 			      description:       "Display",
 			      type:              "subcomponent",
@@ -272,4 +274,7 @@
 			      signals_inputs:    [ "ior", "iow" ],
 			      signals_output:    [ ]
 		         } ;
+
+        return sim_p ;
+}
 

@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -19,11 +19,17 @@
  */
 
 
-	/*
-	 *  IO
-	 */
+/*
+ *  IO
+ */
 
-        sim.ep.components.IO = {
+var IOSR_ID   = 0x1100 ;
+var IOCR_ID   = 0x1104 ;
+var IODR_ID   = 0x1108 ;
+
+function io_clk_base_register ( sim_p )
+{
+        sim_p.components.IO = {
 		                  name: "IO", 
 		                  version: "1", 
 		                  abilities:    [ "IO_TIMER" ],
@@ -73,36 +79,32 @@
 	 *  States - IO parameters
 	 */
 
-        sim.ep.internal_states.io_int_factory = [] ;
-        sim.ep.internal_states.io_int_factory[0] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim.ep.internal_states.io_int_factory[1] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim.ep.internal_states.io_int_factory[2] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim.ep.internal_states.io_int_factory[3] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim.ep.internal_states.io_int_factory[4] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim.ep.internal_states.io_int_factory[5] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim.ep.internal_states.io_int_factory[6] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim.ep.internal_states.io_int_factory[7] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory = [] ;
+        sim_p.internal_states.io_int_factory[0] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory[1] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory[2] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory[3] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory[4] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory[5] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory[6] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory[7] = { period:0, probability:0.5, accumulated:0, active:false } ;
 
-        var IOSR_ID   = 0x1100 ;
-        var IOCR_ID   = 0x1104 ;
-        var IODR_ID   = 0x1108 ;
-
-        sim.ep.internal_states.io_hash[IOSR_ID] = "IOSR" ;
-        sim.ep.internal_states.io_hash[IOCR_ID] = "IOCR" ;
-        sim.ep.internal_states.io_hash[IODR_ID] = "IODR" ;
+        sim_p.internal_states.io_hash[IOSR_ID] = "IOSR" ;
+        sim_p.internal_states.io_hash[IOCR_ID] = "IOCR" ;
+        sim_p.internal_states.io_hash[IODR_ID] = "IODR" ;
 
 
         /*
          *  States
          */
 
-        sim.ep.states.IOSR = { name: "IOSR", verbal: "IO State Register",
+        sim_p.states.IOSR = { name: "IOSR", verbal: "IO State Register",
                                visible:false, nbits: "32", value: 0, default_value: 0,
                                draw_data: [] };
-        sim.ep.states.IOCR = { name: "IOCR", verbal: "IO Control Register",
+        sim_p.states.IOCR = { name: "IOCR", verbal: "IO Control Register",
                                visible:false, nbits: "32", value: 0, default_value: 0,
                                draw_data: [] };
-        sim.ep.states.IODR = { name: "IODR", verbal: "IO Data Register",
+        sim_p.states.IODR = { name: "IODR", verbal: "IO Data Register",
                                visible:false, nbits: "32", value: 0, default_value: 0,
                                draw_data: [] };
 
@@ -111,7 +113,7 @@
          *  Signals
          */
 
-         sim.ep.signals.INT         = { name: "INT", 
+         sim_p.signals.INT         = { name: "INT", 
                                         visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                         depends_on: ["CLK"],
                                         behavior: ["FIRE C", "FIRE C"],
@@ -119,71 +121,71 @@
                                         draw_data: [[], ['svg_p:path3809']], 
                                         draw_name: [[], []] };
 
-         sim.ep.signals.IORDY       = { name: "IORDY", 
+         sim_p.signals.IORDY       = { name: "IORDY", 
                                         visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                         depends_on: ["CLK"],
 		                        behavior: ["FIRE_IFCHANGED IORDY C", "FIRE_IFCHANGED IORDY C"],
-                                        fire_name: ['svg_p:tspan4089','svg_p:path3793','svg_p:text3911'], 
+                                        fire_name: ['svg_p:tspan4089','svg_p:path3793','svg_p:text3911','svg_p:tspan4089'], 
                                         draw_data: [[], ['svg_p:path3897']], 
                                         draw_name: [[], []] };
 
-         sim.ep.signals.IO_IOR      = { name: "IO_IOR", 
+         sim_p.signals.IO_IOR      = { name: "IO_IOR", 
                                         visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                        behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
+                                        behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE DB_UPDATED"],
                                         fire_name: ['svg_p:tspan4173'], 
                                         draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
                                         draw_name: [[], []] };
 
-         sim.ep.signals.IO_IOW      = { name: "IO_IOW", 
+         sim_p.signals.IO_IOW      = { name: "IO_IOW", 
                                         visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-                                        behavior: ["NOP", "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
+                                        behavior: ["NOP", "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE DB_UPDATED"],
                                         fire_name: ['svg_p:text3785-0-6-0-5-5'], 
                                         draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
                                         draw_name: [[], []] };
 
-         sim.ep.signals.IO_IE       = { name: "IO_IE", 
+         sim_p.signals.IO_IE       = { name: "IO_IE", 
                                         visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
                                         behavior: ["NOP", "IO_CHK_I CLK INT INTV; FIRE C"],
                                         fire_name: [], 
                                         draw_data: [[], []], 
-                                        draw_name: [[], []]  };
+                                        draw_name: [[], []] };
 
-         sim.ep.signals.INTA        = { name: "INTA", 
+         sim_p.signals.INTA        = { name: "INTA", 
                                         visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
-                                        behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE BW; FIRE C"],
+                                        behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE DB_UPDATED; FIRE C"],
                                         fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
                                         draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
-                                        draw_name: [[], []]  };
+                                        draw_name: [[], []] };
 
 
         /*
          *  Syntax of behaviors
          */
 
-        sim.ep.behaviors.IO_IOR         = { nparameters: 7,
+        sim_p.behaviors.IO_IOR         = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
-                                                      var iosr   = get_value(sim.ep.states[s_expr[3]]) ;
-                                                      var iocr   = get_value(sim.ep.states[s_expr[4]]) ;
-                                                      var iodr   = get_value(sim.ep.states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
+                                                      var iosr   = get_value(sim_p.states[s_expr[3]]) ;
+                                                      var iocr   = get_value(sim_p.states[s_expr[4]]) ;
+                                                      var iodr   = get_value(sim_p.states[s_expr[5]]) ;
 
                                                       if (bus_ab == IOSR_ID) 
-                                                          set_value(sim.ep.states[s_expr[2]], iosr);
+                                                          set_value(sim_p.states[s_expr[2]], iosr);
                                                       if (bus_ab == IOCR_ID) 
-                                                          set_value(sim.ep.states[s_expr[2]], iocr);
+                                                          set_value(sim_p.states[s_expr[2]], iocr);
                                                       if (bus_ab == IODR_ID) 
-                                                          set_value(sim.ep.states[s_expr[2]], iodr);
+                                                          set_value(sim_p.states[s_expr[2]], iodr);
                                                    },
                                            verbal: function (s_expr) 
                                                    {
                                                       var verbal = "" ;
 
-                                                      var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
-                                                      var iosr   = get_value(sim.ep.states[s_expr[3]]) ;
-                                                      var iocr   = get_value(sim.ep.states[s_expr[4]]) ;
-                                                      var iodr   = get_value(sim.ep.states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
+                                                      var iosr   = get_value(sim_p.states[s_expr[3]]) ;
+                                                      var iocr   = get_value(sim_p.states[s_expr[4]]) ;
+                                                      var iodr   = get_value(sim_p.states[s_expr[5]]) ;
 
                                                       if (bus_ab == IOSR_ID) 
                                                           verbal = "I/O device read at IOSR of value " + iosr + ". " ;
@@ -196,12 +198,12 @@
                                                    }
                                       };
 
-        sim.ep.behaviors.IO_IOW         = { nparameters: 7,
+        sim_p.behaviors.IO_IOW         = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
-                                                      var bus_db = get_value(sim.ep.states[s_expr[2]]) ;
+                                                      var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
 
                                                       if ( (bus_ab != IOSR_ID) &&
                                                            (bus_ab != IOCR_ID) &&
@@ -211,30 +213,30 @@
                                                       }
 
                                                       if (bus_ab == IOSR_ID) 
-                                                          set_value(sim.ep.states[s_expr[3]], bus_db);
+                                                          set_value(sim_p.states[s_expr[3]], bus_db);
                                                       if (bus_ab == IOCR_ID) 
-                                                          set_value(sim.ep.states[s_expr[4]], bus_db);
+                                                          set_value(sim_p.states[s_expr[4]], bus_db);
                                                       if (bus_ab == IODR_ID) 
-                                                          set_value(sim.ep.states[s_expr[5]], bus_db);
+                                                          set_value(sim_p.states[s_expr[5]], bus_db);
 
                                                       // check & modify the timer
-                                                      var iocr_id = get_value(sim.ep.states[s_expr[4]]) ;
-                                                      var iodr_id = get_value(sim.ep.states[s_expr[5]]) ;
+                                                      var iocr_id = get_value(sim_p.states[s_expr[4]]) ;
+                                                      var iodr_id = get_value(sim_p.states[s_expr[5]]) ;
 
                                                       if ( (iocr_id < 0) || (iocr_id > 7) ) 
                                                             return; 
 
-                                                      set_var(sim.ep.internal_states.io_int_factory[iocr_id].period, iodr_id);
-                                                      set_var(sim.ep.internal_states.io_int_factory[iocr_id].probability, 1) ;
+                                                      set_var(sim_p.internal_states.io_int_factory[iocr_id].period, iodr_id);
+                                                      set_var(sim_p.internal_states.io_int_factory[iocr_id].probability, 1) ;
                                                       if (0 == iodr_id) {
-                                                          set_var(sim.ep.internal_states.io_int_factory[iocr_id].probability, 0) ;
+                                                          set_var(sim_p.internal_states.io_int_factory[iocr_id].probability, 0) ;
                                                       }
                                                    },
                                            verbal: function (s_expr) 
                                                    {
                                                       var verbal = "" ;
-                                                      var bus_ab = get_value(sim.ep.states[s_expr[1]]) ;
-                                                      var bus_db = get_value(sim.ep.states[s_expr[2]]) ;
+                                                      var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
 
                                                       if (bus_ab == IOSR_ID) 
                                                           verbal = "I/O device write at IOSR with value " + bus_db + ". " ;
@@ -247,39 +249,39 @@
                                                    }
                                       };
 
-        sim.ep.behaviors.IO_CHK_I       = { nparameters: 4, 
+        sim_p.behaviors.IO_CHK_I       = { nparameters: 4, 
                                         types: ["E", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var clk = get_value(sim.ep.states[s_expr[1]]) ;
+                                                      var clk = get_value(sim_p.states[s_expr[1]]) ;
 
-						      for (var i=sim.ep.internal_states.io_int_factory.length-1; i>=0; i--)
+						      for (var i=sim_p.internal_states.io_int_factory.length-1; i>=0; i--)
                                                       {
-                                                           if (get_var(sim.ep.internal_states.io_int_factory[i].period) == 0)
+                                                           if (get_var(sim_p.internal_states.io_int_factory[i].period) == 0)
  							       continue;
 
-                                                           if (get_var(sim.ep.internal_states.io_int_factory[i].active) == true)
+                                                           if (get_var(sim_p.internal_states.io_int_factory[i].active) == true)
                                                            {
-                                                               set_value(sim.ep.signals[s_expr[2]], 1); // ['INT']=1
-                                                               set_value( sim.ep.states[s_expr[3]], i); // ['INTV']=i
+                                                               set_value(sim_p.signals[s_expr[2]], 1); // ['INT']=1
+                                                               set_value( sim_p.states[s_expr[3]], i); // ['INTV']=i
                                                            }
 
-                                                           if ((clk % get_var(sim.ep.internal_states.io_int_factory[i].period)) == 0)
+                                                           if ((clk % get_var(sim_p.internal_states.io_int_factory[i].period)) == 0)
                                                            {
-                                                              if (Math.random() > get_var(sim.ep.internal_states.io_int_factory[i].probability))
+                                                              if (Math.random() > get_var(sim_p.internal_states.io_int_factory[i].probability))
                                                                   continue ;
 
-                                                              var acc = get_var(sim.ep.internal_states.io_int_factory[i].accumulated) ;
-                                                              set_var(sim.ep.internal_states.io_int_factory[i].accumulated, acc + 1) ;
-                                                              set_var(sim.ep.internal_states.io_int_factory[i].active, true) ;
+                                                              var acc = get_var(sim_p.internal_states.io_int_factory[i].accumulated) ;
+                                                              set_var(sim_p.internal_states.io_int_factory[i].accumulated, acc + 1) ;
+                                                              set_var(sim_p.internal_states.io_int_factory[i].active, true) ;
 
-                                                              if (typeof sim.ep.events.io[clk] == "undefined") {
-                                                                  sim.ep.events.io[clk] = [] ;
+                                                              if (typeof sim_p.events.io[clk] == "undefined") {
+                                                                  sim_p.events.io[clk] = [] ;
                                                               }
-                                                              sim.ep.events.io[clk].push(i) ;
+                                                              sim_p.events.io[clk].push(i) ;
 
-                                                              set_value(sim.ep.signals[s_expr[2]], 1); // ['INT']=1
-                                                              set_value( sim.ep.states[s_expr[3]], i); // ['INTV']=i
+                                                              set_value(sim_p.signals[s_expr[2]], 1); // ['INT']=1
+                                                              set_value( sim_p.states[s_expr[3]], i); // ['INTV']=i
                                                            }
                                                       }
                                                    },
@@ -289,35 +291,35 @@
                                                    }
                                       };
 
-        sim.ep.behaviors.INTA           = { nparameters: 6, 
+        sim_p.behaviors.INTA           = { nparameters: 6, 
                                         types: ["E", "S", "S", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var clk = get_value(sim.ep.states[s_expr[1]]) ;
+                                                      var clk = get_value(sim_p.states[s_expr[1]]) ;
 
-                                                      if (typeof sim.ep.events.io[clk] != "undefined") 
+                                                      if (typeof sim_p.events.io[clk] != "undefined") 
                                                       {
-                                                          set_value(sim.ep.states[s_expr[4]], sim.ep.events.io[clk][0]); // ['BUS_DB'] = i
+                                                          set_value(sim_p.states[s_expr[4]], sim_p.events.io[clk][0]); // ['BUS_DB'] = i
   							  return ;
                                                       }
 
-						      set_value(sim.ep.signals[s_expr[2]], 0); // ['INT']  = 0
-						      set_value(sim.ep.states[s_expr[5]], 0); // ['INTV'] = 0
+						      set_value(sim_p.signals[s_expr[2]], 0); // ['INT']  = 0
+						      set_value(sim_p.states[s_expr[5]], 0); // ['INTV'] = 0
 
-						      for (var i=0; i<sim.ep.internal_states.io_int_factory.length; i++) 
+						      for (var i=0; i<sim_p.internal_states.io_int_factory.length; i++) 
                                                       {
-                                                           if (get_var(sim.ep.internal_states.io_int_factory[i].active))
+                                                           if (get_var(sim_p.internal_states.io_int_factory[i].active))
                                                            {
-                                                               set_value(sim.ep.signals[s_expr[2]], 0) ; // ['INT']  = 1
-                                                               set_value(sim.ep.states[s_expr[5]], i) ; // ['INTV'] = i
-							       set_value(sim.ep.states[s_expr[4]], i) ; // ['BUS_DB'] = i
+                                                               set_value(sim_p.signals[s_expr[2]], 0) ; // ['INT']  = 1
+                                                               set_value(sim_p.states[s_expr[5]], i) ; // ['INTV'] = i
+							       set_value(sim_p.states[s_expr[4]], i) ; // ['BUS_DB'] = i
 
-                                                               if (typeof sim.ep.events.io[clk] == "undefined") {
-                                                                   sim.ep.events.io[clk] = [] ;
+                                                               if (typeof sim_p.events.io[clk] == "undefined") {
+                                                                   sim_p.events.io[clk] = [] ;
                                                                }
-                                                               sim.ep.events.io[clk].push(i) ;
+                                                               sim_p.events.io[clk].push(i) ;
 
-							       set_var(sim.ep.internal_states.io_int_factory[i].active, false);
+							       set_var(sim_p.internal_states.io_int_factory[i].active, false);
                                                                break; // stop at first INT
                                                            }
                                                       }
@@ -328,14 +330,14 @@
                                                    }
                                       };
 
-        sim.ep.behaviors.IO_RESET      = { nparameters: 1,
+        sim_p.behaviors.IO_RESET      = { nparameters: 1,
                                        operation: function (s_expr) 
                                                   {
 						     // reset events.io
-                                                     sim.ep.events.io = {} ;
+                                                     sim_p.events.io = {} ;
 
 						     // reset the I/O factory
-						     var io_int_factory = sim.ep.internal_states.io_int_factory ;
+						     var io_int_factory = sim_p.internal_states.io_int_factory ;
 						     for (var i=0; i<io_int_factory.length; i++)
 						     {
 						          set_var(io_int_factory[i].accumulated, 0) ;
@@ -356,7 +358,7 @@
          * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
          */
 
-        sim.ep.elements.io = {
+        sim_p.elements.io = {
 			      name:              "IO",
 			      description:       "IO",
 			      type:              "subcomponent",
@@ -382,4 +384,7 @@
 			      signals_inputs:    [ "ior", "iow" ],
 			      signals_output:    [ ]
 		         } ;
+
+        return sim_p ;
+}
 

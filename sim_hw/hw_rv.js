@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Juan Banga Pardo
  *
  *  This file is part of WepSIM.
  * 
@@ -20,15 +20,15 @@
 
 
         /*
-         *  Elemental Processor
+         *  RISC-V Processor
          */
 
-        var ep_def = {
-                       sim_name:            "Elemental Processor",
-                       sim_short_name:      "ep",
-                       sim_img_processor:   "repo/hardware/ep/images/processor.svg",
-                       sim_img_controlunit: "repo/hardware/ep/images/controlunit.svg",
-                       sim_img_cpu:         "repo/hardware/ep/images/cpu.svg",
+        var rv_def = {
+                       sim_name:            "RISC-V Processor",
+                       sim_short_name:      "rv",
+                       sim_img_processor:   "repo/hardware/rv/images/processor.svg",
+                       sim_img_controlunit: "",
+                       sim_img_cpu:         "repo/hardware/rv/images/cpu.svg",
 
                        components:          {},
                        states:              {},
@@ -41,5 +41,15 @@
                        events:              {}
 	             } ;
 
-            simhw_add(ep_def) ;
+            // registering elements
+                  board_base_register ( rv_def ) ;
+                      cpu_rv_register ( rv_def ) ;
+                      mem_rv_register ( rv_def ) ;
+         //   io_screen_base_register ( rv_def ) ;
+         // io_keyboard_base_register ( rv_def ) ;
+         //      io_clk_base_register ( rv_def ) ;
+         //      io_l3d_base_register ( rv_def ) ;
+         //      io_ldm_base_register ( rv_def ) ;
+
+            simhw_add(rv_def) ;
 

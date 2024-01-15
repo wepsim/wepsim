@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -19,11 +19,13 @@
  */
 
 
-	/*
-	 *  Memory
-	 */
+/*
+ *  Memory
+ */
 
-        sim.poc.components.MEMORY = {
+function mem_poc_register ( sim_p )
+{
+        sim_p.components.MEMORY = {
 		                  name: "MEMORY",
 		                  version: "1",
 		                  abilities:    [ "MEMORY" ],
@@ -39,9 +41,9 @@
 
 						  var key = 0 ;
 						  var value = 0 ;
-					          for (var index in sim.poc.internal_states.MP)
+					          for (var index in sim_p.internal_states.MP)
 						  {
-                                                       value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                       value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                     index) ;
                                                        value = parseInt(value) ;
 						       if (value != 0)
@@ -78,7 +80,7 @@
 				             },
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
-                                                  var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                  var value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                    index) ;
 						  if (typeof value === "undefined") {
 					              return null ;
@@ -89,9 +91,9 @@
 
 		                  // native: get_value, set_value
 		                  get_value: function ( elto ) {
-                                                 var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                 var value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                   elto) ;
-				                 show_main_memory(sim.poc.internal_states.MP, elto, false,false) ;
+				                 show_main_memory(sim_p.internal_states.MP, elto, false,false) ;
                                                  return (value >>> 0) ;
 				             },
 		                  set_value: function ( elto, value ) {
@@ -107,11 +109,11 @@
 								"source_tracking": [ origin ],
 								"comments":        null
 							     } ;
-                                                 var valref = main_memory_set(sim.poc.internal_states.MP,
+                                                 var valref = main_memory_set(sim_p.internal_states.MP,
                                                                               elto, 
 									      melto) ;
 
-				                 show_main_memory(sim.poc.internal_states.MP, 
+				                 show_main_memory(sim_p.internal_states.MP, 
                                                                   elto, 
                                                                   (typeof valref === "undefined"),
                                                                   true) ;
@@ -125,19 +127,19 @@
 	 *  Internal States
 	 */
 
-        sim.poc.internal_states.segments  = {} ;
-        sim.poc.internal_states.MP        = {} ;
-        sim.poc.internal_states.MP_wc     = 0 ;
+        sim_p.internal_states.segments  = {} ;
+        sim_p.internal_states.MP        = {} ;
+        sim_p.internal_states.MP_wc     = 0 ;
 
-        sim.poc.internal_states.CM_cfg    = [] ;
-        sim.poc.internal_states.CM        = [] ;
+        sim_p.internal_states.CM_cfg    = [] ;
+        sim_p.internal_states.CM        = [] ;
 
 
         /*
          *  Signals
          */
 
-        sim.poc.signals.MRDY     = { name: "MRDY",
+        sim_p.signals.MRDY     = { name: "MRDY",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      depends_on: ["CLK"],
 		                     behavior: ["FIRE_IFCHANGED MRDY C",
@@ -146,7 +148,7 @@
                                      draw_data: [[], ['svg_p:path3895','svg_p:path3541']],
                                      draw_name: [[], []] };
 
-        sim.poc.signals.R        = { name: "R",
+        sim_p.signals.R        = { name: "R",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 		                     behavior: ["NOP; CHECK_RTD",
 					        "MEM_READ BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY; CHECK_RTD"],
@@ -154,7 +156,7 @@
                                      draw_data: [[], ['svg_p:path3557','svg_p:path3571']],
                                      draw_name: [[], []] };
 
-        sim.poc.signals.W        = { name: "W",
+        sim_p.signals.W        = { name: "W",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 		                     behavior: ["NOP",
 					        "MEM_WRITE BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
@@ -162,7 +164,7 @@
                                      draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']],
                                      draw_name: [[], []] };
 
-        sim.poc.signals.BW       = { name: "BW",
+        sim_p.signals.BW       = { name: "BW",
                                      verbal: ['Access to one byte from memory. ',
                                               'Access to two bytes from memory. ',
                                               'Access to three bytes from memory. ',
@@ -181,31 +183,31 @@
          *  Syntax of behaviors
          */
 
-        sim.poc.behaviors.MEM_READ  = { nparameters: 6,
+        sim_p.behaviors.MEM_READ  = { nparameters: 6,
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr)
                                                    {
-						      var address = sim.poc.states[s_expr[1]].value;
-                                                      var dbvalue = sim.poc.states[s_expr[2]].value;
-                                                      var bw      = sim.poc.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.poc.states[s_expr[5]]) ;
+						      var address = sim_p.states[s_expr[1]].value;
+                                                      var dbvalue = sim_p.states[s_expr[2]].value;
+                                                      var bw      = sim_p.signals[s_expr[3]].value;
+                                                      var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
-                                                      sim.poc.signals[s_expr[4]].value = 0;
-						      var remain = get_value(sim.poc.internal_states.MP_wc);
+                                                      sim_p.signals[s_expr[4]].value = 0;
+						      var remain = get_value(sim_p.internal_states.MP_wc);
 						      if (
-                                                           (typeof sim.poc.events.mem[clk-1] != "undefined") &&
-						           (sim.poc.events.mem[clk-1] > 0)
+                                                           (typeof sim_p.events.mem[clk-1] != "undefined") &&
+						           (sim_p.events.mem[clk-1] > 0)
                                                          ) {
-						              remain = sim.poc.events.mem[clk-1] - 1;
+						              remain = sim_p.events.mem[clk-1] - 1;
                                                            }
-						      var first_time = typeof sim.poc.events.mem[clk] == "undefined" ;
-						      sim.poc.events.mem[clk] = remain;
+						      var first_time = typeof sim_p.events.mem[clk] == "undefined" ;
+						      sim_p.events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
                                                       }
 
                                                       var wordress = address & 0xFFFFFFFC ;
-                                                      var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                        wordress) ;
                                                       var full_redraw = false ;
                                                       if (typeof value === "undefined") {
@@ -218,23 +220,23 @@
 											 bw,
 											 (address & 0x00000003)) ;
 
-                                                      sim.poc.states[s_expr[2]].value = (dbvalue >>> 0);
-                                                     sim.poc.signals[s_expr[4]].value = 1;
-				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, false) ;
+                                                      sim_p.states[s_expr[2]].value = (dbvalue >>> 0);
+                                                     sim_p.signals[s_expr[4]].value = 1;
+				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, false) ;
 
                                                       // cache
-						      if (first_time && (sim.poc.internal_states.CM.length > 0)) {
-                                                          cache_memory_access(sim.poc.internal_states.CM[0], address, "read", clk) ;
+						      if (first_time && (sim_p.internal_states.CM.length > 0)) {
+                                                          cache_memory_access(sim_p.internal_states.CM[0], address, "read", clk) ;
                                                       }
                                                    },
                                            verbal: function (s_expr)
                                                    {
 					              var verbal = "" ;
 
-						      var address = sim.poc.states[s_expr[1]].value;
-                                                      var dbvalue = sim.poc.states[s_expr[2]].value;
-                                                      var bw      = sim.poc.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.poc.states[s_expr[5]]) ;
+						      var address = sim_p.states[s_expr[1]].value;
+                                                      var dbvalue = sim_p.states[s_expr[2]].value;
+                                                      var bw      = sim_p.signals[s_expr[3]].value;
+                                                      var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
                                                       // bit-width
 						      switch (bw)
@@ -249,7 +251,7 @@
 								 break ;
 						      }
 
-                                                      var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                        address) ;
 						      if (typeof value === "undefined") {
 						   	  value = 0 ;
@@ -262,31 +264,31 @@
                                                    }
                                       };
 
-        sim.poc.behaviors.MEM_WRITE = { nparameters: 6,
+        sim_p.behaviors.MEM_WRITE = { nparameters: 6,
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr)
                                                    {
-						      var address = sim.poc.states[s_expr[1]].value;
-                                                      var dbvalue = sim.poc.states[s_expr[2]].value;
-                                                      var bw      = sim.poc.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.poc.states[s_expr[5]]) ;
+						      var address = sim_p.states[s_expr[1]].value;
+                                                      var dbvalue = sim_p.states[s_expr[2]].value;
+                                                      var bw      = sim_p.signals[s_expr[3]].value;
+                                                      var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
-                                                      sim.poc.signals[s_expr[4]].value = 0;
-						      var remain = get_value(sim.poc.internal_states.MP_wc);
+                                                      sim_p.signals[s_expr[4]].value = 0;
+						      var remain = get_value(sim_p.internal_states.MP_wc);
 						      if (
-                                                           (typeof sim.poc.events.mem[clk-1] != "undefined") &&
-						           (sim.poc.events.mem[clk-1] > 0)
+                                                           (typeof sim_p.events.mem[clk-1] != "undefined") &&
+						           (sim_p.events.mem[clk-1] > 0)
                                                          ) {
-						              remain = sim.poc.events.mem[clk-1] - 1;
+						              remain = sim_p.events.mem[clk-1] - 1;
                                                            }
-						      var first_time = typeof sim.poc.events.mem[clk] == "undefined" ;
-						      sim.poc.events.mem[clk] = remain;
+						      var first_time = typeof sim_p.events.mem[clk] == "undefined" ;
+						      sim_p.events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
                                                       }
 
                                                       var wordress = address & 0xFFFFFFFC ;
-                                                      var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                        wordress) ;
                                                       var full_redraw = false ;
                                                       if (typeof value === "undefined") {
@@ -312,26 +314,26 @@
 								     "source_tracking": [ origin ],
 								     "comments":        null
 							          } ;
-                                                      var elto = main_memory_set(sim.poc.internal_states.MP,
+                                                      var elto = main_memory_set(sim_p.internal_states.MP,
                                                                                  wordress, 
 										 melto) ;
 
-                                                      sim.poc.signals[s_expr[4]].value = 1 ;
-				                      show_main_memory(sim.poc.internal_states.MP, wordress, full_redraw, true) ;
+                                                      sim_p.signals[s_expr[4]].value = 1 ;
+				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, true) ;
 
                                                       // cache
-						      if (first_time && (sim.poc.internal_states.CM.length > 0)) {
-                                                          cache_memory_access(sim.poc.internal_states.CM[0], address, "write", clk) ;
+						      if (first_time && (sim_p.internal_states.CM.length > 0)) {
+                                                          cache_memory_access(sim_p.internal_states.CM[0], address, "write", clk) ;
                                                       }
                                                    },
                                            verbal: function (s_expr)
                                                    {
 					              var verbal = "" ;
 
-						      var address = sim.poc.states[s_expr[1]].value;
-                                                      var dbvalue = sim.poc.states[s_expr[2]].value;
-                                                      var bw      = sim.poc.signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim.poc.states[s_expr[5]]) ;
+						      var address = sim_p.states[s_expr[1]].value;
+                                                      var dbvalue = sim_p.states[s_expr[2]].value;
+                                                      var bw      = sim_p.signals[s_expr[3]].value;
+                                                      var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
                                                       // bit-width
 						      switch (bw)
@@ -346,7 +348,7 @@
 								 break ;
 						      }
 
-                                                      var value = main_memory_getvalue(sim.poc.internal_states.MP,
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                        address) ;
 						      if (typeof value === "undefined") {
 						   	  value = 0 ;
@@ -359,11 +361,11 @@
                                                    }
                                     };
 
-        sim.poc.behaviors.MEMORY_RESET = { nparameters: 1,
+        sim_p.behaviors.MEMORY_RESET = { nparameters: 1,
                                         operation: function (s_expr)
                                                    {
 						      // reset events.mem
-                                                      sim.poc.events.mem = {} ;
+                                                      sim_p.events.mem = {} ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
@@ -377,7 +379,7 @@
 	 * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
 	 */
 
-        sim.poc.elements.memory = {
+        sim_p.elements.memory = {
 			      name:              "Main memory",
 			      description:       "Main memory subsystem",
 			      type:              "subcomponent",
@@ -409,4 +411,7 @@
 			      signals_inputs:    [ "bw", "r", "w" ],
 			      signals_output:    [ ]
 		       } ;
+
+        return sim_p ;
+}
 

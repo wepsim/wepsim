@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -40,6 +40,17 @@
                          ctrl_states:         {},
                          events:              {}
 	              } ;
+
+            // registering elements
+                  board_base_register ( poc_def ) ;
+            cpu_poc_register          ( poc_def ) ;
+             cu_poc_register          ( poc_def ) ;
+            mem_poc_register          ( poc_def ) ;
+              io_screen_base_register ( poc_def ) ;
+            io_keyboard_base_register ( poc_def ) ;
+                 io_clk_base_register ( poc_def ) ;
+                 io_l3d_base_register ( poc_def ) ;
+                 io_ldm_base_register ( poc_def ) ;
 
             simhw_add(poc_def) ;
 

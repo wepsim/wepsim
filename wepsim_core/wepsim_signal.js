@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -46,7 +46,9 @@
 		var input_help  = '' ;
 		var behav_raw   = '' ;
 		var behav_str   = '' ;
-		var n = 0;
+		var notif       = '' ;
+		var n10 = 0;
+		var n2  = 0;
 
 		var nvalues = Math.pow(2, signal_obj.nbits) ;
 		if (signal_obj.behavior.length == nvalues)
@@ -70,14 +72,24 @@
 			     behav_str = '&lt;without main effect&gt;' ;
 			 }
 
-			 n = k.toString(10) ;
+			 n10 = k.toString(10) ;
+                         n2  = k.toString(2).padStart(signal_obj.nbits, '0') ;
+
+                         if (nvalues != 2) {
+                             notif = '<span class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success">' + n10 + '</span>' ;
+                         }
+
 			 input_help += '<li class="list-group-item p-1">' +
-				       '<label class="m-1 btn-like" id="' + key + '_' + n + '">' +
-				       '  <input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' +
-				       '         value="' + n + '" ' + str_checked + '/>' +
-				       '  <span class="badge bg-secondary badge-pill">' + n + '</span>' + '&nbsp;' +
+				       '<label class="m-1 btn-like" id="' + key + '_' + n10 + '">' +
+				       '  <input aria-label="value ' + n10 + '" type="radio" name="ask_svalue" ' +
+				       '         value="' + n10 + '" ' + str_checked + '/>' +
+				       '<span class="badge bg-secondary badge-pill position-relative mx-2">' +
+                                         n2 + notif +
+                                       '</span>' +
 				       '  <span>' + behav_str + '</span>&nbsp;' + str_bolded +
-				       '  <p class="m-0 ml-3 bg-body-tertiary collapse collapse7"><small>' + behav_raw + '</small></p>' +
+				       '<p class="m-0 ml-3 bg-body-tertiary collapse collapse7">' +
+                                       '<small>' + behav_raw + '</small>' +
+                                       '</p>' +
 				       '</label>' +
 				       '</li>' ;
 		    }

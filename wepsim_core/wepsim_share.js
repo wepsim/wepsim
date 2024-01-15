@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -51,11 +51,12 @@
          {
             $("#qrcode1").html('You can use the following QR-code:<br>') ;
             var qrcode = new QRCode("qrcode1") ;
+            qrcode.clear() ;
             qrcode.makeCode(share_url) ;
          }
          catch (e) {
-         // $("#qrcode1").html(e) ;
-            $("#qrcode1").html('You can use the following link:<br>' + share_url) ;
+         // $("#qrcode1").html('You can use the following <a href="' + share_url + '">link</a><br>') ;
+            $("#qrcode1").html('') ;
          }
 
          // return ok

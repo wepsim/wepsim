@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2023 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -19,33 +19,38 @@
  */
 
 
+function board_base_register ( sim_p )
+{
         /*
          *  Syntax of behaviors
          */
 
         // Print Signal
-        sim.ep.behaviors.PRINT_S = { nparameters: 2,
+        sim_p.behaviors.PRINT_S = { nparameters: 2,
                                  types: ["S"],
                                  operation: function(s_expr)
                                             {
-                                                 console.log(s_expr[1] + ': 0x' + sim.ep.signals[s_expr[1]].value.toString(16));
+                                                 console.log(s_expr[1] + ': 0x' + sim_p.signals[s_expr[1]].value.toString(16));
 					    },
 				    verbal: function (s_expr)
 				   	    {
-					         return "Print value of signal " + s_expr[1] + ': 0x' + sim.ep.signals[s_expr[1]].value.toString(16) + ". " ;
+					         return "Print value of signal " + s_expr[1] + ': 0x' + sim_p.signals[s_expr[1]].value.toString(16) + ". " ;
 					    }
                                };
 
         // Print State
-        sim.ep.behaviors.PRINT_E = { nparameters: 2,
+        sim_p.behaviors.PRINT_E = { nparameters: 2,
                                  types: ["E"],
                                  operation: function(s_expr)
                                             {
-                                                 console.log(s_expr[1] + ': 0x' + sim.ep.states[s_expr[1]].value.toString(16));
+                                                 console.log(s_expr[1] + ': 0x' + sim_p.states[s_expr[1]].value.toString(16));
 					    },
 				    verbal: function (s_expr)
 				   	    {
-					         return "Print value of state " + s_expr[1] + ': 0x' + sim.ep.states[s_expr[1]].value.toString(16) + ". " ;
+					         return "Print value of state " + s_expr[1] + ': 0x' + sim_p.states[s_expr[1]].value.toString(16) + ". " ;
 					    }
                                };
+
+        return sim_p ;
+}
 
