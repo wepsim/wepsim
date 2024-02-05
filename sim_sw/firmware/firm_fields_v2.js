@@ -55,10 +55,13 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
 function firm_instruction_check_eoc ( context, instruccionAux, xr_info )
 {
 	// semantic check: valid value
-	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc ||
-	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length &&
-	    instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[0] &&
-	    instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[1])) {
+	if (
+             (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc) ||
+	     (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length     &&
+	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[0] &&
+	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[1])
+           )
+        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'INCORRECT EOC BIN.') +
 			         "'" + instruccionAux.eoc + "'") ;
@@ -465,7 +468,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		   }
 
                    instruccionAux.eoc = ret.value ;
-				   instruccionAux.fields_eoc.push(ret.value) ;
+		   instruccionAux.fields_eoc.push(ret.value) ;
 
                    ret = firm_instruction_check_eoc(context, instruccionAux, xr_info) ;
 		   if (typeof ret.error != "undefined") {
@@ -548,9 +551,9 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
        // semantic check: valid pending value (eoc.length if native.false)
        if ( (instruccionAux["is_native"] === false) &&
 	    (typeof instruccionAux.eoc   !== 'undefined') &&
-	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.length) &&
+	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.length)     &&
 	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.lengths[0]) &&
-	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.lengths[1]))
+	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.lengths[1]) )
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD EOC BIN. LEN.') +

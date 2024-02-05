@@ -51,6 +51,7 @@
          {
             $("#qrcode1").html('You can use the following QR-code:<br>') ;
             var qrcode = new QRCode("qrcode1") ;
+            qrcode.clear() ;
             qrcode.makeCode(share_url) ;
          }
          catch (e) {

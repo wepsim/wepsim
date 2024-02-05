@@ -127,6 +127,7 @@ sequenceDiagram
       * wsasm_writememory_if_word                    ( mp, gen, track_source, track_comments )
       * wsasm_writememory_and_accumulate             ( mp, gen, valuebin )
       * wsasm_writememory_and_accumulate_part        ( mp, gen, valuebin, track_source_j, track_source, track_comments )
+      * wsasm_writememory_and_accumulate_part_endian ( ret_mp, gen, obj_i, valuebin, n_bytes, j_byte )
       * wsasm_zeropadding_and_writememory            ( mp, gen )
 
 ```mermaid

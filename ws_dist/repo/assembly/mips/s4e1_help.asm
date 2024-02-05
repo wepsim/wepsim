@@ -59,7 +59,7 @@ sys_print:  li   $0 0
 
            li  $t0 0
            li  $t1 1
-           li  $t2 80
+           li  $t2 50
        b1: beq $t0 $t2 e1
            add $t0 $t0 $t1
            b b1

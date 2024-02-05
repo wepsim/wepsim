@@ -42,7 +42,7 @@ begin
 #
 
 syscall {
-   co=111111,
+   co=000001,
    nwords=1,
    help='system call',
    {
@@ -54,7 +54,7 @@ syscall {
 }
 
 reti {
-   co=111111,
+   co=000010,
    nwords=1,
    help='return from event (interruption, exception, syscall)',
    {
@@ -77,7 +77,7 @@ reti {
 #
 
 in reg val {
-    co=111111,
+    co=000011,
     nwords=1,
     reg=reg(25,21),
     val=inm(15,0),
@@ -90,16 +90,16 @@ in reg val {
 }
 
 out reg val {
-     co=111111,
-     nwords=1,
-     reg=reg(25,21),
-     val=inm(15,0),
-     help='device_register[val] = reg',
-     {
-        (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
-        (MR=0, SELA=10101, T9=1,         M1=0, C1=1),
-        (TA=1, TD=1,       IOW=1, BW=11, A0=1, B=1, C=0)
-     }
+    co=000100,
+    nwords=1,
+    reg=reg(25,21),
+    val=inm(15,0),
+    help='device_register[val] = reg',
+    {
+       (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
+       (MR=0, SELA=10101, T9=1,         M1=0, C1=1),
+       (TA=1, TD=1,       IOW=1, BW=11, A0=1, B=1, C=0)
+    }
 }
 
 
@@ -109,7 +109,7 @@ out reg val {
 #
 
 ld r1 r2 {
-   co=010000,
+   co=001000,
    nwords=1,
    r1=reg(25,21),
    r2=reg(20,16),
@@ -120,7 +120,7 @@ ld r1 r2 {
 }
 
 ldi r1 u16 {
-   co=010010,
+   co=001001,
    nwords=1,
    r1=reg(25,21),
    u16=inm(15,0),
@@ -131,7 +131,7 @@ ldi r1 u16 {
 }
 
 ld r1 (r2) {
-   co=010011,
+   co=001010,
    nwords=1,
    r1=reg(25,21),
    r2=reg(20,16),
@@ -144,223 +144,223 @@ ld r1 (r2) {
 }
 
 add_a reg1 {
-        co=011000,
-        nwords=1,
-        reg1=reg(25,21),
-        help='acc = acc1 + reg1; update(sr)',
-        native,
-        {
-            // fields is a default parameter with the instruction field information
-            var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+   co=001011,
+   nwords=1,
+   reg1=reg(25,21),
+   help='acc = acc1 + reg1; update(sr)',
+   native,
+   {
+       // fields is a default parameter with the instruction field information
+       var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
 
-            var result = simcore_native_get_value("BR", "4") + simcore_native_get_value("BR", reg1) ;
-            simcore_native_set_value("BR", "4", result) ;
+       var result = simcore_native_get_value("BR", "4") + simcore_native_get_value("BR", reg1) ;
+       simcore_native_set_value("BR", "4", result) ;
 
-            var flags = 0 ;
-            if (result == 0) flags = flags | 0x10000000 ;
-            if (result <  0) flags = flags | 0x20000000 ;
-            simcore_native_set_value("CPU", "REG_SR", flags) ;
+       var flags = 0 ;
+       if (result == 0) flags = flags | 0x10000000 ;
+       if (result <  0) flags = flags | 0x20000000 ;
+       simcore_native_set_value("CPU", "REG_SR", flags) ;
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 addi_a s16 {
-        co=011010,
-        nwords=1,
-        s16=inm(15,0),
-        help='acc = acc1 + SignExt(s16); update(sr)',
-        native,
-        {
-            // fields is a default parameter with the instruction field information
-            var s16   = simcore_native_get_field_from_ir(fields, 0) ;
+   co=001100,
+   nwords=1,
+   s16=inm(15,0),
+   help='acc = acc1 + SignExt(s16); update(sr)',
+   native,
+   {
+       // fields is a default parameter with the instruction field information
+       var s16   = simcore_native_get_field_from_ir(fields, 0) ;
 
-            if (s16 & 0x00008000)
-                s16 = s16 | 0xFFFF0000 ;
-            var result = simcore_native_get_value("BR", "4") + s16 ;
-            simcore_native_set_value("BR", "4", result) ;
+       if (s16 & 0x00008000)
+           s16 = s16 | 0xFFFF0000 ;
+       var result = simcore_native_get_value("BR", "4") + s16 ;
+       simcore_native_set_value("BR", "4", result) ;
 
-            var flags = 0 ;
-            if (result == 0) flags = flags | 0x10000000 ;
-            if (result <  0) flags = flags | 0x20000000 ;
-            simcore_native_set_value("CPU", "REG_SR", flags) ;
+       var flags = 0 ;
+       if (result == 0) flags = flags | 0x10000000 ;
+       if (result <  0) flags = flags | 0x20000000 ;
+       simcore_native_set_value("CPU", "REG_SR", flags) ;
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 inc reg1 {
-        co=011100,
-        nwords=1,
-        reg1=reg(25,21),
-        help='reg1 = reg1 + 1',
-        native,
-        {
-            // fields is a default parameter with the instruction field information
-            var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+   co=001101,
+   nwords=1,
+   reg1=reg(25,21),
+   help='reg1 = reg1 + 1',
+   native,
+   {
+       // fields is a default parameter with the instruction field information
+       var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
 
-            var result = simcore_native_get_value("BR", reg1) + 1 ;
-            simcore_native_set_value("BR", reg1, result) ;
+       var result = simcore_native_get_value("BR", reg1) + 1 ;
+       simcore_native_set_value("BR", reg1, result) ;
 
-            var flags = 0 ;
-            if (result == 0) flags = flags | 0x10000000 ;
-            if (result <  0) flags = flags | 0x20000000 ;
-            simcore_native_set_value("CPU", "REG_SR", flags) ;
-            
-            simcore_native_go_maddr(0) ;
-        }
+       var flags = 0 ;
+       if (result == 0) flags = flags | 0x10000000 ;
+       if (result <  0) flags = flags | 0x20000000 ;
+       simcore_native_set_value("CPU", "REG_SR", flags) ;
+       
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 dec reg1 {
-        co=011101,
-        nwords=1,
-        reg1=reg(25,21),
-        help='reg1 = reg1 - 1',
-        native,
-        {
-            // fields is a default parameter with the instruction field information
-            var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
+   co=001110,
+   nwords=1,
+   reg1=reg(25,21),
+   help='reg1 = reg1 - 1',
+   native,
+   {
+       // fields is a default parameter with the instruction field information
+       var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
 
-            var result = simcore_native_get_value("BR", reg1) - 1 ;
-            simcore_native_set_value("BR", reg1, result) ;
+       var result = simcore_native_get_value("BR", reg1) - 1 ;
+       simcore_native_set_value("BR", reg1, result) ;
 
-            var flags = 0 ;
-            if (result == 0) flags = flags | 0x10000000 ;
-            if (result <  0) flags = flags | 0x20000000 ;
-            simcore_native_set_value("CPU", "REG_SR", flags) ;
+       var flags = 0 ;
+       if (result == 0) flags = flags | 0x10000000 ;
+       if (result <  0) flags = flags | 0x20000000 ;
+       simcore_native_set_value("CPU", "REG_SR", flags) ;
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 jp s16 {
-        co=110000,
-        nwords=1,
-        s16=address(15,0)rel,
-        help='pc = pc + SignExt(s16)',
-        native,
-        {
-            // fields is a default parameter with the instruction field information
-            var s16 = simcore_native_get_field_from_ir(fields, 0) ;
-            if (s16 & 0x00008000)
-                s16 = s16 | 0xFFFF0000 ;
+   co=001111,
+   nwords=1,
+   s16=address(15,0)rel,
+   help='pc = pc + SignExt(s16)',
+   native,
+   {
+       // fields is a default parameter with the instruction field information
+       var s16 = simcore_native_get_field_from_ir(fields, 0) ;
+       if (s16 & 0x00008000)
+           s16 = s16 | 0xFFFF0000 ;
 
-            var pc = simcore_native_get_value("CPU", "REG_PC") ;
-            simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
+       var pc = simcore_native_get_value("CPU", "REG_PC") ;
+       simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 jpz s16 {
-        co=110011,
-        nwords=1,
-        s16=address(15,0)rel,
-        help='if (sr.z == 1) -> pc = pc + SignExt(s16)',
-        native,
-        {
-            // fields is a default parameter with the instruction field information
-            var s16   = simcore_native_get_field_from_ir(fields, 0) ;
-            if (s16 & 0x00008000)
-                s16 = s16 | 0xFFFF0000 ;
+   co=010000,
+   nwords=1,
+   s16=address(15,0)rel,
+   help='if (sr.z == 1) -> pc = pc + SignExt(s16)',
+   native,
+   {
+       // fields is a default parameter with the instruction field information
+       var s16   = simcore_native_get_field_from_ir(fields, 0) ;
+       if (s16 & 0x00008000)
+           s16 = s16 | 0xFFFF0000 ;
 
-            var flags = simcore_native_get_value("CPU", "REG_SR") ;
-            if (flags & 0x10000000) {
-                var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
-            }
+       var flags = simcore_native_get_value("CPU", "REG_SR") ;
+       if (flags & 0x10000000) {
+           var pc = simcore_native_get_value("CPU", "REG_PC") ;
+           simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
+       }
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 call u16 {
-        co=100001,
-        nwords=1,
-        u16=inm(15,0),
-        help='sp -= 4; MEM[pc] = r1',
-        native,
-        {
-            // fields is a default parameter with the instruction field information
-            var u16   = simcore_native_get_field_from_ir(fields, 0) ;
+   co=010001,
+   nwords=1,
+   u16=inm(15,0),
+   help='sp -= 4; MEM[pc] = r1',
+   native,
+   {
+       // fields is a default parameter with the instruction field information
+       var u16   = simcore_native_get_field_from_ir(fields, 0) ;
 
-            var value  = simcore_native_get_value("CPU", "REG_PC") ;
-            var reg_sp = simcore_native_get_value("BR", 29) ;
-            reg_sp = reg_sp - 4 ;
-            simcore_native_set_value("BR",     29,       reg_sp) ;
-            simcore_native_set_value("MEMORY", reg_sp,   value) ;
-            simcore_native_set_value("CPU",    "REG_PC", u16) ;
+       var value  = simcore_native_get_value("CPU", "REG_PC") ;
+       var reg_sp = simcore_native_get_value("BR", 29) ;
+       reg_sp = reg_sp - 4 ;
+       simcore_native_set_value("BR",     29,       reg_sp) ;
+       simcore_native_set_value("MEMORY", reg_sp,   value) ;
+       simcore_native_set_value("CPU",    "REG_PC", u16) ;
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 ret {
-        co=100010,
-        nwords=1,
-        help='pc = MEM[sp]; sp += 4',
-        native,
-        {
-            var reg_sp = simcore_native_get_value("BR",     29) ;
-            var value  = simcore_native_get_value("MEMORY", reg_sp) ;
-            simcore_native_set_value("CPU", "REG_PC", value) ;
-            reg_sp = reg_sp + 4 ;
-            simcore_native_set_value("BR", 29, reg_sp) ;
+   co=010010,
+   nwords=1,
+   help='pc = MEM[sp]; sp += 4',
+   native,
+   {
+       var reg_sp = simcore_native_get_value("BR",     29) ;
+       var value  = simcore_native_get_value("MEMORY", reg_sp) ;
+       simcore_native_set_value("CPU", "REG_PC", value) ;
+       reg_sp = reg_sp + 4 ;
+       simcore_native_set_value("BR", 29, reg_sp) ;
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 halt {
-        co=100011,
-        nwords=1,
-        help='pc = 0',
-        native,
-        {
-            simcore_native_set_value("CPU", "REG_PC", 0) ;
+   co=010011,
+   nwords=1,
+   help='pc = 0',
+   native,
+   {
+       simcore_native_set_value("CPU", "REG_PC", 0) ;
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 push r1 {
-        co=100100,
-        nwords=1,
-        r1=reg(25,21),
-        help='sp -= 4; MEM[sp] = r1',
-        native,
-        {
-            // fields is a default parameter with the instruction field information
-            var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
+   co=010100,
+   nwords=1,
+   r1=reg(25,21),
+   help='sp -= 4; MEM[sp] = r1',
+   native,
+   {
+       // fields is a default parameter with the instruction field information
+       var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
 
-            var value  = simcore_native_get_value("BR", reg1) ;
-            var reg_sp = simcore_native_get_value("BR", 29) ;
-            reg_sp = reg_sp - 4 ;
-            simcore_native_set_value("MEMORY", reg_sp,   value) ;
-            simcore_native_set_value("BR",         29,   reg_sp) ;
+       var value  = simcore_native_get_value("BR", reg1) ;
+       var reg_sp = simcore_native_get_value("BR", 29) ;
+       reg_sp = reg_sp - 4 ;
+       simcore_native_set_value("MEMORY", reg_sp,   value) ;
+       simcore_native_set_value("BR",         29,   reg_sp) ;
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 pop r1 {
-        co=100101,
-        nwords=1,
-        r1=reg(25,21),
-        help='r1 = MEM[sp]; sp += 4',
-        native,
-        {
-            // fields is a default parameter with the instruction field information
-            var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
+   co=010101,
+   nwords=1,
+   r1=reg(25,21),
+   help='r1 = MEM[sp]; sp += 4',
+   native,
+   {
+       // fields is a default parameter with the instruction field information
+       var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
 
-            var reg_sp = simcore_native_get_value("BR",     29) ;
-            var value  = simcore_native_get_value("MEMORY", reg_sp) ;
-            reg_sp = reg_sp + 4 ;
-            simcore_native_set_value("BR", reg1, value) ;
-            simcore_native_set_value("BR",   29, reg_sp) ;
+       var reg_sp = simcore_native_get_value("BR",     29) ;
+       var value  = simcore_native_get_value("MEMORY", reg_sp) ;
+       reg_sp = reg_sp + 4 ;
+       simcore_native_set_value("BR", reg1, value) ;
+       simcore_native_set_value("BR",   29, reg_sp) ;
 
-            simcore_native_go_maddr(0) ;
-        }
+       simcore_native_go_maddr(0) ;
+   }
 }
 
 

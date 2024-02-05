@@ -184,15 +184,15 @@ factorial:
 	{
 	     var s = new EventSource(status_url) ;
 
-	     s.onmessage = function(event) {
-                              if ('END_OF_SSE' == event.data) {
-                                  s.close() ;
-                                  return ;
-                              }
+	     s.onmessage = (e) => {
+				     info_div.value     += e.data + '\n' ;
+			             info_div.scrollTop  = info_div.scrollHeight ;
+				  };
 
-			      info_div.value += event.data + '\n' ;
-			      info_div.scrollTop = info_div.scrollHeight;
-			   };
+	     s.addEventListener("end",
+                                (event) => {
+					      s.close();
+				           }) ;
 	}
 
 	function gateway_do_flash ( div_asm_name, div_url_name, div_dev_name, div_target_name, div_info_name )
@@ -221,7 +221,7 @@ factorial:
 
                          idiv.value = result.status + '\n' ;
 
-                         if (result.error == 0) {
+                         if ('false' == result.error) {
 	                     gateway_request_status(furl + "/status", idiv) ;
                          }
                      }) ;

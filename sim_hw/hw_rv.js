@@ -41,5 +41,15 @@
                        events:              {}
 	             } ;
 
+            // registering elements
+                  board_base_register ( rv_def ) ;
+                      cpu_rv_register ( rv_def ) ;
+                      mem_rv_register ( rv_def ) ;
+         //   io_screen_base_register ( rv_def ) ;
+         // io_keyboard_base_register ( rv_def ) ;
+         //      io_clk_base_register ( rv_def ) ;
+         //      io_l3d_base_register ( rv_def ) ;
+         //      io_ldm_base_register ( rv_def ) ;
+
             simhw_add(rv_def) ;
 

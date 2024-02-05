@@ -1,6 +1,17 @@
 
 # Changelog
 
+## 2.3.0 -> 2.3.1:
+* Main improvements:
+  * New default assembler with full support for firmware version 2
+  * Initial changes for better hardware maintenace
+  * Several minor improvements
+* Main external dependencies updated:
+  * Bump bootstrap   from 5.3.1  to 5.3.2
+  * Bump jquery      from 3.7.0  to 3.7.1
+  * Bump fontawesome from 6.4.0  to 6.4.2
+  * Bump async       from 3.2.2  to 3.2.4
+
 ## 2.2.2 -> 2.3.0:
 * Main improvements:
   * Migration to bootstrap 5.3 colors and dark mode

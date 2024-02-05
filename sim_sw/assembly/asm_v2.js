@@ -18,6 +18,119 @@
  *
  */
 
+
+//
+// Auxiliar from v1
+//
+
+function isValidTag ( tag )
+{
+        if (tag.trim() == "") {
+	    return false;
+        }
+
+	var ret = isDecimal(tag[0]) ;
+	if (ret.isDecimal == true) {
+	    return false;
+        }
+
+	var myRegEx  = /[^a-z,_\d]/i ;
+	return !(myRegEx.test(tag)) ;
+}
+
+function is_end_of_file (context)
+{
+	return ("" === asm_getToken(context)) && (context.t >= context.text.length) ;
+}
+
+function reset_assembly (nwords)
+{
+        return "0".repeat(WORD_LENGTH*nwords);
+}
+
+function assembly_replacement (machineCode, num_bits, startbit, stopbit, free_space)
+{
+	var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
+	machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);
+
+	return machineCode;
+}
+
+function assembly_co_cop(machineCode, co, cop)
+{
+        var xr_info = simhw_sim_ctrlStates_get() ;
+
+	if (co !== false)
+	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0);
+	if (cop !== false)
+	    machineCode = assembly_replacement(machineCode, cop, xr_info.ir.default_eltos.cop.length, 0, 0);
+
+	return machineCode;
+}
+
+function writememory_and_reset ( mp, gen, nwords )
+{
+	if (gen.byteWord >= WORD_BYTES)
+        {
+	    var melto = {
+			  "value":           gen.machineCode,
+			  "source_tracking": gen.track_source,
+			  "comments":        gen.comments
+			} ;
+            main_memory_set(mp, "0x" + gen.seg_ptr.toString(16), melto) ;
+
+            gen.seg_ptr      = gen.seg_ptr + WORD_BYTES ;
+            gen.byteWord     = 0 ;
+            gen.track_source = [] ;
+            gen.comments     = [] ;
+            gen.machineCode  = reset_assembly(nwords) ;
+        }
+}
+
+function sum_array ( a )
+{
+	return a.reduce(function(a, b) { return a + b; }, 0);
+}
+
+function get_candidate ( advance, instruction )
+{
+	var candidate = false;
+	var candidates = {};
+	var signatures = {};
+
+	for (i=0; i<advance.length; i++)
+        {
+		if (advance[i]) {
+			candidates[i] = instruction[i].nwords;
+			signatures[instruction[i].signature] = 0;
+		}
+	}
+
+	if (Object.keys(signatures).length === 1)
+        {
+		var min = false;
+		for (var i in candidates)
+                {
+			if (min == false) {
+				min = candidates[i];
+				candidate = i;
+			}
+			else if (min == candidates[i]) {
+                                 candidate = false;
+			}
+			else if (min > candidates[i]) {
+				min = candidates[i];
+				candidate = i;
+			}
+		}
+	}
+
+	return candidate ? parseInt(candidate) : candidate;
+}
+
+
+
+// Auxiliar for v2
 function bits_size ( bits )
 {
 	var len = 0;
@@ -28,7 +141,6 @@ function bits_size ( bits )
 
 	return len ;
 }
-
 
 function setCharAt ( str, index, chr ) {
 	if(index > str.length-1) return str;
@@ -42,15 +154,19 @@ function assembly_oc_eoc_v2 ( machineCode, oc, eoc )
 	var start = 31 - xr_info.ir.default_eltos.oc.begin + 1;
 	var stop  = 31 - xr_info.ir.default_eltos.oc.end;
 
-	if (oc !== false)
+	if (oc !== false) {
 	    machineCode = assembly_replace_v2(machineCode, oc, start, stop, 0, 0);
+        }
+
 	if (eoc !== false)
-		if(eoc.length === 3) {
+        {
+		if (eoc.length === 3) {
 			machineCode = assembly_replace_v2(machineCode, eoc, bits[0][0]+1, bits[0][1], 0, 0);
 		} else {
 			//machineCode = assembly_replace_v2(machineCode, eoc, undefined, undefined, bits, 0);
 			var j = 0;
-			for (var k=0; k < bits.length; k++) {
+			for (var k=0; k < bits.length; k++)
+                        {
 				for (var i=(31-bits[k][0]); i <= (31-bits[k][1]); i++) {
 					if (j < eoc.length) {
 						machineCode = setCharAt(machineCode, i, eoc[j]);
@@ -60,6 +176,7 @@ function assembly_oc_eoc_v2 ( machineCode, oc, eoc )
 			}
 
 		}
+        }
 
 	return machineCode;
 }
@@ -72,7 +189,7 @@ function assembly_replace_v2 ( machineCode, num_bits, startbit, stopbit, bits, f
 		var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
 		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);
 
-		//Prevent word to be less than 32 bits
+		// Prevent word to be less than 32 bits
 		if (machineCode.length < 32) {
 			machineCode = "0".repeat(32-machineCode.length) + machineCode;
 		}
@@ -92,6 +209,7 @@ function assembly_replace_v2 ( machineCode, num_bits, startbit, stopbit, bits, f
 
 	return machineCode;
 }
+
 
 /*
  *   Load segments
@@ -116,7 +234,7 @@ function read_data_v2 ( context, datosCU, ret )
            asm_nextToken(context) ;
 
 	   // Loop while token read is not a segment directive (.text/.data/...)
-	   while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
+	   while (!wsasm_is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
            {
 		   //
 		   //  * etiq1: *
@@ -124,7 +242,7 @@ function read_data_v2 ( context, datosCU, ret )
 		   //
 
 		   var possible_tag = "" ;
-		   while (!is_directive_datatype(asm_getToken(context)) && !is_end_of_file(context))
+		   while (!wsasm_is_directive_datatype(asm_getToken(context)) && !is_end_of_file(context))
 		   {
                       // tagX
 		      possible_tag = asm_getToken(context) ;
@@ -187,13 +305,13 @@ function read_data_v2 ( context, datosCU, ret )
 		        (".double" == possible_datatype) )
                    {
 			// Get value size in bytes
-			var size = get_datatype_size(possible_datatype) ;
+			var size = wsasm_get_datatype_size(possible_datatype) ;
 
                         // <value> | .<directive>
 		        asm_nextToken(context) ;
                         var possible_value = asm_getToken(context) ;
 
-			while (!is_directive(asm_getToken(context)) && !is_end_of_file(context))
+			while (!wsasm_is_directive(asm_getToken(context)) && !is_end_of_file(context))
                         {
 				var label_found = false;
 
@@ -286,7 +404,7 @@ function read_data_v2 ( context, datosCU, ret )
 				    asm_nextToken(context) ;
                                 }
 
-			        if ( is_directive(asm_getToken(context)) ||
+			        if ( wsasm_is_directive(asm_getToken(context)) ||
                                      ("TAG" == asm_getTokenType(context)) ||
                                      ("." == asm_getToken(context)[0]) )
                                 {
@@ -407,7 +525,7 @@ function read_data_v2 ( context, datosCU, ret )
 		        }
                         possible_value = ret1.string ;
 
-			while (!is_directive(asm_getToken(context)) && !is_end_of_file(context))
+			while (!wsasm_is_directive(asm_getToken(context)) && !is_end_of_file(context))
                         {
 				// Word filled
                                 writememory_and_reset(ret.mp, gen, 1) ;
@@ -478,7 +596,7 @@ function read_data_v2 ( context, datosCU, ret )
 				    asm_nextToken(context);
 			        }
 
-			        if ( is_directive(asm_getToken(context)) || ("TAG" == asm_getTokenType(context)) || "." == asm_getToken(context)[0] )
+			        if ( wsasm_is_directive(asm_getToken(context)) || ("TAG" == asm_getTokenType(context)) || "." == asm_getToken(context)[0] )
 				     break ; // end loop, already read token (tag/directive)
 
                                 // <value> | .<directive>
@@ -552,7 +670,7 @@ function read_text_v2 ( context, datosCU, ret )
            asm_nextToken(context) ;
 
 	   // Loop while token read is not a segment directive (.text/.data/...)
-	   while (!is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
+	   while (!wsasm_is_directive_segment(asm_getToken(context)) && !is_end_of_file(context))
            {
 		// check tag or error
 		while (
