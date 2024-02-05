@@ -571,7 +571,7 @@ function cpu_rv_register ( sim_p )
 								"SRA ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"SL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"RR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"RL ALU_WOUT M2_ALU; UPDATE_NZ",
+								"RL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"ADD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"SUB ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
 								"MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
@@ -1191,8 +1191,8 @@ function cpu_rv_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (RR). " ;
                                                 }
 				   };
-	sim_p.behaviors["RL"]    = { nparameters: 3,
-				     types: ["E", "E"],
+	sim_p.behaviors["RL"]    = { nparameters: 4,
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
 				                   var rotations = get_value(sim_p.states[s_expr[3]]) ;
