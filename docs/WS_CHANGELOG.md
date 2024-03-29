@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.3.1 -> 2.3.2:
+* Main external dependencies updated:
+  * Bump bootstrap   from 5.3.2  to 5.3.3
+
 ## 2.3.0 -> 2.3.1:
 * Main improvements:
   * New default assembler with full support for firmware version 2

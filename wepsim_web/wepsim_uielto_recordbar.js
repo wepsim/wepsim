@@ -49,7 +49,7 @@
                     var o1  = '' ;
 
                     // load html
-		    o1 += '<div class="row-fluid px-0 pb-2 pt-0 rounded w-100 collapse" id="record_div"' +
+		    o1 += '<div class="row-fluid px-0 pb-3 pt-0 rounded w-100 collapse" id="record_div"' +
                           '     style="position:fixed; left:0; top: calc(100vh - 70px); z-index:1024; background-color:#EAEAEA; overflow:auto; -webkit-overflow-scrolling:touch;">' +
 		          '' +
 			  '     <div class="progress col-12" style="height:2px;">' +
