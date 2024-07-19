@@ -901,8 +901,8 @@ function wsasm_src2obj_text_ops_getAtom ( context, pseudo_context )
 	 if (pseudo_context != null)
          {
              // if (end-of-file) -> return ''
-	     if (pseudo_context.index > pseudo_context.parts.length) {
-	         return '' ; // return empty string
+             if ( (pseudo_context.index+1) >= pseudo_context.parts.length) {
+                   return '' ; // return empty string
              }
 
 	     pseudo_context.index++ ;
