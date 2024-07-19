@@ -293,7 +293,7 @@ sequenceDiagram
 Initial version is ready.
 
 The future works includes:
- 1. More checks of asm_ng against asm_v2
+ 1. More checks of "assembler" against asm_2023
  2. Review existing algorithms:
     * The algorithm to find the instruction/pseudoinstruction that better fits the values.
     * The algorithm for .align follows (and it is OK): 

@@ -154,8 +154,11 @@ cat sim_core/sim_cfg.js \
     sim_sw/assembly/memory_segments.js \
     sim_sw/assembly/directives.js \
     sim_sw/assembly/datatypes.js \
-    sim_sw/assembly/asm_v2.js \
-    sim_sw/assembly/asm_ng.js \
+    sim_sw/assembly/compiler1_prepare_wepsim.js \
+    sim_sw/assembly/compiler2_asm_obj.js \
+    sim_sw/assembly/compiler3_obj2mem_wepsim.js \
+    sim_sw/assembly/assembler.js \
+    sim_sw/assembly/asm_2023.js \
     sim_sw/assembly.js > ws_dist/sim_all.js
 terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
