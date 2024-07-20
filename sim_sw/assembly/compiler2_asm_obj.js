@@ -1209,10 +1209,13 @@ function wsasm_src2obj_text ( context, ret )
 		   elto.value     = {} ;
 
 		   elto.value.instruction        = possible_inst ;
-                   elto.firm_reference           = context.firmware[possible_inst] ;
 		   elto.value.fields             = [] ;
 		   elto.value.signature_type_arr = [ possible_inst ] ;
 		   elto.value.signature_size_arr = [ oc_size ] ;
+
+                   if (typeof context.firmware[possible_inst] != "undefined")
+                        elto.firm_reference = context.firmware[possible_inst] ;
+                   else elto.firm_reference = [] ;
 
 		   //
 		   //    label1:
@@ -1354,11 +1357,12 @@ function wsasm_resolve_pseudo ( context, ret )
 
                    pseudo_replaced = base_replaceAll(pseudo_replaced, pseudo_elto_candidate.fields[k].name, pseudo_value_k) ;
               }
+
               // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
               pseudo_context.parts = pseudo_replaced.split(' ') ;
               pseudo_context.index = 0 ;
 
-              while (pseudo_context.index < pseudo_context.parts.length)
+              while (pseudo_context.index < (pseudo_context.parts.length-1))
               {
 	         possible_inst = pseudo_context.parts[pseudo_context.index] ;
 
@@ -1369,7 +1373,6 @@ function wsasm_resolve_pseudo ( context, ret )
                  }
 
                  elto = wsasm_new_objElto(pseudo_elto) ;
-                 elto.firm_reference    = context.firmware[possible_inst] ;
                  elto.associated_pseudo = pseudo_elto ;
 	         elto.datatype          = "instruction" ;
                  elto.binary            = '' ;
@@ -1380,6 +1383,10 @@ function wsasm_resolve_pseudo ( context, ret )
 	         elto.value.signature_type_arr = [ possible_inst ] ;
 		 elto.value.signature_size_arr = [] ;
                  elto.associated_context       = pseudo_elto.associated_context ;
+
+                 if (typeof context.firmware[possible_inst] != "undefined")
+                      elto.firm_reference = context.firmware[possible_inst] ;
+                 else elto.firm_reference = [] ;
 
                  // Match fields of the pseudoinstruction...
                  ret1 = wsasm_src2obj_text_elto_fields(context, ret, elto, pseudo_context) ;
