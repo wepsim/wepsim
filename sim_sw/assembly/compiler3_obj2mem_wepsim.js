@@ -23,7 +23,7 @@
 
 
 //
-//  (3/3) Load JSON object to main memory (see README_ng.md for more information)
+//  (3/3) Load JSON object to main memory (see README.md for more information)
 //
 //  Auxiliar function tree for wsasm_obj2mem  ( ret )
 //   * wsasm_writememory_if_word              ( mp, gen, track_source, track_comments )
@@ -133,7 +133,7 @@ function wsasm_writememory_and_accumulate_part_endian ( ret_mp, gen, obj_i, valu
 
 
  /*
-  *  Public API (see README_ng.md for more information)
+  *  Public API (see README.md for more information)
   */
 
 function wsasm_obj2mem  ( ret )

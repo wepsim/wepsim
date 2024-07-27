@@ -89,7 +89,7 @@
      }
      ...
      ```
-     
+
 + **wsasm_src2mem(CU_data, asm_source, options) -> ret**
    * Assembler API to transform from source to main memory content (binary)
      * Equivalent to wsasm_prepare_context(...) + wsasm_prepare_source(...) + wsasm_prepare_options(...) + wsasm_src2obj(...) + wsasm_obj2mem(...)
@@ -106,7 +106,7 @@
       var fasm = inputasm.getValue() ;
       var opts = {} ;
       var ret  = wsasm_src2mem(CU_data, fasm, opts) ;
-      if (ret.error != null) { 
+      if (ret.error != null) {
           return ret;
       }
       ...
@@ -128,7 +128,7 @@
       var fasm = inputasm.getValue() ;
       var opts = { instruction_comma: true } ;
       var ret  = wsasm_src2src(SIMWARE, fasm, opts) ;
-      if (ret.error != null) { 
+      if (ret.error != null) {
           return ret;
       }
       fasm = ret.src_alt ; // normalized syntax
@@ -178,7 +178,7 @@ sequenceDiagram
 ### 2.2) Compile to JSON object
 
   * Performed by:
-    * **ret = wsasm_src2obj(context) ;** 
+    * **ret = wsasm_src2obj(context) ;**
   * Description:
     * Compile assembly to JSON object
   * Auxiliary functions compile assembly to JSON object in three main steps:
@@ -296,7 +296,7 @@ The future works includes:
  1. More checks of "assembler" against asm_2023
  2. Review existing algorithms:
     * The algorithm to find the instruction/pseudoinstruction that better fits the values.
-    * The algorithm for .align follows (and it is OK): 
+    * The algorithm for .align follows (and it is OK):
       https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
 
 

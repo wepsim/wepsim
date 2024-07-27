@@ -22,7 +22,7 @@
 /* jshint esversion: 9 */
 
 //
-//  (1/3) Prepare context for compiling and loading   (see README_ng.md for more information)
+//  (1/3) Prepare context for compiling and loading   (see README.md for more information)
 //
 //  Auxiliar function tree for wsasm_prepare_context ( CU_data, asm_source )
 //   * wsasm_prepare_context_firmware           ( context, CU_data )
@@ -301,7 +301,7 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 
 
  /*
-  *  Public API (see README_ng.md for more information)
+  *  Public API (see README.md for more information)
   */
 
 function wsasm_prepare_context ( CU_data, options )

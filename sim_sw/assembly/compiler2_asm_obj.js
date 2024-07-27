@@ -25,7 +25,7 @@
 // General auxiliar functions
 //
 
-// Management of JSON object (see README_ng.md for more information)
+// Management of JSON object
 function wsasm_new_objElto ( base_elto )
 {
         var elto = {
@@ -176,36 +176,9 @@ function wsasm_order2index_startstop ( start_bit, stop_bit )
      return n_bits ;
 }
 
-function wsasm_mk_default_options ( )
-{
-           var options = {} ;
-
-           // Initialize default options...
-	   options.field_multipart_order = "backwards" ; // "backwards" | "forwards" ;
-	   options.mandatory_comma       = false ; // false | true
-           options.instruction_comma     = true  ; // true  | false
-
-           return options ;
-}
-
-function wsasm_expand_options ( base_options )
-{
-           var options = wsasm_mk_default_options() ;
-
-           // Replace default options if exits in base_options
-           for (var key in options)
-           {
-                if (typeof base_options[key] !== "undefined") {
-                    options[key] = base_options[key] ;
-                }
-           }
-
-           return options ;
-}
-
 
 //
-//  (2/3) Compile assembly to JSON object (see README_ng.md for more information)
+//  (2/3) Compile assembly to JSON object
 //
 //  Auxiliar function tree for wsasm_src2obj ( context )
 //   * wsasm_src2obj_helper  ( context, ret )
@@ -386,7 +359,8 @@ function wsasm_src2obj_data ( context, ret )
 						         addr:         elto.seg_ptr,
 						         start_bit:    [ 0 ],
 						         stop_bit:     [ WORD_BYTES*BYTE_LENGTH-1 ],
-						         n_bits:       WORD_BYTES*BYTE_LENGTH,
+						         n_bits:         WORD_BYTES*BYTE_LENGTH,
+                                                         value:        0,
 						         rel:          false,
 						         labelContext: asm_getLabelContext(context),
                                                          field_j:      0
@@ -703,13 +677,14 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                                              start_bit:    start_bit,
                                              stop_bit:     stop_bit,
                                              n_bits:       n_bits,
+                                             value:        0,
                                              rel:          false,
 					     labelContext: asm_getLabelContext(context),
                                              field_j:      j
                                           } ;
                               elto.pending.push(pinfo) ;
 
-                              if (["address", "(address)"].includes(elto.value.signature_type_arr[j+1]))
+                              if (["address", "(address)", "inm", "imm"].includes(elto.value.signature_type_arr[j+1]))
                               {
                                    if (   (typeof candidate.fields[j].address_type != "undefined") &&
                                         ("abs" != candidate.fields[j].address_type) )
@@ -1104,8 +1079,13 @@ function wsasm_src2obj_text ( context, ret )
            var elto      = null ;
            var candidate = null ;
 
+// <WepSIM>
            var xr_info = simhw_sim_ctrlStates_get() ;
 	   var oc_size = parseInt(xr_info.ir.default_eltos.oc.length) ;
+// </WepSIM>
+// <CREATOR>
+//         var oc_size = 1 ;
+// </CREATOR>
 
 	   //
 	   //  *.text*   |  *.text*
@@ -1217,6 +1197,13 @@ function wsasm_src2obj_text ( context, ret )
                         elto.firm_reference = context.firmware[possible_inst] ;
                    else elto.firm_reference = [] ;
 
+// <CREATOR>
+//                 if ( (elto.firm_reference.length > 0) && (typeof elto.firm_reference[0].oc != "undefined") )
+//                      oc_size = elto.firm_reference[0].oc.value.length ;
+//                 else oc_size = 6 ; // TODO: number of bits for oc field
+// </CREATOR>
+
+
 		   //
 		   //    label1:
 	           //    label2:    instr  *op1, op2 op3*
@@ -1235,8 +1222,10 @@ function wsasm_src2obj_text ( context, ret )
                         elto.source     = elto.value.instruction ;
                         elto.source_alt = elto.source ;
                    }
+
 		   elto.comments.push(acc_cmt) ;
 		   elto.track_source.push(elto.source) ;
+                   elto.source_bin = elto.source ;
 
 		   // Find candidate from firm_reference
 		   ret = wsasm_find_instr_candidates(context, ret, elto) ;
@@ -1250,7 +1239,7 @@ function wsasm_src2obj_text ( context, ret )
 		   if (candidate.isPseudoinstruction == false)
                    {
 		        elto.datatype = "instruction" ;
-		        elto.value.signature_size_arr.unshift(elto.firm_reference[0].oc.length) ; // push at the beginning
+		        elto.value.signature_size_arr.unshift(elto.firm_reference[0].oc.length) ; // WepSIM: push at the beginning
 
 			// Fill initial binary with the initial candidate...
 			elto.binary = wsasm_encode_instruction(context, ret, elto, candidate) ;
@@ -1350,6 +1339,9 @@ function wsasm_resolve_pseudo ( context, ret )
 
               pseudo_values   = pseudo_elto.source.trim().split(' ') ;
               pseudo_replaced = pseudo_elto_candidate.finish ;
+// <CREATOR>
+              pseudo_replaced = base_replaceAll(pseudo_replaced, ';', '') ;
+// </CREATOR>
               for (let k=0; k<(pseudo_values.length-1); k++)
 	      {
                    pseudo_value_k = base_replaceAll(pseudo_values[k+1], '(', '') ;
@@ -1358,10 +1350,15 @@ function wsasm_resolve_pseudo ( context, ret )
                    pseudo_replaced = base_replaceAll(pseudo_replaced, pseudo_elto_candidate.fields[k].name, pseudo_value_k) ;
               }
 
+// <WepSIM>
               // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
               pseudo_context.parts = pseudo_replaced.split(' ') ;
-              pseudo_context.index = 0 ;
+// </WepSIM>
+// <CREATOR>
+//            pseudo_context.parts = pseudo_replaced.replace('(',' ( ').replace(')',' )').replace('  ',' ').split(' ') ;
+// </CREATOR>
 
+              pseudo_context.index = 0 ;
               while (pseudo_context.index < (pseudo_context.parts.length-1))
               {
 	         possible_inst = pseudo_context.parts[pseudo_context.index] ;
@@ -1581,6 +1578,11 @@ function wsasm_resolve_labels ( context, ret )
                   {
                       value = parseInt(value, 2) ;
                       value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
+
+                      if ("word" == context.options.relative_offset_unit) {
+                          value = value / WORD_BYTES ;
+                      }
+
                       if (value < 0)
                       {
                           value = (value >>> 0).toString(2);
@@ -1600,7 +1602,8 @@ function wsasm_resolve_labels ( context, ret )
                       elto.value.signature_size_arr[elto.pending[j].field_j + 1] = value.length ;
                       elto.value.signature_size_str = elto.value.signature_size_arr.join(' ') ;
 
-                      // if label.size doesn't fit the field.n_bits, try (at least) another one...
+                      // if label.size doesn't fit the field.n_bits,
+                      // try (at least) another one... <- TODO: try all possibilities with while(..|no more)
                       if (value.length > elto.pending[j].n_bits)
                       {
                           // Resetting pending elements in this instruction (encode_instruction will populate it again)...
@@ -1634,6 +1637,7 @@ function wsasm_resolve_labels ( context, ret )
                       }
                   }
 
+                  // checks if value fits in the n_bits at the end...
                   if (value.length > elto.pending[j].n_bits)
                   {
 	              return wsasm_eltoError(context, elto,
@@ -1650,6 +1654,15 @@ function wsasm_resolve_labels ( context, ret )
                   arr_encoded = elto.binary.split('') ;
                   wsasm_encode_field(arr_encoded, value, elto.pending[j].start_bit, elto.pending[j].stop_bit) ;
                   elto.binary = arr_encoded.join('') ;
+
+                  // update elto.pending[j].value (binary) and source_bin (integer)
+                  elto.pending[j].value = value ;
+
+                  var s = elto.source.split(' ') ;
+                    value = value.padStart(WORD_LENGTH, value[0]) ;
+                    value = parseInt(value, 2) >> 0 ;
+                  s[elto.pending[j].field_j + 1] = value ;
+                  elto.source_bin = s.join(' ') ;
 
                   // data-field -> update elto.value (is not an object as inst-field)
                   if ("field-data" == elto.pending[j].type) {
@@ -1673,7 +1686,7 @@ function wsasm_resolve_labels ( context, ret )
 
 
  /*
-  *  Public API (see README_ng.md for more information)
+  *  Public API
   */
 
 function wsasm_prepare_source ( context, asm_source )

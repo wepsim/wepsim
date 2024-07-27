@@ -76,7 +76,12 @@ function wsasm_src2src ( datosCU, text, options )
 
      try
      {
-         context = wsasm_prepare_context(datosCU, text) ;
+         context = wsasm_prepare_context(datosCU, {}) ;
+	 if (context.error != null) {
+	     return context;
+	 }
+
+         context = wsasm_prepare_source(context, text) ;
 	 if (context.error != null) {
 	     return context;
 	 }
