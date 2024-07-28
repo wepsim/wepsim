@@ -39,6 +39,7 @@ function wsasm_new_objElto ( base_elto )
                        value:        '0',
                        format:       '',
                        endian:       'none', // 1 byte: 'none', >1 byte: 'little' | 'big'
+                       scrambled:    false,
 
                        binary:               '',
                        firm_reference:       null,

@@ -29,7 +29,7 @@ function wsasm_mk_default_options ( )
 	   options.field_multipart_order = "backwards" ; // "backwards" | "forwards" ;
 	   options.mandatory_comma       = false       ; // false  | true
            options.instruction_comma     = true        ; // true   | false
-           options.relative_offset_unit  = "byte"      ; // "byte" | "word"
+           options.relative_offset_unit  = "word"      ; // "byte" | "word"
 
            return options ;
 }

@@ -332,6 +332,12 @@ function wsasm_prepare_context ( CU_data, options )
 
            // Fill the assembler configuration
            context.options = wsasm_expand_options(options) ;
+// <WepSIM>
+           options.relative_offset_unit  = "byte"      ; // "byte" | "word"
+// </WepSIM>
+// </CREATOR>
+//         options.relative_offset_unit  = "word"      ; // "byte" | "word"
+// </CREATOR>
 
 	   // Fill register names
 	   for (i=0; i<CU_data.registers.length; i++)
