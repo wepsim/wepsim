@@ -30,6 +30,7 @@ function wsasm_mk_default_options ( )
 	   options.mandatory_comma       = false       ; // false  | true
            options.instruction_comma     = true        ; // true   | false
            options.relative_offset_unit  = "word"      ; // "byte" | "word"
+           options.endian                = "little"    ; // "little" | "big"
 
            return options ;
 }

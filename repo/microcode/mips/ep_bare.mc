@@ -1145,7 +1145,7 @@ beq reg1 reg2 offset {
      reg1=reg(25,21),
      reg2=reg(20,16),
      offset=address(15,0)rel,
-     help='if ($r1 == $r2) pc += offset',
+     help='if ($r1 == $r2) pc += 4*offset',
      native,
      {
          // fields is a default parameter with the instruction field information
@@ -1158,9 +1158,10 @@ beq reg1 reg2 offset {
          if (reg1 == reg2)
          {
              var pc = simcore_native_get_value("CPU", "REG_PC") ;
-             if ((offset & 0x8000) > 0)
+             if ((offset & 0x8000) > 0) {
                  offset = offset | 0xFFFF0000 ;
-             pc = pc + offset ;
+             }
+             pc = pc + 4*offset ;
              simcore_native_set_value("CPU", "REG_PC", pc) ;
          }
 
@@ -1174,7 +1175,7 @@ bne reg1 reg2 offset {
      reg1=reg(25,21),
      reg2=reg(20,16),
      offset=address(15,0)rel,
-     help='if ($r1 != $r2) pc += offset',
+     help='if ($r1 != $r2) pc += 4*offset',
      native,
      {
          // fields is a default parameter with the instruction field information
@@ -1187,9 +1188,10 @@ bne reg1 reg2 offset {
          if (reg1 != reg2)
          {
              var pc = simcore_native_get_value("CPU", "REG_PC") ;
-             if ((offset & 0x8000) > 0)
+             if ((offset & 0x8000) > 0) {
                  offset = offset | 0xFFFF0000 ;
-             pc = pc + offset ;
+             }
+             pc = pc + 4*offset ;
              simcore_native_set_value("CPU", "REG_PC", pc) ;
          }
 
@@ -1203,7 +1205,7 @@ bge reg1 reg2 offset {
      reg1=reg(25,21),
      reg2=reg(20,16),
      offset=address(15,0)rel,
-     help='if ($r1 >= $r2) pc += offset',
+     help='if ($r1 >= $r2) pc += 4*offset',
      native,
      {
          // fields is a default parameter with the instruction field information
@@ -1216,9 +1218,10 @@ bge reg1 reg2 offset {
          if (reg1 >= reg2)
          {
              var pc = simcore_native_get_value("CPU", "REG_PC") ;
-             if ((offset & 0x8000) > 0)
+             if ((offset & 0x8000) > 0) {
                  offset = offset | 0xFFFF0000 ;
-             pc = pc + offset ;
+             }
+             pc = pc + 4*offset ;
              simcore_native_set_value("CPU", "REG_PC", pc) ;
          }
 
@@ -1232,7 +1235,7 @@ blt reg1 reg2 offset {
      reg1=reg(25,21),
      reg2=reg(20,16),
      offset=address(15,0)rel,
-     help='if ($r1 < $r2) pc += offset',
+     help='if ($r1 < $r2) pc += 4*offset',
      native,
      {
          // fields is a default parameter with the instruction field information
@@ -1245,9 +1248,10 @@ blt reg1 reg2 offset {
          if (reg1 < reg2)
          {
              var pc = simcore_native_get_value("CPU", "REG_PC") ;
-             if ((offset & 0x8000) > 0)
+             if ((offset & 0x8000) > 0) {
                  offset = offset | 0xFFFF0000 ;
-             pc = pc + offset ;
+             }
+             pc = pc + 4*offset ;
              simcore_native_set_value("CPU", "REG_PC", pc) ;
          }
 
@@ -1261,7 +1265,7 @@ bgt reg1 reg2 offset {
      reg1=reg(25,21),
      reg2=reg(20,16),
      offset=address(15,0)rel,
-     help='if ($r1 > $r2) pc += offset',
+     help='if ($r1 > $r2) pc += 4*offset',
      native,
      {
          // fields is a default parameter with the instruction field information
@@ -1274,9 +1278,10 @@ bgt reg1 reg2 offset {
          if (reg1 > reg2)
          {
              var pc = simcore_native_get_value("CPU", "REG_PC") ;
-             if ((offset & 0x8000) > 0)
+             if ((offset & 0x8000) > 0) {
                  offset = offset | 0xFFFF0000 ;
-             pc = pc + offset ;
+             }
+             pc = pc + 4*offset ;
              simcore_native_set_value("CPU", "REG_PC", pc) ;
          }
 
@@ -1290,7 +1295,7 @@ ble reg reg offset {
      reg=reg(25,21),
      reg=reg(20,16),
      offset=address(15,0)rel,
-     help='if ($r1 <= $r2) pc += offset',
+     help='if ($r1 <= $r2) pc += 4*offset',
      native,
      {
          // fields is a default parameter with the instruction field information
@@ -1303,9 +1308,10 @@ ble reg reg offset {
          if (reg1 <= reg2)
          {
              var pc = simcore_native_get_value("CPU", "REG_PC") ;
-             if ((offset & 0x8000) > 0)
+             if ((offset & 0x8000) > 0) {
                  offset = offset | 0xFFFF0000 ;
-             pc = pc + offset ;
+             }
+             pc = pc + 4*offset ;
              simcore_native_set_value("CPU", "REG_PC", pc) ;
          }
 

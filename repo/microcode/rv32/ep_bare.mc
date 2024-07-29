@@ -184,29 +184,31 @@ jal rd offset {
       nwords=1,
       rd=reg(25,21),
       offset=address(19,0)rel,
-      help='rd = pc; pc = pc + sext(offset)',
+      help='rd = pc; pc = pc + 4*sext(offset)',
       {
-          (T2, MR=0, SelC=10101, LC, C5),                  # (rd, RT2) <- PC
+          (T2, MR=0, SelC=10101, LC, C5),               # (rd, RT2) <- PC
           (SE=1, OFFSET=0, SIZE=10100, T3, C4),         #       RT1 <- offset
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),           #       RT1 <- 4*RT1
           (MA=1, MB=1, MC=1, SelCop=1010, T6, M2=0, C2, A0=1, B=1, C=0)
       }
 }
 
-#  JALR rd,rs1,offset   Jump and Link Register              rd ← pc + length(inst)
-#                                              pc ← (rs1 + offset) & -2
+#  JALR rd,rs1,offset   Jump and Link Register      rd ← pc + length(inst)
+#                                                   pc ← (rs1 + offset) & -2
 jalr rd rs1 offset {
       co=001001,
       nwords=1,
       rd=reg(25,21),
       rs1=reg(20,16),
       offset=address(15,0)rel,
-      help='rd = pc; pc = rs1 + offset',
+      help='rd = pc; pc = rs1 + 4*offset',
       {
-          (T2, SelC=10101, MR=0, LC),                         # rd  <- pc
+          (T2, SelC=10101, MR=0, LC),                             # rd  <- pc
           (EXCODE=0, T11, MR=1, SelC=0, LC=1),
-          (SE=1, OFFSET=0, SIZE=1100, T3, C5),                    # RT2 <- sign_ext(offset)
-          (MR=0, SelA=10000, MA=0,  MB=1, MC=1, SelCop=1010, T6, C5), # RT2 <- offset + rs1
-          (EXCODE=1, T11, C4),                                # RT1 <- 1
+          (SE=1, OFFSET=0, SIZE=1100, T3, C4),                    # RT1 <- sign_ext(offset)
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),                     # RT1 <- 4*RT1
+          (MR=0, SelB=10000, MB=0,  MA, MC, SelCop=1010, T6, C5), # RT2 <- offset + rs1
+          (EXCODE=1, T11, C4),                                    # RT1 <- 1
           (MA=1, MC=1, SelCop=11, T6, C4),                        # RT1 <- ~1 (0xFFFFFFFE)
           (MA=1, MB=1, MC=1, SelCop=1, T6, M2=0, C2),             # pc <- RT2 & 0xFFFFFFFE
           (EXCODE=0, T11, MR=1, SelC=0, LC=1, A0=1, B=1, C=0)
@@ -220,14 +222,15 @@ beq rs1 rs2 offset {
       rs1=reg(25,21),
       rs2=reg(20,16),
       offset=address(15,0)rel,
-      help='if (rs1 == rs2) pc += offset',
+      help='if (rs1 == rs2) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
           (A0=0, B=1, C=110, MADDR=bck2ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck2ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -241,14 +244,15 @@ bne rs1 rs2 offset {
       rs1=reg(25,21),
       rs2=reg(20,16),
       offset=address(15,0)rel,
-      help='if (rs1 != rs2) pc += offset',
+      help='if (rs1 != rs2) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
           (A0=0, B=0, C=110, MADDR=bck3ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck3ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -262,14 +266,15 @@ blt rs1 rs2 offset {
       rs1=reg(25,21),
       rs2=reg(20,16),
       offset=address(15,0)rel,
-      help='if (rs1 < rs2) pc += offset',
+      help='if (rs1 < rs2) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
           (A0=0, B=1, C=111, MADDR=bck5ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck5ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -283,14 +288,15 @@ bge rs1 rs2 offset {
       rs1=reg(25,21),
       rs2=reg(20,16),
       offset=address(15,0)rel,
-      help='if (rs1 >= rs2) pc += offset',
+      help='if (rs1 >= rs2) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
           (A0=0, B=0, C=111, MADDR=bck4ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck4ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -304,14 +310,15 @@ bltu rs1 rs2 offset {
       rs1=reg(25,21),
       rs2=reg(20,16),
       offset=address(15,0)rel,
-      help='if (ux(rs1) < ux(rs2)) pc += offset',
+      help='if (ux(rs1) < ux(rs2)) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
           (A0=0, B=1, C=111, MADDR=bck6ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck6ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -325,14 +332,15 @@ bgeu rs1 rs2 offset {
       rs1=reg(25,21),
       rs2=reg(20,16),
       offset=address(15,0)rel,
-      help='if (ux(rs1) >= ux(rs2)) pc += offset',
+      help='if (ux(rs1) >= ux(rs2)) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
           (A0=0, B=0, C=111, MADDR=bck7ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck7ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)

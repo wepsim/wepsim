@@ -2,6 +2,9 @@
 # Changelog
 
 ## 2.3.1 -> 2.3.2:
+* Main improvements:
+  * Several minor improvements in the new default assembler
+  * Move offset in relative branches from bytes to words (MIPS)
 * Main external dependencies updated:
   * Bump bootstrap   from 5.3.2  to 5.3.3
 
@@ -99,7 +102,7 @@
 
 ## 2.1.4 -> 2.1.5:
 * Initial support for a compact description for each instruction
-* knockoutjs replaced by vuex v3.6.0 + vue.js v2.6.12 
+* knockoutjs replaced by vuex v3.6.0 + vue.js v2.6.12
 * Minor bugs fixed and several refinements added.
 
 ## 2.1.3 -> 2.1.4:
@@ -162,10 +165,10 @@
 
 ## 2.0.8 -> 2.0.9:
 * Interface:
-   + Notifications: 
+   + Notifications:
       * Added action to clear all notifications.
       * Show/hide timestamps.
-   + Configuration: 
+   + Configuration:
       * Introduced the Student (simple) & Teacher (full) views.
       * By default breakpoints works in both, microcode and assembly code.
    + Details dropdown: Simulation section added:

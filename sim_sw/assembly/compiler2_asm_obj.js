@@ -314,7 +314,7 @@ function wsasm_src2obj_data ( context, ret )
 			// Get value size in bytes
 			elto.byte_size = wsasm_get_datatype_size(elto.datatype) ;
                         if (elto.byte_size > 1) {
-                            elto.endian = context.endian ;
+                            elto.endian = context.options.endian ;
                         }
 
                         // <value> | .<directive>
@@ -1098,7 +1098,7 @@ function wsasm_src2obj_text ( context, ret )
 
            elto = wsasm_new_objElto(null) ;
            elto.seg_name = seg_name ;
-           elto.endian   = context.endian ;
+           elto.endian   = context.options.endian ;
 
 	   //
 	   //   .text    |   .text

@@ -185,8 +185,9 @@ bge rs1 rs2 offset {
         (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
         (A0=0, B=0, C=111, MADDR=bge_t1),
         (T5, M7=0, C7),
-        (T2, C4),
-        (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+        (T2, C5),
+        (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+        (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
         (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bge_t1: (T5, M7=0, C7),
         (A0=1, B=1, C=0)
@@ -204,8 +205,9 @@ bne rs1 rs2 offset {
          (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
          (A0=0, B=0, C=110, MADDR=bne_t2),
          (T5, M7=0, C7),
-         (T2, C4),
-         (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+         (T2, C5),
+         (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+         (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
          (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
  bne_t2: (T5, M7=0, C7),
          (A0=1, B=1, C=0)
@@ -310,8 +312,9 @@ beq s16 {
     {
             (T8, C5)
             (C=110, B=1, A0=0, MADDR=beqs16)
-            (T2, C4)
-            (SE=1, Size=10000, Offset=0, T3, C5)
+            (T2, C5)
+            (SE=1, Size=10000, Offset=0, T3, C4)
+            (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
             (MA=1, MB=01, MC=1, SelCop=1010, T6, C2)
     beqs16: (T1, M7=0, C7)
             (A0=1, B=1, C=0)

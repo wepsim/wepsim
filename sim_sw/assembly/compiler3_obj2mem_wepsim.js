@@ -44,6 +44,7 @@ function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
         var melto = {
                       "value":           gen.machine_code,
                       "source":          gen.source,
+                      "source_bin":      gen.source_bin,
                       "source_tracking": gen.track_source,
                       "comments":        gen.comments,
 		      "binary":          gen.machine_code,
@@ -57,6 +58,7 @@ function wsasm_writememory_if_word ( mp, gen, track_source, track_comments )
         gen.addr           = '0x' + (parseInt(gen.addr) + WORD_BYTES).toString(16) ;
         gen.machine_code   = '' ;
         gen.source         = '' ;
+        gen.source_bin     = '' ;
         gen.track_source   = track_source ;
         gen.comments       = track_comments ;
         gen.firm_reference = null ;
@@ -154,6 +156,7 @@ function wsasm_obj2mem  ( ret )
          gen.addr           = -1 ;
          gen.machine_code   = '' ;
          gen.source         = '' ;
+         gen.source_bin     = '' ;
          gen.track_source   = [] ;
          gen.comments       = [] ;
          gen.firm_reference = null ;
@@ -207,8 +210,9 @@ function wsasm_obj2mem  ( ret )
               }
 
               // (3) instructions and data...
-              gen.source   = ret.obj[i].source ;
-              gen.comments = ret.obj[i].comments ;
+              gen.source     = ret.obj[i].source ;
+              gen.source_bin = ret.obj[i].source_bin ;
+              gen.comments   = ret.obj[i].comments ;
 
               if ('instruction' == ret.obj[i].datatype)
               {

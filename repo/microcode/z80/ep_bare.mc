@@ -237,16 +237,17 @@ jp s16 {
    co=001111,
    nwords=1,
    s16=address(15,0)rel,
-   help='pc = pc + SignExt(s16)',
+   help='pc = pc + 4*SignExt(s16)',
    native,
    {
        // fields is a default parameter with the instruction field information
        var s16 = simcore_native_get_field_from_ir(fields, 0) ;
-       if (s16 & 0x00008000)
+       if (s16 & 0x00008000) {
            s16 = s16 | 0xFFFF0000 ;
+       }
 
        var pc = simcore_native_get_value("CPU", "REG_PC") ;
-       simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
+       simcore_native_set_value("CPU", "REG_PC", pc + 4*s16) ;
 
        simcore_native_go_maddr(0) ;
    }
@@ -256,18 +257,19 @@ jpz s16 {
    co=010000,
    nwords=1,
    s16=address(15,0)rel,
-   help='if (sr.z == 1) -> pc = pc + SignExt(s16)',
+   help='if (sr.z == 1) -> pc = pc + 4*SignExt(s16)',
    native,
    {
        // fields is a default parameter with the instruction field information
        var s16   = simcore_native_get_field_from_ir(fields, 0) ;
-       if (s16 & 0x00008000)
+       if (s16 & 0x00008000) {
            s16 = s16 | 0xFFFF0000 ;
+       }
 
        var flags = simcore_native_get_value("CPU", "REG_SR") ;
        if (flags & 0x10000000) {
            var pc = simcore_native_get_value("CPU", "REG_PC") ;
-           simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
+           simcore_native_set_value("CPU", "REG_PC", pc + 4*s16) ;
        }
 
        simcore_native_go_maddr(0) ;

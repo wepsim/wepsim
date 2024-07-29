@@ -236,34 +236,35 @@ jal rd offset {
             nwords=1,
             rd=reg(25,21),
             offset=address(19,0)rel,
-            help='rd = pc; pc = pc + sext(offset)',
+            help='rd = pc; pc = pc + 4*sext(offset)',
             native,
             {
                 // fields is a default parameter with the instruction field information
                 var rd     = simcore_native_get_field_from_ir(fields, 0) ;
                 var offset = simcore_native_get_field_from_ir(fields, 1) ;
 
-                if ((offset & 0x8000) > 0)
+                if ((offset & 0x8000) > 0) {
                      offset = offset | 0xFFFF0000 ;
+                }
 
                 var pc = simcore_native_get_value("CPU", "REG_PC") ;
                 simcore_native_set_value("BR", rd, pc) ;
-                simcore_native_set_value("CPU", "REG_PC", pc + offset) ;
+                simcore_native_set_value("CPU", "REG_PC", pc + 4*offset) ;
 
                 simcore_native_go_maddr(0) ;
             }
 }
 
 
-#  JALR rd,rs1,offset         Jump and Link Register                         rd ← pc + length(inst)
-#                                                                pc ← (rs1 + offset) & -2
+#  JALR rd,rs1,offset         Jump and Link Register        rd ← pc + length(inst)
+#                                                           pc ← (rs1 + offset) & -2
 jalr rd rs1 offset {
             co=111111,
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
             offset=address(15,0)rel,
-            help='rd = pc; pc = rs1 + offset',
+            help='rd = pc; pc = rs1 + 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -271,11 +272,12 @@ jalr rd rs1 offset {
                 var rs1    = simcore_native_get_field_from_ir(fields, 1) ;
                 var offset = simcore_native_get_field_from_ir(fields, 2) ;
 
-                if ((offset & 0x8000) > 0)
+                if ((offset & 0x8000) > 0) {
                      offset = offset | 0xFFFF0000 ;
+                }
 
                 var     pc = simcore_native_get_value("CPU", "REG_PC") ;
-                var new_pc = simcore_native_get_value("BR", rs1) + offset ;
+                var new_pc = simcore_native_get_value("BR", rs1) + 4*offset ;
                 if (0 != rd) {
                     simcore_native_set_value("BR", rd, pc) ;
                 }
@@ -285,14 +287,14 @@ jalr rd rs1 offset {
             }
 }
 
-#  BEQ rs1,rs2,offset         Branch Equal                                 if rs1 = rs2 then pc ← pc + offset
+#  BEQ rs1,rs2,offset         Branch Equal                         if rs1 = rs2 then pc ← pc + offset
 beq rs1 rs2 offset {
             co=111111,
             nwords=1,
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (rs1 == rs2) pc += offset',
+            help='if (rs1 == rs2) pc += 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -305,9 +307,10 @@ beq rs1 rs2 offset {
                 if (reg1 == reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
-                    pc = pc + offset ;
+                    }
+                    pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
 
@@ -322,7 +325,7 @@ bne rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (rs1 != rs2) pc += offset',
+            help='if (rs1 != rs2) pc += 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -335,9 +338,10 @@ bne rs1 rs2 offset {
                 if (reg1 != reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
-                    pc = pc + offset ;
+                    }
+                    pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
 
@@ -352,7 +356,7 @@ blt rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (rs1 < rs2) pc += offset',
+            help='if (rs1 < rs2) pc += 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -365,9 +369,10 @@ blt rs1 rs2 offset {
                 if (reg1 < reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
-                    pc = pc + offset ;
+                    }
+                    pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
 
@@ -382,7 +387,7 @@ bge rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (rs1 >= rs2) pc += offset',
+            help='if (rs1 >= rs2) pc += 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -395,9 +400,10 @@ bge rs1 rs2 offset {
                 if (reg1 >= reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
-                    pc = pc + offset ;
+                    }
+                    pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
 
@@ -412,7 +418,7 @@ bltu rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (rs1 < rs2) pc += offset',
+            help='if (rs1 < rs2) pc += 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -425,9 +431,10 @@ bltu rs1 rs2 offset {
                 if (reg1 < reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
-                    pc = pc + offset ;
+                    }
+                    pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
 
@@ -442,7 +449,7 @@ bgeu rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (rs1 >= rs2) pc += offset',
+            help='if (rs1 >= rs2) pc += 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -455,9 +462,10 @@ bgeu rs1 rs2 offset {
                 if (reg1 >= reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
-                    pc = pc + offset ;
+                    }
+                    pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
 

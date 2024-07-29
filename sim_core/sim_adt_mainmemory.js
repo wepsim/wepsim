@@ -45,6 +45,7 @@
             if (typeof melto.notify      === "undefined")  melto.notify      = [] ;
             if (typeof melto.is_assembly === "undefined")  melto.is_assembly = false ;
             if (typeof melto.source      === "undefined")  melto.source      = '' ;
+            if (typeof melto.source_bin  === "undefined")  melto.source_bin  = '' ;
 
             // modify computed attributes by comments "operators"
             var comments_str = '' ;
