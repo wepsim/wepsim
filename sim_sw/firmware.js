@@ -193,6 +193,7 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
 function loadFirmware (text)
 {
            var ret = {} ;
+           var i = 0 ;
 
            var     xr_info = simhw_sim_ctrlStates_get() ;
            var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
@@ -200,7 +201,7 @@ function loadFirmware (text)
 
            var context = {} ;
 	   context.line           	= 1 ;
-	   context.error          	= null ;
+       //  context.error          	= null ;
 	   context.i              	= 0 ;
 	   context.contadorMC     	= 0 ;
 	   context.etiquetas      	= {} ;
@@ -217,30 +218,24 @@ function loadFirmware (text)
 	   context.pseudoInstructions	= [];
 	   context.stackRegister	= null ;
            context.comments             = [] ;
-           context.version              = 1 ;
+           context.metadata             = { version:1 } ;
 
-           var i = 0 ;
 
            frm_nextToken(context) ;
-           // optional: firmware_version: 2
-           if (frm_isToken(context, "firmware_version"))
+           //
+           // optional:
+           // *firmware {
+           //     version  = 2,
+           //     rel_mult = 2,
+           //     endian   = little
+           // }*
+           //
+           if (frm_isToken(context, "firmware"))
            {
-	       frm_nextToken(context);
-	       // match mandatory =
-	       if (! frm_isToken(context,"=")) {
-		     return frm_langError(context,
-				      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-	       }
-
-	       frm_nextToken(context);
-	       // match mandatory FIRMWARE_VERSION
-               context.comments = [] ;
-	       context.version = frm_getToken(context) ;
-
-               frm_nextToken(context);
-               // match optional ,
-               if (frm_isToken(context,","))
-	           frm_nextToken(context);
+               ret = firm_metadata_read(context) ;
+	       if (typeof ret.error != "undefined") {
+	           return ret ;
+               }
            }
 
            // firmware (registers, instructions, etc.)
@@ -342,7 +337,7 @@ function loadFirmware (text)
            }
 
 	   // RESOLVE: oc=111111... (111111... === "please, find one free 'oc' for me...")
-	   if (context.version == 2)
+	   if (context.metadata.version == 2)
            {
 		var ir_oc_length = 6 ;
 		if (typeof xr_info !== "undefined") {
@@ -471,7 +466,7 @@ function loadFirmware (text)
 	   }
 	   eval(mk_native) ;
 
-	   if (context.version == 2) {
+	   if (context.metadata.version == 2) {
 		   // oc_eoc_hash
 			var fioc  = 0 ;
 			var fieoc = 0 ;
@@ -532,7 +527,7 @@ function loadFirmware (text)
            // return results
            ret = {} ;
            ret.error                = null ;
-	   ret.version              = context.version ;
+           ret.metadata             = context.metadata ;
            ret.firmware             = context.instrucciones ;
            ret.labels_firm          = context.etiquetas ;
            ret.mp                   = {} ;
@@ -540,8 +535,9 @@ function loadFirmware (text)
            ret.registers            = context.registers ;
            ret.pseudoInstructions   = context.pseudoInstructions ;
            ret.stackRegister        = context.stackRegister ;
-	   if (context.version == 2) 	ret.hash_oceoc = context.hash_oceoc ;
-	   else 			ret.hash_cocop = context.hash_cocop ;
+	   if (context.metadata.version == 2)
+                ret.hash_oceoc = context.hash_oceoc ;
+	   else ret.hash_cocop = context.hash_cocop ;
            ret.hash_labels_firm_rev = context.revlabels ;
 
            return ret ;
@@ -706,7 +702,7 @@ function saveFirmware ( SIMWARE )
 
 function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
-	if (curr_firm.version == 2) {
+	if (curr_firm.metadata.version == 2) {
 		var ret = {
 					"oinstruction": null,
 					op_code: 0,

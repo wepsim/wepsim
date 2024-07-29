@@ -142,6 +142,7 @@ cat sim_core/sim_cfg.js \
     \
     sim_sw/firmware/lexical.js \
     sim_sw/firmware/firm_mcode.js \
+    sim_sw/firmware/firm_metadata.js \
     sim_sw/firmware/firm_begin.js \
     sim_sw/firmware/firm_pseudoinstructions.js \
     sim_sw/firmware/firm_registers.js \

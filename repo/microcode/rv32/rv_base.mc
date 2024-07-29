@@ -2,7 +2,12 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-firmware_version=2,
+firmware {
+   version  = 2,
+   rel_mult = 2,
+   endian   = little
+}
+
 begin
 {
    fetch:   # IR <- MP[PC]

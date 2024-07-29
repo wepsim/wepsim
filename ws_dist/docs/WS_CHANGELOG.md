@@ -3,8 +3,18 @@
 
 ## 2.3.1 -> 2.3.2:
 * Main improvements:
-  * Several minor improvements in the new default assembler
-  * Move offset in relative branches from bytes to words (MIPS)
+  * Several minor updates to the firmware syntax v2
+    * From:
+      <b>firmware_version = 2,</b> 
+      to:
+      <b>firmware {
+           version  = 2,
+           rel_mult = 2,
+           endian   = little
+      }</b>
+  * Several minor improvements in the new default assembler:
+    * From relative branches offset in bytes to words (MIPS) and half-words (RV)
+  * Instruction detail includes translation of labels into decimal values
 * Main external dependencies updated:
   * Bump bootstrap   from 5.3.2  to 5.3.3
 

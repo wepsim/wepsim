@@ -182,7 +182,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 //             }
 // }
 
-       if (2 == context.version) {
+       if (2 == context.metadata.version) {
            ret = firm_instruction_read_fields_v2(context, instruccionAux, xr_info, all_ones_oc) ;
        }
        else {

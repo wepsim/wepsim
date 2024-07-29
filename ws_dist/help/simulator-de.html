@@ -238,7 +238,11 @@ Wobei der Operator "sel (Bitstart, Bitende-Feld)" es uns ermöglicht, eine Anzah
 </td>
 <td>
 <pre>
- <b>firmware_version=2</b>
+ <b>firmware {
+      version  = 2,
+      rel_mult = 2,
+      endian   = little
+ }</b>
 
  begin
  {

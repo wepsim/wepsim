@@ -2185,9 +2185,7 @@ function cpu_rv_register ( sim_p )
 
                                                         // check x2_imm
 							if ("1" ==  sim_p.signals[s_expr[8]].value) {
-                                                            n3 = 4 * n3 ;
-                                                            // TODO: relative_offset_mult=2 in firmare 2
-                                                            //       and n3 = 2 * n3 ;
+                                                            n3 = 2 * n3 ;
 							}
 
 							set_value(sim_p.states[s_expr[1]], n3);

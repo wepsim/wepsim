@@ -197,12 +197,12 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                      // initial values...
                      start_bit = [] ;
                      stop_bit  = [] ;
-                     if (1 == CU_data.version)
+                     if (1 == CU_data.metadata.version)
                      {
                          start_bit[0] = parseInt(elto.fields[j].startbit) ;
                          stop_bit[0]  = parseInt(elto.fields[j].stopbit) ;
                      }
-                     else // (2 == CU_data.version)
+                     else // (2 == CU_data.metadata.version)
                      {
                          if ("forwards" == context.options.field_multipart_order)
                          {
@@ -326,13 +326,19 @@ function wsasm_prepare_context ( CU_data, options )
 	   context.firmware             = {} ;     // here
 	   context.pseudoInstructions	= [];      // here
 	   context.stackRegister	= null ;
-	   context.version	        = CU_data.version ;
+	   context.metadata	        = CU_data.metadata ;
 	   context.options              = {} ;     // here
 
            // Fill the assembler configuration
            context.options = wsasm_expand_options(options) ;
-           context.options.relative_offset_mult = WORD_BYTES ; // TODO: get from firmware
-           context.options.endian               = 'little' ;   // TODO: get from firmware
+
+	   if (typeof context.metadata.rel_mult != "undefined")
+                context.options.relative_offset_mult = parseInt(context.metadata.rel_mult) ;
+           else context.options.relative_offset_mult = WORD_BYTES ;
+
+           if (typeof context.metadata.endian != "undefined")
+                context.options.endian = context.metadata.endian ;
+           else context.options.endian = 'little' ;
 
 	   // Fill register names
 	   for (i=0; i<CU_data.registers.length; i++)

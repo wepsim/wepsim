@@ -244,7 +244,11 @@
             '# WepSIM (https://wepsim.github.io/wepsim/)\n' +
             '#\n' +
             '\n' +
-            'firmware_version = 2\n' +
+            'firmware {\n' +
+            '   version  = 2,\n' +
+            '   rel_mult = 4,\n' +
+            '   endian   = little\n' +
+            '}\n' +
             '\n' +
             '##\n' +
             '## Microcode Section\n' +

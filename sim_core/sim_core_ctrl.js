@@ -314,7 +314,7 @@
 
 	       var ma = SIMWARE['firmware'][i]["mc-start"] ;
 
-           if (SIMWARE.version == 2) {
+           if (SIMWARE.metadata.version == 2) {
                var oc = parseInt(SIMWARE['firmware'][i]["oc"], 2) ;
                 var eoc = 0 ;
                 if (typeof SIMWARE['firmware'][i]["eoc"] != "undefined") {
