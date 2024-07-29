@@ -1324,14 +1324,14 @@ function wsasm_resolve_pseudo ( context, ret )
 
          for (let i=0; i<ret.obj.length; i++)
          {
+              // (1/2) skip instructions
               if ("pseudoinstruction" != ret.obj[i].datatype) {
-                   continue ; // skip instructions...
+                   continue ;
               }
-              if (null == ret.obj[i].firm_reference)
-              {
-                   // skip empty pseudoinstructions, example:
-                   //        "pseudo"
-                   // label:         <- empty line with label, former pseudo
+              // (2/2) skip empty pseudoinstructions, for example:
+              //           "pseudo"
+              //    label:         <- empty line with label, former pseudo
+              if (null == ret.obj[i].firm_reference) {
                    continue ;
               }
 
@@ -1398,6 +1398,7 @@ function wsasm_resolve_pseudo ( context, ret )
                  else elto.track_source.push("&nbsp;") ;
 	  	 elto.source     = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
 	  	 elto.source_alt = elto.value.instruction + ' ' + elto.value.fields.join(', ') ;
+	  	 elto.source_bin = elto.source ;
 
                  // Find candidate from firm_reference and fill initial binary based on it...
                  ret = wsasm_find_candidate_and_encode(context, ret, elto) ;
@@ -1580,9 +1581,8 @@ function wsasm_resolve_labels ( context, ret )
                       value = parseInt(value, 2) ;
                       value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
 
-                      if ("word" == context.options.relative_offset_unit) {
-                          value = value / WORD_BYTES ;
-                      }
+                      // 1: bytes, 4: word (mips-32), 2: half(risc-v)
+                      value = value / context.options.relative_offset_mult ;
 
                       if (value < 0)
                       {

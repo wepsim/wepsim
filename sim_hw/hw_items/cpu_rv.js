@@ -460,33 +460,40 @@ function cpu_rv_register ( sim_p )
 				   draw_name: [['svg_p:path7301']] };
 	*/
 
-	sim_p.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
+	sim_p.signals["IRWRITE"]    = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 					behavior: ["NOP", "LOAD REG_IR RDATA; DECO"],
 					fire_name: ['svg_p:text7309'],
 					draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
 					draw_name: [['svg_p:path7301']] };
-	sim_p.signals["GEN_IMM"] = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-					behavior: ["NOP", "DECO_IMM VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM"],
+	sim_p.signals["GEN_IMM"]    = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+					behavior: ["NOP", "DECO_IMM VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM X2_IMM"],
 					fire_name: ['svg_p:text7300'],
 					draw_data: [['svg_p:path6981', 'svg_p:path6903', 'svg_p:path:6904']],
 					draw_name: [['svg_p:path7146']] };
-	sim_p.signals["SE_IMM"] = { name: "SE_IMM", visible: true, type: "L", value: 0, default_value:1, nbits: "1",
+	sim_p.signals["SE_IMM"]     = { name: "SE_IMM", visible: true, type: "L", value: 0, default_value:1, nbits: "1",
 					verbal: ['Set superior bits of immediate value to 0.',
-								'Extend sign of immediate value.'],
+						 'Extend sign of immediate value.'],
 					behavior: ["NOP", "NOP"],
 					fire_name: ['svg_p:text7301'],
 					draw_data: [[]],
 					draw_name: [['svg_p:path7292']] };
-	sim_p.signals["SIZE"] = { name: "SIZE", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+	sim_p.signals["SIZE"]       = { name: "SIZE", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 					behavior: ["NOP"],
 					fire_name: ['svg_p:text7302'],
 					draw_data: [[]],
 					draw_name: [['svg_p:path7293']] };
-	sim_p.signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+	sim_p.signals["OFFSET"]     = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 					behavior: ["NOP"],
 					fire_name: ['svg_p:text7303'],
 					draw_data: [[]],
 					draw_name: [['svg_p:path7294']] };
+	sim_p.signals["X2_IMM"]     = { name: "X2_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+					verbal: ['Multiply by 1.',
+						 'Multiply by 2.'],
+					behavior: ["NOP", "NOP"],
+					fire_name: ['svg_p:text7301'],     // TODO
+					draw_data: [[]],
+					draw_name: [['svg_p:path7292']] }; // TODO
 
 	/* OUT REGISTER */
 	sim_p.signals["WOUT"] = { name: "WOUT", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
@@ -2123,28 +2130,30 @@ function cpu_rv_register ( sim_p )
                                                 }
 				   };
 
-	sim_p.behaviors["DECO_IMM"] 	= { nparameters: 8,
-					types: ["E", "I", "E", "S", "S", "I", "S"],
+	sim_p.behaviors["DECO_IMM"] = { nparameters: 9,
+					types: ["E", "I", "E", "S", "S", "I", "S", "S"],
 					operation: function(s_expr)
-						{
+						   {
 							var oi = decode_instruction(sim_p.internal_states.FIRMWARE,
-														sim_p.ctrl_states.ir,
-														get_value(sim_p.states['REG_IR'])) ;
+										    sim_p.ctrl_states.ir,
+										    get_value(sim_p.states['REG_IR'])) ;
 							var bits = [];
 							var startbit;
 							var stopbit;
-							for (var i=0; i < oi.oinstruction.fields.length; i++) {
-								if (oi.oinstruction.fields[i].type == "inm" ||
-									oi.oinstruction.fields[i].type == "imm" ||
-									oi.oinstruction.fields[i].type == "address") {
-										if (oi.oinstruction.fields[i].bits !== undefined) {
-											bits = oi.oinstruction.fields[i].bits;
-										} else {
-											bits[0] = new Array(2);
-											bits[0][0] = oi.oinstruction.fields[i].startbit;
-											bits[0][1] = oi.oinstruction.fields[i].stopbit;
-										}
-									}
+							for (var i=0; i < oi.oinstruction.fields.length; i++)
+                                                        {
+							     if (oi.oinstruction.fields[i].type == "inm" ||
+								 oi.oinstruction.fields[i].type == "imm" ||
+								 oi.oinstruction.fields[i].type == "address")
+                                                             {
+								if (oi.oinstruction.fields[i].bits !== undefined) {
+									bits = oi.oinstruction.fields[i].bits;
+								} else {
+									bits[0] = new Array(2);
+									bits[0][0] = oi.oinstruction.fields[i].startbit;
+									bits[0][1] = oi.oinstruction.fields[i].stopbit;
+								}
+							     }
 							}
 
 							var offset = parseInt(sim_p.signals[s_expr[4]].value) ;
@@ -2163,13 +2172,25 @@ function cpu_rv_register ( sim_p )
 							n2 = n2.substr(31 - (size - 1), size);
 							n2 = n2 + "0".repeat(offset);
 
+                                                        // check signed-extension
 							var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
-							if ( ("1" ==  sim_p.signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
-							{	// check signed-extension
-								n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
+							if ( ("1" == sim_p.signals[s_expr[7]].value) && ("1" == n2[0]) )
+							{
+							     n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
 							}
 
-							set_value(sim_p.states[s_expr[1]], parseInt(n3, 2));
+                                                        if ("1" == n3[0])
+                                                             n3 = parseInt(n3, 2) >>  0 ;
+                                                        else n3 = parseInt(n3, 2) >>> 0 ;
+
+                                                        // check x2_imm
+							if ("1" ==  sim_p.signals[s_expr[8]].value) {
+                                                            n3 = 4 * n3 ;
+                                                            // TODO: relative_offset_mult=2 in firmare 2
+                                                            //       and n3 = 2 * n3 ;
+							}
+
+							set_value(sim_p.states[s_expr[1]], n3);
 						},
 						verbal: function (s_expr)
 						{
@@ -2921,22 +2942,25 @@ function cpu_rv_register ( sim_p )
 							     }
 						 },
 			      signals:           {
-						   "GEN_IMM":     {
+						   "GEN_IMM": {
 							       ref:  "GEN_IMM"
 							     },
-						   "SE_IMM":     {
+						   "SE_IMM": {
 							       ref:  "SE_IMM"
 							     },
-						   "SIZE":     {
+						   "SIZE":   {
 							       ref:  "SIZE"
 							     },
-						   "OFFSET":     {
+						   "OFFSET": {
 							       ref:  "OFFSET"
+							     },
+						   "X2_IMM": {
+							       ref:  "X2_IMM"
 							     }
 						 },
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
-			      signals_inputs:    [ "GEN_IMM", "SE_IMM", "SIZE", "OFFSET" ],
+			      signals_inputs:    [ "GEN_IMM", "SE_IMM", "SIZE", "OFFSET", "X2_IMM" ],
 			      signals_output:    [ ]
 	               } ;
 

@@ -331,8 +331,8 @@ function wsasm_prepare_context ( CU_data, options )
 
            // Fill the assembler configuration
            context.options = wsasm_expand_options(options) ;
-           context.options.relative_offset_unit = 'word' ;   // TODO: get from firmware
-           context.options.endian               = 'little' ; // TODO: get from firmware
+           context.options.relative_offset_mult = WORD_BYTES ; // TODO: get from firmware
+           context.options.endian               = 'little' ;   // TODO: get from firmware
 
 	   // Fill register names
 	   for (i=0; i<CU_data.registers.length; i++)

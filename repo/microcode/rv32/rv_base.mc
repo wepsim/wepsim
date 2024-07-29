@@ -109,7 +109,7 @@ beq rs1 rs2 offset {
       address-rel(11:8|30:25|7|31)=offset,
       help='if ($r1 == $r2) pc += offset',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
           (M2, M3=0, AluOp=1011),
           (CU=111, MADDR=bck2ftch),
@@ -127,7 +127,7 @@ bge rs1 rs2 offset {
       address-rel(11:8|30:25|7|31)=offset,
       help='if (rs1 >= rs2) pc += offset',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
           (M2, M3=0, AluOp=1011),
           (CU=100, MADDR=bck3ftch),
@@ -145,7 +145,7 @@ bgeu rs1 rs2 offset {
       address-rel(11:8|30:25|7|31)=offset,
       help='if (rs1 >= rs2) pc += offset',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
           (M2, M3=0, AluOp=10001),
           (CU=100, MADDR=bck4ftch),
@@ -164,7 +164,7 @@ blt rs1 rs2 offset {
       address-rel(11:8|30:25|7|31)=offset,
       help='if ($r1 < $r2) pc += offset',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
           (M2, M3=0, AluOp=1011),
           (CU=101, MADDR=bck5ftch),
@@ -182,7 +182,7 @@ bltu rs1 rs2 offset {
       address-rel(11:8|30:25|7|31)=offset,
       help='if ($r1 < $r2) pc += offset',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
           (M2, M3=0, AluOp=10001),
           (CU=101, MADDR=bck6ftch),
@@ -200,7 +200,7 @@ bne rs1 rs2 offset {
       address-rel(11:8|30:25|7|31)=offset,
       help='if ($r1 != $r2) pc += offset',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
           (),
           (M2, M3=0, AluOp=1011),
           (CU=110, MADDR=bck7ftch),

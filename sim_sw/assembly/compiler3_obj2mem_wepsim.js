@@ -188,12 +188,14 @@ function wsasm_obj2mem  ( ret )
               if ((i != 0) && (ret.obj[i].seg_name == ret.obj[i-1].seg_name))
               {
                    word_1 = ret.obj[i].elto_ptr - (ret.obj[i-1].elto_ptr + ret.obj[i-1].byte_size) ;
-                   if (word_1 > 0) {
+                   if (word_1 > 0)
+                   {
                        valuebin = "0".repeat(BYTE_LENGTH) ;
                        for (let j=0; j<word_1; j++) {
                             wsasm_writememory_and_accumulate_part(ret.mp, gen, valuebin, null, [], ret.obj[i].comments) ;
                        }
                    }
+
                    // flush current word if needed...
                    wsasm_writememory_if_word(ret.mp, gen, [], []) ;
               }
