@@ -6,7 +6,7 @@
 [![codebeat badge](https://codebeat.co/badges/66773495-9967-4514-8c2c-916293f584b5)](https://codebeat.co/projects/github-com-acaldero-wepsim-master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://app.codacy.com/gh/acaldero/wepsim/dashboard)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
-[![Release](https://img.shields.io/badge/Stable-2.3.2-green.svg)](https://github.com/acaldero/wepsim/releases/tag/v2.3.2)
+[![Release](https://img.shields.io/badge/Stable-2.3.2-green.svg)](https://github.com/wepsim/wepsim/releases/tag/v2.3.2)
 
 
 ## Table of contents
