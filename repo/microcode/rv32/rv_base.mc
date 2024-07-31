@@ -848,74 +848,74 @@ xori rd rs1 imm {
 pseudoinstructions
 {
     # beqz rs1, offset        beq rs, x0, offset        Branch if = zero
-    beqz rs=reg, offset=inm
+    beqz rs=reg, offset=imm
     {
         beq rs, zero, offset
     }
 
     # bnez rs1, offset        bne rs, x0, offset        Branch if ≠ zero
-    bnez rs=reg, offset=inm
+    bnez rs=reg, offset=imm
     {
         bne rs, zero, offset
     }
 
     # blez rs1, offset        bge x0, rs, offset        Branch if ≤ zero
-    blez rs=reg, offset=inm
+    blez rs=reg, offset=imm
     {
         bge zero, rs, offset
     }
 
     # bgez rs1, offset        bge rs, x0, offset        Branch if ≥ zero
-    bgez rs=reg, offset=inm
+    bgez rs=reg, offset=imm
     {
         bge rs, zero, offset
     }
 
     # bltz rs1, offset        blt rs, x0, offset        Branch if < zero
-    bltz rs=reg, offset=inm
+    bltz rs=reg, offset=imm
     {
         blt rs, zero, offset
     }
 
     # bgtz rs1, offset        blt x0, rs, offset        Branch if > zero
-    bgtz rs=reg, offset=inm
+    bgtz rs=reg, offset=imm
     {
         blt zero, rs, offset
     }
 
     # bgt rs, rt, offset        blt rt, rs, offset        Branch if >
-    bgt rs=reg, rt=reg, offset=inm
+    bgt rs=reg, rt=reg, offset=imm
     {
         blt rt, rs, offset
     }
 
     # ble rs, rt, offset        bge rt, rs, offset        Branch if ≤
-    ble rs=reg, rt=reg, offset=inm
+    ble rs=reg, rt=reg, offset=imm
     {
         bge rt, rs, offset
     }
 
     # bgtu rs, rt, offset        bltu rt, rs, offset        Branch if >, unsigned
-    bgtu rs=reg, rt=reg, offset=inm
+    bgtu rs=reg, rt=reg, offset=imm
     {
         bltu rt, rs, offset
     }
 
     # bleu rs, rt, offset        bltu rt, rs, offset        Branch if ≤, unsigned
-    bleu rs=reg, rt=reg, offset=inm
+    bleu rs=reg, rt=reg, offset=imm
     {
         bgeu rt, rs, offset
     }
 
     # li rd, expression        (several expansions)        Load immediate
-    li rd=reg, expression=inm
+    li rd=reg, expression=imm
     {
         lui  rd,     sel(31,12,expression)
         addi rd, rd, sel(11,0,expression)
     }
 
     # la rd, label        (several expansions)        Load address
-    la rd=reg, label=inm
+    la rd=reg, label=imm
     {
         lui  rd,     sel(31,12,label)
         addu rd, rd, sel(11,0,label)
@@ -946,13 +946,13 @@ pseudoinstructions
     }
 
     # j offset        jal x0, offset        Jump
-    j offset=inm
+    j offset=imm
     {
         jal zero, offset
     }
 
     # jal offset        jal x1, offset        Jump register
-    #jal offset=inm
+    #jal offset=imm
     #{
     #    jal ra, offset
     #}

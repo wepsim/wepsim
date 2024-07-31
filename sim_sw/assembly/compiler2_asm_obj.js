@@ -1079,14 +1079,8 @@ function wsasm_src2obj_text ( context, ret )
            var acc_cmt = "" ;
            var elto      = null ;
            var candidate = null ;
+           var oc_size   =  1 ;
 
-// <WepSIM>
-           var xr_info = simhw_sim_ctrlStates_get() ;
-	   var oc_size = parseInt(xr_info.ir.default_eltos.oc.length) ;
-// </WepSIM>
-// <CREATOR>
-//         var oc_size = 1 ;
-// </CREATOR>
 
 	   //
 	   //  *.text*   |  *.text*
@@ -1192,17 +1186,17 @@ function wsasm_src2obj_text ( context, ret )
 		   elto.value.instruction        = possible_inst ;
 		   elto.value.fields             = [] ;
 		   elto.value.signature_type_arr = [ possible_inst ] ;
-		   elto.value.signature_size_arr = [ oc_size ] ;
 
                    if (typeof context.firmware[possible_inst] != "undefined")
                         elto.firm_reference = context.firmware[possible_inst] ;
                    else elto.firm_reference = [] ;
 
-// <CREATOR>
-//                 if ( (elto.firm_reference.length > 0) && (typeof elto.firm_reference[0].oc != "undefined") )
-//                      oc_size = elto.firm_reference[0].oc.value.length ;
-//                 else oc_size = 6 ; // TODO: number of bits for oc field
-// </CREATOR>
+                   // oc_size
+                   oc_size = context.oc_size_default ;
+                   if ( (elto.firm_reference.length > 0) && (typeof elto.firm_reference[0].oc != "undefined") ) {
+                         oc_size = elto.firm_reference[0].oc.value.length ;
+                   }
+		   elto.value.signature_size_arr = [ oc_size ] ;
 
 
 		   //

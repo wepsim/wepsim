@@ -77,7 +77,7 @@ in reg val {
     co=000011,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     {
         (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
         (TA=1, IOR=1, BW=11, M1=1, C1=1),
@@ -89,7 +89,7 @@ out reg val {
     co=000100,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     {
        (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
        (MR=0, SELA=10101, T9=1,         M1=0, C1=1),
@@ -223,7 +223,7 @@ mov r1 u32 {
     co=001111,
     nwords=2,
     r1=reg(20,16),
-    u32=inm(63,32),
+    u32=imm(63,32),
     {
         (T2, C0),
         (Ta, R, BW=11, M1, C1),
@@ -275,7 +275,7 @@ adds reg1 reg2 s16 {
     nwords=1,
     reg1=reg(25,21),
     reg2=reg(20,16),
-    s16=inm(15,0),
+    s16=imm(15,0),
     {
          (SIZE=10000, SE,OFFSET=0, T3, C5),
          (SelA=10000, SelC=10101, MR=0, MA=0, MB=01 SELCOP=1010, MC=1, T6, LC, SELP=11, M7, C7),

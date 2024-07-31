@@ -173,7 +173,7 @@ andi reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val =inm(15,0),
+     val =imm(15,0),
      help='r1 = r2 & val',
      native,
      {
@@ -215,7 +215,7 @@ ori reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val =inm(15,0),
+     val =imm(15,0),
      help='r1 = r2 | val',
      native,
      {
@@ -274,7 +274,7 @@ xori reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val =inm(15,0),
+     val =imm(15,0),
      help='r1 = r2 ^ val',
      native,
      {
@@ -337,7 +337,7 @@ slti reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val =inm(15,0),
+     val =imm(15,0),
      help='$r1 = ($r2 < val) ? 1 : 0',
      native,
      {
@@ -406,7 +406,7 @@ addi reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val =inm(15,0),
+     val =imm(15,0),
      help='r1 = r2 + val',
      native,
      {
@@ -430,7 +430,7 @@ addiu reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val =inm(15,0),
+     val =imm(15,0),
      help='r1 = ux(r2) + ux(val)',
      native,
      {
@@ -472,7 +472,7 @@ sub reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val =inm(15,0),
+     val =imm(15,0),
      help='r1 = r2 - val',
      native,
      {
@@ -539,7 +539,7 @@ mul reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val =inm(15,0),
+     val =imm(15,0),
      help='r1 = r2 * val',
      native,
      {
@@ -641,7 +641,7 @@ srl reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val=inm(5,0),
+     val=imm(5,0),
      help='$r1 = $r2 >>> val',
      native,
      {
@@ -662,7 +662,7 @@ sll reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val=inm(5,0),
+     val=imm(5,0),
      help='$r1 = $r2 <<< val',
      native,
      {
@@ -683,7 +683,7 @@ sra reg1 reg2 val {
      nwords=1,
      reg1=reg(25,21),
      reg2=reg(20,16),
-     val=inm(5,0),
+     val=imm(5,0),
      help='$r1 = $r2 >> val',
      native,
      {
@@ -708,7 +708,7 @@ li reg val {
      co=111111,
      nwords=1,
      reg=reg(25,21),
-     val=inm(15,0),
+     val=imm(15,0),
      help='r1 = SignExt(val)',
      native,
      {
@@ -729,7 +729,7 @@ liu reg val {
      co=111111,
      nwords=1,
      reg=reg(25,21),
-     val=inm(15,0),
+     val=imm(15,0),
      help='r1 = (00, 00, val)',
      native,
      {
@@ -909,7 +909,7 @@ lb reg1 val(reg2) {
      co=111111,
      nwords=1,
      reg1 = reg(25,21),
-     val  = inm(15,0),
+     val  = imm(15,0),
      reg2 = reg(20,16),
      help='r1 = (00, 00, 00, MEM[r2+val])',
      native,
@@ -992,7 +992,7 @@ sb reg1 val(reg2) {
      co=111111,
      nwords=1,
      reg1 = reg(25,21),
-     val  = inm(15,0),
+     val  = imm(15,0),
      reg2 = reg(20,16),
      help='MEM[r2+val] = r1/8',
      native,
@@ -1045,7 +1045,7 @@ lw reg1 val(reg2) {
      co=111111,
      nwords=1,
      reg1 = reg(25,21),
-     val  = inm(15,0),
+     val  = imm(15,0),
      reg2 = reg(20,16),
      help='$r1 = (MEM[$r2+val+3], MEM[$r2+val+2], MEM[$r2+val+1], MEM[$r2+val])',
      native,
@@ -1070,7 +1070,7 @@ sw reg1 val(reg2) {
      co=111111,
      nwords=1,
      reg1 = reg(25,21),
-     val  = inm(15,0),
+     val  = imm(15,0),
      reg2 = reg(20,16),
      help='(MEM[$r2+val+3] .. MEM[$r2+val]) = $r1',
      native,
@@ -1100,7 +1100,7 @@ in reg val {
      co=111111,
      nwords=1,
      reg=reg(25,21),
-     val=inm(15,0),
+     val=imm(15,0),
      help='r1 = device_register(val)',
      native,
      {
@@ -1119,7 +1119,7 @@ out reg val {
      co=111111,
      nwords=1,
      reg=reg(25,21),
-     val=inm(15,0),
+     val=imm(15,0),
      help='device_register(val) = r1',
      native,
      {
@@ -1444,7 +1444,7 @@ pseudoinstructions
         or reg1 reg2 $zero
     }
 
-    muli reg1=reg reg2=reg inm1=inm
+    muli reg1=reg reg2=reg inm1=imm
     {
         mul reg1 reg2 inm1
     }

@@ -352,6 +352,9 @@ function wsasm_prepare_context ( CU_data, options )
 	   }
 
 	   // Fill firmware
+           var xr_info = simhw_sim_ctrlStates_get() ;
+           context.oc_size_default = parseInt(xr_info.ir.default_eltos.oc.length) ;
+
            context = wsasm_prepare_context_firmware(context, CU_data) ;
 
 	   // Fill pseudoinstructions

@@ -108,7 +108,7 @@ in reg val {
             co=111111,
             nwords=1,
             reg=reg(25,21),
-            val=inm(15,0),
+            val=imm(15,0),
             help='reg = device_registers[val]',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
@@ -121,7 +121,7 @@ out reg val {
             co=111111,
             nwords=1,
             reg=reg(25,21),
-            val=inm(15,0),
+            val=imm(15,0),
             help='device_register[val] = reg',
             {
                 (SE=0, OFFSET=0,   SIZE=10000, T3=1, C0=1),
@@ -158,7 +158,7 @@ lui rd inm {
         co=111111,
         nwords=1,
         rd=reg(25,21),
-        inm=inm(19,0),
+        inm=imm(19,0),
         help='rd = (inm << 12)',
         {
             (SE=1, OFFSET=0, SIZE=10100, T3, MRC, SelC=100001, LC),                           # RF[33] <- IR/inm
@@ -176,7 +176,7 @@ auipc rd offset {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(19,0),
+            offset=imm(19,0),
             help='rd = pc + (offset << 12)',
             {
                (SE=1, OFFSET=0, SIZE=10100, T3, MRC, SelC=100001, LC),                           # RF[33] <- IR/inm
@@ -380,7 +380,7 @@ lb rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (00, 00, 00, MEM[rs1 + offset])',
             {
@@ -396,7 +396,7 @@ lh rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
             native,
@@ -437,7 +437,7 @@ lw rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (MEM[rs1+offset+3] .. MEM[rs1+offset])',
             {
@@ -453,7 +453,7 @@ lbu rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (00, 00, 00, ux(MEM[rs1 + offset]))',
             native,
@@ -485,7 +485,7 @@ lhu rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (00, 00, ux(MEM[rs1+offset+1]), ux(MEM[rs1+offset]))',
             native,
@@ -524,7 +524,7 @@ sb rs2 offset(rs1) {
             co=111111,
             nwords=1,
             rs2=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='MEM[rs1 + offset] = rs2/8',
             {
@@ -540,7 +540,7 @@ sh rs2 offset(rs1) {
             co=111111,
             nwords=1,
             rs2=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
             native,
@@ -586,7 +586,7 @@ sw reg1 val(reg2) {
             co=111111,
             nwords=1,
             reg1 = reg(25,21),
-            val  = inm(15,0),
+            val  = imm(15,0),
             reg2 = reg(20,16),
             help='MEM[rs1+offset+3 .. rs1+offset] = rs2',
             {
@@ -602,7 +602,7 @@ sbu rs2 offset(rs1) {
             co=111111,
             nwords=1,
             rs2=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='MEM[rs1+offset] = (00, 00, 00, rs2/8)',
             native,
@@ -637,7 +637,7 @@ shu rs2 offset(rs1) {
             co=111111,
             nwords=1,
             rs2=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
             native,
@@ -675,7 +675,7 @@ addi rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = rs1 + SignEx(inm)',
             {
                 (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
@@ -692,7 +692,7 @@ addu rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = rs1 + UnsignEx(inm)',
             {
                 (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
@@ -710,7 +710,7 @@ slti rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = (rs1 < inm) ? 1 : 0',
             native,
             {
@@ -735,7 +735,7 @@ sltiu rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = (ux(rs1) < ux(inm)) ? 1 : 0',
             native,
             {
@@ -757,7 +757,7 @@ xori rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = ux(rs1) ^ ux(inm)',
             native,
             {
@@ -779,7 +779,7 @@ ori rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = rs1 | inm',
             {
                 (OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=101001, LC=1),
@@ -793,7 +793,7 @@ andi rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = rs1 & inm',
             {
                 (OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=101001, LC=1),
@@ -807,7 +807,7 @@ slli rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(5,0),
+            inm=imm(5,0),
             help='rd = (rs1 << inm)',
             native,
             {
@@ -830,7 +830,7 @@ srli rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(5,0),
+            inm=imm(5,0),
             help='rd = (rs1 >>> inm)',
             native,
             {
@@ -852,7 +852,7 @@ srai rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = (rs1 >> inm)',
             native,
             {
@@ -1053,8 +1053,8 @@ and reg1 reg2 reg3 {
 fence pred succ {
             co=111111,
             nwords=1,
-            pred=inm(25,21),
-            succ=inm(15,0),
+            pred=imm(25,21),
+            succ=imm(15,0),
             {
                 (A0=1, B=1, C=0)
             }
@@ -1362,13 +1362,13 @@ pseudoinstructions
         }
 
         # li rd, expression        (several expansions)        Load immediate
-        li rd=reg, expression=inm
+        li rd=reg, expression=imm
         {
             addi rd, zero, expression
         }
 
         # la rd, label        (several expansions)        Load address
-        la rd=reg, label=inm
+        la rd=reg, label=imm
         {
             addu rd, zero, label
         }
@@ -1416,73 +1416,73 @@ pseudoinstructions
         }
 
         # beqz rs1, offset        beq rs, x0, offset        Branch if = zero
-        beqz rs=reg, offset=inm
+        beqz rs=reg, offset=imm
         {
             beq rs, zero, offset
         }
 
         # bnez rs1, offset        bne rs, x0, offset        Branch if ≠ zero
-        bnez rs=reg, offset=inm
+        bnez rs=reg, offset=imm
         {
             bne rs, zero, offset
         }
 
         # blez rs1, offset        bge x0, rs, offset        Branch if ≤ zero
-        blez rs=reg, offset=inm
+        blez rs=reg, offset=imm
         {
             bge zero, rs, offset
         }
 
         # bgez rs1, offset        bge rs, x0, offset        Branch if ≥ zero
-        bgez rs=reg, offset=inm
+        bgez rs=reg, offset=imm
         {
             bge rs, zero, offset
         }
 
         # bltz rs1, offset        blt rs, x0, offset        Branch if < zero
-        bltz rs=reg, offset=inm
+        bltz rs=reg, offset=imm
         {
             blt rs, zero, offset
         }
 
         # bgtz rs1, offset        blt x0, rs, offset        Branch if > zero
-        bgtz rs=reg, offset=inm
+        bgtz rs=reg, offset=imm
         {
             blt zero, rs, offset
         }
 
         # bgt rs, rt, offset        blt rt, rs, offset        Branch if >
-        bgt rs=reg, rt=reg, offset=inm
+        bgt rs=reg, rt=reg, offset=imm
         {
             blt rt, rs, offset
         }
 
         # ble rs, rt, offset        bge rt, rs, offset        Branch if ≤
-        ble rs=reg, rt=reg, offset=inm
+        ble rs=reg, rt=reg, offset=imm
         {
             bge rt, rs, offset
         }
 
         # bgtu rs, rt, offset        bltu rt, rs, offset        Branch if >, unsigned
-        bgtu rs=reg, rt=reg, offset=inm
+        bgtu rs=reg, rt=reg, offset=imm
         {
             bltu rt, rs, offset
         }
 
         # bleu rs, rt, offset        bltu rt, rs, offset        Branch if ≤, unsigned
-        bleu rs=reg, rt=reg, offset=inm
+        bleu rs=reg, rt=reg, offset=imm
         {
             bgeu rt, rs, offset
         }
 
         # j offset        jal x0, offset        Jump
-        j offset=inm
+        j offset=imm
         {
             jal zero, offset
         }
 
         # jal offset        jal x1, offset        Jump register
-        #jal offset=inm
+        #jal offset=imm
         #{
         #    jal ra, offset
         #}

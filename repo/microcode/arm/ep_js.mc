@@ -125,7 +125,7 @@ in reg val {
     co=000011,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     help='reg = device_registers[val]',
     native,
     {
@@ -144,7 +144,7 @@ out reg val {
     co=000100,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     help='device_register[val] = reg',
     native,
     {
@@ -389,7 +389,7 @@ mov r1 u32 {
     co=001111,
     nwords=2,
     r1=reg(20,16),
-    u32=inm(63,32),
+    u32=imm(63,32),
     native,
     {
          // fields is a default parameter with the instruction field information
@@ -473,7 +473,7 @@ adds reg1 reg2 s16 {
     nwords=1,
     reg1=reg(25,21),
     reg2=reg(20,16),
-    s16 =inm(15,0),
+    s16 =imm(15,0),
     native,
     {
         // fields is a default parameter with the instruction field information

@@ -24,7 +24,7 @@ function firm_pseudoinstructions_read ( context )
 	//
 	// *pseudoinstructions
 	// {
-	//    li reg=reg num=inm { lui reg high(num) ; ori reg reg low(num) }
+	//    li reg=reg num=imm { lui reg high(num) ; ori reg reg low(num) }
 	// }*
 	//
 
@@ -84,19 +84,20 @@ function firm_pseudoinstructions_read ( context )
 
 			// name=*type*
 			frm_nextToken(context);
-			pseudoFieldAux.type += frm_getToken(context).replace("num", "inm");
+			pseudoFieldAux.type += frm_getToken(context).replace("num", "imm");
 
 			switch (pseudoFieldAux.type)
 			{
 				case "reg":
 				case "inm":
+				case "imm":
 				case "addr":
 				case "address":
-				     break;
+				      break;
 				default:						
-				     return frm_langError(context,
-						          i18n_get_TagFor('compiler', 'INVALID PARAMETER') + pseudoFieldAux.type + '.' +
-						      i18n_get_TagFor('compiler', 'ALLOWED PARAMETER')) ;
+				      return frm_langError(context,
+						           i18n_get_TagFor('compiler', 'INVALID PARAMETER') + pseudoFieldAux.type + '.' +
+						           i18n_get_TagFor('compiler', 'ALLOWED PARAMETER')) ;
 			}
 
 			pseudoInitial.fields.push(pseudoFieldAux);
@@ -112,7 +113,7 @@ function firm_pseudoinstructions_read ( context )
 		}
 
 		frm_nextToken(context);
-		pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"inm");
+		pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"imm");
 		pseudoInstructionAux.initial = pseudoInitial;	
 		var contPseudoFinish = 0;
 

@@ -80,7 +80,7 @@ in reg val {
     co=000011,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     help='reg = device_registers[val]',
     {
         (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
@@ -93,7 +93,7 @@ out reg val {
     co=000100,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     help='device_register[val] = reg',
     {
        (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
@@ -123,7 +123,7 @@ ldi r1 u16 {
    co=001001,
    nwords=1,
    r1=reg(25,21),
-   u16=inm(15,0),
+   u16=imm(15,0),
    help='r1 = u16',
    {
        (SE=1, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
@@ -168,7 +168,7 @@ add_a reg1 {
 addi_a s16 {
    co=001100,
    nwords=1,
-   s16=inm(15,0),
+   s16=imm(15,0),
    help='acc = acc1 + SignExt(s16); update(sr)',
    native,
    {
@@ -279,7 +279,7 @@ jpz s16 {
 call u16 {
    co=010001,
    nwords=1,
-   u16=inm(15,0),
+   u16=imm(15,0),
    help='sp -= 4; MEM[pc] = r1',
    native,
    {

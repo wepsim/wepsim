@@ -38,7 +38,7 @@ andi reg1 reg2 val {
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
-            val =inm(15,0),
+            val =imm(15,0),
             {
                 (OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=101001, LC=1),
                 (MC=1, MRA=0, SELA=10000, MRB=1, SELB=101001, MA=0, MB=0, SELCOP=1, T6=1, MRC=0, SELC=10101, LC=1, M7, C7, A0=1, B=1, C=0)
@@ -62,7 +62,7 @@ ori reg1 reg2 val {
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
-            val =inm(15,0),
+            val =imm(15,0),
             {
                 (OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=101001, LC=1),
                 (MC=1, MRA=0, SELA=10000, MRB=1, SELB=101001, MA=0, MB=0, SELCOP=10, T6=1, MRC=0, SELC=10101, LC=1, M7, C7, A0=1, B=1, C=0)
@@ -108,7 +108,7 @@ addi reg1 reg2 val {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            val  = inm(15,0),
+            val  = imm(15,0),
             {
                 (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
                 (                              T1=1, MRC=1, SELC=100000, LC=1),
@@ -123,7 +123,7 @@ addi reg1 reg2 val {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            val  = inm(15,0),
+            val  = imm(15,0),
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SelC=1, LC=1),
                 (MRA=0, SELA=10000, MA=0, MRB=1, SELB=1, MB=0, SELCOP=1010, T6=1, MRC=1, SELC=10101, LC=1, M7, C7, A0=1, B=1, C=0)
@@ -147,7 +147,7 @@ sub reg1 reg2 val {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            val  = inm(15,0),
+            val  = imm(15,0),
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SelC=1, LC=1),
                 (MRA=0, SELA=10000, MA=0, MRB=1, SELB=1, MB=0, SELCOP=1011, T6=1, MRC=1, SELC=10101, LC=1, M7, C7, A0=1, B=1, C=0)
@@ -171,7 +171,7 @@ mul reg1 reg2 val {
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
-            val  = inm(15,0),
+            val  = imm(15,0),
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SelC=1, LC=1),
                 (MRA=0, SELA=10000, MA=0, MRB=1, SELB=1, MB=0, SELCOP=1100, T6=1, MRC=1, SELC=10101, LC=1, M7, C7, A0=1, B=1, C=0)
@@ -207,7 +207,7 @@ srl reg1 reg2 val {
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
-            val=inm(5,0),
+            val=imm(5,0),
             {
                 (SE=1, OFFSET=0, SIZE=110, T3=1, MRC=1, LC=1, SELC=110111),
                 (MC=1, SELA=10000, MA=0, SELB=10000, MB=0, SELCOP=10, T6=1, MRC=0, SELC=10101, LC=1, M7, C7),
@@ -224,7 +224,7 @@ sll reg1 reg2 val {
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
-            val=inm(5,0),
+            val=imm(5,0),
             {
                 (SE=1, OFFSET=0, SIZE=110, T3=1, MRC=1, LC=1, SELC=110111),
                 (MC=1, SELA=10000, MA=0, SELB=10000, MB=0, SELCOP=10, T6=1, MRC=0, SELC=10101, LC=1, M7, C7),
@@ -255,7 +255,7 @@ li reg val {
             co=000010,
             nwords=1,
             reg=reg(25,21),
-            val=inm(15,0),
+            val=imm(15,0),
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
@@ -376,7 +376,7 @@ in reg val {
             co=001010,
             nwords=1,
             reg=reg(25,21),
-            val=inm(15,0),
+            val=imm(15,0),
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, IOR=1,    M1=1, C1=1),
@@ -388,7 +388,7 @@ out reg val {
             co=001011,
             nwords=1,
             reg=reg(25,21),
-            val=inm(15,0),
+            val=imm(15,0),
             {
                 (SE=0, OFFSET=0,   SIZE=10000, T3=1, C0=1),
                 (MRA=0, SELA=10101, T9=1,       M1=0, C1=1),
@@ -629,7 +629,7 @@ registers
 
 pseudoinstructions
 {
-	li reg1=reg num=inm 
+	li reg1=reg num=imm 
         {
             li  reg1 sel(31,16,num)
             sll reg1 reg1 16
