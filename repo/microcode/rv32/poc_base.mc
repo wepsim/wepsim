@@ -108,7 +108,7 @@ in reg val {
             co=111111,
             nwords=1,
             reg=reg(25,21),
-            val=inm(15,0),
+            val=imm(15,0),
             help='reg = device_registers[val]',
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
@@ -121,7 +121,7 @@ out reg val {
             co=111111,
             nwords=1,
             reg=reg(25,21),
-            val=inm(15,0),
+            val=imm(15,0),
             help='device_register[val] = reg',
             {
                 (SE=0, OFFSET=0,   SIZE=10000, T3=1, C0=1),
@@ -158,7 +158,7 @@ lui rd inm {
         co=111111,
         nwords=1,
         rd=reg(25,21),
-        inm=inm(19,0),
+        inm=imm(19,0),
         help='rd = (inm << 12)',
         {
             (SE=1, OFFSET=0, SIZE=10100, T3, MRC, SelC=100001, LC),                           # RF[33] <- IR/inm
@@ -176,7 +176,7 @@ auipc rd offset {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(19,0),
+            offset=imm(19,0),
             help='rd = pc + (offset << 12)',
             {
                (SE=1, OFFSET=0, SIZE=10100, T3, MRC, SelC=100001, LC),                           # RF[33] <- IR/inm
@@ -193,99 +193,104 @@ auipc rd offset {
 #  JAL rd,offset        Jump and Link                           rd ← pc + length(inst)
 #                                                               pc ← pc + offset
 jal rd offset {
-            co=111111,
-            nwords=1,
-            rd=reg(25,21),
-            offset=address(19,0)rel,
-            help='rd = pc; pc = pc + sext(offset)',
-            {
-                (T2, MRC=0, SelC=10101, LC),                               #     rd <- PC
-                (SE=1, OFFSET=0, SIZE=10100, T3, MRC, SelC=100001, LC),    # RF[33] <- sext(offset)
-                (MRA, SelA=100001, MA=0, MB=1, MC, SelCop=1010, T6, C2),   # PC <- PC + RF[33]
-                (A0=1, B=1, C=0)
-            }
+       co=111111,
+       nwords=1,
+       rd=reg(25,21),
+       offset=address(19,0)rel,
+       help='rd = pc; pc = pc + 4*sext(offset)',
+       {
+           (T2, MRC=0, SelC=10101, LC),                               #     rd <- PC
+           (SE=1, OFFSET=0, SIZE=10100, T3, MRC, SelC=100001, LC),    # RF[33] <- sext(offset)
+           (MRB, SELB=100001, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=100001, LC),
+           (MRA, SelA=100001, MA=0, MB=1, MC, SelCop=1010, T6, C2),   # PC <- PC + RF[33]
+           (A0=1, B=1, C=0)
+       }
 }
 
 #  JALR rd,rs1,offset   Jump and Link Register                  rd ← pc + length(inst)
 #                                                               pc ← (rs1 + offset) & -2
 jalr rd rs1 offset {
-            co=111111,
-            nwords=1,
-            rd=reg(25,21),
-            rs1=reg(20,16),
-            offset=address(15,0)rel,
-            help='rd = pc; pc = rs1 + offset',
-            {
-                (T2, MRC=0, SelC=10101, LC),                                 # rd  <- pc
-                (EXCODE=0, T11, MRC=1, SelC=0, LC),                          # RF[0] <- 0
-                (SE=1, OFFSET=0, SIZE=1100, T3, MRC, SelC=100010, LC),       # RF[34] <- sign_ext(offset)
-                (MRA=0, SelA=10000, MA=0, MRB, SelB=100010, MB=0,
-                   MC=1, SelCop=1010, T6, MRC, SelC=100010, LC),             # RF[34] <- RF[34] + rs1
-                (EXCODE=1, T11, MRC, SelC=100001, LC),                       # RF[33] <- 1
-                (MRA, SelA=100001, MC, SelCop=11, T6, MRC, SelC=100001, LC), # RF[33] <- ~1 (0xFFFFFFFE)
-                (MRA, SelA=100001, MRB, SelB=100010, MC, SelCop=1, T6, C2),  # pc <- RF[34] & 0xFFFFFFFE
-                (A0=1, B=1, C=0)
-            }
+       co=111111,
+       nwords=1,
+       rd=reg(25,21),
+       rs1=reg(20,16),
+       offset=address(15,0)rel,
+       help='rd = pc; pc = rs1 + 4*offset',
+       {
+           (T2, MRC=0, SelC=10101, LC),                                 # rd  <- pc
+           (EXCODE=0, T11, MRC=1, SelC=0, LC),                          # RF[0] <- 0
+           (SE=1, OFFSET=0, SIZE=1100, T3, MRC, SelC=100010, LC),       # RF[34] <- sign_ext(offset)
+           (MRB, SELB=100010, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=100010, LC),
+           (MRA=0, SelA=10000, MA=0, MRB, SelB=100010, MB=0,
+              MC=1, SelCop=1010, T6, MRC, SelC=100010, LC),             # RF[34] <- RF[34] + rs1
+           (EXCODE=1, T11, MRC, SelC=100001, LC),                       # RF[33] <- 1
+           (MRA, SelA=100001, MC, SelCop=11, T6, MRC, SelC=100001, LC), # RF[33] <- ~1 (0xFFFFFFFE)
+           (MRA, SelA=100001, MRB, SelB=100010, MC, SelCop=1, T6, C2),  # pc <- RF[34] & 0xFFFFFFFE
+           (A0=1, B=1, C=0)
+       }
 }
 
 #  BEQ rs1,rs2,offset         Branch Equal                                 if rs1 = rs2 then pc ← pc + offset
 beq rs1 rs2 offset {
-            co=111111,
-            nwords=1,
-            rs1=reg(25,21),
-            rs2=reg(20,16),
-            offset=address(15,0)rel,
-            help='if (rs1 == rs2) pc += offset',
-            {
-                (T8, SELC=110111, MRC=1, LC=1),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
-                (A0=0, B=1, C=110, MADDR=bck2ftch),
-                (SELA=110111, MRA=1, M7=0, C7),
-                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-                (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck2ftch: (SELA=110111, MRA=1, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
+       co=111111,
+       nwords=1,
+       rs1=reg(25,21),
+       rs2=reg(20,16),
+       offset=address(15,0)rel,
+       help='if (rs1 == rs2) pc += 4*offset',
+       {
+           (T8, SELC=110111, MRC=1, LC=1),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
+           (A0=0, B=1, C=110, MADDR=bck2ftch),
+           (SELA=110111, MRA=1, M7=0, C7),
+           (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+           (MRB, SELB=110111, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=110111, LC),
+           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+ bck2ftch: (SELA=110111, MRA=1, M7=0, C7),
+           (A0=1, B=1, C=0)
+       }
 }
 
 #  BNE rs1,rs2,offset         Branch Not Equal                         if rs1 ≠ rs2 then pc ← pc + offset
 bne rs1 rs2 offset {
-            co=111111,
-            nwords=1,
-            rs1=reg(25,21),
-            rs2=reg(20,16),
-            offset=address(15,0)rel,
-            help='if (rs1 != rs2) pc += offset',
-            {
-                (T8, SELC=110111, MRC=1, LC=1),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
-                (A0=0, B=0, C=110, MADDR=bck3ftch),
-                (SELA=110111, MRA=1, M7=0, C7),
-                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-                (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck3ftch: (SELA=110111, MRA=1, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
+       co=111111,
+       nwords=1,
+       rs1=reg(25,21),
+       rs2=reg(20,16),
+       offset=address(15,0)rel,
+       help='if (rs1 != rs2) pc += 4*offset',
+       {
+           (T8, SELC=110111, MRC=1, LC=1),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
+           (A0=0, B=0, C=110, MADDR=bck3ftch),
+           (SELA=110111, MRA=1, M7=0, C7),
+           (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+           (MRB, SELB=110111, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=110111, LC),
+           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+ bck3ftch: (SELA=110111, MRA=1, M7=0, C7),
+           (A0=1, B=1, C=0)
+       }
 }
 
 #  BLT rs1,rs2,offset         Branch Less Than                         if rs1 < rs2 then pc ← pc + offset
 blt rs1 rs2 offset {
-            co=111111,
-            nwords=1,
-            rs1=reg(25,21),
-            rs2=reg(20,16),
-            offset=address(15,0)rel,
-            help='if (rs1 < rs2) pc += offset',
-            {
-                (T8, SELC=110111, MRC=1, LC=1),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
-                (A0=0, B=1, C=111, MADDR=bck5ftch),
-                (SELA=110111, MRA=1, M7=0, C7),
-                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-                (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck5ftch: (SELA=110111, MRA=1, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
+       co=111111,
+       nwords=1,
+       rs1=reg(25,21),
+       rs2=reg(20,16),
+       offset=address(15,0)rel,
+       help='if (rs1 < rs2) pc += 4*offset',
+       {
+           (T8, SELC=110111, MRC=1, LC=1),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
+           (A0=0, B=1, C=111, MADDR=bck5ftch),
+           (SELA=110111, MRA=1, M7=0, C7),
+           (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+           (MRB, SELB=110111, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=110111, LC),
+           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+ bck5ftch: (SELA=110111, MRA=1, M7=0, C7),
+           (A0=1, B=1, C=0)
+       }
 }
 
 #  BGE rs1,rs2,offset         Branch Greater than Equal                 if rs1 ≥ rs2 then pc ← pc + offset
@@ -295,13 +300,14 @@ bge rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (rs1 >= rs2) pc += offset',
+            help='if (rs1 >= rs2) pc += 4*offset',
             {
                 (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
                 (A0=0, B=0, C=111, MADDR=bck4ftch),
                 (SELA=110111, MRA=1, M7=0, C7),
                 (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+           (MRB, SELB=110111, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=110111, LC),
                 (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
       bck4ftch: (SELA=110111, MRA=1, M7=0, C7),
                 (A0=1, B=1, C=0)
@@ -315,7 +321,7 @@ bltu rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (ux(rs1) < ux(rs2)) pc += offset',
+            help='if (ux(rs1) < ux(rs2)) pc += 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -328,9 +334,10 @@ bltu rs1 rs2 offset {
                 if (reg1 < reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
-                    pc = pc + offset ;
+                    }
+                    pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
 
@@ -345,7 +352,7 @@ bgeu rs1 rs2 offset {
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (ux(rs1) >= ux(rs2)) pc += offset',
+            help='if (ux(rs1) >= ux(rs2)) pc += 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -360,7 +367,7 @@ bgeu rs1 rs2 offset {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
                     if ((offset & 0x8000) > 0)
                          offset = offset | 0xFFFF0000 ;
-                    pc = pc + offset ;
+                    pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
 
@@ -373,7 +380,7 @@ lb rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (00, 00, 00, MEM[rs1 + offset])',
             {
@@ -389,7 +396,7 @@ lh rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
             native,
@@ -430,7 +437,7 @@ lw rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (MEM[rs1+offset+3] .. MEM[rs1+offset])',
             {
@@ -446,7 +453,7 @@ lbu rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (00, 00, 00, ux(MEM[rs1 + offset]))',
             native,
@@ -478,7 +485,7 @@ lhu rd offset(rs1) {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='rd = (00, 00, ux(MEM[rs1+offset+1]), ux(MEM[rs1+offset]))',
             native,
@@ -517,7 +524,7 @@ sb rs2 offset(rs1) {
             co=111111,
             nwords=1,
             rs2=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='MEM[rs1 + offset] = rs2/8',
             {
@@ -533,7 +540,7 @@ sh rs2 offset(rs1) {
             co=111111,
             nwords=1,
             rs2=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
             native,
@@ -579,7 +586,7 @@ sw reg1 val(reg2) {
             co=111111,
             nwords=1,
             reg1 = reg(25,21),
-            val  = inm(15,0),
+            val  = imm(15,0),
             reg2 = reg(20,16),
             help='MEM[rs1+offset+3 .. rs1+offset] = rs2',
             {
@@ -595,7 +602,7 @@ sbu rs2 offset(rs1) {
             co=111111,
             nwords=1,
             rs2=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='MEM[rs1+offset] = (00, 00, 00, rs2/8)',
             native,
@@ -630,7 +637,7 @@ shu rs2 offset(rs1) {
             co=111111,
             nwords=1,
             rs2=reg(25,21),
-            offset=inm(15,0),
+            offset=imm(15,0),
             rs1=reg(20,16),
             help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
             native,
@@ -668,7 +675,7 @@ addi rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = rs1 + SignEx(inm)',
             {
                 (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
@@ -685,7 +692,7 @@ addu rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = rs1 + UnsignEx(inm)',
             {
                 (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
@@ -703,7 +710,7 @@ slti rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = (rs1 < inm) ? 1 : 0',
             native,
             {
@@ -728,7 +735,7 @@ sltiu rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = (ux(rs1) < ux(inm)) ? 1 : 0',
             native,
             {
@@ -750,7 +757,7 @@ xori rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = ux(rs1) ^ ux(inm)',
             native,
             {
@@ -772,7 +779,7 @@ ori rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = rs1 | inm',
             {
                 (OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=101001, LC=1),
@@ -786,7 +793,7 @@ andi rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = rs1 & inm',
             {
                 (OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=101001, LC=1),
@@ -800,7 +807,7 @@ slli rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(5,0),
+            inm=imm(5,0),
             help='rd = (rs1 << inm)',
             native,
             {
@@ -823,7 +830,7 @@ srli rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(5,0),
+            inm=imm(5,0),
             help='rd = (rs1 >>> inm)',
             native,
             {
@@ -845,7 +852,7 @@ srai rd rs1 inm {
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
-            inm=inm(15,0),
+            inm=imm(15,0),
             help='rd = (rs1 >> inm)',
             native,
             {
@@ -1046,8 +1053,8 @@ and reg1 reg2 reg3 {
 fence pred succ {
             co=111111,
             nwords=1,
-            pred=inm(25,21),
-            succ=inm(15,0),
+            pred=imm(25,21),
+            succ=imm(15,0),
             {
                 (A0=1, B=1, C=0)
             }
@@ -1355,13 +1362,13 @@ pseudoinstructions
         }
 
         # li rd, expression        (several expansions)        Load immediate
-        li rd=reg, expression=inm
+        li rd=reg, expression=imm
         {
             addi rd, zero, expression
         }
 
         # la rd, label        (several expansions)        Load address
-        la rd=reg, label=inm
+        la rd=reg, label=imm
         {
             addu rd, zero, label
         }
@@ -1409,73 +1416,73 @@ pseudoinstructions
         }
 
         # beqz rs1, offset        beq rs, x0, offset        Branch if = zero
-        beqz rs=reg, offset=inm
+        beqz rs=reg, offset=imm
         {
             beq rs, zero, offset
         }
 
         # bnez rs1, offset        bne rs, x0, offset        Branch if ≠ zero
-        bnez rs=reg, offset=inm
+        bnez rs=reg, offset=imm
         {
             bne rs, zero, offset
         }
 
         # blez rs1, offset        bge x0, rs, offset        Branch if ≤ zero
-        blez rs=reg, offset=inm
+        blez rs=reg, offset=imm
         {
             bge zero, rs, offset
         }
 
         # bgez rs1, offset        bge rs, x0, offset        Branch if ≥ zero
-        bgez rs=reg, offset=inm
+        bgez rs=reg, offset=imm
         {
             bge rs, zero, offset
         }
 
         # bltz rs1, offset        blt rs, x0, offset        Branch if < zero
-        bltz rs=reg, offset=inm
+        bltz rs=reg, offset=imm
         {
             blt rs, zero, offset
         }
 
         # bgtz rs1, offset        blt x0, rs, offset        Branch if > zero
-        bgtz rs=reg, offset=inm
+        bgtz rs=reg, offset=imm
         {
             blt zero, rs, offset
         }
 
         # bgt rs, rt, offset        blt rt, rs, offset        Branch if >
-        bgt rs=reg, rt=reg, offset=inm
+        bgt rs=reg, rt=reg, offset=imm
         {
             blt rt, rs, offset
         }
 
         # ble rs, rt, offset        bge rt, rs, offset        Branch if ≤
-        ble rs=reg, rt=reg, offset=inm
+        ble rs=reg, rt=reg, offset=imm
         {
             bge rt, rs, offset
         }
 
         # bgtu rs, rt, offset        bltu rt, rs, offset        Branch if >, unsigned
-        bgtu rs=reg, rt=reg, offset=inm
+        bgtu rs=reg, rt=reg, offset=imm
         {
             bltu rt, rs, offset
         }
 
         # bleu rs, rt, offset        bltu rt, rs, offset        Branch if ≤, unsigned
-        bleu rs=reg, rt=reg, offset=inm
+        bleu rs=reg, rt=reg, offset=imm
         {
             bgeu rt, rs, offset
         }
 
         # j offset        jal x0, offset        Jump
-        j offset=inm
+        j offset=imm
         {
             jal zero, offset
         }
 
         # jal offset        jal x1, offset        Jump register
-        #jal offset=inm
+        #jal offset=imm
         #{
         #    jal ra, offset
         #}

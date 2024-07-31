@@ -238,7 +238,11 @@ Où l'opérateur "sel (bit-start, bit-end field)" nous permet de sélectionner u
 </td>
 <td>
 <pre>
- <b>firmware_version=2</b>
+ <b>firmware {
+      version  = 2,
+      rel_mult = 2,
+      endian   = little
+ }</b>
 
  begin
  {

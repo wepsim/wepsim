@@ -19,7 +19,7 @@ lui rd inm {
       co=111111,
       nwords=1,
       rd=reg(25,21),
-      inm=inm(15,0),
+      inm=imm(15,0),
       help='rd = (inm << 15)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=11111, WOut),
@@ -32,7 +32,7 @@ auipc rd offset {
       co=111111,
       nwords=1,
       rd=reg(25,21),
-      offset=inm(19,0),
+      offset=imm(19,0),
       help='rd = pc + (offset << 12)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10011, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
@@ -115,7 +115,7 @@ andi reg1 reg2 inm {
       nwords=1,
       reg1=reg(25,21),
       reg2=reg(20,16),
-      inm=inm(15,0),
+      inm=imm(15,0),
       help='rd = rs1 & inm',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
@@ -145,7 +145,7 @@ ori reg1 reg2 inm {
       nwords=1,
       reg1=reg(25,21),
       reg2=reg(20,16),
-      inm=inm(15,0),
+      inm=imm(15,0),
       help='rd = rs1 | inm',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
@@ -175,7 +175,7 @@ xori reg1 reg2 inm {
       nwords=1,
       reg1=reg(25,21),
       reg2=reg(20,16),
-      inm=inm(15,0),
+      inm=imm(15,0),
       help='rd = ux(rs1) ^ ux(inm)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
@@ -205,7 +205,7 @@ addi reg1 reg2 inm {
       nwords=1,
       reg1=reg(25,21),
       reg2=reg(20,16),
-      inm=inm(15,0),
+      inm=imm(15,0),
       help='rd = rs1 + SignEx(inm)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
@@ -236,7 +236,7 @@ subi reg1 reg2 inm {
       nwords=1,
       reg1=reg(25,21),
       reg2=reg(20,16),
-      inm=inm(15,0),
+      inm=imm(15,0),
       help='rd = rs1 - SignEx(inm)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
@@ -365,20 +365,20 @@ pseudoinstructions
     }
 
     # li rd, expression        (several expansions)        Load immediate
-    li rd=reg, expression=inm
+    li rd=reg, expression=imm
     {
         lui  rd,     sel(31,12,expression)
         addu rd, rd, sel(11,0,expression)
     }
 
     # j offset        jal x0, offset        Jump
-    j offset=inm
+    j offset=imm
     {
         jal zero, offset
     }
 
     # jal offset        jal x1, offset        Jump register
-    #jal offset=inm
+    #jal offset=imm
     #{
     #    jal ra, offset
     #}

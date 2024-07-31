@@ -125,7 +125,7 @@ in reg val {
     co=000011,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     help='reg = device_registers[val]',
     native,
     {
@@ -144,7 +144,7 @@ out reg val {
     co=000100,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     help='device_register[val] = reg',
     native,
     {
@@ -326,7 +326,7 @@ bge rs1 rs2 offset {
     rs1=reg(25,21),
     rs2=reg(20,16),
     offset=address(15,0)rel,
-    help='if ($r1 >= $r2) pc += offset',
+    help='if ($r1 >= $r2) pc += 4*offset',
     native,
     {
         // fields is a default parameter with the instruction field information
@@ -339,9 +339,10 @@ bge rs1 rs2 offset {
         if (reg1 >= reg2)
         {
             var pc = simcore_native_get_value("CPU", "REG_PC") ;
-            if ((offset & 0x8000) > 0)
+            if ((offset & 0x8000) > 0) {
                 offset = offset | 0xFFFF0000 ;
-            pc = pc + offset ;
+            }
+            pc = pc + 4*offset ;
             simcore_native_set_value("CPU", "REG_PC", pc) ;
         }
 
@@ -355,7 +356,7 @@ bne rs1 rs2 offset {
     rs1=reg(25,21),
     rs2=reg(20,16),
     offset=address(15,0)rel,
-    help='if ($r1 != $r2) pc += offset',
+    help='if ($r1 != $r2) pc += 4*offset',
     native,
     {
         // fields is a default parameter with the instruction field information
@@ -368,9 +369,10 @@ bne rs1 rs2 offset {
         if (reg1 != reg2)
         {
             var pc = simcore_native_get_value("CPU", "REG_PC") ;
-            if ((offset & 0x8000) > 0)
+            if ((offset & 0x8000) > 0) {
                 offset = offset | 0xFFFF0000 ;
-            pc = pc + offset ;
+            }
+            pc = pc + 4*offset ;
             simcore_native_set_value("CPU", "REG_PC", pc) ;
         }
 
@@ -387,7 +389,7 @@ mov r1 u32 {
     co=001111,
     nwords=2,
     r1=reg(20,16),
-    u32=inm(63,32),
+    u32=imm(63,32),
     native,
     {
          // fields is a default parameter with the instruction field information
@@ -471,7 +473,7 @@ adds reg1 reg2 s16 {
     nwords=1,
     reg1=reg(25,21),
     reg2=reg(20,16),
-    s16 =inm(15,0),
+    s16 =imm(15,0),
     native,
     {
         // fields is a default parameter with the instruction field information
@@ -548,14 +550,15 @@ beq s16 {
     {
         // fields is a default parameter with the instruction field information
         var s16 = simcore_native_get_field_from_ir(fields, 0) ;
-        if (s16 & 0x00008000)
+        if (s16 & 0x00008000) {
             s16 = s16 | 0xFFFF0000 ;
+        }
 
         var flags = simcore_native_get_value("CPU", "REG_SR") ;
         if (flags & 0x10000000)
         {
-              var pc = simcore_native_get_value("CPU", "REG_PC") ;
-              simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
+            var pc = simcore_native_get_value("CPU", "REG_PC") ;
+            simcore_native_set_value("CPU", "REG_PC", pc + 4*s16) ;
         }
 
         simcore_native_go_maddr(0) ;

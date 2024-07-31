@@ -3,7 +3,11 @@
 # WepSIM (https://wepsim.github.io/wepsim/)
 #
 
-firmware_version = 2
+firmware {
+   version  = 2,
+   rel_mult = 2,
+   endian   = little
+}
 
 begin
 {
@@ -96,7 +100,7 @@ sret {
 in reg val {
      oc(31:26)=111111,
      reg(25:21)=reg,
-     inm(15:0)=val,
+     imm(15:0)=val,
      help='reg = device_registers[val]',
      {
          (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
@@ -108,7 +112,7 @@ in reg val {
 out reg val {
      oc(31:26)=111111,
      reg(25:21)=reg,
-     inm(15:0)=val,
+     imm(15:0)=val,
      help='device_register[val] = reg',
      {
          (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
@@ -144,7 +148,7 @@ rdcycle reg1  {
 lui rd inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
-      inm(19:0)=inm,
+      imm(19:0)=inm,
       help='rd = (inm << 12)',
       {
           (SE=1, OFFSET=0, SIZE=10100, T3, C4),       # RT1 <- IR/inm
@@ -160,7 +164,7 @@ lui rd inm {
 auipc rd offset {
       oc(31:26)=111111,
       reg(25:21)=rd,
-      inm(19:0)=offset,
+      imm(19:0)=offset,
       help='rd = pc + (offset << 12)',
       {
           (SE=1, OFFSET=0, SIZE=10100, T3, C4),       # RT1 <- offset
@@ -181,10 +185,11 @@ jal rd offset {
       oc(31:26)=111111,
       reg(25:21)=rd,
       address-rel(19:0)=offset,
-      help='rd = pc; pc = pc + sext(offset)',
+      help='rd = pc; pc = pc + 4*sext(offset)',
       {
-          (T2, MR=0, SelC=10101, LC, C5),                  # (rd, RT2) <- PC
+          (T2, MR=0, SelC=10101, LC, C5),               # (rd, RT2) <- PC
           (SE=1, OFFSET=0, SIZE=10100, T3, C4),         #       RT1 <- offset
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),           #       RT1 <- 4*RT1
           (MA=1, MB=1, MC=1, SelCop=1010, T6, M2=0, C2, A0=1, B=1, C=0)
       }
 }
@@ -196,15 +201,16 @@ jalr rd rs1 offset {
       reg(25:21)=rd,
       reg(20:16)=rs1,
       address-rel(15:0)=offset,
-      help='rd = pc; pc = rs1 + offset',
+      help='rd = pc; pc = rs1 + 4*offset',
       {
-          (T2, SelC=10101, MR=0, LC),                         # rd  <- pc
+          (T2, SelC=10101, MR=0, LC),                           # rd  <- pc
           (EXCODE=0, T11, MR=1, SelC=0, LC=1),
-          (SE=1, OFFSET=0, SIZE=1100, T3, C5),                    # RT2 <- sign_ext(offset)
-          (MR=0, SelA=10000, MA=0,  MB=1, MC=1, SelCop=1010, T6, C5), # RT2 <- offset + rs1
-          (EXCODE=1, T11, C4),                                # RT1 <- 1
-          (MA=1, MC=1, SelCop=11, T6, C4),                        # RT1 <- ~1 (0xFFFFFFFE)
-          (MA=1, MB=1, MC=1, SelCop=1, T6, M2=0, C2),             # pc <- RT2 & 0xFFFFFFFE
+          (SE=1, OFFSET=0, SIZE=1100, T3, C4),                  # RT1 <- sign_ext(offset)
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),                   # RT1 <- 4*RT1
+          (MR=0, SelB=10000, MA=1, MC=1, SelCop=1010, T6, C5),  # RT2 <- offset + rs1
+          (EXCODE=1, T11, C4),                                  # RT1 <- 1
+          (MA=1, MC=1, SelCop=11, T6, C4),                      # RT1 <- ~1 (0xFFFFFFFE)
+          (MA=1, MB=1, MC=1, SelCop=1, T6, M2=0, C2),           # pc <- RT2 & 0xFFFFFFFE
           (EXCODE=0, T11, MR=1, SelC=0, LC=1, A0=1, B=1, C=0)
       }
 }
@@ -215,14 +221,15 @@ beq rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (rs1 == rs2) pc += offset',
+      help='if (rs1 == rs2) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
           (A0=0, B=1, C=110, MADDR=bck2ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck2ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -241,8 +248,9 @@ bne rs1 rs2 offset {
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
           (A0=0, B=0, C=110, MADDR=bck3ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck3ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -255,14 +263,15 @@ blt rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (rs1 < rs2) pc += offset',
+      help='if (rs1 < rs2) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
           (A0=0, B=1, C=111, MADDR=bck5ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck5ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -275,14 +284,15 @@ bge rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (rs1 >= rs2) pc += offset',
+      help='if (rs1 >= rs2) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
           (A0=0, B=0, C=111, MADDR=bck4ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck4ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -295,14 +305,15 @@ bltu rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (ux(rs1) < ux(rs2)) pc += offset',
+      help='if (ux(rs1) < ux(rs2)) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
           (A0=0, B=1, C=111, MADDR=bck6ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck6ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -315,14 +326,15 @@ bgeu rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (ux(rs1) >= ux(rs2)) pc += offset',
+      help='if (ux(rs1) >= ux(rs2)) pc += 4*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
           (A0=0, B=0, C=111, MADDR=bck7ftch),
           (T5, M7=0, C7),
-          (T2, C4),
-          (SE=1, OFFSET=0, SIZE=10000, T3, C5),
+          (T2, C5),
+          (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
 bck7ftch: (T5, M7=0, C7),
           (A0=1, B=1, C=0)
@@ -333,7 +345,7 @@ bck7ftch: (T5, M7=0, C7),
 lb rd offset(rs1) {
       oc(31:26)=111111,
       reg(25:21)=rd,
-      inm(15:0)=offset,
+      imm(15:0)=offset,
       reg(20:16)=rs1,
       help='rd = (00, 00, 00, MEM[rs1 + offset])',
       {
@@ -348,7 +360,7 @@ lb rd offset(rs1) {
 lh rd offset(rs1) {
       oc(31:26)=111111,
       reg(25:21)=rd,
-      inm(15:0)=offset,
+      imm(15:0)=offset,
       reg(20:16)=rs1,
       help='rd = (00, 00, MEM[rs1+offset+1], MEM[rs1+offset])',
       {
@@ -363,7 +375,7 @@ lh rd offset(rs1) {
 lw rd offset(rs1) {
       oc(31:26)=111111,
       reg(25:21)=rd,
-      inm(15:0)=offset,
+      imm(15:0)=offset,
       reg(20:16)=rs1,
       help='rd = (MEM[rs1+offset+3] .. MEM[rs1+offset])',
       {
@@ -378,7 +390,7 @@ lw rd offset(rs1) {
 lbu rd offset(rs1) {
       oc(31:26)=111111,
       reg(25:21)=rd,
-      inm(15:0)=offset,
+      imm(15:0)=offset,
       reg(20:16)=rs1,
       help='rd = (00, 00, 00, ux(MEM[rs1 + offset]))',
       {
@@ -393,7 +405,7 @@ lbu rd offset(rs1) {
 lhu rd offset(rs1) {
       oc(31:26)=111111,
       reg(25:21)=rd,
-      inm(15:0)=offset,
+      imm(15:0)=offset,
       reg(20:16)=rs1,
       help='rd = (00, 00, ux(MEM[rs1+offset+1]), ux(MEM[rs1+offset]))',
       {
@@ -408,7 +420,7 @@ lhu rd offset(rs1) {
 sb rs2 offset(rs1) {
       oc(31:26)=111111,
       reg(25:21)=rs2,
-      inm(15:0)=offset,
+      imm(15:0)=offset,
       reg(20:16)=rs1,
       help='MEM[rs1 + offset] = rs2/8',
       {
@@ -423,7 +435,7 @@ sb rs2 offset(rs1) {
 sh rs2 offset(rs1) {
       oc(31:26)=111111,
       reg(25:21)=rs2,
-      inm(15:0)=offset,
+      imm(15:0)=offset,
       reg(20:16)=rs1,
       help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
       {
@@ -438,7 +450,7 @@ sh rs2 offset(rs1) {
 sw reg1 val(reg2) {
       oc(31:26)=111111,
       reg(25:21)=reg1,
-      inm(15:0)=val,
+      imm(15:0)=val,
       reg(20:16)=reg2,
       help='MEM[rs1+offset+3 .. rs1+offset] = rs2',
       {
@@ -454,7 +466,7 @@ sbu rs2 offset(rs1) {
       oc(31:26)=111111,
       reg(25:21)=rs2,
       reg(20:16)=rs1,
-      inm(15:0)=offset,
+      imm(15:0)=offset,
       help='MEM[rs1+offset] = (00, 00, 00, rs2/8)',
       {
           (SE=1,  OFFSET=0, SIZE=10000, T3=1, C5=1),
@@ -469,7 +481,7 @@ shu rs2 offset(rs1) {
       oc(31:26)=111111,
       reg(25:21)=rs2,
       reg(20:16)=rs1,
-      inm(15:0)=offset,
+      imm(15:0)=offset,
       help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
       {
           (SE=1,  OFFSET=0, SIZE=10000, T3=1, C5=1),
@@ -484,7 +496,7 @@ addi rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(11:0)=inm,
+      imm(11:0)=inm,
       help='rd = rs1 + SignEx(inm)',
       {
           (SE=1, OFFSET=0, SIZE=01100, T3=1, C4=1),
@@ -497,7 +509,7 @@ addu rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(11:0)=inm,
+      imm(11:0)=inm,
       help='rd = rs1 + UnsignEx(inm)',
       {
           (SE=0, OFFSET=0, SIZE=01100, T3=1, C4=1),
@@ -510,7 +522,7 @@ slti rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(15:0)=inm,
+      imm(15:0)=inm,
       help='rd = (rs1 < inm) ? 1 : 0',
       native,
       {
@@ -534,7 +546,7 @@ sltiu rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(15:0)=inm,
+      imm(15:0)=inm,
       help='rd = (ux(rs1) < ux(inm)) ? 1 : 0',
       native,
       {
@@ -555,7 +567,7 @@ xori rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(15:0)=inm,
+      imm(15:0)=inm,
       help='rd = ux(rs1) ^ ux(inm)',
       {
           (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
@@ -568,7 +580,7 @@ ori rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(15:0)=inm,
+      imm(15:0)=inm,
       help='rd = rs1 | inm',
       {
           (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
@@ -581,7 +593,7 @@ andi rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(15:0)=inm,
+      imm(15:0)=inm,
       help='rd = rs1 & inm',
       {
           (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
@@ -594,7 +606,7 @@ slli rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(5:0)=inm,
+      imm(5:0)=inm,
       help='rd = (rs1 << inm)',
       {
             (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
@@ -613,7 +625,7 @@ srli rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(5:0)=inm,
+      imm(5:0)=inm,
       help='rd = (rs1 >>> inm)',
       native,
       {
@@ -634,7 +646,7 @@ srai rd rs1 inm {
       oc(31:26)=111111,
       reg(25:21)=rd,
       reg(20:16)=rs1,
-      inm(15:0)=inm,
+      imm(15:0)=inm,
       help='rd = (rs1 >> inm)',
       {
             (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
@@ -802,8 +814,8 @@ and reg1 reg2 reg3 {
 #  FENCE pred,succ         Fence
 fence pred succ {
       oc(31:26)=111111,
-      inm(25:21)=pred,
-      inm(15:0)=succ,
+      imm(25:21)=pred,
+      imm(15:0)=succ,
       {
           (A0=1, B=1, C=0)
       }
@@ -1155,14 +1167,14 @@ pseudoinstructions
     }
 
     # li rd, expression        (several expansions)        Load immediate
-    li rd=reg, expression=inm
+    li rd=reg, expression=imm
     {
         lui  rd,     sel(31,12,expression)
         addu rd, rd, sel(11,0,expression)
     }
 
     # la rd, label        (several expansions)        Load address
-    la rd=reg, label=inm
+    la rd=reg, label=imm
     {
         lui  rd,     sel(31,12,label)
         addu rd, rd, sel(11,0,label)
@@ -1211,73 +1223,73 @@ pseudoinstructions
     }
 
     # beqz rs1, offset        beq rs, x0, offset        Branch if = zero
-    beqz rs=reg, offset=inm
+    beqz rs=reg, offset=imm
     {
         beq rs, zero, offset
     }
 
     # bnez rs1, offset        bne rs, x0, offset        Branch if ≠ zero
-    bnez rs=reg, offset=inm
+    bnez rs=reg, offset=imm
     {
         bne rs, zero, offset
     }
 
     # blez rs1, offset        bge x0, rs, offset        Branch if ≤ zero
-    blez rs=reg, offset=inm
+    blez rs=reg, offset=imm
     {
         bge zero, rs, offset
     }
 
     # bgez rs1, offset        bge rs, x0, offset        Branch if ≥ zero
-    bgez rs=reg, offset=inm
+    bgez rs=reg, offset=imm
     {
         bge rs, zero, offset
     }
 
     # bltz rs1, offset        blt rs, x0, offset        Branch if < zero
-    bltz rs=reg, offset=inm
+    bltz rs=reg, offset=imm
     {
         blt rs, zero, offset
     }
 
     # bgtz rs1, offset        blt x0, rs, offset        Branch if > zero
-    bgtz rs=reg, offset=inm
+    bgtz rs=reg, offset=imm
     {
         blt zero, rs, offset
     }
 
     # bgt rs, rt, offset        blt rt, rs, offset        Branch if >
-    bgt rs=reg, rt=reg, offset=inm
+    bgt rs=reg, rt=reg, offset=imm
     {
         blt rt, rs, offset
     }
 
     # ble rs, rt, offset        bge rt, rs, offset        Branch if ≤
-    ble rs=reg, rt=reg, offset=inm
+    ble rs=reg, rt=reg, offset=imm
     {
         bge rt, rs, offset
     }
 
     # bgtu rs, rt, offset        bltu rt, rs, offset        Branch if >, unsigned
-    bgtu rs=reg, rt=reg, offset=inm
+    bgtu rs=reg, rt=reg, offset=imm
     {
         bltu rt, rs, offset
     }
 
     # bleu rs, rt, offset        bltu rt, rs, offset        Branch if ≤, unsigned
-    bleu rs=reg, rt=reg, offset=inm
+    bleu rs=reg, rt=reg, offset=imm
     {
         bgeu rt, rs, offset
     }
 
     # j offset        jal x0, offset        Jump
-    j offset=inm
+    j offset=imm
     {
         jal zero, offset
     }
 
     # jal offset        jal x1, offset        Jump register
-    #jal offset=inm
+    #jal offset=imm
     #{
     #    jal ra, offset
     #}

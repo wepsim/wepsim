@@ -160,7 +160,7 @@ addi reg1 reg2 val {
          nwords=1,
          reg1 = reg(25,21),
          reg2 = reg(20,16),
-         val  = inm(15,0),
+         val  = imm(15,0),
          help ='r1 = r2 + val',
          {
              (SE=1, OFFSET=0, SIZE=10000, T3=1, C4=1),
@@ -173,7 +173,7 @@ addiu reg1 reg2 val {
          nwords=1,
          reg1 = reg(25,21),
          reg2 = reg(20,16),
-         val  = inm(15,0),
+         val  = imm(15,0),
          help ='r1 = r2 + val',
          {
              (SE=1, OFFSET=0, SIZE=10000, T3=1, C4=1),
@@ -199,7 +199,7 @@ sub reg1 reg2 val {
          nwords=1,
          reg1 = reg(25,21),
          reg2 = reg(20,16),
-         val  = inm(15,0),
+         val  = imm(15,0),
          help ='r1 = r2 - val',
          {
              (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
@@ -225,7 +225,7 @@ mul reg1 reg2 val {
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
-         val  = inm(15,0),
+         val  = imm(15,0),
          help='r1 = r2 * val',
          {
              (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
@@ -272,7 +272,7 @@ srl reg1 reg2 val {
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
-         val=inm(5,0),
+         val=imm(5,0),
          help='$r1 = $r2 >>> val',
          {
                 (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
@@ -290,7 +290,7 @@ sll reg1 reg2 val {
          nwords=1,
          reg1=reg(25,21),
          reg2=reg(20,16),
-         val=inm(5,0),
+         val=imm(5,0),
          help='$r1 = $r2 << val',
          {
              (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
@@ -323,7 +323,7 @@ li reg val {
             co=000010,
             nwords=1,
             reg=reg(25,21),
-            val=inm(15,0),
+            val=imm(15,0),
             help='r1 = SignExt val',
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
@@ -334,7 +334,7 @@ liu reg val {
          co=111100,
          nwords=1,
          reg=reg(25,21),
-         val=inm(15,0),
+         val=imm(15,0),
          help='r1 = (00 00 val)',
          {
              (SE=1, OFFSET=0, SIZE=10000, SE=0, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
@@ -489,7 +489,7 @@ lw reg1 val(reg2) {
          co=111111,
          nwords=1,
          reg1 = reg(25,21),
-         val  = inm(15,0),
+         val  = imm(15,0),
          reg2 = reg(20,16),
          {
              (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
@@ -503,7 +503,7 @@ sw reg1 val(reg2) {
             co=111111,
             nwords=1,
             reg1 = reg(25,21),
-            val  = inm(15,0),
+            val  = imm(15,0),
             reg2 = reg(20,16),
             {
                 (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
@@ -522,7 +522,7 @@ in reg val {
          co=001010,
          nwords=1,
          reg=reg(25,21),
-         val=inm(15,0),
+         val=imm(15,0),
          help='r1 = device_register(val)',
          {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
@@ -535,7 +535,7 @@ out reg val {
          co=001011,
          nwords=1,
          reg=reg(25,21),
-         val=inm(15,0),
+         val=imm(15,0),
          help='device_register(val) = r1',
          {
              (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
@@ -550,137 +550,144 @@ out reg val {
 #
 
 b offset {
-         co=001100,
-         nwords=1,
-         offset=address(15,0)rel,
-         help='pc = pc + offset',
-         {
-             (T2, C4),
-             (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-             (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
-         }
+       co=001100,
+       nwords=1,
+       offset=address(15,0)rel,
+       help='pc = pc + 4*offset',
+       {
+           (T2, C5),
+           (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+           (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
+           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
+       }
 }
 
 beq reg reg offset {
-         co=001101,
-         nwords=1,
-         reg=reg(25,21),
-         reg=reg(20,16),
-         offset=address(15,0)rel,
-         help='if ($r1 == $r2) pc += offset',
-         {
-             (T8, C5),
-             (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-             (A0=0, B=1, C=110, MADDR=bck2ftch),
-             (T5, M7=0, C7),
-             (T2, C4),
-             (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-             (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-   bck2ftch: (T5, M7=0, C7),
-             (A0=1, B=1, C=0)
-         }
+       co=001101,
+       nwords=1,
+       reg=reg(25,21),
+       reg=reg(20,16),
+       offset=address(15,0)rel,
+       help='if ($r1 == $r2) pc += 4*offset',
+       {
+           (T8, C5),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
+           (A0=0, B=1, C=110, MADDR=bck2ftch),
+           (T5, M7=0, C7),
+           (T2, C5),
+           (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+           (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
+           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+ bck2ftch: (T5, M7=0, C7),
+           (A0=1, B=1, C=0)
+       }
 }
 
 bne reg reg offset {
-         co=001110,
-         nwords=1,
-         reg=reg(25,21),
-         reg=reg(20,16),
-         offset=address(15,0)rel,
-         help='if ($r1 != $r2) pc += offset',
-         {
-             (T8, C5),
-             (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-             (A0=0, B=0, C=110, MADDR=bck3ftch),
-             (T5, M7=0, C7),
-             (T2, C4),
-             (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-             (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-   bck3ftch: (T5, M7=0, C7),
-             (A0=1, B=1, C=0)
-         }
+       co=001110,
+       nwords=1,
+       reg=reg(25,21),
+       reg=reg(20,16),
+       offset=address(15,0)rel,
+       help='if ($r1 != $r2) pc += 4*offset',
+       {
+           (T8, C5),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
+           (A0=0, B=0, C=110, MADDR=bck3ftch),
+           (T5, M7=0, C7),
+           (T2, C5),
+           (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+           (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
+           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+ bck3ftch: (T5, M7=0, C7),
+           (A0=1, B=1, C=0)
+       }
 }
 
 bge reg reg offset {
-         co=001111,
-         nwords=1,
-         reg=reg(25,21),
-         reg=reg(20,16),
-         offset=address(15,0)rel,
-         help='if ($r1 >= $r2) pc += offset',
-         {
-             (T8, C5),
-             (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-             (A0=0, B=0, C=111, MADDR=bck4ftch),
-             (T5, M7=0, C7),
-             (T2, C4),
-             (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-             (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-   bck4ftch: (T5, M7=0, C7),
-             (A0=1, B=1, C=0)
-         }
+       co=001111,
+       nwords=1,
+       reg=reg(25,21),
+       reg=reg(20,16),
+       offset=address(15,0)rel,
+       help='if ($r1 >= $r2) pc += 4*offset',
+       {
+           (T8, C5),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
+           (A0=0, B=0, C=111, MADDR=bck4ftch),
+           (T5, M7=0, C7),
+           (T2, C5),
+           (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+           (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
+           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+ bck4ftch: (T5, M7=0, C7),
+           (A0=1, B=1, C=0)
+       }
 }
 
 ble reg reg offset {
-         co=010010,
-         nwords=1,
-         reg=reg(25,21),
-         reg=reg(20,16),
-         offset=address(15,0)rel,
-         help='if ($r1 <= $r2) pc += offset',
-         {
-             (T8, C5),
-             (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-             (A0=0, B=0, C=111, MADDR=ble_ys),
-             (A0=0, B=0, C=110, MADDR=ble_ys),
-             (T5, M7=0, C7),
-             (A0=1, B=1, C=0),
-     ble_ys: (T5, M7=0, C7),
-             (T2, C4),
-             (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-             (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
-         }
+       co=010010,
+       nwords=1,
+       reg=reg(25,21),
+       reg=reg(20,16),
+       offset=address(15,0)rel,
+       help='if ($r1 <= $r2) pc += 4*offset',
+       {
+           (T8, C5),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
+           (A0=0, B=0, C=111, MADDR=ble_ys),
+           (A0=0, B=0, C=110, MADDR=ble_ys),
+           (T5, M7=0, C7),
+           (A0=1, B=1, C=0),
+   ble_ys: (T5, M7=0, C7),
+           (T2, C5),
+           (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+           (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
+           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
+       }
 }
 
 blt reg reg offset {
-         co=010000,
-         nwords=1,
-         reg=reg(25,21),
-         reg=reg(20,16),
-         offset=address(15,0)rel,
-         help='if ($r1 < $r2) pc += offset',
-         {
-             (T8, C5),
-             (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-             (A0=0, B=1, C=111, MADDR=bck5ftch),
-             (T5, M7=0, C7),
-             (T2, C4),
-             (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-             (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-   bck5ftch: (T5, M7=0, C7),
-             (A0=1, B=1, C=0)
-         }
+       co=010000,
+       nwords=1,
+       reg=reg(25,21),
+       reg=reg(20,16),
+       offset=address(15,0)rel,
+       help='if ($r1 < $r2) pc += 4*offset',
+       {
+           (T8, C5),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
+           (A0=0, B=1, C=111, MADDR=bck5ftch),
+           (T5, M7=0, C7),
+           (T2, C5),
+           (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+           (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
+           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+ bck5ftch: (T5, M7=0, C7),
+           (A0=1, B=1, C=0)
+       }
 }
 
 bgt reg reg offset {
-         co=010001,
-         nwords=1,
-         reg=reg(25,21),
-         reg=reg(20,16),
-         offset=address(15,0)rel,
-         help='if ($r1 > $r2) pc += offset',
-         {
-             (T8, C5),
-             (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-             (A0=0, B=0, C=111, MADDR=bck6ftch),
-             (A0=0, B=0, C=110, MADDR=bck6ftch),
-             (T5, M7=0, C7),
-             (T2, C4),
-             (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-             (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-   bck6ftch: (T5, M7=0, C7),
-             (A0=1, B=1, C=0)
-         }
+       co=010001,
+       nwords=1,
+       reg=reg(25,21),
+       reg=reg(20,16),
+       offset=address(15,0)rel,
+       help='if ($r1 > $r2) pc += 4*offset',
+       {
+           (T8, C5),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
+           (A0=0, B=0, C=111, MADDR=bck6ftch),
+           (A0=0, B=0, C=110, MADDR=bck6ftch),
+           (T5, M7=0, C7),
+           (T2, C5),
+           (SE=1, OFFSET=0, SIZE=10000, T3, C4),
+           (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),
+           (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+ bck6ftch: (T5, M7=0, C7),
+           (A0=1, B=1, C=0)
+       }
 }
 
 

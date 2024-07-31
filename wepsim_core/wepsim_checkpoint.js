@@ -137,6 +137,76 @@
      * Checkpointing: save + load
      */
 
+    function wepsim_checkpoint_NB_concat_ws_cells ( cells )
+    {
+         cells.push({
+	   	      "cell_type": "markdown",
+		      "source": "## wepsim_runner",
+		      "metadata": {}
+		    }) ;
+
+         cells.push({
+		      "cell_type": "code",
+		      "source": [
+			"from google.colab import _message\n",
+			"nb = _message.blocking_request('get_ipynb')\n",
+			"\n",
+			"type = ''\n",
+			"ws = {'firmware': '', 'assembly': ''}\n",
+			"for cell in nb['ipynb']['cells']:\n",
+			"  if '## firmware' in cell['source']:\n",
+			"     type = 'firmware'\n",
+			"     continue\n",
+			"  if '## assembly' in cell['source']:\n",
+			"     type = 'assembly'\n",
+			"     continue\n",
+			"  if type == 'firmware':\n",
+			"     ws['firmware'] = ' '.join(cell['source']) ;\n",
+			"     type = ''\n",
+			"     continue\n",
+			"  if type == 'assembly':\n",
+			"     ws['assembly'] = ' '.join(cell['source']) ;\n",
+			"     type = ''\n",
+			"     continue\n",
+			"\n",
+			"if ws['assembly'] != '' and ws['firmware'] != '':\n",
+			"   with open('/base.mc', 'w') as f:\n",
+			"       f.write(ws['firmware'])\n",
+			"   with open('/base.asm', 'w') as f:\n",
+			"       f.write(ws['assembly'])\n",
+			"\n",
+			"if ws['assembly'] != '' and ws['firmware'] != '':\n",
+			"   !npm install  terser jq jshint yargs clear inquirer >& /dev/null\n",
+			"   !wget https://github.com/acaldero/wepsim/releases/download/v2.3.1/wepsim-2.3.1.zip >& /dev/null\n",
+			"   !unzip -o wepsim-2.3.1.zip  >& /dev/null\n",
+			"   !rm -fr   wepsim-2.3.1.zip\n",
+			"   !./wepsim-2.3.1/wepsim.sh -a stepbystep -m ep -f /base.mc -s /base.asm > ./result.csv\n",
+			"\n",
+			"df = None\n",
+			"if ws['assembly'] != '' and ws['firmware'] != '':\n",
+			"   import pandas as pd\n",
+			"   import io\n",
+			"   df1 = pd.read_csv('./result.csv')\n",
+			"   df1.columns = df1.columns.str.strip()\n",
+			"   for item in df1.columns[:]:\n",
+			"       df1[item].replace(\"\\t\",\"\",     inplace=True, regex=True)\n",
+			"       df1[item].replace(\"&nbsp;\",\"\", inplace=True, regex=True)\n",
+			"\n",
+			"%load_ext google.colab.data_table\n",
+			"df1\n"
+		      ],
+		      "metadata": {
+			"name": "wepsim",
+			"type": "code",
+		        "collapsed": true,
+		        "deletable": false,
+		        "editable":  true
+		      }
+		    }) ;
+
+         return cells ;
+    }
+
     function wepsim_checkpoint_Obj2NB ( elements )
     {
          var val = "" ;
@@ -155,7 +225,11 @@
 	      cells.push({
 			    "cell_type": "markdown",
 			    "source": "## " + key,
-			    "metadata": {}
+		            "metadata": {
+		              "collapsed": false,
+		              "deletable": false,
+		              "editable":  false
+		            }
 			 }) ;
 
 	      cells.push({
@@ -168,10 +242,11 @@
 			        "type": typ,
 			        "collapsed": false,
 			        "deletable": false,
-			        "editable":  false
+			        "editable":  true
 			    }
 			 }) ;
          }
+         cells = wepsim_checkpoint_NB_concat_ws_cells(cells) ;
 
          // fill nb
 	 var nbObj = {

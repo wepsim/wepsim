@@ -239,7 +239,11 @@ ori reg1 reg1 sel(15.0, num) <br />
 </td>
 <td>
 <pre>
- <b>firmware_version=2</b>
+ <b>firmware {
+      version  = 2,
+      rel_mult = 2,
+      endian   = little
+ }</b>
 
  begin
  {

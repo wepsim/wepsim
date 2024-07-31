@@ -230,9 +230,9 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	}
 
 	frm_nextToken(context);
-	// match mandatory reg|inm|address
-	if ( !frm_isToken_arr(context, ["reg", "inm", "address"]) ) {
-		return frm_langError(context, "Incorrect type of field (reg, inm or address)") ;
+	// match mandatory reg|imm|address
+	if ( !frm_isToken_arr(context, ["reg", "imm", "inm", "address"]) ) {
+	      return frm_langError(context, "Incorrect type of field (reg, imm or address)") ;
 	}
 
 	instruccionAux.fields[camposInsertados].type = frm_getToken(context) ;
@@ -240,8 +240,8 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	frm_nextToken(context);
 	// match mandatory (
 	if (! frm_isToken(context,"(")) {
-		 return frm_langError(context,
-				      i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+	      return frm_langError(context,
+			           i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
 	}
 
 	frm_nextToken(context);
@@ -324,7 +324,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 //             *co=000000,*
 //             [nwords=1,]
 //             reg=reg(25,21),
-//             val=inm(15,0),
+//             val=imm(15,0),
 //             {
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
 //             }
@@ -349,7 +349,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 //             *[cop=00000,]*
 //             [nwords=1,]
 //             reg=reg(25,21),
-//             val=inm(15,0),
+//             val=imm(15,0),
 //             {
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
 //             }
@@ -368,7 +368,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 //             co=000000,
 //             *[nwords=1,]*
 //             reg=reg(25,21),
-//             val=inm(15,0),
+//             val=imm(15,0),
 //             {
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
 //             }
@@ -386,7 +386,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 // li reg val {
 //             co=000000,
 //             *reg=reg(25,21),
-//              val=inm(15,0),*
+//              val=imm(15,0),*
 //             {
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
 //             }
@@ -413,7 +413,8 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 	   instruccionAux.signature     = firma;
 	   instruccionAux.signatureUser = firmaUsuario;
 	   firmaGlobal = firma.replace("address","num");
-	   firmaGlobal = firmaGlobal.replace("inm" , "num");
+	   firmaGlobal = firmaGlobal.replace("imm" , "num");
+	   firmaGlobal = firmaGlobal.replace("inm" , "num"); // TODO: remove in the future
 	   instruccionAux.signatureGlobal = firmaGlobal;
 
 	   camposInsertados++;
@@ -425,7 +426,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 // li reg val {
 //             co=000000,
 //             reg=reg(25,21),
-//             val=inm(15,0),
+//             val=imm(15,0),
 //             *[help='this instruction is used for...',]*
 //             {
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
@@ -444,7 +445,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 // li reg val {
 //             co=000000,
 //             reg=reg(25,21),
-//             val=inm(15,0),
+//             val=imm(15,0),
 //             *[native,]*
 //             {
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
@@ -483,7 +484,7 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 //             [cop=00000,]
 //             [nwords=1,]
 //             reg=reg(25,21),
-//             val=inm(15,0),
+//             val=imm(15,0),
 //             [help='this instruction is used for...',]
 //             [native,]*
 //             {
@@ -575,7 +576,8 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 		   instruccionAux.signature     = firma;
 		   instruccionAux.signatureUser = firmaUsuario;
 		   firmaGlobal = firma.replace("address","num");
-		   firmaGlobal = firmaGlobal.replace("inm" , "num");
+		   firmaGlobal = firmaGlobal.replace("imm" , "num");
+		   firmaGlobal = firmaGlobal.replace("inm" , "num"); // TODO: remove in the future
 		   instruccionAux.signatureGlobal = firmaGlobal;
 
 		   camposInsertados++;

@@ -45,6 +45,7 @@
             if (typeof melto.notify      === "undefined")  melto.notify      = [] ;
             if (typeof melto.is_assembly === "undefined")  melto.is_assembly = false ;
             if (typeof melto.source      === "undefined")  melto.source      = '' ;
+            if (typeof melto.source_bin  === "undefined")  melto.source_bin  = '' ;
 
             // modify computed attributes by comments "operators"
             var comments_str = '' ;
@@ -104,6 +105,19 @@
             return get_value(valobj) ;
         }
 
+		function main_memory_source_escape_html ( src )
+		{
+		    return src.replace(/'/g, '\u{0027}')
+			      .replace(/"/g, '\u{0022}')
+			 //   .replace(/\n/, '&lt;LF&gt;')
+			      .replace(/\n/, '\u{021A9}')
+			 //   .replace(/\r/, '&lt;CR&gt;')
+			      .replace(/\r/, '&#9226;')
+			 //   .replace(/\t/, '&lt;TAB&gt;')
+			      .replace(/\t/, '&rarrb;')
+			      .replace(/\f/, '&lt;FF&gt;') ;
+		}
+
         function main_memory_getsrc ( memory, elto )
         {
             var src = "" ;
@@ -127,17 +141,32 @@
             }
 
             // escape html end attribute char
-            if (typeof src == "string")
-	    {
-                src = src.replace(/'/g, '\u{0027}')
-                         .replace(/"/g, '\u{0022}')
-                    //   .replace(/\n/, '&lt;LF&gt;')
-                         .replace(/\n/, '\u{021A9}')
-                    //   .replace(/\r/, '&lt;CR&gt;')
-                         .replace(/\r/, '&#9226;')
-                    //   .replace(/\t/, '&lt;TAB&gt;')
-                         .replace(/\t/, '&rarrb;')
-                         .replace(/\f/, '&lt;FF&gt;') ;
+            if (typeof src == "string") {
+		src = main_memory_source_escape_html(src) ;
+            }
+
+	    return src ;
+        }
+
+        function main_memory_getsrcbin ( memory, elto )
+        {
+            var src = "" ;
+            var valobj = memory[elto] ;
+
+            // check field value
+            if (typeof valobj === "undefined") {
+                return src ;
+            }
+            if (typeof valobj.source_bin === "undefined") {
+                return src ;
+            }
+
+            // get source_bin as string
+            src = valobj.source_bin ;
+
+            // escape html end attribute char
+            if (typeof src == "string") {
+		src = main_memory_source_escape_html(src) ;
             }
 
 	    return src ;

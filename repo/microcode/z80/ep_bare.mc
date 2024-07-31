@@ -80,7 +80,7 @@ in reg val {
     co=000011,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     help='reg = device_registers[val]',
     {
         (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
@@ -93,7 +93,7 @@ out reg val {
     co=000100,
     nwords=1,
     reg=reg(25,21),
-    val=inm(15,0),
+    val=imm(15,0),
     help='device_register[val] = reg',
     {
        (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
@@ -123,7 +123,7 @@ ldi r1 u16 {
    co=001001,
    nwords=1,
    r1=reg(25,21),
-   u16=inm(15,0),
+   u16=imm(15,0),
    help='r1 = u16',
    {
        (SE=1, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
@@ -168,7 +168,7 @@ add_a reg1 {
 addi_a s16 {
    co=001100,
    nwords=1,
-   s16=inm(15,0),
+   s16=imm(15,0),
    help='acc = acc1 + SignExt(s16); update(sr)',
    native,
    {
@@ -237,16 +237,17 @@ jp s16 {
    co=001111,
    nwords=1,
    s16=address(15,0)rel,
-   help='pc = pc + SignExt(s16)',
+   help='pc = pc + 4*SignExt(s16)',
    native,
    {
        // fields is a default parameter with the instruction field information
        var s16 = simcore_native_get_field_from_ir(fields, 0) ;
-       if (s16 & 0x00008000)
+       if (s16 & 0x00008000) {
            s16 = s16 | 0xFFFF0000 ;
+       }
 
        var pc = simcore_native_get_value("CPU", "REG_PC") ;
-       simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
+       simcore_native_set_value("CPU", "REG_PC", pc + 4*s16) ;
 
        simcore_native_go_maddr(0) ;
    }
@@ -256,18 +257,19 @@ jpz s16 {
    co=010000,
    nwords=1,
    s16=address(15,0)rel,
-   help='if (sr.z == 1) -> pc = pc + SignExt(s16)',
+   help='if (sr.z == 1) -> pc = pc + 4*SignExt(s16)',
    native,
    {
        // fields is a default parameter with the instruction field information
        var s16   = simcore_native_get_field_from_ir(fields, 0) ;
-       if (s16 & 0x00008000)
+       if (s16 & 0x00008000) {
            s16 = s16 | 0xFFFF0000 ;
+       }
 
        var flags = simcore_native_get_value("CPU", "REG_SR") ;
        if (flags & 0x10000000) {
            var pc = simcore_native_get_value("CPU", "REG_PC") ;
-           simcore_native_set_value("CPU", "REG_PC", pc + s16) ;
+           simcore_native_set_value("CPU", "REG_PC", pc + 4*s16) ;
        }
 
        simcore_native_go_maddr(0) ;
@@ -277,7 +279,7 @@ jpz s16 {
 call u16 {
    co=010001,
    nwords=1,
-   u16=inm(15,0),
+   u16=imm(15,0),
    help='sp -= 4; MEM[pc] = r1',
    native,
    {
