@@ -317,8 +317,8 @@ jal rd offset {
       offset=address(19,0)rel,
       help='rd = pc; pc = pc + sext(offset)',
       {
-          (M2=0, AluOp=11110, M5=0, REG_W2=10101, RW),
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=11, AluOp=1010, M4, PCWrite, CU=11)
+          (M2=0, AluOp=11110, M5=0, RW) # ra <- PC
+          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, X2_IMM=1, M2=0, M3=11, AluOp=1010, M4, PCWrite, CU=11)
       }
 }
 

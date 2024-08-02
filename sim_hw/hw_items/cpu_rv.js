@@ -367,16 +367,16 @@ function cpu_rv_register ( sim_p )
                                             draw_data: [] };
 
 	/* DEVICES AND BUSES */
-	sim_p.states["INT"]          = { name: "INT", verbal: "From MUX-C/0 to JUMP",
-                                            visible:false, nbits: "32", value:0, default_value:0,
+	sim_p.states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
+                                            visible:false, nbits: "8",  value:0, default_value:0,
                                             draw_data: [] };
 	sim_p.states["IORdy"]          = { name: "IORdy", verbal: "From MUX-C/1 to JUMP",
                                             visible:false, nbits: "32", value:0, default_value:0,
                                             draw_data: [] };
-	sim_p.states["BUS_DB"]          = { name: "BUS_DB", verbal: "Data Bus",
+	sim_p.states["BUS_DB"]         = { name: "BUS_DB", verbal: "Data Bus",
                                             visible:false, nbits: "32", value:0, default_value:0,
                                             draw_data: [] };
-	sim_p.states["BUS_AB"]          = { name: "BUS_AB", verbal: "Address Bus",
+	sim_p.states["BUS_AB"]         = { name: "BUS_AB", verbal: "Address Bus",
                                             visible:false, nbits: "32", value:0, default_value:0,
                                             draw_data: [] };
 
@@ -405,24 +405,29 @@ function cpu_rv_register ( sim_p )
                                             draw_data: [] };
 
 	/* VIRTUAL */
-	sim_p.states["REG_IR_DECO"] = { name:"IR_DECO",  verbal: "Instruction Decoded",
+	sim_p.states["REG_IR_DECO"]  = { name:"IR_DECO",  verbal: "Instruction Decoded",
                                          visible:true,  nbits:"0",  value:0,  default_value:0,
                                          draw_data: [] };
-	sim_p.states["DECO_INS"]    = { name:"DECO_INS", verbal: "Instruction decoded in binary",
+	sim_p.states["DECO_INS"]     = { name:"DECO_INS", verbal: "Instruction decoded in binary",
                                          visible:true,  nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
-	sim_p.states["CLK"]         = { name:"CLK",      verbal: "Clock",
+	sim_p.states["CLK"]          = { name:"CLK",      verbal: "Clock",
                                          visible:false, nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
-	sim_p.states["ACC_TIME"]    = { name:"ACC_TIME", verbal: "Accumulated CPU time",
+	sim_p.states["ACC_TIME"]     = { name:"ACC_TIME", verbal: "Accumulated CPU time",
                                          visible:false, nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
-	sim_p.states["TTCPU"]      = { name:"TTCPU", verbal: "Several Tristates to the internal data bus in CPU activated",
+	sim_p.states["TTCPU"]        = { name:"TTCPU", verbal: "Several Tristates to the internal data bus in CPU activated",
                                          visible:false, nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
-	sim_p.states["ACC_PWR"]    = { name:"ACC_PWR", verbal: "Accumulated Energy Consumption",
+	sim_p.states["ACC_PWR"]      = { name:"ACC_PWR", verbal: "Accumulated Energy Consumption",
                                          visible:false, nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
+        sim_p.signals["DB_UPDATED"]  = { name: "DB_UPDATED", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
+                                         behavior: ['NOP'],
+                                         fire_name: [],
+                                         draw_data: [[]],
+                                         draw_name: [[]] };
 
 
 	/*

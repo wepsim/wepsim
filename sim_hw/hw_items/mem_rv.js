@@ -163,7 +163,7 @@ function mem_rv_register ( sim_p )
 				draw_name: [['svg_p:path7525']] };
 	sim_p.signals.DMW   = { name: "DMW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				behavior: [ "NOP",
-					    "MEM_WRITE ALU_WOUT RDATAM WBE CLK"],
+					    "MEM_WRITE ALU_WOUT REG_OUT WBE CLK"],
 				fire_name: ['svg_p:text7597','svg_p:text7515'],
 				draw_data: [ [],
                                              ['svg_p:path6837-6', 'svg_p:path7073', 'svg_p:path7619',

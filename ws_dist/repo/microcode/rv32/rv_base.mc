@@ -27,7 +27,6 @@ add rd rs1 rs2 {
       reg(24:20)=rs2,
       help='r1 = r2 + r3',
       {
-          (),
           (M2, M3=0, AluOp=1010, M5=0, RW, CU=11)
       }
 }
@@ -214,7 +213,6 @@ div rd rs1 rs2 {
       help='reg1 = reg2 / reg3',
       {
           #if (rs2 == 0)
-          (),
           (M2, M3=1, AluOp=1100),
           (CU=111, MADDR=fpe1),
           # rd = rs1 / rs2, go fetch
@@ -234,7 +232,6 @@ divu rd rs1 rs2 {
       help='reg1 = ux(reg2) / ux(reg3)',
       {
           #if (rs2 == 0)
-          (),
           (M2, M3=1, AluOp=1100),
           (CU=111, MADDR=fpe2),
           # rd = rs1 / rs2, go fetch
@@ -288,8 +285,8 @@ jal rd offset {
       address-rel(30:21|20|19:12|31)=offset,
       help='rd = pc; pc = pc + sext(offset)',
       {
-          (M2=0, AluOp=11110, M5=0, RW)
-          (SE_IMM=1, OFFSET=0, SIZE=10100, GEN_IMM=1, M2=0, M3=11, AluOp=1010, M4, PCWrite, CU=11)
+          (M2=0, AluOp=11110, M5=0, RW) # ra <- PC
+          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, X2_IMM=1, M2=0, M3=11, AluOp=1010, M4, PCWrite, CU=11)
       }
 }
 
@@ -569,7 +566,6 @@ slt rd rs1 rs2 {
       reg(24:20)=rs2,
       help='rd = (rs1 < rs2) ? 1 : 0',
       {
-          (),
           (M2, M3=0, AluOp=1011, M1, RW, CU=11),
       }
 }
@@ -608,7 +604,6 @@ sltu rd rs1 rs2 {
       reg(24:20)=rs2,
       help='rd = (ux(rs1) < ux(rs2)) ? 1 : 0',
       {
-          (),
           (M2, M3=0, AluOp=10001, M1, RW, CU=11),
       }
 }

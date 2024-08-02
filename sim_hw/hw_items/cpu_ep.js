@@ -1027,7 +1027,7 @@ function cpu_ep_register ( sim_p )
 	 *  Syntax of behaviors
 	 */
 
-	sim_p.behaviors["NOP"]      = { nparameters: 1,
+	sim_p.behaviors["NOP"]   = { nparameters: 1,
 				     operation: function(s_expr) { },
 				        verbal: function(s_expr) { return "" ; }
 				   };
