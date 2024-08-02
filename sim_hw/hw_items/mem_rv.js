@@ -108,11 +108,11 @@ function mem_rv_register ( sim_p )
 								"comments":        null
 							     } ;
                                                  var valref = main_memory_set(sim_p.internal_states.MP,
-                                                                              elto, 
+                                                                              elto,
 									      melto) ;
 
 				                 show_main_memory(sim_p.internal_states.MP,
-                                                                  elto, 
+                                                                  elto,
                                                                   (typeof valref === "undefined"),
                                                                   true) ;
 
@@ -131,6 +131,53 @@ function mem_rv_register ( sim_p )
 
         sim_p.internal_states.CM_cfg    = [] ;
         sim_p.internal_states.CM        = [] ;
+
+
+	/*
+	 *  States
+	 */
+
+	/* INSTRUCTION (RELATED) STATES */
+	sim_p.states["RDATA"]  = { name:"RDATA", verbal: "Read data form Instruction Memory (Input Instruction Register)",
+                                   visible:false, nbits:"32", value:0,  default_value:0,
+                                   draw_data: [] };
+
+	/* DATA (RELATED) STATES */
+	sim_p.states["RDATAM"] = { name:"RDATAM", verbal: "Read data form Data Memory (Input OUT Register)",
+                                   visible:false, nbits:"32", value:0,  default_value:0,
+                                   draw_data: [] };
+
+
+	/*
+	 *  Signals
+	 */
+
+	/* DATA MEMORY SIGNALS */
+	sim_p.signals.DMR   = { name: "DMR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				behavior: [ "NOP",
+					    "MEM_READ ALU_WOUT RDATAM WBE CLK; FIRE M5" ],
+				fire_name: ['svg_p:text7589','svg_p:text7507'],
+				draw_data: [ [],
+                                             ['svg_p:path6837-6', 'svg_p:path7073',
+                                              'svg_p:path7619', 'svg_p:path7571', 'svg_p:path7573']],
+				draw_name: [['svg_p:path7525']] };
+	sim_p.signals.DMW   = { name: "DMW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				behavior: [ "NOP",
+					    "MEM_WRITE ALU_WOUT RDATAM WBE CLK"],
+				fire_name: ['svg_p:text7597','svg_p:text7515'],
+				draw_data: [ [],
+                                             ['svg_p:path6837-6', 'svg_p:path7073', 'svg_p:path7619',
+                                              'svg_p:path7571', 'svg_p:path7573']],
+				draw_name: [['svg_p:path7527']] };
+
+	/* INSTRUCTION MEMORY */
+	sim_p.signals["IMR"]   = { name: "IMR", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
+				   behavior: ["NOP", "READ_IM"],
+				   fire_name: ['svg_p:text7213'],
+				   draw_data: [['svg_p:path6691', 'svg_p:path6693', 'svg_p:path6691-3-3',
+                                                'svg_p:path6711']],
+				   draw_name: [['svg_p:path7205']] };
+
 
         /*
          *  Syntax of behaviors
@@ -168,15 +215,17 @@ function mem_rv_register ( sim_p )
                					      }
 
                                                       // BW -> See Tables in Help
-                                                      if ( bw == 1 ) {
-                                                        var byte_s = 0x0000;
-                                                        dbvalue = main_memory_fusionvalues(dbvalue, value, byte_s) ;
-                                                      } else if ( bw == 2 ) {
-                                                        var byte_s = 0x0004;
-                                                        dbvalue = main_memory_fusionvalues(dbvalue, value, byte_s) ;
-                                                      } else {
-                                                        dbvalue = value;
+                                                      dbvalue = value;
+
+                                                   /* TODO: review BW Tables :-)
+                                                      if (bw == 1) {
+                                                          var byte_s = 0x0000;
+                                                          dbvalue = main_memory_fusionvalues(dbvalue, value, byte_s) ;
+                                                      } else if (bw == 2) {
+                                                          var byte_s = 0x0004;
+                                                          dbvalue = main_memory_fusionvalues(dbvalue, value, byte_s) ;
                                                       }
+                                                   */
 
                                                       set_value(sim_p.states[s_expr[2]], dbvalue >>> 0);
 				                      show_main_memory(sim_p.internal_states.MP, address, full_redraw, false) ;
@@ -196,10 +245,10 @@ function mem_rv_register ( sim_p )
                                                       var clk     = get_value(sim_p.states[s_expr[4]]) ;
 
 					              var bw_type = "word" ;
-                                                           if ( bw == 1 )
-							  bw_type = "byte" ;
-                                                       else if ( bw == 2 )
-							  bw_type = "half" ;
+                                                      if (bw == 1)
+							   bw_type = "byte" ;
+                                                      else if (bw == 2)
+							   bw_type = "half" ;
 
                                                       var value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                        address) ;
@@ -251,15 +300,15 @@ function mem_rv_register ( sim_p )
                  				      }
 
                                                       // BW -> See Tables in Help
-                                                      if ( bw == 1 ) {
-                                                        var byte_s = 0x0000;
-                                                        value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
-                                                      } else if ( bw == 2 ) {
-                                                        var byte_s = 0x0004;
-                                                        value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
+                                                      if (bw == 1) {
+                                                          var byte_s = 0x0000;
+                                                          value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
+                                                      } else if (bw == 2) {
+                                                          var byte_s = 0x0004;
+                                                          value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
                                                       } else {
-                                                        var byte_s = 0x000C;
-                                                        value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
+                                                          var byte_s = 0x000C;
+                                                          value = main_memory_fusionvalues(value, dbvalue, byte_s) ;
                                                       }
 
 						      // PC
@@ -296,9 +345,9 @@ function mem_rv_register ( sim_p )
                                                       var clk     = get_value(sim_p.states[s_expr[4]]) ;
 
 					              var bw_type = "word" ;
-                                                           if ( bw == 1 )
+                                                      if (bw == 1)
 							  bw_type = "byte" ;
-                                                       else if ( bw == 2 )
+                                                      else if (bw == 2)
 							  bw_type = "half" ;
 
                                                       var value = main_memory_getvalue(sim_p.internal_states.MP,
@@ -346,11 +395,11 @@ function mem_rv_register ( sim_p )
 						   "addr":      {
 								   ref:  "M3_ALU"
 								},
-						   "wdata":      {
+						   "wdata":     {
 								   ref:  "REG_OUT"
 								},
                            "rdata":      {
-								   ref:  "DM_BS"
+								   ref:  "RDATAM"
 								}
 						 },
 			      signals:           {

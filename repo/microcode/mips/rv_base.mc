@@ -7,7 +7,7 @@ begin
    fetch:   # IR <- MP[PC]
               (IMR),
             # Decode, PC <- PC + 4
-              (AluOp=1010, M3=01, M4, PCWrite, IRWrite),
+              (AluOp=1010, M3=10, M4, PCWrite, IRWrite),
             # Control Unit signal
               (CU=10)
 
@@ -22,8 +22,7 @@ lui rd inm {
       inm=imm(15,0),
       help='rd = (inm << 15)',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=10, AluOp=11111, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2, M3=11, AluOp=11111, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -35,8 +34,7 @@ auipc rd offset {
       offset=imm(19,0),
       help='rd = pc + (offset << 12)',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=10011, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (SE_IMM=1, OFFSET=0, SIZE=10011, GEN_IMM=1, M2=0, M3=11, AluOp=1010, M5=0, REG_W2=10101, RW, CU=11),
       }
 }
 
@@ -51,8 +49,7 @@ lw reg addr {
          addr=address(15,0)abs,
          help='r1 = (MEM[addr] ... MEM[addr+3])',
          {
-             (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M3=10, DMR),
-             (REG_W2=10101, RW, CU=11)
+             (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M3=11, DMR, M5=1, REG_W2=10101, RW, CU=11)
          }
 }
 
@@ -63,9 +60,8 @@ sw reg addr {
          addr=address(15,0)abs,
          help='MEM[addr] = r1',
          {
-             (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101),
-             (M2, M3=10, AluOp=11110, WOut),
-             (DMW, CU=11)
+             (M2, M3=11, AluOp=11110, WOut),
+             (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101, DMW, CU=11)
          }
 }
 
@@ -76,8 +72,7 @@ lb reg addr {
          addr=address(15,0)abs,
          help='r1 = MEM[addr]',
          {
-             (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M3=10, WBE, DMR),
-             (REG_W2=10101, RW, CU=11)
+             (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M3=11, WBE, DMR, M5=1, REG_W2=10101, RW, CU=11)
          }
 }
 
@@ -88,9 +83,8 @@ sb reg addr {
          addr=address(15,0)abs,
          help='MEM[addr] = r1',
          {
-             (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101),
-             (M2, M3=10, AluOp=11110, WOut),
-             (WBE, DMW, CU=11)
+             (M2, M3=11, AluOp=11110, WOut),
+             (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10101, WBE, DMW, CU=11)
          }
 }
 
@@ -104,8 +98,7 @@ and reg1 reg2 reg3 {
       help='r1 = r2 & r3',
       {
           (REG_R1=10000, REG_R2=1011),
-          (M2, M3=0, AluOp=0001, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=0, AluOp=0001, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -119,8 +112,7 @@ andi reg1 reg2 inm {
       help='rd = rs1 & inm',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
-          (M2, M3=10, AluOp=0001, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=11, AluOp=0001, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -134,8 +126,7 @@ or reg1 reg2 reg3 {
       help='r1 = r2 | r3',
       {
           (REG_R1=10000, REG_R2=1011),
-          (M2, M3=0, AluOp=0010, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=0, AluOp=0010, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -149,8 +140,7 @@ ori reg1 reg2 inm {
       help='rd = rs1 | inm',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
-          (M2, M3=10, AluOp=0010, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=11, AluOp=0010, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -164,8 +154,7 @@ xor reg1 reg2 reg3 {
       help='r1 = r2 ^ r3',
       {
           (REG_R1=10000, REG_R2=1011),
-          (M2, M3=0, AluOp=0100, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=0, AluOp=0100, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -179,8 +168,7 @@ xori reg1 reg2 inm {
       help='rd = ux(rs1) ^ ux(inm)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
-          (M2, M3=10, AluOp=0100, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=11, AluOp=0100, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -194,8 +182,7 @@ add reg1 reg2 reg3 {
       help='r1 = r2 + r3',
       {
           (REG_R1=10000, REG_R2=1011),
-          (M2, M3=0, AluOp=1010, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=0, AluOp=1010, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -209,8 +196,7 @@ addi reg1 reg2 inm {
       help='rd = rs1 + SignEx(inm)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
-          (M2, M3=10, AluOp=1010, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=11, AluOp=1010, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -224,8 +210,7 @@ sub reg1 reg2 reg3 {
       help='r1 = r2 - r3',
       {
           (REG_R1=10000, REG_R2=1011),
-          (M2, M3=0, AluOp=1011, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=0, AluOp=1011, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -240,8 +225,7 @@ subi reg1 reg2 inm {
       help='rd = rs1 - SignEx(inm)',
       {
           (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000),
-          (M2, M3=10, AluOp=1011, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=11, AluOp=1011, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -255,8 +239,7 @@ mul reg1 reg2 reg3 {
       help='reg1 = reg2 * reg3',
       {
           (REG_R1=10000, REG_R2=1011),
-          (M2, M3=0, AluOp=1100, WOut),
-          (REG_W2=10101, RW, CU=11)
+          (M2, M3=0, AluOp=1100, M5=0, REG_W2=10101, RW, CU=11)
       }
 }
 
@@ -270,7 +253,7 @@ b offset {
       offset=address(15,0)rel,
       help='pc = pc + offset',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, M2, M4, PCWrite, CU=11)
+          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=11, AluOp=1010, M2, M4, PCWrite, CU=11)
       }
 }
 
@@ -283,7 +266,7 @@ beq rs1 rs2 offset {
       offset=address(15,0)rel,
       help='if ($r1 == $r2) pc += offset',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=11, AluOp=1010, WOut),
           (REG_R1=10101, REG_R2=10000),
           (M2, M3=0, AluOp=1011),
           (CU=111, MADDR=bck2ftch),
@@ -301,7 +284,7 @@ bne rs1 rs2 offset {
       offset=address(15,0)rel,
       help='if ($r1 != $r2) pc += offset',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=11, AluOp=1010, WOut),
           (REG_R1=10101, REG_R2=10000),
           (M2, M3=0, AluOp=1011),
           (CU=110, MADDR=bck3ftch),
@@ -319,7 +302,7 @@ bge rs1 rs2 offset {
       offset=address(15,0)rel,
       help='if (rs1 >= rs2) pc += offset',
       {
-          (OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, WOut),
+          (OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=11, AluOp=1010, WOut),
           (REG_R1=10000, REG_R2=10101),
           (M2, M3=0, AluOp=1011, jump, CU=11)
       }
@@ -334,9 +317,8 @@ jal rd offset {
       offset=address(19,0)rel,
       help='rd = pc; pc = pc + sext(offset)',
       {
-          (M2=0, AluOp=11110, WOut),
-          (REG_W2=10101, RW),
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=10, AluOp=1010, M4, PCWrite, CU=11)
+          (M2=0, AluOp=11110, M5=0, REG_W2=10101, RW),
+          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, M2=0, M3=11, AluOp=1010, M4, PCWrite, CU=11)
       }
 }
 
@@ -350,9 +332,8 @@ jalr rd rs1 offset {
       offset=address(15,0)rel,
       help='rd = pc; pc = rs1 + offset',
       {
-          (M2=0, AluOp=11110, WOut),
-          (REG_W2=10101, RW),
-          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000, M2, M3=10, AluOp=1010, M4, PCWrite, CU=11)
+          (M2=0, AluOp=11110, M5=0, REG_W2=10101, RW),
+          (SE_IMM=1, OFFSET=0, SIZE=10000, GEN_IMM=1, REG_R1=10000, M2, M3=11, AluOp=1010, M4, PCWrite, CU=11)
       }
 }
 
