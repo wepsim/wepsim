@@ -165,13 +165,13 @@ function cpu_rv_register ( sim_p )
         sim_p.ctrl_states.ir  = {
 		                    name:  "IR",
 		                    state: "REG_IR",
-		                    default_eltos:	{
-								"co":		{ "begin":  0, "end":  5, "length": 6 },
-								"cop":		{ "begin": 28, "end": 31, "length": 4 },
-								"oc":		{ "begin": 25, "end": 31, "length": 7 },
-								"eoc":		{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
-								//"eoc":		{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
-								//"eoc":		{ "type": 2, "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
+		                    default_eltos: {
+							"co":	{ "begin":  0, "end":  5, "length": 6 },
+							"cop":	{ "begin": 28, "end": 31, "length": 4 },
+							"oc":	{ "begin": 25, "end": 31, "length": 7 },
+							"eoc":	{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
+						      //"eoc":	{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
+						      //"eoc":	{ "type": 2, "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
 							},
 		                    is_pointer: false
 	                         } ;
@@ -196,10 +196,11 @@ function cpu_rv_register ( sim_p )
         sim_p.internal_states.tri_state_names = [] ;
         sim_p.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         sim_p.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto", "REG_PC,col-auto",
-												"REG_OUT,col-auto", "REG_MICROADDR,col-auto"] ;
+						  "REG_OUT,col-auto", "REG_MICROADDR,col-auto"] ;
         sim_p.internal_states.filter_signals  = [ "CU,0", "ALUOP,0","M1,0", "M2,0", "M3,0", "M4,0", "JUMP,0", "PCWRITE,0",
-												"IMR,0", "IRWRITE,0", "RW,0", "WOUT,0", "DMR,0", "DMW,0", "WBE,0", "SE,0" ] ;
+						  "IMR,0", "IRWRITE,0", "RW,0", "WOUT,0", "DMR,0", "DMW,0", "WBE,0", "SE,0" ] ;
         sim_p.internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0 } ;
+
 
 	/*
 	 *  States
@@ -318,6 +319,9 @@ function cpu_rv_register ( sim_p )
 	sim_p.states["M4_PC"]  = { name:"M4_PC", verbal: "Input PCWrite via M4",
                                      visible:false, nbits:"32", value:0,  default_value:0,
                                      draw_data: [] };
+	sim_p.states["C_JUMP"]  = { name:"C_JUMP", verbal: "Input JUMP via MUX-C",
+                                     visible:false, nbits:"32", value:0,  default_value:0,
+                                     draw_data: [] };
 
 	/* INSTRUCTION REGISTER (RELATED) STATES */
 	sim_p.states["RDATA"]  = { name:"RDATA", verbal: "Read data form Instruction Memory (Input Instruction Register via Instruction Memory)",
@@ -375,8 +379,20 @@ function cpu_rv_register ( sim_p )
                                             visible:false, nbits: "32", value:0, default_value:0,
                                             draw_data: [] };
 
-	/* MUX 3 (RELATED) STATES */
+	sim_p.states["INT"]          = { name: "INT", verbal: "From MUX-C/0 to JUMP",
+                                            visible:false, nbits: "32", value:0, default_value:0,
+                                            draw_data: [] };
+	sim_p.states["IORdy"]          = { name: "IORdy", verbal: "From MUX-C/1 to JUMP",
+                                            visible:false, nbits: "32", value:0, default_value:0,
+                                            draw_data: [] };
+	sim_p.states["BUS_DB"]          = { name: "BUS_DB", verbal: "Data Bus",
+                                            visible:false, nbits: "32", value:0, default_value:0,
+                                            draw_data: [] };
+	sim_p.states["BUS_AB"]          = { name: "BUS_AB", verbal: "Address Bus",
+                                            visible:false, nbits: "32", value:0, default_value:0,
+                                            draw_data: [] };
 
+	/* MUX 3 (RELATED) STATES */
 	sim_p.states["VAL_ZERO"]       = { name: "VAL_ZERO", verbal: "Wired Zero",
                                             visible:false, nbits: "1",  value:0, default_value:0,
                                             draw_data: [] };
@@ -387,6 +403,11 @@ function cpu_rv_register ( sim_p )
                                             visible:false, nbits: "32", value:4, default_value:4,
                                             draw_data: [] };
 	sim_p.states["VAL_IMM"]       	= { name: "VAL_IMM", verbal: "Immediate Value Generator",
+                                            visible:false, nbits: "32", value:0, default_value:0,
+                                            draw_data: [] };
+
+	/* MUX 5 (RELATED) STATES */
+	sim_p.states["M5_BE"]          = { name: "M5_BE", verbal: "Input Byte/Word selector via MUX 5",
                                             visible:false, nbits: "32", value:0, default_value:0,
                                             draw_data: [] };
 
@@ -437,34 +458,33 @@ function cpu_rv_register ( sim_p )
 				   behavior: ["NOP", "LOAD REG_PC M4_PC; UPDATEDPC"],
 				   fire_name: ['svg_p:text7155'],
 				   draw_data: [[]],
-				   draw_name: [['svg_p:path7145', 'svg_p:path7125', 'svg_p:path7127']] };
-	//Logic gates PC
-	sim_p.signals["JUMP"] = { name: "JUMP", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-				   behavior: ["NOP", "LOAD_J REG_PC M4_PC; UPDATEDPC_J"],
+				   draw_name: [['svg_p:path7135', 'svg_p:path7125', 'svg_p:path7137']] };
+	sim_p.signals["JUMP"]  = { name: "JUMP", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
+				   behavior: ["NOP", "LOAD_J REG_PC M4_PC; UPDATEDPC"],
 				   fire_name: ['svg_p:text7173'],
 				   draw_data: [[]],
-				   draw_name: [['svg_p:path7133', 'svg_p:path7143', 'svg_p:path7147', 'svg_p:path7135']] };
+				   draw_name: [[],
+                                               ['svg_p:path7133', 'svg_p:path7143', 'svg_p:path7145',
+                                                'svg_p:path7147', 'svg_p:path7125', 'svg_p:path7165-6']] };
+	sim_p.signals["C"]     = { name: "C", visible: true, type: "L", value: 0, default_value:0, nbits: "2",
+				   behavior: [ "MV C_JUMP INT; FIRE JUMP",
+					       "MV C_JUMP IORdy; FIRE JUMP",
+					       "MV C_JUMP FLAG_Z; FIRE JUMP",
+					       "MV C_JUMP FLAG_N; FIRE JUMP" ],
+			          fire_name: ['svg_p:text7289-2-8-3'],
+			          draw_data: [ ['svg_p:path7165-6', 'svg_p:path7047-9-4-4'],
+                                               ['svg_p:path7165-6', 'svg_p:path7047-9-4-2-7'],
+                                               ['svg_p:path7165-6', 'svg_p:path7047-9-4-2-4-78'],
+                                               ['svg_p:path7165-6', 'svg_p:path7047-9-4-2-4-7-7'] ],
+			          draw_name: [['svg_p:path7249']] };
 
 	/* IR REGISTER */
-	/*
-	//Read immediate value
-	sim_p.signals["R_IMM"] = { name: "R_IMM", visible: true, type: "L", value: 0, default_value:20, nbits: "5",
-			        behavior:  ["NOP"],
-			        fire_name: [],
-			        draw_data: [[]],
-			        draw_name: [[]] };
-	sim_p.signals["IRWRITE"] = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-				   behavior: ["NOP", "LOAD REG_IR RDATA; DECO; MBIT_SN R_IMM REG_IR REG_MICROINS/R_IMM 5; LOAD VAL_IMM R_IMM"],
-				   fire_name: ['svg_p:text7309'],
-				   draw_data: [['svg_p:path6711', 'svg_p:path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
-				   draw_name: [['svg_p:path7301']] };
-	*/
-
 	sim_p.signals["IRWRITE"]    = { name: "IRWRITE", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 					behavior: ["NOP", "LOAD REG_IR RDATA; DECO"],
 					fire_name: ['svg_p:text7309'],
 					draw_data: [['svg_p:path6711', 'svg_p_path:6713', 'svg_p:path6981', 'svg_p:path6903', 'svg_p:path6905']],
 					draw_name: [['svg_p:path7301']] };
+
 	sim_p.signals["GEN_IMM"]    = { name: "GEN_IMM", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 					behavior: ["NOP", "DECO_IMM VAL_IMM 0 REG_IR OFFSET SIZE 0 SE_IMM X2_IMM"],
 					fire_name: ['svg_p:text7300'],
@@ -491,9 +511,9 @@ function cpu_rv_register ( sim_p )
 					verbal: ['Multiply by 1.',
 						 'Multiply by 2.'],
 					behavior: ["NOP", "NOP"],
-					fire_name: ['svg_p:text7301'],     // TODO
+					fire_name: ['svg_p:text7301-1'],
 					draw_data: [[]],
-					draw_name: [['svg_p:path7292']] }; // TODO
+					draw_name: [['svg_p:path7292-0']] };
 
 	/* OUT REGISTER */
 	sim_p.signals["WOUT"] = { name: "WOUT", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
@@ -503,10 +523,11 @@ function cpu_rv_register ( sim_p )
 				   draw_name: [['svg_p:path7271']] };
 
 	/* INSTRUCTION MEMORY */
-	sim_p.signals["IMR"] = { name: "IMR", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
+	sim_p.signals["IMR"]   = { name: "IMR", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 				   behavior: ["NOP", "READ_IM"],
 				   fire_name: ['svg_p:text7213'],
-				   draw_data: [['svg_p:path6691', 'svg_p:path6693']],
+				   draw_data: [['svg_p:path6691', 'svg_p:path6693', 'svg_p:path6691-3',
+                                                'svg_p:path6711']],
 				   draw_name: [['svg_p:path7205']] };
 
 	/* REGISTER FILE */
@@ -541,82 +562,124 @@ function cpu_rv_register ( sim_p )
                                      draw_data: [] };
 
 	sim_p.signals["RW"]  = { name: "RW", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-					behavior: ["MBIT_SN REG_R1 REG_IR REG_MICROINS/REG_R1 5; GET R_DATA1 BR REG_R1; MBIT_SN REG_R2 REG_IR REG_MICROINS/REG_R2 5; GET R_DATA2 BR REG_R2",
-								"MBIT_SN REG_W2 REG_IR REG_MICROINS/REG_W2 5; SET BR REG_W2 M1_RW"],
-					fire_name: ['svg_p:text7299'],
-					draw_data: [['svg_p:path6725', 'svg_p:path6727', 'svg_p:path6729', 'svg_p:path6731', 'svg_p:path6733', 'svg_p:path6735', 'svg_p:path6915', 'svg_p:path6913', 'svg_p:path6907', 'svg_p:path6909']],
-					draw_name: [['svg_p:path7291']] };
+				behavior: ["MBIT_SN REG_R1 REG_IR REG_MICROINS/REG_R1 5; GET R_DATA1 BR REG_R1; MBIT_SN REG_R2 REG_IR REG_MICROINS/REG_R2 5; GET R_DATA2 BR REG_R2",
+						"MBIT_SN REG_W2 REG_IR REG_MICROINS/REG_W2 5; SET BR REG_W2 M1_RW"],
+				fire_name: ['svg_p:text7299'],
+				draw_data: [['svg_p:path6725', 'svg_p:path6727', 'svg_p:path6729', 'svg_p:path6731', 'svg_p:path6733', 'svg_p:path6735', 'svg_p:path6915', 'svg_p:path6913', 'svg_p:path6907', 'svg_p:path6909']],
+				draw_name: [['svg_p:path7291']] };
 
 	/* MUX. */
 	sim_p.signals["M2"]  = { name: "M2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
-                               depends_on: ["ALUOP"],
-			       fire_name: ['svg_p:text7229'],
-			       draw_data: [['svg_p:path6691-3', 'svg_p:path6987', 'svg_p:path6989', 'svg_p:path6983', 'svg_p:path6991', 'svg_p:path6775', 'svg_p:path6777'], ['svg_p:path6779', 'svg_p:path6781']],
-			       draw_name: [[], ['svg_p:path7199']] };
+			         behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
+                                 depends_on: ["ALUOP"],
+			         fire_name: ['svg_p:text7229'],
+			         draw_data: [['svg_p:path6691-3', 'svg_p:path6987', 'svg_p:path6989', 'svg_p:path6983',
+                                              'svg_p:path6991', 'svg_p:path6775', 'svg_p:path6777'],
+                                             ['svg_p:path6779', 'svg_p:path6781']],
+			         draw_name: [[], ['svg_p:path7199']] };
 	sim_p.signals["M3"]  = { name: "M3",  visible: true, type: "L", value: 0, default_value:0, nbits: "2",
-			       behavior: ["MV M3_ALU R_DATA2; FIRE ALUOP", "MV M3_ALU VAL_FOUR; FIRE ALUOP", "MV M3_ALU VAL_IMM; FIRE ALUOP", "NOP"],
-			       fire_name: ['svg_p:text7237'],
-                               depends_on: ["ALUOP"],
-			       draw_data: [['svg_p:path6821', 'svg_p:path6823'], ['svg_p:path7001', 'svg_p:path7003'], ['svg_p:path7015', 'svg_p:path7013', 'svg_p:path6825', 'svg_p:path6827']],
-			       draw_name: [[], ['svg_p:path7197']] };
+			         behavior: [ "MV M3_ALU R_DATA2; FIRE ALUOP",
+                                             "MV M3_ALU VAL_FOUR; FIRE ALUOP",
+                                             "MV M3_ALU VAL_IMM; FIRE ALUOP", 
+                                             "NOP" ],
+			         fire_name: ['svg_p:text7237'],
+                                 depends_on: ["ALUOP"],
+			         draw_data: [ ['svg_p:path6821', 'svg_p:path6823'],
+                                              ['svg_p:path7001', 'svg_p:path7003'],
+                                              ['svg_p:path7015', 'svg_p:path7013', 'svg_p:path6825', 'svg_p:path6827']],
+			         draw_name: [[], ['svg_p:path7197']] };
 	sim_p.signals["M4"]  = { name: "M4", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M4_PC REG_OUT", "MV M4_PC ALU_WOUT"],
-                               depends_on: ["PCWRITE"],
-			       fire_name: ['svg_p:text7289'],
-			       draw_data: [['svg_p:path7075','svg_p:path7043','svg_p:path7045', 'svg_p:path7047', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037'], ['svg_p:path6837-6', 'svg_p:path7073','svg_p:path7115','svg_p:path7117', 'svg_p:path7119', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037']],
-			       draw_name: [[], ['svg_p:path7281']] };
+			         behavior: ["MV M4_PC REG_OUT", "MV M4_PC ALU_WOUT"],
+                                 depends_on: ["PCWRITE"],
+			         fire_name: ['svg_p:text7289'],
+			         draw_data: [ ['svg_p:path7075','svg_p:path7043','svg_p:path7045', 'svg_p:path7047',
+                                               'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 'svg_p:path7039',
+                                               'svg_p:path7035', 'svg_p:path7037'], 
+                                              ['svg_p:path6837-6', 'svg_p:path7073','svg_p:path7115','svg_p:path7117',
+                                               'svg_p:path7119', 'svg_p:path7123', 'svg_p:path7121', 'svg_p:path7041', 
+                                               'svg_p:path7039', 'svg_p:path7035', 'svg_p:path7037']],
+			         draw_name: [[], ['svg_p:path7281']] };
+	sim_p.signals["M5"]  = { name: "M5", visible: true, type: "L",  value: 0, default_value:0, nbits: "2",
+			         behavior: [ "MV M5_BE ALU_WOUT",
+                                             "MV M5_BE RDATA",
+                                             "MV M5_BE BUS_DB",
+                                             "NOP"],
+			         fire_name: ['svg_p:text7289-2'],
+			         draw_data: [ ['svg_p:path7567-0-5', 'svg_p:path7043-7'], 
+                                              ['svg_p:path7567-0',   'svg_p:path7569',   'svg_p:path7567'],
+                                              ['svg_p:path7567-0-0', 'svg_p:path7569-2', 'svg_p:path7567-0-08', 'svg_p:path7043-4-6'],
+                                              [] ],
+			         draw_name: [[], ['svg_p:path7281']] };
+
+        /* TRI-STATES */
+        sim_p.signals["TA"]  = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                 behavior: ["NOP",
+                                            "MV BUS_AB ALU_WOUT"],
+                                 fire_name: ['svg_p:text3091'],
+                                 draw_data: [['svg_p:path6837-6', 'svg_p:path7115', 'svg_p:path7115-9-3']],
+                                 draw_name: [['svg_p:path3085']] };
+        sim_p.signals["TD"]  = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                 behavior: ["NOP",
+                                            "MV BUS_DB REG_OUT"],
+                                 fire_name: ['svg_p:text3103'],
+                                 draw_data: [['svg_p:path7043-4']],
+                                 draw_name: [['svg_p:path3095']] };
+
 
 	/* ALU */
 	sim_p.signals["ALUOP"] = { name: "ALUOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-					behavior: ["NOP_ALU; UPDATE_NZ",
-								"AND ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"OR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"NOT ALU_WOUT M2_ALU; UPDATE_NZ",
-								"XOR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SRL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SRA ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"RR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"RL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"ADD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SUB ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"DIV ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"LUI ALU_WOUT M2_ALU; UPDATE_NZ",
-								"ADDU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"SUBU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"MULU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"DIVU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"NOP_ALU",
-								"MV ALU_WOUT M2_ALU; UPDATE_NZ",
-								"MV ALU_WOUT M3_ALU; UPDATE_NZ"],
+				   behavior: [ "NOP_ALU; UPDATE_NZ",
+						"AND ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"OR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"NOT ALU_WOUT M2_ALU; UPDATE_NZ",
+						"XOR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"SRL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"SRA ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"SL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"RR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"RL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"ADD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"SUB ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"DIV ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"LUI ALU_WOUT M2_ALU; UPDATE_NZ",
+						"ADDU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"SUBU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"MULU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"DIVU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+						"NOP_ALU",
+						"NOP_ALU",
+						"NOP_ALU",
+						"NOP_ALU",
+						"NOP_ALU",
+						"NOP_ALU",
+						"NOP_ALU",
+						"NOP_ALU",
+						"NOP_ALU",
+						"NOP_ALU",
+						"MV ALU_WOUT M2_ALU; UPDATE_NZ",
+						"MV ALU_WOUT M3_ALU; UPDATE_NZ"],
 			       fire_name: ['svg_p:text7269'],
 			       draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
 			       draw_name: [['svg_p:path7249']] };
 
 	/* DATA MEMORY SIGNALS */
-	sim_p.signals.DMR = { name: "DMR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-				behavior: ["MV DM_BS REG_OUT; FIRE WBE",
-						"MEM_READ ALU_WOUT DM_BS WBE CLK; FIRE WBE"],
+	sim_p.signals.DMR   = { name: "DMR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				behavior: [ "MV DM_BS REG_OUT; FIRE WBE",
+					    "MEM_READ ALU_WOUT DM_BS WBE CLK; FIRE WBE" ],
 				fire_name: ['svg_p:text7589','svg_p:text7507'],
-				draw_data: [[], ['svg_p:path7525', 'svg_p:path6837-6', 'svg_p:path7073', 'svg_p:path7619', 'svg_p:path7571', 'svg_p:path7573']],
+				draw_data: [ [],
+                                             ['svg_p:path7525', 'svg_p:path6837-6', 'svg_p:path7073',
+                                              'svg_p:path7619', 'svg_p:path7571', 'svg_p:path7573']],
 				draw_name: [[], []] };
-	sim_p.signals.DMW = { name: "DMW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	sim_p.signals.DMW   = { name: "DMW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				behavior: ["NOP",
 						"MEM_WRITE ALU_WOUT DM_BS WBE CLK"],
 				fire_name: ['svg_p:text7597','svg_p:text7515'],
-				draw_data: [[], ['svg_p:path7527', 'svg_p:path6837-6', 'svg_p:path7073', 'svg_p:path7619', 'svg_p:path7571', 'svg_p:path7573']],
+				draw_data: [[],
+                                            ['svg_p:path7527', 'svg_p:path6837-6', 'svg_p:path7073', 'svg_p:path7619',
+                                             'svg_p:path7571', 'svg_p:path7573']],
 				draw_name: [[], []] };
 
 	/* BYTE/WORD SELECTOR*/
@@ -627,38 +690,43 @@ function cpu_rv_register ( sim_p )
 					   'NOP'],
 				depends_on: ["RW"],
 				fire_name: ['svg_p:text7555', 'svg_p:text7433'],
-				draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203', 'svg_p:path7579', 'svg_p:path7581', 'svg_p:path7567', 'svg_p:path7569', 'svg_p:path7421', 'svg_p:path7423']],
+				draw_data: [ ['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203',
+                                              'svg_p:path7579',   'svg_p:path7581',
+                                              'svg_p:path6911-8-3', 'svg_p:path7567-0-5-0',
+                                              'svg_p:path6911-8', 'svg_p:path7421', 'svg_p:path7423']],
 				draw_name: [['svg_p:path7529', 'svg_p:path7425']] };
-	sim_p.signals["SE"]  = { name: "SE", visible: true, type: "L", value: 0, default_value:1, nbits: "1",
+	sim_p.signals["SE"] = { name: "SE", visible: true, type: "L", value: 0, default_value:1, nbits: "1",
 				verbal: ['If WBE is enabled, set superior bits of Word to 0.',
-						'If WBE is enabled, extend byte sign to Word.'],
-				behavior: ["NOP",
-							"NOP"],
+					 'If WBE is enabled, extend byte sign to Word.'],
+				behavior: ["NOP", "NOP"],
 				fire_name: ['svg_p:text7453'],
 				draw_data: [[]],
 				draw_name: [['svg_p:path7445']] };
 
-	//MUX1 MUST BE AFTER B/W SELECTOR
-	sim_p.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
+	// MUX1 MUST BE AFTER B/W SELECTOR
+	sim_p.signals["M1"] = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 				behavior: ["MV M1_RW BS_M1", "MV M1_RW FLAG_N"],
-							depends_on: ["RW"],
+				depends_on: ["RW"],
 				fire_name: ['svg_p:text7221'],
-				draw_data: [['svg_p:path7021','svg_p:path7023','svg_p:path7565', 'svg_p:path6911','svg_p:path6895','svg_p:path6897'], ['svg_p:path7621','svg_p:path7025','svg_p:path7017','svg_p:path7019', 'svg_p:path6899', 'svg_p:path6901']],
+				draw_data: [ ['svg_p:path7021','svg_p:path7023','svg_p:path7565', 'svg_p:path6911',
+                                              'svg_p:path6895','svg_p:path6897'],
+                                             ['svg_p:path7621','svg_p:path7025','svg_p:path7017','svg_p:path7019',
+                                              'svg_p:path6899', 'svg_p:path6901']],
 				draw_name: [[], ['svg_p:path7195']] };
 
 	/* Virtual Signals, for UI */
 	sim_p.signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
-		  	          behavior: ["MV FLAG_N VAL_ZERO", "MV FLAG_N VAL_ONE"],
-                                  depends_on: ["ALUOP"],
-		  	          fire_name: ['svg_p:text351', 'svg_p:text7185'],
-			          draw_data: [['svg_p:path7251']],
-			          draw_name: [['svg_p:path7157']] };
+		  	            behavior: ["MV FLAG_N VAL_ZERO", "MV FLAG_N VAL_ONE"],
+                                    depends_on: ["ALUOP"],
+		  	            fire_name: ['svg_p:text351', 'svg_p:text7185-5'],
+			            draw_data: [['svg_p:path7251']],
+			            draw_name: [['svg_p:path7157']] };
 	sim_p.signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
-		  	          behavior: ["MV FLAG_Z VAL_ZERO", "MV FLAG_Z VAL_ONE"],
-                                  depends_on: ["ALUOP"],
-		  	          fire_name: ['svg_p:text7615', 'svg_p:text7193'],
-			          draw_data: [['svg_p:path7617']],
-			          draw_name: [['svg_p:path7165']] };
+		  	            behavior: ["MV FLAG_Z VAL_ZERO", "MV FLAG_Z VAL_ONE"],
+                                    depends_on: ["ALUOP"],
+		  	            fire_name: ['svg_p:text7615', 'svg_p:text7193-5'],
+			            draw_data: [['svg_p:path7617']],
+			            draw_name: [['svg_p:path7165']] };
 
 
 	/*
@@ -871,69 +939,69 @@ function cpu_rv_register ( sim_p )
                                      types: ["X", "X", "E", "I"],
                                      operation: function(s_expr)
                                                 {
-									if (get_value(sim_p.states["FLAG_Z"]) != parseInt(s_expr[4])) {
-										var a = get_value(sim_p.states[s_expr[3]]) << 0 ;
-										var result = a + 1 ;
-										set_value(sim_p.states[s_expr[1]], result >>> 0) ;
-									} else {
-										r = s_expr[2].split('/') ;
-										sim_elto_org = get_reference(r[0]) ;
+							if (get_value(sim_p.states["FLAG_Z"]) != parseInt(s_expr[4])) {
+								var a = get_value(sim_p.states[s_expr[3]]) << 0 ;
+								var result = a + 1 ;
+								set_value(sim_p.states[s_expr[1]], result >>> 0) ;
+							} else {
+								r = s_expr[2].split('/') ;
+								sim_elto_org = get_reference(r[0]) ;
 
-										newval = get_value(sim_elto_org) ;
-										newval = newval[r[1]] ;
-										if (typeof newval != "undefined") {
-											sim_elto_dst = get_reference(s_expr[1]) ;
-											set_value(sim_elto_dst, newval);
-										}
-									}
+								newval = get_value(sim_elto_org) ;
+								newval = newval[r[1]] ;
+								if (typeof newval != "undefined") {
+									sim_elto_dst = get_reference(s_expr[1]) ;
+									set_value(sim_elto_dst, newval);
+								}
+							}
                                                 },
                                         verbal: function (s_expr)
                                                 {
-													/*
-									if (!(get_value(sim_p.states["FLAG_Z"]))) {
-										var a = get_value(sim_p.states[s_expr[2]]) << 0 ;
-										var result = a + 1 ;
+							/*
+							if (!(get_value(sim_p.states["FLAG_Z"]))) {
+								var a = get_value(sim_p.states[s_expr[2]]) << 0 ;
+								var result = a + 1 ;
 
-										var verbose = get_cfg('verbal_verbose') ;
-										if (verbose !== 'math') {
-											return "Copy to " + show_verbal(s_expr[1]) + " " +
-													show_verbal(s_expr[2]) + " plus one with result " +
-													show_value(result) + ". " ;
-										}
+								var verbose = get_cfg('verbal_verbose') ;
+								if (verbose !== 'math') {
+									return "Copy to " + show_verbal(s_expr[1]) + " " +
+											show_verbal(s_expr[2]) + " plus one with result " +
+											show_value(result) + ". " ;
+								}
 
-										return show_verbal(s_expr[1]) + " = " +
-												show_verbal(s_expr[2]) + " + 1" +
-												" (" + show_value(result) + "). " ;
-									} else {
-										var newval = 0 ;
-										var r = s_expr[2].split('/') ;
-										var sim_elto_org = get_reference(r[0]) ;
-										var sim_elto_dst = get_reference(r[1]) ;
-										if (typeof sim_elto_dst == "undefined")
-											sim_elto_dst = {} ;
-										if (typeof    sim_elto_org.value[r[1]] != "undefined")
-											newval = sim_elto_org.value[r[1]];
-										else if (typeof    sim_elto_dst.default_value != "undefined")
-											newval = sim_elto_dst.default_value;
-										else      newval = "&lt;undefined&gt;" ;
+								return show_verbal(s_expr[1]) + " = " +
+										show_verbal(s_expr[2]) + " + 1" +
+										" (" + show_value(result) + "). " ;
+							} else {
+								var newval = 0 ;
+								var r = s_expr[2].split('/') ;
+								var sim_elto_org = get_reference(r[0]) ;
+								var sim_elto_dst = get_reference(r[1]) ;
+								if (typeof sim_elto_dst == "undefined")
+									sim_elto_dst = {} ;
+								if (typeof    sim_elto_org.value[r[1]] != "undefined")
+									newval = sim_elto_org.value[r[1]];
+								else if (typeof    sim_elto_dst.default_value != "undefined")
+									newval = sim_elto_dst.default_value;
+								else      newval = "&lt;undefined&gt;" ;
 
-																var verbose = get_cfg('verbal_verbose') ;
-																if (verbose !== 'math') {
-																	return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
-												" to " + show_verbal(s_expr[1]) +
-																			" value " + newval + ". " ;
-																}
+														var verbose = get_cfg('verbal_verbose') ;
+														if (verbose !== 'math') {
+															return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
+										" to " + show_verbal(s_expr[1]) +
+																	" value " + newval + ". " ;
+														}
 
-																return show_verbal(s_expr[1]) + " = " +
-																		show_verbal(r[0]) + "." + r[1] +
-																		" (" + newval + "). " ;
-									}
-									*/
-													if (parseInt(s_expr[4])) {
-														return "Jump to REG_MICROINS/MADDR if Flag Z = 1.";
-													} else {
-														return "Jump to REG_MICROINS/MADDR if Flag Z = 0.";
-													}
+														return show_verbal(s_expr[1]) + " = " +
+																show_verbal(r[0]) + "." + r[1] +
+																" (" + newval + "). " ;
+							}
+							*/
+											if (parseInt(s_expr[4])) {
+												return "Jump to REG_MICROINS/MADDR if Flag Z = 1.";
+											} else {
+												return "Jump to REG_MICROINS/MADDR if Flag Z = 0.";
+											}
                                                 }
                                    };
 
@@ -2703,19 +2771,6 @@ function cpu_rv_register ( sim_p )
 	sim_p.behaviors["UPDATEDPC"]     = { nparameters: 1,
 				            operation: function(s_expr)
 							{
-                                                            show_asmdbg_pc();
-                                                        },
-                                                verbal: function (s_expr)
-                                                        {
-                                                           return "" ;
-                                                        }
-					   };
-	sim_p.behaviors["UPDATEDPC_J"]     = { nparameters: 1,
-				            operation: function(s_expr)
-							{
-								if (!(get_value(sim_p.states["FLAG_N"])) && !(get_value(sim_p.states["FLAG_Z"]))) {
-									return ;
-								}
                                                             show_asmdbg_pc();
                                                         },
                                                 verbal: function (s_expr)
