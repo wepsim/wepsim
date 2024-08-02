@@ -1334,9 +1334,6 @@ function wsasm_resolve_pseudo ( context, ret )
 
               pseudo_values   = pseudo_elto.source.trim().split(' ') ;
               pseudo_replaced = pseudo_elto_candidate.finish ;
-// <CREATOR>
-              pseudo_replaced = base_replaceAll(pseudo_replaced, ';', '') ;
-// </CREATOR>
               for (let k=0; k<(pseudo_values.length-1); k++)
 	      {
                    pseudo_value_k = base_replaceAll(pseudo_values[k+1], '(', '') ;
@@ -1345,13 +1342,12 @@ function wsasm_resolve_pseudo ( context, ret )
                    pseudo_replaced = base_replaceAll(pseudo_replaced, pseudo_elto_candidate.fields[k].name, pseudo_value_k) ;
               }
 
-// <WepSIM>
+// <CREATOR>
+//            pseudo_context.parts = pseudo_replaced.replace('(',' ( ').replace(')',' )').replace('  ',' ') ;
+// </CREATOR>
+
               // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
               pseudo_context.parts = pseudo_replaced.split(' ') ;
-// </WepSIM>
-// <CREATOR>
-//            pseudo_context.parts = pseudo_replaced.replace('(',' ( ').replace(')',' )').replace('  ',' ').split(' ') ;
-// </CREATOR>
 
               pseudo_context.index = 0 ;
               while (pseudo_context.index < (pseudo_context.parts.length-1))
