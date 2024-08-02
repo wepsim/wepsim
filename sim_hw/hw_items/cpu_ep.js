@@ -1027,7 +1027,7 @@ function cpu_ep_register ( sim_p )
 	 *  Syntax of behaviors
 	 */
 
-	sim_p.behaviors["NOP"]      = { nparameters: 1,
+	sim_p.behaviors["NOP"]   = { nparameters: 1,
 				     operation: function(s_expr) { },
 				        verbal: function(s_expr) { return "" ; }
 				   };
@@ -1178,7 +1178,27 @@ function cpu_ep_register ( sim_p )
 				     types: ["E", "S", "E"],
 				     operation: function(s_expr)
 		                                {
-						   set_value(sim_p.states[s_expr[1]][ sim_p.signals[s_expr[2]].value], get_value(sim_p.states[s_expr[3]]));
+                                                   var rf_name    = s_expr[1] ;
+                                                   var reg_w_name = s_expr[2] ;
+                                                   var state_name = s_expr[3] ;
+
+                                                   var reg_w_obj  = sim_p.signals[reg_w_name] ;
+                                                   if (typeof reg_w_obj === "undefined") {
+                                                       ws_alert.log('ERROR: undefined register name ' + reg_w_name) ;
+                                                       return ;
+                                                   }
+                                                   var state_obj  = sim_p.states[state_name] ;
+                                                   if (typeof state_obj === "undefined") {
+                                                       ws_alert.log('ERROR: undefined state name ' + state_name) ;
+                                                       return ;
+                                                   }
+                                                   var rf_obj     = sim_p.states[rf_name][reg_w_obj.value] ;
+                                                   if (typeof rf_obj === "undefined") {
+                                                       ws_alert.log('ERROR: undefined register element at ' + rf_name) ;
+                                                       return ;
+                                                   }
+
+                                                   set_value(rf_obj, get_value(state_obj));
                                                 },
                                         verbal: function (s_expr)
                                                 {
