@@ -656,11 +656,10 @@ function cpu_rv_register ( sim_p )
 
 	/* BYTE/WORD SELECTOR*/
 	sim_p.signals["WBE"] = { name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
-				behavior: ['MV BS_M1 M5_BE',
-					   'BWSEL BS_M1 M5_BE 0 0 8 SE',
-					   'BWSEL BS_M1 M5_BE 0 0 16 SE',
-					   'NOP'],
-				depends_on: ["RW"],
+				behavior: ['MV BS_M1 M5_BE; FIRE M1',
+					   'BWSEL BS_M1 M5_BE 0 0 8 SE; FIRE M1',
+					   'BWSEL BS_M1 M5_BE 0 0 16 SE; FIRE M1',
+					   'FIRE M1'],
 				fire_name: ['svg_p:text7555', 'svg_p:text7433'],
 				draw_data: [ ['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203',
                                               'svg_p:path7579',   'svg_p:path7581', 'svg_p:path7075',
@@ -678,7 +677,6 @@ function cpu_rv_register ( sim_p )
 	// MUX1 MUST BE AFTER B/W SELECTOR
 	sim_p.signals["M1"] = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 				behavior: ["MV M1_RW BS_M1", "MV M1_RW FLAG_N"],
-				depends_on: ["RW"],
 				fire_name: ['svg_p:text7221'],
 				draw_data: [ ['svg_p:path7021','svg_p:path7023','svg_p:path7565', 'svg_p:path6911',
                                               'svg_p:path6895','svg_p:path6897'],
@@ -1019,20 +1017,48 @@ function cpu_rv_register ( sim_p )
 				     types: ["E", "S", "E"],
 				     operation: function(s_expr)
 		                                {
-						   set_value(sim_p.states[s_expr[1]][ sim_p.signals[s_expr[2]].value], get_value(sim_p.states[s_expr[3]]));
+					           // Example: "SET BR REG_W2 M1_RW"
+                                                   // Example: "SET BR RC     BUS_IB"
+
+						   var rf_name    = s_expr[1] ;
+						   var reg_w_name = s_expr[2] ;
+						   var state_name = s_expr[3] ;
+
+						   var reg_w_obj  = sim_p.signals[reg_w_name] ;
+						   if (typeof reg_w_obj === "undefined") {
+                                                       ws_alert.log('ERROR: undefined register name ' + reg_w_name) ;
+                                                       return ;
+                                                   }
+						   var state_obj  = sim_p.states[state_name] ;
+						   if (typeof state_obj === "undefined") {
+                                                       ws_alert.log('ERROR: undefined state name ' + state_name) ;
+                                                       return ;
+                                                   }
+						   var rf_obj     = sim_p.states[rf_name][reg_w_obj.value] ;
+						   if (typeof rf_obj === "undefined") {
+                                                       ws_alert.log('ERROR: undefined register element at ' + rf_name) ;
+                                                       return ;
+                                                   }
+
+						   set_value(rf_obj, get_value(state_obj));
                                                 },
                                         verbal: function (s_expr)
                                                 {
 						   var value = get_value(sim_p.states[s_expr[3]]) ;
-						   var o_ref = sim_p.states[s_expr[1]][sim_p.signals[s_expr[2]].value] ;
+						   var rf_name    = s_expr[1] ;
+						   var reg_w_name = s_expr[2] ;
+						   var reg_w_obj  = sim_p.signals[reg_w_name] ;
+						   var o_ref      = sim_p.states[rf_name][reg_w_obj.value] ;
 
 						   var o_verbal = o_ref.name ;
-						   if (typeof o_ref.verbal != "undefined")
+						   if (typeof o_ref.verbal != "undefined") {
 						       o_verbal = o_ref.verbal ;
+                                                   }
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Copy to " + o_verbal + " the value " + show_value(value) + ". " ;
+                                                       return "Copy to " + o_verbal +
+                                                              " the value " + show_value(value) + ". " ;
                                                    }
 
                                                    return o_verbal + " = " + show_value(value) + ". " ;
