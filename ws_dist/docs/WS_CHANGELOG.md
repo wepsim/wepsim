@@ -5,6 +5,7 @@
 * Main improvements:
   * Several minor improvements in the new default assembler:
     * Relative branches offset can be now in bytes, words (MIPS), and half-words (RV)
+    * Support for alternative definitions of pseudo-instructions, ordered from most restrictive to least restrictive
     * Instruction detail includes translation of labels into decimal values
   * Several minor updates to the firmware syntax v2
     * Firmware metadata updated from:
