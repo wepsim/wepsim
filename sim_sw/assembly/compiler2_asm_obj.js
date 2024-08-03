@@ -194,6 +194,7 @@ function wsasm_order2index_startstop ( start_bit, stop_bit )
 //           * wsasm_find_instr_candidates ( context, ret, elto )
 //             * wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
 //   * wsasm_resolve_pseudo ( context, ret )
+//      * wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candidate )
 //   * wsasm_resolve_labels ( context, ret )
 //      * wsasm_compute_labels  ( context, ret, start_at_obj_i )
 //      * wsasm_get_label_value ( context, ret, elto, label )
@@ -1303,55 +1304,40 @@ function wsasm_src2obj_helper ( context, ret )
 }
 
 
-function wsasm_resolve_pseudo ( context, ret )
+function wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candidate )
 {
          var pseudo_context = { parts: null, index: 0 } ;
-         var pseudo_elto    = null ;
          var elto           = null ;
-         var eltos          = [] ;
          var possible_inst  = '' ;
-         var ret1           = null ;
          var pseudo_values  = '' ;
          var pseudo_replace = '' ;
-         var pseudo_elto_candidate = null ;
          var pseudo_value_k = '' ;
 
-         for (let i=0; i<ret.obj.length; i++)
-         {
-              // (1/2) skip instructions
-              if ("pseudoinstruction" != ret.obj[i].datatype) {
-                   continue ;
-              }
-              // (2/2) skip empty pseudoinstructions, for example:
-              //           "pseudo"
-              //    label:         <- empty line with label, former pseudo
-              if (null == ret.obj[i].firm_reference) {
-                   continue ;
-              }
+         var ret1 = null ;
+         var ret2 = {} ;
+         ret2.error = null ;
+         ret2.eltos = [] ;
 
-              pseudo_elto = ret.obj[i] ;
-              pseudo_elto_candidate = pseudo_elto.firm_reference[pseudo_elto.firm_reference_index] ;
+         pseudo_values   = pseudo_elto.source.trim().split(' ') ;
+         pseudo_replaced = pseudo_elto_candidate.finish ;
+         for (let k=0; k<(pseudo_values.length-1); k++)
+	 {
+              pseudo_value_k = base_replaceAll(pseudo_values[k+1], '(', '') ;
+	      pseudo_value_k = base_replaceAll(pseudo_value_k,     ')', '') ;
 
-              pseudo_values   = pseudo_elto.source.trim().split(' ') ;
-              pseudo_replaced = pseudo_elto_candidate.finish ;
-              for (let k=0; k<(pseudo_values.length-1); k++)
-	      {
-                   pseudo_value_k = base_replaceAll(pseudo_values[k+1], '(', '') ;
-		   pseudo_value_k = base_replaceAll(pseudo_value_k,     ')', '') ;
-
-                   pseudo_replaced = base_replaceAll(pseudo_replaced, pseudo_elto_candidate.fields[k].name, pseudo_value_k) ;
-              }
+              pseudo_replaced = base_replaceAll(pseudo_replaced, pseudo_elto_candidate.fields[k].name, pseudo_value_k) ;
+         }
 
 // <CREATOR>
-//            pseudo_context.parts = pseudo_replaced.replace('(',' ( ').replace(')',' )').replace('  ',' ') ;
+//       pseudo_context.parts = pseudo_replaced.replace('(',' ( ').replace(')',' )').replace('  ',' ') ;
 // </CREATOR>
 
-              // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
-              pseudo_context.parts = pseudo_replaced.split(' ') ;
+         // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
+         pseudo_context.parts = pseudo_replaced.split(' ') ;
 
-              pseudo_context.index = 0 ;
-              while (pseudo_context.index < (pseudo_context.parts.length-1))
-              {
+         pseudo_context.index = 0 ;
+         while (pseudo_context.index < (pseudo_context.parts.length-1))
+         {
 	         possible_inst = pseudo_context.parts[pseudo_context.index] ;
 
                  // skip empty possible instruction
@@ -1383,7 +1369,7 @@ function wsasm_resolve_pseudo ( context, ret )
                  }
 
                  // Fill related source...
-                 if (0 == eltos.length)
+                 if (0 == ret2.eltos.length)
                       elto.track_source.push(pseudo_elto.source) ;
                  else elto.track_source.push("&nbsp;") ;
 	  	 elto.source     = elto.value.instruction + ' ' + elto.value.fields.join(' ') ;
@@ -1396,18 +1382,60 @@ function wsasm_resolve_pseudo ( context, ret )
 		     return ret ;
 		 }
 
-                 if (0 == eltos.length) {
+                 if (0 == ret2.eltos.length) {
                      elto.labels   = pseudo_elto.labels ;
 		     elto.comments = pseudo_elto.comments.slice() ;
 		 }
 
                  // add elto to some temporal array
-                 eltos.push(elto) ;
+                 ret2.eltos.push(elto) ;
+         }
+
+	 return ret2 ;
+}
+
+function wsasm_resolve_pseudo ( context, ret )
+{
+         var pseudo_elto    = null ;
+         var ret2           = null ;
+         var pseudo_elto_candidate = null ;
+
+         for (let i=0; i<ret.obj.length; i++)
+         {
+              // (1/2) skip instructions
+              if ("pseudoinstruction" != ret.obj[i].datatype) {
+                   continue ;
+              }
+              // (2/2) skip empty pseudoinstructions, for example:
+              //           "pseudo"
+              //    label:         <- empty line with label, former pseudo
+              if (null == ret.obj[i].firm_reference) {
+                   continue ;
               }
 
-              // ret.obj = ret.obj[0]...ret.obj[i]  + eltos +  ret.obj[i+1]...ret.obj[ret.obj.length-1]
-              ret.obj.splice(i, 1, ...eltos) ;
-              eltos = [] ;
+              pseudo_elto = ret.obj[i] ;
+
+              // find one pseudo-instruction that can be used...
+              for (var j=0; j<pseudo_elto.firm_reference.length; j++)
+              {
+                  pseudo_elto.firm_reference_index = j ;
+                  pseudo_elto_candidate = pseudo_elto.firm_reference[pseudo_elto.firm_reference_index] ;
+
+                  ret2 = wsasm_try_resolve_pseudo(context, ret, pseudo_elto, pseudo_elto_candidate) ;
+	          if (null == ret2.error) {
+                      break ;
+	          }
+              }
+
+              // if no one found then error
+	      if (ret2.error != null) {
+                  ret.error = ret2.error ;
+		  return ret ;
+	      }
+
+              // replace pseudo-instruction with the associated elements:
+              //   ret.obj = ret.obj[0]...ret.obj[i]  + ret2.eltos +  ret.obj[i+1]...ret.obj[ret.obj.length-1]
+              ret.obj.splice(i, 1, ...ret2.eltos) ;
          }
 
 	 return ret;
