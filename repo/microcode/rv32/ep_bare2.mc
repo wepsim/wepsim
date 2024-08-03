@@ -1168,6 +1168,11 @@ pseudoinstructions
 
     # li rd, expression        (several expansions)        Load immediate
     li rd=reg, expression=imm
+    { 
+        addi rd x0 expression
+    }
+
+    li rd=reg, expression=imm
     {
         lui  rd,     sel(31,12,expression)
         addu rd, rd, sel(11,0,expression)

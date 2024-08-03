@@ -904,6 +904,83 @@ function wsasm_src2obj_text_ops_getAtom ( context, pseudo_context )
 	 return opx ;
 }
 
+
+function wsasm_src2obj_text_elto_field_sel ( context, ret, elto, pseudo_context )
+{
+	  var opx    = '' ;
+	  var sel    = { start:0, stop: 0, label:'' } ;
+	  var ret2   = { error:null, atom: '' } ;
+	  var valbin = '0' ;
+
+	  // sel*(*31 ,  12 ,  label )
+	  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  if ('(' != opx) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+	  }
+
+	  // sel (*31*,  12 ,  label )
+	  sel.stop = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  sel.stop = parseInt(sel.stop) ;
+	  if (isNaN(sel.stop)) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + sel.stop) ;
+	  }
+
+	  // sel ( 31*,* 12 ,  label )
+	  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  if (',' != opx) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
+	  }
+
+	  // sel ( 31 , *12*,  label )
+	  sel.start = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  sel.start = parseInt(sel.start) ;
+	  if (isNaN(sel.start)) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + sel.start) ;
+	  }
+
+	  // sel ( 31 ,  12*,* label )
+	  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  if (',' != opx) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
+	  }
+
+	  // sel ( 31 ,  12 , *label*)
+	  sel.label = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+
+	  // sel ( 31 ,  12 ,  label*)*
+	  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  if (')' != opx) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+	  }
+
+	  // check if sel.label is number or tag...
+	  a = dt_get_imm_value(sel.label) ;
+	  if (a.isDecimal)
+	  {
+	      valbin = wsasm_get_sel_valbin(sel.label, sel.start, sel.stop) ;
+	      ret2.atom   = dt_binary2format(valbin, a.format) ;
+	  }
+	  else
+	  {
+	      if (wsasm_is_ValidTag(sel.label) == false) {
+		  return wsasm_eltoError(context, elto,
+					 i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ": '" + sel.label + "'") ;
+	      }
+
+	      // if label then define 'sel(...)' as a new 'label'... ;-)
+	      ret2.atom = sel.label + "[" + sel.start + ":" + sel.stop + "]" ;
+	  }
+
+	  // { error:null, atom: '' } ;
+	  return ret2 ;
+}
+
 function wsasm_src2obj_text_elto_fields ( context, ret, elto, pseudo_context )
 {
            var ret1 = null ;
@@ -927,73 +1004,12 @@ function wsasm_src2obj_text_elto_fields ( context, ret, elto, pseudo_context )
               // *sel*(31 ,  12 ,  label )
 	      if ('sel' == opx)
               {
-                  var sel    = { start:0, stop: 0, label:'' } ;
-                  var valbin = '0' ;
+		  var ret2 = wsasm_src2obj_text_elto_field_sel(context, ret, elto, pseudo_context) ;
+		  if (ret2.error != null) {
+		      return ret2 ;
+		  }
 
-                  // sel*(*31 ,  12 ,  label )
-                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
-	          if ('(' != opx) {
-		      return wsasm_eltoError(context, elto,
-                                             i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
-                  }
-
-                  // sel (*31*,  12 ,  label )
-                  sel.stop = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
-                  sel.stop = parseInt(sel.stop) ;
-	          if (isNaN(sel.stop)) {
-		      return wsasm_eltoError(context, elto,
-                                             i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + sel.stop) ;
-                  }
-
-                  // sel ( 31*,* 12 ,  label )
-                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
-	          if (',' != opx) {
-		      return wsasm_eltoError(context, elto,
-                                             i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
-                  }
-
-                  // sel ( 31 , *12*,  label )
-                  sel.start = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
-                  sel.start = parseInt(sel.start) ;
-	          if (isNaN(sel.start)) {
-		      return wsasm_eltoError(context, elto,
-                                             i18n_get_TagFor('compiler', 'NO POSITIVE NUMBER') + sel.start) ;
-                  }
-
-                  // sel ( 31 ,  12*,* label )
-                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
-	          if (',' != opx) {
-		      return wsasm_eltoError(context, elto,
-                                             i18n_get_TagFor('compiler', 'COMMA NOT FOUND')) ;
-                  }
-
-                  // sel ( 31 ,  12 , *label*)
-                  sel.label = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
-
-                  // sel ( 31 ,  12 ,  label*)*
-                  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
-	          if (')' != opx) {
-		      return wsasm_eltoError(context, elto,
-                                             i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
-                  }
-
-                  // check if sel.label is number or tag...
-		  a = dt_get_imm_value(sel.label) ;
-		  if (a.isDecimal)
-                  {
-                      valbin = wsasm_get_sel_valbin(sel.label, sel.start, sel.stop) ;
-                      atom   = dt_binary2format(valbin, a.format) ;
-                  }
-                  else
-                  {
-	              if (wsasm_is_ValidTag(sel.label) == false) {
-		          return wsasm_eltoError(context, elto,
-                                                 i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ": '" + sel.label + "'") ;
-                      }
-
-                      // if label then define 'sel(...)' as a new 'label'... ;-)
-                      atom = sel.label + "[" + sel.start + ":" + sel.stop + "]" ;
-                  }
+		  atom = ret2.atom ;
               }
               // *(*x0)
 	      else if ('(' == opx)
@@ -1396,8 +1412,8 @@ function wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candi
 
 function wsasm_resolve_pseudo ( context, ret )
 {
-         var pseudo_elto    = null ;
-         var ret2           = null ;
+	 var ret2 = { error:null } ;
+         var pseudo_elto = null ;
          var pseudo_elto_candidate = null ;
 
          for (let i=0; i<ret.obj.length; i++)
@@ -1416,10 +1432,14 @@ function wsasm_resolve_pseudo ( context, ret )
               pseudo_elto = ret.obj[i] ;
 
               // find one pseudo-instruction that can be used...
+	      ret2.error = "pseudoinstruction '" + pseudo_elto.source + "' not found!" ;
               for (var j=0; j<pseudo_elto.firm_reference.length; j++)
               {
                   pseudo_elto.firm_reference_index = j ;
                   pseudo_elto_candidate = pseudo_elto.firm_reference[pseudo_elto.firm_reference_index] ;
+                  if (false == pseudo_elto_candidate.isPseudoinstruction) {
+                       continue ;
+                  }
 
                   ret2 = wsasm_try_resolve_pseudo(context, ret, pseudo_elto, pseudo_elto_candidate) ;
 	          if (null == ret2.error) {
@@ -1427,7 +1447,7 @@ function wsasm_resolve_pseudo ( context, ret )
 	          }
               }
 
-              // if no one found then error
+              // if nothing found then error
 	      if (ret2.error != null) {
                   ret.error = ret2.error ;
 		  return ret ;
