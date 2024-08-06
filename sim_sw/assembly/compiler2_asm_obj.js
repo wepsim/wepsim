@@ -193,11 +193,12 @@ function wsasm_order2index_startstop ( start_bit, stop_bit )
 //             * wsasm_encode_field ( arr_encoded, value, start_bit, stop_bit )
 //           * wsasm_find_instr_candidates ( context, ret, elto )
 //             * wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
+//   * wsasm_compute_labels ( context, ret, start_at_obj_i )
+//   * wsasm_resolve_labels ( context, ret )
+//      * wsasm_resolve_labels_elto ( context, ret, elto )
+//      * wsasm_get_label_value ( context, ret, elto, label )
 //   * wsasm_resolve_pseudo ( context, ret )
 //      * wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candidate )
-//   * wsasm_resolve_labels ( context, ret )
-//      * wsasm_compute_labels  ( context, ret, start_at_obj_i )
-//      * wsasm_get_label_value ( context, ret, elto, label )
 //
 
 function wsasm_src2obj_data ( context, ret )
@@ -828,6 +829,7 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 	       elto.value.signature_size_arr.push(context.registers[atom].toString(2).length) ;
 
 	       // return ok
+	       ret.error = null ;
 	       return ret ;
            }
 
@@ -835,23 +837,24 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 	   var ret1 = dt_get_imm_value(atom) ;
 	   if ( (ret1.isDecimal) || (ret1.isFloat) )
            {
-                   var a = null ;
-	           if (ret1.isDecimal)
-		        a = decimal2binary(ret1.number, elto.byte_size*BYTE_LENGTH) ;
-	           else a =   float2binary(ret1.number, elto.byte_size*BYTE_LENGTH) ;
+                 var a = null ;
+	         if (ret1.isDecimal)
+		      a = decimal2binary(ret1.number, elto.byte_size*BYTE_LENGTH) ;
+	         else a =   float2binary(ret1.number, elto.byte_size*BYTE_LENGTH) ;
 
-		   if (parentheses) {
-		       elto.value.fields.push('(' + atom + ')') ;
-		       elto.value.signature_type_arr.push('(imm)') ;
-		   }
-		   else {
-	               elto.value.fields.push(atom) ;
-	               elto.value.signature_type_arr.push('imm') ;
-		   }
-	           elto.value.signature_size_arr.push(a[2]) ; // a[2]: minimum number of bits to represent a[0]...
+		 if (parentheses) {
+		     elto.value.fields.push('(' + atom + ')') ;
+		     elto.value.signature_type_arr.push('(imm)') ;
+		 }
+		 else {
+	             elto.value.fields.push(atom) ;
+	             elto.value.signature_type_arr.push('imm') ;
+		 }
+	         elto.value.signature_size_arr.push(a[2]) ; // a[2]: minimum number of bits to represent a[0]...
 
-		   // return ok
-		   return ret ;
+		 // return ok
+	         ret.error = null ;
+		 return ret ;
            }
 
 	   if (parentheses) {
@@ -868,6 +871,7 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 	   elto.value.signature_size_arr.push(1) ;
 
 	   // return ok
+	   ret.error = null ;
 	   return ret ;
 }
 
@@ -1333,6 +1337,7 @@ function wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candi
          var ret2 = {} ;
          ret2.error = null ;
          ret2.eltos = [] ;
+         ret2.some_pending = false ;
 
          pseudo_values   = pseudo_elto.source.trim().split(' ') ;
          pseudo_replaced = pseudo_elto_candidate.finish ;
@@ -1405,6 +1410,9 @@ function wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candi
 
                  // add elto to some temporal array
                  ret2.eltos.push(elto) ;
+                 if (elto.pending.length > 0) {
+                     ret2.some_pending = true ;
+                 }
          }
 
 	 return ret2 ;
@@ -1413,6 +1421,7 @@ function wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candi
 function wsasm_resolve_pseudo ( context, ret )
 {
 	 var ret2 = { error:null } ;
+	 var ret3 = { error:null } ;
          var pseudo_elto = null ;
          var pseudo_elto_candidate = null ;
 
@@ -1433,7 +1442,7 @@ function wsasm_resolve_pseudo ( context, ret )
 
               // find one pseudo-instruction that can be used...
 	      ret2.error = "pseudoinstruction '" + pseudo_elto.source + "' not found!" ;
-              for (var j=0; j<pseudo_elto.firm_reference.length; j++)
+              for (var j=0; j<pseudo_elto.firm_reference.length; j++) // pseudo_1: from first to last
               {
                   pseudo_elto.firm_reference_index = j ;
                   pseudo_elto_candidate = pseudo_elto.firm_reference[pseudo_elto.firm_reference_index] ;
@@ -1442,20 +1451,48 @@ function wsasm_resolve_pseudo ( context, ret )
                   }
 
                   ret2 = wsasm_try_resolve_pseudo(context, ret, pseudo_elto, pseudo_elto_candidate) ;
+
+                  // if some match is available, try check if labels fits in candidate
+	          if ( (null == ret2.error) && (ret2.some_pending) )
+                  {
+			obj_backup = ret.obj ;
+			ret.obj = [...obj_backup] ; // TOCHECK: clone array (first level, then references to...)
+			ret.obj.splice(i, 1, ...ret2.eltos) ;
+
+			// compute address of labels (with current object)...
+			ret3 = wsasm_compute_labels(context, ret, 0) ;
+			if (ret3.error != null) {
+			    ret.obj = obj_backup ;
+			    continue ;
+			}
+
+			// resolve labels (translate into addresses, with current object)
+			ret3 = wsasm_resolve_labels(context, ret) ;
+			if (ret3.error != null) {
+			    ret.obj = obj_backup ;
+			    continue ;
+			}
+
+			ret.obj = obj_backup ;
+                  }
+
+                  // if some match is available, stop search loop
 	          if (null == ret2.error) {
                       break ;
 	          }
               }
 
-              // if nothing found then error
+              // if (nothing found) then error
 	      if (ret2.error != null) {
                   ret.error = ret2.error ;
 		  return ret ;
 	      }
 
-              // replace pseudo-instruction with the associated elements:
-              //   ret.obj = ret.obj[0]...ret.obj[i]  + ret2.eltos +  ret.obj[i+1]...ret.obj[ret.obj.length-1]
+              // If not pending field -> replace pseudo-instruction with the associated elements:
+              // ret.obj = ret.obj[0]...ret.obj[i]  + ret2.eltos +  ret.obj[i+1]...ret.obj[ret.obj.length-1]
               ret.obj.splice(i, 1, ...ret2.eltos) ;
+
+              ret.compute_resolve_pseudo = true ;
          }
 
 	 return ret;
@@ -1583,19 +1620,105 @@ function wsasm_get_label_value ( context, ret, elto, label )
          return ret ;
 }
 
-function wsasm_resolve_labels ( context, ret )
+function wsasm_resolve_labels_elto ( context, ret, elto )
 {
-         var elto  = null ;
          var value = 0 ;
          var arr_encoded = null ;
-         var candidate_old = null ;
-         var candidate     = null ;
 
-         // compute address of labels (with current object)...
-         ret = wsasm_compute_labels(context, ret, 0) ;
-	 if (ret.error != null) {
-	     return ret;
-	 }
+         // ...review the pending labels (forth and back)
+         for (let j=0; j<elto.pending.length; j++)
+         {
+              ret = wsasm_get_label_value(context, ret, elto, elto.pending[j].label) ;
+	      if (ret.error != null) {
+	          return ret;
+	      }
+
+              // to remember: value is binary as string at this point of code
+              value = ret.labels_valbin[elto.pending[j].label] ;
+
+              // address-abs vs address-rel
+              if (elto.pending[j].rel)
+              {
+                  value = parseInt(value, 2) ;
+                  value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
+
+                  // 1: bytes, 4: word (mips-32), 2: half(risc-v)
+                  value = value / context.options.relative_offset_mult ;
+
+                  if (value < 0)
+                  {
+                      value = (value >>> 0).toString(2);
+                      value = "1" + value.replace(/^[1]+/g, "");
+                      value = value.padStart(elto.pending[j].n_bits, '1') ;
+                  }
+                  else
+                  {
+                      value = value.toString(2) ;
+                  }
+              }
+
+              // instruction-field
+              if ("field-instruction" == elto.pending[j].type)
+              {
+                  elto.value.signature_size_arr[elto.pending[j].field_j + 1] = value.length ;
+                  elto.value.signature_size_str = elto.value.signature_size_arr.join(' ') ;
+
+                  // if label.size doesn't fit the field.n_bits, then try another alternative
+                  if (value.length > elto.pending[j].n_bits)
+                  {
+                      // Resetting pending elements in this instruction (encode_instruction will populate it again)...
+                      elto.pending = [] ;
+
+                      // Find candidate from firm_reference and fill initial binary based on it...
+                      ret = wsasm_find_candidate_and_encode(context, ret, elto) ;
+		      if (ret.error != null) {
+		          return ret ;
+		      }
+
+                      elto = elto.firm_reference[elto.firm_reference_index] ;
+                      ret.compute_resolve_pseudo = true ;
+                  }
+              }
+
+              // checks if value fits in the n_bits at the end...
+              if (value.length > elto.pending[j].n_bits)
+              {
+	          return wsasm_eltoError(context, elto,
+                                         "'" + elto.pending[j].label + "'" +
+                                         i18n_get_TagFor('compiler', 'NEEDS') +
+                                         value.length +
+                                         i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
+                                         elto.pending[j].n_bits + " " +
+                                         i18n_get_TagFor('compiler', 'BITS')) ;
+              }
+
+              // update elto.binary
+              value = value.padStart(elto.pending[j].n_bits, '0') ;
+              arr_encoded = elto.binary.split('') ;
+              wsasm_encode_field(arr_encoded, value, elto.pending[j].start_bit, elto.pending[j].stop_bit) ;
+              elto.binary = arr_encoded.join('') ;
+
+              // update elto.pending[j].value (binary) and source_bin (integer)
+              elto.pending[j].value = value ;
+
+              var s = elto.source.split(' ') ;
+                value = value.padStart(WORD_LENGTH, value[0]) ;
+                value = parseInt(value, 2) >> 0 ;
+              s[elto.pending[j].field_j + 1] = value ;
+              elto.source_bin = s.join(' ') ;
+
+              // data-field -> update elto.value (is not an object as inst-field)
+              if ("field-data" == elto.pending[j].type) {
+                  elto.value = elto.binary ;
+              }
+         }
+
+         return ret ;
+}
+
+function wsasm_resolve_labels ( context, ret )
+{
+         var elto = null ;
 
          // for all object elements...
          for (let i=0; i<ret.obj.length; i++)
@@ -1603,121 +1726,10 @@ function wsasm_resolve_labels ( context, ret )
               elto = ret.obj[i] ;
 
               // ...review the pending labels (forth and back)
-              for (let j=0; j<elto.pending.length; j++)
-              {
-                  ret = wsasm_get_label_value(context, ret, elto, elto.pending[j].label) ;
-	          if (ret.error != null) {
-	              return ret;
-	          }
-
-                  // to remember: value is binary as string at this point of code
-                  value = ret.labels_valbin[elto.pending[j].label] ;
-
-                  // address-abs vs address-rel
-                  if (elto.pending[j].rel)
-                  {
-                      value = parseInt(value, 2) ;
-                      value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
-
-                      // 1: bytes, 4: word (mips-32), 2: half(risc-v)
-                      value = value / context.options.relative_offset_mult ;
-
-                      if (value < 0)
-                      {
-                          value = (value >>> 0).toString(2);
-                          value = "1" + value.replace(/^[1]+/g, "");
-                          value = value.padStart(elto.pending[j].n_bits, '1') ;
-                      }
-                      else
-                      {
-                          value = value.toString(2) ;
-                      }
-                  }
-
-                  // instruction-field
-                  if ("field-instruction" == elto.pending[j].type)
-                  {
-                      candidate_old = elto.firm_reference[elto.firm_reference_index] ;
-                      elto.value.signature_size_arr[elto.pending[j].field_j + 1] = value.length ;
-                      elto.value.signature_size_str = elto.value.signature_size_arr.join(' ') ;
-
-                      // if label.size doesn't fit the field.n_bits,
-                      // try (at least) another one... <- TODO: try all possibilities with while(..|no more)
-                      if (value.length > elto.pending[j].n_bits)
-                      {
-                          // Resetting pending elements in this instruction (encode_instruction will populate it again)...
-                          elto.pending = [] ;
-
-                          // Find candidate from firm_reference and fill initial binary based on it...
-                          ret = wsasm_find_candidate_and_encode(context, ret, elto) ;
-		          if (ret.error != null) {
-		              return ret ;
-		          }
-
-                          candidate = elto.firm_reference[elto.firm_reference_index] ;
-
-                          // RE-compute pseudo-instructions, in case we replace current element with a pseudoinstruction...
-                          if (candidate.isPseudoinstruction)
-                          {
-		              ret = wsasm_resolve_pseudo(context, ret) ;
-		              if (ret.error != null) {
-		                  return ret;
-		              }
-                          }
-
-		          // RE-compute address of labels (from current element) in case following labels becomes moved...
-                          if (candidate.nwords != candidate_old.nwords)
-                          {
-		              ret = wsasm_compute_labels(context, ret, i) ;
-		              if (ret.error != null) {
-		                  return ret;
-		              }
-                          }
-                      }
-                  }
-
-                  // checks if value fits in the n_bits at the end...
-                  if (value.length > elto.pending[j].n_bits)
-                  {
-	              return wsasm_eltoError(context, elto,
-                                             "'" + elto.pending[j].label + "'" +
-                                             i18n_get_TagFor('compiler', 'NEEDS') +
-                                             value.length +
-                                             i18n_get_TagFor('compiler', 'SPACE FOR # BITS') +
-                                             elto.pending[j].n_bits + " " +
-                                             i18n_get_TagFor('compiler', 'BITS')) ;
-                  }
-
-                  // update elto.binary
-                  value = value.padStart(elto.pending[j].n_bits, '0') ;
-                  arr_encoded = elto.binary.split('') ;
-                  wsasm_encode_field(arr_encoded, value, elto.pending[j].start_bit, elto.pending[j].stop_bit) ;
-                  elto.binary = arr_encoded.join('') ;
-
-                  // update elto.pending[j].value (binary) and source_bin (integer)
-                  elto.pending[j].value = value ;
-
-                  var s = elto.source.split(' ') ;
-                    value = value.padStart(WORD_LENGTH, value[0]) ;
-                    value = parseInt(value, 2) >> 0 ;
-                  s[elto.pending[j].field_j + 1] = value ;
-                  elto.source_bin = s.join(' ') ;
-
-                  // data-field -> update elto.value (is not an object as inst-field)
-                  if ("field-data" == elto.pending[j].type) {
-                      elto.value = elto.binary ;
-                  }
-              }
-         }
-
-         // build reverse lookup hash labels (hash labels_asm -> key)
-         for (var key in ret.labels_asm) {
-              ret.hash_labels_asm_rev[ret.labels_asm[key]] = key ;
-         }
-
-         // build reverse lookup hash segments (hash segname -> properties)
-         for (var skey in ret.seg) {
-              ret.hash_seg_rev.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
+              ret = wsasm_resolve_labels_elto(context, ret, elto) ;
+	      if (ret.error != null) {
+	          return ret;
+	      }
          }
 
          return ret ;
@@ -1774,17 +1786,39 @@ function wsasm_src2obj ( context )
 	       return ret;
 	   }
 
-           // pass 2: replace pseudo-instructions
-           ret = wsasm_resolve_pseudo(context, ret) ;
-	   if (ret.error != null) {
-	       return ret;
-	   }
+           do
+           {
+                ret.compute_resolve_pseudo = false ;
 
-	   // pass 3: resolve all labels (translate into addresses)
-           ret = wsasm_resolve_labels(context, ret) ;
-	   if (ret.error != null) {
-	       return ret;
-	   }
+                // pass 2: compute address of labels (with current object)...
+                ret = wsasm_compute_labels(context, ret, 0) ;
+	        if (ret.error != null) {
+	            return ret;
+	        }
+
+	        // pass 3: resolve labels (translate into addresses, with current object)
+                ret = wsasm_resolve_labels(context, ret) ;
+	        if (ret.error != null) {
+	            return ret;
+	        }
+
+                // pass 4: replace pseudo-instructions with resolved labels
+                ret = wsasm_resolve_pseudo(context, ret) ;
+	        if (ret.error != null) {
+	            return ret;
+	        }
+
+           } while (ret.compute_resolve_pseudo) ;
+
+           // build reverse lookup hash labels (hash labels_asm -> key)
+           for (var key in ret.labels_asm) {
+                ret.hash_labels_asm_rev[ret.labels_asm[key]] = key ;
+           }
+
+           // build reverse lookup hash segments (hash segname -> properties)
+           for (var skey in ret.seg) {
+                ret.hash_seg_rev.push({ 'begin': parseInt(ret.seg[skey].begin), 'name': skey }) ;
+           }
 
            // check if main or kmain in assembly code
            if (ret.text_found)
