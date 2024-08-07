@@ -636,7 +636,7 @@ lhu rd offset(rs1) {
                         w_value2 = w_value2 & 0x000000FF ;
                     b_value = (b_value & 0x000000FF) | (w_value2 << 8) ;
                 }
-                // unsigned 
+                // unsigned
                 b_value = b_value & 0x0000FFFF ;
                 // load value into the register file
                 simcore_native_set_value("BR", rd, b_value) ;
@@ -1293,7 +1293,7 @@ and reg1 reg2 reg3 {
             }
 }
 
-#  FENCE pred,succ         Fence         
+#  FENCE pred,succ         Fence        
 fence pred succ {
             co=111111,
             nwords=1,
@@ -1305,7 +1305,7 @@ fence pred succ {
             }
 }
 
-#  FENCE.I                 Fence Instruction         
+#  FENCE.I                 Fence Instruction        
 fence.i {
             co=111111,
             nwords=1,
@@ -1776,150 +1776,155 @@ registers
 
 pseudoinstructions
 {
-        # nop        addi zero,zero,0        No operation
-        nop
-        {
-            addi zero zero 0
-        }
+    # nop        addi zero,zero,0        No operation
+    nop
+    {
+        addi zero zero 0
+    }
 
-        # li rd, expression        (several expansions)        Load immediate
-        li rd=reg, expression=imm
-        {
-            lui  rd,     sel(31,12,expression)
-            addu rd, rd, sel(11,0,expression)
-        }
+    # li rd, expression        (several expansions)        Load immediate
+    li rd=reg, expression=imm
+    {
+        addi rd x0 expression
+    }
 
-        # la rd, label        (several expansions)        Load address
-        la rd=reg, label=imm
-        {
-            lui  rd,     sel(31,12,label)
-            addu rd, rd, sel(11,0,label)
-        }
+    li rd=reg, expression=imm
+    {
+        lui  rd,     sel(31,12,expression)
+        addu rd, rd, sel(11,0,expression)
+    }
 
-        # mv rd, rs1        addi rd, rs, 0        Copy register
-        mv rd=reg, rs=reg
-        {
-            addi rd, rs, 0
-        }
+    # la rd, label        (several expansions)        Load address
+    la rd=reg, label=imm
+    {
+        lui  rd,     sel(31,12,label)
+        addu rd, rd, sel(11,0,label)
+    }
 
-        # not rd, rs1        xori rd, rs, -1        One’s complement
-        not rd=reg, rs=reg
-        {
-            xori rd, rs, -1
-        }
+    # mv rd, rs1        addi rd, rs, 0        Copy register
+    mv rd=reg, rs=reg
+    {
+        addi rd, rs, 0
+    }
 
-        # neg rd, rs1        sub rd, x0, rs        Two’s complement
-        neg rd=reg, rs=reg
-        {
-            sub rd, zero, rs
-        }
+    # not rd, rs1        xori rd, rs, -1        One’s complement
+    not rd=reg, rs=reg
+    {
+        xori rd, rs, -1
+    }
 
-        # seqz rd, rs1        sltiu rd, rs, 1        Set if = zero
-        seqz rd=reg, rs1=reg
-        {
-            sltiu rd, rs, 1
-        }
+    # neg rd, rs1        sub rd, x0, rs        Two’s complement
+    neg rd=reg, rs=reg
+    {
+        sub rd, zero, rs
+    }
 
-        # snez rd, rs1        sltu rd, x0, rs        Set if ≠ zero
-        snez rd=reg, rs1=reg
-        {
-            sltu rd, x0, rs
-        }
+    # seqz rd, rs1        sltiu rd, rs, 1        Set if = zero
+    seqz rd=reg, rs1=reg
+    {
+        sltiu rd, rs, 1
+    }
 
-        # sltz rd, rs1        slt rd, rs, x0        Set if < zero
-        sltz rd=reg, rs1=reg
-        {
-            slt rd, rs, x0
-        }
+    # snez rd, rs1        sltu rd, x0, rs        Set if ≠ zero
+    snez rd=reg, rs1=reg
+    {
+        sltu rd, x0, rs
+    }
 
-        # sgtz rd, rs1        slt rd, x0, rs        Set if > zero
-        sgtz rd=reg, rs1=reg
-        {
-            slt rd, x0, rs
-        }
+    # sltz rd, rs1        slt rd, rs, x0        Set if < zero
+    sltz rd=reg, rs1=reg
+    {
+        slt rd, rs, x0
+    }
 
-        # beqz rs1, offset        beq rs, x0, offset        Branch if = zero
-        beqz rs=reg, offset=imm
-        {
-            beq rs, zero, offset
-        }
+    # sgtz rd, rs1        slt rd, x0, rs        Set if > zero
+    sgtz rd=reg, rs1=reg
+    {
+        slt rd, x0, rs
+    }
 
-        # bnez rs1, offset        bne rs, x0, offset        Branch if ≠ zero
-        bnez rs=reg, offset=imm
-        {
-            bne rs, zero, offset
-        }
+    # beqz rs1, offset        beq rs, x0, offset        Branch if = zero
+    beqz rs=reg, offset=imm
+    {
+        beq rs, zero, offset
+    }
 
-        # blez rs1, offset        bge x0, rs, offset        Branch if ≤ zero
-        blez rs=reg, offset=imm
-        {
-            bge zero, rs, offset
-        }
+    # bnez rs1, offset        bne rs, x0, offset        Branch if ≠ zero
+    bnez rs=reg, offset=imm
+    {
+        bne rs, zero, offset
+    }
 
-        # bgez rs1, offset        bge rs, x0, offset        Branch if ≥ zero
-        bgez rs=reg, offset=imm
-        {
-            bge rs, zero, offset
-        }
+    # blez rs1, offset        bge x0, rs, offset        Branch if ≤ zero
+    blez rs=reg, offset=imm
+    {
+        bge zero, rs, offset
+    }
 
-        # bltz rs1, offset        blt rs, x0, offset        Branch if < zero
-        bltz rs=reg, offset=imm
-        {
-            blt rs, zero, offset
-        }
+    # bgez rs1, offset        bge rs, x0, offset        Branch if ≥ zero
+    bgez rs=reg, offset=imm
+    {
+        bge rs, zero, offset
+    }
 
-        # bgtz rs1, offset        blt x0, rs, offset        Branch if > zero
-        bgtz rs=reg, offset=imm
-        {
-            blt zero, rs, offset
-        }
+    # bltz rs1, offset        blt rs, x0, offset        Branch if < zero
+    bltz rs=reg, offset=imm
+    {
+        blt rs, zero, offset
+    }
 
-        # bgt rs, rt, offset        blt rt, rs, offset        Branch if >
-        bgt rs=reg, rt=reg, offset=imm
-        {
-            blt rt, rs, offset
-        }
+    # bgtz rs1, offset        blt x0, rs, offset        Branch if > zero
+    bgtz rs=reg, offset=imm
+    {
+        blt zero, rs, offset
+    }
 
-        # ble rs, rt, offset        bge rt, rs, offset        Branch if ≤
-        ble rs=reg, rt=reg, offset=imm
-        {
-            bge rt, rs, offset
-        }
+    # bgt rs, rt, offset        blt rt, rs, offset        Branch if >
+    bgt rs=reg, rt=reg, offset=imm
+    {
+        blt rt, rs, offset
+    }
 
-        # bgtu rs, rt, offset        bltu rt, rs, offset        Branch if >, unsigned
-        bgtu rs=reg, rt=reg, offset=imm
-        {
-            bltu rt, rs, offset
-        }
+    # ble rs, rt, offset        bge rt, rs, offset        Branch if ≤
+    ble rs=reg, rt=reg, offset=imm
+    {
+        bge rt, rs, offset
+    }
 
-        # bleu rs, rt, offset        bltu rt, rs, offset        Branch if ≤, unsigned
-        bleu rs=reg, rt=reg, offset=imm
-        {
-            bgeu rt, rs, offset
-        }
+    # bgtu rs, rt, offset        bltu rt, rs, offset        Branch if >, unsigned
+    bgtu rs=reg, rt=reg, offset=imm
+    {
+        bltu rt, rs, offset
+    }
 
-        # j offset        jal x0, offset        Jump
-        j offset=imm
-        {
-            jal zero, offset
-        }
+    # bleu rs, rt, offset        bltu rt, rs, offset        Branch if ≤, unsigned
+    bleu rs=reg, rt=reg, offset=imm
+    {
+        bgeu rt, rs, offset
+    }
 
-        # jal offset        jal x1, offset        Jump register
-        #jal offset=imm
-        #{
-        #    jal ra, offset
-        #}
+    # j offset        jal x0, offset        Jump
+    j offset=imm
+    {
+        jal zero, offset
+    }
 
-        # jr rs                jalr x0, rs, 0        Jump register
-        jr rs=reg
-        {
-            jalr zero, rs, 0
-        }
+    # jal offset        jal x1, offset        Jump register
+    #jal offset=imm
+    #{
+    #    jal ra, offset
+    #}
 
-        # ret        jalr x0, x1, 0        Return from subroutine
-        ret
-        {
-            jalr zero, ra, 0
-        }
+    # jr rs                jalr x0, rs, 0        Jump register
+    jr rs=reg
+    {
+        jalr zero, rs, 0
+    }
+
+    # ret        jalr x0, x1, 0        Return from subroutine
+    ret
+    {
+        jalr zero, ra, 0
+    }
 }
 
