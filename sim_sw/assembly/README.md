@@ -193,25 +193,28 @@ sequenceDiagram
              * wsasm_src2obj_text_getDistance (elto_firm_reference_i, elto_value)
            * **wsasm_encode_instruction (context, ret, elto, candidate)**: encode in binary (string) an instruction.
              * wsasm_encode_field (arr_encoded, value, start_bit, stop_bit)
-     + **wsasm_resolve_pseudo (context, ret)** <br>
-       pass 2: replace pseudo-instructions
-         * wsasm_src2obj_text_elto_fields (context, ret, elto, pseudo_context)
-         * wsasm_find_candidate_and_encode (context, ret, elto)
+     + **wsasm_compute_labels (context, ret, start_at_obj_i)** <br>
+       pass 2: compute value of all labels
      + **wsasm_resolve_labels (context, ret)** <br>
        pass 3: check that all used labels are defined in the text
-         * wsasm_compute_labels  (context, ret, start_at_obj_i)
+         * wsasm_resolve_labels_elto ( context, ret, elto )
          * wsasm_get_label_value (context, ret, elto, label)
+     + **wsasm_resolve_pseudo (context, ret)** <br>
+       pass 4: replace pseudo-instructions
+         * wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candidate )
 
 
 ```mermaid
 mindmap
   root["wsasm_src2obj(context)"]
+    P4["wsasm_resolve_pseudo (context, ret)"]
+      C41)"pass 4:<br> replace pseudo-instructions"(
+      P41["wsasm_try_resolve_pseudo  (context, ret, pseudo_elto, pseudo_elto_candidate)"]
     P3["wsasm_resolve_labels (context, ret)"]
-      C31)"pass 3:<br> check that all used labels are defined in the text"(
-      P31["wsasm_compute_labels  (context, ret, start_at_obj_i)"]
-      P32["wsasm_get_label_value (context, ret, elto, label)"]
-    P2["wsasm_resolve_pseudo (context, ret)"]
-      C21)"pass 2:<br> replace pseudo-instructions"(
+      C31)"pass 3:<br> replace all labels with the associated value"(
+      P42["wsasm_get_label_value (context, ret, elto, label)"]
+    P2["wsasm_compute_labels (context, ret, start_at_obj_i)"]
+      C21)"pass 2:<br> compute value of all labels"(
     P1["wsasm_src2obj_helper (context, ret)"]
       C11)"pass 1:<br> compile assembly"(
       P11["wsasm_src2obj_data (context, ret)"]
@@ -294,10 +297,12 @@ Initial version is ready.
 
 The future works includes:
  1. More checks of "assembler" against asm_2023
- 2. Review existing algorithms:
-    * The algorithm to find the instruction/pseudoinstruction that better fits the values.
-    * The algorithm for .align follows (and it is OK):
-      https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
-
-
+ 2. The algorithm for .align follows (and it is OK):
+    https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
+    But better review if other alternatives might be available.
+ 3. Review the algorithm to find the instruction/pseudoinstruction that better fits the values, and dependencies:
+    * supported: pseudo-instructions of instructions<br>
+      pending: pseudo inside pseudo definition
+    * supported: multiple instructions or multiple pseudo-instructions<br>
+      pending: avoid mixing of instructions and pseudo-instructions
 
