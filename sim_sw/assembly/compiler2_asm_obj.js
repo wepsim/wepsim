@@ -857,6 +857,7 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 		 return ret ;
            }
 
+           // if atom is nor reg neither immediate -> label (it is an address)
 	   if (parentheses) {
 	       elto.value.fields.push('(' + atom + ')') ;
 	       elto.value.signature_type_arr.push('(address)') ;
@@ -912,9 +913,12 @@ function wsasm_src2obj_text_ops_getAtom ( context, pseudo_context )
 function wsasm_src2obj_text_elto_field_sel ( context, ret, elto, pseudo_context )
 {
 	  var opx    = '' ;
-	  var sel    = { start:0, stop: 0, label:'' } ;
+	  var sel    = { } ;
 	  var ret2   = { error:null, atom: '' } ;
 	  var valbin = '0' ;
+
+          // initial sel value (selector by default)
+	  sel = { start:0, stop: 0, label:'' } ;
 
 	  // sel*(*31 ,  12 ,  label )
 	  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
@@ -981,13 +985,104 @@ function wsasm_src2obj_text_elto_field_sel ( context, ret, elto, pseudo_context 
 	      ret2.atom = sel.label + "[" + sel.start + ":" + sel.stop + "]" ;
 	  }
 
-	  // { error:null, atom: '' } ;
+	  // { error:null, atom: '...' } ;
+	  return ret2 ;
+}
+
+function wsasm_src2obj_text_elto_field_abs ( context, ret, elto, pseudo_context, sel )
+{
+	  var opx    = '' ;
+	  var ret2   = { error:null, atom: '' } ;
+	  var valbin = '0' ;
+
+	  // %lo*(* label )
+	  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  if ('(' != opx) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+	  }
+
+	  // %lo ( *label* )
+	  sel.label = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+
+	  // %lo ( label*)*
+	  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  if (')' != opx) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+	  }
+
+	  // check if sel.label is number or tag...
+	  a = dt_get_imm_value(sel.label) ;
+	  if (a.isDecimal)
+	  {
+	      valbin = wsasm_get_sel_valbin(sel.label, sel.start, sel.stop) ;
+	      ret2.atom   = dt_binary2format(valbin, a.format) ;
+	  }
+	  else
+	  {
+	      if (wsasm_is_ValidTag(sel.label) == false) {
+		  return wsasm_eltoError(context, elto,
+					 i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ": '" + sel.label + "'") ;
+	      }
+
+	      // if label then define '%lo(...)' as a new 'label'... ;-)
+	      ret2.atom = sel.label + "[" + sel.start + ":" + sel.stop + "]" ;
+	  }
+
+	  // { error:null, atom: '...' } ;
+	  return ret2 ;
+}
+
+function wsasm_src2obj_text_elto_field_pcrel ( context, ret, elto, pseudo_context, sel )
+{
+	  var opx    = '' ;
+	  var valbin = '0' ;
+
+	  // %pcrel_lo*(* label )
+	  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  if ('(' != opx) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+	  }
+
+	  // %pcrel_lo ( *label* )
+	  sel.label = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+
+	  // %pcrel_lo ( label*)*
+	  opx = wsasm_src2obj_text_ops_getAtom(context, pseudo_context) ;
+	  if (')' != opx) {
+	      return wsasm_eltoError(context, elto,
+				     i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+	  }
+
+	  // check if sel.label is number or tag...
+	  a = dt_get_imm_value(sel.label) ;
+	  if (a.isDecimal)
+	  {
+	      valbin = wsasm_get_sel_valbin(sel.label, sel.start, sel.stop) ;
+	      ret2.atom   = dt_binary2format(valbin, a.format) ;
+	  }
+	  else
+	  {
+	      if (wsasm_is_ValidTag(sel.label) == false) {
+		  return wsasm_eltoError(context, elto,
+					 i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ": '" + sel.label + "'") ;
+	      }
+
+	      // if label then define '%pcrel_hi/lo(...)' as a new 'label'... ;-)
+	      ret2.atom = sel.label + "[" + sel.start + ":" + sel.stop + "]" ;
+	  }
+
+	  // { error:null, atom: '...' } ;
 	  return ret2 ;
 }
 
 function wsasm_src2obj_text_elto_fields ( context, ret, elto, pseudo_context )
 {
            var ret1 = null ;
+           var ret2 = null ;
+           var sel  = {} ;
 	   var opx  = '' ;
            var atom = '' ;
            var par  = false ;
@@ -1008,11 +1103,54 @@ function wsasm_src2obj_text_elto_fields ( context, ret, elto, pseudo_context )
               // *sel*(31 ,  12 ,  label )
 	      if ('sel' == opx)
               {
-		  var ret2 = wsasm_src2obj_text_elto_field_sel(context, ret, elto, pseudo_context) ;
+		  ret2 = wsasm_src2obj_text_elto_field_sel(context, ret, elto, pseudo_context) ;
 		  if (ret2.error != null) {
 		      return ret2 ;
 		  }
-
+		  atom = ret2.atom ;
+              }
+              // *%hi*( label )
+	      else if ('%hi' == opx)
+              {
+		  // %hi
+		  sel  = { start:12, stop: 31, label:'' } ;
+		  ret2 = wsasm_src2obj_text_elto_field_abs(context, ret, elto, pseudo_context, sel) ;
+		  if (ret2.error != null) {
+		      return ret2 ;
+		  }
+		  atom = ret2.atom ;
+              }
+              // *%lo*( label )
+	      else if ('%lo' == opx)
+              {
+		  // %lo
+		  sel  = { start:0, stop: 11, label:'' } ;
+		  ret2 = wsasm_src2obj_text_elto_field_abs(context, ret, elto, pseudo_context, sel) ;
+		  if (ret2.error != null) {
+		      return ret2 ;
+		  }
+		  atom = ret2.atom ;
+              }
+              // *%pcrel_hi*( label )
+	      else if ('%pcrel_hi' == opx)
+              {
+		  // %hi
+		  sel  = { start:12, stop: 31, label:'' } ;
+		  ret2 = wsasm_src2obj_text_elto_field_pcrel(context, ret, elto, pseudo_context, sel) ;
+		  if (ret2.error != null) {
+		      return ret2 ;
+		  }
+		  atom = ret2.atom ;
+              }
+              // *%pcrel_lo*( label )
+	      else if ('%pcrel_lo' == opx)
+              {
+		  // %lo
+		  sel  = { start:0, stop: 11, label:'' } ;
+		  ret2 = wsasm_src2obj_text_elto_field_pcrel(context, ret, elto, pseudo_context, sel) ;
+		  if (ret2.error != null) {
+		      return ret2 ;
+		  }
 		  atom = ret2.atom ;
               }
               // *(*x0)
