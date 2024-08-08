@@ -269,10 +269,12 @@ function wsasm_obj2mem  ( ret )
                                                                [], ret.obj[i].comments) ;
                     }
               }
-              else if ('binary' == ret.obj[i].datatype)
+              else if ("binary" == ret.obj[i].datatype)
               {
                     valuebin = ret.obj[i].binary ;
                     n_bytes  = ret.obj[i].binary.length / BYTE_LENGTH ;
+
+                    // next: fill byte by byte
                     for (let j=0; j<n_bytes; j++)
                     {
 			 wsasm_writememory_and_accumulate_part_endian(ret.mp, gen, ret.obj[i], valuebin, n_bytes, j) ;
