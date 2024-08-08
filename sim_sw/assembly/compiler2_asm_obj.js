@@ -1037,6 +1037,7 @@ function wsasm_src2obj_text_elto_field_abs ( context, ret, elto, pseudo_context,
 function wsasm_src2obj_text_elto_field_pcrel ( context, ret, elto, pseudo_context, sel )
 {
 	  var opx    = '' ;
+	  var ret2   = { error:null, atom: '' } ;
 	  var valbin = '0' ;
 
 	  // %pcrel_lo*(* label )
@@ -1071,7 +1072,7 @@ function wsasm_src2obj_text_elto_field_pcrel ( context, ret, elto, pseudo_contex
 	      }
 
 	      // if label then define '%pcrel_hi/lo(...)' as a new 'label'... ;-)
-	      ret2.atom = sel.label + "[" + sel.start + ":" + sel.stop + "]" ;
+	      ret2.atom = sel.label + "[" + sel.start + ":" + sel.stop + "]_pc" ;
 	  }
 
 	  // { error:null, atom: '...' } ;
@@ -1731,18 +1732,20 @@ function wsasm_get_label_value ( context, ret, elto, label )
 	 }
 
          // try to detect if value is 'lz[xx:yy]'...
-         var value_arr = label.split(/^(.*)\[(\d+):(\d+)\]/s) ;
+         var value_arr = label.split(/^(.*)\[(\d+):(\d+)\](.*)/s) ;
 	 if (value_arr.length < 5) {
 	     return wsasm_eltoError(context, elto,
 				    i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ": '" + label + "'") ;
 	 }
 
-         // Example:
-         // ['', 'w1', '12', '31', '']
-         //  0    1     2     3    4
+         // Examples:
+         // ['', 'w1', '12', '31', '',    '']
+         // ['', 'w1', '12', '31', '_pc', '']
+         //  0    1     2     3     4     5
          var sel_stop  = parseInt(value_arr[2]) ;
          var sel_start = parseInt(value_arr[3]) ;
          var sel_label = value_arr[1] ;
+         var sel_pcrel = value_arr[4] ;
 
          // if label not found -> return error
          value = ret.labels_asm[sel_label] ;
@@ -1750,6 +1753,17 @@ function wsasm_get_label_value ( context, ret, elto, label )
 	     return wsasm_eltoError(context, elto,
 				    i18n_get_TagFor('compiler', 'LABEL NOT DEFINED') + ": '" + sel_label + "'") ;
 	 }
+
+         // if pc-relative, compute the associated relative value...
+         if (sel_pcrel != '')
+         {
+             value      = parseInt(value) - (elto.seg_ptr + 4) ;
+          // TODO: value = value / rel_mult ???
+             var tmp_hi = (value >>> 12) + ((value & 0x00000400) >> 11) ;
+             var tmp_lo =                    value & 0x00000FFF ;
+             value      = (tmp_hi << 12) | tmp_lo ;
+             value      = '0x' + (value >>> 0).toString(16) ;
+         }
 
 	 // compute selection...
          valbin = wsasm_get_sel_valbin(value, sel_start, sel_stop) ;
@@ -1924,9 +1938,11 @@ function wsasm_src2obj ( context )
 	       return ret;
 	   }
 
+           var r = 0 ;
            do
            {
                 ret.compute_resolve_pseudo = false ;
+                r = r + 1;
 
                 // pass 2: compute address of labels (with current object)...
                 ret = wsasm_compute_labels(context, ret, 0) ;
@@ -1946,7 +1962,14 @@ function wsasm_src2obj ( context )
 	            return ret;
 	        }
 
-           } while (ret.compute_resolve_pseudo) ;
+           } while ( (ret.compute_resolve_pseudo) && (r<20) );
+
+           // checks if r==20 -> it might be a circular definition
+           if (20 == r) {
+	       return wsasm_eltoError(context, elto,
+                                      i18n_get_TagFor('compiler', 'CHECK MICROCODE') +
+                                      " because it might be a circular definition: pseudo <-> pseudo") ;
+           }
 
            // build reverse lookup hash labels (hash labels_asm -> key)
            for (var key in ret.labels_asm) {
