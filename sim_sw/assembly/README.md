@@ -1,16 +1,16 @@
 
 
-# asm-ng: WepSIM Assembler (Next-Generation)
+# WepSIM Assembler NG (Next-Generation)
 
 ## Table of contents
 
-1.  [Public API](#asmng-done)
+1. [Public API](#asmng-done)
 2. Internal architecture:
-     2.1. [Prepare to compile](#asmng-prepare0)
-     2.2. [Compile to JSON object](#asmng-src2obj)
-     2.3. [Load JSON object in memory](#asmng-obj2bin)
-     2.4. [Elements in the JSON object](#asmng-eltoinobj)
-3. [Current state](#asmng-todo)
+   1. [Prepare to compile](#asmng-prepare0)
+   2. [Compile to JSON object](#asmng-src2obj)
+   3. [Load JSON object in memory](#asmng-obj2bin)
+   4. [Elements in the JSON object](#asmng-eltoinobj)
+4. [Current state](#asmng-todo)
 
 
 <a name="asmng-done"/>
@@ -181,9 +181,8 @@ sequenceDiagram
     * **ret = wsasm_src2obj(context) ;**
   * Description:
     * Compile assembly to JSON object
-  * Auxiliary functions compile assembly to JSON object in three main steps:
-     + **wsasm_src2obj_helper (context, ret)** <br>
-       pass 1: compile assembly (read segments and build the initial JSON object)
+  * Auxiliary functions compile assembly to JSON object in four main steps:
+     + [pass 1] **wsasm_src2obj_helper (context, ret)**: read segments and build the initial JSON object
          * **wsasm_src2obj_data (context, ret)**: read the .data segment and build the associated JSON object fragment.
          * **wsasm_src2obj_text (context, ret)**: read the .text segment and build the associated JSON object fragment.
            * wsasm_src2obj_text_elto_fields (context, ret, elto, pseudo_context)
@@ -193,14 +192,11 @@ sequenceDiagram
              * wsasm_src2obj_text_getDistance (elto_firm_reference_i, elto_value)
            * **wsasm_encode_instruction (context, ret, elto, candidate)**: encode in binary (string) an instruction.
              * wsasm_encode_field (arr_encoded, value, start_bit, stop_bit)
-     + **wsasm_compute_labels (context, ret, start_at_obj_i)** <br>
-       pass 2: compute value of all labels
-     + **wsasm_resolve_labels (context, ret)** <br>
-       pass 3: check that all used labels are defined in the text
+     + [pass 2] **wsasm_compute_labels (context, ret, start_at_obj_i)**: compute value of all labels
+     + [pass 3] **wsasm_resolve_labels (context, ret, start_at_obj_i)**: check and replace all used labels
          * wsasm_resolve_labels_elto ( context, ret, elto )
          * wsasm_get_label_value (context, ret, elto, label)
-     + **wsasm_resolve_pseudo (context, ret)** <br>
-       pass 4: replace pseudo-instructions
+     + [pass 4] **wsasm_resolve_pseudo (context, ret)**: replace pseudo-instructions
          * wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candidate )
 
 
@@ -291,18 +287,18 @@ sequenceDiagram
 
 <a name="asmng-todo"/>
 
-## 3) Current State
+## 3) Current State (07/2024)
 
-Initial version is ready.
+The initial version is ready.
 
 The future works includes:
- 1. More checks of "assembler" against asm_2023
- 2. The algorithm for .align follows (and it is OK):
-    https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
-    But better review if other alternatives might be available.
+ 1. More test for the assembler API functions
+ 2. Review the .align algorithm:
+    * supported: https://stackoverflow.com/questions/19608845/understanding-assembly-mips-align-and-memory-addressing
+    * pending: try to find if other alternatives might be available.
  3. Review the algorithm to find the instruction/pseudoinstruction that better fits the values, and dependencies:
     * supported: pseudo-instructions of instructions<br>
-      pending: pseudo inside pseudo definition
+      pending: reviewing pseudo inside pseudo definition
     * supported: multiple instructions or multiple pseudo-instructions<br>
-      pending: avoid mixing of instructions and pseudo-instructions
+      pending: reviewing mixing of instructions and pseudo-instructions
 
