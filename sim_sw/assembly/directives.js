@@ -29,6 +29,7 @@ ws_directives = {
 		  ".ktext":     { name:".ktext",  kindof:"segment",  size:0, attrs:["text"]    },
 		  ".data":      { name:".data",   kindof:"segment",  size:0, attrs:["data"]    },
 		  ".text":      { name:".text",   kindof:"segment",  size:0, attrs:["text"]    },
+		  ".binary":    { name:".binary", kindof:"segment",  size:0, attrs:["binary"]  },
 
                   // datatypes
 		  ".byte":      { name:".byte",   kindof:"datatype", size:1, attrs:["numeric"] },

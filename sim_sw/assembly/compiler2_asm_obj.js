@@ -193,8 +193,9 @@ function wsasm_order2index_startstop ( start_bit, stop_bit )
 //             * wsasm_encode_field ( arr_encoded, value, start_bit, stop_bit )
 //           * wsasm_find_instr_candidates ( context, ret, elto )
 //             * wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
+//      * wsasm_src2obj_binary ( context, ret )
 //   * wsasm_compute_labels ( context, ret, start_at_obj_i )
-//   * wsasm_resolve_labels ( context, ret )
+//   * wsasm_resolve_labels ( context, ret, start_at_obj_i )
 //      * wsasm_resolve_labels_elto ( context, ret, elto )
 //      * wsasm_get_label_value ( context, ret, elto, label )
 //   * wsasm_resolve_pseudo ( context, ret )
@@ -1415,6 +1416,163 @@ function wsasm_src2obj_text ( context, ret )
            return ret ;
 }
 
+function wsasm_src2obj_binary ( context, ret )
+{
+	   var possible_tag   = "" ;
+           var possible_value = "" ;
+	   var possible_addr  = "" ;
+           var tag     = "" ;
+           var acc_cmt = "" ;
+           var elto      = null ;
+           var candidate = null ;
+           var oc_size   =  1 ;
+
+
+	   //
+	   //  *.binary* |  *.binary*
+	   //   .data    |    label1: 0x1000 0x12345678
+	   //
+
+           var seg_name = asm_getToken(context) ;
+           asm_nextToken(context) ;
+
+           elto = wsasm_new_objElto(null) ;
+           elto.seg_name = seg_name ;
+           elto.endian   = context.options.endian ;
+
+	   //
+	   //   .binary  |   .binary
+	   //  *.data*   |   *label1: 0x1000 0x12345678*
+	   //
+
+	   // Loop while token read is not a segment directive (.text/.data/...) or end_of_file is found
+	   while (
+                   (! wsasm_is_directive_segment(asm_getToken(context))) &&   // NOT .data/...
+                   (! wsasm_isEndOfFile(context))                             // NOT end-of-file
+                 )
+           {
+		   //
+		   //  * label1: *
+	           //  * label2: *  0x1000 0x12345678
+		   //
+
+                   acc_cmt = asm_getComments(context) ;
+                   asm_resetComments(context) ;
+
+                   // tagX
+		   possible_tag = asm_getToken(context) ;
+
+		   while (
+                           (possible_tag.endsWith(':')) &&  // It looks like a tag AND
+                           (! wsasm_isEndOfFile(context))  // NOT end-of-file
+                         )
+		   {
+                      // CHECK tag
+		      if ("TAG" != asm_getTokenType(context))
+                      {
+                          if ("" == possible_tag) {
+                              possible_tag = "[empty]" ;
+                          }
+
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'NO TAG, DIR OR INS') +
+                                               "'" + possible_tag + "'") ;
+		      }
+
+		      tag = possible_tag.substring(0, possible_tag.length-1);
+
+                      // CHECK valid tag
+   		      if (wsasm_is_ValidTag(tag) == false) {
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'INVALID TAG FORMAT') +
+                                               "'" + tag + "'") ;
+		      }
+		      if (context.firmware[tag]) {
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'TAG OR INSTRUCTION') +
+                                               "'" + tag + "'") ;
+		      }
+		      if (typeof ret.labels_asm[tag] != "undefined") {
+			  return asm_langError(context,
+			                       i18n_get_TagFor('compiler', 'REPEATED TAG') +
+                                               "'" + tag + "'") ;
+		      }
+
+		      // Store tag
+                      elto.labels.push(tag) ;
+		      ret.labels_asm[tag] = 0 ;
+
+		      // .<datatype> | tagX+1
+		      asm_nextToken(context) ;
+
+                      // tagX
+		      possible_tag = asm_getToken(context) ;
+		   }
+
+		   elto.associated_context = asm_getLabelContext(context) ;
+
+		   // check if end of file has been reached
+		   if (wsasm_isEndOfFile(context))
+                   {
+		        // ELTO: in case of ending with 'label:' but without instruction
+                        if (elto.labels.length > 0) {
+		            ret.obj.push(elto) ;
+                        }
+
+			break;
+                   }
+
+		   //
+		   //    label1:
+	           //    label2:   *0x1000* 0x12345678
+		   //
+
+	           possible_addr = asm_getToken(context) ;
+
+		   elto.value.instruction        = '*' ;
+		   elto.value.fields             = [] ;
+		   elto.value.signature_type_arr = [ '*' ] ;
+                   elto.firm_reference           = [] ;
+                   elto.elto_ptr                 = possible_addr ;
+
+		   //
+		   //    label1:
+	           //    label2:    0x1000 *0x12345678*
+		   //
+
+		   asm_nextToken(context) ;
+	           possible_value = asm_getToken(context) ;
+
+		   elto.datatype  = "binary" ;
+                   elto.byte_size = WORD_BYTES ;
+		   elto.value     = {} ;
+		   elto.binary    = parseInt(possible_value).toString(2) ;
+                   elto.binary    = elto.binary.padStart(WORD_BYTES*BYTE_LENGTH, '0') ;
+
+                   // oc_size
+                   oc_size = context.oc_size_default ;
+		   elto.value.signature_size_arr = [ oc_size ] ;
+
+                   // source
+                   elto.source     = '*' ;
+                   elto.source_alt = '*' ;
+                   elto.source_bin = elto.source ;
+
+		   elto.comments.push(acc_cmt) ;
+		   elto.track_source.push(elto.source) ;
+
+		   // ELTO: instruction + fields
+		   ret.obj.push(elto) ;
+		   elto = wsasm_new_objElto(elto) ; // new elto, same datatype
+
+                   // next "label: address value"...
+		   asm_nextToken(context) ;
+           }
+
+	   // Return ret
+           return ret ;
+}
+
 
 function wsasm_src2obj_helper ( context, ret )
 {
@@ -1452,6 +1610,16 @@ function wsasm_src2obj_helper ( context, ret )
 	       if ("text" == ret.seg[segname].kindof) {
 		   ret = wsasm_src2obj_text(context, ret);
 		   ret.text_found = true;
+	       }
+
+	       if (ret.error != null) {
+		   return ret;
+	       }
+
+	       // Compile .binary and check errors
+	       if ("binary" == ret.seg[segname].kindof) {
+		   ret = wsasm_src2obj_binary(context, ret);
+		   ret.text_found = false; // TIP: binary is opaque
 	       }
 
 	       if (ret.error != null) {
@@ -1595,18 +1763,18 @@ function wsasm_resolve_pseudo ( context, ret )
 	          if ( (null == ret2.error) && (ret2.some_pending) )
                   {
 			obj_backup = ret.obj ;
-			ret.obj = [...obj_backup] ; // TOCHECK: clone array (first level, then references to...)
+			ret.obj = [...obj_backup] ;
 			ret.obj.splice(i, 1, ...ret2.eltos) ;
 
 			// compute address of labels (with current object)...
-			ret3 = wsasm_compute_labels(context, ret, 0) ;
+			ret3 = wsasm_compute_labels(context, ret, i) ;
 			if (ret3.error != null) {
 			    ret.obj = obj_backup ;
 			    continue ;
 			}
 
 			// resolve labels (translate into addresses, with current object)
-			ret3 = wsasm_resolve_labels(context, ret) ;
+			ret3 = wsasm_resolve_labels(context, ret, i) ;
 			if (ret3.error != null) {
 			    ret.obj = obj_backup ;
 			    continue ;
@@ -1679,10 +1847,15 @@ function wsasm_compute_labels ( context, ret, start_at_obj_i )
               // get starting address of next elto
               elto_ptr = last_assigned[seg_name] ;
 
-              if ([ "", "instruction", "pseudoinstruction" ].includes(ret.obj[i].datatype) == false)
+              if ("binary" == ret.obj[i].datatype)
               {
-                  // align datatype to datatype_size in bytes (4 in multiple of 4, 2 in multiple of 2...)
+                  elto_ptr = parseInt(ret.obj[i].elto_ptr) ;
+              }
+              else if ([ "", "instruction", "pseudoinstruction" ].includes(ret.obj[i].datatype) == false)
+              {
                   var datatype_size = wsasm_get_datatype_size(ret.obj[i].datatype) ;
+
+                  // align datatype to datatype_size in bytes (4 in multiple of 4, 2 in multiple of 2...)
                   if (elto_ptr % datatype_size != 0) {
                       elto_ptr += datatype_size - (elto_ptr % datatype_size) ;
                   }
@@ -1757,12 +1930,24 @@ function wsasm_get_label_value ( context, ret, elto, label )
          // if pc-relative, compute the associated relative value...
          if (sel_pcrel != '')
          {
-             value      = parseInt(value) - (elto.seg_ptr + 4) ;
-          // TODO: value = value / rel_mult ???
-             var tmp_hi = (value >>> 12) + ((value & 0x00000400) >> 11) ;
-             var tmp_lo =                    value & 0x00000FFF ;
-             value      = (tmp_hi << 12) | tmp_lo ;
-             value      = '0x' + (value >>> 0).toString(16) ;
+             value = parseInt(value) ;
+             value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
+
+             var bit_index = sel_start ;
+             if (sel_stop < bit_index) {
+                 bit_index = sel_stop ;
+             }
+
+             // hi = offset[31:12] + offset[11]
+             // lo = offset[11:0]
+             var tmp_hi = (value >>> (bit_index - 1)) ;
+             var tmp_lo = value & 0x1 ;
+                 tmp_hi = (tmp_hi >>> 1) + tmp_lo ;
+                 tmp_lo = 1 << (bit_index + 1) - 1 ; // 0x00000FFF
+                 tmp_lo = value & tmp_lo ;
+
+             value = (tmp_hi << bit_index) | tmp_lo ;
+             value = '0x' + (value >>> 0).toString(16) ;
          }
 
 	 // compute selection...
@@ -1868,12 +2053,12 @@ function wsasm_resolve_labels_elto ( context, ret, elto )
          return ret ;
 }
 
-function wsasm_resolve_labels ( context, ret )
+function wsasm_resolve_labels ( context, ret, start_at_obj_i )
 {
          var elto = null ;
 
          // for all object elements...
-         for (let i=0; i<ret.obj.length; i++)
+         for (let i=start_at_obj_i; i<ret.obj.length; i++)
          {
               elto = ret.obj[i] ;
 
@@ -1951,7 +2136,7 @@ function wsasm_src2obj ( context )
 	        }
 
 	        // pass 3: resolve labels (translate into addresses, with current object)
-                ret = wsasm_resolve_labels(context, ret) ;
+                ret = wsasm_resolve_labels(context, ret, 0) ;
 	        if (ret.error != null) {
 	            return ret;
 	        }
@@ -2030,6 +2215,39 @@ function wsasm_obj2src ( context, ret, options )
               if ( ('instruction' == elto.datatype) && (false == options.instruction_comma) )
                    o += "\t" + base_replaceAll(elto.source_alt, ',', '') + "\n" ;
               else o += "\t" + elto.source_alt + "\n" ;
+         }
+
+         // return alternative source
+         ret.src_alt = o ;
+         return ret ;
+}
+
+function wsasm_obj2bin ( context, ret )
+{
+         var o = '' ;
+         var elto = null ;
+
+         // check params
+         if (typeof ret.obj == "undefined") {
+	     return wsasm_eltoError(context, elto,
+				    i18n_get_TagFor('compiler', 'UNKNOWN 2')) ; // TODO: update error message
+         }
+
+         o = '\n.binary\n' ;
+
+         // for each object element...
+         for (let i=0; i<ret.obj.length; i++)
+         {
+              elto = ret.obj[i] ;
+
+              // show labels
+              for (let j=0; j<elto.labels.length; j++) {
+                   o += elto.labels[j] + ":\n" ;
+              }
+
+              // show address and value
+              o += "0x" + parseInt(elto.elto_ptr).toString(16) + "\t" ;
+              o += "0x" + parseInt(elto.binary,2).toString(16) + "\n" ;
          }
 
          // return alternative source
