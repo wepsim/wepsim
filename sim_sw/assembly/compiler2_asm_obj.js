@@ -1757,12 +1757,24 @@ function wsasm_get_label_value ( context, ret, elto, label )
          // if pc-relative, compute the associated relative value...
          if (sel_pcrel != '')
          {
-             value      = parseInt(value) - (elto.seg_ptr + 4) ;
-          // TODO: value = value / rel_mult ???
-             var tmp_hi = (value >>> 12) + ((value & 0x00000400) >> 11) ;
-             var tmp_lo =                    value & 0x00000FFF ;
-             value      = (tmp_hi << 12) | tmp_lo ;
-             value      = '0x' + (value >>> 0).toString(16) ;
+             value = parseInt(value) ;
+             value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
+
+             var bit_index = sel_start ;
+             if (sel_stop < bit_index) {
+                 bit_index = sel_stop ;
+             }
+
+             // hi = offset[31:12] + offset[11]
+             // lo = offset[11:0]
+             var tmp_hi = (value >>> (bit_index - 1)) ;
+             var tmp_lo = value & 0x1 ;
+                 tmp_hi = (tmp_hi >>> 1) + tmp_lo ;
+                 tmp_lo = 1 << (bit_index + 1) - 1 ; // 0x00000FFF
+                 tmp_lo = value & tmp_lo ;
+
+             value = (tmp_hi << bit_index) | tmp_lo ;
+             value = '0x' + (value >>> 0).toString(16) ;
          }
 
 	 // compute selection...
