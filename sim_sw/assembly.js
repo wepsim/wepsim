@@ -30,12 +30,12 @@ function simlang_compile ( text, datosCU )
      var skin_arr = get_cfg('ws_skin_user').split(':') ;
      if (skin_arr.includes('beta_ngc'))
      {
-         // Testing in beta for the next-generation compiler...
+         // New assembler with several upgrades...
          ret = wsasm_src2mem(datosCU, text, {}) ;
      }
      else
      {
-         // Juan Banga version with support for firmware 2 based on simlang_compile_v1
+         // Old version with support for firmware 2 based on simlang_compile_v1
          ret = simlang_compile_v2(text, datosCU) ;
      }
 

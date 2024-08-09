@@ -6,16 +6,31 @@
   * Several minor improvements in the new default assembler:
     * Relative branches offset can be now in bytes, words (MIPS), and half-words (RV)
     * Support for alternative definitions of pseudo-instructions, ordered from most restrictive to least restrictive
-    * Instruction detail includes translation of labels into decimal values
-  * Several minor updates to the firmware syntax v2
-    * Firmware metadata updated from:
-      <b>firmware_version = 2,</b> 
-      To:
+    * Support for binary segment
+  * Several minor updates to the firmware syntax v2:
+    * Firmware metadata updated:
+      <html>
+       <table>
+        <tr>
+         <td>From:</td>
+         <td>To:</td>
+        </tr>
+        <tr>
+         <td><pre><b>firmware_version = 2,</b></pre></td>
+         <td>
+      <pre>
       <b>firmware {
-           version  = 2,
-           rel_mult = 2,     # relative branch offset in half-words
-           endian   = little
+         version  = 2,
+         rel_mult = 2,   # relative branch offset in half-words
+         endian   = little
       }</b>
+      </pre>
+         </td>
+        </tr>
+       </table>
+      </html>
+  * User interface:
+    * Instruction detail tooltip now includes translation of labels into decimal values
   * Several minor updates in the RV hardware
 * Main external dependencies updated:
   * Bump bootstrap   from 5.3.2  to 5.3.3
