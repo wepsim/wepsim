@@ -191,6 +191,33 @@
         return true ;
     } ;
 
+    hash_action["SHOW-BINARY"] = function(data, options)
+    {
+        // 1) initialize
+        var ret = wepsim_nodejs_init(data) ;
+	if (false === ret.ok) {
+            console.log(ret.msg);
+	    return false ;
+	}
+
+	// 2) prepare firmware-assembly
+        ret = wepsim_nodejs_prepareCode(data, options) ;
+	if (false === ret.ok) {
+            console.log(ret.msg);
+	    return false ;
+	}
+
+	// 3) transform into binary assembly
+        ret = wepsim_nodejs_get_asmbin(data, options) ;
+	if (false === ret.ok) {
+            console.log(ret.msg);
+	    return false ;
+	}
+
+        console.log(ret.simware.src_alt) ;
+        return true ;
+    } ;
+
     //
     // SHOW-MODE
     //
