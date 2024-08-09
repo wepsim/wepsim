@@ -5,7 +5,7 @@
    // Help
    //
 
-   var ws_cl_ver = 'WepSIM-cl v1.9.1' ;
+   var ws_cl_ver = 'WepSIM-cl v2.0.0' ;
 
    function ws_help_usage ()
    {
@@ -21,7 +21,8 @@
 	       ' ./wepsim.sh --examples help\n' +
 	       ' ./wepsim.sh --examples checker\n' +
 	       ' ./wepsim.sh --examples checkpoint\n' +
-	       ' ./wepsim.sh --examples more' ;
+	       ' ./wepsim.sh --examples more\n' +
+	       ' ./wepsim.sh --examples developers' ;
 
         return o ;
    }
@@ -140,6 +141,20 @@
                ' * Run some example and show a description for each microinstruction executed:\n' +
                '   ./wepsim.sh -a microstepverbalized -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm --verbal text\n' +
                '\n' +
+               'More examples:\n' +
+               ' * Compile to binary segment:\n' +
+               '   ./wepsim.sh -a show-binary -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm\n' +
+               '' ;
+
+        return o ;
+   }
+
+   function ws_help_examples_developer ()
+   {
+       var o = '\n' +
+               ws_cl_ver + '\n' +
+               '> WepSIM simulator interface for command line.\n' +
+               '\n' +
                'Example for developers:\n' +
                ' * Export hardware definition as JSON:\n' +
                '   ./wepsim.sh -a export-hardware -m ep > repo/hardware/ep/hw_def.json\n' +
@@ -183,7 +198,7 @@
                   alias:    'a',
                   type:     'string',
                   describe: 'run | stepbystep | microstepbymicrostep | check |' +
-                            ' show-console | microstepverbalized |' +
+                            ' show-console | microstepverbalized | show-binary |' +
                             ' show-record | show-microcode | show-assembly | build-checkpoint',
                   nargs:    1,
                   default:  'usage'
@@ -294,6 +309,9 @@
        }
        else if ("more" == argv.examples) {
            o = ws_help_examples_more() ;
+       }
+       else if ("developers" == argv.examples) {
+           o = ws_help_examples_developers() ;
        }
 
        clear() ;

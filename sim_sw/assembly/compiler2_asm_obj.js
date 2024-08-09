@@ -1576,8 +1576,10 @@ function wsasm_src2obj_binary ( context, ret )
 
 function wsasm_src2obj_helper ( context, ret )
 {
-	  ret.data_found = false;
-	  ret.text_found = false;
+	  var segname = '' ;
+
+	  ret.data_found = false ;
+	  ret.text_found = false ;
 
           //
           // .segment
@@ -1586,7 +1588,12 @@ function wsasm_src2obj_helper ( context, ret )
           asm_nextToken(context) ;
           while (wsasm_isEndOfFile(context) == false)
           {
-	       var segname = asm_getToken(context);
+	       // optional '.section'
+	       if (".section" == asm_getToken(context)) {
+	           asm_nextToken(context) ;
+	       }
+
+	       segname = asm_getToken(context);
 
                // CHECK segment name
 	       if (typeof ret.seg[segname] === "undefined")
@@ -1619,7 +1626,6 @@ function wsasm_src2obj_helper ( context, ret )
 	       // Compile .binary and check errors
 	       if ("binary" == ret.seg[segname].kindof) {
 		   ret = wsasm_src2obj_binary(context, ret);
-		   ret.text_found = false; // TIP: binary is opaque
 	       }
 
 	       if (ret.error != null) {
@@ -1931,20 +1937,21 @@ function wsasm_get_label_value ( context, ret, elto, label )
          if (sel_pcrel != '')
          {
              value = parseInt(value) ;
-             value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
+             value = (value >>> 0) - (elto.elto_ptr - WORD_BYTES) ;
 
+             // 0 ... *12* ... 31
              var bit_index = sel_start ;
-             if (sel_stop < bit_index) {
+             if ((0 == bit_index) || ((WORD_BYTES*BYTE_LENGTH-1) == bit_index)) {
                  bit_index = sel_stop ;
              }
 
              // hi = offset[31:12] + offset[11]
              // lo = offset[11:0]
-             var tmp_hi = (value >>> (bit_index - 1)) ;
-             var tmp_lo = value & 0x1 ;
+             var tmp_hi = ((value >>> 0) >>> (bit_index - 1)) ;
+             var tmp_lo = tmp_hi & 0x1 ;
                  tmp_hi = (tmp_hi >>> 1) + tmp_lo ;
-                 tmp_lo = 1 << (bit_index + 1) - 1 ; // 0x00000FFF
-                 tmp_lo = value & tmp_lo ;
+                 tmp_lo = (1 << (bit_index + 1)) - 1 ; // 0x00000FFF
+                 tmp_lo = (value >>> 0) & tmp_lo ;
 
              value = (tmp_hi << bit_index) | tmp_lo ;
              value = '0x' + (value >>> 0).toString(16) ;
@@ -2246,8 +2253,8 @@ function wsasm_obj2bin ( context, ret )
               }
 
               // show address and value
-              o += "0x" + parseInt(elto.elto_ptr).toString(16) + "\t" ;
-              o += "0x" + parseInt(elto.binary,2).toString(16) + "\n" ;
+              o += "0x" + parseInt(elto.elto_ptr).toString(16).padStart(8, '0') + "\t" ;
+              o += "0x" + parseInt(elto.binary,2).toString(16).padStart(8, '0') + "\n" ;
          }
 
          // return alternative source

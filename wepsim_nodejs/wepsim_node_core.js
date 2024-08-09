@@ -608,6 +608,30 @@
         return ret ;
     }
 
+    function wepsim_nodejs_get_asmbin ( data, options )
+    {
+	// 1) initialization
+        var ret = wepsim_nodejs_init(data) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
+	}
+
+	// 2) prepare firmware-assembly
+        ret = wepsim_nodejs_prepareCode(data, options) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
+	}
+
+	// 3) transform assembly to binary assembly
+        ret = simcore_assembly_to_binasm(data.assembly) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
+	}
+
+	// 4) return result
+        return ret ;
+    }
+
     // execution
     function wepsim_nodejs_runApp ( data, options )
     {
