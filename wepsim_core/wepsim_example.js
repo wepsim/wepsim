@@ -54,6 +54,8 @@
             jobj = wepsim_url_getJSON(ws_info.example_set[i].url) ;
 	    ws_info.examples = ws_info.examples.concat(jobj) ;
             ws_info.example_active = i ;
+
+            set_cfg('ws_examples_set', e_name) ;
        }
 
        webui_toolbar_updateExampleSet() ;

@@ -27,8 +27,9 @@
 	    'action': function( hash )
 		      {
                          var ws_mode = get_cfg('ws_mode');
-                         if (hash.mode !== ws_mode)
+                         if (hash.mode !== ws_mode) {
 			     wsweb_select_main(hash.mode) ;
+                         }
 
 			 return '<li>Mode set to <strong>' + hash.mode + '</strong>.</li> ' ;
 		      }

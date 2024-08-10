@@ -39,6 +39,7 @@
 		'NO MAIN OR KMAIN':		'de principal »ou « kmain » ne sont pas définis dans le segment de texte Tags (s). Il est obligatoire de définir au moins un de ces balises afin d\'exécuter un programme',
 		'UNKNOWN 1':			'Une erreur inconnue est survenue (1) pour le type de terrain:',
 		'UNKNOWN 2':			'Erreur inattendue (2)',
+	        'EMPTY OBJECT CODE':	        'Code objet vide',
 		'REMEMBER FORMAT USED':		'Il s\'agit du format d\'instruction utilisé pour', 
 		'REMEMBER I. FORMAT':		'Rappelez-vous que le format d\'instruction a été définie comme suit:',
 		'SEVERAL CANDIDATES':		'Instruction et champs correspondent à plus d\'un microprogrammes. S\'il vous plaît vérifier le microcode. À l\'heure actuelle, le format d\'instruction peut être:',

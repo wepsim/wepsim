@@ -1662,10 +1662,6 @@ function wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candi
               pseudo_replaced = base_replaceAll(pseudo_replaced, pseudo_elto_candidate.fields[k].name, pseudo_value_k) ;
          }
 
-// <CREATOR>
-//       pseudo_context.parts = pseudo_replaced.replace('(',' ( ').replace(')',' )').replace('  ',' ') ;
-// </CREATOR>
-
          // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
          pseudo_context.parts = pseudo_replaced.split(' ') ;
 
@@ -2196,7 +2192,7 @@ function wsasm_obj2src ( context, ret, options )
          // check params
          if (typeof ret.obj == "undefined") {
 	     return wsasm_eltoError(context, elto,
-				    i18n_get_TagFor('compiler', 'UNKNOWN 2')) ; // TODO: update error message
+				    i18n_get_TagFor('compiler', 'EMPTY OBJECT CODE')) ;
          }
 
          // prepare options...
@@ -2237,7 +2233,7 @@ function wsasm_obj2bin ( context, ret )
          // check params
          if (typeof ret.obj == "undefined") {
 	     return wsasm_eltoError(context, elto,
-				    i18n_get_TagFor('compiler', 'UNKNOWN 2')) ; // TODO: update error message
+				    i18n_get_TagFor('compiler', 'EMPTY OBJECT CODE')) ;
          }
 
          o = '\n.binary\n' ;
@@ -2253,8 +2249,8 @@ function wsasm_obj2bin ( context, ret )
               }
 
               // show address and value
-              o += "0x" + parseInt(elto.elto_ptr).toString(16).padStart(8, '0') + "\t" ;
-              o += "0x" + parseInt(elto.binary,2).toString(16).padStart(8, '0') + "\n" ;
+              o += "0x" + parseInt(elto.elto_ptr).toString(16).padStart(2*WORD_BYTES, '0') + "\t" ;
+              o += "0x" + parseInt(elto.binary,2).toString(16).padStart(2*WORD_BYTES, '0') + "\n" ;
          }
 
          // return alternative source
