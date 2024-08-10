@@ -39,6 +39,7 @@
 		'NO MAIN OR KMAIN':		'标签“主”或“kmain”在文本段（一个或多个）不限定。它是强制性的定义，以执行程序的标记中的至少一个',
 		'UNKNOWN 1':			'对于场类型发生未知错误（1）：',
 		'UNKNOWN 2':			'意外的错误（2）',
+	        'EMPTY OBJECT CODE':	        '空目標代碼',
 		'REMEMBER FORMAT USED':		'这是用于的指令格式 ',
 		'REMEMBER I. FORMAT':		'请记住，指令格式已经被定义为：',
 		'SEVERAL CANDIDATES':		'指令和字段匹配多个微。请检查微代码。目前，指令格式可以是：',
