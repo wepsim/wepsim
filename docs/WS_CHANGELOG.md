@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 2.3.2 -> 2.3.5:
+* Main improvements:
+  * Cleanup for old assembler code.
+* Main external dependencies updated:
+
 ## 2.3.1 -> 2.3.2:
 * Main improvements:
   * Several minor improvements in the new default assembler:

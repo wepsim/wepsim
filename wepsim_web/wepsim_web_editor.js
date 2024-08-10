@@ -255,7 +255,7 @@
 	}
 
         // compile Assembly and show message
-        var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
+        var SIMWAREaddon = wsasm_src2mem(SIMWARE, textToCompile, {});
         if (SIMWAREaddon.error != null)
         {
             showError(SIMWAREaddon.error, "inputasm") ;

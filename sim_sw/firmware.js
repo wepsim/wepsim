@@ -702,72 +702,77 @@ function saveFirmware ( SIMWARE )
 
 function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
-	if (curr_firm.metadata.version == 2) {
-		var ret = {
-					"oinstruction": null,
-					op_code: 0,
-					eoc: 0
-				} ;
+    if (curr_firm.metadata.version == 2)
+    {
+	var ret = {
+				"oinstruction": null,
+				op_code: 0,
+				eoc: 0
+			} ;
 
-		// instructions as 32-string
-		var bits = binstruction.toString(2).padStart(32, "0") ;
+	// instructions as 32-string
+	var bits = binstruction.toString(2).padStart(32, "0") ;
 
-		// op-code
-		var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
-		ret.op_code = parseInt(oc, 2) ;
+	// op-code
+	var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
+	ret.op_code = parseInt(oc, 2) ;
 
-		// eoc
-		// https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
-		if (ep_ir.default_eltos.eoc.type == 2) {
-			if (oc !='1101111' && oc != '0110111' && oc != '0010111') {
-				var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
-				if (oc == '0110011' || oc == '1110011') {
-					eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
-				} else if (oc == '0010011' && (eoc == '001' || eoc == '101')) {
-					eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
-				}
-			}
-		} else {
-			var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+	// eoc
+	// https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
+	if (ep_ir.default_eltos.eoc.type == 2)
+        {
+		if (oc !='1101111' && oc != '0110111' && oc != '0010111')
+                {
+		    var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
+		    if (oc == '0110011' || oc == '1110011') {
+		    	eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+		    } else if (oc == '0010011' && (eoc == '001' || eoc == '101')) {
+			eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+		    }
 		}
-		ret.eoc = parseInt(eoc, 2) ;
-
-		if ("undefined" == typeof curr_firm.hash_oceoc[oc]) {
-			return ret ;
-		}
-
-		if (false == curr_firm.hash_oceoc[oc].witheoc)
-			ret.oinstruction = curr_firm.hash_oceoc[oc].i ;
-		else ret.oinstruction = curr_firm.hash_oceoc[oc][eoc] ;
-
 	}
         else
         {
-		var ret = {
-				"oinstruction": null,
-				op_code: 0,
-				cop_code: 0
-			  } ;
-
-		// instructions as 32-string
-		var bits = binstruction.toString(2).padStart(32, "0") ;
-
-		// op-code
-		var co = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length);
-		ret.op_code = parseInt(co, 2) ;
-
-		// cop-code
-		var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
-		ret.cop_code = parseInt(cop, 2) ;
-
-		if ("undefined" == typeof curr_firm.hash_cocop[co]) {
-			return ret ;
-		}
-
-		if (false == curr_firm.hash_cocop[co].withcop)
-	 	     ret.oinstruction = curr_firm.hash_cocop[co].i ;
-		else ret.oinstruction = curr_firm.hash_cocop[co][cop] ;
+		var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
 	}
+	ret.eoc = parseInt(eoc, 2) ;
+
+	if ("undefined" == typeof curr_firm.hash_oceoc[oc]) {
+	     return ret ;
+	}
+
+	if (false == curr_firm.hash_oceoc[oc].witheoc)
+	     ret.oinstruction = curr_firm.hash_oceoc[oc].i ;
+	else ret.oinstruction = curr_firm.hash_oceoc[oc][eoc] ;
+
+    }
+    else
+    {
+	var ret = {
+			"oinstruction": null,
+			op_code: 0,
+			cop_code: 0
+		  } ;
+
+	// instructions as 32-string
+	var bits = binstruction.toString(2).padStart(32, "0") ;
+
+	// op-code
+	var co = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length);
+	ret.op_code = parseInt(co, 2) ;
+
+	// cop-code
+	var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
+	ret.cop_code = parseInt(cop, 2) ;
+
+	if ("undefined" == typeof curr_firm.hash_cocop[co]) {
+	     return ret ;
+	}
+
+	if (false == curr_firm.hash_cocop[co].withcop)
+	     ret.oinstruction = curr_firm.hash_cocop[co].i ;
+	else ret.oinstruction = curr_firm.hash_cocop[co][cop] ;
+    }
 
     return ret ;
 }

@@ -622,31 +622,6 @@
                    });
 
     ws_info.config_ui.push({
-                      id:          "radio14c",
-                      type:        "Extra Features",
-                      u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio14c-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label14-beta_ngc-false' for='radio14c-true' " +
-				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
-                                   "              aria-label='User Interface set of features for WepSIM: true' " +
-				   "		  onclick=\"wepsim_config_button_toggle2('beta_ngc',false,'14');\">Off" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio14c-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label14-beta_ngc-true' for='radio14c-false' " +
-				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
-                                   "              aria-label='User Interface set of features for WepSIM: false' " +
-				   "		  onclick=\"wepsim_config_button_toggle2('beta_ngc',true,'14');\">On" +
-				   "	    </label>" +
-				   "	</div>",
-		      code_init:   function() {
-                                       wepsim_config_button_pretoggle_val2('ws_skin_user', 'beta_ngc', '14') ;
-		                   },
-                      description: "<span data-langkey='NGC'>Next-Generation Compiler</span>&nbsp;" +
-                                   "<span class='badge text-bg-secondary py-0 px-1'>beta</span>"
-                   });
-
-    ws_info.config_ui.push({
                       id:          "radio14d",
                       type:        "Extra Features",
                       u_class:     "",

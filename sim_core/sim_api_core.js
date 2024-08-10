@@ -726,7 +726,7 @@
     	    }
 
             // compile Assembly and show message
-            var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
+            var SIMWAREaddon = wsasm_src2mem(SIMWARE, textToCompile, {});
     	    ret.simware = SIMWAREaddon ;
             if (SIMWAREaddon.error != null)
             {
