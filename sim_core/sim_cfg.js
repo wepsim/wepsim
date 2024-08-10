@@ -217,7 +217,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.3.2" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.3.2.20240322B" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.3.2.20240710B" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -259,6 +259,7 @@
                    "SHOWCODE_pins":         { upgrade:false, type:"boolean",   value:true },
                    "ws_mode":               { upgrade:false, type:"string",    value:'newbie' },
                    "ws_action":             { upgrade:false, type:"string",    value:'checkpoint' },
+                   "ws_examples_set":       { upgrade:true,  type:"string",    value:'Empty' },
                    "is_interactive":        { upgrade:false, type:"boolean",   value:true },
                    "is_quick_interactive":  { upgrade:false, type:"boolean",   value:false },
                    "ws_idiom":              { upgrade:false, type:"string",    value:'en' },
