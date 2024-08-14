@@ -31,7 +31,13 @@ function firm_instruction_write ( context, elto, labels_firm )
         }
 
         // signature { ...
-	o += elto.signatureRaw;
+	o += elto.name + ' ' ;
+        if (typeof elto.fields != "undefined")
+        {
+            for (var k=0; k<elto.fields.length; k++) {
+	         o += elto.fields[k].name + ' ' ;
+            }
+        }
 	o += " {" + '\n';
 
 	// nwords = ...
@@ -57,6 +63,9 @@ function firm_instruction_write ( context, elto, labels_firm )
 	     }
 
 	     o += firm_fields_v1_write(elto.fields) ;
+	}
+        if (elto.is_native) {
+            o += "\tnative,\n" ;
 	}
 
 	// microcode...

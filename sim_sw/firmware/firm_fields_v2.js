@@ -51,7 +51,9 @@ function firm_fields_v2_write ( elto_fields )
 		 }
 		 o += ")" ;
 
-		 o += " = " + elto_fields[j].name + "," + '\n';
+		 if ("oc" == elto_fields[j].type)
+		      o += " = " + elto_fields[j].value + "," + '\n';
+		 else o += " = " + elto_fields[j].name  + "," + '\n';
 	}
 
         // return string
@@ -98,10 +100,9 @@ function firm_instruction_check_eoc ( context, instruccionAux, xr_info )
 /*
 	if (
              (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc) ||
-	     (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length
-           && instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[0]
-           && instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[1]
-             )
+	     (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length     &&
+	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[0] &&
+	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[1])
            )
 */
 	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc)
