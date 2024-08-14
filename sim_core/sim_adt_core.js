@@ -56,7 +56,7 @@
 
                                  // auxiliar datatypes
 				 hash_ci:                {},
-				 hash_cocop:             {},
+				 hash_oceoc:             {},
 				 hash_labels_firm_rev:   {},
 				 hash_labels_asm_rev:    {},
 				 hash_seg_rev:           []

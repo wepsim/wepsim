@@ -20,6 +20,46 @@
 
 
 /*
+ *  Save Firmware
+ */
+
+/*
+   TODO for saveFirmware:
+   a) try to unify internal definition for version 1 and 2 in order to save as last version by default
+   b) try to build a "1to2(...)" function to export version 1 as version 2 by default
+*/
+
+function saveFirmware ( SIMWARE )
+{
+	var o = "" ;
+
+        // initial header
+        o += "\n" +
+             "#\n" +
+             "# WepSIM (https://wepsim.github.io/wepsim/)\n" +
+             "#\n" +
+             "\n" ;
+
+        // save current metadata
+        o += firm_metadata_write(SIMWARE) ;
+
+        // save instructions
+	for (i=0; i<SIMWARE.firmware.length; i++) {
+             o += firm_instruction_write(SIMWARE, SIMWARE.firmware[i], SIMWARE.labels_firm) ;
+	}
+
+        // save registers
+        o += firm_registers_write(SIMWARE) ;
+
+        // save pseudo-instructions
+        o += firm_pseudoinstructions_write(SIMWARE) ;
+
+	// return firmware as string...
+	return o;
+}
+
+
+/*
  *  Load Firmware
  */
 
@@ -496,27 +536,27 @@ function loadFirmware (text)
            else
            {
 		// co_cop_hash
-		var fico  = 0 ;
-		var ficop = 0 ;
-		context.hash_cocop = {} ;
+		var fioc  = 0 ;
+		var fieoc = 0 ;
+		context.hash_oceoc = {} ;
 		for (var fi in context.instrucciones)
 		{
 			if (context.instrucciones[fi].name == "begin") {
 				continue ;
 			}
 
-			fico  = context.instrucciones[fi].co ;
-			if (typeof context.hash_cocop[fico] == "undefined") {
-				context.hash_cocop[fico] = {} ;
+			fioc  = context.instrucciones[fi].co ;
+			if (typeof context.hash_oceoc[fioc] == "undefined") {
+				context.hash_oceoc[fioc] = {} ;
 			}
 
 			if (typeof context.instrucciones[fi].cop == "undefined") {
-				context.hash_cocop[fico].withcop = false ;
-				context.hash_cocop[fico].i       = context.instrucciones[fi] ;
+				context.hash_oceoc[fioc].withcop = false ;
+				context.hash_oceoc[fioc].i       = context.instrucciones[fi] ;
 			} else {
-				ficop = context.instrucciones[fi].cop ;
-				context.hash_cocop[fico].withcop = true ;
-				context.hash_cocop[fico][ficop]  = context.instrucciones[fi] ;
+				fieoc = context.instrucciones[fi].cop ;
+				context.hash_oceoc[fioc].withcop = true ;
+				context.hash_oceoc[fioc][fieoc]  = context.instrucciones[fi] ;
 			}
 		}
 	   }
@@ -538,51 +578,10 @@ function loadFirmware (text)
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
            ret.stackRegister      = context.stackRegister ;
-	   if (context.metadata.version == 2)
-                ret.hash_oceoc = context.hash_oceoc ;
-	   else ret.hash_cocop = context.hash_cocop ;
+           ret.hash_oceoc         = context.hash_oceoc ;
            ret.hash_labels_firm_rev = context.revlabels ;
 
            return ret ;
-}
-
-
-/*
- *  Save Firmware
- */
-
-function saveFirmware ( SIMWARE )
-{
-	var file = "" ;
-
-        // save as last version by default ;-)
-        if (typeof SIMWARE.metadata != "undefined") {
-            SIMWARE.metadata.version = 2 ;
-        }
-
-        // initial header
-        file += "\n" +
-                "#\n" +
-                "# WepSIM (https://wepsim.github.io/wepsim/)\n" +
-                "#\n" +
-                "\n" ;
-
-        // metadata
-        file += firm_metadata_write(SIMWARE) ;
-
-        // firmware
-	for (i=0; i<SIMWARE.firmware.length; i++) {
-             file += firm_instruction_write(SIMWARE, SIMWARE.firmware[i], SIMWARE.labels_firm) ;
-	}
-
-        // save registers
-        file += firm_registers_write(SIMWARE) ;
-
-        // save pseudo-instructions
-        file += firm_pseudoinstructions_write(SIMWARE) ;
-
-	// return firmware as string...
-	return file;
 }
 
 
@@ -664,13 +663,13 @@ function decode_instruction_v1 ( curr_firm, ep_ir, binstruction )
 	var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
 	ret.cop_code = parseInt(cop, 2) ;
 
-	if ("undefined" == typeof curr_firm.hash_cocop[co]) {
+	if ("undefined" == typeof curr_firm.hash_oceoc[co]) {
 	     return ret ;
 	}
 
-	if (false == curr_firm.hash_cocop[co].withcop)
-	     ret.oinstruction = curr_firm.hash_cocop[co].i ;
-	else ret.oinstruction = curr_firm.hash_cocop[co][cop] ;
+	if (false == curr_firm.hash_oceoc[co].withcop)
+	     ret.oinstruction = curr_firm.hash_oceoc[co].i ;
+	else ret.oinstruction = curr_firm.hash_oceoc[co][cop] ;
 
     return ret ;
 }

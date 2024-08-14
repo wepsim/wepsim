@@ -111,16 +111,20 @@ function wsasm_eltoError ( context, elto, msg )
 
 function wsasm_get_similar_candidates ( context, elto )
 {
-         var msg = elto.source ;
+         var msg   = "'" + elto.source + "'" ;
+         var s_usr = elto.value.signature_user ;
+
+         // if pseudo-instruction then associate it to the related instruction...
          if (typeof elto.associated_pseudo !== "undefined") {
-	     msg = elto.source + ' (part of pseudoinstruction "' + elto.associated_pseudo.source + '")' ;
+	     msg   = msg + ' (part of pseudoinstruction "' + elto.associated_pseudo.source + '")' ;
+             s_usr = "[" + elto.value.instruction + "] " + elto.value.signature_user ;
          }
 
-         msg = i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') +
-	       "'" + msg + "': <br>" +
-	       "<span class='m-2'>\u2718</span> " +
-	       elto.value.signature_user + "<br>" ;
+         // (1) Used element (instruction or pseudo-instruction)...
+         msg = i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') + msg + ": <br>" +
+	       "<span class='m-2'>\u2718</span> " + s_usr + "<br>" ;
 
+         // (2) Similar elements...
          msg += i18n_get_TagFor('compiler', 'NOT MATCH FORMAT') + ":<br>" ;
          for (let key in context.firmware)
          {
