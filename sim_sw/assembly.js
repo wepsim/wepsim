@@ -28,15 +28,15 @@ function simlang_compile ( text, datosCU )
      var ret = null ;
 
      var skin_arr = get_cfg('ws_skin_user').split(':') ;
-     if (skin_arr.includes('beta_ngc'))
-     {
-         // New assembler with several upgrades...
-         ret = wsasm_src2mem(datosCU, text, {}) ;
-     }
-     else
+     if (skin_arr.includes('old_c'))
      {
          // Old version with support for firmware 2 based on simlang_compile_v1
          ret = simlang_compile_v2(text, datosCU) ;
+     }
+     else
+     {
+         // New assembler with several upgrades...
+         ret = wsasm_src2mem(datosCU, text, {}) ;
      }
 
      return ret ;
