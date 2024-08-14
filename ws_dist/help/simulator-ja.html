@@ -277,11 +277,11 @@ inst1 field1 field2 field3
 inst1 field1 field2 field3
 {
    <b>nwords=1,
-   co(31,27)=000000,
-   funct(10,8)=000,
-   reg(25,21)=field1,
-   inm(20,16)=field2,
-   address-rel(15,11)=field3,</b>
+   oc(31:27)=000000,
+   eoc(10:8)=000,
+   reg(25:21)=field1,
+   inm(20:16)=field2,
+   address-rel(15:11)=field3,</b>
    {
       (Cop=1001, SelP=11, C7),
       (A0=1, B=1, C=0)
