@@ -19,6 +19,42 @@
  */
 
 
+function firm_metadata_write ( context )
+{
+	var o = "" ;
+
+        // no metadata -> return empty metadata section
+	if (typeof context.metadata == "undefined") {
+            return o ;
+        }
+
+        // set metadata (default + updates)
+        var m = {
+                   version: 2,
+                   rel_mult: 2,
+                   endian: "little"
+                } ;
+
+        if (typeof context.metadata.version != "undefined")
+            m.version = context.metadata.version ;
+        if (typeof context.metadata.rel_mult != "undefined")
+            m.rel_mult = context.metadata.rel_mult ;
+        if (typeof context.metadata.endian != "undefined")
+            m.endian = context.metadata.endian ;
+
+        // return metadata as string...
+        o += "\n" +
+             "firmware {\n" +
+             "   version  = " + m.version  + ",\n" +
+             "   rel_mult = " + m.rel_mult + ",\n" +
+             "   endian   = " + m.endian   + "\n" +
+             "}\n" +
+             "\n" ;
+
+	return o ;
+}
+
+
 function firm_metadata_read ( context )
 {
         // optional:
@@ -108,6 +144,7 @@ function firm_metadata_read ( context )
 	frm_nextToken(context);
 
         // return context
+        context.error = null ;
         return context ;
 }
 

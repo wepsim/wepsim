@@ -56,7 +56,7 @@ function frm_nextToken ( context )
 
 		 context.t++;
 	  }
-	
+
           // if {},()=: token, insert token
           if ( ("{},()=:|".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {

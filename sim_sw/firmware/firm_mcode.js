@@ -19,6 +19,75 @@
  */
 
 
+function firm_mcode_write ( elto, labels_firm )
+{
+	var o = "" ;
+
+        // no microcode -> return empty
+	if (typeof elto.microcode == "undefined") {
+            return o ;
+        }
+
+	// microcode as string...
+	if (elto.name != "begin") {
+	    o += '\t{' ;
+	}
+
+	if (elto.NATIVE != "")
+        {
+	        o += elto.NATIVE ;
+	}
+	else
+        {
+		// microcode...
+		var addr = elto["mc-start"] ;
+		for (j=0; j<elto.microcode.length; j++)
+		{
+			if ("" != elto.microcomments[j]) {
+			    o += '\n\n\t\t # ' +
+				  base_replaceAll(elto.microcomments[j], '\n', '\n\t\t # ') ;
+			}
+
+			if (typeof labels_firm[addr] != "undefined")
+			     o += '\n' + labels_firm[addr] + ":\t";
+			else o += '\n' + '\t' + '\t';
+
+			o += "(";
+			var anySignal=0 ;
+			for (k in elto.microcode[j])
+			{
+				if ("MADDR" == k)
+				{
+				    var val = elto.microcode[j][k];
+				    if (typeof labels_firm[val] == "undefined")
+					 o += k + "=" + val.toString(2) + ", ";
+				    else o += k + "=" + labels_firm[val] + ", ";
+
+				    continue ;
+				}
+
+				o += k + "=" + elto.microcode[j][k].toString(2) + ", " ;
+				anySignal=1 ;
+			}
+			if (1 == anySignal) {
+			    o = o.substr(0, o.length - 2);
+			}
+			o += "),";
+			addr++;
+		}
+
+		o = o.substr(0, o.length - 1);
+	}
+
+	if (elto.name != "begin") {
+	    o += '\n\t}';
+	}
+
+        // return string
+	return o ;
+}
+
+
 /*
  *  Load Firmware
  */
