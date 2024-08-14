@@ -19,6 +19,66 @@
  */
 
 
+function firm_instruction_write ( context, elto, labels_firm )
+{
+	var o = "" ;
+        var j = 0 ;
+        var k = 0 ;
+
+        // no firmware -> return empty section
+	if (typeof elto == "undefined") {
+            return o ;
+        }
+
+        // signature { ...
+	o += elto.name + ' ' ;
+        if (typeof elto.fields != "undefined")
+        {
+            for (var k=0; k<elto.fields.length; k++) {
+	         o += elto.fields[k].name + ' ' ;
+            }
+        }
+	o += " {" + '\n';
+
+	// nwords = ...
+	if (typeof elto.nwords != "undefined") {
+	    o += '\t' + "nwords=" + elto.nwords + "," + '\n';
+	}
+
+	// fields...
+	if (context.metadata.version == 2)
+	{
+	     o += firm_fields_v2_write(elto.fields_all) ;
+	}
+	else // version == 1
+	{
+	     // co = ...
+	     if (typeof elto.co != "undefined") {
+	         o += '\t' +"co=" + elto.co + "," + '\n';
+	     }
+
+	     // cop = ...
+	     if (typeof elto.cop != "undefined") {
+	         o += '\t' +"cop=" + elto.cop + "," + '\n';
+	     }
+
+	     o += firm_fields_v1_write(elto.fields) ;
+	}
+        if (elto.is_native) {
+            o += "\tnative,\n" ;
+	}
+
+	// microcode...
+        o += firm_mcode_write(elto, labels_firm) ;
+
+        // end instruction as string...
+	o += '\n}\n\n';
+
+        // return string
+	return o ;
+}
+
+
 function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 {
        var ret = {};
@@ -81,7 +141,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 	   {
 	       var campoAux = {};
 	       var auxValue = frm_getToken(context);
-	
+
 	       if (auxValue[auxValue.length-1] == "+")
 	       {
 		   auxValue = auxValue.substring(0,auxValue.length-1);
@@ -129,7 +189,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 		       instruccionAux.numeroCampos++;
 
 		       firma = firma + frm_getToken(context) ;
-		       firmaUsuario = firmaUsuario + frm_getToken(context);			
+		       firmaUsuario = firmaUsuario + frm_getToken(context);
 
 		       frm_nextToken(context);
 		   }
@@ -186,10 +246,10 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
            ret = firm_instruction_read_fields_v2(context, instruccionAux, xr_info, all_ones_oc) ;
        }
        else {
-        // ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;
-           ret = firm_instruction_read_fixed_fields   (context, instruccionAux, xr_info, all_ones_co) ;
+           ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;
+        // ret = firm_instruction_read_fixed_fields   (context, instruccionAux, xr_info, all_ones_co) ;
        }
-       if (typeof ret.error != "undefined") {
+       if (ret.error != null) {
            return ret ;
        }
 
@@ -209,8 +269,9 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 		ret = read_native(context) ;
 	   else ret = firm_mcode_signals_read(context) ;
 
-	   if (typeof ret.error != "undefined")
+	   if (typeof ret.error != "undefined") {
 	       return ret ;
+           }
 
        instruccionAux.NATIVE        = ret.NATIVE ;
        instruccionAux.microcode     = ret.microprograma ;

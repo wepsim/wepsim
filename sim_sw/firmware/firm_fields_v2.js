@@ -19,6 +19,48 @@
  */
 
 
+function firm_fields_v2_write ( elto_fields )
+{
+	var o = "" ;
+
+        // no fields -> return empty
+	if (typeof elto_fields == "undefined") {
+            return o ;
+        }
+
+	// fields:
+	//   reg(25:21)=field1,
+	//   address-rel(19|18:0)=field2,
+	for (j=0; j<elto_fields.length; j++)
+	{
+		 o += '\t' + elto_fields[j].type ;
+		 if ("address" == elto_fields[j].type) {
+		     o += '-' + elto_fields[j].address_type ;
+		 }
+
+		 o += "(" ;
+		 for (k=0; k<elto_fields[j].bits_start.length; k++)
+		 {
+		      if (elto_fields[j].bits_start[k] != elto_fields[j].bits_stop[k])
+			   o += elto_fields[j].bits_start[k] + ":" + elto_fields[j].bits_stop[k] ;  // 18:0
+		      else o += elto_fields[j].bits_start[k] ; // 19
+
+		      if (k != (elto_fields[j].bits_start.length-1)) {
+			  o += '|' ; // if not last field then add a '|'
+		      }
+		 }
+		 o += ")" ;
+
+		 if ("oc" == elto_fields[j].type)
+		      o += " = " + elto_fields[j].value + "," + '\n';
+		 else o += " = " + elto_fields[j].name  + "," + '\n';
+	}
+
+        // return string
+	return o ;
+}
+
+
 function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_oc )
 {
        // semantic check: valid value
@@ -55,17 +97,24 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
 function firm_instruction_check_eoc ( context, instruccionAux, xr_info )
 {
 	// semantic check: valid value
+/*
 	if (
              (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc) ||
 	     (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length     &&
 	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[0] &&
 	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[1])
            )
+*/
+	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc)
         {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'INCORRECT EOC BIN.') +
 			         "'" + instruccionAux.eoc + "'") ;
 	}
+
+	if (context.oc_eoc[instruccionAux.oc].eoc == null) {
+	    context.oc_eoc[instruccionAux.oc].eoc = {} ;
+        }
 
 	// semantic check: 'oc+eoc' is not already used
 	if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
@@ -75,11 +124,10 @@ function firm_instruction_check_eoc ( context, instruccionAux, xr_info )
 			           i18n_get_TagFor('compiler', 'OC+EOC ALREADY USED') +
 			           "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
 	}
-	if (context.oc_eoc[instruccionAux.oc].eoc == null)
-	    context.oc_eoc[instruccionAux.oc].eoc = {};
-	    context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
 
-       return {} ;
+	context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
+
+        return {} ;
 }
 
 function firm_instruction_keynumber_read ( context, instruccionAux )
@@ -560,6 +608,8 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 			     "'" + frm_getToken(context) + "'") ;
        }
 
-       return {} ;
+       // return context
+       context.error = null ;
+       return context ;
 }
 
