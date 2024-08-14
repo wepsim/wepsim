@@ -233,7 +233,7 @@ function loadFirmware (text)
            if (frm_isToken(context, "firmware"))
            {
                ret = firm_metadata_read(context) ;
-	       if (typeof ret.error != "undefined") {
+	       if (ret.error != null) {
 	           return ret ;
                }
            }
@@ -268,7 +268,7 @@ function loadFirmware (text)
                if (frm_isToken(context, "pseudoinstructions"))
                {
                    ret = firm_pseudoinstructions_read(context) ;
-	           if (typeof ret.error != "undefined") {
+	           if (ret.error != null) {
 	               return ret ;
                    }
 

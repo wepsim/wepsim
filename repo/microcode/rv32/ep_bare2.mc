@@ -1182,20 +1182,20 @@ pseudoinstructions
 
     li rd=reg, expression=imm
     {
-        lui  rd,     sel(31,12,expression)
+        lui  rd,     sel(31,12,expression) ;
         addu rd, rd, sel(11,0,expression)
     }
 
     # la rd, label        (several expansions)        Load address
     la rd=reg, label=imm
     {
-        lui  rd,     sel(31,12,label)
+        lui  rd,     sel(31,12,label) ;
         addu rd, rd, sel(11,0,label)
     }
 
     la_test rd=reg, label=imm
     {
-        auipc rd,     %pcrel_hi(label)
+        auipc rd,     %pcrel_hi(label) ;
         addi  rd, rd, %pcrel_lo(label)
     }
 

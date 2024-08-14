@@ -144,6 +144,7 @@ function firm_metadata_read ( context )
 	frm_nextToken(context);
 
         // return context
+        context.error = null ;
         return context ;
 }
 
