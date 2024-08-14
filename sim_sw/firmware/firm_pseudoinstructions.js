@@ -62,7 +62,7 @@ function firm_pseudoinstructions_write ( context )
              // { instruction-1 ... }
              o += " {" + '\n';
 
-	     ie_inst = elto.finish.signature.split('\n') ;
+	     ie_inst = elto.finish.source.split('\n') ;
 	     for (var ie_i=0; ie_i<ie_inst.length; ie_i++)
              {
 		  o += '\t\t' + ie_inst[ie_i].trim() ;
@@ -84,6 +84,8 @@ function firm_pseudoinstructions_write ( context )
 
 function firm_pseudoinstructions_read ( context )
 {
+	var tok = '' ;
+
         // speedup instruction name search using a hash table
         var hash_inst_name = {} ;
         for (i=0; i<context.instrucciones.length; i++) {
@@ -108,13 +110,14 @@ function firm_pseudoinstructions_read ( context )
 	frm_nextToken(context);
 	while (! frm_isToken(context, "}"))
 	{
-		var pseudoInstructionAux = {};
-		var pseudoInitial	 = {};
-		pseudoInitial.signature	 = "";
-		pseudoInitial.name	 = "";
-		pseudoInitial.fields	 = [];
-		pseudoInitial.name	 = frm_getToken(context);
+		var pseudoInstructionAux = {} ;
+		var pseudoInitial	 = {} ;
+		pseudoInitial.signature	 = "" ;
+		pseudoInitial.name	 = "" ;
+		pseudoInitial.fields	 = [] ;
+		pseudoInitial.name	 = frm_getToken(context) ;
 		pseudoInitial.signature	 = pseudoInitial.signature + frm_getToken(context) + "," ;
+
 		frm_nextToken(context);
 		while (! frm_isToken(context, "{"))
 		{
@@ -177,50 +180,42 @@ function firm_pseudoinstructions_read ( context )
 		frm_nextToken(context);
 		pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"imm");
 		pseudoInstructionAux.initial = pseudoInitial;
-		var contPseudoFinish = 0;
 
                 // new ".finish" field in "pseudo" element
-		var pseudoFinishAux = {};
-		pseudoFinishAux.signature = "";
+		var pseudoFinishAux = {} ;
+		pseudoFinishAux.signature = "" ;
+		pseudoFinishAux.source    = "" ;
 
                 // read ".finish" field...
 		var inStart = 0 ;
-		var cont = false ;
-		var tok  = '' ;
-
 		while (! frm_isToken(context, "}"))
 		{
 		        tok = frm_getToken(context) ;
 
 			if (inStart == 0)
 			{
-				for (i=0; i<context.instrucciones.length; i++)
-				{
-					if (context.instrucciones[i].name == tok){
-						cont = true;
-						break;
-					}
-				}
-				if (!cont) {
-				    return frm_langError(context,
-						         i18n_get_TagFor('compiler', 'UNDEF. INSTR.') +
-						         "'" + tok + "'") ;
-				}
+                            if (typeof hash_inst_name[tok] == "undefined") {
+				return frm_langError(context,
+						     i18n_get_TagFor('compiler', 'UNDEF. INSTR.') +
+						     "'" + tok + "'") ;
+			    }
 			}
 
 			if (tok == ";")
-			     inStart = 0;
-			else inStart++;
+			     inStart = 0 ;
+			else inStart++ ;
 
-			pseudoFinishAux.signature = pseudoFinishAux.signature + tok + " ";
+			pseudoFinishAux.signature = pseudoFinishAux.signature + tok + " " ;
+			pseudoFinishAux.source    = pseudoFinishAux.source    + tok + " " ;
 
-			frm_nextToken(context);
+			frm_nextToken(context) ;
 		}
 
-		pseudoInstructionAux.finish = pseudoFinishAux;
-		pseudoInstructionAux.finish.signature = pseudoInstructionAux.finish.signature.replace(';','\n');
-		context.pseudoInstructions.push(pseudoInstructionAux);
-		frm_nextToken(context);
+		pseudoInstructionAux.finish = pseudoFinishAux ;
+		pseudoInstructionAux.finish.signature = pseudoInstructionAux.finish.signature.replace(';', ' ') ;
+		pseudoInstructionAux.finish.source    = pseudoInstructionAux.finish.source.replace(';',    '\n') ;
+		context.pseudoInstructions.push(pseudoInstructionAux) ;
+		frm_nextToken(context) ;
 	}
 
         // skip }
