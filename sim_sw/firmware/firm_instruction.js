@@ -19,6 +19,61 @@
  */
 
 
+function firm_instruction_write ( context, elto, labels_firm )
+{
+	var o = "" ;
+        var j = 0 ;
+        var k = 0 ;
+
+        // no firmware -> return empty section
+	if (typeof elto == "undefined") {
+            return o ;
+        }
+
+        // signature { ...
+	o += elto.signatureRaw;
+	o += " {" + '\n';
+
+	if (elto.name != "begin")
+        {
+		// nwords = ...
+		if (typeof elto.nwords != "undefined") {
+		    o += '\t' + "nwords=" + elto.nwords + "," + '\n';
+		}
+
+		// co/oc = ...
+		if (typeof elto.co != "undefined") {
+		    o += '\t' +"co=" + elto.co + "," + '\n';
+		}
+		if (typeof elto.oc != "undefined") {
+		    o += '\t' +"oc=" + elto.oc + "," + '\n';
+		}
+
+		// cop/eoc = ...
+		if (typeof elto.cop != "undefined") {
+		    o += '\t' +"cop=" + elto.cop + "," + '\n';
+		}
+		if (typeof elto.eoc != "undefined") {
+		    o += '\t' +"eoc=" + elto.eoc + "," + '\n';
+		}
+
+		// fields...
+		if (context.metadata.version == 2)
+		     o += firm_fields_v2_write(elto) ;
+		else o += firm_fields_v1_write(elto) ;
+	}
+
+	// microcode...
+        o += firm_mcode_write(elto, labels_firm) ;
+
+        // end instruction as string...
+	o += '\n}\n\n';
+
+        // return string
+	return o ;
+}
+
+
 function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 {
        var ret = {};
@@ -81,7 +136,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 	   {
 	       var campoAux = {};
 	       var auxValue = frm_getToken(context);
-	
+
 	       if (auxValue[auxValue.length-1] == "+")
 	       {
 		   auxValue = auxValue.substring(0,auxValue.length-1);
@@ -129,7 +184,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 		       instruccionAux.numeroCampos++;
 
 		       firma = firma + frm_getToken(context) ;
-		       firmaUsuario = firmaUsuario + frm_getToken(context);			
+		       firmaUsuario = firmaUsuario + frm_getToken(context);
 
 		       frm_nextToken(context);
 		   }
@@ -186,8 +241,8 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
            ret = firm_instruction_read_fields_v2(context, instruccionAux, xr_info, all_ones_oc) ;
        }
        else {
-        // ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;
-           ret = firm_instruction_read_fixed_fields   (context, instruccionAux, xr_info, all_ones_co) ;
+           ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;
+        // ret = firm_instruction_read_fixed_fields   (context, instruccionAux, xr_info, all_ones_co) ;
        }
        if (typeof ret.error != "undefined") {
            return ret ;

@@ -19,6 +19,46 @@
  */
 
 
+function firm_fields_v2_write ( elto )
+{
+	var o = "" ;
+
+        // no fields -> return empty
+	if (typeof elto.fields == "undefined") {
+            return o ;
+        }
+
+	// fields:
+	//   reg(25:21)=field1,
+	//   address-rel(19|18:0)=field2,
+	for (j=0; j<elto.fields.length; j++)
+	{
+		 o += '\t' + elto.fields[j].type ;
+		 if ("address" == elto.fields[j].type) {
+		     o += '-' + elto.fields[j].address_type ;
+		 }
+
+		 o += "(" ;
+		 for (k=0; k<elto.fields[j].bits_start.length; k++)
+		 {
+		      if (elto.fields[j].bits_start[k] != elto.fields[j].bits_stop[k])
+			   o += elto.fields[j].bits_start[k] + ":" + elto.fields[j].bits_stop[k] ;  // 18:0
+		      else o += elto.fields[j].bits_start[k] ; // 19
+
+		      if (k != (elto.fields[j].bits_start.length-1)) {
+			  o += '|' ; // if not last field then add a '|'
+		      }
+		 }
+		 o += ")" ;
+
+		 o += " = " + elto.fields[j].name + "," + '\n';
+	}
+
+        // return string
+	return o ;
+}
+
+
 function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_oc )
 {
        // semantic check: valid value
