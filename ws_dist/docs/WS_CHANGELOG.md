@@ -13,6 +13,7 @@
     * Support for alternative definitions of pseudo-instructions, ordered from most restrictive to least restrictive
     * Support for binary segment
   * Several minor updates to the firmware syntax v2:
+    * saveFirmware(...) now support v2
     * Firmware metadata updated:
       <html>
        <table>

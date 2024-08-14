@@ -166,13 +166,13 @@ function cpu_rv_register ( sim_p )
 		                    name:  "IR",
 		                    state: "REG_IR",
 		                    default_eltos: {
-							"co":	{ "begin":  0, "end":  5, "length": 6 },
-							"cop":	{ "begin": 28, "end": 31, "length": 4 },
-							"oc":	{ "begin": 25, "end": 31, "length": 7 },
-							"eoc":	{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
-						      //"eoc":	{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
-						      //"eoc":	{ "type": 2, "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
-							},
+					"co":	{ "begin":  0, "end":  5, "length": 6 },
+					"cop":	{ "begin": 28, "end": 31, "length": 4 },
+					"oc":	{ "begin": 25, "end": 31, "length": 7 },
+					"eoc":	{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
+				      //"eoc":	{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
+				      //"eoc":	{ "type": 2, "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
+						   },
 		                    is_pointer: false
 	                         } ;
 	sim_p.ctrl_states.mpc = {

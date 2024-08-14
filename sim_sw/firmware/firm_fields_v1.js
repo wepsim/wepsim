@@ -19,24 +19,24 @@
  */
 
 
-function firm_fields_v1_write ( elto )
+function firm_fields_v1_write ( elto_fields )
 {
 	var o = "" ;
 
         // no fields -> return empty
-	if (typeof elto.fields == "undefined") {
+	if (typeof elto_fields == "undefined") {
             return o ;
         }
 
         // return fields as string...
-	for (j=0; j<elto.fields.length; j++)
+	for (j=0; j<elto_fields.length; j++)
 	{
-		 file += '\t' + elto.fields[j].name + " = " + elto.fields[j].type;
-		 file += "(" + elto.fields[j].startbit + "," + elto.fields[j].stopbit + ")";
-		 if (elto.fields[j].type == "address") {
-		     file += elto.fields[j].address_type;
+		 o += '\t' + elto_fields[j].name + " = " + elto_fields[j].type;
+		 o += "(" + elto_fields[j].startbit + "," + elto_fields[j].stopbit + ")";
+		 if (elto_fields[j].type == "address") {
+		     o += elto_fields[j].address_type;
 		 }
-		 file += "," + '\n';
+		 o += "," + '\n';
 	}
 
         // return string

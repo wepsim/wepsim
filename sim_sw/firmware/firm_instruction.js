@@ -34,33 +34,29 @@ function firm_instruction_write ( context, elto, labels_firm )
 	o += elto.signatureRaw;
 	o += " {" + '\n';
 
-	if (elto.name != "begin")
-        {
-		// nwords = ...
-		if (typeof elto.nwords != "undefined") {
-		    o += '\t' + "nwords=" + elto.nwords + "," + '\n';
-		}
+	// nwords = ...
+	if (typeof elto.nwords != "undefined") {
+	    o += '\t' + "nwords=" + elto.nwords + "," + '\n';
+	}
 
-		// co/oc = ...
-		if (typeof elto.co != "undefined") {
-		    o += '\t' +"co=" + elto.co + "," + '\n';
-		}
-		if (typeof elto.oc != "undefined") {
-		    o += '\t' +"oc=" + elto.oc + "," + '\n';
-		}
+	// fields...
+	if (context.metadata.version == 2)
+	{
+	     o += firm_fields_v2_write(elto.fields_all) ;
+	}
+	else // version == 1
+	{
+	     // co = ...
+	     if (typeof elto.co != "undefined") {
+	         o += '\t' +"co=" + elto.co + "," + '\n';
+	     }
 
-		// cop/eoc = ...
-		if (typeof elto.cop != "undefined") {
-		    o += '\t' +"cop=" + elto.cop + "," + '\n';
-		}
-		if (typeof elto.eoc != "undefined") {
-		    o += '\t' +"eoc=" + elto.eoc + "," + '\n';
-		}
+	     // cop = ...
+	     if (typeof elto.cop != "undefined") {
+	         o += '\t' +"cop=" + elto.cop + "," + '\n';
+	     }
 
-		// fields...
-		if (context.metadata.version == 2)
-		     o += firm_fields_v2_write(elto) ;
-		else o += firm_fields_v1_write(elto) ;
+	     o += firm_fields_v1_write(elto.fields) ;
 	}
 
 	// microcode...
