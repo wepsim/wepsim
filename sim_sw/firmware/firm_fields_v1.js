@@ -19,6 +19,31 @@
  */
 
 
+function firm_fields_v1_write ( elto_fields )
+{
+	var o = "" ;
+
+        // no fields -> return empty
+	if (typeof elto_fields == "undefined") {
+            return o ;
+        }
+
+        // return fields as string...
+	for (j=0; j<elto_fields.length; j++)
+	{
+		 o += '\t' + elto_fields[j].name + " = " + elto_fields[j].type;
+		 o += "(" + elto_fields[j].startbit + "," + elto_fields[j].stopbit + ")";
+		 if (elto_fields[j].type == "address") {
+		     o += elto_fields[j].address_type;
+		 }
+		 o += "," + '\n';
+	}
+
+        // return string
+	return o ;
+}
+
+
 function firm_instruction_nword_read ( context, instruccionAux )
 {
 

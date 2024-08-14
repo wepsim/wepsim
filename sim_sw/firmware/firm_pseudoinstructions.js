@@ -19,6 +19,43 @@
  */
 
 
+function firm_pseudoinstructions_write ( context )
+{
+	var o = "" ;
+        var ie_inst = "" ;
+
+        // no pseudo -> return empty section
+	if (typeof context.pseudoInstructions == "undefined") {
+            return o ;
+        }
+	if (0 == context.pseudoInstructions.length) {
+            return o ;
+        }
+
+        // return pseudo as string...
+	o += '\n' +
+	     'pseudoinstructions\n' +
+	     '{' ;
+	for (var ie=0; ie<context.pseudoInstructions.length; ie++)
+	{
+	     o += '\n' +
+	          '\t' + context.pseudoInstructions[ie].initial.signature.replace(',', ' ') + '\n' +
+	          '\t{\n' ;
+
+	     ie_inst = context.pseudoInstructions[ie].finish.signature.split('\n') ;
+	     for (var ie_i=0; ie_i<ie_inst.length; ie_i++) {
+		  o += '\t\t' + ie_inst[ie_i].trim() + ' ;\n' ;
+	     }
+
+	     o += '\t}\n' ;
+	}
+	o += '}\n' ;
+
+        // return string
+	return o ;
+}
+
+
 function firm_pseudoinstructions_read ( context )
 {
 	//
@@ -39,7 +76,7 @@ function firm_pseudoinstructions_read ( context )
 	frm_nextToken(context);
 	while (! frm_isToken(context, "}"))
 	{
-		var pseudoInstructionAux = {};			
+		var pseudoInstructionAux = {};
 		var pseudoInitial	 = {};
 		pseudoInitial.signature	 = "";
 		pseudoInitial.name	 = "";
@@ -94,7 +131,7 @@ function firm_pseudoinstructions_read ( context )
 				case "addr":
 				case "address":
 				      break;
-				default:						
+				default:
 				      return frm_langError(context,
 						           i18n_get_TagFor('compiler', 'INVALID PARAMETER') + pseudoFieldAux.type + '.' +
 						           i18n_get_TagFor('compiler', 'ALLOWED PARAMETER')) ;
@@ -114,12 +151,12 @@ function firm_pseudoinstructions_read ( context )
 
 		frm_nextToken(context);
 		pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"imm");
-		pseudoInstructionAux.initial = pseudoInitial;	
+		pseudoInstructionAux.initial = pseudoInitial;
 		var contPseudoFinish = 0;
 
 		var pseudoFinishAux = {};
 		pseudoFinishAux.signature = "";
-		
+
 		var inStart = 0;
 		var cont = false;
 
@@ -132,7 +169,7 @@ function firm_pseudoinstructions_read ( context )
 					if (context.instrucciones[i].name == frm_getToken(context)){
 						cont = true;
 						break;
-					}	
+					}
 				}
 				if (!cont) {
 				    return frm_langError(context,

@@ -221,7 +221,7 @@ beq rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (rs1 == rs2) pc += 4*offset',
+      help='if (rs1 == rs2) pc += 2*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -245,7 +245,7 @@ bne rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (rs1 != rs2) pc += offset',
+      help='if (rs1 != rs2) pc += 2*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -267,7 +267,7 @@ blt rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (rs1 < rs2) pc += 4*offset',
+      help='if (rs1 < rs2) pc += 2*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -289,7 +289,7 @@ bge rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (rs1 >= rs2) pc += 4*offset',
+      help='if (rs1 >= rs2) pc += 2*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
@@ -311,7 +311,7 @@ bltu rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (ux(rs1) < ux(rs2)) pc += 4*offset',
+      help='if (ux(rs1) < ux(rs2)) pc += 2*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
@@ -333,7 +333,7 @@ bgeu rs1 rs2 offset {
       reg(25:21)=rs1,
       reg(20:16)=rs2,
       address-rel(15:0)=offset,
-      help='if (ux(rs1) >= ux(rs2)) pc += 4*offset',
+      help='if (ux(rs1) >= ux(rs2)) pc += 2*offset',
       {
           (T8, C5),
           (SELA=10101, SELB=10000, MC=1, SELCOP=10111, SELP=11, M7, C7),
