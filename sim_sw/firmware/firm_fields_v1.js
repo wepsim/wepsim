@@ -497,7 +497,9 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 			         "'" + frm_getToken(context) + "'") ;
        }
 
-       return {} ;
+       // return context
+       context.error = null ;
+       return context ;
 }
 
 function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_info, all_ones_co )
@@ -636,6 +638,8 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 			     "'" + frm_getToken(context) + "'") ;
        }
 
-       return {} ;
+       // return context
+       context.error = null ;
+       return context ;
 }
 

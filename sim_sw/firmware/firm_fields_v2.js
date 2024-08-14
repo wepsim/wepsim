@@ -608,6 +608,8 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 			     "'" + frm_getToken(context) + "'") ;
        }
 
-       return {} ;
+       // return context
+       context.error = null ;
+       return context ;
 }
 

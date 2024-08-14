@@ -22,6 +22,7 @@
 function firm_pseudoinstructions_write ( context )
 {
 	var o = "" ;
+        var elto = null ;
         var ie_inst = "" ;
 
         // no pseudo -> return empty section
@@ -38,13 +39,38 @@ function firm_pseudoinstructions_write ( context )
 	     '{' ;
 	for (var ie=0; ie<context.pseudoInstructions.length; ie++)
 	{
-	     o += '\n' +
-	          '\t' + context.pseudoInstructions[ie].initial.signature.replace(',', ' ') + '\n' +
-	          '\t{\n' ;
+             elto = context.pseudoInstructions[ie] ;
 
-	     ie_inst = context.pseudoInstructions[ie].finish.signature.split('\n') ;
-	     for (var ie_i=0; ie_i<ie_inst.length; ie_i++) {
-		  o += '\t\t' + ie_inst[ie_i].trim() + ' ;\n' ;
+             // li rd=reg, expression=imm
+	     o += '\n' ;
+             if (
+                  (typeof elto.initial      != "undefined") &&
+                  (typeof elto.initial.name != "undefined")
+                )
+             {
+                 o += '\t' + elto.initial.name + ' ' ;
+                 for (var k=0; k<elto.initial.fields.length; k++)
+                 {
+                      o += elto.initial.fields[k].name + '=' + elto.initial.fields[k].type ;
+
+                      if (k != (elto.initial.fields.length-1)) {
+                          o += ', ' ;
+                      }
+                 }
+             }
+
+             // { instruction-1 ... }
+             o += " {" + '\n';
+
+	     ie_inst = elto.finish.signature.split('\n') ;
+	     for (var ie_i=0; ie_i<ie_inst.length; ie_i++)
+             {
+		  o += '\t\t' + ie_inst[ie_i].trim() ;
+
+                  if (ie_i != (ie_inst.length-1)) {
+                      o += ' ;' ;
+                  }
+                  o += '\n' ;
 	     }
 
 	     o += '\t}\n' ;
@@ -58,6 +84,12 @@ function firm_pseudoinstructions_write ( context )
 
 function firm_pseudoinstructions_read ( context )
 {
+        // speedup instruction name search using a hash table
+        var hash_inst_name = {} ;
+        for (i=0; i<context.instrucciones.length; i++) {
+             hash_inst_name[context.instrucciones[i].name] = context.instrucciones[i].name ;
+        }
+
 	//
 	// *pseudoinstructions
 	// {
@@ -123,19 +155,12 @@ function firm_pseudoinstructions_read ( context )
 			frm_nextToken(context);
 			pseudoFieldAux.type += frm_getToken(context).replace("num", "imm");
 
-			switch (pseudoFieldAux.type)
-			{
-				case "reg":
-				case "inm":
-				case "imm":
-				case "addr":
-				case "address":
-				      break;
-				default:
-				      return frm_langError(context,
-						           i18n_get_TagFor('compiler', 'INVALID PARAMETER') + pseudoFieldAux.type + '.' +
-						           i18n_get_TagFor('compiler', 'ALLOWED PARAMETER')) ;
-			}
+                        if (["reg", "inm", "imm", "addr", "address"].includes(pseudoFieldAux.type) == false) {
+			    return frm_langError(context,
+					         i18n_get_TagFor('compiler', 'INVALID PARAMETER') +
+                                                 pseudoFieldAux.type + '.' +
+					         i18n_get_TagFor('compiler', 'ALLOWED PARAMETER')) ;
+                        }
 
 			pseudoInitial.fields.push(pseudoFieldAux);
 
@@ -154,19 +179,24 @@ function firm_pseudoinstructions_read ( context )
 		pseudoInstructionAux.initial = pseudoInitial;
 		var contPseudoFinish = 0;
 
+                // new ".finish" field in "pseudo" element
 		var pseudoFinishAux = {};
 		pseudoFinishAux.signature = "";
 
-		var inStart = 0;
-		var cont = false;
+                // read ".finish" field...
+		var inStart = 0 ;
+		var cont = false ;
+		var tok  = '' ;
 
 		while (! frm_isToken(context, "}"))
 		{
+		        tok = frm_getToken(context) ;
+
 			if (inStart == 0)
 			{
 				for (i=0; i<context.instrucciones.length; i++)
 				{
-					if (context.instrucciones[i].name == frm_getToken(context)){
+					if (context.instrucciones[i].name == tok){
 						cont = true;
 						break;
 					}
@@ -174,20 +204,21 @@ function firm_pseudoinstructions_read ( context )
 				if (!cont) {
 				    return frm_langError(context,
 						         i18n_get_TagFor('compiler', 'UNDEF. INSTR.') +
-						         "'" + frm_getToken(context) + "'") ;
+						         "'" + tok + "'") ;
 				}
 			}
 
-			if (frm_getToken(context) == ";")
+			if (tok == ";")
 			     inStart = 0;
 			else inStart++;
 
-			pseudoFinishAux.signature = pseudoFinishAux.signature + frm_getToken(context) + " ";
+			pseudoFinishAux.signature = pseudoFinishAux.signature + tok + " ";
+
 			frm_nextToken(context);
 		}
 
-		pseudoInstructionAux.finish=pseudoFinishAux;
-		pseudoInstructionAux.finish.signature=pseudoInstructionAux.finish.signature.replace(';','\n');
+		pseudoInstructionAux.finish = pseudoFinishAux;
+		pseudoInstructionAux.finish.signature = pseudoInstructionAux.finish.signature.replace(';','\n');
 		context.pseudoInstructions.push(pseudoInstructionAux);
 		frm_nextToken(context);
 	}
@@ -195,6 +226,9 @@ function firm_pseudoinstructions_read ( context )
         // skip }
 	frm_nextToken(context);
 
-        return {} ;
+        // return context
+        context.error = null ;
+        return context ;
 }
+
 

@@ -37,11 +37,11 @@ function firm_registers_write ( context )
 	for (i=0; i< context.registers.length; i++)
 	{
 	     var l = context.registers[i].length - 1 ;
-	     var r = " ( " ;
+	     var r = "(" ;
 	     for (j=0; j<l; j++) {
 		  r += context.registers[i][j] + ", " ;
              }
-	     r += context.registers[i][l] + " ) " ;
+	     r += context.registers[i][l] + ")" ;
 
 	     if (context.stackRegister == i)
 		  o += '\t' + i + "=" + r + " (stack_pointer)," + '\n' ;

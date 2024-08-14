@@ -249,7 +249,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
            ret = firm_instruction_read_flexible_fields(context, instruccionAux, xr_info, all_ones_co) ;
         // ret = firm_instruction_read_fixed_fields   (context, instruccionAux, xr_info, all_ones_co) ;
        }
-       if (typeof ret.error != "undefined") {
+       if (ret.error != null) {
            return ret ;
        }
 
@@ -269,8 +269,9 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 		ret = read_native(context) ;
 	   else ret = firm_mcode_signals_read(context) ;
 
-	   if (typeof ret.error != "undefined")
+	   if (typeof ret.error != "undefined") {
 	       return ret ;
+           }
 
        instruccionAux.NATIVE        = ret.NATIVE ;
        instruccionAux.microcode     = ret.microprograma ;
