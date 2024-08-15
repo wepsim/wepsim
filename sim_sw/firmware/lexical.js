@@ -258,7 +258,7 @@ function frm_resetComments ( context )
  *  Native
  */
 
-// TODO: some checking of this code before running (like an anti-virus)
+// TODO: add some checking of this code before running (like an anti-virus)
 
 function frm_nextNative ( context )
 {
@@ -273,6 +273,12 @@ function frm_nextNative ( context )
 		  braces++ ;
 	     if ('}' == context.text[context.t])
 		  braces-- ;
+
+             if (context.text[context.t] == '\n')
+             {
+                 context.line++;
+                 context.newlines.push(context.t) ;
+             }
 
 	     context.t++;
 	 }
