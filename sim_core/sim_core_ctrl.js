@@ -232,7 +232,7 @@
 	    // show memories...
 	    var bits = get_value(simhw_sim_state('REG_IR')).toString(2) ;
 	    bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
-	    //var op_code = parseInt(bits.substr(0, 6), 2) ; // op-code of 6 bits
+	    //var oc_code = parseInt(bits.substr(0, 6), 2) ; // op-code of 6 bits
 
             show_memories_values() ;
 	}
@@ -308,32 +308,21 @@
             simhw_internalState_reset('ROM', {}) ;
             for (i=0; i<SIMWARE['firmware'].length; i++)
 	    {
-               if ("begin" == SIMWARE['firmware'][i]['name']) {
-                   continue ;
-               }
+                if ("begin" == SIMWARE['firmware'][i]['name']) {
+                    continue ;
+                }
 
-	       var ma = SIMWARE['firmware'][i]["mc-start"] ;
+	        var ma = SIMWARE['firmware'][i]["mc-start"] ;
 
-           if (SIMWARE.metadata.version == 2) {
-               var oc = parseInt(SIMWARE['firmware'][i]["oc"], 2) ;
+                var oc = parseInt(SIMWARE['firmware'][i]["oc"], 2) ;
                 var eoc = 0 ;
                 if (typeof SIMWARE['firmware'][i]["eoc"] != "undefined") {
                     eoc = parseInt(SIMWARE['firmware'][i]["eoc"], 2) ;
-                    }
-
+                }
                 var rom_addr = 64*oc + eoc ;
-            } else {
-                var co = parseInt(SIMWARE['firmware'][i]["co"], 2) ;
-                var cop = 0 ;
-                if (typeof SIMWARE['firmware'][i]["cop"] != "undefined") {
-                    cop = parseInt(SIMWARE['firmware'][i]["cop"], 2) ;
-                    }
 
-                var rom_addr = 64*co + cop ;
-            }
-
-	       simhw_internalState_set('ROM', rom_addr, ma) ;
-               SIMWARE['hash_ci'][rom_addr] = SIMWARE['firmware'][i]['signature'] ;
+	        simhw_internalState_set('ROM', rom_addr, ma) ;
+                SIMWARE['hash_ci'][rom_addr] = SIMWARE['firmware'][i]['signature'] ;
 	    }
 
 	    // 4.- load the MP from SIMWARE['mp']

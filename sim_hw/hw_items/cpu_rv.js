@@ -2536,7 +2536,6 @@ function cpu_rv_register ( sim_p )
 	sim_p.behaviors["DECO"]    = { nparameters: 1,
 				     operation: function(s_expr)
 						{
-
 						    sim_p.states['INEX'].value = 0 ;
 
 						    // 1.- IR -> oi
@@ -2546,13 +2545,14 @@ function cpu_rv_register ( sim_p )
 
 						    if (null == oi.oinstruction)
                                                     {
-														if (oi.cop_code !== undefined) {
-															ws_alert('ERROR: undefined instruction code in IR (' +
-							          'co:'  +  oi.op_code.toString(2) + ', ' +
-							          'cop:' + oi.cop_code.toString(2) + ')') ;
-														} else if (oi.eoc !== undefined) {
+							if (oi.eoc_code !== undefined) {
+								ws_alert('ERROR: undefined instruction code in IR (' +
+							          'oc:'  +  oi.oc_code.toString(2) + ', ' +
+							          'eoc:' + oi.eoc_code.toString(2) + ')') ;
+						    }
+                                                    else if (oi.eoc !== undefined) {
                                                          ws_alert('ERROR: undefined instruction code in IR (' +
-							          'co:'  +  oi.op_code.toString(2) + ', ' +
+							          'oc:'  + oi.oc_code.toString(2) + ', ' +
 							          'eoc:' + oi.eoc.toString(2) + ')') ;
 													}
 							 sim_p.states['ROM_MUXA'].value = 0 ;
@@ -2561,12 +2561,10 @@ function cpu_rv_register ( sim_p )
 						    }
 
 						    // 2.- oi.oinstruction -> rom_addr
-							var rom_addr = oi.op_code << 6;
-						    if (oi.oinstruction.cop !== undefined) {
-                                                        rom_addr = rom_addr + oi.cop_code ;
-						    } else if (oi.oinstruction.eoc !== undefined) {
-								                        rom_addr = rom_addr + oi.eoc ;
-							}
+						    var rom_addr = oi.oc_code << 6;
+						    if (typeof oi.oinstruction.eoc != "undefined") {
+                                                        rom_addr = rom_addr + oi.eoc_code ;
+						    }
 
 						    // 2.- ! sim_p.internal_states['ROM'][rom_addr] -> error
 						    if (typeof sim_p.internal_states['ROM'][rom_addr] == "undefined")

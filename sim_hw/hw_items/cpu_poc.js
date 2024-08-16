@@ -2045,17 +2045,17 @@ function cpu_poc_register ( sim_p )
 						    if (null == oi.oinstruction)
                                                     {
                                                          ws_alert('ERROR: undefined instruction code in IR (' +
-							          'co:'  +  oi.op_code.toString(2) + ', ' +
-							          'cop:' + oi.cop_code.toString(2) + ')') ;
+							          'oc:'  +  oi.oc_code.toString(2) + ', ' +
+							          'eoc:' + oi.eoc_code.toString(2) + ')') ;
 							 sim_p.states['ROM_MUXA'].value = 0 ;
 							 sim_p.states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
 						    // 2.- oi.oinstruction -> rom_addr
-                                                    var rom_addr = oi.op_code << 6;
-						    if (typeof oi.oinstruction.cop != "undefined") {
-                                                        rom_addr = rom_addr + oi.cop_code ;
+                                                    var rom_addr = oi.oc_code << 6;
+						    if (typeof oi.oinstruction.eoc != "undefined") {
+                                                        rom_addr = rom_addr + oi.eoc_code ;
 						    }
 
 						    // 2.- ! sim_p.internal_states['ROM'][rom_addr] -> error

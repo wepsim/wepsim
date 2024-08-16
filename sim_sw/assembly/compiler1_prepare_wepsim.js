@@ -38,11 +38,7 @@ function wsasm_prepare_oc ( elto, aux )
                   } ;
 
         // set elto.oc.value
-	if (typeof aux.co !== "undefined") {
-	     elto.oc.value = aux.co ;
-        }
-	else
-        if (typeof aux.oc !== "undefined") {
+	if (typeof aux.oc !== "undefined") {
 	     elto.oc.value = aux.oc ;
         }
 
@@ -94,8 +90,8 @@ function wsasm_prepare_eoc ( elto, aux )
                    } ;
 
         // elto.eoc.value
-	if (typeof aux.cop !== "undefined") {
-	     elto.eoc.value = aux.cop ;
+	if (typeof aux.eoc !== "undefined") {
+	     elto.eoc.value = aux.eoc ;
         }
 	else if (typeof aux.eoc !== "undefined") {
 	     elto.eoc.value = aux.eoc ;

@@ -130,7 +130,7 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
 
        frm_nextToken(context);
        // match mandatory CO
-       instruccionAux.co = frm_getToken(context) ;
+       instruccionAux.oc = frm_getToken(context) ;
 
        frm_nextToken(context);
        // match optional ,
@@ -139,30 +139,30 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
        }
 
        // semantic check: valid value
-       if ( (instruccionAux.co.match("[01]*")[0] != instruccionAux.co) ||
-	    (instruccionAux.co.length !== xr_info.ir.default_eltos.co.length) )
+       if ( (instruccionAux.oc.match("[01]*")[0] != instruccionAux.oc) ||
+	    (instruccionAux.oc.length !== xr_info.ir.default_eltos.co.length) )
        {
 	   return frm_langError(context,
 			        i18n_get_TagFor('compiler', 'INCORRECT CO BIN.') +
-			        "'" + instruccionAux.co + "'") ;
+			        "'" + instruccionAux.oc + "'") ;
        }
 
        // semantic check: 'co' is not already used
-       if (instruccionAux.co != all_ones_co)
+       if (instruccionAux.oc != all_ones_co)
        {
-	   if ( (typeof context.co_cop[instruccionAux.co] !== "undefined") &&
-		       (context.co_cop[instruccionAux.co].cop === null) )
+	   if ( (typeof context.oc_eoc[instruccionAux.oc] !== "undefined") &&
+		       (context.oc_eoc[instruccionAux.oc].eoc === null) )
 	   {
 		 return frm_langError(context,
 				      i18n_get_TagFor('compiler', 'CO ALREADY USED') +
-				      context.co_cop[instruccionAux.co].signature) ;
+				      context.oc_eoc[instruccionAux.oc].signature) ;
 	   }
 
-	   if (typeof context.co_cop[instruccionAux.co] == "undefined")
+	   if (typeof context.oc_eoc[instruccionAux.oc] == "undefined")
 	   {
-	       context.co_cop[instruccionAux.co] = {} ;
-	       context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
-	       context.co_cop[instruccionAux.co].cop       = null ;
+	       context.oc_eoc[instruccionAux.oc] = {} ;
+	       context.oc_eoc[instruccionAux.oc].signature = instruccionAux.signature ;
+	       context.oc_eoc[instruccionAux.oc].eoc       = null ;
 	   }
        }
 
@@ -206,7 +206,7 @@ function firm_instruction_cop_read ( context, instruccionAux )
 
        frm_nextToken(context);
        // match mandatory COP value
-       instruccionAux.cop = frm_getToken(context) ;
+       instruccionAux.eoc = frm_getToken(context) ;
 
        frm_nextToken(context);
        // match optional ,
@@ -215,23 +215,23 @@ function firm_instruction_cop_read ( context, instruccionAux )
        }
 
 	// semantic check: valid value
-	if (instruccionAux.cop.match("[01]*")[0] != instruccionAux.cop) {
+	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc) {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'INCORRECT COP BIN.') +
-			         "'" + instruccionAux.cop + "'") ;
+			         "'" + instruccionAux.eoc + "'") ;
 	}
 
 	// semantic check: 'co+cop' is not already used
-	if (        (context.co_cop[instruccionAux.co].cop != null) &&
-	     (typeof context.co_cop[instruccionAux.co].cop[instruccionAux.cop] != "undefined") )
+	if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
+	     (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
 	{
 	      return frm_langError(context,
 			           i18n_get_TagFor('compiler', 'CO+COP ALREADY USED') +
-			           "'" + context.co_cop[instruccionAux.co].cop[instruccionAux.cop] + "'") ;
+			           "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
 	}
-	if (context.co_cop[instruccionAux.co].cop == null)
-	    context.co_cop[instruccionAux.co].cop = {};
-	    context.co_cop[instruccionAux.co].cop[instruccionAux.cop] = instruccionAux.signature ;
+	if (context.oc_eoc[instruccionAux.oc].eoc == null)
+	    context.oc_eoc[instruccionAux.oc].eoc = {};
+	    context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
 
        return {} ;
 }
@@ -489,8 +489,8 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
 
        // semantic check: valid pending value (cop.length if native.false)
        if ( (instruccionAux["is_native"]  === false) &&
-	    (typeof instruccionAux.cop !== 'undefined') &&
-	    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
+	    (typeof instruccionAux.eoc !== 'undefined') &&
+	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.cop.length) )
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
@@ -630,8 +630,8 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 
        // semantic check: valid pending value (cop.length if native.false)
        if ( (instruccionAux["is_native"]  === false) &&
-	    (typeof instruccionAux.cop !== 'undefined') &&
-	    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
+	    (typeof instruccionAux.eoc !== 'undefined') &&
+	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.cop.length) )
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +

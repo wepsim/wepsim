@@ -53,13 +53,13 @@ function firm_instruction_write ( context, elto, labels_firm )
 	else // version == 1
 	{
 	     // co = ...
-	     if (typeof elto.co != "undefined") {
-	         o += '\t' +"co=" + elto.co + "," + '\n';
+	     if (typeof elto.oc != "undefined") {
+	         o += '\t' +"co=" + elto.oc + "," + '\n';
 	     }
 
 	     // cop = ...
-	     if (typeof elto.cop != "undefined") {
-	         o += '\t' +"cop=" + elto.cop + "," + '\n';
+	     if (typeof elto.eoc != "undefined") {
+	         o += '\t' +"cop=" + elto.eoc + "," + '\n';
 	     }
 
 	     o += firm_fields_v1_write(elto.fields) ;
@@ -197,7 +197,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 		   {
 		       return frm_langError(context,
 					    i18n_get_TagFor('compiler', 'MISSING TOKEN ON') +
-					    "'" + context.co_cop[instruccionAux.co].signature + "'") ;
+					    "'" + context.oc_eoc[instruccionAux.oc].signature + "'") ;
 		   }
 
 		   if (frm_isToken(context,")"))
@@ -211,7 +211,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 		   {
 		       return frm_langError(context,
 					    i18n_get_TagFor('compiler', 'MISSING ) ON') +
-					    "'" + context.co_cop[instruccionAux.co].signature + "'") ;
+					    "'" + context.oc_eoc[instruccionAux.oc].signature + "'") ;
 		   }
 	   }
 

@@ -466,9 +466,9 @@
 	{
 	   var u_oc_eoc = '' ;
 
-	   if (typeof firm_reference.co !== 'undefined')
+	   if (typeof firm_reference.oc !== 'undefined')
 	   { // firmware v1
-	       u_oc_eoc += firm_reference.co ;
+	       u_oc_eoc += firm_reference.oc ;
 	   }
 	   else if (typeof firm_reference.oc !== 'undefined')
 	   {
@@ -480,10 +480,10 @@
 	       u_oc_eoc += firm_reference.op ;
 	   }
 
-	   if (typeof firm_reference.cop !== 'undefined')
+	   if (typeof firm_reference.eoc !== 'undefined')
 	   {
-	       if (firm_reference.cop !== '')
-	           u_oc_eoc += '+' + firm_reference.cop ;
+	       if (firm_reference.eoc !== '')
+	           u_oc_eoc += '+' + firm_reference.eoc ;
 	   }
 	   else if (typeof firm_reference.eoc !== 'undefined')
 	   {
