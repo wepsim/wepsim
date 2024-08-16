@@ -570,9 +570,10 @@ b offset {
        nwords=1,
        offset=address(13,0)rel,
        {
-           (SE=1, OFFSET=0, SIZE=1110, T3, SELC=110111, MRC=1, LC=1),
-           (MRB=1, SELB=110111, MB=0, EXCODE=100, T11, MA=1, SELCOP=11001, T6, MRC=1, SELC=110111, LC=1),
-           (SELA=110111, MRA=1, MA=0, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
+           (SE=1, OFFSET=0, SIZE=10000, T3, MRC=1, SELC=110111, LC=1),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
        }
 }
 
@@ -586,10 +587,11 @@ beq reg reg offset {
            (T8, SELC=110111, MRC=1, LC=1),
            (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
            (A0=0, B=1, C=110, MADDR=bck2ftch),
-           (SELA=110111, MRA=1, M7=0, C7),
-           (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-           (MRB=1, SELB=110111, MB=0, EXCODE=100, T11, MA=1, SELCOP=11001, T6, MRC=1, SELC=110111, LC=1),
-           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+           (MRA=1, SELA=110111, M7=0, C7),
+           (SE=1, OFFSET=0, SIZE=1101, T3, MRC=1, SELC=110111, LC=1),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
  bck2ftch: (SELA=110111, MRA=1, M7=0, C7),
            (A0=1, B=1, C=0)
        }
@@ -607,8 +609,9 @@ bne reg reg offset {
            (A0=0, B=0, C=110, MADDR=bck3ftch),
            (SELA=110111, MRA=1, M7=0, C7),
            (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-           (MRB=1, SELB=110111, MB=0, EXCODE=100, T11, MA=1, SELCOP=11001, T6, MRC=1, SELC=110111, LC=1),
-           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
  bck3ftch: (SELA=110111, MRA=1, M7=0, C7),
            (A0=1, B=1, C=0)
        }
@@ -626,8 +629,9 @@ bge reg reg offset {
            (A0=0, B=0, C=111, MADDR=bck4ftch),
            (SELA=110111, MRA=1, M7=0, C7),
            (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-           (MRB=1, SELB=110111, MB=0, EXCODE=100, T11, MA=1, SELCOP=11001, T6, MRC=1, SELC=110111, LC=1),
-           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
  bck4ftch: (SELA=110111, MRA=1, M7=0, C7),
            (A0=1, B=1, C=0)
        }
@@ -648,8 +652,9 @@ ble reg reg offset {
            (A0=1, B=1, C=0),
    ble_ys: (SELA=110111, MRA=1, M7=0, C7),
            (SE=1, OFFSET=0, SIZE=10000, T3, MA=1, MB=1, MC=1, SELCOP=1010, T6, C2),
-           (MRB=1, SELB=110111, MB=0, EXCODE=100, T11, MA=1, SELCOP=11001, T6, MRC=1, SELC=110111, LC=1),
-           (A0=1, B=1, C=0)
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
        }
 }
 
@@ -665,8 +670,9 @@ blt reg reg offset {
            (A0=0, B=1, C=111, MADDR=bck5ftch),
            (SELA=110111, MRA=1, M7=0, C7),
            (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-           (MRB=1, SELB=110111, MB=0, EXCODE=100, T11, MA=1, SELCOP=11001, T6, MRC=1, SELC=110111, LC=1),
-           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
  bck5ftch: (SELA=110111, MRA=1, M7=0, C7),
            (A0=1, B=1, C=0)
        }
@@ -685,8 +691,9 @@ bgt reg reg offset {
            (A0=0, B=0, C=110, MADDR=bck6ftch),
            (SELA=110111, MRA=1, M7=0, C7),
            (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-           (MRB=1, SELB=110111, MB=0, EXCODE=100, T11, MA=1, SELCOP=11001, T6, MRC=1, SELC=110111, LC=1),
-           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
  bck6ftch: (SELA=110111, MRA=1, M7=0, C7),
            (A0=1, B=1, C=0)
        }

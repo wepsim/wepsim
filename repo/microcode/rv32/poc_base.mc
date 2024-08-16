@@ -244,8 +244,9 @@ beq rs1 rs2 offset {
            (A0=0, B=1, C=110, MADDR=bck2ftch),
            (SELA=110111, MRA=1, M7=0, C7),
            (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-           (MRB, SELB=110111, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=110111, LC),
-           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
  bck2ftch: (SELA=110111, MRA=1, M7=0, C7),
            (A0=1, B=1, C=0)
        }
@@ -265,8 +266,9 @@ bne rs1 rs2 offset {
            (A0=0, B=0, C=110, MADDR=bck3ftch),
            (SELA=110111, MRA=1, M7=0, C7),
            (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-           (MRB, SELB=110111, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=110111, LC),
-           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
  bck3ftch: (SELA=110111, MRA=1, M7=0, C7),
            (A0=1, B=1, C=0)
        }
@@ -286,8 +288,9 @@ blt rs1 rs2 offset {
            (A0=0, B=1, C=111, MADDR=bck5ftch),
            (SELA=110111, MRA=1, M7=0, C7),
            (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-           (MRB, SELB=110111, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=110111, LC),
-           (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
  bck5ftch: (SELA=110111, MRA=1, M7=0, C7),
            (A0=1, B=1, C=0)
        }
@@ -295,23 +298,24 @@ blt rs1 rs2 offset {
 
 #  BGE rs1,rs2,offset         Branch Greater than Equal                 if rs1 ≥ rs2 then pc ← pc + offset
 bge rs1 rs2 offset {
-            co=111111,
-            nwords=1,
-            rs1=reg(25,21),
-            rs2=reg(20,16),
-            offset=address(15,0)rel,
-            help='if (rs1 >= rs2) pc += 4*offset',
-            {
-                (T8, SELC=110111, MRC=1, LC=1),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
-                (A0=0, B=0, C=111, MADDR=bck4ftch),
-                (SELA=110111, MRA=1, M7=0, C7),
-                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
-           (MRB, SELB=110111, MB=0, EXCODE=100, T11, MA, SELCOP=11001, T6, MRC, SELC=110111, LC),
-                (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck4ftch: (SELA=110111, MRA=1, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
+       co=111111,
+       nwords=1,
+       rs1=reg(25,21),
+       rs2=reg(20,16),
+       offset=address(15,0)rel,
+       help='if (rs1 >= rs2) pc += 4*offset',
+       {
+           (T8, SELC=110111, MRC=1, LC=1),
+           (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
+           (A0=0, B=0, C=111, MADDR=bck4ftch),
+           (SELA=110111, MRA=1, M7=0, C7),
+           (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+           (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),
+           (MRA=1, SELA=111000, MA=0, MRB=1, SELB=110111, MB=0, MC=1, SELCOP=1100, T6, MRC=1, SELC=110111, LC=1),
+           (MRA=1, SELA=110111, MA=0,                     MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+ bck4ftch: (SELA=110111, MRA=1, M7=0, C7),
+           (A0=1, B=1, C=0)
+       }
 }
 
 #  BLTU rs1,rs2,offset         Branch Less Than Unsigned                 if rs1 < rs2 then pc ← pc + offset
