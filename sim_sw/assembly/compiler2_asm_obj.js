@@ -1399,7 +1399,6 @@ function wsasm_src2obj_text ( context, ret )
 		   if (candidate.isPseudoinstruction == false)
                    {
 		        elto.datatype = "instruction" ;
-		        elto.value.signature_size_arr.unshift(elto.firm_reference[0].oc.length) ; // WepSIM: push at the beginning
 
 			// Fill initial binary with the initial candidate...
 			elto.binary = wsasm_encode_instruction(context, ret, elto, candidate) ;
@@ -1407,7 +1406,6 @@ function wsasm_src2obj_text ( context, ret )
 		   else
 		   {
 		       elto.datatype = "pseudoinstruction" ;
-		       elto.value.signature_size_arr.unshift(0) ; // push at the beginning
 		       elto.binary   = '' ;
 		   }
 
