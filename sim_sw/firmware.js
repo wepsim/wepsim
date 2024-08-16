@@ -69,8 +69,8 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
            var m = 0 ;
 
            var ret = {} ;
-               ret.label_co  = '' ;
-               ret.label_cop = '' ;
+               ret.label_oc  = '' ;
+               ret.label_eoc = '' ;
 
            // get the default length of the co+cop fields...
            var xr_info = simhw_sim_ctrlStates_get() ;
@@ -98,13 +98,13 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
 	   for (j=first_co; j<last_co; j++)
 	   {
                 // new initial co...
-		ret.label_co = j.toString(2).padStart(oc_length, "0") ;
+		ret.label_oc = j.toString(2).padStart(oc_length, "0") ;
 
                 // (1/3) check for free co-0000...
-		if (typeof context.co_cop[ret.label_co] === "undefined")
+		if (typeof context.co_cop[ret.label_oc] === "undefined")
                 {
-		    context.co_cop[ret.label_co]         = {} ;
-		    context.co_cop[ret.label_co].withcop = false ;
+		    context.co_cop[ret.label_oc]         = {} ;
+		    context.co_cop[ret.label_oc].witheoc = false ;
 		    return ret ;
                 }
 
@@ -112,12 +112,12 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
                 if (typeof curr_instruction.cop !== "undefined")
                 {
                     // cop in use... -> skip cop
-		    if (typeof context.co_cop[ret.label_co].cop[curr_instruction.cop] !== "undefined") {
+		    if (typeof context.co_cop[ret.label_oc].cop[curr_instruction.cop] !== "undefined") {
 		        continue ;
 		    }
 
                     // use cop
-		    ret.label_cop = curr_instruction.cop ;
+		    ret.label_eoc = curr_instruction.cop ;
 		    return ret ;
                 }
 
@@ -125,7 +125,7 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
                 if (cop_overlaps === true) {
 		    continue ;
                 }
-                if (context.co_cop[ret.label_co].withcop === false) {
+                if (context.co_cop[ret.label_oc].witheoc === false) {
 		    continue ;
                 }
 
@@ -134,15 +134,15 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
                 last_cop  = Math.pow(2, 4) - 1 ;
 		for (k=first_cop; k<last_cop; k++)
 		{
-		     ret.label_cop = k.toString(2).padStart(eoc_length, "0") ;
+		     ret.label_eoc = k.toString(2).padStart(eoc_length, "0") ;
 
-                     if (        (context.co_cop[ret.label_co].cop === null) ||
-                          (typeof context.co_cop[ret.label_co].cop === 'undefined') )
+                     if (        (context.co_cop[ret.label_oc].cop === null) ||
+                          (typeof context.co_cop[ret.label_oc].cop === 'undefined') )
                      {
-		          context.co_cop[ret.label_co].cop = {};
+		          context.co_cop[ret.label_oc].cop = {};
                           return ret ;
                      }
-                     if (typeof context.co_cop[ret.label_co].cop[ret.label_cop] === "undefined")
+                     if (typeof context.co_cop[ret.label_oc].cop[ret.label_eoc] === "undefined")
                      {
                           return ret ;
                      }
@@ -449,16 +449,16 @@ function loadFirmware (text)
 			}
 
 			// work with this free 'co-cop' code
-			first_co = parseInt(r.label_co, 2) ;
+			first_co = parseInt(r.label_oc, 2) ;
 
-			curr_instruction.co = r.label_co ;
-			context.co_cop[r.label_co].signature = curr_instruction.signature ;
+			curr_instruction.co = r.label_oc ;
+			context.co_cop[r.label_oc].signature = curr_instruction.signature ;
 
-			if (r.label_cop !== "")
+			if (r.label_eoc !== "")
 			{
-			    curr_instruction.cop = r.label_cop ;
-			    context.co_cop[r.label_co].cop[r.label_cop] = curr_instruction.signature ;
-			    context.co_cop[r.label_co].withcop = true ;
+			    curr_instruction.cop = r.label_eoc ;
+			    context.co_cop[r.label_oc].cop[r.label_eoc] = curr_instruction.signature ;
+			    context.co_cop[r.label_oc].witheoc = true ;
 			}
 		}
 	   }
@@ -506,23 +506,27 @@ function loadFirmware (text)
 	   }
 	   eval(mk_native) ;
 
-	   if (context.metadata.version == 2)
-           {
-	        // oc_eoc_hash
-		var fioc  = 0 ;
-		var fieoc = 0 ;
-		context.hash_oceoc = {} ;
-		for (var fi in context.instrucciones)
-		{
-			if (context.instrucciones[fi].name == "begin") {
-				continue ;
-			}
+	   // oc_eoc_hash
+           var fioc  = 0 ;
+	   var fieoc = 0 ;
+	   context.hash_oceoc = {} ;
 
-			fioc  = context.instrucciones[fi].oc ;
-			if (typeof context.hash_oceoc[fioc] == "undefined") {
-				context.hash_oceoc[fioc] = {} ;
-			}
+	   for (var fi in context.instrucciones)
+	   {
+		if (context.instrucciones[fi].name == "begin") {
+			continue ;
+		}
 
+	        if (context.metadata.version == 2)
+		     fioc = context.instrucciones[fi].oc ;
+		else fioc = context.instrucciones[fi].co ;
+
+		if (typeof context.hash_oceoc[fioc] == "undefined") {
+		    context.hash_oceoc[fioc] = {} ;
+		}
+
+	        if (context.metadata.version == 2)
+                {
 			if (typeof context.instrucciones[fi].eoc == "undefined") {
 				context.hash_oceoc[fioc].witheoc = false ;
 				context.hash_oceoc[fioc].i       = context.instrucciones[fi] ;
@@ -531,34 +535,18 @@ function loadFirmware (text)
 				context.hash_oceoc[fioc].witheoc = true ;
 				context.hash_oceoc[fioc][fieoc]  = context.instrucciones[fi] ;
 			}
-		}
-	   }
-           else
-           {
-		// co_cop_hash
-		var fioc  = 0 ;
-		var fieoc = 0 ;
-		context.hash_oceoc = {} ;
-		for (var fi in context.instrucciones)
-		{
-			if (context.instrucciones[fi].name == "begin") {
-				continue ;
-			}
-
-			fioc  = context.instrucciones[fi].co ;
-			if (typeof context.hash_oceoc[fioc] == "undefined") {
-				context.hash_oceoc[fioc] = {} ;
-			}
-
+	        }
+                else
+                {
 			if (typeof context.instrucciones[fi].cop == "undefined") {
-				context.hash_oceoc[fioc].withcop = false ;
+				context.hash_oceoc[fioc].witheoc = false ;
 				context.hash_oceoc[fioc].i       = context.instrucciones[fi] ;
 			} else {
 				fieoc = context.instrucciones[fi].cop ;
-				context.hash_oceoc[fioc].withcop = true ;
+				context.hash_oceoc[fioc].witheoc = true ;
 				context.hash_oceoc[fioc][fieoc]  = context.instrucciones[fi] ;
 			}
-		}
+	        }
 	   }
 
            // revlabels
@@ -667,7 +655,7 @@ function decode_instruction_v1 ( curr_firm, ep_ir, binstruction )
 	     return ret ;
 	}
 
-	if (false == curr_firm.hash_oceoc[co].withcop)
+	if (false == curr_firm.hash_oceoc[co].witheoc)
 	     ret.oinstruction = curr_firm.hash_oceoc[co].i ;
 	else ret.oinstruction = curr_firm.hash_oceoc[co][cop] ;
 
