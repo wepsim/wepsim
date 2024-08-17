@@ -219,6 +219,7 @@
                 var a2s = {} ;
                 for (l in seg)
 		{
+                     if (".binary" == l) continue ;
                      laddr = "0x" + seg[l].begin.toString(16) ;
                      a2s[laddr] = l;
                 }

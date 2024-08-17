@@ -164,11 +164,11 @@ function cpu_ep_register ( sim_p )
 		                    name:  "IR",
 		                    state: "REG_IR",
 		                    default_eltos: {
-						"co":	{ "begin":  0, "end":  5, "length": 6 },
-						"cop":	{ "begin": 27, "end": 31, "length": 5 },
-						"oc": { "begin":  0, "end":  5, "length": 6 },
-				 	        "eoc":{ "begin": 27,      "end": 31,      "length": 5 },
-					     //	"eoc":{ "begin": [12,25], "end": [14,31], "lengths": [3,7], "length":10 }
+						"co":  { "begin":  0, "end":  5, "length": 6 },
+						"cop": { "begin": 27, "end": 31, "length": 5 },
+						"oc":  { "begin":  0, "end":  5, "length": 6 },
+				 	        "eoc": { "begin": 27, "end": 31, "length": 5 },
+					     //	"eoc": { "begin": [12,25], "end": [14,31], "lengths": [3,7], "length":10 }
 						   },
 		                    is_pointer: false
 	                         } ;
