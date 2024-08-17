@@ -166,8 +166,6 @@ function cpu_rv_register ( sim_p )
 		                    name:  "IR",
 		                    state: "REG_IR",
 		                    default_eltos: {
-					"co":	{ "begin":  0, "end":  5, "length": 6 },
-					"cop":	{ "begin": 28, "end": 31, "length": 4 },
 					"oc":	{ "begin": 25, "end": 31, "length": 7 },
 					"eoc":	{ "type": 2, "bits_field": [[14,12], [31,25]], "bits": [[17,19], [0,6]], "lengths": [3, 7], "length": 10 }
 				      //"eoc":	{ "type": 2, "bits": [[12,14], [25,31]], "lengths": [3, 7], "length": 10 }
@@ -2545,26 +2543,26 @@ function cpu_rv_register ( sim_p )
 
 						    if (null == oi.oinstruction)
                                                     {
-							if (oi.eoc_code !== undefined) {
-								ws_alert('ERROR: undefined instruction code in IR (' +
-							          'oc:'  +  oi.oc_code.toString(2) + ', ' +
-							          'eoc:' + oi.eoc_code.toString(2) + ')') ;
-						    }
-                                                    else if (oi.eoc !== undefined) {
+							 var oc_eoc_info = ' unknown ' ;
+							 if (oi.eoc_code !== undefined) {
+							     oc_eoc_info = 'oc:'  +  oi.oc_code.toString(2) + ', ' +
+							                   'eoc:' + oi.eoc_code.toString(2) ;
+						         }
+                                                    else if (typeof oi.eoc !== "undefined") {
+                                                             oc_eoc_info = 'oc:'  + oi.oc_code.toString(2) + ', ' +
+							                   'eoc:' + oi.eoc.toString(2) ;
+							 }
                                                          ws_alert('ERROR: undefined instruction code in IR (' +
-							          'oc:'  + oi.oc_code.toString(2) + ', ' +
-							          'eoc:' + oi.eoc.toString(2) + ')') ;
-													}
+                                                                   oc_eoc_info + ')') ;
+
 							 sim_p.states['ROM_MUXA'].value = 0 ;
 							 sim_p.states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
 						    // 2.- oi.oinstruction -> rom_addr
-						    var rom_addr = oi.oc_code << 6;
-						    if (typeof oi.oinstruction.eoc != "undefined") {
-                                                        rom_addr = rom_addr + oi.eoc_code ;
-						    }
+                                                    var rom_addr = oceoc2rom_addr(oi.oc_code, oi.eoc_code,
+                                                                                  oi.oinstruction.eoc) ;
 
 						    // 2.- ! sim_p.internal_states['ROM'][rom_addr] -> error
 						    if (typeof sim_p.internal_states['ROM'][rom_addr] == "undefined")

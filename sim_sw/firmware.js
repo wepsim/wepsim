@@ -147,7 +147,6 @@ function loadFirmware (text)
            var i = 0 ;
 
            var     xr_info = simhw_sim_ctrlStates_get() ;
-           var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
 	   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
 
            var context = {} ;
@@ -252,7 +251,7 @@ function loadFirmware (text)
 		//             }
 		// }*
 
-               ret = firm_instruction_read(context, xr_info, all_ones_co, all_ones_oc) ;
+               ret = firm_instruction_read(context, xr_info, all_ones_oc) ;
 	       if (typeof ret.error != "undefined") {
 	           return ret ;
                }
@@ -289,11 +288,8 @@ function loadFirmware (text)
 
 	   // RESOLVE: oc=111111... (111111... === "please, find one free 'oc' for me...")
 	   var ir_oc_length = 6 ;
-	   if (typeof xr_info !== "undefined")
-           {
-	       if (context.metadata.version == 2)
-	            ir_oc_length = xr_info.ir.default_eltos.oc.length ;
-	       else ir_oc_length = xr_info.ir.default_eltos.co.length ;
+	   if (typeof xr_info !== "undefined") {
+	       ir_oc_length = xr_info.ir.default_eltos.oc.length ;
 	   }
 
 	   var first_oc = 0 ;
@@ -435,26 +431,23 @@ function loadFirmware (text)
 function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
 	var ret = {
-			"oinstruction": null,
-			oc_code: 0,
-			eoc_code: 0
+		      "oinstruction": null,
+		      oc_code:  0,
+		      eoc_code: 0
 		  } ;
 
 	// instructions as 32-string
 	var bits = binstruction.toString(2).padStart(32, "0") ;
 
 	// oc/op-code
-        var oc = 0 ;
-        if (curr_firm.metadata.version == 2)
-	     oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
-	else oc = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length);
+	var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length) ;
 	ret.oc_code = parseInt(oc, 2) ;
 
 	// eoc/cop-code
         var eoc = 0 ;
         if (1 == curr_firm.metadata.version)
         {
-	    eoc = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
+	    eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
 	}
         else // 2 == curr_firm.metadata.version
         {

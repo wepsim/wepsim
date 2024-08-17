@@ -140,7 +140,7 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
 
        // semantic check: valid value
        if ( (instruccionAux.oc.match("[01]*")[0] != instruccionAux.oc) ||
-	    (instruccionAux.oc.length !== xr_info.ir.default_eltos.co.length) )
+	    (instruccionAux.oc.length !== xr_info.ir.default_eltos.oc.length) )
        {
 	   return frm_langError(context,
 			        i18n_get_TagFor('compiler', 'INCORRECT CO BIN.') +
@@ -490,7 +490,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
        // semantic check: valid pending value (cop.length if native.false)
        if ( (instruccionAux["is_native"]  === false) &&
 	    (typeof instruccionAux.eoc !== 'undefined') &&
-	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.cop.length) )
+	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length) )
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
@@ -631,7 +631,7 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
        // semantic check: valid pending value (cop.length if native.false)
        if ( (instruccionAux["is_native"]  === false) &&
 	    (typeof instruccionAux.eoc !== 'undefined') &&
-	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.cop.length) )
+	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length) )
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +

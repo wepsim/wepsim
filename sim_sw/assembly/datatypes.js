@@ -239,11 +239,14 @@ function dt_binary2format ( valbin, format )
                 break ;
 
 	   case 'ascii':
-                ret = val.toString(10) ;  // TODO
+                ret = String.fromCharCode(val) ;
+                if (ret.length < 1) {
+                    ret = 'ascii-' + val.toString(10) ;
+                }
                 break ;
 
 	   case 'ieee754':
-                ret = val.toString(16) ;  // TODO
+                ret = uint_to_float32(val) ;
                 break ;
 
 	   default:

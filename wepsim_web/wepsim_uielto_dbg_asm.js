@@ -219,6 +219,7 @@
                 var a2s = {} ;
                 for (l in seg)
 		{
+                     if (".binary" == l) continue ;
                      laddr = "0x" + seg[l].begin.toString(16) ;
                      a2s[laddr] = l;
                 }
@@ -467,10 +468,6 @@
 	   var u_oc_eoc = '' ;
 
 	   if (typeof firm_reference.oc !== 'undefined')
-	   { // firmware v1
-	       u_oc_eoc += firm_reference.oc ;
-	   }
-	   else if (typeof firm_reference.oc !== 'undefined')
 	   {
 	       if (typeof firm_reference.oc.value !== 'undefined')
 	            u_oc_eoc += firm_reference.oc.value ; // firmware v2
@@ -481,11 +478,6 @@
 	   }
 
 	   if (typeof firm_reference.eoc !== 'undefined')
-	   {
-	       if (firm_reference.eoc !== '')
-	           u_oc_eoc += '+' + firm_reference.eoc ;
-	   }
-	   else if (typeof firm_reference.eoc !== 'undefined')
 	   {
 	       if (typeof firm_reference.eoc.value !== 'undefined') {
 	           if (firm_reference.eoc.value !== '')
@@ -510,7 +502,7 @@
            }
 
 	   if (typeof fields[0].asm_start_bit !== 'undefined')
-	   { // firmware v2 - assembler-ng
+	   { // firmware v2
 	       for (var f=0; f<fields.length; f++)
                {
 	            o += ' <li>' + fields[f].name                     + ': bits <b>' +
@@ -518,17 +510,6 @@
                                    fields[f].asm_start_bit.toString() + '</b></li>\n' ;
 	       }
            }
-
-	   else if (typeof fields[0].bits_start !== 'undefined')
-	   { // firmware v2 - assembler-v1
-	       for (var f=0; f<fields.length; f++)
-               {
-	            o += ' <li>' + fields[f].name                  + ': bits <b>' +
-                                   fields[f].bits_stop.toString()  + '</b> to <b>' +
-                                   fields[f].bits_start.toString() + '</b></li>\n' ;
-	       }
-           }
-
            else
 	   { // firmware v1
 	       for (var f=0; f<fields.length; f++)
@@ -554,8 +535,7 @@
 
            // prepare data: ins_bin
 	   var next = 0 ;
-         //var ins_bin = mp[l].binary ;
-	   var ins_bin = parseInt(get_value(mp[l])).toString(2).padStart(32, "0") ;
+	   var ins_bin = parseInt(get_value(mp[l])).toString(2).padStart(32, "0") ; // mp[l].binary ... ;
 	   for (var iw=1; iw<nwords; iw++)
 	   {
 		  next = parseInt(l, 16) + iw*4 ; // 4 -> 32 bits
