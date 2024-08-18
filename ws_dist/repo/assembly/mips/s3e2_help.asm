@@ -23,7 +23,7 @@ sys_print:
             b  sys_print
       end1: reti
 
-  rti0:     # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+  rti0:     # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:screen
             # notify: TIP: Interruption zero
             # notify: Some hardware raises interruption
             # notify: For example the clock hardware fires the zero interruption
@@ -34,7 +34,7 @@ sys_print:
             la   $26 msgi0
             b    sys_print
 
-  rti1:     # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+  rti1:     # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:screen
             # notify: TIP: Interruption one
             # notify: Some hardware raises interruption
             # notify: For example the clock hardware fires the one interruption
@@ -45,7 +45,7 @@ sys_print:
             la   $26 msgi1
             b    sys_print
 
-  sys:      # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+  sys:      # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:screen
             # notify: TIP: System call
             # notify: One instruction that fires an expecial exception
             # notify: For example the ecall instruction

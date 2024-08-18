@@ -51,7 +51,7 @@ function firm_fields_v2_write ( elto_fields )
 		 }
 		 o += ")" ;
 
-		 if ("oc" == elto_fields[j].type)
+		 if (["oc", "eoc"].includes(elto_fields[j].type))
 		      o += " = " + elto_fields[j].value + "," + '\n';
 		 else o += " = " + elto_fields[j].name  + "," + '\n';
 	}
@@ -97,14 +97,6 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
 function firm_instruction_check_eoc ( context, instruccionAux, xr_info )
 {
 	// semantic check: valid value
-/*
-	if (
-             (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc) ||
-	     (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length     &&
-	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[0] &&
-	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[1])
-           )
-*/
 	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc)
         {
 	    return frm_langError(context,
@@ -391,7 +383,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 
 			// count number of bits read
 			var total_bits = 0;
-			for (i=0; i<bits.length; i++) {
+			for (var i=0; i<bits.length; i++) {
 			     total_bits += bits[i][0] - bits[i][1] + 1;
 			}
 
@@ -423,6 +415,10 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 		var index_name = -1 ;
 		for (var i=0; (i<instruccionAux.fields.length) && (index_name == -1); i++)
 		{
+		     if (typeof instruccionAux.fields[i].type != "undefined") {
+                         continue ; // skip already assigned fields
+		     }
+
 		     if (instruccionAux.fields[i].name == tmp_name)
 		     {
 			 instruccionAux.fields[i] = tmp_fields ;

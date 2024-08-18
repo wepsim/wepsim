@@ -33,6 +33,14 @@ function saveFirmware ( SIMWARE )
 {
 	var o = "" ;
 
+        // Saving as version 2 by default ;-)
+        if ( (typeof SIMWARE.metadata != "undefined") && (1 == SIMWARE.metadata.version) )
+        {
+              SIMWARE.metadata.version  = 2 ;
+              SIMWARE.metadata.rel_mult = 4 ;
+              SIMWARE.metadata.endian   = 'little' ;
+        }
+
         // initial header
         o += "\n" +
              "#\n" +
@@ -120,7 +128,7 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
 
                 // new initial oc-eoc...
                 first_eoc = 0 ;
-                last_eoc  = Math.pow(2, 4) - 1 ;
+                last_eoc  = Math.pow(2, 4) - 1 ;  // TODO: move from fixed 4 bits to ...eoc_length
 		for (k=first_eoc; k<last_eoc; k++)
 		{
 		     ret.label_eoc = k.toString(2).padStart(4, "0") ;
@@ -441,32 +449,26 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 
 	// oc/op-code
 	var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length) ;
-	ret.oc_code = parseInt(oc, 2) ;
 
 	// eoc/cop-code
-        var eoc = 0 ;
-        if (1 == curr_firm.metadata.version)
-        {
-	    eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
-	}
-        else // 2 == curr_firm.metadata.version
-        {
-	    eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+        var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
 
-	    if (2 == ep_ir.default_eltos.eoc.type)
-            {
-	        // https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
-		if (oc !='1101111' && oc != '0110111' && oc != '0010111')
-                {
-		    eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
-		    if (oc == '0110011' || oc == '1110011') {
-		    	eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
-		    } else if (oc == '0010011' && (eoc == '001' || eoc == '101')) {
-			eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
-		    }
-		}
-            }
+        // "firmware version 2" + "type 2 (risc-v)" -> check if special case:
+        // * https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
+        if ( (2 == curr_firm.metadata.version) && (2 == ep_ir.default_eltos.eoc.type) )
+        {
+	      if ((oc !='1101111') && (oc != '0110111') && (oc != '0010111'))
+              {
+		  eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
+		  if (oc == '0110011' || oc == '1110011') {
+		      eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+		  } else if (oc == '0010011' && (eoc == '001' || eoc == '101')) {
+		      eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+		  }
+	      }
 	}
+
+	ret.oc_code  = parseInt(oc,  2) ;
 	ret.eoc_code = parseInt(eoc, 2) ;
 
 	if ("undefined" == typeof curr_firm.hash_oceoc[oc]) {
@@ -477,7 +479,7 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 	     ret.oinstruction = curr_firm.hash_oceoc[oc].i ;
 	else ret.oinstruction = curr_firm.hash_oceoc[oc][eoc] ;
 
-    return ret ;
+        return ret ;
 }
 
 function decode_ram ( )

@@ -3,7 +3,8 @@
 
 ## 2.3.2 -> 2.3.5:
 * Main improvements:
-  * Cleanup for old assembler code.
+  * Old assembler code cleanup
+  * Cleanup on old firmware v1 code
 * Main external dependencies updated:
 
 ## 2.3.1 -> 2.3.2:
@@ -13,7 +14,7 @@
     * Support for alternative definitions of pseudo-instructions, ordered from most restrictive to least restrictive
     * Support for binary segment
   * Several minor updates to the firmware syntax v2:
-    * saveFirmware(...) now support v2
+    * Save Firmware from control memory now supports firmware version 2
     * Firmware metadata updated:
       <html>
        <table>
