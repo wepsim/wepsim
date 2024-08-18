@@ -187,9 +187,10 @@ jal rd offset {
       address-rel(19:0)=offset,
       help='rd = pc; pc = pc + 4*sext(offset)',
       {
-          (T2, MR=0, SelC=10101, LC, C5),                   # (rd, RT2) <- PC
+          (ExCODE=10, T11, C5),                     	    #       RT2 <- 2
           (SE=1, OFFSET=0, SIZE=10100, T3, C4),             #       RT1 <- offset
-          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),         #       RT1 <- 4*RT1
+          (MA=1, MB=1, MC=1, SELCOP=1100, T6, C4),          #       RT1 <- RT2*RT1
+          (T2, MR=0, SelC=10101, LC, C5),                   # (rd, RT2) <- PC
           (MA=1, MB=1, MC=1, SelCop=1010, T6, M2=0, C2, A0=1, B=1, C=0)
       }
 }
@@ -206,11 +207,12 @@ jalr rd rs1 offset {
           (T2, SelC=10101, MR=0, LC),                           # rd  <- pc
           (EXCODE=0, T11, MR=1, SelC=0, LC=1),
           (SE=1, OFFSET=0, SIZE=1100, T3, C4),                  # RT1 <- sign_ext(offset)
-          (MA=1, MB=10, MC=1, SELCOP=1100, T6, C4),             # RT1 <- 4*RT1
+          (ExCODE=10, T11, C5),                     	        # RT2 <- 2
+          (MA=1, MB=1, MC=1, SELCOP=1100, T6, C4),              # RT1 <- RT2*RT1
           (MR=0, SelB=10000, MA=1, MC=1, SelCop=1010, T6, C5),  # RT2 <- offset + rs1
           (EXCODE=1, T11, C4),                                  # RT1 <- 1
           (MA=1, MC=1, SelCop=11, T6, C4),                      # RT1 <- ~1 (0xFFFFFFFE)
-          (MA=1, MB=1, MC=1, SelCop=1, T6, M2=0, C2),           # pc <- RT2 & 0xFFFFFFFE
+          (MA=1, MB=1, MC=1, SelCop=1, T6, M2=0, C2),           # pc  <- RT2 & 0xFFFFFFFE
           (EXCODE=0, T11, MR=1, SelC=0, LC=1, A0=1, B=1, C=0)
       }
 }

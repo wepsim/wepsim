@@ -36,7 +36,7 @@
    main:   # initial address
            la   s5 msg
 
-           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:register_file
+           # notify: skip1st:true showas:offcanvas glow:btn_run_stop_exebar1 scroll2current:true showdetails:ledmatrix
            # notify: TIP: led-matrix
            # notify: Request action to the led-matrix device:
            # notify: <ul>
