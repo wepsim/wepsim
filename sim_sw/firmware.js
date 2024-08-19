@@ -75,6 +75,8 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
 {
            var k = 0 ;
            var m = 0 ;
+           var xr_info = simhw_sim_ctrlStates_get() ;
+	   var eoc_len = xr_info.ir.default_eltos.eoc.length ;
 
            var ret = {} ;
                ret.label_oc  = '' ;
@@ -128,10 +130,10 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
 
                 // new initial oc-eoc...
                 first_eoc = 0 ;
-                last_eoc  = Math.pow(2, 4) - 1 ;  // TODO: move from fixed 4 bits to ...eoc_length
+                last_eoc  = Math.pow(2, eoc_len) - 1 ;
 		for (k=first_eoc; k<last_eoc; k++)
 		{
-		     ret.label_eoc = k.toString(2).padStart(4, "0") ;
+		     ret.label_eoc = k.toString(2).padStart(eoc_len, "0") ;
 
                      if (        (context.oc_eoc[ret.label_oc].eoc === null) ||
                           (typeof context.oc_eoc[ret.label_oc].eoc === 'undefined') )

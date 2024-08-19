@@ -194,7 +194,7 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
        return {} ;
 }
 
-function firm_instruction_cop_read ( context, instruccionAux )
+function firm_instruction_cop_read ( context, instruccionAux, all_ones_co )
 {
 
 // li reg val {
@@ -230,16 +230,19 @@ function firm_instruction_cop_read ( context, instruccionAux )
 	}
 
 	// semantic check: 'co+cop' is not already used
-	if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
-	     (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
-	{
-	      return frm_langError(context,
-			           i18n_get_TagFor('compiler', 'CO+COP ALREADY USED') +
-			           "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
-	}
-	if (context.oc_eoc[instruccionAux.oc].eoc == null)
-	    context.oc_eoc[instruccionAux.oc].eoc = {};
-	    context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
+        if (instruccionAux.oc != all_ones_co)
+        {
+	   if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
+	        (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
+	   {
+	         return frm_langError(context,
+	   		              i18n_get_TagFor('compiler', 'CO+COP ALREADY USED') +
+			              "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
+	   }
+	   if (context.oc_eoc[instruccionAux.oc].eoc == null)
+	       context.oc_eoc[instruccionAux.oc].eoc = {};
+	       context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
+        }
 
         // <new>
         var xr_info = simhw_sim_ctrlStates_get() ;
@@ -425,7 +428,7 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 	       // match optional cop
 	       if (frm_isToken(context,"cop"))
 	       {
-                   ret = firm_instruction_cop_read(context, instruccionAux) ;
+                   ret = firm_instruction_cop_read(context, instruccionAux, all_ones_co) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }

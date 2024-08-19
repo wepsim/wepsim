@@ -568,7 +568,7 @@ out reg val {
 b offset {
        co=001100,
        nwords=1,
-       offset=address(13,0)rel,
+       offset=address(15,0)rel,
        {
            (SE=1, OFFSET=0, SIZE=10000, T3, MRC=1, SELC=110111, LC=1),
            (EXCODE=100, T11, MRC=1, SELC=111000, LC=1),

@@ -94,30 +94,33 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
        return {} ;
 }
 
-function firm_instruction_check_eoc ( context, instruccionAux, xr_info )
+function firm_instruction_check_eoc ( context, instruccionAux, xr_info, all_ones_oc )
 {
-	// semantic check: valid value
-	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc)
-        {
-	    return frm_langError(context,
-			         i18n_get_TagFor('compiler', 'INCORRECT EOC BIN.') +
-			         "'" + instruccionAux.eoc + "'") ;
-	}
+       // semantic check: valid value
+       if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc)
+       {
+	   return frm_langError(context,
+			        i18n_get_TagFor('compiler', 'INCORRECT EOC BIN.') +
+			        "'" + instruccionAux.eoc + "'") ;
+       }
 
-	if (context.oc_eoc[instruccionAux.oc].eoc == null) {
-	    context.oc_eoc[instruccionAux.oc].eoc = {} ;
-        }
+       // semantic check: 'oc+eoc' is not already used
+       if (instruccionAux.oc != all_ones_oc)
+       {
+	   if (context.oc_eoc[instruccionAux.oc].eoc == null) {
+	       context.oc_eoc[instruccionAux.oc].eoc = {} ;
+           }
 
-	// semantic check: 'oc+eoc' is not already used
-	if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
-	     (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
-	{
-	      return frm_langError(context,
-			           i18n_get_TagFor('compiler', 'OC+EOC ALREADY USED') +
-			           "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
-	}
+	   if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
+	        (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
+	   {
+	         return frm_langError(context,
+	   		              i18n_get_TagFor('compiler', 'OC+EOC ALREADY USED') +
+			              "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
+	   }
 
-	context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
+	   context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
+       }
 
         return {} ;
 }
@@ -514,7 +517,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
                    instruccionAux.eoc = ret.value ;
 		   instruccionAux.fields_eoc.push(ret.value) ;
 
-                   ret = firm_instruction_check_eoc(context, instruccionAux, xr_info) ;
+                   ret = firm_instruction_check_eoc(context, instruccionAux, xr_info, all_ones_oc) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }
