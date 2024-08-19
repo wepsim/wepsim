@@ -51,7 +51,7 @@ function firm_fields_v2_write ( elto_fields )
 		 }
 		 o += ")" ;
 
-		 if ("oc" == elto_fields[j].type)
+                 if (["oc", "eoc"].includes(elto_fields[j].type))
 		      o += " = " + elto_fields[j].value + "," + '\n';
 		 else o += " = " + elto_fields[j].name  + "," + '\n';
 	}
@@ -94,7 +94,7 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
        return {} ;
 }
 
-function firm_instruction_check_eoc ( context, instruccionAux, xr_info )
+function firm_instruction_check_eoc ( context, instruccionAux, xr_info, all_ones_oc )
 {
 	// semantic check: valid value
 /*
@@ -117,15 +117,18 @@ function firm_instruction_check_eoc ( context, instruccionAux, xr_info )
         }
 
 	// semantic check: 'oc+eoc' is not already used
-	if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
-	     (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
-	{
-	      return frm_langError(context,
-			           i18n_get_TagFor('compiler', 'OC+EOC ALREADY USED') +
-			           "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
-	}
+        if (instruccionAux.oc != all_ones_oc)
+        {
+	    if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
+	         (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
+	    {
+	          return frm_langError(context,
+			               i18n_get_TagFor('compiler', 'OC+EOC ALREADY USED') +
+			               "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
+	    }
 
-	context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
+	    context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
+        }
 
         return {} ;
 }
@@ -423,6 +426,10 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 		var index_name = -1 ;
 		for (var i=0; (i<instruccionAux.fields.length) && (index_name == -1); i++)
 		{
+		     if (typeof instruccionAux.fields[i].type != "undefined") {
+                         continue ; // skip already assigned fields
+		     }
+
 		     if (instruccionAux.fields[i].name == tmp_name)
 		     {
 			 instruccionAux.fields[i] = tmp_fields ;
@@ -518,7 +525,7 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
                    instruccionAux.eoc = ret.value ;
 		   instruccionAux.fields_eoc.push(ret.value) ;
 
-                   ret = firm_instruction_check_eoc(context, instruccionAux, xr_info) ;
+                   ret = firm_instruction_check_eoc(context, instruccionAux, xr_info, all_ones_oc) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }

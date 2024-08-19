@@ -34,9 +34,15 @@ function firm_instruction_write ( context, elto, labels_firm )
 	o += elto.name + ' ' ;
         if (typeof elto.fields != "undefined")
         {
-            for (var k=0; k<elto.fields.length; k++) {
-	         o += elto.fields[k].name + ' ' ;
+            for (var k=0; k<elto.fields.length; k++)
+            {
+	       if (elto.fields[k].indirect)
+	            o += '(' + elto.fields[k].name + ') ' ;
+	       else o += elto.fields[k].name + ' ' ;
             }
+        }
+        if ( (elto.name == "begin") && (elto.is_native) ) {
+            o += "\n\tnative,\n" ;
         }
 	o += " {" + '\n';
 
@@ -64,7 +70,7 @@ function firm_instruction_write ( context, elto, labels_firm )
 
 	     o += firm_fields_v1_write(elto.fields) ;
 	}
-        if (elto.is_native) {
+        if ( (elto.name != "begin") && (elto.is_native) ) {
             o += "\tnative,\n" ;
 	}
 
@@ -149,6 +155,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 	       }
 
 	       campoAux.name = auxValue ;
+               campoAux.indirect = false ;
 	       instruccionAux.fields.push(campoAux);
 	       instruccionAux.numeroCampos++;
 	       firma = firma + auxValue ;
@@ -174,8 +181,8 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 	   {
 		   firma = firma + ',(';
 
+		   // next line needs concatenate '+' otherwise saveFirmware is not going to work!
 		   if (plus_found)
-			// next line needs concatenate '+' otherwise saveFirmware is not going to work!
 			firmaUsuario = firmaUsuario + '+(';
 		   else	firmaUsuario = firmaUsuario + ' (';
 
@@ -185,6 +192,7 @@ function firm_instruction_read ( context, xr_info, all_ones_co, all_ones_oc )
 		   {
 		       var campoAux = {};
 		       campoAux.name = frm_getToken(context) ;
+                       campoAux.indirect = true ;
 		       instruccionAux.fields.push(campoAux);
 		       instruccionAux.numeroCampos++;
 

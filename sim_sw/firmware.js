@@ -60,7 +60,7 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
                 // new initial co...
 		ret.label_co = j.toString(2).padStart(oc_length, "0") ;
 
-                // (1/3) check for free co-0000...
+                // (1/3) check for free co-00000...
 		if (typeof context.co_cop[ret.label_co] === "undefined")
                 {
 		    context.co_cop[ret.label_co]         = {} ;
@@ -91,7 +91,7 @@ function find_first_cocop ( context, curr_instruction, first_co, last_co )
 
                 // new initial co-cop...
                 first_cop = 0 ;
-                last_cop  = Math.pow(2, 4) - 1 ;
+                last_cop  = Math.pow(2, eoc_length) - 1 ;
 		for (k=first_cop; k<last_cop; k++)
 		{
 		     ret.label_cop = k.toString(2).padStart(eoc_length, "0") ;
@@ -116,6 +116,8 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
 {
            var k = 0 ;
            var m = 0 ;
+           var xr_info = simhw_sim_ctrlStates_get() ;
+	   var eoc_len = xr_info.ir.default_eltos.eoc.length ;
 
            var ret = {} ;
                ret.label_oc  = '' ;
@@ -169,10 +171,10 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
 
                 // new initial oc-eoc...
                 first_eoc = 0 ;
-                last_eoc  = Math.pow(2, 4) - 1 ;
+                last_eoc  = Math.pow(2, eoc_len) - 1 ;
 		for (k=first_eoc; k<last_eoc; k++)
 		{
-		     ret.label_eoc = k.toString(2).padStart(4, "0") ;
+		     ret.label_eoc = k.toString(2).padStart(eoc_len, "0") ;
 
                      if (        (context.oc_eoc[ret.label_oc].eoc === null) ||
                           (typeof context.oc_eoc[ret.label_oc].eoc === 'undefined') )

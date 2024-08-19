@@ -167,7 +167,6 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
        }
 
        // overlapping mask (initialized with 'co' field)
-       var xr_info = simhw_sim_ctrlStates_get() ;
        stop  = 31 - parseInt(xr_info.ir.default_eltos.oc.end) ;   // 5 -> 26
        start = 31 - parseInt(xr_info.ir.default_eltos.oc.begin) ; // 0 -> 31
 //     stop  = 26 ;
@@ -186,7 +185,7 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
        return {} ;
 }
 
-function firm_instruction_cop_read ( context, instruccionAux )
+function firm_instruction_cop_read ( context, instruccionAux, all_ones_co )
 {
 
 // li reg val {
@@ -222,18 +221,22 @@ function firm_instruction_cop_read ( context, instruccionAux )
 	}
 
 	// semantic check: 'co+cop' is not already used
-	if (        (context.co_cop[instruccionAux.co].cop != null) &&
-	     (typeof context.co_cop[instruccionAux.co].cop[instruccionAux.cop] != "undefined") )
-	{
-	      return frm_langError(context,
-			           i18n_get_TagFor('compiler', 'CO+COP ALREADY USED') +
-			           "'" + context.co_cop[instruccionAux.co].cop[instruccionAux.cop] + "'") ;
-	}
-	if (context.co_cop[instruccionAux.co].cop == null)
-	    context.co_cop[instruccionAux.co].cop = {};
-	    context.co_cop[instruccionAux.co].cop[instruccionAux.cop] = instruccionAux.signature ;
+        if (instruccionAux.co != all_ones_co)
+        {
+	    if (        (context.co_cop[instruccionAux.co].cop != null) &&
+	         (typeof context.co_cop[instruccionAux.co].cop[instruccionAux.cop] != "undefined") )
+	    {
+	          return frm_langError(context,
+	    		               i18n_get_TagFor('compiler', 'CO+COP ALREADY USED') +
+			               "'" + context.co_cop[instruccionAux.co].cop[instruccionAux.cop] + "'") ;
+	    }
 
-       return {} ;
+	    if (context.co_cop[instruccionAux.co].cop == null)
+	        context.co_cop[instruccionAux.co].cop = {};
+	        context.co_cop[instruccionAux.co].cop[instruccionAux.cop] = instruccionAux.signature ;
+        }
+
+        return {} ;
 }
 
 function firm_instruction_field_read ( context, instruccionAux, camposInsertados )
@@ -383,7 +386,7 @@ function firm_instruction_read_fixed_fields ( context, instruccionAux, xr_info, 
        // match optional cop
        if (frm_isToken(context,"cop"))
        {
-           ret = firm_instruction_cop_read(context, instruccionAux) ;
+           ret = firm_instruction_cop_read(context, instruccionAux, all_ones_co) ;
            if (typeof ret.error != "undefined") {
                return ret ;
            }
@@ -544,7 +547,7 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 	       // match optional cop
 	       if (frm_isToken(context,"cop"))
 	       {
-                   ret = firm_instruction_cop_read(context, instruccionAux) ;
+                   ret = firm_instruction_cop_read(context, instruccionAux, all_ones_co) ;
 		   if (typeof ret.error != "undefined") {
 		       return ret ;
 		   }

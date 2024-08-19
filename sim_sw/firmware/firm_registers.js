@@ -36,6 +36,10 @@ function firm_registers_write ( context )
              '{\n' ;
 	for (i=0; i< context.registers.length; i++)
 	{
+	     if (typeof context.registers[i] == "undefined") {
+                 continue ;
+             }
+
 	     var l = context.registers[i].length - 1 ;
 	     var r = "(" ;
 	     for (j=0; j<l; j++) {
