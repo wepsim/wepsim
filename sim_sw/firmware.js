@@ -23,12 +23,6 @@
  *  Save Firmware
  */
 
-/*
-   TODO for saveFirmware:
-   a) try to unify internal definition for version 1 and 2 in order to save as last version by default
-   b) try to build a "1to2(...)" function to export version 1 as version 2 by default
-*/
-
 function saveFirmware ( SIMWARE )
 {
 	var o = "" ;
