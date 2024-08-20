@@ -290,8 +290,11 @@ function wsasm_obj2mem  ( ret )
          wsasm_zeropadding_and_writememory(ret.mp, gen) ;
 
          // copy back the last asigned address
-         for (let seg_name in last_assig_word) {
-              ret.seg[seg_name].end = parseInt(last_assig_word[seg_name]) ;
+         for (var seg_name in ret.seg)
+         {
+              if (typeof last_assig_word[seg_name] != "undefined")
+                   ret.seg[seg_name].end = parseInt(last_assig_word[seg_name]) ;
+              else ret.seg[seg_name].end = ret.seg[seg_name].begin + WORD_BYTES ;
          }
 
          return ret ;

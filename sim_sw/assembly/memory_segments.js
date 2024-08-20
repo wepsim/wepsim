@@ -29,9 +29,9 @@
 
                    ".data":   { name:".data",   begin:0x01000, end:0x07FFF,    color:"#FACC2E", kindof:"data"  },
                    ".text":   { name:".text",   begin:0x08000, end:0x1FFFF,    color:"#BEF781", kindof:"text"  },
-                   ".stack":  { name:".stack",  begin:0x1FFFF, end:0x100000,   color:"#F1F2A3", kindof:"stack" },
 
-                   ".binary": { name:".binary", begin:0x00000, end:0xFFFFFFFF, color:"#BEF781", kindof:"binary" }
+                   ".binary": { name:".binary", begin:0x00000, end:0xFFFFFFFF, color:"#BEF781", kindof:"binary" },
+                   ".stack":  { name:".stack",  begin:0x1FFFF, end:0x100000,   color:"#F1F2A3", kindof:"stack" }
                 } ;
 
    function segments_addr_within_text ( address )
