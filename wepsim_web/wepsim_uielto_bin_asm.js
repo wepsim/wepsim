@@ -97,7 +97,7 @@
 	          if (typeof slebal[wadd] != "undefined")
                   {
                        for (var i=0; i<slebal[wadd].length; i++) {
-		            clabel = clabel + "<span class='badge rounded-pill text-bg-secondary float-start'>" + slebal[wadd][i] + "</span>" ;
+		            clabel = clabel + "<span class='badge rounded-pill text-bg-secondary float-end'>" + slebal[wadd][i] + "</span>" ;
                        }
                   }
 	          else clabel = clabel + "&nbsp;" ;
@@ -108,7 +108,7 @@
 
 	function mp2html ( mp, labels, seg )
 	{
-                // auxiliar for search
+                // auxiliar for search label
                 var slebal = {} ;
                 for (var l in labels)
                 {
@@ -118,29 +118,16 @@
                      slebal[labels[l]].push(l);
                 }
 
+                // auxiliar for segments
                 var slimits = {} ;
 	        for (var skey1 in seg)
 	        {
                      slimits[skey1] = {
                                         'c_begin': parseInt(seg[skey1].begin),
                                         'c_end':   parseInt(seg[skey1].end),
-                                        'm_end':   0,
+                                        'm_end':   parseInt(seg[skey1].end),
 		                        'color':   seg[skey1].color
 				      } ;
-                }
-                var a = 0 ;
-	        for (var m in mp)
-	        {
-                     a = parseInt(m, 16) ;
-	             for (var skey2 in seg)
-	             {
-                          if ( (slimits[skey2].c_begin <= a) &&
- 			       (a < slimits[skey2].c_end) &&
- 			       (a > slimits[skey2].m_end) )
-	                  {
-                                slimits[skey2].m_end = a ;
-                          }
-                     }
                 }
 
                 // output...
@@ -204,7 +191,7 @@
                              rows++;
 	             }
 
-		     p = "<tr class=\"font-monospace fs-6\">" +
+		     p = "<tr class=\"font-monospace fs-6 text-dark\">" +
                          "<td>&nbsp;</td>" +
 			 "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16).toUpperCase() + "</td>" +
 			 "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" ;
@@ -215,10 +202,10 @@
                          rows = 2 ;
 		     }
 
-                     o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
+                     o += rows + " class=\"text-dark\" bgcolor=\"" + color + "\" align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
 	             if (seg[skey].name != ".stack") {
-		         o += "<tr class=\"font-monospace fs-6\">" +
+		         o += "<tr class=\"font-monospace fs-6 text-dark\">" +
                               "<td>&nbsp;</td>" +
                               "<td valign='middle' align='center' height='25px'>...</td>" +
                               "<td valign='middle' align='center' height='25px'>...</td>" +
