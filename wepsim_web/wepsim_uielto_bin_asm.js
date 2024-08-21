@@ -70,8 +70,23 @@
 
 		    // get html code
 		    var o = mp2html(simware.mp, simware.labels_asm, simware.seg) ;
+
+/* in beta
+                    o += '<span>Memory as binary segment... </span>' +
+                         '<span class="btn btn-sm" type="button" data-bs-toggle="collapse" ' +
+                         '      data-bs-target="#mp2bin1" ' +
+                         '      arial-expanded="true" arial-controls="memory as binary segment">+/-</span>' +
+                         '<div id="mp2bin1" valign="top" colspan="2" align="center" class="m-2 p-2 collapse">' +
+                         '<pre align="left">' +
+		         mp2bin(simware.mp, simware.labels_asm, simware.seg) +
+                         '</pre>' +
+                         '</div>' ;
+*/
+
+		    // set html code
 		    $('#compile_bin2a').html(o) ;
 
+                    // update limits
 		    for (var skey in simware.seg) {
 		         $("#compile_begin_" + skey).html("0x" + simware.seg[skey].begin.toString(16));
 		         $("#compile_end_"   + skey).html("0x" + simware.seg[skey].end.toString(16));
@@ -125,9 +140,15 @@
                      slimits[skey1] = {
                                         'c_begin': parseInt(seg[skey1].begin),
                                         'c_end':   parseInt(seg[skey1].end),
-                                        'm_end':   parseInt(seg[skey1].end),
+                                        'm_begin': parseInt(seg[skey1].begin),
+                                        'm_end':   0,
 		                        'color':   seg[skey1].color
 				      } ;
+
+                     // try to use the limits loaded in main memory (if any) ...
+                     if (seg[skey1].loaded)
+                          slimits[skey1].m_end = slimits[skey1].c_end ;
+                     else slimits[skey1].m_end = slimits[skey1].c_begin + WORD_BYTES ;
                 }
 
                 // output...
@@ -159,7 +180,7 @@
 	   	var color="white";
 	        for (var skey in seg)
 	        {
-                     c_begin =  slimits[skey].c_begin ;
+                     c_begin =  slimits[skey].m_begin ;
                      c_end   =  slimits[skey].m_end ;
 		     color   =  slimits[skey].color ;
                      rows    =  0 ;
@@ -219,4 +240,40 @@
 
 		return o;
 	}
+
+	function mp2bin ( mp, labels, seg )
+	{
+                // auxiliar for search
+                var slebal = {} ;
+                for (var l in labels)
+                {
+                     if (typeof slebal[labels[l]] == "undefined") {
+                         slebal[labels[l]] = [] ;
+                     }
+                     slebal[labels[l]].push(l);
+                }
+
+                // output...
+		var o = '\n.binary\n' ;
+	        for (var a in mp)
+	        {
+		     // show labels
+                     if (typeof slebal[a] != "undefined")
+                     {
+                         o += "  " ;
+		         for (let j=0; j<slebal[a].length; j++) {
+			      o += slebal[a][j] + ":\n" ;
+		         }
+                     }
+
+		     // show address and value
+                     o += "\t" ;
+		     o += "0x" +                       a.toString(16).padStart(2*WORD_BYTES, '0') + "\t" ;
+		     o += "0x" + parseInt(mp[a].value,2).toString(16).padStart(2*WORD_BYTES, '0') + "\n" ;
+                }
+
+		// return memory as binary segment
+		return o ;
+	}
+
 

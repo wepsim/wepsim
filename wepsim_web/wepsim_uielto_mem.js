@@ -176,12 +176,16 @@
             {
                 i_key = parseInt(keys[k]) ;
 
-                // [add segment]
+                // [add segment if needed]
                 s1 = s2 = '' ;
 		while ( (seglabels_i < seglabels.length) && (i_key >= seglabels[seglabels_i].begin) )
 		{
-                    s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
-                    s2 = main_memory_showsegrow('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
+                    if (".binary" != seglabels[seglabels_i].name)
+                    {
+                        // ".binary" is an assembly section but not a physical segment
+                        s1 = main_memory_showseglst('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
+                        s2 = main_memory_showsegrow('seg_id' + seglabels_i, seglabels[seglabels_i].name) ;
+                    }
 
 		    seglabels_i++ ;
 		}
@@ -212,11 +216,13 @@
             // * Configure html options
             element_scroll_set("#lst_ins1", pos) ;
 
-            if (cfg.showsegs)
+            if (cfg.showsegs) {
                 $("#lst_seg1").collapse("show") ;
+            }
 
-            if (cfg.showsrc)
+            if (cfg.showsrc) {
                 $(".mp_tooltip").collapse("show") ;
+            }
 
             // * Update old_main_add for light_update
             old_main_addr = index ;

@@ -292,9 +292,12 @@ function wsasm_obj2mem  ( ret )
          // copy back the last asigned address
          for (var seg_name in ret.seg)
          {
-              if (typeof last_assig_word[seg_name] != "undefined")
+              ret.seg[seg_name].loaded = false ;
+
+              if (typeof last_assig_word[seg_name] != "undefined") {
                    ret.seg[seg_name].end = parseInt(last_assig_word[seg_name]) ;
-              else ret.seg[seg_name].end = ret.seg[seg_name].begin + WORD_BYTES ;
+                   ret.seg[seg_name].loaded = true ;
+              }
          }
 
          return ret ;
