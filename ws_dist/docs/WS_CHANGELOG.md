@@ -6,9 +6,15 @@
   * Several minor improvements in the new default assembler:
     * Relative branches offset can be now in bytes, words (MIPS), and half-words (RV)
     * Support for alternative definitions of pseudo-instructions, ordered from most restrictive to least restrictive
-    * Support for binary segment
+    * Support for binary segment:
+      <code>
+      .binary
+         main:
+           0x000x8000   0x69400003
+   	   ...
+      </code>
   * Several minor updates to the firmware syntax v2:
-    * saveFirmware(...) now support v2
+    * Save Firmware from control memory now supports firmware version 2
     * Firmware metadata updated:
       <html>
        <table>
