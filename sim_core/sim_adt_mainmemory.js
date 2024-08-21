@@ -140,6 +140,11 @@
                 src = src.join(";") ;
             }
 
+            // if it is a binary element -> show '*'
+            if ('*' == valobj.source) {
+                src = '*' ;
+            }
+
             // escape html end attribute char
             if (typeof src == "string") {
 		src = main_memory_source_escape_html(src) ;

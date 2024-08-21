@@ -71,7 +71,7 @@
 		    // get html code
 		    var o = mp2html(simware.mp, simware.labels_asm, simware.seg) ;
 
-                    o += '<span>Memory as binary segment... </span>' +
+                    o += '<span>Memory as binary section... </span>' +
                          '<span class="btn btn-sm" type="button" data-bs-toggle="collapse" ' +
                          '      data-bs-target="#mp2bin1" ' +
                          '      arial-expanded="true" arial-controls="memory as binary segment">+/-</span>' +
@@ -266,8 +266,8 @@
 
 		     // show address and value
                      o += "\t" ;
-		     o += "0x" +                       a.toString(16).padStart(2*WORD_BYTES, '0') + "\t" ;
-		     o += "0x" + parseInt(mp[a].value,2).toString(16).padStart(2*WORD_BYTES, '0') + "\n" ;
+		     o += "0x" +          parseInt(a, 16).toString(16).padStart(2*WORD_BYTES, '0') + "\t" ;
+		     o += "0x" + parseInt(mp[a].value, 2).toString(16).padStart(2*WORD_BYTES, '0') + "\n" ;
                 }
 
 		// return memory as binary segment
