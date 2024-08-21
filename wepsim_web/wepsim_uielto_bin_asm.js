@@ -138,9 +138,15 @@
                      slimits[skey1] = {
                                         'c_begin': parseInt(seg[skey1].begin),
                                         'c_end':   parseInt(seg[skey1].end),
-                                        'm_end':   parseInt(seg[skey1].end),
+                                        'm_begin': parseInt(seg[skey1].begin),
+                                        'm_end':   0,
 		                        'color':   seg[skey1].color
 				      } ;
+
+                     // try to use the limits loaded in main memory (if any) ...
+                     if (seg[skey1].loaded)
+                          slimits[skey1].m_end = slimits[skey1].c_end ;
+                     else slimits[skey1].m_end = slimits[skey1].c_begin + WORD_BYTES ;
                 }
 
                 // output...
@@ -172,7 +178,7 @@
 	   	var color="white";
 	        for (var skey in seg)
 	        {
-                     c_begin =  slimits[skey].c_begin ;
+                     c_begin =  slimits[skey].m_begin ;
                      c_end   =  slimits[skey].m_end ;
 		     color   =  slimits[skey].color ;
                      rows    =  0 ;
