@@ -6,6 +6,7 @@
   * Old assembler code cleanup
   * Cleanup on old firmware v1 code
 * Main external dependencies updated:
+  * Bump fontawesome from 6.4.2  to 6.6.0
 
 ## 2.3.1 -> 2.3.2:
 * Main improvements:
