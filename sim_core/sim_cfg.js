@@ -242,7 +242,7 @@
                    "DBG_delay":             { upgrade:false, type:"int",       value:5 },
                    "DBG_level":             { upgrade:false, type:"string",    value:"microinstruction" },
                    "DBG_limitins":          { upgrade:false, type:"int",       value:10000 },
-                   "DBG_limitick":          { upgrade:false, type:"int",       value:1000 },
+                   "DBG_limitick":          { upgrade:false, type:"int",       value:2000 },
                    "DBG_skip_notifycolon":  { upgrade:false, type:"boolean",   value:false },
                    "ICON_theme":            { upgrade:false, type:"string",    value:'classic' },
                    "AS_enable":             { upgrade:false, type:"boolean",   value:true },

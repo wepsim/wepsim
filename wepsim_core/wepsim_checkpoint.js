@@ -283,10 +283,12 @@
 	 var elements = {} ;
 
          // check params
-         if (typeof nbObj.cells === "undefined")
+         if (typeof nbObj.cells === "undefined") {
              return elements ;
-         if (typeof nbObj.cells.length === "undefined")
+         }
+         if (typeof nbObj.cells.length === "undefined") {
              return elements ;
+         }
 
          // convert NB -> Obj
 	 var key   = "" ;
@@ -302,7 +304,7 @@
               type  = nbObj.cells[i].metadata.type ;
               value = nbObj.cells[i].source ;
 
-              if (type !== "string") {
+              if (["string", "code"].includes(type) == false) {
                   value = JSON.parse(value) ;
               }
 
