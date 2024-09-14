@@ -147,8 +147,8 @@ function io_ldm_base_register ( sim_p )
                                                           set_value(sim_p.states[s_expr[2]], iodr);
 						      }
                                                       if (bus_ab == LEDMSR_ID) {
-                                                          var x = (iodr & 0xFF000000) >> 24 ;
-                                                          var y = (iodr & 0x00FF0000) >> 16 ;
+                                                          var x = (iodr & 0xFF000000) >>> 24 ;
+                                                          var y = (iodr & 0x00FF0000) >>> 16 ;
 
                                                           var p = y*sim_p.internal_states.ledm_dim + x ;
 							  var s = get_var(sim_p.internal_states.ledm_state[p].color) ;
@@ -207,8 +207,8 @@ function io_ldm_base_register ( sim_p )
                                                           // 0x10 -> set pixel
 						          if (0x10 & bus_db)
 							  {
-                                                              var x = (dr & 0xFF000000) >> 24 ;
-                                                              var y = (dr & 0x00FF0000) >> 16 ;
+                                                              var x = (dr & 0xFF000000) >>> 24 ;
+                                                              var y = (dr & 0x00FF0000) >>> 16 ;
                                                               var s = (dr & 0x000000FF) ;
 
                                                               set_value(sim_p.states[s_expr[3]], 1) ;
@@ -234,10 +234,10 @@ function io_ldm_base_register ( sim_p )
                                                               var neltos = sim_p.internal_states.ledm_neltos ;
                                                               for (var p=0; p<neltos; p=p+4) {
                                                                    s = simcore_native_get_value("MEMORY", dr+p) ;
-                                                                   set_var(sim_p.internal_states.ledm_state[p+0].color, (s & 0x000000FF) >> 0);
-                                                                   set_var(sim_p.internal_states.ledm_state[p+1].color, (s & 0x0000FF00) >> 8);
-                                                                   set_var(sim_p.internal_states.ledm_state[p+2].color, (s & 0x00FF0000) >> 16);
-                                                                   set_var(sim_p.internal_states.ledm_state[p+3].color, (s & 0xFF000000) >> 24);
+                                                                   set_var(sim_p.internal_states.ledm_state[p+0].color, (s & 0x000000FF) >>> 0);
+                                                                   set_var(sim_p.internal_states.ledm_state[p+1].color, (s & 0x0000FF00) >>> 8);
+                                                                   set_var(sim_p.internal_states.ledm_state[p+2].color, (s & 0x00FF0000) >>> 16);
+                                                                   set_var(sim_p.internal_states.ledm_state[p+3].color, (s & 0xFF000000) >>> 24);
                                                               }
 							  }
 
@@ -287,8 +287,8 @@ function io_ldm_base_register ( sim_p )
                                                              var dr = get_value(sim_p.states[s_expr[5]]) ;
 						             if (0x10 & bus_db)
 							     {
-                                                                 var x = (dr & 0xFF000000) >> 24 ;
-                                                                 var y = (dr & 0x00FF0000) >> 16 ;
+                                                                 var x = (dr & 0xFF000000) >>> 24 ;
+                                                                 var y = (dr & 0x00FF0000) >>> 16 ;
                                                                  var s = (dr & 0x000000FF) ;
                                                                  verbal = "I/O device write at LEDMCR with value " + bus_db + " (set pixel x:" + x + ", y:" + y + ", with color:" + s + "). " ;
 
