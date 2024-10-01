@@ -111,8 +111,10 @@ function wsasm_eltoError ( context, elto, msg )
 
 function wsasm_get_similar_candidates ( context, elto )
 {
-         var msg   = "'" + elto.source + "'" ;
-         var s_usr = elto.value.signature_user ;
+         var msg       = "'" + elto.source + "'" ;
+         var s_usr     = elto.value.signature_user ;
+	 var candidate = null ;
+	 var tab       = "<span class='m-3'>&nbsp;</span>" ;
 
          // if pseudo-instruction then associate it to the related instruction...
          if (typeof elto.associated_pseudo !== "undefined") {
@@ -128,11 +130,50 @@ function wsasm_get_similar_candidates ( context, elto )
          msg += i18n_get_TagFor('compiler', 'NOT MATCH FORMAT') + ":<br>" ;
          for (let key in context.firmware)
          {
-	      if ( (key.includes(elto.value.instruction)) || (elto.value.instruction.includes(key)) )
-	      {
-		  for (let k=0; k<context.firmware[key].length; k++) {
-		       msg += "<span class='m-1'>\u2714</span> " +
-			      context.firmware[key][k].signature_user + "<br>" ;
+              if (key == elto.value.instruction)
+	      {   // "li" == "li"
+		  for (let k=0; k<context.firmware[key].length; k++)
+		  {
+	               candidate = context.firmware[key][k] ;
+
+		       msg += "<span class='m-1'>\u2714</span> " + candidate.signature_user ;
+		       if (candidate.isPseudoinstruction) {
+			   msg += "<br> " + tab + "pseudoinstruction for: " + candidate.finish.substr(0, 10) + "...<br>" ;
+                       }
+
+		       // more details for exact match...
+		       msg = msg + tab + elto.value.instruction + " " ;
+		       for (var i=0; i<elto.value.signature_type_arr.length; i++)
+		       {
+		            if (elto.value.signature_type_arr[i] != candidate.signature_type_arr[i]) {
+		   	        msg = msg + " **" + elto.value.fields[i-1] + "** not matching" ;
+			        break ;
+		            }
+		            if (elto.value.signature_size_arr[i] > candidate.signature_size_arr[i]) {
+			        msg = msg + " **" + elto.value.fields[i-1] + "** needs more bits" ;
+			        break ;
+		            }
+			    if (i > 0) {
+			        msg = msg + elto.value.fields[i-1] + " " ;
+			    }
+		       }
+
+		       msg += "<br>" ;
+		  }
+
+	      }
+         else if ( (key.includes(elto.value.instruction)) || (elto.value.instruction.includes(key)) )
+	      {   // "sli" == "li"
+		  for (let k=0; k<context.firmware[key].length; k++)
+		  {
+	               candidate = context.firmware[key][k] ;
+
+		       msg += "<span class='m-1'>\u2714</span> " + candidate.signature_user ;
+		       if (context.firmware[key][k].isPseudoinstruction) {
+			   msg += "<br> " + tab + " pseudoinstruction for: " + candidate.finish.substr(0, 10) + "...<br>" ;
+                       }
+
+		       msg += "<br>" ;
 		  }
 	      }
          }
