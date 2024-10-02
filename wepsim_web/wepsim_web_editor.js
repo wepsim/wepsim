@@ -183,7 +183,11 @@
             }
 
             wepsim_notify_error('<strong>ERROR</strong>',
-                                errorMsg + '<br>' + '<center>' + lineMsg +
+		                '<div class="container-fluid p-1" style="overflow:auto; -webkit-overflow-scrolling:touch;">' +
+                                errorMsg + '<br>' +
+		                '</div>' +
+		                '<center>' +
+		                lineMsg +
                                 '<button type="button" class="btn btn-danger" ' +
                                 '        onclick="wepsim_notify_close();"><span data-langkey="Close">Close</span></button>' +
                                 '</center>') ;

@@ -130,50 +130,42 @@ function wsasm_get_similar_candidates ( context, elto )
          msg += i18n_get_TagFor('compiler', 'NOT MATCH FORMAT') + ":<br>" ;
          for (let key in context.firmware)
          {
-              if (key == elto.value.instruction)
-	      {   // "li" == "li"
+              if ( (key.includes(elto.value.instruction)) || (elto.value.instruction.includes(key)) )
+	      {   // "sli" == "li", "li" == "li", ...
 		  for (let k=0; k<context.firmware[key].length; k++)
 		  {
 	               candidate = context.firmware[key][k] ;
 
 		       msg += "<span class='m-1'>\u2714</span> " + candidate.signature_user ;
-		       if (candidate.isPseudoinstruction) {
-			   msg += "<br> " + tab + "pseudoinstruction for: " + candidate.finish.substr(0, 10) + "...<br>" ;
-                       }
-
-		       // more details for exact match...
-		       msg = msg + tab + elto.value.instruction + " " ;
-		       for (var i=0; i<elto.value.signature_type_arr.length; i++)
+		       if (candidate.isPseudoinstruction)
 		       {
-		            if (elto.value.signature_type_arr[i] != candidate.signature_type_arr[i]) {
-		   	        msg = msg + " **" + elto.value.fields[i-1] + "** not matching" ;
-			        break ;
-		            }
-		            if (elto.value.signature_size_arr[i] > candidate.signature_size_arr[i]) {
-			        msg = msg + " **" + elto.value.fields[i-1] + "** needs more bits" ;
-			        break ;
-		            }
-			    if (i > 0) {
-			        msg = msg + elto.value.fields[i-1] + " " ;
-			    }
-		       }
-
-		       msg += "<br>" ;
-		  }
-
-	      }
-         else if ( (key.includes(elto.value.instruction)) || (elto.value.instruction.includes(key)) )
-	      {   // "sli" == "li"
-		  for (let k=0; k<context.firmware[key].length; k++)
-		  {
-	               candidate = context.firmware[key][k] ;
-
-		       msg += "<span class='m-1'>\u2714</span> " + candidate.signature_user ;
-		       if (context.firmware[key][k].isPseudoinstruction) {
-			   msg += "<br> " + tab + " pseudoinstruction for: " + candidate.finish.substr(0, 10) + "...<br>" ;
+			   msg += "<br> " + tab + "pseudoinstruction for: " ;
+			   if (candidate.finish.length > 12)
+			        msg += candidate.finish.substr(0, 10) + "..." ;
+			   else msg += candidate.finish ;
                        }
-
 		       msg += "<br>" ;
+
+		       // more details for exact match -> e.g.: "li" == "li"...
+		       if (key == elto.value.instruction)
+		       {
+			   msg = msg + tab + elto.value.instruction + " " ;
+			   for (var i=0; i<elto.value.signature_type_arr.length; i++)
+			   {
+				if (elto.value.signature_type_arr[i] != candidate.signature_type_arr[i]) {
+				    msg = msg + " **" + elto.value.fields[i-1] + "** not matching" ;
+				    break ;
+				}
+				if (elto.value.signature_size_arr[i] > candidate.signature_size_arr[i]) {
+				    msg = msg + " **" + elto.value.fields[i-1] + "** needs more bits" ;
+				    break ;
+				}
+				if (i > 0) {
+				    msg = msg + elto.value.fields[i-1] + " " ;
+				}
+			   }
+		           msg += "<br>" ;
+		       }
 		  }
 	      }
          }
