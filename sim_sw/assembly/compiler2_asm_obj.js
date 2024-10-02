@@ -137,7 +137,7 @@ function wsasm_get_similar_candidates ( context, elto )
 	               candidate = context.firmware[key][k] ;
 
 		       msg += "<span class='m-1'>\u2714</span> " + candidate.signature_user ;
-		       if (candidate.isPseudoinstruction)
+		       if ( (candidate.isPseudoinstruction) && (context.firmware[key].length > 1) )
 		       {
 			   msg += "<br> " + tab + "pseudoinstruction for: " ;
 			   if (candidate.finish.length > 12)
