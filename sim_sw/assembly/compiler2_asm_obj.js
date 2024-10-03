@@ -140,8 +140,8 @@ function wsasm_get_similar_candidates ( context, elto )
 		       if ( (candidate.isPseudoinstruction) && (context.firmware[key].length > 1) )
 		       {
 			   msg += "<br> " + tab + "pseudoinstruction for: " ;
-			   if (candidate.finish.length > 12)
-			        msg += candidate.finish.substr(0, 10) + "..." ;
+			   if (candidate.finish.length > 20)
+			        msg += candidate.finish.substr(0, 18) + "..." ;
 			   else msg += candidate.finish ;
                        }
 		       msg += "<br>" ;
