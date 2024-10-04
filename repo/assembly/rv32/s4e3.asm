@@ -23,6 +23,7 @@
 
 .ktext
 sys_prt_str: li   zero 0
+             mv   x28 a0
              beq  x28 zero end1
          b5: lb   x29 0(x28)
              beq  x29 zero end1
@@ -105,7 +106,6 @@ sys_thexit:  # pA->free = true
    rt_div0:  sret
 
    rt_sys:   # 1.- ecall
-             mv   x28 a0
              li   x29 4
              beq  a7 x29 sys_prt_str
              li   x29 11
@@ -211,5 +211,4 @@ sys_thexit:  # pA->free = true
            beq  zero zero c2
        e2: li   a7 10
            ecall
-
 

@@ -9,8 +9,9 @@
             .word rt_sys
 
 .ktext
-sys_prt_str: li   x1  1
-             li   x0  0
+sys_prt_str: li   x0  0
+             li   x1  1
+             add  x26 a0 x0
              beq  x26 x0 end1
          b5: lb   x27 0(x26)
              beq  x27 x0 end1
@@ -20,6 +21,7 @@ sys_prt_str: li   x1  1
        end1: sret
 
 sys_prt_int: li   x1 1
+             add  x26 a0 x0
              # push_byte('\0')
              sb   x0 0(sp)
              sub  sp sp x1
@@ -48,7 +50,6 @@ sys_prt_int: li   x1 1
          f2: sret
 
    rt_sys:   # 1.- syscall
-             add  x26 a0 x0
              li   x27 4
              beq  a7 x27 sys_prt_str
              li   x27 1
