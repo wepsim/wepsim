@@ -13,7 +13,8 @@
 
 .ktext
 sys_prt_str: li   zero 0
-             beq  t3 zero end1
+             beq  a0 zero end1
+             mv   t3 a0
          b5: lb   t4 0(t3)
              beq  t4 zero end1
              out  t4 0x1000
@@ -22,6 +23,7 @@ sys_prt_str: li   zero 0
        end1: sret
 
 sys_prt_int: li   t1 1
+             mv   t3 a0
              # push_byte('\0')
              sb   zero 0(sp)
              sub  sp sp t1
@@ -74,7 +76,7 @@ sys_rd_str:  li   zero  0
              sret
 
 sys_rd_int:  li   zero  0
-             li   a7 0
+             li   a0 0
   notready2: # ch = get_char()
              in   t4 0x0104
              beq  t4 zero notready2
@@ -85,11 +87,11 @@ sys_rd_int:  li   zero  0
              bgt  t4 t1 eos2
              li   t1  48
              blt  t4 t1 eos2
-             # a7 = a7*10 + (ch-48)
+             # a0 = a0*10 + (ch-48)
              sub  t4 t4 t1
              li   t1  10
-             mul  a7 a7 t1
-             add  a7 a7 t4
+             mul  a0 a0 t1
+             add  a0 a0 t4
              beq  zero zero notready2
        eos2: sret
 
@@ -97,12 +99,11 @@ sys_rd_ch:   li   zero  0
   notready3: # ch=get_char()
              in   t4 0x0104
              beq  t4 zero notready3
-             in   a7 0x0100
-             out  a7 0x1000 # echo
+             in   a0 0x0100
+             out  a0 0x1000 # echo
              sret
 
    rt_sys:   # 1.- ecall
-             mv   t3 a0
              li   t4 4
              beq  a7 t4 sys_prt_str
              li   t4 1
