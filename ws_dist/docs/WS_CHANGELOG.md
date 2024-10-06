@@ -9,6 +9,12 @@
   * Bump fontawesome from 6.4.2  to 6.6.0
   * Vis-network updated to vis-network-9.1.9
 
+## 2.3.2 -> 2.3.3:
+* Main improvements:
+  * Several minor improvements:
+    * More flexible assembler error dialog box
+    * Faster loading in microcode editor
+
 ## 2.3.1 -> 2.3.2:
 * Main improvements:
   * Several minor improvements in the new default assembler:
