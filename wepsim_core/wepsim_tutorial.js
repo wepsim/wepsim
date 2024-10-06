@@ -79,7 +79,7 @@
 	    return ;
 	}
 
-        simcore_ga('help', 'help.tutorial', 'help.tutorial.name=' + tutorial_name + ',step=' + step) ;
+        simcore_ga('help', 'help.tutorial', 'help.tutorial=' + tutorial_name + ',step=' + step) ;
 
         // 3.- code_pre
         tutorial[step].code_pre();

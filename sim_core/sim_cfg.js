@@ -41,9 +41,9 @@
         {
              if (WSCFG[field].value != value)
              {
-                 simcore_ga('config',
-                            'config.' + WSCFG.version.value,
-                            'config.' + WSCFG.version.value + '.' + field + '.' + value) ;
+                 simcore_ga('cfg',
+                            'cfg.' + WSCFG.version.value,
+                            'cfg.' + WSCFG.version.value + '.' + field + '.' + value) ;
              }
 
              WSCFG[field].value = value ;

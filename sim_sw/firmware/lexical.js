@@ -226,7 +226,7 @@ function frm_langError ( context, msgError )
                          "(*) " + i18n_get_TagFor('compiler', 'PROBLEM AROUND LINE') + " " +
 			 context.line + ": <br>" + msgError + ".<br>" ;
 
-        simcore_ga('compile', 'compile.error', 'compile.error.' + msgError) ;
+        simcore_ga('cc', 'cc.err', 'cc.err.' + msgError) ;
 
         return context;
 }

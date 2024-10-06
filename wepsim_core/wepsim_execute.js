@@ -148,10 +148,10 @@
         webui_button_set_stop('exebar1') ;
 
         // stats (how fast execution was)
-        var o = 'CLK-'      + Math.trunc(get_value(simhw_sim_state('CLK')))      + '+' +
-                'DECO_INS-' + Math.trunc(get_value(simhw_sim_state('DECO_INS'))) + '+' +
-                'ACC_TIME-' + Math.trunc(get_value(simhw_sim_state('ACC_TIME'))) ;
-        simcore_ga('execution', 'execution.' + 'cpu', 'execution.' + 'cpu' + '.' + o) ;
+        var o = 'CLK-' + Math.trunc(get_value(simhw_sim_state('CLK')))      + '+' +
+                'INS-' + Math.trunc(get_value(simhw_sim_state('DECO_INS'))) + '+' +
+                'AT-'  + Math.trunc(get_value(simhw_sim_state('ACC_TIME'))) ;
+        simcore_ga('exec', 'exec.' + 'cpu', 'exec.' + 'cpu' + '.' + o) ;
 
 	return true ;
     }
