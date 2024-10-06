@@ -1,6 +1,12 @@
 
 # Changelog
 
+## 2.3.2 -> 2.3.3:
+* Main improvements:
+  * Several minor improvements:
+    * More flexible assembler error dialog box
+    * Faster loading in microcode editor
+
 ## 2.3.1 -> 2.3.2:
 * Main improvements:
   * Several minor improvements in the new default assembler:
