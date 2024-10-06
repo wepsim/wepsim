@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -231,7 +231,7 @@ function asm_langError ( context, msgError )
                          "(*) " + i18n_get_TagFor('compiler', 'PROBLEM AROUND LINE') + " " +
 			 context.line + ": <br>" + msgError + ".<br>" ;
 
-        simcore_ga('compile', 'compile.error', 'compile.error.' + msgError) ;
+        simcore_ga('cc', 'cc.err', 'cc.err.' + msgError) ;
 
         return context;
 }

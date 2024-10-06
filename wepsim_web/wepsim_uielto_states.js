@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -382,7 +382,7 @@
 
              simcore_ga('state', 'state.dump',
                         'state.dump' + '.ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
-                                       ',neltos=' + neltos + ga_str) ;
+                                       ',ne=' + neltos + ga_str) ;
         }
 
 
@@ -425,11 +425,11 @@
             $('#check_results1').html(msg) ;
 
             // ga
-            simcore_ga('state', 'state.check',
-		       'state.check' + ',ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
-				       '.a='  + obj_result.neltos_expected +
-				       ',b='  + obj_result.neltos_obtained +
-				       ',sd=' + obj_result.errors) ;
+            simcore_ga('state', 'state.chk',
+		       'state.chk' + ',ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
+				     '.a='  + obj_result.neltos_expected +
+				     ',b='  + obj_result.neltos_obtained +
+				     ',sd=' + obj_result.errors) ;
 
             return true ;
         }

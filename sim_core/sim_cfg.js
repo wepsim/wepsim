@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -41,9 +41,9 @@
         {
              if (WSCFG[field].value != value)
              {
-                 simcore_ga('config',
-                            'config.' + WSCFG.version.value,
-                            'config.' + WSCFG.version.value + '.' + field + '.' + value) ;
+                 simcore_ga('cfg',
+                            'cfg.' + WSCFG.version.value,
+                            'cfg.' + WSCFG.version.value + '.' + field + '.' + value) ;
              }
 
              WSCFG[field].value = value ;
@@ -216,8 +216,8 @@
         {
              var wscfg = {
                    /* version */
-                   "version":               { upgrade:false, type:"string",    value:"2.3.2" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.3.2.20240710B" },
+                   "version":               { upgrade:false, type:"string",    value:"2.3.3" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.3.3.20240710B" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
