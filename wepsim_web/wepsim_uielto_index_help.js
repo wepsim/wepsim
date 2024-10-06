@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2024 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -76,14 +76,14 @@
 		              var r = help_arg.split("#") ;
 		              helpurl = 'help/' + r[0] + '-' + seg_idiom + '.html' ;
 		              resolve_html_url(helpdiv_hash, helpurl, '#' + r[1], uielto_help_scrolltothetop) ;
-                              simcore_ga('help', 'help.relative', 'help.relative.' + help_arg) ;
+                              simcore_ga('help', 'help.rel', 'help.rel.' + help_arg) ;
 		              break ;
 
                          case 'absolute':
 		              helpurl = 'repo/hardware/' + seg_hardw + '/help/' +
 			                help_arg + '-' + seg_idiom + '.html' ;
 		              resolve_html_url(helpdiv_hash, helpurl, '', uielto_help_scrolltothetop) ;
-                              simcore_ga('help', 'help.absolute', 'help.absolute.' + help_arg) ;
+                              simcore_ga('help', 'help.abs', 'help.abs.' + help_arg) ;
 		              break ;
 
                          case 'code':
