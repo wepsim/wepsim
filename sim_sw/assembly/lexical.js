@@ -191,7 +191,7 @@ function asm_isToken_arr ( context, arr )
  *  Error handler
  */
 
-function asm_langError ( context, msgError )
+function asm_langError ( context, msgError, msgOrigin )
 {
         // detect lines
 	var line2 = 0 ;
@@ -231,7 +231,7 @@ function asm_langError ( context, msgError )
                          "(*) " + i18n_get_TagFor('compiler', 'PROBLEM AROUND LINE') + " " +
 			 context.line + ": <br>" + msgError + ".<br>" ;
 
-        simcore_ga('cc', 'cc.err', 'cc.err.' + msgError) ;
+        simcore_ga('cc', 'cc.err', 'cc.err.' + msgOrigin) ;
 
         return context;
 }
