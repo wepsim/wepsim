@@ -7,6 +7,6 @@
 
 .text
  main: 
-   lw   t0 a0
-   move t1 t0
+   lw  t0 0(a0
+   li  t1 0
 
