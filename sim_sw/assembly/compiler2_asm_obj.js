@@ -114,7 +114,7 @@ function wsasm_get_similar_candidates ( context, elto )
          var msg       = "'" + elto.source + "'" ;
          var s_usr     = elto.value.signature_user ;
 	 var candidate = null ;
-	 var tab       = "<span class='m-3'>&nbsp;</span>" ;
+	 var tab       = "<span class='m-3'></span>" ;
 
          // if pseudo-instruction then associate it to the related instruction...
          if (typeof elto.associated_pseudo !== "undefined") {
