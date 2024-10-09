@@ -856,7 +856,7 @@ function wsasm_find_instr_candidates ( context, ret, elto )
 	   // CHECK: elto signature* match at least one firm_reference
 	   if (0 == candidates) {
                var msg = wsasm_get_similar_candidates(context, elto) ;
-               return wsasm_eltoError(context, elto, msg, msg) ;
+               return wsasm_eltoError(context, elto, msg, elto.source) ;
 	   }
 
            // update instruction size for multi-word instructions (e.g.: 'la address' in 2 words)
