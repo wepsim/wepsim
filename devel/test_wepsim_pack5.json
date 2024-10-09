@@ -164,7 +164,7 @@
   {
        "pack":             "MIPS32 default examples",
        "description":	   "S2E2 - Intermediate - Subrutine",
-       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_bare.mc -s ./repo/assembly/mips/s2e2.asm",
+       "test":             "./ws_dist/wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_enhanced.mc -s ./repo/assembly/mips/s2e2.asm",
        "more":             "See WepSIM"
   },
   {
