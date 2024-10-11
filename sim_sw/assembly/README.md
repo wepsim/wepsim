@@ -1,6 +1,6 @@
 
 
-# WepSIM Assembler NG (Next-Generation)
+# WepSIM Assembler
 
 ## Table of contents
 

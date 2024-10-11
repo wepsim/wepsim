@@ -213,8 +213,7 @@ function asm_langError ( context, msgError, msgOrigin )
         highI++;
 
         // print lines
-        context.error = "<br>" +
-                        "<pre class='border rounded p-3 bg-dark text-white'>" +
+        context.error = "<pre class='border rounded p-3 mt-1 bg-dark text-white'>" +
                         "...\n" ;
         for (var i=lowI; i<highI; i++)
         {

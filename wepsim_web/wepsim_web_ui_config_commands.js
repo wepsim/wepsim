@@ -425,6 +425,54 @@
                    });
 
     ws_info.config_ui.push({
+		      id:          "select9",
+		      type:        "Circuitry simulation",
+		      u_class:     "wsx_microcode",
+		      code_cfg:    " <div class='form-group m-0'>" +
+				   "	 <select name='select9' id='select9' " +
+				   "             class='form-control form-control-sm form-select border-secondary'" +
+				   "		 aria-label='default thickness of circuit cables' " +
+				   "		 onchange=\"var opt = $(this).find('option:selected');" +
+				   "			    var optValue = opt.val();" +
+				   "			    optValue = parseFloat(optValue);" +
+				   "			    update_cfg('size_inactive', optValue);\"" +
+				   "		 data-native-menu='false'>" +
+				   "	   <option value='1.0'>1.0</option>" +
+				   "	   <option value='1.5'>1.5</option>" +
+				   "	   <option value='2.0'>2.0</option>" +
+				   "	 </select>" +
+				   " </div>",
+		      code_init:   function() {
+				         $('#select9').val(get_cfg('size_inactive').toFixed(1));
+				   },
+		      description: "<span data-langkey='Default thickness of circuit cables'>Default thickness of circuit cables</span>"
+		   });
+
+    ws_info.config_ui.push({
+		      id:          "select10",
+		      type:        "Circuitry simulation",
+		      u_class:     "wsx_microcode",
+		      code_cfg:    " <div class='form-group m-0'>" +
+				   "	 <select name='select10' id='select10' " +
+				   "             class='form-control form-control-sm form-select border-secondary'" +
+				   "		 aria-label='thickness of active circuit cables' " +
+				   "		 onchange=\"var opt = $(this).find('option:selected');" +
+				   "			    var optValue = opt.val();" +
+				   "			    optValue = parseFloat(optValue);" +
+				   "			    update_cfg('size_active', optValue);\"" +
+				   "		 data-native-menu='false'>" +
+				   "	   <option value='1.0'>1.0</option>" +
+				   "	   <option value='3.0'>3.0</option>" +
+				   "	   <option value='5.0'>5.0</option>" +
+				   "	 </select>" +
+				   " </div>",
+		      code_init:   function() {
+				         $('#select10').val(get_cfg('size_active').toFixed(1));
+				   },
+		      description: "<span data-langkey='Thickness of active circuit cables'>Thickness of active circuit cables</span>"
+		   });
+
+    ws_info.config_ui.push({
                       id:          "radio10",
                       type:        "Circuitry simulation",
                       u_class:     "wsx_morecfg wsx_microcode",
