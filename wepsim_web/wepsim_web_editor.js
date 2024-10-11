@@ -183,7 +183,8 @@
             }
 
             wepsim_notify_error('<strong>ERROR</strong>',
-		                '<div class="container-fluid p-1" style="overflow:auto; -webkit-overflow-scrolling:touch; max-height:70vh; max-width:75vw;">' +
+		                '<div class="container-fluid p-1 mb-1 mr-1 overflow-auto" ' +
+                                '     style="-webkit-overflow-scrolling:touch; max-height:70vh; max-width:75vw;">' +
                                 errorMsg + '<br>' +
 		                '</div>' +
 		                '<center>' +

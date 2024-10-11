@@ -425,6 +425,54 @@
                    });
 
     ws_info.config_ui.push({
+		      id:          "select9",
+		      type:        "Circuitry simulation",
+		      u_class:     "wsx_microcode",
+		      code_cfg:    " <div class='form-group m-0'>" +
+				   "	 <select name='select9' id='select9' " +
+				   "             class='form-control form-control-sm form-select border-secondary'" +
+				   "		 aria-label='default thickness of circuit cables' " +
+				   "		 onchange=\"var opt = $(this).find('option:selected');" +
+				   "			    var optValue = opt.val();" +
+				   "			    optValue = parseFloat(optValue);" +
+				   "			    update_cfg('size_inactive', optValue);\"" +
+				   "		 data-native-menu='false'>" +
+				   "	   <option value='1.0'>1.0</option>" +
+				   "	   <option value='1.5'>1.5</option>" +
+				   "	   <option value='2.0'>2.0</option>" +
+				   "	 </select>" +
+				   " </div>",
+		      code_init:   function() {
+				         $('#select9').val(get_cfg('size_inactive').toFixed(1));
+				   },
+		      description: "<span data-langkey='Default thickness of circuit cables'>Default thickness of circuit cables</span>"
+		   });
+
+    ws_info.config_ui.push({
+		      id:          "select10",
+		      type:        "Circuitry simulation",
+		      u_class:     "wsx_microcode",
+		      code_cfg:    " <div class='form-group m-0'>" +
+				   "	 <select name='select10' id='select10' " +
+				   "             class='form-control form-control-sm form-select border-secondary'" +
+				   "		 aria-label='thickness of active circuit cables' " +
+				   "		 onchange=\"var opt = $(this).find('option:selected');" +
+				   "			    var optValue = opt.val();" +
+				   "			    optValue = parseFloat(optValue);" +
+				   "			    update_cfg('size_active', optValue);\"" +
+				   "		 data-native-menu='false'>" +
+				   "	   <option value='1.0'>1.0</option>" +
+				   "	   <option value='3.0'>3.0</option>" +
+				   "	   <option value='5.0'>5.0</option>" +
+				   "	 </select>" +
+				   " </div>",
+		      code_init:   function() {
+				         $('#select10').val(get_cfg('size_active').toFixed(1));
+				   },
+		      description: "<span data-langkey='Thickness of active circuit cables'>Thickness of active circuit cables</span>"
+		   });
+
+    ws_info.config_ui.push({
                       id:          "radio10",
                       type:        "Circuitry simulation",
                       u_class:     "wsx_morecfg wsx_microcode",
@@ -618,31 +666,6 @@
                                        wepsim_config_button_pretoggle_val2('ws_skin_user', 'beta_poc', '14') ;
 		                   },
                       description: "<span data-langkey='POC CPU'>POC (proof of concept) CPU</span>&nbsp;" +
-                                   "<span class='badge text-bg-secondary py-0 px-1'>beta</span>"
-                   });
-
-    ws_info.config_ui.push({
-                      id:          "radio14c",
-                      type:        "Extra Features",
-                      u_class:     "",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio14c-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label14-beta_ngc-false' for='radio14c-true' " +
-				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
-                                   "              aria-label='User Interface set of features for WepSIM: true' " +
-				   "		  onclick=\"wepsim_config_button_toggle2('beta_ngc',false,'14');\">Off" +
-				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio14c-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label14-beta_ngc-true' for='radio14c-false' " +
-				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
-                                   "              aria-label='User Interface set of features for WepSIM: false' " +
-				   "		  onclick=\"wepsim_config_button_toggle2('beta_ngc',true,'14');\">On" +
-				   "	    </label>" +
-				   "	</div>",
-		      code_init:   function() {
-                                       wepsim_config_button_pretoggle_val2('ws_skin_user', 'beta_ngc', '14') ;
-		                   },
-                      description: "<span data-langkey='NGC'>Next-Generation Compiler</span>&nbsp;" +
                                    "<span class='badge text-bg-secondary py-0 px-1'>beta</span>"
                    });
 

@@ -126,8 +126,12 @@ function wsasm_get_similar_candidates ( context, elto )
          msg = i18n_get_TagFor('compiler', 'REMEMBER FORMAT USED') + msg + ": <br>" +
 	       "<span class='m-2'>\u2718</span> " + s_usr + "<br>" ;
 
-         // (2) Similar elements...
+         // (2) Same/Similar elements...
          msg += i18n_get_TagFor('compiler', 'NOT MATCH FORMAT') + ":<br>" ;
+         var msg_base = "" ;
+         var msg_same = "" ;
+         var msg_similar = "" ;
+         var pseudo_max_len = 35 ;
          for (let key in context.firmware)
          {
               if ( (key.includes(elto.value.instruction)) || (elto.value.instruction.includes(key)) )
@@ -136,39 +140,47 @@ function wsasm_get_similar_candidates ( context, elto )
 		  {
 	               candidate = context.firmware[key][k] ;
 
-		       msg += "<span class='m-1'>\u2714</span> " + candidate.signature_user ;
-		       if ( (candidate.isPseudoinstruction) && (context.firmware[key].length > 1) )
-		       {
-			   msg += "<br> " + tab + "pseudoinstruction for: " ;
-			   if (candidate.finish.length > 20)
-			        msg += candidate.finish.substr(0, 18) + "..." ;
-			   else msg += candidate.finish ;
+                       // base information for match...
+		       msg_base = "<span class='m-1'>\u2714</span> " + candidate.signature_user ;
+
+		       if (candidate.isPseudoinstruction)
+                       {
+                           msg_base = base_replaceAll(msg_base, ', 32 bits', '') + " -> " ;
+			   if (candidate.finish.length > pseudo_max_len)
+			        msg_base += candidate.finish.substr(0, pseudo_max_len-1) + "..." ;
+			   else msg_base += candidate.finish ;
                        }
-		       msg += "<br>" ;
+		       msg_base += "<br>" ;
+
+                       // without more details if not exact match -> e.g.: "li" != "sli"
+		       if (key != elto.value.instruction) {
+		           msg_similar += msg_base ;
+                           continue ;
+		       }
 
 		       // more details for exact match -> e.g.: "li" == "li"...
-		       if (key == elto.value.instruction)
+		       msg_same += msg_base + tab + elto.value.instruction + " " ;
+		       for (var i=0; i<elto.value.signature_type_arr.length; i++)
 		       {
-			   msg = msg + tab + elto.value.instruction + " " ;
-			   for (var i=0; i<elto.value.signature_type_arr.length; i++)
-			   {
-				if (elto.value.signature_type_arr[i] != candidate.signature_type_arr[i]) {
-				    msg = msg + " **" + elto.value.fields[i-1] + "** not matching" ;
-				    break ;
-				}
-				if (elto.value.signature_size_arr[i] > candidate.signature_size_arr[i]) {
-				    msg = msg + " **" + elto.value.fields[i-1] + "** needs more bits" ;
-				    break ;
-				}
-				if (i > 0) {
-				    msg = msg + elto.value.fields[i-1] + " " ;
-				}
-			   }
-		           msg += "<br>" ;
+			    if (elto.value.signature_type_arr[i] != candidate.signature_type_arr[i]) {
+			        msg_same += " **<b>" + elto.value.fields[i-1] + "</b>** not matching" ;
+			        break ;
+			    }
+			    if (elto.value.signature_size_arr[i] > candidate.signature_size_arr[i]) {
+			        msg_same += " **<b>" + elto.value.fields[i-1] + "</b>** needs more bits" ;
+			        break ;
+			    }
+			    if (i > 0) {
+			        msg_same += elto.value.fields[i-1] + " " ;
+			    }
 		       }
+		       msg_same += "<br>" ;
 		  }
 	      }
          }
+         msg += msg_same + msg_similar ;
+
+         // (3) Tips...
          msg += i18n_get_TagFor('compiler', 'CHECKS') ;
 
          return msg ;
@@ -856,7 +868,7 @@ function wsasm_find_instr_candidates ( context, ret, elto )
 	   // CHECK: elto signature* match at least one firm_reference
 	   if (0 == candidates) {
                var msg = wsasm_get_similar_candidates(context, elto) ;
-               return wsasm_eltoError(context, elto, msg, msg) ;
+               return wsasm_eltoError(context, elto, msg, elto.source) ;
 	   }
 
            // update instruction size for multi-word instructions (e.g.: 'la address' in 2 words)
