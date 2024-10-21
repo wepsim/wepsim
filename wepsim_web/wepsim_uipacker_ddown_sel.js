@@ -125,7 +125,7 @@
                                      'CPU':          [ 'all', 'mc', 'cpu' ],
                                      'Main Memory':  [ 'mp', 'mpcfg' ],
                                      'Cache Memory': [ 'cm', 'cmcfg' ],
-                                     'Devices':      [ 'con', 'io', 'iocfg', 'iol3d', 'ioldm' ],
+                                     'Devices':      [ 'con', 'ioldm', 'io', 'iocfg', 'iol3d' ],
                                      'Simulation':   [ 'ed_mc', 'ed_mp' ]
                                  //  'Simulation':   [ 'ed_hw', 'ed_mc', 'ed_mp' ]
                                   } ;
