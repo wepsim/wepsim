@@ -819,7 +819,7 @@ function wsasm_src2obj_text_getDistance ( elto_firm_reference_i, elto_value )
            var signature_size_as_intarr = elto_value.signature_size_arr ;
 
            // if candidate has not the same types as expected then return is NOT candidate
-           if (candidate_type_as_string != signature_type_as_string) {
+           if (candidate_type_as_string.toLowerCase() != signature_type_as_string.toLowerCase()) {
                return -1 ;
            }
 
@@ -1357,15 +1357,14 @@ function wsasm_src2obj_text ( context, ret )
                    acc_cmt = asm_getComments(context) ;
                    asm_resetComments(context) ;
 
-		   possible_tag = "" ;
+                   // tagX
+		   possible_tag = asm_getToken(context) ;
+
 		   while (
-                           (typeof context.firmware[asm_getToken(context)] === "undefined") &&  // NOT instruction
-                           (! wsasm_isEndOfFile(context))                                       // NOT end-of-file
+                           (typeof context.firmware[possible_tag.toLowerCase()] === "undefined") && // NOT instruction
+                           (! wsasm_isEndOfFile(context))                                           // NOT end-of-file
                          )
 		   {
-                      // tagX
-		      possible_tag = asm_getToken(context) ;
-
                       // CHECK tag
 		      if ("TAG" != asm_getTokenType(context))
                       {
@@ -1407,6 +1406,9 @@ function wsasm_src2obj_text ( context, ret )
 
 		      // .<datatype> | tagX+1
 		      asm_nextToken(context) ;
+
+                      // tagX
+		      possible_tag = asm_getToken(context) ;
 		   }
 
 		   elto.associated_context = asm_getLabelContext(context) ;
@@ -1427,7 +1429,7 @@ function wsasm_src2obj_text ( context, ret )
 	           //    label2:   *instr* op1 op2 op3
 		   //
 
-	           possible_inst  = asm_getToken(context) ;
+	           possible_inst  = asm_getToken(context).toLowerCase() ;
                    elto.byte_size = WORD_BYTES ;
 		   elto.value     = {} ;
 
