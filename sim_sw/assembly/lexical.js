@@ -36,7 +36,7 @@ function asm_nextToken ( context )
           var token_type = "" ;
 
           // skip whitespaces
-          while ( ("# \t\n\r".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
+          while ( ("# \t\n\r\u2003".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {
                  // # till end of line
                  if (context.text[context.t] == '#')
@@ -110,7 +110,7 @@ function asm_nextToken ( context )
           {
 		  // read until whitespaces
 		  first = context.t ;
-		  while ( ("{},()=:# \t\n\r".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
+		  while ( ("{},()=:# \t\n\r\u2003".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
 			 context.t++;
 		  }
 		  last = context.t ;
@@ -120,7 +120,7 @@ function asm_nextToken ( context )
 
           // try to explore if a ":" is near...
           var tmp_context = context.t ;
-          while ( ("# \t\n\r".indexOf(context.text[tmp_context]) != -1) && (tmp_context < context.text.length) )
+          while ( ("# \t\n\r\u2003".indexOf(context.text[tmp_context]) != -1) && (tmp_context < context.text.length) )
 	  {
 			 if (context.text[tmp_context] == '#')
                          {
