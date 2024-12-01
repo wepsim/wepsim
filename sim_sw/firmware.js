@@ -368,8 +368,13 @@ function loadFirmware (text)
 		       mk_native += "context.instrucciones[" + i + "][\"NATIVE_JIT\"] = " +
 			            " function() {\n" +
 				    "\t var fields = simcore_native_get_fields(\"" + ins.signatureRaw + "\");\n" +
-				    ins.NATIVE +
-				    "\n};\n " ;
+                                    "\t try {\n" +
+				          ins.NATIVE +
+                                    "\t }\n" +
+                                    "\t catch (e) {\n" +
+                                    "\t   wepsim_notify_error(\"Error on the native code\", '" + ins.name + " => ' + e.toString());\n" +
+                                    "\t }\n" +
+				    "} ;\n" ;
 		   }
 	   }
 	   eval(mk_native) ;

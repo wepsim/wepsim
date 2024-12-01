@@ -180,6 +180,15 @@ function firm_instruction_read ( context, xr_info, all_ones_oc )
 	   if (frm_isToken(context, "("))
 	   {
 		   firma = firma + ',(';
+                   var current_oc = '*unknown* instruction'  ;
+                   if (
+                        (typeof instruccionAux.oc                           != "undefined") &&
+                        (typeof context.oc_eoc[instruccionAux.oc]           != "undefined") &&
+                        (typeof context.oc_eoc[instruccionAux.oc].signature != "undefined")
+                      )
+                   {
+                         current_oc = context.oc_eoc[instruccionAux.oc].signature ;
+                   }
 
 		   // TODO: next line needs concatenate '+' otherwise saveFirmware is not going to work!
 		   if (plus_found)
@@ -205,7 +214,7 @@ function firm_instruction_read ( context, xr_info, all_ones_oc )
 		   {
 		       return frm_langError(context,
 					    i18n_get_TagFor('compiler', 'MISSING TOKEN ON') +
-					    "'" + context.oc_eoc[instruccionAux.oc].signature + "'") ;
+                                            "'" + current_oc + "'") ;
 		   }
 
 		   if (frm_isToken(context,")"))
@@ -219,7 +228,7 @@ function firm_instruction_read ( context, xr_info, all_ones_oc )
 		   {
 		       return frm_langError(context,
 					    i18n_get_TagFor('compiler', 'MISSING ) ON') +
-					    "'" + context.oc_eoc[instruccionAux.oc].signature + "'") ;
+                                            "'" + current_oc + "'") ;
 		   }
 	   }
 
