@@ -77,7 +77,8 @@
     {
         var SIMWARE = get_simware() ;
 
-        for (var key in SIMWARE.firmware) {
+        for (var key in SIMWARE.firmware)
+        {
              if (SIMWARE.firmware[key].signatureRaw === signature_raw) {
                  return SIMWARE.firmware[key].fields ;
              }

@@ -1,20 +1,143 @@
 [
-{
-	"pack":        "RISC-V RV test",
-	"description": "Base instructions test",
-	"test":        "./ws_dist/wepsim.sh -a run -m rv -f ./repo/microcode/rv32/rv_base.mc -s ./repo/assembly/rv32_test/base_instructions.asm",
-	"more":        "See WepSIM"
-},
-{
-	"pack":        "RISC-V RV test",
-	"description": "R1E1 - Instructions",
-	"test":        "./ws_dist/wepsim.sh -a run -m rv -f ./repo/microcode/rv32/rv_base.mc -s ./repo/assembly/rv32/s1e1.asm",
-	"more":        "See WepSIM"
-},
-{
-	"pack":        "RISC-V RV test",
-	"description": "R1E2 - Memory access",
-	"test":        "./ws_dist/wepsim.sh -a run -m rv -f ./repo/microcode/rv32/rv_base.mc -s ./repo/assembly/rv32/s1e2.asm",
-	"more":        "See WepSIM"
-}
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: non-open string (...'')",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_value_01.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: non-closed string ('...)",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_value_02.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: invalid number --> 1hello2",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_value_03.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: empty directive",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_value_04.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: non-valid .space parameter",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_value_05.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: non-valid .align parameter",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_value_06.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: missing comma between two consecutive values",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_value_07.asm",
+      "more":        "See WepSIM"
+   },
+
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: illegal instruction lx",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_ins_01.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: illegal register t20",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_ins_02.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: incorrect syntax --> la t2 max",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_ins_03.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: instruction with more elements",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_ins_04.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: unknown -3x value",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_ins_05.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: missing parentheses in instruction",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_ins_06.asm",
+      "more":        "See WepSIM"
+   },
+
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: Repeated tag in .data",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_tag_01.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: Repeated tag in .text",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_tag_02.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: non-existing tag11",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_tag_03.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: illegal tag in .data: li",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_tag_04.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: illegal tag in .text: li:",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_tag_05.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: illegal tag name",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_tag_06.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: missing main:",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_tag_07.asm",
+      "more":        "See WepSIM"
+   },
+
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: illegal directive --> .bytes",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_directive_01.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: missing .text",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_directive_02.asm",
+      "more":        "See WepSIM"
+   },
+   {
+      "pack":        "RISC-V: Test assembly errors",
+      "description": "Error: illegal segment name 'udata'",
+      "test":        "./ws_dist/wepsim.sh -a  run -m ep -f ./repo/microcode/rv32/ep_base.mc -s ./repo/assembly/rv32_test/error_directive_03.asm",
+      "more":        "See WepSIM"
+   }
 ]

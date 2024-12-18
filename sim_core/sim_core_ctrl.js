@@ -193,8 +193,8 @@
 	    var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
 
 	    var assoc_i = -1;
-            for (var i=0; i<SIMWARE['firmware'].length; i++) {
-		 if (parseInt(SIMWARE['firmware'][i]["mc-start"]) > reg_maddr) { break; }
+            for (var i=0; i<SIMWARE.firmware.length; i++) {
+		 if (parseInt(SIMWARE.firmware[i]["mc-start"]) > reg_maddr) { break; }
 		 assoc_i = i ;
             }
 
@@ -214,25 +214,24 @@
                 new_ins["microcode"]       = new Array() ;
                 new_ins["microcomments"]   = new Array() ;
 
-                SIMWARE['firmware'].push(new_ins) ;
-                assoc_i = SIMWARE['firmware'].length - 1 ;
+                SIMWARE.firmware.push(new_ins) ;
+                assoc_i = SIMWARE.firmware.length - 1 ;
             }
 
-	    var pos = reg_maddr - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
-	    if (typeof SIMWARE['firmware'][assoc_i]["microcode"][pos] == "undefined") {
-		SIMWARE['firmware'][assoc_i]["microcode"][pos]     = new Object() ;
-		SIMWARE['firmware'][assoc_i]["microcomments"][pos] = "" ;
+	    var pos = reg_maddr - parseInt(SIMWARE.firmware[assoc_i]["mc-start"]) ;
+	    if (typeof SIMWARE.firmware[assoc_i]["microcode"][pos] == "undefined") {
+		SIMWARE.firmware[assoc_i]["microcode"][pos]     = new Object() ;
+		SIMWARE.firmware[assoc_i]["microcomments"][pos] = "" ;
 	    }
-	    SIMWARE['firmware'][assoc_i]["microcode"][pos][key] = simhw_sim_signal(key).value ;
+	    SIMWARE.firmware[assoc_i]["microcode"][pos][key] = simhw_sim_signal(key).value ;
 
             if (simhw_sim_signal(key).default_value == simhw_sim_signal(key).value) {
-	        delete SIMWARE['firmware'][assoc_i]["microcode"][pos][key] ;
+	        delete SIMWARE.firmware[assoc_i]["microcode"][pos][key] ;
 	    }
 
 	    // show memories...
 	    var bits = get_value(simhw_sim_state('REG_IR')).toString(2) ;
 	    bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
-	    //var op_code = parseInt(bits.substr(0, 6), 2) ; // op-code of 6 bits
 
             show_memories_values() ;
 	}
@@ -273,6 +272,20 @@
 	    compute_behavior('FIRE ' + key) ;
         }
 
+	function oceoc2rom_addr ( oc_code, eoc_code, eoc )
+	{
+	       var xr_info = simhw_sim_ctrlStates_get() ;
+	       var ocsize  = xr_info.ir.default_eltos.oc.length ; // ocsize is 6 bits in MIPS, 7 bits in RV, etc.
+
+	       // rom_addr <- f(oc_code, eoc_code)
+	       var rom_addr = oc_code << ocsize ;
+	       if (typeof eoc != "undefined") {
+		   rom_addr = rom_addr + eoc_code ;
+	       }
+
+	       return rom_addr ;
+	}
+
         function update_memories ( preSIMWARE )
         {
             var i=0;
@@ -285,18 +298,18 @@
             simhw_internalState_reset('MC', {}) ;
             var mc_obj = simhw_internalState('MC') ;
             var mcelto = null ;
-            for (i=0; i<SIMWARE['firmware'].length; i++)
+            for (i=0; i<SIMWARE.firmware.length; i++)
 	    {
-	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
-               var mci  = SIMWARE['firmware'][i]["mc-start"] ;
+	       var last = SIMWARE.firmware[i].microcode.length ; // mc = microcode
+               var mci  = SIMWARE.firmware[i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
 	       {
                     var mcelto = {
-		                    value:        SIMWARE['firmware'][i]["microcode"][j],
-                                    comments:     SIMWARE['firmware'][i]["microcomments"][j],
-                                    is_native:    SIMWARE['firmware'][i].is_native,
-                                    NATIVE:       SIMWARE['firmware'][i].NATIVE,
-                                    NATIVE_JIT:   SIMWARE['firmware'][i].NATIVE_JIT
+		                    value:        SIMWARE.firmware[i].microcode[j],
+                                    comments:     SIMWARE.firmware[i].microcomments[j],
+                                    is_native:    SIMWARE.firmware[i].is_native,
+                                    NATIVE:       SIMWARE.firmware[i].NATIVE,
+                                    NATIVE_JIT:   SIMWARE.firmware[i].NATIVE_JIT
                                  } ;
                     control_memory_set(mc_obj, mci, mcelto) ;
 
@@ -306,51 +319,40 @@
 
 	    // 3.- load the ROM (2/2)
             simhw_internalState_reset('ROM', {}) ;
-            for (i=0; i<SIMWARE['firmware'].length; i++)
+            for (i=0; i<SIMWARE.firmware.length; i++)
 	    {
-               if ("begin" == SIMWARE['firmware'][i]['name']) {
-                   continue ;
-               }
+                if ("begin" == SIMWARE.firmware[i]['name']) {
+                    continue ;
+                }
 
-	       var ma = SIMWARE['firmware'][i]["mc-start"] ;
+	        var ma = SIMWARE.firmware[i]["mc-start"] ;
 
-           if (SIMWARE.metadata.version == 2) {
-               var oc = parseInt(SIMWARE['firmware'][i]["oc"], 2) ;
+                var oc  = parseInt(SIMWARE.firmware[i].oc, 2) ;
                 var eoc = 0 ;
-                if (typeof SIMWARE['firmware'][i]["eoc"] != "undefined") {
-                    eoc = parseInt(SIMWARE['firmware'][i]["eoc"], 2) ;
-                    }
+                if (typeof SIMWARE.firmware[i].eoc != "undefined") {
+                    eoc = parseInt(SIMWARE.firmware[i].eoc, 2) ;
+                }
+                var rom_addr = oceoc2rom_addr(oc, eoc, SIMWARE.firmware[i].eoc) ;
 
-                var rom_addr = 64*oc + eoc ;
-            } else {
-                var co = parseInt(SIMWARE['firmware'][i]["co"], 2) ;
-                var cop = 0 ;
-                if (typeof SIMWARE['firmware'][i]["cop"] != "undefined") {
-                    cop = parseInt(SIMWARE['firmware'][i]["cop"], 2) ;
-                    }
-
-                var rom_addr = 64*co + cop ;
-            }
-
-	       simhw_internalState_set('ROM', rom_addr, ma) ;
-               SIMWARE['hash_ci'][rom_addr] = SIMWARE['firmware'][i]['signature'] ;
+	        simhw_internalState_set('ROM', rom_addr, ma) ;
+                SIMWARE.hash_ci[rom_addr] = SIMWARE.firmware[i].signature ;
 	    }
 
 	    // 4.- load the MP from SIMWARE['mp']
             simhw_internalState_reset('MP', {}) ;
             var mp_obj = simhw_internalState('MP') ;
             var melto  = null ;
-	    for (var key in SIMWARE['mp'])
+	    for (var key in SIMWARE.mp)
 	    {
-                 melto = Object.assign({}, SIMWARE['mp'][key]) ;
-                 melto.value = parseInt(SIMWARE['mp'][key].value.replace(/ /g,''), 2) ;
+                 melto = Object.assign({}, SIMWARE.mp[key]) ;
+                 melto.value = parseInt(SIMWARE.mp[key].value.replace(/ /g,''), 2) ;
 
                  main_memory_set(mp_obj, parseInt(key), melto) ;
 	    }
 
 	    // 5.- load the segments from SIMWARE['seg']
             simhw_internalState_reset('segments', {}) ;
-	    for (var key in SIMWARE['seg'])
+	    for (var key in SIMWARE.seg)
 	    {
 	         simhw_internalState_set('segments', key, SIMWARE['seg'][key]) ;
 	    }

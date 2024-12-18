@@ -51,7 +51,7 @@ function firm_fields_v2_write ( elto_fields )
 		 }
 		 o += ")" ;
 
-                 if (["oc", "eoc"].includes(elto_fields[j].type))
+		 if (["oc", "eoc"].includes(elto_fields[j].type))
 		      o += " = " + elto_fields[j].value + "," + '\n';
 		 else o += " = " + elto_fields[j].name  + "," + '\n';
 	}
@@ -96,39 +96,31 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
 
 function firm_instruction_check_eoc ( context, instruccionAux, xr_info, all_ones_oc )
 {
-	// semantic check: valid value
-/*
-	if (
-             (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc) ||
-	     (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length     &&
-	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[0] &&
-	      instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.lengths[1])
-           )
-*/
-	if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc)
-        {
-	    return frm_langError(context,
-			         i18n_get_TagFor('compiler', 'INCORRECT EOC BIN.') +
-			         "'" + instruccionAux.eoc + "'") ;
-	}
+       // semantic check: valid value
+       if (instruccionAux.eoc.match("[01]*")[0] != instruccionAux.eoc)
+       {
+	   return frm_langError(context,
+			        i18n_get_TagFor('compiler', 'INCORRECT EOC BIN.') +
+			        "'" + instruccionAux.eoc + "'") ;
+       }
 
-	if (context.oc_eoc[instruccionAux.oc].eoc == null) {
-	    context.oc_eoc[instruccionAux.oc].eoc = {} ;
-        }
+       // semantic check: 'oc+eoc' is not already used
+       if (instruccionAux.oc != all_ones_oc)
+       {
+	   if (context.oc_eoc[instruccionAux.oc].eoc == null) {
+	       context.oc_eoc[instruccionAux.oc].eoc = {} ;
+           }
 
-	// semantic check: 'oc+eoc' is not already used
-        if (instruccionAux.oc != all_ones_oc)
-        {
-	    if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
-	         (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
-	    {
-	          return frm_langError(context,
-			               i18n_get_TagFor('compiler', 'OC+EOC ALREADY USED') +
-			               "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
-	    }
+	   if (        (context.oc_eoc[instruccionAux.oc].eoc != null) &&
+	        (typeof context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] != "undefined") )
+	   {
+	         return frm_langError(context,
+	   		              i18n_get_TagFor('compiler', 'OC+EOC ALREADY USED') +
+			              "'" + context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] + "'") ;
+	   }
 
-	    context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
-        }
+	   context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
+       }
 
         return {} ;
 }
@@ -394,7 +386,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 
 			// count number of bits read
 			var total_bits = 0;
-			for (i=0; i<bits.length; i++) {
+			for (var i=0; i<bits.length; i++) {
 			     total_bits += bits[i][0] - bits[i][1] + 1;
 			}
 
