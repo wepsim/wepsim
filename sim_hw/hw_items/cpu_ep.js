@@ -164,11 +164,9 @@ function cpu_ep_register ( sim_p )
 		                    name:  "IR",
 		                    state: "REG_IR",
 		                    default_eltos: {
-						"co":  { "begin":  0, "end":  5, "length": 6 },
-						"cop": { "begin": 27, "end": 31, "length": 5 },
-						"oc":  { "begin":  0, "end":  5, "length": 6 },
-				 	        "eoc": { "begin": 27, "end": 31, "length": 5 },
-					     //	"eoc": { "begin": [12,25], "end": [14,31], "lengths": [3,7], "length":10 }
+ 						"oc": { "begin":  0, "end":  5, "length": 6 },
+ 				 	        "eoc":{ "begin": 27, "end": 31, "length": 5 },
+ 					     // "eoc":{ "begin": [12,25], "end": [14,31], "lengths": [3,7], "length":10 }
 						   },
 		                    is_pointer: false
 	                         } ;
@@ -2485,18 +2483,16 @@ function cpu_ep_register ( sim_p )
 						    if (null == oi.oinstruction)
                                                     {
                                                          ws_alert('ERROR: undefined instruction code in IR (' +
-							          'co:'  +  oi.op_code.toString(2) + ', ' +
-							          'cop:' + oi.cop_code.toString(2) + ')') ;
+							          'oc:'  +  oi.oc_code.toString(2) + ', ' +
+							          'eoc:' + oi.eoc_code.toString(2) + ')') ;
 							 sim_p.states['ROM_MUXA'].value = 0 ;
 							 sim_p.states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
 						    // 2.- oi.oinstruction -> rom_addr
-                                                    var rom_addr = oi.op_code << 6;
-						    if (typeof oi.oinstruction.cop != "undefined") {
-                                                        rom_addr = rom_addr + oi.cop_code ;
-						    }
+                                                    var rom_addr = oceoc2rom_addr(oi.oc_code, oi.eoc_code,
+                                                                                  oi.oinstruction.eoc) ;
 
 						    // 2.- ! sim_p.internal_states['ROM'][rom_addr] -> error
 						    if (typeof sim_p.internal_states['ROM'][rom_addr] == "undefined")

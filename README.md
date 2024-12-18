@@ -1,12 +1,12 @@
 
 # WepSIM: Web Elemental Processor Simulator
 
-![Build Status](https://github.com/acaldero/wepsim/actions/workflows/node.js.yml/badge.svg)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
-[![codebeat badge](https://codebeat.co/badges/66773495-9967-4514-8c2c-916293f584b5)](https://codebeat.co/projects/github-com-acaldero-wepsim-master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://app.codacy.com/gh/acaldero/wepsim/dashboard)
+![Build Status](https://github.com/wepsim/wepsim/actions/workflows/node.js.yml/badge.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/wepsim/wepsim/maintainability)
+[![codebeat badge](https://codebeat.co/badges/66773495-9967-4514-8c2c-916293f584b5)](https://codebeat.co/projects/github-com-wepsim-wepsim-master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://app.codacy.com/gh/wepsim/wepsim/dashboard)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
-[![Release](https://img.shields.io/badge/Stable-2.3.3-green.svg)](https://github.com/wepsim/wepsim/releases/tag/v2.3.3)
+[![Release](https://img.shields.io/badge/Stable-2.3.5-green.svg)](https://github.com/wepsim/wepsim/releases/tag/v2.3.5)
 
 
 ## Table of contents
@@ -43,9 +43,9 @@
     ```
   * Get WepSIM by executing:
     ```bash
-    wget https://github.com/wepsim/wepsim/releases/download/v2.3.3/wepsim-2.3.3.zip
-    unzip wepsim-2.3.3.zip
-    cd wepsim-2.3.3
+    wget https://github.com/wepsim/wepsim/releases/download/v2.3.5/wepsim-2.3.5.zip
+    unzip wepsim-2.3.5.zip
+    cd wepsim-2.3.5
     npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
     ``` 
   * Execute wepsim.sh with the help flag in order to show the available command switches:
@@ -198,7 +198,7 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 
 - WepSIM GitHub Repository:
    * Stable  build: https://github.com/wepsim/wepsim
-   * Nightly build: https://github.com/acaldero/wepsim
+   * Nightly build: https://github.com/wepsim/wepsim
 
 - The WepSIM architecture can be summarized in the following Figure (made by https://app.diagrams.net):
 ![screen:example1](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/ws_arch_215-v2.png)
@@ -310,12 +310,12 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 !echo "(1/4) Installing pre-requisites..."
 !npm install  terser jq jshint yargs clear inquirer >& /dev/null
 !echo "(2/4) Downloading WepSIM..."
-!wget https://github.com/wepsim/wepsim/releases/download/v2.3.3/wepsim-2.3.3.zip >& /dev/null
-!unzip -o wepsim-2.3.3.zip  >& /dev/null
-!rm -fr   wepsim-2.3.3.zip
+!wget https://github.com/wepsim/wepsim/releases/download/v2.3.5/wepsim-2.3.5.zip >& /dev/null
+!unzip -o wepsim-2.3.5.zip  >& /dev/null
+!rm -fr   wepsim-2.3.5.zip
 !echo "(3/4) Executing WepSIM..."
-!./wepsim-2.3.3/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.3/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.3/repo/assembly/mips/s1e1.asm > ./result.csv
-!rm -fr   wepsim-2.3.3
+!./wepsim-2.3.5/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.5/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.5/repo/assembly/mips/s1e1.asm > ./result.csv
+!rm -fr   wepsim-2.3.5
 !echo "(4/4) Showing execution trace as table..."
 
 import pandas as pd

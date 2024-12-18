@@ -126,8 +126,8 @@
 		             o = o + h ;
 
 			 ico = "";
-			 if (typeof fir[i].co != "undefined")
-			     ico = parseInt(fir[i].co, 2) ;
+			 if (typeof fir[i].oc != "undefined")
+			     ico = parseInt(fir[i].oc, 2) ;
                          var isignature = fir[i].signature.split(',')[0] ;
 
                          line = "";

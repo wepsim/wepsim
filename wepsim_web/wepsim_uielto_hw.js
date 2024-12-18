@@ -188,26 +188,26 @@
 	    // card with list
 	    var o = '' ;
 	    o += '<div class="card m-2">' +
-		 '    <div class="card-header border border-tertiary p-2" style="background-color:#E8E8E8">' +
+		 '    <div class="card-header bg-tertiary border border-tertiary p-2">' +
 		 '      <h5 class="card-title">' +
 		 '        <span class="row">' +
 		 '          <span class="col-6">' + ahw.sim_name + ' (' + ahw.sim_short_name + ')</span>' +
 		 '          <a data-bs-toggle="collapse" href="#th_processor" role="button"   class="col w-25" ' +
 		 'aria-expanded="false" aria-controls="th_processor">' +
-		 '<img src="' + ahw.sim_img_processor + '" class="img-thumbnail" alt="sim_img_processor"></a>' +
+		 '<img src="' + ahw.sim_img_processor + '" class="img-thumbnail bg-white" alt="sim_img_processor"></a>' +
 		 '          <a data-bs-toggle="collapse" href="#th_controlunit" role="button" class="col w-25" ' +
 		 'aria-expanded="false" aria-controls="th_controlunit">' +
-		 '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail" alt="sim_img_controlunit"></a>' +
+		 '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail bg-white" alt="sim_img_controlunit"></a>' +
 		 '        </span>' +
 		 '      </h5>' +
 		 '    </div>' +
 		 '    <div class="card-body border border-tertiary p-0">' +
 		 '      <p class="card-text">' +
 		 '      <span class="collapse multi-collapse" id="th_processor">' +
-		 '<img src="' + ahw.sim_img_processor + '"   class="img-thumbnail mb-2" alt="sim_img_processor"></a>' +
+		 '<img src="' + ahw.sim_img_processor + '"   class="img-thumbnail mb-2 bg-white" alt="sim_img_processor"></a>' +
 		 '      </span>' +
 		 '      <span class="collapse multi-collapse" id="th_controlunit">' +
-		 '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail mb-2" alt="sim_img_controlunit"></a>' +
+		 '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail mb-2 bg-white" alt="sim_img_controlunit"></a>' +
 		 '      </span>' +
 		 '      </p>' +
 		 '    </div>' +
@@ -254,7 +254,7 @@
         function simcoreui_hw_init_signals_card ( content )
         {
 	    var o = '  <div class="card m-2">' +
-		    '    <div class="card-header border border-tertiary p-2" style="background-color:#E8E8E8">' +
+		    '    <div class="card-header bg-tertiary border border-tertiary p-2">' +
 		    '      <h5 class="card-title m-0">' +
 		    '       <div class="container">' +
 		    '       <span class="row">' +
@@ -421,7 +421,7 @@
         function simcoreui_hw_init_states_card ( content, ahw )
         {
 	    var o = '<div class="card m-2">' +
-		    ' <div class="card-header border border-tertiary p-2" style="background-color:#E8E8E8">' +
+		    ' <div class="card-header bg-tertiary border border-tertiary p-2">' +
 		    '      <h5 class="card-title m-0">' +
 		    '       <div class="container">' +
 		    '       <span class="row">' +
@@ -598,7 +598,7 @@
 
               // card with behaviors list
               var o = '  <div class="card m-2">' +
-                      '    <div class="card-header border border-tertiary p-2" style="background-color:#E8E8E8">' +
+                      '    <div class="card-header bg-tertiary border border-tertiary p-2">' +
                       '      <h5 class="card-title m-0"><span data-langkey="Behaviors">Behaviors</span></h5>' +
                       '    </div>' +
                       '    <div class="card-body border border-tertiary p-2">' +
@@ -779,7 +779,7 @@
             var o = '' ;
 
 	    o = '  <div class="card m-2">' +
-		'    <div class="card-header border border-tertiary p-2" style="background-color:#E8E8E8">' +
+		'    <div class="card-header bg-tertiary border border-tertiary p-2">' +
 		'      <h5 class="card-title m-0">' +
 		'       <div class="container">' +
 		'       <span class="row">' +

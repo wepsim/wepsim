@@ -1,6 +1,14 @@
 
 # Changelog
 
+## 2.3.2 -> 2.3.5:
+* Main improvements:
+  * Old assembler code cleanup
+  * Cleanup on old firmware v1 code
+* Main external dependencies updated:
+  * Bump fontawesome from 6.4.2  to 6.6.0
+  * Vis-network updated to vis-network-9.1.9
+
 ## 2.3.2 -> 2.3.3:
 * Main improvements:
   * Several minor improvements:
