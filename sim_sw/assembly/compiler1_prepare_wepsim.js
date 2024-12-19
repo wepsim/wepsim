@@ -38,11 +38,7 @@ function wsasm_prepare_oc ( elto, aux )
                   } ;
 
         // set elto.oc.value
-	if (typeof aux.co !== "undefined") {
-	     elto.oc.value = aux.co ;
-        }
-	else
-        if (typeof aux.oc !== "undefined") {
+	if (typeof aux.oc !== "undefined") {
 	     elto.oc.value = aux.oc ;
         }
 
@@ -94,8 +90,8 @@ function wsasm_prepare_eoc ( elto, aux )
                    } ;
 
         // elto.eoc.value
-	if (typeof aux.cop !== "undefined") {
-	     elto.eoc.value = aux.cop ;
+	if (typeof aux.eoc !== "undefined") {
+	     elto.eoc.value = aux.eoc ;
         }
 	else if (typeof aux.eoc !== "undefined") {
 	     elto.eoc.value = aux.eoc ;
@@ -197,30 +193,23 @@ function wsasm_prepare_context_firmware ( context, CU_data )
                      // initial values...
                      start_bit = [] ;
                      stop_bit  = [] ;
-                     if (1 == CU_data.metadata.version)
+
+                     if ("forwards" == context.options.field_multipart_order)
                      {
-                         start_bit[0] = parseInt(elto.fields[j].startbit) ;
-                         stop_bit[0]  = parseInt(elto.fields[j].stopbit) ;
+			 for (let m=0; m<elto.fields[j].bits_start.length; m++)
+			 {
+			      start_bit[m] = parseInt(elto.fields[j].bits_start[m]) ;
+	                      stop_bit[m]  = parseInt(elto.fields[j].bits_stop[m]) ;
+			 }
                      }
-                     else // (2 == CU_data.metadata.version)
+                     else // "backwards"
                      {
-                         if ("forwards" == context.options.field_multipart_order)
-                         {
-				 for (let m=0; m<elto.fields[j].bits_start.length; m++)
-				 {
-				      start_bit[m] = parseInt(elto.fields[j].bits_start[m]) ;
-	                              stop_bit[m]  = parseInt(elto.fields[j].bits_stop[m]) ;
-				 }
-                         }
-                         else // "backwards"
-                         {
-				 for (let m=0; m<elto.fields[j].bits_start.length; m++)
-				 {
-                                      om = elto.fields[j].bits_start.length - 1 - m ;
-				      start_bit[m] = parseInt(elto.fields[j].bits_start[om]) ;
-	                              stop_bit[m]  = parseInt(elto.fields[j].bits_stop[om]) ;
-				 }
-                         }
+			 for (let m=0; m<elto.fields[j].bits_start.length; m++)
+			 {
+                              om = elto.fields[j].bits_start.length - 1 - m ;
+			      start_bit[m] = parseInt(elto.fields[j].bits_start[om]) ;
+	                      stop_bit[m]  = parseInt(elto.fields[j].bits_stop[om]) ;
+			 }
                      }
 
                      // translate from startbit/stop_bit to asm_start_bit/asm_stop_bit...

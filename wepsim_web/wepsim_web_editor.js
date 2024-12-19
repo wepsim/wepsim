@@ -123,13 +123,13 @@
 	    var editor_obj = CodeMirror.fromTextArea(document.getElementById(editor_id), editor_cfg) ;
 
             // default values
-	    editor_obj.setValue("\n\n\n\n\n\n\n\n\n\n") ;
+            editor_obj.setValue("\n\n\n\n\n\n\n\n\n\n") ;
 
             sim_cfg_editor_theme(editor_obj) ;
             sim_cfg_editor_mode(editor_obj) ;
 
-            editor_obj.setSize("auto", "75vh") ;
-            editor_obj.refresh() ;
+            editor_obj.setSize("auto", "75vh");
+            editor_obj.refresh();
 
             // event onChange -> update is_* attributes
 	    editor_obj.is_modified  = true ;
@@ -260,7 +260,7 @@
 	}
 
         // compile Assembly and show message
-        var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
+        var SIMWAREaddon = wsasm_src2mem(SIMWARE, textToCompile, {});
         if (SIMWAREaddon.error != null)
         {
             showError(SIMWAREaddon.error, "inputasm") ;

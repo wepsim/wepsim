@@ -20,97 +20,50 @@
 
 
 /*
- *  Load Firmware
+ *  Save Firmware
  */
 
-function find_first_cocop ( context, curr_instruction, first_co, last_co )
+function saveFirmware ( SIMWARE )
 {
-           var k = 0 ;
-           var m = 0 ;
+	var o = "" ;
 
-           var ret = {} ;
-               ret.label_co  = '' ;
-               ret.label_cop = '' ;
+        // Saving as version 2 by default ;-)
+        if ( (typeof SIMWARE.metadata != "undefined") && (1 == SIMWARE.metadata.version) )
+        {
+              SIMWARE.metadata.version  = 2 ;
+              SIMWARE.metadata.rel_mult = 4 ;
+              SIMWARE.metadata.endian   = 'little' ;
+        }
 
-           // get the default length of the co+cop fields...
-           var xr_info = simhw_sim_ctrlStates_get() ;
-           var oc_length = 6 ;
-           if (typeof xr_info.ir.default_eltos.co.length !== "undefined") {
-               oc_length = parseInt(xr_info.ir.default_eltos.co.length) ;
-           }
-	   var eoc_length = 4 ;
-           if (typeof xr_info.ir.default_eltos.cop.length !== "undefined") {
-	       eoc_length = parseInt(xr_info.ir.default_eltos.cop.length) ;
-           }
+        // initial header
+        o += "\n" +
+             "#\n" +
+             "# WepSIM (https://wepsim.github.io/wepsim/)\n" +
+             "#\n" +
+             "\n" ;
 
-	   // analize if instruction has any field that uses cop bits... -> m points to
-           var cop_overlaps = false ;
-	   for (m=0; m<curr_instruction.fields.length; m++)
-           {
-	        if (curr_instruction.fields[m].stopbit === "0")
-                {
-                    cop_overlaps = true ;
-	   	    break ;
-	        }
-	   }
+        // save current metadata
+        o += firm_metadata_write(SIMWARE) ;
 
-           // find first free 'co-cop' code
-	   for (j=first_co; j<last_co; j++)
-	   {
-                // new initial co...
-		ret.label_co = j.toString(2).padStart(oc_length, "0") ;
+        // save instructions
+	for (i=0; i<SIMWARE.firmware.length; i++) {
+             o += firm_instruction_write(SIMWARE, SIMWARE.firmware[i], SIMWARE.labels_firm) ;
+	}
 
-                // (1/3) check for free co-00000...
-		if (typeof context.co_cop[ret.label_co] === "undefined")
-                {
-		    context.co_cop[ret.label_co]         = {} ;
-		    context.co_cop[ret.label_co].withcop = false ;
-		    return ret ;
-                }
+        // save registers
+        o += firm_registers_write(SIMWARE) ;
 
-                // (2/3) search for free co-cop...
-                if (typeof curr_instruction.cop !== "undefined")
-                {
-                    // cop in use... -> skip cop
-		    if (typeof context.co_cop[ret.label_co].cop[curr_instruction.cop] !== "undefined") {
-		        continue ;
-		    }
+        // save pseudo-instructions
+        o += firm_pseudoinstructions_write(SIMWARE) ;
 
-                    // use cop
-		    ret.label_cop = curr_instruction.cop ;
-		    return ret ;
-                }
-
-                // (3/3) check if skip (new instruction overlaps || existing instructions overlap)...
-                if (cop_overlaps === true) {
-		    continue ;
-                }
-                if (context.co_cop[ret.label_co].withcop === false) {
-		    continue ;
-                }
-
-                // new initial co-cop...
-                first_cop = 0 ;
-                last_cop  = Math.pow(2, eoc_length) - 1 ;
-		for (k=first_cop; k<last_cop; k++)
-		{
-		     ret.label_cop = k.toString(2).padStart(eoc_length, "0") ;
-
-                     if (        (context.co_cop[ret.label_co].cop === null) ||
-                          (typeof context.co_cop[ret.label_co].cop === 'undefined') )
-                     {
-		          context.co_cop[ret.label_co].cop = {};
-                          return ret ;
-                     }
-                     if (typeof context.co_cop[ret.label_co].cop[ret.label_cop] === "undefined")
-                     {
-                          return ret ;
-                     }
-		}
-	   }
-
-           return ret ;
+	// return firmware as string...
+	return o;
 }
+
+
+/*
+ *  Load Firmware
+ */
 
 function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
 {
@@ -198,7 +151,6 @@ function loadFirmware (text)
            var i = 0 ;
 
            var     xr_info = simhw_sim_ctrlStates_get() ;
-           var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
 	   var all_ones_oc = "1".repeat(xr_info.ir.default_eltos.oc.length) ;
 
            var context = {} ;
@@ -209,7 +161,7 @@ function loadFirmware (text)
 	   context.etiquetas      	= {} ;
 	   context.labelsNotFound 	= [] ;
 	   context.instrucciones  	= [] ;
-	   context.co_cop         	= {} ;
+	   context.oc_eoc         	= {} ;
 	   context.oc_eoc       	= {} ;
 	   context.registers      	= [] ;
            context.text           	= text ;
@@ -303,7 +255,7 @@ function loadFirmware (text)
 		//             }
 		// }*
 
-               ret = firm_instruction_read(context, xr_info, all_ones_co, all_ones_oc) ;
+               ret = firm_instruction_read(context, xr_info, all_ones_oc) ;
 	       if (typeof ret.error != "undefined") {
 	           return ret ;
                }
@@ -339,89 +291,43 @@ function loadFirmware (text)
            }
 
 	   // RESOLVE: oc=111111... (111111... === "please, find one free 'oc' for me...")
-	   if (context.metadata.version == 2)
-           {
-		var ir_oc_length = 6 ;
-		if (typeof xr_info !== "undefined") {
-		    ir_oc_length = xr_info.ir.default_eltos.oc.length ;
-		}
-
-		var first_oc = 0 ;
-		var last_oc = Math.pow(2, ir_oc_length) - 1 ;
-		var last_oc_str = last_oc.toString(2) ;
-
-		var curr_instruction = null ;
-		for (i=0; i<context.instrucciones.length; i++)
-		{
-			curr_instruction = context.instrucciones[i] ;
-
-			// skip non-111111... cases
-			if ( (curr_instruction.name === "begin") || (curr_instruction.oc !== last_oc_str) ) {
-				continue ;
-			}
-
-			// find first free 'oc-eoc' code
-			var r = find_first_oceoc(context, curr_instruction, first_oc, last_oc) ;
-			if (r.j >= last_oc) {
-			    return frm_langError(context,
-						 i18n_get_TagFor('compiler', 'NO OC CODES')) ;
-			}
-
-			// work with this free 'oc-eoc' code
-			first_oc = parseInt(r.label_oc, 2) ;
-
-			curr_instruction.oc = r.label_oc ;
-			context.oc_eoc[r.label_oc].signature = curr_instruction.signature ;
-
-			if (r.label_eoc !== "")
-			{
-			    curr_instruction.eoc = r.label_eoc ;
-			    context.oc_eoc[r.label_oc].eoc[r.label_eoc] = curr_instruction.signature ;
-			    context.oc_eoc[r.label_oc].witheoc = true ;
-			}
-		}
+	   var ir_oc_length = 6 ;
+	   if (typeof xr_info !== "undefined") {
+	       ir_oc_length = xr_info.ir.default_eltos.oc.length ;
 	   }
-           else
-           {
-		// RESOLVE: co=111111... (111111... === "please, find one free 'co' for me...")
-		var ir_co_length = 6 ;
-		if (typeof xr_info !== "undefined") {
-		    ir_co_length = xr_info.ir.default_eltos.co.length ;
+
+	   var first_oc = 0 ;
+	   var last_oc = Math.pow(2, ir_oc_length) - 1 ;
+	   var last_oc_str = last_oc.toString(2) ;
+
+	   var curr_instruction = null ;
+	   for (i=0; i<context.instrucciones.length; i++)
+	   {
+		curr_instruction = context.instrucciones[i] ;
+
+		// skip non-111111... cases
+		if ( (curr_instruction.name === "begin") || (curr_instruction.oc !== last_oc_str) ) {
+			continue ;
 		}
 
-		var first_co = 0 ;
-		var last_co = Math.pow(2, ir_co_length) - 1 ;
-		var last_co_str = last_co.toString(2) ;
+		// find first free 'oc-eoc' code
+		var r = find_first_oceoc(context, curr_instruction, first_oc, last_oc) ;
+		if (r.j >= last_oc) {
+		    return frm_langError(context,
+					 i18n_get_TagFor('compiler', 'NO OC CODES')) ;
+		}
 
-		var curr_instruction = null ;
-		for (i=0; i<context.instrucciones.length; i++)
+		// work with this free 'oc-eoc' code
+		first_oc = parseInt(r.label_oc, 2) ;
+
+		curr_instruction.oc = r.label_oc ;
+		context.oc_eoc[r.label_oc].signature = curr_instruction.signature ;
+
+		if (r.label_eoc !== "")
 		{
-			curr_instruction = context.instrucciones[i] ;
-
-			// skip non-111111... cases
-			if ( (curr_instruction.name === "begin") || (curr_instruction.co !== last_co_str) ) {
-			      continue ;
-			}
-
-			// find first free 'co-cop' code
-			var r = find_first_cocop(context, curr_instruction, first_co, last_co) ;
-			if (r.j >= last_co) {
-			    return frm_langError(context,
-						 i18n_get_TagFor('compiler', 'NO CO CODES')) ;
-			}
-
-			// work with this free 'co-cop' code
-			first_co = parseInt(r.label_co, 2) ;
-
-			curr_instruction.co = r.label_co ;
-			context.co_cop[r.label_co].signature = curr_instruction.signature ;
-
-			if (r.label_cop !== "")
-			{
-			    curr_instruction.cop = r.label_cop ;
-			    context.co_cop[r.label_co].cop[r.label_cop] = curr_instruction.signature ;
-			    context.co_cop[r.label_co].withcop = true ;
-			}
+		    curr_instruction.eoc = r.label_eoc ;
+		    context.oc_eoc[r.label_oc].eoc[r.label_eoc] = curr_instruction.signature ;
+		    context.oc_eoc[r.label_oc].witheoc = true ;
 		}
 	   }
 
@@ -462,64 +368,44 @@ function loadFirmware (text)
 		       mk_native += "context.instrucciones[" + i + "][\"NATIVE_JIT\"] = " +
 			            " function() {\n" +
 				    "\t var fields = simcore_native_get_fields(\"" + ins.signatureRaw + "\");\n" +
-				    ins.NATIVE +
-				    "\n};\n " ;
+                                    "\t try {\n" +
+				          ins.NATIVE +
+                                    "\t }\n" +
+                                    "\t catch (e) {\n" +
+                                    "\t   wepsim_notify_error(\"Error on the native code\", '" + ins.name + " => ' + e.toString());\n" +
+                                    "\t }\n" +
+				    "} ;\n" ;
 		   }
 	   }
 	   eval(mk_native) ;
 
-	   if (context.metadata.version == 2)
-           {
-	        // oc_eoc_hash
-		var fioc  = 0 ;
-		var fieoc = 0 ;
-		context.hash_oceoc = {} ;
-		for (var fi in context.instrucciones)
-		{
-			if (context.instrucciones[fi].name == "begin") {
-				continue ;
-			}
+	   // oc_eoc_hash
+           var fioc  = 0 ;
+	   var fieoc = 0 ;
+	   context.hash_oceoc = {} ;
 
-			fioc  = context.instrucciones[fi].oc ;
-			if (typeof context.hash_oceoc[fioc] == "undefined") {
-				context.hash_oceoc[fioc] = {} ;
-			}
-
-			if (typeof context.instrucciones[fi].eoc == "undefined") {
-				context.hash_oceoc[fioc].witheoc = false ;
-				context.hash_oceoc[fioc].i       = context.instrucciones[fi] ;
-			} else {
-				fieoc = context.instrucciones[fi].eoc ;
-				context.hash_oceoc[fioc].witheoc = true ;
-				context.hash_oceoc[fioc][fieoc]  = context.instrucciones[fi] ;
-			}
+	   for (var fi in context.instrucciones)
+	   {
+		if (context.instrucciones[fi].name == "begin") {
+		    continue ;
 		}
-	   }
-           else
-           {
-		// co_cop_hash
-		var fico  = 0 ;
-		var ficop = 0 ;
-		context.hash_cocop = {} ;
-		for (var fi in context.instrucciones)
-		{
-			if (context.instrucciones[fi].name == "begin") {
-				continue ;
-			}
 
-			fico  = context.instrucciones[fi].co ;
-			if (typeof context.hash_cocop[fico] == "undefined") {
-				context.hash_cocop[fico] = {} ;
-			}
+		fioc = context.instrucciones[fi].oc ;
 
-			if (typeof context.instrucciones[fi].cop == "undefined") {
-				context.hash_cocop[fico].withcop = false ;
-				context.hash_cocop[fico].i       = context.instrucciones[fi] ;
-			} else {
-				ficop = context.instrucciones[fi].cop ;
-				context.hash_cocop[fico].withcop = true ;
-				context.hash_cocop[fico][ficop]  = context.instrucciones[fi] ;
-			}
+		if (typeof context.hash_oceoc[fioc] == "undefined") {
+		    context.hash_oceoc[fioc] = {} ;
+		}
+
+		if (typeof context.instrucciones[fi].eoc == "undefined")
+                {
+		    context.hash_oceoc[fioc].witheoc = false ;
+		    context.hash_oceoc[fioc].i       = context.instrucciones[fi] ;
+		}
+                else
+                {
+		    fieoc = context.instrucciones[fi].eoc ;
+		    context.hash_oceoc[fioc].witheoc = true ;
+		    context.hash_oceoc[fioc][fieoc]  = context.instrucciones[fi] ;
 		}
 	   }
 
@@ -540,51 +426,10 @@ function loadFirmware (text)
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
            ret.stackRegister      = context.stackRegister ;
-	   if (context.metadata.version == 2)
-                ret.hash_oceoc = context.hash_oceoc ;
-	   else ret.hash_cocop = context.hash_cocop ;
+           ret.hash_oceoc         = context.hash_oceoc ;
            ret.hash_labels_firm_rev = context.revlabels ;
 
            return ret ;
-}
-
-
-/*
- *  Save Firmware
- */
-
-function saveFirmware ( SIMWARE )
-{
-	var file = "" ;
-
-        // save as last version by default ;-)
-        if (typeof SIMWARE.metadata != "undefined") {
-            SIMWARE.metadata.version = 2 ;
-        }
-
-        // initial header
-        file += "\n" +
-                "#\n" +
-                "# WepSIM (https://wepsim.github.io/wepsim/)\n" +
-                "#\n" +
-                "\n" ;
-
-        // metadata
-        file += firm_metadata_write(SIMWARE) ;
-
-        // firmware
-	for (i=0; i<SIMWARE.firmware.length; i++) {
-             file += firm_instruction_write(SIMWARE, SIMWARE.firmware[i], SIMWARE.labels_firm) ;
-	}
-
-        // save registers
-        file += firm_registers_write(SIMWARE) ;
-
-        // save pseudo-instructions
-        file += firm_pseudoinstructions_write(SIMWARE) ;
-
-	// return firmware as string...
-	return file;
 }
 
 
@@ -594,47 +439,38 @@ function saveFirmware ( SIMWARE )
 
 function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
-    if (curr_firm.metadata.version == 2)
-         return decode_instruction_v2(curr_firm, ep_ir, binstruction) ;
-    else return decode_instruction_v1(curr_firm, ep_ir, binstruction) ;
-
-    return ret ;
-}
-
-function decode_instruction_v2 ( curr_firm, ep_ir, binstruction )
-{
 	var ret = {
-			"oinstruction": null,
-			op_code: 0,
-			eoc: 0
+		      "oinstruction": null,
+		      oc_code:  0,
+		      eoc_code: 0
 		  } ;
 
 	// instructions as 32-string
 	var bits = binstruction.toString(2).padStart(32, "0") ;
 
-	// op-code
-	var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length);
-	ret.op_code = parseInt(oc, 2) ;
+	// oc/op-code
+	var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length) ;
 
-	// eoc
-	// https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
-	if (ep_ir.default_eltos.eoc.type == 2)
+	// eoc/cop-code
+        var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
+
+        // "firmware version 2" + "type 2 (risc-v)" -> check if special case:
+        // * https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
+        if ( (2 == curr_firm.metadata.version) && (2 == ep_ir.default_eltos.eoc.type) )
         {
-		if (oc !='1101111' && oc != '0110111' && oc != '0010111')
-                {
-		    var eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
-		    if (oc == '0110011' || oc == '1110011') {
-		    	eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
-		    } else if (oc == '0010011' && (eoc == '001' || eoc == '101')) {
-			eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
-		    }
-		}
+	      if ((oc !='1101111') && (oc != '0110111') && (oc != '0010111'))
+              {
+		  eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
+		  if (oc == '0110011' || oc == '1110011') {
+		      eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+		  } else if (oc == '0010011' && (eoc == '001' || eoc == '101')) {
+		      eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
+		  }
+	      }
 	}
-        else
-        {
-		var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
-	}
-	ret.eoc = parseInt(eoc, 2) ;
+
+	ret.oc_code  = parseInt(oc,  2) ;
+	ret.eoc_code = parseInt(eoc, 2) ;
 
 	if ("undefined" == typeof curr_firm.hash_oceoc[oc]) {
 	     return ret ;
@@ -644,39 +480,8 @@ function decode_instruction_v2 ( curr_firm, ep_ir, binstruction )
 	     ret.oinstruction = curr_firm.hash_oceoc[oc].i ;
 	else ret.oinstruction = curr_firm.hash_oceoc[oc][eoc] ;
 
-    return ret ;
+        return ret ;
 }
-
-function decode_instruction_v1 ( curr_firm, ep_ir, binstruction )
-{
-	var ret = {
-			"oinstruction": null,
-			op_code: 0,
-			cop_code: 0
-		  } ;
-
-	// instructions as 32-string
-	var bits = binstruction.toString(2).padStart(32, "0") ;
-
-	// op-code
-	var co = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length);
-	ret.op_code = parseInt(co, 2) ;
-
-	// cop-code
-	var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length);
-	ret.cop_code = parseInt(cop, 2) ;
-
-	if ("undefined" == typeof curr_firm.hash_cocop[co]) {
-	     return ret ;
-	}
-
-	if (false == curr_firm.hash_cocop[co].withcop)
-	     ret.oinstruction = curr_firm.hash_cocop[co].i ;
-	else ret.oinstruction = curr_firm.hash_cocop[co][cop] ;
-
-    return ret ;
-}
-
 
 function decode_ram ( )
 {

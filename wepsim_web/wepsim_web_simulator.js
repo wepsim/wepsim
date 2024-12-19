@@ -95,8 +95,7 @@
 			  'extra_morecfg': '.wsx_morecfg',
 			  'extra_share':   '.wsx_share',
 			  'beta_poc':      '.wsx_poc',
-			  'beta_cache':    '.wsx_cache',
-			  'beta_ngc':      '.wsx_ngc'
+			  'beta_cache':    '.wsx_cache'
 		       } ;
 
     function wepsim_restore_view ( view )
