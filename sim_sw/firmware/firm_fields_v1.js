@@ -261,8 +261,17 @@ function firm_instruction_cop_read ( context, instruccionAux, all_ones_co )
 
 function firm_instruction_field_read ( context, instruccionAux, camposInsertados )
 {
-	// match mandatory FIELD
 	var tmp_name = frm_getToken(context) ;
+
+	// check number of fields
+	if (camposInsertados > (instruccionAux.fields.length - 1)) {
+	       return frm_langError(context,
+				    i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
+				    "'" + tmp_name + "'. " +
+				    i18n_get_TagFor('compiler', 'CHECK ORDER')) ;
+	}
+
+	// match mandatory FIELD
 	if (instruccionAux.fields[camposInsertados].name != tmp_name) {
 	       return frm_langError(context,
 				    i18n_get_TagFor('compiler', 'UNEXPECTED FIELD') +
@@ -292,18 +301,13 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 			           i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
 	}
 
+	// for future (semantic) checkings: keep track of the current context
+	instruccionAux.fields[camposInsertados].context = Object.assign({}, context);
+
 	frm_nextToken(context);
 	// match mandatory START_BIT
 	instruccionAux.fields[camposInsertados].startbit   = frm_getToken(context) ;
 	instruccionAux.fields[camposInsertados].bits_start = [ parseInt(frm_getToken(context)) ] ;
-
-	// check startbit range
-	var start = parseInt(instruccionAux.fields[camposInsertados].startbit);
-	if (start > 32*parseInt(instruccionAux.nwords)-1) {
-	       return frm_langError(context,
-				    i18n_get_TagFor('compiler', 'STARTBIT OoR') +
-				    "'" + frm_getToken(context) + "'") ;
-	}
 
 	frm_nextToken(context);
 	// match mandatory ,
@@ -316,26 +320,6 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	// match mandatory STOP_BIT
 	instruccionAux.fields[camposInsertados].stopbit   = frm_getToken(context) ;
 	instruccionAux.fields[camposInsertados].bits_stop = [ parseInt(frm_getToken(context)) ] ;
-
-	// check stopbit range
-	var stop  = parseInt(instruccionAux.fields[camposInsertados].stopbit);
-	if (stop > 32*parseInt(instruccionAux.nwords)) {
-	       return frm_langError(context,
-				    i18n_get_TagFor('compiler', 'STOPBIT OoR') +
-				    "'" + frm_getToken(context) + "'") ;
-	}
-
-	// check overlapping
-	for (i=stop; i<=start; i++)
-	{
-		if (typeof instruccionAux.overlapping[i] != "undefined") {
-		    return frm_langError(context,
-				         i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') +
-				         instruccionAux.fields[camposInsertados].name) ;
-		}
-
-		instruccionAux.overlapping[i] = 1;
-	}
 
 	frm_nextToken(context);
 	// match mandatory )
@@ -382,7 +366,7 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
 	    tmp_fields.bits_stop  = [ tmp_fields.stopbit ] ;
 	instruccionAux.fields_all.push(tmp_fields) ;
         // </new>
-
+	
        return {} ;
 }
 
@@ -497,6 +481,38 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 
        instruccionAux.fields       = campos;
        instruccionAux.signatureRaw = firmaUsuario;
+
+       // semantic check: ranges in fields
+       for (var k=0; k<camposInsertados; k++)
+       {
+	    // check startbit range
+	    var start = parseInt(instruccionAux.fields[k].startbit);
+	    if (start > 32*parseInt(instruccionAux.nwords)-1) {
+	           return frm_langError(instruccionAux.fields[k].context,
+				        i18n_get_TagFor('compiler', 'STARTBIT OoR') +
+				        "'" + start + "'") ;
+	    }
+
+	    // check stopbit range
+	    var stop  = parseInt(instruccionAux.fields[k].stopbit);
+	    if (stop > 32*parseInt(instruccionAux.nwords)) {
+	           return frm_langError(instruccionAux.fields[k].context,
+				        i18n_get_TagFor('compiler', 'STOPBIT OoR') +
+				        "'" + stop + "'") ;
+	    }
+
+	    // check overlapping
+	    for (var o=stop; o<=start; o++)
+	    {
+		    if (typeof instruccionAux.overlapping[o] != "undefined") {
+		        return frm_langError(instruccionAux.fields[k].context,
+				             i18n_get_TagFor('compiler', 'OVERLAPPING FIELD') +
+				             instruccionAux.fields[k].name) ;
+		    }
+
+		    instruccionAux.overlapping[o] = 1;
+	    }
+       }
 
        // semantic check: co must exist
        if (1 != co_inserted)
