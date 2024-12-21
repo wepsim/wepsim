@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.3.5 -> 2.3.6:
+* Main improvements:
+  * Several minor improvements
+
 ## 2.3.2 -> 2.3.5:
 * Main improvements:
   * Old assembler code cleanup
