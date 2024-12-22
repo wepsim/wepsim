@@ -329,16 +329,27 @@ function wsasm_prepare_context ( CU_data, options )
                 context.options.endian = context.metadata.endian ;
            else context.options.endian = 'little' ;
 
+// <NEW
 	   // Fill register names
+	   var cu_data_registers_i = null ;
 	   for (i=0; i<CU_data.registers.length; i++)
 	   {
-		if (typeof CU_data.registers[i] === 'undefined') {
-                    continue ;
-                }
-		for (var j=0; j<CU_data.registers[i].length; j++) {
-		     context.registers[CU_data.registers[i][j]] = i ;
-                }
+		context.registers[i] = {} ;
+		context.registers[i].name      = CU_data.registers[i].name ;
+		context.registers[i].registers = [] ;
+
+	     	cu_data_registers_i = CU_data.registers[i].registers ;
+	        for (j=0; j<cu_data_registers_i.length; j++)
+	        {
+	     	     if (typeof cu_data_registers_i[j] === 'undefined') {
+                         continue ;
+                     }
+		     for (var k=0; k<cu_data_registers_i[j].length; k++) {
+		          context.registers[i].registers[cu_data_registers_i[j][k]] = j ;
+                     }
+	        }
 	   }
+// </NEW
 
 	   // Fill firmware
            var xr_info = simhw_sim_ctrlStates_get() ;
