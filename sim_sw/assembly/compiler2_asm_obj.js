@@ -789,7 +789,14 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                          if ('(' == value[0]) {
                               value = value.replace('(', '').replace(')', '') ;
                          }
-                         value = context.registers[value] ;
+
+                         for (k=0; k<context.registers.length; k++)
+                         {
+                              if (typeof  context.registers[k].registers[value] != "undefined") {
+                                  value = context.registers[k].registers[value] ;
+                              }
+                         }
+
 			 value = (value >>> 0).toString(2) ;
 			 value = value.padStart(n_bits, '0') ;
                 }
@@ -878,12 +885,25 @@ function wsasm_find_instr_candidates ( context, ret, elto )
            return ret ;
 }
 
+function wsasm_find_atom_rf ( context, atom )
+{
+	   for (var k=0; k<context.registers.length; k++)
+	   {
+	        if (typeof context.registers[k].registers[atom] != "undefined") {
+                    return k ;
+	        }
+	   }
+
+           return -1 ;
+}
+
 function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parentheses )
 {
 	   var opx = '' ;
+           var arf = wsasm_find_atom_rf(context, atom) ;
 
            // if atom is register -> $0, x0, ...
-	   if (typeof context.registers[atom] != "undefined")
+           if (arf != -1)
            {
 	       if (parentheses) {
 	           elto.value.fields.push('(' + atom + ')') ;
@@ -893,7 +913,7 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 	           elto.value.fields.push(atom) ;
 	           elto.value.signature_type_arr.push('reg') ;
 	       }
-	       elto.value.signature_size_arr.push(context.registers[atom].toString(2).length) ;
+	       elto.value.signature_size_arr.push(context.registers[arf].registers[atom].toString(2).length) ;
 
 	       // return ok
 	       ret.error = null ;

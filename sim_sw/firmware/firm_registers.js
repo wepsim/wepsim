@@ -32,54 +32,97 @@ function firm_registers_write ( context )
         }
 
         // return registers as string...
-	o += 'registers' + '\n' +
-             '{\n' ;
-	for (i=0; i< context.registers.length; i++)
+	for (m=0; m< context.registers.length; m++)
 	{
-	     if (typeof context.registers[i] == "undefined") {
+             // skip empty register file sections
+             if (0 == context.registers[m].registers.length) {
                  continue ;
              }
 
-	     var l = context.registers[i].length - 1 ;
-	     var r = "(" ;
-	     for (j=0; j<l; j++) {
-		  r += context.registers[i][j] + ", " ;
-             }
-	     r += context.registers[i][l] + ")" ;
+	     o += 'registers ' + context.registers[m].name + '\n' +
+		  '{\n' ;
+	     for (i=0; i< context.registers[m].registers.length; i++)
+	     {
+		     if (typeof context.registers[m].registers[i] == "undefined") {
+			 continue ;
+		     }
 
-	     if (context.stackRegister == i)
-		  o += '\t' + i + "=" + r + " (stack_pointer)," + '\n' ;
-	     else o += '\t' + i + "=" + r + "," + '\n' ;
-	}
-	o  = o.substr(0, o.length-2) ;
-	o += '\n' +
-             '}\n' ;
+		     var l = context.registers[m].registers[i].length - 1 ;
+		     var r = "(" ;
+		     for (j=0; j<l; j++) {
+			  r += context.registers[m].registers[i][j] + ", " ;
+		     }
+		     r += context.registers[m].registers[i][l] + ")" ;
+
+		     if (context.stackRegister == i)
+			  o += '\t' + i + "=" + r + " (stack_pointer)," + '\n' ;
+		     else o += '\t' + i + "=" + r + "," + '\n' ;
+	     }
+	     o  = o.substr(0, o.length-2) ;
+	     o += '\n' +
+	          '}\n' ;
+        }
 
         // return string
 	return o ;
 }
 
 
+function firm_find_rf_by_name ( context, rf_name )
+{
+	for (var i=0; i<context.registers.length; i++)
+	{
+             if (context.registers[i].name == rf_name) {
+                 return i ;
+             }
+	}
+
+        return -1 ;
+}
+
 function firm_registers_read ( context )
 {
-	// *registers
-	// {
-	//    0=$zero,
-	//    30=$fp,
-	//    31=$ra
-	// }*
+	// *registers [register file name]
+	// {*
+        //    0=(zero, x0),
+        //    1=(ra,   x1),
+        //    2=(sp,   x2) (stack_pointer)
+	// }
+
+       var rf_item = null ;
+       var rf_name = "default" ;
 
        // skip 'registers'
        frm_nextToken(context) ;
+
+       // optional 'name'
+       if (! frm_isToken(context, "{")) {
+	   rf_name = frm_getToken(context) ;
+           frm_nextToken(context) ;
+       }
+
+       // check '{' and skip '{'
        if (! frm_isToken(context, "{")) {
 	     return frm_langError(context,
 			          i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
        }
-
-       // skip {
        frm_nextToken(context) ;
+
+       // find 'name' to use it or add a new one
+       var rfi = firm_find_rf_by_name(context, rf_name) ;
+       if (-1 == rfi) {
+           rf_item = { name:"default", registers:[] } ;
+           context.registers.push(rf_item) ;
+       }
+       else {
+           rf_item = context.registers[rfi] ;
+       }
+
+       // while not '}'
        while (! frm_isToken(context, "}"))
        {
+           //   *1=*ra,
+           //   *1=*(ra, x1),
 	   var nombre_reg = frm_getToken(context) ;
 
 	   frm_nextToken(context) ;
@@ -88,11 +131,12 @@ function firm_registers_read ( context )
 				      i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 	   }
 
+           //   1=*ra*,
+           //   1=*(*ra, x1),
 	   frm_nextToken(context) ;
 	   if (! frm_isToken(context, "(")) {
-		 // context.registers[nombre_reg] = frm_getToken(context) ;
-		 context.registers[nombre_reg] = [] ;
-		 context.registers[nombre_reg].push(frm_getToken(context)) ;
+		 rf_item.registers[nombre_reg] = [] ;
+		 rf_item.registers[nombre_reg].push(frm_getToken(context)) ;
 	   }
 	   else
 	   {
@@ -102,10 +146,11 @@ function firm_registers_read ( context )
 				          i18n_get_TagFor('compiler', 'EMPTY NAME LIST')) ;
 		 }
 
-		 context.registers[nombre_reg] = [] ;
+                 // 1=(ra*, x1*),
+		 rf_item.registers[nombre_reg] = [] ;
 		 while (! frm_isToken(context, ")"))
 		 {
-		       context.registers[nombre_reg].push(frm_getToken(context)) ;
+		       rf_item.registers[nombre_reg].push(frm_getToken(context)) ;
 
 		       frm_nextToken(context) ;
 		       if (frm_isToken(context,",")) {
@@ -114,6 +159,7 @@ function firm_registers_read ( context )
 		 }
 	   }
 
+           //  2=(sp, x2) *(stack_pointer)*
 	   frm_nextToken(context) ;
 	   if (frm_isToken(context, "("))
 	   {
@@ -128,7 +174,7 @@ function firm_registers_read ( context )
 				         i18n_get_TagFor('compiler', 'NO SP')) ;
 		}
 
-		context.stackRegister = nombre_reg;
+		context.stackRegister = nombre_reg ; // TODO: stackRegisters_new = (*register file*, nombre_reg) 
 
 		frm_nextToken(context);
 		if (! frm_isToken(context, ")")) {
