@@ -288,6 +288,36 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 	   return context ;
 }
 
+function wsasm_prepare_registers ( context, CU_data )
+{
+	   var cu_data_rf_i = null ;
+	   var context_rf_i = null ;
+           var assoc_name   = '' ;
+
+	   for (i=0; i<CU_data.registers.length; i++)
+	   {
+	     	cu_data_rf_i = CU_data.registers[i] ;
+
+		context_rf_i = {} ;
+		context_rf_i.name = cu_data_rf_i.name ;
+		context_rf_i.registers = [] ;
+	        for (j=0; j<cu_data_rf_i.registers.length; j++)
+	        {
+	     	     if (typeof cu_data_rf_i.registers[j] === 'undefined') {
+                         continue ;
+                     }
+		     for (var k=0; k<cu_data_rf_i.registers[j].length; k++) {
+                          assoc_name = cu_data_rf_i.registers[j][k] ;
+		          context_rf_i.registers[assoc_name] = j ;
+                     }
+	        }
+
+		context.registers[i] = context_rf_i ;
+	   }
+
+	   return context ;
+}
+
 
  /*
   *  Public API (see README.md for more information)
@@ -329,27 +359,8 @@ function wsasm_prepare_context ( CU_data, options )
                 context.options.endian = context.metadata.endian ;
            else context.options.endian = 'little' ;
 
-// <NEW
 	   // Fill register names
-	   var cu_data_registers_i = null ;
-	   for (i=0; i<CU_data.registers.length; i++)
-	   {
-		context.registers[i] = {} ;
-		context.registers[i].name      = CU_data.registers[i].name ;
-		context.registers[i].registers = [] ;
-
-	     	cu_data_registers_i = CU_data.registers[i].registers ;
-	        for (j=0; j<cu_data_registers_i.length; j++)
-	        {
-	     	     if (typeof cu_data_registers_i[j] === 'undefined') {
-                         continue ;
-                     }
-		     for (var k=0; k<cu_data_registers_i[j].length; k++) {
-		          context.registers[i].registers[cu_data_registers_i[j][k]] = j ;
-                     }
-	        }
-	   }
-// </NEW
+           context = wsasm_prepare_registers(context, CU_data) ;
 
 	   // Fill firmware
            var xr_info = simhw_sim_ctrlStates_get() ;

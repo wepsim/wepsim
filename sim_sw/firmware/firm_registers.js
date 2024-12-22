@@ -54,7 +54,13 @@ function firm_registers_write ( context )
 		     }
 		     r += context.registers[m].registers[i][l] + ")" ;
 
-		     if (context.stackRegister == i)
+                     // To decide if skip stackRegister or check if current register is the stack_pointer
+		     if (null == context.stackRegister) {
+			 continue ;
+		     }
+
+		     if ( (context.stackRegister.rf_name == context.registers[m].name) &&
+		          (context.stackRegister.r_name  == i) )
 			  o += '\t' + i + "=" + r + " (stack_pointer)," + '\n' ;
 		     else o += '\t' + i + "=" + r + "," + '\n' ;
 	     }
@@ -95,7 +101,7 @@ function firm_registers_read ( context )
        // skip 'registers'
        frm_nextToken(context) ;
 
-       // optional 'name'
+       // optional 'name' (or 'default' if none is used)
        if (! frm_isToken(context, "{")) {
 	   rf_name = frm_getToken(context) ;
            frm_nextToken(context) ;
@@ -174,7 +180,9 @@ function firm_registers_read ( context )
 				         i18n_get_TagFor('compiler', 'NO SP')) ;
 		}
 
-		context.stackRegister = nombre_reg ; // TODO: stackRegisters_new = (*register file*, nombre_reg) 
+	        context.stackRegister = {} ;
+	        context.stackRegister.rf_name = rf_item.name ;
+	        context.stackRegister.r_name  = nombre_reg ;
 
 		frm_nextToken(context);
 		if (! frm_isToken(context, ")")) {

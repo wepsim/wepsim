@@ -108,34 +108,16 @@ function cpu_poc_register ( sim_p )
 
 		                  // native: get_value, set_value
                                   get_value:  function ( elto ) {
-						    if (Number.isInteger(elto))
-							 index = elto ;
-						    else index = parseInt(elto) ;
-
-						    if (isNaN(index))
-							return (get_value(simhw_sim_state(elto)) >>> 0) ;
-
-						    return (get_value(simhw_sim_states().BR[index]) >>> 0) ;
+                                                    var r_ref = simhw_sim_state_getref(elto) ;
+                                                    return (get_value(r_ref) >>> 0) ;
 				              },
                                   set_value:  function ( elto, value ) {
 						    var pc_name = simhw_sim_ctrlStates_get().pc.state ;
-
-						    if (Number.isInteger(elto))
-							 index = elto ;
-						    else index = parseInt(elto) ;
-
-						    if (isNaN(index))
-						    {
-							set_value(simhw_sim_state(elto), value) ;
-
-							if (pc_name === elto) {
-							    show_asmdbg_pc() ;
-							}
-
-							return value ;
+						    if (pc_name === elto) {
+							show_asmdbg_pc() ;
 						    }
-
-						    return set_value(simhw_sim_states().BR[index], value) ;
+                                                    var r_ref = simhw_sim_state_getref(elto) ;
+                                                    return set_value(r_ref, value) ;
 				              }
                             	};
 
