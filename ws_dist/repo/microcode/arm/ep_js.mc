@@ -18,17 +18,17 @@ native
 
        // push PC
        value  = simcore_native_get_value("CPU", "REG_PC") ;
-       var reg_sp = simcore_native_get_value("BR", 29) ;
+       var reg_sp = simcore_native_get_value("CPU", "BR.29") ;
        reg_sp = reg_sp - 4 ;
        simcore_native_set_value("MEMORY", reg_sp, value) ;
-       simcore_native_set_value("BR", 29, reg_sp) ;
+       simcore_native_set_value("CPU", "BR.29", reg_sp) ;
 
        // push SR
        value  = simcore_native_get_value("CPU", "REG_SR") ;
-       reg_sp = simcore_native_get_value("BR", 29) ;
+       reg_sp = simcore_native_get_value("CPU", "BR.29") ;
        reg_sp = reg_sp - 4 ;
        simcore_native_set_value("MEMORY", reg_sp, value) ;
-       simcore_native_set_value("BR", 29, reg_sp) ;
+       simcore_native_set_value("CPU", "BR.29", reg_sp) ;
 
        // MAR <- RT1*4
        var addr = simcore_native_get_value("CPU", "REG_RT1") ;
@@ -64,18 +64,18 @@ sret {
     native,
     {
         // pop SR
-        var reg_sp = simcore_native_get_value("BR", 29) ;
+        var reg_sp = simcore_native_get_value("CPU", "BR.29") ;
         var value  = simcore_native_get_value("MEMORY", reg_sp) ;
         reg_sp = reg_sp + 4 ;
         simcore_native_set_value("CPU", "REG_SR", value) ;
-        simcore_native_set_value("BR", 29, reg_sp) ;
+        simcore_native_set_value("CPU", "BR.29", reg_sp) ;
 
         // pop PC
-        var reg_sp = simcore_native_get_value("BR", 29) ;
+        var reg_sp = simcore_native_get_value("CPU", "BR.29") ;
         var value  = simcore_native_get_value("MEMORY", reg_sp) ;
         reg_sp = reg_sp + 4 ;
         simcore_native_set_value("CPU", "REG_PC", value) ;
-        simcore_native_set_value("BR", 29, reg_sp) ;
+        simcore_native_set_value("CPU", "BR.29", reg_sp) ;
 
         simcore_native_go_maddr(0) ;
     }
@@ -90,17 +90,17 @@ ecall {
 
         // push PC
         var value  = simcore_native_get_value("CPU", "REG_PC") ;
-        var reg_sp = simcore_native_get_value("BR", 29) ;
+        var reg_sp = simcore_native_get_value("CPU", "BR.29") ;
         reg_sp = reg_sp - 4 ;
         simcore_native_set_value("MEMORY", reg_sp, value) ;
-        simcore_native_set_value("BR", 29, reg_sp) ;
+        simcore_native_set_value("CPU", "BR.29", reg_sp) ;
 
         // push SR
         value  = simcore_native_get_value("CPU", "REG_SR") ;
-        reg_sp = simcore_native_get_value("BR", 29) ;
+        reg_sp = simcore_native_get_value("CPU", "BR.29") ;
         reg_sp = reg_sp - 4 ;
         simcore_native_set_value("MEMORY", reg_sp, value) ;
-        simcore_native_set_value("BR", 29, reg_sp) ;
+        simcore_native_set_value("CPU", "BR.29", reg_sp) ;
 
         // MAR <- RT1*4
         var addr = simcore_native_get_value("CPU", "REG_RT1") ;
@@ -134,7 +134,7 @@ in reg val {
         var addr   = simcore_native_get_field_from_ir(fields, 1) ;
 
         var value = simcore_native_get_value("DEVICE", addr) ;
-        simcore_native_set_value("BR", reg1, value) ;
+        simcore_native_set_value("CPU", "BR." + reg1, value) ;
 
         simcore_native_go_maddr(0) ;
     }
@@ -152,7 +152,7 @@ out reg val {
         var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
         var addr   = simcore_native_get_field_from_ir(fields, 1) ;
 
-        var value = simcore_native_get_value("BR", reg1) ;
+        var value = simcore_native_get_value("CPU", "BR." + reg1) ;
         simcore_native_set_value("DEVICE", addr, value) ;
 
         simcore_native_go_maddr(0) ;
@@ -176,7 +176,7 @@ lb rd (rs1) {
         var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
 
-        var b_addr = simcore_native_get_value("BR", reg2) ;
+        var b_addr = simcore_native_get_value("CPU", "BR." + reg2) ;
         var w_addr = b_addr & 0xFFFFFFFC ;
         var w_value = simcore_native_get_value("MEMORY", w_addr) ;
         var  b_value = b_addr & 0x00000003 ;
@@ -184,7 +184,7 @@ lb rd (rs1) {
         if  (b_value & 0x00000080)
              b_value = b_value | 0xFFFFFF00 ;
         else b_value = b_value & 0x000000FF ;
-        simcore_native_set_value("BR", reg1, b_value) ;
+        simcore_native_set_value("CPU", "BR." + reg1, b_value) ;
 
         simcore_native_go_maddr(0) ;
     }
@@ -202,8 +202,8 @@ sb rs2 (rs1) {
         var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
 
-        var b_addr  = simcore_native_get_value("BR", reg2) ;
-        var b_value = simcore_native_get_value("BR", reg1) ;
+        var b_addr  = simcore_native_get_value("CPU", "BR." + reg2) ;
+        var b_value = simcore_native_get_value("CPU", "BR." + reg1) ;
             b_value = b_value & 0x000000FF ;
         var w_addr  = b_addr & 0xFFFFFFFC ;
         var w_value = simcore_native_get_value("MEMORY", w_addr) ;
@@ -236,8 +236,8 @@ mul reg1 reg2 reg3 {
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
         var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-        var result = simcore_native_get_value("BR", reg2) * simcore_native_get_value("BR", reg3) ;
-        simcore_native_set_value("BR", reg1, result) ;
+        var result = simcore_native_get_value("CPU", "BR." + reg2) * simcore_native_get_value("CPU", "BR." + reg3) ;
+        simcore_native_set_value("CPU", "BR." + reg1, result) ;
 
         simcore_native_go_maddr(0) ;
     }
@@ -257,8 +257,8 @@ rem reg1 reg2 reg3 {
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
         var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-        var result = simcore_native_get_value("BR", reg2) % simcore_native_get_value("BR", reg3) ;
-        simcore_native_set_value("BR", reg1, result) ;
+        var result = simcore_native_get_value("CPU", "BR." + reg2) % simcore_native_get_value("CPU", "BR." + reg3) ;
+        simcore_native_set_value("CPU", "BR." + reg1, result) ;
 
         simcore_native_go_maddr(0) ;
     }
@@ -278,10 +278,10 @@ div reg1 reg2 reg3 {
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
         var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-        if (simcore_native_get_value("BR", reg3) != 0)
+        if (simcore_native_get_value("CPU", "BR." + reg3) != 0)
         {
-            var result = simcore_native_get_value("BR", reg2) / simcore_native_get_value("BR", reg3) ;
-            simcore_native_set_value("BR", reg1, result) ;
+            var result = simcore_native_get_value("CPU", "BR." + reg2) / simcore_native_get_value("CPU", "BR." + reg3) ;
+            simcore_native_set_value("CPU", "BR." + reg1, result) ;
             simcore_native_go_maddr(0) ;
             return ;
         }
@@ -290,17 +290,17 @@ div reg1 reg2 reg3 {
 
        // push PC
        var value  = simcore_native_get_value("CPU", "REG_PC") ;
-       var reg_sp = simcore_native_get_value("BR", 29) ;
+       var reg_sp = simcore_native_get_value("CPU", "BR.29") ;
        reg_sp = reg_sp - 4 ;
        simcore_native_set_value("MEMORY", reg_sp, value) ;
-       simcore_native_set_value("BR", 29, reg_sp) ;
+       simcore_native_set_value("CPU", "BR.29", reg_sp) ;
 
        // push SR
        value  = simcore_native_get_value("CPU", "REG_SR") ;
-       reg_sp = simcore_native_get_value("BR", 29) ;
+       reg_sp = simcore_native_get_value("CPU", "BR.29") ;
        reg_sp = reg_sp - 4 ;
        simcore_native_set_value("MEMORY", reg_sp, value) ;
-       simcore_native_set_value("BR", 29, reg_sp) ;
+       simcore_native_set_value("CPU", "BR.29", reg_sp) ;
 
        // MAR <- RT1*4
        var addr = simcore_native_get_value("CPU", "REG_RT1") ;
@@ -334,8 +334,8 @@ bge rs1 rs2 offset {
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
         var offset = simcore_native_get_field_from_ir(fields, 2) ;
 
-        reg1 = simcore_native_get_value("BR", reg1) ;
-        reg2 = simcore_native_get_value("BR", reg2) ;
+        reg1 = simcore_native_get_value("CPU", "BR." + reg1) ;
+        reg2 = simcore_native_get_value("CPU", "BR." + reg2) ;
         if (reg1 >= reg2)
         {
             var pc = simcore_native_get_value("CPU", "REG_PC") ;
@@ -364,8 +364,8 @@ bne rs1 rs2 offset {
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
         var offset = simcore_native_get_field_from_ir(fields, 2) ;
 
-        reg1 = simcore_native_get_value("BR", reg1) ;
-        reg2 = simcore_native_get_value("BR", reg2) ;
+        reg1 = simcore_native_get_value("CPU", "BR." + reg1) ;
+        reg2 = simcore_native_get_value("CPU", "BR." + reg2) ;
         if (reg1 != reg2)
         {
             var pc = simcore_native_get_value("CPU", "REG_PC") ;
@@ -397,10 +397,10 @@ mov r1 u32 {
 
          var pc = simcore_native_get_value("CPU", "REG_PC") ;
          var value = simcore_native_get_value("MEMORY", pc) ;
-         simcore_native_set_value("BR", reg1, value) ;  
+         simcore_native_set_value("CPU", "BR." + reg1, value) ;  
 
          simcore_native_set_value("CPU", "REG_PC", pc+4) ;
-       //simcore_native_set_value("BR",   15,      pc+4) ;
+       //simcore_native_set_value("CPU", "BR.15",  pc+4) ;
 
          simcore_native_go_maddr(0) ;
     }
@@ -416,8 +416,8 @@ str reg1 (reg2) {
         var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
 
-        var addr   = simcore_native_get_value("BR", reg2) ;
-        var value1 = simcore_native_get_value("BR", reg1) ;
+        var addr   = simcore_native_get_value("CPU", "BR." + reg2) ;
+        var value1 = simcore_native_get_value("CPU", "BR." + reg1) ;
         simcore_native_set_value("MEMORY", addr, value1) ;
 
         simcore_native_go_maddr(0) ;
@@ -435,9 +435,9 @@ ldr reg1 (reg2) {
         var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
 
-        var addr  = simcore_native_get_value("BR", reg2) ;
+        var addr  = simcore_native_get_value("CPU", "BR." + reg2) ;
         var value = simcore_native_get_value("MEMORY", addr) ;
-        simcore_native_set_value("BR", reg1, value) ;
+        simcore_native_set_value("CPU", "BR." + reg1, value) ;
 
         simcore_native_go_maddr(0) ;
     }
@@ -456,8 +456,8 @@ adds reg1 reg2 reg3 {
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
         var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-        var result = simcore_native_get_value("BR", reg2) + simcore_native_get_value("BR", reg3) ;
-        simcore_native_set_value("BR", reg1, result) ;
+        var result = simcore_native_get_value("CPU", "BR." + reg2) + simcore_native_get_value("CPU", "BR." + reg3) ;
+        simcore_native_set_value("CPU", "BR." + reg1, result) ;
 
         var flags = 0 ;
         if (result == 0) flags = flags | 0x10000000 ;
@@ -483,8 +483,8 @@ adds reg1 reg2 s16 {
 
         if (s16 & 0x00008000)
             s16 = s16 | 0xFFFF0000 ;
-        var result = simcore_native_get_value("BR", reg2) + s16 ;
-        simcore_native_set_value("BR", reg1, result) ;
+        var result = simcore_native_get_value("CPU", "BR." + reg2) + s16 ;
+        simcore_native_set_value("CPU", "BR." + reg1, result) ;
 
         var flags = 0 ;
         if (result == 0) flags = flags | 0x10000000 ;
@@ -506,8 +506,8 @@ mvns reg1 reg2 {
         var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
         var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
 
-        var result = ~simcore_native_get_value("BR", reg1) ;
-        simcore_native_set_value("BR", reg1, result) ;
+        var result = ~simcore_native_get_value("CPU", "BR." + reg1) ;
+        simcore_native_set_value("CPU", "BR." + reg1, result) ;
 
         var flags = 0 ;
         if (result == 0) flags = flags | 0x10000000 ;
@@ -529,8 +529,8 @@ cmp reg reg {
         var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
         var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
 
-        reg1 = simcore_native_get_value("BR", reg1) ;
-        reg2 = simcore_native_get_value("BR", reg2) ;
+        reg1 = simcore_native_get_value("CPU", "BR." + reg1) ;
+        reg2 = simcore_native_get_value("CPU", "BR." + reg2) ;
         var result = reg1 - reg2 ;
 
         var flags = 0 ;
@@ -575,7 +575,7 @@ bl u16 {
         var u16 = simcore_native_get_field_from_ir(fields, 0) ;
 
         var pc = simcore_native_get_value("CPU", "REG_PC") ;
-        simcore_native_set_value("BR", 14, pc) ;
+        simcore_native_set_value("CPU", "BR.14",  pc) ;
         simcore_native_set_value("CPU", "REG_PC", u16) ;
 
         simcore_native_go_maddr(0) ;
@@ -591,7 +591,7 @@ bx reg1 {
         // fields is a default parameter with the instruction field information
         var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
 
-        var new_pc = simcore_native_get_value("BR", reg1) ;
+        var new_pc = simcore_native_get_value("CPU", "BR." + reg1) ;
         simcore_native_set_value("CPU", "REG_PC", new_pc) ;
 
         simcore_native_go_maddr(0) ;
@@ -603,7 +603,7 @@ halt {
     nwords=1,
     native,
     {
-        simcore_native_set_value("BR",  13,       0) ; // SP
+        simcore_native_set_value("CPU",  "BR.13", 0) ; // SP
         simcore_native_set_value("CPU", "REG_PC", 0) ;
 
         simcore_native_go_maddr(0) ;

@@ -377,15 +377,20 @@
 
             // get PC and SP
             var pc_name  = ctrl_states.pc.state ;
-	    var pc_state = simhw_sim_state(pc_name) ;
+	    var pc_state = simhw_sim_state_getref(pc_name) ;
 
             var sp_name  = ctrl_states.sp.state ;
-            var sp_state = simhw_sim_state(sp_name) ;
+            var sp_state = simhw_sim_state_getref(sp_name) ;
             if (curr_firm.stackRegister != null)
             {
-                sp_name  = curr_firm.stackRegister ;
-                sp_state = simhw_sim_states().BR[sp_name] ;
-                ctrl_states.sp.state = 'BR.' + curr_firm.stackRegister ;
+                sp_rfid  = curr_firm.stackRegister.rf_name ;
+                sp_name  = curr_firm.stackRegister.r_name ;
+
+                if (SIMWARE.registers.length > 1)
+                     ctrl_states.sp.state = 'BR.' + sp_rfid + '.' + sp_name ;
+                else ctrl_states.sp.state = 'BR.' + sp_name ;
+
+                sp_state = simhw_sim_state_getref(ctrl_states.sp.state) ;
             }
 
             // Hardware (reset)

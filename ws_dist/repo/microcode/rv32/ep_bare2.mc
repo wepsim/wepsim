@@ -544,8 +544,8 @@ slti rd rs1 inm {
           if (inm1 & 0x00008000)
               inm1 = inm1 | 0xFFFF0000 ;
 
-          var reg1 = simcore_native_get_value("BR", rs1) ;
-          simcore_native_set_value("BR", rd, (reg1 < inm1)) ;
+          var reg1 = simcore_native_get_value("CPU", "BR." + rs1) ;
+          simcore_native_set_value("CPU", "BR." + rd, (reg1 < inm1)) ;
 
           simcore_native_go_maddr(0) ;
       }
@@ -565,8 +565,8 @@ sltiu rd rs1 inm {
           var rs1  = simcore_native_get_field_from_ir(fields, 1) ;
           var inm1 = simcore_native_get_field_from_ir(fields, 2) ;
 
-          var reg1 = simcore_native_get_value("BR", rs1) ;
-          simcore_native_set_value("BR", rd, (Math.abs(reg1) < Math.abs(inm1))) ;
+          var reg1 = simcore_native_get_value("CPU", "BR." + rs1) ;
+          simcore_native_set_value("CPU", "BR." + rd, (Math.abs(reg1) < Math.abs(inm1))) ;
 
           simcore_native_go_maddr(0) ;
       }
@@ -644,8 +644,8 @@ srli rd rs1 inm {
           var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
           var val1 = simcore_native_get_field_from_ir(fields, 2) ;
 
-          var result = simcore_native_get_value("BR", reg2) >>> val1 ;
-          simcore_native_set_value("BR", reg1, result) ;
+          var result = simcore_native_get_value("CPU", "BR." + reg2) >>> val1 ;
+          simcore_native_set_value("CPU", "BR." + reg1, result) ;
 
           simcore_native_go_maddr(0) ;
       }
@@ -872,10 +872,10 @@ mulh rd rs1 rs2 {
           var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
           var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-          var op1 = simcore_native_get_value("BR", reg2) ;
-          var op2 = simcore_native_get_value("BR", reg3) ;
+          var op1 = simcore_native_get_value("CPU", "BR." + reg2) ;
+          var op2 = simcore_native_get_value("CPU", "BR." + reg3) ;
           var result = (op1 * op2) >> 32 ;
-          simcore_native_set_value("BR", reg1, result) ;
+          simcore_native_set_value("CPU", "BR." + reg1, result) ;
 
           simcore_native_go_maddr(0) ;
       }
@@ -895,10 +895,10 @@ mulhsu rd rs1 rs2 {
           var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
           var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-          var op1 = simcore_native_get_value("BR", reg2) ;
-          var op2 = simcore_native_get_value("BR", reg3) >>> 0 ;
+          var op1 = simcore_native_get_value("CPU", "BR." + reg2) ;
+          var op2 = simcore_native_get_value("CPU", "BR." + reg3) >>> 0 ;
           var result = (op1 * op2) >> 32 ;
-          simcore_native_set_value("BR", reg1, result) ;
+          simcore_native_set_value("CPU", "BR." + reg1, result) ;
 
           simcore_native_go_maddr(0) ;
       }
@@ -918,10 +918,10 @@ mulhu rd rs1 rs2 {
           var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
           var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-          var op1 = simcore_native_get_value("BR", reg2) >>> 0 ;
-          var op2 = simcore_native_get_value("BR", reg3) >>> 0 ;
+          var op1 = simcore_native_get_value("CPU", "BR." + reg2) >>> 0 ;
+          var op2 = simcore_native_get_value("CPU", "BR." + reg3) >>> 0 ;
           var result = (op1 * op2) >> 32 ;
-          simcore_native_set_value("BR", reg1, result) ;
+          simcore_native_set_value("CPU", "BR." + reg1, result) ;
 
           simcore_native_go_maddr(0) ;
       }
@@ -993,9 +993,9 @@ remu rd rs1 rs2 {
           var reg2   = simcore_native_get_field_from_ir(fields, 1) ;
           var reg3   = simcore_native_get_field_from_ir(fields, 2) ;
 
-          var val1 = simcore_native_get_value("BR", reg2) ;
-          var val2 = simcore_native_get_value("BR", reg3) ;
-          simcore_native_set_value("BR", reg1, Math.abs(val1) % Math.abs(val2)) ;
+          var val1 = simcore_native_get_value("CPU", "BR." + reg2) ;
+          var val2 = simcore_native_get_value("CPU", "BR." + reg3) ;
+          simcore_native_set_value("CPU", "BR." + reg1, Math.abs(val1) % Math.abs(val2)) ;
 
           simcore_native_go_maddr(0) ;
       }
