@@ -191,10 +191,10 @@
               var logical_defined = [] ;
 	      for (var index=0; index < sim_eltos.BR.length; index++)
               {
-	         if (typeof SIMWARE.registers[index] !== "undefined") {
-                     logical_defined = SIMWARE.registers[index] ;
-                     break;
-                 }
+	           if (typeof SIMWARE.registers[0].registers[index] !== "undefined") { // TODO: 0 -> rf_index
+                       logical_defined = SIMWARE.registers[0].registers[index] ;
+                       break;
+                   }
               }
 
               // make menu
@@ -257,12 +257,12 @@
             }
         }
 
-        function wepsim_refresh_rf_names_mkname ( disp_name, SIMWARE, index, logical_index )
+        function wepsim_refresh_rf_names_mkname ( disp_name, SIMWARE, rf_index, index, logical_index )
         {
             var br_value = "" ;
 
             // numerical name
-            if ( ('logical' != disp_name) || (typeof SIMWARE.registers[index] == "undefined") ) {
+            if ( ('logical' != disp_name) || (typeof SIMWARE.registers[rf_index].registers[index] == "undefined") ) {
 	         br_value = "R" + index ;
 	         br_value = br_value.padEnd(3,' ') ;
                  return br_value ;
@@ -270,13 +270,13 @@
 
             // all logical name
             if (logical_index == 0) {
-		 br_value = SIMWARE.registers[index].join('|') ;
+		 br_value = SIMWARE.registers[rf_index].registers[index].join('|') ;
 	         br_value = br_value.padEnd(6,' ') ;
                  return br_value ;
             }
 
             // get logical name
-	    br_value = SIMWARE.registers[index][logical_index - 1] ;
+	    br_value = SIMWARE.registers[rf_index].registers[index][logical_index - 1] ;
             if (typeof br_value == "undefined") {
 	        br_value = "R" + index ;
             }
@@ -295,7 +295,8 @@
                  // display name
 		 var obj = document.getElementById("name_RF" + index) ;
 		 if (obj != null) {
-		     obj.innerHTML = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, index, logical_index) ;
+		     obj.innerHTML = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE,
+                                                                    0, index, logical_index) ; // TODO: 0 -> rf_index
 		 }
 	    }
         }
@@ -357,7 +358,8 @@
 
 	                var disp_name = get_cfg('RF_display_name') ;
                         var SIMWARE   = get_simware() ;
-		        var rname = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, index, 0) ;
+		        var rname = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE,
+                                                                   0, index, 0) ; // TODO: 0, -> rf_index,
 
 		        return '<span class="text-body font-monospace col"><strong>' + rname + '</strong></span>' +
                                '<button type="button" id="close" ' +
