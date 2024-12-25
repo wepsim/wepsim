@@ -27,13 +27,18 @@ function firm_registers_write ( context )
 	if (typeof context.registers == "undefined") {
             return o ;
         }
-	if (0 == context.registers.length) {
+
+        var context_registers_keys = Object.keys(context.registers) ;
+	if (0 == context_registers_keys.length) {
             return o ;
         }
 
         // return registers as string...
-	for (m=0; m< context.registers.length; m++)
+        var m = '' ;
+	for (var k=0; k < context_registers_keys.length; k++)
 	{
+             m = context_registers_keys[k] ;
+
              // skip empty register file sections
              if (0 == context.registers[m].registers.length) {
                  continue ;
@@ -115,13 +120,10 @@ function firm_registers_read ( context )
        frm_nextToken(context) ;
 
        // find 'name' to use it or add a new one
-       var rfi = firm_find_rf_by_name(context, rf_name) ;
-       if (-1 == rfi) {
+       rf_item = context.registers[rf_name] ;
+       if (typeof rf_item == "undefined") {
            rf_item = { name:"default", registers:[] } ;
-           context.registers.push(rf_item) ;
-       }
-       else {
-           rf_item = context.registers[rfi] ;
+           context.registers[rf_name] = rf_item ;
        }
 
        // while not '}'

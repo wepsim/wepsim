@@ -71,6 +71,18 @@
          *  Auxiliar to init_x & show_x
          */
 
+        function quick_config_find_reg ( simware, reg_name )
+        {
+              for (let rf_item in simware.registers)
+              {
+                   if (typeof rf_item.registers[reg_name] != "undefined") {
+                       return rf_item ;
+                   }
+              }
+
+              return null ;
+        }
+
         function hex2values_update ( index )
         {
               var sim_eltos = simhw_sim_states() ;
@@ -186,13 +198,15 @@
               var sim_eltos = simhw_sim_states() ;
               var SIMWARE   = get_simware() ;
               var o2 = "" ;
+              var rf_item = null ;
 
               // get: [ 'r10', 'la' ]
               var logical_defined = [] ;
-	      for (var index=0; index < sim_eltos.BR.length; index++)
+	      for (var index=0; index<sim_eltos.BR.length; index++)
               {
-	           if (typeof SIMWARE.registers[0].registers[index] !== "undefined") { // TODO: 0 -> rf_index
-                       logical_defined = SIMWARE.registers[0].registers[index] ;
+                   rf_item = quick_config_find_reg(SIMWARE, index) ;
+	           if (rf_item != null) {
+                       logical_defined = rf_item.registers[index] ;
                        break;
                    }
               }
@@ -260,9 +274,10 @@
         function wepsim_refresh_rf_names_mkname ( disp_name, SIMWARE, rf_index, index, logical_index )
         {
             var br_value = "" ;
+	    var r_item   = SIMWARE.registers[rf_index].registers[index] ;
 
             // numerical name
-            if ( ('logical' != disp_name) || (typeof SIMWARE.registers[rf_index].registers[index] == "undefined") ) {
+            if ( ('logical' != disp_name) || (typeof r_item == "undefined") ) {
 	         br_value = "R" + index ;
 	         br_value = br_value.padEnd(3,' ') ;
                  return br_value ;
@@ -270,13 +285,13 @@
 
             // all logical name
             if (logical_index == 0) {
-		 br_value = SIMWARE.registers[rf_index].registers[index].join('|') ;
+		 br_value = r_item.join('|') ;
 	         br_value = br_value.padEnd(6,' ') ;
                  return br_value ;
             }
 
             // get logical name
-	    br_value = SIMWARE.registers[rf_index].registers[index][logical_index - 1] ;
+	    br_value = r_item[logical_index - 1] ;
             if (typeof br_value == "undefined") {
 	        br_value = "R" + index ;
             }
@@ -289,14 +304,15 @@
 	    var disp_name = get_cfg('RF_display_name') ;
             var sim_eltos = simhw_sim_states() ;
             var SIMWARE   = get_simware() ;
+            var r_item    = null ;
 
+            var rf_index = 'default' ; // TODO: get rf_index by BR (future) name
 	    for (var index=0; index < sim_eltos.BR.length; index++)
             {
                  // display name
 		 var obj = document.getElementById("name_RF" + index) ;
 		 if (obj != null) {
-		     obj.innerHTML = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE,
-                                                                    0, index, logical_index) ; // TODO: 0 -> rf_index
+		     obj.innerHTML = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, rf_index, index, logical_index);
 		 }
 	    }
         }
@@ -316,15 +332,23 @@
             // Registers
             var o1_rf = "" ;
             var o1_rn = "" ;
-	    for (var index=0; index < simhw_sim_states().BR.length; index++)
+            var r_index = '' ;
+
+            // TODO: (hw)   BR*[rf]*[index]
+            // TODO: (here) outter-loop in all rf at BR[*rf*][index]
+            var rf_index = 'default' ;
+            var rf_item  = simhw_sim_states().BR ;
+
+	    for (var index=0; index < rf_item.length; index++)
             {
-		 o1_rn = "R"  + index ;
-		 o1_rn = o1_rn.padEnd(3,' ') ;
+		 o1_rn   = "R"  + index ;
+		 o1_rn   = o1_rn.padEnd(3,' ') ;
+                 r_index = rf_index + ':' + index ;
 
 		 o1_rf += "<button type='button' " +
                           "        class='btn px-1 py-0 ms-1 mt-1 mb-0 me-0 col-auto border border-secondary bg-body-tertiary' " +
 			  "        style='' data-role='none' " +
-                          "        data-bs-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
+                          "        data-bs-toggle='popover-up' data-popover-content='" + r_index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "<span id='name_RF" + index + "' class='p-0 font-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
 			  "<span class='w-100 d-block d-sm-none'></span>" +
@@ -348,18 +372,26 @@
 		               '</div>',
 		    container: 'body',
 		    content: function(obj) {
-                        var index    = $(obj).attr('data-popover-content') ;
-                        var hexvalue = get_value(simhw_sim_states().BR[index]);
-                        return hex2values(hexvalue, index) ;
+                        var attr_val = $(obj).attr('data-popover-content') ;
+                        var parts    = attr_val.split(':') ;
+                        var rf_index = parts[0] ;
+                        var r_index  = parts[1] ;
+                        var rf_item  = simhw_sim_states().BR ; // TODO: BR[*rf_index*] when available in hw
+
+                        var hexvalue = get_value(rf_item[r_index]);
+                        return hex2values(hexvalue, r_index) ;
 		    },
 		    title: function(obj) {
-                        var index     = $(obj).attr('data-popover-content') ;
-                        var id_button = "&quot;#rf" + index + "&quot;" ;
+                        var attr_val = $(obj).attr('data-popover-content') ;
+                        var parts    = attr_val.split(':') ;
+                        var rf_index = parts[0] ;
+                        var r_index  = parts[1] ;
 
 	                var disp_name = get_cfg('RF_display_name') ;
                         var SIMWARE   = get_simware() ;
-		        var rname = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE,
-                                                                   0, index, 0) ; // TODO: 0, -> rf_index,
+
+                        var id_button = "&quot;#rf" + r_index + "&quot;" ;
+		        var rname = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, rf_index, r_index, 0) ;
 
 		        return '<span class="text-body font-monospace col"><strong>' + rname + '</strong></span>' +
                                '<button type="button" id="close" ' +

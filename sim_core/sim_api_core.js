@@ -386,7 +386,8 @@
                 sp_rfid  = curr_firm.stackRegister.rf_name ;
                 sp_name  = curr_firm.stackRegister.r_name ;
 
-                if (SIMWARE.registers.length > 1)
+                var simware_registers_keys = Object.keys(SIMWARE.registers) ;
+                if (simware_registers_keys.length > 1)
                      ctrl_states.sp.state = 'BR.' + sp_rfid + '.' + sp_name ;
                 else ctrl_states.sp.state = 'BR.' + sp_name ;
 

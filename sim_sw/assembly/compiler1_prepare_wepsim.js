@@ -294,12 +294,12 @@ function wsasm_prepare_registers ( context, CU_data )
 	   var context_rf_i = null ;
            var assoc_name   = '' ;
 
-	   for (i=0; i<CU_data.registers.length; i++)
-	   {
-	     	cu_data_rf_i = CU_data.registers[i] ;
+           for (let key in CU_data.registers)
+           {
+                cu_data_rf_i = CU_data.registers[key] ;
 
 		context_rf_i = {} ;
-		context_rf_i.name = cu_data_rf_i.name ;
+		context_rf_i.name = key ;
 		context_rf_i.registers = [] ;
 	        for (j=0; j<cu_data_rf_i.registers.length; j++)
 	        {
@@ -312,7 +312,7 @@ function wsasm_prepare_registers ( context, CU_data )
                      }
 	        }
 
-		context.registers[i] = context_rf_i ;
+		context.registers[key] = context_rf_i ;
 	   }
 
 	   return context ;
@@ -341,7 +341,7 @@ function wsasm_prepare_context ( CU_data, options )
 	   context.t              	= 0 ;      // here
            context.comments             = [] ;
 	   context.newlines       	= [] ;
-	   context.registers      	= [] ;     // here
+	   context.registers      	= {} ;     // here
 	   context.firmware             = {} ;     // here
 	   context.pseudoInstructions	= [];      // here
 	   context.stackRegister	= null ;

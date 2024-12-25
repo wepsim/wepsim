@@ -226,6 +226,22 @@ function wsasm_order2index_startstop ( start_bit, stop_bit )
      return n_bits ;
 }
 
+function wsasm_find_reg_in_all_rf ( context, reg_name )
+{
+     var rf_item = null ;
+
+     for (let key in context.registers)
+     {
+          rf_item = context.registers[key] ;
+
+	  if (typeof rf_item.registers[reg_name] != "undefined") {
+	      return rf_item ;
+	  }
+     }
+
+     return null ;
+}
+
 
 //
 //  (2/3) Compile assembly to JSON object
@@ -790,11 +806,9 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                               value = value.replace('(', '').replace(')', '') ;
                          }
 
-                         for (k=0; k<context.registers.length; k++)
-                         {
-                              if (typeof  context.registers[k].registers[value] != "undefined") {
-                                  value = context.registers[k].registers[value] ;
-                              }
+                         var rf_item = wsasm_find_reg_in_all_rf(context, value) ;
+                         if (rf_item != null) {
+                             value = rf_item.registers[value] ;
                          }
 
 			 value = (value >>> 0).toString(2) ;
@@ -885,25 +899,14 @@ function wsasm_find_instr_candidates ( context, ret, elto )
            return ret ;
 }
 
-function wsasm_find_atom_rf ( context, atom )
-{
-	   for (var k=0; k<context.registers.length; k++)
-	   {
-	        if (typeof context.registers[k].registers[atom] != "undefined") {
-                    return k ;
-	        }
-	   }
-
-           return -1 ;
-}
-
 function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parentheses )
 {
 	   var opx = '' ;
-           var arf = wsasm_find_atom_rf(context, atom) ;
+           var rf_item = null ;
 
            // if atom is register -> $0, x0, ...
-           if (arf != -1)
+           rf_item = wsasm_find_reg_in_all_rf(context, atom) ;
+           if (rf_item != null)
            {
 	       if (parentheses) {
 	           elto.value.fields.push('(' + atom + ')') ;
@@ -913,7 +916,7 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 	           elto.value.fields.push(atom) ;
 	           elto.value.signature_type_arr.push('reg') ;
 	       }
-	       elto.value.signature_size_arr.push(context.registers[arf].registers[atom].toString(2).length) ;
+	       elto.value.signature_size_arr.push(rf_item.registers[atom].toString(2).length) ;
 
 	       // return ok
 	       ret.error = null ;
