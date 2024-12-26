@@ -627,13 +627,34 @@
         var SIMWARE = get_simware() ;
 
 	// 3) filter firmware
-        var filter_arr  = data.assembly.split('\n') ;
+        var filter_arr  = data.result_ok.split('\n') ;
         var filter_firm = [] ;
-        for (var i=0; i<SIMWARE.firmware.length; i++)
+        var filter_action = options.purify.toUpperCase() ;
+
+        if (['SELECT', 'SEL', ''].includes(filter_action))
         {
-             if (filter_arr.includes(SIMWARE.firmware[i].name)) {
-                 filter_firm.push(SIMWARE.firmware[i]) ;
-             }
+            for (var i=0; i<SIMWARE.firmware.length; i++)
+            {
+                 if (filter_arr.includes(SIMWARE.firmware[i].name)) {
+                     filter_firm.push(SIMWARE.firmware[i]) ;
+                 }
+            }
+        }
+        else
+        if (['DELETE', 'DEL'].includes(filter_action))
+        {
+            for (var i=0; i<SIMWARE.firmware.length; i++)
+            {
+                 if (! filter_arr.includes(SIMWARE.firmware[i].name)) {
+                     filter_firm.push(SIMWARE.firmware[i]) ;
+                 }
+            }
+        }
+        else
+        {
+            ret.ok  = false ;
+	    ret.msg = 'Unknown ' + filter_action + ' filter option used' ;
+	    return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
         }
 
         // 4) save new firmware

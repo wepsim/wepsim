@@ -75,8 +75,8 @@
         {
               for (let rf_item in simware.registers)
               {
-                   if (typeof rf_item.registers[reg_name] != "undefined") {
-                       return rf_item ;
+                   if (typeof simware.registers[rf_item].registers[reg_name] != "undefined") {
+                       return simware.registers[rf_item] ;
                    }
               }
 

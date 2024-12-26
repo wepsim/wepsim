@@ -302,8 +302,10 @@
         }
 
         // dump filtered firmware
-        console.log('Begin microcode-filtered') ;
-        console.log(ret.firmware) ;
+        console.log('Begin microcode-filtered\n') ;
+        if (ret.ok)
+             console.log(ret.firmware) ;
+        else console.log(ret.msg) ;
         console.log('End microcode-filtered\n') ;
 
         return true ;
