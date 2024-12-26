@@ -290,6 +290,26 @@
         return true ;
     } ;
 
+    hash_action["FILTER-MICROCODE"] = function(data, options)
+    {
+	var elto_obj    = null ;
+	var elto_fields = null ;
+
+        // get filtered firmware
+        var ret = wepsim_nodejs_get_instructionset_filtered(data, options) ;
+        if (typeof ret.firmware === "undefined") {
+            ret.firmware = '<Empty>\n' ;
+        }
+
+        // dump filtered firmware
+        console.log('Begin microcode-filtered') ;
+        console.log(ret.firmware) ;
+        console.log('End microcode-filtered\n') ;
+
+        return true ;
+    } ;
+
+
     //
     // HELP (signal, instruction set, etc.)
     //
@@ -315,20 +335,6 @@
 
         console.log(ret.msg);
         return ret.ok ;
-    } ;
-
-
-    //
-    // IMPORT-CREATOR
-    //
-
-    hash_action["IMPORT-CREATOR"] = function(data, options)
-    {
-        var obj_def = JSON.parse(data.str_chk) ;
-        var ret = simlang_firm_is2native(obj_def) ;
-
-        console.log(ret);
-        return true ;
     } ;
 
 

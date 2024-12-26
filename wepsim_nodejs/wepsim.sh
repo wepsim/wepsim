@@ -161,9 +161,10 @@
                ' * Run in an interactive REPL interface (beta):\n' +
                '   ./wepsim.sh -a interactive --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
                '\n' +
-               ' * Build MIPS32-like microcode for testing in command-line:\n' +
-               '   ./wepsim.sh -a import-creator --checkpoint ./MIPS_32.json > microcode.txt\n' +
-               '   ./wepsim.sh -a run -m ep -f ./microcode.txt -s repo/assembly/mips/s6e3.asm\n' +
+               ' * Filter microcode:\n' +
+               '   echo begin  > /tmp/f.txt\n' +
+               '   echo add   >> /tmp/f.txt\n' +
+               '   ./wepsim.sh -a filter-microcode -m ep -f ./repo/microcode/rv32/ep_base.mc -s /tmp/f.txt\n' +
                '' ;
 
         return o ;

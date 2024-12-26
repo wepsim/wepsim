@@ -608,6 +608,42 @@
         return ret ;
     }
 
+    function wepsim_nodejs_get_instructionset_filtered ( data, options )
+    {
+	// 1) initialization
+        var ret = wepsim_nodejs_init(data) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
+	}
+
+	// 2) load firmware
+        // simcore_reset() ;
+
+        var ret = simcore_compile_firmware(data.firmware) ;
+	if (false === ret.ok) {
+	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg) ;
+	}
+
+        var SIMWARE = get_simware() ;
+
+	// 3) filter firmware
+        var filter_arr  = data.assembly.split('\n') ;
+        var filter_firm = [] ;
+        for (var i=0; i<SIMWARE.firmware.length; i++)
+        {
+             if (filter_arr.includes(SIMWARE.firmware[i].name)) {
+                 filter_firm.push(SIMWARE.firmware[i]) ;
+             }
+        }
+
+        // 4) save new firmware
+        SIMWARE.firmware = filter_firm ;
+	ret.firmware = saveFirmware(SIMWARE) ;
+
+	// 5) return result
+        return ret ;
+    }
+
     function wepsim_nodejs_get_asmbin ( data, options )
     {
 	// 1) initialization
