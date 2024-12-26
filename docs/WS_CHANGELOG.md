@@ -3,7 +3,9 @@
 
 ## 2.3.5 -> 2.3.6:
 * Main improvements:
-  * Several minor improvements
+  * Added the 'filter-microcode' action in command-line
+  * Initial support for adding a name to the register section
+  * Minor updates
 
 ## 2.3.2 -> 2.3.5:
 * Main improvements:
