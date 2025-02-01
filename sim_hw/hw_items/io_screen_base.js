@@ -193,13 +193,11 @@ function io_screen_base_register ( sim_p )
                                                       if (ch == String.fromCharCode(0x0007)) // '\a'
                                                       {
                                                          // (a) audible
-                                                         timbre.reset();
-                                                         var s1 = T("sin", {freq:440, mul:0.5});
-                                                         var s2 = T("sin", {freq:660, mul:0.5});
-                                                         T("perc", {r:500}, s1, s2).on("ended", 
-										        function() {
-										           this.pause(); 
-										        }).bang().play();
+						         if (Tone.context.state !== 'running') {
+							     Tone.context.resume();
+						         }
+							 synth1 = new Tone.Synth().toDestination();
+							 synth1.triggerAttackRelease("C4", "8n");
                                                       }
                                                       else
                                                       {

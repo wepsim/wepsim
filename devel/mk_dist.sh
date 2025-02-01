@@ -306,7 +306,7 @@ cat external/vue/vue.min.js \
     external/popper.min.js \
     external/bootstrap/bootstrap.min.js \
     external/bootbox/bootbox.all.min.js \
-    external/timbre.min.js \
+    external/tone.min.js \
     external/codemirror/codemirror.js \
     external/codemirror/mode/javascript/javascript.js \
     external/codemirror/mode/gas/gas.js \
