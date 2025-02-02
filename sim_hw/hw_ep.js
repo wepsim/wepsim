@@ -50,6 +50,7 @@
                  io_clk_base_register ( ep_def ) ;
                  io_l3d_base_register ( ep_def ) ;
                  io_ldm_base_register ( ep_def ) ;
+               io_sound_base_register ( ep_def ) ;
 
             simhw_add(ep_def) ;
 

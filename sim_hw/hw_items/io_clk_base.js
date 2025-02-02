@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -30,8 +30,8 @@ var IODR_ID   = 0x1108 ;
 function io_clk_base_register ( sim_p )
 {
         sim_p.components.IO = {
-		                  name: "IO", 
-		                  version: "1", 
+		                  name: "IO",
+		                  version: "1",
 		                  abilities:    [ "IO_TIMER" ],
 
 		                  // ui: details
@@ -113,48 +113,48 @@ function io_clk_base_register ( sim_p )
          *  Signals
          */
 
-         sim_p.signals.INT         = { name: "INT", 
-                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+         sim_p.signals.INT         = { name: "INT",
+                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                         depends_on: ["CLK"],
                                         behavior: ["FIRE C", "FIRE C"],
-                                        fire_name: ['svg_p:tspan4199'], 
-                                        draw_data: [[], ['svg_p:path3809']], 
+                                        fire_name: ['svg_p:tspan4199'],
+                                        draw_data: [[], ['svg_p:path3809']],
                                         draw_name: [[], []] };
 
-         sim_p.signals.IORDY       = { name: "IORDY", 
-                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+         sim_p.signals.IORDY       = { name: "IORDY",
+                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                         depends_on: ["CLK"],
 		                        behavior: ["FIRE_IFCHANGED IORDY C", "FIRE_IFCHANGED IORDY C"],
-                                        fire_name: ['svg_p:tspan4089','svg_p:path3793','svg_p:text3911','svg_p:tspan4089'], 
-                                        draw_data: [[], ['svg_p:path3897']], 
+                                        fire_name: ['svg_p:tspan4089','svg_p:path3793','svg_p:text3911','svg_p:tspan4089'],
+                                        draw_data: [[], ['svg_p:path3897']],
                                         draw_name: [[], []] };
 
-         sim_p.signals.IO_IOR      = { name: "IO_IOR", 
-                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+         sim_p.signals.IO_IOR      = { name: "IO_IOR",
+                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                         behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE DB_UPDATED"],
-                                        fire_name: ['svg_p:tspan4173'], 
-                                        draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
+                                        fire_name: ['svg_p:tspan4173'],
+                                        draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']],
                                         draw_name: [[], []] };
 
-         sim_p.signals.IO_IOW      = { name: "IO_IOW", 
-                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+         sim_p.signals.IO_IOW      = { name: "IO_IOW",
+                                        visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                         behavior: ["NOP", "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE DB_UPDATED"],
-                                        fire_name: ['svg_p:text3785-0-6-0-5-5'], 
-                                        draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
+                                        fire_name: ['svg_p:text3785-0-6-0-5-5'],
+                                        draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']],
                                         draw_name: [[], []] };
 
-         sim_p.signals.IO_IE       = { name: "IO_IE", 
-                                        visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
+         sim_p.signals.IO_IE       = { name: "IO_IE",
+                                        visible: true, type: "L", value: 1, default_value: 1, nbits: "1",
                                         behavior: ["NOP", "IO_CHK_I CLK INT INTV; FIRE C"],
-                                        fire_name: [], 
-                                        draw_data: [[], []], 
+                                        fire_name: [],
+                                        draw_data: [[], []],
                                         draw_name: [[], []] };
 
-         sim_p.signals.INTA        = { name: "INTA", 
-                                        visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
+         sim_p.signals.INTA        = { name: "INTA",
+                                        visible: true, type: "L", value: 1, default_value: 0, nbits: "1",
                                         behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE DB_UPDATED; FIRE C"],
-                                        fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
-                                        draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
+                                        fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'],
+                                        draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']],
                                         draw_name: [[], []] };
 
 
@@ -164,21 +164,21 @@ function io_clk_base_register ( sim_p )
 
         sim_p.behaviors.IO_IOR         = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
-                                        operation: function (s_expr) 
+                                        operation: function (s_expr)
                                                    {
                                                       var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
                                                       var iosr   = get_value(sim_p.states[s_expr[3]]) ;
                                                       var iocr   = get_value(sim_p.states[s_expr[4]]) ;
                                                       var iodr   = get_value(sim_p.states[s_expr[5]]) ;
 
-                                                      if (bus_ab == IOSR_ID) 
+                                                      if (bus_ab == IOSR_ID)
                                                           set_value(sim_p.states[s_expr[2]], iosr);
-                                                      if (bus_ab == IOCR_ID) 
+                                                      if (bus_ab == IOCR_ID)
                                                           set_value(sim_p.states[s_expr[2]], iocr);
-                                                      if (bus_ab == IODR_ID) 
+                                                      if (bus_ab == IODR_ID)
                                                           set_value(sim_p.states[s_expr[2]], iodr);
                                                    },
-                                           verbal: function (s_expr) 
+                                           verbal: function (s_expr)
                                                    {
                                                       var verbal = "" ;
 
@@ -187,11 +187,11 @@ function io_clk_base_register ( sim_p )
                                                       var iocr   = get_value(sim_p.states[s_expr[4]]) ;
                                                       var iodr   = get_value(sim_p.states[s_expr[5]]) ;
 
-                                                      if (bus_ab == IOSR_ID) 
+                                                      if (bus_ab == IOSR_ID)
                                                           verbal = "I/O device read at IOSR of value " + iosr + ". " ;
-                                                      if (bus_ab == IOCR_ID) 
+                                                      if (bus_ab == IOCR_ID)
                                                           verbal = "I/O device read at IOCR of value " + iocr + ". " ;
-                                                      if (bus_ab == IODR_ID) 
+                                                      if (bus_ab == IODR_ID)
                                                           verbal = "I/O device read at IODR of value " + iodr + ". " ;
 
                                                       return verbal ;
@@ -200,7 +200,7 @@ function io_clk_base_register ( sim_p )
 
         sim_p.behaviors.IO_IOW         = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
-                                        operation: function (s_expr) 
+                                        operation: function (s_expr)
                                                    {
                                                       var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
                                                       var bus_db = get_value(sim_p.states[s_expr[2]]) ;
@@ -209,22 +209,22 @@ function io_clk_base_register ( sim_p )
                                                            (bus_ab != IOCR_ID) &&
                                                            (bus_ab != IODR_ID) )
                                                       {
-                                                            return; 
+                                                            return;
                                                       }
 
-                                                      if (bus_ab == IOSR_ID) 
+                                                      if (bus_ab == IOSR_ID)
                                                           set_value(sim_p.states[s_expr[3]], bus_db);
-                                                      if (bus_ab == IOCR_ID) 
+                                                      if (bus_ab == IOCR_ID)
                                                           set_value(sim_p.states[s_expr[4]], bus_db);
-                                                      if (bus_ab == IODR_ID) 
+                                                      if (bus_ab == IODR_ID)
                                                           set_value(sim_p.states[s_expr[5]], bus_db);
 
                                                       // check & modify the timer
                                                       var iocr_id = get_value(sim_p.states[s_expr[4]]) ;
                                                       var iodr_id = get_value(sim_p.states[s_expr[5]]) ;
 
-                                                      if ( (iocr_id < 0) || (iocr_id > 7) ) 
-                                                            return; 
+                                                      if ( (iocr_id < 0) || (iocr_id > 7) )
+                                                            return;
 
                                                       set_var(sim_p.internal_states.io_int_factory[iocr_id].period, iodr_id);
                                                       set_var(sim_p.internal_states.io_int_factory[iocr_id].probability, 1) ;
@@ -232,26 +232,26 @@ function io_clk_base_register ( sim_p )
                                                           set_var(sim_p.internal_states.io_int_factory[iocr_id].probability, 0) ;
                                                       }
                                                    },
-                                           verbal: function (s_expr) 
+                                           verbal: function (s_expr)
                                                    {
                                                       var verbal = "" ;
                                                       var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
                                                       var bus_db = get_value(sim_p.states[s_expr[2]]) ;
 
-                                                      if (bus_ab == IOSR_ID) 
+                                                      if (bus_ab == IOSR_ID)
                                                           verbal = "I/O device write at IOSR with value " + bus_db + ". " ;
-                                                      if (bus_ab == IOCR_ID) 
+                                                      if (bus_ab == IOCR_ID)
                                                           verbal = "I/O device write at IOCR with value " + bus_db + ". " ;
-                                                      if (bus_ab == IODR_ID) 
+                                                      if (bus_ab == IODR_ID)
                                                           verbal = "I/O device write at IODR with value " + bus_db + ". " ;
 
                                                       return verbal ;
                                                    }
                                       };
 
-        sim_p.behaviors.IO_CHK_I       = { nparameters: 4, 
+        sim_p.behaviors.IO_CHK_I       = { nparameters: 4,
                                         types: ["E", "S", "E"],
-                                        operation: function (s_expr) 
+                                        operation: function (s_expr)
                                                    {
                                                       var clk = get_value(sim_p.states[s_expr[1]]) ;
 
@@ -285,19 +285,19 @@ function io_clk_base_register ( sim_p )
                                                            }
                                                       }
                                                    },
-                                           verbal: function (s_expr) 
+                                           verbal: function (s_expr)
                                                    {
                                                       return "Check I/O Interruption. " ;
                                                    }
                                       };
 
-        sim_p.behaviors.INTA           = { nparameters: 6, 
+        sim_p.behaviors.INTA           = { nparameters: 6,
                                         types: ["E", "S", "S", "E", "E"],
-                                        operation: function (s_expr) 
+                                        operation: function (s_expr)
                                                    {
                                                       var clk = get_value(sim_p.states[s_expr[1]]) ;
 
-                                                      if (typeof sim_p.events.io[clk] != "undefined") 
+                                                      if (typeof sim_p.events.io[clk] != "undefined")
                                                       {
                                                           set_value(sim_p.states[s_expr[4]], sim_p.events.io[clk][0]); // ['BUS_DB'] = i
   							  return ;
@@ -306,7 +306,7 @@ function io_clk_base_register ( sim_p )
 						      set_value(sim_p.signals[s_expr[2]], 0); // ['INT']  = 0
 						      set_value(sim_p.states[s_expr[5]], 0); // ['INTV'] = 0
 
-						      for (var i=0; i<sim_p.internal_states.io_int_factory.length; i++) 
+						      for (var i=0; i<sim_p.internal_states.io_int_factory.length; i++)
                                                       {
                                                            if (get_var(sim_p.internal_states.io_int_factory[i].active))
                                                            {
@@ -324,14 +324,14 @@ function io_clk_base_register ( sim_p )
                                                            }
                                                       }
                                                    },
-                                           verbal: function (s_expr) 
+                                           verbal: function (s_expr)
                                                    {
                                                       return "Signal an interruption ACK. " ;
                                                    }
                                       };
 
         sim_p.behaviors.IO_RESET      = { nparameters: 1,
-                                       operation: function (s_expr) 
+                                       operation: function (s_expr)
                                                   {
 						     // reset events.io
                                                      sim_p.events.io = {} ;
@@ -346,7 +346,7 @@ function io_clk_base_register ( sim_p )
 						          set_var(io_int_factory[i].period,      0) ;
 						     }
                                                   },
-                                          verbal: function (s_expr) 
+                                          verbal: function (s_expr)
                                                   {
                                                      return "Reset the I/O device. " ;
                                                   }

@@ -50,6 +50,7 @@
                  io_clk_base_register ( rv_def ) ;
                  io_l3d_base_register ( rv_def ) ;
                  io_ldm_base_register ( rv_def ) ;
+               io_sound_base_register ( rv_def ) ;
 
             simhw_add(rv_def) ;
 

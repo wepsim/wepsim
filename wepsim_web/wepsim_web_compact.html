@@ -132,11 +132,10 @@
 				 $("#ws_loader").hide() ;
 			      }) ;
 
-            // progressive web application
-            wepsim_init_PWA() ;
-
-            // Firefox OS
-            wepsim_init_firefoxOS() ;
+            // Platform-specific
+            wepsim_init_PWA() ;       // Progressive Web Application
+            wepsim_init_firefoxOS() ; // Firefox OS
+            simcore_sound_init() ;
     }
     catch(err)
     {

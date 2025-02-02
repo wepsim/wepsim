@@ -20,36 +20,36 @@
 
 
 /*
- *  SCREEN
+ *  SOUND
  */
 
-var DDR_ID = 0x1000 ;
-var DSR_ID = 0x1004 ;
+var SDR_ID = 0x4000 ;
+var SSR_ID = 0x4004 ;
 
-function io_screen_base_register ( sim_p )
+function io_sound_base_register ( sim_p )
 {
-        sim_p.components.SCREEN = {
-		                  name: "SCREEN",
+        sim_p.components.SOUND = {
+		                  name: "SOUND",
 		                  version: "1",
-		                  abilities:    [ "SCREEN" ],
+		                  abilities:    [ "SOUND" ],
 
 		                  // ui: details
-                                  details_name: [ "SCREEN" ],
-                                  details_fire: [ ['svg_p:text3845'] ],
+                                  details_name: [ "SOUND" ],
+                                  details_fire: [ ],
 
 		                  // state: write_state, read_state, get_state
 		                  write_state: function ( vec ) {
-                                                  if (typeof vec.SCREEN == "undefined") {
-                                                      vec.SCREEN = {} ;
+                                                  if (typeof vec.SOUND == "undefined") {
+                                                      vec.SOUND = {} ;
 				                  }
 
-					          var sim_screen = sim_p.internal_states.screen_content ;
-					          var sim_lines  = sim_screen.trim().split("\n") ;
+					          var sim_sound = sim_p.internal_states.sound_content ;
+					          var sim_lines  = sim_sound.trim().split("\n") ;
 					          for (var i=0; i<sim_lines.length; i++)
 					          {
 					               value = sim_lines[i] ;
            					       if (value != "") {
-							   vec.SCREEN[i] = {"type":  "screen",
+							   vec.SOUND[i] = {"type":  "sound",
 								            "default_value": "",
 								            "id":    i,
 								            "op":    "==",
@@ -60,13 +60,13 @@ function io_screen_base_register ( sim_p )
 						  return vec;
 				              },
 		                  read_state: function ( vec, check ) {
-                                                  if (typeof vec.SCREEN == "undefined") {
-                                                      vec.SCREEN = {} ;
+                                                  if (typeof vec.SOUND == "undefined") {
+                                                      vec.SOUND = {} ;
                                                   }
 
-					          if ("SCREEN" == check.type.toUpperCase().trim())
+					          if ("SOUND" == check.type.toUpperCase().trim())
                                                   {
-						      vec.SCREEN[check.id] = { "type":  "screen",
+						      vec.SOUND[check.id] = { "type":  "sound",
 								               "default_value": "",
 								               "id":    check.id,
 								               "op":    check.condition,
@@ -77,8 +77,8 @@ function io_screen_base_register ( sim_p )
                                                   return false ;
 				             },
 		                  get_state: function ( line ) {
-					          var sim_screen = sim_p.internal_states.screen_content ;
-					          var sim_lines  = sim_screen.trim().split("\n") ;
+					          var sim_sound = sim_p.internal_states.sound_content ;
+					          var sim_lines  = sim_sound.trim().split("\n") ;
 						  var index = parseInt(line) ;
 						  if (typeof sim_lines[index] != "undefined")
 						      return sim_lines[index] ;
@@ -88,10 +88,10 @@ function io_screen_base_register ( sim_p )
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-        				            return sim_p.internal_states.screen_content ;
+        				            return sim_p.internal_states.sound_content ;
                                                },
                                   set_value:   function ( elto, value ) {
-        				            sim_p.internal_states.screen_content = value ;
+        				            sim_p.internal_states.sound_content = value ;
 						    return value ;
                                                }
                             	};
@@ -101,25 +101,25 @@ function io_screen_base_register ( sim_p )
 	 *  States - IO parameters
 	 */
 
-        sim_p.internal_states.io_hash[DDR_ID] = "DDR" ;
-        sim_p.internal_states.io_hash[DSR_ID] = "DSR" ;
+        sim_p.internal_states.io_hash[SDR_ID] = "SDR" ;
+        sim_p.internal_states.io_hash[SSR_ID] = "SSR" ;
 
 
 	/*
 	 *  Internal States
 	 */
 
-        sim_p.internal_states.screen_content = "" ;
+        sim_p.internal_states.sound_content = "" ;
 
 
         /*
          *  States
          */
 
-        sim_p.states.DDR   = { name: "DDR", verbal: "Display Data Register",
+        sim_p.states.SDR    = { name: "SDR", verbal: "Sound Data Register",
                                 visible:false, nbits: "32", value: 0, default_value: 0,
                                 draw_data: [] };
-        sim_p.states.DSR   = { name: "DSR", verbal: "Display State Register",
+        sim_p.states.SSR    = { name: "SSR", verbal: "Sound State Register",
                                 visible:false, nbits: "32", value: 0, default_value: 0,
                                 draw_data: [] };
 
@@ -128,18 +128,18 @@ function io_screen_base_register ( sim_p )
          *  Signals
          */
 
-        sim_p.signals.SCR_IOR = { name: "SCR_IOR",
+        sim_p.signals.SND_IOR  = { name: "SND_IOR",
                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                   behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
-                                   fire_name: ['svg_p:tspan4004'],
-                                   draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']],
+		                   behavior: ["NOP", "SND_IOR BUS_AB BUS_DB SDR SSR CLK"],
+                                   fire_name: [],
+                                   draw_data: [[], []],
                                    draw_name: [[], []] };
 
-        sim_p.signals.SCR_IOW = { name: "SCR_IOW",
+        sim_p.signals.SND_IOW  = { name: "SND_IOW",
                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                   behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
-                                   fire_name: ['svg_p:tspan4006'],
-                                   draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']],
+		                   behavior: ["NOP", "SND_IOW BUS_AB BUS_DB SDR SSR CLK"],
+                                   fire_name: [],
+                                   draw_data: [[], []],
                                    draw_name: [[], []] };
 
 
@@ -147,7 +147,7 @@ function io_screen_base_register ( sim_p )
          *  Syntax of behaviors
          */
 
-        sim_p.behaviors.SCR_IOR      = { nparameters: 6,
+        sim_p.behaviors.SND_IOR   = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr)
                                                  {
@@ -155,9 +155,9 @@ function io_screen_base_register ( sim_p )
                                                     var ddr    = get_value(sim_p.states[s_expr[3]]) ;
                                                     var dsr    = get_value(sim_p.states[s_expr[4]]) ;
 
-                                                    if (bus_ab == DDR_ID)
+                                                    if (bus_ab == SDR_ID)
                                                         set_value(sim_p.states[s_expr[2]], ddr) ;
-                                                    if (bus_ab == DSR_ID)
+                                                    if (bus_ab == SSR_ID)
                                                         set_value(sim_p.states[s_expr[2]], dsr) ;
                                                  },
                                          verbal: function (s_expr)
@@ -168,45 +168,41 @@ function io_screen_base_register ( sim_p )
                                                     var ddr    = get_value(sim_p.states[s_expr[3]]) ;
                                                     var dsr    = get_value(sim_p.states[s_expr[4]]) ;
 
-                                                    if (bus_ab == DDR_ID)
-                                                        verbal = "Try to read from the screen the DDR value " + ddr + ". " ;
-                                                    if (bus_ab == DDR_ID)
-                                                        verbal = "Try to read into the screen the DSR value " + dsr + ". " ;
+                                                    if (bus_ab == SDR_ID)
+                                                        verbal = "Try to read from the sound the SDR value " + ddr + ". " ;
+                                                    if (bus_ab == SDR_ID)
+                                                        verbal = "Try to read into the sound the SSR value " + dsr + ". " ;
 
                                                     return verbal ;
                                                  }
                                 };
 
-        sim_p.behaviors.SCR_IOW      = { nparameters: 6,
+        sim_p.behaviors.SND_IOW   = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr)
                                                  {
                                                       var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
                                                       var bus_db = get_value(sim_p.states[s_expr[2]]) ;
                                                       var clk    = get_value(sim_p.states[s_expr[5]]) ;
-                                                      var ch     = String.fromCharCode(bus_db);
 
-                                                      if (bus_ab != DDR_ID) {
+                                                      if (bus_ab != SDR_ID) {
                                                           return;
                                                       }
 
-                                                      if (ch == String.fromCharCode(0x0007)) // '\a'
-                                                      {
-                                                         // (a) audible
-                                                         simcore_sound_playNote("C4", "8n") ;
-                                                      }
-                                                      else
-                                                      {
-                                                         // (b) visible
-                                                         var screen = get_screen_content() ;
-                                                         if (typeof sim_p.events.screen[clk] != "undefined")
-                                                             screen = screen.substr(0, screen.length-1) ;
-                                                         set_screen_content(screen + ch) ;
+                                                      var ch1 = ((bus_db & 0x00FF0000) >> 16) + 'A'.charCodeAt(0) ;
+                                                          ch1 = String.fromCharCode(ch1) ;
+                                                      var ch2 =  (bus_db & 0x0000FF00) >> 8 ;
+                                                      var ch3 =  (bus_db & 0x000000FF)  ;
+                                                      var n = ch1 + ch2 + '+' + ch3 + 'n;' ;
+                                                      if (typeof sim_p.events.sound[clk] == "undefined") {
+                                                          sim_p.internal_states.sound_content += n ;
                                                       }
 
                                                       set_value(sim_p.states[s_expr[3]], bus_db) ;
                                                       set_value(sim_p.states[s_expr[4]], 1) ;
-                                                      sim_p.events.screen[clk] = bus_db ;
+                                                      sim_p.events.sound[clk] = bus_db ;
+
+                                                      simcore_sound_playNote(ch1+ch2, ch3+"n") ;
                                                  },
                                          verbal: function (s_expr)
                                                  {
@@ -217,22 +213,22 @@ function io_screen_base_register ( sim_p )
                                                       var clk    = get_value(sim_p.states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
-                                                      if (bus_ab == DDR_ID)
-                                                          verbal = "Try to write into the screen the code " + ch + " at clock cycle " + clk + ". " ;
+                                                      if (bus_ab == SDR_ID)
+                                                          verbal = "Try to write into the sound the code " + ch + " at clock cycle " + clk + ". " ;
 
                                                       return verbal ;
                                                  }
                                 };
 
-        sim_p.behaviors.SCREEN_RESET = { nparameters: 1,
+        sim_p.behaviors.SOUND_RESET = { nparameters: 1,
                                       operation: function (s_expr)
                                                  {
-						     // reset events.screen
-                                                     sim_p.events.screen = {} ;
+						     // reset events.sound
+                                                     sim_p.events.sound = {} ;
                                                  },
                                          verbal: function (s_expr)
                                                  {
-                                                    return "Reset the screen content. " ;
+                                                    return "Reset the sound content. " ;
                                                  }
                                   };
 
@@ -242,11 +238,11 @@ function io_screen_base_register ( sim_p )
          * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
          */
 
-        sim_p.elements.display = {
-			      name:              "Display",
-			      description:       "Display",
+        sim_p.elements.sound = {
+			      name:              "Sound",
+			      description:       "Sound",
 			      type:              "subcomponent",
-			      belongs:           "SCREEN",
+			      belongs:           "SOUND",
 			      states:            {
 						   "addr":      {
 								   ref:  "BUS_AB"
@@ -257,10 +253,10 @@ function io_screen_base_register ( sim_p )
 						 },
 			      signals:           {
 						   "ior":       {
-								   ref:  "SCR_IOR"
+								   ref:  "SND_IOR"
 								},
 						   "iow":       {
-								   ref:  "SCR_IOW"
+								   ref:  "SND_IOW"
 								}
 						 },
 			      states_inputs:     [ "addr", "data" ],

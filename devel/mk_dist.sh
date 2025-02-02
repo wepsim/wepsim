@@ -109,6 +109,7 @@ cat sim_core/sim_cfg.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
     sim_core/sim_core_voice.js \
+    sim_core/sim_core_sound.js \
     sim_core/sim_core_rest.js \
     sim_core/sim_core_notify.js \
     sim_core/sim_core_values.js \
@@ -135,6 +136,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/hw_items/io_keyboard_base.js \
     sim_hw/hw_items/io_ldm_base.js \
     sim_hw/hw_items/io_l3d_base.js \
+    sim_hw/hw_items/io_sound_base.js \
     \
     sim_hw/hw_ep.js \
     sim_hw/hw_poc.js \
