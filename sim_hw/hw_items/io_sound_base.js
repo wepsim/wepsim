@@ -234,14 +234,15 @@ function io_sound_base_register ( sim_p )
 							  var sdr3 = get_value(sim_p.states[s_expr[7]]) ;
                                                           var t1 = sdr3 & 0x000000FF ;
 
-                                                          if (typeof sim_p.events.sound[clk] == "undefined") {
+                                                          if (typeof sim_p.events.sound[clk] == "undefined")
+							  {
                                                               sim_p.internal_states.sound_content = 
 							      sim_p.internal_states.sound_content + n1+n2+','+t1+'n;' ;
+
+						              // TODO: add different play modes depending on bus_db values -> if (SDR1 == "play note + silence") ...
+                                                              simcore_sound_playNote(n1+n2, t1+"n") ;
                                                           }
                                                           sim_p.events.sound[clk] = bus_db ;
-
-						          // TODO: add different play modes depending on bus_db values -> if (SDR1 == "play note + silence") ...
-                                                          simcore_sound_playNote(n1+n2, t1+"n") ;
 						      }
                                                       if (bus_ab == SDR2_ID) {
                                                           set_value(sim_p.states[s_expr[6]], bus_db) ;
