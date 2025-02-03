@@ -147,7 +147,7 @@ function io_screen_base_register ( sim_p )
          *  Syntax of behaviors
          */
 
-        sim_p.behaviors.SCR_IOR      = { nparameters: 6,
+        sim_p.behaviors.SCR_IOR   = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr)
                                                  {
@@ -177,18 +177,18 @@ function io_screen_base_register ( sim_p )
                                                  }
                                 };
 
-        sim_p.behaviors.SCR_IOW      = { nparameters: 6,
+        sim_p.behaviors.SCR_IOW   = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
                                       operation: function (s_expr)
                                                  {
                                                       var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
-                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
-                                                      var clk    = get_value(sim_p.states[s_expr[5]]) ;
-                                                      var ch     = String.fromCharCode(bus_db);
-
                                                       if (bus_ab != DDR_ID) {
                                                           return;
                                                       }
+
+                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim_p.states[s_expr[5]]) ;
+                                                      var ch     = String.fromCharCode(bus_db);
 
                                                       if (ch == String.fromCharCode(0x0007)) // '\a'
                                                       {
@@ -202,11 +202,11 @@ function io_screen_base_register ( sim_p )
                                                          if (typeof sim_p.events.screen[clk] != "undefined")
                                                              screen = screen.substr(0, screen.length-1) ;
                                                          set_screen_content(screen + ch) ;
+                                                         sim_p.events.screen[clk] = bus_db ;
                                                       }
 
                                                       set_value(sim_p.states[s_expr[3]], bus_db) ;
                                                       set_value(sim_p.states[s_expr[4]], 1) ;
-                                                      sim_p.events.screen[clk] = bus_db ;
                                                  },
                                          verbal: function (s_expr)
                                                  {
@@ -217,8 +217,9 @@ function io_screen_base_register ( sim_p )
                                                       var clk    = get_value(sim_p.states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
-                                                      if (bus_ab == DDR_ID)
+                                                      if (bus_ab == DDR_ID) {
                                                           verbal = "Try to write into the screen the code " + ch + " at clock cycle " + clk + ". " ;
+						      }
 
                                                       return verbal ;
                                                  }

@@ -5,7 +5,7 @@
 * Main improvements:
   * Added the 'filter-microcode' action in command-line
   * Initial support for adding a name to the register section
-  * Minor updates
+  * Minor updates on devices
 * Main external dependencies updated:
   * timbre.js were replaced by tone.js
 

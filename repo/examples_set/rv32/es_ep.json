@@ -253,7 +253,7 @@
     "testing": 		true
   },
   {
-    "id": 		"R5E2",
+    "id": 		"R5E6",
     "title":		"IEEE 754 (32 bits)",
     "type": 		"<span data-langkey='Special'>Special</span>",
     "modes": 		"newbie,intro,ep",
@@ -261,6 +261,17 @@
     "microcode": 	"ep_bare",
     "assembly":		"s6e7",
     "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": 		true
+  },
+  {
+    "id": 		"R5E7",
+    "title":		"I/O (sound)",
+    "type": 		"<span data-langkey='Special'>Special</span>",
+    "modes": 		"newbie,intro,ep",
+    "hardware": 	"ep",
+    "microcode": 	"ep_bare",
+    "assembly":		"s6e8",
+    "description":	"<span data-langkey='example_01_01'>Simple example with for I/O.</span>",
     "testing": 		true
   }
 ]

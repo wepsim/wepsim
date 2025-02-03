@@ -23,8 +23,10 @@
  *  SOUND
  */
 
-var SDR_ID = 0x4000 ;
-var SSR_ID = 0x4004 ;
+var SDR1_ID = 0x4000 ;
+var SDR2_ID = 0x4004 ;
+var SDR3_ID = 0x4008 ;
+var SSR_ID  = 0x400C ;
 
 function io_sound_base_register ( sim_p )
 {
@@ -101,8 +103,10 @@ function io_sound_base_register ( sim_p )
 	 *  States - IO parameters
 	 */
 
-        sim_p.internal_states.io_hash[SDR_ID] = "SDR" ;
-        sim_p.internal_states.io_hash[SSR_ID] = "SSR" ;
+        sim_p.internal_states.io_hash[SDR1_ID] = "SDR1" ;
+        sim_p.internal_states.io_hash[SDR2_ID] = "SDR2" ;
+        sim_p.internal_states.io_hash[SDR3_ID] = "SDR3" ;
+        sim_p.internal_states.io_hash[SSR_ID]  = "SSR" ;
 
 
 	/*
@@ -116,10 +120,16 @@ function io_sound_base_register ( sim_p )
          *  States
          */
 
-        sim_p.states.SDR    = { name: "SDR", verbal: "Sound Data Register",
+        sim_p.states.SSR    = { name: "SSR", verbal: "Sound State Register",
                                 visible:false, nbits: "32", value: 0, default_value: 0,
                                 draw_data: [] };
-        sim_p.states.SSR    = { name: "SSR", verbal: "Sound State Register",
+        sim_p.states.SDR1   = { name: "SDR1", verbal: "Sound Data Register 1",
+                                visible:false, nbits: "32", value: 0, default_value: 0,
+                                draw_data: [] };
+        sim_p.states.SDR2   = { name: "SDR2", verbal: "Sound Data Register 2",
+                                visible:false, nbits: "32", value: 0, default_value: 0,
+                                draw_data: [] };
+        sim_p.states.SDR3   = { name: "SDR3", verbal: "Sound Data Register 3",
                                 visible:false, nbits: "32", value: 0, default_value: 0,
                                 draw_data: [] };
 
@@ -130,14 +140,14 @@ function io_sound_base_register ( sim_p )
 
         sim_p.signals.SND_IOR  = { name: "SND_IOR",
                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                   behavior: ["NOP", "SND_IOR BUS_AB BUS_DB SDR SSR CLK"],
+		                   behavior: ["NOP", "SND_IOR BUS_AB BUS_DB CLK SSR SDR1 SDR2 SDR3"],
                                    fire_name: [],
                                    draw_data: [[], []],
                                    draw_name: [[], []] };
 
         sim_p.signals.SND_IOW  = { name: "SND_IOW",
                                    visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		                   behavior: ["NOP", "SND_IOW BUS_AB BUS_DB SDR SSR CLK"],
+		                   behavior: ["NOP", "SND_IOW BUS_AB BUS_DB CLK SSR SDR1 SDR2 SDR3"],
                                    fire_name: [],
                                    draw_data: [[], []],
                                    draw_name: [[], []] };
@@ -147,62 +157,100 @@ function io_sound_base_register ( sim_p )
          *  Syntax of behaviors
          */
 
-        sim_p.behaviors.SND_IOR   = { nparameters: 6,
-                                      types: ["E", "E", "E", "E", "E"],
+        sim_p.behaviors.SND_IOR   = { nparameters: 8,
+                                      types: ["E", "E", "E", "E", "E", "E", "E"],
                                       operation: function (s_expr)
                                                  {
                                                     var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
-                                                    var ddr    = get_value(sim_p.states[s_expr[3]]) ;
-                                                    var dsr    = get_value(sim_p.states[s_expr[4]]) ;
 
-                                                    if (bus_ab == SDR_ID)
-                                                        set_value(sim_p.states[s_expr[2]], ddr) ;
-                                                    if (bus_ab == SSR_ID)
+                                                    if (bus_ab == SSR_ID) {
+                                                        var dsr = get_value(sim_p.states[s_expr[4]]) ;
                                                         set_value(sim_p.states[s_expr[2]], dsr) ;
+						    }
+                                                    if (bus_ab == SDR1_ID) {
+                                                        var ddr = get_value(sim_p.states[s_expr[5]]) ;
+                                                        set_value(sim_p.states[s_expr[2]], ddr) ;
+						    }
+                                                    if (bus_ab == SDR2_ID) {
+                                                        var ddr = get_value(sim_p.states[s_expr[6]]) ;
+                                                        set_value(sim_p.states[s_expr[2]], ddr) ;
+						    }
+                                                    if (bus_ab == SDR3_ID) {
+                                                        var ddr = get_value(sim_p.states[s_expr[7]]) ;
+                                                        set_value(sim_p.states[s_expr[2]], ddr) ;
+						    }
                                                  },
                                          verbal: function (s_expr)
                                                  {
 					            var verbal = "" ;
-
                                                     var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
-                                                    var ddr    = get_value(sim_p.states[s_expr[3]]) ;
-                                                    var dsr    = get_value(sim_p.states[s_expr[4]]) ;
 
-                                                    if (bus_ab == SDR_ID)
-                                                        verbal = "Try to read from the sound the SDR value " + ddr + ". " ;
-                                                    if (bus_ab == SDR_ID)
+                                                    if (bus_ab == SDR1_ID) {
+                                                        var dsr = get_value(sim_p.states[s_expr[4]]) ;
                                                         verbal = "Try to read into the sound the SSR value " + dsr + ". " ;
+						    }
+                                                    if (bus_ab == SDR1_ID) {
+                                                        var ddr = get_value(sim_p.states[s_expr[5]]) ;
+                                                        verbal = "Try to read from the sound the SDR1 value " + ddr + ". " ;
+						    }
+                                                    if (bus_ab == SDR2_ID) {
+                                                        var ddr = get_value(sim_p.states[s_expr[6]]) ;
+                                                        verbal = "Try to read from the sound the SDR2 value " + ddr + ". " ;
+						    }
+                                                    if (bus_ab == SDR3_ID) {
+                                                        var ddr = get_value(sim_p.states[s_expr[7]]) ;
+                                                        verbal = "Try to read from the sound the SDR3 value " + ddr + ". " ;
+						    }
 
                                                     return verbal ;
                                                  }
                                 };
 
-        sim_p.behaviors.SND_IOW   = { nparameters: 6,
-                                      types: ["E", "E", "E", "E", "E"],
+        sim_p.behaviors.SND_IOW   = { nparameters: 8,
+                                      types: ["E", "E", "E", "E", "E", "E", "E"],
                                       operation: function (s_expr)
                                                  {
                                                       var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
-                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
-                                                      var clk    = get_value(sim_p.states[s_expr[5]]) ;
-
-                                                      if (bus_ab != SDR_ID) {
+						      if ( (bus_ab != SDR1_ID) && (bus_ab != SDR2_ID) && (bus_ab != SDR3_ID) )
+						      {
                                                           return;
                                                       }
 
-                                                      var ch1 = ((bus_db & 0x00FF0000) >> 16) + 'A'.charCodeAt(0) ;
-                                                          ch1 = String.fromCharCode(ch1) ;
-                                                      var ch2 =  (bus_db & 0x0000FF00) >> 8 ;
-                                                      var ch3 =  (bus_db & 0x000000FF)  ;
-                                                      var n = ch1 + ch2 + '+' + ch3 + 'n;' ;
-                                                      if (typeof sim_p.events.sound[clk] == "undefined") {
-                                                          sim_p.internal_states.sound_content += n ;
-                                                      }
+                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim_p.states[s_expr[3]]) ;
 
-                                                      set_value(sim_p.states[s_expr[3]], bus_db) ;
+                                                      if (bus_ab == SDR1_ID)
+						      {
+                                                          set_value(sim_p.states[s_expr[5]], bus_db) ;
+
+							  // note
+							  var sdr2 = get_value(sim_p.states[s_expr[6]]) ;
+                                                          var n1 = (sdr2 & 0x0000FF00) >> 8 ;
+							      n1 = n1 + 'A'.charCodeAt(0) ;
+                                                              n1 = String.fromCharCode(n1) ;
+                                                          var n2 = sdr2 & 0x000000FF ;
+
+							  // time
+							  var sdr3 = get_value(sim_p.states[s_expr[7]]) ;
+                                                          var t1 = sdr3 & 0x000000FF ;
+
+                                                          if (typeof sim_p.events.sound[clk] == "undefined") {
+                                                              sim_p.internal_states.sound_content = 
+							      sim_p.internal_states.sound_content + n1+n2+','+t1+'n;' ;
+                                                          }
+                                                          sim_p.events.sound[clk] = bus_db ;
+
+						          // TODO: add different play modes depending on bus_db values -> if (SDR1 == "play note + silence") ...
+                                                          simcore_sound_playNote(n1+n2, t1+"n") ;
+						      }
+                                                      if (bus_ab == SDR2_ID) {
+                                                          set_value(sim_p.states[s_expr[6]], bus_db) ;
+						      }
+                                                      if (bus_ab == SDR3_ID) {
+                                                          set_value(sim_p.states[s_expr[7]], bus_db) ;
+						      }
+
                                                       set_value(sim_p.states[s_expr[4]], 1) ;
-                                                      sim_p.events.sound[clk] = bus_db ;
-
-                                                      simcore_sound_playNote(ch1+ch2, ch3+"n") ;
                                                  },
                                          verbal: function (s_expr)
                                                  {
@@ -210,11 +258,17 @@ function io_sound_base_register ( sim_p )
 
                                                       var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
                                                       var bus_db = get_value(sim_p.states[s_expr[2]]) ;
-                                                      var clk    = get_value(sim_p.states[s_expr[5]]) ;
-                                                      var ch     = String.fromCharCode(bus_db);
+                                                      var clk    = get_value(sim_p.states[s_expr[3]]) ;
 
-                                                      if (bus_ab == SDR_ID)
-                                                          verbal = "Try to write into the sound the code " + ch + " at clock cycle " + clk + ". " ;
+                                                      if (bus_ab == SDR1_ID) {
+                                                          verbal = "Try to write into the sound SDR1 the code " + bus_db + " at clock cycle " + clk + ". " ;
+						      }
+                                                      if (bus_ab == SDR2_ID) {
+                                                          verbal = "Try to write into the sound SDR2 the code " + bus_db + " at clock cycle " + clk + ". " ;
+						      }
+                                                      if (bus_ab == SDR3_ID) {
+                                                          verbal = "Try to write into the sound SDR3 the code " + bus_db + " at clock cycle " + clk + ". " ;
+						      }
 
                                                       return verbal ;
                                                  }
@@ -235,7 +289,7 @@ function io_sound_base_register ( sim_p )
 
         /*
          *  Model
-         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+         *  (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
          */
 
         sim_p.elements.sound = {
