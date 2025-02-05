@@ -73,7 +73,7 @@
                      localStorage.setItem('wepsim_' + item, get_cfg(item));
                 }
 	   }
-           catch(err)
+           catch (err)
            {
                 console.log("WepSIM can not save the configuration in a persistent way on this web browser,\n" +
                             "found following error: \n" + err.message) ;

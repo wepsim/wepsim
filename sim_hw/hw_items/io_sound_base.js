@@ -223,26 +223,29 @@ function io_sound_base_register ( sim_p )
 						      {
                                                           set_value(sim_p.states[s_expr[5]], bus_db) ;
 
-							  // note
-							  var sdr2 = get_value(sim_p.states[s_expr[6]]) ;
-                                                          var n1 = (sdr2 & 0x0000FF00) >> 8 ;
-							      n1 = n1 + 'A'.charCodeAt(0) ;
-                                                              n1 = String.fromCharCode(n1) ;
-                                                          var n2 = sdr2 & 0x000000FF ;
-
-							  // time
-							  var sdr3 = get_value(sim_p.states[s_expr[7]]) ;
-                                                          var t1 = sdr3 & 0x000000FF ;
-
                                                           if (typeof sim_p.events.sound[clk] == "undefined")
 							  {
-                                                              sim_p.internal_states.sound_content = 
-							      sim_p.internal_states.sound_content + n1+n2+','+t1+'n;' ;
+                                                              sim_p.events.sound[clk] = bus_db ;
 
-						              // TODO: add different play modes depending on bus_db values -> if (SDR1 == "play note + silence") ...
-                                                              simcore_sound_playNote(n1+n2, t1+"n") ;
+							      if (2 == bus_db)
+							      {
+							          // note
+							          var sdr2 = get_value(sim_p.states[s_expr[6]]) ;
+							          var n1   = simcore_sound_ascii2note(sdr2, 4) ;
+
+							          // time
+							          var sdr3 = get_value(sim_p.states[s_expr[7]]) ;
+                                                                  var t1 = sdr3 & 0x000000FF ;
+								      t1 = t1 + 'n' ;
+
+                                                                  var n1t1 = n1 + ',' + t1 + ';' ;
+                                                                  sim_p.internal_states.sound_content += n1t1 ;
+
+								  simcore_sound_playNote(n1, t1) ;
+							      }
+							      if (0 == bus_db) simcore_sound_stop() ;
+							      if (1 == bus_db) simcore_sound_start() ;
                                                           }
-                                                          sim_p.events.sound[clk] = bus_db ;
 						      }
                                                       if (bus_ab == SDR2_ID) {
                                                           set_value(sim_p.states[s_expr[6]], bus_db) ;

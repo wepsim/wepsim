@@ -4,8 +4,8 @@
 #
 
 .kdata
-   vector:  .word rt_i0
-            .word rt_i1
+   vector:  .word rt_int
+            .word rt_int
             .word rt_sys
 
 .ktext
@@ -22,18 +22,16 @@ sys_prt_str: li   zero 0
 sys_prt_ch:  out  a0 0x1000
              sret
 
-  rt_i0:     # 0.- interruption
-             sret
-
-  rt_i1:     # 1.- interruption
-             lw  s1 4(s0)  # note: A4
-             beq s1 x0 rt1e1
-             out s1 0x4004
-             lw  s1 0(s0)  # time: 8n
-             out s1 0x4008
-             li  s1 1      # play + silence
-             out s1 0x4000
-             addi s0 s0 8
+  rt_int:    # 1.- interruption
+             lw  s2 0(s1)  # time: 8n
+             beq s2 x0 rt1e1
+             out s2 0x4008
+             lw  s2 4(s0)  # note: A4
+             out s2 0x4004
+             li  s2 2      # play + silence
+             out s2 0x4000
+             addi s0 s0 4
+             addi s1 s1 4
       rt1e1: sret
 
   rt_sys:    # 2.- ecall
@@ -45,56 +43,66 @@ sys_prt_ch:  out  a0 0x1000
 
 
 .data
-    toplay: .word 8,0x0004,
-                  8,0x0100,
-                  8,0x0104,
-                  8,0x0204,
-                  8,0x0304,
-                  8,0x0300,
-                  8,0x0404,
-                  8,0x0504,
-                  8,0x0604,
-                  8,0x0005,
-                  0,0
+   notes: .ascii  "  G2", "    ", "  G2", "    ", " Bb2", "  C3", "  G2", "    ", "  G2", "    ", "  F2", " F#2", "  G2", "    ", "  G2", "    ", "    "
+   times: .word        5,      8,      8,      8,      8,      8,      8,      5,      5,      8,      8,      8,      5,      8,      8,      8,      0
 
 .text
-
 main:
+### prog_IO #################
+
+           la t0 notes
+           la t1 times
+    loop2:
+           # play untill time is 0
+           lw  t2 0(t1)  # get time
+           beq t2 x0 end2
+           out t2 0x4008 # out time
+
+           lw  t2 0(t0)  # get note
+           out t2 0x4004 # out note (A4)
+           li  t2 2      # play + silence
+           out t2 0x4000 # play + silence
+
+           li  a0 'x'
+           li  a7 11
+           ecall
+
+           addi t0 t0 4
+           addi t1 t1 4
+           beq x0 x0 loop2
+
+    end2:  li  a0 '\n'
+           li  a7 11
+           ecall
+
 ### int_IO ####################
-           la  s0 toplay
+
+           la  s0 notes
+           la  s1 times
+
+           # fire int.1 every 200 clock cycles
            li  t0 1
            out t0 0x1104
-           li  t0 300
+           li  t0 200
            out t0 0x1108
 
+           # print 'x'
            li  t0 0
-           li  t2 20
+           li  t2 12
        b1: beq t0 t2 e1
            li  a0 'x'
            li  a7 11
            ecall
            addi t0 t0 1
            beq zero zero b1
-       e1: li  t0 0
+       e1:
+           # stop firing int.1
+           li  t0 0
            out t0 0x1104
            out t0 0x1108
 
-### prog_IO #################
-           la t0 toplay
-           li t3 1 # play + silence
-    loop2:
-           # play untill 0,0
-           lw t1 0(t0) # time
-           lw t2 4(t0) # note
-           addi t0 t0 8
-           beq t1 x0 end2
+###############################
 
-           # play sound
-           out t1 0x4008 # time
-           out t2 0x4004 # note (A4)
-           out t3 0x4000 # play + silence
-           beq x0 x0 loop2
-
-    end2:  # the end
+           # the end
            jr ra
 

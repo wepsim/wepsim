@@ -39,18 +39,131 @@
             return true ;
         }
 
+        async function simcore_sound_start ( )
+        {
+    	    if (simcore_sound_canPlay() == false) {
+                return false ;
+	    }
+
+	    try
+	    {
+                await Tone.start() ;
+	        if (Tone.context.state !== 'running') {
+	            Tone.context.resume() ;
+	        }
+	    }
+	    catch (e)
+	    {
+                // console.log('ERROR: at line: ' + e.lineNumber + ' and column: ' + e.columnNumber) ;
+                return false ;
+	    }
+
+            return true ;
+        }
+
+        async function simcore_sound_stop ( )
+        {
+    	    if (simcore_sound_canPlay() == false) {
+                return false ;
+	    }
+
+	    try
+	    {
+                await Tone.stop() ;
+	    }
+	    catch (e)
+	    {
+                // console.log('ERROR: at line: ' + e.lineNumber + ' and column: ' + e.columnNumber) ;
+                return false ;
+	    }
+
+            return true ;
+        }
+
         async function simcore_sound_playNote ( note_str, time_str )
         {
     	    if (simcore_sound_canPlay() == false) {
-                return ;
+                return false ;
 	    }
 
-            await Tone.start();
+            await Tone.start() ;
 	    if (Tone.context.state !== 'running') {
 	        Tone.context.resume() ;
 	    }
 
-	    synth1 = new Tone.Synth().toDestination() ;
-	    synth1.triggerAttackRelease(note_str, time_str) ;
+	    try
+	    {
+	        if ("" == note_str) {
+	            note_str = null ;
+	        }
+
+	        synth1 = new Tone.Synth().toDestination() ;
+	        synth1.triggerAttackRelease(note_str, time_str) ;
+	    }
+	    catch (e)
+	    {
+                // console.log('ERROR: at line: ' + e.lineNumber + ' and column: ' + e.columnNumber) ;
+                return false ;
+	    }
+
+            return true ;
+        }
+
+
+        //
+        // word <-> note
+        //
+
+        function simcore_sound_ascii2note ( word, bytesInWord )
+        {
+            var n = '' ;
+            var b = 0 ;
+
+            for (var i=0; i<bytesInWord; i++)
+            {
+                 b = word & 0xFF ;
+                 word = word >> 8 ;
+                 if (b != 0) {
+                     n = n + String.fromCharCode(b) ;
+                 }
+            }
+
+            return n.trim() ;
+        }
+
+        function simcore_sound_word2note ( word, bytesInWord )
+        {
+            var n = '' ;
+            var b = 0 ;
+
+            for (var i=0; i<bytesInWord; i++)
+            {
+                 b = word & 0xFF ;
+                 word = word >> 8 ;
+                 if (b != 0) {
+                     n = String.fromCharCode(b) + n ;
+                 }
+            }
+
+            return n.trim() ;
+        }
+
+        function simcore_sound_note2word ( note, bytesInWord )
+        {
+            var w = 0 ;
+            var b = 0 ;
+
+            for (var i=0; i<bytesInWord; i++)
+            {
+                 b = 0x0 ;
+                 if (i < note.length) {
+                     b = note[i].charCodeAt(0) ;
+                 }
+
+                 w = w << 8 ;
+                 w = w | b ;
+            }
+
+            return w ;
         }
 

@@ -165,17 +165,6 @@
     "testing":          true
   },
   {
-    "id":		"R2E1",
-    "title":            "I/O",
-    "type":		"<span data-langkey='Advanced'>Advanced</span>",
-    "modes":		"newbie,intro,ep",
-    "hardware":         "ep",
-    "microcode":	"ep_bare",
-    "assembly":         "s2e1",
-    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
-    "testing":          false
-  },
-  {
     "id":		"R4E2",
     "title":		"SC 1, 4-5, 8, 11-12",
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
@@ -187,9 +176,20 @@
     "testing":          true
   },
   {
+    "id":		"R2E1",
+    "title":            "I/O",
+    "type":		"<span data-langkey='Advanced'>Advanced</span> I/O",
+    "modes":		"newbie,intro,ep",
+    "hardware":         "ep",
+    "microcode":	"ep_bare",
+    "assembly":         "s2e1",
+    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing":          false
+  },
+  {
     "id":		"R5E2",
     "title":		"3D-Led",
-    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "type":		"<span data-langkey='Advanced'>Advanced</span> I/O",
     "modes":		"newbie,intro,ep",
     "hardware":		"ep",
     "microcode":	"ep_bare",
@@ -200,7 +200,7 @@
   {
     "id":               "R5E4",
     "title":            "Led Matrix (movement)",
-    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "type":		"<span data-langkey='Advanced'>Advanced</span> I/O",
     "modes":            "newbie,intro,ep",
     "hardware":         "ep",
     "microcode":        "ep_bare",
@@ -211,13 +211,24 @@
   {
     "id":               "R5E5",
     "title":            "Led Matrix (colors)",
-    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "type":		"<span data-langkey='Advanced'>Advanced</span> I/O",
     "modes":            "newbie,intro,ep",
     "hardware":         "ep",
     "microcode":        "ep_bare",
     "assembly":         "s5e4",
     "description":      "<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
     "testing":          true
+  },
+  {
+    "id": 		"R5E7",
+    "title":		"Audio (sound)",
+    "type": 		"<span data-langkey='Advanced'>Advanced</span> I/O",
+    "modes": 		"newbie,intro,ep",
+    "hardware": 	"ep",
+    "microcode": 	"ep_bare",
+    "assembly":		"s6e8",
+    "description":	"<span data-langkey='example_01_01'>Simple example with for I/O.</span>",
+    "testing": 		true
   },
   {
     "id":		"R4E3",
@@ -261,17 +272,6 @@
     "microcode": 	"ep_bare",
     "assembly":		"s6e7",
     "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
-    "testing": 		true
-  },
-  {
-    "id": 		"R5E7",
-    "title":		"I/O (sound)",
-    "type": 		"<span data-langkey='Special'>Special</span>",
-    "modes": 		"newbie,intro,ep",
-    "hardware": 	"ep",
-    "microcode": 	"ep_bare",
-    "assembly":		"s6e8",
-    "description":	"<span data-langkey='example_01_01'>Simple example with for I/O.</span>",
     "testing": 		true
   }
 ]
