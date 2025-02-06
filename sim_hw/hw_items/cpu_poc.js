@@ -2187,10 +2187,12 @@ function cpu_poc_register ( sim_p )
 							    // 5.- Finally, 'fire' the (High) Level signals
 							    if (mcelto.is_native)
 							    {
-							           if (typeof mcelto.NATIVE_JIT != "undefined")
-							               mcelto.NATIVE_JIT() ;
-						              else if (typeof mcelto.NATIVE != "undefined")
-							               eval(mcelto.NATIVE) ;
+							        compute_behavior("FIRE IO_IE") ; // check pending IO (TODO: IOC -> IO_IE, "future IO", ...)
+
+							             if (typeof mcelto.NATIVE_JIT != "undefined")
+							                 mcelto.NATIVE_JIT() ;
+						                else if (typeof mcelto.NATIVE != "undefined")
+							                 eval(mcelto.NATIVE) ;
 							    }
 							    else
 							    {

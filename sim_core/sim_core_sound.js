@@ -32,6 +32,9 @@
 
         function simcore_sound_canPlay ( )
         {
+    	    if (typeof Tone == "undefined") {
+                return false ;
+            }
     	    if (typeof Tone.context == "undefined") {
                 return false ;
             }
