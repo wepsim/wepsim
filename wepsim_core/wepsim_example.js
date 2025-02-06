@@ -116,7 +116,7 @@
     function load_from_example_assembly ( example_id, chain_next_step )
     {
         if (-1 == ws_info.example_active) {
-            ws_alert("warning: no active example set") ;
+            ws_alert("Warning: no active example set by default.\nPlease select your examples first.") ;
             return ;
         }
 
@@ -173,7 +173,7 @@
     function load_from_example_firmware ( example_id, chain_next_step )
     {
         if (-1 == ws_info.example_active) {
-            ws_alert("warning: no active example set") ;
+            ws_alert("Warning: no active example set by default.\nPlease select your examples first.") ;
             return ;
         }
 

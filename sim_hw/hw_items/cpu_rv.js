@@ -669,6 +669,13 @@ function cpu_rv_register ( sim_p )
                                               'svg_p:path6899', 'svg_p:path6901']],
 				draw_name: [[], ['svg_p:path7195']] };
 
+	/* I/O Devices */
+	sim_p.signals["IOCHK"]    = { name: "IOCHK", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+		                      behavior: ["FIRE IO_IE", "FIRE IO_IE"],
+				      fire_name: [],
+				      draw_data: [[], []],
+				      draw_name: [[], []]};
+
 	/* Virtual Signals, for UI */
 	sim_p.signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	            behavior: ["MV FLAG_N VAL_ZERO", "MV FLAG_N VAL_ONE"],
@@ -2698,7 +2705,7 @@ function cpu_rv_register ( sim_p )
                                                             // 5.- Finally, 'fire' the (High) Level signals
                                                             if (mcelto.is_native)
                                                             {
-							        compute_behavior("FIRE IO_IE") ; // check pending IO (TODO: IOC -> IO_IE, "future IO", ...)
+							        compute_behavior("FIRE IOCHK") ;
 
                                                                      if (typeof mcelto.NATIVE_JIT != "undefined")
                                                                          mcelto.NATIVE_JIT() ;

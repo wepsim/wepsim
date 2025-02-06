@@ -946,6 +946,11 @@ function cpu_ep_register ( sim_p )
 				     fire_name: ['svg_p:text3717'],
 				     draw_data: [[], ['svg_p:path3735', 'svg_p:path3491', 'svg_p:text3717']],
 				     draw_name: [[], []]};
+	 sim_p.signals["IOCHK"]  = { name: "IOCHK", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				     behavior: ["FIRE IO_IE", "FIRE IO_IE"], // always check IO hardware
+				     fire_name: [],
+				     draw_data: [[], []],
+				     draw_name: [[], []]};
 
 	/* I & U signals */
 	 sim_p.signals["I"]     = { name: "I", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
@@ -2628,7 +2633,7 @@ function cpu_ep_register ( sim_p )
                                                             // 5.- Finally, 'fire' the (High) Level signals
                                                             if (mcelto.is_native)
                                                             {
-							        compute_behavior("FIRE IO_IE") ; // check pending IO (TODO: IOC -> IO_IE, "future IO", ...)
+							        compute_behavior("FIRE IOCHK") ;
 
                                                                      if (typeof mcelto.NATIVE_JIT != "undefined")
                                                                          mcelto.NATIVE_JIT() ;

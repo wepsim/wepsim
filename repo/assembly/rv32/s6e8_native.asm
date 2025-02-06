@@ -23,15 +23,13 @@ sys_prt_ch:  out  a0 0x1000
              sret
 
   rt_int:    # 1.- interruption
-             lw  s2 0(s1)  # time
+             lw  s2 0(s1)  # time: 8n
              beq s2 x0 rt1e1
              out s2 0x4008
-
-             lw  s2 0(s0)  # note
+             lw  s2 0(s0)  # note: A4
              out s2 0x4004
              li  s2 2      # play + silence
              out s2 0x4000
-
              addi s0 s0 4
              addi s1 s1 4
       rt1e1: sret
@@ -82,10 +80,10 @@ main:
            la  s0 notes
            la  s1 times
 
-           # fire int.1 every 200 clock cycles
+           # fire int.1 every 40 clock cycles
            li  t0 1
            out t0 0x1104
-           li  t0 200
+           li  t0 40
            out t0 0x1108
 
            # print 'x'

@@ -23,13 +23,15 @@ sys_prt_ch:  out  a0 0x1000
              sret
 
   rt_int:    # 1.- interruption
-             lw  s2 0(s1)  # time: 8n
+             lw  s2 0(s1)  # time
              beq s2 x0 rt1e1
              out s2 0x4008
-             lw  s2 4(s0)  # note: A4
+
+             lw  s2 0(s0)  # note
              out s2 0x4004
              li  s2 2      # play + silence
              out s2 0x4000
+
              addi s0 s0 4
              addi s1 s1 4
       rt1e1: sret
@@ -88,7 +90,7 @@ main:
 
            # print 'x'
            li  t0 0
-           li  t2 12
+           li  t2 15
        b1: beq t0 t2 e1
            li  a0 'x'
            li  a7 11
