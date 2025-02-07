@@ -109,34 +109,16 @@ function cpu_ep_register ( sim_p )
 
 		                  // native: get_value, set_value
                                   get_value:  function ( elto ) {
-						    if (Number.isInteger(elto))
-							 index = elto ;
-						    else index = parseInt(elto) ;
-
-						    if (isNaN(index))
-							return (get_value(simhw_sim_state(elto)) >>> 0) ;
-
-						    return (get_value(simhw_sim_states().BR[index]) >>> 0) ;
+                                                    var r_ref = simhw_sim_state_getref(elto) ;
+                                                    return (get_value(r_ref) >>> 0) ;
 				              },
                                   set_value:  function ( elto, value ) {
 						    var pc_name = simhw_sim_ctrlStates_get().pc.state ;
-
-						    if (Number.isInteger(elto))
-							 index = elto ;
-						    else index = parseInt(elto) ;
-
-						    if (isNaN(index))
-						    {
-							set_value(simhw_sim_state(elto), value) ;
-
-							if (pc_name === elto) {
-							    show_asmdbg_pc() ;
-							}
-
-							return value ;
+						    if (pc_name === elto) {
+							show_asmdbg_pc() ;
 						    }
-
-						    return set_value(simhw_sim_states().BR[index], value) ;
+                                                    var r_ref = simhw_sim_state_getref(elto) ;
+                                                    return set_value(r_ref, value) ;
 				              }
                             	};
 
@@ -955,14 +937,19 @@ function cpu_ep_register ( sim_p )
 
 	/* I/O Devices */
 	 sim_p.signals["IOR"]   = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-				     behavior: ["NOP", "MOVE_BITS KBD_IOR 0 1 IOR; MOVE_BITS SCR_IOR 0 1 IOR; MOVE_BITS L3D_IOR 0 1 IOR; MOVE_BITS L3D_IOR 0 1 IOR; FIRE KBD_IOR; FIRE SCR_IOR; FIRE L3D_IOR; FIRE LEDM_IOR"],
+				     behavior: ["NOP", "MOVE_BITS KBD_IOR 0 1 IOR; MOVE_BITS SCR_IOR 0 1 IOR; MOVE_BITS L3D_IOR 0 1 IOR; MOVE_BITS L3D_IOR 0 1 IOR; FIRE KBD_IOR; FIRE SCR_IOR; FIRE L3D_IOR; FIRE LEDM_IOR; MOVE_BITS SND_IOR 0 1 IOR; FIRE SND_IOR"],
 				     fire_name: ['svg_p:text3715'],
 				     draw_data: [[], ['svg_p:path3733', 'svg_p:path3491', 'svg_p:text3715']],
 				     draw_name: [[], []]};
 	 sim_p.signals["IOW"]   = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-				     behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW; MOVE_BITS IO_IOW 0 1 IOW; FIRE IO_IOW; MOVE_BITS L3D_IOW 0 1 IOW; FIRE L3D_IOW; MOVE_BITS LEDM_IOW 0 1 IOW; FIRE LEDM_IOW"],
+				     behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW; MOVE_BITS IO_IOW 0 1 IOW; FIRE IO_IOW; MOVE_BITS L3D_IOW 0 1 IOW; FIRE L3D_IOW; MOVE_BITS LEDM_IOW 0 1 IOW; FIRE LEDM_IOW; MOVE_BITS SND_IOW 0 1 IOW; FIRE SND_IOW"],
 				     fire_name: ['svg_p:text3717'],
 				     draw_data: [[], ['svg_p:path3735', 'svg_p:path3491', 'svg_p:text3717']],
+				     draw_name: [[], []]};
+	 sim_p.signals["IOCHK"]  = { name: "IOCHK", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+				     behavior: ["FIRE IO_IE", "FIRE IO_IE"], // always check IO hardware
+				     fire_name: [],
+				     draw_data: [[], []],
 				     draw_name: [[], []]};
 
 	/* I & U signals */
@@ -2646,10 +2633,12 @@ function cpu_ep_register ( sim_p )
                                                             // 5.- Finally, 'fire' the (High) Level signals
                                                             if (mcelto.is_native)
                                                             {
-                                                                   if (typeof mcelto.NATIVE_JIT != "undefined")
-                                                                       mcelto.NATIVE_JIT() ;
-                                                              else if (typeof mcelto.NATIVE != "undefined")
-                                                                       eval(mcelto.NATIVE) ;
+							        compute_behavior("FIRE IOCHK") ;
+
+                                                                     if (typeof mcelto.NATIVE_JIT != "undefined")
+                                                                         mcelto.NATIVE_JIT() ;
+                                                                else if (typeof mcelto.NATIVE != "undefined")
+                                                                         eval(mcelto.NATIVE) ;
                                                             }
                                                             else
                                                             {

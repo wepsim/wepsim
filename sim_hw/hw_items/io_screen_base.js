@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -29,8 +29,8 @@ var DSR_ID = 0x1004 ;
 function io_screen_base_register ( sim_p )
 {
         sim_p.components.SCREEN = {
-		                  name: "SCREEN", 
-		                  version: "1", 
+		                  name: "SCREEN",
+		                  version: "1",
 		                  abilities:    [ "SCREEN" ],
 
 		                  // ui: details
@@ -49,16 +49,16 @@ function io_screen_base_register ( sim_p )
 					          {
 					               value = sim_lines[i] ;
            					       if (value != "") {
-							   vec.SCREEN[i] = {"type":  "screen", 
+							   vec.SCREEN[i] = {"type":  "screen",
 								            "default_value": "",
 								            "id":    i,
-								            "op":    "==", 
+								            "op":    "==",
 								            "value": value} ;
    						       }
 					          }
 
 						  return vec;
-				              }, 
+				              },
 		                  read_state: function ( vec, check ) {
                                                   if (typeof vec.SCREEN == "undefined") {
                                                       vec.SCREEN = {} ;
@@ -66,10 +66,10 @@ function io_screen_base_register ( sim_p )
 
 					          if ("SCREEN" == check.type.toUpperCase().trim())
                                                   {
-						      vec.SCREEN[check.id] = { "type":  "screen", 
+						      vec.SCREEN[check.id] = { "type":  "screen",
 								               "default_value": "",
 								               "id":    check.id,
-								               "op":    check.condition, 
+								               "op":    check.condition,
 								               "value": check.value } ;
                                                       return true ;
                                                   }
@@ -116,10 +116,10 @@ function io_screen_base_register ( sim_p )
          *  States
          */
 
-        sim_p.states.DDR   = { name: "DDR", verbal: "Display Data Register", 
+        sim_p.states.DDR   = { name: "DDR", verbal: "Display Data Register",
                                 visible:false, nbits: "32", value: 0, default_value: 0,
                                 draw_data: [] };
-        sim_p.states.DSR   = { name: "DSR", verbal: "Display State Register", 
+        sim_p.states.DSR   = { name: "DSR", verbal: "Display State Register",
                                 visible:false, nbits: "32", value: 0, default_value: 0,
                                 draw_data: [] };
 
@@ -128,18 +128,18 @@ function io_screen_base_register ( sim_p )
          *  Signals
          */
 
-        sim_p.signals.SCR_IOR = { name: "SCR_IOR", 
-                                   visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_p.signals.SCR_IOR = { name: "SCR_IOR",
+                                   visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 		                   behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
-                                   fire_name: ['svg_p:tspan4004'], 
-                                   draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
+                                   fire_name: ['svg_p:tspan4004'],
+                                   draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']],
                                    draw_name: [[], []] };
 
-        sim_p.signals.SCR_IOW = { name: "SCR_IOW", 
-                                   visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_p.signals.SCR_IOW = { name: "SCR_IOW",
+                                   visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 		                   behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
-                                   fire_name: ['svg_p:tspan4006'], 
-                                   draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']], 
+                                   fire_name: ['svg_p:tspan4006'],
+                                   draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']],
                                    draw_name: [[], []] };
 
 
@@ -147,9 +147,9 @@ function io_screen_base_register ( sim_p )
          *  Syntax of behaviors
          */
 
-        sim_p.behaviors.SCR_IOR      = { nparameters: 6,
+        sim_p.behaviors.SCR_IOR   = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
-                                      operation: function (s_expr) 
+                                      operation: function (s_expr)
                                                  {
                                                     var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
                                                     var ddr    = get_value(sim_p.states[s_expr[3]]) ;
@@ -160,7 +160,7 @@ function io_screen_base_register ( sim_p )
                                                     if (bus_ab == DSR_ID)
                                                         set_value(sim_p.states[s_expr[2]], dsr) ;
                                                  },
-                                         verbal: function (s_expr) 
+                                         verbal: function (s_expr)
                                                  {
 					            var verbal = "" ;
 
@@ -177,44 +177,38 @@ function io_screen_base_register ( sim_p )
                                                  }
                                 };
 
-        sim_p.behaviors.SCR_IOW      = { nparameters: 6,
+        sim_p.behaviors.SCR_IOW   = { nparameters: 6,
                                       types: ["E", "E", "E", "E", "E"],
-                                      operation: function (s_expr) 
+                                      operation: function (s_expr)
                                                  {
                                                       var bus_ab = get_value(sim_p.states[s_expr[1]]) ;
-                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
-                                                      var clk    = get_value(sim_p.states[s_expr[5]]) ;
-                                                      var ch     = String.fromCharCode(bus_db);
-
                                                       if (bus_ab != DDR_ID) {
                                                           return;
                                                       }
 
+                                                      var bus_db = get_value(sim_p.states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim_p.states[s_expr[5]]) ;
+                                                      var ch     = String.fromCharCode(bus_db);
+
                                                       if (ch == String.fromCharCode(0x0007)) // '\a'
                                                       {
                                                          // (a) audible
-                                                         timbre.reset();
-                                                         var s1 = T("sin", {freq:440, mul:0.5});
-                                                         var s2 = T("sin", {freq:660, mul:0.5});
-                                                         T("perc", {r:500}, s1, s2).on("ended", 
-										        function() {
-										           this.pause(); 
-										        }).bang().play();
+                                                         simcore_sound_playNote("C4", "8n") ;
                                                       }
                                                       else
                                                       {
                                                          // (b) visible
                                                          var screen = get_screen_content() ;
-                                                         if (typeof sim_p.events.screen[clk] != "undefined") 
-                                                             screen = screen.substr(0, screen.length-1);
-                                                         set_screen_content(screen + String.fromCharCode(bus_db));
+                                                         if (typeof sim_p.events.screen[clk] != "undefined")
+                                                             screen = screen.substr(0, screen.length-1) ;
+                                                         set_screen_content(screen + ch) ;
+                                                         sim_p.events.screen[clk] = bus_db ;
                                                       }
 
                                                       set_value(sim_p.states[s_expr[3]], bus_db) ;
                                                       set_value(sim_p.states[s_expr[4]], 1) ;
-                                                      sim_p.events.screen[clk] = bus_db ;
                                                  },
-                                         verbal: function (s_expr) 
+                                         verbal: function (s_expr)
                                                  {
 					              var verbal = "" ;
 
@@ -223,20 +217,21 @@ function io_screen_base_register ( sim_p )
                                                       var clk    = get_value(sim_p.states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
-                                                      if (bus_ab == DDR_ID)
+                                                      if (bus_ab == DDR_ID) {
                                                           verbal = "Try to write into the screen the code " + ch + " at clock cycle " + clk + ". " ;
+						      }
 
                                                       return verbal ;
                                                  }
                                 };
 
         sim_p.behaviors.SCREEN_RESET = { nparameters: 1,
-                                      operation: function (s_expr) 
+                                      operation: function (s_expr)
                                                  {
 						     // reset events.screen
                                                      sim_p.events.screen = {} ;
                                                  },
-                                         verbal: function (s_expr) 
+                                         verbal: function (s_expr)
                                                  {
                                                     return "Reset the screen content. " ;
                                                  }

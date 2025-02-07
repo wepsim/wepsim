@@ -73,7 +73,7 @@
                      localStorage.setItem('wepsim_' + item, get_cfg(item));
                 }
 	   }
-           catch(err)
+           catch (err)
            {
                 console.log("WepSIM can not save the configuration in a persistent way on this web browser,\n" +
                             "found following error: \n" + err.message) ;
@@ -216,8 +216,8 @@
         {
              var wscfg = {
                    /* version */
-                   "version":               { upgrade:false, type:"string",    value:"2.3.5" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.3.5.20240902A" },
+                   "version":               { upgrade:false, type:"string",    value:"2.3.6" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.3.6.20241212A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },

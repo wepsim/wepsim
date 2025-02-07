@@ -94,7 +94,7 @@
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"poc",
     "microcode":	"poc_base",
-    "assembly":		"s3e1",
+    "assembly":		"s3e1_native",
     "description":	"<span data-langkey='example_03_02'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
     "testing":          true
   },
@@ -127,7 +127,7 @@
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"poc",
     "microcode":	"poc_base",
-    "assembly":		"s4e1",
+    "assembly":		"s4e1_native",
     "description":	"<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
     "testing":          true
   },
@@ -142,6 +142,17 @@
     "description":	"<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
     "testing":          true
   },
+  { 
+    "id":               "S6E7",
+    "title":            "Audio (sound)",
+    "type":             "<span data-langkey='Advanced'>Advanced</span> I/O",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":         "poc",
+    "microcode":        "poc_base",
+    "assembly":         "s6e8_native",
+    "description":      "<span data-langkey='example_01_01'>Simple example with for I/O.</span>",
+    "testing":          true
+  },
   {
     "id":		"S4E3",
     "title":            "Threads",
@@ -149,7 +160,7 @@
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"poc",
     "microcode":	"poc_base",
-    "assembly":		"s4e3",
+    "assembly":		"s4e3_native",
     "description":      "<span data-langkey='example_04_03'>Example of threads.</span>",
     "testing":          true
   },

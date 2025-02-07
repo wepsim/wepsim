@@ -51,6 +51,7 @@
                  io_clk_base_register ( poc_def ) ;
                  io_l3d_base_register ( poc_def ) ;
                  io_ldm_base_register ( poc_def ) ;
+               io_sound_base_register ( poc_def ) ;
 
             simhw_add(poc_def) ;
 

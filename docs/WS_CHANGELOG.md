@@ -1,6 +1,14 @@
 
 # Changelog
 
+## 2.3.5 -> 2.3.6:
+* Main improvements:
+  * Added the 'filter-microcode' action in command-line
+  * Initial support for audio device
+  * Fix interruption support with native microcode
+* Main external dependencies updated:
+  * timbre.js were replaced by tone.js
+
 ## 2.3.2 -> 2.3.5:
 * Main improvements:
   * Old assembler code cleanup

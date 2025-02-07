@@ -148,6 +148,21 @@
             return sim.active.states[id] ;
         }
 
+        function simhw_sim_state_getref ( id )
+        {
+            var parts = id.split(".") ;
+
+            if (parts[0] != 'BR') {
+                return simhw_sim_state(id) ;
+            }
+
+            if (parts.length > 2)
+                 s_ref = simhw_sim_states().BR[parts[1]][parts[2]] ;
+            else s_ref = simhw_sim_states().BR[parts[1]] ;
+
+            return s_ref ;
+        }
+
         // syntax_behaviours
 
         function simhw_syntax_behaviors ( )

@@ -5,7 +5,7 @@
    // Help
    //
 
-   var ws_cl_ver = 'WepSIM-cl v2.0.0' ;
+   var ws_cl_ver = 'WepSIM-cl v2.0.1' ;
 
    function ws_help_usage ()
    {
@@ -149,7 +149,7 @@
         return o ;
    }
 
-   function ws_help_examples_developer ()
+   function ws_help_examples_developers ()
    {
        var o = '\n' +
                ws_cl_ver + '\n' +
@@ -161,9 +161,10 @@
                ' * Run in an interactive REPL interface (beta):\n' +
                '   ./wepsim.sh -a interactive --checkpoint ./repo/checkpoint/tutorial_1.txt\n' +
                '\n' +
-               ' * Build MIPS32-like microcode for testing in command-line:\n' +
-               '   ./wepsim.sh -a import-creator --checkpoint ./MIPS_32.json > microcode.txt\n' +
-               '   ./wepsim.sh -a run -m ep -f ./microcode.txt -s repo/assembly/mips/s6e3.asm\n' +
+               ' * Filter microcode:\n' +
+               '   echo begin  > /tmp/f.txt\n' +
+               '   echo add   >> /tmp/f.txt\n' +
+               '   ./wepsim.sh -a filter-microcode -m ep -f ./repo/microcode/rv32/ep_bare.mc -r /tmp/f.txt\n' +
                '' ;
 
         return o ;

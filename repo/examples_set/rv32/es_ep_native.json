@@ -127,7 +127,7 @@
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_os",
-    "assembly":		"s3e1",
+    "assembly":		"s3e1_native",
     "description":	"<span data-langkey='example_03_02'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
     "testing":          true
   },
@@ -160,20 +160,9 @@
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_os",
-    "assembly":		"s4e1",
+    "assembly":		"s4e1_native",
     "description":	"<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
     "testing":          true
-  },
-  {
-    "id":		"R2E1",
-    "title":            "I/O",
-    "type":		"<span data-langkey='Advanced'>Advanced</span>",
-    "modes":		"newbie,intro,asm_rv32",
-    "hardware":         "ep",
-    "microcode":	"ep_os",
-    "assembly":         "s2e1",
-    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
-    "testing":          false
   },
   {
     "id":		"R4E2",
@@ -187,9 +176,20 @@
     "testing":          true
   },
   {
+    "id":		"R2E1",
+    "title":            "I/O",
+    "type":		"<span data-langkey='Advanced'>Advanced</span> I/O",
+    "modes":		"newbie,intro,asm_rv32",
+    "hardware":         "ep",
+    "microcode":	"ep_os",
+    "assembly":         "s2e1",
+    "description":      "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>",
+    "testing":          false
+  },
+  {
     "id":		"R5E2",
     "title":		"3D-Led",
-    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "type":		"<span data-langkey='Advanced'>Advanced</span> I/O",
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_os",
@@ -200,12 +200,23 @@
   {
     "id":               "R5E4",
     "title":            "Led Matrix",
-    "type":		"<span data-langkey='Advanced'>Advanced</span>",
+    "type":		"<span data-langkey='Advanced'>Advanced</span> I/O",
     "modes":            "newbie,intro,asm_rv32",
     "hardware":         "ep",
     "microcode":        "ep_os",
     "assembly":         "s5e2",
     "description":      "<span data-langkey='example_06_05'>Example for Led Matrix.</span>",
+    "testing":          true
+  },
+  {
+    "id":               "R5E7",
+    "title":            "Audio (sound)",
+    "type":		"<span data-langkey='Advanced'>Advanced</span> I/O",
+    "modes":            "newbie,intro,asm_rv32",
+    "hardware":         "ep",
+    "microcode":        "ep_os",
+    "assembly":         "s6e8_native",
+    "description":      "<span data-langkey='example_01_01'>Simple example with for I/O.</span>",
     "testing":          true
   },
   {
@@ -215,7 +226,7 @@
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_os",
-    "assembly":		"s4e3",
+    "assembly":		"s4e3_native",
     "description":      "<span data-langkey='example_04_03'>Example of threads.</span>",
     "testing":          true
   },
@@ -243,8 +254,8 @@
   },
   {
     "id":		"S7E2",
-    "title":		"RISCV32",
-    "type":		"<span data-langkey='Native'>Native</span>",
+    "title":		"Simple function call",
+    "type":		"<span data-langkey='Special'>Special</span>",
     "modes":		"newbie,intro,asm_rv32",
     "hardware":		"ep",
     "microcode":	"ep_os",

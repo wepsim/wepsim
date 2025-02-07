@@ -111,34 +111,16 @@ function cpu_rv_register ( sim_p )
 
 		                  // native: get_value, set_value
                                   get_value:  function ( elto ) {
-						    if (Number.isInteger(elto))
-							 index = elto ;
-						    else index = parseInt(elto) ;
-
-						    if (isNaN(index))
-							return (get_value(simhw_sim_state(elto)) >>> 0) ;
-
-						    return (get_value(simhw_sim_states().BR[index]) >>> 0) ;
+                                                    var r_ref = simhw_sim_state_getref(elto) ;
+                                                    return (get_value(r_ref) >>> 0) ;
 				              },
                                   set_value:  function ( elto, value ) {
 						    var pc_name = simhw_sim_ctrlStates_get().pc.state ;
-
-						    if (Number.isInteger(elto))
-							 index = elto ;
-						    else index = parseInt(elto) ;
-
-						    if (isNaN(index))
-						    {
-							set_value(simhw_sim_state(elto), value) ;
-
-							if (pc_name === elto) {
-							    show_asmdbg_pc() ;
-							}
-
-							return value ;
+						    if (pc_name === elto) {
+							show_asmdbg_pc() ;
 						    }
-
-						    return set_value(simhw_sim_states().BR[index], value) ;
+                                                    var r_ref = simhw_sim_state_getref(elto) ;
+                                                    return set_value(r_ref, value) ;
 				              }
                             	};
 
@@ -686,6 +668,13 @@ function cpu_rv_register ( sim_p )
                                              ['svg_p:path7621','svg_p:path7025','svg_p:path7017','svg_p:path7019',
                                               'svg_p:path6899', 'svg_p:path6901']],
 				draw_name: [[], ['svg_p:path7195']] };
+
+	/* I/O Devices */
+	sim_p.signals["IOCHK"]    = { name: "IOCHK", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+		                      behavior: ["FIRE IO_IE", "FIRE IO_IE"],
+				      fire_name: [],
+				      draw_data: [[], []],
+				      draw_name: [[], []]};
 
 	/* Virtual Signals, for UI */
 	sim_p.signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
@@ -2716,10 +2705,12 @@ function cpu_rv_register ( sim_p )
                                                             // 5.- Finally, 'fire' the (High) Level signals
                                                             if (mcelto.is_native)
                                                             {
-                                                                   if (typeof mcelto.NATIVE_JIT != "undefined")
-                                                                       mcelto.NATIVE_JIT() ;
-                                                              else if (typeof mcelto.NATIVE != "undefined")
-                                                                       eval(mcelto.NATIVE) ;
+							        compute_behavior("FIRE IOCHK") ;
+
+                                                                     if (typeof mcelto.NATIVE_JIT != "undefined")
+                                                                         mcelto.NATIVE_JIT() ;
+                                                                else if (typeof mcelto.NATIVE != "undefined")
+                                                                         eval(mcelto.NATIVE) ;
                                                             }
                                                             else
                                                             {

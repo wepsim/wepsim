@@ -26,7 +26,8 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-2DWH3VVSR9', { 'cookie_flags': 'SameSite=None; Secure' });
+      gtag('config', 'G-2DWH3VVSR9', { 'cookie_flags': 'SameSite=Lax; Secure' });
+      window.TONE_SILENCE_LOGGING = true;
     </script>
     <!-- End Global site tag (gtag.js) - Google Analytics -->
 
@@ -35,9 +36,9 @@
     <link  rel="manifest"                              href="docs/manifest.json" />
     <meta name="msapplication-config"                  content="images/icons/browserconfig.xml" />
 
-    <meta name="apple-mobile-web-app-capable"          content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.3.5" />
+    <meta name="mobile-web-app-capable"                content="yes" />
+    <meta name="mobile-web-app-status-bar-style"       content="black" />
+    <meta name="mobile-web-app-title"                  content="WepSIM 2.3.6" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -131,11 +132,10 @@
 				 $("#ws_loader").hide() ;
 			      }) ;
 
-            // progressive web application
-            wepsim_init_PWA() ;
-
-            // Firefox OS
-            wepsim_init_firefoxOS() ;
+            // Platform-specific
+            wepsim_init_PWA() ;       // Progressive Web Application
+            wepsim_init_firefoxOS() ; // Firefox OS
+            simcore_sound_init() ;
     }
     catch(err)
     {

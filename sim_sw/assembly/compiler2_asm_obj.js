@@ -226,6 +226,22 @@ function wsasm_order2index_startstop ( start_bit, stop_bit )
      return n_bits ;
 }
 
+function wsasm_find_reg_in_all_rf ( context, reg_name )
+{
+     var rf_item = null ;
+
+     for (let key in context.registers)
+     {
+          rf_item = context.registers[key] ;
+
+	  if (typeof rf_item.registers[reg_name] != "undefined") {
+	      return rf_item ;
+	  }
+     }
+
+     return null ;
+}
+
 
 //
 //  (2/3) Compile assembly to JSON object
@@ -789,7 +805,12 @@ function wsasm_encode_instruction ( context, ret, elto, candidate )
                          if ('(' == value[0]) {
                               value = value.replace('(', '').replace(')', '') ;
                          }
-                         value = context.registers[value] ;
+
+                         var rf_item = wsasm_find_reg_in_all_rf(context, value) ;
+                         if (rf_item != null) {
+                             value = rf_item.registers[value] ;
+                         }
+
 			 value = (value >>> 0).toString(2) ;
 			 value = value.padStart(n_bits, '0') ;
                 }
@@ -881,9 +902,11 @@ function wsasm_find_instr_candidates ( context, ret, elto )
 function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parentheses )
 {
 	   var opx = '' ;
+           var rf_item = null ;
 
            // if atom is register -> $0, x0, ...
-	   if (typeof context.registers[atom] != "undefined")
+           rf_item = wsasm_find_reg_in_all_rf(context, atom) ;
+           if (rf_item != null)
            {
 	       if (parentheses) {
 	           elto.value.fields.push('(' + atom + ')') ;
@@ -893,7 +916,7 @@ function wsasm_src2obj_text_instr_op_match ( context, ret, elto, atom, parenthes
 	           elto.value.fields.push(atom) ;
 	           elto.value.signature_type_arr.push('reg') ;
 	       }
-	       elto.value.signature_size_arr.push(context.registers[atom].toString(2).length) ;
+	       elto.value.signature_size_arr.push(rf_item.registers[atom].toString(2).length) ;
 
 	       // return ok
 	       ret.error = null ;

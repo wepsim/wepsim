@@ -42,10 +42,9 @@
         var sim_components = simhw_sim_components() ;
 	var compo_index = component ;
 
-        if ("BR" === component)
-	    compo_index = "CPU" ;
-        if ("DEVICE" === component)
+        if ("DEVICE" === component) {
 	    compo_index = "IO" ;
+        }
 
         if (typeof sim_components[compo_index].get_value !== "undefined") {
             return sim_components[compo_index].get_value(elto) ;
