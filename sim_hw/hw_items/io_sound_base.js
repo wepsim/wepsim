@@ -218,6 +218,7 @@ function io_sound_base_register ( sim_p )
 
                                                       var bus_db = get_value(sim_p.states[s_expr[2]]) ;
                                                       var clk    = get_value(sim_p.states[s_expr[3]]) ;
+					              var ret_ok = 1 ;
 
                                                       if (bus_ab == SDR1_ID)
 						      {
@@ -241,10 +242,14 @@ function io_sound_base_register ( sim_p )
                                                                   var n1t1 = n1 + ',' + t1 + ';' ;
                                                                   sim_p.internal_states.sound_content += n1t1 ;
 
-								  simcore_sound_playNote(n1, t1) ;
+								  ret_ok = simcore_sound_playNote(n1, t1) ;
 							      }
-							      if (0 == bus_db) simcore_sound_stop() ;
-							      if (1 == bus_db) simcore_sound_start() ;
+							      if (1 == bus_db) {
+							          ret_ok = simcore_sound_start() ;
+							      }
+							      if (0 == bus_db) {
+							          ret_ok = simcore_sound_stop() ;
+							      }
                                                           }
 						      }
                                                       if (bus_ab == SDR2_ID) {
@@ -254,7 +259,7 @@ function io_sound_base_register ( sim_p )
                                                           set_value(sim_p.states[s_expr[7]], bus_db) ;
 						      }
 
-                                                      set_value(sim_p.states[s_expr[4]], 1) ;
+                                                      set_value(sim_p.states[s_expr[4]], ret_ok) ;
                                                  },
                                          verbal: function (s_expr)
                                                  {

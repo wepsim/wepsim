@@ -23,15 +23,15 @@ sys_prt_ch:  out  a0 0x1000
              sret
 
   rt_int:    # 1.- interruption
-             lw  s2 0(s1)  # time: 8n
+             lb  s2 0(s1)  # time: 8n
              beq s2 x0 rt1e1
              out s2 0x4008
              lw  s2 0(s0)  # note: A4
              out s2 0x4004
              li  s2 2      # play + silence
              out s2 0x4000
+             addi s1 s1 1
              addi s0 s0 4
-             addi s1 s1 4
       rt1e1: sret
 
   rt_sys:    # 2.- ecall
@@ -44,7 +44,7 @@ sys_prt_ch:  out  a0 0x1000
 
 .data
    notes: .ascii  "  G2", "    ", "  G2", "    ", " Bb2", "  C3", "  G2", "    ", "  G2", "    ", "  F2", " F#2", "  G2", "    ", "  G2", "    ", "    "
-   times: .word        5,      8,      8,      8,      8,      8,      8,      5,      5,      8,      8,      8,      5,      8,      8,      8,      0
+   times: .byte        5,      8,      8,      8,      8,      8,      8,      5,      5,      8,      8,      8,      5,      8,      8,      8,      0
 
 .text
 main:
@@ -54,7 +54,7 @@ main:
            la t1 times
     loop2:
            # play untill time is 0
-           lw  t2 0(t1)  # get time
+           lb  t2 0(t1)  # get time
            beq t2 x0 end2
            out t2 0x4008 # out time
 
@@ -67,8 +67,8 @@ main:
            li  a7 11
            ecall
 
+           addi t1 t1 1
            addi t0 t0 4
-           addi t1 t1 4
            beq x0 x0 loop2
 
     end2:  li  a0 '\n'

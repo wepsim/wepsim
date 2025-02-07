@@ -50,7 +50,7 @@
 
 	    try
 	    {
-                await Tone.start() ;
+                await Tone.Transport.start() ;
 	        if (Tone.context.state !== 'running') {
 	            Tone.context.resume() ;
 	        }
@@ -72,7 +72,7 @@
 
 	    try
 	    {
-                await Tone.stop() ;
+                await Tone.Transport.stop() ;
 	    }
 	    catch (e)
 	    {
