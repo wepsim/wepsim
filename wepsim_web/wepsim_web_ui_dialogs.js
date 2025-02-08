@@ -37,13 +37,7 @@
 		         return "<div id='scroller-lssvasm' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-4 p-2'>" +
-                                "<ws-share-link " +
-                                "    fid='inputToShareAs2' " +
-                                "    jshare='asm' " +
-                                "></ws-share-link>" +
-                               "</div>" +
-                               "<div class='col-12 col-sm-4 p-2'>" +
+                               "<div class='col-12 col-sm-3 p-2'>" +
                                 "<ws-save-file " +
                                 "    fid='inputFileNameToSaveAs2' " +
                                 "    jsave='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
@@ -54,17 +48,36 @@
                                 "            return false;'" +
                                 "></ws-save-file>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-4 p-2'>" +
+                               "<div class='col-12 col-sm-3 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad2' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
                                 "           wepsim_file_loadFrom(ftl, " +
-                                "		                 function(txt){ " +
-                                "		             inputasm.setValue(txt);" +
-    				"                            wsweb_dialog_close(\"load_save_assembly\");" +
-			        "		             wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
-                                "		                              });" +
+                                "		                 function(txt) { " +
+                                "		       inputasm.setValue(txt);" +
+    				"                      wsweb_dialog_close(\"load_save_assembly\");" +
+			        "		       wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "		                 });" +
                                 "           return false;'></ws-load-file>" +
+                               "</div>" +
+                               "<div class='col-12 col-sm-3 p-2'>" +
+                                "<ws-share-link " +
+                                "    fid='inputToShareAs2' " +
+                                "    jshare='asm' " +
+                                "></ws-share-link>" +
+                               "</div>" +
+                               "<div class='col-12 col-sm-3 p-2'>" +
+                                "<ws-load-link " +
+                                "    fid='inputToShareAs3' " +
+                                "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
+				"	    var elto_shared = load_from_uri(elto.value);" +
+                                "	    if (elto_shared.asm != null)" +
+                                "	        inputasm.setValue(elto_shared.asm);" +
+                                "	    if (elto_shared.mc != null)" +
+                                "	        inputfirm.setValue(elto_shared.mc);" +
+    				"           wsweb_dialog_close(\"load_save_assembly\");" +
+			        "	    wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "           return false;'></ws-load-link>" +
                                "</div>" +
                                "</div>" +
 			       "</div>" ;
@@ -79,7 +92,7 @@
 					   }
 			 }
 	              },
-            size:     'large',
+            size:     'extra-large',
             onshow:   function() {
 			 // uicfg and events
                          wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
@@ -102,13 +115,7 @@
 		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-4 p-2'>" +
-                                "<ws-share-link " +
-                                "    fid='inputToShareAs2' " +
-                                "    jshare='mc' " +
-                                "></ws-share-link>" +
-                               "</div>" +
-                               "<div class='col-12 col-sm-4 p-2'>" +
+                               "<div class='col-12 col-sm-3 p-2'>" +
 		                "<div class='card border-secondary h-100'>" +
 			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 		                "  <h5 class='m-0'>" +
@@ -151,18 +158,37 @@
 			     	" </div>" +
 			   	"</div>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-4 p-2'>" +
+                               "<div class='col-12 col-sm-3 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
                                 "           wepsim_file_loadFrom(ftl, " +
-                                "		                 function(txt){ " +
-                                "		             inputfirm.setValue(\"Please wait...\");" +
-    				"                            wsweb_dialog_close(\"load_save_firmware\");" +
-                                "		             inputfirm.setValue(txt);" +
-			        "		             wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
-                                "		                              });" +
+                                "		                 function(txt) { " +
+                                "		      inputfirm.setValue(\"Please wait...\");" +
+    				"                     wsweb_dialog_close(\"load_save_firmware\");" +
+                                "		      inputfirm.setValue(txt);" +
+			        "		      wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "		                 });" +
                                 "           return false;'></ws-load-file>" +
+                               "</div>" +
+                               "<div class='col-12 col-sm-3 p-2'>" +
+                                "<ws-share-link " +
+                                "    fid='inputToShareAs2' " +
+                                "    jshare='mc' " +
+                                "></ws-share-link>" +
+                               "</div>" +
+                               "<div class='col-12 col-sm-3 p-2'>" +
+                                "<ws-load-link " +
+                                "    fid='inputToShareAs3' " +
+                                "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
+				"	    var elto_shared = load_from_uri(elto.value);" +
+                                "	    if (elto_shared.asm != null)" +
+                                "	        inputasm.setValue(elto_shared.asm);" +
+                                "	    if (elto_shared.mc != null)" +
+                                "	        inputfirm.setValue(elto_shared.mc);" +
+    				"           wsweb_dialog_close(\"load_save_firmware\");" +
+			        "	    wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "           return false;'></ws-load-link>" +
                                "</div>" +
                                "</div>" +
 			   	"</div>" ;
@@ -177,7 +203,7 @@
 					   }
 			 }
 	              },
-            size:     'large',
+            size:     'extra-large',
             onshow:   function() {
 		         // dropify
 			 $('.dropify').dropify() ;

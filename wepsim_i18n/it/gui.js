@@ -39,6 +39,8 @@
 		'Output':			'Produzione',
 		'Reload':			'Ricaricare',
 		'Checkpoint':			'Posto di controllo',
+		'Input file':			'File di input',
+		'Output file':			'File di output',
 
 		'Help Index':			'Indice della Guida',
 		'Processor':			'Processore',

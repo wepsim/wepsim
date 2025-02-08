@@ -39,8 +39,10 @@
 		"RecordBar":                    "La barre d'enregistrement",
 		"Input":			"Entrée",
 		"Output":			"Sortie",
-		'Reload':				'Recharger',
-		'Checkpoint':				'Point de contrôle',
+		'Reload':			'Recharger',
+		'Checkpoint':			'Point de contrôle',
+		'Input file':			"Fichier d'entrée",
+		'Output file':			'Fichier de sortie',
 
 		"Help Index":			"Index de l'aide",
 		"Processor":			"Processeur",

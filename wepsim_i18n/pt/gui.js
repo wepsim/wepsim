@@ -39,6 +39,8 @@
 		'Output':			'Saída',
 		'Reload':			'Recarregar',
 		'Checkpoint':			'Posto de controle',
+		'Input file':			'Arquivo de entrada',
+		'Output file':			'Arquivo de saída',
 
 		'Help Index':			'Índice de Ajuda',
 		'Processor':			'Processador',

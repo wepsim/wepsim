@@ -41,6 +41,8 @@
 		'Output':			'输出',
 		'Reload':			'重载',
 		'Checkpoint':			'存档',
+		'Input file':			'輸入檔',
+		'Output file':			'輸出檔案',
 
 		'Help Index':			'帮助索引',
 		'Processor':			'处理器',
