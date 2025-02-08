@@ -20,15 +20,15 @@
 
 
         /*
-         *  Save file
+         *  Load link
          */
 
         /* jshint esversion: 6 */
-        class ws_save_file extends HTMLElement
+        class ws_load_link extends HTMLElement
         {
               static get observedAttributes()
 	      {
-	            return [ 'fid', 'jsave', 'jshare' ] ;
+	            return [ 'fid', 'jload' ] ;
 	      }
 
 	      constructor ()
@@ -42,17 +42,12 @@
                     // fid
                     var fid = this.getAttribute('fid') ;
                     if (fid === null)
-                        this.setAttribute('fid', 'id52') ;
+                        this.setAttribute('fid', 'id58') ;
 
                     // jload
                     var jload = this.getAttribute('jload') ;
                     if (jload === null)
                         this.setAttribute('jload', '') ;
-
-                    // jshare
-                    var jshare = this.getAttribute('jshare') ;
-                    if (jshare === null)
-                        this.setAttribute('jshare', '') ;
 	      }
 
 	      render ( event_name )
@@ -65,19 +60,17 @@
 		    o1 += "<div class='card border-secondary h-100'>" +
 			  "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 			  " <h5 class='m-0'>" +
-			  " <span class='text-white bg-secondary' data-langkey='Output file'>Output file</span>" +
+			  " <span class='text-white bg-secondary' data-langkey='Input link'>Input link</span>" +
 			  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
-                          "         onclick='" + this.jsave + "'><span data-langkey='Save'>Save</span></button>" +
-		       // " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
-                       // "         onclick='" + this.jshare + "'><span data-langkey='Share'>Share</span></button>" +
+                          "         onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
 			  " </h5>" +
 			  "</div>" +
 			  "<div class='card-body'>" +
-			  " <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
-	                  " <p><input aria-label='filename to save content' id='" + this.fid + "' " +
-                          "           class='form-control btn-outline-secondary' " +
-                          "           placeholder='File name where information will be saved' " +
-                          "           style='min-width: 90%;'/></p>" +
+		          'Load from the following link:<br>' +
+	                  '<textarea id="' + this.fid + '" class="form-control" ' +
+	                  '          row="5" style="height:70%" ' +
+                          '></textarea>' +
+	                  '<br>' +
 			  "</div>" +
 			  "</div>" ;
 
@@ -104,28 +97,18 @@
                    this.setAttribute('fid', value) ;
 	      }
 
-	      get jsave ( )
+	      get jload ( )
 	      {
-                   return this.getAttribute('jsave') ;
+                   return this.getAttribute('jload') ;
 	      }
 
-	      set jsave ( value )
+	      set jload ( value )
 	      {
-                   this.setAttribute('jsave', value) ;
-	      }
-
-	      get jshare ( )
-	      {
-                   return this.getAttribute('jshare') ;
-	      }
-
-	      set jshare ( value )
-	      {
-                   this.setAttribute('jshare', value) ;
+                   this.setAttribute('jload', value) ;
 	      }
         }
 
         if (typeof window !== "undefined") {
-            window.customElements.define('ws-save-file', ws_save_file) ;
+            window.customElements.define('ws-load-link', ws_load_link) ;
         }
 

@@ -39,6 +39,8 @@
 		"Output":					"Output",
 		'Reload':					'Reload',
 		'Checkpoint':					'Checkpoint',
+		'Input file':					'Input file',
+		'Output file':					'Output file',
 
 		"Help Index":  			                "Help Index",
 		"Processor":  			                "Processor",

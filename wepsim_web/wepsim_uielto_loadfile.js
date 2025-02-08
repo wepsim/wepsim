@@ -61,10 +61,10 @@
 		    o1 += "<div class='card border-secondary h-100'>" +
 			  "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 			  " <h5 class='m-0'>" +
-			  " <span class='text-white bg-secondary' data-langkey='Input'>Input</span>" +
+			  " <span class='text-white bg-secondary' data-langkey='Input file'>Input file</span>" +
 			  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
                           "         onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
-			  "  </h5>" +
+			  " </h5>" +
 			  "</div>" +
 			  "<div class='card-body'>" +
 			  "  <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +

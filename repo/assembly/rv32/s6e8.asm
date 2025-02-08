@@ -11,6 +11,7 @@
 .ktext
 sys_prt_str: li   zero 0
              li   t5 1
+             add  t3 a0 zero
              beq  t3 zero end1
          b5: lb   t4 0(t3)
              beq  t4 zero end1
@@ -46,6 +47,7 @@ sys_prt_ch:  out  a0 0x1000
 
 .data
    notes: .ascii  "  G2", "    ", "  G2", "    ", " Bb2", "  C3", "  G2", "    ", "  G2", "    ", "  F2", " F#2", "  G2", "    ", "  G2", "    ", "    "
+   eos:   .byte   0
    times: .byte        5,      8,      8,      8,      8,      8,      8,      5,      5,      8,      8,      8,      5,      8,      8,      8,      0
 
 .text
@@ -65,7 +67,7 @@ main:
            li  t2 2      # play + silence
            out t2 0x4000 # play + silence
 
-           li  a0 'x'
+           li  a0 'o'
            li  a7 11
            ecall
 
@@ -82,22 +84,16 @@ main:
            la  s0 notes
            la  s1 times
 
-           # fire int.1 every 200 clock cycles
+           # fire int.1 every 300 clock cycles
            li  t0 1
            out t0 0x1104
-           li  t0 200
+           li  t0 300
            out t0 0x1108
 
-           # print 'x'
-           li  t0 0
-           li  t2 15
-       b1: beq t0 t2 e1
-           li  a0 'x'
-           li  a7 11
+           la  a0 notes
+           li  a7 4
            ecall
-           addi t0 t0 1
-           beq zero zero b1
-       e1:
+
            # stop firing int.1
            li  t0 0
            out t0 0x1104

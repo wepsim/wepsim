@@ -9,14 +9,14 @@
             .word rt_sys
 
 .ktext
-sys_prt_str: li   $zero 0
-             li   $t5 1
-             beq  $t3 $zero end1
-         b5: lb   $t4 ($t3)
-             beq  $t4 $zero end1
-             out  $t4 0x1000
-             add  $t3 $t3 $t5
-             beq  $zero $zero  b5
+sys_prt_str: li   $1  1
+             li   $0  0
+             beq  $26 $0 end1
+         b5: lb   $27 ($26)
+             beq  $27 $0 end1
+             out  $27 0x1000
+             add  $26 $26 $1
+             b  b5
        end1: reti
 
 sys_prt_ch:  out  $a0 0x1000

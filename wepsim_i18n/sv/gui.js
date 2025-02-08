@@ -39,6 +39,8 @@
 		'Output':			'Produktion',
 		'Reload':			'Ladda om',
 		'Checkpoint':			'Kontrollstation',
+		'Input file':			'Inmatningsfil',
+		'Output file':			'Utdatafil',
 
 		'Help Index':			'Hjälpindex',
 		'Processor':			'Processor',
