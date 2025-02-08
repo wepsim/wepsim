@@ -95,6 +95,35 @@
 	 return url_to_share ;
     }
 
+    function load_from_uri ( url_to_share )
+    {
+         var elto_shared = {} ;
+             elto_shared.asm = null ;
+             elto_shared.mc  = null ;
+
+         // build from the associate URI
+         try
+         {
+            var a = url_to_share.split('&') ;
+            var b = a[a.length-1].split('=') ;
+
+            if ('asm' == b[0]) {
+                elto_shared.asm = LZString.decompressFromEncodedURIComponent( b[1] ) ;
+                inputasm.value = elto_shared.asm ;
+            }
+            if ('mc' == b[0]) {
+                elto_shared.mc = LZString.decompressFromEncodedURIComponent( b[1] ) ;
+                inputfirm.value = elto_shared.mc ;
+            }
+         }
+         catch (e) {
+            console.log("ERROR on load_from_uri: " + e + "\n") ;
+         }
+
+         // return share eltos
+	 return elto_shared ;
+    }
+
     function share_uri ( info_shared, share_title, share_text, share_url )
     {
 	 // build data

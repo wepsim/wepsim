@@ -41,6 +41,8 @@
 		"Output":					"산출",
 		'Reload':			'재 장전',
 		'Checkpoint':			'검문소',
+		'Input file':			'입력 파일',
+		'Output file':			'출력 파일',
 
 			"Help Index":  			                "도움말 색인",
 			"Processor":  			                "프로세서",

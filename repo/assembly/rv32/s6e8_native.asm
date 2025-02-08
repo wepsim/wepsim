@@ -11,6 +11,7 @@
 .ktext
 sys_prt_str: li   zero 0
              li   t5 1
+             add  t3 a0 zero
              beq  t3 zero end1
          b5: lb   t4 0(t3)
              beq  t4 zero end1

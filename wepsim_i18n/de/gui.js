@@ -39,6 +39,8 @@
 		'Output':			'Ausgabe',
 		'Reload':			'Neu laden',
 		'Checkpoint':			'Kontrollpunkt',
+		'Input file':			'Eingabedatei',
+		'Output file':			'Ausgabedatei',
 
 		'Help Index':			'Hilfe-Index',
 		'Processor':			'Prozessor',

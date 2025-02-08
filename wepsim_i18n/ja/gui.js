@@ -39,6 +39,8 @@
 		'Output':			'出力',
 		'Reload':			'リロード',
 		'Checkpoint':			'チェックポイント',
+		'Input file':			'入力ファイル',
+		'Output file':			'出力ファイル',
 
 		'Help Index':			'ヘルプインデックス',
 		'Processor':			'プロセッサ',
