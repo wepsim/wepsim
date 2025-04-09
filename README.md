@@ -57,8 +57,7 @@
 
 ### 2) Install WepSIM (iOS, Android, Windows, Linux, etc.)
 
-+ WepSIM can be installed on Android 10.0+ from the Goole Play Store at https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
-+ For other platforms, please follow those steps in order to install WepSIM as a Progressive Web Application (PWA):
++ To install WepSIM as a Progressive Web Application (PWA), please follow those steps:
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
