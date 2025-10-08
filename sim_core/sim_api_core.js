@@ -693,8 +693,16 @@
 	    catch (e)
 	    {
 	        // https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError
-	        ret.msg = 'ERROR: at line: ' + e.lineNumber + ' and column: ' + e.columnNumber ;
-                ret.ok  = false ;
+                    ret.msg  = 'ERROR: ' + e.message + '<br>' ;
+                if (typeof e.lineNumber != "undefined") {
+	            ret.msg += 'ERROR: at line: '   + e.lineNumber   + '<br>' ;
+                }
+                if (typeof e.columnNumber != "undefined") {
+	            ret.msg += 'ERROR: at column: ' + e.columnNumber + '<br>' ;
+                }
+                    ret.msg += 'ERROR: please review your native microcode just in case.' ;
+
+                ret.ok   = false ;
 	        return ret;
 	    }
 

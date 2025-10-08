@@ -52,7 +52,10 @@ function io_l3d_base_register ( sim_p )
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-						    var associated_state = simhw_internalState_get('io_hash',elto) ;
+						    var associated_state = simhw_internalState_get('io_hash', elto) ;
+                                                    if (typeof associated_state == "undefined") {
+                                                        throw new Error("unknown element named " + elto) ;
+                                                    }
 						    var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
 
 						    set_value(simhw_sim_state('BUS_AB'), elto) ;
@@ -63,7 +66,10 @@ function io_l3d_base_register ( sim_p )
 						    return value ;
                                                },
                                   set_value:   function ( elto, value ) {
-						    var associated_state = simhw_internalState_get('io_hash',elto) ;
+						    var associated_state = simhw_internalState_get('io_hash', elto) ;
+                                                    if (typeof associated_state == "undefined") {
+                                                        throw new Error("unknown element named " + elto) ;
+                                                    }
 						    set_value(simhw_sim_state(associated_state), value) ;
 
 						    set_value(simhw_sim_state('BUS_AB'), elto) ;
