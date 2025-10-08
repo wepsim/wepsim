@@ -110,6 +110,10 @@ function cpu_ep_register ( sim_p )
 		                  // native: get_value, set_value
                                   get_value:  function ( elto ) {
                                                     var r_ref = simhw_sim_state_getref(elto) ;
+                                                    if (typeof r_ref == "undefined") {
+                                                        throw new Error("unknown element named " + elto) ;
+                                                    }
+
                                                     return (get_value(r_ref) >>> 0) ;
 				              },
                                   set_value:  function ( elto, value ) {
@@ -117,7 +121,12 @@ function cpu_ep_register ( sim_p )
 						    if (pc_name === elto) {
 							show_asmdbg_pc() ;
 						    }
+
                                                     var r_ref = simhw_sim_state_getref(elto) ;
+                                                    if (typeof r_ref == "undefined") {
+                                                        throw new Error("unknown element named " + elto) ;
+                                                    }
+
                                                     return set_value(r_ref, value) ;
 				              }
                             	};
