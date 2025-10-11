@@ -273,7 +273,7 @@
                    "editor_mode":           { upgrade:false, type:"string",    value:'default' },
 
 	           /* set of urls */
-                   "base_url":              { upgrade:true,  type:"string",    value:'https://acaldero.github.io/wepsim/ws_dist/' },
+                   "base_url":              { upgrade:true,  type:"string",    value:'https://wepsim.github.io/wepsim/ws_dist/' },
                    "cfg_url":               { upgrade:true,  type:"string",    value:'repo/configuration/default.json' },
                    "example_url":           { upgrade:true,  type:"string",    value:'repo/examples_set/default.json' },
                    "hw_url":                { upgrade:true,  type:"string",    value:'repo/hardware/hw.json' },
