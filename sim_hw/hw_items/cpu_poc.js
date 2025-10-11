@@ -477,7 +477,7 @@ function cpu_poc_register ( sim_p )
 			            draw_data: [['svg_p:path3131-3','svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3502']],
 			            draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
 	 sim_p.signals["T12"] = { name: "T12", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			            behavior: ["NOP; RST_TT TTCPU 8", "MV BUS_IB HPC_T12; FIRE M7; FIRE M1; SET_TT TTCPU 8"],
+			            behavior: ["NOP; RST_TT TTCPU 8", "MV BUS_IB HPC_T12; FIRE M7; FIRE M1; FIRE LC; SET_TT TTCPU 8"],
 			            fire_name: ['svg_p:text3147-5-0-1-1'],
 			            draw_data: [['svg_p:path3131-3-8-4-31','svg_p:path3139-7-1-4-3','svg_cu:path3049', 'svg_p:path3081-3-8-5-3', 'svg_p:path3081-3-8-5-3-7']],
 			            draw_name: [['svg_p:path3133-6-9-7-5']] };

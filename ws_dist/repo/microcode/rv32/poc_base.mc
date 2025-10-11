@@ -142,7 +142,7 @@ rdcycle reg1  {
 	    reg1=reg(25,21),
 	    help='reg1 = load accumulated clock cycles',
 	    {
-		     (MH=1, T12=1, SELC=10101, LC=1, A0=1, B=1, C=0)
+		     (MH=0, T12=1, SELC=10101, LC=1, A0=1, B=1, C=0)
 	    }
 }
 
