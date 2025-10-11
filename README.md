@@ -45,7 +45,8 @@
     wget https://github.com/acaldero/wepsim/releases/download/v2.3.6/wepsim-2.3.6.zip
     unzip wepsim-2.3.6.zip
     cd wepsim-2.3.6
-    npm install terser jq jshint yargs clear inquirer fuzzy inquirer-command-prompt inquirer-autocomplete-prompt
+    npm install terser jq jshint yargs clear inquirer@8.2.6 fuzzy \
+	            inquirer-command-prompt inquirer-autocomplete-prompt@1
     ``` 
   * Execute wepsim.sh with the help flag in order to show the available command switches:
     ```bash
