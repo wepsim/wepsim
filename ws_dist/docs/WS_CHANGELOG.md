@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.3.6 -> 2.3.7:
+* Main external dependencies updated:
+  * Update bootstrap 5.3.5 -> 5.3.8
+
 ## 2.3.5 -> 2.3.6:
 * Main improvements:
   * Added the 'filter-microcode' action in command-line

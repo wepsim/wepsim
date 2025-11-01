@@ -461,6 +461,7 @@
                       "        data-bs-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
+                      " <span class='w-100 d-block d-sm-none'></span>" +
                       " <span class='badge badge-secondary bg-info-subtle text-body' style='' id='tbl_"  + s + "'>" +
 		      "<div id='rf_" + s + "'>{{ computed_value }}</div>" +
                       "</span>" +
