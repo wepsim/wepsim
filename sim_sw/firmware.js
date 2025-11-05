@@ -28,7 +28,14 @@ function saveFirmware ( SIMWARE )
 	var o = "" ;
 
         // Saving as version 2 by default ;-)
-        if ( (typeof SIMWARE.metadata != "undefined") && (1 == SIMWARE.metadata.version) )
+        if (typeof SIMWARE.metadata == "undefined")
+        {
+              SIMWARE.metadata = new Object() ;
+              SIMWARE.metadata.version  = 2 ;
+              SIMWARE.metadata.rel_mult = 4 ;
+              SIMWARE.metadata.endian   = 'little' ;
+        }
+        if (1 == SIMWARE.metadata.version)
         {
               SIMWARE.metadata.version  = 2 ;
               SIMWARE.metadata.rel_mult = 4 ;
