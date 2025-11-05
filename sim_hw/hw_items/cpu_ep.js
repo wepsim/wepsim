@@ -537,7 +537,7 @@ function cpu_ep_register ( sim_p )
 				    fire_name: [],
 				    draw_data: [['svg_cu:path3102', 'svg_cu:path3100', 'svg_cu:path3098', 'svg_cu:path3100-9', 'svg_cu:path3088', 'svg_cu:path3082','svg_cu:path3040'],
 					        ['svg_cu:path3104', 'svg_cu:path3134', 'svg_cu:path3500', 'svg_cu:path3416'],
-					        ['svg_cu:path3124-2-4', 'svg_cu:path3124-2', 'svg_cu:path3504', 'svg_cu:path3100-8', 'svg_cu:path3234-9'],
+					        ['svg_cu:path3124-2-4', 'svg_cu:path3390-2', 'svg_cu:path3142', 'svg_cu:path3124-2', 'svg_cu:path3504', 'svg_cu:path3100-8', 'svg_cu:path3234-9', 'svg_cu:path3124-2-4-2', 'svg_cu:path3390-2-3', 'svg_cu:path3142'],
 					        ['svg_cu:path3124']],
 				    draw_name: [[]] };
 
@@ -819,7 +819,7 @@ function cpu_ep_register ( sim_p )
 				   	         'CP_FIELD COP REG_MICROINS/SELCOP; FIRE COP;'],
                                       depends_on: ["SELCOP"],
 			              fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
-			              draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6']],
+			              draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3081-3-9', 'svg_cu:path3308']],
 			              draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
 	 sim_p.signals["MR"]     = { name: "MR",
@@ -834,8 +834,11 @@ function cpu_ep_register ( sim_p )
                                                    'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
                                                    'svg_cu:path3260','svg_cu:path3196','svg_cu:path3278','svg_cu:path3292','svg_cu:path3142',
                                                    'svg_cu:path3258-4','svg_cu:path3390-7','svg_cu:path3258','svg_cu:path3280',
-                                                   'svg_cu:path3200','svg_cu:path3204','svg_cu:path3208','svg_cu:path3268','svg_cu:path3316'],
-					          ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300','svg_cu:path3258','svg_cu:path3260',
+                                                   'svg_cu:path3200','svg_cu:path3204','svg_cu:path3208','svg_cu:path3268',
+                                                   'svg_cu:path3316','svg_cu:path3234','svg_cu:path3244','svg_cu:path3256'],
+					          ['svg_cu:path3270','svg_cu:path3081-3-0-4-4','svg_cu:path3234','svg_cu:path3282',
+                                                   'svg_cu:path3081-3-0-4','svg_cu:path3244','svg_cu:path3300','svg_cu:path3081-3-0',
+                                                   'svg_cu:path3256','svg_cu:path3258','svg_cu:path3260',
 				                   'svg_cu:path3258-4','svg_cu:path3278','svg_cu:path3196','svg_cu:path3294','svg_cu:path3292',
 					           'svg_cu:path3288','svg_cu:path3280','svg_cu:path3258','svg_cu:path3258-4',
                                                    'svg_cu:path3268','svg_cu:path3364','svg_cu:path3316']],

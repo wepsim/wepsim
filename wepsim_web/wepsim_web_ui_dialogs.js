@@ -37,7 +37,8 @@
 		         return "<div id='scroller-lssvasm' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+/*
                                 "<ws-save-file " +
                                 "    fid='inputFileNameToSaveAs2' " +
                                 "    jsave='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
@@ -47,8 +48,60 @@
 		                "            inputasm.is_modified = false;" +
                                 "            return false;'" +
                                 "></ws-save-file>" +
+*/
+                                //
+		                "<div class='card border-secondary h-100'>" +
+			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
+		                "  <h5 class='m-0'>" +
+				"  <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
+                                "<div class='btn-group float-end'>" +
+				"  <button class='btn bg-body-tertiary mx-1 py-0 col-auto' " +
+                                "         onclick='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+				"	           var fileNameToSaveAs = ifntsa2.value;" +
+				"	           var textToWrite      = inputasm.getValue();" +
+				"	           wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "                  inputasm.is_modified = false;" +
+                                "                  return false;'" +
+                                "><span data-langkey='Save'>Save</span></button>" +
+                                "  <button type='button' " +
+                                "          class='btn bg-body-tertiary dropdown-toggle dropdown-toggle-split btn-sm' " +
+                                "          data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+                                "    <span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
+                                "  </button>" +
+                                "  <div class='dropdown-menu'>" +
+                                "    <h6 class='dropdown-header'>Default:</h6>" +
+				"    <a class='dropdown-item' href='#' " +
+                                "         onclick='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+				"	           var fileNameToSaveAs = ifntsa2.value;" +
+				"	           var textToWrite      = inputasm.getValue();" +
+				"	           wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "                  inputasm.is_modified = false;" +
+                                "                  return false;'" +
+                                "     ><span data-langkey='Save editor content'>Save editor content</span></a>" +
+				"<div class='dropdown-divider'></div>" +
+                                "    <h6 class='dropdown-header'>Optional:</h6>" +
+				"    <a class='dropdown-item' href='#' " +
+                                "         onclick='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+				"	           var fileNameToSaveAs = ifntsa2.value;" +
+                                "                  var simware = get_simware();" +
+                                "                  if (simware == null) return false;" +
+                                "                  var textToWrite = mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
+				"	           wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+                                "                  return false;'" +
+				"     ><span data-langkey='Save as binary section'>Save as binary section</span></a>" +
+                                "  </div>" +
+                                "</div>" +
+		               	"  </h5>" +
+			      	"</div>" +
+			      	" <div class='card-body'>" +
+		                "<label for='inputFileNameToSaveAs2'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
+	                        "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs2'" +
+                                "          class='form-control btn-outline-secondary' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" +
+			     	" </div>" +
+			   	"</div>" +
+                                //
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad2' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
@@ -60,13 +113,14 @@
                                 "		                 });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<span class='w-100 d-block d-lg-none'></span>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-share-link " +
                                 "    fid='inputToShareAs2' " +
                                 "    jshare='asm' " +
                                 "></ws-share-link>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
@@ -115,7 +169,7 @@
 		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
 		                "<div class='card border-secondary h-100'>" +
 			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 		                "  <h5 class='m-0'>" +
@@ -128,7 +182,8 @@
 		                "                   inputfirm.is_modified = false;" +
 				"		    return false;'" +
                                 "><span data-langkey='Save'>Save</span></button>" +
-                                "  <button type='button' class='btn bg-body-tertiary dropdown-toggle dropdown-toggle-split' " +
+                                "  <button type='button' " +
+                                "          class='btn bg-body-tertiary dropdown-toggle dropdown-toggle-split btn-sm' " +
                                 "          data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
                                 "    <span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
                                 "  </button>" +
@@ -158,7 +213,7 @@
 			     	" </div>" +
 			   	"</div>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
@@ -171,13 +226,14 @@
                                 "		                 });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<span class='w-100 d-block d-lg-none'></span>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-share-link " +
                                 "    fid='inputToShareAs2' " +
                                 "    jshare='mc' " +
                                 "></ws-share-link>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
