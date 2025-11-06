@@ -34,11 +34,11 @@
 				   o += '<li class="list-group-item px-0 pt-2"> ' +
 				        "<span class='container px-0'>" +
 				        "<span class='row p-2'>" +
-				         "<span class='col-7'>" +
+				         "<span class='col-6'>" +
 		                         '<em class="fas fa-wrench col-1 me-2 mt-1 float-start"></em>&nbsp;' +
                                          "<span data-langkey='QuickConfig'>QuickConfig</span>" +
                                          "</span>" +
-                                         quickcfg_html_btntoggle('.multi-collapse-3', 'col-5') +
+                                         quickcfg_html_btntoggle('.multi-collapse-3', 'col-6') +
 				        "</span>" ;
 
 				   o += "<span class='row p-2'>" +
