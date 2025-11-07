@@ -2,10 +2,14 @@
 # Changelog
 
 ## 2.3.6 -> 2.3.7:
-* Clarify some details of the control unit 
+* Main improvements:
+  * Clarify some details of the control unit
+  * Some minor improvements
 * Main external dependencies updated:
   * Update bootstrap 5.3.5 -> 5.3.8
   * Update bootbox 6.0.0 -> 6.0.4
+  * Update introjs 7.0.1 -> 8.3.2
+  * Update vis-network 9.1.9 -> 10.0.2
 
 ## 2.3.5 -> 2.3.6:
 * Main improvements:
