@@ -131,7 +131,7 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_recordbar.js
 #jshint ./wepsim_web/wepsim_uielto_registers.js
  jshint ./wepsim_web/wepsim_uielto_savefile.js
- jshint ./wepsim_web/wepsim_uielto_savefile2.js
+ jshint ./wepsim_web/wepsim_uielto_savefile3.js
  jshint ./wepsim_web/wepsim_uielto_segments.js
  jshint ./wepsim_web/wepsim_uielto_states.js
  jshint ./wepsim_web/wepsim_uielto_toolbar.js

@@ -262,7 +262,7 @@ cat wepsim_web/wepsim_uielto.js \
     \
     wepsim_web/wepsim_uielto_loadfile.js \
     wepsim_web/wepsim_uielto_savefile.js \
-    wepsim_web/wepsim_uielto_savefile2.js \
+    wepsim_web/wepsim_uielto_savefile3.js \
     wepsim_web/wepsim_uielto_sharelink.js \
     wepsim_web/wepsim_uielto_loadlink.js \
     wepsim_web/wepsim_uielto_listcfg.js \

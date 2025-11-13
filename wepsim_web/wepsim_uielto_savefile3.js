@@ -24,7 +24,7 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_save_file2 extends HTMLElement
+        class ws_save_file3 extends HTMLElement
         {
               static get observedAttributes()
 	      {
@@ -51,9 +51,9 @@
                         this.setAttribute('jload1', '') ;
                     }
 
-                    var jlabel = this.getAttribute('jlabel') ;
-                    if (jlabel === null) {
-                        this.setAttribute('jlabel', 'Save') ;
+                    var jlabel1 = this.getAttribute('jlabel1') ;
+                    if (jlabel1 === null) {
+                        this.setAttribute('jlabel1', 'Save') ;
                     }
 
                     // jload-2 and jlabel-2
@@ -62,9 +62,20 @@
                         this.setAttribute('jload2', '') ;
                     }
 
-                    var jlabel = this.getAttribute('jlabel') ;
-                    if (jlabel === null) {
-                        this.setAttribute('jlabel', 'Save') ;
+                    var jlabel2 = this.getAttribute('jlabel2') ;
+                    if (jlabel2 === null) {
+                        this.setAttribute('jlabel2', 'Save') ;
+                    }
+
+                    // jload-3 and jlabel-3
+                    var jload3 = this.getAttribute('jload3') ;
+                    if (jload3 === null) {
+                        this.setAttribute('jload3', '') ;
+                    }
+
+                    var jlabel3 = this.getAttribute('jlabel3') ;
+                    if (jlabel3 === null) {
+                        this.setAttribute('jlabel3', 'Save') ;
                     }
 	      }
 
@@ -72,6 +83,32 @@
 	      {
                     // update attributes
                     this.update_internal_attributes() ;
+
+                    // get html for options...
+                    var jsave_array  = [ this.jsave1,  this.jsave2,  this.jsave3 ] ;
+                    var jlabel_array = [ this.jlabel1, this.jlabel2, this.jlabel3 ] ;
+
+                    var o1_list   = "" ;
+                    var opt_label = "" ;
+                    for (var i=0; i<jsave_array.length; i++)
+                    {
+                       // skip empty javascript-save code
+                       if (null == jsave_array[i]) continue ;
+                       if (""   == jsave_array[i]) continue ;
+
+                       // add divider in all but last
+                       if (o1_list != "")
+	               o1_list += "    <div class='dropdown-divider'></div>" ;
+
+                       // add new option element
+                       if (0 == i) opt_label = "Default" ;
+                       else        opt_label = "Optional " + i ;
+
+		       o1_list += "    <h6 class='dropdown-header'>" + opt_label + ":</h6>" +
+                                  "    <a class='dropdown-item' href='#' " +
+                                  "       onclick='" + jsave_array[i] + "'><span data-langkey='" + jlabel_array[i] + "'>" +
+                                          jlabel_array[i] + "</span></a>" ;
+                    }
 
                     // save html
                     var o1 = '' ;
@@ -88,21 +125,12 @@
                           "    <span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
                           "  </button>" +
                           "  <div class='dropdown-menu'>" +
-                          "    <h6 class='dropdown-header'>Default:</h6>" +
-                          "    <a class='dropdown-item' href='#' " +
-                          "       onclick='" + this.jsave1 + "'><span data-langkey='" + this.jlabel1 + "'>" +
-                                  this.jlabel1 + "</span></a>" +
-                          "<div class='dropdown-divider'></div>" +
-                          "    <h6 class='dropdown-header'>Optional:</h6>" +
-                          "    <a class='dropdown-item' href='#' " +
-                          "       onclick='" + this.jsave2 + "'><span data-langkey='" + this.jlabel2 + "'>" +
-                                  this.jlabel2 + "</span></a>" +
-                          "  </div>" +
+                             o1_list +
+		          "  </div>" +
                           "</div>" +
                           "  </h5>" +
                           "</div>" +
-                          "" +
-                          " <div class='card-body'>" +
+		          " <div class='card-body'>" +
 			  " <label for='" + this.fid + "' class='collapse7'>" +
                           "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" +
                           " </label>" +
@@ -150,7 +178,7 @@
                    this.setAttribute('jlabel1', value) ;
 	      }
 
-              // jsave-1 and jlabel-1
+              // jsave-2 and jlabel-2
 	      get jsave2 ( ) {
                    return this.getAttribute('jsave2') ;
 	      }
@@ -166,9 +194,26 @@
 	      set jlabel2 ( value ) {
                    this.setAttribute('jlabel2', value) ;
 	      }
+
+              // jsave-3 and jlabel-3
+	      get jsave3 ( ) {
+                   return this.getAttribute('jsave3') ;
+	      }
+
+	      set jsave3 ( value ) {
+                   this.setAttribute('jsave3', value) ;
+	      }
+
+	      get jlabel3 ( ) {
+                   return this.getAttribute('jlabel3') ;
+	      }
+
+	      set jlabel3 ( value ) {
+                   this.setAttribute('jlabel3', value) ;
+	      }
         }
 
         if (typeof window !== "undefined") {
-            window.customElements.define('ws-save-file2', ws_save_file2) ;
+            window.customElements.define('ws-save-file3', ws_save_file3) ;
         }
 

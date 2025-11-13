@@ -39,7 +39,7 @@
                                "<div class='row m-0'>" +
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 //
-                                "<ws-save-file2 " +
+                                "<ws-save-file3 " +
                                 "    fid='inputFileNameToSaveAs2' " +
                                 "    jlabel1='Save editor content' " +
                                 "    jsave1='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
@@ -56,7 +56,7 @@
                                 "            var textToWrite = mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
 				"	     wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                                 "            return false;'" +
-                                "></ws-save-file2>" +
+                                "></ws-save-file3>" +
                                 //
                                "</div>" +
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
@@ -129,7 +129,7 @@
                                "<div class='row m-0'>" +
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 //
-                                "<ws-save-file2 " +
+                                "<ws-save-file3 " +
                                 "    fid='inputFileNameToSaveAs' " +
                                 "    jlabel1='Save editor content' " +
                                 "    jsave1='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
@@ -140,7 +140,7 @@
                                 "    jlabel2='Save control memory' " +
                                 "    jsave2='wsweb_save_controlmemory_to_file();" +
                                 "            return false;'" +
-                                "></ws-save-file2>" +
+                                "></ws-save-file3>" +
                                 //
                                "</div>" +
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
