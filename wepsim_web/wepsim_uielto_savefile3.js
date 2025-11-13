@@ -28,7 +28,7 @@
         {
               static get observedAttributes()
 	      {
-	            return [ 'fid', 'jsave1', 'jsave2', 'jlabel1', 'jlabel2' ] ;
+	            return [ 'fid', 'jsave1', 'jsave2', 'jlabel1', 'jlabel2', 'jsave3', 'jlabel3' ] ;
 	      }
 
 	      constructor ()
@@ -85,7 +85,7 @@
                     this.update_internal_attributes() ;
 
                     // get html for options...
-                    var jsave_array  = [ this.jsave1,  this.jsave2,  this.jsave3 ] ;
+                    var jsave_array  = [ this.jsave1,  this.jsave2,  this.jsave3  ] ;
                     var jlabel_array = [ this.jlabel1, this.jlabel2, this.jlabel3 ] ;
 
                     var o1_list   = "" ;

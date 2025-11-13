@@ -137,8 +137,11 @@
 		                "            wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
 		                "            inputfirm.is_modified = false;" +
 				"	     return false;'" +
-                                "    jlabel2='Save control memory' " +
-                                "    jsave2='wsweb_save_controlmemory_to_file();" +
+                                "    jlabel2='Save control memory (v2)' " +
+                                "    jsave2='wsweb_save_controlmemory_to_file(2);" +
+                                "            return false;'" +
+                                "    jlabel3='Save editor content (v1)' " +
+                                "    jsave3='wsweb_save_controlmemory_to_file(1);" +
                                 "            return false;'" +
                                 "></ws-save-file3>" +
                                 //
