@@ -541,6 +541,16 @@
 		      wsweb_dialog_open('notifications') ;
 		      break ;
 
+	        case 'microcandc':
+                      // 1) firmware
+                      wsweb_firmware_compile() ;
+                      // 2) assembly
+                      wsweb_assembly_compile() ;
+                      // 3) switch simulator workspace
+                      wsweb_change_workspace_simulator() ;
+                      wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+		      break ;
+
 	        case 'recordbar':
 		      wsweb_recordbar_toggle() ;
 		      break ;
