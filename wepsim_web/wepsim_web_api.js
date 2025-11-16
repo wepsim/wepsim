@@ -241,9 +241,11 @@
 
     function wsweb_execution_instruction ( )
     {
-            if (simhw_active() !== null)
-            {
+            if (simhw_active() !== null) {
 	        wepsim_execute_instruction() ;
+            }
+
+            if (wepsim_svg_is_drawing()) {
 	        simcoreui_show_hw() ;
             }
 
@@ -678,15 +680,15 @@
 
     //  Workspace simulator: Files
 
-    function wsweb_save_controlmemory_to_file ( )
+    function wsweb_save_controlmemory_to_file ( firm_version )
     {
             var wsi = get_cfg('ws_idiom') ;
 
-            var q = i18n_get('dialogs',wsi,'Sure Control Memory...') + '\n\n' ;
+            var q = i18n_get('dialogs', wsi, 'Sure Control Memory...') + '\n\n' ;
             if (confirm(q))
 	    {
 	        var SIMWARE = get_simware() ;
-	        var simware_as_text = saveFirmware(SIMWARE);
+	        var simware_as_text = saveFirmware(SIMWARE, firm_version);
 	        if (simware_as_text.trim() == '') {
 		    wsweb_dlg_alert('The Microcode loaded in memory is empty!<br>\n' +
 	   	   	            'Please load a Microcode first in memory in order to save it.');
@@ -700,7 +702,7 @@
 
             // add if recording
             simcore_record_append_new('Save control memory to file',
-		                      'wsweb_save_controlmemory_to_file();\n') ;
+		                      'wsweb_save_controlmemory_to_file(firm_version);\n') ;
 
             // return ok
             return true ;

@@ -24,11 +24,102 @@
          */
 
         /* jshint esversion: 6 */
-        class ws_save_file3 extends HTMLElement
+        class ws_save_files_option extends HTMLElement
         {
               static get observedAttributes()
 	      {
-	            return [ 'fid', 'jsave1', 'jsave2', 'jlabel1', 'jlabel2' ] ;
+	            return [ 'fid', 'jsrc', 'label' ] ;
+	      }
+
+	      constructor ()
+	      {
+		    // parent
+		    super();
+	      }
+
+	      update_internal_attributes ( )
+	      {
+                    // fid
+                    var fid = this.getAttribute('fid') ;
+                    if (fid === null) {
+                        this.setAttribute('fid', 'id58') ;
+                    }
+
+                    // jsrc and label
+                    var jsrc = this.getAttribute('jsrc') ;
+                    if (jsrc === null) {
+                        this.setAttribute('jsrc', '') ;
+                    }
+
+                    var label = this.getAttribute('label') ;
+                    if (label === null) {
+                        this.setAttribute('label', 'Save') ;
+                    }
+	      }
+
+	      render ( event_name )
+	      {
+                    // update attributes
+                    this.update_internal_attributes() ;
+
+                    // get html for options...
+                    var o1 = "  <h6 class='dropdown-header'>Optional " + i + ":</h6>" +
+                             "  <a class='dropdown-item' href='#' " +
+                             "     onclick='" + this.jsrc + "'><span data-langkey='" + this.label + "'>" +
+                                   this.label + "</span></a>" ;
+
+                    this.innerHTML = o1 ;
+	      }
+
+	      connectedCallback () {
+		    this.render('connectedCallback') ;
+	      }
+
+	      attributeChangedCallback (name, oldValue, newValue) {
+		    this.render('attributeChangedCallback') ;
+	      }
+
+              // file-id
+	      get fid ( ) {
+                   return this.getAttribute('fid') ;
+	      }
+
+	      set fid ( value ) {
+                   this.setAttribute('fid', value) ;
+	      }
+
+              // jsave and label
+	      get jsave ( ) {
+                   return this.getAttribute('jsave') ;
+	      }
+
+	      set jsave ( value ) {
+                   this.setAttribute('jsave', value) ;
+	      }
+
+	      get label ( ) {
+                   return this.getAttribute('label') ;
+	      }
+
+	      set label ( value ) {
+                   this.setAttribute('label', value) ;
+	      }
+        }
+
+        if (typeof window !== "undefined") {
+            window.customElements.define('ws-save-files-option', ws_save_files_option) ;
+        }
+
+
+        //
+        // ws_save_files::ws_save_files_option
+        //
+
+        class ws_save_files extends HTMLElement
+        {
+              static get observedAttributes()
+	      {
+	            return [ 'fid' ] ;
 	      }
 
 	      constructor ()
@@ -44,39 +135,6 @@
                     if (fid === null) {
                         this.setAttribute('fid', 'id53') ;
                     }
-
-                    // jload-1 and jlabel-1
-                    var jload1 = this.getAttribute('jload1') ;
-                    if (jload1 === null) {
-                        this.setAttribute('jload1', '') ;
-                    }
-
-                    var jlabel1 = this.getAttribute('jlabel1') ;
-                    if (jlabel1 === null) {
-                        this.setAttribute('jlabel1', 'Save') ;
-                    }
-
-                    // jload-2 and jlabel-2
-                    var jload2 = this.getAttribute('jload2') ;
-                    if (jload2 === null) {
-                        this.setAttribute('jload2', '') ;
-                    }
-
-                    var jlabel2 = this.getAttribute('jlabel2') ;
-                    if (jlabel2 === null) {
-                        this.setAttribute('jlabel2', 'Save') ;
-                    }
-
-                    // jload-3 and jlabel-3
-                    var jload3 = this.getAttribute('jload3') ;
-                    if (jload3 === null) {
-                        this.setAttribute('jload3', '') ;
-                    }
-
-                    var jlabel3 = this.getAttribute('jlabel3') ;
-                    if (jlabel3 === null) {
-                        this.setAttribute('jlabel3', 'Save') ;
-                    }
 	      }
 
 	      render ( event_name )
@@ -85,29 +143,33 @@
                     this.update_internal_attributes() ;
 
                     // get html for options...
-                    var jsave_array  = [ this.jsave1,  this.jsave2,  this.jsave3 ] ;
-                    var jlabel_array = [ this.jlabel1, this.jlabel2, this.jlabel3 ] ;
+                    var eltos = this.querySelectorAll("ws-save-files-option") ;
 
                     var o1_list   = "" ;
                     var opt_label = "" ;
-                    for (var i=0; i<jsave_array.length; i++)
+                    var elto_src   = [] ;
+                    var elto_label = [] ;
+                    for (var i=0; i<eltos.length; i++)
                     {
+                       elto_src.push(  eltos[i].getAttribute("jsrc") ) ;
+                       elto_label.push(eltos[i].getAttribute("label")) ;
+
                        // skip empty javascript-save code
-                       if (null == jsave_array[i]) continue ;
-                       if (""   == jsave_array[i]) continue ;
+                       if (null == elto_src[i]) continue ;
+                       if (""   == elto_src[i]) continue ;
 
                        // add divider in all but last
                        if (o1_list != "")
-	               o1_list += "    <div class='dropdown-divider'></div>" ;
+	                   o1_list += "  <div class='dropdown-divider'></div>" ;
 
                        // add new option element
                        if (0 == i) opt_label = "Default" ;
                        else        opt_label = "Optional " + i ;
 
-		       o1_list += "    <h6 class='dropdown-header'>" + opt_label + ":</h6>" +
-                                  "    <a class='dropdown-item' href='#' " +
-                                  "       onclick='" + jsave_array[i] + "'><span data-langkey='" + jlabel_array[i] + "'>" +
-                                          jlabel_array[i] + "</span></a>" ;
+		       o1_list += "  <h6 class='dropdown-header'>" + opt_label + ":</h6>" +
+                                  "  <a class='dropdown-item' href='#' " +
+                                  "     onclick='" + elto_src[i] + "'><span data-langkey='" + elto_label[i] + "'>" +
+                                        elto_label[i] + "</span></a>" ;
                     }
 
                     // save html
@@ -118,7 +180,7 @@
 			  "  <span class='text-white bg-secondary' data-langkey='Output file'>Output file</span>" +
                           "<div class='btn-group float-end'>" +
 			  "  <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
-                          "          onclick='" + this.jsave1 + "'><span data-langkey='Save'>Save</span></button>" +
+                          "          onclick='" + elto_src[0] + "'><span data-langkey='Save'>Save</span></button>" +
                           "  <button type='button' " +
                           "          class='btn bg-body-tertiary dropdown-toggle dropdown-toggle-split btn-sm' " +
                           "          data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
@@ -145,7 +207,7 @@
 	      }
 
 	      connectedCallback () {
-		    this.render('connectedCallback') ;
+		    // this.render('connectedCallback') ;
 	      }
 
 	      attributeChangedCallback (name, oldValue, newValue) {
@@ -160,60 +222,9 @@
 	      set fid ( value ) {
                    this.setAttribute('fid', value) ;
 	      }
-
-              // jsave-1 and jlabel-1
-	      get jsave1 ( ) {
-                   return this.getAttribute('jsave1') ;
-	      }
-
-	      set jsave1 ( value ) {
-                   this.setAttribute('jsave1', value) ;
-	      }
-
-	      get jlabel1 ( ) {
-                   return this.getAttribute('jlabel1') ;
-	      }
-
-	      set jlabel1 ( value ) {
-                   this.setAttribute('jlabel1', value) ;
-	      }
-
-              // jsave-2 and jlabel-2
-	      get jsave2 ( ) {
-                   return this.getAttribute('jsave2') ;
-	      }
-
-	      set jsave2 ( value ) {
-                   this.setAttribute('jsave2', value) ;
-	      }
-
-	      get jlabel2 ( ) {
-                   return this.getAttribute('jlabel2') ;
-	      }
-
-	      set jlabel2 ( value ) {
-                   this.setAttribute('jlabel2', value) ;
-	      }
-
-              // jsave-3 and jlabel-3
-	      get jsave3 ( ) {
-                   return this.getAttribute('jsave3') ;
-	      }
-
-	      set jsave3 ( value ) {
-                   this.setAttribute('jsave3', value) ;
-	      }
-
-	      get jlabel3 ( ) {
-                   return this.getAttribute('jlabel3') ;
-	      }
-
-	      set jlabel3 ( value ) {
-                   this.setAttribute('jlabel3', value) ;
-	      }
         }
 
         if (typeof window !== "undefined") {
-            window.customElements.define('ws-save-file3', ws_save_file3) ;
+            window.customElements.define('ws-save-files', ws_save_files) ;
         }
 

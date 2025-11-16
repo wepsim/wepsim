@@ -7,7 +7,7 @@
    version="1.0"
    preserveAspectRatio="xMinYMin meet"
    sodipodi:docname="controlunit.svg"
-   inkscape:version="1.2.2 (b0a84865, 2022-12-01)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -27,11 +27,11 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.77234523"
-     inkscape:cx="398.7854"
-     inkscape:cy="184.50298"
-     inkscape:window-width="1352"
-     inkscape:window-height="723"
+     inkscape:zoom="1.5446905"
+     inkscape:cx="287.11254"
+     inkscape:cy="257.00942"
+     inkscape:window-width="2960"
+     inkscape:window-height="1386"
      inkscape:window-x="0"
      inkscape:window-y="35"
      inkscape:window-maximized="0"
@@ -398,7 +398,12 @@
      x="168.28255"
      stroke-width="1.02"
      line-height="125%"
-     fill="#000000">(fetch) </text>
+     fill="#000000"
+     style="-inkscape-font-specification:'Arial, Normal';font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:15.446px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:125%;fill:#000000;stroke-width:1.02"><tspan
+       sodipodi:role="line"
+       id="tspan489">(fetch/</tspan><tspan
+       sodipodi:role="line"
+       id="tspan491"> begin) </tspan></text>
   <path
      id="path3134"
      stroke-linejoin="round"

@@ -168,7 +168,7 @@
 
 	function wepsim_svg_is_drawing ( )
         {
-            return DRAW_stop ;
+            return (DRAW_stop == false) ;
         }
 
 	function wepsim_svg_update_draw ( obj, value )

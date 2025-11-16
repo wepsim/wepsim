@@ -4,7 +4,9 @@
 ## 2.3.6 -> 2.3.7:
 * Main improvements:
   * Clarify some details of the control unit
-  * Some minor improvements
+  * Save assembly adds a new option for binary format of the main memory
+  * Save microcode adds two new options for version 1 and 2 of the firmware format
+  * Some other minor improvements
 * Main external dependencies updated:
   * Update bootstrap 5.3.5 -> 5.3.8
   * Update bootbox 6.0.0 -> 6.0.4
