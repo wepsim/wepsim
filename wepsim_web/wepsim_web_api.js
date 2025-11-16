@@ -241,9 +241,11 @@
 
     function wsweb_execution_instruction ( )
     {
-            if (simhw_active() !== null)
-            {
+            if (simhw_active() !== null) {
 	        wepsim_execute_instruction() ;
+            }
+
+            if (wepsim_svg_is_drawing()) {
 	        simcoreui_show_hw() ;
             }
 
