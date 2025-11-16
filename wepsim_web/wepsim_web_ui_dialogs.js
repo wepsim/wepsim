@@ -39,24 +39,25 @@
                                "<div class='row m-0'>" +
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 //
-                                "<ws-save-file3 " +
-                                "    fid='inputFileNameToSaveAs2' " +
-                                "    jlabel1='Save editor content' " +
-                                "    jsave1='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+                                "<ws-save-files fid='inputFileNameToSaveAs2'>" +
+                                "<ws-save-files-option " +
+                                "     label='Save editor content' " +
+                                "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
 				"	     var fileNameToSaveAs = ifntsa2.value;" +
 				"	     var textToWrite      = inputasm.getValue();" +
 				"	     wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
 		                "            inputasm.is_modified = false;" +
-                                "            return false;'" +
-                                "    jlabel2='Save as binary section' " +
-                                "    jsave2='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+                                "            return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "     label='Save as binary section' " +
+                                "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
 				"	     var fileNameToSaveAs = ifntsa2.value;" +
                                 "            var simware = get_simware();" +
                                 "            if (simware == null) return false;" +
                                 "            var textToWrite = mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
 				"	     wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-                                "            return false;'" +
-                                "></ws-save-file3>" +
+                                "            return false;'></ws-save-files-option>" +
+                                "></ws-save-files>" +
                                 //
                                "</div>" +
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
@@ -129,24 +130,23 @@
                                "<div class='row m-0'>" +
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 //
-                                "<ws-save-file3 " +
-                                "    fid='inputFileNameToSaveAs' " +
-			        "" +
-                                "    jlabel1='Save editor content' " +
-                                "    jsave1='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
-		                "            var textToWrite       = inputfirm.getValue();" +
-		                "            wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-		                "            inputfirm.is_modified = false;" +
-				"	     return false;'" +
-			        "" +
-                                "    jlabel2='Save control memory (firmware v2)' " +
-                                "    jsave2='wsweb_save_controlmemory_to_file(2);" +
-                                "            return false;'" +
-			        "" +
-                                "    jlabel3='Save control memory (firmware v1)' " +
-                                "    jsave3='wsweb_save_controlmemory_to_file(1);" +
-                                "            return false;'" +
-                                "></ws-save-file3>" +
+                                "<ws-save-files fid='inputFileNameToSaveAs'>" +
+                                "<ws-save-files-option " +
+                                "    label='Save editor content' " +
+                                "     jsrc='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+		                "           var textToWrite       = inputfirm.getValue();" +
+		                "           wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "           inputfirm.is_modified = false;" +
+				"	    return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "    label='Save control memory (firmware v2)' " +
+                                "     jsrc='wsweb_save_controlmemory_to_file(2);" +
+                                "           return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "    label='Save control memory (firmware v1)' " +
+                                "     jsrc='wsweb_save_controlmemory_to_file(1);" +
+                                "           return false;'></ws-save-files-option>" +
+                                "></ws-save-files>" +
                                 //
                                "</div>" +
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
