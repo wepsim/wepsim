@@ -242,8 +242,7 @@
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button microcompiles and compiles."' +
-                         '        onclick="wsweb_firmware_compile();' +
-			 '	           wsweb_assembly_compile();">' ;
+                         '        onclick="wsweb_select_action(\'microcandc\');' +
 			 '	           return false;">' ;
                     o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-circle d-none d-sm-inline text-secondary"></em>&nbsp;' ;
                     o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -321,16 +320,18 @@
                         '     <a class="dropdown-item py-2" href="#" id="selact_notifications" value="notifications"' +
 			'        onclick="wsweb_select_action(\'notifications\');' +
 			'	          return false;"><span data-langkey="Notifications">Notifications</span></a>' +
-                        '     <a class="dropdown-item py-2" href="#" id="selact_microcandc" value="microcandc"' +
-			'        onclick="wsweb_select_action(\'microcandc\');' +
-			'	          return false;"><span data-langkey="microc and c">&micro;c and c</span></a>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_recordbar" value="recordbar"' +
 			'        onclick="wsweb_select_action(\'recordbar\');' +
 			'	          return false;"><span data-langkey="RecordBar">RecordBar</span></a>' +
-                        '\n' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_reload" value="reload"' +
 			'        onclick="wsweb_select_action(\'reload\');' +
 			'	          return false;"><span data-langkey="Reload">Reload</span></a>' +
+                        '\n' +
+			'     <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"' +
+                        '     ><span data-langkey="Combinations">Combinations</span>:</h6>' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_microcandc" value="microcandc"' +
+			'        onclick="wsweb_select_action(\'microcandc\');' +
+			'	          return false;"><span data-langkey="microc and c">&micro;c and c</span></a>' +
                         '\n' +
                         '     <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"' +
                         '     ><span data-langkey="Information from">Information from</span>:</h6>' +
