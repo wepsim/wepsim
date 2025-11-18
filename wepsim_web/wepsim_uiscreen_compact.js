@@ -107,7 +107,7 @@
 			  '	  <div class="w-100 d-xs-block d-sm-none"></div>' +
 			  '' +
 			  '	  <div class="col-auto px-0 px-sm-2">' +
-			  '	  <ws-toolbar components="[,btn_notifications,btn_recordbar,btn_states,]"' +
+                          '       <ws-toolbar components="[,btn_notifications,btn_recordbar,btn_states,]"' +
 			  '		      icons="left"></ws-toolbar>' +
 			  '	  </div>' +
 			  '' +

@@ -81,6 +81,10 @@
 	         var tri_name = tri_state_names[e] ;
 	         update_draw(simhw_sim_signal(tri_name), 1) ;
 	     }
+	     else
+	     {
+	         simhw_sim_state("BUS_IB").value = 0x00000000 ;
+	     }
 
 	     // 3.- check if more than one tri-state is active
 	     if (n > 1)
@@ -88,7 +92,7 @@
 	         update_bus_visibility('internalbus_fire', 'visible') ;
 	         simhw_internalState_set('fire_visible', 'internalbus', true) ;
 
-	         simhw_sim_state("BUS_IB").value = 0xFFFFFFFF;
+	         simhw_sim_state("BUS_IB").value = 0xFFFFFFFF ;
 	     }
 	     else {
 	         update_bus_visibility('internalbus_fire', 'hidden') ;

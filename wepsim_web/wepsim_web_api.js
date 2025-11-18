@@ -571,6 +571,26 @@
 		      wsweb_dialog_open('help') ;
                       wepsim_help_set('code', 'assembly_summary') ;
 		      break ;
+
+	        case 'microcandc':
+                      // 1) compile firmware
+                      wsweb_firmware_compile() ;
+                      if (false ==inputfirm.is_compiled) {
+                          wsweb_change_workspace_microcode() ;
+	                  return false;
+		      }
+
+                      // 2) compile assembly (iff firmware is ok)
+                      wsweb_assembly_compile() ;
+                      if (false == inputasm.is_compiled) {
+                          wsweb_change_workspace_assembly() ;
+	                  return false;
+		      }
+
+                      // 3) switch simulator workspace (iff assembly is ok)
+                      wsweb_change_workspace_simulator() ;
+                      wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+		      break ;
 	    }
 
 	    return false;
