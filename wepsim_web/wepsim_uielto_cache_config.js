@@ -92,8 +92,40 @@
           var memory_cfg_i = memory_cfg[index] ;
 
 	  var o = "" +
-	          "<table class='table table-hover table-sm table-bordered m-0'>" +
+	          "<table class='table table-hover table-sm m-0'>" +
 		  "<tbody>" +
+		  "<tr>" +
+		  "    <td align='center' class='border border-0 border-tertiary'>" +
+		  "    <div id='via_size_" + index + "_" + this.name_str + "'>Id.: " +
+		  "    <input type='number' " +
+		  "           value='" + memory_cfg_i.cfg.via_size + "' " +
+		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
+		  "           min='0' max='32'>" +
+		  "    </div>" +
+                  "    # bits to identify line" +
+		  "    </td>" +
+		  "" +
+		  "    <td align='center' " +
+		  "        style='vertical-align: middle;' " +
+                  "        class='border border-2 border-tertiary bg-secondary-subtle'>line / via</td>" +
+                  "</tr>" +
+		  "<tr>" +
+		  "    <td align='center' class='border border-0 border-tertiary'>&nbsp;</td>" +
+		  "" +
+		  "    <td align='center' class='border border-0 border-tertiary'>" +
+		  "    <div id='off_size_" + index + "_" + this.name_str + "'>Offset: " +
+		  "    <input type='number' " +
+		  "           value='" + memory_cfg_i.cfg.off_size + "' " +
+		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
+		  "           min='0' max='32'>" +
+		  "    </div>" +
+                  "    # bits to select byte inside line" +
+		  "    </td>" +
+                  "</tr>" +
+                  "</tbody>" +
+                  "</table>" ;
+
+/*
 		  "<tr>" +
                   "    <td class='border border-dark w-50 text-center'><strong>line/via</strong></td>" +
                   "    <td class='border border-dark w-50 text-center'><strong>offset</strong></td>" +
@@ -120,6 +152,7 @@
                   "</tr>" +
                   "</tbody>" +
                   "</table>" ;
+*/
 
 	   return o ;
         }
@@ -203,8 +236,8 @@
 		  "      <tr>" +
 		  "          <td align='center' colspan='3'>" +
                   "          <input type='range' class='form-range pt-1' min='0' max='5' id='cmcfg_range' " +
-                  "             onchange='wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value));'>" +
-                  "          <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'># bits for set in cache &nbsp;(0: full-assoc., max:direct)</label>" +
+                  "             onchange='wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value)); var e = document.getElementById(\"rng_cmcfg\"); e.textContent = this.value;'>" +
+                  "          <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'><span id='rng_cmcfg'>#</span> bits for set in cache &nbsp;(0: full-assoc., max:direct)</label>" +
 		  "          </td>" +
 		  "      </tr>" +
 		  "      </tbody>" +
@@ -325,7 +358,7 @@
               }
 
               // update cm_cfg and cm
-              curr_cfg[level] = cache_memory_init(level, 12, 5, 6, "fifo", "unified", -1) ;
+              curr_cfg[level] = cache_memory_init(level, 12, 5, 6, "fifo", "unified", null) ;
 	       curr_cm[level] = cache_memory_init2(curr_cfg[level].cfg) ;
 	       curr_cm[level].cfg.next_cache = null ;
 

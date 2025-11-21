@@ -128,7 +128,7 @@
         //                   * bits for set_per_cache:   6 bits,
         //                   * replace_policy:          "first" | "lfu",
         //                   * su_policy:               "unified" | "split_i" | "split_d",
-        //                   * next_cache_level:         -1 (none)
+        //                   * next_cache_level:         null (none)
         function cache_memory_init ( name, via_size, off_size, set_size, replace_pol, su_pol, next_cache )
         {
             var c = { "stats":{}, "cfg":{}, "sets":{} } ;
