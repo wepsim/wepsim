@@ -68,7 +68,11 @@
                     // information associated as HTML
                     var o1 = wepsim_show_cache_memory_skel(cm_ref) ;
                     $(div_hash).html(o1) ;
-                    wepsim_show_cache_memory_all(cm_ref) ;
+
+		    // vue binding
+		    for (var i=0; i<cm_ref.length; i++) {
+		         wepsim_show_cache_stats_vue(i+1, cm_ref[i]) ;
+		    }
 	      }
         }
 
@@ -79,101 +83,246 @@
          *  Cache Memory UI
          */
 
-        function wepsim_show_table_info ( memory, t_num, s_num, o_num )
+        function wepsim_show_cache_stats ( level, memory )
         {
-            var o = '' ;
+           var o1 = "" ;
+
+          o1 += "  <ul class='mb-1 ps-3'>" +
+                "  <li> " +
+                "#access <span class='badge bg-info' id='cache_stats_n_access'>{{ value }}</span> = " +
+                "#hits   <span class='badge bg-info' id='cache_stats_n_hits'  >{{ value }}</span> + " +
+                "#misses <span class='badge bg-info' id='cache_stats_n_misses'>{{ value }}</span>   " +
+                "  </li>\n" +
+                "  <li>\n" +
+                "<span>hit-ratio  <span class='badge bg-success' id='cache_stats_hitratio' >{{ computed_value }}</span></span> & " +
+                "<span>miss-ratio <span class='badge bg-danger'  id='cache_stats_missratio'>{{ computed_value }}</span></span>\n" +
+                "  </li>\n" +
+                "  <li class='mb-2'>Last access: " +
+                "<span class='badge bg-secondary' id='cache_stats_last_r_w' >{{ computed_value }}</span>" +
+                " address " +
+                "<span class='badge bg-secondary' id='cache_stats_last_addr'>{{ computed_value }}</span>" +
+                "<span                            id='cache_stats_lhm_1' >{{ computed_value }}</span>" + // " is a " + 
+                "<span class='badge bg-secondary' id='cache_stats_lhm_2' >{{ computed_value }}</span>" + // <hit/miss>
+                "  </li>\n" +
+                "<table class='table table-bordered table-hover table-sm w-auto'>" ;
 
             if (0 == memory.cfg.set_size) {
 		// full-associative
-                o = "<table class='table table-bordered table-hover table-sm w-auto'>" +
-                    "<thead><tr><th>tag</th><th>offset</th></tr></thead>" +
-                    "<tbody><tr><td>"+t_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" +
-                    "</table>" ;
+                o1 += "<thead><tr><th>tag</th><th>offset</th></tr></thead>" +
+                      "<tbody><tr><td><span id='cache_stats_lp_tag'>{{ computed_value }}</span></td>"+
+                                 "<td><span id='cache_stats_lp_off'>{{ computed_value }}</span></td></tr></tbody>" ;
             }
 	    else if (memory.cfg.via_size == memory.cfg.set_size) {
 		// direct-mapped
-                o = "<table class='table table-bordered table-hover table-sm w-auto'>" +
-                    "<thead><tr><th>tag</th><th>index</th><th>offset</th></tr></thead>" +
-                    "<tbody><tr><td>"+t_num+"</td>"+"<td>"+s_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" +
-                    "</table>" ;
+                o1 += "<thead><tr><th>tag</th><th>index</th><th>offset</th></tr></thead>" +
+                      "<tbody><tr><td><span id='cache_stats_lp_tag'>{{ computed_value }}</span></td>"+
+                                 "<td><span id='cache_stats_lp_set'>{{ computed_value }}</span></td>"+
+                                 "<td><span id='cache_stats_lp_off'>{{ computed_value }}</span></td></tr></tbody>" ;
             }
 	    else {
 		// set associative
-                o = "<table class='table table-bordered table-hover table-sm w-auto'>" +
-                    "<thead><tr><th>tag</th><th>set</th><th>offset</th></tr></thead>" +
-                    "<tbody><tr><td>"+t_num+"</td>"+"<td>"+s_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" +
-                    "</table>" ;
+                o1 += "<thead><tr><th>tag</th><th>set</th><th>offset</th></tr></thead>" +
+                      "<tbody><tr><td><span id='cache_stats_lp_tag'>{{ computed_value }}</span></td>"+
+                                 "<td><span id='cache_stats_lp_set'>{{ computed_value }}</span></td>"+
+                                 "<td><span id='cache_stats_lp_off'>{{ computed_value }}</span></td></tr></tbody>" ;
             }
 
-            return o ;
+            o1 += "</table>" +
+                  "  </ul>" ;
+
+            return o1 ;
         }
 
-        function wepsim_show_cache_stats ( level, memory )
+        function wepsim_show_cache_stats_vue ( level, memory )
         {
-	    // hit/miss
-            var hit_ratio  = 0.0 ;
-            var miss_ratio = 0.0 ;
-            if (memory.stats.n_access != 0) {
-                hit_ratio  = (memory.stats.n_hits   / memory.stats.n_access) ;
-                miss_ratio = (memory.stats.n_misses / memory.stats.n_access) ;
-            }
+           /*
+            * o1 += "  <li> " +
+            *       "#access <span class='badge bg-info' id='cache_stats_n_access'>{{ value }}</span> = " +
+            *       "#hits   <span class='badge bg-info' id='cache_stats_n_hits'  >{{ value }}</span> + " +
+            *       "#misses <span class='badge bg-info' id='cache_stats_n_misses'>{{ value }}</span>   " +
+            *       "  </li>\n" ;
+            */
 
-            // last access
-            var tag_bin =    parseInt(memory.stats.last_parts.tag).toString(2).padStart(memory.cfg.tag_size, '0') ;
-            var set_bin =    parseInt(memory.stats.last_parts.set).toString(2).padStart(memory.cfg.set_size, '0') ;
-            var off_bin = parseInt(memory.stats.last_parts.offset).toString(2).padStart(memory.cfg.off_size, '0') ;
+	    if (false == (memory.stats.n_access instanceof Vuex.Store)) {
+	        memory.stats.n_access = vue_observable(memory.stats.n_access) ;
+	    }
+	    vue_appyBinding(memory.stats.n_access, '#cache_stats_n_access', function(value){ return value; }) ;
 
-            var o1 = '' ;
-            if (memory.stats.last_h_m != '') {
-                o1 = ' is a ' + "<span class='badge bg-secondary'>" + memory.stats.last_h_m + "</span>" ;
-            }
+	    if (false == (memory.stats.n_hits instanceof Vuex.Store)) {
+	        memory.stats.n_hits = vue_observable(memory.stats.n_hits) ;
+	    }
+	    vue_appyBinding(memory.stats.n_hits, '#cache_stats_n_hits', function(value){ return value; }) ;
 
-            o1 = "  <ul class='mb-1 ps-3'>" +
-                 "  <li> " +
-                 "#access <span class='badge bg-info'>" + memory.stats.n_access + "</span> = " +
-                 "#hits   <span class='badge bg-info'>" + memory.stats.n_hits   + "</span> + " +
-                 "#misses <span class='badge bg-info'>" + memory.stats.n_misses + "</span>   " +
-                 "  </li>\n" +
-                 "  <li>\n" +
-                 "<span>hit-ratio  <span class='badge bg-success'>"+hit_ratio.toFixed(2)+"</span></span> & " +
-                 "<span>miss-ratio <span class='badge bg-danger'>"+miss_ratio.toFixed(2)+"</span></span>\n" +
-                 "  </li>\n" +
-                 "  <li class='mb-2'>Last access: " +
-                 "<span class='badge bg-secondary'>" + memory.stats.last_r_w + "</span>" +
-                 " address " +
-                 "<span class='badge bg-secondary'>0x" + memory.stats.last_addr.toString(16) + "</span>" +
-                 o1 +
-                 "  </li>\n" +
-                    wepsim_show_table_info(memory, tag_bin, set_bin, off_bin) +
-                 "  </ul>" ;
+	    if (false == (memory.stats.n_misses instanceof Vuex.Store)) {
+	        memory.stats.n_misses = vue_observable(memory.stats.n_misses) ;
+	    }
+	    vue_appyBinding(memory.stats.n_misses, '#cache_stats_n_misses', function(value){ return value; }) ;
 
-            // return stats
-            return o1 ;
+
+           /*
+            * o1 += "  <li>\n" +
+            *       "<span>hit-ratio  <span class='badge bg-success' id='cache_stats_hitratio' >{{ .._value }}</span></span> & " +
+            *       "<span>miss-ratio <span class='badge bg-danger'  id='cache_stats_missratio'>{{ .._value }}</span></span>\n" +
+            *       "  </li>\n" ;
+            */
+
+	    vue_appyBinding(memory.stats.n_access,
+                            '#cache_stats_hitratio',
+                            function(value){
+                                var hit_ratio = 0.0;
+                                var n_hits = get_var(memory.stats.n_hits) ;
+                                if (value != 0) {
+                                    hit_ratio  = (n_hits / value) ;
+                                }
+                                return hit_ratio.toFixed(2) ;
+                            }) ;
+	    vue_appyBinding(memory.stats.n_access,
+                            '#cache_stats_missratio',
+                            function(value){
+                                var miss_ratio = 0.0;
+                                var n_misses   = get_var(memory.stats.n_misses) ;
+                                if (value != 0) {
+                                    miss_ratio  = (n_misses / value) ;
+                                }
+                                return miss_ratio.toFixed(2) ;
+                            }) ;
+
+
+           /*
+            * o1 += "  <li class='mb-2'>Last access: " +
+            *       "<span class='badge bg-secondary' id='cache_stats_last_r_w' >{{ value }}</span>" +
+            *       " address " +
+            *       "<span class='badge bg-secondary' id='cache_stats_last_addr'>{{ computed_value }}</span>" +
+            *       "<span                            id='cache_stats_lhm_1' >{{ computed_value }}</span>" + // " is a " + 
+            *       "<span class='badge bg-secondary' id='cache_stats_lhm_2' >{{ computed_value }}</span>" + // <hit/miss>
+            *       "  </li>\n" ;
+            */
+
+	    if (false == (memory.stats.last_r_w instanceof Vuex.Store)) {
+	        memory.stats.last_r_w = vue_observable(memory.stats.last_r_w) ;
+	    }
+	    vue_appyBinding( memory.stats.last_r_w,
+                            '#cache_stats_last_r_w',
+                            function(value){ return value; }) ;
+
+	    if (false == (memory.stats.last_addr instanceof Vuex.Store)) {
+	        memory.stats.last_addr = vue_observable(memory.stats.last_addr) ;
+	    }
+	    vue_appyBinding( memory.stats.last_addr,
+                            '#cache_stats_last_addr',
+                            function(value){ return '0x' + value.toString(16); }) ;
+
+	    if (false == (memory.stats.last_h_m instanceof Vuex.Store)) {
+	        memory.stats.last_h_m = vue_observable(memory.stats.last_h_m) ;
+	    }
+	    vue_appyBinding( memory.stats.last_h_m,
+                            '#cache_stats_lhm_1',
+                            function(value){
+			       if (value != '')
+			            return " is a " ;
+			       else return "" ;
+                            }) ;
+	    vue_appyBinding( memory.stats.last_h_m,
+                            '#cache_stats_lhm_2',
+                            function(value){
+                               return value ;
+                            }) ;
+
+           /*
+	    *	// full-associative
+            *   o1 += "<table class='table table-bordered table-hover table-sm w-auto'>" +
+            *         "<thead><tr><th>tag</th><th>offset</th></tr></thead>" +
+            *         "<tbody><tr><td><span id='cache_stats_lp_tag'>{{ ...value }}</span></td>"+
+            *                    "<td><span id='cache_stats_lp_off'>{{ ...value }}</span></td></tr></tbody>" +
+            *         "</table>" ;
+	    *   // direct-mapped
+            *   o1 += "<table class='table table-bordered table-hover table-sm w-auto'>" +
+            *         "<thead><tr><th>tag</th><th>index</th><th>offset</th></tr></thead>" +
+            *         "<tbody><tr><td><span id='cache_stats_lp_tag'>{{ ...value }}</span></td>"+
+            *                    "<td><span id='cache_stats_lp_set'>{{ ...value }}</span></td>"+
+            *                    "<td><span id='cache_stats_lp_off'>{{ ...value }}</span></td></tr></tbody>" +
+            *         "</table>" ;
+	    *   // set associative
+            *   o1 += "<table class='table table-bordered table-hover table-sm w-auto'>" +
+            *         "<thead><tr><th>tag</th><th>set</th><th>offset</th></tr></thead>" +
+            *         "<tbody><tr><td><span id='cache_stats_lp_tag'>{{ ...value }}</span></td>"+
+            *                    "<td><span id='cache_stats_lp_set'>{{ ...value }}</span></td>"+
+            *                    "<td><span id='cache_stats_lp_off'>{{ ...value }}</span></td></tr></tbody>" +
+            *         "</table>" ;
+            */
+
+	    if (false == (memory.stats.last_parts.tag instanceof Vuex.Store)) {
+	        memory.stats.last_parts.tag = vue_observable(memory.stats.last_parts.tag) ;
+	    }
+	    vue_appyBinding( memory.stats.last_parts.tag,
+                            '#cache_stats_lp_tag',
+                            function(value) {
+                               var tag_size = get_var(memory.cfg.tag_size) ;
+                               return parseInt(value).toString(2).padStart(tag_size, '0') ;
+                            }) ;
+
+	    if (false == (memory.stats.last_parts.set instanceof Vuex.Store)) {
+	        memory.stats.last_parts.set = vue_observable(memory.stats.last_parts.set) ;
+	    }
+	    vue_appyBinding( memory.stats.last_parts.set,
+                            '#cache_stats_lp_set',
+                            function(value) {
+                               var set_size = get_var(memory.cfg.set_size) ;
+                               return parseInt(value).toString(2).padStart(set_size, '0') ;
+                            }) ;
+
+	    if (false == (memory.stats.last_parts.offset instanceof Vuex.Store)) {
+	        memory.stats.last_parts.offset = vue_observable(memory.stats.last_parts.offset) ;
+	    }
+	    vue_appyBinding( memory.stats.last_parts.offset,
+                            '#cache_stats_lp_off',
+                            function(value) {
+                               var off_size = get_var(memory.cfg.off_size) ;
+                               return parseInt(value).toString(2).padStart(off_size, '0') ;
+                            }) ;
+
+            return true ;
         }
 
         function wepsim_show_cache_cfg ( level, memory )
         {
             var o1 = "" ;
 
-            // cache type...
+            // cache configuration...
+            var t_num = get_var(memory.cfg.tag_size) ;
+            var s_num = get_var(memory.cfg.set_size) ;
+            var o_num = get_var(memory.cfg.off_size) ;
+            var v_num = get_var(memory.cfg.via_size) ;
+            var replace_pol = get_var(memory.cfg.replace_pol) ;
+            var      su_pol = get_var(memory.cfg.su_pol) ;
             var cm_type = '' ;
-            if (0 == memory.cfg.set_size) {
+
+            // html
+            o1  = "<ul class='mb-1 ps-3'>\n" +
+                  "<li> size of fields (in bits):</li>\n" +
+                  "<table class='table table-bordered table-hover table-sm w-auto'>" ;
+
+            if (0 == s_num) {
                 cm_type = "fully associative" ;
+                o1 += "<thead><tr><th>tag</th><th>offset</th></tr></thead>" +
+                      "<tbody><tr><td>"+t_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" ;
             }
-            else if (0 == memory.cfg.vps_size) {
+	    else if (v_num == s_num) {
                 cm_type = "direct-mapped" ;
+                o1 += "<thead><tr><th>tag</th><th>index</th><th>offset</th></tr></thead>" +
+                      "<tbody><tr><td>"+t_num+"</td>"+"<td>"+s_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" ;
             }
-            else {
+	    else {
                 cm_type = 'set-associative' ;
+                o1 += "<thead><tr><th>tag</th><th>set</th><th>offset</th></tr></thead>" +
+                      "<tbody><tr><td>"+t_num+"</td>"+"<td>"+s_num+"</td>"+"<td>"+o_num+"</td></tr></tbody>" ;
             }
 
-            o1 = "<ul class='mb-1 ps-3'>\n" +
-                 "<li> size of fields (in bits):</li>\n" +
-                 wepsim_show_table_info(memory, memory.cfg.tag_size, memory.cfg.set_size, memory.cfg.off_size) +
-                 "<li> type:           <span class='badge bg-secondary'>" + cm_type + "</span></li>\n" +
-                 "<li> replace policy: <span class='badge bg-secondary'>" + memory.cfg.replace_pol + "</span></li>\n" +
-                 "<li> split/unified:  <span class='badge bg-secondary'>" + memory.cfg.su_pol + "</span></li>\n" +
-                 "</ul>" ;
+            o1 += "</table>" +
+                  "<li> type:           <span class='badge bg-secondary'>" + cm_type     + "</span></li>\n" +
+                  "<li> replace policy: <span class='badge bg-secondary'>" + replace_pol + "</span></li>\n" +
+                  "<li> split/unified:  <span class='badge bg-secondary'>" + su_pol      + "</span></li>\n" +
+                  "</ul>" ;
 
 	    // return cfg
             return o1 ;
@@ -230,6 +379,7 @@
               // (1/3) update stats
               o1 = wepsim_show_cache_stats(level, cm_i) ;
               $("#cm-info-stat-ph-" + level).html(o1) ;
+              wepsim_show_cache_stats_vue(level, cm_i) ;
 
               // (2/3) update configuration
               o1 = wepsim_show_cache_cfg(level, cm_i) ;
@@ -239,6 +389,7 @@
               o1 = wepsim_show_cache_content(level, cm_i) ;
               $("#cm-info-cnt-ph-" + level).html(o1) ;
         }
+
 
         function wepsim_show_cache_memory_skel ( cache_memory )
         {
@@ -288,7 +439,7 @@
                     "    <div id='cm-stats-collapse-" + (i+1) + "' class='accordion-collapse collapse show' " +
                     "         aria-labelledby='cm-stats'>" +
 		    "         <div id='cm-info-stat-ph-" + (i+1) + "' class='accordion-body px-2 py-3'>" +
-                    "         " + // wepsim_show_cache_stats((i+1), cache_memory[i]) +
+                    "         " + wepsim_show_cache_stats((i+1), cache_memory[i]) +
                     "         </div>" +
                     "    </div>" +
                     "  </div>" +
@@ -303,7 +454,7 @@
                     "    <div id='cm-cfg-collapse-" + (i+1) + "' class='accordion-collapse collapse' " +
                     "         aria-labelledby='cm-cfg'>" +
 		    "         <div id='cm-info-cfg-ph-" + (i+1) + "' class='accordion-body px-2 py-3'>" +
-		    "         " + // wepsim_show_cache_cfg((i+1), cache_memory[i]) +
+		    "         " + wepsim_show_cache_cfg((i+1), cache_memory[i]) +
                     "         </div>" +
                     "    </div>" +
                     "  </div>" +
@@ -317,7 +468,7 @@
 		    "    <div id='cm-cnt-collapse-" + (i+1) + "' class='accordion-collapse collapse' " +
 		    "         aria-labelledby='cm-cnt-" + (i+1) + "'>" +
 		    "         <div id='cm-info-cnt-ph-" + (i+1) + "' class='accordion-body px-2 py-3'>" +
-	            "         " + // wepsim_show_cache_content((i+1), cache_memory[i]) +
+	            "         " + wepsim_show_cache_content((i+1), cache_memory[i]) +
                     "         </div>" +
 		    "    </div>" +
 		    "  </div>" +
@@ -331,37 +482,14 @@
               return o1 ;
         }
 
-        function wepsim_show_cache_memory_all ( cache_memory )
-        {
-              if (typeof cache_memory == "undefined") {
-                  return ;
-              }
-              if (Object.keys(cache_memory).length == 0) {
-                  return ;
-              }
-
-	      // cache_memory in HTML
-              var o1 = "" ;
-              for (var i=0; i<cache_memory.length; i++)
-              {
-		   // (1/3) update stats
-		   o1 = wepsim_show_cache_stats(i+1, cache_memory[i]) ;
-		   $("#cm-info-stat-ph-" + (i+1)).html(o1) ;
-
-		   // (2/3) update configuration
-		   o1 = wepsim_show_cache_cfg(i+1, cache_memory[i]) ;
-		   $("#cm-info-cfg-ph-" + (i+1)).html(o1) ;
-
-		   // (3/3) update content
-		   o1 = wepsim_show_cache_content(i+1, cache_memory[i]) ;
-		   $("#cm-info-cnt-ph-" + (i+1)).html(o1) ;
-              }
-        }
-
         function wepsim_show_cache_memory ( cache_memory )
         {
               var o1 = wepsim_show_cache_memory_skel(cache_memory) ;
               $("#memory_CACHE").html(o1) ;
-              wepsim_show_cache_memory_all(cache_memory) ;
+
+              // vue binding
+              for (var i=0; i<cache_memory.length; i++) {
+                   wepsim_show_cache_stats_vue(i+1, cache_memory[i]) ;
+              }
         }
 

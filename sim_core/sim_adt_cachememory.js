@@ -57,27 +57,37 @@
 
         function cache_memory_update_stats ( memory, address, parts, r_w, m_h, clock_timestamp )
         {
+            var val = '' ;
+
             // global stats
-            (memory.stats.n_access)++ ;
-             memory.stats.last_addr  = address ;
-             memory.stats.last_parts = parts ;
-             memory.stats.last_r_w   = r_w ;
-             memory.stats.last_h_m   = m_h ;
+            val= get_var(memory.stats.n_access) ;
+            set_var(memory.stats.n_access,   val + 1) ;
+            set_var(memory.stats.last_addr,  address) ;
+            set_var(memory.stats.last_r_w,   r_w) ;
+            set_var(memory.stats.last_h_m,   m_h) ;
+         // set_var(memory.stats.last_parts, parts) ;
+            set_var(memory.stats.last_parts.tag,    parts.tag) ;
+            set_var(memory.stats.last_parts.set,    parts.set) ;
+            set_var(memory.stats.last_parts.offset, parts.offset) ;
 
             if (m_h == "miss") {
-                (memory.stats.n_misses)++ ;
-            } else {
-                (memory.stats.n_hits)++ ;
-	    }
-
-            // block stats
-            (memory.sets[parts.set].tags[parts.tag].n_access)++ ;
-
-            if (r_w == "write") {
-                memory.sets[parts.set].tags[parts.tag].dirty = 1 ;
+                 val = get_var(memory.stats.n_misses) ;
+                 set_var(memory.stats.n_misses, val + 1) ;
+            }
+            else {
+                 val = get_var(memory.stats.n_hits) ;
+                 set_var(memory.stats.n_hits,   val + 1) ;
             }
 
-            memory.sets[parts.set].tags[parts.tag].timestamp = clock_timestamp ;
+            // block stats
+            val   = get_var(memory.sets[parts.set].tags[parts.tag].n_access) ;
+            set_var(memory.sets[parts.set].tags[parts.tag].n_access, val + 1) ;
+
+            if (r_w == "write") {
+                set_var(memory.sets[parts.set].tags[parts.tag].dirty, 1) ;
+            }
+
+            set_var(memory.sets[parts.set].tags[parts.tag].timestamp, clock_timestamp) ;
         }
 
         function cache_memory_select_victim ( memory, set )
