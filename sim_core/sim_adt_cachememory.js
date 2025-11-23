@@ -65,7 +65,7 @@
             set_var(memory.stats.last_addr,  address) ;
             set_var(memory.stats.last_r_w,   r_w) ;
             set_var(memory.stats.last_h_m,   m_h) ;
-         // set_var(memory.stats.last_parts, parts) ;
+         // memory.stats.last_parts:
             set_var(memory.stats.last_parts.tag,    parts.tag) ;
             set_var(memory.stats.last_parts.set,    parts.set) ;
             set_var(memory.stats.last_parts.offset, parts.offset) ;

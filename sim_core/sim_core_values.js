@@ -185,6 +185,21 @@
 				  }) ;
         }
 
+        function vue_observable_ifnotjetdone ( element )
+        {
+	    // without Vuex
+	    if (typeof Vuex === "undefined") {
+	        return Vuex ;
+	    }
+
+            // vue_observable if not done before
+            if (false == (element instanceof Vuex.Store)) {
+                element = vue_observable(element) ;
+            }
+
+            return element ;
+        }
+
         function vue_appyBinding ( r_value, vue_context, f_computed_value )
         {
 	    // without Vue

@@ -138,15 +138,11 @@
 
 		    for (i=0; i<ledm_states.length; i++)
 		    {
-			 if (false == (ledm_states[i].color instanceof Vuex.Store)) {
-			     ledm_states[i].color = vue_observable(ledm_states[i].color) ;
-			 }
+			 ledm_states[i].color = vue_observable_ifnotjetdone(ledm_states[i].color) ;
                          vue_appyBinding(ledm_states[i].color, '#ledm'+i+'_context', f_computed_value) ;
 		    }
 
-		    if (false == (ledm_apirest_endpoint.value instanceof Vuex.Store)) {
-		        ledm_apirest_endpoint.value = vue_observable(ledm_apirest_endpoint.value) ;
-		    }
+		    ledm_apirest_endpoint.value = vue_observable_ifnotjetdone(ledm_apirest_endpoint.value) ;
 		    vue_appyBinding(ledm_apirest_endpoint.value, '#ledm_apirest_endpoint', f_computed_value) ;
 	      }
         }

@@ -414,10 +414,7 @@
             {
 		 var ref_obj = simhw_sim_states().BR[index] ;
 
-		 if (false == (ref_obj.value instanceof Vuex.Store)) {
-		     ref_obj.value = vue_observable(ref_obj.value) ;
-                 }
-
+		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj.value) ;
 		 vue_appyBinding(ref_obj.value, '#rf_'+index, f_computed_value) ;
 	    }
         }
@@ -516,10 +513,7 @@
                  var s = filter[i].split(",")[0] ;
 		 var ref_obj = sim_eltos[s] ;
 
-		 if (false == (ref_obj.value instanceof Vuex.Store)) {
-		     ref_obj.value = vue_observable(ref_obj.value) ;
-                 }
-
+		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj.value) ;
 		 vue_appyBinding(ref_obj.value, '#rf_'+s, f_computed_value) ;
 	    }
         }

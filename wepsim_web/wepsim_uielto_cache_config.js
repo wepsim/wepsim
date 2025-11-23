@@ -125,35 +125,6 @@
                   "</tbody>" +
                   "</table>" ;
 
-/*
-		  "<tr>" +
-                  "    <td class='border border-dark w-50 text-center'><strong>line/via</strong></td>" +
-                  "    <td class='border border-dark w-50 text-center'><strong>offset</strong></td>" +
-                  "</tr>" +
-		  "<tr>" +
-		  "    <td align='center' class='border border-2 border-tertiary'>" +
-		  "    <div id='via_size_" + index + "_" + this.name_str + "'>" +
-		  "    <input type='number' " +
-		  "           value='" + memory_cfg_i.cfg.via_size + "' " +
-		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
-		  "           min='0' max='32'>" +
-		  "    </div>" +
-                  "    # bits for line in cache" +
-		  "    </td>" +
-		  "    <td align='center' class='border border-2 border-tertiary'>" +
-		  "    <div id='off_size_" + index + "_" + this.name_str + "'>" +
-		  "    <input type='number' " +
-		  "           value='" + memory_cfg_i.cfg.off_size + "' " +
-		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
-		  "           min='0' max='32'>" +
-		  "    </div>" +
-                  "    # bits for byte inside line" +
-		  "    </td>" +
-                  "</tr>" +
-                  "</tbody>" +
-                  "</table>" ;
-*/
-
 	   return o ;
         }
 
@@ -360,7 +331,14 @@
               // update cm_cfg and cm
               curr_cfg[level] = cache_memory_init(level, 12, 5, 6, "fifo", "unified", null) ;
 	       curr_cm[level] = cache_memory_init2(curr_cfg[level].cfg) ;
-	       curr_cm[level].cfg.next_cache = null ;
+
+              // update next_cache...
+	          curr_cm[level].cfg.next_cache = null ;
+	         curr_cfg[level].cfg.next_cache = -1 ;
+	      if (level > 0) {
+                  curr_cm[level - 1].cfg.next_cache = curr_cfg[level] ;
+                 curr_cfg[level - 1].cfg.next_cache = level ;
+              }
 
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;
 	      simhw_internalState_reset('CM',     curr_cm) ;
@@ -384,6 +362,18 @@
               }
 
               // update cm_cfg and cm
+	      if (level > 0)
+              {
+                  if (curr_cm.length > level) {
+                      curr_cm[level - 1].cfg.next_cache =  curr_cm[level].cfg.next_cache ;
+                     curr_cfg[level - 1].cfg.next_cache = curr_cfg[level].cfg.next_cache ;
+                  }
+                  else {
+                      curr_cm[level - 1].cfg.next_cache = null ;
+                     curr_cfg[level - 1].cfg.next_cache = -1 ;
+                  }
+              }
+
               curr_cfg.splice(level, 1) ;
                curr_cm.splice(level, 1) ;
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;

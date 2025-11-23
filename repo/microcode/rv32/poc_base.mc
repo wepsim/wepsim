@@ -94,7 +94,7 @@ sret {
                      (T1, C2),
                      (MRB, SELB=10, MB=0, MC, SELCOP=10000, T6=1, MRC, SELC=10, LC),
 
-                     # go begin
+                     # go to begin
                      (A0=1, B=1 ,C=0)
             }
 }

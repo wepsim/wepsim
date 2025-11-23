@@ -344,9 +344,7 @@
                                             return arr ;
                                       } ;
 
-            if (false == (memory instanceof Vuex.Store)) {
-                memory = vue_observable(memory) ;
-            }
+            memory = vue_observable_ifnotjetdone(memory) ;
             vue_appyBinding(memory, '#ctrl_mem', f_computed_elements) ;
 
             // scroll up/down to index element...
