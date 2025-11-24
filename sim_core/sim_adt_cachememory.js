@@ -80,14 +80,25 @@
             }
 
             // block stats
-            val   = get_var(memory.sets[parts.set].tags[parts.tag].n_access) ;
-            set_var(memory.sets[parts.set].tags[parts.tag].n_access, val + 1) ;
+            val = memory.sets[parts.set].tags[parts.tag].n_access ;
+                  memory.sets[parts.set].tags[parts.tag].n_access = val + 1 ;
+
+            if (r_w == "write") {
+                memory.sets[parts.set].tags[parts.tag].dirty = 1 ;
+            }
+
+            memory.sets[parts.set].tags[parts.tag].timestamp = clock_timestamp ;
+
+	    /*
+            val = get_var(memory.sets[parts.set].tags[parts.tag].n_access) ;
+                  set_var(memory.sets[parts.set].tags[parts.tag].n_access, val + 1) ;
 
             if (r_w == "write") {
                 set_var(memory.sets[parts.set].tags[parts.tag].dirty, 1) ;
             }
 
             set_var(memory.sets[parts.set].tags[parts.tag].timestamp, clock_timestamp) ;
+	    */
         }
 
         function cache_memory_select_victim ( memory, set )

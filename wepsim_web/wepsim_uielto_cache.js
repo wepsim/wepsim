@@ -80,7 +80,7 @@
 
 
         /*
-         *  Cache Memory UI
+         *  Auxiliar function for Cache Memory UI
          */
 
         function wepsim_show_cache_stats ( level, memory )
@@ -181,34 +181,40 @@
         function wepsim_show_cache_content ( level, memory )
         {
             var o1 = "" ;
+            var elto_set_bin = '' ;
+            var elto_tag_bin = '' ;
 
 	    // sets/tags
             var ks = null ;
 	    var kt = null ;
-            var elto_set_bin = '' ;
-            var elto_tag_bin = '' ;
+
             ks = Object.keys(memory.sets) ;
 	    for (const elto_set of ks)
 	    {
                  elto_set_bin = parseInt(elto_set).toString(2).padStart(memory.cfg.set_size,'0') + '<sub>2</sub>';
+
 	         o1 += "<table class='table table-bordered table-striped table-hover table-sm w-auto pb-2'>" +
                        "<thead>" +
 	               "<tr><th align='center' colspan=4>set: " + elto_set_bin + "</th></tr>" +
 	               "<tr><th>tag</th><th>valid</th><th>dirty</th><th># access</th></tr>" +
                        "</thead><tbody>" ;
+
 		 kt = Object.keys(memory.sets[elto_set].tags) ;
 	         for (const elto_tag of kt)
 		 {
                       elto_tag_bin = parseInt(elto_tag).toString(2).padStart(memory.cfg.tag_size,'0') + '<sub>2</sub>';
+
 	              o1 += "<tr>" +
 		 	    "<td>" + elto_tag_bin + "</td>" +
-			    "<td>" + memory.sets[elto_set].tags[elto_tag].valid    + "</td>" +
-			    "<td>" + memory.sets[elto_set].tags[elto_tag].dirty    + "</td>" +
-			    "<td>" + memory.sets[elto_set].tags[elto_tag].n_access + "</td>" +
+			    "<td>" + get_var(memory.sets[elto_set].tags[elto_tag].valid)    + "</td>" +
+			    "<td>" + get_var(memory.sets[elto_set].tags[elto_tag].dirty)    + "</td>" +
+			    "<td>" + get_var(memory.sets[elto_set].tags[elto_tag].n_access) + "</td>" +
 			    "</tr>" ;
 	         }
 	         o1 += "</tbody></table>" ;
 	    }
+
+	    // if empty then said "Empty"
             if ("" == o1) {
                 o1 = "&lt;Empty&gt;" ;
             }
@@ -229,7 +235,6 @@
               // (1/3) update stats
               o1 = wepsim_show_cache_stats(level, cm_i) ;
               $("#cm-info-stat-ph-" + level).html(o1) ;
-              wepsim_show_cache_vueinit(level, cm_i) ;
 
               // (2/3) update configuration
               o1 = wepsim_show_cache_cfg(level, cm_i) ;
@@ -238,6 +243,9 @@
               // (3/3) update content
               o1 = wepsim_show_cache_content(level, cm_i) ;
               $("#cm-info-cnt-ph-" + level).html(o1) ;
+
+              // binding for vue...
+              wepsim_show_cache_vueinit(level, cm_i) ;
         }
 
 
@@ -468,6 +476,11 @@
 
             return true ;
         }
+
+
+        /*
+         *  Cache Memory UI
+         */
 
         function wepsim_show_cache_memory ( cache_memory )
         {
