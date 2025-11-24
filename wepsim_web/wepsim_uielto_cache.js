@@ -80,7 +80,7 @@
 
 
         /*
-         *  Cache Memory UI
+         *  Auxiliar function for Cache Memory UI
          */
 
         function wepsim_show_cache_stats ( level, memory )
@@ -181,34 +181,40 @@
         function wepsim_show_cache_content ( level, memory )
         {
             var o1 = "" ;
+            var elto_set_bin = '' ;
+            var elto_tag_bin = '' ;
 
 	    // sets/tags
             var ks = null ;
 	    var kt = null ;
-            var elto_set_bin = '' ;
-            var elto_tag_bin = '' ;
+
             ks = Object.keys(memory.sets) ;
 	    for (const elto_set of ks)
 	    {
                  elto_set_bin = parseInt(elto_set).toString(2).padStart(memory.cfg.set_size,'0') + '<sub>2</sub>';
+
 	         o1 += "<table class='table table-bordered table-striped table-hover table-sm w-auto pb-2'>" +
                        "<thead>" +
 	               "<tr><th align='center' colspan=4>set: " + elto_set_bin + "</th></tr>" +
 	               "<tr><th>tag</th><th>valid</th><th>dirty</th><th># access</th></tr>" +
                        "</thead><tbody>" ;
+
 		 kt = Object.keys(memory.sets[elto_set].tags) ;
 	         for (const elto_tag of kt)
 		 {
                       elto_tag_bin = parseInt(elto_tag).toString(2).padStart(memory.cfg.tag_size,'0') + '<sub>2</sub>';
+
 	              o1 += "<tr>" +
 		 	    "<td>" + elto_tag_bin + "</td>" +
-			    "<td>" + memory.sets[elto_set].tags[elto_tag].valid    + "</td>" +
-			    "<td>" + memory.sets[elto_set].tags[elto_tag].dirty    + "</td>" +
-			    "<td>" + memory.sets[elto_set].tags[elto_tag].n_access + "</td>" +
+			    "<td>" + get_var(memory.sets[elto_set].tags[elto_tag].valid)    + "</td>" +
+			    "<td>" + get_var(memory.sets[elto_set].tags[elto_tag].dirty)    + "</td>" +
+			    "<td>" + get_var(memory.sets[elto_set].tags[elto_tag].n_access) + "</td>" +
 			    "</tr>" ;
 	         }
 	         o1 += "</tbody></table>" ;
 	    }
+
+	    // if empty then said "Empty"
             if ("" == o1) {
                 o1 = "&lt;Empty&gt;" ;
             }
@@ -229,7 +235,6 @@
               // (1/3) update stats
               o1 = wepsim_show_cache_stats(level, cm_i) ;
               $("#cm-info-stat-ph-" + level).html(o1) ;
-              wepsim_show_cache_vueinit(level, cm_i) ;
 
               // (2/3) update configuration
               o1 = wepsim_show_cache_cfg(level, cm_i) ;
@@ -238,6 +243,9 @@
               // (3/3) update content
               o1 = wepsim_show_cache_content(level, cm_i) ;
               $("#cm-info-cnt-ph-" + level).html(o1) ;
+
+              // binding for vue...
+              wepsim_show_cache_vueinit(level, cm_i) ;
         }
 
 
@@ -261,25 +269,28 @@
                     return o1 ;
               }
 
-              o1 = "<h5><span data-langkey='Processor'>Processor</span></h5>" +
-                   "<div class='vr' style='width:3px'></div>" ;
+              o1  = "<div class='row'>" +
+		    "<span class='col-auto h5 px-0'><span data-langkey='Processor'>Processor</span></span>" +
+		    "</div>" ;
 
 	      // cache_memory in HTML
               for (var i=0; i<cache_memory.length; i++)
               {
-	      o1 += "<div class='row p-2'>" +
-		    "<div class='col-auto'>" +
-		    "<h5>Cache-" + (i+1) + "</h5>" +
-		    "</div>" +
-		    "<div class='col'>" +
+	      o1 += "<div class='row'>" +  // <header row>
+                    "<span class='col-auto h5'>|-</span>" +
+		    "<span class='col-auto h5 px-0'>Cache-" + (i+1) + "</span>" +
+		    "<div  class='col'>" +
 		    "<span class='btn btn-sm btn-info text-white py-0' " +
 		    "      onclick='wepsim_show_cache_memory_i(" + (i+1) + ");'" +
 		    ">Refresh</span>" +
 		    "</div>" +
-		    "</div>" +
+		    "</div>" +             // </header row>
                     "" +
-		    "<div class='accordion ms-3 mb-3 accordion-flush' id='cm-info-" + (i+1) + "'>" +
+                    "<div class='row'>" +  // <info row>
+                    "<div class='vr col-auto ms-3 px-1'></div>" +
+                    "<div class='col mx-auto'>" +
                     "" +
+		    "<div class='accordion mb-3 accordion-flush' id='cm-info-" + (i+1) + "'>" +
                     "  <div class='accordion-item'>" +
                     "    <h2 class='accordion-header' id='cm-stats'>" +
                     "      <button class='accordion-button p-1 fs-5' type='button' " +
@@ -322,12 +333,18 @@
                     "         </div>" +
 		    "    </div>" +
 		    "  </div>" +
+		    "</div>" +
                     "" +
+		    "</div>" +
 		    "</div>" ;
               }
 
-              o1 += "<div class='vr' style='width:3px'></div>" +
-                    "<h5><span data-langkey='Memory'>Memory</span></h5>" ;
+              o1 += "<div class='row'>" +
+                    "<span class='col-auto h5'>|</span>" +
+		    "</div>" +
+                    "<div class='row'>" +
+		    "<span class='col-auto h5 px-0'><span data-langkey='Memory'>Memory</span></span>" +
+		    "</div>" ;
 
               return o1 ;
         }
@@ -468,6 +485,11 @@
 
             return true ;
         }
+
+
+        /*
+         *  Cache Memory UI
+         */
 
         function wepsim_show_cache_memory ( cache_memory )
         {

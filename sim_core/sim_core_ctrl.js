@@ -370,6 +370,6 @@
 	    // 7.- show memories...
             show_main_memory   (mp_obj, 0, true, true) ;
             show_control_memory(mc_obj, 0, true) ;
-	    wepsim_show_cache_memory(curr_cm) ;
+	    show_cache_memory  (curr_cm) ;
 	}
 
