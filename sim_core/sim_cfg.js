@@ -196,14 +196,6 @@
 	     }
 
              return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ;
-
-/*
-             if (typeof navigator.userAgentData == "undefined") {
-                 return false ;
-	     }
-
-             return navigator.userAgentData.mobile ;
-*/
         }
 
         function is_cordova ( )
@@ -217,7 +209,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.3.7" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.3.7.20251010A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.3.7.20251110A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -265,7 +257,7 @@
                    "ws_idiom":              { upgrade:false, type:"string",    value:'en' },
                    "use_voice":             { upgrade:false, type:"boolean",   value:false },
                    "ws_skin_ui":            { upgrade:false, type:"string",    value:'classic' },
-                   "ws_skin_user":          { upgrade:true,  type:"string",    value:'extra_mcode:extra_morecfg:extra_share' },
+                   "ws_skin_user":          { upgrade:true,  type:"string",    value:'extra_mcode:extra_morecfg:extra_share:beta_cache' },
                    "ws_skin_dark_mode":     { upgrade:false, type:"boolean",   value:false },
 
 	           /* micro/assembly screen: editor */

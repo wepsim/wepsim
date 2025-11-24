@@ -269,25 +269,28 @@
                     return o1 ;
               }
 
-              o1 = "<h5><span data-langkey='Processor'>Processor</span></h5>" +
-                   "<div class='vr' style='width:3px'></div>" ;
+              o1  = "<div class='row'>" +
+		    "<span class='col-auto h5 px-0'><span data-langkey='Processor'>Processor</span></span>" +
+		    "</div>" ;
 
 	      // cache_memory in HTML
               for (var i=0; i<cache_memory.length; i++)
               {
-	      o1 += "<div class='row p-2'>" +
-		    "<div class='col-auto'>" +
-		    "<h5>Cache-" + (i+1) + "</h5>" +
-		    "</div>" +
-		    "<div class='col'>" +
+	      o1 += "<div class='row'>" +  // <header row>
+                    "<span class='col-auto h5'>|-</span>" +
+		    "<span class='col-auto h5 px-0'>Cache-" + (i+1) + "</span>" +
+		    "<div  class='col'>" +
 		    "<span class='btn btn-sm btn-info text-white py-0' " +
 		    "      onclick='wepsim_show_cache_memory_i(" + (i+1) + ");'" +
 		    ">Refresh</span>" +
 		    "</div>" +
-		    "</div>" +
+		    "</div>" +             // </header row>
                     "" +
-		    "<div class='accordion ms-3 mb-3 accordion-flush' id='cm-info-" + (i+1) + "'>" +
+                    "<div class='row'>" +  // <info row>
+                    "<div class='vr col-auto ms-3 px-1'></div>" +
+                    "<div class='col mx-auto'>" +
                     "" +
+		    "<div class='accordion mb-3 accordion-flush' id='cm-info-" + (i+1) + "'>" +
                     "  <div class='accordion-item'>" +
                     "    <h2 class='accordion-header' id='cm-stats'>" +
                     "      <button class='accordion-button p-1 fs-5' type='button' " +
@@ -330,12 +333,18 @@
                     "         </div>" +
 		    "    </div>" +
 		    "  </div>" +
+		    "</div>" +
                     "" +
+		    "</div>" +
 		    "</div>" ;
               }
 
-              o1 += "<div class='vr' style='width:3px'></div>" +
-                    "<h5><span data-langkey='Memory'>Memory</span></h5>" ;
+              o1 += "<div class='row'>" +
+                    "<span class='col-auto h5'>|</span>" +
+		    "</div>" +
+                    "<div class='row'>" +
+		    "<span class='col-auto h5 px-0'><span data-langkey='Memory'>Memory</span></span>" +
+		    "</div>" ;
 
               return o1 ;
         }
