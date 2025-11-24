@@ -330,14 +330,13 @@
 
               // update cm_cfg and cm
               curr_cfg[level] = cache_memory_init(level, 12, 5, 6, "fifo", "unified", -1) ;
-	       curr_cm[level] = cache_memory_init2(curr_cfg[level].cfg) ;
+	       curr_cm[level] = cache_memory_init_eltofromcfg(curr_cfg[level].cfg) ;
+              cache_memory_init_eltonextcache(curr_cm, curr_cfg[level], curr_cm[level]) ;
 
-              // update next_cache...
-	         curr_cfg[level].cfg.next_cache = -1 ;
-	          curr_cm[level].cfg.next_cache = null ;
+              // update next_cache of (level-1)...
 	      if (level > 0) {
                  curr_cfg[level - 1].cfg.next_cache = level ;
-                  curr_cm[level - 1].cfg.next_cache = curr_cfg[level] ;
+                  curr_cm[level - 1].cfg.next_cache = curr_cm[level] ;
               }
 
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;
@@ -376,6 +375,7 @@
 
               curr_cfg.splice(level, 1) ;
                curr_cm.splice(level, 1) ;
+
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;
 	      simhw_internalState_reset('CM',     curr_cm) ;
 
@@ -401,10 +401,10 @@
               }
 
               curr_cfg[index].cfg[field] = value ;
-               curr_cm[index] = cache_memory_init2(curr_cfg[index].cfg) ;
+
+              curr_cm[index] = cache_memory_init_eltofromcfg(curr_cfg[index].cfg) ;
               if ('next_cache' == field) {
-                  value = ('None' == value) ? null : curr_cm[value] ;
-                  curr_cm[index].cfg.next_cache = value ;
+                  cache_memory_init_eltonextcache( curr_cm, curr_cfg[index], curr_cm[index] ) ;
               }
 
               simhw_internalState_reset('CM_cfg', curr_cfg) ;

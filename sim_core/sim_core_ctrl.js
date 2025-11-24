@@ -363,12 +363,13 @@
 
 	    // 6.- load the CM with default values...
             var curr_cfg = simhw_internalState('CM_cfg') ;
-            var curr_cm  = cache_memory_init3(curr_cfg) ;
+            var curr_cm  = cache_memory_init_cm(curr_cfg) ;
             simhw_internalState_reset('CM_cfg', curr_cfg) ;
             simhw_internalState_reset('CM',     curr_cm) ;
 
 	    // 7.- show memories...
             show_main_memory   (mp_obj, 0, true, true) ;
             show_control_memory(mc_obj, 0, true) ;
+	    wepsim_show_cache_memory(curr_cm) ;
 	}
 
