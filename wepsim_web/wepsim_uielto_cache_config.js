@@ -329,15 +329,15 @@
               }
 
               // update cm_cfg and cm
-              curr_cfg[level] = cache_memory_init(level, 12, 5, 6, "fifo", "unified", null) ;
+              curr_cfg[level] = cache_memory_init(level, 12, 5, 6, "fifo", "unified", -1) ;
 	       curr_cm[level] = cache_memory_init2(curr_cfg[level].cfg) ;
 
               // update next_cache...
-	          curr_cm[level].cfg.next_cache = null ;
 	         curr_cfg[level].cfg.next_cache = -1 ;
+	          curr_cm[level].cfg.next_cache = null ;
 	      if (level > 0) {
-                  curr_cm[level - 1].cfg.next_cache = curr_cfg[level] ;
                  curr_cfg[level - 1].cfg.next_cache = level ;
+                  curr_cm[level - 1].cfg.next_cache = curr_cfg[level] ;
               }
 
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;
