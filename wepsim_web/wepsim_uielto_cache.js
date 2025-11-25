@@ -216,7 +216,7 @@
 
 	    // if empty then said "Empty"
             if ("" == o1) {
-                o1 = "&lt;Empty&gt;" ;
+                o1 = "&lt;Empty&gt;, please try to refresh to update the content of the cache." ;
             }
 
 	    // return content
@@ -270,14 +270,17 @@
               }
 
               o1  = "<div class='row'>" +
-		    "<span class='col-auto h5 px-0'><span data-langkey='Processor'>Processor</span></span>" +
+		    "<span class='col-auto h5 ps-0'><span data-langkey='Processor'>Processor</span></span>" +
 		    "</div>" ;
 
 	      // cache_memory in HTML
               for (var i=0; i<cache_memory.length; i++)
               {
-	      o1 += "<div class='row'>" +  // <header row>
-                    "<span class='col-auto h5'>|-</span>" +
+	      o1 += "<div class='row'>" +  // <divider>
+                    "<span class='col-auto h5 ps-0'>|</span>" +
+                    "</div>" +             // </divider>
+                    "" +
+	            "<div class='row'>" +  // <header row>
 		    "<span class='col-auto h5 px-0'>Cache-" + (i+1) + "</span>" +
 		    "<div  class='col'>" +
 		    "<span class='btn btn-sm btn-info text-white py-0' " +
@@ -286,11 +289,9 @@
 		    "</div>" +
 		    "</div>" +             // </header row>
                     "" +
-                    "<div class='row'>" +  // <info row>
-                    "<div class='vr col-auto ms-3 px-1'></div>" +
-                    "<div class='col mx-auto'>" +
+                    "<div class='row list-group-item border ms-1 mb-2'>" +  // <info row>
                     "" +
-		    "<div class='accordion mb-3 accordion-flush' id='cm-info-" + (i+1) + "'>" +
+		    "<div class='accordion accordion-flush px-0' id='cm-info-" + (i+1) + "'>" +
                     "  <div class='accordion-item'>" +
                     "    <h2 class='accordion-header' id='cm-stats'>" +
                     "      <button class='accordion-button p-1 fs-5' type='button' " +
@@ -335,15 +336,14 @@
 		    "  </div>" +
 		    "</div>" +
                     "" +
-		    "</div>" +
 		    "</div>" ;
               }
 
               o1 += "<div class='row'>" +
-                    "<span class='col-auto h5'>|</span>" +
+                    "<span class='col-auto h5 ps-0'>|</span>" +
 		    "</div>" +
                     "<div class='row'>" +
-		    "<span class='col-auto h5 px-0'><span data-langkey='Memory'>Memory</span></span>" +
+		    "<span class='col-auto h5 ps-0'><span data-langkey='Memory'>Memory</span></span>" +
 		    "</div>" ;
 
               return o1 ;
