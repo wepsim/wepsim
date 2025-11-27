@@ -107,7 +107,11 @@
 		  "" +
 		  "    <td align='center' " +
 		  "        style='vertical-align: middle;' " +
-                  "        class='border border-2 border-tertiary bg-secondary-subtle'>line / via</td>" +
+                  "        class='border border-2 border-tertiary'>" +
+		  "        <div class='w-100 mx-auto border'></div>" +
+		  "        line / via" +
+		  "        <div class='w-100 mx-auto border'></div>" +
+		  "    </td>" +
                   "</tr>" +
 		  "<tr>" +
 		  "    <td align='center' class='border border-0 border-tertiary'>&nbsp;</td>" +
@@ -261,7 +265,9 @@
         {
 	     var o = '' ;
 
-	     o += "<div class='row mb-2'>" +
+	     o += "<div class='card container border mb-3'>" +
+		  "" +
+	  "<div class='card-header row mb-2'>" +
 		  "<div class='col-auto px-2 pt-2 pb-0'>" +
 		  "<h5>Cache-" + (index+1) + "</h5>" +
 		  "</div>" +
@@ -277,13 +283,10 @@
 		  "</div>" +
 		  "</div>" +
 		  "" +
-	          "<div class='row ms-1'>" +
-                  "<form class='col'>" +
                   wepsim_show_cm_level_cfg_placepol  (memory_cfg, index) +
                   wepsim_show_cm_level_cfg_splitunify(memory_cfg, index) +
                   wepsim_show_cm_level_cfg_replacepol(memory_cfg, index) +
                   wepsim_show_cm_level_cfg_nextcm    (memory_cfg, index) +
-                  "</form>" +
 		  "</div>" ;
 
 	   return o ;
@@ -333,12 +336,6 @@
 	       curr_cm[level] = cache_memory_init_eltofromcfg(curr_cfg[level].cfg) ;
               cache_memory_init_eltonextcache(curr_cm, curr_cfg[level], curr_cm[level]) ;
 
-              // update next_cache of (level-1)...
-	      if (level > 0) {
-                 curr_cfg[level - 1].cfg.next_cache = level ;
-                  curr_cm[level - 1].cfg.next_cache = curr_cm[level] ;
-              }
-
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;
 	      simhw_internalState_reset('CM',     curr_cm) ;
 
@@ -360,19 +357,17 @@
                   return ;
               }
 
-              // update cm_cfg and cm
-	      if (level > 0)
-              {
-                  if (curr_cm.length > level) {
-                      curr_cm[level - 1].cfg.next_cache =  curr_cm[level].cfg.next_cache ;
-                     curr_cfg[level - 1].cfg.next_cache = curr_cfg[level].cfg.next_cache ;
-                  }
-                  else {
-                      curr_cm[level - 1].cfg.next_cache = null ;
-                     curr_cfg[level - 1].cfg.next_cache = -1 ;
-                  }
-              }
+              // unlink from other cache levels...
+	      for (var i=0; i<curr_cfg.length; i++)
+	      {
+                   if (curr_cfg[i].cfg.next_cache == level)
+		   {
+                        curr_cm[i].cfg.next_cache = null ;
+                       curr_cfg[i].cfg.next_cache = -1 ;
+	           }
+	      }
 
+              // remove this level...
               curr_cfg.splice(level, 1) ;
                curr_cm.splice(level, 1) ;
 
@@ -445,5 +440,25 @@
                   wepsim_cm_update_cfg(index, "set_size", curr_sz) ;
                   $("#cpp_dm").show();
               }
+        }
+
+
+        /*
+         *  Cache Memory Configuration API
+         */
+
+        function wepsim_show_cache_memory_config ( )
+        {
+              var o1       = '' ;
+              var div_hash = '#config_CACHE_sel' ;
+
+              // default content
+              var curr_cfg = simhw_internalState('CM_cfg') ;
+              if (typeof curr_cfg != "undefined") {
+                  o1 = wepsim_show_cache_memory_cfg(div_hash, curr_cfg) ;
+              }
+
+	      // html holder
+              $(div_hash).html(o1) ;
         }
 

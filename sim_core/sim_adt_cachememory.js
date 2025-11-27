@@ -286,6 +286,13 @@
             return parts ;
         }
 
+        // Example: var cm_cache  = simhw_internalState('CM') ;
+        //          var cache_cfg = cache_memory_configuration_get(cm_cache) ;
+        function cache_memory_configuration_get ( memory )
+        {
+            return memory.cfg ;
+        }
+
         // Example: var h_or_m = cache_memory_access(cm, 0x12345678, "read", clock_timestamp)
         //                       * memory:    cm
         //                       * address:   0x12345678

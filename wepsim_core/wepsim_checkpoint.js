@@ -34,6 +34,13 @@
 	    var state_obj         = simcore_simstate_current2state() ;
 	    state_current.content = simcore_simstate_state2checklist(state_obj, '') ;
 
+	    // get cache
+	    var cm_cache  = simhw_internalState('CM') ;
+	    var cache_cfg = [] ;
+	    for (var i=0; i<cm_cache.length; i++) {
+	         cache_cfg.push(cache_memory_configuration_get(cm_cache[i])) ;
+	    }
+
 	    // pack elements
 	    var elements = {
 		              "mode":          ws_mode,
@@ -42,6 +49,7 @@
 			      "state_current": state_current,
 			      "state_history": history_obj,
 			      "record":        simcore_record_get(),
+			      "cache":         cache_cfg,
 			      "tag":           tagName,
 			      "notify":        true
 	                   } ;
@@ -70,6 +78,8 @@
 	       checkpointObj.state_history = [] ;
 	   if (typeof checkpointObj.record === 'undefined')
 	       checkpointObj.record = [] ;
+	   if (typeof checkpointObj.cache  === 'undefined')
+	       checkpointObj.cache  = [] ;
 
 	   // 2.- restore state(s)
 
@@ -128,6 +138,20 @@
 	       wepsim_notify_do_notify('Restored Checkpoint', o, 'info', get_cfg('NOTIF_delay')) ;
 	   }
 
+	   // 5.- restore cache-cfg and cache
+	   var cm_cfg   = [] ;
+	   var cm_cfg_i = {} ;
+	   for (var i=0; i<checkpointObj.cache.length; i++)
+	   {
+		 cm_cfg_i = cache_memory_init_eltofromcfg(checkpointObj.cache[i]) ;
+	         cm_cfg.push(cm_cfg_i) ;
+	   }
+
+	   var cm = cache_memory_init_cm(cm_cfg) ;
+           simhw_internalState_reset('CM_cfg', cm_cfg) ;
+           simhw_internalState_reset('CM',     cm) ;
+	   wepsim_show_cache_memory_config() ;
+
 	   // return
 	   return o ;
     }
@@ -177,10 +201,10 @@
 			"\n",
 			"if ws['assembly'] != '' and ws['firmware'] != '':\n",
 			"   !npm install  terser jq jshint yargs clear inquirer >& /dev/null\n",
-			"   !wget https://github.com/acaldero/wepsim/releases/download/v2.3.5/wepsim-2.3.5.zip >& /dev/null\n",
-			"   !unzip -o wepsim-2.3.5.zip  >& /dev/null\n",
-			"   !rm -fr   wepsim-2.3.5.zip\n",
-			"   !./wepsim-2.3.5/wepsim.sh -a stepbystep -m ep -f /base.mc -s /base.asm > ./result.csv\n",
+			"   !wget https://github.com/acaldero/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip >& /dev/null\n",
+			"   !unzip -o wepsim-2.3.7.zip  >& /dev/null\n",
+			"   !rm -fr   wepsim-2.3.7.zip\n",
+			"   !./wepsim-2.3.7/wepsim.sh -a stepbystep -m ep -f /base.mc -s /base.asm > ./result.csv\n",
 			"\n",
 			"df = None\n",
 			"if ws['assembly'] != '' and ws['firmware'] != '':\n",
