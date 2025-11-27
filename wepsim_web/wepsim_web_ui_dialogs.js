@@ -76,18 +76,14 @@
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-share-link " +
                                 "    fid='inputToShareAs2' " +
-                                "    jshare='asm' " +
+                                "    jshare='asm,cache' " +
                                 "></ws-share-link>" +
                                "</div>" +
                                "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
-				"	    var elto_shared = load_from_uri(elto.value);" +
-                                "	    if (elto_shared.asm != null)" +
-                                "	        inputasm.setValue(elto_shared.asm);" +
-                                "	    if (elto_shared.mc != null)" +
-                                "	        inputfirm.setValue(elto_shared.mc);" +
+				"	    load_from_uri(elto.value);" +
     				"           wsweb_dialog_close(\"load_save_assembly\");" +
 			        "	    wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "           return false;'></ws-load-link>" +
@@ -173,11 +169,7 @@
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
-				"	    var elto_shared = load_from_uri(elto.value);" +
-                                "	    if (elto_shared.asm != null)" +
-                                "	        inputasm.setValue(elto_shared.asm);" +
-                                "	    if (elto_shared.mc != null)" +
-                                "	        inputfirm.setValue(elto_shared.mc);" +
+				"	    load_from_uri(elto.value);" +
     				"           wsweb_dialog_close(\"load_save_firmware\");" +
 			        "	    wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "           return false;'></ws-load-link>" +
