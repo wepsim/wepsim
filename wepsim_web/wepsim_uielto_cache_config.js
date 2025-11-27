@@ -249,7 +249,7 @@
 		  "          onchange='wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);'" +
 		  "          aria-label='Next Cache'>" ;
 
-              o += "<option value='None'>None</option>" ;
+              o += "<option value='-1'>None</option>" ;
               for (var i=index+1; i<memory_cfg.length; i++)
               {
                    if (i != memory_cfg[index].cfg.next_cache)
