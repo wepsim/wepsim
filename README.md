@@ -42,9 +42,9 @@
     ```
   * Get WepSIM by executing:
     ```bash
-    wget https://github.com/wepsim/wepsim/releases/download/v2.3.6/wepsim-2.3.6.zip
-    unzip wepsim-2.3.6.zip
-    cd wepsim-2.3.6
+    wget https://github.com/wepsim/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip
+    unzip wepsim-2.3.7.zip
+    cd wepsim-2.3.7
     npm install terser jq jshint yargs clear inquirer@8.2.6 fuzzy \
 	            inquirer-command-prompt inquirer-autocomplete-prompt@1
     ``` 
@@ -309,12 +309,12 @@ Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Co
 !echo "(1/4) Installing pre-requisites..."
 !npm install  terser jq jshint yargs clear inquirer >& /dev/null
 !echo "(2/4) Downloading WepSIM..."
-!wget https://github.com/wepsim/wepsim/releases/download/v2.3.6/wepsim-2.3.6.zip >& /dev/null
-!unzip -o wepsim-2.3.6.zip  >& /dev/null
-!rm -fr   wepsim-2.3.6.zip
+!wget https://github.com/wepsim/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip >& /dev/null
+!unzip -o wepsim-2.3.7.zip  >& /dev/null
+!rm -fr   wepsim-2.3.7.zip
 !echo "(3/4) Executing WepSIM..."
-!./wepsim-2.3.6/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.6/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.6/repo/assembly/mips/s1e1.asm > ./result.csv
-!rm -fr   wepsim-2.3.6
+!./wepsim-2.3.7/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.7/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.7/repo/assembly/mips/s1e1.asm > ./result.csv
+!rm -fr   wepsim-2.3.7
 !echo "(4/4) Showing execution trace as table..."
 
 import pandas as pd

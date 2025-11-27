@@ -107,7 +107,11 @@
 		  "" +
 		  "    <td align='center' " +
 		  "        style='vertical-align: middle;' " +
-                  "        class='border border-2 border-tertiary bg-secondary-subtle'>line / via</td>" +
+                  "        class='border border-2 border-tertiary'>" +
+		  "        <div class='w-100 mx-auto border'></div>" +
+		  "        line / via" +
+		  "        <div class='w-100 mx-auto border'></div>" +
+		  "    </td>" +
                   "</tr>" +
 		  "<tr>" +
 		  "    <td align='center' class='border border-0 border-tertiary'>&nbsp;</td>" +
@@ -124,35 +128,6 @@
                   "</tr>" +
                   "</tbody>" +
                   "</table>" ;
-
-/*
-		  "<tr>" +
-                  "    <td class='border border-dark w-50 text-center'><strong>line/via</strong></td>" +
-                  "    <td class='border border-dark w-50 text-center'><strong>offset</strong></td>" +
-                  "</tr>" +
-		  "<tr>" +
-		  "    <td align='center' class='border border-2 border-tertiary'>" +
-		  "    <div id='via_size_" + index + "_" + this.name_str + "'>" +
-		  "    <input type='number' " +
-		  "           value='" + memory_cfg_i.cfg.via_size + "' " +
-		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
-		  "           min='0' max='32'>" +
-		  "    </div>" +
-                  "    # bits for line in cache" +
-		  "    </td>" +
-		  "    <td align='center' class='border border-2 border-tertiary'>" +
-		  "    <div id='off_size_" + index + "_" + this.name_str + "'>" +
-		  "    <input type='number' " +
-		  "           value='" + memory_cfg_i.cfg.off_size + "' " +
-		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
-		  "           min='0' max='32'>" +
-		  "    </div>" +
-                  "    # bits for byte inside line" +
-		  "    </td>" +
-                  "</tr>" +
-                  "</tbody>" +
-                  "</table>" ;
-*/
 
 	   return o ;
         }
@@ -274,14 +249,17 @@
 		  "          onchange='wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);'" +
 		  "          aria-label='Next Cache'>" ;
 
-                  o += "<option value='None'>None</option>" ;
-             for (var i=index+1; i<memory_cfg.length; i++) {
-                  o += "<option value='"+i+"'>"+i+"</option>" ;
-             }
+              o += "<option value='None'>None</option>" ;
+              for (var i=index+1; i<memory_cfg.length; i++)
+              {
+                   if (i != memory_cfg[index].cfg.next_cache)
+                        o += "<option value='"+i+"'         >"+i+"</option>" ;
+                   else o += "<option value='"+i+"' selected>"+i+"</option>" ;
+              }
 
-	     o += "  </select>" +
-                  "  </div>" +
-                  "</div>" ;
+	      o += "  </select>" +
+                   "  </div>" +
+                   "</div>" ;
 
 	   return o ;
         }
@@ -290,11 +268,13 @@
         {
 	     var o = '' ;
 
-	     o += "<div class='row mb-2'>" +
-		  "<div class='col-auto px-2 pt-2 pb-0'>" +
+	     o += "<div class='card container border mb-3'>" +
+		  "" +
+	  "<div class='card-header row mb-2'>" +
+		  "<div class='col-auto px-2 py-0'>" +
 		  "<h5>Cache-" + (index+1) + "</h5>" +
 		  "</div>" +
-		  "<div class='col-auto px-2 pt-2 pb-0'>" +
+		  "<div class='col-auto px-2 py-0'>" +
 		  "<span class='btn btn-sm btn-warning text-white py-0' " +
                   "      onclick='wepsim_cm_rm_cachelevel(\""+div_hash+"\","+index+");'>Remove</span>" +
 		  "</div>" +
@@ -306,13 +286,10 @@
 		  "</div>" +
 		  "</div>" +
 		  "" +
-	          "<div class='row ms-1'>" +
-                  "<form class='col'>" +
                   wepsim_show_cm_level_cfg_placepol  (memory_cfg, index) +
                   wepsim_show_cm_level_cfg_splitunify(memory_cfg, index) +
                   wepsim_show_cm_level_cfg_replacepol(memory_cfg, index) +
                   wepsim_show_cm_level_cfg_nextcm    (memory_cfg, index) +
-                  "</form>" +
 		  "</div>" ;
 
 	   return o ;
@@ -358,9 +335,9 @@
               }
 
               // update cm_cfg and cm
-              curr_cfg[level] = cache_memory_init(level, 12, 5, 6, "fifo", "unified", null) ;
-	       curr_cm[level] = cache_memory_init2(curr_cfg[level].cfg) ;
-	       curr_cm[level].cfg.next_cache = null ;
+              curr_cfg[level] = cache_memory_init(level, 12, 5, 6, "fifo", "unified", -1) ;
+	       curr_cm[level] = cache_memory_init_eltofromcfg(curr_cfg[level].cfg) ;
+              cache_memory_init_eltonextcache(curr_cm, curr_cfg[level], curr_cm[level]) ;
 
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;
 	      simhw_internalState_reset('CM',     curr_cm) ;
@@ -383,9 +360,20 @@
                   return ;
               }
 
-              // update cm_cfg and cm
+              // unlink from other cache levels...
+	      for (var i=0; i<curr_cfg.length; i++)
+	      {
+                   if (curr_cfg[i].cfg.next_cache == level)
+		   {
+                        curr_cm[i].cfg.next_cache = null ;
+                       curr_cfg[i].cfg.next_cache = -1 ;
+	           }
+	      }
+
+              // remove this level...
               curr_cfg.splice(level, 1) ;
                curr_cm.splice(level, 1) ;
+
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;
 	      simhw_internalState_reset('CM',     curr_cm) ;
 
@@ -411,10 +399,10 @@
               }
 
               curr_cfg[index].cfg[field] = value ;
-               curr_cm[index] = cache_memory_init2(curr_cfg[index].cfg) ;
+
+              curr_cm[index] = cache_memory_init_eltofromcfg(curr_cfg[index].cfg) ;
               if ('next_cache' == field) {
-                  value = ('None' == value) ? null : curr_cm[value] ;
-                  curr_cm[index].cfg.next_cache = value ;
+                  cache_memory_init_eltonextcache( curr_cm, curr_cfg[index], curr_cm[index] ) ;
               }
 
               simhw_internalState_reset('CM_cfg', curr_cfg) ;
@@ -455,5 +443,25 @@
                   wepsim_cm_update_cfg(index, "set_size", curr_sz) ;
                   $("#cpp_dm").show();
               }
+        }
+
+
+        /*
+         *  Cache Memory Configuration API
+         */
+
+        function wepsim_show_cache_memory_config ( )
+        {
+              var o1       = '' ;
+              var div_hash = '#config_CACHE_sel' ;
+
+              // default content
+              var curr_cfg = simhw_internalState('CM_cfg') ;
+              if (typeof curr_cfg != "undefined") {
+                  o1 = wepsim_show_cache_memory_cfg(div_hash, curr_cfg) ;
+              }
+
+	      // html holder
+              $(div_hash).html(o1) ;
         }
 

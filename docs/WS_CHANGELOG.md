@@ -6,6 +6,7 @@
   * Clarify some details of the control unit
   * Save assembly adds a new option for binary format of the main memory
   * Save microcode adds two new options for version 1 and 2 of the firmware format
+  * Initial beta version of the cache memory component
   * Some other minor improvements
 * Main external dependencies updated:
   * Update bootstrap 5.3.5 -> 5.3.8

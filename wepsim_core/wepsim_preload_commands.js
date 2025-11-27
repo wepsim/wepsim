@@ -202,6 +202,49 @@
 		      }
 	 },
 
+	 // parameter: cache
+	 {
+	    'name':   'cache',
+	    'action': function( hash )
+		      {
+			 var result_txt  = '' ;
+                         var cm_cfg_json = '[]' ;
+
+                         try
+                         {
+			    if ('cache' == hash.asm)
+			    {
+			         var cpts = wepsim_checkpoint_backup_load() ;
+                                 if (cpts.length != 0) {
+			             cm_cfg_json = cpts[0].cache ;
+				 }
+                            }
+                            else
+			    {
+                                 cm_cfg_json = LZString.decompressFromEncodedURIComponent( hash.cache ) ;
+                            }
+			    result_txt = ' has been loaded' ;
+                         }
+                         catch (e) {
+                            cm_cfg_json = '[]' ;
+			    result_txt  = ' could not be loaded' ;
+                         }
+
+			 var cm = [] ;
+			 var cm_cfg = [] ;
+			 if ('[]' != cm_cfg_json)
+                         {
+			     cm_cfg = JSON.parse(cm_cfg_json) ;
+			     cm = cache_memory_init_cm(cm_cfg) ;
+			     simhw_internalState_reset('CM_cfg', cm_cfg) ;
+			     simhw_internalState_reset('CM',     cm) ;
+			     wepsim_show_cache_memory_config() ;
+			 }
+
+			 return '<li><b>Cache configuration from URI</b> ' + result_txt + '.</li>' ;
+		      }
+	 },
+
 	 // parameter: checkpoint
 	 {
 	    'name':   'checkpoint',
