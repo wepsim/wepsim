@@ -34,12 +34,8 @@
 	    var state_obj         = simcore_simstate_current2state() ;
 	    state_current.content = simcore_simstate_state2checklist(state_obj, '') ;
 
-	    // get cache
-	    var cm_cache  = simhw_internalState('CM') ;
-	    var cache_cfg = [] ;
-	    for (var i=0; i<cm_cache.length; i++) {
-	         cache_cfg.push(cache_memory_configuration_get(cm_cache[i])) ;
-	    }
+	    // get cache configuration
+	    var cache_cfg = simhw_internalState('CM_cfg') ;
 
 	    // pack elements
 	    var elements = {
@@ -143,7 +139,7 @@
 	   var cm_cfg_i = {} ;
 	   for (var i=0; i<checkpointObj.cache.length; i++)
 	   {
-		 cm_cfg_i = cache_memory_init_eltofromcfg(checkpointObj.cache[i]) ;
+		 cm_cfg_i = cache_memory_init_eltofromcfg(checkpointObj.cache[i].cfg) ;
 	         cm_cfg.push(cm_cfg_i) ;
 	   }
 

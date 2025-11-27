@@ -175,7 +175,7 @@
                                 "           return false;'></ws-load-link>" +
                                "</div>" +
                                "</div>" +
-			   	"</div>" ;
+			       "</div>" ;
 		      },
 	    buttons:  {
 			 close: {

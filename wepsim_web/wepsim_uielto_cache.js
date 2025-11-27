@@ -293,7 +293,7 @@
 		    "</div>" +                     // </header row>
                     "" +
                     "<div class='list-group list-group-flush'>" +
-                    "<div class='row list-group-item border mx-0'>" +  // <info row>
+                    "<div class='row list-group-item border mx-0 px-1'>" +  // <info row>
                     "" +
 		    "<div class='accordion accordion-flush px-0' id='cm-info-" + (i+1) + "'>" +
                     "  <div class='accordion-item'>" +

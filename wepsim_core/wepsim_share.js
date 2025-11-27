@@ -87,12 +87,10 @@
             }
             if (share_eltos.includes('cache'))
             {
+                var cm_cfg = [] ;
 		var curr_cfg = simhw_internalState('CM_cfg') ;
-
-                var cm_cfg   = [] ;
-                var cm_cfg_i = {} ;
                 for (var i=0; i<curr_cfg.length; i++) {
-                     cm_cfg_i = cache_memory_init_eltofromcfg(curr_cfg[i]) ;
+                     var cm_cfg_i = { "cfg": curr_cfg[i].cfg } ;
                      cm_cfg.push(cm_cfg_i) ;
                 }
 
@@ -121,32 +119,34 @@
          try
          {
             var a = url_to_share.split('&') ;
-            var b = a[a.length-1].split('=') ;
 
-            if ('asm' == b[0])
-	    {
-                elto_shared.asm = LZString.decompressFromEncodedURIComponent( b[1] ) ;
-	        if (elto_shared.asm != null) {
-                    inputasm.setValue(elto_shared.asm) ;
-		}
-              //inputasm.value = elto_shared.asm ;
-            }
-            if ('mc' == b[0])
-	    {
-                elto_shared.mc  = LZString.decompressFromEncodedURIComponent( b[1] ) ;
-		if (elto_shared.mc != null) {
-		    inputfirm.setValue(elto_shared.mc) ;
-		}
-              //inputfirm.value = elto_shared.mc ;
-            }
-            if ('cache' == b[0])
-	    {
-                elto_shared.cmc = LZString.decompressFromEncodedURIComponent( b[1] ) ;
-                var cm_cfg = JSON.parse(elto_shared.cmc) ;
-                var cm = cache_memory_init_cm(cm_cfg) ;
-                simhw_internalState_reset('CM_cfg', cm_cfg) ;
-                simhw_internalState_reset('CM',     cm) ;
-		wepsim_show_cache_memory_config() ;
+            for (var i=1; i<a.length; i++)
+            {
+                 var b = a[i].split('=') ;
+
+                 if ('asm' == b[0])
+	         {
+                     elto_shared.asm = LZString.decompressFromEncodedURIComponent( b[1] ) ;
+	             if (elto_shared.asm != null) {
+                         inputasm.setValue(elto_shared.asm) ;
+		     }
+                 }
+                 if ('mc' == b[0])
+	         {
+                     elto_shared.mc  = LZString.decompressFromEncodedURIComponent( b[1] ) ;
+		     if (elto_shared.mc != null) {
+		         inputfirm.setValue(elto_shared.mc) ;
+		     }
+                 }
+                 if ('cache' == b[0])
+	         {
+                     elto_shared.cmc = LZString.decompressFromEncodedURIComponent( b[1] ) ;
+                     var cm_cfg = JSON.parse(elto_shared.cmc) ;
+                     var cm = cache_memory_init_cm(cm_cfg) ;
+                     simhw_internalState_reset('CM_cfg', cm_cfg) ;
+                     simhw_internalState_reset('CM',     cm) ;
+		     wepsim_show_cache_memory_config() ;
+                 }
             }
          }
          catch (e) {

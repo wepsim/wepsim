@@ -249,14 +249,17 @@
 		  "          onchange='wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);'" +
 		  "          aria-label='Next Cache'>" ;
 
-                  o += "<option value='None'>None</option>" ;
-             for (var i=index+1; i<memory_cfg.length; i++) {
-                  o += "<option value='"+i+"'>"+i+"</option>" ;
-             }
+              o += "<option value='None'>None</option>" ;
+              for (var i=index+1; i<memory_cfg.length; i++)
+              {
+                   if (i != memory_cfg[index].cfg.next_cache)
+                        o += "<option value='"+i+"'         >"+i+"</option>" ;
+                   else o += "<option value='"+i+"' selected>"+i+"</option>" ;
+              }
 
-	     o += "  </select>" +
-                  "  </div>" +
-                  "</div>" ;
+	      o += "  </select>" +
+                   "  </div>" +
+                   "</div>" ;
 
 	   return o ;
         }
@@ -268,10 +271,10 @@
 	     o += "<div class='card container border mb-3'>" +
 		  "" +
 	  "<div class='card-header row mb-2'>" +
-		  "<div class='col-auto px-2 pt-2 pb-0'>" +
+		  "<div class='col-auto px-2 py-0'>" +
 		  "<h5>Cache-" + (index+1) + "</h5>" +
 		  "</div>" +
-		  "<div class='col-auto px-2 pt-2 pb-0'>" +
+		  "<div class='col-auto px-2 py-0'>" +
 		  "<span class='btn btn-sm btn-warning text-white py-0' " +
                   "      onclick='wepsim_cm_rm_cachelevel(\""+div_hash+"\","+index+");'>Remove</span>" +
 		  "</div>" +
