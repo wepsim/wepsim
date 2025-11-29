@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -300,23 +300,32 @@
 	    var o = '' ;
 	    var i = 0 ;
 
-	    o = '<h5><span data-langkey="Processor">Processor</span></h5>' +
-	        '<div class="vr" style="width:3px"></div>' ;
-	    for (i=0; i<memory_cfg.length; i++) {
-                 o += wepsim_show_cm_level_cfg(div_hash, memory_cfg, i) ;
-	    }
+	      // header
+              o += "<div class='container text-center mb-2 mb-3'>" +
+	  	   "<div class='row align-items-start'>" +
+	  	   "<span class='col h5 ps-0'>" +
+		   "  <span data-langkey='Processor'>Processor</span></span>" +
+		   "<span class='col border border-secondary border-2 opacity-75 align-middle mt-3'></span>" +
+		   "<span class='col h5 ps-0'>" +
+		   "  <span data-langkey='Cache Memory'>Cache Memory</span>" +
+		   "  <span class='btn btn-sm btn-success text-white py-0' " +
+                   "        onclick='wepsim_cm_add_cachelevel(\""+div_hash+"\","+memory_cfg.length+");'>Add new</span>" +
+		   "</span>" +
+		   "<span class='col border border-secondary border-2 opacity-75 align-middle mt-3'></span>" +
+		   "<span class='col h5 ps-0'>" +
+		   "  <span data-langkey='Memory'>Memory</span></span>" +
+		   "</div>" +
+		   "</div>" ;
 
-	    o = "<div class='container container-fluid'>" +
-	        "<div class='row'>" +
-		"<div class='col'>" + o + "</div>" +
-		"</div>" +
-		"<div class='row mt-2'>" +
-		"<div class='col'>" +
-		"<span class='btn btn-sm btn-success text-white py-0' " +
-                "      onclick='wepsim_cm_add_cachelevel(\""+div_hash+"\","+i+");'>Add new</span>" +
-		"</div>" +
-		"</div>" +
-		"</div>" ;
+	      // cards
+              o += "<span class='row'>" ;
+	      for (i=0; i<memory_cfg.length; i++)
+	      {
+              o += "<span class='col-auto p-2'>" +
+		   wepsim_show_cm_level_cfg(div_hash, memory_cfg, i) +
+                   "</span>" ;
+	      }
+              o += "</span>" ;
 
 	     return o ;
         }
