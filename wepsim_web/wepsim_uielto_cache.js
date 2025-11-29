@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -85,8 +85,14 @@
 
         function wepsim_show_cache_stats ( level, memory )
         {
-           var o1 = "" ;
-           var p1 = "cache_l" + level + "_stats_" ;
+            var o1 = "" ;
+            var p1 = "cache_l" + level + "_stats_" ;
+
+            // cache configuration...
+            var t_sz = get_var(memory.cfg.tag_size) ;
+            var s_sz = get_var(memory.cfg.set_size) ;
+            var o_sz = get_var(memory.cfg.off_size) ;
+            var v_sz = get_var(memory.cfg.via_size) ;
 
           o1 += "  <ul class='mb-1 ps-3'>" +
                 "  <li> " +
@@ -98,31 +104,31 @@
                 "<span>hit-ratio  <span class='badge bg-success' id='" + p1 + "hitratio' >{{ computed_value }}</span></span> & " +
                 "<span>miss-ratio <span class='badge bg-danger'  id='" + p1 + "missratio'>{{ computed_value }}</span></span>\n" +
                 "  </li>\n" +
-                "  <li class='mb-2'>Last access: " +
+                "  <li class='my-2'>Last access: " +
                 "<span class='badge bg-secondary' id='" + p1 + "last_r_w' >{{ computed_value }}</span>" +
                 " address " +
                 "<span class='badge bg-secondary' id='" + p1 + "last_addr'>{{ computed_value }}</span>" +
-                "<span                            id='" + p1 + "lhm_1' >{{ computed_value }}</span>" + // " is a " + 
-                "<span class='badge bg-secondary' id='" + p1 + "lhm_2' >{{ computed_value }}</span>" + // <hit/miss>
+                "<span                            id='" + p1 + "lhm_1'    >{{ computed_value }}</span>" + // " was a " + 
+                "<span class='badge bg-secondary' id='" + p1 + "lhm_2'    >{{ computed_value }}</span>" + // <hit/miss>
                 "  </li>\n" +
                 "<table class='table table-bordered table-hover table-sm w-auto'>" ;
 
             if (0 == memory.cfg.set_size) {
 		// full-associative
-                o1 += "<thead><tr><th>tag</th><th>offset</th></tr></thead>" +
+                o1 += "<thead><tr><td>Tag: " + t_sz + " bits</td><td>Offset: " + o_sz + " bits</td></tr></thead>" +
                       "<tbody><tr><td><span id='" + p1 + "lp_tag'>{{ computed_value }}</span></td>"+
                                  "<td><span id='" + p1 + "lp_off'>{{ computed_value }}</span></td></tr></tbody>" ;
             }
 	    else if (memory.cfg.via_size == memory.cfg.set_size) {
 		// direct-mapped
-                o1 += "<thead><tr><th>tag</th><th>index</th><th>offset</th></tr></thead>" +
+                o1 += "<thead><tr><td>Tag: " + t_sz + " bits</td><td>Index: " + s_sz + "</td><td>Offset: " + o_sz + "</td></tr></thead>" +
                       "<tbody><tr><td><span id='" + p1 + "lp_tag'>{{ computed_value }}</span></td>"+
                                  "<td><span id='" + p1 + "lp_set'>{{ computed_value }}</span></td>"+
                                  "<td><span id='" + p1 + "lp_off'>{{ computed_value }}</span></td></tr></tbody>" ;
             }
 	    else {
 		// set associative
-                o1 += "<thead><tr><th>tag</th><th>set</th><th>offset</th></tr></thead>" +
+                o1 += "<thead><tr><td>Tag: " + t_sz + " bits</td><td>Set: " + s_sz + "</td><td>Offset: " + o_sz + "</td></tr></thead>" +
                       "<tbody><tr><td><span id='" + p1 + "lp_tag'>{{ computed_value }}</span></td>"+
                                  "<td><span id='" + p1 + "lp_set'>{{ computed_value }}</span></td>"+
                                  "<td><span id='" + p1 + "lp_off'>{{ computed_value }}</span></td></tr></tbody>" ;
@@ -136,8 +142,6 @@
 
         function wepsim_show_cache_cfg ( level, memory )
         {
-            var o1 = "" ;
-
             // cache configuration...
             var t_sz = get_var(memory.cfg.tag_size) ;
             var s_sz = get_var(memory.cfg.set_size) ;
@@ -145,34 +149,32 @@
             var v_sz = get_var(memory.cfg.via_size) ;
             var replace_pol = get_var(memory.cfg.replace_pol) ;
             var      su_pol = get_var(memory.cfg.su_pol) ;
-            var cm_type = '' ;
 
-            // html
-            o1  = "<ul class='mb-1 ps-3'>\n" +
-                  "<li> Size of fields (in bits):</li>\n" +
-                  "<table class='table table-bordered table-hover table-sm w-auto'>" ;
+            // cache type and field sizes...
+            var cm_type = '' ;
+            var p1 = "<table class='table table-bordered table-hover table-sm w-auto mt-1 mb-2'>" ;
 
             if (0 == s_sz) {
-                cm_type = "fully associative" ;
-                o1 += "<thead><tr><th>tag</th><th>offset</th></tr></thead>" +
-                      "<tbody><tr align='center'><td>"+t_sz+"</td>"+"<td>"+o_sz+"</td></tr></tbody>" ;
+                cm_type  = "fully associative" ;
+                p1      += "<thead><tr><td><b>Tag</b>: " + t_sz + " bits</td><td><b>Offset</b>: " + o_sz + " bits</td></tr></thead>" ;
             }
 	    else if (v_sz == s_sz) {
-                cm_type = "direct-mapped" ;
-                o1 += "<thead><tr><th>tag</th><th>index</th><th>offset</th></tr></thead>" +
-                      "<tbody><tr align='center'><td>"+t_sz+"</td>"+"<td>"+s_sz+"</td>"+"<td>"+o_sz+"</td></tr></tbody>" ;
+                cm_type  = "direct-mapped" ;
+                p1      += "<thead><tr><td><b>Tag</b>: " + t_sz + " bits</td><td><b>Index</b>: "  + s_sz + " bits</td><td><b>Offset</b>: " + o_sz + " bits</td></tr></thead>" ;
             }
 	    else {
-                cm_type = 'set-associative' ;
-                o1 += "<thead><tr><th>tag</th><th>set</th><th>offset</th></tr></thead>" +
-                      "<tbody><tr align='center'><td>"+t_sz+"</td>"+"<td>"+s_sz+"</td>"+"<td>"+o_sz+"</td></tr></tbody>" ;
+                cm_type  = 'set-associative' ;
+                p1      += "<thead><tr><td><b>Tag</b>: " + t_sz + " bits</td><td><b>Set</b>: "    + s_sz + " bits</td><td><b>Offset</b>: " + o_sz + " bits</td></tr></thead>" ;
             }
+	    p1 += "</table>\n" ;
 
-            o1 += "</table>" +
-                  "<li> Type:           <span class='badge bg-secondary'>" + cm_type     + "</span></li>\n" +
-                  "<li> Replace policy: <span class='badge bg-secondary'>" + replace_pol + "</span></li>\n" +
-                  "<li> Split/unified:  <span class='badge bg-secondary'>" + su_pol      + "</span></li>\n" +
-                  "</ul>" ;
+            // html
+            var o1 = "<ul class='mb-1 ps-3'>\n" +
+                     "<li>Type:                     <span class='badge bg-secondary'>" + cm_type      + "</span></li>\n" +
+                     "<li>Size of fields (in bits): " + p1 + "</li>\n" +
+                     "<li>Replace policy:           <span class='badge bg-secondary'>" + replace_pol  + "</span></li>\n" +
+                     "<li>Split/unified:            <span class='badge bg-secondary'>" + su_pol       + "</span></li>\n" +
+                     "</ul>" ;
 
 	    // return cfg
             return o1 ;
@@ -269,17 +271,22 @@
                     return o1 ;
               }
 
-              o1  = "<div class='row'>" +
-		    "<span class='col-auto h5 ps-0'><span data-langkey='Processor'>Processor</span></span>" +
-		    "</div>" ;
+              o1  = "<div class='container text-center mb-2 mb-3'>" +
+		    "<div class='row align-items-start'>" +
+		    "<span class='col      h5 ps-0'><span data-langkey='Processor'>Processor</span></span>" +
+		    "<span class='col border border-secondary border-2 opacity-75 align-middle mt-3'></span>" +
+		    "<span class='col      h5 ps-0'><span data-langkey='Cache Memory'>Cache Memory</span></span>" +
+		    "<span class='col border border-secondary border-2 opacity-75 align-middle mt-3'></span>" +
+		    "<span class='col      h5 ps-0'><span data-langkey='Memory'>Memory</span></span>" +
+		    "</div>" +
+		    "</div>" +
+		    "" +
+                    "<span class='row'>" ;
 
 	      // cache_memory in HTML
               for (var i=0; i<cache_memory.length; i++)
               {
-	      o1 += "<div class='row'>" +  // <divider>
-                    "<span class='col-auto h5 ps-0'>|</span>" +
-                    "</div>" +             // </divider>
-                    "" +
+	      o1 += "<span class='col-auto p-2'>" +
                     "<div class='card'>" +
 	            "<div class='card-header'>" +  // <header row>
                     "<div class='row'>" +
@@ -342,15 +349,11 @@
                     "</div>" +
 		    "</div>" +
                     "" +
-		    "</div>" ;
+		    "</div>" +
+		    "</span>" ;
               }
 
-              o1 += "<div class='row'>" +
-                    "<span class='col-auto h5 ps-0'>|</span>" +
-		    "</div>" +
-                    "<div class='row'>" +
-		    "<span class='col-auto h5 ps-0'><span data-langkey='Memory'>Memory</span></span>" +
-		    "</div>" ;
+              o1 += "</div>" ;
 
               return o1 ;
         }
@@ -413,7 +416,7 @@
             *       "<span class='badge bg-secondary' id='cache_stats_last_r_w' >{{ value }}</span>" +
             *       " address " +
             *       "<span class='badge bg-secondary' id='cache_stats_last_addr'>{{ computed_value }}</span>" +
-            *       "<span                            id='cache_stats_lhm_1' >{{ computed_value }}</span>" + // " is a " + 
+            *       "<span                            id='cache_stats_lhm_1' >{{ computed_value }}</span>" + // " was a " + 
             *       "<span class='badge bg-secondary' id='cache_stats_lhm_2' >{{ computed_value }}</span>" + // <hit/miss>
             *       "  </li>\n" ;
             */
@@ -433,7 +436,7 @@
                             p1 + 'lhm_1',
                             function(value){
 			       if (value != '')
-			            return " is a " ;
+			            return " was a " ;
 			       else return "" ;
                             }) ;
 	    vue_appyBinding(memory.stats.last_h_m,
