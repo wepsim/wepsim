@@ -223,12 +223,7 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_cache.js \
     wepsim_web/wepsim_uielto_cache_config.js \
     wepsim_web/wepsim_uielto_registers.js \
-    wepsim_web/wepsim_uielto_console.js \
     wepsim_web/wepsim_uielto_hw.js \
-    wepsim_web/wepsim_uielto_io_info.js \
-    wepsim_web/wepsim_uielto_io_config.js \
-    wepsim_web/wepsim_uielto_l3d.js \
-    wepsim_web/wepsim_uielto_ldm.js \
     wepsim_web/wepsim_uielto_editmc.js \
     wepsim_web/wepsim_uielto_editas.js \
     wepsim_web/wepsim_uielto_dbg_mc.js \
@@ -246,6 +241,13 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_help_swset.js \
     wepsim_web/wepsim_uielto_slider_cpucu.js \
     wepsim_web/wepsim_uielto_slider_details.js \
+    \
+    wepsim_web/wepsim_uielto_console.js \
+    wepsim_web/wepsim_uielto_io_info.js \
+    wepsim_web/wepsim_uielto_io_config.js \
+    wepsim_web/wepsim_uielto_l3d.js \
+    wepsim_web/wepsim_uielto_ldm.js \
+    wepsim_web/wepsim_uielto_sound.js \
     \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
     wepsim_web/wepsim_uipacker_ddown_info.js \

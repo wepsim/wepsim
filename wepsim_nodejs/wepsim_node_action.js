@@ -248,6 +248,25 @@
     } ;
 
     //
+    // SHOW-SOUND
+    //
+
+    hash_action["SHOW-SOUND"] = function(data, options)
+    {
+        // run...
+        var ret = wepsim_nodejs_runApp(data, options) ;
+	if (ret.ok === false) {
+            console.log(ret.msg);
+            return false ;
+	}
+
+	// show screen at the end
+        ret.msg = get_sound_content() ;
+        console.log(ret.msg);
+        return true ;
+    } ;
+
+    //
     // SHOW-MICROCODE-FIELDS
     //
 

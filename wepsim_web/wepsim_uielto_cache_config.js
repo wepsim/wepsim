@@ -270,7 +270,7 @@
 
 	     o += "<div class='card container border mb-3'>" +
 		  "" +
-	  "<div class='card-header row mb-2'>" +
+	  "<div class='card-header row mb-1'>" +
 		  "<div class='col-auto px-2 py-0'>" +
 		  "<h5>Cache-" + (index+1) + "</h5>" +
 		  "</div>" +
@@ -281,7 +281,7 @@
 		  "</div>" +
 		  "" +
 	          "<div class='row ms-1'>" +
-		  "<div class='col p-2'>" +
+		  "<div class='col m-2'>" +
                   wepsim_show_cm_level_cfg_bits(memory_cfg, index) +
 		  "</div>" +
 		  "</div>" +
@@ -303,25 +303,25 @@
 	      // header
               o += "<div class='container text-center mb-2 mb-3'>" +
 	  	   "<div class='row align-items-start'>" +
-	  	   "<span class='col h5 ps-0'>" +
+	  	   "<span class='col h5 ps-1'>" +
 		   "  <span data-langkey='Processor'>Processor</span></span>" +
 		   "<span class='col border border-secondary border-2 opacity-75 align-middle mt-3'></span>" +
-		   "<span class='col h5 ps-0'>" +
-		   "  <span data-langkey='Cache Memory'>Cache Memory</span>" +
+		   "<span class='col h5 ps-1'>" +
+		   "  <span data-langkey='Cache'>Cache</span>" +
 		   "  <span class='btn btn-sm btn-success text-white py-0' " +
                    "        onclick='wepsim_cm_add_cachelevel(\""+div_hash+"\","+memory_cfg.length+");'>Add new</span>" +
 		   "</span>" +
 		   "<span class='col border border-secondary border-2 opacity-75 align-middle mt-3'></span>" +
-		   "<span class='col h5 ps-0'>" +
+		   "<span class='col h5 ps-1'>" +
 		   "  <span data-langkey='Memory'>Memory</span></span>" +
 		   "</div>" +
 		   "</div>" ;
 
 	      // cards
-              o += "<span class='row'>" ;
+              o += "<span class='row mx-auto'>" ;
 	      for (i=0; i<memory_cfg.length; i++)
 	      {
-              o += "<span class='col-auto p-2'>" +
+              o += "<span class='col-auto my-2'>" +
 		   wepsim_show_cm_level_cfg(div_hash, memory_cfg, i) +
                    "</span>" ;
 	      }

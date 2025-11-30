@@ -68,7 +68,19 @@
                                                            simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
 					                   return keystrokes ;
 				                        }
+	                      },
+
+	    "SOUND":          {
+		                                  init: simcore_do_nothing_handler,
+		                    get_sound_content: function() {
+					                   return simcore_native_get_value("SOUND", "content") ;
+				                        },
+                                    set_sound_content: function ( sound_content ) {
+                                                           simcore_native_set_value("SOUND", "content", sound_content) ;
+							   return sound_content ;
+					                }
 	                      }
+
 	} ;
 
     function wepsim_nodejs_load_jsonfile ( url_json )
