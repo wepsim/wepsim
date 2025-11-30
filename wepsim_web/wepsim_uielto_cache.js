@@ -111,6 +111,7 @@
                 "<span                            id='" + p1 + "lhm_1'    >{{ computed_value }}</span>" + // " was a " + 
                 "<span class='badge bg-secondary' id='" + p1 + "lhm_2'    >{{ computed_value }}</span>" + // <hit/miss>
                 "  </li>\n" +
+                "<div class='table-responsive'>" +
                 "<table class='table table-bordered table-hover table-sm w-auto'>" ;
 
             if (0 == memory.cfg.set_size) {
@@ -134,7 +135,7 @@
                                  "<td><span id='" + p1 + "lp_off'>{{ computed_value }}</span></td></tr></tbody>" ;
             }
 
-            o1 += "</table>" +
+            o1 += "</table></div>" +
                   "  </ul>" ;
 
             return o1 ;
@@ -217,9 +218,9 @@
 	    }
 
 	    // if empty then said "Empty"
-            if ("" == o1) {
-                o1 = "&lt;Empty&gt;, please try to refresh to update the content of the cache." ;
-            }
+            if ("" == o1)
+                 o1 = "&lt;Empty&gt;, please try to refresh to update the content of the cache." ;
+            else o1 = "<div class='table-responsive'>" + o1 + "</div>" ;
 
 	    // return content
             return o1 ;
@@ -273,11 +274,11 @@
 
               o1  = "<div class='container text-center mb-2 mb-3'>" +
 		    "<div class='row align-items-start'>" +
-		    "<span class='col      h5 ps-0'><span data-langkey='Processor'>Processor</span></span>" +
+		    "<span class='col      h5 ps-1'><span data-langkey='Processor'>Processor</span></span>" +
 		    "<span class='col border border-secondary border-2 opacity-75 align-middle mt-3'></span>" +
-		    "<span class='col      h5 ps-0'><span data-langkey='Cache Memory'>Cache Memory</span></span>" +
+		    "<span class='col      h5 ps-1'><span data-langkey='Cache'>Cache</span></span>" +
 		    "<span class='col border border-secondary border-2 opacity-75 align-middle mt-3'></span>" +
-		    "<span class='col      h5 ps-0'><span data-langkey='Memory'>Memory</span></span>" +
+		    "<span class='col      h5 ps-1'><span data-langkey='Memory'>Memory</span></span>" +
 		    "</div>" +
 		    "</div>" +
 		    "" +

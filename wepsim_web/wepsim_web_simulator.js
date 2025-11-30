@@ -326,6 +326,17 @@
                                     set_screen_content: wepsim_set_screen_content
 	                      },
 
+	    "SOUND":          {
+		                                  init: function() {
+						           return true ;
+						        },
+		                                 reset: function() {
+			                                   wepsim_set_sound_content("") ;
+	                                                },
+		                     get_sound_content: wepsim_get_sound_content,
+                                     set_sound_content: wepsim_set_sound_content
+	                      },
+
 	    "KEYBOARD":       {
 		                                  init: function() {
 						           return true ;

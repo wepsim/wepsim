@@ -148,7 +148,7 @@
 
 	      render_populate_classic_details ( )
 	      {
-		   var ui1 = 'mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp,cm,cmcfg' ;
+		   var ui1 = 'mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,ed_mc,ed_mp,cm,cmcfg,sound' ;
 
 		   var o1 = '    <div class="row ps-2 pe-3">' +
 			    '	 <ws-executionbar name="exebar1" class="btn-toolbar btn-block"' +
