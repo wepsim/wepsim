@@ -150,6 +150,7 @@
             var v_sz = get_var(memory.cfg.via_size) ;
             var replace_pol = get_var(memory.cfg.replace_pol) ;
             var      su_pol = get_var(memory.cfg.su_pol) ;
+            var    cm_level = get_var(memory.cfg.level) ;
 
             // cache type and field sizes...
             var cm_type = '' ;
@@ -175,6 +176,7 @@
                      "<li>Size of fields (in bits): " + p1 + "</li>\n" +
                      "<li>Replace policy:           <span class='badge bg-secondary'>" + replace_pol  + "</span></li>\n" +
                      "<li>Split/unified:            <span class='badge bg-secondary'>" + su_pol       + "</span></li>\n" +
+                     "<li>Level:                    <span class='badge bg-secondary'>" + cm_level     + "</span></li>\n" +
                      "</ul>" ;
 
 	    // return cfg

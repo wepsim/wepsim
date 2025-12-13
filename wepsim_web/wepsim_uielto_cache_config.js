@@ -246,15 +246,24 @@
                   "  <div class='col-xs-12 col-md-8'>" +
 		  "  <select class='form-select form-control' " +
 		  "          id='su_next_" + index + "_" + this.name_str + "' " +
-		  "          onchange='wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);'" +
+		  "          onchange='wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);wepsim_show_cache_memory_config();'" +
 		  "          aria-label='Next Cache'>" ;
 
               o += "<option value='-1'>None</option>" ;
-              for (var i=index+1; i<memory_cfg.length; i++)
+              for (var i=0; i<memory_cfg.length; i++)
               {
+		   // skip myself
+		   if (i == index) { continue ; }
+		   // skip lower levels pointing to other
+		   if (
+			 (memory_cfg[i].cfg.level < memory_cfg[index].cfg.level)
+			   &&
+			 (memory_cfg[i].cfg.next_cache != -1)
+		   ) { continue ; }
+
                    if (i != memory_cfg[index].cfg.next_cache)
-                        o += "<option value='"+i+"'         >"+i+"</option>" ;
-                   else o += "<option value='"+i+"' selected>"+i+"</option>" ;
+                        o += "<option value='"+i+"'         >"+(i+1)+"</option>" ;
+                   else o += "<option value='"+i+"' selected>"+(i+1)+"</option>" ;
               }
 
 	      o += "  </select>" +
@@ -287,8 +296,8 @@
 		  "</div>" +
 		  "" +
                   wepsim_show_cm_level_cfg_placepol  (memory_cfg, index) +
-                  wepsim_show_cm_level_cfg_splitunify(memory_cfg, index) +
                   wepsim_show_cm_level_cfg_replacepol(memory_cfg, index) +
+                  wepsim_show_cm_level_cfg_splitunify(memory_cfg, index) +
                   wepsim_show_cm_level_cfg_nextcm    (memory_cfg, index) +
 		  "</div>" ;
 
@@ -330,13 +339,13 @@
 	     return o ;
         }
 
-        function wepsim_cm_add_cachelevel ( div_hash, level )
+        function wepsim_cm_add_cachelevel ( div_hash, cache_id )
         {
               var  curr_cm = simhw_internalState('CM') ;
               var curr_cfg = simhw_internalState('CM_cfg') ;
 
               // check arguments
-              if (level < 0) {
+              if (cache_id < 0) {
                   return ;
               }
               if (typeof curr_cfg == "undefined") {
@@ -344,9 +353,9 @@
               }
 
               // update cm_cfg and cm
-              curr_cfg[level] = cache_memory_init(level, 12, 5, 6, "fifo", "unified", -1) ;
-	       curr_cm[level] = cache_memory_init_eltofromcfg(curr_cfg[level].cfg) ;
-              cache_memory_init_eltonextcache(curr_cm, curr_cfg[level], curr_cm[level]) ;
+              curr_cfg[cache_id] = cache_memory_init(cache_id, 12, 5, 6, "fifo", "unified", 1, -1) ;
+	       curr_cm[cache_id] = cache_memory_init_eltofromcfg(curr_cfg[cache_id].cfg) ;
+              cache_memory_init_eltonextcache(curr_cm, curr_cfg[cache_id], curr_cm[cache_id]) ;
 
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;
 	      simhw_internalState_reset('CM',     curr_cm) ;
@@ -356,13 +365,13 @@
               $(div_hash).html(o1) ;
         }
 
-        function wepsim_cm_rm_cachelevel ( div_hash, level )
+        function wepsim_cm_rm_cachelevel ( div_hash, cache_id )
         {
               var  curr_cm = simhw_internalState('CM') ;
               var curr_cfg = simhw_internalState('CM_cfg') ;
 
               // check arguments
-              if (level < 0) {
+              if (cache_id < 0) {
                   return ;
               }
               if (typeof curr_cfg == "undefined") {
@@ -372,7 +381,7 @@
               // unlink from other cache levels...
 	      for (var i=0; i<curr_cfg.length; i++)
 	      {
-                   if (curr_cfg[i].cfg.next_cache == level)
+                   if (curr_cfg[i].cfg.next_cache == cache_id)
 		   {
                         curr_cm[i].cfg.next_cache = null ;
                        curr_cfg[i].cfg.next_cache = -1 ;
@@ -380,8 +389,8 @@
 	      }
 
               // remove this level...
-              curr_cfg.splice(level, 1) ;
-               curr_cm.splice(level, 1) ;
+              curr_cfg.splice(cache_id, 1) ;
+               curr_cm.splice(cache_id, 1) ;
 
 	      simhw_internalState_reset('CM_cfg', curr_cfg) ;
 	      simhw_internalState_reset('CM',     curr_cm) ;
@@ -395,6 +404,7 @@
         {
               var curr_cm  = simhw_internalState('CM') ;
               var curr_cfg = simhw_internalState('CM_cfg') ;
+              var actual_next = -1 ;
 
               if (0 == curr_cfg.length) {
                   return ;
@@ -407,11 +417,24 @@
                   document.getElementById("cmcfg_range").max = value ;
               }
 
-              curr_cfg[index].cfg[field] = value ;
-
-              curr_cm[index] = cache_memory_init_eltofromcfg(curr_cfg[index].cfg) ;
               if ('next_cache' == field) {
-                  cache_memory_init_eltonextcache( curr_cm, curr_cfg[index], curr_cm[index] ) ;
+		   actual_next = curr_cfg[index].cfg.next_cache ;
+		   value = parseInt(value) ;
+              }
+
+              curr_cfg[index].cfg[field] = value ;
+              curr_cm[index] = cache_memory_init_eltofromcfg(curr_cfg[index].cfg) ;
+
+              if ('next_cache' == field)
+	      {
+                   cache_memory_init_eltonextcache( curr_cm, curr_cfg[index], curr_cm[index] ) ;
+
+		   if (actual_next != -1) {
+		       curr_cfg[actual_next].cfg.level = 1 ; // TODO: if (...link_counter == 0)
+		   }
+		   if (value != -1) {
+		       curr_cfg[value].cfg.level = curr_cfg[index].cfg.level + 1 ;
+		   }
               }
 
               simhw_internalState_reset('CM_cfg', curr_cfg) ;
