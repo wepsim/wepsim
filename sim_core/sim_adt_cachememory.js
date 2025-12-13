@@ -37,6 +37,7 @@
          *                           tag_size:    1,
          *                           replace_pol: "first",
          *                           su_pol:      "unified",
+         *                           level:       1,
          *                           next_cache:  -1
          *                        },
          *               "sets":  {
@@ -151,8 +152,9 @@
         //                   * bits for set_per_cache:   6 bits,
         //                   * replace_policy:          "first" | "lfu",
         //                   * su_policy:               "unified" | "split_i" | "split_d",
-        //                   * next_cache_level:         null (cm) | -1 (cm_cfg)
-        function cache_memory_init ( name, via_size, off_size, set_size, replace_pol, su_pol, next_cache )
+        //                   * level:                    1,
+        //                   * next_cache:               null (cm) | -1 (cm_cfg)
+        function cache_memory_init ( name, via_size, off_size, set_size, replace_pol, su_pol, level, next_cache )
         {
             var c = { "stats":{}, "cfg":{}, "sets":{} } ;
 
@@ -171,6 +173,7 @@
 
 	    c.cfg.replace_pol = replace_pol ;
 	    c.cfg.su_pol      = su_pol ;
+	    c.cfg.level       = level ;
 	    c.cfg.next_cache  = next_cache ;
 
 	    c.stats.n_access  = 0 ;
@@ -189,9 +192,9 @@
         function cache_memory_init_eltofromcfg ( cfg )
         {
             return cache_memory_init(cfg.name,
-                                     cfg.via_size, cfg.off_size, cfg.set_size,
+                                     cfg.via_size,    cfg.off_size, cfg.set_size,
                                      cfg.replace_pol, cfg.su_pol,
-                                     cfg.next_cache) ;
+                                     cfg.level,       cfg.next_cache) ;
 	    // next_cache: first, it is -1/value but not reference...
         }
 
@@ -224,7 +227,7 @@
         }
 
 
-        function cache_memory_update ( name, via_size, off_size, set_size, replace_pol, su_pol, next_cache )
+        function cache_memory_update ( name, via_size, off_size, set_size, replace_pol, su_pol, level, next_cache )
         {
             var c = { "stats":{}, "cfg":{}, "sets":{} } ;
 
@@ -243,6 +246,7 @@
 
 	    set_var(c.cfg.replace_pol, replace_pol) ;
 	    set_var(c.cfg.su_pol,      su_pol) ;
+	    set_var(c.cfg.level,       level) ;
 	    set_var(c.cfg.next_cache,  next_cache) ;
 
 	    set_var(c.stats.n_access, 0) ;
@@ -263,9 +267,9 @@
         function cache_memory_update_eltofromcfg ( cfg )
         {
             return cache_memory_update(cfg.name,
-                                       cfg.via_size, cfg.off_size, cfg.set_size,
+                                       cfg.via_size,    cfg.off_size, cfg.set_size,
                                        cfg.replace_pol, cfg.su_pol,
-                                       cfg.next_cache) ; // TODO: next_cache, update to reference
+                                       cfg.level,       cfg.next_cache) ;
         }
 
         // Example: var parts = cache_memory_split(cm, 0x12345678)

@@ -225,8 +225,14 @@ function mem_poc_register ( sim_p )
 				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, false) ;
 
                                                       // cache
-						      if (first_time && (sim_p.internal_states.CM.length > 0)) {
-                                                          cache_memory_access(sim_p.internal_states.CM[0], address, "read", clk) ;
+                                                      if (first_time)
+					              {
+							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
+							  {
+							       if (1 == sim_p.internal_states.CM[i].cfg.level) {
+                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "read", clk) ;
+							       }
+							  }
                                                       }
                                                    },
                                            verbal: function (s_expr)
@@ -322,8 +328,14 @@ function mem_poc_register ( sim_p )
 				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, true) ;
 
                                                       // cache
-						      if (first_time && (sim_p.internal_states.CM.length > 0)) {
-                                                          cache_memory_access(sim_p.internal_states.CM[0], address, "write", clk) ;
+                                                      if (first_time)
+					              {
+							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
+							  {
+							       if (1 == sim_p.internal_states.CM[i].cfg.level) {
+                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "write", clk) ;
+							       }
+							  }
                                                       }
                                                    },
                                            verbal: function (s_expr)
