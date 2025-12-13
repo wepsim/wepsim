@@ -487,9 +487,14 @@
             if (simhw_active() !== null)
             {
                 wepsim_tooltips_hide('[data-bs-toggle=tooltip]');
+
+	        // show memory again
 		show_memories_values() ;
                 scroll_memory_to_lastaddress() ;
+
+	        // reset max_turbo + show cache config. again
 		wepsim_reset_max_turbo() ;
+		wepsim_show_cache_memory_config() ;
             }
 
             // add if recording
