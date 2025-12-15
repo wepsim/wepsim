@@ -423,12 +423,12 @@
               }
 
               curr_cfg[index].cfg[field] = value ;
+
               curr_cm[index] = cache_memory_init_eltofromcfg(curr_cfg[index].cfg) ;
+              cache_memory_init_eltonextcache(curr_cm, curr_cfg[index], curr_cm[index]) ;
 
               if ('next_cache' == field)
 	      {
-                   cache_memory_init_eltonextcache( curr_cm, curr_cfg[index], curr_cm[index] ) ;
-
 		   if (actual_next != -1) {
 		       curr_cfg[actual_next].cfg.level = 1 ; // TODO: if (...link_counter == 0)
 		   }
