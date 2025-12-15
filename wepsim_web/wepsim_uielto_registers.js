@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -414,10 +414,7 @@
             {
 		 var ref_obj = simhw_sim_states().BR[index] ;
 
-		 if (false == (ref_obj.value instanceof Vuex.Store)) {
-		     ref_obj.value = vue_observable(ref_obj.value) ;
-                 }
-
+		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj.value) ;
 		 vue_appyBinding(ref_obj.value, '#rf_'+index, f_computed_value) ;
 	    }
         }
@@ -461,6 +458,7 @@
                       "        data-bs-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
+                      " <span class='w-100 d-block d-sm-none'></span>" +
                       " <span class='badge badge-secondary bg-info-subtle text-body' style='' id='tbl_"  + s + "'>" +
 		      "<div id='rf_" + s + "'>{{ computed_value }}</div>" +
                       "</span>" +
@@ -515,10 +513,7 @@
                  var s = filter[i].split(",")[0] ;
 		 var ref_obj = sim_eltos[s] ;
 
-		 if (false == (ref_obj.value instanceof Vuex.Store)) {
-		     ref_obj.value = vue_observable(ref_obj.value) ;
-                 }
-
+		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj.value) ;
 		 vue_appyBinding(ref_obj.value, '#rf_'+s, f_computed_value) ;
 	    }
         }

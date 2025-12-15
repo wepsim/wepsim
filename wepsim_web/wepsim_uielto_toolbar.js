@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -41,6 +41,7 @@
 		            "btn_config":        this.render_btn_config,
 	                    "btn_notifications": this.render_btn_notifications,
 	                    "btn_recordbar":     this.render_btn_recordbar,
+	                    "btn_microcandc":    this.render_btn_microcandc,
 	                    "btn_states":        this.render_btn_states,
 	                    "btn_checkpoint":    this.render_btn_checkpoint,
 		            "btndd_action":      this.render_btndd_action,
@@ -236,6 +237,20 @@
 		 return o ;
 	      }
 
+	      render_btn_microcandc ( robj )
+	      {
+		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
+			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
+			 '        title="This button microcompiles and compiles."' +
+                         '        onclick="wsweb_select_action(\'microcandc\');' +
+			 '	           return false;">' ;
+                    o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-circle d-none d-sm-inline text-secondary"></em>&nbsp;' ;
+                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                    o += '<strong><span data-langkey=\'microc + c\'>&micro;c + c</span></strong></button>' ;
+
+		 return o ;
+	      }
+
 	      render_btn_states ( robj )
 	      {
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
@@ -308,10 +323,15 @@
                         '     <a class="dropdown-item py-2" href="#" id="selact_recordbar" value="recordbar"' +
 			'        onclick="wsweb_select_action(\'recordbar\');' +
 			'	          return false;"><span data-langkey="RecordBar">RecordBar</span></a>' +
-                        '\n' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_reload" value="reload"' +
 			'        onclick="wsweb_select_action(\'reload\');' +
 			'	          return false;"><span data-langkey="Reload">Reload</span></a>' +
+                        '\n' +
+			'     <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"' +
+                        '     ><span data-langkey="Combinations">Combinations</span>:</h6>' +
+                        '     <a class="dropdown-item py-2" href="#" id="selact_microcandc" value="microcandc"' +
+			'        onclick="wsweb_select_action(\'microcandc\');' +
+			'	          return false;"><span data-langkey="microc and c">&micro;c and c</span></a>' +
                         '\n' +
                         '     <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"' +
                         '     ><span data-langkey="Information from">Information from</span>:</h6>' +

@@ -88,7 +88,10 @@ sret {
          (MR=1, SELA=10, T9, C0),
          (MR=1, SELA=10, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=10, LC=1),
          (TA=1, R=1, BW=11, M1=1, C1),
-         (T1=1, M2=0, C2, A0=1, B=1 ,C=0)
+         (T1=1, M2=0, C2)
+
+         # go to begin
+         (A0=1, B=1 ,C=0)
      }
 }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -243,6 +243,25 @@
 
 	// show screen at the end
         ret.msg = get_screen_content() ;
+        console.log(ret.msg);
+        return true ;
+    } ;
+
+    //
+    // SHOW-SOUND
+    //
+
+    hash_action["SHOW-SOUND"] = function(data, options)
+    {
+        // run...
+        var ret = wepsim_nodejs_runApp(data, options) ;
+	if (ret.ok === false) {
+            console.log(ret.msg);
+            return false ;
+	}
+
+	// show screen at the end
+        ret.msg = get_sound_content() ;
         console.log(ret.msg);
         return true ;
     } ;

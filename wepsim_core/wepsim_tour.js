@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -40,9 +40,7 @@
              wepsim_newbie_tour_setLang(tour_name, ws_idiom) ;
 
 	     // setup tour
-             if (null == ws_tour) {
-	         ws_tour = introJs() ;
-             }
+	     ws_tour = introJs.tour() ;
 
 	     ws_tour.setOptions({
                                   steps:              newbie_tour1,
@@ -57,7 +55,7 @@
                                }) ;
 
 	     ws_tour.onbeforechange(function () {
-                                        newbie_tour1[this._currentStep].do_before() ;
+                                        newbie_tour1[this.currentStep()].do_before() ;
 	                         }) ;
 
 	     ws_tour.onexit(function () {
@@ -107,6 +105,6 @@
 	     // update interface
 	     i18n_update_tags('gui') ;
 
-	     wepsim_newbie_tour(ws_tour_name) ;
+	     //wepsim_newbie_tour(ws_tour_name) ;
     }
 

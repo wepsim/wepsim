@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -85,6 +85,19 @@
                 txt_enc = LZString.compressToEncodedURIComponent(  inputasm.getValue() ) ;
                 url_to_share = url_to_share + '&asm=' + txt_enc ;
             }
+            if (share_eltos.includes('cache'))
+            {
+                var cm_cfg = [] ;
+		var curr_cfg = simhw_internalState('CM_cfg') ;
+                for (var i=0; i<curr_cfg.length; i++) {
+                     var cm_cfg_i = { "cfg": curr_cfg[i].cfg } ;
+                     cm_cfg.push(cm_cfg_i) ;
+                }
+
+		json_enc = JSON.stringify(cm_cfg) ;
+                txt_enc  = LZString.compressToEncodedURIComponent(json_enc) ;
+                url_to_share = url_to_share + '&cache=' + txt_enc ;
+            }
          }
          catch (e) {
             url_to_share = '' ;
@@ -100,20 +113,40 @@
          var elto_shared = {} ;
              elto_shared.asm = null ;
              elto_shared.mc  = null ;
+             elto_shared.cmc = null ;
 
          // build from the associate URI
          try
          {
             var a = url_to_share.split('&') ;
-            var b = a[a.length-1].split('=') ;
 
-            if ('asm' == b[0]) {
-                elto_shared.asm = LZString.decompressFromEncodedURIComponent( b[1] ) ;
-                inputasm.value = elto_shared.asm ;
-            }
-            if ('mc' == b[0]) {
-                elto_shared.mc = LZString.decompressFromEncodedURIComponent( b[1] ) ;
-                inputfirm.value = elto_shared.mc ;
+            for (var i=1; i<a.length; i++)
+            {
+                 var b = a[i].split('=') ;
+
+                 if ('asm' == b[0])
+	         {
+                     elto_shared.asm = LZString.decompressFromEncodedURIComponent( b[1] ) ;
+	             if (elto_shared.asm != null) {
+                         inputasm.setValue(elto_shared.asm) ;
+		     }
+                 }
+                 if ('mc' == b[0])
+	         {
+                     elto_shared.mc  = LZString.decompressFromEncodedURIComponent( b[1] ) ;
+		     if (elto_shared.mc != null) {
+		         inputfirm.setValue(elto_shared.mc) ;
+		     }
+                 }
+                 if ('cache' == b[0])
+	         {
+                     elto_shared.cmc = LZString.decompressFromEncodedURIComponent( b[1] ) ;
+                     var cm_cfg = JSON.parse(elto_shared.cmc) ;
+                     var cm = cache_memory_init_cm(cm_cfg) ;
+                     simhw_internalState_reset('CM_cfg', cm_cfg) ;
+                     simhw_internalState_reset('CM',     cm) ;
+		     wepsim_show_cache_memory_config() ;
+                 }
             }
          }
          catch (e) {

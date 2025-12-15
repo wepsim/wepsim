@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -241,9 +241,11 @@
 
     function wsweb_execution_instruction ( )
     {
-            if (simhw_active() !== null)
-            {
+            if (simhw_active() !== null) {
 	        wepsim_execute_instruction() ;
+            }
+
+            if (wepsim_svg_is_drawing()) {
 	        simcoreui_show_hw() ;
             }
 
@@ -430,6 +432,7 @@
 	    "IO_CONFIG":      function(){ wsweb_set_details_select(19); show_memories_values(); },
 	    "3DLED":          function(){ wsweb_set_details_select(25); show_memories_values(); },
 	    "LEDMATRIX":      function(){ wsweb_set_details_select(27); show_memories_values(); },
+	    "SOUND":          function(){ wsweb_set_details_select(30); show_memories_values(); },
 
 
 	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20);
@@ -484,9 +487,14 @@
             if (simhw_active() !== null)
             {
                 wepsim_tooltips_hide('[data-bs-toggle=tooltip]');
+
+	        // show memory again
 		show_memories_values() ;
                 scroll_memory_to_lastaddress() ;
+
+	        // reset max_turbo + show cache config. again
 		wepsim_reset_max_turbo() ;
+		wepsim_show_cache_memory_config() ;
             }
 
             // add if recording
@@ -568,6 +576,26 @@
 	        case 'sw_summary':
 		      wsweb_dialog_open('help') ;
                       wepsim_help_set('code', 'assembly_summary') ;
+		      break ;
+
+	        case 'microcandc':
+                      // 1) compile firmware
+                      wsweb_firmware_compile() ;
+                      if (false ==inputfirm.is_compiled) {
+                          wsweb_change_workspace_microcode() ;
+	                  return false;
+		      }
+
+                      // 2) compile assembly (iff firmware is ok)
+                      wsweb_assembly_compile() ;
+                      if (false == inputasm.is_compiled) {
+                          wsweb_change_workspace_assembly() ;
+	                  return false;
+		      }
+
+                      // 3) switch simulator workspace (iff assembly is ok)
+                      wsweb_change_workspace_simulator() ;
+                      wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 		      break ;
 	    }
 
@@ -678,15 +706,15 @@
 
     //  Workspace simulator: Files
 
-    function wsweb_save_controlmemory_to_file ( )
+    function wsweb_save_controlmemory_to_file ( firm_version )
     {
             var wsi = get_cfg('ws_idiom') ;
 
-            var q = i18n_get('dialogs',wsi,'Sure Control Memory...') + '\n\n' ;
+            var q = i18n_get('dialogs', wsi, 'Sure Control Memory...') + '\n\n' ;
             if (confirm(q))
 	    {
 	        var SIMWARE = get_simware() ;
-	        var simware_as_text = saveFirmware(SIMWARE);
+	        var simware_as_text = saveFirmware(SIMWARE, firm_version);
 	        if (simware_as_text.trim() == '') {
 		    wsweb_dlg_alert('The Microcode loaded in memory is empty!<br>\n' +
 	   	   	            'Please load a Microcode first in memory in order to save it.');
@@ -700,7 +728,7 @@
 
             // add if recording
             simcore_record_append_new('Save control memory to file',
-		                      'wsweb_save_controlmemory_to_file();\n') ;
+		                      'wsweb_save_controlmemory_to_file(firm_version);\n') ;
 
             // return ok
             return true ;

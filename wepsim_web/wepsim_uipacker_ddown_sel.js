@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -125,7 +125,7 @@
                                      'CPU':          [ 'all', 'mc', 'cpu' ],
                                      'Main Memory':  [ 'mp', 'mpcfg' ],
                                      'Cache Memory': [ 'cm', 'cmcfg' ],
-                                     'Devices':      [ 'con', 'ioldm', 'io', 'iocfg', 'iol3d' ],
+                                     'Devices':      [ 'con', 'ioldm', 'io', 'iocfg', 'iol3d', 'sound' ],
                                      'Simulation':   [ 'ed_mc', 'ed_mp' ]
                                  //  'Simulation':   [ 'ed_hw', 'ed_mc', 'ed_mp' ]
                                   } ;
@@ -174,6 +174,10 @@
 			       ioldm: '      <a class="dropdown-item" href="#" id="s5b_27" value="27"' +
 				      '	 onclick="wsweb_set_details(\'LEDMATRIX\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Led-Matrix\'>Led-Matrix</span></a>',
+			       sound: '      <a class="dropdown-item" href="#" id="s5b_30" value="30"' +
+				      '	 onclick="wsweb_set_details(\'SOUND\');' +
+				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Sound\'>Sound</span> <span class="badge text-bg-secondary py-0 px-1">beta</span></a>',
+
 			       ed_hw: '      <a class="dropdown-item" href="#" id="s5b_22" value="22"' +
 				      '	 onclick="wsweb_set_details(\'HARDWARE\');' +
 				      '		  return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>',

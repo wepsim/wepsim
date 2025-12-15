@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -183,6 +183,21 @@
 				          }
 				      }
 				  }) ;
+        }
+
+        function vue_observable_ifnotjetdone ( element )
+        {
+	    // without Vuex
+	    if (typeof Vuex === "undefined") {
+	        return Vuex ;
+	    }
+
+            // vue_observable if not done before
+            if (false == (element instanceof Vuex.Store)) {
+                element = vue_observable(element) ;
+            }
+
+            return element ;
         }
 
         function vue_appyBinding ( r_value, vue_context, f_computed_value )

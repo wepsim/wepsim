@@ -90,9 +90,14 @@ main:
            li  t0 300
            out t0 0x1108
 
-           la  a0 notes
-           li  a7 4
-           ecall
+           li  a1 28
+loop3:     beq a1 x0 fin3
+           li  a0 'o'
+           li  a7 11
+           ecall   
+           addi a1 a1 -1
+           beq x0 x0 loop3
+fin3:
 
            # stop firing int.1
            li  t0 0

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -70,16 +70,6 @@
 
 		    // get html code
 		    var o = mp2html(simware.mp, simware.labels_asm, simware.seg) ;
-
-                    o += '<span>Memory as binary section... </span>' +
-                         '<span class="btn btn-sm" type="button" data-bs-toggle="collapse" ' +
-                         '      data-bs-target="#mp2bin1" ' +
-                         '      arial-expanded="true" arial-controls="memory as binary segment">+/-</span>' +
-                         '<div id="mp2bin1" valign="top" colspan="2" align="center" class="m-2 p-2 collapse">' +
-                         '<pre align="left">' +
-		         mp2bin(simware.mp, simware.labels_asm, simware.seg) +
-                         '</pre>' +
-                         '</div>' ;
 
 		    // set html code
 		    $('#compile_bin2a').html(o) ;
@@ -286,5 +276,4 @@
 		// return memory as binary segment
 		return o ;
 	}
-
 

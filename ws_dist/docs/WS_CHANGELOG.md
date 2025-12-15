@@ -1,6 +1,20 @@
 
 # Changelog
 
+## 2.3.6 -> 2.3.7:
+* Main improvements:
+  * Initial beta version of the cache memory component
+  * Clarify some details of the control unit
+  * Initial beta version of the sound device component
+  * Save assembly adds a new option for binary format of the main memory
+  * Save microcode adds two new options for version 1 and 2 of the firmware format
+  * Some other minor improvements
+* Main external dependencies updated:
+  * Update bootstrap 5.3.5 -> 5.3.8
+  * Update bootbox 6.0.0 -> 6.0.4
+  * Update introjs 7.0.1 -> 8.3.2
+  * Update vis-network 9.1.9 -> 10.0.2
+
 ## 2.3.5 -> 2.3.6:
 * Main improvements:
   * Added the 'filter-microcode' action in command-line

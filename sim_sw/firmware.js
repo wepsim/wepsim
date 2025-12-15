@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -23,9 +23,10 @@
  *  Save Firmware
  */
 
-function saveFirmware ( SIMWARE )
+function saveFirmware ( SIMWARE, firm_version )
 {
 	var o = "" ;
+
 
         // Saving as version 2 by default ;-)
         if (typeof SIMWARE.metadata == "undefined")
@@ -35,12 +36,11 @@ function saveFirmware ( SIMWARE )
               SIMWARE.metadata.rel_mult = 4 ;
               SIMWARE.metadata.endian   = 'little' ;
         }
-        if (1 == SIMWARE.metadata.version)
-        {
-              SIMWARE.metadata.version  = 2 ;
-              SIMWARE.metadata.rel_mult = 4 ;
-              SIMWARE.metadata.endian   = 'little' ;
-        }
+        // But honor the firm_version argument
+	if (typeof firm_version != "undefined")
+	{
+              SIMWARE.metadata.version  = parseInt(firm_version) ;
+	}
 
         // initial header
         o += "\n" +

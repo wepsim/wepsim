@@ -171,10 +171,10 @@ cordova plugin add cordova-plugin-whitelist
 
 + 2.1) Copy WepSIM files into the www directory:
 ```bash
-wget https://github.com/wepsim/wepsim/releases/download/v2.3.6/wepsim-2.3.6.zip
-unzip wepsim-2.3.6.zip
+wget https://github.com/wepsim/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip
+unzip wepsim-2.3.7.zip
 mv www www.initial.$$
-cp -a wepsim-2.3.6/ws_dist www
+cp -a wepsim-2.3.7/ws_dist www
 ```
 
 + 2.2) Adapt path in "www/repo/hardware/ep/images/processor.svg" for Apache Cordova:

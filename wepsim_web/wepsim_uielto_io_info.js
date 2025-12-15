@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -112,16 +112,12 @@
 		    // vue binding
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
-			 if (false == (curr_iointfactory[i].accumulated instanceof Vuex.Store)) {
-			     curr_iointfactory[i].accumulated = vue_observable(curr_iointfactory[i].accumulated) ;
-			 }
+			 curr_iointfactory[i].accumulated = vue_observable_ifnotjetdone(curr_iointfactory[i].accumulated) ;
                          vue_appyBinding(curr_iointfactory[i].accumulated,
                                          '#int'+i+'_acc',
                                          function(value){ return value; }) ;
 
-			 if (false == (curr_iointfactory[i].active instanceof Vuex.Store)) {
-			     curr_iointfactory[i].active = vue_observable(curr_iointfactory[i].active) ;
-			 }
+			 curr_iointfactory[i].active      = vue_observable_ifnotjetdone(curr_iointfactory[i].active) ;
                          vue_appyBinding(curr_iointfactory[i].active,
                                          '#int'+i+'_act',
                                          function(value){ return value; }) ;

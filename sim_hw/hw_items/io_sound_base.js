@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -31,71 +31,73 @@ var SSR_ID  = 0x400C ;
 function io_sound_base_register ( sim_p )
 {
         sim_p.components.SOUND = {
-		                  name: "SOUND",
-		                  version: "1",
-		                  abilities:    [ "SOUND" ],
+		  name: "SOUND",
+		  version: "1",
+		  abilities:    [ "SOUND" ],
 
-		                  // ui: details
-                                  details_name: [ "SOUND" ],
-                                  details_fire: [ ],
+		  // ui: details
+		  details_name: [ "SOUND" ],
+		  details_fire: [ ],
 
-		                  // state: write_state, read_state, get_state
-		                  write_state: function ( vec ) {
-                                                  if (typeof vec.SOUND == "undefined") {
-                                                      vec.SOUND = {} ;
-				                  }
+		  // state: write_state, read_state, get_state
+		  write_state: function ( vec ) {
+				  if (typeof vec.SOUND == "undefined") {
+				      vec.SOUND = {} ;
+				  }
 
-					          var sim_sound = sim_p.internal_states.sound_content ;
-					          var sim_lines  = sim_sound.trim().split("\n") ;
-					          for (var i=0; i<sim_lines.length; i++)
-					          {
-					               value = sim_lines[i] ;
-           					       if (value != "") {
-							   vec.SOUND[i] = {"type":  "sound",
-								            "default_value": "",
-								            "id":    i,
-								            "op":    "==",
-								            "value": value} ;
-   						       }
-					          }
+				  var sim_sound = sim_p.internal_states.sound_content ;
+				  var sim_lines  = sim_sound.trim().split(";") ;
+				  for (var i=0; i<sim_lines.length; i++)
+				  {
+				       value = sim_lines[i].trim() ;
+				       if (value != "") {
+					   vec.SOUND[i] = { "type":  "sound",
+							    "default_value": "",
+							    "id":    i,
+							    "op":    "==",
+							    "value": value } ;
+				       }
+				  }
 
-						  return vec;
-				              },
-		                  read_state: function ( vec, check ) {
-                                                  if (typeof vec.SOUND == "undefined") {
-                                                      vec.SOUND = {} ;
-                                                  }
+				  return vec;
+			      },
+		  read_state: function ( vec, check ) {
+				  if (typeof vec.SOUND == "undefined") {
+				      vec.SOUND = {} ;
+				  }
 
-					          if ("SOUND" == check.type.toUpperCase().trim())
-                                                  {
-						      vec.SOUND[check.id] = { "type":  "sound",
-								               "default_value": "",
-								               "id":    check.id,
-								               "op":    check.condition,
-								               "value": check.value } ;
-                                                      return true ;
-                                                  }
+				  if ("SOUND" == check.type.toUpperCase().trim())
+				  {
+				      vec.SOUND[check.id] = { "type":  "sound",
+							       "default_value": "",
+							       "id":    check.id,
+							       "op":    check.condition,
+							       "value": check.value } ;
+				      return true ;
+				  }
 
-                                                  return false ;
-				             },
-		                  get_state: function ( line ) {
-					          var sim_sound = sim_p.internal_states.sound_content ;
-					          var sim_lines  = sim_sound.trim().split("\n") ;
-						  var index = parseInt(line) ;
-						  if (typeof sim_lines[index] != "undefined")
-						      return sim_lines[index] ;
+				  return false ;
+			     },
+		  get_state: function ( line ) {
+				  var sim_sound = sim_p.internal_states.sound_content ;
+				  var sim_lines  = sim_sound.trim().split(";") ;
 
-					          return null ;
-				              },
+				  var index = parseInt(line) ;
+				  if (typeof sim_lines[index] != "undefined") {
+				      return sim_lines[index].trim() ;
+                                  }
 
-		                  // native: get_value, set_value
-                                  get_value:   function ( elto ) {
-        				            return sim_p.internal_states.sound_content ;
-                                               },
-                                  set_value:   function ( elto, value ) {
-        				            sim_p.internal_states.sound_content = value ;
-						    return value ;
-                                               }
+				  return null ;
+			      },
+
+		  // native: get_value, set_value
+		  get_value:   function ( elto ) {
+				    return sim_p.internal_states.sound_content ;
+			       },
+		  set_value:   function ( elto, value ) {
+				    sim_p.internal_states.sound_content = value ;
+				    return value ;
+			       }
                             	};
 
 
@@ -242,6 +244,11 @@ function io_sound_base_register ( sim_p )
                                                                   var n1t1 = n1 + ',' + t1 + ';' ;
                                                                   sim_p.internal_states.sound_content += n1t1 ;
 
+                                                                  // visible UI
+                                                                  var sound = get_sound_content() ;
+                                                                  set_sound_content(sound + n1t1 + ' ') ;
+
+                                                                  // sound UI
 								  ret_ok = simcore_sound_playNote(n1, t1) ;
 							      }
 							      if (1 == bus_db) {

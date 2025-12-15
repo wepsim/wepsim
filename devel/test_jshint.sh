@@ -3,7 +3,7 @@ set -x
 
 
 #*
-#*  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -121,6 +121,7 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_io_info.js
  jshint ./wepsim_web/wepsim_uielto_l3d.js
  jshint ./wepsim_web/wepsim_uielto_ldm.js
+ jshint ./wepsim_web/wepsim_uielto_sound.js
  jshint ./wepsim_web/wepsim_uielto_listcfg.js
  jshint ./wepsim_web/wepsim_uielto_listexample.js
  jshint ./wepsim_web/wepsim_uielto_listprocessor.js
@@ -131,6 +132,7 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_recordbar.js
 #jshint ./wepsim_web/wepsim_uielto_registers.js
  jshint ./wepsim_web/wepsim_uielto_savefile.js
+ jshint ./wepsim_web/wepsim_uielto_savefiles.js
  jshint ./wepsim_web/wepsim_uielto_segments.js
  jshint ./wepsim_web/wepsim_uielto_states.js
  jshint ./wepsim_web/wepsim_uielto_toolbar.js

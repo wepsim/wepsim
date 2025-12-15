@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -37,18 +37,30 @@
 		         return "<div id='scroller-lssvasm' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
-                                "<ws-save-file " +
-                                "    fid='inputFileNameToSaveAs2' " +
-                                "    jsave='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+                                //
+                                "<ws-save-files fid='inputFileNameToSaveAs2'>" +
+                                "<ws-save-files-option " +
+                                "     label='Save editor content' " +
+                                "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
 				"	     var fileNameToSaveAs = ifntsa2.value;" +
 				"	     var textToWrite      = inputasm.getValue();" +
 				"	     wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
 		                "            inputasm.is_modified = false;" +
-                                "            return false;'" +
-                                "></ws-save-file>" +
+                                "            return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "     label='Save as binary section' " +
+                                "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+				"	     var fileNameToSaveAs = ifntsa2.value;" +
+                                "            var simware = get_simware();" +
+                                "            if (simware == null) return false;" +
+                                "            var textToWrite = mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
+				"	     wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+                                "            return false;'></ws-save-files-option>" +
+                                "></ws-save-files>" +
+                                //
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad2' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
@@ -60,21 +72,18 @@
                                 "		                 });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<span class='w-100 d-block d-lg-none'></span>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-share-link " +
                                 "    fid='inputToShareAs2' " +
-                                "    jshare='asm' " +
+                                "    jshare='asm,cache' " +
                                 "></ws-share-link>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
-				"	    var elto_shared = load_from_uri(elto.value);" +
-                                "	    if (elto_shared.asm != null)" +
-                                "	        inputasm.setValue(elto_shared.asm);" +
-                                "	    if (elto_shared.mc != null)" +
-                                "	        inputfirm.setValue(elto_shared.mc);" +
+				"	    load_from_uri(elto.value);" +
     				"           wsweb_dialog_close(\"load_save_assembly\");" +
 			        "	    wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "           return false;'></ws-load-link>" +
@@ -115,50 +124,28 @@
 		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
-		                "<div class='card border-secondary h-100'>" +
-			        "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
-		                "  <h5 class='m-0'>" +
-				"  <span class='text-white bg-secondary' data-langkey='Output'>Output</span>" +
-                                "<div class='btn-group float-end'>" +
-				"  <button class='btn bg-body-tertiary mx-1 py-0 col-auto' " +
-                                "          onclick='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
-		                "                   var textToWrite       = inputfirm.getValue();" +
-		                "                   wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-		                "                   inputfirm.is_modified = false;" +
-				"		    return false;'" +
-                                "><span data-langkey='Save'>Save</span></button>" +
-                                "  <button type='button' class='btn bg-body-tertiary dropdown-toggle dropdown-toggle-split' " +
-                                "          data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-                                "    <span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
-                                "  </button>" +
-                                "  <div class='dropdown-menu'>" +
-                                "    <h6 class='dropdown-header'>Default:</h6>" +
-				"    <a class='dropdown-item' href='#' " +
-				"       onclick='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
-		                "                var textToWrite      = inputfirm.getValue();" +
-		                "                wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-				"	         return false;'" +
-                                "     ><span data-langkey='Save editor content'>Save editor content</span></a>" +
-				"<div class='dropdown-divider'></div>" +
-                                "    <h6 class='dropdown-header'>Optional:</h6>" +
-				"    <a class='dropdown-item' href='#' " +
-				"       onclick='wsweb_save_controlmemory_to_file();" +
-				"	         return false;'" +
-				"     ><span data-langkey='Save control memory'>Save control memory</span></a>" +
-                                "  </div>" +
-                                "</div>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 //
-		               	"  </h5>" +
-			      	"</div>" +
-			      	" <div class='card-body'>" +
-		                "<label for='inputFileNameToSaveAs'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
-	                        "<p><input aria-label='filename to save content' id='inputFileNameToSaveAs'" +
-                                "          class='form-control btn-outline-secondary' placeholder='File name where microcode will be saved' style='min-width: 90%;'/></p>" +
-			     	" </div>" +
-			   	"</div>" +
+                                "<ws-save-files fid='inputFileNameToSaveAs'>" +
+                                "<ws-save-files-option " +
+                                "    label='Save editor content' " +
+                                "     jsrc='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+		                "           var textToWrite       = inputfirm.getValue();" +
+		                "           wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "           inputfirm.is_modified = false;" +
+				"	    return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "    label='Save control memory (firmware v2)' " +
+                                "     jsrc='wsweb_save_controlmemory_to_file(2);" +
+                                "           return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "    label='Save control memory (firmware v1)' " +
+                                "     jsrc='wsweb_save_controlmemory_to_file(1);" +
+                                "           return false;'></ws-save-files-option>" +
+                                "></ws-save-files>" +
+                                //
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
@@ -171,27 +158,24 @@
                                 "		                 });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<span class='w-100 d-block d-lg-none'></span>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-share-link " +
                                 "    fid='inputToShareAs2' " +
                                 "    jshare='mc' " +
                                 "></ws-share-link>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
-				"	    var elto_shared = load_from_uri(elto.value);" +
-                                "	    if (elto_shared.asm != null)" +
-                                "	        inputasm.setValue(elto_shared.asm);" +
-                                "	    if (elto_shared.mc != null)" +
-                                "	        inputfirm.setValue(elto_shared.mc);" +
+				"	    load_from_uri(elto.value);" +
     				"           wsweb_dialog_close(\"load_save_firmware\");" +
 			        "	    wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "           return false;'></ws-load-link>" +
                                "</div>" +
                                "</div>" +
-			   	"</div>" ;
+			       "</div>" ;
 		      },
 	    buttons:  {
 			 close: {

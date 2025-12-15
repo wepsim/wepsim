@@ -3,7 +3,7 @@
 
 
 #*
-#*  Copyright 2015-2025 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
 #*
 #*  This file is part of WepSIM.
 #*
@@ -223,12 +223,7 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_cache.js \
     wepsim_web/wepsim_uielto_cache_config.js \
     wepsim_web/wepsim_uielto_registers.js \
-    wepsim_web/wepsim_uielto_console.js \
     wepsim_web/wepsim_uielto_hw.js \
-    wepsim_web/wepsim_uielto_io_info.js \
-    wepsim_web/wepsim_uielto_io_config.js \
-    wepsim_web/wepsim_uielto_l3d.js \
-    wepsim_web/wepsim_uielto_ldm.js \
     wepsim_web/wepsim_uielto_editmc.js \
     wepsim_web/wepsim_uielto_editas.js \
     wepsim_web/wepsim_uielto_dbg_mc.js \
@@ -247,6 +242,13 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_slider_cpucu.js \
     wepsim_web/wepsim_uielto_slider_details.js \
     \
+    wepsim_web/wepsim_uielto_console.js \
+    wepsim_web/wepsim_uielto_io_info.js \
+    wepsim_web/wepsim_uielto_io_config.js \
+    wepsim_web/wepsim_uielto_l3d.js \
+    wepsim_web/wepsim_uielto_ldm.js \
+    wepsim_web/wepsim_uielto_sound.js \
+    \
     wepsim_web/wepsim_uipacker_ddown_sel.js \
     wepsim_web/wepsim_uipacker_ddown_info.js \
     wepsim_web/wepsim_uipacker_cpu_cu.js \
@@ -262,6 +264,7 @@ cat wepsim_web/wepsim_uielto.js \
     \
     wepsim_web/wepsim_uielto_loadfile.js \
     wepsim_web/wepsim_uielto_savefile.js \
+    wepsim_web/wepsim_uielto_savefiles.js \
     wepsim_web/wepsim_uielto_sharelink.js \
     wepsim_web/wepsim_uielto_loadlink.js \
     wepsim_web/wepsim_uielto_listcfg.js \
