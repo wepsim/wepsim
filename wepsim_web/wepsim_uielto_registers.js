@@ -286,8 +286,8 @@
             // all logical name
             if (logical_index == 0) {
 		 br_value = r_item.join('|') ;
-	         br_value = br_value.padEnd(6,' ') ;
-                 return br_value ;
+	         br_value = br_value.padEnd(7, ' ') ;
+                 return br_value.replace(' ', '&nbsp;') ;
             }
 
             // get logical name
@@ -312,7 +312,7 @@
                  // display name
 		 var obj = document.getElementById("name_RF" + index) ;
 		 if (obj != null) {
-		     obj.innerHTML = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, rf_index, index, logical_index);
+		     obj.innerHTML = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, rf_index, index, logical_index) ;
 		 }
 	    }
         }
@@ -326,6 +326,31 @@
         /*
          *  init_x
          */
+
+	// helper for vue binding
+        var last_id = null ;
+	var init_rf_computed_value = function(value, elto_id)
+                                     {
+		                        if (last_id != elto_id)
+					{
+					    // reset bg-warning in former register ...
+		                            if (last_id != null) {
+		                                $(last_id).removeClass('bg-warning text-dark') ;
+					    }
+
+					    // ... and set bg-warning in current one
+		                            if (typeof $(elto_id).addClass != "undefined") {
+		                                $(elto_id).addClass('bg-warning text-dark') ;
+					    }
+
+					    // update last_id
+		                            last_id = elto_id ;
+					}
+
+					// set formated value
+				        var rf_format = get_cfg('RF_display_format') ;
+				        return value2string(rf_format, value >>> 0) ;
+			             } ;
 
         function wepsim_init_rf ( )
         {
@@ -350,7 +375,7 @@
 			  "        style='' data-role='none' " +
                           "        data-bs-toggle='popover-up' data-popover-content='" + r_index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "<span id='name_RF" + index + "' class='p-0 font-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
+                          "<span   id='name_RF" + index + "' class='p-0 font-monospace' style='float:center;'>" + o1_rn + "</span>&nbsp;" +
 			  "<span class='w-100 d-block d-sm-none'></span>" +
                           "<span class='badge badge-secondary bg-info-subtle text-body' style='' id='tbl_RF"  + index + "'>" +
                           "<span id='rf_" + index + "'>{{ computed_value }}</span></span>" +
@@ -405,17 +430,12 @@
             wepsim_popovers_init("[data-bs-toggle=popover-up]", popover_cfg, null) ;
 
 	    // vue binding
-	    var f_computed_value = function(value) {
-				       var rf_format = get_cfg('RF_display_format') ;
-				       return value2string(rf_format, value >>> 0) ;
-				    } ;
-
 	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
 		 var ref_obj = simhw_sim_states().BR[index] ;
 
 		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj.value) ;
-		 vue_appyBinding(ref_obj.value, '#rf_'+index, f_computed_value) ;
+		 vue_appyBinding(ref_obj.value, '#rf_'+index,     init_rf_computed_value) ;
 	    }
         }
 

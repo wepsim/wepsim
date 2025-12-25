@@ -272,7 +272,9 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 
    /*
-    * Code: Initialize WepSIM + reset + compile firmware + compile assembly + execute + get final state
+    * Code: Initialize WepSIM + reset + 
+    *       compile firmware + compile assembly + 
+    *       execute + get final state
     */
 
     // 1) initialize WepSIM engine
@@ -283,8 +285,8 @@ Step   | iOS                       |  Android                  | Action to perfo
     }
 
     if (false != ret.ok) {
-	var ui_cb = {} ;
-	simcore_init_ui(ui_cb) ;
+	    var ui_cb = {} ;
+	    simcore_init_ui(ui_cb) ;
     }
 
     // 2) reset hardware
@@ -304,17 +306,17 @@ Step   | iOS                       |  Android                  | Action to perfo
 
     // 5) execute firmware-assembly
     if (false != ret.ok) {
-	var options = {
+	    var options = {
                          instruction_limit:  1024,
                          cycles_limit:      10240
-		      } ;
-	ret = simcore_execute_program(options) ;
+		              } ;
+	    ret = simcore_execute_program(options) ;
     }
 
     // 6) show a final report
     if (false != ret.ok) {
-	var state_obj = simcore_simstate_current2state() ;
-	ret.msg = simcore_simstate_state2checklist(state_obj, '') ;
+	    var state_obj = simcore_simstate_current2state() ;
+	    ret.msg = simcore_simstate_state2checklist(state_obj, '') ;
     }
 
 
