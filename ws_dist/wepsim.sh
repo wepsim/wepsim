@@ -2,6 +2,28 @@
 
 
    //
+   // Import
+   //
+
+   // filesystem
+   var fs = require('fs') ;
+
+   // performance
+   performance = require('perf_hooks').performance ;
+
+   // interface
+   var clear = require('clear') ;
+
+   // wepsim
+   var ws = require('./min.wepsim_node.js') ;
+   /// import ws from "./wepsim-wrapper.mjs" ;
+
+   // yargs
+   var yargs = require('yargs') ;
+
+
+
+   //
    // Help
    //
 
@@ -9,12 +31,12 @@
 
    function ws_header ()
    {
-       var o = '\n' +
+        var o = '\n' +
                ws_cl_ver + '\n' +
-	       '> WepSIM simulator interface for command line.\n' +
-	       '\n' ;
+	           '> WepSIM simulator interface for command line.\n' +
+	           '\n' ;
 
-       return o ;
+        return o ;
    }
 
    function ws_help_usage ()
@@ -22,15 +44,15 @@
        var o = ws_header() ;
 
        o += 'For more details please use:\n' +
-	    ' ./wepsim.sh -h\n' +
-	    '\n' +
-	    'For common examples please use:\n' +
-	    ' ./wepsim.sh --examples basic\n' +
-	    ' ./wepsim.sh --examples help\n' +
-	    ' ./wepsim.sh --examples checker\n' +
-	    ' ./wepsim.sh --examples checkpoint\n' +
-	    ' ./wepsim.sh --examples more\n' +
-	    ' ./wepsim.sh --examples developers' ;
+	        ' ./wepsim.sh -h\n' +
+	        '\n' +
+	        'For common examples please use:\n' +
+	        ' ./wepsim.sh --examples basic\n' +
+	        ' ./wepsim.sh --examples help\n' +
+	        ' ./wepsim.sh --examples checker\n' +
+	        ' ./wepsim.sh --examples checkpoint\n' +
+	        ' ./wepsim.sh --examples more\n' +
+	        ' ./wepsim.sh --examples developers' ;
 
        return o ;
    }
@@ -189,153 +211,229 @@
    }
 
 
-   //
-   // Import
-   //
 
-   // filesystem
-   var fs = require('fs') ;
-
-   // websim
-   var ws = require('./min.wepsim_node.js') ;
-
-   // performance
-   performance = require('perf_hooks').performance ;
-
-   // arguments
-   var argv = require('yargs')
-              .usage(ws_help_usage())
-              .option('examples', {
-                  alias:    'e',
-                  type:     'string',
-                  describe: 'basic | more',
-                  nargs:    1,
-                  demand:   false,
-                  default:  ''
-               })
-              .option('action', {
-                  alias:    'a',
-                  type:     'string',
-                  describe: 'run | stepbystep | microstepbymicrostep | check |' +
-                            ' show-console | microstepverbalized | show-binary |' +
-                            ' show-record | show-microcode | show-assembly | build-checkpoint',
-                  nargs:    1,
-                  default:  'usage'
-               })
-              .option('mode', {
-                  alias:    'm',
-                  type:     'string',
-                  describe: 'ep | poc',
-                  nargs:    1,
-                  demand:   false,
-                  default:  'ep'
-               })
-              .option('firmware', {
-                  alias:    'f',
-                  type:     'string',
-                  describe: 'Firmware file',
-                  nargs:    1,
-                  demand:   false,
-                  default:  ''
-               })
-              .option('assembly', {
-                  alias:    's',
-                  type:     'string',
-                  describe: 'Assembly file',
-                  nargs:    1,
-                  demand:   false,
-                  default:  ''
-               })
-              .option('checkpoint', {
-                  alias:    'c',
-                  type:     'string',
-                  describe: 'Checkpoint file',
-                  nargs:    1,
-                  demand:   false,
-                  default:  ''
-               })
-              .option('resultok', {
-                  alias:    'r',
-                  type:     'string',
-                  describe: 'OK result file',
-                  nargs:    1,
-                  demand:   false,
-                  default:  ''
-               })
-              .option('maxi', {
-                  type:     'string',
-                  describe: 'Maximum number of instructions to be executed',
-                  nargs:    1,
-                  demand:   false,
-                  default:  '1000'
-               })
-              .option('maxc', {
-                  type:     'string',
-                  describe: 'Maximum number of clock cycles to be executed',
-                  nargs:    1,
-                  demand:   false,
-                  default:  '1024'
-               })
-              .option('verbal', {
-                  type:     'string',
-                  describe: 'text | math',
-                  nargs:    1,
-                  demand:   false,
-                  default:  'text'
-               })
-              .option('idiom', {
-                  type:     'string',
-                  describe: 'en | es | it | pt | zh_cn | fr | hi | ja | kr | ru | sv | de',
-                  nargs:    1,
-                  demand:   false,
-                  default:  'en'
-               })
-              .option('purify', {
-                  alias:    'p',
-                  type:     'string',
-                  describe: 'Filter output',
-                  nargs:    1,
-                  demand:   false,
-                  default:  ''
-               })
-              .help('h')
-              .demandOption(['action'])
-              .argv ;
-
-   // interface
-   var clear = require('clear') ;
-
-
-   //
-   // Main: help
-   //
-
-   if ( (argv.examples !== "") || (argv.action === "usage") )
+   function ws_main ()
    {
-       var o = ws_help_usage() + '\n' ;
+       // Main: arguments
+       var argv = yargs
+                  .usage(ws_help_usage())
+                  .option('examples', {
+                      alias:    'e',
+                      type:     'string',
+                      describe: 'basic | more',
+                      nargs:    1,
+                      demand:   false,
+                      default:  ''
+                   })
+                  .option('action', {
+                      alias:    'a',
+                      type:     'string',
+                      describe: 'run | stepbystep | microstepbymicrostep | check |' +
+                                ' show-console | microstepverbalized | show-binary |' +
+                                ' show-record | show-microcode | show-assembly | build-checkpoint',
+                      nargs:    1,
+                      default:  'usage'
+                   })
+                  .option('mode', {
+                      alias:    'm',
+                      type:     'string',
+                      describe: 'ep | poc',
+                      nargs:    1,
+                      demand:   false,
+                      default:  'ep'
+                   })
+                  .option('firmware', {
+                      alias:    'f',
+                      type:     'string',
+                      describe: 'Firmware file',
+                      nargs:    1,
+                      demand:   false,
+                      default:  ''
+                   })
+                  .option('assembly', {
+                      alias:    's',
+                      type:     'string',
+                      describe: 'Assembly file',
+                      nargs:    1,
+                      demand:   false,
+                      default:  ''
+                   })
+                  .option('checkpoint', {
+                      alias:    'c',
+                      type:     'string',
+                      describe: 'Checkpoint file',
+                      nargs:    1,
+                      demand:   false,
+                      default:  ''
+                   })
+                  .option('resultok', {
+                      alias:    'r',
+                      type:     'string',
+                      describe: 'OK result file',
+                      nargs:    1,
+                      demand:   false,
+                      default:  ''
+                   })
+                  .option('maxi', {
+                      type:     'string',
+                      describe: 'Maximum number of instructions to be executed',
+                      nargs:    1,
+                      demand:   false,
+                      default:  '1000'
+                   })
+                  .option('maxc', {
+                      type:     'string',
+                      describe: 'Maximum number of clock cycles to be executed',
+                      nargs:    1,
+                      demand:   false,
+                      default:  '1024'
+                   })
+                  .option('verbal', {
+                      type:     'string',
+                      describe: 'text | math',
+                      nargs:    1,
+                      demand:   false,
+                      default:  'text'
+                   })
+                  .option('idiom', {
+                      type:     'string',
+                      describe: 'en | es | it | pt | zh_cn | fr | hi | ja | kr | ru | sv | de',
+                      nargs:    1,
+                      demand:   false,
+                      default:  'en'
+                   })
+                  .option('purify', {
+                      alias:    'p',
+                      type:     'string',
+                      describe: 'Filter output',
+                      nargs:    1,
+                      demand:   false,
+                      default:  ''
+                   })
+                  .help('h')
+                  .demandOption(['action'])
+                  .argv ;
 
-       if ("basic" == argv.examples) {
-           o = ws_help_examples_basic() ;
-       }
-       if ("help" == argv.examples) {
-           o = ws_help_examples_help() ;
-       }
-       else if ("checker" == argv.examples) {
-           o = ws_help_examples_check() ;
-       }
-       else if ("checkpoint" == argv.examples) {
-           o = ws_help_examples_checkpoint() ;
-       }
-       else if ("more" == argv.examples) {
-           o = ws_help_examples_more() ;
-       }
-       else if ("developers" == argv.examples) {
-           o = ws_help_examples_developers() ;
+
+       // Main: help
+       if ( (argv.examples !== "") || (argv.action === "usage") )
+       {
+           var o = ws_help_usage() + '\n' ;
+
+           if ("basic" == argv.examples) {
+               o = ws_help_examples_basic() ;
+           }
+           if ("help" == argv.examples) {
+               o = ws_help_examples_help() ;
+           }
+           else if ("checker" == argv.examples) {
+               o = ws_help_examples_check() ;
+           }
+           else if ("checkpoint" == argv.examples) {
+               o = ws_help_examples_checkpoint() ;
+           }
+           else if ("more" == argv.examples) {
+               o = ws_help_examples_more() ;
+           }
+           else if ("developers" == argv.examples) {
+               o = ws_help_examples_developers() ;
+           }
+
+           clear() ;
+           console.log(o) ;
+           return true ;
        }
 
-       clear() ;
-       console.log(o) ;
-       return true ;
+       // Main
+       try
+       {
+    	   // 1) options
+    	   var options = {} ;
+
+    	   options.instruction_limit = parseInt(argv.maxi) ;
+    	   options.cycles_limit      = parseInt(argv.maxc) ;
+    	   options.verbalize         = (argv.verbal.toUpperCase() == "MATH") ? 'math' : 'text' ;
+    	   options.purify            =  argv.purify ;
+
+
+    	   // 2) workset
+    	   var data = {} ;
+
+    	   data.mode      = argv.mode ;
+    	   data.action    = argv.action.toUpperCase() ;
+    	   data.firmware  = '' ;
+    	   data.assembly  = '' ;
+    	   data.record    = '' ;
+     	   data.result_ok = '' ;
+     	   data.idiom     = argv.idiom ;
+
+           var ret = {} ;
+
+    	   ret.status = false ;
+    	   ret.data   = '' ;
+
+            if (argv.checkpoint !== "")
+            {
+                ret = ws_open_file(argv.checkpoint) ;
+                if (ret.status)
+                {
+    	           var obj_checkpoint = ws.wepsim_nodejs_loadCheckpoint(ret.data) ;
+
+    	           data.mode     = obj_checkpoint.mode ;
+    	           data.firmware = obj_checkpoint.firmware ;
+    	           data.assembly = obj_checkpoint.assembly ;
+    	           data.record   = obj_checkpoint.record ;
+    	           data.obj_chk  = obj_checkpoint ;
+    	           data.str_chk  = ret.data ;
+                }
+            }
+
+            if (argv.firmware !== "")
+            {
+                ret = ws_open_file(argv.firmware) ;
+                if (ret.status) {
+     	            data.firmware = ret.data ;
+                }
+            }
+
+            if (argv.assembly !== "")
+            {
+                if (argv.action === "help")
+                {
+     	            data.assembly = argv.assembly ; // -a help -m ep -s **cop**
+                }
+                else
+                {
+                    ret = ws_open_file(argv.assembly) ;
+                    if (ret.status) {
+     	                data.assembly = ret.data ;
+                    }
+                }
+            }
+
+            if (argv.resultok !== "")
+            {
+                ret = ws_open_file(argv.resultok) ;
+                if (ret.status) {
+     	            data.result_ok = ret.data ;
+                }
+            }
+
+    	    // 3) action
+            if (ret.status) {
+                return ws.wepsim_nodejs_doAction(data, options) ;
+            }
+
+            console.log(ws_header() +
+                        ret.data) ;
+            return false ;
+       }
+       catch (e)
+       {
+            console.log(ws_help_usage() + '\n\n' +
+                        e.stack + '\n') ;
+            return false ;
+       }
    }
 
 
@@ -343,93 +441,5 @@
    // Main
    //
 
-   try
-   {
-	// 1) options
-	var options = {} ;
-
-	options.instruction_limit = parseInt(argv.maxi) ;
-	options.cycles_limit      = parseInt(argv.maxc) ;
-	options.verbalize         = (argv.verbal.toUpperCase() == "MATH") ? 'math' : 'text' ;
-	options.purify            =  argv.purify ;
-
-
-	// 2) workset
-	var data = {} ;
-
-	data.mode      = argv.mode ;
-	data.action    = argv.action.toUpperCase() ;
-	data.firmware  = '' ;
-	data.assembly  = '' ;
-	data.record    = '' ;
- 	data.result_ok = '' ;
- 	data.idiom     = argv.idiom ;
-
-        var ret = {} ;
-
-	ret.status = false ;
-	ret.data   = '' ;
-
-        if (argv.checkpoint !== "")
-        {
-            ret = ws_open_file(argv.checkpoint) ;
-            if (ret.status)
-            {
-	        var obj_checkpoint = ws.wepsim_nodejs_loadCheckpoint(ret.data) ;
-
-	        data.mode     = obj_checkpoint.mode ;
-	        data.firmware = obj_checkpoint.firmware ;
-	        data.assembly = obj_checkpoint.assembly ;
-	        data.record   = obj_checkpoint.record ;
-	        data.obj_chk  = obj_checkpoint ;
-	        data.str_chk  = ret.data ;
-            }
-        }
-
-        if (argv.firmware !== "")
-        {
-            ret = ws_open_file(argv.firmware) ;
-            if (ret.status) {
- 	        data.firmware = ret.data ;
-            }
-        }
-
-        if (argv.assembly !== "")
-        {
-            if (argv.action === "help")
-            {
- 	        data.assembly = argv.assembly ; // -a help -m ep -s **cop**
-            }
-            else
-            {
-                ret = ws_open_file(argv.assembly) ;
-                if (ret.status) {
- 	            data.assembly = ret.data ;
-                }
-            }
-        }
-
-        if (argv.resultok !== "")
-        {
-            ret = ws_open_file(argv.resultok) ;
-            if (ret.status) {
- 	        data.result_ok = ret.data ;
-            }
-        }
-
-	// 3) action
-        if (ret.status) {
-            return ws.wepsim_nodejs_doAction(data, options) ;
-        }
-
-        console.log(ws_header() +
-                    ret.data) ;
-        return false ;
-   }
-   catch (e)
-   {
-        console.log(ws_help_usage() + '\n\n' +
-                    e.stack + '\n') ;
-        return false ;
-   }
+   ws_main() ;
 

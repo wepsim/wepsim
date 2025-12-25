@@ -3,7 +3,7 @@
 
 ## 2.3.7 -> 2.3.8:
 * Main improvements:
-  * Some minor improvements
+  * Updates on error handling for the command-line version
 
 ## 2.3.6 -> 2.3.7:
 * Main improvements:

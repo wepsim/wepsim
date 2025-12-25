@@ -43,8 +43,8 @@ while getopts 'vdh' opt; do
       echo "   sudo apt-get install jq"
       echo ""
       echo "   npm i terser jshint"
-      echo "   npm i yargs clear inquirer fuzzy commander async"
-      echo "   npm i inquirer-command-prompt inquirer-autocomplete-prompt"
+      echo "   npm i yargs clear inquirer@8.2.6 fuzzy commander async"
+      echo "   npm i inquirer-command-prompt inquirer-autocomplete-prompt@1"
       echo "   npm i rollup @rollup/plugin-node-resolve"
       echo ""
       echo "   npm i codemirror @codemirror/lang-javascript"
@@ -300,7 +300,7 @@ echo "  * ws_dist/min.wepsim_node.js"
 cat wepsim_nodejs/wepsim_node_adapt.js \
     ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
-    ws_dist/min.wepsim_web.js \
+    ws_dist/min.wepsim_core.js \
     \
     wepsim_nodejs/wepsim_node_core.js \
     wepsim_nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
