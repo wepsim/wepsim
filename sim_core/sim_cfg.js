@@ -209,7 +209,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.3.8" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.3.8.20251110A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.3.8.20251210A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -224,11 +224,14 @@
 	           /* simulation screen: Register File */
                    "RF_display_format":     { upgrade:false, type:"string",    value:'unsigned_16_fill' },
                    "RF_display_name":       { upgrade:false, type:"string",    value:'numerical' },
+                   "is_editable":           { upgrade:false, type:"boolean",   value:true },
+
+	           /* simulation screen: Memory */
                    "MEM_display_format":    { upgrade:false, type:"string",    value:'unsigned_16_nofill' },
                    "MEM_show_segments":     { upgrade:false, type:"boolean",   value:false },
                    "MEM_show_source":       { upgrade:false, type:"boolean",   value:false },
                    "MEM_display_direction": { upgrade:false, type:"string",    value:'h2l' },
-                   "is_editable":           { upgrade:false, type:"boolean",   value:true },
+                   "MEM_show_nwords":       { upgrade:false, type:"int",       value:1 },
 
 	           /* simulation screen: Execution */
                    "DBG_delay":             { upgrade:false, type:"int",       value:5 },
