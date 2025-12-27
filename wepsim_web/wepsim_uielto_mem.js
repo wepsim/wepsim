@@ -318,6 +318,7 @@
             var labeli = '' ;
             var valuei = '' ;
             var src_html = '' ;
+            var row_html = '' ;
 
 	    for (var n=0; n<cfg.nwords; n++)
 	    {
@@ -354,7 +355,7 @@
                            ri = src_parts.length - i - 1 ;
                       else ri = i ;
 
-                      src_html += "<span class='bg-dark text-white px-1 mx-1 rounded'>" + src_parts[ri] + "</span>" ;
+                      src_html = "<span class='mp_tooltip collapse hide bg-dark text-white px-1 mx-1 rounded'>" + src_parts[ri] + "</span>" ;
                  }
 
                  // wcolor
@@ -364,6 +365,7 @@
                  }
 
                  // value2
+		 value2 = '' ;
                  for (i=0; i<4; i++)
                  {
                       if (cfg.direction == 'h2l')
@@ -383,6 +385,8 @@
 
                       value2 += '<span class="me-1">' + valuei + '</span>' ;
                  }
+
+		 row_html += '<span class="col">' + value2 + '<br>' + src_html + '</span>' ;
 	    }
 
             // build HTML
@@ -399,14 +403,12 @@
 	        "<div class='col-1 px-0' align='center'>" +
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+
-		"<div class='col-6 col-md-5 col-lg-4 pe-1' align='right'>" +
+		"<div class='col-auto pe-1' align='right'>" +
                      '<span><small>0x</small>' + start_addr + '</span>' +
                      '<span> ... </span>' +
-                     '<span><span class="d-none d-sm-inline-flex"><small>0x</small></span>' + stop_addr + '</span>' +
+//                   '<span><span class="d-none d-sm-inline-flex"><small>0x</small></span>' + stop_addr + '</span>' +
                 "</div>" +
-	        "<div class='col-5 col-md-6 col-lg-7 px-3                          ms-auto'>" + value2 + "</div>" +
-	        "<div class='col-7 col-md-6 col-lg-7      mp_tooltip collapse hide ms-auto'>&nbsp;</div>" +
-	        "<div class='col-5 col-md-6 col-lg-7 px-3 mp_tooltip collapse hide ms-auto mb-2'>" + src_html + "</div>"+
+	        "<div class='col px-3 ms-auto'><span class='row'>" + row_html + "</span></div>" +
                 "</div>";
 
 	    return o ;

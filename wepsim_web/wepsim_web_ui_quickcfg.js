@@ -186,11 +186,25 @@
 					 quickcfg_html_onoff('20',
 							     'show origin',
 								"(*) " + i18n_get_TagFor('cfg', 'Off'),
-							     "  $('.mp_tooltip').hide();" +
+							     "  $('.mp_tooltip').collapse('hide');" +
 							     "  wepsim_config_button_toggle('MEM_show_source', false, '20');",
 								i18n_get_TagFor('cfg', 'On'),
-							     "  $('.mp_tooltip').show();" +
+							     "  $('.mp_tooltip').collapse('show');" +
 							     "  wepsim_config_button_toggle('MEM_show_source', true, '20');") +
+				     quickcfg_html_br() +
+					 quickcfg_html_header("Number of words") +
+					 quickcfg_html_btn("(*) 1",
+							   "update_cfg(\"MEM_show_nwords\", 1); " +
+							   "show_memories_values();",
+							   "col-4") +
+					 quickcfg_html_btn("2",
+							   "update_cfg(\"MEM_show_nwords\", 2); " +
+							   "show_memories_values();",
+							   "col-4") +
+					 quickcfg_html_btn("3",
+							   "update_cfg(\"MEM_show_nwords\", 3); " +
+							   "show_memories_values();",
+							   "col-4") +
 				     quickcfg_html_br() +
 				       quickcfg_html_close('popover-mem') +
 				     "</div>" +
