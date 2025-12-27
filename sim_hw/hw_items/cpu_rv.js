@@ -184,8 +184,10 @@ function cpu_rv_register ( sim_p )
 
         sim_p.internal_states.tri_state_names = [] ;
         sim_p.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        sim_p.internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto", "REG_PC,col-auto",
-						  "REG_OUT,col-auto", "REG_MICROADDR,col-auto"] ;
+        sim_p.internal_states.filter_states   = [ "REG_IR_DECO,virtual", "REG_IR,real",
+		                                  "REG_PC,real",
+						  "REG_OUT,real",
+		                                  "REG_MICROADDR,real"] ;
         sim_p.internal_states.filter_signals  = [ "CU,0", "ALUOP,0","M1,0", "M2,0", "M3,0", "M4,0", "JUMP,0", "PCWRITE,0",
 						  "IMR,0", "IRWRITE,0", "RW,0", "WOUT,0", "DMR,0", "DMW,0", "WBE,0", "SE,0" ] ;
         sim_p.internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0 } ;

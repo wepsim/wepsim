@@ -171,10 +171,11 @@ function cpu_poc_register ( sim_p )
 
         sim_p.internal_states.tri_state_names = [ "T1","T2","T3","T6","T8","T9","T10","T11","T12" ] ;
         sim_p.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        sim_p.internal_states.filter_states   = [ "REG_IR_DECO,col-12",
-                                                    "REG_IR,col-auto",  "REG_PC,col-auto",  "REG_SR,col-auto",
-                                                    "REG_RT1,col-auto",
-                                                    "REG_MAR,col-auto", "REG_MBR,col-auto", "REG_MICROADDR,col-auto" ] ;
+        sim_p.internal_states.filter_states   = [ "REG_IR_DECO,virtual", "REG_IR,real",
+		                                  "REG_PC,real",         "REG_SR,real",
+                                                  "REG_RT1,real",
+                                                  "REG_MAR,real",        "REG_MBR,real",
+		                                  "REG_MICROADDR,real" ] ;
         sim_p.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",
                                                     "SELA,5", "SELB,5", "SELC,2", "SELCOP,0",
                                                     "MRA,0",  "MRB,0",  "MRC,0",  "MC,0",

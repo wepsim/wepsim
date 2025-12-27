@@ -122,6 +122,7 @@
                 cfg.format    = cfg.format.replace('_fill', '_nofill') ;
                 cfg.showsegs  = get_cfg('MEM_show_segments') ;
                 cfg.showsrc   = get_cfg('MEM_show_source') ;
+                cfg.nwords    = get_cfg('MEM_show_nwords') ;
 
             // labels (seg)
             var SIMWARE = get_simware() ;
@@ -171,10 +172,14 @@
             var value   = [] ;
             var i_key   = 0 ;
             var i_index = parseInt(index) ;
+            var n_key   = 0 ;
+
             var keys = main_memory_getkeys(memory_cpy) ;
-            for (var k=0; k<keys.length; k++)
+            var k = 0 ;
+            while (k < keys.length)
             {
                 i_key = parseInt(keys[k]) ;
+                n_key = parseInt(keys[k+1]) ;
 
                 // [add segment if needed]
                 s1 = s2 = '' ;
@@ -193,7 +198,12 @@
                 if (s2 !== '') o2 += s2 ;
 
                 // (add row)
-                o2 += main_memory_showrow(cfg, memory_cpy, keys[k], (keys[k] == index), SIMWARE.hash_labels_asm_rev) ;
+                o2 += main_memory_showrow(cfg, memory_cpy, keys[k], SIMWARE.hash_labels_asm_rev, (keys[k] >= index) && (keys[k+cfg.nwords] <= index)) ;
+
+		// are-consecutive ? k=k+cfg.nwords : k++
+		if (Math.abs(n_key - i_key) == 4)
+	             k = k + cfg.nwords ;
+		else k = k + 1 ;
             }
 
             // pack and load html
@@ -211,7 +221,7 @@
             $("#memory_MP").html(o1) ;
 
             // * Activation of html badges
-            update_badges() ;
+            update_badges(cfg.nwords) ;
 
             // * Configure html options
             element_scroll_set("#lst_ins1", pos) ;
@@ -232,14 +242,22 @@
 
         function light_refresh_main_memory ( memory, index, redraw )
         {
+	    var cfg_nwords = get_cfg('MEM_show_nwords') ;
+
             if (redraw)
             {
                 var ri = 0 ;
-                var svalue  = main_memory_getword(memory, index) ;
-		for (var i=0; i<4; i++)
+                var svalue = '' ;
+                var addrplusn = index + 4*n ;
+		for (var n=0; n<cfg_nwords; n++)
 		{
-		     ri = 4 - i - 1 ;
-		     $("#mpval" + (index + i)).html(svalue[ri]) ;
+                     addrplusn = index + 4*n ;
+                     svalue = main_memory_getword(memory, addrplusn) ;
+		     for (var i=0; i<4; i++)
+		     {
+		          ri = 4 - i - 1 ;
+		          $("#mpval" + (addrplusn + i)).html(svalue[ri]) ;
+		     }
 		}
             }
 
@@ -253,7 +271,7 @@
 		  o1.removeClass('fw-bold').addClass('fw-normal') ;
             }
 
-            old_main_addr = index ;
+            old_main_addr = index - (index % (4*cfg_nwords)) ;
 
             o1 = $("#addr" + old_main_addr) ;
             if (o1.is(':visible'))
@@ -265,7 +283,7 @@
             }
 
             // show badges
-            update_badges() ;
+            update_badges(cfg_nwords) ;
         }
 
         function main_memory_showseglst ( seg_id, seg_name )
@@ -283,95 +301,114 @@
                    '</div>' ;
         }
 
-        function main_memory_showrow ( cfg, memory, addr, is_current, revlabels )
+        function main_memory_showrow ( cfg, memory, addr, revlabels, is_current )
         {
-            var o  = "" ;
             var i  = 0 ;
             var ri = 0 ;
+            var addrplusn = 0 ;
 
             // valkeys
             var valkeys = [] ;
             var idi     = [] ;
-            for (i=0; i<4; i++)
-            {
-                 if (cfg.direction == 'h2l')
-                      ri = 4 - i - 1 ;
-                 else ri = i ;
+            var addri   = 0 ;
 
-                 var addri  = parseInt(addr) + ri ;
-		 valkeys[i] = addri.toString(16) ;
-                 idi[i]     = "mpval" + addri ;
-            }
-
-            // get value
-            var value = main_memory_getword(memory, addr) ;
-            var src   =  main_memory_getsrc(memory, addr) ;
-
-            // format of the value
-            for (i=0; i<4; i++)
-            {
-                 value[i] = value2string(cfg.format, parseInt(value[i], 16)) ;
-                 value[i] = simcoreui_pack(value[i], 2) ;
-            }
-
-            // format of the source
-            var src_html  = '' ;
-            var src_parts = src.split(";") ;
-            for (i=0; i<src_parts.length; i++)
-            {
-                 if (cfg.direction == 'h2l')
-                      ri = src_parts.length - i - 1 ;
-                 else ri = i ;
-
-                 src_html += "<span class='bg-dark text-white px-1 mx-1 rounded'>" + src_parts[ri] + "</span>" ;
-            }
-
-            // wcolor
-            var wcolor = "text-body-emphasis fw-normal " ;
-	    if (is_current) {
-                wcolor = "text-primary       fw-bold " ;
-            }
-
-            // value2
+	    // html
+            var o = "" ;
+            var value2 = '' ;
             var labeli = '' ;
             var valuei = '' ;
+            var src_html = '' ;
+            var row_html = '' ;
 
-            var value2 = '' ;
-            for (i=0; i<4; i++)
-            {
-                 if (cfg.direction == 'h2l')
-                      ri = i ;
-                 else ri = 4 - i - 1 ;
+	    for (var n=0; n<cfg.nwords; n++)
+	    {
+                 var addrplusn = parseInt(addr) + 4*n ;
 
-                 valuei = '<span id="' + idi[i] + '">' + value[ri] + '</span>' ;
-                 labeli = revlabels["0x" + valkeys[i]] ;
-                 if (typeof labeli !== "undefined")
+                 // valkeys
+                 for (i=0; i<4; i++)
                  {
-                     valuei = '<span>' +
-                              '<span style="border:1px solid gray;">' + valuei + '</span>' +
-                              '<span class="badge rounded-pill text-bg-info" ' +
-                              '      style="position:relative;top:-8px;z-index:2">' + labeli + '</span>' +
-                              '</span>' ;
+                      if (cfg.direction == 'h2l')
+                           ri = 4 - i - 1 ;
+                      else ri = i ;
+
+                      addri      = addrplusn + ri ;
+		      valkeys[i] = addri.toString(16) ;
+                      idi[i]     = "mpval" + addri ;
                  }
 
-                 value2 += '<span class="me-1">' + valuei + '</span>' ;
-            }
+                 // get value
+                 var value = main_memory_getword(memory, addrplusn) ;
+                 var src   =  main_memory_getsrc(memory, addrplusn) ;
+
+                 // format of the value
+                 for (i=0; i<4; i++)
+                 {
+                      value[i] = value2string(cfg.format, parseInt(value[i], 16)) ;
+                      value[i] = simcoreui_pack(value[i], 2) ;
+                 }
+
+                 // format of the source
+                 var src_parts = src.split(";") ;
+                 for (i=0; i<src_parts.length; i++)
+                 {
+                      if (cfg.direction == 'h2l')
+                           ri = src_parts.length - i - 1 ;
+                      else ri = i ;
+
+                      src_html = "<span class='mp_tooltip collapse hide bg-dark text-white px-1 mx-1 rounded'>" + src_parts[ri] + "</span>" ;
+                 }
+
+                 // wcolor
+                 var wcolor = "text-body-emphasis fw-normal " ;
+	         if (is_current) {
+                     wcolor = "text-primary       fw-bold " ;
+                 }
+
+                 // value2
+		 value2 = '' ;
+                 for (i=0; i<4; i++)
+                 {
+                      if (cfg.direction == 'h2l')
+                           ri = i ;
+                      else ri = 4 - i - 1 ;
+
+                      valuei = '<span id="' + idi[i] + '">' + value[ri] + '</span>' ;
+                      labeli = revlabels["0x" + valkeys[i]] ;
+                      if (typeof labeli !== "undefined")
+                      {
+                          valuei = '<span>' +
+                                   '<span style="border:1px solid gray;">' + valuei + '</span>' +
+                                   '<span class="badge rounded-pill text-bg-info" ' +
+                                   '      style="position:relative;top:-8px;z-index:2">' + labeli + '</span>' +
+                                   '</span>' ;
+                      }
+
+                      value2 += '<span class="me-1">' + valuei + '</span>' ;
+                 }
+
+		 row_html += '<span class="col">' + value2 + '<br>' + src_html + '</span>' ;
+	    }
 
             // build HTML
+	    var start_addr = parseInt(addr).toString(16) ;
+	    var stop_addr  = valkeys[0] ;
+            if (cfg.direction != 'h2l') {
+	        stop_addr  = valkeys[3] ;
+	    }
+	    start_addr = simcoreui_pack(start_addr, 5).toUpperCase() ;
+	    stop_addr  = simcoreui_pack(stop_addr,  5).toUpperCase() ;
+
 	    o = "<div class='row " + wcolor + "' id='addr" + addr + "'" +
                 "     style='font-size:small; border-bottom: 1px solid lightgray !important'>" +
 	        "<div class='col-1 px-0' align='center'>" +
                      '<span id="bg' + addr + '" class="mp_row_badge"></span>' +
                 "</div>"+
-		"<div class='col-6 col-md-5 pe-2' align='right'>" +
-                     '<small>0x</small>' + simcoreui_pack(valkeys[0], 5).toUpperCase() +
+		"<div class='col-auto pe-1' align='right'>" +
+                     '<span><small>0x</small>' + start_addr + '</span>' +
                      '<span> ... </span>' +
-                     '<span class="d-none d-sm-inline-flex"><small>0x</small></span>' +
-                     simcoreui_pack(valkeys[3], 5).toUpperCase() +
+//                   '<span><span class="d-none d-sm-inline-flex"><small>0x</small></span>' + stop_addr + '</span>' +
                 "</div>" +
-	        "<div class='col-5 col-md-6 px-3                          ms-auto'>" + value2 + "</div>" +
-	        "<div class='col-7 col-md-6      mp_tooltip collapse hide ms-auto'>&nbsp;</div>" +
-	        "<div class='col-5 col-md-6 px-3 mp_tooltip collapse hide ms-auto mb-2'>" + src_html + "</div>"+
+	        "<div class='col px-3 ms-auto'><span class='row'>" + row_html + "</span></div>" +
                 "</div>";
 
 	    return o ;
@@ -392,19 +429,23 @@
             return element_scroll_setRelative('#lst_ins1', '#addr'+old_main_addr, -250) ;
         }
 
-        function update_badges ( )
+        function update_badges ( cfg_nwords )
         {
             var html = {} ;
 	    var tobe_updated = {} ;
 	    var tobe_updated_any = false ;
             var elto = null ;
+	    var eaddr = 0 ;
 
             var base_addrs = main_memory_get_baseaddr() ;
             for (elto in base_addrs)
             {
                  html[elto] = '' ;
-                 if (base_addrs[elto] != null) {
-                     html[elto] = $("#bg" + base_addrs[elto]).html() ;
+                 if (base_addrs[elto] != null)
+		 {
+		     eaddr = base_addrs[elto] ;
+		     eaddr = eaddr - (eaddr % (4*cfg_nwords)) ;
+                     html[elto] = $("#bg" + eaddr).html() ;
                  }
 
 	         tobe_updated[elto] = (base_addrs[elto] != null) && (html[elto] == '') ;
@@ -426,13 +467,16 @@
                      continue ;
                  }
 
-		 old_html  = $("#bg" + base_addrs[elto]).html() ;
+		 eaddr = base_addrs[elto] ;
+		 eaddr = eaddr - (eaddr % (4*cfg_nwords)) ;
+
+		 old_html  = $("#bg" + eaddr).html() ;
                  old_html += '<div class="badge bg-primary mx-1">' +
                              elto.toUpperCase() +
                              '</div>' +
                           // '<i class="mx-auto text-secondary fas fa-arrow-right"></i>' ;
                              '' ;
-		 $("#bg" + base_addrs[elto]).html(old_html) ;
+		 $("#bg" + eaddr).html(old_html) ;
             }
         }
 

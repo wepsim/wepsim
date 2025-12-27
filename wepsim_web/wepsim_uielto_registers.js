@@ -286,8 +286,8 @@
             // all logical name
             if (logical_index == 0) {
 		 br_value = r_item.join('|') ;
-	         br_value = br_value.padEnd(6,' ') ;
-                 return br_value ;
+	         br_value = br_value.padEnd(7, ' ') ;
+                 return br_value.replace(' ', '&nbsp;') ;
             }
 
             // get logical name
@@ -312,7 +312,7 @@
                  // display name
 		 var obj = document.getElementById("name_RF" + index) ;
 		 if (obj != null) {
-		     obj.innerHTML = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, rf_index, index, logical_index);
+		     obj.innerHTML = wepsim_refresh_rf_names_mkname(disp_name, SIMWARE, rf_index, index, logical_index) ;
 		 }
 	    }
         }
@@ -326,6 +326,33 @@
         /*
          *  init_x
          */
+
+	// helper for vue binding
+        var last_rf_id = { value: null } ;
+
+        function init_update_last_id ( old_id, elto_id )
+        {
+	    if (old_id.value == elto_id) {
+	        return true ;
+	    }
+
+	    // reset bg-debug-asm in former register ...
+	    if (old_id.value != null) {
+		$(old_id.value).removeClass('bg-debug-asm text-dark') ;
+		$(old_id.value).addClass('bg-info-subtle text-body') ;
+	    }
+
+	    // ... and set bg-debug-asm in current one
+	    if (typeof $(elto_id).addClass != "undefined") {
+		$(elto_id).removeClass('bg-info-subtle text-body') ;
+		$(elto_id).addClass('bg-debug-asm text-dark') ;
+	    }
+
+	    // update old_id
+	    old_id.value = elto_id ;
+
+	    return true ;
+        }
 
         function wepsim_init_rf ( )
         {
@@ -350,10 +377,9 @@
 			  "        style='' data-role='none' " +
                           "        data-bs-toggle='popover-up' data-popover-content='" + r_index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "<span id='name_RF" + index + "' class='p-0 font-monospace' style='float:center; '>" + o1_rn + "</span>&nbsp;" +
+                          "<span   id='name_RF" + index + "' class='p-0 font-monospace' style='float:center;'>" + o1_rn + "</span>&nbsp;" +
 			  "<span class='w-100 d-block d-sm-none'></span>" +
-                          "<span class='badge badge-secondary bg-info-subtle text-body' style='' id='tbl_RF"  + index + "'>" +
-                          "<span id='rf_" + index + "'>{{ computed_value }}</span></span>" +
+                          "<span class='badge badge-secondary bg-info-subtle text-body' style='' id='rf_"  + index + "'>{{ computed_value }}</span>" +
                           "</button>" ;
 	    }
 
@@ -405,17 +431,22 @@
             wepsim_popovers_init("[data-bs-toggle=popover-up]", popover_cfg, null) ;
 
 	    // vue binding
-	    var f_computed_value = function(value) {
-				       var rf_format = get_cfg('RF_display_format') ;
-				       return value2string(rf_format, value >>> 0) ;
-				    } ;
+	    var f_computed_value_rf = function(value, elto_id)
+                                         {
+					     // update ui
+                                             init_update_last_id(last_rf_id, elto_id) ;
+
+					     // set formated value
+				             var rf_format = get_cfg('RF_display_format') ;
+				             return value2string(rf_format, (value >>> 0)) ;
+			                 } ;
 
 	    for (var index=0; index < simhw_sim_states().BR.length; index++)
             {
 		 var ref_obj = simhw_sim_states().BR[index] ;
 
 		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj.value) ;
-		 vue_appyBinding(ref_obj.value, '#rf_'+index, f_computed_value) ;
+		 vue_appyBinding(ref_obj.value, '#rf_'+index, f_computed_value_rf) ;
 	    }
         }
 
@@ -428,18 +459,32 @@
             var o1 = "" ;
 
             // Registers
+            var filspl   = [] ;
+	    var ename    =  "" ;
 	    var divclass =  "" ;
+	    var vir_real =  "" ;
 	    var value    =  "" ;
+	    var dbs_toggle= "" ;
 
             var part1 = "" ;
             var part2 = "" ;
             for (var i=0; i<filter.length; i++)
             {
-                var    s = filter[i].split(",")[0] ;
-                divclass = filter[i].split(",")[1] ;
+                filspl = filter[i].split(",") ;
+                ename    = filspl[0] ;
+                vir_real = filspl[1] ;
 
-                var showkey = sim_eltos[s].name;
-                if (sim_eltos[s].nbits > 1)
+		if ("real" == vir_real) {
+		     dbs_toggle = " data-bs-toggle='popover-bottom' data-popover-content='" + ename + "' data-container='body' " ;
+		     divclass   = "col-auto" ;
+		}
+		else {
+		     dbs_toggle = "" ;
+		     divclass   = "col-12" ;
+		}
+
+                var showkey = sim_eltos[ename].name ;
+                if (sim_eltos[ename].nbits > 1)
 	        {
                     part1 = showkey.substring(0, 3) ;
                     part2 = showkey.substring(3, showkey.length) ;
@@ -455,13 +500,11 @@
                 o1 += "<button type='button' " +
                       "        class='btn py-0 px-1 mt-1 ms-1 " + divclass + " border border-secondary bg-body-tertiary' " +
 		      "        style='' data-role='none' " +
-                      "        data-bs-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
-                      "        id='rp" + s + "'>" +
+                      dbs_toggle +
+                      "        id='rp" + ename + "'>" +
                       showkey +
                       " <span class='w-100 d-block d-sm-none'></span>" +
-                      " <span class='badge badge-secondary bg-info-subtle text-body' style='' id='tbl_"  + s + "'>" +
-		      "<div id='rf_" + s + "'>{{ computed_value }}</div>" +
-                      "</span>" +
+                      " <span class='badge badge-secondary bg-info-subtle text-body' style='' id='rf_"  + ename + "'>{{ computed_value }}</span>" +
                       "</button>" ;
             }
 
@@ -499,14 +542,24 @@
             wepsim_popovers_init("[data-bs-toggle=popover-bottom]", popover_cfg, null) ;
 
 	    // vue binding
-	    var f_computed_value = function(value) {
-				        var rf_format = get_cfg('RF_display_format') ;
-				        var rf_value = value2string('text:char:nofill', value) ;
-					if (Number.isInteger(value)) {
-				    	    rf_value = value2string(rf_format, (value >>> 0)) ;
-				        }
-				        return rf_value ;
-				    } ;
+	    var f_computed_value = function(value)
+		                   {
+				       var rf_format = '' ;
+				       var rf_value  = '' ;
+
+				       if (Number.isInteger(value))
+				       {
+				           rf_format = get_cfg('RF_display_format') ;
+				           rf_value  = value2string(rf_format, (value >>> 0)) ;
+				       }
+				       else
+				       {
+				           rf_format = 'text:char:nofill' ;
+				           rf_value  = value2string(rf_format, value) ;
+				       }
+
+				       return rf_value ;
+				   } ;
 
             for (var i=0; i<filter.length; i++)
             {
