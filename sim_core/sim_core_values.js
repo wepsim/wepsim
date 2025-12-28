@@ -224,7 +224,7 @@
 				    },
 				    computed_value () {
      					this.$store.state.updates ;
-     					return f_computed_value(this.$store.state.value) ;
+     					return f_computed_value(this.$store.state.value, vue_context) ;
 				    }
 				},
 				methods: {
