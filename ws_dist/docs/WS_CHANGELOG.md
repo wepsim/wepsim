@@ -1,6 +1,12 @@
 
 # Changelog
 
+## 2.3.7 -> 2.3.8:
+* Main improvements:
+  * Updates on error handling for the command-line version
+  * Initial version of python3 REST API (alpha)
+  * Minor UI improvements on the memory details panel
+
 ## 2.3.6 -> 2.3.7:
 * Main improvements:
   * Initial beta version of the cache memory component

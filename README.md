@@ -5,7 +5,7 @@
 [![Maintainability](https://qlty.sh/gh/acaldero/projects/wepsim/maintainability.svg)](https://qlty.sh/gh/acaldero/projects/wepsim)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/579e744cedde4dc78f8084d9db7abd32)](https://app.codacy.com/gh/acaldero/wepsim/dashboard)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
-[![Release](https://img.shields.io/badge/Stable-2.3.7-green.svg)](https://github.com/wepsim/wepsim/releases/tag/v2.3.7)
+[![Release](https://img.shields.io/badge/Stable-2.3.8-green.svg)](https://github.com/wepsim/wepsim/releases/tag/v2.3.8)
 
 
 ## Table of contents
@@ -16,11 +16,12 @@
 - Getting Started
   - [Visual UI](#getting-started-visualui)
   - [Command Line](#getting-started-command-line)
+- [Integrating WepSIM](#integrating-wepsim)
+  - [WepSIM Links in documents](#wepsim-links)
+  - [WepSIM on Google Colab](#wepsim-gcolab)
 - [Getting Started: Developers](#getting-started-developers)
   - [WepSIM Source Code](#wepsim-source-code)
   - [WepSIM engine API](#wepsim-engine-api)
-  - [WepSIM Links](#wepsim-links)
-  - [WepSIM on Google Colab](#wepsim-gcolab)
   - [WepSIM for Apache Cordova](#wepsim-apache-cordova)
 
 
@@ -30,7 +31,7 @@
 
 + From Web, please:
   * Check you have a compatible Web browser:
-    * Google Chrome 90+, Mozilla Firefox 90+, Microsoft Edge 90+, and Apple Safari 15+
+    * Google Chrome 100+, Mozilla Firefox 100+, Microsoft Edge 100+, and Apple Safari 16+
   * Open your (compatible) Web browser
   * Click on the link https://wepsim.github.io/wepsim
     * A nightly build version is also available at https://acaldero.github.io/wepsim
@@ -115,223 +116,118 @@ Step   | iOS                       |  Android                  | Action to perfo
 ### A) Run (and print the final state)
 
 + From the command line it is possible to 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode, and print the final state:
+  ```bash
+  ./wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e5.asm
+  ```
+  Output:
+  <html>
+  <pre>
+  register R9 = 0x1; register R10 = 0x2; register R29 = 0x100000; memory 0x8000 = 0x9200001; memory 0x8004 = 0x9400002; memory 0x8008 = 0x412a0004; memory 0x800c = 0x30000004; memory 0x8010 = 0x52a0000; memory 0x8014 = 0x9200001; memory 0x8018 = 0x9400002; memory 0x801c = 0x3d2a0004; memory 0x8020 = 0x52a0000; memory 0x8024 = 0x9200001; memory 0x8028 = 0x9400002; memory 0x802c = 0x3d2a0004; memory 0x8030 = 0x30000000; memory 0x8034 = 0x57e00000; 
+  </pre>
+  </html>
 
-```bash
-./wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e5.asm
-register R9 = 0x1; register R10 = 0x2; register R29 = 0x100000; memory 0x8000 = 0x9200001; memory 0x8004 = 0x9400002; memory 0x8008 = 0x412a0004; memory 0x800c = 0x30000004; memory 0x8010 = 0x52a0000; memory 0x8014 = 0x9200001; memory 0x8018 = 0x9400002; memory 0x801c = 0x3d2a0004; memory 0x8020 = 0x52a0000; memory 0x8024 = 0x9200001; memory 0x8028 = 0x9400002; memory 0x802c = 0x3d2a0004; memory 0x8030 = 0x30000000; memory 0x8034 = 0x57e00000; 
-```
 
 ### B) Run step by step
 
 + It is also possible to 'run' 'step by step' the 's1_e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode, and print for each assembly instruction the state elements that modify its value:
+  ```bash
+  ./wepsim.sh -a stepbystep -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
+  ```
+  Output:
+  <html>
+  <pre>
+  pc,				instruction,		changes_from_zero_or_current_value
+  pc = 0x8000,	li $2 2,			register R2 = 0x2; register R29 = 0x100000; register PC = 0x8004
+  pc = 0x8004,	li $3 1,			register R3 = 0x1; register PC = 0x8008
+  pc = 0x8008,	add $5 $2 $3,		register R5 = 0x3; register PC = 0x800c
+  pc = 0x800c,	li $2 2,			register PC = 0x8010
+  pc = 0x8010,	li $3 1,			register PC = 0x8014
+  ...
+  </pre>
+  </html>
 
-```bash
-./wepsim.sh -a stepbystep -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
-pc,		instruction,			changes_from_zero_or_current_value
-pc = 0x8000,	li $2 2,			register R2 = 0x2; register R29 = 0x100000; register PC = 0x8004
-pc = 0x8004,	li $3 1,			register R3 = 0x1; register PC = 0x8008
-pc = 0x8008,	add $5 $2 $3,			register R5 = 0x3; register PC = 0x800c
-pc = 0x800c,	li $2 2,			register PC = 0x8010
-pc = 0x8010,	li $3 1,			register PC = 0x8014
-...
-```
 
 ### C) Run microstep by microstep
 
 + And to 'run' 'microstep by microstep' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode, and print for each microinstruction the state elements that modify its value:
+  ```bash
+  ./wepsim.sh -a microstepbymicrostep -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
+  ```
+  Output:
+  <html>
+  <pre>
+  micropc,			microcode,													changes_from_zero_or_current_value
+  micropc = 0x0,		T2 C0,					
+  micropc = 0x1,		TA R BW=11 M1 C1,				
+  micropc = 0x2,		M2 C2 T1 C3,												register PC = 0x8004
+  micropc = 0x3,		A0 B=0 C=0,				
+  micropc = 0xd3,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,		register R2 = 0x2; register R29 = 0x100000
+  micropc = 0x0,		T2 C0,					
+  micropc = 0x1,		TA R BW=11 M1 C1,				
+  micropc = 0x2,		M2 C2 T1 C3,												register PC = 0x8008
+  micropc = 0x3,		A0 B=0 C=0,				
+  micropc = 0xd3,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,		register R3 = 0x1
+  ...
+  </pre>
+  </html>
 
-```bash
-./wepsim.sh -a microstepbymicrostep -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
-micropc,		microcode,				changes_from_zero_or_current_value
-micropc = 0x0,		T2 C0,					
-micropc = 0x1,		TA R BW=11 M1 C1,				
-micropc = 0x2,		M2 C2 T1 C3,				register PC = 0x8004
-micropc = 0x3,		A0 B=0 C=0,				
-micropc = 0xd3,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,register R2 = 0x2; register R29 = 0x100000
-micropc = 0x0,		T2 C0,					
-micropc = 0x1,		TA R BW=11 M1 C1,				
-micropc = 0x2,		M2 C2 T1 C3,				register PC = 0x8008
-micropc = 0x3,		A0 B=0 C=0,				
-micropc = 0xd3,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,register R3 = 0x1
-...
-```
 
 ### D) Run & check end state (example when o.k.)
 
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-s1e1.txt'. You can 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode (**and if it matches the expected state, then the output is going to be**):
+  ```bash
+  ./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e1.txt
+  ```
+  Output:
+  <html>
+  <pre>
+  OK: Execution: no error reported
+  </pre>
+  </html>
 
-```bash
-./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e1.txt
-OK: Execution: no error reported
-```
 
 ### E) Run & check end state (example when k.o.)
 
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-s1e1.txt'. You can 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode (**and if it fails to match the expected state then the output is going to be**):
+  ```bash
+  ./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e2.txt
+  ```
+  Output:
+  <html>
+  <pre>
+  ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), cpu[R3]='0' (expected '0x1'), cpu[R29]='0x100000' (expected '0xfffff'), cpu[PC]='0x8078' (expected '0x8018'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010'), 
+  </pre>
+  </html>
 
-```bash
-./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e2.txt
-ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), cpu[R3]='0' (expected '0x1'), cpu[R29]='0x100000' (expected '0xfffff'), cpu[PC]='0x8078' (expected '0x8018'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010'), 
-```
 
 ### F) Run microstep by microstep with verbalized output
 
 + And finally, it is possible to execute microstep by microstep but with a more verbose description:
-
-```bash
-./wepsim.sh -a microstepverbalized -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
-Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8000. Load from Internal Bus to Memory Address Register value 0x8000.
-Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8000. Memory output = 0x8400002 (Read a word from 0x8000). Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8400002. Load from Input of Memory Data Register to Memory Data Register value 0x8400002.
-Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8004. Load from Input of Program Counter to Program Counter Register value 0x8004. Copy from Memory Data Register to Internal Bus value 0x8400002. Load from Internal Bus to Instruction Register value 0x8400002. Decode instruction.
-Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Copy from Input ROM to Input microaddress value 0x67. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0.
-Micropc at 0x67.	Activated signals are: SE OFFSET SIZE T3 LC MR SELC A0 B C. Associated actions are:  Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0).  Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0).  Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Input of T3 Tristate to Internal Bus value 0x2. Copy to Register 2 the value 0x2. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Copy from Input Fetch to Input microaddress value 0x0. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0.
-Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8004. Load from Internal Bus to Memory Address Register value 0x8004.
-Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8004. Memory output = 0x8600001 (Read a word from 0x8004). Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8600001. Load from Input of Memory Data Register to Memory Data Register value 0x8600001.
-...
-```
-
-
-## Getting Started: Developers
-
-### WepSIM Source Code
-
-- WepSIM GitHub Repository:
-   * Stable  build: https://github.com/wepsim/wepsim
-   * Nightly build: https://github.com/acaldero/wepsim
-
-- The WepSIM architecture can be summarized in the following Figure (made by https://app.diagrams.net):
-![screen:example1](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/ws_arch_215-v2.png)
+  ```bash
+  ./wepsim.sh -a microstepverbalized -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
+  ```
+  Output:
+  <html>
+  <pre>
+  Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8000. Load from Internal Bus to Memory Address Register value 0x8000.
+  Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8000. Memory output = 0x8400002 (Read a word from 0x8000). Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8400002. Load from Input of Memory Data Register to Memory Data Register value 0x8400002.
+  Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8004. Load from Input of Program Counter to Program Counter Register value 0x8004. Copy from Memory Data Register to Internal Bus value 0x8400002. Load from Internal Bus to Instruction Register value 0x8400002. Decode instruction.
+  Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Copy from Input ROM to Input microaddress value 0x67. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0.
+  Micropc at 0x67.	Activated signals are: SE OFFSET SIZE T3 LC MR SELC A0 B C. Associated actions are:  Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0).  Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0).  Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Input of T3 Tristate to Internal Bus value 0x2. Copy to Register 2 the value 0x2. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Copy from Input Fetch to Input microaddress value 0x0. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0.
+  Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8004. Load from Internal Bus to Memory Address Register value 0x8004.
+  Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8004. Memory output = 0x8600001 (Read a word from 0x8004). Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8600001. Load from Input of Memory Data Register to Memory Data Register value 0x8600001.
+  ...
+  </pre>
+  </html>
 
 
-<a name="wepsim-engine-api"/>
+<a name="integrating-wepsim"/>
 
-### WepSIM engine API
-
-+ If you want to use the WepSIM engine within your App, there is a WepSIM API in JavaScript available too.
-  You will need to include the WepSIM engine in your proyect:
-
-```javascript
-  <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
-  <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
-```
-
-+ And then, one simple example of using this WepSIM API is the following:
-
-```javascript
-  /*
-   * Input: minimal firmware and minimal assembly code
-   */
-
-   str_firmware = 'begin {\n' +
-		  '  fetch:  (T2, C0),\n' +
-		  '          (TA, R, BW=11, M1=1, C1=1),\n' +
-		  '          (M2, C2, T1, C3),\n' +
-		  '          (A0, B=0, C=0)\n' +
-		  '}\n' +
-		  'nop {\n' +
-		  '        co=010110,\n' +
-		  '        nwords=1,\n' +
-		  '        {\n' +
-		  '                (A0=1, B=1, C=0)\n' +
-		  '        }\n' +
-                  '}\n' +
-                  'registers {\n' +
-                  '        0=$zero,\n' +
-                  '        29=$sp (stack_pointer)\n' +
-                  '}\n' ;
-
-   str_assembly = '.text\n' +
-		  'main: nop\n' ;
-
-
-   /*
-    * Code: Initialize WepSIM + reset + compile firmware + compile assembly + execute + get final state
-    */
-
-    // 1) initialize WepSIM engine
-    var ret = simcore_init(false) ;
-
-    if (false != ret.ok) {
-        ret = simcore_init_hw('ep') ;
-    }
-
-    if (false != ret.ok) {
-	var ui_cb = {} ;
-	simcore_init_ui(ui_cb) ;
-    }
-
-    // 2) reset hardware
-    if (false != ret.ok) {
-        simcore_reset() ;
-    }
-
-    // 3) load firmware
-    if (false != ret.ok) {
-        ret = simcore_compile_firmware(str_firmware) ;
-    }
-
-    // 4) load assembly
-    if (false != ret.ok) {
-        ret = simcore_compile_assembly(str_assembly) ;
-    }
-
-    // 5) execute firmware-assembly
-    if (false != ret.ok) {
-	var options = {
-                         instruction_limit:  1024,
-                         cycles_limit:      10240
-		      } ;
-	ret = simcore_execute_program(options) ;
-    }
-
-    // 6) show a final report
-    if (false != ret.ok) {
-	var state_obj = simcore_simstate_current2state() ;
-	ret.msg = simcore_simstate_state2checklist(state_obj, '') ;
-    }
-
-
-    /*
-     * Output: the final state (or error found)
-     */
-
-    console.log(ret.msg) ;
-```
-
-
-<a name="wepsim-gcolab"/>
-
-### WepSIM from Google Colab
-
-+ The following fragment is an example of how to use WepSIM command-line within Google Colab cell:
-
-```html
-!echo "(1/4) Installing pre-requisites..."
-!npm install  terser jq jshint yargs clear inquirer >& /dev/null
-!echo "(2/4) Downloading WepSIM..."
-!wget https://github.com/wepsim/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip >& /dev/null
-!unzip -o wepsim-2.3.7.zip  >& /dev/null
-!rm -fr   wepsim-2.3.7.zip
-!echo "(3/4) Executing WepSIM..."
-!./wepsim-2.3.7/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.7/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.7/repo/assembly/mips/s1e1.asm > ./result.csv
-!rm -fr   wepsim-2.3.7
-!echo "(4/4) Showing execution trace as table..."
-
-import pandas as pd
-import io
-
-df1 = pd.read_csv('./result.csv')
-df1.columns = df1.columns.str.strip()
-for item in df1.columns[:]:
-    df1[item].replace("\t","", inplace=True, regex=True)
-
-df1
-```
-
+## Integrating WepSIM
 
 <a name="wepsim-links"/>
 
-### WepSIM Links
+### WepSIM Links in documents
 
 In the WepSIM URL you can use several arguments to perform certain actions automatically.
 This is an example:
@@ -487,6 +383,188 @@ For example, the following link loads the RISC-V assembly code for the factorial
 </html>
 
 
+<a name="wepsim-gcolab"/>
+
+### WepSIM from Google Colab
+
++ The following fragment is an example of how to integrate the WepSIM command-line within Google Colab cell:
+  ```python
+  !echo "(1/4) Installing pre-requisites..."
+  !npm install  terser jq jshint yargs clear inquirer >& /dev/null
+  !echo "(2/4) Downloading WepSIM..."
+  !wget https://github.com/wepsim/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip >& /dev/null
+  !unzip -o wepsim-2.3.7.zip  >& /dev/null
+  !rm -fr   wepsim-2.3.7.zip
+  !echo "(3/4) Executing WepSIM..."
+  !./wepsim-2.3.7/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.7/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.7/repo/assembly/mips/s1e1.asm > ./result.csv
+  !rm -fr   wepsim-2.3.7
+  !echo "(4/4) Showing execution trace as table..."
+
+  import pandas as pd
+  import io
+
+  df1 = pd.read_csv('./result.csv')
+  df1.columns = df1.columns.str.strip()
+  for item in df1.columns[:]:
+      df1[item].replace("\t","", inplace=True, regex=True)
+
+  df1
+  ```
++ The following fragment is an example of how to use WepSIM from Google Colab cell (web version):
+  ```python
+  from pathlib import Path
+  import pandas as pd
+  import io
+  import lzstring
+  from IPython.display import IFrame
+  from google.colab import data_table
+
+  def get_lz(filename):
+    try:
+      with open(filename,'r',encoding='utf-8') as f:
+          cell_str = f.readlines()
+          cell_str = ''.join(cell_str)
+      x = lzstring.LZString()
+      cell_lz = x.compressToBase64(cell_str)
+    except:
+      cell_lz = ''
+    return cell_lz
+
+  def get_ws_url(asm, cpu):
+    url = 'https://wepsim.github.io/wepsim/ws_dist/?'
+    url = url + 'mode=ep&'
+    url = url + 'notify=false&'
+    url = url + 'simulator=assembly:simulator&'
+    url = url + 'examples_set=' + cpu + '&'
+    url = url + 'example=11&'
+    url = url + 'asm=' + asm
+    return url
+
+  def show_asm_in_ws(filename, cpu):
+    try:
+      lzasm = get_lz(filename)
+      url   = get_ws_url(lzasm, cpu)
+      display(IFrame(src=url, width="100%", height=700))
+      status = 1
+    except:
+      status = 0
+    return status
+
+  !echo "(1/2) Getting s1e1.asm example..."
+  !wget [ ! -f s1e1.asm ] && https://raw.githubusercontent.com/wepsim/wepsim/refs/heads/master/repo/assembly/rv32/s1e1.asm
+  !echo "(2/2) Done!"
+  show_asm_in_ws('s1e1.asm','RISCV')
+  ```
+
+
+## Getting Started: Developers
+
+### WepSIM Source Code
+
+- WepSIM GitHub Repository:
+   * Stable  build: https://github.com/wepsim/wepsim
+   * Nightly build: https://github.com/acaldero/wepsim
+
+- The WepSIM architecture can be summarized in the following Figure (made by https://app.diagrams.net):
+![screen:example1](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/ws_arch_215-v2.png)
+
+
+<a name="wepsim-engine-api"/>
+
+### WepSIM engine API
+
++ If you want to use the WepSIM engine within your App, there is a WepSIM API in JavaScript available too.
+  You will need to include the WepSIM engine in your proyect:
+  ```javascript
+  <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+  <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+  ```
+
++ And then, one simple example of using this WepSIM API is the following:
+  ```javascript
+  /*
+   * Input: minimal firmware and minimal assembly code
+   */
+
+  str_firmware = 'begin {\n' +
+		  '  fetch:  (T2, C0),\n' +
+		  '          (TA, R, BW=11, M1=1, C1=1),\n' +
+		  '          (M2, C2, T1, C3),\n' +
+		  '          (A0, B=0, C=0)\n' +
+		  '}\n' +
+		  'nop {\n' +
+		  '        co=010110,\n' +
+		  '        nwords=1,\n' +
+		  '        {\n' +
+		  '                (A0=1, B=1, C=0)\n' +
+		  '        }\n' +
+                  '}\n' +
+                  'registers {\n' +
+                  '        0=$zero,\n' +
+                  '        29=$sp (stack_pointer)\n' +
+                  '}\n' ;
+
+   str_assembly = '.text\n' +
+		  'main: nop\n' ;
+
+
+   /*
+    * Code: Initialize WepSIM + reset + 
+    *       compile firmware + compile assembly + 
+    *       execute + get final state
+    */
+
+    // 1) initialize WepSIM engine
+    var ret = simcore_init(false) ;
+
+    if (false != ret.ok) {
+        ret = simcore_init_hw('ep') ;
+    }
+
+    if (false != ret.ok) {
+	    var ui_cb = {} ;
+	    simcore_init_ui(ui_cb) ;
+    }
+
+    // 2) reset hardware
+    if (false != ret.ok) {
+        simcore_reset() ;
+    }
+
+    // 3) load firmware
+    if (false != ret.ok) {
+        ret = simcore_compile_firmware(str_firmware) ;
+    }
+
+    // 4) load assembly
+    if (false != ret.ok) {
+        ret = simcore_compile_assembly(str_assembly) ;
+    }
+
+    // 5) execute firmware-assembly
+    if (false != ret.ok) {
+	    var options = {
+                         instruction_limit:  1024,
+                         cycles_limit:      10240
+		              } ;
+	    ret = simcore_execute_program(options) ;
+    }
+
+    // 6) show a final report
+    if (false != ret.ok) {
+	    var state_obj = simcore_simstate_current2state() ;
+	    ret.msg = simcore_simstate_state2checklist(state_obj, '') ;
+    }
+
+
+   /*
+    * Output: the final state (or error found)
+    */
+
+   console.log(ret.msg) ;
+  ```
+
+
 <a name="wepsim-apache-cordova"/>
 
 ## WepSIM for Apache Cordova
@@ -494,52 +572,52 @@ For example, the following link loads the RISC-V assembly code for the factorial
 ### 1) Prepare the Apache Cordova Project:
 
 + 1.1) Follow Apache Cordova tutorial in order to create a new project:
-```bash
-npm install -g cordova
-cordova create wepsim es.uc3m.inf.arcos.wepsim WepSIM
-cd wepsim
-cordova platform add android
-cordova platform add ios
-```
+  ```bash
+  npm install -g cordova
+  cordova create wepsim es.uc3m.inf.arcos.wepsim WepSIM
+  cd wepsim
+  cordova platform add android
+  cordova platform add ios
+  ```
 
 + 1.2) Install at least the following plugins:
-```bash
-cordova plugin add cordova-plugin-console
-cordova plugin add cordova-plugin-device
-cordova plugin add cordova-plugin-dialogs
-cordova plugin add https://github.com/apache/cordova-plugin-file-transfer.git
-cordova plugin add cordova-plugin-file
-cordova plugin add cordova-plugin-splashscreen
-cordova plugin add cordova-plugin-web-share
-```
+  ```bash
+  cordova plugin add cordova-plugin-console
+  cordova plugin add cordova-plugin-device
+  cordova plugin add cordova-plugin-dialogs
+  cordova plugin add https://github.com/apache/cordova-plugin-file-transfer.git
+  cordova plugin add cordova-plugin-file
+  cordova plugin add cordova-plugin-splashscreen
+  cordova plugin add cordova-plugin-web-share
+  ```
 
 ### 2) Update WepSIM files:
 
 + 2.1) Copy WepSIM files into the www directory:
-```bash
-wget https://github.com/wepsim/wepsim/archive/refs/heads/master.zip
-unzip master.zip
-```
+  ```bash
+  wget https://github.com/wepsim/wepsim/archive/refs/heads/master.zip
+  unzip master.zip
+  ```
 
 + 2.2) Build www for the Apache Cordova project:
-```bash
-./wepsim-master/devel/mk_cordova.sh
-```
+  ```bash
+  ./wepsim-master/devel/mk_cordova.sh
+  ```
 
 ### 3) Build Android .apk:
 
 + 3.1) Build .apk:
-```bash
-cordova build android --debug
-```
+  ```bash
+  cordova build android --debug
+  ```
 
-+ 3.2.a) Run WepSIM's App on Emulator:
-```bash
-cordova run android
-```
-
-+ 3.2.b) Run WepSIM's App on Device:
-```bash
-adb -d install -r ./platforms/android/app/build/outputs/apk/debug/app-debug.apk
-```
++ 3.2) Run WepSIM's App...
+  + ... on Emulator:
+    ```bash
+    cordova run android
+    ```
+  + ... on Device:
+    ```bash
+    adb -d install -r ./platforms/android/app/build/outputs/apk/debug/app-debug.apk
+    ```
 

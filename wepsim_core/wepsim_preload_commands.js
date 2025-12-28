@@ -115,6 +115,7 @@
                             }
                             else {
                                  mc_code = LZString.decompressFromEncodedURIComponent( hash.mc ) ;
+			         if (null == mc_code) throw new Error("null decompressed data from hash.mc :-(");
                             }
 			    result_txt = ' has been loaded' ;
                          }
@@ -149,6 +150,7 @@
                             }
                             else {
                                  asm_code = LZString.decompressFromEncodedURIComponent( hash.asm ) ;
+			         if (null == asm_code) throw new Error("null decompressed data from hash.asm :-(");
                             }
 			    result_txt = ' has been loaded' ;
                          }
@@ -222,6 +224,7 @@
                             else
 			    {
                                  cm_cfg_json = LZString.decompressFromEncodedURIComponent( hash.cache ) ;
+			         if (null == cm_cfg_json) throw new Error("null decompressed data from hash.cache :-(");
                             }
 			    result_txt = ' has been loaded' ;
                          }
