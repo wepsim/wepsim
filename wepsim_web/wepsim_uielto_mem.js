@@ -348,6 +348,7 @@
                  }
 
                  // format of the source
+		 src_html = '' ;
                  var src_parts = src.split(";") ;
                  for (i=0; i<src_parts.length; i++)
                  {
@@ -355,9 +356,9 @@
                            ri = src_parts.length - i - 1 ;
                       else ri = i ;
 
-                      src_html = "<span class='bg-dark text-white py-0 px-1 rounded border border-secondary font-monospace'>" +
-                                 src_parts[ri].padStart(8, ' ').replace(/ /g, '&nbsp;') +
-                                 "</span>" ;
+                      src_html += "<span class='bg-dark text-white py-0 px-1 ms-1 border border-secondary font-monospace'>" +
+                                  src_parts[ri] +
+                                  "</span>" ;
                  }
 
                  // wcolor
