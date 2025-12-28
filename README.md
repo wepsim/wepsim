@@ -43,9 +43,9 @@
     ```
   * Get WepSIM by executing:
     ```bash
-    wget https://github.com/wepsim/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip
-    unzip wepsim-2.3.7.zip
-    cd wepsim-2.3.7
+    wget https://github.com/wepsim/wepsim/releases/download/v2.3.8/wepsim-2.3.8.zip
+    unzip wepsim-2.3.8.zip
+    cd wepsim-2.3.8
     npm install terser jq jshint yargs clear inquirer@8.2.6 fuzzy \
 	            inquirer-command-prompt inquirer-autocomplete-prompt@1
     ``` 
@@ -392,12 +392,12 @@ For example, the following link loads the RISC-V assembly code for the factorial
   !echo "(1/4) Installing pre-requisites..."
   !npm install  terser jq jshint yargs clear inquirer >& /dev/null
   !echo "(2/4) Downloading WepSIM..."
-  !wget https://github.com/wepsim/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip >& /dev/null
-  !unzip -o wepsim-2.3.7.zip  >& /dev/null
-  !rm -fr   wepsim-2.3.7.zip
+  !wget https://github.com/wepsim/wepsim/releases/download/v2.3.8/wepsim-2.3.8.zip >& /dev/null
+  !unzip -o wepsim-2.3.8.zip  >& /dev/null
+  !rm -fr   wepsim-2.3.8.zip
   !echo "(3/4) Executing WepSIM..."
-  !./wepsim-2.3.7/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.7/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.7/repo/assembly/mips/s1e1.asm > ./result.csv
-  !rm -fr   wepsim-2.3.7
+  !./wepsim-2.3.8/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.8/repo/microcode/mips/ep_base.mc -s ./wepsim-2.3.8/repo/assembly/mips/s1e1.asm > ./result.csv
+  !rm -fr   wepsim-2.3.8
   !echo "(4/4) Showing execution trace as table..."
 
   import pandas as pd
