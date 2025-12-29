@@ -93,8 +93,8 @@
 		'Stats':			'Estatisticas',
 		'Memory':			'Memória',
 		'Keyboard+Display':		'Teclado + Display',
-		'I/O Stats':			'Estatisticas de E/S',
-		'I/O Configuration':		'Configuração de E/S',
+		'Timer Stats':			'Estatísticas do temporizador',
+		'Timer Configuration':		'Configuração do temporizador',
 		'Recent':			'Recente',
 		'Refresh':			'Atualizar',
 	        'Welcome':			'Bem vindo',
@@ -117,6 +117,28 @@
                 'idiom': 			'língua',
                 'quick config': 		'configuração rápida',
                 'Graph: quick interactive mode':'Gráfico: modo interativo rápido',
+
+                "Interactive mode": 	 		"Modo interativo",
+                "Split view":		 		"Visualização dividida",
+
+                "Input link":				"Link de entrada",
+                "Link":					"Link",
+                "Copy": 				"Copiar",
+                "Share": 				"Partilhar",
+                "Add new": 				"Adicionar novo",
+
+                "Load from the following link":		"Carregar a partir do seguinte link",
+                "You can use the following link":	"Pode utilizar o seguinte link",
+                "Combinations": 			"Combinações",
+
+                "Display direction": 			"Direção de exibição",
+                "Display segments": 			"Segmentos de exibição",
+                "Display origin": 			"Origem da exibição",
+                "Number of words": 			"Número de palavras",
+                "Wait cycles":				"Ciclos de espera",
+
+                "Please remember that after updates on the microcode, the assembly code has be re-compiled too.": "Lembre-se de que, após as atualizações no microcódigo, o código de montagem também precisa ser recompilado.",
+                "No cache memory was already defined.":		"Nenhuma memória cache foi definida.",
 
 		'_last_':			'_last_'
     };

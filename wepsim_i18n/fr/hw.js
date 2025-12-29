@@ -234,6 +234,10 @@
 	"EP:LEDM:STATES:DATA":				"Bus de données",
 	"EP:LEDM:SIGNALS:IOR":				"Lire depuis LEDM",
 	"EP:LEDM:SIGNALS:IOW":				"Écrire dans le LEDM",
+	"EP:SOUND:STATES:ADDR":				"Bus d'adresses",
+	"EP:SOUND:STATES:DATA":				"Bus de données",
+        "EP:SOUND:SIGNALS:IOR":			   "Lire depuis la carte son",
+        "EP:SOUND:SIGNALS:IOW":			   "Écrire sur la carte son",
 
 	"POC:CPU_T1:STATES:IN":				"L'entrée est la valeur du registre MBR",
 	"POC:CPU_T1:STATES:OUT":				"La sortie va au bus interne",

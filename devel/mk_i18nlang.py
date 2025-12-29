@@ -120,6 +120,7 @@ i18n_eltos['examples'] = {
              "Interruptions":						"Interruptions",
              "Int. + syscall + except.":				"Int. + syscall + except.",
              "I/O":							"I/O",
+             "Timer":							"Timer",
              "Looping":							"Looping",
              "madd, mmul, mxch":					"madd, mmul, mxch",
              "Masks & shift":						"Masks & shift",
@@ -252,8 +253,8 @@ i18n_eltos['gui'] = {
 	"Stats":					"Stats",
 	"Memory":					"Memory",
 	"Keyboard+Display":				"Keyboard+Display",
-	"I/O Stats":					"I/O Stats",
-	"I/O Configuration":				"I/O Configuration",
+	"Timer Stats":					"Timer Stats",
+	"Timer Configuration":				"Timer Configuration",
 
 	"Recent":                                       "Recent",
 	"Refresh":  			                "Refresh",

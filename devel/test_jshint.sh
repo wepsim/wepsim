@@ -117,8 +117,8 @@ echo "checking wepsim_web..."
  jshint ./wepsim_web/wepsim_uielto_index_config.js
  jshint ./wepsim_web/wepsim_uielto_index_examples.js
  jshint ./wepsim_web/wepsim_uielto_index_help.js
- jshint ./wepsim_web/wepsim_uielto_io_config.js
- jshint ./wepsim_web/wepsim_uielto_io_info.js
+ jshint ./wepsim_web/wepsim_uielto_timer_config.js
+ jshint ./wepsim_web/wepsim_uielto_timer_info.js
  jshint ./wepsim_web/wepsim_uielto_l3d.js
  jshint ./wepsim_web/wepsim_uielto_ldm.js
  jshint ./wepsim_web/wepsim_uielto_sound.js

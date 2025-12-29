@@ -225,6 +225,7 @@
                    "RF_display_format":     { upgrade:false, type:"string",    value:'unsigned_16_fill' },
                    "RF_display_name":       { upgrade:false, type:"string",    value:'numerical' },
                    "is_editable":           { upgrade:false, type:"boolean",   value:true },
+                   "RF_vertical_pack":      { upgrade:false, type:"boolean",   value:true },
 
 	           /* simulation screen: Memory */
                    "MEM_display_format":    { upgrade:false, type:"string",    value:'unsigned_16_nofill' },

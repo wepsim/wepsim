@@ -28,7 +28,7 @@
 		'Instructions':			'Anleitung',
 		'Interruptions':		'Unterbrechungen',
 		'Int. + syscall + except.':	'Int. + syscall + außer.',
-		'I/O':				'H/O',
+		'I/O':				'I/O',
 		'Looping':			'Looping',
 		'madd, mmul, mxch':		'Hilfe, Stimmung, Verstand',
 		'Masks & shift':		'Masken & Verschiebung',

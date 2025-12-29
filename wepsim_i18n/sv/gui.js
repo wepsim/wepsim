@@ -99,8 +99,8 @@
 		'Stats':			'Stats',
 		'Memory':			'Minne',
 		'Keyboard+Display':		'Tangentbord + Display',
-		'I/O Stats':			'I/O Stats',
-		'I/O Configuration':		'I/O Configuration',
+		'Timer Stats':			'Timerstatistik',
+		'Timer Configuration':		'Timerkonfiguration',
 		'Recent':			'Nyligen',
 		'Refresh':			'Uppdatera',
 		'Welcome':			'Välkommen',
@@ -123,6 +123,28 @@
                 'idiom': 			'språk',
                 'quick config':			'snabb konfiguration',
                 'Graph: quick interactive mode':'Graf: snabbt interaktivt läge',
+
+                'Interactive mode': 	 		'Interaktivt läge',
+                'Split view':		 		'Delad vy',
+
+                'Input link':				'Inmatningslänk',
+                'Link':					'Länk',
+                'Copy': 				'Kopiera',
+                'Share': 				'Dela',
+                'Add new': 				'Lägg till nytt',
+
+                'Load from the following link':		'Ladda från följande länk',
+                'You can use the following link':	'Du kan använda följande länk',
+                'Combinations': 			'Kombinationer',
+
+                'Display direction': 			'Visningsriktning',
+                'Display segments': 			'Visningssegment',
+                'Display origin': 			'Visningsursprung',
+                'Number of words': 			'Antal ord',
+                'Wait cycles':				'Väntcykler',
+
+                'Please remember that after updates on the microcode, the assembly code has be re-compiled too.': 'Kom ihåg att efter uppdateringar av mikrokoden måste även assemblerkoden kompileras om.',
+                'No cache memory was already defined.':		'Inget cacheminne har redan definierats.',
 
 		'_last_':			'_last_'
     };
