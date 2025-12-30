@@ -38,21 +38,21 @@ def is_valid_url(url):
     except ValueError:
         return False
 
-def ws_save2file(filename:str, mode: str, value: str) -> bool:
+def ws_save2file(filename:str, value: str) -> bool:
     try:
        # firm as url...
        if is_valid_url(value):
           response = requests.get(value)
-          with open(filename, mode) as file:
+          with open(filename, 'wb') as file:
                file.write(response.content)
           return response.ok
 
        # firm as text...
-       f = open(filename, mode)
-       f.write(value)
-       f.close()
+       with open(filename, 'w') as file:
+            file.write(value)
        return True
-    except:
+    except Exception as error:
+       print(f"ERROR: {error}")
        return False
 
 
@@ -73,12 +73,12 @@ def wepsim_action(action:str, model: str, firm: str, asm: str) -> tuple[int, str
     fname_asm   = '/tmp/app.asm'
 
     # save firmware on file
-    ret = ws_save2file(fname_firm, 'wb', firm)
+    ret = ws_save2file(fname_firm, firm)
     if (False == ret):
         return -1, "firmware file cannot be written"
 
     # save assembly on file
-    ret = ws_save2file(fname_asm, 'wb', asm)
+    ret = ws_save2file(fname_asm, asm)
     if (False == ret):
         return -1, "assembly file cannot be written"
 
@@ -170,12 +170,12 @@ def rest_action(item: Item):
     cmd_options = " -a " + item.action + " -m " + item.model + " -f " + fname_firm + " -s " + fname_asm
 
     # save firmware on file
-    ret = ws_save2file(fname_firm, 'wb', item.firmware)
+    ret = ws_save2file(fname_firm, item.firmware)
     if (False == ret):
         return -1, "firmware file cannot be written"
 
     # save assembly on file
-    ret = ws_save2file(fname_asm, 'wb', item.assembly)
+    ret = ws_save2file(fname_asm, item.assembly)
     if (False == ret):
         return -1, "assembly file cannot be written"
 
