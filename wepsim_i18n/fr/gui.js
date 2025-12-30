@@ -95,8 +95,8 @@
 		"Stats":			"Statistiques",
 		"Memory":			"Mémoire",
 		"Keyboard+Display":		"Clavier+Affichage",
-		"I/O Stats":			"E/S Statistiques",
-		"I/O Configuration":		"E/S Configuration",
+		"Timer Stats":			"Statistiques du minuteur",
+		"Timer Configuration":		"Configuration de la minuterie",
 		"Recent":			"Récent",
 		"Refresh":			"Actualiser",
 		"Welcome":			"Bienvenue",
@@ -120,7 +120,29 @@
                 'quick config': 		'configuration rapide',
                 'Graph: quick interactive mode':'Graphique : mode interactif rapide',
 
-		"_last_":			"_last_"
+                'Interactive mode': 	 		'Mode interactif',
+                'Split view':		 		'Affichage fractionné',
+
+                'Input link':				'Lien d\'entrée',
+                'Link':					'Lien',
+                'Copy': 				'Copier',
+                'Share': 				'Partager',
+                'Add new': 				'Ajouter nouveau',
+
+                'Load from the following link':		'Charger à partir du lien suivant',
+                'You can use the following link':	'Vous pouvez utiliser le lien suivant',
+                'Combinations': 			'Combinaisons',
+
+                'Display direction': 			'Direction d\'affichage',
+                'Display segments': 			'Segments  d\'affichage',
+                'Display origin': 			'Origine   d\'affichage',
+                'Number of words': 			'Nombre de mots',
+                'Wait cycles':				'Cycles    d\'attente',
+
+                'Please remember that after updates on the microcode, the assembly code has be re-compiled too.': "N'oubliez pas qu'après les mises à jour du microcode, le code d'assemblage doit également être recompilé.",
+                'No cache memory was already defined.':		"Aucune mémoire cache n'était déjà définie.",
+
+		'_last_':			'_last_'
 
     } ;
 

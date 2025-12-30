@@ -243,8 +243,8 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_slider_details.js \
     \
     wepsim_web/wepsim_uielto_console.js \
-    wepsim_web/wepsim_uielto_io_info.js \
-    wepsim_web/wepsim_uielto_io_config.js \
+    wepsim_web/wepsim_uielto_timer_info.js \
+    wepsim_web/wepsim_uielto_timer_config.js \
     wepsim_web/wepsim_uielto_l3d.js \
     wepsim_web/wepsim_uielto_ldm.js \
     wepsim_web/wepsim_uielto_sound.js \

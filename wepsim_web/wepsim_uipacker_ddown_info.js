@@ -116,10 +116,10 @@
                    ni.con   = this.mk_nav_item('tab12', '#con',   'Console',              '', '') ;
                    ni.all   = this.mk_nav_item('tab11', '#all',   'Registers',            '', '') ;
                    ni.mc    = this.mk_nav_item('tab16', '#mc',    'Control Memory',       '', '') ;
-                   ni.io    = this.mk_nav_item('tab15', '#io',    'IO stats',             '', '') ;
+                   ni.io    = this.mk_nav_item('tab15', '#io',    'Timer stats',          '', '') ;
                    ni.cpu   = this.mk_nav_item('tab17', '#cpu',   'CPU stats',            '', '') ;
                    ni.mpcfg = this.mk_nav_item('tab18', '#mpcfg', 'Memory configuration', '', '') ;
-                   ni.iocfg = this.mk_nav_item('tab19', '#iocfg', 'I/O configuration',    '', '') ;
+                   ni.iocfg = this.mk_nav_item('tab19', '#iocfg', 'Timer configuration',  '', '') ;
                //  ni.ed_hw = this.mk_nav_item('tab22', '#ed_hw', 'Hardware',             '', '') ;
                    ni.iol3d = this.mk_nav_item('tab25', '#iol3d', '3D Led',               '', '') ;
                    ni.ioldm = this.mk_nav_item('tab27', '#ioldm', 'Led Matrix',           '', '') ;

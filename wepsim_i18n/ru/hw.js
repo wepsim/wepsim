@@ -234,6 +234,10 @@
 	"EP:LEDM:STATES:DATA":				"Шина данных",
 	"EP:LEDM:SIGNALS:IOR":				"Прочитать из LEDM",
 	"EP:LEDM:SIGNALS:IOW":				"Запишите в LEDM",
+	"EP:SOUND:STATES:ADDR":				"Адресная шина",
+	"EP:SOUND:STATES:DATA":				"Шина данных",
+        "EP:SOUND:SIGNALS:IOR":			        "Чтение с звуковой карты.",
+        "EP:SOUND:SIGNALS:IOW":			        "Запись на звуковую карту",
 
 	"POC:CPU_T1:STATES:IN":				"Ввод - значение регистра MBR",
 	"POC:CPU_T1:STATES:OUT":			"Выход идет на внутреннюю шину",

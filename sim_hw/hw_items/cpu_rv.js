@@ -2930,7 +2930,7 @@ function cpu_rv_register ( sim_p )
 
         sim_p.elements.pc = {
 			      name:              "PC",
-			      description:       "Programm Counter",
+			      description:       "Program Counter",
 			      type:              "subcomponent",
 			      belongs:           "CPU",
 			      states:            {

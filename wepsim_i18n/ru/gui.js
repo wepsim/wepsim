@@ -93,12 +93,12 @@
 		'Stats':			'Статистика',
 		'Memory':			'Память',
 		'Keyboard+Display':		'Клавиатура+Дисплей',
-		'I/O Stats':			'Статистика ввода/вывода',
-		'I/O Configuration':		'Конфигурация входа/выхода',
+		'Timer Stats':			'Статистика таймера',
+		'Timer Configuration':		'Настройка таймера',
 		'Recent':			'последний',
 		'Refresh':			'обновление',
 		'Welcome':			'желанный',
-                'Microcode & Assembly':      	'Оборудование WepSIM',
+                'Microcode & Assembly':      	'Микрокод и ассемблер',
                 'Pick firm/soft':  		'Выберите прошивку / программное обеспечение от',
                 'Information': 	    		'Информация от',
                 'Native':   			'Родные',
@@ -117,6 +117,28 @@
                 'idiom': 			'язык',
                 'quick config': 		'быстрая настройка',
                 'Graph: quick interactive mode':'График: быстрый интерактивный режим',
+
+                "Interactive mode": 	 		"Интерактивный режим",
+                "Split view":		 		"Разделенный вид",
+
+                "Input link":				"Ввод ссылки",
+                "Link":					"Ссылка",
+                "Copy": 				"Копировать",
+                "Share": 				"Поделиться",
+                "Add new": 				"Добавить новую",
+
+                "Load from the following link":		"Загрузить по следующей ссылке",
+                "You can use the following link":	"Вы можете использовать следующую ссылку",
+                "Combinations": 			"Комбинации",
+
+                "Display direction": 			"Направление отображения",
+                "Display segments": 			"Отображать сегменты",
+                "Display origin": 			"Отображать начало координат",
+                "Number of words": 			"Количество слов",
+                "Wait cycles":				"Циклы ожидания",
+
+                "Please remember that after updates on the microcode, the assembly code has be re-compiled too.": "Помните, что после обновления микрокода необходимо перекомпилировать и ассемблерный код.",
+                "No cache memory was already defined.":		"Кэш-память уже не была определена.",
 
 		'_last_':			'_last_'
     };

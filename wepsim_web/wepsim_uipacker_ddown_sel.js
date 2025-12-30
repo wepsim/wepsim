@@ -164,10 +164,10 @@
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Keyboard+Display\'>Keyboard+Display</span></a>',
 				  io: '      <a class="dropdown-item" href="#" id="s5b_15" value="15"' +
 				      '	 onclick="wsweb_set_details(\'IO_STATS\');' +
-				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'I/O Stats\'>I/O Stats</span></a>',
+				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Timer Stats\'>Timer Stats</span></a>',
 			       iocfg: '      <a class="dropdown-item" href="#" id="s5b_19" value="19"' +
 				      '	 onclick="wsweb_set_details(\'IO_CONFIG\');' +
-				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'I/O Configuration\'>I/O Configuration</span></a>',
+				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Timer Configuration\'>Timer Configuration</span></a>',
 			       iol3d: '      <a class="dropdown-item" href="#" id="s5b_25" value="25"' +
 				      '	 onclick="wsweb_set_details(\'3DLED\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'3D-Led\'>3D-Led</span></a>',

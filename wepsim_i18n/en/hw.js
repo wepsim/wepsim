@@ -221,6 +221,10 @@
 	"EP:LEDM:STATES:DATA":                      "Data bus",
 	"EP:LEDM:SIGNALS:IOR":                      "Read from LEDM",
 	"EP:LEDM:SIGNALS:IOW":                      "Write into the LEDM",
+	"EP:SOUND:STATES:ADDR":                      "Address bus",
+	"EP:SOUND:STATES:DATA":                      "Data bus",
+        "EP:SOUND:SIGNALS:IOR":			   "Read from sound card",
+        "EP:SOUND:SIGNALS:IOW":			   "Write into the sound card",
 
 	"POC:CPU_T1:STATES:IN":                     "Input is the value of MBR register",
 	"POC:CPU_T1:STATES:OUT":                    "Output goes to the Internal Bus",
