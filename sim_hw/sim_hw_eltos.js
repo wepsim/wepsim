@@ -108,9 +108,12 @@
                 v = '<span data-langkey=\'' + k.toUpperCase() + '\'>' + v + '</span>' ;
 
                 // build help entry...
-                if ("Signals" != enum_name)
-	             o += '(' + (i+1) + ') ' + v ;
-                else o += '(' + (i+1) + ') ' + hash_eltos[array_eltos[i]].ref + ': ' + v ;
+                     if ("SIGNALS" == enum_name.toUpperCase()) 
+                         o += '(' + (i+1) + ') ' + hash_eltos[array_eltos[i]].ref + ': ' + v ;
+		else if ("I/O MAPPING" == enum_name.toUpperCase())
+                         o += '(' + (i+1) + ') 0x' + hash_eltos[array_eltos[i]].ref.toString(16) + ': ' + array_eltos[i] ;
+		else // state
+		         o += '(' + (i+1) + ') ' + v ;
 
                 // add ',' in all entries but the last one...
                 if (i != array_eltos.length - 1) {
@@ -140,6 +143,7 @@
 	{
 	   var o = "" ;
 
+	   // 1) build description
 	   o += elto.description + '.<br><ul>' +
 	        '<li>' +
 		simhwelto_describe_component_enum(elto_path + ':states:',
@@ -150,8 +154,12 @@
 		'<li>' +
 		simhwelto_describe_component_enum(elto_path + ':signals:',
 					          elto.signals_inputs, elto.signals, "signals") + '<br>' +
-		'</ul>' ;
+		'<li>' +
+	        simhwelto_describe_component_enum(elto_path + ':I/O mapping:',
+					          elto.states_mapping, elto.states, 'I/O mapping') + '<br>' +
+	        '</ul>' ;
 
+	   // 2) format description
            if (format != "html") {
                o.replace(/<[^>]*>?/gm, '');
            }

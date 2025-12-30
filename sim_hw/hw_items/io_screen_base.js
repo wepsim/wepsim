@@ -254,6 +254,12 @@ function io_screen_base_register ( sim_p )
 								},
 						   "data":      {
 								   ref:  "BUS_DB"
+								},
+						   "data 1":    {
+								   ref:  DDR_ID
+								},
+						   "status 1":  {
+								   ref:  DSR_ID
 								}
 						 },
 			      signals:           {
@@ -267,7 +273,8 @@ function io_screen_base_register ( sim_p )
 			      states_inputs:     [ "addr", "data" ],
 			      states_outputs:    [ "data" ],
 			      signals_inputs:    [ "ior", "iow" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ "data 1", "status 1" ]
 		         } ;
 
         return sim_p ;

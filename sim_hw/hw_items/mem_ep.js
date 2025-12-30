@@ -401,7 +401,8 @@ function mem_ep_register ( sim_p )
                               states_inputs:     [ "addr", "data" ],
                               states_outputs:    [ "mrdy", "data" ],
                               signals_inputs:    [ "be", "r", "w" ],
-                              signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
                        } ;
 
         return sim_p ;

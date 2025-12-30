@@ -2839,7 +2839,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "m1" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
 		sim_p.elements.cpu_mux_2  = {
@@ -2866,7 +2867,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "m2" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
 		sim_p.elements.cpu_mux_3  = {
@@ -2896,7 +2898,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1", "mux_2" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "m3" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
 		sim_p.elements.cpu_mux_4  = {
@@ -2923,7 +2926,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "m4" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         // CPU - Registers
@@ -2952,7 +2956,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "pcwrite", "jump" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         sim_p.elements.ir = {
@@ -2979,7 +2984,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out", "imm" ],
 			      signals_inputs:    [ "IRWRITE" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
 		sim_p.elements.imm_gen = {
@@ -3015,7 +3021,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "GEN_IMM", "SE_IMM", "SIZE", "OFFSET", "X2_IMM" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         sim_p.elements.register_file = {
@@ -3051,7 +3058,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "ir[19:15]", "ir[24:20]", "ir[11:7]", "w_data" ],
 			      states_outputs:    [ "r_data1", "r_data2" ],
 			      signals_inputs:    [ "rw"],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         // CPU - ALU
@@ -3086,7 +3094,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "a", "b" ],
 			      states_outputs:    [ "alu", "flagn", "flagz" ],
 			      signals_inputs:    [ "cop" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         // CPU - Selectors
@@ -3115,7 +3124,8 @@ function cpu_rv_register ( sim_p )
 			      states_inputs:     [ "from_dm" ],
 			      states_outputs:    [ "to_m1"],
 			      signals_inputs:    [ "wbe", "se" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         return sim_p ;

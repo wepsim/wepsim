@@ -51,7 +51,7 @@ function io_clk_base_register ( sim_p )
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-						    var associated_state = simhw_internalState_get('io_hash',elto) ;
+						    var associated_state = simhw_internalState_get('io_hash', elto) ;
                                                     if (typeof associated_state == "undefined") {
                                                         throw new Error("unknown element named " + elto) ;
                                                     }
@@ -65,7 +65,7 @@ function io_clk_base_register ( sim_p )
 						    return value ;
                                                },
                                   set_value:   function ( elto, value ) {
-						    var associated_state = simhw_internalState_get('io_hash',elto) ;
+						    var associated_state = simhw_internalState_get('io_hash', elto) ;
                                                     if (typeof associated_state == "undefined") {
                                                         throw new Error("unknown element named " + elto) ;
                                                     }
@@ -375,6 +375,15 @@ function io_clk_base_register ( sim_p )
 								},
 						   "data":      {
 								   ref:  "BUS_DB"
+								},
+						   "control 1": {
+								   ref:  IOCR_ID
+								},
+						   "data 1":    {
+								   ref:  IODR_ID
+								},
+						   "status 1":  {
+								   ref:  IOSR_ID
 								}
 						 },
 			      signals:           {
@@ -388,7 +397,8 @@ function io_clk_base_register ( sim_p )
 			      states_inputs:     [ "addr", "data" ],
 			      states_outputs:    [ "data" ],
 			      signals_inputs:    [ "ior", "iow" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ "control 1", "data 1", "status 1" ]
 		         } ;
 
         return sim_p ;

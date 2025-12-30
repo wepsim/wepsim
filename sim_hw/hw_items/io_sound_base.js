@@ -318,6 +318,18 @@ function io_sound_base_register ( sim_p )
 								},
 						   "data":      {
 								   ref:  "BUS_DB"
+								},
+						   "data 1":    {
+								   ref:  SDR1_ID
+								},
+						   "data 2":    {
+								   ref:  SDR2_ID
+								},
+						   "data 3":    {
+								   ref:  SDR3_ID
+								},
+						   "status 1":  {
+								   ref:  SSR_ID
 								}
 						 },
 			      signals:           {
@@ -331,7 +343,8 @@ function io_sound_base_register ( sim_p )
 			      states_inputs:     [ "addr", "data" ],
 			      states_outputs:    [ "data" ],
 			      signals_inputs:    [ "ior", "iow" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ "data 1", "data 2", "data 3", "status 1" ]
 		         } ;
 
         return sim_p ;

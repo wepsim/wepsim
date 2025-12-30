@@ -369,7 +369,7 @@
 
            var ret = {} ;
 
-    	   ret.status = false ;
+    	   ret.status = true ;
     	   ret.data   = '' ;
 
             if (argv.checkpoint !== "")

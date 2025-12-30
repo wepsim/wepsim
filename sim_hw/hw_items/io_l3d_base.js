@@ -322,6 +322,15 @@ function io_l3d_base_register ( sim_p )
 								},
 						   "data":      {
 								   ref:  "BUS_DB"
+								},
+						   "control 1": {
+								   ref:  L3DCR_ID
+								},
+						   "data 1":    {
+								   ref:  L3DDR_ID
+								},
+						   "status 1":  {
+								   ref:  L3DSR_ID
 								}
 						 },
 			      signals:           {
@@ -335,7 +344,8 @@ function io_l3d_base_register ( sim_p )
 			      states_inputs:     [ "addr", "data" ],
 			      states_outputs:    [ "data" ],
 			      signals_inputs:    [ "ior", "iow" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ "control 1", "data 1", "status 1" ]
 		         } ;
 
         return sim_p ;

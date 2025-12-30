@@ -2330,7 +2330,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_t2  = {
@@ -2354,7 +2355,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_t3  = {
@@ -2378,7 +2380,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_t6  = {
@@ -2402,7 +2405,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_t8  = {
@@ -2426,7 +2430,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_t9  = {
@@ -2450,7 +2455,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_t10 = {
@@ -2474,7 +2480,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_t11 = {
@@ -2498,7 +2505,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_t12 = {
@@ -2522,7 +2530,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_ta  = {
@@ -2546,7 +2555,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         sim_p.elements.cpu_tb  = {
@@ -2570,7 +2580,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in"  ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         // CPU - Multiplexors
@@ -2599,7 +2610,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "ma" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cpu_mux_b  = {
@@ -2626,7 +2638,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "mb" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cpu_mux_1  = {
@@ -2653,7 +2666,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "m1" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cpu_mux_7  = {
@@ -2680,7 +2694,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "m7" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cpu_mux_h  = {
@@ -2713,7 +2728,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1", "mux_2", "mux_3" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "mh" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cu_mux_a   = {
@@ -2749,7 +2765,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1", "mux_2", "mux_3" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "a0", "a1" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cu_mux_b   = {
@@ -2776,7 +2793,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "mb" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cu_mux_c   = {
@@ -2830,7 +2848,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1", "mux_2", "mux_3", "mux_4", "mux_5", "mux_6", "mux_7", "mux_8", "mux_9", "mux_10" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cu_mux_ra  = {
@@ -2857,7 +2876,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cu_mux_rb  = {
@@ -2884,7 +2904,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "mr" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cu_mux_rc  = {
@@ -2911,7 +2932,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "mr" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         sim_p.elements.cu_mux_mc  = {
@@ -2938,7 +2960,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         // CPU - Registers
@@ -2964,7 +2987,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "c0" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         sim_p.elements.mbr = {
@@ -2988,7 +3012,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "c1" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         sim_p.elements.pc = {
@@ -3012,7 +3037,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         sim_p.elements.ir = {
@@ -3036,7 +3062,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "c3" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         sim_p.elements.rt1 = {
@@ -3060,7 +3087,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         sim_p.elements.sr = {
@@ -3084,7 +3112,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "in" ],
 			      states_outputs:    [ "out" ],
 			      signals_inputs:    [ "ctl" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         sim_p.elements.register_file = {
@@ -3120,7 +3149,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "c" ],
 			      states_outputs:    [ "a", "b" ],
 			      signals_inputs:    [ "ra", "rb", "rc", "lc" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	               } ;
 
         // CPU - ALU
@@ -3152,7 +3182,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "a", "b" ],
 			      states_outputs:    [ "alu", "flags" ],
 			      signals_inputs:    [ "cop" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                } ;
 
         // CPU - Selectors
@@ -3184,7 +3215,8 @@ function cpu_poc_register ( sim_p )
 			      states_inputs:     [ "mux_i" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "se", "size", "offset" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 	                   } ;
 
         return sim_p ;

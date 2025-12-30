@@ -35,6 +35,7 @@
 		    this.info_icons['Inputs']  = '<i class="fas fa-sign-in-alt"></i>' ;
 		    this.info_icons['Outputs'] = '<i class="fas fa-sign-out-alt"></i>' ;
 		    this.info_icons['Signals'] = '<i class="fas fa-wave-square"></i>' ;
+		    this.info_icons['I/O mapping'] = '<i class="fas fa-map"></i>' ;
 	      }
 
               // render
@@ -72,7 +73,11 @@
 
               describe_element ( elto_path, array_eltos, hash_eltos, enum_name )
               {
-                    var o = '<tr>' +
+                    var o = '' ;
+
+		    if (array_eltos.length != 0)
+		    {
+		        o = '<tr>' +
                             '<td>' + this.info_icons[enum_name] + '</td>' +
                             '<td>' + enum_name + ': ' + array_eltos.length + '</td>' +
                             '<td>' +
@@ -80,6 +85,7 @@
 								  hash_eltos, enum_name, ',<br>') +
                             '</td>' +
                             '</tr>' ;
+		    }
 
                     return o ;
               }
@@ -115,7 +121,7 @@
 			 for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
 			 {
 			      elto = ahw.elements_hash.by_belong[b][j] ;
-                         elto_path = ahw.sim_short_name + ':' + elto.key ;
+                              elto_path = ahw.sim_short_name + ':' + elto.key ;
 
 			      o1 += '<div class="' + grid + ' d-flex my-2 table-responsive">' +
 			 	    '<table class="table table-striped table-bordered table-hover table-sm table2">' +
@@ -129,6 +135,8 @@
 				                          elto.states_outputs, elto.states,  'Outputs') +
                                     this.describe_element(elto_path + ':signals:',
                                                           elto.signals_inputs, elto.signals, 'Signals') +
+                                    this.describe_element(elto_path + ':I/O mapping:',
+                                                          elto.states_mapping, elto.states, 'I/O mapping') +
 				    '</tbody>' +
 				    '</table>' +
 				    '</div>' ;

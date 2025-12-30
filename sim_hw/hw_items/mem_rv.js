@@ -428,7 +428,8 @@ function mem_rv_register ( sim_p )
 			      states_inputs:     [ "addr", "wdata" ],
 			      states_outputs:    [ "rdata" ],
 			      signals_inputs:    [ "wbe", "dmr", "dmw" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
 		       } ;
 
         return sim_p ;
