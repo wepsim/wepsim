@@ -43,7 +43,7 @@
     ```
   * Get WepSIM by executing:
     ```bash
-    wget https://github.com/acaldero/wepsim/releases/download/v2.3.8/wepsim-2.3.8.zip
+    wget https://github.com/wepsim/wepsim/releases/download/v2.3.8/wepsim-2.3.8.zip
     unzip wepsim-2.3.8.zip
     cd wepsim-2.3.8
     npm install terser jq jshint yargs clear inquirer@8.2.6 fuzzy \
@@ -392,7 +392,7 @@ For example, the following link loads the RISC-V assembly code for the factorial
   !echo "(1/4) Installing pre-requisites..."
   !npm install  terser jq jshint yargs clear inquirer >& /dev/null
   !echo "(2/4) Downloading WepSIM..."
-  !wget https://github.com/acaldero/wepsim/releases/download/v2.3.8/wepsim-2.3.8.zip >& /dev/null
+  !wget https://github.com/wepsim/wepsim/releases/download/v2.3.8/wepsim-2.3.8.zip >& /dev/null
   !unzip -o wepsim-2.3.8.zip  >& /dev/null
   !rm -fr   wepsim-2.3.8.zip
   !echo "(3/4) Executing WepSIM..."
