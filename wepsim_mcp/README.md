@@ -6,7 +6,7 @@
 
 *  Go to the work directory (if necessary):
   ```bash
-  cd
+  cd wepsim_mcp
   ```
 
 * The prerequisites must be installed:
@@ -47,26 +47,26 @@
 
 1. First, you must run the server:
    ```bash
-   $ python3 ./mcp_wepsim.py
+   $ python3 ./mcp_wepsim.py &
    ```
 2. If you haven't done so already, you must configure the service on the "Visual Studio Code" client:
    <html>
    <table>
    <tr> <td>1.</td>
         <td>Open the command palette with Ctrl-Alt-P and select "MCP: add server":<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/cfg1.png" height="125"></td> </tr>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg1.png" height="125"></td> </tr>
    <tr> <td>2.</td>
         <td>Next, you must select the HTTP server:<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/cfg2.png" height="200"></td> </tr>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg2.png" height="200"></td> </tr>
    <tr> <td>3.</td>
         <td>Next, you must enter the URL address:<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/cfg3.png" height="100"></td> </tr>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg3.png" height="100"></td> </tr>
    <tr> <td>4.</td>
         <td>Next, you must provide the name:<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/cfg4.png" height="125"></td> </tr>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg4.png" height="125"></td> </tr>
    <tr> <td>5.</td>
         <td>And finally, make global (or local to the workspace):<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/cfg5.png" height="125"></td> </tr>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg5.png" height="125"></td> </tr>
    </table>
    </html>
 3. Once configured, to use the service in "Visual Studio Code":
@@ -74,19 +74,20 @@
    <table>
    <tr> <td>1.</td>
         <td>You have to click on tools in the chat:<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/clt1.png" height="110"></td> </tr>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt1.png" height="110"></td> </tr>
    <tr> <td>2.</td>
         <td>You must activate the wepsim-server (and utilities):<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/clt2.png" height="250"></td> </tr>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt2.png" height="250"></td> </tr>
    <tr> <td>3.</td>
-        <td>You must indicate in the chat that you want to "execute assembly s1e1.asm with wepsim-server.":<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/clt3.png" height="250"></td> </tr>
+        <td>You must indicate in the chat that you want to perform an action:<br>
+        <pre>execute with the EP model the assembly from https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/assembly/rv32/s1e1.asm with the firmware from https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/microcode/rv32/ep_base.mc using wepsim_mcp</pre>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt3.png" height="250"></td> </tr>
    <tr> <td>4.</td>
         <td>You may need to grant permissions ("Allow") to use the service:<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/clt4.png" height="250"></td> </tr>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt4.png" height="250"></td> </tr>
    <tr> <td>5.</td>
         <td>The result is available:<br>
-        <img src="https:/raw.githubusercontent.com/acaldero/wepsim/main/wepsim_mcp/images/clt5.png" height="225"></td> </tr>
+        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt5.png" height="225"></td> </tr>
    </table>
    </html>
 

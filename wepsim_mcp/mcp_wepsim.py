@@ -3,40 +3,24 @@
 # Import
 #
 
-from fastapi  import FastAPI
-from fastmcp  import FastMCP
-from pydantic import BaseModel
+from fastapi      import FastAPI
+from fastmcp      import FastMCP
+from pydantic     import BaseModel
+from urllib.parse import urlparse
+
 import uvicorn
-import os, sys, subprocess
+import os, sys
+import subprocess, requests
 
 
 #
 # Auxiliar functions
 #
-frm_name = '/tmp/firm.mc'
-asm_name = '/tmp/app.asm'
-ws_path  = '../ws_dist/wepsim.sh'
 
-def ws_save2file(filename:str, mode: str, value: str) -> bool:
-    try:
-       f = open(filename, 'w')
-       f.write(value)
-       f.close()
-       return True
-    except:
-       return False
-
-def ws_helper(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
-    # save firmware and assembly on files
-    ret = ws_save2file(frm_name, 'w', firm)
-    if (False == ret):
-        return -1, "firmware file cannot be written"
-    ret = ws_save2file(asm_name, 'w', asm)
-    if (False == ret):
-        return -1, "assembly file cannot be written"
-
+def wepsim_helper(cmd_options:str) -> tuple[int, str]:
     # build associated command
-    cmd = ws_path + " -a " + action + " -m " + model + " -f " + frm_name + " -s " + asm_name
+    ws_path = '../ws_dist/wepsim.sh'
+    cmd = ws_path + ' ' + cmd_options
 
     # code inspired from https://stackoverflow.com/questions/89228/how-do-i-execute-a-program-or-call-a-system-command
     p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -45,6 +29,31 @@ def ws_helper(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
 
     # return status and output
     return ret_code, ret_val
+
+def is_valid_url(url):
+    # code from https://www.slingacademy.com/article/python-ways-to-check-if-a-string-is-a-valid-url/
+    try:
+        result = urlparse(url)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def ws_save2file(filename:str, mode: str, value: str) -> bool:
+    try:
+       # firm as url...
+       if is_valid_url(value):
+          response = requests.get(value)
+          with open(filename, mode) as file:
+               file.write(response.content)
+          return response.ok
+
+       # firm as text...
+       f = open(filename, mode)
+       f.write(value)
+       f.close()
+       return True
+    except:
+       return False
 
 
 #
@@ -56,9 +65,58 @@ mcp = FastMCP("wepsim")
 
 ## Define utilidades (*tools*)
 @mcp.tool()
-def wepsim(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
+def wepsim_action(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
     """WepSIM is instructed to perform an action with a model, a firmware and an assembly code."""
-    return ws_helper(action, model, firm, asm)
+
+    # options
+    fname_firm  = '/tmp/firm.mc'
+    fname_asm   = '/tmp/app.asm'
+
+    # save firmware on file
+    ret = ws_save2file(fname_firm, 'wb', firm)
+    if (False == ret):
+        return -1, "firmware file cannot be written"
+
+    # save assembly on file
+    ret = ws_save2file(fname_asm, 'wb', asm)
+    if (False == ret):
+        return -1, "assembly file cannot be written"
+
+    # return action on files
+    cmd_options = " -a " + action + " -m " + model + " -f " + fname_firm + " -s " + fname_asm
+    return wepsim_helper(cmd_options)
+
+@mcp.tool()
+def wepsim_help_signal(model: str, sname: str) -> tuple[int, str]:
+    """WepSIM is instructed to help about signal."""
+
+    # return help on signal
+    cmd_options = " -a help -m " + model + " -s " + sname
+    return wepsim_helper(cmd_options)
+
+@mcp.tool()
+def wepsim_help_component(model: str, cname: str) -> tuple[int, str]:
+    """WepSIM is instructed to help about component."""
+
+    # return help on component
+    cmd_options = " -a help -m " + model + " -p " + cname
+    return wepsim_helper(cmd_options)
+
+@mcp.tool()
+def wepsim_help_model(model: str) -> tuple[int, str]:
+    """WepSIM is instructed to help about model."""
+
+    # return help on model
+    cmd_options = " -a help -m " + model
+    return wepsim_helper(cmd_options)
+
+@mcp.tool()
+def wepsim_help_instructions(model: str, fname: str) -> tuple[int, str]:
+    """WepSIM is instructed to help about instructions."""
+
+    # return help on instructions
+    cmd_options = " -a help -m " + model + " -f " + fname
+    return wepsim_helper(cmd_options)
 
 
 ## Define entradas (*prompts*)
@@ -66,11 +124,17 @@ def wepsim(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
 def prompt(action: str, model: str, firm: str, asm: str) -> str:
     """Prompt for wepsim."""
     if   action == "run":
-         return f"The result of executing                        the assembly with firmware is {wepsim('run', model, firm, asm)}"
+         return f"The result of executing " \
+                 "the assembly {asm} with firmware {firm} is " \
+                 "{wepsim_action('run', model, firm, asm)}"
     elif action == "stepbystep":
-         return f"The result of executing step by step           the assembly with firmware is {wepsim('stepbystep', model, firm, asm)}"
+         return f"The result of executing " \
+                 "step by step the assembly {asm} with firmware {firm} is " \
+                 "{wepsim_action('stepbystep', model, firm, asm)}"
     elif action == "microstepbymicrostep":
-         return f"The result of executing microstep by microstep the assembly with firmware is {wepsim('microstepbymicrostep', model, firm, asm)}"
+         return f"The result of executing " \
+                 "microstep by microstep the assembly {asm} with firmware {firm} is " \
+                 "{wepsim_action('microstepbymicrostep', model, firm, asm)}"
     else:
          return "Invalid operation. Please choose run, stepbystep, and microstepbymicrostep."
 
@@ -100,7 +164,23 @@ class Item(BaseModel):
 ## Post action as REST API (-1: error)
 @api.post("/api/action/")
 def rest_action(item: Item):
-    status, output = ws_helper(item.action, item.model, item.firmware, item.assembly)
+    # options
+    fname_firm  = '/tmp/firm.mc'
+    fname_asm   = '/tmp/app.asm'
+    cmd_options = " -a " + item.action + " -m " + item.model + " -f " + fname_firm + " -s " + fname_asm
+
+    # save firmware on file
+    ret = ws_save2file(fname_firm, 'wb', item.firmware)
+    if (False == ret):
+        return -1, "firmware file cannot be written"
+
+    # save assembly on file
+    ret = ws_save2file(fname_asm, 'wb', item.assembly)
+    if (False == ret):
+        return -1, "assembly file cannot be written"
+
+    # return action on files
+    status, output = wepsim_helper(cmd_options)
     return { "status": status, "output": output }
 
 
