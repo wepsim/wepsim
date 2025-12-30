@@ -407,12 +407,12 @@
 		        // execute program
 		        wepsim_nodejs_verbose_none(options) ;
 
-                var options2 = Object.assign({}, options) ;
-                options2.verbosity = 0 ;
+                        var options2 = Object.assign({}, options) ;
+                        options2.verbosity = 0 ;
 		        var ret = wepsim_execute_chunk(options2, options2.instruction_limit) ;
 		        if (ret.ok == false)
-                {
-	                wepsim_nodejs_header2() ;
+                        {
+	                    wepsim_nodejs_header2() ;
 		            reg_pc = parseInt(get_value(simhw_sim_state(pc_name))) ;
 		            wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
 
@@ -488,63 +488,63 @@
 		        break ;
 
 	       case 'break':
-		        console.log('break answer begins.') ;
+		     console.log('break answer begins.') ;
 
-                if (typeof parts[1] !== 'undefined')
-		        {
-                    addr = parseInt(parts[1]) ;
-                    wepsim_nodejs_breakpoints_addrm('breaks', addr) ;
-                }
-                wepsim_nodejs_breakpoints_list(breaks) ;
+                     if (typeof parts[1] !== 'undefined')
+		     {
+                         addr = parseInt(parts[1]) ;
+                         wepsim_nodejs_breakpoints_addrm('breaks', addr) ;
+                     }
+                     wepsim_nodejs_breakpoints_list(breaks) ;
 
-		        console.log('break answer ends.') ;
-		        break ;
+		     console.log('break answer ends.') ;
+		     break ;
 
 	       case 'mbreak':
-		        console.log('mbreak answer begins.') ;
+		     console.log('mbreak answer begins.') ;
 
-                if (typeof parts[1] !== 'undefined')
-		        {
-                    addr = parseInt(parts[1]) ;
-                    wepsim_nodejs_breakpoints_addrm('mbreaks', addr) ;
-                }
-                wepsim_nodejs_breakpoints_list(mbreaks) ;
+                     if (typeof parts[1] !== 'undefined')
+		     {
+                         addr = parseInt(parts[1]) ;
+                         wepsim_nodejs_breakpoints_addrm('mbreaks', addr) ;
+                     }
+                     wepsim_nodejs_breakpoints_list(mbreaks) ;
 
-		        console.log('mbreak answer ends.') ;
-		        break ;
+		     console.log('mbreak answer ends.') ;
+		     break ;
 
 	       case 'list':
-		        console.log('list answer begins.') ;
+		     console.log('list answer begins.') ;
 
-                // number of source lines (10 by default)
-                var n_lines = 10 ;
-                if (typeof parts[1] !== 'undefined') {
-                    n_lines = parseInt(parts[1]) ;
-		        }
+                     // number of source lines (10 by default)
+                     var n_lines = 10 ;
+                     if (typeof parts[1] !== 'undefined') {
+                         n_lines = parseInt(parts[1]) ;
+		     }
 
-                // start address
-		        var pc_value = parseInt(get_value(simhw_sim_state(pc_name))) ;
-                if (typeof parts[2] !== 'undefined') {
+                     // start address
+		     var pc_value = parseInt(get_value(simhw_sim_state(pc_name))) ;
+                     if (typeof parts[2] !== 'undefined') {
 		            pc_value = parseInt(parts[2]) ;
-		        }
+		     }
 
-                // list source code from start address up to number of source lines
+                    // list source code from start address up to number of source lines
 	            wepsim_nodejs_header1() ;
-                for (var i=0; i<n_lines; i++)
-                {
-                    if (false == simcore_check_if_can_continue2(0, pc_value)) {
-                        continue ;
+                    for (var i=0; i<n_lines; i++)
+                    {
+                        if (false == simcore_check_if_can_continue2(0, pc_value)) {
+                            continue ;
+                        }
+		        wepsim_nodejs_after_instruction1(SIMWARE, pc_value) ;
+		        pc_value += 4 ;
                     }
-		            wepsim_nodejs_after_instruction1(SIMWARE, pc_value) ;
-		            pc_value += 4 ;
-                }
 
-		        console.log('list answer ends.') ;
-		        break ;
+		    console.log('list answer ends.') ;
+		    break ;
 
 	       default:
-		        console.log('Unknown ' + answers.cmd + ' command.\n') ;
-		        break ;
+		    console.log('Unknown ' + answers.cmd + ' command.\n') ;
+		    break ;
 	   }
 
         // on_exit -> end REPL loop ;
@@ -559,64 +559,64 @@
     function wepsim_nodejs_init ( data )
     {
         var ret = simcore_init(false) ;
-	    if (false === ret.ok) {
+	if (false === ret.ok) {
             return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
-	    }
+	}
 
         set_cfg('ws_idiom', data.idiom) ;
 
         ret = simcore_init_hw(data.mode) ;
-	    if (false === ret.ok) {
+	if (false === ret.ok) {
             return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
-	    }
+	}
 
         // wepsim_nodejs_load_examples() ;
         simcore_init_ui(hash_detail_ui) ;
 
-	    return wepsim_nodejs_retfill(true, "") ;
+	return wepsim_nodejs_retfill(true, "") ;
     }
 
     function wepsim_nodejs_prepareCode ( data, options )
     {
-	    // 1) initialize ws
+	// 1) initialize ws
         simcore_reset() ;
 
-	    // 2) load firmware
+	// 2) load firmware
         var ret = simcore_compile_firmware(data.firmware) ;
-	    if (false === ret.ok) {
+	if (false === ret.ok) {
 	        return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg) ;
-	    }
+	}
 
-	    // 3) load assembly
+	// 3) load assembly
         ret = simcore_compile_assembly(data.assembly) ;
-	    if (false === ret.ok) {
+	if (false === ret.ok) {
 	        return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg) ;
-	    }
+	}
 
-	    return wepsim_nodejs_retfill(true, ret.msg) ;
+	return wepsim_nodejs_retfill(true, ret.msg) ;
     }
 
     function wepsim_nodejs_get_instructionset ( data, options )
     {
-	    // 1) initialization
+	// 1) initialization
         var ret = wepsim_nodejs_init(data) ;
-	    if (false === ret.ok) {
+	if (false === ret.ok) {
 	        return wepsim_nodejs_retfill(false, ret.msg + ".\n") ;
-	    }
+	}
 
-	    // 2) load firmware
+	// 2) load firmware
         // simcore_reset() ;
 
         var ret = simcore_compile_firmware(data.firmware) ;
-	    if (false === ret.ok) {
+	if (false === ret.ok) {
 	        return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg) ;
-	    }
+	}
 
-	    // 3) get firmware
+	// 3) get firmware
         var SIMWARE  = get_simware() ;
-	    ret.firmware = SIMWARE.firmware ;
+	ret.firmware = SIMWARE.firmware ;
 
-	    // 4) return result
+	// 4) return result
         return ret ;
     }
 
@@ -919,8 +919,8 @@
 
         var ahw = simhw_active() ;
         if (ahw === null) {
-	        return wepsim_nodejs_retfill(false, "ERROR: Unknown hardware model.\n") ;
-	    }
+	    return wepsim_nodejs_retfill(false, "ERROR: Unknown hardware model.\n") ;
+	}
 
         simhwelto_prepare_hash(ahw) ;
     	input_help = simhwelto_show_components(ahw) ;
@@ -934,10 +934,10 @@
         var ahw = simhw_active() ;
         if (ahw === null) {
 	        return wepsim_nodejs_retfill(false, "ERROR: Unknown hardware model.\n") ;
-	    }
+	}
 
         // get descriptions
-	    var input_help    = '' ;
+	var input_help    = '' ;
         var search_str    = '' ;
         var search_substr = options.purify.toUpperCase() ;
 

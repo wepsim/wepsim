@@ -197,6 +197,12 @@ function io_keyboard_base_register ( sim_p )
 								},
 						   "data":      {
 								   ref:  "BUS_DB"
+								},
+						   "data 1":    {
+								   ref:  KBDR_ID
+								},
+						   "status 1":  {
+								   ref:  KBSR_ID
 								}
 						 },
 			      signals:           {
@@ -207,7 +213,8 @@ function io_keyboard_base_register ( sim_p )
 			      states_inputs:     [ "addr", "data" ],
 			      states_outputs:    [ "data" ],
 			      signals_inputs:    [ "ior" ],
-			      signals_output:    [ ]
+			      signals_output:    [ ],
+			      states_mapping:    [ "data 1", "status 1" ]
 		         } ;
 
         return sim_p ;
