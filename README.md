@@ -157,15 +157,15 @@ Step   | iOS                       |  Android                  | Action to perfo
   <html>
   <pre>
   micropc,			microcode,													changes_from_zero_or_current_value
-  micropc = 0x0,		T2 C0,					
-  micropc = 0x1,		TA R BW=11 M1 C1,				
+  micropc = 0x0,		T2 C0,
+  micropc = 0x1,		TA R BW=11 M1 C1,
   micropc = 0x2,		M2 C2 T1 C3,												register PC = 0x8004
-  micropc = 0x3,		A0 B=0 C=0,				
+  micropc = 0x3,		A0 B=0 C=0,
   micropc = 0xd3,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,		register R2 = 0x2; register R29 = 0x100000
-  micropc = 0x0,		T2 C0,					
-  micropc = 0x1,		TA R BW=11 M1 C1,				
+  micropc = 0x0,		T2 C0,
+  micropc = 0x1,		TA R BW=11 M1 C1,
   micropc = 0x2,		M2 C2 T1 C3,												register PC = 0x8008
-  micropc = 0x3,		A0 B=0 C=0,				
+  micropc = 0x3,		A0 B=0 C=0,
   micropc = 0xd3,		SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0,		register R3 = 0x1
   ...
   </pre>

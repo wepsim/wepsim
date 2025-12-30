@@ -61,3 +61,16 @@ curl -X 'POST' 'http://localhost:8008/api/action/' \
          }' | jq '.'
 echo "Done"
 
+echo "Testing '/api/action' ..."
+curl -X 'POST' 'http://localhost:8008/api/action/' \
+     -s \
+     -H 'accept: application/json' \
+     -H 'Content-Type: application/json' \
+     -d '{
+           "action":   "run",
+           "model":    "ep",
+           "firmware": "https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/microcode/rv32/ep_base.mc",
+           "assembly": "https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/assembly/rv32/s1e1.asm"
+         }' | jq '.'
+echo "Done"
+

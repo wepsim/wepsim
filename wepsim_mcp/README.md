@@ -79,7 +79,8 @@
         <td>You must activate the wepsim-server (and utilities):<br>
         <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt2.png" height="250"></td> </tr>
    <tr> <td>3.</td>
-        <td>You must indicate in the chat that you want to "execute assembly s1e1.asm with wepsim-server.":<br>
+        <td>You must indicate in the chat that you want to perform an action:<br>
+        <pre>execute with the EP model the assembly from https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/assembly/rv32/s1e1.asm with the firmware from https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/microcode/rv32/ep_base.mc using wepsim_mcp</pre>
         <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt3.png" height="250"></td> </tr>
    <tr> <td>4.</td>
         <td>You may need to grant permissions ("Allow") to use the service:<br>
