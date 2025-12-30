@@ -305,7 +305,6 @@ function io_sound_base_register ( sim_p )
 
         /*
          *  Model
-         *  (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
          */
 
         sim_p.elements.sound = {

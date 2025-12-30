@@ -95,8 +95,8 @@
 		'Stats':			'统计',
 		'Memory':			'内存',
 		'Keyboard+Display':		'键盘+显示',
-		'I/O Stats':			'I/O 统计',
-		'I/O Configuration':		'I/O 配置',
+		'Timer Stats':			'计时器统计',
+		'Timer Configuration':		'定时器配置',
 		'Recent':			'最近',
 		'Refresh':			'刷新',
 	        'Welcome':			'欢迎',
@@ -119,6 +119,28 @@
                 'idiom': 			'语言',
                 'quick config': 		'快速配置',
                 'Graph: quick interactive mode':'图形：快速交互模式',
+
+                'Interactive mode': 	 		'交互模式',
+                'Split view':		 		'分屏视图',
+
+                'Input link':				'输入链接',
+                'Link':					'链接',
+                'Copy': 				'复制',
+                'Share': 				'分享',
+                'Add new': 				'新增',
+
+                'Load from the following link':		'从以下链接加载',
+                'You can use the following link':	'可使用以下链接',
+                'Combinations': 			'组合方式',
+
+                'Display direction': 			'显示方向',
+                'Display segments': 			'显示段落',
+                'Display origin': 			'显示原点',
+                'Number of words': 			'单词数量',
+                'Wait cycles':				'等待周期',
+
+                'Please remember that after updates on the microcode, the assembly code has be re-compiled too.': '请注意，微代码更新后，汇编代码也需重新编译。.',
+                'No cache memory was already defined.':		'未定义任何缓存内存。.',
 
 		'_last_':			'_last_'
     };

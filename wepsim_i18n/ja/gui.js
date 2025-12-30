@@ -93,8 +93,8 @@
 		'Stats':			'統計',
 		'Memory':			'「記憶」',
 		'Keyboard+Display':		'キーボード+ディスプレイ',
-		'I/O Stats':			'I/O 統計',
-		'I/O Configuration':		'I/O 設定',
+		'Timer Stats':			'タイマー統計',
+		'Timer Configuration':		'タイマー設定',
 		'Recent':			'最近',
 		'Refresh':			'更新する',
 	        'Welcome':			'ようこそ',
@@ -117,6 +117,28 @@
                 'idiom': 			'言語',
                 'quick config': 		'クイック構成',
                 'Graph: quick interactive mode':'グラフ：クイックインタラクティブモード',
+
+                "Interactive mode": 	 		"対話モード",
+                "Split view":		 		"分割表示",
+
+                "Input link":				"入力リンク",
+                "Link":					"リンク",
+                "Copy": 				"コピー  ",
+                "Share": 				"共有 ",
+                "Add new": 				"新規追加",
+
+                "Load from the following link":		"以下のリンクから読み込み",
+                "You can use the following link":	"以下のリンクを使用可能",
+                "Combinations": 			"組み合わせ",
+
+                "Display direction": 			"表示方向",
+                "Display segments": 			"表示セグメント",
+                "Display origin": 			"表示原点",
+                "Number of words": 			"単語数",
+                "Wait cycles":				"待機サイクル",
+
+                "Please remember that after updates on the microcode, the assembly code has be re-compiled too.": "イクロコードの更新後は、アセンブリコードの再コンパイルも必要であることをご留意ください。.",
+                "No cache memory was already defined.":		"キャッシュメモリは既に定義されていません。",
 
 		'_last_':			'_last_'
 

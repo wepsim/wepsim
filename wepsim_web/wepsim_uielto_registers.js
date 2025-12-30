@@ -274,19 +274,26 @@
         function wepsim_refresh_rf_names_mkname ( disp_name, SIMWARE, rf_index, index, logical_index )
         {
             var br_value = "" ;
-	    var r_item   = SIMWARE.registers[rf_index].registers[index] ;
+
+	    if (typeof SIMWARE.registers[rf_index] == "undefined") {
+	         br_value = "R" + index ;
+	       //br_value = br_value.padEnd(3,' ') ;
+                 return br_value ;
+            }
+
+	    var r_item = SIMWARE.registers[rf_index].registers[index] ;
 
             // numerical name
             if ( ('logical' != disp_name) || (typeof r_item == "undefined") ) {
 	         br_value = "R" + index ;
-	         br_value = br_value.padEnd(3,' ') ;
+	       //br_value = br_value.padEnd(3,' ') ;
                  return br_value ;
             }
 
             // all logical name
             if (logical_index == 0) {
 		 br_value = r_item.join('|') ;
-	         br_value = br_value.padEnd(7, ' ') ;
+	       //br_value = br_value.padEnd(7, ' ') ;
                  return br_value.replace(' ', '&nbsp;') ;
             }
 
@@ -295,7 +302,7 @@
             if (typeof br_value == "undefined") {
 	        br_value = "R" + index ;
             }
-	    br_value = br_value.padEnd(3,' ') ;
+	  //br_value = br_value.padEnd(3,' ') ;
             return br_value ;
         }
 
@@ -338,14 +345,14 @@
 
 	    // reset bg-debug-asm in former register ...
 	    if (old_id.value != null) {
-		$(old_id.value).removeClass('bg-debug-asm text-dark') ;
+		$(old_id.value).removeClass('bg-info text-dark') ;
 		$(old_id.value).addClass('bg-info-subtle text-body') ;
 	    }
 
 	    // ... and set bg-debug-asm in current one
 	    if (typeof $(elto_id).addClass != "undefined") {
 		$(elto_id).removeClass('bg-info-subtle text-body') ;
-		$(elto_id).addClass('bg-debug-asm text-dark') ;
+		$(elto_id).addClass('bg-info text-dark') ;
 	    }
 
 	    // update old_id
@@ -366,10 +373,15 @@
             var rf_index = 'default' ;
             var rf_item  = simhw_sim_states().BR ;
 
+            var separator_class = "" ;
+            if (get_cfg('RF_vertical_pack'))
+                 separator_class = "w-100 d-block" ;
+            else separator_class = "w-100 d-block d-sm-none" ;
+
 	    for (var index=0; index < rf_item.length; index++)
             {
 		 o1_rn   = "R"  + index ;
-		 o1_rn   = o1_rn.padEnd(3,' ') ;
+	       //o1_rn   = o1_rn.padEnd(3,' ') ;
                  r_index = rf_index + ':' + index ;
 
 		 o1_rf += "<button type='button' " +
@@ -378,7 +390,7 @@
                           "        data-bs-toggle='popover-up' data-popover-content='" + r_index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "<span   id='name_RF" + index + "' class='p-0 font-monospace' style='float:center;'>" + o1_rn + "</span>&nbsp;" +
-			  "<span class='w-100 d-block d-sm-none'></span>" +
+			  "<span class='" + separator_class + "'></span>" +
                           "<span class='badge badge-secondary bg-info-subtle text-body' style='' id='rf_"  + index + "'>{{ computed_value }}</span>" +
                           "</button>" ;
 	    }
@@ -455,6 +467,12 @@
             var sim_eltos = simhw_sim_states() ;
             var filter    = simhw_internalState('filter_states') ;
 
+            // vertical/horizontal packed
+            var separator_class = "" ;
+            if (get_cfg('RF_vertical_pack'))
+                 separator_class = "w-100 d-block" ;
+            else separator_class = "w-100 d-block d-sm-none" ;
+
             // Fast UI configuration
             var o1 = "" ;
 
@@ -462,6 +480,7 @@
             var filspl   = [] ;
 	    var ename    =  "" ;
 	    var divclass =  "" ;
+	    var spanbetw =  "" ;
 	    var vir_real =  "" ;
 	    var value    =  "" ;
 	    var dbs_toggle= "" ;
@@ -477,10 +496,12 @@
 		if ("real" == vir_real) {
 		     dbs_toggle = " data-bs-toggle='popover-bottom' data-popover-content='" + ename + "' data-container='body' " ;
 		     divclass   = "col-auto" ;
+                     spanbetw   = " <span class='" + separator_class + "'></span>" ;
 		}
 		else {
 		     dbs_toggle = "" ;
 		     divclass   = "col-12" ;
+                     spanbetw   = " <span class='w-100 d-block d-sm-none'></span>" ;
 		}
 
                 var showkey = sim_eltos[ename].name ;
@@ -503,7 +524,7 @@
                       dbs_toggle +
                       "        id='rp" + ename + "'>" +
                       showkey +
-                      " <span class='w-100 d-block d-sm-none'></span>" +
+                      spanbetw +
                       " <span class='badge badge-secondary bg-info-subtle text-body' style='' id='rf_"  + ename + "'>{{ computed_value }}</span>" +
                       "</button>" ;
             }

@@ -100,8 +100,8 @@
 		"Stats":					"Stats",
 		"Memory":					"Memory",
 		"Keyboard+Display":				"Keyboard+Display",
-		"I/O Stats":					"I/O Stats",
-		"I/O Configuration":				"I/O Configuration",
+		"Timer Stats":					"Timer Stats",
+		"Timer Configuration":				"Timer Configuration",
 
                 "Recent":                                       "Recent",
 		"Refresh":  			                "Refresh",
@@ -125,6 +125,50 @@
                 'idiom': 					'idiom',
                 'quick config': 				'quick config',
                 'Graph: quick interactive mode':		'Graph: quick interactive mode',
+
+                "Interactive mode": 	 			"Interactive mode",
+                "Split view":		 			"Split view",
+
+                "Input link":					"Input link",
+                "Link":						"Link",
+                "Copy": 					"Copy",
+                "Share": 					"Share",
+                "Add new": 					"Add new",
+
+                "Load from the following link":			"Load from the following link",
+                "You can use the following link":		"You can use the following link",
+                "Combinations": 				"Combinations",
+
+                "Display direction": 				"Display direction",
+                "Display segments": 				"Display segments",
+                "Display origin": 				"Display origin",
+                "Number of words": 				"Number of words",
+                "Wait cycles":					"Wait cycles",
+
+                "Please remember that after updates on the microcode, the assembly code has be re-compiled too.": "Please remember that after updates on the microcode, the assembly code has be re-compiled too.",
+                "No cache memory was already defined.":		"No cache memory was already defined.",
+
+                "Interactive mode": 	 			"Interactive mode",
+                "Split view":		 			"Split view",
+
+                "Input link":					"Input link",
+                "Link":						"Link",
+                "Copy": 					"Copy",
+                "Share": 					"Share",
+                "Add new": 					"Add new",
+
+                "Load from the following link":			"Load from the following link",
+                "You can use the following link":		"You can use the following link",
+                "Combinations": 				"Combinations",
+
+                "Display direction": 				"Display direction",
+                "Display segments": 				"Display segments",
+                "Display origin": 				"Display origin",
+                "Number of words": 				"Number of words",
+                "Wait cycles":					"Wait cycles",
+
+                "Please remember that after updates on the microcode, the assembly code has be re-compiled too.": "Please remember that after updates on the microcode, the assembly code has be re-compiled too.",
+                "No cache memory was already defined.":		"No cache memory was already defined.",
 
 		"_last_":					"_last_"
     } ;

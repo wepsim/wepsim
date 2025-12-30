@@ -348,6 +348,7 @@
                  }
 
                  // format of the source
+		 src_html = '' ;
                  var src_parts = src.split(";") ;
                  for (i=0; i<src_parts.length; i++)
                  {
@@ -355,7 +356,9 @@
                            ri = src_parts.length - i - 1 ;
                       else ri = i ;
 
-                      src_html = "<span class='mp_tooltip collapse hide bg-dark text-white px-1 mx-1 rounded'>" + src_parts[ri] + "</span>" ;
+                      src_html += "<span class='bg-dark text-white py-0 px-1 ms-1 border border-secondary font-monospace'>" +
+                                  src_parts[ri] +
+                                  "</span>" ;
                  }
 
                  // wcolor
@@ -386,7 +389,12 @@
                       value2 += '<span class="me-1">' + valuei + '</span>' ;
                  }
 
-		 row_html += '<span class="col">' + value2 + '<br>' + src_html + '</span>' ;
+		 row_html += '<span class="container col">' +
+                             '<span class="row">' +
+                             '<span class="col">' + value2   + '</span></span>' +
+                             '<span class="row mp_tooltip collapse hide mb-2">' +
+                             '<span class="col">' + src_html + '</span></span>' +
+                             '</span>' ;
 	    }
 
             // build HTML
