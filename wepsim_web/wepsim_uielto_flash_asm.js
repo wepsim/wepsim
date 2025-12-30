@@ -73,7 +73,7 @@
 			'<li><b>[2] Get the gateway associated with your board</b></li>' +
 			'For example, for the ESP32-C3 board:' +
 			'<pre>' +
-			'wget https://acaldero.github.io/wepsim/ws_dist/gateway/esp32c3.zip\n' +
+			'wget https://wepsim.github.io/wepsim/ws_dist/gateway/esp32c3.zip\n' +
 			'unzip -a esp32c3.zip' +
 			'</pre>' +
 			'<p></p>' +

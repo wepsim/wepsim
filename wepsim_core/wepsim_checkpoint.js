@@ -197,7 +197,7 @@
 			"\n",
 			"if ws['assembly'] != '' and ws['firmware'] != '':\n",
 			"   !npm install  terser jq jshint yargs clear inquirer >& /dev/null\n",
-			"   !wget https://github.com/acaldero/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip >& /dev/null\n",
+			"   !wget https://github.com/wepsim/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip >& /dev/null\n",
 			"   !unzip -o wepsim-2.3.7.zip  >& /dev/null\n",
 			"   !rm -fr   wepsim-2.3.7.zip\n",
 			"   !./wepsim-2.3.7/wepsim.sh -a stepbystep -m ep -f /base.mc -s /base.asm > ./result.csv\n",

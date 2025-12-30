@@ -116,7 +116,7 @@
               <a href="#"
                  class="nav-item nav-link border border-secondary"
                  onclick="var context1 = document.getElementById('iframe1');
-                          context1.src = 'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?' +
+                          context1.src = 'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?' +
                                          'notify=false&' +
                                          'example=13&' +
                                          'simulator=assembly:screen';
@@ -171,10 +171,10 @@ cordova plugin add cordova-plugin-whitelist
 
 + 2.1) Copy WepSIM files into the www directory:
 ```bash
-wget https://github.com/acaldero/wepsim/releases/download/v2.0.11/wepsim-2.0.11.zip
-unzip wepsim-2.0.11.zip
+wget https://github.com/wepsim/wepsim/releases/download/v2.3.7/wepsim-2.3.7.zip
+unzip wepsim-2.3.7.zip
 mv www www.initial.$$
-cp -a wepsim-2.0.11/ws_dist www
+cp -a wepsim-2.3.7/ws_dist www
 ```
 
 + 2.2) Adapt path in "www/repo/hardware/ep/images/processor.svg" for Apache Cordova:

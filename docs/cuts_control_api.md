@@ -13,7 +13,7 @@
 		  <a href="#"
 		     class="nav-item nav-link border border-secondary"
 		     onclick="var context1 = document.getElementById('iframe1');
-			      context1.src = 'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?' +
+			      context1.src = 'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?' +
 					     'notify=false&' +
                                              'example=13&' +
 					     'simulator=assembly:screen';
