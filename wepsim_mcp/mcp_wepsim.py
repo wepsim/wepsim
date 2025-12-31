@@ -55,19 +55,7 @@ def ws_save2file(filename:str, value: str) -> bool:
        print(f"ERROR: {error}")
        return False
 
-
-#
-# Definition of the "mcp" object
-#
-
-## Initialize FastMCP
-mcp = FastMCP("wepsim")
-
-## Define utilidades (*tools*)
-@mcp.tool()
 def wepsim_action(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
-    """WepSIM is instructed to perform an action with a model, a firmware and an assembly code."""
-
     # options
     fname_firm  = '/tmp/firm.mc'
     fname_asm   = '/tmp/app.asm'
@@ -85,6 +73,33 @@ def wepsim_action(action:str, model: str, firm: str, asm: str) -> tuple[int, str
     # return action on files
     cmd_options = " -a " + action + " -m " + model + " -f " + fname_firm + " -s " + fname_asm
     return wepsim_helper(cmd_options)
+
+
+#
+# Definition of the "mcp" object
+#
+
+## Initialize FastMCP
+mcp = FastMCP("wepsim")
+
+## Define utilidades (*tools*)
+@mcp.tool()
+def wepsim_run(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
+    """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
+
+    return wepsim_action('run', model, firm, asm)
+
+@mcp.tool()
+def wepsim_stepbystep(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
+    """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
+
+    return wepsim_action('stepbystep', model, firm, asm)
+
+@mcp.tool()
+def wepsim_microstepbymicrostep(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
+    """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
+
+    return wepsim_action('microstepbymicrostep', model, firm, asm)
 
 @mcp.tool()
 def wepsim_help_signal(model: str, sname: str) -> tuple[int, str]:
@@ -152,15 +167,15 @@ def prompt(action: str, model: str, firm: str, asm: str) -> str:
     if   action == "run":
          return f"The result of executing " \
                  "the assembly {asm} with firmware {firm} is " \
-                 "{wepsim_action('run', model, firm, asm)}"
+                 "{wepsim_run(model, firm, asm)}"
     elif action == "stepbystep":
          return f"The result of executing " \
                  "step by step the assembly {asm} with firmware {firm} is " \
-                 "{wepsim_action('stepbystep', model, firm, asm)}"
+                 "{wepsim_stepbystep(model, firm, asm)}"
     elif action == "microstepbymicrostep":
          return f"The result of executing " \
                  "microstep by microstep the assembly {asm} with firmware {firm} is " \
-                 "{wepsim_action('microstepbymicrostep', model, firm, asm)}"
+                 "{wepsim_microstepbymicrostep(model, firm, asm)}"
     else:
          return "Invalid operation. Please choose run, stepbystep, and microstepbymicrostep."
 
