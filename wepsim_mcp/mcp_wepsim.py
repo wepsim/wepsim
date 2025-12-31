@@ -38,22 +38,41 @@ def is_valid_url(url):
     except ValueError:
         return False
 
-def ws_save2file(filename:str, mode: str, value: str) -> bool:
+def ws_save2file(filename:str, value: str) -> bool:
     try:
        # firm as url...
        if is_valid_url(value):
           response = requests.get(value)
-          with open(filename, mode) as file:
+          with open(filename, 'wb') as file:
                file.write(response.content)
           return response.ok
 
        # firm as text...
-       f = open(filename, mode)
-       f.write(value)
-       f.close()
+       with open(filename, 'w') as file:
+            file.write(value)
        return True
-    except:
+    except Exception as error:
+       print(f"ERROR: {error}")
        return False
+
+def wepsim_action(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
+    # options
+    fname_firm  = '/tmp/firm.mc'
+    fname_asm   = '/tmp/app.asm'
+
+    # save firmware on file
+    ret = ws_save2file(fname_firm, firm)
+    if (False == ret):
+        return -1, "firmware file cannot be written"
+
+    # save assembly on file
+    ret = ws_save2file(fname_asm, asm)
+    if (False == ret):
+        return -1, "assembly file cannot be written"
+
+    # return action on files
+    cmd_options = " -a " + action + " -m " + model + " -f " + fname_firm + " -s " + fname_asm
+    return wepsim_helper(cmd_options)
 
 
 #
@@ -65,26 +84,22 @@ mcp = FastMCP("wepsim")
 
 ## Define utilidades (*tools*)
 @mcp.tool()
-def wepsim_action(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
-    """WepSIM is instructed to perform an action with a model, a firmware and an assembly code."""
+def wepsim_run(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
+    """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
 
-    # options
-    fname_firm  = '/tmp/firm.mc'
-    fname_asm   = '/tmp/app.asm'
+    return wepsim_action('run', model, firm, asm)
 
-    # save firmware on file
-    ret = ws_save2file(fname_firm, 'wb', firm)
-    if (False == ret):
-        return -1, "firmware file cannot be written"
+@mcp.tool()
+def wepsim_stepbystep(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
+    """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
 
-    # save assembly on file
-    ret = ws_save2file(fname_asm, 'wb', asm)
-    if (False == ret):
-        return -1, "assembly file cannot be written"
+    return wepsim_action('stepbystep', model, firm, asm)
 
-    # return action on files
-    cmd_options = " -a " + action + " -m " + model + " -f " + fname_firm + " -s " + fname_asm
-    return wepsim_helper(cmd_options)
+@mcp.tool()
+def wepsim_microstepbymicrostep(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
+    """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
+
+    return wepsim_action('microstepbymicrostep', model, firm, asm)
 
 @mcp.tool()
 def wepsim_help_signal(model: str, sname: str) -> tuple[int, str]:
@@ -119,6 +134,32 @@ def wepsim_help_instructions(model: str, fname: str) -> tuple[int, str]:
     return wepsim_helper(cmd_options)
 
 
+## Define recursos (*resource*)
+@mcp.resource("models://")
+def get_default_models_url() -> str:
+    """WepSIM is instructed to obtain the full URL for the hardware models available."""
+
+    return f"https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/hardware/hw.json"
+
+@mcp.resource("microcode://{processor}")
+def get_default_microcode_url(processor: str) -> str:
+    """WepSIM is instructed to obtain the full URL for a microcode example."""
+
+    return f"https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/microcode/{processor}/ep_bare.mc"
+
+@mcp.resource("assembly://{processor}")
+def get_default_ensamblador_url(processor: str) -> str:
+    """WepSIM is instructed to obtain the full URL for an assembly example."""
+
+    return f"https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/assembly/{processor}/s1e1.asm"
+
+@mcp.resource("example_set://{processor}")
+def get_default_exampleset_url(processor: str) -> str:
+    """WepSIM is instructed to obtain the full URL for an example set."""
+
+    return f"https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/examples_set/{processor}/default.json"
+
+
 ## Define entradas (*prompts*)
 @mcp.prompt()
 def prompt(action: str, model: str, firm: str, asm: str) -> str:
@@ -126,15 +167,15 @@ def prompt(action: str, model: str, firm: str, asm: str) -> str:
     if   action == "run":
          return f"The result of executing " \
                  "the assembly {asm} with firmware {firm} is " \
-                 "{wepsim_action('run', model, firm, asm)}"
+                 "{wepsim_run(model, firm, asm)}"
     elif action == "stepbystep":
          return f"The result of executing " \
                  "step by step the assembly {asm} with firmware {firm} is " \
-                 "{wepsim_action('stepbystep', model, firm, asm)}"
+                 "{wepsim_stepbystep(model, firm, asm)}"
     elif action == "microstepbymicrostep":
          return f"The result of executing " \
                  "microstep by microstep the assembly {asm} with firmware {firm} is " \
-                 "{wepsim_action('microstepbymicrostep', model, firm, asm)}"
+                 "{wepsim_microstepbymicrostep(model, firm, asm)}"
     else:
          return "Invalid operation. Please choose run, stepbystep, and microstepbymicrostep."
 
@@ -170,12 +211,12 @@ def rest_action(item: Item):
     cmd_options = " -a " + item.action + " -m " + item.model + " -f " + fname_firm + " -s " + fname_asm
 
     # save firmware on file
-    ret = ws_save2file(fname_firm, 'wb', item.firmware)
+    ret = ws_save2file(fname_firm, item.firmware)
     if (False == ret):
         return -1, "firmware file cannot be written"
 
     # save assembly on file
-    ret = ws_save2file(fname_asm, 'wb', item.assembly)
+    ret = ws_save2file(fname_asm, item.assembly)
     if (False == ret):
         return -1, "assembly file cannot be written"
 
