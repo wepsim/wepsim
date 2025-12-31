@@ -50,46 +50,54 @@
    $ python3 ./mcp_wepsim.py &
    ```
 2. If you haven't done so already, you must configure the service on the "Visual Studio Code" client:
-   <html>
-   <table>
-   <tr> <td>1.</td>
-        <td>Open the command palette with Ctrl-Alt-P and select "MCP: add server":<br>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg1.png" height="125"></td> </tr>
-   <tr> <td>2.</td>
-        <td>Next, you must select the HTTP server:<br>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg2.png" height="200"></td> </tr>
-   <tr> <td>3.</td>
-        <td>Next, you must enter the URL address:<br>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg3.png" height="100"></td> </tr>
-   <tr> <td>4.</td>
-        <td>Next, you must provide the name:<br>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg4.png" height="125"></td> </tr>
-   <tr> <td>5.</td>
-        <td>And finally, make global (or local to the workspace):<br>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg5.png" height="125"></td> </tr>
-   </table>
-   </html>
+   * From link:
+     [![Install in VS Code](https://img.shields.io/badge/VS_Code-WepSIM_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22http%3A%2F%2Flocalhost%3A8008%2Fmcp%2F%5C%22%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Facaldero%2Fwepsim%2Fblob%2Fmaster%2Fwepsim_mcp%2FREADME.md%22%7D)
+   * From command line:
+     <pre>
+     code --add-mcp "{\"servers\":{\"wepsim_mcp\":{\"url\":\"http://localhost:8008/mcp/\",\"type\":\"http\"}}}"
+     </pre>
+   * Manual:
+     <html>
+     <table>
+     <tr> <td>1.</td>
+          <td>Open the command palette with Ctrl-Alt-P and select "MCP: add server":<br>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg1.png" height="125"></td> </tr>
+     <tr> <td>2.</td>
+          <td>Next, you must select the HTTP server:<br>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg2.png" height="200"></td> </tr>
+     <tr> <td>3.</td>
+          <td>Next, you must enter the URL address:<br>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg3.png" height="100"></td> </tr>
+     <tr> <td>4.</td>
+          <td>Next, you must provide the name:<br>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg4.png" height="125"></td> </tr>
+     <tr> <td>5.</td>
+          <td>And finally, make global (or local to the workspace):<br>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/cfg5.png" height="125"></td> </tr>
+     </table>
+     </html>
 3. Once configured, to use the service in "Visual Studio Code":
-   <html>
-   <table>
-   <tr> <td>1.</td>
-        <td>You have to click on tools in the chat:<br>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt1.png" height="110"></td> </tr>
-   <tr> <td>2.</td>
-        <td>You must activate the wepsim-server (and utilities):<br>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt2.png" height="250"></td> </tr>
-   <tr> <td>3.</td>
-        <td>You must indicate in the chat that you want to perform an action:<br>
-        <pre>execute with the EP model the assembly from https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/assembly/rv32/s1e1.asm with the firmware from https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/microcode/rv32/ep_base.mc using wepsim_mcp</pre>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt3.png" height="250"></td> </tr>
-   <tr> <td>4.</td>
-        <td>You may need to grant permissions ("Allow") to use the service:<br>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt4.png" height="250"></td> </tr>
-   <tr> <td>5.</td>
-        <td>The result is available:<br>
-        <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt5.png" height="225"></td> </tr>
-   </table>
-   </html>
+   * Manual:
+     <html>
+     <table>
+     <tr> <td>1.</td>
+          <td>You have to click on tools in the chat:<br>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt1.png" height="110"></td> </tr>
+     <tr> <td>2.</td>
+          <td>You must activate the wepsim-server (and utilities):<br>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt2.png" height="250"></td> </tr>
+     <tr> <td>3.</td>
+          <td>You must indicate in the chat that you want to perform an action:<br>
+          <pre>execute for the rv32 processor with the EP model the assembly from s1e1.asm with the firmware from ep_base.mc using wepsim_mcp</pre>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt3.png" height="250"></td> </tr>
+     <tr> <td>4.</td>
+          <td>You may need to grant permissions ("Allow") to use the service:<br>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt4.png" height="250"></td> </tr>
+     <tr> <td>5.</td>
+          <td>The result is available:<br>
+          <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt5.png" height="225"></td> </tr>
+     </table>
+     </html>
 
 
 ## Related information
