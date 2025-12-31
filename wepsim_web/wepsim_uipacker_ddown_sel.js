@@ -63,9 +63,9 @@
                          '	  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                          '<span class="visually-hidden sr-only">Toggle Dropdown</span>' +
                          '</button>' +
-                         '<div class="dropdown-menu border border-secondary" ' +
+                         '<div class="dropdown-menu border border-secondary pb-4" ' +
                          '     id="dd2_container" ' +
-                         '     style="height:55vh; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
+                         '     style="max-height:55vh; min-width:35vw; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
                          '</div>' ;
 
                    // load HTML
@@ -75,30 +75,38 @@
 	      render_populate ( )
 	      {
                    // render ddown elements
-                   var o1 = '' ;
                    var u1 = '' ;
-                   for (var i=0; i<this.devices.length; i++)
+                   var o1 = '<span class="row">' ;
+                   for (var k=0; k<2; k++)
                    {
-                        var device = this.devices[i] ;
-
-                        if (i != 0) {
-                            o1 += ' <div class="dropdown-divider m-1"></div>' ;
-                        }
-
-                        u1 = '' ;
-                        for (var j=0; j<this.details[device].length; j++)
+                        o1 += '<span class="col-12 col-md-6">' ;
+                        for (var i=0; i<this.devices[k].length; i++)
                         {
-                             var device_detail = this.details[device][j] ;
-                             if (this.components_arr.indexOf(device_detail) !== -1) {
-                                 u1 += this.ni[device_detail] ;
+                             o1 += '<span class="col">'
+                             var device = this.devices[k][i] ;
+     
+                             if (i != 0) {
+                                 o1 += ' <div class="dropdown-divider m-1"></div>' ;
                              }
+     
+                             u1 = '' ;
+                             for (var j=0; j<this.details[device].length; j++)
+                             {
+                                  var device_detail = this.details[device][j] ;
+                                  if (this.components_arr.indexOf(device_detail) !== -1) {
+                                      u1 += this.ni[device_detail] ;
+                                  }
+                             }
+     
+                             if (u1 != '') {
+                                 o1 += this.di[device] ;
+                                 o1 += u1 ;
+                             }
+                             o1 += '</span>'
                         }
-
-                        if (u1 != '') {
-                            o1 += this.di[device] ;
-                            o1 += u1 ;
-                        }
+                        o1 += '</span>'
                    }
+                   o1 += '</span>'
 
                    // load HTML
                    $("#dd2_container").html(o1) ;
@@ -115,11 +123,12 @@
 
 	      mk_items_hash ()
 	      {
-                   this.devices = [ 'CPU',
-                                    'Main Memory',
-                                    'Cache Memory',
-                                    'Devices',
-                                    'Simulation' ] ;
+                   this.devices = [ 
+                                    [ 'Devices',
+                                      'Simulation' ],
+                                    [ 'CPU',
+                                      'Main Memory',
+                                      'Cache Memory' ] ] ;
 
                    this.details = {
                                      'CPU':          [ 'all', 'mc', 'cpu' ],
