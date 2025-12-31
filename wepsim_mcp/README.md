@@ -51,7 +51,9 @@
    ```
 2. If you haven't done so already, you must configure the service on the "Visual Studio Code" client:
    * From link:
-     [![Install in VS Code](https://img.shields.io/badge/VS_Code-WepSIM_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=ffffff)](vscode:mcp/install?%7B%22name%22%3A%22http%3A%2F%2Flocalhost%3A8008%2Fmcp%2F%5C%22%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Facaldero%2Fwepsim%2Fblob%2Fmaster%2Fwepsim_mcp%2FREADME.md%22%7D)
+     ```python
+     vscode:mcp/install?%7B%22name%22%3A%22http%3A%2F%2Flocalhost%3A8008%2Fmcp%2F%5C%22%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Facaldero%2Fwepsim%2Fblob%2Fmaster%2Fwepsim_mcp%2FREADME.md%22%7D
+     ```
    * From command line:
      <pre>
      code --add-mcp "{\"servers\":{\"wepsim_mcp\":{\"url\":\"http://localhost:8008/mcp/\",\"type\":\"http\"}}}"
@@ -88,7 +90,8 @@
           <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt2.png" height="250"></td> </tr>
      <tr> <td>3.</td>
           <td>You must indicate in the chat that you want to perform an action:<br>
-          <pre>execute for the rv32 processor with the EP model the assembly from s1e1.asm with the firmware from ep_base.mc using wepsim_mcp</pre>
+          <pre>execute for the rv32 processor with the EP model 
+     the assembly from s1e1.asm with the firmware from ep_base.mc using wepsim_mcp</pre>
           <img src="https://raw.githubusercontent.com/acaldero/wepsim/master/wepsim_mcp/images/clt3.png" height="250"></td> </tr>
      <tr> <td>4.</td>
           <td>You may need to grant permissions ("Allow") to use the service:<br>
