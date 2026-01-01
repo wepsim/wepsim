@@ -190,7 +190,7 @@
 				            r_formats[i].colwidth) ;
                }
 
-	       return  o1 ;
+	       return o1 ;
            }
 
            function quick_config_rf_register_names ( )
@@ -234,6 +234,22 @@
 	      return o2 ;
            }
 
+           function quick_config_rf_register_orientation  ( )
+           {
+	       var o1 = "" ;
+
+	       o1 = quickcfg_html_onoff('20', 
+			                'Register show in horizontal',
+				           i18n_get_TagFor('cfg', 'Horizontal'),
+			                "  wepsim_config_button_toggle('RF_vertical_pack', false, '20');" +
+				        "  wepsim_init_rf();",
+				           "(*)" + i18n_get_TagFor('cfg', 'Vertical'),
+			                "  wepsim_config_button_toggle('RF_vertical_pack', true,  '20');" +
+				        "  wepsim_init_rf();") ;
+
+	       return  o1 ;
+           }
+
         function quick_config_rf ( )
         {
 	      return "<div class='container mt-1'>" +
@@ -243,6 +259,9 @@
                      quickcfg_html_br() +
                        quickcfg_html_header('Register file names') +
                        quick_config_rf_register_names() +
+                     quickcfg_html_br() +
+                       quickcfg_html_header('Register orientation') +
+                       quick_config_rf_register_orientation() +
                      quickcfg_html_br() +
                        quickcfg_html_close('popover-rfcfg') +
 		     "</div>" +

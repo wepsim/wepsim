@@ -37,7 +37,7 @@
 		         return "<div id='scroller-lssvasm' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
                                 //
                                 "<ws-save-files fid='inputFileNameToSaveAs2'>" +
                                 "<ws-save-files-option " +
@@ -60,7 +60,7 @@
                                 "></ws-save-files>" +
                                 //
                                "</div>" +
-                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad2' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
@@ -72,14 +72,49 @@
                                 "		                 });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
-                               "<span class='w-100 d-block d-lg-none'></span>" +
-                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+                               "</div>" +
+			       "</div>" ;
+	              },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       wsweb_dialog_close('load_save_assembly') ;
+					   }
+			 }
+	              },
+            size:     'large',
+            onshow:   function() {
+			 // uicfg and events
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 wepsim_uicfg_apply() ;
+
+			 wsweb_scroll_record('#scroller-lssvasm') ;
+			 simcore_record_captureInit() ;
+		      }
+         },
+
+         load_save_assembly_link: {
+            id:        "lssvasm",
+	    title:     function() {
+                          return wepsim_config_dialog_title("Load/Save Assembly",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		       },
+            body:      function() {
+		         return "<div id='scroller-lssvasm-link' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
                                 "<ws-share-link " +
                                 "    fid='inputToShareAs2' " +
                                 "    jshare='asm,cache' " +
                                 "></ws-share-link>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
@@ -101,13 +136,13 @@
 					   }
 			 }
 	              },
-            size:     'extra-large',
+            size:     'large',
             onshow:   function() {
 			 // uicfg and events
                          wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-lssvasm') ;
+			 wsweb_scroll_record('#scroller-lssvasm-link') ;
 			 simcore_record_captureInit() ;
 		      }
          },
@@ -124,7 +159,7 @@
 		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
                                "<div class='row m-0'>" +
-                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
                                 //
                                 "<ws-save-files fid='inputFileNameToSaveAs'>" +
                                 "<ws-save-files-option " +
@@ -145,7 +180,7 @@
                                 "></ws-save-files>" +
                                 //
                                "</div>" +
-                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
                                 "<ws-load-file " +
                                 "    fid='fileToLoad' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
@@ -158,14 +193,52 @@
                                 "		                 });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
-                               "<span class='w-100 d-block d-lg-none'></span>" +
-                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+                               "</div>" +
+			       "</div>" ;
+		      },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       wsweb_dialog_close('load_save_firmware') ;
+					   }
+			 }
+	              },
+            size:     'large',
+            onshow:   function() {
+		         // dropify
+			 $('.dropify').dropify() ;
+
+			 // uicfg and events
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 wepsim_uicfg_apply() ;
+
+			 wsweb_scroll_record('#scroller-lssvfir') ;
+			 simcore_record_captureInit() ;
+		      }
+         },
+
+         load_save_firmware_link: {
+	    id:       "lssvfir",
+	    title:    function() {
+                          return wepsim_config_dialog_title("Load/Save Firmware",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		      },
+            body:     function() {
+		         return "<div id='scroller-lssvfir-link' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
                                 "<ws-share-link " +
                                 "    fid='inputToShareAs2' " +
                                 "    jshare='mc' " +
                                 "></ws-share-link>" +
                                "</div>" +
-                               "<div class='col-12 col-sm-6 col-lg-3 p-2'>" +
+                               "<div class='col-12 col-sm-6 p-2'>" +
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
@@ -187,7 +260,7 @@
 					   }
 			 }
 	              },
-            size:     'extra-large',
+            size:     'large',
             onshow:   function() {
 		         // dropify
 			 $('.dropify').dropify() ;
@@ -196,7 +269,7 @@
                          wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 			 wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-lssvfir') ;
+			 wsweb_scroll_record('#scroller-lssvfir-link') ;
 			 simcore_record_captureInit() ;
 		      }
          },

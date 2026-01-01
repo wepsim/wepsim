@@ -223,6 +223,7 @@
 			      return quick_config_rf();
 		          },
 	    fun_ownshown: function(shownEvent) {
+                              wepsim_config_button_pretoggle('RF_vertical_pack', '20') ;
                           }
          },
 
