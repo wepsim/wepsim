@@ -3,12 +3,14 @@
 
 ## 2.3.7 -> 2.3.8:
 * Main improvements:
+  * Minor UI improvements:
+    * Register & memory detail panels updated
+    * Load/Save with options
   * Updates on error handling for the command-line version
-  * Initial version of python3 REST API (alpha)
-  * Minor UI improvements on the memory details panel
-  * I/O devices (Thanks Luis Daniel)
+  * I/O devices (Thanks Luis Daniel):
     * Rename I/O device to Timer device
     * Add to hardware summary the information of I/O registers mapping
+  * Initial version of python3 REST API (alpha)
 
 ## 2.3.6 -> 2.3.7:
 * Main improvements:
