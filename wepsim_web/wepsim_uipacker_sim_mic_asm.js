@@ -71,7 +71,7 @@
 			     '' +
 			     '    <div class="px-1 pt-1">' +
 			     '    <div class="btn-toolbar btn-block" role="toolbar">' +
-			     '    <ws-ddown-sel class="col btn-group p-0" style="flex-grow:6;"' +
+			     '    <ws-ddown-sel class="col btn-group p-0" ' +
 			     '    	        components="mp,con,all,mc,io,cpu,mpcfg,iocfg,iol3d,ioldm,cm,cmcfg,sound"></ws-ddown-sel>' +
 			     '    </div>' +
 			     '    </div>' +

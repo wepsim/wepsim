@@ -65,7 +65,7 @@
                          '</button>' +
                          '<div class="dropdown-menu border border-secondary pb-2" ' +
                          '     id="dd2_container" ' +
-                         '     style="max-height:55vh; min-width:35vw; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
+                         '     style="max-height:55vh; max-width:450px; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
                          '</div>' ;
 
                    // load HTML
@@ -76,12 +76,12 @@
 	      {
                    // render ddown elements
                    var u1 = '' ;
-                   var o1 = '<span class="row">' ;
+                   var o1 = '<span class="row w-100">' ;
                    for (var k=0; k<2; k++)
                    {
                         if ( (k%2) == 0 )
-                             o1 += '<span class="col-12 col-md-6 order-last  order-md-first mx-0">' ;
-                        else o1 += '<span class="col-12 col-md-6 order-first order-md-last  mx-0">' ;
+                             o1 += '<span class="col-12 col-lg-6 order-last  order-md-first mx-0">' ;
+                        else o1 += '<span class="col-12 col-lg-6 order-first order-md-last  mx-0">' ;
 
                         for (var i=0; i<this.devices[k].length; i++)
                         {

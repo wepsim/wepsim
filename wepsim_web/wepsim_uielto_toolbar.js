@@ -287,7 +287,7 @@
 
 	      render_btndd_action ( robj )
 	      {
-		 return '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;">' +
+		 return '<div class="btn-group col-auto my-1 mx-1 p-0" >' +
 			'   <button type="button" ' +
                         '           class="col-12 btn bg-body-tertiary shadow-sm select6 border border-secondary"' +
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +

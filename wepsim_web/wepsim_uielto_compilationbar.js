@@ -82,7 +82,7 @@
                     switch (name)
                     {
                        case "btn_mloadsave":
-			     o += '<div class="btn-group col-auto mx-1 py-0" style="flex-grow:6;"> ' +
+			     o += '<div class="btn-group col-auto mx-1 py-0" > ' +
                                   '<button type="button" ' +
                                   '        id="select8d"' +
                                   '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -117,7 +117,7 @@
                                   '\n' +
                                   '     <h6 class="dropdown-header p-0">Option 2:</h6>' +
                                   '     <a class="dropdown-item py-1" href="#" id="loadsave_checkpoint" value="checkpoint"' +
-                                  '        onclick="wsweb_select_action(\'checkpoint\');' +
+                                  '        onclick="wsweb_dialog_open(\'current_checkpoint\');' +
                                   '               return false;"><span data-langkey="Inside a checkpoint...">Inside a checkpoint...</span></a>' +
                                   '\n' +
                                   '   </div>' +
@@ -147,7 +147,7 @@
                              break ;
 
                        case "btn_aloadsave":
-			     o += '<div class="btn-group col-auto mx-1 py-0" style="flex-grow:6;"> ' +
+			     o += '<div class="btn-group col-auto mx-1 py-0" > ' +
                                   '<button type="button" ' +
                                   '        id="select8b"' +
                                   '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -182,7 +182,7 @@
                                   '\n' +
                                   '     <h6 class="dropdown-header p-0">Option 2:</h6>' +
                                   '     <a class="dropdown-item py-1" href="#" id="loadsave_checkpoint" value="checkpoint"' +
-                                  '        onclick="wsweb_select_action(\'checkpoint\');' +
+                                  '        onclick="wsweb_dialog_open(\'current_checkpoint\');' +
                                   '               return false;"><span data-langkey="Inside a checkpoint...">Inside a checkpoint...</span></a>' +
                                   '\n' +
                                   '   </div>' +

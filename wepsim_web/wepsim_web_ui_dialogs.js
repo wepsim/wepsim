@@ -106,8 +106,8 @@
 		       },
             body:      function() {
 		         return "<div id='scroller-lssvasm-link' class='container-fluid p-0' " +
-	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-                               "<div class='row m-0'>" +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; height:50vh;'> " +
+                               "<div class='row m-0 h-100'>" +
                                "<div class='col-12 col-sm-6 p-2'>" +
                                 "<ws-share-link " +
                                 "    fid='inputToShareAs2' " +
@@ -230,8 +230,8 @@
 		      },
             body:     function() {
 		         return "<div id='scroller-lssvfir-link' class='container-fluid p-0' " +
-	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
-                               "<div class='row m-0'>" +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; height:50vh;'> " +
+                               "<div class='row m-0 h-100'>" +
                                "<div class='col-12 col-sm-6 p-2'>" +
                                 "<ws-share-link " +
                                 "    fid='inputToShareAs2' " +
