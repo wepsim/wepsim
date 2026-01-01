@@ -242,10 +242,10 @@
 			                'Register show in horizontal',
 				           i18n_get_TagFor('cfg', 'Horizontal'),
 			                "  wepsim_config_button_toggle('RF_vertical_pack', false, '20');" +
-				        "  wepsim_init_rf();",
-				           "(*)" + i18n_get_TagFor('cfg', 'Vertical'),
+		                        "  $('.mp_tooltip').collapse('hide');",
+				           "(*) " + i18n_get_TagFor('cfg', 'Vertical'),
 			                "  wepsim_config_button_toggle('RF_vertical_pack', true,  '20');" +
-				        "  wepsim_init_rf();") ;
+		                        "  $('.mp_tooltip').collapse('show');") ;
 
 	       return  o1 ;
            }
@@ -394,8 +394,8 @@
 
             var separator_class = "" ;
             if (get_cfg('RF_vertical_pack'))
-                 separator_class = "w-100 d-block" ;
-            else separator_class = "w-100 d-block d-sm-none" ;
+                 separator_class = "row mp_tooltip collapse show" ;
+            else separator_class = "row mp_tooltip collapse" ;
 
 	    for (var index=0; index < rf_item.length; index++)
             {
@@ -489,8 +489,8 @@
             // vertical/horizontal packed
             var separator_class = "" ;
             if (get_cfg('RF_vertical_pack'))
-                 separator_class = "w-100 d-block" ;
-            else separator_class = "w-100 d-block d-sm-none" ;
+                 separator_class = "row mp_tooltip collapse show" ;
+            else separator_class = "row mp_tooltip collapse" ;
 
             // Fast UI configuration
             var o1 = "" ;
