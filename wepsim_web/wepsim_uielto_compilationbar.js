@@ -82,7 +82,7 @@
                     switch (name)
                     {
                        case "btn_mloadsave":
-			     o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;"> ' +
+			     o += '<div class="btn-group col-auto mx-1 py-0" style="flex-grow:6;"> ' +
                                   '<button type="button" ' +
                                   '        id="select8d"' +
                                   '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -147,7 +147,7 @@
                              break ;
 
                        case "btn_aloadsave":
-			     o += '<div class="btn-group col-auto my-1 mx-1 p-0" style="flex-grow:6;"> ' +
+			     o += '<div class="btn-group col-auto mx-1 py-0" style="flex-grow:6;"> ' +
                                   '<button type="button" ' +
                                   '        id="select8b"' +
                                   '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
