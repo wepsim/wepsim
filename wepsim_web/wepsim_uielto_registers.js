@@ -296,7 +296,6 @@
 
 	    if (typeof SIMWARE.registers[rf_index] == "undefined") {
 	         br_value = "R" + index ;
-	       //br_value = br_value.padEnd(3,' ') ;
                  return br_value ;
             }
 
@@ -305,14 +304,12 @@
             // numerical name
             if ( ('logical' != disp_name) || (typeof r_item == "undefined") ) {
 	         br_value = "R" + index ;
-	       //br_value = br_value.padEnd(3,' ') ;
                  return br_value ;
             }
 
             // all logical name
             if (logical_index == 0) {
 		 br_value = r_item.join('|') ;
-	       //br_value = br_value.padEnd(7, ' ') ;
                  return br_value.replace(' ', '&nbsp;') ;
             }
 
