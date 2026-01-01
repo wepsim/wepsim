@@ -63,7 +63,7 @@
                          '	  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                          '<span class="visually-hidden sr-only">Toggle Dropdown</span>' +
                          '</button>' +
-                         '<div class="dropdown-menu border border-secondary pb-4" ' +
+                         '<div class="dropdown-menu border border-secondary pb-2" ' +
                          '     id="dd2_container" ' +
                          '     style="max-height:55vh; min-width:35vw; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
                          '</div>' ;
@@ -79,7 +79,10 @@
                    var o1 = '<span class="row">' ;
                    for (var k=0; k<2; k++)
                    {
-                        o1 += '<span class="col-12 col-md-6">' ;
+                        if ( (k%2) == 0 )
+                             o1 += '<span class="col-12 col-md-6 order-last  order-md-first mx-0">' ;
+                        else o1 += '<span class="col-12 col-md-6 order-first order-md-last  mx-0">' ;
+
                         for (var i=0; i<this.devices[k].length; i++)
                         {
                              o1 += '<span class="col">'

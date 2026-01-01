@@ -86,19 +86,16 @@ mcp = FastMCP("wepsim")
 @mcp.tool()
 def wepsim_run(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
     """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
-
     return wepsim_action('run', model, firm, asm)
 
 @mcp.tool()
 def wepsim_stepbystep(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
     """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
-
     return wepsim_action('stepbystep', model, firm, asm)
 
 @mcp.tool()
 def wepsim_microstepbymicrostep(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
     """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
-
     return wepsim_action('microstepbymicrostep', model, firm, asm)
 
 @mcp.tool()
@@ -138,46 +135,50 @@ def wepsim_help_instructions(model: str, fname: str) -> tuple[int, str]:
 @mcp.resource("models://")
 def get_default_models_url() -> str:
     """WepSIM is instructed to obtain the full URL for the hardware models available."""
-
     return f"https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/hardware/hw.json"
 
 @mcp.resource("microcode://{processor}")
 def get_default_microcode_url(processor: str) -> str:
     """WepSIM is instructed to obtain the full URL for a microcode example."""
-
     return f"https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/microcode/{processor}/ep_bare.mc"
 
 @mcp.resource("assembly://{processor}")
 def get_default_ensamblador_url(processor: str) -> str:
     """WepSIM is instructed to obtain the full URL for an assembly example."""
-
     return f"https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/assembly/{processor}/s1e1.asm"
 
 @mcp.resource("example_set://{processor}")
 def get_default_exampleset_url(processor: str) -> str:
     """WepSIM is instructed to obtain the full URL for an example set."""
-
     return f"https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/examples_set/{processor}/default.json"
 
 
 ## Define entradas (*prompts*)
 @mcp.prompt()
-def prompt(action: str, model: str, firm: str, asm: str) -> str:
-    """Prompt for wepsim."""
-    if   action == "run":
-         return f"The result of executing " \
-                 "the assembly {asm} with firmware {firm} is " \
-                 "{wepsim_run(model, firm, asm)}"
-    elif action == "stepbystep":
-         return f"The result of executing " \
-                 "step by step the assembly {asm} with firmware {firm} is " \
-                 "{wepsim_stepbystep(model, firm, asm)}"
-    elif action == "microstepbymicrostep":
-         return f"The result of executing " \
-                 "microstep by microstep the assembly {asm} with firmware {firm} is " \
-                 "{wepsim_microstepbymicrostep(model, firm, asm)}"
-    else:
-         return "Invalid operation. Please choose run, stepbystep, and microstepbymicrostep."
+def prompt_actions() -> str:
+    """Prompt for wepsim available actions."""
+    return f"It is possible to execute a rv32 or mips assembly program," \
+            "in a processor named ep, rv or poc," \
+            "with the ep_base.mc microcode associated to the processor and assembly," \
+            "in three ways: run, stepbystep, and microstepbymicrostep."
+
+def prompt_run(model: str, firm: str, asm: str) -> str:
+    """Prompt for wepsim to run asm with firm in model processor."""
+    return f"The result of executing " \
+            "the assembly {asm} with firmware {firm} is " \
+            "{wepsim_run(model, firm, asm)}"
+
+def prompt_stepbystep(model: str, firm: str, asm: str) -> str:
+    """Prompt for wepsim to run step by step asm with firm in model processor."""
+    return f"The result of executing " \
+            "step by step the assembly {asm} with firmware {firm} is " \
+            "{wepsim_stepbystep(model, firm, asm)}"
+
+def prompt_microstepbymicrostep(model: str, firm: str, asm: str) -> str:
+    """Prompt for wepsim to run microstep by microstep asm with firm in model processor."""
+    return f"The result of executing " \
+            "microstep by microstep the assembly {asm} with firmware {firm} is " \
+            "{wepsim_microstepbymicrostep(model, firm, asm)}"
 
 
 #
