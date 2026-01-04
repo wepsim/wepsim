@@ -207,7 +207,7 @@
 			          '	     onclick="wsweb_dialog_open(\'binary_asm\');' +
                                   '                   return false;">' ;
                              o += this.render_icon('<em class="fas fa-memory"></em>') ;
-                             o += '<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Main Mem.</span></strong></button>' ;
+                             o += '<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Memory</span></strong></button>' ;
                              break ;
                     }
 

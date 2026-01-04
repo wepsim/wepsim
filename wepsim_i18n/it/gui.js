@@ -94,7 +94,7 @@
 		'Memory':			'Memoria',
 		'Keyboard+Display':		'Tastiera+display',
 		'Timer Stats':			'Statistiche timer',
-		'Timer Configuration':		'Configurazione del timer',
+		'Timer Configuration':		'Config. del timer',
 		'Recent':			'Recente',
 		'Refresh':			'Ricaricare',
 	        "Welcome":			'Benvenuto',

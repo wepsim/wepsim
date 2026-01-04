@@ -98,7 +98,7 @@
 		"Memory":					"Memoria",
 		"Keyboard+Display":				"Teclado+Pantalla",
 		"Timer Stats":					"Temporizador. Estad&iacute;sticas",
-		"Timer Configuration":				"Temporizador. Configuraci&oacute;n",
+		"Timer Configuration":				"Temporizador. Config.",
 
                 "Recent":                                       "Reciente",
 		"Refresh": 			     		"Refrescar",

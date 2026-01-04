@@ -65,7 +65,7 @@
                          '</button>' +
                          '<div class="dropdown-menu border border-secondary pb-2" ' +
                          '     id="dd2_container" ' +
-                         '     style="max-height:55vh; max-width:450px; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
+                         '     style="max-height:55vh; max-width:475px; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
                          '</div>' ;
 
                    // load HTML
@@ -179,7 +179,7 @@
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Timer Stats\'>Timer Stats</span></a>',
 			       iocfg: '      <a class="dropdown-item" href="#" id="s5b_19" value="19"' +
 				      '	 onclick="wsweb_set_details(\'IO_CONFIG\');' +
-				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Timer Configuration\'>Timer Configuration</span></a>',
+				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Timer Configuration\'>Timer Config.</span></a>',
 			       iol3d: '      <a class="dropdown-item" href="#" id="s5b_25" value="25"' +
 				      '	 onclick="wsweb_set_details(\'3DLED\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'3D-Led\'>3D-Led</span></a>',
