@@ -101,7 +101,7 @@
 		"Memory":					"Memory",
 		"Keyboard+Display":				"Keyboard+Display",
 		"Timer Stats":					"Timer Stats",
-		"Timer Configuration":				"Timer Configuration",
+		"Timer Configuration":				"Timer Config.",
 
                 "Recent":                                       "Recent",
 		"Refresh":  			                "Refresh",

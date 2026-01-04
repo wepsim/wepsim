@@ -100,21 +100,14 @@
 			  '	     data-bs-toggle="popover-slidercfg"><strong><strong class="fas fa-wrench text-secondary"></strong></strong></a>' +
 			  '' +
 			  '	  <div class="col-auto px-0 px-sm-2">' +
-			  '	  <ws-toolbar components="[,btn_examples,btn_help,]"' +
+			  '	  <ws-toolbar components="[,btn_examples,btn_help,btn_config,]"' +
 			  '		      icons="left"></ws-toolbar>' +
 			  '	  </div>' +
 			  '' +
 			  '	  <div class="w-100 d-xs-block d-sm-none"></div>' +
 			  '' +
 			  '	  <div class="col-auto px-0 px-sm-2">' +
-                          '       <ws-toolbar components="[,btn_notifications,btn_recordbar,btn_states,]"' +
-			  '		      icons="left"></ws-toolbar>' +
-			  '	  </div>' +
-			  '' +
-			  '	  <div class="w-100 d-xs-block d-sm-none"></div>' +
-			  '' +
-			  '	  <div class="col-auto px-0 px-sm-2">' +
-			  '	  <ws-toolbar components="[,btndd_mode,btn_config,btn_checkpoint,]"' +
+			  '	  <ws-toolbar components="[,btndd_mode,btn_states,btndd_action,]"' +
 			  '		      icons="left"></ws-toolbar>' +
 			  '	  </div>' +
 			  '' +

@@ -94,7 +94,7 @@
 		'Memory':			'Memória',
 		'Keyboard+Display':		'Teclado + Display',
 		'Timer Stats':			'Estatísticas do temporizador',
-		'Timer Configuration':		'Configuração do temporizador',
+		'Timer Configuration':		'Config. do temporizador',
 		'Recent':			'Recente',
 		'Refresh':			'Atualizar',
 	        'Welcome':			'Bem vindo',

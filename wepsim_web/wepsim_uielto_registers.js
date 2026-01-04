@@ -517,7 +517,7 @@
 		else {
 		     dbs_toggle = "" ;
 		     divclass   = "col-12" ;
-                     spanbetw   = " <span class='w-100 d-block d-sm-none'></span>" ;
+                     spanbetw   = " <span class='w-100 d-sm-none'></span>" ;
 		}
 
                 var showkey = sim_eltos[ename].name ;

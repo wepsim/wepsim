@@ -96,7 +96,7 @@
 		"Memory":			"Mémoire",
 		"Keyboard+Display":		"Clavier+Affichage",
 		"Timer Stats":			"Statistiques du minuteur",
-		"Timer Configuration":		"Configuration de la minuterie",
+		"Timer Configuration":		"Config. de la minuterie",
 		"Recent":			"Récent",
 		"Refresh":			"Actualiser",
 		"Welcome":			"Bienvenue",
