@@ -9,13 +9,12 @@
 
 <html>
 	<ul>
-	<h3>Related projects</h3>
 	<table>
 		<tr align="center">  
-			  <td> 🔁 <a href="https://github.com/wepsim/tester">Command-line Tester</a> </td>  
-		      <td> ⏳ <a href="https://wepsim.github.io/evolution/">Former versions</a> </td> 
-		      <td> 📖 <a href="https://github.com/wepsim/wepsim.github.io">WepSIM web site</a> </td> 
-		      <td> 🧰 <a href="https://wepsim.github.io/wepsim/">WepSIM simulator</a> </td> 
+			  <td> 🔁 &nbsp; <a href="https://github.com/wepsim/tester#readme">Command-line Tester</a> </td>  
+		      <td> ⏳ &nbsp; <a href="https://wepsim.github.io/evolution/">WepSIM history</a> </td>
+		      <td> 📖 &nbsp; <a href="https://wepsim.github.io/">The WepSIM website</a> </td> 
+		      <td> 🧰 &nbsp; <a href="https://wepsim.github.io/wepsim/">The WepSIM simulator</a> </td> 
 		</tr>
 	</table>
 	</ul>
