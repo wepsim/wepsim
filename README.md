@@ -7,6 +7,20 @@
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![Release](https://img.shields.io/badge/Stable-2.3.8-green.svg)](https://github.com/wepsim/wepsim/releases/tag/v2.3.8)
 
+<html>
+	<ul>
+	<h3>Related projects</h3>
+	<table>
+		<tr align="center">  
+			  <td> 🔁 <a href="https://github.com/wepsim/tester">Command-line Tester</a> </td>  
+		      <td> ⏳ <a href="https://wepsim.github.io/evolution/">Former versions</a> </td> 
+		      <td> 📖 <a href="https://github.com/wepsim/wepsim.github.io">WepSIM web site</a> </td> 
+		      <td> 🧰 <a href="https://wepsim.github.io/wepsim/">WepSIM simulator</a> </td> 
+		</tr>
+	</table>
+	</ul>
+</html>
+
 
 ## Table of contents
 
