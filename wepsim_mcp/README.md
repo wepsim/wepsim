@@ -2,9 +2,9 @@
 ## REST/MCP API for WepSIM
 
 
-## 1. Install required software for your board
+## 1. Install required software
 
-* We need to install the ```uvicorn``` application:
+* We need to install ```uvicorn```:
     <html>
     <table>
     <tr>
@@ -109,9 +109,8 @@
    ```bash
    $ npm install -g @google/gemini-cli
    ```
-2. You must run the server ```mcp_server_calc.py``` and then ```gemini cli``` as a client:
-
-<html>
+2. You must run the server ```mcp_server_calc.py``` and then ```gemini-cli``` as a client. Example of how both can be executed:
+   <html>
    <table>
    <tr><th>Step</th><th>Client</th><th>Server</th></tr>
    <tr>
@@ -120,7 +119,7 @@
    <td>
 
 ```bash
-   $ python3 ./mcp_wepsim.py 
+   $ python3 ./mcp_wepsim.py &
 ```
 
    </td>
@@ -134,11 +133,16 @@ $ gemini mcp add \
          --transport http mcp-wepsim  \
          http://localhost:8000/mcp
 
-echo "Allow and /quit to end"
-$ gemini -i "execute for the rv32 processor \
-             with the EP model the assembly \
-             from s1e1.asm with the firmware \
-             from ep_base.mc using wepsim_mcp"
+echo '{'                               > .gemini/settings.json
+echo ' "mcpServers":'                 >> .gemini/settings.json
+echo ' {'                             >> .gemini/settings.json
+echo '   "mcp-wepsim":'               >> .gemini/settings.json
+echo '   {'                           >> .gemini/settings.json
+echo '   "url":'                      >> .gemini/settings.json
+echo '   "http://localhost:8000/mcp"' >> .gemini/settings.json
+echo '   }'                           >> .gemini/settings.json
+echo ' }'                             >> .gemini/settings.json
+echo '}'                              >> .gemini/settings.json
 ```
 
    </td>
@@ -147,11 +151,30 @@ $ gemini -i "execute for the rv32 processor \
    </tr>
    <tr>
    <td>3</td>
+   <td>
+
+```bash
+$ gemini -i "execute for the rv32 processor \
+             with the EP model the assembly \
+             from s1e1.asm with the firmware \
+             from ep_base.mc using wepsim_mcp"
+```
+
+  * If first execution then "Login with Google"
+  * You should select "Allow all server tools for this session"
+  * To end the working session you must use "/quit"
+
+   </td>
+   <td>
+   </td>
+   </tr>
+   <tr>
+   <td>4</td>
    <td></td>
    <td>
 
 ```bash
-^C
+killall python3
 
 INFO:   Shutting down
 INFO:   Waiting for application shutdown.
@@ -168,6 +191,7 @@ INFO:   Finished server process [171932]
 ## Related information
 
 * Tutorial
+  * [How to Build an MCP Server in Python: A Complete Guide](https://scrapfly.io/blog/posts/how-to-build-an-mcp-server-in-python-a-complete-guide)
+  * [Use MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
   * [Servicio distribuido JSON-RPC sobre HTTP: servidor MCP de calculadora simple](https://github.com/acaldero/uc3m_sd/tree/main/materiales/mcp-jsonrpc)
-
 

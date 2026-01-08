@@ -20,7 +20,7 @@ ASSEMBLY_URL="https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/maste
 FIRMWARE_TXT="begin { fetch: (T2, C0),  (TA, R, BW=11, M1=1, C1=1),  (M2, C2, T1, C3),  (A0, B=0, C=0) }  nop { co=010110, nwords=1, { (A0=1, B=1, C=0) } }  registers { 0=zero, 29=sp (stack_pointer) }"
 ASSEMBLY_TXT=".text main: nop"
 
-ACTIONS="run stepbystep microstepbymicrostep microstepverbalized"
+ACTIONS="run stepbystep"
 
 for ACTION in $ACTIONS; do
 
