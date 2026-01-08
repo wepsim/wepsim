@@ -94,11 +94,6 @@ def wepsim_stepbystep(action:str, model: str, firm: str, asm: str) -> tuple[int,
     return wepsim_action('stepbystep', model, firm, asm)
 
 @mcp.tool()
-def wepsim_microstepbymicrostep(action:str, model: str, firm: str, asm: str) -> tuple[int, str]:
-    """WepSIM is instructed to run an assembly code based on a firmware with a hardware model."""
-    return wepsim_action('microstepbymicrostep', model, firm, asm)
-
-@mcp.tool()
 def wepsim_help_signal(model: str, sname: str) -> tuple[int, str]:
     """WepSIM is instructed to help about signal."""
 
@@ -160,7 +155,7 @@ def prompt_actions() -> str:
     return f"It is possible to execute a rv32 or mips assembly program," \
             "in a processor named ep, rv or poc," \
             "with the ep_base.mc microcode associated to the processor and assembly," \
-            "in three ways: run, stepbystep, and microstepbymicrostep."
+            "in two ways: run and stepbystep."
 
 def prompt_run(model: str, firm: str, asm: str) -> str:
     """Prompt for wepsim to run asm with firm in model processor."""
@@ -173,12 +168,6 @@ def prompt_stepbystep(model: str, firm: str, asm: str) -> str:
     return f"The result of executing " \
             "step by step the assembly {asm} with firmware {firm} is " \
             "{wepsim_stepbystep(model, firm, asm)}"
-
-def prompt_microstepbymicrostep(model: str, firm: str, asm: str) -> str:
-    """Prompt for wepsim to run microstep by microstep asm with firm in model processor."""
-    return f"The result of executing " \
-            "microstep by microstep the assembly {asm} with firmware {firm} is " \
-            "{wepsim_microstepbymicrostep(model, firm, asm)}"
 
 
 #

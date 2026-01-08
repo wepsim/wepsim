@@ -10,7 +10,7 @@
   * I/O devices (Thanks Luis Daniel):
     * Rename I/O device to Timer device
     * Add to hardware summary the information of I/O registers mapping
-  * Initial version of python3 REST API (alpha)
+  * Initial version of python3 REST API
 
 ## 2.3.6 -> 2.3.7:
 * Main improvements:

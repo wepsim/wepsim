@@ -196,7 +196,7 @@
 
        try
        {
-           fs.accessSync(filename, fs.R_OK) ;
+           fs.accessSync(filename, fs.constants.R_OK) ;
        }
        catch (err)
        {
