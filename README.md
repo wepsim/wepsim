@@ -18,7 +18,7 @@
 		<tr align="left">  
 			  <td> 🔁 &nbsp; <a href="https://github.com/wepsim/tester#readme">Command-line Tester</a> </td>  
 		      <td> ⏳ &nbsp; <a href="https://wepsim.github.io/evolution/">WepSIM history</a> </td>
-		      <td> 📈 &nbsp; <a href="https://lookerstudio.google.com/u/0/reporting/4c3eb685-5cb9-4af8-89a9-d186a27c565e/page/KXLmF">Usage Statistics</a> </td> 
+		      <td> 📈 &nbsp; <a href="https://lookerstudio.google.com/reporting/6c7aafbd-2c6b-4a86-91a2-3db55b03225a">Usage Statistics</a> </td> 
 		</tr>
 	</table>
 	</ul>
