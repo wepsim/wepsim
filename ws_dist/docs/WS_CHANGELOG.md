@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.3.8 -> 2.3.9:
+* Main improvements:
+  * New documentation
+
 ## 2.3.7 -> 2.3.8:
 * Main improvements:
   * Minor UI improvements:
