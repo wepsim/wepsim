@@ -1,7 +1,7 @@
 {
   "name": "WepSIM",
   "description": "WepSIM simulator as Chrome App.",
-  "version": "2.3.8",
+  "version": "2.3.9",
   "manifest_version": 2,
   "app": {
     "background": {
