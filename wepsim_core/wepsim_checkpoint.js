@@ -58,6 +58,7 @@
     {
 	   var o = '' ;
 	   var u = '' ;
+	   var i = 0 ;
 
 	   // 1.- check params
 	   if (checkpointObj === null) {
@@ -81,7 +82,7 @@
 
 		// all saved states are loaded into state history
 	        wepsim_state_history_reset() ;
-	        for (var i=0; i<checkpointObj.state_history.length; i++) {
+	        for (i=0; i<checkpointObj.state_history.length; i++) {
 	             ws_info.state_history.push(checkpointObj.state_history[i]) ;
 	        }
 	        wepsim_state_history_list() ;
@@ -137,7 +138,7 @@
 	   // 5.- restore cache-cfg and cache
 	   var cm_cfg   = [] ;
 	   var cm_cfg_i = {} ;
-	   for (var i=0; i<checkpointObj.cache.length; i++)
+	   for (i=0; i<checkpointObj.cache.length; i++)
 	   {
 		 cm_cfg_i = cache_memory_init_eltofromcfg(checkpointObj.cache[i].cfg) ;
 	         cm_cfg.push(cm_cfg_i) ;
