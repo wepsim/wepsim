@@ -85,7 +85,7 @@
 
                         for (var i=0; i<this.devices[k].length; i++)
                         {
-                             o1 += '<span class="col">'
+                             o1 += '<span class="col">' ;
                              var device = this.devices[k][i] ;
      
                              if (i != 0) {
@@ -105,11 +105,11 @@
                                  o1 += this.di[device] ;
                                  o1 += u1 ;
                              }
-                             o1 += '</span>'
+                             o1 += '</span>' ;
                         }
-                        o1 += '</span>'
+                        o1 += '</span>' ;
                    }
-                   o1 += '</span>'
+                   o1 += '</span>' ;
 
                    // load HTML
                    $("#dd2_container").html(o1) ;

@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 2.3.8 -> 2.3.9:
+* Main improvements:
+  * Documentation updated (move to wepsim.github.io/info/)
+  * Update from jshint to eslint
+
 ## 2.3.7 -> 2.3.8:
 * Main improvements:
   * Minor UI improvements:

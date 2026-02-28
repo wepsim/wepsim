@@ -306,6 +306,7 @@
             var i  = 0 ;
             var ri = 0 ;
             var addrplusn = 0 ;
+            var wcolor = "" ;
 
             // valkeys
             var valkeys = [] ;
@@ -322,7 +323,7 @@
 
 	    for (var n=0; n<cfg.nwords; n++)
 	    {
-                 var addrplusn = parseInt(addr) + 4*n ;
+                 addrplusn = parseInt(addr) + 4*n ;
 
                  // valkeys
                  for (i=0; i<4; i++)
@@ -362,7 +363,7 @@
                  }
 
                  // wcolor
-                 var wcolor = "text-body-emphasis fw-normal " ;
+                 wcolor = "text-body-emphasis fw-normal " ;
 	         if (is_current) {
                      wcolor = "text-primary       fw-bold " ;
                  }

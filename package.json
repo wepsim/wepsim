@@ -12,11 +12,11 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^8.29.0",
     "eslint-plugin-json-format": "^2.0.1",
-    "jshint": "^2.13.6",
+    "jshint": "^0.5.9",
     "terser": "^4.8.1"
   },
   "scripts": {
-    "test-source1": "./devel/test_jshint.sh",
+    "test-source1": "./devel/test_eslint.sh",
     "test-wepsim-node1": "./devel/test_wepsim.sh co",
     "test-wepsim-node2": "./devel/test_wepsim.sh rs"
   },
