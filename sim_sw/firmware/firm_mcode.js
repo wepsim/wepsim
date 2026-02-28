@@ -22,6 +22,9 @@
 function firm_mcode_write ( elto, labels_firm )
 {
 	var o = "" ;
+	var i = 0;
+	var j = 0;
+	var k = 0;
 
         // no microcode -> return empty
 	if (typeof elto.microcode == "undefined") {

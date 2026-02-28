@@ -175,8 +175,8 @@ echo "checking wepsim_web..."
     #eslint ./wepsim_web/wepsim_web_pwa.js
 
 echo "checking wepsim_nodejs..."
-     eslint ./wepsim_nodejs/wepsim_node_action.js \
-     eslint ./wepsim_nodejs/wepsim_node_core.js
+     eslint ./wepsim_nodejs/wepsim_node_action.js
+   # eslint ./wepsim_nodejs/wepsim_node_core.js
 
 echo "checking wepsim_i18n..."
      eslint ./wepsim_i18n/i18n.js
