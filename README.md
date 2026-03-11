@@ -9,23 +9,85 @@
 
 <html>
 	<ul>
-	<table>
-		<tr align="left"> <td colspan="3"> </td> </tr>
-		<tr align="left">  
-		      <td> 📖 &nbsp; <a href="https://wepsim.github.io/">WepSIM website</a> </td> 
-		      <td> 📖 &nbsp; <a href="https://wepsim.github.io/info/">WepSIM documentation</a> </td> 
-		      <td> 🧰 &nbsp; <a href="https://wepsim.github.io/wepsim/">The WepSIM simulator</a> </td> 
+	<table width="100%">
+		<tr align="center" cellpadding="2">  
+		      <td> 📖 &nbsp;<br> <a href="https://wepsim.github.io/">WepSIM website</a> </td> 
+		      <td> 📖 &nbsp;<br> <a href="https://wepsim.github.io/info/">WepSIM documentation</a> </td> 
+		      <td> 🛠️ &nbsp;<br> <a href="https://wepsim.github.io/wepsim/">The WepSIM simulator</a> </td> 
 		</tr>
-		<tr align="left"> <td colspan="3"> </td> </tr>
-		<tr align="left">  
-			  <td> 🔁 &nbsp; <a href="https://github.com/wepsim/tester#readme">Command-line Tester</a> </td>  
-		      <td> ⏳ &nbsp; <a href="https://wepsim.github.io/evolution/">WepSIM history</a> </td>
-		      <td> 📈 &nbsp; <a href="https://lookerstudio.google.com/reporting/6c7aafbd-2c6b-4a86-91a2-3db55b03225a">Usage Statistics</a> </td> 
-		</tr>
-		<tr align="left"> <td colspan="3"> </td> </tr>
 	</table>
 	</ul>
 </html>
+
+<details>
+<summary>More (click here)...</summary>
+
+<html>
+	<br>
+	<ul>
+	<table width="100%">
+		<tr align="center" cellpadding="2">
+			  <td> 🔁 &nbsp;<br> <a href="https://github.com/wepsim/tester#readme">Command-line Tester</a> </td>  
+		      <td> ⏳ &nbsp;<br> <a href="https://wepsim.github.io/evolution/">WepSIM history</a> </td>
+		      <td> 📈 &nbsp;<br> <a href="https://lookerstudio.google.com/reporting/6c7aafbd-2c6b-4a86-91a2-3db55b03225a">Usage Statistics</a> </td> 
+		</tr>
+	</table>
+	</ul>
+	<ul>
+	<table width="100%">
+		<tr>
+			<td width="33%">Getting Started</td>
+			<td width="33%">Teaching with WepSIM</td>
+			<td width="33%">Developers</td>
+		</tr>
+		<tr>		
+			<td valign="top">
+				<br>
+                <li> Getting WepSIM
+				<ul>
+				<li><a href="https://wepsim.github.io/info/web/getting-wepsim.html">Run WepSIM</a></li>
+				<li><a href="https://wepsim.github.io/info/web/getting-wepsim.html#2-install-wepsim-as-progressive-web-application-pwa">Install WepSIM as PWA</a></li>
+				</ul>
+                <li> Using WepSIM
+				<ul>			
+				<li><a href="https://wepsim.github.io/info/web/using-wepsim.html">Visual UI</a></li>
+				<li><a href="https://wepsim.github.io/info/command-line/using-wepsim-cl.html">Command Line</a></li>
+				</ul>
+				<br>
+			</td>
+			<td valign="top">
+				<br>
+                <li> Integrating WepSIM
+				<ul>
+				<li><a href="https://wepsim.github.io/info/integration/links.html">Links in documents</a></li>
+				<li><a href="https://wepsim.github.io/info/integration/gcolab.html">On Google Colab</a></li>
+				</ul>
+                <li> Automation and stats
+				<ul>
+				<li> <a href="https://github.com/wepsim/tester#readme">Command-line Tester</a> </li>
+				</ul>
+				<br>
+			</td>
+			<td valign="top">
+				<br>
+                <li> Build with WepSIM
+				<ul>
+				<li><a href="https://wepsim.github.io/info/developer/mobile.html">WepSIM for Apache Cordova</a></li>
+				<li><a href="https://wepsim.github.io/info/developer/api_js.html">WepSIM engine API</a></li>
+				</ul>
+                <li> Contributing
+				<ul>
+				<li><a href="https://wepsim.github.io/info/developer/source_code.html">WepSIM Source Code</a></li>
+				</ul>
+				<br>
+			</td>
+		</tr>
+	</table>
+	</ul>
+</html>
+
+</details>
+
 
 ## Introduction
 
@@ -48,11 +110,15 @@
 ## More information
 
 <html>
-	<ul>
+	<ul style="max-width:90vw !important;">
 	<table width="100%">
 		<tr>
-			<td width="50%">Getting Started</td>
-			<td>
+			<td width="33%">Getting Started</td>
+			<td width="33%">Teaching with WepSIM</td>
+			<td width="33%">Developers</td>
+		</tr>
+		<tr>		
+			<td valign="top">
 				<br>
                 <li> Getting WepSIM
 				<ul>
@@ -66,22 +132,21 @@
 				</ul>
 				<br>
 			</td>
-		</tr>
-		<tr>
-			<td width="50%">Teaching with WepSIM</td>
-			<td>
+			<td valign="top">
 				<br>
                 <li> Integrating WepSIM
 				<ul>
 				<li><a href="https://wepsim.github.io/info/integration/links.html">Links in documents</a></li>
 				<li><a href="https://wepsim.github.io/info/integration/gcolab.html">On Google Colab</a></li>
 				</ul>
+                <li> Automation and stats
+				<ul>
+				<li> <a href="https://github.com/wepsim/tester#readme">Command-line Tester</a> </li>
+				<li> <a href="https://lookerstudio.google.com/reporting/6c7aafbd-2c6b-4a86-91a2-3db55b03225a">Usage Statistics</a> </li>
+				</ul>
 				<br>
 			</td>
-		</tr>
-		<tr>
-			<td width="50%">Developers</td>
-			<td>
+			<td valign="top">
 				<br>
                 <li> Build with WepSIM
 				<ul>
@@ -91,6 +156,7 @@
                 <li> Contributing
 				<ul>
 				<li><a href="https://wepsim.github.io/info/developer/source_code.html">WepSIM Source Code</a></li>
+				<li><a href="https://wepsim.github.io/evolution/">WepSIM history</a>  </li>
 				</ul>
 				<br>
 			</td>
