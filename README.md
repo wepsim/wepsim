@@ -9,7 +9,7 @@
 
 <html>
 	<ul>
-	<table width="100%">
+	<table>
 		<tr align="center" cellpadding="2">  
 		      <td> 📖 &nbsp;<br> <a href="https://wepsim.github.io/">WepSIM website</a> </td> 
 		      <td> 📖 &nbsp;<br> <a href="https://wepsim.github.io/info/">WepSIM documentation</a> </td> 
@@ -24,15 +24,6 @@
 
 <html>
 	<br>
-	<ul>
-	<table width="100%">
-		<tr align="center" cellpadding="2">
-			  <td> 🔁 &nbsp;<br> <a href="https://github.com/wepsim/tester#readme">Command-line Tester</a> </td>  
-		      <td> ⏳ &nbsp;<br> <a href="https://wepsim.github.io/evolution/">WepSIM history</a> </td>
-		      <td> 📈 &nbsp;<br> <a href="https://lookerstudio.google.com/reporting/6c7aafbd-2c6b-4a86-91a2-3db55b03225a">Usage Statistics</a> </td> 
-		</tr>
-	</table>
-	</ul>
 	<ul>
 	<table width="100%">
 		<tr>
@@ -65,6 +56,7 @@
                 <li> Automation and stats
 				<ul>
 				<li> <a href="https://github.com/wepsim/tester#readme">Command-line Tester</a> </li>
+				<li> <a href="https://lookerstudio.google.com/reporting/6c7aafbd-2c6b-4a86-91a2-3db55b03225a">Usage Statistics</a> </li>
 				</ul>
 				<br>
 			</td>
@@ -78,6 +70,7 @@
                 <li> Contributing
 				<ul>
 				<li><a href="https://wepsim.github.io/info/developer/source_code.html">WepSIM Source Code</a></li>
+				<li><a href="https://wepsim.github.io/evolution/">WepSIM history</a>  </li>
 				</ul>
 				<br>
 			</td>

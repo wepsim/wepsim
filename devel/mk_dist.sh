@@ -42,7 +42,7 @@ while getopts 'vdh' opt; do
       echo "  Please install first:"
       echo "   sudo apt-get install jq"
       echo ""
-      echo "   npm i terser jshint"
+      echo "   npm i terser jshint eslint"
       echo "   npm i yargs clear inquirer@8.2.6 fuzzy commander async"
       echo "   npm i inquirer-command-prompt inquirer-autocomplete-prompt@1"
       echo "   npm i rollup @rollup/plugin-node-resolve"
@@ -124,12 +124,14 @@ cat sim_core/sim_cfg.js \
     sim_hw/sim_hw_eltos.js \
     \
     sim_hw/hw_items/board_base.js \
-    sim_hw/hw_items/mem_ep.js \
-    sim_hw/hw_items/mem_rv.js \
-    sim_hw/hw_items/mem_poc.js \
     sim_hw/hw_items/cpu_ep.js \
-    sim_hw/hw_items/cpu_poc.js \
+    sim_hw/hw_items/mem_ep.js \
+    sim_hw/hw_items/cpu_ep2.js \
+    sim_hw/hw_items/mem_ep2.js \
     sim_hw/hw_items/cpu_rv.js \
+    sim_hw/hw_items/mem_rv.js \
+    sim_hw/hw_items/cpu_poc.js \
+    sim_hw/hw_items/mem_poc.js \
     sim_hw/hw_items/cu_poc.js \
     sim_hw/hw_items/io_clk_base.js \
     sim_hw/hw_items/io_screen_base.js \
@@ -139,8 +141,9 @@ cat sim_core/sim_cfg.js \
     sim_hw/hw_items/io_sound_base.js \
     \
     sim_hw/hw_ep.js \
-    sim_hw/hw_poc.js \
+    sim_hw/hw_ep2.js \
     sim_hw/hw_rv.js \
+    sim_hw/hw_poc.js \
     \
     sim_sw/firmware/lexical.js \
     sim_sw/firmware/firm_mcode.js \
@@ -435,7 +438,9 @@ chmod a+x ws_dist/*.sh
 
 #  json: update processors
 ./ws_dist/wepsim.sh -a export-hardware -m ep  > ws_dist/repo/hardware/ep/hw_def.json
+./ws_dist/wepsim.sh -a export-hardware -m ep2 > ws_dist/repo/hardware/ep2/hw_def.json
 ./ws_dist/wepsim.sh -a export-hardware -m poc > ws_dist/repo/hardware/poc/hw_def.json
+./ws_dist/wepsim.sh -a export-hardware -m rv  > ws_dist/repo/hardware/rv/hw_def.json
 
 # the end
 echo ""
