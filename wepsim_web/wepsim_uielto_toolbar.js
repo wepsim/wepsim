@@ -375,11 +375,17 @@
                         '\n' +
 			'     <h6 class="text-white bg-secondary my-1 wsx_morecfg ms-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' ;
 
+                   var item = '' ;
+                   var wip_class = '' ;
                    for (var i=0; i<sim.systems.length; i++)
                    {
-                        var item      = sim.systems[i].sim_short_name ;
-                        var poc_class = (item == "poc") ? "wsx_poc" : "" ;
-                   o += '     <a class="dropdown-item py-2 ' + poc_class + '" ' +
+                        item = sim.systems[i].sim_short_name ;
+
+                        wip_class = '' ;
+                             if (item == "poc") wip_class = "wsx_poc" ;
+                        else if (item == "ep2") wip_class = "wsx_ep2" ;
+
+                   o += '     <a class="dropdown-item py-2 ' + wip_class + '" ' +
                         '        href="#" id="s4_' + item + '" value="' + item + '" ' +
 			'	 onclick="wsweb_select_main(\'' + item + '\');' +
                         '                 inputfirm.is_compiled = false; ' +

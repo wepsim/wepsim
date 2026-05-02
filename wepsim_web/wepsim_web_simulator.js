@@ -95,6 +95,7 @@
 			  'extra_morecfg': '.wsx_morecfg',
 			  'extra_share':   '.wsx_share',
 			  'beta_poc':      '.wsx_poc',
+			  'beta_ep2':      '.wsx_ep2',
 			  'beta_cache':    '.wsx_cache'
 		       } ;
 
