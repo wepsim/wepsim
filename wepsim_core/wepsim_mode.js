@@ -23,7 +23,7 @@
      * Execution Modes
      */
 
-    ws_info.modes = [ 'ep', 'poc', 'rv', 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
+    ws_info.modes = [ 'ep', 'ep2', 'rv', 'poc', 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
 
     ws_info.default_example = {
 	                         'ep':       'Default-MIPS',
