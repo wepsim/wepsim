@@ -3,7 +3,7 @@
 
 
 #*
-#*  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*  Copyright 2015-2026 The WepSIM team (see docs/WEPSIM-TEAM.md)
 #*
 #*  This file is part of WepSIM.
 #*
@@ -231,6 +231,7 @@ cat wepsim_web/wepsim_uielto.js \
     wepsim_web/wepsim_uielto_dbg_asm.js \
     wepsim_web/wepsim_uielto_bin_asm.js \
     wepsim_web/wepsim_uielto_flash_asm.js \
+    wepsim_web/wepsim_uielto_flash_fpga.js \
     wepsim_web/wepsim_uielto_cpusvg.js \
     wepsim_web/wepsim_uielto_about.js \
     wepsim_web/wepsim_uielto_segments.js \

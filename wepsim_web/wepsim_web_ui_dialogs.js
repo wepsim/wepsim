@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 The WepSIM team (see docs/WEPSIM-TEAM.md)
  *
  *  This file is part of WepSIM.
  *
@@ -310,6 +310,46 @@
 			 wepsim_uicfg_apply() ;
 
 			 wsweb_scroll_record('#scroller-flashasm') ;
+			 simcore_record_captureInit() ;
+		      }
+         },
+
+         flash_fpga: {
+            id:        "flashfpga",
+	    title:     function() {
+                          return wepsim_config_dialog_title("Flash FPGA",
+                                                            "secondary",
+							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		       },
+            body:      function() {
+		         return "<div id='scroller-flashfpga' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 p-2'>" +
+                                '<ws-flash_fpga>' +
+                                '</ws-flash_fpga>' +
+                               "</div>" +
+                               "</div>" +
+			   	"</div>" ;
+	              },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       wsweb_dialog_close('flash_fpga') ;
+					   }
+			 }
+	              },
+            size:     'large',
+            onshow:   function() {
+			 // uicfg and events
+                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 wepsim_uicfg_apply() ;
+
+			 wsweb_scroll_record('#scroller-flashfpga') ;
 			 simcore_record_captureInit() ;
 		      }
          },

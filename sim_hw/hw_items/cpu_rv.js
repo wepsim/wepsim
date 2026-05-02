@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve, Juan Banga Pardo
+ *  Copyright 2015-2026 The WepSIM team (see docs/WEPSIM-TEAM.md)
  *
  *  This file is part of WepSIM.
  *
@@ -2809,8 +2809,7 @@ function cpu_rv_register ( sim_p )
 
 
         /*
-         *  Model
-	 * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+         *  Model (see docs/WEPSIM-TEAM.md)
 	 */
 
 		// CPU - Multiplexors

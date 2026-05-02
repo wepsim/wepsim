@@ -20,11 +20,11 @@
 
 
         /*
-         *  Flash assembly
+         *  Flash FPGA
          */
 
         /* jshint esversion: 6 */
-        class ws_flash_asm extends ws_uielto
+        class ws_flash_fpga extends ws_uielto
         {
               // constructor
 	      constructor ()
@@ -47,8 +47,8 @@
 	      render_skel ( )
 	      {
 		    // html holder
-		    var o1 = "<div id='scroller-flashasm' class='container-fluid p-0' " +
-	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+		    var o1 = "<div id='scroller-flashfpga' class='container-fluid p-0' " +
+	           	     "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
 			'<nav>' +
 			'  <div class="nav nav-tabs" id="nav-tab" role="tablist">' +
 			'    <button class="nav-link"' +
@@ -64,32 +64,19 @@
                         '       role="tabpanel" aria-labelledby="nav-help-tab" tabindex="0">' +
                         '' +
                         '<br><ul>' +
-			'<li><b>[1] Install required software for your board</b></li>' +
-			'For example, follow the "Get started" from espressif: ' +
-			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/linux-setup.html">Linux</a>, ' +
-			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/windows-setup.html">Windows</a>, ' +
-			'<a href="https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32/get-started/macos-setup.html">MacOS</a>' +
+			'<li><b>[1] Install required software</b></li>' +
+			'For example, follow the "Get started": ' +
+			'<a href="https://github.com/ALVAROPING1">Linux</a>, ' +
 			'<p></p>' +
-			'<li><b>[2] Get the gateway associated with your board</b></li>' +
-			'For example, for the ESP32-C3 board:' +
+			'<li><b>(2) Execute the gateway.py</b></li>' +
+			'For example:' +
 			'<pre>' +
-			'wget https://wepsim.github.io/wepsim/ws_dist/gateway/esp32c3.zip\n' +
-			'unzip -a esp32c3.zip' +
-			'</pre>' +
-			'<p></p>' +
-			'<li><b>(3) Execute the gateway.py</b></li>' +
-			'For example, for esp32c3:' +
-			'<pre>' +
-			'. $HOME/esp/esp-idf/export.sh\n' +
-			'cd esp32c3; ' +
+			'cd gateway; ' +
 			'python3 gateway.py' +
 			'</pre>' +
 			'<p></p>' +
-			'<li><b>(4) Use the Web page form to flash</b></li>' +
-			'Please open your web browser on the displayed URL while executing gateway.py. For example:' +
-			'<pre>' +
-			'firefox https://127.0.0.1:8080 &' +
-			'</pre>' +
+			'<li><b>(3) Use the Web page form to flash</b></li>' +
+			'Please open your web browser and use the Flash option.' +
                         '</ul>' +
                         '' +
 			'  </div>' +
@@ -100,33 +87,18 @@
                                "<div class='col-xs-12 col-md-6 p-2'>" +
                                 '' +
 				'<div class="py-2">' +
-				'<label for="div_url">(1) Set the URL where gateway.py is listening on:</label><br>' +
+				'<label for="div_url">(1) Set the server URL:</label><br>' +
 				'<input type="text" class="w-100 border border-black"' +
 				'       id="div_url" name="div_url"' +
 				'       value="http://localhost:8080">' +
 				'</div>' +
                                 '' +
 				'<div class="py-2">' +
-				'<label for="div_target">(2) Set model of your board:</label><br>' +
-				'<input class="form-control w-100 border border-body" list="dlo_target"' +
-				'       id="div_target" name="div_target"' +
-				'       type="text" ' +
-				'       value="esp32c3"' +
-				'       placeholder="esp32... (type to search)">' +
-				'<datalist id="dlo_target">' +
-				'  <option value="esp32c3">' +
-				'  <option value="esp32c6">' +
-				'  <option value="esp32s2">' +
-				'  <option value="esp32s3">' +
-				'</datalist>' +
-				'</div>' +
-                                '' +
-				'<div class="py-2">' +
-				'<label for="div_dev" class="form-label">(3) Set port where is connected:</label>' +
+				'<label for="div_dev" class="form-label">(2) Set the device port:</label>' +
 				'<input class="form-control w-100 border border-body" list="dlo_dev"' +
 				'       id="div_dev" name="div_dev"' +
 				'       type="text" ' +
-				'       value="/dev/ttyUSB0"' +
+				'       value="/dev/ttyUSB1"' +
 				'       placeholder="/dev/... (type to search)">' +
 				'<datalist id="dlo_dev">' +
 				'  <option value="/dev/ttyUSB0">' +
@@ -134,17 +106,16 @@
 				'</datalist>' +
 				'</div>' +
                                 '' +
-				'<div class="py-2">' +
-				'<label for="btn_flash">(4) Check values and press the button to flash:</label><br>' +
-                                '<div class="btn-group w-100" role="group" aria-label="flash_and_cancel">' +
-				'<button type="button" class="btn btn-outline-success"' +
+				'<div class="pt-3 pb-2">' +
+                                '<div class="btn-group w-100" role="group" aria-label="compile_flash_and_cancel">' +
+				'<button type="button" class="btn btn-outline-info mx-1"' +
+				'        id="btn_ccmc"' +
+				'        onclick="gateway_do_ccmc(\'div_url\', \'div_dev\', \'div_info\');"' +
+                                '>Compile microcode</button>' +
+				'<button type="button" class="btn btn-outline-success mx-1"' +
 				'        id="btn_flash"' +
-				'        onclick="gateway_do_flash(\'div_url\', \'div_dev\', \'div_target\', \'div_info\');"' +
-                                '>Flash</button>' +
-		  		'<button type="button" class="btn btn-outline-danger"' +
-		  		'        id="btn_cancel"' +
-		  		'        onclick="gateway_do_stop(\'div_url\', \'div_info\');"' +
-                                '>Cancel</button>' +
+				'        onclick="gateway_do_flash(\'div_url\', \'div_dev\', \'div_info\');"' +
+                                '>Flash program</button>' +
                                 '</div>' +
 				'</div>' +
                                 '' +
@@ -168,7 +139,7 @@
 	      }
         }
 
-        register_uielto('ws-flash_asm', ws_flash_asm) ;
+        register_uielto('ws-flash_fpga', ws_flash_fpga) ;
 
 
         /*
@@ -216,11 +187,12 @@
 			   };
 	}
 
-	function gateway_do_flash ( div_url_name, div_dev_name, div_target_name, div_info_name )
+	function gateway_do_ccmc ( div_url_name, div_dev_name, div_info_name )
 	{
+// TODO: move to the proper REST interface
+
              // name to objects...
              var ddev = document.getElementById(div_dev_name) ;
-             var ddet = document.getElementById(div_target_name) ;
 	     var udiv = document.getElementById(div_url_name) ;
 	     var idiv = document.getElementById(div_info_name) ;
 
@@ -259,22 +231,45 @@
                      }) ;
 	}
 
-	function gateway_do_stop ( div_url_name, div_info_name )
+	function gateway_do_flash ( div_url_name, div_dev_name, div_info_name )
 	{
              // name to objects...
+             var ddev = document.getElementById(div_dev_name) ;
 	     var udiv = document.getElementById(div_url_name) ;
 	     var idiv = document.getElementById(div_info_name) ;
 
+             // prepare assembly code...
+             var SIMWARE = get_simware() ;
+             var fasm = inputasm.getValue() ;
+             var ret  = wsasm_src2src(SIMWARE, fasm, { instruction_comma: true }) ;
+             if (ret.error != null) { 
+                 return ret;
+             }
+
+             fasm = ret.src_alt ; // normalized syntax
+
              // do remote flash...
-             idiv.value = 'Cancel...\n' ;
+             idiv.value = 'Flashing...\n' ;
+             var fasm = inputasm.getValue() ;
+	     var farg = {
+			   target_board: ddet.value,
+			   target_port:  ddev.value,
+			   assembly:     fasm
+			} ;
              var furl = udiv.value ;
-	     var ret = gateway_do_request(furl + "/stop", {}, idiv);
+	     var ret = gateway_do_request(furl + "/flash", farg, idiv);
 
 	     // working with the async result...
-             ret.then(result => {
-		         if (typeof result != "undefined") {
-                            idiv.value = result.status + '\n' ;
+             ret.then((result) => {
+		         if (typeof result == "undefined") {
+			    return ;
 		         }
+
+                         idiv.value = result.status + '\n' ;
+
+                         if (result.error == 0) {
+	                     gateway_request_status(furl + "/status", idiv) ;
+                         }
                      }) ;
 	}
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 The WepSIM team (see docs/WEPSIM-TEAM.md)
  *
  *  This file is part of WepSIM.
  *
@@ -387,8 +387,7 @@ function mem_poc_register ( sim_p )
 
 
         /*
-         *  Model
-	 * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
+         *  Model (see docs/WEPSIM-TEAM.md)
 	 */
 
         sim_p.elements.memory = {

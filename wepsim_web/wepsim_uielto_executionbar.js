@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2026 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2026 The WepSIM team (see docs/WEPSIM-TEAM.md)
  *
  *  This file is part of WepSIM.
  *
@@ -142,7 +142,7 @@
                                    '</a></li>' +
                                   '    <li><hr class="dropdown-divider"></li>' +
                                   '    <li><a  class="dropdown-item" ' +
-                                  '            onclick="wsweb_dialog_open(\'flash_assembly\');">' +
+                                  '            onclick="wsweb_dialog_open(\'flash_fpga\');">' +
                                   '<i class="fa-solid fa-bolt"></i>&nbsp;' +
 			          '<span data-langkey="Flash">Flash</span>' +
 			          '</a></li>' +
