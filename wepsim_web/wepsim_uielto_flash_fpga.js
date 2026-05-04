@@ -46,9 +46,11 @@
               // render
 	      render_skel ( )
 	      {
-		    // html holder
-		    var o1 = "<div id='scroller-flashfpga' class='container-fluid p-0' " +
-	           	     "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+		   var o1 = "" ;
+
+		   // html holder
+		   o1 = "<div id='scroller-flashfpga' class='container-fluid p-0' " +
+	           	"     style='overflow:auto; -webkit-overflow-scrolling:touch;'>" +
 			'<nav>' +
 			'  <div class="nav nav-tabs" id="nav-tab" role="tablist">' +
 			'    <button class="nav-link"' +
@@ -107,14 +109,14 @@
 				'</div>' +
                                 '' +
 				'<div class="pt-3 pb-2">' +
-                                '<div class="btn-group w-100" role="group" aria-label="compile_flash_and_cancel">' +
+                                '<div class="btn-group w-100" role="group" aria-label="compile_request_and_cancel">' +
 				'<button type="button" class="btn btn-outline-info mx-1"' +
-				'        id="btn_ccmc"' +
-				'        onclick="gateway_do_ccmc(\'div_url\', \'div_dev\', \'div_info\');"' +
+				'        id="btn_sendmicro"' +
+				'        onclick="gateway_do_sendmicro(\'div_url\', \'div_dev\', \'div_info\');"' +
                                 '>Compile microcode</button>' +
 				'<button type="button" class="btn btn-outline-success mx-1"' +
 				'        id="btn_flash"' +
-				'        onclick="gateway_do_flash(\'div_url\', \'div_dev\', \'div_info\');"' +
+				'        onclick="gateway_do_sendasm(\'div_url\', \'div_dev\', \'div_info\');"' +
                                 '>Flash program</button>' +
                                 '</div>' +
 				'</div>' +
@@ -146,7 +148,7 @@
          *  Flashing
          */
 
-	async function gateway_do_request ( flash_url, flash_args, div_info )
+	async function gateway_do_request ( req_url, req_args, div_info )
 	{
              var fetch_args = {
 			        method:  'POST',
@@ -154,12 +156,12 @@
 				            'Content-type': 'application/json',
 				            'Accept':       'application/json'
 				         },
-			        body:    JSON.stringify(flash_args)
+			        body:    JSON.stringify(req_args)
 	 	              } ;
 
              try
              {
-                var res  = await fetch(flash_url, fetch_args) ;
+                var res  = await fetch(req_url, fetch_args) ;
                 var jres = await res.json() ;
              }
              catch (e)
@@ -187,40 +189,68 @@
 			   };
 	}
 
-	function gateway_do_ccmc ( div_url_name, div_dev_name, div_info_name )
+	function gateway_do_sendmicro ( div_url_name, div_dev_name, div_info_name )
 	{
-// TODO: move to the proper REST interface
-
              // name to objects...
              var ddev = document.getElementById(div_dev_name) ;
 	     var udiv = document.getElementById(div_url_name) ;
 	     var idiv = document.getElementById(div_info_name) ;
 
-             // prepare assembly code...
-             var SIMWARE = get_simware() ;
-             var fasm = inputasm.getValue() ;
-             var ret  = wsasm_src2src(SIMWARE, fasm, { instruction_comma: true }) ;
-             if (ret.error != null) { 
-                 return ret;
-             }
-
-             fasm = ret.src_alt ; // normalized syntax
-
-             // do remote flash...
-             idiv.value = 'Flashing...\n' ;
-             var fasm = inputasm.getValue() ;
+	     // JSON for REST service:
+             //
+             // {
+             //   "microprograms": [
+             //     {
+             //       name:    "addi",
+             //       pattern: "----0101", // optional, for fetch is null
+             //       start:   128,
+             //       microcode: [{ <control signals> }, ...]
+             //     },
+             //     ...
+             //   ],
+             //   "encodings": [...],  // future: immediate decoding
+             //   "endianness": "big", // "little" | "big"
+             // }
+             //
 	     var farg = {
-			   target_board: ddet.value,
-			   target_port:  ddev.value,
-			   assembly:     fasm
+                           "microprograms": [],
+                           "encodings": [],
+                           "endianness": "big"
 			} ;
-             var furl = udiv.value ;
-	     var ret = gateway_do_request(furl + "/flash", farg, idiv);
 
-	     // working with the async result...
+             // (1/3) prepare firmware...
+             var SIMWARE = get_simware() ;
+	     farg.microprograms = SIMWARE.firmware.map(v => { return {
+                                                  name: v.name,
+                                                  pattern: v.pattern, // TODO: future
+                                                  start: v["mc-start"],
+                                                  microcode: v.microcode.map(v => Object.fromEntries(
+                                                     Object.entries(v).map(([k, v]) => [k, parseInt(v)]) // MADDR: string -> MADDR: integer
+                                                  ))
+                                                }
+	                               }
+	                   ) ;
+
+             // (2/3) prepare encoding...
+	     farg.encoding = [] ; // TODO: future
+
+             // (3/3) prepare endianness: "little" | "big"
+	     farg.endianness = "big" ;
+	     if ((typeof SIMWARE.metadata        != "undefined") &&
+		 (typeof SIMWARE.metadata.endian != "undefined"))
+	     {
+	          farg.endianness = SIMWARE.metadata.endian ;
+	     }
+
+             // >> do remote request to "http://<url>/build" ...
+             idiv.value = 'Flashing...\n' ;
+             var furl = udiv.value ;
+	     var ret  = gateway_do_request(furl + "/build", farg, idiv);
+
+	     // << working with the async result...
              ret.then((result) => {
 		         if (typeof result == "undefined") {
-			    return ;
+			     return ;
 		         }
 
                          idiv.value = result.status + '\n' ;
@@ -231,38 +261,47 @@
                      }) ;
 	}
 
-	function gateway_do_flash ( div_url_name, div_dev_name, div_info_name )
+	function gateway_do_sendasm ( div_url_name, div_dev_name, div_info_name )
 	{
              // name to objects...
              var ddev = document.getElementById(div_dev_name) ;
 	     var udiv = document.getElementById(div_url_name) ;
 	     var idiv = document.getElementById(div_info_name) ;
 
-             // prepare assembly code...
-             var SIMWARE = get_simware() ;
-             var fasm = inputasm.getValue() ;
-             var ret  = wsasm_src2src(SIMWARE, fasm, { instruction_comma: true }) ;
-             if (ret.error != null) { 
-                 return ret;
-             }
-
-             fasm = ret.src_alt ; // normalized syntax
-
-             // do remote flash...
-             idiv.value = 'Flashing...\n' ;
-             var fasm = inputasm.getValue() ;
+	     // JSON for REST service:
+             //
+             // {
+             //   "data":       {"0x8000": "0000010101", ...},
+             //   "entrypoint": 0, // assembly start address
+             //   "port":       "/dev/ttyUSB1"
+             // }
+             //
 	     var farg = {
-			   target_board: ddet.value,
-			   target_port:  ddev.value,
-			   assembly:     fasm
+                           "data":       {},
+                           "entrypoint": 0,
+                           "port":       "/dev/ttyUSB1"
 			} ;
+
+             // (1/3) prepare data...
+             var SIMWARE = get_simware() ;
+	     farg.data = Object.entries(SIMWARE.mp).map(([k, v]) => [k, v.value]) ;
+	     farg.data = Object.fromEntries(farg.data) ;
+
+             // (2/3) prepare entrypoint...
+	     farg.entrypoint = 0 ; // TODO
+
+             // (3/3) prepare port...
+	     farg.port = ddev.value ;
+
+             // >> do remote request to "http://<url>/build" ...
+             idiv.value = 'Flashing...\n' ;
              var furl = udiv.value ;
 	     var ret = gateway_do_request(furl + "/flash", farg, idiv);
 
 	     // working with the async result...
              ret.then((result) => {
 		         if (typeof result == "undefined") {
-			    return ;
+			     return ;
 		         }
 
                          idiv.value = result.status + '\n' ;
