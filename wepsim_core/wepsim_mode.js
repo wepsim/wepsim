@@ -27,6 +27,7 @@
 
     ws_info.default_example = {
 	                         'ep':       'Default-MIPS',
+	                         'ep2':      'Default-RISCV',
 	                         'poc':      'Default-MIPS',
 	                         'rv':       'Default-RISCV',
 	                         'asm_mips': 'ep:ep_bare:mips_s4e1',

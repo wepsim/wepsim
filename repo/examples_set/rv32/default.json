@@ -1065,5 +1065,16 @@
     "assembly": "s6e1",
     "description": "<span data-langkey='example_06_01'>Test example.</span>",
     "testing": true
+  },
+  {
+    "id": "R1E1",
+    "title": "Dummy instruction",
+    "type": "<span data-langkey='Special'>Special</span>",
+    "modes": "newbie,intro,ep2",
+    "hardware": "ep2",
+    "microcode": "ep2_min",
+    "assembly": "s6e1",
+    "description": "<span data-langkey='example_06_01'>Test example.</span>",
+    "testing": true
   }
 ]
