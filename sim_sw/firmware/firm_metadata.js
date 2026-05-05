@@ -22,6 +22,7 @@
 function firm_metadata_write ( context )
 {
 	var o = "" ;
+	var j = "" ;
 
         // no metadata -> return empty metadata section
 	if (typeof context.metadata == "undefined") {
@@ -30,24 +31,37 @@ function firm_metadata_write ( context )
 
         // set metadata (default + updates)
         var m = {
-                   version: 2,
-                   rel_mult: 2,
-                   endian: "little"
+                   version:    2,
+                   rel_mult:   2,
+                   endian:     "little",
+                   immediates: []
                 } ;
 
-        if (typeof context.metadata.version != "undefined")
+        if (typeof context.metadata.version != "undefined") {
             m.version = context.metadata.version ;
-        if (typeof context.metadata.rel_mult != "undefined")
+        }
+        if (typeof context.metadata.rel_mult != "undefined") {
             m.rel_mult = context.metadata.rel_mult ;
-        if (typeof context.metadata.endian != "undefined")
+        }
+        if (typeof context.metadata.endian != "undefined") {
             m.endian = context.metadata.endian ;
+        }
+        if (typeof context.metadata.immediates != "undefined") {
+            m.immediates = context.metadata.immediates ;
+        }
 
         // return metadata as string...
+	j = JSON.stringify(m.immediates) ;
+        j = j.replace("'", "\"") ;
+        j = j.replace("[", "'") ;
+        j = j.replace("]", "'") ;
+
         o += "\n" +
              "firmware {\n" +
-             "   version  = " + m.version  + ",\n" +
-             "   rel_mult = " + m.rel_mult + ",\n" +
-             "   endian   = " + m.endian   + "\n" +
+             "   version    = " + m.version  + ",\n" +
+             "   rel_mult   = " + m.rel_mult + ",\n" +
+             "   endian     = " + m.endian   + ",\n" +
+             "   immediates = " + j          +  "\n" +
              "}\n" +
              "\n" ;
 
@@ -59,9 +73,10 @@ function firm_metadata_read ( context )
 {
         // optional:
         //   *firmware {
-        //       version  = 2,
-        //       rel_mult = 2,
-        //       endian   = little
+        //       version    = 2,
+        //       rel_mult   = 2,
+        //       endian     = little,
+        //       immediates = "..."
         //    }*
 
 	frm_nextToken(context);
@@ -128,6 +143,29 @@ function firm_metadata_read ( context )
 		    frm_nextToken(context);
 		    // match mandatory endian (big or little)
 		    context.metadata.endian = frm_getToken(context) ;
+
+		    frm_nextToken(context);
+		    // match optional ,
+		    if (frm_isToken(context,","))
+			frm_nextToken(context);
+		}
+
+		// optional: *immediates* = "...",
+		if (frm_isToken(context, "immediates"))
+		{
+		    frm_nextToken(context);
+		    // match mandatory =
+		    if (! frm_isToken(context,"=")) {
+			  return frm_langError(context,
+					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+		    }
+
+		    frm_nextToken(context);
+		    // match mandatory FIRMWARE_IMMEDIATES
+		    var ifmt = frm_getToken(context) ;
+                        ifmt = ifmt.replaceAll("'", "]") ;
+                        ifmt = ifmt.replace(/^]/, "[");
+		    context.metadata.immediates = JSON.parse(ifmt) ;
 
 		    frm_nextToken(context);
 		    // match optional ,
