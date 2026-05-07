@@ -180,9 +180,12 @@ function firm_instruction_get_opcode_pattern ( context, instruccionAux )
        instruccionAux.opcode_pattern = a1.join("");
 
        // opcode_mask (e.g.: "00000011111000001111")
-       instruccionAux.opcode_mask_c = instruccionAux.opcode_pattern.replaceAll("0", "1")
-		                                                   .replaceAll("-", "0") ;
-       instruccionAux.opcode_mask   = instruccionAux.opcode_pattern.replaceAll("-", "0") ;
+       instruccionAux.opcode_mask_val = instruccionAux.opcode_pattern.replaceAll("-", "0") ;
+       instruccionAux.opcode_mask_eoc = instruccionAux.opcode_pattern.replaceAll("0", "1")
+		                                                     .replaceAll("-", "0") ;
+
+       instruccionAux.opcode_mask_valbin = parseInt(instruccionAux.opcode_mask_val, 2) ;
+       instruccionAux.opcode_mask_eocbin = parseInt(instruccionAux.opcode_mask_eoc, 2) ;
 
 	// return
         return {} ;

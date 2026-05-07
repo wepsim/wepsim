@@ -463,19 +463,26 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 	if (typeof hash_entry == "undefined") {
 	    return ret ;
 	}
+
+	// (.witheoc == false)
 	if (hash_entry.witheoc == false) {
 	    ret.oinstruction = hash_entry.i ;
             return ret ;
 	}
 
-	// eoc/cop-code (.witheoc == true)
-        var eoc = '' ;
-	for (var i=0; i<ep_ir.default_eltos.eoc.length; i++) {
-             eoc = eoc + bits.substr(ep_ir.default_eltos.eoc[i].begin, ep_ir.default_eltos.eoc[i].length);
+	// (.witheoc == true) -> eoc/cop-code
+	var maskval = 0 ;
+	for (var eoc in hash_entry)
+	{
+	     maskval = (binstruction) & (hash_entry[eoc].opcode_mask_eocbin) ;
+	     if (maskval == hash_entry[eoc].opcode_mask_valbin)
+	     {
+	         ret.oinstruction = hash_entry[eoc] ;
+	         ret.eoc_code     = parseInt(eoc, 2) ;
+                 return ret ;
+	     }
 	}
-	ret.eoc_code = parseInt(eoc, 2) ;
 
-	ret.oinstruction = hash_entry[eoc] ;
         return ret ;
 }
 
