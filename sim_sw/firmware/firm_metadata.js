@@ -22,46 +22,48 @@
 function firm_metadata_write ( context )
 {
 	var o = "" ;
-	var j = "" ;
 
         // no metadata -> return empty metadata section
 	if (typeof context.metadata == "undefined") {
             return o ;
         }
 
-        // set metadata (default + updates)
+        // set default metadata
         var m = {
                    version:    2,
                    rel_mult:   2,
                    endian:     "little",
-                   immediates: []
+                   immediates: ''
                 } ;
 
+        // update metadata with actual values
         if (typeof context.metadata.version != "undefined") {
             m.version = context.metadata.version ;
         }
+
         if (typeof context.metadata.rel_mult != "undefined") {
             m.rel_mult = context.metadata.rel_mult ;
         }
+
         if (typeof context.metadata.endian != "undefined") {
             m.endian = context.metadata.endian ;
         }
-        if (typeof context.metadata.immediates != "undefined") {
-            m.immediates = context.metadata.immediates ;
+
+        if (typeof context.metadata.immediates != "undefined")
+	{
+	    m.immediates = JSON.stringify(context.metadata.immediates) ;
+            m.immediates = m.immediates.replace("'", "\"")
+                                       .replace("[", "'")
+                                       .replace("]", "'") ;
         }
 
         // return metadata as string...
-	j = JSON.stringify(m.immediates) ;
-        j = j.replace("'", "\"") ;
-        j = j.replace("[", "'") ;
-        j = j.replace("]", "'") ;
-
         o += "\n" +
              "firmware {\n" +
-             "   version    = " + m.version  + ",\n" +
-             "   rel_mult   = " + m.rel_mult + ",\n" +
-             "   endian     = " + m.endian   + ",\n" +
-             "   immediates = " + j          +  "\n" +
+             "   version    = " + m.version    + ",\n" +
+             "   rel_mult   = " + m.rel_mult   + ",\n" +
+             "   endian     = " + m.endian     + ",\n" +
+             "   immediates = " + m.immediates +  "\n" +
              "}\n" +
              "\n" ;
 
@@ -76,7 +78,7 @@ function firm_metadata_read ( context )
         //       version    = 2,
         //       rel_mult   = 2,
         //       endian     = little,
-        //       immediates = "..."
+        //       immediates = '...'
         //    }*
 
 	frm_nextToken(context);
@@ -150,7 +152,7 @@ function firm_metadata_read ( context )
 			frm_nextToken(context);
 		}
 
-		// optional: *immediates* = "...",
+		// optional: *immediates* = '...',
 		if (frm_isToken(context, "immediates"))
 		{
 		    frm_nextToken(context);
@@ -161,10 +163,20 @@ function firm_metadata_read ( context )
 		    }
 
 		    frm_nextToken(context);
-		    // match mandatory FIRMWARE_IMMEDIATES
+		    // match mandatory FIRMWARE_IMMEDIATES (string to JSON)
 		    var ifmt = frm_getToken(context) ;
-                        ifmt = ifmt.replaceAll("'", "]") ;
-                        ifmt = ifmt.replace(/^]/, "[");
+		    if (ifmt[0] == "'") {
+		        // '{ "key": value, ... }' -> [ {"key": value, ... ]
+                        ifmt = ifmt.replaceAll(/^\'/g, "[")
+                                   .replaceAll(/\'$/g, "]") ;
+		    }
+		    else
+		    if (ifmt[0] == '"') {
+		        // "{ 'key': value, ... }" -> [ {"key": value, ... ]
+                        ifmt = ifmt.replaceAll(/'/g, '"')
+				   .replaceAll(/^\"/g, "[")
+                                   .replaceAll(/\"$/g, "]") ;
+		    }
 		    context.metadata.immediates = JSON.parse(ifmt) ;
 
 		    frm_nextToken(context);
