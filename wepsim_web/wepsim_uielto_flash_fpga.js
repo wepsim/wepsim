@@ -288,7 +288,10 @@
 	     farg.data = Object.fromEntries(farg.data) ;
 
              // (2/3) prepare entrypoint...
-	     farg.entrypoint = segments_get_begin_addr(".text") ;
+	         farg.entrypoint = segments_get_begin_addr(".text") ;
+	     if (typeof SIMWARE.labels_asm['main'] != "undefined") {
+	         farg.entrypoint = parseInt(SIMWARE.labels_asm['main']) ;
+	     }
 
              // (3/3) prepare port...
 	     farg.port = ddev.value ;
