@@ -288,7 +288,7 @@
 	     farg.data = Object.fromEntries(farg.data) ;
 
              // (2/3) prepare entrypoint...
-	     farg.entrypoint = 0 ; // TODO
+	     farg.entrypoint = segments_get_begin_addr(".text") ;
 
              // (3/3) prepare port...
 	     farg.port = ddev.value ;
