@@ -54,9 +54,9 @@
    // get start/end address of segment <s>
    function segments_get_begin_addr ( segment_name )
    {
-	 if (typeof sim_segments[segment_name]       === "undefined") 
+	 if (typeof sim_segments[segment_name]       === "undefined")
 	     return null ;
-	 if (typeof sim_segments[segment_name].begin === "undefined") 
+	 if (typeof sim_segments[segment_name].begin === "undefined")
 	     return null ;
 
 	 return sim_segments[segment_name].begin ;
@@ -64,9 +64,9 @@
 
    function segments_get_end_addr ( segment_name )
    {
-	 if (typeof sim_segments[segment_name]     === "undefined") 
+	 if (typeof sim_segments[segment_name]     === "undefined")
 	     return null ;
-	 if (typeof sim_segments[segment_name].end === "undefined") 
+	 if (typeof sim_segments[segment_name].end === "undefined")
 	     return null ;
 
 	 return sim_segments[segment_name].end ;
