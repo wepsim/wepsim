@@ -633,8 +633,8 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		   instruccionAux.signature     = firma;
 		   instruccionAux.signatureUser = firmaUsuario;
 		   firmaGlobal = firma.replace("address","num");
-		   firmaGlobal = firmaGlobal.replace("imm" , "num");
-		   firmaGlobal = firmaGlobal.replace("inm" , "num"); // TODO: temporal fix
+		   firmaGlobal = firmaGlobal.replace("imm", "num");
+		   firmaGlobal = firmaGlobal.replace("inm", "num"); // TODO: temporal fix
 		   instruccionAux.signatureGlobal = firmaGlobal;
 
 		   camposInsertados++;
@@ -659,9 +659,14 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
        }
 
        // semantic check: valid pending value (eoc.length if native.false)
+       var eoc_total_len = 0 ;
+       for (var i=0; i<xr_info.ir.default_eltos.eoc.length; i++) {
+       	    eoc_total_len = eoc_total_len + xr_info.ir.default_eltos.eoc[i].length ;
+       }
+
        if ( (instruccionAux["is_native"] === false) &&
 	    (typeof instruccionAux.eoc   !== 'undefined') &&
-	    (instruccionAux.eoc.length   > xr_info.ir.default_eltos.eoc.length) )
+	    (instruccionAux.eoc.length   > eoc_total_len) )
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD EOC BIN. LEN.') +

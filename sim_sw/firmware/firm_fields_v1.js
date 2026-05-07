@@ -249,8 +249,8 @@ function firm_instruction_cop_read ( context, instruccionAux, all_ones_co )
         var tmp_fields = {} ;
 	    tmp_fields.value      = instruccionAux.eoc ;
 	    tmp_fields.type       = "eoc" ;
-	    tmp_fields.startbit   = 31 - parseInt(xr_info.ir.default_eltos.eoc.begin) ;
-	    tmp_fields.stopbit    = 31 - parseInt(xr_info.ir.default_eltos.eoc.end) ;
+	    tmp_fields.startbit   = 31 - parseInt(xr_info.ir.default_eltos.eoc[0].begin) ;
+	    tmp_fields.stopbit    = 31 - parseInt(xr_info.ir.default_eltos.eoc[0].end) ;
 	    tmp_fields.bits_start = [ tmp_fields.startbit ] ;
 	    tmp_fields.bits_stop  = [ tmp_fields.stopbit ] ;
 	instruccionAux.fields_all.push(tmp_fields) ;
@@ -531,7 +531,7 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
        // semantic check: valid pending value (cop.length if native.false)
        if ( (instruccionAux["is_native"]  === false) &&
 	    (typeof instruccionAux.eoc !== 'undefined') &&
-	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc.length) )
+	    (instruccionAux.eoc.length !== xr_info.ir.default_eltos.eoc[0].length) )
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
