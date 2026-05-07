@@ -31,20 +31,44 @@
                    ".text":   { name:".text",   begin:0x08000, end:0x1FFFF,    color:"#BEF781", kindof:"text"  },
 
                    ".binary": { name:".binary", begin:0x00000, end:0xFFFFFFFF, color:"#BEF781", kindof:"binary" },
-                   ".stack":  { name:".stack",  begin:0x1FFFF, end:0x100000,   color:"#F1F2A3", kindof:"stack" }
+                   ".stack":  { name:".stack",  begin:0x1FFFF, end:0x100000,   color:"#F1F2A3", kindof:"stack"  }
                 } ;
 
+
+   // check if address is within segment <s>
    function segments_addr_within_text ( address )
    {
 	 return (((address >= sim_segments[".text"].begin ) && (address <= sim_segments[".text"].end ))
-                  ||
+                   ||
 		 ((address >= sim_segments[".ktext"].begin) && (address <= sim_segments[".ktext"].end))) ;
    }
 
    function segments_addr_within_data ( address )
    {
 	 return (((address >= sim_segments[".data"].begin ) && (address <= sim_segments[".data"].end ))
-                  ||
+                   ||
 		 ((address >= sim_segments[".kdata"].begin) && (address <= sim_segments[".kdata"].end))) ;
+   }
+
+
+   // get start/end address of segment <s>
+   function segments_get_begin_addr ( segment_name )
+   {
+	 if (typeof sim_segments[segment_name]       === "undefined")
+	     return null ;
+	 if (typeof sim_segments[segment_name].begin === "undefined")
+	     return null ;
+
+	 return sim_segments[segment_name].begin ;
+   }
+
+   function segments_get_end_addr ( segment_name )
+   {
+	 if (typeof sim_segments[segment_name]     === "undefined")
+	     return null ;
+	 if (typeof sim_segments[segment_name].end === "undefined")
+	     return null ;
+
+	 return sim_segments[segment_name].end ;
    }
 

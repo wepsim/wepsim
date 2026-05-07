@@ -100,16 +100,17 @@ function firm_instruction_read ( context, xr_info, all_ones_oc )
 // }
 
        var instruccionAux = {};
-       instruccionAux.name         = frm_getToken(context) ;
-       instruccionAux["mc-start"]  = context.contadorMC ;
-       instruccionAux.nwords       = 1 ;
-       instruccionAux.is_native    = false ;
-       instruccionAux.help         = '' ;
-       instruccionAux.overlapping  = {} ;
-       instruccionAux.numeroCampos = 0 ;
-       instruccionAux.fields       = [] ;
-       instruccionAux.fields_all   = [] ;
-       instruccionAux.fields_eoc   = [] ; // v2
+       instruccionAux.name           = frm_getToken(context) ;
+       instruccionAux["mc-start"]    = context.contadorMC ;
+       instruccionAux.nwords         = 1 ;
+       instruccionAux.is_native      = false ;
+       instruccionAux.help           = '' ;
+       instruccionAux.overlapping    = {} ;
+       instruccionAux.opcode_pattern = [] ; // v2
+       instruccionAux.numeroCampos   = 0 ;
+       instruccionAux.fields         = [] ;
+       instruccionAux.fields_all     = [] ;
+       instruccionAux.fields_eoc     = [] ; // v2
 
        // semantic check: valid instruction name
        var re_name = "[a-zA-Z_0-9\.]*" ;

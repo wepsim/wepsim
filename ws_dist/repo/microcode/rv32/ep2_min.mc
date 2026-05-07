@@ -19,7 +19,6 @@ begin
 {
          # ensure R0 is zero
          (EXCODE=0, T11, MR=1, SelC=0, LC=1),
-
   fetch: # MAR <- PC
          # MBR <- Mem[MAR]
          # IR  <- MBR, PC <- PC + 4
@@ -40,6 +39,17 @@ test {
        (),
        (),
        (),
+       (A0=1, B=1, C=0)
+   }
+}
+
+test_2 val {
+   nwords=1,
+   oc(31:26)=010111,
+   eoc(10:9|14:12)=11111,
+   help='test with oc and eoc (10:9|14:12)',
+   imm(8:0) = val,
+   {
        (),
        (),
        (),

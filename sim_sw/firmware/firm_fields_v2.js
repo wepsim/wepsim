@@ -598,14 +598,56 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
        // semantic check: valid pending value (eoc.length if native.false)
        if ( (instruccionAux["is_native"] === false) &&
 	    (typeof instruccionAux.eoc   !== 'undefined') &&
-	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.length)     &&
-	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.lengths[0]) &&
-	    (instruccionAux.eoc.length   !== xr_info.ir.default_eltos.eoc.lengths[1]) )
+	    (instruccionAux.eoc.length   > xr_info.ir.default_eltos.eoc.length) )
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD EOC BIN. LEN.') +
 			     "'" + frm_getToken(context) + "'") ;
        }
+
+       // updating the opcode pattern (e.g.: "------10101-----1100")
+       var n = instruccionAux.nwords * WORD_LENGTH ;
+       instruccionAux.opcode_pattern = '-'.repeat(n) ;
+       var a = instruccionAux.opcode_pattern.split("") ;
+       for (var r=0; r<instruccionAux.fields_all.length; r++)
+       {
+	    var campo = instruccionAux.fields_all[r] ;
+	    if (["oc", "eoc"].includes(campo.type))
+            {
+                var b = [] ;
+		var c = 0 ;
+		var d = {} ;
+                for (var s=0; s<campo.bits_start.length; s++)
+                {
+		     d = {
+			    "start": parseInt(campo.bits_start[s]),
+		            "stop":  parseInt(campo.bits_stop[s])
+		         } ;
+
+		     c = c + Math.abs(d.start - d.stop) ;
+		     b.push(d) ;
+                }
+
+	        var j = 0 ;
+	        var v = campo.value.padStart(c, '0') ;
+                for (var s=0; s<b.length; s++)
+                {
+		     if (b[s].start > b[s].stop)
+	             for (var i=b[s].start; i>=b[s].stop; i--)
+	             {
+                         a[n - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
+		         j = j + 1 ;
+	             }
+		     else
+	             for (var i=b[s].start; i<=b[s].stop; i++)
+	             {
+                         a[n - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
+		         j = j + 1 ;
+	             }
+                }
+            }
+       }
+       instruccionAux.opcode_pattern = a.join("");
 
        // return context
        context.error = null ;

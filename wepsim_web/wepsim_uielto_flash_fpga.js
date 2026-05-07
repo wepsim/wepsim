@@ -113,7 +113,7 @@
 				'<button type="button" class="btn btn-outline-info mx-1"' +
 				'        id="btn_sendmicro"' +
 				'        onclick="gateway_do_sendmicro(\'div_url\', \'div_dev\', \'div_info\');"' +
-                                '>Compile microcode</button>' +
+                                '>Flash microcode</button>' +
 				'<button type="button" class="btn btn-outline-success mx-1"' +
 				'        id="btn_flash"' +
 				'        onclick="gateway_do_sendasm(\'div_url\', \'div_dev\', \'div_info\');"' +
@@ -124,7 +124,7 @@
                                "</div>" +
                                "<div class='col-xs-12 col-md-6 p-2'>" +
                                 '' +
-				'<label for="div_info">(5) Output:</label><br>' +
+				'<label for="div_info">(3) Output:</label><br>' +
 				'<textarea class="form-control border border-secondary"' +
 				'	  id="div_info" name="div_info"' +
 				'	  rows="10" cols="50">' +
@@ -288,7 +288,7 @@
 	     farg.data = Object.fromEntries(farg.data) ;
 
              // (2/3) prepare entrypoint...
-	     farg.entrypoint = 0 ; // TODO
+	     farg.entrypoint = segments_get_begin_addr(".text") ;
 
              // (3/3) prepare port...
 	     farg.port = ddev.value ;
