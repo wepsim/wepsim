@@ -478,13 +478,12 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 	     maskval = (binstruction) & (hash_entry[eoc].opcode_mask_eocbin) ;
 	     if (maskval == hash_entry[eoc].opcode_mask_valbin)
 	     {
+		 // if several masks are valid, the longer last one should be choosen
 	         if (eoc.length < masklen) continue ;
 
 	         ret.oinstruction = hash_entry[eoc] ;
 	         ret.eoc_code     = parseInt(eoc, 2) ;
 		 masklen          = eoc.length ;
-
-		 // TODO: if several mask are valid, the one with more length should be the choose one?
 	     }
 	}
 
@@ -493,18 +492,23 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 
 function decode_ram ( )
 {
-    var sram = "\n" ;
-
     var curr_ircfg = simhw_sim_ctrlStates_get().ir ;
     var curr_firm  = simhw_internalState('FIRMWARE') ;
     var curr_MP    = simhw_internalState('MP') ;
+
+    var sram = "\n" ;
     for (var address in curr_MP)
     {
         var value        = get_value(curr_MP[address]) ;
-        var binstruction = value.toString(2) ;
-            binstruction = "00000000000000000000000000000000".substring(0, 32-binstruction.length) + binstruction;
-        sram += "0x" + parseInt(address).toString(16) + ":" +
-                decode_instruction(curr_firm, curr_ircfg, binstruction).oinstruction + "\n" ;
+        var binstruction = value.toString(2).padStart(32, '0') ;
+        var oinstruction = decode_instruction(curr_firm, curr_ircfg, binstruction).oinstruction ;
+
+	var sinstruction = oinstruction.name ;
+	for (var i=0; i<oinstruction.fields.length; i++) {
+	     sinstruction = sinstruction + " " + oinstruction.fields[i].name ;
+	}
+
+        sram += "0x" + parseInt(address).toString(16) + ":" + sinstruction + "\n" ;
     }
 
     return sram ;
