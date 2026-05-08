@@ -472,14 +472,19 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 
 	// (.witheoc == true) -> eoc/cop-code
 	var maskval = 0 ;
+	var masklen = 0 ;
 	for (var eoc in hash_entry)
 	{
 	     maskval = (binstruction) & (hash_entry[eoc].opcode_mask_eocbin) ;
 	     if (maskval == hash_entry[eoc].opcode_mask_valbin)
 	     {
+	         if (eoc.length < masklen) continue ;
+
 	         ret.oinstruction = hash_entry[eoc] ;
 	         ret.eoc_code     = parseInt(eoc, 2) ;
-                 return ret ;
+		 masklen          = eoc.length ;
+
+		 // TODO: if several mask are valid, the one with more length should be the choose one?
 	     }
 	}
 

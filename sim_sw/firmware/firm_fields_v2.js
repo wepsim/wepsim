@@ -127,56 +127,59 @@ function firm_instruction_check_eoc ( context, instruccionAux, xr_info, all_ones
 
 function firm_instruction_get_opcode_pattern ( context, instruccionAux )
 {
-       var nbits = instruccionAux.nwords * WORD_LENGTH ;
+       var b = [] ;
+       var c = 0 ;
+       var d = {} ;
+       var nbits = 0 ;
+       var a1 = [] ;
 
        // opcode_pattern (e.g.: "------10101-----1100")
+       nbits = instruccionAux.nwords * WORD_LENGTH ;
        instruccionAux.opcode_pattern = '-'.repeat(nbits) ;
-       var a1 = instruccionAux.opcode_pattern.split("") ;
 
+       a1 = instruccionAux.opcode_pattern.split("") ;
        for (var r=0; r<instruccionAux.fields_all.length; r++)
        {
 	    var campo = instruccionAux.fields_all[r] ;
-	    if (["oc", "eoc"].includes(campo.type))
+	    if (["oc", "eoc"].includes(campo.type) == false) {
+	        continue ; // skip unless campo.type == "oc"/"eoc"...
+            }
+
+            b = [] ;
+	    c = 0 ;
+            for (var s=0; s<campo.bits_start.length; s++)
             {
-                var b = [] ;
-		var c = 0 ;
-		var d = {} ;
+		 d = {
+			"start": parseInt(campo.bits_start[s]),
+		        "stop":  parseInt(campo.bits_stop[s])
+		     } ;
 
-                for (var s=0; s<campo.bits_start.length; s++)
-                {
-		     d = {
-			    "start": parseInt(campo.bits_start[s]),
-		            "stop":  parseInt(campo.bits_stop[s])
-		         } ;
+		 c = c + Math.abs(d.start - d.stop) ;
+		 b.push(d) ;
+            }
 
-		     c = c + Math.abs(d.start - d.stop) ;
-		     b.push(d) ;
-                }
-
-	        var j = 0 ;
-	        var v = campo.value.padStart(c, '0') ;
-                for (var s=0; s<b.length; s++)
-                {
-		     if (b[s].start > b[s].stop)
-		     {
-	                 for (var i=b[s].start; i>=b[s].stop; i--)
-	                 {
-                             a1[nbits - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
-		             j = j + 1 ;
-	                 }
-		     }
-		     else
-		     {
-	                 for (var i=b[s].start; i<=b[s].stop; i++)
-	                 {
-                             a1[nbits - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
-		             j = j + 1 ;
-	                 }
-		     }
-                }
+	    var j = 0 ;
+	    var v = campo.value.padStart(c, '0') ;
+            for (var s=0; s<b.length; s++)
+            {
+		 if (b[s].start > b[s].stop)
+		 {
+	             for (var i=b[s].start; i>=b[s].stop; i--)
+	             {
+                          a1[nbits - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
+		          j = j + 1 ;
+	             }
+		 }
+		 else
+		 {
+	             for (var i=b[s].start; i<=b[s].stop; i++)
+	             {
+                          a1[nbits - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
+		          j = j + 1 ;
+	             }
+		 }
             }
        }
-
        instruccionAux.opcode_pattern = a1.join("");
 
        // opcode_mask (e.g.: "00000011111000001111")

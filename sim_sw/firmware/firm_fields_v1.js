@@ -370,6 +370,52 @@ function firm_instruction_field_read ( context, instruccionAux, camposInsertados
        return {} ;
 }
 
+function firm_instruction_compute_opcode_pattern ( context, instruccionAux )
+{
+       var nbits = instruccionAux.nwords * WORD_LENGTH ;
+       var c = 0 ;
+       var d_start = 0 ;
+       var d_stop = 0 ;
+       var v = '' ;
+       var j = 0 ;
+
+       // opcode_pattern (e.g.: "------10101-----1100")
+       instruccionAux.opcode_pattern = '-'.repeat(nbits) ;
+       var a1 = instruccionAux.opcode_pattern.split("") ;
+
+       for (var r=0; r<instruccionAux.fields_all.length; r++)
+       {
+	    var campo = instruccionAux.fields_all[r] ;
+	    if (["oc", "eoc"].includes(campo.type))
+            {
+		d_start = parseInt(campo.bits_start[0]) ;
+		d_stop  = parseInt(campo.bits_stop[0]) ;
+		c = Math.abs(d_start - d_stop) ;
+	        v = campo.value.padStart(c, '0') ;
+
+	        j = 0 ;
+                for (var i=d_start; i>=d_stop; i--)
+		{
+		     a1[nbits - i - 1] = v[j] ;
+		     j = j + 1 ;
+		}
+            }
+       }
+
+       instruccionAux.opcode_pattern = a1.join("");
+
+       // opcode_mask (e.g.: "00000011111000001111")
+       instruccionAux.opcode_mask_val = instruccionAux.opcode_pattern.replaceAll("-", "0") ;
+       instruccionAux.opcode_mask_eoc = instruccionAux.opcode_pattern.replaceAll("0", "1")
+		                                                     .replaceAll("-", "0") ;
+
+       instruccionAux.opcode_mask_valbin = parseInt(instruccionAux.opcode_mask_val, 2) ;
+       instruccionAux.opcode_mask_eocbin = parseInt(instruccionAux.opcode_mask_eoc, 2) ;
+
+	// return
+        return {} ;
+}
+
 function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_info, all_ones_co )
 {
        var ret = {};
@@ -536,6 +582,12 @@ function firm_instruction_read_flexible_fields ( context, instruccionAux, xr_inf
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD COP BIN. LEN.') +
 			     "'" + frm_getToken(context) + "'") ;
+       }
+
+       // build opcode_pattern
+       ret = firm_instruction_compute_opcode_pattern(context, instruccionAux) ;
+       if (typeof ret.error != "undefined") {
+	   return ret ;
        }
 
        // return context
