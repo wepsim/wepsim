@@ -419,6 +419,9 @@ function cpu_ep2_register ( sim_p )
 	sim_p.states["INEX"]           = { name: "INEX",      verbal: "Illegal Instruction Exception",
                                             visible:false, nbits: "1",  value:0, default_value:0,
                                             draw_data: [] };
+	sim_p.states["EXCODE_SE"]      = { name: "EXCODE_SE", verbal: "Input of T11",
+                                            visible:false, nbits: "32",  value:0, default_value:0,
+                                            draw_data: [] };
 
 	/* DEVICES AND MEMORY */
 	sim_p.states["BS_M1"]          = { name: "BS_M1", verbal: "from Memory",
@@ -646,9 +649,9 @@ function cpu_ep2_register ( sim_p )
 			           draw_data: [['svg_p:path3135','svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5']],
 			           draw_name: [['svg_p:path3137']] };
 	 sim_p.signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			           behavior: ["NOP; RST_TT TTCPU 10", "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 10"],
+			           behavior: ["NOP; RST_TT TTCPU 10", "MV BUS_IB EXCODE_SE; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 10"],
 			           fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
-			           draw_data: [['svg_cu:path3131-3','svg_p:path3131-3','svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7']],
+			           draw_data: [['svg_cu:path3131-3','svg_p:path3131-3','svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3081-3-5']],
 			           draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
 	 sim_p.signals["T12"] = { name: "T12", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 11", "MV BUS_IB HPC_T12; FIRE M7; FIRE M2; FIRE M1; FIRE LC; SET_TT TTCPU 11"],
@@ -765,11 +768,10 @@ function cpu_ep2_register ( sim_p )
 			              fire_name: ['svg_cu:text3312'],
 			              draw_data: [[]],
 			              draw_name: [[]] };
-	 sim_p.signals["EXCODE"] = { name: "EXCODE", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
-			              behavior: ["FIRE T11"],
+	 sim_p.signals["EXCODE"] = { name: "EXCODE", visible: true, type: "L", value: 0, default_value:0, nbits: "6",
+			              behavior: ["FIRE SE"],
 			              fire_name: ['svg_cu:text3312-6'],
 			              draw_data: [[]], draw_name: [] };
-
 	 sim_p.signals["RA"]     = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
 			              behavior: ["GET RA_T9 BR RA; FIRE_IFSET T9 1; FIRE_IFSET MA 0"],
                                       depends_on: ["SELA"],
@@ -795,10 +797,10 @@ function cpu_ep2_register ( sim_p )
 			              draw_name: [['svg_p:path3121']] };
 
 	 sim_p.signals["SE"]     = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
-			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"],
-                                      depends_on: ["T3"],
-			              fire_name: ['svg_p:text3593', 'svg_p:text3431'],
+			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; FIRE T11",
+			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; EXT_SIG EXCODE_SE 5; FIRE T11"],
+                                      depends_on: ["T3", "T11"],
+			              fire_name: ['svg_p:text3593', 'svg_p:text3431', 'svg_cu:text3147-5-6'],
 			              draw_data: [[]],
 			              draw_name: [['svg_p:path3591','svg_p:path3447-7-7']] };
 	 sim_p.signals["SIZE"]   = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
@@ -821,12 +823,12 @@ function cpu_ep2_register ( sim_p )
 			              behavior: ['MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC;',
 			                         'MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC;'],
                                       depends_on: ["SELA","SELB","SELC"],
-			              fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
+			              fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254'],
 			              draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3188',
                                                    'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3252-0-6-0',
 					           'svg_cu:path3276','svg_cu:path3252-0-6','svg_cu:path3290','svg_cu:path3252-0',
-                                                   'svg_cu:path3260','svg_cu:path3196','svg_cu:path3278','svg_cu:path3292',
-                                                   'svg_cu:path3258-4','svg_cu:path3390-7','svg_cu:path3258','svg_cu:path3280',
+                                                   'svg_cu:path3260','svg_cu:path3278','svg_cu:path3292',
+                                                   'svg_cu:path3390-7','svg_cu:path3258','svg_cu:path3280',
                                                    'svg_cu:path3200','svg_cu:path3204','svg_cu:path3208','svg_cu:path3268',
                                                    'svg_cu:path3316','svg_cu:path3142',
                                                    'svg_cu:path3081-3-0-4-4','svg_cu:path3234',
@@ -836,9 +838,9 @@ function cpu_ep2_register ( sim_p )
                                                    'svg_cu:path3081-3-0-4-4','svg_cu:path3234',
                                                    'svg_cu:path3081-3-0-4','svg_cu:path3244',
                                                    'svg_cu:path3081-3-0','svg_cu:path3256',
-                                                   'svg_cu:path3258','svg_cu:path3260','svg_cu:path3258-4','svg_cu:path3278',
-                                                   'svg_cu:path3196','svg_cu:path3294','svg_cu:path3292',
-					           'svg_cu:path3288','svg_cu:path3280','svg_cu:path3258','svg_cu:path3258-4',
+                                                   'svg_cu:path3258','svg_cu:path3260','svg_cu:path3278',
+                                                   'svg_cu:path3294','svg_cu:path3292',
+					           'svg_cu:path3288','svg_cu:path3280','svg_cu:path3258',
                                                    'svg_cu:path3268','svg_cu:path3364','svg_cu:path3316']],
 			              draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 	 sim_p.signals["MR_RA"]  = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
@@ -3006,7 +3008,7 @@ function cpu_ep2_register ( sim_p )
 			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
-							      ref:  "REG_MICROINS",
+							      ref:  "EXCODE_SE",
 							    },
 						   "out":   {
 							      ref:  "BUS_IB",
