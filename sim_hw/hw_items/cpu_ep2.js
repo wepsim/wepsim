@@ -186,7 +186,7 @@ function cpu_ep2_register ( sim_p )
                                                   "REG_RT1,real",        "REG_RT2,real",   "REG_RT3,real",
 		                                  "REG_MICROADDR,real" ] ;
         sim_p.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",
-                                                   "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
+                                                   "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0",
 				          "C0,0", "C1,0",  "C2,0",  "C3,0",  "C4,0",  "C5,0", "C6,0", "C7,0",
 				          "T1,0", "T2,0",  "T3,0",  "T4,0",  "T5,0",  "T6,0", "T7,0", "T8,0",
                                           "T9,0", "T10,0", "T11,0",
@@ -537,7 +537,7 @@ function cpu_ep2_register ( sim_p )
 				    fire_name: [],
 				    draw_data: [['svg_cu:path3102', 'svg_cu:path3100', 'svg_cu:path3098', 'svg_cu:path3100-9', 'svg_cu:path3088', 'svg_cu:path3082','svg_cu:path3040'],
 					        ['svg_cu:path3104', 'svg_cu:path3134', 'svg_cu:path3500', 'svg_cu:path3416'],
-					        ['svg_cu:path3124-2-4', 'svg_cu:path3390-2', 'svg_cu:path3142', 'svg_cu:path3124-2', 'svg_cu:path3504', 'svg_cu:path3100-8', 'svg_cu:path3234-9', 'svg_cu:path3124-2-4-2', 'svg_cu:path3390-2-3', 'svg_cu:path3142'],
+					        ['svg_cu:path3124-2-4', 'svg_cu:path3390-2', 'svg_cu:path3142', 'svg_cu:path3124-2', 'svg_cu:path3504', 'svg_cu:path3100-8', 'svg_cu:path3234-9', 'svg_cu:path3142'],
 					        ['svg_cu:path3124']],
 				    draw_name: [[]] };
 
@@ -760,7 +760,7 @@ function cpu_ep2_register ( sim_p )
 			              draw_data: [[]],
 			              draw_name: [[]] };
 	 sim_p.signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			              behavior:  ["FIRE MC"],
+			              behavior:  ["FIRE COP"],
                                       depends_on: ["COP"],
 			              fire_name: ['svg_cu:text3312'],
 			              draw_data: [[]],
@@ -814,14 +814,6 @@ function cpu_ep2_register ( sim_p )
 			              draw_data: [[]],
 			              draw_name: [['svg_p:path3359']] };
 
-	 sim_p.signals["MC"]     = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ['MBIT COP REG_IR 0 5; FIRE COP;',
-				   	         'CP_FIELD COP REG_MICROINS/SELCOP; FIRE COP;'],
-                                      depends_on: ["SELCOP"],
-			              fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
-			              draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3081-3-9', 'svg_cu:path3308']],
-			              draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
-
 	 sim_p.signals["MR"]     = { name: "MR",
 		                      verbal: ['Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. ',
                                                'Copy SelA, SelB, and SelB into RA, RB, and RC. '],
@@ -831,11 +823,12 @@ function cpu_ep2_register ( sim_p )
                                       depends_on: ["SELA","SELB","SELC"],
 			              fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
 			              draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3188',
-                                                   'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
-                                                   'svg_cu:path3260','svg_cu:path3196','svg_cu:path3278','svg_cu:path3292','svg_cu:path3142',
+                                                   'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3252-0-6-0',
+					           'svg_cu:path3276','svg_cu:path3252-0-6','svg_cu:path3290','svg_cu:path3252-0',
+                                                   'svg_cu:path3260','svg_cu:path3196','svg_cu:path3278','svg_cu:path3292',
                                                    'svg_cu:path3258-4','svg_cu:path3390-7','svg_cu:path3258','svg_cu:path3280',
                                                    'svg_cu:path3200','svg_cu:path3204','svg_cu:path3208','svg_cu:path3268',
-                                                   'svg_cu:path3316',
+                                                   'svg_cu:path3316','svg_cu:path3142',
                                                    'svg_cu:path3081-3-0-4-4','svg_cu:path3234',
                                                    'svg_cu:path3081-3-0-4','svg_cu:path3244',
                                                    'svg_cu:path3081-3-0','svg_cu:path3256'],
@@ -3488,34 +3481,6 @@ function cpu_ep2_register ( sim_p )
 			      states_inputs:     [ "mux_0", "mux_1" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "mr" ],
-			      signals_output:    [ ],
-			      states_mapping:    [ ]
-	                   } ;
-
-        sim_p.elements.cu_mux_mc  = {
-			      name:              "MUX MC",
-			      description:       "MUX MC",
-			      type:              "subcomponent",
-			      belongs:           "CPU",
-			      states:            {
-						   "mux_0":  {
-							       ref:  "REG_IR"
-							     },
-						   "mux_1":  {
-							       ref:  "REG_MICROINS/SELCOP"
-							     },
-						   "mux_o":  {
-							       ref:  "COP"
-							     }
-						 },
-			      signals:           {
-						   "ctl":    {
-							       ref:  "MC"
-							     }
-						 },
-			      states_inputs:     [ "mux_0", "mux_1" ],
-			      states_outputs:    [ "mux_o" ],
-			      signals_inputs:    [ "ctl" ],
 			      signals_output:    [ ],
 			      states_mapping:    [ ]
 	                   } ;
