@@ -6,13 +6,7 @@
 firmware {
    version  = 2,
    rel_mult = 2,
-   endian   = little,
-   immediates = '{ "sign_extend": false, "padding": 32, "ranges": [] },
-                 { "sign_extend":  true, "padding":  0, "ranges": [[31, 20]] },
-                 { "sign_extend":  true, "padding":  0, "ranges": [[31, 25], [11, 7]] },
-                 { "sign_extend":  true, "padding":  1, "ranges": [[31, 31], [7, 7], [30, 25], [11, 8]] },
-                 { "sign_extend":  true, "padding": 12, "ranges": [[31, 12]] },
-                 { "sign_extend":  true, "padding":  1, "ranges": [[31, 31], [19, 12], [20, 20], [30, 21]] }'
+   endian   = little
 }
 
 begin
@@ -34,22 +28,6 @@ test {
    nwords=1,
    oc(31:26)=010110,
    help='test',
-   {
-       (),
-       (),
-       (),
-       (),
-       (),
-       (A0=1, B=1, C=0)
-   }
-}
-
-test_2 val {
-   nwords=1,
-   oc(31:26)=010111,
-   eoc(10:9|14:12)=11111,
-   help='test with oc and eoc (10:9|14:12)',
-   imm(8:0) = val,
    {
        (),
        (),

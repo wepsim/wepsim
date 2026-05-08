@@ -19,6 +19,7 @@ begin
 {
          # ensure R0 is zero
          (EXCODE=0, T11, MR=1, SelC=0, LC=1),
+
   fetch: # MAR <- PC
          # MBR <- Mem[MAR]
          # IR  <- MBR, PC <- PC + 4
@@ -57,19 +58,6 @@ test_2 val {
        (),
        (A0=1, B=1, C=0)
    }
-}
-
-addi rd rs1 inm {
-      nwords=1,
-      oc(31:26)=011010,
-      reg(25:21)=rd,
-      reg(20:16)=rs1,
-      imm(11:0)=inm,
-      help='rd = rs1 + SignEx(inm)',
-      {
-          (SE=1, OFFSET=0, SIZE=01100, T3=1, C4=1),
-          (MR=0, SELB=10000, MA=1, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
-      }
 }
 
 registers

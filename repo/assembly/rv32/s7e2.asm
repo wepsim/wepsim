@@ -17,7 +17,7 @@ addupto: addi    sp, sp, -4
         
          jr      ra
 
-main:    # push $ra
+main:    # push ra
          addi    sp, sp, -4
          sw      ra, 0(sp)
 
@@ -25,7 +25,7 @@ main:    # push $ra
          li      a0, 2
          jal     ra, addupto
 
-         # pop $ra
+         # pop ra
          lw      ra, 0(sp)
          addi    sp, sp, 4
         
