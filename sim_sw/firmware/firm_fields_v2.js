@@ -127,62 +127,68 @@ function firm_instruction_check_eoc ( context, instruccionAux, xr_info, all_ones
 
 function firm_instruction_get_opcode_pattern ( context, instruccionAux )
 {
-       var nbits = instruccionAux.nwords * WORD_LENGTH ;
+       var b = [] ;
+       var c = 0 ;
+       var d = {} ;
+       var nbits = 0 ;
+       var a1 = [] ;
 
        // opcode_pattern (e.g.: "------10101-----1100")
+       nbits = instruccionAux.nwords * WORD_LENGTH ;
        instruccionAux.opcode_pattern = '-'.repeat(nbits) ;
-       var a1 = instruccionAux.opcode_pattern.split("") ;
 
+       a1 = instruccionAux.opcode_pattern.split("") ;
        for (var r=0; r<instruccionAux.fields_all.length; r++)
        {
 	    var campo = instruccionAux.fields_all[r] ;
-	    if (["oc", "eoc"].includes(campo.type))
+	    if (["oc", "eoc"].includes(campo.type) == false) {
+	        continue ; // skip unless campo.type == "oc"/"eoc"...
+            }
+
+            b = [] ;
+	    c = 0 ;
+            for (var s=0; s<campo.bits_start.length; s++)
             {
-                var b = [] ;
-		var c = 0 ;
-		var d = {} ;
+		 d = {
+			"start": parseInt(campo.bits_start[s]),
+		        "stop":  parseInt(campo.bits_stop[s])
+		     } ;
 
-                for (var s=0; s<campo.bits_start.length; s++)
-                {
-		     d = {
-			    "start": parseInt(campo.bits_start[s]),
-		            "stop":  parseInt(campo.bits_stop[s])
-		         } ;
+		 c = c + Math.abs(d.start - d.stop) ;
+		 b.push(d) ;
+            }
 
-		     c = c + Math.abs(d.start - d.stop) ;
-		     b.push(d) ;
-                }
-
-	        var j = 0 ;
-	        var v = campo.value.padStart(c, '0') ;
-                for (var s=0; s<b.length; s++)
-                {
-		     if (b[s].start > b[s].stop)
-		     {
-	                 for (var i=b[s].start; i>=b[s].stop; i--)
-	                 {
-                             a1[nbits - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
-		             j = j + 1 ;
-	                 }
-		     }
-		     else
-		     {
-	                 for (var i=b[s].start; i<=b[s].stop; i++)
-	                 {
-                             a1[nbits - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
-		             j = j + 1 ;
-	                 }
-		     }
-                }
+	    var j = 0 ;
+	    var v = campo.value.padStart(c, '0') ;
+            for (var s=0; s<b.length; s++)
+            {
+		 if (b[s].start > b[s].stop)
+		 {
+	             for (var i=b[s].start; i>=b[s].stop; i--)
+	             {
+                          a1[nbits - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
+		          j = j + 1 ;
+	             }
+		 }
+		 else
+		 {
+	             for (var i=b[s].start; i<=b[s].stop; i++)
+	             {
+                          a1[nbits - i - 1] = v[j] ; // instruccionAux.opcode_pattern[i] = v[j] ;
+		          j = j + 1 ;
+	             }
+		 }
             }
        }
-
        instruccionAux.opcode_pattern = a1.join("");
 
        // opcode_mask (e.g.: "00000011111000001111")
-       instruccionAux.opcode_mask_c = instruccionAux.opcode_pattern.replaceAll("0", "1")
-		                                                   .replaceAll("-", "0") ;
-       instruccionAux.opcode_mask   = instruccionAux.opcode_pattern.replaceAll("-", "0") ;
+       instruccionAux.opcode_mask_val = instruccionAux.opcode_pattern.replaceAll("-", "0") ;
+       instruccionAux.opcode_mask_eoc = instruccionAux.opcode_pattern.replaceAll("0", "1")
+		                                                     .replaceAll("-", "0") ;
+
+       instruccionAux.opcode_mask_valbin = parseInt(instruccionAux.opcode_mask_val, 2) ;
+       instruccionAux.opcode_mask_eocbin = parseInt(instruccionAux.opcode_mask_eoc, 2) ;
 
 	// return
         return {} ;
@@ -633,8 +639,8 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
 		   instruccionAux.signature     = firma;
 		   instruccionAux.signatureUser = firmaUsuario;
 		   firmaGlobal = firma.replace("address","num");
-		   firmaGlobal = firmaGlobal.replace("imm" , "num");
-		   firmaGlobal = firmaGlobal.replace("inm" , "num"); // TODO: temporal fix
+		   firmaGlobal = firmaGlobal.replace("imm", "num");
+		   firmaGlobal = firmaGlobal.replace("inm", "num"); // TODO: temporal fix
 		   instruccionAux.signatureGlobal = firmaGlobal;
 
 		   camposInsertados++;
@@ -659,9 +665,14 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
        }
 
        // semantic check: valid pending value (eoc.length if native.false)
+       var eoc_total_len = 0 ;
+       for (var i=0; i<xr_info.ir.default_eltos.eoc.length; i++) {
+       	    eoc_total_len = eoc_total_len + xr_info.ir.default_eltos.eoc[i].length ;
+       }
+
        if ( (instruccionAux["is_native"] === false) &&
 	    (typeof instruccionAux.eoc   !== 'undefined') &&
-	    (instruccionAux.eoc.length   > xr_info.ir.default_eltos.eoc.length) )
+	    (instruccionAux.eoc.length   > eoc_total_len) )
        {
 	    return frm_langError(context,
 			         i18n_get_TagFor('compiler', 'BAD EOC BIN. LEN.') +

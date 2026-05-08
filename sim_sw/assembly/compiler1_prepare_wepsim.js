@@ -99,8 +99,8 @@ function wsasm_prepare_eoc ( elto, aux )
 
         // copy start/stop from ir.default_eltos by default
         var xr_info = simhw_sim_ctrlStates_get() ;
-	elto.eoc.asm_start_bit[0] = parseInt(xr_info.ir.default_eltos.eoc.begin) ;
-	elto.eoc.asm_stop_bit [0] = parseInt(xr_info.ir.default_eltos.eoc.end) ;
+	elto.eoc.asm_start_bit[0] = parseInt(xr_info.ir.default_eltos.eoc[0].begin) ;
+	elto.eoc.asm_stop_bit [0] = parseInt(xr_info.ir.default_eltos.eoc[0].end) ;
         elto.eoc.asm_n_bits       = elto.eoc.asm_stop_bit[0] - elto.eoc.asm_start_bit[0] + 1 ;
 
         // IF empty 'eoc' -> return elto...
@@ -179,7 +179,7 @@ function wsasm_prepare_context_firmware ( context, CU_data )
 		elto.help        = aux.help ;
 
                 // fields: oc + eoc
-                wsasm_prepare_oc(elto, aux) ;
+                wsasm_prepare_oc (elto, aux) ;
                 wsasm_prepare_eoc(elto, aux) ;
 
                 // fields...
