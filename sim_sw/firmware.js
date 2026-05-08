@@ -77,7 +77,7 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
            var k = 0 ;
            var m = 0 ;
            var xr_info = simhw_sim_ctrlStates_get() ;
-	   var eoc_len = xr_info.ir.default_eltos.eoc.length ;
+	   var eoc_len = xr_info.ir.default_eltos.eoc[0].length ;
 
            var ret = {} ;
                ret.label_oc  = '' ;
@@ -457,35 +457,36 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
 
 	// oc/op-code
 	var oc = bits.substr(ep_ir.default_eltos.oc.begin, ep_ir.default_eltos.oc.length) ;
+	ret.oc_code = parseInt(oc, 2) ;
 
-	// eoc/cop-code
-        var eoc = bits.substr(ep_ir.default_eltos.eoc.begin, ep_ir.default_eltos.eoc.length);
-
-        // "firmware version 2" + "type 2 (risc-v)" -> check if special case:
-        // * https://www2.cs.sfu.ca/~ashriram/Courses/CS295_TA/assets/notebooks/RISCV/RISCV_CARD.pdf
-        if ( (2 == curr_firm.metadata.version) && (2 == ep_ir.default_eltos.eoc.type) )
-        {
-	      if ((oc !='1101111') && (oc != '0110111') && (oc != '0010111'))
-              {
-		  eoc = bits.substr(ep_ir.default_eltos.eoc.bits[0][0], ep_ir.default_eltos.eoc.lengths[0]);
-		  if (oc == '0110011' || oc == '1110011') {
-		      eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
-		  } else if (oc == '0010011' && (eoc == '001' || eoc == '101')) {
-		      eoc += bits.substr(ep_ir.default_eltos.eoc.bits[1][0], ep_ir.default_eltos.eoc.lengths[1]);
-		  }
-	      }
+	var hash_entry = curr_firm.hash_oceoc[oc] ;
+	if (typeof hash_entry == "undefined") {
+	    return ret ;
 	}
 
-	ret.oc_code  = parseInt(oc,  2) ;
-	ret.eoc_code = parseInt(eoc, 2) ;
-
-	if ("undefined" == typeof curr_firm.hash_oceoc[oc]) {
-	     return ret ;
+	// (.witheoc == false)
+	if (hash_entry.witheoc == false) {
+	    ret.oinstruction = hash_entry.i ;
+            return ret ;
 	}
 
-	if (false == curr_firm.hash_oceoc[oc].witheoc)
-	     ret.oinstruction = curr_firm.hash_oceoc[oc].i ;
-	else ret.oinstruction = curr_firm.hash_oceoc[oc][eoc] ;
+	// (.witheoc == true) -> eoc/cop-code
+	var maskval = 0 ;
+	var masklen = 0 ;
+	for (var eoc in hash_entry)
+	{
+	     maskval = (binstruction) & (hash_entry[eoc].opcode_mask_eocbin) ;
+	     if (maskval == hash_entry[eoc].opcode_mask_valbin)
+	     {
+	         if (eoc.length < masklen) continue ;
+
+	         ret.oinstruction = hash_entry[eoc] ;
+	         ret.eoc_code     = parseInt(eoc, 2) ;
+		 masklen          = eoc.length ;
+
+		 // TODO: if several mask are valid, the one with more length should be the choose one?
+	     }
+	}
 
         return ret ;
 }
