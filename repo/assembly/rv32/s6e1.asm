@@ -4,5 +4,6 @@
 #
 
 .text
-main: test
+main: 
+       test
 

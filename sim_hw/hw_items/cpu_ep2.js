@@ -790,20 +790,20 @@ function cpu_ep2_register ( sim_p )
 			              draw_name: [['svg_p:path3121']] };
 
 	 sim_p.signals["SE"]     = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; FIRE T11",
-			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; EXT_SIG EXCODE_SE 5; FIRE T11"],
+			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; FIRE T11",
+			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; EXT_SIG EXCODE_SE 5; FIRE T11"],
                                       depends_on: ["T3", "T11"],
 			              fire_name: ['svg_p:text3593', 'svg_p:text3431', 'svg_cu:text3147-5-6'],
 			              draw_data: [[]],
 			              draw_name: [['svg_p:path3591','svg_p:path3447-7-7']] };
 	 sim_p.signals["SIZE"]   = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			              behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'],
+			              behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3'],
                                       depends_on: ["T3"],
 			              fire_name: ['svg_p:text3363'],
 			              draw_data: [[]],
 			              draw_name: [['svg_p:path3355']] };
 	 sim_p.signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			              behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'],
+			              behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3'],
                                       depends_on: ["T3"],
 			              fire_name: ['svg_p:text3707'],
 			              draw_data: [[]],
@@ -2420,6 +2420,81 @@ function cpu_ep2_register ( sim_p )
                                                    var n5 = parseInt(n4, 2) ;
 
                                                    return "Sign Extension with value " + show_value(n5) + ". " ;
+                                                }
+				   };
+	sim_p.behaviors["GETIMM"] = { nparameters: 5,
+				     types: ["E", "E", "S", "S"],
+				     operation: function (s_expr)
+		                                {
+                                                   // "GETIMM SELEC_T3 REG_IR OFFSET SIZE"
+						   var ir     = get_value(sim_p.states [s_expr[2]]) ;
+						   var offset = get_value(sim_p.signals[s_expr[3]]) ;
+						   var size   = get_value(sim_p.signals[s_expr[4]]) ;
+
+						   // if (size != 0) -> skip
+						   if (size != 0) {
+						       return ;
+						   }
+
+						   // if (size == 0) && (offset == 0) -> return 0
+						   if (offset == 0) {
+						       set_value(sim_p.states[s_expr[1]], 0);
+						       return ;
+						   }
+
+						   // if (format == null) -> skip
+						   var format = null ; // { "sign_extend":true, "padding":0, "ranges":[[31, 25], [11, 7]] } ;
+						   var simware_info = get_simware() ;
+						   if (typeof simware_info != "undefined")
+						       simware_info = simware_info.metadata ;
+						   if (typeof simware_info != "undefined")
+						       simware_info = simware_info.immediates ;
+						   if (typeof simware_info != "undefined")
+						       simware_info = simware_info[offset] ;
+						   if (typeof simware_info != "undefined")
+						       format = simware_info ;
+						   if (null == format)
+						       return ;
+
+						   // if (size == 0) && (offset != 0) -> get immediate
+						   var v0 = 0 ;
+						   var v1 = "0".repeat(32) ;
+						   var v2 = v1.split("") ;
+						   var irs = ir.toString(2).padStart(32, "0") ;
+
+						   // format.ranges ...
+						   var k = 0 ;
+						   for (var i=0; i<format.ranges.length; i++) {
+						   for (var j=format.ranges[i][0]; j<=format.ranges[i][1]; j--) {
+							v2[k] = irs[j] ;
+							k = k + 1 ;
+						   }
+						   }
+						   v1 = v2.join("") ;
+						   v0 = parseInt(v1, 2) ;
+
+						   // format.sign_extend ...
+						   if (format.sign_extend)
+						    	v0 = v0  >> (32 - k) ;
+						   else v0 = v0 >>> (32 - k) ;
+
+						   // format.padding ...
+						   v0 = v0 << format.padding ;
+
+						   set_value(sim_p.states[s_expr[1]], v0);
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var ir     = get_value(sim_p.states[s_expr[2]]).toString(2).padStart(32) ;
+						   var offset = get_value(sim_p.signals[s_expr[3]]) ;
+						   var size   = get_value(sim_p.signals[s_expr[4]]) ;
+
+						   var msg = "" ;
+						   if (0 == size) {
+						       msg = "Get immediate value from " + ir + " with format index " + offset ;
+						   }
+
+                                                   return msg ;
                                                 }
 				   };
 	sim_p.behaviors["MOVE_BITS"] =  { nparameters: 5,
