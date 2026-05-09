@@ -1073,8 +1073,19 @@
     "modes": "newbie,intro,ep2",
     "hardware": "ep2",
     "microcode": "ep2_min",
-    "assembly": "s6e1",
+    "assembly": "s8e1",
     "description": "<span data-langkey='example_06_01'>Test example.</span>",
+    "testing": true
+  },
+  {
+    "id": "R1E2",
+    "title": "Basic instructions",
+    "type": "<span data-langkey='Special'>Special</span>",
+    "modes": "newbie,intro,ep2",
+    "hardware": "ep2",
+    "microcode": "ep2_bare",
+    "assembly": "s8e2",
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
     "testing": true
   }
 ]
