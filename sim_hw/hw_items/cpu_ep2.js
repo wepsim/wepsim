@@ -186,7 +186,7 @@ function cpu_ep2_register ( sim_p )
                                                   "REG_RT1,real",        "REG_RT2,real",   "REG_RT3,real",
 		                                  "REG_MICROADDR,real" ] ;
         sim_p.internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",
-                                                   "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0",
+                                                   "SELA,5", "SELB,5", "SELC,2", "COP,0", "MR,0",
 				          "C0,0", "C1,0",  "C2,0",  "C3,0",  "C4,0",  "C5,0", "C6,0", "C7,0",
 				          "T1,0", "T2,0",  "T3,0",  "T4,0",  "T5,0",  "T6,0", "T7,0", "T8,0",
                                           "T9,0", "T10,0", "T11,0",
@@ -697,7 +697,7 @@ function cpu_ep2_register ( sim_p )
 			           draw_data: [[], ['svg_p:path3081-3-8-5-3']],
 			           draw_name: [[], ['svg_p:path3306-8-7-6']] };
 
-	 sim_p.signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
+	 sim_p.signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			       behavior: ["NOP_ALU; UPDATE_NZVC",
                                           "AND ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "OR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
@@ -730,7 +730,6 @@ function cpu_ep2_register ( sim_p )
                                           "NOP_ALU",
                                           "NOP_ALU",
                                           "NOP_ALU"],
-                                    depends_on: ["SELCOP"],
 			            fire_name: ['svg_p:text3303'],
 			            draw_data: [['svg_p:path3237', 'svg_p:path3239',
                                                  'svg_p:path3261-8', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3317-9']],
@@ -760,12 +759,6 @@ function cpu_ep2_register ( sim_p )
 			              behavior:  ["FIRE MR_RC"],
                                       depends_on: ["RC"],
 			              fire_name: ['svg_cu:text3172'],
-			              draw_data: [[]],
-			              draw_name: [[]] };
-	 sim_p.signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			              behavior:  ["FIRE COP"],
-                                      depends_on: ["COP"],
-			              fire_name: ['svg_cu:text3312'],
 			              draw_data: [[]],
 			              draw_name: [[]] };
 	 sim_p.signals["EXCODE"] = { name: "EXCODE", visible: true, type: "L", value: 0, default_value:0, nbits: "6",
@@ -979,25 +972,25 @@ function cpu_ep2_register ( sim_p )
         /* Virtual Signals, for UI */
 	 sim_p.signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	              behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 3"],
-                                      depends_on: ["SELCOP", "COP"],
+                                      depends_on: ["COP"],
 		  	              fire_name: ['svg_p:text3701-3'],
 			              draw_data: [['svg_p:text3701-3']],
 			              draw_name: [[]] };
 	 sim_p.signals["TEST_V"] = { name: "TEST_V", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	              behavior: ["MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 3"],
-                                      depends_on: ["SELCOP", "COP"],
+                                      depends_on: ["COP"],
 		  	              fire_name: ['svg_p:text3701-3-1'],
 			              draw_data: [['svg_p:text3701-3-1']],
 			              draw_name: [[]] };
 	 sim_p.signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	              behavior: ["MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 3"],
-                                      depends_on: ["SELCOP", "COP"],
+                                      depends_on: ["COP"],
 		  	              fire_name: ['svg_p:text3701-3-2'],
 			              draw_data: [['svg_p:text3701-3-2']],
 			              draw_name: [[]] };
 	 sim_p.signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	              behavior: ["MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 3"],
-                                      depends_on: ["SELCOP", "COP"],
+                                      depends_on: ["COP"],
 		  	              fire_name: ['svg_p:text3701-3-5'],
 			              draw_data: [['svg_p:text3701-3-5']],
 			              draw_name: [[]] };
