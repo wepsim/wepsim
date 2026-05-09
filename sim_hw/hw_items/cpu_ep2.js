@@ -703,11 +703,11 @@ function cpu_ep2_register ( sim_p )
 					  "OR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "NOT ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "XOR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SRL ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SRA ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SL ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "RR ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "RL ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "SRL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "SRA ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "SL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "RR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "RL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "ADD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "SUB ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "MUL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
@@ -1304,11 +1304,13 @@ function cpu_ep2_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (XOR). " ;
                                                 }
 				   };
-	sim_p.behaviors["SRL"]   = { nparameters: 3,
-				     types: ["E", "E"],
+	sim_p.behaviors["SRL"]   = { nparameters: 4,
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = (get_value(sim_p.states[s_expr[2]])) >>> 1 ;
+						   var result = get_value(sim_p.states[s_expr[2]]) ;
+						   var shift  = get_value(sim_p.states[s_expr[3]]) ;
+						       result = (result >>> shift) ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
 						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1328,12 +1330,14 @@ function cpu_ep2_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (SRL). " ;
                                                 }
 				   };
-	sim_p.behaviors["SRA"]   = { nparameters: 3,
-				     types: ["E", "E"],
+	sim_p.behaviors["SRA"]   = { nparameters: 4,
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = (get_value(sim_p.states[s_expr[2]])) >> 1 ;
-						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
+						   var result = get_value(sim_p.states[s_expr[2]]) ;
+						   var shift  = get_value(sim_p.states[s_expr[3]]) ;
+						       result = (result >>> shift) ;
+						   set_value(sim_p.states[s_expr[1]], result >> 0) ;
 
 						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1352,12 +1356,14 @@ function cpu_ep2_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (SRA). " ;
                                                 }
 				   };
-	sim_p.behaviors["SL"]    = { nparameters: 3,
-				     types: ["E", "E"],
+	sim_p.behaviors["SL"]    = { nparameters: 4,
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = (get_value(sim_p.states[s_expr[2]])) << 1 ;
-						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
+						   var result = get_value(sim_p.states[s_expr[2]]) ;
+						   var shift  = get_value(sim_p.states[s_expr[3]]) ;
+						       result = (result << shift) ;
+						   set_value(sim_p.states[s_expr[1]], result >> 0) ;
 
 						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
@@ -1376,11 +1382,13 @@ function cpu_ep2_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (SL). " ;
                                                 }
 				   };
-	sim_p.behaviors["RR"]       = { nparameters: 3,
-				     types: ["E", "E"],
+	sim_p.behaviors["RR"]       = { nparameters: 4,
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = ((get_value(sim_p.states[s_expr[2]])) >>> 1) | (((get_value(sim_p.states[s_expr[2]])) & 1) << 31) ;
+						   var result = get_value(sim_p.states[s_expr[2]]) ;
+						   var shift  = get_value(sim_p.states[s_expr[3]]) ;
+						       result = (result >>> shift) | (result << (31 - shift))
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
 						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -1400,11 +1408,13 @@ function cpu_ep2_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (RR). " ;
                                                 }
 				   };
-	sim_p.behaviors["RL"]       = { nparameters: 3,
-				     types: ["E", "E"],
+	sim_p.behaviors["RL"]       = { nparameters: 4,
+				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
-				                   var result = ((get_value(sim_p.states[s_expr[2]])) << 1) | (((get_value(sim_p.states[s_expr[2]])) & 0X80000000) >>> 31) ;
+						   var result = get_value(sim_p.states[s_expr[2]]) ;
+						   var shift  = get_value(sim_p.states[s_expr[3]]) ;
+						       result = (result << shift) | (result >>> (31 - shift))
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
 						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;

@@ -622,13 +622,9 @@ slli rd rs1 inm {
       imm(5:0)=inm,
       help='rd = (rs1 << inm)',
       {
-            (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
-            (MR=0, SELA=10000, MA=0, MB=11, COP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-   loop10a: (A0=0, B=0, C=110, MADDR=bck10aftch),
-            (MR=0, SELA=10101, SELB=10101, MA=0, MB=0, COP=111, T6=1, LC=1, SELC=10101),
-            (MR=0, MA=1, MB=11, COP=1011, T6=1, C4=1, SELP=11, M7, C7),
-            (A0=0, B=1, C=0, MADDR=loop10a),
-bck10aftch: (A0=1, B=1, C=0)
+            (SE=1, OFFSET=0, SIZE=110, T3=1, C5=1),
+            (MR=0, SELA=10000, MA=0, MB=01, COP=00111, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+            (A0=1, B=1, C=0)
       }
 }
 
@@ -640,17 +636,10 @@ srli rd rs1 inm {
       reg(20:16)=rs1,
       imm(5:0)=inm,
       help='rd = (rs1 >>> inm)',
-      native,
       {
-          // fields is a default parameter with the instruction field information
-          var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
-          var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
-          var val1 = simcore_native_get_field_from_ir(fields, 2) ;
-
-          var result = simcore_native_get_value("CPU", "BR." + reg2) >>> val1 ;
-          simcore_native_set_value("CPU", "BR." + reg1, result) ;
-
-          simcore_native_go_maddr(0) ;
+            (SE=1, OFFSET=0, SIZE=110, T3=1, C5=1),
+            (MR=0, SELA=10000, MA=0, MB=01, COP=00101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+            (A0=1, B=1, C=0)
       }
 }
 
@@ -662,13 +651,9 @@ srai rd rs1 inm {
       imm(15:0)=inm,
       help='rd = (rs1 >> inm)',
       {
-            (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
-            (MR=0, SELA=10000, MA=0, MB=11, COP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-    loop9a: (A0=0, B=0, C=110, MADDR=bck9aftch),
-            (MR=0, SELA=10101, SELB=10101, MA=0, MB=0, COP=110, T6=1, LC=1, SELC=10101),
-            (MR=0, MA=1, MB=11, COP=1011, T6=1, C4=1, SELP=11, M7, C7),
-            (A0=0, B=1, C=0, MADDR=loop9a),
- bck9aftch: (A0=1, B=1, C=0)
+            (SE=1, OFFSET=0, SIZE=110, T3=1, C5=1),
+            (MR=0, SELA=10000, MA=0, MB=01, COP=00110, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+            (A0=1, B=1, C=0)
       }
 }
 
@@ -704,13 +689,8 @@ sll rd rs1 rs2 {
       reg(15:11)=rs2,
       help='rd = rs1 <<< rs2',
       {
-            (MR=0, SELA=1011, T9=1, C4=1),
-            (MR=0, SELA=10000, MA=0, MB=11, COP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-   loop10b: (A0=0, B=0, C=110, MADDR=bck10bftch),
-            (MR=0, SELA=10101, SELB=10101, MA=0, MB=0, COP=111, T6=1, LC=1, SELC=10101),
-            (MR=0, MA=1, MB=11, COP=1011, T6=1, C4=1, SELP=11, M7, C7),
-            (A0=0, B=1, C=0, MADDR=loop10b),
-bck10bftch: (A0=1, B=1, C=0)
+            (MR=0, SELA=10000, MA=0, SELB=1011, MB=0, COP=111, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+            (A0=1, B=1, C=0)
       }
 }
 
@@ -772,13 +752,8 @@ srl rd rs1 rs2 {
       reg(15:11)=rs2,
       help='rd = rs1 >>> rs2',
       {
-            (MR=0, SELA=1011, T9=1, C4=1),
-            (MR=0, SELA=10000, MA=0, MB=11, COP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-    loop9b: (A0=0, B=0, C=110, MADDR=bck9bftch),
-            (MR=0, SELA=10101, SELB=10101, MA=0, MB=0, COP=101, T6=1, LC=1, SELC=10101),
-            (MR=0, MA=1, MB=11, COP=1011, T6=1, C4=1, SELP=11, M7, C7),
-            (A0=0, B=1, C=0, MADDR=loop9b),
- bck9bftch: (A0=1, B=1, C=0)
+            (MR=0, SELA=10000, MA=0, SELB=1011, MB=0, COP=00101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+            (A0=1, B=1, C=0)
       }
 }
 
@@ -790,13 +765,8 @@ sra rd rs1 rs2 {
       reg(15:11)=rs2,
       help='rd = rs1 >> rs2',
       {
-            (MR=0, SELA=1011, T9=1, C4=1),
-            (MR=0, SELA=10000, MA=0, MB=11, COP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-    loop9c: (A0=0, B=0, C=110, MADDR=bck9cftch),
-            (MR=0, SELA=10101, SELB=10101, MA=0, MB=0, COP=110, T6=1, LC=1, SELC=10101),
-            (MR=0, MA=1, MB=11, COP=1011, T6=1, C4=1, SELP=11, M7, C7),
-            (A0=0, B=1, C=0, MADDR=loop9c),
- bck9cftch: (A0=1, B=1, C=0)
+            (MR=0, SELA=10000, SELB=1011, MA=0, MB=0, COP=00110, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+            (A0=1, B=1, C=0)
       }
 }
 
