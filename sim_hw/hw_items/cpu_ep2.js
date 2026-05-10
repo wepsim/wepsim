@@ -2465,7 +2465,7 @@ function cpu_ep2_register ( sim_p )
 						   // format.ranges ...
 						   var k = 0 ;
 						   for (var i=0; i<format.ranges.length; i++) {
-						   for (var j=format.ranges[i][0]; j<=format.ranges[i][1]; j--) {
+						   for (var j=format.ranges[i][0]; j>=format.ranges[i][1]; j--) {
 							v2[k] = irs[j] ;
 							k = k + 1 ;
 						   }

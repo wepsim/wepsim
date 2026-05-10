@@ -208,21 +208,21 @@
              //     },
              //     ...
              //   ],
-             //   "encodings": [...],  // future: immediate decoding
+             //   "encodings": [...],  // immediate decoding
              //   "endianness": "big", // "little" | "big"
              // }
              //
 	     var farg = {
                            "microprograms": [],
-                           "encodings": [],
-                           "endianness": "big"
+                           "encodings":     [],
+                           "endianness":    "big"
 			} ;
 
              // (1/3) prepare firmware...
              var SIMWARE = get_simware() ;
 	     farg.microprograms = SIMWARE.firmware.map(v => { return {
                                                   name: v.name,
-                                                  pattern: v.pattern, // TODO: future
+                                                  pattern: v.opcode_pattern,
                                                   start: v["mc-start"],
                                                   microcode: v.microcode.map(v => Object.fromEntries(
                                                      Object.entries(v).map(([k, v]) => [k, parseInt(v)]) // MADDR: string -> MADDR: integer
@@ -232,7 +232,7 @@
 	                   ) ;
 
              // (2/3) prepare encoding...
-	     farg.encoding = [] ; // TODO: future
+	     farg.encoding = SIMWARE.metadata.immediates ;
 
              // (3/3) prepare endianness: "little" | "big"
 	     farg.endianness = "big" ;
