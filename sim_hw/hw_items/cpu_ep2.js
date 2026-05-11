@@ -1426,10 +1426,11 @@ function cpu_ep2_register ( sim_p )
                                                    var aa = BigInt(a) ;
                                                    var bb = BigInt(b) ;
                                                    var rr = BigInt(result) ;
-                                                   var hh_rr = rr >> 32n ;
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
 
-						   sim_p.internal_states.alu_flags.flag_c =  Number(hh_tr) & 0x1 ;
-						   sim_p.internal_states.alu_flags.flag_v = (Number(hh_tr) != 0) ? 1 : 0;
+						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1457,10 +1458,11 @@ function cpu_ep2_register ( sim_p )
                                                    var aa = BigInt(a) ;
                                                    var bb = BigInt(b) ;
                                                    var rr = BigInt(result) ;
-                                                   var hh_rr = rr >> 32n ;
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
 
-						   sim_p.internal_states.alu_flags.flag_c =  Number(hh_tr) & 0x1 ;
-						   sim_p.internal_states.alu_flags.flag_v = (Number(hh_tr) != 0) ? 1 : 0;
+						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
                                                 },
                                         verbal: function (s_expr)
                                                 {
