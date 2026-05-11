@@ -1099,7 +1099,7 @@ function cpu_poc_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (RR). " ;
 						}
 				   };
-	sim_p.behaviors["RL"]      = { nparameters: 3,
+	sim_p.behaviors["RL"]    = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr)
 		                                {
@@ -1123,7 +1123,7 @@ function cpu_poc_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (LR). " ;
 						}
 				   };
-	sim_p.behaviors["ADD"]     = { nparameters: 4,
+	sim_p.behaviors["ADD"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
