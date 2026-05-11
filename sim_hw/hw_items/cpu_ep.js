@@ -2026,10 +2026,6 @@ function cpu_ep_register ( sim_p )
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
 
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
-						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {

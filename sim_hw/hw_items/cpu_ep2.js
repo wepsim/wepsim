@@ -587,161 +587,161 @@ function cpu_ep2_register ( sim_p )
 			           draw_name: [['svg_p:path3681']] };
 
 	/* TRI-STATES */
-	 sim_p.signals["TA"]  = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["TA"]   = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP", "MV BUS_AB REG_MAR; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0"],
 			           fire_name: ['svg_p:text3091'],
 			           draw_data: [['svg_p:path3061-2','svg_p:path3083','svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3601-2', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995','svg_p:path3535']],
 			           draw_name: [['svg_p:path3085']] };
-	 sim_p.signals["TD"]  = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["TD"]   = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; CHECK_RTD", "MV BUS_DB BS_TD; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0; CHECK_RTD"],
 			           fire_name: ['svg_p:text3103'],
 			           draw_data: [['svg_p:path3545','svg_p:path3093','svg_p:path3101','svg_p:path3587','svg_p:path3515','svg_p:path3071','svg_p:path3419','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3491','svg_p:path3641','svg_p:path3541']],
 			           draw_name: [['svg_p:path3095']] };
 
-	 sim_p.signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T1"]   = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 0", "MV BUS_IB REG_MBR; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 0"],
 			           fire_name: ['svg_p:text3105'],
 			           draw_data: [['svg_p:path3071','svg_p:path3065','svg_p:path3071','svg_p:path3049','svg_p:path3063-9','svg_p:path3071','svg_p:path3071','svg_p:path3069']],
 			           draw_name: [['svg_p:path3067']] };
-	 sim_p.signals["T2"]  = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T2"]   = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 1", "MV BUS_IB REG_PC; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 1"],
 			           fire_name: ['svg_p:text3449'],
 			           draw_data: [['svg_p:path3195','svg_p:path3199', 'svg_p:path3201','svg_p:path3049']],
 			           draw_name: [['svg_p:path3329']] };
-	 sim_p.signals["T3"]  = { name: "T3",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T3"]   = { name: "T3",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 2", "MV BUS_IB SELEC_T3; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 2"],
 			           fire_name: ['svg_p:text3451'],
 			           draw_data: [['svg_p:path3341','svg_p:path3347','svg_p:path3349', 'svg_p:path3931', 'svg_p:path3345','svg_p:path3049']],
 			           draw_name: [['svg_p:path3351']] };
-	 sim_p.signals["T4"]  = { name: "T4",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T4"]   = { name: "T4",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 3", "MV BUS_IB REG_RT1; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 3"],
 			           fire_name: ['svg_p:text3453'],
 			           draw_data: [['svg_p:path3257','svg_p:path3261', 'svg_p:path3259','svg_p:path3049']],
 			           draw_name: [['svg_p:path3305']] };
-	 sim_p.signals["T5"]  = { name: "T5",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T5"]   = { name: "T5",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 4", "MV BUS_IB REG_RT2; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 4"],
 			           fire_name: ['svg_p:text3455'],
 			           draw_data: [['svg_p:path3271','svg_p:path3275', 'svg_p:path3273','svg_p:path3049']],
 			           draw_name: [['svg_p:path3307']] };
-	 sim_p.signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T6"]   = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 5", "MV BUS_IB ALU_C6; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 5"],
 			           fire_name: ['svg_p:text3457'],
 			           draw_data: [['svg_p:path3315','svg_p:path3589', 'svg_p:path3317', 'svg_p:path3163-2','svg_p:path3049','svg_p:path3321','svg_p:path3261-8','svg_p:path3317-9','svg_p:path3901-6-9']],
 			           draw_name: [['svg_p:path3319']] };
-	 sim_p.signals["T7"]  = { name: "T7",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T7"]   = { name: "T7",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 6", "MV BUS_IB REG_RT3; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 6"],
 			           fire_name: ['svg_p:text3459'],
 			           draw_data: [['svg_p:path3309','svg_p:path3327', 'svg_p:path3311', 'svg_p:path3049']],
 			           draw_name: [['svg_p:path3313']] };
-	 sim_p.signals["T8"]  = { name: "T8",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T8"]   = { name: "T8",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 7", "MV BUS_IB REG_SR; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 7"],
 			           fire_name: ['svg_p:text3657'],
 			           draw_data: [['svg_p:path3645','svg_p:path3651', 'svg_p:path3647','svg_p:path3049']],
 			           draw_name: [['svg_p:path3649']] };
-	 sim_p.signals["T9"]  = { name: "T9",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T9"]   = { name: "T9",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 8", "MV BUS_IB RA_T9; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 8"],
 			           fire_name: ['svg_p:text3147'],
 			           draw_data: [['svg_p:path3131','svg_p:path3143', 'svg_p:path3139','svg_p:path3049','svg_p:path3143-9']],
 			           draw_name: [['svg_p:path3133']] };
-	 sim_p.signals["T10"] = { name: "T10", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T10"]  = { name: "T10", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 9", "MV BUS_IB RB_T10; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 9"],
 			           fire_name: ['svg_p:text3149'],
 			           draw_data: [['svg_p:path3135','svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5']],
 			           draw_name: [['svg_p:path3137']] };
-	 sim_p.signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T11"]  = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 10", "MV BUS_IB EXCODE_SE; FIRE M7; FIRE M2; FIRE M1; SET_TT TTCPU 10"],
 			           fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
 			           draw_data: [['svg_cu:path3131-3','svg_p:path3131-3','svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3081-3-5']],
 			           draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
-	 sim_p.signals["T12"] = { name: "T12", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["T12"]  = { name: "T12", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 11", "MV BUS_IB HPC_T12; FIRE M7; FIRE M2; FIRE M1; FIRE LC; SET_TT TTCPU 11"],
 			           fire_name: ['svg_p:text3147-5-0-1-1'],
 			           draw_data: [['svg_p:path3131-3-8-4-31','svg_p:path3139-7-1-4-3',  'svg_p:path3049', 'svg_p:path3081-3-8-5-3', 'svg_p:path3081-3-8-5-3-7']],
 			           draw_name: [['svg_p:path3133-6-9-7-5']] };
 	/* MUX. */
-	 sim_p.signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["M1"]   = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			           behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BS_M1"],
                                    depends_on: ["C1"],
 			           fire_name: ['svg_p:text3469'],
 			           draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583', 'svg_p:path3491']],
 			           draw_name: [[], ['svg_p:path3447']] };
-	 sim_p.signals["M2"]  = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["M2"]   = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			           behavior: ["MV M2_C2 BUS_IB", "PLUS4 M2_C2 REG_PC"],
                                    depends_on: ["C2"],
 			           fire_name: ['svg_p:text3471'],
 			           draw_data: [['svg_p:path3217', 'svg_p:path3215', 'svg_p:path3213', 'svg_p:path3213-9'],
 				    	       ['svg_p:path3211', 'svg_p:path3209', 'svg_p:path3193', 'svg_p:path3207', 'svg_p:path3197', 'svg_p:path3201']],
 			           draw_name: [[], ['svg_p:path3467', 'svg_p:path3467']] };
-	 sim_p.signals["M7"]  = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["M7"]   = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			           behavior: ["MV M7_C7 BUS_IB", "MV M7_C7 SELP_M7"],
                                    depends_on: ["C7"],
 			           fire_name: ['svg_p:text3673'],
 			           draw_data: [['svg_p:path3691', 'svg_p:path3693', 'svg_p:path3659'], ['svg_p:path3695']],
 			           draw_name: [[], ['svg_p:path3667']] };
-	 sim_p.signals["MA"]  = { name: "MA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 sim_p.signals["MA"]   = { name: "MA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["MV MA_ALU RA_T9; FIRE COP", "MV MA_ALU REG_RT1; FIRE COP"],
                                    depends_on: ["SELA","SELB"],
 			           fire_name: ['svg_p:text3463'],
 			           draw_data: [['svg_p:path3249', 'svg_p:path3161', 'svg_p:path3165'], ['svg_p:path3279']],
 			           draw_name: [[], ['svg_p:path3423']] };
-	 sim_p.signals["MB"]  = { name: "MB",  visible: true, type: "L", value: 0, default_value:0, nbits: "2",
+	 sim_p.signals["MB"]   = { name: "MB",  visible: true, type: "L", value: 0, default_value:0, nbits: "2",
 			           behavior: ["MV MB_ALU RB_T10; FIRE COP", "MV MB_ALU REG_RT2; FIRE COP", "MV MB_ALU VAL_FOUR; FIRE COP", "MV MB_ALU VAL_ONE; FIRE COP"],
                                    depends_on: ["SELA","SELB"],
 			           fire_name: ['svg_p:text3465'],
 			           draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'], ['svg_p:path3283'],
 				    	       ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
 			           draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
-	 sim_p.signals["MH"]  = { name: "MH", visible: true, type: "L",  value: 0, default_value:0, nbits: "2",
+	 sim_p.signals["MH"]   = { name: "MH", visible: true, type: "L",  value: 0, default_value:0, nbits: "2",
 			           behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "MV HPC_T12 ACC_PWR", "NOP"],
 			           fire_name: ['svg_p:text3147-5-0-1-8-4'],
 			           draw_data: [[], ['svg_p:path3081-3-8-5-3']],
 			           draw_name: [[], ['svg_p:path3306-8-7-6']] };
 
 	 sim_p.signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			       behavior: ["NOP_ALU; UPDATE_NZVC",
-                                          "AND ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "OR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "NOT ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "XOR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SRL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SRA ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "RR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "RL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SUB ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "MUL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "DIV ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "MOD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "LUI ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FADD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FSUB ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FMUL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FDIV ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FCVT ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FCLASS ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADDU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SUBU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "MULU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "DIVU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-                                          "NOP_ALU",
-                                          "NOP_ALU",
-                                          "NOP_ALU",
-                                          "NOP_ALU",
-                                          "NOP_ALU",
-                                          "NOP_ALU"],
+			          behavior: ["NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU;",
+                                             "AND ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "OR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "NOT ALU_C6 MA_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "XOR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "SRL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "SRA ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "SL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "RR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "RL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "ADD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "SUB ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "MUL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "DIV ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "MOD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "LUI ALU_C6 MA_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "FADD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMFLOAT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "FSUB ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMFLOAT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "FMUL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMFLOAT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "FDIV ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMFLOAT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "FCVT ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "FCLASS ALU_C6 MA_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "ADDU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "SUBU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "MULU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "DIVU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+                                             "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
+                                             "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
+                                             "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
+                                             "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
+                                             "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
+                                             "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU"],
 			            fire_name: ['svg_p:text3303'],
 			            draw_data: [['svg_p:path3237', 'svg_p:path3239',
                                                  'svg_p:path3261-8', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3317-9']],
 			            draw_name: [['svg_p:path3009', 'svg_p:path3301']] };
-	 sim_p.signals["SELP"]   = { name: "SELP",   visible: true, type: "L", value: 0, default_value:0, nbits: "2",
-				      behavior: ['NOP',
+	 sim_p.signals["SELP"]  = { name: "SELP",   visible: true, type: "L", value: 0, default_value:0, nbits: "2",
+				    behavior: ['NOP',
 				                 'MV SELP_M7 REG_SR; UPDATE_FLAG SELP_M7 FLAG_U 0; FIRE M7',
 				                 'MV SELP_M7 REG_SR; UPDATE_FLAG SELP_M7 FLAG_I 1; FIRE M7',
 				                 'MV SELP_M7 REG_SR; UPDATE_FLAG SELP_M7 FLAG_C 31; UPDATE_FLAG SELP_M7 FLAG_V 30; UPDATE_FLAG SELP_M7 FLAG_N 29; UPDATE_FLAG SELP_M7 FLAG_Z 28; FIRE M7'],
-				      fire_name: ['svg_p:text3703'],
-				      draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331']],
-				      draw_name: [[], ['svg_p:path3697']] };
+				    fire_name: ['svg_p:text3703'],
+				    draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331']],
+				    draw_name: [[], ['svg_p:path3697']] };
 
 	 sim_p.signals["SELA"]   = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			              behavior:  ["FIRE MR_RA"],
@@ -1025,8 +1025,6 @@ function cpu_ep2_register ( sim_p )
 	sim_p.behaviors["NOP_ALU"]  = { nparameters: 1,
 				     operation: function(s_expr)
                                                 {
-                                                   sim_p.internal_states.alu_flags.flag_n = 0 ;
-                                                   sim_p.internal_states.alu_flags.flag_z = 0 ;
                                                    sim_p.internal_states.alu_flags.flag_c = 0 ;
                                                    sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
@@ -1215,10 +1213,8 @@ function cpu_ep2_register ( sim_p )
 				                   var result = get_value(sim_p.states[s_expr[2]]) & get_value(sim_p.states[s_expr[3]]) ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1239,10 +1235,8 @@ function cpu_ep2_register ( sim_p )
 				                   var result = get_value(sim_p.states[s_expr[2]]) | get_value(sim_p.states[s_expr[3]]) ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1263,10 +1257,8 @@ function cpu_ep2_register ( sim_p )
 				                   var result = ~(get_value(sim_p.states[s_expr[2]])) ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1287,10 +1279,8 @@ function cpu_ep2_register ( sim_p )
 				                   var result = get_value(sim_p.states[s_expr[2]]) ^ get_value(sim_p.states[s_expr[3]]) ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1313,10 +1303,8 @@ function cpu_ep2_register ( sim_p )
 						       result = (result >>> shift) ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1339,10 +1327,8 @@ function cpu_ep2_register ( sim_p )
 						       result = (result >>> shift) ;
 						   set_value(sim_p.states[s_expr[1]], result >> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1365,10 +1351,8 @@ function cpu_ep2_register ( sim_p )
 						       result = (result << shift) ;
 						   set_value(sim_p.states[s_expr[1]], result >> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   sim_p.internal_states.alu_flags.flag_c = 0 ;
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						   sim_p.internal_states.alu_flags.flag_c = ((result) >>> 31) ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1382,7 +1366,7 @@ function cpu_ep2_register ( sim_p )
                                                    return "ALU output = " + show_value(result) + " (SL). " ;
                                                 }
 				   };
-	sim_p.behaviors["RR"]       = { nparameters: 4,
+	sim_p.behaviors["RR"]    = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
 		                                {
@@ -1391,10 +1375,8 @@ function cpu_ep2_register ( sim_p )
 						       result = (result >>> shift) | (result << (31 - shift))
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1417,10 +1399,8 @@ function cpu_ep2_register ( sim_p )
 						       result = (result << shift) | (result >>> (31 - shift))
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1443,15 +1423,14 @@ function cpu_ep2_register ( sim_p )
 						   var result = a + b ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+                                                   var rr = BigInt(result) ;
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
 
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
-						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
+						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1476,15 +1455,14 @@ function cpu_ep2_register ( sim_p )
 						   var result = a - b ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+                                                   var rr = BigInt(result) ;
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
 
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
-						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
+						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1509,10 +1487,7 @@ function cpu_ep2_register ( sim_p )
 						   var result = a * b ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
 							sim_p.internal_states.alu_flags.flag_v = 1 ;
@@ -1542,20 +1517,16 @@ function cpu_ep2_register ( sim_p )
 
 						   if (0 == b) {
 						       set_value(sim_p.states[s_expr[1]], 0) ;
-
-						       sim_p.internal_states.alu_flags.flag_n = 0 ;
-						       sim_p.internal_states.alu_flags.flag_z = 1 ;
-						       sim_p.internal_states.alu_flags.flag_v = 1 ;
 						       sim_p.internal_states.alu_flags.flag_c = 0 ;
+						       sim_p.internal_states.alu_flags.flag_v = 1 ;
                                                        return ;
                                                    }
 
 				                   var result = Math.floor(a / b) ;
 				                   set_value(sim_p.states[s_expr[1]], result) ;
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
+
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1585,21 +1556,16 @@ function cpu_ep2_register ( sim_p )
 
 						   if (0 == b) {
 						       set_value(sim_p.states[s_expr[1]], 0) ;
-
-						       sim_p.internal_states.alu_flags.flag_n = 0 ;
-						       sim_p.internal_states.alu_flags.flag_z = 1 ;
-						       sim_p.internal_states.alu_flags.flag_v = 1 ;
 						       sim_p.internal_states.alu_flags.flag_c = 0 ;
+						       sim_p.internal_states.alu_flags.flag_v = 1 ;
                                                        return ;
                                                    }
 
 						   var result = a % b ;
 						   set_value(sim_p.states[s_expr[1]], result) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1627,10 +1593,8 @@ function cpu_ep2_register ( sim_p )
 						   var result = (get_value(sim_p.states[s_expr[2]])) << 16 ;
 						   set_value(sim_p.states[s_expr[1]], result) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1653,10 +1617,7 @@ function cpu_ep2_register ( sim_p )
 						   var result = a + b ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
 							sim_p.internal_states.alu_flags.flag_v = 1 ;
@@ -1686,10 +1647,7 @@ function cpu_ep2_register ( sim_p )
 						   var result = a - b ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
 							sim_p.internal_states.alu_flags.flag_v = 1 ;
@@ -1719,10 +1677,7 @@ function cpu_ep2_register ( sim_p )
 						   var result = a * b ;
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
 							sim_p.internal_states.alu_flags.flag_v = 1 ;
@@ -1753,19 +1708,16 @@ function cpu_ep2_register ( sim_p )
 						   if (0 == b) {
 						       set_value(sim_p.states[s_expr[1]], 0) ;
 
-						       sim_p.internal_states.alu_flags.flag_n = 0 ;
-						       sim_p.internal_states.alu_flags.flag_z = 1 ;
-						       sim_p.internal_states.alu_flags.flag_v = 1 ;
 						       sim_p.internal_states.alu_flags.flag_c = 0 ;
+						       sim_p.internal_states.alu_flags.flag_v = 1 ;
                                                        return ;
                                                    }
 
 				                   var result = Math.floor(a / b) ;
 				                   set_value(sim_p.states[s_expr[1]], result) ;
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
+
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = 0 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -1797,10 +1749,7 @@ function cpu_ep2_register ( sim_p )
 
 						   set_value(sim_p.states[s_expr[1]], float32_to_uint(result)) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
 							sim_p.internal_states.alu_flags.flag_v = 1 ;
@@ -1833,10 +1782,7 @@ function cpu_ep2_register ( sim_p )
 
 						   set_value(sim_p.states[s_expr[1]], float32_to_uint(result)) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
 							sim_p.internal_states.alu_flags.flag_v = 1 ;
@@ -1869,10 +1815,7 @@ function cpu_ep2_register ( sim_p )
 
 						   set_value(sim_p.states[s_expr[1]], float32_to_uint(result)) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
 							sim_p.internal_states.alu_flags.flag_v = 1 ;
@@ -1905,10 +1848,7 @@ function cpu_ep2_register ( sim_p )
 
 						   set_value(sim_p.states[s_expr[1]], float32_to_uint(result)) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
 							sim_p.internal_states.alu_flags.flag_v = 1 ;
@@ -1962,15 +1902,8 @@ function cpu_ep2_register ( sim_p )
 
 						   set_value(sim_p.states[s_expr[1]], result) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
-						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -2019,15 +1952,8 @@ function cpu_ep2_register ( sim_p )
 
 						   set_value(sim_p.states[s_expr[1]], result) ;
 
-						   sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
-						   sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-
 						   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
-						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -2491,7 +2417,7 @@ function cpu_ep2_register ( sim_p )
 
 						   var msg = "" ;
 						   if (0 == size) {
-						       msg = "Get immediate value from " + ir + " with format index " + offset ;
+						       msg = "Get immediate value from " + ir + " with format index " + offset + ". " ;
 						   }
 
                                                    return msg ;
@@ -2773,7 +2699,7 @@ function cpu_ep2_register ( sim_p )
 					   };
 
 	sim_p.behaviors["UPDATEDPC"]     = { nparameters: 1,
-				            operation: function(s_expr)
+				             operation: function(s_expr)
 							{
                                                             show_asmdbg_pc();
                                                         },
@@ -2783,9 +2709,15 @@ function cpu_ep2_register ( sim_p )
                                                         }
 					   };
 
-	sim_p.behaviors["UPDATE_NZVC"]   = { nparameters: 1,
-				            operation: function(s_expr)
+	sim_p.behaviors["UPDATE_NZVC_FROMINT"] = { nparameters: 2,
+				             types: ["X"],
+				             operation: function(s_expr)
 							{
+                                                           var result = get_value(sim_p.states[s_expr[1]]) ;
+
+                                                           sim_p.internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+                                                           sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+
 							   set_value(simhw_sim_state("FLAG_N"),
 								     sim_p.internal_states.alu_flags.flag_n);
 							   set_value(simhw_sim_state("FLAG_Z"),
@@ -2811,13 +2743,52 @@ function cpu_ep2_register ( sim_p )
                                                         },
                                                 verbal: function (s_expr)
                                                         {
-                                                           return "Update flags N-Z-V-C." ;
-/*
-								  sim_p.internal_states.alu_flags.flag_n + " " +
-								  sim_p.internal_states.alu_flags.flag_z + " " +
-								  sim_p.internal_states.alu_flags.flag_v + " " +
-								  sim_p.internal_states.alu_flags.flag_c + ". " ;
-*/
+                                                           return "Update flags N-Z-V-C (" +
+								  "N:" + sim_p.internal_states.alu_flags.flag_n + " " +
+								  "Z:" + sim_p.internal_states.alu_flags.flag_z + " " +
+								  "V:" + sim_p.internal_states.alu_flags.flag_v + " " +
+								  "C:" + sim_p.internal_states.alu_flags.flag_c + "). " ;
+                                                        }
+					   };
+	sim_p.behaviors["UPDATE_NZVC_FROMFLOAT"] = { nparameters: 2,
+				             types: ["X"],
+				             operation: function(s_expr)
+							{
+                                                           var result = get_value(sim_p.states[s_expr[1]]) ;
+
+						           sim_p.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
+						           sim_p.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
+
+							   set_value(simhw_sim_state("FLAG_N"),
+								     sim_p.internal_states.alu_flags.flag_n);
+							   set_value(simhw_sim_state("FLAG_Z"),
+								     sim_p.internal_states.alu_flags.flag_z);
+							   set_value(simhw_sim_state("FLAG_V"),
+								     sim_p.internal_states.alu_flags.flag_v);
+							   set_value(simhw_sim_state("FLAG_C"),
+								     sim_p.internal_states.alu_flags.flag_c);
+
+							   set_value(simhw_sim_signal("TEST_N"),
+								     sim_p.internal_states.alu_flags.flag_n);
+							   set_value(simhw_sim_signal("TEST_Z"),
+								     sim_p.internal_states.alu_flags.flag_z);
+							   set_value(simhw_sim_signal("TEST_V"),
+								     sim_p.internal_states.alu_flags.flag_v);
+							   set_value(simhw_sim_signal("TEST_C"),
+								     sim_p.internal_states.alu_flags.flag_c);
+
+							   update_draw(sim_p.signals["TEST_N"], sim_p.signals["TEST_N"].value) ;
+							   update_draw(sim_p.signals["TEST_Z"], sim_p.signals["TEST_Z"].value) ;
+							   update_draw(sim_p.signals["TEST_V"], sim_p.signals["TEST_V"].value) ;
+							   update_draw(sim_p.signals["TEST_C"], sim_p.signals["TEST_C"].value) ;
+                                                        },
+                                                verbal: function (s_expr)
+                                                        {
+                                                           return "Update flags N-Z-V-C (" +
+								  "N:" + sim_p.internal_states.alu_flags.flag_n + " " +
+								  "Z:" + sim_p.internal_states.alu_flags.flag_z + " " +
+								  "V:" + sim_p.internal_states.alu_flags.flag_v + " " +
+								  "C:" + sim_p.internal_states.alu_flags.flag_c + "). " ;
                                                         }
 					   };
 
