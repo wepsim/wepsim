@@ -724,9 +724,9 @@ function cpu_ep2_register ( sim_p )
 					     "SUBU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					     "MULU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					     "DIVU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-                                             "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
-                                             "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
-                                             "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
+					     "MULH ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "MULHU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					     "MULHSU ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC_FROMINT MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
                                              "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
                                              "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU",
                                              "NOP_ALU; UPDATE_NZVC_FROMINT MA_ALU"],
@@ -1420,15 +1420,16 @@ function cpu_ep2_register ( sim_p )
 		                                {
 						   var a = get_value(sim_p.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) << 0 ;
-						   var result = a + b ;
-						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
-
                                                    var aa = BigInt(a) ;
                                                    var bb = BigInt(b) ;
-                                                   var rr = BigInt(result) ;
+
+						   var result = a + b ;
+                                                   var rr = BigInt(a) + BigInt(b) ;
+
+						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
+
                                                    var hh_rr  = rr >> 32n ;
                                                    var bit_32 = hh_rr & 1n ;
-
 						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
 						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
                                                 },
@@ -1436,6 +1437,7 @@ function cpu_ep2_register ( sim_p )
                                                 {
 						   var a = get_value(sim_p.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) << 0 ;
+
 						   var result = a + b ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
@@ -1452,15 +1454,16 @@ function cpu_ep2_register ( sim_p )
 		                                {
 						   var a = get_value(sim_p.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) << 0 ;
-						   var result = a - b ;
-						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
-
                                                    var aa = BigInt(a) ;
                                                    var bb = BigInt(b) ;
-                                                   var rr = BigInt(result) ;
+
+						   var result = a - b ;
+                                                   var rr = BigInt(a) - BigInt(b) ;
+
+						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
+
                                                    var hh_rr  = rr >> 32n ;
                                                    var bit_32 = hh_rr & 1n ;
-
 						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
 						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
                                                 },
@@ -1468,6 +1471,7 @@ function cpu_ep2_register ( sim_p )
                                                 {
 						   var a = get_value(sim_p.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) << 0 ;
+
 						   var result = a - b ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
@@ -1484,20 +1488,24 @@ function cpu_ep2_register ( sim_p )
 		                                {
 						   var a = get_value(sim_p.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) << 0 ;
-						   var result = a * b ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+
+                                                   var rr = BigInt(a) * BigInt(b) ;
+						   var result = Number(rr) ;
+
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
-						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
+						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
                                                 },
                                         verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim_p.states[s_expr[2]]) << 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) << 0 ;
+
 						   var result = a * b ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
@@ -1614,20 +1622,24 @@ function cpu_ep2_register ( sim_p )
 		                                {
 						   var a = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) >>> 0 ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+
 						   var result = a + b ;
+                                                   var rr = BigInt(a) + BigInt(b) ;
+
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
-						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
+						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
                                                 },
                                         verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) >>> 0 ;
+
 						   var result = a + b ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
@@ -1644,20 +1656,24 @@ function cpu_ep2_register ( sim_p )
 		                                {
 						   var a = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) >>> 0 ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+
 						   var result = a - b ;
+                                                   var rr = BigInt(a) - BigInt(b) ;
+
 						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
 
-						   sim_p.internal_states.alu_flags.flag_c = 0 ;
-						   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
-						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							sim_p.internal_states.alu_flags.flag_v = 1 ;
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
+						   sim_p.internal_states.alu_flags.flag_c = (a < b) ? 1 : 0 ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
                                                 },
                                         verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) >>> 0 ;
+
 						   var result = a - b ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
@@ -1736,6 +1752,117 @@ function cpu_ep2_register ( sim_p )
                                                    }
 
                                                    return "ALU output = " + show_value(result) + " (DIVU). " ;
+                                                }
+				   };
+	sim_p.behaviors["MULH"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim_p.states[s_expr[2]]) >> 0 ;
+                                                   var b = get_value(sim_p.states[s_expr[3]]) >> 0 ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+
+                                                   var rr = BigInt(a) * BigInt(b) ;
+						   var result = Number(rr >> 32n) ;
+
+						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
+
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
+						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim_p.states[s_expr[2]]) >> 0 ;
+                                                   var b = get_value(sim_p.states[s_expr[3]]) >> 0 ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+
+                                                   var rr = BigInt(a) * BigInt(b) ;
+						   var result = Number(rr >> 32n) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU MULH with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (MULH). " ;
+                                                }
+				   };
+	sim_p.behaviors["MULHU"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim_p.states[s_expr[3]]) >>> 0 ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+
+                                                   var rr = BigInt(a) * BigInt(b) ;
+						   var result = Number(rr >> 32n) ;
+
+						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
+
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
+						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
+                                                   var b = get_value(sim_p.states[s_expr[3]]) >>> 0 ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+
+                                                   var rr = BigInt(a) * BigInt(b) ;
+						   var result = Number(rr >> 32n) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU MULHU with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (MULHU). " ;
+                                                }
+				   };
+	sim_p.behaviors["MULHSU"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(sim_p.states[s_expr[2]])  >> 0 ;
+                                                   var b = get_value(sim_p.states[s_expr[3]]) >>> 0 ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+
+                                                   var rr = BigInt(a) * BigInt(b) ;
+						   var result = Number(rr >> 32n) ;
+
+						   set_value(sim_p.states[s_expr[1]], result >>> 0) ;
+
+                                                   var hh_rr  = rr >> 32n ;
+                                                   var bit_32 = hh_rr & 1n ;
+						   sim_p.internal_states.alu_flags.flag_c =  Number(bit_32) ;
+						   sim_p.internal_states.alu_flags.flag_v = (Number(bit_32) != (result & 1)) ? 1 : 0;
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+						   var a = get_value(sim_p.states[s_expr[2]])  >> 0 ;
+                                                   var b = get_value(sim_p.states[s_expr[3]]) >>> 0 ;
+                                                   var aa = BigInt(a) ;
+                                                   var bb = BigInt(b) ;
+
+                                                   var rr = BigInt(a) * BigInt(b) ;
+						   var result = Number(rr >> 32n) ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU MULHSU with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (MULHSU). " ;
                                                 }
 				   };
 	sim_p.behaviors["FADD"] = { nparameters: 4,
@@ -2743,11 +2870,11 @@ function cpu_ep2_register ( sim_p )
                                                         },
                                                 verbal: function (s_expr)
                                                         {
-                                                           return "Update flags N-Z-V-C (" +
-								  "N:" + sim_p.internal_states.alu_flags.flag_n + " " +
-								  "Z:" + sim_p.internal_states.alu_flags.flag_z + " " +
-								  "V:" + sim_p.internal_states.alu_flags.flag_v + " " +
-								  "C:" + sim_p.internal_states.alu_flags.flag_c + "). " ;
+                                                           return "Flags N-Z-V-C = " +
+								  sim_p.internal_states.alu_flags.flag_n + "-" +
+								  sim_p.internal_states.alu_flags.flag_z + "-" +
+								  sim_p.internal_states.alu_flags.flag_v + "-" +
+								  sim_p.internal_states.alu_flags.flag_c + ". " ;
                                                         }
 					   };
 	sim_p.behaviors["UPDATE_NZVC_FROMFLOAT"] = { nparameters: 2,
@@ -2784,11 +2911,11 @@ function cpu_ep2_register ( sim_p )
                                                         },
                                                 verbal: function (s_expr)
                                                         {
-                                                           return "Update flags N-Z-V-C (" +
-								  "N:" + sim_p.internal_states.alu_flags.flag_n + " " +
-								  "Z:" + sim_p.internal_states.alu_flags.flag_z + " " +
-								  "V:" + sim_p.internal_states.alu_flags.flag_v + " " +
-								  "C:" + sim_p.internal_states.alu_flags.flag_c + "). " ;
+                                                           return "Flags N-Z-V-C = " +
+								  sim_p.internal_states.alu_flags.flag_n + "-" +
+								  sim_p.internal_states.alu_flags.flag_z + "-" +
+								  sim_p.internal_states.alu_flags.flag_v + "-" +
+								  sim_p.internal_states.alu_flags.flag_c + ". " ;
                                                         }
 					   };
 
