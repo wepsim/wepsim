@@ -394,22 +394,19 @@ function cpu_rv_register ( sim_p )
                                             draw_data: [] };
 
 	/* VIRTUAL */
+	sim_p.states["CLK"]          = { name:"CLK",      verbal: "Clock",
+                                         visible:false, nbits:"32", value:0,  default_value:0,
+                                         draw_data: [] };
 	sim_p.states["REG_IR_DECO"]  = { name:"IR_DECO",  verbal: "Instruction Decoded",
                                          visible:true,  nbits:"0",  value:0,  default_value:0,
                                          draw_data: [] };
 	sim_p.states["DECO_INS"]     = { name:"DECO_INS", verbal: "Instruction decoded in binary",
                                          visible:true,  nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
-	sim_p.states["CLK"]          = { name:"CLK",      verbal: "Clock",
-                                         visible:false, nbits:"32", value:0,  default_value:0,
-                                         draw_data: [] };
 	sim_p.states["ACC_TIME"]     = { name:"ACC_TIME", verbal: "Accumulated CPU time",
                                          visible:false, nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
 	sim_p.states["TTCPU"]        = { name:"TTCPU", verbal: "Several Tristates to the internal data bus in CPU activated",
-                                         visible:false, nbits:"32", value:0,  default_value:0,
-                                         draw_data: [] };
-	sim_p.states["ACC_PWR"]      = { name:"ACC_PWR", verbal: "Accumulated Energy Consumption",
                                          visible:false, nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
         sim_p.signals["DB_UPDATED"]  = { name: "DB_UPDATED", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
@@ -2739,10 +2736,6 @@ function cpu_rv_register ( sim_p )
 							    var val = get_value(sim_p.states["ACC_TIME"]) ;
                                                                 val = val + (t1-t0) ;
 							    set_value(sim_p.states["ACC_TIME"], val);
-
-						            // update power consumption
-							    val = Math.trunc(16*val) ;
-							    set_value(sim_p.states["ACC_PWR"], val);
                                                         },
                                                 verbal: function (s_expr)
                                                         {
