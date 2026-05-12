@@ -455,22 +455,19 @@ function cpu_ep_register ( sim_p )
                                             draw_data: [] };
 
 	/* VIRTUAL */
-	sim_p.states["REG_IR_DECO"] = { name:"IR_DECO",  verbal: "Instruction Decoded",
+	sim_p.states["CLK"]          = { name:"CLK",      verbal: "Clock",
+                                         visible:false, nbits:"32", value:0,  default_value:0,
+                                         draw_data: [] };
+	sim_p.states["REG_IR_DECO"]  = { name:"IR_DECO",  verbal: "Instruction Decoded",
                                          visible:true,  nbits:"0",  value:0,  default_value:0,
                                          draw_data: [] };
-	sim_p.states["DECO_INS"]    = { name:"DECO_INS", verbal: "Instruction decoded in binary",
+	sim_p.states["DECO_INS"]     = { name:"DECO_INS", verbal: "Instruction decoded in binary",
                                          visible:true,  nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
-	sim_p.states["CLK"]         = { name:"CLK",      verbal: "Clock",
+	sim_p.states["ACC_TIME"]     = { name:"ACC_TIME", verbal: "Accumulated CPU time",
                                          visible:false, nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
-	sim_p.states["ACC_TIME"]    = { name:"ACC_TIME", verbal: "Accumulated CPU time",
-                                         visible:false, nbits:"32", value:0,  default_value:0,
-                                         draw_data: [] };
-	sim_p.states["TTCPU"]      = { name:"TTCPU", verbal: "Several Tristates to the internal data bus in CPU activated",
-                                         visible:false, nbits:"32", value:0,  default_value:0,
-                                         draw_data: [] };
-	sim_p.states["ACC_PWR"]    = { name:"ACC_PWR", verbal: "Accumulated Energy Consumption",
+	sim_p.states["TTCPU"]        = { name:"TTCPU", verbal: "Several Tristates to the internal data bus in CPU activated",
                                          visible:false, nbits:"32", value:0,  default_value:0,
                                          draw_data: [] };
 
@@ -689,7 +686,7 @@ function cpu_ep_register ( sim_p )
 				    	       ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
 			           draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	 sim_p.signals["MH"]  = { name: "MH", visible: true, type: "L",  value: 0, default_value:0, nbits: "2",
-			           behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "MV HPC_T12 ACC_PWR", "NOP"],
+			           behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "MV HPC_T12 DECO_INS", "NOP"],
 			           fire_name: ['svg_p:text3147-5-0-1-8-4'],
 			           draw_data: [[], ['svg_p:path3081-3-8-5-3']],
 			           draw_name: [[], ['svg_p:path3306-8-7-6']] };
@@ -2667,10 +2664,6 @@ function cpu_ep_register ( sim_p )
 							    var val = get_value(sim_p.states["ACC_TIME"]) ;
                                                                 val = val + (t1-t0) ;
 							    set_value(sim_p.states["ACC_TIME"], val);
-
-						            // update power consumption
-							    val = Math.trunc(16*val) ;
-							    set_value(sim_p.states["ACC_PWR"], val);
                                                         },
                                                 verbal: function (s_expr)
                                                         {
@@ -3262,7 +3255,7 @@ function cpu_ep_register ( sim_p )
 							       ref:  "ACC_TIME"
 							    },
 						   "mux_2": {
-							       ref:  "ACC_PWR"
+							       ref:  "DECO_INS"
 							    },
 						   "mux_3": {
 							       ref:  "VAL_ZERO"
