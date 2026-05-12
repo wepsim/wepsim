@@ -77,9 +77,6 @@
 
                         ref_obj = simhw_sim_state('ACC_TIME') ;
                     vue_rebind_state(ref_obj, '#tms_context') ;
-
-                        ref_obj = simhw_sim_state('ACC_PWR') ;
-                    vue_rebind_state(ref_obj, '#pwr_context') ;
 	      }
 
 	      render_populate_as_table ( )
