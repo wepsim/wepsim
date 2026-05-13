@@ -27,9 +27,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="2.6828063"
-     inkscape:cx="364.91639"
-     inkscape:cy="295.77238"
+     inkscape:zoom="2.6042287"
+     inkscape:cx="691.95152"
+     inkscape:cy="330.04014"
      inkscape:window-width="5120"
      inkscape:window-height="2051"
      inkscape:window-x="0"
@@ -123,11 +123,10 @@
      x="704.14911"
      stroke-width="0.287124"
      line-height="125%"
-     fill="#000000"><tspan
-       id="tspan3920"
-       y="215.58752"
-       x="704.14911"
-       stroke-width="0.287124">80</tspan></text>
+     fill="#000000"
+     style="-inkscape-font-specification:'Arial, Normal';font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:14.4758px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:125%;fill:#000000;stroke-width:0.287124"><tspan
+       sodipodi:role="line"
+       id="tspan854">85149</tspan></text>
   <path
      id="path3024"
      stroke-linejoin="round"
@@ -610,15 +609,16 @@
      font-family="Arial"
      xml:space="preserve"
      transform="scale(1.079795,0.92610171)"
-     y="422.92883"
-     x="733.80347"
+     y="424.58737"
+     x="724.91309"
      stroke-width="0.287124"
      line-height="125%"
-     fill="#000000"><tspan
-       id="tspan3973"
-       y="422.92883"
-       x="733.80347"
-       stroke-width="0.287124">49</tspan></text>
+     fill="#000000"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.93px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.287124"><tspan
+       sodipodi:role="line"
+       id="tspan856"
+       x="724.91309"
+       y="424.58737">120</tspan></text>
   <path
      id="path3216"
      stroke-linejoin="round"
@@ -2266,14 +2266,30 @@
      xml:space="preserve"
      transform="scale(1.079795,0.92610171)"
      line-height="125%"
-     y="375.15982"
-     x="743.19781"
+     y="368.56308"
+     x="742.69489"
      stroke-width="0.287124"
      fill="#000000"> <tspan
    id="tspan4917-9"
-   y="375.15982"
-   x="743.19781"
+   y="368.56308"
+   x="742.69489"
    stroke-width="0.287124">...</tspan></text>
+  <text
+     id="text3442-2-3-3"
+     font-size="16.0178px"
+     font-family="Arial"
+     xml:space="preserve"
+     transform="scale(0.98069262,1.0196875)"
+     line-height="125%"
+     y="345.90881"
+     x="807.58667"
+     stroke-width="0.287124"
+     fill="#000000"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.66667px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.245105"><tspan
+       sodipodi:role="line"
+       id="tspan539"
+       x="807.58667"
+       y="345.90881">(MR, SE, ...)</tspan></text>
   <text
      id="text3036"
      font-size="19.7104px"
