@@ -133,11 +133,26 @@ function mem_ep2_register ( sim_p )
         sim_p.internal_states.CM        = [] ;
   
 
+	/*
+	 *  States
+	 */
+
+	sim_p.states["MAR_MEM_R"] = { name:"MAR_MEM_R", verbal: "Internal memory address register for reading",
+                                      visible:false, nbits:"32", value:0,  default_value:0,
+                                      draw_data: [] };
+
 
         /*
          *  Signals
          */
 
+        sim_p.signals.MMR        = { name: "MMR",
+                                     visible: false, type: "E", value: 0, default_value:0, nbits: "1",
+                                     depends_on: ["CLK"],
+                                     behavior:  ["MV MAR_MEM_R BUS_AB", "MV MAR_MEM_R BUS_AB"],
+                                     fire_name: [],
+                                     draw_data: [[], []],
+                                     draw_name: [[], []] };
         sim_p.signals.MRDY      = { name: "MRDY",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      depends_on: ["CLK"],
@@ -148,7 +163,7 @@ function mem_ep2_register ( sim_p )
         sim_p.signals.R         = { name: "R",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      behavior: ["NOP; CHECK_RTD",
-                                                "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY; CHECK_RTD"],
+                                                "MEM_READ MAR_MEM_R BUS_DB BWA MRDY CLK; FIRE MRDY; CHECK_RTD"],
                                      fire_name: ['svg_p:text3533-5-2','svg_p:text3713'],
                                      draw_data: [[], ['svg_p:path3557','svg_p:path3571']],
                                      draw_name: [[], []] };
@@ -189,13 +204,6 @@ function mem_ep2_register ( sim_p )
 			              fire_name: [],
 			              draw_data: [[]],
 			              draw_name: [[]] };
-	 sim_p.signals["SE_MEM"]  = { name: "SE_MEM", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ["MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
-			                         "MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"],
-                                      depends_on: [],
-			              fire_name: ['svg_p:text3431'],
-			              draw_data: [[]],
-			              draw_name: [['svg_p:path3447-7-7']] };
 
 	 sim_p.signals["BWA"]    = { name: "BWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "4",
 				    behavior: ['BSEL BS_TD 0 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
@@ -459,9 +467,8 @@ function mem_ep2_register ( sim_p )
 
 
         /*
-         *  Model
-         * (Thanks to Juan Francisco Perez Carrasco for collaborating in the design of the following elements)
-         */
+         *  Model (see docs/WEPSIM-TEAM.md)
+	 */
 
         sim_p.elements.memory = {
                               name:              "Main memory",
