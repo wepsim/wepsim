@@ -786,13 +786,27 @@ function cpu_ep2_register ( sim_p )
 			              draw_data: [['svg_p:path3153', 'svg_p:path3151', 'svg_p:path3129']],
 			              draw_name: [['svg_p:path3121']] };
 
-	 sim_p.signals["SE"]     = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; FIRE T11",
-			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; EXT_SIG EXCODE_SE 5; FIRE T11"],
+	 sim_p.signals["SE"]     = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+			              behavior: ["FIRE SE_IR; FIRE SE_EXCODE; FIRE SE_MEM",
+			                         "FIRE SE_IR; FIRE SE_EXCODE; FIRE SE_MEM"],
                                       depends_on: ["T3", "T11"],
-			              fire_name: ['svg_p:text3593', 'svg_cu:text3147-5-6','svg_p:text3431'],
+			              fire_name: [],
 			              draw_data: [[]],
-			              draw_name: [['svg_p:path3591', 'svg_p:path3133-6','svg_p:path3447-7-7']] };
+			              draw_name: [[]] };
+	 sim_p.signals["SE_EXCODE"] = { name: "SE", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
+			              behavior: ["CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; FIRE T11",
+			                         "CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; EXT_SIG EXCODE_SE 5; FIRE T11"],
+                                      depends_on: ["T11"],
+			              fire_name: ['svg_cu:text3147-5-6'],
+			              draw_data: [[]],
+			              draw_name: [['svg_p:path3133-6']] };
+	 sim_p.signals["SE_IR"]  = { name: "SE", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
+			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3",
+			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3"],
+                                      depends_on: ["T3"],
+			              fire_name: ['svg_p:text3593'],
+			              draw_data: [[]],
+			              draw_name: [['svg_p:path3591']] };
 	 sim_p.signals["SIZE"]   = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			              behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3'],
                                       depends_on: ["T3"],

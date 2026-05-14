@@ -143,7 +143,12 @@
                 var dlg_obj = {
 			id:      'dlg_updatesignal',
 			title:   function() {
-				    return wepsim_update_signal_dialog_title(key) ;
+                                    var name = key ;
+                                    if (typeof signal_obj.name != "undefined") {
+                                        name = signal_obj.name ;
+                                    }
+
+				    return wepsim_update_signal_dialog_title(name) ;
 				 },
 			body:    function() {
 				    return wepsim_update_signal_dialog_body(key, signal_obj) ;
