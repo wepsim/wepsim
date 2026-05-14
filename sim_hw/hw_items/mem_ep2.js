@@ -204,13 +204,6 @@ function mem_ep2_register ( sim_p )
 			              fire_name: [],
 			              draw_data: [[]],
 			              draw_name: [[]] };
-	 sim_p.signals["SE_MEM"]  = { name: "SE", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ["MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
-			                         "MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"],
-                                      depends_on: [],
-			              fire_name: ['svg_p:text3431'],
-			              draw_data: [[]],
-			              draw_name: [['svg_p:path3447-7-7']] };
 
 	 sim_p.signals["BWA"]    = { name: "BWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "4",
 				    behavior: ['BSEL BS_TD 0 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
