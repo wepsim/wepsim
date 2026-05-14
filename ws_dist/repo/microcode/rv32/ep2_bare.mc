@@ -28,6 +28,7 @@ begin
           # IR  <- MBR, PC <- PC + 4
           # jump to associated microcode for op. code
           (T2, C0),
+          (TA, R),
           (TA, R, BW=11, M1=1, C1=1),
           (M2, C2, T1, C3),
           (A0, B=0, C=0),
@@ -52,6 +53,7 @@ begin
           (MA=1, MB=10, COP=1100, T6, M2=0, C0),
 
           # MBR <- MP[MAR]
+          (TA=1, R=1),
           (TA=1, R=1, BW=11, M1=1, C1=1),
 
           # PC <- MAR
@@ -87,12 +89,14 @@ sret {
          # pop SR
          (MR=1, SELA=10, T9, C0),
          (MR=1, SELA=10, MA=0, MB=10, COP=1010, T6=1, SELC=10, LC=1),
+         (TA=1, R=1),
          (TA=1, R=1, BW=11, M1=1, C1),
          (T1=1, M7=0, C7),
 
          # pop PC
          (MR=1, SELA=10, T9, C0),
          (MR=1, SELA=10, MA=0, MB=10, COP=1010, T6=1, SELC=10, LC=1),
+         (TA=1, R=1),
          (TA=1, R=1, BW=11, M1=1, C1),
          (T1=1, M2=0, C2)
 
@@ -370,6 +374,7 @@ lb rd offset(rs1) {
       {
           (SE=1, OFFSET=0, SIZE=10000, T3, C5),
           (MR=0, SELA=10000, MA=0, MB=1, COP=1010, T6, C0),
+          (TA=1, R=1),
           (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
           (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
       }
@@ -385,6 +390,7 @@ lh rd offset(rs1) {
       {
           (SE=1, OFFSET=0, SIZE=10000, T3, C5),
           (MR=0, SELA=10000, MA=0, MB=1, COP=1010, T6, C0),
+          (TA=1, R=1),
           (TA=1, R=1,  BW=1, SE=1, M1=1, C1=1),
           (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
       }
@@ -400,6 +406,7 @@ lw rd offset(rs1) {
       {
           (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
           (MR=0, SELA=10000, MA=0, MB=1, COP=1010, T6=1, C0=1),
+          (TA=1, R=1),
           (TA=1, R=1, BW=11, M1=1, C1=1),
           (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
       }
@@ -415,6 +422,7 @@ lbu rd offset(rs1) {
       {
           (SE=1, OFFSET=0, SIZE=10000, T3, C5),
           (MR=0, SELA=10000, MA=0, MB=1, COP=1010, T6, C0),
+          (TA=1, R=1),
           (TA=1, R=1,  BW=0, SE=0, M1=1, C1=1),
           (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
       }
@@ -430,6 +438,7 @@ lhu rd offset(rs1) {
       {
           (SE=1, OFFSET=0, SIZE=10000, T3, C5),
           (MR=0, SELA=10000, MA=0, MB=1, COP=1010, T6, C0),
+          (TA=1, R=1),
           (TA=1, R=1,  BW=1, SE=0, M1=1, C1=1),
           (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
       }
