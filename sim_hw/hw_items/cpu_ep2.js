@@ -306,7 +306,7 @@ function cpu_ep2_register ( sim_p )
 	sim_p.states["REG_MAR"] = { name:"MAR", verbal: "Memory Address Register",
                                      visible:true, nbits:"32", value:0,  default_value:0,
                                      draw_data: [] };
-	sim_p.states["REG_MBR"] = { name:"MBR", verbal: "Memory Data Register",
+	sim_p.states["REG_MBR"] = { name:"MBR", verbal: "MBR Register",
                                      visible:true, nbits:"32", value:0,  default_value:0,
                                      draw_data: [] };
 	sim_p.states["REG_IR"]  = { name:"IR",  verbal: "Instruction Register",
