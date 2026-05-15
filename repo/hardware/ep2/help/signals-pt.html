@@ -1445,11 +1445,11 @@
                   <p>
                     <b> R </b> <b> </b> 1 bit <br>
                     <b> W </b> <b> </b> 1 bit <br>
-                    <b> BE </b> <b> </b> 4 bits <br>
+		    <b> BW+A<sub>1</sub>A<sub>0</sub> </b> <b> </b> 4 bits <br>
                     <b> MRdy </b> <b> </b> 1 bit <br>
                   </p>
                   <p>
-Sinais de controle da memória principal: R para leitura, W para gravação, BE para seleção de bytes. <br>
+Sinais de controle da memória principal: R para leitura, W para gravação, BW para seleção de bytes. <br>
 Por padrão, a memória lê ou grava em um ciclo de clock. Se a memória estiver configurada para vários ciclos de clock, o sinal MRdy será definido quando a memória terminar a solicitação de R/W.
                   </p>
                   <p>
@@ -1459,7 +1459,7 @@ Por padrão, a memória lê ou grava em um ciclo de clock. Se a memória estiver
 
                   </p>
                   <p>
-                    BE permite selecionar o (s) byte (s) dentro de uma palavra a ser lida e onde colocá-los no barramento:
+                    BW permite selecionar o (s) byte (s) dentro de uma palavra a ser lida e onde colocá-los no barramento:
                   </p>
                   <p>
 

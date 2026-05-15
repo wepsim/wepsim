@@ -65,28 +65,54 @@ test_wepsimnode_mkoutput ()
 	gzip -9 ./devel/output/*.txt
 }
 
+test_wepsimnode_ckoutput_single ()
+{
+	I=$1
+	T="${TEST_ARR[$I]}"
+	D="${DESC_ARR[$I]}"
+
+	# expected...
+	gunzip -c ./devel/output/$I.txt.gz >& ./devel/output/test-expect-$I.txt
+
+	# obtained...
+	$T >& ./devel/output/test-obtained-$I.txt
+
+	# diff...
+	diff   ./devel/output/test-expect-$I.txt ./devel/output/test-obtained-$I.txt
+	if [ $? -eq 0 ]; then
+	    echo "$I: OK: $D" >& ./devel/output/result-$I.txt
+	else
+	    echo "$I: KO: $D" >& ./devel/output/result-$I.txt
+	fi
+
+	# cleanup...
+	rm -fr ./devel/output/test-expect-$I.txt ./devel/output/test-obtained-$I.txt
+}
+
 test_wepsimnode_ckoutput ()
 {
-        echo "Id: Status: Description"
-
 	N=${#TEST_ARR[*]}
+
+	# (1/3) run in parallel
+	echo "     * running..."
 	for (( I=0; I<=$(( N -1 )); I++ )); do
-	    T="${TEST_ARR[$I]}"
-	    D="${DESC_ARR[$I]}"
 
-	    gunzip -c ./devel/output/$I.txt.gz >& ./devel/output/test-expect.txt
-	                                    $T >& ./devel/output/test-obtained.txt
+               test_wepsimnode_ckoutput_single $I &
+               # echo -n "$I    \r"
 
-	    diff   ./devel/output/test-expect.txt ./devel/output/test-obtained.txt
-	    if [ $? -eq 0 ]; then
-	        echo "$I: OK: $D";
-	    else
-	        echo "$I: KO: $D";
-	    fi
-
-	    rm -fr ./devel/output/test-expect.txt ./devel/output/test-obtained.txt
 	done
 
+	# (2/3) wait for all
+	echo "     * waiting..."
+	wait $(jobs -p)
+
+	# (3/3) show results
+	echo ""
+        echo "Id: Status: Description"
+	for (( I=0; I<=$(( N -1 )); I++ )); do
+	    cat    ./devel/output/result-$I.txt
+	    rm -fr ./devel/output/result-$I.txt
+	done
 }
 
 
