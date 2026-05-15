@@ -222,7 +222,7 @@ function mem_ep2_register ( sim_p )
 					       'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
 					       'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
 					       'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W'],
-				     fire_name: ['svg_p:text3533-5'],
+				     fire_name: [],
 				     draw_data: [[],[]],
 				     draw_name: [[],[]] };
 	 sim_p.signals["SBWA"] = { name: "SBWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "5",
