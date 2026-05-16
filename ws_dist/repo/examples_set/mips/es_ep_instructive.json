@@ -5,7 +5,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep,asm_mips",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_sig1_base",
     "assembly":		"s1e1_help",
     "description":	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
     "testing":          true
@@ -16,7 +16,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep,asm_mips",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_sig1_base",
     "assembly":		"s1e2_help",
     "description":	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
     "testing":          true
@@ -27,7 +27,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep,asm_mips",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_sig1_base",
     "assembly":		"s1e3_help",
     "description":	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
     "testing":          true
@@ -38,7 +38,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep,asm_mips",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_sig1_base",
     "assembly":		"s1e5_help",
     "description":	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_01_05'>If-Then and If-Then-Else.</span>",
     "testing":          true
@@ -49,7 +49,7 @@
     "type":		"<span data-langkey='Initial'>Initial</span>",
     "modes":		"newbie,intro,ep,asm_mips",
     "hardware":		"ep",
-    "microcode":	"ep_base",
+    "microcode":	"ep_sig1_base",
     "assembly":		"s1e4_help",
     "description":	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
     "testing":          true
@@ -115,7 +115,7 @@
     "type":		"<span data-langkey='Advanced'>Advanced</span>",
     "modes":		"newbie,intro,ep,asm_mips",
     "hardware":		"ep",
-    "microcode":	"ep_os",
+    "microcode":	"ep_sig1_l10",
     "assembly":		"s4e1_help",
     "description":	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
     "testing":          true
@@ -137,7 +137,7 @@
     "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
     "modes":		"newbie,intro,ep,asm_mips",
     "hardware":		"ep",
-    "microcode":	"ep_os",
+    "microcode":	"ep_sig1_l10",
     "assembly":		"s3e4_help",
     "description":	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_03_04'>Example with simple stack convention.</span>",
     "testing":          true
@@ -148,7 +148,7 @@
     "type":		"<span data-langkey='Special'>Special</span>",
     "modes":		"newbie,intro,ep,asm_mips",
     "hardware":		"ep",
-    "microcode":	"ep_min",
+    "microcode":	"ep_sig1_l1",
     "assembly":		"s6e1_help",
     "description":	"<span data-langkey='Instructive'>Instructive</span> <span data-langkey='example_06_01'>Test example.</span>",
     "testing":          true

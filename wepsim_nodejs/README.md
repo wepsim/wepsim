@@ -8,9 +8,9 @@
 
 ### A) Run (and print the final state)
 
-+ From the command line it is possible to 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode, and print the final state:
++ From the command line it is possible to 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_sig1_base.mc' microcode, and print the final state:
   ```bash
-  ./wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e5.asm
+  ./wepsim.sh -a run -m ep -f ./repo/microcode/mips/ep_sig1_base.mc -s ./repo/assembly/mips/s1e5.asm
   ```
   Output:
   <html>
@@ -22,9 +22,9 @@
 
 ### B) Run step by step
 
-+ It is also possible to 'run' 'step by step' the 's1_e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode, and print for each assembly instruction the state elements that modify its value:
++ It is also possible to 'run' 'step by step' the 's1_e1.asm' assembly for the 'ep' architecture with the 'ep_sig1_base.mc' microcode, and print for each assembly instruction the state elements that modify its value:
   ```bash
-  ./wepsim.sh -a stepbystep -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
+  ./wepsim.sh -a stepbystep -m ep -f ./repo/microcode/mips/ep_sig1_base.mc -s ./repo/assembly/mips/s1e1.asm
   ```
   Output:
   <html>
@@ -42,9 +42,9 @@
 
 ### C) Run microstep by microstep
 
-+ And to 'run' 'microstep by microstep' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode, and print for each microinstruction the state elements that modify its value:
++ And to 'run' 'microstep by microstep' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_sig1_base.mc' microcode, and print for each microinstruction the state elements that modify its value:
   ```bash
-  ./wepsim.sh -a microstepbymicrostep -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
+  ./wepsim.sh -a microstepbymicrostep -m ep -f ./repo/microcode/mips/ep_sig1_base.mc -s ./repo/assembly/mips/s1e1.asm
   ```
   Output:
   <html>
@@ -67,9 +67,9 @@
 
 ### D) Run & check end state (example when o.k.)
 
-+ You can check if the state at the end of the execution is the same as the one stored on file 'cl-s1e1.txt'. You can 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode (**and if it matches the expected state, then the output is going to be**):
++ You can check if the state at the end of the execution is the same as the one stored on file 'cl-s1e1.txt'. You can 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_sig1_base.mc' microcode (**and if it matches the expected state, then the output is going to be**):
   ```bash
-  ./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e1.txt
+  ./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_sig1_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e1.txt
   ```
   Output:
   <html>
@@ -81,9 +81,9 @@
 
 ### E) Run & check end state (example when k.o.)
 
-+ You can check if the state at the end of the execution is the same as the one stored on file 'cl-s1e1.txt'. You can 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_base.mc' microcode (**and if it fails to match the expected state then the output is going to be**):
++ You can check if the state at the end of the execution is the same as the one stored on file 'cl-s1e1.txt'. You can 'run' the 's1e1.asm' assembly for the 'ep' architecture with the 'ep_sig1_base.mc' microcode (**and if it fails to match the expected state then the output is going to be**):
   ```bash
-  ./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e2.txt
+  ./wepsim.sh -a check -m ep -f ./repo/microcode/mips/ep_sig1_base.mc -s ./repo/assembly/mips/s1e1.asm -r ./repo/checklist/mips/cl-s1e2.txt
   ```
   Output:
   <html>
@@ -97,7 +97,7 @@
 
 + And finally, it is possible to execute microstep by microstep but with a more verbose description:
   ```bash
-  ./wepsim.sh -a microstepverbalized -m ep -f ./repo/microcode/mips/ep_base.mc -s ./repo/assembly/mips/s1e1.asm
+  ./wepsim.sh -a microstepverbalized -m ep -f ./repo/microcode/mips/ep_sig1_base.mc -s ./repo/assembly/mips/s1e1.asm
   ```
   Output:
   <html>

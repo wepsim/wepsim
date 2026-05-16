@@ -78,15 +78,20 @@ test_wepsimnode_ckoutput_single ()
 	$T >& ./devel/output/test-obtained-$I.txt
 
 	# diff...
-	diff   ./devel/output/test-expect-$I.txt ./devel/output/test-obtained-$I.txt
+	diff   ./devel/output/test-expect-$I.txt ./devel/output/test-obtained-$I.txt >& ./devel/output/diff-$I.txt
 	if [ $? -eq 0 ]; then
 	    echo "$I: OK: $D" >& ./devel/output/result-$I.txt
 	else
 	    echo "$I: KO: $D" >& ./devel/output/result-$I.txt
+
+	    echo "***********************" >> ./devel/output/result-$I.txt
+	    echo $T                        >> ./devel/output/result-$I.txt
+	    cat ./devel/output/diff-$I.txt >> ./devel/output/result-$I.txt
+	    echo "***********************" >> ./devel/output/result-$I.txt
 	fi
 
 	# cleanup...
-	rm -fr ./devel/output/test-expect-$I.txt ./devel/output/test-obtained-$I.txt
+	rm -fr ./devel/output/test-expect-$I.txt ./devel/output/test-obtained-$I.txt ./devel/output/diff-$I.txt
 }
 
 test_wepsimnode_ckoutput ()

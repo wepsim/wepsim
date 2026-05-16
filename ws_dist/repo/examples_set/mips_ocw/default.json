@@ -5,7 +5,7 @@
     "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3a_t30",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=30'>compute structure slides: lesson 3a</a>"
   },
@@ -15,7 +15,7 @@
     "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3a_t32",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=32'>compute structure slides: lesson 3a</a>"
   },
@@ -25,7 +25,7 @@
     "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3a_t35",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=35'>compute structure slides: lesson 3a</a>"
   },
@@ -35,7 +35,7 @@
     "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3a_t59",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=59'>compute structure slides: lesson 3a</a>"
   },
@@ -45,7 +45,7 @@
     "type": "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3a_t73",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/fundamentos_ensamblador.pdf#page=73'>compute structure slides: lesson 3a</a>"
   },
@@ -55,7 +55,7 @@
     "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3b_t21",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=21'>compute structure slides: lesson 3b</a>"
   },
@@ -65,7 +65,7 @@
     "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3b_t95",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=95'>compute structure slides: lesson 3b</a>"
   },
@@ -75,7 +75,7 @@
     "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3b_t110",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=110'>compute structure slides: lesson 3b</a>"
   },
@@ -85,7 +85,7 @@
     "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3b_t119",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=119'>compute structure slides: lesson 3b</a>"
   },
@@ -95,7 +95,7 @@
     "type": "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3b_t130",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/ensamblador_mips32.pdf#page=130'>compute structure slides: lesson 3b</a>"
   },
@@ -105,7 +105,7 @@
     "type": "<span data-langkey='Assembly IV'>Assembly IV</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3d_t87",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/llamada_procedimientos.pdf#page=87'>compute structure slides: lesson 3d</a>"
   },
@@ -115,7 +115,7 @@
     "type": "<span data-langkey='Assembly IV'>Assembly IV</span>",
     "modes": "newbie,intro,ep,asm_mips",
     "hardware": "ep",
-    "microcode": "ep_bare",
+    "microcode": "ep_mix1_l3",
     "assembly": "l3d_t111",
     "description": "Code from <a href='https://ocw.uc3m.es/pluginfile.php/1917/mod_page/content/19/llamada_procedimientos.pdf#page=111'>compute structure slides: lesson 3d</a>"
   }

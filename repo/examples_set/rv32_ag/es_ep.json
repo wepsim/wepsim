@@ -5,7 +5,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s35",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=35'>compute structure slides: lesson 3a</a>"
   },
@@ -15,7 +15,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s37",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=37'>compute structure slides: lesson 3a</a>"
   },
@@ -25,7 +25,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s39",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=39'>compute structure slides: lesson 3a</a>"
   },
@@ -35,7 +35,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s56",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=56'>compute structure slides: lesson 3a</a>"
   },
@@ -45,7 +45,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s63",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=63'>compute structure slides: lesson 3a</a>"
   },
@@ -55,7 +55,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s64",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=64'>compute structure slides: lesson 3a</a>"
   },
@@ -65,7 +65,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s65",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=65'>compute structure slides: lesson 3a</a>"
   },
@@ -75,7 +75,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s67",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=67'>compute structure slides: lesson 3a</a>"
   },
@@ -85,7 +85,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s70",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=70'>compute structure slides: lesson 3a</a>"
   },
@@ -95,7 +95,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s74",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=74'>compute structure slides: lesson 3a</a>"
   },
@@ -105,7 +105,7 @@
     "type":        "<span data-langkey='Assembly I'>Assembly I</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3a_s78",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-1.pdf#page=78'>compute structure slides: lesson 3a</a>"
   },
@@ -115,7 +115,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s19",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=19'>compute structure slides: lesson 3b</a>"
   },
@@ -125,7 +125,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s29",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=29'>compute structure slides: lesson 3b</a>"
   },
@@ -135,7 +135,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s39",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=39'>compute structure slides: lesson 3b</a>"
   },
@@ -145,7 +145,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s81",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=81'>compute structure slides: lesson 3b</a>"
   },
@@ -155,7 +155,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s82",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=82'>compute structure slides: lesson 3b</a>"
   },
@@ -165,7 +165,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s83",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=83'>compute structure slides: lesson 3b</a>"
   },
@@ -175,7 +175,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s88",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=88'>compute structure slides: lesson 3b</a>"
   },
@@ -185,7 +185,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s89",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=89'>compute structure slides: lesson 3b</a>"
   },
@@ -195,7 +195,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s90",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=90'>compute structure slides: lesson 3b</a>"
   },
@@ -205,7 +205,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s93",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=93'>compute structure slides: lesson 3b</a>"
   },
@@ -215,7 +215,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s95",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=95'>compute structure slides: lesson 3b</a>"
   },
@@ -225,7 +225,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s99",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=99'>compute structure slides: lesson 3b</a>"
   },
@@ -235,7 +235,7 @@
     "type":        "<span data-langkey='Assembly II'>Assembly II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l3b_s102",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t3-assembly-2.pdf#page=102'>compute structure slides: lesson 3b</a>"
   },
@@ -245,7 +245,7 @@
     "type":        "<span data-langkey='Processor II'>Processor II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_min",
+    "microcode":   "ep_sig1_l1",
     "assembly":    "l4b_s58",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=58'>compute structure slides: lesson 4b</a>"
   },
@@ -255,7 +255,7 @@
     "type":        "<span data-langkey='Processor II'>Processor II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l4b_s63",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=63'>compute structure slides: lesson 4b</a>"
   },
@@ -265,7 +265,7 @@
     "type":        "<span data-langkey='Processor II'>Processor II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l4b_s69",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=69'>compute structure slides: lesson 4b</a>"
   },
@@ -275,7 +275,7 @@
     "type":        "<span data-langkey='Processor II'>Processor II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l4b_s78",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=78'>compute structure slides: lesson 4b</a>"
   },
@@ -285,7 +285,7 @@
     "type":        "<span data-langkey='Processor II'>Processor II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l4b_s79",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=79'>compute structure slides: lesson 4b</a>"
   },
@@ -295,7 +295,7 @@
     "type":        "<span data-langkey='Processor II'>Processor II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l4b_s85",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=85'>compute structure slides: lesson 4b</a>"
   },
@@ -305,7 +305,7 @@
     "type":        "<span data-langkey='Processor II'>Processor II</span>",
     "modes":       "newbie,intro,ep,asm_rv32",
     "hardware":    "ep",
-    "microcode":   "ep_bare",
+    "microcode":   "ep_mix1_l3",
     "assembly":    "l4b_s89",
     "description": "Code from <a href='https://acaldero.github.io/uc3m_cs/slides/t4-processor-2.pdf#page=89'>compute structure slides: lesson 4b</a>"
   }
