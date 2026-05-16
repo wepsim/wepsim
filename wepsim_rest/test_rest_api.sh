@@ -14,7 +14,7 @@ echo "Done"
 ## /api/action
 echo "Testing '/api/action' ..."
 
-FIRMWARE_URL="https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/microcode/rv32/ep_base.mc"
+FIRMWARE_URL="https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/microcode/rv32/ep_sig1_base.mc"
 ASSEMBLY_URL="https://raw.githubusercontent.com/acaldero/wepsim/refs/heads/master/repo/assembly/rv32/s1e1.asm"
 
 FIRMWARE_TXT="begin { fetch: (T2, C0),  (TA, R, BW=11, M1=1, C1=1),  (M2, C2, T1, C3),  (A0, B=0, C=0) }  nop { co=010110, nwords=1, { (A0=1, B=1, C=0) } }  registers { 0=zero, 29=sp (stack_pointer) }"

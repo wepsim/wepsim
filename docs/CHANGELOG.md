@@ -1,9 +1,13 @@
 
 # Changelog
 
+## 2.3.9 -> 2.4.0:
+* Main improvements:
+  * EP2 processor as beta feature
+
 ## 2.3.8 -> 2.3.9:
 * Main improvements:
-  * Experimental EP2 processor added
+  * Initial experimental EP2 processor added
   * decode_instruction() revamped
   * Documentation updated (move to wepsim.github.io/info/)
 * Main external dependencies updated:
