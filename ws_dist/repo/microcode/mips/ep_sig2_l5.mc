@@ -11,8 +11,6 @@ firmware {
 }
 
 begin  {
-
-
 		 # if (INT) go mrti
 		(A0=0, B=0, C=1, MADDR=mrti),
 fetch:	(T2=1, C0=1),
