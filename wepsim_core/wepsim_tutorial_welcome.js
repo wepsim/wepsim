@@ -66,7 +66,7 @@
 				     message:     "<span data-langkey='message_5'>message 5</span>",
 				     code_pre:    function() {  },
 				     code_post:   function() {
-                                                      var welcome_example="ep:mips/ep_sig1_base.mc:mips/s1e1.asm";
+                                                      var welcome_example="ep:mips/ep_sig1_base:mips/s1e1";
 						      load_from_example_firmware(welcome_example, true);
 						  },
 				     wait_next:   100
